@@ -82,7 +82,7 @@ fig.plot(
 # Plot text labels at the x and y positions of the markers while varying the anchor
 # point via the justify parameter
 fig.text(x=-0.5, y=0.5, text="TL", justify="TL")  # TopLeft
-fig.text(x=0, y=0.5, text="TM", justify="TC")  # TopCenter
+fig.text(x=0, y=0.5, text="TC", justify="TC")  # TopCenter
 fig.text(x=0.5, y=0.5, text="TR", justify="TR")  # TopRight
 fig.text(x=-0.5, y=0, text="ML", justify="ML")  # MiddleLeft
 fig.text(x=0, y=0, text="MC", justify="MC")  # MiddleCenter
