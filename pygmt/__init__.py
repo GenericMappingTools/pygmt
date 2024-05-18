@@ -143,7 +143,7 @@ def show_versions(file=sys.stdout):
 
     def _get_ghostscript_version() -> str | None:
         """
-        Get ghostscript version.
+        Get Ghostscript version.
         """
         match sys.platform:
             case "linux" | "darwin":
