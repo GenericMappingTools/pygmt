@@ -34,7 +34,6 @@ from pygmt.exceptions import (
 )
 from pygmt.helpers import (
     data_kind,
-    fmt_docstring,
     tempfile_from_geojson,
     tempfile_from_image,
 )
@@ -146,7 +145,7 @@ class Session:
     ...         with GMTTempFile() as fout:
     ...             # Call the grdinfo module with the virtual file as input
     ...             # and the temp file as output.
-    ...             ses.call_module("grdinfo", f"{fin} -C ->{fout.name}")
+    ...             ses.call_module("grdinfo", [fin, "-C", f"->{fout.name}"])
     ...             # Read the contents of the temp file before it's deleted.
     ...             print(fout.read().strip())
     -55 -47 -24 -10 190 981 1 1 8 14 1 1
@@ -543,18 +542,20 @@ class Session:
         Examples
         --------
         >>> with Session() as lib:
-        ...     lib.call_module("basemap", "-R0/10/10/15 -JX5i/2.5i -Baf -Ve")
+        ...     lib.call_module(
+        ...         "basemap", ["-R0/10/10/15", "-JX5i/2.5i", "-Baf", "-Ve"]
+        ...     )
         ...     region = lib.get_common("R")
         ...     projection = lib.get_common("J")
         ...     timestamp = lib.get_common("U")
         ...     verbose = lib.get_common("V")
-        ...     lib.call_module("plot", "-T -Xw+1i -Yh-1i")
+        ...     lib.call_module("plot", ["-T", "-Xw+1i", "-Yh-1i"])
         ...     xshift = lib.get_common("X")  # xshift/yshift are in inches
         ...     yshift = lib.get_common("Y")
         >>> print(region, projection, timestamp, verbose, xshift, yshift)
         [ 0. 10. 10. 15.] True False 3 6.0 1.5
         >>> with Session() as lib:
-        ...     lib.call_module("basemap", "-R0/10/10/15 -JX5i/2.5i -Baf")
+        ...     lib.call_module("basemap", ["-R0/10/10/15", "-JX5i/2.5i", "-Baf"])
         ...     lib.get_common("A")
         Traceback (most recent call last):
         ...
@@ -1180,8 +1181,7 @@ class Session:
         ...     with lib.open_virtualfile(*vfargs) as vfile:
         ...         # Send the output to a temp file so that we can read it
         ...         with GMTTempFile() as ofile:
-        ...             args = f"{vfile} ->{ofile.name}"
-        ...             lib.call_module("info", args)
+        ...             lib.call_module("info", [vfile, f"->{ofile.name}"])
         ...             print(ofile.read().strip())
         <vector memory>: N = 5 <0/4> <5/9>
         """
@@ -1288,7 +1288,7 @@ class Session:
         ...     with ses.virtualfile_from_vectors(x, y, z) as fin:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
-        ...             ses.call_module("info", f"{fin} ->{fout.name}")
+        ...             ses.call_module("info", [fin, f"->{fout.name}"])
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <1/3> <4/6> <7/9>
         """
@@ -1398,7 +1398,7 @@ class Session:
         ...     with ses.virtualfile_from_matrix(data) as fin:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
-        ...             ses.call_module("info", f"{fin} ->{fout.name}")
+        ...             ses.call_module("info", [fin, f"->{fout.name}"])
         ...             print(fout.read().strip())
         <matrix memory>: N = 4 <0/9> <1/10> <2/11>
         """
@@ -1478,8 +1478,9 @@ class Session:
         ...     with ses.virtualfile_from_grid(data) as fin:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
-        ...             args = f"{fin} -L0 -Cn ->{fout.name}"
-        ...             ses.call_module("grdinfo", args)
+        ...             ses.call_module(
+        ...                 "grdinfo", [fin, "-L0", "-Cn", f"->{fout.name}"]
+        ...             )
         ...             print(fout.read().strip())
         -55 -47 -24 -10 190 981 1 1 8 14 1 1
         >>> # The output is: w e s n z0 z1 dx dy n_columns n_rows reg gtype
@@ -1510,7 +1511,6 @@ class Session:
         with self.open_virtualfile(*args) as vfile:
             yield vfile
 
-    @fmt_docstring
     def virtualfile_in(  # noqa: PLR0912
         self,
         check_kind=None,
@@ -1571,7 +1571,7 @@ class Session:
         ...     with ses.virtualfile_in(check_kind="vector", data=data) as fin:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
-        ...             ses.call_module("info", fin + " ->" + fout.name)
+        ...             ses.call_module("info", [fin, f"->{fout.name}"])
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
@@ -1718,7 +1718,7 @@ class Session:
         ...     # Create a virtual file for storing the output table.
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
-        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
         ...             ds = lib.read_virtualfile(vouttbl, kind="dataset")
         ...             assert isinstance(ds.contents, _GMT_DATASET)
         ...
@@ -1726,7 +1726,7 @@ class Session:
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(fname=tmpfile.name) as vouttbl:
         ...             assert vouttbl == tmpfile.name
-        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
         ...         line = Path(vouttbl).read_text()
         ...         assert line == "1\t2\t3\tTEXT\n"
         """
@@ -1798,7 +1798,7 @@ class Session:
         ...         with Path(tmpfile.name).open(mode="w") as fp:
         ...             print("1.0 2.0 3.0 TEXT", file=fp)
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
-        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
         ...             # Read the virtual file as a void pointer
         ...             void_pointer = lib.read_virtualfile(vouttbl)
         ...             assert isinstance(void_pointer, int)  # void pointer is an int
@@ -1809,7 +1809,7 @@ class Session:
         >>> # Read grid from a virtual file
         >>> with Session() as lib:
         ...     with lib.virtualfile_out(kind="grid") as voutgrd:
-        ...         lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
+        ...         lib.call_module("read", ["@earth_relief_01d_g", voutgrd, "-Tg"])
         ...         # Read the virtual file as a void pointer
         ...         void_pointer = lib.read_virtualfile(voutgrd)
         ...         assert isinstance(void_pointer, int)  # void pointer is an int
@@ -1905,7 +1905,7 @@ class Session:
         ...             with lib.virtualfile_out(
         ...                 kind="dataset", fname=outtmp.name
         ...             ) as vouttbl:
-        ...                 lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...                 lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
         ...                 result = lib.virtualfile_to_dataset(
         ...                     vfname=vouttbl, output_type="file"
         ...                 )
@@ -1915,7 +1915,7 @@ class Session:
         ...     # strings output
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
-        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
         ...             outstr = lib.virtualfile_to_dataset(
         ...                 vfname=vouttbl, output_type="strings"
         ...             )
@@ -1925,7 +1925,7 @@ class Session:
         ...     # numpy output
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
-        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
         ...             outnp = lib.virtualfile_to_dataset(
         ...                 vfname=vouttbl, output_type="numpy"
         ...             )
@@ -1934,7 +1934,7 @@ class Session:
         ...     # pandas output
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
-        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
         ...             outpd = lib.virtualfile_to_dataset(
         ...                 vfname=vouttbl, output_type="pandas"
         ...             )
@@ -1943,7 +1943,7 @@ class Session:
         ...     # pandas output with specified column names
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
-        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
         ...             outpd2 = lib.virtualfile_to_dataset(
         ...                 vfname=vouttbl,
         ...                 output_type="pandas",
@@ -2026,7 +2026,7 @@ class Session:
         ...     with GMTTempFile(suffix=".nc") as tmpfile:
         ...         outgrid = tmpfile.name
         ...         with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
-        ...             lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
+        ...             lib.call_module("read", ["@earth_relief_01d_g", voutgrd, "-Tg"])
         ...             result = lib.virtualfile_to_raster(
         ...                 vfname=voutgrd, outgrid=outgrid
         ...             )
@@ -2036,7 +2036,7 @@ class Session:
         ...     # xarray.DataArray output
         ...     outgrid = None
         ...     with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
-        ...         lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
+        ...         lib.call_module("read", ["@earth_relief_01d_g", voutgrd, "-Tg"])
         ...         result = lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
         ...         assert isinstance(result, xr.DataArray)
         """
