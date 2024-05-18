@@ -23,7 +23,8 @@ assignees: ''
   - [ ] All tests pass in the ["GMT Dev Tests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml)
   - [ ] All tests pass in the ["Doctests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_doctests.yaml)
   - [ ] Deprecations and related tests are removed for this version by running `grep --include="*.py" -r 'remove_version="vX.Y.Z"' pygmt` from the base of the repository
-- [ ] Update warnings in `pygmt.show_versions()` and notes in [Common installation issues](https://www.pygmt.org/dev/install.html#not-working-transparency) regarding GMT-Ghostscript incompatibility
+- [ ] Update warnings in `pygmt.show_versions()` as well as notes in [Common installation issues](https://www.pygmt.org/dev/install.html#not-working-transparency)
+      and [Testing your install]((https://www.pygmt.org/dev/install.html#testing-your-install) regarding GMT-Ghostscript incompatibility
 - [ ] Reserve a DOI on [Zenodo](https://zenodo.org) by clicking on "New Version"
 - [ ] Review the ["PyGMT Team" page](https://www.pygmt.org/dev/team.html)
 - [ ] Finish up 'Changelog entry for v0.x.x' Pull Request:
