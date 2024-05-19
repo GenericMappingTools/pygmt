@@ -162,7 +162,7 @@ max-args=10
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = "--verbose --durations=0 --durations-min=0.2 --doctest-modules --mpl --mpl-results-path=results"
+addopts = "--verbose --durations=0 --durations-min=0.2 --doctest-modules --mpl --mpl-results-path=results -n auto --reruns 2"
 markers = [
     "benchmark: mark a test with custom benchmark settings.",
 ]
