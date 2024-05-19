@@ -92,7 +92,7 @@ DTYPES = {
     np.timedelta64: "GMT_LONG",
 }
 # Dictionary for storing the values of GMT constants.
-GMT_ENUMS = {}
+GMT_CONSTANTS = {}
 
 # Load the GMT library outside the Session class to avoid repeated loading.
 _libgmt = load_libgmt()
@@ -256,9 +256,9 @@ class Session:
             Integer value of the constant. Do not rely on this value because it might
             change.
         """
-        if name not in GMT_ENUMS:
-            GMT_ENUMS[name] = self.get_enum(name)
-        return GMT_ENUMS[name]
+        if name not in GMT_CONSTANTS:
+            GMT_CONSTANTS[name] = self.get_enum(name)
+        return GMT_CONSTANTS[name]
 
     def get_enum(self, name: str) -> int:
         """
