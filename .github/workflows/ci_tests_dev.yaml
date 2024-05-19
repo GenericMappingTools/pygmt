@@ -37,7 +37,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-22.04, macos-14, windows-2022]
+        os: [ubuntu-24.04, macos-14, windows-2022]
         gmt_git_ref: [master]
     timeout-minutes: 30
     defaults:
@@ -128,7 +128,7 @@ jobs:
                         --extra-index https://pypi.anaconda.org/scientific-python-nightly-wheels/simple \
                         'numpy<2' pandas xarray netCDF4 packaging \
                         build contextily dvc geopandas ipython pyarrow rioxarray \
-                        'pytest>=6.0' pytest-cov pytest-doctestplus pytest-mpl \
+                        pytest pytest-cov pytest-doctestplus pytest-mpl pytest-rerunfailures pytest-xdist\
                         sphinx-gallery
 
       # Show installed pkg information for postmortem diagnostic
