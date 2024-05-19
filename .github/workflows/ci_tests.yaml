@@ -49,6 +49,8 @@ jobs:
   test:
     name: ${{ matrix.os }} - Python ${{ matrix.python-version }} / NumPy ${{ matrix.numpy-version }}
     runs-on: ${{ matrix.os }}
+    permissions:
+      id-token: write  # This is required for requesting OIDC token for codecov
     strategy:
       fail-fast: false
       matrix:
@@ -92,10 +94,14 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4.1.5
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
+
+      - name: Get current week number of year
+        id: date
+        run: echo "date=$(date +%Y-W%W)" >> $GITHUB_OUTPUT  # e.g., 2024-W19
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
@@ -108,6 +114,8 @@ jobs:
               - nodefaults
           cache-downloads: false
           cache-environment: true
+          # environment cache is persistent for one week.
+          cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
           create-args: >-
             python=${{ matrix.python-version }}${{ matrix.optional-packages }}
             gmt=6.5.0
@@ -126,24 +134,19 @@ jobs:
             pytest-doctestplus
             pytest-mpl
             pytest-randomly
+            pytest-rerunfailures
+            pytest-xdist
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v3.1.4
-        with:
-          workflow: cache_data.yaml
-          workflow_conclusion: success
-          name: gmt-cache
-          path: .gmt
-
-      # Move downloaded files to ~/.gmt directory and list them
-      - name: Move and list downloaded remote files
         run: |
-          mkdir -p ~/.gmt
-          mv .gmt/* ~/.gmt
+          # Download files to ~/.gmt directory and list them
+          gh run download --name gmt-cache --dir ~/.gmt/
           # Change modification times of the two files, so GMT won't refresh it
           touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
           ls -lhR ~/.gmt
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
@@ -160,17 +163,17 @@ jobs:
       # Upload diff images on test failure
       - name: Upload diff images if any test fails
         uses: actions/upload-artifact@v4
-        if: ${{ failure() }}
+        if: failure()
         with:
           name: artifact-${{ runner.os }}-${{ matrix.python-version }}
           path: tmp-test-dir-with-unique-name
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4.3.0
+        uses: codecov/codecov-action@v4.4.0
+        if: success() || failure()
         with:
+          use_oidc: true
           file: ./coverage.xml # optional
           env_vars: OS,PYTHON,NUMPY
           fail_ci_if_error: false
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

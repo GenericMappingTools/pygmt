@@ -46,7 +46,7 @@ def dataframe_from_gmt(fname, **kwargs):
     """
     with Session() as lib:
         with lib.virtualfile_out(kind="dataset") as vouttbl:
-            lib.call_module("read", f"{fname} {vouttbl} -Td")
+            lib.call_module("read", [fname, vouttbl, "-Td"])
             df = lib.virtualfile_to_dataset(vfname=vouttbl, **kwargs)
             return df
 
@@ -151,7 +151,7 @@ def test_dataset_to_strings_with_none_values():
 
     See the bug report at https://github.com/GenericMappingTools/pygmt/issues/3170.
     """
-    tiles = ["@N30W120.earth_relief_15s_p.nc", "@N00E000.earth_relief_15s_p.nc"]
+    tiles = ["@N30E060.earth_age_01m_g.nc", "@N30E090.earth_age_01m_g.nc"]
     paths = which(fname=tiles, download="a")
     assert len(paths) == 2
     # 'paths' may contain an empty string or not, depending on if the tiles are cached.

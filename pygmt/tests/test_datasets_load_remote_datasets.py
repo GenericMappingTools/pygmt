@@ -12,8 +12,8 @@ def load_remote_dataset_wrapper(resolution="01d", region=None, registration=None
     Wrapper for _load_remote_dataset using the earth age dataset as an example.
     """
     return _load_remote_dataset(
-        dataset_name="earth_age",
-        dataset_prefix="earth_age_",
+        name="earth_age",
+        prefix="earth_age",
         resolution=resolution,
         region=region,
         registration=registration,
@@ -26,8 +26,8 @@ def test_load_remote_dataset_benchmark_with_region():
     Benchmark loading a remote dataset with 'region'.
     """
     data = load_remote_dataset_wrapper(resolution="01d", region=[-10, 10, -5, 5])
-    assert data.name == "seafloor_age"
-    assert data.attrs["long_name"] == "age of seafloor crust"
+    assert data.name == "z"
+    assert data.attrs["long_name"] == "ages (Myr)"
     assert data.attrs["units"] == "Myr"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.gmt.registration == 0

@@ -14,8 +14,9 @@ def test_earth_mag_01d():
     Test some properties of the magnetic anomaly 01d data.
     """
     data = load_earth_magnetic_anomaly(resolution="01d")
-    assert data.name == "magnetic_anomaly"
-    assert data.attrs["long_name"] == "Earth magnetic anomaly"
+    assert data.name == "z"
+    assert data.attrs["long_name"] == "anomaly (nT)"
+    assert data.attrs["description"] == "EMAG2 Earth Magnetic Anomaly Model"
     assert data.attrs["units"] == "nT"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
@@ -60,8 +61,9 @@ def test_earth_mag4km_01d():
     Test some properties of the magnetic anomaly 4km 01d data.
     """
     data = load_earth_magnetic_anomaly(resolution="01d", data_source="emag2_4km")
-    assert data.name == "magnetic_anomaly"
-    assert data.attrs["long_name"] == "Earth magnetic anomaly"
+    assert data.name == "z"
+    assert data.attrs["long_name"] == "anomaly (nT)"
+    assert data.attrs["description"] == "EMAG2 Earth Magnetic Anomaly Model"
     assert data.attrs["units"] == "nT"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
@@ -116,8 +118,9 @@ def test_earth_mag_01d_wdmam():
     data = load_earth_magnetic_anomaly(
         resolution="01d", registration="gridline", data_source="wdmam"
     )
-    assert data.name == "wdmam"
-    assert data.attrs["long_name"] == "World Digital Magnetic Anomaly Map"
+    assert data.name == "z"
+    assert data.attrs["long_name"] == "anomaly (nT)"
+    assert data.attrs["description"] == "WDMAM World Digital Magnetic Anomaly Map"
     assert data.attrs["units"] == "nT"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)

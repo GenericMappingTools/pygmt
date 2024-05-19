@@ -181,7 +181,7 @@ def test_call_module_invalid_arguments():
     """
     with clib.Session() as lib:
         with pytest.raises(GMTCLibError):
-            lib.call_module("info", "bogus-data.bla")
+            lib.call_module("info", ["bogus-data.bla"])
 
 
 def test_call_module_invalid_name():
@@ -190,7 +190,7 @@ def test_call_module_invalid_name():
     """
     with clib.Session() as lib:
         with pytest.raises(GMTCLibError):
-            lib.call_module("meh", "")
+            lib.call_module("meh", [])
 
 
 def test_call_module_error_message():
@@ -199,7 +199,7 @@ def test_call_module_error_message():
     """
     with clib.Session() as lib:
         with pytest.raises(GMTCLibError) as exc_info:
-            lib.call_module("info", "bogus-data.bla")
+            lib.call_module("info", ["bogus-data.bla"])
         assert "Module 'info' failed with status code" in exc_info.value.args[0]
         assert (
             "gmtinfo [ERROR]: Cannot find file bogus-data.bla" in exc_info.value.args[0]
@@ -213,7 +213,7 @@ def test_method_no_session():
     # Create an instance of Session without "with" so no session is created.
     lib = clib.Session()
     with pytest.raises(GMTCLibNoSessionError):
-        lib.call_module("gmtdefaults", "")
+        lib.call_module("gmtdefaults", [])
     with pytest.raises(GMTCLibNoSessionError):
         _ = lib.session_pointer
 
@@ -385,14 +385,14 @@ def test_extract_region_two_figures():
     # Activate the first figure and extract the region from it
     # Use in a different session to avoid any memory problems.
     with clib.Session() as lib:
-        lib.call_module("figure", f"{fig1._name} -")
+        lib.call_module("figure", [fig1._name, "-"])
     with clib.Session() as lib:
         wesn1 = lib.extract_region()
         npt.assert_allclose(wesn1, region1)
 
     # Now try it with the second one
     with clib.Session() as lib:
-        lib.call_module("figure", f"{fig2._name} -")
+        lib.call_module("figure", [fig2._name, "-"])
     with clib.Session() as lib:
         wesn2 = lib.extract_region()
         npt.assert_allclose(wesn2, np.array([-165.0, -150.0, 15.0, 25.0]))
@@ -534,6 +534,7 @@ def test_get_default():
         assert lib.get_default("API_GRID_LAYOUT") in ["rows", "columns"]
         assert int(lib.get_default("API_CORES")) >= 1
         assert Version(lib.get_default("API_VERSION")) >= Version("6.3.0")
+        assert lib.get_default("PROJ_LENGTH_UNIT") == "cm"
 
 
 def test_get_default_fails():
