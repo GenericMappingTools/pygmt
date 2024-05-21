@@ -23,12 +23,12 @@ jobs:
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v4.1.4
+      uses: actions/checkout@v4.1.5
       with:
         path: repository
 
     - name: Checkout the documentation
-      uses: actions/checkout@v4.1.4
+      uses: actions/checkout@v4.1.5
       with:
         ref: gh-pages
         path: documentation
@@ -71,5 +71,5 @@ jobs:
       run: |
         title="Link Checker Report on ${{ steps.date.outputs.date }}"
         gh issue create --title "$title" --body-file ./lychee/out.md
-        env:
-          GH_TOKEN: ${{ github.token }}
+      env:
+        GH_TOKEN: ${{ github.token }}

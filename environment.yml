@@ -28,10 +28,12 @@ dependencies:
     - ruff>=0.3.0
     # Dev dependencies (unit testing)
     - matplotlib-base
+    - pytest>=6.0
     - pytest-cov
     - pytest-doctestplus
     - pytest-mpl
-    - pytest>=6.0
+    - pytest-rerunfailures
+    - pytest-xdist
     # Dev dependencies (building documentation)
     - myst-parser
     - panel

@@ -105,7 +105,7 @@ If you have [PyArrow](https://arrow.apache.org/docs/python/index.html) installed
 does have some initial support for `pandas.Series` and `pandas.DataFrame` objects with
 Apache Arrow-backed arrays. Specifically, only uint/int/float and date32/date64 dtypes
 are supported for now. Support for string Arrow dtypes is still a work in progress.
-For  more details, see [issue #2800](https://github.com/GenericMappingTools/pygmt/issues/2800).
+For more details, see [issue #2800](https://github.com/GenericMappingTools/pygmt/issues/2800).
 :::
 
 ## Installing GMT and other dependencies
@@ -238,11 +238,17 @@ import pygmt
 pygmt.show_versions()
 
 fig = pygmt.Figure()
-fig.coast(region="g", frame=True, shorelines=1)
+fig.coast(projection="N15c", region="g", frame=True, land="tan", water="lightblue")
+fig.text(position="MC", text="PyGMT", font="80p,Helvetica-Bold,red@75")
 fig.show()
 ```
+![pygmt-get-started](https://github.com/GenericMappingTools/pygmt/assets/3974108/f7f51484-8640-4b58-ae5b-6c71e7150f7a){.align-center width="70%"}
 
-If you see a global map with shorelines, then you're all set.
+You should see a global map with land and water masses colored in tan and lightblue
+respectively. On top, there should be the semi-transparent text "PyGMT". If the
+semi-transparency does not show up, there is probably an incompatibility between your
+GMT and Ghostscript versions. For details, please run `pygmt.show_versions()` and see
+[Not working transparency](#not-working-transparency).
 
 ## Common installation issues
 
@@ -284,3 +290,14 @@ jupyter kernelspec list --json
 
 After that, you need to restart Jupyter, open your notebook, select the `pygmt` kernel
 and then import pygmt.
+
+
+### Not working transparency
+
+It is known that some combinations of GMT and Ghostscript versions cause issues,
+especially regarding transparency. If the transparency doesn't work in your figures,
+please check your GMT and Ghostscript versions (you can run `pygmt.show_versions()`).
+We recommend:
+
+- Ghostscript 9.53-9.56 for GMT 6.3.0/6.4.0
+- Ghostscript 10.03 or later for GMT 6.5.0
