@@ -286,7 +286,7 @@ class Session:
             "GMT_Get_Enum", argtypes=[ctp.c_void_p, ctp.c_char_p], restype=ctp.c_int
         )
 
-        # The C lib introduced the void API pointer to GMT_Get_Enum so that it's
+        # The C library introduced the void API pointer to GMT_Get_Enum so that it's
         # consistent with other functions. It doesn't use the pointer so we can pass
         # in None (NULL pointer). We can't give it the actual pointer because we need
         # to call GMT_Get_Enum when creating a new API session pointer (chicken-and-egg
