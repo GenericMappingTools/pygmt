@@ -77,21 +77,6 @@ _begin()
 _atexit.register(_end)
 
 
-def print_clib_info(file=sys.stdout):
-    """
-    Print information about the GMT shared library that we can find.
-
-    Includes the GMT version, default values for parameters, the path to the
-    ``libgmt`` shared library, and GMT directories.
-    """
-    from pygmt.clib import Session
-
-    print("GMT library information:", file=file)
-    with Session() as ses:
-        lines = [f"  {key}: {ses.info[key]}" for key in sorted(ses.info)]
-    print("\n".join(lines), file=file)
-
-
 def show_versions(file=sys.stdout):
     """
     Print various dependency versions which are useful when submitting bug reports.
