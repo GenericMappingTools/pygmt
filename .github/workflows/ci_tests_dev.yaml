@@ -86,15 +86,17 @@ jobs:
             pcre
             zlib
 
-      # Checkout current the GMT source codes
-      - name: Checkout the GMT source codes in ${{ matrix.gmt_git_ref }} branch
+      # Checkout current GMT repository
+      - name: Checkout the GMT source from ${{ matrix.gmt_git_ref }} branch
         uses: actions/checkout@v4.1.4
         with:
           repository: 'GenericMappingTools/gmt'
           ref: ${{ matrix.gmt_git_ref }}
           path: 'gmt'
 
-      - name: Build GMT source codes on Linux/macOS
+      # Build GMT from source on Linux/macOS, script is adapted from
+      # https://github.com/GenericMappingTools/gmt/blob/6.5.0/ci/build-gmt.sh
+      - name: Build GMT on Linux/macOS
         run: |
           if [ "$RUNNER_OS" == "macOS" ]; then
             GMT_ENABLE_OPENMP=FALSE
@@ -117,7 +119,7 @@ jobs:
           GMT_INSTALL_DIR: ${{ runner.temp }}/gmt-install-dir
         if: runner.os != 'Windows'
 
-      - name: Build GMT source codes on Windows
+      - name: Build GMT on Windows
         shell: cmd
         run: |
           cd gmt/
