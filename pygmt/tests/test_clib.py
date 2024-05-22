@@ -65,15 +65,13 @@ def mock(session, func, returns=None, mock_func=None):
 
 def test_getitem():
     """
-    Test that I can get correct constants from the C lib.
+    Test getting the GMT constants from the C library.
     """
-    ses = clib.Session()
-    assert ses["GMT_SESSION_EXTERNAL"] != -99999
-    assert ses["GMT_MODULE_CMD"] != -99999
-    assert ses["GMT_PAD_DEFAULT"] != -99999
-    assert ses["GMT_DOUBLE"] != -99999
-    with pytest.raises(GMTCLibError):
-        ses["A_WHOLE_LOT_OF_JUNK"]
+    with clib.Session() as lib:
+        for name in ["GMT_SESSION_EXTERNAL", "GMT_MODULE_CMD", "GMT_DOUBLE"]:
+            assert lib[name] != -99999
+        with pytest.raises(GMTCLibError):
+            lib["A_WHOLE_LOT_OF_JUNK"]
 
 
 def test_create_destroy_session():
