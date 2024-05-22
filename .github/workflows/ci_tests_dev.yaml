@@ -98,18 +98,13 @@ jobs:
       # https://github.com/GenericMappingTools/gmt/blob/6.5.0/ci/build-gmt.sh
       - name: Build GMT on Linux/macOS
         run: |
-          if [ "$RUNNER_OS" == "macOS" ]; then
-            GMT_ENABLE_OPENMP=FALSE
-          else
-            GMT_ENABLE_OPENMP=TRUE
-          fi
           cd gmt/
           mkdir build
           cd build
           cmake -G Ninja .. \
             -DCMAKE_INSTALL_PREFIX=${{ env.GMT_INSTALL_DIR }} \
             -DCMAKE_BUILD_TYPE=Release \
-            -DGMT_ENABLE_OPENMP=${GMT_ENABLE_OPENMP} \
+            -DGMT_ENABLE_OPENMP=TRUE \
             -DGMT_USE_THREADS=TRUE
           cmake --build .
           cmake --build . --target install
