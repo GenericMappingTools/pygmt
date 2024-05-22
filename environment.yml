@@ -32,8 +32,6 @@ dependencies:
     - pytest-cov
     - pytest-doctestplus
     - pytest-mpl
-    - pytest-rerunfailures
-    - pytest-xdist
     # Dev dependencies (building documentation)
     - myst-parser
     - panel
