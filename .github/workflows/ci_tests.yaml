@@ -94,7 +94,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.5
+        uses: actions/checkout@v4.1.6
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -119,7 +119,7 @@ jobs:
           create-args: >-
             python=${{ matrix.python-version }}${{ matrix.optional-packages }}
             gmt=6.5.0
-            ghostscript=10.03.0
+            ghostscript=10.03.1
             numpy=${{ matrix.numpy-version }}
             pandas${{ matrix.pandas-version }}
             xarray${{ matrix.xarray-version }}
@@ -157,7 +157,7 @@ jobs:
 
       # Run the regular tests
       - name: Run tests
-        run: make test PYTEST_EXTRA="-r P"
+        run: make test PYTEST_EXTRA="-r P -n auto --reruns 2"
 
       # Upload diff images on test failure
       - name: Upload diff images if any test fails
@@ -169,7 +169,7 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4.4.0
+        uses: codecov/codecov-action@v4.4.1
         if: success() || failure()
         with:
           use_oidc: true
