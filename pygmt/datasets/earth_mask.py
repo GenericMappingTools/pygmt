@@ -15,7 +15,21 @@ __doctest_skip__ = ["load_earth_mask"]
 
 @kwargs_to_strings(region="sequence")
 def load_earth_mask(
-    resolution="01d",
+    resolution: Literal[
+        "01d",
+        "30m",
+        "20m",
+        "15m",
+        "10m",
+        "06m",
+        "05m",
+        "04m",
+        "03m",
+        "02m",
+        "01m",
+        "30s",
+        "15s",
+    ] = "01d",
     region=None,
     registration: Literal["gridline", "pixel"] = "gridline",
 ):
@@ -44,11 +58,9 @@ def load_earth_mask(
 
     Parameters
     ----------
-    resolution : str
-        The grid resolution. The suffix ``d``, ``m``, and ``s`` stand for
-        arc-degrees, arc-minutes, and arc-seconds. It can be ``"01d"``,
-        ``"30m"``, ``"20m"``, ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``,
-        ``"04m"``, ``"03m"``, ``"02m"``, ``"01m"``, ``"30s"``, or ``"15s"``.
+    resolution
+        The grid resolution. The suffix ``d``, ``m``, and ``s`` stand for arc-degrees,
+        arc-minutes, and arc-seconds.
 
     region : str or list
         The subregion of the grid to load, in the form of a list

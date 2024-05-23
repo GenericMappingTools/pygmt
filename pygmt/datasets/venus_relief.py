@@ -15,7 +15,9 @@ __doctest_skip__ = ["load_venus_relief"]
 
 @kwargs_to_strings(region="sequence")
 def load_venus_relief(
-    resolution="01d",
+    resolution: Literal[
+        "01d", "30m", "20m", "15m", "10m", "06m", "05m", "04m", "03m", "02m", "01m"
+    ] = "01d",
     region=None,
     registration: Literal["gridline", "pixel"] = "gridline",
 ):
@@ -50,10 +52,9 @@ def load_venus_relief(
 
     Parameters
     ----------
-    resolution : str
+    resolution
         The grid resolution. The suffix ``d`` and ``m`` stand for arc-degrees and
-        arc-minutes. It can be ``"01d"``, ``"30m"``, ``"20m"``, ``"15m"``, ``"10m"``,
-        ``"06m"``, ``"05m"``, ``"04m"``, ``"03m"``, ``"02m"``, and ``"01m"``.
+        arc-minutes.
     region : str or list
         The subregion of the grid to load, in the form of a list
         [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
