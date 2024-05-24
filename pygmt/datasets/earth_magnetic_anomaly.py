@@ -68,7 +68,7 @@ def load_earth_magnetic_anomaly(
     ----------
     resolution
         The grid resolution. The suffix ``d`` and ``m`` stand for arc-degrees and
-        arc-minutes. The ``"02m"`` resolution is not available for
+        arc-minutes. The resolution ``"02m"`` is not available for
         ``data_source="wdmam"``.
 
     region : str or list
