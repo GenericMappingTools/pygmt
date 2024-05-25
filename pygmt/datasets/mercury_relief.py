@@ -15,7 +15,20 @@ __doctest_skip__ = ["load_mercury_relief"]
 
 @kwargs_to_strings(region="sequence")
 def load_mercury_relief(
-    resolution="01d",
+    resolution: Literal[
+        "01d",
+        "30m",
+        "20m",
+        "15m",
+        "10m",
+        "06m",
+        "05m",
+        "04m",
+        "03m",
+        "02m",
+        "01m",
+        "56s",
+    ] = "01d",
     region=None,
     registration: Literal["gridline", "pixel", None] = None,
 ):
@@ -50,11 +63,9 @@ def load_mercury_relief(
 
     Parameters
     ----------
-    resolution : str
+    resolution
         The grid resolution. The suffix ``d``, ``m`` and ``s`` stand for arc-degrees,
-        arc-minutes and arc-seconds. It can be ``"01d"``, ``"30m"``, ``"20m"``,
-        ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``, ``"04m"``, ``"03m"``, ``"02m"``,
-        ``"01m"``, and ``"56s"``.
+        arc-minutes and arc-seconds.
     region : str or list
         The subregion of the grid to load, in the form of a list
         [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*. Required for

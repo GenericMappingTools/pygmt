@@ -16,7 +16,9 @@ __doctest_skip__ = ["load_earth_magnetic_anomaly"]
 
 @kwargs_to_strings(region="sequence")
 def load_earth_magnetic_anomaly(
-    resolution="01d",
+    resolution: Literal[
+        "01d", "30m", "20m", "15m", "10m", "06m", "05m", "04m", "03m", "02m"
+    ] = "01d",
     region=None,
     registration: Literal["gridline", "pixel", None] = None,
     data_source: Literal["emag2", "emag2_4km", "wdmam"] = "emag2",
@@ -64,11 +66,9 @@ def load_earth_magnetic_anomaly(
 
     Parameters
     ----------
-    resolution : str
-        The grid resolution. The suffix ``d`` and ``m`` stand for
-        arc-degrees and arc-minutes. It can be ``"01d"``, ``"30m"``,
-        ``"20m"``, ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``, ``"04m"``,
-        ``"03m"``, or ``"02m"``. The ``"02m"`` resolution is not available for
+    resolution
+        The grid resolution. The suffix ``d`` and ``m`` stand for arc-degrees and
+        arc-minutes. The resolution ``"02m"`` is not available for
         ``data_source="wdmam"``.
 
     region : str or list

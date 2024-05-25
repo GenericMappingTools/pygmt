@@ -15,7 +15,9 @@ __doctest_skip__ = ["load_earth_geoid"]
 
 @kwargs_to_strings(region="sequence")
 def load_earth_geoid(
-    resolution="01d",
+    resolution: Literal[
+        "01d", "30m", "20m", "15m", "10m", "06m", "05m", "04m", "03m", "02m", "01m"
+    ] = "01d",
     region=None,
     registration: Literal["gridline", "pixel"] = "gridline",
 ):
@@ -44,11 +46,9 @@ def load_earth_geoid(
 
     Parameters
     ----------
-    resolution : str
-        The grid resolution. The suffix ``d`` and ``m`` stand for
-        arc-degrees and arc-minutes. It can be ``"01d"``, ``"30m"``,
-        ``"20m"``, ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``, ``"04m"``,
-        ``"03m"``, ``"02m"``, or ``"01m"``.
+    resolution
+        The grid resolution. The suffix ``d`` and ``m`` stand for arc-degrees and
+        arc-minutes.
 
     region : str or list
         The subregion of the grid to load, in the form of a list
