@@ -229,9 +229,20 @@ def x2sys_cross(
                 # "t_1"/"t_2" means they are absolute datetimes.
                 # "i_1"/"i_2" means they are dummy times relative to unix epoch.
                 if output_type == "pandas":
-                    t_or_i = result.columns[2][0]
-                    to_func = {"t": pd.to_datetime, "i": pd.to_timedelta}[t_or_i]
+                    if (time_unit := lib.get_default("TIME_UNIT")) != "s":
+                        msg = (
+                            f"Configuration TIME_UNIT must be 's' but '{time_unit}' "
+                            "is given."
+                        )
+                        raise GMTInvalidInput(msg)
+                    to_args = {"unit": "s"}
+                    match result.columns[2][0]:  # "t" or "i".
+                        case "t":
+                            to_func = pd.to_datetime
+                            to_args["origin"] = lib.get_default("TIME_EPOCH")
+                        case "i":
+                            to_func = pd.to_timeldelta
                     result[result.columns[2:4]] = result[result.columns[2:4]].apply(
-                        to_func, unit="s"
+                        to_func, **to_args
                     )
                 return result
