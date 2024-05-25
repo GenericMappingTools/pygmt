@@ -77,21 +77,6 @@ _begin()
 _atexit.register(_end)
 
 
-def print_clib_info(file=sys.stdout):
-    """
-    Print information about the GMT shared library that we can find.
-
-    Includes the GMT version, default values for parameters, the path to the
-    ``libgmt`` shared library, and GMT directories.
-    """
-    from pygmt.clib import Session
-
-    print("GMT library information:", file=file)
-    with Session() as ses:
-        lines = [f"  {key}: {ses.info[key]}" for key in sorted(ses.info)]
-    print("\n".join(lines), file=file)
-
-
 def show_versions(file=sys.stdout):
     """
     Print various dependency versions which are useful when submitting bug reports.
@@ -102,6 +87,9 @@ def show_versions(file=sys.stdout):
     - System information (Python version, Operating System)
     - Core dependency versions (NumPy, Pandas, Xarray, etc)
     - GMT library information
+
+    It also warns users if the installed Ghostscript version has serious bugs or is
+    incompatible with the installed GMT version.
     """
 
     import importlib
@@ -110,8 +98,18 @@ def show_versions(file=sys.stdout):
     import subprocess
 
     from packaging.requirements import Requirement
+    from packaging.version import Version
 
-    def _get_module_version(modname):
+    def _get_clib_info() -> dict:
+        """
+        Return information about the GMT shared library.
+        """
+        from pygmt.clib import Session
+
+        with Session() as ses:
+            return ses.info
+
+    def _get_module_version(modname: str) -> str | None:
         """
         Get version information of a Python module.
         """
@@ -128,17 +126,19 @@ def show_versions(file=sys.stdout):
         except ImportError:
             return None
 
-    def _get_ghostscript_version():
+    def _get_ghostscript_version() -> str | None:
         """
-        Get ghostscript version.
+        Get Ghostscript version.
         """
-        os_name = sys.platform
-        if os_name.startswith(("linux", "freebsd", "darwin")):
-            cmds = ["gs"]
-        elif os_name == "win32":
-            cmds = ["gswin64c.exe", "gswin32c.exe"]
-        else:
-            return None
+        match sys.platform:
+            case "linux" | "darwin":
+                cmds = ["gs"]
+            case os_name if os_name.startswith("freebsd"):
+                cmds = ["gs"]
+            case "win32":
+                cmds = ["gswin64c.exe", "gswin32c.exe"]
+            case _:
+                return None
 
         for gs_cmd in cmds:
             if (gsfullpath := shutil.which(gs_cmd)) is not None:
@@ -147,24 +147,53 @@ def show_versions(file=sys.stdout):
                 ).strip()
         return None
 
+    def _check_ghostscript_version(gs_version: str) -> str | None:
+        """
+        Check if the Ghostscript version is compatible with GMT versions.
+        """
+        match Version(gs_version):
+            case v if v < Version("9.53"):
+                return (
+                    f"Ghostscript v{gs_version} is too old and may have serious bugs. "
+                    "Please consider upgrading your Ghostscript."
+                )
+            case v if Version("10.00") <= v < Version("10.02"):
+                return (
+                    f"Ghostscript v{gs_version} has known bugs. "
+                    "Please consider upgrading to version v10.02 or later."
+                )
+            case v if v >= Version("10.02"):
+                from pygmt.clib import __gmt_version__
+
+                if Version(__gmt_version__) < Version("6.5.0"):
+                    return (
+                        f"GMT v{__gmt_version__} doesn't support Ghostscript "
+                        "v{gs_version}. Please consider upgrading to GMT>=6.5.0 or "
+                        "downgrading to Ghostscript v9.56."
+                    )
+        return None
+
     sys_info = {
         "python": sys.version.replace("\n", " "),
         "executable": sys.executable,
         "machine": platform.platform(),
     }
-
     deps = [Requirement(v).name for v in importlib.metadata.requires("pygmt")]
+    gs_version = _get_ghostscript_version()
 
-    print("PyGMT information:", file=file)
-    print(f"  version: {__version__}", file=file)
+    lines = []
+    lines.append("PyGMT information:")
+    lines.append(f"  version: {__version__}")
+    lines.append("System information:")
+    lines.extend([f"  {key}: {val}" for key, val in sys_info.items()])
+    lines.append("Dependency information:")
+    lines.extend([f"  {modname}: {_get_module_version(modname)}" for modname in deps])
+    lines.append(f"  ghostscript: {gs_version}")
+    lines.append("GMT library information:")
+    lines.extend([f"  {key}: {val}" for key, val in _get_clib_info().items()])
 
-    print("System information:", file=file)
-    for key, val in sys_info.items():
-        print(f"  {key}: {val}", file=file)
+    if warnmsg := _check_ghostscript_version(gs_version):
+        lines.append("WARNING:")
+        lines.append(f"  {warnmsg}")
 
-    print("Dependency information:", file=file)
-    for modname in deps:
-        print(f"  {modname}: {_get_module_version(modname)}", file=file)
-    print(f"  ghostscript: {_get_ghostscript_version()}", file=file)
-
-    print_clib_info(file=file)
+    print("\n".join(lines), file=file)
