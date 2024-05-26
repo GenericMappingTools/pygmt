@@ -239,14 +239,13 @@ def x2sys_cross(
                             "'s' (second) but '{time_unit}' is given."
                         )
                         raise GMTInvalidInput(msg)
-                    time_unit = {"d": "D", "s": "s"}[time_unit]
-                    to_args = {"unit": time_unit}
-                    match result.columns[2][0]:  # "t" or "i".
-                        case "t":
-                            to_func = pd.to_datetime
-                            to_args["origin"] = lib.get_default("TIME_EPOCH")
-                        case "i":
-                            to_func = pd.to_timedelta
+
+                    t_or_i = result.columns[2][0]  # "t" or "i".
+                    to_func = {"t": pd.to_datetime, "i": pd.to_timedelta}
+                    to_args = {"unit": {"d": "D", "s": "s"}[time_unit]}
+                    if t_or_i == "t":
+                        to_args["origin"] = lib.get_default("TIME_EPOCH")
+
                     result[result.columns[2:4]] = result[result.columns[2:4]].apply(
                         to_func, **to_args
                     )
