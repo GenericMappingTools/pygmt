@@ -241,7 +241,7 @@ def x2sys_cross(
                         raise GMTInvalidInput(msg)
 
                     t_or_i = result.columns[2][0]  # "t" or "i".
-                    to_func = {"t": pd.to_datetime, "i": pd.to_timedelta}
+                    to_func = {"t": pd.to_datetime, "i": pd.to_timedelta}[t_or_i]
                     to_args = {"unit": {"d": "D", "s": "s"}[time_unit]}
                     if t_or_i == "i":
                         to_args["origin"] = lib.get_default("TIME_EPOCH")
