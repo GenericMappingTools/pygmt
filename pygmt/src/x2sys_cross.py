@@ -246,7 +246,7 @@ def x2sys_cross(
                             to_func = pd.to_datetime
                             to_args["origin"] = lib.get_default("TIME_EPOCH")
                         case "i":
-                            to_func = pd.to_timeldelta
+                            to_func = pd.to_timedelta
                     result[result.columns[2:4]] = result[result.columns[2:4]].apply(
                         to_func, **to_args
                     )
