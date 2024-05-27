@@ -154,7 +154,7 @@ jobs:
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
-        run: dvc pull --verbose && ls -lhR pygmt/tests/baseline/
+        run: dvc pull --no-run-cache --verbose && ls -lhR pygmt/tests/baseline/
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
