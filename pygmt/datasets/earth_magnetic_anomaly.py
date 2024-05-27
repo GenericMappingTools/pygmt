@@ -5,21 +5,20 @@ load as :class:`xarray.DataArray`.
 The grids are available in various resolutions.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import kwargs_to_strings
 
 __doctest_skip__ = ["load_earth_magnetic_anomaly"]
 
 
-@kwargs_to_strings(region="sequence")
 def load_earth_magnetic_anomaly(
     resolution: Literal[
         "01d", "30m", "20m", "15m", "10m", "06m", "05m", "04m", "03m", "02m"
     ] = "01d",
-    region=None,
+    region: Sequence[float] | str | None = None,
     registration: Literal["gridline", "pixel", None] = None,
     data_source: Literal["emag2", "emag2_4km", "wdmam"] = "emag2",
 ):
@@ -70,20 +69,16 @@ def load_earth_magnetic_anomaly(
         The grid resolution. The suffix ``d`` and ``m`` stand for arc-degrees and
         arc-minutes. The resolution ``"02m"`` is not available for
         ``data_source="wdmam"``.
-
-    region : str or list
-        The subregion of the grid to load, in the form of a list
-        [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
-        Required for grids with resolutions higher than 5
-        arc-minutes (i.e., ``"05m"``).
-
+    region
+        The subregion of the grid to load, in the form of a sequence [*xmin*, *xmax*,
+        *ymin*, *ymax*] or an ISO country code. Required for grids with resolutions
+        higher than 5 arc-minutes (i.e., ``"05m"``).
     registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``None``, means
         ``"gridline"`` for all resolutions except ``"02m"`` for
         ``data_source="emag2"`` or ``data_source="emag2_4km"``, which are
         ``"pixel"`` only.
-
     data_source
         Select the source of the magnetic anomaly data. Available options are:
 

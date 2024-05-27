@@ -5,15 +5,14 @@ Function to download the Moon relief dataset from the GMT data server, and load 
 The grids are available in various resolutions.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
-from pygmt.helpers import kwargs_to_strings
 
 __doctest_skip__ = ["load_moon_relief"]
 
 
-@kwargs_to_strings(region="sequence")
 def load_moon_relief(
     resolution: Literal[
         "01d",
@@ -31,7 +30,7 @@ def load_moon_relief(
         "15s",
         "14s",
     ] = "01d",
-    region=None,
+    region: Sequence[float] | str | None = None,
     registration: Literal["gridline", "pixel", None] = None,
 ):
     r"""
@@ -68,10 +67,10 @@ def load_moon_relief(
     resolution
         The grid resolution. The suffix ``d``, ``m`` and ``s`` stand for arc-degrees,
         arc-minutes and arc-seconds.
-    region : str or list
-        The subregion of the grid to load, in the form of a list
-        [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*. Required for
-        grids with resolutions higher than 5 arc-minutes (i.e., ``"05m"``).
+    region
+        The subregion of the grid to load, in the form of a sequence [*xmin*, *xmax*,
+        *ymin*, *ymax*] or an ISO country code. Required for grids with resolutions
+        higher than 5 arc-minutes (i.e., ``"05m"``).
     registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``None``, means
