@@ -144,7 +144,7 @@ jobs:
           python -m pip install --pre --prefer-binary \
                         --extra-index https://pypi.anaconda.org/scientific-python-nightly-wheels/simple \
                         'numpy<2' pandas xarray netCDF4 packaging \
-                        build contextily 'dvc<3.51' geopandas ipython pyarrow rioxarray \
+                        build contextily dvc geopandas ipython pyarrow rioxarray \
                         pytest pytest-cov pytest-doctestplus pytest-mpl pytest-rerunfailures pytest-xdist\
                         sphinx-gallery
 

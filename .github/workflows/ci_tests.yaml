@@ -126,7 +126,7 @@ jobs:
             netCDF4
             packaging
             build
-            dvc<3.51
+            dvc
             make
             pip
             pytest
