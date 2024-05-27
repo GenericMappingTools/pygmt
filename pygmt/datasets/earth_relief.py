@@ -97,7 +97,7 @@ def load_earth_relief(
           inferred relief via altimetric gravity. See
           :gmt-datasets:`earth-gebco.html`.
         - ``"gebcosi"``: GEBCO Earth Relief that gives sub-ice (si) elevations.
-    use_srtm : bool
+    use_srtm
         By default, the land-only SRTM tiles from NASA are used to generate the
         ``"03s"`` and ``"01s"`` grids, and the missing ocean values are filled
         by up-sampling the SRTM15 tiles which have a resolution of 15
