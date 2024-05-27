@@ -243,7 +243,7 @@ def x2sys_cross(
                     t_or_i = result.columns[2][0]  # "t" or "i".
                     to_func = {"t": pd.to_datetime, "i": pd.to_timedelta}[t_or_i]
                     to_args = {"unit": {"d": "D", "s": "s"}[time_unit]}
-                    if t_or_i == "i":
+                    if t_or_i == "t":
                         to_args["origin"] = lib.get_default("TIME_EPOCH")
 
                     result[result.columns[2:4]] = result[result.columns[2:4]].apply(
