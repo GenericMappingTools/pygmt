@@ -18,7 +18,7 @@ def load_earth_magnetic_anomaly(
     resolution: Literal[
         "01d", "30m", "20m", "15m", "10m", "06m", "05m", "04m", "03m", "02m"
     ] = "01d",
-    region: Sequence[float] | None = None,
+    region: Sequence[float] | str | None = None,
     registration: Literal["gridline", "pixel", None] = None,
     data_source: Literal["emag2", "emag2_4km", "wdmam"] = "emag2",
 ):
@@ -71,8 +71,8 @@ def load_earth_magnetic_anomaly(
         ``data_source="wdmam"``.
     region
         The subregion of the grid to load, in the form of a sequence [*xmin*, *xmax*,
-        *ymin*, *ymax*]. Required for grids with resolutions higher than 5 arc-minutes
-        (i.e., ``"05m"``).
+        *ymin*, *ymax*] or an ISO country code. Required for grids with resolutions
+        higher than 5 arc-minutes (i.e., ``"05m"``).
     registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``None``, means

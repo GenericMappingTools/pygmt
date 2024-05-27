@@ -30,7 +30,7 @@ def load_moon_relief(
         "15s",
         "14s",
     ] = "01d",
-    region: Sequence[float] | None = None,
+    region: Sequence[float] | str | None = None,
     registration: Literal["gridline", "pixel", None] = None,
 ):
     r"""
@@ -69,8 +69,8 @@ def load_moon_relief(
         arc-minutes and arc-seconds.
     region
         The subregion of the grid to load, in the form of a sequence [*xmin*, *xmax*,
-        *ymin*, *ymax*]. Required for grids with resolutions higher than 5 arc-minutes
-        (i.e., ``"05m"``).
+        *ymin*, *ymax*] or an ISO country code. Required for grids with resolutions
+        higher than 5 arc-minutes (i.e., ``"05m"``).
     registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``None``, means

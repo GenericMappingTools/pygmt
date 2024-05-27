@@ -29,7 +29,7 @@ def load_earth_mask(
         "30s",
         "15s",
     ] = "01d",
-    region: Sequence[float] | None = None,
+    region: Sequence[float] | str | None = None,
     registration: Literal["gridline", "pixel"] = "gridline",
 ):
     r"""
@@ -62,7 +62,7 @@ def load_earth_mask(
         arc-minutes, and arc-seconds.
     region
         The subregion of the grid to load, in the form of a sequence [*xmin*, *xmax*,
-        *ymin*, *ymax*].
+        *ymin*, *ymax*] or an ISO country code.
     registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration.
