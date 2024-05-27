@@ -5,16 +5,15 @@ Function to download the Earth relief datasets from the GMT data server, and loa
 The grids are available in various resolutions.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import kwargs_to_strings
 
 __doctest_skip__ = ["load_earth_relief"]
 
 
-@kwargs_to_strings(region="sequence")
 def load_earth_relief(
     resolution: Literal[
         "01d",
@@ -33,10 +32,10 @@ def load_earth_relief(
         "03s",
         "01s",
     ] = "01d",
-    region=None,
+    region: Sequence[float] | None = None,
     registration: Literal["gridline", "pixel", None] = None,
     data_source: Literal["igpp", "gebco", "gebcosi", "synbath"] = "igpp",
-    use_srtm=False,
+    use_srtm: bool = False,
 ):
     r"""
     Load the Earth relief datasets (topography and bathymetry) in various resolutions.
@@ -77,19 +76,15 @@ def load_earth_relief(
     resolution
         The grid resolution. The suffix ``d``, ``m`` and ``s`` stand for arc-degrees,
         arc-minutes, and arc-seconds.
-
-    region : str or list
-        The subregion of the grid to load, in the form of a list
-        [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
-        Required for Earth relief grids with resolutions higher than 5
-        arc-minutes (i.e., ``"05m"``).
-
+    region
+        The subregion of the grid to load, in the form of a sequence [*xmin*, *xmax*,
+        *ymin*, *ymax*]. Required for grids with resolutions higher than 5 arc-minutes
+        (i.e., ``"05m"``).
     registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``None``, means
         ``"gridline"`` for all resolutions except ``"15s"`` which is
         ``"pixel"`` only.
-
     data_source
         Select the source for the Earth relief data. Available options are:
 
@@ -102,7 +97,6 @@ def load_earth_relief(
           inferred relief via altimetric gravity. See
           :gmt-datasets:`earth-gebco.html`.
         - ``"gebcosi"``: GEBCO Earth Relief that gives sub-ice (si) elevations.
-
     use_srtm : bool
         By default, the land-only SRTM tiles from NASA are used to generate the
         ``"03s"`` and ``"01s"`` grids, and the missing ocean values are filled
