@@ -70,11 +70,7 @@ def tempfile_from_dftrack(track, suffix):
     Z="trackvalues",
 )
 @kwargs_to_strings(R="sequence")
-def x2sys_cross(
-    tracks=None,
-    outfile: str | None = None,
-    **kwargs,
-):
+def x2sys_cross(tracks=None, outfile: str | None = None, **kwargs):
     r"""
     Calculate crossovers between track data files.
 
@@ -202,7 +198,7 @@ def x2sys_cross(
                     os.environ["X2SYS_HOME"], kwargs["T"], f"{kwargs['T']}.tag"
                 )
                 # Last line is like "-Dxyz -Etsv -I1/1"
-                lastline = tagfile.read_text().splitlines()[-1]
+                lastline = tagfile.read_text(encoding="utf8").splitlines()[-1]
                 for item in sorted(lastline.split()):  # sort list alphabetically
                     if item.startswith(("-E", "-D")):  # prefer -Etsv over -Dxyz
                         suffix = item[2:]  # e.g. tsv (1st choice) or xyz (2nd choice)
@@ -224,29 +220,44 @@ def x2sys_cross(
                     vfname=vouttbl, output_type=output_type, header=2
                 )
 
-                # Convert 3rd and 4th columns to datetime or timedelta.
-                # These two columns have names "t_1"/"t_2" or "i_1"/"i_2".
-                # "t_1"/"t_2" means they are absolute datetimes.
-                # "i_1"/"i_2" means they are dummy times relative to unix epoch.
-                # Internally, they are all represented as double-precision numbers in
-                # GMT, relative to TIME_EPOCH with the unit defined by TIME_UNIT.
-                if output_type == "pandas":
-                    # TIME_UNIT can be 'y'/'o'/'w'/'d'/'h'/'m'/'s', but pd.to_datetime()
-                    # only supports unit of 'D'/'s'/'ms'/'us'/'ns'.
-                    if (time_unit := lib.get_default("TIME_UNIT")) not in "ds":
-                        msg = (
-                            "Value of configuration TIME_UNIT must be 'd' (day) or "
-                            "'s' (second) but '{time_unit}' is given."
-                        )
-                        raise GMTInvalidInput(msg)
+            # Convert 3rd and 4th columns to datetime or timedelta.
+            #
+            # These two columns have names "t_1"/"t_2" or "i_1"/"i_2".
+            # "t_1"/"t_2" means they are absolute datetimes.
+            # "i_1"/"i_2" means they are dummy times relative to unix epoch.
+            # Internally, they are all represented as double-precision numbers in GMT,
+            # relative to TIME_EPOCH with the unit defined by TIME_UNIT.
+            if output_type == "pandas":
+                # TIME_UNIT can be 'y'/'o'/'w'/'d'/'h'/'m'/'s'.
+                # pd.to_datetime() supports unit of 'D'/'s'/'ms'/'us'/'ns'
+                # pd.to_timedelta() supports unit of 'W'/'D'/'h'/'m'/'s'/'ms'/'us'/'ns'.
+                time_unit = lib.get_default("TIME_UNIT")
+                match result.columns[2][0]:  # "t" or "i"
+                    case "t":  # Absolute time
+                        if time_unit not in "ds":
+                            msg = (
+                                "Value of configuration TIME_UNIT must be 'd' (day) or "
+                                "'s' (second) but '{time_unit}' is given."
+                            )
+                            raise GMTInvalidInput(msg)
+                        to_func = pd.to_datetime
+                        to_args = {
+                            "unit": {"d": "D", "s": "s"}[time_unit],
+                            "origin": lib.get_default("TIME_EPOCH"),
+                        }
+                    case "i":  # Relative time
+                        to_func = pd.to_timedelta
+                        if time_unit not in "wdhms":
+                            msg = (
+                                "Value of configuration TIME_UNIT must be 'w' (week), "
+                                "'d' (day), 'h' (hour), 'm' (minute) or 's' (second) "
+                                "but '{time_unit}' is given."
+                            )
+                            raise GMTInvalidInput(msg)
+                        unit = time_unit.upper() if time_unit in "wd" else time_unit
+                        to_args = {"unit": unit}
 
-                    t_or_i = result.columns[2][0]  # "t" or "i".
-                    to_func = {"t": pd.to_datetime, "i": pd.to_timedelta}[t_or_i]
-                    to_args = {"unit": {"d": "D", "s": "s"}[time_unit]}
-                    if t_or_i == "t":
-                        to_args["origin"] = lib.get_default("TIME_EPOCH")
-
-                    result[result.columns[2:4]] = result[result.columns[2:4]].apply(
-                        to_func, **to_args
-                    )
-                return result
+                result[result.columns[2:4]] = result[result.columns[2:4]].apply(
+                    to_func, **to_args
+                )
+            return result
