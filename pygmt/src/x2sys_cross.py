@@ -237,27 +237,24 @@ def x2sys_cross(tracks=None, outfile: str | None = None, **kwargs):
                         if time_unit not in "ds":
                             msg = (
                                 "Value of configuration TIME_UNIT must be 'd' (day) or "
-                                "'s' (second) but '{time_unit}' is given."
+                                f"'s' (second) but '{time_unit}' is given."
                             )
                             raise GMTInvalidInput(msg)
-                        to_func = pd.to_datetime
-                        to_args = {
-                            "unit": {"d": "D", "s": "s"}[time_unit],
-                            "origin": lib.get_default("TIME_EPOCH"),
-                        }
+                        result[result.columns[2:4]] = result[result.columns[2:4]].apply(
+                            pd.to_datetime,
+                            unit={"d": "D", "s": "s"}[time_unit],
+                            origin=lib.get_default("TIME_EPOCH"),
+                        )
                     case "i":  # Relative time
-                        to_func = pd.to_timedelta
                         if time_unit not in "wdhms":
                             msg = (
                                 "Value of configuration TIME_UNIT must be 'w' (week), "
                                 "'d' (day), 'h' (hour), 'm' (minute) or 's' (second) "
-                                "but '{time_unit}' is given."
+                                f"but '{time_unit}' is given."
                             )
                             raise GMTInvalidInput(msg)
-                        unit = time_unit.upper() if time_unit in "wd" else time_unit
-                        to_args = {"unit": unit}
-
-                result[result.columns[2:4]] = result[result.columns[2:4]].apply(
-                    to_func, **to_args
-                )
+                        result[result.columns[2:4]] = result[result.columns[2:4]].apply(
+                            pd.to_timedelta,
+                            unit=time_unit.upper() if time_unit in "wd" else time_unit,
+                        )
             return result
