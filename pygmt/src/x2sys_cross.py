@@ -228,33 +228,25 @@ def x2sys_cross(tracks=None, outfile: str | None = None, **kwargs):
             # Internally, they are all represented as double-precision numbers in GMT,
             # relative to TIME_EPOCH with the unit defined by TIME_UNIT.
             if output_type == "pandas":
-                # TIME_UNIT can be 'y'/'o'/'w'/'d'/'h'/'m'/'s'.
-                # pd.to_datetime() supports unit of 'D'/'s'/'ms'/'us'/'ns'
+                # In GMT, TIME_UNIT can be 'y' (year), 'o' (month), 'w' (week),
+                # 'd' (day), 'h' (hour), 'm' (minute), 's' (second).
+                # Years are 365.2425 days and months are of equal length.
                 # pd.to_timedelta() supports unit of 'W'/'D'/'h'/'m'/'s'/'ms'/'us'/'ns'.
-                time_unit = lib.get_default("TIME_UNIT")
-                match result.columns[2][0]:  # "t" or "i"
-                    case "t":  # Absolute time
-                        if time_unit not in "ds":
-                            msg = (
-                                "Value of configuration TIME_UNIT must be 'd' (day) or "
-                                f"'s' (second) but '{time_unit}' is given."
-                            )
-                            raise GMTInvalidInput(msg)
-                        result[result.columns[2:4]] = result[result.columns[2:4]].apply(
-                            pd.to_datetime,
-                            unit={"d": "D", "s": "s"}[time_unit],
-                            origin=lib.get_default("TIME_EPOCH"),
-                        )
-                    case "i":  # Relative time
-                        if time_unit not in "wdhms":
-                            msg = (
-                                "Value of configuration TIME_UNIT must be 'w' (week), "
-                                "'d' (day), 'h' (hour), 'm' (minute) or 's' (second) "
-                                f"but '{time_unit}' is given."
-                            )
-                            raise GMTInvalidInput(msg)
-                        result[result.columns[2:4]] = result[result.columns[2:4]].apply(
-                            pd.to_timedelta,
-                            unit=time_unit.upper() if time_unit in "wd" else time_unit,
-                        )
+                match time_unit := lib.get_default("TIME_UNIT"):
+                    case "y":
+                        unit = "s"
+                        scale = 365.2425 * 86400.0
+                    case "o":
+                        unit = "s"
+                        scale = 365.2425 / 12.0 * 86400.0
+                    case _:
+                        unit = time_unit.upper() if time_unit in "wd" else time_unit
+                        scale = 1.0
+
+                columns = result.columns[2:4]
+                result[columns] = result[columns].apply(
+                    lambda x: pd.to_timedelta(x * scale, unit=unit)
+                )
+                if result.columns[2][0] == "t":  # "t" or "i":
+                    result[columns] += pd.Timestamp(lib.get_default("TIME_EPOCH"))
             return result
