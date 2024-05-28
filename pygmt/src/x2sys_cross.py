@@ -70,7 +70,9 @@ def tempfile_from_dftrack(track, suffix):
     Z="trackvalues",
 )
 @kwargs_to_strings(R="sequence")
-def x2sys_cross(tracks=None, outfile: str | None = None, **kwargs):
+def x2sys_cross(
+    tracks=None, outfile: str | None = None, **kwargs
+) -> pd.DataFrame | None:
     r"""
     Calculate crossovers between track data files.
 
@@ -220,32 +222,33 @@ def x2sys_cross(tracks=None, outfile: str | None = None, **kwargs):
                     vfname=vouttbl, output_type=output_type, header=2
                 )
 
-            # Convert 3rd and 4th columns to datetime or timedelta.
-            #
+            if output_type == "file":
+                return result
+
+            # Convert 3rd and 4th columns to datetime/timedelta for pandas output.
             # These two columns have names "t_1"/"t_2" or "i_1"/"i_2".
             # "t_1"/"t_2" means they are absolute datetimes.
             # "i_1"/"i_2" means they are dummy times relative to unix epoch.
             # Internally, they are all represented as double-precision numbers in GMT,
             # relative to TIME_EPOCH with the unit defined by TIME_UNIT.
-            if output_type == "pandas":
-                # In GMT, TIME_UNIT can be 'y' (year), 'o' (month), 'w' (week),
-                # 'd' (day), 'h' (hour), 'm' (minute), 's' (second).
-                # Years are 365.2425 days and months are of equal length.
-                # pd.to_timedelta() supports unit of 'W'/'D'/'h'/'m'/'s'/'ms'/'us'/'ns'.
-                match time_unit := lib.get_default("TIME_UNIT"):
-                    case "y":
-                        unit = "s"
-                        scale = 365.2425 * 86400.0
-                    case "o":
-                        unit = "s"
-                        scale = 365.2425 / 12.0 * 86400.0
-                    case _:
-                        unit = time_unit.upper() if time_unit in "wd" else time_unit
-                        scale = 1.0
+            # In GMT, TIME_UNIT can be 'y' (year), 'o' (month), 'w' (week), 'd' (day),
+            # 'h' (hour), 'm' (minute), 's' (second). Years are 365.2425 days and months
+            # are of equal length.
+            # pd.to_timedelta() supports unit of 'W'/'D'/'h'/'m'/'s'/'ms'/'us'/'ns'.
+            match time_unit := lib.get_default("TIME_UNIT"):
+                case "y":
+                    unit = "s"
+                    scale = 365.2425 * 86400.0
+                case "o":
+                    unit = "s"
+                    scale = 365.2425 / 12.0 * 86400.0
+                case _:
+                    unit = time_unit.upper() if time_unit in "wd" else time_unit
+                    scale = 1.0
 
-                columns = result.columns[2:4]
-                result[columns] *= scale
-                result[columns] = result[columns].apply(pd.to_timedelta, unit=unit)
-                if result.columns[2][0] == "t":  # "t" or "i":
-                    result[columns] += pd.Timestamp(lib.get_default("TIME_EPOCH"))
+            columns = result.columns[2:4]
+            result[columns] *= scale
+            result[columns] = result[columns].apply(pd.to_timedelta, unit=unit)
+            if result.columns[2][0] == "t":  # "t" or "i":
+                result[columns] += pd.Timestamp(lib.get_default("TIME_EPOCH"))
             return result
