@@ -244,9 +244,8 @@ def x2sys_cross(tracks=None, outfile: str | None = None, **kwargs):
                         scale = 1.0
 
                 columns = result.columns[2:4]
-                result[columns] = result[columns].apply(
-                    lambda x: pd.to_timedelta(x * scale, unit=unit)
-                )
+                result[columns] *= scale
+                result[columns] = result[columns].apply(pd.to_timedelta, unit=unit)
                 if result.columns[2][0] == "t":  # "t" or "i":
                     result[columns] += pd.Timestamp(lib.get_default("TIME_EPOCH"))
             return result
