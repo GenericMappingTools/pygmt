@@ -12,7 +12,7 @@ import numpy.testing as npt
 import pandas as pd
 import pytest
 from packaging.version import Version
-from pygmt import x2sys_cross, x2sys_init
+from pygmt import config, x2sys_cross, x2sys_init
 from pygmt.clib import __gmt_version__
 from pygmt.datasets import load_sample_data
 from pygmt.exceptions import GMTInvalidInput
@@ -60,7 +60,7 @@ def test_x2sys_cross_input_file_output_file():
         assert columns[:6] == ["# x", "y", "i_1", "i_2", "dist_1", "dist_2"]
         assert columns[6:] == ["head_1", "head_2", "vel_1", "vel_2", "z_X", "z_M"]
         npt.assert_allclose(result["i_1"].min(), 45.2099, rtol=1.0e-4)
-        npt.assert_allclose(result["i_1"].max(), 82945.93699, rtol=1.0e-4)
+        npt.assert_allclose(result["i_1"].max(), 82945.9370, rtol=1.0e-4)
 
 
 @pytest.mark.usefixtures("mock_x2sys_home")
@@ -83,11 +83,16 @@ def test_x2sys_cross_input_file_output_dataframe():
         columns = list(output.columns)
         assert columns[:6] == ["x", "y", "i_1", "i_2", "dist_1", "dist_2"]
         assert columns[6:] == ["head_1", "head_2", "vel_1", "vel_2", "z_X", "z_M"]
+        assert output["i_1"].dtype.type == np.timedelta64
+        assert output["i_2"].dtype.type == np.timedelta64
+        npt.assert_allclose(output["i_1"].min().total_seconds(), 45.2099, rtol=1.0e-4)
+        npt.assert_allclose(output["i_1"].max().total_seconds(), 82945.937, rtol=1.0e-4)
 
 
 @pytest.mark.benchmark
 @pytest.mark.usefixtures("mock_x2sys_home")
-def test_x2sys_cross_input_dataframe_output_dataframe(tracks):
+@pytest.mark.parametrize("unit", ["s", "o", "y"])
+def test_x2sys_cross_input_dataframe_output_dataframe(tracks, unit):
     """
     Run x2sys_cross by passing in one dataframe, and output internal crossovers to a
     pandas.DataFrame.
@@ -96,19 +101,44 @@ def test_x2sys_cross_input_dataframe_output_dataframe(tracks):
         tag = Path(tmpdir).name
         x2sys_init(tag=tag, fmtfile="xyz", force=True)
 
-        output = x2sys_cross(tracks=tracks, tag=tag, coe="i")
+        with config(TIME_UNIT=unit):
+            output = x2sys_cross(tracks=tracks, tag=tag, coe="i")
 
         assert isinstance(output, pd.DataFrame)
         assert output.shape == (14, 12)
         columns = list(output.columns)
         assert columns[:6] == ["x", "y", "i_1", "i_2", "dist_1", "dist_2"]
         assert columns[6:] == ["head_1", "head_2", "vel_1", "vel_2", "z_X", "z_M"]
-        assert output.dtypes["i_1"].type == np.timedelta64
-        assert output.dtypes["i_2"].type == np.timedelta64
+        assert output["i_1"].dtype.type == np.timedelta64
+        assert output["i_2"].dtype.type == np.timedelta64
+
+        # Scale to convert a value to second
+        match unit:
+            case "y":
+                scale = 365.2425 * 86400.0
+            case "o":
+                scale = 365.2425 / 12.0 * 86400.0
+            case _:
+                scale = 1.0
+        npt.assert_allclose(
+            output["i_1"].min().total_seconds(), 0.9175 * scale, rtol=1.0e-4
+        )
+        npt.assert_allclose(
+            output["i_1"].max().total_seconds(), 23.9996 * scale, rtol=1.0e-4
+        )
 
 
 @pytest.mark.usefixtures("mock_x2sys_home")
-def test_x2sys_cross_input_two_dataframes():
+@pytest.mark.parametrize(
+    ("unit", "epoch"),
+    [
+        ("s", "1970-01-01T00:00:00"),
+        ("o", "1970-01-01T00:00:00"),
+        ("y", "1970-01-01T00:00:00"),
+        ("s", "2012-03-04T05:06:07"),
+    ],
+)
+def test_x2sys_cross_input_two_dataframes(unit, epoch):
     """
     Run x2sys_cross by passing in two pandas.DataFrame tables with a time column, and
     output external crossovers to a pandas.DataFrame.
@@ -132,15 +162,22 @@ def test_x2sys_cross_input_two_dataframes():
             track["time"] = pd.date_range(start=f"2020-{i}1-01", periods=10, freq="min")
             tracks.append(track)
 
-        output = x2sys_cross(tracks=tracks, tag=tag, coe="e")
+        with config(TIME_UNIT=unit, TIME_EPOCH=epoch):
+            output = x2sys_cross(tracks=tracks, tag=tag, coe="e")
 
         assert isinstance(output, pd.DataFrame)
         assert output.shape == (26, 12)
         columns = list(output.columns)
         assert columns[:6] == ["x", "y", "t_1", "t_2", "dist_1", "dist_2"]
         assert columns[6:] == ["head_1", "head_2", "vel_1", "vel_2", "z_X", "z_M"]
-        assert output.dtypes["t_1"].type == np.datetime64
-        assert output.dtypes["t_2"].type == np.datetime64
+        assert output["t_1"].dtype.type == np.datetime64
+        assert output["t_2"].dtype.type == np.datetime64
+
+        tolerance = pd.Timedelta("1ms")
+        t1_min = pd.Timestamp("2020-01-01 00:00:10.6677")
+        t1_max = pd.Timestamp("2020-01-01 00:08:29.8067")
+        assert abs(output["t_1"].min() - t1_min) < tolerance
+        assert abs(output["t_1"].max() - t1_max) < tolerance
 
 
 @pytest.mark.usefixtures("mock_x2sys_home")
