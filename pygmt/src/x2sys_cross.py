@@ -228,7 +228,7 @@ def x2sys_cross(
             # Convert 3rd and 4th columns to datetime/timedelta for pandas output.
             # These two columns have names "t_1"/"t_2" or "i_1"/"i_2".
             # "t_1"/"t_2" means they are absolute datetimes.
-            # "i_1"/"i_2" means they are dummy times relative to unix epoch.
+            # "i_1"/"i_2" means they are dummy times.
             # Internally, they are all represented as double-precision numbers in GMT,
             # relative to TIME_EPOCH with the unit defined by TIME_UNIT.
             # In GMT, TIME_UNIT can be 'y' (year), 'o' (month), 'w' (week), 'd' (day),
