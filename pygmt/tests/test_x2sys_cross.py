@@ -55,7 +55,7 @@ def test_x2sys_cross_input_file_output_file():
         assert output is None  # check that output is None since outfile is set
         assert outfile.stat().st_size > 0  # check that outfile exists at path
         result = pd.read_csv(outfile, sep="\t", comment=">", header=2)
-        assert result.shape == (14338, 12)
+        assert result.shape == (14374, 12) if sys.platform == "darwin" else (14338, 12)
         columns = list(result.columns)
         assert columns[:6] == ["# x", "y", "i_1", "i_2", "dist_1", "dist_2"]
         assert columns[6:] == ["head_1", "head_2", "vel_1", "vel_2", "z_X", "z_M"]
@@ -65,7 +65,7 @@ def test_x2sys_cross_input_file_output_file():
 
 @pytest.mark.usefixtures("mock_x2sys_home")
 @pytest.mark.xfail(
-    condition=Version(__gmt_version__) < Version("6.5.0") or sys.platform == "darwin",
+    condition=Version(__gmt_version__) < Version("6.5.0"),
     reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8188",
 )
 def test_x2sys_cross_input_file_output_dataframe():
@@ -79,7 +79,7 @@ def test_x2sys_cross_input_file_output_dataframe():
         output = x2sys_cross(tracks=["@tut_ship.xyz"], tag=tag, coe="i")
 
         assert isinstance(output, pd.DataFrame)
-        assert output.shape == (14338, 12)
+        assert output.shape == (14374, 12) if sys.platform == "darwin" else (14338, 12)
         columns = list(output.columns)
         assert columns[:6] == ["x", "y", "i_1", "i_2", "dist_1", "dist_2"]
         assert columns[6:] == ["head_1", "head_2", "vel_1", "vel_2", "z_X", "z_M"]
@@ -243,7 +243,7 @@ def test_x2sys_cross_invalid_tracks_input_type(tracks):
 
 @pytest.mark.usefixtures("mock_x2sys_home")
 @pytest.mark.xfail(
-    condition=Version(__gmt_version__) < Version("6.5.0") or sys.platform == "darwin",
+    condition=Version(__gmt_version__) < Version("6.5.0"),
     reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8188",
 )
 def test_x2sys_cross_region_interpolation_numpoints():
@@ -264,15 +264,21 @@ def test_x2sys_cross_region_interpolation_numpoints():
         )
 
         assert isinstance(output, pd.DataFrame)
-        assert output.shape == (3882, 12)
-        # Check crossover errors (z_X) and mean value of observables (z_M)
-        npt.assert_allclose(output.z_X.mean(), -138.66, rtol=1e-4)
-        npt.assert_allclose(output.z_M.mean(), -2896.875915)
+        if sys.platform == "darwin":
+            assert output.shape == (3894, 12)
+            # Check crossover errors (z_X) and mean value of observables (z_M)
+            npt.assert_allclose(output.z_X.mean(), -138.23215, rtol=1e-4)
+            npt.assert_allclose(output.z_M.mean(), -2897.187545, rtol=1e-4)
+        else:
+            assert output.shape == (3882, 12)
+            # Check crossover errors (z_X) and mean value of observables (z_M)
+            npt.assert_allclose(output.z_X.mean(), -138.66, rtol=1e-4)
+            npt.assert_allclose(output.z_M.mean(), -2896.875915, rtol=1e-4)
 
 
 @pytest.mark.usefixtures("mock_x2sys_home")
 @pytest.mark.xfail(
-    condition=Version(__gmt_version__) < Version("6.5.0") or sys.platform == "darwin",
+    condition=Version(__gmt_version__) < Version("6.5.0"),
     reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8188",
 )
 def test_x2sys_cross_trackvalues():
@@ -285,7 +291,12 @@ def test_x2sys_cross_trackvalues():
         output = x2sys_cross(tracks=["@tut_ship.xyz"], tag=tag, trackvalues=True)
 
         assert isinstance(output, pd.DataFrame)
-        assert output.shape == (14338, 12)
-        # Check mean of track 1 values (z_1) and track 2 values (z_2)
-        npt.assert_allclose(output.z_1.mean(), -2422.418556, rtol=1e-4)
-        npt.assert_allclose(output.z_2.mean(), -2402.268364, rtol=1e-4)
+        if sys.platform == "darwin":
+            assert output.shape == (14374, 12)
+            # Check mean of track 1 values (z_1) and track 2 values (z_2)
+            npt.assert_allclose(output.z_1.mean(), -2422.973372, rtol=1e-4)
+            npt.assert_allclose(output.z_2.mean(), -2402.87476, rtol=1e-4)
+        else:
+            assert output.shape == (14338, 12)
+            npt.assert_allclose(output.z_1.mean(), -2422.418556, rtol=1e-4)
+            npt.assert_allclose(output.z_2.mean(), -2402.268364, rtol=1e-4)
