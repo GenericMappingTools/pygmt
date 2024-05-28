@@ -248,6 +248,6 @@ def x2sys_cross(
             columns = result.columns[2:4]
             result[columns] *= scale
             result[columns] = result[columns].apply(pd.to_timedelta, unit=unit)
-            if result.columns[2][0] == "t":  # "t" or "i":
+            if columns[0][0] == "t":  # "t" or "i":
                 result[columns] += pd.Timestamp(lib.get_default("TIME_EPOCH"))
             return result
