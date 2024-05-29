@@ -114,10 +114,11 @@ def show_versions(file=sys.stdout):
         Get version information of a Python module.
         """
         try:
-            if modname in sys.modules:
-                module = sys.modules[modname]
-            else:
-                module = importlib.import_module(modname)
+            module = (
+                sys.modules[modname]
+                if modname in sys.modules
+                else importlib.import_module(modname)
+            )
 
             try:
                 return module.__version__
@@ -131,9 +132,7 @@ def show_versions(file=sys.stdout):
         Get Ghostscript version.
         """
         match sys.platform:
-            case "linux" | "darwin":
-                cmds = ["gs"]
-            case os_name if os_name.startswith("freebsd"):
+            case os_name if os_name.startswith(("linux", "darwin", "freebsd")):
                 cmds = ["gs"]
             case "win32":
                 cmds = ["gswin64c.exe", "gswin32c.exe"]
@@ -182,8 +181,7 @@ def show_versions(file=sys.stdout):
     gs_version = _get_ghostscript_version()
 
     lines = []
-    lines.append("PyGMT information:")
-    lines.append(f"  version: {__version__}")
+    lines.append(f"PyGMT information:\n  version: {__version__}")
     lines.append("System information:")
     lines.extend([f"  {key}: {val}" for key, val in sys_info.items()])
     lines.append("Dependency information:")
@@ -193,7 +191,6 @@ def show_versions(file=sys.stdout):
     lines.extend([f"  {key}: {val}" for key, val in _get_clib_info().items()])
 
     if warnmsg := _check_ghostscript_version(gs_version):
-        lines.append("WARNING:")
-        lines.append(f"  {warnmsg}")
+        lines.append(f"WARNING:\n  {warnmsg}")
 
     print("\n".join(lines), file=file)
