@@ -61,6 +61,8 @@ def test_which_nonascii_path(monkeypatch):
 
             # GMT should download the remote file under the new home directory.
             fname = which(fname="@static_earth_relief.nc", download="c")
+            print(os.environ["HOME"])
+            print(fname)
             assert fname.startswith(fakehome)
             assert fname.endswith("static_earth_relief.nc")
 
