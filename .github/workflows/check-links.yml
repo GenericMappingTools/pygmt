@@ -69,6 +69,7 @@ jobs:
     - name: Create Issue From File
       if: env.lychee_exit_code != 0
       run: |
+        cd repository/
         title="Link Checker Report on ${{ steps.date.outputs.date }}"
         gh issue create --title "$title" --body-file ./lychee/out.md
       env:
