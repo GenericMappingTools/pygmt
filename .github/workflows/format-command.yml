@@ -34,14 +34,11 @@ jobs:
         run: |
           python -m pip install ruff
           python -m pip list
-          sudo apt-get install dos2unix
 
       # Run "make format" and commit the change to the PR branch
       - name: Commit to the PR branch if any changes
         run: |
           make format
-          git ls-files -z | xargs -0 dos2unix --quiet
-          git ls-files -z | xargs -0 chmod 644
           if [[ $(git ls-files -m) ]]; then
             git config --global user.name 'actions-bot'
             git config --global user.email '58130806+actions-bot@users.noreply.github.com'

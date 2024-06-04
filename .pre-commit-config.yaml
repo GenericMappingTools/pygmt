@@ -8,6 +8,13 @@ repos:
     - id: check-yaml
     - id: end-of-file-fixer
     - id: trailing-whitespace
+- repo: https://github.com/Lucas-C/pre-commit-hooks
+  rev: v1.5.5
+  hooks:
+    - id: forbid-crlf
+    - id: remove-crlf
+    - id: chmod
+      args: ['644']
 
 # https://pre-commit.ci/#configuration
 ci:

@@ -36,16 +36,9 @@ jobs:
         run: |
           python -m pip install ruff
           python -m pip list
-          sudo apt-get install dos2unix
 
       - name: Formatting check (ruff)
         run: make check
-
-      - name: Ensure files use UNIX line breaks and have 644 permission
-        run: |
-          git ls-files -z | xargs -0 dos2unix --quiet
-          git ls-files -z | xargs -0 chmod 644
-          if [[ $(git ls-files -m) ]]; then git --no-pager diff HEAD; exit 1; fi
 
       - name: Ensure example scripts have at least one code block separator
         run: |
