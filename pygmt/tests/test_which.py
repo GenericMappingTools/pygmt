@@ -60,15 +60,14 @@ def test_which_nonascii_path(monkeypatch):
             assert os.getenv("HOME") == fakehome
             assert os.environ["HOME"] == fakehome
             # assert str(Path.home().resolve()) == fakehome
-            end()
-
+            begin()
             # GMT should download the remote file under the new home directory.
             fname = which(fname="@static_earth_relief.nc", download="c", verbose="d")
             print(os.environ["HOME"])
             print(fname)
             assert fname.startswith(fakehome)
             assert fname.endswith("static_earth_relief.nc")
-            begin()
+            end()
 
     # Make sure HOME is reverted correctly.
     assert os.getenv("HOME") != fakehome
