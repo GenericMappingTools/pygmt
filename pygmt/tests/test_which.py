@@ -50,6 +50,7 @@ def test_which_nonascii_path(monkeypatch):
     """
     # Create a temporary directory with a Chinese suffix as a fake home directory.
     with TemporaryDirectory(suffix="中文") as fakehome:
+        (Path(fakehome) / ".gmt").mkdir()  # Create the ~/.gmt directory.
         assert fakehome.endswith("中文")  # Make sure fakename contains Chinese.
         with monkeypatch.context() as mpatch:
             # Set HOME to the fake home directory and GMT will use it.
