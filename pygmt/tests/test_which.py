@@ -9,6 +9,7 @@ from tempfile import TemporaryDirectory
 import pytest
 from pygmt import which
 from pygmt.helpers import unique_name
+from pygmt.session_management import begin, end
 
 
 def test_which():
@@ -59,6 +60,7 @@ def test_which_nonascii_path(monkeypatch):
             assert os.getenv("HOME") == fakehome
             assert os.environ["HOME"] == fakehome
             # assert str(Path.home().resolve()) == fakehome
+            end()
 
             # GMT should download the remote file under the new home directory.
             fname = which(fname="@static_earth_relief.nc", download="c", verbose="d")
@@ -66,6 +68,7 @@ def test_which_nonascii_path(monkeypatch):
             print(fname)
             assert fname.startswith(fakehome)
             assert fname.endswith("static_earth_relief.nc")
+            begin()
 
     # Make sure HOME is reverted correctly.
     assert os.getenv("HOME") != fakehome
