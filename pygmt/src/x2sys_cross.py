@@ -103,7 +103,9 @@ def x2sys_cross(
         set it will default to $GMT_SHAREDIR/x2sys]. (**Note**: MGD77 files
         will also be looked for via $MGD77_HOME/mgd77_paths.txt and .gmt
         files will be searched for via $GMT_SHAREDIR/mgg/gmtfile_paths).
-    {outfile}
+
+    outfile
+        The file name for the output ASCII txt file to store the table in.
     tag : str
         Specify the x2sys TAG which identifies the attributes of this data
         type.
@@ -241,7 +243,7 @@ def x2sys_cross(
                 case "o":
                     unit = "s"
                     scale = 365.2425 / 12.0 * 86400.0
-                case _:
+                case "w" | "d" | "h" | "m" | "s":
                     unit = time_unit.upper() if time_unit in "wd" else time_unit
                     scale = 1.0
 

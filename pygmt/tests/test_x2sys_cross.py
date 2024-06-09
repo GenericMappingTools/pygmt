@@ -95,7 +95,7 @@ def test_x2sys_cross_input_file_output_dataframe():
 def test_x2sys_cross_input_dataframe_output_dataframe(tracks, unit):
     """
     Run x2sys_cross by passing in one dataframe, and output internal crossovers to a
-    pandas.DataFrame.
+    pandas.DataFrame, checking TIME_UNIT s (second), o (month), and y (year).
     """
     with TemporaryDirectory(prefix="X2SYS", dir=Path.cwd()) as tmpdir:
         tag = Path(tmpdir).name
