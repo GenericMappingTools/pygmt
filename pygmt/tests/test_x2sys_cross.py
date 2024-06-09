@@ -141,7 +141,8 @@ def test_x2sys_cross_input_dataframe_output_dataframe(tracks, unit):
 def test_x2sys_cross_input_two_dataframes(unit, epoch):
     """
     Run x2sys_cross by passing in two pandas.DataFrame tables with a time column, and
-    output external crossovers to a pandas.DataFrame.
+    output external crossovers to a pandas.DataFrame, checking TIME_UNIT s (second),
+    o (month), and y (year), and TIME_EPOCH 1970 and 2012.
     """
     with TemporaryDirectory(prefix="X2SYS", dir=Path.cwd()) as tmpdir:
         tmpdir_p = Path(tmpdir)
