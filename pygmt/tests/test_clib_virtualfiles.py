@@ -69,7 +69,7 @@ def test_virtual_file(dtypes):
             vfargs = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset)
             with lib.open_virtualfile(*vfargs) as vfile:
                 with GMTTempFile() as outfile:
-                    lib.call_module("info", f"{vfile} ->{outfile.name}")
+                    lib.call_module("info", [vfile, f"->{outfile.name}"])
                     output = outfile.read(keep_tabs=True)
             bounds = "\t".join([f"<{col.min():.0f}/{col.max():.0f}>" for col in data.T])
             expected = f"<matrix memory>: N = {shape[0]}\t{bounds}\n"
@@ -144,7 +144,7 @@ def test_virtualfile_in_required_z_matrix(array_func, kind):
             data=data, required_z=True, check_kind="vector"
         ) as vfile:
             with GMTTempFile() as outfile:
-                lib.call_module("info", f"{vfile} ->{outfile.name}")
+                lib.call_module("info", [vfile, f"->{outfile.name}"])
                 output = outfile.read(keep_tabs=True)
         bounds = "\t".join(
             [
@@ -217,7 +217,7 @@ def test_virtualfile_from_vectors(dtypes):
         with clib.Session() as lib:
             with lib.virtualfile_from_vectors(x, y, z) as vfile:
                 with GMTTempFile() as outfile:
-                    lib.call_module("info", f"{vfile} ->{outfile.name}")
+                    lib.call_module("info", [vfile, f"->{outfile.name}"])
                     output = outfile.read(keep_tabs=True)
             bounds = "\t".join([f"<{i.min():.0f}/{i.max():.0f}>" for i in (x, y, z)])
             expected = f"<vector memory>: N = {size}\t{bounds}\n"
@@ -237,7 +237,7 @@ def test_virtualfile_from_vectors_one_string_or_object_column(dtype):
     with clib.Session() as lib:
         with lib.virtualfile_from_vectors(x, y, strings) as vfile:
             with GMTTempFile() as outfile:
-                lib.call_module("convert", f"{vfile} ->{outfile.name}")
+                lib.call_module("convert", [vfile, f"->{outfile.name}"])
                 output = outfile.read(keep_tabs=True)
         expected = "".join(
             f"{i}\t{j}\t{k}\n" for i, j, k in zip(x, y, strings, strict=True)
@@ -259,7 +259,7 @@ def test_virtualfile_from_vectors_two_string_or_object_columns(dtype):
     with clib.Session() as lib:
         with lib.virtualfile_from_vectors(x, y, strings1, strings2) as vfile:
             with GMTTempFile() as outfile:
-                lib.call_module("convert", f"{vfile} ->{outfile.name}")
+                lib.call_module("convert", [vfile, f"->{outfile.name}"])
                 output = outfile.read(keep_tabs=True)
         expected = "".join(
             f"{h}\t{i}\t{j} {k}\n"
@@ -278,7 +278,7 @@ def test_virtualfile_from_vectors_transpose(dtypes):
         with clib.Session() as lib:
             with lib.virtualfile_from_vectors(*data.T) as vfile:
                 with GMTTempFile() as outfile:
-                    lib.call_module("info", f"{vfile} -C ->{outfile.name}")
+                    lib.call_module("info", [vfile, "-C", f"->{outfile.name}"])
                     output = outfile.read(keep_tabs=True)
             bounds = "\t".join([f"{col.min():.0f}\t{col.max():.0f}" for col in data.T])
             expected = f"{bounds}\n"
@@ -308,7 +308,7 @@ def test_virtualfile_from_matrix(dtypes):
         with clib.Session() as lib:
             with lib.virtualfile_from_matrix(data) as vfile:
                 with GMTTempFile() as outfile:
-                    lib.call_module("info", f"{vfile} ->{outfile.name}")
+                    lib.call_module("info", [vfile, f"->{outfile.name}"])
                     output = outfile.read(keep_tabs=True)
             bounds = "\t".join([f"<{col.min():.0f}/{col.max():.0f}>" for col in data.T])
             expected = f"<matrix memory>: N = {shape[0]}\t{bounds}\n"
@@ -328,7 +328,7 @@ def test_virtualfile_from_matrix_slice(dtypes):
         with clib.Session() as lib:
             with lib.virtualfile_from_matrix(data) as vfile:
                 with GMTTempFile() as outfile:
-                    lib.call_module("info", f"{vfile} ->{outfile.name}")
+                    lib.call_module("info", [vfile, f"->{outfile.name}"])
                     output = outfile.read(keep_tabs=True)
             bounds = "\t".join([f"<{col.min():.0f}/{col.max():.0f}>" for col in data.T])
             expected = f"<matrix memory>: N = {rows}\t{bounds}\n"
@@ -354,7 +354,7 @@ def test_virtualfile_from_vectors_pandas(dtypes_pandas):
         with clib.Session() as lib:
             with lib.virtualfile_from_vectors(data.x, data.y, data.z) as vfile:
                 with GMTTempFile() as outfile:
-                    lib.call_module("info", f"{vfile} ->{outfile.name}")
+                    lib.call_module("info", [vfile, f"->{outfile.name}"])
                     output = outfile.read(keep_tabs=True)
             bounds = "\t".join(
                 [f"<{i.min():.0f}/{i.max():.0f}>" for i in (data.x, data.y, data.z)]
@@ -374,7 +374,7 @@ def test_virtualfile_from_vectors_arraylike():
     with clib.Session() as lib:
         with lib.virtualfile_from_vectors(x, y, z) as vfile:
             with GMTTempFile() as outfile:
-                lib.call_module("info", f"{vfile} ->{outfile.name}")
+                lib.call_module("info", [vfile, f"->{outfile.name}"])
                 output = outfile.read(keep_tabs=True)
         bounds = "\t".join([f"<{min(i):.0f}/{max(i):.0f}>" for i in (x, y, z)])
         expected = f"<vector memory>: N = {size}\t{bounds}\n"

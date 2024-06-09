@@ -74,11 +74,14 @@ or a [Jupyter notebook](https://docs.jupyter.org/en/latest/running.html), and tr
 ``` python
 import pygmt
 fig = pygmt.Figure()
-fig.coast(projection="H10c", region="g", frame=True, land="gray")
+fig.coast(projection="N15c", region="g", frame=True, land="tan", water="lightblue")
+fig.text(position="MC", text="PyGMT", font="80p,Helvetica-Bold,red@75")
 fig.show()
 ```
 
-For more examples, please have a look at the [Gallery](https://www.pygmt.org/latest/gallery/index.html) and
+You should see a global map with land and water masses colored in tan and lightblue, respectively. On top,
+there should be the semi-transparent text "PyGMT". For more examples, please have a look at the
+[Gallery](https://www.pygmt.org/latest/gallery/index.html) and
 [Tutorials](https://www.pygmt.org/latest/tutorials/index.html).
 
 ## Contacting us

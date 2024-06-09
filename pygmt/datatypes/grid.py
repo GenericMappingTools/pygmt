@@ -22,7 +22,7 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
     >>> from pygmt.clib import Session
     >>> with Session() as lib:
     ...     with lib.virtualfile_out(kind="grid") as voutgrd:
-    ...         lib.call_module("read", f"@static_earth_relief.nc {voutgrd} -Tg")
+    ...         lib.call_module("read", ["@static_earth_relief.nc", voutgrd, "-Tg"])
     ...         # Read the grid from the virtual file
     ...         grid = lib.read_virtualfile(voutgrd, kind="grid").contents
     ...         # The grid header
@@ -106,7 +106,7 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
         >>> from pygmt.clib import Session
         >>> with Session() as lib:
         ...     with lib.virtualfile_out(kind="grid") as voutgrd:
-        ...         lib.call_module("read", f"@static_earth_relief.nc {voutgrd} -Tg")
+        ...         lib.call_module("read", ["@static_earth_relief.nc", voutgrd, "-Tg"])
         ...         # Read the grid from the virtual file
         ...         grid = lib.read_virtualfile(voutgrd, kind="grid")
         ...         # Convert to xarray.DataArray and use it later

@@ -37,7 +37,7 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
     ...     # Read the data file
     ...     with Session() as lib:
     ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
-    ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+    ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
     ...             # The dataset
     ...             ds = lib.read_virtualfile(vouttbl, kind="dataset").contents
     ...             print(ds.n_tables, ds.n_columns, ds.n_segments)
@@ -224,7 +224,7 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
         ...         print("10.0 11.0 12.0 TEXT123 TEXT456789", file=fp)
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
-        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
         ...             ds = lib.read_virtualfile(vouttbl, kind="dataset")
         ...             text = ds.contents.to_strings()
         ...             df = ds.contents.to_dataframe(header=0)
