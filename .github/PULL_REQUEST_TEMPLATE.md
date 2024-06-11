@@ -18,10 +18,9 @@ Fixes #
 - [ ] If adding new functionality, add an example to docstrings or tutorials.
 - [ ] Use underscores (not hyphens) in names of Python files and directories.
 
-**Bot Commands**
+**Slash Commands**
 
-You can write certain commands in the first line of a comment to perform specific
-operations. Supported commands are:
+You can write slash commands (`/command`) in the first line of a comment to perform
+specific operations. Supported slash command is:
 
 - `/format`: automatically format and lint the code
-- `pre-commit.ci autofix`: run pre-commit hooks to fix trailing whitespaces and other issues
