@@ -13,3 +13,5 @@ repos:
   hooks:
     - id: forbid-crlf
     - id: remove-crlf
+    - id: chmod
+      args: ['644']

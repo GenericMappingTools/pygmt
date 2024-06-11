@@ -42,11 +42,6 @@ jobs:
            make check
            pre-commit run --all-files
 
-      - name: Ensure files have 644 permission
-        run: |
-          git ls-files -z | xargs -0 chmod 644
-          if [[ $(git ls-files -m) ]]; then git --no-pager diff HEAD; exit 1; fi
-
       - name: Ensure example scripts have at least one code block separator
         run: |
           git ls-files 'examples/**/*.py' | xargs grep --files-without-match '# %%' > output.txt
