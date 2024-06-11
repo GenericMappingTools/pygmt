@@ -13,8 +13,3 @@ repos:
   hooks:
     - id: forbid-crlf
     - id: remove-crlf
-
-# https://pre-commit.ci/#configuration
-ci:
-  autofix_prs: false
-  autoupdate_schedule: quarterly
