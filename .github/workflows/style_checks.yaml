@@ -37,7 +37,7 @@ jobs:
           python -m pip install ruff pre-commit
           python -m pip list
 
-      - name: Formatting check (ruff)
+      - name: Formatting check (ruff + pre-commit)
         run: |
            make check
            pre-commit run --all-files
