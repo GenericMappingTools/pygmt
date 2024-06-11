@@ -485,8 +485,8 @@ For consistency, we also use UNIX-style line endings (`\n`) and file permission
 644 (`-rw-r--r--`) throughout the whole project.
 Don't worry if you forget to do it. Our continuous integration systems will
 warn us and you can make a new commit with the formatted code.
-Even better, you can just write `/format` and/or `pre-commit.ci autofix` in the first
-line of any comment in a pull request to lint the code automatically.
+Even better, you can just write `/format` in the first line of any comment in a
+pull request to lint the code automatically.
 
 When wrapping a new alias, use an underscore to separate words bridged by vowels
 (aeiou), such as `no_skip` and `z_only`. Do not use an underscore to separate
