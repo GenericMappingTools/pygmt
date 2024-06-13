@@ -9,7 +9,6 @@ exclude .gitignore
 exclude .pre-commit-config.yaml
 exclude .readthedocs.yaml
 exclude AUTHORSHIP.md
-exclude CODE_OF_CONDUCT.md
 exclude CONTRIBUTING.md
 exclude Makefile
 exclude environment.yml
