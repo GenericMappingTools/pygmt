@@ -23,12 +23,12 @@ jobs:
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v4.1.5
+      uses: actions/checkout@v4.1.6
       with:
         path: repository
 
     - name: Checkout the documentation
-      uses: actions/checkout@v4.1.5
+      uses: actions/checkout@v4.1.6
       with:
         ref: gh-pages
         path: documentation
@@ -69,6 +69,7 @@ jobs:
     - name: Create Issue From File
       if: env.lychee_exit_code != 0
       run: |
+        cd repository/
         title="Link Checker Report on ${{ steps.date.outputs.date }}"
         gh issue create --title "$title" --body-file ./lychee/out.md
       env:
