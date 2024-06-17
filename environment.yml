@@ -7,7 +7,7 @@ dependencies:
     # Required dependencies
     - gmt=6.5.0
     - ghostscript=10.03.1
-    - numpy>=1.23
+    - numpy>=1.24
     - pandas>=1.5
     - xarray>=2022.06
     - netCDF4

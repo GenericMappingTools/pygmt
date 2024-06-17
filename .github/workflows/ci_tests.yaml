@@ -70,7 +70,7 @@ jobs:
         # Only install optional packages on Python 3.12
         include:
           - python-version: '3.10'
-            numpy-version: '1.23'
+            numpy-version: '1.24'
             pandas-version: '=1.5'
             xarray-version: '=2022.06'
             optional-packages: ''
