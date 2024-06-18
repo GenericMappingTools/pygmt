@@ -90,10 +90,10 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
         )[pad[2] : header.my - pad[3], pad[0] : header.mx - pad[1], :]
 
         # Get x and y coordinates
-        coords: dict[str, list] = {
+        coords: dict[str, list | np.ndarray] = {
             "x": self.x[: header.n_columns],
             "y": self.y[: header.n_rows],
-            "band": np.arange(stop=3, dtype=np.uint8),
+            "band": np.array([0, 1, 2], dtype=np.uint8),
         }
 
         # Create the xarray.DataArray object
