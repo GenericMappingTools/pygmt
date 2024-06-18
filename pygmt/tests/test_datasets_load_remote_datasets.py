@@ -3,8 +3,6 @@ Test the _load_remote_dataset function.
 """
 
 import pytest
-from packaging.version import Version
-from pygmt.clib import __gmt_version__
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.exceptions import GMTInvalidInput
 
@@ -14,8 +12,8 @@ def load_remote_dataset_wrapper(resolution="01d", region=None, registration=None
     Wrapper for _load_remote_dataset using the earth age dataset as an example.
     """
     return _load_remote_dataset(
-        dataset_name="earth_age",
-        dataset_prefix="earth_age_",
+        name="earth_age",
+        prefix="earth_age",
         resolution=resolution,
         region=region,
         registration=registration,
@@ -28,15 +26,16 @@ def test_load_remote_dataset_benchmark_with_region():
     Benchmark loading a remote dataset with 'region'.
     """
     data = load_remote_dataset_wrapper(resolution="01d", region=[-10, 10, -5, 5])
-    assert data.name == "seafloor_age"
-    assert data.attrs["long_name"] == "age of seafloor crust"
+    assert data.name == "z"
+    assert data.attrs["long_name"] == "ages (Myr)"
     assert data.attrs["units"] == "Myr"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.gmt.registration == 0
     assert data.shape == (11, 21)
     # The cpt attribute was added since GMT 6.4.0
-    if Version(__gmt_version__) >= Version("6.4.0"):
-        assert data.attrs["cpt"] == "@earth_age.cpt"
+    # Can't access the cpt attribute using virtual files
+    # if Version(__gmt_version__) >= Version("6.4.0"):
+    #    assert data.attrs["cpt"] == "@earth_age.cpt"
 
 
 def test_load_remote_dataset_invalid_resolutions():

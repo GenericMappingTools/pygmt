@@ -4,14 +4,7 @@ splines.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["surface"]
 
@@ -19,7 +12,6 @@ __doctest_skip__ = ["surface"]
 @fmt_docstring
 @use_alias(
     C="convergence",
-    G="outgrid",
     I="spacing",
     Ll="lower",
     Lu="upper",
@@ -38,7 +30,7 @@ __doctest_skip__ = ["surface"]
     w="wrap",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def surface(data=None, x=None, y=None, z=None, **kwargs):
+def surface(data=None, x=None, y=None, z=None, outgrid: str | None = None, **kwargs):
     r"""
     Grid table data using adjustable tension continuous curvature splines.
 
@@ -158,15 +150,15 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
     >>> # Perform gridding of topography data
     >>> grid = pygmt.surface(data=topography, spacing=1, region=[0, 4, 0, 8])
     """
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            with lib.virtualfile_in(
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(
                 check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
-            ) as vintbl:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="surface", args=build_arg_string(kwargs, infile=vintbl)
-                )
-
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+            ) as vintbl,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            kwargs["G"] = voutgrd
+            lib.call_module(
+                module="surface", args=build_arg_list(kwargs, infile=vintbl)
+            )
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

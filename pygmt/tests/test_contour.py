@@ -2,7 +2,7 @@
 Test Figure.contour.
 """
 
-import os
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -10,8 +10,7 @@ import pytest
 import xarray as xr
 from pygmt import Figure
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
+POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
 
 
 @pytest.fixture(scope="module", name="data")
@@ -72,6 +71,60 @@ def test_contour_from_file(region):
     fig = Figure()
     fig.contour(
         data=POINTS_DATA, projection="X10c", region=region, frame="af", pen="#ffcb87"
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_contour_interval(region):
+    """
+    Plot data with fixed (different) contour and annotation intervals.
+    """
+    fig = Figure()
+    fig.contour(
+        data=POINTS_DATA,
+        projection="X10c",
+        region=region,
+        frame="af",
+        levels=0.1,
+        annotation=0.2,
+        pen=True,
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_contour_one_level(region):
+    """
+    Plot data with one contour level and one (different) annotation level.
+    """
+    fig = Figure()
+    fig.contour(
+        data=POINTS_DATA,
+        projection="X10c",
+        region=region,
+        frame="af",
+        levels=[0.4],
+        annotation=[0.5],
+        pen=True,
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_contour_multiple_levels(region):
+    """
+    Plot data with multiple (different) contour and annotation levels.
+    """
+    fig = Figure()
+    fig.contour(
+        data=POINTS_DATA,
+        projection="X10c",
+        region=region,
+        frame="af",
+        levels=[0.2, 0.3],
+        annotation=[0.4, 0.45],
+        pen=True,
     )
     return fig
 

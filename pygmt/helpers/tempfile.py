@@ -2,12 +2,14 @@
 Utilities for dealing with temporary file management.
 """
 
-import os
+import io
 import uuid
 from contextlib import contextmanager
+from pathlib import Path
 from tempfile import NamedTemporaryFile
 
 import numpy as np
+from packaging.version import Version
 
 
 def unique_name():
@@ -72,8 +74,7 @@ class GMTTempFile:
         """
         Remove the temporary file.
         """
-        if os.path.exists(self.name):
-            os.remove(self.name)
+        Path(self.name).unlink(missing_ok=True)
 
     def read(self, keep_tabs=False):
         """
@@ -89,11 +90,10 @@ class GMTTempFile:
         content : str
             Content of the temporary file as a Unicode string.
         """
-        with open(self.name, encoding="utf8") as tmpfile:
-            content = tmpfile.read()
-            if not keep_tabs:
-                content = content.replace("\t", " ")
-            return content
+        content = Path(self.name).read_text(encoding="utf8")
+        if not keep_tabs:
+            content = content.replace("\t", " ")
+        return content
 
     def loadtxt(self, **kwargs):
         """
@@ -133,7 +133,7 @@ def tempfile_from_geojson(geojson):
     with GMTTempFile(suffix=".gmt") as tmpfile:
         import geopandas as gpd
 
-        os.remove(tmpfile.name)  # ensure file is deleted first
+        Path(tmpfile.name).unlink()  # Ensure file is deleted first
         ogrgmt_kwargs = {"filename": tmpfile.name, "driver": "OGR_GMT", "mode": "w"}
         try:
             # OGR_GMT only supports 32-bit integers. We need to map int/int64
@@ -141,29 +141,33 @@ def tempfile_from_geojson(geojson):
             # 32-bit integer overflow issue. Related issues:
             # https://github.com/geopandas/geopandas/issues/967#issuecomment-842877704
             # https://github.com/GenericMappingTools/pygmt/issues/2497
-            if geojson.index.name is None:
-                geojson.index.name = "index"
-            geojson = geojson.reset_index(drop=False)
-            schema = gpd.io.file.infer_schema(geojson)
-            for col, dtype in schema["properties"].items():
-                if dtype in ("int", "int64"):
-                    overflow = geojson[col].abs().max() > 2**31 - 1
-                    schema["properties"][col] = "float" if overflow else "int32"
-            ogrgmt_kwargs["schema"] = schema
+            if Version(gpd.__version__).major < 1:  # GeoPandas v0.x
+                # The default engine 'fiona' supports the 'schema' parameter.
+                if geojson.index.name is None:
+                    geojson.index.name = "index"
+                geojson = geojson.reset_index(drop=False)
+                schema = gpd.io.file.infer_schema(geojson)
+                for col, dtype in schema["properties"].items():
+                    if dtype in ("int", "int64"):
+                        overflow = geojson[col].abs().max() > 2**31 - 1
+                        schema["properties"][col] = "float" if overflow else "int32"
+                ogrgmt_kwargs["schema"] = schema
+            else:  # GeoPandas v1.x.
+                # The default engine "pyogrio" doesn't support the 'schema' parameter
+                # but we can change the dtype directly.
+                for col in geojson.columns:
+                    if geojson[col].dtype in ("int", "int64", "Int64"):
+                        overflow = geojson[col].abs().max() > 2**31 - 1
+                        dtype = "float" if overflow else "int32"
+                        geojson[col] = geojson[col].astype(dtype)
             # Using geopandas.to_file to directly export to OGR_GMT format
             geojson.to_file(**ogrgmt_kwargs)
         except AttributeError:
             # Other 'geo' formats which implement __geo_interface__
             import json
 
-            import fiona
-
-            with fiona.Env():
-                jsontext = json.dumps(geojson.__geo_interface__)
-                # Do Input/Output via Fiona virtual memory
-                with fiona.io.MemoryFile(file_or_bytes=jsontext.encode()) as memfile:
-                    geoseries = gpd.GeoSeries.from_file(filename=memfile)
-                    geoseries.to_file(**ogrgmt_kwargs)
+            jsontext = json.dumps(geojson.__geo_interface__)
+            gpd.read_file(filename=io.StringIO(jsontext)).to_file(**ogrgmt_kwargs)
 
         yield tmpfile.name
 
@@ -185,7 +189,7 @@ def tempfile_from_image(image):
         A temporary GeoTIFF file holding the image data. E.g. '1a2b3c4d5.tif'.
     """
     with GMTTempFile(suffix=".tif") as tmpfile:
-        os.remove(tmpfile.name)  # ensure file is deleted first
+        Path(tmpfile.name).unlink()  # Ensure file is deleted first
         try:
             image.rio.to_raster(raster_path=tmpfile.name)
         except AttributeError as e:  # object has no attribute 'rio'

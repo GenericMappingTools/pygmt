@@ -6,10 +6,10 @@ dependencies:
     - python=3.12
     # Required dependencies
     - gmt=6.5.0
-    - ghotscript=10.03.0
-    - numpy>=1.23
+    - ghostscript=10.03.1
+    - numpy>=1.24
     - pandas>=1.5
-    - xarray>=2022.03
+    - xarray>=2022.06
     - netCDF4
     - packaging
     # Optional dependencies
@@ -25,13 +25,14 @@ dependencies:
     - pip
     # Dev dependencies (style checks)
     - codespell
+    - pre-commit
     - ruff>=0.3.0
     # Dev dependencies (unit testing)
-    - matplotlib
+    - matplotlib-base
+    - pytest>=6.0
     - pytest-cov
     - pytest-doctestplus
     - pytest-mpl
-    - pytest>=6.0
     # Dev dependencies (building documentation)
     - myst-parser
     - panel

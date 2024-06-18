@@ -60,8 +60,8 @@ def load_blue_marble(resolution="01d", region=None):
     >>> image = load_blue_marble()
     """
     image = _load_remote_dataset(
-        dataset_name="earth_day",
-        dataset_prefix="earth_day_",
+        name="earth_day",
+        prefix="earth_day",
         resolution=resolution,
         region=region,
         registration="pixel",

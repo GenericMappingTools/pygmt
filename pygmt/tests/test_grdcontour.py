@@ -2,7 +2,7 @@
 Test Figure.grdcontour.
 """
 
-import os
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -10,8 +10,7 @@ from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.testing import load_static_earth_relief
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-TEST_CONTOUR_FILE = os.path.join(TEST_DATA_DIR, "contours.txt")
+TEST_CONTOUR_FILE = Path(__file__).parent / "data" / "contours.txt"
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -25,11 +24,57 @@ def fixture_grid():
 @pytest.mark.mpl_image_compare
 def test_grdcontour(grid):
     """
-    Plot a contour image using an xarray grid with fixed contour interval.
+    Plot a contour image using an xarray grid with fixed (different) contour and
+    annotation intervals.
+    """
+    fig = Figure()
+    fig.grdcontour(grid=grid, levels=50, annotation=200, projection="M10c", frame=True)
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_grdcontour_one_level(grid):
+    """
+    Plot a contour image using an xarray grid with one contour level and one
+    (different) annotation level.
     """
     fig = Figure()
     fig.grdcontour(
-        grid=grid, interval=50, annotation=200, projection="M10c", frame=True
+        grid=grid, levels=[400], annotation=[570], projection="M10c", frame=True
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_grdcontour_one_level.png")
+def test_grdcontour_old_annotations(grid):
+    """
+    Test the old syntax for the annotation parameter using "sequence_plus".
+    Modified from the "test_grdcontour_one_level()" test. Can be removed in v0.14.0.
+    """
+    fig = Figure()
+    fig.grdcontour(
+        grid=grid,
+        levels=[400],
+        annotation=["570,", "gwhite"],
+        projection="M10c",
+        frame=True,
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_grdcontour_multiple_levels(grid):
+    """
+    Plot a contour image using an xarray grid with multiple (different) contour
+    and annotation levels.
+    """
+    fig = Figure()
+    fig.grdcontour(
+        grid=grid,
+        levels=[400, 450, 500],
+        annotation=[400, 570],
+        projection="M10c",
+        frame=True,
     )
     return fig
 
@@ -43,7 +88,7 @@ def test_grdcontour_labels(grid):
     fig = Figure()
     fig.grdcontour(
         grid=grid,
-        interval=50,
+        levels=50,
         annotation=200,
         projection="M10c",
         pen=["a1p,red", "c0.5p,black"],
@@ -61,7 +106,7 @@ def test_grdcontour_slice(grid):
     grid_ = grid.sel(lat=slice(-20, -10))
 
     fig = Figure()
-    fig.grdcontour(grid=grid_, interval=100, projection="M10c", frame=True)
+    fig.grdcontour(grid=grid_, levels=100, projection="M10c", frame=True)
     return fig
 
 
@@ -74,7 +119,7 @@ def test_grdcontour_interval_file_full_opts(grid):
 
     comargs = {
         "region": [-53, -49, -20, -17],
-        "interval": TEST_CONTOUR_FILE,
+        "levels": TEST_CONTOUR_FILE,
         "grid": grid,
         "resample": 100,
         "projection": "M10c",

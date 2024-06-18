@@ -10,7 +10,7 @@ import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -139,7 +139,7 @@ def grd2xyz(
     >>> # Create a pandas DataFrame with the xyz data from an input grid
     >>> xyz_dataframe = pygmt.grd2xyz(grid=grid, output_type="pandas")
     >>> xyz_dataframe.head(n=2)
-        lon   lat  elevation
+        lon   lat          z
     0  10.0  25.0      965.5
     1  10.5  25.0      876.5
     """
@@ -165,8 +165,8 @@ def grd2xyz(
         ):
             lib.call_module(
                 module="grd2xyz",
-                args=build_arg_string(kwargs, infile=vingrd, outfile=vouttbl),
+                args=build_arg_list(kwargs, infile=vingrd, outfile=vouttbl),
             )
             return lib.virtualfile_to_dataset(
-                output_type=output_type, vfname=vouttbl, column_names=column_names
+                vfname=vouttbl, output_type=output_type, column_names=column_names
             )

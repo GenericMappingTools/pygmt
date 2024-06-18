@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING
 
 from packaging.version import Version
 from pygmt.clib import Session, __gmt_version__
-from pygmt.helpers import build_arg_string, deprecate_parameter, kwargs_to_strings
+from pygmt.helpers import build_arg_list, kwargs_to_strings
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
@@ -18,7 +18,6 @@ if TYPE_CHECKING:
 __doctest_skip__ = ["timestamp"]
 
 
-@deprecate_parameter("justification", "justify", "v0.11.0", remove_version="v0.13.0")
 @kwargs_to_strings(offset="sequence")
 def timestamp(
     self,
@@ -114,7 +113,7 @@ def timestamp(
     with Session() as lib:
         lib.call_module(
             module="plot",
-            args=build_arg_string(
+            args=build_arg_list(
                 kwdict, confdict={"FONT_LOGO": font, "FORMAT_TIME_STAMP": timefmt}
             ),
         )

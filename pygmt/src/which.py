@@ -3,19 +3,12 @@ which - Find the full path to specified files.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_list, fmt_docstring, is_nonstr_iter, use_alias
 
 
 @fmt_docstring
 @use_alias(G="download", V="verbose")
-@kwargs_to_strings(fname="sequence_space")
-def which(fname, **kwargs):
+def which(fname, **kwargs) -> str | list[str]:
     r"""
     Find the full path to specified files.
 
@@ -56,7 +49,7 @@ def which(fname, **kwargs):
 
     Returns
     -------
-    path : str or list
+    path
         The path(s) to the file(s), depending on the parameters used.
 
     Raises
@@ -64,14 +57,19 @@ def which(fname, **kwargs):
     FileNotFoundError
         If the file is not found.
     """
-    with GMTTempFile() as tmpfile:
-        with Session() as lib:
+    with Session() as lib:
+        with lib.virtualfile_out(kind="dataset") as vouttbl:
             lib.call_module(
                 module="which",
-                args=build_arg_string(kwargs, infile=fname, outfile=tmpfile.name),
+                args=build_arg_list(kwargs, infile=fname, outfile=vouttbl),
             )
-        path = tmpfile.read().strip()
-    if not path:
-        _fname = fname.replace(" ", "', '")
-        raise FileNotFoundError(f"File(s) '{_fname}' not found.")
-    return path.split("\n") if "\n" in path else path
+            paths = lib.virtualfile_to_dataset(vfname=vouttbl, output_type="strings")
+
+    match paths.size:
+        case 0:
+            _fname = "', '".join(fname) if is_nonstr_iter(fname) else fname
+            raise FileNotFoundError(f"File(s) '{_fname}' not found.")
+        case 1:
+            return paths[0]
+        case _:
+            return paths.tolist()

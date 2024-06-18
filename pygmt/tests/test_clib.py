@@ -2,7 +2,6 @@
 Test the wrappers for the C API.
 """
 
-import os
 from contextlib import contextmanager
 from pathlib import Path
 
@@ -22,7 +21,7 @@ from pygmt.exceptions import (
 )
 from pygmt.helpers import GMTTempFile
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
+POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
 
 
 @contextmanager
@@ -66,15 +65,13 @@ def mock(session, func, returns=None, mock_func=None):
 
 def test_getitem():
     """
-    Test that I can get correct constants from the C lib.
+    Test getting the GMT constants from the C library.
     """
-    ses = clib.Session()
-    assert ses["GMT_SESSION_EXTERNAL"] != -99999
-    assert ses["GMT_MODULE_CMD"] != -99999
-    assert ses["GMT_PAD_DEFAULT"] != -99999
-    assert ses["GMT_DOUBLE"] != -99999
-    with pytest.raises(GMTCLibError):
-        ses["A_WHOLE_LOT_OF_JUNK"]
+    with clib.Session() as lib:
+        for name in ["GMT_SESSION_EXTERNAL", "GMT_MODULE_CMD", "GMT_DOUBLE"]:
+            assert lib[name] != -99999
+        with pytest.raises(GMTCLibError):
+            lib["A_WHOLE_LOT_OF_JUNK"]
 
 
 def test_create_destroy_session():
@@ -134,43 +131,73 @@ def test_destroy_session_fails():
 @pytest.mark.benchmark
 def test_call_module():
     """
-    Run a command to see if call_module works.
+    Call a GMT module by passing a list of arguments.
     """
-    data_fname = os.path.join(TEST_DATA_DIR, "points.txt")
-    out_fname = "test_call_module.txt"
     with clib.Session() as lib:
         with GMTTempFile() as out_fname:
-            lib.call_module("info", f"{data_fname} -C ->{out_fname.name}")
+            lib.call_module("info", [str(POINTS_DATA), "-C", f"->{out_fname.name}"])
             assert Path(out_fname.name).stat().st_size > 0
             output = out_fname.read().strip()
             assert output == "11.5309 61.7074 -2.9289 7.8648 0.1412 0.9338"
 
 
+def test_call_module_argument_string():
+    """
+    Call a GMT module by passing a single argument string.
+    """
+    with clib.Session() as lib:
+        with GMTTempFile() as out_fname:
+            lib.call_module("info", f"{POINTS_DATA} -C ->{out_fname.name}")
+            assert Path(out_fname.name).stat().st_size > 0
+            output = out_fname.read().strip()
+            assert output == "11.5309 61.7074 -2.9289 7.8648 0.1412 0.9338"
+
+
+def test_call_module_empty_argument():
+    """
+    call_module should work if an empty string or an empty list is passed as argument.
+    """
+    Figure()
+    with clib.Session() as lib:
+        lib.call_module("logo", "")
+    with clib.Session() as lib:
+        lib.call_module("logo", [])
+
+
+def test_call_module_invalid_argument_type():
+    """
+    call_module only accepts a string or a list of strings as module arguments.
+    """
+    with clib.Session() as lib:
+        with pytest.raises(GMTInvalidInput):
+            lib.call_module("get", ("FONT_TITLE", "FONT_TAG"))
+
+
 def test_call_module_invalid_arguments():
     """
-    Fails for invalid module arguments.
+    call_module should fail for invalid module arguments.
     """
     with clib.Session() as lib:
         with pytest.raises(GMTCLibError):
-            lib.call_module("info", "bogus-data.bla")
+            lib.call_module("info", ["bogus-data.bla"])
 
 
 def test_call_module_invalid_name():
     """
-    Fails when given bad input.
+    call_module should fail when an invalid module name is given.
     """
     with clib.Session() as lib:
         with pytest.raises(GMTCLibError):
-            lib.call_module("meh", "")
+            lib.call_module("meh", [])
 
 
 def test_call_module_error_message():
     """
-    Check is the GMT error message was captured.
+    Check if the GMT error message was captured when calling a module.
     """
     with clib.Session() as lib:
         with pytest.raises(GMTCLibError) as exc_info:
-            lib.call_module("info", "bogus-data.bla")
+            lib.call_module("info", ["bogus-data.bla"])
         assert "Module 'info' failed with status code" in exc_info.value.args[0]
         assert (
             "gmtinfo [ERROR]: Cannot find file bogus-data.bla" in exc_info.value.args[0]
@@ -184,7 +211,7 @@ def test_method_no_session():
     # Create an instance of Session without "with" so no session is created.
     lib = clib.Session()
     with pytest.raises(GMTCLibNoSessionError):
-        lib.call_module("gmtdefaults", "")
+        lib.call_module("gmtdefaults", [])
     with pytest.raises(GMTCLibNoSessionError):
         _ = lib.session_pointer
 
@@ -356,14 +383,14 @@ def test_extract_region_two_figures():
     # Activate the first figure and extract the region from it
     # Use in a different session to avoid any memory problems.
     with clib.Session() as lib:
-        lib.call_module("figure", f"{fig1._name} -")
+        lib.call_module("figure", [fig1._name, "-"])
     with clib.Session() as lib:
         wesn1 = lib.extract_region()
         npt.assert_allclose(wesn1, region1)
 
     # Now try it with the second one
     with clib.Session() as lib:
-        lib.call_module("figure", f"{fig2._name} -")
+        lib.call_module("figure", [fig2._name, "-"])
     with clib.Session() as lib:
         wesn2 = lib.extract_region()
         npt.assert_allclose(wesn2, np.array([-165.0, -150.0, 15.0, 25.0]))
@@ -505,6 +532,7 @@ def test_get_default():
         assert lib.get_default("API_GRID_LAYOUT") in ["rows", "columns"]
         assert int(lib.get_default("API_CORES")) >= 1
         assert Version(lib.get_default("API_VERSION")) >= Version("6.3.0")
+        assert lib.get_default("PROJ_LENGTH_UNIT") == "cm"
 
 
 def test_get_default_fails():

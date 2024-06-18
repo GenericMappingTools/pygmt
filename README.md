@@ -16,7 +16,7 @@
 [![Digital Object Identifier for the Zenodo archive](https://zenodo.org/badge/DOI/10.5281/3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
 [![PyOpenSci](https://tinyurl.com/y22nb8up)](https://github.com/pyOpenSci/software-review/issues/43)
 [![GitHub license](https://img.shields.io/github/license/GenericMappingTools/pygmt?style=flat-square)](https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt)
-[![Contributor Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-v2.1%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
+[![Contributor Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-v2.1%20adopted-ff69b4.svg)](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md)
 
 <!-- doc-index-start-after -->
 
@@ -74,11 +74,14 @@ or a [Jupyter notebook](https://docs.jupyter.org/en/latest/running.html), and tr
 ``` python
 import pygmt
 fig = pygmt.Figure()
-fig.coast(projection="H10c", region="g", frame=True, land="gray")
+fig.coast(projection="N15c", region="g", frame=True, land="tan", water="lightblue")
+fig.text(position="MC", text="PyGMT", font="80p,Helvetica-Bold,red@75")
 fig.show()
 ```
 
-For more examples, please have a look at the [Gallery](https://www.pygmt.org/latest/gallery/index.html) and
+You should see a global map with land and water masses colored in tan and lightblue, respectively. On top,
+there should be the semi-transparent text "PyGMT". For more examples, please have a look at the
+[Gallery](https://www.pygmt.org/latest/gallery/index.html) and
 [Tutorials](https://www.pygmt.org/latest/tutorials/index.html).
 
 ## Contacting us
@@ -129,12 +132,12 @@ research using the following BibTeX:
 
 ```
 @software{
-  pygmt_2024_10578540,
+  pygmt_2024_11062720,
   author       = {Tian, Dongdong and
                   Uieda, Leonardo and
                   Leong, Wei Ji and
-                  Schlitzer, William and
                   Fröhlich, Yvonne and
+                  Schlitzer, William and
                   Grund, Michael and
                   Jones, Max and
                   Toney, Liam and
@@ -149,12 +152,12 @@ research using the following BibTeX:
                   Quinn, Jamie and
                   Wessel, Paul},
   title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-  month        = feb,
+  month        = may,
   year         = 2024,
   publisher    = {Zenodo},
-  version      = {0.11.0},
-  doi          = {10.5281/zenodo.10578540},
-  url          = {https://doi.org/10.5281/zenodo.10578540}
+  version      = {0.12.0},
+  doi          = {10.5281/zenodo.11062720},
+  url          = {https://doi.org/10.5281/zenodo.11062720}
 }
 ```
 

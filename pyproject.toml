@@ -30,9 +30,9 @@ classifiers = [
     "License :: OSI Approved :: BSD License",
 ]
 dependencies = [
-    "numpy>=1.23",
+    "numpy>=1.24",
     "pandas>=1.5",
-    "xarray>=2022.03",
+    "xarray>=2022.06",
     "netCDF4",
     "packaging",
 ]
@@ -42,7 +42,7 @@ dynamic = ["version"]
 all = [
     "contextily",
     "geopandas",
-    "ipython",
+    "IPython",  # 'ipython' is not the correct module name.
     "rioxarray",
 ]
 
@@ -107,6 +107,7 @@ select = [
     "PIE",  # flake8-pie
     "PL",   # pylint
     "PT",   # flake8-pytest-style
+    "PTH",  # flake8-use-pathlib
     "RET",  # flake8-return
     "RSE",  # flake8-raise
     "RUF",  # ruff-specific
