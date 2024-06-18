@@ -18,13 +18,14 @@ def test_earth_relief_01d_igpp_synbath(data_source):
     Test some properties of the earth relief 01d data with IGPP and SYNBATH data.
     """
     data = load_earth_relief(resolution="01d", data_source=data_source)
-    assert data.name == "elevation"
+    assert data.name == "z"
+    assert data.attrs["long_name"] == "elevation (m)"
+    assert data.attrs["description"] == "IGPP Earth relief"
     assert data.attrs["units"] == "meters"
-    assert data.attrs["long_name"] == "Earth elevation relative to the geoid"
     assert data.attrs["vertical_datum"] == "EGM96"
     assert data.attrs["horizontal_datum"] == "WGS84"
-    assert data.gmt.registration == 0
     assert data.shape == (181, 361)
+    assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
     npt.assert_allclose(data.min(), -7174.0, atol=0.5)
@@ -37,8 +38,10 @@ def test_earth_relief_01d_gebco(data_source):
     Test some properties of the earth relief 01d data with GEBCO and GEBOCSI data.
     """
     data = load_earth_relief(resolution="01d", data_source=data_source)
+    assert data.name == "z"
+    assert data.attrs["long_name"] == "elevation (m)"
+    assert data.attrs["description"] == "GEBCO Earth relief"
     assert data.attrs["units"] == "meters"
-    assert data.attrs["long_name"] == "Earth elevation relative to the geoid"
     assert data.attrs["vertical_datum"] == "EGM96"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
@@ -62,7 +65,7 @@ def test_earth_relief_01d_with_region_srtm():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
-    npt.assert_allclose(data.min(), -5136.0, atol=0.5)
+    npt.assert_allclose(data.min(), -5118.0, atol=0.5)
     npt.assert_allclose(data.max(), 680.5, atol=0.5)
 
 
@@ -186,7 +189,7 @@ def test_earth_relief_15s_default_registration():
     npt.assert_allclose(data.coords["lon"].data.min(), -9.997917)
     npt.assert_allclose(data.coords["lon"].data.max(), -9.502083)
     npt.assert_allclose(data.min(), -3897, atol=0.5)
-    npt.assert_allclose(data.max(), -71, atol=0.5)
+    npt.assert_allclose(data.max(), -76.5, atol=0.5)
 
 
 @pytest.mark.xfail(
@@ -206,4 +209,4 @@ def test_earth_relief_03s_default_registration():
     npt.assert_allclose(data.coords["lon"].data.min(), -10)
     npt.assert_allclose(data.coords["lon"].data.max(), -9.8)
     npt.assert_allclose(data.min(), -2069.85, atol=0.5)
-    npt.assert_allclose(data.max(), -924.5, atol=0.5)
+    npt.assert_allclose(data.max(), -923.5, atol=0.5)

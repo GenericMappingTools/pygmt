@@ -12,9 +12,10 @@ def test_mercury_relief_01d():
     Test some properties of the Mercury relief 01d data.
     """
     data = load_mercury_relief(resolution="01d")
-    assert data.name == "mercury_relief"
+    assert data.name == "z"
+    assert data.attrs["long_name"] == "elevation (m)"
+    assert data.attrs["description"] == "USGS Mercury relief"
     assert data.attrs["units"] == "meters"
-    assert data.attrs["long_name"] == "USGS Mercury relief"
     assert data.shape == (181, 361)
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))

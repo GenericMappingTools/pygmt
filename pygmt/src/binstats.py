@@ -3,7 +3,7 @@ binstats - Bin spatial data and determine statistics per bin
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
@@ -109,6 +109,6 @@ def binstats(data, outgrid: str | None = None, **kwargs):
         ):
             kwargs["G"] = voutgrd
             lib.call_module(
-                module="binstats", args=build_arg_string(kwargs, infile=vintbl)
+                module="binstats", args=build_arg_list(kwargs, infile=vintbl)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

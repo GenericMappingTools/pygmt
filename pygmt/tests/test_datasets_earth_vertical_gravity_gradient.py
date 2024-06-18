@@ -12,9 +12,10 @@ def test_earth_vertical_gravity_gradient_01d():
     Test some properties of the earth vgg 01d data.
     """
     data = load_earth_vertical_gravity_gradient(resolution="01d")
-    assert data.name == "earth_vgg"
+    assert data.name == "z"
+    assert data.attrs["long_name"] == "vgg (Eotvos)"
+    assert data.attrs["description"] == "IGPP Earth vertical gravity gradient"
     assert data.attrs["units"] == "Eotvos"
-    assert data.attrs["long_name"] == "IGPP Earth Vertical Gravity Gradient"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
     assert data.gmt.registration == 0

@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -144,7 +144,7 @@ class triangulate:  # noqa: N801
             ):
                 kwargs["G"] = voutgrd
                 lib.call_module(
-                    module="triangulate", args=build_arg_string(kwargs, infile=vintbl)
+                    module="triangulate", args=build_arg_list(kwargs, infile=vintbl)
                 )
                 return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
 
@@ -233,7 +233,7 @@ class triangulate:  # noqa: N801
         ``triangulate`` is a Cartesian or small-geographic area operator and is
         unaware of periodic or polar boundary conditions.
         """
-        output_type = validate_output_table_type(output_type, outfile)
+        output_type = validate_output_table_type(output_type, outfile=outfile)
 
         with Session() as lib:
             with (
@@ -244,6 +244,6 @@ class triangulate:  # noqa: N801
             ):
                 lib.call_module(
                     module="triangulate",
-                    args=build_arg_string(kwargs, infile=vintbl, outfile=vouttbl),
+                    args=build_arg_list(kwargs, infile=vintbl, outfile=vouttbl),
                 )
             return lib.virtualfile_to_dataset(vfname=vouttbl, output_type=output_type)

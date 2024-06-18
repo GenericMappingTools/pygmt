@@ -3,12 +3,11 @@ which - Find the full path to specified files.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, is_nonstr_iter, use_alias
 
 
 @fmt_docstring
 @use_alias(G="download", V="verbose")
-@kwargs_to_strings(fname="sequence_space")
 def which(fname, **kwargs) -> str | list[str]:
     r"""
     Find the full path to specified files.
@@ -62,13 +61,13 @@ def which(fname, **kwargs) -> str | list[str]:
         with lib.virtualfile_out(kind="dataset") as vouttbl:
             lib.call_module(
                 module="which",
-                args=build_arg_string(kwargs, infile=fname, outfile=vouttbl),
+                args=build_arg_list(kwargs, infile=fname, outfile=vouttbl),
             )
             paths = lib.virtualfile_to_dataset(vfname=vouttbl, output_type="strings")
 
     match paths.size:
         case 0:
-            _fname = fname.replace(" ", "', '")
+            _fname = "', '".join(fname) if is_nonstr_iter(fname) else fname
             raise FileNotFoundError(f"File(s) '{_fname}' not found.")
         case 1:
             return paths[0]

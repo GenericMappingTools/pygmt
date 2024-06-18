@@ -3,7 +3,7 @@ sphinterpolate - Spherical gridding in tension of data on a sphere
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["sphinterpolate"]
 
@@ -65,6 +65,6 @@ def sphinterpolate(data, outgrid: str | None = None, **kwargs):
         ):
             kwargs["G"] = voutgrd
             lib.call_module(
-                module="sphinterpolate", args=build_arg_string(kwargs, infile=vintbl)
+                module="sphinterpolate", args=build_arg_list(kwargs, infile=vintbl)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

@@ -4,7 +4,7 @@ splines.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["surface"]
 
@@ -159,6 +159,6 @@ def surface(data=None, x=None, y=None, z=None, outgrid: str | None = None, **kwa
         ):
             kwargs["G"] = voutgrd
             lib.call_module(
-                module="surface", args=build_arg_string(kwargs, infile=vintbl)
+                module="surface", args=build_arg_list(kwargs, infile=vintbl)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
