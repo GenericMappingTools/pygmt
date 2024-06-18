@@ -427,14 +427,20 @@ def _load_remote_dataset(
         )
 
     # Currently, only grids are supported. Will support images in the future.
-    kwdict = {"T": "g", "R": region}  # region can be None
+    kwdict = {"R": region}  # region can be None
+    if name in ("earth_day",):
+        kind = "image"
+        kwdict.update({"T": "i"})
+    else:
+        kind = "grid"
+        kwdict.update({"T": "g"})
     with Session() as lib:
-        with lib.virtualfile_out(kind="grid") as voutgrd:
+        with lib.virtualfile_out(kind=kind) as voutgrd:
             lib.call_module(
                 module="read",
                 args=[fname, voutgrd, *build_arg_list(kwdict)],
             )
-            grid = lib.virtualfile_to_raster(outgrid=None, vfname=voutgrd)
+            grid = lib.virtualfile_to_raster(kind=kind, outgrid=None, vfname=voutgrd)
 
     # Full path to the grid if not tiled grids.
     source = which(fname, download="a") if not resinfo.tiled else None
