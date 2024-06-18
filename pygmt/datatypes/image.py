@@ -69,9 +69,9 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
         ("hidden", ctp.c_void_p),
     ]
 
-    def to_dataarray(self):
+    def to_dataarray(self) -> xr.DataArray:
         """
-        Convert a _GMT_GRID object to an :class:`xarray.DataArray` object.
+        Convert a _GMT_IMAGE object to an :class:`xarray.DataArray` object.
 
         Returns
         -------
@@ -79,7 +79,7 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
             A :class:`xarray.DataArray` object.
         """
 
-        # Get grid header
+        # Get image header
         header: _GMT_GRID_HEADER = self.header.contents
 
         # Get DataArray without padding
