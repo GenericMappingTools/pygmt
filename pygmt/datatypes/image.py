@@ -7,7 +7,7 @@ from typing import ClassVar
 
 import numpy as np
 import xarray as xr
-from pygmt.datatypes.grid import _GMT_GRID_HEADER
+from pygmt.datatypes.header import _GMT_GRID_HEADER
 
 
 class _GMT_IMAGE(ctp.Structure):  # noqa: N801
@@ -97,6 +97,12 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
         }
 
         # Create the xarray.DataArray object
-        image = xr.DataArray(data=data, coords=coords, dims=("y", "x", "band"))
+        image = xr.DataArray(
+            data=data,
+            coords=coords,
+            dims=("y", "x", "band"),
+            name=header.name,
+            attrs=header.data_attrs,
+        )
 
         return image
