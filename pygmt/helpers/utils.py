@@ -232,6 +232,8 @@ def non_ascii_to_octal(argstr):
     '@%34%\\41@%%@%34%\\176@%%@%34%\\241@%%@%34%\\376@%%'
     >>> non_ascii_to_octal("ABC ±120° DEF α ♥")
     'ABC \\261120\\260 DEF @~\\141@~ @%34%\\252@%%'
+    >>> non_ascii_to_octal("'‘’\"“”")
+    '\\234\\140\\47\\042\\216\\217'
     """  # noqa: RUF002
     # Return the string if it only contains printable ASCII characters from 32 to 126.
     if all(32 <= ord(c) <= 126 for c in argstr):
@@ -321,8 +323,12 @@ def non_ascii_to_octal(argstr):
     # \240-\377
     mapping.update({chr(i): "\\" + format(i, "o") for i in range(160, 256)})
 
-    # Remove any printable characters
+    # Remove any printable characters.
     mapping = {k: v for k, v in mapping.items() if k not in string.printable}
+    # Mapping single quote ' and double quote " to octal codes because they often cause
+    # troubles.
+    mapping['"'] = "\\042"
+    mapping["'"] = "\\234"  # Not \047
     return argstr.translate(str.maketrans(mapping))
 
 
@@ -512,7 +518,7 @@ def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
     ...         ),
     ...     )
     ... )
-    -BWSne+tBlank\040Space -Baf -F+t"Empty\040\040Spaces" -l'Void\040Space'
+    -BWSne+tBlank\040Space -Baf -F+t\042Empty\040\040Spaces\042 -l\234Void\040Space\234
     >>> print(
     ...     build_arg_string(
     ...         dict(A="0", B=True, C="rainbow"),
@@ -550,15 +556,17 @@ def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
                 _value = str(kwdict[key]).replace(" ", "")
             gmt_args.append(rf"-{key}{_value}")
     gmt_args = sorted(gmt_args)
+    argstr = non_ascii_to_octal(" ".join(gmt_args))
 
     if confdict:
-        gmt_args.extend(f'--{key}="{value}"' for key, value in confdict.items())
+        confstr = " ".join(f'--{key}="{value}"' for key, value in confdict.items())
+        argstr += f" {confstr}"
 
     if infile:
-        gmt_args = [str(infile), *gmt_args]
+        argstr = f"{infile} {argstr}"
     if outfile:
-        gmt_args.append("->" + str(outfile))
-    return non_ascii_to_octal(" ".join(gmt_args))
+        argstr += f" ->{outfile}"
+    return argstr
 
 
 def is_nonstr_iter(value):
