@@ -53,7 +53,7 @@ def fixture_expected_df():
     return pd.DataFrame(
         data=np.array([[345.5, 519.5, 0], [519.5, 726.5, 1]]),
         columns=["start", "stop", "bin_id"],
-    ).astype({"start": np.float32, "stop": np.float32, "bin_id": np.uint32})
+    ).astype({"start": np.float32, "stop": np.float32, "bin_id": np.int64})
 
 
 def test_equalize_grid_outgrid_file(grid, expected_grid, region):

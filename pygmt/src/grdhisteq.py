@@ -243,7 +243,7 @@ class grdhisteq:  # noqa: N801
                 dtype={
                     "start": np.float32,
                     "stop": np.float32,
-                    "bin_id": np.uint32,
+                    "bin_id": np.int64,
                 },
                 index_col="bin_id" if output_type == "pandas" else None,
             )
