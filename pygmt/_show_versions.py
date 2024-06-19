@@ -90,7 +90,7 @@ def _check_ghostscript_version(gs_version: str) -> str | None:
             if Version(__gmt_version__) < Version("6.5.0"):
                 return (
                     f"GMT v{__gmt_version__} doesn't support Ghostscript "
-                    "v{gs_version}. Please consider upgrading to GMT>=6.5.0 or "
+                    f"v{gs_version}. Please consider upgrading to GMT>=6.5.0 or "
                     "downgrading to Ghostscript v9.56."
                 )
     return None

@@ -6,9 +6,14 @@ from pathlib import Path
 
 import pytest
 import xarray as xr
+from packaging.version import Version
 from pygmt import grdsample, load_dataarray
+from pygmt.clib import __gmt_version__
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
+
+# GMT 6.3 on conda-forge doesn't have OpenMP enabled.
+cores = 2 if Version(__gmt_version__) > Version("6.3.0") else None
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -75,7 +80,7 @@ def test_grdsample_dataarray_out(grid, expected_grid, region, spacing):
     """
     Test grdsample with no outgrid set and the spacing is changed.
     """
-    result = grdsample(grid=grid, spacing=spacing, region=region, cores=2)
+    result = grdsample(grid=grid, spacing=spacing, region=region, cores=cores)
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
     assert result.gmt.gtype == 1  # Geographic grid

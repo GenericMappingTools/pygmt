@@ -39,6 +39,10 @@ def fixture_tracks():
 
 
 @pytest.mark.usefixtures("mock_x2sys_home")
+@pytest.mark.xfail(
+    condition=Version(__gmt_version__) < Version("6.5.0"),
+    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8188",
+)
 def test_x2sys_cross_input_file_output_file():
     """
     Run x2sys_cross by passing in a filename, and output internal crossovers to an ASCII

@@ -124,6 +124,8 @@ def dataarray_to_matrix(grid):
         grid = grid.sortby(variables=list(grid.dims), ascending=True)
 
     matrix = as_c_contiguous(grid[::-1].to_numpy())
+    region = [float(i) for i in region]
+    inc = [float(i) for i in inc]
     return matrix, region, inc
 
 
