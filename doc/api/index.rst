@@ -203,7 +203,6 @@ Miscellaneous
     :toctree: generated
 
     which
-    print_clib_info
     show_versions
 
 .. currentmodule:: pygmt

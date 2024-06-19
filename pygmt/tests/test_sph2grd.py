@@ -6,8 +6,13 @@ from pathlib import Path
 
 import numpy.testing as npt
 import pytest
+from packaging.version import Version
 from pygmt import sph2grd
+from pygmt.clib import __gmt_version__
 from pygmt.helpers import GMTTempFile
+
+# GMT 6.3 on conda-forge doesn't have OpenMP enabled.
+cores = 2 if Version(__gmt_version__) > Version("6.3.0") else None
 
 
 def test_sph2grd_outgrid():
@@ -27,7 +32,7 @@ def test_sph2grd_no_outgrid():
     """
     Test sph2grd with no set outgrid.
     """
-    temp_grid = sph2grd(data="@EGM96_to_36.txt", spacing=1, region="g", cores=2)
+    temp_grid = sph2grd(data="@EGM96_to_36.txt", spacing=1, region="g", cores=cores)
     assert temp_grid.dims == ("y", "x")
     assert temp_grid.gmt.gtype == 0  # Cartesian grid
     assert temp_grid.gmt.registration == 0  # Gridline registration

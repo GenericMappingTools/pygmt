@@ -61,6 +61,7 @@ test_no_images: _runtest
 format:
 	ruff check --fix --exit-zero $(FORMAT_FILES)
 	ruff format $(FORMAT_FILES)
+	pre-commit run --all-files
 
 check:
 	ruff check $(FORMAT_FILES)

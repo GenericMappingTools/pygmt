@@ -46,7 +46,7 @@ def dataframe_from_gmt(fname, **kwargs):
     """
     with Session() as lib:
         with lib.virtualfile_out(kind="dataset") as vouttbl:
-            lib.call_module("read", f"{fname} {vouttbl} -Td")
+            lib.call_module("read", [fname, vouttbl, "-Td"])
             df = lib.virtualfile_to_dataset(vfname=vouttbl, **kwargs)
             return df
 
