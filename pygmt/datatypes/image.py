@@ -19,7 +19,6 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
     >>> from pygmt.clib import Session
     >>> import numpy as np
     >>> import xarray as xr
-    >>> import rioxarray
 
     >>> with Session() as lib:
     ...     with lib.virtualfile_out(kind="image") as voutimg:
