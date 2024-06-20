@@ -1697,7 +1697,9 @@ class Session:
 
     @contextlib.contextmanager
     def virtualfile_out(
-        self, kind: Literal["dataset", "grid"] = "dataset", fname: str | None = None
+        self,
+        kind: Literal["dataset", "grid", "image"] = "dataset",
+        fname: str | None = None,
     ):
         r"""
         Create a virtual file or an actual file for storing output data.
@@ -1754,8 +1756,11 @@ class Session:
             family, geometry = {
                 "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP"),
                 "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE"),
+                "image": ("GMT_IS_IMAGE", "GMT_IS_SURFACE"),
             }[kind]
-            with self.open_virtualfile(family, geometry, "GMT_OUT", None) as vfile:
+            with self.open_virtualfile(
+                family, geometry, "GMT_OUT|GMT_IS_REFERENCE", None
+            ) as vfile:
                 yield vfile
 
     def inquire_virtualfile(self, vfname: str) -> int:
