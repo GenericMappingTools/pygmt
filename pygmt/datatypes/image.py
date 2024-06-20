@@ -143,6 +143,9 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
                -80.5, -81.5, -82.5, -83.5, -84.5, -85.5, -86.5, -87.5, -88.5, -89.5])
         Coordinates:
           * y        (y) float64 1kB 89.5 88.5 87.5 86.5 ... -86.5 -87.5 -88.5 -89.5
+
+        >>> da.gmt.registration, da.gmt.gtype
+        (1, 0)
         """
 
         # Get image header
@@ -171,4 +174,8 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
             attrs=header.data_attrs,
         ).transpose("band", "y", "x")
 
+        # Set GMT accessors.
+        # Must put at the end, otherwise info gets lost after certain image operations.
+        image.gmt.registration = header.registration
+        image.gmt.gtype = header.gtype
         return image
