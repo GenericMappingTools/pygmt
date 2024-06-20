@@ -35,7 +35,6 @@ from pygmt.exceptions import (
 )
 from pygmt.helpers import (
     data_kind,
-    fmt_docstring,
     tempfile_from_geojson,
     tempfile_from_image,
 )
@@ -93,6 +92,8 @@ DTYPES = {
     np.datetime64: "GMT_DATETIME",
     np.timedelta64: "GMT_LONG",
 }
+# Dictionary for storing the values of GMT constants.
+GMT_CONSTANTS = {}
 
 # Load the GMT library outside the Session class to avoid repeated loading.
 _libgmt = load_libgmt()
@@ -147,7 +148,7 @@ class Session:
     ...         with GMTTempFile() as fout:
     ...             # Call the grdinfo module with the virtual file as input
     ...             # and the temp file as output.
-    ...             ses.call_module("grdinfo", f"{fin} -C ->{fout.name}")
+    ...             ses.call_module("grdinfo", [fin, "-C", f"->{fout.name}"])
     ...             # Read the contents of the temp file before it's deleted.
     ...             print(fout.read().strip())
     -55 -47 -24 -10 190 981 1 1 8 14 1 1
@@ -241,23 +242,41 @@ class Session:
         """
         self.destroy()
 
-    def __getitem__(self, name):
+    def __getitem__(self, name: str) -> int:
         """
-        Get the value of a GMT constant (C enum) from gmt_resources.h.
-
-        Used to set configuration values for other API calls. Wraps
-        ``GMT_Get_Enum``.
+        Get the value of a GMT constant.
 
         Parameters
         ----------
-        name : str
-            The name of the constant (e.g., ``"GMT_SESSION_EXTERNAL"``)
+        name
+            The name of the constant (e.g., ``"GMT_SESSION_EXTERNAL"``).
 
         Returns
         -------
-        constant : int
-            Integer value of the constant. Do not rely on this value because it
-            might change.
+        value
+            Integer value of the constant. Do not rely on this value because it might
+            change.
+        """
+        if name not in GMT_CONSTANTS:
+            GMT_CONSTANTS[name] = self.get_enum(name)
+        return GMT_CONSTANTS[name]
+
+    def get_enum(self, name: str) -> int:
+        """
+        Get the value of a GMT constant (C enum) from gmt_resources.h.
+
+        Used to set configuration values for other API calls. Wraps ``GMT_Get_Enum``.
+
+        Parameters
+        ----------
+        name
+            The name of the constant (e.g., ``"GMT_SESSION_EXTERNAL"``).
+
+        Returns
+        -------
+        value
+            Integer value of the constant. Do not rely on this value because it might
+            change.
 
         Raises
         ------
@@ -268,18 +287,15 @@ class Session:
             "GMT_Get_Enum", argtypes=[ctp.c_void_p, ctp.c_char_p], restype=ctp.c_int
         )
 
-        # The C lib introduced the void API pointer to GMT_Get_Enum so that
-        # it's consistent with other functions. It doesn't use the pointer so
-        # we can pass in None (NULL pointer). We can't give it the actual
-        # pointer because we need to call GMT_Get_Enum when creating a new API
-        # session pointer (chicken-and-egg type of thing).
+        # The C library introduced the void API pointer to GMT_Get_Enum so that it's
+        # consistent with other functions. It doesn't use the pointer so we can pass
+        # in None (NULL pointer). We can't give it the actual pointer because we need
+        # to call GMT_Get_Enum when creating a new API session pointer (chicken-and-egg
+        # type of thing).
         session = None
-
         value = c_get_enum(session, name.encode())
-
         if value is None or value == -99999:
             raise GMTCLibError(f"Constant '{name}' doesn't exist in libgmt.")
-
         return value
 
     def get_libgmt_func(self, name, argtypes=None, restype=None):
@@ -470,11 +486,12 @@ class Session:
 
         self.session_pointer = None
 
-    def get_default(self, name):
+    def get_default(self, name: str) -> str:
         """
-        Get the value of a GMT default parameter (library version, paths, etc).
+        Get the value of a GMT configuration parameter or a GMT API parameter.
 
-        Possible default parameter names include:
+        In addition to the long list of GMT configuration parameters, the following API
+        parameter names are also supported:
 
         * ``"API_VERSION"``: The GMT API version
         * ``"API_PAD"``: The grid padding setting
@@ -490,13 +507,14 @@ class Session:
 
         Parameters
         ----------
-        name : str
-            The name of the default parameter (e.g., ``"API_VERSION"``)
+        name
+            The name of the GMT configuration parameter (e.g., ``"PROJ_LENGTH_UNIT"``)
+            or a GMT API parameter (e.g., ``"API_VERSION"``).
 
         Returns
         -------
-        value : str
-            The default value for the parameter.
+        value
+            The current value for the parameter.
 
         Raises
         ------
@@ -510,15 +528,11 @@ class Session:
         )
 
         # Make a string buffer to get a return value
-        value = ctp.create_string_buffer(10000)
-
+        value = ctp.create_string_buffer(4096)
         status = c_get_default(self.session_pointer, name.encode(), value)
-
         if status != 0:
-            raise GMTCLibError(
-                f"Error getting default value for '{name}' (error code {status})."
-            )
-
+            msg = f"Error getting value for '{name}' (error code {status})."
+            raise GMTCLibError(msg)
         return value.value.decode()
 
     def get_common(self, option):
@@ -562,18 +576,20 @@ class Session:
         Examples
         --------
         >>> with Session() as lib:
-        ...     lib.call_module("basemap", "-R0/10/10/15 -JX5i/2.5i -Baf -Ve")
+        ...     lib.call_module(
+        ...         "basemap", ["-R0/10/10/15", "-JX5i/2.5i", "-Baf", "-Ve"]
+        ...     )
         ...     region = lib.get_common("R")
         ...     projection = lib.get_common("J")
         ...     timestamp = lib.get_common("U")
         ...     verbose = lib.get_common("V")
-        ...     lib.call_module("plot", "-T -Xw+1i -Yh-1i")
+        ...     lib.call_module("plot", ["-T", "-Xw+1i", "-Yh-1i"])
         ...     xshift = lib.get_common("X")  # xshift/yshift are in inches
         ...     yshift = lib.get_common("Y")
         >>> print(region, projection, timestamp, verbose, xshift, yshift)
         [ 0. 10. 10. 15.] True False 3 6.0 1.5
         >>> with Session() as lib:
-        ...     lib.call_module("basemap", "-R0/10/10/15 -JX5i/2.5i -Baf")
+        ...     lib.call_module("basemap", ["-R0/10/10/15", "-JX5i/2.5i", "-Baf"])
         ...     lib.get_common("A")
         Traceback (most recent call last):
         ...
@@ -1199,8 +1215,7 @@ class Session:
         ...     with lib.open_virtualfile(*vfargs) as vfile:
         ...         # Send the output to a temp file so that we can read it
         ...         with GMTTempFile() as ofile:
-        ...             args = f"{vfile} ->{ofile.name}"
-        ...             lib.call_module("info", args)
+        ...             lib.call_module("info", [vfile, f"->{ofile.name}"])
         ...             print(ofile.read().strip())
         <vector memory>: N = 5 <0/4> <5/9>
         """
@@ -1307,7 +1322,7 @@ class Session:
         ...     with ses.virtualfile_from_vectors(x, y, z) as fin:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
-        ...             ses.call_module("info", f"{fin} ->{fout.name}")
+        ...             ses.call_module("info", [fin, f"->{fout.name}"])
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <1/3> <4/6> <7/9>
         """
@@ -1417,7 +1432,7 @@ class Session:
         ...     with ses.virtualfile_from_matrix(data) as fin:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
-        ...             ses.call_module("info", f"{fin} ->{fout.name}")
+        ...             ses.call_module("info", [fin, f"->{fout.name}"])
         ...             print(fout.read().strip())
         <matrix memory>: N = 4 <0/9> <1/10> <2/11>
         """
@@ -1497,8 +1512,9 @@ class Session:
         ...     with ses.virtualfile_from_grid(data) as fin:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
-        ...             args = f"{fin} -L0 -Cn ->{fout.name}"
-        ...             ses.call_module("grdinfo", args)
+        ...             ses.call_module(
+        ...                 "grdinfo", [fin, "-L0", "-Cn", f"->{fout.name}"]
+        ...             )
         ...             print(fout.read().strip())
         -55 -47 -24 -10 190 981 1 1 8 14 1 1
         >>> # The output is: w e s n z0 z1 dx dy n_columns n_rows reg gtype
@@ -1529,7 +1545,6 @@ class Session:
         with self.open_virtualfile(*args) as vfile:
             yield vfile
 
-    @fmt_docstring
     def virtualfile_in(  # noqa: PLR0912
         self,
         check_kind=None,
@@ -1590,7 +1605,7 @@ class Session:
         ...     with ses.virtualfile_in(check_kind="vector", data=data) as fin:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
-        ...             ses.call_module("info", fin + " ->" + fout.name)
+        ...             ses.call_module("info", [fin, f"->{fout.name}"])
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
@@ -1737,7 +1752,7 @@ class Session:
         ...     # Create a virtual file for storing the output table.
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
-        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
         ...             ds = lib.read_virtualfile(vouttbl, kind="dataset")
         ...             assert isinstance(ds.contents, _GMT_DATASET)
         ...
@@ -1745,7 +1760,7 @@ class Session:
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(fname=tmpfile.name) as vouttbl:
         ...             assert vouttbl == tmpfile.name
-        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
         ...         line = Path(vouttbl).read_text()
         ...         assert line == "1\t2\t3\tTEXT\n"
         """
@@ -1817,7 +1832,7 @@ class Session:
         ...         with Path(tmpfile.name).open(mode="w") as fp:
         ...             print("1.0 2.0 3.0 TEXT", file=fp)
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
-        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
         ...             # Read the virtual file as a void pointer
         ...             void_pointer = lib.read_virtualfile(vouttbl)
         ...             assert isinstance(void_pointer, int)  # void pointer is an int
@@ -1828,7 +1843,7 @@ class Session:
         >>> # Read grid from a virtual file
         >>> with Session() as lib:
         ...     with lib.virtualfile_out(kind="grid") as voutgrd:
-        ...         lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
+        ...         lib.call_module("read", ["@earth_relief_01d_g", voutgrd, "-Tg"])
         ...         # Read the virtual file as a void pointer
         ...         void_pointer = lib.read_virtualfile(voutgrd)
         ...         assert isinstance(void_pointer, int)  # void pointer is an int
@@ -1961,7 +1976,7 @@ class Session:
         ...             with lib.virtualfile_out(
         ...                 kind="dataset", fname=outtmp.name
         ...             ) as vouttbl:
-        ...                 lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...                 lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
         ...                 result = lib.virtualfile_to_dataset(
         ...                     vfname=vouttbl, output_type="file"
         ...                 )
@@ -1971,7 +1986,7 @@ class Session:
         ...     # strings output
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
-        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
         ...             outstr = lib.virtualfile_to_dataset(
         ...                 vfname=vouttbl, output_type="strings"
         ...             )
@@ -1981,7 +1996,7 @@ class Session:
         ...     # numpy output
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
-        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
         ...             outnp = lib.virtualfile_to_dataset(
         ...                 vfname=vouttbl, output_type="numpy"
         ...             )
@@ -1990,7 +2005,7 @@ class Session:
         ...     # pandas output
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
-        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
         ...             outpd = lib.virtualfile_to_dataset(
         ...                 vfname=vouttbl, output_type="pandas"
         ...             )
@@ -1999,7 +2014,7 @@ class Session:
         ...     # pandas output with specified column names
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
-        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
         ...             outpd2 = lib.virtualfile_to_dataset(
         ...                 vfname=vouttbl,
         ...                 output_type="pandas",
@@ -2082,7 +2097,7 @@ class Session:
         ...     with GMTTempFile(suffix=".nc") as tmpfile:
         ...         outgrid = tmpfile.name
         ...         with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
-        ...             lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
+        ...             lib.call_module("read", ["@earth_relief_01d_g", voutgrd, "-Tg"])
         ...             result = lib.virtualfile_to_raster(
         ...                 vfname=voutgrd, outgrid=outgrid
         ...             )
@@ -2092,7 +2107,7 @@ class Session:
         ...     # xarray.DataArray output
         ...     outgrid = None
         ...     with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
-        ...         lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
+        ...         lib.call_module("read", ["@earth_relief_01d_g", voutgrd, "-Tg"])
         ...         result = lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
         ...         assert isinstance(result, xr.DataArray)
         """

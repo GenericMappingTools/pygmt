@@ -30,7 +30,7 @@ classifiers = [
     "License :: OSI Approved :: BSD License",
 ]
 dependencies = [
-    "numpy>=1.23",
+    "numpy>=1.24",
     "pandas>=1.5",
     "xarray>=2022.06",
     "netCDF4",
@@ -42,7 +42,7 @@ dynamic = ["version"]
 all = [
     "contextily",
     "geopandas",
-    "ipython",
+    "IPython",  # 'ipython' is not the correct module name.
     "rioxarray",
 ]
 
