@@ -47,6 +47,8 @@ jobs:
           --exclude "^https://github.com/GenericMappingTools/pygmt/pull/[0-9]*$"
           --exclude "^https://github.com/GenericMappingTools/pygmt/issues/[0-9]*$"
           --exclude "^https://github.com/GenericMappingTools/gmt/releases/tag/X.Y.Z$"
+          --exclude "^https://github.com/GenericMappingTools/pygmt/edit"
+          --exclude "^https://github.com/GenericMappingTools/pygmt/issues/new"
           --exclude "^git"
           --exclude "^file://"
           --exclude "^https://docs.generic-mapping-tools.org/6.5/%s$"
@@ -67,7 +69,7 @@ jobs:
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
     - name: Create Issue From File
-      if: env.lychee_exit_code != 0
+      if: env.lychee_exit_code != 0 && github.event_name != 'workflow_dispatch'
       run: |
         cd repository/
         title="Link Checker Report on ${{ steps.date.outputs.date }}"
