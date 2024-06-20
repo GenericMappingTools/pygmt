@@ -1,5 +1,5 @@
 """
-Wrapper for the GMT_GRID data type.
+Wrapper for the GMT_IMAGE data type.
 """
 
 import ctypes as ctp

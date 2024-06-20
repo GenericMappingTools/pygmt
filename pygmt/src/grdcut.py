@@ -28,7 +28,7 @@ __doctest_skip__ = ["grdcut"]
 @kwargs_to_strings(R="sequence")
 def grdcut(grid, outgrid: str | None = None, **kwargs):
     r"""
-    Extract subregion from a grid.
+    Extract subregion from a grid or image.
 
     Produce a new ``outgrid`` file which is a subregion of ``grid``. The
     subregion is specified with ``region``; the specified range must not exceed
