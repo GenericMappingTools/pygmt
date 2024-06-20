@@ -30,7 +30,7 @@ classifiers = [
     "License :: OSI Approved :: BSD License",
 ]
 dependencies = [
-    "numpy>=1.23",
+    "numpy>=1.24",
     "pandas>=1.5",
     "xarray>=2022.06",
     "netCDF4",
@@ -162,7 +162,7 @@ max-args=10
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = "--verbose --durations=0 --durations-min=0.2 --doctest-modules --mpl --mpl-results-path=results -n auto --reruns 2"
+addopts = "--verbose --durations=0 --durations-min=0.2 --doctest-modules --mpl --mpl-results-path=results"
 markers = [
     "benchmark: mark a test with custom benchmark settings.",
 ]

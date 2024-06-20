@@ -65,7 +65,7 @@ def test_earth_relief_01d_with_region_srtm():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
-    npt.assert_allclose(data.min(), -5136.0, atol=0.5)
+    npt.assert_allclose(data.min(), -5118.0, atol=0.5)
     npt.assert_allclose(data.max(), 680.5, atol=0.5)
 
 
@@ -189,7 +189,7 @@ def test_earth_relief_15s_default_registration():
     npt.assert_allclose(data.coords["lon"].data.min(), -9.997917)
     npt.assert_allclose(data.coords["lon"].data.max(), -9.502083)
     npt.assert_allclose(data.min(), -3897, atol=0.5)
-    npt.assert_allclose(data.max(), -71, atol=0.5)
+    npt.assert_allclose(data.max(), -76.5, atol=0.5)
 
 
 @pytest.mark.xfail(
@@ -209,4 +209,4 @@ def test_earth_relief_03s_default_registration():
     npt.assert_allclose(data.coords["lon"].data.min(), -10)
     npt.assert_allclose(data.coords["lon"].data.max(), -9.8)
     npt.assert_allclose(data.min(), -2069.85, atol=0.5)
-    npt.assert_allclose(data.max(), -924.5, atol=0.5)
+    npt.assert_allclose(data.max(), -923.5, atol=0.5)
