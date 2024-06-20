@@ -24,26 +24,28 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
     >>> with Session() as lib:
     ...     with lib.virtualfile_out(kind="image") as voutimg:
     ...         lib.call_module("read", f"@earth_day_01d {voutimg} -Ti")
-    ...         ds = lib.read_virtualfile(vfname=voutimg, kind="image").contents
-    ...         header = ds.header.contents
-    ...         pad = header.pad[:]
-    ...         print(ds.type, header.n_bands, header.n_rows, header.n_columns)
+    ...         # Read the image from the virtual file
+    ...         image = lib.read_virtualfile(vfname=voutimg, kind="image").contents
+    ...         # The image header
+    ...         header = image.header.contents
+    ...         # Access the header properties
+    ...         print(image.type, header.n_bands, header.n_rows, header.n_columns)
     ...         print(header.pad[:])
+    ...         # The x and y coordinates
+    ...         x = image.x[: header.n_columns]
+    ...         y = image.y[: header.n_rows]
+    ...         # The data array (with paddings)
     ...         data = np.reshape(
-    ...             ds.data[: header.n_bands * header.mx * header.my],
+    ...             image.data[: header.n_bands * header.mx * header.my],
     ...             (header.my, header.mx, header.n_bands),
     ...         )
+    ...         # The data array (without paddings)
+    ...         pad = header.pad[:]
     ...         data = data[pad[2] : header.my - pad[3], pad[0] : header.mx - pad[1], :]
-    ...         x = ds.x[: header.n_columns]
-    ...         y = ds.y[: header.n_rows]
-    >>> da = xr.DataArray(
-    ...     data=data,
-    ...     dims=["y", "x", "band"],
-    ...     coords={"y": y, "x": x, "band": [1, 2, 3]},
-    ... )
-    >>> da = da.transpose("band", "y", "x")
-    >>> da = da.sortby(list(data.dims))
-    >>> da.plot.imshow()
+    ...         print(data.shape)
+    1 3 180 360
+    [2, 2, 2, 2]
+    (180, 360, 3)
     """
 
     _fields_: ClassVar = [
