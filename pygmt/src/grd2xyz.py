@@ -139,7 +139,7 @@ def grd2xyz(
     >>> # Create a pandas DataFrame with the xyz data from an input grid
     >>> xyz_dataframe = pygmt.grd2xyz(grid=grid, output_type="pandas")
     >>> xyz_dataframe.head(n=2)
-        lon   lat  elevation
+        lon   lat          z
     0  10.0  25.0      965.5
     1  10.5  25.0      876.5
     """

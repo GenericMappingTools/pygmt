@@ -1,7 +1,7 @@
 # Run performance benchmarks
 #
-# Continuous benchmarking using pytest-codspeed. Measures the execution speed
-# of tests marked with @pytest.mark.benchmark decorator.
+# Continuous benchmarking using pytest-codspeed. Measures the execution speed of tests
+# marked with @pytest.mark.benchmark decorator.
 
 name: Benchmarks
 
@@ -15,12 +15,9 @@ on:
   # Run in PRs but only if the PR has the 'run/benchmark' label
   pull_request:
     types: [ opened, reopened, labeled, synchronize ]
-  # `workflow_dispatch` allows CodSpeed to trigger backtest
-  # performance analysis in order to generate initial data.
+  # 'workflow_dispatch' allows CodSpeed to trigger backtest performance analysis
+  # in order to generate initial data.
   workflow_dispatch:
-  release:
-    types:
-      - published
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -37,48 +34,54 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4.1.6
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
-      # Install Miniconda with conda-forge dependencies
-      - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v3.0.3
-        with:
-          auto-activate-base: true
-          activate-environment: ""  # base environment
-          channels: conda-forge,nodefaults
-          channel-priority: strict
+      - name: Get current week number of year
+        id: date
+        run: echo "date=$(date +%Y-W%W)" >> $GITHUB_OUTPUT  # e.g., 2024-W19
 
-      # Install GMT and dependencies from conda-forge
-      - name: Install dependencies
-        run: |
-          # $CONDA is an environment variable pointing to the root of the miniconda directory
-          # Preprend $CONDA/bin to $PATH so that conda's python is used over system python
-          echo $CONDA/bin >> $GITHUB_PATH
-          conda install --solver=libmamba gmt=6.5.0 python=3.12 \
-                        numpy pandas xarray netCDF4 packaging \
-                        geopandas pyarrow pytest pytest-mpl
-          python -m pip install -U pytest-codspeed setuptools
+      # Install Micromamba with conda-forge dependencies
+      - name: Setup Micromamba
+        uses: mamba-org/setup-micromamba@v1.9.0
+        with:
+          environment-name: pygmt
+          condarc: |
+            channels:
+              - conda-forge
+              - nodefaults
+          cache-downloads: false
+          cache-environment: true
+          # environment cache is persistent for one week.
+          cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
+          create-args: >-
+            gmt=6.5.0
+            python=3.12
+            numpy
+            pandas
+            xarray
+            netCDF4
+            packaging
+            geopandas
+            pyarrow
+            pytest
+            pytest-codspeed
+            pytest-mpl
+            pytest-rerunfailures
+            pytest-xdist
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v3.1.4
-        with:
-          workflow: cache_data.yaml
-          workflow_conclusion: success
-          name: gmt-cache
-          path: .gmt
-
-      # Move downloaded files to ~/.gmt directory and list them
-      - name: Move and list downloaded remote files
         run: |
-          mkdir -p ~/.gmt
-          mv .gmt/* ~/.gmt
+          # Download cached files to ~/.gmt directory and list them
+          gh run download --name gmt-cache --dir ~/.gmt/
           # Change modification times of the two files, so GMT won't refresh it
           touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
           ls -lhR ~/.gmt
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       # Install the package that we want to test
       - name: Install the package
@@ -86,10 +89,8 @@ jobs:
 
       # Run the benchmark tests
       - name: Run benchmarks
-        uses: CodSpeedHQ/action@v2.3.0
+        uses: CodSpeedHQ/action@v2.4.1
         with:
-          run: |
-            python -c "import pygmt; pygmt.show_versions()"
-            PYGMT_USE_EXTERNAL_DISPLAY="false" python -m pytest -r P --pyargs pygmt --codspeed
-        env:
-          GMT_LIBRARY_PATH: /usr/share/miniconda/lib/
+          # 'bash -el -c' is needed to use the custom shell.
+          # See https://github.com/CodSpeedHQ/action/issues/65.
+          run: bash -el -c "python -c \"import pygmt; pygmt.show_versions()\"; PYGMT_USE_EXTERNAL_DISPLAY=false python -m pytest -r P -n auto --reruns 2 --pyargs pygmt --codspeed"

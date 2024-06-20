@@ -24,7 +24,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4.1.6
 
       # Setup Python
       - name: Set up Python
@@ -34,18 +34,13 @@ jobs:
 
       - name: Install packages
         run: |
-          python -m pip install ruff
+          python -m pip install ruff pre-commit
           python -m pip list
-          sudo apt-get install dos2unix
 
-      - name: Formatting check (ruff)
-        run: make check
-
-      - name: Ensure files use UNIX line breaks and have 644 permission
+      - name: Formatting check (ruff + pre-commit)
         run: |
-          git ls-files -z | xargs -0 dos2unix --quiet
-          git ls-files -z | xargs -0 chmod 644
-          if [[ $(git ls-files -m) ]]; then git --no-pager diff HEAD; exit 1; fi
+           make check
+           pre-commit run --all-files
 
       - name: Ensure example scripts have at least one code block separator
         run: |
