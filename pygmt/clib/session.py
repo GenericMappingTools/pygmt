@@ -1713,8 +1713,8 @@ class Session:
         Parameters
         ----------
         kind
-            The data kind of the virtual file to create. Valid values are ``"dataset"``
-            and ``"grid"``. Ignored if ``fname`` is specified.
+            The data kind of the virtual file to create. Valid values are ``"dataset"``,
+            ``"grid"`` and ``"image"``. Ignored if ``fname`` is specified.
         fname
             The name of the actual file to write the output data. No virtual file will
             be created.
