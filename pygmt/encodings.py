@@ -29,31 +29,39 @@ References
 charset: dict = {}
 
 # Adobe ISOLatin1+ charset.
-# Most characters are the same in ISOLatin1+ and ISO-8859-1 encodings.
-charset["ISOLatin1+"] = {
-    i: chr(i) for i in [*range(0o040, 0o177), *range(0o240, 0o400)]
-}
-# Handle characters that are different in ISOLatin1+ and ISO-8859-1 encodings.
-charset["ISOLatin1+"].update(
-    {
-        0o047: "\u2019",  # Change "Apostrophe" to "Right Single Quotation Mark"
-        0o055: "\u2212",  # Change "Hyphen-minus" to "Minus Sign"
-        0o140: "\u2018",  # Change "Grave Accent" to "Left Single Quotation Mark"
-        0o177: "\u0161",  # Set to "Latin Small Letter S with Caron"
-    }
-)
-# Add extended characters in ISOLatin1+.
-charset["ISOLatin1+"].update(
-    dict(
-        zip(
-            [*range(0o030, 0o040), *range(0o200, 0o240)],
-            "\ufffd\u2022\u2026\u2122\u2014\u2013\ufb01\u017e"
-            "\u0152\u2020\u2021\u0141\u2044\u2039\u0160\u203a"
-            "\u0153\u0178\u017d\u0142\u2030\u201e\u201c\u201d"
-            "\u0131\u0060\u00b4\u02c6\u02dc\u00af\u02d8\u02d9"
-            "\u00a8\u201a\u02da\u00b8\u0027\u02dd\u02db\u02c7",
-            strict=False,
-        )
+charset["ISOLatin1+"] = dict(
+    zip(
+        range(0o030, 0o400),
+        "\ufffd\u2022\u2026\u2122\u2014\u2013\ufb01\u017e"
+        "\u0020\u0021\u0022\u0023\u0024\u0025\u0026\u2019"
+        "\u0028\u0029\u002a\u002b\u002c\u2212\u002e\u002f"
+        "\u0030\u0031\u0032\u0033\u0034\u0035\u0036\u0037"
+        "\u0038\u0039\u003a\u003b\u003c\u003d\u003e\u003f"
+        "\u0040\u0041\u0042\u0043\u0044\u0045\u0046\u0047"
+        "\u0048\u0049\u004a\u004b\u004c\u004d\u004e\u004f"
+        "\u0050\u0051\u0052\u0053\u0054\u0055\u0056\u0057"
+        "\u0058\u0059\u005a\u005b\u005c\u005d\u005e\u005f"
+        "\u2018\u0061\u0062\u0063\u0064\u0065\u0066\u0067"
+        "\u0068\u0069\u006a\u006b\u006c\u006d\u006e\u006f"
+        "\u0070\u0071\u0072\u0073\u0074\u0075\u0076\u0077"
+        "\u0078\u0079\u007a\u007b\u007c\u007d\u007e\u0161"
+        "\u0152\u2020\u2021\u0141\u2044\u2039\u0160\u203a"
+        "\u0153\u0178\u017d\u0142\u2030\u201e\u201c\u201d"
+        "\u0131\u0060\u00b4\u02c6\u02dc\u00af\u02d8\u02d9"
+        "\u00a8\u201a\u02da\u00b8\u0027\u02dd\u02db\u02c7"
+        "\u0020\u00a1\u00a2\u00a3\u00a4\u00a5\u00a6\u00a7"
+        "\u00a8\u00a9\u00aa\u00ab\u00ac\u002d\u00ae\u00af"
+        "\u00b0\u00b1\u00b2\u00b3\u00b4\u00b5\u00b6\u00b7"
+        "\u00b8\u00b9\u00ba\u00bb\u00bc\u00bd\u00be\u00bf"
+        "\u00c0\u00c1\u00c2\u00c3\u00c4\u00c5\u00c6\u00c7"
+        "\u00c8\u00c9\u00ca\u00cb\u00cc\u00cd\u00ce\u00cf"
+        "\u00d0\u00d1\u00d2\u00d3\u00d4\u00d5\u00d6\u00d7"
+        "\u00d8\u00d9\u00da\u00db\u00dc\u00dd\u00de\u00df"
+        "\u00e0\u00e1\u00e2\u00e3\u00e4\u00e5\u00e6\u00e7"
+        "\u00e8\u00e9\u00ea\u00eb\u00ec\u00ed\u00ee\u00ef"
+        "\u00f0\u00f1\u00f2\u00f3\u00f4\u00f5\u00f6\u00f7"
+        "\u00f8\u00f9\u00fa\u00fb\u00fc\u00fd\u00fe\u00ff",
+        strict=False,
     )
 )
 
