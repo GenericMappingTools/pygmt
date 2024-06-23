@@ -245,7 +245,7 @@ def non_ascii_to_octal(argstr: str) -> str:
     mapping.update(
         {c: f"@%34%\\{i:03o}@%%" for i, c in charset["ZapfDingbats"].items()}
     )
-    # Adobe ISOLatin1+ charset.
+    # Adobe ISOLatin1+ charset. Put at the end.
     mapping.update({c: f"\\{i:03o}" for i, c in charset["ISOLatin1+"].items()})
 
     # Remove any printable characters
