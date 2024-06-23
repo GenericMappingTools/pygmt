@@ -4,12 +4,12 @@ Adobe character encodings supported by GMT.
 Currently, only Adobe Symbol, Adobe ZapfDingbats, and Adobe ISOLatin1+ encodings are
 supported.
 
-The corresponding Unicode characters in each Adobe chararacter encoding are generated
+The corresponding Unicode characters in each Adobe character encoding are generated
 from the mapping table and conversion script in the GMT-octal-codes
 (https://github.com/seisman/GMT-octal-codes) repository. Refer to that repository for
 details.
 
-Some code points are undefined and are assigned with the replacement characeter
+Some code points are undefined and are assigned with the replacement character
 (``\ufffd``).
 
 References
