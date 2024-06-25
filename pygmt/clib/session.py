@@ -1892,8 +1892,7 @@ class Session:
             ranges=region,
             inc=inc,
             registration=_reg,
-            #pad=self["GMT_PAD_DEFAULT"],
-            pad=0,
+            pad=self["GMT_PAD_DEFAULT"],
         )
         if Version(self._info["version"]) < Version("6.5.0"):
             # Upstream bug fixed in GMT>=6.5.0
@@ -1903,7 +1902,7 @@ class Session:
         header = gmtgrid.contents.header.contents
         header.z_min, header.z_max = matrix.min(), matrix.max()
 
-        #matrix = np.pad(matrix, self["GMT_PAD_DEFAULT"]).astype(np.float32)
+        matrix = np.pad(matrix, self["GMT_PAD_DEFAULT"]).astype(np.float32)
         gmtgrid.contents.data = matrix.ctypes.data_as(ctp.POINTER(gmt_grdfloat))
 
         with self.open_virtualfile(family, geometry, "GMT_IN", gmtgrid) as vfile:
