@@ -1,10 +1,10 @@
 # Supported Encodings and Non-ASCII Characters
 
 GMT supports a number of encodings and each encoding contains a set of ASCII and non-ASCII
-characters. Below are a few of the most common encodings and the characters they support.
+characters. Below are some of the most common encodings and characters that are supported.
 
 In PyGMT, you can use any of these ASCII and non-ASCII characters in arguments and text
-strings. When use non-ASCII characters in PyGMT, the easiest way is to copy and paste
+strings. When using non-ASCII characters in PyGMT, the easiest way is to copy and paste
 the character from the tables below.
 
 **Note**: The special character &#xfffd; (REPLACEMENT CHARACTER) is used to indicate that
@@ -73,7 +73,7 @@ the character is not defined in the encoding.
 | **\36x** | &#xfffd; | &#x232a; | &#x222b; | &#x2320; | &#x23ae; | &#x2321; | &#x239e; | &#x239f; |
 | **\37x** | &#x23a0; | &#x23a4; | &#x23a5; | &#x23a6; | &#x23ab; | &#x23ac; | &#x23ad; | &#xfffd; |
 
-**Note**: The octal code `\140` represent the RADICAL EXTENDER character, which is not available in
+**Note**: The octal code `\140` represents the RADICAL EXTENDER character, which is not available in
 the Unicode character set.
 
 ## Adobe ZapfDingbats Encoding
