@@ -18,10 +18,9 @@ References
 - GMT-octal-codes: https://github.com/seisman/GMT-octal-codes
 - GMT official documentation: https://docs.generic-mapping-tools.org/dev/reference/octal-codes.html
 - Adobe Postscript Language Reference: https://www.adobe.com/jp/print/postscript/pdfs/PLRM.pdf
+- ISOLatin1+: https://en.wikipedia.org/wiki/PostScript_Latin_1_Encoding
 - Adobe Symbol: https://en.wikipedia.org/wiki/Symbol_(typeface)
 - Zapf Dingbats: https://en.wikipedia.org/wiki/Zapf_Dingbats
-- ISO-8859-1: https://en.wikipedia.org/wiki/ISO/IEC_8859-1
-- ISOLatin1+: https://en.wikipedia.org/wiki/PostScript_Latin_1_Encoding
 - Adobe Glyph List: https://github.com/adobe-type-tools/agl-aglfn
 """
 
