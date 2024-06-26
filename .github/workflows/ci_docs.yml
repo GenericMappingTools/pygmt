@@ -101,7 +101,7 @@ jobs:
             netCDF4
             packaging
             contextily
-            geopandas=0.14
+            geopandas=1.0
             pyogrio=0.9
             ipython
             rioxarray
