@@ -133,26 +133,10 @@ charset["ZapfDingbats"] = dict(
 )
 
 # ISO-8859-x charsets, x can be 1-11, 13-16.
-# Only characters that don't exist in the ISOLatin1+ charset are included.
 #
 # Reference: https://en.wikipedia.org/wiki/ISO/IEC_8859-1
-for i in range(1, 17):  # ISO-8859-1 to ISO-8859-16.
-    if i == 12:  # ISO-8859-12 was abandoned.
-        continue
-
-    mapping = {}
-    for code in [*range(0o040, 0o200), *range(0o240, 0o400)]:
-        char = codecs.decode(bytes([code]), f"iso8859-{i}", errors="replace")
-
-        if char in charset["ISOLatin1+"].values():
-            # Exclude any characters that exist in ISOLatin1+
-            continue
-        if char in ("\u007f", "\u00a0", "\u00ad"):
-            # Exclude three special characters
-            # \u007f: DEL
-            # \u00a0: NO-BREAK SPACE
-            # \u00ad: SOFT HYPHEN
-            continue
-        mapping[code] = char
-
-    charset[f"ISO-8859-{i}"] = mapping
+for i in [*range(1, 12), *range(13, 17)]:
+    charset[f"ISO-8859-{i}"] = {
+        code: codecs.decode(bytes([code]), f"iso8859_{i}", errors="replace")
+        for code in [*range(0o040, 0o200), *range(0o240, 0o400)]
+    }
