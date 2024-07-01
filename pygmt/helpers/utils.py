@@ -205,6 +205,25 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
     return kind
 
 
+def check_encoding(argstr: str):
+    """
+    Check if the string contains non-ASCII characters.
+    """
+    if all(
+        c
+        in charset["ISOLatin1+"].values()
+        + charset["Symbol"].values()
+        + charset["ZapfDingbats"].values()
+        for c in argstr
+    ):
+        return "ISOLatin1+"
+
+    for i in [*range(1, 11), (13, 17)]:
+        if all(c in charset[f"ISO-8859-{i}"].values() for c in argstr):
+            return f"ISO-8859-{i}"
+    return "ISOLatin1+"
+
+
 def non_ascii_to_octal(argstr: str) -> str:
     r"""
     Translate non-ASCII characters to their corresponding octal codes.
@@ -245,12 +264,13 @@ def non_ascii_to_octal(argstr: str) -> str:
     mapping.update(
         {c: f"@%34%\\{i:03o}@%%" for i, c in charset["ZapfDingbats"].items()}
     )
-    # Adobe ISOLatin1+ charset. Put at the end.
-    mapping.update({c: f"\\{i:03o}" for i, c in charset["ISOLatin1+"].items()})
+    # Check the possible charset encoding for the string.
+    encoding = check_encoding(argstr)
+    mapping.update({c: f"\\{i:03o}" for i, c in charset[encoding].items()})
 
     # Remove any printable characters
     mapping = {k: v for k, v in mapping.items() if k not in string.printable}
-    return argstr.translate(str.maketrans(mapping))
+    return argstr.translate(str.maketrans(mapping)), encoding
 
 
 def build_arg_list(

@@ -22,6 +22,7 @@ References
 - Adobe Symbol: https://en.wikipedia.org/wiki/Symbol_(typeface)
 - Zapf Dingbats: https://en.wikipedia.org/wiki/Zapf_Dingbats
 - Adobe Glyph List: https://github.com/adobe-type-tools/agl-aglfn
+- ISO-8859-x: https://en.wikipedia.org/wiki/ISO/IEC_8859-1
 """
 
 import codecs
@@ -133,8 +134,6 @@ charset["ZapfDingbats"] = dict(
 )
 
 # ISO-8859-x charsets, x can be 1-11, 13-16.
-#
-# Reference: https://en.wikipedia.org/wiki/ISO/IEC_8859-1
 for i in [*range(1, 12), *range(13, 17)]:
     charset[f"ISO-8859-{i}"] = {
         code: codecs.decode(bytes([code]), f"iso8859_{i}", errors="replace")
