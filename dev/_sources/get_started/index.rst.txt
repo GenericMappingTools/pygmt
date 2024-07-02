@@ -22,6 +22,7 @@ It will not cover all PyGMT functions and methods.
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
@@ -90,6 +91,8 @@ It will not cover all PyGMT functions and methods.
       <div class="sphx-glr-thumbnail-title">4. PyGMT I/O: Table inputs</div>
     </div>
 
+
+.. thumbnail-parent-div-close
 
 .. raw:: html
 

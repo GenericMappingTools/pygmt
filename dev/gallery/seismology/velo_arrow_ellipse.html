@@ -16,7 +16,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
       <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=902da76c" />
 
   
@@ -28,12 +28,12 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=b483e97e"></script>
-        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/documentation_options.js?v=74a2d750"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../../_static/copybutton.js?v=ccdb6887"></script>
-        <script src="../../_static/design-tabs.js?v=36754332"></script>
+        <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -118,12 +118,13 @@
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../team.html">PyGMT Team</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributors Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../maintenance.html">Maintainers Guide</a></li>
 </ul>
@@ -188,16 +189,16 @@
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
 <p><a class="reference internal" href="#sphx-glr-download-gallery-seismology-velo-arrow-ellipse-py"><span class="std std-ref">Go to the end</span></a>
-to download the full example code</p>
+to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="velocity-arrows-and-confidence-ellipses">
 <span id="sphx-glr-gallery-seismology-velo-arrow-ellipse-py"></span><h1>Velocity arrows and confidence ellipses<a class="headerlink" href="#velocity-arrows-and-confidence-ellipses" title="Link to this heading"></a></h1>
-<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.velo.html#pygmt.Figure.velo" title="pygmt.Figure.velo"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.velo</span></code></a> method can be used to plot mean velocity arrows
-and confidence ellipses. The example below plots red velocity arrows with
-light-blue confidence ellipses outlined in red with the east_velocity x
-north_velocity used for the station names. Note that the velocity arrows are
-scaled by 0.2 and the 39% confidence limit will give an ellipse which fits
-inside a rectangle of dimension east_sigma by north_sigma.</p>
+<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.velo.html#pygmt.Figure.velo" title="pygmt.Figure.velo"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.velo</span></code></a> method can be used to plot mean velocity arrows and
+confidence ellipses. The example below plots red velocity arrows with lightblue
+confidence ellipses outlined in red with the east_velocity x north_velocity used for
+the station names. Note that the velocity arrows are scaled by 0.2 and the 39%
+confidence limit will give an ellipse which fits inside a rectangle of dimension
+east_sigma by north_sigma.</p>
 <img src="../../_images/sphx_glr_velo_arrow_ellipse_001.png" srcset="../../_images/sphx_glr_velo_arrow_ellipse_001.png" alt="velo arrow ellipse" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">pygmt</span>
 
@@ -217,19 +218,19 @@ inside a rectangle of dimension east_sigma by north_sigma.</p>
 <a href="../../api/generated/pygmt.Figure.velo.html#pygmt.Figure.velo" title="pygmt.Figure.velo" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">velo</span></a><span class="p">(</span>
     <span class="n">data</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span></a><span class="p">,</span>
     <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
-    <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;0.6p,red&quot;</span><span class="p">,</span>
-    <span class="n">uncertaintyfill</span><span class="o">=</span><span class="s2">&quot;lightblue1&quot;</span><span class="p">,</span>
-    <span class="n">line</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">spec</span><span class="o">=</span><span class="s2">&quot;e0.2/0.39/18&quot;</span><span class="p">,</span>
-    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;WSne&quot;</span><span class="p">,</span> <span class="s2">&quot;2g2f&quot;</span><span class="p">],</span>
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;x0.8c&quot;</span><span class="p">,</span>
+    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;WSne&quot;</span><span class="p">,</span> <span class="s2">&quot;2g2f&quot;</span><span class="p">],</span>
+    <span class="n">spec</span><span class="o">=</span><span class="s2">&quot;e0.2/0.39+f18&quot;</span><span class="p">,</span>
+    <span class="n">uncertaintyfill</span><span class="o">=</span><span class="s2">&quot;lightblue1&quot;</span><span class="p">,</span>
+    <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;0.6p,red&quot;</span><span class="p">,</span>
+    <span class="n">line</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">vector</span><span class="o">=</span><span class="s2">&quot;0.3c+p1p+e+gred&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.210 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.217 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-seismology-velo-arrow-ellipse-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/f446f085a6647fc75715fcaedb755d36/velo_arrow_ellipse.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">velo_arrow_ellipse.ipynb</span></code></a></p>
@@ -254,9 +255,9 @@ inside a rectangle of dimension east_sigma by north_sigma.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/215e4a1a">215e4a1a</a></code>.
       </span>
-      <span class="lastupdated">Last updated on May 01, 2024.
+      <span class="lastupdated">Last updated on Jul 01, 2024.
       </span></p>
   </div>
 

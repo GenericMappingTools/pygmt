@@ -16,7 +16,7 @@
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
       <link rel="stylesheet" type="text/css" href="_static/style.css?v=902da76c" />
 
   
@@ -28,12 +28,13 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=b483e97e"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/documentation_options.js?v=74a2d750"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="_static/copybutton.js?v=ccdb6887"></script>
-        <script src="_static/design-tabs.js?v=36754332"></script>
+        <script src="_static/design-tabs.js?v=f930bc37"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -102,12 +103,13 @@
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="team.html">PyGMT Team</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributors Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="maintenance.html">Maintainers Guide</a></li>
 </ul>
@@ -216,11 +218,14 @@ data tables, <code class="docutils literal notranslate"><span class="pre">xarray
 or a <a class="reference external" href="https://docs.jupyter.org/en/latest/running.html">Jupyter notebook</a>, and try the following example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">coast</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s2">&quot;H10c&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">land</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">coast</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s2">&quot;N15c&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">land</span><span class="o">=</span><span class="s2">&quot;tan&quot;</span><span class="p">,</span> <span class="n">water</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;MC&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;PyGMT&quot;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="s2">&quot;80p,Helvetica-Bold,red@75&quot;</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>For more examples, please have a look at the <a class="reference external" href="https://www.pygmt.org/latest/gallery/index.html">Gallery</a> and
+<p>You should see a global map with land and water masses colored in tan and lightblue, respectively. On top,
+there should be the semi-transparent text “PyGMT”. For more examples, please have a look at the
+<a class="reference external" href="https://www.pygmt.org/latest/gallery/index.html">Gallery</a> and
 <a class="reference external" href="https://www.pygmt.org/latest/tutorials/index.html">Tutorials</a>.</p>
 </section>
 </section>
@@ -351,9 +356,9 @@ all these can be found at <a class="reference external" href="https://www.generi
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/215e4a1a">215e4a1a</a></code>.
       </span>
-      <span class="lastupdated">Last updated on May 01, 2024.
+      <span class="lastupdated">Last updated on Jul 01, 2024.
       </span></p>
   </div>
 

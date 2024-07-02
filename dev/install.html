@@ -16,7 +16,7 @@
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
       <link rel="stylesheet" type="text/css" href="_static/style.css?v=902da76c" />
 
   
@@ -28,12 +28,12 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=b483e97e"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/documentation_options.js?v=74a2d750"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="_static/copybutton.js?v=ccdb6887"></script>
-        <script src="_static/design-tabs.js?v=36754332"></script>
+        <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -105,6 +105,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#common-installation-issues">Common installation issues</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#error-loading-gmt-shared-library-at">“Error loading GMT shared library at …”</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#modulenotfounderror-in-jupyter-notebook-environment"><code class="docutils literal notranslate"><span class="pre">ModuleNotFoundError</span></code> in Jupyter notebook environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#not-working-transparency">Not working transparency</a></li>
 </ul>
 </li>
 </ul>
@@ -121,12 +122,13 @@
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="team.html">PyGMT Team</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributors Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="maintenance.html">Maintainers Guide</a></li>
 </ul>
@@ -190,14 +192,14 @@ package manager which takes care of setting up a virtual environment, as well as
 installation of GMT and all the dependencies PyGMT depends on:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="mamba" for="sd-tab-item-0">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="mamba" for="sd-tab-item-0">
 mamba</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">pygmt</span> <span class="o">--</span><span class="n">channel</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">pygmt</span>
 </pre></div>
 </div>
 </div>
 <input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="conda" for="sd-tab-item-1">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="conda" for="sd-tab-item-1">
 conda</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">pygmt</span> <span class="o">--</span><span class="n">channel</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">pygmt</span>
 </pre></div>
@@ -207,14 +209,14 @@ conda</label><div class="sd-tab-content docutils">
 <p>To activate the virtual environment, you can do:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
-</input><label class="sd-tab-label" data-sync-id="mamba" for="sd-tab-item-2">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="mamba" for="sd-tab-item-2">
 mamba</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">activate</span> <span class="n">pygmt</span>
 </pre></div>
 </div>
 </div>
 <input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
-</input><label class="sd-tab-label" data-sync-id="conda" for="sd-tab-item-3">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="conda" for="sd-tab-item-3">
 conda</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">pygmt</span>
 </pre></div>
@@ -282,7 +284,7 @@ instead.</p>
 does have some initial support for <code class="docutils literal notranslate"><span class="pre">pandas.Series</span></code> and <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> objects with
 Apache Arrow-backed arrays. Specifically, only uint/int/float and date32/date64 dtypes
 are supported for now. Support for string Arrow dtypes is still a work in progress.
-For  more details, see <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues/2800">issue #2800</a>.</p>
+For more details, see <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues/2800">issue #2800</a>.</p>
 </div>
 </section>
 <section id="installing-gmt-and-other-dependencies">
@@ -300,14 +302,14 @@ to avoid issues with conflicting versions of dependencies.</p>
 installed (we’ll call it <code class="docutils literal notranslate"><span class="pre">pygmt</span></code> but feel free to change it to whatever you want):</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="mamba" for="sd-tab-item-4">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="mamba" for="sd-tab-item-4">
 mamba</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">pygmt</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.12</span> <span class="n">numpy</span> <span class="n">pandas</span> <span class="n">xarray</span> <span class="n">netcdf4</span> <span class="n">packaging</span> <span class="n">gmt</span>
 </pre></div>
 </div>
 </div>
 <input id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="conda" for="sd-tab-item-5">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="conda" for="sd-tab-item-5">
 conda</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">pygmt</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.12</span> <span class="n">numpy</span> <span class="n">pandas</span> <span class="n">xarray</span> <span class="n">netcdf4</span> <span class="n">packaging</span> <span class="n">gmt</span>
 </pre></div>
@@ -317,14 +319,14 @@ conda</label><div class="sd-tab-content docutils">
 <p>Activate the environment by running the following (<strong>do not forget this step!</strong>):</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-6" name="sd-tab-set-3" type="radio">
-</input><label class="sd-tab-label" data-sync-id="mamba" for="sd-tab-item-6">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="mamba" for="sd-tab-item-6">
 mamba</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">activate</span> <span class="n">pygmt</span>
 </pre></div>
 </div>
 </div>
 <input id="sd-tab-item-7" name="sd-tab-set-3" type="radio">
-</input><label class="sd-tab-label" data-sync-id="conda" for="sd-tab-item-7">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="conda" for="sd-tab-item-7">
 conda</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">pygmt</span>
 </pre></div>
@@ -343,14 +345,14 @@ PyGMT using any of the following methods.</p>
 <p>This installs the latest stable release of PyGMT from <a class="reference external" href="https://anaconda.org/conda-forge/pygmt">conda-forge</a>:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-8" name="sd-tab-set-4" type="radio">
-</input><label class="sd-tab-label" data-sync-id="mamba" for="sd-tab-item-8">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="mamba" for="sd-tab-item-8">
 mamba</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">install</span> <span class="n">pygmt</span>
 </pre></div>
 </div>
 </div>
 <input id="sd-tab-item-9" name="sd-tab-set-4" type="radio">
-</input><label class="sd-tab-label" data-sync-id="conda" for="sd-tab-item-9">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="conda" for="sd-tab-item-9">
 conda</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">pygmt</span>
 </pre></div>
@@ -360,14 +362,14 @@ conda</label><div class="sd-tab-content docutils">
 <p>This upgrades the installed PyGMT version to be the latest stable release:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-10" name="sd-tab-set-5" type="radio">
-</input><label class="sd-tab-label" data-sync-id="mamba" for="sd-tab-item-10">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="mamba" for="sd-tab-item-10">
 mamba</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">update</span> <span class="n">pygmt</span>
 </pre></div>
 </div>
 </div>
 <input id="sd-tab-item-11" name="sd-tab-set-5" type="radio">
-</input><label class="sd-tab-label" data-sync-id="conda" for="sd-tab-item-11">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="conda" for="sd-tab-item-11">
 conda</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">update</span> <span class="n">pygmt</span>
 </pre></div>
@@ -405,11 +407,17 @@ in your Python interpreter:</p>
 <span class="n">pygmt</span><span class="o">.</span><span class="n">show_versions</span><span class="p">()</span>
 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">coast</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">shorelines</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">coast</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s2">&quot;N15c&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">land</span><span class="o">=</span><span class="s2">&quot;tan&quot;</span><span class="p">,</span> <span class="n">water</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;MC&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;PyGMT&quot;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="s2">&quot;80p,Helvetica-Bold,red@75&quot;</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>If you see a global map with shorelines, then you’re all set.</p>
+<p><a class="align-center reference internal" href="https://github.com/GenericMappingTools/pygmt/assets/3974108/f7f51484-8640-4b58-ae5b-6c71e7150f7a"><img alt="pygmt-get-started" class="align-center" src="https://github.com/GenericMappingTools/pygmt/assets/3974108/f7f51484-8640-4b58-ae5b-6c71e7150f7a" style="width: 70%;" /></a></p>
+<p>You should see a global map with land and water masses colored in tan and lightblue
+respectively. On top, there should be the semi-transparent text “PyGMT”. If the
+semi-transparency does not show up, there is probably an incompatibility between your
+GMT and Ghostscript versions. For details, please run <code class="docutils literal notranslate"><span class="pre">pygmt.show_versions()</span></code> and see
+<a class="reference internal" href="#not-working-transparency">Not working transparency</a>.</p>
 </section>
 <section id="common-installation-issues">
 <h2>Common installation issues<a class="headerlink" href="#common-installation-issues" title="Link to this heading"></a></h2>
@@ -447,6 +455,17 @@ and install a <code class="docutils literal notranslate"><span class="pre">pygmt
 <p>After that, you need to restart Jupyter, open your notebook, select the <code class="docutils literal notranslate"><span class="pre">pygmt</span></code> kernel
 and then import pygmt.</p>
 </section>
+<section id="not-working-transparency">
+<h3>Not working transparency<a class="headerlink" href="#not-working-transparency" title="Link to this heading"></a></h3>
+<p>It is known that some combinations of GMT and Ghostscript versions cause issues,
+especially regarding transparency. If the transparency doesn’t work in your figures,
+please check your GMT and Ghostscript versions (you can run <code class="docutils literal notranslate"><span class="pre">pygmt.show_versions()</span></code>).
+We recommend:</p>
+<ul class="simple">
+<li><p>Ghostscript 9.53-9.56 for GMT 6.3.0/6.4.0</p></li>
+<li><p>Ghostscript 10.03 or later for GMT 6.5.0</p></li>
+</ul>
+</section>
 </section>
 </section>
 
@@ -463,9 +482,9 @@ and then import pygmt.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/215e4a1a">215e4a1a</a></code>.
       </span>
-      <span class="lastupdated">Last updated on May 01, 2024.
+      <span class="lastupdated">Last updated on Jul 01, 2024.
       </span></p>
   </div>
 

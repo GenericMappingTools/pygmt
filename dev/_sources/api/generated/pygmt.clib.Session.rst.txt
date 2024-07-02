@@ -56,6 +56,10 @@ pygmt.clib.Session
     
     
     
+    Session.get_enum
+    
+    
+    
     Session.get_libgmt_func
     
     

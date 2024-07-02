@@ -4,7 +4,7 @@ Projections
 ===========
 
 PyGMT supports many map projections. Use the ``projection`` parameter to specify which
-one you want to use in all plotting methods. The projection is specified by a one-letter 
+one you want to use in all plotting methods. The projection is specified by a one-letter
 code along with (sometimes optional) reference longitude and latitude and the
 width of the map (for example, **A**\ *lon0/lat0*\ [*/horizon*\ ]\ */width*). The map
 height is determined based on the region and projection.
@@ -17,6 +17,9 @@ These are all the available projections:
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
+
+.. thumbnail-parent-div-close
 
 .. raw:: html
 
@@ -31,6 +34,7 @@ Azimuthal Projections
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
@@ -134,6 +138,8 @@ Azimuthal Projections
     </div>
 
 
+.. thumbnail-parent-div-close
+
 .. raw:: html
 
     </div>
@@ -158,6 +164,7 @@ Conic Projections
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
@@ -227,6 +234,8 @@ Conic Projections
     </div>
 
 
+.. thumbnail-parent-div-close
+
 .. raw:: html
 
     </div>
@@ -249,6 +258,7 @@ Cylindric Projections
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
@@ -437,6 +447,8 @@ Cylindric Projections
     </div>
 
 
+.. thumbnail-parent-div-close
+
 .. raw:: html
 
     </div>
@@ -466,6 +478,7 @@ Miscellaneous Projections
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
@@ -603,6 +616,8 @@ Miscellaneous Projections
     </div>
 
 
+.. thumbnail-parent-div-close
+
 .. raw:: html
 
     </div>
@@ -629,6 +644,7 @@ Non-geographic Projections
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
@@ -697,6 +713,8 @@ Non-geographic Projections
       <div class="sphx-glr-thumbnail-title">Polar</div>
     </div>
 
+
+.. thumbnail-parent-div-close
 
 .. raw:: html
 
@@ -808,6 +826,9 @@ The table below shows the projection codes for the 31 GMT projections:
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
+
+.. thumbnail-parent-div-close
 
 .. raw:: html
 

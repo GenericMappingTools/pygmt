@@ -14,6 +14,9 @@ code used to generate it.
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
+
+.. thumbnail-parent-div-close
 
 .. raw:: html
 
@@ -28,6 +31,7 @@ Maps and map elements
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
@@ -131,6 +135,8 @@ Maps and map elements
     </div>
 
 
+.. thumbnail-parent-div-close
+
 .. raw:: html
 
     </div>
@@ -155,6 +161,7 @@ Lines and vectors
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
@@ -377,6 +384,8 @@ Lines and vectors
     </div>
 
 
+.. thumbnail-parent-div-close
+
 .. raw:: html
 
     </div>
@@ -408,6 +417,7 @@ Symbols and markers
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
@@ -596,6 +606,8 @@ Symbols and markers
     </div>
 
 
+.. thumbnail-parent-div-close
+
 .. raw:: html
 
     </div>
@@ -625,6 +637,7 @@ Images, contours, and fields
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
@@ -779,6 +792,8 @@ Images, contours, and fields
     </div>
 
 
+.. thumbnail-parent-div-close
+
 .. raw:: html
 
     </div>
@@ -806,6 +821,7 @@ Images, contours, and fields
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
@@ -841,6 +857,8 @@ Images, contours, and fields
     </div>
 
 
+.. thumbnail-parent-div-close
+
 .. raw:: html
 
     </div>
@@ -861,6 +879,7 @@ Seismology and geodesy
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
@@ -896,6 +915,8 @@ Seismology and geodesy
     </div>
 
 
+.. thumbnail-parent-div-close
+
 .. raw:: html
 
     </div>
@@ -916,6 +937,7 @@ Base maps
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
@@ -951,6 +973,8 @@ Base maps
     </div>
 
 
+.. thumbnail-parent-div-close
+
 .. raw:: html
 
     </div>
@@ -971,6 +995,7 @@ Histograms
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
@@ -1040,6 +1065,8 @@ Histograms
     </div>
 
 
+.. thumbnail-parent-div-close
+
 .. raw:: html
 
     </div>
@@ -1062,6 +1089,7 @@ Plot embellishments
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
@@ -1215,6 +1243,8 @@ Plot embellishments
       <div class="sphx-glr-thumbnail-title">Timestamp</div>
     </div>
 
+
+.. thumbnail-parent-div-close
 
 .. raw:: html
 

@@ -13,6 +13,9 @@ These examples teach us how to complete various tasks using PyGMT!
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
+
+.. thumbnail-parent-div-close
 
 .. raw:: html
 
@@ -27,6 +30,7 @@ Basics
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
@@ -130,6 +134,8 @@ Basics
     </div>
 
 
+.. thumbnail-parent-div-close
+
 .. raw:: html
 
     </div>
@@ -154,6 +160,7 @@ Advanced
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
@@ -341,6 +348,8 @@ Advanced
       <div class="sphx-glr-thumbnail-title">Plotting vectors</div>
     </div>
 
+
+.. thumbnail-parent-div-close
 
 .. raw:: html
 
