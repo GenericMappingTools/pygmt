@@ -4,20 +4,19 @@ grdcut - Extract subregion from a grid.
 
 from pygmt.clib import Session
 from pygmt.helpers import (
-    GMTTempFile,
     build_arg_list,
+    data_kind,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.io import load_dataarray
+from pygmt.src.which import which
 
 __doctest_skip__ = ["grdcut"]
 
 
 @fmt_docstring
 @use_alias(
-    G="outgrid",
     R="region",
     J="projection",
     N="extend",
@@ -27,9 +26,9 @@ __doctest_skip__ = ["grdcut"]
     f="coltypes",
 )
 @kwargs_to_strings(R="sequence")
-def grdcut(grid, **kwargs):
+def grdcut(grid, outgrid: str | None = None, **kwargs):
     r"""
-    Extract subregion from a grid.
+    Extract subregion from a grid or image.
 
     Produce a new ``outgrid`` file which is a subregion of ``grid``. The
     subregion is specified with ``region``; the specified range must not exceed
@@ -99,13 +98,23 @@ def grdcut(grid, **kwargs):
     >>> # 12° E to 15° E and a latitude range of 21° N to 24° N
     >>> new_grid = pygmt.grdcut(grid=grid, region=[12, 15, 21, 24])
     """
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="grdcut", args=build_arg_list(kwargs, infile=vingrd)
-                )
+    inkind = data_kind(grid)
+    match inkind:
+        case "image" | "grid":
+            outkind = inkind
+        case "file":
+            realpath = which(grid, download="a")
+            if isinstance(realpath, list):
+                realpath = realpath[0]
+            outkind = "image" if realpath.endswith(".tif") else "grid"
 
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_out(kind=outkind, fname=outgrid) as voutgrd,
+        ):
+            kwargs["G"] = voutgrd
+            lib.call_module(module="grdcut", args=build_arg_list(kwargs, infile=vingrd))
+            return lib.virtualfile_to_raster(
+                outgrid=outgrid, kind=outkind, vfname=voutgrd
+            )
