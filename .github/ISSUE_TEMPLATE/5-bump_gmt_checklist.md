@@ -35,7 +35,7 @@ using the following command:
 **To-Do for bumping the minimum required GMT version**:
 
 - [ ] Bump the minimum required GMT version (1 PR)
-  - [ ] Update `required_version` in `pygmt/clib/session.py`
+  - [ ] Update `required_gmt_version` in `pygmt/clib/__init__.py`
   - [ ] Update `test_get_default` in `pygmt/tests/test_clib.py`
   - [ ] Update minimum required versions in `doc/minversions.md`
   - [ ] Remove unsupported GMT version from `.github/workflows/ci_tests_legacy.yaml`
