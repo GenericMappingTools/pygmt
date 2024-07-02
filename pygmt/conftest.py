@@ -1,5 +1,5 @@
 """
-conftets.py for pytest.
+conftest.py for pytest.
 """
 
 import numpy as np
