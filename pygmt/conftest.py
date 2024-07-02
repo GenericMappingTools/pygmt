@@ -1,6 +1,7 @@
 """
 conftets.py for pytest.
 """
+
 import numpy as np
 from packaging.version import Version
 
