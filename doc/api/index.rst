@@ -205,6 +205,15 @@ Miscellaneous
     which
     show_versions
 
+Common Parameters
+-----------------
+
+.. autosummary::
+    :toctree: generated
+
+    params.Box
+
+
 .. currentmodule:: pygmt
 
 Datasets
