@@ -6,9 +6,9 @@ version: 2
 
 # Set the version of Python and other tools you might need
 build:
-  os: ubuntu-22.04
+  os: ubuntu-24.04
   tools:
-    python: "mambaforge-4.10"
+    python: "mambaforge-23.11"
   jobs:
     post_checkout:
       # Cancel building pull requests when there aren't changes related to docs.

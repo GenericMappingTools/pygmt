@@ -23,12 +23,12 @@ jobs:
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v4.1.5
+      uses: actions/checkout@v4.1.7
       with:
         path: repository
 
     - name: Checkout the documentation
-      uses: actions/checkout@v4.1.5
+      uses: actions/checkout@v4.1.7
       with:
         ref: gh-pages
         path: documentation
@@ -37,18 +37,21 @@ jobs:
       id: lychee
       uses: lycheeverse/lychee-action@v1.10.0
       with:
+        output: /tmp/lychee-out.md
         # 429: Too many requests
         args: >
           --accept 429
-          --exclude-mail
           --exclude "^https://doi.org/10.5281/zenodo$"
           --exclude "^https://zenodo.org/badge/DOI/$"
           --exclude "^https://zenodo.org/badge/DOI/10.5281/zenodo$"
           --exclude "^https://github.com/GenericMappingTools/pygmt/pull/[0-9]*$"
           --exclude "^https://github.com/GenericMappingTools/pygmt/issues/[0-9]*$"
           --exclude "^https://github.com/GenericMappingTools/gmt/releases/tag/X.Y.Z$"
+          --exclude "^https://github.com/GenericMappingTools/pygmt/edit"
+          --exclude "^https://github.com/GenericMappingTools/pygmt/issues/new"
           --exclude "^git"
           --exclude "^file://"
+          --exclude "https://www.adobe.com/jp/print/postscript/pdfs/PLRM.pdf"
           --exclude "^https://docs.generic-mapping-tools.org/6.5/%s$"
           --exclude "^https://docs.generic-mapping-tools.org/6.5/%3Cmodule-name%3E.html$"
           --exclude "^https://www.generic-mapping-tools.org/remote-datasets/%s$"
@@ -69,7 +72,8 @@ jobs:
     - name: Create Issue From File
       if: env.lychee_exit_code != 0
       run: |
+        cd repository/
         title="Link Checker Report on ${{ steps.date.outputs.date }}"
-        gh issue create --title "$title" --body-file ./lychee/out.md
+        gh issue create --title "$title" --body-file /tmp/lychee-out.md
       env:
         GH_TOKEN: ${{ github.token }}
