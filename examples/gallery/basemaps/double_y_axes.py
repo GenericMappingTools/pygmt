@@ -1,5 +1,5 @@
 """
-Double Y axes graph
+Double Y-axes graph
 ===================
 
 The ``frame`` parameter of the plotting methods of the :class:`pygmt.Figure`
