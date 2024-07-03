@@ -18,6 +18,7 @@ from pygmt.helpers.utils import (
     args_in_kwargs,
     build_arg_list,
     build_arg_string,
+    check_encoding,
     data_kind,
     is_nonstr_iter,
     launch_external_viewer,

@@ -205,6 +205,41 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
     return kind
 
 
+def check_encoding(argstr: str) -> str:
+    """
+    Check the charset encoding of a string.
+
+    All characters in the string must be in a single charset encoding, otherwise the
+    default ISOLatin1+ encoding is returned. Characters in the Symbol and ZapfDingbats
+    fonts are also checked because they're independent on the setting of charset.
+
+    Parameters
+    ----------
+    argstr
+        The string to be checked.
+
+    Returns
+    -------
+    encoding
+        The encoding of the string.
+    """
+    # Loop through all supported encodings and check if all characters in the string
+    # are in the charset of the encoding. If all characters are in the charset, return
+    # the encoding. The ISOLatin1+ encoding is checked first because it is the default
+    # and most common encoding.
+    adobe_chars = set(charset["Symbol"].values()) | set(
+        charset["ZapfDingbats"].values()
+    )
+    for encoding in ["ISOLatin1+"] + [f"ISO-8859-{i}" for i in range(1, 17)]:
+        if encoding == "ISO-8859-12":  # ISO-8859-12 was abandoned. Skip it.
+            continue
+        if all(c in (set(charset[encoding].values()) | adobe_chars) for c in argstr):
+            return encoding
+    # Return the "ISOLatin1+" encoding if the string contains characters from multiple
+    # charset encodings or contains characters that are not in any charset encoding.
+    return "ISOLatin1+"
+
+
 def non_ascii_to_octal(argstr: str) -> str:
     r"""
     Translate non-ASCII characters to their corresponding octal codes.
