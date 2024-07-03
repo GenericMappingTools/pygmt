@@ -240,7 +240,7 @@ def check_encoding(argstr: str) -> str:
     return "ISOLatin1+"
 
 
-def non_ascii_to_octal(argstr: str) -> str:
+def non_ascii_to_octal(argstr: str, encoding: str = "ISOLatin1+") -> str:
     r"""
     Translate non-ASCII characters to their corresponding octal codes.
 
@@ -251,6 +251,8 @@ def non_ascii_to_octal(argstr: str) -> str:
     ----------
     argstr
         The string to be translated.
+    encoding
+        The encoding of characters in the string.
 
     Returns
     -------
@@ -280,8 +282,8 @@ def non_ascii_to_octal(argstr: str) -> str:
     mapping.update(
         {c: f"@%34%\\{i:03o}@%%" for i, c in charset["ZapfDingbats"].items()}
     )
-    # Adobe ISOLatin1+ charset. Put at the end.
-    mapping.update({c: f"\\{i:03o}" for i, c in charset["ISOLatin1+"].items()})
+    # ISOLatin1+ or ISO-8859-x charset.
+    mapping.update({c: f"\\{i:03o}" for i, c in charset[encoding].items()})
 
     # Remove any printable characters
     mapping = {k: v for k, v in mapping.items() if k not in string.printable}
