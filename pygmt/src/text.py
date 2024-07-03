@@ -7,6 +7,7 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_list,
+    check_encoding,
     data_kind,
     fmt_docstring,
     is_nonstr_iter,
@@ -226,13 +227,23 @@ def text_(  # noqa: PLR0912
         kwargs["t"] = ""
 
     # Append text at last column. Text must be passed in as str type.
+    confdict = {}
     if kind == "vectors":
+        text = np.atleast_1d(text).astype(str)
+        encoding = check_encoding("".join(text))
         extra_arrays.append(
-            np.vectorize(non_ascii_to_octal)(np.atleast_1d(text).astype(str))
+            np.vectorize(non_ascii_to_octal, excluded="encoding")(
+                text, encoding=encoding
+            )
         )
+        if encoding != "ISOLatin1+":
+            confdict = {"PS_CHAR_ENCODING": encoding}
 
     with Session() as lib:
         with lib.virtualfile_in(
             check_kind="vector", data=textfiles, x=x, y=y, extra_arrays=extra_arrays
         ) as vintbl:
-            lib.call_module(module="text", args=build_arg_list(kwargs, infile=vintbl))
+            lib.call_module(
+                module="text",
+                args=build_arg_list(kwargs, infile=vintbl, confdict=confdict),
+            )
