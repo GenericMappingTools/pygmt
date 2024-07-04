@@ -114,18 +114,18 @@ https://en.wikipedia.org/wiki/ISO/IEC_8859 for descriptions of the different par
 
 For a list of the characters in each part of the standard, refer to the following links:
 
-- https://en.wikipedia.org/wiki/ISO/IEC_8859-1
-- https://en.wikipedia.org/wiki/ISO/IEC_8859-2
-- https://en.wikipedia.org/wiki/ISO/IEC_8859-3
-- https://en.wikipedia.org/wiki/ISO/IEC_8859-4
-- https://en.wikipedia.org/wiki/ISO/IEC_8859-5
-- https://en.wikipedia.org/wiki/ISO/IEC_8859-6
-- https://en.wikipedia.org/wiki/ISO/IEC_8859-7
-- https://en.wikipedia.org/wiki/ISO/IEC_8859-8
-- https://en.wikipedia.org/wiki/ISO/IEC_8859-9
-- https://en.wikipedia.org/wiki/ISO/IEC_8859-10
-- https://en.wikipedia.org/wiki/ISO/IEC_8859-11
-- https://en.wikipedia.org/wiki/ISO/IEC_8859-13
-- https://en.wikipedia.org/wiki/ISO/IEC_8859-14
-- https://en.wikipedia.org/wiki/ISO/IEC_8859-15
-- https://en.wikipedia.org/wiki/ISO/IEC_8859-16
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-1>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-2>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-3>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-4>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-5>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-6>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-7>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-8>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-9>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-10>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-11>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-13>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-14>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-15>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-16>
