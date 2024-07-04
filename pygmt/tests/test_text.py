@@ -432,3 +432,16 @@ def test_text_quotation_marks():
     fig.basemap(projection="X4c/2c", region=[0, 4, 0, 2], frame=0)
     fig.text(x=2, y=1, text='\\234 ‘ ’ " “ ”', font="20p")  # noqa: RUF001
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_text_nonascii_iso8859():
+    """
+    Test passing text strings with non-ascii characters in ISO-8859-4 encoding.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=["WSEN+tAāáâãäåB"])
+    fig.text(position="TL", text="position-text:1ÉĘËĖ2")
+    fig.text(x=1, y=1, text="xytext:1éęëė2")
+    fig.text(x=[5, 5], y=[3, 5], text=["xytext1:ųúûüũūαζ∆❡", "xytext2:íîī∑π∇✉"])
+    return fig
