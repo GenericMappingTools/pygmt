@@ -222,6 +222,19 @@ def check_encoding(argstr: str) -> str:
     -------
     encoding
         The encoding of the string.
+
+    Examples
+    --------
+    >>> check_encoding("123ABC+-?!")  # ASCII characters only
+    'ISOLatin1+'
+    >>> check_encoding("12AB±β①②")  # Characters in ISOLatin1+
+    'ISOLatin1+'
+    >>> check_encoding("12ABāáâãäåβ①②")  # Characters in ISO-8859-4
+    'ISO-8859-4'
+    >>> check_encoding("12ABŒā")  # Mix characters in ISOLatin1+ (Œ) and ISO-8859-4 (ā)
+    'ISOLatin1+'
+    >>> check_encoding("123AB中文")  # Characters not in any charset encoding
+    'ISOLatin1+'
     """
     # Loop through all supported encodings and check if all characters in the string
     # are in the charset of the encoding. If all characters are in the charset, return
