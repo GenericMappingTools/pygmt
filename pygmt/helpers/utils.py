@@ -375,6 +375,10 @@ def build_arg_list(
     ...     )
     ... )
     ['f1.txt', 'f2.txt', '-A0', '-B', '--FORMAT_DATE_MAP=o dd', '->out.txt']
+    >>> build_arg_list(dict(B="12ABāβ①②"))
+    ['-B12AB\\340@~\\142@~@%34%\\254@%%@%34%\\255@%%', '--PS_CHAR_ENCODING=ISO-8859-4']
+    >>> build_arg_list(dict(B="12ABāβ①②"), confdict=dict(PS_CHAR_ENCODING="ISO-8859-5"))
+    ['-B12AB\\340@~\\142@~@%34%\\254@%%@%34%\\255@%%', '--PS_CHAR_ENCODING=ISO-8859-5']
     >>> print(build_arg_list(dict(R="1/2/3/4", J="X4i", watre=True)))
     Traceback (most recent call last):
       ...
