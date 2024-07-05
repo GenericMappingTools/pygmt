@@ -78,8 +78,8 @@ pygmt.makecpt(
 # Plot the colorbar
 fig.colorbar(
     cmap=True,  # Use colormap set up above
-    # Colorbar placed inside the plot bounding box (j) at BottomLeft (BL),
-    # offset (+o) by 0.5 cm horizontally and 0.8 cm vertically from anchor
+    # Colorbar placed inside the plot bounding box (j) in the Bottom Left (BL) corner,
+    # with an offset (+o) by 0.5 cm horizontally and 0.8 cm vertically from the anchor
     # point, and plotted horizontally (+h)
     position="jBL+o0.5c/0.8c+h",
     box=True,

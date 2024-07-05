@@ -60,7 +60,7 @@ fig.grdview(
 # Add colorbar for gridded data
 fig.colorbar(
     frame="a2f1",  # Set annotations in steps of two, tick marks in steps of one
-    position="JRM",  # Place colorbar at position RightMiddle
+    position="JMR",  # Place colorbar in the Middle Right corner
 )
 
 fig.show()
