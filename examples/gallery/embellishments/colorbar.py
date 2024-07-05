@@ -14,7 +14,7 @@ via the ``position`` parameter. There are the following options:
 - **j/J**: placed inside/outside the plot bounding box using any 2-character
   combination of vertical (**T**\ op, **M**\ iddle, **B**\ ottom) and
   horizontal (**L**\ eft, **C**\ enter, **R**\ ight) alignment codes, e.g.
-  ``position="jTR"`` for Top Right.
+  ``position="jTR"`` for TopRight.
 - **g**: using map coordinates, e.g. ``position="g170/-45"`` for longitude
   170E, latitude 45S.
 - **x**: using paper coordinates, e.g. ``position="x5c/7c"`` for 5 cm, 7 cm
@@ -34,7 +34,7 @@ fig.basemap(region=[0, 3, 6, 9], projection="x3c", frame=["af", "WSne+tColorbars
 
 # ============
 # Create a colorbar designed for seismic tomography - roma
-# Colorbar is placed at bottom center (BC) by default if no position is given
+# Colorbar is placed at BottomCenter (BC) by default if no position is given
 # Add quantity and unit as labels ("+l") to the x and y axes
 # Add annotations ("+a") in steps of 0.5 and ticks ("+f") in steps of 0.1
 fig.colorbar(cmap="roma", frame=["xa0.5f0.1+lVelocity", "y+lm/s"])
@@ -78,7 +78,7 @@ pygmt.makecpt(
 # Plot the colorbar
 fig.colorbar(
     cmap=True,  # Use colormap set up above
-    # Colorbar placed inside the plot bounding box (j) at Bottom Left (BL),
+    # Colorbar placed inside the plot bounding box (j) at BottomLeft (BL),
     # offset (+o) by 0.5 cm horizontally and 0.8 cm vertically from anchor
     # point, and plotted horizontally (+h)
     position="jBL+o0.5c/0.8c+h",

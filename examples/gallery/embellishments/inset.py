@@ -16,7 +16,7 @@ fig = pygmt.Figure()
 # to "brown", the water to "lightblue", the shorelines width to "thin", and
 # adding a frame
 fig.coast(region="MG+r2", land="brown", water="lightblue", shorelines="thin", frame="a")
-# Create an inset, setting the position to top left, the width to 3.5 cm, and
+# Create an inset, setting the position to TopLeft, the width to 3.5 cm, and
 # the x- and y-offsets to 0.2 cm. The margin is set to 0, and the border is
 # "gold" with a pen size of 1.5 points.
 with fig.inset(position="jTL+w3.5c+o0.2c", margin=0, box="+p1.5p,gold"):
