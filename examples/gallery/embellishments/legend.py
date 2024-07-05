@@ -55,9 +55,8 @@ fig.plot(x=x, y=y3, pen="1p,darkred,-", label="sin(x/2)-1.1+N2")
 
 fig.plot(x=x, y=y4, style="s0.07c", fill="orange", label="cos(x/2)-1.1")
 
-# For a multi-column legend, users have to provide the width via "+w", here it
-# is set to 6 centimeters; reference and anchor points are set to hte Bottom
-# Right corner
+# For a multi-column legend, users have to provide the width via "+w", here it is
+# set to 6 centimeters; reference and anchor points are the Bottom Right (BR) corner
 fig.legend(position="JBR+jBR+o0.2c+w6c", box=True)
 
 fig.show()
