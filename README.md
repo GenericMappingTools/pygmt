@@ -151,7 +151,7 @@ research using the following BibTeX:
                   Ziebarth, Malte and
                   Quinn, Jamie and
                   Wessel, Paul},
-  title        = {PyGMT: A Python interface for the Generic Mapping Tools},
+  title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
   month        = may,
   year         = 2024,
   publisher    = {Zenodo},
