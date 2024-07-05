@@ -20,7 +20,7 @@ References
 - Adobe Postscript Language Reference: https://www.adobe.com/jp/print/postscript/pdfs/PLRM.pdf
 - ISOLatin1+: https://en.wikipedia.org/wiki/PostScript_Latin_1_Encoding
 - Adobe Symbol: https://en.wikipedia.org/wiki/Symbol_(typeface)
-- Zapf Dingbats: https://en.wikipedia.org/wiki/Zapf_Dingbats
+- ZapfDingbats: https://en.wikipedia.org/wiki/Zapf_Dingbats
 - Adobe Glyph List: https://github.com/adobe-type-tools/agl-aglfn
 - ISO-8859-x: https://en.wikipedia.org/wiki/ISO/IEC_8859-1
 """
@@ -135,7 +135,7 @@ charset["ZapfDingbats"] = dict(
 
 # ISO-8859-x charsets and x can be 1-11, 13-16.
 for i in range(1, 17):
-    if i == 12:  # ISO-8859-2 was abandoned.
+    if i == 12:  # ISO-8859-12 was abandoned.
         continue
     charset[f"ISO-8859-{i}"] = {
         code: codecs.decode(bytes([code]), f"iso8859_{i}", errors="replace")
