@@ -98,15 +98,24 @@ def grdcut(grid, outgrid: str | None = None, **kwargs):
     >>> # 12° E to 15° E and a latitude range of 21° N to 24° N
     >>> new_grid = pygmt.grdcut(grid=grid, region=[12, 15, 21, 24])
     """
+    # Determine the output data kind based on the input data kind.
     inkind = data_kind(grid)
     match inkind:
         case "image" | "grid":
             outkind = inkind
         case "file":
-            realpath = which(grid, download="a")
-            if isinstance(realpath, list):
-                realpath = realpath[0]
-            outkind = "image" if realpath.endswith(".tif") else "grid"
+            realpath = str(grid)
+            if realpath.startswith("@"):  # Is a remote file without suffix
+                realpath = which(grid, download="a")
+                if isinstance(realpath, list):
+                    realpath = realpath[0]
+
+            if realpath.endswith(
+                ".jpg", ".jpeg", ".png", ".tif", ".tiff", ".bmp", ".webp"
+            ):
+                outkind = "image"
+            else:  # Fall back to grid.
+                outkind = "grid"
 
     with Session() as lib:
         with (
