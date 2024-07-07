@@ -26,6 +26,7 @@ For the sake of simplicity the image grid is already stored as netCDF file
     mentioned above for details.
 """
 
+# %%
 import pygmt
 
 # %%
