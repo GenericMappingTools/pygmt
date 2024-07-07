@@ -1,4 +1,4 @@
-"""
+r"""
 Draping a data set on top of a topographic surface
 ==================================================
 
@@ -155,3 +155,5 @@ fig.text(
 # -----------------------------------------------------------------------------
 # Show figure
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 1
