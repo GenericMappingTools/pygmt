@@ -114,6 +114,7 @@ def test_grdcut_fails():
         grdcut(np.arange(10).reshape((5, 2)))
 
 
+@pytest.mark.skipif(not _HAS_RIOXARRAY, reason="rioxarray is not installed")
 def test_grdcut_image_file(region, expected_image):
     """
     Test grdcut on an input image file.
