@@ -111,7 +111,7 @@ def grdcut(grid, outgrid: str | None = None, **kwargs):
                     realpath = realpath[0]
 
             if realpath.endswith(
-                ".jpg", ".jpeg", ".png", ".tif", ".tiff", ".bmp", ".webp"
+                (".jpg", ".jpeg", ".png", ".tif", ".tiff", ".bmp", ".webp")
             ):
                 outkind = "image"
             else:  # Fall back to grid.
