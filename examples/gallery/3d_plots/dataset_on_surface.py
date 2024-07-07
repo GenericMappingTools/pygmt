@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Draping a data set on top of a topographic surface
 ==================================================
