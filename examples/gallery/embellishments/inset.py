@@ -18,7 +18,7 @@ fig = pygmt.Figure()
 fig.coast(region="MG+r2", land="brown", water="lightblue", shorelines="thin", frame="a")
 # Create an inset, setting the position to top left, the width to 3.5 cm, and
 # the x- and y-offsets to 0.2 cm. The margin is set to 0, and the border is
-# "gold" with a pen size of 1.5p.
+# "gold" with a pen size of 1.5 points.
 with fig.inset(position="jTL+w3.5c+o0.2c", margin=0, box="+p1.5p,gold"):
     # Create a figure in the inset using coast. This example uses the azimuthal
     # orthogonal projection centered at 47E, 20S. The land color is set to
