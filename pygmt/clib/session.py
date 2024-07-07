@@ -1759,6 +1759,7 @@ class Session:
                 "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE"),
                 "image": ("GMT_IS_IMAGE", "GMT_IS_SURFACE"),
             }[kind]
+            # For unkown reasons, 'GMT_OUT' crashes for 'image' kind.
             direction = "GMT_OUT|GMT_IS_REFERENCE" if kind == "image" else "GMT_OUT"
             with self.open_virtualfile(family, geometry, direction, None) as vfile:
                 yield vfile
@@ -2071,10 +2072,14 @@ class Session:
                 self["GMT_IS_IMAGE"]: "image",
                 self["GMT_IS_CUBE"]: "cube",
             }[family]
-        if kind == "image":
+
+        if kind == "image":  # Use temporary file for images
+            import rioxarray
+
             with GMTTempFile(suffix=".tif") as tmpfile:
                 self.call_module("write", f"{vfname} {tmpfile.name} -Ti")
-                return xr.load_dataarray(tmpfile.name)
+                with rioxarray.open_rasterio(tmpfile.name) as dataarray:
+                    return dataarray.load()
         return self.read_virtualfile(vfname, kind=kind).contents.to_dataarray()
 
     def extract_region(self):
