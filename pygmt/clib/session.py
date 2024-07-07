@@ -25,7 +25,7 @@ from pygmt.clib.conversion import (
     vectors_to_arrays,
 )
 from pygmt.clib.loading import load_libgmt
-from pygmt.datatypes import _GMT_DATASET, _GMT_GRID, _GMT_IMAGE
+from pygmt.datatypes import _GMT_DATASET, _GMT_GRID
 from pygmt.exceptions import (
     GMTCLibError,
     GMTCLibNoSessionError,
@@ -1854,13 +1854,9 @@ class Session:
         # _GMT_DATASET).
         if kind is None:  # Return the ctypes void pointer
             return pointer
-        if kind == "cube":
+        if kind in ["image", "cube"]:
             raise NotImplementedError(f"kind={kind} is not supported yet.")
-        dtype = {
-            "dataset": _GMT_DATASET,
-            "grid": _GMT_GRID,
-            "image": _GMT_IMAGE,
-        }[kind]
+        dtype = {"dataset": _GMT_DATASET, "grid": _GMT_GRID}[kind]
         return ctp.cast(pointer, ctp.POINTER(dtype))
 
     def virtualfile_to_dataset(
