@@ -39,6 +39,13 @@ from pygmt.helpers import (
     tempfile_from_image,
 )
 
+try:
+    import rioxarray
+
+    _HAS_RIOXARRAY = True
+except ImportError:
+    _HAS_RIOXARRAY = False
+
 FAMILIES = [
     "GMT_IS_DATASET",  # Entity is a data table
     "GMT_IS_GRID",  # Entity is a grid
@@ -2074,8 +2081,12 @@ class Session:
             }[family]
 
         if kind == "image":  # Use temporary file for images
-            import rioxarray
-
+            if not _HAS_RIOXARRAY:
+                raise ImportError(
+                    "Package `rioxarray` is required to be installed to load images. "
+                    "Please use `python -m pip install rioxarray` or "
+                    "`mamba install -c conda-forge rioxarray` to install the package."
+                )
             with GMTTempFile(suffix=".tif") as tmpfile:
                 self.call_module("write", f"{vfname} {tmpfile.name} -Ti")
                 with rioxarray.open_rasterio(tmpfile.name) as dataarray:
