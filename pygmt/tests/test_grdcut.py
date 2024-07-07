@@ -129,6 +129,6 @@ def test_grdcut_image_dataarray(region, expected_image):
     Test grdcut on an input xarray.DataArray object.
     """
     path = which("@earth_day_01d", download="a")
-    with rioxarray.open_rasterio(path) as raster:
-        result = grdcut(raster, region=region)
+    raster = rioxarray.open_rasterio(path)
+    result = grdcut(raster, region=region)
     xr.testing.assert_allclose(a=result, b=expected_image)
