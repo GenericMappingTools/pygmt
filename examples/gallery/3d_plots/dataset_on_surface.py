@@ -1,4 +1,4 @@
-r"""
+"""
 Draping a data set on top of a topographic surface
 ==================================================
 
