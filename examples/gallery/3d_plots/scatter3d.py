@@ -11,7 +11,7 @@ form of (xmin, xmax, ymin, ymax, zmin, zmax), which can be done automatically
 using :func:`pygmt.info`. To plot the z-axis frame, set ``frame`` as a
 minimum to something like ``frame=["WsNeZ", "zaf"]``. Use ``perspective`` to
 control the azimuth and elevation angle of the view, and ``zscale`` to adjust
-the vertical exaggeration factor.
+the vertical exaggeration factor  .
 """
 
 # %%
