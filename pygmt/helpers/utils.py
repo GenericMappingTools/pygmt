@@ -226,7 +226,7 @@ def check_encoding(argstr: str) -> str:
     Examples
     --------
     >>> check_encoding("123ABC+-?!")  # ASCII characters only
-    'ISOLatin1+'
+    'ascii'
     >>> check_encoding("12AB±β①②")  # Characters in ISOLatin1+
     'ISOLatin1+'
     >>> check_encoding("12ABāáâãäåβ①②")  # Characters in ISO-8859-4
@@ -236,6 +236,9 @@ def check_encoding(argstr: str) -> str:
     >>> check_encoding("123AB中文")  # Characters not in any charset encoding
     'ISOLatin1+'
     """
+    # Return "ascii" if the string only contains ASCII characters.
+    if all(32 <= ord(c) <= 126 for c in argstr):
+        return "ascii"
     # Loop through all supported encodings and check if all characters in the string
     # are in the charset of the encoding. If all characters are in the charset, return
     # the encoding. The ISOLatin1+ encoding is checked first because it is the default
@@ -305,7 +308,7 @@ def non_ascii_to_octal(argstr: str, encoding: str = "ISOLatin1+") -> str:
     return argstr.translate(str.maketrans(mapping))
 
 
-def build_arg_list(
+def build_arg_list(  # noqa: PLR0912
     kwdict: dict[str, Any],
     confdict: dict[str, str] | None = None,
     infile: str | pathlib.PurePath | Sequence[str | pathlib.PurePath] | None = None,
@@ -398,11 +401,15 @@ def build_arg_list(
             gmt_args.append(f"-{key}{value}")
 
     # Convert non-ASCII characters (if any) in the arguments to octal codes
-    encoding = check_encoding(" ".join(gmt_args))
-    gmt_args = sorted([non_ascii_to_octal(arg, encoding=encoding) for arg in gmt_args])
+    encoding = check_encoding("".join(gmt_args))
+    if encoding != "ascii":
+        gmt_args = [non_ascii_to_octal(arg, encoding=encoding) for arg in gmt_args]
+    gmt_args = sorted(gmt_args)
 
     # Set --PS_CHAR_ENCODING=encoding if necessary
-    if encoding != "ISOLatin1+" and not (confdict and "PS_CHAR_ENCODING" in confdict):
+    if encoding not in {"ascii", "ISOLatin1+"} and not (
+        confdict and "PS_CHAR_ENCODING" in confdict
+    ):
         gmt_args.append(f"--PS_CHAR_ENCODING={encoding}")
 
     if confdict:

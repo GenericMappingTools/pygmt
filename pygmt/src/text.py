@@ -231,12 +231,13 @@ def text_(  # noqa: PLR0912
     if kind == "vectors":
         text = np.atleast_1d(text).astype(str)
         encoding = check_encoding("".join(text))
-        extra_arrays.append(
-            np.vectorize(non_ascii_to_octal, excluded="encoding")(
+        if encoding != "ascii":
+            text = np.vectorize(non_ascii_to_octal, excluded="encoding")(
                 text, encoding=encoding
             )
-        )
-        if encoding != "ISOLatin1+":
+        extra_arrays.append(text)
+
+        if encoding not in {"ascii", "ISOLatin1+"}:
             confdict = {"PS_CHAR_ENCODING": encoding}
 
     with Session() as lib:
