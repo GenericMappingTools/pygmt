@@ -156,7 +156,7 @@ def tempfile_from_geojson(geojson):
                 # The default engine "pyogrio" doesn't support the 'schema' parameter
                 # but we can change the dtype directly.
                 for col in geojson.columns:
-                    if geojson[col].dtype in {"int", "int64", "Int64"}:
+                    if geojson[col].dtype.name in {"int", "int64", "Int64"}:
                         overflow = geojson[col].abs().max() > 2**31 - 1
                         dtype = "float" if overflow else "int32"
                         geojson[col] = geojson[col].astype(dtype)
