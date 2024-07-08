@@ -124,6 +124,7 @@ extend-select = [
     "D213",     # Summary lines should be positioned on the second physical line of the docstring.
     "D410",     # A blank line after section headings.
     "PLR6201",  # Use a set literal when testing for membership
+    "PLW1514",  # {function_name} in text mode without explicit encoding argument
 ]
 ignore = [
     "D200",     # One-line docstring should fit on one line
