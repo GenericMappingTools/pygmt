@@ -444,7 +444,7 @@ def test_plot3d_ogrgmt_file_multipoint_default_style(func):
 >
 1 1 2
 1.5 1.5 1"""
-        Path(tmpfile.name).write_text(gmt_file)
+        Path(tmpfile.name).write_text(gmt_file, encoding="locale")
         fig = Figure()
         fig.plot3d(
             data=func(tmpfile.name),
@@ -469,7 +469,7 @@ def test_plot3d_ogrgmt_file_multipoint_non_default_style():
 >
 1 1 2
 1.5 1.5 1"""
-        Path(tmpfile.name).write_text(gmt_file)
+        Path(tmpfile.name).write_text(gmt_file, encoding="locale")
         fig = Figure()
         fig.plot3d(
             data=tmpfile.name,

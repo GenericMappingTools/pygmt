@@ -74,7 +74,7 @@ def test_meca_spec_single_focalmecha_file():
     fig = Figure()
     fig.basemap(region=[-1, 1, 4, 6], projection="M8c", frame=2)
     with GMTTempFile() as temp:
-        Path(temp.name).write_text("0 5 0 0 90 0 5")
+        Path(temp.name).write_text("0 5 0 0 90 0 5", encoding="locale")
         fig.meca(spec=temp.name, convention="aki", scale="2.5c")
     return fig
 

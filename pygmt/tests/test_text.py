@@ -299,7 +299,9 @@ def test_text_angle_font_justify_from_textfile():
     """
     fig = Figure()
     with GMTTempFile(suffix=".txt") as tempfile:
-        Path(tempfile.name).write_text("114 0.5 30 22p,Helvetica-Bold,black LM BORNEO")
+        Path(tempfile.name).write_text(
+            "114 0.5 30 22p,Helvetica-Bold,black LM BORNEO", encoding="locale"
+        )
         fig.text(
             region=[113, 117.5, -0.5, 3],
             projection="M5c",

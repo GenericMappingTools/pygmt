@@ -97,7 +97,7 @@ T so we may have to adjust the box height to get the right size box.
 """
 
     with GMTTempFile() as specfile:
-        Path(specfile.name).write_text(specfile_contents)
+        Path(specfile.name).write_text(specfile_contents, encoding="locale")
         fig = Figure()
         fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
         fig.legend(specfile.name, position="JTM+jCM+w5i")
