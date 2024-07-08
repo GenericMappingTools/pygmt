@@ -2089,9 +2089,9 @@ class Session:
                 )
             with GMTTempFile(suffix=".tif") as tmpfile:
                 self.call_module("write", f"{vfname} {tmpfile.name} -Ti")
-                with rioxarray.open_rasterio(tmpfile.name) as da:
-                    dataarray = da.load()
-                return dataarray
+                with rioxarray.open_rasterio(tmpfile.name) as da:  # type: ignore[union-attr]
+                    dataarray = da.load()  # type: ignore[union-attr]
+                return dataarray  # type: ignore[return-value]
         return self.read_virtualfile(vfname, kind=kind).contents.to_dataarray()
 
     def extract_region(self):
