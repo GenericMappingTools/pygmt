@@ -7,7 +7,7 @@ from pathlib import Path
 
 import numpy as np
 from pygmt.clib import Session
-from pygmt.datatypes import _GMT_DATASET, _GMT_GRID
+from pygmt.datatypes import _GMT_DATASET, _GMT_GRID, _GMT_IMAGE
 from pygmt.helpers import GMTTempFile
 
 
@@ -141,5 +141,83 @@ def test_clib_read_data_image_as_grid():
         assert header.n_columns == 360
         assert header.n_bands == 1
         assert header.wesn[:] == [-180.0, 180.0, -90.0, 90.0]
+
+        assert image.data
+
+
+def test_clib_read_data_image():
+    """
+    Test the Session.read_data method for images.
+    """
+    with Session() as lib:
+        data_ptr = lib.read_data(
+            "GMT_IS_IMAGE",
+            "GMT_IS_SURFACE",
+            "GMT_CONTAINER_AND_DATA",
+            None,
+            "@earth_day_01d_p",
+            None,
+        )
+        image = ctp.cast(data_ptr, ctp.POINTER(_GMT_IMAGE)).contents
+        header = image.header.contents
+        assert header.n_rows == 180
+        assert header.n_columns == 360
+        assert header.n_bands == 3
+        assert header.wesn[:] == [-180.0, 180.0, -90.0, 90.0]
+
+        assert image.data
+
+
+def test_clib_read_data_image_two_steps():
+    """
+    Test the Session.read_data method for images in two steps, first reading the header
+    and then the data.
+    """
+    family, geometry = "GMT_IS_IMAGE", "GMT_IS_SURFACE"
+    infile = "@earth_day_01d_p"
+    with Session() as lib:
+        # Read the header first
+        data_ptr = lib.read_data(
+            family, geometry, "GMT_CONTAINER_ONLY", None, infile, None
+        )
+        image = ctp.cast(data_ptr, ctp.POINTER(_GMT_IMAGE)).contents
+        header = image.header.contents
+        assert header.n_rows == 180
+        assert header.n_columns == 360
+        assert header.n_bands == 3
+        assert header.wesn[:] == [-180.0, 180.0, -90.0, 90.0]
+
+        assert not image.data  # The data is not read yet
+
+        # Read the data
+        data_ptr = lib.read_data(
+            family, geometry, "GMT_DATA_ONLY", None, infile, data_ptr
+        )
+        image = ctp.cast(data_ptr, ctp.POINTER(_GMT_GRID)).contents
+
+        assert image.data is not None  # The data is read
+
+
+def test_clib_read_data_grid_as_image():
+    """
+    Test the Session.read_data method for reading a grid as an image.
+
+    Same as test_clib_read_data_image() but with a grid file.
+    """
+    with Session() as lib:
+        data_ptr = lib.read_data(
+            "GMT_IS_IMAGE",
+            "GMT_IS_SURFACE",
+            "GMT_CONTAINER_AND_DATA",
+            None,
+            "@earth_relief_01d_p",
+            None,
+        )
+        image = ctp.cast(data_ptr, ctp.POINTER(_GMT_IMAGE)).contents
+        header = image.header.contents
+        assert header.n_rows == 180
+        assert header.n_columns == 360
+        assert header.n_bands == 1
+        assert header.wesn[:] == [-179.5, 179.5, -89.5, 89.5]
 
         assert image.data
