@@ -236,7 +236,7 @@ class Figure:
             kwargs["A"] = ""
 
         prefix = kwargs.get("F")
-        if prefix in ["", None, False, True]:
+        if prefix in {"", None, False, True}:
             raise GMTInvalidInput(
                 "The 'prefix' parameter must be specified with a valid value."
             )
@@ -363,7 +363,7 @@ class Figure:
             kwargs["Qg"] = 2
 
         if worldfile:
-            if ext in ["eps", "kml", "pdf", "tiff"]:
+            if ext in {"eps", "kml", "pdf", "tiff"}:
                 raise GMTInvalidInput(
                     f"Saving a world file is not supported for '{ext}' format."
                 )
@@ -444,7 +444,7 @@ class Figure:
         if method is None:
             method = SHOW_CONFIG["method"]
 
-        if method not in ["external", "notebook", "none"]:
+        if method not in {"external", "notebook", "none"}:
             raise GMTInvalidInput(
                 f"Invalid display method '{method}', "
                 "should be either 'notebook', 'external', or 'none'."
@@ -583,7 +583,7 @@ def set_display(method=None):
     >>> pygmt.set_display(method=None)
     >>> fig.show()  # again, will show a PNG image in the current notebook
     """
-    if method in ["notebook", "external", "none"]:
+    if method in {"notebook", "external", "none"}:
         SHOW_CONFIG["method"] = method
     elif method is not None:
         raise GMTInvalidInput(
