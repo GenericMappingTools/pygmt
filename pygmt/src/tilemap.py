@@ -146,7 +146,7 @@ def tilemap(
 
     # Only set region if no_clip is None or False, so that plot is clipped to exact
     # bounding box region
-    if kwargs.get("N") in [None, False]:
+    if kwargs.get("N") in {None, False}:
         kwargs["R"] = "/".join(str(coordinate) for coordinate in region)
 
     with Session() as lib:
