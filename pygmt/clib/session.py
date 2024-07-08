@@ -10,6 +10,7 @@ import ctypes as ctp
 import pathlib
 import sys
 import warnings
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
@@ -1067,6 +1068,77 @@ class Session:
         )
         if status != 0:
             raise GMTCLibError(f"Failed to put matrix of type {matrix.dtype}.")
+
+    def read_data(
+        self,
+        family: str,
+        geometry: str,
+        mode: str,
+        wesn: Sequence[float] | None,
+        infile: str,
+        data=None,
+    ):
+        """
+        Read a data file into a GMT data container.
+
+        Wraps ``GMT_Read_Data`` but only allows reading from a file, so the ``method``
+        ``method`` argument is omitted.
+
+        Parameters
+        ----------
+        family
+            A valid GMT data family name (e.g., ``"GMT_IS_DATASET"``). See the
+            ``FAMILIES`` attribute for valid names.
+        geometry
+            A valid GMT data geometry name (e.g., ``"GMT_IS_POINT"``). See the
+            ``GEOMETRIES`` attribute for valid names.
+        mode
+            How the data is to be read from the file. This option varies depending on
+            the given family. See the GMT API documentation for details.
+        wesn
+            Subregion of the data, in the form of [xmin, xmax, ymin, ymax, zmin, zmax].
+            If ``None``, the whole data is read.
+        input
+            The input file name.
+        data
+            ``None`` or the pointer returned by this function after a first call. It's
+            useful when reading grids in two steps (get a grid structure with a header,
+            then read the data).
+
+        Returns
+        -------
+        Pointer to the data container, or ``None`` if there were errors.
+        """
+        c_read_data = self.get_libgmt_func(
+            "GMT_Read_Data",
+            argtypes=[
+                ctp.c_void_p,
+                ctp.c_uint,
+                ctp.c_uint,
+                ctp.c_uint,
+                ctp.c_uint,
+                ctp.POINTER(ctp.c_double),
+                ctp.c_char_p,
+                ctp.c_void_p,
+            ],
+            restype=ctp.c_void_p,
+        )
+
+        family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
+        geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
+        method = self["GMT_IS_FILE"]  # Reading from a file.
+
+        data_ptr = c_read_data(
+            self.session_pointer,
+            family_int,
+            method,
+            geometry_int,
+            self[mode],
+            sequence_to_ctypes_array(wesn, ctp.c_double, 6),
+            infile.encode(),
+            data,
+        )
+        return data_ptr
 
     def write_data(self, family, geometry, mode, wesn, output, data):
         """
