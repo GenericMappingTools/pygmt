@@ -57,7 +57,7 @@ def test_dataset():
     Test the basic functionality of GMT_DATASET.
     """
     with GMTTempFile(suffix=".txt") as tmpfile:
-        with Path(tmpfile.name).open(mode="w", encoding="locale") as fp:
+        with Path(tmpfile.name).open(mode="w", encoding="utf-8") as fp:
             print(">", file=fp)
             print("1.0 2.0 3.0 TEXT1 TEXT23", file=fp)
             print("4.0 5.0 6.0 TEXT4 TEXT567", file=fp)
@@ -75,7 +75,7 @@ def test_dataset_empty():
     Make sure that an empty DataFrame is returned if a file contains no data.
     """
     with GMTTempFile(suffix=".txt") as tmpfile:
-        with Path(tmpfile.name).open(mode="w", encoding="locale") as fp:
+        with Path(tmpfile.name).open(mode="w", encoding="utf-8") as fp:
             print("# This is a comment line.", file=fp)
 
         df = dataframe_from_gmt(tmpfile.name)
@@ -89,7 +89,7 @@ def test_dataset_header():
     Test parsing column names from dataset header.
     """
     with GMTTempFile(suffix=".txt") as tmpfile:
-        with Path(tmpfile.name).open(mode="w", encoding="locale") as fp:
+        with Path(tmpfile.name).open(mode="w", encoding="utf-8") as fp:
             print("# lon lat z text", file=fp)
             print("1.0 2.0 3.0 TEXT1 TEXT23", file=fp)
             print("4.0 5.0 6.0 TEXT4 TEXT567", file=fp)
@@ -109,7 +109,7 @@ def test_dataset_header_greater_than_nheaders():
     Test passing a header line number that is greater than the number of header lines.
     """
     with GMTTempFile(suffix=".txt") as tmpfile:
-        with Path(tmpfile.name).open(mode="w", encoding="locale") as fp:
+        with Path(tmpfile.name).open(mode="w", encoding="utf-8") as fp:
             print("# lon lat z text", file=fp)
             print("1.0 2.0 3.0 TEXT1 TEXT23", file=fp)
             print("4.0 5.0 6.0 TEXT4 TEXT567", file=fp)
@@ -127,7 +127,7 @@ def test_dataset_header_too_many_names():
     Test passing a header line with more column names than the number of columns.
     """
     with GMTTempFile(suffix=".txt") as tmpfile:
-        with Path(tmpfile.name).open(mode="w", encoding="locale") as fp:
+        with Path(tmpfile.name).open(mode="w", encoding="utf-8") as fp:
             print("# lon lat z text1 text2", file=fp)
             print("1.0 2.0 3.0 TEXT1 TEXT23", file=fp)
             print("4.0 5.0 6.0 TEXT4 TEXT567", file=fp)

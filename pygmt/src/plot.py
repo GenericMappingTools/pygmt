@@ -247,7 +247,7 @@ def plot(  # noqa: PLR0912
             kwargs["S"] = "s0.2c"
         elif kind == "file" and str(data).endswith(".gmt"):  # OGR_GMT file
             try:
-                with Path(which(data)).open(encoding="locale") as file:
+                with Path(which(data)).open(encoding="utf-8") as file:
                     line = file.readline()
                 if "@GMULTIPOINT" in line or "@GPOINT" in line:
                     kwargs["S"] = "s0.2c"

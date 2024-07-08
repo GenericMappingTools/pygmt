@@ -487,7 +487,7 @@ def test_plot_ogrgmt_file_multipoint_default_style(func):
 # FEATURE_DATA
 1 2
         """
-        Path(tmpfile.name).write_text(gmt_file, encoding="locale")
+        Path(tmpfile.name).write_text(gmt_file, encoding="utf-8")
         fig = Figure()
         fig.plot(
             data=func(tmpfile.name), region=[0, 2, 1, 3], projection="X2c", frame=True
@@ -506,7 +506,7 @@ def test_plot_ogrgmt_file_multipoint_non_default_style():
 # FEATURE_DATA
 1 2
         """
-        Path(tmpfile.name).write_text(gmt_file, encoding="locale")
+        Path(tmpfile.name).write_text(gmt_file, encoding="utf-8")
         fig = Figure()
         fig.plot(
             data=tmpfile.name,
