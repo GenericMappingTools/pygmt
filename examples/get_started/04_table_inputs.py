@@ -26,6 +26,9 @@ import geopandas as gpd
 import numpy as np
 import pandas as pd
 import pygmt
+import pyogrio
+
+pyogrio.core._register_drivers()
 
 # %%
 # ASCII table file

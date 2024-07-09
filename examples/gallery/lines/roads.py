@@ -14,8 +14,10 @@ a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the
 # %%
 import geopandas as gpd
 import pygmt
+import pyogrio
 
 # Read shapefile data using geopandas
+pyogrio.core._register_drivers()
 gdf = gpd.read_file(
     "http://www2.census.gov/geo/tiger/TIGER2015/PRISECROADS/tl_2015_15_prisecroads.zip"
 )
