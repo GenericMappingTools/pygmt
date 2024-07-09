@@ -944,7 +944,7 @@ class Session:
         )
 
         gmt_type = self._check_dtype_and_dim(vector, ndim=1)
-        if gmt_type in (self["GMT_TEXT"], self["GMT_DATETIME"]):
+        if gmt_type in {self["GMT_TEXT"], self["GMT_DATETIME"]}:
             if gmt_type == self["GMT_DATETIME"]:
                 vector = np.datetime_as_string(array_to_datetime(vector))
             vector_pointer = strings_to_ctypes_array(vector)
@@ -1622,7 +1622,7 @@ class Session:
         }[kind]
 
         # Ensure the data is an iterable (Python list or tuple)
-        if kind in ("geojson", "grid", "image", "file", "arg"):
+        if kind in {"geojson", "grid", "image", "file", "arg"}:
             if kind == "image" and data.dtype != "uint8":
                 msg = (
                     f"Input image has dtype: {data.dtype} which is unsupported, "
@@ -1849,7 +1849,7 @@ class Session:
         # _GMT_DATASET).
         if kind is None:  # Return the ctypes void pointer
             return pointer
-        if kind in ["image", "cube"]:
+        if kind in {"image", "cube"}:
             raise NotImplementedError(f"kind={kind} is not supported yet.")
         dtype = {"dataset": _GMT_DATASET, "grid": _GMT_GRID}[kind]
         return ctp.cast(pointer, ctp.POINTER(dtype))
