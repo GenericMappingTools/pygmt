@@ -113,9 +113,10 @@ def load_tile_map(
     Frozen({'band': 3, 'y': 256, 'x': 512})
     >>> raster.coords  # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
     Coordinates:
-      * band    (band) uint8 ... 0 1 2
-      * y       (y) float64 ... -7.081e-10 -7.858e+04 ... -1.996e+07 ...
-      * x       (x) float64 ... -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07
+      * band         (band) uint8 ... 0 1 2
+      * y            (y) float64 ... -7.081e-10 -7.858e+04 ... -1.996e+07 -2.004e+07
+      * x            (x) float64 ... -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07
+        spatial_ref  int64 ... 0
     """
     if not _HAS_CONTEXTILY:
         raise ImportError(
@@ -166,6 +167,6 @@ def load_tile_map(
 
     # If rioxarray is installed, set the coordinate reference system
     if hasattr(dataarray, "rio"):
-        dataarray = dataarray.rio.set_crs(input_crs="EPSG:3857")
+        dataarray = dataarray.rio.write_crs(input_crs="EPSG:3857")
 
     return dataarray
