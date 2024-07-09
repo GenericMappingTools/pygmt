@@ -387,7 +387,7 @@ def _load_remote_dataset(
     if registration is None:
         # Use gridline registration unless only pixel registration is available
         registration = "gridline" if "gridline" in resinfo.registrations else "pixel"
-    elif registration in ("pixel", "gridline"):
+    elif registration in {"pixel", "gridline"}:
         if registration not in resinfo.registrations:
             raise GMTInvalidInput(
                 f"{registration} registration is not available for the "
