@@ -166,6 +166,6 @@ def load_tile_map(
 
     # If rioxarray is installed, set the coordinate reference system
     if hasattr(dataarray, "rio"):
-        dataarray = dataarray.rio.set_crs(input_crs="EPSG:3857")
+        dataarray = dataarray.rio.write_crs(input_crs="EPSG:3857")
 
     return dataarray
