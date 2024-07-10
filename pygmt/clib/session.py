@@ -1126,17 +1126,12 @@ class Session:
             "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE", _GMT_GRID),
         }[kind]
 
-        family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
-        geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
-        method_int = self["GMT_IS_FILE"]  # Reading from a file
-        mode_int = self["GMT_READ_NORMAL"] if mode is None else self[mode]
-
         data_ptr = c_read_data(
             self.session_pointer,
-            family_int,
-            method_int,
-            geometry_int,
-            mode_int,
+            self[family],
+            self["GMT_IS_FILE"],  # Reading from a file
+            self[geometry],
+            self["GMT_READ_NORMAL"] if mode is None else self[mode],
             sequence_to_ctypes_array(wesn, ctp.c_double, 6),
             infile.encode(),
             data,
