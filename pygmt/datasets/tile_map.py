@@ -16,7 +16,7 @@ except ImportError:
     TileProvider = None
     _HAS_CONTEXTILY = False
 
-try:
+try:  # noqa: SIM105
     import rioxarray  # rioxarray is needed to register the rio accessor  # noqa: F401
 except ImportError:
     pass
