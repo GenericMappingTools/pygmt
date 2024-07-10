@@ -123,8 +123,7 @@ def load_tile_map(
       * x            (x) float64 ... -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07
         spatial_ref  int64 ... 0
     >>> # CRS is set only if rioxarray is available
-    >>> import importlib
-    >>> if importlib.util.find_spec("rioxarray"):
+    >>> if hasattr(dataarray, "rio"):
     ...     raster.rio.crs
     CRS.from_epsg(3857)
     """
