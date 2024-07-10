@@ -43,9 +43,7 @@ def coast(self, **kwargs):
 
     Plots grayshaded, colored, or textured land-masses [or water-masses] on
     maps and [optionally] draws coastlines, rivers, and political
-    boundaries.  Alternatively, it can (1) issue clip paths that will
-    contain all land or all water areas, or (2) dump the data to an ASCII
-    table. The data files come in 5 different resolutions: (**f**)ull,
+    boundaries. The data files come in 5 different resolutions: (**f**)ull,
     (**h**)igh, (**i**)ntermediate, (**l**)ow, and (**c**)rude. The full
     resolution files amount to more than 55 Mb of data and provide great
     detail; for maps of larger geographical extent it is more economical to
@@ -81,53 +79,38 @@ def coast(self, **kwargs):
         (**h**\ )igh, (**i**\ )ntermediate, (**l**\ )ow,
         and (**c**\ )rude.
     land : str
-        Select filling or clipping of "dry" areas.
+        Select filling of "dry" areas.
     rivers : int, str, or list
         *river*\ [/*pen*].
         Draw rivers. Specify the type of rivers and [optionally] append
         pen attributes [Default is ``"0.25p,black,solid"``].
 
         Choose from the list of river types below; pass a list to
-        ``rivers`` to use multiple arguments.
+        ``rivers`` to use multiple arguments:
 
-        0 = Double-lined rivers (river-lakes)
-
-        1 = Permanent major rivers
-
-        2 = Additional major rivers
-
-        3 = Additional rivers
-
-        4 = Minor rivers
-
-        5 = Intermittent rivers - major
-
-        6 = Intermittent rivers - additional
-
-        7 = Intermittent rivers - minor
-
-        8 = Major canals
-
-        9 = Minor canals
-
-        10 = Irrigation canals
+        - 0 = Double-lined rivers (river-lakes)
+        - 1 = Permanent major rivers
+        - 2 = Additional major rivers
+        - 3 = Additional rivers
+        - 4 = Minor rivers
+        - 5 = Intermittent rivers - major
+        - 6 = Intermittent rivers - additional
+        - 7 = Intermittent rivers - minor
+        - 8 = Major canals
+        - 9 = Minor canals
+        - 10 = Irrigation canals
 
         You can also choose from several preconfigured river groups:
 
-        a = All rivers and canals (0-10)
+        - a = All rivers and canals (0-10)
+        - A = All rivers and canals except river-lakes (1-10)
+        - r = All permanent rivers (0-4)
+        - R = All permanent rivers except river-lakes (1-4)
+        - i = All intermittent rivers (5-7)
+        - c = All canals (8-10)
 
-        A = All rivers and canals except river-lakes (1-10)
-
-        r = All permanent rivers (0-4)
-
-        R = All permanent rivers except river-lakes (1-4)
-
-        i = All intermittent rivers (5-7)
-
-        c = All canals (8-10)
     map_scale : str
-        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
-        **+w**\ *length*.
+        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+w**\ *length*.
         Draw a simple map scale centered on the reference point specified.
     box : bool or str
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
@@ -156,15 +139,13 @@ def coast(self, **kwargs):
         Choose from the list of boundaries below. Pass a list to
         ``borders`` to use multiple arguments.
 
-        1 = National boundaries
+        - 1 = National boundaries
+        - 2 = State boundaries within the Americas
+        - 3 = Marine boundaries
+        - a = All boundaries (1-3)
 
-        2 = State boundaries within the Americas
-
-        3 = Marine boundaries
-
-        a = All boundaries (1-3)
     water : str
-        Select filling or clipping of "wet" areas.
+        Select filling "wet" areas.
     shorelines : int, str, or list
         [*level*\ /]\ *pen*.
         Draw shorelines [Default is no shorelines]. Append pen attributes
@@ -178,14 +159,13 @@ def coast(self, **kwargs):
     dcw : str or list
         *code1,code2,…*\ [**+l**\|\ **L**\ ][**+g**\ *fill*\ ]
         [**+p**\ *pen*\ ][**+z**].
-        Select painting or dumping country polygons from the
-        `Digital Chart of the World
+        Select painting country polygons from the `Digital Chart of the World
         <https://en.wikipedia.org/wiki/Digital_Chart_of_the_World>`__.
         Append one or more comma-separated countries using the 2-character
         `ISO 3166-1 alpha-2 convention
         <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>`__.
         To select a state of a country (if available), append
-        .\ *state*, (e.g, US.TX for Texas).  To specify a whole continent,
+        .\ *state*, (e.g, US.TX for Texas). To specify a whole continent,
         prepend **=** to any of the continent codes (e.g. =EU for Europe).
         Append **+p**\ *pen* to draw polygon outlines
         [Default is no outline] and **+g**\ *fill* to fill them
