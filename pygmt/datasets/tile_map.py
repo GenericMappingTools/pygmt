@@ -18,10 +18,8 @@ except ImportError:
 
 try:
     import rioxarray  # rioxarray is needed to register the rio accessor  # noqa: F401
-
-    _HAS_RIOXARRAY = True
 except ImportError:
-    _HAS_RIOXARRAY = False
+    pass
 
 import numpy as np
 import xarray as xr
