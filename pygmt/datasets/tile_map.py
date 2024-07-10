@@ -118,7 +118,7 @@ def load_tile_map(
     Frozen({'band': 3, 'y': 256, 'x': 512})
     >>> raster.coords  # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
     Coordinates:
-      * band         (band) uint8 ... 0 1 2
+      * band         (band) uint8 ... 1 2 3
       * y            (y) float64 ... -7.081e-10 -7.858e+04 ... -1.996e+07 -2.004e+07
       * x            (x) float64 ... -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07
         spatial_ref  int64 ... 0
@@ -131,8 +131,7 @@ def load_tile_map(
         raise ImportError(
             "Package `contextily` is required to be installed to use this function. "
             "Please use `python -m pip install contextily` or "
-            "`mamba install -c conda-forge contextily` "
-            "to install the package."
+            "`mamba install -c conda-forge contextily` to install the package."
         )
 
     contextily_kwargs = {}
@@ -167,7 +166,7 @@ def load_tile_map(
     dataarray = xr.DataArray(
         data=rgb_image,
         coords={
-            "band": np.array(object=[0, 1, 2], dtype=np.uint8),  # Red, Green, Blue
+            "band": np.array(object=[1, 2, 3], dtype=np.uint8),  # Red, Green, Blue
             "y": np.linspace(start=top, stop=bottom, num=rgb_image.shape[1]),
             "x": np.linspace(start=left, stop=right, num=rgb_image.shape[2]),
         },
