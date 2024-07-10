@@ -16,10 +16,9 @@ except ImportError:
     TileProvider = None
     _HAS_CONTEXTILY = False
 
-try:  # noqa: SIM105
-    import rioxarray  # rioxarray is needed to register the rio accessor  # noqa: F401
-except ImportError:
-    pass
+with contextlib.suppress(ImportError):
+    # rioxarray is needed to register the rio accessor
+    import rioxarray  # noqa: F401
 
 import numpy as np
 import xarray as xr
