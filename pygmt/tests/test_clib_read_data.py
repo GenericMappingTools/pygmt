@@ -2,12 +2,10 @@
 Test the Session.read_data method.
 """
 
-import ctypes as ctp
 from pathlib import Path
 
 import numpy as np
 from pygmt.clib import Session
-from pygmt.datatypes import _GMT_DATASET, _GMT_GRID
 from pygmt.helpers import GMTTempFile
 
 
@@ -30,7 +28,7 @@ def test_clib_read_data_dataset():
 
         with Session() as lib:
             data_ptr = lib.read_data(tmpfile.name, kind="dataset")
-            ds = ctp.cast(data_ptr, ctp.POINTER(_GMT_DATASET)).contents
+            ds = data_ptr.contents
 
             assert ds.n_tables == 1
             assert ds.n_segments == 2
@@ -53,7 +51,7 @@ def test_clib_read_data_grid():
             kind="grid",
             mode="GMT_CONTAINER_AND_DATA",
         )
-        grid = ctp.cast(data_ptr, ctp.POINTER(_GMT_GRID)).contents
+        grid = data_ptr.contents
         header = grid.header.contents
         assert header.n_rows == 14
         assert header.n_columns == 8
@@ -82,7 +80,7 @@ def test_clib_read_data_grid_two_steps():
     with Session() as lib:
         # Read the header first
         data_ptr = lib.read_data(infile, kind="grid", mode="GMT_CONTAINER_ONLY")
-        grid = ctp.cast(data_ptr, ctp.POINTER(_GMT_GRID)).contents
+        grid = data_ptr.contents
         header = grid.header.contents
         assert header.n_rows == 14
         assert header.n_columns == 8
@@ -97,7 +95,7 @@ def test_clib_read_data_grid_two_steps():
         data_ptr = lib.read_data(
             infile, kind="grid", mode="GMT_DATA_ONLY", data=data_ptr
         )
-        grid = ctp.cast(data_ptr, ctp.POINTER(_GMT_GRID)).contents
+        grid = data_ptr.contents
 
         assert grid.data  # The data is read
         header = grid.header.contents
@@ -117,7 +115,7 @@ def test_clib_read_data_image_as_grid():
         data_ptr = lib.read_data(
             "@earth_day_01d_p", kind="grid", mode="GMT_CONTAINER_AND_DATA"
         )
-        image = ctp.cast(data_ptr, ctp.POINTER(_GMT_GRID)).contents
+        image = data_ptr.contents
         header = image.header.contents
         assert header.n_rows == 180
         assert header.n_columns == 360

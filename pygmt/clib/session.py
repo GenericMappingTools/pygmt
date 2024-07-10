@@ -1121,9 +1121,9 @@ class Session:
         )
 
         # Determine the family and geometry from kind
-        family, geometry = {
-            "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP"),
-            "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE"),
+        family, geometry, dtype = {
+            "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP", _GMT_DATASET),
+            "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE", _GMT_GRID),
         }[kind]
 
         family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
@@ -1141,7 +1141,7 @@ class Session:
             infile.encode(),
             data,
         )
-        return data_ptr
+        return ctp.cast(data_ptr, ctp.POINTER(dtype))
 
     def write_data(self, family, geometry, mode, wesn, output, data):
         """
