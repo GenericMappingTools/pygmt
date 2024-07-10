@@ -132,7 +132,7 @@ def test_gmttempfile_read():
     Make sure GMTTempFile.read() works.
     """
     with GMTTempFile() as tmpfile:
-        Path(tmpfile.name).write_text("in.dat: N = 2\t<1/3>\t<2/4>\n")
+        Path(tmpfile.name).write_text("in.dat: N = 2\t<1/3>\t<2/4>\n", encoding="utf-8")
         assert tmpfile.read() == "in.dat: N = 2 <1/3> <2/4>\n"
         assert tmpfile.read(keep_tabs=True) == "in.dat: N = 2\t<1/3>\t<2/4>\n"
 
