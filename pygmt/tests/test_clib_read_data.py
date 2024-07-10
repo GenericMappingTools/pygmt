@@ -12,6 +12,13 @@ from pygmt.helpers import GMTTempFile
 from pygmt.io import load_dataarray
 from pygmt.src import which
 
+try:
+    import rioxarray  # noqa: F401
+
+    _HAS_RIOXARRAY = True
+except ImportError:
+    _HAS_RIOXARRAY = False
+
 
 @pytest.fixture(scope="module", name="expected_xrgrid")
 def fixture_expected_xrgrid():
@@ -99,18 +106,24 @@ def test_clib_read_data_grid_actual_image():
     Test the Session.read_data method for grid, but actually the file is an image.
     """
     with Session() as lib:
-        image = lib.read_data(
+        data_ptr = lib.read_data(
             "@earth_day_01d_p", kind="grid", mode="GMT_CONTAINER_AND_DATA"
-        ).contents
-        # Explicitely check n_bands.
-        assert image.header.contents.n_bands == 1  # Only one band is read.
-        xrimage = image.to_dataarray()
-
-        expected_xrimage = xr.open_dataarray(which("@earth_day_01d_p"))
-        assert expected_xrimage.band.size == 3  # 3-band image.
-        xr.testing.assert_equal(
-            xrimage,
-            expected_xrimage.isel(band=0)
-            .drop_vars(["band", "spatial_ref"])
-            .sortby("y"),
         )
+        image = data_ptr.contents
+        header = image.header.contents
+        assert header.n_rows == 180
+        assert header.n_columns == 360
+        assert header.wesn[:] == [-180.0, 180.0, -90.0, 90.0]
+        # Explicitely check n_bands. Only one band is read for 3-band images.
+        assert header.n_bands == 1
+
+        if _HAS_RIOXARRAY:  # Full check if rioxarray is installed.
+            xrimage = image.to_dataarray()
+            expected_xrimage = xr.open_dataarray(which("@earth_day_01d_p"))
+            assert expected_xrimage.band.size == 3  # 3-band image.
+            xr.testing.assert_equal(
+                xrimage,
+                expected_xrimage.isel(band=0)
+                .drop_vars(["band", "spatial_ref"])
+                .sortby("y"),
+            )
