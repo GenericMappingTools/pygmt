@@ -29,14 +29,7 @@ def test_clib_read_data_dataset():
             print("10.0 11.0 12.0 TEXT123 TEXT456789", file=fp)
 
         with Session() as lib:
-            data_ptr = lib.read_data(
-                "GMT_IS_DATASET",
-                "GMT_IS_PLP",
-                "GMT_READ_NORMAL",
-                None,
-                tmpfile.name,
-                None,
-            )
+            data_ptr = lib.read_data(tmpfile.name, kind="dataset")
             ds = ctp.cast(data_ptr, ctp.POINTER(_GMT_DATASET)).contents
 
             assert ds.n_tables == 1
@@ -56,12 +49,9 @@ def test_clib_read_data_grid():
     """
     with Session() as lib:
         data_ptr = lib.read_data(
-            "GMT_IS_GRID",
-            "GMT_IS_SURFACE",
-            "GMT_CONTAINER_AND_DATA",
-            None,
             "@static_earth_relief.nc",
-            None,
+            kind="grid",
+            mode="GMT_CONTAINER_AND_DATA",
         )
         grid = ctp.cast(data_ptr, ctp.POINTER(_GMT_GRID)).contents
         header = grid.header.contents
@@ -88,13 +78,10 @@ def test_clib_read_data_grid_two_steps():
 
     The test is adapted from the doctest in the _GMT_GRID class.
     """
-    family, geometry = "GMT_IS_GRID", "GMT_IS_SURFACE"
     infile = "@static_earth_relief.nc"
     with Session() as lib:
         # Read the header first
-        data_ptr = lib.read_data(
-            family, geometry, "GMT_CONTAINER_ONLY", None, infile, None
-        )
+        data_ptr = lib.read_data(infile, kind="grid", mode="GMT_CONTAINER_ONLY")
         grid = ctp.cast(data_ptr, ctp.POINTER(_GMT_GRID)).contents
         header = grid.header.contents
         assert header.n_rows == 14
@@ -108,7 +95,7 @@ def test_clib_read_data_grid_two_steps():
 
         # Read the data
         data_ptr = lib.read_data(
-            family, geometry, "GMT_DATA_ONLY", None, infile, data_ptr
+            infile, kind="grid", mode="GMT_DATA_ONLY", data=data_ptr
         )
         grid = ctp.cast(data_ptr, ctp.POINTER(_GMT_GRID)).contents
 
@@ -128,12 +115,7 @@ def test_clib_read_data_image_as_grid():
     """
     with Session() as lib:
         data_ptr = lib.read_data(
-            "GMT_IS_GRID",
-            "GMT_IS_SURFACE",
-            "GMT_CONTAINER_AND_DATA",
-            None,
-            "@earth_day_01d_p",
-            None,
+            "@earth_day_01d_p", kind="grid", mode="GMT_CONTAINER_AND_DATA"
         )
         image = ctp.cast(data_ptr, ctp.POINTER(_GMT_GRID)).contents
         header = image.header.contents

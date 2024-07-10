@@ -1071,35 +1071,31 @@ class Session:
 
     def read_data(
         self,
-        family: str,
-        geometry: str,
-        mode: str,
-        wesn: Sequence[float] | None,
         infile: str,
+        kind: Literal["dataset", "grid"],
+        mode: str | None = None,
+        wesn: Sequence[float] | None = None,
         data=None,
     ):
         """
         Read a data file into a GMT data container.
 
-        Wraps ``GMT_Read_Data`` but only allows reading from a file, so the ``method``
-        ``method`` argument is omitted.
+        Wraps ``GMT_Read_Data`` but only allows reading from a file. The function
+        definition is different from the original C API function.
 
         Parameters
         ----------
-        family
-            A valid GMT data family name (e.g., ``"GMT_IS_DATASET"``). See the
-            ``FAMILIES`` attribute for valid names.
-        geometry
-            A valid GMT data geometry name (e.g., ``"GMT_IS_POINT"``). See the
-            ``GEOMETRIES`` attribute for valid names.
+        input
+            The input file name.
+        kind
+            The data kind of the input file. Currently, valid values are ``"dataset"``
+            and ``"grid"``.
         mode
             How the data is to be read from the file. This option varies depending on
             the given family. See the GMT API documentation for details.
         wesn
             Subregion of the data, in the form of [xmin, xmax, ymin, ymax, zmin, zmax].
             If ``None``, the whole data is read.
-        input
-            The input file name.
         data
             ``None`` or the pointer returned by this function after a first call. It's
             useful when reading grids in two steps (get a grid structure with a header,
@@ -1112,28 +1108,35 @@ class Session:
         c_read_data = self.get_libgmt_func(
             "GMT_Read_Data",
             argtypes=[
-                ctp.c_void_p,
-                ctp.c_uint,
-                ctp.c_uint,
-                ctp.c_uint,
-                ctp.c_uint,
-                ctp.POINTER(ctp.c_double),
-                ctp.c_char_p,
-                ctp.c_void_p,
+                ctp.c_void_p,  # V_API
+                ctp.c_uint,  # family
+                ctp.c_uint,  # method
+                ctp.c_uint,  # geometry
+                ctp.c_uint,  # mode
+                ctp.POINTER(ctp.c_double),  # wesn
+                ctp.c_char_p,  # infile
+                ctp.c_void_p,  # data
             ],
-            restype=ctp.c_void_p,
+            restype=ctp.c_void_p,  # data_ptr
         )
+
+        # Determine the family and geometry from kind
+        family, geometry = {
+            "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP"),
+            "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE"),
+        }[kind]
 
         family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
         geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
-        method = self["GMT_IS_FILE"]  # Reading from a file.
+        method_int = self["GMT_IS_FILE"]  # Reading from a file
+        mode_int = self["GMT_READ_NORMAL"] if mode is None else self[mode]
 
         data_ptr = c_read_data(
             self.session_pointer,
             family_int,
-            method,
+            method_int,
             geometry_int,
-            self[mode],
+            mode_int,
             sequence_to_ctypes_array(wesn, ctp.c_double, 6),
             infile.encode(),
             data,
