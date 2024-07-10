@@ -24,8 +24,6 @@ def fixture_expected_xrgrid():
 def test_clib_read_data_dataset():
     """
     Test the Session.read_data method for datasets.
-
-    The test is adapted from the doctest in the _GMT_DATASET class.
     """
     with GMTTempFile(suffix=".txt") as tmpfile:
         # Prepare the sample data file
@@ -63,23 +61,18 @@ def test_clib_read_data_dataset():
 def test_clib_read_data_grid(expected_xrgrid):
     """
     Test the Session.read_data method for grids.
-
-    The test is adapted from the doctest in the _GMT_GRID class.
     """
     with Session() as lib:
         grid = lib.read_data("@static_earth_relief.nc", kind="grid").contents
         xrgrid = grid.to_dataarray()
         xr.testing.assert_equal(xrgrid, expected_xrgrid)
-        # Explicitely check n_bands
-        assert grid.header.contents.n_bands == 1
+        assert grid.header.contents.n_bands == 1  # Explicitely check n_bands
 
 
 def test_clib_read_data_grid_two_steps(expected_xrgrid):
     """
     Test the Session.read_data method for grids in two steps, first reading the header
     and then the data.
-
-    The test is adapted from the doctest in the _GMT_GRID class.
     """
     infile = "@static_earth_relief.nc"
     with Session() as lib:
@@ -89,34 +82,35 @@ def test_clib_read_data_grid_two_steps(expected_xrgrid):
         header = grid.header.contents
         assert header.n_rows == 14
         assert header.n_columns == 8
-        assert header.n_bands == 1
         assert header.wesn[:] == [-55.0, -47.0, -24.0, -10.0]
         assert header.z_min == 190.0
         assert header.z_max == 981.0
-
+        assert header.n_bands == 1  # Explicitely check n_bands
         assert not grid.data  # The data is not read yet
 
         # Read the data
         lib.read_data(infile, kind="grid", mode="GMT_DATA_ONLY", data=data_ptr)
         xrgrid = data_ptr.contents.to_dataarray()
         xr.testing.assert_equal(xrgrid, expected_xrgrid)
-        # Explicitely check n_bands
-        assert grid.header.contents.n_bands == 1
 
 
-def test_clib_read_data_image_as_grid():
+def test_clib_read_data_grid_actual_image():
     """
-    Test the Session.read_data method for images.
+    Test the Session.read_data method for grid, but actually the file is an image.
     """
     with Session() as lib:
-        data_ptr = lib.read_data(
+        image = lib.read_data(
             "@earth_day_01d_p", kind="grid", mode="GMT_CONTAINER_AND_DATA"
-        )
-        image = data_ptr.contents
-        header = image.header.contents
-        assert header.n_rows == 180
-        assert header.n_columns == 360
-        assert header.n_bands == 1
-        assert header.wesn[:] == [-180.0, 180.0, -90.0, 90.0]
+        ).contents
+        # Explicitely check n_bands.
+        assert image.header.contents.n_bands == 1  # Only one band is read.
+        xrimage = image.to_dataarray()
 
-        assert image.data
+        expected_xrimage = xr.open_dataarray(which("@earth_day_01d_p"))
+        assert expected_xrimage.band.size == 3  # 3-band image.
+        xr.testing.assert_equal(
+            xrimage,
+            expected_xrimage.isel(band=0)
+            .drop_vars(["band", "spatial_ref"])
+            .sortby("y"),
+        )
