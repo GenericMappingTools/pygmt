@@ -3,6 +3,7 @@ Function to load raster tile maps from XYZ tile providers, and load as
 :class:`xarray.DataArray`.
 """
 
+import contextlib
 from typing import Literal
 
 from packaging.version import Version
@@ -15,6 +16,10 @@ try:
 except ImportError:
     TileProvider = None
     _HAS_CONTEXTILY = False
+
+with contextlib.suppress(ImportError):
+    # rioxarray is needed to register the rio accessor
+    import rioxarray  # noqa: F401
 
 import numpy as np
 import xarray as xr
@@ -117,6 +122,10 @@ def load_tile_map(
       * y            (y) float64 ... -7.081e-10 -7.858e+04 ... -1.996e+07 -2.004e+07
       * x            (x) float64 ... -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07
         spatial_ref  int64 ... 0
+    >>> # CRS is set only if rioxarray is available
+    >>> if hasattr(raster, "rio"):
+    ...     raster.rio.crs
+    CRS.from_epsg(3857)
     """
     if not _HAS_CONTEXTILY:
         raise ImportError(
