@@ -2,6 +2,8 @@
 plot3d - Plot in three dimensions.
 """
 
+from pathlib import Path
+
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -12,6 +14,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.src import which
 
 
 @fmt_docstring
@@ -218,6 +221,19 @@ def plot3d(
         ]:
             if is_nonstr_iter(value):
                 raise GMTInvalidInput(f"'{name}' can't be 1-D array if 'data' is used.")
+
+    # Set the default style if data has a geometry of Point or MultiPoint
+    if kwargs.get("S") is None:
+        if kind == "geojson" and data.geom_type.isin(["Point", "MultiPoint"]).all():
+            kwargs["S"] = "u0.2c"
+        elif kind == "file" and str(data).endswith(".gmt"):  # OGR_GMT file
+            try:
+                with Path(which(data)).open(encoding="utf-8") as file:
+                    line = file.readline()
+                if "@GMULTIPOINT" in line or "@GPOINT" in line:
+                    kwargs["S"] = "u0.2c"
+            except FileNotFoundError:
+                pass
 
     with Session() as lib:
         file_context = lib.virtualfile_in(
