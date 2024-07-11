@@ -8,6 +8,7 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt.clib import Session
+from pygmt.exceptions import GMTCLibError
 from pygmt.helpers import GMTTempFile
 from pygmt.io import load_dataarray
 from pygmt.src import which
@@ -127,3 +128,12 @@ def test_clib_read_data_grid_actual_image():
                 .drop_vars(["band", "spatial_ref"])
                 .sortby("y"),
             )
+
+
+def test_clib_read_data_fails():
+    """
+    Test that the Session.read_data method raises an exception if there are errors.
+    """
+    with Session() as lib:
+        with pytest.raises(GMTCLibError):
+            lib.read_data("not-exsits.txt", kind="dataset")
