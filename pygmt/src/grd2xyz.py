@@ -2,18 +2,23 @@
 grd2xyz - Convert grid to data table
 """
 
+from typing import TYPE_CHECKING, Literal
+
+import numpy as np
 import pandas as pd
 import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
     validate_output_table_type,
 )
+
+if TYPE_CHECKING:
+    from collections.abc import Hashable
 
 __doctest_skip__ = ["grd2xyz"]
 
@@ -33,7 +38,12 @@ __doctest_skip__ = ["grd2xyz"]
     s="skiprows",
 )
 @kwargs_to_strings(R="sequence", o="sequence_comma")
-def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
+def grd2xyz(
+    grid,
+    output_type: Literal["pandas", "numpy", "file"] = "pandas",
+    outfile: str | None = None,
+    **kwargs,
+) -> pd.DataFrame | np.ndarray | None:
     r"""
     Convert grid to data table.
 
@@ -47,15 +57,8 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     Parameters
     ----------
     {grid}
-    output_type : str
-        Determine the format the xyz data will be returned in [Default is
-        ``pandas``]:
-
-            - ``numpy`` - :class:`numpy.ndarray`
-            - ``pandas``- :class:`pandas.DataFrame`
-            - ``file`` - ASCII file (requires ``outfile``)
-    outfile : str
-        The file name for the output ASCII file.
+    {output_type}
+    {outfile}
     cstyle : str
         [**f**\|\ **i**].
         Replace the x- and y-coordinates on output with the corresponding
@@ -118,13 +121,12 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
 
     Returns
     -------
-    ret : pandas.DataFrame or numpy.ndarray or None
+    ret
         Return type depends on ``outfile`` and ``output_type``:
 
-        - None if ``outfile`` is set (output will be stored in file set by
-          ``outfile``)
-        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is
-          not set (depends on ``output_type``)
+        - None if ``outfile`` is set (output will be stored in file set by ``outfile``)
+        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
+          (depends on ``output_type``)
 
     Example
     -------
@@ -137,7 +139,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     >>> # Create a pandas DataFrame with the xyz data from an input grid
     >>> xyz_dataframe = pygmt.grd2xyz(grid=grid, output_type="pandas")
     >>> xyz_dataframe.head(n=2)
-        lon   lat  elevation
+        lon   lat          z
     0  10.0  25.0      965.5
     1  10.5  25.0      876.5
     """
@@ -149,32 +151,22 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
             "or 'file'."
         )
 
-    # Set the default column names for the pandas dataframe header
-    dataframe_header = ["x", "y", "z"]
+    # Set the default column names for the pandas dataframe header.
+    column_names: list[Hashable] = ["x", "y", "z"]
     # Let output pandas column names match input DataArray dimension names
-    if isinstance(grid, xr.DataArray) and output_type == "pandas":
+    if output_type == "pandas" and isinstance(grid, xr.DataArray):
         # Reverse the dims because it is rows, columns ordered.
-        dataframe_header = [grid.dims[1], grid.dims[0], grid.name]
+        column_names = [grid.dims[1], grid.dims[0], grid.name]
 
-    with GMTTempFile() as tmpfile:
-        with Session() as lib:
-            file_context = lib.virtualfile_in(check_kind="raster", data=grid)
-            with file_context as infile:
-                if outfile is None:
-                    outfile = tmpfile.name
-                lib.call_module(
-                    module="grd2xyz",
-                    args=build_arg_string(kwargs, infile=infile, outfile=outfile),
-                )
-
-        # Read temporary csv output to a pandas table
-        if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
-            result = pd.read_csv(
-                tmpfile.name, sep="\t", names=dataframe_header, comment=">"
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
+        ):
+            lib.call_module(
+                module="grd2xyz",
+                args=build_arg_list(kwargs, infile=vingrd, outfile=vouttbl),
             )
-        elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
-            result = None
-
-        if output_type == "numpy":
-            result = result.to_numpy()
-    return result
+            return lib.virtualfile_to_dataset(
+                vfname=vouttbl, output_type=output_type, column_names=column_names
+            )

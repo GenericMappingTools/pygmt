@@ -1,9 +1,10 @@
 """
 Test the C API functions related to virtual files.
 """
-import os
+
 from importlib.util import find_spec
 from itertools import product
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -14,8 +15,7 @@ from pygmt.exceptions import GMTCLibError, GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.tests.test_clib import mock
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
+POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
 
 
 @pytest.fixture(scope="module", name="data")
@@ -69,7 +69,7 @@ def test_virtual_file(dtypes):
             vfargs = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset)
             with lib.open_virtualfile(*vfargs) as vfile:
                 with GMTTempFile() as outfile:
-                    lib.call_module("info", f"{vfile} ->{outfile.name}")
+                    lib.call_module("info", [vfile, f"->{outfile.name}"])
                     output = outfile.read(keep_tabs=True)
             bounds = "\t".join([f"<{col.min():.0f}/{col.max():.0f}>" for col in data.T])
             expected = f"<matrix memory>: N = {shape[0]}\t{bounds}\n"
@@ -99,8 +99,10 @@ def test_virtual_file_fails():
     # Test the status check when closing the virtual file
     # Mock the opening to return 0 (success) so that we don't open a file that
     # we won't close later.
-    with clib.Session() as lib, mock(lib, "GMT_Open_VirtualFile", returns=0), mock(
-        lib, "GMT_Close_VirtualFile", returns=1
+    with (
+        clib.Session() as lib,
+        mock(lib, "GMT_Open_VirtualFile", returns=0),
+        mock(lib, "GMT_Close_VirtualFile", returns=1),
     ):
         with pytest.raises(GMTCLibError):
             with lib.open_virtualfile(*vfargs):
@@ -138,11 +140,9 @@ def test_virtualfile_in_required_z_matrix(array_func, kind):
     )
     data = array_func(dataframe)
     with clib.Session() as lib:
-        with lib.virtualfile_in(
-            data=data, names="xyz", check_kind="vector"
-        ) as vfile:
+        with lib.virtualfile_in(data=data, names="xyz", check_kind="vector") as vfile:
             with GMTTempFile() as outfile:
-                lib.call_module("info", f"{vfile} ->{outfile.name}")
+                lib.call_module("info", [vfile, f"->{outfile.name}"])
                 output = outfile.read(keep_tabs=True)
         bounds = "\t".join(
             [
@@ -208,7 +208,7 @@ def test_virtualfile_from_vectors(dtypes):
         with clib.Session() as lib:
             with lib.virtualfile_from_vectors(x, y, z) as vfile:
                 with GMTTempFile() as outfile:
-                    lib.call_module("info", f"{vfile} ->{outfile.name}")
+                    lib.call_module("info", [vfile, f"->{outfile.name}"])
                     output = outfile.read(keep_tabs=True)
             bounds = "\t".join([f"<{i.min():.0f}/{i.max():.0f}>" for i in (x, y, z)])
             expected = f"<vector memory>: N = {size}\t{bounds}\n"
@@ -228,7 +228,7 @@ def test_virtualfile_from_vectors_one_string_or_object_column(dtype):
     with clib.Session() as lib:
         with lib.virtualfile_from_vectors(x, y, strings) as vfile:
             with GMTTempFile() as outfile:
-                lib.call_module("convert", f"{vfile} ->{outfile.name}")
+                lib.call_module("convert", [vfile, f"->{outfile.name}"])
                 output = outfile.read(keep_tabs=True)
         expected = "".join(
             f"{i}\t{j}\t{k}\n" for i, j, k in zip(x, y, strings, strict=True)
@@ -250,7 +250,7 @@ def test_virtualfile_from_vectors_two_string_or_object_columns(dtype):
     with clib.Session() as lib:
         with lib.virtualfile_from_vectors(x, y, strings1, strings2) as vfile:
             with GMTTempFile() as outfile:
-                lib.call_module("convert", f"{vfile} ->{outfile.name}")
+                lib.call_module("convert", [vfile, f"->{outfile.name}"])
                 output = outfile.read(keep_tabs=True)
         expected = "".join(
             f"{h}\t{i}\t{j} {k}\n"
@@ -269,7 +269,7 @@ def test_virtualfile_from_vectors_transpose(dtypes):
         with clib.Session() as lib:
             with lib.virtualfile_from_vectors(*data.T) as vfile:
                 with GMTTempFile() as outfile:
-                    lib.call_module("info", f"{vfile} -C ->{outfile.name}")
+                    lib.call_module("info", [vfile, "-C", f"->{outfile.name}"])
                     output = outfile.read(keep_tabs=True)
             bounds = "\t".join([f"{col.min():.0f}\t{col.max():.0f}" for col in data.T])
             expected = f"{bounds}\n"
@@ -299,7 +299,7 @@ def test_virtualfile_from_matrix(dtypes):
         with clib.Session() as lib:
             with lib.virtualfile_from_matrix(data) as vfile:
                 with GMTTempFile() as outfile:
-                    lib.call_module("info", f"{vfile} ->{outfile.name}")
+                    lib.call_module("info", [vfile, f"->{outfile.name}"])
                     output = outfile.read(keep_tabs=True)
             bounds = "\t".join([f"<{col.min():.0f}/{col.max():.0f}>" for col in data.T])
             expected = f"<matrix memory>: N = {shape[0]}\t{bounds}\n"
@@ -319,7 +319,7 @@ def test_virtualfile_from_matrix_slice(dtypes):
         with clib.Session() as lib:
             with lib.virtualfile_from_matrix(data) as vfile:
                 with GMTTempFile() as outfile:
-                    lib.call_module("info", f"{vfile} ->{outfile.name}")
+                    lib.call_module("info", [vfile, f"->{outfile.name}"])
                     output = outfile.read(keep_tabs=True)
             bounds = "\t".join([f"<{col.min():.0f}/{col.max():.0f}>" for col in data.T])
             expected = f"<matrix memory>: N = {rows}\t{bounds}\n"
@@ -345,7 +345,7 @@ def test_virtualfile_from_vectors_pandas(dtypes_pandas):
         with clib.Session() as lib:
             with lib.virtualfile_from_vectors(data.x, data.y, data.z) as vfile:
                 with GMTTempFile() as outfile:
-                    lib.call_module("info", f"{vfile} ->{outfile.name}")
+                    lib.call_module("info", [vfile, f"->{outfile.name}"])
                     output = outfile.read(keep_tabs=True)
             bounds = "\t".join(
                 [f"<{i.min():.0f}/{i.max():.0f}>" for i in (data.x, data.y, data.z)]
@@ -365,8 +365,36 @@ def test_virtualfile_from_vectors_arraylike():
     with clib.Session() as lib:
         with lib.virtualfile_from_vectors(x, y, z) as vfile:
             with GMTTempFile() as outfile:
-                lib.call_module("info", f"{vfile} ->{outfile.name}")
+                lib.call_module("info", [vfile, f"->{outfile.name}"])
                 output = outfile.read(keep_tabs=True)
         bounds = "\t".join([f"<{min(i):.0f}/{max(i):.0f}>" for i in (x, y, z)])
         expected = f"<vector memory>: N = {size}\t{bounds}\n"
         assert output == expected
+
+
+def test_inquire_virtualfile():
+    """
+    Test that the inquire_virtualfile method returns the correct family.
+
+    Currently, only output virtual files are tested.
+    """
+    with clib.Session() as lib:
+        for family in [
+            "GMT_IS_DATASET",
+            "GMT_IS_DATASET|GMT_VIA_MATRIX",
+            "GMT_IS_DATASET|GMT_VIA_VECTOR",
+        ]:
+            with lib.open_virtualfile(
+                family, "GMT_IS_PLP", "GMT_OUT|GMT_IS_REFERENCE", None
+            ) as vfile:
+                assert lib.inquire_virtualfile(vfile) == lib["GMT_IS_DATASET"]
+
+        for family, geometry in [
+            ("GMT_IS_GRID", "GMT_IS_SURFACE"),
+            ("GMT_IS_IMAGE", "GMT_IS_SURFACE"),
+            ("GMT_IS_CUBE", "GMT_IS_VOLUME"),
+            ("GMT_IS_PALETTE", "GMT_IS_NONE"),
+            ("GMT_IS_POSTSCRIPT", "GMT_IS_NONE"),
+        ]:
+            with lib.open_virtualfile(family, geometry, "GMT_OUT", None) as vfile:
+                assert lib.inquire_virtualfile(vfile) == lib[family]

@@ -1,12 +1,16 @@
 # Cache GMT remote data files and upload as artifacts
 #
-# This workflow downloads data files needed by PyGMT tests/documentation from
-# the GMT data server and uploads as workflow artifacts which can be accessed
-# by other GitHub Actions workflows.
+# This workflow downloads data files needed by PyGMT tests/documentation from the GMT
+# data server and uploads them as workflow artifacts, which can then be accessed by other
+# GitHub Actions workflows.
 #
-# It is scheduled to run every Sunday at 12:00 (UTC). If new remote files are
-# needed urgently, maintainers can update the workflow file or the
-# 'pygmt/helpers/caching.py' file to refresh the cache.
+# It is scheduled to run every Sunday at 12:00 (UTC). If new remote files are needed
+# urgently, maintainers can refresh the cache by one of the following methods:
+#
+# 1. Update this workflow file
+# 2. Update the `pygmt/helpers/caching.py` file
+# 3. Go to https://github.com/GenericMappingTools/pygmt/actions/workflows/cache_data.yaml
+#    and click the "Run workflow" button
 #
 name: Cache data
 
@@ -16,6 +20,7 @@ on:
     paths:
       - 'pygmt/helpers/caching.py'
       - '.github/workflows/cache_data.yaml'
+  workflow_dispatch:
   # Schedule runs on 12 noon every Sunday
   schedule:
     - cron: '0 12 * * 0'
@@ -31,14 +36,14 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4.1.7
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.8.0
+        uses: mamba-org/setup-micromamba@v1.9.0
         with:
           environment-name: pygmt
           condarc: |
@@ -75,7 +80,7 @@ jobs:
         with:
           name: gmt-cache
           path: |
-              ~/.gmt/cache
-              ~/.gmt/server
-              ~/.gmt/gmt_data_server.txt
-              ~/.gmt/gmt_hash_server.txt
+            ~/.gmt/cache
+            ~/.gmt/server
+            ~/.gmt/gmt_data_server.txt
+            ~/.gmt/gmt_hash_server.txt

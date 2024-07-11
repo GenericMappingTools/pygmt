@@ -17,6 +17,7 @@ on:
     # paths:
     #  - 'pygmt/**'
     #  - '.github/workflows/ci_tests_legacy.yaml'
+  workflow_dispatch:
   # Schedule tests on Tuesday
   schedule:
     - cron: '0 0 * * 2'
@@ -33,7 +34,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04, macos-11, windows-2019]
+        os: [ubuntu-20.04, macos-12, windows-2019]
         gmt_version: ['6.3', '6.4']
     timeout-minutes: 30
     defaults:
@@ -43,22 +44,20 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4.1.7
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.8.0
+        uses: mamba-org/setup-micromamba@v1.9.0
         with:
           environment-name: pygmt
           condarc: |
             channels:
               - conda-forge
               - nodefaults
-          cache-downloads: false
-          cache-environment: true
           create-args: >-
             python=3.10
             gmt=${{ matrix.gmt_version }}
@@ -82,24 +81,18 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v3.1.1
-        with:
-          workflow: cache_data.yaml
-          workflow_conclusion: success
-          name: gmt-cache
-          path: .gmt
-
-      # Move downloaded files to ~/.gmt directory and list them
-      - name: Move and list downloaded remote files
         run: |
-          mkdir -p ~/.gmt
-          mv .gmt/* ~/.gmt
+          # Download cached files to ~/.gmt directory and list them
+          gh run download --name gmt-cache --dir ~/.gmt/
           # Change modification times of the two files, so GMT won't refresh it
           # The two files are in the `~/.gmt/server` directory for GMT<=6.4, and
           # in the `~/.gmt` directory for GMT>=6.5.
+          mkdir -p ~/.gmt/server/
           mv ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt ~/.gmt/server/
           touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
           ls -lhR ~/.gmt
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       # Install the package that we want to test
       - name: Install the package

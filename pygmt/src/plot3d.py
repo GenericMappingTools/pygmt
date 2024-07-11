@@ -1,6 +1,9 @@
 """
 plot3d - Plot in three dimensions.
 """
+
+from pathlib import Path
+
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -48,7 +51,7 @@ from pygmt.src.which import which
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot3d(  # noqa: PLR0912
+def plot3d(
     self, data=None, x=None, y=None, z=None, size=None, direction=None, **kwargs
 ):
     r"""
@@ -196,7 +199,7 @@ def plot3d(  # noqa: PLR0912
     elif kwargs.get("S") is None and kind == "file" and str(data).endswith(".gmt"):
         # checking that the data is a file path to set default style
         try:
-            with open(which(data), encoding="utf8") as file:
+            with Path.open(which(data), encoding="utf8") as file:
                 line = file.readline()
             if "@GMULTIPOINT" in line or "@GPOINT" in line:
                 # if the file is gmt style and geometry is set to Point

@@ -10,6 +10,7 @@ name: Check Links
 on:
   # Uncomment the 'pull_request' line below to trigger the workflow in PR
   # pull_request:
+  workflow_dispatch:
   # Schedule runs on 12 noon every Sunday
   schedule:
     - cron: '0 12 * * 0'
@@ -22,38 +23,41 @@ jobs:
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v4.1.1
+      uses: actions/checkout@v4.1.7
       with:
         path: repository
 
     - name: Checkout the documentation
-      uses: actions/checkout@v4.1.1
+      uses: actions/checkout@v4.1.7
       with:
         ref: gh-pages
         path: documentation
 
     - name: Link Checker
       id: lychee
-      uses: lycheeverse/lychee-action@v1.9.3
+      uses: lycheeverse/lychee-action@v1.10.0
       with:
+        output: /tmp/lychee-out.md
         # 429: Too many requests
         args: >
           --accept 429
-          --exclude-mail
           --exclude "^https://doi.org/10.5281/zenodo$"
           --exclude "^https://zenodo.org/badge/DOI/$"
           --exclude "^https://zenodo.org/badge/DOI/10.5281/zenodo$"
           --exclude "^https://github.com/GenericMappingTools/pygmt/pull/[0-9]*$"
           --exclude "^https://github.com/GenericMappingTools/pygmt/issues/[0-9]*$"
           --exclude "^https://github.com/GenericMappingTools/gmt/releases/tag/X.Y.Z$"
+          --exclude "^https://github.com/GenericMappingTools/pygmt/edit"
+          --exclude "^https://github.com/GenericMappingTools/pygmt/issues/new"
           --exclude "^git"
           --exclude "^file://"
+          --exclude "https://www.adobe.com/jp/print/postscript/pdfs/PLRM.pdf"
           --exclude "^https://docs.generic-mapping-tools.org/6.5/%s$"
           --exclude "^https://docs.generic-mapping-tools.org/6.5/%3Cmodule-name%3E.html$"
           --exclude "^https://www.generic-mapping-tools.org/remote-datasets/%s$"
           --exclude "^https://hackmd.io/@pygmt"
           --exclude "^https://doi.org"
-          --exclude "^https://www.researchgate.net/project/"
+          --exclude "^https://www.researchgate.net/"
           --exclude "^https://test.pypi.org/simple/"
           --verbose
           "repository/**/*.rst"
@@ -67,7 +71,9 @@ jobs:
 
     - name: Create Issue From File
       if: env.lychee_exit_code != 0
-      uses: peter-evans/create-issue-from-file@v5
-      with:
-        title: Link Checker Report on ${{ steps.date.outputs.date }}
-        content-filepath: ./lychee/out.md
+      run: |
+        cd repository/
+        title="Link Checker Report on ${{ steps.date.outputs.date }}"
+        gh issue create --title "$title" --body-file /tmp/lychee-out.md
+      env:
+        GH_TOKEN: ${{ github.token }}

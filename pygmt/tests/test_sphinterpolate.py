@@ -1,6 +1,7 @@
 """
 Test pygmt.sphinterpolate.
 """
+
 from pathlib import Path
 
 import numpy.testing as npt
@@ -40,4 +41,4 @@ def test_sphinterpolate_no_outgrid(mars):
     npt.assert_allclose(temp_grid.max(), 14628.144)
     npt.assert_allclose(temp_grid.min(), -6908.1987)
     npt.assert_allclose(temp_grid.median(), 118.96849)
-    npt.assert_allclose(temp_grid.mean(), 272.60593)
+    npt.assert_allclose(temp_grid.mean(), 272.60578)

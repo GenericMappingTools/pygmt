@@ -3,17 +3,18 @@ triangulate - Delaunay triangulation or Voronoi partitioning and gridding of
 Cartesian data.
 """
 
+from typing import Literal
+
+import numpy as np
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
     validate_output_table_type,
 )
-from pygmt.io import load_dataarray
 
 
 class triangulate:  # noqa: N801
@@ -47,7 +48,6 @@ class triangulate:  # noqa: N801
     @staticmethod
     @fmt_docstring
     @use_alias(
-        G="outgrid",
         I="spacing",
         J="projection",
         R="region",
@@ -63,7 +63,9 @@ class triangulate:  # noqa: N801
         w="wrap",
     )
     @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
-    def regular_grid(data=None, x=None, y=None, z=None, **kwargs):
+    def regular_grid(
+        data=None, x=None, y=None, z=None, outgrid: str | None = None, **kwargs
+    ):
         """
         Delaunay triangle based gridding of Cartesian data.
 
@@ -137,20 +139,18 @@ class triangulate:  # noqa: N801
         if z is not None:
             vectors.append(z)
 
-        # Return an xarray.DataArray if ``outgrid`` is not set
-        with GMTTempFile(suffix=".nc") as tmpfile:
-            with Session() as lib:
-                with lib.virtualfile_in(
+        with Session() as lib:
+            with (
+                lib.virtualfile_in(
                     check_kind="vector", data=data, vectors=vectors, names=names
-                ) as vintbl:
-                    if (outgrid := kwargs.get("G")) is None:
-                        kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                    lib.call_module(
-                        module="triangulate",
-                        args=build_arg_string(kwargs, infile=vintbl),
-                    )
-
-            return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+                ) as vintbl,
+                lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+            ):
+                kwargs["G"] = voutgrd
+                lib.call_module(
+                    module="triangulate", args=build_arg_list(kwargs, infile=vintbl)
+                )
+                return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
 
     @staticmethod
     @fmt_docstring
@@ -176,10 +176,10 @@ class triangulate:  # noqa: N801
         y=None,
         z=None,
         *,
-        output_type="pandas",
-        outfile=None,
+        output_type: Literal["pandas", "numpy", "file"] = "pandas",
+        outfile: str | None = None,
         **kwargs,
-    ):
+    ) -> pd.DataFrame | np.ndarray | None:
         """
         Delaunay triangle based gridding of Cartesian data.
 
@@ -208,16 +208,8 @@ class triangulate:  # noqa: N801
             {table-classes}.
         {projection}
         {region}
-        outfile : str or None
-            The name of the output ASCII file to store the results of the
-            histogram equalization in.
-        output_type : str
-            Determine the format the xyz data will be returned in [Default is
-            ``pandas``]:
-
-                - ``numpy`` - :class:`numpy.ndarray`
-                - ``pandas``- :class:`pandas.DataFrame`
-                - ``file`` - ASCII file (requires ``outfile``)
+        {output_type}
+        {outfile}
         {verbose}
         {binary}
         {nodata}
@@ -230,13 +222,13 @@ class triangulate:  # noqa: N801
 
         Returns
         -------
-        ret : pandas.DataFrame or numpy.ndarray or None
+        ret
             Return type depends on ``outfile`` and ``output_type``:
 
-            - None if ``outfile`` is set (output will be stored in file set by
+            - ``None`` if ``outfile`` is set (output will be stored in file set by
               ``outfile``)
-            - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if
-              ``outfile`` is not set (depends on ``output_type``)
+            - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not
+              set (depends on ``output_type``)
 
         Note
         ----
@@ -245,32 +237,21 @@ class triangulate:  # noqa: N801
         ``triangulate`` is a Cartesian or small-geographic area operator and is
         unaware of periodic or polar boundary conditions.
         """
-        output_type = validate_output_table_type(output_type, outfile)
+        output_type = validate_output_table_type(output_type, outfile=outfile)
 
         vectors, names = [x, y], "xy"
         if z is not None:
             vectors.append(z)
 
-
-        with GMTTempFile(suffix=".txt") as tmpfile:
-            with Session() as lib:
-                with lib.virtualfile_in(
+        with Session() as lib:
+            with (
+                lib.virtualfile_in(
                     check_kind="vector", data=data, vectors=vectors, names=names
-                ) as vintbl:
-                    if outfile is None:
-                        outfile = tmpfile.name
-                    lib.call_module(
-                        module="triangulate",
-                        args=build_arg_string(kwargs, infile=vintbl, outfile=outfile),
-                    )
-
-            if outfile == tmpfile.name:
-                # if user did not set outfile, return pd.DataFrame
-                result = pd.read_csv(outfile, sep="\t", header=None)
-            elif outfile != tmpfile.name:
-                # return None if outfile set, output in outfile
-                result = None
-
-            if output_type == "numpy":
-                result = result.to_numpy()
-        return result
+                ) as vintbl,
+                lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
+            ):
+                lib.call_module(
+                    module="triangulate",
+                    args=build_arg_list(kwargs, infile=vintbl, outfile=vouttbl),
+                )
+            return lib.virtualfile_to_dataset(vfname=vouttbl, output_type=output_type)

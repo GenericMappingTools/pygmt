@@ -1,7 +1,7 @@
 """
 Utilities and common tasks for wrapping the GMT modules.
 """
-# ruff: noqa: RUF001
+
 import os
 import pathlib
 import shutil
@@ -9,10 +9,13 @@ import string
 import subprocess
 import sys
 import time
+import warnings
 import webbrowser
-from collections.abc import Iterable
+from collections.abc import Iterable, Sequence
+from typing import Any
 
 import xarray as xr
+from pygmt.encodings import charset
 from pygmt.exceptions import GMTInvalidInput
 
 
@@ -43,9 +46,7 @@ def validate_data_input(
     --------
     >>> validate_data_input(data="infile")
     >>> validate_data_input(vectors=[[1, 2, 3], [4, 5, 6]], names="xy")
-    >>> validate_data_input(
-    ...     vectors=[[1, 2, 3], [4, 5, 6], [7, 8, 9]], names="xyz"
-    ... )
+    >>> validate_data_input(vectors=[[1, 2, 3], [4, 5, 6], [7, 8, 9]], names="xyz")
     >>> validate_data_input(data=None, required_data=False)
     >>> validate_data_input()
     Traceback (most recent call last):
@@ -199,7 +200,11 @@ def data_kind(data=None, required=True):
     'image'
     """
     # determine the data kind
-    if isinstance(data, str | pathlib.PurePath):
+    if isinstance(data, str | pathlib.PurePath) or (
+        isinstance(data, list | tuple)
+        and all(isinstance(_file, str | pathlib.PurePath) for _file in data)
+    ):
+        # One or more files
         kind = "file"
     elif isinstance(data, bool | int | float) or (data is None and not required):
         kind = "arg"
@@ -216,120 +221,154 @@ def data_kind(data=None, required=True):
     return kind
 
 
-def non_ascii_to_octal(argstr):
+def non_ascii_to_octal(argstr: str) -> str:
     r"""
     Translate non-ASCII characters to their corresponding octal codes.
 
-    Currently, only characters in the ISOLatin1+ charset and
-    Symbol/ZapfDingbats fonts are supported.
+    Currently, only characters in the ISOLatin1+ charset and Symbol/ZapfDingbats fonts
+    are supported.
 
     Parameters
     ----------
-    argstr : str
+    argstr
         The string to be translated.
 
     Returns
     -------
-    translated_argstr : str
+    translated_argstr
         The translated string.
 
     Examples
     --------
     >>> non_ascii_to_octal("•‰“”±°ÿ")
-    '\\31\\214\\216\\217\\261\\260\\377'
-    >>> non_ascii_to_octal("αζΔΩ∑π∇")
+    '\\031\\214\\216\\217\\261\\260\\377'
+    >>> non_ascii_to_octal("αζ∆Ω∑π∇")
     '@~\\141@~@~\\172@~@~\\104@~@~\\127@~@~\\345@~@~\\160@~@~\\321@~'
     >>> non_ascii_to_octal("✁❞❡➾")
-    '@%34%\\41@%%@%34%\\176@%%@%34%\\241@%%@%34%\\376@%%'
+    '@%34%\\041@%%@%34%\\176@%%@%34%\\241@%%@%34%\\376@%%'
     >>> non_ascii_to_octal("ABC ±120° DEF α ♥")
     'ABC \\261120\\260 DEF @~\\141@~ @%34%\\252@%%'
     """  # noqa: RUF002
+    # Return the string if it only contains printable ASCII characters from 32 to 126.
+    if all(32 <= ord(c) <= 126 for c in argstr):
+        return argstr
+
     # Dictionary mapping non-ASCII characters to octal codes
-    mapping = {}
-
-    # Adobe Symbol charset
-    # References:
-    # 1. https://en.wikipedia.org/wiki/Symbol_(typeface)
-    # 2. https://unicode.org/Public/MAPPINGS/VENDORS/ADOBE/symbol.txt
-    # Notes:
-    # 1. \322 and \342 are "REGISTERED SIGN SERIF" and
-    #    "REGISTERED SIGN SANS SERIF" respectively, but only "REGISTERED SIGN"
-    #    is available in the unicode table. So both are mapped to
-    #    "REGISTERED SIGN". \323, \343, \324 and \344 also have the same
-    #    problem.
-    # 2. Characters for \140, \275, \276 are incorrect.
+    mapping: dict = {}
+    # Adobe Symbol charset.
+    mapping.update({c: f"@~\\{i:03o}@~" for i, c in charset["Symbol"].items()})
+    # Adobe ZapfDingbats charset. Font number is 34.
     mapping.update(
-        {
-            c: "@~\\" + format(i, "o") + "@~"
-            for c, i in zip(
-                " !∀#∃%&∋()∗+,−./"  # \04x-05x
-                "0123456789:;<=>?"  # \06x-07x
-                "≅ΑΒΧΔΕΦΓΗΙϑΚΛΜΝΟ"  # \10x-11x
-                "ΠΘΡΣΤΥςΩΞΨΖ[∴]⊥_"  # \12x-13x
-                "αβχδεφγηιϕκλμνο"  # \14x-15x
-                "πθρστυϖωξψζ{|}∼"  # \16x-17x. \177 is undefined
-                "€ϒ′≤⁄∞ƒ♣♦♥♠↔←↑→↓"  # \24x-\25x
-                "°±″≥×∝∂•÷≠≡≈…↵"  # \26x-27x
-                "ℵℑℜ℘⊗⊕∅∩∪⊃⊇⊄⊂⊆∈∉"  # \30x-31x
-                "∠∇®©™∏√⋅¬∧∨⇔⇐⇑⇒⇓"  # \32x-33x
-                "◊〈®©™∑"  # \34x-35x
-                "〉∫⌠⌡",  # \36x-37x. \360 and \377 are undefined
-                [*range(32, 127), *range(160, 240), *range(241, 255)],
-                strict=True,
-            )
-        }
+        {c: f"@%34%\\{i:03o}@%%" for i, c in charset["ZapfDingbats"].items()}
     )
-
-    # Adobe ZapfDingbats charset
-    # References:
-    # 1. https://en.wikipedia.org/wiki/Zapf_Dingbats
-    # 2. https://unicode.org/Public/MAPPINGS/VENDORS/ADOBE/zdingbat.txt
-    mapping.update(
-        {
-            c: "@%34%\\" + format(i, "o") + "@%%"
-            for c, i in zip(
-                " ✁✂✃✄☎✆✇✈✉☛☞✌✍✎✏"  # \04x-\05x
-                "✐✑✒✓✔✕✖✗✘✙✚✛✜✝✞✟"  # \06x-\07x
-                "✠✡✢✣✤✥✦✧★✩✪✫✬✭✮✯"  # \10x-\11x
-                "✰✱✲✳✴✵✶✷✸✹✺✻✼✽✾✿"  # \12x-\13x
-                "❀❁❂❃❄❅❆❇❈❉❊❋●❍■❏"  # \14x-\15x
-                "❐❑❒▲▼◆❖◗❘❙❚❛❜❝❞"  # \16x-\17x. \177 is undefined
-                "❡❢❣❤❥❦❧♣♦♥♠①②③④"  # \24x-\25x. \240 is undefined
-                "⑤⑥⑦⑧⑨⑩❶❷❸❹❺❻❼❽❾❿"  # \26x-\27x
-                "➀➁➂➃➄➅➆➇➈➉➊➋➌➍➎➏"  # \30x-\31x
-                "➐➑➒➓➔→↔↕➘➙➚➛➜➝➞➟"  # \32x-\33x
-                "➠➡➢➣➤➥➦➧➨➩➪➫➬➭➮➯"  # \34x-\35x
-                "➱➲➳➴➵➶➷➸➹➺➻➼➽➾",  # \36x-\37x. \360 and \377 are undefined
-                [*range(32, 127), *range(161, 240), *range(241, 255)],
-                strict=True,
-            )
-        }
-    )
-
-    # Adobe ISOLatin1+ charset (i.e., ISO-8859-1 with extensions)
-    # References:
-    # 1. https://en.wikipedia.org/wiki/ISO/IEC_8859-1
-    # 2. https://docs.generic-mapping-tools.org/dev/reference/octal-codes.html
-    # 3. https://www.adobe.com/jp/print/postscript/pdfs/PLRM.pdf
-    mapping.update(
-        {
-            c: "\\" + format(i, "o")
-            for c, i in zip(
-                "•…™—–ﬁž"  # \03x. \030 is undefined
-                "š"  # \177
-                "Œ†‡Ł⁄‹Š›œŸŽł‰„“”"  # \20x-\21x
-                "ı`´ˆ˜¯˘˙¨‚˚¸'˝˛ˇ",  # \22x-\23x
-                [*range(25, 32), *range(127, 160)],
-                strict=True,
-            )
-        }
-    )
-    # \240-\377
-    mapping.update({chr(i): "\\" + format(i, "o") for i in range(160, 256)})
+    # Adobe ISOLatin1+ charset. Put at the end.
+    mapping.update({c: f"\\{i:03o}" for i, c in charset["ISOLatin1+"].items()})
 
     # Remove any printable characters
     mapping = {k: v for k, v in mapping.items() if k not in string.printable}
     return argstr.translate(str.maketrans(mapping))
+
+
+def build_arg_list(
+    kwdict: dict[str, Any],
+    confdict: dict[str, str] | None = None,
+    infile: str | pathlib.PurePath | Sequence[str | pathlib.PurePath] | None = None,
+    outfile: str | pathlib.PurePath | None = None,
+) -> list[str]:
+    r"""
+    Convert keyword dictionaries and input/output files into a list of GMT arguments.
+
+    Make sure all values in ``kwdict`` have been previously converted to a string
+    representation using the ``kwargs_to_strings`` decorator. The only exceptions are
+    ``True``, ``False`` and ``None``.
+
+    Any remaining lists or tuples will be interpreted as multiple entries for the same
+    parameter. For example, the kwargs entry ``"B": ["xa", "yaf"]`` will be
+    converted to ``["-Bxa", "-Byaf"]``.
+
+    Parameters
+    ----------
+    kwdict
+        A dictionary containing parsed keyword arguments.
+    confdict
+        A dictionary containing configurable GMT parameters.
+    infile
+        The input file or a list of input files.
+    outfile
+        The output file.
+
+    Returns
+    -------
+    args
+        The list of command line arguments that will be passed to GMT modules. The
+        keyword arguments are sorted alphabetically, followed by GMT configuration
+        key-value pairs, with optional input file(s) at the beginning and optional
+        output file at the end.
+
+    Examples
+    --------
+    >>> build_arg_list(dict(A=True, B=False, C=None, D=0, E=200, F="", G="1/2/3/4"))
+    ['-A', '-D0', '-E200', '-F', '-G1/2/3/4']
+    >>> build_arg_list(dict(A="1/2/3/4", B=["xaf", "yaf", "WSen"], C=("1p", "2p")))
+    ['-A1/2/3/4', '-BWSen', '-Bxaf', '-Byaf', '-C1p', '-C2p']
+    >>> print(
+    ...     build_arg_list(
+    ...         dict(
+    ...             B=["af", "WSne+tBlank Space"],
+    ...             F='+t"Empty Spaces"',
+    ...             l="'Void Space'",
+    ...         )
+    ...     )
+    ... )
+    ['-BWSne+tBlank Space', '-Baf', '-F+t"Empty Spaces"', "-l'Void Space'"]
+    >>> print(
+    ...     build_arg_list(
+    ...         dict(A="0", B=True, C="rainbow"),
+    ...         confdict=dict(FORMAT_DATE_MAP="o dd"),
+    ...         infile="input.txt",
+    ...         outfile="output.txt",
+    ...     )
+    ... )
+    ['input.txt', '-A0', '-B', '-Crainbow', '--FORMAT_DATE_MAP=o dd', '->output.txt']
+    >>> print(
+    ...     build_arg_list(
+    ...         dict(A="0", B=True),
+    ...         confdict=dict(FORMAT_DATE_MAP="o dd"),
+    ...         infile=["f1.txt", "f2.txt"],
+    ...         outfile="out.txt",
+    ...     )
+    ... )
+    ['f1.txt', 'f2.txt', '-A0', '-B', '--FORMAT_DATE_MAP=o dd', '->out.txt']
+    >>> print(build_arg_list(dict(R="1/2/3/4", J="X4i", watre=True)))
+    Traceback (most recent call last):
+      ...
+    pygmt.exceptions.GMTInvalidInput: Unrecognized parameter 'watre'.
+    """
+    gmt_args = []
+    for key, value in kwdict.items():
+        if len(key) > 2:  # Raise an exception for unrecognized options
+            raise GMTInvalidInput(f"Unrecognized parameter '{key}'.")
+        if value is None or value is False:  # Exclude arguments that are None or False
+            pass
+        elif value is True:
+            gmt_args.append(f"-{key}")
+        elif is_nonstr_iter(value):
+            gmt_args.extend(non_ascii_to_octal(f"-{key}{_value}") for _value in value)
+        else:
+            gmt_args.append(non_ascii_to_octal(f"-{key}{value}"))
+    gmt_args = sorted(gmt_args)
+
+    if confdict:
+        gmt_args.extend(f"--{key}={value}" for key, value in confdict.items())
+
+    if infile:  # infile can be a single file or a list of files
+        if isinstance(infile, str | pathlib.PurePath):
+            gmt_args = [str(infile), *gmt_args]
+        else:
+            gmt_args = [str(_file) for _file in infile] + gmt_args
+    if outfile:
+        gmt_args.append(f"->{outfile}")
+    return gmt_args
 
 
 def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
@@ -348,6 +387,10 @@ def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
     code ``\040``, except in the case of -J (projection) arguments where PROJ4
     strings (e.g. "+proj=longlat +datum=WGS84") will have their spaces removed.
     See https://github.com/GenericMappingTools/pygmt/pull/1487 for more info.
+
+    .. deprecated:: 0.12.0
+
+       Use :func:`build_arg_list` instead.
 
     Parameters
     ----------
@@ -423,8 +466,13 @@ def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
     ... )
     input.txt -A0 -B -Crainbow --FORMAT_DATE_MAP="o dd" ->output.txt
     """
-    gmt_args = []
+    msg = (
+        "Utility function 'build_arg_string()' is deprecated in v0.12.0 and will be "
+        "removed in v0.14.0. Use 'build_arg_list()' instead."
+    )
+    warnings.warn(msg, category=FutureWarning, stacklevel=2)
 
+    gmt_args = []
     for key in kwdict:
         if len(key) > 2:  # raise an exception for unrecognized options
             raise GMTInvalidInput(f"Unrecognized parameter '{key}'.")

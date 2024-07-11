@@ -3,14 +3,7 @@ nearneighbor - Grid table data using a "Nearest neighbor" algorithm.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["nearneighbor"]
 
@@ -18,7 +11,6 @@ __doctest_skip__ = ["nearneighbor"]
 @fmt_docstring
 @use_alias(
     E="empty",
-    G="outgrid",
     I="spacing",
     N="sectors",
     R="region",
@@ -36,7 +28,9 @@ __doctest_skip__ = ["nearneighbor"]
     w="wrap",
 )
 @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
-def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
+def nearneighbor(
+    data=None, x=None, y=None, z=None, outgrid: str | None = None, **kwargs
+):
     r"""
     Grid table data using a "Nearest neighbor" algorithm.
 
@@ -143,16 +137,15 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     ...     search_radius="10m",
     ... )
     """
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            table_context = lib.virtualfile_in(
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(
                 check_kind="vector", data=data, vectors=[x, y, z], names="xyz"
+            ) as vintbl,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            kwargs["G"] = voutgrd
+            lib.call_module(
+                module="nearneighbor", args=build_arg_list(kwargs, infile=vintbl)
             )
-            with table_context as infile:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="nearneighbor", args=build_arg_string(kwargs, infile=infile)
-                )
-
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

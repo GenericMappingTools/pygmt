@@ -1,7 +1,8 @@
 """
 Test Figure.text.
 """
-import os
+
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -9,9 +10,9 @@ from pygmt import Figure
 from pygmt.exceptions import GMTCLibError, GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
-CITIES_DATA = os.path.join(TEST_DATA_DIR, "cities.txt")
+TEST_DATA_DIR = Path(__file__).parent / "data"
+POINTS_DATA = TEST_DATA_DIR / "points.txt"
+CITIES_DATA = TEST_DATA_DIR / "cities.txt"
 
 
 @pytest.fixture(scope="module", name="projection")
@@ -298,8 +299,9 @@ def test_text_angle_font_justify_from_textfile():
     """
     fig = Figure()
     with GMTTempFile(suffix=".txt") as tempfile:
-        with open(tempfile.name, "w", encoding="utf8") as tmpfile:
-            tmpfile.write("114 0.5 30 22p,Helvetica-Bold,black LM BORNEO")
+        Path(tempfile.name).write_text(
+            "114 0.5 30 22p,Helvetica-Bold,black LM BORNEO", encoding="utf-8"
+        )
         fig.text(
             region=[113, 117.5, -0.5, 3],
             projection="M5c",
@@ -417,5 +419,18 @@ def test_text_nonascii():
     fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
     fig.text(position="TL", text="position-text:°α")  # noqa: RUF001
     fig.text(x=1, y=1, text="xytext:°α")  # noqa: RUF001
-    fig.text(x=[5, 5], y=[3, 5], text=["xytext1:αζΔ❡", "xytext2:∑π∇✉"])
+    fig.text(x=[5, 5], y=[3, 5], text=["xytext1:αζ∆❡", "xytext2:∑π∇✉"])
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_text_quotation_marks():
+    """
+    Test typesetting quotation marks.
+
+    See https://github.com/GenericMappingTools/pygmt/issues/3104.
+    """
+    fig = Figure()
+    fig.basemap(projection="X4c/2c", region=[0, 4, 0, 2], frame=0)
+    fig.text(x=2, y=1, text='\\234 ‘ ’ " “ ”', font="20p")  # noqa: RUF001
     return fig

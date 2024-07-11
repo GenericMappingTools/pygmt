@@ -1,11 +1,12 @@
 """
 text - Plot text on a figure.
 """
+
 import numpy as np
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     data_kind,
     fmt_docstring,
     is_nonstr_iter,
@@ -36,12 +37,7 @@ from pygmt.helpers import (
     t="transparency",
     w="wrap",
 )
-@kwargs_to_strings(
-    R="sequence",
-    textfiles="sequence_space",
-    c="sequence_comma",
-    p="sequence",
-)
+@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def text_(  # noqa: PLR0912
     self,
     textfiles=None,
@@ -247,8 +243,7 @@ def text_(  # noqa: PLR0912
         names.append("text")
 
     with Session() as lib:
-        file_context = lib.virtualfile_in(
+        with lib.virtualfile_in(
             check_kind="vector", data=textfiles, vectors=vectors, names=names
-        )
-        with file_context as fname:
-            lib.call_module(module="text", args=build_arg_string(kwargs, infile=fname))
+        ) as vintbl:
+            lib.call_module(module="text", args=build_arg_list(kwargs, infile=vintbl))

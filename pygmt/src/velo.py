@@ -1,12 +1,13 @@
 """
 velo - Plot velocity vectors, crosses, anisotropy bars, and wedges.
 """
+
 import numpy as np
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -253,7 +254,5 @@ def velo(self, data=None, **kwargs):
         )
 
     with Session() as lib:
-        file_context = lib.virtualfile_in(check_kind="vector", data=data)
-
-        with file_context as fname:
-            lib.call_module(module="velo", args=build_arg_string(kwargs, infile=fname))
+        with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
+            lib.call_module(module="velo", args=build_arg_list(kwargs, infile=vintbl))

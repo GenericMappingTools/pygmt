@@ -1,6 +1,7 @@
 """
 Test the functions that load libgmt.
 """
+
 import ctypes
 import os
 import shutil
@@ -63,12 +64,13 @@ def test_load_libgmt():
     check_libgmt(load_libgmt())
 
 
-@pytest.mark.skipif(sys.platform == "win32", reason="run on UNIX platforms only")
 def test_load_libgmt_fails(monkeypatch):
     """
     Test that GMTCLibNotFoundError is raised when GMT's shared library cannot be found.
     """
     with monkeypatch.context() as mpatch:
+        if sys.platform == "win32":
+            mpatch.setattr(ctypes.util, "find_library", lambda name: "fakegmt.dll")  # noqa: ARG005
         mpatch.setattr(
             sys,
             "platform",
@@ -129,7 +131,7 @@ class TestLibgmtBrokenLibs:
         # libname is a loaded GMT library
         return self.loaded_libgmt
 
-    @pytest.fixture()
+    @pytest.fixture
     def _mock_ctypes(self, monkeypatch):
         """
         Patch the ctypes.CDLL function.

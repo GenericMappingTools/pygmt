@@ -6,7 +6,7 @@ with [Paul Wessel](https://www.soest.hawaii.edu/wessel) at the University of
 Hawaiʻi at Mānoa.
 
 The following people have contributed code and/or documentation to the project
-(alphabetical by name) and are considered to be "PyGMT Developers":
+(alphabetically by name) and are considered to be "PyGMT Developers":
 
 * [Abhishek Anant](https://twitter.com/itsabhianant) | [0000-0002-5751-2010](https://orcid.org/0000-0002-5751-2010) | Unaffiliated
 * [Andre L. Belem](https://github.com/andrebelem) | [0000-0002-8865-6180](https://orcid.org/0000-0002-8865-6180) | Fluminense Federal University, Brazil

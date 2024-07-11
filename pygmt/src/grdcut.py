@@ -5,7 +5,7 @@ grdcut - Extract subregion from a grid.
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -101,12 +101,11 @@ def grdcut(grid, **kwargs):
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_in(check_kind="raster", data=grid)
-            with file_context as infile:
+            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
                 lib.call_module(
-                    module="grdcut", args=build_arg_string(kwargs, infile=infile)
+                    module="grdcut", args=build_arg_list(kwargs, infile=vingrd)
                 )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None
