@@ -1074,7 +1074,7 @@ class Session:
         infile: str,
         kind: Literal["dataset", "grid"],
         mode: str = "GMT_READ_NORMAL",
-        wesn: Sequence[float] | None = None,
+        region: Sequence[float] | None = None,
         data=None,
     ):
         """
@@ -1093,7 +1093,7 @@ class Session:
         mode
             How the data is to be read from the file. This option varies depending on
             the given family. See the GMT API documentation for details.
-        wesn
+        region
             Subregion of the data, in the form of [xmin, xmax, ymin, ymax, zmin, zmax].
             If ``None``, the whole data is read.
         data
@@ -1132,7 +1132,7 @@ class Session:
             self["GMT_IS_FILE"],  # Reading from a file
             self[geometry],
             self[mode],
-            sequence_to_ctypes_array(wesn, ctp.c_double, 6),
+            sequence_to_ctypes_array(region, ctp.c_double, 6),
             infile.encode(),
             data,
         )
