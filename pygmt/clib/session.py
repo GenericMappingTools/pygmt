@@ -1098,12 +1098,17 @@ class Session:
             If ``None``, the whole data is read.
         data
             ``None`` or the pointer returned by this function after a first call. It's
-            useful when reading grids in two steps (get a grid structure with a header,
-            then read the data).
+            useful when reading grids/images/cubes in two steps (get a grid/image/cube
+            structure with a header, then read the data).
 
         Returns
         -------
         Pointer to the data container, or ``None`` if there were errors.
+
+        Raises
+        ------
+        GMTCLibError
+            If the GMT API function fails to read the data.
         """
         c_read_data = self.get_libgmt_func(
             "GMT_Read_Data",
@@ -1136,6 +1141,8 @@ class Session:
             infile.encode(),
             data,
         )
+        if data_ptr is None:
+            raise GMTCLibError(f"Failed to read dataset from '{infile}'.")
         return ctp.cast(data_ptr, ctp.POINTER(dtype))
 
     def write_data(self, family, geometry, mode, wesn, output, data):
