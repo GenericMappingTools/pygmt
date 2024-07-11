@@ -2,8 +2,6 @@
 plot3d - Plot in three dimensions.
 """
 
-from pathlib import Path
-
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -14,7 +12,6 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.src.which import which
 
 
 @fmt_docstring
@@ -187,50 +184,40 @@ def plot3d(
     vectors = [x, y, z]
     names = ["x", "y", "z"]
 
-    if kwargs.get("S") is not None and kwargs["S"][0] in "vV" and direction is not None:
-        vectors.extend(direction)
-        names.extend(["x2", "y2"])
-    elif (
-        kwargs.get("S") is None
-        and kind == "geojson"
-        and data.geom_type.isin(["Point", "MultiPoint"]).all()
-    ):  # checking if the geometry of a geoDataFrame is Point or MultiPoint
-        kwargs["S"] = "u0.2c"
-    elif kwargs.get("S") is None and kind == "file" and str(data).endswith(".gmt"):
-        # checking that the data is a file path to set default style
-        try:
-            with Path.open(which(data), encoding="utf8") as file:
-                line = file.readline()
-            if "@GMULTIPOINT" in line or "@GPOINT" in line:
-                # if the file is gmt style and geometry is set to Point
-                kwargs["S"] = "u0.2c"
-        except FileNotFoundError:
-            pass
-    if is_nonstr_iter(kwargs.get("G")):
-        if kind != "vectors":
-            raise GMTInvalidInput(
-                "Can't use arrays for fill if data is matrix or file."
-            )
-        vectors.append(kwargs["G"])
-        names.append("fill")
-        del kwargs["G"]
-    if size is not None:
-        if kind != "vectors":
-            raise GMTInvalidInput(
-                "Can't use arrays for 'size' if data is a matrix or a file."
-            )
-        vectors.append(size)
-        names.append("size")
-
-    for flag in ["I", "t"]:
-        if is_nonstr_iter(kwargs.get(flag)):
-            if kind != "vectors":
-                raise GMTInvalidInput(
-                    f"Can't use arrays for {plot3d.aliases[flag]} if data is matrix or file."
-                )
-            vectors.append(kwargs[flag])
-            names.append(plot3d.aliases[flag])
-            kwargs[flag] = ""
+    if kind == "vectors":  # Add more columns for vectors input
+        # Parameters for vector styles
+        if (
+            kwargs.get("S") is not None
+            and kwargs["S"][0] in "vV"
+            and is_nonstr_iter(direction)
+        ):
+            vectors.extend(direction)
+            names.extend(["x2", "y2", "z2"])
+        # Fill
+        if is_nonstr_iter(kwargs.get("G")):
+            vectors.append(kwargs["G"])
+            names.append("fill")
+            del kwargs["G"]
+        # Size
+        if is_nonstr_iter(size):
+            vectors.append(size)
+            names.append("size")
+        # Intensity and transparency
+        for flag in ["I", "t"]:
+            if is_nonstr_iter(kwargs.get(flag)):
+                vectors.append(kwargs[flag])
+                names.append(plot3d.aliases[flag])
+                kwargs[flag] = ""
+    else:
+        for name, value in [
+            ("direction", direction),
+            ("fill", kwargs.get("G")),
+            ("size", size),
+            ("intensity", kwargs.get("I")),
+            ("transparency", kwargs.get("t")),
+        ]:
+            if is_nonstr_iter(value):
+                raise GMTInvalidInput(f"'{name}' can't be 1-D array if 'data' is used.")
 
     with Session() as lib:
         file_context = lib.virtualfile_in(
