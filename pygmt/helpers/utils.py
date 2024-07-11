@@ -2,6 +2,7 @@
 Utilities and common tasks for wrapping the GMT modules.
 """
 
+import io
 import os
 import pathlib
 import shutil
@@ -112,7 +113,7 @@ def _validate_data_input(
 
 
 def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data=True):
-    """
+    r"""
     Check what kind of data is provided to a module.
 
     Possible types:
@@ -129,7 +130,7 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
 
     Parameters
     ----------
-    data : str, pathlib.PurePath, None, bool, xarray.DataArray or {table-like}
+    data : str, io.StringIO, pathlib.PurePath, None, bool, xarray.DataArray or {table-like}
         Pass in either a file name or :class:`pathlib.Path` to an ASCII data
         table, an :class:`xarray.DataArray`, a 1-D/2-D
         {table-classes} or an option argument.
@@ -147,7 +148,7 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
     -------
     kind : str
         One of ``'arg'``, ``'file'``, ``'grid'``, ``image``, ``'geojson'``,
-        ``'matrix'``, or ``'vectors'``.
+        ``'matrix'``, or ``'stringio'``, ``'vectors'``.
 
     Examples
     --------
@@ -155,6 +156,7 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
     >>> import numpy as np
     >>> import xarray as xr
     >>> import pathlib
+    >>> import io
     >>> data_kind(data=None, x=np.array([1, 2, 3]), y=np.array([4, 5, 6]))
     'vectors'
     >>> data_kind(data=np.arange(10).reshape((5, 2)), x=None, y=None)
@@ -173,7 +175,9 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
     'grid'
     >>> data_kind(data=xr.DataArray(np.random.rand(3, 4, 5)))
     'image'
-    """
+    >>> data_kind(data=io.StringIO("TEXT1\nTEXT23\n"))
+    'stringio'
+    """  # noqa: W505
     # determine the data kind
     if isinstance(data, str | pathlib.PurePath) or (
         isinstance(data, list | tuple)
@@ -183,6 +187,8 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
         kind = "file"
     elif isinstance(data, bool | int | float) or (data is None and not required_data):
         kind = "arg"
+    elif isinstance(data, io.StringIO):
+        kind = "stringio"
     elif isinstance(data, xr.DataArray):
         kind = "image" if len(data.dims) == 3 else "grid"
     elif hasattr(data, "__geo_interface__"):
