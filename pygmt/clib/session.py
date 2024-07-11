@@ -1125,7 +1125,7 @@ class Session:
             restype=ctp.c_void_p,  # data_ptr
         )
 
-        # Determine the family and geometry from kind
+        # Determine the family, geometry and data container from kind
         family, geometry, dtype = {
             "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP", _GMT_DATASET),
             "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE", _GMT_GRID),
