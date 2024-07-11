@@ -1073,7 +1073,7 @@ class Session:
         self,
         infile: str,
         kind: Literal["dataset", "grid"],
-        mode: str | None = None,
+        mode: str = "GMT_READ_NORMAL",
         wesn: Sequence[float] | None = None,
         data=None,
     ):
@@ -1088,8 +1088,8 @@ class Session:
         input
             The input file name.
         kind
-            The data kind of the input file. Currently, valid values are ``"dataset"``
-            and ``"grid"``.
+            The data kind of the input file. Valid values are ``"dataset"`` and
+            ``"grid"``.
         mode
             How the data is to be read from the file. This option varies depending on
             the given family. See the GMT API documentation for details.
@@ -1131,7 +1131,7 @@ class Session:
             self[family],
             self["GMT_IS_FILE"],  # Reading from a file
             self[geometry],
-            self["GMT_READ_NORMAL"] if mode is None else self[mode],
+            self[mode],
             sequence_to_ctypes_array(wesn, ctp.c_double, 6),
             infile.encode(),
             data,
