@@ -1802,6 +1802,12 @@ class Session:
             Cast the data into a GMT data container. Valid values are ``"dataset"``,
             ``"grid"`` and ``None``. If ``None``, will return a ctypes void pointer.
 
+        Returns
+        -------
+        pointer
+            Pointer to the GMT data container. If ``kind`` is None, returns a ctypes
+            void pointer instead.
+
         Examples
         --------
         >>> from pathlib import Path
@@ -1832,10 +1838,6 @@ class Session:
         ...         data_pointer = lib.read_virtualfile(voutgrd, kind="grid")
         ...         assert isinstance(data_pointer, ctp.POINTER(_GMT_GRID))
 
-        Returns
-        -------
-        Pointer to the GMT data container. If ``kind`` is None, returns a ctypes void
-        pointer instead.
         """
         c_read_virtualfile = self.get_libgmt_func(
             "GMT_Read_VirtualFile",
