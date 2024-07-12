@@ -1871,8 +1871,7 @@ class Session:
         Parameters
         ----------
         vfname
-            The virtual file name that stores the result data. Required for ``"pandas"``
-            and ``"numpy"`` output type.
+            The virtual file name that stores the result data.
         output_type
             Desired output type of the result data.
 
@@ -1929,44 +1928,37 @@ class Session:
         ...                 assert result is None
         ...                 assert Path(outtmp.name).stat().st_size > 0
         ...
-        ...     # strings output
+        ...     # strings, numpy and pandas outputs
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
+        ...
+        ...             # strings output
         ...             outstr = lib.virtualfile_to_dataset(
         ...                 vfname=vouttbl, output_type="strings"
         ...             )
-        ...     assert isinstance(outstr, np.ndarray)
-        ...     assert outstr.dtype.kind in ("S", "U")
+        ...             assert isinstance(outstr, np.ndarray)
+        ...             assert outstr.dtype.kind in ("S", "U")
         ...
-        ...     # numpy output
-        ...     with Session() as lib:
-        ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
-        ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
+        ...             # numpy output
         ...             outnp = lib.virtualfile_to_dataset(
         ...                 vfname=vouttbl, output_type="numpy"
         ...             )
-        ...     assert isinstance(outnp, np.ndarray)
+        ...             assert isinstance(outnp, np.ndarray)
         ...
-        ...     # pandas output
-        ...     with Session() as lib:
-        ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
-        ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
+        ...             # pandas output
         ...             outpd = lib.virtualfile_to_dataset(
         ...                 vfname=vouttbl, output_type="pandas"
         ...             )
-        ...     assert isinstance(outpd, pd.DataFrame)
+        ...             assert isinstance(outpd, pd.DataFrame)
         ...
-        ...     # pandas output with specified column names
-        ...     with Session() as lib:
-        ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
-        ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
+        ...             # pandas output with specified column names
         ...             outpd2 = lib.virtualfile_to_dataset(
         ...                 vfname=vouttbl,
         ...                 output_type="pandas",
         ...                 column_names=["col1", "col2", "col3", "coltext"],
         ...             )
-        ...     assert isinstance(outpd2, pd.DataFrame)
+        ...             assert isinstance(outpd2, pd.DataFrame)
         >>> outstr
         array(['TEXT1 TEXT23', 'TEXT4 TEXT567', 'TEXT8 TEXT90',
            'TEXT123 TEXT456789'], dtype='<U18')
