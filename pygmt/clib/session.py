@@ -2057,7 +2057,7 @@ class Session:
         ...         result = lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
         ...         assert isinstance(result, xr.DataArray)
         """
-        if outgrid is not None:
+        if outgrid is not None:  # Already written to file, so return None
             return None
         if kind is None:  # Inquire the data family from the virtualfile
             family = self.inquire_virtualfile(vfname)
