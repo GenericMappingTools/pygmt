@@ -2068,54 +2068,49 @@ class Session:
             }[family]
         return self.read_virtualfile(vfname, kind=kind).contents.to_dataarray()
 
-    def extract_region(self):
+    def extract_region(self) -> np.ndarray:
         """
-        Extract the WESN bounding box of the currently active figure.
+        Extract the region of the currently active figure.
 
-        Retrieves the information from the PostScript file, so it works for
-        country codes as well.
+        Retrieves the information from the PostScript file, so it works for country
+        codes as well.
 
         Returns
         -------
-        * wesn : 1-D array
-            A numpy 1-D array with the west, east, south, and north dimensions
-            of the current figure.
+        region
+            A numpy 1-D array with the west, east, south, and north dimensions of the
+            current figure.
 
         Examples
         --------
-
         >>> import pygmt
         >>> fig = pygmt.Figure()
         >>> fig.coast(
-        ...     region=[0, 10, -20, -10],
-        ...     projection="M6i",
-        ...     frame=True,
-        ...     land="black",
+        ...     region=[0, 10, -20, -10], projection="M12c", frame=True, land="black"
         ... )
         >>> with Session() as lib:
-        ...     wesn = lib.extract_region()
-        >>> print(", ".join([f"{x:.2f}" for x in wesn]))
+        ...     region = lib.extract_region()
+        >>> print(", ".join([f"{x:.2f}" for x in region]))
         0.00, 10.00, -20.00, -10.00
 
-        Using ISO country codes for the regions (for example ``"US.HI"`` for
-        Hawaiʻi):
+        Using ISO country codes for the regions (for example ``"US.HI"`` for Hawaiʻi):
 
         >>> fig = pygmt.Figure()
-        >>> fig.coast(region="US.HI", projection="M6i", frame=True, land="black")
+        >>> fig.coast(region="US.HI", projection="M12c", frame=True, land="black")
         >>> with Session() as lib:
-        ...     wesn = lib.extract_region()
-        >>> print(", ".join([f"{x:.2f}" for x in wesn]))
+        ...     region = lib.extract_region()
+        >>> print(", ".join([f"{x:.2f}" for x in region]))
         -164.71, -154.81, 18.91, 23.58
 
-        The country codes can have an extra argument that rounds the region a
-        multiple of the argument (for example, ``"US.HI+r5"`` will round the
-        region to multiples of 5):
+        The country codes can have an extra argument that rounds the region a multiple
+        of the argument (for example, ``"US.HI+r5"`` will round the region to multiples
+        of 5):
 
         >>> fig = pygmt.Figure()
-        >>> fig.coast(region="US.HI+r5", projection="M6i", frame=True, land="black")
+        >>> fig.coast(region="US.HI+r5", projection="M12c", frame=True, land="black")
         >>> with Session() as lib:
-        ...     wesn = lib.extract_region()
-        >>> print(", ".join([f"{x:.2f}" for x in wesn]))
+        ...     region = lib.extract_region()
+        >>> print(", ".join([f"{x:.2f}" for x in region]))
         -165.00, -150.00, 15.00, 25.00
         """  # noqa: RUF002
         c_extract_region = self.get_libgmt_func(
@@ -2124,12 +2119,12 @@ class Session:
             restype=ctp.c_int,
         )
 
-        wesn = np.empty(4, dtype=np.float64)
-        wesn_pointer = wesn.ctypes.data_as(ctp.POINTER(ctp.c_double))
-        # The second argument to GMT_Extract_Region is a file pointer to a
-        # PostScript file. It's only valid in classic mode. Use None to get a
-        # NULL pointer instead.
-        status = c_extract_region(self.session_pointer, None, wesn_pointer)
+        region = np.empty(4, dtype=np.float64)
+        status = c_extract_region(
+            self.session_pointer,
+            None,  # File pointer to a PostScript file. Must be None in modern mode.
+            region.ctypes.data_as(ctp.POINTER(ctp.c_double)),
+        )
         if status != 0:
             raise GMTCLibError("Failed to extract region from current figure.")
-        return wesn
+        return region
