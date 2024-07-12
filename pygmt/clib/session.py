@@ -10,6 +10,7 @@ import ctypes as ctp
 import pathlib
 import sys
 import warnings
+from collections.abc import Generator
 from typing import Literal
 
 import numpy as np
@@ -1698,7 +1699,7 @@ class Session:
     @contextlib.contextmanager
     def virtualfile_out(
         self, kind: Literal["dataset", "grid"] = "dataset", fname: str | None = None
-    ):
+    ) -> Generator[str, None, None]:
         r"""
         Create a virtual file or an actual file for storing output data.
 
@@ -1718,7 +1719,7 @@ class Session:
 
         Yields
         ------
-        vfile : str
+        vfile
             Name of the virtual file or the actual file.
 
         Examples
