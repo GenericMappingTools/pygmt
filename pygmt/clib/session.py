@@ -263,7 +263,7 @@ class Session:
 
     def get_enum(self, name: str) -> int:
         """
-        Get the value of a GMT constant (C enum) from gmt_resources.h.
+        Get the value of a GMT constant (C enum) from ``gmt_resources.h``.
 
         Used to set configuration values for other API calls. Wraps ``GMT_Get_Enum``.
 
