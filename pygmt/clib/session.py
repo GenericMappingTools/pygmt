@@ -2095,7 +2095,7 @@ class Session:
         >>> print(", ".join([f"{x:.2f}" for x in region]))
         -164.71, -154.81, 18.91, 23.58
 
-        The country codes can have an extra argument that rounds the region to a multiple
+        The country codes can have an extra argument that rounds the region to multiples
         of the argument (for example, ``"US.HI+r5"`` will round the region to multiples
         of 5):
 
