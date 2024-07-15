@@ -48,10 +48,10 @@ def coast(self, **kwargs):
     resolution files amount to more than 55 Mb of data and provide great
     detail; for maps of larger geographical extent it is more economical to
     use one of the other resolutions. If the user selects to paint the
-    land-areas and does not specify fill of water-areas then the latter
+    land areas and does not specify fill of water areas then the latter
     will be transparent (i.e., earlier graphics drawn in those areas will
-    not be overwritten). Likewise, if the water-areas are painted and no
-    land fill is set then the land-areas will be transparent.
+    not be overwritten). Likewise, if the water areas are painted and no
+    land fill is set then the land areas will be transparent.
 
     A map projection must be supplied.
 
@@ -69,15 +69,14 @@ def coast(self, **kwargs):
     lakes : str or list
         *fill*\ [**+l**\|\ **+r**].
         Set the shade, color, or pattern for lakes and river-lakes. The
-        default is the fill chosen for wet areas set by the ``water``
+        default is the fill chosen for "wet" areas set by the ``water``
         parameter. Optionally, specify separate fills by appending
         **+l** for lakes or **+r** for river-lakes, and passing multiple
         strings in a list.
     resolution : str
         **f**\|\ **h**\|\ **i**\|\ **l**\|\ **c**.
-        Select the resolution of the data set to: (**f**\ )ull,
-        (**h**\ )igh, (**i**\ )ntermediate, (**l**\ )ow,
-        and (**c**\ )rude.
+        Select the resolution of the data set to: (**f**\ )ull, (**h**\ )igh,
+        (**i**\ )ntermediate, (**l**\ )ow, and (**c**\ )rude.
     land : str
         Select filling of "dry" areas.
     rivers : int, str, or list
@@ -148,11 +147,10 @@ def coast(self, **kwargs):
     shorelines : int, str, or list
         [*level*\ /]\ *pen*.
         Draw shorelines [Default is no shorelines]. Append pen attributes
-        [Default is ``"0.25p,black,solid"``] which
-        apply to all four levels. To set the pen for a single level,
-        pass a string with *level*\ /*pen*\ , where level is
-        1-4 and represent coastline, lakeshore, island-in-lake shore, and
-        lake-in-island-in-lake shore. Pass a list of *level*\ /*pen*
+        [Default is ``"0.25p,black,solid"``] which apply to all four levels.
+        To set the pen for a single level, pass a string with *level*\ /*pen*\ ,
+        where level is 1-4 and represent coastline, lakeshore, island-in-lake shore,
+        and lake-in-island-in-lake shore. Pass a list of *level*\ /*pen*
         strings to ``shorelines`` to set multiple levels. When specific
         level pens are set, those not listed will not be drawn.
     dcw : str or list
@@ -163,8 +161,8 @@ def coast(self, **kwargs):
         `ISO 3166-1 alpha-2 convention
         <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>`__.
         To select a state of a country (if available), append .\ *state*,
-        (e.g, US.TX for Texas). To specify a whole continent, prepend **=**
-        to any of the continent codes (e.g. =EU for Europe). Append
+        (e.g, ``"US.TX"`` for Texas). To specify a whole continent, prepend **=**
+        to any of the continent codes (e.g. ``"=EU"`` for Europe). Append
         **+p**\ *pen* to draw polygon outlines [Default is no outline] and
         **+g**\ *fill* to fill them [Default is no fill].
     {panel}
@@ -179,11 +177,11 @@ def coast(self, **kwargs):
     >>> fig = pygmt.Figure()
     >>> # Call the coast method for the plot
     >>> fig.coast(
-    ...     # Set the projection to Mercator, and plot size to 10 cm
+    ...     # Set the projection to Mercator, and the plot width to 10 centimeters
     ...     projection="M10c",
     ...     # Set the region of the plot
     ...     region=[-10, 30, 30, 60],
-    ...     # Set the frame of the plot
+    ...     # Set the frame of the plot, here annotations and major ticks
     ...     frame="a",
     ...     # Set the color of the land to "darkgreen"
     ...     land="darkgreen",
