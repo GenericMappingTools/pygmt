@@ -375,7 +375,7 @@ class Session:
             # destroyed
             raise GMTCLibError(
                 "Failed to create a GMT API session: There is a currently open session."
-                " Must destroy it fist."
+                " Must destroy it first."
             )
         # If the exception is raised, this means that there is no open session
         # and we're free to create a new one.
