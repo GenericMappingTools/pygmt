@@ -41,7 +41,7 @@ def coast(self, **kwargs):
     r"""
     Plot continents, shorelines, rivers, and borders on maps.
 
-    Plots grayshaded, colored, or textured land-masses [or water-masses] on
+    Plots grayshaded, colored, or textured land masses [or water masses] on
     maps and [optionally] draws coastlines, rivers, and political
     boundaries. The data files come in 5 different resolutions: (**f**)ull,
     (**h**)igh, (**i**)ntermediate, (**l**)ow, and (**c**)rude. The full
@@ -50,7 +50,7 @@ def coast(self, **kwargs):
     use one of the other resolutions. If the user selects to paint the
     land-areas and does not specify fill of water-areas then the latter
     will be transparent (i.e., earlier graphics drawn in those areas will
-    not be overwritten).  Likewise, if the water-areas are painted and no
+    not be overwritten). Likewise, if the water-areas are painted and no
     land fill is set then the land-areas will be transparent.
 
     A map projection must be supplied.
@@ -85,29 +85,29 @@ def coast(self, **kwargs):
         Draw rivers. Specify the type of rivers and [optionally] append
         pen attributes [Default is ``"0.25p,black,solid"``].
 
-        Choose from the list of river types below; pass a list to
-        ``rivers`` to use multiple arguments.
+        Choose from the list of river types below; pass a list to ``rivers``
+        to use multiple arguments.
 
-        - 0 = Double-lined rivers (river-lakes)
-        - 1 = Permanent major rivers
-        - 2 = Additional major rivers
-        - 3 = Additional rivers
-        - 4 = Minor rivers
-        - 5 = Intermittent rivers - major
-        - 6 = Intermittent rivers - additional
-        - 7 = Intermittent rivers - minor
-        - 8 = Major canals
-        - 9 = Minor canals
-        - 10 = Irrigation canals
+        - ``0``: Double-lined rivers (river-lakes)
+        - ``1``: Permanent major rivers
+        - ``2``: Additional major rivers
+        - ``3``: Additional rivers
+        - ``4``: Minor rivers
+        - ``5``: Intermittent rivers - major
+        - ``6``: Intermittent rivers - additional
+        - ``7``: Intermittent rivers - minor
+        - ``8``: Major canals
+        - ``9``: Minor canals
+        - ``10``: Irrigation canals
 
         You can also choose from several preconfigured river groups:
 
-        - a = All rivers and canals (0-10)
-        - A = All rivers and canals except river-lakes (1-10)
-        - r = All permanent rivers (0-4)
-        - R = All permanent rivers except river-lakes (1-4)
-        - i = All intermittent rivers (5-7)
-        - c = All canals (8-10)
+        - ``"a"``: All rivers and canals (0-10)
+        - ``"A"``: All rivers and canals except river-lakes (1-10)
+        - ``"r"``: All permanent rivers (0-4)
+        - ``"R"``: All permanent rivers except river-lakes (1-4)
+        - ``"i"``: All intermittent rivers (5-7)
+        - ``"c"``: All canals (8-10)
 
     map_scale : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+w**\ *length*.
@@ -133,16 +133,15 @@ def coast(self, **kwargs):
     borders : int, str, or list
         *border*\ [/*pen*].
         Draw political boundaries. Specify the type of boundary and
-        [optionally] append pen attributes
-        [Default is ``"0.25p,black,solid"``].
+        [optionally] append pen attributes [Default is ``"0.25p,black,solid"``].
 
-        Choose from the list of boundaries below. Pass a list to
-        ``borders`` to use multiple arguments.
+        Choose from the list of boundaries below. Pass a list to ``borders`` to
+        use multiple arguments.
 
-        - 1 = National boundaries
-        - 2 = State boundaries within the Americas
-        - 3 = Marine boundaries
-        - a = All boundaries (1-3)
+        - ``1``: National boundaries
+        - ``2``: State boundaries within the Americas
+        - ``3``: Marine boundaries
+        - ``"a"``: All boundaries (1-3)
 
     water : str
         Select filling "wet" areas.
