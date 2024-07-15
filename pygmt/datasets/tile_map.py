@@ -4,6 +4,7 @@ Function to load raster tile maps from XYZ tile providers, and load as
 """
 
 import contextlib
+from collections.abc import Sequence
 from typing import Literal
 
 from packaging.version import Version
@@ -28,7 +29,7 @@ __doctest_requires__ = {("load_tile_map"): ["contextily"]}
 
 
 def load_tile_map(
-    region: list,
+    region: Sequence[float],
     zoom: int | Literal["auto"] = "auto",
     source: TileProvider | str | None = None,
     lonlat: bool = True,
