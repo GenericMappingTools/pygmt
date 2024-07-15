@@ -120,6 +120,7 @@ jobs:
             python=${{ matrix.python-version }}${{ matrix.optional-packages }}
             gmt=6.5.0
             ghostscript=10.03.1
+            libgdal-jp2openjpeg
             numpy=${{ matrix.numpy-version }}
             pandas${{ matrix.pandas-version }}
             xarray${{ matrix.xarray-version }}
