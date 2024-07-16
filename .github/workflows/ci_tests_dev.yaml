@@ -173,7 +173,7 @@ jobs:
 
       # Run the tests
       - name: Test with pytest
-        run: make test PYTEST_EXTRA="-r P -n auto --reruns 2"
+        run: make test PYTEST_EXTRA="-r P -n auto --reruns 2 --color=yes"
         env:
           GMT_LIBRARY_PATH: ${{ runner.temp }}/gmt-install-dir/lib
 

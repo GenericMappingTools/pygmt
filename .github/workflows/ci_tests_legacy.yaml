@@ -100,4 +100,4 @@ jobs:
 
       # Run the tests but skip images
       - name: Run tests
-        run: make test_no_images PYTEST_EXTRA="-r P"
+        run: make test_no_images PYTEST_EXTRA="-r P --color=yes"
