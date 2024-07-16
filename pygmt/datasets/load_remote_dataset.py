@@ -76,6 +76,25 @@ datasets = {
             "01m": Resolution("01m", registrations=["gridline"], tiled=True),
         },
     ),
+    "earth_day": GMTRemoteDataset(
+        description="NASA Day Images",
+        units=None,
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution("01d", registrations=["pixel"]),
+            "30m": Resolution("30m", registrations=["pixel"]),
+            "20m": Resolution("20m", registrations=["pixel"]),
+            "15m": Resolution("15m", registrations=["pixel"]),
+            "10m": Resolution("10m", registrations=["pixel"]),
+            "06m": Resolution("06m", registrations=["pixel"]),
+            "05m": Resolution("05m", registrations=["pixel"], tiled=True),
+            "04m": Resolution("04m", registrations=["pixel"], tiled=True),
+            "03m": Resolution("03m", registrations=["pixel"], tiled=True),
+            "02m": Resolution("02m", registrations=["pixel"], tiled=True),
+            "01m": Resolution("01m", registrations=["pixel"], tiled=True),
+            "30s": Resolution("30s", registrations=["pixel"], tiled=True),
+        },
+    ),
     "earth_faa": GMTRemoteDataset(
         description="IGPP Earth free-air anomaly",
         units="mGal",
@@ -408,14 +427,20 @@ def _load_remote_dataset(
         )
 
     # Currently, only grids are supported. Will support images in the future.
-    kwdict = {"T": "g", "R": region}  # region can be None
+    kwdict = {"R": region}  # region can be None
+    if name in ("earth_day",):
+        kind = "image"
+        kwdict.update({"T": "i"})
+    else:
+        kind = "grid"
+        kwdict.update({"T": "g"})
     with Session() as lib:
-        with lib.virtualfile_out(kind="grid") as voutgrd:
+        with lib.virtualfile_out(kind=kind) as voutgrd:
             lib.call_module(
                 module="read",
                 args=[fname, voutgrd, *build_arg_list(kwdict)],
             )
-            grid = lib.virtualfile_to_raster(outgrid=None, vfname=voutgrd)
+            grid = lib.virtualfile_to_raster(kind=kind, outgrid=None, vfname=voutgrd)
 
     # Full path to the grid if not tiled grids.
     source = which(fname, download="a") if not resinfo.tiled else None
