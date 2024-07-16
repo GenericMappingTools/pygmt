@@ -86,4 +86,4 @@ jobs:
 
       # Run the doctests
       - name: Run doctests
-        run: make doctest PYTEST_EXTRA="-r P"
+        run: make doctest PYTEST_EXTRA="-r P --color=yes"
