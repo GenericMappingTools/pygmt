@@ -49,7 +49,7 @@ def validate_output_table_type(
     ...     assert len(w) == 1
     'file'
     """
-    if output_type not in ["file", "numpy", "pandas"]:
+    if output_type not in {"file", "numpy", "pandas"}:
         raise GMTInvalidInput(
             "Must specify 'output_type' either as 'file', 'numpy', or 'pandas'."
         )
