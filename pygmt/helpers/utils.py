@@ -115,7 +115,7 @@ def validate_data_input(
                 raise GMTInvalidInput("data must provide x, y, and z columns.")
 
 
-def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data=True):
+def data_kind(data=None, required_data=True):
     """
     Check what kind of data is provided to a module.
 
@@ -137,12 +137,6 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
         Pass in either a file name or :class:`pathlib.Path` to an ASCII data
         table, an :class:`xarray.DataArray`, a 1-D/2-D
         {table-classes} or an option argument.
-    x/y : 1-D arrays or None
-        x and y columns as numpy arrays.
-    z : 1-D array or None
-        z column as numpy array. To be used optionally when x and y are given.
-    required_z : bool
-        State whether the 'z' column is required.
     required_data : bool
         Set to True when 'data' is required, or False when dealing with
         optional virtual files. [Default is True].
@@ -159,19 +153,19 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
     >>> import numpy as np
     >>> import xarray as xr
     >>> import pathlib
-    >>> data_kind(data=None, x=np.array([1, 2, 3]), y=np.array([4, 5, 6]))
+    >>> data_kind(data=None)
     'vectors'
-    >>> data_kind(data=np.arange(10).reshape((5, 2)), x=None, y=None)
+    >>> data_kind(data=np.arange(10).reshape((5, 2)))
     'matrix'
-    >>> data_kind(data="my-data-file.txt", x=None, y=None)
+    >>> data_kind(data="my-data-file.txt")
     'file'
-    >>> data_kind(data=pathlib.Path("my-data-file.txt"), x=None, y=None)
+    >>> data_kind(data=pathlib.Path("my-data-file.txt"))
     'file'
-    >>> data_kind(data=None, x=None, y=None, required_data=False)
+    >>> data_kind(data=None, required_data=False)
     'arg'
-    >>> data_kind(data=2.0, x=None, y=None, required_data=False)
+    >>> data_kind(data=2.0, required_data=False)
     'arg'
-    >>> data_kind(data=True, x=None, y=None, required_data=False)
+    >>> data_kind(data=True, required_data=False)
     'arg'
     >>> data_kind(data=xr.DataArray(np.random.rand(4, 3)))
     'grid'

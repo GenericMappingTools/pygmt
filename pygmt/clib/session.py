@@ -1592,9 +1592,7 @@ class Session:
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
-        kind = data_kind(
-            data, x, y, z, required_z=required_z, required_data=required_data
-        )
+        kind = data_kind(data, required_data=required_data)
         validate_data_input(
             data=data,
             x=x,

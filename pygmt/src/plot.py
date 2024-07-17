@@ -208,7 +208,7 @@ def plot(  # noqa: PLR0912
     """
     kwargs = self._preprocess(**kwargs)
 
-    kind = data_kind(data, x, y)
+    kind = data_kind(data)
     extra_arrays = []
     if kind == "vectors":  # Add more columns for vectors input
         # Parameters for vector styles
