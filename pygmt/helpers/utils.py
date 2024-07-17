@@ -79,6 +79,10 @@ def validate_data_input(
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Too much data. Use either data or x/y/z.
+    >>> validate_data_input(data="infile", x=[1, 2, 3], y=[4, 5, 6])
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Too much data. Use either data or x/y/z.
     >>> validate_data_input(data="infile", z=[7, 8, 9])
     Traceback (most recent call last):
         ...
