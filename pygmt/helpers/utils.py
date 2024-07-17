@@ -13,7 +13,7 @@ import time
 import warnings
 import webbrowser
 from collections.abc import Iterable, Sequence
-from typing import Any
+from typing import Any, Literal
 
 import xarray as xr
 from pygmt.encodings import charset
@@ -112,7 +112,11 @@ def _validate_data_input(
                 raise GMTInvalidInput("data must provide x, y, and z columns.")
 
 
-def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data=True):
+def data_kind(
+    data=None, x=None, y=None, z=None, required_z=False, required_data=True
+) -> Literal[
+    "arg", "file", "geojson", "grid", "image", "matrix", "stringio", "vectors"
+]:
     r"""
     Check what kind of data is provided to a module.
 
@@ -120,6 +124,7 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
 
     * a file name provided as 'data'
     * a pathlib.PurePath object provided as 'data'
+    * a io.StringIO object provided as 'data'
     * an xarray.DataArray object provided as 'data'
     * a 2-D matrix provided as 'data'
     * 1-D arrays x and y (and z, optionally)
@@ -146,13 +151,11 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
 
     Returns
     -------
-    kind : str
-        One of ``'arg'``, ``'file'``, ``'grid'``, ``image``, ``'geojson'``,
-        ``'matrix'``, or ``'stringio'``, ``'vectors'``.
+    kind
+        The data kind.
 
     Examples
     --------
-
     >>> import numpy as np
     >>> import xarray as xr
     >>> import pathlib

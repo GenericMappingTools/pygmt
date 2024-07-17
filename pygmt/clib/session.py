@@ -1537,22 +1537,21 @@ class Session:
     @contextlib.contextmanager
     def virtualfile_from_stringio(self, stringio: io.StringIO):
         r"""
-        Store a StringIO object in a virtual file.
+        Store a :class:`io.StringIO` object in a virtual file.
 
-        Store the contents of a StringIO object in a GMT_DATASET container and
-        create a virtual file to pass to a GMT module.
+        Store the contents of a :class:`io.StringIO` object in a GMT_DATASET container
+        and create a virtual file to pass to a GMT module.
 
         Parameters
         ----------
         stringio
-            The StringIO object containing the data to be stored in the virtual
-            file.
+            The :class:`io.StringIO` object containing the data to be stored in the
+            virtual file.
 
         Yields
         ------
         fname
-            The name of the virtual file. Pass this as a file name argument to a
-            GMT module.
+            The name of the virtual file.
 
         Examples
         --------
@@ -1563,9 +1562,13 @@ class Session:
         ... )
         >>> with Session() as lib:
         ...     with lib.virtualfile_from_stringio(stringio) as fin:
-        ...         lib.call_module("legend", [fin, "-Dx0/0+w5c/5c"])
+        ...         lib.virtualfile_to_dataset(vfname=fin, output_type="pandas")
+                                                     0
+        0                                 H 24p Legend
+        1                                          N 2
+        2  S 0.1i c 0.15i p300/12 0.25p 0.3i My circle
         """
-        # Parse the strings in the StringIO object.
+        # Parse the strings in the io.StringIO object.
         # For simplicity, we make a few assumptions.
         # - "#" indicates a comment line
         # - ">" indicates a segment header
@@ -1628,7 +1631,7 @@ class Session:
         check_kind : str or None
             Used to validate the type of data that can be passed in. Choose
             from 'raster', 'vector', or None. Default is None (no validation).
-        data : str or pathlib.Path or xarray.DataArray or {table-like} or None
+        data : str or pathlib.Path io.StringIO or xarray.DataArray or {table-like} or None
             Any raster or vector data format. This could be a file name or
             path, a raster grid, a vector matrix/arrays, or other supported
             data input.

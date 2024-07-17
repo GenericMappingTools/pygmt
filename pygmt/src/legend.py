@@ -52,11 +52,13 @@ def legend(
     Parameters
     ----------
     spec
-        The legend specification file.
+        The legend specification. It can be:
 
         - ``None`` for using the automatically generated legend specification file.
         - A *filename* pointing to the legend specification file.
-        - A io.StringIO object containing the legend specification.
+        - A :class:`io.StringIO` object containing the legend specification.
+
+        See :gmt-docs:`legend.html` for the definition of the legend specification.
     {projection}
     {region}
     position : str
