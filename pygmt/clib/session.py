@@ -1071,6 +1071,8 @@ class Session:
         self,
         infile: str,
         kind: Literal["dataset", "grid"],
+        family: str | None = None,
+        geometry: str | None = None,
         mode: str = "GMT_READ_NORMAL",
         region: Sequence[float] | None = None,
         data=None,
@@ -1088,6 +1090,14 @@ class Session:
         kind
             The data kind of the input file. Valid values are ``"dataset"`` and
             ``"grid"``.
+        family
+            A valid GMT data family name (e.g., ``"GMT_IS_DATASET"``). See the
+            ``FAMILIES`` attribute for valid names. If ``None``, will determine the data
+            family from the ``kind`` parameter.
+        geometry
+            A valid GMT data geometry name (e.g., ``"GMT_IS_POINT"``). See the
+            ``GEOMETRIES`` attribute for valid names. If ``None``, will determine the
+            data geometry from the ``kind`` parameter.
         mode
             How the data is to be read from the file. This option varies depending on
             the given family. See the GMT API documentation for details.
@@ -1124,10 +1134,14 @@ class Session:
         )
 
         # Determine the family, geometry and data container from kind
-        family, geometry, dtype = {
+        _family, _geometry, dtype = {
             "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP", _GMT_DATASET),
             "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE", _GMT_GRID),
         }[kind]
+        if family is None:
+            family = _family
+        if geometry is None:
+            geometry = _geometry
 
         data_ptr = c_read_data(
             self.session_pointer,
