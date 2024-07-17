@@ -8,6 +8,7 @@ The grids are available in various resolutions.
 from collections.abc import Sequence
 from typing import Literal
 
+import xarray as xr
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.exceptions import GMTInvalidInput
 
@@ -21,7 +22,7 @@ def load_earth_magnetic_anomaly(
     region: Sequence[float] | str | None = None,
     registration: Literal["gridline", "pixel", None] = None,
     data_source: Literal["emag2", "emag2_4km", "wdmam"] = "emag2",
-):
+) -> xr.DataArray:
     r"""
     Load the Earth magnetic anomaly datasets in various resolutions.
 
@@ -93,7 +94,7 @@ def load_earth_magnetic_anomaly(
 
     Returns
     -------
-    grid : :class:`xarray.DataArray`
+    grid
         The Earth magnetic anomaly grid. Coordinates are latitude and
         longitude in degrees. Units are in nano Tesla (nT).
 

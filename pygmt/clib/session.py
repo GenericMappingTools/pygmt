@@ -10,7 +10,7 @@ import ctypes as ctp
 import pathlib
 import sys
 import warnings
-from collections.abc import Sequence
+from collections.abc import Generator, Sequence
 from typing import Literal
 
 import numpy as np
@@ -263,7 +263,7 @@ class Session:
 
     def get_enum(self, name: str) -> int:
         """
-        Get the value of a GMT constant (C enum) from gmt_resources.h.
+        Get the value of a GMT constant (C enum) from ``gmt_resources.h``.
 
         Used to set configuration values for other API calls. Wraps ``GMT_Get_Enum``.
 
@@ -375,7 +375,7 @@ class Session:
             # destroyed
             raise GMTCLibError(
                 "Failed to create a GMT API session: There is a currently open session."
-                " Must destroy it fist."
+                " Must destroy it first."
             )
         # If the exception is raised, this means that there is no open session
         # and we're free to create a new one.
@@ -519,43 +519,41 @@ class Session:
             raise GMTCLibError(msg)
         return value.value.decode()
 
-    def get_common(self, option):
+    def get_common(self, option: str) -> bool | int | float | np.ndarray:
         """
         Inquire if a GMT common option has been set and return its current value if
         possible.
 
         Parameters
         ----------
-        option : str
-            The GMT common option to check. Valid options are ``"B"``, ``"I"``,
-            ``"J"``, ``"R"``, ``"U"``, ``"V"``, ``"X"``, ``"Y"``, ``"a"``,
-            ``"b"``, ``"f"``, ``"g"``, ``"h"``, ``"i"``, ``"n"``, ``"o"``,
-            ``"p"``, ``"r"``, ``"s"``, ``"t"``, and ``":"``.
+        option
+            The GMT common option to check. Valid options are ``"B"``, ``"I"``, ``"J"``,
+            ``"R"``, ``"U"``, ``"V"``, ``"X"``, ``"Y"``, ``"a"``, ``"b"``, ``"f"``,
+            ``"g"``, ``"h"``, ``"i"``, ``"n"``, ``"o"``, ``"p"``, ``"r"``, ``"s"``,
+            ``"t"``, and ``":"``.
 
         Returns
         -------
-        value : bool, int, float, or numpy.ndarray
-            Whether the option was set or its value.
+        value
+            Whether the option was set or its value. If the option was not set, return
+            ``False``. Otherwise, the return value depends on the choice of the option.
 
-            If the option was not set, return ``False``. Otherwise,
-            the return value depends on the choice of the option.
-
-            - options ``"B"``, ``"J"``, ``"U"``, ``"g"``, ``"n"``, ``"p"``,
-              and ``"s"``: return ``True`` if set, else ``False`` (bool)
+            - options ``"B"``, ``"J"``, ``"U"``, ``"g"``, ``"n"``, ``"p"``, and ``"s"``:
+              return ``True`` if set, else ``False`` (bool)
             - ``"I"``: 2-element array for the increments (float)
             - ``"R"``: 4-element array for the region (float)
             - ``"V"``: the verbose level (int)
             - ``"X"``: the xshift (float)
             - ``"Y"``: the yshift (float)
             - ``"a"``: geometry of the dataset (int)
-            - ``"b"``: return 0 if `-bi` was set and 1 if `-bo` was set (int)
-            - ``"f"``: return 0 if `-fi` was set and 1 if `-fo` was set (int)
+            - ``"b"``: return 0 if ``-bi`` was set and 1 if ``-bo`` was set (int)
+            - ``"f"``: return 0 if ``-fi`` was set and 1 if ``-fo`` was set (int)
             - ``"h"``: whether to delete existing header records (int)
             - ``"i"``: number of input columns (int)
             - ``"o"``: number of output columns (int)
             - ``"r"``: registration type (int)
             - ``"t"``: 2-element array for the transparency (float)
-            - ``":"``: return 0 if `-:i` was set and 1 if `-:o` was set (int)
+            - ``":"``: return 0 if ``-:i`` was set and 1 if ``-:o`` was set (int)
 
         Examples
         --------
@@ -587,28 +585,28 @@ class Session:
             argtypes=[ctp.c_void_p, ctp.c_uint, ctp.POINTER(ctp.c_double)],
             restype=ctp.c_int,
         )
-        value = np.empty(6)  # numpy array to store the value of the option
+        value = np.empty(6, np.float64)  # numpy array to store the value of the option
         status = c_get_common(
             self.session_pointer,
             ord(option),
             value.ctypes.data_as(ctp.POINTER(ctp.c_double)),
         )
 
-        # GMT_NOTSET (-1) means the option is not set
-        if status == self["GMT_NOTSET"]:
+        if status == self["GMT_NOTSET"]:  # GMT_NOTSET (-1) means the option is not set
             return False
-        # option is set and no other value is returned
-        if status == 0:
+        if status == 0:  # Option is set and no other value is returned.
             return True
-        # option is set and option values (in double type) are returned via the
-        # 'value' array. 'status' is number of valid values in the array.
-        if option in "IRt":
-            return value[:status]
-        if option in "XY":  # only one valid element in the array
-            return value[0]
-        # option is set and the option value (in integer type) is returned via
-        # the function return value (i.e., 'status')
-        return status
+
+        # Otherwise, option is set and values are returned.
+        match option:
+            case "I" | "R" | "t":
+                # Option values (in double type) are returned via the 'value' array.
+                # 'status' is number of valid values in the array.
+                return value[:status]
+            case "X" | "Y":  # Only one valid element in the array.
+                return value[0]
+            case _:  # 'status' is the option value (in integer type).
+                return status
 
     def call_module(self, module: str, args: str | list[str]):
         """
@@ -1775,7 +1773,7 @@ class Session:
     @contextlib.contextmanager
     def virtualfile_out(
         self, kind: Literal["dataset", "grid"] = "dataset", fname: str | None = None
-    ):
+    ) -> Generator[str, None, None]:
         r"""
         Create a virtual file or an actual file for storing output data.
 
@@ -1795,7 +1793,7 @@ class Session:
 
         Yields
         ------
-        vfile : str
+        vfile
             Name of the virtual file or the actual file.
 
         Examples
@@ -1880,6 +1878,12 @@ class Session:
             Cast the data into a GMT data container. Valid values are ``"dataset"``,
             ``"grid"`` and ``None``. If ``None``, will return a ctypes void pointer.
 
+        Returns
+        -------
+        pointer
+            Pointer to the GMT data container. If ``kind`` is ``None``, returns a ctypes
+            void pointer instead.
+
         Examples
         --------
         >>> from pathlib import Path
@@ -1910,10 +1914,6 @@ class Session:
         ...         data_pointer = lib.read_virtualfile(voutgrd, kind="grid")
         ...         assert isinstance(data_pointer, ctp.POINTER(_GMT_GRID))
 
-        Returns
-        -------
-        Pointer to the GMT data container. If ``kind`` is None, returns a ctypes void
-        pointer instead.
         """
         c_read_virtualfile = self.get_libgmt_func(
             "GMT_Read_VirtualFile",
@@ -1948,8 +1948,7 @@ class Session:
         Parameters
         ----------
         vfname
-            The virtual file name that stores the result data. Required for ``"pandas"``
-            and ``"numpy"`` output type.
+            The virtual file name that stores the result data.
         output_type
             Desired output type of the result data.
 
@@ -2006,44 +2005,37 @@ class Session:
         ...                 assert result is None
         ...                 assert Path(outtmp.name).stat().st_size > 0
         ...
-        ...     # strings output
+        ...     # strings, numpy and pandas outputs
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
+        ...
+        ...             # strings output
         ...             outstr = lib.virtualfile_to_dataset(
         ...                 vfname=vouttbl, output_type="strings"
         ...             )
-        ...     assert isinstance(outstr, np.ndarray)
-        ...     assert outstr.dtype.kind in ("S", "U")
+        ...             assert isinstance(outstr, np.ndarray)
+        ...             assert outstr.dtype.kind in ("S", "U")
         ...
-        ...     # numpy output
-        ...     with Session() as lib:
-        ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
-        ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
+        ...             # numpy output
         ...             outnp = lib.virtualfile_to_dataset(
         ...                 vfname=vouttbl, output_type="numpy"
         ...             )
-        ...     assert isinstance(outnp, np.ndarray)
+        ...             assert isinstance(outnp, np.ndarray)
         ...
-        ...     # pandas output
-        ...     with Session() as lib:
-        ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
-        ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
+        ...             # pandas output
         ...             outpd = lib.virtualfile_to_dataset(
         ...                 vfname=vouttbl, output_type="pandas"
         ...             )
-        ...     assert isinstance(outpd, pd.DataFrame)
+        ...             assert isinstance(outpd, pd.DataFrame)
         ...
-        ...     # pandas output with specified column names
-        ...     with Session() as lib:
-        ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
-        ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
+        ...             # pandas output with specified column names
         ...             outpd2 = lib.virtualfile_to_dataset(
         ...                 vfname=vouttbl,
         ...                 output_type="pandas",
         ...                 column_names=["col1", "col2", "col3", "coltext"],
         ...             )
-        ...     assert isinstance(outpd2, pd.DataFrame)
+        ...             assert isinstance(outpd2, pd.DataFrame)
         >>> outstr
         array(['TEXT1 TEXT23', 'TEXT4 TEXT567', 'TEXT8 TEXT90',
            'TEXT123 TEXT456789'], dtype='<U18')
@@ -2134,7 +2126,7 @@ class Session:
         ...         result = lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
         ...         assert isinstance(result, xr.DataArray)
         """
-        if outgrid is not None:
+        if outgrid is not None:  # Already written to file, so return None
             return None
         if kind is None:  # Inquire the data family from the virtualfile
             family = self.inquire_virtualfile(vfname)
@@ -2145,54 +2137,49 @@ class Session:
             }[family]
         return self.read_virtualfile(vfname, kind=kind).contents.to_dataarray()
 
-    def extract_region(self):
+    def extract_region(self) -> np.ndarray:
         """
-        Extract the WESN bounding box of the currently active figure.
+        Extract the region of the currently active figure.
 
-        Retrieves the information from the PostScript file, so it works for
-        country codes as well.
+        Retrieves the information from the PostScript file, so it works for country
+        codes as well.
 
         Returns
         -------
-        * wesn : 1-D array
-            A numpy 1-D array with the west, east, south, and north dimensions
-            of the current figure.
+        region
+            A numpy 1-D array with the west, east, south, and north dimensions of the
+            current figure.
 
         Examples
         --------
-
         >>> import pygmt
         >>> fig = pygmt.Figure()
         >>> fig.coast(
-        ...     region=[0, 10, -20, -10],
-        ...     projection="M6i",
-        ...     frame=True,
-        ...     land="black",
+        ...     region=[0, 10, -20, -10], projection="M12c", frame=True, land="black"
         ... )
         >>> with Session() as lib:
-        ...     wesn = lib.extract_region()
-        >>> print(", ".join([f"{x:.2f}" for x in wesn]))
+        ...     region = lib.extract_region()
+        >>> print(", ".join([f"{x:.2f}" for x in region]))
         0.00, 10.00, -20.00, -10.00
 
-        Using ISO country codes for the regions (for example ``"US.HI"`` for
-        Hawaiʻi):
+        Using ISO country codes for the regions (for example ``"US.HI"`` for Hawaiʻi):
 
         >>> fig = pygmt.Figure()
-        >>> fig.coast(region="US.HI", projection="M6i", frame=True, land="black")
+        >>> fig.coast(region="US.HI", projection="M12c", frame=True, land="black")
         >>> with Session() as lib:
-        ...     wesn = lib.extract_region()
-        >>> print(", ".join([f"{x:.2f}" for x in wesn]))
+        ...     region = lib.extract_region()
+        >>> print(", ".join([f"{x:.2f}" for x in region]))
         -164.71, -154.81, 18.91, 23.58
 
-        The country codes can have an extra argument that rounds the region a
-        multiple of the argument (for example, ``"US.HI+r5"`` will round the
-        region to multiples of 5):
+        The country codes can have an extra argument that rounds the region to multiples
+        of the argument (for example, ``"US.HI+r5"`` will round the region to multiples
+        of 5):
 
         >>> fig = pygmt.Figure()
-        >>> fig.coast(region="US.HI+r5", projection="M6i", frame=True, land="black")
+        >>> fig.coast(region="US.HI+r5", projection="M12c", frame=True, land="black")
         >>> with Session() as lib:
-        ...     wesn = lib.extract_region()
-        >>> print(", ".join([f"{x:.2f}" for x in wesn]))
+        ...     region = lib.extract_region()
+        >>> print(", ".join([f"{x:.2f}" for x in region]))
         -165.00, -150.00, 15.00, 25.00
         """  # noqa: RUF002
         c_extract_region = self.get_libgmt_func(
@@ -2201,12 +2188,12 @@ class Session:
             restype=ctp.c_int,
         )
 
-        wesn = np.empty(4, dtype=np.float64)
-        wesn_pointer = wesn.ctypes.data_as(ctp.POINTER(ctp.c_double))
-        # The second argument to GMT_Extract_Region is a file pointer to a
-        # PostScript file. It's only valid in classic mode. Use None to get a
-        # NULL pointer instead.
-        status = c_extract_region(self.session_pointer, None, wesn_pointer)
+        region = np.empty(4, dtype=np.float64)
+        status = c_extract_region(
+            self.session_pointer,
+            None,  # File pointer to a PostScript file. Must be None in modern mode.
+            region.ctypes.data_as(ctp.POINTER(ctp.c_double)),
+        )
         if status != 0:
             raise GMTCLibError("Failed to extract region from current figure.")
-        return wesn
+        return region
