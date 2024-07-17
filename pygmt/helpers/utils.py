@@ -12,7 +12,7 @@ import time
 import warnings
 import webbrowser
 from collections.abc import Iterable, Sequence
-from typing import Any
+from typing import Any, Literal
 
 import xarray as xr
 from pygmt.encodings import charset
@@ -115,7 +115,9 @@ def validate_data_input(
                 raise GMTInvalidInput("data must provide x, y, and z columns.")
 
 
-def data_kind(data=None, required_data=True):
+def data_kind(
+    data: Any = None, required: bool = True
+) -> Literal["arg", "file", "geojson", "grid", "image", "matrix", "vectors"]:
     """
     Check what kind of data is provided to a module.
 
@@ -137,15 +139,14 @@ def data_kind(data=None, required_data=True):
         Pass in either a file name or :class:`pathlib.Path` to an ASCII data
         table, an :class:`xarray.DataArray`, a 1-D/2-D
         {table-classes} or an option argument.
-    required_data : bool
+    required
         Set to True when 'data' is required, or False when dealing with
         optional virtual files. [Default is True].
 
     Returns
     -------
-    kind : str
-        One of ``'arg'``, ``'file'``, ``'grid'``, ``image``, ``'geojson'``,
-        ``'matrix'``, or ``'vectors'``.
+    kind
+        The data kind.
 
     Examples
     --------
@@ -161,11 +162,11 @@ def data_kind(data=None, required_data=True):
     'file'
     >>> data_kind(data=pathlib.Path("my-data-file.txt"))
     'file'
-    >>> data_kind(data=None, required_data=False)
+    >>> data_kind(data=None, required=False)
     'arg'
-    >>> data_kind(data=2.0, required_data=False)
+    >>> data_kind(data=2.0, required=False)
     'arg'
-    >>> data_kind(data=True, required_data=False)
+    >>> data_kind(data=True, required=False)
     'arg'
     >>> data_kind(data=xr.DataArray(np.random.rand(4, 3)))
     'grid'
@@ -179,7 +180,7 @@ def data_kind(data=None, required_data=True):
     ):
         # One or more files
         kind = "file"
-    elif isinstance(data, bool | int | float) or (data is None and not required_data):
+    elif isinstance(data, bool | int | float) or (data is None and not required):
         kind = "arg"
     elif isinstance(data, xr.DataArray):
         kind = "image" if len(data.dims) == 3 else "grid"
