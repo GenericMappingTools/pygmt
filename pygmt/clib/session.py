@@ -37,6 +37,7 @@ from pygmt.helpers import (
     data_kind,
     tempfile_from_geojson,
     tempfile_from_image,
+    validate_data_input,
 )
 
 FAMILIES = [
@@ -1593,6 +1594,15 @@ class Session:
         """
         kind = data_kind(
             data, x, y, z, required_z=required_z, required_data=required_data
+        )
+        validate_data_input(
+            data=data,
+            x=x,
+            y=y,
+            z=z,
+            required_z=required_z,
+            required_data=required_data,
+            kind=kind,
         )
 
         if check_kind:

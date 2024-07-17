@@ -19,7 +19,7 @@ from pygmt.encodings import charset
 from pygmt.exceptions import GMTInvalidInput
 
 
-def _validate_data_input(
+def validate_data_input(
     data=None, x=None, y=None, z=None, required_z=False, required_data=True, kind=None
 ):
     """
@@ -27,23 +27,23 @@ def _validate_data_input(
 
     Examples
     --------
-    >>> _validate_data_input(data="infile")
-    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6])
-    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6], z=[7, 8, 9])
-    >>> _validate_data_input(data=None, required_data=False)
-    >>> _validate_data_input()
+    >>> validate_data_input(data="infile")
+    >>> validate_data_input(x=[1, 2, 3], y=[4, 5, 6])
+    >>> validate_data_input(x=[1, 2, 3], y=[4, 5, 6], z=[7, 8, 9])
+    >>> validate_data_input(data=None, required_data=False)
+    >>> validate_data_input()
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: No input data provided.
-    >>> _validate_data_input(x=[1, 2, 3])
+    >>> validate_data_input(x=[1, 2, 3])
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Must provide both x and y.
-    >>> _validate_data_input(y=[4, 5, 6])
+    >>> validate_data_input(y=[4, 5, 6])
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Must provide both x and y.
-    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6], required_z=True)
+    >>> validate_data_input(x=[1, 2, 3], y=[4, 5, 6], required_z=True)
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Must provide x, y, and z.
@@ -51,11 +51,11 @@ def _validate_data_input(
     >>> import pandas as pd
     >>> import xarray as xr
     >>> data = np.arange(8).reshape((4, 2))
-    >>> _validate_data_input(data=data, required_z=True, kind="matrix")
+    >>> validate_data_input(data=data, required_z=True, kind="matrix")
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
-    >>> _validate_data_input(
+    >>> validate_data_input(
     ...     data=pd.DataFrame(data, columns=["x", "y"]),
     ...     required_z=True,
     ...     kind="matrix",
@@ -63,7 +63,7 @@ def _validate_data_input(
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
-    >>> _validate_data_input(
+    >>> validate_data_input(
     ...     data=xr.Dataset(pd.DataFrame(data, columns=["x", "y"])),
     ...     required_z=True,
     ...     kind="matrix",
@@ -71,15 +71,15 @@ def _validate_data_input(
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
-    >>> _validate_data_input(data="infile", x=[1, 2, 3])
+    >>> validate_data_input(data="infile", x=[1, 2, 3])
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Too much data. Use either data or x/y/z.
-    >>> _validate_data_input(data="infile", y=[4, 5, 6])
+    >>> validate_data_input(data="infile", y=[4, 5, 6])
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Too much data. Use either data or x/y/z.
-    >>> _validate_data_input(data="infile", z=[7, 8, 9])
+    >>> validate_data_input(data="infile", z=[7, 8, 9])
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Too much data. Use either data or x/y/z.
@@ -193,15 +193,6 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
         kind = "matrix"
     else:
         kind = "vectors"
-    _validate_data_input(
-        data=data,
-        x=x,
-        y=y,
-        z=z,
-        required_z=required_z,
-        required_data=required_data,
-        kind=kind,
-    )
     return kind
 
 
