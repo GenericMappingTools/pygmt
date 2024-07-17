@@ -2,19 +2,14 @@
 Internal function to load GMT remote datasets.
 """
 
-from __future__ import annotations
+from collections.abc import Sequence
+from typing import ClassVar, Literal, NamedTuple
 
-from typing import TYPE_CHECKING, ClassVar, Literal, NamedTuple
-
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, kwargs_to_strings
 from pygmt.src import which
-
-if TYPE_CHECKING:
-    from collections.abc import Sequence
-
-    import xarray as xr
 
 
 class Resolution(NamedTuple):
