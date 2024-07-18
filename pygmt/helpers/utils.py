@@ -169,7 +169,7 @@ def data_kind(
     >>> data_kind(data=xr.DataArray(np.random.rand(3, 4, 5)))
     'image'
     """
-    # determine the data kind
+    kind: Literal["arg", "file", "geojson", "grid", "image", "matrix", "vectors"]
     if isinstance(data, str | pathlib.PurePath) or (
         isinstance(data, list | tuple)
         and all(isinstance(_file, str | pathlib.PurePath) for _file in data)
