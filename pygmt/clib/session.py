@@ -1554,6 +1554,7 @@ class Session:
         extra_arrays=None,
         required_z=False,
         required_data=True,
+        _grid_mode="GMT_IN",  # An internal parameter to workaround GMT API bugs.
     ):
         """
         Store any data inside a virtual file.
@@ -1638,7 +1639,7 @@ class Session:
         }[kind]
 
         # Ensure the data is an iterable (Python list or tuple)
-        if kind in {"geojson", "grid", "image", "file", "arg"}:
+        if kind in {"geojson", "image", "file", "arg"}:
             if kind == "image" and data.dtype != "uint8":
                 msg = (
                     f"Input image has dtype: {data.dtype} which is unsupported, "
@@ -1649,6 +1650,8 @@ class Session:
                 )
                 warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
             _data = (data,) if not isinstance(data, pathlib.PurePath) else (str(data),)
+        elif kind == "grid":
+            _data = (data, _grid_mode)
         elif kind == "vectors":
             _data = [np.atleast_1d(x), np.atleast_1d(y)]
             if z is not None:
@@ -1873,7 +1876,7 @@ class Session:
         return ctp.cast(pointer, ctp.POINTER(dtype))
 
     @contextlib.contextmanager
-    def virtualfile_from_xrgrid(self, xrgrid):
+    def virtualfile_from_xrgrid(self, xrgrid, _grid_mode="GMT_IN"):
         """
         Create a virtual file from an xarray.DataArray object.
         """
@@ -1906,7 +1909,7 @@ class Session:
         matrix = np.pad(matrix, self["GMT_PAD_DEFAULT"]).astype(np.float32)
         gmtgrid.contents.data = matrix.ctypes.data_as(ctp.POINTER(gmt_grdfloat))
 
-        with self.open_virtualfile(family, geometry, "GMT_IN", gmtgrid) as vfile:
+        with self.open_virtualfile(family, geometry, _grid_mode, gmtgrid) as vfile:
             yield vfile
 
     def virtualfile_to_dataset(

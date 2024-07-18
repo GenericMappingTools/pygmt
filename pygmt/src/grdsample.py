@@ -81,7 +81,9 @@ def grdsample(grid, outgrid: str | None = None, **kwargs):
     """
     with Session() as lib:
         with (
-            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_in(
+                check_kind="raster", data=grid, _grid_mode="GMT_IN|GMT_IS_REFERENCE"
+            ) as vingrd,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
             kwargs["G"] = voutgrd
