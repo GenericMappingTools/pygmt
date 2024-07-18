@@ -130,9 +130,6 @@ def data_kind(
     * 1-D arrays x and y (and z, optionally)
     * an optional argument (None, bool, int or float) provided as 'data'
 
-    Arguments should be ``None`` if not used. If doesn't fit any of these
-    categories (or fits more than one), will raise an exception.
-
     Parameters
     ----------
     data : str, pathlib.PurePath, None, bool, xarray.DataArray or {table-like}
@@ -150,7 +147,6 @@ def data_kind(
 
     Examples
     --------
-
     >>> import numpy as np
     >>> import xarray as xr
     >>> import pathlib
