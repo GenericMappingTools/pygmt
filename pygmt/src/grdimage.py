@@ -165,7 +165,9 @@ def grdimage(self, grid, **kwargs):
 
     with Session() as lib:
         with (
-            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_in(
+                check_kind="raster", data=grid, _grid_mode="GMT_IN|GMT_IS_REFERENCE"
+            ) as vingrd,
             lib.virtualfile_in(
                 check_kind="raster", data=kwargs.get("I"), required_data=False
             ) as vshadegrid,
