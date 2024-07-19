@@ -139,7 +139,7 @@ def test_gmttempfile_read():
 
 
 @pytest.mark.parametrize(
-    "outfile", [123, "", ".", "..", "path/to/dir/", Path(), Path("..")]
+    "outfile", [123, "", ".", "..", "path/to/dir/", r"path\to\dir\", Path(), Path(".."), ]
 )
 def test_build_arg_list_invalid_output(outfile):
     """
