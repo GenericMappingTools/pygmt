@@ -15,7 +15,12 @@ from pygmt.datatypes.header import (
 
 class _GMT_CUBE(ctp.Structure):  # noqa: N801
     """
-    GMT cube data structure for 3D data.
+    GMT cube data structure for 3-D data.
+
+    The GMT_CUBE structure is a extension of the GMT_GRID structure to handle 3-D data
+    cubes. It requires a 2-D grid header and extended parameters for the 3rd dimension.
+
+    header->n_bands is used for the number of layers in 3-D cubes.
     """
 
     _fields_: ClassVar = [
@@ -29,10 +34,10 @@ class _GMT_CUBE(ctp.Structure):  # noqa: N801
         ("y", ctp.POINTER(ctp.c_double)),
         # Low-level information for GMT use only
         ("hidden", ctp.c_void_p),
-        # GMT_CUBE_IS_STACK if input dataset was a list of 2-D grids rather than a
-        # single cube
+        # mode=GMT_CUBE_IS_STACK means the input dataset was a list of 2-D grids, rather
+        # than a single cube.
         ("mode", ctp.c_uint),
-        # Minimum/max z values (complements header->wesn[4])
+        # Minimum/maximum z values (complements header->wesn[4])
         ("z_range", ctp.c_double * 2),
         # z increment (complements inc[2]) (0 if variable z spacing)
         ("z_inc", ctp.c_double),
