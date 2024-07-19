@@ -1850,9 +1850,8 @@ class Session:
                 "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE"),
                 "image": ("GMT_IS_IMAGE", "GMT_IS_SURFACE"),
             }[kind]
-            with self.open_virtualfile(
-                family, geometry, "GMT_OUT|GMT_IS_REFERENCE", None
-            ) as vfile:
+            direction = "GMT_OUT|GMT_IS_REFERENCE" if kind == "image" else "GMT_OUT"
+            with self.open_virtualfile(family, geometry, direction, None) as vfile:
                 yield vfile
 
     def inquire_virtualfile(self, vfname: str) -> int:
