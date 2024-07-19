@@ -1085,7 +1085,7 @@ class Session:
 
         Parameters
         ----------
-        input
+        infile
             The input file name.
         kind
             The data kind of the input file. Valid values are ``"dataset"`` and
