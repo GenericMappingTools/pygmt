@@ -1102,7 +1102,8 @@ class Session:
             How the data is to be read from the file. This option varies depending on
             the given family. See the
             :gmt-docs:`GMT API documentation <devdocs/api.html#import-from-a-file-stream-or-handle>`
-            for details.
+            for details. Default is ``GMT_READ_NORMAL`` which corresponds to the default
+            read mode value of 0 in the ``GMT_enum_read`` enum.
         region
             Subregion of the data, in the form of [xmin, xmax, ymin, ymax, zmin, zmax].
             If ``None``, the whole data is read.
