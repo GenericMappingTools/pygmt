@@ -1070,7 +1070,7 @@ class Session:
     def read_data(
         self,
         infile: str,
-        kind: Literal["dataset", "grid"],
+        kind: Literal["dataset", "grid", "cube"],
         family: str | None = None,
         geometry: str | None = None,
         mode: str = "GMT_READ_NORMAL",
@@ -1088,8 +1088,8 @@ class Session:
         infile
             The input file name.
         kind
-            The data kind of the input file. Valid values are ``"dataset"`` and
-            ``"grid"``.
+            The data kind of the input file. Valid values are ``"dataset"``, ``"grid"``
+            and ``"cube"``.
         family
             A valid GMT data family name (e.g., ``"GMT_IS_DATASET"``). See the
             ``FAMILIES`` attribute for valid names. If ``None``, will determine the data
@@ -1140,6 +1140,7 @@ class Session:
         _family, _geometry, dtype = {
             "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP", _GMT_DATASET),
             "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE", _GMT_GRID),
+            "cube": ("GMT_IS_CUBE", "GMT_IS_VOLUME", _GMT_CUBE),
         }[kind]
         if family is None:
             family = _family
