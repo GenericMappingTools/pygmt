@@ -350,7 +350,13 @@ def build_arg_list(
             gmt_args = [str(infile), *gmt_args]
         else:
             gmt_args = [str(_file) for _file in infile] + gmt_args
-    if outfile:
+    if outfile is not None:
+        if (
+            not isinstance(outfile, str | pathlib.PurePath)
+            or str(outfile) in {"", ".", ".."}
+            or str(outfile).endswith(("/", "\\"))
+        ):
+            raise GMTInvalidInput(f"Invalid output file name '{outfile}'.")
         gmt_args.append(f"->{outfile}")
     return gmt_args
 
