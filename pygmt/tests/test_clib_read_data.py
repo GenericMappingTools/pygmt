@@ -132,6 +132,24 @@ def test_clib_read_data_grid_actual_image():
             )
 
 
+def test_clib_read_data_cube_actual_grid():
+    """
+    Test the Session.read_data method for cube, but actually the file is a grid.
+    """
+    with Session() as lib:
+        with pytest.raises(GMTCLibError):
+            lib.read_data("@earth_relief_01d_p", kind="cube", mode="GMT_CONTAINER_ONLY")
+
+
+def test_clib_read_data_cube_actual_image():
+    """
+    Test the Session.read_data method for cube, but actually the file is an image.
+    """
+    with Session() as lib:
+        with pytest.raises(GMTCLibError):
+            lib.read_data("@earth_day_01d_p", kind="cube", mode="GMT_CONTAINER_ONLY")
+
+
 def test_clib_read_data_fails():
     """
     Test that the Session.read_data method raises an exception if there are errors.
