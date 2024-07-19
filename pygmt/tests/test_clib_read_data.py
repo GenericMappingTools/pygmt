@@ -120,7 +120,7 @@ def test_clib_read_data_grid_actual_image():
 
         if _HAS_RIOXARRAY:  # Full check if rioxarray is installed.
             xrimage = image.to_dataarray()
-            expected_xrimage = xr.open_dataarray(which("@earth_day_01d_p"))
+            expected_xrimage = xr.open_dataarray(which("@earth_day_01d_p"), engine="rasterio")
             assert expected_xrimage.band.size == 3  # 3-band image.
             xr.testing.assert_equal(
                 xrimage,
