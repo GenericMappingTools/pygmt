@@ -1119,7 +1119,7 @@ class Session:
         ------
         GMTCLibError
             If the GMT API function fails to read the data.
-        """
+        """  # noqa: W505
         c_read_data = self.get_libgmt_func(
             "GMT_Read_Data",
             argtypes=[
