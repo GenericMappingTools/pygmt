@@ -119,16 +119,17 @@ def data_kind(
     data: Any = None, required: bool = True
 ) -> Literal["arg", "file", "geojson", "grid", "image", "matrix", "vectors"]:
     """
-    Check what kind of data is provided to a module.
+    Check the kind of data that is provided to a module.
 
-    Possible types:
+    The ``data`` argument can be in any type, but only following types are supported:
 
-    * a file name provided as 'data'
-    * a pathlib.PurePath object provided as 'data'
-    * an xarray.DataArray object provided as 'data'
-    * a 2-D matrix provided as 'data'
-    * 1-D arrays x and y (and z, optionally)
-    * an optional argument (None, bool, int or float) provided as 'data'
+    - a string or a :class:`pathlib.PurePath` object or a sequence of them, representing
+      a file name or a list of file names
+    - a 2-D or 3-D :class:`xarray.DataArray` object
+    - a 2-D matrix
+    - None, bool, int or float type representing an optional arguments
+    - a geo-like Python object that implements ``__geo_interface__`` (e.g.,
+      geopandas.GeoDataFrame or shapely.geometry)
 
     Parameters
     ----------
