@@ -157,8 +157,6 @@ def makecpt(**kwargs):
         raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")
 
     if (output := kwargs.pop("H", None)) is not None:
-        if not isinstance(output, str) or output == "":
-            raise GMTInvalidInput("'output' should be a proper file name.")
         kwargs["H"] = True
 
     with Session() as lib:
