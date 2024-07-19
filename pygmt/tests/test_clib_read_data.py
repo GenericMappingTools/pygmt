@@ -74,7 +74,7 @@ def test_clib_read_data_grid(expected_xrgrid):
         grid = lib.read_data("@static_earth_relief.nc", kind="grid").contents
         xrgrid = grid.to_dataarray()
         xr.testing.assert_equal(xrgrid, expected_xrgrid)
-        assert grid.header.contents.n_bands == 1  # Explicitely check n_bands
+        assert grid.header.contents.n_bands == 1  # Explicitly check n_bands
 
 
 def test_clib_read_data_grid_two_steps(expected_xrgrid):
@@ -93,7 +93,7 @@ def test_clib_read_data_grid_two_steps(expected_xrgrid):
         assert header.wesn[:] == [-55.0, -47.0, -24.0, -10.0]
         assert header.z_min == 190.0
         assert header.z_max == 981.0
-        assert header.n_bands == 1  # Explicitely check n_bands
+        assert header.n_bands == 1  # Explicitly check n_bands
         assert not grid.data  # The data is not read yet
 
         # Read the data
@@ -115,7 +115,7 @@ def test_clib_read_data_grid_actual_image():
         assert header.n_rows == 180
         assert header.n_columns == 360
         assert header.wesn[:] == [-180.0, 180.0, -90.0, 90.0]
-        # Explicitely check n_bands. Only one band is read for 3-band images.
+        # Explicitly check n_bands. Only one band is read for 3-band images.
         assert header.n_bands == 1
 
         if _HAS_RIOXARRAY:  # Full check if rioxarray is installed.
