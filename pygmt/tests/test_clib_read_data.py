@@ -171,11 +171,11 @@ def test_clib_read_data_image_two_steps():
 
 def test_clib_read_data_image_actual_grid():
     """
-    Test the Session.read_data method for grid, but actually the file is an image.
+    Test the Session.read_data method for image, but actually the file is a grid.
     """
     with Session() as lib:
         data_ptr = lib.read_data(
-            "@earth_relief_01d_p", kind="grid", mode="GMT_CONTAINER_ONLY"
+            "@earth_relief_01d_p", kind="image", mode="GMT_CONTAINER_ONLY"
         )
         image = data_ptr.contents
         header = image.header.contents
