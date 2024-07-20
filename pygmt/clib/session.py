@@ -34,10 +34,10 @@ from pygmt.exceptions import (
     GMTVersionError,
 )
 from pygmt.helpers import (
+    _validate_data_input,
     data_kind,
     tempfile_from_geojson,
     tempfile_from_image,
-    validate_data_input,
 )
 
 FAMILIES = [
@@ -1682,7 +1682,7 @@ class Session:
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
         kind = data_kind(data, required=required_data)
-        validate_data_input(
+        _validate_data_input(
             data=data,
             vectors=vectors,
             names=names,
