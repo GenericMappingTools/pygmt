@@ -247,7 +247,9 @@ def as_c_contiguous(array):
     return array
 
 
-def sequence_to_ctypes_array(sequence: Sequence, ctype, size: int) -> ctp.Array | None:
+def sequence_to_ctypes_array(
+    sequence: Sequence | None, ctype, size: int
+) -> ctp.Array | None:
     """
     Convert a sequence of numbers into a ctypes array variable.
 
