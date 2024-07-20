@@ -142,8 +142,8 @@ def test_clib_read_data_image():
         header = image.header.contents
         assert header.n_rows == 180
         assert header.n_columns == 360
+        assert header.wesn[:] == [-179.5, 179.5, -89.5, 89.5]
         assert header.n_bands == 3
-        assert header.wesn[:] == [-180.0, 180.0, -90.0, 90.0]
         assert image.data
 
 
@@ -160,7 +160,7 @@ def test_clib_read_data_image_two_steps():
         header = grid.header.contents
         assert header.n_rows == 180
         assert header.n_columns == 360
-        assert header.wesn[:] == [-180.0, 180.0, -90.0, 90.0]
+        assert header.wesn[:] == [-179.5, 179.5, -89.5, 89.5]
         assert header.n_bands == 3  # Explicitly check n_bands
         assert not grid.data  # The data is not read yet
 
@@ -181,7 +181,7 @@ def test_clib_read_data_image_actual_grid():
         header = image.header.contents
         assert header.n_rows == 180
         assert header.n_columns == 360
-        assert header.wesn[:] == [-180.0, 180.0, -90.0, 90.0]
+        assert header.wesn[:] == [-179.5, 179.5, -89.5, 89.5]
         # Explicitly check n_bands. Grid has only one band.
         assert header.n_bands == 1
 
