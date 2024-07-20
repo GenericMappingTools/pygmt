@@ -2,8 +2,8 @@
 Points
 ======
 
-The :meth:`pygmt.Figure.plot` method can plot data points. The plot symbol
-and size are set with the ``style`` parameter.
+The :meth:`pygmt.Figure.plot` method can plot data points. The symbol and
+size are set with the ``style`` parameter.
 """
 
 # %%
