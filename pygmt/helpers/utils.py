@@ -80,6 +80,10 @@ def _validate_data_input(
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Too much data. Use either data or x/y/z.
+    >>> _validate_data_input(data="infile", x=[1, 2, 3], y=[4, 5, 6])
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Too much data. Use either data or x/y/z.
     >>> _validate_data_input(data="infile", z=[7, 8, 9])
     Traceback (most recent call last):
         ...
@@ -113,25 +117,21 @@ def _validate_data_input(
 
 
 def data_kind(
-    data=None, x=None, y=None, z=None, required_z=False, required_data=True
-) -> Literal[
-    "arg", "file", "geojson", "grid", "image", "matrix", "stringio", "vectors"
-]:
-    r"""
-    Check what kind of data is provided to a module.
+    data: Any = None, required: bool = True
+) -> Literal["arg", "file", "geojson", "grid", "image", "matrix", "vectors"]:
+    """
+    Check the kind of data that is provided to a module.
 
-    Possible types:
+    The ``data`` argument can be in any type, but only following types are supported:
 
-    * a file name provided as 'data'
-    * a pathlib.PurePath object provided as 'data'
-    * a io.StringIO object provided as 'data'
-    * an xarray.DataArray object provided as 'data'
-    * a 2-D matrix provided as 'data'
-    * 1-D arrays x and y (and z, optionally)
-    * an optional argument (None, bool, int or float) provided as 'data'
-
-    Arguments should be ``None`` if not used. If doesn't fit any of these
-    categories (or fits more than one), will raise an exception.
+    - a string or a :class:`pathlib.PurePath` object or a sequence of them, representing
+      a file name or a list of file names
+    - a 2-D or 3-D :class:`xarray.DataArray` object
+    - a 2-D matrix
+    - None, bool, int or float type representing an optional arguments
+    - a geo-like Python object that implements ``__geo_interface__`` (e.g.,
+      geopandas.GeoDataFrame or shapely.geometry)
+    * a :class:`io.StringIO` object
 
     Parameters
     ----------
@@ -139,13 +139,7 @@ def data_kind(
         Pass in either a file name or :class:`pathlib.Path` to an ASCII data
         table, an :class:`xarray.DataArray`, a 1-D/2-D
         {table-classes} or an option argument.
-    x/y : 1-D arrays or None
-        x and y columns as numpy arrays.
-    z : 1-D array or None
-        z column as numpy array. To be used optionally when x and y are given.
-    required_z : bool
-        State whether the 'z' column is required.
-    required_data : bool
+    required
         Set to True when 'data' is required, or False when dealing with
         optional virtual files. [Default is True].
 
@@ -160,19 +154,19 @@ def data_kind(
     >>> import xarray as xr
     >>> import pathlib
     >>> import io
-    >>> data_kind(data=None, x=np.array([1, 2, 3]), y=np.array([4, 5, 6]))
+    >>> data_kind(data=None)
     'vectors'
-    >>> data_kind(data=np.arange(10).reshape((5, 2)), x=None, y=None)
+    >>> data_kind(data=np.arange(10).reshape((5, 2)))
     'matrix'
-    >>> data_kind(data="my-data-file.txt", x=None, y=None)
+    >>> data_kind(data="my-data-file.txt")
     'file'
-    >>> data_kind(data=pathlib.Path("my-data-file.txt"), x=None, y=None)
+    >>> data_kind(data=pathlib.Path("my-data-file.txt"))
     'file'
-    >>> data_kind(data=None, x=None, y=None, required_data=False)
+    >>> data_kind(data=None, required=False)
     'arg'
-    >>> data_kind(data=2.0, x=None, y=None, required_data=False)
+    >>> data_kind(data=2.0, required=False)
     'arg'
-    >>> data_kind(data=True, x=None, y=None, required_data=False)
+    >>> data_kind(data=True, required=False)
     'arg'
     >>> data_kind(data=xr.DataArray(np.random.rand(4, 3)))
     'grid'
@@ -180,15 +174,15 @@ def data_kind(
     'image'
     >>> data_kind(data=io.StringIO("TEXT1\nTEXT23\n"))
     'stringio'
-    """  # noqa: W505
-    # determine the data kind
+    """
+    kind: Literal["arg", "file", "geojson", "grid", "image", "matrix", "vectors"]
     if isinstance(data, str | pathlib.PurePath) or (
         isinstance(data, list | tuple)
         and all(isinstance(_file, str | pathlib.PurePath) for _file in data)
     ):
         # One or more files
         kind = "file"
-    elif isinstance(data, bool | int | float) or (data is None and not required_data):
+    elif isinstance(data, bool | int | float) or (data is None and not required):
         kind = "arg"
     elif isinstance(data, io.StringIO):
         kind = "stringio"
@@ -202,15 +196,6 @@ def data_kind(
         kind = "matrix"
     else:
         kind = "vectors"
-    _validate_data_input(
-        data=data,
-        x=x,
-        y=y,
-        z=z,
-        required_z=required_z,
-        required_data=required_data,
-        kind=kind,
-    )
     return kind
 
 
@@ -359,7 +344,13 @@ def build_arg_list(
             gmt_args = [str(infile), *gmt_args]
         else:
             gmt_args = [str(_file) for _file in infile] + gmt_args
-    if outfile:
+    if outfile is not None:
+        if (
+            not isinstance(outfile, str | pathlib.PurePath)
+            or str(outfile) in {"", ".", ".."}
+            or str(outfile).endswith(("/", "\\"))
+        ):
+            raise GMTInvalidInput(f"Invalid output file name '{outfile}'.")
         gmt_args.append(f"->{outfile}")
     return gmt_args
 
