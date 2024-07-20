@@ -34,6 +34,7 @@ from pygmt.exceptions import (
     GMTVersionError,
 )
 from pygmt.helpers import (
+    _validate_data_input,
     data_kind,
     tempfile_from_geojson,
     tempfile_from_image,
@@ -1684,8 +1685,15 @@ class Session:
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
-        kind = data_kind(
-            data, x, y, z, required_z=required_z, required_data=required_data
+        kind = data_kind(data, required=required_data)
+        _validate_data_input(
+            data=data,
+            x=x,
+            y=y,
+            z=z,
+            required_z=required_z,
+            required_data=required_data,
+            kind=kind,
         )
 
         if check_kind:
