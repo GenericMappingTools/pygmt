@@ -35,7 +35,7 @@ fig.wiggle(
     pen="1.0p",
     # Draw a blue track with a width of 0.5 points
     track="0.5p,blue",
-    # Plot a vertical scale bar at position Middle Right (MR). The bar length (+w)
+    # Plot a vertical scale bar at Middle Right (MR). The bar length (+w)
     # is 100 in data (z) units. Set the z unit label (+l) to "nT".
     position="jMR+w100+lnT",
 )

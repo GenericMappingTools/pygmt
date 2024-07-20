@@ -16,14 +16,13 @@ via the ``position`` parameter. There are the following options:
   horizontal (**L**\ eft, **C**\ enter, **R**\ ight) alignment codes, e.g.
   ``position="jTR"`` for Top Right.
 - **g**: using map coordinates, e.g. ``position="g170/-45"`` for longitude
-  170E, latitude 45S.
+  170° East, latitude 45° South.
 - **x**: using paper coordinates, e.g. ``position="x5c/7c"`` for 5 cm, 7 cm
   from anchor point.
 - **n**: using normalized (0-1) coordinates, e.g. ``position="n0.4/0.8"``.
 
 Note that the anchor point defaults to the bottom left (**BL**). Append ``+h``
-to ``position`` to get a horizontal colorbar instead of a vertical one
-(``+v``).
+to ``position`` to get a horizontal colorbar instead of a vertical one (``+v``).
 """
 
 # %%
