@@ -180,7 +180,7 @@ def text_(  # noqa: PLR0912
 
     # Ensure inputs are either textfiles, x/y/text, or position/text
     if position is None:
-        if (x is not None or y is not None) and textfiles is not None:
+        if any(v is not None for v in (x, y, text)) and textfiles is not None:
             raise GMTInvalidInput(
                 "Provide either position only, or x/y pairs, or textfiles."
             )

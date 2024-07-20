@@ -12,14 +12,14 @@ import time
 import warnings
 import webbrowser
 from collections.abc import Iterable, Sequence
-from typing import Any
+from typing import Any, Literal
 
 import xarray as xr
 from pygmt.encodings import charset
 from pygmt.exceptions import GMTInvalidInput
 
 
-def validate_data_input(
+def _validate_data_input(
     data=None, vectors=None, names="xy", required_data=True, kind=None
 ):
     """
@@ -44,23 +44,23 @@ def validate_data_input(
 
     Examples
     --------
-    >>> validate_data_input(data="infile")
-    >>> validate_data_input(vectors=[[1, 2, 3], [4, 5, 6]], names="xy")
-    >>> validate_data_input(vectors=[[1, 2, 3], [4, 5, 6], [7, 8, 9]], names="xyz")
-    >>> validate_data_input(data=None, required_data=False)
-    >>> validate_data_input()
+    >>> _validate_data_input(data="infile")
+    >>> _validate_data_input(vectors=[[1, 2, 3], [4, 5, 6]], names="xy")
+    >>> _validate_data_input(vectors=[[1, 2, 3], [4, 5, 6], [7, 8, 9]], names="xyz")
+    >>> _validate_data_input(data=None, required_data=False)
+    >>> _validate_data_input()
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: No input data provided.
-    >>> validate_data_input(vectors=[[1, 2, 3], None], names="xy")
+    >>> _validate_data_input(vectors=[[1, 2, 3], None], names="xy")
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Column 1 ('y') can't be None.
-    >>> validate_data_input(vectors=[None, [4, 5, 6]], names="xy")
+    >>> _validate_data_input(vectors=[None, [4, 5, 6]], names="xy")
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Column 0 ('x') can't be None.
-    >>> validate_data_input(vectors=[[1, 2, 3], [4, 5, 6], None], names="xyz")
+    >>> _validate_data_input(vectors=[[1, 2, 3], [4, 5, 6], None], names="xyz")
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Column 2 ('z') can't be None.
@@ -68,12 +68,12 @@ def validate_data_input(
     >>> import pandas as pd
     >>> import xarray as xr
     >>> data = np.arange(8).reshape((4, 2))
-    >>> validate_data_input(data=data, names="xyz", kind="matrix")
+    >>> _validate_data_input(data=data, names="xyz", kind="matrix")
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: data must have at least 3 columns.
     x y z
-    >>> validate_data_input(
+    >>> _validate_data_input(
     ...     data=pd.DataFrame(data, columns=["x", "y"]),
     ...     names="xyz",
     ...     kind="matrix",
@@ -82,7 +82,7 @@ def validate_data_input(
         ...
     pygmt.exceptions.GMTInvalidInput: data must have at least 3 columns.
     x y z
-    >>> validate_data_input(
+    >>> _validate_data_input(
     ...     data=xr.Dataset(pd.DataFrame(data, columns=["x", "y"])),
     ...     names="xyz",
     ...     kind="matrix",
@@ -91,15 +91,19 @@ def validate_data_input(
         ...
     pygmt.exceptions.GMTInvalidInput: data must have at least 3 columns.
     x y z
-    >>> validate_data_input(data="infile", vectors=[[1, 2, 3], None])
+    >>> _validate_data_input(data="infile", vectors=[[1, 2, 3], None])
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Too much data. Use either data or x/y/z.
+    >>> _validate_data_input(data="infile", y=[4, 5, 6])
     Traceback (most recent call last):
         ...
     pygmt...GMTInvalidInput: Too much data. Use either 'data' or 1-D arrays.
-    >>> validate_data_input(data="infile", vectors=[None, [4, 5, 6]])
+    >>> _validate_data_input(data="infile", vectors=[None, None, [7, 8, 9]])
     Traceback (most recent call last):
         ...
     pygmt...GMTInvalidInput: Too much data. Use either 'data' or 1-D arrays.
-    >>> validate_data_input(data="infile", vectors=[None, None, [7, 8, 9]])
+    >>> _validate_data_input(data="infile", x=[1, 2, 3], y=[4, 5, 6])
     Traceback (most recent call last):
         ...
     pygmt...GMTInvalidInput: Too much data. Use either 'data' or 1-D arrays.
@@ -138,25 +142,20 @@ def validate_data_input(
                 raise GMTInvalidInput(msg)
 
 
-def data_kind(data=None, required=True):
+def data_kind(
+    data: Any = None, required: bool = True
+) -> Literal["arg", "file", "grid", "image", "matrix", "vectors"]:
     """
-    Determine the kind of data that will be passed to a module.
+    Check what kind of data is provided to a module.
 
-    It checks the type of the ``data`` argument and determines the kind of
-    data. Falls back to ``"vectors"`` if ``data`` is None but required.
+    Possible types:
 
-    Possible data kinds:
-
-    - ``'file'``: a file name or a pathlib.PurePath object provided as 'data'
-    - ``'arg'``: an optional argument (None, bool, int or float) provided
-      as 'data'
-    - ``'grid'``: an xarray.DataArray with 2 dimensions provided as 'data'
-    - ``'image'``: an xarray.DataArray with 3 dimensions provided as 'data'
-    - ``'geojson'``: a geo-like Python object that implements
-      ``__geo_interface__`` (geopandas.GeoDataFrame or shapely.geometry)
-      provided as 'data'
-    - ``'matrix'``: a 2-D array provided as 'data'
-    - ``'vectors'``: a list of 1-D arrays provided as 'vectors'
+    * a file name provided as 'data'
+    * a pathlib.PurePath object provided as 'data'
+    * an xarray.DataArray object provided as 'data'
+    * a 2-D matrix provided as 'data'
+    * 1-D arrays x and y (and z, optionally)
+    * an optional argument (None, bool, int or float) provided as 'data'
 
     Parameters
     ----------
@@ -164,19 +163,17 @@ def data_kind(data=None, required=True):
         Pass in either a file name or :class:`pathlib.Path` to an ASCII data
         table, an :class:`xarray.DataArray`, a 1-D/2-D
         {table-classes} or an option argument.
-    required : bool
+    required
         Set to True when 'data' is required, or False when dealing with
         optional virtual files. [Default is True].
 
     Returns
     -------
-    kind : str
-        One of ``'arg'``, ``'file'``, ``'grid'``, ``image``, ``'geojson'``,
-        ``'matrix'``, or ``'vectors'``.
+    kind
+        The data kind.
 
     Examples
     --------
-
     >>> import numpy as np
     >>> import xarray as xr
     >>> import pathlib
@@ -199,7 +196,7 @@ def data_kind(data=None, required=True):
     >>> data_kind(data=xr.DataArray(np.random.rand(3, 4, 5)))
     'image'
     """
-    # determine the data kind
+    kind: Literal["arg", "file", "geojson", "grid", "image", "matrix", "vectors"]
     if isinstance(data, str | pathlib.PurePath) or (
         isinstance(data, list | tuple)
         and all(isinstance(_file, str | pathlib.PurePath) for _file in data)
@@ -366,7 +363,13 @@ def build_arg_list(
             gmt_args = [str(infile), *gmt_args]
         else:
             gmt_args = [str(_file) for _file in infile] + gmt_args
-    if outfile:
+    if outfile is not None:
+        if (
+            not isinstance(outfile, str | pathlib.PurePath)
+            or str(outfile) in {"", ".", ".."}
+            or str(outfile).endswith(("/", "\\"))
+        ):
+            raise GMTInvalidInput(f"Invalid output file name '{outfile}'.")
         gmt_args.append(f"->{outfile}")
     return gmt_args
 

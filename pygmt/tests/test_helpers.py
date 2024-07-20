@@ -11,6 +11,7 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     args_in_kwargs,
+    build_arg_list,
     kwargs_to_strings,
     unique_name,
 )
@@ -114,6 +115,18 @@ def test_gmttempfile_read():
         Path(tmpfile.name).write_text("in.dat: N = 2\t<1/3>\t<2/4>\n", encoding="utf-8")
         assert tmpfile.read() == "in.dat: N = 2 <1/3> <2/4>\n"
         assert tmpfile.read(keep_tabs=True) == "in.dat: N = 2\t<1/3>\t<2/4>\n"
+
+
+@pytest.mark.parametrize(
+    "outfile",
+    [123, "", ".", "..", "path/to/dir/", "path\\to\\dir\\", Path(), Path("..")],
+)
+def test_build_arg_list_invalid_output(outfile):
+    """
+    Test that build_arg_list raises an exception when output file name is invalid.
+    """
+    with pytest.raises(GMTInvalidInput):
+        build_arg_list({}, outfile=outfile)
 
 
 def test_args_in_kwargs():
