@@ -156,17 +156,17 @@ def test_clib_read_data_image_two_steps():
     with Session() as lib:
         # Read the header first
         data_ptr = lib.read_data(infile, kind="image", mode="GMT_CONTAINER_ONLY")
-        grid = data_ptr.contents
-        header = grid.header.contents
+        image = data_ptr.contents
+        header = image.header.contents
         assert header.n_rows == 180
         assert header.n_columns == 360
         assert header.wesn[:] == [-180.0, 180.0, -90.0, 90.0]
         assert header.n_bands == 3  # Explicitly check n_bands
-        assert not grid.data  # The data is not read yet
+        assert not image.data  # The data is not read yet
 
         # Read the data
         lib.read_data(infile, kind="image", mode="GMT_DATA_ONLY", data=data_ptr)
-        assert grid.data
+        assert image.data
 
 
 def test_clib_read_data_image_actual_grid():
