@@ -56,7 +56,7 @@ def grd2cpt(grid, **kwargs):
     *z*-value, the foreground color (F) assigned to values higher than the
     highest *z*-value, and the NaN color (N) painted wherever values are
     undefined. For color tables beyond the standard GMT offerings, visit
-    `cpt-city <http://soliton.vm.bytemark.co.uk/pub/cpt-city/>`_ and
+    `cpt-city <http://www.seaviewsensing.com/pub/cpt-city/>`_ and
     `Scientific Colour-Maps <http://www.fabiocrameri.ch/colourmaps.php>`_.
 
     If the master CPT includes B, F, and N entries, these will be copied into
@@ -183,13 +183,13 @@ def grd2cpt(grid, **kwargs):
     """
     if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
         raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")
+
+    if (output := kwargs.pop("H", None)) is not None:
+        kwargs["H"] = True
+
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
-            if kwargs.get("H") is None:  # if no output is set
-                arg_str = build_arg_list(kwargs, infile=vingrd)
-            else:  # if output is set
-                outfile, kwargs["H"] = kwargs["H"], True
-                if not outfile or not isinstance(outfile, str):
-                    raise GMTInvalidInput("'output' should be a proper file name.")
-                arg_str = build_arg_list(kwargs, infile=vingrd, outfile=outfile)
-            lib.call_module(module="grd2cpt", args=arg_str)
+            lib.call_module(
+                module="grd2cpt",
+                args=build_arg_list(kwargs, infile=vingrd, outfile=output),
+            )
