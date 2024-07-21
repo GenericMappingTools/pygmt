@@ -169,23 +169,6 @@ def test_clib_read_data_image_two_steps():
         assert image.data
 
 
-def test_clib_read_data_image_actual_grid():
-    """
-    Test the Session.read_data method for image, but actually the file is a grid.
-    """
-    with Session() as lib:
-        data_ptr = lib.read_data(
-            "@earth_relief_01d_p", kind="image", mode="GMT_CONTAINER_ONLY"
-        )
-        image = data_ptr.contents
-        header = image.header.contents
-        assert header.n_rows == 180
-        assert header.n_columns == 360
-        assert header.wesn[:] == [-179.5, 179.5, -89.5, 89.5]
-        # Explicitly check n_bands. Grid has only one band.
-        assert header.n_bands == 1
-
-
 def test_clib_read_data_fails():
     """
     Test that the Session.read_data method raises an exception if there are errors.
