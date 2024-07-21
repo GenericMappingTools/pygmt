@@ -119,7 +119,7 @@ def _validate_data_input(
 def data_kind(
     data: Any = None, required: bool = True
 ) -> Literal["arg", "file", "geojson", "grid", "image", "matrix", "vectors"]:
-    """
+    r"""
     Check the kind of data that is provided to a module.
 
     The ``data`` argument can be in any type, but only following types are supported:
