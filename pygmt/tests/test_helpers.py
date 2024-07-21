@@ -4,7 +4,6 @@ Test the helper functions/classes/etc used in wrapping GMT.
 
 from pathlib import Path
 
-import numpy as np
 import pytest
 import xarray as xr
 from pygmt import Figure
@@ -13,7 +12,6 @@ from pygmt.helpers import (
     GMTTempFile,
     args_in_kwargs,
     build_arg_list,
-    data_kind,
     kwargs_to_strings,
     unique_name,
 )
@@ -31,25 +29,6 @@ def test_load_static_earth_relief():
     assert data.max() == 981
     assert data.median() == 467
     assert isinstance(data, xr.DataArray)
-
-
-@pytest.mark.parametrize(
-    ("data", "x", "y"),
-    [
-        (None, None, None),
-        ("data.txt", np.array([1, 2]), np.array([4, 5])),
-        ("data.txt", np.array([1, 2]), None),
-        ("data.txt", None, np.array([4, 5])),
-        (None, np.array([1, 2]), None),
-        (None, None, np.array([4, 5])),
-    ],
-)
-def test_data_kind_fails(data, x, y):
-    """
-    Make sure data_kind raises exceptions when it should.
-    """
-    with pytest.raises(GMTInvalidInput):
-        data_kind(data=data, x=x, y=y)
 
 
 def test_unique_name():
