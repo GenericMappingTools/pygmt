@@ -48,6 +48,7 @@ def select(
     data=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: str | None = None,
+    resolution: Literal["full", "high", "intermediate", "low", "crude"] = "low",  # noqa: ARG001
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -116,16 +117,13 @@ def select(
         <reference/file-formats.html#optional-segment-header-records>`
         *polygonfile*. For spherical polygons (lon, lat), make sure no
         consecutive points are separated by 180 degrees or more in longitude.
-    resolution : str
-        *resolution*\ [**+f**].
-        Ignored unless ``mask`` is set. Selects the resolution of the coastline
-        data set to use ((**f**)ull, (**h**)igh, (**i**)ntermediate, (**l**)ow,
-        or (**c**)rude). The resolution drops off by ~80% between data sets.
-        [Default is **l**]. Append (**+f**) to automatically select a lower
-        resolution should the one requested not be available [Default is abort
-        if not found]. Note that because the coastlines differ in details
-        it is not guaranteed that a point will remain inside [or outside] when
-        a different resolution is selected.
+    resolution
+        Ignored unless ``mask`` is set. Select the resolution of the coastline dataset
+        to use. The available resolutions from highest to lowest are: ``"full"``,
+        ``"high"``, ``"intermediate"``, ``"low"``, and ``"crude"``, which drops by 80%
+        between levels. Note that because the coastlines differ in details it is not
+        guaranteed that a point will remain inside [or outside] when a different
+        resolution is selected.
     gridmask : str
         Pass all locations that are inside the valid data area of the grid
         *gridmask*. Nodes that are outside are either NaN or zero.
@@ -205,6 +203,10 @@ def select(
     >>> # longitudes 246 and 247 and latitudes 20 and 21
     >>> out = pygmt.select(data=ship_data, region=[246, 247, 20, 21])
     """
+    # Resolution
+    if kwargs.get("D") is not None:
+        kwargs["D"] = kwargs["D"][0]
+
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
     column_names = None

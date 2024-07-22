@@ -84,8 +84,9 @@ def coast(
     resolution
         Select the resolution of the coastline dataset to use. The available resolutions
         from highest to lowest are: ``"full"``, ``"high"``, ``"intermediate"``,
-        ``"low"``, and ``"crude"``. Default is ``"auto"`` to automatically select the
-        most suitable resolution given the chosen map scale.
+        ``"low"``, and ``"crude"``, which drops by 80% between levels. Default is
+        ``"auto"`` to automatically select the most suitable resolution given the chosen
+        map scale.
     land : str
         Select filling of "dry" areas.
     rivers : int, str, or list
@@ -208,7 +209,8 @@ def coast(
             """At least one of the following parameters must be specified:
             lakes, land, water, rivers, borders, dcw, Q, or shorelines"""
         )
-    # resolution
+
+    # Resolution
     if kwargs.get("D") is not None:
         kwargs["D"] = kwargs["D"][0]
 
