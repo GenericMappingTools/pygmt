@@ -42,7 +42,7 @@ def makecpt(**kwargs):
     CPT based on an existing master (dynamic) CPT. The resulting CPT can be
     reversed relative to the master cpt, and can be made continuous or
     discrete. For color tables beyond the standard GMT offerings, visit
-    `cpt-city <http://soliton.vm.bytemark.co.uk/pub/cpt-city/>`_ and
+    `cpt-city <http://www.seaviewsensing.com/pub/cpt-city/>`_ and
     `Scientific Colour-Maps <http://www.fabiocrameri.ch/colourmaps.php>`_.
 
     The CPT includes three additional colors beyond the range of z-values.
