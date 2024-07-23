@@ -318,8 +318,8 @@ def non_ascii_to_octal(
     >>> non_ascii_to_octal("12ABāáâãäåβ①②", encoding="ISO-8859-4")
     '12AB\\340\\341\\342\\343\\344\\345@~\\142@~@%34%\\254@%%@%34%\\255@%%'
     """  # noqa: RUF002
-    # Return the string if it only contains printable ASCII characters from 32 to 126.
-    if all(32 <= ord(c) <= 126 for c in argstr):
+    # Return the input string if it only contains ASCII characters.
+    if encoding == "ascii" or all(32 <= ord(c) <= 126 for c in argstr):
         return argstr
 
     # Dictionary mapping non-ASCII characters to octal codes
