@@ -1,13 +1,13 @@
 """
-Adobe character encodings supported by GMT.
+Character encodings supported by GMT.
 
-Currently, only Adobe Symbol, Adobe ZapfDingbats, and Adobe ISOLatin1+ encodings are
-supported.
+Currently, Adobe Symbol, Adobe ZapfDingbats, Adobe ISOLatin1+ and ISO-8859-x (x can be
+1-11, 13-16) encodings are supported. Adobe Standard encoding is not supported.
 
-The corresponding Unicode characters in each Adobe character encoding are generated
-from the mapping table and conversion script in the GMT-octal-codes
-(https://github.com/seisman/GMT-octal-codes) repository. Refer to that repository for
-details.
+The corresponding Unicode characters in each Adobe character encoding are generated from
+the mapping tables and conversion scripts in the
+`GMT-octal-codes repository <https://github.com/seisman/GMT-octal-codes>`__. Refer to
+that repository for details.
 
 Some code points are undefined and are assigned with the replacement character
 (``\ufffd``).
@@ -16,13 +16,16 @@ References
 ----------
 
 - GMT-octal-codes: https://github.com/seisman/GMT-octal-codes
-- GMT official documentation: https://docs.generic-mapping-tools.org/dev/reference/octal-codes.html
+- GMT documentation: https://docs.generic-mapping-tools.org/dev/reference/octal-codes.html
 - Adobe Postscript Language Reference: https://www.adobe.com/jp/print/postscript/pdfs/PLRM.pdf
-- ISOLatin1+: https://en.wikipedia.org/wiki/PostScript_Latin_1_Encoding
+- Adobe ISOLatin1+: https://en.wikipedia.org/wiki/PostScript_Latin_1_Encoding
 - Adobe Symbol: https://en.wikipedia.org/wiki/Symbol_(typeface)
-- Zapf Dingbats: https://en.wikipedia.org/wiki/Zapf_Dingbats
+- Adobe ZapfDingbats: https://en.wikipedia.org/wiki/Zapf_Dingbats
 - Adobe Glyph List: https://github.com/adobe-type-tools/agl-aglfn
+- ISO-8859: https://en.wikipedia.org/wiki/ISO/IEC_8859
 """
+
+import codecs
 
 # Dictionary of character mappings for different encodings.
 charset: dict = {}
@@ -129,3 +132,12 @@ charset["ZapfDingbats"] = dict(
         strict=False,
     )
 )
+
+# ISO-8859-x charsets and x can be 1-11, 13-16.
+for i in range(1, 17):
+    if i == 12:  # ISO-8859-12 was abandoned.
+        continue
+    charset[f"ISO-8859-{i}"] = {
+        code: codecs.decode(bytes([code]), f"iso8859_{i}", errors="replace")
+        for code in [*range(0o040, 0o200), *range(0o240, 0o400)]
+    }

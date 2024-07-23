@@ -142,6 +142,78 @@ def _validate_data_input(
                 raise GMTInvalidInput(msg)
 
 
+def _check_encoding(
+    argstr: str,
+) -> Literal[
+    "ascii",
+    "ISOLatin1+",
+    "ISO-8859-1",
+    "ISO-8859-2",
+    "ISO-8859-3",
+    "ISO-8859-4",
+    "ISO-8859-5",
+    "ISO-8859-6",
+    "ISO-8859-7",
+    "ISO-8859-8",
+    "ISO-8859-9",
+    "ISO-8859-10",
+    "ISO-8859-11",
+    "ISO-8859-13",
+    "ISO-8859-14",
+    "ISO-8859-15",
+    "ISO-8859-16",
+]:
+    """
+    Check the charset encoding of a string.
+
+    All characters in the string must be in the same charset encoding, otherwise the
+    default ``ISOLatin1+`` encoding is returned. Characters in the Adobe Symbol and
+    ZapfDingbats encodings are also checked because they're independent on the choice of
+    encodings.
+
+    Parameters
+    ----------
+    argstr
+        The string to be checked.
+
+    Returns
+    -------
+    encoding
+        The encoding of the string.
+
+    Examples
+    --------
+    >>> _check_encoding("123ABC+-?!")  # ASCII characters only
+    'ascii'
+    >>> _check_encoding("12AB±β①②")  # Characters in ISOLatin1+
+    'ISOLatin1+'
+    >>> _check_encoding("12ABāáâãäåβ①②")  # Characters in ISO-8859-4
+    'ISO-8859-4'
+    >>> _check_encoding("12ABŒā")  # Mix characters in ISOLatin1+ (Œ) and ISO-8859-4 (ā)
+    'ISOLatin1+'
+    >>> _check_encoding("123AB中文")  # Characters not in any charset encoding
+    'ISOLatin1+'
+    """
+    # Return "ascii" if the string only contains ASCII characters.
+    if all(32 <= ord(c) <= 126 for c in argstr):
+        return "ascii"
+    # Loop through all supported encodings and check if all characters in the string
+    # are in the charset of the encoding. If all characters are in the charset, return
+    # the encoding. The ISOLatin1+ encoding is checked first because it is the default
+    # and most common encoding.
+    adobe_chars = set(charset["Symbol"].values()) | set(
+        charset["ZapfDingbats"].values()
+    )
+    for encoding in ["ISOLatin1+"] + [f"ISO-8859-{i}" for i in range(1, 17)]:
+        if encoding == "ISO-8859-12":  # ISO-8859-12 was abandoned. Skip it.
+            continue
+        if all(c in (set(charset[encoding].values()) | adobe_chars) for c in argstr):
+            return encoding  # type: ignore[return-value]
+    # Return the "ISOLatin1+" encoding if the string contains characters from multiple
+    # charset encodings or contains characters that are not in any charset encoding.
+    return "ISOLatin1+"
+
+
 def data_kind(
     data: Any = None, required: bool = True
 ) -> Literal["arg", "file", "grid", "image", "matrix", "vectors"]:
@@ -218,17 +290,41 @@ def data_kind(
     return kind
 
 
-def non_ascii_to_octal(argstr: str) -> str:
+def non_ascii_to_octal(
+    argstr: str,
+    encoding: Literal[
+        "ascii",
+        "ISOLatin1+",
+        "ISO-8859-1",
+        "ISO-8859-2",
+        "ISO-8859-3",
+        "ISO-8859-4",
+        "ISO-8859-5",
+        "ISO-8859-6",
+        "ISO-8859-7",
+        "ISO-8859-8",
+        "ISO-8859-9",
+        "ISO-8859-10",
+        "ISO-8859-11",
+        "ISO-8859-13",
+        "ISO-8859-14",
+        "ISO-8859-15",
+        "ISO-8859-16",
+    ] = "ISOLatin1+",
+) -> str:
     r"""
     Translate non-ASCII characters to their corresponding octal codes.
 
-    Currently, only characters in the ISOLatin1+ charset and Symbol/ZapfDingbats fonts
-    are supported.
+    Currently, only non-ASCII characters in the Adobe ISOLatin1+, Adobe Symbol, Adobe
+    ZapfDingbats, and ISO-8850-x (x can be in 1-11, 13-17) encodings are supported.
+    The Adobe Standard encoding is not supported yet.
 
     Parameters
     ----------
     argstr
         The string to be translated.
+    encoding
+        The encoding of characters in the string.
 
     Returns
     -------
@@ -245,9 +341,11 @@ def non_ascii_to_octal(argstr: str) -> str:
     '@%34%\\041@%%@%34%\\176@%%@%34%\\241@%%@%34%\\376@%%'
     >>> non_ascii_to_octal("ABC ±120° DEF α ♥")
     'ABC \\261120\\260 DEF @~\\141@~ @%34%\\252@%%'
+    >>> non_ascii_to_octal("12ABāáâãäåβ①②", encoding="ISO-8859-4")
+    '12AB\\340\\341\\342\\343\\344\\345@~\\142@~@%34%\\254@%%@%34%\\255@%%'
     """  # noqa: RUF002
-    # Return the string if it only contains printable ASCII characters from 32 to 126.
-    if all(32 <= ord(c) <= 126 for c in argstr):
+    # Return the input string if it only contains ASCII characters.
+    if encoding == "ascii" or all(32 <= ord(c) <= 126 for c in argstr):
         return argstr
 
     # Dictionary mapping non-ASCII characters to octal codes
@@ -258,15 +356,15 @@ def non_ascii_to_octal(argstr: str) -> str:
     mapping.update(
         {c: f"@%34%\\{i:03o}@%%" for i, c in charset["ZapfDingbats"].items()}
     )
-    # Adobe ISOLatin1+ charset. Put at the end.
-    mapping.update({c: f"\\{i:03o}" for i, c in charset["ISOLatin1+"].items()})
+    # ISOLatin1+ or ISO-8859-x charset.
+    mapping.update({c: f"\\{i:03o}" for i, c in charset[encoding].items()})
 
     # Remove any printable characters
     mapping = {k: v for k, v in mapping.items() if k not in string.printable}
     return argstr.translate(str.maketrans(mapping))
 
 
-def build_arg_list(
+def build_arg_list(  # noqa: PLR0912
     kwdict: dict[str, Any],
     confdict: dict[str, str] | None = None,
     infile: str | pathlib.PurePath | Sequence[str | pathlib.PurePath] | None = None,
@@ -336,6 +434,10 @@ def build_arg_list(
     ...     )
     ... )
     ['f1.txt', 'f2.txt', '-A0', '-B', '--FORMAT_DATE_MAP=o dd', '->out.txt']
+    >>> build_arg_list(dict(B="12ABāβ①②"))
+    ['-B12AB\\340@~\\142@~@%34%\\254@%%@%34%\\255@%%', '--PS_CHAR_ENCODING=ISO-8859-4']
+    >>> build_arg_list(dict(B="12ABāβ①②"), confdict=dict(PS_CHAR_ENCODING="ISO-8859-5"))
+    ['-B12AB\\340@~\\142@~@%34%\\254@%%@%34%\\255@%%', '--PS_CHAR_ENCODING=ISO-8859-5']
     >>> print(build_arg_list(dict(R="1/2/3/4", J="X4i", watre=True)))
     Traceback (most recent call last):
       ...
@@ -350,10 +452,21 @@ def build_arg_list(
         elif value is True:
             gmt_args.append(f"-{key}")
         elif is_nonstr_iter(value):
-            gmt_args.extend(non_ascii_to_octal(f"-{key}{_value}") for _value in value)
+            gmt_args.extend(f"-{key}{_value}" for _value in value)
         else:
-            gmt_args.append(non_ascii_to_octal(f"-{key}{value}"))
+            gmt_args.append(f"-{key}{value}")
+
+    # Convert non-ASCII characters (if any) in the arguments to octal codes
+    encoding = _check_encoding("".join(gmt_args))
+    if encoding != "ascii":
+        gmt_args = [non_ascii_to_octal(arg, encoding=encoding) for arg in gmt_args]
     gmt_args = sorted(gmt_args)
+
+    # Set --PS_CHAR_ENCODING=encoding if necessary
+    if encoding not in {"ascii", "ISOLatin1+"} and not (
+        confdict and "PS_CHAR_ENCODING" in confdict
+    ):
+        gmt_args.append(f"--PS_CHAR_ENCODING={encoding}")
 
     if confdict:
         gmt_args.extend(f"--{key}={value}" for key, value in confdict.items())
