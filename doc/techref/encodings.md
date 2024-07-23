@@ -1,14 +1,12 @@
 # Supported Encodings and Non-ASCII Characters
 
-GMT supports a number of encodings and each encoding contains a set of ASCII and non-ASCII
-characters. Below are some of the most common encodings and characters that are supported.
+GMT supports a number of encodings and each encoding contains a set of ASCII and
+non-ASCII characters. In PyGMT, you can use any of these ASCII and non-ASCII characters
+in arguments and text strings. When using non-ASCII characters in PyGMT, the easiest way
+is to copy and paste the character from the encoding tables below.
 
-In PyGMT, you can use any of these ASCII and non-ASCII characters in arguments and text
-strings. When using non-ASCII characters in PyGMT, the easiest way is to copy and paste
-the character from the tables below.
-
-**Note**: The special character &#xfffd; (REPLACEMENT CHARACTER) is used to indicate that
-the character is not defined in the encoding.
+**Note**: The special character &#xfffd; (REPLACEMENT CHARACTER) is used to indicate
+that the character is not defined in the encoding.
 
 ## Adobe ISOLatin1+ Encoding
 
@@ -106,3 +104,27 @@ the Unicode character set.
 | **\35x** | &#x27a8; | &#x27a9; | &#x27aa; | &#x27ab; | &#x27ac; | &#x27ad; | &#x27ae; | &#x27af; |
 | **\36x** | &#xfffd; | &#x27b1; | &#x27b2; | &#x27b3; | &#x27b4; | &#x27b5; | &#x27b6; | &#x27b7; |
 | **\37x** | &#x27b8; | &#x27b9; | &#x27ba; | &#x27bb; | &#x27bc; | &#x27bd; | &#x27be; | &#xfffd; |
+
+## ISO/IEC 8859
+
+GMT also supports the ISO/IEC 8859 standard for 8-bit character encodings. Refer to
+<https://en.wikipedia.org/wiki/ISO/IEC_8859> for descriptions of the different parts of
+the standard.
+
+For a list of the characters in each part of the standard, refer to the following links:
+
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-1>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-2>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-3>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-4>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-5>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-6>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-7>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-8>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-9>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-10>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-11>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-13>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-14>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-15>
+- <https://en.wikipedia.org/wiki/ISO/IEC_8859-16>
