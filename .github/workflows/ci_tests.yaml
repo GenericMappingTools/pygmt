@@ -135,7 +135,6 @@ jobs:
             pytest-mpl
             pytest-rerunfailures
             pytest-xdist
-            libgdal-hdf5
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
