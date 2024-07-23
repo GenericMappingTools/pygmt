@@ -181,7 +181,7 @@ def _check_encoding(
         if encoding == "ISO-8859-12":  # ISO-8859-12 was abandoned. Skip it.
             continue
         if all(c in (set(charset[encoding].values()) | adobe_chars) for c in argstr):
-            return encoding
+            return encoding  # type: ignore[return-value]
     # Return the "ISOLatin1+" encoding if the string contains characters from multiple
     # charset encodings or contains characters that are not in any charset encoding.
     return "ISOLatin1+"
