@@ -198,7 +198,7 @@ def check_encoding(argstr: str) -> str:
 
     All characters in the string must be in the same charset encoding, otherwise the
     default ISOLatin1+ encoding is returned. Characters in the Symbol and ZapfDingbats
-    fonts are also checked because they're independent on the setting of the charset.
+    fonts are also checked because they're independent on the choice of encodings.
 
     Parameters
     ----------
