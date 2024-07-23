@@ -115,6 +115,78 @@ def _validate_data_input(
                 raise GMTInvalidInput("data must provide x, y, and z columns.")
 
 
+def _check_encoding(
+    argstr: str,
+) -> Literal[
+    "ascii",
+    "ISOLatin1+",
+    "ISO-8859-1",
+    "ISO-8859-2",
+    "ISO-8859-3",
+    "ISO-8859-4",
+    "ISO-8859-5",
+    "ISO-8859-6",
+    "ISO-8859-7",
+    "ISO-8859-8",
+    "ISO-8859-9",
+    "ISO-8859-10",
+    "ISO-8859-11",
+    "ISO-8859-13",
+    "ISO-8859-14",
+    "ISO-8859-15",
+    "ISO-8859-16",
+]:
+    """
+    Check the charset encoding of a string.
+
+    All characters in the string must be in the same charset encoding, otherwise the
+    default ``ISOLatin1+`` encoding is returned. Characters in the Adobe Symbol and
+    ZapfDingbats encodings are also checked because they're independent on the choice of
+    encodings.
+
+    Parameters
+    ----------
+    argstr
+        The string to be checked.
+
+    Returns
+    -------
+    encoding
+        The encoding of the string.
+
+    Examples
+    --------
+    >>> _check_encoding("123ABC+-?!")  # ASCII characters only
+    'ascii'
+    >>> _check_encoding("12AB±β①②")  # Characters in ISOLatin1+
+    'ISOLatin1+'
+    >>> _check_encoding("12ABāáâãäåβ①②")  # Characters in ISO-8859-4
+    'ISO-8859-4'
+    >>> _check_encoding("12ABŒā")  # Mix characters in ISOLatin1+ (Œ) and ISO-8859-4 (ā)
+    'ISOLatin1+'
+    >>> _check_encoding("123AB中文")  # Characters not in any charset encoding
+    'ISOLatin1+'
+    """
+    # Return "ascii" if the string only contains ASCII characters.
+    if all(32 <= ord(c) <= 126 for c in argstr):
+        return "ascii"
+    # Loop through all supported encodings and check if all characters in the string
+    # are in the charset of the encoding. If all characters are in the charset, return
+    # the encoding. The ISOLatin1+ encoding is checked first because it is the default
+    # and most common encoding.
+    adobe_chars = set(charset["Symbol"].values()) | set(
+        charset["ZapfDingbats"].values()
+    )
+    for encoding in ["ISOLatin1+"] + [f"ISO-8859-{i}" for i in range(1, 17)]:
+        if encoding == "ISO-8859-12":  # ISO-8859-12 was abandoned. Skip it.
+            continue
+        if all(c in (set(charset[encoding].values()) | adobe_chars) for c in argstr):
+            return encoding
+    # Return the "ISOLatin1+" encoding if the string contains characters from multiple
+    # charset encodings or contains characters that are not in any charset encoding.
+    return "ISOLatin1+"
+
+
 def data_kind(
     data: Any = None, required: bool = True
 ) -> Literal["arg", "file", "geojson", "grid", "image", "matrix", "vectors"]:
@@ -190,78 +262,6 @@ def data_kind(
     else:
         kind = "vectors"
     return kind
-
-
-def _check_encoding(
-    argstr: str,
-) -> Literal[
-    "ascii",
-    "ISOLatin1+",
-    "ISO-8859-1",
-    "ISO-8859-2",
-    "ISO-8859-3",
-    "ISO-8859-4",
-    "ISO-8859-5",
-    "ISO-8859-6",
-    "ISO-8859-7",
-    "ISO-8859-8",
-    "ISO-8859-9",
-    "ISO-8859-10",
-    "ISO-8859-11",
-    "ISO-8859-13",
-    "ISO-8859-14",
-    "ISO-8859-15",
-    "ISO-8859-16",
-]:
-    """
-    Check the charset encoding of a string.
-
-    All characters in the string must be in the same charset encoding, otherwise the
-    default ``ISOLatin1+`` encoding is returned. Characters in the Adobe Symbol and
-    ZapfDingbats encodings are also checked because they're independent on the choice of
-    encodings.
-
-    Parameters
-    ----------
-    argstr
-        The string to be checked.
-
-    Returns
-    -------
-    encoding
-        The encoding of the string.
-
-    Examples
-    --------
-    >>> _check_encoding("123ABC+-?!")  # ASCII characters only
-    'ascii'
-    >>> _check_encoding("12AB±β①②")  # Characters in ISOLatin1+
-    'ISOLatin1+'
-    >>> _check_encoding("12ABāáâãäåβ①②")  # Characters in ISO-8859-4
-    'ISO-8859-4'
-    >>> _check_encoding("12ABŒā")  # Mix characters in ISOLatin1+ (Œ) and ISO-8859-4 (ā)
-    'ISOLatin1+'
-    >>> _check_encoding("123AB中文")  # Characters not in any charset encoding
-    'ISOLatin1+'
-    """
-    # Return "ascii" if the string only contains ASCII characters.
-    if all(32 <= ord(c) <= 126 for c in argstr):
-        return "ascii"
-    # Loop through all supported encodings and check if all characters in the string
-    # are in the charset of the encoding. If all characters are in the charset, return
-    # the encoding. The ISOLatin1+ encoding is checked first because it is the default
-    # and most common encoding.
-    adobe_chars = set(charset["Symbol"].values()) | set(
-        charset["ZapfDingbats"].values()
-    )
-    for encoding in ["ISOLatin1+"] + [f"ISO-8859-{i}" for i in range(1, 17)]:
-        if encoding == "ISO-8859-12":  # ISO-8859-12 was abandoned. Skip it.
-            continue
-        if all(c in (set(charset[encoding].values()) | adobe_chars) for c in argstr):
-            return encoding
-    # Return the "ISOLatin1+" encoding if the string contains characters from multiple
-    # charset encodings or contains characters that are not in any charset encoding.
-    return "ISOLatin1+"
 
 
 def non_ascii_to_octal(
