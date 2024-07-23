@@ -192,13 +192,34 @@ def data_kind(
     return kind
 
 
-def check_encoding(argstr: str) -> str:
+def check_encoding(
+    argstr: str,
+) -> Literal[
+    "ascii",
+    "ISOLatin1+",
+    "ISO-8859-1",
+    "ISO-8859-2",
+    "ISO-8859-3",
+    "ISO-8859-4",
+    "ISO-8859-5",
+    "ISO-8859-6",
+    "ISO-8859-7",
+    "ISO-8859-8",
+    "ISO-8859-9",
+    "ISO-8859-10",
+    "ISO-8859-11",
+    "ISO-8859-13",
+    "ISO-8859-14",
+    "ISO-8859-15",
+    "ISO-8859-16",
+]:
     """
     Check the charset encoding of a string.
 
     All characters in the string must be in the same charset encoding, otherwise the
-    default ISOLatin1+ encoding is returned. Characters in the Symbol and ZapfDingbats
-    fonts are also checked because they're independent on the choice of encodings.
+    default ``ISOLatin1+`` encoding is returned. Characters in the Adobe Symbol and
+    ZapfDingbats encodings are also checked because they're independent on the choice of
+    encodings.
 
     Parameters
     ----------
@@ -243,12 +264,34 @@ def check_encoding(argstr: str) -> str:
     return "ISOLatin1+"
 
 
-def non_ascii_to_octal(argstr: str, encoding: str = "ISOLatin1+") -> str:
+def non_ascii_to_octal(
+    argstr: str,
+    encoding: Literal[
+        "ascii",
+        "ISOLatin1+",
+        "ISO-8859-1",
+        "ISO-8859-2",
+        "ISO-8859-3",
+        "ISO-8859-4",
+        "ISO-8859-5",
+        "ISO-8859-6",
+        "ISO-8859-7",
+        "ISO-8859-8",
+        "ISO-8859-9",
+        "ISO-8859-10",
+        "ISO-8859-11",
+        "ISO-8859-13",
+        "ISO-8859-14",
+        "ISO-8859-15",
+        "ISO-8859-16",
+    ] = "ISOLatin1+",
+) -> str:
     r"""
     Translate non-ASCII characters to their corresponding octal codes.
 
-    Currently, only characters in the ISOLatin1+ charset and Symbol/ZapfDingbats fonts
-    are supported.
+    Currently, only non-ASCII characters in the Adobe ISOLatin1+, Adobe Symbol, Adobe
+    ZapfDingbats, and ISO-8850-x (x can be in 1-11, 13-17) encodings are supported.
+    The Adobe Standard encoding is not supported yet.
 
     Parameters
     ----------
