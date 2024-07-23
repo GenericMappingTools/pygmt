@@ -6,8 +6,8 @@ import numpy as np
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
+    _check_encoding,
     build_arg_list,
-    check_encoding,
     data_kind,
     fmt_docstring,
     is_nonstr_iter,
@@ -229,7 +229,7 @@ def text_(  # noqa: PLR0912
     confdict = {}
     if kind == "vectors":
         text = np.atleast_1d(text).astype(str)
-        encoding = check_encoding("".join(text))
+        encoding = _check_encoding("".join(text))
         if encoding != "ascii":
             text = np.vectorize(non_ascii_to_octal, excluded="encoding")(
                 text, encoding=encoding

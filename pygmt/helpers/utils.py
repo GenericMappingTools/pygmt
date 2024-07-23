@@ -192,7 +192,7 @@ def data_kind(
     return kind
 
 
-def check_encoding(
+def _check_encoding(
     argstr: str,
 ) -> Literal[
     "ascii",
@@ -233,15 +233,15 @@ def check_encoding(
 
     Examples
     --------
-    >>> check_encoding("123ABC+-?!")  # ASCII characters only
+    >>> _check_encoding("123ABC+-?!")  # ASCII characters only
     'ascii'
-    >>> check_encoding("12AB±β①②")  # Characters in ISOLatin1+
+    >>> _check_encoding("12AB±β①②")  # Characters in ISOLatin1+
     'ISOLatin1+'
-    >>> check_encoding("12ABāáâãäåβ①②")  # Characters in ISO-8859-4
+    >>> _check_encoding("12ABāáâãäåβ①②")  # Characters in ISO-8859-4
     'ISO-8859-4'
-    >>> check_encoding("12ABŒā")  # Mix characters in ISOLatin1+ (Œ) and ISO-8859-4 (ā)
+    >>> _check_encoding("12ABŒā")  # Mix characters in ISOLatin1+ (Œ) and ISO-8859-4 (ā)
     'ISOLatin1+'
-    >>> check_encoding("123AB中文")  # Characters not in any charset encoding
+    >>> _check_encoding("123AB中文")  # Characters not in any charset encoding
     'ISOLatin1+'
     """
     # Return "ascii" if the string only contains ASCII characters.
@@ -431,7 +431,7 @@ def build_arg_list(  # noqa: PLR0912
             gmt_args.append(f"-{key}{value}")
 
     # Convert non-ASCII characters (if any) in the arguments to octal codes
-    encoding = check_encoding("".join(gmt_args))
+    encoding = _check_encoding("".join(gmt_args))
     if encoding != "ascii":
         gmt_args = [non_ascii_to_octal(arg, encoding=encoding) for arg in gmt_args]
     gmt_args = sorted(gmt_args)
