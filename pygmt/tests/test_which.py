@@ -3,11 +3,12 @@ Test pygmt.which.
 """
 
 import os
+import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
 import pytest
-from pygmt import which, config
+from pygmt import which
 from pygmt.helpers import unique_name
 from pygmt.session_management import begin, end
 
@@ -45,27 +46,29 @@ def test_which_fails():
         which(fname=[f"{bogus_file}.nc", f"{bogus_file}.txt"])
 
 
+@pytest.mark.xfail(
+    condition=sys.platform == "win32",
+    reason="The Windows mkdir() function doesn't support non-ASCII characters",
+)
 def test_which_nonascii_path(monkeypatch):
     """
     Make sure PyGMT works with paths that contain non-ascii characters (e.g., Chinese).
     """
-    config(GMT_VERBOSE="d")
     # Create a temporary directory with a Chinese suffix as a fake home directory.
     with TemporaryDirectory(suffix="中文") as fakehome:
-        (Path(fakehome) / ".gmt").mkdir()  # Create the ~/.gmt directory.
         assert fakehome.endswith("中文")  # Make sure fakename contains Chinese.
+        (Path(fakehome) / ".gmt").mkdir()  # Create the ~/.gmt directory.
         with monkeypatch.context() as mpatch:
             # Set HOME to the fake home directory and GMT will use it.
             mpatch.setenv("HOME", fakehome)
             # Check if HOME is set correctly
             assert os.getenv("HOME") == fakehome
             assert os.environ["HOME"] == fakehome
-            # assert str(Path.home().resolve()) == fakehome
+
+            # Start a new session
             begin()
             # GMT should download the remote file under the new home directory.
             fname = which(fname="@static_earth_relief.nc", download="c", verbose="d")
-            print(os.environ["HOME"])
-            print(fname)
             assert fname.startswith(fakehome)
             assert fname.endswith("static_earth_relief.nc")
             end()
@@ -73,4 +76,3 @@ def test_which_nonascii_path(monkeypatch):
     # Make sure HOME is reverted correctly.
     assert os.getenv("HOME") != fakehome
     assert os.environ["HOME"] != fakehome
-    # assert str(Path.home().resolve()) != fakehome
