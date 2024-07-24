@@ -124,6 +124,8 @@ def dataarray_to_matrix(grid):
         grid = grid.sortby(variables=list(grid.dims), ascending=True)
 
     matrix = as_c_contiguous(grid[::-1].to_numpy())
+    region = [float(i) for i in region]
+    inc = [float(i) for i in inc]
     return matrix, region, inc
 
 
@@ -245,7 +247,9 @@ def as_c_contiguous(array):
     return array
 
 
-def sequence_to_ctypes_array(sequence: Sequence, ctype, size: int) -> ctp.Array | None:
+def sequence_to_ctypes_array(
+    sequence: Sequence | None, ctype, size: int
+) -> ctp.Array | None:
     """
     Convert a sequence of numbers into a ctypes array variable.
 

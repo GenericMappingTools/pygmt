@@ -95,7 +95,7 @@ def convention_code(convention, component="full"):
                 f"Invalid component '{component}' for convention '{convention}'."
             )
         return codes2[convention][component]
-    if convention in ["a", "c", "m", "d", "z", "p", "x", "y", "t"]:
+    if convention in {"a", "c", "m", "d", "z", "p", "x", "y", "t"}:
         return convention
     raise GMTInvalidInput(f"Invalid convention '{convention}'.")
 

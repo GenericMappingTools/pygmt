@@ -70,12 +70,12 @@ jobs:
         # Only install optional packages on Python 3.12
         include:
           - python-version: '3.10'
-            numpy-version: '1.23'
+            numpy-version: '1.24'
             pandas-version: '=1.5'
             xarray-version: '=2022.06'
             optional-packages: ''
           - python-version: '3.12'
-            numpy-version: '1.26'
+            numpy-version: '2.0'
             pandas-version: ''
             xarray-version: ''
             optional-packages: ' contextily geopandas ipython pyarrow rioxarray sphinx-gallery'
@@ -94,7 +94,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.6
+        uses: actions/checkout@v4.1.7
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -169,7 +169,7 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4.4.1
+        uses: codecov/codecov-action@v4.5.0
         if: success() || failure()
         with:
           use_oidc: true

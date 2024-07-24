@@ -8,6 +8,7 @@ The grids are available in various resolutions.
 from collections.abc import Sequence
 from typing import Literal
 
+import xarray as xr
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.exceptions import GMTInvalidInput
 
@@ -36,7 +37,7 @@ def load_earth_relief(
     registration: Literal["gridline", "pixel", None] = None,
     data_source: Literal["igpp", "gebco", "gebcosi", "synbath"] = "igpp",
     use_srtm: bool = False,
-):
+) -> xr.DataArray:
     r"""
     Load the Earth relief datasets (topography and bathymetry) in various resolutions.
 
@@ -106,7 +107,7 @@ def load_earth_relief(
 
     Returns
     -------
-    grid : :class:`xarray.DataArray`
+    grid
         The Earth relief grid. Coordinates are latitude and longitude in
         degrees. Relief is in meters.
 

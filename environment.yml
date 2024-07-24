@@ -7,7 +7,7 @@ dependencies:
     # Required dependencies
     - gmt=6.5.0
     - ghostscript=10.03.1
-    - numpy>=1.23
+    - numpy>=1.24
     - pandas>=1.5
     - xarray>=2022.06
     - netCDF4
@@ -25,6 +25,7 @@ dependencies:
     - pip
     # Dev dependencies (style checks)
     - codespell
+    - pre-commit
     - ruff>=0.3.0
     # Dev dependencies (unit testing)
     - matplotlib-base
@@ -39,7 +40,7 @@ dependencies:
     - sphinx-autodoc-typehints
     - sphinx-copybutton
     - sphinx-design
-    - sphinx-gallery
+    - sphinx-gallery<0.17.0
     - sphinx_rtd_theme
     # Dev dependencies (type hints)
     - mypy

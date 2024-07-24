@@ -148,7 +148,7 @@ def tempfile_from_geojson(geojson):
                 geojson = geojson.reset_index(drop=False)
                 schema = gpd.io.file.infer_schema(geojson)
                 for col, dtype in schema["properties"].items():
-                    if dtype in ("int", "int64"):
+                    if dtype in {"int", "int64"}:
                         overflow = geojson[col].abs().max() > 2**31 - 1
                         schema["properties"][col] = "float" if overflow else "int32"
                 ogrgmt_kwargs["schema"] = schema
@@ -156,7 +156,7 @@ def tempfile_from_geojson(geojson):
                 # The default engine "pyogrio" doesn't support the 'schema' parameter
                 # but we can change the dtype directly.
                 for col in geojson.columns:
-                    if geojson[col].dtype in ("int", "int64", "Int64"):
+                    if geojson[col].dtype.name in {"int", "int64", "Int64"}:
                         overflow = geojson[col].abs().max() > 2**31 - 1
                         dtype = "float" if overflow else "int32"
                         geojson[col] = geojson[col].astype(dtype)

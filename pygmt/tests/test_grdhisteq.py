@@ -125,10 +125,9 @@ def test_compute_bins_outfile(grid, expected_df, region):
             header=None,
             names=["start", "stop", "bin_id"],
             dtype={"start": np.float32, "stop": np.float32, "bin_id": np.uint32},
-            index_col="bin_id",
         )
         pd.testing.assert_frame_equal(
-            left=temp_df, right=expected_df.set_index("bin_id")
+            left=temp_df.set_index("bin_id"), right=expected_df.set_index("bin_id")
         )
 
 
