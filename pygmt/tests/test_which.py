@@ -46,9 +46,9 @@ def test_which_fails():
         which(fname=[f"{bogus_file}.nc", f"{bogus_file}.txt"])
 
 
-@pytest.mark.xfail(
-    condition=sys.platform == "win32",
-    reason="The Windows mkdir() function doesn't support non-ASCII characters",
+@pytest.mark.skipif(
+    sys.platform == "win32",
+    reason="The Windows mkdir() function doesn't support multi-byte characters",
 )
 def test_which_nonascii_path(monkeypatch):
     """
