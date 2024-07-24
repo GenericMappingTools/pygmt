@@ -190,7 +190,9 @@ def _check_encoding(
 
 def data_kind(
     data: Any = None, required: bool = True
-) -> Literal["arg", "file", "geojson", "grid", "image", "matrix", "vectors"]:
+) -> Literal[
+    "arg", "file", "geojson", "grid", "image", "matrix", "stringio", "vectors"
+]:
     r"""
     Check the kind of data that is provided to a module.
 
@@ -203,11 +205,10 @@ def data_kind(
     - None, bool, int or float type representing an optional arguments
     - a geo-like Python object that implements ``__geo_interface__`` (e.g.,
       geopandas.GeoDataFrame or shapely.geometry)
-    * a :class:`io.StringIO` object
 
     Parameters
     ----------
-    data : str, io.StringIO, pathlib.PurePath, None, bool, xarray.DataArray or {table-like}
+    data : str, pathlib.PurePath, None, bool, xarray.DataArray or {table-like}
         Pass in either a file name or :class:`pathlib.Path` to an ASCII data
         table, an :class:`xarray.DataArray`, a 1-D/2-D
         {table-classes} or an option argument.

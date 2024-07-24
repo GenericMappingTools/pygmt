@@ -1725,7 +1725,7 @@ class Session:
         check_kind : str or None
             Used to validate the type of data that can be passed in. Choose
             from 'raster', 'vector', or None. Default is None (no validation).
-        data : str or pathlib.Path io.StringIO or xarray.DataArray or {table-like} or None
+        data : str or pathlib.Path or xarray.DataArray or {table-like} or None
             Any raster or vector data format. This could be a file name or
             path, a raster grid, a vector matrix/arrays, or other supported
             data input.
