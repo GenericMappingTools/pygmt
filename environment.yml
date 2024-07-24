@@ -24,7 +24,6 @@ dependencies:
     - make
     - pip
     # Dev dependencies (style checks)
-    - codespell
     - pre-commit
     - ruff>=0.3.0
     # Dev dependencies (unit testing)
