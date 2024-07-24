@@ -15,6 +15,8 @@ from pygmt.helpers.tempfile import (
     unique_name,
 )
 from pygmt.helpers.utils import (
+    _check_encoding,
+    _validate_data_input,
     args_in_kwargs,
     build_arg_list,
     build_arg_string,

@@ -6,6 +6,7 @@ import numpy as np
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
+    _check_encoding,
     build_arg_list,
     data_kind,
     fmt_docstring,
@@ -59,13 +60,12 @@ def text_(  # noqa: PLR0912
     - ``x``/``y``, and ``text``
     - ``position`` and ``text``
 
-    The text strings passed via the ``text`` parameter can contain ASCII
-    characters and non-ASCII characters defined in the ISOLatin1+ encoding
-    (i.e., IEC_8859-1), and the Symbol and ZapfDingbats character sets.
-    See :gmt-docs:`reference/octal-codes.html` for the full list of supported
-    non-ASCII characters.
+    The text strings passed via the ``text`` parameter can contain ASCII characters and
+    non-ASCII characters defined in the Adobe ISOLatin1+, Adobe Symbol, Adobe
+    ZapfDingbats and ISO-8859-x (x can be 1-11, 13-16) encodings. Refer to
+    :doc:`techref/encodings` for the full list of supported non-ASCII characters.
 
-    Full option list at :gmt-docs:`text.html`
+    Full option list at :gmt-docs:`text.html`.
 
     {aliases}
 
@@ -180,11 +180,11 @@ def text_(  # noqa: PLR0912
 
     # Ensure inputs are either textfiles, x/y/text, or position/text
     if position is None:
-        if (x is not None or y is not None) and textfiles is not None:
+        if any(v is not None for v in (x, y, text)) and textfiles is not None:
             raise GMTInvalidInput(
                 "Provide either position only, or x/y pairs, or textfiles."
             )
-        kind = data_kind(textfiles, x, y, text)
+        kind = data_kind(textfiles)
         if kind == "vectors" and text is None:
             raise GMTInvalidInput("Must provide text with x/y pairs")
     else:
@@ -226,13 +226,24 @@ def text_(  # noqa: PLR0912
         kwargs["t"] = ""
 
     # Append text at last column. Text must be passed in as str type.
+    confdict = {}
     if kind == "vectors":
-        extra_arrays.append(
-            np.vectorize(non_ascii_to_octal)(np.atleast_1d(text).astype(str))
-        )
+        text = np.atleast_1d(text).astype(str)
+        encoding = _check_encoding("".join(text))
+        if encoding != "ascii":
+            text = np.vectorize(non_ascii_to_octal, excluded="encoding")(
+                text, encoding=encoding
+            )
+        extra_arrays.append(text)
+
+        if encoding not in {"ascii", "ISOLatin1+"}:
+            confdict = {"PS_CHAR_ENCODING": encoding}
 
     with Session() as lib:
         with lib.virtualfile_in(
             check_kind="vector", data=textfiles, x=x, y=y, extra_arrays=extra_arrays
         ) as vintbl:
-            lib.call_module(module="text", args=build_arg_list(kwargs, infile=vintbl))
+            lib.call_module(
+                module="text",
+                args=build_arg_list(kwargs, infile=vintbl, confdict=confdict),
+            )
