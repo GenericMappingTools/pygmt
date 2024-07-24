@@ -7,7 +7,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 
 import pytest
-from pygmt import which
+from pygmt import which, config
 from pygmt.helpers import unique_name
 from pygmt.session_management import begin, end
 
@@ -49,6 +49,7 @@ def test_which_nonascii_path(monkeypatch):
     """
     Make sure PyGMT works with paths that contain non-ascii characters (e.g., Chinese).
     """
+    config(GMT_VERBOSE="d")
     # Create a temporary directory with a Chinese suffix as a fake home directory.
     with TemporaryDirectory(suffix="中文") as fakehome:
         (Path(fakehome) / ".gmt").mkdir()  # Create the ~/.gmt directory.
