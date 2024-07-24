@@ -65,7 +65,12 @@ local_scheme = "node-and-date"
 fallback_version = "999.999.999+unknown"
 
 [tool.codespell]
-ignore-words-list = "astroid,oints,reenable,tripel,trough"
+ignore-words-list = [
+    "astroid",
+    "oints",
+    "tripel",
+    "trough",
+]
 
 [tool.coverage.run]
 omit = ["*/tests/*", "*pygmt/__init__.py"]
