@@ -110,10 +110,9 @@ def grdview(self, grid, **kwargs):
         centered bin into a polygon which is then painted separately. Append **+s**
         to skip nodes with z = NaN. This option is suitable for categorical data
         where interpolating between values is meaningless and a categorical CPT
-        has been provided via ``cmap``. Optionally, append **+o** to draw the tile
-        outlines, and specify a custom pen if the default pen is not to your liking.
-        As this option produces a flat surface it cannot be combined with ``zscale``
-        or ``zsize``.
+        has been provided via ``cmap``. Append **+o** to draw the tile outlines,
+        and specify a custom pen. As this option produces a flat surface it cannot
+        be combined with ``zscale`` or ``zsize``.
     {verbose}
     {panel}
     {coltypes}
