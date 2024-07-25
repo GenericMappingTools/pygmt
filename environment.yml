@@ -40,7 +40,7 @@ dependencies:
     - sphinx-autodoc-typehints
     - sphinx-copybutton
     - sphinx-design
-    - sphinx-gallery<0.17.0
+    - sphinx-gallery
     - sphinx_rtd_theme
     # Dev dependencies (type hints)
     - mypy
