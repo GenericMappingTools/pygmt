@@ -27,6 +27,7 @@ __doctest_skip__ = ["grdimage"]
     N="no_clip",
     Q="nan_transparent",
     R="region",
+    T="no_interpolation",
     V="verbose",
     n="interpolation",
     c="panel",
@@ -132,6 +133,16 @@ def grdimage(self, grid, **kwargs):
         3). If the input is a grid, use **+z** to select another grid value
         than NaN. If input is instead an image, append an alternate *color* to
         select another pixel value to be transparent [Default is ``"black"``].
+    no_interpolation : bool or str
+        [**+o**\ [*pen*\ ]][**+s**].
+        Plot without any interpolation. This involves converting each node-
+        centered bin into a polygon which is then painted separately. Append **+s**
+        to skip nodes with z = NaN. This option is suitable for categorical data
+        where interpolating between values is meaningless and a categorical CPT
+        has been provided via ``cmap``. Optionally, append **+o** to draw the tile
+        outlines, and specify a custom pen if the default pen is not to your liking.
+        As this option produces a flat surface it cannot be combined with ``zscale``
+        or ``zsize``.
     {region}
     {verbose}
     {panel}
