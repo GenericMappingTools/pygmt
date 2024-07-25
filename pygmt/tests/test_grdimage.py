@@ -5,7 +5,9 @@ Test Figure.grdimage.
 import numpy as np
 import pytest
 import xarray as xr
+from packaging.version import Version
 from pygmt import Figure
+from pygmt.clib import __gmt_version__
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.testing import check_figures_equal
@@ -171,6 +173,27 @@ def test_grdimage_over_dateline(xrgrid):
     assert xrgrid.gmt.registration == 0  # gridline registration
     xrgrid.gmt.gtype = 1  # geographic coordinate system
     fig.grdimage(grid=xrgrid, region="g", projection="A0/0/1c")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+@pytest.mark.xfail(
+    condition=Version(__gmt_version__) <= Version("6.5.0"),
+    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8554",
+)
+def test_grdimage_over_dateline_hammer(xrgrid):
+    """
+    Ensure that xr.DataArray is plotted correctly in Hammer projection.
+
+    Similar to the test_grdimage_over_dateline() test but uses the Hammer projection
+    that plots the whole earth.
+
+    Test for https://github.com/GenericMappingTools/pygmt/issues/3331.
+    """
+    fig = Figure()
+    assert xrgrid.gmt.registration == 0  # gridline registration
+    xrgrid.gmt.gtype = 1  # geographic coordinate system
+    fig.grdimage(grid=xrgrid, region="g", projection="H0/10c")
     return fig
 
 
