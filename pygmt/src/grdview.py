@@ -23,6 +23,7 @@ __doctest_skip__ = ["grdview"]
     Wm="meshpen",
     Wf="facadepen",
     I="shading",
+    T="no_interpolation",
     V="verbose",
     c="panel",
     f="coltypes",
@@ -103,6 +104,16 @@ def grdview(self, grid, **kwargs):
         specify azimuth, intensity, and ambient arguments for that function,
         or just give **+d** to select the default arguments
         [Default is **+a**\ -45\ **+nt**\ 1\ **+m**\ 0].
+    no_interpolation : bool or str
+        [**+o**\ [*pen*\ ]][**+s**].
+        Plot without any interpolation. This involves converting each node-
+        centered bin into a polygon which is then painted separately. Append **+s**
+        to skip nodes with z = NaN. This option is suitable for categorical data
+        where interpolating between values is meaningless and a categorical CPT
+        has been provided via ``cmap``. Optionally, append **+o** to draw the tile
+        outlines, and specify a custom pen if the default pen is not to your liking.
+        As this option produces a flat surface it cannot be combined with ``zscale``
+        or ``zsize``.
     {verbose}
     {panel}
     {coltypes}
