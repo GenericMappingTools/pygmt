@@ -1,7 +1,7 @@
 Projections
 ===========
 
-PyGMT supports many map projections (:doc:`/techref/projection_table`).
+PyGMT supports many map projections; see :doc:`/techref/projections` for an overview.
 Use the ``projection`` parameter to specify which
 one you want to use in all plotting methods. The projection is specified by a one-letter
 code along with (sometimes optional) reference longitude and latitude and the
