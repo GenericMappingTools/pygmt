@@ -43,8 +43,8 @@ fig.plot(x=x, y=y1, pen="1p,green3", label="sin(x)+1.1")
 fig.plot(x=x, y=y2, style="c0.07c", fill="dodgerblue", label="cos(x)+1.1")
 
 # Add a legend to the plot; place it within the plot bounding box with both
-# reference ("J") and anchor ("+j") points being TopRight and with an offset
-# of 0.2 centimeters in x and y directions; surround the legend with a box
+# reference ("J") and anchor ("+j") points being the Top Right (TR) corner and an
+# offset of 0.2 centimeters in x and y directions; surround the legend with a box
 fig.legend(position="JTR+jTR+o0.2c", box=True)
 
 # -----------------------------------------------------------------------------
@@ -55,8 +55,8 @@ fig.plot(x=x, y=y3, pen="1p,darkred,-", label="sin(x/2)-1.1+N2")
 
 fig.plot(x=x, y=y4, style="s0.07c", fill="orange", label="cos(x/2)-1.1")
 
-# For a multi-column legend, users have to provide the width via "+w", here it
-# is set to 6 centimeters; reference and anchor points are set to BottomRight
+# For a multi-column legend, users have to provide the width via "+w", here it is
+# set to 6 centimeters; reference and anchor points are the Bottom Right (BR) corner
 fig.legend(position="JBR+jBR+o0.2c+w6c", box=True)
 
 fig.show()

@@ -1,5 +1,5 @@
-Projection Table
-----------------
+GMT Map Projections
+-------------------
 
 The table below shows the projection codes for the 31 GMT projections:
 
