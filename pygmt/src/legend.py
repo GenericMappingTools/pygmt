@@ -55,7 +55,8 @@ def legend(
         The legend specification. It can be:
 
         - ``None`` for using the automatically generated legend specification file.
-        - A *filename* pointing to the legend specification file.
+        - A string or a :class:`pathlib.PurePath` object pointing to the legend
+          specification file.
         - A :class:`io.StringIO` object containing the legend specification.
 
         See :gmt-docs:`legend.html` for the definition of the legend specification.
@@ -88,14 +89,12 @@ def legend(
         if kwargs.get("F") is None:
             kwargs["F"] = box
 
-    if spec is None:
-        specfile = ""
-    else:
-        kind = data_kind(spec)
-        if (kind == "file" and not is_nonstr_iter(spec)) or kind == "stringio":
-            # Is a file but not a list of files or a SrtringIO object
+    match data_kind(spec):
+        case "vectors":  # spec is None
+            specfile = ""
+        case kind if kind == "file" and not is_nonstr_iter(spec):
             specfile = spec
-        else:
+        case _:
             raise GMTInvalidInput(f"Unrecognized data type: {type(spec)}")
 
     with Session() as lib:
