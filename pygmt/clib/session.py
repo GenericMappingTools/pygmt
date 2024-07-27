@@ -26,7 +26,7 @@ from pygmt.clib.conversion import (
     vectors_to_arrays,
 )
 from pygmt.clib.loading import load_libgmt
-from pygmt.datatypes import _GMT_CUBE, _GMT_DATASET, _GMT_GRID
+from pygmt.datatypes import _GMT_CUBE, _GMT_DATASET, _GMT_GRID, _GMT_IMAGE
 from pygmt.exceptions import (
     GMTCLibError,
     GMTCLibNoSessionError,
@@ -34,6 +34,7 @@ from pygmt.exceptions import (
     GMTVersionError,
 )
 from pygmt.helpers import (
+    _validate_data_input,
     data_kind,
     tempfile_from_geojson,
     tempfile_from_image,
@@ -1070,7 +1071,7 @@ class Session:
     def read_data(
         self,
         infile: str,
-        kind: Literal["dataset", "grid", "cube"],
+        kind: Literal["dataset", "grid", "cube", "image"],
         family: str | None = None,
         geometry: str | None = None,
         mode: str = "GMT_READ_NORMAL",
@@ -1088,8 +1089,8 @@ class Session:
         infile
             The input file name.
         kind
-            The data kind of the input file. Valid values are ``"dataset"``, ``"grid"``
-            and ``"cube"``.
+            The data kind of the input file. Valid values are ``"dataset"``, ``"grid"``,
+            ``"image"`` and ``"cube"``,
         family
             A valid GMT data family name (e.g., ``"GMT_IS_DATASET"``). See the
             ``FAMILIES`` attribute for valid names. If ``None``, will determine the data
@@ -1141,6 +1142,7 @@ class Session:
             "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP", _GMT_DATASET),
             "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE", _GMT_GRID),
             "cube": ("GMT_IS_CUBE", "GMT_IS_VOLUME", _GMT_CUBE),
+            "image": ("GMT_IS_IMAGE", "GMT_IS_SURFACE", _GMT_IMAGE),
         }[kind]
         if family is None:
             family = _family
@@ -1685,8 +1687,15 @@ class Session:
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
-        kind = data_kind(
-            data, x, y, z, required_z=required_z, required_data=required_data
+        kind = data_kind(data, required=required_data)
+        _validate_data_input(
+            data=data,
+            x=x,
+            y=y,
+            z=z,
+            required_z=required_z,
+            required_data=required_data,
+            kind=kind,
         )
 
         if check_kind:
@@ -1791,7 +1800,7 @@ class Session:
     @contextlib.contextmanager
     def virtualfile_out(
         self,
-        kind: Literal["dataset", "grid", "cube"] = "dataset",
+        kind: Literal["dataset", "grid", "cube", "image"] = "dataset",
         fname: str | None = None,
     ) -> Generator[str, None, None]:
         r"""
@@ -1806,7 +1815,7 @@ class Session:
         ----------
         kind
             The data kind of the virtual file to create. Valid values are ``"dataset"``,
-            ``"grid"`` and ``"cube"``. Ignored if ``fname`` is specified.
+            ``"grid"``, ``"image"`` and ``"cube"``. Ignored if ``fname`` is specified.
         fname
             The name of the actual file to write the output data. No virtual file will
             be created.
@@ -1850,8 +1859,10 @@ class Session:
                 "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP"),
                 "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE"),
                 "cube": ("GMT_IS_CUBE", "GMT_IS_VOLUME"),
+                "image": ("GMT_IS_IMAGE", "GMT_IS_SURFACE"),
             }[kind]
-            with self.open_virtualfile(family, geometry, "GMT_OUT", None) as vfile:
+            direction = "GMT_OUT|GMT_IS_REFERENCE" if kind == "image" else "GMT_OUT"
+            with self.open_virtualfile(family, geometry, direction, None) as vfile:
                 yield vfile
 
     def inquire_virtualfile(self, vfname: str) -> int:
@@ -1895,8 +1906,8 @@ class Session:
             Name of the virtual file to read.
         kind
             Cast the data into a GMT data container. Valid values are ``"dataset"``,
-            ``"grid"``, ``"cube"`` and ``None``. If ``None``, will return a ctypes void
-            pointer.
+            ``"grid"``, ``"image"``, ``"cube"`` and ``None``. If ``None``, will return
+            a ctypes void pointer.
 
         Returns
         -------
@@ -1946,9 +1957,12 @@ class Session:
         # _GMT_DATASET).
         if kind is None:  # Return the ctypes void pointer
             return pointer
-        if kind == "image":
-            raise NotImplementedError(f"kind={kind} is not supported yet.")
-        dtype = {"dataset": _GMT_DATASET, "grid": _GMT_GRID, "cube": _GMT_CUBE}[kind]
+        dtype = {
+            "dataset": _GMT_DATASET,
+            "grid": _GMT_GRID,
+            "cube": _GMT_CUBE,
+            "image": _GMT_IMAGE,
+        }[kind]
         return ctp.cast(pointer, ctp.POINTER(dtype))
 
     def virtualfile_to_dataset(

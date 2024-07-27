@@ -56,7 +56,7 @@ def grd2cpt(grid, **kwargs):
     *z*-value, the foreground color (F) assigned to values higher than the
     highest *z*-value, and the NaN color (N) painted wherever values are
     undefined. For color tables beyond the standard GMT offerings, visit
-    `cpt-city <http://soliton.vm.bytemark.co.uk/pub/cpt-city/>`_ and
+    `cpt-city <http://www.seaviewsensing.com/pub/cpt-city/>`_ and
     `Scientific Colour-Maps <http://www.fabiocrameri.ch/colourmaps.php>`_.
 
     If the master CPT includes B, F, and N entries, these will be copied into
