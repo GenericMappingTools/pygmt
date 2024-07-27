@@ -1090,7 +1090,7 @@ class Session:
             The input file name.
         kind
             The data kind of the input file. Valid values are ``"dataset"``, ``"grid"``,
-            ``"image"`` and ``"cube"``,
+            ``"image"`` and ``"cube"``.
         family
             A valid GMT data family name (e.g., ``"GMT_IS_DATASET"``). See the
             ``FAMILIES`` attribute for valid names. If ``None``, will determine the data
@@ -1895,7 +1895,9 @@ class Session:
         return c_inquire_virtualfile(self.session_pointer, vfname.encode())
 
     def read_virtualfile(
-        self, vfname: str, kind: Literal["dataset", "grid", "cube", None] = None
+        self,
+        vfname: str,
+        kind: Literal["dataset", "grid", "image", "cube", None] = None,
     ):
         """
         Read data from a virtual file and optionally cast into a GMT data container.
