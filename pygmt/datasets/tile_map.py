@@ -3,6 +3,8 @@ Function to load raster tile maps from XYZ tile providers, and load as
 :class:`xarray.DataArray`.
 """
 
+import contextlib
+from collections.abc import Sequence
 from typing import Literal
 
 from packaging.version import Version
@@ -16,6 +18,10 @@ except ImportError:
     TileProvider = None
     _HAS_CONTEXTILY = False
 
+with contextlib.suppress(ImportError):
+    # rioxarray is needed to register the rio accessor
+    import rioxarray  # noqa: F401
+
 import numpy as np
 import xarray as xr
 
@@ -23,7 +29,7 @@ __doctest_requires__ = {("load_tile_map"): ["contextily"]}
 
 
 def load_tile_map(
-    region: list,
+    region: Sequence[float],
     zoom: int | Literal["auto"] = "auto",
     source: TileProvider | str | None = None,
     lonlat: bool = True,
@@ -113,16 +119,20 @@ def load_tile_map(
     Frozen({'band': 3, 'y': 256, 'x': 512})
     >>> raster.coords  # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
     Coordinates:
-      * band    (band) uint8 ... 0 1 2
-      * y       (y) float64 ... -7.081e-10 -7.858e+04 ... -1.996e+07 ...
-      * x       (x) float64 ... -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07
+      * band         (band) uint8 ... 1 2 3
+      * y            (y) float64 ... -7.081e-10 -7.858e+04 ... -1.996e+07 -2.004e+07
+      * x            (x) float64 ... -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07
+        spatial_ref  int... 0
+    >>> # CRS is set only if rioxarray is available
+    >>> if hasattr(raster, "rio"):
+    ...     raster.rio.crs
+    CRS.from_epsg(3857)
     """
     if not _HAS_CONTEXTILY:
         raise ImportError(
             "Package `contextily` is required to be installed to use this function. "
             "Please use `python -m pip install contextily` or "
-            "`mamba install -c conda-forge contextily` "
-            "to install the package."
+            "`mamba install -c conda-forge contextily` to install the package."
         )
 
     contextily_kwargs = {}
@@ -157,7 +167,7 @@ def load_tile_map(
     dataarray = xr.DataArray(
         data=rgb_image,
         coords={
-            "band": np.array(object=[0, 1, 2], dtype=np.uint8),  # Red, Green, Blue
+            "band": np.array(object=[1, 2, 3], dtype=np.uint8),  # Red, Green, Blue
             "y": np.linspace(start=top, stop=bottom, num=rgb_image.shape[1]),
             "x": np.linspace(start=left, stop=right, num=rgb_image.shape[2]),
         },
@@ -166,6 +176,6 @@ def load_tile_map(
 
     # If rioxarray is installed, set the coordinate reference system
     if hasattr(dataarray, "rio"):
-        dataarray = dataarray.rio.set_crs(input_crs="EPSG:3857")
+        dataarray = dataarray.rio.write_crs(input_crs="EPSG:3857")
 
     return dataarray

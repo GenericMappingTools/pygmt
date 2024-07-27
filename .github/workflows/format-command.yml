@@ -11,21 +11,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Generate token from GenericMappingTools bot
-      - uses: actions/create-github-app-token@v1.10.1
+      - uses: actions/create-github-app-token@v1.10.3
         id: generate-token
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
       # Checkout the pull request branch
-      - uses: actions/checkout@v4.1.6
+      - uses: actions/checkout@v4.1.7
         with:
           token: ${{ steps.generate-token.outputs.token }}
           repository: ${{ github.event.client_payload.pull_request.head.repo.full_name }}
           ref: ${{ github.event.client_payload.pull_request.head.ref }}
 
       # Setup Python environment
-      - uses: actions/setup-python@v5.1.0
+      - uses: actions/setup-python@v5.1.1
         with:
           python-version: '3.12'
 

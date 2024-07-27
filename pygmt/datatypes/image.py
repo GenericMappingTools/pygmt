@@ -16,20 +16,29 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
 
     Examples
     --------
-    >>> from pygmt.clib import Session
     >>> import numpy as np
-    >>> import xarray as xr
-
+    >>> from pygmt.clib import Session
     >>> with Session() as lib:
     ...     with lib.virtualfile_out(kind="image") as voutimg:
-    ...         lib.call_module("read", f"@earth_day_01d {voutimg} -Ti")
+    ...         lib.call_module("read", ["@earth_day_01d", voutimg, "-Ti"])
     ...         # Read the image from the virtual file
     ...         image = lib.read_virtualfile(vfname=voutimg, kind="image").contents
     ...         # The image header
     ...         header = image.header.contents
     ...         # Access the header properties
-    ...         print(image.type, header.n_bands, header.n_rows, header.n_columns)
+    ...         print(header.n_rows, header.n_columns, header.registration)
+    ...         print(header.wesn[:], header.inc[:])
+    ...         print(header.z_scale_factor, header.z_add_offset)
+    ...         print(header.x_units, header.y_units, header.z_units)
+    ...         print(header.title)
+    ...         print(header.command)
+    ...         print(header.remark)
+    ...         print(header.nm, header.size, header.complex_mode)
+    ...         print(header.type, header.n_bands, header.mx, header.my)
     ...         print(header.pad[:])
+    ...         print(header.mem_layout, header.nan_value, header.xy_off)
+    ...         # Image-specific attributes.
+    ...         print(image.type, image.n_indexed_colors)
     ...         # The x and y coordinates
     ...         x = image.x[: header.n_columns]
     ...         y = image.y[: header.n_rows]
@@ -41,10 +50,26 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
     ...         # The data array (without paddings)
     ...         pad = header.pad[:]
     ...         data = data[pad[2] : header.my - pad[3], pad[0] : header.mx - pad[1], :]
-    ...         print(data.shape)
-    1 3 180 360
+    180 360 1
+    [-180.0, 180.0, -90.0, 90.0] [1.0, 1.0]
+    1.0 0.0
+    b'x' b'y' b'z'
+    b''
+    b''
+    b''
+    64800 66976 0
+    0 3 364 184
     [2, 2, 2, 2]
+    b'BRPa' 0.0 0.5
+    1 0
+    >>> x
+    [-179.5, -178.5, ..., 178.5, 179.5]
+    >>> y
+    [89.5, 88.5, ..., -88.5, -89.5]
+    >>> data.shape
     (180, 360, 3)
+    >>> data.min(), data.max()
+    (10, 255)
     """
 
     _fields_: ClassVar = [

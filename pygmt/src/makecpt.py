@@ -42,7 +42,7 @@ def makecpt(**kwargs):
     CPT based on an existing master (dynamic) CPT. The resulting CPT can be
     reversed relative to the master cpt, and can be made continuous or
     discrete. For color tables beyond the standard GMT offerings, visit
-    `cpt-city <http://soliton.vm.bytemark.co.uk/pub/cpt-city/>`_ and
+    `cpt-city <http://www.seaviewsensing.com/pub/cpt-city/>`_ and
     `Scientific Colour-Maps <http://www.fabiocrameri.ch/colourmaps.php>`_.
 
     The CPT includes three additional colors beyond the range of z-values.
@@ -153,14 +153,11 @@ def makecpt(**kwargs):
         range. Note that ``cyclic=True`` cannot be set together with
         ``categorical=True``.
     """
+    if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
+        raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")
+
+    if (output := kwargs.pop("H", None)) is not None:
+        kwargs["H"] = True
+
     with Session() as lib:
-        if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
-            raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")
-        if kwargs.get("H") is None:  # if no output is set
-            arg_str = build_arg_list(kwargs)
-        else:  # if output is set
-            outfile, kwargs["H"] = kwargs.pop("H"), True
-            if not outfile or not isinstance(outfile, str):
-                raise GMTInvalidInput("'output' should be a proper file name.")
-            arg_str = build_arg_list(kwargs, outfile=outfile)
-        lib.call_module(module="makecpt", args=arg_str)
+        lib.call_module(module="makecpt", args=build_arg_list(kwargs, outfile=output))

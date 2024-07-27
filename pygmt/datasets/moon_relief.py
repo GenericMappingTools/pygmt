@@ -8,6 +8,7 @@ The grids are available in various resolutions.
 from collections.abc import Sequence
 from typing import Literal
 
+import xarray as xr
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 
 __doctest_skip__ = ["load_moon_relief"]
@@ -32,7 +33,7 @@ def load_moon_relief(
     ] = "01d",
     region: Sequence[float] | str | None = None,
     registration: Literal["gridline", "pixel", None] = None,
-):
+) -> xr.DataArray:
     r"""
     Load the Moon relief dataset in various resolutions.
 
@@ -79,7 +80,7 @@ def load_moon_relief(
 
     Returns
     -------
-    grid : :class:`xarray.DataArray`
+    grid
         The Moon relief grid. Coordinates are latitude and longitude in degrees. Relief
         is in meters.
 
