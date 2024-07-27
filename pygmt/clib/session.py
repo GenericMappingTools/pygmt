@@ -1071,7 +1071,7 @@ class Session:
     def read_data(
         self,
         infile: str,
-        kind: Literal["dataset", "grid", "cube", "image"],
+        kind: Literal["dataset", "grid", "image", "cube"],
         family: str | None = None,
         geometry: str | None = None,
         mode: str = "GMT_READ_NORMAL",
@@ -1141,8 +1141,8 @@ class Session:
         _family, _geometry, dtype = {
             "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP", _GMT_DATASET),
             "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE", _GMT_GRID),
-            "cube": ("GMT_IS_CUBE", "GMT_IS_VOLUME", _GMT_CUBE),
             "image": ("GMT_IS_IMAGE", "GMT_IS_SURFACE", _GMT_IMAGE),
+            "cube": ("GMT_IS_CUBE", "GMT_IS_VOLUME", _GMT_CUBE),
         }[kind]
         if family is None:
             family = _family
@@ -1800,7 +1800,7 @@ class Session:
     @contextlib.contextmanager
     def virtualfile_out(
         self,
-        kind: Literal["dataset", "grid", "cube", "image"] = "dataset",
+        kind: Literal["dataset", "grid", "image", "cube"] = "dataset",
         fname: str | None = None,
     ) -> Generator[str, None, None]:
         r"""
@@ -1858,8 +1858,8 @@ class Session:
             family, geometry = {
                 "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP"),
                 "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE"),
-                "cube": ("GMT_IS_CUBE", "GMT_IS_VOLUME"),
                 "image": ("GMT_IS_IMAGE", "GMT_IS_SURFACE"),
+                "cube": ("GMT_IS_CUBE", "GMT_IS_VOLUME"),
             }[kind]
             direction = "GMT_OUT|GMT_IS_REFERENCE" if kind == "image" else "GMT_OUT"
             with self.open_virtualfile(family, geometry, direction, None) as vfile:
@@ -1962,8 +1962,8 @@ class Session:
         dtype = {
             "dataset": _GMT_DATASET,
             "grid": _GMT_GRID,
-            "cube": _GMT_CUBE,
             "image": _GMT_IMAGE,
+            "cube": _GMT_CUBE,
         }[kind]
         return ctp.cast(pointer, ctp.POINTER(dtype))
 
