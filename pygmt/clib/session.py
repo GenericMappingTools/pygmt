@@ -10,7 +10,7 @@ import ctypes as ctp
 import pathlib
 import sys
 import warnings
-from collections.abc import Generator
+from collections.abc import Generator, Sequence
 from typing import Literal
 
 import numpy as np
@@ -26,7 +26,7 @@ from pygmt.clib.conversion import (
     vectors_to_arrays,
 )
 from pygmt.clib.loading import load_libgmt
-from pygmt.datatypes import _GMT_DATASET, _GMT_GRID
+from pygmt.datatypes import _GMT_DATASET, _GMT_GRID, _GMT_IMAGE
 from pygmt.exceptions import (
     GMTCLibError,
     GMTCLibNoSessionError,
@@ -34,6 +34,7 @@ from pygmt.exceptions import (
     GMTVersionError,
 )
 from pygmt.helpers import (
+    _validate_data_input,
     data_kind,
     tempfile_from_geojson,
     tempfile_from_image,
@@ -1067,6 +1068,100 @@ class Session:
         if status != 0:
             raise GMTCLibError(f"Failed to put matrix of type {matrix.dtype}.")
 
+    def read_data(
+        self,
+        infile: str,
+        kind: Literal["dataset", "grid", "image"],
+        family: str | None = None,
+        geometry: str | None = None,
+        mode: str = "GMT_READ_NORMAL",
+        region: Sequence[float] | None = None,
+        data=None,
+    ):
+        """
+        Read a data file into a GMT data container.
+
+        Wraps ``GMT_Read_Data`` but only allows reading from a file. The function
+        definition is different from the original C API function.
+
+        Parameters
+        ----------
+        infile
+            The input file name.
+        kind
+            The data kind of the input file. Valid values are ``"dataset"``, ``"grid"``
+            and ``"image"``.
+        family
+            A valid GMT data family name (e.g., ``"GMT_IS_DATASET"``). See the
+            ``FAMILIES`` attribute for valid names. If ``None``, will determine the data
+            family from the ``kind`` parameter.
+        geometry
+            A valid GMT data geometry name (e.g., ``"GMT_IS_POINT"``). See the
+            ``GEOMETRIES`` attribute for valid names. If ``None``, will determine the
+            data geometry from the ``kind`` parameter.
+        mode
+            How the data is to be read from the file. This option varies depending on
+            the given family. See the
+            :gmt-docs:`GMT API documentation <devdocs/api.html#import-from-a-file-stream-or-handle>`
+            for details. Default is ``GMT_READ_NORMAL`` which corresponds to the default
+            read mode value of 0 in the ``GMT_enum_read`` enum.
+        region
+            Subregion of the data, in the form of [xmin, xmax, ymin, ymax, zmin, zmax].
+            If ``None``, the whole data is read.
+        data
+            ``None`` or the pointer returned by this function after a first call. It's
+            useful when reading grids/images/cubes in two steps (get a grid/image/cube
+            structure with a header, then read the data).
+
+        Returns
+        -------
+        Pointer to the data container, or ``None`` if there were errors.
+
+        Raises
+        ------
+        GMTCLibError
+            If the GMT API function fails to read the data.
+        """  # noqa: W505
+        c_read_data = self.get_libgmt_func(
+            "GMT_Read_Data",
+            argtypes=[
+                ctp.c_void_p,  # V_API
+                ctp.c_uint,  # family
+                ctp.c_uint,  # method
+                ctp.c_uint,  # geometry
+                ctp.c_uint,  # mode
+                ctp.POINTER(ctp.c_double),  # wesn
+                ctp.c_char_p,  # infile
+                ctp.c_void_p,  # data
+            ],
+            restype=ctp.c_void_p,  # data_ptr
+        )
+
+        # Determine the family, geometry and data container from kind
+        _family, _geometry, dtype = {
+            "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP", _GMT_DATASET),
+            "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE", _GMT_GRID),
+            "image": ("GMT_IS_IMAGE", "GMT_IS_SURFACE", _GMT_IMAGE),
+        }[kind]
+        if family is None:
+            family = _family
+        if geometry is None:
+            geometry = _geometry
+
+        data_ptr = c_read_data(
+            self.session_pointer,
+            self[family],
+            self["GMT_IS_FILE"],  # Reading from a file
+            self[geometry],
+            self[mode],
+            sequence_to_ctypes_array(region, ctp.c_double, 6),
+            infile.encode(),
+            data,
+        )
+        if data_ptr is None:
+            raise GMTCLibError(f"Failed to read dataset from '{infile}'.")
+        return ctp.cast(data_ptr, ctp.POINTER(dtype))
+
     def write_data(self, family, geometry, mode, wesn, output, data):
         """
         Write a GMT data container to a file.
@@ -1591,8 +1686,15 @@ class Session:
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
-        kind = data_kind(
-            data, x, y, z, required_z=required_z, required_data=required_data
+        kind = data_kind(data, required=required_data)
+        _validate_data_input(
+            data=data,
+            x=x,
+            y=y,
+            z=z,
+            required_z=required_z,
+            required_data=required_data,
+            kind=kind,
         )
 
         if check_kind:
@@ -1696,7 +1798,9 @@ class Session:
 
     @contextlib.contextmanager
     def virtualfile_out(
-        self, kind: Literal["dataset", "grid"] = "dataset", fname: str | None = None
+        self,
+        kind: Literal["dataset", "grid", "image"] = "dataset",
+        fname: str | None = None,
     ) -> Generator[str, None, None]:
         r"""
         Create a virtual file or an actual file for storing output data.
@@ -1709,8 +1813,8 @@ class Session:
         Parameters
         ----------
         kind
-            The data kind of the virtual file to create. Valid values are ``"dataset"``
-            and ``"grid"``. Ignored if ``fname`` is specified.
+            The data kind of the virtual file to create. Valid values are ``"dataset"``,
+            ``"grid"``, and ``"image"``. Ignored if ``fname`` is specified.
         fname
             The name of the actual file to write the output data. No virtual file will
             be created.
@@ -1753,8 +1857,10 @@ class Session:
             family, geometry = {
                 "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP"),
                 "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE"),
+                "image": ("GMT_IS_IMAGE", "GMT_IS_SURFACE"),
             }[kind]
-            with self.open_virtualfile(family, geometry, "GMT_OUT", None) as vfile:
+            direction = "GMT_OUT|GMT_IS_REFERENCE" if kind == "image" else "GMT_OUT"
+            with self.open_virtualfile(family, geometry, direction, None) as vfile:
                 yield vfile
 
     def inquire_virtualfile(self, vfname: str) -> int:
@@ -1800,7 +1906,8 @@ class Session:
             Name of the virtual file to read.
         kind
             Cast the data into a GMT data container. Valid values are ``"dataset"``,
-            ``"grid"`` and ``None``. If ``None``, will return a ctypes void pointer.
+            ``"grid"``, ``"image"`` and ``None``. If ``None``, will return a ctypes void
+            pointer.
 
         Returns
         -------
@@ -1850,9 +1957,9 @@ class Session:
         # _GMT_DATASET).
         if kind is None:  # Return the ctypes void pointer
             return pointer
-        if kind in {"image", "cube"}:
+        if kind == "cube":
             raise NotImplementedError(f"kind={kind} is not supported yet.")
-        dtype = {"dataset": _GMT_DATASET, "grid": _GMT_GRID}[kind]
+        dtype = {"dataset": _GMT_DATASET, "grid": _GMT_GRID, "image": _GMT_IMAGE}[kind]
         return ctp.cast(pointer, ctp.POINTER(dtype))
 
     def virtualfile_to_dataset(
