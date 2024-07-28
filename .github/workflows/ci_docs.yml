@@ -113,7 +113,7 @@ jobs:
             sphinx-autodoc-typehints
             sphinx-copybutton
             sphinx-design
-            sphinx-gallery<0.17.0
+            sphinx-gallery
             sphinx_rtd_theme
 
       # Download cached remote files (artifacts) from GitHub

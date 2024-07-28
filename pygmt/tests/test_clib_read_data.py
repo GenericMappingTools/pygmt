@@ -132,6 +132,43 @@ def test_clib_read_data_grid_actual_image():
             )
 
 
+# Note: Simplify the tests for images after GMT_IMAGE.to_dataarray() is implemented.
+def test_clib_read_data_image():
+    """
+    Test the Session.read_data method for images.
+    """
+    with Session() as lib:
+        image = lib.read_data("@earth_day_01d_p", kind="image").contents
+        header = image.header.contents
+        assert header.n_rows == 180
+        assert header.n_columns == 360
+        assert header.n_bands == 3
+        assert header.wesn[:] == [-180.0, 180.0, -90.0, 90.0]
+        assert image.data
+
+
+def test_clib_read_data_image_two_steps():
+    """
+    Test the Session.read_data method for images in two steps, first reading the header
+    and then the data.
+    """
+    infile = "@earth_day_01d_p"
+    with Session() as lib:
+        # Read the header first
+        data_ptr = lib.read_data(infile, kind="image", mode="GMT_CONTAINER_ONLY")
+        image = data_ptr.contents
+        header = image.header.contents
+        assert header.n_rows == 180
+        assert header.n_columns == 360
+        assert header.wesn[:] == [-180.0, 180.0, -90.0, 90.0]
+        assert header.n_bands == 3  # Explicitly check n_bands
+        assert not image.data  # The data is not read yet
+
+        # Read the data
+        lib.read_data(infile, kind="image", mode="GMT_DATA_ONLY", data=data_ptr)
+        assert image.data
+
+
 def test_clib_read_data_fails():
     """
     Test that the Session.read_data method raises an exception if there are errors.
