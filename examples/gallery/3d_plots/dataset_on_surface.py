@@ -94,12 +94,10 @@ grd_relief = pygmt.datasets.load_earth_relief(resolution="30s", region=region_2d
 # Download a image of the flage of Europe using rasterio and load it into a
 # xarray.DataArray
 url_to_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1000px-Flag_of_Europe.svg.png"
-# url_to_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/1024px-Flag_of_Germany.svg.png"
 with rasterio.open(url_to_image) as dataset:
     data = dataset.read()
     drapegrid = xr.DataArray(data, dims=("band", "y", "x"))
 
-#%%
 # Set up a colormap with two colors for the EU flag: blue (0/51/153) for the
 # background (value 0 in the nedCDF file -> lower half of 0-255 range) and
 # yellow (255/204/0) for the stars (value 255 -> upper half)
@@ -158,4 +156,4 @@ fig.text(
 # Show figure
 fig.show()
 
-# sphinx_gallery_thumbnail_number = 1
+# sphinx_gallery_thumbnail_number = 2
