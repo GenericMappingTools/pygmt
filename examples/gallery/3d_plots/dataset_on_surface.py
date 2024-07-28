@@ -15,19 +15,12 @@ at https://docs.generic-mapping-tools.org/latest/gallery/ex32.html#example-32.
 For the sake of simplicity the image grid is already stored as netCDF file
 *@euflag.nc* in the GMT directory.
 
-.. note::
-
-    The PNG file of the flag of Europe can be downloaded from the internet
-    (http://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1000px-Flag_of_Europe.svg.png)
-    and converted via *grdconvert* using GDAL support. The dimension
-    (1000 x 667 pixels) of the image is taken into account for a ratio of 3 x 2.
-    To add the correct grid region, *grdedit* is used. As *grdconvert* and
-    *grdedit* are not available in PyGMT yet, please see the GMT example
-    mentioned above for details.
 """
 
 # %%
 import pygmt
+import rasterio
+import xarray as xr
 
 # %%
 # Grid of seafloor crustal age on top of topographic map of Mid-Atlantic Ridge
@@ -98,6 +91,15 @@ fig = pygmt.Figure()
 # arc-seconds and pixel registration and load it into a xarray.DataArray
 grd_relief = pygmt.datasets.load_earth_relief(resolution="30s", region=region_2d)
 
+# Download a image of the flage of Europe using rasterio and load it into a
+# xarray.DataArray
+url_to_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1000px-Flag_of_Europe.svg.png"
+# url_to_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/1024px-Flag_of_Germany.svg.png"
+with rasterio.open(url_to_image) as dataset:
+    data = dataset.read()
+    drapegrid = xr.DataArray(data, dims=("band", "y", "x"))
+
+#%%
 # Set up a colormap with two colors for the EU flag: blue (0/51/153) for the
 # background (value 0 in the nedCDF file -> lower half of 0-255 range) and
 # yellow (255/204/0) for the stars (value 255 -> upper half)
@@ -107,7 +109,7 @@ fig.grdview(
     projection="M12c",  # Mercator projection with a width of 12 centimeters
     region=region_3d,
     grid=grd_relief,  # Use elevation grid for z values
-    drapegrid="@euflag.nc",  # Drap image grid for the EU flag on top
+    drapegrid=drapegrid,  # Drap image grid for the EU flag on top
     cmap=True,  # Use colormap defined for the EU flag
     surftype="i",  # Create an image plot
     # Use an illumination from the azimuthal directions 0° (north) and 270°
