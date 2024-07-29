@@ -20,7 +20,6 @@ import pygmt
 import rasterio
 import xarray as xr
 
-
 # %%
 # 1. Drapping a grid
 # ------------------
