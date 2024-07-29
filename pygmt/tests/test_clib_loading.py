@@ -11,7 +11,13 @@ import types
 from pathlib import PurePath
 
 import pytest
-from pygmt.clib.loading import check_libgmt, clib_full_names, clib_names, load_libgmt
+from pygmt.clib.loading import (
+    check_libgmt,
+    clib_full_names,
+    clib_names,
+    get_gmt_version,
+    load_libgmt,
+)
 from pygmt.clib.session import Session
 from pygmt.exceptions import GMTCLibError, GMTCLibNotFoundError, GMTOSError
 
@@ -360,3 +366,15 @@ def test_clib_full_names_gmt_library_path_incorrect_path_included(
         # Windows: find_library() searches the library in PATH, so one more
         npath = 2 if sys.platform == "win32" else 1
         assert list(lib_fullpaths) == [gmt_lib_realpath] * npath + gmt_lib_names
+
+
+###############################################################################
+# Test get_gmt_version
+def test_get_gmt_version():
+    """
+    Test if get_gmt_version returns a version string in major.minor.patch format.
+    """
+    version = get_gmt_version(load_libgmt())
+    assert isinstance(version, str)
+    assert len(version.split(".")) == 3  # In major.minor.patch format
+    assert version.split(".")[0] == "6"  # Is GMT 6.x.x
