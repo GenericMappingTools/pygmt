@@ -35,12 +35,13 @@ def fixture_xrgrid():
     """
     Create a sample xarray.DataArray grid for testing.
     """
-    longitude = np.arange(0, 360, 1)
-    latitude = np.arange(-89, 90, 1)
-    x = np.sin(np.deg2rad(longitude))
-    y = np.linspace(start=0, stop=1, num=179)
-    data = y[:, np.newaxis] * x
-
+    longitude = np.arange(0, 361, 1)
+    latitude = np.arange(-90, 91, 1)
+    lon_grid, lat_grid = np.meshgrid(longitude, latitude)
+    data = np.cos(np.deg2rad(lat_grid)) * np.sin(np.deg2rad(lon_grid))
+    # Consistent data points are North/South poles for all longitudes
+    data[0, :] = 0.0
+    data[-1, :] = 0.0
     return xr.DataArray(
         data,
         coords=[
