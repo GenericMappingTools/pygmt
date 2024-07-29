@@ -7,18 +7,23 @@ This can be accomplished using the ``drapegrid`` parameter of
 :meth:`pygmt.Figure.grdview`.
 
 This tutorial consists of two examples:
-- (I) Draping a grid
-- (II) Draping an image
+
+1. Draping a grid
+
+2. Draping an image
 """
 
 # %%
+
+# Load the required packages
 import pygmt
 import rasterio
 import xarray as xr
 
+
 # %%
-# (I) Drapping a grid
-# -------------------
+# 1. Drapping a grid
+# ------------------
 #
 # In the first example, the seafloor crustal age is plotted with color-coding
 # on top of the topographic map of an area of the Mid-Atlantic Ridge.
@@ -67,8 +72,8 @@ fig.show()
 
 
 # %%
-# (II) Draping an image
-# ---------------------
+# 2. Draping an image
+# -------------------
 #
 # In the second example, the flag of Europe is plotted on top of a topographic
 # map of northwest Europe. This example is modified from GMT example 32 available
