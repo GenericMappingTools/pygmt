@@ -2,19 +2,13 @@
 Draping a data set on top of a topographic surface
 ==================================================
 
-It can be visually appealing to "drape" a data set (grid or image) over a
-topographic surface. This can be accomplished using the ``drapegrid`` parameter
-of :meth:`pygmt.Figure.grdview`.
+It can be visually appealing to "drape" a data set over a topographic surface.
+This can be accomplished using the ``drapegrid`` parameter of
+:meth:`pygmt.Figure.grdview`.
 
-In the first example, the seafloor crustal age is plotted with color-coding
-on top of the topographic map of an area of the Mid-Atlantic Ridge.
-
-In the second example, the flag of Europe is plotted on top of a topographic
-map of northwest Europe. This example is modified from GMT example 32 available
-at https://docs.generic-mapping-tools.org/latest/gallery/ex32.html#example-32.
-For the sake of simplicity the image grid is already stored as netCDF file
-*@euflag.nc* in the GMT directory.
-
+This tutorial consists of two examples:
+- (I) Draping a grid
+- (II) Draping an image
 """
 
 # %%
@@ -23,8 +17,11 @@ import rasterio
 import xarray as xr
 
 # %%
-# Grid of seafloor crustal age on top of topographic map of Mid-Atlantic Ridge
-# -----------------------------------------------------------------------------
+# (I) Drapping a grid
+# -------------------
+#
+# In the first example, the seafloor crustal age is plotted with color-coding
+# on top of the topographic map of an area of the Mid-Atlantic Ridge.
 
 # Define study area
 region_2d = [-50, 0, 36, 70]  # [lon_min, lon_max, lat_min, lat_max]
@@ -70,8 +67,12 @@ fig.show()
 
 
 # %%
-# Image of the flag of Europe on top of topographic map of northwest Europe
-# -------------------------------------------------------------------------
+# (II) Draping an image
+# ---------------------
+#
+# In the second example, the flag of Europe is plotted on top of a topographic
+# map of northwest Europe. This example is modified from GMT example 32 available
+# at https://docs.generic-mapping-tools.org/latest/gallery/ex32.html#example-32.
 
 # Define study area
 region_2d = [3, 9, 50, 54]  # [lon_min, lon_max, lat_min, lat_max]
