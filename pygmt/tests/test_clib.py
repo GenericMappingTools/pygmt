@@ -584,7 +584,7 @@ def test_fails_for_wrong_version(monkeypatch):
     import importlib
 
     with monkeypatch.context() as mpatch:
-        # Make sure the current GMT version is 6.
+        # Make sure the current GMT major version is 6.
         assert clib.__gmt_version__.split(".")[0] == "6"
 
         # Monkeypatch the version string returned by pygmt.clib.loading.get_gmt_version.
@@ -597,4 +597,4 @@ def test_fails_for_wrong_version(monkeypatch):
         # Should raise an exception when pygmt.clib is loaded/reloaded.
         with pytest.raises(GMTVersionError):
             importlib.reload(clib)
-        assert clib.__gmt_version__ == "5.4.3"  # Make sure it's old version.
+        assert clib.__gmt_version__ == "5.4.3"  # Make sure it's still the old version
