@@ -13,7 +13,7 @@ to submit a pull request with your recommended addition to the
 :::::{grid} 1 2 2 3
 
 ::::{grid-item-card} 2024 PyGMT Webinar using Google Colab (in Portuguese)
-:link: [[https://www.generic-mapping-tools.org/egu22pygmt](https://github.com/andrebelem/Oficina_PyGMT)/](https://github.com/andrebelem/Oficina_PyGMT)
+:link: https://github.com/andrebelem/Oficina_PyGMT
 :text-align: center
 :margin: 0 3 0 0
 
