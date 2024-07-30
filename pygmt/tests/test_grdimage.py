@@ -39,7 +39,7 @@ def fixture_xrgrid():
     latitude = np.arange(-90, 91, 1)
     lon_grid, lat_grid = np.meshgrid(longitude, latitude)
     data = np.cos(np.deg2rad(lat_grid)) * np.sin(np.deg2rad(lon_grid))
-    # Consistent data points are North/South poles for all longitudes
+    # Consistent data points at the North/South poles for all longitudes
     data[0, :] = 0.0
     data[-1, :] = 0.0
     return xr.DataArray(
