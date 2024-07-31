@@ -53,14 +53,6 @@ myst_enable_extensions = [
 myst_substitutions = {
     "requires_python": requires_python,
     "requires_gmt": requires_gmt,
-    "lon0": "lon{sub}`0`",  # Used in projection table
-    "lat0": "lat{sub}`0`",
-    "lon1": "lon{sub}`1`",
-    "lat1": "lat{sub}`1`",
-    "lat2": "lat{sub}`2`",
-    "lonp": "lon{sub}`p`",
-    "latp": "lat{sub}`p`",
-    "url_doc_proj": "https://www.pygmt.org/latest/projections/",
 }
 
 
