@@ -60,6 +60,7 @@ myst_substitutions = {
     "lat2": "lat{sub}`2`",
     "lonp": "lon{sub}`p`",
     "latp": "lat{sub}`p`",
+	"url_doc_proj": "https://www.pygmt.org/latest/projections/",
 }
 
 
