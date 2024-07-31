@@ -24,7 +24,7 @@ The table below shows the projection codes for the 31 GMT projections:
 | **Oa**{{ lon0 }}/{{ lat0 }}/*azimuth*/*width*[**+v**] | [Oblique Mercator, 1: origin and azimuth](https://www.pygmt.org/latest/projections/cyl/cyl_oblique_mercator_1) |
 | **Ob**{{ lon0 }}/{{ lat0 }}/lon1/{{ lat1 }}/*width*[**+v**] | [Oblique Mercator, 2: two points](https://www.pygmt.org/latest/projections/cyl/cyl_oblique_mercator_2) |
 | **Oc**{{ lon0 }}/{{ lat0 }}/lonp/{{ latp }}/*width*[**+v**] | [Oblique Mercator, 3: origin and pole](https://www.pygmt.org/latest/projections/cyl/cyl_oblique_mercator_3) |
-| **P**\ *width*[**+a**][**+f**[**e**\|**p**\|*radius*]][**+r***offset*][**+t***origin*][**+z**[**p***radius*]] | [Polar](https://www.pygmt.org/latest/projections/nongeo/polar) [azimuthal] (`\theta`, `r`) (or cylindrical) |
+| **P***width*[**+a**][**+f**[**e**\|**p**\|*radius*]][**+r***offset*][**+t***origin*][**+z**[**p***radius*]] | [Polar](https://www.pygmt.org/latest/projections/nongeo/polar) [azimuthal] (theta, r) (or cylindrical) |
 | **Poly**/[{{ lon0 }}/[{{ lat0 }}/]]*width* | [Polyconic](https://www.pygmt.org/latest/projections/conic/polyconic) |
 | **Q**[{{ lon0 }}/[{{ lat0 }}/]]*width* | [Equidistant cylindrica](https://www.pygmt.org/latest/projections/cyl/cyl_equidistant) |
 | **R**[{{ lon0 }}/]*width* | [Winkel Tripel](https://www.pygmt.org/latest/projections/misc/misc_winkel_tripel) |
@@ -33,5 +33,5 @@ The table below shows the projection codes for the 31 GMT projections:
 | **U***zone*/*width* | [Universal Transverse Mercator (UTM)](https://www.pygmt.org/latest/projections/cyl/cyl_universal_transverse_mercator) |
 | **V**[{{ lon0 }}/]*width* | [Van der Grinten](https://www.pygmt.org/latest/projections/misc/misc_van_der_grinten) |
 | **W**[{{ lon0 }}/]*width* | [Mollweide](https://www.pygmt.org/latest/projections/misc/misc_mollweide) |
-| **X**\ *width*[**l**\|\ **p**\ *exp*\|\ **T**\|\ **t**][/*height*[**l**\|\ **p**\|\ *exp*\|\ **T**\|\ **t**]][**d**] | [Linear](https://www.pygmt.org/latest/projections/nongeo/cartesian_linear), [logarithmic](https://www.pygmt.org/latest/projections/nongeo/cartesian_logarithmic), [power](https://www.pygmt.org/latest/projections/nongeo/cartesian_power), and time |
+| **X***width*[**l**\|**p***exp*\|**T**\|**t**][/*height*[**l**\|**p**\|*exp*\|**T**\|**t**]][**d**] | [Linear](https://www.pygmt.org/latest/projections/nongeo/cartesian_linear), [logarithmic](https://www.pygmt.org/latest/projections/nongeo/cartesian_logarithmic), [power](https://www.pygmt.org/latest/projections/nongeo/cartesian_power), and time |
 | **Y**{{ lon0 }}/{{ lat0 }}/*width* | [Cylindrical equal area](https://www.pygmt.org/latest/projections/cyl/cyl_equal_area) |
