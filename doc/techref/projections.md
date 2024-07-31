@@ -24,7 +24,7 @@ The table below shows the projection codes for the 31 GMT projections:
 | **Oa**{{ lon0 }}/{{ lat0 }}/*azimuth*/*width*[**+v**] | [Oblique Mercator, 1: origin and azimuth](https://www.pygmt.org/latest/projections/cyl/cyl_oblique_mercator_1) |
 | **Ob**{{ lon0 }}/{{ lat0 }}/lon1/{{ lat1 }}/*width*[**+v**] | [Oblique Mercator, 2: two points](https://www.pygmt.org/latest/projections/cyl/cyl_oblique_mercator_2) |
 | **Oc**{{ lon0 }}/{{ lat0 }}/lonp/{{ latp }}/*width*[**+v**] | [Oblique Mercator, 3: origin and pole](https://www.pygmt.org/latest/projections/cyl/cyl_oblique_mercator_3) |
-| **P***width*[**+a**][**+f**[**e**\|**p**\|*radius*]][**+r***offset*][**+t***origin*][**+z**[**p***radius*]] | [Polar](https://www.pygmt.org/latest/projections/nongeo/polar) [azimuthal] (theta, r) (or cylindrical) |
+| **P***width*[**+a**][**+f**[**e**\|**p**\|*radius*]][**+r***offset*][**+t***origin*][**+z**[**p***radius*]] | [Polar](https://www.pygmt.org/latest/projections/nongeo/polar) [azimuthal] ({math}`\theta, r`) (or cylindrical) |
 | **Poly**/[{{ lon0 }}/[{{ lat0 }}/]]*width* | [Polyconic](https://www.pygmt.org/latest/projections/conic/polyconic) |
 | **Q**[{{ lon0 }}/[{{ lat0 }}/]]*width* | [Equidistant cylindrica](https://www.pygmt.org/latest/projections/cyl/cyl_equidistant) |
 | **R**[{{ lon0 }}/]*width* | [Winkel Tripel](https://www.pygmt.org/latest/projections/misc/misc_winkel_tripel) |
