@@ -1,13 +1,13 @@
 ---
 myst:
   substitutions:
-    lon0: "lon{sub}`0`",
-    lat0: "lat{sub}`0`",
-    lon1: "lon{sub}`1`",
-    lat1: "lat{sub}`1`",
-    lat2: "lat{sub}`2`",
-    lonp: "lon{sub}`p`",
-    latp: "lat{sub}`p`",
+    lon0: "lon{sub}`0`"
+    lat0: "lat{sub}`0`"
+    lon1: "lon{sub}`1`"
+    lat1: "lat{sub}`1`"
+    lat2: "lat{sub}`2`"
+    lonp: "lon{sub}`p`"
+    latp: "lat{sub}`p`"
 ---
 
 # GMT Map Projections
