@@ -12,7 +12,7 @@ myst:
 
 # GMT Map Projections
 
-The table below shows the projection codes for the 31 GMT projections:
+The table below shows the projection codes for the 31 GMT map projections:
 
 | PyGMT Projection Argument | Projection Name |
 | --- | --- |
