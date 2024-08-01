@@ -45,5 +45,5 @@ The table below shows the projection codes for the 31 GMT projections:
 | **U***zone*/*width*                                         | {doc}`Universal Transverse Mercator (UTM) </projections/cyl/cyl_universal_transverse_mercator>` |
 | **V**[{{ lon0 }}/]*width*                                   | {doc}`Van der Grinten </projections/misc/misc_van_der_grinten>` |
 | **W**[{{ lon0 }}/]*width*                                   | {doc}`Mollweide </projections/misc/misc_mollweide>` |
-| **X***width*[**l**\|**p***exp*\|**T**\|**t**][/*height*[**l**\|**p**\|*exp*\|**T**\|**t**]][**d**] | {doc}`Linear </projections/nongeo/cartesian_linear>`, {doc}`logarithmic </projections/nongeo/cartesian_logarithmic>`, {doc}`power </projections/nongeo/cartesian_power>`, and time |
+| **X***width*[**l**\|**p***exp*\|**T**\|**t**][/*height*[**l**\|**p***exp*\|**T**\|**t**]][**d**] | {doc}`Linear </projections/nongeo/cartesian_linear>`, {doc}`logarithmic </projections/nongeo/cartesian_logarithmic>`, {doc}`power </projections/nongeo/cartesian_power>`, and time |
 | **Y**{{ lon0 }}/{{ lat0 }}/*width*                          | {doc}`Cylindrical equal area </projections/cyl/cyl_equal_area>` |
