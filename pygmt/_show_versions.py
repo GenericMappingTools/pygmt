@@ -96,6 +96,18 @@ def _check_ghostscript_version(gs_version: str) -> str | None:
     return None
 
 
+def _get_gdal_version():
+    """
+    Get GDAL version.
+    """
+    try:
+        from osgeo import gdal
+
+        return gdal.__version__
+    except ImportError:
+        return None
+
+
 def show_versions(file=sys.stdout):
     """
     Print various dependency versions which are useful when submitting bug reports.
@@ -120,6 +132,7 @@ def show_versions(file=sys.stdout):
     }
     deps = [Requirement(v).name for v in importlib.metadata.requires("pygmt")]
     gs_version = _get_ghostscript_version()
+    gdal_version = _get_gdal_version()
 
     lines = []
     lines.append("PyGMT information:")
@@ -128,6 +141,7 @@ def show_versions(file=sys.stdout):
     lines.extend([f"  {key}: {val}" for key, val in sys_info.items()])
     lines.append("Dependency information:")
     lines.extend([f"  {modname}: {_get_module_version(modname)}" for modname in deps])
+    lines.append(f"  gdal: {gdal_version}")
     lines.append(f"  ghostscript: {gs_version}")
     lines.append("GMT library information:")
     lines.extend([f"  {key}: {val}" for key, val in _get_clib_info().items()])
