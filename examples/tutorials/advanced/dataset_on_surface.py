@@ -142,7 +142,7 @@ fig.coast(
 # Plot markers
 fig.plot(
     x=cities.longitude,
-    y=cities.latitutde,
+    y=cities.latitude,
     style="s0.3c",  # Use squares with a size of 0.3 centimeters
     pen="1.5p,white",
     fill="black",
