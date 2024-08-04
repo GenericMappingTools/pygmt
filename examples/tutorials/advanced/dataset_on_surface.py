@@ -1,8 +1,8 @@
 """
-Draping a data set on top of a topographic surface
+Draping a dataset on top of a topographic surface
 ==================================================
 
-It can be visually appealing to "drape" a data set over a topographic surface.
+It can be visually appealing to "drape" a dataset over a topographic surface.
 This can be accomplished using the ``drapegrid`` parameter of
 :meth:`pygmt.Figure.grdview`.
 
@@ -43,7 +43,7 @@ grd_age = pygmt.datasets.load_earth_age(resolution="10m", region=region_2d)
 pygmt.config(COLOR_NAN="lightgray")
 pygmt.makecpt(cmap="batlow", series=[0, 200, 1], reverse=True, overrule_bg=True)
 
-# Determine the 3D region parameter from relief grid min/max values
+# Determine the 3-D region parameter from the relief grid min/max values
 region_3d = [*region_2d, grd_relief.min().to_numpy(), grd_relief.max().to_numpy()]
 fig.grdview(
     projection="M12c",  # Mercator projection with a width of 12 centimeters
