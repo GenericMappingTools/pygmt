@@ -16,8 +16,8 @@ This tutorial consists of two examples:
 # %%
 
 # Load the required packages
-import pygmt
 import pandas as pd
+import pygmt
 import rasterio
 import xarray as xr
 
@@ -57,7 +57,6 @@ fig.grdview(
     # the shading
     shading="+a0/270+ne0.6",
     perspective=[157.5, 30],  # Azimuth and elevation for the 3-D plot
-
     zsize="1.5c",
     plane="+gdarkgray",
     frame=True,
@@ -84,11 +83,13 @@ region_3d = [*region_2d, -10, 900]  # Append [z_min, z_max] to this list
 perspective = [157.5, 30]  # Define azimuth, elevation for the 3-D plot
 
 # Coordinates and names of cities
-cities = pd.DataFrame({
-    "longitude": [7.10, 4.35, 5.69],
-    "latitude": [50.73, 50.85, 50.85],
-    "name": ["Bonn", "Bruxelles", "Maastricht"]
-})
+cities = pd.DataFrame(
+    {
+        "longitude": [7.10, 4.35, 5.69],
+        "latitude": [50.73, 50.85, 50.85],
+        "name": ["Bonn", "Bruxelles", "Maastricht"],
+    }
+)
 
 # -----------------------------------------------------------------------------
 # Create new Figure instance
