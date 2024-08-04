@@ -32,7 +32,6 @@ region_2d = [-50, 0, 36, 70]  # [lon_min, lon_max, lat_min, lat_max]
 region_3d = [*region_2d, -5961, 3366.5]  # Append [z_min, z_max] to this list
 perspective = [157.5, 30]  # Define azimuth, elevation for the 3-D plot
 
-# -----------------------------------------------------------------------------
 # Create new Figure instance
 fig = pygmt.Figure()
 
@@ -62,7 +61,6 @@ fig.grdview(
     frame=True,
 )
 
-# -----------------------------------------------------------------------------
 # Add colorbar for curstal age
 fig.colorbar(frame=["x+lseafloor crustal age", "y+lMyr"], position="+n")
 
