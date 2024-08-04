@@ -105,7 +105,7 @@ with rasterio.open(url_to_image) as dataset:
 # Set up a colormap with two colors for the EU flag: blue (0/51/153) for the
 # background (value 0 in the nedCDF file -> lower half of 0-255 range) and
 # yellow (255/204/0) for the stars (value 255 -> upper half)
-pygmt.makecpt(cmap="0/51/153,255/204/0", series=[0, 256, 128])  # [min, max[, step
+pygmt.makecpt(cmap="0/51/153,255/204/0", series=[0, 256, 128])  # [min, max, step]
 
 fig.grdview(
     projection="M12c",  # Mercator projection with a width of 12 centimeters
