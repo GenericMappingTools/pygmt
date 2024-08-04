@@ -35,8 +35,8 @@ fig = pygmt.Figure()
 
 # Download elevation and crustal age grids for the study region with a
 # resolution of 3 arc-minutes and load them into xarray.DataArrays
-grd_relief = pygmt.datasets.load_earth_relief(resolution="03m", region=region_2d)
-grd_age = pygmt.datasets.load_earth_age(resolution="03m", region=region_2d)
+grd_relief = pygmt.datasets.load_earth_relief(resolution="10m", region=region_2d)
+grd_age = pygmt.datasets.load_earth_age(resolution="10m", region=region_2d)
 
 # Set up colormap for curstal age
 pygmt.config(COLOR_NAN="lightgray")
@@ -74,7 +74,7 @@ fig.show()
 # -------------------
 #
 # In the second example, the flag of Europe is plotted on top of a topographic
-# map of northwest Europe. This example is modified from 
+# map of northwest Europe. This example is modified from
 # :gmt-docs:`GMT example 32 </gallery/ex32.html>`_.
 
 # Define study area
