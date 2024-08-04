@@ -53,7 +53,8 @@ fig.grdview(
     # (west) with a normalization via a cumulative Laplace distribution for
     # the shading
     shading="+a0/270+ne0.6",
-    perspective=perspective,
+    perspective=[157.5, 30],  # Azimuth and elevation for the 3-D plot
+
     zsize="1.5c",
     plane="+gdarkgray",
     frame=True,
