@@ -44,7 +44,7 @@ pygmt.config(COLOR_NAN="lightgray")
 pygmt.makecpt(cmap="batlow", series=[0, 200, 1], reverse=True, overrule_bg=True)
 
 # Determine the 3D region parameter from relief grid min/max values
-region_3d = [*region_2d, grd_relief.min().values, grd_relief.max().values]
+region_3d = [*region_2d, grd_relief.min().to_numpy(), grd_relief.max().to_numpy()]
 fig.grdview(
     projection="M12c",  # Mercator projection with a width of 12 centimeters
     region=region_3d,
