@@ -21,7 +21,7 @@ from pygmt.exceptions import GMTInvalidInput
 
 
 def _validate_data_input(
-    data=None, x=None, y=None, z=None, required_z=False, required_data=True, kind=None
+    data=None, x=None, y=None, z=None, required_data=True, required_cols=2, kind=None
 ):
     """
     Check if the combination of data/x/y/z is valid.
@@ -44,7 +44,7 @@ def _validate_data_input(
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Must provide both x and y.
-    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6], required_z=True)
+    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6], required_cols=3)
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Must provide x, y, and z.
@@ -52,26 +52,25 @@ def _validate_data_input(
     >>> import pandas as pd
     >>> import xarray as xr
     >>> data = np.arange(8).reshape((4, 2))
-    >>> _validate_data_input(data=data, required_z=True, kind="matrix")
+    >>> _validate_data_input(data=data, required_cols=3, kind="matrix")
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
+    pygmt.exceptions.GMTInvalidInput: data needs 3 columns but 2 column(s) are given.
     >>> _validate_data_input(
     ...     data=pd.DataFrame(data, columns=["x", "y"]),
-    ...     required_z=True,
+    ...     required_cols=3,
     ...     kind="matrix",
     ... )
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
+    pygmt.exceptions.GMTInvalidInput: data needs 3 columns but 2 column(s) are given.
     >>> _validate_data_input(
     ...     data=xr.Dataset(pd.DataFrame(data, columns=["x", "y"])),
-    ...     required_z=True,
-    ...     kind="matrix",
+    ...     required_cols=3,
     ... )
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
+    pygmt.exceptions.GMTInvalidInput: data needs 3 columns but 2 column(s) are given.
     >>> _validate_data_input(data="infile", x=[1, 2, 3])
     Traceback (most recent call last):
         ...
@@ -94,26 +93,38 @@ def _validate_data_input(
     GMTInvalidInput
         If the data input is not valid.
     """
-    if data is None:  # data is None
-        if x is None and y is None:  # both x and y are None
-            if required_data:  # data is not optional
+    if kind is None:
+        kind = data_kind(data, required=required_data)
+
+    if data is not None and any(v is not None for v in (x, y, z)):
+        raise GMTInvalidInput("Too much data. Use either data or x/y/z.")
+
+    match kind:
+        case "none":
+            if x is None and y is None:  # both x and y are None
                 raise GMTInvalidInput("No input data provided.")
-        elif x is None or y is None:  # either x or y is None
-            raise GMTInvalidInput("Must provide both x and y.")
-        if required_z and z is None:  # both x and y are not None, now check z
-            raise GMTInvalidInput("Must provide x, y, and z.")
-    else:  # data is not None
-        if x is not None or y is not None or z is not None:
-            raise GMTInvalidInput("Too much data. Use either data or x/y/z.")
-        # For 'matrix' kind, check if data has the required z column
-        if kind == "matrix" and required_z:
-            if hasattr(data, "shape"):  # np.ndarray or pd.DataFrame
-                if len(data.shape) == 1 and data.shape[0] < 3:
-                    raise GMTInvalidInput("data must provide x, y, and z columns.")
-                if len(data.shape) > 1 and data.shape[1] < 3:
-                    raise GMTInvalidInput("data must provide x, y, and z columns.")
-            if hasattr(data, "data_vars") and len(data.data_vars) < 3:  # xr.Dataset
-                raise GMTInvalidInput("data must provide x, y, and z columns.")
+            if x is None or y is None:  # either x or y is None
+                raise GMTInvalidInput("Must provide both x and y.")
+            if required_cols >= 3 and z is None:
+                # both x and y are not None, now check z
+                raise GMTInvalidInput("Must provide x, y, and z.")
+        case "matrix":  # 2-D numpy.ndarray
+            if (actual_cols := data.shape[1]) < required_cols:
+                msg = f"data needs {required_cols} columns but {actual_cols} column(s) are given."
+                raise GMTInvalidInput(msg)
+        case "vectors":
+            if hasattr(data, "items") and not hasattr(data, "to_frame"):
+                # Dict, pd.DataFrame, xr.Dataset
+                arrays = [array for _, array in data.items()]
+                if (actual_cols := len(arrays)) < required_cols:
+                    msg = f"data needs {required_cols} columns but {actual_cols} column(s) are given."
+                    raise GMTInvalidInput(msg)
+
+                # Loop over columns to make sure they're not None
+                for idx, array in enumerate(arrays[:required_cols]):
+                    if array is None:
+                        msg = f"data needs {required_cols} columns but the {idx} column is None."
+                        raise GMTInvalidInput(msg)
 
 
 def _check_encoding(

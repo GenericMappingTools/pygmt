@@ -240,7 +240,7 @@ def text_(  # noqa: PLR0912
             confdict = {"PS_CHAR_ENCODING": encoding}
 
     with Session() as lib:
-        with lib.virtualfile_in(
+        with lib.virtualfile_from_data(
             check_kind="vector", data=textfiles, x=x, y=y, extra_arrays=extra_arrays
         ) as vintbl:
             lib.call_module(

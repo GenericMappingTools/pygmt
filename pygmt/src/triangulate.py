@@ -138,7 +138,7 @@ class triangulate:  # noqa: N801
         with Session() as lib:
             with (
                 lib.virtualfile_in(
-                    check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
+                    check_kind="vector", data=data, x=x, y=y, z=z, required_cols=2
                 ) as vintbl,
                 lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
             ):
@@ -238,7 +238,7 @@ class triangulate:  # noqa: N801
         with Session() as lib:
             with (
                 lib.virtualfile_in(
-                    check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
+                    check_kind="vector", data=data, x=x, y=y, z=z, required_cols=2
                 ) as vintbl,
                 lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
             ):

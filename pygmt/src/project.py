@@ -246,7 +246,7 @@ def project(
                 x=x,
                 y=y,
                 z=z,
-                required_z=False,
+                required_cols=2,
                 required_data=False,
             ) as vintbl,
             lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,

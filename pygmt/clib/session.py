@@ -1605,9 +1605,8 @@ class Session:
         x=None,
         y=None,
         z=None,
-        extra_arrays=None,
-        required_z=False,
         required_data=True,
+        required_cols: int = 2,
     ):
         """
         Store any data inside a virtual file.
@@ -1627,14 +1626,11 @@ class Session:
             data input.
         x/y/z : 1-D arrays or None
             x, y, and z columns as numpy arrays.
-        extra_arrays : list of 1-D arrays
-            Optional. A list of numpy arrays in addition to x, y, and z.
-            All of these arrays must be of the same size as the x/y/z arrays.
-        required_z : bool
-            State whether the 'z' column is required.
         required_data : bool
             Set to True when 'data' is required, or False when dealing with
             optional virtual files. [Default is True].
+        required_cols
+            Number of required columns.
 
         Returns
         -------
@@ -1668,8 +1664,8 @@ class Session:
             x=x,
             y=y,
             z=z,
-            required_z=required_z,
             required_data=required_data,
+            required_cols=required_cols,
             kind=kind,
         )
 
@@ -1723,8 +1719,6 @@ class Session:
                 _data = [np.atleast_1d(x), np.atleast_1d(y)]
                 if z is not None:
                     _data.append(np.atleast_1d(z))
-                if extra_arrays:
-                    _data.extend(extra_arrays)
             case "vectors":
                 if hasattr(data, "items") and not hasattr(data, "to_frame"):
                     # Dict, pandas.DataFrame or xarray.Dataset types.
@@ -1757,20 +1751,32 @@ class Session:
            instead.
         """
         msg = (
-            "API function 'Session.virtualfile_from_datae()' has been deprecated since "
+            "API function 'Session.virtualfile_from_data()' has been deprecated since "
             "v0.13.0 and will be removed in v0.15.0. Use 'Session.virtualfile_in()' "
             "instead."
         )
         warnings.warn(msg, category=FutureWarning, stacklevel=2)
+        # Session.virtualfile_in no longer has the 'extra_arrays' parameter.
+        if data is None and extra_arrays is not None:
+            data = [np.atleast_1d(x), np.atleast_1d(y)]
+            if z is not None:
+                data.append(np.atleast_1d(z))
+            data.extend(extra_arrays)
+            x, y, z = None, None, None
+
+            # Need to convert the list of arrays into a pandas.DataFrame object.
+            # Otherwise, the "vector" `data` will be converted to a homogeneous 2D
+            # numpy.ndarray first.
+            data = pd.concat(objs=[pd.Series(array) for array in data], axis="columns")
+
         return self.virtualfile_in(
             check_kind=check_kind,
             data=data,
             x=x,
             y=y,
             z=z,
-            extra_arrays=extra_arrays,
-            required_z=required_z,
             required_data=required_data,
+            required_cols=3 if required_z else 2,
         )
 
     @contextlib.contextmanager

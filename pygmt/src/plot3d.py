@@ -184,27 +184,27 @@ def plot3d(  # noqa: PLR0912
     kwargs = self._preprocess(**kwargs)
 
     kind = data_kind(data)
-    extra_arrays = []
-
-    if kind == "none":  # Add more columns for vectors input
+    if kind == "none":  # Vectors input
+        data = {"x": x, "y": y, "z": z}
+        x, y, z = None, None, None
         # Parameters for vector styles
         if (
             kwargs.get("S") is not None
             and kwargs["S"][0] in "vV"
             and is_nonstr_iter(direction)
         ):
-            extra_arrays.extend(direction)
+            data.update({"x2": direction[0], "y2": direction[1]})
         # Fill
         if is_nonstr_iter(kwargs.get("G")):
-            extra_arrays.append(kwargs.get("G"))
+            data["fill"] = kwargs["G"]
             del kwargs["G"]
         # Size
         if is_nonstr_iter(size):
-            extra_arrays.append(size)
+            data["size"] = size
         # Intensity and transparency
-        for flag in ["I", "t"]:
+        for flag, name in [("I", "intensity"), ("t", "transparency")]:
             if is_nonstr_iter(kwargs.get(flag)):
-                extra_arrays.append(kwargs.get(flag))
+                data[name] = kwargs[flag]
                 kwargs[flag] = ""
     else:
         for name, value in [
@@ -232,12 +232,6 @@ def plot3d(  # noqa: PLR0912
 
     with Session() as lib:
         with lib.virtualfile_in(
-            check_kind="vector",
-            data=data,
-            x=x,
-            y=y,
-            z=z,
-            extra_arrays=extra_arrays,
-            required_z=True,
+            check_kind="vector", data=data, x=x, y=y, z=z, required_cols=3
         ) as vintbl:
             lib.call_module(module="plot3d", args=build_arg_list(kwargs, infile=vintbl))
