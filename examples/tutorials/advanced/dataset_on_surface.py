@@ -73,8 +73,8 @@ fig.show()
 # -------------------
 #
 # In the second example, the flag of Europe is plotted on top of a topographic
-# map of northwest Europe. This example is modified from GMT example 32 available
-# at https://docs.generic-mapping-tools.org/latest/gallery/ex32.html#example-32.
+# map of northwest Europe. This example is modified from 
+# :gmt-docs:`GMT example 32 </gallery/ex32.html>`_.
 
 # Define study area
 region_2d = [3, 9, 50, 54]  # [lon_min, lon_max, lat_min, lat_max]
