@@ -17,6 +17,7 @@ This tutorial consists of two examples:
 
 # Load the required packages
 import pygmt
+import pandas as pd
 import rasterio
 import xarray as xr
 
@@ -83,9 +84,11 @@ region_3d = [*region_2d, -10, 900]  # Append [z_min, z_max] to this list
 perspective = [157.5, 30]  # Define azimuth, elevation for the 3-D plot
 
 # Coordinates and names of cities
-lons_cities = [7.10, 4.35, 5.69]  # degrees East
-lats_cities = [50.73, 50.85, 50.85]  # degrees North
-text_cities = ["Bonn", "Bruxelles", "Maastricht"]
+cities = pd.DataFrame({
+    "longitude": [7.10, 4.35, 5.69],
+    "latitude": [50.73, 50.85, 50.85],
+    "name": ["Bonn", "Bruxelles", "Maastricht"]
+})
 
 # -----------------------------------------------------------------------------
 # Create new Figure instance
@@ -137,8 +140,8 @@ fig.coast(
 # Mark cities
 # Plot markers
 fig.plot(
-    x=lons_cities,
-    y=lats_cities,
+    x=cities.longitude,
+    y=cities.latitutde,
     style="s0.3c",  # Use squares with a size of 0.3 centimeters
     pen="1.5p,white",
     fill="black",
@@ -146,9 +149,9 @@ fig.plot(
 )
 # Add labels
 fig.text(
-    x=lons_cities,
-    y=lats_cities,
-    text=text_cities,
+    x=cities.longitude,
+    y=cities.latitude,
+    text=cities.name,
     justify="TL",  # Use Top Left corner as anchor point
     offset="0.3c/-0.3c",  # x / y directions, in centimeters
     font="12p",
