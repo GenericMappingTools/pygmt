@@ -96,18 +96,6 @@ def _check_ghostscript_version(gs_version: str) -> str | None:
     return None
 
 
-def _get_gdal_version():
-    """
-    Get GDAL version.
-    """
-    try:
-        from osgeo import gdal
-
-        return gdal.__version__
-    except ImportError:
-        return None
-
-
 def show_versions(file=sys.stdout):
     """
     Print various dependency versions which are useful when submitting bug reports.
@@ -130,9 +118,16 @@ def show_versions(file=sys.stdout):
         "executable": sys.executable,
         "machine": platform.platform(),
     }
-    deps = [Requirement(v).name for v in importlib.metadata.requires("pygmt")]
-    gs_version = _get_ghostscript_version()
-    gdal_version = _get_gdal_version()
+    dep_info = {
+        Requirement(v).name: _get_module_version(Requirement(v).name)
+        for v in importlib.metadata.requires("pygmt")
+    }
+    dep_info.update(
+        {
+            "gdal": _get_module_version("osgeo.gdal"),
+            "ghostscript": _get_ghostscript_version(),
+        }
+    )
 
     lines = []
     lines.append("PyGMT information:")
@@ -140,13 +135,11 @@ def show_versions(file=sys.stdout):
     lines.append("System information:")
     lines.extend([f"  {key}: {val}" for key, val in sys_info.items()])
     lines.append("Dependency information:")
-    lines.extend([f"  {modname}: {_get_module_version(modname)}" for modname in deps])
-    lines.append(f"  gdal: {gdal_version}")
-    lines.append(f"  ghostscript: {gs_version}")
+    lines.extend([f"  {key}: {val}" for key, val in dep_info.items()])
     lines.append("GMT library information:")
     lines.extend([f"  {key}: {val}" for key, val in _get_clib_info().items()])
 
-    if warnmsg := _check_ghostscript_version(gs_version):
+    if warnmsg := _check_ghostscript_version(dep_info["ghostscript"]):
         lines.append("WARNING:")
         lines.append(f"  {warnmsg}")
 
