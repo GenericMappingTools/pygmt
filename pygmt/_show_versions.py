@@ -7,8 +7,13 @@ Adapted from :func:`rioxarray.show_versions` and :func:`pandas.show_versions`.
 import importlib
 import platform
 import shutil
+import subprocess
 import sys
 from importlib.metadata import version
+
+from packaging.requirements import Requirement
+from packaging.version import Version
+from pygmt.clib import Session, __gmt_version__
 
 # Get semantic version through setuptools-scm
 __version__ = f'v{version("pygmt")}'  # e.g. v0.1.2.dev3+g0ab3cd78
@@ -19,8 +24,6 @@ def _get_clib_info() -> dict:
     """
     Return information about the GMT shared library.
     """
-    from pygmt.clib import Session
-
     with Session() as ses:
         return ses.info
 
@@ -47,8 +50,6 @@ def _get_ghostscript_version() -> str | None:
     """
     Get Ghostscript version.
     """
-    import subprocess
-
     match sys.platform:
         case "linux" | "darwin":
             cmds = ["gs"]
@@ -71,8 +72,6 @@ def _check_ghostscript_version(gs_version: str) -> str | None:
     """
     Check if the Ghostscript version is compatible with GMT versions.
     """
-    from packaging.version import Version
-
     match Version(gs_version):
         case v if v < Version("9.53"):
             return (
@@ -85,8 +84,6 @@ def _check_ghostscript_version(gs_version: str) -> str | None:
                 "Please consider upgrading to version v10.02 or later."
             )
         case v if v >= Version("10.02"):
-            from pygmt.clib import __gmt_version__
-
             if Version(__gmt_version__) < Version("6.5.0"):
                 return (
                     f"GMT v{__gmt_version__} doesn't support Ghostscript "
@@ -110,8 +107,6 @@ def show_versions(file=sys.stdout):
     It also warns users if the installed Ghostscript version has serious bugs or is
     incompatible with the installed GMT version.
     """
-
-    from packaging.requirements import Requirement
 
     sys_info = {
         "python": sys.version.replace("\n", " "),
