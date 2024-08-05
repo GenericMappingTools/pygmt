@@ -1,7 +1,12 @@
 # Supported Fonts
 
-PyGMT supports the 35 standard PostScript fonts. The table below lists the 35 fonts with
-font number and the font name.
+PyGMT supports the 35 standard PostScript fonts. The table below lists them with their
+font numbers and font names. When specifying fonts in PyGMT, you can either give the 
+entire font name or just the font number. For example, to use the font "Helvetica", you
+can use either `"Helvetica"` or `"0"`.
+For the special fonts "Symbol" (12) and "ZapfDingbats" (34), see the {doc}`/techref/encodings`
+for the character set.
+The image below the table shows a visual sample for each font.
 
 | Font Number | Font Name                  | Font Number | Font Name                  |
 |-------------|----------------------------|-------------|----------------------------|
@@ -24,13 +29,5 @@ font number and the font name.
 | 16          | AvantGarde-DemiOblique     | 33          | ZapfChancery-MediumItalic  |
 |             |                            | 34          | ZapfDingbats               |
 
-The figure below shows a visual sample for each font.
+![Standard PostScript Fonts](https://docs.generic-mapping-tools.org/dev/_images/GMT_App_G.png){.align-left width="80%"}
 
-![Standard PostScript Fonts](https://docs.generic-mapping-tools.org/dev/_images/GMT_App_G.png){.align-center width="80%"}
-
-For the special fonts Symbol (12) and ZapfDingbats (34), see the {doc}`/techref/encodings`
-for the character set.
-
-When specifying fonts in GMT, you can either give the entire font name or just the font
-number listed in this table. For example, to use the Helvetica font, you can use either
-`Helvetica` or `0`.
