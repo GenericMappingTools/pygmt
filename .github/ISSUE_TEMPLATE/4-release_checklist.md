@@ -18,10 +18,10 @@ assignees: ''
 **Before release**:
 - [ ] Check [SPEC 0](https://scientific-python.org/specs/spec-0000/) to see if we need to bump the minimum supported versions of GMT, Python and core package dependencies (NumPy/Pandas/Xarray)
 - [ ] Check to ensure that:
+  - [ ] Deprecations and related tests are removed for this version by running `grep --include="*.py" -r 'remove_version="vX.Y.Z"' pygmt` from the base of the repository
   - [ ] All tests pass in the ["GMT Legacy Tests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_legacy.yaml)
   - [ ] All tests pass in the ["GMT Dev Tests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml)
   - [ ] All tests pass in the ["Doctests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_doctests.yaml)
-  - [ ] Deprecations and related tests are removed for this version by running `grep --include="*.py" -r 'remove_version="vX.Y.Z"' pygmt` from the base of the repository
 - [ ] Update warnings in `pygmt/_show_versions.py` as well as notes in
       [Not working transparency](https://www.pygmt.org/dev/install.html#not-working-transparency)
       regarding GMT-Ghostscript incompatibility
