@@ -67,7 +67,7 @@ fig.show()
 # Add a color bar
 # ---------------
 #
-# The :meth:`pygmt.Figure.colorbar` method displays the CPT and the associated Z-values
+# The :meth:`pygmt.Figure.colorbar` method displays the CPT and the associated z-values
 # of the figure, and by default uses the same CPT set by the ``cmap`` parameter for
 # :meth:`pygmt.Figure.grdimage`. The ``frame`` parameter for
 # :meth:`pygmt.Figure.colorbar` can be used to set the axis intervals and labels. A list
@@ -88,7 +88,7 @@ fig.show()
 # In addition to providing global data, the ``region`` parameter for
 # :func:`pygmt.datasets.load_earth_relief` can be used to provide data for a specific
 # area. The ``region`` parameter is required for resolutions at 5 arc-minutes or higher,
-# and accepts a list in the form of [*xmin*, *xmax*, *ymin*, *ymax*"].
+# and accepts a list in the form of ``[*xmin*, *xmax*, *ymin*, *ymax*]``.
 #
 # The example below uses data with a 10 arc-minutes resolution, and plots it on a
 # 15-centimeters-wide figure with a Mercator projection and a CPT set to *geo*.
