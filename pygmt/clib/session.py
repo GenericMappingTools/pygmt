@@ -2231,3 +2231,29 @@ class Session:
         if status != 0:
             raise GMTCLibError("Failed to extract region from current figure.")
         return region
+
+
+def raster_kind(raster: str):
+    """
+    Determine the raster kind.
+
+    >>> raster_kind("@earth_relief_01d")
+    'grid'
+    >>> raster_kind("@static_earth_relief.nc")
+    'grid'
+    >>> raster_kind("@earth_day_01d")
+    'image'
+    >>> raster_kind("@hotspots.txt")
+    """
+    with Session() as lib:
+        try:
+            img = lib.read_data(infile=raster, kind="image", mode="GMT_CONTAINER_ONLY")
+            return "image" if img.contents.header.contents.n_bands == 3 else "grid"
+        except GMTCLibError:
+            pass
+        try:
+            _ = lib.read_data(infile=raster, kind="grid", mode="GMT_CONTAINER_ONLY")
+            return "grid"
+        except GMTCLibError:
+            pass
+    return None
