@@ -46,7 +46,7 @@ The table below lists the standard 35 PostScript fonts that are supported by GMT
 
 The table shows the font number, the font name, and a sample of the font.
 
-![Standard PostScript Fonts](https://docs.generic-mapping-tools.org/dev/reference/postscript-fonts.html)
+![Standard PostScript Fonts](https://docs.generic-mapping-tools.org/dev/_images/GMT_App_G.png)
 
 For the special fonts Symbol (12) and ZapfDingbats (34), see the :doc:`/techref/encodings` for the character set.
 
