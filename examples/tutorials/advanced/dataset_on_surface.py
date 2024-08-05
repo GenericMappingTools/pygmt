@@ -36,7 +36,7 @@ region_2d = [-50, 0, 36, 70]
 grd_relief = pygmt.datasets.load_earth_relief(resolution="10m", region=region_2d)
 grd_age = pygmt.datasets.load_earth_age(resolution="10m", region=region_2d)
 
-# Determine the 3-D region from the minimum and maxiumum values of the relief grid
+# Determine the 3-D region from the minimum and maximum values of the relief grid
 region_3d = [*region_2d, grd_relief.min().to_numpy(), grd_relief.max().to_numpy()]
 
 # %%
@@ -96,10 +96,10 @@ cities = pd.DataFrame(
 # arc-seconds and pixel registration and load it into a xarray.DataArray
 grd_relief = pygmt.datasets.load_earth_relief(resolution="30s", region=region_2d)
 
-# Determine the 3-D region from the minimum and maxiumum values of the relief grid
+# Determine the 3-D region from the minimum and maximum values of the relief grid
 region_3d = [*region_2d, grd_relief.min().to_numpy(), grd_relief.max().to_numpy()]
 
-# Download an image of the flage of Europe using rasterio and load it into a
+# Download an image of the flag of Europe using rasterio and load it into a
 # xarray.DataArray
 url_to_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1000px-Flag_of_Europe.svg.png"
 with rasterio.open(url_to_image) as dataset:
