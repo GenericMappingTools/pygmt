@@ -3,6 +3,7 @@ grdcut - Extract subregion from a grid.
 """
 
 from pygmt.clib import Session
+from pygmt.clib.session import raster_kind
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
@@ -10,7 +11,6 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.src.which import which
 
 __doctest_skip__ = ["grdcut"]
 
@@ -104,18 +104,7 @@ def grdcut(grid, outgrid: str | None = None, **kwargs):
         case "image" | "grid":
             outkind = inkind
         case "file":
-            realpath = str(grid)
-            if realpath.startswith("@"):  # Is a remote file without suffix
-                realpath = which(grid, download="a")
-                if isinstance(realpath, list):
-                    realpath = realpath[0]
-
-            if realpath.endswith(
-                (".jpg", ".jpeg", ".png", ".tif", ".tiff", ".bmp", ".webp")
-            ):
-                outkind = "image"
-            else:  # Fall back to grid.
-                outkind = "grid"
+            outkind = raster_kind(grid)
 
     with Session() as lib:
         with (
