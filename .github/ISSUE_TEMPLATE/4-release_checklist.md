@@ -28,7 +28,7 @@ assignees: ''
       regarding GMT-Ghostscript incompatibility
 - [ ] Reserve a DOI on [Zenodo](https://zenodo.org) by clicking on "New Version"
 - [ ] Review the ["PyGMT Team" page](https://www.pygmt.org/dev/team.html)
-- [ ] Finish up 'Changelog entry for v0.x.x' Pull Request:
+- [ ] Finish up the "Changelog entry for v0.x.x" Pull Request:
   - [ ] Add a new entry in `doc/_static/version_switch.js` for documentation switcher
   - [ ] Update `CITATION.cff` and BibTeX at https://github.com/GenericMappingTools/pygmt#citing-pygmt
     - [ ] Update authorship list
