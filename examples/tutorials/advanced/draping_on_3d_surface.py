@@ -87,15 +87,6 @@ fig.show()
 # Define study area in degrees East or North
 region_2d = [3, 9, 50, 54]  # [lon_min, lon_max, lat_min, lat_max]
 
-# Set up a pandas DataFrame with coordinates and names of three cities
-cities = pd.DataFrame(
-    {
-        "longitude": [7.10, 4.35, 5.69],
-        "latitude": [50.73, 50.85, 50.85],
-        "name": ["Bonn", "Bruxelles", "Maastricht"],
-    }
-)
-
 # Download elevation grid for the study region with a resolution of 30 arc-seconds and
 # pixel registration and load it into an xarray.DataArray
 grd_relief = pygmt.datasets.load_earth_relief(resolution="30s", region=region_2d)
@@ -152,7 +143,14 @@ fig.coast(
     perspective=True,
 )
 
-# Mark cities
+# Set up a pandas.DataFrame with coordinates and names of three cities
+cities = pd.DataFrame(
+    {
+        "longitude": [7.10, 4.35, 5.69],
+        "latitude": [50.73, 50.85, 50.85],
+        "name": ["Bonn", "Bruxelles", "Maastricht"],
+    }
+)
 # Plot markers
 fig.plot(
     x=cities.longitude,
