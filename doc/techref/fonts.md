@@ -1,6 +1,6 @@
 # Supported Fonts
 
-PyGMT supports the standard 35 PostScript fonts. The table below lists the 35 fonts with
+PyGMT supports the 35 standard PostScript fonts. The table below lists the 35 fonts with
 font number and the font name.
 
 | Font Number | Font Name                  | Font Number | Font Name                  |
