@@ -119,7 +119,7 @@ def show_versions(file: TextIO | None = sys.stdout):
     }
     dep_info = {
         Requirement(v).name: _get_module_version(Requirement(v).name)
-        for v in importlib.metadata.requires("pygmt")
+        for v in importlib.metadata.requires("pygmt")  # type: ignore[union-attr]
     }
     dep_info.update(
         {
