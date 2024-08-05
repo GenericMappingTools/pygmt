@@ -28,8 +28,8 @@ import xarray as xr
 # In the first example, the seafloor crustal age is plotted with color-coding
 # on top of the topographic map of an area of the Mid-Atlantic Ridge.
 
-# Define study area
-region_2d = [-50, 0, 36, 70]
+# Define study area in degrees East or North
+region_2d = [-50, 0, 36, 70]  # [lon_min, lon_max, lat_min, lat_max]
 
 # Download elevation and crustal age grids for the study region with a
 # resolution of 10 arc-minutes and load them into xarray.DataArrays
@@ -40,11 +40,17 @@ grd_age = pygmt.datasets.load_earth_age(resolution="10m", region=region_2d)
 region_3d = [*region_2d, grd_relief.min().to_numpy(), grd_relief.max().to_numpy()]
 
 # %%
-# TODO
+# The topographic surface is created based on the grid passed to the ``grid``
+# parameter of :meth:`pygmt.Figure.grdview`; here we use a grid of the Earth relief.
+# To add a color-coding based on *another* grid we have to pass a second grid to
+# the ``drapegrid`` parameter; here we use a grid of the crustal age. In this case
+# the colormap specified via the ``cmap`` parameter applies to the grid passed to
+# ``drapegrid``, not to ``grid``. The azimuth and elevation a the 3-D plot are set
+# via the ``perspective`` parameter.
 
 fig = pygmt.Figure()
 
-# Set up colormap for curstal age
+# Set up colormap for the crustal age
 pygmt.config(COLOR_NAN="lightgray")
 pygmt.makecpt(cmap="batlow", series=[0, 200, 1], reverse=True, overrule_bg=True)
 
@@ -53,7 +59,7 @@ fig.grdview(
     region=region_3d,
     grid=grd_relief,  # Use elevation grid for z values
     drapegrid=grd_age,  # Use crustal age grid for color-coding
-    cmap=True,
+    cmap=True,  # Use colormap created for the crustal age
     surftype="i",  # Create an image plot
     # Use an illumination from the azimuthal directions 0° (north) and 270°
     # (west) with a normalization via a cumulative Laplace distribution for
@@ -65,10 +71,9 @@ fig.grdview(
     frame=True,
 )
 
-# Add colorbar for curstal age
+# Add colorbar for the crustal age
 fig.colorbar(frame=["x+lseafloor crustal age", "y+lMyr"], position="+n")
 
-# Show figure
 fig.show()
 
 
@@ -76,12 +81,12 @@ fig.show()
 # 2. Draping an image
 # -------------------
 #
-# In the second example, the flag of Europe is plotted on top of a topographic
-# map of northwest Europe. This example is modified from
+# In the second example, the flag of the European Union (EU) is plotted on top of
+# a topographic map of northwest Europe. This example is modified from
 # :gmt-docs:`GMT example 32 </gallery/ex32.html>`.
 
-# Define study area
-region_2d = [3, 9, 50, 54]
+# Define study area in degrees East or North
+region_2d = [3, 9, 50, 54]  # [lon_min, lon_max, lat_min, lat_max]
 
 # Set up a pandas DataFrame with coordinates and names of three cities
 cities = pd.DataFrame(
@@ -93,13 +98,13 @@ cities = pd.DataFrame(
 )
 
 # Download elevation grid for the study region with a resolution of 30
-# arc-seconds and pixel registration and load it into a xarray.DataArray
+# arc-seconds and pixel registration and load it into an xarray.DataArray
 grd_relief = pygmt.datasets.load_earth_relief(resolution="30s", region=region_2d)
 
 # Determine the 3-D region from the minimum and maximum values of the relief grid
 region_3d = [*region_2d, grd_relief.min().to_numpy(), grd_relief.max().to_numpy()]
 
-# Download an image of the flag of Europe using rasterio and load it into a
+# Download an image of the flag of the EU using rasterio and load it into a
 # xarray.DataArray
 url_to_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1000px-Flag_of_Europe.svg.png"
 with rasterio.open(url_to_image) as dataset:
@@ -107,7 +112,9 @@ with rasterio.open(url_to_image) as dataset:
     drapegrid = xr.DataArray(data, dims=("band", "y", "x"))
 
 # %%
-# TODO
+# Again we create a 3-D plot with :meth:`pygmt.Figure.grdview` and passe an Earth
+# relief grid to the ``grid`` parameter to create the topographic surface. But now
+# we pass the PNG image loaded into an xarray.DataArray to the ``drapgrid`` parameter.
 
 fig = pygmt.Figure()
 
@@ -128,16 +135,17 @@ fig.grdview(
     # the shading
     shading="+a0/270+ne0.6",
     perspective=[157.5, 30],  # Define azimuth, elevation for the 3-D plot
-    zsize="1c",
-    plane="+glightgray",
     frame=True,
 )
 
-# %%
-# We can plot some features, including coastlines, symbols, and text on top
-# of the map.
+fig.show()
 
-# Plot water, broders, and shorelines on top
+# %%
+# Additionally we can plot some features like coastlines, symbols, and text on top
+# of the map. Setting ``perspective=True`` leads to the same azimuth and elevation
+# values as we passed to the ``perspective`` parameter of :meth:`pygmt.Figure.grdview`.
+
+# Plot water masses, political broders, and shorelines
 fig.coast(
     water="white@50",
     borders="1/1p,lightgray",
@@ -167,7 +175,6 @@ fig.text(
     perspective=True,
 )
 
-# Show figure
 fig.show()
 
 # sphinx_gallery_thumbnail_number = 2
