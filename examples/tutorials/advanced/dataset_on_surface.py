@@ -29,22 +29,25 @@ import xarray as xr
 # on top of the topographic map of an area of the Mid-Atlantic Ridge.
 
 # Define study area
-region_2d = [-50, 0, 36, 70]  # [lon_min, lon_max, lat_min, lat_max]
-
-# Create new Figure instance
-fig = pygmt.Figure()
+region_2d = [-50, 0, 36, 70]
 
 # Download elevation and crustal age grids for the study region with a
-# resolution of 3 arc-minutes and load them into xarray.DataArrays
+# resolution of 10 arc-minutes and load them into xarray.DataArrays
 grd_relief = pygmt.datasets.load_earth_relief(resolution="10m", region=region_2d)
 grd_age = pygmt.datasets.load_earth_age(resolution="10m", region=region_2d)
+
+# Determine the 3-D region from the minimum and maxiumum values of the relief grid
+region_3d = [*region_2d, grd_relief.min().to_numpy(), grd_relief.max().to_numpy()]
+
+# %%
+# TODO
+
+fig = pygmt.Figure()
 
 # Set up colormap for curstal age
 pygmt.config(COLOR_NAN="lightgray")
 pygmt.makecpt(cmap="batlow", series=[0, 200, 1], reverse=True, overrule_bg=True)
 
-# Determine the 3-D region parameter from the relief grid min/max values
-region_3d = [*region_2d, grd_relief.min().to_numpy(), grd_relief.max().to_numpy()]
 fig.grdview(
     projection="M12c",  # Mercator projection with a width of 12 centimeters
     region=region_3d,
@@ -78,11 +81,9 @@ fig.show()
 # :gmt-docs:`GMT example 32 </gallery/ex32.html>`_.
 
 # Define study area
-region_2d = [3, 9, 50, 54]  # [lon_min, lon_max, lat_min, lat_max]
-region_3d = [*region_2d, -10, 900]  # Append [z_min, z_max] to this list
-perspective = [157.5, 30]  # Define azimuth, elevation for the 3-D plot
+region_2d = [3, 9, 50, 54]
 
-# Coordinates and names of cities
+# Set up a pandas DataFrame with coordinates and names of three cities
 cities = pd.DataFrame(
     {
         "longitude": [7.10, 4.35, 5.69],
@@ -91,25 +92,29 @@ cities = pd.DataFrame(
     }
 )
 
-# -----------------------------------------------------------------------------
-# Create new Figure instance
-fig = pygmt.Figure()
-
 # Download elevation grid for the study region with a resolution of 30
 # arc-seconds and pixel registration and load it into a xarray.DataArray
 grd_relief = pygmt.datasets.load_earth_relief(resolution="30s", region=region_2d)
 
-# Download a image of the flage of Europe using rasterio and load it into a
+# Determine the 3-D region from the minimum and maxiumum values of the relief grid
+region_3d = [*region_2d, grd_relief.min().to_numpy(), grd_relief.max().to_numpy()]
+
+# Download an image of the flage of Europe using rasterio and load it into a
 # xarray.DataArray
 url_to_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1000px-Flag_of_Europe.svg.png"
 with rasterio.open(url_to_image) as dataset:
     data = dataset.read()
     drapegrid = xr.DataArray(data, dims=("band", "y", "x"))
 
+# %%
+# TODO
+
+fig = pygmt.Figure()
+
 # Set up a colormap with two colors for the EU flag: blue (0/51/153) for the
 # background (value 0 in the nedCDF file -> lower half of 0-255 range) and
 # yellow (255/204/0) for the stars (value 255 -> upper half)
-pygmt.makecpt(cmap="0/51/153,255/204/0", series=[0, 256, 128])  # [min, max, step]
+pygmt.makecpt(cmap="0/51/153,255/204/0", series=[0, 256, 128])
 
 fig.grdview(
     projection="M12c",  # Mercator projection with a width of 12 centimeters
@@ -122,22 +127,24 @@ fig.grdview(
     # (west) with a normalization via a cumulative Laplace distribution for
     # the shading
     shading="+a0/270+ne0.6",
-    perspective=perspective,
+    perspective=[157.5, 30],  # Define azimuth, elevation for the 3-D plot
     zsize="1c",
     plane="+glightgray",
     frame=True,
 )
 
-# -----------------------------------------------------------------------------
+# %%
+# We can plot some features, including coastlines, symbols, and text on top
+# of the map.
+
 # Plot water, broders, and shorelines on top
 fig.coast(
     water="white@50",
     borders="1/1p,lightgray",
     shorelines="1/0.5p,gray30",
-    perspective=perspective,
+    perspective=True,
 )
 
-# -----------------------------------------------------------------------------
 # Mark cities
 # Plot markers
 fig.plot(
@@ -146,7 +153,7 @@ fig.plot(
     style="s0.3c",  # Use squares with a size of 0.3 centimeters
     pen="1.5p,white",
     fill="black",
-    perspective=perspective,
+    perspective=True,
 )
 # Add labels
 fig.text(
@@ -157,10 +164,9 @@ fig.text(
     offset="0.3c/-0.3c",  # x / y directions, in centimeters
     font="12p",
     fill="white@30",  # Fill box in white with a transparency of 30 %
-    perspective=perspective,
+    perspective=True,
 )
 
-# -----------------------------------------------------------------------------
 # Show figure
 fig.show()
 
