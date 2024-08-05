@@ -23,7 +23,7 @@ __commit__ = __version__.split("+g")[-1] if "+g" in __version__ else ""  # 0ab3c
 
 def _get_clib_info() -> dict[str, str]:
     """
-    Return information about the GMT shared library.
+    Get information about the GMT shared library.
     """
     with Session() as ses:
         return ses.info
