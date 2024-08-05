@@ -38,6 +38,7 @@ assignees: ''
   - [ ] Add the documentation link `doc/minversions.md`
   - [ ] Add minimum required version information `doc/minversions.md`
   - [ ] Copy draft changelog from Release Drafter and edit it to look nice ([see maintainers guide for details](https://www.pygmt.org/dev/maintenance.html#updating-the-changelog))
+- [ ] Draft the announcement on https://hackmd.io/@pygmt
 - [ ] Run `make codespell` to check common misspellings. If there are any, either fix them or add them to `ignore-words-list` in `pyproject.toml`
 
 **Release**:
@@ -51,7 +52,7 @@ assignees: ''
 - [ ] Update conda-forge [pygmt-feedstock](https://github.com/conda-forge/pygmt-feedstock) [Done automatically by conda-forge's bot, but remember to pin SPEC0 versions]
 - [ ] Bump PyGMT version on https://github.com/GenericMappingTools/try-gmt (after conda-forge update)
 - [ ] Announce the release on:
-  - [ ] GMT [forum](https://forum.generic-mapping-tools.org/c/news/) (do this announcement first! draft on https://hackmd.io/@pygmt. requires moderator status)
+  - [ ] GMT [forum](https://forum.generic-mapping-tools.org/c/news/) (do this announcement first! requires moderator status)
   - [ ] [ResearchGate](https://www.researchgate.net) (after forum announcement, add new version as research item via the **code** category, be sure to include the corresponding new Zenodo DOI)
 ---
 
