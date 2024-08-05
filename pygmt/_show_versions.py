@@ -68,10 +68,13 @@ def _get_ghostscript_version() -> str | None:
     return None
 
 
-def _check_ghostscript_version(gs_version: str) -> str | None:
+def _check_ghostscript_version(gs_version: str | None) -> str | None:
     """
     Check if the Ghostscript version is compatible with GMT versions.
     """
+    if gs_version is None:
+        return None
+
     match Version(gs_version):
         case v if v < Version("9.53"):
             return (
