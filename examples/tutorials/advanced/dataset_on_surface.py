@@ -104,7 +104,7 @@ grd_relief = pygmt.datasets.load_earth_relief(resolution="30s", region=region_2d
 # Determine the 3-D region from the minimum and maximum values of the relief grid
 region_3d = [*region_2d, grd_relief.min().to_numpy(), grd_relief.max().to_numpy()]
 
-# Download an image of the flag of the EU using rasterio and load it into a
+# Download an PNG image of the flag of the EU using rasterio and load it into a
 # xarray.DataArray
 url_to_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1000px-Flag_of_Europe.svg.png"
 with rasterio.open(url_to_image) as dataset:
@@ -114,7 +114,8 @@ with rasterio.open(url_to_image) as dataset:
 # %%
 # Again we create a 3-D plot with :meth:`pygmt.Figure.grdview` and passe an Earth
 # relief grid to the ``grid`` parameter to create the topographic surface. But now
-# we pass the PNG image loaded into an xarray.DataArray to the ``drapgrid`` parameter.
+# we pass the PNG image which was loaded into an :class:`xarray.DataArray` to the
+# ``drapgrid`` parameter.
 
 fig = pygmt.Figure()
 
