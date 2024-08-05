@@ -12,6 +12,8 @@ from pygmt.helpers import build_arg_list, kwargs_to_strings
 from pygmt.src import which
 
 if TYPE_CHECKING:
+    from collections.abc import Sequence
+
     import xarray as xr
 
 
@@ -333,7 +335,7 @@ def _load_remote_dataset(
     name: str,
     prefix: str,
     resolution: str,
-    region: str | list,
+    region: Sequence[float] | str | None,
     registration: Literal["gridline", "pixel", None],
 ) -> xr.DataArray:
     r"""
@@ -387,7 +389,7 @@ def _load_remote_dataset(
     if registration is None:
         # Use gridline registration unless only pixel registration is available
         registration = "gridline" if "gridline" in resinfo.registrations else "pixel"
-    elif registration in ("pixel", "gridline"):
+    elif registration in {"pixel", "gridline"}:
         if registration not in resinfo.registrations:
             raise GMTInvalidInput(
                 f"{registration} registration is not available for the "

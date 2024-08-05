@@ -64,6 +64,33 @@ def load_libgmt(lib_fullnames: Iterator[str] | None = None) -> ctypes.CDLL:
     return libgmt
 
 
+def get_gmt_version(libgmt: ctypes.CDLL) -> str:
+    """
+    Get the GMT version string of the GMT shared library.
+
+    Parameters
+    ----------
+    libgmt
+        The GMT shared library.
+
+    Returns
+    -------
+    The GMT version string in *major.minor.patch* format.
+    """
+    func = libgmt.GMT_Get_Version
+    func.argtypes = (
+        ctypes.c_void_p,  # Unused parameter, so it can be None.
+        ctypes.POINTER(ctypes.c_uint),  # major
+        ctypes.POINTER(ctypes.c_uint),  # minor
+        ctypes.POINTER(ctypes.c_uint),  # patch
+    )
+    # The function return value is the current library version as a float, e.g., 6.5.
+    func.restype = ctypes.c_float
+    major, minor, patch = ctypes.c_uint(0), ctypes.c_uint(0), ctypes.c_uint(0)
+    func(None, major, minor, patch)
+    return f"{major.value}.{minor.value}.{patch.value}"
+
+
 def clib_names(os_name: str) -> list[str]:
     """
     Return the name(s) of GMT's shared library for the current operating system.
