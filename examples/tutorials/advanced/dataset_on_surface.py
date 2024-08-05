@@ -78,7 +78,7 @@ fig.show()
 #
 # In the second example, the flag of Europe is plotted on top of a topographic
 # map of northwest Europe. This example is modified from
-# :gmt-docs:`GMT example 32 </gallery/ex32.html>`_.
+# :gmt-docs:`GMT example 32 </gallery/ex32.html>`.
 
 # Define study area
 region_2d = [3, 9, 50, 54]
