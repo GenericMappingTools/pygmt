@@ -9,5 +9,6 @@ visit the {gmt-docs}`GMT Technical Reference <reference.html>`.
 :maxdepth: 1
 
 projections.md
+fonts.md
 encodings.md
 ```
