@@ -177,4 +177,4 @@ fig.text(
 
 fig.show()
 
-# sphinx_gallery_thumbnail_number = 2
+# sphinx_gallery_thumbnail_number = 3
