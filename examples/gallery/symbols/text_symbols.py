@@ -15,8 +15,6 @@ different characters) and *string* can be a letter or a text string
 as **+j**\ *justify* to change the justification [Default is CM]. The fill
 color of the text symbols can be set with the ``fill`` parameter, and the
 outline width can be customized with the ``pen`` parameter.
-For all supported octal codes and fonts see :doc:`/techref/encodings` and
-:doc:`/techref/fonts`.
 """
 
 # %%
