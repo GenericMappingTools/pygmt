@@ -1,3 +1,7 @@
+---
+file_format: mystnb
+---
+
 # Installing
 
 ## Quickstart
@@ -233,7 +237,11 @@ from Python.
 To ensure that PyGMT and its dependencies are installed correctly, run the following
 in your Python interpreter:
 
-```python
+```{code-cell} ipython
+---
+tags: [remove-stdout]
+---
+
 import pygmt
 pygmt.show_versions()
 
@@ -242,7 +250,6 @@ fig.coast(projection="N15c", region="g", frame=True, land="tan", water="lightblu
 fig.text(position="MC", text="PyGMT", font="80p,Helvetica-Bold,red@75")
 fig.show()
 ```
-![pygmt-get-started](https://github.com/GenericMappingTools/pygmt/assets/3974108/f7f51484-8640-4b58-ae5b-6c71e7150f7a){.align-center width="70%"}
 
 You should see a global map with land and water masses colored in tan and lightblue
 respectively. On top, there should be the semi-transparent text "PyGMT". If the
