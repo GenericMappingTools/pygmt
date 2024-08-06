@@ -103,8 +103,8 @@ with rasterio.open(url_to_image) as dataset:
 
 # %%
 # Again we create a 3-D plot with :meth:`pygmt.Figure.grdview` and passe an Earth relief
-#  grid to the ``grid`` parameter to create the topographic surface. But now we pass the
-#  PNG image which was loaded into an :class:`xarray.DataArray` to the ``drapgrid``
+# grid to the ``grid`` parameter to create the topographic surface. But now we pass the
+# PNG image which was loaded into an :class:`xarray.DataArray` to the ``drapgrid``
 # parameter.
 
 fig = pygmt.Figure()
