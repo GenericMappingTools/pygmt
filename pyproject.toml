@@ -32,7 +32,7 @@ classifiers = [
 dependencies = [
     "numpy>=1.24",
     "pandas>=1.5",
-    "xarray>=2022.06",
+    "xarray>=2022.09",
     "netCDF4",
     "packaging",
 ]
