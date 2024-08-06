@@ -17,7 +17,7 @@ requires_python = metadata("pygmt")["Requires-Python"]
 requires_gmt = f">={required_gmt_version}"
 
 extensions = [
-    "myst_parser",
+    "myst_nb",
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
     "sphinx.ext.coverage",
