@@ -28,4 +28,4 @@ The image below the table shows a visual sample for each font.
 | 16       | AvantGarde-DemiOblique | 33       | ZapfChancery-MediumItalic    |
 |          |                        | 34       | ZapfDingbats                 |
 
-![Standard PostScript Fonts](https://docs.generic-mapping-tools.org/dev/_images/GMT_App_G.png){width="80%"}
+![Standard PostScript Fonts](https://docs.generic-mapping-tools.org/dev/_images/GMT_App_G.png){width="67.5%"}
