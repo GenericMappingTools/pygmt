@@ -2,6 +2,9 @@
 legend - Plot a legend.
 """
 
+import io
+import pathlib
+
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -26,7 +29,13 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwargs):
+def legend(
+    self,
+    spec: str | pathlib.PurePath | io.StringIO | None = None,
+    position="JTR+jTR+o0.2c",
+    box="+gwhite+p1p",
+    **kwargs,
+):
     r"""
     Plot legends on maps.
 
@@ -42,10 +51,15 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
 
     Parameters
     ----------
-    spec : None or str
-        Either ``None`` [Default] for using the automatically generated legend
-        specification file, or a *filename* pointing to the legend
-        specification file.
+    spec
+        The legend specification. It can be:
+
+        - ``None`` for using the automatically generated legend specification file.
+        - A string or a :class:`pathlib.PurePath` object pointing to the legend
+          specification file.
+        - A :class:`io.StringIO` object containing the legend specification.
+
+        See :gmt-docs:`legend.html` for the definition of the legend specification.
     {projection}
     {region}
     position : str
@@ -75,12 +89,14 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
         if kwargs.get("F") is None:
             kwargs["F"] = box
 
-    with Session() as lib:
-        if spec is None:
+    match data_kind(spec):
+        case "vectors":  # spec is None
             specfile = ""
-        elif data_kind(spec) == "file" and not is_nonstr_iter(spec):
-            # Is a file but not a list of files
+        case kind if kind == "file" and not is_nonstr_iter(spec):
             specfile = spec
-        else:
+        case _:
             raise GMTInvalidInput(f"Unrecognized data type: {type(spec)}")
-        lib.call_module(module="legend", args=build_arg_list(kwargs, infile=specfile))
+
+    with Session() as lib:
+        with lib.virtualfile_in(data=specfile) as vintbl:
+            lib.call_module(module="legend", args=build_arg_list(kwargs, infile=vintbl))

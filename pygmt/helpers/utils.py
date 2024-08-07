@@ -2,6 +2,7 @@
 Utilities and common tasks for wrapping the GMT modules.
 """
 
+import io
 import os
 import pathlib
 import shutil
@@ -189,8 +190,10 @@ def _check_encoding(
 
 def data_kind(
     data: Any = None, required: bool = True
-) -> Literal["arg", "file", "geojson", "grid", "image", "matrix", "vectors"]:
-    """
+) -> Literal[
+    "arg", "file", "geojson", "grid", "image", "matrix", "stringio", "vectors"
+]:
+    r"""
     Check the kind of data that is provided to a module.
 
     The ``data`` argument can be in any type, but only following types are supported:
@@ -223,6 +226,7 @@ def data_kind(
     >>> import numpy as np
     >>> import xarray as xr
     >>> import pathlib
+    >>> import io
     >>> data_kind(data=None)
     'vectors'
     >>> data_kind(data=np.arange(10).reshape((5, 2)))
@@ -241,6 +245,8 @@ def data_kind(
     'grid'
     >>> data_kind(data=xr.DataArray(np.random.rand(3, 4, 5)))
     'image'
+    >>> data_kind(data=io.StringIO("TEXT1\nTEXT23\n"))
+    'stringio'
     """
     kind: Literal["arg", "file", "geojson", "grid", "image", "matrix", "vectors"]
     if isinstance(data, str | pathlib.PurePath) or (
@@ -251,6 +257,8 @@ def data_kind(
         kind = "file"
     elif isinstance(data, bool | int | float) or (data is None and not required):
         kind = "arg"
+    elif isinstance(data, io.StringIO):
+        kind = "stringio"
     elif isinstance(data, xr.DataArray):
         kind = "image" if len(data.dims) == 3 else "grid"
     elif hasattr(data, "__geo_interface__"):
