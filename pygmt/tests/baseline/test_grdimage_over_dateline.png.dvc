@@ -1,4 +1,5 @@
 outs:
-- md5: cfd6484e1e2eddea0d4b56df54aabe05
-  size: 10854
+- md5: 89b79fd00e185ab840927dad11cb5ec5
+  size: 8393
   path: test_grdimage_over_dateline.png
+  hash: md5
