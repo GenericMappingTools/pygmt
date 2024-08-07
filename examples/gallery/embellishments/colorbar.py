@@ -22,7 +22,7 @@ via the ``position`` parameter. There are the following options:
 - **n**: using normalized (0-1) coordinates, e.g. ``position="n0.4/0.8"``.
 
 Note that the anchor point defaults to Bottom Left (**BL**). Append``+h`` to
-`position`` to get a horizontal colorbar instead of a vertical one (``+v``).
+``position`` to get a horizontal colorbar instead of a vertical one (``+v``).
 """
 
 # %%
