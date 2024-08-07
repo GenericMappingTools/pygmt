@@ -3,18 +3,25 @@ Sphinx documentation configuration file.
 """
 
 import datetime
-from importlib.metadata import metadata
+import importlib
 
-# ruff: isort: off
-from sphinx_gallery.sorting import ExplicitOrder, ExampleTitleSortKey
-from pygmt.clib import required_gmt_version
+from packaging.requirements import Requirement
 from pygmt import __commit__, __version__
+from pygmt.clib import required_gmt_version
 from pygmt.sphinx_gallery import PyGMTScraper
+from sphinx_gallery.sorting import ExampleTitleSortKey, ExplicitOrder
 
-# ruff: isort: on
-
-requires_python = metadata("pygmt")["Requires-Python"]
-requires_gmt = f">={required_gmt_version}"
+# Dictionary for dependency name and minimum required version.
+requirements = {
+    Requirement(requirement).name: str(Requirement(requirement).specifier)
+    for requirement in importlib.metadata.requires("pygmt")
+}
+requirements.update(
+    {
+        "python": importlib.metadata.metadata("pygmt")["Requires-Python"],
+        "gmt": f">={required_gmt_version}",
+    }
+)
 
 extensions = [
     "myst_nb",
@@ -51,8 +58,7 @@ myst_enable_extensions = [
 ]
 # These enable substitutions using {{ key }} in the Markdown files
 myst_substitutions = {
-    "requires_python": requires_python,
-    "requires_gmt": requires_gmt,
+    "requires": requirements,
 }
 
 
