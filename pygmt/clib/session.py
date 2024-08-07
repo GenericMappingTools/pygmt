@@ -1982,7 +1982,7 @@ class Session:
             registration=_reg,
             pad=self["GMT_PAD_DEFAULT"],
         )
-        if Version(self._info["version"]) < Version("6.5.0"):
+        if Version(__gmt_version__) < Version("6.5.0"):
             # Upstream bug fixed in GMT>=6.5.0
             self.set_allocmode(family, data)
 
