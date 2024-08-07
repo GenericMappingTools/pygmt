@@ -85,7 +85,7 @@ fig.show()
 # Create a region map
 # -------------------
 #
-# In addition to providing global data, the ``region`` parameter for
+# In addition to providing global data, the ``region`` parameter of
 # :func:`pygmt.datasets.load_earth_relief` can be used to provide data for a specific
 # area. The ``region`` parameter is required for resolutions at 5 arc-minutes or higher,
 # and accepts a list in the form of [*xmin*, *xmax*, *ymin*, *ymax*].
