@@ -72,23 +72,23 @@ display(get_charset_mdtable("ZapfDingbats"))
 ## ISO/IEC 8859
 
 PyGMT also supports the ISO/IEC 8859 standard for 8-bit character encodings. Refer to
-[ISO/IEC_8859](https://en.wikipedia.org/wiki/ISO/IEC_8859) for descriptions of the
+[ISO/IEC 8859](https://en.wikipedia.org/wiki/ISO/IEC_8859) for descriptions of the
 different parts of the standard.
 
 For a list of the characters in each part of the standard, refer to the following links:
 
-- [ISO/IEC_8859-1](https://en.wikipedia.org/wiki/ISO/IEC_8859-1)
-- [ISO/IEC_8859-2](https://en.wikipedia.org/wiki/ISO/IEC_8859-2)
-- [ISO/IEC_8859-3](https://en.wikipedia.org/wiki/ISO/IEC_8859-3)
-- [ISO/IEC_8859-4](https://en.wikipedia.org/wiki/ISO/IEC_8859-4)
-- [ISO/IEC_8859-5](https://en.wikipedia.org/wiki/ISO/IEC_8859-5)
-- [ISO/IEC_8859-6](https://en.wikipedia.org/wiki/ISO/IEC_8859-6)
-- [ISO/IEC_8859-7](https://en.wikipedia.org/wiki/ISO/IEC_8859-7)
-- [ISO/IEC_8859-8](https://en.wikipedia.org/wiki/ISO/IEC_8859-8)
-- [ISO/IEC_8859-9](https://en.wikipedia.org/wiki/ISO/IEC_8859-9)
-- [ISO/IEC_8859-10](https://en.wikipedia.org/wiki/ISO/IEC_8859-10)
-- [ISO/IEC_8859-11](https://en.wikipedia.org/wiki/ISO/IEC_8859-11)
-- [ISO/IEC_8859-13](https://en.wikipedia.org/wiki/ISO/IEC_8859-13)
-- [ISO/IEC_8859-14](https://en.wikipedia.org/wiki/ISO/IEC_8859-14)
-- [ISO/IEC_8859-15](https://en.wikipedia.org/wiki/ISO/IEC_8859-15)
-- [ISO/IEC_8859-16](https://en.wikipedia.org/wiki/ISO/IEC_8859-16)
+- [ISO/IEC 8859-1](https://en.wikipedia.org/wiki/ISO/IEC_8859-1)
+- [ISO/IEC 8859-2](https://en.wikipedia.org/wiki/ISO/IEC_8859-2)
+- [ISO/IEC 8859-3](https://en.wikipedia.org/wiki/ISO/IEC_8859-3)
+- [ISO/IEC 8859-4](https://en.wikipedia.org/wiki/ISO/IEC_8859-4)
+- [ISO/IEC 8859-5](https://en.wikipedia.org/wiki/ISO/IEC_8859-5)
+- [ISO/IEC 8859-6](https://en.wikipedia.org/wiki/ISO/IEC_8859-6)
+- [ISO/IEC 8859-7](https://en.wikipedia.org/wiki/ISO/IEC_8859-7)
+- [ISO/IEC 8859-8](https://en.wikipedia.org/wiki/ISO/IEC_8859-8)
+- [ISO/IEC 8859-9](https://en.wikipedia.org/wiki/ISO/IEC_8859-9)
+- [ISO/IEC 8859-10](https://en.wikipedia.org/wiki/ISO/IEC_8859-10)
+- [ISO/IEC 8859-11](https://en.wikipedia.org/wiki/ISO/IEC_8859-11)
+- [ISO/IEC 8859-13](https://en.wikipedia.org/wiki/ISO/IEC_8859-13)
+- [ISO/IEC 8859-14](https://en.wikipedia.org/wiki/ISO/IEC_8859-14)
+- [ISO/IEC 8859-15](https://en.wikipedia.org/wiki/ISO/IEC_8859-15)
+- [ISO/IEC 8859-16](https://en.wikipedia.org/wiki/ISO/IEC_8859-16)
