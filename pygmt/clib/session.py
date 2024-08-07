@@ -396,10 +396,14 @@ class Session:
             We'll capture the messages and print them to stderr so that they will show
             up on the Jupyter notebook.
             """
-            message = message.decode().strip()
+            # Have to use try..except due to upstream GMT bug in GMT <= 6.5.0.
+            # See https://github.com/GenericMappingTools/pygmt/issues/3205.
+            try:
+                message = message.decode().strip()
+            except UnicodeDecodeError:
+                return 0
             self._error_log.append(message)
-            # flush to make sure the messages are printed even if we have a
-            # crash.
+            # Flush to make sure the messages are printed even if we have a crash.
             print(message, file=sys.stderr, flush=True)  # noqa: T201
             return 0
 
