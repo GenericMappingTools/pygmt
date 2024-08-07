@@ -18,6 +18,7 @@ assignees: ''
 **Before release**:
 - [ ] Check [SPEC 0](https://scientific-python.org/specs/spec-0000/) to see if we need to bump the minimum supported versions of GMT, Python and core package dependencies (NumPy/Pandas/Xarray)
 - [ ] Check repositories in `.pre-commit-config.yaml` and see if there are new versions for the pre-commit hooks
+- [ ] Review the ["PyGMT Team" page](https://www.pygmt.org/dev/team.html)
 - [ ] Check to ensure that:
   - [ ] Deprecations and related tests are removed for this version by running `grep --include="*.py" -r 'remove_version="vX.Y.Z"' pygmt` from the base of the repository
   - [ ] All tests pass in the ["GMT Legacy Tests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_legacy.yaml)
@@ -27,7 +28,6 @@ assignees: ''
       [Not working transparency](https://www.pygmt.org/dev/install.html#not-working-transparency)
       regarding GMT-Ghostscript incompatibility
 - [ ] Reserve a DOI on [Zenodo](https://zenodo.org) by clicking on "New Version"
-- [ ] Review the ["PyGMT Team" page](https://www.pygmt.org/dev/team.html)
 - [ ] Finish up the "Changelog entry for v0.x.x" Pull Request:
   - [ ] Add a new entry in `doc/_static/version_switch.js` for documentation switcher
   - [ ] Update `CITATION.cff` and BibTeX at https://github.com/GenericMappingTools/pygmt#citing-pygmt
