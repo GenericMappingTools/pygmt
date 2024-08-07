@@ -524,6 +524,7 @@ class Figure:
         grdimage,
         grdview,
         histogram,
+        hlines,
         image,
         inset,
         legend,
