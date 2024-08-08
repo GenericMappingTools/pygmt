@@ -29,11 +29,19 @@ from pygmt.clib.loading import get_gmt_version, load_libgmt
 from pygmt.datatypes import _GMT_DATASET, _GMT_GRID, _GMT_IMAGE
 from pygmt.exceptions import GMTCLibError, GMTCLibNoSessionError, GMTInvalidInput
 from pygmt.helpers import (
+    GMTTempFile,
     _validate_data_input,
     data_kind,
     tempfile_from_geojson,
     tempfile_from_image,
 )
+
+try:
+    import rioxarray
+
+    _HAS_RIOXARRAY = True
+except ImportError:
+    _HAS_RIOXARRAY = False
 
 FAMILIES = [
     "GMT_IS_DATASET",  # Entity is a data table
@@ -1840,6 +1848,7 @@ class Session:
                 "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE"),
                 "image": ("GMT_IS_IMAGE", "GMT_IS_SURFACE"),
             }[kind]
+            # For unkown reasons, 'GMT_OUT' crashes for 'image' kind.
             direction = "GMT_OUT|GMT_IS_REFERENCE" if kind == "image" else "GMT_OUT"
             with self.open_virtualfile(family, geometry, direction, None) as vfile:
                 yield vfile
@@ -2147,6 +2156,19 @@ class Session:
                 self["GMT_IS_IMAGE"]: "image",
                 self["GMT_IS_CUBE"]: "cube",
             }[family]
+
+        if kind == "image":  # Use temporary file for images
+            if not _HAS_RIOXARRAY:
+                raise ImportError(
+                    "Package `rioxarray` is required to be installed to load images. "
+                    "Please use `python -m pip install rioxarray` or "
+                    "`mamba install -c conda-forge rioxarray` to install the package."
+                )
+            with GMTTempFile(suffix=".tif") as tmpfile:
+                self.call_module("write", f"{vfname} {tmpfile.name} -Ti")
+                with rioxarray.open_rasterio(tmpfile.name) as da:  # type: ignore[union-attr]
+                    dataarray = da.load()  # type: ignore[union-attr]
+                return dataarray  # type: ignore[return-value]
         return self.read_virtualfile(vfname, kind=kind).contents.to_dataarray()
 
     def extract_region(self) -> np.ndarray:
@@ -2209,3 +2231,29 @@ class Session:
         if status != 0:
             raise GMTCLibError("Failed to extract region from current figure.")
         return region
+
+
+def raster_kind(raster: str):
+    """
+    Determine the raster kind.
+
+    >>> raster_kind("@earth_relief_01d")
+    'grid'
+    >>> raster_kind("@static_earth_relief.nc")
+    'grid'
+    >>> raster_kind("@earth_day_01d")
+    'image'
+    >>> raster_kind("@hotspots.txt")
+    """
+    with Session() as lib:
+        try:
+            img = lib.read_data(infile=raster, kind="image", mode="GMT_CONTAINER_ONLY")
+            return "image" if img.contents.header.contents.n_bands == 3 else "grid"
+        except GMTCLibError:
+            pass
+        try:
+            _ = lib.read_data(infile=raster, kind="grid", mode="GMT_CONTAINER_ONLY")
+            return "grid"
+        except GMTCLibError:
+            pass
+    return None
