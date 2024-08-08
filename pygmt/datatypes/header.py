@@ -203,7 +203,8 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
         Attributes for the data variable from the grid header.
         """
         attrs: dict[str, Any] = {}
-        attrs["Conventions"] = "CF-1.7"
+        if self.type == 18:  # Grid file format: ns = GMT netCDF format
+            attrs["Conventions"] = "CF-1.7"
         attrs["title"] = self.title.decode()
         attrs["history"] = self.command.decode()
         attrs["description"] = self.remark.decode()
