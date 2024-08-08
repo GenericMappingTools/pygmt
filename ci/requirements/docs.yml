@@ -14,7 +14,7 @@ dependencies:
     - packaging
     # Optional dependencies
     - contextily
-    - geopandas<1.0
+    - geopandas
     - ipython
     - rioxarray
     # Development dependencies (general)
