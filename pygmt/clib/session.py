@@ -7,6 +7,7 @@ Uses ctypes to wrap most of the core functions from the C API.
 
 import contextlib
 import ctypes as ctp
+import os
 import pathlib
 import sys
 import warnings
@@ -17,6 +18,7 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 from packaging.version import Version
+from pygmt._state import _STATE
 from pygmt.clib.conversion import (
     array_to_datetime,
     as_c_contiguous,
@@ -33,6 +35,7 @@ from pygmt.helpers import (
     data_kind,
     tempfile_from_geojson,
     tempfile_from_image,
+    unique_name,
 )
 
 FAMILIES = [
@@ -209,6 +212,11 @@ class Session:
 
         Calls :meth:`pygmt.clib.Session.create`.
         """
+        # This is the first time a Session object is created.
+        if _STATE["session_name"] is None:
+            # Set GMT_SESSION_NAME to a customized, unique value.
+            _STATE["session_name"] = os.environ["GMT_SESSION_NAME"] = unique_name()
+            _STATE["workflow_mode"] = "begin"
         self.create("pygmt-session")
         return self
 
@@ -623,6 +631,12 @@ class Session:
         GMTCLibError
             If the returned status code of the function is non-zero.
         """
+        if _STATE["workflow_mode"] == "begin":
+            from pygmt.session_management import begin
+
+            _STATE["workflow_mode"] = "use"
+            begin()
+
         c_call_module = self.get_libgmt_func(
             "GMT_Call_Module",
             argtypes=[ctp.c_void_p, ctp.c_char_p, ctp.c_int, ctp.c_void_p],

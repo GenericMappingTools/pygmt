@@ -2,11 +2,8 @@
 Modern mode session management modules.
 """
 
-import os
-import sys
-
+from pygmt._state import _STATE
 from pygmt.clib import Session
-from pygmt.helpers import unique_name
 
 
 def begin():
@@ -17,10 +14,6 @@ def begin():
 
     Only meant to be used once for creating the global session.
     """
-    # On Windows, need to set GMT_SESSION_NAME to a unique value
-    if sys.platform == "win32":
-        os.environ["GMT_SESSION_NAME"] = unique_name()
-
     prefix = "pygmt-session"
     with Session() as lib:
         lib.call_module(module="begin", args=[prefix])
@@ -37,5 +30,11 @@ def end():
     background, convert them to the desired format (specified in
     ``pygmt.begin``), and bring the figures to the working directory.
     """
+    if _STATE["session_name"] is not None:
+        return
+
     with Session() as lib:
         lib.call_module(module="end", args=[])
+
+    # Reset the sesion name to None
+    _STATE["session_name"] = None
