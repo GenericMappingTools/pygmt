@@ -2,18 +2,12 @@
 timestamp - Plot the GMT timestamp logo.
 """
 
-from __future__ import annotations
-
 import warnings
-from typing import TYPE_CHECKING
+from collections.abc import Sequence
 
 from packaging.version import Version
 from pygmt.clib import Session, __gmt_version__
 from pygmt.helpers import build_arg_list, kwargs_to_strings
-
-if TYPE_CHECKING:
-    from collections.abc import Sequence
-
 
 __doctest_skip__ = ["timestamp"]
 
