@@ -2,6 +2,7 @@
 grdclip - Change the range and extremes of grid values.
 """
 
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -24,7 +25,7 @@ __doctest_skip__ = ["grdclip"]
     Si="sequence",
     Sr="sequence",
 )
-def grdclip(grid, outgrid: str | None = None, **kwargs):
+def grdclip(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
     Set values in a grid that meet certain criteria to a new value.
 
@@ -62,7 +63,7 @@ def grdclip(grid, outgrid: str | None = None, **kwargs):
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
