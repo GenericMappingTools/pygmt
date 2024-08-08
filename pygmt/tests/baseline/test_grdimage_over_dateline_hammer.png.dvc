@@ -1,0 +1,5 @@
+outs:
+- md5: 090f2ebbeb855c16e4c15fb582b629bc
+  size: 80137
+  hash: md5
+  path: test_grdimage_over_dateline_hammer.png
