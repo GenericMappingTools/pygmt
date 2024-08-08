@@ -1,8 +1,8 @@
 """
-surface - Grid table data using adjustable tension continuous curvature
-splines.
+surface - Grid table data using adjustable tension continuous curvature splines.
 """
 
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -30,7 +30,9 @@ __doctest_skip__ = ["surface"]
     w="wrap",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def surface(data=None, x=None, y=None, z=None, outgrid: str | None = None, **kwargs):
+def surface(
+    data=None, x=None, y=None, z=None, outgrid: str | None = None, **kwargs
+) -> xr.DataArray | None:
     r"""
     Grid table data using adjustable tension continuous curvature splines.
 
@@ -135,7 +137,7 @@ def surface(data=None, x=None, y=None, z=None, outgrid: str | None = None, **kwa
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray`: if ``outgrid`` is not set
