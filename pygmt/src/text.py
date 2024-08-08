@@ -187,6 +187,8 @@ def text_(  # noqa: PLR0912
         kind = data_kind(textfiles)
         if kind == "vectors" and text is None:
             raise GMTInvalidInput("Must provide text with x/y pairs")
+        if kind != "vectors" and text is not None:
+            raise GMTInvalidInput("Must provide text with x/y pairs")
     else:
         if any(v is not None for v in (x, y, textfiles)):
             raise GMTInvalidInput(
@@ -203,16 +205,23 @@ def text_(  # noqa: PLR0912
     ):
         kwargs.update({"F": ""})
 
-    extra_arrays = []
-    for arg, flag in [(angle, "+a"), (font, "+f"), (justify, "+j")]:
+    vectors = [x, y]
+    names = ["x", "y"]
+    for arg, flag, name in [
+        (angle, "+a", "angle"),
+        (font, "+f", "font"),
+        (justify, "+j", "justify"),
+    ]:
         if arg is True:
             kwargs["F"] += flag
         elif is_nonstr_iter(arg):
             kwargs["F"] += flag
             if flag == "+a":  # angle is numeric type
-                extra_arrays.append(np.atleast_1d(arg))
+                vectors.append(np.atleast_1d(arg))
+                names.append(name)
             else:  # font or justify is str type
-                extra_arrays.append(np.atleast_1d(arg).astype(str))
+                vectors.append(np.atleast_1d(arg).astype(str))
+                names.append(name)
         elif isinstance(arg, int | float | str):
             kwargs["F"] += f"{flag}{arg}"
 
@@ -222,8 +231,9 @@ def text_(  # noqa: PLR0912
     # If an array of transparency is given, GMT will read it from
     # the last numerical column per data record.
     if is_nonstr_iter(kwargs.get("t")):
-        extra_arrays.append(kwargs["t"])
+        vectors.append(kwargs["t"])
         kwargs["t"] = ""
+        names.append("transparency")
 
     # Append text at last column. Text must be passed in as str type.
     confdict = {}
@@ -234,14 +244,15 @@ def text_(  # noqa: PLR0912
             text = np.vectorize(non_ascii_to_octal, excluded="encoding")(
                 text, encoding=encoding
             )
-        extra_arrays.append(text)
+        vectors.append(text)
+        names.append("text")
 
         if encoding not in {"ascii", "ISOLatin1+"}:
             confdict = {"PS_CHAR_ENCODING": encoding}
 
     with Session() as lib:
         with lib.virtualfile_in(
-            check_kind="vector", data=textfiles, x=x, y=y, extra_arrays=extra_arrays
+            check_kind="vector", data=textfiles, vectors=vectors, names=names
         ) as vintbl:
             lib.call_module(
                 module="text",

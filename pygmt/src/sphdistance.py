@@ -113,7 +113,9 @@ def sphdistance(
         raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
     with Session() as lib:
         with (
-            lib.virtualfile_in(check_kind="vector", data=data, x=x, y=y) as vintbl,
+            lib.virtualfile_in(
+                check_kind="vector", data=data, vectors=[x, y], names="xy"
+            ) as vintbl,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
             kwargs["G"] = voutgrd

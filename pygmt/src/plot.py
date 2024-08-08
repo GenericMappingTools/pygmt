@@ -14,7 +14,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.src.which import which
+from pygmt.src import which
 
 
 @fmt_docstring
@@ -50,9 +50,7 @@ from pygmt.src.which import which
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot(  # noqa: PLR0912
-    self, data=None, x=None, y=None, size=None, direction=None, **kwargs
-):
+def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     r"""
     Plot lines, polygons, and symbols in 2-D.
 
@@ -209,7 +207,9 @@ def plot(  # noqa: PLR0912
     kwargs = self._preprocess(**kwargs)
 
     kind = data_kind(data)
-    extra_arrays = []
+    vectors = [x, y]
+    names = ["x", "y"]
+
     if kind == "vectors":  # Add more columns for vectors input
         # Parameters for vector styles
         if (
@@ -217,18 +217,22 @@ def plot(  # noqa: PLR0912
             and kwargs["S"][0] in "vV"
             and is_nonstr_iter(direction)
         ):
-            extra_arrays.extend(direction)
+            vectors.extend(direction)
+            names.extend(["x2", "y2"])
         # Fill
         if is_nonstr_iter(kwargs.get("G")):
-            extra_arrays.append(kwargs.get("G"))
+            vectors.append(kwargs["G"])
+            names.append("fill")
             del kwargs["G"]
         # Size
         if is_nonstr_iter(size):
-            extra_arrays.append(size)
+            vectors.append(size)
+            names.append("size")
         # Intensity and transparency
         for flag in ["I", "t"]:
             if is_nonstr_iter(kwargs.get(flag)):
-                extra_arrays.append(kwargs.get(flag))
+                vectors.append(kwargs[flag])
+                names.append(plot.aliases[flag])
                 kwargs[flag] = ""
     else:
         for name, value in [
@@ -240,7 +244,6 @@ def plot(  # noqa: PLR0912
         ]:
             if is_nonstr_iter(value):
                 raise GMTInvalidInput(f"'{name}' can't be 1-D array if 'data' is used.")
-
     # Set the default style if data has a geometry of Point or MultiPoint
     if kwargs.get("S") is None:
         if kind == "geojson" and data.geom_type.isin(["Point", "MultiPoint"]).all():
@@ -255,7 +258,9 @@ def plot(  # noqa: PLR0912
                 pass
 
     with Session() as lib:
-        with lib.virtualfile_in(
-            check_kind="vector", data=data, x=x, y=y, extra_arrays=extra_arrays
-        ) as vintbl:
-            lib.call_module(module="plot", args=build_arg_list(kwargs, infile=vintbl))
+        file_context = lib.virtualfile_in(
+            check_kind="vector", data=data, vectors=vectors, names=names
+        )
+
+        with file_context as fname:
+            lib.call_module(module="plot", args=build_arg_list(kwargs, infile=fname))

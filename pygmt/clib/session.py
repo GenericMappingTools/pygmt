@@ -1603,15 +1603,12 @@ class Session:
         with self.open_virtualfile(*args) as vfile:
             yield vfile
 
-    def virtualfile_in(  # noqa: PLR0912
+    def virtualfile_in(
         self,
         check_kind=None,
         data=None,
-        x=None,
-        y=None,
-        z=None,
-        extra_arrays=None,
-        required_z=False,
+        vectors=None,
+        names="xy",
         required_data=True,
     ):
         """
@@ -1630,13 +1627,12 @@ class Session:
             Any raster or vector data format. This could be a file name or
             path, a raster grid, a vector matrix/arrays, or other supported
             data input.
-        x/y/z : 1-D arrays or None
-            x, y, and z columns as numpy arrays.
-        extra_arrays : list of 1-D arrays
-            Optional. A list of numpy arrays in addition to x, y, and z.
-            All of these arrays must be of the same size as the x/y/z arrays.
-        required_z : bool
-            State whether the 'z' column is required.
+        vectors : list of 1-D arrays or None
+            A list of 1-D arrays. Each array will be a column in the table.
+            All of these arrays must be of the same size.
+        names : str or list of str
+            A list of names for each of the columns. Must be of the same size
+            as the number of vectors. Default is ``"xy"``.
         required_data : bool
             Set to True when 'data' is required, or False when dealing with
             optional virtual files. [Default is True].
@@ -1670,10 +1666,8 @@ class Session:
         kind = data_kind(data, required=required_data)
         _validate_data_input(
             data=data,
-            x=x,
-            y=y,
-            z=z,
-            required_z=required_z,
+            vectors=vectors,
+            names=names,
             required_data=required_data,
             kind=kind,
         )
@@ -1716,11 +1710,7 @@ class Session:
                 warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
             _data = (data,) if not isinstance(data, pathlib.PurePath) else (str(data),)
         elif kind == "vectors":
-            _data = [np.atleast_1d(x), np.atleast_1d(y)]
-            if z is not None:
-                _data.append(np.atleast_1d(z))
-            if extra_arrays:
-                _data.extend(extra_arrays)
+            _data = [np.atleast_1d(v) for v in vectors]
         elif kind == "matrix":  # turn 2-D arrays into list of vectors
             if hasattr(data, "items") and not hasattr(data, "to_frame"):
                 # pandas.DataFrame or xarray.Dataset types.

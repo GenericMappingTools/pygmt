@@ -20,99 +20,126 @@ from pygmt.exceptions import GMTInvalidInput
 
 
 def _validate_data_input(
-    data=None, x=None, y=None, z=None, required_z=False, required_data=True, kind=None
+    data=None, vectors=None, names="xy", required_data=True, kind=None
 ):
     """
-    Check if the combination of data/x/y/z is valid.
+    Check if the data input is valid.
+
+    Parameters
+    ----------
+    data : str, pathlib.PurePath, None, bool, xarray.DataArray or {table-like}
+        Pass in either a file name or :class:`pathlib.Path` to an ASCII data
+        table, an :class:`xarray.DataArray`, a 1-D/2-D
+        {table-classes} or an option argument.
+    vectors : list of 1-D arrays
+        A list of 1-D arrays with the data columns.
+    names : list of str
+        List of column names.
+    required_data : bool
+        Set to True when 'data' is required, or False when dealing with
+        optional virtual files [Default is True].
+    kind : str or None
+        The kind of data that will be passed to a module. If not given, it
+        will be determined by calling :func:`data_kind`.
 
     Examples
     --------
     >>> _validate_data_input(data="infile")
-    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6])
-    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6], z=[7, 8, 9])
+    >>> _validate_data_input(vectors=[[1, 2, 3], [4, 5, 6]], names="xy")
+    >>> _validate_data_input(vectors=[[1, 2, 3], [4, 5, 6], [7, 8, 9]], names="xyz")
     >>> _validate_data_input(data=None, required_data=False)
     >>> _validate_data_input()
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: No input data provided.
-    >>> _validate_data_input(x=[1, 2, 3])
+    >>> _validate_data_input(vectors=[[1, 2, 3], None], names="xy")
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Must provide both x and y.
-    >>> _validate_data_input(y=[4, 5, 6])
+    pygmt.exceptions.GMTInvalidInput: Column 1 ('y') can't be None.
+    >>> _validate_data_input(vectors=[None, [4, 5, 6]], names="xy")
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Must provide both x and y.
-    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6], required_z=True)
+    pygmt.exceptions.GMTInvalidInput: Column 0 ('x') can't be None.
+    >>> _validate_data_input(vectors=[[1, 2, 3], [4, 5, 6], None], names="xyz")
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Must provide x, y, and z.
+    pygmt.exceptions.GMTInvalidInput: Column 2 ('z') can't be None.
     >>> import numpy as np
     >>> import pandas as pd
     >>> import xarray as xr
     >>> data = np.arange(8).reshape((4, 2))
-    >>> _validate_data_input(data=data, required_z=True, kind="matrix")
+    >>> _validate_data_input(data=data, names="xyz", kind="matrix")
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
+    pygmt.exceptions.GMTInvalidInput: data must have at least 3 columns.
+    x y z
     >>> _validate_data_input(
     ...     data=pd.DataFrame(data, columns=["x", "y"]),
-    ...     required_z=True,
+    ...     names="xyz",
     ...     kind="matrix",
     ... )
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
+    pygmt.exceptions.GMTInvalidInput: data must have at least 3 columns.
+    x y z
     >>> _validate_data_input(
     ...     data=xr.Dataset(pd.DataFrame(data, columns=["x", "y"])),
-    ...     required_z=True,
+    ...     names="xyz",
     ...     kind="matrix",
     ... )
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
-    >>> _validate_data_input(data="infile", x=[1, 2, 3])
+    pygmt.exceptions.GMTInvalidInput: data must have at least 3 columns.
+    x y z
+    >>> _validate_data_input(data="infile", vectors=[[1, 2, 3], None])
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Too much data. Use either data or x/y/z.
     >>> _validate_data_input(data="infile", y=[4, 5, 6])
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Too much data. Use either data or x/y/z.
+    pygmt...GMTInvalidInput: Too much data. Use either 'data' or 1-D arrays.
+    >>> _validate_data_input(data="infile", vectors=[None, None, [7, 8, 9]])
+    Traceback (most recent call last):
+        ...
+    pygmt...GMTInvalidInput: Too much data. Use either 'data' or 1-D arrays.
     >>> _validate_data_input(data="infile", x=[1, 2, 3], y=[4, 5, 6])
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Too much data. Use either data or x/y/z.
-    >>> _validate_data_input(data="infile", z=[7, 8, 9])
-    Traceback (most recent call last):
-        ...
-    pygmt.exceptions.GMTInvalidInput: Too much data. Use either data or x/y/z.
+    pygmt...GMTInvalidInput: Too much data. Use either 'data' or 1-D arrays.
 
     Raises
     ------
     GMTInvalidInput
         If the data input is not valid.
     """
-    if data is None:  # data is None
-        if x is None and y is None:  # both x and y are None
-            if required_data:  # data is not optional
-                raise GMTInvalidInput("No input data provided.")
-        elif x is None or y is None:  # either x or y is None
-            raise GMTInvalidInput("Must provide both x and y.")
-        if required_z and z is None:  # both x and y are not None, now check z
-            raise GMTInvalidInput("Must provide x, y, and z.")
-    else:  # data is not None
-        if x is not None or y is not None or z is not None:
-            raise GMTInvalidInput("Too much data. Use either data or x/y/z.")
-        # For 'matrix' kind, check if data has the required z column
-        if kind == "matrix" and required_z:
+    if kind is None:
+        kind = data_kind(data=data, required=required_data)
+
+    if kind == "vectors":  # From data_kind, we know that data is None
+        if vectors is None:
+            raise GMTInvalidInput("No input data provided.")
+        if len(vectors) < len(names):
+            raise GMTInvalidInput(
+                f"Requires {len(names)} 1-D arrays but got {len(vectors)}."
+            )
+        for i, v in enumerate(vectors[: len(names)]):
+            if v is None:
+                raise GMTInvalidInput(f"Column {i} ('{names[i]}') can't be None.")
+    else:
+        if vectors is not None and any(v is not None for v in vectors):
+            raise GMTInvalidInput("Too much data. Use either 'data' or 1-D arrays.")
+        if kind == "matrix":  # check number of columns for matrix-like data
+            msg = f"data must have at least {len(names)} columns.\n" + " ".join(names)
             if hasattr(data, "shape"):  # np.ndarray or pd.DataFrame
-                if len(data.shape) == 1 and data.shape[0] < 3:
-                    raise GMTInvalidInput("data must provide x, y, and z columns.")
-                if len(data.shape) > 1 and data.shape[1] < 3:
-                    raise GMTInvalidInput("data must provide x, y, and z columns.")
-            if hasattr(data, "data_vars") and len(data.data_vars) < 3:  # xr.Dataset
-                raise GMTInvalidInput("data must provide x, y, and z columns.")
+                if len(data.shape) == 1 and data.shape[0] < len(names):
+                    raise GMTInvalidInput(msg)
+                if len(data.shape) > 1 and data.shape[1] < len(names):
+                    raise GMTInvalidInput(msg)
+            if hasattr(data, "data_vars") and len(data.data_vars) < len(
+                names
+            ):  # xr.Dataset
+                raise GMTInvalidInput(msg)
 
 
 def _check_encoding(
@@ -189,19 +216,18 @@ def _check_encoding(
 
 def data_kind(
     data: Any = None, required: bool = True
-) -> Literal["arg", "file", "geojson", "grid", "image", "matrix", "vectors"]:
+) -> Literal["arg", "file", "grid", "image", "matrix", "vectors"]:
     """
-    Check the kind of data that is provided to a module.
+    Check what kind of data is provided to a module.
 
-    The ``data`` argument can be in any type, but only following types are supported:
+    Possible types:
 
-    - a string or a :class:`pathlib.PurePath` object or a sequence of them, representing
-      a file name or a list of file names
-    - a 2-D or 3-D :class:`xarray.DataArray` object
-    - a 2-D matrix
-    - None, bool, int or float type representing an optional arguments
-    - a geo-like Python object that implements ``__geo_interface__`` (e.g.,
-      geopandas.GeoDataFrame or shapely.geometry)
+    * a file name provided as 'data'
+    * a pathlib.PurePath object provided as 'data'
+    * an xarray.DataArray object provided as 'data'
+    * a 2-D matrix provided as 'data'
+    * 1-D arrays x and y (and z, optionally)
+    * an optional argument (None, bool, int or float) provided as 'data'
 
     Parameters
     ----------
@@ -257,9 +283,9 @@ def data_kind(
         # geo-like Python object that implements ``__geo_interface__``
         # (geopandas.GeoDataFrame or shapely.geometry)
         kind = "geojson"
-    elif data is not None:
+    elif data is not None:  # anything but None is taken as a matrix
         kind = "matrix"
-    else:
+    else:  # fallback to vectors if data is None but required
         kind = "vectors"
     return kind
 

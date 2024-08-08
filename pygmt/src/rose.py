@@ -196,11 +196,13 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
     {transparency}
     {wrap}
     """
-
     kwargs = self._preprocess(**kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(
-            check_kind="vector", data=data, x=length, y=azimuth
+            check_kind="vector",
+            data=data,
+            vectors=[length, azimuth],
+            names=["length", "azimuth"],
         ) as vintbl:
             lib.call_module(module="rose", args=build_arg_list(kwargs, infile=vintbl))

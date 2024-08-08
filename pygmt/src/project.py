@@ -232,6 +232,11 @@ def project(
             "The `convention` parameter is not allowed with `generate`."
         )
 
+    # z is optional
+    vectors, names = [x, y], "xy"
+    if z is not None:
+        vectors.append(z)
+
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
     column_names = None
@@ -241,13 +246,7 @@ def project(
     with Session() as lib:
         with (
             lib.virtualfile_in(
-                check_kind="vector",
-                data=data,
-                x=x,
-                y=y,
-                z=z,
-                required_z=False,
-                required_data=False,
+                check_kind="vector", data=data, vectors=vectors, names=names
             ) as vintbl,
             lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
         ):

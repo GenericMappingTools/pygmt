@@ -7,14 +7,14 @@ from pathlib import Path
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    build_arg_list,
+    build_arg_string,
     data_kind,
     fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.src.which import which
+from pygmt.src import which
 
 
 @fmt_docstring
@@ -51,7 +51,7 @@ from pygmt.src.which import which
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot3d(  # noqa: PLR0912
+def plot3d(
     self, data=None, x=None, y=None, z=None, size=None, direction=None, **kwargs
 ):
     r"""
@@ -184,7 +184,8 @@ def plot3d(  # noqa: PLR0912
     kwargs = self._preprocess(**kwargs)
 
     kind = data_kind(data)
-    extra_arrays = []
+    vectors = [x, y, z]
+    names = ["x", "y", "z"]
 
     if kind == "vectors":  # Add more columns for vectors input
         # Parameters for vector styles
@@ -193,18 +194,22 @@ def plot3d(  # noqa: PLR0912
             and kwargs["S"][0] in "vV"
             and is_nonstr_iter(direction)
         ):
-            extra_arrays.extend(direction)
+            vectors.extend(direction)
+            names.extend(["x2", "y2", "z2"])
         # Fill
         if is_nonstr_iter(kwargs.get("G")):
-            extra_arrays.append(kwargs.get("G"))
+            vectors.append(kwargs["G"])
+            names.append("fill")
             del kwargs["G"]
         # Size
         if is_nonstr_iter(size):
-            extra_arrays.append(size)
+            vectors.append(size)
+            names.append("size")
         # Intensity and transparency
         for flag in ["I", "t"]:
             if is_nonstr_iter(kwargs.get(flag)):
-                extra_arrays.append(kwargs.get(flag))
+                vectors.append(kwargs[flag])
+                names.append(plot3d.aliases[flag])
                 kwargs[flag] = ""
     else:
         for name, value in [
@@ -231,13 +236,11 @@ def plot3d(  # noqa: PLR0912
                 pass
 
     with Session() as lib:
-        with lib.virtualfile_in(
-            check_kind="vector",
-            data=data,
-            x=x,
-            y=y,
-            z=z,
-            extra_arrays=extra_arrays,
-            required_z=True,
-        ) as vintbl:
-            lib.call_module(module="plot3d", args=build_arg_list(kwargs, infile=vintbl))
+        file_context = lib.virtualfile_in(
+            check_kind="vector", data=data, vectors=vectors, names=names
+        )
+
+        with file_context as fname:
+            lib.call_module(
+                module="plot3d", args=build_arg_string(kwargs, infile=fname)
+            )
