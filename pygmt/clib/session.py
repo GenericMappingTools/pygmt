@@ -27,6 +27,7 @@ from pygmt.clib.conversion import (
 )
 from pygmt.clib.loading import get_gmt_version, load_libgmt
 from pygmt.datatypes import _GMT_DATASET, _GMT_GRID, _GMT_IMAGE
+from pygmt.datatypes.header import gmt_grdfloat
 from pygmt.exceptions import GMTCLibError, GMTCLibNoSessionError, GMTInvalidInput
 from pygmt.helpers import (
     _validate_data_input,
@@ -319,6 +320,22 @@ class Session:
         if restype is not None:
             function.restype = restype
         return function
+
+    def set_allocmode(self, family, obj):
+        """
+        Set allocation mode of object to external.
+        """
+        c_set_allocmode = self.get_libgmt_func(
+            "GMT_Set_AllocMode",
+            argtypes=[ctp.c_void_p, ctp.c_uint, ctp.c_void_p],
+            restype=ctp.c_void_p,
+        )
+        family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
+        status = c_set_allocmode(self.session_pointer, family_int, obj)
+        if status:
+            raise GMTCLibError(
+                f"Failed to set allocation mode of object to external:\n{self._error_message}"
+            )
 
     def create(self, name):
         """
@@ -1613,6 +1630,7 @@ class Session:
         extra_arrays=None,
         required_z=False,
         required_data=True,
+        _grid_mode="GMT_IN",  # An internal parameter to workaround GMT API bugs.
     ):
         """
         Store any data inside a virtual file.
@@ -1694,7 +1712,7 @@ class Session:
             "file": contextlib.nullcontext,
             "arg": contextlib.nullcontext,
             "geojson": tempfile_from_geojson,
-            "grid": self.virtualfile_from_grid,
+            "grid": self.virtualfile_from_xrgrid,
             "image": tempfile_from_image,
             # Note: virtualfile_from_matrix is not used because a matrix can be
             # converted to vectors instead, and using vectors allows for better
@@ -1704,7 +1722,7 @@ class Session:
         }[kind]
 
         # Ensure the data is an iterable (Python list or tuple)
-        if kind in {"geojson", "grid", "image", "file", "arg"}:
+        if kind in {"geojson", "image", "file", "arg"}:
             if kind == "image" and data.dtype != "uint8":
                 msg = (
                     f"Input image has dtype: {data.dtype} which is unsupported, "
@@ -1715,6 +1733,8 @@ class Session:
                 )
                 warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
             _data = (data,) if not isinstance(data, pathlib.PurePath) else (str(data),)
+        elif kind == "grid":
+            _data = (data, _grid_mode)
         elif kind == "vectors":
             _data = [np.atleast_1d(x), np.atleast_1d(y)]
             if z is not None:
@@ -1942,6 +1962,43 @@ class Session:
             raise NotImplementedError(f"kind={kind} is not supported yet.")
         dtype = {"dataset": _GMT_DATASET, "grid": _GMT_GRID, "image": _GMT_IMAGE}[kind]
         return ctp.cast(pointer, ctp.POINTER(dtype))
+
+    @contextlib.contextmanager
+    def virtualfile_from_xrgrid(self, xrgrid, _grid_mode="GMT_IN"):
+        """
+        Create a virtual file from an xarray.DataArray object.
+        """
+        family = "GMT_IS_GRID"
+        geometry = "GMT_IS_SURFACE"
+        matrix, region, inc = dataarray_to_matrix(xrgrid)
+
+        _gtype = {0: "GMT_GRID_IS_CARTESIAN", 1: "GMT_GRID_IS_GEO"}[xrgrid.gmt.gtype]
+        _reg = {0: "GMT_GRID_NODE_REG", 1: "GMT_GRID_PIXEL_REG"}[
+            xrgrid.gmt.registration
+        ]
+
+        data = self.create_data(
+            family,
+            geometry,
+            mode=f"GMT_CONTAINER_ONLY|{_gtype}",
+            ranges=region,
+            inc=inc,
+            registration=_reg,
+            pad=self["GMT_PAD_DEFAULT"],
+        )
+        if Version(__gmt_version__) < Version("6.5.0"):
+            # Upstream bug fixed in GMT>=6.5.0
+            self.set_allocmode(family, data)
+
+        gmtgrid = ctp.cast(data, ctp.POINTER(_GMT_GRID))
+        header = gmtgrid.contents.header.contents
+        header.z_min, header.z_max = matrix.min(), matrix.max()
+
+        matrix = np.pad(matrix, self["GMT_PAD_DEFAULT"]).astype(np.float32)
+        gmtgrid.contents.data = matrix.ctypes.data_as(ctp.POINTER(gmt_grdfloat))
+
+        with self.open_virtualfile(family, geometry, _grid_mode, gmtgrid) as vfile:
+            yield vfile
 
     def virtualfile_to_dataset(
         self,
