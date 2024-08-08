@@ -6,6 +6,7 @@ import base64
 import os
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from typing import Literal
 
 try:
     import IPython
@@ -29,23 +30,43 @@ from pygmt.helpers import (
 # A registry of all figures that have had "show" called in this session.
 # This is needed for the sphinx-gallery scraper in pygmt/sphinx_gallery.py
 SHOWED_FIGURES = []
-
-# Configurations for figure display
+# Configurations for figure display.
 SHOW_CONFIG = {
-    "method": "external",  # Open in an external viewer by default
+    "method": None,  # The image preview display method.
 }
 
-# Show figures in Jupyter notebooks if available
-if _HAS_IPYTHON:
-    get_ipython = IPython.get_ipython()
-    if get_ipython and "IPKernelApp" in get_ipython.config:  # Jupyter Notebook enabled
-        SHOW_CONFIG["method"] = "notebook"
 
-# Set environment variable PYGMT_USE_EXTERNAL_DISPLAY to 'false' to disable
-# external display. Use it when running the tests and building the docs to
-# avoid popping up windows.
-if os.environ.get("PYGMT_USE_EXTERNAL_DISPLAY", "true").lower() == "false":
-    SHOW_CONFIG["method"] = "none"
+def _get_default_display_method() -> Literal["external", "notebook", "none"]:
+    """
+    Get the default method to display preview images.
+
+    The function checks the current environment and determine the most suitable method
+    to display preview images when calling :meth:`pygmt.Figure.show`. Valid display
+    methods are:
+
+    - ``"external"``: External PDF preview using the default PDF viewer
+    - ``"notebook"``: Inline PNG preview in the current notebook
+    - ``"none"``: Disable image preview
+
+    The default display method is ``"notebook"`` in Jupyter notebook environment, and
+    ``"external"`` in other cases.
+
+    Setting environment variable **PYGMT_USE_EXTERNAL_DISPLAY** to ``"false"`` can
+    disable image preview. It's useful when running the tests and building the
+    documentation to avoid popping up windows.
+
+    Returns
+    -------
+    method
+        The default display method.
+    """
+    if os.environ.get("PYGMT_USE_EXTERNAL_DISPLAY", "true").lower() == "false":
+        return "none"
+    if _HAS_IPYTHON:
+        get_ipython = IPython.get_ipython()
+        if get_ipython and "IPKernelApp" in get_ipython.config:
+            return "notebook"
+    return "external"
 
 
 class Figure:
@@ -442,6 +463,8 @@ class Figure:
 
         # Set the display method
         if method is None:
+            if SHOW_CONFIG["method"] is None:
+                SHOW_CONFIG["method"] = _get_default_display_method()
             method = SHOW_CONFIG["method"]
 
         if method not in {"external", "notebook", "none"}:
