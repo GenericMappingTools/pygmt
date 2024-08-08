@@ -1,7 +1,7 @@
 ---
 myst:
   # Customized URI schemes that are converted to external links
-  # Reference:
+  # References:
   # - https://myst-parser.readthedocs.io/en/latest/syntax/cross-referencing.html#customising-external-url-resolution
   # - https://myst-parser.readthedocs.io/en/latest/configuration.html#frontmatter-local-configuration
   url_schemes:
