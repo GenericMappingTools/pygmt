@@ -36,7 +36,7 @@ fig.ternary(
     frame=[
         "aafg+lLimestone component+u %",
         "bafg+lWater component+u %",
-        "cagf+lAir component+u %",
+        "cafg+lAir component+u %",
     ],
 )
 
