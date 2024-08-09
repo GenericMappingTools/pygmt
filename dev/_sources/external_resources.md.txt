@@ -12,6 +12,16 @@ to submit a pull request with your recommended addition to the
 
 :::::{grid} 1 2 2 3
 
+::::{grid-item-card} 2024 PyGMT Webinar using Google Colab (in Portuguese)
+:link: https://github.com/andrebelem/Oficina_PyGMT
+:text-align: center
+:margin: 0 3 0 0
+
+![](https://github.com/andrebelem/Oficina_PyGMT/raw/main/Datasets/3D_sample.png)
++++
+Andre Belem
+::::
+
 ::::{grid-item-card} 2022 EGU SC5.2: Crafting beautiful maps with PyGMT
 :link: https://www.generic-mapping-tools.org/egu22pygmt/
 :text-align: center
@@ -97,7 +107,7 @@ Andre Belem
 :text-align: center
 :margin: 0 3 0 0
 
-![](https://github.com/tktmyd/pygmt-howto-jp/raw/main/docs/_images/inf_on_map_12_0.png)
+![](https://github.com/tktmyd/pygmt-howto-jp/raw/main/docs/_images/01aed847a81445c7a002cce113d95886793f6236fbcccb233862486589f17ed1.png)
 +++
 Takuto Maeda
 ::::

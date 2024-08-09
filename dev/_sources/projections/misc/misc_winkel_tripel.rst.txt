@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_projections_misc_misc_winkel_tripel.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -66,7 +66,7 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.242 seconds)
+   **Total running time of the script:** (0 minutes 0.241 seconds)
 
 
 .. _sphx_glr_download_projections_misc_misc_winkel_tripel.py:
@@ -82,6 +82,10 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: misc_winkel_tripel.py <misc_winkel_tripel.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: misc_winkel_tripel.zip <misc_winkel_tripel.zip>`
 
 
 .. only:: html

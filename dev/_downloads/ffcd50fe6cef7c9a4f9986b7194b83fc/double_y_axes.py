@@ -1,5 +1,5 @@
 """
-Double Y axes graph
+Double Y-axes graph
 ===================
 
 The ``frame`` parameter of the plotting methods of the :class:`pygmt.Figure`
@@ -63,7 +63,8 @@ fig.plot(x=x, y=y2, pen="1p,red")
 # Plot points for y2 data
 fig.plot(x=x, y=y2, style="s0.28c", fill="red", label="y2")
 
-# Create a legend in the top-left corner of the plot
+# Create a legend in the Top Left (TL) corner of the plot with an
+# offset of 0.1 centimeters
 fig.legend(position="jTL+o0.1c", box=True)
 
 fig.show()

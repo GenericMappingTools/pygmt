@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_embellishments_legend.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -75,8 +75,8 @@ file, please see the GMT documentation at :gmt-docs:`legend.html#legend-codes`.
     fig.plot(x=x, y=y2, style="c0.07c", fill="dodgerblue", label="cos(x)+1.1")
 
     # Add a legend to the plot; place it within the plot bounding box with both
-    # reference ("J") and anchor ("+j") points being TopRight and with an offset
-    # of 0.2 centimeters in x and y directions; surround the legend with a box
+    # reference ("J") and anchor ("+j") points being the Top Right (TR) corner and an
+    # offset of 0.2 centimeters in x and y directions; surround the legend with a box
     fig.legend(position="JTR+jTR+o0.2c", box=True)
 
     # -----------------------------------------------------------------------------
@@ -87,8 +87,8 @@ file, please see the GMT documentation at :gmt-docs:`legend.html#legend-codes`.
 
     fig.plot(x=x, y=y4, style="s0.07c", fill="orange", label="cos(x/2)-1.1")
 
-    # For a multi-column legend, users have to provide the width via "+w", here it
-    # is set to 6 centimeters; reference and anchor points are set to BottomRight
+    # For a multi-column legend, users have to provide the width via "+w", here it is
+    # set to 6 centimeters; reference and anchor points are the Bottom Right (BR) corner
     fig.legend(position="JBR+jBR+o0.2c+w6c", box=True)
 
     fig.show()
@@ -96,7 +96,7 @@ file, please see the GMT documentation at :gmt-docs:`legend.html#legend-codes`.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.142 seconds)
+   **Total running time of the script:** (0 minutes 0.141 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_legend.py:
@@ -112,6 +112,10 @@ file, please see the GMT documentation at :gmt-docs:`legend.html#legend-codes`.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: legend.py <legend.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: legend.zip <legend.zip>`
 
 
 .. only:: html

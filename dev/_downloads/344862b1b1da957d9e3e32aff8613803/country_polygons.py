@@ -22,7 +22,7 @@ fig.coast(
     water="white",
     frame="afg",
     dcw=[
-        # Great Britain (country code) with seagrean land
+        # Great Britain (country code) with seagreen land
         "GB+gseagreen",
         # Italy with a red border
         "IT+p0.5p,red3",

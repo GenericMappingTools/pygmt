@@ -42,6 +42,7 @@ external_resources.md
 :caption: Reference documentation
 
 api/index.rst
+techref/index.md
 changes.md
 minversions.md
 ```

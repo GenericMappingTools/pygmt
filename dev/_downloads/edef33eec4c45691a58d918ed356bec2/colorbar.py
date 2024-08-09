@@ -16,14 +16,13 @@ via the ``position`` parameter. There are the following options:
   horizontal (**L**\ eft, **C**\ enter, **R**\ ight) alignment codes, e.g.
   ``position="jTR"`` for Top Right.
 - **g**: using map coordinates, e.g. ``position="g170/-45"`` for longitude
-  170E, latitude 45S.
+  170° East, latitude 45° South.
 - **x**: using paper coordinates, e.g. ``position="x5c/7c"`` for 5 cm, 7 cm
   from anchor point.
 - **n**: using normalized (0-1) coordinates, e.g. ``position="n0.4/0.8"``.
 
 Note that the anchor point defaults to the bottom left (**BL**). Append ``+h``
-to ``position`` to get a horizontal colorbar instead of a vertical one
-(``+v``).
+to ``position`` to get a horizontal colorbar instead of a vertical one (``+v``).
 """
 
 # %%
@@ -34,7 +33,7 @@ fig.basemap(region=[0, 3, 6, 9], projection="x3c", frame=["af", "WSne+tColorbars
 
 # ============
 # Create a colorbar designed for seismic tomography - roma
-# Colorbar is placed at bottom center (BC) by default if no position is given
+# Colorbar is placed at Bottom Center (BC) by default if no position is given
 # Add quantity and unit as labels ("+l") to the x and y axes
 # Add annotations ("+a") in steps of 0.5 and ticks ("+f") in steps of 0.1
 fig.colorbar(cmap="roma", frame=["xa0.5f0.1+lVelocity", "y+lm/s"])
@@ -78,8 +77,8 @@ pygmt.makecpt(
 # Plot the colorbar
 fig.colorbar(
     cmap=True,  # Use colormap set up above
-    # Colorbar placed inside the plot bounding box (j) at Bottom Left (BL),
-    # offset (+o) by 0.5 cm horizontally and 0.8 cm vertically from anchor
+    # Colorbar placed inside the plot bounding box (j) in the Bottom Left (BL) corner,
+    # with an offset (+o) by 0.5 cm horizontally and 0.8 cm vertically from the anchor
     # point, and plotted horizontally (+h)
     position="jBL+o0.5c/0.8c+h",
     box=True,
