@@ -2,6 +2,7 @@
 nearneighbor - Grid table data using a "Nearest neighbor" algorithm.
 """
 
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -30,7 +31,7 @@ __doctest_skip__ = ["nearneighbor"]
 @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
 def nearneighbor(
     data=None, x=None, y=None, z=None, outgrid: str | None = None, **kwargs
-):
+) -> xr.DataArray | None:
     r"""
     Grid table data using a "Nearest neighbor" algorithm.
 
@@ -117,7 +118,7 @@ def nearneighbor(
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray`: if ``outgrid`` is not set
