@@ -32,8 +32,18 @@ fig.text(
 )
 fig.show()
 
-# Since many characters may have similar typography, it would be
-# best to visit the :doc:`/techref/encodings` to see which characters are supported, and
-# copy and paste the characters directly into your script.
+# Here are some important tips when using non-ASCII characters:
+#
+# - Some characters may look similar but are actually different. For example,
+#   ``Ω`` is simlar to ``Ω``, but the former one is "OHM SIGN" and the later one is
+#   "GREEK CAPITAL LETTER OMEGA". PyGMT only supports the later one. Thus, if you
+#   incorrectly type the former one then you'll get a suprising result. So, your best
+#   bet is to visit the :doc:`/techref/encodings` to see which characters are supported,
+#   and copy and paste the characters directly.
+# - The default character encoding is "ISOLatin1+" in PyGMT. You can mix any characters
+#   in the "Adobe ISOLatin1+", "Adobe Symbol" and "Adobe ZapfDingbats" encodings.
+# - Non-ASCII characters is not supported if you have them in a text file and pass it
+#   to ``Figure.text``. In this case, you may want to load the text file into
+#   ``pandas.DataFrame`` and then pass it to the ``text`` parameter.
 
-# sphinx_gallery_thumbnail_number = 2
+# sphinx_gallery_thumbnail_number = 1
