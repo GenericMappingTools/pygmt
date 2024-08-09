@@ -68,14 +68,6 @@ year will be moved to Distinguished Contributors.
 [@michaelgrund](https://github.com/michaelgrund)
 ::::
 
-::::{grid-item-card} Will Schlitzer
-:padding: 1
-:text-align: center
-:img-top: https://avatars.githubusercontent.com/u/29518865?v=4
-
-[@willschlitzer](https://github.com/willschlitzer)
-::::
-
 ::::{grid-item-card} Yvonne Fröhlich
 :padding: 1
 :text-align: center
@@ -113,6 +105,14 @@ year will be moved to Distinguished Contributors.
 :img-top: https://avatars.githubusercontent.com/u/38269494?v=4
 
 [@liamtoney](https://github.com/liamtoney)
+::::
+
+::::{grid-item-card} Will Schlitzer
+:padding: 1
+:text-align: center
+:img-top: https://avatars.githubusercontent.com/u/29518865?v=4
+
+[@willschlitzer](https://github.com/willschlitzer)
 ::::
 
 :::::

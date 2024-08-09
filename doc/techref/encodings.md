@@ -107,7 +107,7 @@ the Unicode character set.
 
 ## ISO/IEC 8859
 
-GMT also supports the ISO/IEC 8859 standard for 8-bit character encodings. Refer to
+PyGMT also supports the ISO/IEC 8859 standard for 8-bit character encodings. Refer to
 <https://en.wikipedia.org/wiki/ISO/IEC_8859> for descriptions of the different parts of
 the standard.
 
