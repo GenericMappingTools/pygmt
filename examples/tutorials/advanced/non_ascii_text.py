@@ -1,12 +1,24 @@
+# ruff: noqa: RUF001,RUF003
 """
 Typesetting non-ASCII text
 --------------------------
 
-In addtion to ASCII characters, you may want to typeset non-ASCII characters on the plot,
-such as, Greek letters, mathematical symbols, or special characters. In PyGMT, you can
-directly use non-ASCII characters in the text strings.  Due to the
-limitations of the underlying PostScript language, PyGMT only supports a limited set of
-non-ASCII characters.
+In addtion to ASCII printable characters, sometimes you may also want to typeset
+non-ASCII characters on the plot, such as Greek letters, mathematical symbols, or
+special characters.
+
+Due to the limitations of the underlying PostScript language, PyGMT doesn't support
+all characters in the Unicode standard. Instead, PyGMT supports a limited set of
+characters in the "Adobe ISOLatin1+", "Adobe Symbol", "Adobe ZapfDingbats" and
+ISO-8859-*x* (*x* can be 1-11, 13-16) encodings. Refer to :doc:`/techref/encodings`
+for the complete list of supported characters.
+
+In PyGMT, the supported characters (ASCII and non-ASCII) can be directly used in the
+``text`` parameters of the :meth:`pygmt.Figure.text` method. They can also be used in
+the parameter arguments of other plotting functions (e.g., in the ``frame`` parameter to
+set the labels or title).
+
+In this example, we demonstrate how to typeset non-ASCII characters in PyGMT.
 """
 
 # %%
@@ -14,20 +26,29 @@ import pygmt
 
 fig = pygmt.Figure()
 fig.basemap(
-    region=[0, 5, 0, 5],
-    projection="X15c/5c",
-    frame=["xaf", "yaf", "WSen+tNon-ASCII Text"],
+    region=[0, 5, 0, 6],
+    projection="X14c/7c",
+    frame=["xaf+lDistance (°)", "yaf+lValue (‰)", "WSen+tTitle: α² ± β²"],
+)
+
+fig.text(
+    x=[0.2, 0.2, 0.2, 0.2, 0.2],
+    y=[1, 2, 3, 4, 5],
+    text=["Mixed:", "ZapfDingbats:", "Symbol:", "ISOLatin1+:", "ASCII:"],
+    font="20p,Helvetica-Bold,red",
+    justify="LM",
 )
 fig.text(
-    x=[0, 0, 0, 0],
-    y=[1, 2, 3, 4],
+    x=[2, 2, 2, 2, 2],
+    y=[1, 2, 3, 4, 5],
     text=[
-        "ASCII: ABCDE12345!#$",
-        "Non-ASCII in ISOLatin1+: ±°ÀÈÌÒÙ",
-        "Greek letters: αβγδεζηθ",
-        "ZapfDingbats: ✈♥♦♣♠",
+        "ABCD αβγδ ①②③ ➊➋➌",
+        "✈♥♦♣♠❛❜❝❞❨❩❪❫❬❭❮❯→↔",
+        "αβγδεζηθ⊗⊕∅⊃⊇⊄⊂⊆",
+        "±°ÀÁÂÃÄÅÈÌÒÙàèìòù",
+        "ABCDE12345!#$:;<=>?",
     ],
-    font="20p,Helvetica-Bold",
+    font="18p,Helvetica",
     justify="LM",
 )
 fig.show()
