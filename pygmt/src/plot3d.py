@@ -186,7 +186,7 @@ def plot3d(  # noqa: PLR0912
     kind = data_kind(data)
     extra_arrays = []
 
-    if kind == "vectors":  # Add more columns for vectors input
+    if kind == "none":  # Add more columns for vectors input
         # Parameters for vector styles
         if (
             kwargs.get("S") is not None

@@ -58,7 +58,7 @@ def test_grdview_wrong_kind_of_grid(xrgrid):
     Run grdview using grid input that is not an xarray.DataArray or file.
     """
     dataset = xrgrid.to_dataset()  # convert xarray.DataArray to xarray.Dataset
-    assert data_kind(dataset) == "matrix"
+    assert data_kind(dataset) == "vectors"
 
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
@@ -238,7 +238,7 @@ def test_grdview_wrong_kind_of_drapegrid(xrgrid):
     Run grdview using drapegrid input that is not an xarray.DataArray or file.
     """
     dataset = xrgrid.to_dataset()  # convert xarray.DataArray to xarray.Dataset
-    assert data_kind(dataset) == "matrix"
+    assert data_kind(dataset) == "vectors"
 
     fig = Figure()
     with pytest.raises(GMTInvalidInput):

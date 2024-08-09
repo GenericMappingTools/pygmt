@@ -75,12 +75,14 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
         if kwargs.get("F") is None:
             kwargs["F"] = box
 
-    with Session() as lib:
-        if spec is None:
-            specfile = ""
-        elif data_kind(spec) == "file" and not is_nonstr_iter(spec):
-            # Is a file but not a list of files
-            specfile = spec
-        else:
+    match data_kind(spec):
+        case "file":
+            if is_nonstr_iter(spec):
+                raise GMTInvalidInput("Only one legend specification file is allowed.")
+        case "none":  # Use the auto-generated legend specification file.
+            pass
+        case _:
             raise GMTInvalidInput(f"Unrecognized data type: {type(spec)}")
-        lib.call_module(module="legend", args=build_arg_list(kwargs, infile=specfile))
+
+    with Session() as lib:
+        lib.call_module(module="legend", args=build_arg_list(kwargs, infile=spec))

@@ -195,7 +195,7 @@ def x2sys_cross(
         match data_kind(track):
             case "file":
                 file_contexts.append(contextlib.nullcontext(track))
-            case "matrix":
+            case "vectors":
                 # find suffix (-E) of trackfiles used (e.g. xyz, csv, etc) from
                 # $X2SYS_HOME/TAGNAME/TAGNAME.tag file
                 tagfile = Path(

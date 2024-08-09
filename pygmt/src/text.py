@@ -185,7 +185,7 @@ def text_(  # noqa: PLR0912
                 "Provide either position only, or x/y pairs, or textfiles."
             )
         kind = data_kind(textfiles)
-        if kind == "vectors" and text is None:
+        if kind == "none" and text is None:
             raise GMTInvalidInput("Must provide text with x/y pairs")
     else:
         if any(v is not None for v in (x, y, textfiles)):
@@ -227,7 +227,7 @@ def text_(  # noqa: PLR0912
 
     # Append text at last column. Text must be passed in as str type.
     confdict = {}
-    if kind == "vectors":
+    if kind == "none":
         text = np.atleast_1d(text).astype(str)
         encoding = _check_encoding("".join(text))
         if encoding != "ascii":

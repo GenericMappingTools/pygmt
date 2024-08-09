@@ -7,7 +7,6 @@ Uses ctypes to wrap most of the core functions from the C API.
 
 import contextlib
 import ctypes as ctp
-import pathlib
 import sys
 import warnings
 from collections.abc import Generator, Sequence
@@ -1683,7 +1682,7 @@ class Session:
             if check_kind == "raster":
                 valid_kinds += ("grid", "image")
             elif check_kind == "vector":
-                valid_kinds += ("matrix", "vectors", "geojson")
+                valid_kinds += ("none", "matrix", "vectors", "geojson")
             if kind not in valid_kinds:
                 raise GMTInvalidInput(
                     f"Unrecognized data type for {check_kind}: {type(data)}"
@@ -1691,55 +1690,56 @@ class Session:
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
-            "file": contextlib.nullcontext,
+            "none": self.virtualfile_from_vectors,
             "arg": contextlib.nullcontext,
+            "file": contextlib.nullcontext,
             "geojson": tempfile_from_geojson,
             "grid": self.virtualfile_from_grid,
             "image": tempfile_from_image,
-            # Note: virtualfile_from_matrix is not used because a matrix can be
-            # converted to vectors instead, and using vectors allows for better
-            # handling of string type inputs (e.g. for datetime data types)
-            "matrix": self.virtualfile_from_vectors,
+            "matrix": self.virtualfile_from_matrix,
             "vectors": self.virtualfile_from_vectors,
         }[kind]
 
         # Ensure the data is an iterable (Python list or tuple)
-        if kind in {"geojson", "grid", "image", "file", "arg"}:
-            if kind == "image" and data.dtype != "uint8":
-                msg = (
-                    f"Input image has dtype: {data.dtype} which is unsupported, "
-                    "and may result in an incorrect output. Please recast image "
-                    "to a uint8 dtype and/or scale to 0-255 range, e.g. "
-                    "using a histogram equalization function like "
-                    "skimage.exposure.equalize_hist."
-                )
-                warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
-            _data = (data,) if not isinstance(data, pathlib.PurePath) else (str(data),)
-        elif kind == "vectors":
-            _data = [np.atleast_1d(x), np.atleast_1d(y)]
-            if z is not None:
-                _data.append(np.atleast_1d(z))
-            if extra_arrays:
-                _data.extend(extra_arrays)
-        elif kind == "matrix":  # turn 2-D arrays into list of vectors
-            if hasattr(data, "items") and not hasattr(data, "to_frame"):
-                # pandas.DataFrame or xarray.Dataset types.
-                # pandas.Series will be handled below like a 1-D numpy.ndarray.
-                _data = [array for _, array in data.items()]
-            elif hasattr(data, "ndim") and data.ndim == 2 and data.dtype.kind in "iuf":
-                # Just use virtualfile_from_matrix for 2-D numpy.ndarray
-                # which are signed integer (i), unsigned integer (u) or
-                # floating point (f) types
-                _virtualfile_from = self.virtualfile_from_matrix
+        match kind:
+            case "arg" | "file" | "geojson" | "grid":
                 _data = (data,)
-            else:
-                # Python list, tuple, numpy.ndarray, and pandas.Series types
-                _data = np.atleast_2d(np.asanyarray(data).T)
+            case "image":
+                if data.dtype != "uint8":
+                    msg = (
+                        f"Input image has dtype: {data.dtype} which is unsupported, "
+                        "and may result in an incorrect output. Please recast image "
+                        "to a uint8 dtype and/or scale to 0-255 range, e.g. "
+                        "using a histogram equalization function like "
+                        "skimage.exposure.equalize_hist."
+                    )
+                    warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
+                _data = (data,)
+            case "matrix":  # 2-D numpy.ndarray
+                # virtualfile_from_matrix only support 2-D numpy.ndarray which are
+                # signed integer (i), unsigned integer (u) or floating point (f) types
+                if data.dtype.kind in "iuf":
+                    _data = (data,)
+                else:  # turn 2-D numpy.ndarray into list of arrays
+                    _virtualfile_from = self.virtualfile_from_vectors
+                    _data = list(data.T)
+            case "none":  # data is given via a series of vectors
+                _data = [np.atleast_1d(x), np.atleast_1d(y)]
+                if z is not None:
+                    _data.append(np.atleast_1d(z))
+                if extra_arrays:
+                    _data.extend(extra_arrays)
+            case "vectors":
+                if hasattr(data, "items") and not hasattr(data, "to_frame"):
+                    # Dict, pandas.DataFrame or xarray.Dataset types.
+                    # pandas.Series will be handled below like a 1-D numpy.ndarray.
+                    _data = [np.atleast_1d(array) for _, array in data.items()]
+                else:
+                    # Python list, tuple, and pandas.Series types
+                    _data = np.atleast_2d(np.asanyarray(data).T)
 
         # Finally create the virtualfile from the data, to be passed into GMT
-        file_context = _virtualfile_from(*_data)
-
-        return file_context
+        return _virtualfile_from(*_data)
 
     def virtualfile_from_data(
         self,

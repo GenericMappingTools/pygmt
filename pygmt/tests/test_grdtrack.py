@@ -126,7 +126,7 @@ def test_grdtrack_profile(dataarray):
 
 def test_grdtrack_wrong_kind_of_points_input(dataarray, dataframe):
     """
-    Run grdtrack using points input that is not a pandas.DataFrame (matrix) or file.
+    Run grdtrack using points input that is not a pandas.DataFrame or file.
     """
     invalid_points = dataframe.longitude.to_xarray()
 
@@ -141,7 +141,7 @@ def test_grdtrack_wrong_kind_of_grid_input(dataarray, dataframe):
     """
     invalid_grid = dataarray.to_dataset()
 
-    assert data_kind(invalid_grid) == "matrix"
+    assert data_kind(invalid_grid) == "vectors"
     with pytest.raises(GMTInvalidInput):
         grdtrack(points=dataframe, grid=invalid_grid, newcolname="bathymetry")
 
