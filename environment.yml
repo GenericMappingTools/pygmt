@@ -34,7 +34,7 @@ dependencies:
     - pytest-doctestplus
     - pytest-mpl
     # Dev dependencies (building documentation)
-    - myst-parser
+    - myst-nb
     - panel
     - sphinx
     - sphinx-autodoc-typehints
