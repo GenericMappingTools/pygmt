@@ -125,6 +125,8 @@ fig.grdview(
     # a normalization via a cumulative Laplace distribution for the shading
     shading="+a0/270+ne0.6",
     perspective=[157.5, 30],  # Define azimuth, elevation for the 3-D plot
+    zsize="1c",
+    plane="+gdarkgray",
     frame=True,
 )
 
@@ -146,15 +148,17 @@ fig.coast(
 # Set up a pandas.DataFrame with coordinates and names of three cities
 cities = pd.DataFrame(
     {
-        "longitude": [7.10, 4.35, 5.69],
-        "latitude": [50.73, 50.85, 50.85],
+        "longitude": [7.10, 4.35, 5.69],  # degrees East
+        "latitude": [50.73, 50.85, 50.85],  # degress North
+        "elevation": [60, 13, 49],  # meters
         "name": ["Bonn", "Bruxelles", "Maastricht"],
     }
 )
 # Plot markers
-fig.plot(
+fig.plot3d(
     x=cities.longitude,
     y=cities.latitude,
+    z=cities.elevation,
     style="s0.3c",  # Use squares with a size of 0.3 centimeters
     pen="1.5p,white",
     fill="black",
