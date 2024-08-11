@@ -3,7 +3,7 @@
 Typesetting non-ASCII text
 --------------------------
 
-In addtion to ASCII printable characters, sometimes you may also want to typeset
+In addition to ASCII printable characters, sometimes you may also want to typeset
 non-ASCII characters on the plot, such as Greek letters, mathematical symbols, or
 special characters.
 
