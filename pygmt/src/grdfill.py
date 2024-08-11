@@ -2,6 +2,7 @@
 grdfill - Fill blank areas from a grid.
 """
 
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -17,7 +18,7 @@ __doctest_skip__ = ["grdfill"]
     V="verbose",
 )
 @kwargs_to_strings(R="sequence")
-def grdfill(grid, outgrid: str | None = None, **kwargs):
+def grdfill(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
     Fill blank areas from a grid file.
 
@@ -51,7 +52,7 @@ def grdfill(grid, outgrid: str | None = None, **kwargs):
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
