@@ -2,7 +2,7 @@
 config - set GMT defaults globally or locally.
 """
 
-from typing import Any, ClassVar, Literal, TypedDict
+from typing import Any, ClassVar, Literal, TypedDict, Unpack
 
 from pygmt.clib import Session
 
@@ -204,7 +204,7 @@ class config:  # noqa: N801
     )
     """
 
-    def __init__(self, **kwargs: Parameters):
+    def __init__(self, **kwargs: Unpack[Parameters]):
         # Save values so that we can revert to their initial values
         self.old_defaults = {}
         with Session() as lib:
