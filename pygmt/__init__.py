@@ -26,7 +26,6 @@ from pygmt._show_versions import __commit__, __version__, show_versions
 from pygmt.accessors import GMTDataArrayAccessor
 from pygmt.figure import Figure, set_display
 from pygmt.io import load_dataarray
-from pygmt.session_management import begin as _begin
 from pygmt.session_management import end as _end
 from pygmt.src import (
     binstats,
@@ -66,7 +65,5 @@ from pygmt.src import (
     xyz2grd,
 )
 
-# Start our global modern mode session
-_begin()
 # Tell Python to run _end when shutting down
 _atexit.register(_end)
