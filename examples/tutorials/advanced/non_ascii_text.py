@@ -56,7 +56,7 @@ fig.show()
 # %%
 # Here are some important tips when using non-ASCII characters:
 #
-# - **Similar-Looking Characters**: Be cautious when using characters that appear
+# - **Similar-looking characters**: Be cautious when using characters that appear
 #   visually similar but are distinct. For example, ``Ω`` (OHM SIGN) and ``Ω`` (GREEK
 #   CAPITAL LETTER OMEGA) may look alike, but PyGMT only supports the latter. Using the
 #   incorrect character can lead to unexpected results. To avoid this, it's recommended
@@ -65,13 +65,12 @@ fig.show()
 #   mix characters from different encodings in the same text string. However, due to the
 #   limitations of the underlying PostScript language, you cannot mix characters from
 #   the "Adobe ISOLatin1+" and "ISO-8859-*x*" encodings in the same text string. For
-#   example, you cannot mix characters from the "Adobe ISOLatin1+" and "ISO-8859-2". If
+#   example, you cannot mix characters from "Adobe ISOLatin1+" and "ISO-8859-2". If
 #   you need to use characters from different encodings, you can use them in different
 #   PyGMT function/method calls.
-# - **Non-ASCII Characters in Text Files**: Non-ASCII characters are not supported if
+# - **Non-ASCII characters in text files**: Non-ASCII characters are not supported if
 #   you have them in a text file and pass it to ``Figure.text``. In this case, you may
 #   want to load the text file into :class:`pandas.DataFrame` and then pass it to the
 #   ``text`` parameter.
-#
 
 # sphinx_gallery_thumbnail_number = 1
