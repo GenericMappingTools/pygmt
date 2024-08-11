@@ -5,7 +5,7 @@ Tools (GMT).
 
 All are welcome to become involved with the PyGMT project! For more information about how
 to get involved, see the {doc}`contributing`. The more complete list of contributors
-are available in the [`AUTHORS.md`](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md)
+is available in the [`AUTHORS.md`](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md)
 file in the source repository.
 
 Distinguished Contributors are recognized for their substantial contributions to PyGMT,
