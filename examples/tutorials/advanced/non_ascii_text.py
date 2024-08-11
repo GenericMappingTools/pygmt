@@ -69,8 +69,8 @@ fig.show()
 #   you need to use characters from different encodings, you can use them in different
 #   PyGMT function/method calls.
 # - **Non-ASCII characters in text files**: Non-ASCII characters are not supported if
-#   you have them in a text file and pass it to ``Figure.text``. In this case, you may
-#   want to load the text file into :class:`pandas.DataFrame` and then pass it to the
-#   ``text`` parameter.
+#   you have them in a text file and pass it to :meth:`pygmt.Figure.text`. In this case,
+#   you may want to load the text file into :class:`pandas.DataFrame` and then pass it
+#   to the ``text`` parameter.
 
 # sphinx_gallery_thumbnail_number = 1
