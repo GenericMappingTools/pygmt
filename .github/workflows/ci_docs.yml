@@ -107,7 +107,7 @@ jobs:
             build
             make
             pip
-            myst-parser
+            myst-nb
             panel
             sphinx
             sphinx-autodoc-typehints
