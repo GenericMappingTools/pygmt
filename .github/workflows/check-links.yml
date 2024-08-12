@@ -23,12 +23,12 @@ jobs:
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v4.1.6
+      uses: actions/checkout@v4.1.7
       with:
         path: repository
 
     - name: Checkout the documentation
-      uses: actions/checkout@v4.1.6
+      uses: actions/checkout@v4.1.7
       with:
         ref: gh-pages
         path: documentation
@@ -49,6 +49,8 @@ jobs:
           --exclude "^https://github.com/GenericMappingTools/gmt/releases/tag/X.Y.Z$"
           --exclude "^https://github.com/GenericMappingTools/pygmt/edit"
           --exclude "^https://github.com/GenericMappingTools/pygmt/issues/new"
+          --exclude "^https://github.com/GenericMappingTools/pygmt/releases/tag/{{path}}"
+          --exclude "^https://www.pygmt.org/{{path}}"
           --exclude "^git"
           --exclude "^file://"
           --exclude "https://www.adobe.com/jp/print/postscript/pdfs/PLRM.pdf"

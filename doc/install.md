@@ -59,7 +59,7 @@ development version.
 
 ## Which Python?
 
-PyGMT is tested to run on Python {{ requires_python }}.
+PyGMT is tested to run on Python {{ requires.python }}.
 
 We recommend using the [Miniforge](https://github.com/conda-forge/miniforge#miniforge3)
 Python distribution to ensure you have all dependencies installed and
@@ -69,7 +69,7 @@ your computer and doesn't interfere with any other Python installations on your 
 
 ## Which GMT?
 
-PyGMT requires Generic Mapping Tools (GMT) {{ requires_gmt }} since there are many
+PyGMT requires Generic Mapping Tools (GMT) {{ requires.gmt }} since there are many
 changes being made to GMT itself in response to the development of PyGMT.
 
 Compiled conda packages of GMT for Linux, macOS and Windows are provided through

@@ -273,7 +273,7 @@ datasets = {
 }
 
 
-def list_sample_data() -> dict:
+def list_sample_data() -> dict[str, str]:
     """
     Report datasets available for tests and documentation examples.
 

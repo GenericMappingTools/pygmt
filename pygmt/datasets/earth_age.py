@@ -8,6 +8,7 @@ The grids are available in various resolutions.
 from collections.abc import Sequence
 from typing import Literal
 
+import xarray as xr
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 
 __doctest_skip__ = ["load_earth_age"]
@@ -19,7 +20,7 @@ def load_earth_age(
     ] = "01d",
     region: Sequence[float] | str | None = None,
     registration: Literal["gridline", "pixel"] = "gridline",
-):
+) -> xr.DataArray:
     r"""
     Load the Earth seafloor crustal age dataset in various resolutions.
 
@@ -65,7 +66,7 @@ def load_earth_age(
 
     Returns
     -------
-    grid : :class:`xarray.DataArray`
+    grid
         The Earth seafloor crustal age grid. Coordinates are latitude and
         longitude in degrees. Age is in millions of years (Myr).
 

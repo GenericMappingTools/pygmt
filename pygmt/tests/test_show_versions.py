@@ -1,5 +1,5 @@
 """
-Test functions in __init__.
+Test the pygmt.show_versions function.
 """
 
 import io
