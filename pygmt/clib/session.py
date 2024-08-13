@@ -212,11 +212,20 @@ class Session:
 
         Calls :meth:`pygmt.clib.Session.create`.
         """
+        _init_cli_session = False
         # This is the first time a Session object is created.
         if _STATE["session_name"] is None:
             # Set GMT_SESSION_NAME to a customized, unique value.
             _STATE["session_name"] = os.environ["GMT_SESSION_NAME"] = unique_name()
+            # Need to initialize the GMT CLI session.
+            _init_cli_session = True
         self.create("pygmt-session")
+
+        if _init_cli_session:
+            self.call_module("begin", args=["pygmt-session"])
+            self.call_module(module="set", args=["GMT_COMPATIBILITY=6"])
+            del _init_cli_session
+
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
@@ -630,12 +639,6 @@ class Session:
         GMTCLibError
             If the returned status code of the function is non-zero.
         """
-        if _STATE["module_calls"] is None:
-            from pygmt.session_management import begin
-
-            _STATE["module_calls"] = []
-            begin()
-
         c_call_module = self.get_libgmt_func(
             "GMT_Call_Module",
             argtypes=[ctp.c_void_p, ctp.c_char_p, ctp.c_int, ctp.c_void_p],
@@ -664,7 +667,6 @@ class Session:
                 "'args' must be either a string or a list of strings."
             )
 
-        _STATE["module_calls"].append(module)
         status = c_call_module(self.session_pointer, module.encode(), mode, argv)
         if status != 0:
             raise GMTCLibError(
