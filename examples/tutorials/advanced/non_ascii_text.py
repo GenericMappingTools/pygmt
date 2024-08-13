@@ -33,24 +33,25 @@ fig.basemap(
 
 fig.text(
     x=[0.2, 0.2, 0.2, 0.2, 0.2],
-    y=[1, 2, 3, 4, 5],
-    text=["Mixed:", "ZapfDingbats:", "Symbol:", "ISOLatin1+:", "ASCII:"],
+    y=[5, 4, 3, 2, 1],
+    text=["ASCII:", "ISOLatin1+:", "Symbol:", "ZapfDingbats:", "Mixed:"],
     font="20p,Helvetica-Bold,red",
     justify="LM",
 )
 fig.text(
     x=[2, 2, 2, 2, 2],
-    y=[1, 2, 3, 4, 5],
+    y=[5, 4, 3, 2, 1],
     text=[
-        "ABCD αβγδ ①②③ ➊➋➌",  # Mix characters from ISOLatin1+, Symbol and ZapfDingbats
-        "✈♥♦♣♠❛❜❝❞❨❩❪❫❬❭❮❯→↔",  # Non-ASCII characters from Adobe ZapfDingbats
-        "αβγδεζηθ⊗⊕∅⊃⊇⊄⊂⊆",  # Non-ASCII characters from Adobe Symbol
-        "±°ÀÁÂÃÄÅÈÌÒÙàèìòù",  # Non-ASCII characters from Adobe ISOLatin1+
         "ABCDE12345!#$:;<=>?",  # ASCII only
+        "±°ÀÁÂÃÄÅÈÌÒÙàèìòù",  # Non-ASCII characters from Adobe ISOLatin1+
+        "αβγδεζηθ⊗⊕∅⊃⊇⊄⊂⊆",  # Non-ASCII characters from Adobe Symbol
+        "✈♥♦♣♠❛❜❝❞❨❩❪❫❬❭❮❯→↔",  # Non-ASCII characters from Adobe ZapfDingbats
+        "ABCD αβγδ ①②③ ➊➋➌",  # Mix characters from ISOLatin1+, Symbol and ZapfDingbats
     ],
     font="18p,Helvetica",
     justify="LM",
 )
+
 fig.show()
 
 # %%
