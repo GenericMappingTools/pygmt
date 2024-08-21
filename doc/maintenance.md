@@ -17,7 +17,6 @@ communication tools we use.
 
 - Added to the [pygmt-contributors team](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors) (gives 'write' permission to the repository)
 - Added as a collaborator on [DAGsHub](https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration) (gives 'write' permission to dvc remote storage)
-- Added to the {doc}`Team Gallery page <team>`
 - Added as a member on [HackMD](https://hackmd.io/@pygmt) (for draft announcements) [optional]
 
 ### As a Maintainer
