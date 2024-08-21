@@ -22,7 +22,7 @@ communication tools we use.
 ### As a Maintainer
 
 - Added to the [pygmt-maintainers team](https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers) (gives 'maintain' permission to the repository)
-- Update the role on the {doc}`Team Gallery page <team>`
+- Add to "Active Maintainers" on the {doc}`Team Gallery page <team>`
 - Added as a moderator on the [GMT forum](https://forum.generic-mapping-tools.org) (to see mod-only discussions) [optional]
 - Added as a maintainer on [ReadtheDocs](https://readthedocs.org/projects/pygmt-dev) [optional]
 - Added as a curator to the [GMT community](https://zenodo.org/communities/generic-mapping-tools/) on Zenodo (for making releases) [optional]
