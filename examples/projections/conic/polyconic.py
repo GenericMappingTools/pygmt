@@ -1,5 +1,5 @@
 r"""
-Polyconic Projection
+(American) polyconic
 ====================
 
 The polyconic projection, in Europe usually referred to as the American

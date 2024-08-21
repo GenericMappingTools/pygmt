@@ -1,6 +1,6 @@
 r"""
-Orthographic
-============
+Azimuthal orthographic
+======================
 
 This is a perspective projection like the general perspective, but with the
 difference that the point of perspective lies in infinite distance.

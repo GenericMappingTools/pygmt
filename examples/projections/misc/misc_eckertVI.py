@@ -1,6 +1,6 @@
 r"""
-Eckert VI
-=========
+Eckert VI equal-area
+====================
 
 The Eckert VI projections, presented by the German cartographer Max
 Eckert-Greiffendorff in 1906, is a pseudo-cylindrical equal-area projection.
