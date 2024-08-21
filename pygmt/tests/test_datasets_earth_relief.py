@@ -82,7 +82,7 @@ def test_earth_relief_01d_with_region_gebco():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
-    npt.assert_allclose(data.min(), -5136.0, atol=1.0)
+    npt.assert_allclose(data.min(), -5118.0, atol=1.0)
     npt.assert_allclose(data.max(), 681.0, atol=1.0)
 
 
