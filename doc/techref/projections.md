@@ -36,7 +36,7 @@ The table below shows the projection codes for the 31 GMT map projections:
 | **Oa**{{ lon0 }}/{{ lat0 }}/*azimuth*/*width*[**+v**]       | {doc}`/projections/cyl/cyl_oblique_mercator_1` |
 | **Ob**{{ lon0 }}/{{ lat0 }}/{{ lon1 }}/{{ lat1 }}/*width*[**+v**] | {doc}`/projections/cyl/cyl_oblique_mercator_2` |
 | **Oc**{{ lon0 }}/{{ lat0 }}/{{ lonp }}/{{ latp }}/*width*[**+v**] | {doc}`/projections/cyl/cyl_oblique_mercator_3` |
-| **P***width*[**+a**][**+f**[**e**\|**p**\|*radius*]][**+r***offset*][**+t***origin*][**+z**[**p**\|*radius*]] | {doc}`Polar </projections/nongeo/polar` [azimuthal] ({math}`\theta, r`) (or cylindrical) |
+| **P***width*[**+a**][**+f**[**e**\|**p**\|*radius*]][**+r***offset*][**+t***origin*][**+z**[**p**\|*radius*]] | {doc}`/projections/nongeo/polar` [azimuthal] ({math}`\theta, r`) (or cylindrical) |
 | **Poly**/[{{ lon0 }}/[{{ lat0 }}/]]*width*                  | {doc}`/projections/conic/polyconic` |
 | **Q**[{{ lon0 }}/[{{ lat0 }}/]]*width*                      | {doc}`/projections/cyl/cyl_equidistant` |
 | **R**[{{ lon0 }}/]*width*                                   | {doc}`/projections/misc/misc_winkel_tripel` |
