@@ -3,9 +3,7 @@
 This page contains instructions for project maintainers about how our setup works,
 making releases, creating packages, etc.
 
-If you want to make a contribution to the project, see the
-[Contributing Guide](https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md)
-instead.
+If you want to make a contribution to the project, see the {doc}`contributing` instead.
 
 ## Onboarding Access Checklist
 
