@@ -4,12 +4,16 @@ Sphinx documentation configuration file.
 
 import datetime
 import importlib
+import sys
+from pathlib import Path
 
 from packaging.requirements import Requirement
 from pygmt import __commit__, __version__
 from pygmt.clib import required_gmt_version
 from pygmt.sphinx_gallery import PyGMTScraper
 from sphinx_gallery.sorting import ExampleTitleSortKey, ExplicitOrder
+
+sys.path.append(Path.resolve("_extensions"))
 
 # Dictionary for dependency name and minimum required version.
 requirements = {
@@ -24,6 +28,7 @@ requirements.update(
 )
 
 extensions = [
+    "autolink_issues",
     "myst_nb",
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
@@ -39,6 +44,7 @@ extensions = [
     "sphinx_design",
     "sphinx_gallery.gen_gallery",
 ]
+github_repo = "GenericMappingTools/pygmt"
 
 # Suppress warnings
 suppress_warnings = [
