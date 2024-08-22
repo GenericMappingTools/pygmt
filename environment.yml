@@ -22,7 +22,7 @@ dependencies:
     - jupyter
     - make
     - pip
-    - python-build  # Package name is "build" on PyPI and "python-build" on conda-forge.
+    - python-build
     # Dev dependencies (style checks)
     - codespell
     - pre-commit
