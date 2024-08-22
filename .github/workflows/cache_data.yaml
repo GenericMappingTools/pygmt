@@ -58,7 +58,7 @@ jobs:
             xarray
             netCDF4
             packaging
-            build
+            python-build
 
       # Install the package that we want to test
       - name: Install the package
