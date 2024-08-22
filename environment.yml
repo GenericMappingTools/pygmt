@@ -18,11 +18,11 @@ dependencies:
     - ipython
     - rioxarray
     # Development dependencies (general)
-    - build
     - dvc
     - jupyter
     - make
     - pip
+    - python-build  # Package name is "build" on PyPI and "python-build" on conda-forge.
     # Dev dependencies (style checks)
     - codespell
     - pre-commit

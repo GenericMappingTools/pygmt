@@ -18,9 +18,9 @@ dependencies:
     - ipython
     - rioxarray
     # Development dependencies (general)
-    - build
     - make
     - pip
+    - python-build  # Package name is "build" on PyPI and "python-build" on conda-forge.
     # Dev dependencies (building documentation)
     - myst-nb
     - panel
