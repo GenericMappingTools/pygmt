@@ -1,5 +1,9 @@
 # Changelog
 
+#12, #13
+
+
+
 ## Release v0.12.0 (2024/05/01)
 
 [![Digital Object Identifier for PyGMT v0.12.0](https://zenodo.org/badge/DOI/10.5281/zenodo.11062720.svg)](https://doi.org/10.5281/zenodo.11062720)
