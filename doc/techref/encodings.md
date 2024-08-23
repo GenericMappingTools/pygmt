@@ -17,8 +17,8 @@ def get_charset_mdtable(name):
     mappings = charset[name]
 
     undefined = "\ufffd"
-    text = "| octal | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |\n"
-    text += "|---|---|---|---|---|---|---|---|---|\n"
+    text = "| Octal | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |\n"
+    text += "|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|\n"
     for i in range(0o00, 0o400, 8):
         chars = [mappings.get(j, undefined) for j in range(i, i + 8)]
         if chars == [undefined] * 8:
