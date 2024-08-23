@@ -61,9 +61,9 @@ myst_substitutions = {
     "requires": requirements,
 }
 
-# MyST-NB configurations: https://myst-nb.readthedocs.io/en/latest/configuration.html
+# MyST-NB configurations.
+# Reference: https://myst-nb.readthedocs.io/en/latest/configuration.html
 nb_render_markdown_format = "myst"  # The format to use for text/markdown rendering
-
 
 # Make the list of returns arguments and attributes render the same as the
 # parameters list
