@@ -13,7 +13,7 @@ from pygmt.clib import required_gmt_version
 from pygmt.sphinx_gallery import PyGMTScraper
 from sphinx_gallery.sorting import ExampleTitleSortKey, ExplicitOrder
 
-sys.path.append(Path("_extensions").resolve())
+sys.path.append(str(Path("_extensions").resolve()))
 
 # Dictionary for dependency name and minimum required version.
 requirements = {
