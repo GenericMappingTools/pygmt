@@ -35,7 +35,6 @@ from pygmt.helpers import (
     data_kind,
     tempfile_from_geojson,
     tempfile_from_image,
-    unique_name,
 )
 
 FAMILIES = [
@@ -215,8 +214,8 @@ class Session:
         _init_cli_session = False
         # This is the first time a Session object is created.
         if _STATE["session_name"] is None:
-            # Set GMT_SESSION_NAME to a customized, unique value.
-            _STATE["session_name"] = os.environ["GMT_SESSION_NAME"] = unique_name()
+            # Set GMT_SESSION_NAME to the current process id.
+            _STATE["session_name"] = os.environ["GMT_SESSION_NAME"] = str(os.getpid())
             # Need to initialize the GMT CLI session.
             _init_cli_session = True
         self.create("pygmt-session")
