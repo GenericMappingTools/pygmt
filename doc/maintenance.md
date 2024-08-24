@@ -5,7 +5,7 @@ making releases, creating packages, etc.
 
 If you want to make a contribution to the project, see the {doc}`contributing` instead.
 
-## Onboarding Access Checklist
+## Onboarding/Offboarding Access Checklist
 
 Note that anyone can contribute to PyGMT, even without being added to the
 [GenericMappingTools team](https://github.com/orgs/GenericMappingTools/teams).
@@ -16,7 +16,7 @@ communication tools we use.
 ### As a Contributor
 
 - Added to the [pygmt-contributors team](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors) (gives 'write' permission to the repository)
-- Added as a collaborator on [DAGsHub](https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration) (gives 'write' permission to dvc remote storage)
+- Added as a collaborator on [DAGsHub](https://dagshub.com/GenericMappingTools/pygmt) (gives 'write' permission to dvc remote storage)
 - Added as a member on [HackMD](https://hackmd.io/@pygmt) (for draft announcements) [optional]
 
 ### As a Maintainer
@@ -30,8 +30,16 @@ communication tools we use.
 ### As an Administrator
 
 - Added to the [pygmt-admin team](https://github.com/orgs/GenericMappingTools/teams/pygmt-admin) (gives 'admin' permission to the repository)
-- Added as an admin on [DAGsHub](https://www.dagshub.com/GenericMappingTools/pygmt/settings/collaboration)
+- Added as an admin on [DAGsHub](https://www.dagshub.com/GenericMappingTools/pygmt)
 - Added as a maintainer on [PyPI](https://pypi.org/project/pygmt/) and [Test PyPI](https://test.pypi.org/project/pygmt) [optional]
+
+**Note**: When a maintainer is no longer active (no activity in one year), we will mirror
+the onboarding access checklist:
+
+- Moved from the [pygmt-maintainers team](https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers)
+  to [pygmt-contributors team](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors)
+- Moved from "Active Maintainers" to "Distinguished Contributors" on the {doc}`Team Gallery page <team>`
+- Remove 'maintain' permission from GMT forum, ReadTheDocs, Zenodo
 
 ## Branches
 
