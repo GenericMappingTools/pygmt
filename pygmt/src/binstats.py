@@ -3,6 +3,7 @@ binstats - Bin spatial data and determine statistics per bin
 """
 
 from pygmt.alias import Alias, AliasSystem
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -29,7 +30,7 @@ def binstats(
     statistic=None,
     quantile_value=50,
     **kwargs,  # noqa: ARG001
-):
+) -> xr.DataArray | None:
     r"""
     Bin spatial data and determine statistics per bin.
 
@@ -103,7 +104,7 @@ def binstats(
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
