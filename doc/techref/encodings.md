@@ -16,15 +16,14 @@ def get_charset_mdtable(name):
     """
     mappings = charset[name]
 
-    undefined = "\ufffd"
     text = "| Octal | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |\n"
     text += "|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|\n"
     for i in range(0o00, 0o400, 8):
-        chars = [mappings.get(j, undefined) for j in range(i, i + 8)]
-        if chars == [undefined] * 8:
+        chars = [mappings.get(j) for j in range(i, i + 8)]
+        if all(v is None for v in chars):  # All characters in this row are undefined
             continue
-        chars = [f"&#x{ord(char):04x};" for char in chars]
         row = f"\\{i:03o}"[:-1] + "x"
+        chars = [f"&#x{ord(char):04x};" for char in chars]
         text += f"| **{row}** | {' | '.join(chars)} |\n"
     text += "\n"
     return Markdown(text)
@@ -38,7 +37,7 @@ in arguments and text strings. When using non-ASCII characters in PyGMT, the eas
 is to copy and paste the character from the encoding tables below.
 
 **Note**: The special character &#xfffd; (REPLACEMENT CHARACTER) is used to indicate
-that the character is not defined in the encoding.
+that the character is undefined in the encoding.
 
 ## Adobe ISOLatin1+ Encoding
 
