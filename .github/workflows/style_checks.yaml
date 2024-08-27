@@ -42,6 +42,7 @@ jobs:
         run: |
           pre-commit autoupdate
           if [[ $(git ls-files -m) ]]; then git --no-pager diff HEAD; exit 1; fi
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
 
       - name: Formatting check (ruff + pre-commit)
         run: |
