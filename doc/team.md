@@ -4,7 +4,9 @@ We are an international team dedicated to building a Pythonic API for the Generi
 Tools (GMT).
 
 All are welcome to become involved with the PyGMT project! For more information about how
-to get involved, see the {doc}`contributing`.
+to get involved, see the {doc}`contributing`. A more complete list of contributors
+is available in the [`AUTHORS.md`](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md)
+file in the source repository.
 
 Distinguished Contributors are recognized for their substantial contributions to PyGMT,
 which may include code, documentation, pull request review, triaging, forum responses,
@@ -68,14 +70,6 @@ year will be moved to Distinguished Contributors.
 [@michaelgrund](https://github.com/michaelgrund)
 ::::
 
-::::{grid-item-card} Will Schlitzer
-:padding: 1
-:text-align: center
-:img-top: https://avatars.githubusercontent.com/u/29518865?v=4
-
-[@willschlitzer](https://github.com/willschlitzer)
-::::
-
 ::::{grid-item-card} Yvonne Fröhlich
 :padding: 1
 :text-align: center
@@ -113,6 +107,14 @@ year will be moved to Distinguished Contributors.
 :img-top: https://avatars.githubusercontent.com/u/38269494?v=4
 
 [@liamtoney](https://github.com/liamtoney)
+::::
+
+::::{grid-item-card} Will Schlitzer
+:padding: 1
+:text-align: center
+:img-top: https://avatars.githubusercontent.com/u/29518865?v=4
+
+[@willschlitzer](https://github.com/willschlitzer)
 ::::
 
 :::::

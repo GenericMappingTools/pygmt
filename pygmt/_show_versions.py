@@ -7,20 +7,24 @@ Adapted from :func:`rioxarray.show_versions` and :func:`pandas.show_versions`.
 import importlib
 import platform
 import shutil
+import subprocess
 import sys
 from importlib.metadata import version
+from typing import TextIO
+
+from packaging.requirements import Requirement
+from packaging.version import Version
+from pygmt.clib import Session, __gmt_version__
 
 # Get semantic version through setuptools-scm
 __version__ = f'v{version("pygmt")}'  # e.g. v0.1.2.dev3+g0ab3cd78
 __commit__ = __version__.split("+g")[-1] if "+g" in __version__ else ""  # 0ab3cd78
 
 
-def _get_clib_info() -> dict:
+def _get_clib_info() -> dict[str, str]:
     """
-    Return information about the GMT shared library.
+    Get information about the GMT shared library.
     """
-    from pygmt.clib import Session
-
     with Session() as ses:
         return ses.info
 
@@ -47,12 +51,8 @@ def _get_ghostscript_version() -> str | None:
     """
     Get Ghostscript version.
     """
-    import subprocess
-
     match sys.platform:
-        case "linux" | "darwin":
-            cmds = ["gs"]
-        case os_name if os_name.startswith("freebsd"):
+        case name if name in {"linux", "darwin"} or name.startswith("freebsd"):
             cmds = ["gs"]
         case "win32":
             cmds = ["gswin64c.exe", "gswin32c.exe"]
@@ -67,11 +67,12 @@ def _get_ghostscript_version() -> str | None:
     return None
 
 
-def _check_ghostscript_version(gs_version: str) -> str | None:
+def _check_ghostscript_version(gs_version: str | None) -> str | None:
     """
     Check if the Ghostscript version is compatible with GMT versions.
     """
-    from packaging.version import Version
+    if gs_version is None:
+        return "Ghostscript is not detected. Your installation may be broken."
 
     match Version(gs_version):
         case v if v < Version("9.53"):
@@ -85,8 +86,6 @@ def _check_ghostscript_version(gs_version: str) -> str | None:
                 "Please consider upgrading to version v10.02 or later."
             )
         case v if v >= Version("10.02"):
-            from pygmt.clib import __gmt_version__
-
             if Version(__gmt_version__) < Version("6.5.0"):
                 return (
                     f"GMT v{__gmt_version__} doesn't support Ghostscript "
@@ -96,19 +95,7 @@ def _check_ghostscript_version(gs_version: str) -> str | None:
     return None
 
 
-def _get_gdal_version():
-    """
-    Get GDAL version.
-    """
-    try:
-        from osgeo import gdal
-
-        return gdal.__version__
-    except ImportError:
-        return None
-
-
-def show_versions(file=sys.stdout):
+def show_versions(file: TextIO | None = sys.stdout):
     """
     Print various dependency versions which are useful when submitting bug reports.
 
@@ -123,16 +110,21 @@ def show_versions(file=sys.stdout):
     incompatible with the installed GMT version.
     """
 
-    from packaging.requirements import Requirement
-
     sys_info = {
         "python": sys.version.replace("\n", " "),
         "executable": sys.executable,
         "machine": platform.platform(),
     }
-    deps = [Requirement(v).name for v in importlib.metadata.requires("pygmt")]
-    gs_version = _get_ghostscript_version()
-    gdal_version = _get_gdal_version()
+    dep_info = {
+        Requirement(v).name: _get_module_version(Requirement(v).name)
+        for v in importlib.metadata.requires("pygmt")  # type: ignore[union-attr]
+    }
+    dep_info.update(
+        {
+            "gdal": _get_module_version("osgeo.gdal"),
+            "ghostscript": _get_ghostscript_version(),
+        }
+    )
 
     lines = []
     lines.append("PyGMT information:")
@@ -140,13 +132,11 @@ def show_versions(file=sys.stdout):
     lines.append("System information:")
     lines.extend([f"  {key}: {val}" for key, val in sys_info.items()])
     lines.append("Dependency information:")
-    lines.extend([f"  {modname}: {_get_module_version(modname)}" for modname in deps])
-    lines.append(f"  gdal: {gdal_version}")
-    lines.append(f"  ghostscript: {gs_version}")
+    lines.extend([f"  {key}: {val}" for key, val in dep_info.items()])
     lines.append("GMT library information:")
     lines.extend([f"  {key}: {val}" for key, val in _get_clib_info().items()])
 
-    if warnmsg := _check_ghostscript_version(gs_version):
+    if warnmsg := _check_ghostscript_version(dep_info["ghostscript"]):
         lines.append("WARNING:")
         lines.append(f"  {warnmsg}")
 

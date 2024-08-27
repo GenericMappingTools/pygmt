@@ -2,6 +2,7 @@
 dimfilter - Directional filtering of grids in the space domain.
 """
 
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -19,7 +20,7 @@ __doctest_skip__ = ["dimfilter"]
     V="verbose",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def dimfilter(grid, outgrid: str | None = None, **kwargs):
+def dimfilter(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
     Filter a grid by dividing the filter circle.
 
@@ -109,7 +110,7 @@ def dimfilter(grid, outgrid: str | None = None, **kwargs):
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set

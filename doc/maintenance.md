@@ -3,9 +3,7 @@
 This page contains instructions for project maintainers about how our setup works,
 making releases, creating packages, etc.
 
-If you want to make a contribution to the project, see the
-[Contributing Guide](https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md)
-instead.
+If you want to make a contribution to the project, see the {doc}`contributing` instead.
 
 ## Onboarding Access Checklist
 
@@ -19,14 +17,12 @@ communication tools we use.
 
 - Added to the [pygmt-contributors team](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors) (gives 'write' permission to the repository)
 - Added as a collaborator on [DAGsHub](https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration) (gives 'write' permission to dvc remote storage)
-- Added to the [PyGMT devs Slack channel](https://pygmtdevs.slack.com) (for casual conversations)
-- Added to the {doc}`Team Gallery page <team>`
 - Added as a member on [HackMD](https://hackmd.io/@pygmt) (for draft announcements) [optional]
 
 ### As a Maintainer
 
 - Added to the [pygmt-maintainers team](https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers) (gives 'maintain' permission to the repository)
-- Update the role on the {doc}`Team Gallery page <team>`
+- Added to "Active Maintainers" on the {doc}`Team Gallery page <team>`
 - Added as a moderator on the [GMT forum](https://forum.generic-mapping-tools.org) (to see mod-only discussions) [optional]
 - Added as a maintainer on [ReadtheDocs](https://readthedocs.org/projects/pygmt-dev) [optional]
 - Added as a curator to the [GMT community](https://zenodo.org/communities/generic-mapping-tools/) on Zenodo (for making releases) [optional]

@@ -104,10 +104,10 @@ jobs:
             geopandas<1.0
             ipython
             rioxarray
-            build
             make
             pip
-            myst-parser
+            python-build
+            myst-nb
             panel
             sphinx
             sphinx-autodoc-typehints
