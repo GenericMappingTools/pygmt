@@ -3,11 +3,10 @@ shift_origin - Shift plot origin in x and/or y directions.
 """
 
 from pygmt.clib import Session
+from pygmt.helpers import build_arg_list
 
 
-def shift_origin(
-    self, xshift: float | str | None = None, yshift: float | str | None = None
-):
+class shift_origin:  # noqa: N801
     r"""
     Shift plot origin in x and/or y directions.
 
@@ -55,12 +54,34 @@ def shift_origin(
     >>> fig.shift_origin(xshift="w+2c")
     >>> fig.show()
     """
-    self._preprocess()
-    args = ["-T"]
-    if xshift:
-        args.append(f"-X{xshift}")
-    if yshift:
-        args.append(f"-Y{yshift}")
 
-    with Session() as lib:
-        lib.call_module(module="plot", args=args)
+    def __init__(
+        self, xshift: float | str | None = None, yshift: float | str | None = None
+    ):
+        """
+        Shift the plot origin in x/y directions and store the shift values.
+        """
+        # self._preprocess()  # pylint: disable=protected-access
+        kwdict = {"T": True, "X": xshift, "Y": yshift}
+        with Session() as lib:
+            lib.call_module(module="plot", args=build_arg_list(kwdict))
+            self._xshift = lib.get_common("X")  # False or xshift in inches
+            self._yshift = lib.get_common("Y")  # False or yshift in inches
+
+    def __enter__(self):
+        """
+        Do nothing but return self.
+        """
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        """
+        Exit the context manager.
+        """
+        kwdict = {
+            "T": True,
+            "X": f"{-1.0 * self._xshift}i" if self._xshift else None,
+            "Y": f"{-1.0 * self._yshift}i" if self._yshift else None,
+        }
+        with Session() as lib:
+            lib.call_module(module="plot", args=build_arg_list(kwdict))

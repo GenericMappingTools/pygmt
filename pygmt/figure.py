@@ -544,7 +544,6 @@ class Figure:
         wiggle,
     )
 
-
 def set_display(method=None):
     """
     Set the display method when calling :meth:`pygmt.Figure.show`.
