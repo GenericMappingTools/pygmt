@@ -17,7 +17,6 @@ assignees: ''
 
 **Before release**:
 - [ ] Check [SPEC 0](https://scientific-python.org/specs/spec-0000/) to see if we need to bump the minimum supported versions of GMT, Python and core package dependencies (NumPy/Pandas/Xarray)
-- [ ] Check repositories in `.pre-commit-config.yaml` and see if there are new versions for the pre-commit hooks
 - [ ] Review the ["PyGMT Team" page](https://www.pygmt.org/dev/team.html)
 - [ ] Check to ensure that:
   - [ ] Deprecations and related tests are removed for this version by running `grep --include="*.py" -r 'remove_version="vX.Y.Z"' pygmt` from the base of the repository
