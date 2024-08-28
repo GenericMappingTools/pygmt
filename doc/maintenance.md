@@ -36,9 +36,9 @@ communication tools we use.
 **Note**: When a maintainer is no longer active (no activity in one year), we will mirror
 the onboarding access checklist:
 
-- Moved from the [pygmt-maintainers team](https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers)
+- Move from the [pygmt-maintainers team](https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers)
   to [pygmt-contributors team](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors)
-- Moved from "Active Maintainers" to "Distinguished Contributors" on the {doc}`Team Gallery page <team>`
+- Move from "Active Maintainers" to "Distinguished Contributors" on the {doc}`Team Gallery page <team>`
 - Remove 'maintain' permission from GMT forum, ReadTheDocs, Zenodo
 
 ## Branches
