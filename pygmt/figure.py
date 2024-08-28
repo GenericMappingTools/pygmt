@@ -280,9 +280,9 @@ class Figure:
         - EPS (``.eps``)
         - PDF (``.pdf``)
 
-        Besides the above formats, you can also save the figure to a KML file (``.kml``),
-        with a companion PNG file generated automatically. The KML file can be viewed in
-        Google Earth.
+        Besides the above formats, you can also save the figure to a KML file
+        (``.kml``), with a companion PNG file generated automatically. The KML file can
+        be viewed in Google Earth.
 
         You can pass in any keyword arguments that :meth:`pygmt.Figure.psconvert`
         accepts.
