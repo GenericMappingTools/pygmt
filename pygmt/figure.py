@@ -376,7 +376,7 @@ class Figure:
             fname.with_suffix("." + ext).rename(fname)
 
         if show:
-            launch_external_viewer(fname)
+            launch_external_viewer(str(fname))
 
     def show(self, dpi=300, width=500, method=None, waiting=0.5, **kwargs):
         """
