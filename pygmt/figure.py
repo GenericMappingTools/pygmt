@@ -27,14 +27,6 @@ from pygmt.helpers import (
     use_alias,
 )
 
-# A registry of all figures that have had "show" called in this session.
-# This is needed for the sphinx-gallery scraper in pygmt/sphinx_gallery.py
-SHOWED_FIGURES = []
-# Configurations for figure display.
-SHOW_CONFIG = {
-    "method": None,  # The image preview display method.
-}
-
 
 def _get_default_display_method() -> Literal["external", "notebook", "none"]:
     """
@@ -67,6 +59,15 @@ def _get_default_display_method() -> Literal["external", "notebook", "none"]:
     if os.environ.get("PYGMT_USE_EXTERNAL_DISPLAY", "true").lower() == "false":
         return "none"
     return "external"
+
+
+# A registry of all figures that have had "show" called in this session.
+# This is needed for the sphinx-gallery scraper in pygmt/sphinx_gallery.py
+SHOWED_FIGURES = []
+# Configurations for figure display.
+SHOW_CONFIG = {
+    "method": _get_default_display_method(),  # The image preview display method.
+}
 
 
 class Figure:
@@ -463,8 +464,6 @@ class Figure:
 
         # Set the display method
         if method is None:
-            if SHOW_CONFIG["method"] is None:
-                SHOW_CONFIG["method"] = _get_default_display_method()
             method = SHOW_CONFIG["method"]
 
         if method not in {"external", "notebook", "none"}:
