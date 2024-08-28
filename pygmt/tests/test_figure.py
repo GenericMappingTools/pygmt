@@ -4,7 +4,6 @@ Test the behavior of the Figure class.
 Doesn't include the plotting commands which have their own test files.
 """
 
-import importlib
 from pathlib import Path
 
 import numpy as np
@@ -12,9 +11,15 @@ import numpy.testing as npt
 import pytest
 from pygmt import Figure, set_display
 from pygmt.exceptions import GMTError, GMTInvalidInput
+from pygmt.figure import _get_default_display_method
 from pygmt.helpers import GMTTempFile
 
-HAS_IPYTHON = bool(importlib.util.find_spec("IPython"))
+try:
+    import IPython
+
+    _HAS_IPYTHON = True
+except ImportError:
+    _HAS_IPYTHON = False
 
 
 def test_figure_region():
@@ -307,7 +312,7 @@ def test_figure_savefig_worldfile():
                 fig.savefig(fname=imgfile.name, worldfile=True)
 
 
-@pytest.mark.skipif(not HAS_IPYTHON, reason="run when IPython is installed")
+@pytest.mark.skipif(not _HAS_IPYTHON, reason="run when IPython is installed")
 def test_figure_show():
     """
     Test that show creates the correct file name and deletes the temp dir.
@@ -347,7 +352,7 @@ def test_figure_show_invalid_method():
         fig.show(method="test")
 
 
-@pytest.mark.skipif(HAS_IPYTHON, reason="run without IPython installed")
+@pytest.mark.skipif(_HAS_IPYTHON, reason="run without IPython installed")
 def test_figure_show_notebook_error_without_ipython():
     """
     Test to check if an error is raised when display method is 'notebook', but IPython
@@ -390,3 +395,44 @@ def test_figure_unsupported_xshift_yshift():
         fig.plot(x=1, y=1, style="c3c", yshift="3c")
     with pytest.raises(GMTInvalidInput):
         fig.plot(x=1, y=1, style="c3c", Y="3c")
+
+
+class TestGetDefaultDisplayMethod:
+    """
+    Test the _get_default_display_method function.
+    """
+
+    def test_default_display_method(self):
+        """
+        The default display method is "external" as tests are not run in IPython.
+        """
+        assert _get_default_display_method() == "external"
+
+    def test_disable_external_display(self, monkeypatch):
+        """
+        Set PYGMT_USE_EXTERNAL_DISPLAY to "false" should disable external display.
+        """
+        monkeypatch.setenv("PYGMT_USE_EXTERNAL_DISPLAY", "false")
+        assert _get_default_display_method() == "none"
+
+    def test_notebook_display(self, monkeypatch):
+        """
+        The default display method is "notebook" when IPython instance is available.
+        """
+
+        class MockIPython:
+            """
+            A simple mock class to simulate an IPython instance.
+            """
+
+            def __init__(self):
+                self.config = {"IPKernelApp": True}
+
+        mock_ipython = MockIPython()
+
+        monkeypatch.setattr(IPython, "get_ipython", lambda: mock_ipython)
+        assert _get_default_display_method() == "notebook"
+
+        # PYGMT_USE_EXTERNAL_DISPLAY should not affect notebook display.
+        monkeypatch.setenv("PYGMT_USE_EXTERNAL_DISPLAY", "false")
+        assert _get_default_display_method() == "notebook"
