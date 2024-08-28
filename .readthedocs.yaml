@@ -9,27 +9,25 @@ build:
   os: ubuntu-24.04
   tools:
     python: "mambaforge-23.11"
-  jobs:
-    post_checkout:
-      # Cancel building pull requests when there aren't changes related to docs.
-      # If there are no changes (git diff exits with 0) we force the command to return with 183.
-      # This is a special exit code on Read the Docs that will cancel the build immediately.
-      - |
-        if [ "$READTHEDOCS_VERSION_TYPE" = "external" ] && \
-          git diff --quiet origin/main -- \
-              doc/ \
-              examples \
-              pygmt/**/*.py \
-              ':!pygmt/tests' \
-              README.md \
-              ci/requirements/docs.yml \
-              .readthedocs.yaml;
-        then
-          exit 183;
-        fi
+  # Customize the build process so that RTD is the same as GitHub Actions.
+  # https://docs.readthedocs.io/en/stable/build-customization.html#override-the-build-process
   commands:
-    # Customize the build process so that RTD is the same as GitHub Actions.
-    # https://docs.readthedocs.io/en/stable/build-customization.html#override-the-build-process
+    # Cancel building pull requests when there aren't changes related to docs.
+    # If there are no changes (git diff exits with 0) we force the command to return with 183.
+    # This is a special exit code on Read the Docs that will cancel the build immediately.
+    - |
+      if [ "$READTHEDOCS_VERSION_TYPE" = "external" ] && \
+        git diff --quiet origin/main -- \
+            doc/ \
+            examples \
+            pygmt/**/*.py \
+            ':!pygmt/tests' \
+            README.md \
+            ci/requirements/docs.yml \
+            .readthedocs.yaml;
+      then
+        exit 183;
+      fi
     - make -C doc clean all
     - mkdir -p $READTHEDOCS_OUTPUT/html/
     - cp -r doc/_build/html/* $READTHEDOCS_OUTPUT/html/
