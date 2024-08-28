@@ -15,23 +15,23 @@ communication tools we use.
 
 ### As a Contributor
 
-- Added to the [pygmt-contributors team](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors) (gives 'write' permission to the repository)
-- Added as a collaborator on [DAGsHub](https://dagshub.com/GenericMappingTools/pygmt) (gives 'write' permission to dvc remote storage)
-- Added as a member on [HackMD](https://hackmd.io/@pygmt) (for draft announcements) [optional]
+- Add to the [pygmt-contributors team](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors) (gives 'write' permission to the repository)
+- Add as a collaborator on [DAGsHub](https://dagshub.com/GenericMappingTools/pygmt) (gives 'write' permission to dvc remote storage)
+- Add as a member on [HackMD](https://hackmd.io/@pygmt) (for draft announcements) [optional]
 
 ### As a Maintainer
 
-- Added to the [pygmt-maintainers team](https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers) (gives 'maintain' permission to the repository)
-- Added to "Active Maintainers" on the {doc}`Team Gallery page <team>`
-- Added as a moderator on the [GMT forum](https://forum.generic-mapping-tools.org) (to see mod-only discussions) [optional]
-- Added as a maintainer on [ReadtheDocs](https://readthedocs.org/projects/pygmt-dev) [optional]
-- Added as a curator to the [GMT community](https://zenodo.org/communities/generic-mapping-tools/) on Zenodo (for making releases) [optional]
+- Add to the [pygmt-maintainers team](https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers) (gives 'maintain' permission to the repository)
+- Add to "Active Maintainers" on the {doc}`Team Gallery page <team>`
+- Add as a moderator on the [GMT forum](https://forum.generic-mapping-tools.org) (to see mod-only discussions) [optional]
+- Add as a maintainer on [ReadtheDocs](https://readthedocs.org/projects/pygmt-dev) [optional]
+- Add as a curator to the [GMT community](https://zenodo.org/communities/generic-mapping-tools/) on Zenodo (for making releases) [optional]
 
 ### As an Administrator
 
-- Added to the [pygmt-admin team](https://github.com/orgs/GenericMappingTools/teams/pygmt-admin) (gives 'admin' permission to the repository)
-- Added as an admin on [DAGsHub](https://www.dagshub.com/GenericMappingTools/pygmt)
-- Added as a maintainer on [PyPI](https://pypi.org/project/pygmt/) and [Test PyPI](https://test.pypi.org/project/pygmt) [optional]
+- Add to the [pygmt-admin team](https://github.com/orgs/GenericMappingTools/teams/pygmt-admin) (gives 'admin' permission to the repository)
+- Add as an admin on [DAGsHub](https://www.dagshub.com/GenericMappingTools/pygmt)
+- Add as a maintainer on [PyPI](https://pypi.org/project/pygmt/) and [Test PyPI](https://test.pypi.org/project/pygmt) [optional]
 
 **Note**: When a maintainer is no longer active (no activity in one year), we will mirror
 the onboarding access checklist:
