@@ -32,7 +32,7 @@ def _get_default_display_method() -> Literal["external", "notebook", "none"]:
     """
     Get the default method to display preview images.
 
-    The function checks the current environment and determine the most suitable method
+    The function checks the current environment and determines the most suitable method
     to display preview images when calling :meth:`pygmt.Figure.show`. Valid display
     methods are:
 
@@ -44,8 +44,8 @@ def _get_default_display_method() -> Literal["external", "notebook", "none"]:
     and ``"external"`` in other cases.
 
     Setting environment variable **PYGMT_USE_EXTERNAL_DISPLAY** to ``"false"`` can
-    disable image preview. It's useful when running the tests and building the
-    documentation to avoid popping up windows.
+    disable image preview in external viewers. It's useful when running the tests and
+    building the documentation to avoid popping up windows.
 
     Returns
     -------
