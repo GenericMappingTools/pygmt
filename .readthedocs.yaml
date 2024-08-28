@@ -27,9 +27,12 @@ build:
         then
           exit 183;
         fi
-    pre_build:
-      # Generate api stub files before building
-      - make -C doc api
+  commands:
+    # Customize the build process so that RTD is the same as GitHub Actions.
+    # https://docs.readthedocs.io/en/stable/build-customization.html#override-the-build-process
+    - make -C doc clean all
+    - mkdir -p $READTHEDOCS_OUTPUT/html/
+    - cp -r doc/_build/html/* $READTHEDOCS_OUTPUT/html/
 
 # Build documentation in the doc/ directory with Sphinx
 sphinx:
