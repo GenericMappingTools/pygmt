@@ -430,9 +430,11 @@ class TestGetDefaultDisplayMethod:
             def __init__(self):
                 self.config = {"IPKernelApp": True}
 
+        # Mock IPython.get_ipython() to return a MockIPython instance.
         mock_ipython = MockIPython()
-
         monkeypatch.setattr(IPython, "get_ipython", lambda: mock_ipython)
+
+        # Default display method should be "notebook" when an IPython kernel is running.
         assert _get_default_display_method() == "notebook"
 
         # PYGMT_USE_EXTERNAL_DISPLAY should not affect notebook display.
