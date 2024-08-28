@@ -48,7 +48,7 @@ def _get_default_display_method() -> Literal["external", "notebook", "none"]:
     - ``"notebook"``: Inline PNG preview in the current notebook
     - ``"none"``: Disable image preview
 
-    The default display method is ``"notebook"`` in Jupyter notebook environment, and
+    The default display method is ``"notebook"`` in the Jupyter notebook environment, and
     ``"external"`` in other cases.
 
     Setting environment variable **PYGMT_USE_EXTERNAL_DISPLAY** to ``"false"`` can
