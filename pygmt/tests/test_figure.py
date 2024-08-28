@@ -404,14 +404,14 @@ class TestGetDefaultDisplayMethod:
 
     def test_default_display_method(self, monkeypatch):
         """
-        The default display method is "external" as tests are not run in IPython.
+        Default display method is "external" if PYGMT_USE_EXTERNAL_DISPLAY is undefined.
         """
-        monkeypatch.setenv("PYGMT_USE_EXTERNAL_DISPLAY", "true")
+        monkeypatch.delenv("PYGMT_USE_EXTERNAL_DISPLAY", raising=False)
         assert _get_default_display_method() == "external"
 
     def test_disable_external_display(self, monkeypatch):
         """
-        Set PYGMT_USE_EXTERNAL_DISPLAY to "false" should disable external display.
+        Setting PYGMT_USE_EXTERNAL_DISPLAY to "false" should disable external display.
         """
         monkeypatch.setenv("PYGMT_USE_EXTERNAL_DISPLAY", "false")
         assert _get_default_display_method() == "none"
@@ -419,7 +419,7 @@ class TestGetDefaultDisplayMethod:
     @pytest.mark.skipif(not _HAS_IPYTHON, reason="Run when IPython is installed")
     def test_notebook_display(self, monkeypatch):
         """
-        The default display method is "notebook" when IPython instance is available.
+        Default display method is "notebook" when an IPython kernel is running.
         """
 
         class MockIPython:
