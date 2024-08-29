@@ -79,10 +79,10 @@ jobs:
             pandas-version: ''
             xarray-version: ''
             optional-packages: ' contextily geopandas ipython pyarrow rioxarray sphinx-gallery'
-          - name: ubuntu-latest - Python 3.10 / GeoPandas v0.x
+          - name: ubuntu-latest - Python 3.11 / GeoPandas v0.x
             os: 'ubuntu-latest'
-            python-version: '3.10'
-            numpy-version: '1.24'
+            python-version: '3.11'
+            numpy-version: ''
             pandas-version: ''
             xarray-version: ''
             optional-packages: ' geopandas<1'
