@@ -52,12 +52,13 @@ def _get_default_display_method() -> Literal["external", "notebook", "none"]:
     method
         The default display method.
     """
-    if _HAS_IPYTHON:
-        get_ipython = IPython.get_ipython()
-        if get_ipython and "IPKernelApp" in get_ipython.config:
-            return "notebook"
+    # Check if an IPython kernel is running.
+    if _HAS_IPYTHON and (ipy := IPython.get_ipython()) and "IPKernelApp" in ipy.config:
+        return "notebook"
+    # Check if the environment variable PYGMT_USE_EXTERNAL_DISPLAY is set to "false".
     if os.environ.get("PYGMT_USE_EXTERNAL_DISPLAY", "true").lower() == "false":
         return "none"
+    # Fallback to using the external viewer.
     return "external"
 
 
