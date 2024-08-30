@@ -380,14 +380,17 @@ class TestSetDisplay:
 
     def test_set_display(self):
         """
-        Test pygmt.set_display.
+        Test if pygmt.set_display updates the SHOW_CONFIG variable correctly.
         """
-        current_method = SHOW_CONFIG["method"]
+        default_method = SHOW_CONFIG["method"]  # Current default method
+
         for method in ("notebook", "external", "none"):
             set_display(method=method)
             assert SHOW_CONFIG["method"] == method
+
+        # Setting method to None should revert it to the default method.
         set_display(method=None)
-        assert SHOW_CONFIG["method"] == current_method
+        assert SHOW_CONFIG["method"] == default_method
 
     def test_invalid_method(self):
         """
