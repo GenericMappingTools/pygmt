@@ -55,12 +55,12 @@ fonts = [
     "ZapfDingbats",
 ]
 
-text = "|Font No. | Font Name | Font No. | Font Name |\n"
+text = "| Font No. | Font Name | Font No. | Font Name |\n"
 text += "|:---:|:---|:---:|:---|\n"
 for i in range(17):
     j = i + 17
     text += f"| {i} | {fonts[i]} | {j} | {fonts[j]} |\n"
-text += f"| | | 34 | {fonts[34]}\n"
+text += f"| | | 34 | {fonts[34]} |\n"
 
 display(Markdown(text))
 ```
@@ -74,8 +74,7 @@ Script to generate visual samples of the fonts.
 """
 import pygmt
 
-
-x1, x2, dx = 0.0, 7.0, 0.75
+x1, x2, dx = 0, 7, 0.75
 
 fig = pygmt.Figure()
 # Draw the table
@@ -86,7 +85,7 @@ for x in (0.5, 6.5, 7.5):
 # Table header
 fig.text(
     x=[x1, x1 + dx, x2, x2 + dx],
-    y=[-1.0] * 4,
+    y=[-1] * 4,
     text=["#", "Font Name"] * 2,
     justify=["MC", "ML"] * 2,
     font="Helvetica-Bold",
@@ -101,7 +100,7 @@ for i, font in enumerate(fonts):
     if font in ["Symbol", "ZapfDingbats"]:
         font_name = f"{font} @%0%({font})@%%"
     if font == "ZapfDingbats":
-        font_no = f"@%0%34@%%"
+        font_no = "@%0%34@%%"
         y0 = 17
 
     fig.text(
