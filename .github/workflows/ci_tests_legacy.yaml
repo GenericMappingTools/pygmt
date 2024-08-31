@@ -72,9 +72,9 @@ jobs:
             pyarrow
             rioxarray
             sphinx-gallery
-            build
             make
             pip
+            python-build
             pytest
             pytest-doctestplus
             pytest-mpl

@@ -62,9 +62,9 @@ jobs:
             ipython
             pyarrow
             rioxarray
-            build
             make
             pip
+            python-build
             pytest
             pytest-doctestplus
             pytest-mpl
