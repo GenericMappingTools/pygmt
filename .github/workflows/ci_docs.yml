@@ -104,9 +104,9 @@ jobs:
             geopandas<1.0
             ipython
             rioxarray
-            build
             make
             pip
+            python-build
             myst-nb
             panel
             sphinx
