@@ -15,7 +15,6 @@ This tutorial consists of two examples:
 # %%
 
 # Load the required packages
-import pandas as pd
 import pygmt
 import rasterio
 import xarray as xr
