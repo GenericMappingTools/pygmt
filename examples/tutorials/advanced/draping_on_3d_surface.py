@@ -26,7 +26,7 @@ import xarray as xr
 # In the first example, the seafloor crustal age is plotted with color-coding on top of
 # the topographic map of an area of the Mid-Atlantic Ridge.
 
-# Define study area in degrees East or North
+# Define the study area in degrees East or North
 region_2d = [-50, 0, 36, 70]  # [lon_min, lon_max, lat_min, lat_max]
 
 # Download elevation and crustal age grids for the study region with a resolution of 10
@@ -82,8 +82,11 @@ fig.show()
 # In the second example, the flag of the European Union (EU) is plotted on top of a
 # topographic map of northwest Europe. This example is modified from
 # :gmt-docs:`GMT example 32 </gallery/ex32.html>`.
+# We have to consider the dimension of the image we want to drap. The image we will
+# download in this example has 1000 x 667 pixels, i.e. a aspect ratio of 3 x 2.
 
-# Define study area in degrees East or North
+# Define the study area in degrees East or North, with an extend of 6 degrees for
+# the longitude and 4 degrees for the latitude
 region_2d = [3, 9, 50, 54]  # [lon_min, lon_max, lat_min, lat_max]
 
 # Download elevation grid for the study region with a resolution of 30 arc-seconds and
