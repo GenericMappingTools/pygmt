@@ -18,11 +18,11 @@ dependencies:
     - ipython
     - rioxarray
     # Development dependencies (general)
-    - build
     - dvc
     - jupyter
     - make
     - pip
+    - python-build
     # Dev dependencies (style checks)
     - codespell
     - pre-commit
@@ -34,7 +34,7 @@ dependencies:
     - pytest-doctestplus
     - pytest-mpl
     # Dev dependencies (building documentation)
-    - myst-parser
+    - myst-nb
     - panel
     - sphinx
     - sphinx-autodoc-typehints
