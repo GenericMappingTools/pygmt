@@ -416,8 +416,8 @@ class Figure:
         it in the default viewer for your operating system (falls back to the default
         web browser).
 
-       Use :func:`pygmt.set_display` to select the default display method (``"notebook"``,
-        ``"external"``, ``"none"`` or ``None``).
+        Use :func:`pygmt.set_display` to select the default display method
+        (``"notebook"``, ``"external"``, ``"none"`` or ``None``).
 
         The ``method`` parameter allows to override the default display method for the
         current figure. The parameters ``dpi`` and ``width`` can be used to control the
@@ -441,7 +441,7 @@ class Figure:
             - ``"external"``: External PDF preview using the default PDF viewer
             - ``"notebook"``: Inline PNG preview in the current notebook
             - ``"none"``: Disable image preview
-            - ``None``: Reset to the default display method.
+            - ``None``: Reset to the default display method
 
             The default display method is ``"external"`` in Python consoles and
             ``"notebook"`` in Jupyter notebooks, but can be changed by
