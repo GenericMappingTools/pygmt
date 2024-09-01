@@ -44,7 +44,6 @@ extensions = [
     "sphinx_design",
     "sphinx_gallery.gen_gallery",
 ]
-github_repo = "GenericMappingTools/pygmt"
 
 # Suppress warnings
 suppress_warnings = [
@@ -214,8 +213,8 @@ html_show_copyright = True
 # Theme config
 html_theme = "sphinx_rtd_theme"
 html_theme_options = {}
-repository = "GenericMappingTools/pygmt"
-repository_url = "https://github.com/GenericMappingTools/pygmt"
+github_repo = "GenericMappingTools/pygmt"
+repository_url = f"https://github.com/{github_repo}"
 if __commit__:
     commit_link = (
         f'<a href="{repository_url}/commit/{ __commit__ }">{ __commit__[:8] }</a>'
@@ -254,7 +253,7 @@ html_context = {
             strict=True,
         )
     ),
-    "github_repo": repository,
+    "github_repo": github_repo,
     "github_version": "main",
     "commit": commit_link,
 }
