@@ -416,14 +416,14 @@ class Figure:
         it in the default viewer for your operating system (falls back to the default
         web browser).
 
-        :func:`pygmt.set_display` can select the default display method (``"notebook"``,
+       Use :func:`pygmt.set_display` to select the default display method (``"notebook"``,
         ``"external"``, ``"none"`` or ``None``).
 
-        The ``method`` parameter can also override the default display method for the
-        current figure. Parameters ``dpi`` and ``width`` can be used to control the
+        The ``method`` parameter allows to override the default display method for the
+        current figure. The parameters ``dpi`` and ``width`` can be used to control the
         resolution and dimension of the figure in the notebook.
 
-        The external viewer can be disabled by setting environment variable
+        The external viewer can be disabled by setting the environment variable
         **PYGMT_USE_EXTERNAL_DISPLAY** to ``"false"``. This is useful when running tests
         and building the documentation to avoid popping up windows.
 
@@ -443,7 +443,7 @@ class Figure:
             - ``"none"``: Disable image preview
             - ``None``: Reset to the default display method.
 
-            The default display method is ``"external"`` in Python consoles or
+            The default display method is ``"external"`` in Python consoles and
             ``"notebook"`` in Jupyter notebooks, but can be changed by
             :func:`pygmt.set_display`.
 
@@ -490,7 +490,7 @@ class Figure:
                 pass  # Do nothing
             case _:
                 raise GMTInvalidInput(
-                    f"Invalid display method '{method}'. Valid values are 'external',"
+                    f"Invalid display method '{method}'. Valid values are 'external', "
                     "'notebook', 'none' or None."
                 )
 
