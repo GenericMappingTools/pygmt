@@ -465,8 +465,6 @@ class Figure:
 
         # Set the display method
         if method is None:
-            if SHOW_CONFIG["method"] is None:
-                SHOW_CONFIG["method"] = _get_default_display_method()
             method = SHOW_CONFIG["method"]
 
         match method:
