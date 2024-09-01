@@ -6,6 +6,7 @@ import base64
 import os
 from pathlib import Path, PurePath
 from tempfile import TemporaryDirectory
+from typing import Literal
 
 try:
     import IPython
@@ -26,26 +27,48 @@ from pygmt.helpers import (
     use_alias,
 )
 
+
+def _get_default_display_method() -> Literal["external", "notebook", "none"]:
+    """
+    Get the default method to display preview images.
+
+    The function checks the current environment and determines the most suitable method
+    to display preview images when calling :meth:`pygmt.Figure.show`. Valid display
+    methods are:
+
+    - ``"external"``: External PDF preview using the default PDF viewer
+    - ``"notebook"``: Inline PNG preview in the current notebook
+    - ``"none"``: Disable image preview
+
+    The default display method is ``"notebook"`` in the Jupyter notebook environment,
+    and ``"external"`` in other cases.
+
+    Setting environment variable **PYGMT_USE_EXTERNAL_DISPLAY** to ``"false"`` can
+    disable image preview in external viewers. It's useful when running the tests and
+    building the documentation to avoid popping up windows.
+
+    Returns
+    -------
+    method
+        The default display method.
+    """
+    # Check if an IPython kernel is running.
+    if _HAS_IPYTHON and (ipy := IPython.get_ipython()) and "IPKernelApp" in ipy.config:
+        return "notebook"
+    # Check if the environment variable PYGMT_USE_EXTERNAL_DISPLAY is set to "false".
+    if os.environ.get("PYGMT_USE_EXTERNAL_DISPLAY", "true").lower() == "false":
+        return "none"
+    # Fallback to using the external viewer.
+    return "external"
+
+
 # A registry of all figures that have had "show" called in this session.
 # This is needed for the sphinx-gallery scraper in pygmt/sphinx_gallery.py
 SHOWED_FIGURES = []
-
-# Configurations for figure display
+# Configurations for figure display.
 SHOW_CONFIG = {
-    "method": "external",  # Open in an external viewer by default
+    "method": _get_default_display_method(),  # The image preview display method.
 }
-
-# Show figures in Jupyter notebooks if available
-if _HAS_IPYTHON:
-    get_ipython = IPython.get_ipython()
-    if get_ipython and "IPKernelApp" in get_ipython.config:  # Jupyter Notebook enabled
-        SHOW_CONFIG["method"] = "notebook"
-
-# Set environment variable PYGMT_USE_EXTERNAL_DISPLAY to 'false' to disable
-# external display. Use it when running the tests and building the docs to
-# avoid popping up windows.
-if os.environ.get("PYGMT_USE_EXTERNAL_DISPLAY", "true").lower() == "false":
-    SHOW_CONFIG["method"] = "none"
 
 
 class Figure:
