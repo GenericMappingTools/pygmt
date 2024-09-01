@@ -1,9 +1,13 @@
-# _extensions/autolink_issues.py
+"""
+A Sphinx extension to support autolinks to issues/prs using the GitHub syntax `#123`.
+"""
+
 from docutils import nodes
 from sphinx.transforms import SphinxTransform
 import re
 
-ISSUE_PATTERN = re.compile(r'#(\d+)')
+ISSUE_PATTERN = re.compile(r"#(\d+)")
+
 
 class AutolinkIssuesTransform(SphinxTransform):
     default_priority = 500
@@ -18,19 +22,22 @@ class AutolinkIssuesTransform(SphinxTransform):
                 for i, part in enumerate(parts):
                     if i % 2 == 1:  # Odd indices are issue numbers
                         issue_number = part
-                        ref = f'https://github.com/{self.config.github_repo}/issues/{issue_number}'
-                        new_node = nodes.reference(f'#{issue_number}', f'#{issue_number}', refuri=ref)
+                        ref = f"https://github.com/{self.config.github_repo}/issues/{issue_number}"
+                        new_node = nodes.reference(
+                            f"#{issue_number}", f"#{issue_number}", refuri=ref
+                        )
                         new_nodes.append(new_node)
                     else:
                         new_nodes.append(nodes.Text(part))
 
                 parent.replace(node, new_nodes)
 
+
 def setup(app):
     app.add_transform(AutolinkIssuesTransform)
-    app.add_config_value('github_repo', '', 'env')
+    app.add_config_value("github_repo", "", "env")
 
     return {
-        'parallel_read_safe': True,
-        'parallel_write_safe': True,
+        "parallel_read_safe": True,
+        "parallel_write_safe": True,
     }
