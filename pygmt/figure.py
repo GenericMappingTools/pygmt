@@ -4,8 +4,9 @@ Define the Figure class that handles all plotting.
 
 import base64
 import os
-from pathlib import Path
+from pathlib import Path, PurePath
 from tempfile import TemporaryDirectory
+from typing import Literal
 
 try:
     import IPython
@@ -26,26 +27,48 @@ from pygmt.helpers import (
     use_alias,
 )
 
+
+def _get_default_display_method() -> Literal["external", "notebook", "none"]:
+    """
+    Get the default method to display preview images.
+
+    The function checks the current environment and determines the most suitable method
+    to display preview images when calling :meth:`pygmt.Figure.show`. Valid display
+    methods are:
+
+    - ``"external"``: External PDF preview using the default PDF viewer
+    - ``"notebook"``: Inline PNG preview in the current notebook
+    - ``"none"``: Disable image preview
+
+    The default display method is ``"notebook"`` in the Jupyter notebook environment,
+    and ``"external"`` in other cases.
+
+    Setting environment variable **PYGMT_USE_EXTERNAL_DISPLAY** to ``"false"`` can
+    disable image preview in external viewers. It's useful when running the tests and
+    building the documentation to avoid popping up windows.
+
+    Returns
+    -------
+    method
+        The default display method.
+    """
+    # Check if an IPython kernel is running.
+    if _HAS_IPYTHON and (ipy := IPython.get_ipython()) and "IPKernelApp" in ipy.config:
+        return "notebook"
+    # Check if the environment variable PYGMT_USE_EXTERNAL_DISPLAY is set to "false".
+    if os.environ.get("PYGMT_USE_EXTERNAL_DISPLAY", "true").lower() == "false":
+        return "none"
+    # Fallback to using the external viewer.
+    return "external"
+
+
 # A registry of all figures that have had "show" called in this session.
 # This is needed for the sphinx-gallery scraper in pygmt/sphinx_gallery.py
 SHOWED_FIGURES = []
-
-# Configurations for figure display
+# Configurations for figure display.
 SHOW_CONFIG = {
-    "method": "external",  # Open in an external viewer by default
+    "method": _get_default_display_method(),  # The image preview display method.
 }
-
-# Show figures in Jupyter notebooks if available
-if _HAS_IPYTHON:
-    get_ipython = IPython.get_ipython()
-    if get_ipython and "IPKernelApp" in get_ipython.config:  # Jupyter Notebook enabled
-        SHOW_CONFIG["method"] = "notebook"
-
-# Set environment variable PYGMT_USE_EXTERNAL_DISPLAY to 'false' to disable
-# external display. Use it when running the tests and building the docs to
-# avoid popping up windows.
-if os.environ.get("PYGMT_USE_EXTERNAL_DISPLAY", "true").lower() == "false":
-    SHOW_CONFIG["method"] = "none"
 
 
 class Figure:
@@ -253,12 +276,12 @@ class Figure:
 
     def savefig(  # noqa: PLR0912
         self,
-        fname,
-        transparent=False,
-        crop=True,
-        anti_alias=True,
-        show=False,
-        worldfile=False,
+        fname: str | PurePath,
+        transparent: bool = False,
+        crop: bool = True,
+        anti_alias: bool = True,
+        show: bool = False,
+        worldfile: bool = False,
         **kwargs,
     ):
         """
@@ -280,45 +303,39 @@ class Figure:
         - EPS (``.eps``)
         - PDF (``.pdf``)
 
-        Beside the above formats, you can also save the figure to a KML file
-        (``.kml``), with a companion PNG file generated automatically. The KML
-        file can be viewed in Google Earth.
+        Besides the above formats, you can also save the figure to a KML file
+        (``.kml``), with a companion PNG file generated automatically. The KML file can
+        be viewed in Google Earth.
 
-        You can pass in any keyword arguments that
-        :meth:`pygmt.Figure.psconvert` accepts.
+        You can pass in any keyword arguments that :meth:`pygmt.Figure.psconvert`
+        accepts.
 
         Parameters
         ----------
-        fname : str
-            The desired figure file name, including the extension. See the list
-            of supported formats and their extensions above.
-        transparent : bool
-            If ``True``, will use a transparent background for the figure.
-            Only valid for PNG format.
-        crop : bool
-            If ``True``, will crop the figure canvas (page) to the plot area.
-        anti_alias: bool
-            If ``True``, will use anti-aliasing when creating raster images.
-            More specifically, it passes the arguments ``"t2"`` and ``"g2"``
-            to the ``anti_aliasing`` parameter of
-            :meth:`pygmt.Figure.psconvert`. Ignored if creating vector images.
-        show: bool
-            If ``True``, will open the figure in an external viewer.
-        worldfile : bool
-            If ``True``, will create a companion
-            `world file <https://en.wikipedia.org/wiki/World_file>`__ for the
-            figure. The world file will have the same name as the figure file
-            but with different extension (e.g. tfw for tif). See
-            https://en.wikipedia.org/wiki/World_file#Filename_extension
-            for the convention of world file extensions. This parameter only
-            works for raster image formats (except GeoTIFF).
-        dpi : int
-            Set raster resolution in dpi [Default is ``720`` for PDF, ``300``
-            for others].
+        fname
+            The desired figure file name, including the extension. See the list of
+            supported formats and their extensions above.
+        transparent
+            Use a transparent background for the figure. Only valid for PNG format.
+        crop
+            Crop the figure canvas (page) to the plot area.
+        anti_alias
+            Use anti-aliasing when creating raster images. Ignored if creating vector
+            images. More specifically, it passes the arguments ``"t2"`` and ``"g2"`` to
+            the ``anti_aliasing`` parameter of :meth:`pygmt.Figure.psconvert`.
+        show
+            Display the figure in an external viewer.
+        worldfile
+            Create a companion `world file <https://en.wikipedia.org/wiki/World_file>`__
+            for the figure. The world file will have the same name as the figure file
+            but with different extension (e.g., ``.tfw`` for ``.tif``). See
+            https://en.wikipedia.org/wiki/World_file#Filename_extension for the
+            convention of world file extensions. This parameter only works for raster
+            image formats (except GeoTIFF).
         **kwargs : dict
-            Additional keyword arguments passed to
-            :meth:`pygmt.Figure.psconvert`. Valid parameters are ``gs_path``,
-            ``gs_option``, ``resize``, ``bb_style``, and ``verbose``.
+            Additional keyword arguments passed to :meth:`pygmt.Figure.psconvert`. Valid
+            parameters are ``dpi``, ``gs_path``, ``gs_option``, ``resize``,
+            ``bb_style``, and ``verbose``.
         """
         # All supported formats
         fmts = {
@@ -382,7 +399,7 @@ class Figure:
             fname.with_suffix("." + ext).rename(fname)
 
         if show:
-            launch_external_viewer(fname)
+            launch_external_viewer(str(fname))
 
     def show(self, dpi=300, width=500, method=None, waiting=0.5, **kwargs):
         """

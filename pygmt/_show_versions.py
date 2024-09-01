@@ -52,9 +52,7 @@ def _get_ghostscript_version() -> str | None:
     Get Ghostscript version.
     """
     match sys.platform:
-        case "linux" | "darwin":
-            cmds = ["gs"]
-        case os_name if os_name.startswith("freebsd"):
+        case name if name in {"linux", "darwin"} or name.startswith("freebsd"):
             cmds = ["gs"]
         case "win32":
             cmds = ["gswin64c.exe", "gswin32c.exe"]
