@@ -1,9 +1,5 @@
 # Changelog
 
-#12, #13
-
-
-
 ## Release v0.12.0 (2024/05/01)
 
 [![Digital Object Identifier for PyGMT v0.12.0](https://zenodo.org/badge/DOI/10.5281/zenodo.11062720.svg)](https://doi.org/10.5281/zenodo.11062720)
@@ -23,8 +19,7 @@
 * Figure.grdcontour: Adjust processing arguments passed to "annotation" and "interval" parameters (#3116)
 * Figure.contour: Adjust processing arguments passed to "annotation" and "levels" parameters (#2706)
 * clib: Wrap the GMT API function GMT_Read_VirtualFile (#2993)
-* clib: Add virtualfile_to_dataset method for converting virtualfile to a dataset (#3083, #3140, #3157,
-#3117)
+* clib: Add virtualfile_to_dataset method for converting virtualfile to a dataset (#3083, #3140, #3157, #3117)
 * clib: Add the virtualfile_out method for creating output virtualfile (#3057)
 * Wrap GMT_Inquire_VirtualFile to get the family of virtualfiles (#3152)
 * Wrap GMT's standard data type GMT_GRID for grids (#2398)
