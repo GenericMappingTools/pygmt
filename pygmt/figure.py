@@ -569,22 +569,20 @@ class Figure:
     )
 
 
-def set_display(method=None):
+def set_display(method: Literal["external", "notebook", "none", None] = None):
     """
     Set the display method when calling :meth:`pygmt.Figure.show`.
 
     Parameters
     ----------
-    method : str or None
+    method
         The method to display an image preview. Choose from:
 
         - ``"external"``: External PDF preview using the default PDF viewer
         - ``"notebook"``: Inline PNG preview in the current notebook
         - ``"none"``: Disable image preview
-        - ``None``: Reset to the default display method
-
-        The default display method is ``"external"`` in Python consoles or
-        ``"notebook"`` in Jupyter notebooks.
+        - ``None``: Reset to the default display method, which is either ``"external"``
+          in Python consoles or ``"notebook"`` in Jupyter notebooks.
 
     Examples
     --------
@@ -607,10 +605,13 @@ def set_display(method=None):
     >>> pygmt.set_display(method=None)
     >>> fig.show()  # again, will show a PNG image in the current notebook
     """
-    if method in {"notebook", "external", "none"}:
-        SHOW_CONFIG["method"] = method
-    elif method is not None:
-        raise GMTInvalidInput(
-            f"Invalid display mode '{method}', "
-            "should be either 'notebook', 'external', 'none' or None."
-        )
+    match method:
+        case "external" | "notebook" | "none":
+            SHOW_CONFIG["method"] = method  # type: ignore[assignment]
+        case None:
+            SHOW_CONFIG["method"] = _get_default_display_method()  # type: ignore[assignment]
+        case _:
+            raise GMTInvalidInput(
+                f"Invalid display method '{method}'. Valid values are 'external',"
+                "'notebook', 'none' or None."
+            )
