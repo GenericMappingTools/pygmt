@@ -43,7 +43,7 @@ region_3d = [*region_2d, grd_relief.min().to_numpy(), grd_relief.max().to_numpy(
 # color-coding based on *another* grid we have to pass a second grid to the
 # ``drapegrid`` parameter; here we use a grid of the crustal age. In this case the
 # colormap specified via the ``cmap`` parameter applies to the grid passed to
-# ``drapegrid``, not to ``grid``. The azimuth and elevation a the 3-D plot are set via
+# ``drapegrid``, not to ``grid``. The azimuth and elevation of the 3-D plot are set via
 # the ``perspective`` parameter.
 
 fig = pygmt.Figure()
@@ -83,7 +83,7 @@ fig.show()
 # topographic map of northwest Europe. This example is modified from
 # :gmt-docs:`GMT example 32 </gallery/ex32.html>`.
 # We have to consider the dimension of the image we want to drap. The image we will
-# download in this example has 1000 x 667 pixels, i.e. a aspect ratio of 3 x 2.
+# download in this example has 1000 x 667 pixels, i.e. an aspect ratio of 3 x 2.
 
 # Define the study area in degrees East or North, with an extend of 6 degrees for
 # the longitude and 4 degrees for the latitude
@@ -104,7 +104,7 @@ with rasterio.open(url_to_image) as dataset:
     drapegrid = xr.DataArray(data, dims=("band", "y", "x"))
 
 # %%
-# Again we create a 3-D plot with :meth:`pygmt.Figure.grdview` and passe an Earth relief
+# Again we create a 3-D plot with :meth:`pygmt.Figure.grdview` and pass an Earth relief
 # grid to the ``grid`` parameter to create the topographic surface. But now we pass the
 # PNG image which was loaded into an :class:`xarray.DataArray` to the ``drapgrid``
 # parameter.
