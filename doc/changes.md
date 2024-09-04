@@ -18,7 +18,7 @@
 
 ### Enhancements
 
-* pygmt.x2sys_cross: Refactor to use virtualfiles for output tables [BREAKING CHANGE: Dummy times in 3rd and 4th columns now have np.timedelta64 type] ([#3182](https://github.com/GenericMappingTools/pygmt/pull/3182))
+* **BREAKING**: pygmt.x2sys_cross: Refactor to use virtualfiles for output tables [] ([#3182](https://github.com/GenericMappingTools/pygmt/pull/3182))
 * pygmt.show_versions: Warn about incompatible Ghostscript versions ([#3244](https://github.com/GenericMappingTools/pygmt/pull/3244))
 * pygmt.datasets.load_*: Add autocompletion support for the 'resolution' parameter ([#3260](https://github.com/GenericMappingTools/pygmt/pull/3260))
 * clib.Session: Refactor the `__getitem__` special method to avoid calling API function GMT_Get_Enum repeatedly ([#3261](https://github.com/GenericMappingTools/pygmt/pull/3261))
