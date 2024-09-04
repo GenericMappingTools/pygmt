@@ -6,6 +6,7 @@ import base64
 import os
 from pathlib import Path, PurePath
 from tempfile import TemporaryDirectory
+from typing import Literal
 
 try:
     import IPython
@@ -26,26 +27,48 @@ from pygmt.helpers import (
     use_alias,
 )
 
+
+def _get_default_display_method() -> Literal["external", "notebook", "none"]:
+    """
+    Get the default method to display preview images.
+
+    The function checks the current environment and determines the most suitable method
+    to display preview images when calling :meth:`pygmt.Figure.show`. Valid display
+    methods are:
+
+    - ``"external"``: External PDF preview using the default PDF viewer
+    - ``"notebook"``: Inline PNG preview in the current notebook
+    - ``"none"``: Disable image preview
+
+    The default display method is ``"notebook"`` in the Jupyter notebook environment,
+    and ``"external"`` in other cases.
+
+    Setting environment variable **PYGMT_USE_EXTERNAL_DISPLAY** to ``"false"`` can
+    disable image preview in external viewers. It's useful when running the tests and
+    building the documentation to avoid popping up windows.
+
+    Returns
+    -------
+    method
+        The default display method.
+    """
+    # Check if an IPython kernel is running.
+    if _HAS_IPYTHON and (ipy := IPython.get_ipython()) and "IPKernelApp" in ipy.config:
+        return "notebook"
+    # Check if the environment variable PYGMT_USE_EXTERNAL_DISPLAY is set to "false".
+    if os.environ.get("PYGMT_USE_EXTERNAL_DISPLAY", "true").lower() == "false":
+        return "none"
+    # Fallback to using the external viewer.
+    return "external"
+
+
 # A registry of all figures that have had "show" called in this session.
 # This is needed for the sphinx-gallery scraper in pygmt/sphinx_gallery.py
 SHOWED_FIGURES = []
-
-# Configurations for figure display
+# Configurations for figure display.
 SHOW_CONFIG = {
-    "method": "external",  # Open in an external viewer by default
+    "method": _get_default_display_method(),  # The image preview display method.
 }
-
-# Show figures in Jupyter notebooks if available
-if _HAS_IPYTHON:
-    get_ipython = IPython.get_ipython()
-    if get_ipython and "IPKernelApp" in get_ipython.config:  # Jupyter Notebook enabled
-        SHOW_CONFIG["method"] = "notebook"
-
-# Set environment variable PYGMT_USE_EXTERNAL_DISPLAY to 'false' to disable
-# external display. Use it when running the tests and building the docs to
-# avoid popping up windows.
-if os.environ.get("PYGMT_USE_EXTERNAL_DISPLAY", "true").lower() == "false":
-    SHOW_CONFIG["method"] = "none"
 
 
 class Figure:
@@ -378,89 +401,96 @@ class Figure:
         if show:
             launch_external_viewer(str(fname))
 
-    def show(self, dpi=300, width=500, method=None, waiting=0.5, **kwargs):
+    def show(
+        self,
+        method: Literal["external", "notebook", "none", None] = None,
+        dpi: int = 300,
+        width: int = 500,
+        waiting: float = 0.5,
+        **kwargs,
+    ):
         """
         Display a preview of the figure.
 
-        Inserts the preview in the Jupyter notebook output if available,
-        otherwise opens it in the default viewer for your operating system
-        (falls back to the default web browser).
+        Inserts the preview in the Jupyter notebook output if available, otherwise opens
+        it in the default viewer for your operating system (falls back to the default
+        web browser).
 
-        :func:`pygmt.set_display` can select the default display method
+        Use :func:`pygmt.set_display` to select the default display method
         (``"notebook"``, ``"external"``, ``"none"`` or ``None``).
 
-        The ``method`` parameter can also override the default display method
-        for the current figure. Parameters ``dpi`` and ``width`` can be used
-        to control the resolution and dimension of the figure in the notebook.
+        The ``method`` parameter allows to override the default display method for the
+        current figure. The parameters ``dpi`` and ``width`` can be used to control the
+        resolution and dimension of the figure in the notebook.
 
-        **Note**: The external viewer can be disabled by setting the
-        PYGMT_USE_EXTERNAL_DISPLAY environment variable to **false**.
-        This is useful when running unit tests and building the documentation
-        in consoles without a Graphical User Interface.
+        The external viewer can be disabled by setting the environment variable
+        **PYGMT_USE_EXTERNAL_DISPLAY** to ``"false"``. This is useful when running tests
+        and building the documentation to avoid popping up windows.
 
-        Note that the external viewer does not block the current process, thus
-        it's necessary to suspend the execution of the current process for a
-        short while after launching the external viewer, so that the preview
-        image won't be deleted before the external viewer tries to open it. Set
-        the ``waiting`` parameter to a larger number if your computer is slow.
+        The external viewer does not block the current process, thus it's necessary to
+        suspend the execution of the current process for a short while after launching
+        the external viewer, so that the preview image won't be deleted before the
+        external viewer tries to open it. Set the ``waiting`` parameter to a larger
+        number if the image viewer on your computer is slow to open the figure.
 
         Parameters
         ----------
-        dpi : int
-            The image resolution (dots per inch) in Jupyter notebooks.
-        width : int
-            The image width (in pixels) in Jupyter notebooks.
-        method : str or None
-            How the current figure will be displayed. Choose from:
+        method
+            The method to display the current image preview. Choose from:
 
             - ``"external"``: External PDF preview using the default PDF viewer
             - ``"notebook"``: Inline PNG preview in the current notebook
             - ``"none"``: Disable image preview
             - ``None``: Reset to the default display method
 
-            The default display method is ``"external"`` in Python consoles or
+            The default display method is ``"external"`` in Python consoles and
             ``"notebook"`` in Jupyter notebooks, but can be changed by
             :func:`pygmt.set_display`.
-        waiting : float
-            Suspend the execution of the current process for a given number of
-            seconds after launching an external viewer.
-            Only works if ``method="external"``.
+
+        dpi
+            The image resolution (dots per inch) in Jupyter notebooks.
+        width
+            The image width (in pixels) in Jupyter notebooks.
+        waiting
+            Suspend the execution of the current process for a given number of seconds
+            after launching an external viewer. Only works if ``method="external"``.
         **kwargs : dict
-            Additional keyword arguments passed to
-            :meth:`pygmt.Figure.psconvert`. Valid parameters are ``gs_path``,
-            ``gs_option``, ``resize``, ``bb_style``, and ``verbose``.
+            Additional keyword arguments passed to :meth:`pygmt.Figure.psconvert`. Valid
+            parameters are ``gs_path``, ``gs_option``, ``resize``, ``bb_style``, and
+            ``verbose``.
         """
-        # Module level variable to know which figures had their show method
-        # called. Needed for the sphinx-gallery scraper.
+        # Module level variable to know which figures had their show method called.
+        # Needed for the sphinx-gallery scraper.
         SHOWED_FIGURES.append(self)
 
         # Set the display method
         if method is None:
             method = SHOW_CONFIG["method"]
 
-        if method not in {"external", "notebook", "none"}:
-            raise GMTInvalidInput(
-                f"Invalid display method '{method}', "
-                "should be either 'notebook', 'external', or 'none'."
-            )
-
-        if method == "notebook":
-            if not _HAS_IPYTHON:
-                raise GMTError(
-                    "Notebook display is selected, but IPython is not available. "
-                    "Make sure you have IPython installed, "
-                    "or run the script in a Jupyter notebook."
+        match method:
+            case "notebook":
+                if not _HAS_IPYTHON:
+                    raise GMTError(
+                        "Notebook display is selected, but IPython is not available. "
+                        "Make sure you have IPython installed, "
+                        "or run the script in a Jupyter notebook."
+                    )
+                png = self._preview(
+                    fmt="png", dpi=dpi, anti_alias=True, as_bytes=True, **kwargs
                 )
-            png = self._preview(
-                fmt="png", dpi=dpi, anti_alias=True, as_bytes=True, **kwargs
-            )
-            IPython.display.display(IPython.display.Image(data=png, width=width))
-
-        if method == "external":
-            pdf = self._preview(
-                fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False, **kwargs
-            )
-            launch_external_viewer(pdf, waiting=waiting)
+                IPython.display.display(IPython.display.Image(data=png, width=width))
+            case "external":
+                pdf = self._preview(
+                    fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False, **kwargs
+                )
+                launch_external_viewer(pdf, waiting=waiting)
+            case "none":
+                pass  # Do nothing
+            case _:
+                raise GMTInvalidInput(
+                    f"Invalid display method '{method}'. Valid values are 'external', "
+                    "'notebook', 'none' or None."
+                )
 
     def _preview(self, fmt, dpi, as_bytes=False, **kwargs):
         """
@@ -539,22 +569,20 @@ class Figure:
     )
 
 
-def set_display(method=None):
+def set_display(method: Literal["external", "notebook", "none", None] = None):
     """
     Set the display method when calling :meth:`pygmt.Figure.show`.
 
     Parameters
     ----------
-    method : str or None
+    method
         The method to display an image preview. Choose from:
 
         - ``"external"``: External PDF preview using the default PDF viewer
         - ``"notebook"``: Inline PNG preview in the current notebook
         - ``"none"``: Disable image preview
-        - ``None``: Reset to the default display method
-
-        The default display method is ``"external"`` in Python consoles or
-        ``"notebook"`` in Jupyter notebooks.
+        - ``None``: Reset to the default display method, which is either ``"external"``
+          in Python consoles or ``"notebook"`` in Jupyter notebooks.
 
     Examples
     --------
@@ -577,10 +605,13 @@ def set_display(method=None):
     >>> pygmt.set_display(method=None)
     >>> fig.show()  # again, will show a PNG image in the current notebook
     """
-    if method in {"notebook", "external", "none"}:
-        SHOW_CONFIG["method"] = method
-    elif method is not None:
-        raise GMTInvalidInput(
-            f"Invalid display mode '{method}', "
-            "should be either 'notebook', 'external', 'none' or None."
-        )
+    match method:
+        case "external" | "notebook" | "none":
+            SHOW_CONFIG["method"] = method  # type: ignore[assignment]
+        case None:
+            SHOW_CONFIG["method"] = _get_default_display_method()  # type: ignore[assignment]
+        case _:
+            raise GMTInvalidInput(
+                f"Invalid display method '{method}'. Valid values are 'external',"
+                "'notebook', 'none' or None."
+            )
