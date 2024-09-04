@@ -7,7 +7,7 @@
 ### Highlights
 
 * 🎉 **Thirteenth minor release of PyGMT** 🎉
-* Add new document section "Technical Reference" and document the supported encodings and fonts
+* Add the new documentation section "Technical Reference" and document the supported encodings and fonts
 * Tutorial for "Draping a dataset on top of a topographic surface" ([#3316](https://github.com/GenericMappingTools/pygmt/pull/3316))
 * Tutorial for "Typesetting non-ASCII characters" ([#3389](https://github.com/GenericMappingTools/pygmt/pull/3389))
 
@@ -19,7 +19,7 @@
 ### Enhancements
 
 * pygmt.x2sys_cross: Refactor to use virtualfiles for output tables [BREAKING CHANGE: Dummy times in 3rd and 4th columns now have np.timedelta64 type] ([#3182](https://github.com/GenericMappingTools/pygmt/pull/3182))
-* pygmt.show_versions: Warn about incompatible ghostscript versions ([#3244](https://github.com/GenericMappingTools/pygmt/pull/3244))
+* pygmt.show_versions: Warn about incompatible Ghostscript versions ([#3244](https://github.com/GenericMappingTools/pygmt/pull/3244))
 * pygmt.datasets.load_*: Add autocompletion support for the 'resolution' parameter ([#3260](https://github.com/GenericMappingTools/pygmt/pull/3260))
 * clib.Session: Refactor the `__getitem__` special method to avoid calling API function GMT_Get_Enum repeatedly ([#3261](https://github.com/GenericMappingTools/pygmt/pull/3261))
 * Support non-ASCII characters in ISO-8859-x charsets ([#3310](https://github.com/GenericMappingTools/pygmt/pull/3310))
@@ -53,12 +53,12 @@
 * pygmt.show_versions: Show GDAL version ([#3364](https://github.com/GenericMappingTools/pygmt/pull/3364), [#3376](https://github.com/GenericMappingTools/pygmt/pull/3376))
 * pygmt.grd2cpt & pygmt.makecpt: Simplify the logic for dealing with CPT output ([#3334](https://github.com/GenericMappingTools/pygmt/pull/3334))
 * geopandas: Use io.StringIO to read geojson data and handle compatibility with geopandas v0.x and v1.x ([#3247](https://github.com/GenericMappingTools/pygmt/pull/3247))
-* Simplify the "minimum required versions" page using MyST customized URL schemes ([#3383](https://github.com/GenericMappingTools/pygmt/pull/3383))
+* Simplify the "Minimum Supported Versions" page using MyST customized URL schemes ([#3383](https://github.com/GenericMappingTools/pygmt/pull/3383))
 * build_arg_list: Raise an exception if an invalid output file name is given ([#3336](https://github.com/GenericMappingTools/pygmt/pull/3336))
 * Update the onboarding access checklist in Maintainers Guides ([#3404](https://github.com/GenericMappingTools/pygmt/pull/3404))
 * Temporarily pin sphinx-gallery<0.17.0 ([#3350](https://github.com/GenericMappingTools/pygmt/pull/3350))
-* SPEC 0: Bump minimum supported versions to xarray 2022.09 ([#3372](https://github.com/GenericMappingTools/pygmt/pull/3372))
-* SPEC 0: Set minimum required version to NumPy 1.24+ ([#3286](https://github.com/GenericMappingTools/pygmt/pull/3286))
+* SPEC 0: Bump minimum supported version to xarray 2022.09 ([#3372](https://github.com/GenericMappingTools/pygmt/pull/3372))
+* SPEC 0: Bump minimum supported version to NumPy 1.24+ ([#3286](https://github.com/GenericMappingTools/pygmt/pull/3286))
 * Run pytest with `--color=yes` to force GitHub Actions logs to have color ([#3330](https://github.com/GenericMappingTools/pygmt/pull/3330))
 * Refactor clib to avoid checking GMT version repeatedly and only check once when loading the GMT library ([#3254](https://github.com/GenericMappingTools/pygmt/pull/3254))
 * Patch the callback print function to suppress the UnicodeDecodeError ([#3367](https://github.com/GenericMappingTools/pygmt/pull/3367))
