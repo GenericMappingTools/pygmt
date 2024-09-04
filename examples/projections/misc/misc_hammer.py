@@ -1,6 +1,6 @@
 r"""
-Hammer equal-area
-=================
+Hammer
+======
 
 The equal-area Hammer projection, first presented by the German mathematician
 Ernst von Hammer in 1892, is also known as Hammer-Aitoff (the Aitoff projection

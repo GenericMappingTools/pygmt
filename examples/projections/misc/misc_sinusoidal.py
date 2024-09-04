@@ -1,6 +1,6 @@
 r"""
-Sinusoidal equal-area
-=====================
+Sinusoidal
+==========
 
 The sinusoidal projection is one of the oldest known projections, is
 equal-area, and has been used since the mid-16th century. It has also been
