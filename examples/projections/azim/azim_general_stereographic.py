@@ -1,5 +1,5 @@
 r"""
-General Stereographic
+General stereographic
 =====================
 
 This map projection is a conformal, azimuthal projection. It is mainly used

@@ -1,6 +1,6 @@
 r"""
-Lambert Conic Conformal Projection
-==================================
+Lambert conic conformal
+=======================
 
 This conic projection was designed by the Alsatian mathematician Johann
 Heinrich Lambert (1772) and has been used extensively for mapping of regions

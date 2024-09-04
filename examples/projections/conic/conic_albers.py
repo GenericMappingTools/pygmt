@@ -1,5 +1,5 @@
 r"""
-Albers Conic Equal Area
+Albers conic equal-area
 =======================
 
 This projection, developed by Heinrich C. Albers in 1805, is predominantly used

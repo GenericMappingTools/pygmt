@@ -1,5 +1,5 @@
 r"""
-Azimuthal Equidistant
+Azimuthal equidistant
 =====================
 
 The main advantage of this projection is that distances from the projection
