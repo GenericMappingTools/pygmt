@@ -25,7 +25,6 @@
 ### Deprecations
 
 * clib: Deprecate API function 'Session.virtualfile_from_data', use 'Session.virtualfile_in' instead (will be removed in v0.15.0) ([#3225](https://github.com/GenericMappingTools/pygmt/pull/3225))
-* SPEC 0: Set minimum required version to NumPy 1.24+ ([#3286](https://github.com/GenericMappingTools/pygmt/pull/3286))
 * Remove the unused pygmt.print_clib_info function ([#3257](https://github.com/GenericMappingTools/pygmt/pull/3257))
 * Figure.timestamp: Remove deprecated parameter 'justification', use justify instead (deprecated since v0.11.0) ([#3222](https://github.com/GenericMappingTools/pygmt/pull/3222))
 
@@ -59,26 +58,24 @@
 * Update the onboarding access checklist in Maintainers Guides ([#3404](https://github.com/GenericMappingTools/pygmt/pull/3404))
 * Temporarily pin sphinx-gallery<0.17.0 ([#3350](https://github.com/GenericMappingTools/pygmt/pull/3350))
 * SPEC 0: Bump minimum supported versions to xarray 2022.09 ([#3372](https://github.com/GenericMappingTools/pygmt/pull/3372))
+* SPEC 0: Set minimum required version to NumPy 1.24+ ([#3286](https://github.com/GenericMappingTools/pygmt/pull/3286))
 * Run pytest with `--color=yes` to force GitHub Actions logs to have color ([#3330](https://github.com/GenericMappingTools/pygmt/pull/3330))
 * Refactor clib to avoid checking GMT version repeatedly and only check once when loading the GMT library ([#3254](https://github.com/GenericMappingTools/pygmt/pull/3254))
 * Patch the callback print function to suppress the UnicodeDecodeError ([#3367](https://github.com/GenericMappingTools/pygmt/pull/3367))
 * Move Will from Active Maintainers to Distinguished Contributors ([#3388](https://github.com/GenericMappingTools/pygmt/pull/3388))
 * Let pygmt.show_versions show GDAL version ([#3364](https://github.com/GenericMappingTools/pygmt/pull/3364))
-* Extral resources: Update thumbnail image for "PyGMT HOWTO" ([#3344](https://github.com/GenericMappingTools/pygmt/pull/3344))
 * Enable ruff's unspecified-encoding (PLW1514) rule and fix violations ([#3319](https://github.com/GenericMappingTools/pygmt/pull/3319))
 * Enable ruff's literal-membership (PLR6201) rule and fix violations ([#3317](https://github.com/GenericMappingTools/pygmt/pull/3317))
 * Determine the minimum required versions of dependencies from package metadata for docs ([#3380](https://github.com/GenericMappingTools/pygmt/pull/3380))
 * CI: Use OIDC token for codecov uploading ([#3163](https://github.com/GenericMappingTools/pygmt/pull/3163))
 * CI: Test NumPy 2.1 in the GMT Tests workflow ([#3401](https://github.com/GenericMappingTools/pygmt/pull/3401))
-* CI: Test NumPy 2.0 in the GMT Tests workflow ([#3292](https://github.com/GenericMappingTools/pygmt/pull/3292))
 * CI: Set GMT_ENABLE_OPENMP to TRUE to enable OpenMP support on macOS ([#3266](https://github.com/GenericMappingTools/pygmt/pull/3266))
 * CI: Remove pytest-xdist and pytest-rerunfailures options from addopts and only add them in CI jobs ([#3267](https://github.com/GenericMappingTools/pygmt/pull/3267))
 * CI: Fix the name of the 'build' package to 'python-build' on conda-forge ([#3408](https://github.com/GenericMappingTools/pygmt/pull/3408))
 * CI: Bump to ubuntu-24.04 and mambaforge-23.11 in ReadTheDocs ([#3296](https://github.com/GenericMappingTools/pygmt/pull/3296))
 * CI: Build GMT dev source code with OpenMP enabled on Linux and GThreads enabled on Linux/macOS ([#3011](https://github.com/GenericMappingTools/pygmt/pull/3011))
 * CI: Add pytest plugins pytest-xdist and pytest-rerunfailures ([#3193](https://github.com/GenericMappingTools/pygmt/pull/3193))
-* Add pre-commit.ci configurations to enable auto updates of hooks ([#3414](https://github.com/GenericMappingTools/pygmt/pull/3414))
-* Add pre-commit config with pre-commit-hooks ([#3283](https://github.com/GenericMappingTools/pygmt/pull/3283))
+* Add pre-commit config with pre-commit-hooks and enable pre-commit.ci to enable auto updates of hooks ([#3283](https://github.com/GenericMappingTools/pygmt/pull/3283), [#3414](https://github.com/GenericMappingTools/pygmt/pull/3414))
 * Add a test to make sure PyGMT works with paths that contain non-ASCII characters ([#3280](https://github.com/GenericMappingTools/pygmt/pull/3280))
 
 **Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.12.0...v0.13.0>
