@@ -85,7 +85,11 @@
 
 ### Contributors
 
-[@andrebelem](https://github.com/andrebelem), [Michael Grund](https://github.com/michaelgrund), [Dongdong Tian](https://github.com/seisman), [Wei Ji Leong](https://github.com/weiji14) and [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
+* [Dongdong Tian](https://github.com/seisman)
+* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
+* [Wei Ji Leong](https://github.com/weiji14)
+* [Michael Grund](https://github.com/michaelgrund)
+* [Andre L. Belem](https://github.com/andrebelem)
 
 ---
 
