@@ -6,7 +6,10 @@
 
 ### Highlights
 
-*
+* 🎉 Thirteenth minor release of PyGMT 🎉
+* Add new document section "Technical Reference" and document the supported encodings and fonts
+* Tutorial for "Draping a dataset on top of a topographic surface" ([#3316](https://github.com/GenericMappingTools/pygmt/pull/3316))
+* Tutorial for "Typesetting non-ASCII characters" ([#3389](https://github.com/GenericMappingTools/pygmt/pull/3389))
 
 ### New Features
 
@@ -39,8 +42,6 @@
 ### Documentation
 
 * External Resources: Add tutorial in Portuguese and using PyGMT in Google Colab ([#3360](https://github.com/GenericMappingTools/pygmt/pull/3360))
-* Add a tutorial for typesetting non-ASCII characters ([#3389](https://github.com/GenericMappingTools/pygmt/pull/3389))
-* Add a tutorial for adding a dataset on top of a topographic surface via "drapegrid" of "Figure.grdview" ([#3316](https://github.com/GenericMappingTools/pygmt/pull/3316))
 * Remove the non-official GMT wrappers from README ([#3413](https://github.com/GenericMappingTools/pygmt/pull/3413))
 * Give recommendations about GMT-Ghostscript incompatibility and the testing example ([#3249](https://github.com/GenericMappingTools/pygmt/pull/3249))
 * Document the supported 35 standard Postscript fonts in the Technical Reference section ([#3378](https://github.com/GenericMappingTools/pygmt/pull/3378))
