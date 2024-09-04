@@ -37,7 +37,7 @@ communication tools we use.
 the onboarding access checklist:
 
 - Move from the [pygmt-maintainers team](https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers)
-  to [pygmt-contributors team](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors)
+  to the [pygmt-contributors team](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors)
 - Move from "Active Maintainers" to "Distinguished Contributors" on the {doc}`Team Gallery page <team>`
 - Remove 'maintain' permission from GMT forum, ReadTheDocs, Zenodo
 
