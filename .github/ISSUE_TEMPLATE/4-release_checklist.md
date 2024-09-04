@@ -10,6 +10,7 @@ assignees: ''
 **Release**: [v0.x.x](https://github.com/GenericMappingTools/pygmt/milestones/?)
 **Scheduled Date**: YYYY/MM/DD
 **Pull request due date**: YYYY/MM/DD
+**DOI**:
 
 **Priority PRs/issues to complete prior to release**
 - [ ] Wrap X ()
