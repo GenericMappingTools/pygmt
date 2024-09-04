@@ -1,8 +1,8 @@
 # Changelog
 
-## Release v0.13.0 (20XX/XX/XX)
+## Release v0.13.0 (2024/09/05)
 
-[![Digital Object Identifier for PyGMT v0.13.0](https://zenodo.org/badge/DOI/10.5281/zenodo.3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
+[![Digital Object Identifier for PyGMT v0.13.0](https://zenodo.org/badge/DOI/10.5281/zenodo.13679420.svg)](https://doi.org/10.5281/zenodo.13679420)
 
 ### Highlights
 
