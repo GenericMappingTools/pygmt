@@ -4,7 +4,7 @@ Ternary diagram
 
 The :meth:`pygmt.Figure.ternary` method can draw ternary diagrams. The example
 shows how to plot circles with a diameter of 0.1 centimeters
-(``style="c0.1c"``) on a 10-centimeter-wide (``width="10c"``) ternary diagram
+(``style="c0.1c"``) on a 10-centimeters-wide (``width="10c"``) ternary diagram
 at the positions listed in the first three columns of the sample dataset
 ``rock_compositions``, with default annotations and gridline spacings, using
 the specified labeling defined via ``alabel``, ``blabel``, and ``clabel``.
@@ -36,7 +36,7 @@ fig.ternary(
     frame=[
         "aafg+lLimestone component+u %",
         "bafg+lWater component+u %",
-        "cagf+lAir component+u %",
+        "cafg+lAir component+u %",
     ],
 )
 

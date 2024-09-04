@@ -18,5 +18,6 @@ repos:
 
 # https://pre-commit.ci/#configuration
 ci:
+  skip: [chmod]
   autofix_prs: false
   autoupdate_schedule: quarterly
