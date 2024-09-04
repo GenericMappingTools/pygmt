@@ -6,7 +6,7 @@
 
 ### Highlights
 
-* 🎉 Thirteenth minor release of PyGMT 🎉
+* 🎉 **Thirteenth minor release of PyGMT** 🎉
 * Add new document section "Technical Reference" and document the supported encodings and fonts
 * Tutorial for "Draping a dataset on top of a topographic surface" ([#3316](https://github.com/GenericMappingTools/pygmt/pull/3316))
 * Tutorial for "Typesetting non-ASCII characters" ([#3389](https://github.com/GenericMappingTools/pygmt/pull/3389))
