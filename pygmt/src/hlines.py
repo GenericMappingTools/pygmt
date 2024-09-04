@@ -73,11 +73,9 @@ def hlines(self, y=None, xmin=None, xmax=None, **kwargs):
     def prep_data(xmin, xmax, list_length):
 
         if xmin is None and xmax is None:
-            with Session() as lib:
-                # get limits from current map boundings if not given
-                # via xmin, xmax
-                x = np.array([[lib.extract_region()[0]], [lib.extract_region()[1]]])
-                x = np.repeat(x, list_length, axis=1)
+            # get limits from current map boundings if not given via xmin, xmax
+            xmin, xmax = fig.region[0:2]
+            x = np.repeat([[xmin], [xmax]], list_length, axis=1)
         elif xmin is None or xmax is None:
             raise GMTInvalidInput(
                 "Must provide both, xmin and xmax if limits are not set automatically."
