@@ -1,5 +1,5 @@
 r"""
-General perspective
+General Perspective
 ===================
 
 The general perspective projection imitates the view of the Earth from a finite

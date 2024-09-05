@@ -1,5 +1,5 @@
 r"""
-Cylindrical stereographic
+Cylindrical Stereographic
 =========================
 
 The cylindrical stereographic projections are certainly not as notable as other

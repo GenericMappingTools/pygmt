@@ -1,6 +1,6 @@
 r"""
-Cassini cylindrical
-===================
+Cassini Cylindrical
+============================
 
 This cylindrical projection was developed in 1745 by César-François Cassini de
 Thury for the survey of France. It is occasionally called Cassini-Soldner since
