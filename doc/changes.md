@@ -38,9 +38,9 @@
 ### Bug Fixes
 
 * pygmt.set_display: Fix the bug that `method=None` doesn't reset to the default display method ([#3396](https://github.com/GenericMappingTools/pygmt/pull/3396))
-* load_tile_map: Register the rio accessor by importing rioxarray so the returned raster has CRS ([#3323](https://github.com/GenericMappingTools/pygmt/pull/3323))
+* load_tile_map: Register the rio accessor by importing rioxarray, so the returned raster has CRS ([#3323](https://github.com/GenericMappingTools/pygmt/pull/3323))
 * load_tile_map: Fix the raster band indexing, should start from 1 ([#3322](https://github.com/GenericMappingTools/pygmt/pull/3322))
-* Replace rio.set_crs with rio.write_crs in load_tile_map function ([#3321](https://github.com/GenericMappingTools/pygmt/pull/3321))
+* load_tile_map: Replace deprecated rio.set_crs with rio.write_crs ([#3321](https://github.com/GenericMappingTools/pygmt/pull/3321))
 * PYGMT_USE_EXTERNAL_DISPLAY should NOT disable image display in Jupyter notebook environment ([#3418](https://github.com/GenericMappingTools/pygmt/pull/3418))
 
 ### Documentation
@@ -73,7 +73,7 @@
 * CI: Bump to ubuntu-24.04 and mambaforge-23.11 in ReadTheDocs ([#3296](https://github.com/GenericMappingTools/pygmt/pull/3296))
 * CI: Build GMT dev source code with OpenMP enabled on Linux and GThreads enabled on Linux/macOS ([#3011](https://github.com/GenericMappingTools/pygmt/pull/3011))
 * CI: Add pytest plugins pytest-xdist and pytest-rerunfailures ([#3193](https://github.com/GenericMappingTools/pygmt/pull/3193), [#3267](https://github.com/GenericMappingTools/pygmt/pull/3267))
-* Add pre-commit config with pre-commit-hooks and enable pre-commit.ci to enable auto updates of hooks ([#3283](https://github.com/GenericMappingTools/pygmt/pull/3283), [#3414](https://github.com/GenericMappingTools/pygmt/pull/3414))
+* Add pre-commit config with pre-commit-hooks and enable pre-commit.ci to update hooks quarterly ([#3283](https://github.com/GenericMappingTools/pygmt/pull/3283), [#3414](https://github.com/GenericMappingTools/pygmt/pull/3414))
 * Add a test to make sure PyGMT works with paths that contain non-ASCII characters ([#3280](https://github.com/GenericMappingTools/pygmt/pull/3280))
 
 **Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.12.0...v0.13.0>
