@@ -1,0 +1,13 @@
+pygmt.Figure.colorbar
+=====================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.colorbar
+
+.. minigallery:: pygmt.Figure.colorbar
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

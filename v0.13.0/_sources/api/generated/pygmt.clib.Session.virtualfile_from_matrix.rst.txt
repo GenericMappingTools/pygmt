@@ -1,0 +1,13 @@
+pygmt.clib.Session.virtualfile\_from\_matrix
+============================================
+
+.. currentmodule:: pygmt.clib
+
+.. automethod:: Session.virtualfile_from_matrix
+
+.. minigallery:: pygmt.clib.Session.virtualfile_from_matrix
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

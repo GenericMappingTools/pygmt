@@ -1,0 +1,398 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>Cross-section along a transect &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=a51cd8ab" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/latest/gallery/images/cross_section.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=bb33721e"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Images on figures" href="image.html" />
+    <link rel="prev" title="Create ‘wet-dry’ mask grid" href="grdlandmask.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.13.0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Gallery</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#maps-and-map-elements">Maps and map elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#lines-and-vectors">Lines and vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#symbols-and-markers">Symbols and markers</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#images-contours-and-fields">Images, contours, and fields</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="grdgradient.html">Calculating grid gradient and radiance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grdgradient_shading.html">Calculating grid gradient with custom <code class="docutils literal notranslate"><span class="pre">azimuth</span></code> and <code class="docutils literal notranslate"><span class="pre">normalize</span></code> parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grdclip.html">Clipping grid values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contours.html">Contours</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grdlandmask.html">Create ‘wet-dry’ mask grid</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Cross-section along a transect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image.html">Images on figures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rgb_image.html">RGB image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="track_sampling.html">Sampling along tracks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#d-plots">3D Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#seismology-and-geodesy">Seismology and geodesy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#base-maps">Base maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#histograms">Histograms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#plot-embellishments">Plot embellishments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../team.html">PyGMT Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Gallery</a></li>
+      <li class="breadcrumb-item active">Cross-section along a transect</li>
+    <li class="source-link">
+        
+            
+                
+                
+                
+                    
+                
+                
+                    <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/../examples/gallery/images/cross_section.py"
+                       class="fa fa-github"> Improve this page</a>
+                
+            
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#sphx-glr-download-gallery-images-cross-section-py"><span class="std std-ref">Go to the end</span></a>
+to download the full example code.</p>
+</div>
+<section class="sphx-glr-example-title" id="cross-section-along-a-transect">
+<span id="sphx-glr-gallery-images-cross-section-py"></span><h1>Cross-section along a transect<a class="headerlink" href="#cross-section-along-a-transect" title="Link to this heading"></a></h1>
+<p><a class="reference internal" href="../../api/generated/pygmt.project.html#pygmt.project" title="pygmt.project"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.project</span></code></a> and <a class="reference internal" href="../../api/generated/pygmt.grdtrack.html#pygmt.grdtrack" title="pygmt.grdtrack"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.grdtrack</span></code></a> can be used to focus on
+a quantity and its variation along a desired survey line.
+In this example, the elevation is extracted from a grid provided via
+<a class="reference internal" href="../../api/generated/pygmt.datasets.load_earth_relief.html#pygmt.datasets.load_earth_relief" title="pygmt.datasets.load_earth_relief"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.datasets.load_earth_relief</span></code></a>.
+The figure consists of two parts, a map of the elevation in the study
+area showing the survey line and a Cartesian plot showing the elevation
+along the survey line.</p>
+<p><em>This example is orientated on an example in the GMT/China documentation</em>:
+<a class="reference external" href="https://docs.gmt-china.org/latest/examples/ex026/">https://docs.gmt-china.org/latest/examples/ex026/</a></p>
+<img src="../../_images/sphx_glr_cross_section_001.png" srcset="../../_images/sphx_glr_cross_section_001.png" alt="cross section" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
+
+<span class="c1"># Define region of study area</span>
+<span class="c1"># lon_min, lon_max, lat_min, lat_max in degrees East and North</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region_map</span></a> <span class="o">=</span> <span class="p">[</span><span class="mi">122</span><span class="p">,</span> <span class="mi">149</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">49</span><span class="p">]</span>
+
+<span class="c1"># Create a new pygmt.Figure instance</span>
+<a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
+
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Bottom: Map of elevation in study area</span>
+
+<span class="c1"># Set up basic map</span>
+<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span>
+    <span class="n">region</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region_map</span></a><span class="p">,</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M12c&quot;</span><span class="p">,</span>  <span class="c1"># Mercator projection with a width of 12 centimeters</span>
+    <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;af&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Download grid for Earth relief with a resolution of 10 arc-minutes and</span>
+<span class="c1"># gridline registration [Default]</span>
+<a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid_map</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.datasets.load_earth_relief.html#pygmt.datasets.load_earth_relief" title="pygmt.datasets.load_earth_relief" class="sphx-glr-backref-module-pygmt-datasets sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_earth_relief</span></a><span class="p">(</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;10m&quot;</span><span class="p">,</span>
+    <span class="n">region</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region_map</span></a><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Plot the downloaded grid with color-coding based on the elevation</span>
+<a href="../../api/generated/pygmt.Figure.grdimage.html#pygmt.Figure.grdimage" title="pygmt.Figure.grdimage" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">grdimage</span></a><span class="p">(</span><span class="n">grid</span><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid_map</span></a><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;oleron&quot;</span><span class="p">)</span>
+
+<span class="c1"># Add a colorbar for the elevation</span>
+<a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span>
+    <span class="c1"># Place the colorbar inside the plot (lower-case &quot;j&quot;) in the Bottom</span>
+    <span class="c1"># Right (BR) corner with an offset (&quot;+o&quot;) of 0.7 centimeters and</span>
+    <span class="c1"># 0.3 centimeters in x or y directions, respectively</span>
+    <span class="c1"># Move the x label above the horizontal colorbar (&quot;+ml&quot;)</span>
+    <span class="n">position</span><span class="o">=</span><span class="s2">&quot;jBR+o0.7c/0.8c+h+w5c/0.3c+ml&quot;</span><span class="p">,</span>
+    <span class="c1"># Add a box around the colobar with a fill (&quot;+g&quot;) in &quot;white&quot; color and</span>
+    <span class="c1"># a transparency (&quot;@&quot;) of 30 % and with a 0.8-points thick black</span>
+    <span class="c1"># outline (&quot;+p&quot;)</span>
+    <span class="n">box</span><span class="o">=</span><span class="s2">&quot;+gwhite@30+p0.8p,black&quot;</span><span class="p">,</span>
+    <span class="c1"># Add x and y labels (&quot;+l&quot;)</span>
+    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x+lElevation&quot;</span><span class="p">,</span> <span class="s2">&quot;y+lm&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="c1"># Choose a survey line</span>
+<a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">126</span><span class="p">,</span> <span class="mi">146</span><span class="p">],</span>  <span class="c1"># Longitude in degrees East</span>
+    <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">42</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span>  <span class="c1"># Latitude in degrees North</span>
+    <span class="c1"># Draw a 2-points thick red dashed line for the survey line</span>
+    <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;2p,red,dashed&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Add labels &quot;A&quot; and &quot;B&quot; for the start and end points of the survey line</span>
+<a href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">126</span><span class="p">,</span> <span class="mi">146</span><span class="p">],</span>
+    <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">42</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span>
+    <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">],</span>
+    <span class="n">offset</span><span class="o">=</span><span class="s2">&quot;0c/0.2c&quot;</span><span class="p">,</span>  <span class="c1"># Move text 0.2 centimeters up (y direction)</span>
+    <span class="n">font</span><span class="o">=</span><span class="s2">&quot;15p&quot;</span><span class="p">,</span>  <span class="c1"># Use a font size of 15 points</span>
+<span class="p">)</span>
+
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Top: Elevation along survey line</span>
+
+<span class="c1"># Shift plot origin 12.5 centimeters to the top</span>
+<a href="../../api/generated/pygmt.Figure.shift_origin.html#pygmt.Figure.shift_origin" title="pygmt.Figure.shift_origin" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">shift_origin</span></a><span class="p">(</span><span class="n">yshift</span><span class="o">=</span><span class="s2">&quot;12.5c&quot;</span><span class="p">)</span>
+
+<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span>
+    <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">8000</span><span class="p">,</span> <span class="mi">6000</span><span class="p">],</span>  <span class="c1"># x_min, x_max, y_min, y_max</span>
+    <span class="c1"># Cartesian projection with a width of 12 centimeters and</span>
+    <span class="c1"># a height of 3 centimeters</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X12c/3c&quot;</span><span class="p">,</span>
+    <span class="c1"># Add annotations (&quot;a&quot;) and ticks (&quot;f&quot;) as well as labels (&quot;+l&quot;)</span>
+    <span class="c1"># at the west or left and south or bottom sides (&quot;WSrt&quot;)</span>
+    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;WSrt&quot;</span><span class="p">,</span> <span class="s2">&quot;xa2f1+lDistance+u°&quot;</span><span class="p">,</span> <span class="s2">&quot;ya4000+lElevation / m&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="c1"># Add labels &quot;A&quot; and &quot;B&quot; for the start and end points of the survey line</span>
+<a href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">],</span>
+    <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">7000</span><span class="p">,</span> <span class="mi">7000</span><span class="p">],</span>
+    <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">],</span>
+    <span class="n">no_clip</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Do not clip text that fall outside the plot bounds</span>
+    <span class="n">font</span><span class="o">=</span><span class="s2">&quot;10p&quot;</span><span class="p">,</span>  <span class="c1"># Use a font size of 10 points</span>
+<span class="p">)</span>
+
+<span class="c1"># Generate points along a great circle corresponding to the survey line</span>
+<span class="c1"># and store them in a pandas.DataFrame</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">track_df</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.project.html#pygmt.project" title="pygmt.project" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">project</span></a><span class="p">(</span>
+    <span class="n">center</span><span class="o">=</span><span class="s2">&quot;126/42&quot;</span><span class="p">,</span>  <span class="c1"># Start point of survey line (longitude/latitude)</span>
+    <span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;146/40&quot;</span><span class="p">,</span>  <span class="c1"># End point of survey line (longitude/latitude)</span>
+    <span class="n">generate</span><span class="o">=</span><span class="s2">&quot;0.1&quot;</span><span class="p">,</span>  <span class="c1"># Output data in steps of 0.1 degrees</span>
+<span class="p">)</span>
+
+<span class="c1"># Extract the elevation at the generated points from the downloaded grid</span>
+<span class="c1"># and add it as new column &quot;elevation&quot; to the pandas.DataFrame</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">track_df</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.grdtrack.html#pygmt.grdtrack" title="pygmt.grdtrack" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">grdtrack</span></a><span class="p">(</span>
+    <span class="n">grid</span><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid_map</span></a><span class="p">,</span>
+    <span class="n">points</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">track_df</span></a><span class="p">,</span>
+    <span class="n">newcolname</span><span class="o">=</span><span class="s2">&quot;elevation&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Plot water masses</span>
+<a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">],</span>
+    <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">,</span>  <span class="c1"># Fill the polygon in &quot;lightblue&quot;</span>
+    <span class="c1"># Draw a 0.25-points thick black solid outline</span>
+    <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;0.25p,black,solid&quot;</span><span class="p">,</span>
+    <span class="n">close</span><span class="o">=</span><span class="s2">&quot;+y-8000&quot;</span><span class="p">,</span>  <span class="c1"># Force closed polygon</span>
+<span class="p">)</span>
+
+<span class="c1"># Plot elevation along the survey line</span>
+<a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">track_df</span><span class="o">.</span><span class="n">p</span></a><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">track_df</span><span class="o">.</span><span class="n">elevation</span></a><span class="p">,</span>
+    <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span>  <span class="c1"># Fill the polygon in &quot;gray&quot;</span>
+    <span class="c1"># Draw a 1-point thick black solid outline</span>
+    <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;1p,black,solid&quot;</span><span class="p">,</span>
+    <span class="n">close</span><span class="o">=</span><span class="s2">&quot;+y-8000&quot;</span><span class="p">,</span>  <span class="c1"># Force closed polygon</span>
+<span class="p">)</span>
+
+<a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.303 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-images-cross-section-py">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/3768df33f78ba75095ebc52337213213/cross_section.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">cross_section.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/65e0b77bcac14929bdfc483e3bb7496b/cross_section.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">cross_section.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/1fc7a639ce6937c269641f6190730164/cross_section.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">cross_section.zip</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+
+
+           </div>
+          </div>
+          
+<footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="grdlandmask.html" class="btn btn-neutral float-left" title="Create ‘wet-dry’ mask grid" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="image.html" class="btn btn-neutral float-right" title="Images on figures" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.13.0">v0.13.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on Sep 05, 2024.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

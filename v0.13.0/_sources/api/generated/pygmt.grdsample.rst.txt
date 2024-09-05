@@ -1,0 +1,13 @@
+pygmt.grdsample
+===============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: grdsample
+
+.. minigallery:: pygmt.grdsample
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

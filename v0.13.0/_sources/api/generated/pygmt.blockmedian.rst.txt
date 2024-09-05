@@ -1,0 +1,13 @@
+pygmt.blockmedian
+=================
+
+.. currentmodule:: pygmt
+
+.. autofunction:: blockmedian
+
+.. minigallery:: pygmt.blockmedian
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

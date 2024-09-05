@@ -1,0 +1,13 @@
+pygmt.Figure.plot3d
+===================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.plot3d
+
+.. minigallery:: pygmt.Figure.plot3d
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

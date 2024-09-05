@@ -1,0 +1,13 @@
+pygmt.grdfill
+=============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: grdfill
+
+.. minigallery:: pygmt.grdfill
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

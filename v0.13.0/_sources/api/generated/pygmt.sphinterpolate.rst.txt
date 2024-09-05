@@ -1,0 +1,13 @@
+pygmt.sphinterpolate
+====================
+
+.. currentmodule:: pygmt
+
+.. autofunction:: sphinterpolate
+
+.. minigallery:: pygmt.sphinterpolate
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

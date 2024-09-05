@@ -1,0 +1,416 @@
+:orphan:
+
+.. _tutorials:
+
+Tutorials
+=========
+
+These examples teach us how to complete various tasks using PyGMT!
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+Basics
+------
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Plotting coastlines and borders is handled by pygmt.Figure.coast.">
+
+.. only:: html
+
+  .. image:: /tutorials/basics/images/thumb/sphx_glr_coastlines_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_basics_coastlines.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Coastlines and borders</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Setting frame, ticks, title, etc., of the plot is handled by the frame parameter that most plotting methods of the pygmt.Figure class contain.">
+
+.. only:: html
+
+  .. image:: /tutorials/basics/images/thumb/sphx_glr_frames_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_basics_frames.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Frames, ticks, titles, and labels</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is packaged with GMT to try this out. PyGMT provides access to these datasets through the pygmt.datasets package. If you don&#x27;t have the data files already, they are automatically downloaded and saved to a cache directory the first time you use them (usually ~/.gmt/cache).">
+
+.. only:: html
+
+  .. image:: /tutorials/basics/images/thumb/sphx_glr_plot_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_basics_plot.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plotting data points</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Plotting lines is handled by pygmt.Figure.plot.">
+
+.. only:: html
+
+  .. image:: /tutorials/basics/images/thumb/sphx_glr_lines_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_basics_lines.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plotting lines</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add text annotations to a plot or map. This is handled by the pygmt.Figure.text method of the pygmt.Figure class.">
+
+.. only:: html
+
+  .. image:: /tutorials/basics/images/thumb/sphx_glr_text_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_basics_text.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plotting text</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Many of the plotting methods take the region parameter, which sets the area that will be shown in the figure. This tutorial covers the different types of inputs that it can accept.">
+
+.. only:: html
+
+  .. image:: /tutorials/basics/images/thumb/sphx_glr_regions_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_basics_regions.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Setting the region</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /tutorials/basics/coastlines
+   /tutorials/basics/frames
+   /tutorials/basics/plot
+   /tutorials/basics/lines
+   /tutorials/basics/text
+   /tutorials/basics/regions
+
+Advanced
+--------
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="To plot an inset figure inside another larger figure, we can use the pygmt.Figure.inset method. After a large figure has been created, call inset using a with statement, and new plot elements will be added to the inset figure instead of the larger figure.">
+
+.. only:: html
+
+  .. image:: /tutorials/advanced/images/thumb/sphx_glr_insets_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_advanced_insets.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Adding an inset to the figure</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Cartesian histograms can be generated using the pygmt.Figure.histogram method. In this tutorial, different histogram related aspects are addressed:">
+
+.. only:: html
+
+  .. image:: /tutorials/advanced/images/thumb/sphx_glr_cartesian_histograms_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_advanced_cartesian_histograms.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Cartesian histograms</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Default GMT parameters can be set globally or locally using pygmt.config.">
+
+.. only:: html
+
+  .. image:: /tutorials/advanced/images/thumb/sphx_glr_configuration_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_advanced_configuration.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Configuring PyGMT defaults</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Create 3-D perspective image or surface mesh from a grid using pygmt.Figure.grdview.">
+
+.. only:: html
+
+  .. image:: /tutorials/advanced/images/thumb/sphx_glr_3d_perspective_image_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_advanced_3d_perspective_image.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Creating a 3-D perspective image</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Plotting a contour map is handled by pygmt.Figure.grdcontour.">
+
+.. only:: html
+
+  .. image:: /tutorials/advanced/images/thumb/sphx_glr_contour_map_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_advanced_contour_map.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Creating a map with contour lines</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="It can be visually appealing to &quot;drape&quot; a dataset over a topographic surface. This can be accomplished using the drapegrid parameter of pygmt.Figure.grdview.">
+
+.. only:: html
+
+  .. image:: /tutorials/advanced/images/thumb/sphx_glr_draping_on_3d_surface_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_advanced_draping_on_3d_surface.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Draping a dataset on top of a topographic surface</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="    Please run the following code examples in a notebook environment     otherwise the interactive parts of this tutorial will not work. You can     use the button &quot;Download Jupyter notebook&quot; at the bottom of this page     to download this script as a Jupyter notebook.">
+
+.. only:: html
+
+  .. image:: /tutorials/advanced/images/thumb/sphx_glr_working_with_panel_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_advanced_working_with_panel.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Interactive data visualization using Panel</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put many individual plots into one large figure, and label them &#x27;abcd&#x27;. These individual plots are called subplots.">
+
+.. only:: html
+
+  .. image:: /tutorials/advanced/images/thumb/sphx_glr_subplots_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_advanced_subplots.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Making subplots</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdhisteq.equalize_grid method creates a grid using statistics based on a cumulative distribution function.">
+
+.. only:: html
+
+  .. image:: /tutorials/advanced/images/thumb/sphx_glr_grid_equalization_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_advanced_grid_equalization.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Performing grid histogram equalization</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="PyGMT provides the pygmt.datasets.load_earth_relief function to download the Earth relief data from the GMT remote server and load as an xarray.DataArray object. The data can then be plotted using the pygmt.Figure.grdimage method.">
+
+.. only:: html
+
+  .. image:: /tutorials/advanced/images/thumb/sphx_glr_earth_relief_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_advanced_earth_relief.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plotting Earth relief</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="PyGMT accepts a variety of datetime objects to plot data and create charts. Aside from the built-in Python datetime module, PyGMT supports inputs containing ISO formatted strings as well as objects generated with numpy, pandas, and xarray. These data types can be used to plot specific points as well as get passed into the region parameter to create a range of the data on an axis.">
+
+.. only:: html
+
+  .. image:: /tutorials/advanced/images/thumb/sphx_glr_date_time_charts_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_advanced_date_time_charts.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plotting datetime charts</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Plotting vectors is handled by pygmt.Figure.plot.">
+
+.. only:: html
+
+  .. image:: /tutorials/advanced/images/thumb/sphx_glr_vectors_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_advanced_vectors.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plotting vectors</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In addition to ASCII printable characters, sometimes you may also want to typeset non-ASCII characters on the plot, such as Greek letters, mathematical symbols, or special characters.">
+
+.. only:: html
+
+  .. image:: /tutorials/advanced/images/thumb/sphx_glr_non_ascii_text_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_advanced_non_ascii_text.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Typesetting non-ASCII text</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /tutorials/advanced/insets
+   /tutorials/advanced/cartesian_histograms
+   /tutorials/advanced/configuration
+   /tutorials/advanced/3d_perspective_image
+   /tutorials/advanced/contour_map
+   /tutorials/advanced/draping_on_3d_surface
+   /tutorials/advanced/working_with_panel
+   /tutorials/advanced/subplots
+   /tutorials/advanced/grid_equalization
+   /tutorials/advanced/earth_relief
+   /tutorials/advanced/date_time_charts
+   /tutorials/advanced/vectors
+   /tutorials/advanced/non_ascii_text
+
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

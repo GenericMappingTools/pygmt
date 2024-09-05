@@ -1,0 +1,475 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pygmt.Figure.grdimage &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=a51cd8ab" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/latest/api/generated/pygmt.Figure.grdimage.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=bb33721e"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pygmt.Figure.grdview" href="pygmt.Figure.grdview.html" />
+    <link rel="prev" title="pygmt.Figure.grdcontour" href="pygmt.Figure.grdcontour.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.13.0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#main-features">Main Features</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#plotting">Plotting</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../index.html#figure-class-overview">Figure class overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#plotting-map-elements">Plotting map elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#plotting-tabular-data">Plotting tabular data</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#plotting-raster-data">Plotting raster data</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.grdcontour.html">pygmt.Figure.grdcontour</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">pygmt.Figure.grdimage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.grdview.html">pygmt.Figure.grdview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.image.html">pygmt.Figure.image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.tilemap.html">pygmt.Figure.tilemap</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#configuring-layout">Configuring layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#saving-and-displaying-the-figure">Saving and displaying the figure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#configuring-the-display-settings">Configuring the display settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#color-palette-table-generation">Color palette table generation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#data-processing">Data Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#input-output">Input/output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#datasets">Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-c-api">GMT C API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../team.html">PyGMT Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">pygmt.Figure.grdimage</li>
+    <li class="source-link">
+        
+            
+                
+                
+                <a href="https://github.com/GenericMappingTools/pygmt/issues/new?title=Suggested%20improvement%20for%20api/generated/pygmt.Figure.grdimage&body=Please%20describe%20what%20could%20be%20improved%20about%20this%20page%20or%20the%20typo/mistake%20that%20you%20found%3A"
+                   class="fa fa-github"> Improve this page</a>
+            
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pygmt-figure-grdimage">
+<h1>pygmt.Figure.grdimage<a class="headerlink" href="#pygmt-figure-grdimage" title="Link to this heading"></a></h1>
+<dl class="py method">
+<dt class="sig sig-object py" id="pygmt.Figure.grdimage">
+<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">grdimage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_in</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bitcolor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shading</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monochrome</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_clip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nan_transparent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">panel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coltypes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perspective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.grdimage" title="Link to this definition"></a></dt>
+<dd><p>Project and plot grids or images.</p>
+<p>Reads a 2-D grid file and produces a gray-shaded (or colored) map by
+building a rectangular image and assigning pixels a gray-shade (or color)
+based on the z-value and the CPT file. Optionally, illumination may be
+added by providing a file with intensities in the (-1,+1) range or
+instructions to derive intensities from the input data grid. Values outside
+this range will be clipped. Such intensity files can be created from the
+grid using <a class="reference internal" href="pygmt.grdgradient.html#pygmt.grdgradient" title="pygmt.grdgradient"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.grdgradient</span></code></a> and, optionally, modified by
+<a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/grdmath.html">https://docs.generic-mapping-tools.org/6.5/grdmath.html</a> or <a class="reference internal" href="pygmt.grdhisteq.html#pygmt.grdhisteq" title="pygmt.grdhisteq"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.grdhisteq</span></code></a>. Alternatively, pass
+<em>image</em> which can be an image file (geo-referenced or not). In this case
+the image can optionally be illuminated with the file provided via the
+<code class="docutils literal notranslate"><span class="pre">shading</span></code> parameter. Here, if image has no coordinates then those of the
+intensity file will be used.</p>
+<p>When using map projections, the grid is first resampled on a new
+rectangular grid with the same dimensions. Higher resolution images can
+be obtained by using the <code class="docutils literal notranslate"><span class="pre">dpi</span></code> parameter. To obtain the resampled value
+(and hence shade or color) of each map pixel, its location is inversely
+projected back onto the input grid after which a value is interpolated
+between the surrounding input grid values. By default bi-cubic
+interpolation is used. Aliasing is avoided by also forward projecting
+the input grid nodes. If two or more nodes are projected onto the same
+pixel, their average will dominate in the calculation of the pixel
+value. Interpolation and aliasing is controlled with the
+<code class="docutils literal notranslate"><span class="pre">interpolation</span></code> parameter.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">region</span></code> parameter can be used to select a map region larger or
+smaller than that implied by the extent of the grid.</p>
+<p>Full option list at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/grdimage.html">https://docs.generic-mapping-tools.org/6.5/grdimage.html</a></p>
+<p><strong>Aliases:</strong></p>
+<ul class="simple">
+<li><p>B = frame</p></li>
+<li><p>C = cmap</p></li>
+<li><p>D = img_in</p></li>
+<li><p>E = dpi</p></li>
+<li><p>G = bitcolor</p></li>
+<li><p>I = shading</p></li>
+<li><p>J = projection</p></li>
+<li><p>M = monochrome</p></li>
+<li><p>N = no_clip</p></li>
+<li><p>Q = nan_transparent</p></li>
+<li><p>R = region</p></li>
+<li><p>V = verbose</p></li>
+<li><p>c = panel</p></li>
+<li><p>f = coltypes</p></li>
+<li><p>n = interpolation</p></li>
+<li><p>p = perspective</p></li>
+<li><p>t = transparency</p></li>
+<li><p>x = cores</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.7.1.dev0)"><em>xarray.DataArray</em></a>) – <p>Name of the input grid file or the grid loaded as a
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.7.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.</p>
+<p>For reading a specific grid file format or applying basic data operations,
+see <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#grd-inout-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#grd-inout-full</a> for the available modifiers.</p>
+</p></li>
+<li><p><strong>frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – Set map boundary
+<a class="reference internal" href="../../tutorials/basics/frames.html"><span class="doc">frame and axes attributes</span></a>.</p></li>
+<li><p><strong>cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – File name of a CPT file or a series of comma-separated colors
+(e.g., <em>color1</em>,<em>color2</em>,<em>color3</em>) to build a linear continuous
+CPT from those colors automatically.</p></li>
+<li><p><strong>img_in</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – [<strong>r</strong>].
+GMT will automatically detect standard image files (Geotiff, TIFF,
+JPG, PNG, GIF, etc.) and will read those via GDAL. For very obscure
+image formats you may need to explicitly set <code class="docutils literal notranslate"><span class="pre">img_in</span></code>, which
+specifies that the grid is in fact an image file to be read via
+GDAL. Append <strong>r</strong> to assign the region specified by <code class="docutils literal notranslate"><span class="pre">region</span></code>
+to the image. For example, if you have used <code class="docutils literal notranslate"><span class="pre">region=&quot;d&quot;</span></code> then
+the image will be assigned a global domain. This mode allows you
+to project a raw image (an image without referencing coordinates).</p></li>
+<li><p><strong>dpi</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – [<strong>i</strong>|<em>dpi</em>].
+Set the resolution of the projected grid that will be created if a
+map projection other than Linear or Mercator was selected [Default
+is <code class="docutils literal notranslate"><span class="pre">100</span></code> dpi]. By default, the projected grid will be of the
+same size (rows and columns) as the input file. Specify <strong>i</strong> to
+use the PostScript image operator to interpolate the image at the
+device resolution.</p></li>
+<li><p><strong>bitcolor</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <em>color</em>[<strong>+b</strong>|<strong>f</strong>].
+This parameter only applies when a resulting 1-bit image otherwise
+would consist of only two colors: black (0) and white (255). If so,
+this parameter will instead use the image as a transparent mask and
+paint the mask with the given color. Append <strong>+b</strong> to paint the
+background pixels (1) or <strong>+f</strong> for the foreground pixels
+[Default is <strong>+f</strong>].</p></li>
+<li><p><strong>shading</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.7.1.dev0)"><em>xarray.DataArray</em></a>) – [<em>intensfile</em>|<em>intensity</em>|<em>modifiers</em>].
+Give the name of a grid file or a DataArray with intensities in the
+(-1,+1) range, or a constant intensity to apply everywhere (affects the
+ambient light). Alternatively, derive an intensity grid from the input
+data grid via a call to <a class="reference internal" href="pygmt.grdgradient.html#pygmt.grdgradient" title="pygmt.grdgradient"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.grdgradient</span></code></a>; append
+<strong>+a</strong><em>azimuth</em>, <strong>+n</strong><em>args</em>, and <strong>+m</strong><em>ambient</em> to specify
+azimuth, intensity, and ambient arguments for that function, or just
+give <strong>+d</strong> to select the default arguments (<code class="docutils literal notranslate"><span class="pre">+a-45+nt1+m0</span></code>). If you
+want a more specific intensity scenario then run
+<a class="reference internal" href="pygmt.grdgradient.html#pygmt.grdgradient" title="pygmt.grdgradient"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.grdgradient</span></code></a> separately first. If we should derive
+intensities from another file than grid, specify the file with
+suitable modifiers [Default is no illumination]. <strong>Note</strong>: If the
+input data represent an <em>image</em> then an <em>intensfile</em> or constant
+<em>intensity</em> must be provided.</p></li>
+<li><p><strong>projection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <em>projcode</em>[<em>projparams</em>/]<em>width</em>|<em>scale</em>.
+Select map <a class="reference internal" href="../../projections/index.html"><span class="doc">projection</span></a>.</p></li>
+<li><p><strong>monochrome</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Force conversion to monochrome image using the (television) YIQ
+transformation. Cannot be used with <code class="docutils literal notranslate"><span class="pre">nan_transparent</span></code>.</p></li>
+<li><p><strong>no_clip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Do <strong>not</strong> clip the image at the frame boundaries (only relevant
+for non-rectangular maps) [Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>].</p></li>
+<li><p><strong>nan_transparent</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – [<strong>+z</strong><em>value</em>][<em>color</em>]
+Make grid nodes with z = NaN transparent, using the color-masking
+feature in PostScript Level 3 (the PS device must support PS Level
+3). If the input is a grid, use <strong>+z</strong> to select another grid value
+than NaN. If input is instead an image, append an alternate <em>color</em> to
+select another pixel value to be transparent [Default is <code class="docutils literal notranslate"><span class="pre">&quot;black&quot;</span></code>].</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
+Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
+written to stderr. Choose among 7 levels of verbosity:</p>
+<ul>
+<li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
+<li><p><strong>e</strong> - Error messages only</p></li>
+<li><p><strong>w</strong> - Warnings [Default]</p></li>
+<li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorithms)</p></li>
+<li><p><strong>i</strong> - Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
+<li><p><strong>c</strong> - Compatibility warnings</p></li>
+<li><p><strong>d</strong> - Debugging messages</p></li>
+</ul>
+</p></li>
+<li><p><strong>panel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – [<em>row,col</em>|<em>index</em>].
+Select a specific subplot panel. Only allowed when in subplot
+mode. Use <code class="docutils literal notranslate"><span class="pre">panel=True</span></code> to advance to the next panel in the
+selected order. Instead of <em>row,col</em> you may also give a scalar
+value <em>index</em> which depends on the order you set via <code class="docutils literal notranslate"><span class="pre">autolabel</span></code>
+when the subplot was defined. <strong>Note</strong>: <em>row</em>, <em>col</em>, and <em>index</em>
+all start at 0.</p></li>
+<li><p><strong>coltypes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – [<strong>i</strong>|<strong>o</strong>]<em>colinfo</em>.
+Specify data types of input and/or output columns (time or
+geographical data). Full documentation is at
+<a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#f-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#f-full</a>.</p></li>
+<li><p><strong>interpolation</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <p>[<strong>b</strong>|<strong>c</strong>|<strong>l</strong>|<strong>n</strong>][<strong>+a</strong>][<strong>+b</strong><em>BC</em>][<strong>+c</strong>][<strong>+t</strong><em>threshold</em>].
+Select interpolation mode for grids. You can select the type of
+spline used:</p>
+<ul>
+<li><p><strong>b</strong> for B-spline</p></li>
+<li><p><strong>c</strong> for bicubic [Default]</p></li>
+<li><p><strong>l</strong> for bilinear</p></li>
+<li><p><strong>n</strong> for nearest-neighbor</p></li>
+</ul>
+</p></li>
+<li><p><strong>perspective</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – [<strong>x</strong>|<strong>y</strong>|<strong>z</strong>]<em>azim</em>[/<em>elev</em>[/<em>zlevel</em>]][<strong>+w</strong><em>lon0</em>/<em>lat0</em>[/<em>z0</em>]][<strong>+v</strong><em>x0</em>/<em>y0</em>].
+Select perspective view and set the azimuth and elevation angle of
+the viewpoint [Default is <code class="docutils literal notranslate"><span class="pre">[180,</span> <span class="pre">90]</span></code>]. Full documentation is at
+<a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#perspective-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#perspective-full</a>.</p></li>
+<li><p><strong>transparency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – Set transparency level, in [0-100] percent range
+[Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>, i.e., opaque].
+Only visible when PDF or raster format output is selected.
+Only the PNG format selection adds a transparency layer
+in the image (for further processing).</p></li>
+<li><p><strong>cores</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – [[<strong>-</strong>]<em>n</em>].
+Limit the number of cores to be used in any OpenMP-enabled
+multi-threaded algorithms. By default we try to use all available
+cores. Set a number <em>n</em> to only use n cores (if too large it will
+be truncated to the maximum cores available). Finally, give a
+negative number <em>-n</em> to select (all - <em>n</em>) cores (or at least 1 if
+<em>n</em> equals or exceeds all).</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pygmt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># load the 30 arc-minutes grid with &quot;gridline&quot; registration</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grid</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_earth_relief</span><span class="p">(</span><span class="s2">&quot;30m&quot;</span><span class="p">,</span> <span class="n">registration</span><span class="o">=</span><span class="s2">&quot;gridline&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># create a new plot with pygmt.Figure()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># pass in the grid and set the CPT to &quot;geo&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># set the projection to Mollweide and the size to 10 cm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">grdimage</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;geo&quot;</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;W10c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;ag&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># show the plot</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<section id="examples-using-pygmt-figure-grdimage">
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.grdimage</span></code><a class="headerlink" href="#examples-using-pygmt-figure-grdimage" title="Link to this heading"></a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdgradient function calculates the gradient of a grid file. In the example shown below we will see how to calculate a hillshade map based on a Data Elevation Model (DEM). As input pygmt.grdgradient gets an xarray.DataArray object or a path string to a grid file, calculates the respective gradient and returns it as an xarray.DataArray object. We will use the radiance parameter in order to set the illumination source direction and altitude."><img alt="" src="../../_images/sphx_glr_grdgradient_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/grdgradient.html#sphx-glr-gallery-images-grdgradient-py"><span class="std std-ref">Calculating grid gradient and radiance</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Calculating grid gradient and radiance</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdgradient function calculates the gradient of a grid file. As input, pygmt.grdgradient gets an xarray.DataArray object or a path string to a grid file. It then calculates the respective gradient and returns an xarray.DataArray object. The example below sets two main parameters:"><img alt="" src="../../_images/sphx_glr_grdgradient_shading_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/grdgradient_shading.html#sphx-glr-gallery-images-grdgradient-shading-py"><span class="std std-ref">Calculating grid gradient with custom azimuth and normalize parameters</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Calculating grid gradient with custom azimuth and normalize parameters</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdclip function allows to clip defined ranges of grid values. In the example shown below we set all elevation values (grid points) smaller than 0 m (in general the bathymetric part of the grid) to a common value of -2000 m via the below parameter."><img alt="" src="../../_images/sphx_glr_grdclip_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/grdclip.html#sphx-glr-gallery-images-grdclip-py"><span class="std std-ref">Clipping grid values</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Clipping grid values</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdlandmask function allows setting all nodes on land or water to a specified value using the maskvalues parameter."><img alt="" src="../../_images/sphx_glr_grdlandmask_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/grdlandmask.html#sphx-glr-gallery-images-grdlandmask-py"><span class="std std-ref">Create ‘wet-dry’ mask grid</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Create 'wet-dry' mask grid</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="pygmt.project and pygmt.grdtrack can be used to focus on a quantity and its variation along a desired survey line. In this example, the elevation is extracted from a grid provided via pygmt.datasets.load_earth_relief. The figure consists of two parts, a map of the elevation in the study area showing the survey line and a Cartesian plot showing the elevation along the survey line."><img alt="" src="../../_images/sphx_glr_cross_section_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/cross_section.html#sphx-glr-gallery-images-cross-section-py"><span class="std std-ref">Cross-section along a transect</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cross-section along a transect</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.grdimage method can be used to plot Red, Green, Blue (RGB) images, or any 3-band false color combination. Here, we&#x27;ll use :pyrioxarray.open_rasterio to read a GeoTIFF file into an xarray.DataArray format, and plot it on a map."><img alt="" src="../../_images/sphx_glr_rgb_image_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/rgb_image.html#sphx-glr-gallery-images-rgb-image-py"><span class="std std-ref">RGB image</span></a></p>
+  <div class="sphx-glr-thumbnail-title">RGB image</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need to input a 2-D raster to grid which can be an xarray.DataArray. The argument passed to the points parameter can be a pandas.DataFrame table where the first two columns are x and y (or longitude and latitude). Note also that there is a newcolname parameter that will be used to name the new column of values sampled from the grid."><img alt="" src="../../_images/sphx_glr_track_sampling_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/track_sampling.html#sphx-glr-gallery-images-track-sampling-py"><span class="std std-ref">Sampling along tracks</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Sampling along tracks</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.blockmean function calculates different quantities inside blocks/bins whose dimensions are defined via the spacing parameter. The following examples show how to calculate the averages of the given values inside each bin and how to report the number of points inside each bin."><img alt="" src="../../_images/sphx_glr_blockm_thumb.png" />
+<p><a class="reference internal" href="../../gallery/histograms/blockm.html#sphx-glr-gallery-histograms-blockm-py"><span class="std std-ref">Blockmean</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Blockmean</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This gallery example shows how to create multiple colormaps for different subplots. To better understand how GMT modern mode maintains several levels of colormaps, please refer to reference/features.html#gmt-modern-mode-hierarchical-levels for details."><img alt="" src="../../_images/sphx_glr_colorbars_multiple_thumb.png" />
+<p><a class="reference internal" href="../../gallery/embellishments/colorbars_multiple.html#sphx-glr-gallery-embellishments-colorbars-multiple-py"><span class="std std-ref">Multiple colormaps</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Multiple colormaps</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting a contour map is handled by pygmt.Figure.grdcontour."><img alt="" src="../../_images/sphx_glr_contour_map_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/contour_map.html#sphx-glr-tutorials-advanced-contour-map-py"><span class="std std-ref">Creating a map with contour lines</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Creating a map with contour lines</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="    Please run the following code examples in a notebook environment     otherwise the interactive parts of this tutorial will not work. You can     use the button &quot;Download Jupyter notebook&quot; at the bottom of this page     to download this script as a Jupyter notebook."><img alt="" src="../../_images/sphx_glr_working_with_panel_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/working_with_panel.html#sphx-glr-tutorials-advanced-working-with-panel-py"><span class="std std-ref">Interactive data visualization using Panel</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Interactive data visualization using Panel</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdhisteq.equalize_grid method creates a grid using statistics based on a cumulative distribution function."><img alt="" src="../../_images/sphx_glr_grid_equalization_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/grid_equalization.html#sphx-glr-tutorials-advanced-grid-equalization-py"><span class="std std-ref">Performing grid histogram equalization</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Performing grid histogram equalization</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="PyGMT provides the pygmt.datasets.load_earth_relief function to download the Earth relief data from the GMT remote server and load as an xarray.DataArray object. The data can then be plotted using the pygmt.Figure.grdimage method."><img alt="" src="../../_images/sphx_glr_earth_relief_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/earth_relief.html#sphx-glr-tutorials-advanced-earth-relief-py"><span class="std std-ref">Plotting Earth relief</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting Earth relief</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This tutorial page covers the basics of creating a figure of the Earth relief, using a remote dataset hosted by GMT, using the method pygmt.datasets.load_earth_relief. It will use the pygmt.Figure.grdimage, pygmt.Figure.grdcontour, pygmt.Figure.colorbar, and pygmt.Figure.coast methods for plotting."><img alt="" src="../../_images/sphx_glr_02_contour_map_thumb.png" />
+<p><a class="reference internal" href="../../get_started/02_contour_map.html#sphx-glr-get-started-02-contour-map-py"><span class="std std-ref">2. Create a contour map</span></a></p>
+  <div class="sphx-glr-thumbnail-title">2. Create a contour map</div>
+</div></div><div style='clear:both'></div></section>
+</section>
+
+
+           </div>
+          </div>
+          
+<footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pygmt.Figure.grdcontour.html" class="btn btn-neutral float-left" title="pygmt.Figure.grdcontour" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pygmt.Figure.grdview.html" class="btn btn-neutral float-right" title="pygmt.Figure.grdview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.13.0">v0.13.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on Sep 05, 2024.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
