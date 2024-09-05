@@ -23,7 +23,7 @@
 * pygmt.show_versions: Show GDAL version ([#3364](https://github.com/GenericMappingTools/pygmt/pull/3364), [#3376](https://github.com/GenericMappingTools/pygmt/pull/3376))
 * pygmt.datasets.load_*: Add autocompletion support for the 'resolution' parameter ([#3260](https://github.com/GenericMappingTools/pygmt/pull/3260))
 * clib.Session: Refactor the `__getitem__` special method to avoid calling API function GMT_Get_Enum repeatedly ([#3261](https://github.com/GenericMappingTools/pygmt/pull/3261))
-* clib: Refractor to avoid checking GMT version repeatedly and only check once when loading the GMT library ([#3254](https://github.com/GenericMappingTools/pygmt/pull/3254))
+* clib: Refactor to avoid checking GMT version repeatedly and only check once when loading the GMT library ([#3254](https://github.com/GenericMappingTools/pygmt/pull/3254))
 * Support non-ASCII characters in ISO-8859-x charsets ([#3310](https://github.com/GenericMappingTools/pygmt/pull/3310))
 * Refactor to improve the user experience with non-ASCII characters ([#3206](https://github.com/GenericMappingTools/pygmt/pull/3206))
 
