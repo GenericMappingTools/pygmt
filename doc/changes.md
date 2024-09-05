@@ -23,7 +23,7 @@
 * pygmt.show_versions: Show GDAL version ([#3364](https://github.com/GenericMappingTools/pygmt/pull/3364), [#3376](https://github.com/GenericMappingTools/pygmt/pull/3376))
 * pygmt.datasets.load_*: Add autocompletion support for the 'resolution' parameter ([#3260](https://github.com/GenericMappingTools/pygmt/pull/3260))
 * clib.Session: Refactor the `__getitem__` special method to avoid calling API function GMT_Get_Enum repeatedly ([#3261](https://github.com/GenericMappingTools/pygmt/pull/3261))
-* Refactor clib to avoid checking GMT version repeatedly and only check once when loading the GMT library ([#3254](https://github.com/GenericMappingTools/pygmt/pull/3254))
+* clib: Refractor to avoid checking GMT version repeatedly and only check once when loading the GMT library ([#3254](https://github.com/GenericMappingTools/pygmt/pull/3254))
 * Support non-ASCII characters in ISO-8859-x charsets ([#3310](https://github.com/GenericMappingTools/pygmt/pull/3310))
 * Refactor to improve the user experience with non-ASCII characters ([#3206](https://github.com/GenericMappingTools/pygmt/pull/3206))
 
@@ -50,6 +50,7 @@
 * Give recommendations about GMT-Ghostscript incompatibility and the testing example ([#3249](https://github.com/GenericMappingTools/pygmt/pull/3249))
 * Document the supported 35 standard Postscript fonts in the Technical Reference section ([#3378](https://github.com/GenericMappingTools/pygmt/pull/3378))
 * Add an offboarding access checklist for maintainers ([#3411](https://github.com/GenericMappingTools/pygmt/pull/3411))
+* Update the onboarding access checklist in Maintainers Guides ([#3404](https://github.com/GenericMappingTools/pygmt/pull/3404))
 * Add sphinx extension myst-nb to enable writing executable Markdown notebooks ([#3379](https://github.com/GenericMappingTools/pygmt/pull/3379))
 
 ### Maintenance
@@ -58,8 +59,7 @@
 * geopandas: Use io.StringIO to read geojson data and handle compatibility with geopandas v0.x and v1.x ([#3247](https://github.com/GenericMappingTools/pygmt/pull/3247))
 * Simplify the "Minimum Supported Versions" page using MyST customized URL schemes ([#3383](https://github.com/GenericMappingTools/pygmt/pull/3383))
 * build_arg_list: Raise an exception if an invalid output file name is given ([#3336](https://github.com/GenericMappingTools/pygmt/pull/3336))
-* Update the onboarding access checklist in Maintainers Guides ([#3404](https://github.com/GenericMappingTools/pygmt/pull/3404))
-* Temporarily pin sphinx-gallery<0.17.0 ([#3350](https://github.com/GenericMappingTools/pygmt/pull/3350))
+* sphinx-gallery: Temporarily pin to < 0.17.0 ([#3350](https://github.com/GenericMappingTools/pygmt/pull/3350))
 * Run pytest with `--color=yes` to force GitHub Actions logs to have color ([#3330](https://github.com/GenericMappingTools/pygmt/pull/3330))
 * Patch the callback print function to suppress the UnicodeDecodeError ([#3367](https://github.com/GenericMappingTools/pygmt/pull/3367))
 * Move Will from Active Maintainers to Distinguished Contributors ([#3388](https://github.com/GenericMappingTools/pygmt/pull/3388))
