@@ -31,8 +31,8 @@ assignees: ''
       regarding GMT-Ghostscript incompatibility
 - [ ] Reserve a DOI on [Zenodo](https://zenodo.org) by clicking on "New Version"
 - [ ] Finish up the "Changelog entry for v0.x.x" Pull Request (Use the previous changelog PR as a reference)
-- [ ] Draft the announcement on https://hackmd.io/@pygmt
 - [ ] Run `make codespell` to check common misspellings. If there are any, either fix them or add them to `ignore-words-list` in `pyproject.toml`
+- [ ] Draft the announcement on https://hackmd.io/@pygmt
 
 **Release**:
 
