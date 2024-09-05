@@ -1,5 +1,5 @@
 r"""
-Lambert Azimuthal Equal Area
+Lambert azimuthal equal-area
 ============================
 
 This projection was developed by Johann Heinrich Lambert in 1772 and is
