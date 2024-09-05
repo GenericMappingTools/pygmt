@@ -11,13 +11,14 @@
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=902da76c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=a51cd8ab" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
@@ -28,12 +29,12 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=b483e97e"></script>
-        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/documentation_options.js?v=aa3fe5bf"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../../_static/copybutton.js?v=ccdb6887"></script>
-        <script src="../../_static/design-tabs.js?v=36754332"></script>
+        <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -133,6 +134,7 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.put_matrix.html">pygmt.clib.Session.put_matrix</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.put_strings.html">pygmt.clib.Session.put_strings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.put_vector.html">pygmt.clib.Session.put_vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.read_data.html">pygmt.clib.Session.read_data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.write_data.html">pygmt.clib.Session.write_data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.open_virtualfile.html">pygmt.clib.Session.open_virtualfile</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.read_virtualfile.html">pygmt.clib.Session.read_virtualfile</a></li>
@@ -146,12 +148,13 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../team.html">PyGMT Team</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributors Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../maintenance.html">Maintainers Guide</a></li>
 </ul>
@@ -217,50 +220,54 @@
 possible.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>option</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The GMT common option to check. Valid options are <code class="docutils literal notranslate"><span class="pre">&quot;B&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;I&quot;</span></code>,
-<code class="docutils literal notranslate"><span class="pre">&quot;J&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;R&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;U&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;V&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;X&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;Y&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;a&quot;</span></code>,
-<code class="docutils literal notranslate"><span class="pre">&quot;b&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;f&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;g&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;h&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;i&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;n&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;o&quot;</span></code>,
-<code class="docutils literal notranslate"><span class="pre">&quot;p&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;r&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;s&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;t&quot;</span></code>, and <code class="docutils literal notranslate"><span class="pre">&quot;:&quot;</span></code>.</p>
+<dd class="field-odd"><p><strong>option</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – The GMT common option to check. Valid options are <code class="docutils literal notranslate"><span class="pre">&quot;B&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;I&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;J&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;R&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;U&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;V&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;X&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;Y&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;a&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;b&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;f&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;g&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;h&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;i&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;n&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;o&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;p&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;r&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;s&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;t&quot;</span></code>, and <code class="docutils literal notranslate"><span class="pre">&quot;:&quot;</span></code>.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><p><strong>value</strong> (<em>bool, int, float, or numpy.ndarray</em>) – Whether the option was set or its value.</p>
-<p>If the option was not set, return <code class="docutils literal notranslate"><span class="pre">False</span></code>. Otherwise,
-the return value depends on the choice of the option.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> | <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><p><em>value</em> – Whether the option was set or its value. If the option was not set, return
+<code class="docutils literal notranslate"><span class="pre">False</span></code>. Otherwise, the return value depends on the choice of the option.</p>
 <ul class="simple">
-<li><p>options <code class="docutils literal notranslate"><span class="pre">&quot;B&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;J&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;U&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;g&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;n&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;p&quot;</span></code>,
-and <code class="docutils literal notranslate"><span class="pre">&quot;s&quot;</span></code>: return <code class="docutils literal notranslate"><span class="pre">True</span></code> if set, else <code class="docutils literal notranslate"><span class="pre">False</span></code> (bool)</p></li>
+<li><p>options <code class="docutils literal notranslate"><span class="pre">&quot;B&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;J&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;U&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;g&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;n&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;p&quot;</span></code>, and <code class="docutils literal notranslate"><span class="pre">&quot;s&quot;</span></code>:
+return <code class="docutils literal notranslate"><span class="pre">True</span></code> if set, else <code class="docutils literal notranslate"><span class="pre">False</span></code> (bool)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;I&quot;</span></code>: 2-element array for the increments (float)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;R&quot;</span></code>: 4-element array for the region (float)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;V&quot;</span></code>: the verbose level (int)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;X&quot;</span></code>: the xshift (float)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;Y&quot;</span></code>: the yshift (float)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;a&quot;</span></code>: geometry of the dataset (int)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;b&quot;</span></code>: return 0 if <cite>-bi</cite> was set and 1 if <cite>-bo</cite> was set (int)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;f&quot;</span></code>: return 0 if <cite>-fi</cite> was set and 1 if <cite>-fo</cite> was set (int)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;b&quot;</span></code>: return 0 if <code class="docutils literal notranslate"><span class="pre">-bi</span></code> was set and 1 if <code class="docutils literal notranslate"><span class="pre">-bo</span></code> was set (int)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;f&quot;</span></code>: return 0 if <code class="docutils literal notranslate"><span class="pre">-fi</span></code> was set and 1 if <code class="docutils literal notranslate"><span class="pre">-fo</span></code> was set (int)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;h&quot;</span></code>: whether to delete existing header records (int)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;i&quot;</span></code>: number of input columns (int)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;o&quot;</span></code>: number of output columns (int)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;r&quot;</span></code>: registration type (int)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;t&quot;</span></code>: 2-element array for the transparency (float)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;:&quot;</span></code>: return 0 if <cite>-:i</cite> was set and 1 if <cite>-:o</cite> was set (int)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;:&quot;</span></code>: return 0 if <code class="docutils literal notranslate"><span class="pre">-:i</span></code> was set and 1 if <code class="docutils literal notranslate"><span class="pre">-:o</span></code> was set (int)</p></li>
 </ul>
 </p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-<span class="gp">... </span>    <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="s2">&quot;basemap&quot;</span><span class="p">,</span> <span class="s2">&quot;-R0/10/10/15 -JX5i/2.5i -Baf -Ve&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="s2">&quot;basemap&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;-R0/10/10/15&quot;</span><span class="p">,</span> <span class="s2">&quot;-JX5i/2.5i&quot;</span><span class="p">,</span> <span class="s2">&quot;-Baf&quot;</span><span class="p">,</span> <span class="s2">&quot;-Ve&quot;</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">... </span>    <span class="n">region</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">get_common</span><span class="p">(</span><span class="s2">&quot;R&quot;</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">projection</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">get_common</span><span class="p">(</span><span class="s2">&quot;J&quot;</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">timestamp</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">get_common</span><span class="p">(</span><span class="s2">&quot;U&quot;</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">verbose</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">get_common</span><span class="p">(</span><span class="s2">&quot;V&quot;</span><span class="p">)</span>
-<span class="gp">... </span>    <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="s2">&quot;plot&quot;</span><span class="p">,</span> <span class="s2">&quot;-T -Xw+1i -Yh-1i&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="s2">&quot;plot&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;-T&quot;</span><span class="p">,</span> <span class="s2">&quot;-Xw+1i&quot;</span><span class="p">,</span> <span class="s2">&quot;-Yh-1i&quot;</span><span class="p">])</span>
 <span class="gp">... </span>    <span class="n">xshift</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">get_common</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>  <span class="c1"># xshift/yshift are in inches</span>
 <span class="gp">... </span>    <span class="n">yshift</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">get_common</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">projection</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">xshift</span><span class="p">,</span> <span class="n">yshift</span><span class="p">)</span>
 <span class="go">[ 0. 10. 10. 15.] True False 3 6.0 1.5</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-<span class="gp">... </span>    <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="s2">&quot;basemap&quot;</span><span class="p">,</span> <span class="s2">&quot;-R0/10/10/15 -JX5i/2.5i -Baf&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="s2">&quot;basemap&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;-R0/10/10/15&quot;</span><span class="p">,</span> <span class="s2">&quot;-JX5i/2.5i&quot;</span><span class="p">,</span> <span class="s2">&quot;-Baf&quot;</span><span class="p">])</span>
 <span class="gp">... </span>    <span class="n">lib</span><span class="o">.</span><span class="n">get_common</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span>
 <span class="gt">Traceback (most recent call last):</span>
 <span class="c">...</span>
@@ -284,9 +291,9 @@ and <code class="docutils literal notranslate"><span class="pre">&quot;s&quot;</
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
       </span>
-      <span class="lastupdated">Last updated on May 01, 2024.
+      <span class="lastupdated">Last updated on Sep 05, 2024.
       </span></p>
   </div>
 

@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_images_grdgradient_shading.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -51,7 +51,7 @@ of each point.
  .. code-block:: none
 
     grdblend [NOTICE]: Remote data courtesy of GMT data server oceania [http://oceania.generic-mapping-tools.org]
-    grdblend [NOTICE]: SRTM15 Earth Relief v2.5.5 at 03x03 arc minutes reduced by Gaussian Cartesian filtering (15.7 km fullwidth) [Tozer et al., 2019].
+    grdblend [NOTICE]: SRTM15 Earth Relief v2.6 at 03x03 arc minutes reduced by Gaussian Cartesian filtering (15.7 km fullwidth) [Tozer et al., 2019].
     grdblend [NOTICE]:   -> Download 90x90 degree grid tile (earth_relief_03m_g): N00E000
 
 
@@ -110,7 +110,7 @@ of each point.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 3.747 seconds)
+   **Total running time of the script:** (0 minutes 3.476 seconds)
 
 
 .. _sphx_glr_download_gallery_images_grdgradient_shading.py:
@@ -126,6 +126,10 @@ of each point.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: grdgradient_shading.py <grdgradient_shading.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: grdgradient_shading.zip <grdgradient_shading.zip>`
 
 
 .. only:: html

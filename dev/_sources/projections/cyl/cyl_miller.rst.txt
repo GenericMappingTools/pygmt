@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_projections_cyl_cyl_miller.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -65,7 +65,7 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.238 seconds)
+   **Total running time of the script:** (0 minutes 0.233 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_miller.py:
@@ -81,6 +81,10 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: cyl_miller.py <cyl_miller.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: cyl_miller.zip <cyl_miller.zip>`
 
 
 .. only:: html

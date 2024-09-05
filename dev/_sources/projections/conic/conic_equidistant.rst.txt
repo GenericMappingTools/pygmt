@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_projections_conic_conic_equidistant.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -64,7 +64,7 @@ The figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.167 seconds)
+   **Total running time of the script:** (0 minutes 0.173 seconds)
 
 
 .. _sphx_glr_download_projections_conic_conic_equidistant.py:
@@ -80,6 +80,10 @@ The figure size is set with *scale* or *width*.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: conic_equidistant.py <conic_equidistant.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: conic_equidistant.zip <conic_equidistant.zip>`
 
 
 .. only:: html

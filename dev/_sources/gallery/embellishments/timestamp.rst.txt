@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_embellishments_timestamp.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -22,9 +22,9 @@ Timestamp
 =========
 
 The :meth:`pygmt.Figure.timestamp` method can draw the GMT timestamp logo on the plot.
-The timestamp will always be shown relative to the bottom-left corner of the plot. By
-default, the ``offset`` and ``justify`` parameters are set to ``("-54p", "-54p")``
-(x, y directions) and ``"BL"`` (bottom-left), respectively.
+The timestamp will always be shown relative to the Bottom Left (BL) corner of the plot.
+By default, the ``offset`` and ``justify`` parameters are set to ``("-54p", "-54p")``
+(x, y directions) and ``"BL"`` (Bottom Left), respectively.
 
 .. GENERATED FROM PYTHON SOURCE LINES 12-21
 
@@ -88,7 +88,7 @@ defined via the ``font`` parameter and the timestamp string format via ``timefmt
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.339 seconds)
+   **Total running time of the script:** (0 minutes 0.353 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_timestamp.py:
@@ -104,6 +104,10 @@ defined via the ``font`` parameter and the timestamp string format via ``timefmt
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: timestamp.py <timestamp.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: timestamp.zip <timestamp.zip>`
 
 
 .. only:: html

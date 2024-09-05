@@ -10,13 +10,14 @@
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=902da76c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=a51cd8ab" />
 
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
@@ -27,12 +28,12 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=b483e97e"></script>
-        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/documentation_options.js?v=aa3fe5bf"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
-        <script src="../../../_static/design-tabs.js?v=36754332"></script>
+        <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -100,12 +101,13 @@
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../team.html">PyGMT Team</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributors Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../maintenance.html">Maintainers Guide</a></li>
 </ul>
@@ -144,7 +146,6 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
-          <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
       <li class="breadcrumb-item active">pygmt.src.x2sys_cross</li>
     <li class="source-link">
         
@@ -164,13 +165,12 @@
 <span class="kn">import</span> <span class="nn">contextlib</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">packaging.version</span> <span class="kn">import</span> <span class="n">Version</span>
 <span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
 <span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTInvalidInput</span>
 <span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">GMTTempFile</span><span class="p">,</span>
     <span class="n">build_arg_list</span><span class="p">,</span>
     <span class="n">data_kind</span><span class="p">,</span>
     <span class="n">fmt_docstring</span><span class="p">,</span>
@@ -232,7 +232,9 @@
     <span class="n">Z</span><span class="o">=</span><span class="s2">&quot;trackvalues&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">x2sys_cross</span><span class="p">(</span><span class="n">tracks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">x2sys_cross</span><span class="p">(</span>
+    <span class="n">tracks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">outfile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate crossovers between track data files.</span>
 
@@ -264,10 +266,8 @@
 <span class="sd">        will also be looked for via $MGD77_HOME/mgd77_paths.txt and .gmt</span>
 <span class="sd">        files will be searched for via $GMT_SHAREDIR/mgg/gmtfile_paths).</span>
 
-<span class="sd">    outfile : str</span>
-<span class="sd">        Optional. The file name for the output ASCII txt file to store the</span>
-<span class="sd">        table in.</span>
-
+<span class="sd">    outfile</span>
+<span class="sd">        The file name for the output ASCII txt file to store the table in.</span>
 <span class="sd">    tag : str</span>
 <span class="sd">        Specify the x2sys TAG which identifies the attributes of this data</span>
 <span class="sd">        type.</span>
@@ -344,71 +344,77 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    crossover_errors : :class:`pandas.DataFrame` or None</span>
-<span class="sd">        Table containing crossover error information.</span>
-<span class="sd">        Return type depends on whether the ``outfile`` parameter is set:</span>
-
-<span class="sd">        - :class:`pandas.DataFrame` with (x, y, ..., etc) if ``outfile`` is not</span>
-<span class="sd">          set</span>
-<span class="sd">        - None if ``outfile`` is set (track output will be stored in the set in</span>
-<span class="sd">          ``outfile``)</span>
+<span class="sd">    crossover_errors</span>
+<span class="sd">        Table containing crossover error information. A :class:`pandas.DataFrame` object</span>
+<span class="sd">        is returned if ``outfile`` is not set, otherwise ``None`` is returned and output</span>
+<span class="sd">        will be stored in file set by ``outfile``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-        <span class="n">file_contexts</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">tracks</span><span class="p">:</span>
-            <span class="n">kind</span> <span class="o">=</span> <span class="n">data_kind</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
+    <span class="c1"># Determine output type based on &#39;outfile&#39; parameter</span>
+    <span class="n">output_type</span> <span class="o">=</span> <span class="s2">&quot;pandas&quot;</span> <span class="k">if</span> <span class="n">outfile</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;file&quot;</span>
+
+    <span class="n">file_contexts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">contextlib</span><span class="o">.</span><span class="n">AbstractContextManager</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">tracks</span><span class="p">:</span>
+        <span class="k">match</span> <span class="n">data_kind</span><span class="p">(</span><span class="n">track</span><span class="p">):</span>
+            <span class="k">case</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
                 <span class="n">file_contexts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">contextlib</span><span class="o">.</span><span class="n">nullcontext</span><span class="p">(</span><span class="n">track</span><span class="p">))</span>
-            <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;matrix&quot;</span><span class="p">:</span>
+            <span class="k">case</span> <span class="s2">&quot;matrix&quot;</span><span class="p">:</span>
                 <span class="c1"># find suffix (-E) of trackfiles used (e.g. xyz, csv, etc) from</span>
                 <span class="c1"># $X2SYS_HOME/TAGNAME/TAGNAME.tag file</span>
-                <span class="n">lastline</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;X2SYS_HOME&quot;</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">],</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">.tag&quot;</span><span class="p">)</span>
-                    <span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf8&quot;</span><span class="p">)</span>
-                    <span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-                    <span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                <span class="p">)</span>  <span class="c1"># e.g. &quot;-Dxyz -Etsv -I1/1&quot;</span>
+                <span class="n">tagfile</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;X2SYS_HOME&quot;</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">],</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">.tag&quot;</span>
+                <span class="p">)</span>
+                <span class="c1"># Last line is like &quot;-Dxyz -Etsv -I1/1&quot;</span>
+                <span class="n">lastline</span> <span class="o">=</span> <span class="n">tagfile</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf8&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
                 <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">lastline</span><span class="o">.</span><span class="n">split</span><span class="p">()):</span>  <span class="c1"># sort list alphabetically</span>
                     <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">&quot;-E&quot;</span><span class="p">,</span> <span class="s2">&quot;-D&quot;</span><span class="p">)):</span>  <span class="c1"># prefer -Etsv over -Dxyz</span>
                         <span class="n">suffix</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>  <span class="c1"># e.g. tsv (1st choice) or xyz (2nd choice)</span>
 
                 <span class="c1"># Save pandas.DataFrame track data to temporary file</span>
                 <span class="n">file_contexts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tempfile_from_dftrack</span><span class="p">(</span><span class="n">track</span><span class="o">=</span><span class="n">track</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">))</span>
-            <span class="k">else</span><span class="p">:</span>
+            <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unrecognized data type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">track</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="k">with</span> <span class="n">GMTTempFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmpfile</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_out</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;dataset&quot;</span><span class="p">,</span> <span class="n">fname</span><span class="o">=</span><span class="n">outfile</span><span class="p">)</span> <span class="k">as</span> <span class="n">vouttbl</span><span class="p">:</span>
             <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">ExitStack</span><span class="p">()</span> <span class="k">as</span> <span class="n">stack</span><span class="p">:</span>
                 <span class="n">fnames</span> <span class="o">=</span> <span class="p">[</span><span class="n">stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">file_contexts</span><span class="p">]</span>
-                <span class="k">if</span> <span class="n">outfile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">outfile</span> <span class="o">=</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span>
                 <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
                     <span class="n">module</span><span class="o">=</span><span class="s2">&quot;x2sys_cross&quot;</span><span class="p">,</span>
-                    <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">fnames</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">outfile</span><span class="p">),</span>
+                    <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">fnames</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">vouttbl</span><span class="p">),</span>
+                <span class="p">)</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_to_dataset</span><span class="p">(</span>
+                    <span class="n">vfname</span><span class="o">=</span><span class="n">vouttbl</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="n">output_type</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">2</span>
                 <span class="p">)</span>
 
-            <span class="c1"># Read temporary csv output to a pandas table</span>
-            <span class="k">if</span> <span class="n">outfile</span> <span class="o">==</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>  <span class="c1"># if outfile isn&#39;t set, return pd.DataFrame</span>
-                <span class="c1"># Read the tab-separated ASCII table</span>
-                <span class="n">date_format_kwarg</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="p">{</span><span class="s2">&quot;date_format&quot;</span><span class="p">:</span> <span class="s2">&quot;ISO8601&quot;</span><span class="p">}</span>
-                    <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;2.0.0&quot;</span><span class="p">)</span>
-                    <span class="k">else</span> <span class="p">{}</span>
-                <span class="p">)</span>
-                <span class="n">table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-                    <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-                    <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
-                    <span class="n">header</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>  <span class="c1"># Column names are on 2nd row</span>
-                    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span>  <span class="c1"># Skip the 3rd row with a &quot;&gt;&quot;</span>
-                    <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>  <span class="c1"># Datetimes on 3rd and 4th column</span>
-                    <span class="o">**</span><span class="n">date_format_kwarg</span><span class="p">,</span>  <span class="c1"># Parse dates in ISO8601 format on pandas&gt;=2</span>
-                <span class="p">)</span>
-                <span class="c1"># Remove the &quot;# &quot; from &quot;# x&quot; in the first column</span>
-                <span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">:]})</span>
-            <span class="k">elif</span> <span class="n">outfile</span> <span class="o">!=</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>  <span class="c1"># if outfile is set, output in outfile only</span>
-                <span class="n">table</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">result</span>
 
-    <span class="k">return</span> <span class="n">table</span></div>
+            <span class="c1"># Convert 3rd and 4th columns to datetime/timedelta for pandas output.</span>
+            <span class="c1"># These two columns have names &quot;t_1&quot;/&quot;t_2&quot; or &quot;i_1&quot;/&quot;i_2&quot;.</span>
+            <span class="c1"># &quot;t_&quot; means absolute datetimes and &quot;i_&quot; means dummy times.</span>
+            <span class="c1"># Internally, they are all represented as double-precision numbers in GMT,</span>
+            <span class="c1"># relative to TIME_EPOCH with the unit defined by TIME_UNIT.</span>
+            <span class="c1"># In GMT, TIME_UNIT can be &#39;y&#39; (year), &#39;o&#39; (month), &#39;w&#39; (week), &#39;d&#39; (day),</span>
+            <span class="c1"># &#39;h&#39; (hour), &#39;m&#39; (minute), &#39;s&#39; (second). Years are 365.2425 days and months</span>
+            <span class="c1"># are of equal length.</span>
+            <span class="c1"># pd.to_timedelta() supports unit of &#39;W&#39;/&#39;D&#39;/&#39;h&#39;/&#39;m&#39;/&#39;s&#39;/&#39;ms&#39;/&#39;us&#39;/&#39;ns&#39;.</span>
+            <span class="k">match</span> <span class="n">time_unit</span> <span class="o">:=</span> <span class="n">lib</span><span class="o">.</span><span class="n">get_default</span><span class="p">(</span><span class="s2">&quot;TIME_UNIT&quot;</span><span class="p">):</span>
+                <span class="k">case</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>
+                    <span class="n">unit</span> <span class="o">=</span> <span class="s2">&quot;s&quot;</span>
+                    <span class="n">scale</span> <span class="o">=</span> <span class="mf">365.2425</span> <span class="o">*</span> <span class="mf">86400.0</span>
+                <span class="k">case</span> <span class="s2">&quot;o&quot;</span><span class="p">:</span>
+                    <span class="n">unit</span> <span class="o">=</span> <span class="s2">&quot;s&quot;</span>
+                    <span class="n">scale</span> <span class="o">=</span> <span class="mf">365.2425</span> <span class="o">/</span> <span class="mf">12.0</span> <span class="o">*</span> <span class="mf">86400.0</span>
+                <span class="k">case</span> <span class="s2">&quot;w&quot;</span> <span class="o">|</span> <span class="s2">&quot;d&quot;</span> <span class="o">|</span> <span class="s2">&quot;h&quot;</span> <span class="o">|</span> <span class="s2">&quot;m&quot;</span> <span class="o">|</span> <span class="s2">&quot;s&quot;</span><span class="p">:</span>
+                    <span class="n">unit</span> <span class="o">=</span> <span class="n">time_unit</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">if</span> <span class="n">time_unit</span> <span class="ow">in</span> <span class="s2">&quot;wd&quot;</span> <span class="k">else</span> <span class="n">time_unit</span>
+                    <span class="n">scale</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+            <span class="n">columns</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">columns</span><span class="p">]</span> <span class="o">*=</span> <span class="n">scale</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">columns</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="n">columns</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="n">unit</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;t&quot;</span><span class="p">:</span>  <span class="c1"># &quot;t&quot; or &quot;i&quot;:</span>
+                <span class="n">result</span><span class="p">[</span><span class="n">columns</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">lib</span><span class="o">.</span><span class="n">get_default</span><span class="p">(</span><span class="s2">&quot;TIME_EPOCH&quot;</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">result</span></div>
 
 </pre></div>
 
@@ -421,9 +427,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
       </span>
-      <span class="lastupdated">Last updated on May 01, 2024.
+      <span class="lastupdated">Last updated on Sep 05, 2024.
       </span></p>
   </div>
 

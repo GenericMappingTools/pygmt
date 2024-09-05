@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_lines_line_segment_ends.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -110,7 +110,7 @@ appearance can be set via the GMT default parameters :gmt-term:`PS_LINE_CAP`
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.221 seconds)
+   **Total running time of the script:** (0 minutes 0.214 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_line_segment_ends.py:
@@ -126,6 +126,10 @@ appearance can be set via the GMT default parameters :gmt-term:`PS_LINE_CAP`
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: line_segment_ends.py <line_segment_ends.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: line_segment_ends.zip <line_segment_ends.zip>`
 
 
 .. only:: html

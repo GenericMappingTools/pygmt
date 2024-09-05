@@ -10,13 +10,14 @@
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=902da76c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=a51cd8ab" />
 
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
@@ -27,12 +28,12 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=b483e97e"></script>
-        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/documentation_options.js?v=aa3fe5bf"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
-        <script src="../../../_static/design-tabs.js?v=36754332"></script>
+        <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -100,12 +101,13 @@
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../team.html">PyGMT Team</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributors Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../maintenance.html">Maintainers Guide</a></li>
 </ul>
@@ -144,7 +146,6 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
-          <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
       <li class="breadcrumb-item active">pygmt.clib.session</li>
     <li class="source-link">
         
@@ -169,6 +170,7 @@
 <span class="kn">import</span> <span class="nn">pathlib</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">Sequence</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -183,17 +185,12 @@
     <span class="n">strings_to_ctypes_array</span><span class="p">,</span>
     <span class="n">vectors_to_arrays</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">pygmt.clib.loading</span> <span class="kn">import</span> <span class="n">load_libgmt</span>
-<span class="kn">from</span> <span class="nn">pygmt.datatypes</span> <span class="kn">import</span> <span class="n">_GMT_DATASET</span><span class="p">,</span> <span class="n">_GMT_GRID</span>
-<span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">GMTCLibError</span><span class="p">,</span>
-    <span class="n">GMTCLibNoSessionError</span><span class="p">,</span>
-    <span class="n">GMTInvalidInput</span><span class="p">,</span>
-    <span class="n">GMTVersionError</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">pygmt.clib.loading</span> <span class="kn">import</span> <span class="n">get_gmt_version</span><span class="p">,</span> <span class="n">load_libgmt</span>
+<span class="kn">from</span> <span class="nn">pygmt.datatypes</span> <span class="kn">import</span> <span class="n">_GMT_DATASET</span><span class="p">,</span> <span class="n">_GMT_GRID</span><span class="p">,</span> <span class="n">_GMT_IMAGE</span>
+<span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTCLibError</span><span class="p">,</span> <span class="n">GMTCLibNoSessionError</span><span class="p">,</span> <span class="n">GMTInvalidInput</span>
 <span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_validate_data_input</span><span class="p">,</span>
     <span class="n">data_kind</span><span class="p">,</span>
-    <span class="n">fmt_docstring</span><span class="p">,</span>
     <span class="n">tempfile_from_geojson</span><span class="p">,</span>
     <span class="n">tempfile_from_image</span><span class="p">,</span>
 <span class="p">)</span>
@@ -251,9 +248,12 @@
     <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">:</span> <span class="s2">&quot;GMT_DATETIME&quot;</span><span class="p">,</span>
     <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">:</span> <span class="s2">&quot;GMT_LONG&quot;</span><span class="p">,</span>
 <span class="p">}</span>
+<span class="c1"># Dictionary for storing the values of GMT constants.</span>
+<span class="n">GMT_CONSTANTS</span> <span class="o">=</span> <span class="p">{}</span>
 
 <span class="c1"># Load the GMT library outside the Session class to avoid repeated loading.</span>
 <span class="n">_libgmt</span> <span class="o">=</span> <span class="n">load_libgmt</span><span class="p">()</span>
+<span class="n">__gmt_version__</span> <span class="o">=</span> <span class="n">get_gmt_version</span><span class="p">(</span><span class="n">_libgmt</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="Session">
@@ -307,14 +307,11 @@
 <span class="sd">    ...         with GMTTempFile() as fout:</span>
 <span class="sd">    ...             # Call the grdinfo module with the virtual file as input</span>
 <span class="sd">    ...             # and the temp file as output.</span>
-<span class="sd">    ...             ses.call_module(&quot;grdinfo&quot;, f&quot;{fin} -C -&gt;{fout.name}&quot;)</span>
+<span class="sd">    ...             ses.call_module(&quot;grdinfo&quot;, [fin, &quot;-C&quot;, f&quot;-&gt;{fout.name}&quot;])</span>
 <span class="sd">    ...             # Read the contents of the temp file before it&#39;s deleted.</span>
 <span class="sd">    ...             print(fout.read().strip())</span>
 <span class="sd">    -55 -47 -24 -10 190 981 1 1 8 14 1 1</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># The minimum supported GMT version.</span>
-    <span class="n">required_version</span> <span class="o">=</span> <span class="s2">&quot;6.3.0&quot;</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">session_pointer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -372,27 +369,11 @@
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.__enter__.html#pygmt.clib.Session.__enter__">[docs]</a>
     <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Create a GMT API session and check the libgmt version.</span>
+<span class="sd">        Create a GMT API session.</span>
 
 <span class="sd">        Calls :meth:`pygmt.clib.Session.create`.</span>
-
-<span class="sd">        Raises</span>
-<span class="sd">        ------</span>
-<span class="sd">        GMTVersionError</span>
-<span class="sd">            If the version reported by libgmt is less than</span>
-<span class="sd">            ``Session.required_version``. Will destroy the session before</span>
-<span class="sd">            raising the exception.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;pygmt-session&quot;</span><span class="p">)</span>
-        <span class="c1"># Need to store the version info because &#39;get_default&#39; won&#39;t work after</span>
-        <span class="c1"># the session is destroyed.</span>
-        <span class="n">version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">version</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">required_version</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
-            <span class="k">raise</span> <span class="n">GMTVersionError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Using an incompatible GMT version </span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">. &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;Must be equal or newer than </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">required_version</span><span class="si">}</span><span class="s2">.&quot;</span>
-            <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
 
@@ -409,23 +390,42 @@
 
 <div class="viewcode-block" id="Session.__getitem__">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.__getitem__.html#pygmt.clib.Session.__getitem__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the value of a GMT constant (C enum) from gmt_resources.h.</span>
-
-<span class="sd">        Used to set configuration values for other API calls. Wraps</span>
-<span class="sd">        ``GMT_Get_Enum``.</span>
+<span class="sd">        Get the value of a GMT constant.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        name : str</span>
-<span class="sd">            The name of the constant (e.g., ``&quot;GMT_SESSION_EXTERNAL&quot;``)</span>
+<span class="sd">        name</span>
+<span class="sd">            The name of the constant (e.g., ``&quot;GMT_SESSION_EXTERNAL&quot;``).</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        constant : int</span>
-<span class="sd">            Integer value of the constant. Do not rely on this value because it</span>
-<span class="sd">            might change.</span>
+<span class="sd">        value</span>
+<span class="sd">            Integer value of the constant. Do not rely on this value because it might</span>
+<span class="sd">            change.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">GMT_CONSTANTS</span><span class="p">:</span>
+            <span class="n">GMT_CONSTANTS</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_enum</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">GMT_CONSTANTS</span><span class="p">[</span><span class="n">name</span><span class="p">]</span></div>
+
+
+    <span class="k">def</span> <span class="nf">get_enum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the value of a GMT constant (C enum) from ``gmt_resources.h``.</span>
+
+<span class="sd">        Used to set configuration values for other API calls. Wraps ``GMT_Get_Enum``.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name</span>
+<span class="sd">            The name of the constant (e.g., ``&quot;GMT_SESSION_EXTERNAL&quot;``).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        value</span>
+<span class="sd">            Integer value of the constant. Do not rely on this value because it might</span>
+<span class="sd">            change.</span>
 
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
@@ -436,20 +436,16 @@
             <span class="s2">&quot;GMT_Get_Enum&quot;</span><span class="p">,</span> <span class="n">argtypes</span><span class="o">=</span><span class="p">[</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">ctp</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">],</span> <span class="n">restype</span><span class="o">=</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_int</span>
         <span class="p">)</span>
 
-        <span class="c1"># The C lib introduced the void API pointer to GMT_Get_Enum so that</span>
-        <span class="c1"># it&#39;s consistent with other functions. It doesn&#39;t use the pointer so</span>
-        <span class="c1"># we can pass in None (NULL pointer). We can&#39;t give it the actual</span>
-        <span class="c1"># pointer because we need to call GMT_Get_Enum when creating a new API</span>
-        <span class="c1"># session pointer (chicken-and-egg type of thing).</span>
+        <span class="c1"># The C library introduced the void API pointer to GMT_Get_Enum so that it&#39;s</span>
+        <span class="c1"># consistent with other functions. It doesn&#39;t use the pointer so we can pass</span>
+        <span class="c1"># in None (NULL pointer). We can&#39;t give it the actual pointer because we need</span>
+        <span class="c1"># to call GMT_Get_Enum when creating a new API session pointer (chicken-and-egg</span>
+        <span class="c1"># type of thing).</span>
         <span class="n">session</span> <span class="o">=</span> <span class="kc">None</span>
-
         <span class="n">value</span> <span class="o">=</span> <span class="n">c_get_enum</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">name</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
-
         <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="o">-</span><span class="mi">99999</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Constant &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; doesn&#39;t exist in libgmt.&quot;</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">value</span></div>
-
+        <span class="k">return</span> <span class="n">value</span>
 
 <div class="viewcode-block" id="Session.get_libgmt_func">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.get_libgmt_func.html#pygmt.clib.Session.get_libgmt_func">[docs]</a>
@@ -533,7 +529,7 @@
             <span class="c1"># destroyed</span>
             <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span>
                 <span class="s2">&quot;Failed to create a GMT API session: There is a currently open session.&quot;</span>
-                <span class="s2">&quot; Must destroy it fist.&quot;</span>
+                <span class="s2">&quot; Must destroy it first.&quot;</span>
             <span class="p">)</span>
         <span class="c1"># If the exception is raised, this means that there is no open session</span>
         <span class="c1"># and we&#39;re free to create a new one.</span>
@@ -559,10 +555,14 @@
 <span class="sd">            We&#39;ll capture the messages and print them to stderr so that they will show</span>
 <span class="sd">            up on the Jupyter notebook.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="c1"># Have to use try..except due to upstream GMT bug in GMT &lt;= 6.5.0.</span>
+            <span class="c1"># See https://github.com/GenericMappingTools/pygmt/issues/3205.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">UnicodeDecodeError</span><span class="p">:</span>
+                <span class="k">return</span> <span class="mi">0</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_error_log</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-            <span class="c1"># flush to make sure the messages are printed even if we have a</span>
-            <span class="c1"># crash.</span>
+            <span class="c1"># Flush to make sure the messages are printed even if we have a crash.</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># noqa: T201</span>
             <span class="k">return</span> <span class="mi">0</span>
 
@@ -634,11 +634,12 @@
 
 <div class="viewcode-block" id="Session.get_default">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.get_default.html#pygmt.clib.Session.get_default">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the value of a GMT default parameter (library version, paths, etc).</span>
+<span class="sd">        Get the value of a GMT configuration parameter or a GMT API parameter.</span>
 
-<span class="sd">        Possible default parameter names include:</span>
+<span class="sd">        In addition to the long list of GMT configuration parameters, the following API</span>
+<span class="sd">        parameter names are also supported:</span>
 
 <span class="sd">        * ``&quot;API_VERSION&quot;``: The GMT API version</span>
 <span class="sd">        * ``&quot;API_PAD&quot;``: The grid padding setting</span>
@@ -654,13 +655,14 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        name : str</span>
-<span class="sd">            The name of the default parameter (e.g., ``&quot;API_VERSION&quot;``)</span>
+<span class="sd">        name</span>
+<span class="sd">            The name of the GMT configuration parameter (e.g., ``&quot;PROJ_LENGTH_UNIT&quot;``)</span>
+<span class="sd">            or a GMT API parameter (e.g., ``&quot;API_VERSION&quot;``).</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        value : str</span>
-<span class="sd">            The default value for the parameter.</span>
+<span class="sd">        value</span>
+<span class="sd">            The current value for the parameter.</span>
 
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
@@ -674,73 +676,69 @@
         <span class="p">)</span>
 
         <span class="c1"># Make a string buffer to get a return value</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="n">ctp</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
-
+        <span class="n">value</span> <span class="o">=</span> <span class="n">ctp</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span>
         <span class="n">status</span> <span class="o">=</span> <span class="n">c_get_default</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span><span class="p">,</span> <span class="n">name</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">value</span><span class="p">)</span>
-
         <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Error getting default value for &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; (error code </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">).&quot;</span>
-            <span class="p">)</span>
-
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Error getting value for &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; (error code </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">).&quot;</span>
+            <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Session.get_common">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.get_common.html#pygmt.clib.Session.get_common">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_common</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">option</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_common</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">option</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Inquire if a GMT common option has been set and return its current value if</span>
 <span class="sd">        possible.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        option : str</span>
-<span class="sd">            The GMT common option to check. Valid options are ``&quot;B&quot;``, ``&quot;I&quot;``,</span>
-<span class="sd">            ``&quot;J&quot;``, ``&quot;R&quot;``, ``&quot;U&quot;``, ``&quot;V&quot;``, ``&quot;X&quot;``, ``&quot;Y&quot;``, ``&quot;a&quot;``,</span>
-<span class="sd">            ``&quot;b&quot;``, ``&quot;f&quot;``, ``&quot;g&quot;``, ``&quot;h&quot;``, ``&quot;i&quot;``, ``&quot;n&quot;``, ``&quot;o&quot;``,</span>
-<span class="sd">            ``&quot;p&quot;``, ``&quot;r&quot;``, ``&quot;s&quot;``, ``&quot;t&quot;``, and ``&quot;:&quot;``.</span>
+<span class="sd">        option</span>
+<span class="sd">            The GMT common option to check. Valid options are ``&quot;B&quot;``, ``&quot;I&quot;``, ``&quot;J&quot;``,</span>
+<span class="sd">            ``&quot;R&quot;``, ``&quot;U&quot;``, ``&quot;V&quot;``, ``&quot;X&quot;``, ``&quot;Y&quot;``, ``&quot;a&quot;``, ``&quot;b&quot;``, ``&quot;f&quot;``,</span>
+<span class="sd">            ``&quot;g&quot;``, ``&quot;h&quot;``, ``&quot;i&quot;``, ``&quot;n&quot;``, ``&quot;o&quot;``, ``&quot;p&quot;``, ``&quot;r&quot;``, ``&quot;s&quot;``,</span>
+<span class="sd">            ``&quot;t&quot;``, and ``&quot;:&quot;``.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        value : bool, int, float, or numpy.ndarray</span>
-<span class="sd">            Whether the option was set or its value.</span>
+<span class="sd">        value</span>
+<span class="sd">            Whether the option was set or its value. If the option was not set, return</span>
+<span class="sd">            ``False``. Otherwise, the return value depends on the choice of the option.</span>
 
-<span class="sd">            If the option was not set, return ``False``. Otherwise,</span>
-<span class="sd">            the return value depends on the choice of the option.</span>
-
-<span class="sd">            - options ``&quot;B&quot;``, ``&quot;J&quot;``, ``&quot;U&quot;``, ``&quot;g&quot;``, ``&quot;n&quot;``, ``&quot;p&quot;``,</span>
-<span class="sd">              and ``&quot;s&quot;``: return ``True`` if set, else ``False`` (bool)</span>
+<span class="sd">            - options ``&quot;B&quot;``, ``&quot;J&quot;``, ``&quot;U&quot;``, ``&quot;g&quot;``, ``&quot;n&quot;``, ``&quot;p&quot;``, and ``&quot;s&quot;``:</span>
+<span class="sd">              return ``True`` if set, else ``False`` (bool)</span>
 <span class="sd">            - ``&quot;I&quot;``: 2-element array for the increments (float)</span>
 <span class="sd">            - ``&quot;R&quot;``: 4-element array for the region (float)</span>
 <span class="sd">            - ``&quot;V&quot;``: the verbose level (int)</span>
 <span class="sd">            - ``&quot;X&quot;``: the xshift (float)</span>
 <span class="sd">            - ``&quot;Y&quot;``: the yshift (float)</span>
 <span class="sd">            - ``&quot;a&quot;``: geometry of the dataset (int)</span>
-<span class="sd">            - ``&quot;b&quot;``: return 0 if `-bi` was set and 1 if `-bo` was set (int)</span>
-<span class="sd">            - ``&quot;f&quot;``: return 0 if `-fi` was set and 1 if `-fo` was set (int)</span>
+<span class="sd">            - ``&quot;b&quot;``: return 0 if ``-bi`` was set and 1 if ``-bo`` was set (int)</span>
+<span class="sd">            - ``&quot;f&quot;``: return 0 if ``-fi`` was set and 1 if ``-fo`` was set (int)</span>
 <span class="sd">            - ``&quot;h&quot;``: whether to delete existing header records (int)</span>
 <span class="sd">            - ``&quot;i&quot;``: number of input columns (int)</span>
 <span class="sd">            - ``&quot;o&quot;``: number of output columns (int)</span>
 <span class="sd">            - ``&quot;r&quot;``: registration type (int)</span>
 <span class="sd">            - ``&quot;t&quot;``: 2-element array for the transparency (float)</span>
-<span class="sd">            - ``&quot;:&quot;``: return 0 if `-:i` was set and 1 if `-:o` was set (int)</span>
+<span class="sd">            - ``&quot;:&quot;``: return 0 if ``-:i`` was set and 1 if ``-:o`` was set (int)</span>
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
 <span class="sd">        &gt;&gt;&gt; with Session() as lib:</span>
-<span class="sd">        ...     lib.call_module(&quot;basemap&quot;, &quot;-R0/10/10/15 -JX5i/2.5i -Baf -Ve&quot;)</span>
+<span class="sd">        ...     lib.call_module(</span>
+<span class="sd">        ...         &quot;basemap&quot;, [&quot;-R0/10/10/15&quot;, &quot;-JX5i/2.5i&quot;, &quot;-Baf&quot;, &quot;-Ve&quot;]</span>
+<span class="sd">        ...     )</span>
 <span class="sd">        ...     region = lib.get_common(&quot;R&quot;)</span>
 <span class="sd">        ...     projection = lib.get_common(&quot;J&quot;)</span>
 <span class="sd">        ...     timestamp = lib.get_common(&quot;U&quot;)</span>
 <span class="sd">        ...     verbose = lib.get_common(&quot;V&quot;)</span>
-<span class="sd">        ...     lib.call_module(&quot;plot&quot;, &quot;-T -Xw+1i -Yh-1i&quot;)</span>
+<span class="sd">        ...     lib.call_module(&quot;plot&quot;, [&quot;-T&quot;, &quot;-Xw+1i&quot;, &quot;-Yh-1i&quot;])</span>
 <span class="sd">        ...     xshift = lib.get_common(&quot;X&quot;)  # xshift/yshift are in inches</span>
 <span class="sd">        ...     yshift = lib.get_common(&quot;Y&quot;)</span>
 <span class="sd">        &gt;&gt;&gt; print(region, projection, timestamp, verbose, xshift, yshift)</span>
 <span class="sd">        [ 0. 10. 10. 15.] True False 3 6.0 1.5</span>
 <span class="sd">        &gt;&gt;&gt; with Session() as lib:</span>
-<span class="sd">        ...     lib.call_module(&quot;basemap&quot;, &quot;-R0/10/10/15 -JX5i/2.5i -Baf&quot;)</span>
+<span class="sd">        ...     lib.call_module(&quot;basemap&quot;, [&quot;-R0/10/10/15&quot;, &quot;-JX5i/2.5i&quot;, &quot;-Baf&quot;])</span>
 <span class="sd">        ...     lib.get_common(&quot;A&quot;)</span>
 <span class="sd">        Traceback (most recent call last):</span>
 <span class="sd">        ...</span>
@@ -754,28 +752,28 @@
             <span class="n">argtypes</span><span class="o">=</span><span class="p">[</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">ctp</span><span class="o">.</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">ctp</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_double</span><span class="p">)],</span>
             <span class="n">restype</span><span class="o">=</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_int</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>  <span class="c1"># numpy array to store the value of the option</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>  <span class="c1"># numpy array to store the value of the option</span>
         <span class="n">status</span> <span class="o">=</span> <span class="n">c_get_common</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span><span class="p">,</span>
             <span class="nb">ord</span><span class="p">(</span><span class="n">option</span><span class="p">),</span>
             <span class="n">value</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctp</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_double</span><span class="p">)),</span>
         <span class="p">)</span>
 
-        <span class="c1"># GMT_NOTSET (-1) means the option is not set</span>
-        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;GMT_NOTSET&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;GMT_NOTSET&quot;</span><span class="p">]:</span>  <span class="c1"># GMT_NOTSET (-1) means the option is not set</span>
             <span class="k">return</span> <span class="kc">False</span>
-        <span class="c1"># option is set and no other value is returned</span>
-        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># Option is set and no other value is returned.</span>
             <span class="k">return</span> <span class="kc">True</span>
-        <span class="c1"># option is set and option values (in double type) are returned via the</span>
-        <span class="c1"># &#39;value&#39; array. &#39;status&#39; is number of valid values in the array.</span>
-        <span class="k">if</span> <span class="n">option</span> <span class="ow">in</span> <span class="s2">&quot;IRt&quot;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">value</span><span class="p">[:</span><span class="n">status</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">option</span> <span class="ow">in</span> <span class="s2">&quot;XY&quot;</span><span class="p">:</span>  <span class="c1"># only one valid element in the array</span>
-            <span class="k">return</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="c1"># option is set and the option value (in integer type) is returned via</span>
-        <span class="c1"># the function return value (i.e., &#39;status&#39;)</span>
-        <span class="k">return</span> <span class="n">status</span></div>
+
+        <span class="c1"># Otherwise, option is set and values are returned.</span>
+        <span class="k">match</span> <span class="n">option</span><span class="p">:</span>
+            <span class="k">case</span> <span class="s2">&quot;I&quot;</span> <span class="o">|</span> <span class="s2">&quot;R&quot;</span> <span class="o">|</span> <span class="s2">&quot;t&quot;</span><span class="p">:</span>
+                <span class="c1"># Option values (in double type) are returned via the &#39;value&#39; array.</span>
+                <span class="c1"># &#39;status&#39; is number of valid values in the array.</span>
+                <span class="k">return</span> <span class="n">value</span><span class="p">[:</span><span class="n">status</span><span class="p">]</span>
+            <span class="k">case</span> <span class="s2">&quot;X&quot;</span> <span class="o">|</span> <span class="s2">&quot;Y&quot;</span><span class="p">:</span>  <span class="c1"># Only one valid element in the array.</span>
+                <span class="k">return</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>  <span class="c1"># &#39;status&#39; is the option value (in integer type).</span>
+                <span class="k">return</span> <span class="n">status</span></div>
 
 
 <div class="viewcode-block" id="Session.call_module">
@@ -1121,7 +1119,7 @@
         <span class="p">)</span>
 
         <span class="n">gmt_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_dtype_and_dim</span><span class="p">(</span><span class="n">vector</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">gmt_type</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;GMT_TEXT&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;GMT_DATETIME&quot;</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="n">gmt_type</span> <span class="ow">in</span> <span class="p">{</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;GMT_TEXT&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;GMT_DATETIME&quot;</span><span class="p">]}:</span>
             <span class="k">if</span> <span class="n">gmt_type</span> <span class="o">==</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;GMT_DATETIME&quot;</span><span class="p">]:</span>
                 <span class="n">vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime_as_string</span><span class="p">(</span><span class="n">array_to_datetime</span><span class="p">(</span><span class="n">vector</span><span class="p">))</span>
             <span class="n">vector_pointer</span> <span class="o">=</span> <span class="n">strings_to_ctypes_array</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span>
@@ -1250,6 +1248,103 @@
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to put matrix of type </span><span class="si">{</span><span class="n">matrix</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Session.read_data">
+<a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.read_data.html#pygmt.clib.Session.read_data">[docs]</a>
+    <span class="k">def</span> <span class="nf">read_data</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">infile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">kind</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;dataset&quot;</span><span class="p">,</span> <span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">],</span>
+        <span class="n">family</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">geometry</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;GMT_READ_NORMAL&quot;</span><span class="p">,</span>
+        <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Read a data file into a GMT data container.</span>
+
+<span class="sd">        Wraps ``GMT_Read_Data`` but only allows reading from a file. The function</span>
+<span class="sd">        definition is different from the original C API function.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        infile</span>
+<span class="sd">            The input file name.</span>
+<span class="sd">        kind</span>
+<span class="sd">            The data kind of the input file. Valid values are ``&quot;dataset&quot;``, ``&quot;grid&quot;``</span>
+<span class="sd">            and ``&quot;image&quot;``.</span>
+<span class="sd">        family</span>
+<span class="sd">            A valid GMT data family name (e.g., ``&quot;GMT_IS_DATASET&quot;``). See the</span>
+<span class="sd">            ``FAMILIES`` attribute for valid names. If ``None``, will determine the data</span>
+<span class="sd">            family from the ``kind`` parameter.</span>
+<span class="sd">        geometry</span>
+<span class="sd">            A valid GMT data geometry name (e.g., ``&quot;GMT_IS_POINT&quot;``). See the</span>
+<span class="sd">            ``GEOMETRIES`` attribute for valid names. If ``None``, will determine the</span>
+<span class="sd">            data geometry from the ``kind`` parameter.</span>
+<span class="sd">        mode</span>
+<span class="sd">            How the data is to be read from the file. This option varies depending on</span>
+<span class="sd">            the given family. See the</span>
+<span class="sd">            :gmt-docs:`GMT API documentation &lt;devdocs/api.html#import-from-a-file-stream-or-handle&gt;`</span>
+<span class="sd">            for details. Default is ``GMT_READ_NORMAL`` which corresponds to the default</span>
+<span class="sd">            read mode value of 0 in the ``GMT_enum_read`` enum.</span>
+<span class="sd">        region</span>
+<span class="sd">            Subregion of the data, in the form of [xmin, xmax, ymin, ymax, zmin, zmax].</span>
+<span class="sd">            If ``None``, the whole data is read.</span>
+<span class="sd">        data</span>
+<span class="sd">            ``None`` or the pointer returned by this function after a first call. It&#39;s</span>
+<span class="sd">            useful when reading grids/images/cubes in two steps (get a grid/image/cube</span>
+<span class="sd">            structure with a header, then read the data).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Pointer to the data container, or ``None`` if there were errors.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        GMTCLibError</span>
+<span class="sd">            If the GMT API function fails to read the data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># noqa: W505</span>
+        <span class="n">c_read_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_libgmt_func</span><span class="p">(</span>
+            <span class="s2">&quot;GMT_Read_Data&quot;</span><span class="p">,</span>
+            <span class="n">argtypes</span><span class="o">=</span><span class="p">[</span>
+                <span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span>  <span class="c1"># V_API</span>
+                <span class="n">ctp</span><span class="o">.</span><span class="n">c_uint</span><span class="p">,</span>  <span class="c1"># family</span>
+                <span class="n">ctp</span><span class="o">.</span><span class="n">c_uint</span><span class="p">,</span>  <span class="c1"># method</span>
+                <span class="n">ctp</span><span class="o">.</span><span class="n">c_uint</span><span class="p">,</span>  <span class="c1"># geometry</span>
+                <span class="n">ctp</span><span class="o">.</span><span class="n">c_uint</span><span class="p">,</span>  <span class="c1"># mode</span>
+                <span class="n">ctp</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_double</span><span class="p">),</span>  <span class="c1"># wesn</span>
+                <span class="n">ctp</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span>  <span class="c1"># infile</span>
+                <span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span>  <span class="c1"># data</span>
+            <span class="p">],</span>
+            <span class="n">restype</span><span class="o">=</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span>  <span class="c1"># data_ptr</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Determine the family, geometry and data container from kind</span>
+        <span class="n">_family</span><span class="p">,</span> <span class="n">_geometry</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;dataset&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;GMT_IS_DATASET&quot;</span><span class="p">,</span> <span class="s2">&quot;GMT_IS_PLP&quot;</span><span class="p">,</span> <span class="n">_GMT_DATASET</span><span class="p">),</span>
+            <span class="s2">&quot;grid&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;GMT_IS_GRID&quot;</span><span class="p">,</span> <span class="s2">&quot;GMT_IS_SURFACE&quot;</span><span class="p">,</span> <span class="n">_GMT_GRID</span><span class="p">),</span>
+            <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;GMT_IS_IMAGE&quot;</span><span class="p">,</span> <span class="s2">&quot;GMT_IS_SURFACE&quot;</span><span class="p">,</span> <span class="n">_GMT_IMAGE</span><span class="p">),</span>
+        <span class="p">}[</span><span class="n">kind</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">family</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">family</span> <span class="o">=</span> <span class="n">_family</span>
+        <span class="k">if</span> <span class="n">geometry</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">geometry</span> <span class="o">=</span> <span class="n">_geometry</span>
+
+        <span class="n">data_ptr</span> <span class="o">=</span> <span class="n">c_read_data</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span><span class="p">,</span>
+            <span class="bp">self</span><span class="p">[</span><span class="n">family</span><span class="p">],</span>
+            <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;GMT_IS_FILE&quot;</span><span class="p">],</span>  <span class="c1"># Reading from a file</span>
+            <span class="bp">self</span><span class="p">[</span><span class="n">geometry</span><span class="p">],</span>
+            <span class="bp">self</span><span class="p">[</span><span class="n">mode</span><span class="p">],</span>
+            <span class="n">sequence_to_ctypes_array</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">ctp</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+            <span class="n">infile</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span>
+            <span class="n">data</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">data_ptr</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to read dataset from &#39;</span><span class="si">{</span><span class="n">infile</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ctp</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">data_ptr</span><span class="p">,</span> <span class="n">ctp</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">dtype</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="Session.write_data">
@@ -1387,8 +1482,7 @@
 <span class="sd">        ...     with lib.open_virtualfile(*vfargs) as vfile:</span>
 <span class="sd">        ...         # Send the output to a temp file so that we can read it</span>
 <span class="sd">        ...         with GMTTempFile() as ofile:</span>
-<span class="sd">        ...             args = f&quot;{vfile} -&gt;{ofile.name}&quot;</span>
-<span class="sd">        ...             lib.call_module(&quot;info&quot;, args)</span>
+<span class="sd">        ...             lib.call_module(&quot;info&quot;, [vfile, f&quot;-&gt;{ofile.name}&quot;])</span>
 <span class="sd">        ...             print(ofile.read().strip())</span>
 <span class="sd">        &lt;vector memory&gt;: N = 5 &lt;0/4&gt; &lt;5/9&gt;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1498,7 +1592,7 @@
 <span class="sd">        ...     with ses.virtualfile_from_vectors(x, y, z) as fin:</span>
 <span class="sd">        ...         # Send the output to a file so that we can read it</span>
 <span class="sd">        ...         with GMTTempFile() as fout:</span>
-<span class="sd">        ...             ses.call_module(&quot;info&quot;, f&quot;{fin} -&gt;{fout.name}&quot;)</span>
+<span class="sd">        ...             ses.call_module(&quot;info&quot;, [fin, f&quot;-&gt;{fout.name}&quot;])</span>
 <span class="sd">        ...             print(fout.read().strip())</span>
 <span class="sd">        &lt;vector memory&gt;: N = 3 &lt;1/3&gt; &lt;4/6&gt; &lt;7/9&gt;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1611,7 +1705,7 @@
 <span class="sd">        ...     with ses.virtualfile_from_matrix(data) as fin:</span>
 <span class="sd">        ...         # Send the output to a file so that we can read it</span>
 <span class="sd">        ...         with GMTTempFile() as fout:</span>
-<span class="sd">        ...             ses.call_module(&quot;info&quot;, f&quot;{fin} -&gt;{fout.name}&quot;)</span>
+<span class="sd">        ...             ses.call_module(&quot;info&quot;, [fin, f&quot;-&gt;{fout.name}&quot;])</span>
 <span class="sd">        ...             print(fout.read().strip())</span>
 <span class="sd">        &lt;matrix memory&gt;: N = 4 &lt;0/9&gt; &lt;1/10&gt; &lt;2/11&gt;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1694,8 +1788,9 @@
 <span class="sd">        ...     with ses.virtualfile_from_grid(data) as fin:</span>
 <span class="sd">        ...         # Send the output to a file so that we can read it</span>
 <span class="sd">        ...         with GMTTempFile() as fout:</span>
-<span class="sd">        ...             args = f&quot;{fin} -L0 -Cn -&gt;{fout.name}&quot;</span>
-<span class="sd">        ...             ses.call_module(&quot;grdinfo&quot;, args)</span>
+<span class="sd">        ...             ses.call_module(</span>
+<span class="sd">        ...                 &quot;grdinfo&quot;, [fin, &quot;-L0&quot;, &quot;-Cn&quot;, f&quot;-&gt;{fout.name}&quot;]</span>
+<span class="sd">        ...             )</span>
 <span class="sd">        ...             print(fout.read().strip())</span>
 <span class="sd">        -55 -47 -24 -10 190 981 1 1 8 14 1 1</span>
 <span class="sd">        &gt;&gt;&gt; # The output is: w e s n z0 z1 dx dy n_columns n_rows reg gtype</span>
@@ -1729,7 +1824,6 @@
 
 <div class="viewcode-block" id="Session.virtualfile_in">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.virtualfile_in.html#pygmt.clib.Session.virtualfile_in">[docs]</a>
-    <span class="nd">@fmt_docstring</span>
     <span class="k">def</span> <span class="nf">virtualfile_in</span><span class="p">(</span>  <span class="c1"># noqa: PLR0912</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">check_kind</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1790,12 +1884,19 @@
 <span class="sd">        ...     with ses.virtualfile_in(check_kind=&quot;vector&quot;, data=data) as fin:</span>
 <span class="sd">        ...         # Send the output to a file so that we can read it</span>
 <span class="sd">        ...         with GMTTempFile() as fout:</span>
-<span class="sd">        ...             ses.call_module(&quot;info&quot;, fin + &quot; -&gt;&quot; + fout.name)</span>
+<span class="sd">        ...             ses.call_module(&quot;info&quot;, [fin, f&quot;-&gt;{fout.name}&quot;])</span>
 <span class="sd">        ...             print(fout.read().strip())</span>
 <span class="sd">        &lt;vector memory&gt;: N = 3 &lt;7/9&gt; &lt;4/6&gt; &lt;1/3&gt;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">kind</span> <span class="o">=</span> <span class="n">data_kind</span><span class="p">(</span>
-            <span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">required_z</span><span class="o">=</span><span class="n">required_z</span><span class="p">,</span> <span class="n">required_data</span><span class="o">=</span><span class="n">required_data</span>
+        <span class="n">kind</span> <span class="o">=</span> <span class="n">data_kind</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="n">required_data</span><span class="p">)</span>
+        <span class="n">_validate_data_input</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
+            <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
+            <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span>
+            <span class="n">required_z</span><span class="o">=</span><span class="n">required_z</span><span class="p">,</span>
+            <span class="n">required_data</span><span class="o">=</span><span class="n">required_data</span><span class="p">,</span>
+            <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">check_kind</span><span class="p">:</span>
@@ -1824,7 +1925,7 @@
         <span class="p">}[</span><span class="n">kind</span><span class="p">]</span>
 
         <span class="c1"># Ensure the data is an iterable (Python list or tuple)</span>
-        <span class="k">if</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;geojson&quot;</span><span class="p">,</span> <span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="s2">&quot;arg&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;geojson&quot;</span><span class="p">,</span> <span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="s2">&quot;arg&quot;</span><span class="p">}:</span>
             <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;image&quot;</span> <span class="ow">and</span> <span class="n">data</span><span class="o">.</span><span class="n">dtype</span> <span class="o">!=</span> <span class="s2">&quot;uint8&quot;</span><span class="p">:</span>
                 <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
                     <span class="sa">f</span><span class="s2">&quot;Input image has dtype: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2"> which is unsupported, &quot;</span>
@@ -1862,15 +1963,53 @@
         <span class="k">return</span> <span class="n">file_context</span></div>
 
 
-    <span class="c1"># virtualfile_from_data was renamed to virtualfile_in since v0.12.0.</span>
-    <span class="n">virtualfile_from_data</span> <span class="o">=</span> <span class="n">virtualfile_in</span>
+<div class="viewcode-block" id="Session.virtualfile_from_data">
+<a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.virtualfile_from_data.html#pygmt.clib.Session.virtualfile_from_data">[docs]</a>
+    <span class="k">def</span> <span class="nf">virtualfile_from_data</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">check_kind</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_arrays</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">required_z</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">required_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Store any data inside a virtual file.</span>
+
+<span class="sd">        .. deprecated: 0.13.0</span>
+
+<span class="sd">           Will be removed in v0.15.0. Use :meth:`pygmt.clib.Session.virtualfile_in`</span>
+<span class="sd">           instead.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;API function &#39;Session.virtualfile_from_datae()&#39; has been deprecated since &quot;</span>
+            <span class="s2">&quot;v0.13.0 and will be removed in v0.15.0. Use &#39;Session.virtualfile_in()&#39; &quot;</span>
+            <span class="s2">&quot;instead.&quot;</span>
+        <span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span>
+            <span class="n">check_kind</span><span class="o">=</span><span class="n">check_kind</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
+            <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
+            <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span>
+            <span class="n">extra_arrays</span><span class="o">=</span><span class="n">extra_arrays</span><span class="p">,</span>
+            <span class="n">required_z</span><span class="o">=</span><span class="n">required_z</span><span class="p">,</span>
+            <span class="n">required_data</span><span class="o">=</span><span class="n">required_data</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="Session.virtualfile_out">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.virtualfile_out.html#pygmt.clib.Session.virtualfile_out">[docs]</a>
     <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
     <span class="k">def</span> <span class="nf">virtualfile_out</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;dataset&quot;</span><span class="p">,</span> <span class="s2">&quot;grid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;dataset&quot;</span><span class="p">,</span> <span class="n">fname</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">):</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">kind</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;dataset&quot;</span><span class="p">,</span> <span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;dataset&quot;</span><span class="p">,</span>
+        <span class="n">fname</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a virtual file or an actual file for storing output data.</span>
 
@@ -1882,15 +2021,15 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        kind</span>
-<span class="sd">            The data kind of the virtual file to create. Valid values are ``&quot;dataset&quot;``</span>
-<span class="sd">            and ``&quot;grid&quot;``. Ignored if ``fname`` is specified.</span>
+<span class="sd">            The data kind of the virtual file to create. Valid values are ``&quot;dataset&quot;``,</span>
+<span class="sd">            ``&quot;grid&quot;``, and ``&quot;image&quot;``. Ignored if ``fname`` is specified.</span>
 <span class="sd">        fname</span>
 <span class="sd">            The name of the actual file to write the output data. No virtual file will</span>
 <span class="sd">            be created.</span>
 
 <span class="sd">        Yields</span>
 <span class="sd">        ------</span>
-<span class="sd">        vfile : str</span>
+<span class="sd">        vfile</span>
 <span class="sd">            Name of the virtual file or the actual file.</span>
 
 <span class="sd">        Examples</span>
@@ -1907,7 +2046,7 @@
 <span class="sd">        ...     # Create a virtual file for storing the output table.</span>
 <span class="sd">        ...     with Session() as lib:</span>
 <span class="sd">        ...         with lib.virtualfile_out(kind=&quot;dataset&quot;) as vouttbl:</span>
-<span class="sd">        ...             lib.call_module(&quot;read&quot;, f&quot;{tmpfile.name} {vouttbl} -Td&quot;)</span>
+<span class="sd">        ...             lib.call_module(&quot;read&quot;, [tmpfile.name, vouttbl, &quot;-Td&quot;])</span>
 <span class="sd">        ...             ds = lib.read_virtualfile(vouttbl, kind=&quot;dataset&quot;)</span>
 <span class="sd">        ...             assert isinstance(ds.contents, _GMT_DATASET)</span>
 <span class="sd">        ...</span>
@@ -1915,7 +2054,7 @@
 <span class="sd">        ...     with Session() as lib:</span>
 <span class="sd">        ...         with lib.virtualfile_out(fname=tmpfile.name) as vouttbl:</span>
 <span class="sd">        ...             assert vouttbl == tmpfile.name</span>
-<span class="sd">        ...             lib.call_module(&quot;read&quot;, f&quot;{tmpfile.name} {vouttbl} -Td&quot;)</span>
+<span class="sd">        ...             lib.call_module(&quot;read&quot;, [tmpfile.name, vouttbl, &quot;-Td&quot;])</span>
 <span class="sd">        ...         line = Path(vouttbl).read_text()</span>
 <span class="sd">        ...         assert line == &quot;1\t2\t3\tTEXT\n&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1926,8 +2065,10 @@
             <span class="n">family</span><span class="p">,</span> <span class="n">geometry</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="s2">&quot;dataset&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;GMT_IS_DATASET&quot;</span><span class="p">,</span> <span class="s2">&quot;GMT_IS_PLP&quot;</span><span class="p">),</span>
                 <span class="s2">&quot;grid&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;GMT_IS_GRID&quot;</span><span class="p">,</span> <span class="s2">&quot;GMT_IS_SURFACE&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;GMT_IS_IMAGE&quot;</span><span class="p">,</span> <span class="s2">&quot;GMT_IS_SURFACE&quot;</span><span class="p">),</span>
             <span class="p">}[</span><span class="n">kind</span><span class="p">]</span>
-            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_virtualfile</span><span class="p">(</span><span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="s2">&quot;GMT_OUT&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">as</span> <span class="n">vfile</span><span class="p">:</span>
+            <span class="n">direction</span> <span class="o">=</span> <span class="s2">&quot;GMT_OUT|GMT_IS_REFERENCE&quot;</span> <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;image&quot;</span> <span class="k">else</span> <span class="s2">&quot;GMT_OUT&quot;</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_virtualfile</span><span class="p">(</span><span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">as</span> <span class="n">vfile</span><span class="p">:</span>
                 <span class="k">yield</span> <span class="n">vfile</span></div>
 
 
@@ -1976,7 +2117,14 @@
 <span class="sd">            Name of the virtual file to read.</span>
 <span class="sd">        kind</span>
 <span class="sd">            Cast the data into a GMT data container. Valid values are ``&quot;dataset&quot;``,</span>
-<span class="sd">            ``&quot;grid&quot;`` and ``None``. If ``None``, will return a ctypes void pointer.</span>
+<span class="sd">            ``&quot;grid&quot;``, ``&quot;image&quot;`` and ``None``. If ``None``, will return a ctypes void</span>
+<span class="sd">            pointer.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        pointer</span>
+<span class="sd">            Pointer to the GMT data container. If ``kind`` is ``None``, returns a ctypes</span>
+<span class="sd">            void pointer instead.</span>
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
@@ -1990,7 +2138,7 @@
 <span class="sd">        ...         with Path(tmpfile.name).open(mode=&quot;w&quot;) as fp:</span>
 <span class="sd">        ...             print(&quot;1.0 2.0 3.0 TEXT&quot;, file=fp)</span>
 <span class="sd">        ...         with lib.virtualfile_out(kind=&quot;dataset&quot;) as vouttbl:</span>
-<span class="sd">        ...             lib.call_module(&quot;read&quot;, f&quot;{tmpfile.name} {vouttbl} -Td&quot;)</span>
+<span class="sd">        ...             lib.call_module(&quot;read&quot;, [tmpfile.name, vouttbl, &quot;-Td&quot;])</span>
 <span class="sd">        ...             # Read the virtual file as a void pointer</span>
 <span class="sd">        ...             void_pointer = lib.read_virtualfile(vouttbl)</span>
 <span class="sd">        ...             assert isinstance(void_pointer, int)  # void pointer is an int</span>
@@ -2001,17 +2149,13 @@
 <span class="sd">        &gt;&gt;&gt; # Read grid from a virtual file</span>
 <span class="sd">        &gt;&gt;&gt; with Session() as lib:</span>
 <span class="sd">        ...     with lib.virtualfile_out(kind=&quot;grid&quot;) as voutgrd:</span>
-<span class="sd">        ...         lib.call_module(&quot;read&quot;, f&quot;@earth_relief_01d_g {voutgrd} -Tg&quot;)</span>
+<span class="sd">        ...         lib.call_module(&quot;read&quot;, [&quot;@earth_relief_01d_g&quot;, voutgrd, &quot;-Tg&quot;])</span>
 <span class="sd">        ...         # Read the virtual file as a void pointer</span>
 <span class="sd">        ...         void_pointer = lib.read_virtualfile(voutgrd)</span>
 <span class="sd">        ...         assert isinstance(void_pointer, int)  # void pointer is an int</span>
 <span class="sd">        ...         data_pointer = lib.read_virtualfile(voutgrd, kind=&quot;grid&quot;)</span>
 <span class="sd">        ...         assert isinstance(data_pointer, ctp.POINTER(_GMT_GRID))</span>
 
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        Pointer to the GMT data container. If ``kind`` is None, returns a ctypes void</span>
-<span class="sd">        pointer instead.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">c_read_virtualfile</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_libgmt_func</span><span class="p">(</span>
             <span class="s2">&quot;GMT_Read_VirtualFile&quot;</span><span class="p">,</span>
@@ -2024,9 +2168,9 @@
         <span class="c1"># _GMT_DATASET).</span>
         <span class="k">if</span> <span class="n">kind</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># Return the ctypes void pointer</span>
             <span class="k">return</span> <span class="n">pointer</span>
-        <span class="k">if</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;cube&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;cube&quot;</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;kind=</span><span class="si">{</span><span class="n">kind</span><span class="si">}</span><span class="s2"> is not supported yet.&quot;</span><span class="p">)</span>
-        <span class="n">dtype</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;dataset&quot;</span><span class="p">:</span> <span class="n">_GMT_DATASET</span><span class="p">,</span> <span class="s2">&quot;grid&quot;</span><span class="p">:</span> <span class="n">_GMT_GRID</span><span class="p">}[</span><span class="n">kind</span><span class="p">]</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;dataset&quot;</span><span class="p">:</span> <span class="n">_GMT_DATASET</span><span class="p">,</span> <span class="s2">&quot;grid&quot;</span><span class="p">:</span> <span class="n">_GMT_GRID</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="n">_GMT_IMAGE</span><span class="p">}[</span><span class="n">kind</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">ctp</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">pointer</span><span class="p">,</span> <span class="n">ctp</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">dtype</span><span class="p">))</span></div>
 
 
@@ -2049,8 +2193,7 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        vfname</span>
-<span class="sd">            The virtual file name that stores the result data. Required for ``&quot;pandas&quot;``</span>
-<span class="sd">            and ``&quot;numpy&quot;`` output type.</span>
+<span class="sd">            The virtual file name that stores the result data.</span>
 <span class="sd">        output_type</span>
 <span class="sd">            Desired output type of the result data.</span>
 
@@ -2100,51 +2243,44 @@
 <span class="sd">        ...             with lib.virtualfile_out(</span>
 <span class="sd">        ...                 kind=&quot;dataset&quot;, fname=outtmp.name</span>
 <span class="sd">        ...             ) as vouttbl:</span>
-<span class="sd">        ...                 lib.call_module(&quot;read&quot;, f&quot;{tmpfile.name} {vouttbl} -Td&quot;)</span>
+<span class="sd">        ...                 lib.call_module(&quot;read&quot;, [tmpfile.name, vouttbl, &quot;-Td&quot;])</span>
 <span class="sd">        ...                 result = lib.virtualfile_to_dataset(</span>
 <span class="sd">        ...                     vfname=vouttbl, output_type=&quot;file&quot;</span>
 <span class="sd">        ...                 )</span>
 <span class="sd">        ...                 assert result is None</span>
 <span class="sd">        ...                 assert Path(outtmp.name).stat().st_size &gt; 0</span>
 <span class="sd">        ...</span>
-<span class="sd">        ...     # strings output</span>
+<span class="sd">        ...     # strings, numpy and pandas outputs</span>
 <span class="sd">        ...     with Session() as lib:</span>
 <span class="sd">        ...         with lib.virtualfile_out(kind=&quot;dataset&quot;) as vouttbl:</span>
-<span class="sd">        ...             lib.call_module(&quot;read&quot;, f&quot;{tmpfile.name} {vouttbl} -Td&quot;)</span>
+<span class="sd">        ...             lib.call_module(&quot;read&quot;, [tmpfile.name, vouttbl, &quot;-Td&quot;])</span>
+<span class="sd">        ...</span>
+<span class="sd">        ...             # strings output</span>
 <span class="sd">        ...             outstr = lib.virtualfile_to_dataset(</span>
 <span class="sd">        ...                 vfname=vouttbl, output_type=&quot;strings&quot;</span>
 <span class="sd">        ...             )</span>
-<span class="sd">        ...     assert isinstance(outstr, np.ndarray)</span>
-<span class="sd">        ...     assert outstr.dtype.kind in (&quot;S&quot;, &quot;U&quot;)</span>
+<span class="sd">        ...             assert isinstance(outstr, np.ndarray)</span>
+<span class="sd">        ...             assert outstr.dtype.kind in (&quot;S&quot;, &quot;U&quot;)</span>
 <span class="sd">        ...</span>
-<span class="sd">        ...     # numpy output</span>
-<span class="sd">        ...     with Session() as lib:</span>
-<span class="sd">        ...         with lib.virtualfile_out(kind=&quot;dataset&quot;) as vouttbl:</span>
-<span class="sd">        ...             lib.call_module(&quot;read&quot;, f&quot;{tmpfile.name} {vouttbl} -Td&quot;)</span>
+<span class="sd">        ...             # numpy output</span>
 <span class="sd">        ...             outnp = lib.virtualfile_to_dataset(</span>
 <span class="sd">        ...                 vfname=vouttbl, output_type=&quot;numpy&quot;</span>
 <span class="sd">        ...             )</span>
-<span class="sd">        ...     assert isinstance(outnp, np.ndarray)</span>
+<span class="sd">        ...             assert isinstance(outnp, np.ndarray)</span>
 <span class="sd">        ...</span>
-<span class="sd">        ...     # pandas output</span>
-<span class="sd">        ...     with Session() as lib:</span>
-<span class="sd">        ...         with lib.virtualfile_out(kind=&quot;dataset&quot;) as vouttbl:</span>
-<span class="sd">        ...             lib.call_module(&quot;read&quot;, f&quot;{tmpfile.name} {vouttbl} -Td&quot;)</span>
+<span class="sd">        ...             # pandas output</span>
 <span class="sd">        ...             outpd = lib.virtualfile_to_dataset(</span>
 <span class="sd">        ...                 vfname=vouttbl, output_type=&quot;pandas&quot;</span>
 <span class="sd">        ...             )</span>
-<span class="sd">        ...     assert isinstance(outpd, pd.DataFrame)</span>
+<span class="sd">        ...             assert isinstance(outpd, pd.DataFrame)</span>
 <span class="sd">        ...</span>
-<span class="sd">        ...     # pandas output with specified column names</span>
-<span class="sd">        ...     with Session() as lib:</span>
-<span class="sd">        ...         with lib.virtualfile_out(kind=&quot;dataset&quot;) as vouttbl:</span>
-<span class="sd">        ...             lib.call_module(&quot;read&quot;, f&quot;{tmpfile.name} {vouttbl} -Td&quot;)</span>
+<span class="sd">        ...             # pandas output with specified column names</span>
 <span class="sd">        ...             outpd2 = lib.virtualfile_to_dataset(</span>
 <span class="sd">        ...                 vfname=vouttbl,</span>
 <span class="sd">        ...                 output_type=&quot;pandas&quot;,</span>
 <span class="sd">        ...                 column_names=[&quot;col1&quot;, &quot;col2&quot;, &quot;col3&quot;, &quot;coltext&quot;],</span>
 <span class="sd">        ...             )</span>
-<span class="sd">        ...     assert isinstance(outpd2, pd.DataFrame)</span>
+<span class="sd">        ...             assert isinstance(outpd2, pd.DataFrame)</span>
 <span class="sd">        &gt;&gt;&gt; outstr</span>
 <span class="sd">        array([&#39;TEXT1 TEXT23&#39;, &#39;TEXT4 TEXT567&#39;, &#39;TEXT8 TEXT90&#39;,</span>
 <span class="sd">           &#39;TEXT123 TEXT456789&#39;], dtype=&#39;&lt;U18&#39;)</span>
@@ -2224,7 +2360,7 @@
 <span class="sd">        ...     with GMTTempFile(suffix=&quot;.nc&quot;) as tmpfile:</span>
 <span class="sd">        ...         outgrid = tmpfile.name</span>
 <span class="sd">        ...         with lib.virtualfile_out(kind=&quot;grid&quot;, fname=outgrid) as voutgrd:</span>
-<span class="sd">        ...             lib.call_module(&quot;read&quot;, f&quot;@earth_relief_01d_g {voutgrd} -Tg&quot;)</span>
+<span class="sd">        ...             lib.call_module(&quot;read&quot;, [&quot;@earth_relief_01d_g&quot;, voutgrd, &quot;-Tg&quot;])</span>
 <span class="sd">        ...             result = lib.virtualfile_to_raster(</span>
 <span class="sd">        ...                 vfname=voutgrd, outgrid=outgrid</span>
 <span class="sd">        ...             )</span>
@@ -2234,11 +2370,11 @@
 <span class="sd">        ...     # xarray.DataArray output</span>
 <span class="sd">        ...     outgrid = None</span>
 <span class="sd">        ...     with lib.virtualfile_out(kind=&quot;grid&quot;, fname=outgrid) as voutgrd:</span>
-<span class="sd">        ...         lib.call_module(&quot;read&quot;, f&quot;@earth_relief_01d_g {voutgrd} -Tg&quot;)</span>
+<span class="sd">        ...         lib.call_module(&quot;read&quot;, [&quot;@earth_relief_01d_g&quot;, voutgrd, &quot;-Tg&quot;])</span>
 <span class="sd">        ...         result = lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)</span>
 <span class="sd">        ...         assert isinstance(result, xr.DataArray)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">outgrid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">outgrid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># Already written to file, so return None</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">kind</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># Inquire the data family from the virtualfile</span>
             <span class="n">family</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inquire_virtualfile</span><span class="p">(</span><span class="n">vfname</span><span class="p">)</span>
@@ -2252,54 +2388,49 @@
 
 <div class="viewcode-block" id="Session.extract_region">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.extract_region.html#pygmt.clib.Session.extract_region">[docs]</a>
-    <span class="k">def</span> <span class="nf">extract_region</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">extract_region</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Extract the WESN bounding box of the currently active figure.</span>
+<span class="sd">        Extract the region of the currently active figure.</span>
 
-<span class="sd">        Retrieves the information from the PostScript file, so it works for</span>
-<span class="sd">        country codes as well.</span>
+<span class="sd">        Retrieves the information from the PostScript file, so it works for country</span>
+<span class="sd">        codes as well.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        * wesn : 1-D array</span>
-<span class="sd">            A numpy 1-D array with the west, east, south, and north dimensions</span>
-<span class="sd">            of the current figure.</span>
+<span class="sd">        region</span>
+<span class="sd">            A numpy 1-D array with the west, east, south, and north dimensions of the</span>
+<span class="sd">            current figure.</span>
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
-
 <span class="sd">        &gt;&gt;&gt; import pygmt</span>
 <span class="sd">        &gt;&gt;&gt; fig = pygmt.Figure()</span>
 <span class="sd">        &gt;&gt;&gt; fig.coast(</span>
-<span class="sd">        ...     region=[0, 10, -20, -10],</span>
-<span class="sd">        ...     projection=&quot;M6i&quot;,</span>
-<span class="sd">        ...     frame=True,</span>
-<span class="sd">        ...     land=&quot;black&quot;,</span>
+<span class="sd">        ...     region=[0, 10, -20, -10], projection=&quot;M12c&quot;, frame=True, land=&quot;black&quot;</span>
 <span class="sd">        ... )</span>
 <span class="sd">        &gt;&gt;&gt; with Session() as lib:</span>
-<span class="sd">        ...     wesn = lib.extract_region()</span>
-<span class="sd">        &gt;&gt;&gt; print(&quot;, &quot;.join([f&quot;{x:.2f}&quot; for x in wesn]))</span>
+<span class="sd">        ...     region = lib.extract_region()</span>
+<span class="sd">        &gt;&gt;&gt; print(&quot;, &quot;.join([f&quot;{x:.2f}&quot; for x in region]))</span>
 <span class="sd">        0.00, 10.00, -20.00, -10.00</span>
 
-<span class="sd">        Using ISO country codes for the regions (for example ``&quot;US.HI&quot;`` for</span>
-<span class="sd">        Hawaiʻi):</span>
+<span class="sd">        Using ISO country codes for the regions (for example ``&quot;US.HI&quot;`` for Hawaiʻi):</span>
 
 <span class="sd">        &gt;&gt;&gt; fig = pygmt.Figure()</span>
-<span class="sd">        &gt;&gt;&gt; fig.coast(region=&quot;US.HI&quot;, projection=&quot;M6i&quot;, frame=True, land=&quot;black&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; fig.coast(region=&quot;US.HI&quot;, projection=&quot;M12c&quot;, frame=True, land=&quot;black&quot;)</span>
 <span class="sd">        &gt;&gt;&gt; with Session() as lib:</span>
-<span class="sd">        ...     wesn = lib.extract_region()</span>
-<span class="sd">        &gt;&gt;&gt; print(&quot;, &quot;.join([f&quot;{x:.2f}&quot; for x in wesn]))</span>
+<span class="sd">        ...     region = lib.extract_region()</span>
+<span class="sd">        &gt;&gt;&gt; print(&quot;, &quot;.join([f&quot;{x:.2f}&quot; for x in region]))</span>
 <span class="sd">        -164.71, -154.81, 18.91, 23.58</span>
 
-<span class="sd">        The country codes can have an extra argument that rounds the region a</span>
-<span class="sd">        multiple of the argument (for example, ``&quot;US.HI+r5&quot;`` will round the</span>
-<span class="sd">        region to multiples of 5):</span>
+<span class="sd">        The country codes can have an extra argument that rounds the region to multiples</span>
+<span class="sd">        of the argument (for example, ``&quot;US.HI+r5&quot;`` will round the region to multiples</span>
+<span class="sd">        of 5):</span>
 
 <span class="sd">        &gt;&gt;&gt; fig = pygmt.Figure()</span>
-<span class="sd">        &gt;&gt;&gt; fig.coast(region=&quot;US.HI+r5&quot;, projection=&quot;M6i&quot;, frame=True, land=&quot;black&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; fig.coast(region=&quot;US.HI+r5&quot;, projection=&quot;M12c&quot;, frame=True, land=&quot;black&quot;)</span>
 <span class="sd">        &gt;&gt;&gt; with Session() as lib:</span>
-<span class="sd">        ...     wesn = lib.extract_region()</span>
-<span class="sd">        &gt;&gt;&gt; print(&quot;, &quot;.join([f&quot;{x:.2f}&quot; for x in wesn]))</span>
+<span class="sd">        ...     region = lib.extract_region()</span>
+<span class="sd">        &gt;&gt;&gt; print(&quot;, &quot;.join([f&quot;{x:.2f}&quot; for x in region]))</span>
 <span class="sd">        -165.00, -150.00, 15.00, 25.00</span>
 <span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># noqa: RUF002</span>
         <span class="n">c_extract_region</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_libgmt_func</span><span class="p">(</span>
@@ -2308,15 +2439,15 @@
             <span class="n">restype</span><span class="o">=</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_int</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="n">wesn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
-        <span class="n">wesn_pointer</span> <span class="o">=</span> <span class="n">wesn</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctp</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_double</span><span class="p">))</span>
-        <span class="c1"># The second argument to GMT_Extract_Region is a file pointer to a</span>
-        <span class="c1"># PostScript file. It&#39;s only valid in classic mode. Use None to get a</span>
-        <span class="c1"># NULL pointer instead.</span>
-        <span class="n">status</span> <span class="o">=</span> <span class="n">c_extract_region</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">wesn_pointer</span><span class="p">)</span>
+        <span class="n">region</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="n">c_extract_region</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span><span class="p">,</span>
+            <span class="kc">None</span><span class="p">,</span>  <span class="c1"># File pointer to a PostScript file. Must be None in modern mode.</span>
+            <span class="n">region</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctp</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_double</span><span class="p">)),</span>
+        <span class="p">)</span>
         <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="s2">&quot;Failed to extract region from current figure.&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">wesn</span></div>
+        <span class="k">return</span> <span class="n">region</span></div>
 </div>
 
 </pre></div>
@@ -2330,9 +2461,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
       </span>
-      <span class="lastupdated">Last updated on May 01, 2024.
+      <span class="lastupdated">Last updated on Sep 05, 2024.
       </span></p>
   </div>
 

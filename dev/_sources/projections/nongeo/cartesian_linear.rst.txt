@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_projections_nongeo_cartesian_linear.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -89,6 +89,10 @@ coordinates, see the GMT documentation
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: cartesian_linear.py <cartesian_linear.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: cartesian_linear.zip <cartesian_linear.zip>`
 
 
 .. only:: html

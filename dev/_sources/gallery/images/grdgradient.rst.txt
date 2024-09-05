@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_images_grdgradient.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -90,7 +90,7 @@ direction and altitude.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.415 seconds)
+   **Total running time of the script:** (0 minutes 0.408 seconds)
 
 
 .. _sphx_glr_download_gallery_images_grdgradient.py:
@@ -106,6 +106,10 @@ direction and altitude.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: grdgradient.py <grdgradient.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: grdgradient.zip <grdgradient.zip>`
 
 
 .. only:: html

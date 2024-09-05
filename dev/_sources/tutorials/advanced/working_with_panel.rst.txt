@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_tutorials_advanced_working_with_panel.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -161,7 +161,7 @@ with a slider (works only in a notebook environment, e.g., Jupyter notebook).
 
 
     Column
-        [0] DiscreteSlider(formatter='%d', name='Central longitude', options=[0, 10, 20, 30, ...], value=0)
+        [0] DiscreteSlider(formatter='%d', name='Central longitude', options=[np.int64(0), ...], value=0)
         [1] ParamFunction(function, _pane=PNG, defer_load=False)
 
 
@@ -231,7 +231,7 @@ displayed. Here, the Earth relief is shown by color-coding the elevation.
 
 
     Column
-        [0] DiscreteSlider(formatter='%d', name='Central longitude', options=[0, 10, 20, 30, ...], value=0)
+        [0] DiscreteSlider(formatter='%d', name='Central longitude', options=[np.int64(0), ...], value=0)
         [1] ParamFunction(function, _pane=PNG, defer_load=False)
 
 
@@ -239,7 +239,7 @@ displayed. Here, the Earth relief is shown by color-coding the elevation.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 2.032 seconds)
+   **Total running time of the script:** (0 minutes 1.960 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_working_with_panel.py:
@@ -255,6 +255,10 @@ displayed. Here, the Earth relief is shown by color-coding the elevation.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: working_with_panel.py <working_with_panel.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: working_with_panel.zip <working_with_panel.zip>`
 
 
 .. only:: html

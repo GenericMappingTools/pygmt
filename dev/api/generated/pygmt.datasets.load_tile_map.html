@@ -11,13 +11,14 @@
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=902da76c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=a51cd8ab" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
@@ -28,12 +29,12 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=b483e97e"></script>
-        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/documentation_options.js?v=aa3fe5bf"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../../_static/copybutton.js?v=ccdb6887"></script>
-        <script src="../../_static/design-tabs.js?v=36754332"></script>
+        <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -135,12 +136,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-c-api">GMT C API</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../team.html">PyGMT Team</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributors Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../maintenance.html">Maintainers Guide</a></li>
 </ul>
@@ -204,12 +206,12 @@
 <span class="sig-prename descclassname"><span class="pre">pygmt.datasets.</span></span><span class="sig-name descname"><span class="pre">load_tile_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zoom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lonlat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zoom_adjust</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/datasets/tile_map.html#load_tile_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.datasets.load_tile_map" title="Link to this definition"></a></dt>
 <dd><p>Load a georeferenced raster tile map from XYZ tile providers.</p>
 <p>The tiles that compose the map are merged and georeferenced into an
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> image with 3 bands (RGB). Note that the returned image is
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.7.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> image with 3 bands (RGB). Note that the returned image is
 in a Spherical Mercator (EPSG:3857) coordinate reference system.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>region</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></span>) – The bounding box of the map in the form of a list [<em>xmin</em>, <em>xmax</em>, <em>ymin</em>,
+<li><p><strong>region</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>]</span>) – The bounding box of the map in the form of a list [<em>xmin</em>, <em>xmax</em>, <em>ymin</em>,
 <em>ymax</em>]. These coordinates should be in longitude/latitude if <code class="docutils literal notranslate"><span class="pre">lonlat=True</span></code> or
 Spherical Mercator (EPSG:3857) if <code class="docutils literal notranslate"><span class="pre">lonlat=False</span></code>.</p></li>
 <li><p><strong>zoom</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'auto'</span></code>]]</span>, default: <code class="docutils literal notranslate"><span class="pre">'auto'</span></code>) – <p>Level of detail. Higher levels (e.g. <code class="docutils literal notranslate"><span class="pre">22</span></code>) mean a zoom level closer to the
@@ -224,16 +226,16 @@ based on the bounding box region extent.</p>
 what is supported by the chosen web tile provider source.</p>
 </div>
 </p></li>
-<li><p><strong>source</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://xyzservices.readthedocs.io/en/stable/api.html#xyzservices.TileProvider" title="(in xyzservices v2024.4.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TileProvider</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <p>The tile source: web tile provider or path to a local file. Provide either:</p>
+<li><p><strong>source</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://xyzservices.readthedocs.io/en/stable/api.html#xyzservices.TileProvider" title="(in xyzservices v2024.9.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TileProvider</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <p>The tile source: web tile provider or path to a local file. Provide either:</p>
 <ul>
-<li><p>A web tile provider in the form of a <a class="reference external" href="https://xyzservices.readthedocs.io/en/stable/api.html#xyzservices.TileProvider" title="(in xyzservices v2024.4.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xyzservices.TileProvider</span></code></a> object.
+<li><p>A web tile provider in the form of a <a class="reference external" href="https://xyzservices.readthedocs.io/en/stable/api.html#xyzservices.TileProvider" title="(in xyzservices v2024.9.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xyzservices.TileProvider</span></code></a> object.
 See <a class="reference external" href="https://contextily.readthedocs.io/en/stable/providers_deepdive.html" title="(in contextily)"><span class="xref std std-doc">Contextily providers</span></a> for a list of
 tile providers. Default is <code class="docutils literal notranslate"><span class="pre">xyzservices.providers.OpenStreetMap.HOT</span></code>, i.e.
 OpenStreetMap Humanitarian web tiles.</p></li>
 <li><p>A web tile provider in the form of a URL. The placeholders for the XYZ in the
 URL need to be {x}, {y}, {z}, respectively. E.g.
 <code class="docutils literal notranslate"><span class="pre">https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png</span></code>.</p></li>
-<li><p>A local file path. The file is read with <a class="reference external" href="https://rasterio.readthedocs.io/en/stable/index.html" title="(in rasterio v1.3.10)"><span class="xref std std-doc">rasterio</span></a> and
+<li><p>A local file path. The file is read with <a class="reference external" href="https://rasterio.readthedocs.io/en/stable/index.html" title="(in rasterio v1.3.11)"><span class="xref std std-doc">rasterio</span></a> and
 all bands are loaded into the basemap. See
 <a class="reference external" href="https://contextily.readthedocs.io/en/stable/working_with_local_files.html" title="(in contextily)"><span>Working with local files</span></a>.</p></li>
 </ul>
@@ -258,7 +260,7 @@ outside of -1 to 1 are not recommended as they can lead to slow execution.</p>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.7.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>raster</em> – Georeferenced 3-D data array of RGB values.</p>
@@ -282,9 +284,14 @@ outside of -1 to 1 are not recommended as they can lead to slow execution.</p>
 <span class="go">Frozen({&#39;band&#39;: 3, &#39;y&#39;: 256, &#39;x&#39;: 512})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">raster</span><span class="o">.</span><span class="n">coords</span>  
 <span class="go">Coordinates:</span>
-<span class="go">  * band    (band) uint8 ... 0 1 2</span>
-<span class="go">  * y       (y) float64 ... -7.081e-10 -7.858e+04 ... -1.996e+07 ...</span>
-<span class="go">  * x       (x) float64 ... -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07</span>
+<span class="go">  * band         (band) uint8 ... 1 2 3</span>
+<span class="go">  * y            (y) float64 ... -7.081e-10 -7.858e+04 ... -1.996e+07 -2.004e+07</span>
+<span class="go">  * x            (x) float64 ... -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07</span>
+<span class="go">    spatial_ref  int... 0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># CRS is set only if rioxarray is available</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">raster</span><span class="p">,</span> <span class="s2">&quot;rio&quot;</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">raster</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span>
+<span class="go">CRS.from_epsg(3857)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -304,9 +311,9 @@ outside of -1 to 1 are not recommended as they can lead to slow execution.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
       </span>
-      <span class="lastupdated">Last updated on May 01, 2024.
+      <span class="lastupdated">Last updated on Sep 05, 2024.
       </span></p>
   </div>
 

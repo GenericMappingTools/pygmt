@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_seismology_meca.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -87,7 +87,7 @@ adjust the outline of the beachballs.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.155 seconds)
+   **Total running time of the script:** (0 minutes 0.152 seconds)
 
 
 .. _sphx_glr_download_gallery_seismology_meca.py:
@@ -103,6 +103,10 @@ adjust the outline of the beachballs.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: meca.py <meca.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: meca.zip <meca.zip>`
 
 
 .. only:: html

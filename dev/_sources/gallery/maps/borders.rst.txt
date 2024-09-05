@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_maps_borders.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -30,9 +30,9 @@ list of boundaries below:
 * **3** = Marine boundaries
 * **a** = All boundaries (1-3)
 
-For example, to draw national boundaries with a line thickness of 1p and black
-line color use ``borders="1/1p,black"``. You can draw multiple boundaries by
-passing in a list to ``borders``.
+For example, to draw national boundaries with a line thickness of 1 point and
+black line color use ``borders="1/1p,black"``. You can draw multiple boundaries
+by passing in a list to ``borders``.
 
 .. GENERATED FROM PYTHON SOURCE LINES 20-29
 
@@ -62,7 +62,7 @@ passing in a list to ``borders``.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.357 seconds)
+   **Total running time of the script:** (0 minutes 0.356 seconds)
 
 
 .. _sphx_glr_download_gallery_maps_borders.py:
@@ -78,6 +78,10 @@ passing in a list to ``borders``.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: borders.py <borders.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: borders.zip <borders.zip>`
 
 
 .. only:: html

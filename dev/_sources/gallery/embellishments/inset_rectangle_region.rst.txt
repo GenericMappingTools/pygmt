@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_embellishments_inset_rectangle_region.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -57,8 +57,8 @@ methods called within the ``with`` statement plot into the inset figure.
     # figure
     fig.coast(land="lightbrown", water="azure1", shorelines="2p", area_thresh=1000)
 
-    # Create an inset map, setting the position to bottom right, and the x- and
-    # y-offsets to 0.1 cm, respectively.
+    # Create an inset map, placing it in the Bottom Right (BR) corner with x- and
+    # y-offsets of 0.1 cm, respectively.
     # The inset map contains the Japan main land. "U54S/3c" means UTM projection
     # with a map width of 3 cm. The inset width and height are automatically
     # calculated from the specified ``region`` and ``projection`` parameters.
@@ -88,7 +88,7 @@ methods called within the ``with`` statement plot into the inset figure.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.330 seconds)
+   **Total running time of the script:** (0 minutes 0.331 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_inset_rectangle_region.py:
@@ -104,6 +104,10 @@ methods called within the ``with`` statement plot into the inset figure.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: inset_rectangle_region.py <inset_rectangle_region.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: inset_rectangle_region.zip <inset_rectangle_region.zip>`
 
 
 .. only:: html

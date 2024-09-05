@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_projections_misc_misc_van_der_grinten.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -73,6 +73,10 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: misc_van_der_grinten.py <misc_van_der_grinten.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: misc_van_der_grinten.zip <misc_van_der_grinten.zip>`
 
 
 .. only:: html

@@ -1,0 +1,1121 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>Supported Encodings and Non-ASCII Characters &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../_static/style.css?v=a51cd8ab" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/dev/techref/encodings.html" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=aa3fe5bf"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Changelog" href="../changes.html" />
+    <link rel="prev" title="Supported Fonts" href="fonts.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                dev
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Technical Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="projections.html">GMT Map Projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fonts.html">Supported Fonts</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Supported Encodings and Non-ASCII Characters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#adobe-isolatin1-encoding">Adobe ISOLatin1+ Encoding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adobe-symbol-encoding">Adobe Symbol Encoding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adobe-zapfdingbats-encoding">Adobe ZapfDingbats Encoding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iso-iec-8859">ISO/IEC 8859</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../minversions.html">Minimum Supported Versions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../team.html">PyGMT Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Technical Reference</a></li>
+      <li class="breadcrumb-item active">Supported Encodings and Non-ASCII Characters</li>
+    <li class="source-link">
+        
+            
+                <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/techref/encodings.md"
+                   class="fa fa-github"> Improve this page</a>
+            
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="cell tag_remove-input docutils container">
+</div>
+<section id="supported-encodings-and-non-ascii-characters">
+<h1>Supported Encodings and Non-ASCII Characters<a class="headerlink" href="#supported-encodings-and-non-ascii-characters" title="Link to this heading"></a></h1>
+<p>PyGMT supports a number of encodings and each encoding contains a set of ASCII and
+non-ASCII characters. In PyGMT, you can use any of these ASCII and non-ASCII characters
+in arguments and text strings. When using non-ASCII characters in PyGMT, the easiest way
+is to copy and paste the character from the encoding tables below.</p>
+<p><strong>Note</strong>: The special character � (REPLACEMENT CHARACTER) is used to indicate
+that the character is undefined in the encoding.</p>
+<section id="adobe-isolatin1-encoding">
+<h2>Adobe ISOLatin1+ Encoding<a class="headerlink" href="#adobe-isolatin1-encoding" title="Link to this heading"></a></h2>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Octal</p></th>
+<th class="head text-center"><p>0</p></th>
+<th class="head text-center"><p>1</p></th>
+<th class="head text-center"><p>2</p></th>
+<th class="head text-center"><p>3</p></th>
+<th class="head text-center"><p>4</p></th>
+<th class="head text-center"><p>5</p></th>
+<th class="head text-center"><p>6</p></th>
+<th class="head text-center"><p>7</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>\03x</strong></p></td>
+<td class="text-center"><p>�</p></td>
+<td class="text-center"><p>•</p></td>
+<td class="text-center"><p>…</p></td>
+<td class="text-center"><p>™</p></td>
+<td class="text-center"><p>—</p></td>
+<td class="text-center"><p>–</p></td>
+<td class="text-center"><p>ﬁ</p></td>
+<td class="text-center"><p>ž</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\04x</strong></p></td>
+<td class="text-center"><p> </p></td>
+<td class="text-center"><p>!</p></td>
+<td class="text-center"><p>“</p></td>
+<td class="text-center"><p>#</p></td>
+<td class="text-center"><p>$</p></td>
+<td class="text-center"><p>%</p></td>
+<td class="text-center"><p>&amp;</p></td>
+<td class="text-center"><p>’</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\05x</strong></p></td>
+<td class="text-center"><p>(</p></td>
+<td class="text-center"><p>)</p></td>
+<td class="text-center"><p>*</p></td>
+<td class="text-center"><p>+</p></td>
+<td class="text-center"><p>,</p></td>
+<td class="text-center"><p>−</p></td>
+<td class="text-center"><p>.</p></td>
+<td class="text-center"><p>/</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\06x</strong></p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>1</p></td>
+<td class="text-center"><p>2</p></td>
+<td class="text-center"><p>3</p></td>
+<td class="text-center"><p>4</p></td>
+<td class="text-center"><p>5</p></td>
+<td class="text-center"><p>6</p></td>
+<td class="text-center"><p>7</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\07x</strong></p></td>
+<td class="text-center"><p>8</p></td>
+<td class="text-center"><p>9</p></td>
+<td class="text-center"><p>:</p></td>
+<td class="text-center"><p>;</p></td>
+<td class="text-center"><p>&lt;</p></td>
+<td class="text-center"><p>=</p></td>
+<td class="text-center"><p>&gt;</p></td>
+<td class="text-center"><p>?</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\10x</strong></p></td>
+<td class="text-center"><p>&#64;</p></td>
+<td class="text-center"><p>A</p></td>
+<td class="text-center"><p>B</p></td>
+<td class="text-center"><p>C</p></td>
+<td class="text-center"><p>D</p></td>
+<td class="text-center"><p>E</p></td>
+<td class="text-center"><p>F</p></td>
+<td class="text-center"><p>G</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\11x</strong></p></td>
+<td class="text-center"><p>H</p></td>
+<td class="text-center"><p>I</p></td>
+<td class="text-center"><p>J</p></td>
+<td class="text-center"><p>K</p></td>
+<td class="text-center"><p>L</p></td>
+<td class="text-center"><p>M</p></td>
+<td class="text-center"><p>N</p></td>
+<td class="text-center"><p>O</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\12x</strong></p></td>
+<td class="text-center"><p>P</p></td>
+<td class="text-center"><p>Q</p></td>
+<td class="text-center"><p>R</p></td>
+<td class="text-center"><p>S</p></td>
+<td class="text-center"><p>T</p></td>
+<td class="text-center"><p>U</p></td>
+<td class="text-center"><p>V</p></td>
+<td class="text-center"><p>W</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\13x</strong></p></td>
+<td class="text-center"><p>X</p></td>
+<td class="text-center"><p>Y</p></td>
+<td class="text-center"><p>Z</p></td>
+<td class="text-center"><p>[</p></td>
+<td class="text-center"><p>\</p></td>
+<td class="text-center"><p>]</p></td>
+<td class="text-center"><p>^</p></td>
+<td class="text-center"><p>_</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\14x</strong></p></td>
+<td class="text-center"><p>‘</p></td>
+<td class="text-center"><p>a</p></td>
+<td class="text-center"><p>b</p></td>
+<td class="text-center"><p>c</p></td>
+<td class="text-center"><p>d</p></td>
+<td class="text-center"><p>e</p></td>
+<td class="text-center"><p>f</p></td>
+<td class="text-center"><p>g</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\15x</strong></p></td>
+<td class="text-center"><p>h</p></td>
+<td class="text-center"><p>i</p></td>
+<td class="text-center"><p>j</p></td>
+<td class="text-center"><p>k</p></td>
+<td class="text-center"><p>l</p></td>
+<td class="text-center"><p>m</p></td>
+<td class="text-center"><p>n</p></td>
+<td class="text-center"><p>o</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\16x</strong></p></td>
+<td class="text-center"><p>p</p></td>
+<td class="text-center"><p>q</p></td>
+<td class="text-center"><p>r</p></td>
+<td class="text-center"><p>s</p></td>
+<td class="text-center"><p>t</p></td>
+<td class="text-center"><p>u</p></td>
+<td class="text-center"><p>v</p></td>
+<td class="text-center"><p>w</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\17x</strong></p></td>
+<td class="text-center"><p>x</p></td>
+<td class="text-center"><p>y</p></td>
+<td class="text-center"><p>z</p></td>
+<td class="text-center"><p>{</p></td>
+<td class="text-center"><p>|</p></td>
+<td class="text-center"><p>}</p></td>
+<td class="text-center"><p>~</p></td>
+<td class="text-center"><p>š</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\20x</strong></p></td>
+<td class="text-center"><p>Œ</p></td>
+<td class="text-center"><p>†</p></td>
+<td class="text-center"><p>‡</p></td>
+<td class="text-center"><p>Ł</p></td>
+<td class="text-center"><p>⁄</p></td>
+<td class="text-center"><p>‹</p></td>
+<td class="text-center"><p>Š</p></td>
+<td class="text-center"><p>›</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\21x</strong></p></td>
+<td class="text-center"><p>œ</p></td>
+<td class="text-center"><p>Ÿ</p></td>
+<td class="text-center"><p>Ž</p></td>
+<td class="text-center"><p>ł</p></td>
+<td class="text-center"><p>‰</p></td>
+<td class="text-center"><p>„</p></td>
+<td class="text-center"><p>“</p></td>
+<td class="text-center"><p>”</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\22x</strong></p></td>
+<td class="text-center"><p>ı</p></td>
+<td class="text-center"><p>`</p></td>
+<td class="text-center"><p>´</p></td>
+<td class="text-center"><p>ˆ</p></td>
+<td class="text-center"><p>˜</p></td>
+<td class="text-center"><p>¯</p></td>
+<td class="text-center"><p>˘</p></td>
+<td class="text-center"><p>˙</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\23x</strong></p></td>
+<td class="text-center"><p>¨</p></td>
+<td class="text-center"><p>‚</p></td>
+<td class="text-center"><p>˚</p></td>
+<td class="text-center"><p>¸</p></td>
+<td class="text-center"><p>‘</p></td>
+<td class="text-center"><p>˝</p></td>
+<td class="text-center"><p>˛</p></td>
+<td class="text-center"><p>ˇ</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\24x</strong></p></td>
+<td class="text-center"><p> </p></td>
+<td class="text-center"><p>¡</p></td>
+<td class="text-center"><p>¢</p></td>
+<td class="text-center"><p>£</p></td>
+<td class="text-center"><p>¤</p></td>
+<td class="text-center"><p>¥</p></td>
+<td class="text-center"><p>¦</p></td>
+<td class="text-center"><p>§</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\25x</strong></p></td>
+<td class="text-center"><p>¨</p></td>
+<td class="text-center"><p>©</p></td>
+<td class="text-center"><p>ª</p></td>
+<td class="text-center"><p>«</p></td>
+<td class="text-center"><p>¬</p></td>
+<td class="text-center"><p>-</p></td>
+<td class="text-center"><p>®</p></td>
+<td class="text-center"><p>¯</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\26x</strong></p></td>
+<td class="text-center"><p>°</p></td>
+<td class="text-center"><p>±</p></td>
+<td class="text-center"><p>²</p></td>
+<td class="text-center"><p>³</p></td>
+<td class="text-center"><p>´</p></td>
+<td class="text-center"><p>µ</p></td>
+<td class="text-center"><p>¶</p></td>
+<td class="text-center"><p>·</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\27x</strong></p></td>
+<td class="text-center"><p>¸</p></td>
+<td class="text-center"><p>¹</p></td>
+<td class="text-center"><p>º</p></td>
+<td class="text-center"><p>»</p></td>
+<td class="text-center"><p>¼</p></td>
+<td class="text-center"><p>½</p></td>
+<td class="text-center"><p>¾</p></td>
+<td class="text-center"><p>¿</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\30x</strong></p></td>
+<td class="text-center"><p>À</p></td>
+<td class="text-center"><p>Á</p></td>
+<td class="text-center"><p>Â</p></td>
+<td class="text-center"><p>Ã</p></td>
+<td class="text-center"><p>Ä</p></td>
+<td class="text-center"><p>Å</p></td>
+<td class="text-center"><p>Æ</p></td>
+<td class="text-center"><p>Ç</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\31x</strong></p></td>
+<td class="text-center"><p>È</p></td>
+<td class="text-center"><p>É</p></td>
+<td class="text-center"><p>Ê</p></td>
+<td class="text-center"><p>Ë</p></td>
+<td class="text-center"><p>Ì</p></td>
+<td class="text-center"><p>Í</p></td>
+<td class="text-center"><p>Î</p></td>
+<td class="text-center"><p>Ï</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\32x</strong></p></td>
+<td class="text-center"><p>Ð</p></td>
+<td class="text-center"><p>Ñ</p></td>
+<td class="text-center"><p>Ò</p></td>
+<td class="text-center"><p>Ó</p></td>
+<td class="text-center"><p>Ô</p></td>
+<td class="text-center"><p>Õ</p></td>
+<td class="text-center"><p>Ö</p></td>
+<td class="text-center"><p>×</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\33x</strong></p></td>
+<td class="text-center"><p>Ø</p></td>
+<td class="text-center"><p>Ù</p></td>
+<td class="text-center"><p>Ú</p></td>
+<td class="text-center"><p>Û</p></td>
+<td class="text-center"><p>Ü</p></td>
+<td class="text-center"><p>Ý</p></td>
+<td class="text-center"><p>Þ</p></td>
+<td class="text-center"><p>ß</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\34x</strong></p></td>
+<td class="text-center"><p>à</p></td>
+<td class="text-center"><p>á</p></td>
+<td class="text-center"><p>â</p></td>
+<td class="text-center"><p>ã</p></td>
+<td class="text-center"><p>ä</p></td>
+<td class="text-center"><p>å</p></td>
+<td class="text-center"><p>æ</p></td>
+<td class="text-center"><p>ç</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\35x</strong></p></td>
+<td class="text-center"><p>è</p></td>
+<td class="text-center"><p>é</p></td>
+<td class="text-center"><p>ê</p></td>
+<td class="text-center"><p>ë</p></td>
+<td class="text-center"><p>ì</p></td>
+<td class="text-center"><p>í</p></td>
+<td class="text-center"><p>î</p></td>
+<td class="text-center"><p>ï</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\36x</strong></p></td>
+<td class="text-center"><p>ð</p></td>
+<td class="text-center"><p>ñ</p></td>
+<td class="text-center"><p>ò</p></td>
+<td class="text-center"><p>ó</p></td>
+<td class="text-center"><p>ô</p></td>
+<td class="text-center"><p>õ</p></td>
+<td class="text-center"><p>ö</p></td>
+<td class="text-center"><p>÷</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\37x</strong></p></td>
+<td class="text-center"><p>ø</p></td>
+<td class="text-center"><p>ù</p></td>
+<td class="text-center"><p>ú</p></td>
+<td class="text-center"><p>û</p></td>
+<td class="text-center"><p>ü</p></td>
+<td class="text-center"><p>ý</p></td>
+<td class="text-center"><p>þ</p></td>
+<td class="text-center"><p>ÿ</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="adobe-symbol-encoding">
+<h2>Adobe Symbol Encoding<a class="headerlink" href="#adobe-symbol-encoding" title="Link to this heading"></a></h2>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Octal</p></th>
+<th class="head text-center"><p>0</p></th>
+<th class="head text-center"><p>1</p></th>
+<th class="head text-center"><p>2</p></th>
+<th class="head text-center"><p>3</p></th>
+<th class="head text-center"><p>4</p></th>
+<th class="head text-center"><p>5</p></th>
+<th class="head text-center"><p>6</p></th>
+<th class="head text-center"><p>7</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>\04x</strong></p></td>
+<td class="text-center"><p> </p></td>
+<td class="text-center"><p>!</p></td>
+<td class="text-center"><p>∀</p></td>
+<td class="text-center"><p>#</p></td>
+<td class="text-center"><p>∃</p></td>
+<td class="text-center"><p>%</p></td>
+<td class="text-center"><p>&amp;</p></td>
+<td class="text-center"><p>∋</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\05x</strong></p></td>
+<td class="text-center"><p>(</p></td>
+<td class="text-center"><p>)</p></td>
+<td class="text-center"><p>∗</p></td>
+<td class="text-center"><p>+</p></td>
+<td class="text-center"><p>,</p></td>
+<td class="text-center"><p>−</p></td>
+<td class="text-center"><p>.</p></td>
+<td class="text-center"><p>/</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\06x</strong></p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>1</p></td>
+<td class="text-center"><p>2</p></td>
+<td class="text-center"><p>3</p></td>
+<td class="text-center"><p>4</p></td>
+<td class="text-center"><p>5</p></td>
+<td class="text-center"><p>6</p></td>
+<td class="text-center"><p>7</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\07x</strong></p></td>
+<td class="text-center"><p>8</p></td>
+<td class="text-center"><p>9</p></td>
+<td class="text-center"><p>:</p></td>
+<td class="text-center"><p>;</p></td>
+<td class="text-center"><p>&lt;</p></td>
+<td class="text-center"><p>=</p></td>
+<td class="text-center"><p>&gt;</p></td>
+<td class="text-center"><p>?</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\10x</strong></p></td>
+<td class="text-center"><p>≅</p></td>
+<td class="text-center"><p>Α</p></td>
+<td class="text-center"><p>Β</p></td>
+<td class="text-center"><p>Χ</p></td>
+<td class="text-center"><p>∆</p></td>
+<td class="text-center"><p>Ε</p></td>
+<td class="text-center"><p>Φ</p></td>
+<td class="text-center"><p>Γ</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\11x</strong></p></td>
+<td class="text-center"><p>Η</p></td>
+<td class="text-center"><p>Ι</p></td>
+<td class="text-center"><p>ϑ</p></td>
+<td class="text-center"><p>Κ</p></td>
+<td class="text-center"><p>Λ</p></td>
+<td class="text-center"><p>Μ</p></td>
+<td class="text-center"><p>Ν</p></td>
+<td class="text-center"><p>Ο</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\12x</strong></p></td>
+<td class="text-center"><p>Π</p></td>
+<td class="text-center"><p>Θ</p></td>
+<td class="text-center"><p>Ρ</p></td>
+<td class="text-center"><p>Σ</p></td>
+<td class="text-center"><p>Τ</p></td>
+<td class="text-center"><p>Υ</p></td>
+<td class="text-center"><p>ς</p></td>
+<td class="text-center"><p>Ω</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\13x</strong></p></td>
+<td class="text-center"><p>Ξ</p></td>
+<td class="text-center"><p>Ψ</p></td>
+<td class="text-center"><p>Ζ</p></td>
+<td class="text-center"><p>[</p></td>
+<td class="text-center"><p>∴</p></td>
+<td class="text-center"><p>]</p></td>
+<td class="text-center"><p>⊥</p></td>
+<td class="text-center"><p>_</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\14x</strong></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p>α</p></td>
+<td class="text-center"><p>β</p></td>
+<td class="text-center"><p>χ</p></td>
+<td class="text-center"><p>δ</p></td>
+<td class="text-center"><p>ε</p></td>
+<td class="text-center"><p>φ</p></td>
+<td class="text-center"><p>γ</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\15x</strong></p></td>
+<td class="text-center"><p>η</p></td>
+<td class="text-center"><p>ι</p></td>
+<td class="text-center"><p>ϕ</p></td>
+<td class="text-center"><p>κ</p></td>
+<td class="text-center"><p>λ</p></td>
+<td class="text-center"><p>μ</p></td>
+<td class="text-center"><p>ν</p></td>
+<td class="text-center"><p>ο</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\16x</strong></p></td>
+<td class="text-center"><p>π</p></td>
+<td class="text-center"><p>θ</p></td>
+<td class="text-center"><p>ρ</p></td>
+<td class="text-center"><p>σ</p></td>
+<td class="text-center"><p>τ</p></td>
+<td class="text-center"><p>υ</p></td>
+<td class="text-center"><p>ϖ</p></td>
+<td class="text-center"><p>ω</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\17x</strong></p></td>
+<td class="text-center"><p>ξ</p></td>
+<td class="text-center"><p>ψ</p></td>
+<td class="text-center"><p>ζ</p></td>
+<td class="text-center"><p>{</p></td>
+<td class="text-center"><p>|</p></td>
+<td class="text-center"><p>}</p></td>
+<td class="text-center"><p>∼</p></td>
+<td class="text-center"><p>�</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\24x</strong></p></td>
+<td class="text-center"><p>€</p></td>
+<td class="text-center"><p>ϒ</p></td>
+<td class="text-center"><p>′</p></td>
+<td class="text-center"><p>≤</p></td>
+<td class="text-center"><p>∕</p></td>
+<td class="text-center"><p>∞</p></td>
+<td class="text-center"><p>ƒ</p></td>
+<td class="text-center"><p>♣</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\25x</strong></p></td>
+<td class="text-center"><p>♦</p></td>
+<td class="text-center"><p>♥</p></td>
+<td class="text-center"><p>♠</p></td>
+<td class="text-center"><p>↔</p></td>
+<td class="text-center"><p>←</p></td>
+<td class="text-center"><p>↑</p></td>
+<td class="text-center"><p>→</p></td>
+<td class="text-center"><p>↓</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\26x</strong></p></td>
+<td class="text-center"><p>°</p></td>
+<td class="text-center"><p>±</p></td>
+<td class="text-center"><p>″</p></td>
+<td class="text-center"><p>≥</p></td>
+<td class="text-center"><p>×</p></td>
+<td class="text-center"><p>∝</p></td>
+<td class="text-center"><p>∂</p></td>
+<td class="text-center"><p>•</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\27x</strong></p></td>
+<td class="text-center"><p>÷</p></td>
+<td class="text-center"><p>≠</p></td>
+<td class="text-center"><p>≡</p></td>
+<td class="text-center"><p>≈</p></td>
+<td class="text-center"><p>…</p></td>
+<td class="text-center"><p>⏐</p></td>
+<td class="text-center"><p>⎯</p></td>
+<td class="text-center"><p>↵</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\30x</strong></p></td>
+<td class="text-center"><p>ℵ</p></td>
+<td class="text-center"><p>ℑ</p></td>
+<td class="text-center"><p>ℜ</p></td>
+<td class="text-center"><p>℘</p></td>
+<td class="text-center"><p>⊗</p></td>
+<td class="text-center"><p>⊕</p></td>
+<td class="text-center"><p>∅</p></td>
+<td class="text-center"><p>∩</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\31x</strong></p></td>
+<td class="text-center"><p>∪</p></td>
+<td class="text-center"><p>⊃</p></td>
+<td class="text-center"><p>⊇</p></td>
+<td class="text-center"><p>⊄</p></td>
+<td class="text-center"><p>⊂</p></td>
+<td class="text-center"><p>⊆</p></td>
+<td class="text-center"><p>∈</p></td>
+<td class="text-center"><p>∉</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\32x</strong></p></td>
+<td class="text-center"><p>∠</p></td>
+<td class="text-center"><p>∇</p></td>
+<td class="text-center"><p>®</p></td>
+<td class="text-center"><p>©</p></td>
+<td class="text-center"><p>™</p></td>
+<td class="text-center"><p>∏</p></td>
+<td class="text-center"><p>√</p></td>
+<td class="text-center"><p>⋅</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\33x</strong></p></td>
+<td class="text-center"><p>¬</p></td>
+<td class="text-center"><p>∧</p></td>
+<td class="text-center"><p>∨</p></td>
+<td class="text-center"><p>⇔</p></td>
+<td class="text-center"><p>⇐</p></td>
+<td class="text-center"><p>⇑</p></td>
+<td class="text-center"><p>⇒</p></td>
+<td class="text-center"><p>⇓</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\34x</strong></p></td>
+<td class="text-center"><p>◊</p></td>
+<td class="text-center"><p>〈</p></td>
+<td class="text-center"><p>®</p></td>
+<td class="text-center"><p>©</p></td>
+<td class="text-center"><p>™</p></td>
+<td class="text-center"><p>∑</p></td>
+<td class="text-center"><p>⎛</p></td>
+<td class="text-center"><p>⎜</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\35x</strong></p></td>
+<td class="text-center"><p>⎝</p></td>
+<td class="text-center"><p>⎡</p></td>
+<td class="text-center"><p>⎢</p></td>
+<td class="text-center"><p>⎣</p></td>
+<td class="text-center"><p>⎧</p></td>
+<td class="text-center"><p>⎨</p></td>
+<td class="text-center"><p>⎩</p></td>
+<td class="text-center"><p>⎪</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\36x</strong></p></td>
+<td class="text-center"><p>�</p></td>
+<td class="text-center"><p>〉</p></td>
+<td class="text-center"><p>∫</p></td>
+<td class="text-center"><p>⌠</p></td>
+<td class="text-center"><p>⎮</p></td>
+<td class="text-center"><p>⌡</p></td>
+<td class="text-center"><p>⎞</p></td>
+<td class="text-center"><p>⎟</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\37x</strong></p></td>
+<td class="text-center"><p>⎠</p></td>
+<td class="text-center"><p>⎤</p></td>
+<td class="text-center"><p>⎥</p></td>
+<td class="text-center"><p>⎦</p></td>
+<td class="text-center"><p>⎫</p></td>
+<td class="text-center"><p>⎬</p></td>
+<td class="text-center"><p>⎭</p></td>
+<td class="text-center"><p>�</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>Note</strong>: The octal code <code class="docutils literal notranslate"><span class="pre">\140</span></code> represents the RADICAL EXTENDER character, which is not
+available in the Unicode character set.</p>
+</section>
+<section id="adobe-zapfdingbats-encoding">
+<h2>Adobe ZapfDingbats Encoding<a class="headerlink" href="#adobe-zapfdingbats-encoding" title="Link to this heading"></a></h2>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Octal</p></th>
+<th class="head text-center"><p>0</p></th>
+<th class="head text-center"><p>1</p></th>
+<th class="head text-center"><p>2</p></th>
+<th class="head text-center"><p>3</p></th>
+<th class="head text-center"><p>4</p></th>
+<th class="head text-center"><p>5</p></th>
+<th class="head text-center"><p>6</p></th>
+<th class="head text-center"><p>7</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>\04x</strong></p></td>
+<td class="text-center"><p> </p></td>
+<td class="text-center"><p>✁</p></td>
+<td class="text-center"><p>✂</p></td>
+<td class="text-center"><p>✃</p></td>
+<td class="text-center"><p>✄</p></td>
+<td class="text-center"><p>☎</p></td>
+<td class="text-center"><p>✆</p></td>
+<td class="text-center"><p>✇</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\05x</strong></p></td>
+<td class="text-center"><p>✈</p></td>
+<td class="text-center"><p>✉</p></td>
+<td class="text-center"><p>☛</p></td>
+<td class="text-center"><p>☞</p></td>
+<td class="text-center"><p>✌</p></td>
+<td class="text-center"><p>✍</p></td>
+<td class="text-center"><p>✎</p></td>
+<td class="text-center"><p>✏</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\06x</strong></p></td>
+<td class="text-center"><p>✐</p></td>
+<td class="text-center"><p>✑</p></td>
+<td class="text-center"><p>✒</p></td>
+<td class="text-center"><p>✓</p></td>
+<td class="text-center"><p>✔</p></td>
+<td class="text-center"><p>✕</p></td>
+<td class="text-center"><p>✖</p></td>
+<td class="text-center"><p>✗</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\07x</strong></p></td>
+<td class="text-center"><p>✘</p></td>
+<td class="text-center"><p>✙</p></td>
+<td class="text-center"><p>✚</p></td>
+<td class="text-center"><p>✛</p></td>
+<td class="text-center"><p>✜</p></td>
+<td class="text-center"><p>✝</p></td>
+<td class="text-center"><p>✞</p></td>
+<td class="text-center"><p>✟</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\10x</strong></p></td>
+<td class="text-center"><p>✠</p></td>
+<td class="text-center"><p>✡</p></td>
+<td class="text-center"><p>✢</p></td>
+<td class="text-center"><p>✣</p></td>
+<td class="text-center"><p>✤</p></td>
+<td class="text-center"><p>✥</p></td>
+<td class="text-center"><p>✦</p></td>
+<td class="text-center"><p>✧</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\11x</strong></p></td>
+<td class="text-center"><p>★</p></td>
+<td class="text-center"><p>✩</p></td>
+<td class="text-center"><p>✪</p></td>
+<td class="text-center"><p>✫</p></td>
+<td class="text-center"><p>✬</p></td>
+<td class="text-center"><p>✭</p></td>
+<td class="text-center"><p>✮</p></td>
+<td class="text-center"><p>✯</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\12x</strong></p></td>
+<td class="text-center"><p>✰</p></td>
+<td class="text-center"><p>✱</p></td>
+<td class="text-center"><p>✲</p></td>
+<td class="text-center"><p>✳</p></td>
+<td class="text-center"><p>✴</p></td>
+<td class="text-center"><p>✵</p></td>
+<td class="text-center"><p>✶</p></td>
+<td class="text-center"><p>✷</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\13x</strong></p></td>
+<td class="text-center"><p>✸</p></td>
+<td class="text-center"><p>✹</p></td>
+<td class="text-center"><p>✺</p></td>
+<td class="text-center"><p>✻</p></td>
+<td class="text-center"><p>✼</p></td>
+<td class="text-center"><p>✽</p></td>
+<td class="text-center"><p>✾</p></td>
+<td class="text-center"><p>✿</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\14x</strong></p></td>
+<td class="text-center"><p>❀</p></td>
+<td class="text-center"><p>❁</p></td>
+<td class="text-center"><p>❂</p></td>
+<td class="text-center"><p>❃</p></td>
+<td class="text-center"><p>❄</p></td>
+<td class="text-center"><p>❅</p></td>
+<td class="text-center"><p>❆</p></td>
+<td class="text-center"><p>❇</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\15x</strong></p></td>
+<td class="text-center"><p>❈</p></td>
+<td class="text-center"><p>❉</p></td>
+<td class="text-center"><p>❊</p></td>
+<td class="text-center"><p>❋</p></td>
+<td class="text-center"><p>●</p></td>
+<td class="text-center"><p>❍</p></td>
+<td class="text-center"><p>■</p></td>
+<td class="text-center"><p>❏</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\16x</strong></p></td>
+<td class="text-center"><p>❐</p></td>
+<td class="text-center"><p>❑</p></td>
+<td class="text-center"><p>❒</p></td>
+<td class="text-center"><p>▲</p></td>
+<td class="text-center"><p>▼</p></td>
+<td class="text-center"><p>◆</p></td>
+<td class="text-center"><p>❖</p></td>
+<td class="text-center"><p>◗</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\17x</strong></p></td>
+<td class="text-center"><p>❘</p></td>
+<td class="text-center"><p>❙</p></td>
+<td class="text-center"><p>❚</p></td>
+<td class="text-center"><p>❛</p></td>
+<td class="text-center"><p>❜</p></td>
+<td class="text-center"><p>❝</p></td>
+<td class="text-center"><p>❞</p></td>
+<td class="text-center"><p>�</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\20x</strong></p></td>
+<td class="text-center"><p>❨</p></td>
+<td class="text-center"><p>❩</p></td>
+<td class="text-center"><p>❪</p></td>
+<td class="text-center"><p>❫</p></td>
+<td class="text-center"><p>❬</p></td>
+<td class="text-center"><p>❭</p></td>
+<td class="text-center"><p>❮</p></td>
+<td class="text-center"><p>❯</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\21x</strong></p></td>
+<td class="text-center"><p>❰</p></td>
+<td class="text-center"><p>❱</p></td>
+<td class="text-center"><p>❲</p></td>
+<td class="text-center"><p>❳</p></td>
+<td class="text-center"><p>❴</p></td>
+<td class="text-center"><p>❵</p></td>
+<td class="text-center"><p>�</p></td>
+<td class="text-center"><p>�</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\24x</strong></p></td>
+<td class="text-center"><p>�</p></td>
+<td class="text-center"><p>❡</p></td>
+<td class="text-center"><p>❢</p></td>
+<td class="text-center"><p>❣</p></td>
+<td class="text-center"><p>❤</p></td>
+<td class="text-center"><p>❥</p></td>
+<td class="text-center"><p>❦</p></td>
+<td class="text-center"><p>❧</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\25x</strong></p></td>
+<td class="text-center"><p>♣</p></td>
+<td class="text-center"><p>♦</p></td>
+<td class="text-center"><p>♥</p></td>
+<td class="text-center"><p>♠</p></td>
+<td class="text-center"><p>①</p></td>
+<td class="text-center"><p>②</p></td>
+<td class="text-center"><p>③</p></td>
+<td class="text-center"><p>④</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\26x</strong></p></td>
+<td class="text-center"><p>⑤</p></td>
+<td class="text-center"><p>⑥</p></td>
+<td class="text-center"><p>⑦</p></td>
+<td class="text-center"><p>⑧</p></td>
+<td class="text-center"><p>⑨</p></td>
+<td class="text-center"><p>⑩</p></td>
+<td class="text-center"><p>❶</p></td>
+<td class="text-center"><p>❷</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\27x</strong></p></td>
+<td class="text-center"><p>❸</p></td>
+<td class="text-center"><p>❹</p></td>
+<td class="text-center"><p>❺</p></td>
+<td class="text-center"><p>❻</p></td>
+<td class="text-center"><p>❼</p></td>
+<td class="text-center"><p>❽</p></td>
+<td class="text-center"><p>❾</p></td>
+<td class="text-center"><p>❿</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\30x</strong></p></td>
+<td class="text-center"><p>➀</p></td>
+<td class="text-center"><p>➁</p></td>
+<td class="text-center"><p>➂</p></td>
+<td class="text-center"><p>➃</p></td>
+<td class="text-center"><p>➄</p></td>
+<td class="text-center"><p>➅</p></td>
+<td class="text-center"><p>➆</p></td>
+<td class="text-center"><p>➇</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\31x</strong></p></td>
+<td class="text-center"><p>➈</p></td>
+<td class="text-center"><p>➉</p></td>
+<td class="text-center"><p>➊</p></td>
+<td class="text-center"><p>➋</p></td>
+<td class="text-center"><p>➌</p></td>
+<td class="text-center"><p>➍</p></td>
+<td class="text-center"><p>➎</p></td>
+<td class="text-center"><p>➏</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\32x</strong></p></td>
+<td class="text-center"><p>➐</p></td>
+<td class="text-center"><p>➑</p></td>
+<td class="text-center"><p>➒</p></td>
+<td class="text-center"><p>➓</p></td>
+<td class="text-center"><p>➔</p></td>
+<td class="text-center"><p>→</p></td>
+<td class="text-center"><p>↔</p></td>
+<td class="text-center"><p>↕</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\33x</strong></p></td>
+<td class="text-center"><p>➘</p></td>
+<td class="text-center"><p>➙</p></td>
+<td class="text-center"><p>➚</p></td>
+<td class="text-center"><p>➛</p></td>
+<td class="text-center"><p>➜</p></td>
+<td class="text-center"><p>➝</p></td>
+<td class="text-center"><p>➞</p></td>
+<td class="text-center"><p>➟</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\34x</strong></p></td>
+<td class="text-center"><p>➠</p></td>
+<td class="text-center"><p>➡</p></td>
+<td class="text-center"><p>➢</p></td>
+<td class="text-center"><p>➣</p></td>
+<td class="text-center"><p>➤</p></td>
+<td class="text-center"><p>➥</p></td>
+<td class="text-center"><p>➦</p></td>
+<td class="text-center"><p>➧</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\35x</strong></p></td>
+<td class="text-center"><p>➨</p></td>
+<td class="text-center"><p>➩</p></td>
+<td class="text-center"><p>➪</p></td>
+<td class="text-center"><p>➫</p></td>
+<td class="text-center"><p>➬</p></td>
+<td class="text-center"><p>➭</p></td>
+<td class="text-center"><p>➮</p></td>
+<td class="text-center"><p>➯</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>\36x</strong></p></td>
+<td class="text-center"><p>�</p></td>
+<td class="text-center"><p>➱</p></td>
+<td class="text-center"><p>➲</p></td>
+<td class="text-center"><p>➳</p></td>
+<td class="text-center"><p>➴</p></td>
+<td class="text-center"><p>➵</p></td>
+<td class="text-center"><p>➶</p></td>
+<td class="text-center"><p>➷</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>\37x</strong></p></td>
+<td class="text-center"><p>➸</p></td>
+<td class="text-center"><p>➹</p></td>
+<td class="text-center"><p>➺</p></td>
+<td class="text-center"><p>➻</p></td>
+<td class="text-center"><p>➼</p></td>
+<td class="text-center"><p>➽</p></td>
+<td class="text-center"><p>➾</p></td>
+<td class="text-center"><p>�</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="iso-iec-8859">
+<h2>ISO/IEC 8859<a class="headerlink" href="#iso-iec-8859" title="Link to this heading"></a></h2>
+<p>PyGMT also supports the ISO/IEC 8859 standard for 8-bit character encodings. Refer to
+<a class="reference external" href="https://en.wikipedia.org/wiki/ISO/IEC_8859">ISO/IEC 8859</a> for descriptions of the
+different parts of the standard.</p>
+<p>For a list of the characters in each part of the standard, refer to the following links:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/ISO/IEC_8859-1">ISO/IEC 8859-1</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/ISO/IEC_8859-2">ISO/IEC 8859-2</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/ISO/IEC_8859-3">ISO/IEC 8859-3</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/ISO/IEC_8859-4">ISO/IEC 8859-4</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/ISO/IEC_8859-5">ISO/IEC 8859-5</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/ISO/IEC_8859-6">ISO/IEC 8859-6</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/ISO/IEC_8859-7">ISO/IEC 8859-7</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/ISO/IEC_8859-8">ISO/IEC 8859-8</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/ISO/IEC_8859-9">ISO/IEC 8859-9</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/ISO/IEC_8859-10">ISO/IEC 8859-10</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/ISO/IEC_8859-11">ISO/IEC 8859-11</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/ISO/IEC_8859-13">ISO/IEC 8859-13</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/ISO/IEC_8859-14">ISO/IEC 8859-14</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/ISO/IEC_8859-15">ISO/IEC 8859-15</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/ISO/IEC_8859-16">ISO/IEC 8859-16</a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          
+<footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="fonts.html" class="btn btn-neutral float-left" title="Supported Fonts" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../changes.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on Sep 05, 2024.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_projections_cyl_cyl_universal_transverse_mercator.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -86,7 +86,7 @@ and the figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.212 seconds)
+   **Total running time of the script:** (0 minutes 0.213 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_universal_transverse_mercator.py:
@@ -102,6 +102,10 @@ and the figure size is set with *scale* or *width*.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: cyl_universal_transverse_mercator.py <cyl_universal_transverse_mercator.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: cyl_universal_transverse_mercator.zip <cyl_universal_transverse_mercator.zip>`
 
 
 .. only:: html

@@ -13,6 +13,9 @@ These examples teach us how to complete various tasks using PyGMT!
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
+
+.. thumbnail-parent-div-close
 
 .. raw:: html
 
@@ -27,6 +30,7 @@ Basics
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
@@ -47,7 +51,7 @@ Basics
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Setting frame, ticks, title, etc., of the plot is handled by the frame parameter that most plot...">
+    <div class="sphx-glr-thumbcontainer" tooltip="Setting frame, ticks, title, etc., of the plot is handled by the frame parameter that most plotting methods of the pygmt.Figure class contain.">
 
 .. only:: html
 
@@ -64,7 +68,7 @@ Basics
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is package...">
+    <div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is packaged with GMT to try this out. PyGMT provides access to these datasets through the pygmt.datasets package. If you don&#x27;t have the data files already, they are automatically downloaded and saved to a cache directory the first time you use them (usually ~/.gmt/cache).">
 
 .. only:: html
 
@@ -98,7 +102,7 @@ Basics
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add text annotations to a plot or map. This is handled by the pygmt.Figur...">
+    <div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add text annotations to a plot or map. This is handled by the pygmt.Figure.text method of the pygmt.Figure class.">
 
 .. only:: html
 
@@ -115,7 +119,7 @@ Basics
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Many of the plotting methods take the region parameter, which sets the area that will be shown ...">
+    <div class="sphx-glr-thumbcontainer" tooltip="Many of the plotting methods take the region parameter, which sets the area that will be shown in the figure. This tutorial covers the different types of inputs that it can accept.">
 
 .. only:: html
 
@@ -129,6 +133,8 @@ Basics
       <div class="sphx-glr-thumbnail-title">Setting the region</div>
     </div>
 
+
+.. thumbnail-parent-div-close
 
 .. raw:: html
 
@@ -154,10 +160,11 @@ Advanced
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="To plot an inset figure inside another larger figure, we can use the pygmt.Figure.inset method....">
+    <div class="sphx-glr-thumbcontainer" tooltip="To plot an inset figure inside another larger figure, we can use the pygmt.Figure.inset method. After a large figure has been created, call inset using a with statement, and new plot elements will be added to the inset figure instead of the larger figure.">
 
 .. only:: html
 
@@ -174,7 +181,7 @@ Advanced
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Cartesian histograms can be generated using the pygmt.Figure.histogram method. In this tutorial...">
+    <div class="sphx-glr-thumbcontainer" tooltip="Cartesian histograms can be generated using the pygmt.Figure.histogram method. In this tutorial, different histogram related aspects are addressed:">
 
 .. only:: html
 
@@ -242,7 +249,24 @@ Advanced
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="    Please run the following code examples in a notebook environment     otherwise the interact...">
+    <div class="sphx-glr-thumbcontainer" tooltip="It can be visually appealing to &quot;drape&quot; a dataset over a topographic surface. This can be accomplished using the drapegrid parameter of pygmt.Figure.grdview.">
+
+.. only:: html
+
+  .. image:: /tutorials/advanced/images/thumb/sphx_glr_draping_on_3d_surface_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_advanced_draping_on_3d_surface.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Draping a dataset on top of a topographic surface</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="    Please run the following code examples in a notebook environment     otherwise the interactive parts of this tutorial will not work. You can     use the button &quot;Download Jupyter notebook&quot; at the bottom of this page     to download this script as a Jupyter notebook.">
 
 .. only:: html
 
@@ -259,7 +283,7 @@ Advanced
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put m...">
+    <div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put many individual plots into one large figure, and label them &#x27;abcd&#x27;. These individual plots are called subplots.">
 
 .. only:: html
 
@@ -276,7 +300,7 @@ Advanced
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdhisteq.equalize_grid method creates a grid using statistics based on a cumulative ...">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdhisteq.equalize_grid method creates a grid using statistics based on a cumulative distribution function.">
 
 .. only:: html
 
@@ -293,7 +317,7 @@ Advanced
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Plotting a map of Earth relief can use the data accessed by the pygmt.datasets.load_earth_relie...">
+    <div class="sphx-glr-thumbcontainer" tooltip="PyGMT provides the pygmt.datasets.load_earth_relief function to download the Earth relief data from the GMT remote server and load as an xarray.DataArray object. The data can then be plotted using the pygmt.Figure.grdimage method.">
 
 .. only:: html
 
@@ -310,7 +334,7 @@ Advanced
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="PyGMT accepts a variety of datetime objects to plot data and create charts. Aside from the buil...">
+    <div class="sphx-glr-thumbcontainer" tooltip="PyGMT accepts a variety of datetime objects to plot data and create charts. Aside from the built-in Python datetime module, PyGMT supports inputs containing ISO formatted strings as well as objects generated with numpy, pandas, and xarray. These data types can be used to plot specific points as well as get passed into the region parameter to create a range of the data on an axis.">
 
 .. only:: html
 
@@ -344,6 +368,25 @@ Advanced
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="In addition to ASCII printable characters, sometimes you may also want to typeset non-ASCII characters on the plot, such as Greek letters, mathematical symbols, or special characters.">
+
+.. only:: html
+
+  .. image:: /tutorials/advanced/images/thumb/sphx_glr_non_ascii_text_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_advanced_non_ascii_text.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Typesetting non-ASCII text</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
     </div>
 
 
@@ -355,12 +398,14 @@ Advanced
    /tutorials/advanced/configuration
    /tutorials/advanced/3d_perspective_image
    /tutorials/advanced/contour_map
+   /tutorials/advanced/draping_on_3d_surface
    /tutorials/advanced/working_with_panel
    /tutorials/advanced/subplots
    /tutorials/advanced/grid_equalization
    /tutorials/advanced/earth_relief
    /tutorials/advanced/date_time_charts
    /tutorials/advanced/vectors
+   /tutorials/advanced/non_ascii_text
 
 
 

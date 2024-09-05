@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_get_started_01_first_figure.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -328,7 +328,7 @@ for the concepts that were discussed:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.028 seconds)
+   **Total running time of the script:** (0 minutes 1.021 seconds)
 
 
 .. _sphx_glr_download_get_started_01_first_figure.py:
@@ -344,6 +344,10 @@ for the concepts that were discussed:
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: 01_first_figure.py <01_first_figure.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: 01_first_figure.zip <01_first_figure.zip>`
 
 
 .. only:: html

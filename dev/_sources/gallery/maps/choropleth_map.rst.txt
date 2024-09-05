@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_maps_choropleth_map.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -91,7 +91,7 @@ parameter as shown in the example below.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.784 seconds)
+   **Total running time of the script:** (0 minutes 0.948 seconds)
 
 
 .. _sphx_glr_download_gallery_maps_choropleth_map.py:
@@ -107,6 +107,10 @@ parameter as shown in the example below.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: choropleth_map.py <choropleth_map.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: choropleth_map.zip <choropleth_map.zip>`
 
 
 .. only:: html

@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_tutorials_basics_text.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -78,9 +78,9 @@ Adjusting the text label
 There are several optional parameters to adjust the text label:
 
 * ``font``: Sets the size, family/weight, and color of the font for the text.
-  A list of all recognized fonts can be found at
-  :gmt-docs:`PostScript Fonts Used by GMT <reference/postscript-fonts.html>`,
-  including details of how to use non-default fonts.
+  A list of all recognized fonts can be found at :doc:`/techref/fonts`.
+  For details of how to use non-default fonts, refer to
+  :gmt-docs:`PostScript Fonts Used by GMT <reference/postscript-fonts.html>`.
 * ``angle``: Specifies the rotation of the text. It is measured counter-clockwise
   from the horizontal in degrees.
 * ``justify``: Defines the anchor point of the bounding box for the text. It is
@@ -134,7 +134,7 @@ There are several optional parameters to adjust the text label:
     # Plot text labels at the x and y positions of the markers while varying the anchor
     # point via the justify parameter
     fig.text(x=-0.5, y=0.5, text="TL", justify="TL")  # TopLeft
-    fig.text(x=0, y=0.5, text="TM", justify="TC")  # TopCenter
+    fig.text(x=0, y=0.5, text="TC", justify="TC")  # TopCenter
     fig.text(x=0.5, y=0.5, text="TR", justify="TR")  # TopRight
     fig.text(x=-0.5, y=0, text="ML", justify="ML")  # MiddleLeft
     fig.text(x=0, y=0, text="MC", justify="MC")  # MiddleCenter
@@ -379,7 +379,7 @@ luck!
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.797 seconds)
+   **Total running time of the script:** (0 minutes 0.788 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_text.py:
@@ -395,6 +395,10 @@ luck!
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: text.py <text.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: text.zip <text.zip>`
 
 
 .. only:: html

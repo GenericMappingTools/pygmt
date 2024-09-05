@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_images_cross_section.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -78,8 +78,8 @@ https://docs.gmt-china.org/latest/examples/ex026/
 
     # Add a colorbar for the elevation
     fig.colorbar(
-        # Place the colorbar inside the plot (lower-case "j") with justification
-        # Bottom Right and an offset ("+o") of 0.7 centimeters and
+        # Place the colorbar inside the plot (lower-case "j") in the Bottom
+        # Right (BR) corner with an offset ("+o") of 0.7 centimeters and
         # 0.3 centimeters in x or y directions, respectively
         # Move the x label above the horizontal colorbar ("+ml")
         position="jBR+o0.7c/0.8c+h+w5c/0.3c+ml",
@@ -174,7 +174,7 @@ https://docs.gmt-china.org/latest/examples/ex026/
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.312 seconds)
+   **Total running time of the script:** (0 minutes 0.302 seconds)
 
 
 .. _sphx_glr_download_gallery_images_cross_section.py:
@@ -190,6 +190,10 @@ https://docs.gmt-china.org/latest/examples/ex026/
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: cross_section.py <cross_section.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: cross_section.zip <cross_section.zip>`
 
 
 .. only:: html

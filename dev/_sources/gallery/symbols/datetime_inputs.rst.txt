@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_symbols_datetime_inputs.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -100,7 +100,7 @@ in the form [*date_min*, *date_max*, *ymin*, *ymax*]. Here *date_min* and
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.126 seconds)
+   **Total running time of the script:** (0 minutes 0.127 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_datetime_inputs.py:
@@ -116,6 +116,10 @@ in the form [*date_min*, *date_max*, *ymin*, *ymax*]. Here *date_min* and
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: datetime_inputs.py <datetime_inputs.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: datetime_inputs.zip <datetime_inputs.zip>`
 
 
 .. only:: html

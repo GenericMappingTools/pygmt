@@ -11,14 +11,14 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_basemaps_double_y_axes.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
 .. _sphx_glr_gallery_basemaps_double_y_axes.py:
 
 
-Double Y axes graph
+Double Y-axes graph
 ===================
 
 The ``frame`` parameter of the plotting methods of the :class:`pygmt.Figure`
@@ -35,7 +35,7 @@ To plot a double Y-axes graph using PyGMT, we need to plot at least two base
 maps separately. The base maps should share the same projection parameter and
 x-axis limits, but different y-axis limits.
 
-.. GENERATED FROM PYTHON SOURCE LINES 21-70
+.. GENERATED FROM PYTHON SOURCE LINES 21-71
 
 
 
@@ -95,7 +95,8 @@ x-axis limits, but different y-axis limits.
     # Plot points for y2 data
     fig.plot(x=x, y=y2, style="s0.28c", fill="red", label="y2")
 
-    # Create a legend in the top-left corner of the plot
+    # Create a legend in the Top Left (TL) corner of the plot with an
+    # offset of 0.1 centimeters
     fig.legend(position="jTL+o0.1c", box=True)
 
     fig.show()
@@ -103,7 +104,7 @@ x-axis limits, but different y-axis limits.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.235 seconds)
+   **Total running time of the script:** (0 minutes 0.202 seconds)
 
 
 .. _sphx_glr_download_gallery_basemaps_double_y_axes.py:
@@ -119,6 +120,10 @@ x-axis limits, but different y-axis limits.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: double_y_axes.py <double_y_axes.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: double_y_axes.zip <double_y_axes.zip>`
 
 
 .. only:: html

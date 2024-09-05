@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_tutorials_basics_plot.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -72,7 +72,7 @@ The data are loaded as a :class:`pandas.DataFrame`.
 
  .. code-block:: none
 
-    [131.29, 150.89, 34.02, 50.77]
+    [np.float64(131.29), np.float64(150.89), np.float64(34.02), np.float64(50.77)]
        year  month  day  latitude  longitude  depth_km  magnitude
     0  1987      1    4     49.77     149.29       489        4.1
     1  1987      1    9     39.90     141.68        67        6.8
@@ -203,7 +203,7 @@ also plot a colorbar showing the colormap used in the plot.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.772 seconds)
+   **Total running time of the script:** (0 minutes 0.765 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_plot.py:
@@ -219,6 +219,10 @@ also plot a colorbar showing the colormap used in the plot.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: plot.py <plot.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: plot.zip <plot.zip>`
 
 
 .. only:: html

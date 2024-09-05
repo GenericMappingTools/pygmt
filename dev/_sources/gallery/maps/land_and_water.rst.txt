@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_maps_land_and_water.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -54,7 +54,7 @@ names (like ``"skyblue"``), R/G/B levels (like ``"0/0/255"``), a hex value
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.228 seconds)
+   **Total running time of the script:** (0 minutes 0.229 seconds)
 
 
 .. _sphx_glr_download_gallery_maps_land_and_water.py:
@@ -70,6 +70,10 @@ names (like ``"skyblue"``), R/G/B levels (like ``"0/0/255"``), a hex value
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: land_and_water.py <land_and_water.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: land_and_water.zip <land_and_water.zip>`
 
 
 .. only:: html

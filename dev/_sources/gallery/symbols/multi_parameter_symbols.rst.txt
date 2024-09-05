@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_symbols_multi_parameter_symbols.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -170,6 +170,10 @@ The symbol parameters in the 2-D list or numpy array are defined as:
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: multi_parameter_symbols.py <multi_parameter_symbols.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: multi_parameter_symbols.zip <multi_parameter_symbols.zip>`
 
 
 .. only:: html

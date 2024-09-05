@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_symbols_points_categorical.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -25,8 +25,8 @@ The :meth:`pygmt.Figure.plot` method can be used to plot symbols which are
 color-coded by categories. In the example below, we show how the
 `Palmer Penguins dataset <https://github.com/allisonhorst/palmerpenguins>`__
 can be visualized. Here, we can pass the individual categories included in
-the "species" column directly to the ``color`` parameter via
-``color=df.species.cat.codes.astype(int)``. Additionally, we have to set
+the "species" column directly to the ``fill`` parameter via
+``fill=df.species.cat.codes.astype(int)``. Additionally, we have to set
 ``cmap=True``. A desired colormap can be selected via the :func:`pygmt.makecpt`
 function.
 
@@ -131,7 +131,7 @@ function.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.332 seconds)
+   **Total running time of the script:** (0 minutes 0.363 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_points_categorical.py:
@@ -147,6 +147,10 @@ function.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: points_categorical.py <points_categorical.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: points_categorical.zip <points_categorical.zip>`
 
 
 .. only:: html

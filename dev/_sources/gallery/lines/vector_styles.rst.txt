@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_lines_vector_styles.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -23,7 +23,7 @@ Cartesian, circular, and geographic vectors
 
 The :meth:`pygmt.Figure.plot` method can plot Cartesian, circular, and
 geographic vectors. The ``style`` parameter controls vector attributes.
-See also :doc:`Vector attributes example </gallery/lines/vector_heads_tails>`.
+See also the :doc:`Vector attributes example </gallery/lines/vector_heads_tails>`.
 
 .. GENERATED FROM PYTHON SOURCE LINES 11-67
 
@@ -100,7 +100,7 @@ See also :doc:`Vector attributes example </gallery/lines/vector_heads_tails>`.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.531 seconds)
+   **Total running time of the script:** (0 minutes 0.697 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_vector_styles.py:
@@ -116,6 +116,10 @@ See also :doc:`Vector attributes example </gallery/lines/vector_heads_tails>`.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: vector_styles.py <vector_styles.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: vector_styles.zip <vector_styles.zip>`
 
 
 .. only:: html

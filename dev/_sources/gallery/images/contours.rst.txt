@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_images_contours.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -82,7 +82,7 @@ contours every 10 ``z`` values and annotations every 20 ``z`` values.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.222 seconds)
+   **Total running time of the script:** (0 minutes 0.216 seconds)
 
 
 .. _sphx_glr_download_gallery_images_contours.py:
@@ -98,6 +98,10 @@ contours every 10 ``z`` values and annotations every 20 ``z`` values.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: contours.py <contours.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: contours.zip <contours.zip>`
 
 
 .. only:: html

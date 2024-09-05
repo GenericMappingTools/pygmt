@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_projections_cyl_cyl_stereographic.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -69,7 +69,7 @@ The standard parallel is typically one of these (but can be any value):
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.202 seconds)
+   **Total running time of the script:** (0 minutes 0.200 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_stereographic.py:
@@ -85,6 +85,10 @@ The standard parallel is typically one of these (but can be any value):
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: cyl_stereographic.py <cyl_stereographic.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: cyl_stereographic.zip <cyl_stereographic.zip>`
 
 
 .. only:: html

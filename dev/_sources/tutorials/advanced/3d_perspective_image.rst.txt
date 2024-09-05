@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_tutorials_advanced_3d_perspective_image.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -201,7 +201,7 @@ as argument for the ``perspective`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.962 seconds)
+   **Total running time of the script:** (0 minutes 0.958 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_3d_perspective_image.py:
@@ -217,6 +217,10 @@ as argument for the ``perspective`` parameter.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: 3d_perspective_image.py <3d_perspective_image.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: 3d_perspective_image.zip <3d_perspective_image.zip>`
 
 
 .. only:: html

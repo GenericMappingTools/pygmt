@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_projections_azim_azim_orthographic.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -59,7 +59,7 @@ and *width* set the figure size.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.242 seconds)
+   **Total running time of the script:** (0 minutes 0.245 seconds)
 
 
 .. _sphx_glr_download_projections_azim_azim_orthographic.py:
@@ -75,6 +75,10 @@ and *width* set the figure size.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: azim_orthographic.py <azim_orthographic.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: azim_orthographic.zip <azim_orthographic.zip>`
 
 
 .. only:: html

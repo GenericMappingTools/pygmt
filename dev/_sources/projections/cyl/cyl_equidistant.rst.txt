@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_projections_cyl_cyl_equidistant.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -81,6 +81,10 @@ meridian must be supplied as well.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: cyl_equidistant.py <cyl_equidistant.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: cyl_equidistant.zip <cyl_equidistant.zip>`
 
 
 .. only:: html

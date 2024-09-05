@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_tutorials_advanced_earth_relief.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -21,9 +21,9 @@
 Plotting Earth relief
 =====================
 
-Plotting a map of Earth relief can use the data accessed by the
-:func:`pygmt.datasets.load_earth_relief` function. The data can then be
-plotted using the :meth:`pygmt.Figure.grdimage` method.
+PyGMT provides the :func:`pygmt.datasets.load_earth_relief` function to download the
+Earth relief data from the GMT remote server and load as an :class:`xarray.DataArray`
+object. The data can then be plotted using the :meth:`pygmt.Figure.grdimage` method.
 
 .. GENERATED FROM PYTHON SOURCE LINES 11-13
 
@@ -38,13 +38,12 @@ plotted using the :meth:`pygmt.Figure.grdimage` method.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-17
+.. GENERATED FROM PYTHON SOURCE LINES 14-16
 
-Load sample Earth relief data for the entire globe at a resolution of
-1 arc-degree. The other available resolutions are shown at
-:gmt-datasets:`earth-relief.html`.
+Load sample Earth relief data for the entire globe at a resolution of 1 arc-degree.
+Refer to :func:`pygmt.datasets.load_earth_relief` for the other available resolutions.
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-20
+.. GENERATED FROM PYTHON SOURCE LINES 16-19
 
 .. code-block:: Python
 
@@ -58,17 +57,17 @@ Load sample Earth relief data for the entire globe at a resolution of
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 21-28
+.. GENERATED FROM PYTHON SOURCE LINES 20-27
 
 Create a plot
 -------------
 
-The :meth:`pygmt.Figure.grdimage` method takes the ``grid`` input to create a
-figure. It creates and applies a color palette to the figure based upon the
-z-values of the data. By default, it plots the map with the *turbo* CPT, an
-equidistant cylindrical projection, and with no frame.
+The :meth:`pygmt.Figure.grdimage` method takes the ``grid`` input to create a figure.
+It creates and applies a color palette to the figure based upon the z-values of the
+data. By default, it plots the map with the *turbo* CPT, an equidistant cylindrical
+projection, and with no frame.
 
-.. GENERATED FROM PYTHON SOURCE LINES 28-33
+.. GENERATED FROM PYTHON SOURCE LINES 27-32
 
 .. code-block:: Python
 
@@ -89,14 +88,14 @@ equidistant cylindrical projection, and with no frame.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 34-38
+.. GENERATED FROM PYTHON SOURCE LINES 33-37
 
-:meth:`pygmt.Figure.grdimage` can take the optional parameter ``projection``
-for the map. In the example below, ``projection`` is set to ``"R12c"`` for
-a 12-centimeters-wide figure with a Winkel Tripel projection. For a list
-of available projections, see :gmt-docs:`reference/map-projections.html`.
+:meth:`pygmt.Figure.grdimage` can take the optional parameter ``projection`` for the
+map. In the example below, ``projection`` is set to ``"R12c"`` for a
+12-centimeters-wide figure with a Winkel Tripel projection. For a list of available
+projections, see :doc:`/techref/projections`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-44
+.. GENERATED FROM PYTHON SOURCE LINES 37-43
 
 .. code-block:: Python
 
@@ -118,20 +117,20 @@ of available projections, see :gmt-docs:`reference/map-projections.html`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 45-51
+.. GENERATED FROM PYTHON SOURCE LINES 44-50
 
 Set a color map
 ---------------
 
-:meth:`pygmt.Figure.grdimage` takes the ``cmap`` parameter to set the CPT of
-the figure. Examples of common CPTs for Earth relief are shown below.
-A full list of CPTs can be found at :gmt-docs:`reference/cpts.html`.
+:meth:`pygmt.Figure.grdimage` takes the ``cmap`` parameter to set the CPT of the
+figure. Examples of common CPTs for Earth relief are shown below. A full list of CPTs
+can be found at :gmt-docs:`reference/cpts.html`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 53-54
+.. GENERATED FROM PYTHON SOURCE LINES 52-53
 
 Using the *geo* CPT:
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-59
+.. GENERATED FROM PYTHON SOURCE LINES 53-58
 
 .. code-block:: Python
 
@@ -152,11 +151,11 @@ Using the *geo* CPT:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-61
+.. GENERATED FROM PYTHON SOURCE LINES 59-60
 
 Using the *relief* CPT:
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-67
+.. GENERATED FROM PYTHON SOURCE LINES 60-66
 
 .. code-block:: Python
 
@@ -178,21 +177,20 @@ Using the *relief* CPT:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 68-79
+.. GENERATED FROM PYTHON SOURCE LINES 67-77
 
 Add a color bar
 ---------------
 
-The :meth:`pygmt.Figure.colorbar` method displays the CPT and the associated
-Z-values of the figure, and by default uses the same CPT set by the ``cmap``
-parameter for :meth:`pygmt.Figure.grdimage`. The ``frame`` parameter for
-:meth:`pygmt.Figure.colorbar` can be used to set the axis intervals and
-labels. A list is used to pass multiple arguments to ``frame``. In the
-example below, ``"a2500"`` sets the axis interval to 2,500,
-``"x+lElevation"`` sets the x-axis label, and ``"y+lm"`` sets the y-axis
-label.
+The :meth:`pygmt.Figure.colorbar` method displays the CPT and the associated z-values
+of the figure, and by default uses the same CPT set by the ``cmap`` parameter for
+:meth:`pygmt.Figure.grdimage`. The ``frame`` parameter for
+:meth:`pygmt.Figure.colorbar` can be used to set the axis intervals and labels. A list
+is used to pass multiple arguments to ``frame``. In the example below, ``"a2500"``
+sets the axis interval to 2,500, ``"x+lElevation"`` sets the x-axis label, and
+``"y+lm"`` sets the y-axis label.
 
-.. GENERATED FROM PYTHON SOURCE LINES 79-86
+.. GENERATED FROM PYTHON SOURCE LINES 77-84
 
 .. code-block:: Python
 
@@ -215,23 +213,21 @@ label.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 87-100
+.. GENERATED FROM PYTHON SOURCE LINES 85-96
 
 Create a region map
 -------------------
 
-In addition to providing global data, the ``region`` parameter for
-:func:`pygmt.datasets.load_earth_relief` can be used to provide data for a
-specific area. The ``region`` parameter is required for resolutions at
-5 arc-minutes or higher, and accepts a list (as in the example below) or a
-string. For the later, the geographic range is passed as
-"*xmin*/*xmax*/*ymin*/*ymax*".
+In addition to providing global data, the ``region`` parameter of
+:func:`pygmt.datasets.load_earth_relief` can be used to provide data for a specific
+area. The ``region`` parameter is required for resolutions at 5 arc-minutes or higher,
+and accepts a list in the form of [*xmin*, *xmax*, *ymin*, *ymax*].
 
-The example below uses data with a 10 arc-minutes resolution, and plots it on
-a 15-centimeters-wide figure with a Mercator projection and a CPT set to
-*geo*. ``frame="a"`` is used to add a frame with annotations to the figure.
+The example below uses data with a 10 arc-minutes resolution, and plots it on a
+15-centimeters-wide figure with a Mercator projection and a CPT set to *geo*.
+``frame="a"`` is used to add a frame with annotations to the figure.
 
-.. GENERATED FROM PYTHON SOURCE LINES 100-107
+.. GENERATED FROM PYTHON SOURCE LINES 96-103
 
 .. code-block:: Python
 
@@ -257,7 +253,7 @@ a 15-centimeters-wide figure with a Mercator projection and a CPT set to
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.215 seconds)
+   **Total running time of the script:** (0 minutes 1.198 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_earth_relief.py:
@@ -273,6 +269,10 @@ a 15-centimeters-wide figure with a Mercator projection and a CPT set to
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: earth_relief.py <earth_relief.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: earth_relief.zip <earth_relief.zip>`
 
 
 .. only:: html

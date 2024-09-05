@@ -11,13 +11,14 @@
 
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-      <link rel="stylesheet" type="text/css" href="_static/style.css?v=902da76c" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css?v=a51cd8ab" />
 
   
     <link rel="shortcut icon" href="_static/favicon.png"/>
@@ -28,12 +29,13 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=b483e97e"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/documentation_options.js?v=aa3fe5bf"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="_static/copybutton.js?v=ccdb6887"></script>
-        <script src="_static/design-tabs.js?v=36754332"></script>
+        <script src="_static/design-tabs.js?v=f930bc37"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -102,12 +104,13 @@
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="team.html">PyGMT Team</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributors Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="maintenance.html">Maintainers Guide</a></li>
 </ul>
@@ -216,11 +219,14 @@ data tables, <code class="docutils literal notranslate"><span class="pre">xarray
 or a <a class="reference external" href="https://docs.jupyter.org/en/latest/running.html">Jupyter notebook</a>, and try the following example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">coast</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s2">&quot;H10c&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">land</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">coast</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s2">&quot;N15c&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">land</span><span class="o">=</span><span class="s2">&quot;tan&quot;</span><span class="p">,</span> <span class="n">water</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;MC&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;PyGMT&quot;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="s2">&quot;80p,Helvetica-Bold,red@75&quot;</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>For more examples, please have a look at the <a class="reference external" href="https://www.pygmt.org/latest/gallery/index.html">Gallery</a> and
+<p>You should see a global map with land and water masses colored in tan and lightblue, respectively. On top,
+there should be the semi-transparent text “PyGMT”. For more examples, please have a look at the
+<a class="reference external" href="https://www.pygmt.org/latest/gallery/index.html">Gallery</a> and
 <a class="reference external" href="https://www.pygmt.org/latest/tutorials/index.html">Tutorials</a>.</p>
 </section>
 </section>
@@ -269,7 +275,7 @@ and learning from those mistakes. That’s how we all improve and we are happy t
 the people involved and a definition of the term “PyGMT Developers”. Feel free to cite our work in your
 research using the following BibTeX:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@software</span><span class="p">{</span>
-  <span class="n">pygmt_2024_11062720</span><span class="p">,</span>
+  <span class="n">pygmt_2024_13679420</span><span class="p">,</span>
   <span class="n">author</span>       <span class="o">=</span> <span class="p">{</span><span class="n">Tian</span><span class="p">,</span> <span class="n">Dongdong</span> <span class="ow">and</span>
                   <span class="n">Uieda</span><span class="p">,</span> <span class="n">Leonardo</span> <span class="ow">and</span>
                   <span class="n">Leong</span><span class="p">,</span> <span class="n">Wei</span> <span class="n">Ji</span> <span class="ow">and</span>
@@ -289,12 +295,12 @@ research using the following BibTeX:</p>
                   <span class="n">Quinn</span><span class="p">,</span> <span class="n">Jamie</span> <span class="ow">and</span>
                   <span class="n">Wessel</span><span class="p">,</span> <span class="n">Paul</span><span class="p">},</span>
   <span class="n">title</span>        <span class="o">=</span> <span class="p">{{</span><span class="n">PyGMT</span><span class="p">:</span> <span class="n">A</span> <span class="n">Python</span> <span class="n">interface</span> <span class="k">for</span> <span class="n">the</span> <span class="n">Generic</span> <span class="n">Mapping</span> <span class="n">Tools</span><span class="p">}},</span>
-  <span class="n">month</span>        <span class="o">=</span> <span class="n">may</span><span class="p">,</span>
+  <span class="n">month</span>        <span class="o">=</span> <span class="n">sep</span><span class="p">,</span>
   <span class="n">year</span>         <span class="o">=</span> <span class="mi">2024</span><span class="p">,</span>
   <span class="n">publisher</span>    <span class="o">=</span> <span class="p">{</span><span class="n">Zenodo</span><span class="p">},</span>
-  <span class="n">version</span>      <span class="o">=</span> <span class="p">{</span><span class="mf">0.12.0</span><span class="p">},</span>
-  <span class="n">doi</span>          <span class="o">=</span> <span class="p">{</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="mf">.11062720</span><span class="p">},</span>
-  <span class="n">url</span>          <span class="o">=</span> <span class="p">{</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">doi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="mf">.11062720</span><span class="p">}</span>
+  <span class="n">version</span>      <span class="o">=</span> <span class="p">{</span><span class="mf">0.13.0</span><span class="p">},</span>
+  <span class="n">doi</span>          <span class="o">=</span> <span class="p">{</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="mf">.13679420</span><span class="p">},</span>
+  <span class="n">url</span>          <span class="o">=</span> <span class="p">{</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">doi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="mf">.13679420</span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -323,12 +329,6 @@ all these can be found at <a class="reference external" href="https://www.generi
 <li><p><a class="reference external" href="https://github.com/GenericMappingTools/GMT.jl">GMT.jl</a>: A Julia wrapper for GMT.</p></li>
 <li><p><a class="reference external" href="https://github.com/GenericMappingTools/gmtmex">gmtmex</a>: A Matlab/Octave wrapper for GMT.</p></li>
 </ul>
-<p>Other non-official Python wrappers for GMT (not maintained):</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/emolch/gmtpy">gmtpy</a> by <a class="reference external" href="https://github.com/emolch">Sebastian Heimann</a></p></li>
-<li><p><a class="reference external" href="https://github.com/ian-r-rose/pygmt">pygmt</a> by <a class="reference external" href="https://github.com/ian-r-rose">Ian Rose</a></p></li>
-<li><p><a class="reference external" href="https://github.com/glimmer-cism/PyGMT">PyGMT</a> by <a class="reference external" href="https://github.com/mhagdorn">Magnus Hagdorn</a></p></li>
-</ul>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
@@ -351,9 +351,9 @@ all these can be found at <a class="reference external" href="https://www.generi
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
       </span>
-      <span class="lastupdated">Last updated on May 01, 2024.
+      <span class="lastupdated">Last updated on Sep 05, 2024.
       </span></p>
   </div>
 

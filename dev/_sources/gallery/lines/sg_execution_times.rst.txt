@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:06.354** total execution time for 13 files **from gallery/lines**:
+**00:05.987** total execution time for 13 files **from gallery/lines**:
 
 .. container::
 
@@ -33,40 +33,40 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_gallery_lines_roads.py` (``roads.py``)
-     - 00:01.985
+     - 00:01.641
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_quoted_lines.py` (``quoted_lines.py``)
-     - 00:01.153
-     - 0.0
-   * - :ref:`sphx_glr_gallery_lines_connection_lines.py` (``connection_lines.py``)
-     - 00:00.629
+     - 00:01.164
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_vector_styles.py` (``vector_styles.py``)
-     - 00:00.531
+     - 00:00.697
+     - 0.0
+   * - :ref:`sphx_glr_gallery_lines_connection_lines.py` (``connection_lines.py``)
+     - 00:00.381
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_envelope.py` (``envelope.py``)
-     - 00:00.317
+     - 00:00.324
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_decorated_lines.py` (``decorated_lines.py``)
-     - 00:00.312
+     - 00:00.324
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_vector_heads_tails.py` (``vector_heads_tails.py``)
-     - 00:00.262
+     - 00:00.267
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_line_custom_cpt.py` (``line_custom_cpt.py``)
-     - 00:00.223
-     - 0.0
-   * - :ref:`sphx_glr_gallery_lines_line_segment_ends.py` (``line_segment_ends.py``)
-     - 00:00.221
+     - 00:00.228
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_great_circles.py` (``great_circles.py``)
-     - 00:00.214
+     - 00:00.223
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_linefronts.py` (``linefronts.py``)
-     - 00:00.205
+     - 00:00.216
+     - 0.0
+   * - :ref:`sphx_glr_gallery_lines_line_segment_ends.py` (``line_segment_ends.py``)
+     - 00:00.214
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_linestyles.py` (``linestyles.py``)
-     - 00:00.180
+     - 00:00.184
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_wiggle.py` (``wiggle.py``)
      - 00:00.123

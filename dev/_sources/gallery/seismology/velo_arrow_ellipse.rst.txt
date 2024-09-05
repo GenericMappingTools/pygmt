@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_seismology_velo_arrow_ellipse.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -21,12 +21,12 @@
 Velocity arrows and confidence ellipses
 =======================================
 
-The :meth:`pygmt.Figure.velo` method can be used to plot mean velocity arrows
-and confidence ellipses. The example below plots red velocity arrows with
-light-blue confidence ellipses outlined in red with the east_velocity x
-north_velocity used for the station names. Note that the velocity arrows are
-scaled by 0.2 and the 39% confidence limit will give an ellipse which fits
-inside a rectangle of dimension east_sigma by north_sigma.
+The :meth:`pygmt.Figure.velo` method can be used to plot mean velocity arrows and
+confidence ellipses. The example below plots red velocity arrows with lightblue
+confidence ellipses outlined in red with the east_velocity x north_velocity used for
+the station names. Note that the velocity arrows are scaled by 0.2 and the 39%
+confidence limit will give an ellipse which fits inside a rectangle of dimension
+east_sigma by north_sigma.
 
 .. GENERATED FROM PYTHON SOURCE LINES 14-43
 
@@ -62,12 +62,12 @@ inside a rectangle of dimension east_sigma by north_sigma.
     fig.velo(
         data=df,
         region=[-10, 8, -10, 6],
-        pen="0.6p,red",
-        uncertaintyfill="lightblue1",
-        line=True,
-        spec="e0.2/0.39/18",
-        frame=["WSne", "2g2f"],
         projection="x0.8c",
+        frame=["WSne", "2g2f"],
+        spec="e0.2/0.39+f18",
+        uncertaintyfill="lightblue1",
+        pen="0.6p,red",
+        line=True,
         vector="0.3c+p1p+e+gred",
     )
 
@@ -76,7 +76,7 @@ inside a rectangle of dimension east_sigma by north_sigma.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.210 seconds)
+   **Total running time of the script:** (0 minutes 0.207 seconds)
 
 
 .. _sphx_glr_download_gallery_seismology_velo_arrow_ellipse.py:
@@ -92,6 +92,10 @@ inside a rectangle of dimension east_sigma by north_sigma.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: velo_arrow_ellipse.py <velo_arrow_ellipse.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: velo_arrow_ellipse.zip <velo_arrow_ellipse.zip>`
 
 
 .. only:: html

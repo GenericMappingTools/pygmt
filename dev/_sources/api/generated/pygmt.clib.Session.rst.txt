@@ -13,9 +13,6 @@ pygmt.clib.Session
     Session.info
 
 .. autoproperty::
-    Session.required_version
-
-.. autoproperty::
     Session.session_pointer
 
 
@@ -56,6 +53,10 @@ pygmt.clib.Session
     
     
     
+    Session.get_enum
+    
+    
+    
     Session.get_libgmt_func
     
     
@@ -81,6 +82,10 @@ pygmt.clib.Session
     
     
     Session.put_vector
+    
+    
+    
+    Session.read_data
     
     
     

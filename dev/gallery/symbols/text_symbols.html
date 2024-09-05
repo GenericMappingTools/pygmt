@@ -11,13 +11,14 @@
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=902da76c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=a51cd8ab" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
@@ -28,12 +29,12 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=b483e97e"></script>
-        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/documentation_options.js?v=aa3fe5bf"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../../_static/copybutton.js?v=ccdb6887"></script>
-        <script src="../../_static/design-tabs.js?v=36754332"></script>
+        <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -127,12 +128,13 @@
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../team.html">PyGMT Team</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributors Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../maintenance.html">Maintainers Guide</a></li>
 </ul>
@@ -197,26 +199,22 @@
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
 <p><a class="reference internal" href="#sphx-glr-download-gallery-symbols-text-symbols-py"><span class="std std-ref">Go to the end</span></a>
-to download the full example code</p>
+to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="text-symbols">
 <span id="sphx-glr-gallery-symbols-text-symbols-py"></span><h1>Text symbols<a class="headerlink" href="#text-symbols" title="Link to this heading"></a></h1>
-<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.plot</span></code></a> method allows to plot text symbols. Text is
-normally placed with the <a class="reference internal" href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.text</span></code></a> method but there are times
-we wish to treat a character or even a string as a plottable symbol.
-A text symbol can be drawn by passing <strong>l</strong><em>size</em><strong>+t</strong><em>string</em> to
-the <code class="docutils literal notranslate"><span class="pre">style</span></code> parameter where <em>size</em> defines the size of the text symbol
-(note: the size is only approximate; no individual scaling is done for
-different characters) and <em>string</em> can be a letter or a text string
-(less than 256 characters). Optionally, you can append
-<strong>+f</strong><em>font,outlinecolor</em> to select a particular font [Default is
-<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-FONT_ANNOT_PRIMARY">FONT_ANNOT_PRIMARY</a>] and outline color [Default is black] as well
-as <strong>+j</strong><em>justify</em> to change the justification [Default is CM]. The fill
-color of the text symbols can be set with the <code class="docutils literal notranslate"><span class="pre">fill</span></code> parameter, and the
-outline width can be customized with the <code class="docutils literal notranslate"><span class="pre">pen</span></code> parameter.
-For all supported octal codes and fonts see the GMT Technical Reference
-<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/reference/octal-codes.html">https://docs.generic-mapping-tools.org/6.5/reference/octal-codes.html</a> and
-<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/reference/postscript-fonts.html">https://docs.generic-mapping-tools.org/6.5/reference/postscript-fonts.html</a>.</p>
+<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.plot</span></code></a> method allows to plot text symbols. Text is normally
+placed with the <a class="reference internal" href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.text</span></code></a> method but there are times we wish to treat a
+character or even a string as a plottable symbol. A text symbol can be drawn by passing
+<strong>l</strong><em>size</em><strong>+t</strong><em>string</em> to the <code class="docutils literal notranslate"><span class="pre">style</span></code> parameter where <em>size</em> defines the size
+of the text symbol (note: the size is only approximate; no individual scaling is done
+for different characters) and <em>string</em> can be a letter or a text string (less than 256
+characters). Optionally, you can append <strong>+f</strong><em>font,outlinecolor</em> to select a
+particular font [Default is <a class="extlink-gmt-term reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-FONT_ANNOT_PRIMARY">FONT_ANNOT_PRIMARY</a>] and outline color [Default
+is black] as well as <strong>+j</strong><em>justify</em> to change the justification [Default is CM]. For
+all supported fonts see <a class="reference internal" href="../../techref/fonts.html"><span class="doc">Supported Fonts</span></a>. The fill color of the text symbols can be
+set with the <code class="docutils literal notranslate"><span class="pre">fill</span></code> parameter, and the outline width can be customized with the
+<code class="docutils literal notranslate"><span class="pre">pen</span></code> parameter.</p>
 <img src="../../_images/sphx_glr_text_symbols_001.png" srcset="../../_images/sphx_glr_text_symbols_001.png" alt="text symbols" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
 
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
@@ -241,13 +239,16 @@ For all supported octal codes and fonts see the GMT Technical Reference
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.132 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.131 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-symbols-text-symbols-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/e6825486f2bbba8625a4e7d7941c614a/text_symbols.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">text_symbols.ipynb</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/b7a28a22e1ff599930e8c785736f9eaf/text_symbols.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">text_symbols.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/6de12119bb508638a133a6081c6d7b77/text_symbols.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">text_symbols.zip</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -266,9 +267,9 @@ For all supported octal codes and fonts see the GMT Technical Reference
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
       </span>
-      <span class="lastupdated">Last updated on May 01, 2024.
+      <span class="lastupdated">Last updated on Sep 05, 2024.
       </span></p>
   </div>
 

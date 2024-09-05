@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_3d_plots_scatter3d.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -134,7 +134,7 @@ the vertical exaggeration factor.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.334 seconds)
+   **Total running time of the script:** (0 minutes 0.385 seconds)
 
 
 .. _sphx_glr_download_gallery_3d_plots_scatter3d.py:
@@ -150,6 +150,10 @@ the vertical exaggeration factor.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: scatter3d.py <scatter3d.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: scatter3d.zip <scatter3d.zip>`
 
 
 .. only:: html

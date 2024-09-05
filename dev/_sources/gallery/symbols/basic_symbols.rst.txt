@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_symbols_basic_symbols.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -142,7 +142,7 @@ the remaining symbols we may define a linewidth as well as a color fill.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.182 seconds)
+   **Total running time of the script:** (0 minutes 0.190 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_basic_symbols.py:
@@ -158,6 +158,10 @@ the remaining symbols we may define a linewidth as well as a color fill.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: basic_symbols.py <basic_symbols.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: basic_symbols.zip <basic_symbols.zip>`
 
 
 .. only:: html

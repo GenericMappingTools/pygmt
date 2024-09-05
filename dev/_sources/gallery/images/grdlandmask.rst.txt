@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_images_grdlandmask.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -21,11 +21,10 @@
 Create 'wet-dry' mask grid
 ==========================
 
-The :func:`pygmt.grdlandmask` function allows setting
-all nodes on land or water to a specified value using
-the ``maskvalues`` parameter.
+The :func:`pygmt.grdlandmask` function allows setting all nodes on land
+or water to a specified value using the ``maskvalues`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-38
+.. GENERATED FROM PYTHON SOURCE LINES 10-37
 
 
 
@@ -81,7 +80,7 @@ the ``maskvalues`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.186 seconds)
+   **Total running time of the script:** (0 minutes 0.190 seconds)
 
 
 .. _sphx_glr_download_gallery_images_grdlandmask.py:
@@ -97,6 +96,10 @@ the ``maskvalues`` parameter.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: grdlandmask.py <grdlandmask.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: grdlandmask.zip <grdlandmask.zip>`
 
 
 .. only:: html

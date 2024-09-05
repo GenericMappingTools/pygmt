@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_3d_plots_grdview_surface.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -92,7 +92,7 @@ here we choose an azimuth of 45° with ``shading="+a45"``.
     # Add colorbar for gridded data
     fig.colorbar(
         frame="a2f1",  # Set annotations in steps of two, tick marks in steps of one
-        position="JRM",  # Place colorbar at position Right Middle
+        position="JMR",  # Place colorbar in the Middle Right (MR) corner
     )
 
     fig.show()
@@ -100,7 +100,7 @@ here we choose an azimuth of 45° with ``shading="+a45"``.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 2.305 seconds)
+   **Total running time of the script:** (0 minutes 2.342 seconds)
 
 
 .. _sphx_glr_download_gallery_3d_plots_grdview_surface.py:
@@ -116,6 +116,10 @@ here we choose an azimuth of 45° with ``shading="+a45"``.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: grdview_surface.py <grdview_surface.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: grdview_surface.zip <grdview_surface.zip>`
 
 
 .. only:: html

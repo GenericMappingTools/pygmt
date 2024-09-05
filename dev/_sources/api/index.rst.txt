@@ -203,7 +203,6 @@ Miscellaneous
     :toctree: generated
 
     which
-    print_clib_info
     show_versions
 
 .. currentmodule:: pygmt
@@ -310,6 +309,7 @@ Low level access (these are mostly used by the :mod:`pygmt.clib` package):
     clib.Session.put_matrix
     clib.Session.put_strings
     clib.Session.put_vector
+    clib.Session.read_data
     clib.Session.write_data
     clib.Session.open_virtualfile
     clib.Session.read_virtualfile

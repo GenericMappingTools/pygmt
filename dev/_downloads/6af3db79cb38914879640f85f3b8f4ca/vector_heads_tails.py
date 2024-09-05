@@ -24,7 +24,7 @@ For further modifiers see :gmt-docs:`plot.html#vector-attributes`.
 
 In the following we use the :meth:`pygmt.Figure.plot` method to plot vectors
 with individual heads and tails. We must specify the modifiers (together with
-the vector type, here ``"v"`` for Cartesian vector, see also
+the vector type, here ``"v"`` for Cartesian vector, see also the
 :doc:`Vector types example </gallery/lines/vector_styles>`)
 by passing the corresponding shortcuts to the ``style`` parameter.
 

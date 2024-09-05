@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:00.871** total execution time for 4 files **from projections/conic**:
+**00:00.883** total execution time for 4 files **from projections/conic**:
 
 .. container::
 
@@ -39,8 +39,8 @@ Computation times
      - 00:00.217
      - 0.0
    * - :ref:`sphx_glr_projections_conic_polyconic.py` (``polyconic.py``)
-     - 00:00.191
+     - 00:00.196
      - 0.0
    * - :ref:`sphx_glr_projections_conic_conic_equidistant.py` (``conic_equidistant.py``)
-     - 00:00.167
+     - 00:00.173
      - 0.0

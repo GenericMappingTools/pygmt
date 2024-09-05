@@ -11,13 +11,14 @@
 
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-      <link rel="stylesheet" type="text/css" href="_static/style.css?v=902da76c" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css?v=a51cd8ab" />
 
   
     <link rel="shortcut icon" href="_static/favicon.png"/>
@@ -28,12 +29,12 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=b483e97e"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/documentation_options.js?v=aa3fe5bf"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="_static/copybutton.js?v=ccdb6887"></script>
-        <script src="_static/design-tabs.js?v=36754332"></script>
+        <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -102,15 +103,16 @@
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="team.html">PyGMT Team</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributors Guide</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Maintainers Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#onboarding-access-checklist">Onboarding Access Checklist</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#onboarding-offboarding-access-checklist">Onboarding/Offboarding Access Checklist</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#as-a-contributor">As a Contributor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#as-a-maintainer">As a Maintainer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#as-an-administrator">As an Administrator</a></li>
@@ -187,11 +189,9 @@
 <h1>Maintainers Guide<a class="headerlink" href="#maintainers-guide" title="Link to this heading"></a></h1>
 <p>This page contains instructions for project maintainers about how our setup works,
 making releases, creating packages, etc.</p>
-<p>If you want to make a contribution to the project, see the
-<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md">Contributing Guide</a>
-instead.</p>
-<section id="onboarding-access-checklist">
-<h2>Onboarding Access Checklist<a class="headerlink" href="#onboarding-access-checklist" title="Link to this heading"></a></h2>
+<p>If you want to make a contribution to the project, see the <a class="reference internal" href="contributing.html"><span class="doc">Contributors Guide</span></a> instead.</p>
+<section id="onboarding-offboarding-access-checklist">
+<h2>Onboarding/Offboarding Access Checklist<a class="headerlink" href="#onboarding-offboarding-access-checklist" title="Link to this heading"></a></h2>
 <p>Note that anyone can contribute to PyGMT, even without being added to the
 <a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams">GenericMappingTools team</a>.
 The onboarding items below are for people who would like to make regular
@@ -200,29 +200,35 @@ communication tools we use.</p>
 <section id="as-a-contributor">
 <h3>As a Contributor<a class="headerlink" href="#as-a-contributor" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><p>Added to the <a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors">pygmt-contributors team</a> (gives ‘write’ permission to the repository)</p></li>
-<li><p>Added as a collaborator on <a class="reference external" href="https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration">DAGsHub</a> (gives ‘write’ permission to dvc remote storage)</p></li>
-<li><p>Added to the <a class="reference external" href="https://pygmtdevs.slack.com">PyGMT devs Slack channel</a> (for casual conversations)</p></li>
-<li><p>Added to the <a class="reference internal" href="team.html"><span class="doc">Team Gallery page</span></a></p></li>
-<li><p>Added as a member on <a class="reference external" href="https://hackmd.io/&#64;pygmt">HackMD</a> (for draft announcements) [optional]</p></li>
+<li><p>Add to the <a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors">pygmt-contributors team</a> (gives ‘write’ permission to the repository)</p></li>
+<li><p>Add as a collaborator on <a class="reference external" href="https://dagshub.com/GenericMappingTools/pygmt">DAGsHub</a> (gives ‘write’ permission to dvc remote storage)</p></li>
+<li><p>Add as a member on <a class="reference external" href="https://hackmd.io/&#64;pygmt">HackMD</a> (for draft announcements) [optional]</p></li>
 </ul>
 </section>
 <section id="as-a-maintainer">
 <h3>As a Maintainer<a class="headerlink" href="#as-a-maintainer" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><p>Added to the <a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers">pygmt-maintainers team</a> (gives ‘maintain’ permission to the repository)</p></li>
-<li><p>Update the role on the <a class="reference internal" href="team.html"><span class="doc">Team Gallery page</span></a></p></li>
-<li><p>Added as a moderator on the <a class="reference external" href="https://forum.generic-mapping-tools.org">GMT forum</a> (to see mod-only discussions) [optional]</p></li>
-<li><p>Added as a maintainer on <a class="reference external" href="https://readthedocs.org/projects/pygmt-dev">ReadtheDocs</a> [optional]</p></li>
-<li><p>Added as a curator to the <a class="reference external" href="https://zenodo.org/communities/generic-mapping-tools/">GMT community</a> on Zenodo (for making releases) [optional]</p></li>
+<li><p>Add to the <a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers">pygmt-maintainers team</a> (gives ‘maintain’ permission to the repository)</p></li>
+<li><p>Add to “Active Maintainers” on the <a class="reference internal" href="team.html"><span class="doc">Team Gallery page</span></a></p></li>
+<li><p>Add as a moderator on the <a class="reference external" href="https://forum.generic-mapping-tools.org">GMT forum</a> (to see mod-only discussions) [optional]</p></li>
+<li><p>Add as a maintainer on <a class="reference external" href="https://readthedocs.org/projects/pygmt-dev">ReadtheDocs</a> [optional]</p></li>
+<li><p>Add as a curator to the <a class="reference external" href="https://zenodo.org/communities/generic-mapping-tools/">GMT community</a> on Zenodo (for making releases) [optional]</p></li>
 </ul>
 </section>
 <section id="as-an-administrator">
 <h3>As an Administrator<a class="headerlink" href="#as-an-administrator" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><p>Added to the <a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams/pygmt-admin">pygmt-admin team</a> (gives ‘admin’ permission to the repository)</p></li>
-<li><p>Added as an admin on <a class="reference external" href="https://www.dagshub.com/GenericMappingTools/pygmt/settings/collaboration">DAGsHub</a></p></li>
-<li><p>Added as a maintainer on <a class="reference external" href="https://pypi.org/project/pygmt/">PyPI</a> and <a class="reference external" href="https://test.pypi.org/project/pygmt">Test PyPI</a> [optional]</p></li>
+<li><p>Add to the <a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams/pygmt-admin">pygmt-admin team</a> (gives ‘admin’ permission to the repository)</p></li>
+<li><p>Add as an admin on <a class="reference external" href="https://www.dagshub.com/GenericMappingTools/pygmt">DAGsHub</a></p></li>
+<li><p>Add as a maintainer on <a class="reference external" href="https://pypi.org/project/pygmt/">PyPI</a> and <a class="reference external" href="https://test.pypi.org/project/pygmt">Test PyPI</a> [optional]</p></li>
+</ul>
+<p><strong>Note</strong>: When a maintainer is no longer active (no activity in one year), we will mirror
+the onboarding access checklist:</p>
+<ul class="simple">
+<li><p>Move from the <a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers">pygmt-maintainers team</a>
+to the <a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors">pygmt-contributors team</a></p></li>
+<li><p>Move from “Active Maintainers” to “Distinguished Contributors” on the <a class="reference internal" href="team.html"><span class="doc">Team Gallery page</span></a></p></li>
+<li><p>Remove ‘maintain’ permission from GMT forum, ReadTheDocs, Zenodo</p></li>
 </ul>
 </section>
 </section>
@@ -468,9 +474,9 @@ from the <a class="reference external" href="https://pypi.org/project/pygmt/#fil
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
       </span>
-      <span class="lastupdated">Last updated on May 01, 2024.
+      <span class="lastupdated">Last updated on Sep 05, 2024.
       </span></p>
   </div>
 

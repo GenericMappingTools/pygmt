@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_tutorials_basics_lines.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -288,7 +288,7 @@ For a gallery showing other ``pen`` settings, see
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.940 seconds)
+   **Total running time of the script:** (0 minutes 0.931 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_lines.py:
@@ -304,6 +304,10 @@ For a gallery showing other ``pen`` settings, see
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: lines.py <lines.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: lines.zip <lines.zip>`
 
 
 .. only:: html

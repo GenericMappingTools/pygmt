@@ -10,13 +10,14 @@
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=902da76c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=a51cd8ab" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
@@ -27,12 +28,12 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=b483e97e"></script>
-        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/documentation_options.js?v=aa3fe5bf"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../../_static/copybutton.js?v=ccdb6887"></script>
-        <script src="../../_static/design-tabs.js?v=36754332"></script>
+        <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -100,12 +101,13 @@
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../team.html">PyGMT Team</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributors Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../maintenance.html">Maintainers Guide</a></li>
 </ul>
@@ -144,7 +146,6 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
-          <li class="breadcrumb-item"><a href="../pygmt.html">pygmt</a></li>
       <li class="breadcrumb-item active">pygmt.figure</li>
     <li class="source-link">
         
@@ -163,8 +164,9 @@
 
 <span class="kn">import</span> <span class="nn">base64</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span><span class="p">,</span> <span class="n">PurePath</span>
 <span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">TemporaryDirectory</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">IPython</span>
@@ -185,26 +187,48 @@
     <span class="n">use_alias</span><span class="p">,</span>
 <span class="p">)</span>
 
+
+<span class="k">def</span> <span class="nf">_get_default_display_method</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;external&quot;</span><span class="p">,</span> <span class="s2">&quot;notebook&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the default method to display preview images.</span>
+
+<span class="sd">    The function checks the current environment and determines the most suitable method</span>
+<span class="sd">    to display preview images when calling :meth:`pygmt.Figure.show`. Valid display</span>
+<span class="sd">    methods are:</span>
+
+<span class="sd">    - ``&quot;external&quot;``: External PDF preview using the default PDF viewer</span>
+<span class="sd">    - ``&quot;notebook&quot;``: Inline PNG preview in the current notebook</span>
+<span class="sd">    - ``&quot;none&quot;``: Disable image preview</span>
+
+<span class="sd">    The default display method is ``&quot;notebook&quot;`` in the Jupyter notebook environment,</span>
+<span class="sd">    and ``&quot;external&quot;`` in other cases.</span>
+
+<span class="sd">    Setting environment variable **PYGMT_USE_EXTERNAL_DISPLAY** to ``&quot;false&quot;`` can</span>
+<span class="sd">    disable image preview in external viewers. It&#39;s useful when running the tests and</span>
+<span class="sd">    building the documentation to avoid popping up windows.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    method</span>
+<span class="sd">        The default display method.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Check if an IPython kernel is running.</span>
+    <span class="k">if</span> <span class="n">_HAS_IPYTHON</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ipy</span> <span class="o">:=</span> <span class="n">IPython</span><span class="o">.</span><span class="n">get_ipython</span><span class="p">())</span> <span class="ow">and</span> <span class="s2">&quot;IPKernelApp&quot;</span> <span class="ow">in</span> <span class="n">ipy</span><span class="o">.</span><span class="n">config</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;notebook&quot;</span>
+    <span class="c1"># Check if the environment variable PYGMT_USE_EXTERNAL_DISPLAY is set to &quot;false&quot;.</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PYGMT_USE_EXTERNAL_DISPLAY&quot;</span><span class="p">,</span> <span class="s2">&quot;true&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;false&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;none&quot;</span>
+    <span class="c1"># Fallback to using the external viewer.</span>
+    <span class="k">return</span> <span class="s2">&quot;external&quot;</span>
+
+
 <span class="c1"># A registry of all figures that have had &quot;show&quot; called in this session.</span>
 <span class="c1"># This is needed for the sphinx-gallery scraper in pygmt/sphinx_gallery.py</span>
 <span class="n">SHOWED_FIGURES</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="c1"># Configurations for figure display</span>
+<span class="c1"># Configurations for figure display.</span>
 <span class="n">SHOW_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;external&quot;</span><span class="p">,</span>  <span class="c1"># Open in an external viewer by default</span>
+    <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="n">_get_default_display_method</span><span class="p">(),</span>  <span class="c1"># The image preview display method.</span>
 <span class="p">}</span>
-
-<span class="c1"># Show figures in Jupyter notebooks if available</span>
-<span class="k">if</span> <span class="n">_HAS_IPYTHON</span><span class="p">:</span>
-    <span class="n">get_ipython</span> <span class="o">=</span> <span class="n">IPython</span><span class="o">.</span><span class="n">get_ipython</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">get_ipython</span> <span class="ow">and</span> <span class="s2">&quot;IPKernelApp&quot;</span> <span class="ow">in</span> <span class="n">get_ipython</span><span class="o">.</span><span class="n">config</span><span class="p">:</span>  <span class="c1"># Jupyter Notebook enabled</span>
-        <span class="n">SHOW_CONFIG</span><span class="p">[</span><span class="s2">&quot;method&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;notebook&quot;</span>
-
-<span class="c1"># Set environment variable PYGMT_USE_EXTERNAL_DISPLAY to &#39;false&#39; to disable</span>
-<span class="c1"># external display. Use it when running the tests and building the docs to</span>
-<span class="c1"># avoid popping up windows.</span>
-<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PYGMT_USE_EXTERNAL_DISPLAY&quot;</span><span class="p">,</span> <span class="s2">&quot;true&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;false&quot;</span><span class="p">:</span>
-    <span class="n">SHOW_CONFIG</span><span class="p">[</span><span class="s2">&quot;method&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span>
 
 
 <div class="viewcode-block" id="Figure">
@@ -399,7 +423,7 @@
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
         <span class="n">prefix</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;F&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">prefix</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">prefix</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">}:</span>
             <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
                 <span class="s2">&quot;The &#39;prefix&#39; parameter must be specified with a valid value.&quot;</span>
             <span class="p">)</span>
@@ -419,12 +443,12 @@
 <a class="viewcode-back" href="../../api/generated/pygmt.Figure.savefig.html#pygmt.Figure.savefig">[docs]</a>
     <span class="k">def</span> <span class="nf">savefig</span><span class="p">(</span>  <span class="c1"># noqa: PLR0912</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">fname</span><span class="p">,</span>
-        <span class="n">transparent</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">crop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">anti_alias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">worldfile</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">fname</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PurePath</span><span class="p">,</span>
+        <span class="n">transparent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">crop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">anti_alias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">worldfile</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -446,45 +470,39 @@
 <span class="sd">        - EPS (``.eps``)</span>
 <span class="sd">        - PDF (``.pdf``)</span>
 
-<span class="sd">        Beside the above formats, you can also save the figure to a KML file</span>
-<span class="sd">        (``.kml``), with a companion PNG file generated automatically. The KML</span>
-<span class="sd">        file can be viewed in Google Earth.</span>
+<span class="sd">        Besides the above formats, you can also save the figure to a KML file</span>
+<span class="sd">        (``.kml``), with a companion PNG file generated automatically. The KML file can</span>
+<span class="sd">        be viewed in Google Earth.</span>
 
-<span class="sd">        You can pass in any keyword arguments that</span>
-<span class="sd">        :meth:`pygmt.Figure.psconvert` accepts.</span>
+<span class="sd">        You can pass in any keyword arguments that :meth:`pygmt.Figure.psconvert`</span>
+<span class="sd">        accepts.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        fname : str</span>
-<span class="sd">            The desired figure file name, including the extension. See the list</span>
-<span class="sd">            of supported formats and their extensions above.</span>
-<span class="sd">        transparent : bool</span>
-<span class="sd">            If ``True``, will use a transparent background for the figure.</span>
-<span class="sd">            Only valid for PNG format.</span>
-<span class="sd">        crop : bool</span>
-<span class="sd">            If ``True``, will crop the figure canvas (page) to the plot area.</span>
-<span class="sd">        anti_alias: bool</span>
-<span class="sd">            If ``True``, will use anti-aliasing when creating raster images.</span>
-<span class="sd">            More specifically, it passes the arguments ``&quot;t2&quot;`` and ``&quot;g2&quot;``</span>
-<span class="sd">            to the ``anti_aliasing`` parameter of</span>
-<span class="sd">            :meth:`pygmt.Figure.psconvert`. Ignored if creating vector images.</span>
-<span class="sd">        show: bool</span>
-<span class="sd">            If ``True``, will open the figure in an external viewer.</span>
-<span class="sd">        worldfile : bool</span>
-<span class="sd">            If ``True``, will create a companion</span>
-<span class="sd">            `world file &lt;https://en.wikipedia.org/wiki/World_file&gt;`__ for the</span>
-<span class="sd">            figure. The world file will have the same name as the figure file</span>
-<span class="sd">            but with different extension (e.g. tfw for tif). See</span>
-<span class="sd">            https://en.wikipedia.org/wiki/World_file#Filename_extension</span>
-<span class="sd">            for the convention of world file extensions. This parameter only</span>
-<span class="sd">            works for raster image formats (except GeoTIFF).</span>
-<span class="sd">        dpi : int</span>
-<span class="sd">            Set raster resolution in dpi [Default is ``720`` for PDF, ``300``</span>
-<span class="sd">            for others].</span>
+<span class="sd">        fname</span>
+<span class="sd">            The desired figure file name, including the extension. See the list of</span>
+<span class="sd">            supported formats and their extensions above.</span>
+<span class="sd">        transparent</span>
+<span class="sd">            Use a transparent background for the figure. Only valid for PNG format.</span>
+<span class="sd">        crop</span>
+<span class="sd">            Crop the figure canvas (page) to the plot area.</span>
+<span class="sd">        anti_alias</span>
+<span class="sd">            Use anti-aliasing when creating raster images. Ignored if creating vector</span>
+<span class="sd">            images. More specifically, it passes the arguments ``&quot;t2&quot;`` and ``&quot;g2&quot;`` to</span>
+<span class="sd">            the ``anti_aliasing`` parameter of :meth:`pygmt.Figure.psconvert`.</span>
+<span class="sd">        show</span>
+<span class="sd">            Display the figure in an external viewer.</span>
+<span class="sd">        worldfile</span>
+<span class="sd">            Create a companion `world file &lt;https://en.wikipedia.org/wiki/World_file&gt;`__</span>
+<span class="sd">            for the figure. The world file will have the same name as the figure file</span>
+<span class="sd">            but with different extension (e.g., ``.tfw`` for ``.tif``). See</span>
+<span class="sd">            https://en.wikipedia.org/wiki/World_file#Filename_extension for the</span>
+<span class="sd">            convention of world file extensions. This parameter only works for raster</span>
+<span class="sd">            image formats (except GeoTIFF).</span>
 <span class="sd">        **kwargs : dict</span>
-<span class="sd">            Additional keyword arguments passed to</span>
-<span class="sd">            :meth:`pygmt.Figure.psconvert`. Valid parameters are ``gs_path``,</span>
-<span class="sd">            ``gs_option``, ``resize``, ``bb_style``, and ``verbose``.</span>
+<span class="sd">            Additional keyword arguments passed to :meth:`pygmt.Figure.psconvert`. Valid</span>
+<span class="sd">            parameters are ``dpi``, ``gs_path``, ``gs_option``, ``resize``,</span>
+<span class="sd">            ``bb_style``, and ``verbose``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># All supported formats</span>
         <span class="n">fmts</span> <span class="o">=</span> <span class="p">{</span>
@@ -529,7 +547,7 @@
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;Qg&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
 
         <span class="k">if</span> <span class="n">worldfile</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">ext</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;eps&quot;</span><span class="p">,</span> <span class="s2">&quot;kml&quot;</span><span class="p">,</span> <span class="s2">&quot;pdf&quot;</span><span class="p">,</span> <span class="s2">&quot;tiff&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">ext</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;eps&quot;</span><span class="p">,</span> <span class="s2">&quot;kml&quot;</span><span class="p">,</span> <span class="s2">&quot;pdf&quot;</span><span class="p">,</span> <span class="s2">&quot;tiff&quot;</span><span class="p">}:</span>
                 <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
                     <span class="sa">f</span><span class="s2">&quot;Saving a world file is not supported for &#39;</span><span class="si">{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&#39; format.&quot;</span>
                 <span class="p">)</span>
@@ -548,94 +566,101 @@
             <span class="n">fname</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">ext</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
-            <span class="n">launch_external_viewer</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span></div>
+            <span class="n">launch_external_viewer</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="Figure.show">
 <a class="viewcode-back" href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show">[docs]</a>
-    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">waiting</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;external&quot;</span><span class="p">,</span> <span class="s2">&quot;notebook&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dpi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span>
+        <span class="n">width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span>
+        <span class="n">waiting</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Display a preview of the figure.</span>
 
-<span class="sd">        Inserts the preview in the Jupyter notebook output if available,</span>
-<span class="sd">        otherwise opens it in the default viewer for your operating system</span>
-<span class="sd">        (falls back to the default web browser).</span>
+<span class="sd">        Inserts the preview in the Jupyter notebook output if available, otherwise opens</span>
+<span class="sd">        it in the default viewer for your operating system (falls back to the default</span>
+<span class="sd">        web browser).</span>
 
-<span class="sd">        :func:`pygmt.set_display` can select the default display method</span>
+<span class="sd">        Use :func:`pygmt.set_display` to select the default display method</span>
 <span class="sd">        (``&quot;notebook&quot;``, ``&quot;external&quot;``, ``&quot;none&quot;`` or ``None``).</span>
 
-<span class="sd">        The ``method`` parameter can also override the default display method</span>
-<span class="sd">        for the current figure. Parameters ``dpi`` and ``width`` can be used</span>
-<span class="sd">        to control the resolution and dimension of the figure in the notebook.</span>
+<span class="sd">        The ``method`` parameter allows to override the default display method for the</span>
+<span class="sd">        current figure. The parameters ``dpi`` and ``width`` can be used to control the</span>
+<span class="sd">        resolution and dimension of the figure in the notebook.</span>
 
-<span class="sd">        **Note**: The external viewer can be disabled by setting the</span>
-<span class="sd">        PYGMT_USE_EXTERNAL_DISPLAY environment variable to **false**.</span>
-<span class="sd">        This is useful when running unit tests and building the documentation</span>
-<span class="sd">        in consoles without a Graphical User Interface.</span>
+<span class="sd">        The external viewer can be disabled by setting the environment variable</span>
+<span class="sd">        **PYGMT_USE_EXTERNAL_DISPLAY** to ``&quot;false&quot;``. This is useful when running tests</span>
+<span class="sd">        and building the documentation to avoid popping up windows.</span>
 
-<span class="sd">        Note that the external viewer does not block the current process, thus</span>
-<span class="sd">        it&#39;s necessary to suspend the execution of the current process for a</span>
-<span class="sd">        short while after launching the external viewer, so that the preview</span>
-<span class="sd">        image won&#39;t be deleted before the external viewer tries to open it. Set</span>
-<span class="sd">        the ``waiting`` parameter to a larger number if your computer is slow.</span>
+<span class="sd">        The external viewer does not block the current process, thus it&#39;s necessary to</span>
+<span class="sd">        suspend the execution of the current process for a short while after launching</span>
+<span class="sd">        the external viewer, so that the preview image won&#39;t be deleted before the</span>
+<span class="sd">        external viewer tries to open it. Set the ``waiting`` parameter to a larger</span>
+<span class="sd">        number if the image viewer on your computer is slow to open the figure.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        dpi : int</span>
-<span class="sd">            The image resolution (dots per inch) in Jupyter notebooks.</span>
-<span class="sd">        width : int</span>
-<span class="sd">            The image width (in pixels) in Jupyter notebooks.</span>
-<span class="sd">        method : str or None</span>
-<span class="sd">            How the current figure will be displayed. Choose from:</span>
+<span class="sd">        method</span>
+<span class="sd">            The method to display the current image preview. Choose from:</span>
 
 <span class="sd">            - ``&quot;external&quot;``: External PDF preview using the default PDF viewer</span>
 <span class="sd">            - ``&quot;notebook&quot;``: Inline PNG preview in the current notebook</span>
 <span class="sd">            - ``&quot;none&quot;``: Disable image preview</span>
 <span class="sd">            - ``None``: Reset to the default display method</span>
 
-<span class="sd">            The default display method is ``&quot;external&quot;`` in Python consoles or</span>
+<span class="sd">            The default display method is ``&quot;external&quot;`` in Python consoles and</span>
 <span class="sd">            ``&quot;notebook&quot;`` in Jupyter notebooks, but can be changed by</span>
 <span class="sd">            :func:`pygmt.set_display`.</span>
-<span class="sd">        waiting : float</span>
-<span class="sd">            Suspend the execution of the current process for a given number of</span>
-<span class="sd">            seconds after launching an external viewer.</span>
-<span class="sd">            Only works if ``method=&quot;external&quot;``.</span>
+
+<span class="sd">        dpi</span>
+<span class="sd">            The image resolution (dots per inch) in Jupyter notebooks.</span>
+<span class="sd">        width</span>
+<span class="sd">            The image width (in pixels) in Jupyter notebooks.</span>
+<span class="sd">        waiting</span>
+<span class="sd">            Suspend the execution of the current process for a given number of seconds</span>
+<span class="sd">            after launching an external viewer. Only works if ``method=&quot;external&quot;``.</span>
 <span class="sd">        **kwargs : dict</span>
-<span class="sd">            Additional keyword arguments passed to</span>
-<span class="sd">            :meth:`pygmt.Figure.psconvert`. Valid parameters are ``gs_path``,</span>
-<span class="sd">            ``gs_option``, ``resize``, ``bb_style``, and ``verbose``.</span>
+<span class="sd">            Additional keyword arguments passed to :meth:`pygmt.Figure.psconvert`. Valid</span>
+<span class="sd">            parameters are ``gs_path``, ``gs_option``, ``resize``, ``bb_style``, and</span>
+<span class="sd">            ``verbose``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Module level variable to know which figures had their show method</span>
-        <span class="c1"># called. Needed for the sphinx-gallery scraper.</span>
+        <span class="c1"># Module level variable to know which figures had their show method called.</span>
+        <span class="c1"># Needed for the sphinx-gallery scraper.</span>
         <span class="n">SHOWED_FIGURES</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="c1"># Set the display method</span>
         <span class="k">if</span> <span class="n">method</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">method</span> <span class="o">=</span> <span class="n">SHOW_CONFIG</span><span class="p">[</span><span class="s2">&quot;method&quot;</span><span class="p">]</span>
 
-        <span class="k">if</span> <span class="n">method</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;external&quot;</span><span class="p">,</span> <span class="s2">&quot;notebook&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Invalid display method &#39;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
-                <span class="s2">&quot;should be either &#39;notebook&#39;, &#39;external&#39;, or &#39;none&#39;.&quot;</span>
-            <span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;notebook&quot;</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">_HAS_IPYTHON</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">GMTError</span><span class="p">(</span>
-                    <span class="s2">&quot;Notebook display is selected, but IPython is not available. &quot;</span>
-                    <span class="s2">&quot;Make sure you have IPython installed, &quot;</span>
-                    <span class="s2">&quot;or run the script in a Jupyter notebook.&quot;</span>
+        <span class="k">match</span> <span class="n">method</span><span class="p">:</span>
+            <span class="k">case</span> <span class="s2">&quot;notebook&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">_HAS_IPYTHON</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">GMTError</span><span class="p">(</span>
+                        <span class="s2">&quot;Notebook display is selected, but IPython is not available. &quot;</span>
+                        <span class="s2">&quot;Make sure you have IPython installed, &quot;</span>
+                        <span class="s2">&quot;or run the script in a Jupyter notebook.&quot;</span>
+                    <span class="p">)</span>
+                <span class="n">png</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preview</span><span class="p">(</span>
+                    <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="n">anti_alias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">as_bytes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
                 <span class="p">)</span>
-            <span class="n">png</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preview</span><span class="p">(</span>
-                <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="n">anti_alias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">as_bytes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-            <span class="p">)</span>
-            <span class="n">IPython</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">IPython</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">png</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">))</span>
-
-        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;external&quot;</span><span class="p">:</span>
-            <span class="n">pdf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preview</span><span class="p">(</span>
-                <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;pdf&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="n">anti_alias</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">as_bytes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-            <span class="p">)</span>
-            <span class="n">launch_external_viewer</span><span class="p">(</span><span class="n">pdf</span><span class="p">,</span> <span class="n">waiting</span><span class="o">=</span><span class="n">waiting</span><span class="p">)</span></div>
+                <span class="n">IPython</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">IPython</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">png</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">))</span>
+            <span class="k">case</span> <span class="s2">&quot;external&quot;</span><span class="p">:</span>
+                <span class="n">pdf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preview</span><span class="p">(</span>
+                    <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;pdf&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="n">anti_alias</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">as_bytes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+                <span class="p">)</span>
+                <span class="n">launch_external_viewer</span><span class="p">(</span><span class="n">pdf</span><span class="p">,</span> <span class="n">waiting</span><span class="o">=</span><span class="n">waiting</span><span class="p">)</span>
+            <span class="k">case</span> <span class="s2">&quot;none&quot;</span><span class="p">:</span>
+                <span class="k">pass</span>  <span class="c1"># Do nothing</span>
+            <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Invalid display method &#39;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">&#39;. Valid values are &#39;external&#39;, &quot;</span>
+                    <span class="s2">&quot;&#39;notebook&#39;, &#39;none&#39; or None.&quot;</span>
+                <span class="p">)</span></div>
 
 
     <span class="k">def</span> <span class="nf">_preview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fmt</span><span class="p">,</span> <span class="n">dpi</span><span class="p">,</span> <span class="n">as_bytes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -718,22 +743,20 @@
 
 <div class="viewcode-block" id="set_display">
 <a class="viewcode-back" href="../../api/generated/pygmt.set_display.html#pygmt.set_display">[docs]</a>
-<span class="k">def</span> <span class="nf">set_display</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">set_display</span><span class="p">(</span><span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;external&quot;</span><span class="p">,</span> <span class="s2">&quot;notebook&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Set the display method when calling :meth:`pygmt.Figure.show`.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    method : str or None</span>
+<span class="sd">    method</span>
 <span class="sd">        The method to display an image preview. Choose from:</span>
 
 <span class="sd">        - ``&quot;external&quot;``: External PDF preview using the default PDF viewer</span>
 <span class="sd">        - ``&quot;notebook&quot;``: Inline PNG preview in the current notebook</span>
 <span class="sd">        - ``&quot;none&quot;``: Disable image preview</span>
-<span class="sd">        - ``None``: Reset to the default display method</span>
-
-<span class="sd">        The default display method is ``&quot;external&quot;`` in Python consoles or</span>
-<span class="sd">        ``&quot;notebook&quot;`` in Jupyter notebooks.</span>
+<span class="sd">        - ``None``: Reset to the default display method, which is either ``&quot;external&quot;``</span>
+<span class="sd">          in Python consoles or ``&quot;notebook&quot;`` in Jupyter notebooks.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -756,13 +779,16 @@
 <span class="sd">    &gt;&gt;&gt; pygmt.set_display(method=None)</span>
 <span class="sd">    &gt;&gt;&gt; fig.show()  # again, will show a PNG image in the current notebook</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;notebook&quot;</span><span class="p">,</span> <span class="s2">&quot;external&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">]:</span>
-        <span class="n">SHOW_CONFIG</span><span class="p">[</span><span class="s2">&quot;method&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">method</span>
-    <span class="k">elif</span> <span class="n">method</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Invalid display mode &#39;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
-            <span class="s2">&quot;should be either &#39;notebook&#39;, &#39;external&#39;, &#39;none&#39; or None.&quot;</span>
-        <span class="p">)</span></div>
+    <span class="k">match</span> <span class="n">method</span><span class="p">:</span>
+        <span class="k">case</span> <span class="s2">&quot;external&quot;</span> <span class="o">|</span> <span class="s2">&quot;notebook&quot;</span> <span class="o">|</span> <span class="s2">&quot;none&quot;</span><span class="p">:</span>
+            <span class="n">SHOW_CONFIG</span><span class="p">[</span><span class="s2">&quot;method&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">method</span>  <span class="c1"># type: ignore[assignment]</span>
+        <span class="k">case</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">SHOW_CONFIG</span><span class="p">[</span><span class="s2">&quot;method&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_get_default_display_method</span><span class="p">()</span>  <span class="c1"># type: ignore[assignment]</span>
+        <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Invalid display method &#39;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">&#39;. Valid values are &#39;external&#39;,&quot;</span>
+                <span class="s2">&quot;&#39;notebook&#39;, &#39;none&#39; or None.&quot;</span>
+            <span class="p">)</span></div>
 
 </pre></div>
 
@@ -775,9 +801,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
       </span>
-      <span class="lastupdated">Last updated on May 01, 2024.
+      <span class="lastupdated">Last updated on Sep 05, 2024.
       </span></p>
   </div>
 

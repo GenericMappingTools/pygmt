@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_basemaps_ternary.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -23,7 +23,7 @@ Ternary diagram
 
 The :meth:`pygmt.Figure.ternary` method can draw ternary diagrams. The example
 shows how to plot circles with a diameter of 0.1 centimeters
-(``style="c0.1c"``) on a 10-centimeter-wide (``width="10c"``) ternary diagram
+(``style="c0.1c"``) on a 10-centimeters-wide (``width="10c"``) ternary diagram
 at the positions listed in the first three columns of the sample dataset
 ``rock_compositions``, with default annotations and gridline spacings, using
 the specified labeling defined via ``alabel``, ``blabel``, and ``clabel``.
@@ -68,19 +68,19 @@ sample dataset via ``cmap=True``.
         frame=[
             "aafg+lLimestone component+u %",
             "bafg+lWater component+u %",
-            "cagf+lAir component+u %",
+            "cafg+lAir component+u %",
         ],
     )
 
     # Add a colorbar indicating the values given in the fourth column of
     # the input dataset
-    fig.colorbar(position="JBC+o0c/1.5c", frame=["x+lPermittivity"])
+    fig.colorbar(position="JBC+o0c/1.5c", frame="x+lPermittivity")
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.201 seconds)
+   **Total running time of the script:** (0 minutes 0.198 seconds)
 
 
 .. _sphx_glr_download_gallery_basemaps_ternary.py:
@@ -96,6 +96,10 @@ sample dataset via ``cmap=True``.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: ternary.py <ternary.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: ternary.zip <ternary.zip>`
 
 
 .. only:: html

@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_projections_azim_azim_lambert.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -74,6 +74,10 @@ of the figure.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: azim_lambert.py <azim_lambert.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: azim_lambert.zip <azim_lambert.zip>`
 
 
 .. only:: html

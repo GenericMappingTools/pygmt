@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_symbols_points.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -21,8 +21,8 @@
 Points
 ======
 
-The :meth:`pygmt.Figure.plot` method can plot points. The plot symbol and size
-is set with the ``style`` parameter.
+The :meth:`pygmt.Figure.plot` method can plot data points. The symbol and
+size are set with the ``style`` parameter.
 
 .. GENERATED FROM PYTHON SOURCE LINES 10-27
 
@@ -60,7 +60,7 @@ is set with the ``style`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.166 seconds)
+   **Total running time of the script:** (0 minutes 0.162 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_points.py:
@@ -76,6 +76,10 @@ is set with the ``style`` parameter.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: points.py <points.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: points.zip <points.zip>`
 
 
 .. only:: html

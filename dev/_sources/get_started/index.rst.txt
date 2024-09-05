@@ -22,10 +22,11 @@ It will not cover all PyGMT functions and methods.
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This tutorial covers the basics of creating a figure using PyGMT - a Python wrapper for the Gen...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This tutorial covers the basics of creating a figure using PyGMT - a Python wrapper for the Generic Mapping Tools (GMT). It will only use the pygmt.Figure.coast method for plotting. Later tutorials will address other PyGMT methods.">
 
 .. only:: html
 
@@ -42,7 +43,7 @@ It will not cover all PyGMT functions and methods.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This tutorial page covers the basics of creating a figure of the Earth relief, using a remote d...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This tutorial page covers the basics of creating a figure of the Earth relief, using a remote dataset hosted by GMT, using the method pygmt.datasets.load_earth_relief. It will use the pygmt.Figure.grdimage, pygmt.Figure.grdcontour, pygmt.Figure.colorbar, and pygmt.Figure.coast methods for plotting.">
 
 .. only:: html
 
@@ -90,6 +91,8 @@ It will not cover all PyGMT functions and methods.
       <div class="sphx-glr-thumbnail-title">4. PyGMT I/O: Table inputs</div>
     </div>
 
+
+.. thumbnail-parent-div-close
 
 .. raw:: html
 
