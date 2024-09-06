@@ -41,14 +41,14 @@ assignees: ''
   - [ ] Set the tag version and release title to vX.Y.Z
   - [ ] Make sure "Set as the latests release" and "Create a discussion for this release" are selected
   - [ ] Make a release by clicking the 'Publish Release' button, this will automatically create a tag too
-- [ ] Download the pygmt-X.Y.Z.zip and baseline-images.zip from the release page,
-      rename pygmt-X.Y.Z.zip to pygmt-vX.Y.Z.zip, and upload the two zip files to
-      https://zenodo.org/deposit, ensure that they are filed under the correct reserved DOI
+- [ ] Download pygmt-X.Y.Z.zip (rename to pygmt-vX.Y.Z.zip) and baseline-images.zip from
+      the release page, and upload the two zip files to https://zenodo.org/deposit,
+      ensure that they are filed under the correct reserved DOI
 
 **After release**:
 
 - [ ] Update conda-forge [pygmt-feedstock](https://github.com/conda-forge/pygmt-feedstock)
-      [Done automatically by conda-forge's bot, but can also be triggered manually by opening an issue with the title `@conda-forge-admin, please update version`. Remember to pin SPEC0 versions]
+      [Done automatically by conda-forge's bot. Remember to pin Python and SPEC0 versions]
 - [ ] Bump PyGMT version on https://github.com/GenericMappingTools/try-gmt (after conda-forge update)
 - [ ] Announce the release on:
   - [ ] GMT [forum](https://forum.generic-mapping-tools.org/c/news/) (do this announcement first! Requires moderator status)
