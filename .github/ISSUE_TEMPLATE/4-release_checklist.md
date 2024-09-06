@@ -39,7 +39,6 @@ assignees: ''
 - [ ] At the [PyGMT release page on GitHub](https://github.com/GenericMappingTools/pygmt/releases):
   - [ ] Edit the draft release notes with the finalized changelog
   - [ ] Set the tag version and release title to vX.Y.Z
-  - [ ] Make sure "Set as the latests release" and "Create a discussion for this release" are selected
   - [ ] Make a release by clicking the 'Publish Release' button, this will automatically create a tag too
 - [ ] Download pygmt-X.Y.Z.zip (rename to pygmt-vX.Y.Z.zip) and baseline-images.zip from
       the release page, and upload the two zip files to https://zenodo.org/deposit,
