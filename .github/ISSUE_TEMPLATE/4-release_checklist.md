@@ -41,7 +41,9 @@ assignees: ''
   - [ ] Set the tag version and release title to vX.Y.Z
   - [ ] Make sure "Set as the latests release" and "Create a discussion for this release" are selected
   - [ ] Make a release by clicking the 'Publish Release' button, this will automatically create a tag too
-- [ ] Manually upload the pygmt-vX.Y.Z.zip and baseline-images.zip files to https://zenodo.org/deposit, ensure that it is filed under the correct reserved DOI
+- [ ] Download the pygmt-X.Y.Z.zip and baseline-images.zip from the release page,
+      rename pygmt-X.Y.Z.zip to pygmt-vX.Y.Z.zip, and upload the two zip files to
+      https://zenodo.org/deposit, ensure that they are filed under the correct reserved DOI
 
 **After release**:
 
