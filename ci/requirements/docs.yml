@@ -18,9 +18,9 @@ dependencies:
     - ipython
     - rioxarray
     # Development dependencies (general)
-    - build
     - make
     - pip
+    - python-build
     # Dev dependencies (building documentation)
     - myst-nb
     - panel
