@@ -30,7 +30,7 @@ def test_show_versions():
         ("9.52", "6.4.0"),
         ("10.01", "6.4.0"),
         ("10.02", "6.4.0"),
-        (None, "6.4.0"),
+        (None, "6.5.0"),
     ],
 )
 def test_show_versions_ghostscript_warnings(gs_version, gmt_version, monkeypatch):
