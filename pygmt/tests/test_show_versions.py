@@ -44,5 +44,4 @@ def test_show_versions_ghostscript_warnings(gs_version, gmt_version, monkeypatch
 
     buf = io.StringIO()
     pygmt.show_versions(file=buf)
-    output = buf.getvalue()
-    assert "WARNING:" in output
+    assert "WARNING:" in buf.getvalue()
