@@ -8,8 +8,8 @@ assignees: ''
 ---
 
 **Release**: [v0.x.x](https://github.com/GenericMappingTools/pygmt/milestones/?)
-**Scheduled Date**: YYYY/MM/DD
-**Pull request due date**: YYYY/MM/DD
+**Scheduled Date**: 20YY/MM/DD
+**Pull request due date**: 20YY/MM/DD
 **DOI**: `10.5281/zenodo.XXXXXXX`
 
 **Priority PRs/issues to complete prior to release**
