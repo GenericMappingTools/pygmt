@@ -2,7 +2,7 @@
 
 Several environment variables can be used to control the behavior of PyGMT. These
 environment variables can be set in your shell or in your Python script using the
-`os.environ` dictionary.
+:py:data:`os.environ` dictionary.
 
 Here we list the environment variables that are used by PyGMT. The environment
 variables are divided into three categories: system environment variables, GMT/PyGMT
@@ -20,6 +20,9 @@ TZ
 ## GMT/PyGMT Environment Variables
 
 ```{glossary}
+GMT_LIBRARY_PATH
+    Directory to the GMT library.
+
 PYGMT_USE_EXTERNAL_DISPLAY
     Setting this environment variable to `"false"` can disable image preview in
     external viewers. It's useful when running the tests and building the documentation
