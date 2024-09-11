@@ -247,7 +247,9 @@ def data_kind(
     >>> data_kind(data=io.StringIO("TEXT1\nTEXT23\n"))
     'stringio'
     """
-    kind: Literal["arg", "file", "geojson", "grid", "image", "matrix", "vectors"]
+    kind: Literal[
+        "arg", "file", "geojson", "grid", "image", "matrix", "stringio", "vectors"
+    ]
     if isinstance(data, str | pathlib.PurePath) or (
         isinstance(data, list | tuple)
         and all(isinstance(_file, str | pathlib.PurePath) for _file in data)

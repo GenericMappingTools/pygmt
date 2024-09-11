@@ -1634,7 +1634,10 @@ class Session:
         >>> import io
         >>> from pygmt.clib import Session
         >>> stringio = io.StringIO(
-        ...     "H 24p Legend\nN 2\nS 0.1i c 0.15i p300/12 0.25p 0.3i My circle"
+        ...     "# Comment\n"
+        ...     "H 24p Legend\n"
+        ...     "N 2\n"
+        ...     "S 0.1i c 0.15i p300/12 0.25p 0.3i My circle\n"
         ... )
         >>> with Session() as lib:
         ...     with lib.virtualfile_from_stringio(stringio) as fin:
