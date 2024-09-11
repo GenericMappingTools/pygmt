@@ -8,6 +8,7 @@ visit the {gmt-docs}`GMT Technical Reference <reference.html>`.
 ```{toctree}
 :maxdepth: 1
 
-projections.rst
+projections.md
+fonts.md
 encodings.md
 ```

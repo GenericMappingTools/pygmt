@@ -26,14 +26,9 @@ from pygmt.clib.conversion import (
     strings_to_ctypes_array,
     vectors_to_arrays,
 )
-from pygmt.clib.loading import load_libgmt
-from pygmt.datatypes import _GMT_DATASET, _GMT_GRID
-from pygmt.exceptions import (
-    GMTCLibError,
-    GMTCLibNoSessionError,
-    GMTInvalidInput,
-    GMTVersionError,
-)
+from pygmt.clib.loading import get_gmt_version, load_libgmt
+from pygmt.datatypes import _GMT_DATASET, _GMT_GRID, _GMT_IMAGE
+from pygmt.exceptions import GMTCLibError, GMTCLibNoSessionError, GMTInvalidInput
 from pygmt.helpers import (
     _validate_data_input,
     data_kind,
@@ -105,6 +100,7 @@ GMT_CONSTANTS = {}
 
 # Load the GMT library outside the Session class to avoid repeated loading.
 _libgmt = load_libgmt()
+__gmt_version__ = get_gmt_version(_libgmt)
 
 
 class Session:
@@ -162,9 +158,6 @@ class Session:
     -55 -47 -24 -10 190 981 1 1 8 14 1 1
     """
 
-    # The minimum supported GMT version.
-    required_version = "6.3.0"
-
     @property
     def session_pointer(self):
         """
@@ -219,27 +212,11 @@ class Session:
 
     def __enter__(self):
         """
-        Create a GMT API session and check the libgmt version.
+        Create a GMT API session.
 
         Calls :meth:`pygmt.clib.Session.create`.
-
-        Raises
-        ------
-        GMTVersionError
-            If the version reported by libgmt is less than
-            ``Session.required_version``. Will destroy the session before
-            raising the exception.
         """
         self.create("pygmt-session")
-        # Need to store the version info because 'get_default' won't work after
-        # the session is destroyed.
-        version = self.info["version"]
-        if Version(version) < Version(self.required_version):
-            self.destroy()
-            raise GMTVersionError(
-                f"Using an incompatible GMT version {version}. "
-                f"Must be equal or newer than {self.required_version}."
-            )
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
@@ -409,10 +386,14 @@ class Session:
             We'll capture the messages and print them to stderr so that they will show
             up on the Jupyter notebook.
             """
-            message = message.decode().strip()
+            # Have to use try..except due to upstream GMT bug in GMT <= 6.5.0.
+            # See https://github.com/GenericMappingTools/pygmt/issues/3205.
+            try:
+                message = message.decode().strip()
+            except UnicodeDecodeError:
+                return 0
             self._error_log.append(message)
-            # flush to make sure the messages are printed even if we have a
-            # crash.
+            # Flush to make sure the messages are printed even if we have a crash.
             print(message, file=sys.stderr, flush=True)  # noqa: T201
             return 0
 
@@ -1078,7 +1059,7 @@ class Session:
     def read_data(
         self,
         infile: str,
-        kind: Literal["dataset", "grid"],
+        kind: Literal["dataset", "grid", "image"],
         family: str | None = None,
         geometry: str | None = None,
         mode: str = "GMT_READ_NORMAL",
@@ -1096,8 +1077,8 @@ class Session:
         infile
             The input file name.
         kind
-            The data kind of the input file. Valid values are ``"dataset"`` and
-            ``"grid"``.
+            The data kind of the input file. Valid values are ``"dataset"``, ``"grid"``
+            and ``"image"``.
         family
             A valid GMT data family name (e.g., ``"GMT_IS_DATASET"``). See the
             ``FAMILIES`` attribute for valid names. If ``None``, will determine the data
@@ -1148,6 +1129,7 @@ class Session:
         _family, _geometry, dtype = {
             "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP", _GMT_DATASET),
             "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE", _GMT_GRID),
+            "image": ("GMT_IS_IMAGE", "GMT_IS_SURFACE", _GMT_IMAGE),
         }[kind]
         if family is None:
             family = _family
@@ -1879,7 +1861,9 @@ class Session:
 
     @contextlib.contextmanager
     def virtualfile_out(
-        self, kind: Literal["dataset", "grid"] = "dataset", fname: str | None = None
+        self,
+        kind: Literal["dataset", "grid", "image"] = "dataset",
+        fname: str | None = None,
     ) -> Generator[str, None, None]:
         r"""
         Create a virtual file or an actual file for storing output data.
@@ -1892,8 +1876,8 @@ class Session:
         Parameters
         ----------
         kind
-            The data kind of the virtual file to create. Valid values are ``"dataset"``
-            and ``"grid"``. Ignored if ``fname`` is specified.
+            The data kind of the virtual file to create. Valid values are ``"dataset"``,
+            ``"grid"``, and ``"image"``. Ignored if ``fname`` is specified.
         fname
             The name of the actual file to write the output data. No virtual file will
             be created.
@@ -1936,8 +1920,10 @@ class Session:
             family, geometry = {
                 "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP"),
                 "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE"),
+                "image": ("GMT_IS_IMAGE", "GMT_IS_SURFACE"),
             }[kind]
-            with self.open_virtualfile(family, geometry, "GMT_OUT", None) as vfile:
+            direction = "GMT_OUT|GMT_IS_REFERENCE" if kind == "image" else "GMT_OUT"
+            with self.open_virtualfile(family, geometry, direction, None) as vfile:
                 yield vfile
 
     def inquire_virtualfile(self, vfname: str) -> int:
@@ -1983,7 +1969,8 @@ class Session:
             Name of the virtual file to read.
         kind
             Cast the data into a GMT data container. Valid values are ``"dataset"``,
-            ``"grid"`` and ``None``. If ``None``, will return a ctypes void pointer.
+            ``"grid"``, ``"image"`` and ``None``. If ``None``, will return a ctypes void
+            pointer.
 
         Returns
         -------
@@ -2033,9 +2020,9 @@ class Session:
         # _GMT_DATASET).
         if kind is None:  # Return the ctypes void pointer
             return pointer
-        if kind in {"image", "cube"}:
+        if kind == "cube":
             raise NotImplementedError(f"kind={kind} is not supported yet.")
-        dtype = {"dataset": _GMT_DATASET, "grid": _GMT_GRID}[kind]
+        dtype = {"dataset": _GMT_DATASET, "grid": _GMT_GRID, "image": _GMT_IMAGE}[kind]
         return ctp.cast(pointer, ctp.POINTER(dtype))
 
     def virtualfile_to_dataset(

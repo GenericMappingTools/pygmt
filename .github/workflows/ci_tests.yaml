@@ -72,10 +72,10 @@ jobs:
           - python-version: '3.10'
             numpy-version: '1.24'
             pandas-version: '=1.5'
-            xarray-version: '=2022.06'
+            xarray-version: '=2022.09'
             optional-packages: ''
           - python-version: '3.12'
-            numpy-version: '2.0'
+            numpy-version: '2.1'
             pandas-version: ''
             xarray-version: ''
             optional-packages: ' contextily geopandas ipython pyarrow rioxarray sphinx-gallery'
@@ -125,10 +125,10 @@ jobs:
             xarray${{ matrix.xarray-version }}
             netCDF4
             packaging
-            build
             dvc
             make
             pip
+            python-build
             pytest
             pytest-cov
             pytest-doctestplus
@@ -161,7 +161,7 @@ jobs:
 
       # Upload diff images on test failure
       - name: Upload diff images if any test fails
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.4.0
         if: failure()
         with:
           name: artifact-${{ runner.os }}-${{ matrix.python-version }}

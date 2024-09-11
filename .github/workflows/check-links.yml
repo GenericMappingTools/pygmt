@@ -49,6 +49,8 @@ jobs:
           --exclude "^https://github.com/GenericMappingTools/gmt/releases/tag/X.Y.Z$"
           --exclude "^https://github.com/GenericMappingTools/pygmt/edit"
           --exclude "^https://github.com/GenericMappingTools/pygmt/issues/new"
+          --exclude "^https://github.com/GenericMappingTools/pygmt/releases/tag/%7B%7Bpath%7D%7D"
+          --exclude "^https://www.pygmt.org/%7B%7Bpath%7D%7D"
           --exclude "^git"
           --exclude "^file://"
           --exclude "https://www.adobe.com/jp/print/postscript/pdfs/PLRM.pdf"
