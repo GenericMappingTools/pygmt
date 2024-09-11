@@ -94,6 +94,8 @@ def legend(
             specfile = ""
         case kind if kind == "file" and not is_nonstr_iter(spec):
             specfile = spec
+        case "stringio":
+            specfile = spec
         case _:
             raise GMTInvalidInput(f"Unrecognized data type: {type(spec)}")
 
