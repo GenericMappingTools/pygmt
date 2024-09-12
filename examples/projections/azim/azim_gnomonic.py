@@ -1,6 +1,6 @@
 r"""
-Gnomonic
-========
+Gnomonic projection
+===================
 
 The point of perspective of the gnomonic projection lies at the center of the
 Earth. As a consequence great circles (orthodromes) on the surface of the Earth

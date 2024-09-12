@@ -1,6 +1,6 @@
 r"""
-Van der Grinten
-===============
+Van der Grinten projection
+==========================
 
 The Van der Grinten projection, presented by Alphons J. van der Grinten in
 1904, is neither equal-area nor conformal. Central meridian and Equator are

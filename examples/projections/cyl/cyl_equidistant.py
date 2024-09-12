@@ -1,6 +1,6 @@
 r"""
-Cylindrical equidistant
-=======================
+Cylindrical equidistant projection
+==================================
 
 This simple cylindrical projection is really a linear scaling of longitudes and
 latitudes. The most common form is the Plate Carrée projection, where the

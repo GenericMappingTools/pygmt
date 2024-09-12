@@ -1,6 +1,6 @@
 r"""
-Polyconic
-=========
+Polyconic projection
+====================
 
 The polyconic projection, in Europe usually referred to as the American
 polyconic projection, was introduced shortly before 1820 by the Swiss-American

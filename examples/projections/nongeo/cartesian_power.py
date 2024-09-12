@@ -1,5 +1,5 @@
 r"""
-Cartesian power
+Cartesian power 
 ===============
 
 **X**\ *width*\ [**p**\ *pvalue*][/*height*\ [**p**\ *pvalue*]] or
