@@ -53,7 +53,7 @@ def legend(
     spec
         The legend specification. It can be:
 
-        - ``None`` means using the automatically generated legend specification file.
+        - ``None`` which means using the automatically generated legend specification file.
         - A string or a :class:`pathlib.PurePath` object pointing to the legend
           specification file.
 
