@@ -14,7 +14,7 @@ from pygmt.helpers import GMTTempFile
 @pytest.fixture(scope="module", name="legend_spec")
 def fixture_legend_spec():
     """
-    Return a legend specification file content.
+    A string contains a legend specification.
     """
     return """
 G -0.1i
@@ -47,7 +47,7 @@ T so we may have to adjust the box height to get the right size box.
 @pytest.mark.mpl_image_compare
 def test_legend_position():
     """
-    Test that plots a position with each of the four legend coordinate systems.
+    Test positioning the legend with different coordinate systems.
     """
     fig = Figure()
     fig.basemap(region=[-2, 2, -2, 2], frame=True)
@@ -74,7 +74,7 @@ def test_legend_default_position():
 @pytest.mark.mpl_image_compare
 def test_legend_entries():
     """
-    Test different marker types/shapes.
+    Test legend using the automatically generated legend entries.
     """
     fig = Figure()
     fig.basemap(projection="x1i", region=[0, 7, 3, 7], frame=True)
@@ -98,11 +98,9 @@ def test_legend_specfile(legend_spec):
     """
     with GMTTempFile() as specfile:
         Path(specfile.name).write_text(legend_spec, encoding="utf-8")
-        spec = specfile.name
-
         fig = Figure()
         fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
-        fig.legend(spec, position="JTM+jCM+w5i")
+        fig.legend(specfile.name, position="JTM+jCM+w5i")
         return fig
 
 
@@ -125,3 +123,6 @@ def test_legend_fails():
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
         fig.legend(spec=["@Table_5_11.txt"])
+
+    with pytest.raises(GMTInvalidInput):
+        fig.legend(spec=[1, 2])

@@ -54,7 +54,7 @@ def legend(
     spec
         The legend specification. It can be:
 
-        - ``None`` for using the automatically generated legend specification file.
+        - ``None`` means using the automatically generated legend specification file.
         - A string or a :class:`pathlib.PurePath` object pointing to the legend
           specification file.
         - A :class:`io.StringIO` object containing the legend specification.
@@ -90,7 +90,7 @@ def legend(
             kwargs["F"] = box
 
     kind = data_kind(spec)
-    if kind not in {"vectors", "file", "stringio"}:
+    if kind not in {"vectors", "file", "stringio"}:  # kind="vectors" means spec is None
         raise GMTInvalidInput(f"Unrecognized data type: {type(spec)}")
     if kind == "file" and is_nonstr_iter(spec):
         raise GMTInvalidInput("Only one legend specification file is allowed.")
