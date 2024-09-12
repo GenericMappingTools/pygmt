@@ -53,9 +53,10 @@ def legend(
     spec
         The legend specification. It can be:
 
-        - ``None`` which means using the automatically generated legend specification file.
+        - ``None`` which means using the automatically generated legend specification
+          file
         - A string or a :class:`pathlib.PurePath` object pointing to the legend
-          specification file.
+          specification file
 
         See :gmt-docs:`legend.html` for the definition of the legend specification.
     {projection}
