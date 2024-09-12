@@ -94,7 +94,7 @@ def test_legend_entries():
 @pytest.mark.mpl_image_compare
 def test_legend_specfile(legend_spec):
     """
-    Test Figure.legend with a legend specification file.
+    Test passing a legend specification file.
     """
     with GMTTempFile() as specfile:
         Path(specfile.name).write_text(legend_spec, encoding="utf-8")
@@ -107,7 +107,7 @@ def test_legend_specfile(legend_spec):
 @pytest.mark.mpl_image_compare(filename="test_legend_specfile.png")
 def test_legend_stringio(legend_spec):
     """
-    Test Figure.legend with a legend specification from an io.StringIO object.
+    Test passing an legend specification via an io.StringIO object.
     """
     spec = io.StringIO(legend_spec)
     fig = Figure()
