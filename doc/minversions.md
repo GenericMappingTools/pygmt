@@ -30,6 +30,7 @@ after their initial release.
 | PyGMT Version | GMT | Python | NumPy | Pandas | Xarray |
 |---|---|---|---|---|---|
 | [Dev][]* [<doc:dev>] | {{ requires.gmt }} | {{ requires.python }} | {{ requires.numpy }} | {{ requires.pandas }} | {{ requires.xarray }} |
+| <tag:v0.13.0> [<doc:v0.13.0>] | >=6.3.0 | >=3.10 | >=1.24 | >=1.5 | >=2022.09 |
 | <tag:v0.12.0> [<doc:v0.12.0>] | >=6.3.0 | >=3.10 | >=1.23 | >=1.5 | >=2022.06 |
 | <tag:v0.11.0> [<doc:v0.11.0>] | >=6.3.0 | >=3.9 | >=1.23 |  |  |
 | <tag:v0.10.0> [<doc:v0.10.0>] | >=6.3.0 | >=3.9 | >=1.22 |  |  |

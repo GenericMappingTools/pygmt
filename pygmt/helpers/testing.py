@@ -89,6 +89,8 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
                 file_name = "".join(c for c in request.node.name if c in allowed_chars)
             except AttributeError:  # 'NoneType' object has no attribute 'node'
                 file_name = func.__name__
+
+            fig_ref, fig_test = None, None
             try:
                 fig_ref, fig_test = func(*args, **kwargs)
                 ref_image_path = Path(result_dir) / f"{file_name}-expected.{ext}"

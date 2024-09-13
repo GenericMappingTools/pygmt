@@ -32,14 +32,14 @@ fig.basemap(
 )
 
 fig.text(
-    x=[0.2, 0.2, 0.2, 0.2, 0.2],
+    x=[0.2] * 5,
     y=[5, 4, 3, 2, 1],
     text=["ASCII:", "ISOLatin1+:", "Symbol:", "ZapfDingbats:", "Mixed:"],
     font="20p,Helvetica-Bold,red",
     justify="LM",
 )
 fig.text(
-    x=[2, 2, 2, 2, 2],
+    x=[2] * 5,
     y=[5, 4, 3, 2, 1],
     text=[
         "ABCDE12345!#$:;<=>?",  # ASCII only

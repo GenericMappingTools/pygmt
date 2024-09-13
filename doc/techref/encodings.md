@@ -31,7 +31,7 @@ def get_charset_mdtable(name):
 
 # Supported Encodings and Non-ASCII Characters
 
-GMT supports a number of encodings and each encoding contains a set of ASCII and
+PyGMT supports a number of encodings and each encoding contains a set of ASCII and
 non-ASCII characters. In PyGMT, you can use any of these ASCII and non-ASCII characters
 in arguments and text strings. When using non-ASCII characters in PyGMT, the easiest way
 is to copy and paste the character from the encoding tables below.

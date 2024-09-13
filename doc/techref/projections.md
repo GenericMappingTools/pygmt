@@ -16,7 +16,7 @@ The table below shows the projection codes for the 31 GMT map projections:
 
 | PyGMT Projection Argument | Projection Name |
 | --- | --- |
-| **A**{{ lon0 }}/{{ lat0 }}[/*horizon*]/*width*              | {doc}`Lambert azimuthal equal area </projections/azim/azim_equidistant>` |
+| **A**{{ lon0 }}/{{ lat0 }}[/*horizon*]/*width*              | {doc}`Lambert azimuthal equal area </projections/azim/azim_lambert>` |
 | **B**{{ lon0 }}/{{ lat0 }}/{{ lat1 }}/{{ lat2 }}/*width*    | {doc}`Albers conic equal area </projections/conic/conic_albers>` |
 | **C**{{ lon0 }}/{{ lat0 }}/*width*                          | {doc}`Cassini cylindrical </projections/cyl/cyl_cassini>` |
 | **Cyl_stere**/[{{ lon0 }}/[{{ lat0 }}/]]*width*             | {doc}`Cylindrical stereographic </projections/cyl/cyl_stereographic>` |
