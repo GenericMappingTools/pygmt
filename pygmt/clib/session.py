@@ -1669,10 +1669,12 @@ class Session:
         if current_segment["data"]:  # Add the last segment if it has data
             segments.append(current_segment)
 
-        # One table with one or more segments. No numeric data, so n_columns is 0.
+        # One table with one or more segments.
+        # n_rows is the maximum number of rows/records for all segments.
+        # n_columns is the number of numeric data columns, so it's 0 here.
         n_tables = 1
         n_segments = len(segments)
-        n_rows = sum(len(segment["data"]) for segment in segments)
+        n_rows = max(len(segment["data"]) for segment in segments)
         n_columns = 0
 
         # Create the GMT_DATASET container
