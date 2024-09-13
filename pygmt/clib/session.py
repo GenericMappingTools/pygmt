@@ -1618,11 +1618,10 @@ class Session:
         Store the contents of a :class:`io.StringIO` object in a GMT_DATASET container
         and create a virtual file to pass to a GMT module.
 
-        For simplicity, currently we make following assumptions in the stringio object
+        For simplicity, currently we make following assumptions in the StringIO object
 
         - ``"#"`` indicates a comment line.
         - ``">"`` indicates a segment header.
-        - The object only contains one table.
 
         Parameters
         ----------
@@ -1654,7 +1653,7 @@ class Session:
         1                                          N 2
         2  S 0.1i c 0.15i p300/12 0.25p 0.3i My circle
         """
-        # Parse the strings in the io.StringIO object.
+        # Parse the io.StringIO object.
         segments = []
         current_segment = {"header": "", "data": []}
         for line in stringio.getvalue().splitlines():
@@ -1664,7 +1663,7 @@ class Session:
                 if current_segment["data"]:  # If we have data, start a new segment
                     segments.append(current_segment)
                     current_segment = {"header": "", "data": []}
-                current_segment["header"] = line.strip(">").strip()
+                current_segment["header"] = line.strip(">").lstrip()
             else:
                 current_segment["data"].append(line)
         if current_segment["data"]:  # Add the last segment if it has data
@@ -1676,6 +1675,7 @@ class Session:
         n_rows = sum(len(segment["data"]) for segment in segments)
         n_columns = 0
 
+        # Create the GMT_DATASET container
         family, geometry = "GMT_IS_DATASET", "GMT_IS_TEXT"
         dataset = self.create_data(
             family,
