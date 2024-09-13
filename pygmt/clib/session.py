@@ -1618,6 +1618,12 @@ class Session:
         Store the contents of a :class:`io.StringIO` object in a GMT_DATASET container
         and create a virtual file to pass to a GMT module.
 
+        For simplicity, currently we make following assumptions in the stringio object
+
+        - ``"#"`` indicates a comment line.
+        - ``">"`` indicates a segment header.
+        - The object only contains one table and one segment.
+
         Parameters
         ----------
         stringio
@@ -1633,6 +1639,7 @@ class Session:
         --------
         >>> import io
         >>> from pygmt.clib import Session
+        >>> # A StringIO object containing legend specifications
         >>> stringio = io.StringIO(
         ...     "# Comment\n"
         ...     "H 24p Legend\n"
@@ -1648,10 +1655,6 @@ class Session:
         2  S 0.1i c 0.15i p300/12 0.25p 0.3i My circle
         """
         # Parse the strings in the io.StringIO object.
-        # For simplicity, we make a few assumptions.
-        # - "#" indicates a comment line
-        # - ">" indicates a segment header
-        # - Only one table and one segment
         header = None
         string_arrays = []
         for line in stringio.getvalue().splitlines():
