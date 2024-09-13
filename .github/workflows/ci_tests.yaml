@@ -79,8 +79,9 @@ jobs:
             pandas-version: ''
             xarray-version: ''
             optional-packages: ' contextily geopandas ipython pyarrow rioxarray sphinx-gallery'
-          # The job below is for testing geopandas v0.x on Ubuntu. Python 3.11 is used
-          # here, otherwise Python 3.10/3.12 jobs will be overridden by this one.
+          # The job below is for testing geopandas v0.x on Ubuntu.
+          # The python-version here can't be the versions in the matrix.python-version
+          # defined above. Otherwise, other jobs will be overridden by this one.
           - os: 'ubuntu-latest'
             python-version: '3.11'
             numpy-version: '1.24'
