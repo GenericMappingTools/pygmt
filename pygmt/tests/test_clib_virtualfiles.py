@@ -2,6 +2,7 @@
 Test the C API functions related to virtual files.
 """
 
+import io
 from importlib.util import find_spec
 from itertools import product
 from pathlib import Path
@@ -407,3 +408,69 @@ def test_inquire_virtualfile():
         ]:
             with lib.open_virtualfile(family, geometry, "GMT_OUT", None) as vfile:
                 assert lib.inquire_virtualfile(vfile) == lib[family]
+
+
+class TestVirtualfileFromStringIO:
+    """
+    Test the virtualfile_from_stringio method.
+    """
+
+    def _check_virtualfile_from_stringio(self, data: str):
+        """
+        A helper function to check the output of the virtualfile_from_stringio method.
+        """
+        # The expected output is the data with all comment lines removed.
+        expected = (
+            "\n".join(line for line in data.splitlines() if not line.startswith("#"))
+            + "\n"
+        )
+        stringio = io.StringIO(data)
+        with GMTTempFile() as outfile:
+            with clib.Session() as lib:
+                with lib.virtualfile_from_stringio(stringio) as vintbl:
+                    lib.call_module("write", args=[vintbl, f"->{outfile.name}", "-Td"])
+                    output = outfile.read()
+        assert output == expected
+
+    def test_virtualfile_from_stringio(self):
+        """
+        Test the virtualfile_from_stringio method.
+        """
+        data = (
+            "# Comment\n"
+            "H 24p Legend\n"
+            "N 2\n"
+            "S 0.1i c 0.15i p300/12 0.25p 0.3i My circle\n"
+        )
+        self._check_virtualfile_from_stringio(data)
+
+    def test_one_segment(self):
+        """
+        Test the virtualfile_from_stringio method with one segment.
+        """
+        data = (
+            "# Comment\n"
+            "> Segment 1\n"
+            "H 24p Legend\n"
+            "N 2\n"
+            "S 0.1i c 0.15i p300/12 0.25p 0.3i My circle\n"
+        )
+        self._check_virtualfile_from_stringio(data)
+
+    def test_multiple_segments(self):
+        """
+        Test the virtualfile_from_stringio method with multiple segments.
+        """
+        data = (
+            "# Comment line 1\n"
+            "# Comment line 2\n"
+            "> Segment 1\n"
+            "H 24p Legend\n"
+            "N 2\n"
+            "S 0.1i c 0.15i p300/12 0.25p 0.3i My circle\n"
+            "> Segment 2\n"
+            "H 24p Legend\n"
+            "N 2\n"
+            "S 0.1i c 0.15i p300/12 0.25p 0.3i My circle\n"
+        )
+        self._check_virtualfile_from_stringio(data)
