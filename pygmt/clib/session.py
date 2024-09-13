@@ -1665,7 +1665,7 @@ class Session:
                     current_segment = {"header": "", "data": []}
                 current_segment["header"] = line.strip(">").lstrip()
             else:
-                current_segment["data"].append(line)
+                current_segment["data"].append(line)  # type: ignore[attr-defined]
         if current_segment["data"]:  # Add the last segment if it has data
             segments.append(current_segment)
 
@@ -1690,7 +1690,7 @@ class Session:
         for i, segment in enumerate(segments):
             seg = table.segment[i].contents
             if segment["header"] != "":
-                seg.header = segment["header"].encode()
+                seg.header = segment["header"].encode() # type: ignore[attr-defined]
             seg.text = strings_to_ctypes_array(segment["data"])
 
         with self.open_virtualfile(family, geometry, "GMT_IN", dataset) as vfile:
