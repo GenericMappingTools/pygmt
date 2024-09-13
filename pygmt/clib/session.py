@@ -1690,7 +1690,7 @@ class Session:
         for i, segment in enumerate(segments):
             seg = table.segment[i].contents
             if segment["header"] != "":
-                seg.header = segment["header"].encode() # type: ignore[attr-defined]
+                seg.header = segment["header"].encode()  # type: ignore[attr-defined]
             seg.text = strings_to_ctypes_array(segment["data"])
 
         with self.open_virtualfile(family, geometry, "GMT_IN", dataset) as vfile:
