@@ -354,26 +354,24 @@ class Figure:
         prefix, suffix = fname.with_suffix("").as_posix(), fname.suffix
         ext = suffix[1:].lower()  # Remove the . and normalize to lowercase
 
-        if ext == "jpeg":  # Alias jpeg to jpg
-            ext = "jpg"
-        elif ext == "tiff":  # GeoTIFF
-            kwargs["W"] = "+g"
-        elif ext == "kml":  # KML
-            kwargs["W"] = "+k"
+        match ext:
+            case "jpeg":  # Alias jpeg to jpg
+                ext = "jpg"
+            case "tiff":  # GeoTIFF
+                kwargs["W"] = "+g"
+            case "kml":  # KML
+                kwargs["W"] = "+k"
+            case "ps":
+                msg = "Extension '.ps' is not supported. Use '.eps' or '.pdf' instead."
+                raise GMTInvalidInput(msg)
+            case ext if ext not in fmts:
+                raise GMTInvalidInput(f"Unknown extension '.{ext}'.")
 
-        if ext not in fmts:
-            if ext == "ps":
-                raise GMTInvalidInput(
-                    "Extension '.ps' is not supported. "
-                    "Please use '.eps' or '.pdf' instead."
-                )
-            raise GMTInvalidInput(f"Unknown extension '.{ext}'.")
         fmt = fmts[ext]
         if transparent:
             if fmt != "g":
-                raise GMTInvalidInput(
-                    f"Transparency unavailable for '{ext}', only for png."
-                )
+                msg = f"Transparency unavailable for '{ext}', only for png."
+                raise GMTInvalidInput(msg)
             fmt = fmt.upper()
         if anti_alias:
             kwargs["Qt"] = 2
@@ -381,14 +379,13 @@ class Figure:
 
         if worldfile:
             if ext in {"eps", "kml", "pdf", "tiff"}:
-                raise GMTInvalidInput(
-                    f"Saving a world file is not supported for '{ext}' format."
-                )
+                msg = f"Saving a world file is not supported for '{ext}' format."
+                raise GMTInvalidInput(msg)
             kwargs["W"] = True
 
         self.psconvert(prefix=prefix, fmt=fmt, crop=crop, **kwargs)
 
-        # Remove the .pgw world file if exists
+        # Remove the .pgw world file if exists.
         # Not necessary after GMT 6.5.0.
         # See upstream fix https://github.com/GenericMappingTools/gmt/pull/7865
         if ext == "tiff":
