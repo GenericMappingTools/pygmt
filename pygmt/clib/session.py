@@ -1687,7 +1687,9 @@ class Session:
             try:
                 yield vfile
             finally:
-                # Must set the text to None to avoid double freeing the memory
+                # Must set the pointers to None to avoid double freeing the memory.
+                # Maybe upstream bug.
+                seg.header = None
                 seg.text = None
 
     def virtualfile_in(  # noqa: PLR0912
