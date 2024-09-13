@@ -1663,7 +1663,7 @@ class Session:
             if line.startswith(">"):  # Segment header
                 if header is not None:  # Only one segment is allowed now.
                     raise GMTInvalidInput("Only one segment is allowed.")
-                header = line
+                header = line.strip(">").lstrip()
                 continue
             string_arrays.append(line)
         # Only one table and one segment. No numeric data, so n_columns is 0.
