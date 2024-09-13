@@ -1622,7 +1622,7 @@ class Session:
 
         - ``"#"`` indicates a comment line.
         - ``">"`` indicates a segment header.
-        - The object only contains one table and one segment.
+        - The object only contains one table.
 
         Parameters
         ----------
@@ -1655,19 +1655,26 @@ class Session:
         2  S 0.1i c 0.15i p300/12 0.25p 0.3i My circle
         """
         # Parse the strings in the io.StringIO object.
-        header = None
-        string_arrays = []
+        segments = []
+        current_segment = {"header": "", "data": []}
         for line in stringio.getvalue().splitlines():
             if line.startswith("#"):  # Skip comments
                 continue
             if line.startswith(">"):  # Segment header
-                if header is not None:  # Only one segment is allowed now.
-                    raise GMTInvalidInput("Only one segment is allowed.")
-                header = line.strip(">").lstrip()
-                continue
-            string_arrays.append(line)
-        # Only one table and one segment. No numeric data, so n_columns is 0.
-        n_tables, n_segments, n_rows, n_columns = 1, 1, len(string_arrays), 0
+                if current_segment["data"]:  # If we have data, start a new segment
+                    segments.append(current_segment)
+                    current_segment = {"header": "", "data": []}
+                current_segment["header"] = line.strip(">").strip()
+            else:
+                current_segment["data"].append(line)
+        if current_segment["data"]:  # Add the last segment if it has data
+            segments.append(current_segment)
+
+        # One table with one or more segments. No numeric data, so n_columns is 0.
+        n_tables = 1
+        n_segments = len(segments)
+        n_rows = sum(len(segment["data"]) for segment in segments)
+        n_columns = 0
 
         family, geometry = "GMT_IS_DATASET", "GMT_IS_TEXT"
         dataset = self.create_data(
@@ -1677,11 +1684,12 @@ class Session:
             dim=[n_tables, n_segments, n_rows, n_columns],
         )
         dataset = ctp.cast(dataset, ctp.POINTER(_GMT_DATASET))
-        # Assign the strings to the segment
-        seg = dataset.contents.table[0].contents.segment[0].contents
-        if header is not None:
-            seg.header = header.encode()
-        seg.text = strings_to_ctypes_array(string_arrays)
+        table = dataset.contents.table[0].contents
+        for i, segment in enumerate(segments):
+            seg = table.segment[i].contents
+            if segment["header"] != "":
+                seg.header = segment["header"].encode()
+            seg.text = strings_to_ctypes_array(segment["data"])
 
         with self.open_virtualfile(family, geometry, "GMT_IN", dataset) as vfile:
             try:
@@ -1689,8 +1697,10 @@ class Session:
             finally:
                 # Must set the pointers to None to avoid double freeing the memory.
                 # Maybe upstream bug.
-                seg.header = None
-                seg.text = None
+                for i in range(n_segments):
+                    seg = table.segment[i].contents
+                    seg.header = None
+                    seg.text = None
 
     def virtualfile_in(  # noqa: PLR0912
         self,
