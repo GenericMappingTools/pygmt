@@ -1689,7 +1689,7 @@ class Session:
         table = dataset.contents.table[0].contents
         for i, segment in enumerate(segments):
             seg = table.segment[i].contents
-            if segment["header"] != "":
+            if segment["header"]:
                 seg.header = segment["header"].encode()  # type: ignore[attr-defined]
             seg.text = strings_to_ctypes_array(segment["data"])
 
