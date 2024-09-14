@@ -2,7 +2,7 @@
 Utility functions to load libgmt as ctypes.CDLL.
 
 The path to the shared library can be found automatically by ctypes or set through the
-GMT_LIBRARY_PATH environment variable.
+environment variable :term:`GMT_LIBRARY_PATH`.
 """
 
 import ctypes
@@ -128,7 +128,7 @@ def clib_full_names(env: Mapping | None = None) -> Iterator[str]:
 
     The GMT shared library is searched for in following ways, sorted by priority:
 
-    1. Path defined by environmental variable GMT_LIBRARY_PATH
+    1. Path defined by environmental variable :term:`GMT_LIBRARY_PATH`
     2. Path returned by command "gmt --show-library"
     3. Path defined by environmental variable PATH (Windows only)
     4. System default search path

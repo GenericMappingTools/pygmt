@@ -109,7 +109,7 @@ class Session:
     same ``with`` block as the API calls that will use the data.
 
     By default, will let :mod:`ctypes` try to find the GMT shared library
-    (``libgmt``). If the environment variable ``GMT_LIBRARY_PATH`` is set, will
+    (``libgmt``). If the environment variable :term:`GMT_LIBRARY_PATH` is set, will
     look for the shared library in the directory specified by it.
 
     A ``GMTVersionError`` exception will be raised if the GMT shared library
