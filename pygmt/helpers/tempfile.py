@@ -78,7 +78,7 @@ class GMTTempFile:
         """
         Path(self.name).unlink(missing_ok=True)
 
-    def read(self, keep_tabs: bool = False):
+    def read(self, keep_tabs: bool = False) -> str:
         """
         Read the entire contents of the file as a Unicode string.
 
@@ -89,7 +89,7 @@ class GMTTempFile:
 
         Returns
         -------
-        content : str
+        content
             Content of the temporary file as a Unicode string.
         """
         content = Path(self.name).read_text(encoding="utf8")
