@@ -2,7 +2,7 @@
 
 PyGMT's behavior can be controlled through various environment variables. These variables
 can be set either in your shell environment or within your Python script using the
-:py:data:`os.environ` dictionary.
+{py:data}`os.environ` dictionary.
 
 Here we list the environment variables used by PyGMT. The environment variables are
 categorized into three groups:
