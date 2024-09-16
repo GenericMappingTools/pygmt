@@ -107,7 +107,7 @@ def test_legend_specfile(legend_spec):
 @pytest.mark.mpl_image_compare(filename="test_legend_specfile.png")
 def test_legend_stringio(legend_spec):
     """
-    Test passing an legend specification via an io.StringIO object.
+    Test passing a legend specification via an io.StringIO object.
     """
     spec = io.StringIO(legend_spec)
     fig = Figure()
