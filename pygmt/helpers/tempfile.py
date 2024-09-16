@@ -16,8 +16,8 @@ def unique_name() -> str:
     """
     Generate a unique name.
 
-    Useful for generating unique names for figures (otherwise GMT will plot everything
-    on the same figure instead of creating a new one).
+    Useful for generating unique names for figures. Otherwise GMT will plot everything
+    on the same figure instead of creating a new one.
 
     Returns
     -------
