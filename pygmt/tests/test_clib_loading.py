@@ -70,26 +70,17 @@ def test_load_libgmt():
     check_libgmt(load_libgmt())
 
 
-def test_load_libgmt_fails(monkeypatch):
+def test_load_libgmt_fails(mocker):
     """
     Test that GMTCLibNotFoundError is raised when GMT's shared library cannot be found.
     """
-    with monkeypatch.context() as mpatch:
-        if sys.platform == "win32":
-            mpatch.setattr(ctypes.util, "find_library", lambda name: "fakegmt.dll")  # noqa: ARG005
-        mpatch.setattr(
-            sys,
-            "platform",
-            # Pretend to be on macOS if running on Linux, and vice versa
-            "darwin" if sys.platform == "linux" else "linux",
-        )
-        mpatch.setattr(
-            subprocess,
-            "check_output",
-            lambda cmd, encoding: "libfakegmt.so",  # noqa: ARG005
-        )
-        with pytest.raises(GMTCLibNotFoundError):
-            check_libgmt(load_libgmt())
+    if sys.platform == "win32":
+        mocker.patch("ctypes.util.find_library", return_value="fakegmt.dll")
+    # Pretend to be on macOS if running on Linux, and vice versa
+    mocker.patch("sys.platform", "darwin" if sys.platform == "linux" else "linux")
+    mocker.patch("subprocess.check_output", return_value="libfakegmt.so")
+    with pytest.raises(GMTCLibNotFoundError):
+        check_libgmt(load_libgmt())
 
 
 def test_load_libgmt_with_a_bad_library_path(monkeypatch):
