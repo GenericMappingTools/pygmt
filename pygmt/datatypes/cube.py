@@ -75,8 +75,8 @@ class _GMT_CUBE(ctp.Structure):  # noqa: N801
     [1.0, 2.0, 3.0, 5.0]
     >>> data.shape
     (11, 11, 4)
-    >>> #data.min(), data.max()  # The min/max are wrong. Upstream bug?
-    >>> #(-29.399999618530273, 169.39999389648438)
+    >>> # data.min(), data.max()  # The min/max are wrong. Upstream bug?
+    >>> # (-29.399999618530273, 169.39999389648438)
     """
 
     _fields_: ClassVar = [
