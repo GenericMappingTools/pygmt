@@ -14,7 +14,7 @@
                 {% set gallery_path = gallery_dir[pagename.split("/")[0]] %}
                 {% set example_script = pagename|replace(pagename.split("/")[0], gallery_dir[pagename.split("/")[0]]) %}
                 {% if pagename.split("/")[-1] == "index" %}
-                    {% set example_script = example_script|replace("index", "README.txt") %}
+                    {% set example_script = example_script|replace("index", "GALLERY_HEADER.rst") %}
                 {% else %}
                     {% set example_script = example_script + ".py" %}
                 {% endif %}

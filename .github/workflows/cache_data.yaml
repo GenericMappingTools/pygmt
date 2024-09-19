@@ -58,7 +58,7 @@ jobs:
             xarray
             netCDF4
             packaging
-            build
+            python-build
 
       # Install the package that we want to test
       - name: Install the package
@@ -76,9 +76,10 @@ jobs:
 
       # Upload the downloaded files as artifacts to GitHub
       - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.4.0
         with:
           name: gmt-cache
+          include-hidden-files: true
           path: |
             ~/.gmt/cache
             ~/.gmt/server

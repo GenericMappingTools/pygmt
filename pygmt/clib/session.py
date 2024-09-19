@@ -7,6 +7,7 @@ Uses ctypes to wrap most of the core functions from the C API.
 
 import contextlib
 import ctypes as ctp
+import io
 import pathlib
 import sys
 import warnings
@@ -60,6 +61,7 @@ GEOMETRIES = [
     "GMT_IS_PLP",  # items could be any one of POINT, LINE, or POLY
     "GMT_IS_SURFACE",  # items are 2-D grid
     "GMT_IS_VOLUME",  # items are 3-D grid
+    "GMT_IS_TEXT",  # Text strings which triggers ASCII text reading
 ]
 
 METHODS = [
@@ -70,6 +72,11 @@ METHODS = [
 DIRECTIONS = ["GMT_IN", "GMT_OUT"]
 
 MODES = ["GMT_CONTAINER_ONLY", "GMT_IS_OUTPUT"]
+MODE_MODIFIERS = [
+    "GMT_GRID_IS_CARTESIAN",
+    "GMT_GRID_IS_GEO",
+    "GMT_WITH_STRINGS",
+]
 
 REGISTRATIONS = ["GMT_GRID_PIXEL_REG", "GMT_GRID_NODE_REG"]
 
@@ -728,7 +735,7 @@ class Session:
         mode_int = self._parse_constant(
             mode,
             valid=MODES,
-            valid_modifiers=["GMT_GRID_IS_CARTESIAN", "GMT_GRID_IS_GEO"],
+            valid_modifiers=MODE_MODIFIERS,
         )
         geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
         registration_int = self._parse_constant(registration, valid=REGISTRATIONS)
@@ -1604,6 +1611,100 @@ class Session:
         with self.open_virtualfile(*args) as vfile:
             yield vfile
 
+    @contextlib.contextmanager
+    def virtualfile_from_stringio(self, stringio: io.StringIO):
+        r"""
+        Store a :class:`io.StringIO` object in a virtual file.
+
+        Store the contents of a :class:`io.StringIO` object in a GMT_DATASET container
+        and create a virtual file to pass to a GMT module.
+
+        For simplicity, currently we make following assumptions in the StringIO object
+
+        - ``"#"`` indicates a comment line.
+        - ``">"`` indicates a segment header.
+
+        Parameters
+        ----------
+        stringio
+            The :class:`io.StringIO` object containing the data to be stored in the
+            virtual file.
+
+        Yields
+        ------
+        fname
+            The name of the virtual file.
+
+        Examples
+        --------
+        >>> import io
+        >>> from pygmt.clib import Session
+        >>> # A StringIO object containing legend specifications
+        >>> stringio = io.StringIO(
+        ...     "# Comment\n"
+        ...     "H 24p Legend\n"
+        ...     "N 2\n"
+        ...     "S 0.1i c 0.15i p300/12 0.25p 0.3i My circle\n"
+        ... )
+        >>> with Session() as lib:
+        ...     with lib.virtualfile_from_stringio(stringio) as fin:
+        ...         lib.virtualfile_to_dataset(vfname=fin, output_type="pandas")
+                                                     0
+        0                                 H 24p Legend
+        1                                          N 2
+        2  S 0.1i c 0.15i p300/12 0.25p 0.3i My circle
+        """
+        # Parse the io.StringIO object.
+        segments = []
+        current_segment = {"header": "", "data": []}
+        for line in stringio.getvalue().splitlines():
+            if line.startswith("#"):  # Skip comments
+                continue
+            if line.startswith(">"):  # Segment header
+                if current_segment["data"]:  # If we have data, start a new segment
+                    segments.append(current_segment)
+                    current_segment = {"header": "", "data": []}
+                current_segment["header"] = line.strip(">").lstrip()
+            else:
+                current_segment["data"].append(line)  # type: ignore[attr-defined]
+        if current_segment["data"]:  # Add the last segment if it has data
+            segments.append(current_segment)
+
+        # One table with one or more segments.
+        # n_rows is the maximum number of rows/records for all segments.
+        # n_columns is the number of numeric data columns, so it's 0 here.
+        n_tables = 1
+        n_segments = len(segments)
+        n_rows = max(len(segment["data"]) for segment in segments)
+        n_columns = 0
+
+        # Create the GMT_DATASET container
+        family, geometry = "GMT_IS_DATASET", "GMT_IS_TEXT"
+        dataset = self.create_data(
+            family,
+            geometry,
+            mode="GMT_CONTAINER_ONLY|GMT_WITH_STRINGS",
+            dim=[n_tables, n_segments, n_rows, n_columns],
+        )
+        dataset = ctp.cast(dataset, ctp.POINTER(_GMT_DATASET))
+        table = dataset.contents.table[0].contents
+        for i, segment in enumerate(segments):
+            seg = table.segment[i].contents
+            if segment["header"]:
+                seg.header = segment["header"].encode()  # type: ignore[attr-defined]
+            seg.text = strings_to_ctypes_array(segment["data"])
+
+        with self.open_virtualfile(family, geometry, "GMT_IN", dataset) as vfile:
+            try:
+                yield vfile
+            finally:
+                # Must set the pointers to None to avoid double freeing the memory.
+                # Maybe upstream bug.
+                for i in range(n_segments):
+                    seg = table.segment[i].contents
+                    seg.header = None
+                    seg.text = None
+
     def virtualfile_in(  # noqa: PLR0912
         self,
         check_kind=None,
@@ -1697,6 +1798,7 @@ class Session:
             "geojson": tempfile_from_geojson,
             "grid": self.virtualfile_from_grid,
             "image": tempfile_from_image,
+            "stringio": self.virtualfile_from_stringio,
             # Note: virtualfile_from_matrix is not used because a matrix can be
             # converted to vectors instead, and using vectors allows for better
             # handling of string type inputs (e.g. for datetime data types)
@@ -1705,7 +1807,7 @@ class Session:
         }[kind]
 
         # Ensure the data is an iterable (Python list or tuple)
-        if kind in {"geojson", "grid", "image", "file", "arg"}:
+        if kind in {"geojson", "grid", "image", "file", "arg", "stringio"}:
             if kind == "image" and data.dtype != "uint8":
                 msg = (
                     f"Input image has dtype: {data.dtype} which is unsupported, "
