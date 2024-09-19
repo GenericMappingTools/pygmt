@@ -132,7 +132,7 @@ research using the following BibTeX:
 
 ```
 @software{
-  pygmt_2024_11062720,
+  pygmt_2024_13679420,
   author       = {Tian, Dongdong and
                   Uieda, Leonardo and
                   Leong, Wei Ji and
@@ -152,12 +152,12 @@ research using the following BibTeX:
                   Quinn, Jamie and
                   Wessel, Paul},
   title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-  month        = may,
+  month        = sep,
   year         = 2024,
   publisher    = {Zenodo},
-  version      = {0.12.0},
-  doi          = {10.5281/zenodo.11062720},
-  url          = {https://doi.org/10.5281/zenodo.11062720}
+  version      = {0.13.0},
+  doi          = {10.5281/zenodo.13679420},
+  url          = {https://doi.org/10.5281/zenodo.13679420}
 }
 ```
 
@@ -185,12 +185,6 @@ Other official wrappers for GMT:
 
 - [GMT.jl](https://github.com/GenericMappingTools/GMT.jl): A Julia wrapper for GMT.
 - [gmtmex](https://github.com/GenericMappingTools/gmtmex): A Matlab/Octave wrapper for GMT.
-
-Other non-official Python wrappers for GMT (not maintained):
-
-- [gmtpy](https://github.com/emolch/gmtpy) by [Sebastian Heimann](https://github.com/emolch)
-- [pygmt](https://github.com/ian-r-rose/pygmt) by [Ian Rose](https://github.com/ian-r-rose)
-- [PyGMT](https://github.com/glimmer-cism/PyGMT) by [Magnus Hagdorn](https://github.com/mhagdorn)
 
 <!-- doc-index-end-before -->
 
