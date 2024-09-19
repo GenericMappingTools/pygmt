@@ -51,8 +51,8 @@ def test_multiprocessing_data_processing():
     npt.assert_allclose(grids[0].max(), 680.5, atol=0.5)
     # The Moon relief dataset
     assert grids[1].shape == (11, 21)
-    npt.assert_allclose(grids[0].min(), -1122.0, atol=0.5)
-    npt.assert_allclose(grids[0].max(), 943.0, atol=0.5)
+    npt.assert_allclose(grids[1].min(), -1122.0, atol=0.5)
+    npt.assert_allclose(grids[1].max(), 943.0, atol=0.5)
 
 
 def _func_reload(figname):
