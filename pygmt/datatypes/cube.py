@@ -21,6 +21,62 @@ class _GMT_CUBE(ctp.Structure):  # noqa: N801
     cubes. It requires a 2-D grid header and extended parameters for the 3rd dimension.
 
     header->n_bands is used for the number of layers in 3-D cubes.
+
+    Examples
+    --------
+    >>> import numpy as np
+    >>> from pygmt import which
+    >>> from pygmt.clib import Session
+    >>> cubefile = which("@cube.nc", download="c")
+    >>> with Session() as lib:
+    ...     with lib.virtualfile_out(kind="cube") as voutcube:
+    ...         lib.call_module("read", [cubefile, voutcube, "-Tu", "-Vd"])
+    ...         # Read the cube from the virtual file
+    ...         cube = lib.read_virtualfile(vfname=voutcube, kind="cube").contents
+    ...         # The cube header
+    ...         header = cube.header.contents
+    ...         # Access the header properties
+    ...         print(header.n_rows, header.n_columns, header.registration)
+    ...         print(header.wesn[:], header.inc[:])
+    ...         print(header.z_scale_factor, header.z_add_offset)
+    ...         print(header.x_units, header.y_units, header.z_units)
+    ...         print(header.nm, header.size, header.complex_mode)
+    ...         print(header.type, header.n_bands, header.mx, header.my)
+    ...         print(header.pad[:])
+    ...         print(header.mem_layout, header.xy_off)
+    ...         # Cube-specific attributes.
+    ...         print(cube.mode, cube.z_range[:], cube.z_inc, cube.name, cube.units)
+    ...         # The x, y, and z coordinates
+    ...         x = cube.x[: header.n_columns]
+    ...         y = cube.y[: header.n_rows]
+    ...         z = cube.z[: header.n_bands]
+    ...         # The data array (with paddings)
+    ...         data = np.reshape(
+    ...             cube.data[: header.n_bands * header.mx * header.my],
+    ...             (header.my, header.mx, header.n_bands),
+    ...         )
+    ...         # The data array (without paddings)
+    ...         pad = header.pad[:]
+    ...         data = data[pad[2] : header.my - pad[3], pad[0] : header.mx - pad[1], :]
+    11 11 0
+    [0.0, 10.0, 0.0, 10.0] [1.0, 1.0]
+    1.0 0.0
+    b'x' b'y' b'cube'
+    121 226 0
+    18 4 15 15
+    [2, 2, 2, 2]
+    b'' 0.0
+    0 [1.0, 5.0] 0.0 b'' b'z'
+    >>> x
+    [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
+    >>> y
+    [10.0, 9.0, 8.0, 7.0, 6.0, 5.0, 4.0, 3.0, 2.0, 1.0, 0.0]
+    >>> z
+    [1.0, 2.0, 3.0, 5.0]
+    >>> data.shape
+    (11, 11, 4)
+    >>> #data.min(), data.max()  # The min/max are wrong. Upstream bug?
+    >>> #(-29.399999618530273, 169.39999389648438)
     """
 
     _fields_: ClassVar = [
