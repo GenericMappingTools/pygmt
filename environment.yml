@@ -6,10 +6,10 @@ dependencies:
     - python=3.12
     # Required dependencies
     - gmt=6.5.0
-    - ghostscript=10.03.1
+    - ghostscript=10.04.0
     - numpy>=1.24
     - pandas>=1.5
-    - xarray>=2022.06
+    - xarray>=2022.09
     - netCDF4
     - packaging
     # Optional dependencies
@@ -18,11 +18,11 @@ dependencies:
     - ipython
     - rioxarray
     # Development dependencies (general)
-    - build
     - dvc
     - jupyter
     - make
     - pip
+    - python-build
     # Dev dependencies (style checks)
     - codespell
     - pre-commit
@@ -34,13 +34,13 @@ dependencies:
     - pytest-doctestplus
     - pytest-mpl
     # Dev dependencies (building documentation)
-    - myst-parser
+    - myst-nb
     - panel
     - sphinx
     - sphinx-autodoc-typehints
     - sphinx-copybutton
     - sphinx-design
-    - sphinx-gallery
+    - sphinx-gallery>=0.17.0
     - sphinx_rtd_theme
     # Dev dependencies (type hints)
     - mypy

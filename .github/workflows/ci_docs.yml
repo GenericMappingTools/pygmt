@@ -94,7 +94,7 @@ jobs:
           create-args: >-
             python=3.12
             gmt=6.5.0
-            ghostscript=10.03.1
+            ghostscript=10.04.0
             numpy
             pandas
             xarray
@@ -104,10 +104,10 @@ jobs:
             geopandas<1.0
             ipython
             rioxarray
-            build
             make
             pip
-            myst-parser
+            python-build
+            myst-nb
             panel
             sphinx
             sphinx-autodoc-typehints

@@ -2,6 +2,7 @@
 Test Figure.legend.
 """
 
+import io
 from pathlib import Path
 
 import pytest
@@ -10,66 +11,12 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
 
-@pytest.mark.mpl_image_compare
-def test_legend_position():
+@pytest.fixture(scope="module", name="legend_spec")
+def fixture_legend_spec():
     """
-    Test that plots a position with each of the four legend coordinate systems.
+    A string contains a legend specification.
     """
-
-    fig = Figure()
-    fig.basemap(region=[-2, 2, -2, 2], frame=True)
-    positions = ["jTR+jTR", "g0/1", "n0.2/0.2", "x4i/2i/2i"]
-    for i, position in enumerate(positions):
-        fig.plot(x=[0], y=[0], style="p10p", label=i)
-        fig.legend(position=position, box=True)
-    return fig
-
-
-@pytest.mark.mpl_image_compare
-def test_legend_default_position():
-    """
-    Test using the default legend position.
-    """
-
-    fig = Figure()
-
-    fig.basemap(region=[-1, 1, -1, 1], frame=True)
-
-    fig.plot(x=[0], y=[0], style="p10p", label="Default")
-    fig.legend()
-
-    return fig
-
-
-@pytest.mark.benchmark
-@pytest.mark.mpl_image_compare
-def test_legend_entries():
-    """
-    Test different marker types/shapes.
-    """
-    fig = Figure()
-    fig.basemap(projection="x1i", region=[0, 7, 3, 7], frame=True)
-    fig.plot(
-        data="@Table_5_11.txt",
-        style="c0.15i",
-        fill="lightgreen",
-        pen="faint",
-        label="Apples",
-    )
-    fig.plot(data="@Table_5_11.txt", pen="1.5p,gray", label="My lines")
-    fig.plot(data="@Table_5_11.txt", style="t0.15i", fill="orange", label="Oranges")
-    fig.legend(position="JTR+jTR")
-
-    return fig
-
-
-@pytest.mark.mpl_image_compare
-def test_legend_specfile():
-    """
-    Test specfile functionality.
-    """
-
-    specfile_contents = """
+    return """
 G -0.1i
 H 24 Times-Roman My Map Legend
 D 0.2i 1p
@@ -96,11 +43,76 @@ T There is no easy way to predetermine how many lines will be required,
 T so we may have to adjust the box height to get the right size box.
 """
 
+
+@pytest.mark.mpl_image_compare
+def test_legend_position():
+    """
+    Test positioning the legend with different coordinate systems.
+    """
+    fig = Figure()
+    fig.basemap(region=[-2, 2, -2, 2], frame=True)
+    positions = ["jTR+jTR", "g0/1", "n0.2/0.2", "x4i/2i/2i"]
+    for i, position in enumerate(positions):
+        fig.plot(x=[0], y=[0], style="p10p", label=i)
+        fig.legend(position=position, box=True)
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_legend_default_position():
+    """
+    Test using the default legend position.
+    """
+    fig = Figure()
+    fig.basemap(region=[-1, 1, -1, 1], frame=True)
+    fig.plot(x=[0], y=[0], style="p10p", label="Default")
+    fig.legend()
+    return fig
+
+
+@pytest.mark.benchmark
+@pytest.mark.mpl_image_compare
+def test_legend_entries():
+    """
+    Test legend using the automatically generated legend entries.
+    """
+    fig = Figure()
+    fig.basemap(projection="x1i", region=[0, 7, 3, 7], frame=True)
+    fig.plot(
+        data="@Table_5_11.txt",
+        style="c0.15i",
+        fill="lightgreen",
+        pen="faint",
+        label="Apples",
+    )
+    fig.plot(data="@Table_5_11.txt", pen="1.5p,gray", label="My lines")
+    fig.plot(data="@Table_5_11.txt", style="t0.15i", fill="orange", label="Oranges")
+    fig.legend(position="JTR+jTR")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_legend_specfile(legend_spec):
+    """
+    Test passing a legend specification file.
+    """
     with GMTTempFile() as specfile:
-        Path(specfile.name).write_text(specfile_contents, encoding="utf-8")
+        Path(specfile.name).write_text(legend_spec, encoding="utf-8")
         fig = Figure()
         fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
         fig.legend(specfile.name, position="JTM+jCM+w5i")
+        return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_legend_specfile.png")
+def test_legend_stringio(legend_spec):
+    """
+    Test passing a legend specification via an io.StringIO object.
+    """
+    spec = io.StringIO(legend_spec)
+    fig = Figure()
+    fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
+    fig.legend(spec, position="JTM+jCM+w5i")
     return fig
 
 
@@ -111,3 +123,6 @@ def test_legend_fails():
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
         fig.legend(spec=["@Table_5_11.txt"])
+
+    with pytest.raises(GMTInvalidInput):
+        fig.legend(spec=[1, 2])
