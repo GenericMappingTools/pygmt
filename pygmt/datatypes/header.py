@@ -3,6 +3,7 @@ Wrapper for the GMT_GRID_HEADER data structure and related utility functions.
 """
 
 import ctypes as ctp
+from enum import IntEnum
 from typing import Any, ClassVar
 
 import numpy as np
@@ -21,6 +22,40 @@ GMT_GRID_REMARK_LEN160 = 160
 # GMT uses single-precision for grids by default, but can be built to use
 # double-precision. Currently, only single-precision is supported.
 gmt_grdfloat = ctp.c_float
+
+
+class GMTGridID(IntEnum):
+    """
+    Enum for the GMT grid format ID.
+
+    Defined in gmt_grdio.h.
+    """
+
+    GMT_GRD_UNKNOWN_FMT = 0  # if grid format cannot be auto-detected
+    GMT_GRID_IS_BF = 1  # GMT native, C-binary format (32-bit float)
+    GMT_GRID_IS_BS = 2  # GMT native, C-binary format (16-bit integer)
+    GMT_GRID_IS_RB = 3  # SUN rasterfile format (8-bit standard)
+    GMT_GRID_IS_BB = 4  # GMT native, C-binary format (8-bit integer)
+    GMT_GRID_IS_BM = 5  # GMT native, C-binary format (bit-mask)
+    GMT_GRID_IS_SF = 6  # Golden Software Surfer format 6 (32-bit float)
+    GMT_GRID_IS_CB = 7  # GMT netCDF format (8-bit integer)
+    GMT_GRID_IS_CS = 8  # GMT netCDF format (16-bit integer)
+    GMT_GRID_IS_CI = 9  # GMT netCDF format (32-bit integer)
+    GMT_GRID_IS_CF = 10  # GMT netCDF format (32-bit float)
+    GMT_GRID_IS_CD = 11  # GMT netCDF format (64-bit float)
+    GMT_GRID_IS_RF = 12  # GEODAS grid format GRD98 (NGDC)
+    GMT_GRID_IS_BI = 13  # GMT native, C-binary format (32-bit integer)
+    GMT_GRID_IS_BD = 14  # GMT native, C-binary format (64-bit float)
+    GMT_GRID_IS_NB = 15  # GMT netCDF format (8-bit integer)
+    GMT_GRID_IS_NS = 16  # GMT netCDF format (16-bit integer)
+    GMT_GRID_IS_NI = 17  # GMT netCDF format (32-bit integer)
+    GMT_GRID_IS_NF = 18  # GMT netCDF format (32-bit float)
+    GMT_GRID_IS_ND = 19  # GMT netCDF format (64-bit float)
+    GMT_GRID_IS_SD = 20  # Golden Software Surfer format 7 (64-bit float, read-only)
+    GMT_GRID_IS_AF = 21  # Atlantic Geoscience Center format AGC (32-bit float)
+    GMT_GRID_IS_GD = 22  # Import through GDAL
+    GMT_GRID_IS_EI = 23  # ESRI Arc/Info ASCII Grid Interchange format (ASCII integer)
+    GMT_GRID_IS_EF = 24  # ESRI Arc/Info ASCII Grid Interchange format (ASCII float)
 
 
 def _parse_nameunits(nameunits: str) -> tuple[str, str | None]:
@@ -203,7 +238,14 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
         Attributes for the data variable from the grid header.
         """
         attrs: dict[str, Any] = {}
-        attrs["Conventions"] = "CF-1.7"
+        if self.type in {
+            GMTGridID.GMT_GRID_IS_NB,
+            GMTGridID.GMT_GRID_IS_NS,
+            GMTGridID.GMT_GRID_IS_NI,
+            GMTGridID.GMT_GRID_IS_NF,
+            GMTGridID.GMT_GRID_IS_ND,
+        }:
+            attrs["Conventions"] = "CF-1.7"
         attrs["title"] = self.title.decode()
         attrs["history"] = self.command.decode()
         attrs["description"] = self.remark.decode()
