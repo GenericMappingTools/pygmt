@@ -108,6 +108,8 @@ def test_clib_read_data_grid_two_steps(expected_xrgrid):
 
         # Read the data
         lib.read_data(infile, kind="grid", mode="GMT_DATA_ONLY", data=data_ptr)
+
+        # Full check
         xrgrid = data_ptr.contents.to_dataarray()
         xr.testing.assert_equal(xrgrid, expected_xrgrid)
 
@@ -117,10 +119,7 @@ def test_clib_read_data_grid_actual_image(expected_xrimage):
     Test the Session.read_data method for grid, but actually the file is an image.
     """
     with Session() as lib:
-        data_ptr = lib.read_data(
-            "@earth_day_01d_p", kind="grid", mode="GMT_CONTAINER_AND_DATA"
-        )
-        image = data_ptr.contents
+        image = lib.read_data("@earth_day_01d_p", kind="grid").contents
         header = image.header.contents
         assert header.n_rows == 180
         assert header.n_columns == 360
@@ -128,24 +127,34 @@ def test_clib_read_data_grid_actual_image(expected_xrimage):
         # Explicitly check n_bands. Only one band is read for 3-band images.
         assert header.n_bands == 1
 
+        xrimage = image.to_dataarray()
         if _HAS_RIOXARRAY:  # Full check if rioxarray is installed.
-            xrimage = image.to_dataarray()
             assert expected_xrimage.band.size == 3  # 3-band image.
             xr.testing.assert_equal(
                 xrimage,
                 expected_xrimage.isel(band=0).drop_vars(["band"]).sortby("y"),
             )
+        else:
+            assert xrimage.shape == (180, 360)
 
 
-# Note: Simplify the tests for images after GMT_IMAGE.to_dataarray() is implemented.
 def test_clib_read_data_image(expected_xrimage):
     """
     Test the Session.read_data method for images.
     """
     with Session() as lib:
         image = lib.read_data("@earth_day_01d_p", kind="image").contents
+        header = image.header.contents
+        assert header.n_rows == 180
+        assert header.n_columns == 360
+        assert header.n_bands == 3
+        assert header.wesn[:] == [-180.0, 180.0, -90.0, 90.0]
+
         xrimage = image.to_dataarray()
-        xr.testing.assert_equal(xrimage, expected_xrimage)
+        if _HAS_RIOXARRAY:  # Full check if rioxarray is installed.
+            xr.testing.assert_equal(xrimage, expected_xrimage)
+        else:
+            assert xrimage.shape == (3, 180, 360)
 
 
 def test_clib_read_data_image_two_steps(expected_xrimage):
@@ -167,8 +176,12 @@ def test_clib_read_data_image_two_steps(expected_xrimage):
 
         # Read the data
         lib.read_data(infile, kind="image", mode="GMT_DATA_ONLY", data=data_ptr)
-        xrimage = data_ptr.contents.to_dataarray()
-        xr.testing.assert_equal(xrimage, expected_xrimage)
+
+        xrimage = image.to_dataarray()
+        if _HAS_RIOXARRAY:  # Full check if rioxarray is installed.
+            xr.testing.assert_equal(xrimage, expected_xrimage)
+        else:
+            assert xrimage.shape == (3, 180, 360)
 
 
 def test_clib_read_data_fails():
