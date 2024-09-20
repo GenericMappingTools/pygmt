@@ -115,7 +115,7 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
         ...         # Convert to xarray.DataArray and use it later
         ...         da = image.contents.to_dataarray()
         >>> da  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
-        <xarray.DataArray 'z' (band: 3, y: 180, x: 360)> Size: 2MB
+        <xarray.DataArray 'z' (band: 3, y: 180, x: 360)>...
         array([[[ 10,  10,  10, ...,  10,  10,  10],
                 [ 10,  10,  10, ...,  10,  10,  10],
                 [ 10,  10,  10, ...,  10,  10,  10],

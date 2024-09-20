@@ -34,9 +34,11 @@ def fixture_expected_xrimage():
     """
     The expected xr.DataArray object for the @earth_day_01d_p file.
     """
-    with rioxarray.open_rasterio(which("@earth_day_01d_p")) as da:
-        dataarray = da.load().drop_vars("spatial_ref")
-        return dataarray
+    if _HAS_RIOXARRAY:
+        with rioxarray.open_rasterio(which("@earth_day_01d_p")) as da:
+            dataarray = da.load().drop_vars("spatial_ref")
+            return dataarray
+    return None
 
 
 def test_clib_read_data_dataset():
