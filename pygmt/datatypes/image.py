@@ -151,13 +151,13 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
             actual_range:  [ 1.79769313e+308 -1.79769313e+308]
 
         >>> da.coords["x"]  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
-        <xarray.DataArray 'x' (x: 360)> Size: 3kB
+        <xarray.DataArray 'x' (x: 360)>...
         array([-179.5, -178.5, -177.5, ...,  177.5,  178.5,  179.5])
         Coordinates:
           * x        (x) float64 3kB -179.5 -178.5 -177.5 -176.5 ... 177.5 178.5 179.5
 
         >>> da.coords["y"]  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
-        <xarray.DataArray 'y' (y: 180)> Size: 1kB
+        <xarray.DataArray 'y' (y: 180)>...
         array([ 89.5,  88.5,  87.5,  86.5,  85.5,  84.5,  83.5,  82.5,  81.5,  80.5,
                 79.5,  78.5,  77.5,  76.5,  75.5,  74.5,  73.5,  72.5,  71.5,  70.5,
                 69.5,  68.5,  67.5,  66.5,  65.5,  64.5,  63.5,  62.5,  61.5,  60.5,
