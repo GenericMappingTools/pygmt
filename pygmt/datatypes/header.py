@@ -3,7 +3,7 @@ Wrapper for the GMT_GRID_HEADER data structure and related utility functions.
 """
 
 import ctypes as ctp
-from enum import Enum
+from enum import IntEnum
 from typing import Any, ClassVar
 
 import numpy as np
@@ -24,7 +24,7 @@ GMT_GRID_REMARK_LEN160 = 160
 gmt_grdfloat = ctp.c_float
 
 
-class GMTGridID(Enum):
+class GMTGridID(IntEnum):
     """
     Enum for the GMT grid format ID.
 
