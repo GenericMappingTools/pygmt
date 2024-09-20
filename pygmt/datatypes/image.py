@@ -181,7 +181,7 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
         pad = header.pad[:]
         data: np.ndarray = np.reshape(
             self.data[: header.n_bands * header.mx * header.my],
-            newshape=(header.my, header.mx, header.n_bands),
+            shape=(header.my, header.mx, header.n_bands),
         )[pad[2] : header.my - pad[3], pad[0] : header.mx - pad[1], :]
 
         # Get x and y coordinates
