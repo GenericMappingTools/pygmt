@@ -171,7 +171,7 @@ def test_clib_read_data_image(expected_xrimage):
             assert xrimage.coords["y"].data.max() == 89.5
             assert xrimage.data.min() == 10
             assert xrimage.data.max() == 255
-            assert xrimage.data.dtype == np.int64
+            assert xrimage.data.dtype == np.uint8
 
 
 def test_clib_read_data_image_two_steps(expected_xrimage):
