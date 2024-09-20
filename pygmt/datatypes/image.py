@@ -180,7 +180,7 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
         # Get DataArray without padding
         pad = header.pad[:]
         data: np.ndarray = np.reshape(
-            a=self.data[: header.n_bands * header.mx * header.my],
+            self.data[: header.n_bands * header.mx * header.my],
             newshape=(header.my, header.mx, header.n_bands),
         )[pad[2] : header.my - pad[3], pad[0] : header.mx - pad[1], :]
 
