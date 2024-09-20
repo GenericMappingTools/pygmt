@@ -4,6 +4,7 @@ Test the Session.read_data method.
 
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 import pytest
 import xarray as xr
@@ -138,6 +139,13 @@ def test_clib_read_data_grid_actual_image(expected_xrimage):
             )
         else:
             assert xrimage.shape == (180, 360)
+            assert xrimage.coords["x"].data.min() == -179.5
+            assert xrimage.coords["x"].data.max() == 179.5
+            assert xrimage.coords["y"].data.min() == -89.5
+            assert xrimage.coords["y"].data.max() == 89.5
+            assert xrimage.data.min() == 10.0
+            assert xrimage.data.max() == 255.0
+            assert xrimage.data.dtype == np.float64
 
 
 def test_clib_read_data_image(expected_xrimage):
@@ -149,14 +157,21 @@ def test_clib_read_data_image(expected_xrimage):
         header = image.header.contents
         assert header.n_rows == 180
         assert header.n_columns == 360
-        assert header.n_bands == 3
         assert header.wesn[:] == [-180.0, 180.0, -90.0, 90.0]
+        assert header.n_bands == 3
 
         xrimage = image.to_dataarray()
         if _HAS_RIOXARRAY:  # Full check if rioxarray is installed.
             xr.testing.assert_equal(xrimage, expected_xrimage)
         else:
             assert xrimage.shape == (3, 180, 360)
+            assert xrimage.coords["x"].data.min() == -179.5
+            assert xrimage.coords["x"].data.max() == 179.5
+            assert xrimage.coords["y"].data.min() == -89.5
+            assert xrimage.coords["y"].data.max() == 89.5
+            assert xrimage.data.min() == 10
+            assert xrimage.data.max() == 255
+            assert xrimage.data.dtype == np.int64
 
 
 def test_clib_read_data_image_two_steps(expected_xrimage):
@@ -184,6 +199,13 @@ def test_clib_read_data_image_two_steps(expected_xrimage):
             xr.testing.assert_equal(xrimage, expected_xrimage)
         else:
             assert xrimage.shape == (3, 180, 360)
+            assert xrimage.coords["x"].data.min() == -179.5
+            assert xrimage.coords["x"].data.max() == 179.5
+            assert xrimage.coords["y"].data.min() == -89.5
+            assert xrimage.coords["y"].data.max() == 89.5
+            assert xrimage.data.min() == 10
+            assert xrimage.data.max() == 255
+            assert xrimage.data.dtype == np.int64
 
 
 def test_clib_read_data_fails():
