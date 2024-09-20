@@ -65,6 +65,8 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
     array([-179.5, -178.5, ..., 178.5, 179.5])
     >>> y  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
     array([ 89.5,  88.5, ..., -88.5, -89.5])
+    >>> data.dtype
+    dtype('uint8')
     >>> data.shape
     (180, 360, 3)
     >>> data.min(), data.max()
@@ -108,7 +110,7 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
         >>> from pygmt.clib import Session
         >>> with Session() as lib:
         ...     with lib.virtualfile_out(kind="image") as voutimg:
-        ...         lib.call_module("read", ["@earth_day_01d", voutimg, "-Ti"])
+        ...         lib.call_module("read", ["@earth_day_01d_p", voutimg, "-Ti"])
         ...         # Read the image from the virtual file
         ...         image = lib.read_virtualfile(voutimg, kind="image")
         ...         # Convert to xarray.DataArray and use it later
@@ -137,10 +139,10 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
                 ...,
                 [177, 179, 179, ..., 178, 177, 177],
                 [185, 187, 187, ..., 187, 186, 185],
-                [189, 191, 191, ..., 191, 191, 189]]])
+                [189, 191, 191, ..., 191, 191, 189]]], dtype=uint8)
         Coordinates:
-          * x        (x) float64... -179.5 -178.5 -177.5 -176.5 ... 177.5 178.5 179.5
           * y        (y) float64... 89.5 88.5 87.5 86.5 ... -86.5 -87.5 -88.5 -89.5
+          * x        (x) float64... -179.5 -178.5 -177.5 -176.5 ... 177.5 178.5 179.5
           * band     (band) uint8... 1 2 3
         Attributes:
             title:
@@ -154,41 +156,50 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
         array([-179.5, -178.5, -177.5, ...,  177.5,  178.5,  179.5])
         Coordinates:
           * x        (x) float64... -179.5 -178.5 -177.5 -176.5 ... 177.5 178.5 179.5
-
+        Attributes:
+            long_name:     x
+            axis:          X
+            actual_range:  [-180.  180.]
         >>> da.coords["y"]  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
         <xarray.DataArray 'y' (y: 180)>...
         array([ 89.5,  88.5,  87.5,  86.5,  ...,   -87.5, -88.5, -89.5])
         Coordinates:
           * y        (y) float64... 89.5 88.5 87.5 86.5 ... -86.5 -87.5 -88.5 -89.5
-
+        Attributes:
+            long_name:     y
+            axis:          Y
+            actual_range:  [-90.  90.]
         >>> da.gmt.registration, da.gmt.gtype
         (1, 0)
         """
-        # Get image header
-        header: _GMT_GRID_HEADER = self.header.contents
+        # The image header
+        header = self.header.contents
+
+        # Get dimensions and their attributes from the header.
+        dims, dim_attrs = header.dims, header.dim_attrs
+        # The coordinates, given as a tuple of the form (dims, data, attrs)
+        x = np.ctypeslib.as_array(self.x, shape=(header.n_columns,)).copy()
+        y = np.ctypeslib.as_array(self.y, shape=(header.n_rows,)).copy()
+        coords = [
+            (dims[0], y, dim_attrs[0]),
+            (dims[1], x, dim_attrs[1]),
+            ("band", np.array([1, 2, 3], dtype=np.uint8), None),
+        ]
 
         # Get DataArray without padding
+        data = np.ctypeslib.as_array(
+            self.data, shape=(header.my, header.mx, header.n_bands)
+        ).copy()
         pad = header.pad[:]
-        data: np.ndarray = np.reshape(
-            self.data[: header.n_bands * header.mx * header.my],
-            (header.my, header.mx, header.n_bands),
-        )[pad[2] : header.my - pad[3], pad[0] : header.mx - pad[1], :]
-
-        # Get x and y coordinates
-        coords: dict[str, list | np.ndarray] = {
-            "x": self.x[: header.n_columns],
-            "y": self.y[: header.n_rows],
-            "band": np.array([1, 2, 3], dtype=np.uint8),
-        }
+        data = data[pad[2] : header.my - pad[3], pad[0] : header.mx - pad[1], :]
 
         # Create the xarray.DataArray object
         image = xr.DataArray(
             data=data,
             coords=coords,
-            dims=("y", "x", "band"),
             name=header.name,
             attrs=header.data_attrs,
-        ).transpose("band", "y", "x")
+        ).transpose("band", dims[0], dims[1])
 
         # Set GMT accessors.
         # Must put at the end, otherwise info gets lost after certain image operations.
