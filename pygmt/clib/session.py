@@ -30,19 +30,11 @@ from pygmt.clib.loading import get_gmt_version, load_libgmt
 from pygmt.datatypes import _GMT_DATASET, _GMT_GRID, _GMT_IMAGE
 from pygmt.exceptions import GMTCLibError, GMTCLibNoSessionError, GMTInvalidInput
 from pygmt.helpers import (
-    GMTTempFile,
     _validate_data_input,
     data_kind,
     tempfile_from_geojson,
     tempfile_from_image,
 )
-
-try:
-    import rioxarray
-
-    _HAS_RIOXARRAY = True
-except ImportError:
-    _HAS_RIOXARRAY = False
 
 FAMILIES = [
     "GMT_IS_DATASET",  # Entity is a data table
@@ -2258,19 +2250,6 @@ class Session:
                 self["GMT_IS_IMAGE"]: "image",
                 self["GMT_IS_CUBE"]: "cube",
             }[family]
-
-        if kind == "image":  # Use temporary file for images
-            if not _HAS_RIOXARRAY:
-                raise ImportError(
-                    "Package `rioxarray` is required to be installed to load images. "
-                    "Please use `python -m pip install rioxarray` or "
-                    "`mamba install -c conda-forge rioxarray` to install the package."
-                )
-            with GMTTempFile(suffix=".tif") as tmpfile:
-                self.call_module("write", f"{vfname} {tmpfile.name} -Ti")
-                with rioxarray.open_rasterio(tmpfile.name) as da:  # type: ignore[union-attr]
-                    dataarray = da.load()  # type: ignore[union-attr]
-                return dataarray  # type: ignore[return-value]
         return self.read_virtualfile(vfname, kind=kind).contents.to_dataarray()
 
     def extract_region(self) -> np.ndarray:
