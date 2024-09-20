@@ -154,7 +154,7 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
         <xarray.DataArray 'x' (x: 360)>...
         array([-179.5, -178.5, -177.5, ...,  177.5,  178.5,  179.5])
         Coordinates:
-          * x        (x) float64 3kB -179.5 -178.5 -177.5 -176.5 ... 177.5 178.5 179.5
+          * x        (x) float64... -179.5 -178.5 -177.5 -176.5 ... 177.5 178.5 179.5
 
         >>> da.coords["y"]  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
         <xarray.DataArray 'y' (y: 180)>...
@@ -168,7 +168,7 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
                -70.5, -71.5, -72.5, -73.5, -74.5, -75.5, -76.5, -77.5, -78.5, -79.5,
                -80.5, -81.5, -82.5, -83.5, -84.5, -85.5, -86.5, -87.5, -88.5, -89.5])
         Coordinates:
-          * y        (y) float64 1kB 89.5 88.5 87.5 86.5 ... -86.5 -87.5 -88.5 -89.5
+          * y        (y) float64... 89.5 88.5 87.5 86.5 ... -86.5 -87.5 -88.5 -89.5
 
         >>> da.gmt.registration, da.gmt.gtype
         (1, 0)
