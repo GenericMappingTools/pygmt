@@ -123,29 +123,27 @@ def test_clib_read_data_grid_actual_image(expected_xrimage):
     """
     with Session() as lib:
         image = lib.read_data("@earth_day_01d_p", kind="grid").contents
-        header = image.header.contents
-        assert header.n_rows == 180
-        assert header.n_columns == 360
-        assert header.wesn[:] == [-180.0, 180.0, -90.0, 90.0]
         # Explicitly check n_bands. Only one band is read for 3-band images.
-        assert header.n_bands == 1
+        assert image.header.contents.n_bands == 1
 
         xrimage = image.to_dataarray()
+        assert xrimage.shape == (180, 360)
+        assert xrimage.coords["x"].data.min() == -179.5
+        assert xrimage.coords["x"].data.max() == 179.5
+        assert xrimage.coords["y"].data.min() == -89.5
+        assert xrimage.coords["y"].data.max() == 89.5
+        assert xrimage.data.min() == 10.0
+        assert xrimage.data.max() == 255.0
+        # Data are stored as uint8 in images but are converted to float32 when reading
+        # into a GMT_GRID container.
+        assert xrimage.data.dtype == np.float32
+
         if _HAS_RIOXARRAY:  # Full check if rioxarray is installed.
             assert expected_xrimage.band.size == 3  # 3-band image.
             xr.testing.assert_equal(
                 xrimage,
                 expected_xrimage.isel(band=0).drop_vars(["band"]).sortby("y"),
             )
-        else:
-            assert xrimage.shape == (180, 360)
-            assert xrimage.coords["x"].data.min() == -179.5
-            assert xrimage.coords["x"].data.max() == 179.5
-            assert xrimage.coords["y"].data.min() == -89.5
-            assert xrimage.coords["y"].data.max() == 89.5
-            assert xrimage.data.min() == 10.0
-            assert xrimage.data.max() == 255.0
-            assert xrimage.data.dtype == np.float64
 
 
 def test_clib_read_data_image(expected_xrimage):
@@ -154,24 +152,19 @@ def test_clib_read_data_image(expected_xrimage):
     """
     with Session() as lib:
         image = lib.read_data("@earth_day_01d_p", kind="image").contents
-        header = image.header.contents
-        assert header.n_rows == 180
-        assert header.n_columns == 360
-        assert header.wesn[:] == [-180.0, 180.0, -90.0, 90.0]
-        assert header.n_bands == 3
 
         xrimage = image.to_dataarray()
+        assert xrimage.shape == (3, 180, 360)
+        assert xrimage.coords["x"].data.min() == -179.5
+        assert xrimage.coords["x"].data.max() == 179.5
+        assert xrimage.coords["y"].data.min() == -89.5
+        assert xrimage.coords["y"].data.max() == 89.5
+        assert xrimage.data.min() == 10
+        assert xrimage.data.max() == 255
+        assert xrimage.data.dtype == np.uint8
+
         if _HAS_RIOXARRAY:  # Full check if rioxarray is installed.
             xr.testing.assert_equal(xrimage, expected_xrimage)
-        else:
-            assert xrimage.shape == (3, 180, 360)
-            assert xrimage.coords["x"].data.min() == -179.5
-            assert xrimage.coords["x"].data.max() == 179.5
-            assert xrimage.coords["y"].data.min() == -89.5
-            assert xrimage.coords["y"].data.max() == 89.5
-            assert xrimage.data.min() == 10
-            assert xrimage.data.max() == 255
-            assert xrimage.data.dtype == np.int64
 
 
 def test_clib_read_data_image_two_steps(expected_xrimage):
@@ -195,17 +188,17 @@ def test_clib_read_data_image_two_steps(expected_xrimage):
         lib.read_data(infile, kind="image", mode="GMT_DATA_ONLY", data=data_ptr)
 
         xrimage = image.to_dataarray()
+        assert xrimage.shape == (3, 180, 360)
+        assert xrimage.coords["x"].data.min() == -179.5
+        assert xrimage.coords["x"].data.max() == 179.5
+        assert xrimage.coords["y"].data.min() == -89.5
+        assert xrimage.coords["y"].data.max() == 89.5
+        assert xrimage.data.min() == 10
+        assert xrimage.data.max() == 255
+        assert xrimage.data.dtype == np.uint8
+
         if _HAS_RIOXARRAY:  # Full check if rioxarray is installed.
             xr.testing.assert_equal(xrimage, expected_xrimage)
-        else:
-            assert xrimage.shape == (3, 180, 360)
-            assert xrimage.coords["x"].data.min() == -179.5
-            assert xrimage.coords["x"].data.max() == 179.5
-            assert xrimage.coords["y"].data.min() == -89.5
-            assert xrimage.coords["y"].data.max() == 89.5
-            assert xrimage.data.min() == 10
-            assert xrimage.data.max() == 255
-            assert xrimage.data.dtype == np.int64
 
 
 def test_clib_read_data_fails():
