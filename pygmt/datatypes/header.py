@@ -244,7 +244,7 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
             GMTGridID.GMT_GRID_IS_NI,
             GMTGridID.GMT_GRID_IS_NF,
             GMTGridID.GMT_GRID_IS_ND,
-        }:
+        }:  # netCDF format
             attrs["Conventions"] = "CF-1.7"
         attrs["title"] = self.title.decode()
         attrs["history"] = self.command.decode()
