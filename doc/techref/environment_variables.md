@@ -1,11 +1,10 @@
-# Environmental Variables
+# Environment Variables
 
 PyGMT's behavior can be controlled through various environment variables. These variables
 can be set either in your shell environment or within your Python script using the
 {py:data}`os.environ` dictionary.
 
-Here we list the environment variables used by PyGMT. The environment variables are
-categorized into three groups:
+Here we list the environment variables used by PyGMT which are categorized into three groups:
 
 1. System environment variables
 2. GMT/PyGMT environment variables
@@ -17,7 +16,7 @@ categorized into three groups:
 TZ
     Specify the time zone for the current calendar time. It can be set to a string that
     defines the timezone, such as `"UTC"`, `"America/New_York"`, or `"Europe/London"`.
-    Refer to the [Specifying the Time Zone with TZ](https://www.gnu.org/software/libc/manual/html_node/TZ-Variable.html)
+    Refer to [Specifying the Time Zone with TZ](https://www.gnu.org/software/libc/manual/html_node/TZ-Variable.html)
     for the valid format. If not set, the system's default timezone is used.
 ```
 

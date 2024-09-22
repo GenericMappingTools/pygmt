@@ -128,9 +128,9 @@ def clib_full_names(env: Mapping | None = None) -> Iterator[str]:
 
     The GMT shared library is searched for in following ways, sorted by priority:
 
-    1. Path defined by environmental variable :term:`GMT_LIBRARY_PATH`
-    2. Path returned by command "gmt --show-library"
-    3. Path defined by environmental variable PATH (Windows only)
+    1. Path defined by the environment variable :term:`GMT_LIBRARY_PATH`
+    2. Path returned by the command "gmt --show-library"
+    3. Path defined by the environment variable PATH (Windows only)
     4. System default search path
 
     Parameters
