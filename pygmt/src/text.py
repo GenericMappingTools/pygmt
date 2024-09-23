@@ -194,7 +194,7 @@ def text_(  # noqa: PLR0912
     if textfiles is not None and text is not None:
         raise GMTInvalidInput("'text' can't be specified when 'textfiles' is given.")
     if kind == "vectors" and text is None:
-        raise GMTInvalidInput("Must provide text with x/y pairs")
+        raise GMTInvalidInput("Must provide text with x/y pairs.")
 
     # Arguments that can accept arrays.
     array_args = [
@@ -233,7 +233,7 @@ def text_(  # noqa: PLR0912
             extra_arrays.append(np.atleast_1d(kwargs["t"]))
             kwargs["t"] = True
 
-        # Append text at last column. Text must be passed in as str type.
+        # Append text to the last column. Text must be passed in as str type.
         text = np.atleast_1d(text).astype(str)
         encoding = _check_encoding("".join(text))
         if encoding != "ascii":
