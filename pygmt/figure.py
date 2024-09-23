@@ -43,7 +43,7 @@ def _get_default_display_method() -> Literal["external", "notebook", "none"]:
     The default display method is ``"notebook"`` in the Jupyter notebook environment,
     and ``"external"`` in other cases.
 
-    Setting environment variable **PYGMT_USE_EXTERNAL_DISPLAY** to ``"false"`` can
+    Setting environment variable :term:`PYGMT_USE_EXTERNAL_DISPLAY` to ``"false"`` can
     disable image preview in external viewers. It's useful when running the tests and
     building the documentation to avoid popping up windows.
 
@@ -421,8 +421,8 @@ class Figure:
         resolution and dimension of the figure in the notebook.
 
         The external viewer can be disabled by setting the environment variable
-        **PYGMT_USE_EXTERNAL_DISPLAY** to ``"false"``. This is useful when running tests
-        and building the documentation to avoid popping up windows.
+        :term:`PYGMT_USE_EXTERNAL_DISPLAY` to ``"false"``. This is useful when running
+        tests and building the documentation to avoid popping up windows.
 
         The external viewer does not block the current process, thus it's necessary to
         suspend the execution of the current process for a short while after launching
