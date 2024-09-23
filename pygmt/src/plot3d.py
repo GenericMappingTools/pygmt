@@ -2,6 +2,7 @@
 plot3d - Plot in three dimensions.
 """
 
+import contextlib
 from pathlib import Path
 
 from pygmt.clib import Session
@@ -222,13 +223,11 @@ def plot3d(  # noqa: PLR0912
         if kind == "geojson" and data.geom_type.isin(["Point", "MultiPoint"]).all():
             kwargs["S"] = "u0.2c"
         elif kind == "file" and str(data).endswith(".gmt"):  # OGR_GMT file
-            try:
+            with contextlib.suppress(FileNotFoundError):
                 with Path(which(data)).open(encoding="utf-8") as file:
                     line = file.readline()
                 if "@GMULTIPOINT" in line or "@GPOINT" in line:
                     kwargs["S"] = "u0.2c"
-            except FileNotFoundError:
-                pass
 
     with Session() as lib:
         with lib.virtualfile_in(

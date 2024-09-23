@@ -4,6 +4,7 @@ Test the behavior of the Figure class.
 Doesn't include the plotting commands which have their own test files.
 """
 
+import contextlib
 from pathlib import Path
 
 import numpy as np
@@ -112,7 +113,7 @@ def test_figure_savefig_geotiff():
     assert fname.exists()
 
     # Check if a TIFF is georeferenced or not
-    try:
+    with contextlib.suppress(ImportError):  # Skip if failed to import
         import rioxarray
         from rasterio.errors import NotGeoreferencedWarning
         from rasterio.transform import Affine
@@ -150,8 +151,6 @@ def test_figure_savefig_geotiff():
                     a=1.0, b=0.0, c=0.0, d=0.0, e=1.0, f=0.0
                 )
             assert len(record) == 1
-    except ImportError:
-        pass
     geofname.unlink()
     fname.unlink()
 

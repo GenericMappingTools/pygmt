@@ -5,6 +5,7 @@ The path to the shared library can be found automatically by ctypes or set throu
 environment variable :term:`GMT_LIBRARY_PATH`.
 """
 
+import contextlib
 import ctypes
 import os
 import shutil
@@ -160,14 +161,13 @@ def clib_full_names(env: Mapping | None = None) -> Iterator[str]:
     # 2. Search for the library returned by command "gmt --show-library".
     #    Use `str(Path(realpath))` to avoid mixture of separators "\\" and "/".
     if gmtbin := shutil.which("gmt"):
-        try:
+        # Suppress the CalledProcessError when the 'gmt' executable is broken
+        with contextlib.suppress(sp.CalledProcessError):
             libfullpath = Path(
                 sp.check_output([gmtbin, "--show-library"], encoding="utf-8").rstrip()
             )
             if libfullpath.exists():
                 yield str(libfullpath)
-        except sp.CalledProcessError:  # the 'gmt' executable is broken
-            pass
 
     # 3. Search for DLLs in PATH by calling find_library() (Windows only)
     if sys.platform == "win32":

@@ -353,19 +353,17 @@ class Session:
         name : str
             A name for this session. Doesn't really affect the outcome.
         """
-        try:
-            # Won't raise an exception if there is a currently open session
+        # Check if there is a currently open session by accessing the session pointer.
+        # If not, the GMTCLibNoSessionError exception will be raised and we will ignore
+        # it and continue to create a new session. Otherwise, it means there is an open
+        # session and we will raise a GMTCLibError exception.
+        with contextlib.suppress(GMTCLibNoSessionError):
             _ = self.session_pointer
-            # In this case, fail to create a new session until the old one is
-            # destroyed
-            raise GMTCLibError(
+            msg = (
                 "Failed to create a GMT API session: There is a currently open session."
                 " Must destroy it first."
             )
-        # If the exception is raised, this means that there is no open session
-        # and we're free to create a new one.
-        except GMTCLibNoSessionError:
-            pass
+            raise GMTCLibError(msg)
 
         c_create_session = self.get_libgmt_func(
             "GMT_Create_Session",
