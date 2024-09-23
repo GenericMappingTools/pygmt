@@ -30,9 +30,9 @@ def x2sys_init(tag, **kwargs):
     x2sys TAG. The TAG keeps track of settings such as file format, whether the
     data are geographic or not, and the binning resolution for track indices.
 
-    Before you can run :func:`pygmt.x2sys_init` you must set the environmental
-    parameter X2SYS_HOME to a directory where you have write permission, which
-    is where x2sys can keep track of your settings.
+    Before you can run :func:`pygmt.x2sys_init` you must set the environment variable
+    :term:`X2SYS_HOME` to a directory where you have write permission, which is where
+    x2sys can keep track of your settings.
 
     Full option list at :gmt-docs:`supplements/x2sys/x2sys_init.html`
 
