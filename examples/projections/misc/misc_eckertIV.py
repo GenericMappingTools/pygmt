@@ -1,5 +1,5 @@
 r"""
-Eckert IV projection
+Eckert IV equal-area projection
 ====================
 
 The Eckert IV projection, presented by the German cartographer Max

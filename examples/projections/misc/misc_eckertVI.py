@@ -1,5 +1,5 @@
 r"""
-Eckert VI projection
+Eckert VI equal-area projection
 ====================
 
 The Eckert VI projections, presented by the German cartographer Max
