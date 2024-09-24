@@ -219,3 +219,7 @@ th.text-center, td.text-center {
 th.text-right, td.text-right {
     text-align: right !important;
 }
+
+.std-term {
+	font-weight: 600;
+}
