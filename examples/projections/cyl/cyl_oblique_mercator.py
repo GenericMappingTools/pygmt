@@ -56,8 +56,6 @@ fig.coast(
     region="-122/35/-107/22+r",
     frame=["afg", "+ta | A"],
     land="gray",
-    shorelines="1/thin",
-    water="white",
 )
 
 fig.shift_origin(xshift="+w2c")
@@ -68,8 +66,6 @@ fig.coast(
     region="130/35/145/40+r",
     frame=["afg", "+tb | B"],
     land="gray",
-    shorelines="1/thin",
-    water="white",
 )
 
 fig.shift_origin(xshift="+w2c")
@@ -80,8 +76,6 @@ fig.coast(
     region="270/20/305/25+r",
     frame=["afg", "+tc | C"],
     land="gray",
-    shorelines="1/thin",
-    water="white",
 )
 
 fig.show()
