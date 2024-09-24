@@ -57,7 +57,7 @@ fig.coast(
     frame=["afg", "+ta | A"],
     land="gray",
     shorelines="1/thin",
-    water="lightblue",
+    water="white",
 )
 
 fig.shift_origin(xshift="+w2c")
@@ -69,7 +69,7 @@ fig.coast(
     frame=["afg", "+tb | B"],
     land="gray",
     shorelines="1/thin",
-    water="lightblue",
+    water="white",
 )
 
 fig.shift_origin(xshift="+w2c")
@@ -81,7 +81,7 @@ fig.coast(
     frame=["afg", "+tc | C"],
     land="gray",
     shorelines="1/thin",
-    water="lightblue",
+    water="white",
 )
 
 fig.show()
