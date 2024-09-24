@@ -68,6 +68,7 @@ jobs:
             pyarrow
             pytest
             pytest-codspeed
+            pytest-mock
             pytest-mpl
 
       # Download cached remote files (artifacts) from GitHub

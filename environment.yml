@@ -32,6 +32,7 @@ dependencies:
     - pytest>=6.0
     - pytest-cov
     - pytest-doctestplus
+    - pytest-mock
     - pytest-mpl
     # Dev dependencies (building documentation)
     - myst-nb
