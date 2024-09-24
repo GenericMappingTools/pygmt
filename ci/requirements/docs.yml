@@ -6,7 +6,7 @@ dependencies:
     # Required dependencies
     - python=3.12
     - gmt=6.5.0
-    - ghostscript=10.03.1
+    - ghostscript=10.04.0
     - numpy
     - pandas
     - xarray

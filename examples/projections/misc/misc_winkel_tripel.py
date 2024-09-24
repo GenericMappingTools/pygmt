@@ -1,6 +1,6 @@
 r"""
-Winkel Tripel
-=============
+Winkel Tripel projection
+========================
 
 In 1921, the German mathematician Oswald Winkel made a projection that was to
 strike a compromise between the properties of three elements (area, angle and

@@ -2,7 +2,7 @@
 Utility functions to load libgmt as ctypes.CDLL.
 
 The path to the shared library can be found automatically by ctypes or set through the
-GMT_LIBRARY_PATH environment variable.
+environment variable :term:`GMT_LIBRARY_PATH`.
 """
 
 import ctypes
@@ -111,14 +111,12 @@ def clib_names(os_name: str) -> list[str]:
         If the operating system is not supported yet.
     """
     match os_name:
-        case "linux":  # Linux
+        case name if name == "linux" or name.startswith("freebsd"):  # Linux or FreeBSD
             libnames = ["libgmt.so"]
         case "darwin":  # macOS
             libnames = ["libgmt.dylib"]
         case "win32":  # Windows
             libnames = ["gmt.dll", "gmt_w64.dll", "gmt_w32.dll"]
-        case name if name.startswith("freebsd"):  # FreeBSD
-            libnames = ["libgmt.so"]
         case _:
             raise GMTOSError(f"Operating system '{os_name}' is not supported.")
     return libnames
@@ -130,9 +128,9 @@ def clib_full_names(env: Mapping | None = None) -> Iterator[str]:
 
     The GMT shared library is searched for in following ways, sorted by priority:
 
-    1. Path defined by environmental variable GMT_LIBRARY_PATH
-    2. Path returned by command "gmt --show-library"
-    3. Path defined by environmental variable PATH (Windows only)
+    1. Path defined by the environment variable :term:`GMT_LIBRARY_PATH`
+    2. Path returned by the command "gmt --show-library"
+    3. Path defined by the environment variable PATH (Windows only)
     4. System default search path
 
     Parameters

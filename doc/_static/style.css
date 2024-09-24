@@ -203,3 +203,23 @@ a.copybtn {
 .sphx-glr-single-img {
     max-width: 80%!important;
 }
+
+/*
+ * Styles for aligning table cells.
+ * https://myst-parser.readthedocs.io/en/latest/syntax/tables.html#markdown-syntax
+ */
+th.text-left, td.text-left {
+    text-align: left !important;
+}
+
+th.text-center, td.text-center {
+    text-align: center !important;
+}
+
+th.text-right, td.text-right {
+    text-align: right !important;
+}
+
+.std-term {
+	font-weight: 600;
+}

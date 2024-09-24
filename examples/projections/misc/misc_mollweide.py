@@ -1,6 +1,6 @@
 r"""
-Mollweide
-=========
+Mollweide projection
+====================
 
 This pseudo-cylindrical, equal-area projection was developed by the German
 mathematician and astronomer Karl Brandan Mollweide in 1805. Parallels are

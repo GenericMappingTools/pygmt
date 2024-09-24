@@ -1,6 +1,6 @@
 r"""
-Lambert Azimuthal Equal Area
-============================
+Lambert azimuthal equal-area projection
+=======================================
 
 This projection was developed by Johann Heinrich Lambert in 1772 and is
 typically used for mapping large regions like continents and hemispheres. It is

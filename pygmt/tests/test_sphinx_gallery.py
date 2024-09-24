@@ -9,7 +9,7 @@ import pytest
 from pygmt.figure import SHOWED_FIGURES, Figure
 from pygmt.sphinx_gallery import PyGMTScraper
 
-pytest.importorskip("sphinx-gallery", reason="Requires sphinx-gallery to be installed")
+pytest.importorskip("sphinx_gallery", reason="Requires sphinx-gallery to be installed")
 pytest.importorskip("IPython", reason="Requires IPython to be installed")
 
 

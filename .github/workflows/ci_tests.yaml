@@ -119,7 +119,7 @@ jobs:
           create-args: >-
             python=${{ matrix.python-version }}${{ matrix.optional-packages }}
             gmt=6.5.0
-            ghostscript=10.03.1
+            ghostscript=10.04.0
             numpy=${{ matrix.numpy-version }}
             pandas${{ matrix.pandas-version }}
             xarray${{ matrix.xarray-version }}
@@ -161,7 +161,7 @@ jobs:
 
       # Upload diff images on test failure
       - name: Upload diff images if any test fails
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.4.0
         if: failure()
         with:
           name: artifact-${{ runner.os }}-${{ matrix.python-version }}

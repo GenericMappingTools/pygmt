@@ -269,9 +269,9 @@ problems and solutions.
 Sometimes, PyGMT will be unable to find the correct version of the GMT shared library
 (`libgmt`). This can happen if you have multiple versions of GMT installed.
 
-You can tell PyGMT exactly where to look for `libgmt` by setting the `GMT_LIBRARY_PATH`
-environment variable to the directory where `libgmt.so`, `libgmt.dylib` or `gmt.dll` can
-be found on Linux, macOS or Windows, respectively.
+You can tell PyGMT exactly where to look for `libgmt` by setting the environment
+variable {term}`GMT_LIBRARY_PATH` to the directory where `libgmt.so`, `libgmt.dylib` or
+`gmt.dll` can be found on Linux, macOS or Windows, respectively.
 
 For Linux/macOS, add the following line to your shell configuration file (usually
 `~/.bashrc` for Bash on Linux and `~/.zshrc` for Zsh on macOS):
@@ -279,7 +279,7 @@ For Linux/macOS, add the following line to your shell configuration file (usuall
 export GMT_LIBRARY_PATH=$HOME/miniforge3/envs/pygmt/lib
 ```
 
-For Windows, add the `GMT_LIBRARY_PATH` environment variable following these
+For Windows, add the environment variable {term}`GMT_LIBRARY_PATH` following these
 [instructions](https://www.wikihow.com/Create-an-Environment-Variable-in-Windows-10)
 and set its value to a path like:
 ```
