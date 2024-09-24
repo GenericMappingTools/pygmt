@@ -204,13 +204,8 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
         Attributes for the data variable from the grid header.
         """
         attrs: dict[str, Any] = {}
-        if self.type in {  # netCDF format
-            GridID.GMT_GRID_IS_NB,
-            GridID.GMT_GRID_IS_NS,
-            GridID.GMT_GRID_IS_NI,
-            GridID.GMT_GRID_IS_NF,
-            GridID.GMT_GRID_IS_ND,
-        }:
+        if self.type in {GridID.NB, GridID.NS, GridID.NI, GridID.NF, GridID.ND}:
+            # Only set the 'Conventions' attribute for netCDF.
             attrs["Conventions"] = "CF-1.7"
         attrs["title"] = self.title.decode()
         attrs["history"] = self.command.decode()
