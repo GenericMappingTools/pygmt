@@ -1,6 +1,6 @@
 r"""
-Cylindrical equal-area
-======================
+Cylindrical equal-area projection
+=================================
 
 This cylindrical projection is actually several projections, depending on what
 latitude is selected as the standard parallel. However, they are all equal area

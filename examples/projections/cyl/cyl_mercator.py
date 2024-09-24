@@ -1,6 +1,6 @@
 r"""
-Mercator
-========
+Mercator projection
+===================
 
 The Mercator projection takes its name from the Flemish cartographer Gheert
 Cremer, better known as Gerardus Mercator, who presented it in 1569. The

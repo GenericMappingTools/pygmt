@@ -1,6 +1,6 @@
 r"""
-Cylindrical Stereographic
-=========================
+Cylindrical stereographic projection
+====================================
 
 The cylindrical stereographic projections are certainly not as notable as other
 cylindrical projections, but are still used because of their relative
