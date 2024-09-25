@@ -153,6 +153,7 @@ def tempfile_from_geojson(geojson):
                     if dtype in {"int", "int64"}:
                         overflow = geojson[col].abs().max() > 2**31 - 1
                         schema["properties"][col] = "float" if overflow else "int32"
+                        geojson[col] = geojson[col].astype(schema["properties"][col])
                 ogrgmt_kwargs["schema"] = schema
             else:  # GeoPandas v1.x.
                 # The default engine "pyogrio" doesn't support the 'schema' parameter
