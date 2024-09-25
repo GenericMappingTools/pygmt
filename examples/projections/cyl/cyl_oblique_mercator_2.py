@@ -1,6 +1,6 @@
 r"""
-Oblique Mercator, 2: two points
-===============================
+Oblique Mercator projection, 2: two points
+==========================================
 
 Oblique configurations of the cylinder give rise to the oblique Mercator
 projection. It is particularly useful when mapping regions of large lateral

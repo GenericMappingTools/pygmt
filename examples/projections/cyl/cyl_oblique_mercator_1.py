@@ -1,6 +1,6 @@
 r"""
-Oblique Mercator, 1: origin and azimuth
-=======================================
+Oblique Mercator projection, 1: origin and azimuth
+==================================================
 
 Oblique configurations of the cylinder give rise to the oblique Mercator
 projection. It is particularly useful when mapping regions of large lateral

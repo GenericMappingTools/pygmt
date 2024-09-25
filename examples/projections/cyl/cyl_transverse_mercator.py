@@ -1,6 +1,6 @@
 r"""
-Transverse Mercator
-===================
+Transverse Mercator projection
+==============================
 
 The transverse Mercator was invented by Johann Heinrich Lambert in 1772. In
 this projection the cylinder touches a meridian along which there is no

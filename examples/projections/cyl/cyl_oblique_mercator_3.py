@@ -1,6 +1,6 @@
 r"""
-Oblique Mercator, 3: origin and pole
-====================================
+Oblique Mercator projection, 3: origin and pole
+===============================================
 
 Oblique configurations of the cylinder give rise to the oblique Mercator
 projection. It is particularly useful when mapping regions of large lateral
