@@ -91,10 +91,10 @@ def test_plot_fail_no_data(data, region):
         )
 
 
-def test_plot_fail_1d_array_using_data(data, region):
+def test_plot_fail_1d_array_with_data(data, region):
     """
-    Should raise an exception if array color, sizes, intensity and symbol are
-    used with matrix.
+    Should raise an exception if arrays of fill, size, intensity, transparency and
+    symbol are specified when data is given.
     """
     fig = Figure()
     kwargs = {"data": data, "region": region, "projection": "X10c", "frame": "afg"}
