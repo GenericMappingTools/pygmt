@@ -47,7 +47,7 @@ The projection pole is set by *lonp/latp*.
 # %%
 import pygmt
 
-pygmt.config(FONT="5p", MAP_FRAME_PEN="0.5p", MAP_TITLE_OFFSET="-5p")
+pygmt.config(FONT="4.5p", MAP_FRAME_PEN="0.3p", MAP_TITLE_OFFSET="-6p")
 
 # -----------------------------------------------------------------------------
 # Left: Using the origin and azimuth
