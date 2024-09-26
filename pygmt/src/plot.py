@@ -232,6 +232,7 @@ def plot(  # noqa: PLR0912
             if is_nonstr_iter(kwargs.get(flag)):
                 extra_arrays.append(kwargs.get(flag))
                 kwargs[flag] = ""
+        # Symbol must be at the last column
         if is_nonstr_iter(symbol):
             if "S" not in kwargs:
                 kwargs["S"] = True
