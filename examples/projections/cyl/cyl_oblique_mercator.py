@@ -47,35 +47,40 @@ The projection pole is set by *lonp/latp*.
 # %%
 import pygmt
 
-fig = pygmt.Figure()
+pygmt.config(FONT="5p", MAP_FRAME_PEN="0.5p", MAP_TITLE_OFFSET="-5p")
 
+# -----------------------------------------------------------------------------
 # Left: Using the origin and azimuth
+fig = pygmt.Figure()
 fig.coast(
-    projection="Oa-120/25/-30/6c+v",
+    projection="Oa-120/25/-30/2c+v",
     # Set bottom left and top right coordinates of the figure with "+r"
     region="-122/35/-107/22+r",
     frame=["afg", "+ta | A"],
     land="gray",
 )
+fig.show()
 
-fig.shift_origin(xshift="+w2c")
-
+# -----------------------------------------------------------------------------
 # Middle: Using two points
+fig = pygmt.Figure()
 fig.coast(
-    projection="Ob130/35/25/35/6c",
+    projection="Ob130/35/25/35/2c",
     region="130/35/145/40+r",
     frame=["afg", "+tb | B"],
     land="gray",
 )
+fig.show()
 
-fig.shift_origin(xshift="+w2c")
-
+# -----------------------------------------------------------------------------
 # Right: Using the origin and projection pole
+fig = pygmt.Figure()
 fig.coast(
-    projection="Oc280/25.5/22/69/12c",
+    projection="Oc280/25.5/22/69/3c",
     region="270/20/305/25+r",
     frame=["afg", "+tc | C"],
     land="gray",
 )
-
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 3
