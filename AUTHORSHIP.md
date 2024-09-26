@@ -42,6 +42,13 @@ file of the repository:
 
 The order of authors will be defined by the number of commits to the repository
 (`git shortlog -sne`). The order can also be changed on a case-by-case basis.
+The most common reasons for case-by-case changes are contributions to the PyGMT
+project that due not relate to commit numbers, including developing PyGMT
+lessons such as the [ROSES unit](https://www.youtube.com/watch?v=SSIGJEe0BIk),
+organizing workshops/sprints such as the
+[FOSS4G Workshop](https://github.com/GenericMappingTools/foss4g2019oceania),
+the 2020 and 2021 SciPy sprints, writing grants/proposals to support PyGMT,
+and team programming efforts (including reviewing PRs).
 
 If you have contributed and do not wish to be included in Zenodo archives,
 there are a few options:
@@ -50,6 +57,11 @@ there are a few options:
 2. Remove yourself from `AUTHORS.md`
 3. Indicate next to your name on `AUTHORS.md` that you do not wish to be
    included with something like `(not included in Zenodo)`.
+
+Note that authors included in the Zenodo archive will also have their name
+listed in the `CITATION.cff` file. This is a machine (and human) readable file
+that enables people to cite the PyGMT software easily, and the file will be
+updated by the PyGMT maintainers each time a new release is made.
 
 ## Scientific publications (papers)
 

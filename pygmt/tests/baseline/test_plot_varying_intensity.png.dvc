@@ -1,4 +1,5 @@
 outs:
-- md5: a7b81503eff617cb3d495f10565ed044
-  size: 10693
+- md5: 38895d0b790627c39785a5af76030381
+  size: 9126
   path: test_plot_varying_intensity.png
+  hash: md5

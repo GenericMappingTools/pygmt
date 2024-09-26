@@ -2,13 +2,13 @@
 ########################################################################################
 # Comment to be posted to on first time issues
 newIssueWelcomeComment: |
-  👋 Thanks for opening your first issue here! Please make sure you filled out the template with as much detail as possible. You might also want to take a look at our [contributing guidelines](https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md) and [code of conduct](https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md).
+  👋 Thanks for opening your first issue here! Please make sure you filled out the template with as much detail as possible. You might also want to take a look at our [contributing guidelines](https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md) and [code of conduct](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md).
 
 # Comment to be posted to on PRs from first time contributors in your repository
 newPRWelcomeComment: |
   💖 Thanks for opening this pull request! 💖
 
-  Please make sure you read our [contributing guidelines](https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md) and abide by our [code of conduct](https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md).
+  Please make sure you read our [contributing guidelines](https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md) and abide by our [code of conduct](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md).
 
   A few things to keep in mind:
 

@@ -1,4 +1,5 @@
 outs:
-- md5: 66c5e3755224058e57f5eb4cf8a6c403
-  size: 21127
+- md5: 99ab8b3b7700ab5c988b4abb60a124dd
+  size: 22391
   path: test_plot_lines_with_arrows.png
+  hash: md5

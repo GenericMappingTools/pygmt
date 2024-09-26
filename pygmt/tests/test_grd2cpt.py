@@ -1,13 +1,14 @@
 """
-Tests for grd2cpt.
+Test pygmt.grd2cpt.
 """
-import os
+
+from pathlib import Path
 
 import pytest
 from pygmt import Figure, grd2cpt
-from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
+from pygmt.helpers.testing import load_static_earth_relief
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -15,19 +16,20 @@ def fixture_grid():
     """
     Load the grid data from the sample earth_relief file.
     """
-    return load_earth_relief()
+    return load_static_earth_relief()
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_grd2cpt(grid):
     """
-    Test creating a CPT with grd2cpt to create a CPT based off a grid input and
-    plot it with a color bar.
+    Test creating a CPT with grd2cpt to create a CPT based off a grid input and plot it
+    with a color bar.
     """
     fig = Figure()
     fig.basemap(frame="a", projection="W0/15c", region="d")
     grd2cpt(grid=grid)
-    fig.colorbar(frame="a2000")
+    fig.colorbar(frame="a")
     return fig
 
 
@@ -53,13 +55,12 @@ def test_grd2cpt_output_to_cpt_file(grid):
     """
     with GMTTempFile(suffix=".cpt") as cptfile:
         grd2cpt(grid=grid, output=cptfile.name)
-        assert os.path.getsize(cptfile.name) > 0
+        assert Path(cptfile.name).stat().st_size > 0
 
 
 def test_grd2cpt_unrecognized_data_type():
     """
-    Test that an error will be raised if an invalid data type is passed to
-    grid.
+    Test that an error will be raised if an invalid data type is passed to grid.
     """
     with pytest.raises(GMTInvalidInput):
         grd2cpt(grid=0)

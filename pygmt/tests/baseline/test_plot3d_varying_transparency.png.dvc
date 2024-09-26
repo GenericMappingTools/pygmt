@@ -1,4 +1,5 @@
 outs:
-- md5: 84693da1f92641eb3a1642eddd027d51
-  size: 27634
+- md5: 2879b4839e231c72a7ea94114d08a2ac
+  size: 22459
   path: test_plot3d_varying_transparency.png
+  hash: md5

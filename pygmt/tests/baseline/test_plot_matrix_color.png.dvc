@@ -1,4 +1,5 @@
 outs:
-- md5: eec194756b15654f98cbe2175ad9774b
-  size: 25104
+- md5: 438619f4176a8c892a0cd17a8c400831
+  size: 21281
   path: test_plot_matrix_color.png
+  hash: md5

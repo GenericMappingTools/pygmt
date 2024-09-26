@@ -1,4 +1,5 @@
 outs:
-- md5: 68c12988f1bb0dbc67da560fe4d51ea2
-  size: 64936
+- md5: 4ec146ddfa70fa1b4cf6f48e9fcaa540
+  size: 60483
   path: test_contour_from_file.png
+  hash: md5

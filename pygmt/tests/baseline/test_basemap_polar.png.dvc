@@ -1,4 +1,5 @@
 outs:
-- md5: 7326eb42c54c6300a634f0723664fb39
-  size: 33205
+- md5: e4bc1a90f4f25220fe759cdb0a709db8
+  size: 31915
   path: test_basemap_polar.png
+  hash: md5

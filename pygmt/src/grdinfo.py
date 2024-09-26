@@ -1,10 +1,11 @@
 """
 grdinfo - Retrieve info about grid file.
 """
+
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -37,13 +38,11 @@ def grdinfo(grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
-        This is the only required parameter.
-    {R}
+    {grid}
+    {region}
     per_column : str or bool
         **n**\|\ **t**.
-        Formats the report using tab-separated fields on a single line. The
+        Format the report using tab-separated fields on a single line. The
         output is name *w e s n z0 z1 dx dy nx ny* [ *x0 y0 x1 y1* ]
         [ *med scale* ] [ *mean std rms* ] [ *n_nan* ] *registration gtype*.
         The data in brackets are outputted depending on the ``force_scan``
@@ -63,7 +62,7 @@ def grdinfo(grid, **kwargs):
         xmin xmax ymin ymax per tile, or use ``per_column="t"`` to also have
         the region string appended as trailing text.
     geographic : bool
-        Report grid domain and x/y-increments in world mapping format
+        Report grid domain and x/y-increments in world mapping format.
         The default value is ``False``. This cannot be called if
         ``per_column`` is also set.
     spacing : str or list
@@ -80,30 +79,31 @@ def grdinfo(grid, **kwargs):
     force_scan : int or str
         **0**\|\ **1**\|\ **2**\|\ **p**\|\ **a**.
 
-        **0**\ : Report range of z after actually scanning the data, not just
-        reporting what the header says.
-        **1**\ : Report median and L1 scale of z (L1 scale = 1.4826 * Median
-        Absolute Deviation (MAD)).
-        **2**\ : Report mean, standard deviation, and root-mean-square (rms)
-        of z.
-        **p**\ : Report mode (LMS) and LMS scale of z.
-        **a**\ : Include all of the above.
-    minxmax_pos : bool
+        - **0**: Report range of z after actually scanning the data, not just
+          reporting what the header says.
+        - **1**: Report median and L1 scale of z (L1 scale = 1.4826 * Median
+          Absolute Deviation (MAD)).
+        - **2**: Report mean, standard deviation, and root-mean-square (rms)
+          of z.
+        - **p**: Report mode (LMS) and LMS scale of z.
+        - **a**: Include all of the above.
+    minmax_pos : bool
         Include the x/y values at the location of the minimum and maximum
         z-values.
     nearest_multiple : str
         [*dz*]\ [**+a**\ [*alpha*]]\ [**+s**].
-        Determine min and max z-value. If *dz* is provided then we first round
-        these values off to multiples of *dz*. To exclude the two tails of the
-        distribution when determining the min and max you can add **+a** to
-        set the *alpha* value (in percent): We then sort the grid, exclude the
-        data in the 0.5*\ *alpha* and 100 - 0.5*\ *alpha* tails, and revise
-        the min and max. To force a symmetrical range about zero, using
-        minus/plus the max absolute value of the two extremes, append **+s**\ .
-        We report the result via the text string *zmin/zmax* or *zmin/zmax/dz*
-        (if *dz* was given) as expected by :meth:`pygmt.makecpt`.
-    {V}
-    {f}
+        Determine minimum and maximum z-values. If *dz* is provided then we
+        first round these values off to multiples of *dz*. To exclude the
+        two tails of the distribution when determining the minimum and
+        maximum you can add **+a** to set the *alpha* value (in percent):
+        We then sort the grid, exclude the data in the 0.5*\ *alpha* and
+        100 - 0.5*\ *alpha* tails, and revise the minimum and maximum. To
+        force a symmetrical range about zero, using minus/plus the maximum
+        absolute value of the two extremes, append **+s**. We report the
+        result via the text string *zmin/zmax* or *zmin/zmax/dz*
+        (if *dz* was given) as expected by :func:`pygmt.makecpt`.
+    {verbose}
+    {coltypes}
 
     Returns
     -------
@@ -112,11 +112,10 @@ def grdinfo(grid, **kwargs):
     """
     with GMTTempFile() as outfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-            with file_context as infile:
-                arg_str = " ".join(
-                    [infile, build_arg_string(kwargs), "->" + outfile.name]
+            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
+                lib.call_module(
+                    module="grdinfo",
+                    args=build_arg_list(kwargs, infile=vingrd, outfile=outfile.name),
                 )
-                lib.call_module("grdinfo", arg_str)
         result = outfile.read()
     return result

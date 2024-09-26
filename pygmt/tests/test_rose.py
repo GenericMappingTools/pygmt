@@ -1,10 +1,11 @@
 """
-Tests for rose.
+Test Figure.rose.
 """
+
 import numpy as np
 import pytest
 from pygmt import Figure
-from pygmt.datasets import load_fractures_compilation
+from pygmt.datasets import load_sample_data
 
 
 @pytest.fixture(scope="module", name="data")
@@ -20,9 +21,12 @@ def fixture_data():
 @pytest.fixture(scope="module", name="data_fractures_compilation")
 def fixture_data_fractures_compilation():
     """
-    Load the sample fractures compilation dataset.
+    Load the sample fractures compilation dataset which contains fracture lengths and
+    azimuths as hypothetically digitized from geological maps.
+
+    Lengths are stored in the first column, azimuths in the second.
     """
-    return load_fractures_compilation()
+    return load_sample_data(name="fractures")
 
 
 @pytest.mark.mpl_image_compare
@@ -36,9 +40,8 @@ def test_rose_data_file(data_fractures_compilation):
         region=[0, 1, 0, 360],
         sector=15,
         diameter="5.5c",
-        color="blue",
+        fill="blue",
         frame=["x0.2g0.2", "y30g30", "+glightgray"],
-        columns=[1, 0],
         pen="1p",
         norm="",
         scale=0.4,
@@ -49,8 +52,7 @@ def test_rose_data_file(data_fractures_compilation):
 @pytest.mark.mpl_image_compare
 def test_rose_2d_array_single():
     """
-    Test supplying a 2D numpy array containing a single pair of lengths and
-    directions.
+    Test supplying a 2-D numpy array containing a single pair of lengths and directions.
     """
     data = np.array([[40, 60]])
     fig = Figure()
@@ -59,7 +61,7 @@ def test_rose_2d_array_single():
         region=[0, 1, 0, 360],
         sector=10,
         diameter="5.5c",
-        color="cyan",
+        fill="cyan",
         frame=["x0.2g0.2", "y30g30", "+glightgray"],
         pen="1p",
         norm=True,
@@ -71,8 +73,7 @@ def test_rose_2d_array_single():
 @pytest.mark.mpl_image_compare
 def test_rose_2d_array_multiple(data):
     """
-    Test supplying a 2D numpy array containing a list of lengths and
-    directions.
+    Test supplying a 2-D numpy array containing a list of lengths and directions.
     """
     fig = Figure()
     fig.rose(
@@ -80,7 +81,7 @@ def test_rose_2d_array_multiple(data):
         region=[0, 1, 0, 360],
         sector=10,
         diameter="5.5c",
-        color="blue",
+        fill="blue",
         frame=["x0.2g0.2", "y30g30", "+gmoccasin"],
         pen="1p",
         norm=True,
@@ -89,11 +90,11 @@ def test_rose_2d_array_multiple(data):
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_rose_plot_data_using_cpt(data):
     """
-    Test supplying a 2D numpy array containing a list of lengths and
-    directions.
+    Test supplying a 2-D numpy array containing a list of lengths and directions.
 
     Use a cmap to color sectors.
     """
@@ -115,9 +116,7 @@ def test_rose_plot_data_using_cpt(data):
 @pytest.mark.mpl_image_compare
 def test_rose_plot_with_transparency(data_fractures_compilation):
     """
-    Test supplying a data file containing a list of fracture lengths and
-    azimuth as digitized from geological maps to the data argument (lengths are
-    stored in the second column, azimuths in the first, specify via columns).
+    Test supplying the sample fractures compilation dataset to the data parameter.
 
     Use transparency.
     """
@@ -127,9 +126,8 @@ def test_rose_plot_with_transparency(data_fractures_compilation):
         region=[0, 1, 0, 360],
         sector=15,
         diameter="5.5c",
-        color="blue",
+        fill="blue",
         frame=["x0.2g0.2", "y30g30", "+glightgray"],
-        columns=[1, 0],
         pen="1p",
         norm=True,
         scale=0.4,
@@ -141,9 +139,7 @@ def test_rose_plot_with_transparency(data_fractures_compilation):
 @pytest.mark.mpl_image_compare
 def test_rose_no_sectors(data_fractures_compilation):
     """
-    Test supplying a data file containing a list of fracture lengths and
-    azimuth as digitized from geological maps to the data argument (lengths are
-    stored in the second column, azimuths in the first, specify via columns).
+    Test supplying the sample fractures compilation dataset to the data parameter.
 
     Plot data without defining a sector width, add a title and rename labels.
     """
@@ -151,10 +147,9 @@ def test_rose_no_sectors(data_fractures_compilation):
     fig.rose(
         data=data_fractures_compilation,
         region=[0, 500, 0, 360],
-        columns="1,0",
         diameter="10c",
         labels="180/0/90/270",
-        frame=["xg100", "yg45", "+t'Windrose diagram'"],
+        frame=["xg100", "yg45", "+tWindrose diagram"],
         pen="1.5p,red3",
         transparency=40,
         scale=0.5,
@@ -165,9 +160,7 @@ def test_rose_no_sectors(data_fractures_compilation):
 @pytest.mark.mpl_image_compare
 def test_rose_bools(data_fractures_compilation):
     """
-    Test supplying a data file containing a list of fracture lengths and
-    azimuth as digitized from geological maps to the data argument (lengths are
-    stored in the second column, azimuths in the first, specify via columns).
+    Test supplying the sample fractures compilation dataset to the data parameter.
 
     Test bools.
     """
@@ -176,10 +169,9 @@ def test_rose_bools(data_fractures_compilation):
         data=data_fractures_compilation,
         region=[0, 1, 0, 360],
         sector=10,
-        columns=[1, 0],
         diameter="10c",
         frame=["x0.2g0.2", "y30g30", "+glightgray"],
-        color="red3",
+        fill="red3",
         pen="1p",
         orientation=False,
         norm=True,

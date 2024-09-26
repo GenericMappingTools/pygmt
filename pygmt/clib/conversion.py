@@ -1,14 +1,18 @@
 """
 Functions to convert data types into ctypes friendly formats.
 """
+
+import ctypes as ctp
+import warnings
+from collections.abc import Sequence
+
 import numpy as np
-import pandas as pd
 from pygmt.exceptions import GMTInvalidInput
 
 
 def dataarray_to_matrix(grid):
     """
-    Transform an xarray.DataArray into a data 2D array and metadata.
+    Transform an xarray.DataArray into a data 2-D array and metadata.
 
     Use this to extract the underlying numpy array of data and the region and
     increment for the grid.
@@ -29,8 +33,8 @@ def dataarray_to_matrix(grid):
 
     Returns
     -------
-    matrix : 2d-array
-        The 2D array of data from the grid.
+    matrix : 2-D array
+        The 2-D array of data from the grid.
     region : list
         The West, East, South, North boundaries of the grid.
     inc : list
@@ -46,7 +50,7 @@ def dataarray_to_matrix(grid):
 
     >>> from pygmt.datasets import load_earth_relief
     >>> # Use the global Earth relief grid with 1 degree spacing
-    >>> grid = load_earth_relief(resolution="01d")
+    >>> grid = load_earth_relief(resolution="01d", registration="pixel")
     >>> matrix, region, inc = dataarray_to_matrix(grid)
     >>> print(region)
     [-180.0, 180.0, -90.0, 90.0]
@@ -82,7 +86,7 @@ def dataarray_to_matrix(grid):
     """
     if len(grid.dims) != 2:
         raise GMTInvalidInput(
-            "Invalid number of grid dimensions '{}'. Must be 2.".format(len(grid.dims))
+            f"Invalid number of grid dimensions '{len(grid.dims)}'. Must be 2."
         )
     # Extract region and inc from the grid
     region = []
@@ -91,14 +95,21 @@ def dataarray_to_matrix(grid):
     # grids, this would be North-South, East-West. GMT's region and inc are
     # East-West, North-South.
     for dim in grid.dims[::-1]:
-        coord = grid.coords[dim].values
+        coord = grid.coords[dim].to_numpy()
         coord_incs = coord[1:] - coord[0:-1]
         coord_inc = coord_incs[0]
         if not np.allclose(coord_incs, coord_inc):
+            # calculate the increment if irregular spacing is found
+            coord_inc = (coord[-1] - coord[0]) / (coord.size - 1)
+            msg = (
+                f"Grid may have irregular spacing in the '{dim}' dimension, "
+                "but GMT only supports regular spacing. Calculated regular spacing "
+                f"{coord_inc} is assumed in the '{dim}' dimension."
+            )
+            warnings.warn(msg, category=RuntimeWarning, stacklevel=2)
+        if coord_inc == 0:
             raise GMTInvalidInput(
-                "Grid appears to have irregular spacing in the '{}' dimension.".format(
-                    dim
-                )
+                f"Grid has a zero increment in the '{dim}' dimension."
             )
         region.extend(
             [
@@ -112,30 +123,31 @@ def dataarray_to_matrix(grid):
         inc = [abs(i) for i in inc]
         grid = grid.sortby(variables=list(grid.dims), ascending=True)
 
-    matrix = as_c_contiguous(grid[::-1].values)
+    matrix = as_c_contiguous(grid[::-1].to_numpy())
+    region = [float(i) for i in region]
+    inc = [float(i) for i in inc]
     return matrix, region, inc
 
 
 def vectors_to_arrays(vectors):
     """
-    Convert 1d vectors (lists, arrays or pandas.Series) to C contiguous 1d
-    arrays.
+    Convert 1-D vectors (lists, arrays, or pandas.Series) to C contiguous 1-D arrays.
 
     Arrays must be in C contiguous order for us to pass their memory pointers
     to GMT. If any are not, convert them to C order (which requires copying the
-    memory). This usually happens when vectors are columns of a 2d array or
+    memory). This usually happens when vectors are columns of a 2-D array or
     have been sliced.
 
     If a vector is a list or pandas.Series, get the underlying numpy array.
 
     Parameters
     ----------
-    vectors : list of lists, 1d arrays or pandas.Series
+    vectors : list of lists, 1-D arrays, or pandas.Series
         The vectors that must be converted.
 
     Returns
     -------
-    arrays : list of 1d arrays
+    arrays : list of 1-D arrays
         The converted numpy arrays
 
     Examples
@@ -154,11 +166,42 @@ def vectors_to_arrays(vectors):
     True
     >>> all(isinstance(i, np.ndarray) for i in arrays)
     True
+
     >>> data = [[1, 2], (3, 4), range(5, 7)]
     >>> all(isinstance(i, np.ndarray) for i in vectors_to_arrays(data))
     True
+
+    >>> import datetime
+    >>> import pytest
+    >>> pa = pytest.importorskip("pyarrow")
+    >>> vectors = [
+    ...     pd.Series(
+    ...         data=[datetime.date(2020, 1, 1), datetime.date(2021, 12, 31)],
+    ...         dtype="date32[day][pyarrow]",
+    ...     ),
+    ...     pd.Series(
+    ...         data=[datetime.date(2022, 1, 1), datetime.date(2023, 12, 31)],
+    ...         dtype="date64[ms][pyarrow]",
+    ...     ),
+    ... ]
+    >>> arrays = vectors_to_arrays(vectors)
+    >>> all(a.flags.c_contiguous for a in arrays)
+    True
+    >>> all(isinstance(a, np.ndarray) for a in arrays)
+    True
+    >>> all(isinstance(a.dtype, np.dtypes.DateTime64DType) for a in arrays)
+    True
     """
-    arrays = [as_c_contiguous(np.asarray(i)) for i in vectors]
+    dtypes = {
+        "date32[day][pyarrow]": np.datetime64,
+        "date64[ms][pyarrow]": np.datetime64,
+    }
+    arrays = []
+    for vector in vectors:
+        vec_dtype = str(getattr(vector, "dtype", ""))
+        array = np.asarray(a=vector, dtype=dtypes.get(vec_dtype))
+        arrays.append(as_c_contiguous(array))
+
     return arrays
 
 
@@ -170,12 +213,12 @@ def as_c_contiguous(array):
 
     Parameters
     ----------
-    array : 1d array
+    array : 1-D array
         The numpy array
 
     Returns
     -------
-    array : 1d array
+    array : 1-D array
         Array is C contiguous order.
 
     Examples
@@ -204,54 +247,95 @@ def as_c_contiguous(array):
     return array
 
 
-def kwargs_to_ctypes_array(argument, kwargs, dtype):
+def sequence_to_ctypes_array(
+    sequence: Sequence | None, ctype, size: int
+) -> ctp.Array | None:
     """
-    Convert an iterable argument from kwargs into a ctypes array variable.
+    Convert a sequence of numbers into a ctypes array variable.
 
-    If the argument is not present in kwargs, returns ``None``.
+    If the sequence is ``None``, returns ``None``. Otherwise, returns a ctypes array.
+    The function only works for sequences of numbers. For converting a sequence of
+    strings, use ``strings_to_ctypes_array`` instead.
 
     Parameters
     ----------
-    argument : str
-        The name of the argument.
-    kwargs : dict
-        Dictionary of keyword arguments.
-    dtype : ctypes type
-        The ctypes array type (e.g., ``ctypes.c_double*4``)
+    sequence
+        The sequence to convert. If ``None``, returns ``None``. Otherwise, it must be a
+        sequence (e.g., list, tuple, numpy array).
+    ctype
+        The ctypes type of the array (e.g., ``ctypes.c_int``).
+    size
+        The size of the array. If the sequence is smaller than the size, the remaining
+        elements will be filled with zeros. If the sequence is larger than the size, an
+        exception will be raised.
 
     Returns
     -------
-    ctypes_value : ctypes array or None
+    ctypes_array
+        The ctypes array variable.
 
     Examples
     --------
-
-    >>> import ctypes as ct
-    >>> value = kwargs_to_ctypes_array("bla", {"bla": [10, 10]}, ct.c_long * 2)
-    >>> type(value)
-    <class 'pygmt.clib.conversion.c_long_Array_2'>
-    >>> should_be_none = kwargs_to_ctypes_array(
-    ...     "swallow", {"bla": 1, "foo": [20, 30]}, ct.c_int * 2
-    ... )
-    >>> print(should_be_none)
+    >>> import ctypes as ctp
+    >>> ctypes_array = sequence_to_ctypes_array([1, 2, 3], ctp.c_long, 3)
+    >>> type(ctypes_array)
+    <class 'pygmt.clib.conversion.c_long_Array_3'>
+    >>> ctypes_array[:]
+    [1, 2, 3]
+    >>> ctypes_array = sequence_to_ctypes_array([1, 2], ctp.c_long, 5)
+    >>> type(ctypes_array)
+    <class 'pygmt.clib.conversion.c_long_Array_5'>
+    >>> ctypes_array[:]
+    [1, 2, 0, 0, 0]
+    >>> ctypes_array = sequence_to_ctypes_array(None, ctp.c_long, 5)
+    >>> print(ctypes_array)
     None
+    >>> ctypes_array = sequence_to_ctypes_array([1, 2, 3, 4, 5, 6], ctp.c_long, 5)
+    Traceback (most recent call last):
+    ...
+    IndexError: invalid index
     """
-    if argument in kwargs:
-        return dtype(*kwargs[argument])
-    return None
+    if sequence is None:
+        return None
+    return (ctype * size)(*sequence)
+
+
+def strings_to_ctypes_array(strings: Sequence[str]) -> ctp.Array:
+    """
+    Convert a sequence (e.g., a list) of strings into a ctypes array.
+
+    Parameters
+    ----------
+    strings
+        A sequence of strings.
+
+    Returns
+    -------
+    ctypes_array
+        A ctypes array of strings.
+
+    Examples
+    --------
+    >>> strings = ["first", "second", "third"]
+    >>> ctypes_array = strings_to_ctypes_array(strings)
+    >>> type(ctypes_array)
+    <class 'pygmt.clib.conversion.c_char_p_Array_3'>
+    >>> [s.decode() for s in ctypes_array]
+    ['first', 'second', 'third']
+    """
+    return (ctp.c_char_p * len(strings))(*[s.encode() for s in strings])
 
 
 def array_to_datetime(array):
     """
-    Convert an 1d datetime array from various types into pandas.DatetimeIndex
-    (i.e., numpy.datetime64).
+    Convert a 1-D datetime array from various types into numpy.datetime64.
 
-    If the input array is not in legal datetime formats, raise a "ParseError"
+    If the input array is not in legal datetime formats, raise a ValueError
     exception.
 
     Parameters
     ----------
-    array : list or 1d array
+    array : list or 1-D array
         The input datetime array in various formats.
 
         Supported types:
@@ -263,7 +347,12 @@ def array_to_datetime(array):
 
     Returns
     -------
-    array : 1d datetime array in pandas.DatetimeIndex (i.e., numpy.datetime64)
+    array : 1-D datetime array in numpy.datetime64
+
+    Raises
+    ------
+    ValueError
+        If the datetime string is invalid.
 
     Examples
     --------
@@ -271,24 +360,24 @@ def array_to_datetime(array):
     >>> # numpy.datetime64 array
     >>> x = np.array(
     ...     ["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"],
-    ...     dtype="datetime64",
+    ...     dtype="datetime64[ns]",
     ... )
     >>> array_to_datetime(x)
-    DatetimeIndex(['2010-06-01 00:00:00', '2011-06-01 12:00:00',
-                   '2012-01-01 12:34:56'],
-                  dtype='datetime64[ns]', freq=None)
+    array(['2010-06-01T00:00:00.000000000', '2011-06-01T12:00:00.000000000',
+           '2012-01-01T12:34:56.000000000'], dtype='datetime64[ns]')
 
     >>> # pandas.DateTimeIndex array
+    >>> import pandas as pd
     >>> x = pd.date_range("2013", freq="YS", periods=3)
-    >>> array_to_datetime(x)  # doctest: +NORMALIZE_WHITESPACE
-    DatetimeIndex(['2013-01-01', '2014-01-01', '2015-01-01'],
-                  dtype='datetime64[ns]', freq='AS-JAN')
+    >>> array_to_datetime(x)
+    array(['2013-01-01T00:00:00.000000000', '2014-01-01T00:00:00.000000000',
+           '2015-01-01T00:00:00.000000000'], dtype='datetime64[ns]')
 
     >>> # Python's built-in date and datetime
     >>> x = [datetime.date(2018, 1, 1), datetime.datetime(2019, 1, 1)]
-    >>> array_to_datetime(x)  # doctest: +NORMALIZE_WHITESPACE
-    DatetimeIndex(['2018-01-01', '2019-01-01'],
-        dtype='datetime64[ns]', freq=None)
+    >>> array_to_datetime(x)
+    array(['2018-01-01T00:00:00.000000', '2019-01-01T00:00:00.000000'],
+          dtype='datetime64[us]')
 
     >>> # Raw datetime strings in various format
     >>> x = [
@@ -296,16 +385,11 @@ def array_to_datetime(array):
     ...     "2018-02",
     ...     "2018-03-01",
     ...     "2018-04-01T01:02:03",
-    ...     "5/1/2018",
-    ...     "Jun 05, 2018",
-    ...     "2018/07/02",
     ... ]
     >>> array_to_datetime(x)
-    DatetimeIndex(['2018-01-01 00:00:00', '2018-02-01 00:00:00',
-                   '2018-03-01 00:00:00', '2018-04-01 01:02:03',
-                   '2018-05-01 00:00:00', '2018-06-05 00:00:00',
-                   '2018-07-02 00:00:00'],
-                  dtype='datetime64[ns]', freq=None)
+    array(['2018-01-01T00:00:00', '2018-02-01T00:00:00',
+           '2018-03-01T00:00:00', '2018-04-01T01:02:03'],
+          dtype='datetime64[s]')
 
     >>> # Mixed datetime types
     >>> x = [
@@ -313,8 +397,8 @@ def array_to_datetime(array):
     ...     np.datetime64("2018-01-01"),
     ...     datetime.datetime(2018, 1, 1),
     ... ]
-    >>> array_to_datetime(x)  # doctest: +NORMALIZE_WHITESPACE
-    DatetimeIndex(['2018-01-01', '2018-01-01', '2018-01-01'],
-                  dtype='datetime64[ns]', freq=None)
+    >>> array_to_datetime(x)
+    array(['2018-01-01T00:00:00.000000', '2018-01-01T00:00:00.000000',
+           '2018-01-01T00:00:00.000000'], dtype='datetime64[us]')
     """
-    return pd.to_datetime(array)
+    return np.asarray(array, dtype=np.datetime64)

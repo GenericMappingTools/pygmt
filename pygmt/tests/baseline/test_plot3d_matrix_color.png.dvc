@@ -1,4 +1,5 @@
 outs:
-- md5: 685f692faac5075282bc79a921a7a2f4
-  size: 30476
+- md5: 25eda5adedc9ec4a22d9a3464d2df135
+  size: 24861
   path: test_plot3d_matrix_color.png
+  hash: md5

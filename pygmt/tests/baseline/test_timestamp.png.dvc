@@ -1,0 +1,5 @@
+outs:
+- md5: 718155c9d3d80177f6465a317bb17354
+  size: 1677
+  path: test_timestamp.png
+  hash: md5

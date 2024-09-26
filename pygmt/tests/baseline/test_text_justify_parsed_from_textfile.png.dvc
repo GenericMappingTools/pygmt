@@ -1,4 +1,5 @@
 outs:
-- md5: 5933108dbec4e66903180fec744128fb
-  size: 11229
+- md5: 6907c62187ac92ab7ad10d2bb66c9db9
+  size: 10380
   path: test_text_justify_parsed_from_textfile.png
+  hash: md5

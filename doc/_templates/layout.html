@@ -32,7 +32,7 @@
 
 
 {% block sidebartitle %}
-    <a href="{{ pathto(master_doc) }}"><h2 class="sidebar-title">{{ project }}</h2></a>
+    <a href="{{ pathto(root_doc) }}"><h2 class="sidebar-title">{{ project }}</h2></a>
 
     {% if theme_display_version %}
         {%- set nav_version = version %}

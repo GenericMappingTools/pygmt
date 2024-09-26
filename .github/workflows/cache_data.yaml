@@ -1,9 +1,26 @@
-# This workflow gets and uploads the GMT data artifacts used in the PyGMT CI tests
+# Cache GMT remote data files and upload as artifacts
+#
+# This workflow downloads data files needed by PyGMT tests/documentation from the GMT
+# data server and uploads them as workflow artifacts, which can then be accessed by other
+# GitHub Actions workflows.
+#
+# It is scheduled to run every Sunday at 12:00 (UTC). If new remote files are needed
+# urgently, maintainers can refresh the cache by one of the following methods:
+#
+# 1. Update this workflow file
+# 2. Update the `pygmt/helpers/caching.py` file
+# 3. Go to https://github.com/GenericMappingTools/pygmt/actions/workflows/cache_data.yaml
+#    and click the "Run workflow" button
+#
 name: Cache data
 
 on:
-  # Uncomment the 'pull_request' line below to manually re-cache data artifacts
-  # pull_request:
+  pull_request:
+    # Make any changes to the following files to refresh the cache in PRs
+    paths:
+      - 'pygmt/helpers/caching.py'
+      - '.github/workflows/cache_data.yaml'
+  workflow_dispatch:
   # Schedule runs on 12 noon every Sunday
   schedule:
     - cron: '0 12 * * 0'
@@ -11,46 +28,60 @@ on:
 jobs:
   gmt_cache:
     name: Cache GMT artifacts
-    runs-on: macOS-latest
+    runs-on: macos-latest
     defaults:
       run:
         shell: bash -l {0}
 
     steps:
-      # Setup Miniconda
-      - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v2.1.1
+      # Checkout current git repository
+      - name: Checkout
+        uses: actions/checkout@v4.1.7
         with:
-          channels: conda-forge
-          miniconda-version: "latest"
+          # fetch all history so that setuptools-scm works
+          fetch-depth: 0
 
-      # Install GMT
-      - name: Install GMT
-        run: conda install -c conda-forge gmt=6.1.1
+      # Install Micromamba with conda-forge dependencies
+      - name: Setup Micromamba
+        uses: mamba-org/setup-micromamba@v1.9.0
+        with:
+          environment-name: pygmt
+          condarc: |
+            channels:
+              - conda-forge
+              - nodefaults
+          create-args: >-
+            python=3.12
+            gmt=6.5.0
+            numpy
+            pandas
+            xarray
+            netCDF4
+            packaging
+            python-build
+
+      # Install the package that we want to test
+      - name: Install the package
+        run: |
+          python -m build --sdist
+          python -m pip install dist/*
 
       # Download remote files
       - name: Download remote data
         run: |
-          gmt which -Ga @earth_relief_10m_p @earth_relief_10m_g \
-                        @earth_relief_30m_p @earth_relief_30m_g \
-                        @earth_relief_01d_p @earth_relief_01d_g \
-                        @earth_relief_05m_p @earth_relief_05m_g
-          # Download one tile of the 03s srtm data.
-          # @N35E135.earth_relief_03s_g.nc is for internal use only.
-          # The naming scheme may change.
-          # DO NOT USE IT IN SCRIPTS.
-          gmt which -Ga @N35E135.earth_relief_03s_g.nc
-          # @srtm_tiles.nc is needed for 03s and 01s relief data
-          gmt which -Ga @srtm_tiles.nc
-          gmt which -Ga @ridge.txt @Table_5_11.txt @test.dat.nc \
-                        @tut_bathy.nc @tut_quakes.ngdc @tut_ship.xyz \
-                        @usgs_quakes_22.txt @fractures_06.txt
+          python -c "from pygmt.helpers.caching import cache_data; cache_data()"
+
+      - name: List downloaded remote files
+        run: ls -lhR ~/.gmt
 
       # Upload the downloaded files as artifacts to GitHub
       - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4.4.0
         with:
           name: gmt-cache
+          include-hidden-files: true
           path: |
-              ~/.gmt/cache
-              ~/.gmt/server
+            ~/.gmt/cache
+            ~/.gmt/server
+            ~/.gmt/gmt_data_server.txt
+            ~/.gmt/gmt_hash_server.txt

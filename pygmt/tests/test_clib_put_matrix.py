@@ -1,6 +1,7 @@
 """
 Test the functions that put matrix data into GMT.
 """
+
 import numpy as np
 import numpy.testing as npt
 import pytest
@@ -11,11 +12,19 @@ from pygmt.helpers import GMTTempFile
 from pygmt.tests.test_clib import mock
 
 
-def test_put_matrix():
+@pytest.fixture(scope="module", name="dtypes")
+def fixture_dtypes():
     """
-    Check that assigning a numpy 2d array to a dataset works.
+    List of supported numpy dtypes.
     """
-    dtypes = "float32 float64 int32 int64 uint32 uint64".split()
+    return "int8 int16 int32 int64 uint8 uint16 uint32 uint64 float32 float64".split()
+
+
+@pytest.mark.benchmark
+def test_put_matrix(dtypes):
+    """
+    Check that assigning a numpy 2-D array to a dataset works.
+    """
     shape = (3, 4)
     for dtype in dtypes:
         with clib.Session() as lib:
@@ -57,11 +66,11 @@ def test_put_matrix_fails():
                 lib.put_matrix(dataset=None, matrix=np.empty((10, 2)), pad=0)
 
 
-def test_put_matrix_grid():
+@pytest.mark.benchmark
+def test_put_matrix_grid(dtypes):
     """
-    Check that assigning a numpy 2d array to an ASCII and NetCDF grid works.
+    Check that assigning a numpy 2-D array to an ASCII and netCDF grid works.
     """
-    dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     wesn = [10, 15, 30, 40, 0, 0]
     inc = [1, 1]
     shape = ((wesn[3] - wesn[2]) // inc[1] + 1, (wesn[1] - wesn[0]) // inc[0] + 1)
@@ -92,7 +101,7 @@ def test_put_matrix_grid():
                 npt.assert_allclose(newdata, data)
 
             # Save the data to a netCDF grid and check that xarray can load it
-            with GMTTempFile() as tmp_grid:
+            with GMTTempFile(suffix=".nc") as tmp_grid:
                 lib.write_data(
                     "GMT_IS_MATRIX",
                     "GMT_IS_SURFACE",

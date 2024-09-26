@@ -1,0 +1,49 @@
+name: Bug report
+description: Report a problem/bug to help us improve
+labels: bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    attributes:
+      label: "Description of the problem"
+      description: |
+        Please be as detailed as you can when describing an issue.
+        The more information we have, the easier it will be for us to track this down.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: "Minimal Complete Verifiable Example"
+      description: |
+        So that we can understand and fix the issue quickly and efficiently, please provide
+        a minimal, self-contained copy-pastable example that demonstrates the issue.
+        For more details, check out:
+
+        - [Minimal Complete Verifiable Examples](https://stackoverflow.com/help/mcve)
+        - [Craft Minimal Bug Reports](http://matthewrocklin.com/blog/work/2018/02/28/minimal-bug-reports)
+
+      placeholder: "PASTE CODE HERE"
+      render: python
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: "Full error message"
+      description: "What was the error message you got?"
+      placeholder: "PASTE ERROR MESSAGE HERE"
+      render: python-traceback
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: "System information"
+      description: |
+        Please paste the output of `python -c "import pygmt; pygmt.show_versions()"`
+        If this command is not successful, please describe your operating system, how you installed PyGMT, how you installed GMT, and paste the full error message.
+      placeholder: "PASTE THE OUTPUT HERE"
+      render: bash
+    validations:
+      required: true

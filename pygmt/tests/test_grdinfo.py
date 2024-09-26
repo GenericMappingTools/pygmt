@@ -1,28 +1,29 @@
 """
-Tests for grdinfo.
+Test pygmt.grdinfo.
 """
+
 import numpy as np
 import pytest
 from pygmt import grdinfo
-from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers.testing import load_static_earth_relief
 
 
-def test_grdinfo():
+@pytest.fixture(scope="module", name="grid")
+def fixture_grid():
+    """
+    Load the grid data from the static_earth_relief file.
+    """
+    return load_static_earth_relief()
+
+
+@pytest.mark.benchmark
+def test_grdinfo(grid):
     """
     Make sure grdinfo works as expected.
     """
-    grid = load_earth_relief(registration="gridline")
     result = grdinfo(grid=grid, force_scan=0, per_column="n")
-    assert result.strip() == "-180 180 -90 90 -8592.5 5559 1 1 361 181 0 1"
-
-
-def test_grdinfo_file():
-    """
-    Test grdinfo with file input.
-    """
-    result = grdinfo(grid="@earth_relief_01d", force_scan=0, per_column="n")
-    assert result.strip() == "-180 180 -90 90 -8182 5651.5 1 1 360 180 1 1"
+    assert result.strip() == "-55 -47 -24 -10 190 981 1 1 8 14 1 1"
 
 
 def test_grdinfo_fails():
@@ -33,14 +34,11 @@ def test_grdinfo_fails():
         grdinfo(np.arange(10).reshape((5, 2)))
 
 
-def test_grdinfo_region():
+def test_grdinfo_region(grid):
     """
     Check that the region argument works in grdinfo.
     """
     result = grdinfo(
-        grid="@earth_relief_01d",
-        force_scan=0,
-        per_column="n",
-        region=[-170, 170, -80, 80],
+        grid=grid, force_scan=0, per_column="n", region=[-54, -50, -23, -20]
     )
-    assert result.strip() == "-170 170 -80 80 -8182 5651.5 1 1 340 160 1 1"
+    assert result.strip() == "-54 -50 -23 -20 284.5 491 1 1 4 3 1 1"

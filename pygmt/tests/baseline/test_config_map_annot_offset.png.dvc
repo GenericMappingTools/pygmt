@@ -1,4 +1,5 @@
 outs:
-- md5: 40a89f9014ac054f5f196ace06a00361
-  size: 9389
+- md5: bd80bd813ebc25b1be1d45a68568fc20
+  size: 6820
   path: test_config_map_annot_offset.png
+  hash: md5

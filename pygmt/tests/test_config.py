@@ -1,6 +1,7 @@
 """
-Tests for pygmt.config.
+Test pygmt.config.
 """
+
 import pytest
 from pygmt import Figure, config
 
@@ -14,22 +15,22 @@ def test_config():
     # Change global settings of current figure
     config(FONT_ANNOT_PRIMARY="blue")
     fig.basemap(
-        region=[0, 10, 0, 10], projection="X5c/5c", frame=["af", '+t"Blue Annotation"']
+        region=[0, 10, 0, 10], projection="X5c/5c", frame=["af", "+tBlue Annotation"]
     )
 
     with config(FONT_LABEL="red", FONT_ANNOT_PRIMARY="red"):
+        fig.shift_origin(xshift="7c")
         fig.basemap(
             region=[0, 10, 0, 10],
             projection="X5c/5c",
-            frame=['xaf+l"red label"', "yaf", '+t"red annotation"'],
-            xshift="7c",
+            frame=["xaf+lred label", "yaf", "+tred annotation"],
         )
 
+    fig.shift_origin(xshift="7c")
     fig.basemap(
         region=[0, 10, 0, 10],
         projection="X5c/5c",
-        frame=["af", '+t"Blue Annotation"'],
-        xshift="7c",
+        frame=["af", "+tBlue Annotation"],
     )
     # Revert to default settings in current figure
     config(FONT_ANNOT_PRIMARY="black")
@@ -41,13 +42,13 @@ def test_config_font_one():
     """
     Test that setting FONT config changes all FONT_* settings except FONT_LOGO.
 
-    Specifically, this test only checks that FONT_ANNOT_PRIMARY,
-    FONT_ANNOT_SECONDARY, FONT_LABEL, and FONT_TITLE are modified.
+    Specifically, this test only checks that FONT_ANNOT_PRIMARY, FONT_ANNOT_SECONDARY,
+    FONT_LABEL, and FONT_TITLE are modified.
     """
     fig = Figure()
     with config(FONT="8p,red"):
-        fig.basemap(region=[0, 9, 0, 9], projection="C3/3/9c", compass="jTL+w4c+d4.5+l")
-    fig.basemap(compass="jBR+w5c+d-4.5+l")
+        fig.basemap(region=[0, 9, 0, 9], projection="C3/3/9c", compass="jTL+w3c+d4.5+l")
+    fig.basemap(compass="jBR+w3.5c+d-4.5+l")
     return fig
 
 
@@ -59,16 +60,41 @@ def test_config_font_annot():
     """
     fig = Figure()
     with config(FONT_ANNOT="6p,red"):
-        fig.basemap(region=[0, 9, 0, 9], projection="C3/3/9c", compass="jTL+w4c+d4.5")
-    fig.basemap(compass="jBR+w5c+d-4.5")
+        fig.basemap(region=[0, 9, 0, 9], projection="C3/3/9c", compass="jTL+w3c+d4.5")
+    fig.basemap(compass="jBR+w3.5c+d-4.5")
+    return fig
+
+
+@pytest.mark.benchmark
+@pytest.mark.mpl_image_compare
+def test_config_format_date_map():
+    """
+    Test that setting FORMAT_DATE_MAP config changes how the output date string is
+    plotted.
+
+    Note the space in 'o dd', this acts as a regression test for
+    https://github.com/GenericMappingTools/pygmt/issues/247.
+
+    Setting FORMAT_DATE_MAP="yyyy mm dd" as a regression test for
+    https://github.com/GenericMappingTools/pygmt/issues/2298.
+    """
+    fig = Figure()
+    # Set FORMAT_DATE_MAP to "yyyy mm dd" which contains whitespaces.
+    config(FORMAT_DATE_MAP="yyyy mm dd")
+    with config(FORMAT_DATE_MAP="o dd"):
+        fig.basemap(
+            region=["1969-7-21T", "1969-7-23T", 0, 1],
+            projection="X2.5c/0.1c",
+            frame=["sxa1D", "S"],
+        )
     return fig
 
 
 @pytest.mark.mpl_image_compare
 def test_config_format_time_map():
     """
-    Test that setting FORMAT_TIME_MAP config changes both
-    FORMAT_TIME_PRIMARY_MAP and FORMAT_TIME_SECONDARY_MAP.
+    Test that setting FORMAT_TIME_MAP config changes both FORMAT_TIME_PRIMARY_MAP and
+    FORMAT_TIME_SECONDARY_MAP.
     """
     fig = Figure()
     with config(FORMAT_TIME_MAP="abbreviation"):
@@ -84,8 +110,8 @@ def test_config_format_time_map():
 @pytest.mark.mpl_image_compare
 def test_config_map_annot_offset():
     """
-    Test that setting MAP_ANNOT_OFFSET config changes both
-    MAP_ANNOT_OFFSET_PRIMARY and MAP_ANNOT_OFFSET_SECONDARY.
+    Test that setting MAP_ANNOT_OFFSET config changes both MAP_ANNOT_OFFSET_PRIMARY and
+    MAP_ANNOT_OFFSET_SECONDARY.
     """
     fig = Figure()
     with config(MAP_ANNOT_OFFSET="15p"):
@@ -112,7 +138,8 @@ def test_config_map_grid_cross_size():
             frame=["pa1Hg", "sa45mg45m", "NWse"],
             verbose="e",
         )
-    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], yshift=-3, verbose="e")
+    fig.shift_origin(yshift=-3)
+    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], verbose="e")
     return fig
 
 
@@ -130,15 +157,16 @@ def test_config_map_grid_pen():
             frame=["pa1Hg", "sa45mg45m", "NWse"],
             verbose="e",
         )
-    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], yshift=-3, verbose="e")
+    fig.shift_origin(yshift=-3)
+    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], verbose="e")
     return fig
 
 
 @pytest.mark.mpl_image_compare
 def test_config_map_tick_length():
     """
-    Test that setting MAP_TICK_LENGTH config changes both
-    MAP_TICK_LENGTH_PRIMARY and MAP_TICK_LENGTH_SECONDARY.
+    Test that setting MAP_TICK_LENGTH config changes both MAP_TICK_LENGTH_PRIMARY and
+    MAP_TICK_LENGTH_SECONDARY.
     """
     fig = Figure()
     with config(MAP_TICK_LENGTH="5p"):
@@ -148,7 +176,8 @@ def test_config_map_tick_length():
             frame=["pa1Hg", "sa45mg45m", "NWse"],
             verbose="e",
         )
-    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], yshift=-3, verbose="e")
+    fig.shift_origin(yshift=-3)
+    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], verbose="e")
     return fig
 
 
@@ -166,5 +195,6 @@ def test_config_map_tick_pen():
             frame=["pa1Hg", "sa45mg45m", "NWse"],
             verbose="e",
         )
-    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], yshift=-3, verbose="e")
+    fig.shift_origin(yshift=-3)
+    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], verbose="e")
     return fig

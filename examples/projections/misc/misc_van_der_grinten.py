@@ -1,17 +1,20 @@
-"""
-Van der Grinten
-===============
+r"""
+Van der Grinten projection
+==========================
 
-The Van der Grinten projection, presented by Alphons J. van der Grinten in 1904, is
-neither equal-area nor conformal. Central meridian and Equator are straight lines;
-other meridians are arcs of circles. The scale is true along the Equator only. Its
-main use is to show the entire world enclosed in a circle.
+The Van der Grinten projection, presented by Alphons J. van der Grinten in
+1904, is neither equal-area nor conformal. Central meridian and Equator are
+straight lines; other meridians are arcs of circles. The scale is true along
+the Equator only. Its main use is to show the entire world enclosed in a
+circle.
 
 **v**\ [*lon0/*]\ *scale* or **V**\ [*lon0/*]\ *width*
 
 The projection is set with **v** or **V**. The central meridian is set with the
 optional *lon0*, and the figure size is set with *scale* or *width*.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()

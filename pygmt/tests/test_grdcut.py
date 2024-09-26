@@ -1,15 +1,14 @@
 """
-Tests for grdcut.
+Test pygmt.grdcut.
 """
-import os
 
 import numpy as np
 import pytest
 import xarray as xr
-from pygmt import grdcut, grdinfo
-from pygmt.datasets import load_earth_relief
+from pygmt import grdcut, load_dataarray
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
+from pygmt.helpers.testing import load_static_earth_relief
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -17,70 +16,52 @@ def fixture_grid():
     """
     Load the grid data from the sample earth_relief file.
     """
-    return load_earth_relief(registration="pixel")
+    return load_static_earth_relief()
 
 
-def test_grdcut_file_in_file_out():
+@pytest.fixture(scope="module", name="region")
+def fixture_region():
     """
-    grdcut an input grid file, and output to a grid file.
+    Set the data region.
     """
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        result = grdcut("@earth_relief_01d", outgrid=tmpfile.name, region="0/180/0/90")
-        assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
-        result = grdinfo(tmpfile.name, per_column=True)
-        assert result == "0 180 0 90 -8182 5651.5 1 1 180 90 1 1\n"
+    return [-53, -49, -20, -17]
 
 
-def test_grdcut_file_in_dataarray_out():
+@pytest.fixture(scope="module", name="expected_grid")
+def fixture_expected_grid():
     """
-    grdcut an input grid file, and output as DataArray.
+    Load the expected grdcut grid result.
     """
-    outgrid = grdcut("@earth_relief_01d", region="0/180/0/90")
-    assert isinstance(outgrid, xr.DataArray)
-    assert outgrid.gmt.registration == 1  # Pixel registration
-    assert outgrid.gmt.gtype == 1  # Geographic type
-    # check information of the output grid
-    # the '@earth_relief_01d' is in pixel registration, so the grid range is
-    # not exactly 0/180/0/90
-    assert outgrid.coords["lat"].data.min() == 0.5
-    assert outgrid.coords["lat"].data.max() == 89.5
-    assert outgrid.coords["lon"].data.min() == 0.5
-    assert outgrid.coords["lon"].data.max() == 179.5
-    assert outgrid.data.min() == -8182.0
-    assert outgrid.data.max() == 5651.5
-    assert outgrid.sizes["lat"] == 90
-    assert outgrid.sizes["lon"] == 180
+    return xr.DataArray(
+        data=[
+            [446.5, 481.5, 439.5, 553.0],
+            [757.0, 570.5, 538.5, 524.0],
+            [796.0, 886.0, 571.5, 638.5],
+        ],
+        coords={"lon": [-52.5, -51.5, -50.5, -49.5], "lat": [-19.5, -18.5, -17.5]},
+        dims=["lat", "lon"],
+    )
 
 
-def test_grdcut_dataarray_in_file_out(grid):
+def test_grdcut_dataarray_in_file_out(grid, expected_grid, region):
     """
-    grdcut an input DataArray, and output to a grid file.
+    Test grdcut on an input DataArray, and output to a grid file.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
-        result = grdcut(grid, outgrid=tmpfile.name, region="0/180/0/90")
+        result = grdcut(grid, outgrid=tmpfile.name, region=region)
         assert result is None  # grdcut returns None if output to a file
-        result = grdinfo(tmpfile.name, per_column=True)
-        assert result == "0 180 0 90 -8182 5651.5 1 1 180 90 1 1\n"
+        temp_grid = load_dataarray(tmpfile.name)
+        xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
-def test_grdcut_dataarray_in_dataarray_out(grid):
+@pytest.mark.benchmark
+def test_grdcut_dataarray_in_dataarray_out(grid, expected_grid, region):
     """
-    grdcut an input DataArray, and output as DataArray.
+    Test grdcut on an input DataArray, and output as DataArray.
     """
-    outgrid = grdcut(grid, region="0/180/0/90")
+    outgrid = grdcut(grid, region=region)
     assert isinstance(outgrid, xr.DataArray)
-    # check information of the output grid
-    # the '@earth_relief_01d' is in pixel registration, so the grid range is
-    # not exactly 0/180/0/90
-    assert outgrid.coords["lat"].data.min() == 0.5
-    assert outgrid.coords["lat"].data.max() == 89.5
-    assert outgrid.coords["lon"].data.min() == 0.5
-    assert outgrid.coords["lon"].data.max() == 179.5
-    assert outgrid.data.min() == -8182.0
-    assert outgrid.data.max() == 5651.5
-    assert outgrid.sizes["lat"] == 90
-    assert outgrid.sizes["lon"] == 180
+    xr.testing.assert_allclose(a=outgrid, b=expected_grid)
 
 
 def test_grdcut_fails():

@@ -4,9 +4,9 @@
 
 .. autofunction:: {{ objname }}
 
-.. include:: backreferences/{{ fullname }}.examples
+.. minigallery:: {{ fullname }}
+    :add-heading:
 
 .. raw:: html
 
      <div style='clear:both'></div>
-

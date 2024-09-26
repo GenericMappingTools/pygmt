@@ -1,73 +1,271 @@
 """
 Utilities and common tasks for wrapping the GMT modules.
 """
+
+import io
 import os
+import pathlib
 import shutil
+import string
 import subprocess
 import sys
 import time
 import webbrowser
-from collections.abc import Iterable
-from contextlib import contextmanager
+from collections.abc import Iterable, Sequence
+from typing import Any, Literal
 
 import xarray as xr
+from pygmt.encodings import charset
 from pygmt.exceptions import GMTInvalidInput
 
 
-def data_kind(data, x=None, y=None, z=None):
+def _validate_data_input(
+    data=None, x=None, y=None, z=None, required_z=False, required_data=True, kind=None
+):
     """
-    Check what kind of data is provided to a module.
-
-    Possible types:
-
-    * a file name provided as 'data'
-    * an xarray.DataArray provided as 'data'
-    * a matrix provided as 'data'
-    * 1D arrays x and y (and z, optionally)
-
-    Arguments should be ``None`` if not used. If doesn't fit any of these
-    categories (or fits more than one), will raise an exception.
-
-    Parameters
-    ----------
-    data : str, xarray.DataArray, 2d array, or None
-       Data file name, xarray.DataArray or numpy array.
-    x/y : 1d arrays or None
-        x and y columns as numpy arrays.
-    z : 1d array or None
-        z column as numpy array. To be used optionally when x and y
-        are given.
-
-    Returns
-    -------
-    kind : str
-        One of: ``'file'``, ``'grid'``, ``'matrix'``, ``'vectors'``.
+    Check if the combination of data/x/y/z is valid.
 
     Examples
     --------
+    >>> _validate_data_input(data="infile")
+    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6])
+    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6], z=[7, 8, 9])
+    >>> _validate_data_input(data=None, required_data=False)
+    >>> _validate_data_input()
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: No input data provided.
+    >>> _validate_data_input(x=[1, 2, 3])
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Must provide both x and y.
+    >>> _validate_data_input(y=[4, 5, 6])
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Must provide both x and y.
+    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6], required_z=True)
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Must provide x, y, and z.
+    >>> import numpy as np
+    >>> import pandas as pd
+    >>> import xarray as xr
+    >>> data = np.arange(8).reshape((4, 2))
+    >>> _validate_data_input(data=data, required_z=True, kind="matrix")
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
+    >>> _validate_data_input(
+    ...     data=pd.DataFrame(data, columns=["x", "y"]),
+    ...     required_z=True,
+    ...     kind="matrix",
+    ... )
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
+    >>> _validate_data_input(
+    ...     data=xr.Dataset(pd.DataFrame(data, columns=["x", "y"])),
+    ...     required_z=True,
+    ...     kind="matrix",
+    ... )
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
+    >>> _validate_data_input(data="infile", x=[1, 2, 3])
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Too much data. Use either data or x/y/z.
+    >>> _validate_data_input(data="infile", y=[4, 5, 6])
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Too much data. Use either data or x/y/z.
+    >>> _validate_data_input(data="infile", x=[1, 2, 3], y=[4, 5, 6])
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Too much data. Use either data or x/y/z.
+    >>> _validate_data_input(data="infile", z=[7, 8, 9])
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Too much data. Use either data or x/y/z.
 
+    Raises
+    ------
+    GMTInvalidInput
+        If the data input is not valid.
+    """
+    if data is None:  # data is None
+        if x is None and y is None:  # both x and y are None
+            if required_data:  # data is not optional
+                raise GMTInvalidInput("No input data provided.")
+        elif x is None or y is None:  # either x or y is None
+            raise GMTInvalidInput("Must provide both x and y.")
+        if required_z and z is None:  # both x and y are not None, now check z
+            raise GMTInvalidInput("Must provide x, y, and z.")
+    else:  # data is not None
+        if x is not None or y is not None or z is not None:
+            raise GMTInvalidInput("Too much data. Use either data or x/y/z.")
+        # For 'matrix' kind, check if data has the required z column
+        if kind == "matrix" and required_z:
+            if hasattr(data, "shape"):  # np.ndarray or pd.DataFrame
+                if len(data.shape) == 1 and data.shape[0] < 3:
+                    raise GMTInvalidInput("data must provide x, y, and z columns.")
+                if len(data.shape) > 1 and data.shape[1] < 3:
+                    raise GMTInvalidInput("data must provide x, y, and z columns.")
+            if hasattr(data, "data_vars") and len(data.data_vars) < 3:  # xr.Dataset
+                raise GMTInvalidInput("data must provide x, y, and z columns.")
+
+
+def _check_encoding(
+    argstr: str,
+) -> Literal[
+    "ascii",
+    "ISOLatin1+",
+    "ISO-8859-1",
+    "ISO-8859-2",
+    "ISO-8859-3",
+    "ISO-8859-4",
+    "ISO-8859-5",
+    "ISO-8859-6",
+    "ISO-8859-7",
+    "ISO-8859-8",
+    "ISO-8859-9",
+    "ISO-8859-10",
+    "ISO-8859-11",
+    "ISO-8859-13",
+    "ISO-8859-14",
+    "ISO-8859-15",
+    "ISO-8859-16",
+]:
+    """
+    Check the charset encoding of a string.
+
+    All characters in the string must be in the same charset encoding, otherwise the
+    default ``ISOLatin1+`` encoding is returned. Characters in the Adobe Symbol and
+    ZapfDingbats encodings are also checked because they're independent on the choice of
+    encodings.
+
+    Parameters
+    ----------
+    argstr
+        The string to be checked.
+
+    Returns
+    -------
+    encoding
+        The encoding of the string.
+
+    Examples
+    --------
+    >>> _check_encoding("123ABC+-?!")  # ASCII characters only
+    'ascii'
+    >>> _check_encoding("12AB±β①②")  # Characters in ISOLatin1+
+    'ISOLatin1+'
+    >>> _check_encoding("12ABāáâãäåβ①②")  # Characters in ISO-8859-4
+    'ISO-8859-4'
+    >>> _check_encoding("12ABŒā")  # Mix characters in ISOLatin1+ (Œ) and ISO-8859-4 (ā)
+    'ISOLatin1+'
+    >>> _check_encoding("123AB中文")  # Characters not in any charset encoding
+    'ISOLatin1+'
+    """
+    # Return "ascii" if the string only contains ASCII characters.
+    if all(32 <= ord(c) <= 126 for c in argstr):
+        return "ascii"
+    # Loop through all supported encodings and check if all characters in the string
+    # are in the charset of the encoding. If all characters are in the charset, return
+    # the encoding. The ISOLatin1+ encoding is checked first because it is the default
+    # and most common encoding.
+    adobe_chars = set(charset["Symbol"].values()) | set(
+        charset["ZapfDingbats"].values()
+    )
+    for encoding in ["ISOLatin1+"] + [f"ISO-8859-{i}" for i in range(1, 17)]:
+        if encoding == "ISO-8859-12":  # ISO-8859-12 was abandoned. Skip it.
+            continue
+        if all(c in (set(charset[encoding].values()) | adobe_chars) for c in argstr):
+            return encoding  # type: ignore[return-value]
+    # Return the "ISOLatin1+" encoding if the string contains characters from multiple
+    # charset encodings or contains characters that are not in any charset encoding.
+    return "ISOLatin1+"
+
+
+def data_kind(
+    data: Any = None, required: bool = True
+) -> Literal[
+    "arg", "file", "geojson", "grid", "image", "matrix", "stringio", "vectors"
+]:
+    r"""
+    Check the kind of data that is provided to a module.
+
+    The ``data`` argument can be in any type, but only following types are supported:
+
+    - a string or a :class:`pathlib.PurePath` object or a sequence of them, representing
+      a file name or a list of file names
+    - a 2-D or 3-D :class:`xarray.DataArray` object
+    - a 2-D matrix
+    - None, bool, int or float type representing an optional arguments
+    - a geo-like Python object that implements ``__geo_interface__`` (e.g.,
+      geopandas.GeoDataFrame or shapely.geometry)
+
+    Parameters
+    ----------
+    data : str, pathlib.PurePath, None, bool, xarray.DataArray or {table-like}
+        Pass in either a file name or :class:`pathlib.Path` to an ASCII data
+        table, an :class:`xarray.DataArray`, a 1-D/2-D
+        {table-classes} or an option argument.
+    required
+        Set to True when 'data' is required, or False when dealing with
+        optional virtual files. [Default is True].
+
+    Returns
+    -------
+    kind
+        The data kind.
+
+    Examples
+    --------
     >>> import numpy as np
     >>> import xarray as xr
-    >>> data_kind(data=None, x=np.array([1, 2, 3]), y=np.array([4, 5, 6]))
+    >>> import pathlib
+    >>> import io
+    >>> data_kind(data=None)
     'vectors'
-    >>> data_kind(data=np.arange(10).reshape((5, 2)), x=None, y=None)
+    >>> data_kind(data=np.arange(10).reshape((5, 2)))
     'matrix'
-    >>> data_kind(data="my-data-file.txt", x=None, y=None)
+    >>> data_kind(data="my-data-file.txt")
     'file'
+    >>> data_kind(data=pathlib.Path("my-data-file.txt"))
+    'file'
+    >>> data_kind(data=None, required=False)
+    'arg'
+    >>> data_kind(data=2.0, required=False)
+    'arg'
+    >>> data_kind(data=True, required=False)
+    'arg'
     >>> data_kind(data=xr.DataArray(np.random.rand(4, 3)))
     'grid'
+    >>> data_kind(data=xr.DataArray(np.random.rand(3, 4, 5)))
+    'image'
+    >>> data_kind(data=io.StringIO("TEXT1\nTEXT23\n"))
+    'stringio'
     """
-    if data is None and x is None and y is None:
-        raise GMTInvalidInput("No input data provided.")
-    if data is not None and (x is not None or y is not None or z is not None):
-        raise GMTInvalidInput("Too much data. Use either data or x and y.")
-    if data is None and (x is None or y is None):
-        raise GMTInvalidInput("Must provided both x and y.")
-
-    if isinstance(data, str):
+    kind: Literal[
+        "arg", "file", "geojson", "grid", "image", "matrix", "stringio", "vectors"
+    ]
+    if isinstance(data, str | pathlib.PurePath) or (
+        isinstance(data, list | tuple)
+        and all(isinstance(_file, str | pathlib.PurePath) for _file in data)
+    ):
+        # One or more files
         kind = "file"
+    elif isinstance(data, bool | int | float) or (data is None and not required):
+        kind = "arg"
+    elif isinstance(data, io.StringIO):
+        kind = "stringio"
     elif isinstance(data, xr.DataArray):
-        kind = "grid"
+        kind = "image" if len(data.dims) == 3 else "grid"
+    elif hasattr(data, "__geo_interface__"):
+        # geo-like Python object that implements ``__geo_interface__``
+        # (geopandas.GeoDataFrame or shapely.geometry)
+        kind = "geojson"
     elif data is not None:
         kind = "matrix"
     else:
@@ -75,101 +273,201 @@ def data_kind(data, x=None, y=None, z=None):
     return kind
 
 
-@contextmanager
-def dummy_context(arg):
-    """
-    Dummy context manager.
+def non_ascii_to_octal(
+    argstr: str,
+    encoding: Literal[
+        "ascii",
+        "ISOLatin1+",
+        "ISO-8859-1",
+        "ISO-8859-2",
+        "ISO-8859-3",
+        "ISO-8859-4",
+        "ISO-8859-5",
+        "ISO-8859-6",
+        "ISO-8859-7",
+        "ISO-8859-8",
+        "ISO-8859-9",
+        "ISO-8859-10",
+        "ISO-8859-11",
+        "ISO-8859-13",
+        "ISO-8859-14",
+        "ISO-8859-15",
+        "ISO-8859-16",
+    ] = "ISOLatin1+",
+) -> str:
+    r"""
+    Translate non-ASCII characters to their corresponding octal codes.
 
-    Does nothing when entering or exiting a ``with`` block and yields the
-    argument passed to it.
-
-    Useful when you have a choice of context managers but need one that does
-    nothing.
-
-    Parameters
-    ----------
-    arg : anything
-        The argument that will be returned by the context manager.
-
-    Examples
-    --------
-
-    >>> with dummy_context("some argument") as temp:
-    ...     print(temp)
-    ...
-    some argument
-    """
-    yield arg
-
-
-def build_arg_string(kwargs):
-    """
-    Transform keyword arguments into a GMT argument string.
-
-    Make sure all arguments have been previously converted to a string
-    representation using the ``kwargs_to_strings`` decorator. The only
-    exceptions are True, False and None.
-
-    Any lists or tuples left will be interpreted as multiple entries for the
-    same command line argument. For example, the kwargs entry ``'B': ['xa',
-    'yaf']`` will be converted to ``-Bxa -Byaf`` in the argument string.
+    Currently, only non-ASCII characters in the Adobe ISOLatin1+, Adobe Symbol, Adobe
+    ZapfDingbats, and ISO-8850-x (x can be in 1-11, 13-17) encodings are supported.
+    The Adobe Standard encoding is not supported yet.
 
     Parameters
     ----------
-    kwargs : dict
-        Parsed keyword arguments.
+    argstr
+        The string to be translated.
+    encoding
+        The encoding of characters in the string.
 
     Returns
     -------
-    args : str
-        The space-delimited argument string with '-' inserted before each
-        keyword. The arguments are sorted alphabetically.
+    translated_argstr
+        The translated string.
 
     Examples
     --------
+    >>> non_ascii_to_octal("•‰“”±°ÿ")
+    '\\031\\214\\216\\217\\261\\260\\377'
+    >>> non_ascii_to_octal("αζ∆Ω∑π∇")
+    '@~\\141@~@~\\172@~@~\\104@~@~\\127@~@~\\345@~@~\\160@~@~\\321@~'
+    >>> non_ascii_to_octal("✁❞❡➾")
+    '@%34%\\041@%%@%34%\\176@%%@%34%\\241@%%@%34%\\376@%%'
+    >>> non_ascii_to_octal("ABC ±120° DEF α ♥")
+    'ABC \\261120\\260 DEF @~\\141@~ @%34%\\252@%%'
+    >>> non_ascii_to_octal("12ABāáâãäåβ①②", encoding="ISO-8859-4")
+    '12AB\\340\\341\\342\\343\\344\\345@~\\142@~@%34%\\254@%%@%34%\\255@%%'
+    """  # noqa: RUF002
+    # Return the input string if it only contains ASCII characters.
+    if encoding == "ascii" or all(32 <= ord(c) <= 126 for c in argstr):
+        return argstr
 
+    # Dictionary mapping non-ASCII characters to octal codes
+    mapping: dict = {}
+    # Adobe Symbol charset.
+    mapping.update({c: f"@~\\{i:03o}@~" for i, c in charset["Symbol"].items()})
+    # Adobe ZapfDingbats charset. Font number is 34.
+    mapping.update(
+        {c: f"@%34%\\{i:03o}@%%" for i, c in charset["ZapfDingbats"].items()}
+    )
+    # ISOLatin1+ or ISO-8859-x charset.
+    mapping.update({c: f"\\{i:03o}" for i, c in charset[encoding].items()})
+
+    # Remove any printable characters
+    mapping = {k: v for k, v in mapping.items() if k not in string.printable}
+    return argstr.translate(str.maketrans(mapping))
+
+
+def build_arg_list(  # noqa: PLR0912
+    kwdict: dict[str, Any],
+    confdict: dict[str, str] | None = None,
+    infile: str | pathlib.PurePath | Sequence[str | pathlib.PurePath] | None = None,
+    outfile: str | pathlib.PurePath | None = None,
+) -> list[str]:
+    r"""
+    Convert keyword dictionaries and input/output files into a list of GMT arguments.
+
+    Make sure all values in ``kwdict`` have been previously converted to a string
+    representation using the ``kwargs_to_strings`` decorator. The only exceptions are
+    ``True``, ``False`` and ``None``.
+
+    Any remaining lists or tuples will be interpreted as multiple entries for the same
+    parameter. For example, the kwargs entry ``"B": ["xa", "yaf"]`` will be
+    converted to ``["-Bxa", "-Byaf"]``.
+
+    Parameters
+    ----------
+    kwdict
+        A dictionary containing parsed keyword arguments.
+    confdict
+        A dictionary containing configurable GMT parameters.
+    infile
+        The input file or a list of input files.
+    outfile
+        The output file.
+
+    Returns
+    -------
+    args
+        The list of command line arguments that will be passed to GMT modules. The
+        keyword arguments are sorted alphabetically, followed by GMT configuration
+        key-value pairs, with optional input file(s) at the beginning and optional
+        output file at the end.
+
+    Examples
+    --------
+    >>> build_arg_list(dict(A=True, B=False, C=None, D=0, E=200, F="", G="1/2/3/4"))
+    ['-A', '-D0', '-E200', '-F', '-G1/2/3/4']
+    >>> build_arg_list(dict(A="1/2/3/4", B=["xaf", "yaf", "WSen"], C=("1p", "2p")))
+    ['-A1/2/3/4', '-BWSen', '-Bxaf', '-Byaf', '-C1p', '-C2p']
     >>> print(
-    ...     build_arg_string(
+    ...     build_arg_list(
     ...         dict(
-    ...             A=True,
-    ...             B=False,
-    ...             E=200,
-    ...             J="X4c",
-    ...             P="",
-    ...             R="1/2/3/4",
-    ...             X=None,
-    ...             Y=None,
-    ...             Z=0,
+    ...             B=["af", "WSne+tBlank Space"],
+    ...             F='+t"Empty Spaces"',
+    ...             l="'Void Space'",
     ...         )
     ...     )
     ... )
-    -A -E200 -JX4c -P -R1/2/3/4 -Z0
+    ['-BWSne+tBlank Space', '-Baf', '-F+t"Empty Spaces"', "-l'Void Space'"]
     >>> print(
-    ...     build_arg_string(
-    ...         dict(
-    ...             R="1/2/3/4",
-    ...             J="X4i",
-    ...             B=["xaf", "yaf", "WSen"],
-    ...             I=("1/1p,blue", "2/0.25p,blue"),
-    ...         )
+    ...     build_arg_list(
+    ...         dict(A="0", B=True, C="rainbow"),
+    ...         confdict=dict(FORMAT_DATE_MAP="o dd"),
+    ...         infile="input.txt",
+    ...         outfile="output.txt",
     ...     )
     ... )
-    -BWSen -Bxaf -Byaf -I1/1p,blue -I2/0.25p,blue -JX4i -R1/2/3/4
+    ['input.txt', '-A0', '-B', '-Crainbow', '--FORMAT_DATE_MAP=o dd', '->output.txt']
+    >>> print(
+    ...     build_arg_list(
+    ...         dict(A="0", B=True),
+    ...         confdict=dict(FORMAT_DATE_MAP="o dd"),
+    ...         infile=["f1.txt", "f2.txt"],
+    ...         outfile="out.txt",
+    ...     )
+    ... )
+    ['f1.txt', 'f2.txt', '-A0', '-B', '--FORMAT_DATE_MAP=o dd', '->out.txt']
+    >>> build_arg_list(dict(B="12ABāβ①②"))
+    ['-B12AB\\340@~\\142@~@%34%\\254@%%@%34%\\255@%%', '--PS_CHAR_ENCODING=ISO-8859-4']
+    >>> build_arg_list(dict(B="12ABāβ①②"), confdict=dict(PS_CHAR_ENCODING="ISO-8859-5"))
+    ['-B12AB\\340@~\\142@~@%34%\\254@%%@%34%\\255@%%', '--PS_CHAR_ENCODING=ISO-8859-5']
+    >>> print(build_arg_list(dict(R="1/2/3/4", J="X4i", watre=True)))
+    Traceback (most recent call last):
+      ...
+    pygmt.exceptions.GMTInvalidInput: Unrecognized parameter 'watre'.
     """
     gmt_args = []
-    # Exclude arguments that are None and False
-    filtered_kwargs = {
-        k: v for k, v in kwargs.items() if (v is not None and v is not False)
-    }
-    for key in filtered_kwargs:
-        if is_nonstr_iter(kwargs[key]):
-            for value in kwargs[key]:
-                gmt_args.append(f"-{key}{value}")
-        elif kwargs[key] is True:
+    for key, value in kwdict.items():
+        if len(key) > 2:  # Raise an exception for unrecognized options
+            raise GMTInvalidInput(f"Unrecognized parameter '{key}'.")
+        if value is None or value is False:  # Exclude arguments that are None or False
+            pass
+        elif value is True:
             gmt_args.append(f"-{key}")
+        elif is_nonstr_iter(value):
+            gmt_args.extend(f"-{key}{_value}" for _value in value)
         else:
-            gmt_args.append(f"-{key}{kwargs[key]}")
-    return " ".join(sorted(gmt_args))
+            gmt_args.append(f"-{key}{value}")
+
+    # Convert non-ASCII characters (if any) in the arguments to octal codes
+    encoding = _check_encoding("".join(gmt_args))
+    if encoding != "ascii":
+        gmt_args = [non_ascii_to_octal(arg, encoding=encoding) for arg in gmt_args]
+    gmt_args = sorted(gmt_args)
+
+    # Set --PS_CHAR_ENCODING=encoding if necessary
+    if encoding not in {"ascii", "ISOLatin1+"} and not (
+        confdict and "PS_CHAR_ENCODING" in confdict
+    ):
+        gmt_args.append(f"--PS_CHAR_ENCODING={encoding}")
+
+    if confdict:
+        gmt_args.extend(f"--{key}={value}" for key, value in confdict.items())
+
+    if infile:  # infile can be a single file or a list of files
+        if isinstance(infile, str | pathlib.PurePath):
+            gmt_args = [str(infile), *gmt_args]
+        else:
+            gmt_args = [str(_file) for _file in infile] + gmt_args
+    if outfile is not None:
+        if (
+            not isinstance(outfile, str | pathlib.PurePath)
+            or str(outfile) in {"", ".", ".."}
+            or str(outfile).endswith(("/", "\\"))
+        ):
+            raise GMTInvalidInput(f"Invalid output file name '{outfile}'.")
+        gmt_args.append(f"->{outfile}")
+    return gmt_args
 
 
 def is_nonstr_iter(value):
@@ -193,6 +491,8 @@ def is_nonstr_iter(value):
     False
     >>> is_nonstr_iter(10)
     False
+    >>> is_nonstr_iter(None)
+    False
     >>> is_nonstr_iter([1, 2, 3])
     True
     >>> is_nonstr_iter((1, 2, 3))
@@ -206,43 +506,50 @@ def is_nonstr_iter(value):
     return isinstance(value, Iterable) and not isinstance(value, str)
 
 
-def launch_external_viewer(fname):
+def launch_external_viewer(fname: str, waiting: float = 0):
     """
     Open a file in an external viewer program.
 
-    Uses the ``xdg-open`` command on Linux, the ``open`` command on macOS, the
-    associated application on Windows, and the default web browser on other
-    systems.
+    Uses the ``xdg-open`` command on Linux/FreeBSD, the ``open`` command on macOS, the
+    associated application on Windows, and the default web browser on other systems.
 
     Parameters
     ----------
-    fname : str
+    fname
         The file name of the file (preferably a full path).
+    waiting
+        Wait for a few seconds before exiting the function, to allow the external viewer
+        open the file before it's deleted.
     """
-    # Redirect stdout and stderr to devnull so that the terminal isn't filled
-    # with noise
-    run_args = dict(stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    # Redirect stdout and stderr to devnull so that the terminal isn't filled with noise
+    run_args = {
+        "stdout": subprocess.DEVNULL,
+        "stderr": subprocess.DEVNULL,
+    }
 
-    # Open the file with the default viewer.
-    # Fall back to the browser if can't recognize the operating system.
-    os_name = sys.platform
-    if os_name.startswith(("linux", "freebsd")) and shutil.which("xdg-open"):
-        subprocess.run(["xdg-open", fname], check=False, **run_args)
-    elif os_name == "darwin":  # Darwin is macOS
-        subprocess.run(["open", fname], check=False, **run_args)
-    elif os_name == "win32":
-        os.startfile(fname)  # pylint: disable=no-member
-    else:
-        webbrowser.open_new_tab(f"file://{fname}")
-    # suspend the execution for 0.5 s to avoid the images being deleted
-    # when a Python script exits
-    time.sleep(0.5)
+    match sys.platform:
+        case name if (
+            (name == "linux" or name.startswith("freebsd"))
+            and (xdgopen := shutil.which("xdg-open"))
+        ):  # Linux/FreeBSD
+            subprocess.run([xdgopen, fname], check=False, **run_args)  # type:ignore[call-overload]
+        case "darwin":  # macOS
+            subprocess.run([shutil.which("open"), fname], check=False, **run_args)  # type:ignore[call-overload]
+        case "win32":  # Windows
+            os.startfile(fname)  # type:ignore[attr-defined] # noqa: S606
+        case _:  # Fall back to the browser if can't recognize the operating system.
+            webbrowser.open_new_tab(f"file://{fname}")
+    if waiting > 0:
+        # Preview images will be deleted when a GMT modern-mode session ends, but the
+        # external viewer program may take a few seconds to open the images.
+        # Suspend the execution for a few seconds.
+        time.sleep(waiting)
 
 
 def args_in_kwargs(args, kwargs):
     """
-    Take a list and a dictionary, and determine if any entries in the list are
-    keys in the dictionary.
+    Take a list and a dictionary, and determine if any entries in the list are keys in
+    the dictionary.
 
     This function is used to determine if at least one of the required
     arguments is passed to raise a GMTInvalidInput Error.
@@ -258,8 +565,26 @@ def args_in_kwargs(args, kwargs):
         short-form aliases of the parameters.
 
     Returns
-    --------
+    -------
     bool
         If one of the required arguments is in ``kwargs``.
+
+    Examples
+    --------
+
+    >>> args_in_kwargs(args=["A", "B"], kwargs={"C": "xyz"})
+    False
+    >>> args_in_kwargs(args=["A", "B"], kwargs={"B": "af"})
+    True
+    >>> args_in_kwargs(args=["A", "B"], kwargs={"B": None})
+    False
+    >>> args_in_kwargs(args=["A", "B"], kwargs={"B": True})
+    True
+    >>> args_in_kwargs(args=["A", "B"], kwargs={"B": False})
+    False
+    >>> args_in_kwargs(args=["A", "B"], kwargs={"B": 0})
+    True
     """
-    return any(arg in kwargs for arg in args)
+    return any(
+        kwargs.get(arg) is not None and kwargs.get(arg) is not False for arg in args
+    )

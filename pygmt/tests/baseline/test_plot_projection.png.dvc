@@ -1,4 +1,5 @@
 outs:
-- md5: 83866387e8e3b85e61b0b4be68cae3a1
-  size: 26574
+- md5: 878e608c22064f29530975f2534f97a1
+  size: 21339
   path: test_plot_projection.png
+  hash: md5

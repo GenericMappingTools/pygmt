@@ -1,4 +1,5 @@
 outs:
-- md5: b95bf07a96f69d1586fd548d2d22fa7c
-  size: 36565
+- md5: e9738472f2a5ee5d400deb59cd692afc
+  size: 31390
   path: test_plot3d_sizes.png
+  hash: md5

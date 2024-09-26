@@ -1,4 +1,5 @@
 outs:
-- md5: 409119aeeec2680d106e32527009c255
-  size: 77366
+- md5: c2efdf64f52fa34d1cc962e001bb5dc5
+  size: 70814
   path: test_logo_on_a_map.png
+  hash: md5

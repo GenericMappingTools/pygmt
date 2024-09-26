@@ -1,6 +1,6 @@
 r"""
-Azimuthal Equidistant
-=====================
+Azimuthal equidistant projection
+================================
 
 The main advantage of this projection is that distances from the projection
 center are displayed in correct proportions. Also directions measured from the
@@ -11,11 +11,14 @@ locations relative to the projection center.
 **e**\ *lon0/lat0*\ [*/horizon*]\ */scale* or
 **E**\ *lon0/lat0*\ [*/horizon*]\ */width*
 
-The projection type is set with **e** or **E**. *lon0/lat0* specifies the projection
-center, and the optional parameter *horizon* specifies the maximum distance to the
-projection center (i.e. the visible portion of the rest of the world map) in
-degrees <= 180° (default 180°). The size of the figure is set by *scale* or *width*.
+The projection type is set with **e** or **E**. *lon0/lat0* specifies the
+projection center, and the optional parameter *horizon* specifies the maximum
+distance to the projection center (i.e. the visible portion of the rest of the
+world map) in degrees <= 180° (default 180°). The size of the figure is set by
+*scale* or *width*.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()

@@ -1,4 +1,5 @@
 outs:
-- md5: 30c3f4c90ba740b7d9edae97d9d3b853
-  size: 93411
+- md5: 8ba6d6b9f0b7771fb78fcf5544a4aa42
+  size: 89807
   path: test_coast_dcw_list.png
+  hash: md5

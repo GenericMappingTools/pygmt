@@ -1,0 +1,5 @@
+outs:
+- md5: 1564cd76fe8323fd0164bd9eb8efa08c
+  size: 4461
+  path: test_geopandas_plot_default_square.png
+  hash: md5

@@ -1,4 +1,5 @@
 outs:
-- md5: 2e440e6db215a619829acb08a0ab55bf
-  size: 41397
+- md5: bf8a48349d1af0029dce3f21dd740fbe
+  size: 36599
   path: test_rose_2d_array_multiple.png
+  hash: md5

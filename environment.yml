@@ -1,35 +1,47 @@
 name: pygmt
 channels:
     - conda-forge
-    - defaults
+    - nodefaults
 dependencies:
+    - python=3.12
     # Required dependencies
-    - pip
-    - gmt=6.1.1
-    - numpy>=1.17
-    - pandas
-    - xarray
+    - gmt=6.5.0
+    - ghostscript=10.04.0
+    - numpy>=1.24
+    - pandas>=1.5
+    - xarray>=2022.09
     - netCDF4
     - packaging
-    # Development dependencies
-    - black
-    - blackdoc
-    - codecov
-    - coverage[toml]
-    - docformatter
-    - dvc
-    - flake8
+    # Optional dependencies
+    - contextily
+    - geopandas
     - ipython
-    - isort>=5
+    - rioxarray
+    # Development dependencies (general)
+    - dvc
     - jupyter
     - make
-    - matplotlib
-    - myst-parser
-    - pylint
-    - pytest-cov
-    - pytest-mpl
+    - pip
+    - python-build
+    # Dev dependencies (style checks)
+    - codespell
+    - pre-commit
+    - ruff>=0.3.0
+    # Dev dependencies (unit testing)
+    - matplotlib-base
     - pytest>=6.0
+    - pytest-cov
+    - pytest-doctestplus
+    - pytest-mpl
+    # Dev dependencies (building documentation)
+    - myst-nb
+    - panel
     - sphinx
+    - sphinx-autodoc-typehints
     - sphinx-copybutton
-    - sphinx-gallery
+    - sphinx-design
+    - sphinx-gallery>=0.17.0
     - sphinx_rtd_theme
+    # Dev dependencies (type hints)
+    - mypy
+    - pandas-stubs

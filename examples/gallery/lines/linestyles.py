@@ -1,6 +1,6 @@
 """
 Line styles
------------
+===========
 
 The :meth:`pygmt.Figure.plot` method can plot lines in different styles.
 The default line style is a 0.25-point wide, black, solid line, and can be
@@ -8,15 +8,16 @@ customized with the ``pen`` parameter.
 
 A *pen* in GMT has three attributes: *width*, *color*, and *style*.
 The *style* attribute controls the appearance of the line.
-Giving "dotted" or "." yields a dotted line, whereas a dashed pen is requested
-with "dashed" or "-". Also combinations of dots and dashes, like ".-" for a
-dot-dashed line, are allowed.
+Giving ``"dotted"`` or ``"."`` yields a dotted line, whereas a dashed pen is
+requested with ``"dashed"`` or ``"-"``. Also combinations of dots and dashes,
+like ``".-"`` for a dot-dashed line, are allowed.
 
-For more advanced *pen* attributes, see the GMT cookbook
-:gmt-docs:`cookbook/features.html#wpen-attrib`.
+For more advanced *pen* attributes, see the GMT Technical Reference
+:gmt-docs:`reference/features.html#wpen-attrib`.
 
 """
 
+# %%
 import numpy as np
 import pygmt
 
@@ -25,7 +26,7 @@ x = np.array([0, 7])
 y = np.array([9, 9])
 
 fig = pygmt.Figure()
-fig.basemap(region=[0, 10, 0, 10], projection="X15c/8c", frame='+t"Line Styles"')
+fig.basemap(region=[0, 10, 0, 10], projection="X15c/8c", frame="+tLine Styles")
 
 # Plot the line using the default line style
 fig.plot(x=x, y=y)
@@ -38,8 +39,8 @@ for linestyle in [
     "1p,lightblue,-.",  # dash-dotted line
     "2p,blue,..-",  # dot-dot-dashed line
     "2p,tomato,--.",  # dash-dash-dotted line
-    # A pattern of 4-point-long line segment and 2-point-gap between segment,
-    # with pattern offset by 2 points from the origin
+    # A pattern of 4-point-long line segments and 2-point-long gaps between
+    # segments, with pattern offset by 2 points from the origin
     "2p,tomato,4_2:2p",
 ]:
     y -= 1  # Move the current line down

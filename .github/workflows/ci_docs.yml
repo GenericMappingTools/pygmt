@@ -1,109 +1,144 @@
-# This workflow installs PyGMT, builds and deploys documentation
-
+# Build and deploy documentation
+#
+# This workflow builds the documentation on Linux/macOS/Windows.
+#
+# It is run on every commit to the main and pull request branches, and also
+# when a new release is published.
+# In draft pull requests, only the job on Linux is triggered to save on
+# Continuous Integration resources.
+#
+# On the main branch, the workflow also handles the documentation deployment:
+#
+# * Updating the development documentation by pushing the built HTML pages
+#   from the main branch onto the dev folder of the gh-pages branch.
+# * Updating the latest documentation link to the new release.
+#
 name: Docs
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
+    paths:
+      - 'pygmt/**/*.py'
+      - '!pygmt/tests/**'
+      - 'doc/**'
+      - 'examples/**'
+      - 'README.md'
+      - '.github/workflows/ci_docs.yml'
   pull_request:
     types: [opened, reopened, synchronize, ready_for_review]
-    paths-ignore:
-      - 'pygmt/tests/**'
-      - '*.md'
-      - '*.json'
-      - 'LICENSE.txt'
-      - '.gitignore'
-      - '.pylintrc'
+    paths:
+      - 'pygmt/**/*.py'
+      - '!pygmt/tests/**'
+      - 'doc/**'
+      - 'examples/**'
+      - 'README.md'
+      - '.github/workflows/ci_docs.yml'
+  workflow_dispatch:
   release:
     types:
       - published
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
 jobs:
   docs:
-    name: ${{ matrix.os }} - Python ${{ matrix.python-version }}
+    name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    if: github.repository == 'GenericMappingTools/pygmt'
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.9]
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
         # Is it a draft Pull Request (true or false)?
         isDraft:
           - ${{ github.event.pull_request.draft }}
-        # Only run one job (Ubuntu + Python 3.9) for draft PRs
+        # Only run one job (Ubuntu + Python 3.12) for draft PRs
         exclude:
-          - os: macOS-latest
+          - os: macos-latest
             isDraft: true
           - os: windows-latest
             isDraft: true
+    timeout-minutes: 30
     defaults:
       run:
         shell: bash -l {0}
 
     steps:
-      # Cancel previous runs that are not completed
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.8.0
-        with:
-          access_token: ${{ github.token }}
-
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v4.1.7
         with:
-          # fecth all history so that setuptools-scm works
+          # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
-      # Setup Miniconda
-      - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v2.1.1
+      - name: Get current week number of year
+        id: date
+        run: echo "date=$(date +%Y-W%W)" >> $GITHUB_OUTPUT  # e.g., 2024-W19
+
+      # Install Micromamba with conda-forge dependencies
+      - name: Setup Micromamba
+        uses: mamba-org/setup-micromamba@v1.9.0
         with:
-          activate-environment: pygmt
-          python-version: ${{ matrix.python-version }}
-          channels: conda-forge
-          miniconda-version: "latest"
-
-      # Install GMT and other required dependencies from conda-forge
-      - name: Install dependencies
-        run: |
-          conda install gmt=6.1.1 numpy pandas xarray netCDF4 packaging \
-                        ipython make myst-parser \
-                        sphinx sphinx-copybutton sphinx-gallery sphinx_rtd_theme
-
-      # Show installed pkg information for postmortem diagnostic
-      - name: List installed packages
-        run: conda list
+          environment-name: pygmt
+          condarc: |
+            channels:
+              - conda-forge
+              - nodefaults
+          cache-downloads: false
+          cache-environment: true
+          # environment cache is persistent for one week.
+          cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
+          create-args: >-
+            python=3.12
+            gmt=6.5.0
+            ghostscript=10.04.0
+            numpy
+            pandas
+            xarray
+            netCDF4
+            packaging
+            contextily
+            geopandas<1.0
+            ipython
+            rioxarray
+            make
+            pip
+            python-build
+            myst-nb
+            panel
+            sphinx
+            sphinx-autodoc-typehints
+            sphinx-copybutton
+            sphinx-design
+            sphinx-gallery
+            sphinx_rtd_theme
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.13.0
-        with:
-          workflow: cache_data.yaml
-          workflow_conclusion: success
-          name: gmt-cache
-          path: .gmt
-
-      # Move downloaded files to ~/.gmt directory and list them
-      - name: Move and list downloaded remote files
         run: |
-          mkdir -p ~/.gmt
-          mv .gmt/* ~/.gmt
+          # Download cached files to ~/.gmt directory and list them
+          gh run download --name gmt-cache --dir ~/.gmt/
           # Change modification times of the two files, so GMT won't refresh it
-          touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
+          touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
           ls -lhR ~/.gmt
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       # Install the package that we want to test
       - name: Install the package
         run: |
-          python setup.py sdist --formats=zip
-          pip install dist/*
+          python -m build --sdist
+          python -m pip install dist/*
 
       # Build the documentation
       - name: Build the documentation
         run: make -C doc clean all
 
       - name: Checkout the gh-pages branch
-        uses: actions/checkout@28c7f3d2b5162b5ddd3dfd9a45aa55eaf396478b
+        uses: actions/checkout@v4.1.7
         with:
           ref: gh-pages
           # Checkout to this folder instead of the current one
@@ -114,7 +149,7 @@ jobs:
 
       - name: Push the built HTML to gh-pages
         run: |
-          # Detect if this is a release or from the master branch
+          # Detect if this is a release or from the main branch
           if [[ "${GITHUB_EVENT_NAME}" == "release" ]]; then
               # Get the tag name without the "refs/tags/" part
               version="${GITHUB_REF#refs/*/}"
@@ -126,7 +161,7 @@ jobs:
           # to get the right commit hash.
           message="Deploy $version from $(git rev-parse --short HEAD)"
           cd deploy
-          # Need to have this file so that Github doesn't try to run Jekyll
+          # Need to have this file so that GitHub doesn't try to run Jekyll
           touch .nojekyll
           # Delete all the files and replace with our new  set
           echo -e "\nRemoving old files from previous builds of ${version}:"

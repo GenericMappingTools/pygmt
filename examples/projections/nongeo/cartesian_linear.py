@@ -1,9 +1,25 @@
-"""
+r"""
 Cartesian linear
 ================
 
-**X**\ *width*/[*height*]: Give the *width* of the figure and the optional *height*.
+**X**\ *width*\ [/*height*] or **x**\ *x-scale*\ [/*y-scale*]
+
+Give the *width* of the figure and the optional *height*.
+The lower-case version **x** is similar to **X** but expects
+an *x-scale* and an optional *y-scale*.
+
+The Cartesian linear projection is primarily designed for regular
+floating point data. To plot geographical data in a linear
+projection, see the upstream GMT documentation
+:gmt-docs:`Geographic coordinates
+<reference/coordinate-transformations.html#geographic-coordinates>`.
+To make the linear plot using calendar date/time as input
+coordinates, see the GMT documentation
+:gmt-docs:`Calendar time coordinates
+<reference/coordinate-transformations.html#calendar-time-coordinates>`.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()
@@ -12,10 +28,12 @@ fig.plot(
     x=[3, 9, 2],
     y=[4, 9, 37],
     pen="3p,red",
-    # ``region`` sets the x and y ranges or the Cartesian figure.
+    # The region parameter sets the x and y ranges of the
+    # Cartesian projection
     region=[0, 10, 0, 50],
     projection="X15c/10c",
-    # ``WSne`` is passed to ``frame`` to put axis labels only on the left and bottom axes.
+    # "WSne" is passed to the frame parameter to put annotations
+    # only on the left and bottom axes
     frame=["af", "WSne"],
 )
 fig.show()

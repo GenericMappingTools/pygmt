@@ -1,22 +1,33 @@
 """
 inset - Create inset figures.
 """
+
 import contextlib
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+
+__doctest_skip__ = ["inset"]
 
 
 @fmt_docstring
 @contextlib.contextmanager
-@use_alias(D="position", F="box", M="margin", N="no_clip", V="verbose")
-@kwargs_to_strings(D="sequence", M="sequence")
+@use_alias(
+    D="position",
+    F="box",
+    J="projection",
+    M="margin",
+    N="no_clip",
+    R="region",
+    V="verbose",
+)
+@kwargs_to_strings(D="sequence", M="sequence", R="sequence")
 def inset(self, **kwargs):
     r"""
     Create an inset figure to be placed within a larger figure.
 
-    This function sets the position, frame, and margins for a smaller figure
-    inside of the larger figure. Plotting functions that are called within the
+    This method sets the position, frame, and margins for a smaller figure
+    inside of the larger figure. Plotting methods that are called within the
     context manager are added to the inset figure.
 
     Full option list at :gmt-docs:`inset.html`
@@ -37,10 +48,10 @@ def inset(self, **kwargs):
 
         Append **g**\ *lon*/*lat* for map (user) coordinates,
         **j**\ *code* or **J**\ *code* for setting the *refpoint* via a
-        2-char justification code \ that refers to the (invisible)
+        2-character justification code that refers to the (invisible)
         projected map bounding box, **n**\ *xn*/*yn* for normalized (0-1)
         bounding box coordinates, or **x**\ *x*/*y* for plot
-        coordinates (inches, cm, points, append unit).
+        coordinates (inches, centimeters, points, append unit).
         All but **x** requires both ``region`` and ``projection`` to be
         specified. You can offset the reference point via
         **+o**\ *dx*/*dy* in the direction implied by *code* or
@@ -51,13 +62,13 @@ def inset(self, **kwargs):
         coordinates instead are the lower left and upper right corners of
         the desired rectangle. (Or, give *xmin/xmax/ymin/ymax* of bounding
         rectangle in projected coordinates and optionally
-        append **+u**\ *unit* [Default coordinate unit is meter (e)].
+        append **+u**\ *unit* [Default coordinate unit is meters (**e**)].
 
         Append **+w**\ *width*\ [/*height*] of bounding rectangle or box
-        in plot coordinates (inches, cm, etc.). By default, the anchor
-        point on the scale is assumed to be the bottom left corner (**BL**),
-        but this can be changed by appending **+j** followed by a 2-char
-        justification code *justify*.
+        in plot coordinates (inches, centimeters, etc.). By default, the
+        anchor point on the scale is assumed to be the bottom left corner
+        (**BL**), but this can be changed by appending **+j** followed by
+        a 2-character justification code *justify*.
         **Note**: If **j** is used then *justify* defaults to the same
         as *refpoint*, if **J** is used then *justify* defaults to the
         mirror opposite of *refpoint*. Specify inset box attributes via
@@ -66,25 +77,24 @@ def inset(self, **kwargs):
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\
         *pen*]][**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\
         [[*dx*/*dy*/][*shade*]]].
-
-        If passed ``True``, this draws a rectangular box around the map
+        If set to ``True``, draw a rectangular box around the map
         inset using the default pen; specify a different pen
-        with **+p**\ *pen*. Add **+g**\ *fill* to fill the logo box
+        with **+p**\ *pen*. Add **+g**\ *fill* to fill the inset box
         [Default is no fill].
-        Append **+c**\ *clearance*  where *clearance* is either
+        Append **+c**\ *clearance* where *clearance* is either
         *gap*, *xgap*\ /\ *ygap*, or *lgap*\ /\ *rgap*\ /\ *bgap*\ /\
         *tgap* where these items are uniform, separate in x- and
-        y-direction, or individual side spacings between logo and border.
-        Append **+i** to draw a secondary, inner border as well. We use a
-        uniform *gap* between borders of 2\ **p** and the default pen
+        y-directions, or individual side spacings between map embellishment
+        and border. Append **+i** to draw a secondary, inner border as well.
+        We use a uniform *gap* between borders of 2p and the default pen
         unless other values are specified. Append **+r** to draw rounded
         rectangular borders instead, with a 6p corner radius. You
         can override this radius by appending another value. Append
         **+s** to draw an offset background shaded region. Here, *dx*/*dy*
-        indicates the shift relative to the foreground frame
-        [4p/-4p] and ``shade`` sets the fill style to use for
-        shading [Default is gray50].
-    margin : int or str or list
+        indicates the shift relative to the foreground frame [Default is
+        ``"4p/-4p"``] and *shade* sets the fill style to use for
+        shading [Default is ``"gray50"``].
+    margin : float, str, or list
         This is clearance that is added around the inside of the inset.
         Plotting will take place within the inner region only. The margins
         can be a single value, a pair of values separated (for setting
@@ -94,9 +104,11 @@ def inset(self, **kwargs):
         a string with the values separated by forward
         slashes [Default is no margins].
     no_clip : bool
-        Do NOT clip features extruding outside map inset boundaries [Default
-        is clip].
-    {V}
+        Do **not** clip features extruding outside the inset frame
+        boundaries [Default is ``False``].
+    {region}
+    {projection}
+    {verbose}
 
     Examples
     --------
@@ -117,16 +129,17 @@ def inset(self, **kwargs):
     ...         dcw="MG+gred",
     ...     )
     ...
-    >>> # Map elements outside the "with" block are plotted in the main figure
+    >>> # Map elements outside the "with" statement are plotted in the main
+    >>> # figure
     >>> fig.logo(position="jBR+o0.2c+w3c")
     >>> fig.show()
-    <IPython.core.display.Image object>
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
     with Session() as lib:
         try:
-            lib.call_module("inset", f"begin {build_arg_string(kwargs)}")
+            lib.call_module(module="inset", args=["begin", *build_arg_list(kwargs)])
             yield
         finally:
-            v_arg = build_arg_string({"V": kwargs.get("V")})
-            lib.call_module("inset", f"end {v_arg}".strip())
+            lib.call_module(
+                module="inset", args=["end", *build_arg_list({"V": kwargs.get("V")})]
+            )

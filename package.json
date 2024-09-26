@@ -1,8 +1,0 @@
-{
-  "scripts": {
-    "build:miniconda": "curl -o ~/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && bash ~/miniconda.sh -b -p $HOME/miniconda",
-    "build:pygmt": "conda install mamba -c conda-forge -y && mamba env create -f environment.yml && source activate pygmt && make install",
-    "build:docs": "source activate pygmt && cd doc && make all && mv _build/html ../public",
-    "build": "export PATH=$HOME/miniconda/bin:$PATH && npm run build:miniconda && npm run build:pygmt && npm run build:docs"
-  }
-}

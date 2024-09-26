@@ -12,30 +12,25 @@ h1, h2, h3, h4 {
     font-family: "Atkinson Hyperlegible", sans-serif;
 }
 
+/* Set the header font sizes */
 h1 {
     font-size: 200%;
 }
 
+h2 {
+    font-size: 185%;
+}
+
+h3 {
+    font-size: 150%;
+}
+
+h4 {
+    font-size: 130%;
+}
+
 p {
     font-size: 1.05em;
-}
-
-.gmtplot-output {
-    width: 100%;
-    overflow: auto;
-}
-
-.gmtplot-output img {
-    max-width: 700px;
-    width: 100%;
-}
-
-.gmtplot-output pre {
-    color: #888888;
-}
-
-.gmtplot-output-figure {
-    margin-bottom: 50px;
 }
 
 .sidebar-title {
@@ -196,6 +191,35 @@ a.copybtn {
     text-align: center!important;
 }
 
+.sphx-glr-thumbcontainer {
+    min-height: 240px!important;
+    min-width: 180px!important;
+}
+
+.sphx-glr-thumbcontainer img {
+    max-width:95%!important;
+}
+
 .sphx-glr-single-img {
     max-width: 80%!important;
+}
+
+/*
+ * Styles for aligning table cells.
+ * https://myst-parser.readthedocs.io/en/latest/syntax/tables.html#markdown-syntax
+ */
+th.text-left, td.text-left {
+    text-align: left !important;
+}
+
+th.text-center, td.text-center {
+    text-align: center !important;
+}
+
+th.text-right, td.text-right {
+    text-align: right !important;
+}
+
+.std-term {
+	font-weight: 600;
 }
