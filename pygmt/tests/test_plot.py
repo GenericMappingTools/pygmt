@@ -300,19 +300,19 @@ def test_plot_sizes_colors_transparencies():
 
 
 @pytest.mark.mpl_image_compare
-def test_plot_symbols(data, region):
+def test_plot_symbol():
     """
     Plot the data using array-like symbols.
     """
     fig = Figure()
     fig.plot(
-        x=data[:, 0],
-        y=data[:, 1],
-        region=region,
+        x=[1, 2, 3, 4],
+        y=[1, 1, 1, 1],
+        region=[0, 5, 0, 5],
         projection="X4c",
         fill="blue",
-        size=[0.5] * data.shape[0],
-        symbol=["c"] * data.shape[0],
+        size=[0.1, 0.2, 0.3, 0.4],
+        symbol=["c", "t", "i", "s"],
         frame="af",
     )
     return fig
