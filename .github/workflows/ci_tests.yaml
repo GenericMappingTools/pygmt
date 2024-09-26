@@ -83,7 +83,7 @@ jobs:
           # The python-version here can't be the versions in the matrix.python-version
           # defined above. Otherwise, other jobs will be overridden by this one.
           - os: 'ubuntu-latest'
-            python-version: '3.11'
+            python-version: '3.11'  # Can't be 3.10 or 3.12.
             numpy-version: '1.24'
             pandas-version: ''
             xarray-version: ''
