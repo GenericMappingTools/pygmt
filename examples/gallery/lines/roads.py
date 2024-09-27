@@ -15,13 +15,6 @@ a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the
 import geopandas as gpd
 import pygmt
 
-# sphinx_gallery_start_ignore
-# Workaround for https://github.com/GenericMappingTools/pygmt/issues/3301
-import pyogrio
-
-pyogrio.core._register_drivers()
-# sphinx_gallery_end_ignore
-
 # Read shapefile data using geopandas
 gdf = gpd.read_file(
     "http://www2.census.gov/geo/tiger/TIGER2015/PRISECROADS/tl_2015_15_prisecroads.zip"

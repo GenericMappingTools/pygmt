@@ -27,14 +27,6 @@ import numpy as np
 import pandas as pd
 import pygmt
 
-# sphinx_gallery_start_ignore
-# Workaround for https://github.com/GenericMappingTools/pygmt/issues/3301
-import pyogrio
-
-pyogrio.core._register_drivers()
-# sphinx_gallery_end_ignore
-
-
 # %%
 # ASCII table file
 # ----------------
