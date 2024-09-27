@@ -248,7 +248,7 @@ Enumerations
 .. autosummary::
     :toctree: generated
 
-    enums
+    enums.GridID
 
 Exceptions
 ----------

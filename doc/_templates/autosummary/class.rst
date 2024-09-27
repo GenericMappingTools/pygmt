@@ -8,8 +8,10 @@
 .. rubric:: Attributes
 
 {% for item in attributes %}
-.. autoproperty::
+{% if item not in inherited_members %}
+.. autoattribute::
     {{ objname }}.{{ item }}
+{% endif %}
 {% endfor %}
 {% endif %}
 
