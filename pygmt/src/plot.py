@@ -51,7 +51,7 @@ from pygmt.src.which import which
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def plot(  # noqa: PLR0912
-    self, data=None, x=None, y=None, size=None, direction=None, symbol=None, **kwargs
+    self, data=None, x=None, y=None, size=None, symbol=None, direction=None, **kwargs
 ):
     r"""
     Plot lines, polygons, and symbols in 2-D.
@@ -91,13 +91,13 @@ def plot(  # noqa: PLR0912
     size : 1-D array
         The size of the data points in units specified using ``style``.
         Only valid if using ``x``/``y``.
+    symbol : 1-D array
+        The symbols of the data points. Only valid if using ``x``/``y``.
     direction : list of two 1-D arrays
         If plotting vectors (using ``style="V"`` or ``style="v"``), then
         should be a list of two 1-D arrays with the vector directions. These
         can be angle and length, azimuth and length, or x and y components,
         depending on the style options chosen.
-    symbol : 1-D array
-        The symbols of the data points. Only valid if using ``x``/``y``.
     {projection}
     {region}
     straight_line : bool or str
