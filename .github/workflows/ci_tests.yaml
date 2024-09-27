@@ -71,7 +71,7 @@ jobs:
         include:
           - python-version: '3.10'
             numpy-version: '1.24'
-            pandas-version: '=1.5'
+            pandas-version: '=2.0'
             xarray-version: '=2022.09'
             optional-packages: ''
           - python-version: '3.12'
