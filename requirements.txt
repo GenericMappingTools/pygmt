@@ -1,6 +1,6 @@
 # Required packages
 numpy>=1.24
 pandas>=2.0
-xarray>=2022.11
+xarray>=2023.03
 netCDF4
 packaging
