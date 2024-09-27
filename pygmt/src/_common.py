@@ -1,5 +1,5 @@
 """
-Common functions shared by multiple PyGMT functions/methods.
+Common functions used in multiple PyGMT functions/methods.
 """
 
 from pathlib import Path
@@ -10,9 +10,11 @@ from pygmt.src.which import which
 
 def _data_geometry_is_point(data: Any, kind: str) -> bool:
     """
-    Check if the geometry of the GeoJSON object or the OGR_GMT file is Point/MultiPoint.
+    Check if the geometry of the input data is Point or MultiPoint.
 
-    This private function is used in ``Figure.plot`` and ``Figure.plot3d``.
+    The inptu data can be a GeoJSON object or a OGR_GMT file.
+
+    This function is used in ``Figure.plot`` and ``Figure.plot3d``.
 
     Parameters
     ----------
