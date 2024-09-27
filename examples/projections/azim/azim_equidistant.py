@@ -1,6 +1,6 @@
 r"""
-Azimuthal Equidistant
-=====================
+Azimuthal equidistant projection
+================================
 
 The main advantage of this projection is that distances from the projection
 center are displayed in correct proportions. Also directions measured from the
