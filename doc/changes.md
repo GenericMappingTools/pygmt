@@ -101,7 +101,7 @@
 
 ### Enhancements
 
-* **Breaking**: (Unneeded) extra quotation marks around text strings (containing white spaces) are now considered as part of the text string ([#3132](https://github.com/GenericMappingTools/pygmt/pull/3132), [#3457](https://github.com/GenericMappingTools/pygmt/issues/3457))
+* **Breaking**: (Unneeded) extra quotation marks around text strings (containing whitespaces) are now considered as part of the text string ([#3132](https://github.com/GenericMappingTools/pygmt/pull/3132), [#3457](https://github.com/GenericMappingTools/pygmt/issues/3457))
 * pygmt.project: Add 'output_type' parameter for output in pandas/numpy/file formats ([#3110](https://github.com/GenericMappingTools/pygmt/pull/3110))
 * pygmt.grdtrack: Add 'output_type' parameter for output in pandas/numpy/file formats ([#3106](https://github.com/GenericMappingTools/pygmt/pull/3106))
 * pygmt.blockm*: Add 'output_type' parameter for output in pandas/numpy/file formats ([#3103](https://github.com/GenericMappingTools/pygmt/pull/3103))
