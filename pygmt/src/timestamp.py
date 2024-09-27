@@ -8,7 +8,7 @@ from collections.abc import Sequence
 from packaging.version import Version
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session, __gmt_version__
-from pygmt.helpers import build_arg_list, kwargs_to_strings, is_nonstr_iter
+from pygmt.helpers import build_arg_list, is_nonstr_iter
 
 __doctest_skip__ = ["timestamp"]
 

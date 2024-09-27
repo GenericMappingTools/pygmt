@@ -2,8 +2,8 @@
 dimfilter - Directional filtering of grids in the space domain.
 """
 
-from pygmt.alias import Alias, AliasSystem
 import xarray as xr
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring
@@ -12,7 +12,7 @@ __doctest_skip__ = ["dimfilter"]
 
 
 @fmt_docstring
-def dimfilter(grid, outgrid: str | None = None, **kwargs)-> xr.DataArray | None:
+def dimfilter(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
     Filter a grid by dividing the filter circle.
 

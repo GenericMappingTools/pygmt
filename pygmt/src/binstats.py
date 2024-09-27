@@ -2,8 +2,8 @@
 binstats - Bin spatial data and determine statistics per bin
 """
 
-from pygmt.alias import Alias, AliasSystem
 import xarray as xr
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
