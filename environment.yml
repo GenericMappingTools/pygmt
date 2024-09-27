@@ -9,7 +9,7 @@ dependencies:
     - ghostscript=10.04.0
     - numpy>=1.24
     - pandas>=2.0
-    - xarray>=2022.09
+    - xarray>=2022.11
     - netCDF4
     - packaging
     # Optional dependencies
