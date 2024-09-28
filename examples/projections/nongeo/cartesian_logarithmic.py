@@ -39,7 +39,7 @@ fig.basemap(
 fig.plot(x=xline, y=yline, pen="2p,black,dashed")
 
 # Plot the square root values ontop of the line
-# Use squares with a size of 0.5 centimeters, a "orange" fill and a "black" outline
+# Use squares with a size of 0.5 centimeters, an "orange" fill and a "black" outline
 # Symbols are not clipped if they go off the figure
 fig.plot(x=xpoints, y=ypoints, style="s0.5c", fill="orange", pen="black", no_clip=True)
 fig.show()

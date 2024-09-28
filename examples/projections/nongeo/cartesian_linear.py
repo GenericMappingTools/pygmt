@@ -27,6 +27,6 @@ fig = pygmt.Figure()
 fig.basemap(region=[0, 10, 0, 50], projection="X15c/10c", frame=["afg", "+gbisque"])
 fig.plot(x=[3, 9, 2], y=[4, 9, 37], pen="2p,black")
 # Plot data points ontop of the line
-# Use squares with a size of 0.5 centimeters, a "orange" fill and a "black" outline
+# Use squares with a size of 0.5 centimeters, an "orange" fill and a "black" outline
 fig.plot(x=[3, 9, 2], y=[4, 9, 37], style="s0.5c", fill="orange", pen="black")
 fig.show()
