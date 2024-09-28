@@ -5,14 +5,14 @@ Enumerations for PyGMT.
 from enum import IntEnum
 
 
-class GridID(IntEnum):
+class GridFormat(IntEnum):
     """
     Enum for the GMT grid format ID.
 
     These enums are defined in 'gmt_grdio.h'.
     """
 
-    UNKNOWN = 0  #: Unkown grid format
+    UNKNOWN = 0  #: Unknown grid format
     BF = 1  #: GMT native, C-binary format (32-bit float)
     BS = 2  #: GMT native, C-binary format (16-bit integer)
     RB = 3  #: SUN rasterfile format (8-bit standard)
