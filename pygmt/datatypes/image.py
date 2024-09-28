@@ -175,6 +175,14 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
         # The image header
         header = self.header.contents
 
+        if header.n_bands != 3:
+            msg = (
+                f"The raster image has {header.n_bands} band(s). "
+                "Currently only 3-band images are supported. "
+                "Please consider submitting a feature request to us. "
+            )
+            raise NotImplementedError(msg)
+
         # Get dimensions and their attributes from the header.
         dims, dim_attrs = header.dims, header.dim_attrs
         # The coordinates, given as a tuple of the form (dims, data, attrs)

@@ -1,6 +1,6 @@
 r"""
-Robinson
-========
+Robinson projection
+===================
 
 The Robinson projection, presented by the American geographer and cartographer
 Arthur H. Robinson in 1963, is a modified cylindrical projection that is
