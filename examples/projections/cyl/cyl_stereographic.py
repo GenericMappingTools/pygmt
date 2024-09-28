@@ -36,7 +36,7 @@ fig.coast(
     region="g",
     projection="Cyl_stere/30/-20/12c",
     frame="afg",
-    land="darkgreen",
-    water="lightgray",
+    land="seagreen",
+    water="gray90",
 )
 fig.show()

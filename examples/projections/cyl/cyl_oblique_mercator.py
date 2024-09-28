@@ -31,7 +31,7 @@ fig.coast(
     # Set bottom left and top right coordinates of the figure with "+r"
     region="-122/35/-107/22+r",
     frame="afg",
-    land="darkgreen",
+    land="seagreen",
     water="lightgray",
 )
 fig.show()
@@ -51,7 +51,7 @@ fig.coast(
     projection="Ob130/35/25/35/3c",
     region="130/35/145/40+r",
     frame="afg",
-    land="darkgreen",
+    land="seagreen",
     water="lightgray",
 )
 fig.show()
@@ -71,7 +71,7 @@ fig.coast(
     projection="Oc280/25.5/22/69/4c",
     region="270/20/305/25+r",
     frame="afg",
-    land="darkgreen",
+    land="seagreen",
     water="lightgray",
 )
 fig.show()
