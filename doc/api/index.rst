@@ -242,14 +242,6 @@ In addition, there is also a special function to load XYZ tile maps via
 
 .. currentmodule:: pygmt
 
-Enumerations
-------------
-
-.. autosummary::
-    :toctree: generated
-
-    enums.GridFormat
-
 Exceptions
 ----------
 
