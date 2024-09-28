@@ -210,8 +210,7 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
             GridFormat.NI,
             GridFormat.NF,
             GridFormat.ND,
-        }:
-            # Only set the 'Conventions' attribute for netCDF.
+        }:  # Only set the 'Conventions' attribute for netCDF.
             attrs["Conventions"] = "CF-1.7"
         attrs["title"] = self.title.decode()
         attrs["history"] = self.command.decode()
