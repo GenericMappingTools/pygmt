@@ -81,7 +81,7 @@ datasets = {
     "earth_day": GMTRemoteDataset(
         description="NASA Day Images",
         units=None,
-        extra_attributes={"horizontal_datum": "WGS84"},
+        extra_attributes={"long_name": "blue_marble", "horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution("01d", registrations=["pixel"]),
             "30m": Resolution("30m", registrations=["pixel"]),

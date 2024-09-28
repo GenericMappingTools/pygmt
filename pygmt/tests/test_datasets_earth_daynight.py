@@ -15,9 +15,10 @@ def test_blue_marble_01d():
     Test some properties of the Blue Marble 01d data.
     """
     data = load_blue_marble(resolution="01d")
-    assert data.name == "blue_marble"
+    assert data.name == "z"
+    assert data.long_name == "blue_marble"
     assert data.attrs["horizontal_datum"] == "WGS84"
-    assert data.attrs["long_name"] == "NASA Day Images"
+    assert data.attrs["description"] == "NASA Day Images"
     assert data.shape == (3, 180, 360)
     assert data.dtype == "uint8"
     assert data.gmt.registration == 1
