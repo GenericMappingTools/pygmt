@@ -6,6 +6,7 @@ import ctypes as ctp
 from typing import Any, ClassVar
 
 import numpy as np
+from pygmt.enums import GridFormat
 
 # Constants for lengths of grid header variables.
 #
@@ -203,7 +204,14 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
         Attributes for the data variable from the grid header.
         """
         attrs: dict[str, Any] = {}
-        attrs["Conventions"] = "CF-1.7"
+        if self.type in {
+            GridFormat.NB,
+            GridFormat.NS,
+            GridFormat.NI,
+            GridFormat.NF,
+            GridFormat.ND,
+        }:  # Only set the 'Conventions' attribute for netCDF.
+            attrs["Conventions"] = "CF-1.7"
         attrs["title"] = self.title.decode()
         attrs["history"] = self.command.decode()
         attrs["description"] = self.remark.decode()
