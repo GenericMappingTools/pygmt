@@ -24,6 +24,10 @@ import pygmt
 
 fig = pygmt.Figure()
 fig.coast(
-    region="g", projection="F-90/15/12c", frame="afg", land="gray", water="cornsilk"
+    region="g",
+    projection="F-90/15/12c",
+    frame="afg",
+    land="khaki",
+    water="white",
 )
 fig.show()

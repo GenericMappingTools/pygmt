@@ -64,7 +64,7 @@ fig.basemap(
     # set map width to 5 cm
     projection="P5c",
     # set the frame and title; @^ allows for a line break within the title
-    frame=["xa45f", "+tprojection='P5c' @^ region=[0, 360, 0, 1]"],
+    frame=["xa45f", "+gbisque+tprojection='P5c' @^ region=[0, 360, 0, 1]"],
 )
 
 fig.shift_origin(xshift="8c")
@@ -79,7 +79,7 @@ fig.basemap(
     # instead of standard angle
     projection="P5c+a",
     # set the frame and title; @^ allows for a line break within the title
-    frame=["xa45f", "+tprojection='P5c+a' @^ region=[0, 360, 0, 1]"],
+    frame=["xa45f", "+gbisque+tprojection='P5c+a' @^ region=[0, 360, 0, 1]"],
 )
 
 fig.shift_origin(xshift="8c")
@@ -94,7 +94,7 @@ fig.basemap(
     # instead of standard angle
     projection="P5c+a",
     # set the frame and title; @^ allows for a line break within the title
-    frame=["xa45f", "ya0.2", "WNe+tprojection='P5c+a' @^ region=[0, 90, 0, 1]"],
+    frame=["xa45f", "ya0.2", "WNe+gbisque+tprojection='P5c+a' @^ region=[0, 90, 0, 1]"],
 )
 
 fig.shift_origin(xshift="-16c", yshift="-7c")
@@ -113,7 +113,7 @@ fig.basemap(
     frame=[
         "xa30f",
         "ya0.2",
-        "WNe+tprojection='P5c+a+t45' @^ region=[0, 90, 0, 1]",
+        "WNe+gbisque+tprojection='P5c+a+t45' @^ region=[0, 90, 0, 1]",
     ],
 )
 
@@ -133,7 +133,7 @@ fig.basemap(
     frame=[
         "xa30f",
         "ya",
-        "WNse+tprojection='P5c+a+t45' @^ region=[0, 90, 3480, 6371]",
+        "WNse+gbisque+tprojection='P5c+a+t45' @^ region=[0, 90, 3480, 6371]",
     ],
 )
 
@@ -153,7 +153,7 @@ fig.basemap(
     frame=[
         "xa30f",
         "ya",
-        "WNse+tprojection='P5c+a+t45+\\z' @^ region=[0, 90, 3480, 6371]",
+        "WNse+gbisque+tprojection='P5c+a+t45+\\z' @^ region=[0, 90, 3480, 6371]",
     ],
 )
 

@@ -26,7 +26,7 @@ fig.coast(
     region=[4, 14, 52, 57],
     projection="S0/90/12c",
     frame="afg",
-    land="gray",
-    water="cornsilk",
+    land="khaki",
+    water="white",
 )
 fig.show()

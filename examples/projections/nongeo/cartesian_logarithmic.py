@@ -32,14 +32,14 @@ fig.basemap(
     projection="X15cl/10c",
     # Set the figures frame and color as well as
     # annotations, ticks, and gridlines
-    frame=["WSne", "xa2g3", "ya2f1g2"],
+    frame=["WSne+gbisque", "xa2g3", "ya2f1g2"],
 )
 
 # Set the line thickness to "2p", the color to "black", and the style to "dashed"
 fig.plot(x=xline, y=yline, pen="2p,black,dashed")
 
 # Plot the square root values ontop of the line
-# Use circles with a diameter of 0.5 centimeters, a "orange" fill and a "black" outline
+# Use squares with a size of 0.5 centimeters, a "orange" fill and a "black" outline
 # Symbols are not clipped if they go off the figure
 fig.plot(x=xpoints, y=ypoints, style="s0.5c", fill="orange", pen="black", no_clip=True)
 fig.show()
