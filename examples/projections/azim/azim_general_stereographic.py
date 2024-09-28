@@ -1,6 +1,6 @@
 r"""
-General Stereographic
-=====================
+General stereographic projection
+================================
 
 This map projection is a conformal, azimuthal projection. It is mainly used
 with a projection center in one of the poles. Then meridians appear as straight

@@ -1,6 +1,6 @@
 r"""
-Miller cylindrical
-==================
+Miller cylindrical projection
+=============================
 
 This cylindrical projection, presented by Osborn Maitland Miller of the
 American Geographic Society in 1942, is neither equal nor conformal. All

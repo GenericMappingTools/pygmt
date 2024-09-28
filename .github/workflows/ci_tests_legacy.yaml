@@ -44,7 +44,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.6
+        uses: actions/checkout@v4.1.7
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -61,6 +61,7 @@ jobs:
           create-args: >-
             python=3.10
             gmt=${{ matrix.gmt_version }}
+            ghostscript<10
             numpy
             pandas<2
             xarray
@@ -72,9 +73,9 @@ jobs:
             pyarrow
             rioxarray
             sphinx-gallery
-            build
             make
             pip
+            python-build
             pytest
             pytest-doctestplus
             pytest-mpl

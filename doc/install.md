@@ -1,3 +1,7 @@
+---
+file_format: mystnb
+---
+
 # Installing
 
 ## Quickstart
@@ -59,7 +63,7 @@ development version.
 
 ## Which Python?
 
-PyGMT is tested to run on Python {{ requires_python }}.
+PyGMT is tested to run on Python {{ requires.python }}.
 
 We recommend using the [Miniforge](https://github.com/conda-forge/miniforge#miniforge3)
 Python distribution to ensure you have all dependencies installed and
@@ -69,7 +73,7 @@ your computer and doesn't interfere with any other Python installations on your 
 
 ## Which GMT?
 
-PyGMT requires Generic Mapping Tools (GMT) {{ requires_gmt }} since there are many
+PyGMT requires Generic Mapping Tools (GMT) {{ requires.gmt }} since there are many
 changes being made to GMT itself in response to the development of PyGMT.
 
 Compiled conda packages of GMT for Linux, macOS and Windows are provided through
@@ -233,16 +237,21 @@ from Python.
 To ensure that PyGMT and its dependencies are installed correctly, run the following
 in your Python interpreter:
 
-```python
+```{code-cell} ipython
+---
+tags: [hide-output]
+---
+
 import pygmt
 pygmt.show_versions()
+```
 
+```{code-cell} ipython
 fig = pygmt.Figure()
 fig.coast(projection="N15c", region="g", frame=True, land="tan", water="lightblue")
 fig.text(position="MC", text="PyGMT", font="80p,Helvetica-Bold,red@75")
 fig.show()
 ```
-![pygmt-get-started](https://github.com/GenericMappingTools/pygmt/assets/3974108/f7f51484-8640-4b58-ae5b-6c71e7150f7a){.align-center width="70%"}
 
 You should see a global map with land and water masses colored in tan and lightblue
 respectively. On top, there should be the semi-transparent text "PyGMT". If the
@@ -260,9 +269,9 @@ problems and solutions.
 Sometimes, PyGMT will be unable to find the correct version of the GMT shared library
 (`libgmt`). This can happen if you have multiple versions of GMT installed.
 
-You can tell PyGMT exactly where to look for `libgmt` by setting the `GMT_LIBRARY_PATH`
-environment variable to the directory where `libgmt.so`, `libgmt.dylib` or `gmt.dll` can
-be found on Linux, macOS or Windows, respectively.
+You can tell PyGMT exactly where to look for `libgmt` by setting the environment
+variable {term}`GMT_LIBRARY_PATH` to the directory where `libgmt.so`, `libgmt.dylib` or
+`gmt.dll` can be found on Linux, macOS or Windows, respectively.
 
 For Linux/macOS, add the following line to your shell configuration file (usually
 `~/.bashrc` for Bash on Linux and `~/.zshrc` for Zsh on macOS):
@@ -270,7 +279,7 @@ For Linux/macOS, add the following line to your shell configuration file (usuall
 export GMT_LIBRARY_PATH=$HOME/miniforge3/envs/pygmt/lib
 ```
 
-For Windows, add the `GMT_LIBRARY_PATH` environment variable following these
+For Windows, add the environment variable {term}`GMT_LIBRARY_PATH` following these
 [instructions](https://www.wikihow.com/Create-an-Environment-Variable-in-Windows-10)
 and set its value to a path like:
 ```

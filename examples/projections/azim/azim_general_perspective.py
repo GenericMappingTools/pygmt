@@ -1,8 +1,8 @@
 r"""
-General Perspective
-===================
+Perspective projection
+======================
 
-The general perspective projection imitates the view of the Earth from a finite
+The perspective projection imitates the view of the Earth from a finite
 point in space. In a full view of the earth one third of its surface area can
 be seen.
 

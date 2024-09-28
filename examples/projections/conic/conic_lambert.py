@@ -1,5 +1,5 @@
 r"""
-Lambert Conic Conformal Projection
+Lambert conic conformal projection
 ==================================
 
 This conic projection was designed by the Alsatian mathematician Johann

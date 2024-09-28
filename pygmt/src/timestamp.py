@@ -2,18 +2,12 @@
 timestamp - Plot the GMT timestamp logo.
 """
 
-from __future__ import annotations
-
 import warnings
-from typing import TYPE_CHECKING
+from collections.abc import Sequence
 
 from packaging.version import Version
 from pygmt.clib import Session, __gmt_version__
 from pygmt.helpers import build_arg_list, kwargs_to_strings
-
-if TYPE_CHECKING:
-    from collections.abc import Sequence
-
 
 __doctest_skip__ = ["timestamp"]
 
@@ -33,7 +27,7 @@ def timestamp(
 
     Add the GMT timestamp logo with an optional label at the bottom-left corner of a
     plot with an offset of ``("-54p", "-54p")``. The timestamp will be in the locale set
-    by the environment variable **TZ** (generally local time but can be changed via
+    by the environment variable :term:`TZ` (generally local time but can be changed via
     ``os.environ["TZ"]``) and its format is controlled by the ``timefmt`` parameter. It
     can also be replaced with any custom text string using the ``text`` parameter.
 

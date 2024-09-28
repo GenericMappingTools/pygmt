@@ -310,6 +310,7 @@ Low level access (these are mostly used by the :mod:`pygmt.clib` package):
     clib.Session.put_matrix
     clib.Session.put_strings
     clib.Session.put_vector
+    clib.Session.read_data
     clib.Session.write_data
     clib.Session.open_virtualfile
     clib.Session.read_virtualfile
@@ -317,5 +318,6 @@ Low level access (these are mostly used by the :mod:`pygmt.clib` package):
     clib.Session.get_libgmt_func
     clib.Session.virtualfile_from_data
     clib.Session.virtualfile_from_grid
+    clib.Session.virtualfile_from_stringio
     clib.Session.virtualfile_from_matrix
     clib.Session.virtualfile_from_vectors

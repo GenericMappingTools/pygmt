@@ -2,7 +2,7 @@
 Utility functions to load libgmt as ctypes.CDLL.
 
 The path to the shared library can be found automatically by ctypes or set through the
-GMT_LIBRARY_PATH environment variable.
+environment variable :term:`GMT_LIBRARY_PATH`.
 """
 
 import ctypes
@@ -64,6 +64,33 @@ def load_libgmt(lib_fullnames: Iterator[str] | None = None) -> ctypes.CDLL:
     return libgmt
 
 
+def get_gmt_version(libgmt: ctypes.CDLL) -> str:
+    """
+    Get the GMT version string of the GMT shared library.
+
+    Parameters
+    ----------
+    libgmt
+        The GMT shared library.
+
+    Returns
+    -------
+    The GMT version string in *major.minor.patch* format.
+    """
+    func = libgmt.GMT_Get_Version
+    func.argtypes = (
+        ctypes.c_void_p,  # Unused parameter, so it can be None.
+        ctypes.POINTER(ctypes.c_uint),  # major
+        ctypes.POINTER(ctypes.c_uint),  # minor
+        ctypes.POINTER(ctypes.c_uint),  # patch
+    )
+    # The function return value is the current library version as a float, e.g., 6.5.
+    func.restype = ctypes.c_float
+    major, minor, patch = ctypes.c_uint(0), ctypes.c_uint(0), ctypes.c_uint(0)
+    func(None, major, minor, patch)
+    return f"{major.value}.{minor.value}.{patch.value}"
+
+
 def clib_names(os_name: str) -> list[str]:
     """
     Return the name(s) of GMT's shared library for the current operating system.
@@ -84,14 +111,12 @@ def clib_names(os_name: str) -> list[str]:
         If the operating system is not supported yet.
     """
     match os_name:
-        case "linux":  # Linux
+        case name if name == "linux" or name.startswith("freebsd"):  # Linux or FreeBSD
             libnames = ["libgmt.so"]
         case "darwin":  # macOS
             libnames = ["libgmt.dylib"]
         case "win32":  # Windows
             libnames = ["gmt.dll", "gmt_w64.dll", "gmt_w32.dll"]
-        case name if name.startswith("freebsd"):  # FreeBSD
-            libnames = ["libgmt.so"]
         case _:
             raise GMTOSError(f"Operating system '{os_name}' is not supported.")
     return libnames
@@ -103,9 +128,9 @@ def clib_full_names(env: Mapping | None = None) -> Iterator[str]:
 
     The GMT shared library is searched for in following ways, sorted by priority:
 
-    1. Path defined by environmental variable GMT_LIBRARY_PATH
-    2. Path returned by command "gmt --show-library"
-    3. Path defined by environmental variable PATH (Windows only)
+    1. Path defined by the environment variable :term:`GMT_LIBRARY_PATH`
+    2. Path returned by the command "gmt --show-library"
+    3. Path defined by the environment variable PATH (Windows only)
     4. System default search path
 
     Parameters
