@@ -96,13 +96,13 @@ def x2sys_cross(
         or file names. Supported file formats are ASCII, native binary, or
         COARDS netCDF 1-D data. More columns may also be present.
 
-        If the file names are missing their file extension, we will append the
-        suffix specified for this TAG. Track files will be searched for first
-        in the current directory and second in all directories listed in
-        $X2SYS_HOME/TAG/TAG_paths.txt (if it exists). [If $X2SYS_HOME is not
-        set it will default to $GMT_SHAREDIR/x2sys]. (**Note**: MGD77 files
-        will also be looked for via $MGD77_HOME/mgd77_paths.txt and .gmt
-        files will be searched for via $GMT_SHAREDIR/mgg/gmtfile_paths).
+        If the file names are missing their file extension, we will append the suffix
+        specified for this TAG. Track files will be searched for first in the current
+        directory and second in all directories listed in $X2SYS_HOME/TAG/TAG_paths.txt
+        (if it exists). [If environment variable :term:`X2SYS_HOME` is not set it will
+        default to $GMT_SHAREDIR/x2sys]. (**Note**: MGD77 files will also be looked for
+        via $MGD77_HOME/mgd77_paths.txt and .gmt files will be searched for via
+        $GMT_SHAREDIR/mgg/gmtfile_paths).
 
     outfile
         The file name for the output ASCII txt file to store the table in.

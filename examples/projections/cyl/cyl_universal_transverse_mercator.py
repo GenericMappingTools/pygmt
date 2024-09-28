@@ -1,6 +1,6 @@
 r"""
-Universal Transverse Mercator
-=============================
+Universal Transverse Mercator projection
+========================================
 
 A particular subset of the
 :doc:`transverse Merctor </projections/cyl/cyl_transverse_mercator>`

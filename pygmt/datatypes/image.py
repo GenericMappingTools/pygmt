@@ -38,13 +38,12 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
     ...         # Image-specific attributes.
     ...         print(image.type, image.n_indexed_colors)
     ...         # The x and y coordinates
-    ...         x = image.x[: header.n_columns]
-    ...         y = image.y[: header.n_rows]
+    ...         x = np.ctypeslib.as_array(image.x, shape=(header.n_columns,)).copy()
+    ...         y = np.ctypeslib.as_array(image.y, shape=(header.n_rows,)).copy()
     ...         # The data array (with paddings)
-    ...         data = np.reshape(
-    ...             image.data[: header.n_bands * header.mx * header.my],
-    ...             (header.my, header.mx, header.n_bands),
-    ...         )
+    ...         data = np.ctypeslib.as_array(
+    ...             image.data, shape=(header.my, header.mx, header.n_bands)
+    ...         ).copy()
     ...         # The data array (without paddings)
     ...         pad = header.pad[:]
     ...         data = data[pad[2] : header.my - pad[3], pad[0] : header.mx - pad[1], :]
@@ -60,10 +59,10 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
     [2, 2, 2, 2]
     b'BRPa' 0.5
     1 0
-    >>> x
-    [-179.5, -178.5, ..., 178.5, 179.5]
-    >>> y
-    [89.5, 88.5, ..., -88.5, -89.5]
+    >>> x  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
+    array([-179.5, -178.5, ..., 178.5, 179.5])
+    >>> y  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
+    array([ 89.5,  88.5, ..., -88.5, -89.5])
     >>> data.shape
     (180, 360, 3)
     >>> data.min(), data.max()

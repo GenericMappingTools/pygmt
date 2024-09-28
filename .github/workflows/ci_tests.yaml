@@ -71,14 +71,23 @@ jobs:
         include:
           - python-version: '3.10'
             numpy-version: '1.24'
-            pandas-version: '=1.5'
-            xarray-version: '=2022.09'
+            pandas-version: '=2.0'
+            xarray-version: '=2023.04'
             optional-packages: ''
           - python-version: '3.12'
             numpy-version: '2.1'
             pandas-version: ''
             xarray-version: ''
             optional-packages: ' contextily geopandas ipython pyarrow rioxarray sphinx-gallery'
+          # The job below is for testing geopandas v0.x on Ubuntu.
+          # The python-version here can't be the versions in the matrix.python-version
+          # defined above. Otherwise, other jobs will be overridden by this one.
+          - os: 'ubuntu-latest'
+            python-version: '3.11'  # Can't be 3.10 or 3.12.
+            numpy-version: '1.24'
+            pandas-version: ''
+            xarray-version: ''
+            optional-packages: ' geopandas<1'
 
     timeout-minutes: 30
     defaults:
@@ -119,7 +128,7 @@ jobs:
           create-args: >-
             python=${{ matrix.python-version }}${{ matrix.optional-packages }}
             gmt=6.5.0
-            ghostscript=10.03.1
+            ghostscript=10.04.0
             numpy=${{ matrix.numpy-version }}
             pandas${{ matrix.pandas-version }}
             xarray${{ matrix.xarray-version }}
