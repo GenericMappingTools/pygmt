@@ -37,6 +37,6 @@ fig.coast(
     projection="Cyl_stere/30/-20/12c",
     frame="afg",
     land="gray80",
-    water="70/130/180",  # steelblue
+    water="steelblue",
 )
 fig.show()

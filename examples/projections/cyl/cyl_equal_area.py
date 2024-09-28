@@ -22,6 +22,6 @@ fig.coast(
     projection="Y35/30/12c",
     frame="afg",
     land="gray80",
-    water="70/130/180",  # steelblue
+    water="steelblue",
 )
 fig.show()
