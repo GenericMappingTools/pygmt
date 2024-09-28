@@ -33,9 +33,9 @@ The table below shows the projection codes for the 31 GMT map projections:
 | **L**{{ lon0 }}/{{ lat0 }}/{{ lat1 }}/{{ lat2 }}/*width*    | {doc}`/projections/conic/conic_lambert` |
 | **M**[{{ lon0 }}/[{{ lat0 }}/]]*width*                      | {doc}`/projections/cyl/cyl_mercator` |
 | **N**[{{ lon0 }}/]*width*                                   | {doc}`/projections/misc/misc_robinson` |
-| **Oa**{{ lon0 }}/{{ lat0 }}/*azimuth*/*width*[**+v**]       | {doc}`/projections/cyl/cyl_oblique_mercator_1` |
-| **Ob**{{ lon0 }}/{{ lat0 }}/{{ lon1 }}/{{ lat1 }}/*width*[**+v**] | {doc}`/projections/cyl/cyl_oblique_mercator_2` |
-| **Oc**{{ lon0 }}/{{ lat0 }}/{{ lonp }}/{{ latp }}/*width*[**+v**] | {doc}`/projections/cyl/cyl_oblique_mercator_3` |
+| **Oa**{{ lon0 }}/{{ lat0 }}/*azimuth*/*width*[**+v**]             | Oblique Mercator projection: {doc}`1. origin and azimuth </projections/cyl/cyl_oblique_mercator>` |
+| **Ob**{{ lon0 }}/{{ lat0 }}/{{ lon1 }}/{{ lat1 }}/*width*[**+v**] | Oblique Mercator projection: {doc}`2. two points </projections/cyl/cyl_oblique_mercator>` |
+| **Oc**{{ lon0 }}/{{ lat0 }}/{{ lonp }}/{{ latp }}/*width*[**+v**] | Oblique Mercator projection: {doc}`3. origin and projection pole </projections/cyl/cyl_oblique_mercator>` |
 | **P***width*[**+a**][**+f**[**e**\|**p**\|*radius*]][**+r***offset*][**+t***origin*][**+z**[**p**\|*radius*]] | Polar {doc}`azimuthal </projections/nongeo/polar>` ({math}`\theta, r`) or cylindrical |
 | **Poly**/[{{ lon0 }}/[{{ lat0 }}/]]*width*                  | {doc}`/projections/conic/polyconic` |
 | **Q**[{{ lon0 }}/[{{ lat0 }}/]]*width*                      | {doc}`/projections/cyl/cyl_equidistant` |
