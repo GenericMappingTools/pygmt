@@ -1942,7 +1942,7 @@ class Session:
                 "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE"),
                 "image": ("GMT_IS_IMAGE", "GMT_IS_SURFACE"),
             }[kind]
-            # For unkown reasons, 'GMT_OUT' crashes for 'image' kind.
+            # For unknown reasons, 'GMT_OUT' crashes for 'image' kind.
             direction = "GMT_OUT|GMT_IS_REFERENCE" if kind == "image" else "GMT_OUT"
             with self.open_virtualfile(family, geometry, direction, None) as vfile:
                 yield vfile
@@ -2314,17 +2314,17 @@ class Session:
         return region
 
 
-def raster_kind(raster: str):
+def _raster_kind(raster: str) -> Literal["grid", "image"] | None:
     """
     Determine the raster kind.
 
-    >>> raster_kind("@earth_relief_01d")
+    >>> _raster_kind("@earth_relief_01d")
     'grid'
-    >>> raster_kind("@static_earth_relief.nc")
+    >>> _raster_kind("@static_earth_relief.nc")
     'grid'
-    >>> raster_kind("@earth_day_01d")
+    >>> _raster_kind("@earth_day_01d")
     'image'
-    >>> raster_kind("@hotspots.txt")
+    >>> _raster_kind("@hotspots.txt")
     """
     with Session() as lib:
         try:

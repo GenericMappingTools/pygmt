@@ -4,7 +4,7 @@ grdcut - Extract subregion from a grid.
 
 import xarray as xr
 from pygmt.clib import Session
-from pygmt.clib.session import raster_kind
+from pygmt.clib.session import _raster_kind
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
@@ -105,7 +105,7 @@ def grdcut(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
         case "image" | "grid":
             outkind = inkind
         case "file":
-            outkind = raster_kind(grid)
+            outkind = _raster_kind(grid)
 
     with Session() as lib:
         with (
@@ -115,5 +115,5 @@ def grdcut(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
             kwargs["G"] = voutgrd
             lib.call_module(module="grdcut", args=build_arg_list(kwargs, infile=vingrd))
             return lib.virtualfile_to_raster(
-                outgrid=outgrid, kind=outkind, vfname=voutgrd
+                vfname=voutgrd, kind=outkind, outgrid=outgrid
             )
