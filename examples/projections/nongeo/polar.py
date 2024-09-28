@@ -63,9 +63,8 @@ fig.basemap(
     region=[0, 360, 0, 1],
     # set map width to 5 cm
     projection="P5c",
-    # set the frame, color, and title
-    # @^ allows for a line break within the title
-    frame=["xa45f", "+gbisque+tprojection='P5c' @^ region=[0, 360, 0, 1]"],
+    # set the frame and title; @^ allows for a line break within the title
+    frame=["xa45f", "+tprojection='P5c' @^ region=[0, 360, 0, 1]"],
 )
 
 fig.shift_origin(xshift="8c")
@@ -79,9 +78,8 @@ fig.basemap(
     # set map width to 5 cm and interpret input data as geographic azimuth
     # instead of standard angle
     projection="P5c+a",
-    # set the frame, color, and title
-    # @^ allows for a line break within the title
-    frame=["xa45f", "+gbisque+tprojection='P5c+a' @^ region=[0, 360, 0, 1]"],
+    # set the frame and title; @^ allows for a line break within the title
+    frame=["xa45f", "+tprojection='P5c+a' @^ region=[0, 360, 0, 1]"],
 )
 
 fig.shift_origin(xshift="8c")
@@ -95,9 +93,8 @@ fig.basemap(
     # set map width to 5 cm and interpret input data as geographic azimuth
     # instead of standard angle
     projection="P5c+a",
-    # set the frame, color, and title
-    # @^ allows for a line break within the title
-    frame=["xa45f", "ya0.2", "WNe+gbisque+tprojection='P5c+a' @^ region=[0, 90, 0, 1]"],
+    # set the frame and title; @^ allows for a line break within the title
+    frame=["xa45f", "ya0.2", "WNe+tprojection='P5c+a' @^ region=[0, 90, 0, 1]"],
 )
 
 fig.shift_origin(xshift="-16c", yshift="-7c")
@@ -112,12 +109,11 @@ fig.basemap(
     # instead of standard angle, rotate coordinate system counterclockwise by
     # 45 degrees
     projection="P5c+a+t45",
-    # set the frame, color, and title
-    # @^ allows for a line break within the title
+    # set the frame and title; @^ allows for a line break within the title
     frame=[
         "xa30f",
         "ya0.2",
-        "WNe+gbisque+tprojection='P5c+a+t45' @^ region=[0, 90, 0, 1]",
+        "WNe+tprojection='P5c+a+t45' @^ region=[0, 90, 0, 1]",
     ],
 )
 
@@ -133,12 +129,11 @@ fig.basemap(
     # instead of standard angle, rotate coordinate system counterclockwise by
     # 45 degrees
     projection="P5c+a+t45",
-    # set the frame, color, and title
-    # @^ allows for a line break within the title
+    # set the frame, and title; @^ allows for a line break within the title
     frame=[
         "xa30f",
         "ya",
-        "WNse+gbisque+tprojection='P5c+a+t45' @^ region=[0, 90, 3480, 6371]",
+        "WNse+tprojection='P5c+a+t45' @^ region=[0, 90, 3480, 6371]",
     ],
 )
 
@@ -154,12 +149,11 @@ fig.basemap(
     # instead of standard angle, rotate coordinate system counterclockwise by
     # 45 degrees, r-axis is marked as depth
     projection="P5c+a+t45+z",
-    # set the frame, color, and title
-    # @^ allows for a line break within the title
+    # set the frame, and title; @^ allows for a line break within the title
     frame=[
         "xa30f",
         "ya",
-        "WNse+gbisque+tprojection='P5c+a+t45+\\z' @^ region=[0, 90, 3480, 6371]",
+        "WNse+tprojection='P5c+a+t45+\\z' @^ region=[0, 90, 3480, 6371]",
     ],
 )
 
