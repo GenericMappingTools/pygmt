@@ -5,14 +5,32 @@ server, and load as :class:`xarray.DataArray`.
 The grids are available in various resolutions.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
+import xarray as xr
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
-from pygmt.helpers import kwargs_to_strings
 
 __doctest_skip__ = ["load_blue_marble"]
 
 
-@kwargs_to_strings(region="sequence")
-def load_blue_marble(resolution="01d", region=None):
+def load_blue_marble(
+    resolution: Literal[
+        "01d",
+        "30m",
+        "20m",
+        "15m",
+        "10m",
+        "06m",
+        "05m",
+        "04m",
+        "03m",
+        "02m",
+        "01m",
+        "30s",
+    ] = "01d",
+    region: Sequence[float] | str | None = None,
+) -> xr.DataArray:
     r"""
     Load NASA Blue Marble images in various resolutions.
 
@@ -36,20 +54,18 @@ def load_blue_marble(resolution="01d", region=None):
 
     Parameters
     ----------
-    resolution : str
+    resolution
         The image resolution. The suffix ``d``, ``m``, and ``s`` stand for arc-degree,
-        arc-minute, and arc-second. It can be ``"01d"``, ``"30m"``, ``"20m"``,
-        ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``, ``"04m"``, ``"03m"``, ``"02m"``,
-        ``"01m"``, or ``"30s"``.
+        arc-minute, and arc-second.
 
-    region : str or list
-        The subregion of the image to load, in the form of a list [*xmin*, *xmax*,
-        *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*. Required for images with
-        resolutions higher than 5 arc-minutes (i.e., ``"05m"``).
+    region
+        The subregion of the image to load, in the form of a sequence [*xmin*, *xmax*,
+        *ymin*, *ymax*]. Required for images with resolutions higher than 5 arc-minutes
+        (i.e., ``"05m"``).
 
     Returns
     -------
-    image : :class:`xarray.DataArray`
+    image
         The NASA Blue Marble image. Coordinates are latitude and longitude in degrees.
 
     Examples
