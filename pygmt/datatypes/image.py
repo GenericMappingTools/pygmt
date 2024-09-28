@@ -177,7 +177,7 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
 
         if header.n_bands != 3:
             msg = (
-                f"The raster image has {header.n_bands}-band(s). "
+                f"The raster image has {header.n_bands} band(s). "
                 "Currently only 3-band images are supported. "
                 "Please consider submitting a feature request to us. "
             )
