@@ -41,39 +41,29 @@ def fixture_expected_image():
             "band": [1, 2, 3],
             "x": [-52.5, -51.5, -50.5, -49.5],
             "y": [-17.5, -18.5, -19.5],
-            "spatial_ref": 0,
         },
         dims=["band", "y", "x"],
         attrs={
             "scale_factor": 1.0,
             "add_offset": 0.0,
-            "_FillValue": 0,
-            "STATISTICS_MAXIMUM": 95,
-            "STATISTICS_MEAN": 90.91666666666667,
-            "STATISTICS_MINIMUM": 89,
-            "STATISTICS_STDDEV": 1.5523280008498,
-            "STATISTICS_VALID_PERCENT": 100,
-            "AREA_OR_POINT": "Area",
         },
     )
 
 
-@pytest.mark.skipif(not _HAS_RIOXARRAY, reason="rioxarray is not installed")
+@pytest.mark.benchmark
 def test_grdcut_image_file(region, expected_image):
     """
     Test grdcut on an input image file.
     """
-    result = grdcut("@earth_day_01d", region=region)
+    result = grdcut("@earth_day_01d_p", region=region)
     xr.testing.assert_allclose(a=result, b=expected_image)
 
 
-@pytest.mark.benchmark
 @pytest.mark.skipif(not _HAS_RIOXARRAY, reason="rioxarray is not installed")
 def test_grdcut_image_dataarray(region, expected_image):
     """
     Test grdcut on an input xarray.DataArray object.
     """
-    path = which("@earth_day_01d", download="a")
-    raster = rioxarray.open_rasterio(path)
+    raster = rioxarray.open_rasterio(which("@earth_day_01d", download="a")).load()
     result = grdcut(raster, region=region)
     xr.testing.assert_allclose(a=result, b=expected_image)
