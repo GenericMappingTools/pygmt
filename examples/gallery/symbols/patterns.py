@@ -23,7 +23,7 @@ GMT provides 90 predefined patterns that can be used in PyGMT. The patterns are 
 from 1 to 90. The patterns can be colored and inverted. The resolution of the pattern
 can be changed, and the background and foreground colors can be set. For a complete list
 of available patterns and the full syntax to specify a pattern, refer to the
-{doc}`/techref/patterns`.
+:doc:`/techref/patterns`.
 """
 
 # %%
