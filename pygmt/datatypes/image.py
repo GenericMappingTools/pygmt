@@ -145,11 +145,7 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
           * x        (x) float64... -179.5 -178.5 -177.5 -176.5 ... 177.5 178.5 179.5
           * band     (band) uint8... 1 2 3
         Attributes:
-            title:
-            history:
-            description:
             long_name:     z
-            actual_range:  [ 1.79769313e+308 -1.79769313e+308]
 
         >>> da.coords["x"]  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
         <xarray.DataArray 'x' (x: 360)>...
@@ -170,7 +166,7 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
             axis:          Y
             actual_range:  [-90.  90.]
         >>> da.gmt.registration, da.gmt.gtype
-        (1, 0)
+        (1, 1)
         """
         # The image header
         header = self.header.contents
