@@ -37,7 +37,7 @@ def test_grdimage_image_dataarray(xr_image):
     Plot a 3-band RGB image using xarray.DataArray input.
     """
     fig = Figure()
-    fig.grdimage(grid=xr_image)
+    fig.grdimage(grid=xr_image, region="d")
     return fig
 
 
