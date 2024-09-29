@@ -139,8 +139,8 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
             title:         Produced by grdcut
             history:       grdcut @earth_relief_01d_p -R-55/-47/-24/-10 -Gstatic_ea...
             description:   Reduced by Gaussian Cartesian filtering (111.2 km fullwi...
-            long_name:     elevation (m)
             actual_range:  [190. 981.]
+            long_name:     elevation (m)
         >>> da.coords["lon"]  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
         <xarray.DataArray 'lon' (lon: 8)>...
         array([-54.5, -53.5, -52.5, -51.5, -50.5, -49.5, -48.5, -47.5])
