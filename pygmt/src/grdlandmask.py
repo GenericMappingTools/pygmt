@@ -15,7 +15,6 @@ __doctest_skip__ = ["grdlandmask"]
 @fmt_docstring
 @use_alias(
     A="area_thresh",
-    D="resolution",
     E="bordervalues",
     I="spacing",
     N="maskvalues",
@@ -27,7 +26,7 @@ __doctest_skip__ = ["grdlandmask"]
 @kwargs_to_strings(I="sequence", R="sequence", N="sequence", E="sequence")
 def grdlandmask(
     outgrid: str | None = None,
-    resolution: Literal["full", "high", "intermediate", "low", "crude"] = "low",  # noqa: ARG001
+    resolution: Literal["full", "high", "intermediate", "low", "crude"] = "low",
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -100,10 +99,8 @@ def grdlandmask(
     if kwargs.get("I") is None or kwargs.get("R") is None:
         raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
 
-    # Resolution
-    if kwargs.get("D") is not None:
-        kwargs["D"] = kwargs["D"][0]
-
+    # Alias "resolution" to "D"
+    kwargs["D"] = resolution[0]
     with Session() as lib:
         with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
             kwargs["G"] = voutgrd
