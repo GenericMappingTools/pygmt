@@ -428,7 +428,6 @@ def _load_remote_dataset(
             f"'region' is required for {dataset.description} resolution '{resolution}'."
         )
 
-    # Currently, only grids are supported. Will support images in the future.
     kwdict = {"R": region}  # region can be None
     if name in {"earth_day"}:
         kind = "image"
