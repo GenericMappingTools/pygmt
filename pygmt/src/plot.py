@@ -51,7 +51,7 @@ from pygmt.src.which import which
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def plot(  # noqa: PLR0912
-    self, data=None, x=None, y=None, size=None, direction=None, **kwargs
+    self, data=None, x=None, y=None, size=None, symbol=None, direction=None, **kwargs
 ):
     r"""
     Plot lines, polygons, and symbols in 2-D.
@@ -91,6 +91,8 @@ def plot(  # noqa: PLR0912
     size : 1-D array
         The size of the data points in units specified using ``style``.
         Only valid if using ``x``/``y``.
+    symbol : 1-D array
+        The symbols of the data points. Only valid if using ``x``/``y``.
     direction : list of two 1-D arrays
         If plotting vectors (using ``style="V"`` or ``style="v"``), then
         should be a list of two 1-D arrays with the vector directions. These
@@ -230,6 +232,11 @@ def plot(  # noqa: PLR0912
             if is_nonstr_iter(kwargs.get(flag)):
                 extra_arrays.append(kwargs.get(flag))
                 kwargs[flag] = ""
+        # Symbol must be at the last column
+        if is_nonstr_iter(symbol):
+            if "S" not in kwargs:
+                kwargs["S"] = True
+            extra_arrays.append(symbol)
     else:
         for name, value in [
             ("direction", direction),
@@ -237,6 +244,7 @@ def plot(  # noqa: PLR0912
             ("size", size),
             ("intensity", kwargs.get("I")),
             ("transparency", kwargs.get("t")),
+            ("symbol", symbol),
         ]:
             if is_nonstr_iter(value):
                 raise GMTInvalidInput(f"'{name}' can't be 1-D array if 'data' is used.")

@@ -1,0 +1,5 @@
+outs:
+- md5: bf71e5e72529a85d9ac45aa71321962e
+  size: 3798
+  hash: md5
+  path: test_plot_symbol.png
