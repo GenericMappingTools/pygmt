@@ -22,7 +22,6 @@ __doctest_skip__ = ["coast"]
     A="area_thresh",
     B="frame",
     C="lakes",
-    D="resolution",
     E="dcw",
     F="box",
     G="land",
@@ -41,7 +40,7 @@ __doctest_skip__ = ["coast"]
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def coast(
     self,
-    resolution: Literal[  # noqa: ARG001
+    resolution: Literal[
         "auto", "full", "high", "intermediate", "low", "crude"
     ] = "auto",
     **kwargs,
@@ -210,9 +209,8 @@ def coast(
             lakes, land, water, rivers, borders, dcw, Q, or shorelines"""
         )
 
-    # Resolution
-    if kwargs.get("D") is not None:
-        kwargs["D"] = kwargs["D"][0]
+    # Alias 'resolution' to "D".
+    kwargs["D"] = resolution[0]
 
     with Session() as lib:
         lib.call_module(module="coast", args=build_arg_list(kwargs))

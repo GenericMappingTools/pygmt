@@ -22,7 +22,6 @@ __doctest_skip__ = ["select"]
 @use_alias(
     A="area_thresh",
     C="dist2pt",
-    D="resolution",
     F="polygon",
     G="gridmask",
     I="reverse",
@@ -48,7 +47,7 @@ def select(
     data=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: str | None = None,
-    resolution: Literal["full", "high", "intermediate", "low", "crude"] = "low",  # noqa: ARG001
+    resolution: Literal["full", "high", "intermediate", "low", "crude"] = "low",
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -203,9 +202,8 @@ def select(
     >>> # longitudes 246 and 247 and latitudes 20 and 21
     >>> out = pygmt.select(data=ship_data, region=[246, 247, 20, 21])
     """
-    # Resolution
-    if kwargs.get("D") is not None:
-        kwargs["D"] = kwargs["D"][0]
+    # Alias "resolution" to "D"
+    kwargs["D"] = resolution[0]
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
