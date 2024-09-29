@@ -2,7 +2,6 @@
 Test the functions that load libgmt.
 """
 
-import ctypes
 import os
 import shutil
 import subprocess
@@ -122,18 +121,18 @@ class TestLibgmtBrokenLibs:
             # libname is a faked GMT library, return the faked library
             return libname
         if isinstance(libname, str):
-            # libname is an invalid library path in string type,
-            # raise OSError like the original ctypes.CDLL
-            raise OSError(f"Unable to find '{libname}'")
+            # libname is an invalid library path in string type, raise OSError like the
+            # original ctypes.CDLL
+            raise OSError(f"Unable to find '{libname}'.")
         # libname is a loaded GMT library
         return self.loaded_libgmt
 
     @pytest.fixture
-    def _mock_ctypes(self, monkeypatch):
+    def _mock_ctypes(self, mocker):
         """
         Patch the ctypes.CDLL function.
         """
-        monkeypatch.setattr(ctypes, "CDLL", self._mock_ctypes_cdll_return)
+        mocker.patch("ctypes.CDLL", self._mock_ctypes_cdll_return)
 
     @pytest.mark.usefixtures("_mock_ctypes")
     def test_two_broken_libraries(self):
@@ -213,7 +212,7 @@ class TestLibgmtCount:
         """
         Make sure that the GMT library is not loaded in every session.
         """
-        # Load the GMT library before mocking
+        # Load the GMT library before mocking ctypes.CDLL
         loaded_libgmt = load_libgmt()
         # Mock the ctypes.CDLL function
         mock_cdll = mocker.patch("ctypes.CDLL", return_value=loaded_libgmt)
