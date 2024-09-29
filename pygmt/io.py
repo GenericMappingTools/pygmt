@@ -40,15 +40,8 @@ def load_dataarray(filename_or_obj, **kwargs):
     if "cache" in kwargs:
         raise TypeError("cache has no effect in this context")
 
-    if kwargs.get("engine") == "rasterio":
-        import rioxarray
-
-        kwargs.pop("engine")
-        with rioxarray.open_rasterio(filename_or_obj, **kwargs) as dataarray:
-            result = dataarray.load()
-    else:
-        with xr.open_dataarray(filename_or_obj, **kwargs) as dataarray:
-            result = dataarray.load()
-            _ = result.gmt  # load GMTDataArray accessor information
+    with xr.open_dataarray(filename_or_obj, **kwargs) as dataarray:
+        result = dataarray.load()
+        _ = result.gmt  # load GMTDataArray accessor information
 
     return result
