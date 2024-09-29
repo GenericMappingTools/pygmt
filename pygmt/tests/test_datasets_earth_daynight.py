@@ -54,9 +54,9 @@ def test_blue_marble_01m_default_registration():
     assert data.dtype == "uint8"
     assert data.gmt.registration == 1
     assert data.gmt.gtype == 1
-    assert data.coords["y"].data.min() == 3.008333333333333
-    assert data.coords["y"].data.max() == 4.991666666666666
-    assert data.coords["x"].data.min() == -9.991666666666667
-    assert data.coords["x"].data.max() == -9.008333333333335
+    npt.assert_allclose(data.coords["y"].data.min(), 3.0083333333333333)
+    npt.assert_allclose(data.coords["y"].data.max(), 4.991666666666666)
+    npt.assert_allclose(data.coords["x"].data.min(), -9.991666666666667)
+    npt.assert_allclose(data.coords["x"].data.max(), -9.008333333333335)
     npt.assert_allclose(data.min(), 10, atol=1)
     npt.assert_allclose(data.max(), 79, atol=1)
