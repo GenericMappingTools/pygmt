@@ -5,6 +5,7 @@ grdcut - Extract subregion from a grid.
 import xarray as xr
 from pygmt.clib import Session
 from pygmt.clib.session import _raster_kind
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
@@ -106,6 +107,9 @@ def grdcut(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
             outkind = inkind
         case "file":
             outkind = _raster_kind(grid)
+        case "_":
+            msg = f"Unsupported data type {type(grid)}."
+            raise GMTInvalidInput(msg)
 
     with Session() as lib:
         with (

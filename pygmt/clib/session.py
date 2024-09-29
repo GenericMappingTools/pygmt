@@ -2314,10 +2314,12 @@ class Session:
         return region
 
 
-def _raster_kind(raster: str) -> Literal["grid", "image"] | None:
+def _raster_kind(raster: str) -> Literal["grid", "image"]:
     """
     Determine the raster kind.
 
+    Examples
+    --------
     >>> _raster_kind("@earth_relief_01d")
     'grid'
     >>> _raster_kind("@static_earth_relief.nc")
@@ -2325,7 +2327,11 @@ def _raster_kind(raster: str) -> Literal["grid", "image"] | None:
     >>> _raster_kind("@earth_day_01d")
     'image'
     >>> _raster_kind("@hotspots.txt")
+    'grid'
     """
+    # The logic here is because: an image can be read into a grid container, but a grid
+    # can't be read into an image container. So, try to read the file as an image first.
+    # If fails, try to read it as a grid.
     with Session() as lib:
         try:
             img = lib.read_data(infile=raster, kind="image", mode="GMT_CONTAINER_ONLY")
@@ -2337,4 +2343,4 @@ def _raster_kind(raster: str) -> Literal["grid", "image"] | None:
             return "grid"
         except GMTCLibError:
             pass
-    return None
+    return "grid"  # Fallback to "grid" and let GMT determine the type.
