@@ -210,17 +210,17 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
             GridFormat.NI,
             GridFormat.NF,
             GridFormat.ND,
-        }:  # Only set the 'Conventions' attribute for netCDF.
+        }:  # Set attributes specific to CF-1.7 conventions
             attrs["Conventions"] = "CF-1.7"
-        attrs["title"] = self.title.decode()
-        attrs["history"] = self.command.decode()
-        attrs["description"] = self.remark.decode()
+            attrs["title"] = self.title.decode()
+            attrs["history"] = self.command.decode()
+            attrs["description"] = self.remark.decode()
+            attrs["actual_range"] = np.array([self.z_min, self.z_max])
         long_name, units = _parse_nameunits(self.z_units.decode())
         if long_name:
             attrs["long_name"] = long_name
         if units:
             attrs["units"] = units
-        attrs["actual_range"] = np.array([self.z_min, self.z_max])
         return attrs
 
     @property
