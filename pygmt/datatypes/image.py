@@ -20,7 +20,7 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
     >>> from pygmt.clib import Session
     >>> with Session() as lib:
     ...     with lib.virtualfile_out(kind="image") as voutimg:
-    ...         lib.call_module("read", ["@earth_day_01d_p", voutimg, "-Ti"])
+    ...         lib.call_module("read", ["@earth_day_01d", voutimg, "-Ti"])
     ...         # Read the image from the virtual file
     ...         image = lib.read_virtualfile(vfname=voutimg, kind="image").contents
     ...         # The image header
@@ -110,7 +110,7 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
         >>> from pygmt.clib import Session
         >>> with Session() as lib:
         ...     with lib.virtualfile_out(kind="image") as voutimg:
-        ...         lib.call_module("read", ["@earth_day_01d_p", voutimg, "-Ti"])
+        ...         lib.call_module("read", ["@earth_day_01d", voutimg, "-Ti"])
         ...         # Read the image from the virtual file
         ...         image = lib.read_virtualfile(voutimg, kind="image")
         ...         # Convert to xarray.DataArray and use it later

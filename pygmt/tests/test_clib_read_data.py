@@ -33,10 +33,10 @@ def fixture_expected_xrgrid():
 @pytest.fixture(scope="module", name="expected_xrimage")
 def fixture_expected_xrimage():
     """
-    The expected xr.DataArray object for the @earth_day_01d_p file.
+    The expected xr.DataArray object for the @earth_day_01d file.
     """
     if _HAS_RIOXARRAY:
-        with rioxarray.open_rasterio(which("@earth_day_01d_p")) as da:
+        with rioxarray.open_rasterio(which("@earth_day_01d")) as da:
             dataarray = da.load().drop_vars("spatial_ref")
             return dataarray
     return None
@@ -122,7 +122,7 @@ def test_clib_read_data_grid_actual_image(expected_xrimage):
     Test the Session.read_data method for grid, but actually the file is an image.
     """
     with Session() as lib:
-        image = lib.read_data("@earth_day_01d_p", kind="grid").contents
+        image = lib.read_data("@earth_day_01d", kind="grid").contents
         # Explicitly check n_bands. Only one band is read for 3-band images.
         assert image.header.contents.n_bands == 1
 
@@ -151,7 +151,7 @@ def test_clib_read_data_image(expected_xrimage):
     Test the Session.read_data method for images.
     """
     with Session() as lib:
-        image = lib.read_data("@earth_day_01d_p", kind="image").contents
+        image = lib.read_data("@earth_day_01d", kind="image").contents
 
         xrimage = image.to_dataarray()
         assert xrimage.shape == (3, 180, 360)
@@ -172,7 +172,7 @@ def test_clib_read_data_image_two_steps(expected_xrimage):
     Test the Session.read_data method for images in two steps, first reading the header
     and then the data.
     """
-    infile = "@earth_day_01d_p"
+    infile = "@earth_day_01d"
     with Session() as lib:
         # Read the header first
         data_ptr = lib.read_data(infile, kind="image", mode="GMT_CONTAINER_ONLY")
