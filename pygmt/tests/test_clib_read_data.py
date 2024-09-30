@@ -216,7 +216,7 @@ def test_clib_read_data_cube_actual_image():
     """
     with Session() as lib:
         with pytest.raises(GMTCLibError):
-            lib.read_data("@earth_day_01d_p", kind="cube", mode="GMT_CONTAINER_ONLY")
+            lib.read_data("@earth_day_01d", kind="cube", mode="GMT_CONTAINER_ONLY")
 
 
 def test_clib_read_data_fails():

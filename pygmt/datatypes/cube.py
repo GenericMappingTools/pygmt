@@ -47,14 +47,13 @@ class _GMT_CUBE(ctp.Structure):  # noqa: N801
     ...         # Cube-specific attributes.
     ...         print(cube.mode, cube.z_range[:], cube.z_inc, cube.name, cube.units)
     ...         # The x, y, and z coordinates
-    ...         x = cube.x[: header.n_columns]
-    ...         y = cube.y[: header.n_rows]
-    ...         z = cube.z[: header.n_bands]
+    ...         x = np.ctypeslib.as_array(cube.x, shape=(header.n_columns,)).copy()
+    ...         y = np.ctypeslib.as_array(cube.y, shape=(header.n_rows,)).copy()
+    ...         z = np.ctypeslib.as_array(cube.z, shape=(header.n_bands,)).copy()
     ...         # The data array (with paddings)
-    ...         data = np.reshape(
-    ...             cube.data[: header.n_bands * header.mx * header.my],
-    ...             (header.my, header.mx, header.n_bands),
-    ...         )
+    ...         data = np.ctypeslib.as_array(
+    ...             cube.data, shape=(header.my, header.mx, header.n_bands)
+    ...         ).copy()
     ...         # The data array (without paddings)
     ...         pad = header.pad[:]
     ...         data = data[pad[2] : header.my - pad[3], pad[0] : header.mx - pad[1], :]
@@ -68,15 +67,15 @@ class _GMT_CUBE(ctp.Structure):  # noqa: N801
     b'' 0.0
     0 [1.0, 5.0] 0.0 b'' b'z'
     >>> x
-    [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
+    array([ 0.,  1.,  2.,  3.,  4.,  5.,  6.,  7.,  8.,  9., 10.])
     >>> y
-    [10.0, 9.0, 8.0, 7.0, 6.0, 5.0, 4.0, 3.0, 2.0, 1.0, 0.0]
+    array([10.,  9.,  8.,  7.,  6.,  5.,  4.,  3.,  2.,  1.,  0.])
     >>> z
-    [1.0, 2.0, 3.0, 5.0]
+    array([1., 2., 3., 5.])
     >>> data.shape
     (11, 11, 4)
     >>> # data.min(), data.max()  # The min/max are wrong. Upstream bug?
-    >>> # (-29.399999618530273, 169.39999389648438)
+    >>> # (-29.4, 169.4)
     """
 
     _fields_: ClassVar = [
