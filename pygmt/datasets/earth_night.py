@@ -1,5 +1,5 @@
 """
-Function to download the NASA Blue Marble image datasets from the GMT data server, and
+Function to download the NASA Black Marble image datasets from the GMT data server, and
 load as :class:`xarray.DataArray`.
 
 The images are available in various resolutions.
@@ -16,10 +16,10 @@ with contextlib.suppress(ImportError):
     # rioxarray is needed to register the rio accessor
     import rioxarray  # noqa: F401
 
-__doctest_skip__ = ["load_blue_marble"]
+__doctest_skip__ = ["load_black_marble"]
 
 
-def load_blue_marble(
+def load_black_marble(
     resolution: Literal[
         "01d",
         "30m",
@@ -37,7 +37,7 @@ def load_blue_marble(
     region: Sequence[float] | str | None = None,
 ) -> xr.DataArray:
     r"""
-    Load NASA Blue Marble images in various resolutions.
+    Load NASA Black Marble images in various resolutions.
 
     .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_daynight.jpg
        :width: 80%
@@ -46,12 +46,12 @@ def load_blue_marble(
        Earth day/night dataset.
 
     The images are downloaded to a user data directory (usually
-    ``~/.gmt/server/earth/earth_day/``) the first time you invoke this function.
+    ``~/.gmt/server/earth/earth_night/``) the first time you invoke this function.
     Afterwards, it will load the image from the data directory. So you'll need an
     internet connection the first time around.
 
     These images can also be accessed by passing in the file name
-    **@earth_day**\_\ *res* to any image processing function or plotting method. *res*
+    **@earth_night**\_\ *res* to any image processing function or plotting method. *res*
     is the image resolution (see below).
 
     Refer to :gmt-datasets:`earth-daynight.html` for more details about available
@@ -70,7 +70,7 @@ def load_blue_marble(
     Returns
     -------
     image
-        The NASA Blue Marble image. Coordinates are latitude and longitude in degrees.
+        The NASA Black Marble image. Coordinates are latitude and longitude in degrees.
 
     Note
     ----
@@ -85,13 +85,13 @@ def load_blue_marble(
     Examples
     --------
 
-    >>> from pygmt.datasets import load_blue_marble
+    >>> from pygmt.datasets import load_black_marble
     >>> # load the default image (pixel-registered 1 arc-degree image)
-    >>> image = load_blue_marble()
+    >>> image = load_black_marble()
     """
     image = _load_remote_dataset(
-        name="earth_day",
-        prefix="earth_day",
+        name="earth_night",
+        prefix="earth_night",
         resolution=resolution,
         region=region,
         registration="pixel",
