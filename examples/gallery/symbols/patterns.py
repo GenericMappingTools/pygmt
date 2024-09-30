@@ -2,7 +2,7 @@
 Bit and hachure patterns
 ========================
 
-In additon to solid colors, PyGMT also allows using bit or hachure patterns to fill
+In addition to solid colors, PyGMT also allows using bit or hachure patterns to fill
 symbols, polygons, and other areas, via the ``fill`` parameter or similar parameters.
 
 Example function parameters that support bit and hachure patterns include:
