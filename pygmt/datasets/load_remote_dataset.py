@@ -432,7 +432,7 @@ def _load_remote_dataset(
     kwdict = {
         "R": region,  # region can be None
         "T": "i" if kind == "image" else "g",
-    }  
+    }
     with Session() as lib:
         with lib.virtualfile_out(kind=kind) as voutgrd:
             lib.call_module(
