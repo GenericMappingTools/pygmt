@@ -24,5 +24,11 @@ The figure size is set with *scale* or *width*.
 import pygmt
 
 fig = pygmt.Figure()
-fig.coast(region=[0, 360, -80, 80], frame="afg", land="red", projection="M0/0/12c")
+fig.coast(
+    region=[0, 360, -80, 80],
+    projection="M0/0/12c",
+    frame="afg",
+    land="gray80",
+    water="steelblue",
+)
 fig.show()

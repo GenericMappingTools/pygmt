@@ -162,7 +162,7 @@ def select(
         given range or is NaN (use ``skiprows`` to skip NaN records). If *max*
         is omitted then we test if *z* equals *min* instead. This means
         equality within 5 ULPs (unit of least precision;
-        http://en.wikipedia.org/wiki/Unit_in_the_last_place). Input file must
+        https://en.wikipedia.org/wiki/Unit_in_the_last_place). Input file must
         have at least three columns. To indicate no limit on *min* or *max*,
         specify a hyphen (-). If your 3rd column is absolute time then remember
         to supply ``coltypes="2T"``. To specify another column, append
