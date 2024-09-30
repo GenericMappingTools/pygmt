@@ -4,18 +4,16 @@ Cartesian linear
 
 **X**\ *width*\ [/*height*] or **x**\ *x-scale*\ [/*y-scale*]
 
-Give the *width* of the figure and the optional *height*.
-The lower-case version **x** is similar to **X** but expects
-an *x-scale* and an optional *y-scale*.
+Give the *width* of the figure and the optional *height*. The lower-case version
+**x** is similar to **X** but expects an *x-scale* and an optional *y-scale*.
 
-The Cartesian linear projection is primarily designed for regular
-floating point data. To plot geographical data in a linear
-projection, see the upstream GMT documentation
-:gmt-docs:`Geographic coordinates
+The Cartesian linear projection is primarily designed for regular floating point
+data. To plot geographical data in a linear projection, see the upstream GMT
+documentation :gmt-docs:`Geographic coordinates
 <reference/coordinate-transformations.html#geographic-coordinates>`.
-To make the linear plot using calendar date/time as input
-coordinates, see the GMT documentation
-:gmt-docs:`Calendar time coordinates
+To make the linear plot using calendar date/time as input coordinates, see the
+tutorial :doc:`Plotting datetime charts </tutorials/advanced/date_time_charts>`.
+GMT documentation :gmt-docs:`Calendar time coordinates
 <reference/coordinate-transformations.html#calendar-time-coordinates>`.
 """
 
