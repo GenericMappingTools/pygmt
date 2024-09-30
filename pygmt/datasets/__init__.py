@@ -5,7 +5,7 @@ Data are downloaded from the GMT data server.
 """
 
 from pygmt.datasets.earth_age import load_earth_age
-from pygmt.datasets.earth_daynight import load_blue_marble
+from pygmt.datasets.earth_day import load_blue_marble
 from pygmt.datasets.earth_free_air_anomaly import load_earth_free_air_anomaly
 from pygmt.datasets.earth_geoid import load_earth_geoid
 from pygmt.datasets.earth_magnetic_anomaly import load_earth_magnetic_anomaly

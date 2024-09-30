@@ -1,5 +1,5 @@
 """
-Test basic functionality for loading Blue and Black Marble datasets.
+Test basic functionality for loading Blue Marble datasets.
 """
 
 import numpy as np
