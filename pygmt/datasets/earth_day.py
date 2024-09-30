@@ -1,8 +1,8 @@
 """
-Function to download the NASA Blue Marble image datasets from the GMT data
-server, and load as :class:`xarray.DataArray`.
+Function to download the NASA Blue Marble image datasets from the GMT data server, and
+load as :class:`xarray.DataArray`.
 
-The grids are available in various resolutions.
+The images are available in various resolutions.
 """
 
 from collections.abc import Sequence
@@ -60,8 +60,7 @@ def load_blue_marble(
 
     region
         The subregion of the image to load, in the form of a sequence [*xmin*, *xmax*,
-        *ymin*, *ymax*]. Required for images with resolutions higher than 5 arc-minutes
-        (i.e., ``"05m"``).
+        *ymin*, *ymax*].
 
     Returns
     -------
