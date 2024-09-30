@@ -82,4 +82,7 @@ def load_blue_marble(
         region=region,
         registration="pixel",
     )
+    # If rioxarray is installed, set the coordinate reference system
+    if hasattr(image, "rio"):
+        image = image.rio.write_crs(input_crs="OGC:CRS84")
     return image
