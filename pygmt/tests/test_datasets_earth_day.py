@@ -4,10 +4,7 @@ Test basic functionality for loading Blue Marble datasets.
 
 import numpy as np
 import numpy.testing as npt
-import pytest
 from pygmt.datasets import load_blue_marble
-
-rioxarray = pytest.importorskip("rioxarray")
 
 
 def test_blue_marble_01d():

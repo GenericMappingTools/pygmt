@@ -429,12 +429,8 @@ def _load_remote_dataset(
         )
 
     kwdict = {"R": region}  # region can be None
-    if name in {"earth_day"}:
-        kind = "image"
-        kwdict.update({"T": "i"})
-    else:
-        kind = "grid"
-        kwdict.update({"T": "g"})
+    kind = "image" if name in {"earth_day"} else "grid"
+    kwdict["T"] = "i" if kind == "image" else "g"
     with Session() as lib:
         with lib.virtualfile_out(kind=kind) as voutgrd:
             lib.call_module(
