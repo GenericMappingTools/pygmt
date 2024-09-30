@@ -26,7 +26,7 @@ fig = pygmt.Figure()
 # The region parameter is specified as x_min, x_max, y_min, y_max
 fig.basemap(region=[0, 10, 0, 50], projection="X15c/10c", frame=["afg", "+gbisque"])
 fig.plot(x=[3, 9, 2], y=[4, 9, 37], pen="2p,black")
-# Plot data points ontop of the line
+# Plot data points on top of the line
 # Use squares with a size of 0.3 centimeters, an "orange" fill and a "black" outline
 fig.plot(x=[3, 9, 2], y=[4, 9, 37], style="s0.3c", fill="orange", pen="black")
 fig.show()
