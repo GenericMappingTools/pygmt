@@ -2,6 +2,7 @@
 Utilities and common tasks for wrapping the GMT modules.
 """
 
+import io
 import os
 import pathlib
 import shutil
@@ -9,7 +10,6 @@ import string
 import subprocess
 import sys
 import time
-import warnings
 import webbrowser
 from collections.abc import Iterable, Sequence
 from typing import Any, Literal
@@ -189,8 +189,10 @@ def _check_encoding(
 
 def data_kind(
     data: Any = None, required: bool = True
-) -> Literal["arg", "file", "geojson", "grid", "image", "matrix", "vectors"]:
-    """
+) -> Literal[
+    "arg", "file", "geojson", "grid", "image", "matrix", "stringio", "vectors"
+]:
+    r"""
     Check the kind of data that is provided to a module.
 
     The ``data`` argument can be in any type, but only following types are supported:
@@ -223,6 +225,7 @@ def data_kind(
     >>> import numpy as np
     >>> import xarray as xr
     >>> import pathlib
+    >>> import io
     >>> data_kind(data=None)
     'vectors'
     >>> data_kind(data=np.arange(10).reshape((5, 2)))
@@ -241,8 +244,12 @@ def data_kind(
     'grid'
     >>> data_kind(data=xr.DataArray(np.random.rand(3, 4, 5)))
     'image'
+    >>> data_kind(data=io.StringIO("TEXT1\nTEXT23\n"))
+    'stringio'
     """
-    kind: Literal["arg", "file", "geojson", "grid", "image", "matrix", "vectors"]
+    kind: Literal[
+        "arg", "file", "geojson", "grid", "image", "matrix", "stringio", "vectors"
+    ]
     if isinstance(data, str | pathlib.PurePath) or (
         isinstance(data, list | tuple)
         and all(isinstance(_file, str | pathlib.PurePath) for _file in data)
@@ -251,6 +258,8 @@ def data_kind(
         kind = "file"
     elif isinstance(data, bool | int | float) or (data is None and not required):
         kind = "arg"
+    elif isinstance(data, io.StringIO):
+        kind = "stringio"
     elif isinstance(data, xr.DataArray):
         kind = "image" if len(data.dims) == 3 else "grid"
     elif hasattr(data, "__geo_interface__"):
@@ -459,139 +468,6 @@ def build_arg_list(  # noqa: PLR0912
             raise GMTInvalidInput(f"Invalid output file name '{outfile}'.")
         gmt_args.append(f"->{outfile}")
     return gmt_args
-
-
-def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
-    r"""
-    Convert keyword dictionaries and input/output files into a GMT argument string.
-
-    Make sure all values in ``kwdict`` have been previously converted to a
-    string representation using the ``kwargs_to_strings`` decorator. The only
-    exceptions are True, False and None.
-
-    Any lists or tuples left will be interpreted as multiple entries for the
-    same command line option. For example, the kwargs entry ``'B': ['xa',
-    'yaf']`` will be converted to ``-Bxa -Byaf`` in the argument string.
-
-    Note that spaces `` `` in arguments are converted to the equivalent octal
-    code ``\040``, except in the case of -J (projection) arguments where PROJ4
-    strings (e.g. "+proj=longlat +datum=WGS84") will have their spaces removed.
-    See https://github.com/GenericMappingTools/pygmt/pull/1487 for more info.
-
-    .. deprecated:: 0.12.0
-
-       Use :func:`build_arg_list` instead.
-
-    Parameters
-    ----------
-    kwdict : dict
-        A dictionary containing parsed keyword arguments.
-    confdict : dict
-        A dictionary containing configurable GMT parameters.
-    infile : str or pathlib.Path
-        The input file.
-    outfile : str or pathlib.Path
-        The output file.
-
-    Returns
-    -------
-    args : str
-        The space-delimited argument string with '-' inserted before each
-        keyword, or '--' inserted before GMT configuration key-value pairs.
-        The keyword arguments are sorted alphabetically, followed by GMT
-        configuration key-value pairs, with optional input file at the
-        beginning and optional output file at the end.
-
-    Examples
-    --------
-
-    >>> print(
-    ...     build_arg_string(
-    ...         dict(
-    ...             A=True,
-    ...             B=False,
-    ...             E=200,
-    ...             J="+proj=longlat +datum=WGS84",
-    ...             P="",
-    ...             R="1/2/3/4",
-    ...             X=None,
-    ...             Y=None,
-    ...             Z=0,
-    ...         )
-    ...     )
-    ... )
-    -A -E200 -J+proj=longlat+datum=WGS84 -P -R1/2/3/4 -Z0
-    >>> print(
-    ...     build_arg_string(
-    ...         dict(
-    ...             R="1/2/3/4",
-    ...             J="X4i",
-    ...             B=["xaf", "yaf", "WSen"],
-    ...             I=("1/1p,blue", "2/0.25p,blue"),
-    ...         )
-    ...     )
-    ... )
-    -BWSen -Bxaf -Byaf -I1/1p,blue -I2/0.25p,blue -JX4i -R1/2/3/4
-    >>> print(build_arg_string(dict(R="1/2/3/4", J="X4i", watre=True)))
-    Traceback (most recent call last):
-      ...
-    pygmt.exceptions.GMTInvalidInput: Unrecognized parameter 'watre'.
-    >>> print(
-    ...     build_arg_string(
-    ...         dict(
-    ...             B=["af", "WSne+tBlank Space"],
-    ...             F='+t"Empty  Spaces"',
-    ...             l="'Void Space'",
-    ...         ),
-    ...     )
-    ... )
-    -BWSne+tBlank\040Space -Baf -F+t"Empty\040\040Spaces" -l'Void\040Space'
-    >>> print(
-    ...     build_arg_string(
-    ...         dict(A="0", B=True, C="rainbow"),
-    ...         confdict=dict(FORMAT_DATE_MAP="o dd"),
-    ...         infile="input.txt",
-    ...         outfile="output.txt",
-    ...     )
-    ... )
-    input.txt -A0 -B -Crainbow --FORMAT_DATE_MAP="o dd" ->output.txt
-    """
-    msg = (
-        "Utility function 'build_arg_string()' is deprecated in v0.12.0 and will be "
-        "removed in v0.14.0. Use 'build_arg_list()' instead."
-    )
-    warnings.warn(msg, category=FutureWarning, stacklevel=2)
-
-    gmt_args = []
-    for key in kwdict:
-        if len(key) > 2:  # raise an exception for unrecognized options
-            raise GMTInvalidInput(f"Unrecognized parameter '{key}'.")
-        if kwdict[key] is None or kwdict[key] is False:
-            pass  # Exclude arguments that are None and False
-        elif is_nonstr_iter(kwdict[key]):
-            for value in kwdict[key]:
-                _value = str(value).replace(" ", r"\040")
-                gmt_args.append(rf"-{key}{_value}")
-        elif kwdict[key] is True:
-            gmt_args.append(f"-{key}")
-        else:
-            if key != "J":  # non-projection parameters
-                _value = str(kwdict[key]).replace(" ", r"\040")
-            else:
-                # special handling if key == "J" (projection)
-                # remove any spaces in PROJ4 string
-                _value = str(kwdict[key]).replace(" ", "")
-            gmt_args.append(rf"-{key}{_value}")
-    gmt_args = sorted(gmt_args)
-
-    if confdict:
-        gmt_args.extend(f'--{key}="{value}"' for key, value in confdict.items())
-
-    if infile:
-        gmt_args = [str(infile), *gmt_args]
-    if outfile:
-        gmt_args.append("->" + str(outfile))
-    return non_ascii_to_octal(" ".join(gmt_args))
 
 
 def is_nonstr_iter(value):

@@ -6,6 +6,7 @@ import ctypes as ctp
 from typing import Any, ClassVar
 
 import numpy as np
+from pygmt.enums import GridFormat
 
 # Constants for lengths of grid header variables.
 #
@@ -203,16 +204,23 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
         Attributes for the data variable from the grid header.
         """
         attrs: dict[str, Any] = {}
-        attrs["Conventions"] = "CF-1.7"
-        attrs["title"] = self.title.decode()
-        attrs["history"] = self.command.decode()
-        attrs["description"] = self.remark.decode()
+        if self.type in {
+            GridFormat.NB,
+            GridFormat.NS,
+            GridFormat.NI,
+            GridFormat.NF,
+            GridFormat.ND,
+        }:  # Set attributes specific to CF-1.7 conventions
+            attrs["Conventions"] = "CF-1.7"
+            attrs["title"] = self.title.decode()
+            attrs["history"] = self.command.decode()
+            attrs["description"] = self.remark.decode()
+            attrs["actual_range"] = np.array([self.z_min, self.z_max])
         long_name, units = _parse_nameunits(self.z_units.decode())
         if long_name:
             attrs["long_name"] = long_name
         if units:
             attrs["units"] = units
-        attrs["actual_range"] = np.array([self.z_min, self.z_max])
         return attrs
 
     @property
@@ -242,6 +250,16 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
         "lon"/"lat" or have units "degrees_east"/"degrees_north", then the grid is
         assumed to be geographic.
         """
+        gtype = 0  # Cartesian by default
+
         dims = self.dims
-        gtype = 1 if dims[0] == "lat" and dims[1] == "lon" else 0
+        if dims[0] == "lat" and dims[1] == "lon":
+            # Check dimensions for grids that following CF-conventions
+            gtype = 1
+        elif self.ProjRefPROJ4 is not None:
+            # Check ProjRefPROJ4 for images imported via GDAL.
+            # The logic comes from GMT's `gmtlib_read_image_info` function.
+            projref = self.ProjRefPROJ4.decode()
+            if "longlat" in projref or "latlong" in projref:
+                gtype = 1
         return gtype

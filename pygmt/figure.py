@@ -43,7 +43,7 @@ def _get_default_display_method() -> Literal["external", "notebook", "none"]:
     The default display method is ``"notebook"`` in the Jupyter notebook environment,
     and ``"external"`` in other cases.
 
-    Setting environment variable **PYGMT_USE_EXTERNAL_DISPLAY** to ``"false"`` can
+    Setting environment variable :term:`PYGMT_USE_EXTERNAL_DISPLAY` to ``"false"`` can
     disable image preview in external viewers. It's useful when running the tests and
     building the documentation to avoid popping up windows.
 
@@ -354,26 +354,24 @@ class Figure:
         prefix, suffix = fname.with_suffix("").as_posix(), fname.suffix
         ext = suffix[1:].lower()  # Remove the . and normalize to lowercase
 
-        if ext == "jpeg":  # Alias jpeg to jpg
-            ext = "jpg"
-        elif ext == "tiff":  # GeoTIFF
-            kwargs["W"] = "+g"
-        elif ext == "kml":  # KML
-            kwargs["W"] = "+k"
+        match ext:
+            case "jpeg":  # Alias jpeg to jpg
+                ext = "jpg"
+            case "tiff":  # GeoTIFF
+                kwargs["W"] = "+g"
+            case "kml":  # KML
+                kwargs["W"] = "+k"
+            case "ps":
+                msg = "Extension '.ps' is not supported. Use '.eps' or '.pdf' instead."
+                raise GMTInvalidInput(msg)
+            case ext if ext not in fmts:
+                raise GMTInvalidInput(f"Unknown extension '.{ext}'.")
 
-        if ext not in fmts:
-            if ext == "ps":
-                raise GMTInvalidInput(
-                    "Extension '.ps' is not supported. "
-                    "Please use '.eps' or '.pdf' instead."
-                )
-            raise GMTInvalidInput(f"Unknown extension '.{ext}'.")
         fmt = fmts[ext]
         if transparent:
             if fmt != "g":
-                raise GMTInvalidInput(
-                    f"Transparency unavailable for '{ext}', only for png."
-                )
+                msg = f"Transparency unavailable for '{ext}', only for png."
+                raise GMTInvalidInput(msg)
             fmt = fmt.upper()
         if anti_alias:
             kwargs["Qt"] = 2
@@ -381,14 +379,13 @@ class Figure:
 
         if worldfile:
             if ext in {"eps", "kml", "pdf", "tiff"}:
-                raise GMTInvalidInput(
-                    f"Saving a world file is not supported for '{ext}' format."
-                )
+                msg = f"Saving a world file is not supported for '{ext}' format."
+                raise GMTInvalidInput(msg)
             kwargs["W"] = True
 
         self.psconvert(prefix=prefix, fmt=fmt, crop=crop, **kwargs)
 
-        # Remove the .pgw world file if exists
+        # Remove the .pgw world file if exists.
         # Not necessary after GMT 6.5.0.
         # See upstream fix https://github.com/GenericMappingTools/gmt/pull/7865
         if ext == "tiff":
@@ -424,8 +421,8 @@ class Figure:
         resolution and dimension of the figure in the notebook.
 
         The external viewer can be disabled by setting the environment variable
-        **PYGMT_USE_EXTERNAL_DISPLAY** to ``"false"``. This is useful when running tests
-        and building the documentation to avoid popping up windows.
+        :term:`PYGMT_USE_EXTERNAL_DISPLAY` to ``"false"``. This is useful when running
+        tests and building the documentation to avoid popping up windows.
 
         The external viewer does not block the current process, thus it's necessary to
         suspend the execution of the current process for a short while after launching
