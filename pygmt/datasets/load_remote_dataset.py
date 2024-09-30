@@ -214,6 +214,25 @@ datasets = {
             "15s": Resolution("15s"),
         },
     ),
+    "earth_night": GMTRemoteDataset(
+        description="NASA Night Images",
+        units=None,
+        extra_attributes={"long_name": "black_marble", "horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution("01d", registrations=["pixel"]),
+            "30m": Resolution("30m", registrations=["pixel"]),
+            "20m": Resolution("20m", registrations=["pixel"]),
+            "15m": Resolution("15m", registrations=["pixel"]),
+            "10m": Resolution("10m", registrations=["pixel"]),
+            "06m": Resolution("06m", registrations=["pixel"]),
+            "05m": Resolution("05m", registrations=["pixel"]),
+            "04m": Resolution("04m", registrations=["pixel"]),
+            "03m": Resolution("03m", registrations=["pixel"]),
+            "02m": Resolution("02m", registrations=["pixel"]),
+            "01m": Resolution("01m", registrations=["pixel"]),
+            "30s": Resolution("30s", registrations=["pixel"]),
+        },
+    ),
     "earth_vgg": GMTRemoteDataset(
         description="IGPP Earth vertical gravity gradient",
         units="Eotvos",
@@ -428,7 +447,7 @@ def _load_remote_dataset(
             f"'region' is required for {dataset.description} resolution '{resolution}'."
         )
 
-    kind = "image" if name in {"earth_day"} else "grid"
+    kind = "image" if name in {"earth_day", "earth_night"} else "grid"
     kwdict = {
         "R": region,  # region can be None
         "T": "i" if kind == "image" else "g",
