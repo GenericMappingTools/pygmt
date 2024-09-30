@@ -22,6 +22,7 @@ def cache_data():
         "@earth_mag_01d_g",
         "@earth_mag4km_01d_g",
         "@earth_mask_01d_g",
+        "@earth_night_01d",
         "@earth_relief_01d_g",
         "@earth_relief_01d_p",
         "@earth_relief_10m_g",
