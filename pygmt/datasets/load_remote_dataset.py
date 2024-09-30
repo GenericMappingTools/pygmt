@@ -428,9 +428,11 @@ def _load_remote_dataset(
             f"'region' is required for {dataset.description} resolution '{resolution}'."
         )
 
-    kwdict = {"R": region}  # region can be None
     kind = "image" if name in {"earth_day"} else "grid"
-    kwdict["T"] = "i" if kind == "image" else "g"
+    kwdict = {
+        "R": region,  # region can be None
+        "T": "i" if kind == "image" else "g",
+    }  
     with Session() as lib:
         with lib.virtualfile_out(kind=kind) as voutgrd:
             lib.call_module(
