@@ -156,28 +156,25 @@ def load_tile_map(
         )
         raise ImportError(msg)
 
-    contextily_kwargs = {}
-    if zoom_adjust is not None:
-        contextily_kwargs["zoom_adjust"] = zoom_adjust
-        if Version(contextily.__version__) < Version("1.5.0"):
-            msg = (
-                "The `zoom_adjust` parameter requires `contextily>=1.5.0` to work. "
-                "Please upgrade contextily, or manually set the `zoom` level instead."
-            )
-            raise TypeError(msg)
+    if zoom_adjust is not None and Version(contextily.__version__) < Version("1.5.0"):
+        msg = (
+            "The `zoom_adjust` parameter requires `contextily>=1.5.0` to work. "
+            "Please upgrade contextily, or manually set the `zoom` level instead."
+        )
+        raise ValueError(msg)
 
+    # Keyword arguments for contextily.bounds2img
+    contextily_kwargs = {
+        "zoom": zoom,
+        "source": source,
+        "ll": lonlat,
+        "wait": wait,
+        "max_retries": max_retries,
+        "zoom_adjust": zoom_adjust,
+    }
     west, east, south, north = region
     image, extent = contextily.bounds2img(
-        w=west,
-        s=south,
-        e=east,
-        n=north,
-        zoom=zoom,
-        source=source,
-        ll=lonlat,
-        wait=wait,
-        max_retries=max_retries,
-        **contextily_kwargs,
+        w=west, s=south, e=east, n=north, **contextily_kwargs
     )
 
     # Turn RGBA img from channel-last to channel-first and get 3-band RGB only
