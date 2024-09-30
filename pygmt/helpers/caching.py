@@ -13,7 +13,7 @@ def cache_data():
     datasets = [
         # List of GMT remote datasets.
         "@earth_age_01d_g",
-        "@earth_day_01d_p",
+        "@earth_day_01d",
         "@earth_faa_01d_g",
         "@earth_gebco_01d_g",
         "@earth_gebcosi_01d_g",
@@ -22,6 +22,7 @@ def cache_data():
         "@earth_mag_01d_g",
         "@earth_mag4km_01d_g",
         "@earth_mask_01d_g",
+        "@earth_night_01d",
         "@earth_relief_01d_g",
         "@earth_relief_01d_p",
         "@earth_relief_10m_g",
