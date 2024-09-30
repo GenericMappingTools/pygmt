@@ -867,6 +867,7 @@ class Session:
         >>> with Session() as ses:
         ...     gmttype = ses._check_dtype_and_dim(data, ndim=3)
         ...     gmttype == ses["GMT_UCHAR"]
+        True
         """
         # Check that the array has the given number of dimensions
         if array.ndim != ndim:
