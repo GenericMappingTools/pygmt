@@ -1613,7 +1613,7 @@ class Session:
     @contextlib.contextmanager
     def virtualfile_from_image(self, image: xr.DataArray):
         """
-        Store a image in a virtual file.
+        Store an image in a virtual file.
 
         Use the virtual file name to pass in the data in your image to a GMT module.
         Images must be :class:`xarray.DataArray` instances.
