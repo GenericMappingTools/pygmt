@@ -2,6 +2,7 @@
 grdgradient - Compute directional gradients from a grid.
 """
 
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -29,7 +30,7 @@ __doctest_skip__ = ["grdgradient"]
     n="interpolation",
 )
 @kwargs_to_strings(A="sequence", E="sequence", R="sequence")
-def grdgradient(grid, outgrid: str | None = None, **kwargs):
+def grdgradient(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
     Compute the directional derivative of the vector gradient of the data.
 
@@ -138,7 +139,7 @@ def grdgradient(grid, outgrid: str | None = None, **kwargs):
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set

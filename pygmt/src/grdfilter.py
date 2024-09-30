@@ -2,6 +2,7 @@
 grdfilter - Filter a grid in the space (or time) domain.
 """
 
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -20,7 +21,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     x="cores",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def grdfilter(grid, outgrid: str | None = None, **kwargs):
+def grdfilter(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
     Filter a grid in the space (or time) domain.
 
@@ -97,7 +98,7 @@ def grdfilter(grid, outgrid: str | None = None, **kwargs):
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set

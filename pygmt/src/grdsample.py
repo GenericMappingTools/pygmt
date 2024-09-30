@@ -2,6 +2,7 @@
 grdsample - Resample a grid onto a new lattice
 """
 
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -20,7 +21,7 @@ __doctest_skip__ = ["grdsample"]
     x="cores",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def grdsample(grid, outgrid: str | None = None, **kwargs):
+def grdsample(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
     Change the registration, spacing, or nodes in a grid file.
 
@@ -60,7 +61,7 @@ def grdsample(grid, outgrid: str | None = None, **kwargs):
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
