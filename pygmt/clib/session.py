@@ -197,15 +197,9 @@ class Session:
                 "library path": self.get_default("API_LIBRARY"),
                 "cores": self.get_default("API_CORES"),
                 "grid layout": self.get_default("API_GRID_LAYOUT"),
+                "image layout": self.get_default("API_IMAGE_LAYOUT"),
+                "binary version": self.get_default("API_BIN_VERSION"),
             }
-            # API_IMAGE_LAYOUT is available only if GMT is linked with the GDAL library.
-            # GDAL is a optional dependency in GMT 6.3.0 but is required since 6.4.0.
-            # API_BIN_VERSION is available since GMT 6.4.0.
-            # Here, we suppress the GMTCLibError exception to make PyGMT compatible with
-            # GMT 6.3.0 with minimal effort.
-            with contextlib.suppress(GMTCLibError):
-                self._info["image layout"] = self.get_default("API_IMAGE_LAYOUT")
-                self._info["binary version"] = self.get_default("API_BIN_VERSION")
         return self._info
 
     def __enter__(self):
