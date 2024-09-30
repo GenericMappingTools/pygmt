@@ -59,7 +59,7 @@ def test_grdcut_image_file(region, expected_image):
     """
     Test grdcut on an input image file.
     """
-    result = grdcut("@earth_day_01d_p", region=region)
+    result = grdcut("@earth_day_01d", region=region)
     xr.testing.assert_allclose(a=result, b=expected_image)
 
 
@@ -78,9 +78,9 @@ def test_grdcut_image_file_in_file_out(region, expected_image):
     Test grdcut on an input image file and outputs to another image file.
     """
     with GMTTempFile(suffix=".tif") as tmp:
-        result = grdcut("@earth_day_01d_p", region=region, outgrid=tmp.name)
+        result = grdcut("@earth_day_01d", region=region, outgrid=tmp.name)
         assert result is None
         assert Path(tmp.name).stat().st_size > 0
         if _HAS_RIOXARRAY:
-            raster = rioxarray.open_rasterio(tmp.name).load()
+            raster = rioxarray.open_rasterio(tmp.name).load().drop_vars("spatial_ref")
             xr.testing.assert_allclose(a=raster, b=expected_image)
