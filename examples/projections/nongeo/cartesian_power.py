@@ -35,7 +35,7 @@ fig.basemap(
 # Use as color "black" (default) and as style "solid" (default)
 fig.plot(x=xvalues, y=yvalues, pen="thick,black,solid")
 
-# Plot the data points ontop of the line
+# Plot the data points on top of the line
 # Use circles with 0.3 centimeters diameter, with an "orange" fill and a "black" outline
 # Symbols are not clipped if they go off the figure
 fig.plot(x=xvalues, y=yvalues, style="c0.3c", fill="orange", pen="black", no_clip=True)
