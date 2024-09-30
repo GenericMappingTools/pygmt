@@ -553,6 +553,7 @@ class Figure:
         plot,
         plot3d,
         rose,
+        scalebar,
         set_panel,
         shift_origin,
         solar,
