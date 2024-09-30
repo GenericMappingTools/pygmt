@@ -7,7 +7,8 @@ from pathlib import Path
 import numpy as np
 import pytest
 import xarray as xr
-from pygmt import grdcut, which
+from pygmt import grdcut
+from pygmt.datasets import load_blue_marble
 from pygmt.helpers import GMTTempFile
 
 try:
@@ -67,7 +68,7 @@ def test_grdcut_image_dataarray(region, expected_image):
     """
     Test grdcut on an input xarray.DataArray object.
     """
-    raster = rioxarray.open_rasterio(which("@earth_day_01d", download="a")).load()
+    raster = load_blue_marble()
     result = grdcut(raster, region=region)
     xr.testing.assert_allclose(a=result, b=expected_image)
 
@@ -80,6 +81,6 @@ def test_grdcut_image_file_in_file_out(region, expected_image):
         result = grdcut("@earth_day_01d_p", region=region, outgrid=tmp.name)
         assert result is None
         assert Path(tmp.name).stat().st_size > 0
-    if _HAS_RIOXARRAY:
-        raster = rioxarray.open_rasterio(which("@earth_day_01d", download="a")).load()
-        xr.testing.assert_allclose(a=raster, b=expected_image)
+        if _HAS_RIOXARRAY:
+            raster = rioxarray.open_rasterio(tmp.name).load()
+            xr.testing.assert_allclose(a=raster, b=expected_image)
