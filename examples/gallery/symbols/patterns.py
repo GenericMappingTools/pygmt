@@ -2,10 +2,10 @@
 Bit and hachure patterns
 ========================
 
-In addition to solid colors, PyGMT also allows using bit or hachure patterns to fill
+In addition to solid colors, PyGMT also allows using bit and hachure patterns to fill
 symbols, polygons, and other areas, via the ``fill`` parameter or similar parameters.
 
-Example function parameters that support bit and hachure patterns include:
+Example method parameters that support bit and hachure patterns include:
 
 - :meth:`pygmt.Figure.coast`: Land and water masses via ``land`` and ``water``
 - :meth:`pygmt.Figure.histogram`: Histogram bars via ``fill``
@@ -20,7 +20,7 @@ Example function parameters that support bit and hachure patterns include:
 - :meth:`pygmt.Figure.wiggle`: Anomalies via ``fillpositive`` and ``fillnegative``
 
 GMT provides 90 predefined patterns that can be used in PyGMT. The patterns are numbered
-from 1 to 90. The patterns can be colored and inverted. The resolution of the pattern
+from 1 to 90, and can be colored and inverted. The resolution of the pattern
 can be changed, and the background and foreground colors can be set. For a complete list
 of available patterns and the full syntax to specify a pattern, refer to the
 :doc:`/techref/patterns`.
