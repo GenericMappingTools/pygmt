@@ -55,4 +55,5 @@ minversions.md
 team.md
 contributing.md
 maintenance.md
+ecosystem.md
 ```
