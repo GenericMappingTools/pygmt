@@ -16,7 +16,6 @@ from pygmt import config, x2sys_cross, x2sys_init
 from pygmt.clib import __gmt_version__
 from pygmt.datasets import load_sample_data
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import data_kind
 
 
 @pytest.fixture(name="mock_x2sys_home")
@@ -241,7 +240,6 @@ def test_x2sys_cross_invalid_tracks_input_type(tracks):
     (file) type, which would raise a GMTInvalidInput error.
     """
     invalid_tracks = tracks[0].to_xarray().z
-    assert data_kind(invalid_tracks) == "grid"
     with pytest.raises(GMTInvalidInput):
         x2sys_cross(tracks=[invalid_tracks])
 
