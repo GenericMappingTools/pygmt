@@ -277,7 +277,7 @@ def data_kind(
     'matrix'
     >>> data_kind(data=[[1, 2, 3], [4, 5, 6]])  # sequence of sequences
     'matrix'
-    >>> data_kind(data={"x": [1, 2, 3], "y": [4, 5, 6]})
+    >>> data_kind(data={"x": [1, 2, 3], "y": [4, 5, 6]})  # dictionary
     'matrix'
     >>> data_kind(data=pd.DataFrame({"x": [1, 2, 3], "y": [4, 5, 6]}))  # pd.DataFrame
     'matrix'
