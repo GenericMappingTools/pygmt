@@ -5,183 +5,9 @@ meca - Plot focal mechanisms.
 import numpy as np
 import pandas as pd
 from pygmt.clib import Session
-from pygmt.exceptions import GMTError, GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
-
-
-def convention_code(convention, component="full"):
-    """
-    Determine the convention code for focal mechanisms.
-
-    The convention code can be used in meca's -S option.
-
-    Parameters
-    ----------
-    convention : str
-        The focal mechanism convention. Can be one of the following:
-
-        - ``"aki"``: Aki and Richards
-        - ``"gcmt"``: Global Centroid Moment Tensor
-        - ``"partial"``: Partial focal mechanism
-        - ``"mt"``: Moment tensor
-        - ``"principal_axis"``: Principal axis
-
-        Single letter convention codes like ``"a"`` and ``"c"`` are also
-        supported but undocumented.
-
-    component : str
-        The component of the focal mechanism. Only used when ``convention`` is
-        ``"mt"`` or ``"principal_axis"``. Can be one of the following:
-
-        - ``"full"``: Full moment tensor
-        - ``"deviatoric"``: Deviatoric moment tensor
-        - ``"dc"``: Double couple
-
-    Returns
-    -------
-    str
-        The single-letter convention code used in meca's -S option.
-
-    Examples
-    --------
-    >>> convention_code("aki")
-    'a'
-    >>> convention_code("gcmt")
-    'c'
-    >>> convention_code("partial")
-    'p'
-
-    >>> convention_code("mt", component="full")
-    'm'
-    >>> convention_code("mt", component="deviatoric")
-    'z'
-    >>> convention_code("mt", component="dc")
-    'd'
-    >>> convention_code("principal_axis", component="full")
-    'x'
-    >>> convention_code("principal_axis", component="deviatoric")
-    't'
-    >>> convention_code("principal_axis", component="dc")
-    'y'
-
-    >>> for code in ["a", "c", "m", "d", "z", "p", "x", "y", "t"]:
-    ...     assert convention_code(code) == code
-
-    >>> convention_code("invalid")
-    Traceback (most recent call last):
-      ...
-    pygmt.exceptions.GMTInvalidInput: Invalid convention 'invalid'.
-
-    >>> convention_code("mt", "invalid")  # doctest: +NORMALIZE_WHITESPACE
-    Traceback (most recent call last):
-      ...
-    pygmt.exceptions.GMTInvalidInput:
-        Invalid component 'invalid' for convention 'mt'.
-    """
-    # Codes for focal mechanism formats determined by "convention"
-    codes1 = {"aki": "a", "gcmt": "c", "partial": "p"}
-    # Codes for focal mechanism formats determined by both "convention" and
-    # "component"
-    codes2 = {
-        "mt": {"deviatoric": "z", "dc": "d", "full": "m"},
-        "principal_axis": {"deviatoric": "t", "dc": "y", "full": "x"},
-    }
-
-    if convention in codes1:
-        return codes1[convention]
-    if convention in codes2:
-        if component not in codes2[convention]:
-            raise GMTInvalidInput(
-                f"Invalid component '{component}' for convention '{convention}'."
-            )
-        return codes2[convention][component]
-    if convention in {"a", "c", "m", "d", "z", "p", "x", "y", "t"}:
-        return convention
-    raise GMTInvalidInput(f"Invalid convention '{convention}'.")
-
-
-def convention_name(code):
-    """
-    Determine the name of a focal mechanism convention from its code.
-
-    Parameters
-    ----------
-    code : str
-        The single-letter convention code.
-
-    Returns
-    -------
-    str
-        The name of the focal mechanism convention.
-
-    Examples
-    --------
-    >>> convention_name("a")
-    'aki'
-    >>> convention_name("aki")
-    'aki'
-    """
-    name = {
-        "a": "aki",
-        "c": "gcmt",
-        "p": "partial",
-        "z": "mt",
-        "d": "mt",
-        "m": "mt",
-        "x": "principal_axis",
-        "y": "principal_axis",
-        "t": "principal_axis",
-    }.get(code)
-    return name if name is not None else code
-
-
-def convention_params(convention):
-    """
-    Return the list of focal mechanism parameters for a given convention.
-
-    Parameters
-    ----------
-    convention : str
-        The focal mechanism convention. Can be one of the following:
-
-        - ``"aki"``: Aki and Richards
-        - ``"gcmt"``: Global Centroid Moment Tensor
-        - ``"partial"``: Partial focal mechanism
-        - ``"mt"``: Moment tensor
-        - ``"principal_axis"``: Principal axis
-
-    Returns
-    -------
-    list
-        The list of focal mechanism parameters.
-    """
-    return {
-        "aki": ["strike", "dip", "rake", "magnitude"],
-        "gcmt": [
-            "strike1",
-            "dip1",
-            "rake1",
-            "strike2",
-            "dip2",
-            "rake2",
-            "mantissa",
-            "exponent",
-        ],
-        "mt": ["mrr", "mtt", "mff", "mrt", "mrf", "mtf", "exponent"],
-        "partial": ["strike1", "dip1", "strike2", "fault_type", "magnitude"],
-        "principal_axis": [
-            "t_value",
-            "t_azimuth",
-            "t_plunge",
-            "n_value",
-            "n_azimuth",
-            "n_plunge",
-            "p_value",
-            "p_azimuth",
-            "p_plunge",
-            "exponent",
-        ],
-    }[convention]
+from pygmt.src._common import _FocalMechanismConvention
 
 
 @fmt_docstring
@@ -204,7 +30,7 @@ def convention_params(convention):
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def meca(  # noqa: PLR0912, PLR0913, PLR0915
+def meca(  # noqa: PLR0912, PLR0913
     self,
     spec,
     scale,
@@ -401,17 +227,10 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
 
     # Convert spec to pandas.DataFrame unless it's a file
     if isinstance(spec, dict | pd.DataFrame):  # spec is a dict or pd.DataFrame
-        # determine convention from dict keys or pd.DataFrame column names
-        for conv in ["aki", "gcmt", "mt", "partial", "principal_axis"]:
-            if set(convention_params(conv)).issubset(set(spec.keys())):
-                convention = conv
-                break
-        else:
-            if isinstance(spec, dict):
-                msg = "Keys in dict 'spec' do not match known conventions."
-            else:
-                msg = "Column names in pd.DataFrame 'spec' do not match known conventions."
-            raise GMTError(msg)
+        # Determine convention from dict keys or pd.DataFrame column names
+        _convention = _FocalMechanismConvention.from_params(
+            spec.keys(), component=component
+        )
 
         # convert dict to pd.DataFrame so columns can be reordered
         if isinstance(spec, dict):
@@ -423,13 +242,16 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
             )
     elif isinstance(spec, np.ndarray):  # spec is a numpy array
         if convention is None:
-            raise GMTInvalidInput("'convention' must be specified for an array input.")
-        # make sure convention is a name, not a code
-        convention = convention_name(convention)
+            msg = "'convention' must be specified for an array input."
+            raise GMTInvalidInput(msg)
+
+        _convention = _FocalMechanismConvention(
+            convention=convention, component=component
+        )
 
         # Convert array to pd.DataFrame and assign column names
         spec = pd.DataFrame(np.atleast_2d(spec))
-        colnames = ["longitude", "latitude", "depth", *convention_params(convention)]
+        colnames = ["longitude", "latitude", "depth", *_convention.params]
         # check if spec has the expected number of columns
         ncolsdiff = len(spec.columns) - len(colnames)
         if ncolsdiff == 0:
@@ -441,10 +263,15 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
         elif ncolsdiff == 3:
             colnames += ["plot_longitude", "plot_latitude", "event_name"]
         else:
-            raise GMTInvalidInput(
+            msg = (
                 f"Input array must have {len(colnames)} to {len(colnames) + 3} columns."
             )
+            raise GMTInvalidInput(msg)
         spec.columns = colnames
+    else:
+        _convention = _FocalMechanismConvention(
+            convention=convention, component=component
+        )
 
     # Now spec is a pd.DataFrame or a file
     if isinstance(spec, pd.DataFrame):
@@ -472,7 +299,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
         # expected columns are:
         # longitude, latitude, depth, focal_parameters,
         #   [plot_longitude, plot_latitude] [event_name]
-        newcols = ["longitude", "latitude", "depth", *convention_params(convention)]
+        newcols = ["longitude", "latitude", "depth", *_convention.params]
         if "plot_longitude" in spec.columns and "plot_latitude" in spec.columns:
             newcols += ["plot_longitude", "plot_latitude"]
             if kwargs.get("A") is None:
@@ -483,11 +310,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
         if spec.columns.tolist() != newcols:
             spec = spec.reindex(newcols, axis=1)
 
-    # determine data_format from convention and component
-    data_format = convention_code(convention=convention, component=component)
-
-    # Assemble -S flag
-    kwargs["S"] = f"{data_format}{scale}"
+    kwargs["S"] = f"{_convention.code}{scale}"
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=spec) as vintbl:
             lib.call_module(module="meca", args=build_arg_list(kwargs, infile=vintbl))
