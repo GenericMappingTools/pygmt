@@ -236,8 +236,8 @@ def test_x2sys_cross_input_two_filenames():
 
 def test_x2sys_cross_invalid_tracks_input_type(tracks):
     """
-    Run x2sys_cross using tracks input that is not a pandas.DataFrame (matrix) or str
-    (file) type, which would raise a GMTInvalidInput error.
+    Run x2sys_cross using tracks input that is not a pandas.DataFrame or str type,
+    which would raise a GMTInvalidInput error.
     """
     invalid_tracks = tracks[0].to_xarray().z
     with pytest.raises(GMTInvalidInput):
