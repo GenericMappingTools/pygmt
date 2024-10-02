@@ -16,8 +16,6 @@
 
 #### Contextily
 
-#### xyzservices
-
 #### RioXarray
 
 #### PyArrow
