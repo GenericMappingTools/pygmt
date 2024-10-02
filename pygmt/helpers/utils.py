@@ -207,13 +207,11 @@ def data_kind(
 
     Parameters
     ----------
-    data : str, pathlib.PurePath, None, bool, xarray.DataArray or {table-like}
-        Pass in either a file name or :class:`pathlib.Path` to an ASCII data
-        table, an :class:`xarray.DataArray`, a 1-D/2-D
-        {table-classes} or an option argument.
+    data
+        The data to be passed to a GMT module.
     required
-        Set to True when 'data' is required, or False when dealing with
-        optional virtual files. [Default is True].
+        Whether 'data' is required. Set to ``False`` when dealing with optional virtual
+        files.
 
     Returns
     -------
