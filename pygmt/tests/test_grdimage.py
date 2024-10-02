@@ -252,3 +252,37 @@ def test_grdimage_imgout_fails(grid):
         fig.grdimage(grid, img_out="out.png")
     with pytest.raises(GMTInvalidInput):
         fig.grdimage(grid, A="out.png")
+
+
+@pytest.mark.mpl_image_compare()
+def test_grdimage_grid_no_redunant_360():
+    """
+    Test that global grids with and without redundant 360/0 longitude values work.
+
+    Test for https://github.com/GenericMappingTools/pygmt/issues/3331.
+    """
+    # Global grid [-180, 180, -90, 90] with redundant longitude at 180/-180
+    da1 = load_earth_relief(region=[-180, 180, -90, 90])
+    # Global grid [0, 360, -90, 90] with redundant longitude at 0/360
+    da2 = load_earth_relief(region=[0, 360, -90, 90])
+
+    # Global grid [-180, 180, -90, 90] without redundant longitude at -180/180
+    da3 = da1[:, 0:360]
+    da3.gmt.registration, da3.gmt.gtype = 0, 1
+    assert da3.shape == (181, 360)
+    assert da3.lon.to_numpy().min() == -180.0
+    assert da3.lon.to_numpy().max() == 179.0
+
+    # Global grid [0, 360, -90, 90] without redundant longitude at 0/360
+    da4 = da2[:, 0:360]
+    da4.gmt.registration, da4.gmt.gtype = 0, 1
+    assert da4.shape == (181, 360)
+    assert da4.lon.to_numpy().min() == 0.0
+    assert da4.lon.to_numpy().max() == 359.0
+
+    fig = Figure()
+    kwdict = {"projection": "W120/10c", "region": "g", "frame": "+tlon=120"}
+    fig.grdimage(da3, **kwdict)
+    fig.shift_origin(xshift="w+2c")
+    fig.grdimage(da4, **kwdict)
+    return fig
