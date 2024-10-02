@@ -239,7 +239,7 @@ def data_kind(
     ['file', 'file']
     >>> data_kind(data=Path("file.txt"))
     'file'
-    >>> data_kind(data=(Path("file1.txt", "file2.txt")))
+    >>> data_kind(data=(Path("file1.txt"), Path("file2.txt")))
     'file'
 
     The "grid" kind:
