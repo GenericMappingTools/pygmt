@@ -201,9 +201,9 @@ def text_(  # noqa: PLR0912
 
     # Arguments that can accept arrays.
     array_args = [
-        (angle, "+a", "angle"),
-        (font, "+f", "font"),
-        (justify, "+j", "justify"),
+        ("angle", "+a", angle),
+        ("font", "+f", font),
+        ("justify", "+j", justify),
     ]
 
     # Build the -F option.
@@ -212,28 +212,28 @@ def text_(  # noqa: PLR0912
     ):
         kwargs.update({"F": ""})
 
-    for arg, flag, _ in array_args:
+    for _, flag, arg in array_args:
         if arg is True:
             kwargs["F"] += flag
         elif isinstance(arg, int | float | str):
             kwargs["F"] += f"{flag}{arg}"
 
-    extra_arrays = []
     confdict = {}
-    if kind == "empty":
-        for arg, flag, name in array_args:
+    if kind == "empty":  # Data is given via a series of vectors
+        data = {"x": x, "y": y}
+        for name, flag, arg in array_args:
             if is_nonstr_iter(arg):
                 kwargs["F"] += flag
                 # angle is numeric type and font/justify are str type.
                 if name == "angle":
-                    extra_arrays.append(arg)
+                    data[name] = arg
                 else:
-                    extra_arrays.append(np.asarray(arg, dtype=str))
+                    data[name] = np.asarray(arg, dtype=str)
 
         # If an array of transparency is given, GMT will read it from the last numerical
         # column per data record.
         if is_nonstr_iter(kwargs.get("t")):
-            extra_arrays.append(kwargs["t"])
+            data["transparency"] = kwargs["t"]
             kwargs["t"] = True
 
         # Append text to the last column. Text must be passed in as str type.
@@ -243,11 +243,12 @@ def text_(  # noqa: PLR0912
             text = np.vectorize(non_ascii_to_octal, excluded="encoding")(
                 text, encoding=encoding
             )
-        extra_arrays.append(text)
+        data["text"] = text
 
         if encoding not in {"ascii", "ISOLatin1+"}:
             confdict = {"PS_CHAR_ENCODING": encoding}
     else:
+        data = textfiles  # Alias 'textfiles' to 'data'
         if isinstance(position, str):
             kwargs["F"] += f"+c{position}+t{text}"
 
@@ -258,12 +259,7 @@ def text_(  # noqa: PLR0912
 
     with Session() as lib:
         with lib.virtualfile_in(
-            check_kind="vector",
-            data=textfiles,
-            x=x,
-            y=y,
-            extra_arrays=extra_arrays,
-            required_data=required_data,
+            check_kind="vector", data=data, required_data=required_data
         ) as vintbl:
             lib.call_module(
                 module="text",
