@@ -10,13 +10,21 @@
 
 #### Xarray
 
+#### packaging
+
+#### netCDF4
+
 ### Optional dependencies
+
+#### IPython
 
 #### GeoPandas
 
 #### Contextily
 
 #### RioXarray
+
+#### Rasterio
 
 #### PyArrow
 
