@@ -5,7 +5,9 @@ Test Figure.grdimage.
 import numpy as np
 import pytest
 import xarray as xr
+from packaging.version import Version
 from pygmt import Figure
+from pygmt.clib import __gmt_version__
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.testing import check_figures_equal
@@ -254,6 +256,10 @@ def test_grdimage_imgout_fails(grid):
         fig.grdimage(grid, A="out.png")
 
 
+@pytest.mark.xfail(
+    condition=Version(__gmt_version__) <= Version("6.5.0"),
+    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8554",
+)
 @pytest.mark.mpl_image_compare()
 def test_grdimage_grid_no_redunant_360():
     """
