@@ -9,7 +9,7 @@ import pytest
 import xarray as xr
 from pygmt import surface, which
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import GMTTempFile, data_kind
+from pygmt.helpers import GMTTempFile
 
 
 @pytest.fixture(scope="module", name="data")
@@ -125,7 +125,6 @@ def test_surface_wrong_kind_of_input(data, region, spacing):
     Run surface using grid input that is not file/matrix/vectors.
     """
     data = data.z.to_xarray()  # convert pandas.Series to xarray.DataArray
-    assert data_kind(data) == "grid"
     with pytest.raises(GMTInvalidInput):
         surface(data=data, spacing=spacing, region=region)
 
