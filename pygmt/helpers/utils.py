@@ -14,13 +14,14 @@ import webbrowser
 from collections.abc import Iterable, Sequence
 from typing import Any, Literal
 
+import numpy as np
 import xarray as xr
 from pygmt.encodings import charset
 from pygmt.exceptions import GMTInvalidInput
 
 
 def _validate_data_input(
-    data=None, x=None, y=None, z=None, required_z=False, required_data=True, kind=None
+    data=None, x=None, y=None, z=None, required_data=True, required_cols=2, kind=None
 ):
     """
     Check if the combination of data/x/y/z is valid.
@@ -43,7 +44,7 @@ def _validate_data_input(
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Must provide both x and y.
-    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6], required_z=True)
+    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6], required_cols=3)
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Must provide x, y, and z.
@@ -51,26 +52,25 @@ def _validate_data_input(
     >>> import pandas as pd
     >>> import xarray as xr
     >>> data = np.arange(8).reshape((4, 2))
-    >>> _validate_data_input(data=data, required_z=True, kind="matrix")
+    >>> _validate_data_input(data=data, required_cols=3, kind="matrix")
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
+    pygmt.exceptions.GMTInvalidInput: data needs 3 columns but 2 column(s) are given.
     >>> _validate_data_input(
     ...     data=pd.DataFrame(data, columns=["x", "y"]),
-    ...     required_z=True,
+    ...     required_cols=3,
     ...     kind="matrix",
     ... )
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
+    pygmt.exceptions.GMTInvalidInput: data needs 3 columns but 2 column(s) are given.
     >>> _validate_data_input(
     ...     data=xr.Dataset(pd.DataFrame(data, columns=["x", "y"])),
-    ...     required_z=True,
-    ...     kind="matrix",
+    ...     required_cols=3,
     ... )
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
+    pygmt.exceptions.GMTInvalidInput: data needs 3 columns but 2 column(s) are given.
     >>> _validate_data_input(data="infile", x=[1, 2, 3])
     Traceback (most recent call last):
         ...
@@ -93,26 +93,38 @@ def _validate_data_input(
     GMTInvalidInput
         If the data input is not valid.
     """
-    if data is None:  # data is None
-        if x is None and y is None:  # both x and y are None
-            if required_data:  # data is not optional
+    if kind is None:
+        kind = data_kind(data, required=required_data)
+
+    if data is not None and any(v is not None for v in (x, y, z)):
+        raise GMTInvalidInput("Too much data. Use either data or x/y/z.")
+
+    match kind:
+        case "none":
+            if x is None and y is None:  # both x and y are None
                 raise GMTInvalidInput("No input data provided.")
-        elif x is None or y is None:  # either x or y is None
-            raise GMTInvalidInput("Must provide both x and y.")
-        if required_z and z is None:  # both x and y are not None, now check z
-            raise GMTInvalidInput("Must provide x, y, and z.")
-    else:  # data is not None
-        if x is not None or y is not None or z is not None:
-            raise GMTInvalidInput("Too much data. Use either data or x/y/z.")
-        # For 'matrix' kind, check if data has the required z column
-        if kind == "matrix" and required_z:
-            if hasattr(data, "shape"):  # np.ndarray or pd.DataFrame
-                if len(data.shape) == 1 and data.shape[0] < 3:
-                    raise GMTInvalidInput("data must provide x, y, and z columns.")
-                if len(data.shape) > 1 and data.shape[1] < 3:
-                    raise GMTInvalidInput("data must provide x, y, and z columns.")
-            if hasattr(data, "data_vars") and len(data.data_vars) < 3:  # xr.Dataset
-                raise GMTInvalidInput("data must provide x, y, and z columns.")
+            if x is None or y is None:  # either x or y is None
+                raise GMTInvalidInput("Must provide both x and y.")
+            if required_cols >= 3 and z is None:
+                # both x and y are not None, now check z
+                raise GMTInvalidInput("Must provide x, y, and z.")
+        case "matrix":  # 2-D numpy.ndarray
+            if (actual_cols := data.shape[1]) < required_cols:
+                msg = f"data needs {required_cols} columns but {actual_cols} column(s) are given."
+                raise GMTInvalidInput(msg)
+        case "vectors":
+            if hasattr(data, "items") and not hasattr(data, "to_frame"):
+                # Dict, pd.DataFrame, xr.Dataset
+                arrays = [array for _, array in data.items()]
+                if (actual_cols := len(arrays)) < required_cols:
+                    msg = f"data needs {required_cols} columns but {actual_cols} column(s) are given."
+                    raise GMTInvalidInput(msg)
+
+                # Loop over columns to make sure they're not None
+                for idx, array in enumerate(arrays[:required_cols]):
+                    if array is None:
+                        msg = f"data needs {required_cols} columns but the {idx} column is None."
+                        raise GMTInvalidInput(msg)
 
 
 def _check_encoding(
@@ -187,23 +199,31 @@ def _check_encoding(
     return "ISOLatin1+"
 
 
-def data_kind(
+def data_kind(  # noqa: PLR0911
     data: Any = None, required: bool = True
 ) -> Literal[
-    "arg", "file", "geojson", "grid", "image", "matrix", "stringio", "vectors"
+    "none", "arg", "file", "geojson", "grid", "image", "matrix", "stringio", "vectors"
 ]:
     r"""
     Check the kind of data that is provided to a module.
 
-    The ``data`` argument can be in any type, but only following types are supported:
+    Recognized data kinds are:
 
-    - a string or a :class:`pathlib.PurePath` object or a sequence of them, representing
-      a file name or a list of file names
-    - a 2-D or 3-D :class:`xarray.DataArray` object
-    - a 2-D matrix
-    - None, bool, int or float type representing an optional arguments
-    - a geo-like Python object that implements ``__geo_interface__`` (e.g.,
-      geopandas.GeoDataFrame or shapely.geometry)
+    - ``"none"``: data is ``None`` and is required. In this case, the input data is
+      usually given via a series of vectors (e.g., x/y/z)
+    - ``"arg"``: data is ``None`` and ``required=False``, or bool, int, float,
+      representing an optional argument, used for dealing with optional virtual files
+    - ``"file"``: a string or a :class:`pathlib.PurePath` object or a sequence of them,
+      representing a file name or a list of file names
+    - ``"geojson"``: a geo-like Python object that implements ``__geo_interface__``
+      (e.g., geopandas.GeoDataFrame or shapely.geometry)
+    - ``"grid"``: a :class:`xarray.DataArray` object with dimensions not equal to 3
+    - ``"image"``: a :class:`xarray.DataArray` object with 3 dimensions
+    - ``"matrix"``: a 2-D :class:`numpy.ndarray` object
+    - ``"vectors"``: a :class:`pandas.DataFrame` object, a dictionary with array-like
+      values, or a sequence of sequences
+
+    The function will fallback to ``"vectors"`` for any unrecognized data.
 
     Parameters
     ----------
@@ -287,30 +307,41 @@ def data_kind(
     >>> data_kind(data=None)
     'vectors'
     """
-    kind: Literal[
-        "arg", "file", "geojson", "grid", "image", "matrix", "stringio", "vectors"
-    ]
+    # data is None and is required.
+    if data is None and required:
+        return "none"
+
+    # A file or a sequence of files
     if isinstance(data, str | pathlib.PurePath) or (
         isinstance(data, list | tuple)
         and all(isinstance(_file, str | pathlib.PurePath) for _file in data)
     ):
-        # One or more files
-        kind = "file"
-    elif isinstance(data, bool | int | float) or (data is None and not required):
-        kind = "arg"
-    elif isinstance(data, io.StringIO):
-        kind = "stringio"
-    elif isinstance(data, xr.DataArray):
-        kind = "image" if len(data.dims) == 3 else "grid"
-    elif hasattr(data, "__geo_interface__"):
-        # geo-like Python object that implements ``__geo_interface__``
-        # (geopandas.GeoDataFrame or shapely.geometry)
-        kind = "geojson"
-    elif data is not None:
-        kind = "matrix"
-    else:
-        kind = "vectors"
-    return kind
+        return "file"
+
+    # A StringIO object.
+    if isinstance(data, io.StringIO):
+        return "stringio"
+
+    # An option argument, mainly for dealing with optional virtual files
+    if isinstance(data, bool | int | float) or (data is None and not required):
+        return "arg"
+
+    # A xr.DataArray grid or image
+    if isinstance(data, xr.DataArray):
+        return "image" if len(data.dims) == 3 else "grid"
+
+    # Geo-like Python object that implements ``__geo_interface__`` (e.g.,
+    # geopandas.GeoDataFrame or shapely.geometry)
+    # Reference: https://gist.github.com/sgillies/2217756
+    if hasattr(data, "__geo_interface__"):
+        return "geojson"
+
+    # A 2-D numpy.ndarray
+    if isinstance(data, np.ndarray) and data.ndim == 2:
+        return "matrix"
+
+    # Fallback to "vectors" for anything else
+    return "vectors"
 
 
 def non_ascii_to_octal(

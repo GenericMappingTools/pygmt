@@ -8,7 +8,6 @@ Uses ctypes to wrap most of the core functions from the C API.
 import contextlib
 import ctypes as ctp
 import io
-import pathlib
 import sys
 import warnings
 from collections.abc import Generator, Sequence
@@ -1703,9 +1702,8 @@ class Session:
         x=None,
         y=None,
         z=None,
-        extra_arrays=None,
-        required_z=False,
         required_data=True,
+        required_cols: int = 2,
     ):
         """
         Store any data inside a virtual file.
@@ -1725,14 +1723,11 @@ class Session:
             data input.
         x/y/z : 1-D arrays or None
             x, y, and z columns as numpy arrays.
-        extra_arrays : list of 1-D arrays
-            Optional. A list of numpy arrays in addition to x, y, and z.
-            All of these arrays must be of the same size as the x/y/z arrays.
-        required_z : bool
-            State whether the 'z' column is required.
         required_data : bool
             Set to True when 'data' is required, or False when dealing with
             optional virtual files. [Default is True].
+        required_cols
+            Number of required columns.
 
         Returns
         -------
@@ -1766,8 +1761,8 @@ class Session:
             x=x,
             y=y,
             z=z,
-            required_z=required_z,
             required_data=required_data,
+            required_cols=required_cols,
             kind=kind,
         )
 
@@ -1776,7 +1771,7 @@ class Session:
             if check_kind == "raster":
                 valid_kinds += ("grid", "image")
             elif check_kind == "vector":
-                valid_kinds += ("matrix", "vectors", "geojson")
+                valid_kinds += ("none", "matrix", "vectors", "geojson")
             if kind not in valid_kinds:
                 raise GMTInvalidInput(
                     f"Unrecognized data type for {check_kind}: {type(data)}"
@@ -1784,56 +1779,55 @@ class Session:
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
-            "file": contextlib.nullcontext,
+            "none": self.virtualfile_from_vectors,
             "arg": contextlib.nullcontext,
+            "file": contextlib.nullcontext,
             "geojson": tempfile_from_geojson,
             "grid": self.virtualfile_from_grid,
             "image": tempfile_from_image,
+            "matrix": self.virtualfile_from_matrix,
             "stringio": self.virtualfile_from_stringio,
-            # Note: virtualfile_from_matrix is not used because a matrix can be
-            # converted to vectors instead, and using vectors allows for better
-            # handling of string type inputs (e.g. for datetime data types)
-            "matrix": self.virtualfile_from_vectors,
             "vectors": self.virtualfile_from_vectors,
         }[kind]
 
         # Ensure the data is an iterable (Python list or tuple)
-        if kind in {"geojson", "grid", "image", "file", "arg", "stringio"}:
-            if kind == "image" and data.dtype != "uint8":
-                msg = (
-                    f"Input image has dtype: {data.dtype} which is unsupported, "
-                    "and may result in an incorrect output. Please recast image "
-                    "to a uint8 dtype and/or scale to 0-255 range, e.g. "
-                    "using a histogram equalization function like "
-                    "skimage.exposure.equalize_hist."
-                )
-                warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
-            _data = (data,) if not isinstance(data, pathlib.PurePath) else (str(data),)
-        elif kind == "vectors":
-            _data = [np.atleast_1d(x), np.atleast_1d(y)]
-            if z is not None:
-                _data.append(np.atleast_1d(z))
-            if extra_arrays:
-                _data.extend(extra_arrays)
-        elif kind == "matrix":  # turn 2-D arrays into list of vectors
-            if hasattr(data, "items") and not hasattr(data, "to_frame"):
-                # pandas.DataFrame or xarray.Dataset types.
-                # pandas.Series will be handled below like a 1-D numpy.ndarray.
-                _data = [array for _, array in data.items()]
-            elif hasattr(data, "ndim") and data.ndim == 2 and data.dtype.kind in "iuf":
-                # Just use virtualfile_from_matrix for 2-D numpy.ndarray
-                # which are signed integer (i), unsigned integer (u) or
-                # floating point (f) types
-                _virtualfile_from = self.virtualfile_from_matrix
+        match kind:
+            case "arg" | "file" | "geojson" | "grid" | "stringio":
                 _data = (data,)
-            else:
-                # Python list, tuple, numpy.ndarray, and pandas.Series types
-                _data = np.atleast_2d(np.asanyarray(data).T)
+            case "image":
+                if data.dtype != "uint8":
+                    msg = (
+                        f"Input image has dtype: {data.dtype} which is unsupported, "
+                        "and may result in an incorrect output. Please recast image "
+                        "to a uint8 dtype and/or scale to 0-255 range, e.g. "
+                        "using a histogram equalization function like "
+                        "skimage.exposure.equalize_hist."
+                    )
+                    warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
+                _data = (data,)
+            case "matrix":  # 2-D numpy.ndarray
+                # virtualfile_from_matrix only support 2-D numpy.ndarray which are
+                # signed integer (i), unsigned integer (u) or floating point (f) types
+                if data.dtype.kind in "iuf":
+                    _data = (data,)
+                else:  # turn 2-D numpy.ndarray into list of arrays
+                    _virtualfile_from = self.virtualfile_from_vectors
+                    _data = list(data.T)
+            case "none":  # data is given via a series of vectors
+                _data = [np.atleast_1d(x), np.atleast_1d(y)]
+                if z is not None:
+                    _data.append(np.atleast_1d(z))
+            case "vectors":
+                if hasattr(data, "items") and not hasattr(data, "to_frame"):
+                    # Dict, pandas.DataFrame or xarray.Dataset types.
+                    # pandas.Series will be handled below like a 1-D numpy.ndarray.
+                    _data = [np.atleast_1d(array) for _, array in data.items()]
+                else:
+                    # Python list, tuple, and pandas.Series types
+                    _data = np.atleast_2d(np.asanyarray(data).T)
 
         # Finally create the virtualfile from the data, to be passed into GMT
-        file_context = _virtualfile_from(*_data)
-
-        return file_context
+        return _virtualfile_from(*_data)
 
     def virtualfile_from_data(
         self,
@@ -1855,20 +1849,32 @@ class Session:
            instead.
         """
         msg = (
-            "API function 'Session.virtualfile_from_datae()' has been deprecated since "
+            "API function 'Session.virtualfile_from_data()' has been deprecated since "
             "v0.13.0 and will be removed in v0.15.0. Use 'Session.virtualfile_in()' "
             "instead."
         )
         warnings.warn(msg, category=FutureWarning, stacklevel=2)
+        # Session.virtualfile_in no longer has the 'extra_arrays' parameter.
+        if data is None and extra_arrays is not None:
+            data = [np.atleast_1d(x), np.atleast_1d(y)]
+            if z is not None:
+                data.append(np.atleast_1d(z))
+            data.extend(extra_arrays)
+            x, y, z = None, None, None
+
+            # Need to convert the list of arrays into a pandas.DataFrame object.
+            # Otherwise, the "vector" `data` will be converted to a homogeneous 2D
+            # numpy.ndarray first.
+            data = pd.concat(objs=[pd.Series(array) for array in data], axis="columns")
+
         return self.virtualfile_in(
             check_kind=check_kind,
             data=data,
             x=x,
             y=y,
             z=z,
-            extra_arrays=extra_arrays,
-            required_z=required_z,
             required_data=required_data,
+            required_cols=3 if required_z else 2,
         )
 
     @contextlib.contextmanager

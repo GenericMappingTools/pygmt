@@ -148,7 +148,7 @@ def xyz2grd(
     with Session() as lib:
         with (
             lib.virtualfile_in(
-                check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
+                check_kind="vector", data=data, x=x, y=y, z=z, required_cols=3
             ) as vintbl,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
