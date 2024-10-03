@@ -188,7 +188,7 @@ def _check_encoding(
 
 
 def data_kind(  # noqa: PLR0911
-    data: Any = None, required: bool = True
+    data: Any, required: bool = True
 ) -> Literal[
     "arg", "file", "geojson", "grid", "image", "matrix", "stringio", "vectors"
 ]:
