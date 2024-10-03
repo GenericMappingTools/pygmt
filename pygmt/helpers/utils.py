@@ -14,6 +14,7 @@ import webbrowser
 from collections.abc import Iterable, Sequence
 from typing import Any, Literal
 
+import numpy as np
 import xarray as xr
 from pygmt.encodings import charset
 from pygmt.exceptions import GMTInvalidInput
@@ -205,8 +206,10 @@ def data_kind(  # noqa: PLR0911
       (e.g., geopandas.GeoDataFrame or shapely.geometry)
     - ``"grid"``: a :class:`xarray.DataArray` object that is not 3-D
     - ``"image"``: a 3-D :class:`xarray.DataArray` object
-    - ``"matrix"``: anything that is not None
-    - ``"vectors"``: data is ``None`` and ``required=True``
+    - ``"matrix"``: a 2-D :class:`numpy.ndarray` object
+    - ``"vectors"``: fallback to ``"vectors"`` for any unrecognized data. Common data
+      types include, a :class:`pandas.DataFrame` object, a dictionary with array-like
+      values, a 1-D/3-D :class:`numpy.ndarray` object, or array-like objects.
 
     Parameters
     ----------
@@ -266,27 +269,27 @@ def data_kind(  # noqa: PLR0911
 
     The "matrix"`` kind:
 
-    >>> data_kind(data=np.arange(10))  # 1-D numpy.ndarray
-    'matrix'
     >>> data_kind(data=np.arange(10).reshape((5, 2)))  # 2-D numpy.ndarray
-    'matrix'
-    >>> data_kind(data=np.arange(60).reshape((3, 4, 5)))  # 3-D numpy.ndarray
-    'matrix'
-    >>> data_kind(xr.DataArray(np.arange(12), name="x").to_dataset())  # xarray.Dataset
-    'matrix'
-    >>> data_kind(data=[1, 2, 3])  # 1-D sequence
-    'matrix'
-    >>> data_kind(data=[[1, 2, 3], [4, 5, 6]])  # sequence of sequences
-    'matrix'
-    >>> data_kind(data={"x": [1, 2, 3], "y": [4, 5, 6]})  # dictionary
-    'matrix'
-    >>> data_kind(data=pd.DataFrame({"x": [1, 2, 3], "y": [4, 5, 6]}))  # pd.DataFrame
-    'matrix'
-    >>> data_kind(data=pd.Series([1, 2, 3], name="x"))  # pd.Series
     'matrix'
 
     The "vectors" kind:
 
+    >>> data_kind(data=np.arange(10))  # 1-D numpy.ndarray
+    'vectors'
+    >>> data_kind(data=np.arange(60).reshape((3, 4, 5)))  # 3-D numpy.ndarray
+    'vectors'
+    >>> data_kind(xr.DataArray(np.arange(12), name="x").to_dataset())  # xarray.Dataset
+    'vectors'
+    >>> data_kind(data=[1, 2, 3])  # 1-D sequence
+    'vectors'
+    >>> data_kind(data=[[1, 2, 3], [4, 5, 6]])  # sequence of sequences
+    'vectors'
+    >>> data_kind(data={"x": [1, 2, 3], "y": [4, 5, 6]})  # dictionary
+    'vectors'
+    >>> data_kind(data=pd.DataFrame({"x": [1, 2, 3], "y": [4, 5, 6]}))  # pd.DataFrame
+    'vectors'
+    >>> data_kind(data=pd.Series([1, 2, 3], name="x"))  # pd.Series
+    'vectors'
     >>> data_kind(data=None)
     'vectors'
     """
@@ -315,8 +318,8 @@ def data_kind(  # noqa: PLR0911
     if hasattr(data, "__geo_interface__"):
         return "geojson"
 
-    # Any not-None is considered as a matrix.
-    if data is not None:
+    # A 2-D numpy.ndarray.
+    if isinstance(data, np.ndarray) and data.ndim == 2:
         return "matrix"
 
     return "vectors"
