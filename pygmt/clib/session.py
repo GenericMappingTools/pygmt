@@ -1722,8 +1722,15 @@ class Session:
         x/y/z : 1-D arrays or None
             x, y, and z columns as numpy arrays.
         extra_arrays : list of 1-D arrays
-            Optional. A list of numpy arrays in addition to x, y, and z.
-            All of these arrays must be of the same size as the x/y/z arrays.
+            Optional. A list of numpy arrays in addition to x, y, and z. All of these
+            arrays must be of the same size as the x/y/z arrays.
+
+            .. deprecated:: 0.14.0
+
+               The ``extra_arrays`` parameter is deprecated in v0.14.0 and will be
+               removed in v0.18.0. To pass more than three vectors to this function,
+               create a dictionary with array-like values instead. See the changes in
+               PR #XXX for reference.
         required_z : bool
             State whether the 'z' column is required.
         required_data : bool
@@ -1810,6 +1817,13 @@ class Session:
                     _data.append(z)
                 if extra_arrays:
                     _data.extend(extra_arrays)
+                    msg = (
+                        "The ``extra_arrays`` parameter is deprecated in v0.14.0 and "
+                        "will be removed in v0.18.0. To pass more than three vectors "
+                        "to this function, create a dictionary with array-like values "
+                        "instead. See the changes in PR #XXX for reference."
+                    )
+                    warnings.warn(message=msg, category=FutureWarning, stacklevel=1)
             case "vectors":
                 if hasattr(data, "items") and not hasattr(data, "to_frame"):
                     # pandas.DataFrame or xarray.Dataset types.
@@ -1828,6 +1842,25 @@ class Session:
                 if data.dtype.kind not in "iuf":
                     _virtualfile_from = self.virtualfile_from_vectors
                     _data = data.T
+        elif kind == "vectors":
+            if hasattr(data, "items") and not hasattr(data, "to_frame"):
+                # pandas.DataFrame or xarray.Dataset types.
+                # pandas.Series will be handled below like a 1-D numpy.ndarray.
+                _data = [array for _, array in data.items()]
+            else:
+                # Python list, tuple, numpy.ndarray, and pandas.Series types
+                _data = np.atleast_2d(np.asanyarray(data).T)
+        elif kind == "matrix":
+            # GMT can only accept a 2-D matrix which are signed integer (i), unsigned
+            # integer (u) or floating point (f) types. For other data types, we need to
+            # use virtualfile_from_vectors instead, which turns the matrix into a list
+            # of vectors and allows for better handling of non-integer/float type inputs
+            # (e.g. for string or datetime data types).
+            _data = (data,)
+            if data.dtype.kind not in "iuf":
+                _virtualfile_from = self.virtualfile_from_vectors
+                _data = data.T
+>>>>>>> 4658c705a (Session.virtualfile_in: Deprecate the 'extra_arrays' parameter)
 
         # Finally create the virtualfile from the data, to be passed into GMT
         file_context = _virtualfile_from(*_data)
@@ -1853,7 +1886,7 @@ class Session:
            instead.
         """
         msg = (
-            "API function 'Session.virtualfile_from_datae()' has been deprecated since "
+            "API function 'Session.virtualfile_from_data()' has been deprecated since "
             "v0.13.0 and will be removed in v0.15.0. Use 'Session.virtualfile_in()' "
             "instead."
         )
