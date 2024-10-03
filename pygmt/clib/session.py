@@ -1725,8 +1725,15 @@ class Session:
         x/y/z : 1-D arrays or None
             x, y, and z columns as numpy arrays.
         extra_arrays : list of 1-D arrays
-            Optional. A list of numpy arrays in addition to x, y, and z.
-            All of these arrays must be of the same size as the x/y/z arrays.
+            Optional. A list of numpy arrays in addition to x, y, and z. All of these
+            arrays must be of the same size as the x/y/z arrays.
+
+            .. deprecated:: 0.14.0
+
+               The ``extra_arrays`` parameter is deprecated in v0.14.0 and will be
+               removed in v0.18.0. To pass more than three vectors to this function,
+               create a dictionary with array-like values instead. See the changes in
+               PR #XXX for reference.
         required_z : bool
             State whether the 'z' column is required.
         required_data : bool
@@ -1813,6 +1820,13 @@ class Session:
             if z is not None:
                 _data.append(np.atleast_1d(z))
             if extra_arrays:
+                msg = (
+                    "The ``extra_arrays`` parameter is deprecated in v0.14.0 and will "
+                    "be removed in v0.18.0. To pass more than three vectors to this "
+                    "function, create a dictionary with array-like values instead. "
+                    "See the changes in PR #XXX for reference."
+                )
+                warnings.warn(message=msg, category=FutureWarning, stacklevel=1)
                 _data.extend(extra_arrays)
         elif kind == "matrix":  # turn 2-D arrays into list of vectors
             if hasattr(data, "items") and not hasattr(data, "to_frame"):
@@ -1854,7 +1868,7 @@ class Session:
            instead.
         """
         msg = (
-            "API function 'Session.virtualfile_from_datae()' has been deprecated since "
+            "API function 'Session.virtualfile_from_data()' has been deprecated since "
             "v0.13.0 and will be removed in v0.15.0. Use 'Session.virtualfile_in()' "
             "instead."
         )
