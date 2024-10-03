@@ -191,13 +191,15 @@ def _check_encoding(
 def data_kind(  # noqa: PLR0911
     data: Any = None, required: bool = True
 ) -> Literal[
-    "arg", "file", "geojson", "grid", "image", "matrix", "stringio", "vectors"
+    "arg", "file", "geojson", "grid", "image", "matrix", "none", "stringio", "vectors"
 ]:
     r"""
     Check the kind of data that is provided to a module.
 
     The ``data`` argument can be in any type. Following data kinds are recognized:
 
+    - ``"none"`: data is ``None`` and ``required=True``. It means the data is given via
+      a series of vectors like x/y/z
     - ``"arg"``: data is ``None`` and ``required=False``, or bool, int, float,
       representing an optional argument, used for dealing with optional virtual files
     - ``"file"``: a string or a :class:`pathlib.PurePath` object or a sequence of them,
@@ -290,9 +292,16 @@ def data_kind(  # noqa: PLR0911
     'vectors'
     >>> data_kind(data=pd.Series([1, 2, 3], name="x"))  # pd.Series
     'vectors'
+
+    The "none" kind:
+
     >>> data_kind(data=None)
-    'vectors'
+    'none'
     """
+    # data should be given via a series of vectors like x/y/z
+    if data is None and required:
+        return "none"
+
     # One file or a list/tuple of files.
     if isinstance(data, str | pathlib.PurePath) or (
         isinstance(data, list | tuple)

@@ -1776,7 +1776,7 @@ class Session:
             if check_kind == "raster":
                 valid_kinds += ("grid", "image")
             elif check_kind == "vector":
-                valid_kinds += ("matrix", "vectors", "geojson")
+                valid_kinds += ("none", "matrix", "vectors", "geojson")
             if kind not in valid_kinds:
                 raise GMTInvalidInput(
                     f"Unrecognized data type for {check_kind}: {type(data)}"
@@ -1791,6 +1791,7 @@ class Session:
             "image": tempfile_from_image,
             "stringio": self.virtualfile_from_stringio,
             "matrix": self.virtualfile_from_matrix,
+            "none": self.virtualfile_from_vectors,
             "vectors": self.virtualfile_from_vectors,
         }[kind]
 
@@ -1806,15 +1807,15 @@ class Session:
                 )
                 warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
             _data = (data,) if not isinstance(data, pathlib.PurePath) else (str(data),)
+        elif kind == "none":
+            # data is None, so data must be given via x/y/z.
+            _data = [np.atleast_1d(x), np.atleast_1d(y)]
+            if z is not None:
+                _data.append(np.atleast_1d(z))
+            if extra_arrays:
+                _data.extend(extra_arrays)
         elif kind == "vectors":
-            if data is None:
-                # data is None, so data must be given via x/y/z.
-                _data = [np.atleast_1d(x), np.atleast_1d(y)]
-                if z is not None:
-                    _data.append(np.atleast_1d(z))
-                if extra_arrays:
-                    _data.extend(extra_arrays)
-            elif hasattr(data, "items") and not hasattr(data, "to_frame"):
+            if hasattr(data, "items") and not hasattr(data, "to_frame"):
                 # pandas.DataFrame or xarray.Dataset types.
                 # pandas.Series will be handled below like a 1-D numpy.ndarray.
                 _data = [array for _, array in data.items()]
