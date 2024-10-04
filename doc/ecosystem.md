@@ -36,3 +36,5 @@ on it.
 #### PyArrow
 
 ## PyGMT ecosystem
+
+*This page was adapted from [GeoPandas's Ecosystem](https://geopandas.org/en/latest/community/ecosystem.html) page.*
