@@ -31,8 +31,6 @@ on it.
 
 #### RioXarray
 
-#### Rasterio
-
 #### PyArrow
 
 ## PyGMT ecosystem
