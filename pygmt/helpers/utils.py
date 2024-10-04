@@ -189,14 +189,14 @@ def _check_encoding(
 
 
 def data_kind(  # noqa: PLR0911
-    data: Any = None, required: bool = True
+    data: Any, required: bool = True
 ) -> Literal[
     "arg", "file", "geojson", "grid", "image", "matrix", "stringio", "vectors"
 ]:
     r"""
     Check the kind of data that is provided to a module.
 
-    The ``data`` argument can be in any type. Following data kinds are recognized:
+    The ``data`` argument can be in any types. Following data kinds are recognized:
 
     - ``"arg"``: data is ``None`` and ``required=False``, or bool, int, float,
       representing an optional argument, used for dealing with optional virtual files
@@ -206,6 +206,7 @@ def data_kind(  # noqa: PLR0911
       (e.g., geopandas.GeoDataFrame or shapely.geometry)
     - ``"grid"``: a :class:`xarray.DataArray` object that is not 3-D
     - ``"image"``: a 3-D :class:`xarray.DataArray` object
+    - ``"stringio"``: a :class:`io.StringIO` object
     - ``"matrix"``: a 2-D :class:`numpy.ndarray` object
     - ``"vectors"``: fallback to ``"vectors"`` for any unrecognized data. Common data
       types include, a :class:`pandas.DataFrame` object, a dictionary with array-like
