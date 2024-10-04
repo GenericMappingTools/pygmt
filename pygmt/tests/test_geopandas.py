@@ -6,6 +6,7 @@ import numpy.testing as npt
 import pandas as pd
 import pytest
 from pygmt import Figure, info, makecpt, which
+from pygmt.helpers import data_kind
 from pygmt.helpers.testing import skip_if_no
 
 gpd = pytest.importorskip("geopandas")
@@ -243,3 +244,18 @@ def test_geopandas_plot_int64_as_float(gdf_ridge):
     makecpt(cmap="lisbon", series=[10, 60, 10], continuous=True)
     fig.colorbar()
     return fig
+
+
+def test_geopandas_data_kind_geopandas(gdf):
+    """
+    Check if geopandas.GeoDataFrame object is recognized as a "geojson" kind.
+    """
+    assert data_kind(data=gdf) == "geojson"
+
+
+def test_geopandas_data_kind_shapely():
+    """
+    Check if shapely.geometry object is recognized as a "geojson" kind.
+    """
+    polygon = shapely.geometry.Polygon([(20, 10), (23, 10), (23, 14), (20, 14)])
+    assert data_kind(data=polygon) == "geojson"

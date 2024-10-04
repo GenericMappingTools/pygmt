@@ -11,6 +11,7 @@ import pytest
 import xarray as xr
 from packaging.version import Version
 from pygmt import Figure, clib
+from pygmt.clib import required_gmt_version
 from pygmt.clib.conversion import dataarray_to_matrix
 from pygmt.clib.session import FAMILIES, VIAS
 from pygmt.exceptions import (
@@ -531,7 +532,7 @@ def test_get_default():
     with clib.Session() as lib:
         assert lib.get_default("API_GRID_LAYOUT") in {"rows", "columns"}
         assert int(lib.get_default("API_CORES")) >= 1
-        assert Version(lib.get_default("API_VERSION")) >= Version("6.3.0")
+        assert Version(lib.get_default("API_VERSION")) >= Version(required_gmt_version)
         assert lib.get_default("PROJ_LENGTH_UNIT") == "cm"
 
 
