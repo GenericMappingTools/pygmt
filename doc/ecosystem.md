@@ -79,6 +79,7 @@ We're working towards removing the dependency of the [rioxarray][] package in
 [contextily]: https://contextily.readthedocs.io/
 [geopandas]: https://geopandas.org/
 [matplotlib]: https://matplotlib.org/
+[numpy]: https://numpy.org/
 [pandas]: https://pandas.pydata.org/
 [pyarrow]: https://arrow.apache.org/docs/python/
 [pyogrio]: https://pyogrio.readthedocs.io/
