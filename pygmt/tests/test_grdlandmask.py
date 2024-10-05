@@ -6,14 +6,9 @@ from pathlib import Path
 
 import pytest
 import xarray as xr
-from packaging.version import Version
 from pygmt import grdlandmask, load_dataarray
-from pygmt.clib import __gmt_version__
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
-
-# GMT 6.3 on conda-forge doesn't have OpenMP enabled.
-cores = 2 if Version(__gmt_version__) > Version("6.3.0") else None
 
 
 @pytest.fixture(scope="module", name="expected_grid")
@@ -55,7 +50,7 @@ def test_grdlandmask_no_outgrid(expected_grid):
     """
     Test grdlandmask with no set outgrid.
     """
-    result = grdlandmask(spacing=1, region=[125, 130, 30, 35], cores=cores)
+    result = grdlandmask(spacing=1, region=[125, 130, 30, 35], cores=2)
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
     assert result.gmt.gtype == 1  # Geographic grid

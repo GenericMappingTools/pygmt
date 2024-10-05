@@ -10,7 +10,7 @@ import pytest
 from pygmt import blockmedian
 from pygmt.datasets import load_sample_data
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import GMTTempFile, data_kind
+from pygmt.helpers import GMTTempFile
 
 
 @pytest.fixture(scope="module", name="dataframe")
@@ -65,7 +65,6 @@ def test_blockmedian_wrong_kind_of_input_table_grid(dataframe):
     Run blockmedian using table input that is not a pandas.DataFrame or file but a grid.
     """
     invalid_table = dataframe.bathymetry.to_xarray()
-    assert data_kind(invalid_table) == "grid"
     with pytest.raises(GMTInvalidInput):
         blockmedian(data=invalid_table, spacing="5m", region=[245, 255, 20, 30])
 

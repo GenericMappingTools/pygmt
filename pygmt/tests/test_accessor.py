@@ -73,10 +73,6 @@ def test_accessor_set_non_boolean():
         grid.gmt.gtype = 2
 
 
-@pytest.mark.skipif(
-    Version(__gmt_version__) < Version("6.4.0"),
-    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/6615",
-)
 @pytest.mark.xfail(
     condition=sys.platform == "win32" and Version(__gmt_version__) < Version("6.5.0"),
     reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/7573",

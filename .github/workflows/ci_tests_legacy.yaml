@@ -35,7 +35,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-20.04, macos-12, windows-2019]
-        gmt_version: ['6.3', '6.4']
+        gmt_version: ['6.4']
     timeout-minutes: 30
     defaults:
       run:
@@ -44,7 +44,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4.2.0
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
