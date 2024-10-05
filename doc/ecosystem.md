@@ -29,7 +29,7 @@ access and [matplotlib](https://matplotlib.org/) for plotting.
 
 PyGMT doesn't directly rely on GeoPandas, but provides support of GeoPandas's data
 structure, {class}`geopandas.GeoDataFrame` and {class}`geopandas.GeoSeries`, which can
-be directly used for data processing and plotting in PyGMT.
+be directly used in data processing and plotting functions/methods of PyGMT.
 
 #### Contextily
 
