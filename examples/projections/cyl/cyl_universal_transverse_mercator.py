@@ -1,6 +1,6 @@
 r"""
-Universal Transverse Mercator
-=============================
+Universal Transverse Mercator projection
+========================================
 
 A particular subset of the
 :doc:`transverse Merctor </projections/cyl/cyl_transverse_mercator>`
@@ -44,9 +44,8 @@ fig = pygmt.Figure()
 fig.coast(
     region=[127.5, 128.5, 26, 27],
     projection="U52R/12c",
-    land="lightgreen",
-    water="lightblue",
-    shorelines="thinnest",
     frame="afg",
+    land="gray80",
+    water="steelblue",
 )
 fig.show()

@@ -18,7 +18,6 @@ from typing import Literal
 import numpy as np
 import pandas as pd
 import xarray as xr
-from packaging.version import Version
 from pygmt._state import _STATE
 from pygmt.clib.conversion import (
     array_to_datetime,
@@ -118,7 +117,7 @@ class Session:
     same ``with`` block as the API calls that will use the data.
 
     By default, will let :mod:`ctypes` try to find the GMT shared library
-    (``libgmt``). If the environment variable ``GMT_LIBRARY_PATH`` is set, will
+    (``libgmt``). If the environment variable :term:`GMT_LIBRARY_PATH` is set, will
     look for the shared library in the directory specified by it.
 
     A ``GMTVersionError`` exception will be raised if the GMT shared library
@@ -200,16 +199,9 @@ class Session:
                 "library path": self.get_default("API_LIBRARY"),
                 "cores": self.get_default("API_CORES"),
                 "grid layout": self.get_default("API_GRID_LAYOUT"),
+                "image layout": self.get_default("API_IMAGE_LAYOUT"),
+                "binary version": self.get_default("API_BIN_VERSION"),
             }
-            # For GMT<6.4.0, API_IMAGE_LAYOUT is not defined if GMT is not
-            # compiled with GDAL. Since GMT 6.4.0, GDAL is a required GMT
-            # dependency. The code block can be refactored after we bump
-            # the minimum required GMT version to 6.4.0.
-            with contextlib.suppress(GMTCLibError):
-                self._info["image layout"] = self.get_default("API_IMAGE_LAYOUT")
-            # API_BIN_VERSION is new in GMT 6.4.0.
-            if Version(self._info["version"]) >= Version("6.4.0"):
-                self._info["binary version"] = self.get_default("API_BIN_VERSION")
         return self._info
 
     def __enter__(self):

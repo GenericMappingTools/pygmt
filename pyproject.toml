@@ -31,8 +31,8 @@ classifiers = [
 ]
 dependencies = [
     "numpy>=1.24",
-    "pandas>=1.5",
-    "xarray>=2022.09",
+    "pandas>=2.0",
+    "xarray>=2023.04",
     "netCDF4",
     "packaging",
 ]

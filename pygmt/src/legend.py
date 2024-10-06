@@ -2,6 +2,7 @@
 legend - Plot a legend.
 """
 
+import io
 import pathlib
 
 from pygmt.clib import Session
@@ -30,7 +31,7 @@ from pygmt.helpers import (
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def legend(
     self,
-    spec: str | pathlib.PurePath | None = None,
+    spec: str | pathlib.PurePath | io.StringIO | None = None,
     position="JTR+jTR+o0.2c",
     box="+gwhite+p1p",
     **kwargs,
@@ -57,6 +58,7 @@ def legend(
           file
         - A string or a :class:`pathlib.PurePath` object pointing to the legend
           specification file
+        - A :class:`io.StringIO` object containing the legend specification.
 
         See :gmt-docs:`legend.html` for the definition of the legend specification.
     {projection}
@@ -89,10 +91,11 @@ def legend(
             kwargs["F"] = box
 
     kind = data_kind(spec)
-    if kind not in {"vectors", "file"}:  # kind="vectors" means spec is None
+    if kind not in {"vectors", "file", "stringio"}:  # kind="vectors" means spec is None
         raise GMTInvalidInput(f"Unrecognized data type: {type(spec)}")
     if kind == "file" and is_nonstr_iter(spec):
         raise GMTInvalidInput("Only one legend specification file is allowed.")
 
     with Session() as lib:
-        lib.call_module(module="legend", args=build_arg_list(kwargs, infile=spec))
+        with lib.virtualfile_in(data=spec, required_data=False) as vintbl:
+            lib.call_module(module="legend", args=build_arg_list(kwargs, infile=vintbl))

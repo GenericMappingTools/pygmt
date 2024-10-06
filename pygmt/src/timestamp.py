@@ -27,7 +27,7 @@ def timestamp(
 
     Add the GMT timestamp logo with an optional label at the bottom-left corner of a
     plot with an offset of ``("-54p", "-54p")``. The timestamp will be in the locale set
-    by the environment variable **TZ** (generally local time but can be changed via
+    by the environment variable :term:`TZ` (generally local time but can be changed via
     ``os.environ["TZ"]``) and its format is controlled by the ``timefmt`` parameter. It
     can also be replaced with any custom text string using the ``text`` parameter.
 
@@ -83,8 +83,8 @@ def timestamp(
         kwdict["U"] += f"{label}"
     kwdict["U"] += f"+j{justify}"
 
-    if Version(__gmt_version__) <= Version("6.4.0") and "/" not in str(offset):
-        # Giving a single offset doesn't work in GMT <= 6.4.0.
+    if Version(__gmt_version__) < Version("6.5.0") and "/" not in str(offset):
+        # Giving a single offset doesn't work in GMT < 6.5.0.
         # See https://github.com/GenericMappingTools/gmt/issues/7107.
         offset = f"{offset}/{offset}"
     kwdict["U"] += f"+o{offset}"
@@ -98,8 +98,8 @@ def timestamp(
                 "The given text string will be truncated to 64 characters."
             )
             warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
-        if Version(__gmt_version__) <= Version("6.4.0"):
-            # workaround for GMT<=6.4.0 by overriding the 'timefmt' parameter
+        if Version(__gmt_version__) < Version("6.5.0"):
+            # Workaround for GMT<6.5.0 by overriding the 'timefmt' parameter
             timefmt = text[:64]
         else:
             kwdict["U"] += f"+t{text}"

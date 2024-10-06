@@ -7,9 +7,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 import xarray as xr
-from packaging.version import Version
 from pygmt import grdfill, load_dataarray
-from pygmt.clib import __gmt_version__
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
@@ -86,16 +84,11 @@ def test_grdfill_dataarray_out(grid, expected_grid):
     xr.testing.assert_allclose(a=result, b=expected_grid)
 
 
-@pytest.mark.skipif(
-    Version(__gmt_version__) < Version("6.4.0"),
-    reason="Upstream bug/crash fixed in https://github.com/GenericMappingTools/gmt/pull/6418.",
-)
 def test_grdfill_asymmetric_pad(grid, expected_grid):
     """
     Test grdfill using a region that includes the edge of the grid.
 
-    Regression test for
-    https://github.com/GenericMappingTools/pygmt/issues/1745.
+    Regression test for https://github.com/GenericMappingTools/pygmt/issues/1745.
     """
     result = grdfill(grid=grid, mode="c20", region=[-55, -50, -24, -16])
     # check information of the output grid

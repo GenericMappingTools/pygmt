@@ -4,7 +4,7 @@
 
 [Documentation (development version)](https://www.pygmt.org/dev) | [Contact](https://forum.generic-mapping-tools.org) | [TryOnline](https://github.com/GenericMappingTools/try-gmt)
 
-[![Latest version on PyPI](http://img.shields.io/pypi/v/pygmt.svg?style=flat-square)](https://pypi.python.org/pypi/pygmt)
+[![Latest version on PyPI](https://img.shields.io/pypi/v/pygmt.svg?style=flat-square)](https://pypi.python.org/pypi/pygmt)
 [![Latest version on conda-forge](https://img.shields.io/conda/v/conda-forge/pygmt?style=flat-square)](https://anaconda.org/conda-forge/pygmt)
 [![GitHub Actions Tests status](https://github.com/GenericMappingTools/pygmt/workflows/Tests/badge.svg)](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests.yaml)
 [![GitHub Actions GMT Dev Tests status](https://github.com/GenericMappingTools/pygmt/workflows/GMT%20Dev%20Tests/badge.svg)](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml)
@@ -45,8 +45,8 @@ widely used across the Earth, Ocean, and Planetary sciences and beyond.
 - Build a Pythonic API for GMT.
 - Interface with the GMT C API directly using ctypes (no system calls).
 - Support for rich display in the Jupyter notebook.
-- Integration with the [PyData ecosystem](https://pydata.org/): `numpy.ndarray` or `pandas.DataFrame` for
-  data tables, `xarray.DataArray` for grids, and `geopandas.GeoDataFrame` for geographical data.
+- Integration with the [scientific Python ecosystem](https://scientific-python.org/): `numpy.ndarray` or
+  `pandas.DataFrame` for data tables, `xarray.DataArray` for grids, and `geopandas.GeoDataFrame` for geographical data.
 
 ## Quickstart
 

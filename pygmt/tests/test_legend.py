@@ -2,6 +2,7 @@
 Test Figure.legend.
 """
 
+import io
 from pathlib import Path
 
 import pytest
@@ -100,6 +101,18 @@ def test_legend_specfile(legend_spec):
         fig = Figure()
         fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
         fig.legend(specfile.name, position="JTM+jCM+w5i")
+        return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_legend_specfile.png")
+def test_legend_stringio(legend_spec):
+    """
+    Test passing a legend specification via an io.StringIO object.
+    """
+    spec = io.StringIO(legend_spec)
+    fig = Figure()
+    fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
+    fig.legend(spec, position="JTM+jCM+w5i")
     return fig
 
 
