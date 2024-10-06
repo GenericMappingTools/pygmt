@@ -85,6 +85,8 @@ jobs:
             libnetcdf
             pcre
             zlib
+            dcw-gmt
+            gshhg-gmt
 
       # Checkout current GMT repository
       - name: Checkout the GMT source from ${{ matrix.gmt_git_ref }} branch
