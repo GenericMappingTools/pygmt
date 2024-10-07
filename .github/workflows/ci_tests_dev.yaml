@@ -63,6 +63,7 @@ jobs:
           condarc: |
             channels:
               - conda-forge
+              - conda-forge/label/python_rc
               - nodefaults
           cache-downloads: false
           cache-environment: true
