@@ -269,17 +269,17 @@ def test_grdimage_grid_no_redunant_360():
     """
     # Global grid [-180, 180, -90, 90] with redundant longitude at 180/-180
     da1 = load_earth_relief(region=[-180, 180, -90, 90])
-    # Global grid [0, 360, -90, 90] with redundant longitude at 0/360
+    # Global grid [0, 360, -90, 90] with redundant longitude at 360/0
     da2 = load_earth_relief(region=[0, 360, -90, 90])
 
-    # Global grid [-180, 180, -90, 90] without redundant longitude at -180/180
+    # Global grid [-180, 179, -90, 90] without redundant longitude at 180/-180
     da3 = da1[:, 0:360]
     da3.gmt.registration, da3.gmt.gtype = 0, 1
     assert da3.shape == (181, 360)
     assert da3.lon.to_numpy().min() == -180.0
     assert da3.lon.to_numpy().max() == 179.0
 
-    # Global grid [0, 360, -90, 90] without redundant longitude at 0/360
+    # Global grid [0, 359, -90, 90] without redundant longitude at 360/0
     da4 = da2[:, 0:360]
     da4.gmt.registration, da4.gmt.gtype = 0, 1
     assert da4.shape == (181, 360)
