@@ -116,7 +116,7 @@ class GMTDataArrayAccessor:
 
     def __init__(self, xarray_obj):
         self._obj = xarray_obj
-        # Default to Gridline registration and Cartensian grid type
+        # Default to Gridline registration and Cartesian grid type
         self._registration = 0
         self._gtype = 0
 
