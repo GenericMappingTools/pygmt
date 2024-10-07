@@ -187,7 +187,7 @@ def _check_encoding(
     return "ISOLatin1+"
 
 
-def data_kind(  # noqa: PLR0911
+def data_kind(
     data: Any, required: bool = True
 ) -> Literal[
     "arg", "file", "geojson", "grid", "image", "matrix", "stringio", "vectors"
@@ -292,36 +292,31 @@ def data_kind(  # noqa: PLR0911
     >>> data_kind(data=None)
     'vectors'
     """
-    # One file or a list/tuple of files.
-    if isinstance(data, str | pathlib.PurePath) or (
-        isinstance(data, list | tuple)
-        and all(isinstance(_file, str | pathlib.PurePath) for _file in data)
-    ):
-        return "file"
-
-    # A StringIO object.
-    if isinstance(data, io.StringIO):
-        return "stringio"
-
-    # An option argument, mainly for dealing optional virtual files.
-    if isinstance(data, bool | int | float) or (data is None and not required):
-        return "arg"
-
-    # An xarray.DataArray object, representing a grid or an image.
-    if isinstance(data, xr.DataArray):
-        return "image" if len(data.dims) == 3 else "grid"
-
-    # Geo-like Python object that implements ``__geo_interface__`` (e.g.,
-    # geopandas.GeoDataFrame or shapely.geometry).
-    # Reference: https://gist.github.com/sgillies/2217756
-    if hasattr(data, "__geo_interface__"):
-        return "geojson"
-
-    # Any not-None is considered as a matrix.
-    if data is not None:
-        return "matrix"
-
-    return "vectors"
+    match data:
+        case str() | pathlib.PurePath():  # One file.
+            kind = "file"
+        case list() | tuple() if all(
+            isinstance(_file, str | pathlib.PurePath) for _file in data
+        ):  # A list/tuple of files.
+            kind = "file"
+        case io.StringIO():
+            kind = "stringio"
+        case (bool() | int() | float()) | None if not required:
+            # An option argument, mainly for dealing optional virtual files.
+            kind = "arg"
+        case xr.DataArray():
+            # An xarray.DataArray object, representing either a grid or an image.
+            kind = "image" if len(data.dims) == 3 else "grid"
+        case x if hasattr(x, "__geo_interface__"):
+            # Geo-like Python object that implements ``__geo_interface__`` (e.g.,
+            # geopandas.GeoDataFrame or shapely.geometry).
+            # Reference: https://gist.github.com/sgillies/2217756
+            kind = "geojson"
+        case x if x is not None:  # Any not-None is considered as a matrix.
+            kind = "matrix"
+        case _:  # Fall back to "vectors" if data is None and required=True.
+            kind = "vectors"
+    return kind  # type: ignore[return-value]
 
 
 def non_ascii_to_octal(
