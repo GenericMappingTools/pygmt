@@ -195,9 +195,10 @@ def data_kind(  # noqa: PLR0911
     r"""
     Check the kind of data that is provided to a module.
 
-    The ``data`` argument can be in any types. Following data kinds are recognized:
+    The argument passed to the ``data`` parameter can have any data type. The
+    following data kinds are recognized and returned as ``kind``:
 
-    - ``"arg"``: data is ``None`` and ``required=False``, or bool, int, float,
+    - ``"arg"``: ``data`` is ``None`` and ``required=False``, or bool, int, float,
       representing an optional argument, used for dealing with optional virtual files
     - ``"file"``: a string or a :class:`pathlib.PurePath` object or a sequence of them,
       representing one or more file names
@@ -206,8 +207,8 @@ def data_kind(  # noqa: PLR0911
     - ``"grid"``: a :class:`xarray.DataArray` object that is not 3-D
     - ``"image"``: a 3-D :class:`xarray.DataArray` object
     - ``"stringio"``: a :class:`io.StringIO` object
-    - ``"matrix"``: anything that is not None
-    - ``"vectors"``: data is ``None`` and ``required=True``
+    - ``"matrix"``: anything that is not ``None``
+    - ``"vectors"``: ``data`` is ``None`` and ``required=True``
 
     Parameters
     ----------
