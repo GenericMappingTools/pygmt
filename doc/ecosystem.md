@@ -77,7 +77,7 @@ arrays with geospatial attributes such as coordinate reference systems (CRS) and
 (bounds).
 
 Currently, PyGMT relies on [rioxarray][] to to saving multi-band rasters to temporary files
-in GeoTIFF format, to support processing and plotting 3-D :class:`xarray.DataArray`
+in GeoTIFF format, to support processing and plotting 3-D {class}`xarray.DataArray`
 images.
 
 ```{note}
@@ -95,7 +95,7 @@ organized for efficient analytic operations on modern hardware. The Arrow Python
 Python objects. They are based on the C++ implementation of Arrow.
 
 ```{note}
-If you have PyArrow installed, PyGMT does have some initial support for {class}`pandas.Series
+If you have PyArrow installed, PyGMT does have some initial support for {class}`pandas.Series`
 and {class}`pandas.DataFrame` objects with Apache Arrow-backed arrays. Specifically, only
 uint/int/float and date32/date64 dtypes are supported for now. Support for string Arrow
 dtypes is still a work in progress. For more details, see
@@ -109,6 +109,7 @@ dtypes is still a work in progress. For more details, see
 [apache arrow]: https://arrow.apache.org/
 [contextily]: https://contextily.readthedocs.io/
 [geopandas]: https://geopandas.org/
+[ipython]: https://ipython.org/
 [matplotlib]: https://matplotlib.org/
 [numpy]: https://numpy.org/
 [pandas]: https://pandas.pydata.org/
