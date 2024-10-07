@@ -209,9 +209,10 @@ def data_kind(
     - ``"image"``: a 3-D :class:`xarray.DataArray` object
     - ``"stringio"``: a :class:`io.StringIO` object
     - ``"matrix"``: a 2-D :class:`numpy.ndarray` object
-    - ``"vectors"``: fallback to ``"vectors"`` for any unrecognized data. Common data
-      types include, a :class:`pandas.DataFrame` object, a dictionary with array-like
-      values, a 1-D/3-D :class:`numpy.ndarray` object, or array-like objects.
+    - ``"vectors"``: ``data`` is ``None`` and ``required=True``, or any unrecognized
+      data. Common data types include, a :class:`pandas.DataFrame` object, a dictionary
+      with array-like values, a 1-D/3-D :class:`numpy.ndarray` object, or array-like
+      objects.
 
     Parameters
     ----------
