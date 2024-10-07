@@ -121,7 +121,7 @@ class GMTDataArrayAccessor:
         self._gtype = 0
 
         # If the source file exists, get grid registration and grid type from the last
-        # two columns of the shortened summary information of `grdinfo`.
+        # two columns of the shortened summary information of grdinfo.
         if (_source := self._obj.encoding.get("source")) and Path(_source).exists():
             with contextlib.suppress(ValueError):
                 self._registration, self._gtype = map(
