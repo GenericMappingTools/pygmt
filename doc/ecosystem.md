@@ -10,6 +10,8 @@ raster grids/images/cubes I/O.
 In addition to these core dependencies, PyGMT also rely on several optional packages to
 provide additional functionality for users.
 
+*This page was adapted from [GeoPandas's Ecosystem](https://geopandas.org/en/latest/community/ecosystem.html) page.*
+
 ## PyGMT dependencies
 
 ### Required dependencies
@@ -104,7 +106,9 @@ dtypes is still a work in progress. For more details, see
 
 ## PyGMT ecosystem
 
-*This page was adapted from [GeoPandas's Ecosystem](https://geopandas.org/en/latest/community/ecosystem.html) page.*
+Various packages rely on PyGMT for geospatial data processing, analysis, and visualization.
+Below is an incomplete list (in no particular order) of tools which form the PyGMT-related
+Python ecosystem.
 
 [apache arrow]: https://arrow.apache.org/
 [contextily]: https://contextily.readthedocs.io/
