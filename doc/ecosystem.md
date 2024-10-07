@@ -1,5 +1,15 @@
 # Ecosystem
 
+PyGMT provides a Python interface to the Generic Mapping Tools (GMT), which is a command
+line program that provides a wide range of tools for manipulating geospatial data and
+making publication-quality maps and figures. PyGMT integrates well with the
+[scientific Python ecosystem](https://scientific-python.org/), with [NumPy][] for its
+fundamental array data structure, [Pandas][] for tabular data I/O and [Xarray][] for
+raster grids/images/cubes I/O.
+
+In addition to these core dependencies, PyGMT also rely on several optional packages to
+provide additional functionality for users.
+
 ## PyGMT dependencies
 
 ### Required dependencies
@@ -31,6 +41,12 @@ allows for more intuitive, more concise, and less error-prone user experience.
 ### Optional dependencies
 
 #### IPython
+
+[IPython][] provides a rich toolkit to help you make the most of using Python
+interactively. Its main components are a powerful interactive Python shell and a Jupyter
+kernel to work with Python code in Jupyter notebooks and other interactive frontends.
+
+PyGMT rely on IPython to provide a rich interactive experience in Jupyter notebooks.
 
 #### GeoPandas
 
@@ -71,11 +87,26 @@ We're working towards removing the dependency of the [rioxarray][] package in
 
 #### PyArrow
 
+[Apache Arrow][] is a development platform for in-memory analytics. It contains a set of
+technologies that enable big data systems to process and move data fast. It specifies a
+standardized language-independent columnar memory format for flat and hierarchical data,
+organized for efficient analytic operations on modern hardware. The Arrow Python bindings
+(also named "PyArrow") have first-class integration with NumPy, pandas, and built-in
+Python objects. They are based on the C++ implementation of Arrow.
+
+```{note}
+If you have PyArrow installed, PyGMT does have some initial support for {class}`pandas.Series
+and {class}`pandas.DataFrame` objects with Apache Arrow-backed arrays. Specifically, only
+uint/int/float and date32/date64 dtypes are supported for now. Support for string Arrow
+dtypes is still a work in progress. For more details, see
+[issue #2800](https://github.com/GenericMappingTools/pygmt/issues/2800).
+```
+
 ## PyGMT ecosystem
 
 *This page was adapted from [GeoPandas's Ecosystem](https://geopandas.org/en/latest/community/ecosystem.html) page.*
 
-
+[apache arrow]: https://arrow.apache.org/
 [contextily]: https://contextily.readthedocs.io/
 [geopandas]: https://geopandas.org/
 [matplotlib]: https://matplotlib.org/
