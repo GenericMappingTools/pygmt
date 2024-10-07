@@ -207,7 +207,7 @@ def data_kind(
     - ``"grid"``: a :class:`xarray.DataArray` object that is not 3-D
     - ``"image"``: a 3-D :class:`xarray.DataArray` object
     - ``"stringio"``: a :class:`io.StringIO` object
-    - ``"matrix"``: anything that is not ``None``
+    - ``"matrix"``: anything else that is not ``None``
     - ``"vectors"``: ``data`` is ``None`` and ``required=True``
 
     Parameters
@@ -302,7 +302,7 @@ def data_kind(
         case io.StringIO():
             kind = "stringio"
         case (bool() | int() | float()) | None if not required:
-            # An option argument, mainly for dealing optional virtual files.
+            # An option argument, mainly for dealing with optional virtual files.
             kind = "arg"
         case xr.DataArray():
             # An xarray.DataArray object, representing either a grid or an image.
