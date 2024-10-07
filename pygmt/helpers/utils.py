@@ -188,22 +188,27 @@ def _check_encoding(
 
 
 def data_kind(
-    data: Any = None, required: bool = True
+    data: Any, required: bool = True
 ) -> Literal[
     "arg", "file", "geojson", "grid", "image", "matrix", "stringio", "vectors"
 ]:
     r"""
     Check the kind of data that is provided to a module.
 
-    The ``data`` argument can be in any type, but only following types are supported:
+    The argument passed to the ``data`` parameter can have any data type. The
+    following data kinds are recognized and returned as ``kind``:
 
-    - a string or a :class:`pathlib.PurePath` object or a sequence of them, representing
-      a file name or a list of file names
-    - a 2-D or 3-D :class:`xarray.DataArray` object
-    - a 2-D matrix
-    - None, bool, int or float type representing an optional arguments
-    - a geo-like Python object that implements ``__geo_interface__`` (e.g.,
-      geopandas.GeoDataFrame or shapely.geometry)
+    - ``"arg"``: ``data`` is ``None`` and ``required=False``, or bool, int, float,
+      representing an optional argument, used for dealing with optional virtual files
+    - ``"file"``: a string or a :class:`pathlib.PurePath` object or a sequence of them,
+      representing one or more file names
+    - ``"geojson"``: a geo-like Python object that implements ``__geo_interface__``
+      (e.g., geopandas.GeoDataFrame or shapely.geometry)
+    - ``"grid"``: a :class:`xarray.DataArray` object that is not 3-D
+    - ``"image"``: a 3-D :class:`xarray.DataArray` object
+    - ``"stringio"``: a :class:`io.StringIO` object
+    - ``"matrix"``: anything else that is not ``None``
+    - ``"vectors"``: ``data`` is ``None`` and ``required=True``
 
     Parameters
     ----------
@@ -287,30 +292,31 @@ def data_kind(
     >>> data_kind(data=None)
     'vectors'
     """
-    kind: Literal[
-        "arg", "file", "geojson", "grid", "image", "matrix", "stringio", "vectors"
-    ]
-    if isinstance(data, str | pathlib.PurePath) or (
-        isinstance(data, list | tuple)
-        and all(isinstance(_file, str | pathlib.PurePath) for _file in data)
-    ):
-        # One or more files
-        kind = "file"
-    elif isinstance(data, bool | int | float) or (data is None and not required):
-        kind = "arg"
-    elif isinstance(data, io.StringIO):
-        kind = "stringio"
-    elif isinstance(data, xr.DataArray):
-        kind = "image" if len(data.dims) == 3 else "grid"
-    elif hasattr(data, "__geo_interface__"):
-        # geo-like Python object that implements ``__geo_interface__``
-        # (geopandas.GeoDataFrame or shapely.geometry)
-        kind = "geojson"
-    elif data is not None:
-        kind = "matrix"
-    else:
-        kind = "vectors"
-    return kind
+    match data:
+        case str() | pathlib.PurePath():  # One file.
+            kind = "file"
+        case list() | tuple() if all(
+            isinstance(_file, str | pathlib.PurePath) for _file in data
+        ):  # A list/tuple of files.
+            kind = "file"
+        case io.StringIO():
+            kind = "stringio"
+        case (bool() | int() | float()) | None if not required:
+            # An option argument, mainly for dealing with optional virtual files.
+            kind = "arg"
+        case xr.DataArray():
+            # An xarray.DataArray object, representing either a grid or an image.
+            kind = "image" if len(data.dims) == 3 else "grid"
+        case x if hasattr(x, "__geo_interface__"):
+            # Geo-like Python object that implements ``__geo_interface__`` (e.g.,
+            # geopandas.GeoDataFrame or shapely.geometry).
+            # Reference: https://gist.github.com/sgillies/2217756
+            kind = "geojson"
+        case x if x is not None:  # Any not-None is considered as a matrix.
+            kind = "matrix"
+        case _:  # Fall back to "vectors" if data is None and required=True.
+            kind = "vectors"
+    return kind  # type: ignore[return-value]
 
 
 def non_ascii_to_octal(
