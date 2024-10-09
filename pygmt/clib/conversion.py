@@ -5,6 +5,7 @@ Functions to convert data types into ctypes friendly formats.
 import ctypes as ctp
 import warnings
 from collections.abc import Sequence
+from typing import Any
 
 import numpy as np
 import xarray as xr
@@ -284,16 +285,15 @@ def strings_to_ctypes_array(strings: Sequence[str]) -> ctp.Array:
     return (ctp.c_char_p * len(strings))(*[s.encode() for s in strings])
 
 
-def array_to_datetime(array):
+def array_to_datetime(array: Sequence[Any]) -> np.ndarray:
     """
     Convert a 1-D datetime array from various types into numpy.datetime64.
 
-    If the input array is not in legal datetime formats, raise a ValueError
-    exception.
+    If the input array is not in legal datetime formats, raise a ValueError exception.
 
     Parameters
     ----------
-    array : list or 1-D array
+    array
         The input datetime array in various formats.
 
         Supported types:
@@ -305,7 +305,8 @@ def array_to_datetime(array):
 
     Returns
     -------
-    array : 1-D datetime array in numpy.datetime64
+    array
+        1-D datetime array in numpy.datetime64.
 
     Raises
     ------
