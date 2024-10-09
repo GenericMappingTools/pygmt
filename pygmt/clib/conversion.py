@@ -123,7 +123,7 @@ def dataarray_to_matrix(grid):
         inc = [abs(i) for i in inc]
         grid = grid.sortby(variables=list(grid.dims), ascending=True)
 
-    matrix = as_c_contiguous(grid[::-1].to_numpy())
+    matrix = np.ascontiguousarray(grid[::-1].to_numpy())
     region = [float(i) for i in region]
     inc = [float(i) for i in inc]
     return matrix, region, inc
@@ -200,51 +200,9 @@ def vectors_to_arrays(vectors):
     for vector in vectors:
         vec_dtype = str(getattr(vector, "dtype", ""))
         array = np.asarray(a=vector, dtype=dtypes.get(vec_dtype))
-        arrays.append(as_c_contiguous(array))
+        arrays.append(np.ascontiguousarray(array))
 
     return arrays
-
-
-def as_c_contiguous(array):
-    """
-    Ensure a numpy array is C contiguous in memory.
-
-    If the array is not C contiguous, a copy will be necessary.
-
-    Parameters
-    ----------
-    array : 1-D array
-        The numpy array
-
-    Returns
-    -------
-    array : 1-D array
-        Array is C contiguous order.
-
-    Examples
-    --------
-
-    >>> import numpy as np
-    >>> data = np.array([[1, 2], [3, 4], [5, 6]])
-    >>> x = data[:, 0]
-    >>> x
-    array([1, 3, 5])
-    >>> x.flags.c_contiguous
-    False
-    >>> new_x = as_c_contiguous(x)
-    >>> new_x
-    array([1, 3, 5])
-    >>> new_x.flags.c_contiguous
-    True
-    >>> x = np.array([8, 9, 10])
-    >>> x.flags.c_contiguous
-    True
-    >>> as_c_contiguous(x).flags.c_contiguous
-    True
-    """
-    if not array.flags.c_contiguous:
-        return array.copy(order="C")
-    return array
 
 
 def sequence_to_ctypes_array(
