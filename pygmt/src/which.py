@@ -6,56 +6,62 @@ from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import PathLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, is_nonstr_iter, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, is_nonstr_iter
 
 
 @fmt_docstring
-@use_alias(G="download")
 def which(
     fname: PathLike | Sequence[PathLike],
+    download: Literal["auto", "cache", "local", "user"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
 ) -> str | list[str]:
-    r"""
+    """
     Find full path to specified files.
 
-    Reports the full paths to the files given through ``fname``. We look
-    for the file in (1) the current directory, (2) in $GMT_USERDIR (if
-    defined), (3) in $GMT_DATADIR (if defined), or (4) in $GMT_CACHEDIR
-    (if defined).
+    Reports the full paths to the files given through ``fname``. It looks for the file
+    in (1) the current directory, (2) in $GMT_USERDIR (if defined), (3) in $GMT_DATADIR
+    (if defined), or (4) in $GMT_CACHEDIR (if defined).
 
-    ``fname`` can also be a downloadable file (either a complete URL, an
-    @file for downloading from the GMT data server, or any of the remote
-    datasets at https://www.pygmt.org/latest/api/index.html#datasets).
-    In these cases, use the ``download`` parameter to set the desired
-    behavior. If ``download`` is not used (or ``False``), the file will
-    not be found.
+    ``fname`` can also be a downloadable file (either a complete URL, an @file for
+    downloading from the GMT data server, or any of the remote datasets at
+    :ref:`datasets`. In these cases, use the ``download`` parameter to set the desired
+    behavior. If ``download`` is not used (or ``False``), the file will not be found.
 
     Full GMT docs at :gmt-docs:`gmtwhich.html`.
 
-    $aliases
+    **Aliases:**
+
+    .. hlist::
+       :columns: 3
+
+       - G = download
        - V = verbose
 
     Parameters
     ----------
-    fname : str or list
-        One or more file names of any data type (grids, tables, etc.).
-    download : bool or str
-        [**a**\|\ **c**\|\ **l**\|\ **u**].
-        If the ``fname`` argument is a downloadable file (either a complete
-        URL, an @file for downloading from the GMT data server, or any of
-        the remote datasets at
-        https://www.pygmt.org/latest/api/index.html#datasets)
-        we will try to download the file if it is not found in your local
-        data or cache directories. If set to ``True`` or **l** is passed
-        the file is downloaded to the current directory. Use **a** to place
-        files in the appropriate folder under the user directory (this is
-        where GMT normally places downloaded files), **c** to place it in
-        the user cache directory, or **u** for the user data directory
-        instead (i.e., ignoring any subdirectory structure).
+    fname
+        One or more file names to find the full path.
+    download
+        Try to download the file if it is not found in your local data or cache
+        directories and the file is downloadable. Here, downloadable files include:
+
+        - a file specified by a complete URL
+        - a GMT remote file on the GMT data server, specified with a leading ``@``.
+        - any of the GMT remote datasets at :ref:`datasets`
+
+        Valid values are:
+
+        - ``False``: Do not download the file.
+        - ``True`` or ``"local"``: Download the file to the current directory.
+        - ``"cache"``: Download the file to the user cache directory.
+        - ``"user"``: Download the file to the user data directory but ignore any
+          subdirectory structure.
+        - ``"auto"``: Download the file to appropriate folder under the user directory
+          (this is where GMT normally places downloaded files).
     $verbose
 
     Returns
@@ -68,7 +74,20 @@ def which(
     FileNotFoundError
         If the file is not found.
     """
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        G=Alias(
+            download,
+            name="download",
+            mapping={
+                "auto": "a",
+                "cache": "c",
+                "local": "l",
+                "user": "u",
+                True: True,
+                False: False,
+            },
+        )
+    ).add_common(
         V=verbose,
     )
     aliasdict.merge(kwargs)

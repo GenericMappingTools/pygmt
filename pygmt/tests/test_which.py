@@ -18,7 +18,7 @@ def test_which():
     Make sure `which` returns file paths for @files correctly without errors.
     """
     for fname in ["tut_quakes.ngdc", "tut_bathy.nc"]:
-        cached_file = which(fname=f"@{fname}", download="c")
+        cached_file = which(fname=f"@{fname}", download="cache")
         assert Path(cached_file).exists()
         assert Path(cached_file).name == fname
 
@@ -29,7 +29,7 @@ def test_which_multiple():
     Make sure `which` returns file paths for multiple @files correctly.
     """
     filenames = ["ridge.txt", "tut_ship.xyz"]
-    cached_files = which([f"@{fname}" for fname in filenames], download="c")
+    cached_files = which([f"@{fname}" for fname in filenames], download="cache")
     for cached_file in cached_files:
         assert Path(cached_file).exists()
         assert Path(cached_file).name in filenames
@@ -68,7 +68,7 @@ def test_which_nonascii_path(monkeypatch):
             # Start a new session
             begin()
             # GMT should download the remote file under the new home directory.
-            fname = which(fname="@static_earth_relief.nc", download="c")
+            fname = which(fname="@static_earth_relief.nc", download="cache")
             assert fname.startswith(fakehome)
             assert fname.endswith("static_earth_relief.nc")
             end()

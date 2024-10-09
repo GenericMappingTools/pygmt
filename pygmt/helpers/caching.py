@@ -132,4 +132,4 @@ def cache_data() -> None:
         "@tut_ship.xyz",
         "@usgs_quakes_22.txt",
     ]
-    which(fname=datasets, download="a")
+    which(fname=datasets, download="auto")
