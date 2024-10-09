@@ -556,7 +556,7 @@ def _load_remote_dataset(
             grid = lib.virtualfile_to_raster(kind=kind, outgrid=None, vfname=voutgrd)
 
     # Full path to the grid if not tiled grids.
-    source = which(fname, download="a") if not resinfo.tiled else None
+    source = which(fname, download="auto") if not resinfo.tiled else None
     # Manually add source to xarray.DataArray encoding to make the GMT accessors work.
     if source:
         grid.encoding["source"] = source

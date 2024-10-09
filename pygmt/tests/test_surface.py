@@ -17,7 +17,7 @@ def fixture_data():
     """
     Load Table 5.11 in Davis: Statistics and Data Analysis in Geology.
     """
-    fname = which("@Table_5_11_mean.xyz", download="c")
+    fname = which("@Table_5_11_mean.xyz", download="cache")
     return pd.read_csv(
         fname, sep=r"\s+", header=None, names=["x", "y", "z"], skiprows=1
     )

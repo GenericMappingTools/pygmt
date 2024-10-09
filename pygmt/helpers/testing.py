@@ -153,7 +153,7 @@ def load_static_earth_relief():
     data : xarray.DataArray
         A grid of Earth relief for internal tests.
     """
-    fname = which("@static_earth_relief.nc", download="c")
+    fname = which("@static_earth_relief.nc", download="cache")
     return load_dataarray(fname)
 
 

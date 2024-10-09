@@ -24,7 +24,7 @@ def _load_japan_quakes() -> pd.DataFrame:
         The data table. The column names are "year", "month", "day", "latitude",
         "longitude", "depth_km", and "magnitude" of the earthquakes.
     """
-    fname = which("@tut_quakes.ngdc", download="c")
+    fname = which("@tut_quakes.ngdc", download="cache")
     return pd.read_csv(
         fname,
         header=1,
@@ -50,7 +50,7 @@ def _load_ocean_ridge_points() -> pd.DataFrame:
     data
         The data table. The column names are "longitude" and "latitude".
     """
-    fname = which("@ridge.txt", download="c")
+    fname = which("@ridge.txt", download="cache")
     return pd.read_csv(
         fname,
         sep=r"\s+",
@@ -69,7 +69,7 @@ def _load_baja_california_bathymetry() -> pd.DataFrame:
     data
         The data table. The column names are "longitude", "latitude", and "bathymetry".
     """
-    fname = which("@tut_ship.xyz", download="c")
+    fname = which("@tut_ship.xyz", download="cache")
     return pd.read_csv(
         fname, sep="\t", header=None, names=["longitude", "latitude", "bathymetry"]
     )
@@ -84,7 +84,7 @@ def _load_usgs_quakes() -> pd.DataFrame:
     data
         The data table. Use ``print(data.describe())`` to see the available columns.
     """
-    fname = which("@usgs_quakes_22.txt", download="c")
+    fname = which("@usgs_quakes_22.txt", download="cache")
     return pd.read_csv(fname)
 
 
@@ -98,7 +98,7 @@ def _load_fractures_compilation() -> pd.DataFrame:
     data
         The data table. The column names are "length" and "azimuth" of the fractures.
     """
-    fname = which("@fractures_06.txt", download="c")
+    fname = which("@fractures_06.txt", download="cache")
     data = pd.read_csv(fname, header=None, sep=r"\s+", names=["azimuth", "length"])
     return data[["length", "azimuth"]]
 
@@ -117,7 +117,7 @@ def _load_hotspots() -> pd.DataFrame:
         The data table. The column names are "longitude", "latitude", "symbol_size", and
         "place_name".
     """
-    fname = which("@hotspots.txt", download="c")
+    fname = which("@hotspots.txt", download="cache")
     return pd.read_csv(
         fname,
         sep="\t",
@@ -138,7 +138,7 @@ def _load_mars_shape() -> pd.DataFrame:
     data
         The data table. The column names are "longitude", "latitude", and "radius_m".
     """
-    fname = which("@mars370d.txt", download="c")
+    fname = which("@mars370d.txt", download="cache")
     return pd.read_csv(
         fname, sep="\t", header=None, names=["longitude", "latitude", "radius_m"]
     )
@@ -154,7 +154,7 @@ def _load_rock_sample_compositions() -> pd.DataFrame:
         The data table. The column names are "limestone", "water", "air", and
         "permittivity".
     """
-    fname = which("@ternary.txt", download="c")
+    fname = which("@ternary.txt", download="cache")
     return pd.read_csv(
         fname,
         sep=r"\s+",
@@ -174,7 +174,7 @@ def _load_notre_dame_topography() -> pd.DataFrame:
     data
         The data table. The column names are "x", "y", and "z".
     """
-    fname = which("@Table_5_11.txt", download="c")
+    fname = which("@Table_5_11.txt", download="cache")
     return pd.read_csv(fname, sep=r"\s+", header=None, names=["x", "y", "z"])
 
 
@@ -187,7 +187,7 @@ def _load_maunaloa_co2() -> pd.DataFrame:
     data
         The data table. The column names are "date" and "co2_ppm".
     """
-    fname = which("@MaunaLoa_CO2.txt", download="c")
+    fname = which("@MaunaLoa_CO2.txt", download="cache")
     return pd.read_csv(
         fname, header=None, skiprows=1, sep=r"\s+", names=["date", "co2_ppm"]
     )
@@ -203,7 +203,7 @@ def _load_earth_relief_holes() -> xr.DataArray:
         The Earth relief grid. Coordinates are latitude and longitude in degrees. Relief
         is in meters.
     """
-    fname = which("@earth_relief_20m_holes.grd", download="c")
+    fname = which("@earth_relief_20m_holes.grd", download="cache")
     return load_dataarray(fname, engine="netcdf4")
 
 

@@ -19,7 +19,7 @@ def test_accessor_gridline_cartesian():
     Check that a grid returns a registration value of 0 when Gridline registered, and a
     gtype value of 1 when using Geographic coordinates.
     """
-    fname = which(fname="@test.dat.nc", download="a")
+    fname = which(fname="@test.dat.nc", download="auto")
     grid = xr.open_dataarray(fname)
     assert grid.gmt.registration == 0  # gridline registration
     assert grid.gmt.gtype == 0  # cartesian coordinate type
@@ -30,7 +30,7 @@ def test_accessor_pixel_geographic():
     Check that a grid returns a registration value of 1 when Pixel registered, and a
     gtype value of 0 when using Cartesian coordinates.
     """
-    fname = which(fname="@earth_relief_01d_p", download="a")
+    fname = which(fname="@earth_relief_01d_p", download="auto")
     grid = xr.open_dataarray(fname, engine="netcdf4")
     assert grid.gmt.registration == 1  # pixel registration
     assert grid.gmt.gtype == 1  # geographic coordinate type
@@ -89,7 +89,7 @@ def test_accessor_sliced_datacube():
     try:
         fname = which(
             "https://github.com/pydata/xarray-data/raw/master/eraint_uvz.nc",
-            download="u",
+            download="user",
         )
         with xr.open_dataset(fname) as dataset:
             grid = dataset.sel(level=500, month=1, drop=True).z

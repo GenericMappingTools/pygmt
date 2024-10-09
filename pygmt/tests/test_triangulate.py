@@ -18,7 +18,7 @@ def fixture_dataframe():
     """
     Load the table data from the sample bathymetry dataset.
     """
-    fname = which("@Table_5_11_mean.xyz", download="c")
+    fname = which("@Table_5_11_mean.xyz", download="cache")
     return pd.read_csv(
         fname, sep=r"\s+", header=None, names=["x", "y", "z"], skiprows=1
     )[:10]
