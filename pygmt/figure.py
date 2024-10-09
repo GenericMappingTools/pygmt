@@ -120,7 +120,7 @@ class Figure:
 
         All plotting commands run afterward will append to this figure.
         """
-        fmt = "-"  # Passing format '-' tells pygmt.end to not produce any files.
+        fmt = "-"  # Passing format "-" tells pygmt.end to not produce any files.
         with Session() as lib:
             lib.call_module(module="figure", args=[self._name, fmt])
 
@@ -498,7 +498,7 @@ class Figure:
         Returns
         -------
         preview
-            If ``as_bytes=False``, this is the file name of the preview image file.
+            If ``as_bytes = False``, this is the file name of the preview image file.
             Otherwise, it is the file content loaded as a bytes object.
         """
         fname = Path(self._preview_dir.name) / f"{self._name}.{fmt}"
