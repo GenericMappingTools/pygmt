@@ -7,7 +7,7 @@ making publication-quality maps and figures. PyGMT integrates well with the
 fundamental array data structure, [Pandas][] for tabular data I/O and [Xarray][] for
 raster grids/images/cubes I/O.
 
-In addition to these core dependencies, PyGMT also rely on several optional packages to
+In addition to these core dependencies, PyGMT also relies on several optional packages to
 provide additional functionality for users.
 
 *This page was adapted from [GeoPandas's Ecosystem](https://geopandas.org/en/latest/community/ecosystem.html) page.*
@@ -48,7 +48,7 @@ allows for more intuitive, more concise, and less error-prone user experience.
 interactively. Its main components are a powerful interactive Python shell and a Jupyter
 kernel to work with Python code in Jupyter notebooks and other interactive frontends.
 
-PyGMT rely on IPython to provide a rich interactive experience in Jupyter notebooks.
+PyGMT relies on IPython to provide a rich interactive experience in Jupyter notebooks.
 
 #### GeoPandas
 
@@ -78,7 +78,7 @@ on it.
 arrays with geospatial attributes such as coordinate reference systems (CRS) and spatial extent
 (bounds).
 
-Currently, PyGMT relies on [rioxarray][] to to saving multi-band rasters to temporary files
+Currently, PyGMT relies on [rioxarray][] to save multi-band rasters to temporary files
 in GeoTIFF format, to support processing and plotting 3-D {class}`xarray.DataArray`
 images.
 
