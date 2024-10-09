@@ -130,26 +130,25 @@ def dataarray_to_matrix(
     return matrix, region, inc
 
 
-def vectors_to_arrays(vectors):
+def vectors_to_arrays(vectors: Sequence[Any]) -> list[np.ndarray]:
     """
-    Convert 1-D vectors (lists, arrays, or pandas.Series) to C contiguous 1-D arrays.
+    Convert 1-D vectors (scalars, lists, or array-like) to C contiguous 1-D arrays.
 
-    Arrays must be in C contiguous order for us to pass their memory pointers
-    to GMT. If any are not, convert them to C order (which requires copying the
-    memory). This usually happens when vectors are columns of a 2-D array or
-    have been sliced.
+    Arrays must be in C contiguous order for us to pass their memory pointers to GMT.
+    If any are not, convert them to C order (which requires copying the memory). This
+    usually happens when vectors are columns of a 2-D array or have been sliced.
 
-    If a vector is a list or pandas.Series, get the underlying numpy array.
+    The returned arrays are guaranteed to be C contiguous and at least 1-D.
 
     Parameters
     ----------
-    vectors : list of lists, 1-D arrays, or pandas.Series
+    vectors
         The vectors that must be converted.
 
     Returns
     -------
-    arrays : list of 1-D arrays
-        The converted numpy arrays
+    arrays
+        List of converted numpy arrays.
 
     Examples
     --------
