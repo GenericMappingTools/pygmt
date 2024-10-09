@@ -113,7 +113,7 @@ Python ecosystem.
 ```{note}
 If your package relies on PyGMT, please
 [let us know](https://github.com/GenericMappingTools/pygmt/issues/new) or
-[add it by yourself](../contributing.md).
+[add it by yourself](contributing.md).
 ```
 
 [apache arrow]: https://arrow.apache.org/
