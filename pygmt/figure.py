@@ -184,7 +184,7 @@ class Figure:
         ----------
         crop : str or bool
             Adjust the BoundingBox and HiResBoundingBox to the minimum
-            required by the image content. Default is True. Append **+u** to
+            required by the image content. Default is ``True``. Append **+u** to
             first remove any GMT-produced time-stamps. Append **+r** to
             *round* the HighResBoundingBox instead of using the ``ceil``
             function. This is going against Adobe Law but can be useful when
@@ -228,7 +228,7 @@ class Figure:
             towards black (100%) [no fading, 0]. Append **+g**\ *paint* to
             paint the BoundingBox behind the illustration and append **+p**\
             [*pen*] to draw the BoundingBox outline (append a pen or accept
-            the default pen of 0.25p,black). **Note**: If both **+g** and
+            the default pen of ``"0.25p, black, solid"``). **Note**: If both **+g** and
             **+f** are used then we use paint as the fade color instead of
             black. Append **+i** to enforce gray-shades by using ICC profiles.
         anti_aliasing : str
@@ -251,8 +251,8 @@ class Figure:
         {verbose}
         """
         kwargs = self._preprocess(**kwargs)
-        # pytest-mpl v0.17.0 added the "metadata" parameter to `Figure.savefig`, which
-        # is not recognized. So remove it before calling `Figure.psconvert`.
+        # pytest-mpl v0.17.0 added the "metadata" parameter to Figure.savefig, which
+        # is not recognized. So remove it before calling Figure.psconvert.
         kwargs.pop("metadata", None)
         # Default cropping the figure to True
         if kwargs.get("A") is None:
