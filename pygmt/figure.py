@@ -229,7 +229,7 @@ class Figure:
             paint the BoundingBox behind the illustration and append **+p**\
             [*pen*] to draw the BoundingBox outline (append a pen or accept
             the default pen of ``"0.25p, black, solid"``). **Note**: If both **+g** and
-            **+f** are used then we use paint as the fade color instead of
+            **+f** are used then we use *paint* as the fade color instead of
             black. Append **+i** to enforce gray-shades by using ICC profiles.
         anti_aliasing : str
             [**g**\|\ **p**\|\ **t**\][**1**\|\ **2**\|\ **4**].
