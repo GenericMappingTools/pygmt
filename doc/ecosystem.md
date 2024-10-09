@@ -110,6 +110,12 @@ Various packages rely on PyGMT for geospatial data processing, analysis, and vis
 Below is an incomplete list (in no particular order) of tools which form the PyGMT-related
 Python ecosystem.
 
+```{note}
+If your package relies on PyGMT, please
+[let us know](https://github.com/GenericMappingTools/pygmt/issues/new) or
+[add it by yourself](../contributing.md).
+```
+
 [apache arrow]: https://arrow.apache.org/
 [contextily]: https://contextily.readthedocs.io/
 [geopandas]: https://geopandas.org/
