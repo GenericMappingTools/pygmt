@@ -7,37 +7,40 @@ import warnings
 from collections.abc import Sequence
 
 import numpy as np
+import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
 
 
-def dataarray_to_matrix(grid):
+def dataarray_to_matrix(
+    grid: xr.DataArray,
+) -> tuple[np.ndarray, list[float], list[float]]:
     """
-    Transform an xarray.DataArray into a data 2-D array and metadata.
+    Transform an xarray.DataArray into a 2-D numpy array and metadata.
 
-    Use this to extract the underlying numpy array of data and the region and
-    increment for the grid.
+    Use this to extract the underlying numpy array of data and the region and increment
+    for the grid.
 
-    Only allows grids with two dimensions and constant grid spacing (GMT
-    doesn't allow variable grid spacing). If the latitude and/or longitude
-    increments of the input grid are negative, the output matrix will be
-    sorted by the DataArray coordinates to yield positive increments.
+    Only allows grids with two dimensions and constant grid spacings (GMT doesn't allow
+    variable grid spacings). If the latitude and/or longitude increments of the input
+    grid are negative, the output matrix will be sorted by the DataArray coordinates to
+    yield positive increments.
 
-    If the underlying data array is not C contiguous, for example if it's a
-    slice of a larger grid, a copy will need to be generated.
+    If the underlying data array is not C contiguous, for example if it's a slice of a
+    larger grid, a copy will need to be generated.
 
     Parameters
     ----------
-    grid : xarray.DataArray
-        The input grid as a DataArray instance. Information is retrieved from
-        the coordinate arrays, not from headers.
+    grid
+        The input grid as a DataArray instance. Information is retrieved from the
+        coordinate arrays, not from headers.
 
     Returns
     -------
-    matrix : 2-D array
+    matrix
         The 2-D array of data from the grid.
-    region : list
+    region
         The West, East, South, North boundaries of the grid.
-    inc : list
+    inc
         The grid spacing in East-West and North-South, respectively.
 
     Raises
@@ -62,8 +65,8 @@ def dataarray_to_matrix(grid):
     (180, 360)
     >>> matrix.flags.c_contiguous
     True
-    >>> # Using a slice of the grid, the matrix will be copied to guarantee
-    >>> # that it's C-contiguous in memory. The increment should be unchanged.
+    >>> # Using a slice of the grid, the matrix will be copied to guarantee that it's
+    >>> # C-contiguous in memory. The increment should be unchanged.
     >>> matrix, region, inc = dataarray_to_matrix(grid[10:41, 30:101])
     >>> matrix.flags.c_contiguous
     True
@@ -73,7 +76,7 @@ def dataarray_to_matrix(grid):
     [-150.0, -79.0, -80.0, -49.0]
     >>> print(inc)
     [1.0, 1.0]
-    >>> # but not if only taking every other grid point.
+    >>> # The increment should change accordingly if taking every other grid point.
     >>> matrix, region, inc = dataarray_to_matrix(grid[10:41:2, 30:101:2])
     >>> matrix.flags.c_contiguous
     True
@@ -85,21 +88,19 @@ def dataarray_to_matrix(grid):
     [2.0, 2.0]
     """
     if len(grid.dims) != 2:
-        raise GMTInvalidInput(
-            f"Invalid number of grid dimensions '{len(grid.dims)}'. Must be 2."
-        )
+        msg = f"Invalid number of grid dimensions 'len({grid.dims})'. Must be 2."
+        raise GMTInvalidInput(msg)
+
     # Extract region and inc from the grid
-    region = []
-    inc = []
-    # Reverse the dims because it is rows, columns ordered. In geographic
-    # grids, this would be North-South, East-West. GMT's region and inc are
-    # East-West, North-South.
+    region, inc = [], []
+    # Reverse the dims because it is rows, columns ordered. In geographic grids, this
+    # would be North-South, East-West. GMT's region and inc are East-West, North-South.
     for dim in grid.dims[::-1]:
         coord = grid.coords[dim].to_numpy()
-        coord_incs = coord[1:] - coord[0:-1]
+        coord_incs = coord[1:] - coord[:-1]
         coord_inc = coord_incs[0]
         if not np.allclose(coord_incs, coord_inc):
-            # calculate the increment if irregular spacing is found
+            # Calculate the increment if irregular spacing is found.
             coord_inc = (coord[-1] - coord[0]) / (coord.size - 1)
             msg = (
                 f"Grid may have irregular spacing in the '{dim}' dimension, "
@@ -108,9 +109,8 @@ def dataarray_to_matrix(grid):
             )
             warnings.warn(msg, category=RuntimeWarning, stacklevel=2)
         if coord_inc == 0:
-            raise GMTInvalidInput(
-                f"Grid has a zero increment in the '{dim}' dimension."
-            )
+            msg = f"Grid has a zero increment in the '{dim}' dimension."
+            raise GMTInvalidInput(msg)
         region.extend(
             [
                 coord.min() - coord_inc / 2 * grid.gmt.registration,
