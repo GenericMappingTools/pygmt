@@ -19,7 +19,6 @@ import pandas as pd
 import xarray as xr
 from pygmt.clib.conversion import (
     array_to_datetime,
-    as_c_contiguous,
     dataarray_to_matrix,
     sequence_to_ctypes_array,
     strings_to_ctypes_array,
@@ -1499,7 +1498,7 @@ class Session:
         # collected and the memory freed. Creating it in this context manager
         # guarantees that the copy will be around until the virtual file is
         # closed.
-        matrix = as_c_contiguous(matrix)
+        matrix = np.ascontiguousarray(matrix)
         rows, columns = matrix.shape
 
         family = "GMT_IS_DATASET|GMT_VIA_MATRIX"
