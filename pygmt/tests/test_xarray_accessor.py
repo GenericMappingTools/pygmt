@@ -122,7 +122,7 @@ def test_xarray_accessor_sliced_datacube():
     try:
         fname = which(
             "https://github.com/pydata/xarray-data/raw/master/eraint_uvz.nc",
-            download="u",
+            download="user",
         )
         with xr.open_dataset(fname, engine="netcdf4") as dataset:
             grid = dataset.sel(level=500, month=1, drop=True).z

@@ -552,7 +552,7 @@ def test_plot_shapefile():
     See https://github.com/GenericMappingTools/pygmt/issues/1616.
     """
     datasets = ["@RidgeTest" + suffix for suffix in [".shp", ".shx", ".dbf", ".prj"]]
-    which(fname=datasets, download="a")
+    which(fname=datasets, download="auto")
     fig = Figure()
     fig.plot(data="@RidgeTest.shp", pen="1p", frame=True)
     return fig
