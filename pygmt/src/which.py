@@ -2,13 +2,22 @@
 which - Find the full path to specified files.
 """
 
+from collections.abc import Sequence
+from pathlib import PurePath
+from typing import Literal
+
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, is_nonstr_iter, use_alias
 
 
 @fmt_docstring
-@use_alias(G="download", V="verbose")
-def which(fname, **kwargs) -> str | list[str]:
+@use_alias(V="verbose")
+def which(
+    fname: str | PurePath | Sequence[str | PurePath],
+    download: bool | Literal["auto", "cache", "local", "user"] = False,
+    **kwargs,
+) -> str | list[str]:
     r"""
     Find the full path to specified files.
 
@@ -30,21 +39,25 @@ def which(fname, **kwargs) -> str | list[str]:
 
     Parameters
     ----------
-    fname : str or list
-        One or more file names of any data type (grids, tables, etc.).
-    download : bool or str
-        [**a**\|\ **c**\|\ **l**\|\ **u**].
-        If the ``fname`` argument is a downloadable file (either a complete
-        URL, an @file for downloading from the GMT data server, or any of
-        the remote datasets at
-        https://www.pygmt.org/latest/api/index.html#datasets)
-        we will try to download the file if it is not found in your local
-        data or cache directories. If set to ``True`` or **l** is passed
-        the file is downloaded to the current directory. Use **a** to place
-        files in the appropriate folder under the user directory (this is
-        where GMT normally places downloaded files), **c** to place it in
-        the user cache directory, or **u** for the user data directory
-        instead (i.e., ignoring any subdirectory structure).
+    fname
+        One or more file names to find the full path.
+    download
+        Try to download the file if it is not found in your local data or cache
+        directories and the file is downloadable. Here, downloadable files include:
+
+        - a file specified by a complete URL
+        - a GMT remote file on the GMT data server, specified with a leading ``@``.
+        - any of the GMT remote datasets at https://www.pygmt.org/latest/api/index.html#datasets
+
+        Valid values are:
+
+        - ``False``: Do not download the file.
+        - ``True`` or ``"local"``: Download the file to the current directory.
+        - ``"cache"``: Download the file to the user cache directory.
+        - ``"user"``: Download the file to the user data directory but ignore any
+          subdirectory structure.
+        - ``"auto"``: Download the file to appropriate folder under the user directory
+          (this is where GMT normally places downloaded files).
     {verbose}
 
     Returns
@@ -57,6 +70,17 @@ def which(fname, **kwargs) -> str | list[str]:
     FileNotFoundError
         If the file is not found.
     """
+    match download:
+        case bool() | "a" | "c" | "l" | "u":
+            kwargs["G"] = download
+        case "auto" | "cache" | "local" | "user":
+            kwargs["G"] = download[0]
+        case _:
+            msg = (
+                "'download' should be either bool, 'auto', 'cache', 'local', or 'user'."
+            )
+            raise GMTInvalidInput(msg)
+
     with Session() as lib:
         with lib.virtualfile_out(kind="dataset") as vouttbl:
             lib.call_module(
