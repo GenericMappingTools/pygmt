@@ -206,9 +206,7 @@ def vectors_to_arrays(vectors):
     arrays = []
     for vector in vectors:
         vec_dtype = str(getattr(vector, "dtype", ""))
-        array = np.asarray(a=vector, dtype=dtypes.get(vec_dtype))
-        arrays.append(np.ascontiguousarray(array))
-
+        arrays.append(np.ascontiguousarray(vector, dtype=dtypes.get(vec_dtype)))
     return arrays
 
 
