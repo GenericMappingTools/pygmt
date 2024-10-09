@@ -52,7 +52,7 @@ def fixture_gdf_ridge():
     # Read shapefile into a geopandas.GeoDataFrame
     shapefile = which(
         fname=["@RidgeTest.shp", "@RidgeTest.shx", "@RidgeTest.dbf", "@RidgeTest.prj"],
-        download="c",
+        download="cache",
     )
     gdf = gpd.read_file(shapefile[0])
     # Reproject the geometry
