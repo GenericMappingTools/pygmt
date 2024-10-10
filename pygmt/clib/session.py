@@ -645,7 +645,7 @@ class Session:
             mode = self["GMT_MODULE_CMD"]
             argv = args.encode()
         else:
-            msg = "'args' must be either a string or a list of strings."
+            msg = "'args' must either be a list of strings (recommended) or a string."
             raise GMTInvalidInput(msg)
 
         status = c_call_module(self.session_pointer, module.encode(), mode, argv)
