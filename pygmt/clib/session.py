@@ -1962,7 +1962,7 @@ class Session:
         c_inquire_virtualfile = self.get_libgmt_func(
             "GMT_Inquire_VirtualFile",
             argtypes=[ctp.c_void_p, ctp.c_char_p],
-            restype=ctp.c_uint,
+            restype=ctp.c_int,
         )
         return c_inquire_virtualfile(self.session_pointer, vfname.encode())
 
