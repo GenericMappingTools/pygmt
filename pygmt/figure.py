@@ -529,6 +529,7 @@ class Figure:
 
     from pygmt.src import (  # type: ignore [misc]
         basemap,
+        choropleth,
         coast,
         colorbar,
         contour,
