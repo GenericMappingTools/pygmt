@@ -1809,9 +1809,9 @@ class Session:
                 warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
             _data = (data,) if not isinstance(data, pathlib.PurePath) else (str(data),)
         elif kind == "vectors":
-            _data = [np.atleast_1d(x), np.atleast_1d(y)]
+            _data = [x, y]
             if z is not None:
-                _data.append(np.atleast_1d(z))
+                _data.append(z)
             if extra_arrays:
                 _data.extend(extra_arrays)
         elif kind == "matrix":  # turn 2-D arrays into list of vectors
