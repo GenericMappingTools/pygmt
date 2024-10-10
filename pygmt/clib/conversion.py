@@ -7,6 +7,8 @@ import warnings
 from collections.abc import Sequence
 
 import numpy as np
+import pandas as pd
+from packaging.version import Version
 from pygmt.exceptions import GMTInvalidInput
 
 
@@ -178,6 +180,10 @@ def vectors_to_arrays(vectors):
     >>> [i.ndim for i in data]  # Check that they are 1-D arrays
     [1, 1, 1]
 
+    >>> series = pd.Series(data=[0, 4, pd.NA, 8, 6], dtype=pd.Int32Dtype())
+    >>> vectors_to_arrays([series])
+    [array([ 0.,  4., nan,  8.,  6.])]
+
     >>> import datetime
     >>> import pytest
     >>> pa = pytest.importorskip("pyarrow")
@@ -198,6 +204,7 @@ def vectors_to_arrays(vectors):
     True
     >>> all(isinstance(a.dtype, np.dtypes.DateTime64DType) for a in arrays)
     True
+
     """
     dtypes = {
         "date32[day][pyarrow]": np.datetime64,
@@ -205,8 +212,20 @@ def vectors_to_arrays(vectors):
     }
     arrays = []
     for vector in vectors:
-        vec_dtype = str(getattr(vector, "dtype", ""))
-        arrays.append(np.ascontiguousarray(vector, dtype=dtypes.get(vec_dtype)))
+        if (
+            hasattr(vector, "isna")
+            and vector.isna().any()
+            and Version(pd.__version__) < Version("2.2")
+        ):
+            # Workaround for dealing with pd.NA with pandas < 2.2.
+            # Bug report at: https://github.com/GenericMappingTools/pygmt/issues/2844
+            # Following SPEC0, pandas 2.1 will be dropped in 2025 Q3, so it's likey
+            # we can remove the workaround in PyGMT v0.17.0.
+            array = np.ascontiguousarray(vector.astype(float))
+        else:
+            vec_dtype = str(getattr(vector, "dtype", ""))
+            array = np.ascontiguousarray(vector, dtype=dtypes.get(vec_dtype))
+        arrays.append(array)
     return arrays
 
 
