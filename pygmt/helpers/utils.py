@@ -104,6 +104,9 @@ def _validate_data_input(
     else:  # data is not None
         if x is not None or y is not None or z is not None:
             raise GMTInvalidInput("Too much data. Use either data or x/y/z.")
+        if isinstance(data, dict) and any(value is None for value in data.values()):
+            raise GMTInvalidInput("Can't pass None vectors.")
+
         # For 'matrix' kind, check if data has the required z column
         if kind == "matrix" and required_z:
             if hasattr(data, "shape"):  # np.ndarray or pd.DataFrame
