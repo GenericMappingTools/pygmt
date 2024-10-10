@@ -171,6 +171,13 @@ def vectors_to_arrays(vectors):
     >>> all(isinstance(i, np.ndarray) for i in vectors_to_arrays(data))
     True
 
+    >>> # Sequence of scalars are converted to 1-D arrays
+    >>> data = vectors_to_arrays([1, 2, 3.0])
+    >>> data
+    [array([1]), array([2]), array([3.])]
+    >>> [i.ndim for i in data]  # Check that they are 1-D arrays
+    [1, 1, 1]
+
     >>> import datetime
     >>> import pytest
     >>> pa = pytest.importorskip("pyarrow")
@@ -199,9 +206,7 @@ def vectors_to_arrays(vectors):
     arrays = []
     for vector in vectors:
         vec_dtype = str(getattr(vector, "dtype", ""))
-        array = np.asarray(a=vector, dtype=dtypes.get(vec_dtype))
-        arrays.append(np.ascontiguousarray(array))
-
+        arrays.append(np.ascontiguousarray(vector, dtype=dtypes.get(vec_dtype)))
     return arrays
 
 
