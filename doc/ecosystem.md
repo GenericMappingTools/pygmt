@@ -73,7 +73,7 @@ on it.
 
 #### RioXarray
 
-[rioxarray][] is a geospatial [xarray][] extension powered by rasterio. Built on top of
+[rioxarray][] is a geospatial [Xarray][] extension powered by rasterio. Built on top of
 [rasterio][], it enables seamless reading, writing, and manipulation of multi-dimensional
 arrays with geospatial attributes such as coordinate reference systems (CRS) and spatial extent
 (bounds).
