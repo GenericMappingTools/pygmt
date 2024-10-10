@@ -52,9 +52,9 @@ PyGMT relies on IPython to provide a rich interactive experience in Jupyter note
 
 #### GeoPandas
 
-[geopandas][] is an open source project to make working with geospatial data in Python
+[GeoPandas][] is an open source project to make working with geospatial data in Python
 easier. GeoPandas extends the datatypes used by [pandas][] to allow spatial operations
-on geometric types. Geometric operations are performed by [shapely][]. Geopandas further
+on geometric types. Geometric operations are performed by [shapely][]. GeoPandas further
 depends on [pyogrio][] for file access and [matplotlib][] for plotting.
 
 PyGMT doesn't directly rely on GeoPandas, but provides support of GeoPandas's data
