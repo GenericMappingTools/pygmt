@@ -19,7 +19,6 @@ import pandas as pd
 import xarray as xr
 from pygmt.clib.conversion import (
     array_to_datetime,
-    as_c_contiguous,
     dataarray_to_matrix,
     sequence_to_ctypes_array,
     strings_to_ctypes_array,
@@ -1499,7 +1498,7 @@ class Session:
         # collected and the memory freed. Creating it in this context manager
         # guarantees that the copy will be around until the virtual file is
         # closed.
-        matrix = as_c_contiguous(matrix)
+        matrix = np.ascontiguousarray(matrix)
         rows, columns = matrix.shape
 
         family = "GMT_IS_DATASET|GMT_VIA_MATRIX"
@@ -1809,9 +1808,9 @@ class Session:
             _data = (data,) if not isinstance(data, pathlib.PurePath) else (str(data),)
         elif kind == "none":
             # data is None, so data must be given via x/y/z.
-            _data = [np.atleast_1d(x), np.atleast_1d(y)]
+            _data = [x, y]
             if z is not None:
-                _data.append(np.atleast_1d(z))
+                _data.append(z)
             if extra_arrays:
                 _data.extend(extra_arrays)
         elif kind == "vectors":
@@ -1964,7 +1963,7 @@ class Session:
         c_inquire_virtualfile = self.get_libgmt_func(
             "GMT_Inquire_VirtualFile",
             argtypes=[ctp.c_void_p, ctp.c_char_p],
-            restype=ctp.c_uint,
+            restype=ctp.c_int,
         )
         return c_inquire_virtualfile(self.session_pointer, vfname.encode())
 
