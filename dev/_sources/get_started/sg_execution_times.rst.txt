@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:02.730** total execution time for 4 files **from get_started**:
+**00:02.717** total execution time for 4 files **from get_started**:
 
 .. container::
 
@@ -33,14 +33,14 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_get_started_01_first_figure.py` (``01_first_figure.py``)
-     - 00:01.021
+     - 00:01.017
      - 0.0
    * - :ref:`sphx_glr_get_started_02_contour_map.py` (``02_contour_map.py``)
-     - 00:00.974
+     - 00:00.976
      - 0.0
    * - :ref:`sphx_glr_get_started_04_table_inputs.py` (``04_table_inputs.py``)
-     - 00:00.453
+     - 00:00.443
      - 0.0
    * - :ref:`sphx_glr_get_started_03_figure_element.py` (``03_figure_element.py``)
-     - 00:00.282
+     - 00:00.280
      - 0.0

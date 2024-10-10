@@ -18,8 +18,8 @@
 .. _sphx_glr_projections_cyl_cyl_mercator.py:
 
 
-Mercator
-========
+Mercator projection
+===================
 
 The Mercator projection takes its name from the Flemish cartographer Gheert
 Cremer, better known as Gerardus Mercator, who presented it in 1569. The
@@ -38,7 +38,7 @@ The projection is set with **m** or **M**. The central meridian is set with the
 optional *lon0* and the standard parallel is set with the optional *lat0*.
 The figure size is set with *scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 24-29
+.. GENERATED FROM PYTHON SOURCE LINES 24-35
 
 
 
@@ -56,13 +56,19 @@ The figure size is set with *scale* or *width*.
     import pygmt
 
     fig = pygmt.Figure()
-    fig.coast(region=[0, 360, -80, 80], frame="afg", land="red", projection="M0/0/12c")
+    fig.coast(
+        region=[0, 360, -80, 80],
+        projection="M0/0/12c",
+        frame="afg",
+        land="gray80",
+        water="steelblue",
+    )
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.208 seconds)
+   **Total running time of the script:** (0 minutes 0.217 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_mercator.py:

@@ -1,6 +1,6 @@
 r"""
-Orthographic
-============
+Orthographic projection
+=======================
 
 This is a perspective projection like the general perspective, but with the
 difference that the point of perspective lies in infinite distance.
@@ -21,5 +21,11 @@ and *width* set the figure size.
 import pygmt
 
 fig = pygmt.Figure()
-fig.coast(projection="G10/52/12c", region="g", frame="g", land="gray")
+fig.coast(
+    region="g",
+    projection="G10/52/12c",
+    frame="afg",
+    land="khaki",
+    water="white",
+)
 fig.show()

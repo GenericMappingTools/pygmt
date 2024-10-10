@@ -17,7 +17,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=a51cd8ab" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=845ca4e4" />
 
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
@@ -28,7 +28,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=aa3fe5bf"></script>
+        <script src="../../../_static/documentation_options.js?v=5130ce19"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -167,6 +167,7 @@
 
 <span class="kn">import</span> <span class="nn">contextlib</span>
 <span class="kn">import</span> <span class="nn">ctypes</span> <span class="k">as</span> <span class="nn">ctp</span>
+<span class="kn">import</span> <span class="nn">io</span>
 <span class="kn">import</span> <span class="nn">pathlib</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
@@ -176,10 +177,8 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
-<span class="kn">from</span> <span class="nn">packaging.version</span> <span class="kn">import</span> <span class="n">Version</span>
 <span class="kn">from</span> <span class="nn">pygmt.clib.conversion</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">array_to_datetime</span><span class="p">,</span>
-    <span class="n">as_c_contiguous</span><span class="p">,</span>
     <span class="n">dataarray_to_matrix</span><span class="p">,</span>
     <span class="n">sequence_to_ctypes_array</span><span class="p">,</span>
     <span class="n">strings_to_ctypes_array</span><span class="p">,</span>
@@ -220,6 +219,7 @@
     <span class="s2">&quot;GMT_IS_PLP&quot;</span><span class="p">,</span>  <span class="c1"># items could be any one of POINT, LINE, or POLY</span>
     <span class="s2">&quot;GMT_IS_SURFACE&quot;</span><span class="p">,</span>  <span class="c1"># items are 2-D grid</span>
     <span class="s2">&quot;GMT_IS_VOLUME&quot;</span><span class="p">,</span>  <span class="c1"># items are 3-D grid</span>
+    <span class="s2">&quot;GMT_IS_TEXT&quot;</span><span class="p">,</span>  <span class="c1"># Text strings which triggers ASCII text reading</span>
 <span class="p">]</span>
 
 <span class="n">METHODS</span> <span class="o">=</span> <span class="p">[</span>
@@ -230,6 +230,11 @@
 <span class="n">DIRECTIONS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GMT_IN&quot;</span><span class="p">,</span> <span class="s2">&quot;GMT_OUT&quot;</span><span class="p">]</span>
 
 <span class="n">MODES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GMT_CONTAINER_ONLY&quot;</span><span class="p">,</span> <span class="s2">&quot;GMT_IS_OUTPUT&quot;</span><span class="p">]</span>
+<span class="n">MODE_MODIFIERS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;GMT_GRID_IS_CARTESIAN&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GMT_GRID_IS_GEO&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GMT_WITH_STRINGS&quot;</span><span class="p">,</span>
+<span class="p">]</span>
 
 <span class="n">REGISTRATIONS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GMT_GRID_PIXEL_REG&quot;</span><span class="p">,</span> <span class="s2">&quot;GMT_GRID_NODE_REG&quot;</span><span class="p">]</span>
 
@@ -271,7 +276,7 @@
 <span class="sd">    same ``with`` block as the API calls that will use the data.</span>
 
 <span class="sd">    By default, will let :mod:`ctypes` try to find the GMT shared library</span>
-<span class="sd">    (``libgmt``). If the environment variable ``GMT_LIBRARY_PATH`` is set, will</span>
+<span class="sd">    (``libgmt``). If the environment variable :term:`GMT_LIBRARY_PATH` is set, will</span>
 <span class="sd">    look for the shared library in the directory specified by it.</span>
 
 <span class="sd">    A ``GMTVersionError`` exception will be raised if the GMT shared library</span>
@@ -353,16 +358,9 @@
                 <span class="s2">&quot;library path&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_default</span><span class="p">(</span><span class="s2">&quot;API_LIBRARY&quot;</span><span class="p">),</span>
                 <span class="s2">&quot;cores&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_default</span><span class="p">(</span><span class="s2">&quot;API_CORES&quot;</span><span class="p">),</span>
                 <span class="s2">&quot;grid layout&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_default</span><span class="p">(</span><span class="s2">&quot;API_GRID_LAYOUT&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;image layout&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_default</span><span class="p">(</span><span class="s2">&quot;API_IMAGE_LAYOUT&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;binary version&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_default</span><span class="p">(</span><span class="s2">&quot;API_BIN_VERSION&quot;</span><span class="p">),</span>
             <span class="p">}</span>
-            <span class="c1"># For GMT&lt;6.4.0, API_IMAGE_LAYOUT is not defined if GMT is not</span>
-            <span class="c1"># compiled with GDAL. Since GMT 6.4.0, GDAL is a required GMT</span>
-            <span class="c1"># dependency. The code block can be refactored after we bump</span>
-            <span class="c1"># the minimum required GMT version to 6.4.0.</span>
-            <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="n">GMTCLibError</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="p">[</span><span class="s2">&quot;image layout&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_default</span><span class="p">(</span><span class="s2">&quot;API_IMAGE_LAYOUT&quot;</span><span class="p">)</span>
-            <span class="c1"># API_BIN_VERSION is new in GMT 6.4.0.</span>
-            <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;6.4.0&quot;</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="p">[</span><span class="s2">&quot;binary version&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_default</span><span class="p">(</span><span class="s2">&quot;API_BIN_VERSION&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span>
 
 <div class="viewcode-block" id="Session.__enter__">
@@ -919,7 +917,7 @@
         <span class="n">mode_int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_constant</span><span class="p">(</span>
             <span class="n">mode</span><span class="p">,</span>
             <span class="n">valid</span><span class="o">=</span><span class="n">MODES</span><span class="p">,</span>
-            <span class="n">valid_modifiers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GMT_GRID_IS_CARTESIAN&quot;</span><span class="p">,</span> <span class="s2">&quot;GMT_GRID_IS_GEO&quot;</span><span class="p">],</span>
+            <span class="n">valid_modifiers</span><span class="o">=</span><span class="n">MODE_MODIFIERS</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">geometry_int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_constant</span><span class="p">(</span><span class="n">geometry</span><span class="p">,</span> <span class="n">valid</span><span class="o">=</span><span class="n">GEOMETRIES</span><span class="p">)</span>
         <span class="n">registration_int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_constant</span><span class="p">(</span><span class="n">registration</span><span class="p">,</span> <span class="n">valid</span><span class="o">=</span><span class="n">REGISTRATIONS</span><span class="p">)</span>
@@ -1715,7 +1713,7 @@
         <span class="c1"># collected and the memory freed. Creating it in this context manager</span>
         <span class="c1"># guarantees that the copy will be around until the virtual file is</span>
         <span class="c1"># closed.</span>
-        <span class="n">matrix</span> <span class="o">=</span> <span class="n">as_c_contiguous</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+        <span class="n">matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
         <span class="n">rows</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span>
 
         <span class="n">family</span> <span class="o">=</span> <span class="s2">&quot;GMT_IS_DATASET|GMT_VIA_MATRIX&quot;</span>
@@ -1822,6 +1820,103 @@
             <span class="k">yield</span> <span class="n">vfile</span></div>
 
 
+<div class="viewcode-block" id="Session.virtualfile_from_stringio">
+<a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.virtualfile_from_stringio.html#pygmt.clib.Session.virtualfile_from_stringio">[docs]</a>
+    <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+    <span class="k">def</span> <span class="nf">virtualfile_from_stringio</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stringio</span><span class="p">:</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Store a :class:`io.StringIO` object in a virtual file.</span>
+
+<span class="sd">        Store the contents of a :class:`io.StringIO` object in a GMT_DATASET container</span>
+<span class="sd">        and create a virtual file to pass to a GMT module.</span>
+
+<span class="sd">        For simplicity, currently we make following assumptions in the StringIO object</span>
+
+<span class="sd">        - ``&quot;#&quot;`` indicates a comment line.</span>
+<span class="sd">        - ``&quot;&gt;&quot;`` indicates a segment header.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        stringio</span>
+<span class="sd">            The :class:`io.StringIO` object containing the data to be stored in the</span>
+<span class="sd">            virtual file.</span>
+
+<span class="sd">        Yields</span>
+<span class="sd">        ------</span>
+<span class="sd">        fname</span>
+<span class="sd">            The name of the virtual file.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; import io</span>
+<span class="sd">        &gt;&gt;&gt; from pygmt.clib import Session</span>
+<span class="sd">        &gt;&gt;&gt; # A StringIO object containing legend specifications</span>
+<span class="sd">        &gt;&gt;&gt; stringio = io.StringIO(</span>
+<span class="sd">        ...     &quot;# Comment\n&quot;</span>
+<span class="sd">        ...     &quot;H 24p Legend\n&quot;</span>
+<span class="sd">        ...     &quot;N 2\n&quot;</span>
+<span class="sd">        ...     &quot;S 0.1i c 0.15i p300/12 0.25p 0.3i My circle\n&quot;</span>
+<span class="sd">        ... )</span>
+<span class="sd">        &gt;&gt;&gt; with Session() as lib:</span>
+<span class="sd">        ...     with lib.virtualfile_from_stringio(stringio) as fin:</span>
+<span class="sd">        ...         lib.virtualfile_to_dataset(vfname=fin, output_type=&quot;pandas&quot;)</span>
+<span class="sd">                                                     0</span>
+<span class="sd">        0                                 H 24p Legend</span>
+<span class="sd">        1                                          N 2</span>
+<span class="sd">        2  S 0.1i c 0.15i p300/12 0.25p 0.3i My circle</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Parse the io.StringIO object.</span>
+        <span class="n">segments</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">current_segment</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;header&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">[]}</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">stringio</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">):</span>  <span class="c1"># Skip comments</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;&gt;&quot;</span><span class="p">):</span>  <span class="c1"># Segment header</span>
+                <span class="k">if</span> <span class="n">current_segment</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]:</span>  <span class="c1"># If we have data, start a new segment</span>
+                    <span class="n">segments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_segment</span><span class="p">)</span>
+                    <span class="n">current_segment</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;header&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">[]}</span>
+                <span class="n">current_segment</span><span class="p">[</span><span class="s2">&quot;header&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;&gt;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">current_segment</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
+        <span class="k">if</span> <span class="n">current_segment</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]:</span>  <span class="c1"># Add the last segment if it has data</span>
+            <span class="n">segments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_segment</span><span class="p">)</span>
+
+        <span class="c1"># One table with one or more segments.</span>
+        <span class="c1"># n_rows is the maximum number of rows/records for all segments.</span>
+        <span class="c1"># n_columns is the number of numeric data columns, so it&#39;s 0 here.</span>
+        <span class="n">n_tables</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">n_segments</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">segments</span><span class="p">)</span>
+        <span class="n">n_rows</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">segment</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">segment</span> <span class="ow">in</span> <span class="n">segments</span><span class="p">)</span>
+        <span class="n">n_columns</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># Create the GMT_DATASET container</span>
+        <span class="n">family</span><span class="p">,</span> <span class="n">geometry</span> <span class="o">=</span> <span class="s2">&quot;GMT_IS_DATASET&quot;</span><span class="p">,</span> <span class="s2">&quot;GMT_IS_TEXT&quot;</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_data</span><span class="p">(</span>
+            <span class="n">family</span><span class="p">,</span>
+            <span class="n">geometry</span><span class="p">,</span>
+            <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;GMT_CONTAINER_ONLY|GMT_WITH_STRINGS&quot;</span><span class="p">,</span>
+            <span class="n">dim</span><span class="o">=</span><span class="p">[</span><span class="n">n_tables</span><span class="p">,</span> <span class="n">n_segments</span><span class="p">,</span> <span class="n">n_rows</span><span class="p">,</span> <span class="n">n_columns</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="n">ctp</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">ctp</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">_GMT_DATASET</span><span class="p">))</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">contents</span><span class="o">.</span><span class="n">table</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">contents</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">segment</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">segments</span><span class="p">):</span>
+            <span class="n">seg</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">segment</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">contents</span>
+            <span class="k">if</span> <span class="n">segment</span><span class="p">[</span><span class="s2">&quot;header&quot;</span><span class="p">]:</span>
+                <span class="n">seg</span><span class="o">.</span><span class="n">header</span> <span class="o">=</span> <span class="n">segment</span><span class="p">[</span><span class="s2">&quot;header&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>  <span class="c1"># type: ignore[attr-defined]</span>
+            <span class="n">seg</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">strings_to_ctypes_array</span><span class="p">(</span><span class="n">segment</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_virtualfile</span><span class="p">(</span><span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="s2">&quot;GMT_IN&quot;</span><span class="p">,</span> <span class="n">dataset</span><span class="p">)</span> <span class="k">as</span> <span class="n">vfile</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">vfile</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="c1"># Must set the pointers to None to avoid double freeing the memory.</span>
+                <span class="c1"># Maybe upstream bug.</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_segments</span><span class="p">):</span>
+                    <span class="n">seg</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">segment</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">contents</span>
+                    <span class="n">seg</span><span class="o">.</span><span class="n">header</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="n">seg</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
 <div class="viewcode-block" id="Session.virtualfile_in">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.virtualfile_in.html#pygmt.clib.Session.virtualfile_in">[docs]</a>
     <span class="k">def</span> <span class="nf">virtualfile_in</span><span class="p">(</span>  <span class="c1"># noqa: PLR0912</span>
@@ -1917,6 +2012,7 @@
             <span class="s2">&quot;geojson&quot;</span><span class="p">:</span> <span class="n">tempfile_from_geojson</span><span class="p">,</span>
             <span class="s2">&quot;grid&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">virtualfile_from_grid</span><span class="p">,</span>
             <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="n">tempfile_from_image</span><span class="p">,</span>
+            <span class="s2">&quot;stringio&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">virtualfile_from_stringio</span><span class="p">,</span>
             <span class="c1"># Note: virtualfile_from_matrix is not used because a matrix can be</span>
             <span class="c1"># converted to vectors instead, and using vectors allows for better</span>
             <span class="c1"># handling of string type inputs (e.g. for datetime data types)</span>
@@ -1925,7 +2021,7 @@
         <span class="p">}[</span><span class="n">kind</span><span class="p">]</span>
 
         <span class="c1"># Ensure the data is an iterable (Python list or tuple)</span>
-        <span class="k">if</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;geojson&quot;</span><span class="p">,</span> <span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="s2">&quot;arg&quot;</span><span class="p">}:</span>
+        <span class="k">if</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;geojson&quot;</span><span class="p">,</span> <span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="s2">&quot;arg&quot;</span><span class="p">,</span> <span class="s2">&quot;stringio&quot;</span><span class="p">}:</span>
             <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;image&quot;</span> <span class="ow">and</span> <span class="n">data</span><span class="o">.</span><span class="n">dtype</span> <span class="o">!=</span> <span class="s2">&quot;uint8&quot;</span><span class="p">:</span>
                 <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
                     <span class="sa">f</span><span class="s2">&quot;Input image has dtype: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2"> which is unsupported, &quot;</span>
@@ -1937,9 +2033,9 @@
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
             <span class="n">_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">,)</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">PurePath</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">),)</span>
         <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;vectors&quot;</span><span class="p">:</span>
-            <span class="n">_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">y</span><span class="p">)]</span>
+            <span class="n">_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">z</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">z</span><span class="p">))</span>
+                <span class="n">_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">extra_arrays</span><span class="p">:</span>
                 <span class="n">_data</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extra_arrays</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;matrix&quot;</span><span class="p">:</span>  <span class="c1"># turn 2-D arrays into list of vectors</span>
@@ -2097,7 +2193,7 @@
         <span class="n">c_inquire_virtualfile</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_libgmt_func</span><span class="p">(</span>
             <span class="s2">&quot;GMT_Inquire_VirtualFile&quot;</span><span class="p">,</span>
             <span class="n">argtypes</span><span class="o">=</span><span class="p">[</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">ctp</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">],</span>
-            <span class="n">restype</span><span class="o">=</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_uint</span><span class="p">,</span>
+            <span class="n">restype</span><span class="o">=</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_int</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">c_inquire_virtualfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span><span class="p">,</span> <span class="n">vfname</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
 
@@ -2461,15 +2557,15 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/7a511282">7a511282</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 05, 2024.
+      <span class="lastupdated">Last updated on Oct 10, 2024.
       </span></p>
   </div>
 
   
 <p>
-Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
 using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
 provided by <a href="https://readthedocs.org">Read the Docs</a>
 </p>

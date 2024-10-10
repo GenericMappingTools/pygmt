@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:02.339** total execution time for 11 files **from gallery/symbols**:
+**00:02.321** total execution time for 11 files **from gallery/symbols**:
 
 .. container::
 
@@ -33,35 +33,35 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_gallery_symbols_multi_parameter_symbols.py` (``multi_parameter_symbols.py``)
-     - 00:00.401
+     - 00:00.406
      - 0.0
    * - :ref:`sphx_glr_gallery_symbols_points_categorical.py` (``points_categorical.py``)
-     - 00:00.363
+     - 00:00.324
      - 0.0
    * - :ref:`sphx_glr_gallery_symbols_scatter.py` (``scatter.py``)
-     - 00:00.234
+     - 00:00.240
      - 0.0
    * - :ref:`sphx_glr_gallery_symbols_bars.py` (``bars.py``)
-     - 00:00.217
-     - 0.0
-   * - :ref:`sphx_glr_gallery_symbols_patterns.py` (``patterns.py``)
-     - 00:00.191
+     - 00:00.218
      - 0.0
    * - :ref:`sphx_glr_gallery_symbols_basic_symbols.py` (``basic_symbols.py``)
-     - 00:00.190
+     - 00:00.189
+     - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_patterns.py` (``patterns.py``)
+     - 00:00.185
      - 0.0
    * - :ref:`sphx_glr_gallery_symbols_points_transparency.py` (``points_transparency.py``)
-     - 00:00.173
+     - 00:00.177
      - 0.0
    * - :ref:`sphx_glr_gallery_symbols_points.py` (``points.py``)
-     - 00:00.162
+     - 00:00.166
      - 0.0
    * - :ref:`sphx_glr_gallery_symbols_custom_symbols.py` (``custom_symbols.py``)
-     - 00:00.149
+     - 00:00.152
      - 0.0
    * - :ref:`sphx_glr_gallery_symbols_text_symbols.py` (``text_symbols.py``)
-     - 00:00.131
+     - 00:00.136
      - 0.0
    * - :ref:`sphx_glr_gallery_symbols_datetime_inputs.py` (``datetime_inputs.py``)
-     - 00:00.127
+     - 00:00.129
      - 0.0

@@ -78,7 +78,7 @@ output. By default, all units (*r*, *s* and *p*) are set to degrees while
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.223 seconds)
+   **Total running time of the script:** (0 minutes 0.217 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_great_circles.py:
