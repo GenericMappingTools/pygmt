@@ -4,7 +4,7 @@ PyGMT provides a Python interface to the Generic Mapping Tools (GMT), which is a
 line program that provides a wide range of tools for manipulating geospatial data and
 making publication-quality maps and figures. PyGMT integrates well with the
 [scientific Python ecosystem](https://scientific-python.org/), with [NumPy][] for its
-fundamental array data structure, [Pandas][] for tabular data I/O and [Xarray][] for
+fundamental array data structure, [pandas][] for tabular data I/O and [Xarray][] for
 raster grids/images/cubes I/O.
 
 In addition to these core dependencies, PyGMT also relies on several optional packages to
@@ -25,7 +25,7 @@ including mathematical, logical, shape manipulation, sorting, selecting, I/O, di
 Fourier transforms, basic linear algebra, basic statistical operations, random simulation
 and much more.
 
-#### Pandas
+#### pandas
 
 [pandas][] is a Python package providing fast, flexible, and expressive data structures
 designed to make working with "relational" or "labeled" data both easy and intuitive.
@@ -54,14 +54,14 @@ PyGMT relies on IPython to provide a rich interactive experience in Jupyter note
 
 [GeoPandas][] is an open source project to make working with geospatial data in Python
 easier. GeoPandas extends the datatypes used by [pandas][] to allow spatial operations
-on geometric types. Geometric operations are performed by [shapely][]. GeoPandas further
-depends on [pyogrio][] for file access and [matplotlib][] for plotting.
+on geometric types. Geometric operations are performed by [Shapely][]. GeoPandas further
+depends on [pyogrio][] for file access and [Matplotlib][] for plotting.
 
 PyGMT doesn't directly rely on GeoPandas, but provides support of GeoPandas's data
 structure, {class}`geopandas.GeoDataFrame` and {class}`geopandas.GeoSeries`, which can
 be directly used in data processing and plotting functions/methods of PyGMT.
 
-#### Contextily
+#### contextily
 
 [contextily][] is a small Python package to retrieve tile maps from the internet. It can
 add those tiles as basemap to matplotlib figures or write tile maps to disk into
@@ -71,10 +71,10 @@ Spheric Mercator (EPSG:3857).
 In PyGMT, {func}`pygmt.datasets.load_tile_map` and {class}`pygmt.Figure.tilemap` rely
 on it.
 
-#### RioXarray
+#### rioxarray
 
 [rioxarray][] is a geospatial [Xarray][] extension powered by rasterio. Built on top of
-[rasterio][], it enables seamless reading, writing, and manipulation of multi-dimensional
+[Rasterio][], it enables seamless reading, writing, and manipulation of multi-dimensional
 arrays with geospatial attributes such as coordinate reference systems (CRS) and spatial extent
 (bounds).
 
