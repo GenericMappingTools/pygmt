@@ -15,7 +15,7 @@ try:
 except ImportError:
     _HAS_IPYTHON = False
 
-
+import numpy as np
 from pygmt.clib import Session
 from pygmt.exceptions import GMTError, GMTInvalidInput
 from pygmt.helpers import (
@@ -75,12 +75,9 @@ class Figure:
     """
     A GMT figure to handle all plotting.
 
-    Use the plotting methods of this class to add elements to the figure.  You
-    can preview the figure using :meth:`pygmt.Figure.show` and save the figure
-    to a file using :meth:`pygmt.Figure.savefig`.
-
-    Unlike traditional GMT figures, no figure file is generated until you call
-    :meth:`pygmt.Figure.savefig` or :meth:`pygmt.Figure.psconvert`.
+    Use the plotting methods of this class to add elements to the figure. You can
+    preview the figure using :meth:`pygmt.Figure.show` and save the figure to a file
+    using :meth:`pygmt.Figure.savefig`.
 
     Examples
     --------
@@ -94,8 +91,8 @@ class Figure:
     >>> assert Path("my-figure.png").exists()
     >>> Path("my-figure.png").unlink()
 
-    The plot region can be specified through ISO country codes (for example,
-    ``"JP"`` for Japan):
+    The plot region can be specified through ISO country codes (for example, ``"JP"``
+    for Japan):
 
     >>> import pygmt
     >>> fig = pygmt.Figure()
@@ -122,14 +119,8 @@ class Figure:
         Start and/or activate the current figure.
 
         All plotting commands run afterward will append to this figure.
-
-        Unlike the command-line version (``gmt figure``), this method does not
-        trigger the generation of a figure file. An explicit call to
-        :meth:`pygmt.Figure.savefig` or :meth:`pygmt.Figure.psconvert` must be
-        made in order to get a file.
         """
-        # Passing format '-' tells pygmt.end to not produce any files.
-        fmt = "-"
+        fmt = "-"  # Passing format "-" tells pygmt.end to not produce any files.
         with Session() as lib:
             lib.call_module(module="figure", args=[self._name, fmt])
 
@@ -142,7 +133,7 @@ class Figure:
         return kwargs
 
     @property
-    def region(self):
+    def region(self) -> np.ndarray:
         """
         The geographic WESN bounding box for the current figure.
         """
@@ -480,7 +471,7 @@ class Figure:
                 pdf = self._preview(
                     fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False, **kwargs
                 )
-                launch_external_viewer(pdf, waiting=waiting)
+                launch_external_viewer(pdf, waiting=waiting)  # type: ignore[arg-type]
             case "none":
                 pass  # Do nothing
             case _:
@@ -489,26 +480,26 @@ class Figure:
                     "'notebook', 'none' or None."
                 )
 
-    def _preview(self, fmt, dpi, as_bytes=False, **kwargs):
+    def _preview(self, fmt: str, dpi: int, as_bytes: bool = False, **kwargs):
         """
         Grab a preview of the figure.
 
         Parameters
         ----------
-        fmt : str
-            The image format. Can be any extension that
-            :meth:`pygmt.Figure.savefig` recognizes.
-        dpi : int
+        fmt
+            The image format. Can be any extension that :meth:`pygmt.Figure.savefig`
+            recognizes.
+        dpi
             The image resolution (dots per inch).
-        as_bytes : bool
-            If ``True``, will load the image as a bytes string and return that
-            instead of the file name.
+        as_bytes
+            If ``True``, will load the binary contents of the image as a bytes object,
+            and return that instead of the file name.
 
         Returns
         -------
-        preview : str or bytes
-            If ``as_bytes=False``, this is the file name of the preview image
-            file. Else, it is the file content loaded as a bytes string.
+        preview
+            If ``as_bytes = False``, this is the file name of the preview image file.
+            Otherwise, it is the file content loaded as a bytes object.
         """
         fname = Path(self._preview_dir.name) / f"{self._name}.{fmt}"
         self.savefig(fname, dpi=dpi, **kwargs)
