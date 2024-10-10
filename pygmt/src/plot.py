@@ -204,6 +204,9 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)
 
+    if data is not None and any(v is not None for v in (x, y)):
+        raise GMTInvalidInput("Too much data.")
+
     kind = data_kind(data)
     if kind == "vectors":  # Add more columns for vectors input
         data = {"x": x, "y": y}
