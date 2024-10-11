@@ -306,12 +306,7 @@ def strings_to_ctypes_array(strings: StringArrayTypes) -> ctp.Array:
     >>> [s.decode() for s in ctypes_array]
     ['first', 'second', 'third']
     """
-    try:
-        bytes_string_list = [s.encode() for s in strings]
-    except AttributeError:  # 'pyarrow.StringScalar' object has no attribute 'encode'
-        # Convert pyarrow.StringArray to Python list first
-        bytes_string_list = [s.encode() for s in strings.to_pylist()]  # type: ignore[union-attr]
-    return (ctp.c_char_p * len(strings))(*bytes_string_list)
+    return (ctp.c_char_p * len(strings))(*[s.encode() for s in np.asarray(strings)])
 
 
 def array_to_datetime(array):
