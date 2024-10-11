@@ -34,7 +34,7 @@ from pygmt.helpers import (
     tempfile_from_image,
 )
 
-StringArrayTypes = Sequence[str]
+StringArrayTypes = Sequence[str] | np.ndarray
 
 try:
     import pyarrow as pa
@@ -1005,9 +1005,8 @@ class Session:
             self.session_pointer, family_int, dataset, strings_pointer
         )
         if status != 0:
-            raise GMTCLibError(
-                f"Failed to put strings of type {strings.dtype} into dataset"
-            )
+            dtype = strings.dtype if hasattr(strings, "dtype") else type(strings)
+            raise GMTCLibError(f"Failed to put strings of type {dtype} into dataset")
 
     def put_matrix(self, dataset, matrix, pad=0):
         """

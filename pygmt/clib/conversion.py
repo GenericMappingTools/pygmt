@@ -9,7 +9,7 @@ from collections.abc import Sequence
 import numpy as np
 from pygmt.exceptions import GMTInvalidInput
 
-StringArrayTypes = Sequence[str]
+StringArrayTypes = Sequence[str] | np.ndarray
 
 try:
     import pyarrow as pa
@@ -300,7 +300,7 @@ def strings_to_ctypes_array(strings: StringArrayTypes) -> ctp.Array:
         bytes_string_list = [s.encode() for s in strings]
     except AttributeError:  # 'pyarrow.StringScalar' object has no attribute 'encode'
         # Convert pyarrow.StringArray to Python list first
-        bytes_string_list = [s.encode() for s in strings.to_pylist()]
+        bytes_string_list = [s.encode() for s in strings.to_pylist()]  # type: ignore[union-attr]
     return (ctp.c_char_p * len(strings))(*bytes_string_list)
 
 
