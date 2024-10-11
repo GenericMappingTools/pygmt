@@ -1,7 +1,10 @@
 """
 Functions to convert data types into ctypes friendly formats.
 """
+
+import ctypes as ctp
 import warnings
+from collections.abc import Sequence
 
 import numpy as np
 from pygmt.exceptions import GMTInvalidInput
@@ -120,14 +123,15 @@ def dataarray_to_matrix(grid):
         inc = [abs(i) for i in inc]
         grid = grid.sortby(variables=list(grid.dims), ascending=True)
 
-    matrix = as_c_contiguous(grid[::-1].to_numpy())
+    matrix = np.ascontiguousarray(grid[::-1].to_numpy())
+    region = [float(i) for i in region]
+    inc = [float(i) for i in inc]
     return matrix, region, inc
 
 
 def vectors_to_arrays(vectors):
     """
-    Convert 1-D vectors (lists, arrays, or pandas.Series) to C contiguous 1-D
-    arrays.
+    Convert 1-D vectors (lists, arrays, or pandas.Series) to C contiguous 1-D arrays.
 
     Arrays must be in C contiguous order for us to pass their memory pointers
     to GMT. If any are not, convert them to C order (which requires copying the
@@ -167,6 +171,13 @@ def vectors_to_arrays(vectors):
     >>> all(isinstance(i, np.ndarray) for i in vectors_to_arrays(data))
     True
 
+    >>> # Sequence of scalars are converted to 1-D arrays
+    >>> data = vectors_to_arrays([1, 2, 3.0])
+    >>> data
+    [array([1]), array([2]), array([3.])]
+    >>> [i.ndim for i in data]  # Check that they are 1-D arrays
+    [1, 1, 1]
+
     >>> import datetime
     >>> import pytest
     >>> pa = pytest.importorskip("pyarrow")
@@ -195,89 +206,87 @@ def vectors_to_arrays(vectors):
     arrays = []
     for vector in vectors:
         vec_dtype = str(getattr(vector, "dtype", ""))
-        array = np.asarray(a=vector, dtype=dtypes.get(vec_dtype, None))
-        arrays.append(as_c_contiguous(array))
-
+        arrays.append(np.ascontiguousarray(vector, dtype=dtypes.get(vec_dtype)))
     return arrays
 
 
-def as_c_contiguous(array):
+def sequence_to_ctypes_array(
+    sequence: Sequence | None, ctype, size: int
+) -> ctp.Array | None:
     """
-    Ensure a numpy array is C contiguous in memory.
+    Convert a sequence of numbers into a ctypes array variable.
 
-    If the array is not C contiguous, a copy will be necessary.
+    If the sequence is ``None``, returns ``None``. Otherwise, returns a ctypes array.
+    The function only works for sequences of numbers. For converting a sequence of
+    strings, use ``strings_to_ctypes_array`` instead.
 
     Parameters
     ----------
-    array : 1-D array
-        The numpy array
+    sequence
+        The sequence to convert. If ``None``, returns ``None``. Otherwise, it must be a
+        sequence (e.g., list, tuple, numpy array).
+    ctype
+        The ctypes type of the array (e.g., ``ctypes.c_int``).
+    size
+        The size of the array. If the sequence is smaller than the size, the remaining
+        elements will be filled with zeros. If the sequence is larger than the size, an
+        exception will be raised.
 
     Returns
     -------
-    array : 1-D array
-        Array is C contiguous order.
+    ctypes_array
+        The ctypes array variable.
 
     Examples
     --------
-
-    >>> import numpy as np
-    >>> data = np.array([[1, 2], [3, 4], [5, 6]])
-    >>> x = data[:, 0]
-    >>> x
-    array([1, 3, 5])
-    >>> x.flags.c_contiguous
-    False
-    >>> new_x = as_c_contiguous(x)
-    >>> new_x
-    array([1, 3, 5])
-    >>> new_x.flags.c_contiguous
-    True
-    >>> x = np.array([8, 9, 10])
-    >>> x.flags.c_contiguous
-    True
-    >>> as_c_contiguous(x).flags.c_contiguous
-    True
-    """
-    if not array.flags.c_contiguous:
-        return array.copy(order="C")
-    return array
-
-
-def kwargs_to_ctypes_array(argument, kwargs, dtype):
-    """
-    Convert an iterable argument from kwargs into a ctypes array variable.
-
-    If the argument is not present in kwargs, returns ``None``.
-
-    Parameters
-    ----------
-    argument : str
-        The name of the argument.
-    kwargs : dict
-        Dictionary of keyword arguments.
-    dtype : ctypes type
-        The ctypes array type (e.g., ``ctypes.c_double*4``)
-
-    Returns
-    -------
-    ctypes_value : ctypes array or None
-
-    Examples
-    --------
-
-    >>> import ctypes as ct
-    >>> value = kwargs_to_ctypes_array("bla", {"bla": [10, 10]}, ct.c_long * 2)
-    >>> type(value)
-    <class 'pygmt.clib.conversion.c_long_Array_2'>
-    >>> should_be_none = kwargs_to_ctypes_array(
-    ...     "swallow", {"bla": 1, "foo": [20, 30]}, ct.c_int * 2
-    ... )
-    >>> print(should_be_none)
+    >>> import ctypes as ctp
+    >>> ctypes_array = sequence_to_ctypes_array([1, 2, 3], ctp.c_long, 3)
+    >>> type(ctypes_array)
+    <class 'pygmt.clib.conversion.c_long_Array_3'>
+    >>> ctypes_array[:]
+    [1, 2, 3]
+    >>> ctypes_array = sequence_to_ctypes_array([1, 2], ctp.c_long, 5)
+    >>> type(ctypes_array)
+    <class 'pygmt.clib.conversion.c_long_Array_5'>
+    >>> ctypes_array[:]
+    [1, 2, 0, 0, 0]
+    >>> ctypes_array = sequence_to_ctypes_array(None, ctp.c_long, 5)
+    >>> print(ctypes_array)
     None
+    >>> ctypes_array = sequence_to_ctypes_array([1, 2, 3, 4, 5, 6], ctp.c_long, 5)
+    Traceback (most recent call last):
+    ...
+    IndexError: invalid index
     """
-    if argument in kwargs:
-        return dtype(*kwargs[argument])
-    return None
+    if sequence is None:
+        return None
+    return (ctype * size)(*sequence)
+
+
+def strings_to_ctypes_array(strings: Sequence[str]) -> ctp.Array:
+    """
+    Convert a sequence (e.g., a list) of strings into a ctypes array.
+
+    Parameters
+    ----------
+    strings
+        A sequence of strings.
+
+    Returns
+    -------
+    ctypes_array
+        A ctypes array of strings.
+
+    Examples
+    --------
+    >>> strings = ["first", "second", "third"]
+    >>> ctypes_array = strings_to_ctypes_array(strings)
+    >>> type(ctypes_array)
+    <class 'pygmt.clib.conversion.c_char_p_Array_3'>
+    >>> [s.decode() for s in ctypes_array]
+    ['first', 'second', 'third']
+    """
+    return (ctp.c_char_p * len(strings))(*[s.encode() for s in strings])
 
 
 def array_to_datetime(array):

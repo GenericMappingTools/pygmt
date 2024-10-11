@@ -1,7 +1,7 @@
 """
 Test Figure.plot3d.
 """
-import os
+
 from pathlib import Path
 
 import numpy as np
@@ -10,8 +10,7 @@ from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
+POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
 
 
 @pytest.fixture(scope="module", name="data")
@@ -74,8 +73,8 @@ def test_plot3d_red_circles_zsize(data, region):
 
 def test_plot3d_fail_1d_array_with_data(data, region):
     """
-    Should raise an exception if array fill, size, intensity and transparency
-    are used with matrix.
+    Should raise an exception if array fill, size, intensity and transparency are used
+    with matrix.
     """
     fig = Figure()
     kwargs = {"data": data, "region": region, "projection": "X10c", "frame": "afg"}
@@ -435,8 +434,8 @@ def test_plot3d_scalar_xyz():
 @pytest.mark.parametrize("func", [str, Path])
 def test_plot3d_ogrgmt_file_multipoint_default_style(func):
     """
-    Make sure that OGR/GMT files with MultiPoint geometry are plotted as cubes
-    and not as line (default GMT style).
+    Make sure that OGR/GMT files with MultiPoint geometry are plotted as cubes and not
+    as line (default GMT style).
     """
     with GMTTempFile(suffix=".gmt") as tmpfile:
         gmt_file = """# @VGMT1.0 @GMULTIPOINT
@@ -445,8 +444,7 @@ def test_plot3d_ogrgmt_file_multipoint_default_style(func):
 >
 1 1 2
 1.5 1.5 1"""
-        with open(tmpfile.name, "w", encoding="utf8") as file:
-            file.write(gmt_file)
+        Path(tmpfile.name).write_text(gmt_file, encoding="utf-8")
         fig = Figure()
         fig.plot3d(
             data=func(tmpfile.name),
@@ -471,8 +469,7 @@ def test_plot3d_ogrgmt_file_multipoint_non_default_style():
 >
 1 1 2
 1.5 1.5 1"""
-        with open(tmpfile.name, "w", encoding="utf8") as file:
-            file.write(gmt_file)
+        Path(tmpfile.name).write_text(gmt_file, encoding="utf-8")
         fig = Figure()
         fig.plot3d(
             data=tmpfile.name,

@@ -1,6 +1,7 @@
 """
 Test Figure.subplot.
 """
+
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
@@ -10,8 +11,8 @@ from pygmt.exceptions import GMTInvalidInput
 @pytest.mark.mpl_image_compare
 def test_subplot_basic_frame():
     """
-    Create a subplot figure with 1 vertical row and 2 horizontal columns, and
-    ensure map frame setting is applied to all subplot figures.
+    Create a subplot figure with 1 vertical row and 2 horizontal columns, and ensure map
+    frame setting is applied to all subplot figures.
     """
     fig = Figure()
 
@@ -60,8 +61,8 @@ def test_subplot_autolabel_margins_title():
 @pytest.mark.mpl_image_compare
 def test_subplot_clearance_and_shared_xy_axis_layout():
     """
-    Ensure subplot clearance works, and that the layout can be set to use
-    shared X and Y axis labels across columns and rows.
+    Ensure subplot clearance works, and that the layout can be set to use shared X and Y
+    axis labels across columns and rows.
     """
     fig = Figure()
 
@@ -84,8 +85,8 @@ def test_subplot_clearance_and_shared_xy_axis_layout():
 
 def test_subplot_figsize_and_subsize_error():
     """
-    Check that an error is raised when both figsize and subsize parameters are
-    passed into subplot.
+    Check that an error is raised when both figsize and subsize parameters are passed
+    into subplot.
     """
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
@@ -103,7 +104,7 @@ def test_subplot_nrows_ncols_less_than_one_error():
             pass
 
 
-# Increase tolerance for compatibility with GMT 6.3 and 6.4, see
+# Increase tolerance for compatibility with GMT 6.4, see
 # https://github.com/GenericMappingTools/pygmt/pull/2454
 @pytest.mark.mpl_image_compare(tolerance=4.0)
 def test_subplot_outside_plotting_positioning():

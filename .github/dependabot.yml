@@ -6,7 +6,7 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      # Check for updates to GitHub Actions every weekday
+      # Check for updates to GitHub Actions on Tuesdays
       interval: "weekly"
       day: "tuesday"
     # Allow up to 2 open pull requests at a time

@@ -1,10 +1,13 @@
 """
 Test Figure.grdimage.
 """
+
 import numpy as np
 import pytest
 import xarray as xr
+from packaging.version import Version
 from pygmt import Figure
+from pygmt.clib import __gmt_version__
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.testing import check_figures_equal
@@ -21,8 +24,7 @@ def fixture_grid():
 @pytest.fixture(scope="module", name="grid_360")
 def fixture_grid_360(grid):
     """
-    Earth relief grid with longitude range from 0 to 360 (instead of -180 to
-    180).
+    Earth relief grid with longitude range from 0 to 360 (instead of -180 to 180).
     """
     _grid = grid.copy()  # get a copy of original earth_relief grid
     _grid.encoding.pop("source")  # unlink earth_relief netCDF source
@@ -57,7 +59,7 @@ def test_grdimage(grid):
     Plot an image using an xarray grid.
     """
     fig = Figure()
-    fig.grdimage(grid, cmap="earth", projection="W0/6i")
+    fig.grdimage(grid, cmap="earth", projection="W0/10c")
     return fig
 
 
@@ -68,7 +70,7 @@ def test_grdimage_slice(grid):
     """
     grid_ = grid.sel(lat=slice(-30, 30))
     fig = Figure()
-    fig.grdimage(grid_, cmap="earth", projection="M6i")
+    fig.grdimage(grid_, cmap="earth", projection="M10c")
     return fig
 
 
@@ -82,7 +84,7 @@ def test_grdimage_file():
         "@earth_relief_01d_g",
         cmap="ocean",
         region=[-180, 180, -70, 70],
-        projection="W0/10i",
+        projection="W0/10c",
         shading=True,
     )
     return fig
@@ -99,7 +101,7 @@ def test_grdimage_default_no_shading(grid, shading):
     """
     grid_ = grid.sel(lat=slice(-30, 30))
     fig = Figure()
-    fig.grdimage(grid_, cmap="earth", projection="M6i", shading=shading)
+    fig.grdimage(grid_, cmap="earth", projection="M10c", shading=shading)
     return fig
 
 
@@ -135,8 +137,8 @@ def test_grdimage_shading_xarray(grid, shading):
 @check_figures_equal()
 def test_grdimage_grid_and_shading_with_xarray(grid, xrgrid):
     """
-    Test that shading works well when xarray.DataArray is input to both the
-    ``grid`` and ``shading`` arguments.
+    Test that shading works well when xarray.DataArray is input to both the ``grid`` and
+    ``shading`` arguments.
     """
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.grdimage(
@@ -174,16 +176,15 @@ def test_grdimage_over_dateline(xrgrid):
     return fig
 
 
-@pytest.mark.mpl_image_compare
+@pytest.mark.mpl_image_compare(tolerance=3.6)
 def test_grdimage_global_subset(grid_360):
     """
     Ensure subsets of grids are plotted correctly on a global map.
 
-    Specifically checking that xarray.DataArray grids can wrap around the left
-    and right sides on a Mollweide projection (W) plot correctly. Note that a
-    Cartesian grid is used here instead of a Geographic grid (i.e.
-    GMT_GRID_IS_CARTESIAN). This is a regression test for
-    https://github.com/GenericMappingTools/pygmt/issues/732.
+    Specifically checking that xarray.DataArray grids can wrap around the left and right
+    sides on a Mollweide projection (W) plot correctly. Note that a Cartesian grid is
+    used here instead of a Geographic grid (i.e. GMT_GRID_IS_CARTESIAN). This is a
+    regression test for https://github.com/GenericMappingTools/pygmt/issues/732.
     """
     # Get a slice of South America and Africa only (lat=-90:31, lon=-180:41)
     sliced_grid = grid_360[0:121, 0:221]
@@ -192,7 +193,7 @@ def test_grdimage_global_subset(grid_360):
 
     fig = Figure()
     fig.grdimage(
-        grid=sliced_grid, cmap="vik", region="g", projection="W0/3.5c", frame=True
+        grid=sliced_grid, cmap="vik", region="g", projection="W0/10c", frame=True
     )
     return fig
 
@@ -202,8 +203,8 @@ def test_grdimage_global_subset(grid_360):
 @pytest.mark.parametrize("proj_type", ["H", "W"])
 def test_grdimage_central_meridians(grid, proj_type, lon0):
     """
-    Test that plotting a grid with different central meridians (lon0) using
-    Hammer (H) and Mollweide (W) projection systems work.
+    Test that plotting a grid with different central meridians (lon0) using Hammer (H)
+    and Mollweide (W) projection systems work.
     """
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.grdimage(
@@ -253,3 +254,41 @@ def test_grdimage_imgout_fails(grid):
         fig.grdimage(grid, img_out="out.png")
     with pytest.raises(GMTInvalidInput):
         fig.grdimage(grid, A="out.png")
+
+
+@pytest.mark.xfail(
+    condition=Version(__gmt_version__) <= Version("6.5.0"),
+    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8554",
+)
+@pytest.mark.mpl_image_compare()
+def test_grdimage_grid_no_redunant_360():
+    """
+    Test that global grids with and without redundant 360/0 longitude values work.
+
+    Test for https://github.com/GenericMappingTools/pygmt/issues/3331.
+    """
+    # Global grid [-180, 180, -90, 90] with redundant longitude at 180/-180
+    da1 = load_earth_relief(region=[-180, 180, -90, 90])
+    # Global grid [0, 360, -90, 90] with redundant longitude at 360/0
+    da2 = load_earth_relief(region=[0, 360, -90, 90])
+
+    # Global grid [-180, 179, -90, 90] without redundant longitude at 180/-180
+    da3 = da1[:, 0:360]
+    da3.gmt.registration, da3.gmt.gtype = 0, 1
+    assert da3.shape == (181, 360)
+    assert da3.lon.to_numpy().min() == -180.0
+    assert da3.lon.to_numpy().max() == 179.0
+
+    # Global grid [0, 359, -90, 90] without redundant longitude at 360/0
+    da4 = da2[:, 0:360]
+    da4.gmt.registration, da4.gmt.gtype = 0, 1
+    assert da4.shape == (181, 360)
+    assert da4.lon.to_numpy().min() == 0.0
+    assert da4.lon.to_numpy().max() == 359.0
+
+    fig = Figure()
+    kwdict = {"projection": "W120/10c", "region": "g", "frame": "+tlon=120"}
+    fig.grdimage(da3, **kwdict)
+    fig.shift_origin(xshift="w+2c")
+    fig.grdimage(da4, **kwdict)
+    return fig

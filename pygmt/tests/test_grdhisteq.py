@@ -1,6 +1,7 @@
 """
 Test pygmt.grdhisteq.
 """
+
 from pathlib import Path
 
 import numpy as np
@@ -124,10 +125,9 @@ def test_compute_bins_outfile(grid, expected_df, region):
             header=None,
             names=["start", "stop", "bin_id"],
             dtype={"start": np.float32, "stop": np.float32, "bin_id": np.uint32},
-            index_col="bin_id",
         )
         pd.testing.assert_frame_equal(
-            left=temp_df, right=expected_df.set_index("bin_id")
+            left=temp_df.set_index("bin_id"), right=expected_df.set_index("bin_id")
         )
 
 
@@ -139,11 +139,3 @@ def test_compute_bins_invalid_format(grid):
         grdhisteq.compute_bins(grid=grid, output_type=1)
     with pytest.raises(GMTInvalidInput):
         grdhisteq.compute_bins(grid=grid, output_type="pandas", header="o+c")
-
-
-def test_equalize_grid_invalid_format(grid):
-    """
-    Test that equalize_grid fails with incorrect format.
-    """
-    with pytest.raises(GMTInvalidInput):
-        grdhisteq.equalize_grid(grid=grid, outgrid=True)

@@ -1,10 +1,11 @@
 """
 Helper functions for testing.
 """
+
 import importlib
 import inspect
-import os
 import string
+from pathlib import Path
 
 from pygmt.exceptions import GMTImageComparisonFailure
 from pygmt.io import load_dataarray
@@ -38,6 +39,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     >>> import pytest
     >>> import shutil
     >>> from pygmt import Figure
+    >>> from pathlib import Path
 
     >>> @check_figures_equal(result_dir="tmp_result_images")
     ... def test_check_figures_equal():
@@ -49,7 +51,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     ...     )
     ...     return fig_ref, fig_test
     >>> test_check_figures_equal()
-    >>> assert len(os.listdir("tmp_result_images")) == 0
+    >>> assert len(list(Path("tmp_result_images").iterdir())) == 0
     >>> shutil.rmtree(path="tmp_result_images")  # cleanup folder if tests pass
 
     >>> @check_figures_equal(result_dir="tmp_result_images")
@@ -62,12 +64,9 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     >>> with pytest.raises(GMTImageComparisonFailure):
     ...     test_check_figures_unequal()
     >>> for suffix in ["", "-expected", "-failed-diff"]:
-    ...     assert os.path.exists(
-    ...         os.path.join(
-    ...             "tmp_result_images",
-    ...             f"test_check_figures_unequal{suffix}.png",
-    ...         )
-    ...     )
+    ...     assert (
+    ...         Path("tmp_result_images") / f"test_check_figures_unequal{suffix}.png"
+    ...     ).exists()
     >>> shutil.rmtree(path="tmp_result_images")  # cleanup folder if tests pass
     """
     allowed_chars = set(string.digits + string.ascii_letters + "_-[]()")
@@ -77,7 +76,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
         import pytest
         from matplotlib.testing.compare import compare_images
 
-        os.makedirs(result_dir, exist_ok=True)
+        Path(result_dir).mkdir(parents=True, exist_ok=True)
         old_sig = inspect.signature(func)
 
         @pytest.mark.parametrize("ext", extensions)
@@ -90,10 +89,12 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
                 file_name = "".join(c for c in request.node.name if c in allowed_chars)
             except AttributeError:  # 'NoneType' object has no attribute 'node'
                 file_name = func.__name__
+
+            fig_ref, fig_test = None, None
             try:
                 fig_ref, fig_test = func(*args, **kwargs)
-                ref_image_path = os.path.join(result_dir, f"{file_name}-expected.{ext}")
-                test_image_path = os.path.join(result_dir, f"{file_name}.{ext}")
+                ref_image_path = Path(result_dir) / f"{file_name}-expected.{ext}"
+                test_image_path = Path(result_dir) / f"{file_name}.{ext}"
                 fig_ref.savefig(ref_image_path)
                 fig_test.savefig(test_image_path)
 
@@ -106,11 +107,11 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
                     in_decorator=True,
                 )
                 if err is None:  # Images are the same
-                    os.remove(ref_image_path)
-                    os.remove(test_image_path)
+                    ref_image_path.unlink()
+                    test_image_path.unlink()
                 else:  # Images are not the same
                     for key in ["actual", "expected", "diff"]:
-                        err[key] = os.path.relpath(err[key])
+                        err[key] = Path(err[key]).relative_to(".")
                     raise GMTImageComparisonFailure(
                         f"images not close (RMS {err['rms']:.3f}):\n"
                         f"\t{err['actual']}\n"
@@ -142,88 +143,6 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     return decorator
 
 
-def download_test_data():
-    """
-    Convenience function to download remote data files used in PyGMT tests and
-    docs.
-    """
-    # List of datasets to download
-    datasets = [
-        # Earth relief grids
-        "@earth_gebco_01d_g",
-        "@earth_gebcosi_01d_g",
-        "@earth_gebcosi_15m_p",
-        "@earth_relief_01d_p",
-        "@earth_relief_01d_g",
-        "@earth_relief_30m_p",
-        "@earth_relief_30m_g",
-        "@earth_relief_10m_p",
-        "@earth_relief_10m_g",
-        "@earth_relief_05m_p",
-        "@earth_relief_05m_g",
-        "@earth_synbath_01d_g",
-        # List of tiles of 03s srtm data.
-        # Names like @N35E135.earth_relief_03s_g.nc is for internal use only.
-        # The naming scheme may change. DO NOT USE IT IN YOUR SCRIPTS.
-        "@N30W120.earth_relief_15s_p.nc",
-        "@N35E135.earth_relief_03s_g.nc",
-        "@N37W120.earth_relief_03s_g.nc",
-        "@N00W090.earth_relief_03m_p.nc",
-        "@N00E135.earth_relief_30s_g.nc",
-        "@N00W010.earth_relief_15s_p.nc",  # Specific grid for 15s test
-        "@N04W010.earth_relief_03s_g.nc",  # Specific grid for 03s test
-        # Earth synbath relief grids
-        "@S15W105.earth_synbath_30s_p.nc",
-        # Earth seafloor age grids
-        "@earth_age_01d_g",
-        "@N00W030.earth_age_01m_g.nc",  # Specific grid for 01m test
-        # Earth geoid grids
-        "@earth_geoid_01d_g",
-        "@N00W030.earth_geoid_01m_g.nc",  # Specific grid for 01m test
-        # Earth magnetic anomaly grids
-        "@earth_mag_01d_g",
-        "@S30W060.earth_mag_02m_p.nc",  # Specific grid for 02m test
-        "@earth_mag4km_01d_g",
-        "@S30W120.earth_mag4km_02m_p.nc",  # Specific grid for 02m test
-        # Earth mask grid
-        "@earth_mask_01d_g",
-        # Earth free-air anomaly grids
-        "@earth_faa_01d_g",
-        "@N00W030.earth_faa_01m_p.nc",  # Specific grid for 01m test
-        # Earth vertical gravity gradient grids
-        "@earth_vgg_01d_g",
-        "@N00W030.earth_vgg_01m_p.nc",  # Specific grid for 01m test
-        # Earth WDMAM grids
-        "@earth_wdmam_01d_g",
-        "@S90E000.earth_wdmam_03m_g.nc",  # Specific grid for 03m test
-        # Other cache files
-        "@capitals.gmt",
-        "@circuit.png",
-        "@earth_relief_20m_holes.grd",
-        "@EGM96_to_36.txt",
-        "@MaunaLoa_CO2.txt",
-        "@RidgeTest.shp",
-        "@RidgeTest.shx",
-        "@RidgeTest.dbf",
-        "@RidgeTest.prj",
-        "@Table_5_11.txt",
-        "@Table_5_11_mean.xyz",
-        "@fractures_06.txt",
-        "@hotspots.txt",
-        "@ridge.txt",
-        "@mars370d.txt",
-        "@srtm_tiles.nc",  # needed for 03s and 01s relief data
-        "@static_earth_relief.nc",
-        "@ternary.txt",
-        "@test.dat.nc",
-        "@tut_bathy.nc",
-        "@tut_quakes.ngdc",
-        "@tut_ship.xyz",
-        "@usgs_quakes_22.txt",
-    ]
-    which(fname=datasets, download="a")
-
-
 def load_static_earth_relief():
     """
     Load the static_earth_relief file for internal testing.
@@ -239,8 +158,8 @@ def load_static_earth_relief():
 
 def skip_if_no(package):
     """
-    Generic function to help skip tests when required packages are not present
-    on the testing system.
+    Generic function to help skip tests when required packages are not present on the
+    testing system.
 
     This function returns a pytest mark with a skip condition that will be
     evaluated during test collection. An attempt will be made to import the

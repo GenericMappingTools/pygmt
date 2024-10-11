@@ -1,6 +1,7 @@
 """
 Test pygmt.project.
 """
+
 from pathlib import Path
 
 import numpy as np
@@ -53,8 +54,7 @@ def test_project_input_matrix(array_func, dataframe):
 
 def test_project_output_filename(dataframe):
     """
-    Run project by passing in a pandas.DataFrame, and output to an ASCII txt
-    file.
+    Run project by passing in a pandas.DataFrame, and output to an ASCII txt file.
     """
     with GMTTempFile() as tmpfile:
         output = project(
@@ -62,6 +62,7 @@ def test_project_output_filename(dataframe):
             center=[0, -1],
             azimuth=45,
             flat_earth=True,
+            output_type="file",
             outfile=tmpfile.name,
         )
         assert output is None  # check that output is None since outfile is set
@@ -77,8 +78,8 @@ def test_project_output_filename(dataframe):
 
 def test_project_incorrect_parameters():
     """
-    Run project by providing incorrect parameters such as 1) no `center`; 2) no
-    `data` or `generate`; and 3) `generate` with `convention`.
+    Run project by providing incorrect parameters such as 1) no `center`; 2) no `data`
+    or `generate`; and 3) `generate` with `convention`.
     """
     with pytest.raises(GMTInvalidInput):
         # No `center`

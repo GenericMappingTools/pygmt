@@ -1,22 +1,21 @@
 """
 plot - Plot in two dimensions.
 """
+
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     data_kind,
-    deprecate_parameter,
     fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.src.which import which
+from pygmt.src._common import _data_geometry_is_point
 
 
 @fmt_docstring
-@deprecate_parameter("color", "fill", "v0.8.0", remove_version="v0.12.0")
 @use_alias(
     A="straight_line",
     B="frame",
@@ -49,9 +48,7 @@ from pygmt.src.which import which
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot(  # noqa: PLR0912
-    self, data=None, x=None, y=None, size=None, direction=None, **kwargs
-):
+def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     r"""
     Plot lines, polygons, and symbols in 2-D.
 
@@ -122,37 +119,30 @@ def plot(  # noqa: PLR0912
         Draw error bars. Full documentation is at
         :gmt-docs:`plot.html#e`.
     connection : str
-        [**c**\|\ **n**\|\ **r**]\
-        [**a**\|\ **f**\|\ **s**\|\ **r**\|\ *refpoint*].
-        Alter the way points are connected (by specifying a *scheme*) and
-        data are grouped (by specifying a *method*). Append one of three
-        line connection schemes:
+        [**c**\|\ **n**\|\ **p**][**a**\|\ **r**\|\ **s**\|\ **t**\|\ *refpoint*].
+        Alter the way points are connected (by specifying a *scheme*) and data are
+        grouped (by specifying a *method*). Append one of three line connection schemes:
 
-        - **c** : Draw continuous line segments for each group [Default].
-        - **r** : Draw line segments from a reference point reset for each
-          group.
-        - **n** : Draw networks of line segments between all points in
-          each group.
+        - **c**: Draw continuous line segments for each group [Default].
+        - **n**: Draw networks of line segments between all points in each group.
+        - **p**: Draw line segments from a reference point reset for each group.
 
-        Optionally, append the one of four segmentation methods to define
-        the group:
+        Optionally, append the one of four segmentation methods to define the group:
 
-        - **a** : Ignore all segment headers, i.e., let all points belong
-          to a single group, and set group reference point to the very
-          first point of the first file.
-        - **f** : Consider all data in each file to be a single separate
-          group and reset the group reference point to the first point of
-          each group.
-        - **s** : Segment headers are honored so each segment is a group;
-          the group reference point is reset to the first point of each
-          incoming segment [Default].
-        - **r** : Same as **s**, but the group reference point is reset
-          after each record to the previous point (this method is only
-          available with the ``connection="r"`` scheme).
+        - **a**: Ignore all segment headers, i.e., let all points belong to a single
+          group, and set group the reference point to the very first point of the first
+          file.
+        - **r**: Segment headers are honored so each segment is a group; the group
+          reference point is reset after each record to the previous point (this method
+          is only available with the ``connection="p"`` scheme).
+        - **s**: Same as **r**, but the group reference point is reset to the first
+          point of each incoming segment [Default].
+        - **t**: Consider all data in each file to be a single separate group and reset
+          the group reference point to the first point of each group.
 
-        Instead of the codes **a**\|\ **f**\|\ **s**\|\ **r** you may append
-        the coordinates of a *refpoint* which will serve as a fixed external
-        reference point for all groups.
+        Instead of the codes **a**\|\ **r**\|\ **s**\|\ **t** you may append the
+        coordinates of a *refpoint* which will serve as a fixed external reference point
+        for all groups.
     {fill}
         *fill* can be a 1-D array, but it is only valid if using ``x``/``y``
         and ``cmap=True`` is also required.
@@ -214,54 +204,45 @@ def plot(  # noqa: PLR0912
     """
     kwargs = self._preprocess(**kwargs)
 
-    kind = data_kind(data, x, y)
-
+    kind = data_kind(data)
     extra_arrays = []
-    if kwargs.get("S") is not None and kwargs["S"][0] in "vV" and direction is not None:
-        extra_arrays.extend(direction)
-    elif (
-        kwargs.get("S") is None
-        and kind == "geojson"
-        and data.geom_type.isin(["Point", "MultiPoint"]).all()
-    ):  # checking if the geometry of a geoDataFrame is Point or MultiPoint
-        kwargs["S"] = "s0.2c"
-    elif kwargs.get("S") is None and kind == "file" and str(data).endswith(".gmt"):
-        # checking that the data is a file path to set default style
-        try:
-            with open(which(data), encoding="utf8") as file:
-                line = file.readline()
-            if "@GMULTIPOINT" in line or "@GPOINT" in line:
-                # if the file is gmt style and geometry is set to Point
-                kwargs["S"] = "s0.2c"
-        except FileNotFoundError:
-            pass
-    if is_nonstr_iter(kwargs.get("G")):
-        if kind != "vectors":
-            raise GMTInvalidInput(
-                "Can't use arrays for fill if data is matrix or file."
-            )
-        extra_arrays.append(kwargs["G"])
-        del kwargs["G"]
-    if size is not None:
-        if kind != "vectors":
-            raise GMTInvalidInput(
-                "Can't use arrays for 'size' if data is a matrix or file."
-            )
-        extra_arrays.append(size)
+    if kind == "vectors":  # Add more columns for vectors input
+        # Parameters for vector styles
+        if (
+            kwargs.get("S") is not None
+            and kwargs["S"][0] in "vV"
+            and is_nonstr_iter(direction)
+        ):
+            extra_arrays.extend(direction)
+        # Fill
+        if is_nonstr_iter(kwargs.get("G")):
+            extra_arrays.append(kwargs.get("G"))
+            del kwargs["G"]
+        # Size
+        if is_nonstr_iter(size):
+            extra_arrays.append(size)
+        # Intensity and transparency
+        for flag in ["I", "t"]:
+            if is_nonstr_iter(kwargs.get(flag)):
+                extra_arrays.append(kwargs.get(flag))
+                kwargs[flag] = ""
+    else:
+        for name, value in [
+            ("direction", direction),
+            ("fill", kwargs.get("G")),
+            ("size", size),
+            ("intensity", kwargs.get("I")),
+            ("transparency", kwargs.get("t")),
+        ]:
+            if is_nonstr_iter(value):
+                raise GMTInvalidInput(f"'{name}' can't be 1-D array if 'data' is used.")
 
-    for flag in ["I", "t"]:
-        if is_nonstr_iter(kwargs.get(flag)):
-            if kind != "vectors":
-                raise GMTInvalidInput(
-                    f"Can't use arrays for {plot.aliases[flag]} if data is matrix or file."
-                )
-            extra_arrays.append(kwargs[flag])
-            kwargs[flag] = ""
+    # Set the default style if data has a geometry of Point or MultiPoint
+    if kwargs.get("S") is None and _data_geometry_is_point(data, kind):
+        kwargs["S"] = "s0.2c"
 
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(
+        with lib.virtualfile_in(
             check_kind="vector", data=data, x=x, y=y, extra_arrays=extra_arrays
-        )
-
-        with file_context as fname:
-            lib.call_module(module="plot", args=build_arg_string(kwargs, infile=fname))
+        ) as vintbl:
+            lib.call_module(module="plot", args=build_arg_list(kwargs, infile=vintbl))

@@ -1,22 +1,21 @@
 """
 plot3d - Plot in three dimensions.
 """
+
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     data_kind,
-    deprecate_parameter,
     fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.src.which import which
+from pygmt.src._common import _data_geometry_is_point
 
 
 @fmt_docstring
-@deprecate_parameter("color", "fill", "v0.8.0", remove_version="v0.12.0")
 @use_alias(
     A="straight_line",
     B="frame",
@@ -50,7 +49,7 @@ from pygmt.src.which import which
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot3d(  # noqa: PLR0912
+def plot3d(
     self, data=None, x=None, y=None, z=None, size=None, direction=None, **kwargs
 ):
     r"""
@@ -182,52 +181,46 @@ def plot3d(  # noqa: PLR0912
     """
     kwargs = self._preprocess(**kwargs)
 
-    kind = data_kind(data, x, y, z)
-
+    kind = data_kind(data)
     extra_arrays = []
-    if kwargs.get("S") is not None and kwargs["S"][0] in "vV" and direction is not None:
-        extra_arrays.extend(direction)
-    elif (
-        kwargs.get("S") is None
-        and kind == "geojson"
-        and data.geom_type.isin(["Point", "MultiPoint"]).all()
-    ):  # checking if the geometry of a geoDataFrame is Point or MultiPoint
-        kwargs["S"] = "u0.2c"
-    elif kwargs.get("S") is None and kind == "file" and str(data).endswith(".gmt"):
-        # checking that the data is a file path to set default style
-        try:
-            with open(which(data), encoding="utf8") as file:
-                line = file.readline()
-            if "@GMULTIPOINT" in line or "@GPOINT" in line:
-                # if the file is gmt style and geometry is set to Point
-                kwargs["S"] = "u0.2c"
-        except FileNotFoundError:
-            pass
-    if is_nonstr_iter(kwargs.get("G")):
-        if kind != "vectors":
-            raise GMTInvalidInput(
-                "Can't use arrays for fill if data is matrix or file."
-            )
-        extra_arrays.append(kwargs["G"])
-        del kwargs["G"]
-    if size is not None:
-        if kind != "vectors":
-            raise GMTInvalidInput(
-                "Can't use arrays for 'size' if data is a matrix or a file."
-            )
-        extra_arrays.append(size)
 
-    for flag in ["I", "t"]:
-        if is_nonstr_iter(kwargs.get(flag)):
-            if kind != "vectors":
-                raise GMTInvalidInput(
-                    f"Can't use arrays for {plot3d.aliases[flag]} if data is matrix or file."
-                )
-            extra_arrays.append(kwargs[flag])
-            kwargs[flag] = ""
+    if kind == "vectors":  # Add more columns for vectors input
+        # Parameters for vector styles
+        if (
+            kwargs.get("S") is not None
+            and kwargs["S"][0] in "vV"
+            and is_nonstr_iter(direction)
+        ):
+            extra_arrays.extend(direction)
+        # Fill
+        if is_nonstr_iter(kwargs.get("G")):
+            extra_arrays.append(kwargs.get("G"))
+            del kwargs["G"]
+        # Size
+        if is_nonstr_iter(size):
+            extra_arrays.append(size)
+        # Intensity and transparency
+        for flag in ["I", "t"]:
+            if is_nonstr_iter(kwargs.get(flag)):
+                extra_arrays.append(kwargs.get(flag))
+                kwargs[flag] = ""
+    else:
+        for name, value in [
+            ("direction", direction),
+            ("fill", kwargs.get("G")),
+            ("size", size),
+            ("intensity", kwargs.get("I")),
+            ("transparency", kwargs.get("t")),
+        ]:
+            if is_nonstr_iter(value):
+                raise GMTInvalidInput(f"'{name}' can't be 1-D array if 'data' is used.")
+
+    # Set the default style if data has a geometry of Point or MultiPoint
+    if kwargs.get("S") is None and _data_geometry_is_point(data, kind):
+        kwargs["S"] = "u0.2c"
 
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(
+        with lib.virtualfile_in(
             check_kind="vector",
             data=data,
             x=x,
@@ -235,9 +228,5 @@ def plot3d(  # noqa: PLR0912
             z=z,
             extra_arrays=extra_arrays,
             required_z=True,
-        )
-
-        with file_context as fname:
-            lib.call_module(
-                module="plot3d", args=build_arg_string(kwargs, infile=fname)
-            )
+        ) as vintbl:
+            lib.call_module(module="plot3d", args=build_arg_list(kwargs, infile=vintbl))

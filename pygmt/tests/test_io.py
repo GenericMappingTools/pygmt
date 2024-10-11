@@ -1,6 +1,7 @@
 """
 Test input/output (I/O) utilities.
 """
+
 import numpy as np
 import pytest
 import xarray as xr
@@ -11,8 +12,8 @@ from pygmt.io import load_dataarray
 @pytest.mark.benchmark
 def test_io_load_dataarray():
     """
-    Check that load_dataarray works to read a netCDF grid with
-    GMTDataArrayAccessor information loaded.
+    Check that load_dataarray works to read a netCDF grid with GMTDataArrayAccessor
+    information loaded.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         rng = np.random.default_rng()

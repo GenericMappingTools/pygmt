@@ -1,4 +1,5 @@
 outs:
-- md5: 868d6a5912b586bc7e095b9923ce8d83
-  size: 3036
+- md5: fd532295c0c13855715190ea1b03facd
+  size: 3037
   path: test_timestamp_label.png
+  hash: md5

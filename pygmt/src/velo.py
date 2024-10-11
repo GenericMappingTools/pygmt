@@ -1,13 +1,13 @@
 """
 velo - Plot velocity vectors, crosses, anisotropy bars, and wedges.
 """
+
 import numpy as np
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    build_arg_string,
-    deprecate_parameter,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -15,10 +15,6 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@deprecate_parameter("color", "fill", "v0.8.0", remove_version="v0.12.0")
-@deprecate_parameter(
-    "uncertaintycolor", "uncertaintyfill", "v0.8.0", remove_version="v0.12.0"
-)
 @use_alias(
     A="vector",
     B="frame",
@@ -181,13 +177,13 @@ def velo(self, data=None, **kwargs):
         will be transparent. **Note**: Using ``cmap`` and ``zvalue="+e"``
         will update the uncertainty fill color based on the selected measure
         in ``zvalue`` [Default is magnitude error]. More details at
-        :gmt-docs:`cookbook/features.html#gfill-attrib`.
+        :gmt-docs:`reference/features.html#gfill-attrib`.
     fill : str
         Set color or pattern for filling symbols [Default is no fill].
         **Note**: Using ``cmap`` (and optionally ``zvalue``) will update the
         symbol fill color based on the selected measure in ``zvalue``
         [Default is magnitude]. More details at
-        :gmt-docs:`cookbook/features.html#gfill-attrib`.
+        :gmt-docs:`reference/features.html#gfill-attrib`.
     scale : float or bool
         [*scale*].
         Scale symbol sizes and pen widths on a per-record basis using the
@@ -258,7 +254,5 @@ def velo(self, data=None, **kwargs):
         )
 
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
-
-        with file_context as fname:
-            lib.call_module(module="velo", args=build_arg_string(kwargs, infile=fname))
+        with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
+            lib.call_module(module="velo", args=build_arg_list(kwargs, infile=vintbl))

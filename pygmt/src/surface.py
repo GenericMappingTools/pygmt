@@ -1,16 +1,10 @@
 """
-surface - Grid table data using adjustable tension continuous curvature
-splines.
+surface - Grid table data using adjustable tension continuous curvature splines.
 """
+
+import xarray as xr
 from pygmt.clib import Session
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["surface"]
 
@@ -18,7 +12,6 @@ __doctest_skip__ = ["surface"]
 @fmt_docstring
 @use_alias(
     C="convergence",
-    G="outgrid",
     I="spacing",
     Ll="lower",
     Lu="upper",
@@ -37,7 +30,9 @@ __doctest_skip__ = ["surface"]
     w="wrap",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def surface(data=None, x=None, y=None, z=None, **kwargs):
+def surface(
+    data=None, x=None, y=None, z=None, outgrid: str | None = None, **kwargs
+) -> xr.DataArray | None:
     r"""
     Grid table data using adjustable tension continuous curvature splines.
 
@@ -52,7 +47,7 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
     oscillations and false local maxima or minima (see Smith and Wessel,
     1990), and you may wish to use :math:`t > 0` to suppress these effects.
     Experience suggests :math:`t \sim 0.25` usually looks good for potential
-    field data and t should be larger (:math:`t \sim 0.35`) for steep
+    field data and :math:`t` should be larger (:math:`t \sim 0.35`) for steep
     topography data. :math:`t = 1` gives a harmonic surface (no maxima or
     minima are possible except at control data points). It is recommended that
     the user preprocess the data with :func:`pygmt.blockmean`,
@@ -142,7 +137,7 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray`: if ``outgrid`` is not set
@@ -157,16 +152,15 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
     >>> # Perform gridding of topography data
     >>> grid = pygmt.surface(data=topography, spacing=1, region=[0, 4, 0, 8])
     """
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            file_context = lib.virtualfile_from_data(
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(
                 check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
+            ) as vintbl,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            kwargs["G"] = voutgrd
+            lib.call_module(
+                module="surface", args=build_arg_list(kwargs, infile=vintbl)
             )
-            with file_context as infile:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="surface", args=build_arg_string(kwargs, infile=infile)
-                )
-
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

@@ -3,8 +3,7 @@ Test the behavior of the Figure class.
 
 Doesn't include the plotting commands which have their own test files.
 """
-import importlib
-import os
+
 from pathlib import Path
 
 import numpy as np
@@ -12,9 +11,15 @@ import numpy.testing as npt
 import pytest
 from pygmt import Figure, set_display
 from pygmt.exceptions import GMTError, GMTInvalidInput
+from pygmt.figure import SHOW_CONFIG, _get_default_display_method
 from pygmt.helpers import GMTTempFile
 
-HAS_IPYTHON = bool(importlib.util.find_spec("IPython"))
+try:
+    import IPython
+
+    _HAS_IPYTHON = True
+except ImportError:
+    _HAS_IPYTHON = False
 
 
 def test_figure_region():
@@ -56,10 +61,10 @@ def test_figure_region_country_codes():
     npt.assert_allclose(fig.region, np.array([0.0, 360.0, -90.0, 90.0]))
 
 
+@pytest.mark.benchmark
 def test_figure_repr():
     """
-    Make sure that figure output's PNG and HTML printable representations look
-    ok.
+    Make sure that figure output's PNG and HTML printable representations look ok.
     """
     fig = Figure()
     fig.basemap(region=[0, 1, 2, 3], frame=True)
@@ -81,18 +86,15 @@ def test_figure_savefig_exists():
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
     prefix = "test_figure_savefig_exists"
     for fmt in "bmp eps jpg jpeg pdf png ppm tif PNG JPG JPEG Png".split():
-        fname = f"{prefix}.{fmt}"
+        fname = Path(f"{prefix}.{fmt}")
         fig.savefig(fname)
-
-        fname = Path(fname)
         assert fname.exists()
         fname.unlink()
 
 
 def test_figure_savefig_geotiff():
     """
-    Make sure .tif generates a normal TIFF file and .tiff generates a GeoTIFF
-    file.
+    Make sure .tif generates a normal TIFF file and .tiff generates a GeoTIFF file.
     """
     fig = Figure()
     fig.basemap(region=[0, 10, 0, 10], projection="M10c", frame=True)
@@ -156,8 +158,8 @@ def test_figure_savefig_geotiff():
 
 def test_figure_savefig_directory_nonexists():
     """
-    Make sure that Figure.savefig() raises a FileNotFoundError when the parent
-    directory doesn't exist.
+    Make sure that Figure.savefig() raises a FileNotFoundError when the parent directory
+    doesn't exist.
     """
     fig = Figure()
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
@@ -201,10 +203,10 @@ def test_figure_savefig_transparent():
         with pytest.raises(GMTInvalidInput):
             fig.savefig(fname, transparent=True)
     # png should not raise an error
-    fname = f"{prefix}.png"
+    fname = Path(f"{prefix}.png")
     fig.savefig(fname, transparent=True)
-    assert os.path.exists(fname)
-    os.remove(fname)
+    assert fname.exists()
+    fname.unlink()
 
 
 def test_figure_savefig_filename_with_spaces():
@@ -215,8 +217,9 @@ def test_figure_savefig_filename_with_spaces():
     fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
     with GMTTempFile(prefix="pygmt-filename with spaces", suffix=".png") as imgfile:
         fig.savefig(fname=imgfile.name)
-        assert r"\040" not in os.path.abspath(imgfile.name)
-        assert Path(imgfile.name).stat().st_size > 0
+        imgpath = Path(imgfile.name).resolve()
+        assert r"\040" not in str(imgpath)
+        assert imgpath.stat().st_size > 0
 
 
 def test_figure_savefig():
@@ -290,8 +293,8 @@ def test_figure_savefig():
 
 def test_figure_savefig_worldfile():
     """
-    Check if a world file is created for supported formats and raise an error
-    for unsupported formats.
+    Check if a world file is created for supported formats and raise an error for
+    unsupported formats.
     """
     fig = Figure()
     fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
@@ -309,7 +312,7 @@ def test_figure_savefig_worldfile():
                 fig.savefig(fname=imgfile.name, worldfile=True)
 
 
-@pytest.mark.skipif(not HAS_IPYTHON, reason="run when IPython is installed")
+@pytest.mark.skipif(not _HAS_IPYTHON, reason="run when IPython is installed")
 def test_figure_show():
     """
     Test that show creates the correct file name and deletes the temp dir.
@@ -341,8 +344,7 @@ def test_figure_shift_origin():
 
 def test_figure_show_invalid_method():
     """
-    Test to check if an error is raised when an invalid method is passed to
-    show.
+    Test to check if an error is raised when an invalid method is passed to show.
     """
     fig = Figure()
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
@@ -350,11 +352,11 @@ def test_figure_show_invalid_method():
         fig.show(method="test")
 
 
-@pytest.mark.skipif(HAS_IPYTHON, reason="run without IPython installed")
+@pytest.mark.skipif(_HAS_IPYTHON, reason="run without IPython installed")
 def test_figure_show_notebook_error_without_ipython():
     """
-    Test to check if an error is raised when display method is 'notebook', but
-    IPython is not installed.
+    Test to check if an error is raised when display method is 'notebook', but IPython
+    is not installed.
     """
     fig = Figure()
     fig.basemap(region=[0, 1, 2, 3], frame=True)
@@ -371,31 +373,89 @@ def test_figure_display_external():
     fig.show(method="external")
 
 
-def test_figure_set_display_invalid():
+class TestSetDisplay:
     """
-    Test to check if an error is raised when an invalid method is passed to
-    set_display.
+    Test the pygmt.set_display method.
     """
-    with pytest.raises(GMTInvalidInput):
-        set_display(method="invalid")
+
+    def test_set_display(self):
+        """
+        Test if pygmt.set_display updates the SHOW_CONFIG variable correctly.
+        """
+        default_method = SHOW_CONFIG["method"]  # Current default method
+
+        for method in ("notebook", "external", "none"):
+            set_display(method=method)
+            assert SHOW_CONFIG["method"] == method
+
+        # Setting method to None should revert it to the default method.
+        set_display(method=None)
+        assert SHOW_CONFIG["method"] == default_method
+
+    def test_invalid_method(self):
+        """
+        Test if an error is raised when an invalid method is passed.
+        """
+        with pytest.raises(GMTInvalidInput):
+            set_display(method="invalid")
 
 
-def test_figure_deprecated_xshift_yshift():
+def test_figure_unsupported_xshift_yshift():
     """
-    Check if deprecation of parameters X/Y/xshift/yshift work correctly if
-    used.
+    Raise an exception if X/Y/xshift/yshift is used.
     """
     fig = Figure()
     fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
-    with pytest.warns(expected_warning=SyntaxWarning) as record:
+    with pytest.raises(GMTInvalidInput):
         fig.plot(x=1, y=1, style="c3c", xshift="3c")
-        assert len(record) == 1  # check that only one warning was raised
-    with pytest.warns(expected_warning=SyntaxWarning) as record:
+    with pytest.raises(GMTInvalidInput):
         fig.plot(x=1, y=1, style="c3c", X="3c")
-        assert len(record) == 1  # check that only one warning was raised
-    with pytest.warns(expected_warning=SyntaxWarning) as record:
+    with pytest.raises(GMTInvalidInput):
         fig.plot(x=1, y=1, style="c3c", yshift="3c")
-        assert len(record) == 1  # check that only one warning was raised
-    with pytest.warns(expected_warning=SyntaxWarning) as record:
+    with pytest.raises(GMTInvalidInput):
         fig.plot(x=1, y=1, style="c3c", Y="3c")
-        assert len(record) == 1  # check that only one warning was raised
+
+
+class TestGetDefaultDisplayMethod:
+    """
+    Test the _get_default_display_method function.
+    """
+
+    def test_default_display_method(self, monkeypatch):
+        """
+        Default display method is "external" if PYGMT_USE_EXTERNAL_DISPLAY is undefined.
+        """
+        monkeypatch.delenv("PYGMT_USE_EXTERNAL_DISPLAY", raising=False)
+        assert _get_default_display_method() == "external"
+
+    def test_disable_external_display(self, monkeypatch):
+        """
+        Setting PYGMT_USE_EXTERNAL_DISPLAY to "false" should disable external display.
+        """
+        monkeypatch.setenv("PYGMT_USE_EXTERNAL_DISPLAY", "false")
+        assert _get_default_display_method() == "none"
+
+    @pytest.mark.skipif(not _HAS_IPYTHON, reason="Run when IPython is installed")
+    def test_notebook_display(self, monkeypatch):
+        """
+        Default display method is "notebook" when an IPython kernel is running.
+        """
+
+        class MockIPython:
+            """
+            A simple mock class to simulate an IPython instance.
+            """
+
+            def __init__(self):
+                self.config = {"IPKernelApp": True}
+
+        # Mock IPython.get_ipython() to return a MockIPython instance.
+        mock_ipython = MockIPython()
+        monkeypatch.setattr(IPython, "get_ipython", lambda: mock_ipython)
+
+        # Default display method should be "notebook" when an IPython kernel is running.
+        assert _get_default_display_method() == "notebook"
+
+        # PYGMT_USE_EXTERNAL_DISPLAY should not affect notebook display.
+        monkeypatch.setenv("PYGMT_USE_EXTERNAL_DISPLAY", "false")
+        assert _get_default_display_method() == "notebook"

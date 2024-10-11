@@ -1,7 +1,8 @@
 """
 Test Figure.text.
 """
-import os
+
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -15,9 +16,9 @@ try:
 except ImportError:
     pa = None
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
-CITIES_DATA = os.path.join(TEST_DATA_DIR, "cities.txt")
+TEST_DATA_DIR = Path(__file__).parent / "data"
+POINTS_DATA = TEST_DATA_DIR / "points.txt"
+CITIES_DATA = TEST_DATA_DIR / "cities.txt"
 
 
 @pytest.fixture(scope="module", name="projection")
@@ -132,8 +133,8 @@ def test_text_nonexistent_filename():
 @pytest.mark.mpl_image_compare
 def test_text_position(region):
     """
-    Print text at center middle (CM) and eight other positions
-    (Top/Middle/Bottom x Left/Centre/Right).
+    Print text at center middle (CM) and eight other positions (Top/Middle/Bottom x
+    Left/Centre/Right).
     """
     fig = Figure()
     fig.text(region=region, projection="x1c", frame="a", position="CM", text="C M")
@@ -166,9 +167,9 @@ def test_text_invalid_inputs(region):
 @pytest.mark.mpl_image_compare
 def test_text_position_offset_with_line(region):
     """
-    Print text at centre middle (CM) and eight other positions
-    (Top/Middle/Bottom x Left/Centre/Right), offset by 0.5 cm, with a line
-    drawn from the original to the shifted point.
+    Print text at centre middle (CM) and eight other positions (Top/Middle/Bottom x
+    Left/Centre/Right), offset by 0.5 cm, with a line drawn from the original to the
+    shifted point.
     """
     fig = Figure()
     fig.text(region=region, projection="x1c", frame="a", position="CM", text="C M")
@@ -291,8 +292,8 @@ def test_text_justify_bottom_right_and_top_left(region, projection):
 @pytest.mark.mpl_image_compare
 def test_text_justify_parsed_from_textfile():
     """
-    Print text justified based on a column from textfile, using justify=True
-    boolean operation.
+    Print text justified based on a column from textfile, using justify=True boolean
+    operation.
 
     Loosely based on "All great-circle paths lead to Rome" gallery example at
     https://docs.generic-mapping-tools.org/latest/gallery/ex23.html
@@ -311,13 +312,14 @@ def test_text_justify_parsed_from_textfile():
 @pytest.mark.mpl_image_compare
 def test_text_angle_font_justify_from_textfile():
     """
-    Print text with x, y, angle, font, justify, and text arguments parsed from
-    the textfile.
+    Print text with x, y, angle, font, justify, and text arguments parsed from the
+    textfile.
     """
     fig = Figure()
     with GMTTempFile(suffix=".txt") as tempfile:
-        with open(tempfile.name, "w", encoding="utf8") as tmpfile:
-            tmpfile.write("114 0.5 30 22p,Helvetica-Bold,black LM BORNEO")
+        Path(tempfile.name).write_text(
+            "114 0.5 30 22p,Helvetica-Bold,black LM BORNEO", encoding="utf-8"
+        )
         fig.text(
             region=[113, 117.5, -0.5, 3],
             projection="M5c",
@@ -334,8 +336,6 @@ def test_text_angle_font_justify_from_textfile():
 def test_text_justify_array(region):
     """
     Test passing an array of justify codes.
-
-    Re-use the baseline image from test_text_position().
     """
     fig = Figure()
     fig.basemap(region=region, projection="x1c", frame="a")
@@ -373,7 +373,7 @@ def test_text_transparency():
     """
     x = np.arange(1, 10)
     y = np.arange(11, 20)
-    text = [f"TEXT-{i}-{j}" for i, j in zip(x, y)]
+    text = [f"TEXT-{i}-{j}" for i, j in zip(x, y, strict=True)]
 
     fig = Figure()
     fig.basemap(region=[0, 10, 10, 20], projection="X10c", frame=True)
@@ -388,7 +388,7 @@ def test_text_varying_transparency():
     """
     x = np.arange(1, 10)
     y = np.arange(11, 20)
-    text = [f"TEXT-{i}-{j}" for i, j in zip(x, y)]
+    text = [f"TEXT-{i}-{j}" for i, j in zip(x, y, strict=True)]
     transparency = np.arange(10, 100, 10)
 
     fig = Figure()
@@ -437,5 +437,31 @@ def test_text_nonascii():
     fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
     fig.text(position="TL", text="position-text:°α")  # noqa: RUF001
     fig.text(x=1, y=1, text="xytext:°α")  # noqa: RUF001
-    fig.text(x=[5, 5], y=[3, 5], text=["xytext1:αζΔ❡", "xytext2:∑π∇✉"])
+    fig.text(x=[5, 5], y=[3, 5], text=["xytext1:αζ∆❡", "xytext2:∑π∇✉"])
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_text_quotation_marks():
+    """
+    Test typesetting quotation marks.
+
+    See https://github.com/GenericMappingTools/pygmt/issues/3104.
+    """
+    fig = Figure()
+    fig.basemap(projection="X4c/2c", region=[0, 4, 0, 2], frame=0)
+    fig.text(x=2, y=1, text='\\234 ‘ ’ " “ ”', font="20p")  # noqa: RUF001
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_text_nonascii_iso8859():
+    """
+    Test passing text strings with non-ascii characters in ISO-8859-4 encoding.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=["WSEN+tAāáâãäåB"])
+    fig.text(position="TL", text="position-text:1ÉĘËĖ2")
+    fig.text(x=1, y=1, text="xytext:1éęëė2")
+    fig.text(x=[5, 5], y=[3, 5], text=["xytext1:ųúûüũūαζ∆❡", "xytext2:íîī∑π∇✉"])
     return fig

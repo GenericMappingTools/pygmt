@@ -1,11 +1,13 @@
 """
 text - Plot text on a figure.
 """
+
 import numpy as np
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    build_arg_string,
+    _check_encoding,
+    build_arg_list,
     data_kind,
     fmt_docstring,
     is_nonstr_iter,
@@ -36,12 +38,7 @@ from pygmt.helpers import (
     t="transparency",
     w="wrap",
 )
-@kwargs_to_strings(
-    R="sequence",
-    textfiles="sequence_space",
-    c="sequence_comma",
-    p="sequence",
-)
+@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def text_(  # noqa: PLR0912
     self,
     textfiles=None,
@@ -63,13 +60,12 @@ def text_(  # noqa: PLR0912
     - ``x``/``y``, and ``text``
     - ``position`` and ``text``
 
-    The text strings passed via the ``text`` parameter can contain ASCII
-    characters and non-ASCII characters defined in the ISOLatin1+ encoding
-    (i.e., IEC_8859-1), and the Symbol and ZapfDingbats character sets.
-    See :gmt-docs:`cookbook/octal-codes.html` for the full list of supported
-    non-ASCII characters.
+    The text strings passed via the ``text`` parameter can contain ASCII characters and
+    non-ASCII characters defined in the Adobe ISOLatin1+, Adobe Symbol, Adobe
+    ZapfDingbats and ISO-8859-x (x can be 1-11, 13-16) encodings. Refer to
+    :doc:`/techref/encodings` for the full list of supported non-ASCII characters.
 
-    Full option list at :gmt-docs:`text.html`
+    Full option list at :gmt-docs:`text.html`.
 
     {aliases}
 
@@ -135,8 +131,8 @@ def text_(  # noqa: PLR0912
         [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].
         Adjust the clearance between the text and the surrounding box
         [Default is 15% of the font size]. Only used if ``pen`` or ``fill``
-        are specified. Append the unit you want (*c* for centimeters,
-        *i* for inches, or *p* for points; if not given we consult
+        are specified. Append the unit you want (**c** for centimeters,
+        **i** for inches, or **p** for points; if not given we consult
         :gmt-term:`PROJ_LENGTH_UNIT`) or *%* for a percentage of the font
         size. Optionally, use modifier **+t** to set the shape of the text
         box when using ``fill`` and/or ``pen``. Append lower case **o**
@@ -183,61 +179,90 @@ def text_(  # noqa: PLR0912
     kwargs = self._preprocess(**kwargs)
 
     # Ensure inputs are either textfiles, x/y/text, or position/text
-    if position is None:
-        if (x is not None or y is not None) and textfiles is not None:
-            raise GMTInvalidInput(
-                "Provide either position only, or x/y pairs, or textfiles."
-            )
-        kind = data_kind(textfiles, x, y, text)
-        if kind == "vectors" and text is None:
-            raise GMTInvalidInput("Must provide text with x/y pairs")
-    else:
-        if any(v is not None for v in (x, y, textfiles)):
-            raise GMTInvalidInput(
-                "Provide either position only, or x/y pairs, or textfiles."
-            )
-        if text is None or is_nonstr_iter(text):
-            raise GMTInvalidInput("Text can't be None or array.")
-        kind = None
-        textfiles = ""
+    if (
+        (textfiles is not None)
+        + (position is not None)
+        + (x is not None or y is not None)
+    ) != 1:
+        raise GMTInvalidInput("Provide either textfiles, x/y/text, or position/text.")
 
-    # Build the -F option in gmt text.
+    required_data = position is None
+    kind = data_kind(textfiles, required=required_data)
+
+    if position is not None and (text is None or is_nonstr_iter(text)):
+        raise GMTInvalidInput("'text' can't be None or array when 'position' is given.")
+    if textfiles is not None and text is not None:
+        raise GMTInvalidInput("'text' can't be specified when 'textfiles' is given.")
+    if kind == "vectors" and text is None:
+        raise GMTInvalidInput("Must provide text with x/y pairs.")
+
+    # Arguments that can accept arrays.
+    array_args = [
+        (angle, "+a", "angle"),
+        (font, "+f", "font"),
+        (justify, "+j", "justify"),
+    ]
+
+    # Build the -F option.
     if kwargs.get("F") is None and any(
         v is not None for v in (position, angle, font, justify)
     ):
         kwargs.update({"F": ""})
 
-    extra_arrays = []
-    for arg, flag in [(angle, "+a"), (font, "+f"), (justify, "+j")]:
+    for arg, flag, _ in array_args:
         if arg is True:
             kwargs["F"] += flag
-        elif is_nonstr_iter(arg):
-            kwargs["F"] += flag
-            if flag == "+a":  # angle is numeric type
-                extra_arrays.append(np.atleast_1d(arg))
-            else:  # font or justify is str type
-                extra_arrays.append(np.atleast_1d(arg).astype(str))
-        elif isinstance(arg, (int, float, str)):
+        elif isinstance(arg, int | float | str):
             kwargs["F"] += f"{flag}{arg}"
 
-    if isinstance(position, str):
-        kwargs["F"] += f"+c{position}+t{text}"
-
-    # If an array of transparency is given, GMT will read it from
-    # the last numerical column per data record.
-    if is_nonstr_iter(kwargs.get("t")):
-        extra_arrays.append(kwargs["t"])
-        kwargs["t"] = ""
-
-    # Append text at last column. Text must be passed in as str type.
+    extra_arrays = []
+    confdict = {}
     if kind == "vectors":
-        extra_arrays.append(
-            np.vectorize(non_ascii_to_octal)(np.atleast_1d(text).astype(str))
-        )
+        for arg, flag, name in array_args:
+            if is_nonstr_iter(arg):
+                kwargs["F"] += flag
+                # angle is numeric type and font/justify are str type.
+                if name == "angle":
+                    extra_arrays.append(arg)
+                else:
+                    extra_arrays.append(np.asarray(arg, dtype=str))
+
+        # If an array of transparency is given, GMT will read it from the last numerical
+        # column per data record.
+        if is_nonstr_iter(kwargs.get("t")):
+            extra_arrays.append(kwargs["t"])
+            kwargs["t"] = True
+
+        # Append text to the last column. Text must be passed in as str type.
+        text = np.asarray(text, dtype=str)
+        encoding = _check_encoding("".join(text.flatten()))
+        if encoding != "ascii":
+            text = np.vectorize(non_ascii_to_octal, excluded="encoding")(
+                text, encoding=encoding
+            )
+        extra_arrays.append(text)
+
+        if encoding not in {"ascii", "ISOLatin1+"}:
+            confdict = {"PS_CHAR_ENCODING": encoding}
+    else:
+        if isinstance(position, str):
+            kwargs["F"] += f"+c{position}+t{text}"
+
+        for arg, _, name in [*array_args, (kwargs.get("t"), "", "transparency")]:
+            if is_nonstr_iter(arg):
+                msg = f"Argument of '{name}' must be a single value or True."
+                raise GMTInvalidInput(msg)
 
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(
-            check_kind="vector", data=textfiles, x=x, y=y, extra_arrays=extra_arrays
-        )
-        with file_context as fname:
-            lib.call_module(module="text", args=build_arg_string(kwargs, infile=fname))
+        with lib.virtualfile_in(
+            check_kind="vector",
+            data=textfiles,
+            x=x,
+            y=y,
+            extra_arrays=extra_arrays,
+            required_data=required_data,
+        ) as vintbl:
+            lib.call_module(
+                module="text",
+                args=build_arg_list(kwargs, infile=vintbl, confdict=confdict),
+            )

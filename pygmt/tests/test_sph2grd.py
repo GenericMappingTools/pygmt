@@ -1,6 +1,7 @@
 """
 Test pygmt.sph2grd.
 """
+
 from pathlib import Path
 
 import numpy.testing as npt
@@ -26,7 +27,7 @@ def test_sph2grd_no_outgrid():
     """
     Test sph2grd with no set outgrid.
     """
-    temp_grid = sph2grd(data="@EGM96_to_36.txt", spacing=1, region="g")
+    temp_grid = sph2grd(data="@EGM96_to_36.txt", spacing=1, region="g", cores=2)
     assert temp_grid.dims == ("y", "x")
     assert temp_grid.gmt.gtype == 0  # Cartesian grid
     assert temp_grid.gmt.registration == 0  # Gridline registration

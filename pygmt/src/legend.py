@@ -2,12 +2,16 @@
 legend - Plot a legend.
 """
 
+import io
+import pathlib
+
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     data_kind,
     fmt_docstring,
+    is_nonstr_iter,
     kwargs_to_strings,
     use_alias,
 )
@@ -25,7 +29,13 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwargs):
+def legend(
+    self,
+    spec: str | pathlib.PurePath | io.StringIO | None = None,
+    position="JTR+jTR+o0.2c",
+    box="+gwhite+p1p",
+    **kwargs,
+):
     r"""
     Plot legends on maps.
 
@@ -41,10 +51,16 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
 
     Parameters
     ----------
-    spec : None or str
-        Either ``None`` [Default] for using the automatically generated legend
-        specification file, or a *filename* pointing to the legend
-        specification file.
+    spec
+        The legend specification. It can be:
+
+        - ``None`` which means using the automatically generated legend specification
+          file
+        - A string or a :class:`pathlib.PurePath` object pointing to the legend
+          specification file
+        - A :class:`io.StringIO` object containing the legend specification.
+
+        See :gmt-docs:`legend.html` for the definition of the legend specification.
     {projection}
     {region}
     position : str
@@ -74,11 +90,12 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
         if kwargs.get("F") is None:
             kwargs["F"] = box
 
+    kind = data_kind(spec)
+    if kind not in {"vectors", "file", "stringio"}:  # kind="vectors" means spec is None
+        raise GMTInvalidInput(f"Unrecognized data type: {type(spec)}")
+    if kind == "file" and is_nonstr_iter(spec):
+        raise GMTInvalidInput("Only one legend specification file is allowed.")
+
     with Session() as lib:
-        if spec is None:
-            specfile = ""
-        elif data_kind(spec) == "file":
-            specfile = spec
-        else:
-            raise GMTInvalidInput(f"Unrecognized data type: {type(spec)}")
-        lib.call_module(module="legend", args=build_arg_string(kwargs, infile=specfile))
+        with lib.virtualfile_in(data=spec, required_data=False) as vintbl:
+            lib.call_module(module="legend", args=build_arg_list(kwargs, infile=vintbl))

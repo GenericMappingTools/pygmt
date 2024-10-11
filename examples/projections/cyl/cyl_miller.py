@@ -1,6 +1,6 @@
 r"""
-Miller cylindrical
-==================
+Miller cylindrical projection
+=============================
 
 This cylindrical projection, presented by Osborn Maitland Miller of the
 American Geographic Society in 1942, is neither equal nor conformal. All
@@ -23,9 +23,8 @@ fig = pygmt.Figure()
 fig.coast(
     region=[-180, 180, -80, 80],
     projection="J-65/12c",
-    land="khaki",
-    water="azure",
-    shorelines="thinnest",
     frame="afg",
+    land="gray80",
+    water="steelblue",
 )
 fig.show()

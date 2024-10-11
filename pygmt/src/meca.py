@@ -1,11 +1,12 @@
 """
 meca - Plot focal mechanisms.
 """
+
 import numpy as np
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTError, GMTInvalidInput
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 def convention_code(convention, component="full"):
@@ -94,7 +95,7 @@ def convention_code(convention, component="full"):
                 f"Invalid component '{component}' for convention '{convention}'."
             )
         return codes2[convention][component]
-    if convention in ["a", "c", "m", "d", "z", "p", "x", "y", "t"]:
+    if convention in {"a", "c", "m", "d", "z", "p", "x", "y", "t"}:
         return convention
     raise GMTInvalidInput(f"Invalid convention '{convention}'.")
 
@@ -168,7 +169,7 @@ def convention_params(convention):
         ],
         "mt": ["mrr", "mtt", "mff", "mrt", "mrf", "mtf", "exponent"],
         "partial": ["strike1", "dip1", "strike2", "fault_type", "magnitude"],
-        "pricipal_axis": [
+        "principal_axis": [
             "t_value",
             "t_azimuth",
             "t_plunge",
@@ -399,9 +400,9 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
     kwargs = self._preprocess(**kwargs)
 
     # Convert spec to pandas.DataFrame unless it's a file
-    if isinstance(spec, (dict, pd.DataFrame)):  # spec is a dict or pd.DataFrame
+    if isinstance(spec, dict | pd.DataFrame):  # spec is a dict or pd.DataFrame
         # determine convention from dict keys or pd.DataFrame column names
-        for conv in ["aki", "gcmt", "mt", "partial", "pricipal_axis"]:
+        for conv in ["aki", "gcmt", "mt", "partial", "principal_axis"]:
             if set(convention_params(conv)).issubset(set(spec.keys())):
                 convention = conv
                 break
@@ -488,6 +489,5 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
     # Assemble -S flag
     kwargs["S"] = f"{data_format}{scale}"
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(check_kind="vector", data=spec)
-        with file_context as fname:
-            lib.call_module(module="meca", args=build_arg_string(kwargs, infile=fname))
+        with lib.virtualfile_in(check_kind="vector", data=spec) as vintbl:
+            lib.call_module(module="meca", args=build_arg_list(kwargs, infile=vintbl))

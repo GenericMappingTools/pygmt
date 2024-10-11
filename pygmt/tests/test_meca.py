@@ -1,6 +1,9 @@
 """
 Test Figure.meca.
 """
+
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 import pytest
@@ -71,13 +74,8 @@ def test_meca_spec_single_focalmecha_file():
     fig = Figure()
     fig.basemap(region=[-1, 1, 4, 6], projection="M8c", frame=2)
     with GMTTempFile() as temp:
-        with open(temp.name, mode="w", encoding="utf8") as temp_file:
-            temp_file.write("0 5 0 0 90 0 5")
-        fig.meca(
-            spec=temp.name,
-            convention="aki",
-            scale="2.5c",
-        )
+        Path(temp.name).write_text("0 5 0 0 90 0 5", encoding="utf-8")
+        fig.meca(spec=temp.name, convention="aki", scale="2.5c")
     return fig
 
 
@@ -314,8 +312,7 @@ def test_meca_spec_ndarray_no_convention():
 
 def test_meca_spec_ndarray_mismatched_columns():
     """
-    Raise an exception if the ndarray input doesn't have the expected number of
-    columns.
+    Raise an exception if the ndarray input doesn't have the expected number of columns.
     """
     fig = Figure()
     fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)

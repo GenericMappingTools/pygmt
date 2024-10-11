@@ -18,13 +18,23 @@ name: Docs
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'pygmt/**/*.py'
+      - '!pygmt/tests/**'
+      - 'doc/**'
+      - 'examples/**'
+      - 'README.md'
+      - '.github/workflows/ci_docs.yml'
   pull_request:
     types: [opened, reopened, synchronize, ready_for_review]
-    paths-ignore:
-      - 'pygmt/tests/**'
-      - '*.md'
-      - 'LICENSE.txt'
-      - '.gitignore'
+    paths:
+      - 'pygmt/**/*.py'
+      - '!pygmt/tests/**'
+      - 'doc/**'
+      - 'examples/**'
+      - 'README.md'
+      - '.github/workflows/ci_docs.yml'
+  workflow_dispatch:
   release:
     types:
       - published
@@ -37,6 +47,7 @@ jobs:
   docs:
     name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    if: github.repository == 'GenericMappingTools/pygmt'
     strategy:
       fail-fast: false
       matrix:
@@ -58,39 +69,45 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4.2.0
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
+      - name: Get current week number of year
+        id: date
+        run: echo "date=$(date +%Y-W%W)" >> $GITHUB_OUTPUT  # e.g., 2024-W19
+
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.7.3
+        uses: mamba-org/setup-micromamba@v2.0.0
         with:
           environment-name: pygmt
           condarc: |
             channels:
               - conda-forge
               - nodefaults
-          cache-downloads: true
+          cache-downloads: false
           cache-environment: true
+          # environment cache is persistent for one week.
+          cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
           create-args: >-
             python=3.12
-            gmt=6.4.0
-            ghostscript=9.54.0
+            gmt=6.5.0
+            ghostscript=10.04.0
             numpy
             pandas
             xarray
             netCDF4
             packaging
             contextily
-            geopandas
+            geopandas<1.0
             ipython
             rioxarray
-            build
             make
             pip
-            myst-parser
+            python-build
+            myst-nb
             panel
             sphinx
             sphinx-autodoc-typehints
@@ -101,21 +118,14 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v3.0.0
-        with:
-          workflow: cache_data.yaml
-          workflow_conclusion: success
-          name: gmt-cache
-          path: .gmt
-
-      # Move downloaded files to ~/.gmt directory and list them
-      - name: Move and list downloaded remote files
         run: |
-          mkdir -p ~/.gmt
-          mv .gmt/* ~/.gmt
+          # Download cached files to ~/.gmt directory and list them
+          gh run download --name gmt-cache --dir ~/.gmt/
           # Change modification times of the two files, so GMT won't refresh it
-          touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
+          touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
           ls -lhR ~/.gmt
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       # Install the package that we want to test
       - name: Install the package
@@ -128,7 +138,7 @@ jobs:
         run: make -C doc clean all
 
       - name: Checkout the gh-pages branch
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4.2.0
         with:
           ref: gh-pages
           # Checkout to this folder instead of the current one
@@ -151,7 +161,7 @@ jobs:
           # to get the right commit hash.
           message="Deploy $version from $(git rev-parse --short HEAD)"
           cd deploy
-          # Need to have this file so that Github doesn't try to run Jekyll
+          # Need to have this file so that GitHub doesn't try to run Jekyll
           touch .nojekyll
           # Delete all the files and replace with our new  set
           echo -e "\nRemoving old files from previous builds of ${version}:"

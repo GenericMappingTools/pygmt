@@ -1,14 +1,13 @@
 # Test PyGMT with GMT dev version on Linux/macOS/Windows
 #
-# This workflow runs regular PyGMT tests with the GMT dev version, and also
-# pre-release versions of several dependencies like NumPy, Pandas, Xarray, etc.
-# If any tests fail, it also uploads the diff images as workflow artifacts.
-# The GMT dev version is installed by fetching the latest source codes from
-# the GMT master branch and compiling.
+# This workflow runs regular PyGMT tests with the GMT dev version, and also pre-release
+# versions of several dependencies like NumPy, Pandas, Xarray, etc. If any tests fail,
+# it also uploads the diff images as workflow artifacts. The GMT dev version is
+# installed by fetching the latest source codes from the GMT master branch and
+# compiling.
 #
-# It is triggered when a pull request is marked as "ready as review", or using
-# the slash command `/test-gmt-dev`. It is also scheduled to run on Monday,
-# Wednesday, and Friday on the main branch.
+# It is triggered in a pull request if labeled with 'run/test-gmt-dev'.
+# It is also scheduled to run on Monday, Wednesday, and Friday on the main branch.
 #
 name: GMT Dev Tests
 
@@ -16,16 +15,11 @@ on:
   # push:
   #   branches: [ main ]
   pull_request:
-    types: [ready_for_review]
-    paths-ignore:
-      - 'doc/**'
-      - 'examples/**'
-      - '*.md'
-      - 'README.rst'
-      - 'LICENSE.txt'
-      - '.gitignore'
-  repository_dispatch:
-    types: [test-gmt-dev-command]
+    types: [ opened, reopened, labeled, synchronize ]
+    paths:
+      - 'pygmt/**'
+      - '.github/workflows/ci_tests_dev.yaml'
+  workflow_dispatch:
   # Schedule tests on Monday/Wednesday/Friday
   schedule:
     - cron: '0 0 * * 1,3,5'
@@ -38,10 +32,11 @@ jobs:
   test_gmt_dev:
     name: ${{ matrix.os }} - GMT ${{ matrix.gmt_git_ref }}
     runs-on: ${{ matrix.os }}
+    if: github.event_name != 'pull_request' || contains(github.event.pull_request.labels.*.name, 'run/test-gmt-dev')
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-22.04, macos-13, windows-2022]
+        os: [ubuntu-24.04, macos-15, windows-2022]
         gmt_git_ref: [master]
     timeout-minutes: 30
     defaults:
@@ -51,52 +46,28 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.1
-        if: github.event_name != 'repository_dispatch'
+        uses: actions/checkout@v4.2.0
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
-      # Generate token from GenericMappingTools bot
-      - name: Generate token from GenericMappingTools bot
-        uses: tibdex/github-app-token@v2
-        if: github.event_name == 'repository_dispatch'
-        id: generate-token
-        with:
-          app_id: ${{ secrets.APP_ID }}
-          private_key: ${{ secrets.APP_PRIVATE_KEY }}
-
-      # Checkout the pull request branch
-      - name: Checkout
-        uses: actions/checkout@v4.1.1
-        if: github.event_name == 'repository_dispatch'
-        with:
-          token: ${{ steps.generate-token.outputs.token }}
-          repository: ${{ github.event.client_payload.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.client_payload.pull_request.head.ref }}
-          # fetch all history so that setuptools-scm works
-          fetch-depth: 0
-
-      - name: Show job URL
-        uses: peter-evans/create-or-update-comment@v3.1.0
-        if: github.event_name == 'repository_dispatch' && (matrix.os == 'ubuntu-latest')
-        with:
-          token: ${{ steps.generate-token.outputs.token }}
-          repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
-          comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
-          body: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      - name: Get current week number of year
+        id: date
+        run: echo "date=$(date +%Y-W%W)" >> $GITHUB_OUTPUT  # e.g., 2024-W19
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.7.3
+        uses: mamba-org/setup-micromamba@v2.0.0
         with:
           environment-name: pygmt
           condarc: |
             channels:
               - conda-forge
               - nodefaults
-          cache-downloads: true
+          cache-downloads: false
           cache-environment: true
+          # environment cache is persistent for one week.
+          cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
           create-args: >-
             python=3.12
             cmake
@@ -104,7 +75,7 @@ jobs:
             ninja
             curl
             fftw
-            ghostscript=9.54.0
+            ghostscript=10.04.0
             glib
             hdf5
             libblas
@@ -115,18 +86,37 @@ jobs:
             pcre
             zlib
 
-      # Build and install latest GMT from GitHub
-      - name: Install GMT ${{ matrix.gmt_git_ref }} branch (Linux/macOS)
-        run: curl https://raw.githubusercontent.com/GenericMappingTools/gmt/master/ci/build-gmt.sh | bash
+      # Checkout current GMT repository
+      - name: Checkout the GMT source from ${{ matrix.gmt_git_ref }} branch
+        uses: actions/checkout@v4.2.0
+        with:
+          repository: 'GenericMappingTools/gmt'
+          ref: ${{ matrix.gmt_git_ref }}
+          path: 'gmt'
+
+      # Build GMT from source on Linux/macOS, script is adapted from
+      # https://github.com/GenericMappingTools/gmt/blob/6.5.0/ci/build-gmt.sh
+      - name: Build GMT on Linux/macOS
+        run: |
+          cd gmt/
+          mkdir build
+          cd build
+          cmake -G Ninja .. \
+            -DCMAKE_INSTALL_PREFIX=${{ env.GMT_INSTALL_DIR }} \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DGMT_ENABLE_OPENMP=TRUE \
+            -DGMT_USE_THREADS=TRUE
+          cmake --build .
+          cmake --build . --target install
+          cd ..
+          rm -rf gmt/
         env:
-          GMT_GIT_REF: ${{ matrix.gmt_git_ref }}
           GMT_INSTALL_DIR: ${{ runner.temp }}/gmt-install-dir
         if: runner.os != 'Windows'
 
-      - name: Install GMT ${{ matrix.gmt_git_ref }} branch (Windows)
+      - name: Build GMT on Windows
         shell: cmd
         run: |
-          git clone --depth=1 --single-branch --branch ${{ env.GMT_GIT_REF }} https://github.com/GenericMappingTools/gmt
           cd gmt/
           mkdir build
           cd build
@@ -142,7 +132,6 @@ jobs:
           cd ..
           rm -rf gmt/
         env:
-          GMT_GIT_REF: ${{ matrix.gmt_git_ref }}
           GMT_INSTALL_DIR: ${{ runner.temp }}/gmt-install-dir
         if: runner.os == 'Windows'
 
@@ -156,7 +145,7 @@ jobs:
                         --extra-index https://pypi.anaconda.org/scientific-python-nightly-wheels/simple \
                         numpy pandas xarray netCDF4 packaging \
                         build contextily dvc geopandas ipython pyarrow rioxarray \
-                        'pytest>=6.0' pytest-cov pytest-doctestplus pytest-mpl \
+                        pytest pytest-cov pytest-doctestplus pytest-mpl pytest-rerunfailures pytest-xdist\
                         sphinx-gallery
 
       # Show installed pkg information for postmortem diagnostic
@@ -165,25 +154,18 @@ jobs:
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
-        run: dvc pull --verbose && ls -lhR pygmt/tests/baseline/
+        run: dvc pull --no-run-cache --verbose && ls -lhR pygmt/tests/baseline/
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v3.0.0
-        with:
-          workflow: cache_data.yaml
-          workflow_conclusion: success
-          name: gmt-cache
-          path: .gmt
-
-      # Move downloaded files to ~/.gmt directory and list them
-      - name: Move and list downloaded remote files
         run: |
-          mkdir -p ~/.gmt
-          mv .gmt/* ~/.gmt
+          # Download cached files to ~/.gmt directory and list them
+          gh run download --name gmt-cache --dir ~/.gmt/
           # Change modification times of the two files, so GMT won't refresh it
-          touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
+          touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
           ls -lhR ~/.gmt
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       # Install the package that we want to test
       - name: Install the package
@@ -191,13 +173,13 @@ jobs:
 
       # Run the tests
       - name: Test with pytest
-        run: make test PYTEST_EXTRA="-r P"
+        run: make test PYTEST_EXTRA="-r P -n auto --reruns 2"
         env:
           GMT_LIBRARY_PATH: ${{ runner.temp }}/gmt-install-dir/lib
 
       # Upload diff images on test failure
       - name: Upload diff images if any test fails
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.4.0
         if: ${{ failure() }}
         with:
           name: artifact-GMT-${{ matrix.gmt_git_ref }}-${{ runner.os }}

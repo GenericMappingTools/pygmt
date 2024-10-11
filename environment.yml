@@ -5,10 +5,11 @@ channels:
 dependencies:
     - python=3.12
     # Required dependencies
-    - gmt=6.4.0
-    - numpy>=1.22
-    - pandas
-    - xarray
+    - gmt=6.5.0
+    - ghostscript=10.04.0
+    - numpy>=1.24
+    - pandas>=2.0
+    - xarray>=2023.04
     - netCDF4
     - packaging
     # Optional dependencies
@@ -17,29 +18,29 @@ dependencies:
     - ipython
     - rioxarray
     # Development dependencies (general)
-    - build
     - dvc
     - jupyter
     - make
     - pip
+    - python-build
     # Dev dependencies (style checks)
     - codespell
-    - docformatter>=1.7.2
-    - ruff>=0.1.9
+    - pre-commit
+    - ruff>=0.3.0
     # Dev dependencies (unit testing)
-    - matplotlib
+    - matplotlib-base
+    - pytest>=6.0
     - pytest-cov
     - pytest-doctestplus
     - pytest-mpl
-    - pytest>=6.0
     # Dev dependencies (building documentation)
-    - myst-parser
+    - myst-nb
     - panel
     - sphinx
     - sphinx-autodoc-typehints
     - sphinx-copybutton
     - sphinx-design
-    - sphinx-gallery
+    - sphinx-gallery>=0.17.0
     - sphinx_rtd_theme
     # Dev dependencies (type hints)
     - mypy

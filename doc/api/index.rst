@@ -203,7 +203,6 @@ Miscellaneous
     :toctree: generated
 
     which
-    print_clib_info
     show_versions
 
 .. currentmodule:: pygmt
@@ -219,6 +218,8 @@ and store them in GMT's user data directory.
     :toctree: generated
 
     datasets.list_sample_data
+    datasets.load_black_marble
+    datasets.load_blue_marble
     datasets.load_earth_age
     datasets.load_earth_free_air_anomaly
     datasets.load_earth_geoid
@@ -226,6 +227,11 @@ and store them in GMT's user data directory.
     datasets.load_earth_mask
     datasets.load_earth_relief
     datasets.load_earth_vertical_gravity_gradient
+    datasets.load_mars_relief
+    datasets.load_mercury_relief
+    datasets.load_moon_relief
+    datasets.load_pluto_relief
+    datasets.load_venus_relief
     datasets.load_sample_data
 
 In addition, there is also a special function to load XYZ tile maps via
@@ -278,17 +284,16 @@ the :meth:`~pygmt.clib.Session.call_module` method:
 
 Passing memory blocks between Python data objects (e.g. :class:`numpy.ndarray`,
 :class:`pandas.Series`, :class:`xarray.DataArray`, etc) and GMT happens through
-*virtual files*. These methods are context managers that automate the
-conversion of Python variables to GMT virtual files:
+*virtual files*. These methods are context managers that automate the conversion of
+Python objects to and from GMT virtual files:
 
 .. autosummary::
     :toctree: generated
 
-    clib.Session.virtualfile_from_data
-    clib.Session.virtualfile_from_matrix
-    clib.Session.virtualfile_from_vectors
-    clib.Session.virtualfile_from_grid
-
+    clib.Session.virtualfile_in
+    clib.Session.virtualfile_out
+    clib.Session.virtualfile_to_dataset
+    clib.Session.virtualfile_to_raster
 
 Low level access (these are mostly used by the :mod:`pygmt.clib` package):
 
@@ -306,7 +311,14 @@ Low level access (these are mostly used by the :mod:`pygmt.clib` package):
     clib.Session.put_matrix
     clib.Session.put_strings
     clib.Session.put_vector
+    clib.Session.read_data
     clib.Session.write_data
-    clib.Session.open_virtual_file
+    clib.Session.open_virtualfile
+    clib.Session.read_virtualfile
     clib.Session.extract_region
     clib.Session.get_libgmt_func
+    clib.Session.virtualfile_from_data
+    clib.Session.virtualfile_from_grid
+    clib.Session.virtualfile_from_stringio
+    clib.Session.virtualfile_from_matrix
+    clib.Session.virtualfile_from_vectors

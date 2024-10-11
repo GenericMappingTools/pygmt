@@ -5,6 +5,7 @@ Apply them to functions wrapping GMT modules to automate: alias generation for
 arguments, insert common text into docstrings, transform arguments to strings,
 etc.
 """
+
 import functools
 import textwrap
 import warnings
@@ -253,11 +254,25 @@ COMMON_DOCSTRINGS = {
               input and skip trailing text. **Note**: If ``incols`` is also
               used then the columns given to ``outcols`` correspond to the
               order after the ``incols`` selection has taken place.""",
+    "outfile": """
+        outfile
+            File name for saving the result data. Required if ``output_type="file"``.
+            If specified, ``output_type`` will be forced to be ``"file"``.""",
+    "output_type": """
+        output_type
+            Desired output type of the result data.
+
+            - ``pandas`` will return a :class:`pandas.DataFrame` object.
+            - ``numpy`` will return a :class:`numpy.ndarray` object.
+            - ``file`` will save the result to the file specified by the ``outfile``
+              parameter.""",
     "outgrid": """
-        outgrid : str or None
-            Name of the output netCDF grid file. For writing a specific grid
-            file format or applying basic data operations to the output grid,
-            see :gmt-docs:`gmt.html#grd-inout-full` for the available modifiers.""",
+        outgrid
+            Name of the output netCDF grid file. If not specified, will return an
+            :class:`xarray.DataArray` object. For writing a specific grid file format or
+            applying basic data operations to the output grid, see
+            :gmt-docs:`gmt.html#grd-inout-full` for the available modifiers.
+        """,
     "panel": r"""
         panel : bool, int, or list
             [*row,col*\|\ *index*].
@@ -335,7 +350,7 @@ COMMON_DOCSTRINGS = {
               ``registration``, and the domain. The resulting increment value
               depends on whether you have selected a gridline-registered or
               pixel-registered grid; see :gmt-docs:`GMT File Formats
-              <cookbook/file-formats.html#gmt-file-formats>` for details.
+              <reference/file-formats.html#gmt-file-formats>` for details.
 
             **Note**: If ``region=grdfile`` is used then the grid spacing and
             the registration have already been initialized; use ``spacing`` and
@@ -445,7 +460,7 @@ def fmt_docstring(module_func):
     - J = projection
     - R = region
     <BLANKLINE>
-    """
+    """  # noqa: D410,D411
     filler_text = {}
 
     if hasattr(module_func, "aliases"):
@@ -455,9 +470,9 @@ def fmt_docstring(module_func):
             aliases.append(f"- {arg} = {alias}")
         filler_text["aliases"] = "\n".join(aliases)
 
-    filler_text[
-        "table-like"
-    ] = "numpy.ndarray, pandas.DataFrame, xarray.Dataset, or geopandas.GeoDataFrame"
+    filler_text["table-like"] = (
+        "numpy.ndarray, pandas.DataFrame, xarray.Dataset, or geopandas.GeoDataFrame"
+    )
     filler_text["table-classes"] = (
         ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an\n"
         "    :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`\n"
@@ -567,38 +582,29 @@ def use_alias(**aliases):
                     )
                     warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
 
-            # timestamp (U) is deprecated since v0.9.0.
+            # timestamp (U) is deprecated since v0.9.0 and removed in v0.12.0.
             if "U" in kwargs or "timestamp" in kwargs:
-                if "timestamp" in kwargs:
-                    kwargs["U"] = kwargs.pop("timestamp")
                 msg = (
-                    "Parameters 'U' and 'timestamp' are deprecated since v0.9.0 "
-                    "and will be removed in v0.12.0. "
+                    "Parameters 'U' and 'timestamp' are no longer supported since v0.12.0. "
                     "Use Figure.timestamp() instead."
                 )
-                warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+                raise GMTInvalidInput(msg)
 
-            # xshift (X) is deprecated since v0.8.0.
+            # xshift (X) is deprecated since v0.8.0 and removed in v0.12.0.
             if "X" in kwargs or "xshift" in kwargs:
-                if "xshift" in kwargs:
-                    kwargs["X"] = kwargs.pop("xshift")
                 msg = (
-                    "Parameters 'X' and 'xshift' are deprecated since v0.8.0 "
-                    "and will be removed in v0.12.0. "
+                    "Parameters 'X' and 'xshift' are no longer supported since v0.12.0. "
                     "Use Figure.shift_origin(xshift=...) instead."
                 )
-                warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+                raise GMTInvalidInput(msg)
 
-            # yshift (Y) is deprecated since v0.8.0.
+            # yshift (Y) is deprecated since v0.8.0 and removed in v0.12.0.
             if "Y" in kwargs or "yshift" in kwargs:
-                if "yshift" in kwargs:
-                    kwargs["Y"] = kwargs.pop("yshift")
                 msg = (
-                    "Parameters 'Y' and 'yshift' are deprecated since v0.8.0. "
-                    "and will be removed in v0.12.0. "
+                    "Parameters 'Y' and 'yshift' are no longer supported since v0.12.0. "
                     "Use Figure.shift_origin(yshift=...) instead."
                 )
-                warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+                raise GMTInvalidInput(msg)
 
             return module_func(*args, **kwargs)
 
@@ -618,17 +624,14 @@ def kwargs_to_strings(**conversions):
     The strings are what GMT expects from command line arguments.
 
     Boolean arguments and None are not converted and will be processed in the
-    ``build_arg_string`` function.
+    ``build_arg_list`` function.
 
     You can also specify other conversions to specific arguments.
 
     Conversions available:
 
-    * 'sequence': transforms a sequence (list, tuple) into a ``'/'`` separated
-      string
-    * 'sequence_comma': transforms a sequence into a ``','`` separated string
-    * 'sequence_plus': transforms a sequence into a ``'+'`` separated string
-    * 'sequence_space': transforms a sequence into a ``' '`` separated string
+    * "sequence": transform a sequence (list, tuple) into a ``"/"`` separated string
+    * "sequence_comma": transform a sequence into a ``","`` separated string
 
     Parameters
     ----------
@@ -639,7 +642,7 @@ def kwargs_to_strings(**conversions):
 
     Examples
     --------
-    >>> @kwargs_to_strings(R="sequence", i="sequence_comma", files="sequence_space")
+    >>> @kwargs_to_strings(R="sequence", i="sequence_comma")
     ... def module(*args, **kwargs):
     ...     "A module that prints the arguments it received"
     ...     print("{", end="")
@@ -664,7 +667,7 @@ def kwargs_to_strings(**conversions):
     >>> module(i=[1, 2])
     {'i': '1,2'}
     >>> module(files=["data1.txt", "data2.txt"])
-    {'files': 'data1.txt data2.txt'}
+    {'files': ['data1.txt', 'data2.txt']}
     >>> # Other non-boolean arguments are passed along as they are
     >>> module(123, bla=(1, 2, 3), foo=True, A=False, i=(5, 6))
     {'A': False, 'bla': (1, 2, 3), 'foo': True, 'i': '5,6'}
@@ -689,7 +692,6 @@ def kwargs_to_strings(**conversions):
     >>> # Here is a more realistic example
     >>> # See https://github.com/GenericMappingTools/pygmt/issues/2361
     >>> @kwargs_to_strings(
-    ...     files="sequence_space",
     ...     offset="sequence",
     ...     R="sequence",
     ...     i="sequence_comma",
@@ -705,22 +707,17 @@ def kwargs_to_strings(**conversions):
     ...     )
     ...     print("}")
     >>> module(files=["data1.txt", "data2.txt"])
-    data1.txt data2.txt -54p/-54p {}
+    ['data1.txt', 'data2.txt'] -54p/-54p {}
     >>> module(["data1.txt", "data2.txt"])
-    data1.txt data2.txt -54p/-54p {}
+    ['data1.txt', 'data2.txt'] -54p/-54p {}
     >>> module(files=["data1.txt", "data2.txt"], offset=("20p", "20p"))
-    data1.txt data2.txt 20p/20p {}
+    ['data1.txt', 'data2.txt'] 20p/20p {}
     >>> module(["data1.txt", "data2.txt"], ("20p", "20p"))
-    data1.txt data2.txt 20p/20p {}
+    ['data1.txt', 'data2.txt'] 20p/20p {}
     >>> module(["data1.txt", "data2.txt"], ("20p", "20p"), R=[1, 2, 3, 4])
-    data1.txt data2.txt 20p/20p {'R': '1/2/3/4'}
+    ['data1.txt', 'data2.txt'] 20p/20p {'R': '1/2/3/4'}
     """
-    separators = {
-        "sequence": "/",
-        "sequence_comma": ",",
-        "sequence_plus": "+",
-        "sequence_space": " ",
-    }
+    separators = {"sequence": "/", "sequence_comma": ","}
 
     for arg, fmt in conversions.items():
         if fmt not in separators:
@@ -829,8 +826,8 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
 
     def deprecator(module_func):
         """
-        The decorator that creates the new function to work with both old and
-        new parameters.
+        The decorator that creates the new function to work with both old and new
+        parameters.
         """
 
         @functools.wraps(module_func)

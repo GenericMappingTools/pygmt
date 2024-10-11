@@ -64,7 +64,7 @@ the problem:
 
       python <test>.py 2>&1 | awk -F': ' '$2=="GMT_Call_Command string" {print $3}'
 
-  where `<test>` is the name of your test script. Note that this script works only with GMT>=6.4
+  where `<test>` is the name of your test script.
 * If the bug is produced when passing an in-memory data object (e.g., a
   pandas.DataFrame or xarray.DataArray) to a PyGMT function, try writing the
   data to a file (e.g., a netCDF or ASCII txt file) and passing the data file
@@ -100,7 +100,7 @@ Please take a look at these resources to learn about Git and pull requests (don'
 hesitate to [ask questions](contributing.md#getting-help)):
 
 * [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/).
-* [Git Workflow Tutorial](http://www.asmeurer.com/git-workflow/) by Aaron Meurer.
+* [Git Workflow Tutorial](https://www.asmeurer.com/git-workflow/) by Aaron Meurer.
 * [How to Contribute to an Open Source Project on GitHub](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github).
 
 ### Getting Help
@@ -111,7 +111,7 @@ the project where you can ask questions.
 
 ### Pull Request Workflow
 
-We follow the [git pull request workflow](http://www.asmeurer.com/git-workflow)
+We follow the [git pull request workflow](https://www.asmeurer.com/git-workflow)
 to make changes to our codebase. Every change made goes through a pull request, even
 our own, so that our
 [continuous integration](https://en.wikipedia.org/wiki/Continuous_integration)
@@ -168,7 +168,7 @@ To increase the chances of getting your pull request accepted quickly, try to:
     or [Tutorials](contributing.md#contributing-tutorials).
 * Have a good coding style
   - Use readable code, as it is better than clever code (even with comments).
-  - Follow the [PEP8](http://pep8.org) style guide for code and the
+  - Follow the [PEP8](https://pep8.org) style guide for code and the
     [NumPy style guide](https://numpydoc.readthedocs.io/en/latest/format.html)
     for docstrings. Please refer to [Code style](contributing.md#code-style).
 
@@ -251,7 +251,7 @@ There are four main components to PyGMT's documentation:
 
 The documentation is written primarily in
 [reStructuredText](https://docutils.sourceforge.io/rst.html) and built by
-[Sphinx](http://www.sphinx-doc.org/). Please refer to
+[Sphinx](https://www.sphinx-doc.org/). Please refer to
 {gmt-docs}`reStructuredText Cheatsheet <devdocs/rst-cheatsheet.html>`
 if you are new to reStructuredText. When contributing documentation, be sure to
 follow the general guidelines in the [pull request workflow](contributing.md#pull-request-workflow)
@@ -324,10 +324,11 @@ begin with `>>>`.  To keep this example code from being run during testing, add 
 
 **Inline code example**
 
-Below the import statements at the top of the file
+Below the import statements at the top of the file:
 
 ```python
 __doctest_skip__ = ["function_name"]
+```
 
 At the end of the function's docstring:
 
@@ -406,7 +407,7 @@ arguments and return values.
 
 While the maximum line length for code is automatically set by ruff, docstrings
 must be formatted manually. To play nicely with Jupyter and IPython, **keep docstrings
-limited to 79 characters** per line.
+limited to 88 characters** per line.
 
 ### Standards for Example Code
 
@@ -471,21 +472,17 @@ code, be sure to follow the general guidelines in the
 
 ### Code Style
 
-We use some tools to format the code so we don't have to think about it:
-
-- [docformatter](https://github.com/myint/docformatter)
-- [ruff](https://docs.astral.sh/ruff)
-
-These tools loosely follow the [PEP8](http://pep8.org) guide but with a few
-differences. Regardless, you won't have to worry about formatting the code yourself.
-Before committing, run it to automatically format your code:
+We use the [ruff](https://docs.astral.sh/ruff) tool to format the code, so we
+don't have to think about it. It loosely follow the [PEP8](https://pep8.org) guide
+but with a few differences. Regardless, you won't have to worry about formatting
+the code yourself. Before committing, run it to automatically format your code:
 
 ```bash
 make format
 ```
 
-For consistency, we also use UNIX-style line endings (`\n`) and file permission
-644 (`-rw-r--r--`) throughout the whole project.
+For consistency, we also use `pre-commit` hooks to enforce UNIX-style line endings
+(`\n`) and file permission 644 (`-rw-r--r--`) throughout the whole project.
 Don't worry if you forget to do it. Our continuous integration systems will
 warn us and you can make a new commit with the formatted code.
 Even better, you can just write `/format` in the first line of any comment in a
@@ -511,7 +508,7 @@ The [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile
 contains rules for running the linter checks:
 
 ```bash
-make check   # Runs docformatter and ruff (in check mode)
+make check   # Runs ruff in check mode
 ```
 
 ### Testing your Code
@@ -667,7 +664,7 @@ summarized as follows:
     mv baseline/*.png pygmt/tests/baseline/
 
     # Generate hash for baseline image and stage the *.dvc file in git
-    dvc status  # check which files need to be added to dvc
+    dvc status  # Check which files need to be added to dvc
     dvc add pygmt/tests/baseline/test_logo.png
     git add pygmt/tests/baseline/test_logo.png.dvc
 

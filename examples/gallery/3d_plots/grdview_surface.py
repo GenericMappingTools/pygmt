@@ -23,6 +23,9 @@ import xarray as xr
 # Define an interesting function of two variables, see:
 # https://en.wikipedia.org/wiki/Ackley_function
 def ackley(x, y):
+    """
+    Ackley function.
+    """
     return (
         -20 * np.exp(-0.2 * np.sqrt(0.5 * (x**2 + y**2)))
         - np.exp(0.5 * (np.cos(2 * np.pi * x) + np.cos(2 * np.pi * y)))
@@ -57,7 +60,7 @@ fig.grdview(
 # Add colorbar for gridded data
 fig.colorbar(
     frame="a2f1",  # Set annotations in steps of two, tick marks in steps of one
-    position="JRM",  # Place colorbar at position Right Middle
+    position="JMR",  # Place colorbar in the Middle Right (MR) corner
 )
 
 fig.show()

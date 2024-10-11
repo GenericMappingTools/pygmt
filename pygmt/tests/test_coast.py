@@ -1,11 +1,13 @@
 """
 Test Figure.coast.
 """
+
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_coast_region():
     """

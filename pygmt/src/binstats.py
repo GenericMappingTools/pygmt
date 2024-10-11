@@ -1,22 +1,16 @@
 """
 binstats - Bin spatial data and determine statistics per bin
 """
+
+import xarray as xr
 from pygmt.clib import Session
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
 @use_alias(
     C="statistic",
     E="empty",
-    G="outgrid",
     I="spacing",
     N="normalize",
     R="region",
@@ -30,7 +24,7 @@ from pygmt.io import load_dataarray
     r="registration",
 )
 @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
-def binstats(data, **kwargs):
+def binstats(data, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
     Bin spatial data and determine statistics per bin.
 
@@ -102,21 +96,20 @@ def binstats(data, **kwargs):
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
     """
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
-            with file_context as infile:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="binstats", args=build_arg_string(kwargs, infile=infile)
-                )
-
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="vector", data=data) as vintbl,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            kwargs["G"] = voutgrd
+            lib.call_module(
+                module="binstats", args=build_arg_list(kwargs, infile=vintbl)
+            )
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

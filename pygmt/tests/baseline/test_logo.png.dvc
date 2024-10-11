@@ -1,4 +1,5 @@
 outs:
-- md5: 19bb4cb6709926615cad9c05d5701b0c
-  size: 31802
+- md5: a261222d0d214a2b4cad31a670b9fe03
+  size: 31954
   path: test_logo.png
+  hash: md5

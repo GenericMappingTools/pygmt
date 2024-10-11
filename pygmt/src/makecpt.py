@@ -1,9 +1,10 @@
 """
 makecpt - Make GMT color palette tables.
 """
+
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
@@ -34,15 +35,15 @@ def makecpt(**kwargs):
     figure, subplot, panel, or inset depending on which level
     :func:`pygmt.makecpt` is called (for details on how GMT modern mode
     maintains different levels of colormaps please see
-    :gmt-docs:`cookbook/features.html#gmt-modern-mode-hierarchical-levels`).
+    :gmt-docs:`reference/features.html#gmt-modern-mode-hierarchical-levels`).
     You can use ``output`` to save the CPT to a file.
     You define an equidistant
     set of contour intervals or pass your own z-table or list, and create a new
     CPT based on an existing master (dynamic) CPT. The resulting CPT can be
     reversed relative to the master cpt, and can be made continuous or
     discrete. For color tables beyond the standard GMT offerings, visit
-    `cpt-city <http://soliton.vm.bytemark.co.uk/pub/cpt-city/>`_ and
-    `Scientific Colour-Maps <http://www.fabiocrameri.ch/colourmaps.php>`_.
+    `cpt-city <http://www.seaviewsensing.com/pub/cpt-city/>`_ and
+    `Scientific Colour-Maps <https://www.fabiocrameri.ch/colourmaps.php>`_.
 
     The CPT includes three additional colors beyond the range of z-values.
     These are the background color (B) assigned to values lower than the lowest
@@ -76,7 +77,7 @@ def makecpt(**kwargs):
     cmap : str
         Select the master color palette table (CPT) to use in the
         interpolation. Full list of built-in color palette tables can be found
-        at :gmt-docs:`cookbook/cpts.html#built-in-color-palette-tables-cpt`.
+        at :gmt-docs:`reference/cpts.html#built-in-color-palette-tables-cpt`.
     background : bool or str
         Select the back- and foreground colors to match the colors for lowest
         and highest *z*-values in the output CPT [Default (``background=True``
@@ -112,7 +113,7 @@ def makecpt(**kwargs):
         Truncate the incoming CPT so that the lowest and highest z-levels are
         to *zlow* and *zhigh*. If one of these equal NaN then we leave that
         end of the CPT alone. The truncation takes place before any resampling.
-        See also :gmt-docs:`cookbook/features.html#manipulating-cpts`.
+        See also :gmt-docs:`reference/features.html#manipulating-cpts`.
     output : str
         Optional. The file name with extension .cpt to store the generated CPT
         file. If not given or ``False`` [Default], saves the CPT as the current
@@ -124,7 +125,7 @@ def makecpt(**kwargs):
         of z-values in the color table. Note that this change of z-direction
         happens before ``truncate`` and ``series`` values are used so the
         latter must be compatible with the changed z-range. See also
-        :gmt-docs:`cookbook/features.html#manipulating-cpts`.
+        :gmt-docs:`reference/features.html#manipulating-cpts`.
     overrule_bg : str
         Overrule background, foreground, and NaN colors specified in the master
         CPT with the values of the parameters :gmt-term:`COLOR_BACKGROUND`,
@@ -152,14 +153,11 @@ def makecpt(**kwargs):
         range. Note that ``cyclic=True`` cannot be set together with
         ``categorical=True``.
     """
+    if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
+        raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")
+
+    if (output := kwargs.pop("H", None)) is not None:
+        kwargs["H"] = True
+
     with Session() as lib:
-        if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
-            raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")
-        if kwargs.get("H") is None:  # if no output is set
-            arg_str = build_arg_string(kwargs)
-        else:  # if output is set
-            outfile, kwargs["H"] = kwargs.pop("H"), True
-            if not outfile or not isinstance(outfile, str):
-                raise GMTInvalidInput("'output' should be a proper file name.")
-            arg_str = build_arg_string(kwargs, outfile=outfile)
-        lib.call_module(module="makecpt", args=arg_str)
+        lib.call_module(module="makecpt", args=build_arg_list(kwargs, outfile=output))
