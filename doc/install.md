@@ -85,7 +85,7 @@ We recommend following the instructions further on to install GMT 6.
 
 ## Dependencies
 
-PyGMT requires the following libraries to be installed:
+PyGMT requires the following packages to be installed:
 
 - [numpy](https://numpy.org)
 - [pandas](https://pandas.pydata.org)
@@ -98,8 +98,9 @@ For the minimum supported versions of the dependencies, please see [](minversion
 :::
 
 :::{note}
-Some optional dependencies add more functionality to PyGMT. For a complete list of these
-optional dependencies, refer to [](ecosystem.md).
+Some optional dependencies (e.g., [IPython](https://ipython.readthedocs.io/en/stable/),
+[GeoPandas](https://geopandas.org/en/stable/)) add more functionality to PyGMT.
+For a complete list of the optional dependencies, refer to [](ecosystem.md).
 :::
 
 ## Installing GMT and other dependencies
@@ -156,8 +157,8 @@ From now on, all commands will take place inside the virtual environment called 
 and won't affect your default `base` installation.
 
 ::::: {tip}
-You can also install PyGMT's optional dependencies for more functionality.
-
+You can also install PyGMT's optional dependencies for more functionality (after
+activating the environment).
 :::: {tab-set}
 ::: {tab-item} mamba
 :sync: mamba
