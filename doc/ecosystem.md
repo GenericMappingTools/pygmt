@@ -57,9 +57,9 @@ easier. GeoPandas extends the datatypes used by [pandas][] to allow spatial oper
 on geometric types. Geometric operations are performed by [Shapely][]. GeoPandas further
 depends on [pyogrio][] for file access and [Matplotlib][] for plotting.
 
-PyGMT doesn't directly rely on GeoPandas, but provides support of GeoPandas's data
-structure, {class}`geopandas.GeoDataFrame` and {class}`geopandas.GeoSeries`, which can
-be directly used in data processing and plotting functions/methods of PyGMT.
+PyGMT doesn't directly rely on GeoPandas, but provides support of GeoPandas's two main
+data structure, {class}`geopandas.GeoDataFrame` and {class}`geopandas.GeoSeries`, which
+can be directly used in data processing and plotting functions/methods of PyGMT.
 
 #### contextily
 
@@ -73,10 +73,10 @@ on it.
 
 #### rioxarray
 
-[rioxarray][] is a geospatial [Xarray][] extension powered by rasterio. Built on top of
-[Rasterio][], it enables seamless reading, writing, and manipulation of multi-dimensional
-arrays with geospatial attributes such as coordinate reference systems (CRS) and spatial extent
-(bounds).
+[rioxarray][] is a geospatial [Xarray][] extension powered by [rasterio][]. Built on top
+of rasterio, it enables seamless reading, writing, and manipulation of multi-dimensional
+arrays with geospatial attributes such as coordinate reference systems (CRS) and spatial
+extent (bounds).
 
 Currently, PyGMT relies on [rioxarray][] to save multi-band rasters to temporary files
 in GeoTIFF format, to support processing and plotting 3-D {class}`xarray.DataArray`
@@ -97,11 +97,11 @@ organized for efficient analytic operations on modern hardware. The Arrow Python
 Python objects. They are based on the C++ implementation of Arrow.
 
 ```{note}
-If you have [PyArrow](https://arrow.apache.org/docs/python/index.html) installed, PyGMT
-does have some initial support for `pandas.Series` and `pandas.DataFrame` objects with
-Apache Arrow-backed arrays. Specifically, only uint/int/float, date32/date64 and string
-types are supported for now. Support for Duration types and GeoArrow geometry types is
-still a work in progress. For more details, see
+If you have [PyArrow][] installed, PyGMT does have some initial support for
+`pandas.Series` and `pandas.DataFrame` objects with Apache Arrow-backed arrays.
+Specifically, only uint/int/float, date32/date64 and string types are supported for now.
+Support for Duration types and GeoArrow geometry types is still a work in progress.
+For more details, see
 [issue #2800](https://github.com/GenericMappingTools/pygmt/issues/2800).
 ```
 
@@ -109,7 +109,7 @@ still a work in progress. For more details, see
 
 Various packages rely on PyGMT for geospatial data processing, analysis, and visualization.
 Below is an incomplete list (in no particular order) of tools which form the PyGMT-related
-Python ecosystem.
+ecosystem.
 
 ```{note}
 If your package relies on PyGMT, please
@@ -126,6 +126,7 @@ If your package relies on PyGMT, please
 [pandas]: https://pandas.pydata.org/
 [pyarrow]: https://arrow.apache.org/docs/python/
 [pyogrio]: https://pyogrio.readthedocs.io/
+[rasterio]: https://rasterio.readthedocs.io/
 [rioxarray]: https://corteva.github.io/rioxarray/
 [shapely]: https://shapely.readthedocs.io/
 [xarray]: https://xarray.pydata.org/
