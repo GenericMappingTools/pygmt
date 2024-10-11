@@ -218,7 +218,7 @@ def vectors_to_arrays(vectors):
         ):
             # Workaround for dealing with pd.NA with pandas < 2.2.
             # Bug report at: https://github.com/GenericMappingTools/pygmt/issues/2844
-            # Following SPEC0, pandas 2.1 will be dropped in 2025 Q3, so it's likey
+            # Following SPEC0, pandas 2.1 will be dropped in 2025 Q3, so it's likely
             # we can remove the workaround in PyGMT v0.17.0.
             array = np.ascontiguousarray(vector.astype(float))
         else:
