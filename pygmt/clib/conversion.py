@@ -9,16 +9,8 @@ from collections.abc import Sequence
 import numpy as np
 import pandas as pd
 from packaging.version import Version
+from pygmt._typing import StringArrayTypes
 from pygmt.exceptions import GMTInvalidInput
-
-StringArrayTypes = Sequence[str] | np.ndarray
-
-try:
-    import pyarrow as pa
-
-    StringArrayTypes |= pa.StringArray
-except ImportError:
-    pa = None
 
 
 def dataarray_to_matrix(grid):
@@ -292,13 +284,13 @@ def sequence_to_ctypes_array(
 
 def strings_to_ctypes_array(strings: StringArrayTypes) -> ctp.Array:
     """
-    Convert a sequence (e.g., a list) of strings or a pyarrow.StringArray into a ctypes
-    array.
+    Convert a sequence (e.g., a list) or numpy.ndarray of strings or a
+    pyarrow.StringArray into a ctypes array.
 
     Parameters
     ----------
     strings
-        A sequence of strings or a pyarrow.StringArray.
+        A sequence of strings, a numpy.ndarray of str dtype, or a pyarrow.StringArray.
 
     Returns
     -------

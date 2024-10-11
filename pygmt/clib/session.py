@@ -17,6 +17,7 @@ from typing import Literal
 import numpy as np
 import pandas as pd
 import xarray as xr
+from pygmt._typing import StringArrayTypes
 from pygmt.clib.conversion import (
     array_to_datetime,
     dataarray_to_matrix,
@@ -33,16 +34,6 @@ from pygmt.helpers import (
     tempfile_from_geojson,
     tempfile_from_image,
 )
-
-StringArrayTypes = Sequence[str] | np.ndarray
-
-try:
-    import pyarrow as pa
-
-    StringArrayTypes |= pa.StringArray
-except ImportError:
-    pa = None
-
 
 FAMILIES = [
     "GMT_IS_DATASET",  # Entity is a data table
