@@ -28,7 +28,7 @@ def dataarray_to_matrix(
     grid are negative, the output matrix will be sorted by the DataArray coordinates to
     yield positive increments.
 
-    If the underlying data array is not C contiguous, for example if it's a slice of a
+    If the underlying data array is not C contiguous, for example, if it's a slice of a
     larger grid, a copy will need to be generated.
 
     Parameters
