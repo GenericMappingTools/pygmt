@@ -204,7 +204,6 @@ def vectors_to_arrays(vectors):
     True
     >>> all(isinstance(a.dtype, np.dtypes.DateTime64DType) for a in arrays)
     True
-
     """
     dtypes = {
         "date32[day][pyarrow]": np.datetime64,
