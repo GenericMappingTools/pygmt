@@ -97,19 +97,9 @@ PyGMT requires the following libraries to be installed:
 For the minimum supported versions of the dependencies, please see [](minversions.md).
 :::
 
-The following are optional dependencies:
-
-- [IPython](https://ipython.org): For embedding the figures in Jupyter notebooks (recommended).
-- [Contextily](https://contextily.readthedocs.io): For retrieving tile maps from the internet.
-- [GeoPandas](https://geopandas.org): For using and plotting GeoDataFrame objects.
-- [RioXarray](https://corteva.github.io/rioxarray): For saving multi-band rasters to GeoTIFFs.
-
 :::{note}
-If you have [PyArrow](https://arrow.apache.org/docs/python/index.html) installed, PyGMT
-does have some initial support for `pandas.Series` and `pandas.DataFrame` objects with
-Apache Arrow-backed arrays. Specifically, only uint/int/float and date32/date64 dtypes
-are supported for now. Support for string Arrow dtypes is still a work in progress.
-For more details, see [issue #2800](https://github.com/GenericMappingTools/pygmt/issues/2800).
+Some optional dependencies adds more functionality to PyGMT. For a complete list of
+optional dependencies, refer to [](ecosystem.md).
 :::
 
 ## Installing GMT and other dependencies
@@ -164,6 +154,26 @@ conda activate pygmt
 
 From now on, all commands will take place inside the virtual environment called `pygmt`
 and won't affect your default `base` installation.
+
+::::: {tip}
+You can also install PyGMT's optional dependencies for more functionalities.
+
+:::: {tab-set}
+::: {tab-item} mamba
+:sync: mamba
+```
+mamba install contextily geopandas ipython pyarrow rioxarray
+```
+:::
+
+::: {tab-item} conda
+:sync: conda
+```
+conda install contextily geopandas ipython pyarrow rioxarray
+```
+:::
+::::
+:::::
 
 ## Installing PyGMT
 
