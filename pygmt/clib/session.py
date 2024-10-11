@@ -629,14 +629,7 @@ class Session:
 
         # 'args' can be (1) a single string or (2) a list of strings.
         argv: bytes | ctp.Array[ctp.c_char_p] | None
-        if isinstance(args, str):
-            # 'args' is a single string that contains whitespace-separated arguments.
-            # In this way, we need to correctly handle option arguments that contain
-            # whitespaces or quotation marks. It's used in PyGMT <= v0.11.0 but is no
-            # longer recommended.
-            mode = self["GMT_MODULE_CMD"]
-            argv = args.encode()
-        elif isinstance(args, list):
+        if isinstance(args, list):
             # 'args' is a list of strings and each string contains a module argument.
             # In this way, GMT can correctly handle option arguments with whitespaces or
             # quotation marks. This is the preferred way to pass arguments to the GMT
@@ -644,16 +637,21 @@ class Session:
             mode = len(args)  # 'mode' is the number of arguments.
             # Pass a null pointer if no arguments are specified.
             argv = strings_to_ctypes_array(args) if mode != 0 else None
+        elif isinstance(args, str):
+            # 'args' is a single string that contains whitespace-separated arguments.
+            # In this way, we need to correctly handle option arguments that contain
+            # whitespaces or quotation marks. It's used in PyGMT <= v0.11.0 but is no
+            # longer recommended.
+            mode = self["GMT_MODULE_CMD"]
+            argv = args.encode()
         else:
-            raise GMTInvalidInput(
-                "'args' must be either a string or a list of strings."
-            )
+            msg = "'args' must either be a list of strings (recommended) or a string."
+            raise GMTInvalidInput(msg)
 
         status = c_call_module(self.session_pointer, module.encode(), mode, argv)
         if status != 0:
-            raise GMTCLibError(
-                f"Module '{module}' failed with status code {status}:\n{self._error_message}"
-            )
+            msg = f"Module '{module}' failed with status code {status}:\n{self._error_message}"
+            raise GMTCLibError(msg)
 
     def create_data(
         self,
@@ -1809,9 +1807,9 @@ class Session:
                 warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
             _data = (data,) if not isinstance(data, pathlib.PurePath) else (str(data),)
         elif kind == "vectors":
-            _data = [np.atleast_1d(x), np.atleast_1d(y)]
+            _data = [x, y]
             if z is not None:
-                _data.append(np.atleast_1d(z))
+                _data.append(z)
             if extra_arrays:
                 _data.extend(extra_arrays)
         elif kind == "matrix":  # turn 2-D arrays into list of vectors
@@ -1962,7 +1960,7 @@ class Session:
         c_inquire_virtualfile = self.get_libgmt_func(
             "GMT_Inquire_VirtualFile",
             argtypes=[ctp.c_void_p, ctp.c_char_p],
-            restype=ctp.c_uint,
+            restype=ctp.c_int,
         )
         return c_inquire_virtualfile(self.session_pointer, vfname.encode())
 
