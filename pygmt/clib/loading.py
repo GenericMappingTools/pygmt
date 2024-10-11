@@ -122,22 +122,22 @@ def clib_names(os_name: str) -> list[str]:
     return libnames
 
 
-def clib_full_names(env: Mapping | None = None) -> Iterator[str]:
+def clib_full_names(env: Mapping[str, str] | None = None) -> Iterator[str]:
     """
     Return full path(s) of GMT shared library for the current operating system.
 
     The GMT shared library is searched for in following ways, sorted by priority:
 
     1. Path defined by the environment variable :term:`GMT_LIBRARY_PATH`
-    2. Path returned by the command "gmt --show-library"
-    3. Path defined by the environment variable PATH (Windows only)
+    2. Path returned by the command ``gmt --show-library``
+    3. Path defined by the environment variable :term:`PATH` (Windows only)
     4. System default search path
 
     Parameters
     ----------
     env
         A dictionary containing the environment variables. If ``None``, will default to
-        ``os.environ``.
+        :py:data:`os.environ`.
 
     Yields
     ------
@@ -180,7 +180,7 @@ def clib_full_names(env: Mapping | None = None) -> Iterator[str]:
         yield libname
 
 
-def check_libgmt(libgmt: ctypes.CDLL):
+def check_libgmt(libgmt: ctypes.CDLL) -> None:
     """
     Make sure the GMT shared library was loaded correctly.
 
@@ -198,7 +198,7 @@ def check_libgmt(libgmt: ctypes.CDLL):
     GMTCLibError
     """
     for func in ["Create_Session", "Get_Enum", "Call_Module", "Destroy_Session"]:
-        if not hasattr(libgmt, "GMT_" + func):
+        if not hasattr(libgmt, f"GMT_{func}"):
             msg = (
                 f"Error loading '{libgmt._name}'. Couldn't access function GMT_{func}. "
                 "Ensure that you have installed an up-to-date GMT version 6 library and "

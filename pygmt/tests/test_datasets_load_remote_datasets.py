@@ -32,10 +32,8 @@ def test_load_remote_dataset_benchmark_with_region():
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.gmt.registration == 0
     assert data.shape == (11, 21)
-    # The cpt attribute was added since GMT 6.4.0
     # Can't access the cpt attribute using virtual files
-    # if Version(__gmt_version__) >= Version("6.4.0"):
-    #    assert data.attrs["cpt"] == "@earth_age.cpt"
+    # assert data.attrs["cpt"] == "@earth_age.cpt"
 
 
 def test_load_remote_dataset_invalid_resolutions():
