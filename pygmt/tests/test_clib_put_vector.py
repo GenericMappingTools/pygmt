@@ -32,7 +32,7 @@ def test_put_vector(dtypes):
                 family="GMT_IS_DATASET|GMT_VIA_VECTOR",
                 geometry="GMT_IS_POINT",
                 mode="GMT_CONTAINER_ONLY",
-                dim=[3, 5, 1, 0],  # columns, rows, layers, dtype
+                dim=[3, 5, 0, 0],  # ncolumns, nrows, dtype, unused
             )
             x = np.array([1, 2, 3, 4, 5], dtype=dtype)
             y = np.array([6, 7, 8, 9, 10], dtype=dtype)
@@ -71,7 +71,7 @@ def test_put_vector_mixed_dtypes(dtypes):
                 family="GMT_IS_DATASET|GMT_VIA_VECTOR",
                 geometry="GMT_IS_POINT",
                 mode="GMT_CONTAINER_ONLY",
-                dim=[2, 5, 1, 0],  # columns, rows, layers, dtype
+                dim=[2, 5, 0, 0],  # ncolumns, nrows, dtype, unused
             )
             x = np.array([1, 2, 3, 4, 5], dtype=dtypex)
             y = np.array([6, 7, 8, 9, 10], dtype=dtypey)
@@ -136,7 +136,7 @@ def test_put_vector_string_dtype():
                 family="GMT_IS_DATASET|GMT_VIA_VECTOR",
                 geometry="GMT_IS_POINT",
                 mode="GMT_CONTAINER_ONLY",
-                dim=[2, 4, 1, 0],  # columns, rows, layers, dtype
+                dim=[2, 4, 0, 0],  # ncolumns, nrows, dtype, unused
             )
             lib.put_vector(dataset, column=lib["GMT_X"], vector=vectors[i])
             lib.put_vector(dataset, column=lib["GMT_Y"], vector=vectors[j])
@@ -180,7 +180,7 @@ def test_put_vector_timedelta64_dtype():
                 family="GMT_IS_DATASET|GMT_VIA_VECTOR",
                 geometry="GMT_IS_POINT",
                 mode="GMT_CONTAINER_ONLY",
-                dim=[1, 5, 1, 0],  # columns, rows, layers, dtype
+                dim=[1, 5, 0, 0],  # ncolumns, nrows, dtype, unused
             )
             timedata = np.arange(np.timedelta64(0, unit), np.timedelta64(5, unit))
             lib.put_vector(dataset, column=0, vector=timedata)
@@ -219,7 +219,7 @@ def test_put_vector_invalid_dtype():
                 family="GMT_IS_DATASET|GMT_VIA_VECTOR",
                 geometry="GMT_IS_POINT",
                 mode="GMT_CONTAINER_ONLY",
-                dim=[2, 3, 1, 0],  # columns, rows, layers, dtype
+                dim=[2, 3, 0, 0],  # ncolumns, nrows, dtype, unused
             )
             data = np.array([37, 12, 556], dtype=dtype)
             with pytest.raises(GMTInvalidInput, match="Unsupported numpy data type"):
@@ -235,7 +235,7 @@ def test_put_vector_wrong_column():
             family="GMT_IS_DATASET|GMT_VIA_VECTOR",
             geometry="GMT_IS_POINT",
             mode="GMT_CONTAINER_ONLY",
-            dim=[1, 3, 1, 0],  # columns, rows, layers, dtype
+            dim=[1, 3, 0, 0],  # ncolumns, nrows, dtype, unused
         )
         data = np.array([37, 12, 556], dtype="float32")
         with pytest.raises(GMTCLibError):
@@ -251,7 +251,7 @@ def test_put_vector_2d_fails():
             family="GMT_IS_DATASET|GMT_VIA_VECTOR",
             geometry="GMT_IS_POINT",
             mode="GMT_CONTAINER_ONLY",
-            dim=[1, 6, 1, 0],  # columns, rows, layers, dtype
+            dim=[1, 6, 0, 0],  # ncolumns, nrows, dtype, unused
         )
         data = np.array([[37, 12, 556], [37, 12, 556]], dtype="int32")
         with pytest.raises(GMTInvalidInput):
