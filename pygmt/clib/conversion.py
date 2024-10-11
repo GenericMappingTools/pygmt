@@ -9,6 +9,10 @@ from collections.abc import Sequence
 import numpy as np
 from pygmt.exceptions import GMTInvalidInput
 
+try:
+    import pyarrow as pa
+except ImportError:
+    pa = None
 
 def dataarray_to_matrix(grid):
     """
@@ -263,14 +267,15 @@ def sequence_to_ctypes_array(
     return (ctype * size)(*sequence)
 
 
-def strings_to_ctypes_array(strings: Sequence[str]) -> ctp.Array:
+def strings_to_ctypes_array(strings: Sequence[str] | pa.StringArray) -> ctp.Array:
     """
-    Convert a sequence (e.g., a list) of strings into a ctypes array.
+    Convert a sequence (e.g., a list) of strings or a pyarrow.StringArray into a ctypes
+    array.
 
     Parameters
     ----------
     strings
-        A sequence of strings.
+        A sequence of strings or a pyarrow.StringArray.
 
     Returns
     -------
@@ -286,7 +291,12 @@ def strings_to_ctypes_array(strings: Sequence[str]) -> ctp.Array:
     >>> [s.decode() for s in ctypes_array]
     ['first', 'second', 'third']
     """
-    return (ctp.c_char_p * len(strings))(*[s.encode() for s in strings])
+    try:
+        bytes_string_list = [s.encode() for s in strings]
+    except AttributeError:  # 'pyarrow.StringScalar' object has no attribute 'encode'
+        # Convert pyarrow.StringArray to Python list first
+        bytes_string_list = [s.encode() for s in strings.to_pylist()]
+    return (ctp.c_char_p * len(strings))(*bytes_string_list)
 
 
 def array_to_datetime(array):

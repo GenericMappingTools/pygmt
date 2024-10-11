@@ -8,12 +8,31 @@ import pytest
 from pygmt import clib
 from pygmt.exceptions import GMTCLibError
 from pygmt.helpers import GMTTempFile
+from pygmt.helpers.testing import skip_if_no
+
+try:
+    import pyarrow as pa
+except ImportError:
+    pa = None
 
 
 @pytest.mark.benchmark
-def test_put_strings():
+@pytest.mark.parametrize(
+    ("array_func", "dtype"),
+    [
+        pytest.param(np.array, {"dtype": str}, id="str"),
+        pytest.param(
+            getattr(pa, "array", None),
+            {"type": pa.string()},
+            marks=skip_if_no(package="pyarrow"),
+            id="pyarrow",
+        ),
+    ],
+)
+def test_put_strings(array_func, dtype):
     """
-    Check that assigning a numpy array of dtype str to a dataset works.
+    Check that assigning a numpy array of dtype str, or a pyarrow.StringArray to a
+    dataset works.
     """
     with clib.Session() as lib:
         dataset = lib.create_data(
@@ -24,7 +43,7 @@ def test_put_strings():
         )
         x = np.array([1, 2, 3, 4, 5], dtype=np.int32)
         y = np.array([6, 7, 8, 9, 10], dtype=np.int32)
-        strings = np.array(["a", "bc", "defg", "hijklmn", "opqrst"], dtype=str)
+        strings = array_func(["a", "bc", "defg", "hijklmn", "opqrst"], **dtype)
         lib.put_vector(dataset, column=lib["GMT_X"], vector=x)
         lib.put_vector(dataset, column=lib["GMT_Y"], vector=y)
         lib.put_strings(
