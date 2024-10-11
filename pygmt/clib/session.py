@@ -34,10 +34,15 @@ from pygmt.helpers import (
     tempfile_from_image,
 )
 
+StringArrayTypes = Sequence[str]
+
 try:
     import pyarrow as pa
+
+    StringArrayTypes |= pa.StringArray
 except ImportError:
     pa = None
+
 
 FAMILIES = [
     "GMT_IS_DATASET",  # Entity is a data table
@@ -945,7 +950,7 @@ class Session:
         self,
         dataset: ctp.c_void_p,
         family: Literal["GMT_IS_VECTOR", "GMT_IS_MATRIX"],
-        strings: Sequence[str] | pa.StringArray,
+        strings: StringArrayTypes,
     ):
         """
         Attach a 1-D numpy array of dtype str or pyarrow.StringArray as a column on a

@@ -9,10 +9,15 @@ from collections.abc import Sequence
 import numpy as np
 from pygmt.exceptions import GMTInvalidInput
 
+StringArrayTypes = Sequence[str]
+
 try:
     import pyarrow as pa
+
+    StringArrayTypes |= pa.StringArray
 except ImportError:
     pa = None
+
 
 def dataarray_to_matrix(grid):
     """
@@ -267,7 +272,7 @@ def sequence_to_ctypes_array(
     return (ctype * size)(*sequence)
 
 
-def strings_to_ctypes_array(strings: Sequence[str] | pa.StringArray) -> ctp.Array:
+def strings_to_ctypes_array(strings: StringArrayTypes) -> ctp.Array:
     """
     Convert a sequence (e.g., a list) of strings or a pyarrow.StringArray into a ctypes
     array.
