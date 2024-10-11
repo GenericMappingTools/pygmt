@@ -99,8 +99,8 @@ def text_(  # noqa: PLR0912
         through ``x``/``y``. Specify with a two-letter (order independent)
         code, chosen from:
 
-        * Horizontal: **L**\ (eft), **C**\ (entre), **R**\ (ight)
         * Vertical: **T**\ (op), **M**\ (iddle), **B**\ (ottom)
+        * Horizontal: **L**\ (eft), **C**\ (entre), **R**\ (ight)
 
         For example, ``position="TL"`` plots the text at the Top Left corner
         of the map.
