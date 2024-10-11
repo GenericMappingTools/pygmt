@@ -1775,7 +1775,7 @@ class Session:
             if check_kind == "raster":
                 valid_kinds += ("grid", "image")
             elif check_kind == "vector":
-                valid_kinds += ("none", "matrix", "vectors", "geojson")
+                valid_kinds += ("empty", "matrix", "vectors", "geojson")
             if kind not in valid_kinds:
                 raise GMTInvalidInput(
                     f"Unrecognized data type for {check_kind}: {type(data)}"
@@ -1783,14 +1783,14 @@ class Session:
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
-            "file": contextlib.nullcontext,
             "arg": contextlib.nullcontext,
+            "empty": self.virtualfile_from_vectors,
+            "file": contextlib.nullcontext,
             "geojson": tempfile_from_geojson,
             "grid": self.virtualfile_from_grid,
             "image": tempfile_from_image,
             "stringio": self.virtualfile_from_stringio,
             "matrix": self.virtualfile_from_matrix,
-            "none": self.virtualfile_from_vectors,
             "vectors": self.virtualfile_from_vectors,
         }[kind]
 
@@ -1806,7 +1806,7 @@ class Session:
                 )
                 warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
             _data = (data,) if not isinstance(data, pathlib.PurePath) else (str(data),)
-        elif kind == "none":
+        elif kind == "empty":
             # data is None, so data must be given via x/y/z.
             _data = [x, y]
             if z is not None:

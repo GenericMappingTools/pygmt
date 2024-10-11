@@ -193,7 +193,7 @@ def text_(  # noqa: PLR0912
         raise GMTInvalidInput("'text' can't be None or array when 'position' is given.")
     if textfiles is not None and text is not None:
         raise GMTInvalidInput("'text' can't be specified when 'textfiles' is given.")
-    if kind == "none" and text is None:
+    if kind == "empty" and text is None:
         raise GMTInvalidInput("Must provide text with x/y pairs.")
 
     # Arguments that can accept arrays.
@@ -217,7 +217,7 @@ def text_(  # noqa: PLR0912
 
     extra_arrays = []
     confdict = {}
-    if kind == "none":
+    if kind == "empty":
         for arg, flag, name in array_args:
             if is_nonstr_iter(arg):
                 kwargs["F"] += flag

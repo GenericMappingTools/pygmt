@@ -191,7 +191,7 @@ def _check_encoding(
 def data_kind(
     data: Any, required: bool = True
 ) -> Literal[
-    "arg", "file", "geojson", "grid", "image", "matrix", "none", "stringio", "vectors"
+    "arg", "empty", "file", "geojson", "grid", "image", "matrix", "stringio", "vectors"
 ]:
     r"""
     Check the kind of data that is provided to a module.
@@ -199,10 +199,10 @@ def data_kind(
     The argument passed to the ``data`` parameter can have any data type. The
     following data kinds are recognized and returned as ``kind``:
 
-    - ``"none"`: ``data`` is ``None`` and ``required=True``. It means the data is given
-      via a series of vectors like x/y/z
     - ``"arg"``: ``data`` is ``None`` and ``required=False``, or bool, int, float,
       representing an optional argument, used for dealing with optional virtual files
+    - ``"empty"`: ``data`` is ``None`` and ``required=True``. It means the data is given
+      via a series of vectors like x/y/z
     - ``"file"``: a string or a :class:`pathlib.PurePath` object or a sequence of them,
       representing one or more file names
     - ``"geojson"``: a geo-like Python object that implements ``__geo_interface__``
@@ -243,6 +243,11 @@ def data_kind(
     ['arg', 'arg', 'arg', 'arg']
     >>> data_kind(data=None, required=False)
     'arg'
+
+    The "empty" kind:
+
+    >>> data_kind(data=None)
+    'empty'
 
     The "file" kind:
 
@@ -295,15 +300,10 @@ def data_kind(
     'vectors'
     >>> data_kind(data=pd.Series([1, 2, 3], name="x"))  # pd.Series
     'vectors'
-
-    The "none" kind:
-
-    >>> data_kind(data=None)
-    'none'
     """
     match data:
         case None if required:  # No data provided and required=True.
-            kind = "none"
+            kind = "empty"
         case str() | pathlib.PurePath():  # One file.
             kind = "file"
         case list() | tuple() if all(

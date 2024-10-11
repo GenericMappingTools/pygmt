@@ -206,7 +206,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
 
     kind = data_kind(data)
     extra_arrays = []
-    if kind == "none":  # Add more columns for vectors input
+    if kind == "empty":  # Add more columns for vectors input
         # Parameters for vector styles
         if (
             kwargs.get("S") is not None
