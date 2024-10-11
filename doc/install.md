@@ -98,7 +98,7 @@ For the minimum supported versions of the dependencies, please see [](minversion
 :::
 
 :::{note}
-Some optional dependencies adds more functionality to PyGMT. For a complete list of
+Some optional dependencies add more functionality to PyGMT. For a complete list of these
 optional dependencies, refer to [](ecosystem.md).
 :::
 
@@ -156,7 +156,7 @@ From now on, all commands will take place inside the virtual environment called 
 and won't affect your default `base` installation.
 
 ::::: {tip}
-You can also install PyGMT's optional dependencies for more functionalities.
+You can also install PyGMT's optional dependencies for more functionality.
 
 :::: {tab-set}
 ::: {tab-item} mamba
