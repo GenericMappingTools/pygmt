@@ -231,6 +231,7 @@ def test_virtualfile_from_vectors(dtypes):
             assert output == expected
 
 
+@pytest.mark.benchmark
 @pytest.mark.parametrize(
     ("array_func", "dtype"),
     [
