@@ -23,7 +23,7 @@ except ImportError:
         pytest.param(np.array, {"dtype": str}, id="str"),
         pytest.param(
             getattr(pa, "array", None),
-            {"type": pa.string()},
+            {"type": "string"},  # pa.string()
             marks=skip_if_no(package="pyarrow"),
             id="pyarrow",
         ),

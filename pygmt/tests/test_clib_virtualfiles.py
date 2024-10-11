@@ -238,7 +238,7 @@ def test_virtualfile_from_vectors(dtypes):
         pytest.param(np.array, {"dtype": object}, id="object"),
         pytest.param(
             getattr(pa, "array", None),
-            {"type": pa.string()},
+            {"type": "string"},  # pa.string()
             marks=skip_if_no(package="pyarrow"),
             id="pyarrow",
         ),
