@@ -103,6 +103,7 @@ jobs:
             contextily
             geopandas<1.0
             ipython
+            pyarrow
             rioxarray
             make
             pip
