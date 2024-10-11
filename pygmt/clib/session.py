@@ -629,14 +629,7 @@ class Session:
 
         # 'args' can be (1) a single string or (2) a list of strings.
         argv: bytes | ctp.Array[ctp.c_char_p] | None
-        if isinstance(args, str):
-            # 'args' is a single string that contains whitespace-separated arguments.
-            # In this way, we need to correctly handle option arguments that contain
-            # whitespaces or quotation marks. It's used in PyGMT <= v0.11.0 but is no
-            # longer recommended.
-            mode = self["GMT_MODULE_CMD"]
-            argv = args.encode()
-        elif isinstance(args, list):
+        if isinstance(args, list):
             # 'args' is a list of strings and each string contains a module argument.
             # In this way, GMT can correctly handle option arguments with whitespaces or
             # quotation marks. This is the preferred way to pass arguments to the GMT
@@ -644,16 +637,21 @@ class Session:
             mode = len(args)  # 'mode' is the number of arguments.
             # Pass a null pointer if no arguments are specified.
             argv = strings_to_ctypes_array(args) if mode != 0 else None
+        elif isinstance(args, str):
+            # 'args' is a single string that contains whitespace-separated arguments.
+            # In this way, we need to correctly handle option arguments that contain
+            # whitespaces or quotation marks. It's used in PyGMT <= v0.11.0 but is no
+            # longer recommended.
+            mode = self["GMT_MODULE_CMD"]
+            argv = args.encode()
         else:
-            raise GMTInvalidInput(
-                "'args' must be either a string or a list of strings."
-            )
+            msg = "'args' must either be a list of strings (recommended) or a string."
+            raise GMTInvalidInput(msg)
 
         status = c_call_module(self.session_pointer, module.encode(), mode, argv)
         if status != 0:
-            raise GMTCLibError(
-                f"Module '{module}' failed with status code {status}:\n{self._error_message}"
-            )
+            msg = f"Module '{module}' failed with status code {status}:\n{self._error_message}"
+            raise GMTCLibError(msg)
 
     def create_data(
         self,
