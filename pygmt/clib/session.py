@@ -68,14 +68,14 @@ METHODS = [
 
 DIRECTIONS = ["GMT_IN", "GMT_OUT"]
 
-MODES = ["GMT_CONTAINER_ONLY", "GMT_IS_OUTPUT"]
+MODES = ["GMT_CONTAINER_ONLY", "GMT_DATA_ONLY", "GMT_CONTAINER_AND_DATA", "GMT_IS_OUTPUT"]
 MODE_MODIFIERS = [
     "GMT_GRID_IS_CARTESIAN",
     "GMT_GRID_IS_GEO",
     "GMT_WITH_STRINGS",
 ]
 
-REGISTRATIONS = ["GMT_GRID_PIXEL_REG", "GMT_GRID_NODE_REG"]
+REGISTRATIONS = ["GMT_GRID_NODE_REG", "GMT_GRID_PIXEL_REG"]
 
 DTYPES = {
     np.int8: "GMT_CHAR",
@@ -643,53 +643,103 @@ class Session:
 
     def create_data(
         self,
-        family,
-        geometry,
-        mode,
-        dim=None,
-        ranges=None,
-        inc=None,
-        registration="GMT_GRID_NODE_REG",
-        pad=None,
-    ):
+        family: str,
+        geometry: str,
+        mode: str,
+        dim: Sequence[int] | None = None,
+        ranges: Sequence[float] | None = None,
+        inc: Sequence[float] | None = None,
+        registration: Literal[
+            "GMT_GRID_NODE_REG", "GMT_GRID_PIXEL_REG"
+        ] = "GMT_GRID_NODE_REG",
+        pad: int | None = None,
+    ) -> ctp.c_void_p:
         """
-        Create an empty GMT data container.
+        Create an empty GMT data container and allocate space to hold data.
+
+        Valid data families and geometries are in ``FAMILIES`` and ``GEOMETRIES``.
+
+        There are two ways to define the dimensions needed to actually allocate memory:
+
+        1. Via ``dim``.
+
+           ``dim`` contains up to 4 values and they have different meanings for
+           diffenrent GMT data family:
+
+           - ``GMT_IS_DATASET``:
+
+             - 0: number of tables
+             - 1: number of segments per table
+             - 2: number of rows per segment
+             - 3: number of columns per row
+
+           - ``GMT_IS_VECTOR``:
+
+             - 0: number of columns
+             - 1: number of rows [optional, can be 0 if unknown]
+             - 2: data type (e.g., ``GMT_DOUBLE``)
+
+           - ``GMT_IS_GRID``/``GMT_IS_IMAGE``/``GMT_IS_MATRIX``:
+
+             - 0: number of columns
+             - 1: number of rows
+             - 2: number of bands or layers [Ignored for ``GMT_IS_GRID``]
+
+        2. Via ``ranges``, ``inc`` and ``registration``.
+
+        When creating a grid/image/cube, you can do it in one or two steps:
+
+        1. Call this function with ``mode="GMT_CONTAINER_AND_DATA"``. This creates
+           header and allocates grid|image
+        2. Call this function twice:
+
+           1. First with ``mode="GMT_CONTAINER_ONLY"``, to creates header only and
+              computes the dimensions based on other parameters
+           2. Second with ``mode="GMT_DATA_ONLY"``, to allocate the grid/image/cube
+              array based on the dimensions already set. This time, you pass NULL for
+              ``dim``/``ranges``/``inc``/``registration``/``pad`` and let ``data`` be
+              the void pointer returned in the first step.
+
+           **NOTES**: This is not implmented yet, since this function doesn't have the
+           ``data`` parameter.
 
         Parameters
         ----------
-        family : str
-            A valid GMT data family name (e.g., ``'GMT_IS_DATASET'``). See the
-            ``FAMILIES`` attribute for valid names.
-        geometry : str
-            A valid GMT data geometry name (e.g., ``'GMT_IS_POINT'``). See the
-            ``GEOMETRIES`` attribute for valid names.
-        mode : str
-            A valid GMT data mode (e.g., ``'GMT_IS_OUTPUT'``). See the
-            ``MODES`` attribute for valid names.
-        dim : list of 4 integers
-            The dimensions of the dataset. See the documentation for the GMT C
-            API function ``GMT_Create_Data`` (``src/gmt_api.c``) for the full
-            range of options regarding 'dim'. If ``None``, will pass in the
-            NULL pointer.
-        ranges : list of 4 floats
-            The dataset extent. Also a bit of a complicated argument. See the C
-            function documentation. It's called ``range`` in the C function but
-            it would conflict with the Python built-in ``range`` function.
-        inc : list of 2 floats
-            The increments between points of the dataset. See the C function
-            documentation.
-        registration : str
-            The node registration (what the coordinates mean). Can be
-            ``'GMT_GRID_PIXEL_REG'`` or ``'GMT_GRID_NODE_REG'``. Defaults to
-            ``'GMT_GRID_NODE_REG'``.
-        pad : int
-            The grid padding. Defaults to ``GMT_PAD_DEFAULT``.
+        family
+            A valid GMT data family name (e.g., ``"GMT_IS_DATASET"``). See ``FAMILIES``
+            for valid names.
+        geometry
+            A valid GMT data geometry name (e.g., ``"GMT_IS_POINT"``). See
+            ``GEOMETRIES`` for valid names.
+        mode
+            A valid GMT data mode (e.g., ``"GMT_IS_OUTPUT"``). See ``MODES`` for valid
+            names. For ``GMT_IS_DATASET``/``GMT_IS_MATRIX``/``GMT_IS_VECTOR``, adding
+            the ``GMT_WITH_STRINGS`` to the ``mode`` will allocate the corresponding
+            arrays of string pointers.
+        dim
+            The dimensions of the dataset, as explained above. If ``None``, will pass in
+            the NULL pointer.
+        ranges
+            The dataset extent.
+        inc
+            The increments between points of the dataset.
+        registration
+            The node registration. Can be ``"GMT_GRID_PIXEL_REG"`` or
+            ``"GMT_GRID_NODE_REG"``.
+        pad
+            The padding for ``GMT_IS_GRID``/``GMT_IS_IMAGE``/``GMT_IS_CUBE``. If
+            ``None``, defaults to ``"GMT_PAD_DEFAULT"``.
+
+            For ``GMT_IS_MATRIX``, it can be:
+
+            - 0: default row/col orientation [Default]
+            - 1: row-major format (C)
+            - 2: column-major format (FORTRAN)
 
         Returns
         -------
-        data_ptr : int
-            A ctypes pointer (an integer) to the allocated ``GMT_Dataset``
-            object.
+        data_ptr
+            A ctypes pointer (an integer) to the allocated GMT data container.
         """
         c_create_data = self.get_libgmt_func(
             "GMT_Create_Data",
@@ -702,9 +752,8 @@ class Session:
                 ctp.POINTER(ctp.c_double),  # range
                 ctp.POINTER(ctp.c_double),  # inc
                 ctp.c_uint,  # registration
-                ctp.c_int,  # pad
-                ctp.c_void_p,
-            ],  # data
+                ctp.c_void_p,  # data
+            ],
             restype=ctp.c_void_p,
         )
 
@@ -717,15 +766,14 @@ class Session:
         geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
         registration_int = self._parse_constant(registration, valid=REGISTRATIONS)
 
-        # Convert dim, ranges, and inc to ctypes arrays if given (will be None
-        # if not given to represent NULL pointers)
+        # Convert dim, ranges, and inc to ctypes arrays if given (will be None if not
+        # given to represent NULL pointers)
         dim = sequence_to_ctypes_array(dim, ctp.c_uint64, 4)
         ranges = sequence_to_ctypes_array(ranges, ctp.c_double, 4)
         inc = sequence_to_ctypes_array(inc, ctp.c_double, 2)
 
-        # Use a NULL pointer (None) for existing data to indicate that the
-        # container should be created empty. Fill it in later using put_vector
-        # and put_matrix.
+        # Use a NULL pointer (None) for existing data to indicate that the container
+        # should be created empty. Fill it in later using put_vector and put_matrix.
         data_ptr = c_create_data(
             self.session_pointer,
             family_int,
@@ -741,7 +789,6 @@ class Session:
 
         if data_ptr is None:
             raise GMTCLibError("Failed to create an empty GMT data pointer.")
-
         return data_ptr
 
     def _parse_pad(self, family, pad):
