@@ -18,7 +18,6 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 from pygmt.clib.conversion import (
-    array_to_datetime,
     dataarray_to_matrix,
     sequence_to_ctypes_array,
     strings_to_ctypes_array,
@@ -854,22 +853,13 @@ class Session:
         """
         # Check that the array has the given number of dimensions
         if array.ndim != ndim:
-            raise GMTInvalidInput(
-                f"Expected a numpy {ndim}-D array, got {array.ndim}-D."
-            )
+            msg = f"Expected a numpy {ndim}-D array, got {array.ndim}-D."
+            raise GMTInvalidInput(msg)
 
         # Check that the array has a valid/known data type
         if array.dtype.type not in DTYPES:
-            try:
-                if array.dtype.type is np.object_:
-                    # Try to convert unknown object type to np.datetime64
-                    array = array_to_datetime(array)
-                else:
-                    raise ValueError
-            except ValueError as e:
-                raise GMTInvalidInput(
-                    f"Unsupported numpy data type '{array.dtype.type}'."
-                ) from e
+            msg = f"Unsupported numpy data type '{array.dtype.type}'."
+            raise GMTInvalidInput(msg)
         return self[DTYPES[array.dtype.type]]
 
     def put_vector(self, dataset, column, vector):
@@ -917,7 +907,7 @@ class Session:
         gmt_type = self._check_dtype_and_dim(vector, ndim=1)
         if gmt_type in {self["GMT_TEXT"], self["GMT_DATETIME"]}:
             if gmt_type == self["GMT_DATETIME"]:
-                vector = np.datetime_as_string(array_to_datetime(vector))
+                vector = np.datetime_as_string(vector)
             vector_pointer = strings_to_ctypes_array(vector)
         else:
             vector_pointer = vector.ctypes.data_as(ctp.c_void_p)

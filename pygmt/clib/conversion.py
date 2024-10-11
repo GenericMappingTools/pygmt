@@ -224,6 +224,13 @@ def vectors_to_arrays(vectors: Sequence[Any]) -> list[np.ndarray]:
         else:
             vec_dtype = str(getattr(vector, "dtype", ""))
             array = np.ascontiguousarray(vector, dtype=dtypes.get(vec_dtype))
+        # Convert np.object_ to np.datetime64 or np.str_.
+        # If fails, then the array can't be recognized.
+        if array.dtype.type == np.object_:
+            try:
+                array = np.asarray(array, dtype=np.datetime64)
+            except ValueError:
+                array = np.asarray(array, dtype=np.str_)
         arrays.append(array)
     return arrays
 
@@ -312,6 +319,11 @@ def array_to_datetime(array: Sequence[Any]) -> np.ndarray:
     Convert a 1-D datetime array from various types into numpy.datetime64.
 
     If the input array is not in legal datetime formats, raise a ValueError exception.
+
+    .. deprecated:: 0.14.0
+
+       The function is no longer used in the PyGMT project, but we keep this function
+       to document the supported datetime types.
 
     Parameters
     ----------
