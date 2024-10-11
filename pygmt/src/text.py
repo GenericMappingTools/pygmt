@@ -2,7 +2,10 @@
 text - Plot text on a figure.
 """
 
+from collections.abc import Sequence
+
 import numpy as np
+from pygmt._typing import AnchorCode
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -44,11 +47,11 @@ def text_(  # noqa: PLR0912
     textfiles=None,
     x=None,
     y=None,
-    position=None,
+    position: AnchorCode | None = None,
     text=None,
     angle=None,
     font=None,
-    justify=None,
+    justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
     **kwargs,
 ):
     r"""
@@ -90,14 +93,14 @@ def text_(  # noqa: PLR0912
     x/y : float or 1-D arrays
         The x and y coordinates, or an array of x and y coordinates to plot
         the text.
-    position : str
+    position
         Set reference point on the map for the text by using x, y
         coordinates extracted from ``region`` instead of providing them
         through ``x``/``y``. Specify with a two-letter (order independent)
         code, chosen from:
 
-        * Horizontal: **L**\ (eft), **C**\ (entre), **R**\ (ight)
         * Vertical: **T**\ (op), **M**\ (iddle), **B**\ (ottom)
+        * Horizontal: **L**\ (eft), **C**\ (entre), **R**\ (ight)
 
         For example, ``position="TL"`` plots the text at the Top Left corner
         of the map.
@@ -116,7 +119,7 @@ def text_(  # noqa: PLR0912
         font. If no font info is explicitly given (i.e. ``font=True``), then
         the input to ``textfiles`` must have this information in one of its
         columns.
-    justify : str, bool or list of str
+    justify
         Set the alignment which refers to the part of the text string that
         will be mapped onto the (x, y) point. Choose a two-letter
         combination of **L**, **C**, **R** (for left, center, or right) and
