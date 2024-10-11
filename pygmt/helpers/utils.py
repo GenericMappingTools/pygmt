@@ -11,7 +11,7 @@ import subprocess
 import sys
 import time
 import webbrowser
-from collections.abc import Iterable, Sequence
+from collections.abc import Iterable, Mapping, Sequence
 from typing import Any, Literal
 
 import numpy as np
@@ -406,7 +406,7 @@ def non_ascii_to_octal(
 
 def build_arg_list(  # noqa: PLR0912
     kwdict: dict[str, Any],
-    confdict: dict[str, str] | None = None,
+    confdict: Mapping[str, Any] | None = None,
     infile: str | pathlib.PurePath | Sequence[str | pathlib.PurePath] | None = None,
     outfile: str | pathlib.PurePath | None = None,
 ) -> list[str]:
