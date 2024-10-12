@@ -1203,41 +1203,46 @@ class Session:
             raise GMTCLibError(f"Failed to write dataset to '{output}'")
 
     @contextlib.contextmanager
-    def open_virtualfile(self, family, geometry, direction, data):
+    def open_virtualfile(
+        self,
+        family: str,
+        geometry: str,
+        direction: str,
+        data: ctp.c_void_p | None,
+    ) -> Generator[str, None, None]:
         """
-        Open a GMT virtual file to pass data to and from a module.
+        Open a GMT virtual file associated with a data object for reading or writing.
 
-        GMT uses a virtual file scheme to pass in data or get data from API
-        modules. Use it to pass in your GMT data structure (created using
-        :meth:`pygmt.clib.Session.create_data`) to a module that expects an
-        input file, or get the output from a module that writes to a file.
+        GMT uses a virtual file scheme to pass in data or get data from API modules. Use
+        it to pass in your GMT data structure (created using
+        :meth:`pygmt.clib.Session.create_data`) to a module that expects an input file,
+        or get the output from a module that writes to a file.
 
-        Use in a ``with`` block. Will automatically close the virtual file when
-        leaving the ``with`` block. Because of this, no wrapper for
-        ``GMT_Close_VirtualFile`` is provided.
+        Use in a ``with`` block. Will automatically close the virtual file when leaving
+        the ``with`` block. Because of this, no wrapper for ``GMT_Close_VirtualFile``
+        is provided.
 
         Parameters
         ----------
-        family : str
-            A valid GMT data family name (e.g., ``"GMT_IS_DATASET"``). Should
-            be the same as the one you used to create your data structure.
-        geometry : str
-            A valid GMT data geometry name (e.g., ``"GMT_IS_POINT"``). Should
-            be the same as the one you used to create your data structure.
-        direction : str
-            Either ``"GMT_IN"`` or ``"GMT_OUT"`` to indicate if passing data to
-            GMT or getting it out of GMT, respectively.
-            By default, GMT can modify the data you pass in. Add modifier
-            ``"GMT_IS_REFERENCE"`` to tell GMT the data are read-only, or
-            ``"GMT_IS_DUPLICATE"`` to tell GMT to duplicate the data.
-        data : int or None
-            The ctypes void pointer to your GMT data structure. For output
-            (i.e., ``direction="GMT_OUT"``), it can be ``None`` to have GMT
-            automatically allocate the output GMT data structure.
+        family
+            A valid GMT data family name (e.g., ``"GMT_IS_DATASET"``). Should be the
+            same as the one you used to create your data structure.
+        geometry
+            A valid GMT data geometry name (e.g., ``"GMT_IS_POINT"``). Should be the
+            same as the one you used to create your data structure.
+        direction
+            Either ``"GMT_IN"`` or ``"GMT_OUT"`` to indicate if passing data to GMT or
+            getting it out of GMT, respectively. By default, GMT can modify the data you
+            pass in. Add modifier ``"GMT_IS_REFERENCE"`` to tell GMT the data are
+            read-only, or ``"GMT_IS_DUPLICATE"`` to tell GMT to duplicate the data.
+        data
+            The ctypes void pointer to the GMT data structure. For output (i.e.,
+            ``direction="GMT_OUT"``), it can be ``None`` to have GMT automatically
+            allocate the output GMT data structure.
 
         Yields
         ------
-        vfname : str
+        vfname
             The name of the virtual file that you can pass to a GMT module.
 
         Examples
@@ -1270,19 +1275,19 @@ class Session:
         c_open_virtualfile = self.get_libgmt_func(
             "GMT_Open_VirtualFile",
             argtypes=[
-                ctp.c_void_p,
-                ctp.c_uint,
-                ctp.c_uint,
-                ctp.c_uint,
-                ctp.c_void_p,
-                ctp.c_char_p,
+                ctp.c_void_p,  # V_API
+                ctp.c_uint,  # family
+                ctp.c_uint,  # geometry
+                ctp.c_uint,  # direction
+                ctp.c_void_p,  # data
+                ctp.c_char_p,  # name
             ],
             restype=ctp.c_int,
         )
 
         c_close_virtualfile = self.get_libgmt_func(
             "GMT_Close_VirtualFile",
-            argtypes=[ctp.c_void_p, ctp.c_char_p],
+            argtypes=[ctp.c_void_p, ctp.c_char_p],  # V_API, name
             restype=ctp.c_int,
         )
 
@@ -1297,7 +1302,11 @@ class Session:
             self.session_pointer, family_int, geometry_int, direction_int, data, buff
         )
         if status != 0:
-            raise GMTCLibError("Failed to create a virtual file.")
+            msg = (
+                f"Failed to create a virtual file with {family=}, {geometry=}, "
+                f"{direction=}."
+            )
+            raise GMTCLibError(msg)
 
         vfname = buff.value.decode()
         try:
@@ -1305,11 +1314,12 @@ class Session:
         finally:
             status = c_close_virtualfile(self.session_pointer, vfname.encode())
             if status != 0:
-                raise GMTCLibError(f"Failed to close virtual file '{vfname}'.")
+                msg = f"Failed to close virtual file '{vfname}'."
+                raise GMTCLibError(msg)
 
     def open_virtual_file(self, family, geometry, direction, data):
         """
-        Open a GMT virtual file to pass data to and from a module.
+        Open a GMT virtual file associated with a data object for reading or writing.
 
         .. deprecated: 0.11.0
 
