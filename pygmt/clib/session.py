@@ -77,7 +77,8 @@ MODE_MODIFIERS = [
 
 REGISTRATIONS = ["GMT_GRID_PIXEL_REG", "GMT_GRID_NODE_REG"]
 
-DTYPES = {
+# Dictionary for mapping numpy dtype to GMT data type
+DTYPES_NUMERIC = {
     np.int8: "GMT_CHAR",
     np.int16: "GMT_SHORT",
     np.int32: "GMT_INT",
@@ -88,10 +89,14 @@ DTYPES = {
     np.uint64: "GMT_ULONG",
     np.float32: "GMT_FLOAT",
     np.float64: "GMT_DOUBLE",
+}
+DTYPES_SPECIAL = {
     np.str_: "GMT_TEXT",
     np.datetime64: "GMT_DATETIME",
     np.timedelta64: "GMT_LONG",
 }
+DTYPES = DTYPES_NUMERIC | DTYPES_SPECIAL
+
 # Dictionary for storing the values of GMT constants.
 GMT_CONSTANTS = {}
 
@@ -849,9 +854,11 @@ class Session:
         """
         # Check that the array has the given number of dimensions
         if array.ndim != ndim:
-            raise GMTInvalidInput(
-                f"Expected a numpy {ndim}-D array, got {array.ndim}-D."
-            )
+            msg = f"Expected a numpy {ndim}-D array, got {array.ndim}-D."
+            raise GMTInvalidInput(msg)
+
+        # 2-D matrix must be in numeric types and 1-D array can be in special types.
+        _dtypes_supported = DTYPES if ndim == 1 else DTYPES_NUMERIC
 
         # Check that the array has a valid/known data type
         if array.dtype.type not in DTYPES:
@@ -867,41 +874,39 @@ class Session:
                 ) from e
         return self[DTYPES[array.dtype.type]]
 
-    def put_vector(self, dataset, column, vector):
+    def put_vector(self, dataset: ctp.c_void_p, column: int, vector: np.ndarray):
         r"""
-        Attach a numpy 1-D array as a column on a GMT dataset.
+        Attach a 1-D numpy array as a column on a GMT dataset.
 
-        Use this function to attach numpy array data to a GMT dataset and pass
-        it to GMT modules. Wraps ``GMT_Put_Vector``.
+        Use this function to attach numpy array data to a GMT dataset and pass it to GMT
+        modules. Wraps ``GMT_Put_Vector``.
 
-        The dataset must be created by :meth:`pygmt.clib.Session.create_data`
-        first. Use ``family='GMT_IS_DATASET|GMT_VIA_VECTOR'``.
+        The dataset must be created by :meth:`pygmt.clib.Session.create_data` first with
+        ``family="GMT_IS_DATASET|GMT_VIA_VECTOR"``.
 
-        Not all numpy dtypes are supported, only: int8, int16, int32, int64,
-        uint8, uint16, uint32, uint64, float32, float64, str\_, and datetime64.
+        Not all numpy dtypes are supported, only: int8, int16, int32, int64, uint8,
+        uint16, uint32, uint64, float32, float64, str\_, and datetime64.
 
         .. warning::
-            The numpy array must be C contiguous in memory. If it comes from a
-            column slice of a 2-D array, for example, you will have to make a
-            copy. Use :func:`numpy.ascontiguousarray` to make sure your vector
-            is contiguous (it won't copy if it already is).
+            The numpy array must be C contiguous in memory. Use
+            :func:`numpy.ascontiguousarray` to make sure your vector is contiguous (it
+            won't copy if it already is).
 
         Parameters
         ----------
-        dataset : :class:`ctypes.c_void_p`
-            The ctypes void pointer to a ``GMT_Dataset``. Create it with
+        dataset
+            The ctypes void pointer to a ``GMT_VECTOR`` data container. Create it with
             :meth:`pygmt.clib.Session.create_data`.
-        column : int
+        column
             The column number of this vector in the dataset (starting from 0).
-        vector : numpy 1-D array
-            The array that will be attached to the dataset. Must be a 1-D C
-            contiguous array.
+        vector
+            The array that will be attached to the dataset. Must be a 1-D C contiguous
+            array.
 
         Raises
         ------
         GMTCLibError
-            If given invalid input or ``GMT_Put_Vector`` exits with
-            status != 0.
+            If given invalid input or ``GMT_Put_Vector`` exits with status != 0.
         """
         c_put_vector = self.get_libgmt_func(
             "GMT_Put_Vector",
@@ -920,10 +925,11 @@ class Session:
             self.session_pointer, dataset, column, gmt_type, vector_pointer
         )
         if status != 0:
-            raise GMTCLibError(
-                f"Failed to put vector of type {vector.dtype} "
-                f"in column {column} of dataset."
+            msg = (
+                f"Failed to put vector of type {vector.dtype} in column {column} of "
+                "dataset."
             )
+            raise GMTCLibError(msg)
 
     def put_strings(self, dataset, family, strings):
         """
@@ -984,41 +990,40 @@ class Session:
                 f"Failed to put strings of type {strings.dtype} into dataset"
             )
 
-    def put_matrix(self, dataset, matrix, pad=0):
+    def put_matrix(self, dataset: ctp.c_void_p, matrix: np.ndarray, pad: int = 0):
         """
-        Attach a numpy 2-D array to a GMT dataset.
+        Attach a 2-D numpy array to a GMT dataset.
 
-        Use this function to attach numpy array data to a GMT dataset and pass
-        it to GMT modules. Wraps ``GMT_Put_Matrix``.
+        Use this function to attach numpy array data to a GMT dataset and pass it to GMT
+        modules. Wraps ``GMT_Put_Matrix``.
 
-        The dataset must be created by :meth:`pygmt.clib.Session.create_data`
-        first. Use ``|GMT_VIA_MATRIX'`` in the family.
+        The dataset must be created by :meth:`pygmt.clib.Session.create_data` first. Use
+        ``family="GMT_IS_DATASET|GMT_VIA_MATRIX"``.
 
-        Not all numpy dtypes are supported, only: int8, int16, int32, int64,
-        uint8, uint16, uint32, uint64, float32, and float64.
+        Not all numpy dtypes are supported, only: int8, int16, int32, int64, uint8,
+        uint16, uint32, uint64, float32, and float64.
 
         .. warning::
             The numpy array must be C contiguous in memory. Use
-            :func:`numpy.ascontiguousarray` to make sure your vector is
-            contiguous (it won't copy if it already is).
+            :func:`numpy.ascontiguousarray` to make sure your matrix is contiguous (it
+            won't copy if it already is).
 
         Parameters
         ----------
-        dataset : :class:`ctypes.c_void_p`
-            The ctypes void pointer to a ``GMT_Dataset``. Create it with
+        dataset
+            The ctypes void pointer to a ``GMT_MATRIX`` data container. Create it with
             :meth:`pygmt.clib.Session.create_data`.
-        matrix : numpy 2-D array
-            The array that will be attached to the dataset. Must be a 2-D C
-            contiguous array.
-        pad : int
-            The amount of padding that should be added to the matrix. Use when
-            creating grids for modules that require padding.
+        matrix
+            The array that will be attached to the dataset. Must be a 2-D C contiguous
+            array.
+        pad
+            The amount of padding that should be added to the matrix. Use when creating
+            grids for modules that require padding.
 
         Raises
         ------
         GMTCLibError
-            If given invalid input or ``GMT_Put_Matrix`` exits with
-            status != 0.
+            If given invalid input or ``GMT_Put_Matrix`` exits with a non-zero status.
         """
         c_put_matrix = self.get_libgmt_func(
             "GMT_Put_Matrix",
@@ -1032,7 +1037,8 @@ class Session:
             self.session_pointer, dataset, gmt_type, pad, matrix_pointer
         )
         if status != 0:
-            raise GMTCLibError(f"Failed to put matrix of type {matrix.dtype}.")
+            msg = f"Failed to put matrix of type {matrix.dtype}."
+            raise GMTCLibError(msg)
 
     def read_data(
         self,
