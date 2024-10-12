@@ -17,10 +17,8 @@ from typing import Literal
 import numpy as np
 import pandas as pd
 import xarray as xr
-from packaging.version import Version
 from pygmt.clib.conversion import (
     array_to_datetime,
-    as_c_contiguous,
     dataarray_to_matrix,
     sequence_to_ctypes_array,
     strings_to_ctypes_array,
@@ -107,33 +105,28 @@ class Session:
     """
     A GMT API session where most operations involving the C API happen.
 
-    Works as a context manager (for use in a ``with`` block) to create a GMT C
-    API session and destroy it in the end to clean up memory.
+    Works as a context manager (for use in a ``with`` block) to create a GMT C API
+    session and destroy it in the end to clean up memory.
 
-    Functions of the shared library are exposed as methods of this class. Most
-    methods MUST be used with an open session (inside a ``with`` block). If
-    creating GMT data structures to communicate data, put that code inside the
-    same ``with`` block as the API calls that will use the data.
+    Functions of the shared library are exposed as methods of this class. Most methods
+    MUST be used with an open session (inside a ``with`` block). If creating GMT data
+    structures to communicate data, put that code inside the same ``with`` block as the
+    API calls that will use the data.
 
-    By default, will let :mod:`ctypes` try to find the GMT shared library
-    (``libgmt``). If the environment variable :term:`GMT_LIBRARY_PATH` is set, will
-    look for the shared library in the directory specified by it.
+    By default, will let :mod:`ctypes` try to find the GMT shared library (``libgmt``).
+    If the environment variable :term:`GMT_LIBRARY_PATH` is set, will look for the
+    shared library in the directory specified by it.
 
-    A ``GMTVersionError`` exception will be raised if the GMT shared library
-    reports a version older than the required minimum GMT version.
-
-    The ``session_pointer`` attribute holds a ctypes pointer to the currently
-    open session.
+    The ``session_pointer`` attribute holds a ctypes pointer to the currently open
+    session.
 
     Raises
     ------
     GMTCLibNotFoundError
-        If there was any problem loading the library (couldn't find it or
-        couldn't access the functions).
+        If there was any problem loading the library (couldn't find it or couldn't
+        access the functions).
     GMTCLibNoSessionError
-        If you try to call a method outside of a 'with' block.
-    GMTVersionError
-        If the minimum required version of GMT is not found.
+        If you try to call a method outside of a ``with`` block.
 
     Examples
     --------
@@ -143,45 +136,44 @@ class Session:
     >>> grid = load_static_earth_relief()
     >>> type(grid)
     <class 'xarray.core.dataarray.DataArray'>
-    >>> # Create a session and destroy it automatically when exiting the "with"
-    >>> # block.
-    >>> with Session() as ses:
+    >>> # Create a session and destroy it automatically when exiting the "with" block.
+    >>> with Session() as lib:
     ...     # Create a virtual file and link to the memory block of the grid.
-    ...     with ses.virtualfile_from_grid(grid) as fin:
+    ...     with lib.virtualfile_from_grid(grid) as fin:
     ...         # Create a temp file to use as output.
     ...         with GMTTempFile() as fout:
-    ...             # Call the grdinfo module with the virtual file as input
-    ...             # and the temp file as output.
-    ...             ses.call_module("grdinfo", [fin, "-C", f"->{fout.name}"])
+    ...             # Call the grdinfo module with the virtual file as input and the
+    ...             # temp file as output.
+    ...             lib.call_module("grdinfo", [fin, "-C", f"->{fout.name}"])
     ...             # Read the contents of the temp file before it's deleted.
     ...             print(fout.read().strip())
     -55 -47 -24 -10 190 981 1 1 8 14 1 1
     """
 
     @property
-    def session_pointer(self):
+    def session_pointer(self) -> ctp.c_void_p:
         """
         The :class:`ctypes.c_void_p` pointer to the current open GMT session.
 
         Raises
         ------
         GMTCLibNoSessionError
-            If trying to access without a currently open GMT session (i.e.,
-            outside of the context manager).
+            If trying to access without a currently open GMT session (i.e., outside of
+            the context manager).
         """
         if not hasattr(self, "_session_pointer") or self._session_pointer is None:
             raise GMTCLibNoSessionError("No currently open GMT API session.")
         return self._session_pointer
 
     @session_pointer.setter
-    def session_pointer(self, session):
+    def session_pointer(self, session: ctp.c_void_p):
         """
         Set the session void pointer.
         """
         self._session_pointer = session
 
     @property
-    def info(self):
+    def info(self) -> dict[str, str]:
         """
         Dictionary with the GMT version and default paths and parameters.
         """
@@ -198,16 +190,9 @@ class Session:
                 "library path": self.get_default("API_LIBRARY"),
                 "cores": self.get_default("API_CORES"),
                 "grid layout": self.get_default("API_GRID_LAYOUT"),
+                "image layout": self.get_default("API_IMAGE_LAYOUT"),
+                "binary version": self.get_default("API_BIN_VERSION"),
             }
-            # For GMT<6.4.0, API_IMAGE_LAYOUT is not defined if GMT is not
-            # compiled with GDAL. Since GMT 6.4.0, GDAL is a required GMT
-            # dependency. The code block can be refactored after we bump
-            # the minimum required GMT version to 6.4.0.
-            with contextlib.suppress(GMTCLibError):
-                self._info["image layout"] = self.get_default("API_IMAGE_LAYOUT")
-            # API_BIN_VERSION is new in GMT 6.4.0.
-            if Version(self._info["version"]) >= Version("6.4.0"):
-                self._info["binary version"] = self.get_default("API_BIN_VERSION")
         return self._info
 
     def __enter__(self):
@@ -638,14 +623,7 @@ class Session:
 
         # 'args' can be (1) a single string or (2) a list of strings.
         argv: bytes | ctp.Array[ctp.c_char_p] | None
-        if isinstance(args, str):
-            # 'args' is a single string that contains whitespace-separated arguments.
-            # In this way, we need to correctly handle option arguments that contain
-            # whitespaces or quotation marks. It's used in PyGMT <= v0.11.0 but is no
-            # longer recommended.
-            mode = self["GMT_MODULE_CMD"]
-            argv = args.encode()
-        elif isinstance(args, list):
+        if isinstance(args, list):
             # 'args' is a list of strings and each string contains a module argument.
             # In this way, GMT can correctly handle option arguments with whitespaces or
             # quotation marks. This is the preferred way to pass arguments to the GMT
@@ -653,16 +631,21 @@ class Session:
             mode = len(args)  # 'mode' is the number of arguments.
             # Pass a null pointer if no arguments are specified.
             argv = strings_to_ctypes_array(args) if mode != 0 else None
+        elif isinstance(args, str):
+            # 'args' is a single string that contains whitespace-separated arguments.
+            # In this way, we need to correctly handle option arguments that contain
+            # whitespaces or quotation marks. It's used in PyGMT <= v0.11.0 but is no
+            # longer recommended.
+            mode = self["GMT_MODULE_CMD"]
+            argv = args.encode()
         else:
-            raise GMTInvalidInput(
-                "'args' must be either a string or a list of strings."
-            )
+            msg = "'args' must either be a list of strings (recommended) or a string."
+            raise GMTInvalidInput(msg)
 
         status = c_call_module(self.session_pointer, module.encode(), mode, argv)
         if status != 0:
-            raise GMTCLibError(
-                f"Module '{module}' failed with status code {status}:\n{self._error_message}"
-            )
+            msg = f"Module '{module}' failed with status code {status}:\n{self._error_message}"
+            raise GMTCLibError(msg)
 
     def create_data(
         self,
@@ -1507,7 +1490,7 @@ class Session:
         # collected and the memory freed. Creating it in this context manager
         # guarantees that the copy will be around until the virtual file is
         # closed.
-        matrix = as_c_contiguous(matrix)
+        matrix = np.ascontiguousarray(matrix)
         rows, columns = matrix.shape
 
         family = "GMT_IS_DATASET|GMT_VIA_MATRIX"
@@ -1818,9 +1801,9 @@ class Session:
                 warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
             _data = (data,) if not isinstance(data, pathlib.PurePath) else (str(data),)
         elif kind == "vectors":
-            _data = [np.atleast_1d(x), np.atleast_1d(y)]
+            _data = [x, y]
             if z is not None:
-                _data.append(np.atleast_1d(z))
+                _data.append(z)
             if extra_arrays:
                 _data.extend(extra_arrays)
         elif kind == "matrix":  # turn 2-D arrays into list of vectors
@@ -1971,7 +1954,7 @@ class Session:
         c_inquire_virtualfile = self.get_libgmt_func(
             "GMT_Inquire_VirtualFile",
             argtypes=[ctp.c_void_p, ctp.c_char_p],
-            restype=ctp.c_uint,
+            restype=ctp.c_int,
         )
         return c_inquire_virtualfile(self.session_pointer, vfname.encode())
 

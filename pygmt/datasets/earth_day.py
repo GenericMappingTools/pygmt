@@ -60,9 +60,8 @@ def load_blue_marble(
     Parameters
     ----------
     resolution
-        The image resolution. The suffix ``d``, ``m``, and ``s`` stand for arc-degree,
-        arc-minute, and arc-second.
-
+        The image resolution. The suffix ``d``, ``m``, and ``s`` stand for arc-degrees,
+        arc-minutes, and arc-seconds.
     region
         The subregion of the image to load, in the form of a sequence [*xmin*, *xmax*,
         *ymin*, *ymax*].

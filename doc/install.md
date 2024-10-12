@@ -94,7 +94,7 @@ PyGMT requires the following libraries to be installed:
 - [packaging](https://packaging.pypa.io)
 
 :::{note}
-For the minimum supported versions of the dependencies, please see {doc}`minversions`.
+For the minimum supported versions of the dependencies, please see [](minversions.md).
 :::
 
 The following are optional dependencies:
@@ -308,5 +308,5 @@ especially regarding transparency. If the transparency doesn't work in your figu
 please check your GMT and Ghostscript versions (you can run `pygmt.show_versions()`).
 We recommend:
 
-- Ghostscript 9.53-9.56 for GMT 6.3.0/6.4.0
+- Ghostscript 9.53-9.56 for GMT 6.4.0 (or below)
 - Ghostscript 10.03 or later for GMT 6.5.0

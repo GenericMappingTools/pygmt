@@ -3,7 +3,7 @@
 This page contains instructions for project maintainers about how our setup works,
 making releases, creating packages, etc.
 
-If you want to make a contribution to the project, see the {doc}`contributing` instead.
+If you want to make a contribution to the project, see the [](contributing.md) instead.
 
 ## Onboarding/Offboarding Access Checklist
 
@@ -22,7 +22,7 @@ communication tools we use.
 ### As a Maintainer
 
 - Add to the [pygmt-maintainers team](https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers) (gives 'maintain' permission to the repository)
-- Add to "Active Maintainers" on the {doc}`Team Gallery page <team>`
+- Add to "Active Maintainers" on the [Team Gallery page](team.md)
 - Add as a moderator on the [GMT forum](https://forum.generic-mapping-tools.org) (to see mod-only discussions) [optional]
 - Add as a maintainer on [ReadtheDocs](https://readthedocs.org/projects/pygmt-dev) [optional]
 - Add as a curator to the [GMT community](https://zenodo.org/communities/generic-mapping-tools/) on Zenodo (for making releases) [optional]
@@ -38,7 +38,7 @@ the onboarding access checklist:
 
 - Move from the [pygmt-maintainers team](https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers)
   to the [pygmt-contributors team](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors)
-- Move from "Active Maintainers" to "Distinguished Contributors" on the {doc}`Team Gallery page <team>`
+- Move from "Active Maintainers" to "Distinguished Contributors" on the [Team Gallery page](team.md)
 - Remove 'maintain' permission from GMT forum, ReadTheDocs, Zenodo
 
 ## Branches
@@ -201,7 +201,7 @@ at `.github/release-drafter.yml`. Configuration settings can be found at
 <https://github.com/release-drafter/release-drafter>.
 
 The drafted release notes are not perfect, so we will need to tidy it prior to
-publishing the actual release notes at {doc}`changes`.
+publishing the actual release notes at [](changes.md).
 
 1. Go to <https://github.com/GenericMappingTools/pygmt/releases> and click on the
    'Edit' button next to the current draft release note. Copy the text of the
