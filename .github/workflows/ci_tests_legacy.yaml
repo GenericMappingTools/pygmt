@@ -49,36 +49,16 @@ jobs:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
-      # Install Micromamba with conda-forge dependencies
-      - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v2.0.0
-        with:
-          environment-name: pygmt
-          condarc: |
-            channels:
-              - conda-forge
-              - nodefaults
-          create-args: >-
-            python=3.10
-            gmt=${{ matrix.gmt_version }}
-            ghostscript<10
-            numpy
-            pandas<2
-            xarray
-            netCDF4
-            packaging
-            contextily
-            geopandas
-            ipython
-            pyarrow
-            rioxarray
-            sphinx-gallery
-            make
-            pip
-            python-build
-            pytest
-            pytest-doctestplus
-            pytest-mpl
+      # Install pipx
+      - name: Install pipx
+        run: |
+          python -m pip install --user pipx
+          python -m pipx ensurepath
+
+      # Install dependencies with pipx in a single command
+      - name: Install dependencies
+        run: |
+          pipx install gmt==${{ matrix.gmt_version }} ghostscript<10 numpy pandas<2 xarray netCDF4 packaging contextily geopandas ipython pyarrow rioxarray sphinx-gallery make pip python-build pytest pytest-doctestplus pytest-mpl --python 3.10
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
