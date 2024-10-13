@@ -1815,9 +1815,9 @@ class Session:
         elif kind == "matrix":
             # GMT can only accept a 2-D matrix which are signed integer (i), unsigned
             # integer (u) or floating point (f) types. For other data types, we need to
-            # use virtualfile_from_vectors instead, which turns the matrix into list of
-            # vectors and allows for better handling of string type inputs (e.g. for
-            # datetime data types).
+            # use virtualfile_from_vectors instead, which turns the matrix into a list
+            # of vectors and allows for better handling of non-integer/float type inputs
+            # (e.g. for string or datetime data types).
             _data = (data,)
             if data.dtype.kind not in "iuf":
                 _virtualfile_from = self.virtualfile_from_vectors
