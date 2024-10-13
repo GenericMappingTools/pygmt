@@ -83,7 +83,7 @@ fig.show()
 # Use the parameters ``pen`` and ``outline`` to adjust the outline
 
 fig = pygmt.Figure()
-fig.basemap(region=[-size, size] * 2, projection="X10c", frame=["af", "+ggray80"])
+fig.basemap(region=[-size, size] * 2, projection="X10c/5c", frame=["af", "+ggray80"])
 
 fig.meca(
     spec=fm_dict_single,
