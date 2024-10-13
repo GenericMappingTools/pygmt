@@ -157,8 +157,7 @@ From now on, all commands will take place inside the virtual environment called 
 and won't affect your default `base` installation.
 
 ::::: {tip}
-You can also install PyGMT's optional dependencies for more functionality (after
-activating the environment).
+You can also enable more PyGMT's functionality by installing PyGMT's optional dependencies in the environment.
 :::: {tab-set}
 ::: {tab-item} mamba
 :sync: mamba
