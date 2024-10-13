@@ -68,7 +68,7 @@ study_area = [30, 40, 30, 40]
 # (event location).
 
 fig = pygmt.Figure()
-fig.basemap(region=[-size, size] * 2, projection="X10c/5c", frame=["af", "+ggray80"])
+fig.basemap(region=[-size, size] * 2, projection="X10c/4c", frame=["af", "+ggray80"])
 
 # Plot a single focal mechanism as beachball
 fig.meca(spec=fm_dict_single, scale="1c", longitude=0, latitude=0)
@@ -83,7 +83,7 @@ fig.show()
 # Use the parameters ``pen`` and ``outline`` to adjust the outline
 
 fig = pygmt.Figure()
-fig.basemap(region=[-size, size] * 2, projection="X10c/5c", frame=["af", "+ggray80"])
+fig.basemap(region=[-size, size] * 2, projection="X10c/4c", frame=["af", "+ggray80"])
 
 fig.meca(
     spec=fm_dict_single,
@@ -113,7 +113,7 @@ fig.show()
 # quadrants with colors or patterns.
 
 fig = pygmt.Figure()
-fig.basemap(region=[-size, size] * 2, projection="X10c/5c", frame=["af", "+ggray80"])
+fig.basemap(region=[-size, size] * 2, projection="X10c/4c", frame=["af", "+ggray80"])
 
 fig.meca(
     spec=fm_dict_single,
@@ -145,7 +145,7 @@ fig.show()
 # Use stacking concept of GMT - plot on top of each other
 
 fig = pygmt.Figure()
-fig.basemap(region=[-size, size] * 2, projection="X10c/5c", frame=["af", "+ggray80"])
+fig.basemap(region=[-size, size] * 2, projection="X10c/4c", frame=["af", "+ggray80"])
 
 fig.meca(
     spec=fm_dict_single,
@@ -181,7 +181,7 @@ fig.show()
 # Parameters ``plot_longitude`` and ``plot_latitude`` as well as ``offset``
 
 fig = pygmt.Figure()
-fig.basemap(region=[-size, size] * 2, projection="X10c/5c", frame=["af", "+ggray80"])
+fig.basemap(region=[-size, size] * 2, projection="X10c/4c", frame=["af", "+ggray80"])
 
 fig.meca(
     spec=fm_dict_single,
@@ -189,7 +189,7 @@ fig.meca(
     longitude=-1,
     latitude=0,
     plot_longitude=-3,
-    plot_latitude=1,
+    plot_latitude=2,
     offset=True,
 )
 
@@ -199,7 +199,7 @@ fig.meca(
     longitude=3,
     latitude=0,
     plot_longitude=1,
-    plot_latitude=1,
+    plot_latitude=2,
     offset="+p1p,darkorange+s0.25c",
     compressionfill="lightorange",
 )
