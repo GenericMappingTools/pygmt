@@ -107,7 +107,7 @@ Andre Belem
 :text-align: center
 :margin: 0 3 0 0
 
-![](https://github.com/tktmyd/pygmt-howto-jp/blob/main/docs/_images/inf_on_map_12_0.png)
+![](https://github.com/tktmyd/pygmt-howto-jp/raw/main/docs/_images/inf_on_map_12_0.png)
 +++
 Takuto Maeda
 ::::
@@ -143,7 +143,7 @@ Wei Ji Leong
 :text-align: center
 :margin: 0 3 0 0
 
-![](https://github.com/yvonnefroehlich/gmt-pygmt-plotting/blob/main/_images/github_maps_readme_main.png)
+![](https://github.com/yvonnefroehlich/gmt-pygmt-plotting/raw/main/_images/github_maps_readme_main.png)
 +++
 Yvonne Fröhlich
 ::::
