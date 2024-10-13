@@ -228,9 +228,9 @@ def vectors_to_arrays(vectors: Sequence[Any]) -> list[np.ndarray]:
         # If fails, then the array can't be recognized.
         if array.dtype.type == np.object_:
             try:
-                array = np.asarray(array, dtype=np.datetime64)
+                array = np.ascontiguousarray(array, dtype=np.datetime64)
             except ValueError:
-                array = np.asarray(array, dtype=np.str_)
+                array = np.ascontiguousarray(array, dtype=np.str_)
         arrays.append(array)
     return arrays
 

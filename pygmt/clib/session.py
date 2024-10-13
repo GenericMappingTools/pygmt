@@ -1378,7 +1378,7 @@ class Session:
         # Assumes that first 2 columns contains coordinates like longitude
         # latitude, or datetime string types.
         for col, array in enumerate(arrays[2:]):
-            if pd.api.types.is_string_dtype(array.dtype):
+            if array.dtype.type == np.str_:
                 columns = col + 2
                 break
 
