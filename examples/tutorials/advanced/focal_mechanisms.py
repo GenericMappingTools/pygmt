@@ -2,29 +2,21 @@
 Plotting focal mechanisms
 =========================
 
-Focal mechanisms can be plotted with the :meth:`pygmt.Figure.meca` method.
+Focal mechanisms can be plotted as beachballs with the :meth:`pygmt.Figure.meca`
+method. The input data can be provided in different ways:
 
-TODO: Check GMT
-
-- issue #7777 and PR #7778
-- issue #8053
-- PR #8059 ->  T pen
-
-Beside an external file containing the input data, PyGMT allows for different
-input types:
-
-- a 1-D (single event) and 2-D array (multiple events)
+- a string containing path and name of an external file
+- a 1-D (single event) or 2-D (multiple events) numpy.array`
 - a dictionary
-- a pandas DataFrame
+- a `pandas.DataFrame`
 
-Different conventions are supported:
-TODO - input file and array, this only is for dictionary and DataFrame
+Different conventions to define the focal mechanism are supported. For providing
+a dictionary or a `pandas.DataFrame` the listed keys or column names are required:
 
 - ``"aki"`` - Aki & Richards:
   *strike*, *dip*, *rake*, *magnitude*
 - ``"gcmt"`` - global CMT:
-  *strike1*, *dip1*, *rake1*, *strike2*, *dip2*, *rake2*, *mantissa*,
-  *exponent*
+  *strike1*, *dip1*, *rake1*, *strike2*, *dip2*, *rake2*, *mantissa*, *exponent*
 - ``"mt"`` - seismic moment tensor:
   *mrr*, *mtt*, *mff*, *mrt*, *mrf*, *mtf*, *exponent*
 - ``"partial"`` - partial focal mechanism:
@@ -33,43 +25,38 @@ TODO - input file and array, this only is for dictionary and DataFrame
   *t_value*, *t_azimuth*, *t_plunge*, *n_value*, *n_azimuth*, *n_plunge*,
   *p_value*, *p_azimuth*, *p_plunge*, *exponent*
 
-The general structure for the input data is:
-
--  xxx
-
-Please refer also the documentation on how to set up the input data in respect
-to the chosen input type and convention.
+Please also refer also the documentation on how to set up the input data in
+respect to the chosen input type and convention.
 
 This tutorial shows how to adjust the display of the beachballs:
 
 - Adjust the outline
 - Fill quadrants with colors and patterns
-- Highlight the nodal planes
-- Offset from event location
-- Size-coding and color-coding
+- Highlight nodal planes
+- Add offset from event location
 - Add a label
+- Use size-coding and color-coding
 """
 
 # %%
-# Import the required packages
+import numpy as np
 import pygmt
 
 # %%
 # Set up input data
 # -----------------
 #
-# TODO - consistent with lists in introduction
 
-# Store focal mechanism parameters
+# Store focal mechanism parameters for one event
 # in a 1-D array
-fm_sinlge = "xxx"
+fm_array_single = np.array([318, 89, -179, 7.75])
 # in a pandas DataFrame
-fm_single = "xxx"
+fm_df_single = "xxx"
 # in a dictionary based on the Aki & Richards convention
-fm_single = {"strike": 318, "dip": 89, "rake": -179, "magnitude": 7.75}
+fm_dict_single = {"strike": 318, "dip": 89, "rake": -179, "magnitude": 7.75}
 
-# Define the study area: lon_min, lon_max, lat_min, lat_max
-# in degrees East or North
+# Define study area: lon_min, lon_max, lat_min, lat_max in degrees East or North
+size = 5
 study_area = [30, 40, 30, 40]
 
 
@@ -78,20 +65,13 @@ study_area = [30, 40, 30, 40]
 # -----------------------
 #
 # Required parameters are ``spec``, ``scale``, ``longitude`` and ``latitude``
-# (event location)
+# (event location).
 
-# Create a new Figure instance
 fig = pygmt.Figure()
-
-fig.coast(region=study_area, projection="M10c", land="lightgray", frame=True)
+fig.basemap(region=[-size, size] * 2, projection="X10c", frame=["af", "+ggray80"])
 
 # Plot a single focal mechanism as beachball
-fig.meca(
-    spec=fm_single,
-    scale="1c",  # in centimeters
-    longitude=37.042,  # event longitude
-    latitude=37.166,  # event latitude
-)
+fig.meca(spec=fm_dict_single, scale="1c", longitude=0, latitude=0)
 
 fig.show()
 
@@ -100,35 +80,26 @@ fig.show()
 # Adjust the outline
 # ------------------
 #
-# parameters ``pen`` and ``outline``
+# Use the parameters ``pen`` and ``outline`` to adjust the outline
 
-# Create a new Figure instance
 fig = pygmt.Figure()
+fig.basemap(region=[-size, size] * 2, projection="X10c", frame=["af", "+ggray80"])
 
-fig.coast(region=study_area, projection="M10c", land="lightgray", frame=["af", "WSne"])
-
-# Plot focal mechanism
 fig.meca(
-    spec=fm_single,
+    spec=fm_dict_single,
     scale="1c",
-    longitude=37.042,
-    latitude=37.166,
+    longitude=-2,
+    latitude=0,
     # Use a 1.5-point thick, red and solid outline
-    pen="1.5p,red,solid",
+    pen="1.5p,darkorange,solid",
 )
 
-# Shift plot origin by the width of the last plot plus 1 centimeter to the right
-fig.shift_origin(xshift="+w+1c")
-
-fig.coast(region=study_area, projection="M10c", land="lightgray", frame=["af", "wSnE"])
-
-# Plot focal mechanism
 fig.meca(
-    spec=fm_single,
+    spec=fm_dict_single,
     scale="1c",
-    longitude=37.042,
-    latitude=37.166,
-    outline="1.5p,red,solid",
+    longitude=2,
+    latitude=0,
+    outline="1.5p,darkorange,solid",
 )
 
 fig.show()
@@ -138,33 +109,26 @@ fig.show()
 # Fill quadrants with colors and patterns
 # ---------------------------------------
 #
-# parameters ``compressionfill`` and ``extensionfill``
+# Use the parameters ``compressionfill`` and ``extensionfill`` to fill the
+# quadrants with colors or patterns.
 
-# Create a new Figure instance
 fig = pygmt.Figure()
+fig.basemap(region=[-size, size] * 2, projection="X10c", frame=["af", "+ggray80"])
 
-fig.coast(region=study_area, projection="M10c", land="lightgray", frame=["af", "WSne"])
-
-# Plot focal mechanism
 fig.meca(
-    spec=fm_single,
-    scale="1c",  # in centimeters
-    longitude=37.042,
-    latitude=37.166,
-    compressionfill="darkred",
-    extensionfill="gold",
+    spec=fm_dict_single,
+    scale="1c",
+    longitude=-2,
+    latitude=0,
+    compressionfill="darkorange",
+    extensionfill="cornsilk",
 )
 
-fig.shift_origin(xshift="+w+1c")
-
-fig.coast(region=study_area, projection="M10c", land="lightgray", frame=["af", "wSnE"])
-
-# Plot focal mechanism
 fig.meca(
-    spec=fm_single,
+    spec=fm_dict_single,
     scale="1c",
-    longitude=37.042,
-    latitude=37.166,
+    longitude=2,
+    latitude=0,
     compressionfill="p8",
     extensionfill="p31",
     outline=True,
@@ -180,39 +144,30 @@ fig.show()
 # parameter ``nodal``
 # Use stacking concept of GMT - plot on top of each other
 
-# Create a new Figure instance
 fig = pygmt.Figure()
+fig.basemap(region=[-size, size] * 2, projection="X10c", frame=["af", "+ggray80"])
 
-fig.coast(region=study_area, projection="M10c", land="lightgray", frame=["af", "WSne"])
-
-# Plot focal mechanism
 fig.meca(
-    spec=fm_single,
-    scale="1c",  # in centimeters
-    longitude=37.042,
-    latitude=37.166,
+    spec=fm_dict_single,
+    scale="1c",
+    longitude=-2,
+    latitude=0,
     nodal="0/1p,black,solid",
 )
 
-fig.shift_origin(xshift="+w+1c")
-
-fig.coast(region=study_area, projection="M10c", land="lightgray", frame=["af", "wSnE"])
-
-# Plot focal mechanism
 fig.meca(
-    spec=fm_single,
+    spec=fm_dict_single,
     scale="1c",
-    longitude=37.042,
-    latitude=37.166,
-    compressionfill="lightred",
-    outline="1p,red,solid",
+    longitude=2,
+    latitude=0,
+    compressionfill="lightorange",
+    outline="1p,darkorange,solid",
 )
-
 fig.meca(
-    spec=fm_single,
+    spec=fm_dict_single,
     scale="1c",
-    longitude=37.042,
-    latitude=37.166,
+    longitude=2,
+    latitude=0,
     nodal="1/1p,black,solid",
 )
 
@@ -225,44 +180,36 @@ fig.show()
 #
 # Parameters ``plot_longitude`` and ``plot_latitude`` as well as ``offset``
 
-# Create a new Figure instance
 fig = pygmt.Figure()
+fig.basemap(region=[-size, size] * 2, projection="X10c", frame=["af", "+ggray80"])
 
-fig.coast(region=study_area, projection="M10c", land="lightgray", frame=["af", "WSne"])
-
-# Plot focal mechanism
 fig.meca(
-    spec=fm_single,
-    scale="1c",  # in centimeters
-    longitude=37.042,
-    latitude=37.166,
-    plot_longitude=35,
-    plot_latitude=38,
+    spec=fm_dict_single,
+    scale="1c",
+    longitude=-1,
+    latitude=0,
+    plot_longitude=-3,
+    plot_latitude=1,
     offset=True,
 )
 
-fig.shift_origin(xshift="+w+1c")
-
-fig.coast(region=study_area, projection="M10c", land="lightgray", frame=["af", "wSnE"])
-
-# Plot focal mechanism
 fig.meca(
-    spec=fm_single,
+    spec=fm_dict_single,
     scale="1c",
-    longitude=37.042,
-    latitude=37.166,
-    plot_longitude=35,
-    plot_latitude=38,
-    offset="+p1p,red+s0.25c",
-    compressionfill="lightred",
+    longitude=3,
+    latitude=0,
+    plot_longitude=1,
+    plot_latitude=1,
+    offset="+p1p,darkorange+s0.25c",
+    compressionfill="lightorange",
 )
 
 fig.show()
 
 
 # %%
-# Plot several beachballs
-# -----------------------
+# Plot multiple beachballs
+# ------------------------
 #
 # TODO
 # Set up list of four earthquakes:
@@ -272,7 +219,7 @@ fig.show()
 # - Afghanistan on 2022/06/21
 # - Syria / Turkey on 2023/02/06
 
-fm_collection = {
+fm_dict_multiple = {
     "strike": [166, 166, 166, 166],
     "dip": [80, 80, 80, 80],
     "rake": [74, 74, 74, 74],
@@ -280,20 +227,23 @@ fm_collection = {
     "longitude": [-72.53, -79.611, 69.46, 37.032],
     "latitude": [18.46, 0.904, 33.02, 37.166],
     "depth": [13, 26.52, 4, 10],
+    "event_name": ["2010/01/12", "2022/03/27", "2022/06/21", "2023/02/06"],
 }
 
-# fixed size via ``scale`` append **+m**
 
-# Create a new Figure instance
+# %%
+# Add a label
+# -----------
+# Force a fixed size by appending "+m" to the argument passed to ``scale``
+#
+# ``event_name`` as parameter or as column ``labelbox``
+# e.g., event date or time
+# change font size of trailing text ``scale`` **+f**
+
 fig = pygmt.Figure()
-
 fig.coast(region="d", projection="N10c", land="lightgray", frame=True)
 
-# Plot focal mechanism
-fig.meca(
-    spec=fm_collection,
-    scale="0.3c+m",  # in centimeters
-)
+fig.meca(spec=fm_dict_multiple, scale="0.3c+m+f5p", labelbox="white@30")
 
 fig.show()
 
@@ -305,50 +255,19 @@ fig.show()
 # e.g., by magnitude or hypocentral depth
 # Set up colormap and use parameter ``cmap``
 
-# Create a new Figure instance
 fig = pygmt.Figure()
-
 fig.coast(region="d", projection="N10c", land="lightgray", frame=True)
 
-# Set up colormap for hypocentral depth
+# Set up colormap and colorbar for hypocentral depth
 pygmt.makecpt(cmap="lajolla", series=[0, 30, 1])
-
-# Plot focal mechanism
-fig.meca(
-    spec=fm_collection,
-    scale="0.3c",
-    cmap=True,
-    outline=True,
-)
-
-# Add colorbar
 fig.colorbar(frame=["x+lhypocentral depth", "y+lkm"])
 
-fig.show()
-
-
-# %%
-# Add a label
-# -----------
-#
-# ``event_name`` as parameter or as column
-# ``labelbox``
-# e.g., event date or time
-#
-# change font size of trailing text ``scale`` **+f**
-
-# Create a new Figure instance
-fig = pygmt.Figure()
-
-fig.coast(region="d", projection="N10c", land="lightgray", frame=True)
-
-# Plot focal mechanism
 fig.meca(
-    spec=fm_collection,
-    scale="0.3c+m+f5p",
-    # TODO double check dates
-    event_name=["2010/01/12", "2022/03/27", "2022/06/21", "2023/02/06"],
+    spec=fm_dict_multiple,
+    scale="0.3c+f5p",
     labelbox="white@30",
+    cmap=True,
+    outline=True,
 )
 
 fig.show()
