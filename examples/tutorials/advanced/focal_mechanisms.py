@@ -8,7 +8,7 @@ method. The input data can be provided in different ways:
 - a string containing path and name of an external file
 - a 1-D (single event) or 2-D (multiple events) ``numpy.array``
 - a dictionary
-- a `pandas.DataFrame`
+- a ``pandas.DataFrame``
 
 Different conventions to define the focal mechanism are supported. For providing
 a dictionary or a ``pandas.DataFrame`` the listed keys or column names are required:
