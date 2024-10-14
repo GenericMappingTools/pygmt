@@ -107,8 +107,8 @@ fig.show()
 # Adjusting the outlines
 # ----------------------
 #
-# Use the parameters ``pen`` for the outer border of the beachball and ``outline``
-# for all lines (also the borders between the nodal planes)
+# Use the parameters ``pen`` and ``outline`` for adjusting the outer border of
+# the beachball or for all lines (borders of beachball and nodal planes).
 
 fig = pygmt.Figure()
 fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
@@ -118,7 +118,7 @@ fig.meca(
     scale="1c",
     longitude=-2,
     latitude=0,
-    # Use a 1-point thick, darkorange and solid outline
+    # Use a 1-point thick, darkorange and solid line
     pen="1p,darkorange,solid",
 )
 
