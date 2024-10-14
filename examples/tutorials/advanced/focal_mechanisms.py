@@ -30,8 +30,8 @@ respect to the chosen input type and convention.
 
 This tutorial shows how to adjust the display of the beachballs:
 
-- Adjust the outline
 - Fill quadrants with colors and patterns
+- Adjust the outline
 - Highlight nodal planes
 - Add offset from event location
 - Add a label
@@ -39,7 +39,7 @@ This tutorial shows how to adjust the display of the beachballs:
 """
 
 # %%
-import numpy as np
+import pandas as pd
 import pygmt
 
 # %%
@@ -47,17 +47,24 @@ import pygmt
 # -----------------
 #
 
-# Store focal mechanism parameters for one event
-# in a 1-D array
-fm_array_single = np.array([318, 89, -179, 7.75])
-# in a pandas DataFrame
-fm_df_single = "xxx"
-# in a dictionary based on the Aki & Richards convention
-fm_dict_single = {"strike": 318, "dip": 89, "rake": -179, "magnitude": 7.75}
+# Store focal mechanism parameters for one event in a dictionary based on the
+# moment tensor convention
+mt_dict_single = mt_virginia = {
+    "mrr": 4.71,
+    "mtt": 0.0381,
+    "mff": -4.74,
+    "mrt": 0.399,
+    "mrf": -0.805,
+    "mtf": -1.23,
+    "exponent": 24,
+}
+# Aki & Richards convention
+aki_dict_single = {"strike": 318, "dip": 89, "rake": -179, "magnitude": 7.75}
 
-# Define study area: lon_min, lon_max, lat_min, lat_max in degrees East or North
+# Set up arguments for basemap
 size = 5
-study_area = [30, 40, 30, 40]
+projection = "X10c/4c"
+frame = ["af", "+ggray80"]
 
 
 # %%
@@ -68,39 +75,10 @@ study_area = [30, 40, 30, 40]
 # (event location).
 
 fig = pygmt.Figure()
-fig.basemap(region=[-size, size] * 2, projection="X10c/4c", frame=["af", "+ggray80"])
+fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
 
 # Plot a single focal mechanism as beachball
-fig.meca(spec=fm_dict_single, scale="1c", longitude=0, latitude=0)
-
-fig.show()
-
-
-# %%
-# Adjust the outline
-# ------------------
-#
-# Use the parameters ``pen`` and ``outline`` to adjust the outline
-
-fig = pygmt.Figure()
-fig.basemap(region=[-size, size] * 2, projection="X10c/4c", frame=["af", "+ggray80"])
-
-fig.meca(
-    spec=fm_dict_single,
-    scale="1c",
-    longitude=-2,
-    latitude=0,
-    # Use a 1.5-point thick, red and solid outline
-    pen="1.5p,darkorange,solid",
-)
-
-fig.meca(
-    spec=fm_dict_single,
-    scale="1c",
-    longitude=2,
-    latitude=0,
-    outline="1.5p,darkorange,solid",
-)
+fig.meca(spec=mt_dict_single, scale="1c", longitude=0, latitude=0)
 
 fig.show()
 
@@ -111,12 +89,13 @@ fig.show()
 #
 # Use the parameters ``compressionfill`` and ``extensionfill`` to fill the
 # quadrants with colors or patterns.
+# details on pattern gallery example and techenical reference
 
 fig = pygmt.Figure()
-fig.basemap(region=[-size, size] * 2, projection="X10c/4c", frame=["af", "+ggray80"])
+fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
 
 fig.meca(
-    spec=fm_dict_single,
+    spec=mt_dict_single,
     scale="1c",
     longitude=-2,
     latitude=0,
@@ -125,7 +104,7 @@ fig.meca(
 )
 
 fig.meca(
-    spec=fm_dict_single,
+    spec=mt_dict_single,
     scale="1c",
     longitude=2,
     latitude=0,
@@ -138,17 +117,47 @@ fig.show()
 
 
 # %%
+# Adjust the outline
+# ------------------
+#
+# Use the parameters ``pen`` and ``outline`` to adjust the outline
+
+fig = pygmt.Figure()
+fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
+
+fig.meca(
+    spec=mt_dict_single,
+    scale="1c",
+    longitude=-2,
+    latitude=0,
+    # Use a 1-point thick, darkorange and solid outline
+    pen="1p,darkorange,solid",
+)
+
+fig.meca(
+    spec=mt_dict_single,
+    scale="1c",
+    longitude=2,
+    latitude=0,
+    outline="1p,darkorange,solid",
+)
+
+fig.show()
+
+
+# %%
 # Highlight the nodal planes
 # --------------------------
 #
 # parameter ``nodal``
 # Use stacking concept of GMT - plot on top of each other
+# behaviour somehow strange
 
 fig = pygmt.Figure()
-fig.basemap(region=[-size, size] * 2, projection="X10c/4c", frame=["af", "+ggray80"])
+fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
 
 fig.meca(
-    spec=fm_dict_single,
+    spec=aki_dict_single,
     scale="1c",
     longitude=-2,
     latitude=0,
@@ -156,7 +165,7 @@ fig.meca(
 )
 
 fig.meca(
-    spec=fm_dict_single,
+    spec=aki_dict_single,
     scale="1c",
     longitude=2,
     latitude=0,
@@ -164,7 +173,7 @@ fig.meca(
     outline="1p,darkorange,solid",
 )
 fig.meca(
-    spec=fm_dict_single,
+    spec=aki_dict_single,
     scale="1c",
     longitude=2,
     latitude=0,
@@ -181,10 +190,10 @@ fig.show()
 # Parameters ``plot_longitude`` and ``plot_latitude`` as well as ``offset``
 
 fig = pygmt.Figure()
-fig.basemap(region=[-size, size] * 2, projection="X10c/4c", frame=["af", "+ggray80"])
+fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
 
 fig.meca(
-    spec=fm_dict_single,
+    spec=aki_dict_single,
     scale="1c",
     longitude=-1,
     latitude=0,
@@ -194,7 +203,7 @@ fig.meca(
 )
 
 fig.meca(
-    spec=fm_dict_single,
+    spec=aki_dict_single,
     scale="1c",
     longitude=3,
     latitude=0,
@@ -219,7 +228,8 @@ fig.show()
 # - Afghanistan on 2022/06/21
 # - Syria / Turkey on 2023/02/06
 
-fm_dict_multiple = {
+# Set up a dictionary
+aki_dict_multiple = {
     "strike": [166, 166, 166, 166],
     "dip": [80, 80, 80, 80],
     "rake": [74, 74, 74, 74],
@@ -227,8 +237,12 @@ fm_dict_multiple = {
     "longitude": [-72.53, -79.611, 69.46, 37.032],
     "latitude": [18.46, 0.904, 33.02, 37.166],
     "depth": [13, 26.52, 4, 10],
+    "plot_longitude": [-90, -110, 70, 15],
+    "plot_latitude": [40, 15, 50, 60],
     "event_name": ["2010/01/12", "2022/03/27", "2022/06/21", "2023/02/06"],
 }
+# Convert to a pandas.DataFrame
+aki_df_multiple = pd.DataFrame(aki_dict_multiple)
 
 
 # %%
@@ -243,7 +257,7 @@ fm_dict_multiple = {
 fig = pygmt.Figure()
 fig.coast(region="d", projection="N10c", land="lightgray", frame=True)
 
-fig.meca(spec=fm_dict_multiple, scale="0.3c+m+f5p", labelbox="white@30")
+fig.meca(spec=aki_df_multiple, scale="0.4c+m+f5p", labelbox="white@30", offset=False)
 
 fig.show()
 
@@ -263,11 +277,12 @@ pygmt.makecpt(cmap="lajolla", series=[0, 30, 1])
 fig.colorbar(frame=["x+lhypocentral depth", "y+lkm"])
 
 fig.meca(
-    spec=fm_dict_multiple,
-    scale="0.3c+f5p",
+    spec=aki_df_multiple,
+    scale="0.4c+f5p",
+    offset="0.2p,gray30+s0.1c",
     labelbox="white@30",
     cmap=True,
-    outline=True,
+    outline="0.2p,gray30",
 )
 
 fig.show()
