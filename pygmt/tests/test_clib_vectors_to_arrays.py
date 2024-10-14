@@ -84,7 +84,7 @@ def test_vectors_to_arrays_pandas_string():
         pd.Series(["abcdef", "123456"], dtype="string"),
     ]
     arrays = vectors_to_arrays(vectors)
-    assert all(isinstance(i.dtype, np.dtypes.StrDType) for i in arrays)
+    assert all(i.dtype.type == np.str_ for i in arrays)
     _check_arrays(arrays)
 
 
@@ -104,5 +104,5 @@ def test_vectors_to_arrays_pyarrow_datetime():
         ),
     ]
     arrays = vectors_to_arrays(vectors)
-    assert all(isinstance(i.dtype, np.dtypes.DateTime64DType) for i in arrays)
+    assert all(i.dtype.type == np.datetime64 for i in arrays)
     _check_arrays(arrays)
