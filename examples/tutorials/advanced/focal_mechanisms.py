@@ -3,7 +3,28 @@ Plotting focal mechanisms
 =========================
 
 Focal mechanisms can be plotted as beachballs with the :meth:`pygmt.Figure.meca`
-method. This tutorial shows how to adjust the display of the beachballs:
+method.
+
+The focal mechanism data or parameters can be provided as different input types:
+
+- external file,
+- 1-D or 2-D ``numpy.array``,
+- dictionary
+- ``pandas.Dataframe``
+
+Different conventions are supported:
+
+- "Aki & Richards" (``"aki"``)
+- "global CMT" (``"gcmt"``)
+- "seismic moment tensor" (``"mt"``)
+- "partial focal mechanism" (``"partial"``)
+-  "principal axis" (``"principal_axis"``).
+
+The details on how to set up the input data in respect to the chosen input type and
+convention can be found in the documentation of :meth:`pygmt.Figure.meca`. When
+providing a dictionary or a ``pandas.DataFrame``, please note the listed required
+keys or column names, respectively. This tutorial focus on how to adjust the display
+of the beachballs:
 
 - Filling the quadrants
 - Adjusting the outlines
@@ -11,16 +32,6 @@ method. This tutorial shows how to adjust the display of the beachballs:
 - Adding offset from the event location
 - Adding a label
 - Using size-coding and color-coding
-
-The focal mechanism data or parameters can be provided in different input types:
-external file, 1-D or 2-D ``numpy.array``, dictionary, or ``pandas.Dataframe``.
-Different conventions are supported: "Aki & Richards" (``"aki"``), "global CMT"
-(``"gcmt"``), "seismic moment tensor" (``"mt"``), "partial focal mechanism"
-(``"partial"``), "principal axis" (``"principal_axis"``). The details on how to
-set up the input data in respect to the chosen input type and convention can be
-found in the documentation of :meth:`pygmt.Figure.meca`. When providing a
-dictionary or a  ``pandas.DataFrame``, please note the listed required keys or
-column names, respectively.
 """
 
 # %%
@@ -33,7 +44,7 @@ import pygmt
 #
 # Store focal mechanism parameters for one event in a dictionary based on the
 
-# moment tensor convention
+# seismic moment tensor convention
 mt_dict_single = mt_virginia = {
     "mrr": 4.71,
     "mtt": 0.0381,
