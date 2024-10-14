@@ -157,6 +157,7 @@ def vectors_to_arrays(vectors: Sequence[Any]) -> list[np.ndarray]:
 
     >>> import numpy as np
     >>> import pandas as pd
+    >>> data = np.array([[1, 2], [3, 4], [5, 6]])
     >>> vectors = [data[:, 0], data[:, 1], pd.Series(data=[-1, -2, -3])]
     >>> all(i.flags.c_contiguous for i in vectors)
     False
