@@ -12,14 +12,15 @@ method. This tutorial shows how to adjust the display of the beachballs:
 - Adding a label
 - Using size-coding and color-coding
 
-The focal mechanism data can be provided in different ways (external file, 1-D or 2-D
-``numpy.array``, dictionary, or ``pandas.Dataframe``). Different conventions to define
-the focal mechanism are supported: "Aki & Richards" (``"aki"``), "global CMT"
+The focal mechanism data or parameters can be provided in different input types:
+external file, 1-D or 2-D ``numpy.array``, dictionary, or ``pandas.Dataframe``.
+Different conventions are supported: "Aki & Richards" (``"aki"``), "global CMT"
 (``"gcmt"``), "seismic moment tensor" (``"mt"``), "partial focal mechanism"
-(``"partial"``), "principal axis" (``"principal_axis"``). The details on how to set
-up the input data in respect to the chosen input type and convention can be found in
-the documentation of ``. For providing a dictionary or a ``pandas.DataFrame`` please
-note the listed required keys or column names.
+(``"partial"``), "principal axis" (``"principal_axis"``). The details on how to
+set up the input data in respect to the chosen input type and convention can be
+found in the documentation of :meth:`pygmt.Figure.meca`. When providing a
+dictionary or a  ``pandas.DataFrame``, please note the listed required keys or
+column names, respectively.
 """
 
 # %%
@@ -71,8 +72,9 @@ fig.show()
 # ---------------------
 #
 # Use the parameters ``compressionfill`` and ``extensionfill`` to fill the
-# quadrants with colors or patterns.
-# details on pattern gallery example and techenical reference
+# quadrants with different colors or patterns. Regarding pattern see the
+# gallery example :doc:`Bit and hachure patterns </gallery/symbols/patterns>`
+# and the Technical Reference :doc:`Bit and hachure patterns </techref/patterns>`.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
