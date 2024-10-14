@@ -11,11 +11,7 @@ import pandas as pd
 import pytest
 from pygmt.clib.conversion import vectors_to_arrays
 
-try:
-    importlib.util.find_spec("pyarrow")
-    _HAS_PYARROW = True
-except ImportError:
-    _HAS_PYARROW = False
+_HAS_PYARROW = bool(importlib.util.find_spec("pyarrow"))
 
 
 def _check_arrays(arrays):
