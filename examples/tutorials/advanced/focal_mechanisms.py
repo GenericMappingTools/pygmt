@@ -3,32 +3,7 @@ Plotting focal mechanisms
 =========================
 
 Focal mechanisms can be plotted as beachballs with the :meth:`pygmt.Figure.meca`
-method. The input data can be provided in different ways:
-
-- a string containing path and name of an external file
-- a 1-D (single event) or 2-D (multiple events) ``numpy.array``
-- a dictionary
-- a ``pandas.DataFrame``
-
-Different conventions to define the focal mechanism are supported. For providing
-a dictionary or a ``pandas.DataFrame`` the listed keys or column names are required:
-
-- ``"aki"`` - Aki & Richards:
-  *strike*, *dip*, *rake*, *magnitude*
-- ``"gcmt"`` - global CMT:
-  *strike1*, *dip1*, *rake1*, *strike2*, *dip2*, *rake2*, *mantissa*, *exponent*
-- ``"mt"`` - seismic moment tensor:
-  *mrr*, *mtt*, *mff*, *mrt*, *mrf*, *mtf*, *exponent*
-- ``"partial"`` - partial focal mechanism:
-  *strike1*, *dip1*, *strike2*, *fault_type*, *magnitude*
-- ``"principal_axis"`` - principal axis:
-  *t_value*, *t_azimuth*, *t_plunge*, *n_value*, *n_azimuth*, *n_plunge*,
-  *p_value*, *p_azimuth*, *p_plunge*, *exponent*
-
-Please also refer also the documentation on how to set up the input data in
-respect to the chosen input type and convention.
-
-This tutorial shows how to adjust the display of the beachballs:
+method. This tutorial shows how to adjust the display of the beachballs:
 
 - Filling the quadrants
 - Adjusting the outlines
@@ -36,6 +11,15 @@ This tutorial shows how to adjust the display of the beachballs:
 - Adding offset from the event location
 - Adding a label
 - Using size-coding and color-coding
+
+The focal mechanism data can be provided in different ways (external file, 1-D or 2-D
+``numpy.array``, dictionary, or ``pandas.Dataframe``). Different conventions to define
+the focal mechanism are supported: "Aki & Richards" (``"aki"``), "global CMT"
+(``"gcmt"``), "seismic moment tensor" (``"mt"``), "partial focal mechanism"
+(``"partial"``), "principal axis" (``"principal_axis"``). The details on how to set
+up the input data in respect to the chosen input type and convention can be found in
+the documentation of ``. For providing a dictionary or a ``pandas.DataFrame`` please
+note the listed required keys or column names.
 """
 
 # %%
