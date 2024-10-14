@@ -16,6 +16,7 @@ dependencies:
     - contextily
     - geopandas<1.0
     - ipython
+    - pyarrow
     - rioxarray
     # Development dependencies (general)
     - make

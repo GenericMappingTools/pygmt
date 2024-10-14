@@ -107,9 +107,10 @@ The following are optional dependencies:
 :::{note}
 If you have [PyArrow](https://arrow.apache.org/docs/python/index.html) installed, PyGMT
 does have some initial support for `pandas.Series` and `pandas.DataFrame` objects with
-Apache Arrow-backed arrays. Specifically, only uint/int/float and date32/date64 dtypes
-are supported for now. Support for string Arrow dtypes is still a work in progress.
-For more details, see [issue #2800](https://github.com/GenericMappingTools/pygmt/issues/2800).
+Apache Arrow-backed arrays. Specifically, only uint/int/float, date32/date64 and string
+types are supported for now. Support for Duration types and GeoArrow geometry types is
+still a work in progress. For more details, see
+[issue #2800](https://github.com/GenericMappingTools/pygmt/issues/2800).
 :::
 
 ## Installing GMT and other dependencies
