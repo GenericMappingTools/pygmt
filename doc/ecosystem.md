@@ -30,9 +30,7 @@ and much more.
 [pandas][] is a Python package providing fast, flexible, and expressive data structures
 designed to make working with "relational" or "labeled" data both easy and intuitive.
 It aims to be the fundamental high-level building block for doing practical, real-world
-data analysis in Python. Additionally, it has the broader goal of becoming the most
-powerful and flexible open source data analysis/manipulation tool available in any
-language. It is already well on its way toward this goal.
+data analysis in Python.
 
 #### Xarray
 
@@ -65,8 +63,7 @@ can be directly used in data processing and plotting functions/methods of PyGMT.
 
 [contextily][] is a small Python package to retrieve tile maps from the internet. It can
 add those tiles as basemap to matplotlib figures or write tile maps to disk into
-geospatial raster files. Bounding boxes can be passed in both WGS84 (EPSG:4326) and
-Spheric Mercator (EPSG:3857).
+geospatial raster files.
 
 In PyGMT, {func}`pygmt.datasets.load_tile_map` and {class}`pygmt.Figure.tilemap` rely
 on it.
