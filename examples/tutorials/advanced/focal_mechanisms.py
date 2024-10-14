@@ -68,8 +68,8 @@ frame = ["af", "+ggray80"]
 
 
 # %%
-# Ploting a single beachball
-# --------------------------
+# Plotting a single beachball
+# ---------------------------
 #
 # Required parameters are ``spec``, ``scale``, ``longitude`` and ``latitude``
 # (event location).
@@ -219,7 +219,7 @@ fig.show()
 # %%
 # Plotting multiple beachballs
 # ----------------------------
-#
+# Data of four earthquakes taken from USGS.
 
 # Set up a dictionary
 aki_dict_multiple = {
