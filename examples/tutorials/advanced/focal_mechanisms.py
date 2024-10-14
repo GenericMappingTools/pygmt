@@ -7,18 +7,18 @@ method.
 
 The focal mechanism data or parameters can be provided as different input types:
 
-- external file  (note expected column order)
-- 1-D or 2-D ``numpy.array``  (note expected column order)
-- dictionary  (note the expected keys)
-- ``pandas.Dataframe``  (note the expected column names)
+- external file (note the expected column order)
+- 1-D or 2-D ``numpy.array`` (note the expected column order)
+- dictionary (note the expected keys)
+- ``pandas.Dataframe`` (note the expected column names)
 
 Different conventions used to define the focal mechanism are supported:
 
-- "Aki and Richards" (``"aki"``)
-- "global CMT" (``"gcmt"``)
-- "moment tensor" (``"mt"``)
-- "partial focal mechanism" (``"partial"``)
--  "principal axis" (``"principal_axis"``)
+- Aki and Richards (``"aki"``)
+- global CMT (``"gcmt"``)
+- moment tensor (``"mt"``)
+- partial focal mechanism (``"partial"``)
+- principal axis (``"principal_axis"``)
 
 The details on how to set up the input data in respect to the chosen input type and
 convention (i.e the expected column order, keys, or column names) can be found in
@@ -27,6 +27,7 @@ the documentation of :meth:`pygmt.Figure.meca`.
 This tutorial focus on how to adjust the display of the beachballs:
 
 - Filling the quadrants
+- Plotting the components of a seismic moment tensor
 - Adjusting the outlines
 - Highlighting the nodal planes
 - Adding offset from the event location
@@ -113,6 +114,39 @@ fig.meca(
 fig.show()
 
 
+# %% Plotting the components of a seismic moment tensor
+# -----------------------------------------------------
+#
+# Use the ``component`` parameter to plot the components of a seismic moment tensor.
+
+fig = pygmt.Figure()
+fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
+
+fig.meca(
+    spec=mt_dict_single,
+    scale="1c",
+    longitude=-3,
+    latitude=0,
+    component="full",  # full seismic moment tensor
+)
+fig.meca(
+    spec=mt_dict_single,
+    scale="1c",
+    longitude=0,
+    latitude=0,
+    component="dc",  # closest double couple
+)
+fig.meca(
+    spec=mt_dict_single,
+    scale="1c",
+    longitude=2,
+    latitude=0,
+    component="deviatoric",  # deviatoric part
+)
+
+fig.show()
+
+
 # %%
 # Adjusting the outlines
 # ----------------------
@@ -124,7 +158,7 @@ fig = pygmt.Figure()
 fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
 
 fig.meca(
-    spec=mt_dict_single,
+    spec=aki_dict_single,
     scale="1c",
     longitude=-2,
     latitude=0,
@@ -133,7 +167,7 @@ fig.meca(
 )
 
 fig.meca(
-    spec=mt_dict_single,
+    spec=aki_dict_single,
     scale="1c",
     longitude=2,
     latitude=0,
@@ -306,4 +340,4 @@ fig.meca(
 
 fig.show()
 
-# sphinx_gallery_thumbnail_number = 7
+# sphinx_gallery_thumbnail_number = 9
