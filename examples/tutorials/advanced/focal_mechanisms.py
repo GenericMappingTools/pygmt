@@ -229,6 +229,7 @@ fig.show()
 # ----------------------------
 #
 # Data of four earthquakes taken from USGS.
+# Provide lists.
 
 # Set up a dictionary
 aki_dict_multiple = {
@@ -257,9 +258,11 @@ aki_df_multiple = pd.DataFrame(aki_dict_multiple)
 # --------------
 #
 # Use the optional parameter ``event_name`` to add a label above the beachball,
-# e.g., event name or event date and time. Change the font size of trailing text
-# ``scale`` **+f**. Add a box behind the label via ``labelbox``.
-# Force a fixed size by appending **+m** to the argument passed to ``scale``.
+# e.g., event name or event date and time. Change the font size of the the label
+# text by appending **+f** and the desired font size to the ``scale`` parameter.
+# Add a colored box behind the label via the label ``labelbox``.
+# Force a fixed size of the beachball by appending **+m** to the argument
+# passed to ``scale``.
 
 fig = pygmt.Figure()
 fig.coast(region="d", projection="N10c", land="lightgray", frame=True)
