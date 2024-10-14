@@ -744,9 +744,9 @@ class Session:
 
         return data_ptr
 
-    def _parse_pad(self, family, pad):
+    def _parse_pad(self, family: str, pad: int | None) -> int:
         """
-        Parse and return an appropriate value for pad if none is given.
+        Parse and return an appropriate value for pad if ``None`` is given.
 
         Pad is a bit tricky because, for matrix types, pad control the matrix ordering
         (row or column major). Using the default pad will set it to column major and
@@ -756,55 +756,66 @@ class Session:
             pad = 0 if "MATRIX" in family else self["GMT_PAD_DEFAULT"]
         return pad
 
-    def _parse_constant(self, constant, valid, valid_modifiers=None):
+    def _parse_constant(
+        self,
+        constant: str,
+        valid: Sequence[str],
+        valid_modifiers: Sequence[str] | None = None,
+    ) -> int:
         """
-        Parse a constant, convert it to an int, and validate it.
+        Parse a constant, convert it to an interger, and validate it.
 
-        The GMT C API takes certain defined constants, like ``'GMT_IS_GRID'``,
-        that need to be validated and converted to integer values using
+        The GMT C API takes certain defined constants, like ``"GMT_IS_GRID"``, that need
+        to be validated and converted to integer values using
         :meth:`pygmt.clib.Session.__getitem__`.
 
-        The constants can also take a modifier by appending another constant
-        name, e.g. ``'GMT_IS_GRID|GMT_VIA_MATRIX'``. The two parts must be
-        converted separately and their values are added.
+        The constants can also take a modifier by appending another constant name, e.g.,
+        ``"GMT_IS_GRID|GMT_VIA_MATRIX"``. The two parts must be converted separately and
+        their values are added.
 
-        If valid modifiers are not given, then will assume that modifiers are
-        not allowed. In this case, will raise a
-        :class:`pygmt.exceptions.GMTInvalidInput` exception if given a
-        modifier.
+        If valid modifiers are not given, then will assume that modifiers are not
+        allowed. In this case, will raise a :class:`pygmt.exceptions.GMTInvalidInput`
+        exception if given a modifier.
 
         Parameters
         ----------
-        constant : str
+        constant
             The name of a valid GMT API constant, with an optional modifier.
-        valid : list of str
-            A list of valid values for the constant. Will raise a
-            :class:`pygmt.exceptions.GMTInvalidInput` exception if the given
-            value is not on the list.
+        valid
+            A list of valid values for the constant. Will raise a GMTInvalidInput
+            exception if the given value is not in the list.
+        valid_modifiers
+            A list of valid modifiers that can be added to the constant. If ``None``,
+            no modifiers are allowed.
         """
         parts = constant.split("|")
         name = parts[0]
         nmodifiers = len(parts) - 1
-        if nmodifiers > 1:
-            raise GMTInvalidInput(
-                f"Only one modifier is allowed in constants, {nmodifiers} given: '{constant}'"
-            )
-        if nmodifiers > 0 and valid_modifiers is None:
-            raise GMTInvalidInput(
-                "Constant modifiers are not allowed since valid values were not given: '{constant}'"
-            )
+
         if name not in valid:
-            raise GMTInvalidInput(
-                f"Invalid constant argument '{name}'. Must be one of {valid}."
-            )
-        if (
-            nmodifiers > 0
-            and valid_modifiers is not None
-            and parts[1] not in valid_modifiers
-        ):
-            raise GMTInvalidInput(
-                f"Invalid constant modifier '{parts[1]}'. Must be one of {valid_modifiers}."
-            )
+            msg = f"Invalid constant name '{name}'. Must be one of {valid}."
+            raise GMTInvalidInput(msg)
+
+        match nmodifiers:
+            case 1 if valid_modifiers is None:
+                msg = (
+                    f"Constant modifiers are not allowed since valid values "
+                    f"were not given: '{constant}'."
+                )
+                raise GMTInvalidInput(msg)
+            case 1 if valid_modifiers is not None and parts[1] not in valid_modifiers:
+                msg = (
+                    f"Invalid constant modifier '{parts[1]}'. "
+                    f"Must be one of {valid_modifiers}."
+                )
+                raise GMTInvalidInput(msg)
+            case n if n > 1:
+                msg = (
+                    f"Only one modifier is allowed in constants, "
+                    f"{nmodifiers} given: '{constant}'."
+                )
+                raise GMTInvalidInput(msg)
+
         integer_value = sum(self[part] for part in parts)
         return integer_value
 
