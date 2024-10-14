@@ -27,7 +27,6 @@ column names, respectively.
 import pandas as pd
 import pygmt
 
-
 # %%
 # Set up input data
 # -----------------
@@ -107,8 +106,8 @@ fig.show()
 # Adjusting the outlines
 # ----------------------
 #
-# Use the parameters ``pen`` and ``outline`` for adjusting the outer border of
-# the beachball or for all lines (borders of beachball and nodal planes).
+# Use the parameters ``pen`` and ``outline`` for adjusting the circumference of
+# the beachball or all lines (circumference of the beachball and both nodal planes).
 
 fig = pygmt.Figure()
 fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
@@ -137,11 +136,11 @@ fig.show()
 # Highlighting the nodal planes
 # -----------------------------
 #
-# Use the parameter ``nodal``
-# whereby ``"0"`` both, ``"1"`` first, ``"2"`` second
-# only lines not fill i.e. transparent
-# Make use of the stacking concept of GMT and plot on top of each other
-# behaviour somehow strange
+# Use the parameter ``nodal``, whereby ``"0"`` refers to both, ``"1"`` to the
+# first, and ``"2"`` to the second nodal plane(s). Only the circumference and the
+# specified nodal plane(s) are plotted, i.e. the quadrants remain unfilled
+# (transparent). If needed, make usage of the stacking concept of (Py)GMT and use
+# ``nodal`` with the ``outline`` or / and ``pen``  parameters in combination.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
@@ -160,16 +159,24 @@ fig.meca(
     longitude=2,
     latitude=0,
     compressionfill="lightorange",
-    outline="1p,darkorange,solid",
+    outline="0.5p,black,solid",
 )
 fig.meca(
     spec=aki_dict_single,
     scale="1c",
     longitude=2,
     latitude=0,
-    nodal="1/1p,black,solid",
+    nodal="1/1p,darkorange,solid",
 )
-
+fig.meca(
+    spec=aki_dict_single,
+    scale="1c",
+    longitude=2,
+    latitude=0,
+    compressionfill="white@100",
+    extensionfill="white@100",
+    pen="1p,gray30,solid",
+)
 fig.show()
 
 
