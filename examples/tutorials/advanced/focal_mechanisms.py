@@ -7,24 +7,24 @@ method.
 
 The focal mechanism data or parameters can be provided as different input types:
 
-- external file,
-- 1-D or 2-D ``numpy.array``,
-- dictionary
-- ``pandas.Dataframe``
+- external file  (note expected column order)
+- 1-D or 2-D ``numpy.array``  (note expected column order)
+- dictionary  (note the expected keys)
+- ``pandas.Dataframe``  (note the expected column names)
 
-Different conventions are supported:
+Different conventions used to define the focal mechanism are supported:
 
-- "Aki & Richards" (``"aki"``)
+- "Aki and Richards" (``"aki"``)
 - "global CMT" (``"gcmt"``)
-- "seismic moment tensor" (``"mt"``)
+- "moment tensor" (``"mt"``)
 - "partial focal mechanism" (``"partial"``)
--  "principal axis" (``"principal_axis"``).
+-  "principal axis" (``"principal_axis"``)
 
 The details on how to set up the input data in respect to the chosen input type and
-convention can be found in the documentation of :meth:`pygmt.Figure.meca`. When
-providing a dictionary or a ``pandas.DataFrame``, please note the listed required
-keys or column names, respectively. This tutorial focus on how to adjust the display
-of the beachballs:
+convention (i.e the expected column order, keys, or column names) can be found in
+the documentation of :meth:`pygmt.Figure.meca`.
+
+This tutorial focus on how to adjust the display of the beachballs:
 
 - Filling the quadrants
 - Adjusting the outlines
@@ -44,7 +44,7 @@ import pygmt
 #
 # Store focal mechanism parameters for one event in a dictionary based on the
 
-# seismic moment tensor convention
+# moment tensor convention
 mt_dict_single = mt_virginia = {
     "mrr": 4.71,
     "mtt": 0.0381,
@@ -54,7 +54,7 @@ mt_dict_single = mt_virginia = {
     "mtf": -1.23,
     "exponent": 24,
 }
-# Aki & Richards convention
+# Aki and Richards convention
 aki_dict_single = {"strike": 318, "dip": 89, "rake": -179, "magnitude": 7.75}
 
 # Set up arguments for basemap
@@ -196,12 +196,12 @@ fig.show()
 # ---------------------------------
 #
 # Specify the optional parameters ``plot_longitude`` and ``plot_latitude``.
-# Additional the parameter ``offset`` as to be set. Besides just drawing a line
-# between the beachball and the event location, a small circle can be plotted
-# at the event location by appending **+s** and the descired circle size. The
-# connecting line as well as the outline of the circle are plotted with the
-# setting of pen, or can be adjusted separately. The fill of the small circle
-# corresponds to the fill for the compressive quadrantes.
+# Additionally the parameter ``offset`` has to be set. Besides just drawing a
+# line between the beachball and the event location, a small circle can be
+# plotted at the event location by appending **+s** and the descired circle
+# diameter. The connecting line as well as the outline of the circle are
+# plotted with the setting of pen, or can be adjusted separately. The fill of
+# the small circle corresponds to the fill of the compressive quadrantes.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
@@ -263,12 +263,14 @@ aki_df_multiple = pd.DataFrame(aki_dict_multiple)
 # Adding a label
 # --------------
 #
-# Use the optional parameter ``event_name`` to add a label above the beachball,
-# e.g., event name or event date and time. Change the font size of the the label
-# text by appending **+f** and the desired font size to the ``scale`` parameter.
-# Add a colored box behind the label via the label ``labelbox``.
-# Force a fixed size of the beachball by appending **+m** to the argument
-# passed to ``scale``.
+# Use the optional parameter ``event_name`` to add a label near the beachball,
+# e.g., event name or event date and time. Change the font of the the label text
+# by appending **+f** and the desired font (size,name,color) to the argument passed
+# to the ``scale`` parameter. Additionally, the location of the label relative to the
+# beachball [Default is ``"TC"``, i.e., Top Center]; can be changed by appending
+# **+j** and an offset can be applied by appending **+o** with values for *dx*\ /*dy*.
+# Add a colored box behind the label via the label ``labelbox``. Force a fixed
+# size of the beachball by appending **+m** to the argument passed to ``scale``.
 
 fig = pygmt.Figure()
 fig.coast(region="d", projection="N10c", land="lightgray", frame=True)
@@ -282,9 +284,9 @@ fig.show()
 # Using size-coding and color-coding
 # ----------------------------------
 #
-# The beachball can be sized and colored by a different quantities, e.g., by
-# magnitude or hypocentral depth, respectively. Use the parameter ``cmap`` to
-# pass the descired colormap.
+# The beachball can be sized and colored by the quantities given as ``magnitude`` and
+# ``depth``, e.g., by moment magnitude or hypocentral depth, respectively. Use the
+# parameter ``cmap`` to pass the descired colormap.
 
 fig = pygmt.Figure()
 fig.coast(region="d", projection="N10c", land="lightgray", frame=True)
