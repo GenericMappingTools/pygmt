@@ -220,26 +220,24 @@ fig.show()
 # Plotting multiple beachballs
 # ----------------------------
 #
-# TODO
-# Set up list of four earthquakes:
-
-# - Haiti on 2010/01/12
-# - Esmeraldas on 2022/03/27
-# - Afghanistan on 2022/06/21
-# - Syria / Turkey on 2023/02/06
 
 # Set up a dictionary
 aki_dict_multiple = {
-    "strike": [166, 166, 166, 166],
-    "dip": [80, 80, 80, 80],
-    "rake": [74, 74, 74, 74],
+    "strike": [255, 173, 295, 318],
+    "dip": [70, 68, 79, 89],
+    "rake": [20, 83, -177, -179],
     "magnitude": [7.0, 5.8, 6.0, 7.8],
-    "longitude": [-72.53, -79.611, 69.46, 37.032],
-    "latitude": [18.46, 0.904, 33.02, 37.166],
-    "depth": [13, 26.52, 4, 10],
-    "plot_longitude": [-90, -110, 70, 15],
-    "plot_latitude": [40, 15, 50, 60],
-    "event_name": ["2010/01/12", "2022/03/27", "2022/06/21", "2023/02/06"],
+    "longitude": [-72.53, -79.61, 69.46, 37.01],
+    "latitude": [18.44, 0.90, 33.02, 37.23],
+    "depth": [13, 19, 4, 10],
+    "plot_longitude": [-70, -110, 100, 0],
+    "plot_latitude": [40, 10, 50, 55],
+    "event_name": [
+        "Haiti - 2010/01/12",
+        "Esmeraldas - 2022/03/27",
+        "Afghanistan - 2022/06/21",
+        "Syria/Turkey - 2023/02/06",
+    ],
 }
 # Convert to a pandas.DataFrame
 aki_df_multiple = pd.DataFrame(aki_dict_multiple)
@@ -257,7 +255,7 @@ aki_df_multiple = pd.DataFrame(aki_dict_multiple)
 fig = pygmt.Figure()
 fig.coast(region="d", projection="N10c", land="lightgray", frame=True)
 
-fig.meca(spec=aki_df_multiple, scale="0.4c+m+f5p", labelbox="white@30", offset=False)
+fig.meca(spec=aki_df_multiple, scale="0.4c+m+f5p", labelbox="white@30", offset="+s0.1c")
 
 fig.show()
 
@@ -273,7 +271,7 @@ fig = pygmt.Figure()
 fig.coast(region="d", projection="N10c", land="lightgray", frame=True)
 
 # Set up colormap and colorbar for hypocentral depth
-pygmt.makecpt(cmap="lajolla", series=[0, 30])
+pygmt.makecpt(cmap="lajolla", series=[0, 20])
 fig.colorbar(frame=["x+lhypocentral depth", "y+lkm"])
 
 fig.meca(
