@@ -273,7 +273,7 @@ fig = pygmt.Figure()
 fig.coast(region="d", projection="N10c", land="lightgray", frame=True)
 
 # Set up colormap and colorbar for hypocentral depth
-pygmt.makecpt(cmap="lajolla", series=[0, 30, 1], reverse=True)
+pygmt.makecpt(cmap="lajolla", series=[0, 30])
 fig.colorbar(frame=["x+lhypocentral depth", "y+lkm"])
 
 fig.meca(
