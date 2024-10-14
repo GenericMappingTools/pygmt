@@ -45,9 +45,8 @@ import pygmt
 # %%
 # Set up input data
 # -----------------
-#
-
 # Store focal mechanism parameters for one event in a dictionary based on the
+
 # moment tensor convention
 mt_dict_single = mt_virginia = {
     "mrr": 4.71,
@@ -72,12 +71,12 @@ frame = ["af", "+ggray80"]
 # ---------------------------
 #
 # Required parameters are ``spec``, ``scale``, ``longitude`` and ``latitude``
-# (event location).
+# (event location). (and ``convention`` depending on the input format, not needed
+# for dictionary and ``pandas.Dataframe``.)
 
 fig = pygmt.Figure()
 fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
 
-# Plot a single focal mechanism as beachball
 fig.meca(spec=mt_dict_single, scale="1c", longitude=0, latitude=0)
 
 fig.show()
@@ -120,7 +119,8 @@ fig.show()
 # Adjusting the outlines
 # ----------------------
 #
-# Use the parameters ``pen`` and ``outline`` to adjust the outline
+# Use the parameters ``pen`` for the outer border of the beachball and ``outline``
+# for all lines (also the borders between the nodal planes)
 
 fig = pygmt.Figure()
 fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
@@ -149,8 +149,10 @@ fig.show()
 # Highlighting the nodal planes
 # -----------------------------
 #
-# parameter ``nodal``
-# Use stacking concept of GMT - plot on top of each other
+# Use the parameter ``nodal``
+# whereby ``"0"`` both, ``"1"`` first, ``"2"`` second
+# only lines not fill i.e. transparent
+# Make use of the stacking concept of GMT and plot on top of each other
 # behaviour somehow strange
 
 fig = pygmt.Figure()
@@ -187,7 +189,13 @@ fig.show()
 # Adding offset from event location
 # ---------------------------------
 #
-# Parameters ``plot_longitude`` and ``plot_latitude`` as well as ``offset``
+# Specify the optional parameters ``plot_longitude`` and ``plot_latitude``.
+# Additional the parameter ``offset`` as to be set. Besides just drawing a line
+# between the beachball and the event location, a small circle can be plotted
+# at the event location by appending **+s** and the descired circle size. The
+# connecting line as well as the outline of the circle are plotted with the
+# setting of pen, or can be adjusted separately. The fill of the small circle
+# corresponds to the fill for the compressive quadrantes.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
@@ -219,6 +227,7 @@ fig.show()
 # %%
 # Plotting multiple beachballs
 # ----------------------------
+#
 # Data of four earthquakes taken from USGS.
 
 # Set up a dictionary
@@ -246,11 +255,11 @@ aki_df_multiple = pd.DataFrame(aki_dict_multiple)
 # %%
 # Adding a label
 # --------------
-# Force a fixed size by appending "+m" to the argument passed to ``scale``
 #
-# ``event_name`` as parameter or as column ``labelbox``
-# e.g., event date or time
-# change font size of trailing text ``scale`` **+f**
+# Use the optional parameter ``event_name`` to add a label above the beachball,
+# e.g., event name or event date and time. Change the font size of trailing text
+# ``scale`` **+f**. Add a box behind the label via ``labelbox``.
+# Force a fixed size by appending **+m** to the argument passed to ``scale``.
 
 fig = pygmt.Figure()
 fig.coast(region="d", projection="N10c", land="lightgray", frame=True)
@@ -261,11 +270,12 @@ fig.show()
 
 
 # %%
-# Using Size-coding and color-coding
+# Using size-coding and color-coding
 # ----------------------------------
 #
-# e.g., by magnitude or hypocentral depth
-# Set up colormap and use parameter ``cmap``
+# The beachball can be sized and colored by a different quantities, e.g., by
+# magnitude or hypocentral depth, respectively. Use the parameter ``cmap`` to
+# pass the descired colormap.
 
 fig = pygmt.Figure()
 fig.coast(region="d", projection="N10c", land="lightgray", frame=True)
