@@ -14,9 +14,9 @@ provide additional functionality for users.
 
 ## PyGMT dependencies
 
-### Required dependencies
+Asterisk (*) indicates that the package is a required dependency of PyGMT.
 
-#### NumPy
+### NumPy*
 
 [NumPy][] is the fundamental package for scientific computing in Python. It is a Python
 library that provides a multidimensional array object, various derived objects (such as
@@ -25,22 +25,20 @@ including mathematical, logical, shape manipulation, sorting, selecting, I/O, di
 Fourier transforms, basic linear algebra, basic statistical operations, random simulation
 and much more.
 
-#### pandas
+### pandas*
 
 [pandas][] is a Python package providing fast, flexible, and expressive data structures
 designed to make working with "relational" or "labeled" data both easy and intuitive.
 It aims to be the fundamental high-level building block for doing practical, real-world
 data analysis in Python.
 
-#### Xarray
+### Xarray*
 
 [Xarray][] is an open source project and Python package that introduces labels in the
 form of dimensions, coordinates, and attributes on top of raw NumPy-like arrays, which
 allows for more intuitive, more concise, and less error-prone user experience.
 
-### Optional dependencies
-
-#### IPython
+### IPython
 
 [IPython][] provides a rich toolkit to help you make the most of using Python
 interactively. Its main components are a powerful interactive Python shell and a Jupyter
@@ -48,7 +46,7 @@ kernel to work with Python code in Jupyter notebooks and other interactive front
 
 PyGMT relies on IPython to provide a rich interactive experience in Jupyter notebooks.
 
-#### GeoPandas
+### GeoPandas
 
 [GeoPandas][] is an open source project to make working with geospatial data in Python
 easier. GeoPandas extends the datatypes used by [pandas][] to allow spatial operations
@@ -59,7 +57,7 @@ PyGMT doesn't directly rely on GeoPandas, but provides support of GeoPandas's tw
 data structure, {class}`geopandas.GeoDataFrame` and {class}`geopandas.GeoSeries`, which
 can be directly used in data processing and plotting functions/methods of PyGMT.
 
-#### contextily
+### contextily
 
 [contextily][] is a small Python package to retrieve tile maps from the internet. It can
 add those tiles as basemap to matplotlib figures or write tile maps to disk into
@@ -68,7 +66,7 @@ geospatial raster files.
 In PyGMT, {func}`pygmt.datasets.load_tile_map` and {class}`pygmt.Figure.tilemap` rely
 on it.
 
-#### rioxarray
+### rioxarray
 
 [rioxarray][] is a geospatial [Xarray][] extension powered by [rasterio][]. Built on top
 of rasterio, it enables seamless reading, writing, and manipulation of multi-dimensional
@@ -84,7 +82,7 @@ We're working towards removing the dependency of the [rioxarray][] package in
 [PR #3468](https://github.com/GenericMappingTools/pygmt/pull/3468).
 ```
 
-#### PyArrow
+### PyArrow
 
 [Apache Arrow][] is a development platform for in-memory analytics. It contains a set of
 technologies that enable big data systems to process and move data fast. It specifies a
