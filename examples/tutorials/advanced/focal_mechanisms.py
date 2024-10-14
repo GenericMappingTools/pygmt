@@ -39,11 +39,17 @@ This tutorial focus on how to adjust the display of the beachballs:
 import pandas as pd
 import pygmt
 
+# Set up arguments for basemap
+size = 5
+projection = "X10c/4c"
+frame = ["af", "+ggray80"]
+
+
 # %%
-# Set up input data
-# -----------------
+# Set up the focal mechanism data
+# -------------------------------
 #
-# Store focal mechanism parameters for one event in a dictionary based on the
+# Store focal mechanism parameters for one event in a dictionary following the
 
 # moment tensor convention
 mt_dict_single = mt_virginia = {
@@ -57,11 +63,6 @@ mt_dict_single = mt_virginia = {
 }
 # Aki and Richards convention
 aki_dict_single = {"strike": 318, "dip": 89, "rake": -179, "magnitude": 7.75}
-
-# Set up arguments for basemap
-size = 5
-projection = "X10c/4c"
-frame = ["af", "+ggray80"]
 
 
 # %%
@@ -114,8 +115,9 @@ fig.meca(
 fig.show()
 
 
-# %% Plotting the components of a seismic moment tensor
-# -----------------------------------------------------
+# %%
+# Plotting the components of a seismic moment tensor
+# --------------------------------------------------
 #
 # Use the ``component`` parameter to plot the components of a seismic moment tensor.
 
