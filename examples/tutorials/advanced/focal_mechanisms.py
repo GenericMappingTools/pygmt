@@ -27,9 +27,11 @@ column names, respectively.
 import pandas as pd
 import pygmt
 
+
 # %%
 # Set up input data
 # -----------------
+#
 # Store focal mechanism parameters for one event in a dictionary based on the
 
 # moment tensor convention
@@ -56,8 +58,8 @@ frame = ["af", "+ggray80"]
 # ---------------------------
 #
 # Required parameters are ``spec``, ``scale``, ``longitude`` and ``latitude``
-# (event location). (and ``convention`` depending on the input format, not needed
-# for dictionary and ``pandas.Dataframe``.)
+# (event location) as well as ``convention``. For the input types dictionary and
+# ``pandas.Dataframe``, ``convention`` is not required.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
