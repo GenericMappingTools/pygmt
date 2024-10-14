@@ -246,7 +246,7 @@ def data_kind(
 
     The "empty" kind:
 
-    >>> data_kind(data=None)
+    >>> data_kind(data=None, required=True)
     'empty'
 
     The "file" kind:
