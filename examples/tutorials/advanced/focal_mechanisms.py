@@ -30,12 +30,12 @@ respect to the chosen input type and convention.
 
 This tutorial shows how to adjust the display of the beachballs:
 
-- Fill quadrants with colors and patterns
-- Adjust the outline
-- Highlight nodal planes
-- Add offset from event location
-- Add a label
-- Use size-coding and color-coding
+- Filling the quadrants
+- Adjusting the outlines
+- Highlighting the nodal planes
+- Adding offset from the event location
+- Adding a label
+- Using size-coding and color-coding
 """
 
 # %%
@@ -68,8 +68,8 @@ frame = ["af", "+ggray80"]
 
 
 # %%
-# Plot a single beachball
-# -----------------------
+# Ploting a single beachball
+# --------------------------
 #
 # Required parameters are ``spec``, ``scale``, ``longitude`` and ``latitude``
 # (event location).
@@ -84,8 +84,8 @@ fig.show()
 
 
 # %%
-# Fill quadrants with colors and patterns
-# ---------------------------------------
+# Filling the quadrants
+# ---------------------
 #
 # Use the parameters ``compressionfill`` and ``extensionfill`` to fill the
 # quadrants with colors or patterns.
@@ -117,8 +117,8 @@ fig.show()
 
 
 # %%
-# Adjust the outline
-# ------------------
+# Adjusting the outlines
+# ----------------------
 #
 # Use the parameters ``pen`` and ``outline`` to adjust the outline
 
@@ -146,8 +146,8 @@ fig.show()
 
 
 # %%
-# Highlight the nodal planes
-# --------------------------
+# Highlighting the nodal planes
+# -----------------------------
 #
 # parameter ``nodal``
 # Use stacking concept of GMT - plot on top of each other
@@ -184,8 +184,8 @@ fig.show()
 
 
 # %%
-# Offset from event location
-# --------------------------
+# Adding offset from event location
+# ---------------------------------
 #
 # Parameters ``plot_longitude`` and ``plot_latitude`` as well as ``offset``
 
@@ -217,8 +217,8 @@ fig.show()
 
 
 # %%
-# Plot multiple beachballs
-# ------------------------
+# Plotting multiple beachballs
+# ----------------------------
 #
 # TODO
 # Set up list of four earthquakes:
@@ -246,8 +246,8 @@ aki_df_multiple = pd.DataFrame(aki_dict_multiple)
 
 
 # %%
-# Add a label
-# -----------
+# Adding a label
+# --------------
 # Force a fixed size by appending "+m" to the argument passed to ``scale``
 #
 # ``event_name`` as parameter or as column ``labelbox``
@@ -263,8 +263,8 @@ fig.show()
 
 
 # %%
-# Size-coding and color-coding
-# ----------------------------
+# Using Size-coding and color-coding
+# ----------------------------------
 #
 # e.g., by magnitude or hypocentral depth
 # Set up colormap and use parameter ``cmap``
