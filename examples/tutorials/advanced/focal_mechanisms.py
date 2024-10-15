@@ -294,8 +294,9 @@ aki_df_multiple = pd.DataFrame(aki_dict_multiple)
 # to the ``scale`` parameter. Additionally, the location of the label relative to the
 # beachball [Default is ``"TC"``, i.e., Top Center]; can be changed by appending
 # **+j** and an offset can be applied by appending **+o** with values for *dx*\ /*dy*.
-# Add a colored box behind the label via the label ``labelbox``. Force a fixed
-# size of the beachball by appending **+m** to the argument passed to ``scale``.
+# Add a colored [Default is white] box behind the label via the label ``labelbox``.
+# Force a fixed size of the beachball by appending **+m** to the argument passed to
+# the ``scale`` parameter.
 
 fig = pygmt.Figure()
 fig.coast(region="d", projection="N10c", land="lightgray", frame=True)
@@ -311,7 +312,8 @@ fig.show()
 #
 # The beachball can be sized and colored by the quantities given as ``magnitude`` and
 # ``depth``, e.g., by moment magnitude or hypocentral depth, respectively. Use the
-# parameter ``cmap`` to pass the descired colormap.
+# parameter ``cmap`` to pass the descired colormap. Now, the fills of the small circles
+# indicating the event locations are given by the colormap.
 
 fig = pygmt.Figure()
 fig.coast(region="d", projection="N10c", land="lightgray", frame=True)
