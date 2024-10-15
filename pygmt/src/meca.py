@@ -260,12 +260,12 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
           - ``"principal_axis"``: *t_value*, *t_azimuth*, *t_plunge*, *n_value*,
             *n_azimuth*, *n_plunge*, *p_value*, *p_azimuth*, *p_plunge*, *exponent*
 
-        A dictionary may contain values for a single focal mechanism or lists of
-        values for multiple focal mechanisms.
+          A dictionary may contain values for a single focal mechanism or lists of
+           values for multiple focal mechanisms.
 
-        Both dictionary and pd.DataFrame may optionally contain the keys/column names:
-        ``latitude``, ``longitude``, ``depth``, ``plot_longitude``, ``plot_latitude``,
-        and/or ``event_name``.
+          Both dictionary and pd.DataFrame may optionally contain the keys/column names:
+          ``latitude``, ``longitude``, ``depth``, ``plot_longitude``, ``plot_latitude``,
+          and/or ``event_name``.
 
         If ``spec`` is either a str, a 1-D or 2-D np.array, the ``convention`` parameter
         is required to interpret the columns. If ``spec`` is a dictionary or a
