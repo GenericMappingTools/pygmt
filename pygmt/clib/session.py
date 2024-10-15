@@ -1831,7 +1831,7 @@ class Session:
             _data = (data,)
             if data.dtype.kind not in "iuf":
                 _virtualfile_from = self.virtualfile_from_vectors
-                _data = data
+                _data = data.T
 
         # Finally create the virtualfile from the data, to be passed into GMT
         file_context = _virtualfile_from(*_data)
