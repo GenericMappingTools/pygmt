@@ -232,8 +232,8 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
 
         ``spec`` can be specified in either of the following types:
 
-        - *str*: a file name containing focal mechanism parameters as columns.
-           The meaning of each column is:
+        - *str*: a file name containing focal mechanism parameters as columns. The
+          meaning of each column is:
 
           - Columns 1 and 2: event longitude and latitude
           - Column 3: event depth (in kilometers)
@@ -261,7 +261,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
             *n_azimuth*, *n_plunge*, *p_value*, *p_azimuth*, *p_plunge*, *exponent*
 
           A dictionary may contain values for a single focal mechanism or lists of
-           values for multiple focal mechanisms.
+          values for multiple focal mechanisms.
 
           Both dictionary and pd.DataFrame may optionally contain the keys/column names:
           ``latitude``, ``longitude``, ``depth``, ``plot_longitude``, ``plot_latitude``,
@@ -303,32 +303,32 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
         - ``"deviatoric"``: deviatoric part of the moment tensor (zero trace)
     longitude : float, list, or 1-D numpy array
         Longitude(s) of the event location(s). Length must match the number of events.
-        Will override the ``longitude`` values in ``spec`` if ``spec`` is a dictionary
-        or pd.DataFrame.
+        Overrides the ``longitude`` values in ``spec`` if ``spec`` is a dictionary or
+        pd.DataFrame.
     latitude : float, list, or 1-D numpy array
         Latitude(s) of the event location(s). Length must match the number of events.
-        Will override the ``latitude`` values in ``spec`` if ``spec`` is a dictionary
-        or pd.DataFrame.
+        Overrides the ``latitude`` values in ``spec`` if ``spec`` is a dictionary or
+        pd.DataFrame.
     depth : float, list, or 1-D numpy array
         Depth(s) of the event location(s) in kilometers. Length must match the number
         of events. Overrides the ``depth`` values in ``spec`` if  ``spec`` is a
         dictionary or pd.DataFrame.
     plot_longitude : float, str, list, or 1-D numpy array
         Longitude(s) at which to place the beachball(s). Length must match the number
-        of events. Overrides the ``plot_longitude`` values in ``spec`` if ``spec``
-        is a dictionary or pd.DataFrame.
+        of events. Overrides the ``plot_longitude`` values in ``spec`` if ``spec`` is
+        a dictionary or pd.DataFrame.
     plot_latitude : float, str, list, or 1-D numpy array
         Latitude(s) at which to place the beachball(s). Length must match the number
-        of events. Overrides the ``plot_latitude`` values in ``spec`` if ``spec``
-        is a dictionary or pd.DataFrame.
+        of events. Overrides the ``plot_latitude`` values in ``spec`` if ``spec`` is
+        a dictionary or pd.DataFrame.
     event_name : str, list of str, or 1-D numpy array
         Text string(s), e.g., event name(s) to appear near the beachball(s). Length
         must match the number of events. Overrides the ``event_name`` labels in
         ``spec`` if ``spec`` is a dictionary or pd.DataFrame.
     labelbox : bool or str
         [*fill*].
-        Draw a box behind the label if given via ``event_name``. Use *fill* to give
-        a fill color [Default is ``"white"``].
+        Draw a box behind the label if given via ``event_name``. Use *fill* to give a
+        fill color [Default is ``"white"``].
     offset : bool or str
         [**+p**\ *pen*][**+s**\ *size*].
         Offset beachball(s) to the longitude(s) and latitude(s) specified in the last
