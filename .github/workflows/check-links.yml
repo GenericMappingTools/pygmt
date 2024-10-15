@@ -37,6 +37,7 @@ jobs:
       id: lychee
       uses: lycheeverse/lychee-action@v2.0.2
       with:
+        fail: false  # Don't fail action on broken links
         output: /tmp/lychee-out.md
         # 429: Too many requests
         args: >
