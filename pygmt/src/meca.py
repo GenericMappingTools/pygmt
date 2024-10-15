@@ -240,9 +240,9 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
           - Columns 4 to 3+n: focal mechanism parameters. The number of columns *n*
             depends on the choice of ``convention``, which is described below.
           - Columns 4+n and 5+n: longitude and latitude at which to place the
-            beachball. Using ``0 0`` will plot the beachball at the longitude and
-            latitude given in columns 1 and 2. [optional; requires ``offset=True``].
-          - Text string to appear near the beachball [optional].
+            beachball. Using ``0 0`` plots the beachball at longitude and latitude
+            given in the columns 1 and 2. [optional; requires ``offset=True``].
+          - Last Column: text string to appear near the beachball [optional].
 
         - *1-D np.array*: focal mechanism parameters of a single event.
           The meanings of columns are the same as above.
@@ -267,9 +267,9 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
           ``latitude``, ``longitude``, ``depth``, ``plot_longitude``, ``plot_latitude``,
           and/or ``event_name``.
 
-        If ``spec`` is either a str, a 1-D or 2-D np.array, the ``convention`` parameter
-        is required to interpret the columns. If ``spec`` is a dictionary or a
-        pd.DataFrame, ``convention`` is not needed and ignored if specified.
+        If ``spec`` is either a str or a 1-D or 2-D np.array, the ``convention``
+        parameter is required to interpret the columns. If ``spec`` is a dictionary or
+        a pd.DataFrame, ``convention`` is not needed and ignored if specified.
     scale : float or str
         *scale*\ [**+a**\ *angle*][**+f**\ *font*][**+j**\ *justify*]\
         [**+l**][**+m**][**+o**\ *dx*\ [/\ *dy*]][**+s**\ *reference*].
