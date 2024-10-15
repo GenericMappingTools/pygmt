@@ -227,28 +227,27 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
 
     Parameters
     ----------
-    spec : str, 1-D array, 2-D array, dict, or pd.DataFrame
+    spec : str, 1-D numpy array, 2-D numpy array, dict, or pd.DataFrame
         Data that contain focal mechanism parameters.
 
         ``spec`` can be specified in either of the following types:
 
-        - *str*: a file name containing focal mechanism parameters as
+        - *string*: a file name containing focal mechanism parameters as
           columns. The meaning of each column is:
 
           - Columns 1 and 2: event longitude and latitude
           - Column 3: event depth (in km)
           - Columns 4 to 3+n: focal mechanism parameters. The number of columns
-            *n* depends on the choice of ``convention``, which will be
-            described below.
+            *n* depends on the choice of ``convention``, which is described below.
           - Columns 4+n and 5+n: longitude, latitude at which to place
             beachball. Using ``0 0`` will plot the beachball at the longitude,
             latitude given in columns 1 and 2. [optional and requires
             ``offset=True`` to take effect].
           - Text string to appear near the beachball [optional].
 
-        - *1-D array*: focal mechanism parameters of a single event.
+        - *1-D np.array*: focal mechanism parameters of a single event.
           The meanings of columns are the same as above.
-        - *2-D array*: focal mechanism parameters of multiple events.
+        - *2-D np.array*: focal mechanism parameters of multiple events.
           The meanings of columns are the same as above.
         - *dictionary or pd.DataFrame*: The dictionary keys or pd.DataFrame
           column names determine the focal mechanism convention. For
@@ -265,14 +264,14 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
           A dictionary may contain values for a single focal mechanism or
           lists of values for multiple focal mechanisms.
 
-          Both dictionary and pd.DataFrame may optionally contain
+          Both dictionary and pd.DataFrame may optionally contain the
           keys/column names: ``latitude``, ``longitude``, ``depth``,
           ``plot_longitude``, ``plot_latitude``, and/or ``event_name``.
 
-        If ``spec`` is either a str, a 1-D array or a 2-D array, the
-        ``convention`` parameter is required so we know how to interpret the
-        columns. If ``spec`` is a dictionary or a pd.DataFrame,
-        ``convention`` is not needed and is ignored if specified.
+        If ``spec`` is either a string, a 1-D or a 2-D np.array, the ``convention``
+        parameter is required so we know how to interpret the columns. If ``spec``
+		is a dictionary or a pd.DataFrame, ``convention`` is not needed and is
+		ignored if specified.
     scale : float or str
         *scale*\ [**+a**\ *angle*][**+f**\ *font*][**+j**\ *justify*]\
         [**+l**][**+m**][**+o**\ *dx*\ [/\ *dy*]][**+s**\ *reference*].
