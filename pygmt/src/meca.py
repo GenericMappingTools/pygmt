@@ -232,7 +232,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
 
         ``spec`` can be specified in either of the following types:
 
-        - *string*: a file name containing focal mechanism parameters as columns.
+        - *str*: a file name containing focal mechanism parameters as columns.
            The meaning of each column is:
 
           - Columns 1 and 2: event longitude and latitude
