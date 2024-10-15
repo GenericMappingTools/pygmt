@@ -94,8 +94,8 @@ Python objects. They are based on the C++ implementation of Arrow.
 ```{note}
 If you have [PyArrow][] installed, PyGMT does have some initial support for
 `pandas.Series` and `pandas.DataFrame` objects with Apache Arrow-backed arrays.
-Specifically, only uint/int/float, date32/date64 and string types are supported for now.
-Support for Duration types and GeoArrow geometry types is still a work in progress.
+Specifically, only uint/int/float and date32/date64 are supported for now.
+Support for string Array dtypes, Duration types and GeoArrow geometry types is still a work in progress.
 For more details, see
 [issue #2800](https://github.com/GenericMappingTools/pygmt/issues/2800).
 ```
