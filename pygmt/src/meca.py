@@ -240,7 +240,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
           - Columns 4 to 3+n: focal mechanism parameters. The number of columns *n*
             depends on the choice of ``convention``, which is described below.
           - Columns 4+n and 5+n: longitude and latitude at which to place the
-            beachball. Using ``0 0`` plots the beachball at longitude and latitude
+            beachball. ``0 0`` plots the beachball at the longitude and latitude
             given in the columns 1 and 2. [optional; requires ``offset=True``].
           - Last Column: text string to appear near the beachball [optional].
 
