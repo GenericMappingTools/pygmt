@@ -3,17 +3,16 @@ Plotting focal mechanisms
 =========================
 
 Focal mechanisms can be plotted as beachballs with the :meth:`pygmt.Figure.meca`
-method.
-
-The focal mechanism data or parameters can be provided as different input types:
-external file, 1-D or 2-D ``numpy.array``, dictionary, ``pandas.Dataframe``.
+method. The focal mechanism data or parameters can be provided as different input
+types: external file, 1-D or 2-D ``numpy.array``, dictionary, ``pandas.Dataframe``.
 Different conventions to define the focal mechanism are supported: Aki and
 Richards (``"aki"``), global CMT (``"gcmt"``), moment tensor (``"mt"``), partial
 focal mechanism (``"partial"``), principal axis (``"principal_axis"``). Please
 refer to the documentation of :meth:`pygmt.Figure.meca` regarding how to set up
 the input data in respect to the chosen input type and convention (i.e the
-expected column order, keys, or column names). This tutorial focus on how to
-adjust the display of the beachballs:
+expected column order, keys, or column names).
+
+This tutorial focus on how to adjust the display of the beachballs:
 
 - Filling the quadrants
 - Plotting the components of a seismic moment tensor
