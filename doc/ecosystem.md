@@ -14,7 +14,7 @@ provide additional functionality for users.
 
 ## PyGMT dependencies
 
-Asterisk (*) indicates that the package is a required dependency of PyGMT.
+_Asterisk (*) after the package name indicates the package is a required dependency of PyGMT._
 
 ### NumPy*
 
@@ -88,7 +88,7 @@ We're working towards removing the dependency of the [rioxarray][] package in
 technologies that enable big data systems to process and move data fast. It specifies a
 standardized language-independent columnar memory format for flat and hierarchical data,
 organized for efficient analytic operations on modern hardware. The Arrow Python bindings
-(also named "PyArrow") have first-class integration with NumPy, pandas, and built-in
+(also named "[PyArrow][]") have first-class integration with NumPy, pandas, and built-in
 Python objects. They are based on the C++ implementation of Arrow.
 
 ```{note}
