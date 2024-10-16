@@ -30,6 +30,7 @@ Plotting map elements
     Figure.coast
     Figure.colorbar
     Figure.inset
+    Figure.hlines
     Figure.legend
     Figure.logo
     Figure.solar
