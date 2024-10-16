@@ -345,7 +345,7 @@ class Session:
             _ = self.session_pointer
             msg = (
                 "Failed to create a GMT API session: "
-                "There is a currently open session. Must destroy it first."
+                "There is currently an open session. Must destroy it first."
             )
             raise GMTCLibError(msg)
         except GMTCLibNoSessionError:
