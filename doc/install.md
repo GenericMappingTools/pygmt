@@ -132,14 +132,14 @@ installed (we'll call it `pygmt` but feel free to change it to whatever you want
 ::: {tab-item} mamba
 :sync: mamba
 ```
-mamba create --name pygmt python=3.12 numpy pandas xarray netcdf4 packaging gmt
+mamba create --name pygmt python=3.13 numpy pandas xarray netcdf4 packaging gmt
 ```
 :::
 
 ::: {tab-item} conda
 :sync: conda
 ```
-conda create --name pygmt python=3.12 numpy pandas xarray netcdf4 packaging gmt
+conda create --name pygmt python=3.13 numpy pandas xarray netcdf4 packaging gmt
 ```
 :::
 ::::
