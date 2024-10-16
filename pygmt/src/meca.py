@@ -384,7 +384,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
         For non-double couple mechanisms, ``nodal=0`` overlays best
         double couple transparently.
     pt_axes : bool or str
-        [*size*[/*p_symbol*[*t_symbol*]]].
+        [*size*[/*p_symbol*\ [*t_symbol*]]].
         Compute and plot the P and T axes with symbols. Optionally specify size
         and (separate) P and T axes symbols from the following: circle (**c**),
         diamond (**d**), hexagon (**h**), inverse triangle (**i**), point (**p**),
@@ -397,12 +397,12 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
         ``extensionfill``].
     p_axispen : bool or str
         [*pen*].
-        Draw the P axis outline. Use *pen* to set the pen attributes for this
-        feature [Default is set via ``pen``].
+        Draw the P axis symbol outline. Use *pen* to set the pen attributes for
+        this feature [Default is set via ``pen``].
     t_axispen : bool or str
         [*pen*].
-        Draw the T axis outline. Use *pen* to set the pen attributes for this
-        feature [Default is set via ``pen``].
+        Draw the T axis symbol outline. Use *pen* to set the pen attributes for
+        this feature [Default is set via ``pen``].
     cmap : str
         File name of a CPT file or a series of comma-separated colors (e.g.,
         *color1,color2,color3*) to build a linear continuous CPT from those
