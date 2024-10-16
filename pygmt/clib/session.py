@@ -1330,7 +1330,7 @@ class Session:
         return self.open_virtualfile(family, geometry, direction, data)
 
     @contextlib.contextmanager
-    def virtualfile_from_vectors(self, vectors):
+    def virtualfile_from_vectors(self, vectors, *args):
         """
         Store 1-D arrays as columns of a table inside a virtual file.
 
@@ -1379,6 +1379,17 @@ class Session:
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <1/3> <4/6> <7/9>
         """
+        if len(args) > 0:
+            warnings.warn(
+                "Passing multiple arguments to Session.virtualfile_fro_vectors is "
+                "deprecated since v0.14.0 and will be unsupported in v0.16.0. "
+                "Pass all vectors as a single tuple instead, e.g., "
+                "Use `with lib.virtualfile_from_vectors((x, y, z)) as vfile` "
+                "instead of `with lib.virtualfile_from_vectors(x, y, z) as vfile`.",
+                category=FutureWarning,
+                stacklevel=3,
+            )
+            vectors = (vectors, *args)
         # Conversion to a C-contiguous array needs to be done here and not in
         # put_vector or put_strings because we need to maintain a reference to
         # the copy while it is being used by the C API. Otherwise, the array
