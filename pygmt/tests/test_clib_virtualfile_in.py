@@ -9,9 +9,11 @@ import numpy as np
 import pandas as pd
 import pytest
 import xarray as xr
+from packaging.version import Version
 from pygmt import clib
+from pygmt.clib import __gmt_version__
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import GMTTempFile
+from pygmt.helpers import GMTTempFile, data_kind
 
 POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
 
@@ -101,3 +103,27 @@ def test_virtualfile_in_fail_non_valid_data(data):
                 z=data[:, 2],
                 data=data,
             )
+
+
+@pytest.mark.xfail(
+    condition=Version(__gmt_version__) <= Version("6.5.0"),
+    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8600",
+)
+def test_virtualfile_in_matrix_string_dtype():
+    """
+    Pass a string dtype matrix should work and the matrix should be passed via a series
+    of vectors.
+    """
+    data = np.array([["11:30W", "30:30S"], ["12:30W", "30:00S"]])
+    assert data_kind(data) == "matrix"  # data is recognized as "matrix" kind
+    assert data.dtype.type == np.str_
+    assert data.dtype.kind not in "iuf"  # dtype is not in numeric dtypes
+
+    with clib.Session() as lib:
+        with lib.virtualfile_in(data=data) as vintbl:
+            with GMTTempFile() as outfile:
+                lib.call_module("info", [vintbl, "-C", f"->{outfile.name}"])
+                output = outfile.read(keep_tabs=False)
+                assert output == "347.5 348.5 -30.5 -30\n"
+                # Should check that lib.virtualfile_from_vectors is called once,
+                # not lib.virtualfile_from_matrix, but it's technically complicated.

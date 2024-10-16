@@ -207,8 +207,12 @@ def data_kind(
     - ``"grid"``: a :class:`xarray.DataArray` object that is not 3-D
     - ``"image"``: a 3-D :class:`xarray.DataArray` object
     - ``"stringio"``: a :class:`io.StringIO` object
-    - ``"matrix"``: anything else that is not ``None``
-    - ``"vectors"``: ``data`` is ``None`` and ``required=True``
+    - ``"matrix"``: a 2-D array-like object that implements ``__array_interface__``
+      (e.g., :class:`numpy.ndarray`)
+    - ``"vectors"``: ``data`` is ``None`` and ``required=True``, or any unrecognized
+      data. Common data types include, a :class:`pandas.DataFrame` object, a dictionary
+      with array-like values, a 1-D/3-D :class:`numpy.ndarray` object, or array-like
+      objects.
 
     Parameters
     ----------
@@ -268,27 +272,27 @@ def data_kind(
 
     The "matrix"`` kind:
 
-    >>> data_kind(data=np.arange(10))  # 1-D numpy.ndarray
-    'matrix'
     >>> data_kind(data=np.arange(10).reshape((5, 2)))  # 2-D numpy.ndarray
-    'matrix'
-    >>> data_kind(data=np.arange(60).reshape((3, 4, 5)))  # 3-D numpy.ndarray
-    'matrix'
-    >>> data_kind(xr.DataArray(np.arange(12), name="x").to_dataset())  # xarray.Dataset
-    'matrix'
-    >>> data_kind(data=[1, 2, 3])  # 1-D sequence
-    'matrix'
-    >>> data_kind(data=[[1, 2, 3], [4, 5, 6]])  # sequence of sequences
-    'matrix'
-    >>> data_kind(data={"x": [1, 2, 3], "y": [4, 5, 6]})  # dictionary
-    'matrix'
-    >>> data_kind(data=pd.DataFrame({"x": [1, 2, 3], "y": [4, 5, 6]}))  # pd.DataFrame
-    'matrix'
-    >>> data_kind(data=pd.Series([1, 2, 3], name="x"))  # pd.Series
     'matrix'
 
     The "vectors" kind:
 
+    >>> data_kind(data=np.arange(10))  # 1-D numpy.ndarray
+    'vectors'
+    >>> data_kind(data=np.arange(60).reshape((3, 4, 5)))  # 3-D numpy.ndarray
+    'vectors'
+    >>> data_kind(xr.DataArray(np.arange(12), name="x").to_dataset())  # xarray.Dataset
+    'vectors'
+    >>> data_kind(data=[1, 2, 3])  # 1-D sequence
+    'vectors'
+    >>> data_kind(data=[[1, 2, 3], [4, 5, 6]])  # sequence of sequences
+    'vectors'
+    >>> data_kind(data={"x": [1, 2, 3], "y": [4, 5, 6]})  # dictionary
+    'vectors'
+    >>> data_kind(data=pd.DataFrame({"x": [1, 2, 3], "y": [4, 5, 6]}))  # pd.DataFrame
+    'vectors'
+    >>> data_kind(data=pd.Series([1, 2, 3], name="x"))  # pd.Series
+    'vectors'
     >>> data_kind(data=None)
     'vectors'
     """
@@ -312,7 +316,10 @@ def data_kind(
             # geopandas.GeoDataFrame or shapely.geometry).
             # Reference: https://gist.github.com/sgillies/2217756
             kind = "geojson"
-        case x if x is not None:  # Any not-None is considered as a matrix.
+        case x if hasattr(x, "__array_interface__") and data.ndim == 2:
+            # 2-D Array-like objects that implements ``__array_interface__`` (e.g.,
+            # numpy.ndarray).
+            # Reference: https://numpy.org/doc/stable/reference/arrays.interface.html
             kind = "matrix"
         case _:  # Fall back to "vectors" if data is None and required=True.
             kind = "vectors"
