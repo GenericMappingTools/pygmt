@@ -8,7 +8,7 @@
 Fixes #
 
 
-<!-- If significant changes to the documentation are made, please inset the link to the documentation page after it has been build. -->
+<!-- If significant changes to the documentation are made, please insert the link to the documentation page after it has been built. -->
 **Preview**:
 
 
