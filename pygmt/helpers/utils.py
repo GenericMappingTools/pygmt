@@ -299,9 +299,6 @@ def data_kind(
     'vectors'
     >>> data_kind(data=pd.Series([1, 2, 3], name="x"))  # pd.Series
     'vectors'
-
-    >>> data_kind(data=None, required=True)
-    'empty'
     """
     match data:
         case None if required:  # No data provided and required=True.
