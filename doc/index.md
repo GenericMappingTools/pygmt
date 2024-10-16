@@ -45,6 +45,7 @@ api/index.rst
 techref/index.md
 changes.md
 minversions.md
+ecosystem.md
 ```
 
 ```{toctree}
@@ -55,5 +56,4 @@ minversions.md
 team.md
 contributing.md
 maintenance.md
-ecosystem.md
 ```
