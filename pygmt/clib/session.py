@@ -11,7 +11,7 @@ import io
 import pathlib
 import sys
 import warnings
-from collections.abc import Generator, Sequence
+from collections.abc import Callable, Generator, Sequence
 from typing import Literal
 
 import numpy as np
@@ -268,7 +268,9 @@ class Session:
             raise GMTCLibError(f"Constant '{name}' doesn't exist in libgmt.")
         return value
 
-    def get_libgmt_func(self, name, argtypes=None, restype=None):
+    def get_libgmt_func(
+        self, name: str, argtypes: list | None = None, restype=None
+    ) -> Callable:
         """
         Get a ctypes function from the libgmt shared library.
 
@@ -278,14 +280,14 @@ class Session:
 
         Parameters
         ----------
-        name : str
+        name
             The name of the GMT API function.
-        argtypes : list
-            List of ctypes types used to convert the Python input arguments for
-            the API function.
+        argtypes
+            List of ctypes types used to convert the Python input arguments for the API
+            function.
         restype : ctypes type
-            The ctypes type used to convert the input returned by the function
-            into a Python type.
+            The ctypes type used to convert the input returned by the function into a
+            Python type.
 
         Returns
         -------
@@ -312,43 +314,42 @@ class Session:
             function.restype = restype
         return function
 
-    def create(self, name):
+    def create(self, name: str):
         """
         Create a new GMT C API session.
 
-        This is required before most other methods of
-        :class:`pygmt.clib.Session` can be called.
+        This is required before most other methods of :class:`pygmt.clib.Session` can be
+        called.
 
         .. warning::
 
-            Usage of :class:`pygmt.clib.Session` as a context manager in a
-            ``with`` block is preferred over calling
-            :meth:`pygmt.clib.Session.create` and
+            Usage of :class:`pygmt.clib.Session` as a context manager in a ``with``
+            block is preferred over calling :meth:`pygmt.clib.Session.create` and
             :meth:`pygmt.clib.Session.destroy` manually.
 
-        Calls ``GMT_Create_Session`` and generates a new ``GMTAPI_CTRL``
-        struct, which is a :class:`ctypes.c_void_p` pointer. Sets the
-        ``session_pointer`` attribute to this pointer.
+        Calls ``GMT_Create_Session`` and generates a new ``GMTAPI_CTRL`` struct, which
+        is a :class:`ctypes.c_void_p` pointer. Sets the ``session_pointer`` attribute to
+        this pointer.
 
         Remember to terminate the current session using
         :meth:`pygmt.clib.Session.destroy` before creating a new one.
 
         Parameters
         ----------
-        name : str
+        name
             A name for this session. Doesn't really affect the outcome.
         """
         try:
-            # Won't raise an exception if there is a currently open session
+            # Won't raise an exception if there is a currently open session.
             _ = self.session_pointer
-            # In this case, fail to create a new session until the old one is
-            # destroyed
-            raise GMTCLibError(
+            # In this case, fail to create a new session until the old one is destroyed.
+            msg = (
                 "Failed to create a GMT API session: There is a currently open session."
                 " Must destroy it first."
             )
-        # If the exception is raised, this means that there is no open session
-        # and we're free to create a new one.
+            raise GMTCLibError(msg)
+        # If the exception is raised, this means that there is no open session and we're
+        # free to create a new one.
         except GMTCLibNoSessionError:
             pass
 
@@ -358,9 +359,9 @@ class Session:
             restype=ctp.c_void_p,
         )
 
-        # Capture the output printed by GMT into this list. Will use it later
-        # to generate error messages for the exceptions raised by API calls.
-        self._error_log = []
+        # Capture the output printed by GMT into this list. Will use it later to
+        # generate error messages for the exceptions raised by API calls.
+        self._error_log: list[str] = []
 
         @ctp.CFUNCTYPE(ctp.c_int, ctp.c_void_p, ctp.c_char_p)
         def print_func(file_pointer, message):  # noqa: ARG001
@@ -382,24 +383,22 @@ class Session:
             print(message, file=sys.stderr, flush=True)  # noqa: T201
             return 0
 
-        # Need to store a copy of the function because ctypes doesn't and it
-        # will be garbage collected otherwise
+        # Need to store a copy of the function because ctypes doesn't and it will be
+        # garbage collected otherwise
         self._print_callback = print_func
 
         padding = self["GMT_PAD_DEFAULT"]
         session_type = self["GMT_SESSION_EXTERNAL"]
-
         session = c_create_session(name.encode(), padding, session_type, print_func)
 
         if session is None:
-            raise GMTCLibError(
-                f"Failed to create a GMT API session:\n{self._error_message}"
-            )
+            msg = f"Failed to create a GMT API session:\n{self._error_message}"
+            raise GMTCLibError(msg)
 
         self.session_pointer = session
 
     @property
-    def _error_message(self):
+    def _error_message(self) -> str:
         """
         A string with all error messages emitted by the C API.
 
@@ -416,19 +415,17 @@ class Session:
 
         .. warning::
 
-            Usage of :class:`pygmt.clib.Session` as a context manager in a
-            ``with`` block is preferred over calling
-            :meth:`pygmt.clib.Session.create` and
+            Usage of :class:`pygmt.clib.Session` as a context manager in a ``with``
+            block is preferred over calling :meth:`pygmt.clib.Session.create` and
             :meth:`pygmt.clib.Session.destroy` manually.
 
-        Calls ``GMT_Destroy_Session`` to terminate and free the memory of a
-        registered ``GMTAPI_CTRL`` session (the pointer for this struct is
-        stored in the ``session_pointer`` attribute).
+        Calls ``GMT_Destroy_Session`` to terminate and free the memory of a registered
+        ``GMTAPI_CTRL`` session (the pointer for this struct is stored in the
+        ``session_pointer`` attribute).
 
-        Always use this method after you are done using a C API session. The
-        session needs to be destroyed before creating a new one. Otherwise,
-        some of the configuration files might be left behind and can influence
-        subsequent API calls.
+        Always use this method after you are done using a C API session. The session
+        needs to be destroyed before creating a new one. Otherwise, some of the
+        configuration files might be left behind and can influence subsequent API calls.
 
         Sets the ``session_pointer`` attribute to ``None``.
         """
@@ -438,9 +435,8 @@ class Session:
 
         status = c_destroy_session(self.session_pointer)
         if status:
-            raise GMTCLibError(
-                f"Failed to destroy GMT API session:\n{self._error_message}"
-            )
+            msg = f"Failed to destroy GMT API session:\n{self._error_message}"
+            raise GMTCLibError(msg)
 
         self.session_pointer = None
 
