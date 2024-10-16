@@ -1757,15 +1757,6 @@ class Session:
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
         kind = data_kind(data, required=required_data)
-        _validate_data_input(
-            data=data,
-            x=x,
-            y=y,
-            z=z,
-            required_z=required_z,
-            required_data=required_data,
-            kind=kind,
-        )
 
         if check_kind:
             valid_kinds = ("file", "arg") if required_data is False else ("file",)
@@ -1778,7 +1769,7 @@ class Session:
                     f"Unrecognized data type for {check_kind}: {type(data)}"
                 )
 
-        # Decide which virtualfile_from_ function to use
+        # Decide which virtualfile_from_ function to use.
         _virtualfile_from = {
             "arg": contextlib.nullcontext,
             "empty": self.virtualfile_from_vectors,
@@ -1828,6 +1819,11 @@ class Session:
                 if data.dtype.kind not in "iuf":
                     _virtualfile_from = self.virtualfile_from_vectors
                     _data = data.T
+
+        # Validate the data input before passing to GMT.
+        _validate_data_input(
+            data=data, required_z=required_z, required_data=required_data, kind=kind
+        )
 
         # Finally create the virtualfile from the data, to be passed into GMT
         file_context = _virtualfile_from(*_data)

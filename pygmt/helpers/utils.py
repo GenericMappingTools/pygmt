@@ -20,7 +20,7 @@ from pygmt.exceptions import GMTInvalidInput
 
 
 def _validate_data_input(
-    data=None, x=None, y=None, z=None, required_z=False, required_data=True, kind=None
+    data=None, x=None, y=None, z=None, required_z=False, kind=None
 ):
     """
     Check if the combination of data/x/y/z is valid.
@@ -93,19 +93,23 @@ def _validate_data_input(
     GMTInvalidInput
         If the data input is not valid.
     """
-    if data is None:  # data is None
-        if x is None and y is None:  # both x and y are None
-            if required_data:  # data is not optional
+    if data is None and any(v is not None for v in (x, y, z)):
+        raise GMTInvalidInput("Too much data. Use either data or x/y/z.")
+
+    match kind:
+        case "arg" | "file" | "geojson" | "grid" | "image" | "stringio":
+            pass  # Nothing to check. Just pass.
+        case "empty":  # data is passed via a series of vectors.
+            if all(i is None for i in data[0:2]):
                 raise GMTInvalidInput("No input data provided.")
-        elif x is None or y is None:  # either x or y is None
-            raise GMTInvalidInput("Must provide both x and y.")
-        if required_z and z is None:  # both x and y are not None, now check z
-            raise GMTInvalidInput("Must provide x, y, and z.")
-    else:  # data is not None
-        if x is not None or y is not None or z is not None:
-            raise GMTInvalidInput("Too much data. Use either data or x/y/z.")
-        # For 'matrix' kind, check if data has the required z column
-        if kind == "matrix" and required_z:
+            if any(i is None for i in data[0:2]):
+                raise GMTInvalidInput("Must provide both x and y.")
+            if required_z and (len(data) < 3 or data[2] is None):
+                raise GMTInvalidInput("Must provide x, y, and z.")
+        case "matrix":  # 2-D numpy array
+            if required_z and data.shape[0] < 3:
+                raise GMTInvalidInput("data must provide x, y, and z columns.")
+        case "vectors" if required_z:
             if hasattr(data, "shape"):  # np.ndarray or pd.DataFrame
                 if len(data.shape) == 1 and data.shape[0] < 3:
                     raise GMTInvalidInput("data must provide x, y, and z columns.")
