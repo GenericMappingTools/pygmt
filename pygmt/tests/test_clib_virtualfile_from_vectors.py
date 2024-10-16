@@ -44,7 +44,7 @@ def test_virtualfile_from_vectors(dtypes):
         y = np.arange(size, size * 2, 1, dtype=dtype)
         z = np.arange(size * 2, size * 3, 1, dtype=dtype)
         with clib.Session() as lib:
-            with lib.virtualfile_from_vectors(x, y, z) as vfile:
+            with lib.virtualfile_from_vectors((x, y, z)) as vfile:
                 with GMTTempFile() as outfile:
                     lib.call_module("info", [vfile, f"->{outfile.name}"])
                     output = outfile.read(keep_tabs=True)
@@ -64,7 +64,7 @@ def test_virtualfile_from_vectors_one_string_or_object_column(dtype):
     y = np.arange(size, size * 2, 1, dtype=np.int32)
     strings = np.array(["a", "bc", "defg", "hijklmn", "opqrst"], dtype=dtype)
     with clib.Session() as lib:
-        with lib.virtualfile_from_vectors(x, y, strings) as vfile:
+        with lib.virtualfile_from_vectors((x, y, strings)) as vfile:
             with GMTTempFile() as outfile:
                 lib.call_module("convert", [vfile, f"->{outfile.name}"])
                 output = outfile.read(keep_tabs=True)
@@ -86,7 +86,7 @@ def test_virtualfile_from_vectors_two_string_or_object_columns(dtype):
     strings1 = np.array(["a", "bc", "def", "ghij", "klmnolooong"], dtype=dtype)
     strings2 = np.array(["pqrst", "uvwx", "yz!", "@#", "$"], dtype=dtype)
     with clib.Session() as lib:
-        with lib.virtualfile_from_vectors(x, y, strings1, strings2) as vfile:
+        with lib.virtualfile_from_vectors((x, y, strings1, strings2)) as vfile:
             with GMTTempFile() as outfile:
                 lib.call_module("convert", [vfile, f"->{outfile.name}"])
                 output = outfile.read(keep_tabs=True)
@@ -105,7 +105,7 @@ def test_virtualfile_from_vectors_transpose(dtypes):
     for dtype in dtypes:
         data = np.arange(shape[0] * shape[1], dtype=dtype).reshape(shape)
         with clib.Session() as lib:
-            with lib.virtualfile_from_vectors(*data.T) as vfile:
+            with lib.virtualfile_from_vectors(data.T) as vfile:
                 with GMTTempFile() as outfile:
                     lib.call_module("info", [vfile, "-C", f"->{outfile.name}"])
                     output = outfile.read(keep_tabs=True)
@@ -122,7 +122,7 @@ def test_virtualfile_from_vectors_diff_size():
     y = np.arange(6)
     with clib.Session() as lib:
         with pytest.raises(GMTInvalidInput):
-            with lib.virtualfile_from_vectors(x, y):
+            with lib.virtualfile_from_vectors((x, y)):
                 pass
 
 
@@ -143,7 +143,7 @@ def test_virtualfile_from_vectors_pandas(dtypes_pandas):
             dtype=dtype,
         )
         with clib.Session() as lib:
-            with lib.virtualfile_from_vectors(data.x, data.y, data.z) as vfile:
+            with lib.virtualfile_from_vectors((data.x, data.y, data.z)) as vfile:
                 with GMTTempFile() as outfile:
                     lib.call_module("info", [vfile, f"->{outfile.name}"])
                     output = outfile.read(keep_tabs=True)
@@ -163,7 +163,7 @@ def test_virtualfile_from_vectors_arraylike():
     y = tuple(range(size, size * 2, 1))
     z = range(size * 2, size * 3, 1)
     with clib.Session() as lib:
-        with lib.virtualfile_from_vectors(x, y, z) as vfile:
+        with lib.virtualfile_from_vectors((x, y, z)) as vfile:
             with GMTTempFile() as outfile:
                 lib.call_module("info", [vfile, f"->{outfile.name}"])
                 output = outfile.read(keep_tabs=True)

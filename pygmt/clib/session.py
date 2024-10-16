@@ -1330,7 +1330,7 @@ class Session:
         return self.open_virtualfile(family, geometry, direction, data)
 
     @contextlib.contextmanager
-    def virtualfile_from_vectors(self, *vectors):
+    def virtualfile_from_vectors(self, vectors):
         """
         Store 1-D arrays as columns of a table inside a virtual file.
 
@@ -1372,7 +1372,7 @@ class Session:
         >>> y = np.array([4, 5, 6])
         >>> z = pd.Series([7, 8, 9])
         >>> with Session() as ses:
-        ...     with ses.virtualfile_from_vectors(x, y, z) as fin:
+        ...     with ses.virtualfile_from_vectors((x, y, z)) as fin:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
         ...             ses.call_module("info", [fin, f"->{fout.name}"])
@@ -1791,19 +1791,19 @@ class Session:
             "vectors": self.virtualfile_from_vectors,
         }[kind]
 
-        # Ensure the data is an iterable (Python list or tuple).
+        # "_data" is the data that will be passed to the _virtualfile_from function.
+        # "_data" defaults to "data" but should be adjusted for some cases.
+        _data = data
         match kind:
-            case "arg" | "file" | "geojson" | "grid" | "image" | "stringio":
-                _data = (data,)
-                if kind == "image" and data.dtype != "uint8":
-                    msg = (
-                        f"Input image has dtype: {data.dtype} which is unsupported, "
-                        "and may result in an incorrect output. Please recast image "
-                        "to a uint8 dtype and/or scale to 0-255 range, e.g. "
-                        "using a histogram equalization function like "
-                        "skimage.exposure.equalize_hist."
-                    )
-                    warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
+            case "image" if data.dtype != "uint8":
+                msg = (
+                    f"Input image has dtype: {data.dtype} which is unsupported, "
+                    "and may result in an incorrect output. Please recast image "
+                    "to a uint8 dtype and/or scale to 0-255 range, e.g. "
+                    "using a histogram equalization function like "
+                    "skimage.exposure.equalize_hist."
+                )
+                warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
             case "empty":  # data is None, so data must be given via x/y/z.
                 _data = [x, y]
                 if z is not None:
@@ -1818,19 +1818,19 @@ class Session:
                 else:
                     # Python list, tuple, numpy.ndarray, and pandas.Series types
                     _data = np.atleast_2d(np.asanyarray(data).T)
-            case "matrix":
+            case "matrix" if data.dtype.kind not in "iuf":
                 # GMT can only accept a 2-D matrix which are signed integer (i),
                 # unsigned integer (u) or floating point (f) types. For other data
                 # types, we need to use virtualfile_from_vectors instead, which turns
                 # the matrix into a list of vectors and allows for better handling of
                 # non-integer/float type inputs (e.g. for string or datetime data types)
-                _data = (data,)
-                if data.dtype.kind not in "iuf":
-                    _virtualfile_from = self.virtualfile_from_vectors
-                    _data = data.T
+                _virtualfile_from = self.virtualfile_from_vectors
+                _data = data.T
+            case _:
+                pass
 
         # Finally create the virtualfile from the data, to be passed into GMT
-        file_context = _virtualfile_from(*_data)
+        file_context = _virtualfile_from(_data)
         return file_context
 
     def virtualfile_from_data(
