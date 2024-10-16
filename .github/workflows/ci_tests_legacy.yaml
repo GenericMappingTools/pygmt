@@ -34,7 +34,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04, macos-12, windows-2019]
+        os: [ubuntu-20.04, macos-13, windows-2019]
         gmt_version: ['6.4']
     timeout-minutes: 30
     defaults:

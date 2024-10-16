@@ -14,7 +14,6 @@ import webbrowser
 from collections.abc import Iterable, Mapping, Sequence
 from typing import Any, Literal
 
-import numpy as np
 import xarray as xr
 from pygmt.encodings import charset
 from pygmt.exceptions import GMTInvalidInput
@@ -210,11 +209,11 @@ def data_kind(
     - ``"grid"``: a :class:`xarray.DataArray` object that is not 3-D
     - ``"image"``: a 3-D :class:`xarray.DataArray` object
     - ``"stringio"``: a :class:`io.StringIO` object
-    - ``"matrix"``: a 2-D :class:`numpy.ndarray` object
-    - ``"vectors"``: ``data`` is ``None`` and ``required=True``, or any unrecognized
-      data. Common data types include, a :class:`pandas.DataFrame` object, a dictionary
-      with array-like values, a 1-D/3-D :class:`numpy.ndarray` object, or array-like
-      objects.
+    - ``"matrix"``: a 2-D array-like object that implements ``__array_interface__``
+      (e.g., :class:`numpy.ndarray`)
+    - ``"vectors"``: any unrecognized data. Common data types include, a
+      :class:`pandas.DataFrame` object, a dictionary with array-like values, a 1-D/3-D
+      :class:`numpy.ndarray` object, or array-like objects.
 
     Parameters
     ----------
@@ -300,6 +299,9 @@ def data_kind(
     'vectors'
     >>> data_kind(data=pd.Series([1, 2, 3], name="x"))  # pd.Series
     'vectors'
+
+    >>> data_kind(data=None, required=True)
+    'empty'
     """
     match data:
         case None if required:  # No data provided and required=True.
@@ -323,7 +325,10 @@ def data_kind(
             # geopandas.GeoDataFrame or shapely.geometry).
             # Reference: https://gist.github.com/sgillies/2217756
             kind = "geojson"
-        case np.ndarray() if data.ndim == 2:  # A 2-D numpy.ndarray object.
+        case x if hasattr(x, "__array_interface__") and data.ndim == 2:
+            # 2-D Array-like objects that implements ``__array_interface__`` (e.g.,
+            # numpy.ndarray).
+            # Reference: https://numpy.org/doc/stable/reference/arrays.interface.html
             kind = "matrix"
         case _:  # Fall back to "vectors" if data is None and required=True.
             kind = "vectors"

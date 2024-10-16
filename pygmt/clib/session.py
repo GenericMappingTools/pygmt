@@ -11,7 +11,7 @@ import io
 import pathlib
 import sys
 import warnings
-from collections.abc import Generator, Sequence
+from collections.abc import Callable, Generator, Sequence
 from typing import Literal
 
 import numpy as np
@@ -268,7 +268,9 @@ class Session:
             raise GMTCLibError(f"Constant '{name}' doesn't exist in libgmt.")
         return value
 
-    def get_libgmt_func(self, name, argtypes=None, restype=None):
+    def get_libgmt_func(
+        self, name: str, argtypes: list | None = None, restype=None
+    ) -> Callable:
         """
         Get a ctypes function from the libgmt shared library.
 
@@ -278,14 +280,14 @@ class Session:
 
         Parameters
         ----------
-        name : str
+        name
             The name of the GMT API function.
-        argtypes : list
-            List of ctypes types used to convert the Python input arguments for
-            the API function.
+        argtypes
+            List of ctypes types used to convert the Python input arguments for the API
+            function.
         restype : ctypes type
-            The ctypes type used to convert the input returned by the function
-            into a Python type.
+            The ctypes type used to convert the input returned by the function into a
+            Python type.
 
         Returns
         -------
@@ -312,43 +314,42 @@ class Session:
             function.restype = restype
         return function
 
-    def create(self, name):
+    def create(self, name: str):
         """
         Create a new GMT C API session.
 
-        This is required before most other methods of
-        :class:`pygmt.clib.Session` can be called.
+        This is required before most other methods of :class:`pygmt.clib.Session` can be
+        called.
 
         .. warning::
 
-            Usage of :class:`pygmt.clib.Session` as a context manager in a
-            ``with`` block is preferred over calling
-            :meth:`pygmt.clib.Session.create` and
+            Usage of :class:`pygmt.clib.Session` as a context manager in a ``with``
+            block is preferred over calling :meth:`pygmt.clib.Session.create` and
             :meth:`pygmt.clib.Session.destroy` manually.
 
-        Calls ``GMT_Create_Session`` and generates a new ``GMTAPI_CTRL``
-        struct, which is a :class:`ctypes.c_void_p` pointer. Sets the
-        ``session_pointer`` attribute to this pointer.
+        Calls ``GMT_Create_Session`` and generates a new ``GMTAPI_CTRL`` struct, which
+        is a :class:`ctypes.c_void_p` pointer. Sets the ``session_pointer`` attribute to
+        this pointer.
 
         Remember to terminate the current session using
         :meth:`pygmt.clib.Session.destroy` before creating a new one.
 
         Parameters
         ----------
-        name : str
+        name
             A name for this session. Doesn't really affect the outcome.
         """
         try:
-            # Won't raise an exception if there is a currently open session
+            # Won't raise an exception if there is a currently open session.
             _ = self.session_pointer
-            # In this case, fail to create a new session until the old one is
-            # destroyed
-            raise GMTCLibError(
+            # In this case, fail to create a new session until the old one is destroyed.
+            msg = (
                 "Failed to create a GMT API session: There is a currently open session."
                 " Must destroy it first."
             )
-        # If the exception is raised, this means that there is no open session
-        # and we're free to create a new one.
+            raise GMTCLibError(msg)
+        # If the exception is raised, this means that there is no open session and we're
+        # free to create a new one.
         except GMTCLibNoSessionError:
             pass
 
@@ -358,9 +359,9 @@ class Session:
             restype=ctp.c_void_p,
         )
 
-        # Capture the output printed by GMT into this list. Will use it later
-        # to generate error messages for the exceptions raised by API calls.
-        self._error_log = []
+        # Capture the output printed by GMT into this list. Will use it later to
+        # generate error messages for the exceptions raised by API calls.
+        self._error_log: list[str] = []
 
         @ctp.CFUNCTYPE(ctp.c_int, ctp.c_void_p, ctp.c_char_p)
         def print_func(file_pointer, message):  # noqa: ARG001
@@ -382,24 +383,22 @@ class Session:
             print(message, file=sys.stderr, flush=True)  # noqa: T201
             return 0
 
-        # Need to store a copy of the function because ctypes doesn't and it
-        # will be garbage collected otherwise
+        # Need to store a copy of the function because ctypes doesn't and it will be
+        # garbage collected otherwise
         self._print_callback = print_func
 
         padding = self["GMT_PAD_DEFAULT"]
         session_type = self["GMT_SESSION_EXTERNAL"]
-
         session = c_create_session(name.encode(), padding, session_type, print_func)
 
         if session is None:
-            raise GMTCLibError(
-                f"Failed to create a GMT API session:\n{self._error_message}"
-            )
+            msg = f"Failed to create a GMT API session:\n{self._error_message}"
+            raise GMTCLibError(msg)
 
         self.session_pointer = session
 
     @property
-    def _error_message(self):
+    def _error_message(self) -> str:
         """
         A string with all error messages emitted by the C API.
 
@@ -416,19 +415,17 @@ class Session:
 
         .. warning::
 
-            Usage of :class:`pygmt.clib.Session` as a context manager in a
-            ``with`` block is preferred over calling
-            :meth:`pygmt.clib.Session.create` and
+            Usage of :class:`pygmt.clib.Session` as a context manager in a ``with``
+            block is preferred over calling :meth:`pygmt.clib.Session.create` and
             :meth:`pygmt.clib.Session.destroy` manually.
 
-        Calls ``GMT_Destroy_Session`` to terminate and free the memory of a
-        registered ``GMTAPI_CTRL`` session (the pointer for this struct is
-        stored in the ``session_pointer`` attribute).
+        Calls ``GMT_Destroy_Session`` to terminate and free the memory of a registered
+        ``GMTAPI_CTRL`` session (the pointer for this struct is stored in the
+        ``session_pointer`` attribute).
 
-        Always use this method after you are done using a C API session. The
-        session needs to be destroyed before creating a new one. Otherwise,
-        some of the configuration files might be left behind and can influence
-        subsequent API calls.
+        Always use this method after you are done using a C API session. The session
+        needs to be destroyed before creating a new one. Otherwise, some of the
+        configuration files might be left behind and can influence subsequent API calls.
 
         Sets the ``session_pointer`` attribute to ``None``.
         """
@@ -438,9 +435,8 @@ class Session:
 
         status = c_destroy_session(self.session_pointer)
         if status:
-            raise GMTCLibError(
-                f"Failed to destroy GMT API session:\n{self._error_message}"
-            )
+            msg = f"Failed to destroy GMT API session:\n{self._error_message}"
+            raise GMTCLibError(msg)
 
         self.session_pointer = None
 
@@ -1203,41 +1199,46 @@ class Session:
             raise GMTCLibError(f"Failed to write dataset to '{output}'")
 
     @contextlib.contextmanager
-    def open_virtualfile(self, family, geometry, direction, data):
+    def open_virtualfile(
+        self,
+        family: str,
+        geometry: str,
+        direction: str,
+        data: ctp.c_void_p | None,
+    ) -> Generator[str, None, None]:
         """
-        Open a GMT virtual file to pass data to and from a module.
+        Open a GMT virtual file associated with a data object for reading or writing.
 
-        GMT uses a virtual file scheme to pass in data or get data from API
-        modules. Use it to pass in your GMT data structure (created using
-        :meth:`pygmt.clib.Session.create_data`) to a module that expects an
-        input file, or get the output from a module that writes to a file.
+        GMT uses a virtual file scheme to pass in data or get data from API modules. Use
+        it to pass in your GMT data structure (created using
+        :meth:`pygmt.clib.Session.create_data`) to a module that expects an input file,
+        or get the output from a module that writes to a file.
 
-        Use in a ``with`` block. Will automatically close the virtual file when
-        leaving the ``with`` block. Because of this, no wrapper for
-        ``GMT_Close_VirtualFile`` is provided.
+        Use in a ``with`` block. Will automatically close the virtual file when leaving
+        the ``with`` block. Because of this, no wrapper for ``GMT_Close_VirtualFile``
+        is provided.
 
         Parameters
         ----------
-        family : str
-            A valid GMT data family name (e.g., ``"GMT_IS_DATASET"``). Should
-            be the same as the one you used to create your data structure.
-        geometry : str
-            A valid GMT data geometry name (e.g., ``"GMT_IS_POINT"``). Should
-            be the same as the one you used to create your data structure.
-        direction : str
-            Either ``"GMT_IN"`` or ``"GMT_OUT"`` to indicate if passing data to
-            GMT or getting it out of GMT, respectively.
-            By default, GMT can modify the data you pass in. Add modifier
-            ``"GMT_IS_REFERENCE"`` to tell GMT the data are read-only, or
-            ``"GMT_IS_DUPLICATE"`` to tell GMT to duplicate the data.
-        data : int or None
-            The ctypes void pointer to your GMT data structure. For output
-            (i.e., ``direction="GMT_OUT"``), it can be ``None`` to have GMT
-            automatically allocate the output GMT data structure.
+        family
+            A valid GMT data family name (e.g., ``"GMT_IS_DATASET"``). Should be the
+            same as the one you used to create your data structure.
+        geometry
+            A valid GMT data geometry name (e.g., ``"GMT_IS_POINT"``). Should be the
+            same as the one you used to create your data structure.
+        direction
+            Either ``"GMT_IN"`` or ``"GMT_OUT"`` to indicate if passing data to GMT or
+            getting it out of GMT, respectively. By default, GMT can modify the data you
+            pass in. Add modifier ``"GMT_IS_REFERENCE"`` to tell GMT the data are
+            read-only, or ``"GMT_IS_DUPLICATE"`` to tell GMT to duplicate the data.
+        data
+            The ctypes void pointer to the GMT data structure. For output (i.e.,
+            ``direction="GMT_OUT"``), it can be ``None`` to have GMT automatically
+            allocate the output GMT data structure.
 
         Yields
         ------
-        vfname : str
+        vfname
             The name of the virtual file that you can pass to a GMT module.
 
         Examples
@@ -1270,19 +1271,19 @@ class Session:
         c_open_virtualfile = self.get_libgmt_func(
             "GMT_Open_VirtualFile",
             argtypes=[
-                ctp.c_void_p,
-                ctp.c_uint,
-                ctp.c_uint,
-                ctp.c_uint,
-                ctp.c_void_p,
-                ctp.c_char_p,
+                ctp.c_void_p,  # V_API
+                ctp.c_uint,  # family
+                ctp.c_uint,  # geometry
+                ctp.c_uint,  # direction
+                ctp.c_void_p,  # data
+                ctp.c_char_p,  # name
             ],
             restype=ctp.c_int,
         )
 
         c_close_virtualfile = self.get_libgmt_func(
             "GMT_Close_VirtualFile",
-            argtypes=[ctp.c_void_p, ctp.c_char_p],
+            argtypes=[ctp.c_void_p, ctp.c_char_p],  # V_API, name
             restype=ctp.c_int,
         )
 
@@ -1297,7 +1298,11 @@ class Session:
             self.session_pointer, family_int, geometry_int, direction_int, data, buff
         )
         if status != 0:
-            raise GMTCLibError("Failed to create a virtual file.")
+            msg = (
+                f"Failed to create a virtual file with {family=}, {geometry=}, "
+                f"{direction=}."
+            )
+            raise GMTCLibError(msg)
 
         vfname = buff.value.decode()
         try:
@@ -1305,11 +1310,12 @@ class Session:
         finally:
             status = c_close_virtualfile(self.session_pointer, vfname.encode())
             if status != 0:
-                raise GMTCLibError(f"Failed to close virtual file '{vfname}'.")
+                msg = f"Failed to close virtual file '{vfname}'."
+                raise GMTCLibError(msg)
 
     def open_virtual_file(self, family, geometry, direction, data):
         """
-        Open a GMT virtual file to pass data to and from a module.
+        Open a GMT virtual file associated with a data object for reading or writing.
 
         .. deprecated: 0.11.0
 
@@ -1822,6 +1828,7 @@ class Session:
             _data = (data,)
             if data.dtype.kind not in "iuf":
                 _virtualfile_from = self.virtualfile_from_vectors
+                _data = data.T
 
         # Finally create the virtualfile from the data, to be passed into GMT
         file_context = _virtualfile_from(*_data)
