@@ -1329,37 +1329,36 @@ class Session:
         return self.open_virtualfile(family, geometry, direction, data)
 
     @contextlib.contextmanager
-    def virtualfile_from_vectors(self, vectors, *args):
+    def virtualfile_from_vectors(
+        self, vectors: Sequence, *args
+    ) -> Generator[str, None, None]:
         """
         Store 1-D arrays as columns of a table inside a virtual file.
 
-        Use the virtual file name to pass in the data in your vectors to a GMT
-        module.
+        Use the virtual file name to pass in the data in your vectors to a GMT module.
 
-        Context manager (use in a ``with`` block). Yields the virtual file name
-        that you can pass as an argument to a GMT module call. Closes the
-        virtual file upon exit of the ``with`` block.
+        Context manager (use in a ``with`` block). Yields the virtual file name that you
+        can pass as an argument to a GMT module call. Closes the virtual file upon exit
+        of the ``with`` block.
 
-        Use this instead of creating the data container and virtual file by
-        hand with :meth:`pygmt.clib.Session.create_data`,
-        :meth:`pygmt.clib.Session.put_vector`, and
-        :meth:`pygmt.clib.Session.open_virtualfile`.
+        Use this instead of creating the data container and virtual file by hand with
+        :meth:`pygmt.clib.Session.create_data`, :meth:`pygmt.clib.Session.put_vector`,
+        and :meth:`pygmt.clib.Session.open_virtualfile`.
 
-        If the arrays are C contiguous blocks of memory, they will be passed
-        without copying to GMT. If they are not (e.g., they are columns of a
-        2-D array), they will need to be copied to a contiguous block.
+        If the arrays are C contiguous blocks of memory, they will be passed without
+        copying to GMT. If they are not (e.g., they are columns of a 2-D array), they
+        will need to be copied to a contiguous block.
 
         Parameters
         ----------
-        vectors : 1-D arrays
-            The vectors that will be included in the array. All must be of the
+        vectors
+            A sequence of vectors that will be included in the array. All must be of the
             same size.
 
         Yields
         ------
-        fname : str
-            The name of virtual file. Pass this as a file name argument to a
-            GMT module.
+        fname
+            The name of virtual file. Pass this as a file name argument to a GMT module.
 
         Examples
         --------
@@ -1380,7 +1379,7 @@ class Session:
         """
         if len(args) > 0:
             warnings.warn(
-                "Passing multiple arguments to Session.virtualfile_fro_vectors is "
+                "Passing multiple arguments to Session.virtualfile_from_vectors is "
                 "deprecated since v0.14.0 and will be unsupported in v0.16.0. "
                 "Pass all vectors as a single tuple instead, e.g., "
                 "Use `with lib.virtualfile_from_vectors((x, y, z)) as vfile` "
@@ -1389,19 +1388,18 @@ class Session:
                 stacklevel=3,
             )
             vectors = (vectors, *args)
-        # Conversion to a C-contiguous array needs to be done here and not in
-        # put_vector or put_strings because we need to maintain a reference to
-        # the copy while it is being used by the C API. Otherwise, the array
-        # would be garbage collected and the memory freed. Creating it in this
-        # context manager guarantees that the copy will be around until the
-        # virtual file is closed. The conversion is implicit in
+        # Conversion to a C-contiguous array needs to be done here and not in put_vector
+        # or put_strings because we need to maintain a reference to the copy while it is
+        # being used by the C API. Otherwise, the array would be garbage collected and
+        # the memory freed. Creating it in this context manager guarantees that the copy
+        # will be around until the virtual file is closed. The conversion is implicit in
         # vectors_to_arrays.
         arrays = vectors_to_arrays(vectors)
 
         columns = len(arrays)
-        # Find arrays that are of string dtype from column 3 onwards
-        # Assumes that first 2 columns contains coordinates like longitude
-        # latitude, or datetime string types.
+        # Find arrays that are of string dtype from column 3 onwards. Assumes that first
+        # 2 columns contains coordinates like longitude latitude, or datetime string
+        # types.
         for col, array in enumerate(arrays[2:]):
             if pd.api.types.is_string_dtype(array.dtype):
                 columns = col + 2
@@ -1422,8 +1420,8 @@ class Session:
         for col, array in enumerate(arrays[:columns]):
             self.put_vector(dataset, column=col, vector=array)
 
-        # Use put_strings for last column(s) with string type data
-        # Have to use modifier "GMT_IS_DUPLICATE" to duplicate the strings
+        # Use put_strings for last column(s) with string type data.
+        # Have to use modifier "GMT_IS_DUPLICATE" to duplicate the strings.
         string_arrays = arrays[columns:]
         if string_arrays:
             if len(string_arrays) == 1:
