@@ -384,7 +384,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
         For non-double couple mechanisms, ``nodal=0`` overlays best
         double couple transparently.
     pt_axes : bool or str
-        [*size*[/*p_symbol*\ [*t_symbol*]]].
+        [*size*\ [/*p_symbol*\ [*t_symbol*]]].
         Compute and plot the P and T axes with symbols. Optionally specify size
         and (separate) P and T axis symbols from the following: circle (**c**),
         diamond (**d**), hexagon (**h**), inverse triangle (**i**), point (**p**),
