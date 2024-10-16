@@ -385,8 +385,8 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
         double couple transparently.
     pt_axes : bool or str
         [*size*[/*p_symbol*[*t_symbol*]]].
-        Compute and plot P and T axes with symbols. Optionally specify size and
-        (separate) P and T axes symbols from the following: circle (**c**),
+        Compute and plot the P and T axes with symbols. Optionally specify size
+        and (separate) P and T axes symbols from the following: circle (**c**),
         diamond (**d**), hexagon (**h**), inverse triangle (**i**), point (**p**),
         square (**s**), triangle (**t**), cross (**x**) [Default is ``"6p/cc"``].
     p_axisfill : str
