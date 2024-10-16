@@ -142,6 +142,7 @@ jobs:
             pytest-cov
             pytest-doctestplus
             pytest-mpl
+            pytest-randomly
             pytest-rerunfailures
             pytest-xdist
 
