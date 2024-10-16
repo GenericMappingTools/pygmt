@@ -383,6 +383,8 @@ def non_ascii_to_octal(
     '@%34%\\041@%%@%34%\\176@%%@%34%\\241@%%@%34%\\376@%%'
     >>> non_ascii_to_octal("ABC ±120° DEF α ♥")
     'ABC \\261120\\260 DEF @~\\141@~ @%34%\\252@%%'
+    >>> non_ascii_to_octal("'‘’\"“”")
+    '\\234\\140\\47\\042\\216\\217'
     >>> non_ascii_to_octal("12ABāáâãäåβ①②", encoding="ISO-8859-4")
     '12AB\\340\\341\\342\\343\\344\\345@~\\142@~@%34%\\254@%%@%34%\\255@%%'
     """  # noqa: RUF002
@@ -401,7 +403,7 @@ def non_ascii_to_octal(
     # ISOLatin1+ or ISO-8859-x charset.
     mapping.update({c: f"\\{i:03o}" for i, c in charset[encoding].items()})
 
-    # Remove any printable characters
+    # Remove any printable characters.
     mapping = {k: v for k, v in mapping.items() if k not in string.printable}
     return argstr.translate(str.maketrans(mapping))
 
