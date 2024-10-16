@@ -8,6 +8,7 @@ Uses ctypes to wrap most of the core functions from the C API.
 import contextlib
 import ctypes as ctp
 import io
+import os
 import pathlib
 import sys
 import warnings
@@ -17,6 +18,7 @@ from typing import Literal
 import numpy as np
 import pandas as pd
 import xarray as xr
+from pygmt._state import _STATE
 from pygmt.clib.conversion import (
     array_to_datetime,
     dataarray_to_matrix,
@@ -201,7 +203,20 @@ class Session:
 
         Calls :meth:`pygmt.clib.Session.create`.
         """
+        _init_cli_session = False
+        # This is the first time a Session object is created.
+        if _STATE["session_name"] is None:
+            # Set GMT_SESSION_NAME to the current process id.
+            _STATE["session_name"] = os.environ["GMT_SESSION_NAME"] = str(os.getpid())
+            # Need to initialize the GMT CLI session.
+            _init_cli_session = True
         self.create("pygmt-session")
+
+        if _init_cli_session:
+            self.call_module("begin", args=["pygmt-session"])
+            self.call_module(module="set", args=["GMT_COMPATIBILITY=6"])
+            del _init_cli_session
+
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
