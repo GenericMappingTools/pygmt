@@ -174,7 +174,6 @@ def vectors_to_arrays(vectors: Sequence[Any]) -> list[np.ndarray]:
     dtypes = {
         "date32[day][pyarrow]": np.datetime64,
         "date64[ms][pyarrow]": np.datetime64,
-        "string": np.str_,
     }
     arrays = []
     for vector in vectors:
@@ -189,8 +188,7 @@ def vectors_to_arrays(vectors: Sequence[Any]) -> list[np.ndarray]:
             # we can remove the workaround in PyGMT v0.17.0.
             array = np.ascontiguousarray(vector.astype(float))
         else:
-            # NumPy/Pandas uses "dtype" and PyArrow uses "type".
-            vec_dtype = str(getattr(vector, "dtype", getattr(vector, "type", "")))
+            vec_dtype = str(getattr(vector, "dtype", ""))
             array = np.ascontiguousarray(vector, dtype=dtypes.get(vec_dtype))
         # Convert np.object_ to np.datetime64 or np.str_.
         # If fails, then the array can't be recognized.
