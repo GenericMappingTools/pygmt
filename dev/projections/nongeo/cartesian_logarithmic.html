@@ -18,7 +18,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=a51cd8ab" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=845ca4e4" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
@@ -29,7 +29,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=aa3fe5bf"></script>
+        <script src="../../_static/documentation_options.js?v=84b0ddd3"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -212,23 +212,22 @@ its size argument.</p>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ypoints</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">xpoints</span></a><span class="o">**</span><span class="mf">0.5</span>
 
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
-<a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span>
+<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span>
     <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
     <span class="c1"># Set a logarithmic transformation on the x-axis</span>
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X15cl/10c&quot;</span><span class="p">,</span>
     <span class="c1"># Set the figures frame and color as well as</span>
     <span class="c1"># annotations, ticks, and gridlines</span>
     <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;WSne+gbisque&quot;</span><span class="p">,</span> <span class="s2">&quot;xa2g3&quot;</span><span class="p">,</span> <span class="s2">&quot;ya2f1g2&quot;</span><span class="p">],</span>
-    <span class="n">x</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">xline</span></a><span class="p">,</span>
-    <span class="n">y</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">yline</span></a><span class="p">,</span>
-    <span class="c1"># Set the line thickness to &quot;1p&quot;, the color to &quot;blue&quot;,</span>
-    <span class="c1"># and the style to &quot;-&quot;, i.e. &quot;dashed&quot;</span>
-    <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;1p,blue,-&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="c1"># Plot square root values as points on the line</span>
-<span class="c1"># Style of points is 0.3 cm squares, color fill is &quot;red&quot; with a &quot;black&quot; outline</span>
-<span class="c1"># Points are not clipped if they go off the figure</span>
-<a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">x</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">xpoints</span></a><span class="p">,</span> <span class="n">y</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ypoints</span></a><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;s0.3c&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">no_clip</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+
+<span class="c1"># Set the line thickness to &quot;2p&quot;, the color to &quot;black&quot;, and the style to &quot;dashed&quot;</span>
+<a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">x</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">xline</span></a><span class="p">,</span> <span class="n">y</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">yline</span></a><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;2p,black,dashed&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot the square root values on top of the line</span>
+<span class="c1"># Use squares with a size of 0.3 centimeters, an &quot;orange&quot; fill and a &quot;black&quot; outline</span>
+<span class="c1"># Symbols are not clipped if they go off the figure</span>
+<a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">x</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">xpoints</span></a><span class="p">,</span> <span class="n">y</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ypoints</span></a><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;s0.3c&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">no_clip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
@@ -260,15 +259,15 @@ its size argument.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/17fcb4c2">17fcb4c2</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 05, 2024.
+      <span class="lastupdated">Last updated on Oct 16, 2024.
       </span></p>
   </div>
 
   
 <p>
-Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
 using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
 provided by <a href="https://readthedocs.org">Read the Docs</a>
 </p>

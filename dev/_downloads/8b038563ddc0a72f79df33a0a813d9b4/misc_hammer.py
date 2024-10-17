@@ -1,6 +1,6 @@
 r"""
-Hammer
-======
+Hammer projection
+=================
 
 The equal-area Hammer projection, first presented by the German mathematician
 Ernst von Hammer in 1892, is also known as Hammer-Aitoff (the Aitoff projection
@@ -19,5 +19,5 @@ import pygmt
 
 fig = pygmt.Figure()
 # Use region "d" to specify global region (-180/180/-90/90)
-fig.coast(region="d", projection="H12c", land="black", water="cornsilk", frame="afg")
+fig.coast(region="d", projection="H12c", frame="afg", land="ivory", water="bisque4")
 fig.show()

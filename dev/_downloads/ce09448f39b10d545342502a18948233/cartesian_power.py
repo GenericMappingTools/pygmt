@@ -22,23 +22,21 @@ yvalues = np.arange(0, 11)
 xvalues = yvalues**2
 
 fig = pygmt.Figure()
-fig.plot(
+fig.basemap(
     region=[0, 100, 0, 10],
     # Set the power transformation of the x-axis, with a power of 0.5
     projection="X15cp0.5/10c",
-    # Set the figures frame and color as well as
-    # annotations and ticks
-    # The "p" forces to show only square numbers as annotations
-    # of the x-axis
-    frame=["WSne+givory", "xa1p", "ya2f1"],
-    # Set the line thickness to "thick" (equals "1p", i.e. 1 point)
-    # Use as color "black" (default) and as style "solid" (default)
-    pen="thick,black,solid",
-    x=xvalues,
-    y=yvalues,
+    # Set the figures frame as well as annotations and ticks
+    # The "p" forces to show only square numbers as annotations of the x-axis
+    frame=["WSne+gbisque", "xfga1p", "ya2f1g"],
 )
-# Plot x-, y-values as points on the line
-# Style of points is 0.2 cm circles, color fill is "green" with a "black"
-# outline. Points are not clipped if they go off the figure
-fig.plot(x=xvalues, y=yvalues, style="c0.2c", fill="green", no_clip=True, pen="black")
+
+# Set the line thickness to "thick" (equals "1p", i.e. 1 point)
+# Use as color "black" (default) and as style "solid" (default)
+fig.plot(x=xvalues, y=yvalues, pen="thick,black,solid")
+
+# Plot the data points on top of the line
+# Use circles with 0.3 centimeters diameter, with an "orange" fill and a "black" outline
+# Symbols are not clipped if they go off the figure
+fig.plot(x=xvalues, y=yvalues, style="c0.3c", fill="orange", pen="black", no_clip=True)
 fig.show()

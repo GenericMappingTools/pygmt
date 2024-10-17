@@ -80,7 +80,7 @@ or water to a specified value using the ``maskvalues`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.190 seconds)
+   **Total running time of the script:** (0 minutes 0.185 seconds)
 
 
 .. _sphx_glr_download_gallery_images_grdlandmask.py:
