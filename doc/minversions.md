@@ -21,13 +21,13 @@ PyGMT has adopted [SPEC 0](https://scientific-python.org/specs/spec-0000/) along
 rest of the Scientific Python ecosystem, and therefore:
 
 - Support for Python versions be dropped 3 years after their initial release.
-- Support for core package dependencies (NumPy/Pandas/Xarray) be dropped 2 years after
+- Support for core package dependencies (NumPy, pandas, Xarray) be dropped 2 years after
   their initial release.
 
 Similarly, the PyGMT team has decided to discontinue support for GMT versions 3 years
 after their initial release.
 
-| PyGMT Version | GMT | Python | NumPy | Pandas | Xarray |
+| PyGMT Version | GMT | Python | NumPy | pandas | Xarray |
 |---|---|---|---|---|---|
 | [Dev][]* [<doc:dev>] | {{ requires.gmt }} | {{ requires.python }} | {{ requires.numpy }} | {{ requires.pandas }} | {{ requires.xarray }} |
 | <tag:v0.13.0> [<doc:v0.13.0>] | >=6.3.0 | >=3.10 | >=1.24 | >=1.5 | >=2022.09 |
