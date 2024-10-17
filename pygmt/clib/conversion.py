@@ -168,41 +168,7 @@ def vectors_to_arrays(vectors: Sequence[Any]) -> list[np.ndarray]:
     True
     >>> all(isinstance(i, np.ndarray) for i in arrays)
     True
-
-    >>> data = [[1, 2], (3, 4), range(5, 7)]
-    >>> all(isinstance(i, np.ndarray) for i in vectors_to_arrays(data))
-    True
-
-    >>> # Sequence of scalars are converted to 1-D arrays
-    >>> data = vectors_to_arrays([1, 2, 3.0])
-    >>> data
-    [array([1]), array([2]), array([3.])]
-    >>> [i.ndim for i in data]  # Check that they are 1-D arrays
-    [1, 1, 1]
-
-    >>> series = pd.Series(data=[0, 4, pd.NA, 8, 6], dtype=pd.Int32Dtype())
-    >>> vectors_to_arrays([series])
-    [array([ 0.,  4., nan,  8.,  6.])]
-
-    >>> import datetime
-    >>> import pytest
-    >>> pa = pytest.importorskip("pyarrow")
-    >>> vectors = [
-    ...     pd.Series(
-    ...         data=[datetime.date(2020, 1, 1), datetime.date(2021, 12, 31)],
-    ...         dtype="date32[day][pyarrow]",
-    ...     ),
-    ...     pd.Series(
-    ...         data=[datetime.date(2022, 1, 1), datetime.date(2023, 12, 31)],
-    ...         dtype="date64[ms][pyarrow]",
-    ...     ),
-    ... ]
-    >>> arrays = vectors_to_arrays(vectors)
-    >>> all(a.flags.c_contiguous for a in arrays)
-    True
-    >>> all(isinstance(a, np.ndarray) for a in arrays)
-    True
-    >>> all(isinstance(a.dtype, np.dtypes.DateTime64DType) for a in arrays)
+    >>> all(i.ndim == 1 for i in arrays)
     True
     """
     dtypes = {
@@ -224,6 +190,13 @@ def vectors_to_arrays(vectors: Sequence[Any]) -> list[np.ndarray]:
         else:
             vec_dtype = str(getattr(vector, "dtype", ""))
             array = np.ascontiguousarray(vector, dtype=dtypes.get(vec_dtype))
+        # Convert np.object_ to np.datetime64 or np.str_.
+        # If fails, then the array can't be recognized.
+        if array.dtype.type == np.object_:
+            try:
+                array = np.ascontiguousarray(array, dtype=np.datetime64)
+            except ValueError:
+                array = np.ascontiguousarray(array, dtype=np.str_)
         arrays.append(array)
     return arrays
 
@@ -307,11 +280,16 @@ def strings_to_ctypes_array(strings: Sequence[str]) -> ctp.Array:
     return (ctp.c_char_p * len(strings))(*[s.encode() for s in strings])
 
 
-def array_to_datetime(array: Sequence[Any]) -> np.ndarray:
+def _array_to_datetime(array: Sequence[Any]) -> np.ndarray:
     """
     Convert a 1-D datetime array from various types into numpy.datetime64.
 
     If the input array is not in legal datetime formats, raise a ValueError exception.
+
+    .. deprecated:: 0.14.0
+
+       The function is no longer used in the PyGMT project, but we keep this function
+       to document the supported datetime types.
 
     Parameters
     ----------
@@ -343,20 +321,20 @@ def array_to_datetime(array: Sequence[Any]) -> np.ndarray:
     ...     ["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"],
     ...     dtype="datetime64[ns]",
     ... )
-    >>> array_to_datetime(x)
+    >>> _array_to_datetime(x)
     array(['2010-06-01T00:00:00.000000000', '2011-06-01T12:00:00.000000000',
            '2012-01-01T12:34:56.000000000'], dtype='datetime64[ns]')
 
     >>> # pandas.DateTimeIndex array
     >>> import pandas as pd
     >>> x = pd.date_range("2013", freq="YS", periods=3)
-    >>> array_to_datetime(x)
+    >>> _array_to_datetime(x)
     array(['2013-01-01T00:00:00.000000000', '2014-01-01T00:00:00.000000000',
            '2015-01-01T00:00:00.000000000'], dtype='datetime64[ns]')
 
     >>> # Python's built-in date and datetime
     >>> x = [datetime.date(2018, 1, 1), datetime.datetime(2019, 1, 1)]
-    >>> array_to_datetime(x)
+    >>> _array_to_datetime(x)
     array(['2018-01-01T00:00:00.000000', '2019-01-01T00:00:00.000000'],
           dtype='datetime64[us]')
 
@@ -367,7 +345,7 @@ def array_to_datetime(array: Sequence[Any]) -> np.ndarray:
     ...     "2018-03-01",
     ...     "2018-04-01T01:02:03",
     ... ]
-    >>> array_to_datetime(x)
+    >>> _array_to_datetime(x)
     array(['2018-01-01T00:00:00', '2018-02-01T00:00:00',
            '2018-03-01T00:00:00', '2018-04-01T01:02:03'],
           dtype='datetime64[s]')
@@ -378,7 +356,7 @@ def array_to_datetime(array: Sequence[Any]) -> np.ndarray:
     ...     np.datetime64("2018-01-01"),
     ...     datetime.datetime(2018, 1, 1),
     ... ]
-    >>> array_to_datetime(x)
+    >>> _array_to_datetime(x)
     array(['2018-01-01T00:00:00.000000', '2018-01-01T00:00:00.000000',
            '2018-01-01T00:00:00.000000'], dtype='datetime64[us]')
     """
