@@ -127,3 +127,33 @@ def test_virtualfile_in_matrix_string_dtype():
                 assert output == "347.5 348.5 -30.5 -30\n"
                 # Should check that lib.virtualfile_from_vectors is called once,
                 # not lib.virtualfile_from_matrix, but it's technically complicated.
+
+
+def test_virtualfile_from_data():
+    """
+    Test the backwards compatibility of the virtualfile_from_data method.
+
+    This test is the same as test_virtualfile_in_required_z_matrix, but using the
+    deprecated method.
+    """
+    shape = (5, 3)
+    dataframe = pd.DataFrame(
+        data=np.arange(shape[0] * shape[1]).reshape(shape), columns=["x", "y", "z"]
+    )
+    data = np.array(dataframe)
+    with clib.Session() as lib:
+        with pytest.warns(FutureWarning, match="virtualfile_from_data"):
+            with lib.virtualfile_from_data(
+                data=data, required_z=True, check_kind="vector"
+            ) as vfile:
+                with GMTTempFile() as outfile:
+                    lib.call_module("info", [vfile, f"->{outfile.name}"])
+                    output = outfile.read(keep_tabs=True)
+            bounds = "\t".join(
+                [
+                    f"<{i.min():.0f}/{i.max():.0f}>"
+                    for i in (dataframe.x, dataframe.y, dataframe.z)
+                ]
+            )
+            expected = f"<matrix memory>: N = {shape[0]}\t{bounds}\n"
+            assert output == expected

@@ -1852,7 +1852,7 @@ class Session:
            instead.
         """
         msg = (
-            "API function 'Session.virtualfile_from_datae()' has been deprecated since "
+            "API function 'Session.virtualfile_from_data()' has been deprecated since "
             "v0.13.0 and will be removed in v0.15.0. Use 'Session.virtualfile_in()' "
             "instead."
         )
