@@ -1705,7 +1705,7 @@ class Session:
                     seg.header = None
                     seg.text = None
 
-    def virtualfile_in(  # noqa: PLR0912
+    def virtualfile_in(
         self,
         check_kind=None,
         data=None,
@@ -1810,11 +1810,10 @@ class Session:
         match kind:
             case "image" if data.dtype != "uint8":
                 msg = (
-                    f"Input image has dtype: {data.dtype} which is unsupported, "
-                    "and may result in an incorrect output. Please recast image "
-                    "to a uint8 dtype and/or scale to 0-255 range, e.g. "
-                    "using a histogram equalization function like "
-                    "skimage.exposure.equalize_hist."
+                    f"Input image has dtype: {data.dtype} which is unsupported, and "
+                    "may result in an incorrect output. Please recast image to a uint8 "
+                    "dtype and/or scale to 0-255 range, e.g. using a histogram "
+                    "equalization function like skimage.exposure.equalize_hist."
                 )
                 warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
             case "empty":  # data is None, so data must be given via x/y/z.
@@ -1839,8 +1838,6 @@ class Session:
                 # non-integer/float type inputs (e.g. for string or datetime data types)
                 _virtualfile_from = self.virtualfile_from_vectors
                 _data = data.T
-            case _:
-                pass
 
         # Finally create the virtualfile from the data, to be passed into GMT
         file_context = _virtualfile_from(_data)
