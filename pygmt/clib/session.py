@@ -1385,8 +1385,8 @@ class Session:
                 "Passing multiple arguments to Session.virtualfile_from_vectors is "
                 "deprecated since v0.14.0 and will be unsupported in v0.16.0. "
                 "Put all vectors in a sequence (a tuple or a list) instead and pass "
-                "the sequnece as the single argument to this function. "
-                "e.g., use `with lib.virtualfile_from_vectors((x, y, z)) as vfile` "
+                "the sequence as the single argument to this function. "
+                "E.g., use `with lib.virtualfile_from_vectors((x, y, z)) as vfile` "
                 "instead of `with lib.virtualfile_from_vectors(x, y, z) as vfile`."
             )
             warnings.warn(message=msg, category=FutureWarning, stacklevel=3)
