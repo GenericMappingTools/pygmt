@@ -280,7 +280,7 @@ def strings_to_ctypes_array(strings: Sequence[str]) -> ctp.Array:
     return (ctp.c_char_p * len(strings))(*[s.encode() for s in strings])
 
 
-def array_to_datetime(array: Sequence[Any]) -> np.ndarray:
+def _array_to_datetime(array: Sequence[Any]) -> np.ndarray:
     """
     Convert a 1-D datetime array from various types into numpy.datetime64.
 
@@ -321,20 +321,20 @@ def array_to_datetime(array: Sequence[Any]) -> np.ndarray:
     ...     ["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"],
     ...     dtype="datetime64[ns]",
     ... )
-    >>> array_to_datetime(x)
+    >>> _array_to_datetime(x)
     array(['2010-06-01T00:00:00.000000000', '2011-06-01T12:00:00.000000000',
            '2012-01-01T12:34:56.000000000'], dtype='datetime64[ns]')
 
     >>> # pandas.DateTimeIndex array
     >>> import pandas as pd
     >>> x = pd.date_range("2013", freq="YS", periods=3)
-    >>> array_to_datetime(x)
+    >>> _array_to_datetime(x)
     array(['2013-01-01T00:00:00.000000000', '2014-01-01T00:00:00.000000000',
            '2015-01-01T00:00:00.000000000'], dtype='datetime64[ns]')
 
     >>> # Python's built-in date and datetime
     >>> x = [datetime.date(2018, 1, 1), datetime.datetime(2019, 1, 1)]
-    >>> array_to_datetime(x)
+    >>> _array_to_datetime(x)
     array(['2018-01-01T00:00:00.000000', '2019-01-01T00:00:00.000000'],
           dtype='datetime64[us]')
 
@@ -345,7 +345,7 @@ def array_to_datetime(array: Sequence[Any]) -> np.ndarray:
     ...     "2018-03-01",
     ...     "2018-04-01T01:02:03",
     ... ]
-    >>> array_to_datetime(x)
+    >>> _array_to_datetime(x)
     array(['2018-01-01T00:00:00', '2018-02-01T00:00:00',
            '2018-03-01T00:00:00', '2018-04-01T01:02:03'],
           dtype='datetime64[s]')
@@ -356,7 +356,7 @@ def array_to_datetime(array: Sequence[Any]) -> np.ndarray:
     ...     np.datetime64("2018-01-01"),
     ...     datetime.datetime(2018, 1, 1),
     ... ]
-    >>> array_to_datetime(x)
+    >>> _array_to_datetime(x)
     array(['2018-01-01T00:00:00.000000', '2018-01-01T00:00:00.000000',
            '2018-01-01T00:00:00.000000'], dtype='datetime64[us]')
     """
