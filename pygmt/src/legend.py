@@ -91,7 +91,7 @@ def legend(
             kwargs["F"] = box
 
     kind = data_kind(spec)
-    if kind not in {"vectors", "file", "stringio"}:  # kind="vectors" means spec is None
+    if kind not in {"empty", "file", "stringio"}:
         raise GMTInvalidInput(f"Unrecognized data type: {type(spec)}")
     if kind == "file" and is_nonstr_iter(spec):
         raise GMTInvalidInput("Only one legend specification file is allowed.")
