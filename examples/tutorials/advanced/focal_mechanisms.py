@@ -17,6 +17,7 @@ expected column order, keys, or column names).
 This tutorial focus on how to adjust the display of the beachballs:
 
 - Filling the quadrants
+- Plotting the P and T axes
 - Plotting the components of a seismic moment tensor
 - Adjusting the outlines
 - Highlighting the nodal planes
@@ -32,7 +33,7 @@ import pygmt
 # Set up arguments for basemap
 size = 5
 projection = "X10c/4c"
-frame = ["af", "+ggray80"]
+frame = ["af", "+ggray90"]
 
 
 # %%
@@ -100,6 +101,38 @@ fig.meca(
     compressionfill="p8",
     extensionfill="p31",
     outline=True,
+)
+
+fig.show()
+
+
+# %%
+# Plotting the P and T axes
+# -------------------------
+#
+# Wait for PR #3526
+
+fig = pygmt.Figure()
+fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
+
+fig.meca(
+    spec=mt_dict_single,
+    scale="1c",
+    longitude=-2,
+    latitude=0,
+    Fa=True,
+)
+
+fig.meca(
+    spec=mt_dict_single,
+    scale="1c",
+    longitude=2,
+    latitude=0,
+    Fa="0.2c/cd",  # Compute and plot P and T axes with symbols, Adjust size and symbols
+    Fe="darkorange",  # Adjust fill of T axis symbol
+    Fg="gray30",  # Adjust fill of P axis symbol
+    Ft="0.8p,cornsilk",  # Adjust outline of T axis symbol
+    Fp="0.8p,gray60",  # Adjust outline of P axis symbol
 )
 
 fig.show()
