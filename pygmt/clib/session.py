@@ -1387,7 +1387,7 @@ class Session:
                 "Put all vectors in a sequence (a tuple or a list) instead and pass "
                 "the sequnece as the single argument to this function. "
                 "e.g., use `with lib.virtualfile_from_vectors((x, y, z)) as vfile` "
-                "instead of `with lib.virtualfile_from_vectors(x, y, z) as vfile`.",
+                "instead of `with lib.virtualfile_from_vectors(x, y, z) as vfile`."
             )
             warnings.warn(message=msg, category=FutureWarning, stacklevel=3)
             vectors = (vectors, *args)
