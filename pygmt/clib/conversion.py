@@ -281,7 +281,7 @@ def sequence_to_ctypes_array(
     return (ctype * size)(*sequence)
 
 
-def strings_to_ctypes_array(strings: Sequence[str]) -> ctp.Array:
+def strings_to_ctypes_array(strings: Sequence[str] | np.ndarray) -> ctp.Array:
     """
     Convert a sequence (e.g., a list) of strings into a ctypes array.
 
@@ -307,7 +307,7 @@ def strings_to_ctypes_array(strings: Sequence[str]) -> ctp.Array:
     return (ctp.c_char_p * len(strings))(*[s.encode() for s in strings])
 
 
-def array_to_datetime(array: Sequence[Any]) -> np.ndarray:
+def array_to_datetime(array: Sequence[Any] | np.ndarray) -> np.ndarray:
     """
     Convert a 1-D datetime array from various types into numpy.datetime64.
 
