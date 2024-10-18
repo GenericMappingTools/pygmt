@@ -924,47 +924,45 @@ class Session:
             )
             raise GMTCLibError(msg)
 
-    def put_strings(self, dataset, family, strings):
+    def put_strings(self, dataset: ctp.c_void_p, family: str, strings: np.ndarray):
         """
-        Attach a numpy 1-D array of dtype str as a column on a GMT dataset.
+        Attach a 1-D numpy array of dtype str as a column on a GMT dataset.
 
-        Use this function to attach string type numpy array data to a GMT
-        dataset and pass it to GMT modules. Wraps ``GMT_Put_Strings``.
+        Use this function to attach string type numpy array data to a GMT dataset and
+        pass it to GMT modules. Wraps ``GMT_Put_Strings``.
 
-        The dataset must be created by :meth:`pygmt.clib.Session.create_data`
-        first.
+        The dataset must be created by :meth:`pygmt.clib.Session.create_data` first.
 
         .. warning::
-            The numpy array must be C contiguous in memory. If it comes from a
-            column slice of a 2-D array, for example, you will have to make a
-            copy. Use :func:`numpy.ascontiguousarray` to make sure your vector
-            is contiguous (it won't copy if it already is).
+            The numpy array must be C contiguous in memory. If it comes from a column
+            slice of a 2-D array, for example, you will have to make a copy. Use
+            :func:`numpy.ascontiguousarray` to make sure your vector is contiguous (it
+            won't copy if it already is).
 
         Parameters
         ----------
-        dataset : :class:`ctypes.c_void_p`
-            The ctypes void pointer to a ``GMT_Dataset``. Create it with
-            :meth:`pygmt.clib.Session.create_data`.
-        family : str
+        dataset
+            The ctypes void pointer to a ``GMT_VECTOR``/``GMT_MATRIX`` data container.
+            Create it with :meth:`pygmt.clib.Session.create_data`.
+        family
             The family type of the dataset. Can be either ``GMT_IS_VECTOR`` or
             ``GMT_IS_MATRIX``.
-        strings : numpy 1-D array
-            The array that will be attached to the dataset. Must be a 1-D C
-            contiguous array.
+        strings
+            The array that will be attached to the dataset. Must be a 1-D C contiguous
+            array.
 
         Raises
         ------
         GMTCLibError
-            If given invalid input or ``GMT_Put_Strings`` exits with
-            status != 0.
+            If given invalid input or ``GMT_Put_Strings`` exits with a non-zero status.
         """
         c_put_strings = self.get_libgmt_func(
             "GMT_Put_Strings",
             argtypes=[
-                ctp.c_void_p,
-                ctp.c_uint,
-                ctp.c_void_p,
-                ctp.POINTER(ctp.c_char_p),
+                ctp.c_void_p,  # V_API
+                ctp.c_uint,  # family
+                ctp.c_void_p,  # object
+                ctp.POINTER(ctp.c_char_p),  # array
             ],
             restype=ctp.c_int,
         )
@@ -972,16 +970,13 @@ class Session:
         family_int = self._parse_constant(
             family, valid=FAMILIES, valid_modifiers=METHODS
         )
-
         strings_pointer = strings_to_ctypes_array(strings)
-
         status = c_put_strings(
             self.session_pointer, family_int, dataset, strings_pointer
         )
         if status != 0:
-            raise GMTCLibError(
-                f"Failed to put strings of type {strings.dtype} into dataset"
-            )
+            msg = f"Failed to put strings of type {strings.dtype} into dataset."
+            raise GMTCLibError(msg)
 
     def put_matrix(self, dataset: ctp.c_void_p, matrix: np.ndarray, pad: int = 0):
         """
