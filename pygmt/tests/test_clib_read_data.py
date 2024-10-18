@@ -207,4 +207,4 @@ def test_clib_read_data_fails():
     """
     with Session() as lib:
         with pytest.raises(GMTCLibError):
-            lib.read_data("not-exsits.txt", kind="dataset")
+            lib.read_data("not-exists.txt", kind="dataset")
