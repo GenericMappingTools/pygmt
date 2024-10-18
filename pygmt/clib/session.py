@@ -906,6 +906,7 @@ class Session:
             restype=ctp.c_int,
         )
 
+        vector_pointer: ctp.Array | ctp.c_void_p
         gmt_type = self._check_dtype_and_dim(vector, ndim=1)
         if gmt_type in {self["GMT_TEXT"], self["GMT_DATETIME"]}:
             if gmt_type == self["GMT_DATETIME"]:
