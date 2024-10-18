@@ -18,8 +18,8 @@
 .. _sphx_glr_projections_misc_misc_robinson.py:
 
 
-Robinson
-========
+Robinson projection
+===================
 
 The Robinson projection, presented by the American geographer and cartographer
 Arthur H. Robinson in 1963, is a modified cylindrical projection that is
@@ -62,13 +62,13 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 
     fig = pygmt.Figure()
     # Use region "d" to specify global region (-180/180/-90/90)
-    fig.coast(region="d", projection="N12c", land="goldenrod", water="snow2", frame="afg")
+    fig.coast(region="d", projection="N12c", frame="afg", land="ivory", water="bisque4")
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.208 seconds)
+   **Total running time of the script:** (0 minutes 0.207 seconds)
 
 
 .. _sphx_glr_download_projections_misc_misc_robinson.py:

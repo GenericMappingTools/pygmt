@@ -438,7 +438,7 @@ Symbols and markers
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="PyGMT allows using bit or hachure patterns via the fill parameter or similar parameters:">
+    <div class="sphx-glr-thumbcontainer" tooltip="In addition to colors, PyGMT also allows using bit and hachure patterns to fill symbols, polygons, and other areas, via the fill parameter or similar parameters.">
 
 .. only:: html
 

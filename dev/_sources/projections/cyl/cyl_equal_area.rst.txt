@@ -18,8 +18,8 @@
 .. _sphx_glr_projections_cyl_cyl_equal_area.py:
 
 
-Cylindrical equal-area
-======================
+Cylindrical equal-area projection
+=================================
 
 This cylindrical projection is actually several projections, depending on what
 latitude is selected as the standard parallel. However, they are all equal area
@@ -52,16 +52,16 @@ The projection is set with **y** or **Y**. The projection center is set by
     fig.coast(
         region="d",
         projection="Y35/30/12c",
-        water="dodgerblue",
-        shorelines="thinnest",
         frame="afg",
+        land="gray80",
+        water="steelblue",
     )
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.222 seconds)
+   **Total running time of the script:** (0 minutes 0.196 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_equal_area.py:

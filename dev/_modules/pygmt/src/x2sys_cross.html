@@ -17,7 +17,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=a51cd8ab" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=845ca4e4" />
 
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
@@ -28,7 +28,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=aa3fe5bf"></script>
+        <script src="../../../_static/documentation_options.js?v=5de684ee"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -258,13 +258,13 @@
 <span class="sd">        or file names. Supported file formats are ASCII, native binary, or</span>
 <span class="sd">        COARDS netCDF 1-D data. More columns may also be present.</span>
 
-<span class="sd">        If the file names are missing their file extension, we will append the</span>
-<span class="sd">        suffix specified for this TAG. Track files will be searched for first</span>
-<span class="sd">        in the current directory and second in all directories listed in</span>
-<span class="sd">        $X2SYS_HOME/TAG/TAG_paths.txt (if it exists). [If $X2SYS_HOME is not</span>
-<span class="sd">        set it will default to $GMT_SHAREDIR/x2sys]. (**Note**: MGD77 files</span>
-<span class="sd">        will also be looked for via $MGD77_HOME/mgd77_paths.txt and .gmt</span>
-<span class="sd">        files will be searched for via $GMT_SHAREDIR/mgg/gmtfile_paths).</span>
+<span class="sd">        If the file names are missing their file extension, we will append the suffix</span>
+<span class="sd">        specified for this TAG. Track files will be searched for first in the current</span>
+<span class="sd">        directory and second in all directories listed in $X2SYS_HOME/TAG/TAG_paths.txt</span>
+<span class="sd">        (if it exists). [If environment variable :term:`X2SYS_HOME` is not set it will</span>
+<span class="sd">        default to $GMT_SHAREDIR/x2sys]. (**Note**: MGD77 files will also be looked for</span>
+<span class="sd">        via $MGD77_HOME/mgd77_paths.txt and .gmt files will be searched for via</span>
+<span class="sd">        $GMT_SHAREDIR/mgg/gmtfile_paths).</span>
 
 <span class="sd">    outfile</span>
 <span class="sd">        The file name for the output ASCII txt file to store the table in.</span>
@@ -357,7 +357,7 @@
         <span class="k">match</span> <span class="n">data_kind</span><span class="p">(</span><span class="n">track</span><span class="p">):</span>
             <span class="k">case</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
                 <span class="n">file_contexts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">contextlib</span><span class="o">.</span><span class="n">nullcontext</span><span class="p">(</span><span class="n">track</span><span class="p">))</span>
-            <span class="k">case</span> <span class="s2">&quot;matrix&quot;</span><span class="p">:</span>
+            <span class="k">case</span> <span class="s2">&quot;vectors&quot;</span><span class="p">:</span>
                 <span class="c1"># find suffix (-E) of trackfiles used (e.g. xyz, csv, etc) from</span>
                 <span class="c1"># $X2SYS_HOME/TAGNAME/TAGNAME.tag file</span>
                 <span class="n">tagfile</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span>
@@ -427,15 +427,15 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/79bf2897">79bf2897</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 05, 2024.
+      <span class="lastupdated">Last updated on Oct 17, 2024.
       </span></p>
   </div>
 
   
 <p>
-Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
 using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
 provided by <a href="https://readthedocs.org">Read the Docs</a>
 </p>
