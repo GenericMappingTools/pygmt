@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTError, GMTInvalidInput
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 def convention_code(convention, component="full"):
@@ -95,7 +95,7 @@ def convention_code(convention, component="full"):
                 f"Invalid component '{component}' for convention '{convention}'."
             )
         return codes2[convention][component]
-    if convention in ["a", "c", "m", "d", "z", "p", "x", "y", "t"]:
+    if convention in {"a", "c", "m", "d", "z", "p", "x", "y", "t"}:
         return convention
     raise GMTInvalidInput(f"Invalid convention '{convention}'.")
 
@@ -490,4 +490,4 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
     kwargs["S"] = f"{data_format}{scale}"
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=spec) as vintbl:
-            lib.call_module(module="meca", args=build_arg_string(kwargs, infile=vintbl))
+            lib.call_module(module="meca", args=build_arg_list(kwargs, infile=vintbl))

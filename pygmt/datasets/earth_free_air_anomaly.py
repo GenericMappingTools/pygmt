@@ -1,32 +1,34 @@
 """
-Function to download the IGPP Earth Free-Air Anomaly dataset from the GMT data server,
+Function to download the IGPP Earth free-air anomaly dataset from the GMT data server,
 and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
+import xarray as xr
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
-from pygmt.helpers import kwargs_to_strings
 
 __doctest_skip__ = ["load_earth_free_air_anomaly"]
 
 
-@kwargs_to_strings(region="sequence")
 def load_earth_free_air_anomaly(
-    resolution="01d",
-    region=None,
+    resolution: Literal[
+        "01d", "30m", "20m", "15m", "10m", "06m", "05m", "04m", "03m", "02m", "01m"
+    ] = "01d",
+    region: Sequence[float] | str | None = None,
     registration: Literal["gridline", "pixel", None] = None,
-):
+) -> xr.DataArray:
     r"""
-    Load the IGPP Earth Free-Air Anomaly dataset in various resolutions.
+    Load the IGPP Earth free-air anomaly dataset in various resolutions.
 
     .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_faa.jpg
        :width: 80 %
        :align: center
 
-       IGPP Earth Free-Air Anomaly dataset.
+       IGPP Earth free-air anomaly dataset.
 
     The grids are downloaded to a user data directory
     (usually ``~/.gmt/server/earth/earth_faa/``) the first time you invoke
@@ -51,18 +53,13 @@ def load_earth_free_air_anomaly(
 
     Parameters
     ----------
-    resolution : str
-        The grid resolution. The suffix ``d`` and ``m`` stand for
-        arc-degrees and arc-minutes. It can be ``"01d"``, ``"30m"``,
-        ``"20m"``, ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``, ``"04m"``,
-        ``"03m"``, ``"02m"``, or ``"01m"``.
-
-    region : str or list
-        The subregion of the grid to load, in the form of a list
-        [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
-        Required for grids with resolutions higher than 5
-        arc-minutes (i.e., ``"05m"``).
-
+    resolution
+        The grid resolution. The suffix ``d`` and ``m`` stand for arc-degrees and
+        arc-minutes.
+    region
+        The subregion of the grid to load, in the form of a sequence [*xmin*, *xmax*,
+        *ymin*, *ymax*] or an ISO country code. Required for grids with resolutions
+        higher than 5 arc-minutes (i.e., ``"05m"``).
     registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``None``, means
@@ -71,7 +68,7 @@ def load_earth_free_air_anomaly(
 
     Returns
     -------
-    grid : :class:`xarray.DataArray`
+    grid
         The Earth free-air anomaly grid. Coordinates are latitude and
         longitude in degrees. Units are in mGal.
 
@@ -102,8 +99,8 @@ def load_earth_free_air_anomaly(
     ... )
     """
     grid = _load_remote_dataset(
-        dataset_name="earth_free_air_anomaly",
-        dataset_prefix="earth_faa_",
+        name="earth_faa",
+        prefix="earth_faa",
         resolution=resolution,
         region=region,
         registration=registration,

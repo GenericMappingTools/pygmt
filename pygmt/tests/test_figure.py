@@ -4,7 +4,6 @@ Test the behavior of the Figure class.
 Doesn't include the plotting commands which have their own test files.
 """
 
-import importlib
 from pathlib import Path
 
 import numpy as np
@@ -12,9 +11,15 @@ import numpy.testing as npt
 import pytest
 from pygmt import Figure, set_display
 from pygmt.exceptions import GMTError, GMTInvalidInput
+from pygmt.figure import SHOW_CONFIG, _get_default_display_method
 from pygmt.helpers import GMTTempFile
 
-HAS_IPYTHON = bool(importlib.util.find_spec("IPython"))
+try:
+    import IPython
+
+    _HAS_IPYTHON = True
+except ImportError:
+    _HAS_IPYTHON = False
 
 
 def test_figure_region():
@@ -307,7 +312,7 @@ def test_figure_savefig_worldfile():
                 fig.savefig(fname=imgfile.name, worldfile=True)
 
 
-@pytest.mark.skipif(not HAS_IPYTHON, reason="run when IPython is installed")
+@pytest.mark.skipif(not _HAS_IPYTHON, reason="run when IPython is installed")
 def test_figure_show():
     """
     Test that show creates the correct file name and deletes the temp dir.
@@ -347,7 +352,7 @@ def test_figure_show_invalid_method():
         fig.show(method="test")
 
 
-@pytest.mark.skipif(HAS_IPYTHON, reason="run without IPython installed")
+@pytest.mark.skipif(_HAS_IPYTHON, reason="run without IPython installed")
 def test_figure_show_notebook_error_without_ipython():
     """
     Test to check if an error is raised when display method is 'notebook', but IPython
@@ -368,12 +373,31 @@ def test_figure_display_external():
     fig.show(method="external")
 
 
-def test_figure_set_display_invalid():
+class TestSetDisplay:
     """
-    Test to check if an error is raised when an invalid method is passed to set_display.
+    Test the pygmt.set_display method.
     """
-    with pytest.raises(GMTInvalidInput):
-        set_display(method="invalid")
+
+    def test_set_display(self):
+        """
+        Test if pygmt.set_display updates the SHOW_CONFIG variable correctly.
+        """
+        default_method = SHOW_CONFIG["method"]  # Current default method
+
+        for method in ("notebook", "external", "none"):
+            set_display(method=method)
+            assert SHOW_CONFIG["method"] == method
+
+        # Setting method to None should revert it to the default method.
+        set_display(method=None)
+        assert SHOW_CONFIG["method"] == default_method
+
+    def test_invalid_method(self):
+        """
+        Test if an error is raised when an invalid method is passed.
+        """
+        with pytest.raises(GMTInvalidInput):
+            set_display(method="invalid")
 
 
 def test_figure_unsupported_xshift_yshift():
@@ -390,3 +414,48 @@ def test_figure_unsupported_xshift_yshift():
         fig.plot(x=1, y=1, style="c3c", yshift="3c")
     with pytest.raises(GMTInvalidInput):
         fig.plot(x=1, y=1, style="c3c", Y="3c")
+
+
+class TestGetDefaultDisplayMethod:
+    """
+    Test the _get_default_display_method function.
+    """
+
+    def test_default_display_method(self, monkeypatch):
+        """
+        Default display method is "external" if PYGMT_USE_EXTERNAL_DISPLAY is undefined.
+        """
+        monkeypatch.delenv("PYGMT_USE_EXTERNAL_DISPLAY", raising=False)
+        assert _get_default_display_method() == "external"
+
+    def test_disable_external_display(self, monkeypatch):
+        """
+        Setting PYGMT_USE_EXTERNAL_DISPLAY to "false" should disable external display.
+        """
+        monkeypatch.setenv("PYGMT_USE_EXTERNAL_DISPLAY", "false")
+        assert _get_default_display_method() == "none"
+
+    @pytest.mark.skipif(not _HAS_IPYTHON, reason="Run when IPython is installed")
+    def test_notebook_display(self, monkeypatch):
+        """
+        Default display method is "notebook" when an IPython kernel is running.
+        """
+
+        class MockIPython:
+            """
+            A simple mock class to simulate an IPython instance.
+            """
+
+            def __init__(self):
+                self.config = {"IPKernelApp": True}
+
+        # Mock IPython.get_ipython() to return a MockIPython instance.
+        mock_ipython = MockIPython()
+        monkeypatch.setattr(IPython, "get_ipython", lambda: mock_ipython)
+
+        # Default display method should be "notebook" when an IPython kernel is running.
+        assert _get_default_display_method() == "notebook"
+
+        # PYGMT_USE_EXTERNAL_DISPLAY should not affect notebook display.
+        monkeypatch.setenv("PYGMT_USE_EXTERNAL_DISPLAY", "false")
+        assert _get_default_display_method() == "notebook"

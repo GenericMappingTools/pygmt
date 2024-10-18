@@ -17,8 +17,8 @@
 # In draft pull request, only two jobs on Linux are triggered to save on
 # Continuous Integration resources:
 #
-# - Minimum supported Python/NumPy/Pandas/Xarray versions following [SPEC 0](https://scientific-python.org/specs/spec-0000/)
-# - Latest Python/NumPy versions + optional packages (e.g. GeoPandas)
+# - Minimum supported Python, NumPy, pandas, Xarray versions following [SPEC 0](https://scientific-python.org/specs/spec-0000/)
+# - Latest Python, NumPy versions + optional packages (e.g. GeoPandas)
 #
 name: Tests
 
@@ -49,6 +49,8 @@ jobs:
   test:
     name: ${{ matrix.os }} - Python ${{ matrix.python-version }} / NumPy ${{ matrix.numpy-version }}
     runs-on: ${{ matrix.os }}
+    permissions:
+      id-token: write  # This is required for requesting OIDC token for codecov
     strategy:
       fail-fast: false
       matrix:
@@ -63,20 +65,29 @@ jobs:
             isDraft: true
           - os: windows-latest
             isDraft: true
-        # Pair Python 3.10 with the minimum supported versions of NumPy/Pandas/Xarray
-        # and Python 3.12 with the latest versions of NumPy/Pandas/Xarray
+        # Pair Python 3.10 with the minimum supported versions of NumPy, pandas, Xarray
+        # and Python 3.12 with the latest versions of NumPy, pandas, Xarray
         # Only install optional packages on Python 3.12
         include:
           - python-version: '3.10'
-            numpy-version: '1.23'
-            pandas-version: '=1.5'
-            xarray-version: '=2022.06'
+            numpy-version: '1.24'
+            pandas-version: '=2.0'
+            xarray-version: '=2023.04'
             optional-packages: ''
           - python-version: '3.12'
-            numpy-version: '1.26'
+            numpy-version: '2.1'
             pandas-version: ''
             xarray-version: ''
             optional-packages: ' contextily geopandas ipython pyarrow rioxarray sphinx-gallery'
+          # The job below is for testing GeoPandas v0.x on Ubuntu.
+          # The python-version here can't be the versions in the matrix.python-version
+          # defined above. Otherwise, other jobs will be overridden by this one.
+          - os: 'ubuntu-latest'
+            python-version: '3.11'  # Can't be 3.10 or 3.12.
+            numpy-version: '1.24'
+            pandas-version: ''
+            xarray-version: ''
+            optional-packages: ' geopandas<1'
 
     timeout-minutes: 30
     defaults:
@@ -92,14 +103,18 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4.2.0
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
+      - name: Get current week number of year
+        id: date
+        run: echo "date=$(date +%Y-W%W)" >> $GITHUB_OUTPUT  # e.g., 2024-W19
+
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.8.1
+        uses: mamba-org/setup-micromamba@v2.0.0
         with:
           environment-name: pygmt
           condarc: |
@@ -108,45 +123,42 @@ jobs:
               - nodefaults
           cache-downloads: false
           cache-environment: true
+          # environment cache is persistent for one week.
+          cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
           create-args: >-
             python=${{ matrix.python-version }}${{ matrix.optional-packages }}
             gmt=6.5.0
-            ghostscript=10.03.0
+            ghostscript=10.04.0
             numpy=${{ matrix.numpy-version }}
             pandas${{ matrix.pandas-version }}
             xarray${{ matrix.xarray-version }}
             netCDF4
             packaging
-            build
             dvc
             make
             pip
+            python-build
             pytest
             pytest-cov
             pytest-doctestplus
             pytest-mpl
+            pytest-rerunfailures
+            pytest-xdist
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v3.1.4
-        with:
-          workflow: cache_data.yaml
-          workflow_conclusion: success
-          name: gmt-cache
-          path: .gmt
-
-      # Move downloaded files to ~/.gmt directory and list them
-      - name: Move and list downloaded remote files
         run: |
-          mkdir -p ~/.gmt
-          mv .gmt/* ~/.gmt
+          # Download files to ~/.gmt directory and list them
+          gh run download --name gmt-cache --dir ~/.gmt/
           # Change modification times of the two files, so GMT won't refresh it
           touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
           ls -lhR ~/.gmt
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
-        run: dvc pull --verbose && ls -lhR pygmt/tests/baseline/
+        run: dvc pull --no-run-cache --verbose && ls -lhR pygmt/tests/baseline/
 
       # Install the package that we want to test
       - name: Install the package
@@ -154,22 +166,22 @@ jobs:
 
       # Run the regular tests
       - name: Run tests
-        run: make test PYTEST_EXTRA="-r P"
+        run: make test PYTEST_EXTRA="-r P -n auto --reruns 2"
 
       # Upload diff images on test failure
       - name: Upload diff images if any test fails
-        uses: actions/upload-artifact@v4
-        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4.4.0
+        if: failure()
         with:
           name: artifact-${{ runner.os }}-${{ matrix.python-version }}
           path: tmp-test-dir-with-unique-name
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4.1.1
+        uses: codecov/codecov-action@v4.6.0
+        if: success() || failure()
         with:
+          use_oidc: true
           file: ./coverage.xml # optional
           env_vars: OS,PYTHON,NUMPY
           fail_ci_if_error: false
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

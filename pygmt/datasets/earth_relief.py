@@ -5,23 +5,39 @@ Function to download the Earth relief datasets from the GMT data server, and loa
 The grids are available in various resolutions.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
+import xarray as xr
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import kwargs_to_strings
 
 __doctest_skip__ = ["load_earth_relief"]
 
 
-@kwargs_to_strings(region="sequence")
 def load_earth_relief(
-    resolution="01d",
-    region=None,
+    resolution: Literal[
+        "01d",
+        "30m",
+        "20m",
+        "15m",
+        "10m",
+        "06m",
+        "05m",
+        "04m",
+        "03m",
+        "02m",
+        "01m",
+        "30s",
+        "15s",
+        "03s",
+        "01s",
+    ] = "01d",
+    region: Sequence[float] | str | None = None,
     registration: Literal["gridline", "pixel", None] = None,
     data_source: Literal["igpp", "gebco", "gebcosi", "synbath"] = "igpp",
-    use_srtm=False,
-):
+    use_srtm: bool = False,
+) -> xr.DataArray:
     r"""
     Load the Earth relief datasets (topography and bathymetry) in various resolutions.
 
@@ -58,25 +74,18 @@ def load_earth_relief(
 
     Parameters
     ----------
-    resolution : str
-        The grid resolution. The suffix ``d``, ``m`` and ``s`` stand for
-        arc-degrees, arc-minutes, and arc-seconds. It can be ``"01d"``,
-        ``"30m"``, ``"20m"``, ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``,
-        ``"04m"``, ``"03m"``, ``"02m"``, ``"01m"``, ``"30s"``, ``"15s"``,
-        ``"03s"``, or ``"01s"``.
-
-    region : str or list
-        The subregion of the grid to load, in the form of a list
-        [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
-        Required for Earth relief grids with resolutions higher than 5
-        arc-minutes (i.e., ``"05m"``).
-
+    resolution
+        The grid resolution. The suffix ``d``, ``m`` and ``s`` stand for arc-degrees,
+        arc-minutes, and arc-seconds.
+    region
+        The subregion of the grid to load, in the form of a sequence [*xmin*, *xmax*,
+        *ymin*, *ymax*] or an ISO country code. Required for grids with resolutions
+        higher than 5 arc-minutes (i.e., ``"05m"``).
     registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``None``, means
         ``"gridline"`` for all resolutions except ``"15s"`` which is
         ``"pixel"`` only.
-
     data_source
         Select the source for the Earth relief data. Available options are:
 
@@ -89,8 +98,7 @@ def load_earth_relief(
           inferred relief via altimetric gravity. See
           :gmt-datasets:`earth-gebco.html`.
         - ``"gebcosi"``: GEBCO Earth Relief that gives sub-ice (si) elevations.
-
-    use_srtm : bool
+    use_srtm
         By default, the land-only SRTM tiles from NASA are used to generate the
         ``"03s"`` and ``"01s"`` grids, and the missing ocean values are filled
         by up-sampling the SRTM15 tiles which have a resolution of 15
@@ -99,7 +107,7 @@ def load_earth_relief(
 
     Returns
     -------
-    grid : :class:`xarray.DataArray`
+    grid
         The Earth relief grid. Coordinates are latitude and longitude in
         degrees. Relief is in meters.
 
@@ -139,32 +147,35 @@ def load_earth_relief(
     # resolutions of original land-only SRTM tiles from NASA
     land_only_srtm_resolutions = ["03s", "01s"]
 
-    earth_relief_sources = {
-        "igpp": "earth_relief_",
-        "gebco": "earth_gebco_",
-        "gebcosi": "earth_gebcosi_",
-        "synbath": "earth_synbath_",
-    }
-    if data_source not in earth_relief_sources:
+    # Map data source to prefix
+    prefix = {
+        "igpp": "earth_relief",
+        "gebco": "earth_gebco",
+        "gebcosi": "earth_gebcosi",
+        "synbath": "earth_synbath",
+    }.get(data_source)
+    if prefix is None:
         raise GMTInvalidInput(
             f"Invalid earth relief data source '{data_source}'. "
-            "Valid values are 'igpp', 'gebco', 'gebcosi' and 'synbath'."
+            "Valid values are 'igpp', 'gebco', 'gebcosi', and 'synbath'."
         )
-    # Choose earth relief data prefix
+    # Use SRTM or not.
     if use_srtm and resolution in land_only_srtm_resolutions:
-        if data_source == "igpp":
-            dataset_prefix = "srtm_relief_"
-        else:
+        if data_source != "igpp":
             raise GMTInvalidInput(
                 f"Option 'use_srtm=True' doesn't work with data source '{data_source}'."
                 " Please set 'data_source' to 'igpp'."
             )
-    else:
-        dataset_prefix = earth_relief_sources[data_source]
-
+        prefix = "srtm_relief"
+    # Choose earth relief dataset
+    match data_source:
+        case "igpp" | "synbath":
+            name = "earth_igpp"
+        case "gebco" | "gebcosi":
+            name = "earth_gebco"
     grid = _load_remote_dataset(
-        dataset_name="earth_relief",
-        dataset_prefix=dataset_prefix,
+        name=name,
+        prefix=prefix,
         resolution=resolution,
         region=region,
         registration=registration,

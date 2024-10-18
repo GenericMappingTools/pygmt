@@ -4,8 +4,9 @@ Define the Figure class that handles all plotting.
 
 import base64
 import os
-from pathlib import Path
+from pathlib import Path, PurePath
 from tempfile import TemporaryDirectory
+from typing import Literal
 
 try:
     import IPython
@@ -14,11 +15,11 @@ try:
 except ImportError:
     _HAS_IPYTHON = False
 
-
+import numpy as np
 from pygmt.clib import Session
 from pygmt.exceptions import GMTError, GMTInvalidInput
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     launch_external_viewer,
@@ -26,38 +27,57 @@ from pygmt.helpers import (
     use_alias,
 )
 
+
+def _get_default_display_method() -> Literal["external", "notebook", "none"]:
+    """
+    Get the default method to display preview images.
+
+    The function checks the current environment and determines the most suitable method
+    to display preview images when calling :meth:`pygmt.Figure.show`. Valid display
+    methods are:
+
+    - ``"external"``: External PDF preview using the default PDF viewer
+    - ``"notebook"``: Inline PNG preview in the current notebook
+    - ``"none"``: Disable image preview
+
+    The default display method is ``"notebook"`` in the Jupyter notebook environment,
+    and ``"external"`` in other cases.
+
+    Setting environment variable :term:`PYGMT_USE_EXTERNAL_DISPLAY` to ``"false"`` can
+    disable image preview in external viewers. It's useful when running the tests and
+    building the documentation to avoid popping up windows.
+
+    Returns
+    -------
+    method
+        The default display method.
+    """
+    # Check if an IPython kernel is running.
+    if _HAS_IPYTHON and (ipy := IPython.get_ipython()) and "IPKernelApp" in ipy.config:
+        return "notebook"
+    # Check if the environment variable PYGMT_USE_EXTERNAL_DISPLAY is set to "false".
+    if os.environ.get("PYGMT_USE_EXTERNAL_DISPLAY", "true").lower() == "false":
+        return "none"
+    # Fallback to using the external viewer.
+    return "external"
+
+
 # A registry of all figures that have had "show" called in this session.
 # This is needed for the sphinx-gallery scraper in pygmt/sphinx_gallery.py
 SHOWED_FIGURES = []
-
-# Configurations for figure display
+# Configurations for figure display.
 SHOW_CONFIG = {
-    "method": "external",  # Open in an external viewer by default
+    "method": _get_default_display_method(),  # The image preview display method.
 }
-
-# Show figures in Jupyter notebooks if available
-if _HAS_IPYTHON:
-    get_ipython = IPython.get_ipython()
-    if get_ipython and "IPKernelApp" in get_ipython.config:  # Jupyter Notebook enabled
-        SHOW_CONFIG["method"] = "notebook"
-
-# Set environment variable PYGMT_USE_EXTERNAL_DISPLAY to 'false' to disable
-# external display. Use it when running the tests and building the docs to
-# avoid popping up windows.
-if os.environ.get("PYGMT_USE_EXTERNAL_DISPLAY", "true").lower() == "false":
-    SHOW_CONFIG["method"] = "none"
 
 
 class Figure:
     """
     A GMT figure to handle all plotting.
 
-    Use the plotting methods of this class to add elements to the figure.  You
-    can preview the figure using :meth:`pygmt.Figure.show` and save the figure
-    to a file using :meth:`pygmt.Figure.savefig`.
-
-    Unlike traditional GMT figures, no figure file is generated until you call
-    :meth:`pygmt.Figure.savefig` or :meth:`pygmt.Figure.psconvert`.
+    Use the plotting methods of this class to add elements to the figure. You can
+    preview the figure using :meth:`pygmt.Figure.show` and save the figure to a file
+    using :meth:`pygmt.Figure.savefig`.
 
     Examples
     --------
@@ -71,8 +91,8 @@ class Figure:
     >>> assert Path("my-figure.png").exists()
     >>> Path("my-figure.png").unlink()
 
-    The plot region can be specified through ISO country codes (for example,
-    ``"JP"`` for Japan):
+    The plot region can be specified through ISO country codes (for example, ``"JP"``
+    for Japan):
 
     >>> import pygmt
     >>> fig = pygmt.Figure()
@@ -99,16 +119,10 @@ class Figure:
         Start and/or activate the current figure.
 
         All plotting commands run afterward will append to this figure.
-
-        Unlike the command-line version (``gmt figure``), this method does not
-        trigger the generation of a figure file. An explicit call to
-        :meth:`pygmt.Figure.savefig` or :meth:`pygmt.Figure.psconvert` must be
-        made in order to get a file.
         """
-        # Passing format '-' tells pygmt.end to not produce any files.
-        fmt = "-"
+        fmt = "-"  # Passing format "-" tells pygmt.end to not produce any files.
         with Session() as lib:
-            lib.call_module(module="figure", args=f"{self._name} {fmt}")
+            lib.call_module(module="figure", args=[self._name, fmt])
 
     def _preprocess(self, **kwargs):
         """
@@ -119,7 +133,7 @@ class Figure:
         return kwargs
 
     @property
-    def region(self):
+    def region(self) -> np.ndarray:
         """
         The geographic WESN bounding box for the current figure.
         """
@@ -161,7 +175,7 @@ class Figure:
         ----------
         crop : str or bool
             Adjust the BoundingBox and HiResBoundingBox to the minimum
-            required by the image content. Default is True. Append **+u** to
+            required by the image content. Default is ``True``. Append **+u** to
             first remove any GMT-produced time-stamps. Append **+r** to
             *round* the HighResBoundingBox instead of using the ``ceil``
             function. This is going against Adobe Law but can be useful when
@@ -205,8 +219,8 @@ class Figure:
             towards black (100%) [no fading, 0]. Append **+g**\ *paint* to
             paint the BoundingBox behind the illustration and append **+p**\
             [*pen*] to draw the BoundingBox outline (append a pen or accept
-            the default pen of 0.25p,black). **Note**: If both **+g** and
-            **+f** are used then we use paint as the fade color instead of
+            the default pen of ``"0.25p,black,solid"``). **Note**: If both **+g** and
+            **+f** are used then we use *paint* as the fade color instead of
             black. Append **+i** to enforce gray-shades by using ICC profiles.
         anti_aliasing : str
             [**g**\|\ **p**\|\ **t**\][**1**\|\ **2**\|\ **4**].
@@ -228,21 +242,18 @@ class Figure:
         {verbose}
         """
         kwargs = self._preprocess(**kwargs)
-        # pytest-mpl v0.17.0 added the "metadata" parameter to `Figure.savefig`, which
-        # is not recognized. So remove it before calling `Figure.psconvert`.
+        # pytest-mpl v0.17.0 added the "metadata" parameter to Figure.savefig, which
+        # is not recognized. So remove it before calling Figure.psconvert.
         kwargs.pop("metadata", None)
         # Default cropping the figure to True
         if kwargs.get("A") is None:
             kwargs["A"] = ""
-        # Manually handle prefix -F argument so spaces aren't converted to \040
-        # by build_arg_string function. For more information, see
-        # https://github.com/GenericMappingTools/pygmt/pull/1487
-        prefix = kwargs.pop("F", None)
-        if prefix in ["", None, False, True]:
+
+        prefix = kwargs.get("F")
+        if prefix in {"", None, False, True}:
             raise GMTInvalidInput(
                 "The 'prefix' parameter must be specified with a valid value."
             )
-        prefix_arg = f'-F"{prefix}"'
 
         # check if the parent directory exists
         prefix_path = Path(prefix).parent
@@ -252,18 +263,16 @@ class Figure:
             )
 
         with Session() as lib:
-            lib.call_module(
-                module="psconvert", args=f"{prefix_arg} {build_arg_string(kwargs)}"
-            )
+            lib.call_module(module="psconvert", args=build_arg_list(kwargs))
 
     def savefig(  # noqa: PLR0912
         self,
-        fname,
-        transparent=False,
-        crop=True,
-        anti_alias=True,
-        show=False,
-        worldfile=False,
+        fname: str | PurePath,
+        transparent: bool = False,
+        crop: bool = True,
+        anti_alias: bool = True,
+        show: bool = False,
+        worldfile: bool = False,
         **kwargs,
     ):
         """
@@ -285,45 +294,39 @@ class Figure:
         - EPS (``.eps``)
         - PDF (``.pdf``)
 
-        Beside the above formats, you can also save the figure to a KML file
-        (``.kml``), with a companion PNG file generated automatically. The KML
-        file can be viewed in Google Earth.
+        Besides the above formats, you can also save the figure to a KML file
+        (``.kml``), with a companion PNG file generated automatically. The KML file can
+        be viewed in Google Earth.
 
-        You can pass in any keyword arguments that
-        :meth:`pygmt.Figure.psconvert` accepts.
+        You can pass in any keyword arguments that :meth:`pygmt.Figure.psconvert`
+        accepts.
 
         Parameters
         ----------
-        fname : str
-            The desired figure file name, including the extension. See the list
-            of supported formats and their extensions above.
-        transparent : bool
-            If ``True``, will use a transparent background for the figure.
-            Only valid for PNG format.
-        crop : bool
-            If ``True``, will crop the figure canvas (page) to the plot area.
-        anti_alias: bool
-            If ``True``, will use anti-aliasing when creating raster images.
-            More specifically, it passes the arguments ``"t2"`` and ``"g2"``
-            to the ``anti_aliasing`` parameter of
-            :meth:`pygmt.Figure.psconvert`. Ignored if creating vector images.
-        show: bool
-            If ``True``, will open the figure in an external viewer.
-        worldfile : bool
-            If ``True``, will create a companion
-            `world file <https://en.wikipedia.org/wiki/World_file>`__ for the
-            figure. The world file will have the same name as the figure file
-            but with different extension (e.g. tfw for tif). See
-            https://en.wikipedia.org/wiki/World_file#Filename_extension
-            for the convention of world file extensions. This parameter only
-            works for raster image formats (except GeoTIFF).
-        dpi : int
-            Set raster resolution in dpi [Default is ``720`` for PDF, ``300``
-            for others].
+        fname
+            The desired figure file name, including the extension. See the list of
+            supported formats and their extensions above.
+        transparent
+            Use a transparent background for the figure. Only valid for PNG format.
+        crop
+            Crop the figure canvas (page) to the plot area.
+        anti_alias
+            Use anti-aliasing when creating raster images. Ignored if creating vector
+            images. More specifically, it passes the arguments ``"t2"`` and ``"g2"`` to
+            the ``anti_aliasing`` parameter of :meth:`pygmt.Figure.psconvert`.
+        show
+            Display the figure in an external viewer.
+        worldfile
+            Create a companion `world file <https://en.wikipedia.org/wiki/World_file>`__
+            for the figure. The world file will have the same name as the figure file
+            but with different extension (e.g., ``.tfw`` for ``.tif``). See
+            https://en.wikipedia.org/wiki/World_file#Filename_extension for the
+            convention of world file extensions. This parameter only works for raster
+            image formats (except GeoTIFF).
         **kwargs : dict
-            Additional keyword arguments passed to
-            :meth:`pygmt.Figure.psconvert`. Valid parameters are ``gs_path``,
-            ``gs_option``, ``resize``, ``bb_style``, and ``verbose``.
+            Additional keyword arguments passed to :meth:`pygmt.Figure.psconvert`. Valid
+            parameters are ``dpi``, ``gs_path``, ``gs_option``, ``resize``,
+            ``bb_style``, and ``verbose``.
         """
         # All supported formats
         fmts = {
@@ -342,41 +345,38 @@ class Figure:
         prefix, suffix = fname.with_suffix("").as_posix(), fname.suffix
         ext = suffix[1:].lower()  # Remove the . and normalize to lowercase
 
-        if ext == "jpeg":  # Alias jpeg to jpg
-            ext = "jpg"
-        elif ext == "tiff":  # GeoTIFF
-            kwargs["W"] = "+g"
-        elif ext == "kml":  # KML
-            kwargs["W"] = "+k"
+        match ext:
+            case "jpeg":  # Alias jpeg to jpg
+                ext = "jpg"
+            case "tiff":  # GeoTIFF
+                kwargs["W"] = "+g"
+            case "kml":  # KML
+                kwargs["W"] = "+k"
+            case "ps":
+                msg = "Extension '.ps' is not supported. Use '.eps' or '.pdf' instead."
+                raise GMTInvalidInput(msg)
+            case ext if ext not in fmts:
+                raise GMTInvalidInput(f"Unknown extension '.{ext}'.")
 
-        if ext not in fmts:
-            if ext == "ps":
-                raise GMTInvalidInput(
-                    "Extension '.ps' is not supported. "
-                    "Please use '.eps' or '.pdf' instead."
-                )
-            raise GMTInvalidInput(f"Unknown extension '.{ext}'.")
         fmt = fmts[ext]
         if transparent:
             if fmt != "g":
-                raise GMTInvalidInput(
-                    f"Transparency unavailable for '{ext}', only for png."
-                )
+                msg = f"Transparency unavailable for '{ext}', only for png."
+                raise GMTInvalidInput(msg)
             fmt = fmt.upper()
         if anti_alias:
             kwargs["Qt"] = 2
             kwargs["Qg"] = 2
 
         if worldfile:
-            if ext in ["eps", "kml", "pdf", "tiff"]:
-                raise GMTInvalidInput(
-                    f"Saving a world file is not supported for '{ext}' format."
-                )
+            if ext in {"eps", "kml", "pdf", "tiff"}:
+                msg = f"Saving a world file is not supported for '{ext}' format."
+                raise GMTInvalidInput(msg)
             kwargs["W"] = True
 
         self.psconvert(prefix=prefix, fmt=fmt, crop=crop, **kwargs)
 
-        # Remove the .pgw world file if exists
+        # Remove the .pgw world file if exists.
         # Not necessary after GMT 6.5.0.
         # See upstream fix https://github.com/GenericMappingTools/gmt/pull/7865
         if ext == "tiff":
@@ -387,112 +387,119 @@ class Figure:
             fname.with_suffix("." + ext).rename(fname)
 
         if show:
-            launch_external_viewer(fname)
+            launch_external_viewer(str(fname))
 
-    def show(self, dpi=300, width=500, method=None, waiting=0.5, **kwargs):
+    def show(
+        self,
+        method: Literal["external", "notebook", "none", None] = None,
+        dpi: int = 300,
+        width: int = 500,
+        waiting: float = 0.5,
+        **kwargs,
+    ):
         """
         Display a preview of the figure.
 
-        Inserts the preview in the Jupyter notebook output if available,
-        otherwise opens it in the default viewer for your operating system
-        (falls back to the default web browser).
+        Inserts the preview in the Jupyter notebook output if available, otherwise opens
+        it in the default viewer for your operating system (falls back to the default
+        web browser).
 
-        :func:`pygmt.set_display` can select the default display method
+        Use :func:`pygmt.set_display` to select the default display method
         (``"notebook"``, ``"external"``, ``"none"`` or ``None``).
 
-        The ``method`` parameter can also override the default display method
-        for the current figure. Parameters ``dpi`` and ``width`` can be used
-        to control the resolution and dimension of the figure in the notebook.
+        The ``method`` parameter allows to override the default display method for the
+        current figure. The parameters ``dpi`` and ``width`` can be used to control the
+        resolution and dimension of the figure in the notebook.
 
-        **Note**: The external viewer can be disabled by setting the
-        PYGMT_USE_EXTERNAL_DISPLAY environment variable to **false**.
-        This is useful when running unit tests and building the documentation
-        in consoles without a Graphical User Interface.
+        The external viewer can be disabled by setting the environment variable
+        :term:`PYGMT_USE_EXTERNAL_DISPLAY` to ``"false"``. This is useful when running
+        tests and building the documentation to avoid popping up windows.
 
-        Note that the external viewer does not block the current process, thus
-        it's necessary to suspend the execution of the current process for a
-        short while after launching the external viewer, so that the preview
-        image won't be deleted before the external viewer tries to open it. Set
-        the ``waiting`` parameter to a larger number if your computer is slow.
+        The external viewer does not block the current process, thus it's necessary to
+        suspend the execution of the current process for a short while after launching
+        the external viewer, so that the preview image won't be deleted before the
+        external viewer tries to open it. Set the ``waiting`` parameter to a larger
+        number if the image viewer on your computer is slow to open the figure.
 
         Parameters
         ----------
-        dpi : int
-            The image resolution (dots per inch) in Jupyter notebooks.
-        width : int
-            The image width (in pixels) in Jupyter notebooks.
-        method : str or None
-            How the current figure will be displayed. Choose from:
+        method
+            The method to display the current image preview. Choose from:
 
             - ``"external"``: External PDF preview using the default PDF viewer
             - ``"notebook"``: Inline PNG preview in the current notebook
             - ``"none"``: Disable image preview
             - ``None``: Reset to the default display method
 
-            The default display method is ``"external"`` in Python consoles or
+            The default display method is ``"external"`` in Python consoles and
             ``"notebook"`` in Jupyter notebooks, but can be changed by
             :func:`pygmt.set_display`.
-        waiting : float
-            Suspend the execution of the current process for a given number of
-            seconds after launching an external viewer.
-            Only works if ``method="external"``.
+
+        dpi
+            The image resolution (dots per inch) in Jupyter notebooks.
+        width
+            The image width (in pixels) in Jupyter notebooks.
+        waiting
+            Suspend the execution of the current process for a given number of seconds
+            after launching an external viewer. Only works if ``method="external"``.
         **kwargs : dict
-            Additional keyword arguments passed to
-            :meth:`pygmt.Figure.psconvert`. Valid parameters are ``gs_path``,
-            ``gs_option``, ``resize``, ``bb_style``, and ``verbose``.
+            Additional keyword arguments passed to :meth:`pygmt.Figure.psconvert`. Valid
+            parameters are ``gs_path``, ``gs_option``, ``resize``, ``bb_style``, and
+            ``verbose``.
         """
-        # Module level variable to know which figures had their show method
-        # called. Needed for the sphinx-gallery scraper.
+        # Module level variable to know which figures had their show method called.
+        # Needed for the sphinx-gallery scraper.
         SHOWED_FIGURES.append(self)
 
         # Set the display method
         if method is None:
             method = SHOW_CONFIG["method"]
 
-        if method not in ["external", "notebook", "none"]:
-            raise GMTInvalidInput(
-                f"Invalid display method '{method}', "
-                "should be either 'notebook', 'external', or 'none'."
-            )
-
-        if method == "notebook":
-            if not _HAS_IPYTHON:
-                raise GMTError(
-                    "Notebook display is selected, but IPython is not available. "
-                    "Make sure you have IPython installed, "
-                    "or run the script in a Jupyter notebook."
+        match method:
+            case "notebook":
+                if not _HAS_IPYTHON:
+                    raise GMTError(
+                        "Notebook display is selected, but IPython is not available. "
+                        "Make sure you have IPython installed, "
+                        "or run the script in a Jupyter notebook."
+                    )
+                png = self._preview(
+                    fmt="png", dpi=dpi, anti_alias=True, as_bytes=True, **kwargs
                 )
-            png = self._preview(
-                fmt="png", dpi=dpi, anti_alias=True, as_bytes=True, **kwargs
-            )
-            IPython.display.display(IPython.display.Image(data=png, width=width))
+                IPython.display.display(IPython.display.Image(data=png, width=width))
+            case "external":
+                pdf = self._preview(
+                    fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False, **kwargs
+                )
+                launch_external_viewer(pdf, waiting=waiting)  # type: ignore[arg-type]
+            case "none":
+                pass  # Do nothing
+            case _:
+                raise GMTInvalidInput(
+                    f"Invalid display method '{method}'. Valid values are 'external', "
+                    "'notebook', 'none' or None."
+                )
 
-        if method == "external":
-            pdf = self._preview(
-                fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False, **kwargs
-            )
-            launch_external_viewer(pdf, waiting=waiting)
-
-    def _preview(self, fmt, dpi, as_bytes=False, **kwargs):
+    def _preview(self, fmt: str, dpi: int, as_bytes: bool = False, **kwargs):
         """
         Grab a preview of the figure.
 
         Parameters
         ----------
-        fmt : str
-            The image format. Can be any extension that
-            :meth:`pygmt.Figure.savefig` recognizes.
-        dpi : int
+        fmt
+            The image format. Can be any extension that :meth:`pygmt.Figure.savefig`
+            recognizes.
+        dpi
             The image resolution (dots per inch).
-        as_bytes : bool
-            If ``True``, will load the image as a bytes string and return that
-            instead of the file name.
+        as_bytes
+            If ``True``, will load the binary contents of the image as a bytes object,
+            and return that instead of the file name.
 
         Returns
         -------
-        preview : str or bytes
-            If ``as_bytes=False``, this is the file name of the preview image
-            file. Else, it is the file content loaded as a bytes string.
+        preview
+            If ``as_bytes = False``, this is the file name of the preview image file.
+            Otherwise, it is the file content loaded as a bytes object.
         """
         fname = Path(self._preview_dir.name) / f"{self._name}.{fmt}"
         self.savefig(fname, dpi=dpi, **kwargs)
@@ -550,22 +557,20 @@ class Figure:
     )
 
 
-def set_display(method=None):
+def set_display(method: Literal["external", "notebook", "none", None] = None):
     """
     Set the display method when calling :meth:`pygmt.Figure.show`.
 
     Parameters
     ----------
-    method : str or None
+    method
         The method to display an image preview. Choose from:
 
         - ``"external"``: External PDF preview using the default PDF viewer
         - ``"notebook"``: Inline PNG preview in the current notebook
         - ``"none"``: Disable image preview
-        - ``None``: Reset to the default display method
-
-        The default display method is ``"external"`` in Python consoles or
-        ``"notebook"`` in Jupyter notebooks.
+        - ``None``: Reset to the default display method, which is either ``"external"``
+          in Python consoles or ``"notebook"`` in Jupyter notebooks.
 
     Examples
     --------
@@ -588,10 +593,13 @@ def set_display(method=None):
     >>> pygmt.set_display(method=None)
     >>> fig.show()  # again, will show a PNG image in the current notebook
     """
-    if method in ["notebook", "external", "none"]:
-        SHOW_CONFIG["method"] = method
-    elif method is not None:
-        raise GMTInvalidInput(
-            f"Invalid display mode '{method}', "
-            "should be either 'notebook', 'external', 'none' or None."
-        )
+    match method:
+        case "external" | "notebook" | "none":
+            SHOW_CONFIG["method"] = method  # type: ignore[assignment]
+        case None:
+            SHOW_CONFIG["method"] = _get_default_display_method()  # type: ignore[assignment]
+        case _:
+            raise GMTInvalidInput(
+                f"Invalid display method '{method}'. Valid values are 'external',"
+                "'notebook', 'none' or None."
+            )

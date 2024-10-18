@@ -5,22 +5,24 @@ load as :class:`xarray.DataArray`.
 The grids are available in various resolutions.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
+import xarray as xr
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import kwargs_to_strings
 
 __doctest_skip__ = ["load_earth_magnetic_anomaly"]
 
 
-@kwargs_to_strings(region="sequence")
 def load_earth_magnetic_anomaly(
-    resolution="01d",
-    region=None,
+    resolution: Literal[
+        "01d", "30m", "20m", "15m", "10m", "06m", "05m", "04m", "03m", "02m"
+    ] = "01d",
+    region: Sequence[float] | str | None = None,
     registration: Literal["gridline", "pixel", None] = None,
     data_source: Literal["emag2", "emag2_4km", "wdmam"] = "emag2",
-):
+) -> xr.DataArray:
     r"""
     Load the Earth magnetic anomaly datasets in various resolutions.
 
@@ -64,26 +66,20 @@ def load_earth_magnetic_anomaly(
 
     Parameters
     ----------
-    resolution : str
-        The grid resolution. The suffix ``d`` and ``m`` stand for
-        arc-degrees and arc-minutes. It can be ``"01d"``, ``"30m"``,
-        ``"20m"``, ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``, ``"04m"``,
-        ``"03m"``, or ``"02m"``. The ``"02m"`` resolution is not available for
+    resolution
+        The grid resolution. The suffix ``d`` and ``m`` stand for arc-degrees and
+        arc-minutes. The resolution ``"02m"`` is not available for
         ``data_source="wdmam"``.
-
-    region : str or list
-        The subregion of the grid to load, in the form of a list
-        [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
-        Required for grids with resolutions higher than 5
-        arc-minutes (i.e., ``"05m"``).
-
+    region
+        The subregion of the grid to load, in the form of a sequence [*xmin*, *xmax*,
+        *ymin*, *ymax*] or an ISO country code. Required for grids with resolutions
+        higher than 5 arc-minutes (i.e., ``"05m"``).
     registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``None``, means
         ``"gridline"`` for all resolutions except ``"02m"`` for
         ``data_source="emag2"`` or ``data_source="emag2_4km"``, which are
         ``"pixel"`` only.
-
     data_source
         Select the source of the magnetic anomaly data. Available options are:
 
@@ -98,7 +94,7 @@ def load_earth_magnetic_anomaly(
 
     Returns
     -------
-    grid : :class:`xarray.DataArray`
+    grid
         The Earth magnetic anomaly grid. Coordinates are latitude and
         longitude in degrees. Units are in nano Tesla (nT).
 
@@ -136,21 +132,20 @@ def load_earth_magnetic_anomaly(
     ...     resolution="20m", registration="gridline", data_source="wdmam"
     ... )
     """
-    magnetic_anomaly_sources = {
-        "emag2": "earth_mag_",
-        "emag2_4km": "earth_mag4km_",
-        "wdmam": "earth_wdmam_",
-    }
-    if data_source not in magnetic_anomaly_sources:
+    # Map data source to prefix
+    prefix = {
+        "emag2": "earth_mag",
+        "emag2_4km": "earth_mag4km",
+        "wdmam": "earth_wdmam",
+    }.get(data_source)
+    if prefix is None:
         raise GMTInvalidInput(
             f"Invalid earth magnetic anomaly data source '{data_source}'. "
             "Valid values are 'emag2', 'emag2_4km', and 'wdmam'."
         )
-    dataset_prefix = magnetic_anomaly_sources[data_source]
-    dataset_name = "earth_wdmam" if data_source == "wdmam" else "earth_magnetic_anomaly"
     grid = _load_remote_dataset(
-        dataset_name=dataset_name,
-        dataset_prefix=dataset_prefix,
+        name="earth_wdmam" if data_source == "wdmam" else "earth_mag",
+        prefix=prefix,
         resolution=resolution,
         region=region,
         registration=registration,

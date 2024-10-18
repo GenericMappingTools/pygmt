@@ -3,11 +3,9 @@
 This page contains instructions for project maintainers about how our setup works,
 making releases, creating packages, etc.
 
-If you want to make a contribution to the project, see the
-[Contributing Guide](https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md)
-instead.
+If you want to make a contribution to the project, see the [](contributing.md) instead.
 
-## Onboarding Access Checklist
+## Onboarding/Offboarding Access Checklist
 
 Note that anyone can contribute to PyGMT, even without being added to the
 [GenericMappingTools team](https://github.com/orgs/GenericMappingTools/teams).
@@ -17,25 +15,31 @@ communication tools we use.
 
 ### As a Contributor
 
-- Added to the [pygmt-contributors team](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors) (gives 'write' permission to the repository)
-- Added as a collaborator on [DAGsHub](https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration) (gives 'write' permission to dvc remote storage)
-- Added to the [PyGMT devs Slack channel](https://pygmtdevs.slack.com) (for casual conversations)
-- Added to the {doc}`Team Gallery page <team>`
-- Added as a member on [HackMD](https://hackmd.io/@pygmt) (for draft announcements) [optional]
+- Add to the [pygmt-contributors team](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors) (gives 'write' permission to the repository)
+- Add as a collaborator on [DAGsHub](https://dagshub.com/GenericMappingTools/pygmt) (gives 'write' permission to dvc remote storage)
+- Add as a member on [HackMD](https://hackmd.io/@pygmt) (for draft announcements) [optional]
 
 ### As a Maintainer
 
-- Added to the [pygmt-maintainers team](https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers) (gives 'maintain' permission to the repository)
-- Update the role on the {doc}`Team Gallery page <team>`
-- Added as a moderator on the [GMT forum](https://forum.generic-mapping-tools.org) (to see mod-only discussions) [optional]
-- Added as a maintainer on [ReadtheDocs](https://readthedocs.org/projects/pygmt-dev) [optional]
-- Added as a curator to the [GMT community](https://zenodo.org/communities/generic-mapping-tools/) on Zenodo (for making releases) [optional]
+- Add to the [pygmt-maintainers team](https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers) (gives 'maintain' permission to the repository)
+- Add to "Active Maintainers" on the [Team Gallery page](team.md)
+- Add as a moderator on the [GMT forum](https://forum.generic-mapping-tools.org) (to see mod-only discussions) [optional]
+- Add as a maintainer on [ReadtheDocs](https://readthedocs.org/projects/pygmt-dev) [optional]
+- Add as a curator to the [GMT community](https://zenodo.org/communities/generic-mapping-tools/) on Zenodo (for making releases) [optional]
 
 ### As an Administrator
 
-- Added to the [pygmt-admin team](https://github.com/orgs/GenericMappingTools/teams/pygmt-admin) (gives 'admin' permission to the repository)
-- Added as an admin on [DAGsHub](https://www.dagshub.com/GenericMappingTools/pygmt/settings/collaboration)
-- Added as a maintainer on [PyPI](https://pypi.org/project/pygmt/) and [Test PyPI](https://test.pypi.org/project/pygmt) [optional]
+- Add to the [pygmt-admin team](https://github.com/orgs/GenericMappingTools/teams/pygmt-admin) (gives 'admin' permission to the repository)
+- Add as an admin on [DAGsHub](https://www.dagshub.com/GenericMappingTools/pygmt)
+- Add as a maintainer on [PyPI](https://pypi.org/project/pygmt/) and [Test PyPI](https://test.pypi.org/project/pygmt) [optional]
+
+**Note**: When a maintainer is no longer active (no activity in one year), we will mirror
+the onboarding access checklist:
+
+- Move from the [pygmt-maintainers team](https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers)
+  to the [pygmt-contributors team](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors)
+- Move from "Active Maintainers" to "Distinguished Contributors" on the [Team Gallery page](team.md)
+- Remove 'maintain' permission from GMT forum, ReadTheDocs, Zenodo
 
 ## Branches
 
@@ -123,7 +127,7 @@ PyGMT has adopted [SPEC 0](https://scientific-python.org/specs/spec-0000/) along
 rest of the Scientific Python ecosystem, and therefore:
 
 * Support for Python versions be dropped 3 years after their initial release.
-* Support for core package dependencies (NumPy/Pandas/Xarray) be dropped 2 years after
+* Support for core package dependencies (NumPy, pandas, Xarray) be dropped 2 years after
   their initial release.
 
 Similarly, the PyGMT team has decided to discontinue support for GMT versions 3 years
@@ -197,7 +201,7 @@ at `.github/release-drafter.yml`. Configuration settings can be found at
 <https://github.com/release-drafter/release-drafter>.
 
 The drafted release notes are not perfect, so we will need to tidy it prior to
-publishing the actual release notes at {doc}`changes`.
+publishing the actual release notes at [](changes.md).
 
 1. Go to <https://github.com/GenericMappingTools/pygmt/releases> and click on the
    'Edit' button next to the current draft release note. Copy the text of the
@@ -225,7 +229,7 @@ publishing the actual release notes at {doc}`changes`.
    last release (e.g., use `git shortlog HEAD...v0.4.0 -sne`).
 8. Update `doc/minversions.md` with new information on the new release version,
    including a vX.Y.Z documentation link, and minimum required versions of GMT, Python
-   and core package dependencies (NumPy/Pandas/Xarray). Follow
+   and core package dependencies (NumPy, pandas, Xarray). Follow
    [SPEC 0](https://scientific-python.org/specs/spec-0000/) for updates.
 9. Refresh citation information. Specifically, the BibTeX in `README.md` and
    `CITATION.cff` needs to be updated with any metadata changes, including the

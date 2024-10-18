@@ -12,6 +12,8 @@
   var all_versions = {
     'latest': 'latest',
     'dev': 'dev',
+    'v0.13.0': 'v0.13.0',
+    'v0.12.0': 'v0.12.0',
     'v0.11.0': 'v0.11.0',
     'v0.10.0': 'v0.10.0',
     'v0.9.0': 'v0.9.0',
@@ -72,7 +74,7 @@
            window.location.href = new_url;
         },
         error: function() {
-            window.location.href = 'http://' + doc_url + '/' + selected;
+            window.location.href = 'https://' + doc_url + '/' + selected;
         }
       });
     }

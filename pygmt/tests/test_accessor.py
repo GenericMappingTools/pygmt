@@ -73,10 +73,6 @@ def test_accessor_set_non_boolean():
         grid.gmt.gtype = 2
 
 
-@pytest.mark.skipif(
-    Version(__gmt_version__) < Version("6.4.0"),
-    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/6615",
-)
 @pytest.mark.xfail(
     condition=sys.platform == "win32" and Version(__gmt_version__) < Version("6.5.0"),
     reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/7573",
@@ -115,9 +111,8 @@ def test_accessor_grid_source_file_not_exist():
     # Registration and gtype are correct
     assert grid.gmt.registration == 1
     assert grid.gmt.gtype == 1
-    # The source grid file is defined but doesn't exist
-    assert grid.encoding["source"].endswith(".nc")
-    assert not Path(grid.encoding["source"]).exists()
+    # The source grid file is undefined.
+    assert grid.encoding.get("source") is None
 
     # For a sliced grid, fallback to default registration and gtype,
     # because the source grid file doesn't exist.

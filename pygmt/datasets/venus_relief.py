@@ -5,20 +5,22 @@ Function to download the Venus relief dataset from the GMT data server, and load
 The grids are available in various resolutions.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
+import xarray as xr
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
-from pygmt.helpers import kwargs_to_strings
 
 __doctest_skip__ = ["load_venus_relief"]
 
 
-@kwargs_to_strings(region="sequence")
 def load_venus_relief(
-    resolution="01d",
-    region=None,
+    resolution: Literal[
+        "01d", "30m", "20m", "15m", "10m", "06m", "05m", "04m", "03m", "02m", "01m"
+    ] = "01d",
+    region: Sequence[float] | str | None = None,
     registration: Literal["gridline", "pixel"] = "gridline",
-):
+) -> xr.DataArray:
     r"""
     Load the Venus relief dataset in various resolutions.
 
@@ -50,21 +52,20 @@ def load_venus_relief(
 
     Parameters
     ----------
-    resolution : str
+    resolution
         The grid resolution. The suffix ``d`` and ``m`` stand for arc-degrees and
-        arc-minutes. It can be ``"01d"``, ``"30m"``, ``"20m"``, ``"15m"``, ``"10m"``,
-        ``"06m"``, ``"05m"``, ``"04m"``, ``"03m"``, ``"02m"``, and ``"01m"``.
-    region : str or list
-        The subregion of the grid to load, in the form of a list
-        [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
-        Required for grids with resolutions higher than 5 arc-minutes (i.e., ``"05m"``).
+        arc-minutes.
+    region
+        The subregion of the grid to load, in the form of a sequence [*xmin*, *xmax*,
+        *ymin*, *ymax*] or an ISO country code. Required for grids with resolutions
+        higher than 5 arc-minutes (i.e., ``"05m"``).
     registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration.
 
     Returns
     -------
-    grid : :class:`xarray.DataArray`
+    grid
         The Venus relief grid. Coordinates are latitude and longitude in degrees. Relief
         is in meters.
 
@@ -93,8 +94,8 @@ def load_venus_relief(
     ... )
     """
     grid = _load_remote_dataset(
-        dataset_name="venus_relief",
-        dataset_prefix="venus_relief_",
+        name="venus_relief",
+        prefix="venus_relief",
         resolution=resolution,
         region=region,
         registration=registration,

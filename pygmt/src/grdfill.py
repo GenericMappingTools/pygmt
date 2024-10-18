@@ -2,16 +2,10 @@
 grdfill - Fill blank areas from a grid.
 """
 
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["grdfill"]
 
@@ -19,13 +13,12 @@ __doctest_skip__ = ["grdfill"]
 @fmt_docstring
 @use_alias(
     A="mode",
-    G="outgrid",
     N="no_data",
     R="region",
     V="verbose",
 )
 @kwargs_to_strings(R="sequence")
-def grdfill(grid, **kwargs):
+def grdfill(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
     Fill blank areas from a grid file.
 
@@ -59,7 +52,7 @@ def grdfill(grid, **kwargs):
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
@@ -77,13 +70,14 @@ def grdfill(grid, **kwargs):
     """
     if kwargs.get("A") is None and kwargs.get("L") is None:
         raise GMTInvalidInput("At least parameter 'mode' or 'L' must be specified.")
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="grdfill", args=build_arg_string(kwargs, infile=vingrd)
-                )
 
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            kwargs["G"] = voutgrd
+            lib.call_module(
+                module="grdfill", args=build_arg_list(kwargs, infile=vingrd)
+            )
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

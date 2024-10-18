@@ -7,33 +7,28 @@ Uses ctypes to wrap most of the core functions from the C API.
 
 import contextlib
 import ctypes as ctp
-import pathlib
+import io
 import sys
 import warnings
+from collections.abc import Callable, Generator, Sequence
 from typing import Literal
 
 import numpy as np
 import pandas as pd
-from packaging.version import Version
+import xarray as xr
 from pygmt.clib.conversion import (
     array_to_datetime,
-    as_c_contiguous,
     dataarray_to_matrix,
     sequence_to_ctypes_array,
     strings_to_ctypes_array,
     vectors_to_arrays,
 )
-from pygmt.clib.loading import load_libgmt
-from pygmt.datatypes import _GMT_DATASET, _GMT_GRID
-from pygmt.exceptions import (
-    GMTCLibError,
-    GMTCLibNoSessionError,
-    GMTInvalidInput,
-    GMTVersionError,
-)
+from pygmt.clib.loading import get_gmt_version, load_libgmt
+from pygmt.datatypes import _GMT_DATASET, _GMT_GRID, _GMT_IMAGE
+from pygmt.exceptions import GMTCLibError, GMTCLibNoSessionError, GMTInvalidInput
 from pygmt.helpers import (
+    _validate_data_input,
     data_kind,
-    fmt_docstring,
     tempfile_from_geojson,
     tempfile_from_image,
 )
@@ -63,6 +58,7 @@ GEOMETRIES = [
     "GMT_IS_PLP",  # items could be any one of POINT, LINE, or POLY
     "GMT_IS_SURFACE",  # items are 2-D grid
     "GMT_IS_VOLUME",  # items are 3-D grid
+    "GMT_IS_TEXT",  # Text strings which triggers ASCII text reading
 ]
 
 METHODS = [
@@ -73,6 +69,11 @@ METHODS = [
 DIRECTIONS = ["GMT_IN", "GMT_OUT"]
 
 MODES = ["GMT_CONTAINER_ONLY", "GMT_IS_OUTPUT"]
+MODE_MODIFIERS = [
+    "GMT_GRID_IS_CARTESIAN",
+    "GMT_GRID_IS_GEO",
+    "GMT_WITH_STRINGS",
+]
 
 REGISTRATIONS = ["GMT_GRID_PIXEL_REG", "GMT_GRID_NODE_REG"]
 
@@ -91,42 +92,40 @@ DTYPES = {
     np.datetime64: "GMT_DATETIME",
     np.timedelta64: "GMT_LONG",
 }
+# Dictionary for storing the values of GMT constants.
+GMT_CONSTANTS = {}
 
 # Load the GMT library outside the Session class to avoid repeated loading.
 _libgmt = load_libgmt()
+__gmt_version__ = get_gmt_version(_libgmt)
 
 
 class Session:
     """
     A GMT API session where most operations involving the C API happen.
 
-    Works as a context manager (for use in a ``with`` block) to create a GMT C
-    API session and destroy it in the end to clean up memory.
+    Works as a context manager (for use in a ``with`` block) to create a GMT C API
+    session and destroy it in the end to clean up memory.
 
-    Functions of the shared library are exposed as methods of this class. Most
-    methods MUST be used with an open session (inside a ``with`` block). If
-    creating GMT data structures to communicate data, put that code inside the
-    same ``with`` block as the API calls that will use the data.
+    Functions of the shared library are exposed as methods of this class. Most methods
+    MUST be used with an open session (inside a ``with`` block). If creating GMT data
+    structures to communicate data, put that code inside the same ``with`` block as the
+    API calls that will use the data.
 
-    By default, will let :mod:`ctypes` try to find the GMT shared library
-    (``libgmt``). If the environment variable ``GMT_LIBRARY_PATH`` is set, will
-    look for the shared library in the directory specified by it.
+    By default, will let :mod:`ctypes` try to find the GMT shared library (``libgmt``).
+    If the environment variable :term:`GMT_LIBRARY_PATH` is set, will look for the
+    shared library in the directory specified by it.
 
-    A ``GMTVersionError`` exception will be raised if the GMT shared library
-    reports a version older than the required minimum GMT version.
-
-    The ``session_pointer`` attribute holds a ctypes pointer to the currently
-    open session.
+    The ``session_pointer`` attribute holds a ctypes pointer to the currently open
+    session.
 
     Raises
     ------
     GMTCLibNotFoundError
-        If there was any problem loading the library (couldn't find it or
-        couldn't access the functions).
+        If there was any problem loading the library (couldn't find it or couldn't
+        access the functions).
     GMTCLibNoSessionError
-        If you try to call a method outside of a 'with' block.
-    GMTVersionError
-        If the minimum required version of GMT is not found.
+        If you try to call a method outside of a ``with`` block.
 
     Examples
     --------
@@ -136,48 +135,44 @@ class Session:
     >>> grid = load_static_earth_relief()
     >>> type(grid)
     <class 'xarray.core.dataarray.DataArray'>
-    >>> # Create a session and destroy it automatically when exiting the "with"
-    >>> # block.
-    >>> with Session() as ses:
+    >>> # Create a session and destroy it automatically when exiting the "with" block.
+    >>> with Session() as lib:
     ...     # Create a virtual file and link to the memory block of the grid.
-    ...     with ses.virtualfile_from_grid(grid) as fin:
+    ...     with lib.virtualfile_from_grid(grid) as fin:
     ...         # Create a temp file to use as output.
     ...         with GMTTempFile() as fout:
-    ...             # Call the grdinfo module with the virtual file as input
-    ...             # and the temp file as output.
-    ...             ses.call_module("grdinfo", f"{fin} -C ->{fout.name}")
+    ...             # Call the grdinfo module with the virtual file as input and the
+    ...             # temp file as output.
+    ...             lib.call_module("grdinfo", [fin, "-C", f"->{fout.name}"])
     ...             # Read the contents of the temp file before it's deleted.
     ...             print(fout.read().strip())
     -55 -47 -24 -10 190 981 1 1 8 14 1 1
     """
 
-    # The minimum supported GMT version.
-    required_version = "6.3.0"
-
     @property
-    def session_pointer(self):
+    def session_pointer(self) -> ctp.c_void_p:
         """
         The :class:`ctypes.c_void_p` pointer to the current open GMT session.
 
         Raises
         ------
         GMTCLibNoSessionError
-            If trying to access without a currently open GMT session (i.e.,
-            outside of the context manager).
+            If trying to access without a currently open GMT session (i.e., outside of
+            the context manager).
         """
-        if not hasattr(self, "_session_pointer") or self._session_pointer is None:
+        if getattr(self, "_session_pointer", None) is None:
             raise GMTCLibNoSessionError("No currently open GMT API session.")
         return self._session_pointer
 
     @session_pointer.setter
-    def session_pointer(self, session):
+    def session_pointer(self, session: ctp.c_void_p):
         """
         Set the session void pointer.
         """
         self._session_pointer = session
 
     @property
-    def info(self):
+    def info(self) -> dict[str, str]:
         """
         Dictionary with the GMT version and default paths and parameters.
         """
@@ -194,41 +189,18 @@ class Session:
                 "library path": self.get_default("API_LIBRARY"),
                 "cores": self.get_default("API_CORES"),
                 "grid layout": self.get_default("API_GRID_LAYOUT"),
+                "image layout": self.get_default("API_IMAGE_LAYOUT"),
+                "binary version": self.get_default("API_BIN_VERSION"),
             }
-            # For GMT<6.4.0, API_IMAGE_LAYOUT is not defined if GMT is not
-            # compiled with GDAL. Since GMT 6.4.0, GDAL is a required GMT
-            # dependency. The code block can be refactored after we bump
-            # the minimum required GMT version to 6.4.0.
-            with contextlib.suppress(GMTCLibError):
-                self._info["image layout"] = self.get_default("API_IMAGE_LAYOUT")
-            # API_BIN_VERSION is new in GMT 6.4.0.
-            if Version(self._info["version"]) >= Version("6.4.0"):
-                self._info["binary version"] = self.get_default("API_BIN_VERSION")
         return self._info
 
     def __enter__(self):
         """
-        Create a GMT API session and check the libgmt version.
+        Create a GMT API session.
 
         Calls :meth:`pygmt.clib.Session.create`.
-
-        Raises
-        ------
-        GMTVersionError
-            If the version reported by libgmt is less than
-            ``Session.required_version``. Will destroy the session before
-            raising the exception.
         """
         self.create("pygmt-session")
-        # Need to store the version info because 'get_default' won't work after
-        # the session is destroyed.
-        version = self.info["version"]
-        if Version(version) < Version(self.required_version):
-            self.destroy()
-            raise GMTVersionError(
-                f"Using an incompatible GMT version {version}. "
-                f"Must be equal or newer than {self.required_version}."
-            )
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
@@ -239,23 +211,41 @@ class Session:
         """
         self.destroy()
 
-    def __getitem__(self, name):
+    def __getitem__(self, name: str) -> int:
         """
-        Get the value of a GMT constant (C enum) from gmt_resources.h.
-
-        Used to set configuration values for other API calls. Wraps
-        ``GMT_Get_Enum``.
+        Get the value of a GMT constant.
 
         Parameters
         ----------
-        name : str
-            The name of the constant (e.g., ``"GMT_SESSION_EXTERNAL"``)
+        name
+            The name of the constant (e.g., ``"GMT_SESSION_EXTERNAL"``).
 
         Returns
         -------
-        constant : int
-            Integer value of the constant. Do not rely on this value because it
-            might change.
+        value
+            Integer value of the constant. Do not rely on this value because it might
+            change.
+        """
+        if name not in GMT_CONSTANTS:
+            GMT_CONSTANTS[name] = self.get_enum(name)
+        return GMT_CONSTANTS[name]
+
+    def get_enum(self, name: str) -> int:
+        """
+        Get the value of a GMT constant (C enum) from ``gmt_resources.h``.
+
+        Used to set configuration values for other API calls. Wraps ``GMT_Get_Enum``.
+
+        Parameters
+        ----------
+        name
+            The name of the constant (e.g., ``"GMT_SESSION_EXTERNAL"``).
+
+        Returns
+        -------
+        value
+            Integer value of the constant. Do not rely on this value because it might
+            change.
 
         Raises
         ------
@@ -266,21 +256,20 @@ class Session:
             "GMT_Get_Enum", argtypes=[ctp.c_void_p, ctp.c_char_p], restype=ctp.c_int
         )
 
-        # The C lib introduced the void API pointer to GMT_Get_Enum so that
-        # it's consistent with other functions. It doesn't use the pointer so
-        # we can pass in None (NULL pointer). We can't give it the actual
-        # pointer because we need to call GMT_Get_Enum when creating a new API
-        # session pointer (chicken-and-egg type of thing).
+        # The C library introduced the void API pointer to GMT_Get_Enum so that it's
+        # consistent with other functions. It doesn't use the pointer so we can pass
+        # in None (NULL pointer). We can't give it the actual pointer because we need
+        # to call GMT_Get_Enum when creating a new API session pointer (chicken-and-egg
+        # type of thing).
         session = None
-
         value = c_get_enum(session, name.encode())
-
         if value is None or value == -99999:
             raise GMTCLibError(f"Constant '{name}' doesn't exist in libgmt.")
-
         return value
 
-    def get_libgmt_func(self, name, argtypes=None, restype=None):
+    def get_libgmt_func(
+        self, name: str, argtypes: list | None = None, restype=None
+    ) -> Callable:
         """
         Get a ctypes function from the libgmt shared library.
 
@@ -290,14 +279,14 @@ class Session:
 
         Parameters
         ----------
-        name : str
+        name
             The name of the GMT API function.
-        argtypes : list
-            List of ctypes types used to convert the Python input arguments for
-            the API function.
+        argtypes
+            List of ctypes types used to convert the Python input arguments for the API
+            function.
         restype : ctypes type
-            The ctypes type used to convert the input returned by the function
-            into a Python type.
+            The ctypes type used to convert the input returned by the function into a
+            Python type.
 
         Returns
         -------
@@ -324,43 +313,41 @@ class Session:
             function.restype = restype
         return function
 
-    def create(self, name):
+    def create(self, name: str):
         """
         Create a new GMT C API session.
 
-        This is required before most other methods of
-        :class:`pygmt.clib.Session` can be called.
+        This is required before most other methods of :class:`pygmt.clib.Session` can be
+        called.
 
         .. warning::
 
-            Usage of :class:`pygmt.clib.Session` as a context manager in a
-            ``with`` block is preferred over calling
-            :meth:`pygmt.clib.Session.create` and
+            Usage of :class:`pygmt.clib.Session` as a context manager in a ``with``
+            block is preferred over calling :meth:`pygmt.clib.Session.create` and
             :meth:`pygmt.clib.Session.destroy` manually.
 
-        Calls ``GMT_Create_Session`` and generates a new ``GMTAPI_CTRL``
-        struct, which is a :class:`ctypes.c_void_p` pointer. Sets the
-        ``session_pointer`` attribute to this pointer.
+        Calls ``GMT_Create_Session`` and generates a new ``GMTAPI_CTRL`` struct, which
+        is a :class:`ctypes.c_void_p` pointer. Sets the ``session_pointer`` attribute to
+        this pointer.
 
         Remember to terminate the current session using
         :meth:`pygmt.clib.Session.destroy` before creating a new one.
 
         Parameters
         ----------
-        name : str
+        name
             A name for this session. Doesn't really affect the outcome.
         """
+        # Check if there is a currently open session by accessing the "session_pointer"
+        # attribute. If not, it will raise the GMTCLibNoSessionError exception and we're
+        # free to create a new one. Otherwise, we will raise a GMTCLibError exception.
         try:
-            # Won't raise an exception if there is a currently open session
             _ = self.session_pointer
-            # In this case, fail to create a new session until the old one is
-            # destroyed
-            raise GMTCLibError(
-                "Failed to create a GMT API session: There is a currently open session."
-                " Must destroy it fist."
+            msg = (
+                "Failed to create a GMT API session: "
+                "There is currently an open session. Must destroy it first."
             )
-        # If the exception is raised, this means that there is no open session
-        # and we're free to create a new one.
+            raise GMTCLibError(msg)
         except GMTCLibNoSessionError:
             pass
 
@@ -370,9 +357,9 @@ class Session:
             restype=ctp.c_void_p,
         )
 
-        # Capture the output printed by GMT into this list. Will use it later
-        # to generate error messages for the exceptions raised by API calls.
-        self._error_log = []
+        # Capture the output printed by GMT into this list. Will use it later to
+        # generate error messages for the exceptions raised by API calls.
+        self._error_log: list[str] = []
 
         @ctp.CFUNCTYPE(ctp.c_int, ctp.c_void_p, ctp.c_char_p)
         def print_func(file_pointer, message):  # noqa: ARG001
@@ -383,31 +370,33 @@ class Session:
             We'll capture the messages and print them to stderr so that they will show
             up on the Jupyter notebook.
             """
-            message = message.decode().strip()
+            # Have to use try..except due to upstream GMT bug in GMT <= 6.5.0.
+            # See https://github.com/GenericMappingTools/pygmt/issues/3205.
+            try:
+                message = message.decode().strip()
+            except UnicodeDecodeError:
+                return 0
             self._error_log.append(message)
-            # flush to make sure the messages are printed even if we have a
-            # crash.
+            # Flush to make sure the messages are printed even if we have a crash.
             print(message, file=sys.stderr, flush=True)  # noqa: T201
             return 0
 
-        # Need to store a copy of the function because ctypes doesn't and it
-        # will be garbage collected otherwise
+        # Need to store a copy of the function because ctypes doesn't and it will be
+        # garbage collected otherwise
         self._print_callback = print_func
 
         padding = self["GMT_PAD_DEFAULT"]
         session_type = self["GMT_SESSION_EXTERNAL"]
-
         session = c_create_session(name.encode(), padding, session_type, print_func)
 
         if session is None:
-            raise GMTCLibError(
-                f"Failed to create a GMT API session:\n{self._error_message}"
-            )
+            msg = f"Failed to create a GMT API session:\n{self._error_message}"
+            raise GMTCLibError(msg)
 
         self.session_pointer = session
 
     @property
-    def _error_message(self):
+    def _error_message(self) -> str:
         """
         A string with all error messages emitted by the C API.
 
@@ -424,19 +413,17 @@ class Session:
 
         .. warning::
 
-            Usage of :class:`pygmt.clib.Session` as a context manager in a
-            ``with`` block is preferred over calling
-            :meth:`pygmt.clib.Session.create` and
+            Usage of :class:`pygmt.clib.Session` as a context manager in a ``with``
+            block is preferred over calling :meth:`pygmt.clib.Session.create` and
             :meth:`pygmt.clib.Session.destroy` manually.
 
-        Calls ``GMT_Destroy_Session`` to terminate and free the memory of a
-        registered ``GMTAPI_CTRL`` session (the pointer for this struct is
-        stored in the ``session_pointer`` attribute).
+        Calls ``GMT_Destroy_Session`` to terminate and free the memory of a registered
+        ``GMTAPI_CTRL`` session (the pointer for this struct is stored in the
+        ``session_pointer`` attribute).
 
-        Always use this method after you are done using a C API session. The
-        session needs to be destroyed before creating a new one. Otherwise,
-        some of the configuration files might be left behind and can influence
-        subsequent API calls.
+        Always use this method after you are done using a C API session. The session
+        needs to be destroyed before creating a new one. Otherwise, some of the
+        configuration files might be left behind and can influence subsequent API calls.
 
         Sets the ``session_pointer`` attribute to ``None``.
         """
@@ -446,17 +433,17 @@ class Session:
 
         status = c_destroy_session(self.session_pointer)
         if status:
-            raise GMTCLibError(
-                f"Failed to destroy GMT API session:\n{self._error_message}"
-            )
+            msg = f"Failed to destroy GMT API session:\n{self._error_message}"
+            raise GMTCLibError(msg)
 
         self.session_pointer = None
 
-    def get_default(self, name):
+    def get_default(self, name: str) -> str:
         """
-        Get the value of a GMT default parameter (library version, paths, etc).
+        Get the value of a GMT configuration parameter or a GMT API parameter.
 
-        Possible default parameter names include:
+        In addition to the long list of GMT configuration parameters, the following API
+        parameter names are also supported:
 
         * ``"API_VERSION"``: The GMT API version
         * ``"API_PAD"``: The grid padding setting
@@ -472,13 +459,14 @@ class Session:
 
         Parameters
         ----------
-        name : str
-            The name of the default parameter (e.g., ``"API_VERSION"``)
+        name
+            The name of the GMT configuration parameter (e.g., ``"PROJ_LENGTH_UNIT"``)
+            or a GMT API parameter (e.g., ``"API_VERSION"``).
 
         Returns
         -------
-        value : str
-            The default value for the parameter.
+        value
+            The current value for the parameter.
 
         Raises
         ------
@@ -492,70 +480,66 @@ class Session:
         )
 
         # Make a string buffer to get a return value
-        value = ctp.create_string_buffer(10000)
-
+        value = ctp.create_string_buffer(4096)
         status = c_get_default(self.session_pointer, name.encode(), value)
-
         if status != 0:
-            raise GMTCLibError(
-                f"Error getting default value for '{name}' (error code {status})."
-            )
-
+            msg = f"Error getting value for '{name}' (error code {status})."
+            raise GMTCLibError(msg)
         return value.value.decode()
 
-    def get_common(self, option):
+    def get_common(self, option: str) -> bool | int | float | np.ndarray:
         """
         Inquire if a GMT common option has been set and return its current value if
         possible.
 
         Parameters
         ----------
-        option : str
-            The GMT common option to check. Valid options are ``"B"``, ``"I"``,
-            ``"J"``, ``"R"``, ``"U"``, ``"V"``, ``"X"``, ``"Y"``, ``"a"``,
-            ``"b"``, ``"f"``, ``"g"``, ``"h"``, ``"i"``, ``"n"``, ``"o"``,
-            ``"p"``, ``"r"``, ``"s"``, ``"t"``, and ``":"``.
+        option
+            The GMT common option to check. Valid options are ``"B"``, ``"I"``, ``"J"``,
+            ``"R"``, ``"U"``, ``"V"``, ``"X"``, ``"Y"``, ``"a"``, ``"b"``, ``"f"``,
+            ``"g"``, ``"h"``, ``"i"``, ``"n"``, ``"o"``, ``"p"``, ``"r"``, ``"s"``,
+            ``"t"``, and ``":"``.
 
         Returns
         -------
-        value : bool, int, float, or numpy.ndarray
-            Whether the option was set or its value.
+        value
+            Whether the option was set or its value. If the option was not set, return
+            ``False``. Otherwise, the return value depends on the choice of the option.
 
-            If the option was not set, return ``False``. Otherwise,
-            the return value depends on the choice of the option.
-
-            - options ``"B"``, ``"J"``, ``"U"``, ``"g"``, ``"n"``, ``"p"``,
-              and ``"s"``: return ``True`` if set, else ``False`` (bool)
+            - options ``"B"``, ``"J"``, ``"U"``, ``"g"``, ``"n"``, ``"p"``, and ``"s"``:
+              return ``True`` if set, else ``False`` (bool)
             - ``"I"``: 2-element array for the increments (float)
             - ``"R"``: 4-element array for the region (float)
             - ``"V"``: the verbose level (int)
             - ``"X"``: the xshift (float)
             - ``"Y"``: the yshift (float)
             - ``"a"``: geometry of the dataset (int)
-            - ``"b"``: return 0 if `-bi` was set and 1 if `-bo` was set (int)
-            - ``"f"``: return 0 if `-fi` was set and 1 if `-fo` was set (int)
+            - ``"b"``: return 0 if ``-bi`` was set and 1 if ``-bo`` was set (int)
+            - ``"f"``: return 0 if ``-fi`` was set and 1 if ``-fo`` was set (int)
             - ``"h"``: whether to delete existing header records (int)
             - ``"i"``: number of input columns (int)
             - ``"o"``: number of output columns (int)
             - ``"r"``: registration type (int)
             - ``"t"``: 2-element array for the transparency (float)
-            - ``":"``: return 0 if `-:i` was set and 1 if `-:o` was set (int)
+            - ``":"``: return 0 if ``-:i`` was set and 1 if ``-:o`` was set (int)
 
         Examples
         --------
         >>> with Session() as lib:
-        ...     lib.call_module("basemap", "-R0/10/10/15 -JX5i/2.5i -Baf -Ve")
+        ...     lib.call_module(
+        ...         "basemap", ["-R0/10/10/15", "-JX5i/2.5i", "-Baf", "-Ve"]
+        ...     )
         ...     region = lib.get_common("R")
         ...     projection = lib.get_common("J")
         ...     timestamp = lib.get_common("U")
         ...     verbose = lib.get_common("V")
-        ...     lib.call_module("plot", "-T -Xw+1i -Yh-1i")
+        ...     lib.call_module("plot", ["-T", "-Xw+1i", "-Yh-1i"])
         ...     xshift = lib.get_common("X")  # xshift/yshift are in inches
         ...     yshift = lib.get_common("Y")
         >>> print(region, projection, timestamp, verbose, xshift, yshift)
         [ 0. 10. 10. 15.] True False 3 6.0 1.5
         >>> with Session() as lib:
-        ...     lib.call_module("basemap", "-R0/10/10/15 -JX5i/2.5i -Baf")
+        ...     lib.call_module("basemap", ["-R0/10/10/15", "-JX5i/2.5i", "-Baf"])
         ...     lib.get_common("A")
         Traceback (most recent call last):
         ...
@@ -569,28 +553,28 @@ class Session:
             argtypes=[ctp.c_void_p, ctp.c_uint, ctp.POINTER(ctp.c_double)],
             restype=ctp.c_int,
         )
-        value = np.empty(6)  # numpy array to store the value of the option
+        value = np.empty(6, np.float64)  # numpy array to store the value of the option
         status = c_get_common(
             self.session_pointer,
             ord(option),
             value.ctypes.data_as(ctp.POINTER(ctp.c_double)),
         )
 
-        # GMT_NOTSET (-1) means the option is not set
-        if status == self["GMT_NOTSET"]:
+        if status == self["GMT_NOTSET"]:  # GMT_NOTSET (-1) means the option is not set
             return False
-        # option is set and no other value is returned
-        if status == 0:
+        if status == 0:  # Option is set and no other value is returned.
             return True
-        # option is set and option values (in double type) are returned via the
-        # 'value' array. 'status' is number of valid values in the array.
-        if option in "IRt":
-            return value[:status]
-        if option in "XY":  # only one valid element in the array
-            return value[0]
-        # option is set and the option value (in integer type) is returned via
-        # the function return value (i.e., 'status')
-        return status
+
+        # Otherwise, option is set and values are returned.
+        match option:
+            case "I" | "R" | "t":
+                # Option values (in double type) are returned via the 'value' array.
+                # 'status' is number of valid values in the array.
+                return value[:status]
+            case "X" | "Y":  # Only one valid element in the array.
+                return value[0]
+            case _:  # 'status' is the option value (in integer type).
+                return status
 
     def call_module(self, module: str, args: str | list[str]):
         """
@@ -633,14 +617,7 @@ class Session:
 
         # 'args' can be (1) a single string or (2) a list of strings.
         argv: bytes | ctp.Array[ctp.c_char_p] | None
-        if isinstance(args, str):
-            # 'args' is a single string that contains whitespace-separated arguments.
-            # In this way, we need to correctly handle option arguments that contain
-            # whitespaces or quotation marks. It's used in PyGMT <= v0.11.0 but is no
-            # longer recommended.
-            mode = self["GMT_MODULE_CMD"]
-            argv = args.encode()
-        elif isinstance(args, list):
+        if isinstance(args, list):
             # 'args' is a list of strings and each string contains a module argument.
             # In this way, GMT can correctly handle option arguments with whitespaces or
             # quotation marks. This is the preferred way to pass arguments to the GMT
@@ -648,16 +625,21 @@ class Session:
             mode = len(args)  # 'mode' is the number of arguments.
             # Pass a null pointer if no arguments are specified.
             argv = strings_to_ctypes_array(args) if mode != 0 else None
+        elif isinstance(args, str):
+            # 'args' is a single string that contains whitespace-separated arguments.
+            # In this way, we need to correctly handle option arguments that contain
+            # whitespaces or quotation marks. It's used in PyGMT <= v0.11.0 but is no
+            # longer recommended.
+            mode = self["GMT_MODULE_CMD"]
+            argv = args.encode()
         else:
-            raise GMTInvalidInput(
-                "'args' must be either a string or a list of strings."
-            )
+            msg = "'args' must either be a list of strings (recommended) or a string."
+            raise GMTInvalidInput(msg)
 
         status = c_call_module(self.session_pointer, module.encode(), mode, argv)
         if status != 0:
-            raise GMTCLibError(
-                f"Module '{module}' failed with status code {status}:\n{self._error_message}"
-            )
+            msg = f"Module '{module}' failed with status code {status}:\n{self._error_message}"
+            raise GMTCLibError(msg)
 
     def create_data(
         self,
@@ -730,7 +712,7 @@ class Session:
         mode_int = self._parse_constant(
             mode,
             valid=MODES,
-            valid_modifiers=["GMT_GRID_IS_CARTESIAN", "GMT_GRID_IS_GEO"],
+            valid_modifiers=MODE_MODIFIERS,
         )
         geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
         registration_int = self._parse_constant(registration, valid=REGISTRATIONS)
@@ -927,7 +909,7 @@ class Session:
         )
 
         gmt_type = self._check_dtype_and_dim(vector, ndim=1)
-        if gmt_type in (self["GMT_TEXT"], self["GMT_DATETIME"]):
+        if gmt_type in {self["GMT_TEXT"], self["GMT_DATETIME"]}:
             if gmt_type == self["GMT_DATETIME"]:
                 vector = np.datetime_as_string(array_to_datetime(vector))
             vector_pointer = strings_to_ctypes_array(vector)
@@ -1051,6 +1033,100 @@ class Session:
         if status != 0:
             raise GMTCLibError(f"Failed to put matrix of type {matrix.dtype}.")
 
+    def read_data(
+        self,
+        infile: str,
+        kind: Literal["dataset", "grid", "image"],
+        family: str | None = None,
+        geometry: str | None = None,
+        mode: str = "GMT_READ_NORMAL",
+        region: Sequence[float] | None = None,
+        data=None,
+    ):
+        """
+        Read a data file into a GMT data container.
+
+        Wraps ``GMT_Read_Data`` but only allows reading from a file. The function
+        definition is different from the original C API function.
+
+        Parameters
+        ----------
+        infile
+            The input file name.
+        kind
+            The data kind of the input file. Valid values are ``"dataset"``, ``"grid"``
+            and ``"image"``.
+        family
+            A valid GMT data family name (e.g., ``"GMT_IS_DATASET"``). See the
+            ``FAMILIES`` attribute for valid names. If ``None``, will determine the data
+            family from the ``kind`` parameter.
+        geometry
+            A valid GMT data geometry name (e.g., ``"GMT_IS_POINT"``). See the
+            ``GEOMETRIES`` attribute for valid names. If ``None``, will determine the
+            data geometry from the ``kind`` parameter.
+        mode
+            How the data is to be read from the file. This option varies depending on
+            the given family. See the
+            :gmt-docs:`GMT API documentation <devdocs/api.html#import-from-a-file-stream-or-handle>`
+            for details. Default is ``GMT_READ_NORMAL`` which corresponds to the default
+            read mode value of 0 in the ``GMT_enum_read`` enum.
+        region
+            Subregion of the data, in the form of [xmin, xmax, ymin, ymax, zmin, zmax].
+            If ``None``, the whole data is read.
+        data
+            ``None`` or the pointer returned by this function after a first call. It's
+            useful when reading grids/images/cubes in two steps (get a grid/image/cube
+            structure with a header, then read the data).
+
+        Returns
+        -------
+        Pointer to the data container, or ``None`` if there were errors.
+
+        Raises
+        ------
+        GMTCLibError
+            If the GMT API function fails to read the data.
+        """  # noqa: W505
+        c_read_data = self.get_libgmt_func(
+            "GMT_Read_Data",
+            argtypes=[
+                ctp.c_void_p,  # V_API
+                ctp.c_uint,  # family
+                ctp.c_uint,  # method
+                ctp.c_uint,  # geometry
+                ctp.c_uint,  # mode
+                ctp.POINTER(ctp.c_double),  # wesn
+                ctp.c_char_p,  # infile
+                ctp.c_void_p,  # data
+            ],
+            restype=ctp.c_void_p,  # data_ptr
+        )
+
+        # Determine the family, geometry and data container from kind
+        _family, _geometry, dtype = {
+            "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP", _GMT_DATASET),
+            "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE", _GMT_GRID),
+            "image": ("GMT_IS_IMAGE", "GMT_IS_SURFACE", _GMT_IMAGE),
+        }[kind]
+        if family is None:
+            family = _family
+        if geometry is None:
+            geometry = _geometry
+
+        data_ptr = c_read_data(
+            self.session_pointer,
+            self[family],
+            self["GMT_IS_FILE"],  # Reading from a file
+            self[geometry],
+            self[mode],
+            sequence_to_ctypes_array(region, ctp.c_double, 6),
+            infile.encode(),
+            data,
+        )
+        if data_ptr is None:
+            raise GMTCLibError(f"Failed to read dataset from '{infile}'.")
+        return ctp.cast(data_ptr, ctp.POINTER(dtype))
+
     def write_data(self, family, geometry, mode, wesn, output, data):
         """
         Write a GMT data container to a file.
@@ -1121,41 +1197,46 @@ class Session:
             raise GMTCLibError(f"Failed to write dataset to '{output}'")
 
     @contextlib.contextmanager
-    def open_virtualfile(self, family, geometry, direction, data):
+    def open_virtualfile(
+        self,
+        family: str,
+        geometry: str,
+        direction: str,
+        data: ctp.c_void_p | None,
+    ) -> Generator[str, None, None]:
         """
-        Open a GMT virtual file to pass data to and from a module.
+        Open a GMT virtual file associated with a data object for reading or writing.
 
-        GMT uses a virtual file scheme to pass in data or get data from API
-        modules. Use it to pass in your GMT data structure (created using
-        :meth:`pygmt.clib.Session.create_data`) to a module that expects an
-        input file, or get the output from a module that writes to a file.
+        GMT uses a virtual file scheme to pass in data or get data from API modules. Use
+        it to pass in your GMT data structure (created using
+        :meth:`pygmt.clib.Session.create_data`) to a module that expects an input file,
+        or get the output from a module that writes to a file.
 
-        Use in a ``with`` block. Will automatically close the virtual file when
-        leaving the ``with`` block. Because of this, no wrapper for
-        ``GMT_Close_VirtualFile`` is provided.
+        Use in a ``with`` block. Will automatically close the virtual file when leaving
+        the ``with`` block. Because of this, no wrapper for ``GMT_Close_VirtualFile``
+        is provided.
 
         Parameters
         ----------
-        family : str
-            A valid GMT data family name (e.g., ``"GMT_IS_DATASET"``). Should
-            be the same as the one you used to create your data structure.
-        geometry : str
-            A valid GMT data geometry name (e.g., ``"GMT_IS_POINT"``). Should
-            be the same as the one you used to create your data structure.
-        direction : str
-            Either ``"GMT_IN"`` or ``"GMT_OUT"`` to indicate if passing data to
-            GMT or getting it out of GMT, respectively.
-            By default, GMT can modify the data you pass in. Add modifier
-            ``"GMT_IS_REFERENCE"`` to tell GMT the data are read-only, or
-            ``"GMT_IS_DUPLICATE"`` to tell GMT to duplicate the data.
-        data : int or None
-            The ctypes void pointer to your GMT data structure. For output
-            (i.e., ``direction="GMT_OUT"``), it can be ``None`` to have GMT
-            automatically allocate the output GMT data structure.
+        family
+            A valid GMT data family name (e.g., ``"GMT_IS_DATASET"``). Should be the
+            same as the one you used to create your data structure.
+        geometry
+            A valid GMT data geometry name (e.g., ``"GMT_IS_POINT"``). Should be the
+            same as the one you used to create your data structure.
+        direction
+            Either ``"GMT_IN"`` or ``"GMT_OUT"`` to indicate if passing data to GMT or
+            getting it out of GMT, respectively. By default, GMT can modify the data you
+            pass in. Add modifier ``"GMT_IS_REFERENCE"`` to tell GMT the data are
+            read-only, or ``"GMT_IS_DUPLICATE"`` to tell GMT to duplicate the data.
+        data
+            The ctypes void pointer to the GMT data structure. For output (i.e.,
+            ``direction="GMT_OUT"``), it can be ``None`` to have GMT automatically
+            allocate the output GMT data structure.
 
         Yields
         ------
-        vfname : str
+        vfname
             The name of the virtual file that you can pass to a GMT module.
 
         Examples
@@ -1181,27 +1262,26 @@ class Session:
         ...     with lib.open_virtualfile(*vfargs) as vfile:
         ...         # Send the output to a temp file so that we can read it
         ...         with GMTTempFile() as ofile:
-        ...             args = f"{vfile} ->{ofile.name}"
-        ...             lib.call_module("info", args)
+        ...             lib.call_module("info", [vfile, f"->{ofile.name}"])
         ...             print(ofile.read().strip())
         <vector memory>: N = 5 <0/4> <5/9>
         """
         c_open_virtualfile = self.get_libgmt_func(
             "GMT_Open_VirtualFile",
             argtypes=[
-                ctp.c_void_p,
-                ctp.c_uint,
-                ctp.c_uint,
-                ctp.c_uint,
-                ctp.c_void_p,
-                ctp.c_char_p,
+                ctp.c_void_p,  # V_API
+                ctp.c_uint,  # family
+                ctp.c_uint,  # geometry
+                ctp.c_uint,  # direction
+                ctp.c_void_p,  # data
+                ctp.c_char_p,  # name
             ],
             restype=ctp.c_int,
         )
 
         c_close_virtualfile = self.get_libgmt_func(
             "GMT_Close_VirtualFile",
-            argtypes=[ctp.c_void_p, ctp.c_char_p],
+            argtypes=[ctp.c_void_p, ctp.c_char_p],  # V_API, name
             restype=ctp.c_int,
         )
 
@@ -1216,7 +1296,11 @@ class Session:
             self.session_pointer, family_int, geometry_int, direction_int, data, buff
         )
         if status != 0:
-            raise GMTCLibError("Failed to create a virtual file.")
+            msg = (
+                f"Failed to create a virtual file with {family=}, {geometry=}, "
+                f"{direction=}."
+            )
+            raise GMTCLibError(msg)
 
         vfname = buff.value.decode()
         try:
@@ -1224,11 +1308,12 @@ class Session:
         finally:
             status = c_close_virtualfile(self.session_pointer, vfname.encode())
             if status != 0:
-                raise GMTCLibError(f"Failed to close virtual file '{vfname}'.")
+                msg = f"Failed to close virtual file '{vfname}'."
+                raise GMTCLibError(msg)
 
     def open_virtual_file(self, family, geometry, direction, data):
         """
-        Open a GMT virtual file to pass data to and from a module.
+        Open a GMT virtual file associated with a data object for reading or writing.
 
         .. deprecated: 0.11.0
 
@@ -1289,7 +1374,7 @@ class Session:
         ...     with ses.virtualfile_from_vectors(x, y, z) as fin:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
-        ...             ses.call_module("info", f"{fin} ->{fout.name}")
+        ...             ses.call_module("info", [fin, f"->{fout.name}"])
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <1/3> <4/6> <7/9>
         """
@@ -1399,7 +1484,7 @@ class Session:
         ...     with ses.virtualfile_from_matrix(data) as fin:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
-        ...             ses.call_module("info", f"{fin} ->{fout.name}")
+        ...             ses.call_module("info", [fin, f"->{fout.name}"])
         ...             print(fout.read().strip())
         <matrix memory>: N = 4 <0/9> <1/10> <2/11>
         """
@@ -1409,7 +1494,7 @@ class Session:
         # collected and the memory freed. Creating it in this context manager
         # guarantees that the copy will be around until the virtual file is
         # closed.
-        matrix = as_c_contiguous(matrix)
+        matrix = np.ascontiguousarray(matrix)
         rows, columns = matrix.shape
 
         family = "GMT_IS_DATASET|GMT_VIA_MATRIX"
@@ -1479,8 +1564,9 @@ class Session:
         ...     with ses.virtualfile_from_grid(data) as fin:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
-        ...             args = f"{fin} -L0 -Cn ->{fout.name}"
-        ...             ses.call_module("grdinfo", args)
+        ...             ses.call_module(
+        ...                 "grdinfo", [fin, "-L0", "-Cn", f"->{fout.name}"]
+        ...             )
         ...             print(fout.read().strip())
         -55 -47 -24 -10 190 981 1 1 8 14 1 1
         >>> # The output is: w e s n z0 z1 dx dy n_columns n_rows reg gtype
@@ -1511,7 +1597,100 @@ class Session:
         with self.open_virtualfile(*args) as vfile:
             yield vfile
 
-    @fmt_docstring
+    @contextlib.contextmanager
+    def virtualfile_from_stringio(self, stringio: io.StringIO):
+        r"""
+        Store a :class:`io.StringIO` object in a virtual file.
+
+        Store the contents of a :class:`io.StringIO` object in a GMT_DATASET container
+        and create a virtual file to pass to a GMT module.
+
+        For simplicity, currently we make following assumptions in the StringIO object
+
+        - ``"#"`` indicates a comment line.
+        - ``">"`` indicates a segment header.
+
+        Parameters
+        ----------
+        stringio
+            The :class:`io.StringIO` object containing the data to be stored in the
+            virtual file.
+
+        Yields
+        ------
+        fname
+            The name of the virtual file.
+
+        Examples
+        --------
+        >>> import io
+        >>> from pygmt.clib import Session
+        >>> # A StringIO object containing legend specifications
+        >>> stringio = io.StringIO(
+        ...     "# Comment\n"
+        ...     "H 24p Legend\n"
+        ...     "N 2\n"
+        ...     "S 0.1i c 0.15i p300/12 0.25p 0.3i My circle\n"
+        ... )
+        >>> with Session() as lib:
+        ...     with lib.virtualfile_from_stringio(stringio) as fin:
+        ...         lib.virtualfile_to_dataset(vfname=fin, output_type="pandas")
+                                                     0
+        0                                 H 24p Legend
+        1                                          N 2
+        2  S 0.1i c 0.15i p300/12 0.25p 0.3i My circle
+        """
+        # Parse the io.StringIO object.
+        segments = []
+        current_segment = {"header": "", "data": []}
+        for line in stringio.getvalue().splitlines():
+            if line.startswith("#"):  # Skip comments
+                continue
+            if line.startswith(">"):  # Segment header
+                if current_segment["data"]:  # If we have data, start a new segment
+                    segments.append(current_segment)
+                    current_segment = {"header": "", "data": []}
+                current_segment["header"] = line.strip(">").lstrip()
+            else:
+                current_segment["data"].append(line)  # type: ignore[attr-defined]
+        if current_segment["data"]:  # Add the last segment if it has data
+            segments.append(current_segment)
+
+        # One table with one or more segments.
+        # n_rows is the maximum number of rows/records for all segments.
+        # n_columns is the number of numeric data columns, so it's 0 here.
+        n_tables = 1
+        n_segments = len(segments)
+        n_rows = max(len(segment["data"]) for segment in segments)
+        n_columns = 0
+
+        # Create the GMT_DATASET container
+        family, geometry = "GMT_IS_DATASET", "GMT_IS_TEXT"
+        dataset = self.create_data(
+            family,
+            geometry,
+            mode="GMT_CONTAINER_ONLY|GMT_WITH_STRINGS",
+            dim=[n_tables, n_segments, n_rows, n_columns],
+        )
+        dataset = ctp.cast(dataset, ctp.POINTER(_GMT_DATASET))
+        table = dataset.contents.table[0].contents
+        for i, segment in enumerate(segments):
+            seg = table.segment[i].contents
+            if segment["header"]:
+                seg.header = segment["header"].encode()  # type: ignore[attr-defined]
+            seg.text = strings_to_ctypes_array(segment["data"])
+
+        with self.open_virtualfile(family, geometry, "GMT_IN", dataset) as vfile:
+            try:
+                yield vfile
+            finally:
+                # Must set the pointers to None to avoid double freeing the memory.
+                # Maybe upstream bug.
+                for i in range(n_segments):
+                    seg = table.segment[i].contents
+                    seg.header = None
+                    seg.text = None
+
     def virtualfile_in(  # noqa: PLR0912
         self,
         check_kind=None,
@@ -1572,12 +1751,19 @@ class Session:
         ...     with ses.virtualfile_in(check_kind="vector", data=data) as fin:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
-        ...             ses.call_module("info", fin + " ->" + fout.name)
+        ...             ses.call_module("info", [fin, f"->{fout.name}"])
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
-        kind = data_kind(
-            data, x, y, z, required_z=required_z, required_data=required_data
+        kind = data_kind(data, required=required_data)
+        _validate_data_input(
+            data=data,
+            x=x,
+            y=y,
+            z=z,
+            required_z=required_z,
+            required_data=required_data,
+            kind=kind,
         )
 
         if check_kind:
@@ -1585,7 +1771,7 @@ class Session:
             if check_kind == "raster":
                 valid_kinds += ("grid", "image")
             elif check_kind == "vector":
-                valid_kinds += ("matrix", "vectors", "geojson")
+                valid_kinds += ("empty", "matrix", "vectors", "geojson")
             if kind not in valid_kinds:
                 raise GMTInvalidInput(
                     f"Unrecognized data type for {check_kind}: {type(data)}"
@@ -1593,63 +1779,101 @@ class Session:
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
-            "file": contextlib.nullcontext,
             "arg": contextlib.nullcontext,
+            "empty": self.virtualfile_from_vectors,
+            "file": contextlib.nullcontext,
             "geojson": tempfile_from_geojson,
             "grid": self.virtualfile_from_grid,
             "image": tempfile_from_image,
-            # Note: virtualfile_from_matrix is not used because a matrix can be
-            # converted to vectors instead, and using vectors allows for better
-            # handling of string type inputs (e.g. for datetime data types)
-            "matrix": self.virtualfile_from_vectors,
+            "stringio": self.virtualfile_from_stringio,
+            "matrix": self.virtualfile_from_matrix,
             "vectors": self.virtualfile_from_vectors,
         }[kind]
 
-        # Ensure the data is an iterable (Python list or tuple)
-        if kind in ("geojson", "grid", "image", "file", "arg"):
-            if kind == "image" and data.dtype != "uint8":
-                msg = (
-                    f"Input image has dtype: {data.dtype} which is unsupported, "
-                    "and may result in an incorrect output. Please recast image "
-                    "to a uint8 dtype and/or scale to 0-255 range, e.g. "
-                    "using a histogram equalization function like "
-                    "skimage.exposure.equalize_hist."
-                )
-                warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
-            _data = (data,) if not isinstance(data, pathlib.PurePath) else (str(data),)
-        elif kind == "vectors":
-            _data = [np.atleast_1d(x), np.atleast_1d(y)]
-            if z is not None:
-                _data.append(np.atleast_1d(z))
-            if extra_arrays:
-                _data.extend(extra_arrays)
-        elif kind == "matrix":  # turn 2-D arrays into list of vectors
-            if hasattr(data, "items") and not hasattr(data, "to_frame"):
-                # pandas.DataFrame or xarray.Dataset types.
-                # pandas.Series will be handled below like a 1-D numpy.ndarray.
-                _data = [array for _, array in data.items()]
-            elif hasattr(data, "ndim") and data.ndim == 2 and data.dtype.kind in "iuf":
-                # Just use virtualfile_from_matrix for 2-D numpy.ndarray
-                # which are signed integer (i), unsigned integer (u) or
-                # floating point (f) types
-                _virtualfile_from = self.virtualfile_from_matrix
+        # Ensure the data is an iterable (Python list or tuple).
+        match kind:
+            case "arg" | "file" | "geojson" | "grid" | "image" | "stringio":
                 _data = (data,)
-            else:
-                # Python list, tuple, numpy.ndarray, and pandas.Series types
-                _data = np.atleast_2d(np.asanyarray(data).T)
+                if kind == "image" and data.dtype != "uint8":
+                    msg = (
+                        f"Input image has dtype: {data.dtype} which is unsupported, "
+                        "and may result in an incorrect output. Please recast image "
+                        "to a uint8 dtype and/or scale to 0-255 range, e.g. "
+                        "using a histogram equalization function like "
+                        "skimage.exposure.equalize_hist."
+                    )
+                    warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
+            case "empty":  # data is None, so data must be given via x/y/z.
+                _data = [x, y]
+                if z is not None:
+                    _data.append(z)
+                if extra_arrays:
+                    _data.extend(extra_arrays)
+            case "vectors":
+                if hasattr(data, "items") and not hasattr(data, "to_frame"):
+                    # pandas.DataFrame or xarray.Dataset types.
+                    # pandas.Series will be handled below like a 1-D numpy.ndarray.
+                    _data = [array for _, array in data.items()]
+                else:
+                    # Python list, tuple, numpy.ndarray, and pandas.Series types
+                    _data = np.atleast_2d(np.asanyarray(data).T)
+            case "matrix":
+                # GMT can only accept a 2-D matrix which are signed integer (i),
+                # unsigned integer (u) or floating point (f) types. For other data
+                # types, we need to use virtualfile_from_vectors instead, which turns
+                # the matrix into a list of vectors and allows for better handling of
+                # non-integer/float type inputs (e.g. for string or datetime data types)
+                _data = (data,)
+                if data.dtype.kind not in "iuf":
+                    _virtualfile_from = self.virtualfile_from_vectors
+                    _data = data.T
 
         # Finally create the virtualfile from the data, to be passed into GMT
         file_context = _virtualfile_from(*_data)
-
         return file_context
 
-    # virtualfile_from_data was renamed to virtualfile_in since v0.12.0.
-    virtualfile_from_data = virtualfile_in
+    def virtualfile_from_data(
+        self,
+        check_kind=None,
+        data=None,
+        x=None,
+        y=None,
+        z=None,
+        extra_arrays=None,
+        required_z=False,
+        required_data=True,
+    ):
+        """
+        Store any data inside a virtual file.
+
+        .. deprecated: 0.13.0
+
+           Will be removed in v0.15.0. Use :meth:`pygmt.clib.Session.virtualfile_in`
+           instead.
+        """
+        msg = (
+            "API function 'Session.virtualfile_from_datae()' has been deprecated since "
+            "v0.13.0 and will be removed in v0.15.0. Use 'Session.virtualfile_in()' "
+            "instead."
+        )
+        warnings.warn(msg, category=FutureWarning, stacklevel=2)
+        return self.virtualfile_in(
+            check_kind=check_kind,
+            data=data,
+            x=x,
+            y=y,
+            z=z,
+            extra_arrays=extra_arrays,
+            required_z=required_z,
+            required_data=required_data,
+        )
 
     @contextlib.contextmanager
     def virtualfile_out(
-        self, kind: Literal["dataset", "grid"] = "dataset", fname: str | None = None
-    ):
+        self,
+        kind: Literal["dataset", "grid", "image"] = "dataset",
+        fname: str | None = None,
+    ) -> Generator[str, None, None]:
         r"""
         Create a virtual file or an actual file for storing output data.
 
@@ -1661,15 +1885,15 @@ class Session:
         Parameters
         ----------
         kind
-            The data kind of the virtual file to create. Valid values are ``"dataset"``
-            and ``"grid"``. Ignored if ``fname`` is specified.
+            The data kind of the virtual file to create. Valid values are ``"dataset"``,
+            ``"grid"``, and ``"image"``. Ignored if ``fname`` is specified.
         fname
             The name of the actual file to write the output data. No virtual file will
             be created.
 
         Yields
         ------
-        vfile : str
+        vfile
             Name of the virtual file or the actual file.
 
         Examples
@@ -1686,7 +1910,7 @@ class Session:
         ...     # Create a virtual file for storing the output table.
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
-        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
         ...             ds = lib.read_virtualfile(vouttbl, kind="dataset")
         ...             assert isinstance(ds.contents, _GMT_DATASET)
         ...
@@ -1694,7 +1918,7 @@ class Session:
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(fname=tmpfile.name) as vouttbl:
         ...             assert vouttbl == tmpfile.name
-        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
         ...         line = Path(vouttbl).read_text()
         ...         assert line == "1\t2\t3\tTEXT\n"
         """
@@ -1705,12 +1929,45 @@ class Session:
             family, geometry = {
                 "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP"),
                 "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE"),
+                "image": ("GMT_IS_IMAGE", "GMT_IS_SURFACE"),
             }[kind]
-            with self.open_virtualfile(family, geometry, "GMT_OUT", None) as vfile:
+            direction = "GMT_OUT|GMT_IS_REFERENCE" if kind == "image" else "GMT_OUT"
+            with self.open_virtualfile(family, geometry, direction, None) as vfile:
                 yield vfile
 
+    def inquire_virtualfile(self, vfname: str) -> int:
+        """
+        Get the family of a virtual file.
+
+        Parameters
+        ----------
+        vfname
+            Name of the virtual file to inquire.
+
+        Returns
+        -------
+        family
+            The integer value for the family of the virtual file.
+
+        Examples
+        --------
+        >>> from pygmt.clib import Session
+        >>> with Session() as lib:
+        ...     with lib.virtualfile_out(kind="dataset") as vfile:
+        ...         family = lib.inquire_virtualfile(vfile)
+        ...         assert family == lib["GMT_IS_DATASET"]
+        """
+        c_inquire_virtualfile = self.get_libgmt_func(
+            "GMT_Inquire_VirtualFile",
+            argtypes=[ctp.c_void_p, ctp.c_char_p],
+            restype=ctp.c_int,
+        )
+        return c_inquire_virtualfile(self.session_pointer, vfname.encode())
+
     def read_virtualfile(
-        self, vfname: str, kind: Literal["dataset", "grid", None] = None
+        self,
+        vfname: str,
+        kind: Literal["dataset", "grid", "image", "cube", None] = None,
     ):
         """
         Read data from a virtual file and optionally cast into a GMT data container.
@@ -1721,7 +1978,14 @@ class Session:
             Name of the virtual file to read.
         kind
             Cast the data into a GMT data container. Valid values are ``"dataset"``,
-            ``"grid"`` and ``None``. If ``None``, will return a ctypes void pointer.
+            ``"grid"``, ``"image"`` and ``None``. If ``None``, will return a ctypes void
+            pointer.
+
+        Returns
+        -------
+        pointer
+            Pointer to the GMT data container. If ``kind`` is ``None``, returns a ctypes
+            void pointer instead.
 
         Examples
         --------
@@ -1735,7 +1999,7 @@ class Session:
         ...         with Path(tmpfile.name).open(mode="w") as fp:
         ...             print("1.0 2.0 3.0 TEXT", file=fp)
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
-        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
         ...             # Read the virtual file as a void pointer
         ...             void_pointer = lib.read_virtualfile(vouttbl)
         ...             assert isinstance(void_pointer, int)  # void pointer is an int
@@ -1746,17 +2010,13 @@ class Session:
         >>> # Read grid from a virtual file
         >>> with Session() as lib:
         ...     with lib.virtualfile_out(kind="grid") as voutgrd:
-        ...         lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
+        ...         lib.call_module("read", ["@earth_relief_01d_g", voutgrd, "-Tg"])
         ...         # Read the virtual file as a void pointer
         ...         void_pointer = lib.read_virtualfile(voutgrd)
         ...         assert isinstance(void_pointer, int)  # void pointer is an int
         ...         data_pointer = lib.read_virtualfile(voutgrd, kind="grid")
         ...         assert isinstance(data_pointer, ctp.POINTER(_GMT_GRID))
 
-        Returns
-        -------
-        Pointer to the GMT data container. If ``kind`` is None, returns a ctypes void
-        pointer instead.
         """
         c_read_virtualfile = self.get_libgmt_func(
             "GMT_Read_VirtualFile",
@@ -1769,13 +2029,16 @@ class Session:
         # _GMT_DATASET).
         if kind is None:  # Return the ctypes void pointer
             return pointer
-        dtype = {"dataset": _GMT_DATASET, "grid": _GMT_GRID}[kind]
+        if kind == "cube":
+            raise NotImplementedError(f"kind={kind} is not supported yet.")
+        dtype = {"dataset": _GMT_DATASET, "grid": _GMT_GRID, "image": _GMT_IMAGE}[kind]
         return ctp.cast(pointer, ctp.POINTER(dtype))
 
     def virtualfile_to_dataset(
         self,
         vfname: str,
-        output_type: Literal["pandas", "numpy", "file"] = "pandas",
+        output_type: Literal["pandas", "numpy", "file", "strings"] = "pandas",
+        header: int | None = None,
         column_names: list[str] | None = None,
         dtype: type | dict[str, type] | None = None,
         index_col: str | int | None = None,
@@ -1788,14 +2051,18 @@ class Session:
         Parameters
         ----------
         vfname
-            The virtual file name that stores the result data. Required for ``"pandas"``
-            and ``"numpy"`` output type.
+            The virtual file name that stores the result data.
         output_type
             Desired output type of the result data.
 
             - ``"pandas"`` will return a :class:`pandas.DataFrame` object.
             - ``"numpy"`` will return a :class:`numpy.ndarray` object.
             - ``"file"`` means the result was saved to a file and will return ``None``.
+            - ``"strings"`` will return the trailing text only as an array of strings.
+        header
+            Row number containing column names for the :class:`pandas.DataFrame` output.
+            ``header=None`` means not to parse the column names from table header.
+            Ignored if the row number is larger than the number of headers in the table.
         column_names
             The column names for the :class:`pandas.DataFrame` output.
         dtype
@@ -1834,41 +2101,47 @@ class Session:
         ...             with lib.virtualfile_out(
         ...                 kind="dataset", fname=outtmp.name
         ...             ) as vouttbl:
-        ...                 lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...                 lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
         ...                 result = lib.virtualfile_to_dataset(
         ...                     vfname=vouttbl, output_type="file"
         ...                 )
         ...                 assert result is None
         ...                 assert Path(outtmp.name).stat().st_size > 0
         ...
-        ...     # numpy output
+        ...     # strings, numpy and pandas outputs
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
-        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
+        ...
+        ...             # strings output
+        ...             outstr = lib.virtualfile_to_dataset(
+        ...                 vfname=vouttbl, output_type="strings"
+        ...             )
+        ...             assert isinstance(outstr, np.ndarray)
+        ...             assert outstr.dtype.kind in ("S", "U")
+        ...
+        ...             # numpy output
         ...             outnp = lib.virtualfile_to_dataset(
         ...                 vfname=vouttbl, output_type="numpy"
         ...             )
-        ...     assert isinstance(outnp, np.ndarray)
+        ...             assert isinstance(outnp, np.ndarray)
         ...
-        ...     # pandas output
-        ...     with Session() as lib:
-        ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
-        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             # pandas output
         ...             outpd = lib.virtualfile_to_dataset(
         ...                 vfname=vouttbl, output_type="pandas"
         ...             )
-        ...     assert isinstance(outpd, pd.DataFrame)
+        ...             assert isinstance(outpd, pd.DataFrame)
         ...
-        ...     # pandas output with specified column names
-        ...     with Session() as lib:
-        ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
-        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             # pandas output with specified column names
         ...             outpd2 = lib.virtualfile_to_dataset(
         ...                 vfname=vouttbl,
         ...                 output_type="pandas",
         ...                 column_names=["col1", "col2", "col3", "coltext"],
         ...             )
-        ...     assert isinstance(outpd2, pd.DataFrame)
+        ...             assert isinstance(outpd2, pd.DataFrame)
+        >>> outstr
+        array(['TEXT1 TEXT23', 'TEXT4 TEXT567', 'TEXT8 TEXT90',
+           'TEXT123 TEXT456789'], dtype='<U18')
         >>> outnp
         array([[1.0, 2.0, 3.0, 'TEXT1 TEXT23'],
                [4.0, 5.0, 6.0, 'TEXT4 TEXT567'],
@@ -1890,64 +2163,126 @@ class Session:
         if output_type == "file":  # Already written to file, so return None
             return None
 
-        # Read the virtual file as a GMT dataset and convert to pandas.DataFrame
-        result = self.read_virtualfile(vfname, kind="dataset").contents.to_dataframe(
-            column_names=column_names,
-            dtype=dtype,
-            index_col=index_col,
+        # Read the virtual file as a _GMT_DATASET object
+        result = self.read_virtualfile(vfname, kind="dataset").contents
+
+        if output_type == "strings":  # strings output
+            return result.to_strings()
+
+        result = result.to_dataframe(
+            header=header, column_names=column_names, dtype=dtype, index_col=index_col
         )
         if output_type == "numpy":  # numpy.ndarray output
             return result.to_numpy()
         return result  # pandas.DataFrame output
 
-    def extract_region(self):
+    def virtualfile_to_raster(
+        self,
+        vfname: str,
+        kind: Literal["grid", "image", "cube", None] = "grid",
+        outgrid: str | None = None,
+    ) -> xr.DataArray | None:
         """
-        Extract the WESN bounding box of the currently active figure.
+        Output raster data stored in a virtual file to an :class:`xarray.DataArray`
+        object.
 
-        Retrieves the information from the PostScript file, so it works for
-        country codes as well.
+        The raster data can be a grid, an image or a cube.
+
+        Parameters
+        ----------
+        vfname
+            The virtual file name that stores the result grid/image/cube.
+        kind
+            Type of the raster data. Valid values are ``"grid"``, ``"image"``,
+            ``"cube"`` or ``None``. If ``None``, will inquire the data type from the
+            virtual file name.
+        outgrid
+            Name of the output grid/image/cube. If specified, it means the raster data
+            was already saved into an actual file and will return ``None``.
 
         Returns
         -------
-        * wesn : 1-D array
-            A numpy 1-D array with the west, east, south, and north dimensions
-            of the current figure.
+        result
+            The result grid/image/cube. If ``outgrid`` is specified, return ``None``.
 
         Examples
         --------
+        >>> from pathlib import Path
+        >>> from pygmt.clib import Session
+        >>> from pygmt.helpers import GMTTempFile
+        >>> with Session() as lib:
+        ...     # file output
+        ...     with GMTTempFile(suffix=".nc") as tmpfile:
+        ...         outgrid = tmpfile.name
+        ...         with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
+        ...             lib.call_module("read", ["@earth_relief_01d_g", voutgrd, "-Tg"])
+        ...             result = lib.virtualfile_to_raster(
+        ...                 vfname=voutgrd, outgrid=outgrid
+        ...             )
+        ...             assert result == None
+        ...             assert Path(outgrid).stat().st_size > 0
+        ...
+        ...     # xarray.DataArray output
+        ...     outgrid = None
+        ...     with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
+        ...         lib.call_module("read", ["@earth_relief_01d_g", voutgrd, "-Tg"])
+        ...         result = lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
+        ...         assert isinstance(result, xr.DataArray)
+        """
+        if outgrid is not None:  # Already written to file, so return None
+            return None
+        if kind is None:  # Inquire the data family from the virtualfile
+            family = self.inquire_virtualfile(vfname)
+            kind = {  # type: ignore[assignment]
+                self["GMT_IS_GRID"]: "grid",
+                self["GMT_IS_IMAGE"]: "image",
+                self["GMT_IS_CUBE"]: "cube",
+            }[family]
+        return self.read_virtualfile(vfname, kind=kind).contents.to_dataarray()
 
+    def extract_region(self) -> np.ndarray:
+        """
+        Extract the region of the currently active figure.
+
+        Retrieves the information from the PostScript file, so it works for country
+        codes as well.
+
+        Returns
+        -------
+        region
+            A numpy 1-D array with the west, east, south, and north dimensions of the
+            current figure.
+
+        Examples
+        --------
         >>> import pygmt
         >>> fig = pygmt.Figure()
         >>> fig.coast(
-        ...     region=[0, 10, -20, -10],
-        ...     projection="M6i",
-        ...     frame=True,
-        ...     land="black",
+        ...     region=[0, 10, -20, -10], projection="M12c", frame=True, land="black"
         ... )
         >>> with Session() as lib:
-        ...     wesn = lib.extract_region()
-        >>> print(", ".join([f"{x:.2f}" for x in wesn]))
+        ...     region = lib.extract_region()
+        >>> print(", ".join([f"{x:.2f}" for x in region]))
         0.00, 10.00, -20.00, -10.00
 
-        Using ISO country codes for the regions (for example ``"US.HI"`` for
-        Hawaiʻi):
+        Using ISO country codes for the regions (for example ``"US.HI"`` for Hawaiʻi):
 
         >>> fig = pygmt.Figure()
-        >>> fig.coast(region="US.HI", projection="M6i", frame=True, land="black")
+        >>> fig.coast(region="US.HI", projection="M12c", frame=True, land="black")
         >>> with Session() as lib:
-        ...     wesn = lib.extract_region()
-        >>> print(", ".join([f"{x:.2f}" for x in wesn]))
+        ...     region = lib.extract_region()
+        >>> print(", ".join([f"{x:.2f}" for x in region]))
         -164.71, -154.81, 18.91, 23.58
 
-        The country codes can have an extra argument that rounds the region a
-        multiple of the argument (for example, ``"US.HI+r5"`` will round the
-        region to multiples of 5):
+        The country codes can have an extra argument that rounds the region to multiples
+        of the argument (for example, ``"US.HI+r5"`` will round the region to multiples
+        of 5):
 
         >>> fig = pygmt.Figure()
-        >>> fig.coast(region="US.HI+r5", projection="M6i", frame=True, land="black")
+        >>> fig.coast(region="US.HI+r5", projection="M12c", frame=True, land="black")
         >>> with Session() as lib:
-        ...     wesn = lib.extract_region()
-        >>> print(", ".join([f"{x:.2f}" for x in wesn]))
+        ...     region = lib.extract_region()
+        >>> print(", ".join([f"{x:.2f}" for x in region]))
         -165.00, -150.00, 15.00, 25.00
         """  # noqa: RUF002
         c_extract_region = self.get_libgmt_func(
@@ -1956,12 +2291,12 @@ class Session:
             restype=ctp.c_int,
         )
 
-        wesn = np.empty(4, dtype=np.float64)
-        wesn_pointer = wesn.ctypes.data_as(ctp.POINTER(ctp.c_double))
-        # The second argument to GMT_Extract_Region is a file pointer to a
-        # PostScript file. It's only valid in classic mode. Use None to get a
-        # NULL pointer instead.
-        status = c_extract_region(self.session_pointer, None, wesn_pointer)
+        region = np.empty(4, dtype=np.float64)
+        status = c_extract_region(
+            self.session_pointer,
+            None,  # File pointer to a PostScript file. Must be None in modern mode.
+            region.ctypes.data_as(ctp.POINTER(ctp.c_double)),
+        )
         if status != 0:
             raise GMTCLibError("Failed to extract region from current figure.")
-        return wesn
+        return region

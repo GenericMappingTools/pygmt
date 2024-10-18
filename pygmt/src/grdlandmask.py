@@ -2,16 +2,10 @@
 grdlandmask - Create a "wet-dry" mask grid from shoreline data base
 """
 
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["grdlandmask"]
 
@@ -21,7 +15,6 @@ __doctest_skip__ = ["grdlandmask"]
     A="area_thresh",
     D="resolution",
     E="bordervalues",
-    G="outgrid",
     I="spacing",
     N="maskvalues",
     R="region",
@@ -30,7 +23,7 @@ __doctest_skip__ = ["grdlandmask"]
     x="cores",
 )
 @kwargs_to_strings(I="sequence", R="sequence", N="sequence", E="sequence")
-def grdlandmask(**kwargs):
+def grdlandmask(outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
     Create a grid file with set values for land and water.
 
@@ -88,7 +81,7 @@ def grdlandmask(**kwargs):
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
@@ -105,10 +98,8 @@ def grdlandmask(**kwargs):
     if kwargs.get("I") is None or kwargs.get("R") is None:
         raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
 
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            if (outgrid := kwargs.get("G")) is None:
-                kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-            lib.call_module(module="grdlandmask", args=build_arg_string(kwargs))
-
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+    with Session() as lib:
+        with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
+            kwargs["G"] = voutgrd
+            lib.call_module(module="grdlandmask", args=build_arg_list(kwargs))
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

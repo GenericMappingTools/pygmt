@@ -2,19 +2,17 @@
 plot3d - Plot in three dimensions.
 """
 
-from pathlib import Path
-
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     data_kind,
     fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.src.which import which
+from pygmt.src._common import _data_geometry_is_point
 
 
 @fmt_docstring
@@ -51,7 +49,7 @@ from pygmt.src.which import which
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot3d(  # noqa: PLR0912
+def plot3d(
     self, data=None, x=None, y=None, z=None, size=None, direction=None, **kwargs
 ):
     r"""
@@ -183,10 +181,10 @@ def plot3d(  # noqa: PLR0912
     """
     kwargs = self._preprocess(**kwargs)
 
-    kind = data_kind(data, x, y, z)
+    kind = data_kind(data)
     extra_arrays = []
 
-    if kind == "vectors":  # Add more columns for vectors input
+    if kind == "empty":  # Add more columns for vectors input
         # Parameters for vector styles
         if (
             kwargs.get("S") is not None
@@ -218,17 +216,8 @@ def plot3d(  # noqa: PLR0912
                 raise GMTInvalidInput(f"'{name}' can't be 1-D array if 'data' is used.")
 
     # Set the default style if data has a geometry of Point or MultiPoint
-    if kwargs.get("S") is None:
-        if kind == "geojson" and data.geom_type.isin(["Point", "MultiPoint"]).all():
-            kwargs["S"] = "u0.2c"
-        elif kind == "file" and str(data).endswith(".gmt"):  # OGR_GMT file
-            try:
-                with Path(which(data)).open() as file:
-                    line = file.readline()
-                if "@GMULTIPOINT" in line or "@GPOINT" in line:
-                    kwargs["S"] = "u0.2c"
-            except FileNotFoundError:
-                pass
+    if kwargs.get("S") is None and _data_geometry_is_point(data, kind):
+        kwargs["S"] = "u0.2c"
 
     with Session() as lib:
         with lib.virtualfile_in(
@@ -240,6 +229,4 @@ def plot3d(  # noqa: PLR0912
             extra_arrays=extra_arrays,
             required_z=True,
         ) as vintbl:
-            lib.call_module(
-                module="plot3d", args=build_arg_string(kwargs, infile=vintbl)
-            )
+            lib.call_module(module="plot3d", args=build_arg_list(kwargs, infile=vintbl))

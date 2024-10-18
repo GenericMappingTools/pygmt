@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -162,7 +162,7 @@ def select(
         given range or is NaN (use ``skiprows`` to skip NaN records). If *max*
         is omitted then we test if *z* equals *min* instead. This means
         equality within 5 ULPs (unit of least precision;
-        http://en.wikipedia.org/wiki/Unit_in_the_last_place). Input file must
+        https://en.wikipedia.org/wiki/Unit_in_the_last_place). Input file must
         have at least three columns. To indicate no limit on *min* or *max*,
         specify a hyphen (-). If your 3rd column is absolute time then remember
         to supply ``coltypes="2T"``. To specify another column, append
@@ -218,7 +218,7 @@ def select(
         ):
             lib.call_module(
                 module="select",
-                args=build_arg_string(kwargs, infile=vintbl, outfile=vouttbl),
+                args=build_arg_list(kwargs, infile=vintbl, outfile=vouttbl),
             )
         return lib.virtualfile_to_dataset(
             vfname=vouttbl,

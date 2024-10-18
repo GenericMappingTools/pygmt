@@ -5,20 +5,33 @@ Function to download the Pluto relief dataset from the GMT data server, and load
 The grids are available in various resolutions.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
+import xarray as xr
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
-from pygmt.helpers import kwargs_to_strings
 
 __doctest_skip__ = ["load_pluto_relief"]
 
 
-@kwargs_to_strings(region="sequence")
 def load_pluto_relief(
-    resolution="01d",
-    region=None,
+    resolution: Literal[
+        "01d",
+        "30m",
+        "20m",
+        "15m",
+        "10m",
+        "06m",
+        "05m",
+        "04m",
+        "03m",
+        "02m",
+        "01m",
+        "52s",
+    ] = "01d",
+    region: Sequence[float] | str | None = None,
     registration: Literal["gridline", "pixel", None] = None,
-):
+) -> xr.DataArray:
     r"""
     Load the Pluto relief dataset in various resolutions.
 
@@ -50,15 +63,13 @@ def load_pluto_relief(
 
     Parameters
     ----------
-    resolution : str
+    resolution
         The grid resolution. The suffix ``d``, ``m`` and ``s`` stand for arc-degrees,
-        arc-minutes and arc-seconds. It can be ``"01d"``, ``"30m"``, ``"20m"``,
-        ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``, ``"04m"``, ``"03m"``, ``"02m"``,
-        ``"01m"``, and ``"52s"``.
-    region : str or list
-        The subregion of the grid to load, in the form of a list
-        [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*. Required for
-        grids with resolutions higher than 5 arc-minutes (i.e., ``"05m"``).
+        arc-minutes and arc-seconds.
+    region
+        The subregion of the grid to load, in the form of a sequence [*xmin*, *xmax*,
+        *ymin*, *ymax*] or an ISO country code. Required for grids with resolutions
+        higher than 5 arc-minutes (i.e., ``"05m"``).
     registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``None``, means
@@ -67,7 +78,7 @@ def load_pluto_relief(
 
     Returns
     -------
-    grid : :class:`xarray.DataArray`
+    grid
         The Pluto relief grid. Coordinates are latitude and longitude in degrees. Relief
         is in meters.
 
@@ -96,8 +107,8 @@ def load_pluto_relief(
     ... )
     """
     grid = _load_remote_dataset(
-        dataset_name="pluto_relief",
-        dataset_prefix="pluto_relief_",
+        name="pluto_relief",
+        prefix="pluto_relief",
         resolution=resolution,
         region=region,
         registration=registration,

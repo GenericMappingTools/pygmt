@@ -36,14 +36,14 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4.2.0
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.8.1
+        uses: mamba-org/setup-micromamba@v2.0.0
         with:
           environment-name: pygmt
           condarc: |
@@ -58,7 +58,7 @@ jobs:
             xarray
             netCDF4
             packaging
-            build
+            python-build
 
       # Install the package that we want to test
       - name: Install the package
@@ -76,11 +76,12 @@ jobs:
 
       # Upload the downloaded files as artifacts to GitHub
       - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.4.0
         with:
           name: gmt-cache
+          include-hidden-files: true
           path: |
-              ~/.gmt/cache
-              ~/.gmt/server
-              ~/.gmt/gmt_data_server.txt
-              ~/.gmt/gmt_hash_server.txt
+            ~/.gmt/cache
+            ~/.gmt/server
+            ~/.gmt/gmt_data_server.txt
+            ~/.gmt/gmt_hash_server.txt

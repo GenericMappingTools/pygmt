@@ -6,7 +6,7 @@ dependencies:
     # Required dependencies
     - python=3.12
     - gmt=6.5.0
-    - ghostscript=10.03.0
+    - ghostscript=10.04.0
     - numpy
     - pandas
     - xarray
@@ -14,15 +14,15 @@ dependencies:
     - packaging
     # Optional dependencies
     - contextily
-    - geopandas
+    - geopandas<1.0
     - ipython
     - rioxarray
     # Development dependencies (general)
-    - build
     - make
     - pip
+    - python-build
     # Dev dependencies (building documentation)
-    - myst-parser
+    - myst-nb
     - panel
     - sphinx
     - sphinx-autodoc-typehints

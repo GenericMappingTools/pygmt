@@ -6,17 +6,16 @@ from typing import Literal
 
 import numpy as np
 import pandas as pd
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
     validate_output_table_type,
 )
-from pygmt.io import load_dataarray
 
 __doctest_skip__ = ["grdhisteq.*"]
 
@@ -56,7 +55,6 @@ class grdhisteq:  # noqa: N801
     @fmt_docstring
     @use_alias(
         C="divisions",
-        G="outgrid",
         R="region",
         N="gaussian",
         Q="quadratic",
@@ -64,7 +62,9 @@ class grdhisteq:  # noqa: N801
         h="header",
     )
     @kwargs_to_strings(R="sequence")
-    def equalize_grid(grid, **kwargs):
+    def equalize_grid(
+        grid, outgrid: str | None = None, **kwargs
+    ) -> xr.DataArray | None:
         r"""
         Perform histogram equalization for a grid.
 
@@ -96,7 +96,7 @@ class grdhisteq:  # noqa: N801
 
         Returns
         -------
-        ret: xarray.DataArray or None
+        ret
             Return type depends on the ``outgrid`` parameter:
 
             - xarray.DataArray if ``outgrid`` is None
@@ -123,15 +123,16 @@ class grdhisteq:  # noqa: N801
         This method does a weighted histogram equalization for geographic
         grids to account for node area varying with latitude.
         """
-        with GMTTempFile(suffix=".nc") as tmpfile:
-            with Session() as lib:
-                with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
-                    if (outgrid := kwargs.get("G")) is None:
-                        kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                    lib.call_module(
-                        module="grdhisteq", args=build_arg_string(kwargs, infile=vingrd)
-                    )
-            return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+        with Session() as lib:
+            with (
+                lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+                lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+            ):
+                kwargs["G"] = voutgrd
+                lib.call_module(
+                    module="grdhisteq", args=build_arg_list(kwargs, infile=vingrd)
+                )
+                return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
 
     @staticmethod
     @fmt_docstring
@@ -235,7 +236,7 @@ class grdhisteq:  # noqa: N801
             ):
                 kwargs["D"] = vouttbl  # -D for output file name
                 lib.call_module(
-                    module="grdhisteq", args=build_arg_string(kwargs, infile=vingrd)
+                    module="grdhisteq", args=build_arg_list(kwargs, infile=vingrd)
                 )
 
             return lib.virtualfile_to_dataset(

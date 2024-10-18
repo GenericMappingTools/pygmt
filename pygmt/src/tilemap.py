@@ -6,7 +6,7 @@ from typing import Literal
 
 from pygmt.clib import Session
 from pygmt.datasets.tile_map import load_tile_map
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 try:
     import rioxarray  # noqa: F401
@@ -146,11 +146,11 @@ def tilemap(
 
     # Only set region if no_clip is None or False, so that plot is clipped to exact
     # bounding box region
-    if kwargs.get("N") in [None, False]:
+    if kwargs.get("N") in {None, False}:
         kwargs["R"] = "/".join(str(coordinate) for coordinate in region)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=raster) as vingrd:
             lib.call_module(
-                module="grdimage", args=build_arg_string(kwargs, infile=vingrd)
+                module="grdimage", args=build_arg_list(kwargs, infile=vingrd)
             )
