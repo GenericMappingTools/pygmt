@@ -1592,7 +1592,9 @@ class Session:
             yield vfile
 
     @contextlib.contextmanager
-    def virtualfile_from_stringio(self, stringio: io.StringIO):
+    def virtualfile_from_stringio(
+        self, stringio: io.StringIO
+    ) -> Generator[str, None, None]:
         r"""
         Store a :class:`io.StringIO` object in a virtual file.
 
