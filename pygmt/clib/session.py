@@ -77,7 +77,8 @@ MODE_MODIFIERS = [
 
 REGISTRATIONS = ["GMT_GRID_PIXEL_REG", "GMT_GRID_NODE_REG"]
 
-DTYPES = {
+# Dictionary for mapping numpy dtype to GMT data type
+DTYPES_NUMERIC = {
     np.int8: "GMT_CHAR",
     np.int16: "GMT_SHORT",
     np.int32: "GMT_INT",
@@ -88,10 +89,14 @@ DTYPES = {
     np.uint64: "GMT_ULONG",
     np.float32: "GMT_FLOAT",
     np.float64: "GMT_DOUBLE",
+}
+DTYPES_SPECIAL = {
     np.str_: "GMT_TEXT",
     np.datetime64: "GMT_DATETIME",
     np.timedelta64: "GMT_LONG",
 }
+DTYPES = DTYPES_NUMERIC | DTYPES_SPECIAL
+
 # Dictionary for storing the values of GMT constants.
 GMT_CONSTANTS = {}
 
@@ -848,12 +853,14 @@ class Session:
         """
         # Check that the array has the given number of dimensions
         if array.ndim != ndim:
-            raise GMTInvalidInput(
-                f"Expected a numpy {ndim}-D array, got {array.ndim}-D."
-            )
+            msg = f"Expected a numpy {ndim}-D array, got {array.ndim}-D."
+            raise GMTInvalidInput(msg)
+
+        # 2-D matrix must be in numeric types and 1-D array can be in special types.
+        _valid_dtypes = DTYPES if ndim == 1 else DTYPES_NUMERIC
 
         # Check that the array has a valid/known data type
-        if array.dtype.type not in DTYPES:
+        if array.dtype.type not in _valid_dtypes:
             try:
                 if array.dtype.type is np.object_:
                     # Try to convert unknown object type to np.datetime64
