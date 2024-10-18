@@ -24,8 +24,8 @@ fig = pygmt.Figure()
 fig.coast(
     region="d",
     projection="Q12c",
-    land="tan4",
-    water="lightcyan",
     frame="afg",
+    land="gray80",
+    water="steelblue",
 )
 fig.show()

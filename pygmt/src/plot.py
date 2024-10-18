@@ -2,8 +2,6 @@
 plot - Plot in two dimensions.
 """
 
-from pathlib import Path
-
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -14,7 +12,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.src.which import which
+from pygmt.src._common import _data_geometry_is_point
 
 
 @fmt_docstring
@@ -50,9 +48,7 @@ from pygmt.src.which import which
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot(  # noqa: PLR0912
-    self, data=None, x=None, y=None, size=None, direction=None, **kwargs
-):
+def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     r"""
     Plot lines, polygons, and symbols in 2-D.
 
@@ -210,7 +206,7 @@ def plot(  # noqa: PLR0912
 
     kind = data_kind(data)
     extra_arrays = []
-    if kind == "vectors":  # Add more columns for vectors input
+    if kind == "empty":  # Add more columns for vectors input
         # Parameters for vector styles
         if (
             kwargs.get("S") is not None
@@ -242,17 +238,8 @@ def plot(  # noqa: PLR0912
                 raise GMTInvalidInput(f"'{name}' can't be 1-D array if 'data' is used.")
 
     # Set the default style if data has a geometry of Point or MultiPoint
-    if kwargs.get("S") is None:
-        if kind == "geojson" and data.geom_type.isin(["Point", "MultiPoint"]).all():
-            kwargs["S"] = "s0.2c"
-        elif kind == "file" and str(data).endswith(".gmt"):  # OGR_GMT file
-            try:
-                with Path(which(data)).open(encoding="utf-8") as file:
-                    line = file.readline()
-                if "@GMULTIPOINT" in line or "@GPOINT" in line:
-                    kwargs["S"] = "s0.2c"
-            except FileNotFoundError:
-                pass
+    if kwargs.get("S") is None and _data_geometry_is_point(data, kind):
+        kwargs["S"] = "s0.2c"
 
     with Session() as lib:
         with lib.virtualfile_in(

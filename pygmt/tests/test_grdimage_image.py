@@ -3,7 +3,8 @@ Test Figure.grdimage on 3-band RGB images.
 """
 
 import pytest
-from pygmt import Figure, which
+from pygmt import Figure
+from pygmt.datasets import load_blue_marble
 
 rioxarray = pytest.importorskip("rioxarray")
 
@@ -14,12 +15,9 @@ def fixture_xr_image():
     Load the image data from Blue Marble as an xarray.DataArray with shape {"band": 3,
     "y": 180, "x": 360}.
     """
-    geotiff = which(fname="@earth_day_01d_p", download="c")
-    with rioxarray.open_rasterio(filename=geotiff) as rda:
-        if len(rda.band) == 3:
-            xr_image = rda.load()
-        assert xr_image.sizes == {"band": 3, "y": 180, "x": 360}
-        return xr_image
+    xr_image = load_blue_marble(resolution="01d")
+    assert xr_image.sizes == {"band": 3, "y": 180, "x": 360}
+    return xr_image
 
 
 @pytest.mark.mpl_image_compare

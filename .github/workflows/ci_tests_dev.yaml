@@ -1,7 +1,7 @@
 # Test PyGMT with GMT dev version on Linux/macOS/Windows
 #
 # This workflow runs regular PyGMT tests with the GMT dev version, and also pre-release
-# versions of several dependencies like NumPy, Pandas, Xarray, etc. If any tests fail,
+# versions of several dependencies like NumPy, pandas, Xarray, etc. If any tests fail,
 # it also uploads the diff images as workflow artifacts. The GMT dev version is
 # installed by fetching the latest source codes from the GMT master branch and
 # compiling.
@@ -36,7 +36,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-24.04, macos-14, windows-2022]
+        os: [ubuntu-24.04, macos-15, windows-2022]
         gmt_git_ref: [master]
     timeout-minutes: 30
     defaults:
@@ -46,7 +46,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4.2.0
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -57,7 +57,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.9.0
+        uses: mamba-org/setup-micromamba@v2.0.0
         with:
           environment-name: pygmt
           condarc: |
@@ -88,7 +88,7 @@ jobs:
 
       # Checkout current GMT repository
       - name: Checkout the GMT source from ${{ matrix.gmt_git_ref }} branch
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4.2.0
         with:
           repository: 'GenericMappingTools/gmt'
           ref: ${{ matrix.gmt_git_ref }}

@@ -18,8 +18,8 @@ and JPG for use on the web and elsewhere. In fact, PyGMT users will usually not 
 contact with the original PostScript files and get only the more convenient formats like
 PDF and PNG.
 
-The project was started in 2017 by [Leonardo Uieda](http://www.leouieda.com) and
-[Paul Wessel](http://www.soest.hawaii.edu/wessel) (the co-creator and main developer of
+The project was started in 2017 by [Leonardo Uieda](https://www.leouieda.com) and
+[Paul Wessel](https://www.soest.hawaii.edu/wessel) (the co-creator and main developer of
 GMT) at the University of Hawaiʻi at Mānoa. The development of PyGMT has been supported
 by NSF grants [OCE-1558403](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403)
 and [EAR-1948602](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1948602).

@@ -23,20 +23,21 @@ jobs:
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v4.1.7
+      uses: actions/checkout@v4.2.0
       with:
         path: repository
 
     - name: Checkout the documentation
-      uses: actions/checkout@v4.1.7
+      uses: actions/checkout@v4.2.0
       with:
         ref: gh-pages
         path: documentation
 
     - name: Link Checker
       id: lychee
-      uses: lycheeverse/lychee-action@v1.10.0
+      uses: lycheeverse/lychee-action@v2.0.2
       with:
+        fail: false  # Don't fail action on broken links
         output: /tmp/lychee-out.md
         # 429: Too many requests
         args: >
