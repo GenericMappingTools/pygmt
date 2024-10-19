@@ -251,16 +251,14 @@ class Figure:
 
         prefix = kwargs.get("F")
         if prefix in {"", None, False, True}:
-            raise GMTInvalidInput(
-                "The 'prefix' parameter must be specified with a valid value."
-            )
+            msg = "The 'prefix' parameter must be specified with a valid value."
+            raise GMTInvalidInput(msg)
 
         # check if the parent directory exists
         prefix_path = Path(prefix).parent
         if not prefix_path.exists():
-            raise FileNotFoundError(
-                f"No such directory: '{prefix_path}', please create it first."
-            )
+            msg = f"No such directory: '{prefix_path}', please create it first."
+            raise FileNotFoundError(msg)
 
         with Session() as lib:
             lib.call_module(module="psconvert", args=build_arg_list(kwargs))
@@ -356,7 +354,8 @@ class Figure:
                 msg = "Extension '.ps' is not supported. Use '.eps' or '.pdf' instead."
                 raise GMTInvalidInput(msg)
             case ext if ext not in fmts:
-                raise GMTInvalidInput(f"Unknown extension '.{ext}'.")
+                msg = f"Unknown extension '.{ext}'."
+                raise GMTInvalidInput(msg)
 
         fmt = fmts[ext]
         if transparent:
@@ -458,11 +457,12 @@ class Figure:
         match method:
             case "notebook":
                 if not _HAS_IPYTHON:
-                    raise GMTError(
+                    msg = (
                         "Notebook display is selected, but IPython is not available. "
                         "Make sure you have IPython installed, "
                         "or run the script in a Jupyter notebook."
                     )
+                    raise GMTError(msg)
                 png = self._preview(
                     fmt="png", dpi=dpi, anti_alias=True, as_bytes=True, **kwargs
                 )
@@ -471,14 +471,15 @@ class Figure:
                 pdf = self._preview(
                     fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False, **kwargs
                 )
-                launch_external_viewer(pdf, waiting=waiting)  # type: ignore[arg-type]
+                launch_external_viewer(pdf, waiting=waiting)
             case "none":
                 pass  # Do nothing
             case _:
-                raise GMTInvalidInput(
-                    f"Invalid display method '{method}'. Valid values are 'external', "
-                    "'notebook', 'none' or None."
+                msg = (
+                    f"Invalid display method '{method}'. "
+                    "Valid values are 'external', 'notebook', 'none' or None."
                 )
+                raise GMTInvalidInput(msg)
 
     def _preview(self, fmt: str, dpi: int, as_bytes: bool = False, **kwargs):
         """
@@ -527,7 +528,7 @@ class Figure:
         html = '<img src="data:image/png;base64,{image}" width="{width}px">'
         return html.format(image=base64_png.decode("utf-8"), width=500)
 
-    from pygmt.src import (  # type: ignore [misc]
+    from pygmt.src import (  # type: ignore[misc]
         basemap,
         coast,
         colorbar,
@@ -595,11 +596,12 @@ def set_display(method: Literal["external", "notebook", "none", None] = None):
     """
     match method:
         case "external" | "notebook" | "none":
-            SHOW_CONFIG["method"] = method  # type: ignore[assignment]
+            SHOW_CONFIG["method"] = method
         case None:
-            SHOW_CONFIG["method"] = _get_default_display_method()  # type: ignore[assignment]
+            SHOW_CONFIG["method"] = _get_default_display_method()
         case _:
-            raise GMTInvalidInput(
-                f"Invalid display method '{method}'. Valid values are 'external',"
-                "'notebook', 'none' or None."
+            msg = (
+                f"Invalid display method '{method}'. "
+                "Valid values are 'external', 'notebook', 'none' or None."
             )
+            raise GMTInvalidInput(msg)
