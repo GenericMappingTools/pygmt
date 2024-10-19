@@ -160,7 +160,7 @@ class Session:
             If trying to access without a currently open GMT session (i.e., outside of
             the context manager).
         """
-        if not hasattr(self, "_session_pointer") or self._session_pointer is None:
+        if getattr(self, "_session_pointer", None) is None:
             raise GMTCLibNoSessionError("No currently open GMT API session.")
         return self._session_pointer
 
@@ -338,17 +338,16 @@ class Session:
         name
             A name for this session. Doesn't really affect the outcome.
         """
+        # Check if there is a currently open session by accessing the "session_pointer"
+        # attribute. If not, it will raise the GMTCLibNoSessionError exception and we're
+        # free to create a new one. Otherwise, we will raise a GMTCLibError exception.
         try:
-            # Won't raise an exception if there is a currently open session.
             _ = self.session_pointer
-            # In this case, fail to create a new session until the old one is destroyed.
             msg = (
-                "Failed to create a GMT API session: There is a currently open session."
-                " Must destroy it first."
+                "Failed to create a GMT API session: "
+                "There is currently an open session. Must destroy it first."
             )
             raise GMTCLibError(msg)
-        # If the exception is raised, this means that there is no open session and we're
-        # free to create a new one.
         except GMTCLibNoSessionError:
             pass
 
@@ -867,41 +866,39 @@ class Session:
                 ) from e
         return self[DTYPES[array.dtype.type]]
 
-    def put_vector(self, dataset, column, vector):
+    def put_vector(self, dataset: ctp.c_void_p, column: int, vector: np.ndarray):
         r"""
-        Attach a numpy 1-D array as a column on a GMT dataset.
+        Attach a 1-D numpy array as a column on a GMT dataset.
 
-        Use this function to attach numpy array data to a GMT dataset and pass
-        it to GMT modules. Wraps ``GMT_Put_Vector``.
+        Use this function to attach numpy array data to a GMT dataset and pass it to GMT
+        modules. Wraps ``GMT_Put_Vector``.
 
-        The dataset must be created by :meth:`pygmt.clib.Session.create_data`
-        first. Use ``family='GMT_IS_DATASET|GMT_VIA_VECTOR'``.
+        The dataset must be created by :meth:`pygmt.clib.Session.create_data` first with
+        ``family="GMT_IS_DATASET|GMT_VIA_VECTOR"``.
 
-        Not all numpy dtypes are supported, only: int8, int16, int32, int64,
-        uint8, uint16, uint32, uint64, float32, float64, str\_, and datetime64.
+        Not all numpy dtypes are supported, only: int8, int16, int32, int64, uint8,
+        uint16, uint32, uint64, float32, float64, str\_, and datetime64.
 
         .. warning::
-            The numpy array must be C contiguous in memory. If it comes from a
-            column slice of a 2-D array, for example, you will have to make a
-            copy. Use :func:`numpy.ascontiguousarray` to make sure your vector
-            is contiguous (it won't copy if it already is).
+            The numpy array must be C contiguous in memory. Use
+            :func:`numpy.ascontiguousarray` to make sure your vector is contiguous (it
+            won't copy if it already is).
 
         Parameters
         ----------
-        dataset : :class:`ctypes.c_void_p`
-            The ctypes void pointer to a ``GMT_Dataset``. Create it with
+        dataset
+            The ctypes void pointer to a ``GMT_VECTOR`` data container. Create it with
             :meth:`pygmt.clib.Session.create_data`.
-        column : int
+        column
             The column number of this vector in the dataset (starting from 0).
-        vector : numpy 1-D array
-            The array that will be attached to the dataset. Must be a 1-D C
-            contiguous array.
+        vector
+            The array that will be attached to the dataset. Must be a 1-D C contiguous
+            array.
 
         Raises
         ------
         GMTCLibError
-            If given invalid input or ``GMT_Put_Vector`` exits with
-            status != 0.
+            If given invalid input or ``GMT_Put_Vector`` exits with a non-zero status.
         """
         c_put_vector = self.get_libgmt_func(
             "GMT_Put_Vector",
@@ -909,6 +906,7 @@ class Session:
             restype=ctp.c_int,
         )
 
+        vector_pointer: ctp.Array | ctp.c_void_p
         gmt_type = self._check_dtype_and_dim(vector, ndim=1)
         if gmt_type in {self["GMT_TEXT"], self["GMT_DATETIME"]}:
             if gmt_type == self["GMT_DATETIME"]:
@@ -920,52 +918,51 @@ class Session:
             self.session_pointer, dataset, column, gmt_type, vector_pointer
         )
         if status != 0:
-            raise GMTCLibError(
-                f"Failed to put vector of type {vector.dtype} "
-                f"in column {column} of dataset."
+            msg = (
+                f"Failed to put vector of type {vector.dtype} in column {column} of "
+                "dataset."
             )
+            raise GMTCLibError(msg)
 
-    def put_strings(self, dataset, family, strings):
+    def put_strings(self, dataset: ctp.c_void_p, family: str, strings: np.ndarray):
         """
-        Attach a numpy 1-D array of dtype str as a column on a GMT dataset.
+        Attach a 1-D numpy array of dtype str as a column on a GMT dataset.
 
-        Use this function to attach string type numpy array data to a GMT
-        dataset and pass it to GMT modules. Wraps ``GMT_Put_Strings``.
+        Use this function to attach string type numpy array data to a GMT dataset and
+        pass it to GMT modules. Wraps ``GMT_Put_Strings``.
 
-        The dataset must be created by :meth:`pygmt.clib.Session.create_data`
-        first.
+        The dataset must be created by :meth:`pygmt.clib.Session.create_data` first.
 
         .. warning::
-            The numpy array must be C contiguous in memory. If it comes from a
-            column slice of a 2-D array, for example, you will have to make a
-            copy. Use :func:`numpy.ascontiguousarray` to make sure your vector
-            is contiguous (it won't copy if it already is).
+            The numpy array must be C contiguous in memory. If it comes from a column
+            slice of a 2-D array, for example, you will have to make a copy. Use
+            :func:`numpy.ascontiguousarray` to make sure your vector is contiguous (it
+            won't copy if it already is).
 
         Parameters
         ----------
-        dataset : :class:`ctypes.c_void_p`
-            The ctypes void pointer to a ``GMT_Dataset``. Create it with
-            :meth:`pygmt.clib.Session.create_data`.
-        family : str
+        dataset
+            The ctypes void pointer to a ``GMT_VECTOR``/``GMT_MATRIX`` data container.
+            Create it with :meth:`pygmt.clib.Session.create_data`.
+        family
             The family type of the dataset. Can be either ``GMT_IS_VECTOR`` or
             ``GMT_IS_MATRIX``.
-        strings : numpy 1-D array
-            The array that will be attached to the dataset. Must be a 1-D C
-            contiguous array.
+        strings
+            The array that will be attached to the dataset. Must be a 1-D C contiguous
+            array.
 
         Raises
         ------
         GMTCLibError
-            If given invalid input or ``GMT_Put_Strings`` exits with
-            status != 0.
+            If given invalid input or ``GMT_Put_Strings`` exits with a non-zero status.
         """
         c_put_strings = self.get_libgmt_func(
             "GMT_Put_Strings",
             argtypes=[
-                ctp.c_void_p,
-                ctp.c_uint,
-                ctp.c_void_p,
-                ctp.POINTER(ctp.c_char_p),
+                ctp.c_void_p,  # V_API
+                ctp.c_uint,  # family
+                ctp.c_void_p,  # object
+                ctp.POINTER(ctp.c_char_p),  # array
             ],
             restype=ctp.c_int,
         )
@@ -973,52 +970,48 @@ class Session:
         family_int = self._parse_constant(
             family, valid=FAMILIES, valid_modifiers=METHODS
         )
-
         strings_pointer = strings_to_ctypes_array(strings)
-
         status = c_put_strings(
             self.session_pointer, family_int, dataset, strings_pointer
         )
         if status != 0:
-            raise GMTCLibError(
-                f"Failed to put strings of type {strings.dtype} into dataset"
-            )
+            msg = f"Failed to put strings of type {strings.dtype} into dataset."
+            raise GMTCLibError(msg)
 
-    def put_matrix(self, dataset, matrix, pad=0):
+    def put_matrix(self, dataset: ctp.c_void_p, matrix: np.ndarray, pad: int = 0):
         """
-        Attach a numpy 2-D array to a GMT dataset.
+        Attach a 2-D numpy array to a GMT dataset.
 
-        Use this function to attach numpy array data to a GMT dataset and pass
-        it to GMT modules. Wraps ``GMT_Put_Matrix``.
+        Use this function to attach numpy array data to a GMT dataset and pass it to GMT
+        modules. Wraps ``GMT_Put_Matrix``.
 
-        The dataset must be created by :meth:`pygmt.clib.Session.create_data`
-        first. Use ``|GMT_VIA_MATRIX'`` in the family.
+        The dataset must be created by :meth:`pygmt.clib.Session.create_data` first with
+        ``family="GMT_IS_DATASET|GMT_VIA_MATRIX"``.
 
-        Not all numpy dtypes are supported, only: int8, int16, int32, int64,
-        uint8, uint16, uint32, uint64, float32, and float64.
+        Not all numpy dtypes are supported, only: int8, int16, int32, int64, uint8,
+        uint16, uint32, uint64, float32, and float64.
 
         .. warning::
             The numpy array must be C contiguous in memory. Use
-            :func:`numpy.ascontiguousarray` to make sure your vector is
-            contiguous (it won't copy if it already is).
+            :func:`numpy.ascontiguousarray` to make sure your matrix is contiguous (it
+            won't copy if it already is).
 
         Parameters
         ----------
-        dataset : :class:`ctypes.c_void_p`
-            The ctypes void pointer to a ``GMT_Dataset``. Create it with
+        dataset
+            The ctypes void pointer to a ``GMT_MATRIX`` data container. Create it with
             :meth:`pygmt.clib.Session.create_data`.
-        matrix : numpy 2-D array
-            The array that will be attached to the dataset. Must be a 2-D C
-            contiguous array.
-        pad : int
-            The amount of padding that should be added to the matrix. Use when
-            creating grids for modules that require padding.
+        matrix
+            The array that will be attached to the dataset. Must be a 2-D C contiguous
+            array.
+        pad
+            The amount of padding that should be added to the matrix. Use when creating
+            grids for modules that require padding.
 
         Raises
         ------
         GMTCLibError
-            If given invalid input or ``GMT_Put_Matrix`` exits with
-            status != 0.
+            If given invalid input or ``GMT_Put_Matrix`` exits with a non-zero status.
         """
         c_put_matrix = self.get_libgmt_func(
             "GMT_Put_Matrix",
@@ -1032,7 +1025,8 @@ class Session:
             self.session_pointer, dataset, gmt_type, pad, matrix_pointer
         )
         if status != 0:
-            raise GMTCLibError(f"Failed to put matrix of type {matrix.dtype}.")
+            msg = f"Failed to put matrix of type {matrix.dtype}."
+            raise GMTCLibError(msg)
 
     def read_data(
         self,
@@ -1433,42 +1427,39 @@ class Session:
             yield vfile
 
     @contextlib.contextmanager
-    def virtualfile_from_matrix(self, matrix):
+    def virtualfile_from_matrix(self, matrix: np.ndarray) -> Generator[str, None, None]:
         """
-        Store a 2-D array as a table inside a virtual file.
+        Store a 2-D numpy array as a matrix inside a virtual file.
 
-        Use the virtual file name to pass in the data in your matrix to a GMT
-        module.
+        Use the virtual file name to pass in the data in your matrix to a GMT module.
 
-        Context manager (use in a ``with`` block). Yields the virtual file name
-        that you can pass as an argument to a GMT module call. Closes the
-        virtual file upon exit of the ``with`` block.
+        Context manager (use in a ``with`` block). Yields the virtual file name that you
+        can pass as an argument to a GMT module call. Closes the virtual file upon exit
+        of the ``with`` block.
 
-        The virtual file will contain the array as a ``GMT_MATRIX`` pretending
-        to be a ``GMT_DATASET``.
+        The virtual file will contain the array as a ``GMT_MATRIX`` data container
+        pretending to be a ``GMT_DATASET`` data container.
 
-        **Not meant for creating ``GMT_GRID``**. The grid requires more
-        metadata than just the data matrix. Use
-        :meth:`pygmt.clib.Session.virtualfile_from_grid` instead.
+        **Not meant for creating ``GMT_GRID``**. The grid requires more metadata than
+        just the data matrix. Use :meth:`pygmt.clib.Session.virtualfile_from_grid`
+        instead.
 
-        Use this instead of creating the data container and virtual file by
-        hand with :meth:`pygmt.clib.Session.create_data`,
-        :meth:`pygmt.clib.Session.put_matrix`, and
-        :meth:`pygmt.clib.Session.open_virtualfile`
+        Use this instead of creating the data container and virtual file by hand with
+        :meth:`pygmt.clib.Session.create_data`, :meth:`pygmt.clib.Session.put_matrix`,
+        and :meth:`pygmt.clib.Session.open_virtualfile`.
 
-        The matrix must be C contiguous in memory. If it is not (e.g., it is a
-        slice of a larger array), the array will be copied to make sure it is.
+        The matrix must be C contiguous in memory. If it is not (e.g., it is a slice of
+        a larger array), the array will be copied to make sure it is.
 
         Parameters
         ----------
-        matrix : 2-D array
+        matrix
             The matrix that will be included in the GMT data container.
 
         Yields
         ------
-        fname : str
-            The name of virtual file. Pass this as a file name argument to a
-            GMT module.
+        fname
+            The name of virtual file. Pass this as a file name argument to a GMT module.
 
         Examples
         --------
@@ -1489,12 +1480,11 @@ class Session:
         ...             print(fout.read().strip())
         <matrix memory>: N = 4 <0/9> <1/10> <2/11>
         """
-        # Conversion to a C-contiguous array needs to be done here and not in
-        # put_matrix because we need to maintain a reference to the copy while
-        # it is being used by the C API. Otherwise, the array would be garbage
-        # collected and the memory freed. Creating it in this context manager
-        # guarantees that the copy will be around until the virtual file is
-        # closed.
+        # Conversion to a C-contiguous array needs to be done here and not in put_matrix
+        # because we need to maintain a reference to the copy while it is being used by
+        # the C API. Otherwise, the array would be garbage collected and the memory
+        # freed. Creating it in this context manager guarantees that the copy will be
+        # around until the virtual file is closed.
         matrix = np.ascontiguousarray(matrix)
         rows, columns = matrix.shape
 
@@ -1513,39 +1503,36 @@ class Session:
             yield vfile
 
     @contextlib.contextmanager
-    def virtualfile_from_grid(self, grid):
+    def virtualfile_from_grid(self, grid: xr.DataArray) -> Generator[str, None, None]:
         """
         Store a grid in a virtual file.
 
-        Use the virtual file name to pass in the data in your grid to a GMT
-        module. Grids must be :class:`xarray.DataArray` instances.
+        Use the virtual file name to pass in the data in your grid to a GMT module.
+        Grids must be :class:`xarray.DataArray` instances.
 
-        Context manager (use in a ``with`` block). Yields the virtual file name
-        that you can pass as an argument to a GMT module call. Closes the
-        virtual file upon exit of the ``with`` block.
+        Context manager (use in a ``with`` block). Yields the virtual file name that you
+        can pass as an argument to a GMT module call. Closes the virtual file upon exit
+        of the ``with`` block.
 
-        The virtual file will contain the grid as a ``GMT_MATRIX`` with extra
-        metadata.
+        The virtual file will contain the grid as a ``GMT_MATRIX`` data container with
+        extra metadata.
 
-        Use this instead of creating a data container and virtual file by hand
-        with :meth:`pygmt.clib.Session.create_data`,
-        :meth:`pygmt.clib.Session.put_matrix`, and
-        :meth:`pygmt.clib.Session.open_virtualfile`.
+        Use this instead of creating a data container and virtual file by hand with
+        :meth:`pygmt.clib.Session.create_data`, :meth:`pygmt.clib.Session.put_matrix`,
+        and :meth:`pygmt.clib.Session.open_virtualfile`.
 
-        The grid data matrix must be C contiguous in memory. If it is not
-        (e.g., it is a slice of a larger array), the array will be copied to
-        make sure it is.
+        The grid data matrix must be C contiguous in memory. If it is not (e.g., it is a
+        slice of a larger array), the array will be copied to make sure it is.
 
         Parameters
         ----------
-        grid : :class:`xarray.DataArray`
+        grid
             The grid that will be included in the virtual file.
 
         Yields
         ------
-        fname : str
-            The name of virtual file. Pass this as a file name argument to a
-            GMT module.
+        fname
+            The name of virtual file. Pass this as a file name argument to a GMT module.
 
         Examples
         --------
@@ -1575,12 +1562,12 @@ class Session:
         _gtype = {0: "GMT_GRID_IS_CARTESIAN", 1: "GMT_GRID_IS_GEO"}[grid.gmt.gtype]
         _reg = {0: "GMT_GRID_NODE_REG", 1: "GMT_GRID_PIXEL_REG"}[grid.gmt.registration]
 
-        # Conversion to a C-contiguous array needs to be done here and not in
-        # put_matrix because we need to maintain a reference to the copy while
-        # it is being used by the C API. Otherwise, the array would be garbage
-        # collected and the memory freed. Creating it in this context manager
-        # guarantees that the copy will be around until the virtual file is
-        # closed. The conversion is implicit in dataarray_to_matrix.
+        # Conversion to a C-contiguous array needs to be done here and not in put_matrix
+        # because we need to maintain a reference to the copy while it is being used by
+        # the C API. Otherwise, the array would be garbage collected and the memory
+        # freed. Creating it in this context manager guarantees that the copy will be
+        # around until the virtual file is closed. The conversion is implicit in
+        # dataarray_to_matrix.
         matrix, region, inc = dataarray_to_matrix(grid)
 
         family = "GMT_IS_GRID|GMT_VIA_MATRIX"
@@ -1594,12 +1581,15 @@ class Session:
             registration=_reg,
         )
         self.put_matrix(gmt_grid, matrix)
-        args = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", gmt_grid)
-        with self.open_virtualfile(*args) as vfile:
+        with self.open_virtualfile(
+            family, geometry, "GMT_IN|GMT_IS_REFERENCE", gmt_grid
+        ) as vfile:
             yield vfile
 
     @contextlib.contextmanager
-    def virtualfile_from_stringio(self, stringio: io.StringIO):
+    def virtualfile_from_stringio(
+        self, stringio: io.StringIO
+    ) -> Generator[str, None, None]:
         r"""
         Store a :class:`io.StringIO` object in a virtual file.
 
@@ -1853,7 +1843,7 @@ class Session:
            instead.
         """
         msg = (
-            "API function 'Session.virtualfile_from_datae()' has been deprecated since "
+            "API function 'Session.virtualfile_from_data()' has been deprecated since "
             "v0.13.0 and will be removed in v0.15.0. Use 'Session.virtualfile_in()' "
             "instead."
         )
