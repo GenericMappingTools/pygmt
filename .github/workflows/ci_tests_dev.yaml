@@ -175,7 +175,9 @@ jobs:
         run: |
           micromamba install dcw-gmt gshhg-gmt
           if [[ "${{ runner.os }}" == "Windows" ]]; then
-            cd $(cygpath ${{ env.MAMBA_ROOT_PREFIX }})/envs/pygmt/share/
+            unix_path = $(cygpath ${{ env.MAMBA_ROOT_PREFIX }})
+            cd ${unix_path}/envs/pygmt/share/
+            echo ${unix_path}
           else
             cd ${{ env.MAMBA_ROOT_PREFIX }}/envs/pygmt/share/
           fi
