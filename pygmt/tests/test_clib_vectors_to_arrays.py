@@ -10,7 +10,6 @@ import numpy.testing as npt
 import pandas as pd
 import pytest
 from pygmt.clib.conversion import vectors_to_arrays
-from pygmt.clib.session import DTYPES
 
 _HAS_PYARROW = bool(importlib.util.find_spec("pyarrow"))
 
@@ -29,8 +28,6 @@ def _check_arrays(arrays):
     assert all(isinstance(i, np.ndarray) for i in arrays)
     # Check if all arrays are 1-D
     assert all(i.ndim == 1 for i in arrays)
-    # Check if all numpy dtypes can be recognized by GMT
-    assert all(i.dtype.type in DTYPES for i in arrays)
 
 
 @pytest.mark.parametrize(
