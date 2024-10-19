@@ -1308,7 +1308,7 @@ class Session:
         ...         family=family,
         ...         geometry=geometry,
         ...         mode="GMT_CONTAINER_ONLY",
-        ...         dim=[2, 5, self["GMT_INT"], 0],  # ncolumns, nrows, dtype, unused
+        ...         dim=[2, 5, lib["GMT_INT"], 0],  # ncolumns, nrows, dtype, unused
         ...     )
         ...     lib.put_vector(dataset, column=0, vector=x)
         ...     lib.put_vector(dataset, column=1, vector=y)
