@@ -148,10 +148,15 @@ jobs:
                         pytest pytest-cov pytest-doctestplus pytest-mpl pytest-rerunfailures pytest-xdist\
                         sphinx-gallery
 
-      # Can't install these two packages in the "Setup Micromamba" because the Windows
-      # CI fails to compile the "gshhg_version.c" source code for mysterious reasons.
+      # Currently, we can't install the two packages in the "Setup Micromamba", mainly
+      # because the Windows CI fails to compile "gshhg_version.c" due to unknown
+      # reasons (likely missing DLLs). So we have to install the two packages and
+      # manaully move the data files to GMT's share directory.
       - name: Install GMT GSHHG and DCW datasets
-        run: micromamba install dcw-gmt gshhg-gmt
+        run: |
+          micromamba install dcw-gmt gshhg-gmt
+          cd ${{ env.MAMBA_ROOT_PREFIX }}/envs/pygmt/share/
+          mv dcw-gmt gshhg-gmt ${{ runner.temp }}/gmt-install-dir/share/
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
