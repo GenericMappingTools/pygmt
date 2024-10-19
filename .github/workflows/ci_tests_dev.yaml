@@ -148,18 +148,6 @@ jobs:
                         pytest pytest-cov pytest-doctestplus pytest-mpl pytest-rerunfailures pytest-xdist\
                         sphinx-gallery
 
-      # Currently, we can't install the two packages in the "Setup Micromamba", mainly
-      # because the Windows CI fails to compile "gshhg_version.c" due to unknown
-      # reasons (likely missing DLLs). So we have to install the two packages and
-      # manaully move the data files to the ~/.gmt/geography/ directory.
-      - name: Install GMT GSHHG and DCW datasets
-        run: |
-          micromamba install dcw-gmt gshhg-gmt
-          cd ${{ env.MAMBA_ROOT_PREFIX }}/envs/pygmt/share/
-          mkdir ~/.gmt/geography/
-          mv dcw-gmt ~/.gmt/geography/dcw
-          mv gshhg-gmt ~/.gmt/geography/gshhg
-
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
         run: micromamba list
@@ -178,6 +166,18 @@ jobs:
           ls -lhR ~/.gmt
         env:
           GH_TOKEN: ${{ github.token }}
+
+      # Currently, we can't install the two packages in the "Setup Micromamba", mainly
+      # because the Windows CI fails to compile "gshhg_version.c" due to unknown
+      # reasons (likely missing DLLs). So we have to install the two packages and
+      # manaully move the data files to the ~/.gmt/geography/ directory.
+      - name: Install GMT GSHHG and DCW datasets
+        run: |
+          micromamba install dcw-gmt gshhg-gmt
+          cd ${{ env.MAMBA_ROOT_PREFIX }}/envs/pygmt/share/
+          mkdir -p ~/.gmt/geography/
+          mv dcw-gmt ~/.gmt/geography/dcw
+          mv gshhg-gmt ~/.gmt/geography/gshhg
 
       # Install the package that we want to test
       - name: Install the package
