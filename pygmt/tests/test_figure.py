@@ -4,7 +4,9 @@ Test the behavior of the Figure class.
 Doesn't include the plotting commands which have their own test files.
 """
 
+import importlib
 from pathlib import Path
+from unittest import mock
 
 import numpy as np
 import numpy.testing as npt
@@ -14,12 +16,7 @@ from pygmt.exceptions import GMTError, GMTInvalidInput
 from pygmt.figure import SHOW_CONFIG, _get_default_display_method
 from pygmt.helpers import GMTTempFile
 
-try:
-    import IPython
-
-    _HAS_IPYTHON = True
-except ImportError:
-    _HAS_IPYTHON = False
+_HAS_IPYTHON = bool(importlib.util.find_spec("IPython"))
 
 
 def test_figure_region():
@@ -436,26 +433,18 @@ class TestGetDefaultDisplayMethod:
         assert _get_default_display_method() == "none"
 
     @pytest.mark.skipif(not _HAS_IPYTHON, reason="Run when IPython is installed")
-    def test_notebook_display(self, monkeypatch):
+    def test_notebook_display(self):
         """
         Default display method is "notebook" when an IPython kernel is running.
         """
+        # Mock IPython.get_ipython() to return an object with a config attribute,
+        # so PyGMT can detect that an IPython kernel is running.
+        with mock.patch(
+            "IPython.get_ipython", return_value=mock.Mock(config={"IPKernelApp": True})
+        ):
+            # Display method should be "notebook" when an IPython kernel is running.
+            assert _get_default_display_method() == "notebook"
 
-        class MockIPython:
-            """
-            A simple mock class to simulate an IPython instance.
-            """
-
-            def __init__(self):
-                self.config = {"IPKernelApp": True}
-
-        # Mock IPython.get_ipython() to return a MockIPython instance.
-        mock_ipython = MockIPython()
-        monkeypatch.setattr(IPython, "get_ipython", lambda: mock_ipython)
-
-        # Default display method should be "notebook" when an IPython kernel is running.
-        assert _get_default_display_method() == "notebook"
-
-        # PYGMT_USE_EXTERNAL_DISPLAY should not affect notebook display.
-        monkeypatch.setenv("PYGMT_USE_EXTERNAL_DISPLAY", "false")
-        assert _get_default_display_method() == "notebook"
+            # PYGMT_USE_EXTERNAL_DISPLAY should not affect notebook display.
+            with mock.patch.dict("os.environ", {"PYGMT_USE_EXTERNAL_DISPLAY": "false"}):
+                assert _get_default_display_method() == "notebook"
