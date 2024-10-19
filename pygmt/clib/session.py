@@ -780,9 +780,9 @@ class Session:
 
         # Convert dim, ranges, and inc to ctypes arrays if given (will be None if not
         # given to represent NULL pointers)
-        dim = sequence_to_ctypes_array(dim, ctp.c_uint64, 4)
-        ranges = sequence_to_ctypes_array(ranges, ctp.c_double, 4)
-        inc = sequence_to_ctypes_array(inc, ctp.c_double, 2)
+        dim_ctp = sequence_to_ctypes_array(dim, ctp.c_uint64, 4)
+        ranges_ctp = sequence_to_ctypes_array(ranges, ctp.c_double, 4)
+        inc_ctp = sequence_to_ctypes_array(inc, ctp.c_double, 2)
 
         # Use a NULL pointer (None) for existing data to indicate that the container
         # should be created empty. Fill it in later using put_vector and put_matrix.
@@ -791,9 +791,9 @@ class Session:
             family_int,
             geometry_int,
             mode_int,
-            dim,
-            ranges,
-            inc,
+            dim_ctp,
+            ranges_ctp,
+            inc_ctp,
             registration_int,
             self._parse_pad(family, pad),
             None,
@@ -1642,7 +1642,7 @@ class Session:
             mode=f"GMT_CONTAINER_ONLY|{_gtype}",
             ranges=region,
             inc=inc,
-            registration=_reg,
+            registration=_reg,  # type: ignore[arg-type]
         )
         self.put_matrix(gmt_grid, matrix)
         with self.open_virtualfile(
@@ -1727,8 +1727,7 @@ class Session:
             mode="GMT_CONTAINER_ONLY|GMT_WITH_STRINGS",
             dim=[n_tables, n_segments, n_rows, n_columns],
         )
-        dataset = ctp.cast(dataset, ctp.POINTER(_GMT_DATASET))
-        table = dataset.contents.table[0].contents
+        table = ctp.cast(dataset, ctp.POINTER(_GMT_DATASET)).contents.table[0].contents
         for i, segment in enumerate(segments):
             seg = table.segment[i].contents
             if segment["header"]:
