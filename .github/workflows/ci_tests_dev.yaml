@@ -174,7 +174,11 @@ jobs:
       - name: Install GMT GSHHG and DCW datasets
         run: |
           micromamba install dcw-gmt gshhg-gmt
-          cd ${{ env.MAMBA_ROOT_PREFIX }}/envs/pygmt/share/
+          if [[ "${{ runner.os }}" == "Windows" ]]; then
+            cd $(cygpath ${{ env.MAMBA_ROOT_PREFIX }})/envs/pygmt/share/
+          else
+            cd ${{ env.MAMBA_ROOT_PREFIX }}/envs/pygmt/share/
+          fi
           mkdir -p ~/.gmt/geography/
           mv dcw-gmt ~/.gmt/geography/dcw
           mv gshhg-gmt ~/.gmt/geography/gshhg
