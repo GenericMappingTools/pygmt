@@ -4,12 +4,11 @@ Utility methods to print system info for debugging.
 Adapted from :func:`rioxarray.show_versions` and :func:`pandas.show_versions`.
 """
 
-import importlib
 import platform
 import shutil
 import subprocess
 import sys
-from importlib.metadata import version
+from importlib.metadata import PackageNotFoundError, requires, version
 from typing import TextIO
 
 from packaging.requirements import Requirement
@@ -25,8 +24,8 @@ def _get_clib_info() -> dict[str, str]:
     """
     Get information about the GMT shared library.
     """
-    with Session() as ses:
-        return ses.info
+    with Session() as lib:
+        return lib.info
 
 
 def _get_module_version(modname: str) -> str | None:
@@ -34,16 +33,8 @@ def _get_module_version(modname: str) -> str | None:
     Get version information of a Python module.
     """
     try:
-        if modname in sys.modules:
-            module = sys.modules[modname]
-        else:
-            module = importlib.import_module(modname)
-
-        try:
-            return module.__version__
-        except AttributeError:
-            return module.version
-    except ImportError:
+        return version(modname)
+    except PackageNotFoundError:
         return None
 
 
@@ -85,13 +76,12 @@ def _check_ghostscript_version(gs_version: str | None) -> str | None:
                 f"Ghostscript v{gs_version} has known bugs. "
                 "Please consider upgrading to version v10.02 or later."
             )
-        case v if v >= Version("10.02"):
-            if Version(__gmt_version__) < Version("6.5.0"):
-                return (
-                    f"GMT v{__gmt_version__} doesn't support Ghostscript "
-                    f"v{gs_version}. Please consider upgrading to GMT>=6.5.0 or "
-                    "downgrading to Ghostscript v9.56."
-                )
+        case v if v >= Version("10.02") and Version(__gmt_version__) < Version("6.5.0"):
+            return (
+                f"GMT v{__gmt_version__} doesn't support Ghostscript v{gs_version}. "
+                "Please consider upgrading to GMT>=6.5.0 or downgrading to Ghostscript "
+                "v9.56."
+            )
     return None
 
 
@@ -109,22 +99,14 @@ def show_versions(file: TextIO | None = sys.stdout):
     It also warns users if the installed Ghostscript version has serious bugs or is
     incompatible with the installed GMT version.
     """
-
     sys_info = {
         "python": sys.version.replace("\n", " "),
         "executable": sys.executable,
         "machine": platform.platform(),
     }
-    dep_info = {
-        Requirement(v).name: _get_module_version(Requirement(v).name)
-        for v in importlib.metadata.requires("pygmt")  # type: ignore[union-attr]
-    }
-    dep_info.update(
-        {
-            "gdal": _get_module_version("osgeo.gdal"),
-            "ghostscript": _get_ghostscript_version(),
-        }
-    )
+    requirements = [Requirement(v).name for v in requires("pygmt")] + ["gdal"]  # type: ignore[union-attr]
+    dep_info = {name: _get_module_version(name) for name in requirements}
+    dep_info.update({"ghostscript": _get_ghostscript_version()})
 
     lines = []
     lines.append("PyGMT information:")
