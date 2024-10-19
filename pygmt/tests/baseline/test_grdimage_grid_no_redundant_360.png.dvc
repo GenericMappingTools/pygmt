@@ -2,4 +2,4 @@ outs:
 - md5: 6145622653eaedd2b4845400aa09ac75
   size: 239431
   hash: md5
-  path: test_grdimage_grid_no_redunant_360.png
+  path: test_grdimage_grid_no_redundant_360.png
