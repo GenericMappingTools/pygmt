@@ -6,7 +6,7 @@ Doesn't include the plotting commands which have their own test files.
 
 import importlib
 from pathlib import Path
-from unittest import mock
+from unittest.mock import Mock, patch
 
 import numpy as np
 import numpy.testing as npt
@@ -439,12 +439,12 @@ class TestGetDefaultDisplayMethod:
         """
         # Mock IPython.get_ipython() to return an object with a config attribute,
         # so PyGMT can detect that an IPython kernel is running.
-        with mock.patch(
-            "IPython.get_ipython", return_value=mock.Mock(config={"IPKernelApp": True})
+        with patch(
+            "IPython.get_ipython", return_value=Mock(config={"IPKernelApp": True})
         ):
             # Display method should be "notebook" when an IPython kernel is running.
             assert _get_default_display_method() == "notebook"
 
             # PYGMT_USE_EXTERNAL_DISPLAY should not affect notebook display.
-            with mock.patch.dict("os.environ", {"PYGMT_USE_EXTERNAL_DISPLAY": "false"}):
+            with patch.dict("os.environ", {"PYGMT_USE_EXTERNAL_DISPLAY": "false"}):
                 assert _get_default_display_method() == "notebook"
