@@ -1,5 +1,5 @@
 """
-Utility methods to print system info for debugging.
+Utility methods to print system information for debugging.
 
 Adapted from :func:`rioxarray.show_versions` and :func:`pandas.show_versions`.
 """
