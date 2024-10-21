@@ -229,7 +229,7 @@ def vectors_to_arrays(vectors: Sequence[Any]) -> list[np.ndarray]:
 
 
 def sequence_to_ctypes_array(
-    sequence: Sequence | None, ctype, size: int
+    sequence: Sequence[int | float] | np.ndarray | None, ctype, size: int
 ) -> ctp.Array | None:
     """
     Convert a sequence of numbers into a ctypes array variable.
