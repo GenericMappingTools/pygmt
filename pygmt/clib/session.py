@@ -29,7 +29,6 @@ from pygmt.helpers import (
     _validate_data_input,
     data_kind,
     tempfile_from_geojson,
-    tempfile_from_image,
 )
 
 FAMILIES = [
@@ -793,8 +792,8 @@ class Session:
         # Convert dim, ranges, and inc to ctypes arrays if given (will be None if not
         # given to represent NULL pointers)
         dim_ctp = sequence_to_ctypes_array(dim, ctp.c_uint64, 4)
-        ranges_ctp = sequence_to_ctypes_array(ranges, ctp.c_double, 4)
-        inc_ctp = sequence_to_ctypes_array(inc, ctp.c_double, 2)
+        ranges_ctp = sequence_to_ctypes_array(ranges, ctp.c_double, 6)
+        inc_ctp = sequence_to_ctypes_array(inc, ctp.c_double, 3)
 
         # Use a NULL pointer (None) for existing data to indicate that the container
         # should be created empty. Fill it in later using put_vector and put_matrix.
@@ -1671,6 +1670,41 @@ class Session:
             yield vfile
 
     @contextlib.contextmanager
+    def virtualfile_from_image(self, xrgrid, _grid_mode="GMT_IN|GMT_IS_DUPLICATE"):
+        """
+        Create a virtual file from an xarray.DataArray object.
+        """
+        family = "GMT_IS_IMAGE"
+        geometry = "GMT_IS_SURFACE"
+        matrix, region, inc = dataarray_to_matrix(xrgrid)
+
+        _gtype = {0: "GMT_GRID_IS_CARTESIAN", 1: "GMT_GRID_IS_GEO"}[xrgrid.gmt.gtype]
+        _reg = {0: "GMT_GRID_NODE_REG", 1: "GMT_GRID_PIXEL_REG"}[
+            xrgrid.gmt.registration
+        ]
+        print(matrix.shape, region, inc)
+
+        data = self.create_data(
+            family,
+            geometry,
+            mode=f"GMT_CONTAINER_ONLY|{_gtype}",
+            ranges=region,
+            inc=inc,
+            registration=_reg,
+            pad=self["GMT_PAD_DEFAULT"],
+        )
+
+        gmtgrid = ctp.cast(data, ctp.POINTER(_GMT_IMAGE))
+        header = gmtgrid.contents.header.contents
+        header.z_min, header.z_max = matrix.min(), matrix.max()
+
+        # matrix = np.pad(matrix, self["GMT_PAD_DEFAULT"]).astype(np.uint8)
+        gmtgrid.contents.data = matrix.ctypes.data_as(ctp.POINTER(ctp.c_ubyte))
+
+        with self.open_virtualfile(family, geometry, _grid_mode, gmtgrid) as vfile:
+            yield vfile
+
+    @contextlib.contextmanager
     def virtualfile_from_stringio(
         self, stringio: io.StringIO
     ) -> Generator[str, None, None]:
@@ -1857,7 +1891,7 @@ class Session:
             "file": contextlib.nullcontext,
             "geojson": tempfile_from_geojson,
             "grid": self.virtualfile_from_grid,
-            "image": tempfile_from_image,
+            "image": self.virtualfile_from_image,
             "stringio": self.virtualfile_from_stringio,
             "matrix": self.virtualfile_from_matrix,
             "vectors": self.virtualfile_from_vectors,
