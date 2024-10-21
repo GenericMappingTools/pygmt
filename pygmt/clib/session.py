@@ -670,7 +670,7 @@ class Session:
         2. Via ``dim`` and ``registration``.
 
            ``dim`` contains up to 4 values and they have different meanings for
-           diffenrent GMT data family:
+           different GMT data families:
 
            For ``GMT_DATASET``:
 
@@ -683,7 +683,7 @@ class Session:
 
            - 0: number of columns
            - 1: number of rows [optional, can be 0 if unknown]
-           - 2: data type (e.g., ``GMT_DOUBLE``) [Will be override by ``put_vector``]
+           - 2: data type (e.g., ``GMT_DOUBLE``) [Will be overwritten by ``put_vector``]
 
            For ``GMT_GRID``/``GMT_IMAGE``/``GMT_CUBE``/``GMT_MATRIX``:
 
@@ -691,9 +691,9 @@ class Session:
            - 1: number of rows
            - 2: number of bands or layers [Ignored for ``GMT_GRID``]
            - 3: data type (e.g., ``GMT_DOUBLE``) [For ``GMT_MATRIX`` only, but will be
-             override by ``put_matrix``]
+             overwritten by ``put_matrix``]
 
-           In other words, ``inc`` are assumned to be 1.0, and ``ranges`` are
+           In other words, ``inc`` are assumed to be 1.0, and ``ranges`` are
            [0, dim[0], 0, dim[1]] for pixel registration or
            [0, dim[0]-1.0, 0, dim[1]-1.0] for grid registration.
 
@@ -701,17 +701,17 @@ class Session:
         When creating a grid/image/cube, you can do it in one or two steps:
 
         1. Call this function with ``mode="GMT_CONTAINER_AND_DATA"``. This creates
-           header and allocates grid|image
+           a header and allocates a grid or an image
         2. Call this function twice:
 
-           1. First with ``mode="GMT_CONTAINER_ONLY"``, to creates header only and
-              computes the dimensions based on other parameters
+           1. First with ``mode="GMT_CONTAINER_ONLY"``, to create a header only and
+              compute the dimensions based on other parameters
            2. Second with ``mode="GMT_DATA_ONLY"``, to allocate the grid/image/cube
               array based on the dimensions already set. This time, you pass NULL for
               ``dim``/``ranges``/``inc``/``registration``/``pad`` and let ``data`` be
               the void pointer returned in the first step.
 
-           **NOTES**: This is not implmented yet, since this function doesn't have the
+           **NOTES**: This is not implemented yet, since this function doesn't have the
            ``data`` parameter.
 
         Parameters
