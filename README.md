@@ -4,7 +4,7 @@
 
 [Documentation (development version)](https://www.pygmt.org/dev) | [Contact](https://forum.generic-mapping-tools.org) | [TryOnline](https://github.com/GenericMappingTools/try-gmt)
 
-[![Latest version on PyPI](https://img.shields.io/pypi/v/pygmt.svg)](https://pypi.python.org/pypi/pygmt)
+[![Latest version on PyPI](https://img.shields.io/pypi/v/pygmt)](https://pypi.org/project/pygmt)
 [![Latest version on conda-forge](https://img.shields.io/conda/v/conda-forge/pygmt)](https://anaconda.org/conda-forge/pygmt)
 [![GitHub Actions Tests status](https://github.com/GenericMappingTools/pygmt/workflows/Tests/badge.svg)](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests.yaml)
 [![GitHub Actions GMT Dev Tests status](https://github.com/GenericMappingTools/pygmt/workflows/GMT%20Dev%20Tests/badge.svg)](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml)
