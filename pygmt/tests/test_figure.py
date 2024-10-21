@@ -6,7 +6,7 @@ Doesn't include the plotting commands which have their own test files.
 
 import importlib
 from pathlib import Path
-from unittest.mock import Mock, patch
+from unittest import mock
 
 import numpy as np
 import numpy.testing as npt
@@ -433,16 +433,18 @@ class TestGetDefaultDisplayMethod:
         assert _get_default_display_method() == "none"
 
     @pytest.mark.skipif(not _HAS_IPYTHON, reason="Run when IPython is installed")
-    # Mock IPython.get_ipython() to return an object with a config attribute, so PyGMT
-    # can detect that an IPython kernel is running.
-    @patch("IPython.get_ipython", return_value=Mock(config={"IPKernelApp": True}))
     def test_notebook_display(self):
         """
         Default display method is "notebook" when an IPython kernel is running.
         """
-        # Display method should be "notebook" when an IPython kernel is running.
-        assert _get_default_display_method() == "notebook"
-
-        # PYGMT_USE_EXTERNAL_DISPLAY should not affect notebook display.
-        with patch.dict("os.environ", {"PYGMT_USE_EXTERNAL_DISPLAY": "false"}):
+        # Mock IPython.get_ipython() to return an object with a config attribute,
+        # so PyGMT can detect that an IPython kernel is running.
+        with mock.patch(
+            "IPython.get_ipython", return_value=mock.Mock(config={"IPKernelApp": True})
+        ):
+            # Display method should be "notebook" when an IPython kernel is running.
             assert _get_default_display_method() == "notebook"
+
+            # PYGMT_USE_EXTERNAL_DISPLAY should not affect notebook display.
+            with mock.patch.dict("os.environ", {"PYGMT_USE_EXTERNAL_DISPLAY": "false"}):
+                assert _get_default_display_method() == "notebook"
