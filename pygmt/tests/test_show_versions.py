@@ -3,7 +3,7 @@ Test the pygmt.show_versions function.
 """
 
 import io
-from unittest import mock
+from unittest.mock import patch
 
 import pygmt
 import pytest
@@ -39,10 +39,8 @@ def test_show_versions_ghostscript_warnings(gs_version, gmt_version):
     Check that pygmt.show_versions reports warnings for GMT-Ghostscript incompatibility.
     """
     with (
-        mock.patch("pygmt._show_versions.__gmt_version__", gmt_version),
-        mock.patch(
-            "pygmt._show_versions._get_ghostscript_version", return_value=gs_version
-        ),
+        patch("pygmt._show_versions.__gmt_version__", gmt_version),
+        patch("pygmt._show_versions._get_ghostscript_version", return_value=gs_version),
     ):
         buf = io.StringIO()
         pygmt.show_versions(file=buf)
@@ -54,7 +52,7 @@ def test_show_versions_ghostscript_unsupported_os():
     Check that pygmt.show_versions reports ghostscript version is None for an
     unsupported operating system.
     """
-    with mock.patch("sys.platform", new="unsupported_os"):
+    with patch("sys.platform", new="unsupported_os"):
         buf = io.StringIO()
         pygmt.show_versions(file=buf)
         assert "ghostscript: None" in buf.getvalue()
@@ -66,7 +64,7 @@ def test_show_versions_ghostscript_not_found():
     Check that pygmt.show_versions reports ghostscript version is None when ghostscript
     is not found in the system.
     """
-    with mock.patch("shutil.which", return_value=None):
+    with patch("shutil.which", return_value=None):
         buf = io.StringIO()
         pygmt.show_versions(file=buf)
         assert "ghostscript: None" in buf.getvalue()
