@@ -693,7 +693,7 @@ class Session:
            - 3: data type (e.g., ``GMT_DOUBLE``) [For ``GMT_MATRIX`` only, but will be
              overwritten by ``put_matrix``]
 
-           In other words, ``inc`` are assumed to be 1.0, and ``ranges`` are
+           In other words, ``inc`` is assumed to be 1.0, and ``ranges`` is
            [0, dim[0], 0, dim[1]] for pixel registration or
            [0, dim[0]-1.0, 0, dim[1]-1.0] for grid registration.
 
@@ -711,7 +711,7 @@ class Session:
               ``dim``/``ranges``/``inc``/``registration``/``pad`` and let ``data`` be
               the void pointer returned in the first step.
 
-           **NOTES**: This is not implemented yet, since this function doesn't have the
+           **Note**: This is not implemented yet, since this function doesn't have the
            ``data`` parameter.
 
         Parameters
