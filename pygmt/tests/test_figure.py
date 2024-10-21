@@ -377,13 +377,45 @@ class TestSetDisplay:
 
     def test_set_display(self):
         """
-        Test if pygmt.set_display updates the SHOW_CONFIG variable correctly.
+        Test if pygmt.set_display updates the SHOW_CONFIG variable correctly and
+        Figure.show opens the preview image in the correct way.
         """
-        default_method = SHOW_CONFIG["method"]  # Current default method
+        default_method = SHOW_CONFIG["method"]  # Store the current default method.
 
-        for method in ("notebook", "external", "none"):
-            set_display(method=method)
-            assert SHOW_CONFIG["method"] == method
+        fig = Figure()
+        fig.basemap(region=[0, 3, 6, 9], projection="X1c", frame=True)
+        with (
+            patch("IPython.display.display") as mock_display,
+            patch("pygmt.figure.launch_external_viewer") as mock_viewer,
+        ):
+            # Test the "notebook" display method.
+            set_display(method="notebook")
+            assert SHOW_CONFIG["method"] == "notebook"
+            fig.show()
+            assert mock_display.call_count == 1
+            assert mock_viewer.call_count == 0
+
+        with (
+            patch("IPython.display.display") as mock_display,
+            patch("pygmt.figure.launch_external_viewer") as mock_viewer,
+        ):
+            # Test the "none" display method.
+            set_display(method="none")
+            assert SHOW_CONFIG["method"] == "none"
+            fig.show()
+            assert mock_display.call_count == 0
+            assert mock_viewer.call_count == 0
+
+        with (
+            patch("IPython.display.display") as mock_display,
+            patch("pygmt.figure.launch_external_viewer") as mock_viewer,
+        ):
+            # Test the "external" display method
+            set_display(method="external")
+            assert SHOW_CONFIG["method"] == "external"
+            fig.show()
+            assert mock_display.call_count == 0
+            assert mock_viewer.call_count == 1
 
         # Setting method to None should revert it to the default method.
         set_display(method=None)
