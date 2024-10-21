@@ -18,7 +18,7 @@
 .. _sphx_glr_projections_conic_polyconic.py:
 
 
-Polyconic Projection
+Polyconic projection
 ====================
 
 The polyconic projection, in Europe usually referred to as the American
@@ -43,7 +43,7 @@ is lost with the lengthening of the meridians.
 The projection is set with **poly** or **Poly**. The figure size is set
 with *scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 29-42
+.. GENERATED FROM PYTHON SOURCE LINES 29-40
 
 
 
@@ -62,20 +62,18 @@ with *scale* or *width*.
 
     fig = pygmt.Figure()
     fig.coast(
-        shorelines="1/0.5p",
         region=[-180, -20, 0, 90],
         projection="Poly/12c",
-        land="gray",
-        borders="1/thick,black",
-        frame="afg10",
+        frame="afg",
+        land="seagreen",
+        water="gray90",
     )
-
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.196 seconds)
+   **Total running time of the script:** (0 minutes 0.166 seconds)
 
 
 .. _sphx_glr_download_projections_conic_polyconic.py:

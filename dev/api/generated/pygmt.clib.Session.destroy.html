@@ -1,4 +1,6 @@
 
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../">
 <head>
@@ -10,7 +12,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=7ab3649f" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -18,23 +20,19 @@
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=a51cd8ab" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=845ca4e4" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.clib.Session.destroy.html" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=aa3fe5bf"></script>
-        <script src="../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
-        <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=93e4e4f2"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -67,13 +65,6 @@
         <div class="wy-side-nav-search" >
     <a href="../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
 
-    
-        
-        
-            <div class="version">
-                dev
-            </div>
-        
     
 
     
@@ -142,6 +133,7 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.get_libgmt_func.html">pygmt.clib.Session.get_libgmt_func</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_data.html">pygmt.clib.Session.virtualfile_from_data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_grid.html">pygmt.clib.Session.virtualfile_from_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_stringio.html">pygmt.clib.Session.virtualfile_from_stringio</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_matrix.html">pygmt.clib.Session.virtualfile_from_matrix</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_vectors.html">pygmt.clib.Session.virtualfile_from_vectors</a></li>
 </ul>
@@ -151,6 +143,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ecosystem.html">Ecosystem</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -219,18 +212,16 @@
 <dd><p>Destroy the currently open GMT API session.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Usage of <a class="reference internal" href="pygmt.clib.Session.html#pygmt.clib.Session" title="pygmt.clib.Session"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.clib.Session</span></code></a> as a context manager in a
-<code class="docutils literal notranslate"><span class="pre">with</span></code> block is preferred over calling
-<a class="reference internal" href="pygmt.clib.Session.create.html#pygmt.clib.Session.create" title="pygmt.clib.Session.create"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.clib.Session.create</span></code></a> and
+<p>Usage of <a class="reference internal" href="pygmt.clib.Session.html#pygmt.clib.Session" title="pygmt.clib.Session"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.clib.Session</span></code></a> as a context manager in a <code class="docutils literal notranslate"><span class="pre">with</span></code>
+block is preferred over calling <a class="reference internal" href="pygmt.clib.Session.create.html#pygmt.clib.Session.create" title="pygmt.clib.Session.create"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.clib.Session.create</span></code></a> and
 <a class="reference internal" href="#pygmt.clib.Session.destroy" title="pygmt.clib.Session.destroy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.clib.Session.destroy</span></code></a> manually.</p>
 </div>
-<p>Calls <code class="docutils literal notranslate"><span class="pre">GMT_Destroy_Session</span></code> to terminate and free the memory of a
-registered <code class="docutils literal notranslate"><span class="pre">GMTAPI_CTRL</span></code> session (the pointer for this struct is
-stored in the <code class="docutils literal notranslate"><span class="pre">session_pointer</span></code> attribute).</p>
-<p>Always use this method after you are done using a C API session. The
-session needs to be destroyed before creating a new one. Otherwise,
-some of the configuration files might be left behind and can influence
-subsequent API calls.</p>
+<p>Calls <code class="docutils literal notranslate"><span class="pre">GMT_Destroy_Session</span></code> to terminate and free the memory of a registered
+<code class="docutils literal notranslate"><span class="pre">GMTAPI_CTRL</span></code> session (the pointer for this struct is stored in the
+<code class="docutils literal notranslate"><span class="pre">session_pointer</span></code> attribute).</p>
+<p>Always use this method after you are done using a C API session. The session
+needs to be destroyed before creating a new one. Otherwise, some of the
+configuration files might be left behind and can influence subsequent API calls.</p>
 <p>Sets the <code class="docutils literal notranslate"><span class="pre">session_pointer</span></code> attribute to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
 </dd></dl>
 
@@ -249,15 +240,15 @@ subsequent API calls.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/419a080e">419a080e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 05, 2024.
+      <span class="lastupdated">Last updated on Oct 20, 2024.
       </span></p>
   </div>
 
   
 <p>
-Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
 using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
 provided by <a href="https://readthedocs.org">Read the Docs</a>
 </p>

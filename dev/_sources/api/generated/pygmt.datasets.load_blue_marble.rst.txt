@@ -1,0 +1,13 @@
+pygmt.datasets.load\_blue\_marble
+=================================
+
+.. currentmodule:: pygmt.datasets
+
+.. autofunction:: load_blue_marble
+
+.. minigallery:: pygmt.datasets.load_blue_marble
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

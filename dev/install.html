@@ -1,4 +1,6 @@
 
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
@@ -10,7 +12,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=7ab3649f" />
       <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
@@ -18,23 +20,19 @@
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="_static/style.css?v=a51cd8ab" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css?v=845ca4e4" />
 
   
     <link rel="shortcut icon" href="_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/install.html" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=aa3fe5bf"></script>
-        <script src="_static/doctools.js?v=9a2dae69"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="_static/copybutton.js?v=ccdb6887"></script>
-        <script src="_static/design-tabs.js?v=f930bc37"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=93e4e4f2"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=ccdb6887"></script>
+      <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -67,13 +65,6 @@
         <div class="wy-side-nav-search" >
     <a href="index.html"><h2 class="sidebar-title">PyGMT</h2></a>
 
-    
-        
-        
-            <div class="version">
-                dev
-            </div>
-        
     
 
     
@@ -126,6 +117,7 @@
 <li class="toctree-l1"><a class="reference internal" href="techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="minversions.html">Minimum Supported Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ecosystem.html">Ecosystem</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -250,7 +242,7 @@ your computer and doesn’t interfere with any other Python installations on you
 </section>
 <section id="which-gmt">
 <h2>Which GMT?<a class="headerlink" href="#which-gmt" title="Link to this heading"></a></h2>
-<p>PyGMT requires Generic Mapping Tools (GMT) &gt;=6.3.0 since there are many
+<p>PyGMT requires Generic Mapping Tools (GMT) &gt;=6.4.0 since there are many
 changes being made to GMT itself in response to the development of PyGMT.</p>
 <p>Compiled conda packages of GMT for Linux, macOS and Windows are provided through
 <a class="reference external" href="https://anaconda.org/conda-forge/gmt">conda-forge</a>. Advanced users can also
@@ -270,7 +262,7 @@ instead.</p>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>For the minimum supported versions of the dependencies, please see <a class="reference internal" href="minversions.html"><span class="doc">Minimum Supported Versions</span></a>.</p>
+<p>For the minimum supported versions of the dependencies, please see <a class="reference internal" href="minversions.html"><span class="std std-doc">Minimum Supported Versions</span></a>.</p>
 </div>
 <p>The following are optional dependencies:</p>
 <ul class="simple">
@@ -418,23 +410,23 @@ in your Python interpreter:</p>
 </summary>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PyGMT information:
-  version: v0.12.1.dev153+g1ff03a3c
+  version: v0.13.1.dev96+g419a080e
 System information:
-  python: 3.12.5 | packaged by conda-forge | (main, Aug  8 2024, 18:36:51) [GCC 12.4.0]
+  python: 3.12.7 | packaged by conda-forge | (main, Oct  4 2024, 16:05:46) [GCC 13.3.0]
   executable: /home/runner/micromamba/envs/pygmt/bin/python
   machine: Linux-6.5.0-1025-azure-x86_64-with-glibc2.35
 Dependency information:
-  numpy: 2.1.0
-  pandas: 2.2.2
-  xarray: 2024.7.0
+  numpy: 2.1.2
+  pandas: 2.2.3
+  xarray: 2024.9.0
   netCDF4: 1.7.1
   packaging: 24.1
-  contextily: 1.6.1
+  contextily: 1.6.2
   geopandas: 0.14.4
-  IPython: 8.27.0
+  IPython: 8.28.0
   rioxarray: 0.17.0
   gdal: 3.9.2
-  ghostscript: 10.03.1
+  ghostscript: 10.04.0
 GMT library information:
   version: 6.5.0
   padding: 2
@@ -460,7 +452,8 @@ GMT library information:
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/aaba758ae36db99cb80ace304cea80b180ca8b9a1e4a03a47493205190c64bb5.png"><img alt="_images/aaba758ae36db99cb80ace304cea80b180ca8b9a1e4a03a47493205190c64bb5.png" src="_images/aaba758ae36db99cb80ace304cea80b180ca8b9a1e4a03a47493205190c64bb5.png" style="width: 500px;" /></a>
+<a class="reference internal image-reference" href="_images/a9bb1433fed9d9d76328850660ff89d8093e2996d8363e267481ceb0f94fb8ca.png"><img alt="_images/a9bb1433fed9d9d76328850660ff89d8093e2996d8363e267481ceb0f94fb8ca.png" src="_images/a9bb1433fed9d9d76328850660ff89d8093e2996d8363e267481ceb0f94fb8ca.png" style="width: 500px;" />
+</a>
 </div>
 </div>
 <p>You should see a global map with land and water masses colored in tan and lightblue
@@ -477,15 +470,15 @@ problems and solutions.</p>
 <h3>“Error loading GMT shared library at …”<a class="headerlink" href="#error-loading-gmt-shared-library-at" title="Link to this heading"></a></h3>
 <p>Sometimes, PyGMT will be unable to find the correct version of the GMT shared library
 (<code class="docutils literal notranslate"><span class="pre">libgmt</span></code>). This can happen if you have multiple versions of GMT installed.</p>
-<p>You can tell PyGMT exactly where to look for <code class="docutils literal notranslate"><span class="pre">libgmt</span></code> by setting the <code class="docutils literal notranslate"><span class="pre">GMT_LIBRARY_PATH</span></code>
-environment variable to the directory where <code class="docutils literal notranslate"><span class="pre">libgmt.so</span></code>, <code class="docutils literal notranslate"><span class="pre">libgmt.dylib</span></code> or <code class="docutils literal notranslate"><span class="pre">gmt.dll</span></code> can
-be found on Linux, macOS or Windows, respectively.</p>
+<p>You can tell PyGMT exactly where to look for <code class="docutils literal notranslate"><span class="pre">libgmt</span></code> by setting the environment
+variable <a class="reference internal" href="techref/environment_variables.html#term-GMT_LIBRARY_PATH"><span class="xref std std-term">GMT_LIBRARY_PATH</span></a> to the directory where <code class="docutils literal notranslate"><span class="pre">libgmt.so</span></code>, <code class="docutils literal notranslate"><span class="pre">libgmt.dylib</span></code> or
+<code class="docutils literal notranslate"><span class="pre">gmt.dll</span></code> can be found on Linux, macOS or Windows, respectively.</p>
 <p>For Linux/macOS, add the following line to your shell configuration file (usually
 <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> for Bash on Linux and <code class="docutils literal notranslate"><span class="pre">~/.zshrc</span></code> for Zsh on macOS):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export GMT_LIBRARY_PATH=$HOME/miniforge3/envs/pygmt/lib
 </pre></div>
 </div>
-<p>For Windows, add the <code class="docutils literal notranslate"><span class="pre">GMT_LIBRARY_PATH</span></code> environment variable following these
+<p>For Windows, add the environment variable <a class="reference internal" href="techref/environment_variables.html#term-GMT_LIBRARY_PATH"><span class="xref std std-term">GMT_LIBRARY_PATH</span></a> following these
 <a class="reference external" href="https://www.wikihow.com/Create-an-Environment-Variable-in-Windows-10">instructions</a>
 and set its value to a path like:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">USERNAME</span>\<span class="n">Miniforge3</span>\<span class="n">envs</span>\<span class="n">pygmt</span>\<span class="n">Library</span>\<span class="nb">bin</span>\
@@ -512,7 +505,7 @@ especially regarding transparency. If the transparency doesn’t work in your fi
 please check your GMT and Ghostscript versions (you can run <code class="docutils literal notranslate"><span class="pre">pygmt.show_versions()</span></code>).
 We recommend:</p>
 <ul class="simple">
-<li><p>Ghostscript 9.53-9.56 for GMT 6.3.0/6.4.0</p></li>
+<li><p>Ghostscript 9.53-9.56 for GMT 6.4.0 (or below)</p></li>
 <li><p>Ghostscript 10.03 or later for GMT 6.5.0</p></li>
 </ul>
 </section>
@@ -532,15 +525,15 @@ We recommend:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/419a080e">419a080e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 05, 2024.
+      <span class="lastupdated">Last updated on Oct 20, 2024.
       </span></p>
   </div>
 
   
 <p>
-Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
 using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
 provided by <a href="https://readthedocs.org">Read the Docs</a>
 </p>
