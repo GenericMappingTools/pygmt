@@ -5,39 +5,45 @@ Functions to convert data types into ctypes friendly formats.
 import ctypes as ctp
 import warnings
 from collections.abc import Sequence
+from typing import Any
 
 import numpy as np
+import pandas as pd
+import xarray as xr
+from packaging.version import Version
 from pygmt.exceptions import GMTInvalidInput
 
 
-def dataarray_to_matrix(grid):
+def dataarray_to_matrix(
+    grid: xr.DataArray,
+) -> tuple[np.ndarray, list[float], list[float]]:
     """
-    Transform an xarray.DataArray into a data 2-D array and metadata.
+    Transform an xarray.DataArray into a 2-D numpy array and metadata.
 
-    Use this to extract the underlying numpy array of data and the region and
-    increment for the grid.
+    Use this to extract the underlying numpy array of data and the region and increment
+    for the grid.
 
-    Only allows grids with two dimensions and constant grid spacing (GMT
-    doesn't allow variable grid spacing). If the latitude and/or longitude
-    increments of the input grid are negative, the output matrix will be
-    sorted by the DataArray coordinates to yield positive increments.
+    Only allows grids with two dimensions and constant grid spacings (GMT doesn't allow
+    variable grid spacings). If the latitude and/or longitude increments of the input
+    grid are negative, the output matrix will be sorted by the DataArray coordinates to
+    yield positive increments.
 
-    If the underlying data array is not C contiguous, for example if it's a
-    slice of a larger grid, a copy will need to be generated.
+    If the underlying data array is not C contiguous, for example, if it's a slice of a
+    larger grid, a copy will need to be generated.
 
     Parameters
     ----------
-    grid : xarray.DataArray
-        The input grid as a DataArray instance. Information is retrieved from
-        the coordinate arrays, not from headers.
+    grid
+        The input grid as a DataArray instance. Information is retrieved from the
+        coordinate arrays, not from headers.
 
     Returns
     -------
-    matrix : 2-D array
+    matrix
         The 2-D array of data from the grid.
-    region : list
+    region
         The West, East, South, North boundaries of the grid.
-    inc : list
+    inc
         The grid spacing in East-West and North-South, respectively.
 
     Raises
@@ -62,8 +68,8 @@ def dataarray_to_matrix(grid):
     (180, 360)
     >>> matrix.flags.c_contiguous
     True
-    >>> # Using a slice of the grid, the matrix will be copied to guarantee
-    >>> # that it's C-contiguous in memory. The increment should be unchanged.
+    >>> # Using a slice of the grid, the matrix will be copied to guarantee that it's
+    >>> # C-contiguous in memory. The increment should be unchanged.
     >>> matrix, region, inc = dataarray_to_matrix(grid[10:41, 30:101])
     >>> matrix.flags.c_contiguous
     True
@@ -73,7 +79,7 @@ def dataarray_to_matrix(grid):
     [-150.0, -79.0, -80.0, -49.0]
     >>> print(inc)
     [1.0, 1.0]
-    >>> # but not if only taking every other grid point.
+    >>> # The increment should change accordingly if taking every other grid point.
     >>> matrix, region, inc = dataarray_to_matrix(grid[10:41:2, 30:101:2])
     >>> matrix.flags.c_contiguous
     True
@@ -85,21 +91,19 @@ def dataarray_to_matrix(grid):
     [2.0, 2.0]
     """
     if len(grid.dims) != 2:
-        raise GMTInvalidInput(
-            f"Invalid number of grid dimensions '{len(grid.dims)}'. Must be 2."
-        )
+        msg = f"Invalid number of grid dimensions 'len({grid.dims})'. Must be 2."
+        raise GMTInvalidInput(msg)
+
     # Extract region and inc from the grid
-    region = []
-    inc = []
-    # Reverse the dims because it is rows, columns ordered. In geographic
-    # grids, this would be North-South, East-West. GMT's region and inc are
-    # East-West, North-South.
+    region, inc = [], []
+    # Reverse the dims because it is rows, columns ordered. In geographic grids, this
+    # would be North-South, East-West. GMT's region and inc are East-West, North-South.
     for dim in grid.dims[::-1]:
         coord = grid.coords[dim].to_numpy()
-        coord_incs = coord[1:] - coord[0:-1]
+        coord_incs = coord[1:] - coord[:-1]
         coord_inc = coord_incs[0]
         if not np.allclose(coord_incs, coord_inc):
-            # calculate the increment if irregular spacing is found
+            # Calculate the increment if irregular spacing is found.
             coord_inc = (coord[-1] - coord[0]) / (coord.size - 1)
             msg = (
                 f"Grid may have irregular spacing in the '{dim}' dimension, "
@@ -108,9 +112,8 @@ def dataarray_to_matrix(grid):
             )
             warnings.warn(msg, category=RuntimeWarning, stacklevel=2)
         if coord_inc == 0:
-            raise GMTInvalidInput(
-                f"Grid has a zero increment in the '{dim}' dimension."
-            )
+            msg = f"Grid has a zero increment in the '{dim}' dimension."
+            raise GMTInvalidInput(msg)
         region.extend(
             [
                 coord.min() - coord_inc / 2 * grid.gmt.registration,
@@ -129,26 +132,25 @@ def dataarray_to_matrix(grid):
     return matrix, region, inc
 
 
-def vectors_to_arrays(vectors):
+def vectors_to_arrays(vectors: Sequence[Any]) -> list[np.ndarray]:
     """
-    Convert 1-D vectors (lists, arrays, or pandas.Series) to C contiguous 1-D arrays.
+    Convert 1-D vectors (scalars, lists, or array-like) to C contiguous 1-D arrays.
 
-    Arrays must be in C contiguous order for us to pass their memory pointers
-    to GMT. If any are not, convert them to C order (which requires copying the
-    memory). This usually happens when vectors are columns of a 2-D array or
-    have been sliced.
+    Arrays must be in C contiguous order for us to pass their memory pointers to GMT.
+    If any are not, convert them to C order (which requires copying the memory). This
+    usually happens when vectors are columns of a 2-D array or have been sliced.
 
-    If a vector is a list or pandas.Series, get the underlying numpy array.
+    The returned arrays are guaranteed to be C contiguous and at least 1-D.
 
     Parameters
     ----------
-    vectors : list of lists, 1-D arrays, or pandas.Series
+    vectors
         The vectors that must be converted.
 
     Returns
     -------
-    arrays : list of 1-D arrays
-        The converted numpy arrays
+    arrays
+        List of converted numpy arrays.
 
     Examples
     --------
@@ -170,6 +172,17 @@ def vectors_to_arrays(vectors):
     >>> data = [[1, 2], (3, 4), range(5, 7)]
     >>> all(isinstance(i, np.ndarray) for i in vectors_to_arrays(data))
     True
+
+    >>> # Sequence of scalars are converted to 1-D arrays
+    >>> data = vectors_to_arrays([1, 2, 3.0])
+    >>> data
+    [array([1]), array([2]), array([3.])]
+    >>> [i.ndim for i in data]  # Check that they are 1-D arrays
+    [1, 1, 1]
+
+    >>> series = pd.Series(data=[0, 4, pd.NA, 8, 6], dtype=pd.Int32Dtype())
+    >>> vectors_to_arrays([series])
+    [array([ 0.,  4., nan,  8.,  6.])]
 
     >>> import datetime
     >>> import pytest
@@ -198,10 +211,20 @@ def vectors_to_arrays(vectors):
     }
     arrays = []
     for vector in vectors:
-        vec_dtype = str(getattr(vector, "dtype", ""))
-        array = np.asarray(a=vector, dtype=dtypes.get(vec_dtype))
-        arrays.append(np.ascontiguousarray(array))
-
+        if (
+            hasattr(vector, "isna")
+            and vector.isna().any()
+            and Version(pd.__version__) < Version("2.2")
+        ):
+            # Workaround for dealing with pd.NA with pandas < 2.2.
+            # Bug report at: https://github.com/GenericMappingTools/pygmt/issues/2844
+            # Following SPEC0, pandas 2.1 will be dropped in 2025 Q3, so it's likely
+            # we can remove the workaround in PyGMT v0.17.0.
+            array = np.ascontiguousarray(vector.astype(float))
+        else:
+            vec_dtype = str(getattr(vector, "dtype", ""))
+            array = np.ascontiguousarray(vector, dtype=dtypes.get(vec_dtype))
+        arrays.append(array)
     return arrays
 
 
@@ -258,7 +281,7 @@ def sequence_to_ctypes_array(
     return (ctype * size)(*sequence)
 
 
-def strings_to_ctypes_array(strings: Sequence[str]) -> ctp.Array:
+def strings_to_ctypes_array(strings: Sequence[str] | np.ndarray) -> ctp.Array:
     """
     Convert a sequence (e.g., a list) of strings into a ctypes array.
 
@@ -284,16 +307,15 @@ def strings_to_ctypes_array(strings: Sequence[str]) -> ctp.Array:
     return (ctp.c_char_p * len(strings))(*[s.encode() for s in strings])
 
 
-def array_to_datetime(array):
+def array_to_datetime(array: Sequence[Any] | np.ndarray) -> np.ndarray:
     """
     Convert a 1-D datetime array from various types into numpy.datetime64.
 
-    If the input array is not in legal datetime formats, raise a ValueError
-    exception.
+    If the input array is not in legal datetime formats, raise a ValueError exception.
 
     Parameters
     ----------
-    array : list or 1-D array
+    array
         The input datetime array in various formats.
 
         Supported types:
@@ -305,7 +327,8 @@ def array_to_datetime(array):
 
     Returns
     -------
-    array : 1-D datetime array in numpy.datetime64
+    array
+        1-D datetime array in numpy.datetime64.
 
     Raises
     ------

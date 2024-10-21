@@ -17,8 +17,8 @@
 # In draft pull request, only two jobs on Linux are triggered to save on
 # Continuous Integration resources:
 #
-# - Minimum supported Python/NumPy/Pandas/Xarray versions following [SPEC 0](https://scientific-python.org/specs/spec-0000/)
-# - Latest Python/NumPy versions + optional packages (e.g. GeoPandas)
+# - Minimum supported Python, NumPy, pandas, Xarray versions following [SPEC 0](https://scientific-python.org/specs/spec-0000/)
+# - Latest Python, NumPy versions + optional packages (e.g. GeoPandas)
 #
 name: Tests
 
@@ -65,8 +65,8 @@ jobs:
             isDraft: true
           - os: windows-latest
             isDraft: true
-        # Pair Python 3.10 with the minimum supported versions of NumPy/Pandas/Xarray
-        # and Python 3.13 with the latest versions of NumPy/Pandas/Xarray
+        # Pair Python 3.10 with the minimum supported versions of NumPy, pandas, Xarray
+        # and Python 3.13 with the latest versions of NumPy, pandas, Xarray
         # Only install optional packages on Python 3.13
         include:
           - python-version: '3.10'
@@ -79,7 +79,7 @@ jobs:
             pandas-version: ''
             xarray-version: ''
             optional-packages: ' contextily geopandas ipython pyarrow rioxarray sphinx-gallery'
-          # The job below is for testing geopandas v0.x on Ubuntu.
+          # The job below is for testing GeoPandas v0.x on Ubuntu.
           # The python-version here can't be the versions in the matrix.python-version
           # defined above. Otherwise, other jobs will be overridden by this one.
           - os: 'ubuntu-latest'

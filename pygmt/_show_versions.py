@@ -103,7 +103,7 @@ def show_versions(file: TextIO | None = sys.stdout):
 
     - PyGMT itself
     - System information (Python version, Operating System)
-    - Core dependency versions (NumPy, Pandas, Xarray, etc)
+    - Core dependency versions (NumPy, pandas, Xarray, etc)
     - GMT library information
 
     It also warns users if the installed Ghostscript version has serious bugs or is
