@@ -1324,37 +1324,36 @@ class Session:
         return self.open_virtualfile(family, geometry, direction, data)
 
     @contextlib.contextmanager
-    def virtualfile_from_vectors(self, *vectors):
+    def virtualfile_from_vectors(
+        self, vectors: Sequence, *args
+    ) -> Generator[str, None, None]:
         """
-        Store 1-D arrays as columns of a table inside a virtual file.
+        Store a sequence of 1-D vectors as columns of a dataset inside a virtual file.
 
-        Use the virtual file name to pass in the data in your vectors to a GMT
-        module.
+        Use the virtual file name to pass the dataset with your vectors to a GMT module.
 
-        Context manager (use in a ``with`` block). Yields the virtual file name
-        that you can pass as an argument to a GMT module call. Closes the
-        virtual file upon exit of the ``with`` block.
+        Context manager (use in a ``with`` block). Yields the virtual file name that you
+        can pass as an argument to a GMT module call. Closes the virtual file upon exit
+        of the ``with`` block.
 
-        Use this instead of creating the data container and virtual file by
-        hand with :meth:`pygmt.clib.Session.create_data`,
-        :meth:`pygmt.clib.Session.put_vector`, and
-        :meth:`pygmt.clib.Session.open_virtualfile`.
+        Use this instead of creating the data container and virtual file by hand with
+        :meth:`pygmt.clib.Session.create_data`, :meth:`pygmt.clib.Session.put_vector`,
+        and :meth:`pygmt.clib.Session.open_virtualfile`.
 
-        If the arrays are C contiguous blocks of memory, they will be passed
-        without copying to GMT. If they are not (e.g., they are columns of a
-        2-D array), they will need to be copied to a contiguous block.
+        If the arrays are C contiguous blocks of memory, they will be passed without
+        copying to GMT. If they are not (e.g., they are columns of a 2-D array), they
+        will need to be copied to a contiguous block.
 
         Parameters
         ----------
-        vectors : 1-D arrays
-            The vectors that will be included in the array. All must be of the
+        vectors
+            A sequence of vectors that will be stored in the dataset. All must be of the
             same size.
 
         Yields
         ------
-        fname : str
-            The name of virtual file. Pass this as a file name argument to a
-            GMT module.
+        fname
+            The name of virtual file. Pass this as a file name argument to a GMT module.
 
         Examples
         --------
@@ -1366,26 +1365,40 @@ class Session:
         >>> y = np.array([4, 5, 6])
         >>> z = pd.Series([7, 8, 9])
         >>> with Session() as ses:
-        ...     with ses.virtualfile_from_vectors(x, y, z) as fin:
+        ...     with ses.virtualfile_from_vectors((x, y, z)) as fin:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
         ...             ses.call_module("info", [fin, f"->{fout.name}"])
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <1/3> <4/6> <7/9>
         """
-        # Conversion to a C-contiguous array needs to be done here and not in
-        # put_vector or put_strings because we need to maintain a reference to
-        # the copy while it is being used by the C API. Otherwise, the array
-        # would be garbage collected and the memory freed. Creating it in this
-        # context manager guarantees that the copy will be around until the
-        # virtual file is closed. The conversion is implicit in
+        # "*args" is added in v0.14.0 for backward-compatibility with the deprecated
+        # syntax of passing multiple vectors as positional arguments.
+        # Remove it in v0.16.0.
+        if len(args) > 0:
+            msg = (
+                "Passing multiple arguments to Session.virtualfile_from_vectors is "
+                "deprecated since v0.14.0 and will be unsupported in v0.16.0. "
+                "Put all vectors in a sequence (a tuple or a list) instead and pass "
+                "the sequence as the single argument to this function. "
+                "E.g., use `with lib.virtualfile_from_vectors((x, y, z)) as vfile` "
+                "instead of `with lib.virtualfile_from_vectors(x, y, z) as vfile`."
+            )
+            warnings.warn(message=msg, category=FutureWarning, stacklevel=3)
+            vectors = (vectors, *args)
+
+        # Conversion to a C-contiguous array needs to be done here and not in put_vector
+        # or put_strings because we need to maintain a reference to the copy while it is
+        # being used by the C API. Otherwise, the array would be garbage collected and
+        # the memory freed. Creating it in this context manager guarantees that the copy
+        # will be around until the virtual file is closed. The conversion is implicit in
         # vectors_to_arrays.
         arrays = vectors_to_arrays(vectors)
 
         columns = len(arrays)
-        # Find arrays that are of string dtype from column 3 onwards
-        # Assumes that first 2 columns contains coordinates like longitude
-        # latitude, or datetime string types.
+        # Find arrays that are of string dtype from column 3 onwards. Assumes that first
+        # 2 columns contains coordinates like longitude, latitude, or datetime string
+        # types.
         for col, array in enumerate(arrays[2:]):
             if pd.api.types.is_string_dtype(array.dtype):
                 columns = col + 2
@@ -1393,7 +1406,8 @@ class Session:
 
         rows = len(arrays[0])
         if not all(len(i) == rows for i in arrays):
-            raise GMTInvalidInput("All arrays must have same size.")
+            msg = "All arrays must have same size."
+            raise GMTInvalidInput(msg)
 
         family = "GMT_IS_DATASET|GMT_VIA_VECTOR"
         geometry = "GMT_IS_POINT"
@@ -1406,8 +1420,8 @@ class Session:
         for col, array in enumerate(arrays[:columns]):
             self.put_vector(dataset, column=col, vector=array)
 
-        # Use put_strings for last column(s) with string type data
-        # Have to use modifier "GMT_IS_DUPLICATE" to duplicate the strings
+        # Use put_strings for last column(s) with string type data.
+        # Have to use modifier "GMT_IS_DUPLICATE" to duplicate the strings.
         string_arrays = arrays[columns:]
         if string_arrays:
             if len(string_arrays) == 1:
@@ -1682,7 +1696,7 @@ class Session:
                     seg.header = None
                     seg.text = None
 
-    def virtualfile_in(  # noqa: PLR0912
+    def virtualfile_in(
         self,
         check_kind=None,
         data=None,
@@ -1781,19 +1795,18 @@ class Session:
             "vectors": self.virtualfile_from_vectors,
         }[kind]
 
-        # Ensure the data is an iterable (Python list or tuple).
+        # "_data" is the data that will be passed to the _virtualfile_from function.
+        # "_data" defaults to "data" but should be adjusted for some cases.
+        _data = data
         match kind:
-            case "arg" | "file" | "geojson" | "grid" | "image" | "stringio":
-                _data = (data,)
-                if kind == "image" and data.dtype != "uint8":
-                    msg = (
-                        f"Input image has dtype: {data.dtype} which is unsupported, "
-                        "and may result in an incorrect output. Please recast image "
-                        "to a uint8 dtype and/or scale to 0-255 range, e.g. "
-                        "using a histogram equalization function like "
-                        "skimage.exposure.equalize_hist."
-                    )
-                    warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
+            case "image" if data.dtype != "uint8":
+                msg = (
+                    f"Input image has dtype: {data.dtype} which is unsupported, and "
+                    "may result in an incorrect output. Please recast image to a uint8 "
+                    "dtype and/or scale to 0-255 range, e.g. using a histogram "
+                    "equalization function like skimage.exposure.equalize_hist."
+                )
+                warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
             case "empty":  # data is None, so data must be given via x/y/z.
                 _data = [x, y]
                 if z is not None:
@@ -1808,19 +1821,17 @@ class Session:
                 else:
                     # Python list, tuple, numpy.ndarray, and pandas.Series types
                     _data = np.atleast_2d(np.asanyarray(data).T)
-            case "matrix":
+            case "matrix" if data.dtype.kind not in "iuf":
                 # GMT can only accept a 2-D matrix which are signed integer (i),
                 # unsigned integer (u) or floating point (f) types. For other data
                 # types, we need to use virtualfile_from_vectors instead, which turns
                 # the matrix into a list of vectors and allows for better handling of
                 # non-integer/float type inputs (e.g. for string or datetime data types)
-                _data = (data,)
-                if data.dtype.kind not in "iuf":
-                    _virtualfile_from = self.virtualfile_from_vectors
-                    _data = data.T
+                _virtualfile_from = self.virtualfile_from_vectors
+                _data = data.T
 
         # Finally create the virtualfile from the data, to be passed into GMT
-        file_context = _virtualfile_from(*_data)
+        file_context = _virtualfile_from(_data)
         return file_context
 
     def virtualfile_from_data(
