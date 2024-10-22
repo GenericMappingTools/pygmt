@@ -1397,7 +1397,7 @@ class Session:
 
         columns = len(arrays)
         # Find arrays that are of string dtype from column 3 onwards. Assumes that first
-        # 2 columns contains coordinates like longitude latitude, or datetime string
+        # 2 columns contains coordinates like longitude, latitude, or datetime string
         # types.
         for col, array in enumerate(arrays[2:]):
             if pd.api.types.is_string_dtype(array.dtype):
