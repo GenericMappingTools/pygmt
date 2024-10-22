@@ -354,7 +354,8 @@ class Figure:
                 msg = "Extension '.ps' is not supported. Use '.eps' or '.pdf' instead."
                 raise GMTInvalidInput(msg)
             case ext if ext not in fmts:
-                raise GMTInvalidInput(f"Unknown extension '.{ext}'.")
+                msg = f"Unknown extension '.{ext}'."
+                raise GMTInvalidInput(msg)
 
         fmt = fmts[ext]
         if transparent:
