@@ -85,6 +85,8 @@ jobs:
             libnetcdf
             pcre
             zlib
+            dcw-gmt
+            gshhg-gmt
 
       # Checkout current GMT repository
       - name: Checkout the GMT source from ${{ matrix.gmt_git_ref }} branch
@@ -125,6 +127,7 @@ jobs:
             -DCMAKE_INSTALL_PREFIX=${{ env.GMT_INSTALL_DIR }} ^
             -DCMAKE_BUILD_TYPE=Release ^
             -DCMAKE_PREFIX_PATH=${{ env.MAMBA_ROOT_PREFIX }}\envs\pygmt\Library ^
+            -DCMAKE_INSTALL_RPATH=${{ env.MAMBA_ROOT_PREFIX }}\envs\pygmt\Library\bin ^
             -DGMT_ENABLE_OPENMP=TRUE ^
             -DGMT_USE_THREADS=TRUE
           cmake --build .
@@ -171,19 +174,19 @@ jobs:
       # because the Windows CI fails to compile "gshhg_version.c" due to unknown
       # reasons (likely missing DLLs). So we have to install the two packages and
       # manaully move the data files to the ~/.gmt/geography/ directory.
-      - name: Install GMT GSHHG and DCW datasets
-        run: |
-          micromamba install dcw-gmt gshhg-gmt
-          if [[ "${{ runner.os }}" == "Windows" ]]; then
-            unix_path=$(cygpath ${{ env.MAMBA_ROOT_PREFIX }})
-            cd ${unix_path}/envs/pygmt/share/
-            echo ${unix_path}
-          else
-            cd ${{ env.MAMBA_ROOT_PREFIX }}/envs/pygmt/share/
-          fi
-          mkdir -p ~/.gmt/geography/
-          mv dcw-gmt ~/.gmt/geography/dcw
-          mv gshhg-gmt ~/.gmt/geography/gshhg
+      #- name: Install GMT GSHHG and DCW datasets
+      #  run: |
+      #    micromamba install dcw-gmt gshhg-gmt
+      #    if [[ "${{ runner.os }}" == "Windows" ]]; then
+      #      unix_path=$(cygpath ${{ env.MAMBA_ROOT_PREFIX }})
+      #      cd ${unix_path}/envs/pygmt/share/
+      #      echo ${unix_path}
+      #   else
+      #      cd ${{ env.MAMBA_ROOT_PREFIX }}/envs/pygmt/share/
+      #    fi
+      #    mkdir -p ~/.gmt/geography/
+      #    mv dcw-gmt ~/.gmt/geography/dcw
+      #    mv gshhg-gmt ~/.gmt/geography/gshhg
 
       # Install the package that we want to test
       - name: Install the package
