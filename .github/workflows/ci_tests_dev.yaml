@@ -128,6 +128,7 @@ jobs:
             -DCMAKE_BUILD_TYPE=Release ^
             -DCMAKE_PREFIX_PATH=${{ env.MAMBA_ROOT_PREFIX }}\envs\pygmt\Library ^
             -DCMAKE_INSTALL_RPATH=${{ env.MAMBA_ROOT_PREFIX }}\envs\pygmt\Library\bin ^
+            -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=${{ env.MAMBA_ROOT_PREFIX }}\envs\pygmt\Library\bin ^
             -DGMT_ENABLE_OPENMP=TRUE ^
             -DGMT_USE_THREADS=TRUE
           cmake --build .
