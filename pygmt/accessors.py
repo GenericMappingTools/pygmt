@@ -7,6 +7,7 @@ from pathlib import Path
 
 import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
+from pygmt.figure import Figure
 from pygmt.src.grdinfo import grdinfo
 
 
@@ -159,3 +160,25 @@ class GMTDataArrayAccessor:
                 "either 0 for Cartesian or 1 for Geographic."
             )
         self._gtype = value
+
+    def imshow(self, fig=None):
+        """
+        Image plot of 2D :class:`xarray.DataArray`.
+
+        Examples
+        --------
+
+        >>> from pygmt.datasets import load_earth_relief
+        >>> grid = load_earth_relief()
+        >>> grid.gmt.imshow()
+        """
+        newfig = False
+        if fig is None:
+            fig = Figure()
+            newfig = True
+        fig.grdimage(self._obj, frame=True)
+        fig.colorbar(frame=True)
+
+        if newfig:
+            fig.show()
+            return fig
