@@ -2,7 +2,10 @@
 Test the helper functions/classes/etc used in wrapping GMT.
 """
 
+import shutil
+import sys
 from pathlib import Path
+from unittest.mock import patch
 
 import pytest
 import xarray as xr
@@ -13,6 +16,7 @@ from pygmt.helpers import (
     args_in_kwargs,
     build_arg_list,
     kwargs_to_strings,
+    launch_external_viewer,
     unique_name,
 )
 from pygmt.helpers.testing import load_static_earth_relief, skip_if_no
@@ -159,3 +163,44 @@ def test_skip_if_no():
     assert mark_decorator.args[0] is True
     assert mark_decorator.kwargs["reason"] == "Could not import 'nullpackage'"
     assert mark_decorator.markname == "skipif"
+
+
+def test_launch_external_viewer_unix():
+    """
+    Test that launch_external_viewer uses the correct viewer for the platform.
+    """
+    # Patch shutil.which to return the command name directly.
+    with patch("shutil.which", side_effect=lambda x: x):
+        assert shutil.which("xdg-open") == "xdg-open"  # Make sure patch is working
+
+        for platform, command in (
+            ("linux", "xdg-open"),
+            ("freebsd", "xdg-open"),
+            ("darwin", "open"),
+        ):
+            with patch("subprocess.run") as mock_run, patch("sys.platform", platform):
+                launch_external_viewer("preview.png")
+                mock_run.assert_called_once()
+                assert mock_run.call_args.args[0] == [command, "preview.png"]
+
+
+@pytest.mark.skipif(sys.platform != "win32", reason="Test only runs on Windows")
+def test_launch_external_viewer_win32():
+    """
+    Test that launch_external_viewer calls os.startfile on Windows.
+    """
+    with patch("os.startfile") as mock_startfile:
+        launch_external_viewer("preview.png")
+        mock_startfile.assert_called_once_with("preview.png")
+
+
+def test_launch_external_viewer_unknown_os():
+    """
+    Test that launch_external_viewer uses the webbrowser module as a fallback.
+    """
+    with (
+        patch("webbrowser.open_new_tab") as mock_open,
+        patch("sys.platform", "unknown"),
+    ):
+        launch_external_viewer("preview.png")
+        mock_open.assert_called_once_with("file://preview.png")
