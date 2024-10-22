@@ -222,69 +222,28 @@ def test_figure_savefig():
     """
     Check if the arguments being passed to psconvert are correct.
     """
-    kwargs_saved = []
+    with patch.object(Figure, "psconvert", autospec=True) as mock_psconvert:
+        fig = Figure()
 
-    def mock_psconvert(*args, **kwargs):  # noqa: ARG001
-        """
-        Just record the arguments.
-        """
-        kwargs_saved.append(kwargs)
+        prefix = "test_figure_savefig"
+        common_kwargs = {"prefix": prefix, "crop": True, "Qt": 2, "Qg": 2}
 
-    fig = Figure()
-    fig.psconvert = mock_psconvert
+        formats = {
+            "png": {"fmt": "g"} | common_kwargs,
+            "pdf": {"fmt": "f"} | common_kwargs,
+            "eps": {"fmt": "e"} | common_kwargs,
+            "kml": {"fmt": "g", "W": "+k"} | common_kwargs,
+        }
 
-    prefix = "test_figure_savefig"
+        for fmt, extra_kwargs in formats.items():
+            fname = f"{prefix}.{fmt}"
+            fig.savefig(fname)
+            mock_psconvert.assert_called_with(fig, **extra_kwargs)
 
-    fname = f"{prefix}.png"
-    fig.savefig(fname)
-    assert kwargs_saved[-1] == {
-        "prefix": prefix,
-        "fmt": "g",
-        "crop": True,
-        "Qt": 2,
-        "Qg": 2,
-    }
-
-    fname = f"{prefix}.pdf"
-    fig.savefig(fname)
-    assert kwargs_saved[-1] == {
-        "prefix": prefix,
-        "fmt": "f",
-        "crop": True,
-        "Qt": 2,
-        "Qg": 2,
-    }
-
-    fname = f"{prefix}.png"
-    fig.savefig(fname, transparent=True)
-    assert kwargs_saved[-1] == {
-        "prefix": prefix,
-        "fmt": "G",
-        "crop": True,
-        "Qt": 2,
-        "Qg": 2,
-    }
-
-    fname = f"{prefix}.eps"
-    fig.savefig(fname)
-    assert kwargs_saved[-1] == {
-        "prefix": prefix,
-        "fmt": "e",
-        "crop": True,
-        "Qt": 2,
-        "Qg": 2,
-    }
-
-    fname = f"{prefix}.kml"
-    fig.savefig(fname)
-    assert kwargs_saved[-1] == {
-        "prefix": prefix,
-        "fmt": "g",
-        "crop": True,
-        "Qt": 2,
-        "Qg": 2,
-        "W": "+k",
-    }
+        # Special case for transparent PNG
+        fname = f"{prefix}.png"
+        fig.savefig(fname, transparent=True)
+        mock_psconvert.assert_called_with(fig, fmt="G", **common_kwargs)
 
 
 def test_figure_savefig_worldfile():
