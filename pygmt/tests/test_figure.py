@@ -384,38 +384,43 @@ class TestSetDisplay:
 
         fig = Figure()
         fig.basemap(region=[0, 3, 6, 9], projection="X1c", frame=True)
-        with (
-            patch("IPython.display.display", create=True) as mock_display,
-            patch("pygmt.figure.launch_external_viewer") as mock_viewer,
-        ):
-            # Test the "notebook" display method.
-            set_display(method="notebook")
-            assert SHOW_CONFIG["method"] == "notebook"
-            fig.show()
-            assert mock_display.call_count == 1
-            assert mock_viewer.call_count == 0
 
-        with (
-            patch("IPython.display.display", create=True) as mock_display,
-            patch("pygmt.figure.launch_external_viewer") as mock_viewer,
-        ):
-            # Test the "none" display method.
-            set_display(method="none")
-            assert SHOW_CONFIG["method"] == "none"
-            fig.show()
-            assert mock_display.call_count == 0
-            assert mock_viewer.call_count == 0
+        # Test the "notebook" display method.
+        set_display(method="notebook")
+        assert SHOW_CONFIG["method"] == "notebook"
+        if _HAS_IPYTHON:
+            with (
+                patch("IPython.display.display") as mock_display,
+                patch("pygmt.figure.launch_external_viewer") as mock_viewer,
+            ):
+                fig.show()
+                assert mock_viewer.call_count == 0
+                assert mock_display.call_count == 1
+        else:
+            with pytest.raises(GMTError):
+                fig.show()
 
-        with (
-            patch("IPython.display.display", create=True) as mock_display,
-            patch("pygmt.figure.launch_external_viewer") as mock_viewer,
-        ):
-            # Test the "external" display method
-            set_display(method="external")
-            assert SHOW_CONFIG["method"] == "external"
+        # Test the "external" display method
+        set_display(method="external")
+        assert SHOW_CONFIG["method"] == "external"
+        with patch("pygmt.figure.launch_external_viewer") as mock_viewer:
             fig.show()
-            assert mock_display.call_count == 0
             assert mock_viewer.call_count == 1
+        if _HAS_IPYTHON:
+            with patch("IPython.display.display") as mock_display:
+                fig.show()
+                assert mock_display.call_count == 0
+
+        # Test the "none" display method.
+        set_display(method="none")
+        assert SHOW_CONFIG["method"] == "none"
+        with patch("pygmt.figure.launch_external_viewer") as mock_viewer:
+            fig.show()
+            assert mock_viewer.call_count == 0
+        if _HAS_IPYTHON:
+            with patch("IPython.display.display") as mock_display:
+                fig.show()
+                assert mock_display.call_count == 0
 
         # Setting method to None should revert it to the default method.
         set_display(method=None)
