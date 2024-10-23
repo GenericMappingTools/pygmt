@@ -48,7 +48,7 @@ from pygmt.src._common import _data_geometry_is_point
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot(  # noqa: PLR0912
+def plot(
     self, data=None, x=None, y=None, size=None, symbol=None, direction=None, **kwargs
 ):
     r"""
