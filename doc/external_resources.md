@@ -107,7 +107,7 @@ Andre Belem
 :text-align: center
 :margin: 0 3 0 0
 
-![](https://github.com/tktmyd/pygmt-howto-jp/raw/main/docs/_images/01aed847a81445c7a002cce113d95886793f6236fbcccb233862486589f17ed1.png)
+![](https://github.com/tktmyd/pygmt-howto-jp/raw/main/docs/_images/inf_on_map_12_0.png)
 +++
 Takuto Maeda
 ::::

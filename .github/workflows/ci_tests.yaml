@@ -17,8 +17,8 @@
 # In draft pull request, only two jobs on Linux are triggered to save on
 # Continuous Integration resources:
 #
-# - Minimum supported Python/NumPy/Pandas/Xarray versions following [SPEC 0](https://scientific-python.org/specs/spec-0000/)
-# - Latest Python/NumPy versions + optional packages (e.g. GeoPandas)
+# - Minimum supported Python, NumPy, pandas, Xarray versions following [SPEC 0](https://scientific-python.org/specs/spec-0000/)
+# - Latest Python, NumPy versions + optional packages (e.g. GeoPandas)
 #
 name: Tests
 
@@ -65,21 +65,21 @@ jobs:
             isDraft: true
           - os: windows-latest
             isDraft: true
-        # Pair Python 3.10 with the minimum supported versions of NumPy/Pandas/Xarray
-        # and Python 3.12 with the latest versions of NumPy/Pandas/Xarray
+        # Pair Python 3.10 with the minimum supported versions of NumPy, pandas, Xarray
+        # and Python 3.12 with the latest versions of NumPy, pandas, Xarray
         # Only install optional packages on Python 3.12
         include:
           - python-version: '3.10'
             numpy-version: '1.24'
-            pandas-version: '=1.5'
-            xarray-version: '=2022.09'
+            pandas-version: '=2.0'
+            xarray-version: '=2023.04'
             optional-packages: ''
           - python-version: '3.12'
             numpy-version: '2.1'
             pandas-version: ''
             xarray-version: ''
             optional-packages: ' contextily geopandas ipython pyarrow rioxarray sphinx-gallery'
-          # The job below is for testing geopandas v0.x on Ubuntu.
+          # The job below is for testing GeoPandas v0.x on Ubuntu.
           # The python-version here can't be the versions in the matrix.python-version
           # defined above. Otherwise, other jobs will be overridden by this one.
           - os: 'ubuntu-latest'
@@ -103,7 +103,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4.2.1
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -114,7 +114,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.9.0
+        uses: mamba-org/setup-micromamba@v2.0.0
         with:
           environment-name: pygmt
           condarc: |
@@ -170,7 +170,7 @@ jobs:
 
       # Upload diff images on test failure
       - name: Upload diff images if any test fails
-        uses: actions/upload-artifact@v4.4.0
+        uses: actions/upload-artifact@v4.4.3
         if: failure()
         with:
           name: artifact-${{ runner.os }}-${{ matrix.python-version }}
@@ -178,7 +178,7 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4.5.0
+        uses: codecov/codecov-action@v4.6.0
         if: success() || failure()
         with:
           use_oidc: true

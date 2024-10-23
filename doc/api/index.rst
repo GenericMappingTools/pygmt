@@ -218,6 +218,8 @@ and store them in GMT's user data directory.
     :toctree: generated
 
     datasets.list_sample_data
+    datasets.load_black_marble
+    datasets.load_blue_marble
     datasets.load_earth_age
     datasets.load_earth_free_air_anomaly
     datasets.load_earth_geoid

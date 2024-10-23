@@ -4,7 +4,7 @@
 
 [Documentation (development version)](https://www.pygmt.org/dev) | [Contact](https://forum.generic-mapping-tools.org) | [TryOnline](https://github.com/GenericMappingTools/try-gmt)
 
-[![Latest version on PyPI](http://img.shields.io/pypi/v/pygmt.svg?style=flat-square)](https://pypi.python.org/pypi/pygmt)
+[![Latest version on PyPI](https://img.shields.io/pypi/v/pygmt.svg?style=flat-square)](https://pypi.python.org/pypi/pygmt)
 [![Latest version on conda-forge](https://img.shields.io/conda/v/conda-forge/pygmt?style=flat-square)](https://anaconda.org/conda-forge/pygmt)
 [![GitHub Actions Tests status](https://github.com/GenericMappingTools/pygmt/workflows/Tests/badge.svg)](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests.yaml)
 [![GitHub Actions GMT Dev Tests status](https://github.com/GenericMappingTools/pygmt/workflows/GMT%20Dev%20Tests/badge.svg)](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml)
@@ -194,7 +194,7 @@ PyGMT has adopted [SPEC 0](https://scientific-python.org/specs/spec-0000/) along
 rest of the Scientific Python ecosystem, and therefore:
 
 - Support for Python versions be dropped 3 years after their initial release.
-- Support for core package dependencies (NumPy/Pandas/Xarray) be dropped 2 years after
+- Support for core package dependencies (NumPy, pandas, Xarray) be dropped 2 years after
   their initial release.
 
 Similarly, the PyGMT team has decided to discontinue support for GMT versions 3 years
