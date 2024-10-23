@@ -910,12 +910,12 @@ class Session:
         Examples
         --------
         >>> import numpy as np
-        >>> data = np.array([1, 2, 3], dtype="float64")
+        >>> data = np.array([1, 2, 3], dtype=np.float64)
         >>> with Session() as lib:
         ...     gmttype = lib._check_dtype_and_dim(data, ndim=1)
         ...     gmttype == lib["GMT_DOUBLE"]
         True
-        >>> data = np.ones((5, 2), dtype="float32")
+        >>> data = np.ones((5, 2), dtype=np.float32)
         >>> with Session() as lib:
         ...     gmttype = lib._check_dtype_and_dim(data, ndim=2)
         ...     gmttype == lib["GMT_FLOAT"]
@@ -1505,7 +1505,7 @@ class Session:
                 strings = np.array(
                     [" ".join(vals) for vals in zip(*string_arrays, strict=True)]
                 )
-            strings = np.asanyarray(a=strings, dtype=str)
+            strings = np.asanyarray(a=strings, dtype=np.str_)
             self.put_strings(
                 dataset, family="GMT_IS_VECTOR|GMT_IS_DUPLICATE", strings=strings
             )

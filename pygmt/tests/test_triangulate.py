@@ -45,7 +45,7 @@ def fixture_expected_dataframe():
             [3, 4, 2],
             [9, 3, 8],
         ],
-        dtype=float,
+        dtype=np.float64,
     )
 
 
@@ -117,7 +117,7 @@ def test_delaunay_triples_outfile(dataframe, expected_dataframe):
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0
         temp_df = pd.read_csv(
-            filepath_or_buffer=tmpfile.name, sep="\t", header=None, dtype=float
+            filepath_or_buffer=tmpfile.name, sep="\t", header=None, dtype=np.float64
         )
         pd.testing.assert_frame_equal(left=temp_df, right=expected_dataframe)
 
