@@ -58,7 +58,7 @@ def _validate_data_input(
     >>> _validate_data_input(
     ...     data=pd.DataFrame(data, columns=["x", "y"]),
     ...     required_z=True,
-    ...     kind="matrix",
+    ...     kind="vectors",
     ... )
     Traceback (most recent call last):
         ...
@@ -66,7 +66,7 @@ def _validate_data_input(
     >>> _validate_data_input(
     ...     data=xr.Dataset(pd.DataFrame(data, columns=["x", "y"])),
     ...     required_z=True,
-    ...     kind="matrix",
+    ...     kind="vectors",
     ... )
     Traceback (most recent call last):
         ...
@@ -96,23 +96,31 @@ def _validate_data_input(
     if data is None:  # data is None
         if x is None and y is None:  # both x and y are None
             if required_data:  # data is not optional
-                raise GMTInvalidInput("No input data provided.")
+                msg = "No input data provided."
+                raise GMTInvalidInput(msg)
         elif x is None or y is None:  # either x or y is None
-            raise GMTInvalidInput("Must provide both x and y.")
+            msg = "Must provide both x and y."
+            raise GMTInvalidInput(msg)
         if required_z and z is None:  # both x and y are not None, now check z
-            raise GMTInvalidInput("Must provide x, y, and z.")
+            msg = "Must provide x, y, and z."
+            raise GMTInvalidInput(msg)
     else:  # data is not None
         if x is not None or y is not None or z is not None:
-            raise GMTInvalidInput("Too much data. Use either data or x/y/z.")
-        # For 'matrix' kind, check if data has the required z column
-        if kind == "matrix" and required_z:
-            if hasattr(data, "shape"):  # np.ndarray or pd.DataFrame
-                if len(data.shape) == 1 and data.shape[0] < 3:
-                    raise GMTInvalidInput("data must provide x, y, and z columns.")
-                if len(data.shape) > 1 and data.shape[1] < 3:
-                    raise GMTInvalidInput("data must provide x, y, and z columns.")
-            if hasattr(data, "data_vars") and len(data.data_vars) < 3:  # xr.Dataset
-                raise GMTInvalidInput("data must provide x, y, and z columns.")
+            msg = "Too much data. Use either data or x/y/z."
+            raise GMTInvalidInput(msg)
+        # check if data has the required z column
+        if required_z:
+            msg = "data must provide x, y, and z columns."
+            if kind == "matrix" and data.shape[1] < 3:
+                raise GMTInvalidInput(msg)
+            if kind == "vectors":
+                if hasattr(data, "shape") and (
+                    (len(data.shape) == 1 and data.shape[0] < 3)
+                    or (len(data.shape) > 1 and data.shape[1] < 3)
+                ):  # np.ndarray or pd.DataFrame
+                    raise GMTInvalidInput(msg)
+                if hasattr(data, "data_vars") and len(data.data_vars) < 3:  # xr.Dataset
+                    raise GMTInvalidInput(msg)
 
 
 def _check_encoding(
