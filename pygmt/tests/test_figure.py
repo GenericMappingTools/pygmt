@@ -385,7 +385,7 @@ class TestSetDisplay:
         fig = Figure()
         fig.basemap(region=[0, 3, 6, 9], projection="X1c", frame=True)
         with (
-            patch("IPython.display.display") as mock_display,
+            patch("IPython.display.display", create=True) as mock_display,
             patch("pygmt.figure.launch_external_viewer") as mock_viewer,
         ):
             # Test the "notebook" display method.
@@ -396,7 +396,7 @@ class TestSetDisplay:
             assert mock_viewer.call_count == 0
 
         with (
-            patch("IPython.display.display") as mock_display,
+            patch("IPython.display.display", create=True) as mock_display,
             patch("pygmt.figure.launch_external_viewer") as mock_viewer,
         ):
             # Test the "none" display method.
@@ -407,7 +407,7 @@ class TestSetDisplay:
             assert mock_viewer.call_count == 0
 
         with (
-            patch("IPython.display.display") as mock_display,
+            patch("IPython.display.display", create=True) as mock_display,
             patch("pygmt.figure.launch_external_viewer") as mock_viewer,
         ):
             # Test the "external" display method
