@@ -244,6 +244,9 @@ class Figure:
                 raise GMTInvalidInput(msg)
             kwargs["W"] = True
 
+        # pytest-mpl v0.17.0 added the "metadata" parameter to Figure.savefig, which
+        # is not recognized. So remove it before calling Figure.psconvert.
+        kwargs.pop("metadata", None)
         self.psconvert(prefix=prefix, fmt=fmt, crop=crop, **kwargs)
 
         # Remove the .pgw world file if exists.
