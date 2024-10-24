@@ -349,3 +349,116 @@ def array_to_datetime(array: Sequence[Any] | np.ndarray) -> np.ndarray:
            '2018-01-01T00:00:00.000000'], dtype='datetime64[us]')
     """
     return np.asarray(array, dtype=np.datetime64)
+
+
+def _array_dtypes(array: Any) -> tuple[str, str]:
+    """
+    Get the dtypes of an array-like object and the numpy array after applying the
+    np.ascontiguousarray function.
+
+    For the input array-like object, the function checks the "dtype" (for NumPy and
+    Pandas objects) or "type" (for PyArrow objects) property to determine the dtype. If
+    both of these properties are not found (e.g., a list), the dtype is set to an empty
+    string. Then the function applies the np.ascontiguousarray function to the input
+    object and determines the dtype of the converted np.ndarray object.
+
+    The function returns a tuple of the two dtypes. If the output dtype is "object", it
+    means np.ascontiguousarray has failed to convert the input object to a NumPy dtype
+    that can be recognized by the GMT C API, and we have to maintain a mapping from the
+    input dtype to the expected output dtype (e.g., for a panda.Series with
+    ``dtype="string[python]"``, the output is "object", and we need to have a dtype
+    mapping from ``string`` to ``np.str_``).
+
+    This function is not used anywhere in the project. Instead, similar codes are used
+    in the ``vectors_to_arrays`` function. This function is kept for understanding the
+    dtype's string representation of different array-like objects and what dtype they
+    are converted to by NumPy. This function is kept for understanding the dtype
+    conversion process and for testing purposes, since some of the dtypes may change in
+    the future (e.g., pandas.StringDtype is still an experimental feature).
+
+    Parameters
+    ----------
+    array
+        The array-like object to be checked.
+
+    Returns
+    -------
+    dtype
+        The data type of the array-like object.
+
+    Examples
+    --------
+    >>> import datetime
+    >>> import numpy as np
+    >>> import pandas as pd
+    >>> datetimes = [datetime.date(2021, 1, 1), datetime.date(2022, 1, 1)]
+
+    For Python built-in types:
+    >>> _array_dtypes([1, 2, 3])
+    ('', 'int64')
+    >>> _array_dtypes([1.0, 2.0, 3.0])
+    ('', 'float64')
+    >>> _array_dtypes(["a", "b", "c"])
+    ('', '<U1')
+
+    For NumPy arrays:
+
+    >>> _array_dtypes(np.array([1, 2, 3]))
+    ('int64', 'int64')
+    >>> _array_dtypes(np.array([1.0, 2.0, 3.0]))
+    ('float64', 'float64')
+    >>> _array_dtypes(np.datetime64("2021-01-01"))
+    ('datetime64[D]', 'datetime64[D]')
+
+    For Pandas objects:
+
+    >>> _array_dtypes(pd.Series(data=[1, 2, 3]))
+    ('int64', 'int64')
+    >>> _array_dtypes(pd.Series(data=[1.0, 2.0, 3.0]))
+    ('float64', 'float64')
+    >>> _array_dtypes(pd.Series(data=[1, 2, 3], dtype=pd.Int32Dtype()))
+    ('Int32', 'int32')
+    >>> _array_dtypes(pd.Series(data=[1.0, 2.0, 3.0], dtype=pd.Float32Dtype()))
+    ('Float32', 'float32')
+    >>> _array_dtypes(pd.Series(data=["a", "b", "c"]))
+    ('object', 'object')
+    >>> _array_dtypes(pd.Series(data=["a", "b", "c"], dtype="string[python]"))
+    ('string', 'object')
+    >>> _array_dtypes(pd.Series(data=["a", "b", "c"], dtype="string[pyarrow]"))
+    ('string', 'object')
+    >>> _array_dtypes(pd.Series(data=datetimes, dtype="datetime64[ns]"))
+    ('datetime64[ns]', 'datetime64[ns]')
+    >>> _array_dtypes(pd.Series(data=datetimes, dtype="date32[day][pyarrow]"))
+    ('date32[day][pyarrow]', 'object')
+    >>> _array_dtypes(pd.Series(data=datetimes, dtype="date64[ms][pyarrow]"))
+    ('date64[ms][pyarrow]', 'object')
+
+    For PyArrow objects:
+
+    >>> import pytest
+    >>> pa = pytest.importorskip("pyarrow")
+    >>> _array_dtypes(pa.array([1, 2, 3]))
+    ('int64', 'int64')
+    >>> _array_dtypes(pa.array([1.0, 2.0, 3.0]))
+    ('double', 'float64')
+    >>> _array_dtypes(pa.array([1, 2, 3], type=pa.int32()))
+    ('int32', 'int32')
+    >>> _array_dtypes(pa.array([1.0, 2.0, 3.0], type=pa.float32()))
+    ('float', 'float32')
+    >>> _array_dtypes(pa.array(["a", "b", "c"]))
+    ('string', 'object')
+    >>> _array_dtypes(pa.array(datetimes, type=pa.date32()))
+    ('date32[day]', 'datetime64[D]')
+    >>> _array_dtypes(pa.array(datetimes, type=pa.date64()))
+    ('date64[ms]', 'datetime64[ms]')
+    """
+
+    def _get_dtype(array):
+        """
+        Get the data type of the array-like object.
+        """
+        return str(getattr(array, "dtype", getattr(array, "type", "")))
+
+    dtype_in = _get_dtype(array)
+    dtype_out = str(np.ascontiguousarray(array).dtype)
+    return dtype_in, dtype_out
