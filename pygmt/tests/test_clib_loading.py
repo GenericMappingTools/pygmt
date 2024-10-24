@@ -9,6 +9,7 @@ import subprocess
 import sys
 import types
 from pathlib import PurePath
+from unittest import mock
 
 import pytest
 from pygmt.clib.loading import (
@@ -70,24 +71,15 @@ def test_load_libgmt():
     check_libgmt(load_libgmt())
 
 
-def test_load_libgmt_fails(monkeypatch):
+def test_load_libgmt_fails():
     """
     Test that GMTCLibNotFoundError is raised when GMT's shared library cannot be found.
     """
-    with monkeypatch.context() as mpatch:
-        if sys.platform == "win32":
-            mpatch.setattr(ctypes.util, "find_library", lambda name: "fakegmt.dll")  # noqa: ARG005
-        mpatch.setattr(
-            sys,
-            "platform",
-            # Pretend to be on macOS if running on Linux, and vice versa
-            "darwin" if sys.platform == "linux" else "linux",
-        )
-        mpatch.setattr(
-            subprocess,
-            "check_output",
-            lambda cmd, encoding: "libfakegmt.so",  # noqa: ARG005
-        )
+    with (
+        mock.patch("ctypes.util.find_library", return_value="fakegmt.dll"),
+        mock.patch("sys.platform", "darwin" if sys.platform == "linux" else "linux"),
+        mock.patch("subprocess.check_output", return_value="libfakegmt.so"),
+    ):
         with pytest.raises(GMTCLibNotFoundError):
             check_libgmt(load_libgmt())
 
