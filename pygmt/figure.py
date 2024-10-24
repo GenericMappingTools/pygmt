@@ -445,6 +445,7 @@ class Figure:
         legend,
         logo,
         meca,
+        paragraph,
         plot,
         plot3d,
         psconvert,
