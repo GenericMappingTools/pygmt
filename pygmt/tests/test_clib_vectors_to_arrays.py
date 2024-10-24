@@ -10,6 +10,7 @@ import numpy.testing as npt
 import pandas as pd
 import pytest
 from pygmt.clib.conversion import vectors_to_arrays
+from pygmt.helpers.testing import skip_if_no
 
 _HAS_PYARROW = bool(importlib.util.find_spec("pyarrow"))
 
@@ -80,13 +81,21 @@ def test_vectors_to_arrays_pandas_nan():
     _check_arrays(arrays)
 
 
-def test_vectors_to_arrays_pandas_string():
+@pytest.mark.parametrize(
+    "dtype",
+    [
+        "string[python]",
+        pytest.param("string[pyarrow]", marks=skip_if_no(package="pyarrow")),
+        pytest.param("string[pyarrow_numpy]", marks=skip_if_no(package="pyarrow")),
+    ],
+)
+def test_vectors_to_arrays_pandas_string(dtype):
     """
-    Test the vectors_to_arrays function with pandas Series containing datetime64.
+    Test the vectors_to_arrays function with pandas strings.
     """
     vectors = [
-        pd.Series(["abc", "defhig"]),
-        pd.Series(["abcdef", "123456"], dtype="string"),
+        pd.Series(["abc", "defg"], dtype=dtype),
+        pd.Series(["hijklmn", "123456"], dtype=dtype),
     ]
     arrays = vectors_to_arrays(vectors)
     assert all(i.dtype.type == np.str_ for i in arrays)
