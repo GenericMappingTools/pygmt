@@ -75,9 +75,8 @@ def test_vectors_to_arrays_pandas_nan():
     """
     vectors = [pd.Series(data=[0, 4, pd.NA, 8, 6], dtype=pd.Int32Dtype())]
     arrays = vectors_to_arrays(vectors)
-    npt.assert_equal(
-        arrays[0], np.array([0, 4, np.nan, 8, 6], dtype=np.float64), strict=True
-    )
+    npt.assert_equal(arrays[0], np.array([0, 4, np.nan, 8, 6], dtype=np.float64))
+    assert arrays[0].dtype == np.float64
     _check_arrays(arrays)
 
 
