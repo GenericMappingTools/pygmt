@@ -2,6 +2,8 @@
 coast - Plot land and water.
 """
 
+from typing import Literal
+
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -20,7 +22,6 @@ __doctest_skip__ = ["coast"]
     A="area_thresh",
     B="frame",
     C="lakes",
-    D="resolution",
     E="dcw",
     F="box",
     G="land",
@@ -37,7 +38,13 @@ __doctest_skip__ = ["coast"]
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def coast(self, **kwargs):
+def coast(
+    self,
+    resolution: Literal[
+        "auto", "full", "high", "intermediate", "low", "crude"
+    ] = "auto",
+    **kwargs,
+):
     r"""
     Plot continents, shorelines, rivers, and borders on maps.
 
@@ -73,10 +80,12 @@ def coast(self, **kwargs):
         parameter. Optionally, specify separate fills by appending
         **+l** for lakes or **+r** for river-lakes, and passing multiple
         strings in a list.
-    resolution : str
-        **f**\|\ **h**\|\ **i**\|\ **l**\|\ **c**.
-        Select the resolution of the data set to: (**f**\ )ull, (**h**\ )igh,
-        (**i**\ )ntermediate, (**l**\ )ow, and (**c**\ )rude.
+    resolution
+        Select the resolution of the coastline dataset to use. The available resolutions
+        from highest to lowest are: ``"full"``, ``"high"``, ``"intermediate"``,
+        ``"low"``, and ``"crude"``, which drops by 80% between levels. Default is
+        ``"auto"`` to automatically select the most suitable resolution given the chosen
+        map scale.
     land : str
         Select filling of "dry" areas.
     rivers : int, str, or list
@@ -199,5 +208,9 @@ def coast(self, **kwargs):
             """At least one of the following parameters must be specified:
             lakes, land, water, rivers, borders, dcw, Q, or shorelines"""
         )
+
+    # Alias 'resolution' to "D".
+    kwargs["D"] = resolution[0]
+
     with Session() as lib:
         lib.call_module(module="coast", args=build_arg_list(kwargs))

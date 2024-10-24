@@ -2,6 +2,8 @@
 grdlandmask - Create a "wet-dry" mask grid from shoreline data base
 """
 
+from typing import Literal
+
 import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
@@ -13,7 +15,6 @@ __doctest_skip__ = ["grdlandmask"]
 @fmt_docstring
 @use_alias(
     A="area_thresh",
-    D="resolution",
     E="bordervalues",
     I="spacing",
     N="maskvalues",
@@ -23,7 +24,11 @@ __doctest_skip__ = ["grdlandmask"]
     x="cores",
 )
 @kwargs_to_strings(I="sequence", R="sequence", N="sequence", E="sequence")
-def grdlandmask(outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
+def grdlandmask(
+    outgrid: str | None = None,
+    resolution: Literal["full", "high", "intermediate", "low", "crude"] = "low",
+    **kwargs,
+) -> xr.DataArray | None:
     r"""
     Create a grid file with set values for land and water.
 
@@ -44,17 +49,13 @@ def grdlandmask(outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     {spacing}
     {region}
     {area_thresh}
-    resolution : str
-        *res*\[\ **+f**\]. Select the resolution of the data set to use
-        ((**f**)ull, (**h**)igh, (**i**)ntermediate, (**l**)ow, or
-        (**c**)rude). The resolution drops off by ~80% between data sets.
-        [Default is **l**]. Append **+f** to automatically select a lower
-        resolution should the one requested not be available
-        [abort if not found]. Alternatively, choose (**a**)uto to automatically
-        select the best resolution given the chosen region. Note that because
-        the coastlines differ in details a node in a mask file using one
-        resolution is not guaranteed to remain inside [or outside] when a
-        different resolution is selected.
+    resolution
+        Ignored unless ``mask`` is set. Select the resolution of the coastline dataset
+        to use. The available resolutions from highest to lowest are: ``"full"``,
+        ``"high"``, ``"intermediate"``, ``"low"``, and ``"crude"``, which drops by 80%
+        between levels. Note that because the coastlines differ in details it is not
+        guaranteed that a point will remain inside [or outside] when a different
+        resolution is selected.
     bordervalues : bool, str, float, or list
         Nodes that fall exactly on a polygon boundary should be
         considered to be outside the polygon [Default considers them to be
@@ -98,6 +99,8 @@ def grdlandmask(outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     if kwargs.get("I") is None or kwargs.get("R") is None:
         raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
 
+    # Alias "resolution" to "D"
+    kwargs["D"] = resolution[0]
     with Session() as lib:
         with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
             kwargs["G"] = voutgrd
