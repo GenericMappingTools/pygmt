@@ -82,7 +82,8 @@ def test_vectors_to_arrays_pandas_nan():
 @pytest.mark.skipif(not _HAS_PYARROW, reason="pyarrow is not installed.")
 def test_vectors_to_arrays_pyarrow_datetime():
     """
-    Test the vectors_to_arrays function with pyarrow arrays containing datetime64.
+    Test the vectors_to_arrays function with pyarrow arrays containing date32/date64
+    types.
     """
     vectors = [
         pd.Series(
