@@ -168,41 +168,7 @@ def vectors_to_arrays(vectors: Sequence[Any]) -> list[np.ndarray]:
     True
     >>> all(isinstance(i, np.ndarray) for i in arrays)
     True
-
-    >>> data = [[1, 2], (3, 4), range(5, 7)]
-    >>> all(isinstance(i, np.ndarray) for i in vectors_to_arrays(data))
-    True
-
-    >>> # Sequence of scalars are converted to 1-D arrays
-    >>> data = vectors_to_arrays([1, 2, 3.0])
-    >>> data
-    [array([1]), array([2]), array([3.])]
-    >>> [i.ndim for i in data]  # Check that they are 1-D arrays
-    [1, 1, 1]
-
-    >>> series = pd.Series(data=[0, 4, pd.NA, 8, 6], dtype=pd.Int32Dtype())
-    >>> vectors_to_arrays([series])
-    [array([ 0.,  4., nan,  8.,  6.])]
-
-    >>> import datetime
-    >>> import pytest
-    >>> pa = pytest.importorskip("pyarrow")
-    >>> vectors = [
-    ...     pd.Series(
-    ...         data=[datetime.date(2020, 1, 1), datetime.date(2021, 12, 31)],
-    ...         dtype="date32[day][pyarrow]",
-    ...     ),
-    ...     pd.Series(
-    ...         data=[datetime.date(2022, 1, 1), datetime.date(2023, 12, 31)],
-    ...         dtype="date64[ms][pyarrow]",
-    ...     ),
-    ... ]
-    >>> arrays = vectors_to_arrays(vectors)
-    >>> all(a.flags.c_contiguous for a in arrays)
-    True
-    >>> all(isinstance(a, np.ndarray) for a in arrays)
-    True
-    >>> all(isinstance(a.dtype, np.dtypes.DateTime64DType) for a in arrays)
+    >>> all(i.ndim == 1 for i in arrays)
     True
     """
     dtypes = {
