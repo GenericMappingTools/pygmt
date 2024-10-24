@@ -93,8 +93,8 @@ def test_plot_fail_no_data(data, region):
 
 def test_plot_fail_1d_array_with_data(data, region):
     """
-    Should raise an exception if array fill, size, intensity and transparency are used
-    with matrix.
+    Should raise an exception if arrays of fill, size, intensity, transparency and
+    symbol are specified when data is given.
     """
     fig = Figure()
     kwargs = {"data": data, "region": region, "projection": "X10c", "frame": "afg"}
@@ -106,6 +106,8 @@ def test_plot_fail_1d_array_with_data(data, region):
         fig.plot(style="c0.2c", fill="red", intensity=data[:, 2], **kwargs)
     with pytest.raises(GMTInvalidInput):
         fig.plot(style="c0.2c", fill="red", transparency=data[:, 2] * 100, **kwargs)
+    with pytest.raises(GMTInvalidInput):
+        fig.plot(style="0.2c", fill="red", symbol=["c"] * data.shape[0], **kwargs)
 
 
 @pytest.mark.mpl_image_compare
@@ -293,6 +295,25 @@ def test_plot_sizes_colors_transparencies():
         size=size,
         cmap="gray",
         transparency=transparency,
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_plot_symbol():
+    """
+    Plot the data using array-like symbols.
+    """
+    fig = Figure()
+    fig.plot(
+        x=[1, 2, 3, 4],
+        y=[1, 1, 1, 1],
+        region=[0, 5, 0, 5],
+        projection="X4c",
+        fill="blue",
+        size=[0.1, 0.2, 0.3, 0.4],
+        symbol=["c", "t", "i", "s"],
+        frame="af",
     )
     return fig
 
