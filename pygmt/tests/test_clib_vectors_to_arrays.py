@@ -1,5 +1,5 @@
 """
-Test the functions in the clib.conversion module.
+Test the vectors_to_arrays function in the clib.conversion module.
 """
 
 import datetime
@@ -33,13 +33,11 @@ def _check_arrays(arrays):
 @pytest.mark.parametrize(
     "vectors",
     [
-        pytest.param([[1, 2], (3, 4), range(5, 7)], id="python_objects"),
+        pytest.param([[1, 2], (3, 4), range(5, 7)], id="python_sequences"),
         pytest.param(
-            [np.array([1, 2]), np.array([3, 4]), np.array(range(5, 7))],
-            id="numpy_arrays",
+            [np.array([1, 2]), np.array([3, 4]), np.array([5, 6])], id="numpy_arrays"
         ),
-        pytest.param([[1, 2], np.array([3, 4]), range(5, 7)], id="mixed"),
-        pytest.param([1, 2, 3.0], id="scalars"),
+        pytest.param([[1, 2], np.array([3, 4]), range(5, 7)], id="mixed_sequences"),
     ],
 )
 def test_vectors_to_arrays(vectors):
@@ -47,6 +45,16 @@ def test_vectors_to_arrays(vectors):
     Test the vectors_to_arrays function for various input types.
     """
     arrays = vectors_to_arrays(vectors)
+    npt.assert_equal(arrays, [np.array([1, 2]), np.array([3, 4]), np.array([5, 6])])
+    _check_arrays(arrays)
+
+
+def test_vectors_to_arrays_scalars():
+    """
+    Test that the vectors_to_arrays function can deal with 0-D scalars.
+    """
+    arrays = vectors_to_arrays([1, 2, 3.0])
+    npt.assert_equal(arrays, [np.array([1]), np.array([2]), np.array([3.0])])
     _check_arrays(arrays)
 
 
@@ -67,7 +75,9 @@ def test_vectors_to_arrays_pandas_nan():
     """
     vectors = [pd.Series(data=[0, 4, pd.NA, 8, 6], dtype=pd.Int32Dtype())]
     arrays = vectors_to_arrays(vectors)
-    npt.assert_equal(arrays[0], np.array([0, 4, np.nan, 8, 6], dtype=np.float64))
+    npt.assert_equal(
+        arrays[0], np.array([0, 4, np.nan, 8, 6], dtype=np.float64), strict=True
+    )
     _check_arrays(arrays)
 
 
@@ -87,7 +97,8 @@ def test_vectors_to_arrays_pandas_string():
 @pytest.mark.skipif(not _HAS_PYARROW, reason="pyarrow is not installed.")
 def test_vectors_to_arrays_pyarrow_datetime():
     """
-    Test the vectors_to_arrays function with pyarrow arrays containing datetime64.
+    Test the vectors_to_arrays function with pyarrow arrays containing date32/date64
+    types.
     """
     vectors = [
         pd.Series(
