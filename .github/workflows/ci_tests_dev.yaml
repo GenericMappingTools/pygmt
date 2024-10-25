@@ -86,6 +86,14 @@ jobs:
             pcre
             zlib
 
+      # Install the GSHHG and DCW datasets on Linux/macOS to avoid corrupted files
+      # during GMT auto-downloading. Currently, we can't install them on Windows CI,
+      # because the Windows CI fails to compile "gshhg_version.c" due to unknown reasons
+      # (likely missing DLLs).
+      - name: Install GMT GSHHG and DCW datasets (Linux/macOS)
+        run: micromamba install dcw-gmt gshhg-gmt
+        if: runner.os != 'Windows'
+
       # Checkout current GMT repository
       - name: Checkout the GMT source from ${{ matrix.gmt_git_ref }} branch
         uses: actions/checkout@v4.2.1
