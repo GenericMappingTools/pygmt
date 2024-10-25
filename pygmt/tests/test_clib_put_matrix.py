@@ -32,7 +32,7 @@ def test_put_matrix(dtypes):
                 family="GMT_IS_DATASET|GMT_VIA_MATRIX",
                 geometry="GMT_IS_POINT",
                 mode="GMT_CONTAINER_ONLY",
-                dim=[shape[1], shape[0], 1, 0],  # columns, rows, layers, dtype
+                dim=[shape[1], shape[0], 1, 0],  # ncolumns, nrows, nlayers, dtype
             )
             data = np.arange(shape[0] * shape[1], dtype=dtype).reshape(shape)
             lib.put_matrix(dataset, matrix=data)
