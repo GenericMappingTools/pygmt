@@ -823,7 +823,7 @@ class Session:
         valid_modifiers: Sequence[str] | None = None,
     ) -> int:
         """
-        Parse a constant, convert it to an interger, and validate it.
+        Parse a constant, convert it to an integer, and validate it.
 
         The GMT C API takes certain defined constants, like ``"GMT_IS_GRID"``, that need
         to be validated and converted to integer values using
@@ -833,7 +833,7 @@ class Session:
         ``"GMT_IS_GRID|GMT_VIA_MATRIX"``. The two parts must be converted separately and
         their values are added.
 
-        If valid modifiers are not given, then will assume that modifiers are not
+        If no valid modifiers are given, then will assume that modifiers are not
         allowed. In this case, will raise a :class:`pygmt.exceptions.GMTInvalidInput`
         exception if given a modifier.
 
