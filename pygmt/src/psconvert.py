@@ -119,7 +119,7 @@ def psconvert(self, **kwargs):
             "The 'prefix' parameter must be specified with a valid value."
         )
 
-    # check if the parent directory exists
+    # Check if the parent directory exists
     prefix_path = Path(prefix).parent
     if not prefix_path.exists():
         raise FileNotFoundError(
