@@ -17,6 +17,7 @@ from pygmt.figure import SHOW_CONFIG, _get_default_display_method
 from pygmt.helpers import GMTTempFile
 
 _HAS_IPYTHON = bool(importlib.util.find_spec("IPython"))
+_HAS_RIOXARRAY = bool(importlib.util.find_spec("rioxarray"))
 
 
 def test_figure_region():
@@ -100,7 +101,7 @@ def test_figure_savefig_geotiff():
     geofname = Path("test_figure_savefig_geotiff.tiff")
     fig.savefig(geofname)
     assert geofname.exists()
-    # The .pgw should not exist
+    # The .pgw file should not exist
     assert not geofname.with_suffix(".pgw").exists()
 
     # Save as TIFF
@@ -109,7 +110,7 @@ def test_figure_savefig_geotiff():
     assert fname.exists()
 
     # Check if a TIFF is georeferenced or not
-    try:
+    if _HAS_RIOXARRAY:
         import rioxarray
         from rasterio.errors import NotGeoreferencedWarning
         from rasterio.transform import Affine
@@ -147,8 +148,6 @@ def test_figure_savefig_geotiff():
                     a=1.0, b=0.0, c=0.0, d=0.0, e=1.0, f=0.0
                 )
             assert len(record) == 1
-    except ImportError:
-        pass
     geofname.unlink()
     fname.unlink()
 
