@@ -190,12 +190,12 @@ def vectors_to_arrays(vectors: Sequence[Any]) -> list[np.ndarray]:
         else:
             vec_dtype = str(getattr(vector, "dtype", ""))
             array = np.ascontiguousarray(vector, dtype=dtypes.get(vec_dtype))
-        # Convert np.object_ to np.datetime64 or np.str_.
-        # If fails, then the array can't be recognized.
+        # Convert np.object_ to np.datetime64 or np.str_. If fails, then the array can't
+        # be recognized.
         if array.dtype.type == np.object_:
             try:
                 array = np.ascontiguousarray(array, dtype=np.datetime64)
-            except ValueError:
+            except (ValueError, TypeError):
                 array = np.ascontiguousarray(array, dtype=np.str_)
         arrays.append(array)
     return arrays
@@ -289,7 +289,7 @@ def _array_to_datetime(array: Sequence[Any] | np.ndarray) -> np.ndarray:
     .. deprecated:: 0.14.0
 
        The function is no longer used in the PyGMT project, but we keep this function
-       to document the supported datetime types.
+       to docuemnt and test the supported datetime types.
 
     Parameters
     ----------
