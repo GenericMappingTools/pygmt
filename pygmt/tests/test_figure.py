@@ -169,9 +169,7 @@ def test_figure_savefig_unknown_extension():
     """
     fig = Figure()
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
-    prefix = "test_figure_savefig_unknown_extension"
-    fmt = "test"
-    fname = f"{prefix}.{fmt}"
+    fname = "test_figure_savefig_unknown_extension.test"
     with pytest.raises(GMTInvalidInput, match="Unknown extension '.test'."):
         fig.savefig(fname)
 
