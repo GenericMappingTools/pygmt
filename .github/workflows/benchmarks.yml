@@ -25,7 +25,7 @@ concurrency:
 
 jobs:
   benchmarks:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     if: github.repository == 'GenericMappingTools/pygmt' && (github.event_name != 'pull_request' || contains(github.event.pull_request.labels.*.name, 'run/benchmark'))
     defaults:
       run:
