@@ -60,8 +60,7 @@ def _parse_coastline_resolution(
 
     Returns
     -------
-    str or None
-        The parsed resolution value.
+    The parsed single-letter resolution or ``None``.
 
     Raises
     ------
@@ -71,17 +70,20 @@ def _parse_coastline_resolution(
     Examples
     --------
     >>> _parse_coastline_resolution("full")
-    "f"
+    'f'
     >>> _parse_coastline_resolution("f")
-    "f"
+    'f'
     >>> _parse_coastline_resolution("auto", allow_auto=True)
-    "a"
-    >>> _parse_coastline_resolution("invalid")
-    pygmt.exceptions.GMTInvalidInput: Invalid resolution: invalid. Valid values are ...
+    'a'
     >>> _parse_coastline_resolution(None)
-    None
+    >>> _parse_coastline_resolution("invalid")
+    Traceback (most recent call last):
+    ...
+    pygmt.exceptions.GMTInvalidInput: Invalid resolution: 'invalid'. Valid values ...
     >>> _parse_coastline_resolution("auto")
-    pygmt.exceptions.GMTInvalidInput: Invalid resolution: auto. Valid values are ...
+    Traceback (most recent call last):
+    ...
+    pygmt.exceptions.GMTInvalidInput: Invalid resolution: 'auto'. Valid values ...
     """
     if resolution is None:
         return None
@@ -91,7 +93,7 @@ def _parse_coastline_resolution(
         valid_resolutions.add("auto")
     if resolution not in {*valid_resolutions, *[res[0] for res in valid_resolutions]}:
         msg = (
-            f"Invalid resolution: {resolution}."
+            f"Invalid resolution: '{resolution}'. "
             f"Valid values are {', '.join(valid_resolutions)}."
         )
         raise GMTInvalidInput(msg)
