@@ -316,6 +316,28 @@ def test_plot3d_sizes_colors_transparencies():
 
 
 @pytest.mark.mpl_image_compare
+def test_plot3d_symbol():
+    """
+    Plot the data using array-like symbols.
+    """
+    fig = Figure()
+    fig.plot3d(
+        x=[1, 2, 3, 4],
+        y=[1, 2, 3, 4],
+        z=[1, 2, 3, 4],
+        region=[0, 5, 0, 5, 0, 5],
+        projection="X4c",
+        zsize="3c",
+        fill="blue",
+        size=[0.1, 0.2, 0.3, 0.4],
+        symbol=["c", "t", "i", "u"],
+        frame=["WSenZ", "afg"],
+        perspective=[135, 30],
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
 @pytest.mark.mpl_image_compare(filename="test_plot3d_matrix.png")
 @pytest.mark.parametrize("fill", ["#aaaaaa", 170])
 def test_plot3d_matrix(data, region, fill):
