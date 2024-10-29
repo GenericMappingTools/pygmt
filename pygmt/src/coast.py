@@ -13,6 +13,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.src._common import _parse_coastline_resolution
 
 __doctest_skip__ = ["coast"]
 
@@ -41,8 +42,8 @@ __doctest_skip__ = ["coast"]
 def coast(
     self,
     resolution: Literal[
-        "auto", "full", "high", "intermediate", "low", "crude"
-    ] = "auto",
+        "auto", "full", "high", "intermediate", "low", "crude", None
+    ] = None,
     **kwargs,
 ):
     r"""
@@ -208,9 +209,8 @@ def coast(
             """At least one of the following parameters must be specified:
             lakes, land, water, rivers, borders, dcw, Q, or shorelines"""
         )
-
-    # Alias 'resolution' to "D".
-    kwargs["D"] = resolution[0]
-
+    kwargs["D"] = kwargs.get(
+        "D", _parse_coastline_resolution(resolution, allow_auto=True)
+    )
     with Session() as lib:
         lib.call_module(module="coast", args=build_arg_list(kwargs))

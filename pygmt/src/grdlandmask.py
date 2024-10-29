@@ -8,6 +8,7 @@ import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.src._common import _parse_coastline_resolution
 
 __doctest_skip__ = ["grdlandmask"]
 
@@ -26,7 +27,7 @@ __doctest_skip__ = ["grdlandmask"]
 @kwargs_to_strings(I="sequence", R="sequence", N="sequence", E="sequence")
 def grdlandmask(
     outgrid: str | None = None,
-    resolution: Literal["full", "high", "intermediate", "low", "crude"] = "low",
+    resolution: Literal["full", "high", "intermediate", "low", "crude", None] = None,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -99,8 +100,8 @@ def grdlandmask(
     if kwargs.get("I") is None or kwargs.get("R") is None:
         raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
 
-    # Alias "resolution" to "D"
-    kwargs["D"] = resolution[0]
+    kwargs["D"] = kwargs.get("D", _parse_coastline_resolution(resolution))
+
     with Session() as lib:
         with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
             kwargs["G"] = voutgrd

@@ -14,6 +14,7 @@ from pygmt.helpers import (
     use_alias,
     validate_output_table_type,
 )
+from pygmt.src._common import _parse_coastline_resolution
 
 __doctest_skip__ = ["select"]
 
@@ -47,7 +48,7 @@ def select(
     data=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: str | None = None,
-    resolution: Literal["full", "high", "intermediate", "low", "crude"] = "low",
+    resolution: Literal["full", "high", "intermediate", "low", "crude", None] = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -202,8 +203,7 @@ def select(
     >>> # longitudes 246 and 247 and latitudes 20 and 21
     >>> out = pygmt.select(data=ship_data, region=[246, 247, 20, 21])
     """
-    # Alias "resolution" to "D"
-    kwargs["D"] = resolution[0]
+    kwargs["D"] = kwargs.get("D", _parse_coastline_resolution(resolution))
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
