@@ -123,7 +123,7 @@ def select(
         ``"high"``, ``"intermediate"``, ``"low"``, and ``"crude"``, which drops by 80%
         between levels. Note that because the coastlines differ in details it is not
         guaranteed that a point will remain inside [or outside] when a different
-        resolution is selected.
+        resolution is selected. If ``None``, the low resolution is used by default.
     gridmask : str
         Pass all locations that are inside the valid data area of the grid
         *gridmask*. Nodes that are outside are either NaN or zero.

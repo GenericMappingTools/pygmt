@@ -54,9 +54,10 @@ def grdlandmask(
         Ignored unless ``mask`` is set. Select the resolution of the coastline dataset
         to use. The available resolutions from highest to lowest are: ``"full"``,
         ``"high"``, ``"intermediate"``, ``"low"``, and ``"crude"``, which drops by 80%
-        between levels. Note that because the coastlines differ in details it is not
-        guaranteed that a point will remain inside [or outside] when a different
-        resolution is selected.
+        between levels. Note that because the coastlines differ in details a node in a
+        mask file using one resolution is not guaranteed to remain inside [or outside]
+        when a different resolution is selected. If ``None``, the low resolution is used
+        by default.
     bordervalues : bool, str, float, or list
         Nodes that fall exactly on a polygon boundary should be
         considered to be outside the polygon [Default considers them to be
@@ -100,7 +101,9 @@ def grdlandmask(
     if kwargs.get("I") is None or kwargs.get("R") is None:
         raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
 
-    kwargs["D"] = kwargs.get("D", _parse_coastline_resolution(resolution))
+    kwargs["D"] = kwargs.get(
+        "D", _parse_coastline_resolution(resolution, allow_auto=True)
+    )
 
     with Session() as lib:
         with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
