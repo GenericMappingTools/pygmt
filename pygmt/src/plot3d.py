@@ -50,7 +50,15 @@ from pygmt.src._common import _data_geometry_is_point
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def plot3d(
-    self, data=None, x=None, y=None, z=None, size=None, direction=None, **kwargs
+    self,
+    data=None,
+    x=None,
+    y=None,
+    z=None,
+    size=None,
+    symbol=None,
+    direction=None,
+    **kwargs,
 ):
     r"""
     Plot lines, polygons, and symbols in 3-D.
@@ -89,6 +97,8 @@ def plot3d(
     size : 1-D array
         The size of the data points in units specified in ``style``.
         Only valid if using ``x``/``y``/``z``.
+    symbol : 1-D array
+        The symbols of the data points. Only valid if using ``x``/``y``.
     direction : list of two 1-D arrays
         If plotting vectors (using ``style="V"`` or ``style="v"``), then
         should be a list of two 1-D arrays with the vector directions. These
@@ -204,6 +214,11 @@ def plot3d(
             if is_nonstr_iter(kwargs.get(flag)):
                 extra_arrays.append(kwargs.get(flag))
                 kwargs[flag] = ""
+        # Symbol must be at the last column
+        if is_nonstr_iter(symbol):
+            if "S" not in kwargs:
+                kwargs["S"] = True
+            extra_arrays.append(symbol)
     else:
         for name, value in [
             ("direction", direction),
@@ -211,6 +226,7 @@ def plot3d(
             ("size", size),
             ("intensity", kwargs.get("I")),
             ("transparency", kwargs.get("t")),
+            ("symbol", symbol),
         ]:
             if is_nonstr_iter(value):
                 raise GMTInvalidInput(f"'{name}' can't be 1-D array if 'data' is used.")
