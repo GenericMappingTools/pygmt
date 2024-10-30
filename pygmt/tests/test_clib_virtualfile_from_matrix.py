@@ -3,6 +3,7 @@ Test the Session.virtualfile_from_matrix method.
 """
 
 import numpy as np
+import numpy.testing as npt
 import pytest
 from pygmt import clib
 from pygmt.helpers import GMTTempFile
@@ -27,11 +28,10 @@ def test_virtualfile_from_matrix(dtypes):
         with clib.Session() as lib:
             with lib.virtualfile_from_matrix(data) as vfile:
                 with GMTTempFile() as outfile:
-                    lib.call_module("info", [vfile, f"->{outfile.name}"])
-                    output = outfile.read(keep_tabs=True)
-            bounds = "\t".join([f"<{col.min():.0f}/{col.max():.0f}>" for col in data.T])
-            expected = f"<matrix memory>: N = {shape[0]}\t{bounds}\n"
-            assert output == expected
+                    lib.call_module("info", [vfile, "-C", f"->{outfile.name}"])
+                    output = outfile.loadtxt()
+        npt.assert_equal(output[::2], data.min(axis=0))
+        npt.assert_equal(output[1::2], data.max(axis=0))
 
 
 def test_virtualfile_from_matrix_slice(dtypes):
@@ -47,8 +47,7 @@ def test_virtualfile_from_matrix_slice(dtypes):
         with clib.Session() as lib:
             with lib.virtualfile_from_matrix(data) as vfile:
                 with GMTTempFile() as outfile:
-                    lib.call_module("info", [vfile, f"->{outfile.name}"])
-                    output = outfile.read(keep_tabs=True)
-            bounds = "\t".join([f"<{col.min():.0f}/{col.max():.0f}>" for col in data.T])
-            expected = f"<matrix memory>: N = {rows}\t{bounds}\n"
-            assert output == expected
+                    lib.call_module("info", [vfile, "-C", f"->{outfile.name}"])
+                    output = outfile.loadtxt()
+        npt.assert_equal(output[::2], data.min(axis=0))
+        npt.assert_equal(output[1::2], data.max(axis=0))
