@@ -23,12 +23,12 @@ jobs:
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v4.2.1
+      uses: actions/checkout@v4.2.2
       with:
         path: repository
 
     - name: Checkout the documentation
-      uses: actions/checkout@v4.2.1
+      uses: actions/checkout@v4.2.2
       with:
         ref: gh-pages
         path: documentation
