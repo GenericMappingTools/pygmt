@@ -453,27 +453,28 @@ def set_display(method: Literal["external", "notebook", "none", None] = None):
     >>> import pygmt
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c/5c", frame=True)
-    >>> fig.show()  # will display a PNG image in the current notebook
+    >>> fig.show()  # Will display a PNG image in the current notebook
     >>>
-    >>> # set the display method to "external"
+    >>> # Set the display method to "external"
     >>> pygmt.set_display(method="external")  # doctest: +SKIP
-    >>> fig.show()  # will display a PDF image using the default PDF viewer
+    >>> fig.show()  # Will display a PDF image using the default PDF viewer
     >>>
-    >>> # set the display method to "none"
+    >>> # Set the display method to "none"
     >>> pygmt.set_display(method="none")
-    >>> fig.show()  # will not show any image
+    >>> fig.show()  # Will not show any image
     >>>
-    >>> # reset to the default display method
+    >>> # Reset to the default display method
     >>> pygmt.set_display(method=None)
-    >>> fig.show()  # again, will show a PNG image in the current notebook
+    >>> fig.show()  # Again, will show a PNG image in the current notebook
     """
     match method:
         case "external" | "notebook" | "none":
-            SHOW_CONFIG["method"] = method  # type: ignore[assignment]
+            SHOW_CONFIG["method"] = method
         case None:
-            SHOW_CONFIG["method"] = _get_default_display_method()  # type: ignore[assignment]
+            SHOW_CONFIG["method"] = _get_default_display_method()
         case _:
-            raise GMTInvalidInput(
-                f"Invalid display method '{method}'. Valid values are 'external',"
-                "'notebook', 'none' or None."
+            msg = (
+                f"Invalid display method '{method}'. "
+                "Valid values are 'external', 'notebook', 'none' or None."
             )
+            raise GMTInvalidInput(msg)
