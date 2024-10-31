@@ -18,7 +18,7 @@ myst:
 # Minimum Supported Versions
 
 PyGMT has adopted [SPEC 0](https://scientific-python.org/specs/spec-0000/) alongside the
-rest of the Scientific Python ecosystem, and therefore:
+rest of the scientific Python ecosystem, and therefore:
 
 - Support for Python versions be dropped 3 years after their initial release.
 - Support for core package dependencies (NumPy, pandas, Xarray) be dropped 2 years after
