@@ -27,10 +27,8 @@ def fixture_dtypes_pandas(dtypes):
     List of supported pandas dtypes.
     """
     dtypes_pandas = dtypes.copy()
-
     if find_spec("pyarrow") is not None:
-        dtypes_pandas.extend([f"{dtype}[pyarrow]" for dtype in dtypes_pandas])
-
+        dtypes_pandas.extend([f"{np.dtype(dtype).name}[pyarrow]" for dtype in dtypes])
     return tuple(dtypes_pandas)
 
 

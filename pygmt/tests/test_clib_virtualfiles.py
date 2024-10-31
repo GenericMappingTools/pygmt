@@ -2,7 +2,6 @@
 Test the Session.open_virtualfile method.
 """
 
-from importlib.util import find_spec
 from pathlib import Path
 
 import numpy as np
@@ -30,19 +29,6 @@ def fixture_dtypes():
     List of supported numpy dtypes.
     """
     return [dtype for dtype in DTYPES_NUMERIC if dtype != np.timedelta64]
-
-
-@pytest.fixture(scope="module", name="dtypes_pandas")
-def fixture_dtypes_pandas(dtypes):
-    """
-    List of supported pandas dtypes.
-    """
-    dtypes_pandas = dtypes.copy()
-
-    if find_spec("pyarrow") is not None:
-        dtypes_pandas.extend([f"{dtype}[pyarrow]" for dtype in dtypes_pandas])
-
-    return tuple(dtypes_pandas)
 
 
 @pytest.mark.benchmark
