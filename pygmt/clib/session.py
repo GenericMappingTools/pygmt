@@ -88,10 +88,12 @@ DTYPES_NUMERIC = {
     np.int16: "GMT_SHORT",
     np.int32: "GMT_INT",
     np.int64: "GMT_LONG",
+    np.longlong: "GMT_LONG",
     np.uint8: "GMT_UCHAR",
     np.uint16: "GMT_USHORT",
     np.uint32: "GMT_UINT",
     np.uint64: "GMT_ULONG",
+    np.ulonglong: "GMT_ULONG",
     np.float32: "GMT_FLOAT",
     np.float64: "GMT_DOUBLE",
     np.timedelta64: "GMT_LONG",
@@ -948,8 +950,9 @@ class Session:
         The dataset must be created by :meth:`pygmt.clib.Session.create_data` first with
         ``family="GMT_IS_DATASET|GMT_VIA_VECTOR"``.
 
-        Not all numpy dtypes are supported, only: int8, int16, int32, int64, uint8,
-        uint16, uint32, uint64, float32, float64, str\_, and datetime64.
+        Not all numpy dtypes are supported, only: int8, int16, int32, int64, longlong,
+        uint8, uint16, uint32, uint64, ulonglong, float32, float64, str\_, and
+        datetime64.
 
         .. warning::
             The numpy array must be C contiguous in memory. Use
@@ -1060,8 +1063,8 @@ class Session:
         The dataset must be created by :meth:`pygmt.clib.Session.create_data` first with
         ``family="GMT_IS_DATASET|GMT_VIA_MATRIX"``.
 
-        Not all numpy dtypes are supported, only: int8, int16, int32, int64, uint8,
-        uint16, uint32, uint64, float32, and float64.
+        Not all numpy dtypes are supported, only: int8, int16, int32, int64, longlong,
+        uint8, uint16, uint32, uint64, ulonglong, float32, and float64.
 
         .. warning::
             The numpy array must be C contiguous in memory. Use
