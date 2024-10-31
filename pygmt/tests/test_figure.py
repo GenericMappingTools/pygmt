@@ -260,6 +260,19 @@ def test_figure_savefig_worldfile():
                 fig.savefig(fname=imgfile.name, worldfile=True)
 
 
+def test_figure_savefig_show():
+    """
+    Check if the external viewer is launched when the show parameter is specified.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
+    prefix = "test_figure_savefig_show"
+    with patch("pygmt.figure.launch_external_viewer") as mock_viewer:
+        with GMTTempFile(prefix=prefix, suffix=".png") as imgfile:
+            fig.savefig(imgfile.name, show=True)
+        assert mock_viewer.call_count == 1
+
+
 @pytest.mark.skipif(not _HAS_IPYTHON, reason="run when IPython is installed")
 def test_figure_show():
     """
