@@ -220,69 +220,23 @@ def test_figure_savefig():
     """
     Check if the arguments being passed to psconvert are correct.
     """
-    kwargs_saved = []
-
-    def mock_psconvert(*args, **kwargs):  # noqa: ARG001
-        """
-        Just record the arguments.
-        """
-        kwargs_saved.append(kwargs)
-
-    fig = Figure()
-    fig.psconvert = mock_psconvert
-
     prefix = "test_figure_savefig"
-
-    fname = f"{prefix}.png"
-    fig.savefig(fname)
-    assert kwargs_saved[-1] == {
-        "prefix": prefix,
-        "fmt": "g",
-        "crop": True,
-        "Qt": 2,
-        "Qg": 2,
+    common_kwargs = {"prefix": prefix, "crop": True, "Qt": 2, "Qg": 2}
+    expected_kwargs = {
+        "png": {"fmt": "g", **common_kwargs},
+        "pdf": {"fmt": "f", **common_kwargs},
+        "eps": {"fmt": "e", **common_kwargs},
+        "kml": {"fmt": "g", "W": "+k", **common_kwargs},
     }
 
-    fname = f"{prefix}.pdf"
-    fig.savefig(fname)
-    assert kwargs_saved[-1] == {
-        "prefix": prefix,
-        "fmt": "f",
-        "crop": True,
-        "Qt": 2,
-        "Qg": 2,
-    }
+    with patch.object(Figure, "psconvert") as mock_psconvert:
+        fig = Figure()
+        for fmt, expected in expected_kwargs.items():
+            fig.savefig(f"{prefix}.{fmt}")
+            mock_psconvert.assert_called_with(**expected)
 
-    fname = f"{prefix}.png"
-    fig.savefig(fname, transparent=True)
-    assert kwargs_saved[-1] == {
-        "prefix": prefix,
-        "fmt": "G",
-        "crop": True,
-        "Qt": 2,
-        "Qg": 2,
-    }
-
-    fname = f"{prefix}.eps"
-    fig.savefig(fname)
-    assert kwargs_saved[-1] == {
-        "prefix": prefix,
-        "fmt": "e",
-        "crop": True,
-        "Qt": 2,
-        "Qg": 2,
-    }
-
-    fname = f"{prefix}.kml"
-    fig.savefig(fname)
-    assert kwargs_saved[-1] == {
-        "prefix": prefix,
-        "fmt": "g",
-        "crop": True,
-        "Qt": 2,
-        "Qg": 2,
-        "W": "+k",
-    }
+        fig.savefig(f"{prefix}.png", transparent=True)
+        mock_psconvert.assert_called_with(fmt="G", **common_kwargs)
 
 
 def test_figure_savefig_worldfile():
