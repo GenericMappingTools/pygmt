@@ -96,17 +96,17 @@ def grd2xyz(
         appending **y**. If the byte-order needs to be swapped, append
         **w**. Select one of several data types (all binary except **a**):
 
-        * **a** ASCII representation of a single item per record
-        * **c** int8_t, signed 1-byte character
-        * **u** uint8_t, unsigned 1-byte character
-        * **h** int16_t, short 2-byte integer
-        * **H** uint16_t, unsigned short 2-byte integer
-        * **i** int32_t, 4-byte integer
-        * **I** uint32_t, unsigned 4-byte integer
-        * **l** int64_t, long (8-byte) integer
-        * **L** uint64_t, unsigned long (8-byte) integer
-        * **f** 4-byte floating point single precision
-        * **d** 8-byte floating point double precision
+        - **a**: ASCII representation of a single item per record
+        - **c**: int8_t, signed 1-byte character
+        - **u**: uint8_t, unsigned 1-byte character
+        - **h**: int16_t, short 2-byte integer
+        - **H**: uint16_t, unsigned short 2-byte integer
+        - **i**: int32_t, 4-byte integer
+        - **I**: uint32_t, unsigned 4-byte integer
+        - **l**: int64_t, long (8-byte) integer
+        - **L**: uint64_t, unsigned long (8-byte) integer
+        - **f**: 4-byte floating point single precision
+        - **d**: 8-byte floating point double precision
 
         Default format is scanline orientation of ASCII numbers: **TLa**.
     {binary}
