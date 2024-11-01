@@ -63,7 +63,7 @@ def binstats(data, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
         - **o**: LMS scale
         - **p**: mode (maximum likelihood)
         - **q**: selected quantile (append desired quantile in 0-100% range [50])
-        - **r**: the root mean square (RMS)
+        - **r**: root mean square (RMS)
         - **s**: standard deviation
         - **u**: maximum (upper)
         - **U**: maximum of negative values only
