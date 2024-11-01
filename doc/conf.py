@@ -136,17 +136,17 @@ sphinx_gallery_conf = {
     "filename_pattern": r"\.py",
     # Remove the "Download all examples" button from the top level gallery
     "download_all_examples": False,
-    # Sort gallery example by file name instead of number of lines (default)
+    # Sort gallery examples by file name instead of number of lines (default)
     "within_subsection_order": ExampleTitleSortKey,
-    # directory where function granular galleries are stored
+    # Directory where function granular galleries are stored
     "backreferences_dir": "api/generated/backreferences",
-    # Modules for which function level galleries are created.  In
-    # this case sphinx_gallery and numpy in a tuple of strings.
+    # Modules for which function level galleries are created. In
+    # this case sphinx_gallery and numpy are a tuple of strings.
     "doc_module": "pygmt",
     # Insert links to documentation of objects in the examples
     "reference_url": {"pygmt": None},
     "image_scrapers": (PyGMTScraper(),),
-    # Removes configuration comments from scripts
+    # Remove configuration comments from scripts
     "remove_config_comments": True,
     # Disable "nested_sections" (default is True), to
     # generate only a single index file for the whole gallery.
@@ -183,11 +183,11 @@ project = "PyGMT"
 copyright = f"2017-{year}, The PyGMT Developers"  # noqa: A001
 if len(__version__.split("+")) > 1 or __version__ == "unknown":
     version = "dev"
-    # Set base_url for stable version
+    # Set base_url for dev version
     html_baseurl = "https://pygmt.org/dev/"
 else:
     version = __version__
-    # Set base_url for dev version
+    # Set base_url for stable version
     html_baseurl = "https://pygmt.org/latest/"
 release = __version__
 
