@@ -22,7 +22,7 @@
 
 overview.md
 install.md
-get_started/index.rst
+intro/index.rst
 ```
 
 ```{toctree}
