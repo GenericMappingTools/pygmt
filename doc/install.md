@@ -87,9 +87,9 @@ We recommend following the instructions further on to install GMT 6.
 
 PyGMT requires the following packages to be installed:
 
-- [numpy](https://numpy.org)
+- [NumPy](https://numpy.org)
 - [pandas](https://pandas.pydata.org)
-- [xarray](https://xarray.dev/)
+- [Xarray](https://xarray.dev/)
 - [netCDF4](https://unidata.github.io/netcdf4-python)
 - [packaging](https://packaging.pypa.io)
 
