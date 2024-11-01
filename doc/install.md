@@ -47,7 +47,12 @@ conda activate pygmt
 
 After this, check that everything works by running the following in a Python interpreter
 (e.g., in a Jupyter notebook):
-```python
+
+```{code-cell} ipython
+---
+tags: [hide-output]
+---
+
 import pygmt
 pygmt.show_versions()
 ```
