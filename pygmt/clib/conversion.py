@@ -181,16 +181,11 @@ def _to_ndarray(array: Any) -> np.ndarray:
                 "Float64": np.float64,
             }
         )
+        if hasattr(array, "isna") and array.isna().any():
+            array = array.astype(np.float64)
 
-    if (
-        hasattr(array, "isna")
-        and array.isna().any()
-        and Version(pd.__version__) < Version("2.2")
-    ):
-        array = np.ascontiguousarray(array.astype(np.float64))
-    else:
-        vec_dtype = str(getattr(array, "dtype", ""))
-        array = np.ascontiguousarray(array, dtype=dtypes.get(vec_dtype))
+    vec_dtype = str(getattr(array, "dtype", ""))
+    array = np.ascontiguousarray(array, dtype=dtypes.get(vec_dtype))
     return array
 
 
