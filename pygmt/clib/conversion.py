@@ -157,21 +157,37 @@ def _to_ndarray(array: Any) -> np.ndarray:
         The C contiguous numpy array.
     """
     # A dictionary mapping unsupported dtypes to the expected numpy dtype.
-    dtypes = {
+    dtypes: dict[str, type] = {
         "date32[day][pyarrow]": np.datetime64,
         "date64[ms][pyarrow]": np.datetime64,
     }
+    # pandas nullable types and pyarrow types were converted to object dtype prior to
+    # pandas 2.2, and these dtypes are now converted to suitable numpy dtypes.
+    # https://pandas.pydata.org/docs/whatsnew/v2.2.0.html#to-numpy-for-numpy-nullable-and-arrow-types-converts-to-suitable-numpy-dtype
+    # Following SPEC 0, pandas 2.1 will be dropped in 2025 Q3, so it's likely we can
+    # remove the workaround in PyGMT v0.17.0.
+    if Version(pd.__version__) < Version("2.2"):
+        dtypes.update(
+            {
+                "Int8": np.int8,
+                "Int16": np.int16,
+                "Int32": np.int32,
+                "Int64": np.int64,
+                "UInt8": np.uint8,
+                "UInt16": np.uint16,
+                "UInt32": np.uint32,
+                "UInt64": np.uint64,
+                "Float32": np.float32,
+                "Float64": np.float64,
+            }
+        )
 
     if (
         hasattr(array, "isna")
         and array.isna().any()
         and Version(pd.__version__) < Version("2.2")
     ):
-        # Workaround for dealing with pd.NA with pandas < 2.2.
-        # Bug report at: https://github.com/GenericMappingTools/pygmt/issues/2844
-        # Following SPEC0, pandas 2.1 will be dropped in 2025 Q3, so it's likely
-        # we can remove the workaround in PyGMT v0.17.0.
-        array = np.ascontiguousarray(array.astype(float))
+        array = np.ascontiguousarray(array.astype(np.float64))
     else:
         vec_dtype = str(getattr(array, "dtype", ""))
         array = np.ascontiguousarray(array, dtype=dtypes.get(vec_dtype))
