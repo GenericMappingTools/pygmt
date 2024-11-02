@@ -110,6 +110,42 @@ def test_to_ndarray_pandas_series_numeric(dtype):
     npt.assert_array_equal(result, series)
 
 
+@pytest.mark.parametrize(
+    "dtype",
+    [
+        pytest.param(pd.Int8Dtype(), id="Int8"),
+        pytest.param(pd.Int16Dtype(), id="Int16"),
+        pytest.param(pd.Int32Dtype(), id="Int32"),
+        pytest.param(pd.Int64Dtype(), id="Int64"),
+        pytest.param(pd.UInt8Dtype(), id="UInt8"),
+        pytest.param(pd.UInt16Dtype(), id="UInt16"),
+        pytest.param(pd.UInt32Dtype(), id="UInt32"),
+        pytest.param(pd.UInt64Dtype(), id="UInt64"),
+        pytest.param(pd.Float32Dtype(), id="Float32"),
+        pytest.param(pd.Float64Dtype(), id="Float64"),
+        pytest.param("int8[pyarrow]", marks=skip_if_no(package="pyarrow")),
+        pytest.param("int16[pyarrow]", marks=skip_if_no(package="pyarrow")),
+        pytest.param("int32[pyarrow]", marks=skip_if_no(package="pyarrow")),
+        pytest.param("int64[pyarrow]", marks=skip_if_no(package="pyarrow")),
+        pytest.param("uint8[pyarrow]", marks=skip_if_no(package="pyarrow")),
+        pytest.param("uint16[pyarrow]", marks=skip_if_no(package="pyarrow")),
+        pytest.param("uint32[pyarrow]", marks=skip_if_no(package="pyarrow")),
+        pytest.param("uint64[pyarrow]", marks=skip_if_no(package="pyarrow")),
+        pytest.param("float32[pyarrow]", marks=skip_if_no(package="pyarrow")),
+        pytest.param("float64[pyarrow]", marks=skip_if_no(package="pyarrow")),
+    ],
+)
+def test_to_ndarray_pandas_series_numeric_with_na(dtype):
+    """
+    Test the _to_ndarray function with pandas Series with NumPy dtypes and pandas NA.
+    """
+    series = pd.Series([1, pd.NA, 3], dtype=dtype)
+    assert series.dtype == dtype
+    result = _to_ndarray(series)
+    _check_result(result)
+    npt.assert_array_equal(result, np.array([1, np.nan, 3], dtype=np.float64))
+
+
 @pytest.mark.skipif(not _HAS_PYARROW, reason="pyarrow is not installed")
 @pytest.mark.parametrize(
     "dtype",
