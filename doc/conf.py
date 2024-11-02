@@ -61,7 +61,7 @@ myst_substitutions = {
     "requires": requirements,
 }
 
-# MyST-NB configurations
+# Configure MyST-NB
 # Reference: https://myst-nb.readthedocs.io/en/latest/configuration.html
 nb_render_markdown_format = "myst"  # Format for text/markdown rendering
 
@@ -151,7 +151,7 @@ sphinx_gallery_conf = {
     "nested_sections": False,
 }
 
-# Sphinx project configuration
+# Configure Sphinx project
 templates_path = ["_templates"]
 exclude_patterns = [
     "_build",
@@ -202,7 +202,7 @@ html_show_sourcelink = False
 html_show_sphinx = False
 html_show_copyright = True
 
-# Theme configuration
+# Configure theme
 html_theme = "sphinx_rtd_theme"
 html_theme_options = {}
 repository = "GenericMappingTools/pygmt"
