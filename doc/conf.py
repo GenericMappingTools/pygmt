@@ -50,6 +50,7 @@ autosummary_generate = []
 
 # Auto-generate header anchors with MyST parser
 myst_heading_anchors = 4
+# MyST extensions
 # Reference: https://myst-parser.readthedocs.io/en/latest/syntax/optional.html
 myst_enable_extensions = [
     "attrs_inline",  # Allow inline attributes after images
