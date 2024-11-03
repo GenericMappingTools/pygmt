@@ -39,7 +39,7 @@ external_resources.md
 ```{toctree}
 :maxdepth: 2
 :hidden:
-:caption: Reference documentation
+:caption: Reference Documentation
 
 api/index.rst
 techref/index.md

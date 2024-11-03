@@ -103,15 +103,18 @@ copybutton_remove_prompts = True
 sphinx_gallery_conf = {
     # path to your examples scripts
     "examples_dirs": [
-        "../examples/gallery",
-        "../examples/tutorials",
         "../examples/intro",
+        "../examples/tutorials",
+        "../examples/gallery",
         "../examples/projections",
     ],
     # path where to save gallery generated examples
-    "gallery_dirs": ["gallery", "tutorials", "intro", "projections"],
+    "gallery_dirs": ["intro", "tutorials", "gallery", "projections"],
     "subsection_order": ExplicitOrder(
         [
+            "../examples/intro",
+            "../examples/tutorials/basics",
+            "../examples/tutorials/advanced",
             "../examples/gallery/maps",
             "../examples/gallery/lines",
             "../examples/gallery/symbols",
@@ -127,9 +130,6 @@ sphinx_gallery_conf = {
             "../examples/projections/misc",
             "../examples/projections/nongeo",
             "../examples/projections/table",
-            "../examples/tutorials/basics",
-            "../examples/tutorials/advanced",
-            "../examples/intro",
         ]
     ),
     # Pattern to search for example files
