@@ -105,7 +105,8 @@ def filter1d(
     ret
         Return type depends on ``outfile`` and ``output_type``:
 
-        - ``None`` if ``outfile`` is set (output will be stored in thre file set by ``outfile``)
+        - ``None`` if ``outfile`` is set (output will be stored in thre file set by
+          ``outfile``)
         - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
           (depends on ``output_type``)
     """

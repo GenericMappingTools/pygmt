@@ -250,9 +250,10 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
           The meanings of columns are the same as above.
         - *2-D array*: focal mechanism parameters of multiple events.
           The meanings of columns are the same as above.
-        - *dictionary or :class:`pandas.DataFrame`*: The dictionary keys or :class:`pandas.DataFrame`
-          column names determine the focal mechanism convention. For
-          different conventions, the following combination of keys are allowed:
+        - *dictionary or :class:`pandas.DataFrame`*: The dictionary keys or
+          :class:`pandas.DataFrame` column names determine the focal mechanism
+          convention. For different conventions, the following combination of
+          keys are allowed:
 
           - ``"aki"``: *strike, dip, rake, magnitude*
           - ``"gcmt"``: *strike1, dip1, rake1, strike2, dip2, rake2, mantissa,*
