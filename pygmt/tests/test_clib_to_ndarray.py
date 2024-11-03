@@ -86,6 +86,35 @@ def test_to_ndarray_numpy_ndarray_numpy_string(dtype):
 @pytest.mark.parametrize(
     "dtype",
     [
+        np.datetime64,
+        "datetime64[Y]",
+        "datetime64[M]",
+        "datetime64[W]",
+        "datetime64[D]",
+        "datetime64[h]",
+        "datetime64[m]",
+        "datetime64[s]",
+        "datetime64[ms]",
+        "datetime64[us]",
+        "datetime64[ns]",
+        "datetime64[ps]",
+        "datetime64[fs]",
+        "datetime64[as]",
+    ],
+)
+def test_to_ndarray_numpy_ndarray_numpy_datetime(dtype):
+    """
+    Test the _to_ndarray function with 1-D NumPy arrays of datetime.
+    """
+    array = np.array(["2024-01-01", "2024-01-02", "2024-01-03"], dtype=dtype)
+    result = _to_ndarray(array)
+    _check_result(result)
+    npt.assert_array_equal(result, array)
+
+
+@pytest.mark.parametrize(
+    "dtype",
+    [
         *dtypes_numpy,
         pytest.param(pd.Int8Dtype(), id="Int8"),
         pytest.param(pd.Int16Dtype(), id="Int16"),
@@ -175,6 +204,49 @@ def test_to_ndarray_pandas_series_string(dtype):
     result = _to_ndarray(series)
     _check_result(result)
     npt.assert_array_equal(result, series)
+
+
+@pytest.mark.parametrize(
+    "dtype",
+    [
+        "datetime64[s]",
+        "datetime64[ms]",
+        "datetime64[us]",
+        "datetime64[ns]",
+        # pd.DatetimeTZDtype(tz="UTC"),
+        pytest.param("date32[day][pyarrow]", marks=skip_if_no(package="pyarrow")),
+        pytest.param("date64[ms][pyarrow]", marks=skip_if_no(package="pyarrow")),
+    ],
+)
+def test_to_ndarray_pandas_series_datetime(dtype):
+    """
+    Test the _to_ndarray function with pandas Series with datetime dtype.
+    """
+    series = pd.Series(
+        ["2024-01-01T00:00:00", "2024-01-02T00:00:00", "2024-01-03T00:00:00"],
+        dtype=dtype,
+    )
+    result = _to_ndarray(series)
+    _check_result(result)
+    npt.assert_array_equal(result, series)
+
+
+# @pytest.mark.parametrize(
+#     "dtype",
+#     [
+#         pytest.param("time32[s][pyarrow]", marks=skip_if_no(package="pyarrow")),
+#         pytest.param("time32[ms][pyarrow]", marks=skip_if_no(package="pyarrow")),
+#         pytest.param("time64[us][pyarrow]", marks=skip_if_no(package="pyarrow")),
+#         pytest.param("time64[ns][pyarrow]", marks=skip_if_no(package="pyarrow")),
+#     ],
+# )
+# def test_to_ndarray_pandas_series_time(dtype):
+#     """
+#     Test the _to_ndarray function with pandas Series with time dtype.
+#     """
+#     series = pd.Series(["00:00:00", "01:02:03", "23:59:59"], dtype=dtype)
+#     result = _to_ndarray(series)
+#     _check_result(result)
 
 
 @pytest.mark.skipif(not _HAS_PYARROW, reason="pyarrow is not installed")
