@@ -158,6 +158,9 @@ def _to_ndarray(array: Any) -> np.ndarray:
     """
     # A dictionary mapping unsupported dtypes to the expected numpy dtype.
     dtypes: dict[str, type] = {
+        # "string" for "string[python]", "string[pyarrow]", "string[pyarrow_numpy]", and
+        # pa.string()
+        "string": np.str_,
         "date32[day][pyarrow]": np.datetime64,
         "date64[ms][pyarrow]": np.datetime64,
     }
@@ -184,7 +187,7 @@ def _to_ndarray(array: Any) -> np.ndarray:
         if hasattr(array, "isna") and array.isna().any():
             array = array.astype(np.float64)
 
-    vec_dtype = str(getattr(array, "dtype", ""))
+    vec_dtype = str(getattr(array, "dtype", getattr(array, "type", "")))
     array = np.ascontiguousarray(array, dtype=dtypes.get(vec_dtype))
     return array
 

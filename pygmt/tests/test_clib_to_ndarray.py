@@ -72,6 +72,17 @@ def test_to_ndarray_numpy_ndarray_numpy_numeric(dtype):
     npt.assert_array_equal(result, array)
 
 
+@pytest.mark.parametrize("dtype", [None, np.str_])
+def test_to_ndarray_numpy_ndarray_numpy_string(dtype):
+    """
+    Test the _to_ndarray function with 1-D NumPy arrays of strings.
+    """
+    array = np.array(["a", "b", "c"], dtype=dtype)
+    result = _to_ndarray(array)
+    _check_result(result)
+    npt.assert_array_equal(result, array)
+
+
 @pytest.mark.parametrize(
     "dtype",
     [
@@ -146,6 +157,26 @@ def test_to_ndarray_pandas_series_numeric_with_na(dtype):
     npt.assert_array_equal(result, np.array([1, np.nan, 3], dtype=np.float64))
 
 
+@pytest.mark.parametrize(
+    "dtype",
+    [
+        # None,
+        # np.str_,
+        "string[python]",
+        pytest.param("string[pyarrow]", marks=skip_if_no(package="pyarrow")),
+        pytest.param("string[pyarrow_numpy]", marks=skip_if_no(package="pyarrow")),
+    ],
+)
+def test_to_ndarray_pandas_series_string(dtype):
+    """
+    Test the _to_ndarray function with pandas Series with string dtype.
+    """
+    series = pd.Series(["a", "bcd", "12345"], dtype=dtype)
+    result = _to_ndarray(series)
+    _check_result(result)
+    npt.assert_array_equal(result, series)
+
+
 @pytest.mark.skipif(not _HAS_PYARROW, reason="pyarrow is not installed")
 @pytest.mark.parametrize(
     "dtype",
@@ -181,6 +212,17 @@ def test_to_ndarray_pyarrow_array_float16():
     Example from https://arrow.apache.org/docs/python/generated/pyarrow.float16.html
     """
     array = pa.array(np.array([1.5, 2.5, 3.5], dtype=np.float16), type=pa.float16())
+    result = _to_ndarray(array)
+    _check_result(result)
+    npt.assert_array_equal(result, array)
+
+
+@pytest.mark.skipif(not _HAS_PYARROW, reason="pyarrow is not installed")
+def test_to_ndarray_pyarrow_array_string():
+    """
+    Test the _to_ndarray function with pyarrow string array.
+    """
+    array = pa.array(["a", "bcd", "12345"], type=pa.string())
     result = _to_ndarray(array)
     _check_result(result)
     npt.assert_array_equal(result, array)
