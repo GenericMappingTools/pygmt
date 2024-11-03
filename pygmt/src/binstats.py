@@ -51,7 +51,7 @@ def binstats(data, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
         \|\ **o**\|\ **p**\|\ **q**\ [*quant*]\|\ **r**\|\ **s**\|\ **u**\
         \|\ **U**\|\ **z**.
         Choose the statistic that will be computed per node based on the
-        points that are within *radius* distance of the node.  Select one of:
+        points that are within *radius* distance of the node. Select one of:
 
         - **a** for mean (average)
         - **d** for median absolute deviation (MAD)
@@ -74,7 +74,7 @@ def binstats(data, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
         Set the value assigned to empty nodes [Default is NaN].
     normalize : bool
         Normalize the resulting grid values by the area represented by the
-        search *radius* [no normalization].
+        search *radius* [Default is no normalization].
     search_radius : float or str
         Set the *search_radius* that determines which data points are
         considered close to a node. Append the distance unit.
@@ -100,7 +100,7 @@ def binstats(data, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
     """
     with Session() as lib:
