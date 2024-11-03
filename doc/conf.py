@@ -92,7 +92,7 @@ intersphinx_mapping = {
     "xyzservices": ("https://xyzservices.readthedocs.io/en/stable", None),
 }
 
-# Configure options for sphinx-copybutton
+# Configure sphinx-copybutton
 # Reference: https://sphinx-copybutton.readthedocs.io
 copybutton_prompt_text = r">>> |\.\.\. "
 copybutton_prompt_is_regexp = True
