@@ -100,12 +100,12 @@ def dimfilter(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None
     spacing : str or list
         *x_inc* [and optionally *y_inc*] is the output increment. Append
         **m** to indicate minutes, or **c** to indicate seconds. If the new
-        *x_inc*, *y_inc* are NOT integer multiples of the old ones (in the
+        *x_inc*, *y_inc* are **not** integer multiples of the old ones (in the
         input data), filtering will be considerably slower. [Default is same
-        as input.]
+        as the input.]
     region : str or list
         [*xmin*, *xmax*, *ymin*, *ymax*].
-        Define the region of the output points [Default is same as input].
+        Define the region of the output points [Default is the same as the input].
     {verbose}
 
     Returns
@@ -114,8 +114,7 @@ def dimfilter(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
-          ``outgrid``)
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by ``outgrid``)
 
     Example
     -------

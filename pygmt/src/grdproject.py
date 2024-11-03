@@ -63,7 +63,7 @@ def grdproject(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | Non
         is relative to lower left corner]. Optionally, add offsets in the
         projected units to be added (or subtracted when ``inverse`` is set) to
         (from) the projected coordinates, such as false eastings and
-        northings for particular projection zones [Default is ```"0/0"``].
+        northings for particular projection zones [Default is ``[0, 0]``].
     {spacing}
     dpi : int
         Set the resolution for the new grid in dots per inch.
