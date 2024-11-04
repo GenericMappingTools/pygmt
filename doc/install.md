@@ -231,7 +231,7 @@ python -m pip install pygmt
 ```
 
 ::: {tip}
-You can also run `python -m pip install pygmt[all]` to install pygmt with all of its
+You can also run `python -m pip install pygmt[all]` to install PyGMT with all of its
 optional dependencies.
 :::
 
