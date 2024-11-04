@@ -57,7 +57,7 @@ import pygmt
 pygmt.show_versions()
 ```
 
-You are now ready to make you first figure! Start by looking at our [Intro](examples/intro/index.rst),
+You are now ready to make your first figure! Start by looking at our [Intro](examples/intro/index.rst),
 [Tutorials](examples/tutorials/index.rst), and [Gallery](examples/gallery/index.rst). Good luck!
 
 :::{note}
