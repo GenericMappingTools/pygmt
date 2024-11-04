@@ -76,7 +76,7 @@ def test_info_2d_list():
 
 @pytest.mark.parametrize(
     "dtype",
-    ["int64", pytest.param("int64[pyarrow]", marks=skip_if_no(package="pyarrow"))],
+    [np.int64, pytest.param("int64[pyarrow]", marks=skip_if_no(package="pyarrow"))],
 )
 def test_info_series(dtype):
     """
@@ -90,7 +90,7 @@ def test_info_series(dtype):
 @pytest.mark.parametrize(
     "dtype",
     [
-        "float64",
+        np.float64,
         pytest.param("float64[pyarrow]", marks=skip_if_no(package="pyarrow")),
     ],
 )
