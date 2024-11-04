@@ -47,13 +47,18 @@ conda activate pygmt
 
 After this, check that everything works by running the following in a Python interpreter
 (e.g., in a Jupyter notebook):
-```python
+
+```{code-cell} ipython
+---
+tags: [hide-output]
+---
+
 import pygmt
 pygmt.show_versions()
 ```
 
-You are now ready to make you first figure! Start by looking at the tutorials on our
-sidebar, good luck!
+You are now ready to make your first figure! Start by looking at our [Intro](examples/intro/index.rst),
+[Tutorials](examples/tutorials/index.rst), and [Gallery](examples/gallery/index.rst). Good luck!
 
 :::{note}
 The sections below provide more detailed, step by step instructions to install and test
@@ -87,9 +92,9 @@ We recommend following the instructions further on to install GMT 6.
 
 PyGMT requires the following packages to be installed:
 
-- [numpy](https://numpy.org)
+- [NumPy](https://numpy.org)
 - [pandas](https://pandas.pydata.org)
-- [xarray](https://xarray.dev/)
+- [Xarray](https://xarray.dev/)
 - [netCDF4](https://unidata.github.io/netcdf4-python)
 - [packaging](https://packaging.pypa.io)
 
