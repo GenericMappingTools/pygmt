@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 import pytest
 from pygmt import clib
+from pygmt.clib.session import DTYPES_NUMERIC
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
@@ -17,7 +18,7 @@ def fixture_dtypes():
     """
     List of supported numpy dtypes.
     """
-    return "int8 int16 int32 int64 uint8 uint16 uint32 uint64 float32 float64".split()
+    return [dtype for dtype in DTYPES_NUMERIC if dtype != np.timedelta64]
 
 
 @pytest.fixture(scope="module", name="dtypes_pandas")
@@ -26,10 +27,8 @@ def fixture_dtypes_pandas(dtypes):
     List of supported pandas dtypes.
     """
     dtypes_pandas = dtypes.copy()
-
     if find_spec("pyarrow") is not None:
-        dtypes_pandas.extend([f"{dtype}[pyarrow]" for dtype in dtypes_pandas])
-
+        dtypes_pandas.extend([f"{np.dtype(dtype).name}[pyarrow]" for dtype in dtypes])
     return tuple(dtypes_pandas)
 
 
