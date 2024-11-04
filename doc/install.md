@@ -303,8 +303,8 @@ C:\Users\USERNAME\Miniforge3\envs\pygmt\Library\bin\
 
 ### `ModuleNotFoundError` in Jupyter notebook environment
 
-If you can successfully import pygmt in a Python interpreter or IPython, but get a
-`ModuleNotFoundError` when importing pygmt in Jupyter, you may need to activate your
+If you can successfully import PyGMT in a Python interpreter or IPython, but get a
+`ModuleNotFoundError` when importing PyGMT in Jupyter, you may need to activate your
 `pygmt` virtual environment (using `mamba activate pygmt` or `conda activate pygmt`)
 and install a `pygmt` kernel following the commands below:
 ```
