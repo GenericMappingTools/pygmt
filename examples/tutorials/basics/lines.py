@@ -13,8 +13,9 @@ import pygmt
 # ----------
 #
 # Create a Cartesian figure using the :meth:`pygmt.Figure.basemap` method. Pass lists
-# of two values to the ``x`` and ``y`` parameters. By default, a 0.25-points thick,
-# black, solid line is drawn between these two data points.
+# containing two values to the ``x`` and ``y`` parameters of the
+# :meth:`pygmt.Figure.plot` method. By default, a 0.25-points thick, black, solid
+# line is drawn between these two data points.
 
 fig = pygmt.Figure()
 fig.basemap(region=[0, 10, 0, 10], projection="X15c/10c", frame=True)
