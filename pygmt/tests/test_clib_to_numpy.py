@@ -92,7 +92,27 @@ def test_to_numpy_ndarray_numpy_dtypes_numeric(dtype, supported):
 # 2. pandas dtypes
 # 3. PyArrow dtypes
 #
-# Reference: https://pandas.pydata.org/docs/reference/arrays.html
+# pandas provides following dtypes:
+#
+# - Numeric dtypes:
+#   - Int8, Int16, Int32, Int64
+#   - UInt8, UInt16, UInt32, UInt64
+#   - Float32, Float64
+# - DatetimeTZDtype
+# - PeriodDtype
+# - IntervalDtype
+# - StringDtype
+# - CategoricalDtype
+# - SparseDtype
+# - BooleanDtype
+# - ArrowDtype
+#
+# ArrowDtype is a special dtype that is used to store data in the PyArrow format.
+#
+# References:
+# 1. https://pandas.pydata.org/docs/reference/arrays.html
+# 2. https://pandas.pydata.org/docs/user_guide/basics.html#basics-dtypes
+# 3. https://pandas.pydata.org/docs/user_guide/pyarrow.html
 ########################################################################################
 @pytest.mark.parametrize(
     ("dtype", "supported"),
