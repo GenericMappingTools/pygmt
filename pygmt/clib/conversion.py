@@ -134,17 +134,17 @@ def dataarray_to_matrix(
 
 def _to_numpy(data: Any) -> np.ndarray:
     """
-    Convert an array-like object to a C contiguous numpy array.
+    Convert an array-like object to a C contiguous NumPy array.
 
     The function aims to convert any array-like objects (e.g., Python lists or tuples,
-    NumPy arrays with various dtypes, pandas.Series with NumPy/Pandas/PyArrow dtypes,
-    PyArrow arrays with various dtypes) to a numpy array.
+    NumPy arrays with various dtypes, pandas.Series with NumPy/pandas/PyArrow dtypes,
+    PyArrow arrays with various dtypes) to a NumPy array.
 
     The function is internally used in the ``vectors_to_arrays`` function, which is
-    responsible for converting a sequence of vectors to a list of C contiguous numpy
+    responsible for converting a sequence of vectors to a list of C contiguous NumPy
     arrays. Thus, the function uses the :numpy:func:`numpy.ascontiguousarray` function
     rather than the :numpy:func:`numpy.asarray`/:numpy::func:`numpy.asanyarray`
-    functions, to ensure the returned numpy array is C contiguous.
+    functions, to ensure the returned NumPy array is C contiguous.
 
     Parameters
     ----------
@@ -154,9 +154,9 @@ def _to_numpy(data: Any) -> np.ndarray:
     Returns
     -------
     array
-        The C contiguous numpy array.
+        The C contiguous NumPy array.
     """
-    # Mapping of unsupported dtypes to the expected numpy dtype.
+    # Mapping of unsupported dtypes to the expected NumPy dtype.
     dtypes: dict[str, type] = {
         "date32[day][pyarrow]": np.datetime64,
         "date64[ms][pyarrow]": np.datetime64,
