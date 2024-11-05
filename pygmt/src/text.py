@@ -228,7 +228,7 @@ def text_(  # noqa: PLR0912
                 if name == "angle":
                     extra_arrays.append(arg)
                 else:
-                    extra_arrays.append(np.asarray(arg, dtype=str))
+                    extra_arrays.append(np.asarray(arg, dtype=np.str_))
 
         # If an array of transparency is given, GMT will read it from the last numerical
         # column per data record.
@@ -237,7 +237,7 @@ def text_(  # noqa: PLR0912
             kwargs["t"] = True
 
         # Append text to the last column. Text must be passed in as str type.
-        text = np.asarray(text, dtype=str)
+        text = np.asarray(text, dtype=np.str_)
         encoding = _check_encoding("".join(text.flatten()))
         if encoding != "ascii":
             text = np.vectorize(non_ascii_to_octal, excluded="encoding")(
