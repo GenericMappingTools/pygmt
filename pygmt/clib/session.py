@@ -934,7 +934,7 @@ class Session:
     def put_strings(
         self,
         dataset: ctp.c_void_p,
-        family: Literal["GMT_IS_VECTOR", "GMT_IS_MATRIX"],
+        family: str,
         strings: StringArrayTypes,
     ):
         """
@@ -955,8 +955,8 @@ class Session:
         Parameters
         ----------
         dataset
-            The ctypes void pointer to a ``GMT_Dataset``. Create it with
-            :meth:`pygmt.clib.Session.create_data`.
+            The ctypes void pointer to a ``GMT_VECTOR``/``GMT_MATRIX`` container. 
+            Create it with :meth:`pygmt.clib.Session.create_data`.
         family
             The family type of the dataset. Can be either ``GMT_IS_VECTOR`` or
             ``GMT_IS_MATRIX``.
