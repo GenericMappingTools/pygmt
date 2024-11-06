@@ -51,7 +51,7 @@ jobs:
           python -m pip install \
             numpy pandas xarray netcdf4 packaging \
             contextily geopandas ipython pyarrow rioxarray \
-            mypy pandas-stubs \
+            mypy pandas-stubs pyarrow-stubs \
             matplotlib pytest
           python -m pip list
 
