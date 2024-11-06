@@ -172,10 +172,12 @@ def test_put_vector_string_dtype():
 
 def test_put_vector_timedelta64_dtype():
     """
-    Passing timedelta64 type vectors with various time units (year, month,
-    week, day, hour, minute, second, millisecond, microsecond) to a dataset.
+    Passing timedelta64 type vectors with various date/time units to a dataset.
+
+    Valid date/time units can be found at
+    https://numpy.org/devdocs/reference/arrays.datetime.html#datetime-units.
     """
-    for unit in ["Y", "M", "W", "D", "h", "m", "s", "ms", "μs"]:
+    for unit in ["Y", "M", "W", "D", "h", "m", "s", "ms", "us", "ns", "ps", "fs", "as"]:
         with clib.Session() as lib, GMTTempFile() as tmp_file:
             dataset = lib.create_data(
                 family="GMT_IS_DATASET|GMT_VIA_VECTOR",
