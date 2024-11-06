@@ -5,7 +5,7 @@ Legend
 The :meth:`pygmt.Figure.legend` method creates legends, whereby auto-legends as
 well as manually created legends are supported.
 
-Users can adjust the position of the legend and add box around it.
+Users can adjust the position of the legend and add a box around the legend.
 """
 
 # %%
@@ -14,15 +14,16 @@ import io
 import pygmt
 
 # %%
-# Add an auto-legend
-# ------------------
-
+# Create an auto-legend
+# ---------------------
+#
 # For auto-legends, the ``label`` parameter of :meth:`pygmt.Figure.plot` has to
 # be specified to state the desired text in the legend entry.
-# Optionally, to adjust the legend, users can append different modifiers.
-# A list of all available modifiers can be found at :gmt-docs:`gmt.html#l-full`.
-# To create a multiple-column legend **+N** is used with the desired number of
-# columns; see also gallery example xyz.
+# Optionally, to adjust the legend, users can append different modifiers to the
+# string passed to ``label`. A list of all available modifiers can be found at
+# :gmt-docs:`gmt.html#l-full`. To create a multiple-column legend **+N** is used
+# with the desired number of columns; see also gallery example
+# https://www.pygmt.org/dev/gallery/embellishments/legend.html.
 
 fig = pygmt.Figure()
 
@@ -36,7 +37,10 @@ fig.show()
 # %%
 # Adjust the position
 # -------------------
-# ``position`` parameter, resets also the Defaults for box -> no box added anymore
+# Use the ``position`` parameter to adjust the position of the legend.
+# j within, J outside of bounding box
+# also adjust ``width`` via **+w** modifier
+# The default of ``box`` is changed, i.e. no box plotted anymore.
 
 fig = pygmt.Figure()
 
@@ -50,8 +54,10 @@ fig.show()
 # %%
 # Add a box
 # ---------
-# ``box`` parameter, Default: p,black,thick outline with white/no fill
-# Default auf position is preserved
+# ``box`` parameter, Default: 1-point thick, black, solid outline with white fill.
+# The default of ``position`` is preserved.
+# **+p** for outline
+# **+g** for fill
 
 fig = pygmt.Figure()
 
@@ -69,8 +75,8 @@ fig.show()
 
 
 # %%
-# Add an manual legend
-# ---------------------
+# Create a manual legend
+# ----------------------
 #
 # For more complicated legends, users need to write an ASCII file with
 # instructions for the layout of the legend items and pass it to the ``spec``
@@ -116,11 +122,14 @@ T so we may have to adjust the height to get the right size box.
 
 # %%
 # Now, we can add a legend based on this `io.StringIO` object.
+#
+# width (``position`` parameter) required for multi-columns legends!
 
 fig = pygmt.Figure()
 
 # Pass the io.StringIO object to the spec parameter
-fig.legend(spec=spec_io, region=[0, 10] * 2, projection="M10c", position="jMC+w5c")
+fig.basemap(region=[0, 10] * 2, projection="M10c", frame=0)
+fig.legend(spec=spec_io, position="jMC+w5c", box="+p1p,gray50+ggray90")
 
 fig.show()
 
