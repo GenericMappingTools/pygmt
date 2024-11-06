@@ -1001,10 +1001,7 @@ class Session:
             raise GMTCLibError(msg)
 
     def put_strings(
-        self,
-        dataset: ctp.c_void_p,
-        family: str,
-        strings: StringArrayTypes,
+        self, dataset: ctp.c_void_p, family: str, strings: StringArrayTypes
     ):
         """
         Attach a 1-D numpy array of dtype str or pyarrow.StringArray as a column on a
