@@ -52,7 +52,7 @@ fig.show()
 # Change line attributes
 # ----------------------
 #
-# The line attributes can be set by the ``pen`` parameter. ``pen`` takes a string
+# The line attributes can be set by the ``pen`` parameter which takes a string
 # argument with the optional values *width*,\ *color*,\ *style*.
 
 fig = pygmt.Figure()
