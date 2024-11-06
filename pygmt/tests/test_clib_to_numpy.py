@@ -22,6 +22,25 @@ def _check_result(result, supported):
 
 
 ########################################################################################
+# Test the _to_numpy function with Python built-in types.
+########################################################################################
+@pytest.mark.parametrize(
+    ("data", "supported"),
+    [
+        pytest.param([1, 2, 3], True, id="int"),
+        pytest.param([1.0, 2.0, 3.0], True, id="float"),
+    ],
+)
+def test_to_numpy_python_types_numeric(data, supported):
+    """
+    Test the _to_numpy function with Python built-in numeric types.
+    """
+    result = _to_numpy(data)
+    _check_result(result, supported)
+    npt.assert_array_equal(result, data)
+
+
+########################################################################################
 # Test the _to_numpy function with NumPy arrays.
 #
 # There are 24 fundamental dtypes in NumPy. Not all of them are supported by PyGMT.
