@@ -17,7 +17,7 @@ except ImportError:
 
 import numpy as np
 from pygmt.clib import Session
-from pygmt.exceptions import GMTError, GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import launch_external_viewer, unique_name
 
 
@@ -331,11 +331,12 @@ class Figure:
         match method:
             case "notebook":
                 if not _HAS_IPYTHON:
-                    raise GMTError(
+                    msg = (
                         "Notebook display is selected, but IPython is not available. "
                         "Make sure you have IPython installed, "
                         "or run the script in a Jupyter notebook."
                     )
+                    raise ImportError(msg)
                 png = self._preview(
                     fmt="png", dpi=dpi, anti_alias=True, as_bytes=True, **kwargs
                 )
@@ -344,14 +345,15 @@ class Figure:
                 pdf = self._preview(
                     fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False, **kwargs
                 )
-                launch_external_viewer(pdf, waiting=waiting)  # type: ignore[arg-type]
+                launch_external_viewer(pdf, waiting=waiting)
             case "none":
                 pass  # Do nothing
             case _:
-                raise GMTInvalidInput(
-                    f"Invalid display method '{method}'. Valid values are 'external', "
-                    "'notebook', 'none' or None."
+                msg = (
+                    f"Invalid display method '{method}'. "
+                    "Valid values are 'external', 'notebook', 'none' or None."
                 )
+                raise GMTInvalidInput(msg)
 
     def _preview(self, fmt: str, dpi: int, as_bytes: bool = False, **kwargs):
         """
@@ -400,7 +402,7 @@ class Figure:
         html = '<img src="data:image/png;base64,{image}" width="{width}px">'
         return html.format(image=base64_png.decode("utf-8"), width=500)
 
-    from pygmt.src import (  # type: ignore [misc]
+    from pygmt.src import (  # type: ignore[misc]
         basemap,
         coast,
         colorbar,
