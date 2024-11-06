@@ -196,11 +196,20 @@ def test_figure_savefig_transparent():
         fname = f"{prefix}.{fmt}"
         with pytest.raises(GMTInvalidInput):
             fig.savefig(fname, transparent=True)
-    # png should not raise an error
+
+    # PNG should support transparency and should not raise an error.
     fname = Path(f"{prefix}.png")
     fig.savefig(fname, transparent=True)
     assert fname.exists()
     fname.unlink()
+
+    # The companion PNG file with KML format should also support transparency.
+    fname = Path(f"{prefix}.kml")
+    fig.savefig(fname, transparent=True)
+    assert fname.exists()
+    fname.unlink()
+    assert fname.with_suffix(".png").exists()
+    fname.with_suffix(".png").unlink()
 
 
 def test_figure_savefig_filename_with_spaces():
