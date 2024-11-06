@@ -25,26 +25,25 @@ def _check_result(result, supported):
 # Test the _to_numpy function with Python built-in types.
 ########################################################################################
 @pytest.mark.parametrize(
-    ("data", "supported"),
+    ("data", "expected_dtype"),
     [
-        pytest.param([1, 2, 3], True, id="int"),
-        pytest.param([1.0, 2.0, 3.0], True, id="float"),
+        pytest.param([1, 2, 3], np.int64, id="int"),
+        pytest.param([1.0, 2.0, 3.0], np.float64, id="float"),
     ],
 )
-def test_to_numpy_python_types_numeric(data, supported):
+def test_to_numpy_python_types_numeric(data, expected_dtype):
     """
     Test the _to_numpy function with Python built-in numeric types.
     """
     result = _to_numpy(data)
-    _check_result(result, supported)
-    npt.assert_array_equal(result, data)
+    _check_result(result, supported=True)
+    npt.assert_array_equal(result, np.array(data, dtype=expected_dtype), strict=True)
 
 
 ########################################################################################
 # Test the _to_numpy function with NumPy arrays.
 #
 # There are 24 fundamental dtypes in NumPy. Not all of them are supported by PyGMT.
-# Reference: https://numpy.org/doc/2.1/reference/arrays.scalars.html
 #
 # - Numeric dtypes:
 #   - int8, int16, int32, int64, longlong
@@ -57,6 +56,8 @@ def test_to_numpy_python_types_numeric(data, supported):
 # - bytes_
 # - object_
 # - void
+#
+# Reference: https://numpy.org/doc/2.1/reference/arrays.scalars.html
 ########################################################################################
 @pytest.mark.parametrize(
     ("dtype", "supported"),
@@ -84,22 +85,19 @@ def test_to_numpy_ndarray_numpy_dtypes_numeric(dtype, supported):
     """
     Test the _to_numpy function with NumPy arrays of NumPy numeric dtypes.
 
-    "dtype" is the NumPy dtype to be tested and "supported" is a boolean value
-    indicating whether the dtype is supported by PyGMT (or the GMT C API).
+    Test both 1-D and 2-D arrays.
     """
     # 1-D array
     array = np.array([1, 2, 3], dtype=dtype)
-    assert array.dtype == dtype
     result = _to_numpy(array)
     _check_result(result, supported)
-    npt.assert_array_equal(result, array)
+    npt.assert_array_equal(result, array, strict=True)
 
     # 2-D array
     array = np.array([[1, 2, 3], [4, 5, 6]], dtype=dtype)
-    assert array.dtype == dtype
     result = _to_numpy(array)
     _check_result(result, supported)
-    npt.assert_array_equal(result, array)
+    npt.assert_array_equal(result, array, strict=True)
 
 
 ########################################################################################
@@ -124,9 +122,7 @@ def test_to_numpy_ndarray_numpy_dtypes_numeric(dtype, supported):
 # - CategoricalDtype
 # - SparseDtype
 # - BooleanDtype
-# - ArrowDtype
-#
-# ArrowDtype is a special dtype that is used to store data in the PyArrow format.
+# - ArrowDtype: a special dtype used to store data in the PyArrow format.
 #
 # References:
 # 1. https://pandas.pydata.org/docs/reference/arrays.html
