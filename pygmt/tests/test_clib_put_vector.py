@@ -172,10 +172,12 @@ def test_put_vector_string_dtype():
 
 def test_put_vector_timedelta64_dtype():
     """
-    Passing timedelta64 type vectors with various time units (year, month,
-    week, day, hour, minute, second, millisecond, microsecond) to a dataset.
+    Passing timedelta64 type vectors with various date/time units to a dataset.
+
+    Valid date/time units can be found at
+    https://numpy.org/devdocs/reference/arrays.datetime.html#datetime-units.
     """
-    for unit in ["Y", "M", "W", "D", "h", "m", "s", "ms", "μs"]:
+    for unit in ["Y", "M", "W", "D", "h", "m", "s", "ms", "us", "ns", "ps", "fs", "as"]:
         with clib.Session() as lib, GMTTempFile() as tmp_file:
             dataset = lib.create_data(
                 family="GMT_IS_DATASET|GMT_VIA_VECTOR",
@@ -208,11 +210,11 @@ def test_put_vector_invalid_dtype():
     for dtype in [
         np.bool_,
         np.bytes_,
-        np.csingle,
-        np.cdouble,
-        np.clongdouble,
-        np.half,
+        np.float16,
         np.longdouble,
+        np.complex64,
+        np.complex128,
+        np.clongdouble,
         np.object_,
     ]:
         with clib.Session() as lib:
@@ -224,7 +226,7 @@ def test_put_vector_invalid_dtype():
             )
             data = np.array([37, 12, 556], dtype=dtype)
             with pytest.raises(GMTInvalidInput, match="Unsupported numpy data type"):
-                lib.put_vector(dataset, column=1, vector=data)
+                lib.put_vector(dataset, column=0, vector=data)
 
 
 def test_put_vector_wrong_column():
@@ -238,7 +240,7 @@ def test_put_vector_wrong_column():
             mode="GMT_CONTAINER_ONLY",
             dim=[1, 3, 0, 0],  # ncolumns, nrows, dtype, unused
         )
-        data = np.array([37, 12, 556], dtype="float32")
+        data = np.array([37, 12, 556], dtype=np.float32)
         with pytest.raises(GMTCLibError):
             lib.put_vector(dataset, column=1, vector=data)
 
@@ -254,6 +256,6 @@ def test_put_vector_2d_fails():
             mode="GMT_CONTAINER_ONLY",
             dim=[1, 6, 0, 0],  # ncolumns, nrows, dtype, unused
         )
-        data = np.array([[37, 12, 556], [37, 12, 556]], dtype="int32")
+        data = np.array([[37, 12, 556], [37, 12, 556]], dtype=np.int32)
         with pytest.raises(GMTInvalidInput):
             lib.put_vector(dataset, column=0, vector=data)

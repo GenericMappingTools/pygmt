@@ -98,6 +98,6 @@ def info(data, **kwargs):
                 result = np.loadtxt(result.splitlines())
             except ValueError:
                 # Load non-numerical outputs in str type, e.g. for datetime
-                result = np.loadtxt(result.splitlines(), dtype="str")
+                result = np.loadtxt(result.splitlines(), dtype=np.str_)
 
         return result
