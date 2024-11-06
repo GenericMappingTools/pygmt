@@ -116,7 +116,7 @@ T so we may have to adjust the height to get the right size box.
 fig = pygmt.Figure()
 
 # Pass the io.StringIO object to the spec parameter
-fig.legend(spec=spec_io, region=[0, 10] * 2, projection="M10c", position="jMC")
+fig.legend(spec=spec_io, region=[0, 10] * 2, projection="M10c", position="jMC+w5c")
 
 fig.show()
 
