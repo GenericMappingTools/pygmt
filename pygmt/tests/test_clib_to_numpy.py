@@ -85,14 +85,16 @@ def test_to_numpy_ndarray_numpy_dtypes_numeric(dtype, expected_dtype):
 
     Test both 1-D and 2-D arrays.
     """
-    # 1-D array
-    array = np.array([1, 2, 3], dtype=dtype)
+    # 1-D array that is not C-contiguous
+    array = np.array([1, 2, 3, 4, 5, 6], dtype=dtype)[::2]
+    assert array.flags.c_contiguous is False
     result = _to_numpy(array)
     _check_result(result, expected_dtype)
     npt.assert_array_equal(result, array, strict=True)
 
-    # 2-D array
-    array = np.array([[1, 2, 3], [4, 5, 6]], dtype=dtype)
+    # 2-D array that is not C-contiguous
+    array = np.array([[1, 2, 3, 4], [5, 6, 7, 8]], dtype=dtype)[::2, ::2]
+    assert array.flags.c_contiguous is False
     result = _to_numpy(array)
     _check_result(result, expected_dtype)
     npt.assert_array_equal(result, array, strict=True)
@@ -132,7 +134,7 @@ def test_to_numpy_pandas_series_numpy_dtypes_numeric(dtype, expected_dtype):
     """
     Test the _to_numpy function with pandas.Series of NumPy numeric dtypes.
     """
-    series = pd.Series([1, 2, 3], dtype=dtype)
+    series = pd.Series([1, 2, 3, 4, 5, 6], dtype=dtype)[::2]  # Not C-contiguous
     result = _to_numpy(series)
     _check_result(result, expected_dtype)
     npt.assert_array_equal(result, series)
