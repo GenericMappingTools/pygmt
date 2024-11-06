@@ -58,7 +58,7 @@ def _validate_data_input(
     >>> _validate_data_input(
     ...     data=pd.DataFrame(data, columns=["x", "y"]),
     ...     required_z=True,
-    ...     kind="matrix",
+    ...     kind="vectors",
     ... )
     Traceback (most recent call last):
         ...
@@ -66,7 +66,7 @@ def _validate_data_input(
     >>> _validate_data_input(
     ...     data=xr.Dataset(pd.DataFrame(data, columns=["x", "y"])),
     ...     required_z=True,
-    ...     kind="matrix",
+    ...     kind="vectors",
     ... )
     Traceback (most recent call last):
         ...
@@ -96,23 +96,31 @@ def _validate_data_input(
     if data is None:  # data is None
         if x is None and y is None:  # both x and y are None
             if required_data:  # data is not optional
-                raise GMTInvalidInput("No input data provided.")
+                msg = "No input data provided."
+                raise GMTInvalidInput(msg)
         elif x is None or y is None:  # either x or y is None
-            raise GMTInvalidInput("Must provide both x and y.")
+            msg = "Must provide both x and y."
+            raise GMTInvalidInput(msg)
         if required_z and z is None:  # both x and y are not None, now check z
-            raise GMTInvalidInput("Must provide x, y, and z.")
+            msg = "Must provide x, y, and z."
+            raise GMTInvalidInput(msg)
     else:  # data is not None
         if x is not None or y is not None or z is not None:
-            raise GMTInvalidInput("Too much data. Use either data or x/y/z.")
-        # For 'matrix' kind, check if data has the required z column
-        if kind == "matrix" and required_z:
-            if hasattr(data, "shape"):  # np.ndarray or pd.DataFrame
-                if len(data.shape) == 1 and data.shape[0] < 3:
-                    raise GMTInvalidInput("data must provide x, y, and z columns.")
-                if len(data.shape) > 1 and data.shape[1] < 3:
-                    raise GMTInvalidInput("data must provide x, y, and z columns.")
-            if hasattr(data, "data_vars") and len(data.data_vars) < 3:  # xr.Dataset
-                raise GMTInvalidInput("data must provide x, y, and z columns.")
+            msg = "Too much data. Use either data or x/y/z."
+            raise GMTInvalidInput(msg)
+        # check if data has the required z column
+        if required_z:
+            msg = "data must provide x, y, and z columns."
+            if kind == "matrix" and data.shape[1] < 3:
+                raise GMTInvalidInput(msg)
+            if kind == "vectors":
+                if hasattr(data, "shape") and (
+                    (len(data.shape) == 1 and data.shape[0] < 3)
+                    or (len(data.shape) > 1 and data.shape[1] < 3)
+                ):  # np.ndarray or pd.DataFrame
+                    raise GMTInvalidInput(msg)
+                if hasattr(data, "data_vars") and len(data.data_vars) < 3:  # xr.Dataset
+                    raise GMTInvalidInput(msg)
 
 
 def _check_encoding(
@@ -190,7 +198,7 @@ def _check_encoding(
 def data_kind(
     data: Any, required: bool = True
 ) -> Literal[
-    "arg", "file", "geojson", "grid", "image", "matrix", "stringio", "vectors"
+    "arg", "empty", "file", "geojson", "grid", "image", "matrix", "stringio", "vectors"
 ]:
     r"""
     Check the kind of data that is provided to a module.
@@ -200,6 +208,8 @@ def data_kind(
 
     - ``"arg"``: ``data`` is ``None`` and ``required=False``, or bool, int, float,
       representing an optional argument, used for dealing with optional virtual files
+    - ``"empty"`: ``data`` is ``None`` and ``required=True``. It means the data is given
+      via a series of vectors like x/y/z
     - ``"file"``: a string or a :class:`pathlib.PurePath` object or a sequence of them,
       representing one or more file names
     - ``"geojson"``: a geo-like Python object that implements ``__geo_interface__``
@@ -207,8 +217,11 @@ def data_kind(
     - ``"grid"``: a :class:`xarray.DataArray` object that is not 3-D
     - ``"image"``: a 3-D :class:`xarray.DataArray` object
     - ``"stringio"``: a :class:`io.StringIO` object
-    - ``"matrix"``: anything else that is not ``None``
-    - ``"vectors"``: ``data`` is ``None`` and ``required=True``
+    - ``"matrix"``: a 2-D array-like object that implements ``__array_interface__``
+      (e.g., :class:`numpy.ndarray`)
+    - ``"vectors"``: any unrecognized data. Common data types include, a
+      :class:`pandas.DataFrame` object, a dictionary with array-like values, a 1-D/3-D
+      :class:`numpy.ndarray` object, or array-like objects.
 
     Parameters
     ----------
@@ -237,6 +250,11 @@ def data_kind(
     ['arg', 'arg', 'arg', 'arg']
     >>> data_kind(data=None, required=False)
     'arg'
+
+    The "empty" kind:
+
+    >>> data_kind(data=None, required=True)
+    'empty'
 
     The "file" kind:
 
@@ -268,31 +286,31 @@ def data_kind(
 
     The "matrix"`` kind:
 
-    >>> data_kind(data=np.arange(10))  # 1-D numpy.ndarray
-    'matrix'
     >>> data_kind(data=np.arange(10).reshape((5, 2)))  # 2-D numpy.ndarray
-    'matrix'
-    >>> data_kind(data=np.arange(60).reshape((3, 4, 5)))  # 3-D numpy.ndarray
-    'matrix'
-    >>> data_kind(xr.DataArray(np.arange(12), name="x").to_dataset())  # xarray.Dataset
-    'matrix'
-    >>> data_kind(data=[1, 2, 3])  # 1-D sequence
-    'matrix'
-    >>> data_kind(data=[[1, 2, 3], [4, 5, 6]])  # sequence of sequences
-    'matrix'
-    >>> data_kind(data={"x": [1, 2, 3], "y": [4, 5, 6]})  # dictionary
-    'matrix'
-    >>> data_kind(data=pd.DataFrame({"x": [1, 2, 3], "y": [4, 5, 6]}))  # pd.DataFrame
-    'matrix'
-    >>> data_kind(data=pd.Series([1, 2, 3], name="x"))  # pd.Series
     'matrix'
 
     The "vectors" kind:
 
-    >>> data_kind(data=None)
+    >>> data_kind(data=np.arange(10))  # 1-D numpy.ndarray
+    'vectors'
+    >>> data_kind(data=np.arange(60).reshape((3, 4, 5)))  # 3-D numpy.ndarray
+    'vectors'
+    >>> data_kind(xr.DataArray(np.arange(12), name="x").to_dataset())  # xarray.Dataset
+    'vectors'
+    >>> data_kind(data=[1, 2, 3])  # 1-D sequence
+    'vectors'
+    >>> data_kind(data=[[1, 2, 3], [4, 5, 6]])  # sequence of sequences
+    'vectors'
+    >>> data_kind(data={"x": [1, 2, 3], "y": [4, 5, 6]})  # dictionary
+    'vectors'
+    >>> data_kind(data=pd.DataFrame({"x": [1, 2, 3], "y": [4, 5, 6]}))  # pd.DataFrame
+    'vectors'
+    >>> data_kind(data=pd.Series([1, 2, 3], name="x"))  # pd.Series
     'vectors'
     """
     match data:
+        case None if required:  # No data provided and required=True.
+            kind = "empty"
         case str() | pathlib.PurePath():  # One file.
             kind = "file"
         case list() | tuple() if all(
@@ -312,7 +330,10 @@ def data_kind(
             # geopandas.GeoDataFrame or shapely.geometry).
             # Reference: https://gist.github.com/sgillies/2217756
             kind = "geojson"
-        case x if x is not None:  # Any not-None is considered as a matrix.
+        case x if hasattr(x, "__array_interface__") and data.ndim == 2:
+            # 2-D Array-like objects that implements ``__array_interface__`` (e.g.,
+            # numpy.ndarray).
+            # Reference: https://numpy.org/doc/stable/reference/arrays.interface.html
             kind = "matrix"
         case _:  # Fall back to "vectors" if data is None and required=True.
             kind = "vectors"

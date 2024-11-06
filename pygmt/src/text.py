@@ -196,7 +196,7 @@ def text_(  # noqa: PLR0912
         raise GMTInvalidInput("'text' can't be None or array when 'position' is given.")
     if textfiles is not None and text is not None:
         raise GMTInvalidInput("'text' can't be specified when 'textfiles' is given.")
-    if kind == "vectors" and text is None:
+    if kind == "empty" and text is None:
         raise GMTInvalidInput("Must provide text with x/y pairs.")
 
     # Arguments that can accept arrays.
@@ -220,7 +220,7 @@ def text_(  # noqa: PLR0912
 
     extra_arrays = []
     confdict = {}
-    if kind == "vectors":
+    if kind == "empty":
         for arg, flag, name in array_args:
             if is_nonstr_iter(arg):
                 kwargs["F"] += flag
@@ -228,7 +228,7 @@ def text_(  # noqa: PLR0912
                 if name == "angle":
                     extra_arrays.append(arg)
                 else:
-                    extra_arrays.append(np.asarray(arg, dtype=str))
+                    extra_arrays.append(np.asarray(arg, dtype=np.str_))
 
         # If an array of transparency is given, GMT will read it from the last numerical
         # column per data record.
@@ -237,7 +237,7 @@ def text_(  # noqa: PLR0912
             kwargs["t"] = True
 
         # Append text to the last column. Text must be passed in as str type.
-        text = np.asarray(text, dtype=str)
+        text = np.asarray(text, dtype=np.str_)
         encoding = _check_encoding("".join(text.flatten()))
         if encoding != "ascii":
             text = np.vectorize(non_ascii_to_octal, excluded="encoding")(

@@ -8,10 +8,9 @@ Uses ctypes to wrap most of the core functions from the C API.
 import contextlib
 import ctypes as ctp
 import io
-import pathlib
 import sys
 import warnings
-from collections.abc import Generator, Sequence
+from collections.abc import Callable, Generator, Sequence
 from typing import Literal
 
 import numpy as np
@@ -70,30 +69,42 @@ METHODS = [
 
 DIRECTIONS = ["GMT_IN", "GMT_OUT"]
 
-MODES = ["GMT_CONTAINER_ONLY", "GMT_IS_OUTPUT"]
+MODES = [
+    "GMT_CONTAINER_AND_DATA",  # Create/Read/Write both container and the data array
+    "GMT_CONTAINER_ONLY",  # Cread/Read/Write the container but no data array
+    "GMT_DATA_ONLY",  # Create/Read/Write the container's data array only
+    "GMT_IS_OUTPUT",  # For creating a resource as a container for output
+]
 MODE_MODIFIERS = [
-    "GMT_GRID_IS_CARTESIAN",
-    "GMT_GRID_IS_GEO",
-    "GMT_WITH_STRINGS",
+    "GMT_GRID_IS_CARTESIAN",  # Grid is not geographic but Cartesian
+    "GMT_GRID_IS_GEO",  # Grid is geographic, not Cartesian
+    "GMT_WITH_STRINGS",  # Allocate string array for GMT_DATASET/GMT_VECTOR/GMT_MATRIX
 ]
 
-REGISTRATIONS = ["GMT_GRID_PIXEL_REG", "GMT_GRID_NODE_REG"]
+REGISTRATIONS = ["GMT_GRID_NODE_REG", "GMT_GRID_PIXEL_REG"]
 
-DTYPES = {
+# Dictionary for mapping numpy dtypes to GMT data types.
+DTYPES_NUMERIC = {
     np.int8: "GMT_CHAR",
     np.int16: "GMT_SHORT",
     np.int32: "GMT_INT",
     np.int64: "GMT_LONG",
+    np.longlong: "GMT_LONG",
     np.uint8: "GMT_UCHAR",
     np.uint16: "GMT_USHORT",
     np.uint32: "GMT_UINT",
     np.uint64: "GMT_ULONG",
+    np.ulonglong: "GMT_ULONG",
     np.float32: "GMT_FLOAT",
     np.float64: "GMT_DOUBLE",
-    np.str_: "GMT_TEXT",
-    np.datetime64: "GMT_DATETIME",
     np.timedelta64: "GMT_LONG",
 }
+DTYPES_TEXT = {
+    np.str_: "GMT_TEXT",
+    np.datetime64: "GMT_DATETIME",
+}
+DTYPES = DTYPES_NUMERIC | DTYPES_TEXT
+
 # Dictionary for storing the values of GMT constants.
 GMT_CONSTANTS = {}
 
@@ -162,7 +173,7 @@ class Session:
             If trying to access without a currently open GMT session (i.e., outside of
             the context manager).
         """
-        if not hasattr(self, "_session_pointer") or self._session_pointer is None:
+        if getattr(self, "_session_pointer", None) is None:
             raise GMTCLibNoSessionError("No currently open GMT API session.")
         return self._session_pointer
 
@@ -269,7 +280,9 @@ class Session:
             raise GMTCLibError(f"Constant '{name}' doesn't exist in libgmt.")
         return value
 
-    def get_libgmt_func(self, name, argtypes=None, restype=None):
+    def get_libgmt_func(
+        self, name: str, argtypes: list | None = None, restype=None
+    ) -> Callable:
         """
         Get a ctypes function from the libgmt shared library.
 
@@ -279,14 +292,14 @@ class Session:
 
         Parameters
         ----------
-        name : str
+        name
             The name of the GMT API function.
-        argtypes : list
-            List of ctypes types used to convert the Python input arguments for
-            the API function.
+        argtypes
+            List of ctypes types used to convert the Python input arguments for the API
+            function.
         restype : ctypes type
-            The ctypes type used to convert the input returned by the function
-            into a Python type.
+            The ctypes type used to convert the input returned by the function into a
+            Python type.
 
         Returns
         -------
@@ -313,43 +326,41 @@ class Session:
             function.restype = restype
         return function
 
-    def create(self, name):
+    def create(self, name: str):
         """
         Create a new GMT C API session.
 
-        This is required before most other methods of
-        :class:`pygmt.clib.Session` can be called.
+        This is required before most other methods of :class:`pygmt.clib.Session` can be
+        called.
 
         .. warning::
 
-            Usage of :class:`pygmt.clib.Session` as a context manager in a
-            ``with`` block is preferred over calling
-            :meth:`pygmt.clib.Session.create` and
+            Usage of :class:`pygmt.clib.Session` as a context manager in a ``with``
+            block is preferred over calling :meth:`pygmt.clib.Session.create` and
             :meth:`pygmt.clib.Session.destroy` manually.
 
-        Calls ``GMT_Create_Session`` and generates a new ``GMTAPI_CTRL``
-        struct, which is a :class:`ctypes.c_void_p` pointer. Sets the
-        ``session_pointer`` attribute to this pointer.
+        Calls ``GMT_Create_Session`` and generates a new ``GMTAPI_CTRL`` struct, which
+        is a :class:`ctypes.c_void_p` pointer. Sets the ``session_pointer`` attribute to
+        this pointer.
 
         Remember to terminate the current session using
         :meth:`pygmt.clib.Session.destroy` before creating a new one.
 
         Parameters
         ----------
-        name : str
+        name
             A name for this session. Doesn't really affect the outcome.
         """
+        # Check if there is a currently open session by accessing the "session_pointer"
+        # attribute. If not, it will raise the GMTCLibNoSessionError exception and we're
+        # free to create a new one. Otherwise, we will raise a GMTCLibError exception.
         try:
-            # Won't raise an exception if there is a currently open session
             _ = self.session_pointer
-            # In this case, fail to create a new session until the old one is
-            # destroyed
-            raise GMTCLibError(
-                "Failed to create a GMT API session: There is a currently open session."
-                " Must destroy it first."
+            msg = (
+                "Failed to create a GMT API session: "
+                "There is currently an open session. Must destroy it first."
             )
-        # If the exception is raised, this means that there is no open session
-        # and we're free to create a new one.
+            raise GMTCLibError(msg)
         except GMTCLibNoSessionError:
             pass
 
@@ -359,9 +370,9 @@ class Session:
             restype=ctp.c_void_p,
         )
 
-        # Capture the output printed by GMT into this list. Will use it later
-        # to generate error messages for the exceptions raised by API calls.
-        self._error_log = []
+        # Capture the output printed by GMT into this list. Will use it later to
+        # generate error messages for the exceptions raised by API calls.
+        self._error_log: list[str] = []
 
         @ctp.CFUNCTYPE(ctp.c_int, ctp.c_void_p, ctp.c_char_p)
         def print_func(file_pointer, message):  # noqa: ARG001
@@ -383,24 +394,22 @@ class Session:
             print(message, file=sys.stderr, flush=True)  # noqa: T201
             return 0
 
-        # Need to store a copy of the function because ctypes doesn't and it
-        # will be garbage collected otherwise
+        # Need to store a copy of the function because ctypes doesn't and it will be
+        # garbage collected otherwise
         self._print_callback = print_func
 
         padding = self["GMT_PAD_DEFAULT"]
         session_type = self["GMT_SESSION_EXTERNAL"]
-
         session = c_create_session(name.encode(), padding, session_type, print_func)
 
         if session is None:
-            raise GMTCLibError(
-                f"Failed to create a GMT API session:\n{self._error_message}"
-            )
+            msg = f"Failed to create a GMT API session:\n{self._error_message}"
+            raise GMTCLibError(msg)
 
         self.session_pointer = session
 
     @property
-    def _error_message(self):
+    def _error_message(self) -> str:
         """
         A string with all error messages emitted by the C API.
 
@@ -417,19 +426,17 @@ class Session:
 
         .. warning::
 
-            Usage of :class:`pygmt.clib.Session` as a context manager in a
-            ``with`` block is preferred over calling
-            :meth:`pygmt.clib.Session.create` and
+            Usage of :class:`pygmt.clib.Session` as a context manager in a ``with``
+            block is preferred over calling :meth:`pygmt.clib.Session.create` and
             :meth:`pygmt.clib.Session.destroy` manually.
 
-        Calls ``GMT_Destroy_Session`` to terminate and free the memory of a
-        registered ``GMTAPI_CTRL`` session (the pointer for this struct is
-        stored in the ``session_pointer`` attribute).
+        Calls ``GMT_Destroy_Session`` to terminate and free the memory of a registered
+        ``GMTAPI_CTRL`` session (the pointer for this struct is stored in the
+        ``session_pointer`` attribute).
 
-        Always use this method after you are done using a C API session. The
-        session needs to be destroyed before creating a new one. Otherwise,
-        some of the configuration files might be left behind and can influence
-        subsequent API calls.
+        Always use this method after you are done using a C API session. The session
+        needs to be destroyed before creating a new one. Otherwise, some of the
+        configuration files might be left behind and can influence subsequent API calls.
 
         Sets the ``session_pointer`` attribute to ``None``.
         """
@@ -439,9 +446,8 @@ class Session:
 
         status = c_destroy_session(self.session_pointer)
         if status:
-            raise GMTCLibError(
-                f"Failed to destroy GMT API session:\n{self._error_message}"
-            )
+            msg = f"Failed to destroy GMT API session:\n{self._error_message}"
+            raise GMTCLibError(msg)
 
         self.session_pointer = None
 
@@ -650,53 +656,109 @@ class Session:
 
     def create_data(
         self,
-        family,
-        geometry,
-        mode,
-        dim=None,
-        ranges=None,
-        inc=None,
-        registration="GMT_GRID_NODE_REG",
-        pad=None,
-    ):
+        family: str,
+        geometry: str,
+        mode: str,
+        dim: Sequence[int] | None = None,
+        ranges: Sequence[float] | None = None,
+        inc: Sequence[float] | None = None,
+        registration: Literal[
+            "GMT_GRID_NODE_REG", "GMT_GRID_PIXEL_REG"
+        ] = "GMT_GRID_NODE_REG",
+        pad: int | None = None,
+    ) -> ctp.c_void_p:
         """
-        Create an empty GMT data container.
+        Create an empty GMT data container and allocate space to hold data.
+
+        Valid data families and geometries are in ``FAMILIES`` and ``GEOMETRIES``.
+
+        There are two ways to define the dimensions needed to actually allocate memory:
+
+        1. Via ``ranges``, ``inc`` and ``registration``.
+        2. Via ``dim`` and ``registration``.
+
+           ``dim`` contains up to 4 values and they have different meanings for
+           different GMT data families:
+
+           For ``GMT_DATASET``:
+
+           - 0: number of tables
+           - 1: number of segments per table
+           - 2: number of rows per segment
+           - 3: number of columns per row
+
+           For ``GMT_VECTOR``:
+
+           - 0: number of columns
+           - 1: number of rows [optional, can be 0 if unknown]
+           - 2: data type (e.g., ``GMT_DOUBLE``) [Will be overwritten by ``put_vector``]
+
+           For ``GMT_GRID``/``GMT_IMAGE``/``GMT_CUBE``/``GMT_MATRIX``:
+
+           - 0: number of columns
+           - 1: number of rows
+           - 2: number of bands or layers [Ignored for ``GMT_GRID``]
+           - 3: data type (e.g., ``GMT_DOUBLE``) [For ``GMT_MATRIX`` only, but will be
+             overwritten by ``put_matrix``]
+
+           In other words, ``inc`` is assumed to be 1.0, and ``ranges`` is
+           [0, dim[0], 0, dim[1]] for pixel registration or
+           [0, dim[0]-1.0, 0, dim[1]-1.0] for grid registration.
+
+
+        When creating a grid/image/cube, you can do it in one or two steps:
+
+        1. Call this function with ``mode="GMT_CONTAINER_AND_DATA"``. This creates
+           a header and allocates a grid or an image
+        2. Call this function twice:
+
+           1. First with ``mode="GMT_CONTAINER_ONLY"``, to create a header only and
+              compute the dimensions based on other parameters
+           2. Second with ``mode="GMT_DATA_ONLY"``, to allocate the grid/image/cube
+              array based on the dimensions already set. This time, you pass NULL for
+              ``dim``/``ranges``/``inc``/``registration``/``pad`` and let ``data`` be
+              the void pointer returned in the first step.
+
+           **Note**: This is not implemented yet, since this function doesn't have the
+           ``data`` parameter.
 
         Parameters
         ----------
-        family : str
-            A valid GMT data family name (e.g., ``'GMT_IS_DATASET'``). See the
-            ``FAMILIES`` attribute for valid names.
-        geometry : str
-            A valid GMT data geometry name (e.g., ``'GMT_IS_POINT'``). See the
-            ``GEOMETRIES`` attribute for valid names.
-        mode : str
-            A valid GMT data mode (e.g., ``'GMT_IS_OUTPUT'``). See the
-            ``MODES`` attribute for valid names.
-        dim : list of 4 integers
-            The dimensions of the dataset. See the documentation for the GMT C
-            API function ``GMT_Create_Data`` (``src/gmt_api.c``) for the full
-            range of options regarding 'dim'. If ``None``, will pass in the
-            NULL pointer.
-        ranges : list of 4 floats
-            The dataset extent. Also a bit of a complicated argument. See the C
-            function documentation. It's called ``range`` in the C function but
-            it would conflict with the Python built-in ``range`` function.
-        inc : list of 2 floats
-            The increments between points of the dataset. See the C function
-            documentation.
-        registration : str
-            The node registration (what the coordinates mean). Can be
-            ``'GMT_GRID_PIXEL_REG'`` or ``'GMT_GRID_NODE_REG'``. Defaults to
-            ``'GMT_GRID_NODE_REG'``.
-        pad : int
-            The grid padding. Defaults to ``GMT_PAD_DEFAULT``.
+        family
+            A valid GMT data family name (e.g., ``"GMT_IS_DATASET"``). See ``FAMILIES``
+            for valid names.
+        geometry
+            A valid GMT data geometry name (e.g., ``"GMT_IS_POINT"``). See
+            ``GEOMETRIES`` for valid names.
+        mode
+            A valid GMT data mode. See ``MODES`` for valid names. For
+            ``GMT_IS_DATASET``/``GMT_IS_MATRIX``/``GMT_IS_VECTOR``, adding
+            ``GMT_WITH_STRINGS`` to the ``mode`` will allocate the corresponding arrays
+            of string pointers.
+        dim
+            The dimensions of the dataset, as explained above. If ``None``, will pass in
+            the NULL pointer.
+        ranges
+            The data extent.
+        inc
+            The increments between points of the dataset.
+        registration
+            The node registration. Can be ``"GMT_GRID_PIXEL_REG"`` or
+            ``"GMT_GRID_NODE_REG"``.
+        pad
+            The padding for ``GMT_IS_GRID``/``GMT_IS_IMAGE``/``GMT_IS_CUBE``. If
+            ``None``, defaults to ``"GMT_PAD_DEFAULT"``.
+
+            For ``GMT_IS_MATRIX``, it can be:
+
+            - 0: default row/col orientation [Default]
+            - 1: row-major format (C)
+            - 2: column-major format (FORTRAN)
 
         Returns
         -------
-        data_ptr : int
-            A ctypes pointer (an integer) to the allocated ``GMT_Dataset``
-            object.
+        data_ptr
+            A ctypes pointer (an integer) to the allocated GMT data container.
         """
         c_create_data = self.get_libgmt_func(
             "GMT_Create_Data",
@@ -710,8 +772,8 @@ class Session:
                 ctp.POINTER(ctp.c_double),  # inc
                 ctp.c_uint,  # registration
                 ctp.c_int,  # pad
-                ctp.c_void_p,
-            ],  # data
+                ctp.c_void_p,  # data
+            ],
             restype=ctp.c_void_p,
         )
 
@@ -724,36 +786,35 @@ class Session:
         geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
         registration_int = self._parse_constant(registration, valid=REGISTRATIONS)
 
-        # Convert dim, ranges, and inc to ctypes arrays if given (will be None
-        # if not given to represent NULL pointers)
-        dim = sequence_to_ctypes_array(dim, ctp.c_uint64, 4)
-        ranges = sequence_to_ctypes_array(ranges, ctp.c_double, 4)
-        inc = sequence_to_ctypes_array(inc, ctp.c_double, 2)
+        # Convert dim, ranges, and inc to ctypes arrays if given (will be None if not
+        # given to represent NULL pointers)
+        dim_ctp = sequence_to_ctypes_array(dim, ctp.c_uint64, 4)
+        ranges_ctp = sequence_to_ctypes_array(ranges, ctp.c_double, 4)
+        inc_ctp = sequence_to_ctypes_array(inc, ctp.c_double, 2)
 
-        # Use a NULL pointer (None) for existing data to indicate that the
-        # container should be created empty. Fill it in later using put_vector
-        # and put_matrix.
+        # Use a NULL pointer (None) for existing data to indicate that the container
+        # should be created empty. Fill it in later using put_vector and put_matrix.
         data_ptr = c_create_data(
             self.session_pointer,
             family_int,
             geometry_int,
             mode_int,
-            dim,
-            ranges,
-            inc,
+            dim_ctp,
+            ranges_ctp,
+            inc_ctp,
             registration_int,
             self._parse_pad(family, pad),
             None,
         )
 
         if data_ptr is None:
-            raise GMTCLibError("Failed to create an empty GMT data pointer.")
-
+            msg = "Failed to create an empty GMT data pointer."
+            raise GMTCLibError(msg)
         return data_ptr
 
-    def _parse_pad(self, family, pad):
+    def _parse_pad(self, family: str, pad: int | None) -> int:
         """
-        Parse and return an appropriate value for pad if none is given.
+        Parse and return an appropriate value for pad if ``None`` is given.
 
         Pad is a bit tricky because, for matrix types, pad control the matrix ordering
         (row or column major). Using the default pad will set it to column major and
@@ -763,151 +824,157 @@ class Session:
             pad = 0 if "MATRIX" in family else self["GMT_PAD_DEFAULT"]
         return pad
 
-    def _parse_constant(self, constant, valid, valid_modifiers=None):
+    def _parse_constant(
+        self,
+        constant: str,
+        valid: Sequence[str],
+        valid_modifiers: Sequence[str] | None = None,
+    ) -> int:
         """
-        Parse a constant, convert it to an int, and validate it.
+        Parse a constant, convert it to an integer, and validate it.
 
-        The GMT C API takes certain defined constants, like ``'GMT_IS_GRID'``,
-        that need to be validated and converted to integer values using
+        The GMT C API takes certain defined constants, like ``"GMT_IS_GRID"``, that need
+        to be validated and converted to integer values using
         :meth:`pygmt.clib.Session.__getitem__`.
 
-        The constants can also take a modifier by appending another constant
-        name, e.g. ``'GMT_IS_GRID|GMT_VIA_MATRIX'``. The two parts must be
-        converted separately and their values are added.
+        The constants can also take a modifier by appending another constant name, e.g.,
+        ``"GMT_IS_GRID|GMT_VIA_MATRIX"``. The two parts must be converted separately and
+        their values are added.
 
-        If valid modifiers are not given, then will assume that modifiers are
-        not allowed. In this case, will raise a
-        :class:`pygmt.exceptions.GMTInvalidInput` exception if given a
-        modifier.
+        If no valid modifiers are given, then will assume that modifiers are not
+        allowed. In this case, will raise a :class:`pygmt.exceptions.GMTInvalidInput`
+        exception if given a modifier.
 
         Parameters
         ----------
-        constant : str
+        constant
             The name of a valid GMT API constant, with an optional modifier.
-        valid : list of str
-            A list of valid values for the constant. Will raise a
-            :class:`pygmt.exceptions.GMTInvalidInput` exception if the given
-            value is not on the list.
+        valid
+            A list of valid values for the constant. Will raise a GMTInvalidInput
+            exception if the given value is not in the list.
+        valid_modifiers
+            A list of valid modifiers that can be added to the constant. If ``None``,
+            no modifiers are allowed.
         """
         parts = constant.split("|")
         name = parts[0]
         nmodifiers = len(parts) - 1
-        if nmodifiers > 1:
-            raise GMTInvalidInput(
-                f"Only one modifier is allowed in constants, {nmodifiers} given: '{constant}'"
-            )
-        if nmodifiers > 0 and valid_modifiers is None:
-            raise GMTInvalidInput(
-                "Constant modifiers are not allowed since valid values were not given: '{constant}'"
-            )
+
         if name not in valid:
-            raise GMTInvalidInput(
-                f"Invalid constant argument '{name}'. Must be one of {valid}."
-            )
-        if (
-            nmodifiers > 0
-            and valid_modifiers is not None
-            and parts[1] not in valid_modifiers
-        ):
-            raise GMTInvalidInput(
-                f"Invalid constant modifier '{parts[1]}'. Must be one of {valid_modifiers}."
-            )
+            msg = f"Invalid constant name '{name}'. Must be one of {valid}."
+            raise GMTInvalidInput(msg)
+
+        match nmodifiers:
+            case 1 if valid_modifiers is None:
+                msg = (
+                    f"Constant modifiers are not allowed since valid values "
+                    f"were not given: '{constant}'."
+                )
+                raise GMTInvalidInput(msg)
+            case 1 if valid_modifiers is not None and parts[1] not in valid_modifiers:
+                msg = (
+                    f"Invalid constant modifier '{parts[1]}'. "
+                    f"Must be one of {valid_modifiers}."
+                )
+                raise GMTInvalidInput(msg)
+            case n if n > 1:
+                msg = (
+                    f"Only one modifier is allowed in constants, "
+                    f"{nmodifiers} given: '{constant}'."
+                )
+                raise GMTInvalidInput(msg)
+
         integer_value = sum(self[part] for part in parts)
         return integer_value
 
-    def _check_dtype_and_dim(self, array, ndim):
+    def _check_dtype_and_dim(self, array: np.ndarray, ndim: int) -> int:
         """
         Check that a numpy array has the given number of dimensions and is a valid data
         type.
 
         Parameters
         ----------
-        array : numpy.ndarray
+        array
             The array to be tested.
-        ndim : int
+        ndim
             The desired number of array dimensions.
 
         Returns
         -------
-        gmt_type : int
+        gmt_type
             The GMT constant value representing this data type.
 
         Raises
         ------
         GMTInvalidInput
-            If the array has the wrong number of dimensions or
-            is an unsupported data type.
+            If the array has the wrong number of dimensions or is an unsupported data
+            type.
 
         Examples
         --------
-
         >>> import numpy as np
-        >>> data = np.array([1, 2, 3], dtype="float64")
-        >>> with Session() as ses:
-        ...     gmttype = ses._check_dtype_and_dim(data, ndim=1)
-        ...     gmttype == ses["GMT_DOUBLE"]
+        >>> data = np.array([1, 2, 3], dtype=np.float64)
+        >>> with Session() as lib:
+        ...     gmttype = lib._check_dtype_and_dim(data, ndim=1)
+        ...     gmttype == lib["GMT_DOUBLE"]
         True
-        >>> data = np.ones((5, 2), dtype="float32")
-        >>> with Session() as ses:
-        ...     gmttype = ses._check_dtype_and_dim(data, ndim=2)
-        ...     gmttype == ses["GMT_FLOAT"]
+        >>> data = np.ones((5, 2), dtype=np.float32)
+        >>> with Session() as lib:
+        ...     gmttype = lib._check_dtype_and_dim(data, ndim=2)
+        ...     gmttype == lib["GMT_FLOAT"]
         True
         """
-        # Check that the array has the given number of dimensions
+        # Check that the array has the given number of dimensions.
         if array.ndim != ndim:
-            raise GMTInvalidInput(
-                f"Expected a numpy {ndim}-D array, got {array.ndim}-D."
-            )
+            msg = f"Expected a numpy {ndim}-D array, got {array.ndim}-D."
+            raise GMTInvalidInput(msg)
 
-        # Check that the array has a valid/known data type
-        if array.dtype.type not in DTYPES:
-            try:
-                if array.dtype.type is np.object_:
-                    # Try to convert unknown object type to np.datetime64
-                    array = array_to_datetime(array)
-                else:
-                    raise ValueError
-            except ValueError as e:
-                raise GMTInvalidInput(
-                    f"Unsupported numpy data type '{array.dtype.type}'."
-                ) from e
-        return self[DTYPES[array.dtype.type]]
+        # For 1-D arrays, try to convert unknown object type to np.datetime64.
+        if ndim == 1 and array.dtype.type is np.object_:
+            with contextlib.suppress(ValueError):
+                array = array_to_datetime(array)
 
-    def put_vector(self, dataset, column, vector):
+        # 1-D arrays can be numeric or text, 2-D arrays can only be numeric.
+        valid_dtypes = DTYPES if ndim == 1 else DTYPES_NUMERIC
+        if (dtype := array.dtype.type) not in valid_dtypes:
+            msg = f"Unsupported numpy data type '{dtype}'."
+            raise GMTInvalidInput(msg)
+        return self[DTYPES[dtype]]
+
+    def put_vector(self, dataset: ctp.c_void_p, column: int, vector: np.ndarray):
         r"""
-        Attach a numpy 1-D array as a column on a GMT dataset.
+        Attach a 1-D numpy array as a column on a GMT dataset.
 
-        Use this function to attach numpy array data to a GMT dataset and pass
-        it to GMT modules. Wraps ``GMT_Put_Vector``.
+        Use this function to attach numpy array data to a GMT dataset and pass it to GMT
+        modules. Wraps ``GMT_Put_Vector``.
 
-        The dataset must be created by :meth:`pygmt.clib.Session.create_data`
-        first. Use ``family='GMT_IS_DATASET|GMT_VIA_VECTOR'``.
+        The dataset must be created by :meth:`pygmt.clib.Session.create_data` first with
+        ``family="GMT_IS_DATASET|GMT_VIA_VECTOR"``.
 
-        Not all numpy dtypes are supported, only: int8, int16, int32, int64,
-        uint8, uint16, uint32, uint64, float32, float64, str\_, and datetime64.
+        Not all numpy dtypes are supported, only: int8, int16, int32, int64, longlong,
+        uint8, uint16, uint32, uint64, ulonglong, float32, float64, str\_, datetime64,
+        and timedelta64.
 
         .. warning::
-            The numpy array must be C contiguous in memory. If it comes from a
-            column slice of a 2-D array, for example, you will have to make a
-            copy. Use :func:`numpy.ascontiguousarray` to make sure your vector
-            is contiguous (it won't copy if it already is).
+            The numpy array must be C contiguous in memory. Use
+            :func:`numpy.ascontiguousarray` to make sure your vector is contiguous (it
+            won't copy if it already is).
 
         Parameters
         ----------
-        dataset : :class:`ctypes.c_void_p`
-            The ctypes void pointer to a ``GMT_Dataset``. Create it with
+        dataset
+            The ctypes void pointer to a ``GMT_VECTOR`` data container. Create it with
             :meth:`pygmt.clib.Session.create_data`.
-        column : int
+        column
             The column number of this vector in the dataset (starting from 0).
-        vector : numpy 1-D array
-            The array that will be attached to the dataset. Must be a 1-D C
-            contiguous array.
+        vector
+            The array that will be attached to the dataset. Must be a 1-D C contiguous
+            array.
 
         Raises
         ------
         GMTCLibError
-            If given invalid input or ``GMT_Put_Vector`` exits with
-            status != 0.
+            If given invalid input or ``GMT_Put_Vector`` exits with a non-zero status.
         """
         c_put_vector = self.get_libgmt_func(
             "GMT_Put_Vector",
@@ -915,6 +982,7 @@ class Session:
             restype=ctp.c_int,
         )
 
+        vector_pointer: ctp.Array | ctp.c_void_p
         gmt_type = self._check_dtype_and_dim(vector, ndim=1)
         if gmt_type in {self["GMT_TEXT"], self["GMT_DATETIME"]}:
             if gmt_type == self["GMT_DATETIME"]:
@@ -926,10 +994,11 @@ class Session:
             self.session_pointer, dataset, column, gmt_type, vector_pointer
         )
         if status != 0:
-            raise GMTCLibError(
-                f"Failed to put vector of type {vector.dtype} "
-                f"in column {column} of dataset."
+            msg = (
+                f"Failed to put vector of type {vector.dtype} in column {column} of "
+                "dataset."
             )
+            raise GMTCLibError(msg)
 
     def put_strings(
         self,
@@ -941,21 +1010,21 @@ class Session:
         Attach a 1-D numpy array of dtype str or pyarrow.StringArray as a column on a
         GMT dataset.
 
-        Use this function to attach string type array data to a GMT dataset and pass it
-        to GMT modules. Wraps ``GMT_Put_Strings``.
+        Use this function to attach string type numpy array data to a GMT dataset and
+        pass it to GMT modules. Wraps ``GMT_Put_Strings``.
 
         The dataset must be created by :meth:`pygmt.clib.Session.create_data` first.
 
         .. warning::
-            The array must be C contiguous in memory. If it comes from a column slice of
-            a 2-D array, for example, you will have to make a copy. Use
+            The numpy array must be C contiguous in memory. If it comes from a column
+            slice of a 2-D array, for example, you will have to make a copy. Use
             :func:`numpy.ascontiguousarray` to make sure your vector is contiguous (it
             won't copy if it already is).
 
         Parameters
         ----------
         dataset
-            The ctypes void pointer to a ``GMT_VECTOR``/``GMT_MATRIX`` container. 
+            The ctypes void pointer to a ``GMT_VECTOR``/``GMT_MATRIX`` data container.
             Create it with :meth:`pygmt.clib.Session.create_data`.
         family
             The family type of the dataset. Can be either ``GMT_IS_VECTOR`` or
@@ -967,15 +1036,15 @@ class Session:
         Raises
         ------
         GMTCLibError
-            If given invalid input or ``GMT_Put_Strings`` exits with status != 0.
+            If given invalid input or ``GMT_Put_Strings`` exits with a non-zero status.
         """
         c_put_strings = self.get_libgmt_func(
             "GMT_Put_Strings",
             argtypes=[
-                ctp.c_void_p,
-                ctp.c_uint,
-                ctp.c_void_p,
-                ctp.POINTER(ctp.c_char_p),
+                ctp.c_void_p,  # V_API
+                ctp.c_uint,  # family
+                ctp.c_void_p,  # object
+                ctp.POINTER(ctp.c_char_p),  # array
             ],
             restype=ctp.c_int,
         )
@@ -983,51 +1052,49 @@ class Session:
         family_int = self._parse_constant(
             family, valid=FAMILIES, valid_modifiers=METHODS
         )
-
         strings_pointer = strings_to_ctypes_array(strings)
-
         status = c_put_strings(
             self.session_pointer, family_int, dataset, strings_pointer
         )
         if status != 0:
             dtype = strings.dtype if hasattr(strings, "dtype") else type(strings)
-            raise GMTCLibError(f"Failed to put strings of type {dtype} into dataset")
+            msg = f"Failed to put strings of type {dtype} into dataset."
+            raise GMTCLibError(msg)
 
-    def put_matrix(self, dataset, matrix, pad=0):
+    def put_matrix(self, dataset: ctp.c_void_p, matrix: np.ndarray, pad: int = 0):
         """
-        Attach a numpy 2-D array to a GMT dataset.
+        Attach a 2-D numpy array to a GMT dataset.
 
-        Use this function to attach numpy array data to a GMT dataset and pass
-        it to GMT modules. Wraps ``GMT_Put_Matrix``.
+        Use this function to attach numpy array data to a GMT dataset and pass it to GMT
+        modules. Wraps ``GMT_Put_Matrix``.
 
-        The dataset must be created by :meth:`pygmt.clib.Session.create_data`
-        first. Use ``|GMT_VIA_MATRIX'`` in the family.
+        The dataset must be created by :meth:`pygmt.clib.Session.create_data` first with
+        ``family="GMT_IS_DATASET|GMT_VIA_MATRIX"``.
 
-        Not all numpy dtypes are supported, only: int8, int16, int32, int64,
-        uint8, uint16, uint32, uint64, float32, and float64.
+        Not all numpy dtypes are supported, only: int8, int16, int32, int64, longlong,
+        uint8, uint16, uint32, uint64, ulonglong, float32, and float64.
 
         .. warning::
             The numpy array must be C contiguous in memory. Use
-            :func:`numpy.ascontiguousarray` to make sure your vector is
-            contiguous (it won't copy if it already is).
+            :func:`numpy.ascontiguousarray` to make sure your matrix is contiguous (it
+            won't copy if it already is).
 
         Parameters
         ----------
-        dataset : :class:`ctypes.c_void_p`
-            The ctypes void pointer to a ``GMT_Dataset``. Create it with
+        dataset
+            The ctypes void pointer to a ``GMT_MATRIX`` data container. Create it with
             :meth:`pygmt.clib.Session.create_data`.
-        matrix : numpy 2-D array
-            The array that will be attached to the dataset. Must be a 2-D C
-            contiguous array.
-        pad : int
-            The amount of padding that should be added to the matrix. Use when
-            creating grids for modules that require padding.
+        matrix
+            The array that will be attached to the dataset. Must be a 2-D C contiguous
+            array.
+        pad
+            The amount of padding that should be added to the matrix. Use when creating
+            grids for modules that require padding.
 
         Raises
         ------
         GMTCLibError
-            If given invalid input or ``GMT_Put_Matrix`` exits with
-            status != 0.
+            If given invalid input or ``GMT_Put_Matrix`` exits with a non-zero status.
         """
         c_put_matrix = self.get_libgmt_func(
             "GMT_Put_Matrix",
@@ -1041,7 +1108,8 @@ class Session:
             self.session_pointer, dataset, gmt_type, pad, matrix_pointer
         )
         if status != 0:
-            raise GMTCLibError(f"Failed to put matrix of type {matrix.dtype}.")
+            msg = f"Failed to put matrix of type {matrix.dtype}."
+            raise GMTCLibError(msg)
 
     def read_data(
         self,
@@ -1207,41 +1275,46 @@ class Session:
             raise GMTCLibError(f"Failed to write dataset to '{output}'")
 
     @contextlib.contextmanager
-    def open_virtualfile(self, family, geometry, direction, data):
+    def open_virtualfile(
+        self,
+        family: str,
+        geometry: str,
+        direction: str,
+        data: ctp.c_void_p | None,
+    ) -> Generator[str, None, None]:
         """
-        Open a GMT virtual file to pass data to and from a module.
+        Open a GMT virtual file associated with a data object for reading or writing.
 
-        GMT uses a virtual file scheme to pass in data or get data from API
-        modules. Use it to pass in your GMT data structure (created using
-        :meth:`pygmt.clib.Session.create_data`) to a module that expects an
-        input file, or get the output from a module that writes to a file.
+        GMT uses a virtual file scheme to pass in data or get data from API modules. Use
+        it to pass in your GMT data structure (created using
+        :meth:`pygmt.clib.Session.create_data`) to a module that expects an input file,
+        or get the output from a module that writes to a file.
 
-        Use in a ``with`` block. Will automatically close the virtual file when
-        leaving the ``with`` block. Because of this, no wrapper for
-        ``GMT_Close_VirtualFile`` is provided.
+        Use in a ``with`` block. Will automatically close the virtual file when leaving
+        the ``with`` block. Because of this, no wrapper for ``GMT_Close_VirtualFile``
+        is provided.
 
         Parameters
         ----------
-        family : str
-            A valid GMT data family name (e.g., ``"GMT_IS_DATASET"``). Should
-            be the same as the one you used to create your data structure.
-        geometry : str
-            A valid GMT data geometry name (e.g., ``"GMT_IS_POINT"``). Should
-            be the same as the one you used to create your data structure.
-        direction : str
-            Either ``"GMT_IN"`` or ``"GMT_OUT"`` to indicate if passing data to
-            GMT or getting it out of GMT, respectively.
-            By default, GMT can modify the data you pass in. Add modifier
-            ``"GMT_IS_REFERENCE"`` to tell GMT the data are read-only, or
-            ``"GMT_IS_DUPLICATE"`` to tell GMT to duplicate the data.
-        data : int or None
-            The ctypes void pointer to your GMT data structure. For output
-            (i.e., ``direction="GMT_OUT"``), it can be ``None`` to have GMT
-            automatically allocate the output GMT data structure.
+        family
+            A valid GMT data family name (e.g., ``"GMT_IS_DATASET"``). Should be the
+            same as the one you used to create your data structure.
+        geometry
+            A valid GMT data geometry name (e.g., ``"GMT_IS_POINT"``). Should be the
+            same as the one you used to create your data structure.
+        direction
+            Either ``"GMT_IN"`` or ``"GMT_OUT"`` to indicate if passing data to GMT or
+            getting it out of GMT, respectively. By default, GMT can modify the data you
+            pass in. Add modifier ``"GMT_IS_REFERENCE"`` to tell GMT the data are
+            read-only, or ``"GMT_IS_DUPLICATE"`` to tell GMT to duplicate the data.
+        data
+            The ctypes void pointer to the GMT data structure. For output (i.e.,
+            ``direction="GMT_OUT"``), it can be ``None`` to have GMT automatically
+            allocate the output GMT data structure.
 
         Yields
         ------
-        vfname : str
+        vfname
             The name of the virtual file that you can pass to a GMT module.
 
         Examples
@@ -1258,7 +1331,7 @@ class Session:
         ...         family=family,
         ...         geometry=geometry,
         ...         mode="GMT_CONTAINER_ONLY",
-        ...         dim=[2, 5, 1, 0],  # columns, lines, segments, type
+        ...         dim=[2, 5, lib["GMT_INT"], 0],  # ncolumns, nrows, dtype, unused
         ...     )
         ...     lib.put_vector(dataset, column=0, vector=x)
         ...     lib.put_vector(dataset, column=1, vector=y)
@@ -1274,19 +1347,19 @@ class Session:
         c_open_virtualfile = self.get_libgmt_func(
             "GMT_Open_VirtualFile",
             argtypes=[
-                ctp.c_void_p,
-                ctp.c_uint,
-                ctp.c_uint,
-                ctp.c_uint,
-                ctp.c_void_p,
-                ctp.c_char_p,
+                ctp.c_void_p,  # V_API
+                ctp.c_uint,  # family
+                ctp.c_uint,  # geometry
+                ctp.c_uint,  # direction
+                ctp.c_void_p,  # data
+                ctp.c_char_p,  # name
             ],
             restype=ctp.c_int,
         )
 
         c_close_virtualfile = self.get_libgmt_func(
             "GMT_Close_VirtualFile",
-            argtypes=[ctp.c_void_p, ctp.c_char_p],
+            argtypes=[ctp.c_void_p, ctp.c_char_p],  # V_API, name
             restype=ctp.c_int,
         )
 
@@ -1301,7 +1374,11 @@ class Session:
             self.session_pointer, family_int, geometry_int, direction_int, data, buff
         )
         if status != 0:
-            raise GMTCLibError("Failed to create a virtual file.")
+            msg = (
+                f"Failed to create a virtual file with {family=}, {geometry=}, "
+                f"{direction=}."
+            )
+            raise GMTCLibError(msg)
 
         vfname = buff.value.decode()
         try:
@@ -1309,11 +1386,12 @@ class Session:
         finally:
             status = c_close_virtualfile(self.session_pointer, vfname.encode())
             if status != 0:
-                raise GMTCLibError(f"Failed to close virtual file '{vfname}'.")
+                msg = f"Failed to close virtual file '{vfname}'."
+                raise GMTCLibError(msg)
 
     def open_virtual_file(self, family, geometry, direction, data):
         """
-        Open a GMT virtual file to pass data to and from a module.
+        Open a GMT virtual file associated with a data object for reading or writing.
 
         .. deprecated: 0.11.0
 
@@ -1329,37 +1407,36 @@ class Session:
         return self.open_virtualfile(family, geometry, direction, data)
 
     @contextlib.contextmanager
-    def virtualfile_from_vectors(self, *vectors):
+    def virtualfile_from_vectors(
+        self, vectors: Sequence, *args
+    ) -> Generator[str, None, None]:
         """
-        Store 1-D arrays as columns of a table inside a virtual file.
+        Store a sequence of 1-D vectors as columns of a dataset inside a virtual file.
 
-        Use the virtual file name to pass in the data in your vectors to a GMT
-        module.
+        Use the virtual file name to pass the dataset with your vectors to a GMT module.
 
-        Context manager (use in a ``with`` block). Yields the virtual file name
-        that you can pass as an argument to a GMT module call. Closes the
-        virtual file upon exit of the ``with`` block.
+        Context manager (use in a ``with`` block). Yields the virtual file name that you
+        can pass as an argument to a GMT module call. Closes the virtual file upon exit
+        of the ``with`` block.
 
-        Use this instead of creating the data container and virtual file by
-        hand with :meth:`pygmt.clib.Session.create_data`,
-        :meth:`pygmt.clib.Session.put_vector`, and
-        :meth:`pygmt.clib.Session.open_virtualfile`.
+        Use this instead of creating the data container and virtual file by hand with
+        :meth:`pygmt.clib.Session.create_data`, :meth:`pygmt.clib.Session.put_vector`,
+        and :meth:`pygmt.clib.Session.open_virtualfile`.
 
-        If the arrays are C contiguous blocks of memory, they will be passed
-        without copying to GMT. If they are not (e.g., they are columns of a
-        2-D array), they will need to be copied to a contiguous block.
+        If the arrays are C contiguous blocks of memory, they will be passed without
+        copying to GMT. If they are not (e.g., they are columns of a 2-D array), they
+        will need to be copied to a contiguous block.
 
         Parameters
         ----------
-        vectors : 1-D arrays
-            The vectors that will be included in the array. All must be of the
+        vectors
+            A sequence of vectors that will be stored in the dataset. All must be of the
             same size.
 
         Yields
         ------
-        fname : str
-            The name of virtual file. Pass this as a file name argument to a
-            GMT module.
+        fname
+            The name of virtual file. Pass this as a file name argument to a GMT module.
 
         Examples
         --------
@@ -1371,26 +1448,40 @@ class Session:
         >>> y = np.array([4, 5, 6])
         >>> z = pd.Series([7, 8, 9])
         >>> with Session() as ses:
-        ...     with ses.virtualfile_from_vectors(x, y, z) as fin:
+        ...     with ses.virtualfile_from_vectors((x, y, z)) as fin:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
         ...             ses.call_module("info", [fin, f"->{fout.name}"])
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <1/3> <4/6> <7/9>
         """
-        # Conversion to a C-contiguous array needs to be done here and not in
-        # put_vector or put_strings because we need to maintain a reference to
-        # the copy while it is being used by the C API. Otherwise, the array
-        # would be garbage collected and the memory freed. Creating it in this
-        # context manager guarantees that the copy will be around until the
-        # virtual file is closed. The conversion is implicit in
+        # "*args" is added in v0.14.0 for backward-compatibility with the deprecated
+        # syntax of passing multiple vectors as positional arguments.
+        # Remove it in v0.16.0.
+        if len(args) > 0:
+            msg = (
+                "Passing multiple arguments to Session.virtualfile_from_vectors is "
+                "deprecated since v0.14.0 and will be unsupported in v0.16.0. "
+                "Put all vectors in a sequence (a tuple or a list) instead and pass "
+                "the sequence as the single argument to this function. "
+                "E.g., use `with lib.virtualfile_from_vectors((x, y, z)) as vfile` "
+                "instead of `with lib.virtualfile_from_vectors(x, y, z) as vfile`."
+            )
+            warnings.warn(message=msg, category=FutureWarning, stacklevel=3)
+            vectors = (vectors, *args)
+
+        # Conversion to a C-contiguous array needs to be done here and not in put_vector
+        # or put_strings because we need to maintain a reference to the copy while it is
+        # being used by the C API. Otherwise, the array would be garbage collected and
+        # the memory freed. Creating it in this context manager guarantees that the copy
+        # will be around until the virtual file is closed. The conversion is implicit in
         # vectors_to_arrays.
         arrays = vectors_to_arrays(vectors)
 
         columns = len(arrays)
-        # Find arrays that are of string dtype from column 3 onwards
-        # Assumes that first 2 columns contains coordinates like longitude
-        # latitude, or datetime string types.
+        # Find arrays that are of string dtype from column 3 onwards. Assumes that first
+        # 2 columns contains coordinates like longitude, latitude, or datetime string
+        # types.
         for col, array in enumerate(arrays[2:]):
             if pd.api.types.is_string_dtype(array.dtype):
                 columns = col + 2
@@ -1398,21 +1489,25 @@ class Session:
 
         rows = len(arrays[0])
         if not all(len(i) == rows for i in arrays):
-            raise GMTInvalidInput("All arrays must have same size.")
+            msg = "All arrays must have same size."
+            raise GMTInvalidInput(msg)
 
         family = "GMT_IS_DATASET|GMT_VIA_VECTOR"
         geometry = "GMT_IS_POINT"
 
         dataset = self.create_data(
-            family, geometry, mode="GMT_CONTAINER_ONLY", dim=[columns, rows, 1, 0]
+            family,
+            geometry,
+            mode="GMT_CONTAINER_ONLY",
+            dim=[columns, rows, self["GMT_DOUBLE"], 0],
         )
 
         # Use put_vector for columns with numerical type data
         for col, array in enumerate(arrays[:columns]):
             self.put_vector(dataset, column=col, vector=array)
 
-        # Use put_strings for last column(s) with string type data
-        # Have to use modifier "GMT_IS_DUPLICATE" to duplicate the strings
+        # Use put_strings for last column(s) with string type data.
+        # Have to use modifier "GMT_IS_DUPLICATE" to duplicate the strings.
         string_arrays = arrays[columns:]
         if string_arrays:
             if len(string_arrays) == 1:
@@ -1421,7 +1516,7 @@ class Session:
                 strings = np.array(
                     [" ".join(vals) for vals in zip(*string_arrays, strict=True)]
                 )
-            strings = np.asanyarray(a=strings, dtype=str)
+            strings = np.asanyarray(a=strings, dtype=np.str_)
             self.put_strings(
                 dataset, family="GMT_IS_VECTOR|GMT_IS_DUPLICATE", strings=strings
             )
@@ -1432,42 +1527,39 @@ class Session:
             yield vfile
 
     @contextlib.contextmanager
-    def virtualfile_from_matrix(self, matrix):
+    def virtualfile_from_matrix(self, matrix: np.ndarray) -> Generator[str, None, None]:
         """
-        Store a 2-D array as a table inside a virtual file.
+        Store a 2-D numpy array as a matrix inside a virtual file.
 
-        Use the virtual file name to pass in the data in your matrix to a GMT
-        module.
+        Use the virtual file name to pass in the data in your matrix to a GMT module.
 
-        Context manager (use in a ``with`` block). Yields the virtual file name
-        that you can pass as an argument to a GMT module call. Closes the
-        virtual file upon exit of the ``with`` block.
+        Context manager (use in a ``with`` block). Yields the virtual file name that you
+        can pass as an argument to a GMT module call. Closes the virtual file upon exit
+        of the ``with`` block.
 
-        The virtual file will contain the array as a ``GMT_MATRIX`` pretending
-        to be a ``GMT_DATASET``.
+        The virtual file will contain the array as a ``GMT_MATRIX`` data container
+        pretending to be a ``GMT_DATASET`` data container.
 
-        **Not meant for creating ``GMT_GRID``**. The grid requires more
-        metadata than just the data matrix. Use
-        :meth:`pygmt.clib.Session.virtualfile_from_grid` instead.
+        **Not meant for creating ``GMT_GRID``**. The grid requires more metadata than
+        just the data matrix. Use :meth:`pygmt.clib.Session.virtualfile_from_grid`
+        instead.
 
-        Use this instead of creating the data container and virtual file by
-        hand with :meth:`pygmt.clib.Session.create_data`,
-        :meth:`pygmt.clib.Session.put_matrix`, and
-        :meth:`pygmt.clib.Session.open_virtualfile`
+        Use this instead of creating the data container and virtual file by hand with
+        :meth:`pygmt.clib.Session.create_data`, :meth:`pygmt.clib.Session.put_matrix`,
+        and :meth:`pygmt.clib.Session.open_virtualfile`.
 
-        The matrix must be C contiguous in memory. If it is not (e.g., it is a
-        slice of a larger array), the array will be copied to make sure it is.
+        The matrix must be C contiguous in memory. If it is not (e.g., it is a slice of
+        a larger array), the array will be copied to make sure it is.
 
         Parameters
         ----------
-        matrix : 2-D array
+        matrix
             The matrix that will be included in the GMT data container.
 
         Yields
         ------
-        fname : str
-            The name of virtual file. Pass this as a file name argument to a
-            GMT module.
+        fname
+            The name of virtual file. Pass this as a file name argument to a GMT module.
 
         Examples
         --------
@@ -1488,20 +1580,20 @@ class Session:
         ...             print(fout.read().strip())
         <matrix memory>: N = 4 <0/9> <1/10> <2/11>
         """
-        # Conversion to a C-contiguous array needs to be done here and not in
-        # put_matrix because we need to maintain a reference to the copy while
-        # it is being used by the C API. Otherwise, the array would be garbage
-        # collected and the memory freed. Creating it in this context manager
-        # guarantees that the copy will be around until the virtual file is
-        # closed.
+        # Conversion to a C-contiguous array needs to be done here and not in put_matrix
+        # because we need to maintain a reference to the copy while it is being used by
+        # the C API. Otherwise, the array would be garbage collected and the memory
+        # freed. Creating it in this context manager guarantees that the copy will be
+        # around until the virtual file is closed.
         matrix = np.ascontiguousarray(matrix)
         rows, columns = matrix.shape
+        layers = 1
 
         family = "GMT_IS_DATASET|GMT_VIA_MATRIX"
         geometry = "GMT_IS_POINT"
 
         dataset = self.create_data(
-            family, geometry, mode="GMT_CONTAINER_ONLY", dim=[columns, rows, 1, 0]
+            family, geometry, mode="GMT_CONTAINER_ONLY", dim=[columns, rows, layers, 0]
         )
 
         self.put_matrix(dataset, matrix)
@@ -1512,39 +1604,36 @@ class Session:
             yield vfile
 
     @contextlib.contextmanager
-    def virtualfile_from_grid(self, grid):
+    def virtualfile_from_grid(self, grid: xr.DataArray) -> Generator[str, None, None]:
         """
         Store a grid in a virtual file.
 
-        Use the virtual file name to pass in the data in your grid to a GMT
-        module. Grids must be :class:`xarray.DataArray` instances.
+        Use the virtual file name to pass in the data in your grid to a GMT module.
+        Grids must be :class:`xarray.DataArray` instances.
 
-        Context manager (use in a ``with`` block). Yields the virtual file name
-        that you can pass as an argument to a GMT module call. Closes the
-        virtual file upon exit of the ``with`` block.
+        Context manager (use in a ``with`` block). Yields the virtual file name that you
+        can pass as an argument to a GMT module call. Closes the virtual file upon exit
+        of the ``with`` block.
 
-        The virtual file will contain the grid as a ``GMT_MATRIX`` with extra
-        metadata.
+        The virtual file will contain the grid as a ``GMT_MATRIX`` data container with
+        extra metadata.
 
-        Use this instead of creating a data container and virtual file by hand
-        with :meth:`pygmt.clib.Session.create_data`,
-        :meth:`pygmt.clib.Session.put_matrix`, and
-        :meth:`pygmt.clib.Session.open_virtualfile`.
+        Use this instead of creating a data container and virtual file by hand with
+        :meth:`pygmt.clib.Session.create_data`, :meth:`pygmt.clib.Session.put_matrix`,
+        and :meth:`pygmt.clib.Session.open_virtualfile`.
 
-        The grid data matrix must be C contiguous in memory. If it is not
-        (e.g., it is a slice of a larger array), the array will be copied to
-        make sure it is.
+        The grid data matrix must be C contiguous in memory. If it is not (e.g., it is a
+        slice of a larger array), the array will be copied to make sure it is.
 
         Parameters
         ----------
-        grid : :class:`xarray.DataArray`
+        grid
             The grid that will be included in the virtual file.
 
         Yields
         ------
-        fname : str
-            The name of virtual file. Pass this as a file name argument to a
-            GMT module.
+        fname
+            The name of virtual file. Pass this as a file name argument to a GMT module.
 
         Examples
         --------
@@ -1574,12 +1663,12 @@ class Session:
         _gtype = {0: "GMT_GRID_IS_CARTESIAN", 1: "GMT_GRID_IS_GEO"}[grid.gmt.gtype]
         _reg = {0: "GMT_GRID_NODE_REG", 1: "GMT_GRID_PIXEL_REG"}[grid.gmt.registration]
 
-        # Conversion to a C-contiguous array needs to be done here and not in
-        # put_matrix because we need to maintain a reference to the copy while
-        # it is being used by the C API. Otherwise, the array would be garbage
-        # collected and the memory freed. Creating it in this context manager
-        # guarantees that the copy will be around until the virtual file is
-        # closed. The conversion is implicit in dataarray_to_matrix.
+        # Conversion to a C-contiguous array needs to be done here and not in put_matrix
+        # because we need to maintain a reference to the copy while it is being used by
+        # the C API. Otherwise, the array would be garbage collected and the memory
+        # freed. Creating it in this context manager guarantees that the copy will be
+        # around until the virtual file is closed. The conversion is implicit in
+        # dataarray_to_matrix.
         matrix, region, inc = dataarray_to_matrix(grid)
 
         family = "GMT_IS_GRID|GMT_VIA_MATRIX"
@@ -1590,15 +1679,18 @@ class Session:
             mode=f"GMT_CONTAINER_ONLY|{_gtype}",
             ranges=region,
             inc=inc,
-            registration=_reg,
+            registration=_reg,  # type: ignore[arg-type]
         )
         self.put_matrix(gmt_grid, matrix)
-        args = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", gmt_grid)
-        with self.open_virtualfile(*args) as vfile:
+        with self.open_virtualfile(
+            family, geometry, "GMT_IN|GMT_IS_REFERENCE", gmt_grid
+        ) as vfile:
             yield vfile
 
     @contextlib.contextmanager
-    def virtualfile_from_stringio(self, stringio: io.StringIO):
+    def virtualfile_from_stringio(
+        self, stringio: io.StringIO
+    ) -> Generator[str, None, None]:
         r"""
         Store a :class:`io.StringIO` object in a virtual file.
 
@@ -1672,8 +1764,7 @@ class Session:
             mode="GMT_CONTAINER_ONLY|GMT_WITH_STRINGS",
             dim=[n_tables, n_segments, n_rows, n_columns],
         )
-        dataset = ctp.cast(dataset, ctp.POINTER(_GMT_DATASET))
-        table = dataset.contents.table[0].contents
+        table = ctp.cast(dataset, ctp.POINTER(_GMT_DATASET)).contents.table[0].contents
         for i, segment in enumerate(segments):
             seg = table.segment[i].contents
             if segment["header"]:
@@ -1691,7 +1782,7 @@ class Session:
                     seg.header = None
                     seg.text = None
 
-    def virtualfile_in(  # noqa: PLR0912
+    def virtualfile_in(
         self,
         check_kind=None,
         data=None,
@@ -1771,7 +1862,7 @@ class Session:
             if check_kind == "raster":
                 valid_kinds += ("grid", "image")
             elif check_kind == "vector":
-                valid_kinds += ("matrix", "vectors", "geojson")
+                valid_kinds += ("empty", "matrix", "vectors", "geojson")
             if kind not in valid_kinds:
                 raise GMTInvalidInput(
                     f"Unrecognized data type for {check_kind}: {type(data)}"
@@ -1779,55 +1870,54 @@ class Session:
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
-            "file": contextlib.nullcontext,
             "arg": contextlib.nullcontext,
+            "empty": self.virtualfile_from_vectors,
+            "file": contextlib.nullcontext,
             "geojson": tempfile_from_geojson,
             "grid": self.virtualfile_from_grid,
             "image": tempfile_from_image,
             "stringio": self.virtualfile_from_stringio,
-            # Note: virtualfile_from_matrix is not used because a matrix can be
-            # converted to vectors instead, and using vectors allows for better
-            # handling of string type inputs (e.g. for datetime data types)
-            "matrix": self.virtualfile_from_vectors,
+            "matrix": self.virtualfile_from_matrix,
             "vectors": self.virtualfile_from_vectors,
         }[kind]
 
-        # Ensure the data is an iterable (Python list or tuple)
-        if kind in {"geojson", "grid", "image", "file", "arg", "stringio"}:
-            if kind == "image" and data.dtype != "uint8":
+        # "_data" is the data that will be passed to the _virtualfile_from function.
+        # "_data" defaults to "data" but should be adjusted for some cases.
+        _data = data
+        match kind:
+            case "image" if data.dtype != "uint8":
                 msg = (
-                    f"Input image has dtype: {data.dtype} which is unsupported, "
-                    "and may result in an incorrect output. Please recast image "
-                    "to a uint8 dtype and/or scale to 0-255 range, e.g. "
-                    "using a histogram equalization function like "
-                    "skimage.exposure.equalize_hist."
+                    f"Input image has dtype: {data.dtype} which is unsupported, and "
+                    "may result in an incorrect output. Please recast image to a uint8 "
+                    "dtype and/or scale to 0-255 range, e.g. using a histogram "
+                    "equalization function like skimage.exposure.equalize_hist."
                 )
                 warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
-            _data = (data,) if not isinstance(data, pathlib.PurePath) else (str(data),)
-        elif kind == "vectors":
-            _data = [x, y]
-            if z is not None:
-                _data.append(z)
-            if extra_arrays:
-                _data.extend(extra_arrays)
-        elif kind == "matrix":  # turn 2-D arrays into list of vectors
-            if hasattr(data, "items") and not hasattr(data, "to_frame"):
-                # pandas.DataFrame or xarray.Dataset types.
-                # pandas.Series will be handled below like a 1-D numpy.ndarray.
-                _data = [array for _, array in data.items()]
-            elif hasattr(data, "ndim") and data.ndim == 2 and data.dtype.kind in "iuf":
-                # Just use virtualfile_from_matrix for 2-D numpy.ndarray
-                # which are signed integer (i), unsigned integer (u) or
-                # floating point (f) types
-                _virtualfile_from = self.virtualfile_from_matrix
-                _data = (data,)
-            else:
-                # Python list, tuple, numpy.ndarray, and pandas.Series types
-                _data = np.atleast_2d(np.asanyarray(data).T)
+            case "empty":  # data is None, so data must be given via x/y/z.
+                _data = [x, y]
+                if z is not None:
+                    _data.append(z)
+                if extra_arrays:
+                    _data.extend(extra_arrays)
+            case "vectors":
+                if hasattr(data, "items") and not hasattr(data, "to_frame"):
+                    # pandas.DataFrame or xarray.Dataset types.
+                    # pandas.Series will be handled below like a 1-D numpy.ndarray.
+                    _data = [array for _, array in data.items()]
+                else:
+                    # Python list, tuple, numpy.ndarray, and pandas.Series types
+                    _data = np.atleast_2d(np.asanyarray(data).T)
+            case "matrix" if data.dtype.kind not in "iuf":
+                # GMT can only accept a 2-D matrix which are signed integer (i),
+                # unsigned integer (u) or floating point (f) types. For other data
+                # types, we need to use virtualfile_from_vectors instead, which turns
+                # the matrix into a list of vectors and allows for better handling of
+                # non-integer/float type inputs (e.g. for string or datetime data types)
+                _virtualfile_from = self.virtualfile_from_vectors
+                _data = data.T
 
         # Finally create the virtualfile from the data, to be passed into GMT
-        file_context = _virtualfile_from(*_data)
-
+        file_context = _virtualfile_from(_data)
         return file_context
 
     def virtualfile_from_data(
@@ -1850,7 +1940,7 @@ class Session:
            instead.
         """
         msg = (
-            "API function 'Session.virtualfile_from_datae()' has been deprecated since "
+            "API function 'Session.virtualfile_from_data()' has been deprecated since "
             "v0.13.0 and will be removed in v0.15.0. Use 'Session.virtualfile_in()' "
             "instead."
         )

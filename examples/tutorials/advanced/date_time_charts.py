@@ -222,7 +222,9 @@ fig.show()
 # before passing it as an argument. However, ``np.array`` objects use less memory and
 # allow developers to specify data types.
 
-x = np.array(["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype="datetime64")
+x = np.array(
+    ["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype=np.datetime64
+)
 y = [2, 7, 5]
 
 fig = pygmt.Figure()
