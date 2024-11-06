@@ -1,6 +1,6 @@
 """
-Legend
-======
+Creating legends
+================
 
 The :meth:`pygmt.Figure.legend` method creates legends, whereby auto-legends as
 well as manually created legends are supported.
