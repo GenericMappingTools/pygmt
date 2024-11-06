@@ -15,17 +15,10 @@ try:
 except ImportError:
     _HAS_IPYTHON = False
 
-
+import numpy as np
 from pygmt.clib import Session
 from pygmt.exceptions import GMTError, GMTInvalidInput
-from pygmt.helpers import (
-    build_arg_list,
-    fmt_docstring,
-    kwargs_to_strings,
-    launch_external_viewer,
-    unique_name,
-    use_alias,
-)
+from pygmt.helpers import launch_external_viewer, unique_name
 
 
 def _get_default_display_method() -> Literal["external", "notebook", "none"]:
@@ -75,12 +68,9 @@ class Figure:
     """
     A GMT figure to handle all plotting.
 
-    Use the plotting methods of this class to add elements to the figure.  You
-    can preview the figure using :meth:`pygmt.Figure.show` and save the figure
-    to a file using :meth:`pygmt.Figure.savefig`.
-
-    Unlike traditional GMT figures, no figure file is generated until you call
-    :meth:`pygmt.Figure.savefig` or :meth:`pygmt.Figure.psconvert`.
+    Use the plotting methods of this class to add elements to the figure. You can
+    preview the figure using :meth:`pygmt.Figure.show` and save the figure to a file
+    using :meth:`pygmt.Figure.savefig`.
 
     Examples
     --------
@@ -94,8 +84,8 @@ class Figure:
     >>> assert Path("my-figure.png").exists()
     >>> Path("my-figure.png").unlink()
 
-    The plot region can be specified through ISO country codes (for example,
-    ``"JP"`` for Japan):
+    The plot region can be specified through ISO country codes (for example, ``"JP"``
+    for Japan):
 
     >>> import pygmt
     >>> fig = pygmt.Figure()
@@ -122,14 +112,8 @@ class Figure:
         Start and/or activate the current figure.
 
         All plotting commands run afterward will append to this figure.
-
-        Unlike the command-line version (``gmt figure``), this method does not
-        trigger the generation of a figure file. An explicit call to
-        :meth:`pygmt.Figure.savefig` or :meth:`pygmt.Figure.psconvert` must be
-        made in order to get a file.
         """
-        # Passing format '-' tells pygmt.end to not produce any files.
-        fmt = "-"
+        fmt = "-"  # Passing format "-" tells pygmt.end to not produce any files.
         with Session() as lib:
             lib.call_module(module="figure", args=[self._name, fmt])
 
@@ -142,7 +126,7 @@ class Figure:
         return kwargs
 
     @property
-    def region(self):
+    def region(self) -> np.ndarray:
         """
         The geographic WESN bounding box for the current figure.
         """
@@ -150,129 +134,6 @@ class Figure:
         with Session() as lib:
             wesn = lib.extract_region()
         return wesn
-
-    @fmt_docstring
-    @use_alias(
-        A="crop",
-        C="gs_option",
-        E="dpi",
-        F="prefix",
-        G="gs_path",
-        I="resize",
-        N="bb_style",
-        T="fmt",
-        Q="anti_aliasing",
-        V="verbose",
-    )
-    @kwargs_to_strings()
-    def psconvert(self, **kwargs):
-        r"""
-        Convert [E]PS file(s) to other formats.
-
-        Converts one or more PostScript files to other formats (BMP, EPS, JPEG,
-        PDF, PNG, PPM, TIFF) using Ghostscript.
-
-        If no input files are given, will convert the current active figure
-        (see :class:`pygmt.Figure`). In this case, an output name must be given
-        using parameter ``prefix``.
-
-        Full option list at :gmt-docs:`psconvert.html`
-
-        {aliases}
-
-        Parameters
-        ----------
-        crop : str or bool
-            Adjust the BoundingBox and HiResBoundingBox to the minimum
-            required by the image content. Default is True. Append **+u** to
-            first remove any GMT-produced time-stamps. Append **+r** to
-            *round* the HighResBoundingBox instead of using the ``ceil``
-            function. This is going against Adobe Law but can be useful when
-            creating very small images where the difference of one pixel
-            might matter. If ``verbose`` is used we also report the
-            dimensions of the final illustration.
-        gs_path : str
-            Full path to the Ghostscript executable.
-        gs_option : str
-            Specify a single, custom option that will be passed on to
-            Ghostscript as is.
-        dpi : int
-            Set raster resolution in dpi. Default is 720 for PDF, 300 for
-            others.
-        prefix : str
-            Force the output file name. By default output names are constructed
-            using the input names as base, which are appended with an
-            appropriate extension. Use this option to provide a different name,
-            but without extension. Extension is still determined automatically.
-        resize : str
-            [**+m**\ *margins*][**+s**\ [**m**]\ *width*\
-            [/\ *height*]][**+S**\ *scale*].
-            Adjust the BoundingBox and HiResBoundingBox by scaling and/or
-            adding margins. Append **+m** to specify extra margins to extend
-            the bounding box. Give either one (uniform), two (x and y) or four
-            (individual sides) margins; append unit [Default is set by
-            :gmt-term:`PROJ_LENGTH_UNIT`]. Append **+s**\ *width* to resize the
-            output image to exactly *width* units. The default unit is set by
-            :gmt-term:`PROJ_LENGTH_UNIT` but you can append a new unit and/or
-            impose different width and height (**Note**: This may change the
-            image aspect ratio). What happens here is that Ghostscript will do
-            the re-interpolation work and the final image will retain the DPI
-            resolution set by ``dpi``.  Append **+sm** to set a maximum size
-            and the new *width* is only imposed if the original figure width
-            exceeds it. Append /\ *height* to also impose a maximum height in
-            addition to the width. Alternatively, append **+S**\ *scale* to
-            scale the image by a constant factor.
-        bb_style : str
-            Set optional BoundingBox fill color, fading, or draw the outline
-            of the BoundingBox. Append **+f**\ *fade* to fade the entire plot
-            towards black (100%) [no fading, 0]. Append **+g**\ *paint* to
-            paint the BoundingBox behind the illustration and append **+p**\
-            [*pen*] to draw the BoundingBox outline (append a pen or accept
-            the default pen of 0.25p,black). **Note**: If both **+g** and
-            **+f** are used then we use paint as the fade color instead of
-            black. Append **+i** to enforce gray-shades by using ICC profiles.
-        anti_aliasing : str
-            [**g**\|\ **p**\|\ **t**\][**1**\|\ **2**\|\ **4**].
-            Set the anti-aliasing options for **g**\ raphics or **t**\ ext.
-            Append the size of the subsample box (1, 2, or 4) [Default is
-            ``"4"``]. [Default is no anti-aliasing (same as bits = 1).]
-        fmt : str
-            Set the output format, where **b** means BMP, **e** means EPS,
-            **E** means EPS with PageSize command, **f** means PDF, **F** means
-            multi-page PDF, **j** means JPEG, **g** means PNG, **G** means
-            transparent PNG (untouched regions are transparent), **m** means
-            PPM, and **t** means TIFF [Default is JPEG]. To
-            **b**\|\ **j**\|\ **g**\|\ **t**\ , optionally append **+m** in
-            order to get a monochrome (grayscale) image. The EPS format can be
-            combined with any of the other formats. For example, **ef** creates
-            both an EPS and a PDF file. Using **F** creates a multi-page PDF
-            file from the list of input PS or PDF files. It requires the
-            ``prefix`` parameter.
-        {verbose}
-        """
-        kwargs = self._preprocess(**kwargs)
-        # pytest-mpl v0.17.0 added the "metadata" parameter to `Figure.savefig`, which
-        # is not recognized. So remove it before calling `Figure.psconvert`.
-        kwargs.pop("metadata", None)
-        # Default cropping the figure to True
-        if kwargs.get("A") is None:
-            kwargs["A"] = ""
-
-        prefix = kwargs.get("F")
-        if prefix in {"", None, False, True}:
-            raise GMTInvalidInput(
-                "The 'prefix' parameter must be specified with a valid value."
-            )
-
-        # check if the parent directory exists
-        prefix_path = Path(prefix).parent
-        if not prefix_path.exists():
-            raise FileNotFoundError(
-                f"No such directory: '{prefix_path}', please create it first."
-            )
-
-        with Session() as lib:
-            lib.call_module(module="psconvert", args=build_arg_list(kwargs))
 
     def savefig(  # noqa: PLR0912
         self,
@@ -383,6 +244,9 @@ class Figure:
                 raise GMTInvalidInput(msg)
             kwargs["W"] = True
 
+        # pytest-mpl v0.17.0 added the "metadata" parameter to Figure.savefig, which
+        # is not recognized. So remove it before calling Figure.psconvert.
+        kwargs.pop("metadata", None)
         self.psconvert(prefix=prefix, fmt=fmt, crop=crop, **kwargs)
 
         # Remove the .pgw world file if exists.
@@ -480,7 +344,7 @@ class Figure:
                 pdf = self._preview(
                     fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False, **kwargs
                 )
-                launch_external_viewer(pdf, waiting=waiting)
+                launch_external_viewer(pdf, waiting=waiting)  # type: ignore[arg-type]
             case "none":
                 pass  # Do nothing
             case _:
@@ -489,26 +353,26 @@ class Figure:
                     "'notebook', 'none' or None."
                 )
 
-    def _preview(self, fmt, dpi, as_bytes=False, **kwargs):
+    def _preview(self, fmt: str, dpi: int, as_bytes: bool = False, **kwargs):
         """
         Grab a preview of the figure.
 
         Parameters
         ----------
-        fmt : str
-            The image format. Can be any extension that
-            :meth:`pygmt.Figure.savefig` recognizes.
-        dpi : int
+        fmt
+            The image format. Can be any extension that :meth:`pygmt.Figure.savefig`
+            recognizes.
+        dpi
             The image resolution (dots per inch).
-        as_bytes : bool
-            If ``True``, will load the image as a bytes string and return that
-            instead of the file name.
+        as_bytes
+            If ``True``, will load the binary contents of the image as a bytes object,
+            and return that instead of the file name.
 
         Returns
         -------
-        preview : str or bytes
-            If ``as_bytes=False``, this is the file name of the preview image
-            file. Else, it is the file content loaded as a bytes string.
+        preview
+            If ``as_bytes = False``, this is the file name of the preview image file.
+            Otherwise, it is the file content loaded as a bytes object.
         """
         fname = Path(self._preview_dir.name) / f"{self._name}.{fmt}"
         self.savefig(fname, dpi=dpi, **kwargs)
@@ -552,6 +416,7 @@ class Figure:
         meca,
         plot,
         plot3d,
+        psconvert,
         rose,
         set_panel,
         shift_origin,
@@ -588,27 +453,28 @@ def set_display(method: Literal["external", "notebook", "none", None] = None):
     >>> import pygmt
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c/5c", frame=True)
-    >>> fig.show()  # will display a PNG image in the current notebook
+    >>> fig.show()  # Will display a PNG image in the current notebook
     >>>
-    >>> # set the display method to "external"
+    >>> # Set the display method to "external"
     >>> pygmt.set_display(method="external")  # doctest: +SKIP
-    >>> fig.show()  # will display a PDF image using the default PDF viewer
+    >>> fig.show()  # Will display a PDF image using the default PDF viewer
     >>>
-    >>> # set the display method to "none"
+    >>> # Set the display method to "none"
     >>> pygmt.set_display(method="none")
-    >>> fig.show()  # will not show any image
+    >>> fig.show()  # Will not show any image
     >>>
-    >>> # reset to the default display method
+    >>> # Reset to the default display method
     >>> pygmt.set_display(method=None)
-    >>> fig.show()  # again, will show a PNG image in the current notebook
+    >>> fig.show()  # Again, will show a PNG image in the current notebook
     """
     match method:
         case "external" | "notebook" | "none":
-            SHOW_CONFIG["method"] = method  # type: ignore[assignment]
+            SHOW_CONFIG["method"] = method
         case None:
-            SHOW_CONFIG["method"] = _get_default_display_method()  # type: ignore[assignment]
+            SHOW_CONFIG["method"] = _get_default_display_method()
         case _:
-            raise GMTInvalidInput(
-                f"Invalid display method '{method}'. Valid values are 'external',"
-                "'notebook', 'none' or None."
+            msg = (
+                f"Invalid display method '{method}'. "
+                "Valid values are 'external', 'notebook', 'none' or None."
             )
+            raise GMTInvalidInput(msg)

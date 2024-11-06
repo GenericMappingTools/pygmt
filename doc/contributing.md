@@ -64,7 +64,7 @@ the problem:
 
       python <test>.py 2>&1 | awk -F': ' '$2=="GMT_Call_Command string" {print $3}'
 
-  where `<test>` is the name of your test script. Note that this script works only with GMT>=6.4
+  where `<test>` is the name of your test script.
 * If the bug is produced when passing an in-memory data object (e.g., a
   pandas.DataFrame or xarray.DataArray) to a PyGMT function, try writing the
   data to a file (e.g., a netCDF or ASCII txt file) and passing the data file
