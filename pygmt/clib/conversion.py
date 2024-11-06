@@ -132,6 +132,52 @@ def dataarray_to_matrix(
     return matrix, region, inc
 
 
+def _to_numpy(data: Any) -> np.ndarray:
+    """
+    Convert an array-like object to a C contiguous NumPy array.
+
+    The function aims to convert any array-like objects (e.g., Python lists or tuples,
+    NumPy arrays with various dtypes, pandas.Series with NumPy/pandas/PyArrow dtypes,
+    PyArrow arrays with various dtypes) to a NumPy array.
+
+    The function is internally used in the ``vectors_to_arrays`` function, which is
+    responsible for converting a sequence of vectors to a list of C contiguous NumPy
+    arrays. Thus, the function uses the :numpy:func:`numpy.ascontiguousarray` function
+    rather than the :numpy:func:`numpy.asarray`/:numpy::func:`numpy.asanyarray`
+    functions, to ensure the returned NumPy array is C contiguous.
+
+    Parameters
+    ----------
+    data
+        The array-like object to convert.
+
+    Returns
+    -------
+    array
+        The C contiguous NumPy array.
+    """
+    # Mapping of unsupported dtypes to the expected NumPy dtype.
+    dtypes: dict[str, type] = {
+        "date32[day][pyarrow]": np.datetime64,
+        "date64[ms][pyarrow]": np.datetime64,
+    }
+
+    if (
+        hasattr(data, "isna")
+        and data.isna().any()
+        and Version(pd.__version__) < Version("2.2")
+    ):
+        # Workaround for dealing with pd.NA with pandas < 2.2.
+        # Bug report at: https://github.com/GenericMappingTools/pygmt/issues/2844
+        # Following SPEC0, pandas 2.1 will be dropped in 2025 Q3, so it's likely
+        # we can remove the workaround in PyGMT v0.17.0.
+        array = np.ascontiguousarray(data.astype(float))
+    else:
+        vec_dtype = str(getattr(data, "dtype", ""))
+        array = np.ascontiguousarray(data, dtype=dtypes.get(vec_dtype))
+    return array
+
+
 def vectors_to_arrays(vectors: Sequence[Any]) -> list[np.ndarray]:
     """
     Convert 1-D vectors (scalars, lists, or array-like) to C contiguous 1-D arrays.
@@ -171,27 +217,7 @@ def vectors_to_arrays(vectors: Sequence[Any]) -> list[np.ndarray]:
     >>> all(i.ndim == 1 for i in arrays)
     True
     """
-    dtypes = {
-        "date32[day][pyarrow]": np.datetime64,
-        "date64[ms][pyarrow]": np.datetime64,
-    }
-    arrays = []
-    for vector in vectors:
-        if (
-            hasattr(vector, "isna")
-            and vector.isna().any()
-            and Version(pd.__version__) < Version("2.2")
-        ):
-            # Workaround for dealing with pd.NA with pandas < 2.2.
-            # Bug report at: https://github.com/GenericMappingTools/pygmt/issues/2844
-            # Following SPEC0, pandas 2.1 will be dropped in 2025 Q3, so it's likely
-            # we can remove the workaround in PyGMT v0.17.0.
-            array = np.ascontiguousarray(vector.astype(float))
-        else:
-            vec_dtype = str(getattr(vector, "dtype", ""))
-            array = np.ascontiguousarray(vector, dtype=dtypes.get(vec_dtype))
-        arrays.append(array)
-    return arrays
+    return [_to_numpy(vector) for vector in vectors]
 
 
 def sequence_to_ctypes_array(

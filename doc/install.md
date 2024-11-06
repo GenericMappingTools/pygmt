@@ -57,8 +57,8 @@ import pygmt
 pygmt.show_versions()
 ```
 
-You are now ready to make your first figure! Start by looking at our [Intro](examples/intro/index.rst),
-[Tutorials](examples/tutorials/index.rst), and [Gallery](examples/gallery/index.rst). Good luck!
+You are now ready to make your first figure! Start by looking at our [Intro](intro/index.rst),
+[Tutorials](tutorials/index.rst), and [Gallery](gallery/index.rst). Good luck!
 
 :::{note}
 The sections below provide more detailed, step by step instructions to install and test
@@ -231,7 +231,7 @@ python -m pip install pygmt
 ```
 
 ::: {tip}
-You can also run `python -m pip install pygmt[all]` to install pygmt with all of its
+You can also run `python -m pip install pygmt[all]` to install PyGMT with all of its
 optional dependencies.
 :::
 
@@ -303,8 +303,8 @@ C:\Users\USERNAME\Miniforge3\envs\pygmt\Library\bin\
 
 ### `ModuleNotFoundError` in Jupyter notebook environment
 
-If you can successfully import pygmt in a Python interpreter or IPython, but get a
-`ModuleNotFoundError` when importing pygmt in Jupyter, you may need to activate your
+If you can successfully import PyGMT in a Python interpreter or IPython, but get a
+`ModuleNotFoundError` when importing PyGMT in Jupyter, you may need to activate your
 `pygmt` virtual environment (using `mamba activate pygmt` or `conda activate pygmt`)
 and install a `pygmt` kernel following the commands below:
 ```

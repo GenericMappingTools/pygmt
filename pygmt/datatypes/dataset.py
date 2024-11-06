@@ -168,7 +168,7 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
             )
             warnings.warn(msg, category=RuntimeWarning, stacklevel=1)
             textvector = [item if item is not None else b"" for item in textvector]
-        return np.char.decode(textvector) if textvector else np.array([], dtype=str)
+        return np.char.decode(textvector) if textvector else np.array([], dtype=np.str_)
 
     def to_dataframe(
         self,
