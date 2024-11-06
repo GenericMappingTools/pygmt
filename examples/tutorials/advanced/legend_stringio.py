@@ -13,6 +13,7 @@ import io
 
 import pygmt
 
+# %%
 # Add an auto-legend
 # ------------------
 
@@ -32,6 +33,7 @@ fig.legend()
 fig.show()
 
 
+# %%
 # Adjust the position
 # -------------------
 # ``position`` parameter, resets also the Defaults for box -> no box added anymore
@@ -45,6 +47,7 @@ fig.legend(position="jMC")
 fig.show()
 
 
+# %%
 # Add a box
 # ---------
 # ``box`` parameter, Default: p,black,thick outline with white/no fill
@@ -65,6 +68,7 @@ fig.legend(position="jMC", box="+p2p,cyan+gblue@70")
 fig.show()
 
 
+# %%
 # Add an manual legend
 # ---------------------
 #
