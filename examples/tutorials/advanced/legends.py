@@ -28,7 +28,7 @@ import pygmt
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5] * 2, projection="X5c", frame=True)
 
-fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
+fig.plot(x=0, y=-3, style="c0.25c", fill="orange", label="orange circle")
 fig.legend()
 
 fig.show()
@@ -45,7 +45,7 @@ fig.show()
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5] * 2, projection="X5c", frame=True)
 
-fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
+fig.plot(x=0, y=-3, style="c0.25c", fill="orange", label="orange circle")
 fig.legend(position="jMC")
 
 fig.show()
@@ -62,13 +62,13 @@ fig.show()
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5] * 2, projection="X5c", frame=True)
 
-fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
+fig.plot(x=0, y=-3, style="c0.25c", fill="orange", label="orange circle")
 fig.legend(position="jMC", box=True)
 
 fig.shift_origin(xshift="w+1c")
 fig.basemap(region=[-5, 5] * 2, projection="X5c", frame=True)
 
-fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
+fig.plot(x=0, y=-3, style="c0.25c", fill="orange", label="orange circle")
 fig.legend(position="jMC", box="+p2p,cyan+gblue@70")
 
 fig.show()
