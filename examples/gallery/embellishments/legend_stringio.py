@@ -2,25 +2,34 @@
 Legend
 ======
 
-The :meth:`pygmt.Figure.legend` method can automatically create a legend for
-symbols plotted using :meth:`pygmt.Figure.plot`. A legend entry is only added
-when the ``label`` parameter is used to state the desired text. Optionally,
-to adjust the legend, users can append different modifiers. A list of all
-available modifiers can be found at :gmt-docs:`gmt.html#l-full`. To create a
-multiple-column legend **+N** is used with the desired number of columns.
+The :meth:`pygmt.Figure.legend` method creates legends, whereby auto-legends as
+well as manually created legends are allowed.
+For auto-legends the ``label`` parameter of :meth:`pygmt.Figure.plot` has to be
+specified to state the desired text.
+
+Optionally, to adjust the legend, users can append different modifiers. A list
+of all available modifiers can be found at :gmt-docs:`gmt.html#l-full`. To
+create a multiple-column legend **+N** is used with the desired number of columns.
+
 For more complicated legends, users may want to write an ASCII file with
 instructions for the layout of the legend items and pass it to the ``spec``
 parameter of :meth:`pygmt.Figure.legend`. For details on how to set up such a
 file, please see the GMT documentation at :gmt-docs:`legend.html#legend-codes`.
+Beides such an ASCII file PyGMT allows the provided a ``io.StringIO`` object.
+
+The example blow is orientated on the upstream GMT example at
+https://docs.generic-mapping-tools.org/dev/legend.html#examples.
 """
 
 # %%
 import io
+
 import pygmt
 
 # -----------------------------------------------------------------------------
-spec = io.StringIO(
-"""
+# Set up io.StringIO object
+spec_io = io.StringIO(
+    """
 G -0.1c
 H 24p,Times-Roman My Map Legend
 D 0.2c 1p
@@ -46,11 +55,14 @@ G 0.1c
 T Let us just try some simple text that can go on a few lines.
 T There is no easy way to predetermine how many lines may be required
 T so we may have to adjust the height to get the right size box.
-""")
+"""
+)
 
 # -----------------------------------------------------------------------------
+# Plot legend into a figure
 fig = pygmt.Figure()
 
-fig.legend(spec=spec, region=[0, 10] * 2, projection="M10c", position="jMC+jMC+w5c")
+# Pass io.StringIO object to the spec parameter
+fig.legend(spec=spec_io, region=[0, 10] * 2, projection="M10c", position="jMC")
 
 fig.show()
