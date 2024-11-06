@@ -57,28 +57,28 @@ def test_to_numpy_python_types_numeric(data, expected_dtype):
 #
 # Reference: https://numpy.org/doc/2.1/reference/arrays.scalars.html
 ########################################################################################
-@pytest.mark.parametrize(
-    ("dtype", "expected_dtype"),
-    [
-        pytest.param(np.int8, np.int8, id="int8"),
-        pytest.param(np.int16, np.int16, id="int16"),
-        pytest.param(np.int32, np.int32, id="int32"),
-        pytest.param(np.int64, np.int64, id="int64"),
-        pytest.param(np.longlong, np.longlong, id="longlong"),
-        pytest.param(np.uint8, np.uint8, id="uint8"),
-        pytest.param(np.uint16, np.uint16, id="uint16"),
-        pytest.param(np.uint32, np.uint32, id="uint32"),
-        pytest.param(np.uint64, np.uint64, id="uint64"),
-        pytest.param(np.ulonglong, np.ulonglong, id="ulonglong"),
-        pytest.param(np.float16, np.float16, id="float16"),
-        pytest.param(np.float32, np.float32, id="float32"),
-        pytest.param(np.float64, np.float64, id="float64"),
-        pytest.param(np.longdouble, np.longdouble, id="longdouble"),
-        pytest.param(np.complex64, np.complex64, id="complex64"),
-        pytest.param(np.complex128, np.complex128, id="complex128"),
-        pytest.param(np.clongdouble, np.clongdouble, id="clongdouble"),
-    ],
-)
+np_dtype_params = [
+    pytest.param(np.int8, np.int8, id="int8"),
+    pytest.param(np.int16, np.int16, id="int16"),
+    pytest.param(np.int32, np.int32, id="int32"),
+    pytest.param(np.int64, np.int64, id="int64"),
+    pytest.param(np.longlong, np.longlong, id="longlong"),
+    pytest.param(np.uint8, np.uint8, id="uint8"),
+    pytest.param(np.uint16, np.uint16, id="uint16"),
+    pytest.param(np.uint32, np.uint32, id="uint32"),
+    pytest.param(np.uint64, np.uint64, id="uint64"),
+    pytest.param(np.ulonglong, np.ulonglong, id="ulonglong"),
+    pytest.param(np.float16, np.float16, id="float16"),
+    pytest.param(np.float32, np.float32, id="float32"),
+    pytest.param(np.float64, np.float64, id="float64"),
+    pytest.param(np.longdouble, np.longdouble, id="longdouble"),
+    pytest.param(np.complex64, np.complex64, id="complex64"),
+    pytest.param(np.complex128, np.complex128, id="complex128"),
+    pytest.param(np.clongdouble, np.clongdouble, id="clongdouble"),
+]
+
+
+@pytest.mark.parametrize(("dtype", "expected_dtype"), np_dtype_params)
 def test_to_numpy_ndarray_numpy_dtypes_numeric(dtype, expected_dtype):
     """
     Test the _to_numpy function with NumPy arrays of NumPy numeric dtypes.
@@ -127,28 +127,7 @@ def test_to_numpy_ndarray_numpy_dtypes_numeric(dtype, expected_dtype):
 # 2. https://pandas.pydata.org/docs/user_guide/basics.html#basics-dtypes
 # 3. https://pandas.pydata.org/docs/user_guide/pyarrow.html
 ########################################################################################
-@pytest.mark.parametrize(
-    ("dtype", "expected_dtype"),
-    [
-        pytest.param(np.int8, np.int8, id="int8"),
-        pytest.param(np.int16, np.int16, id="int16"),
-        pytest.param(np.int32, np.int32, id="int32"),
-        pytest.param(np.int64, np.int64, id="int64"),
-        pytest.param(np.longlong, np.longlong, id="longlong"),
-        pytest.param(np.uint8, np.uint8, id="uint8"),
-        pytest.param(np.uint16, np.uint16, id="uint16"),
-        pytest.param(np.uint32, np.uint32, id="uint32"),
-        pytest.param(np.uint64, np.uint64, id="uint64"),
-        pytest.param(np.ulonglong, np.ulonglong, id="ulonglong"),
-        pytest.param(np.float16, np.float16, id="float16"),
-        pytest.param(np.float32, np.float32, id="float32"),
-        pytest.param(np.float64, np.float64, id="float64"),
-        pytest.param(np.longdouble, np.longdouble, id="longdouble"),
-        pytest.param(np.complex64, np.complex64, id="complex64"),
-        pytest.param(np.complex128, np.complex128, id="complex128"),
-        pytest.param(np.clongdouble, np.clongdouble, id="clongdouble"),
-    ],
-)
+@pytest.mark.parametrize(("dtype", "expected_dtype"), np_dtype_params)
 def test_to_numpy_pandas_series_numpy_dtypes_numeric(dtype, expected_dtype):
     """
     Test the _to_numpy function with pandas.Series of NumPy numeric dtypes.
