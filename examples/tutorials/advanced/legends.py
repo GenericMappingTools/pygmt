@@ -129,7 +129,7 @@ fig = pygmt.Figure()
 fig.basemap(region=[-5, 5] * 2, projection="M10c", frame=True)
 
 # Pass the io.StringIO object to the spec parameter
-fig.legend(spec=spec_io, position="jMC+w5c", box="+p1p,gray50+ggray90")
+fig.legend(spec=spec_io, position="jMC+w9c", box="+p1p,gray50+ggray95")
 
 fig.show()
 
