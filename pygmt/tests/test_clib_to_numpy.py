@@ -7,18 +7,16 @@ import numpy.testing as npt
 import pandas as pd
 import pytest
 from pygmt.clib.conversion import _to_numpy
-from pygmt.clib.session import DTYPES
 
 
-def _check_result(result, supported):
+def _check_result(result, expected_dtype):
     """
-    Check the result of the _to_numpy function.
+    A helper function to check if the result of the _to_numpy function is a C-contiguous
+    NumPy array with the expected dtype.
     """
-    # Check that the result is a NumPy array and is C-contiguous.
     assert isinstance(result, np.ndarray)
     assert result.flags.c_contiguous
-    # Check that the dtype is supported by PyGMT (or the GMT C API).
-    assert (result.dtype.type in DTYPES) == supported
+    assert result.dtype.type == expected_dtype
 
 
 ########################################################################################
@@ -36,8 +34,8 @@ def test_to_numpy_python_types_numeric(data, expected_dtype):
     Test the _to_numpy function with Python built-in numeric types.
     """
     result = _to_numpy(data)
-    _check_result(result, supported=True)
-    npt.assert_array_equal(result, np.array(data, dtype=expected_dtype), strict=True)
+    _check_result(result, expected_dtype)
+    npt.assert_array_equal(result, data)
 
 
 ########################################################################################
@@ -60,28 +58,28 @@ def test_to_numpy_python_types_numeric(data, expected_dtype):
 # Reference: https://numpy.org/doc/2.1/reference/arrays.scalars.html
 ########################################################################################
 @pytest.mark.parametrize(
-    ("dtype", "supported"),
+    ("dtype", "expected_dtype"),
     [
-        (np.int8, True),
-        (np.int16, True),
-        (np.int32, True),
-        (np.int64, True),
-        (np.longlong, True),
-        (np.uint8, True),
-        (np.uint16, True),
-        (np.uint32, True),
-        (np.uint64, True),
-        (np.ulonglong, True),
-        (np.float16, False),
-        (np.float32, True),
-        (np.float64, True),
-        (np.longdouble, False),
-        (np.complex64, False),
-        (np.complex128, False),
-        (np.clongdouble, False),
+        pytest.param(np.int8, np.int8, id="int8"),
+        pytest.param(np.int16, np.int16, id="int16"),
+        pytest.param(np.int32, np.int32, id="int32"),
+        pytest.param(np.int64, np.int64, id="int64"),
+        pytest.param(np.longlong, np.longlong, id="longlong"),
+        pytest.param(np.uint8, np.uint8, id="uint8"),
+        pytest.param(np.uint16, np.uint16, id="uint16"),
+        pytest.param(np.uint32, np.uint32, id="uint32"),
+        pytest.param(np.uint64, np.uint64, id="uint64"),
+        pytest.param(np.ulonglong, np.ulonglong, id="ulonglong"),
+        pytest.param(np.float16, np.float16, id="float16"),
+        pytest.param(np.float32, np.float32, id="float32"),
+        pytest.param(np.float64, np.float64, id="float64"),
+        pytest.param(np.longdouble, np.longdouble, id="longdouble"),
+        pytest.param(np.complex64, np.complex64, id="complex64"),
+        pytest.param(np.complex128, np.complex128, id="complex128"),
+        pytest.param(np.clongdouble, np.clongdouble, id="clongdouble"),
     ],
 )
-def test_to_numpy_ndarray_numpy_dtypes_numeric(dtype, supported):
+def test_to_numpy_ndarray_numpy_dtypes_numeric(dtype, expected_dtype):
     """
     Test the _to_numpy function with NumPy arrays of NumPy numeric dtypes.
 
@@ -90,13 +88,13 @@ def test_to_numpy_ndarray_numpy_dtypes_numeric(dtype, supported):
     # 1-D array
     array = np.array([1, 2, 3], dtype=dtype)
     result = _to_numpy(array)
-    _check_result(result, supported)
+    _check_result(result, expected_dtype)
     npt.assert_array_equal(result, array, strict=True)
 
     # 2-D array
     array = np.array([[1, 2, 3], [4, 5, 6]], dtype=dtype)
     result = _to_numpy(array)
-    _check_result(result, supported)
+    _check_result(result, expected_dtype)
     npt.assert_array_equal(result, array, strict=True)
 
 
@@ -130,33 +128,32 @@ def test_to_numpy_ndarray_numpy_dtypes_numeric(dtype, supported):
 # 3. https://pandas.pydata.org/docs/user_guide/pyarrow.html
 ########################################################################################
 @pytest.mark.parametrize(
-    ("dtype", "supported"),
+    ("dtype", "expected_dtype"),
     [
-        (np.int8, True),
-        (np.int16, True),
-        (np.int32, True),
-        (np.int64, True),
-        (np.longlong, True),
-        (np.uint8, True),
-        (np.uint16, True),
-        (np.uint32, True),
-        (np.uint64, True),
-        (np.ulonglong, True),
-        (np.float16, False),
-        (np.float32, True),
-        (np.float64, True),
-        (np.longdouble, False),
-        (np.complex64, False),
-        (np.complex128, False),
-        (np.clongdouble, False),
+        pytest.param(np.int8, np.int8, id="int8"),
+        pytest.param(np.int16, np.int16, id="int16"),
+        pytest.param(np.int32, np.int32, id="int32"),
+        pytest.param(np.int64, np.int64, id="int64"),
+        pytest.param(np.longlong, np.longlong, id="longlong"),
+        pytest.param(np.uint8, np.uint8, id="uint8"),
+        pytest.param(np.uint16, np.uint16, id="uint16"),
+        pytest.param(np.uint32, np.uint32, id="uint32"),
+        pytest.param(np.uint64, np.uint64, id="uint64"),
+        pytest.param(np.ulonglong, np.ulonglong, id="ulonglong"),
+        pytest.param(np.float16, np.float16, id="float16"),
+        pytest.param(np.float32, np.float32, id="float32"),
+        pytest.param(np.float64, np.float64, id="float64"),
+        pytest.param(np.longdouble, np.longdouble, id="longdouble"),
+        pytest.param(np.complex64, np.complex64, id="complex64"),
+        pytest.param(np.complex128, np.complex128, id="complex128"),
+        pytest.param(np.clongdouble, np.clongdouble, id="clongdouble"),
     ],
 )
-def test_to_numpy_pandas_series_numpy_dtypes_numeric(dtype, supported):
+def test_to_numpy_pandas_series_numpy_dtypes_numeric(dtype, expected_dtype):
     """
     Test the _to_numpy function with pandas.Series of NumPy numeric dtypes.
     """
     series = pd.Series([1, 2, 3], dtype=dtype)
-    assert series.dtype == dtype
     result = _to_numpy(series)
-    _check_result(result, supported)
+    _check_result(result, expected_dtype)
     npt.assert_array_equal(result, series)
