@@ -2,7 +2,7 @@
 Plotting lines
 ==============
 
-Plotting lines is handled by the method :meth:`pygmt.Figure.plot`.
+Plotting lines is handled by the :meth:`pygmt.Figure.plot` method.
 """
 
 # %%
