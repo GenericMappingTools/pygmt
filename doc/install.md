@@ -47,13 +47,18 @@ conda activate pygmt
 
 After this, check that everything works by running the following in a Python interpreter
 (e.g., in a Jupyter notebook):
-```python
+
+```{code-cell} ipython
+---
+tags: [hide-output]
+---
+
 import pygmt
 pygmt.show_versions()
 ```
 
-You are now ready to make you first figure! Start by looking at the tutorials on our
-sidebar, good luck!
+You are now ready to make your first figure! Start by looking at our [Intro](intro/index.rst),
+[Tutorials](tutorials/index.rst), and [Gallery](gallery/index.rst). Good luck!
 
 :::{note}
 The sections below provide more detailed, step by step instructions to install and test
@@ -85,11 +90,11 @@ We recommend following the instructions further on to install GMT 6.
 
 ## Dependencies
 
-PyGMT requires the following libraries to be installed:
+PyGMT requires the following packages to be installed:
 
-- [numpy](https://numpy.org)
+- [NumPy](https://numpy.org)
 - [pandas](https://pandas.pydata.org)
-- [xarray](https://xarray.dev/)
+- [Xarray](https://xarray.dev/)
 - [netCDF4](https://unidata.github.io/netcdf4-python)
 - [packaging](https://packaging.pypa.io)
 
@@ -97,19 +102,10 @@ PyGMT requires the following libraries to be installed:
 For the minimum supported versions of the dependencies, please see [](minversions.md).
 :::
 
-The following are optional dependencies:
-
-- [IPython](https://ipython.org): For embedding the figures in Jupyter notebooks (recommended).
-- [Contextily](https://contextily.readthedocs.io): For retrieving tile maps from the internet.
-- [GeoPandas](https://geopandas.org): For using and plotting GeoDataFrame objects.
-- [RioXarray](https://corteva.github.io/rioxarray): For saving multi-band rasters to GeoTIFFs.
-
 :::{note}
-If you have [PyArrow](https://arrow.apache.org/docs/python/index.html) installed, PyGMT
-does have some initial support for `pandas.Series` and `pandas.DataFrame` objects with
-Apache Arrow-backed arrays. Specifically, only uint/int/float and date32/date64 dtypes
-are supported for now. Support for string Arrow dtypes is still a work in progress.
-For more details, see [issue #2800](https://github.com/GenericMappingTools/pygmt/issues/2800).
+Some optional dependencies (e.g., [IPython](https://ipython.readthedocs.io/en/stable/),
+[GeoPandas](https://geopandas.org/en/stable/)) add more functionality to PyGMT.
+For a complete list of the optional dependencies, refer to [](ecosystem.md).
 :::
 
 ## Installing GMT and other dependencies
@@ -165,6 +161,25 @@ conda activate pygmt
 From now on, all commands will take place inside the virtual environment called `pygmt`
 and won't affect your default `base` installation.
 
+::::: {tip}
+You can also enable more PyGMT functionality by installing PyGMT's optional dependencies in the environment.
+:::: {tab-set}
+::: {tab-item} mamba
+:sync: mamba
+```
+mamba install contextily geopandas ipython pyarrow rioxarray
+```
+:::
+
+::: {tab-item} conda
+:sync: conda
+```
+conda install contextily geopandas ipython pyarrow rioxarray
+```
+:::
+::::
+:::::
+
 ## Installing PyGMT
 
 Now that you have GMT installed and your virtual environment activated, you can install
@@ -216,7 +231,7 @@ python -m pip install pygmt
 ```
 
 ::: {tip}
-You can also run `python -m pip install pygmt[all]` to install pygmt with all of its
+You can also run `python -m pip install pygmt[all]` to install PyGMT with all of its
 optional dependencies.
 :::
 
@@ -288,8 +303,8 @@ C:\Users\USERNAME\Miniforge3\envs\pygmt\Library\bin\
 
 ### `ModuleNotFoundError` in Jupyter notebook environment
 
-If you can successfully import pygmt in a Python interpreter or IPython, but get a
-`ModuleNotFoundError` when importing pygmt in Jupyter, you may need to activate your
+If you can successfully import PyGMT in a Python interpreter or IPython, but get a
+`ModuleNotFoundError` when importing PyGMT in Jupyter, you may need to activate your
 `pygmt` virtual environment (using `mamba activate pygmt` or `conda activate pygmt`)
 and install a `pygmt` kernel following the commands below:
 ```

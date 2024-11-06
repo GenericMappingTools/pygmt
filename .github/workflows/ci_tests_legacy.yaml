@@ -1,8 +1,8 @@
 # Test PyGMT with GMT legacy versions on Linux/macOS/Windows
 #
-# This workflow runs regular PyGMT tests with GMT legacy versions. Due to the
-# minor baseline image changes between GMT versions, the workflow only runs
-# the tests but doesn't do image comparisons.
+# This workflow runs regular PyGMT tests with GMT legacy versions. Due to the minor
+# baseline image changes between GMT versions, the workflow only runs the tests but
+# doesn't do image comparisons.
 #
 # It is scheduled to run every Tuesday on the main branch.
 #
@@ -44,7 +44,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.2.0
+        uses: actions/checkout@v4.2.2
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -63,7 +63,7 @@ jobs:
             gmt=${{ matrix.gmt_version }}
             ghostscript<10
             numpy
-            pandas<2
+            pandas
             xarray
             netCDF4
             packaging
@@ -85,9 +85,9 @@ jobs:
         run: |
           # Download cached files to ~/.gmt directory and list them
           gh run download --name gmt-cache --dir ~/.gmt/
-          # Change modification times of the two files, so GMT won't refresh it
-          # The two files are in the `~/.gmt/server` directory for GMT<=6.4, and
-          # in the `~/.gmt` directory for GMT>=6.5.
+          # Change modification times of the two files, so GMT won't refresh it.
+          # The two files are in the `~/.gmt/server` directory for GMT<=6.4, and in the
+          # `~/.gmt` directory for GMT>=6.5.
           mkdir -p ~/.gmt/server/
           mv ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt ~/.gmt/server/
           touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt

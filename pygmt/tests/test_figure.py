@@ -4,22 +4,20 @@ Test the behavior of the Figure class.
 Doesn't include the plotting commands which have their own test files.
 """
 
+import importlib
 from pathlib import Path
+from unittest.mock import Mock, patch
 
 import numpy as np
 import numpy.testing as npt
 import pytest
 from pygmt import Figure, set_display
-from pygmt.exceptions import GMTError, GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.figure import SHOW_CONFIG, _get_default_display_method
 from pygmt.helpers import GMTTempFile
 
-try:
-    import IPython
-
-    _HAS_IPYTHON = True
-except ImportError:
-    _HAS_IPYTHON = False
+_HAS_IPYTHON = bool(importlib.util.find_spec("IPython"))
+_HAS_RIOXARRAY = bool(importlib.util.find_spec("rioxarray"))
 
 
 def test_figure_region():
@@ -103,7 +101,7 @@ def test_figure_savefig_geotiff():
     geofname = Path("test_figure_savefig_geotiff.tiff")
     fig.savefig(geofname)
     assert geofname.exists()
-    # The .pgw should not exist
+    # The .pgw file should not exist
     assert not geofname.with_suffix(".pgw").exists()
 
     # Save as TIFF
@@ -112,7 +110,7 @@ def test_figure_savefig_geotiff():
     assert fname.exists()
 
     # Check if a TIFF is georeferenced or not
-    try:
+    if _HAS_RIOXARRAY:
         import rioxarray
         from rasterio.errors import NotGeoreferencedWarning
         from rasterio.transform import Affine
@@ -150,8 +148,6 @@ def test_figure_savefig_geotiff():
                     a=1.0, b=0.0, c=0.0, d=0.0, e=1.0, f=0.0
                 )
             assert len(record) == 1
-    except ImportError:
-        pass
     geofname.unlink()
     fname.unlink()
 
@@ -173,9 +169,7 @@ def test_figure_savefig_unknown_extension():
     """
     fig = Figure()
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
-    prefix = "test_figure_savefig_unknown_extension"
-    fmt = "test"
-    fname = f"{prefix}.{fmt}"
+    fname = "test_figure_savefig_unknown_extension.test"
     with pytest.raises(GMTInvalidInput, match="Unknown extension '.test'."):
         fig.savefig(fname)
 
@@ -202,11 +196,20 @@ def test_figure_savefig_transparent():
         fname = f"{prefix}.{fmt}"
         with pytest.raises(GMTInvalidInput):
             fig.savefig(fname, transparent=True)
-    # png should not raise an error
+
+    # PNG should support transparency and should not raise an error.
     fname = Path(f"{prefix}.png")
     fig.savefig(fname, transparent=True)
     assert fname.exists()
     fname.unlink()
+
+    # The companion PNG file with KML format should also support transparency.
+    fname = Path(f"{prefix}.kml")
+    fig.savefig(fname, transparent=True)
+    assert fname.exists()
+    fname.unlink()
+    assert fname.with_suffix(".png").exists()
+    fname.with_suffix(".png").unlink()
 
 
 def test_figure_savefig_filename_with_spaces():
@@ -226,69 +229,23 @@ def test_figure_savefig():
     """
     Check if the arguments being passed to psconvert are correct.
     """
-    kwargs_saved = []
-
-    def mock_psconvert(*args, **kwargs):  # noqa: ARG001
-        """
-        Just record the arguments.
-        """
-        kwargs_saved.append(kwargs)
-
-    fig = Figure()
-    fig.psconvert = mock_psconvert
-
     prefix = "test_figure_savefig"
-
-    fname = f"{prefix}.png"
-    fig.savefig(fname)
-    assert kwargs_saved[-1] == {
-        "prefix": prefix,
-        "fmt": "g",
-        "crop": True,
-        "Qt": 2,
-        "Qg": 2,
+    common_kwargs = {"prefix": prefix, "crop": True, "Qt": 2, "Qg": 2}
+    expected_kwargs = {
+        "png": {"fmt": "g", **common_kwargs},
+        "pdf": {"fmt": "f", **common_kwargs},
+        "eps": {"fmt": "e", **common_kwargs},
+        "kml": {"fmt": "g", "W": "+k", **common_kwargs},
     }
 
-    fname = f"{prefix}.pdf"
-    fig.savefig(fname)
-    assert kwargs_saved[-1] == {
-        "prefix": prefix,
-        "fmt": "f",
-        "crop": True,
-        "Qt": 2,
-        "Qg": 2,
-    }
+    with patch.object(Figure, "psconvert") as mock_psconvert:
+        fig = Figure()
+        for fmt, expected in expected_kwargs.items():
+            fig.savefig(f"{prefix}.{fmt}")
+            mock_psconvert.assert_called_with(**expected)
 
-    fname = f"{prefix}.png"
-    fig.savefig(fname, transparent=True)
-    assert kwargs_saved[-1] == {
-        "prefix": prefix,
-        "fmt": "G",
-        "crop": True,
-        "Qt": 2,
-        "Qg": 2,
-    }
-
-    fname = f"{prefix}.eps"
-    fig.savefig(fname)
-    assert kwargs_saved[-1] == {
-        "prefix": prefix,
-        "fmt": "e",
-        "crop": True,
-        "Qt": 2,
-        "Qg": 2,
-    }
-
-    fname = f"{prefix}.kml"
-    fig.savefig(fname)
-    assert kwargs_saved[-1] == {
-        "prefix": prefix,
-        "fmt": "g",
-        "crop": True,
-        "Qt": 2,
-        "Qg": 2,
-        "W": "+k",
-    }
+        fig.savefig(f"{prefix}.png", transparent=True)
+        mock_psconvert.assert_called_with(fmt="G", **common_kwargs)
 
 
 def test_figure_savefig_worldfile():
@@ -310,6 +267,19 @@ def test_figure_savefig_worldfile():
         with GMTTempFile(prefix="pygmt-worldfile", suffix=fmt) as imgfile:
             with pytest.raises(GMTInvalidInput):
                 fig.savefig(fname=imgfile.name, worldfile=True)
+
+
+def test_figure_savefig_show():
+    """
+    Check if the external viewer is launched when the show parameter is specified.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
+    prefix = "test_figure_savefig_show"
+    with patch("pygmt.figure.launch_external_viewer") as mock_viewer:
+        with GMTTempFile(prefix=prefix, suffix=".png") as imgfile:
+            fig.savefig(imgfile.name, show=True)
+        assert mock_viewer.call_count == 1
 
 
 @pytest.mark.skipif(not _HAS_IPYTHON, reason="run when IPython is installed")
@@ -360,7 +330,7 @@ def test_figure_show_notebook_error_without_ipython():
     """
     fig = Figure()
     fig.basemap(region=[0, 1, 2, 3], frame=True)
-    with pytest.raises(GMTError):
+    with pytest.raises(ImportError):
         fig.show(method="notebook")
 
 
@@ -380,13 +350,50 @@ class TestSetDisplay:
 
     def test_set_display(self):
         """
-        Test if pygmt.set_display updates the SHOW_CONFIG variable correctly.
+        Test if pygmt.set_display updates the SHOW_CONFIG variable correctly and
+        Figure.show opens the preview image in the correct way.
         """
-        default_method = SHOW_CONFIG["method"]  # Current default method
+        default_method = SHOW_CONFIG["method"]  # Store the current default method.
 
-        for method in ("notebook", "external", "none"):
-            set_display(method=method)
-            assert SHOW_CONFIG["method"] == method
+        fig = Figure()
+        fig.basemap(region=[0, 3, 6, 9], projection="X1c", frame=True)
+
+        # Test the "notebook" display method.
+        set_display(method="notebook")
+        assert SHOW_CONFIG["method"] == "notebook"
+        if _HAS_IPYTHON:
+            with (
+                patch("IPython.display.display") as mock_display,
+                patch("pygmt.figure.launch_external_viewer") as mock_viewer,
+            ):
+                fig.show()
+                assert mock_viewer.call_count == 0
+                assert mock_display.call_count == 1
+        else:
+            with pytest.raises(ImportError):
+                fig.show()
+
+        # Test the "external" display method
+        set_display(method="external")
+        assert SHOW_CONFIG["method"] == "external"
+        with patch("pygmt.figure.launch_external_viewer") as mock_viewer:
+            fig.show()
+            assert mock_viewer.call_count == 1
+        if _HAS_IPYTHON:
+            with patch("IPython.display.display") as mock_display:
+                fig.show()
+                assert mock_display.call_count == 0
+
+        # Test the "none" display method.
+        set_display(method="none")
+        assert SHOW_CONFIG["method"] == "none"
+        with patch("pygmt.figure.launch_external_viewer") as mock_viewer:
+            fig.show()
+            assert mock_viewer.call_count == 0
+        if _HAS_IPYTHON:
+            with patch("IPython.display.display") as mock_display:
+                fig.show()
+                assert mock_display.call_count == 0
 
         # Setting method to None should revert it to the default method.
         set_display(method=None)
@@ -436,26 +443,18 @@ class TestGetDefaultDisplayMethod:
         assert _get_default_display_method() == "none"
 
     @pytest.mark.skipif(not _HAS_IPYTHON, reason="Run when IPython is installed")
-    def test_notebook_display(self, monkeypatch):
+    def test_notebook_display(self):
         """
         Default display method is "notebook" when an IPython kernel is running.
         """
+        # Mock IPython.get_ipython() to return an object with a config attribute,
+        # so PyGMT can detect that an IPython kernel is running.
+        with patch(
+            "IPython.get_ipython", return_value=Mock(config={"IPKernelApp": True})
+        ):
+            # Display method should be "notebook" when an IPython kernel is running.
+            assert _get_default_display_method() == "notebook"
 
-        class MockIPython:
-            """
-            A simple mock class to simulate an IPython instance.
-            """
-
-            def __init__(self):
-                self.config = {"IPKernelApp": True}
-
-        # Mock IPython.get_ipython() to return a MockIPython instance.
-        mock_ipython = MockIPython()
-        monkeypatch.setattr(IPython, "get_ipython", lambda: mock_ipython)
-
-        # Default display method should be "notebook" when an IPython kernel is running.
-        assert _get_default_display_method() == "notebook"
-
-        # PYGMT_USE_EXTERNAL_DISPLAY should not affect notebook display.
-        monkeypatch.setenv("PYGMT_USE_EXTERNAL_DISPLAY", "false")
-        assert _get_default_display_method() == "notebook"
+            # PYGMT_USE_EXTERNAL_DISPLAY should not affect notebook display.
+            with patch.dict("os.environ", {"PYGMT_USE_EXTERNAL_DISPLAY": "false"}):
+                assert _get_default_display_method() == "notebook"
