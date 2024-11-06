@@ -8,7 +8,7 @@ from pygmt.figure import Figure
 
 
 @pytest.mark.mpl_image_compare
-def test_figure_shift_origin():
+def test_shift_origin():
     """
     Test if fig.shift_origin works.
     """
@@ -27,7 +27,7 @@ def test_figure_shift_origin():
     return fig
 
 
-def test_figure_unsupported_xshift_yshift():
+def test_shift_origin_unsupported_xshift_yshift():
     """
     Raise an exception if X/Y/xshift/yshift is used.
     """
