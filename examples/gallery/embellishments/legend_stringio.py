@@ -3,19 +3,19 @@ Legend
 ======
 
 The :meth:`pygmt.Figure.legend` method creates legends, whereby auto-legends as
-well as manually created legends are allowed.
+well as manually created legends are supported
 For auto-legends the ``label`` parameter of :meth:`pygmt.Figure.plot` has to be
-specified to state the desired text.
+specified to state the desired text in the legend entery.
 
 Optionally, to adjust the legend, users can append different modifiers. A list
-of all available modifiers can be found at :gmt-docs:`gmt.html#l-full`. To
-create a multiple-column legend **+N** is used with the desired number of columns.
+of all available modifiers can be found at :gmt-docs:`gmt.html#l-full`.
+To create a multiple-column legend **+N** is used with the desired number of columns;
+see also gallery example xyz.
 
 For more complicated legends, users may want to write an ASCII file with
 instructions for the layout of the legend items and pass it to the ``spec``
-parameter of :meth:`pygmt.Figure.legend`. For details on how to set up such a
-file, please see the GMT documentation at :gmt-docs:`legend.html#legend-codes`.
-Beides such an ASCII file PyGMT allows the provided a ``io.StringIO`` object.
+parameter of :meth:`pygmt.Figure.legend`. Beides such an ASCII file PyGMT
+allows the provided this information as ``io.StringIO`` object.
 
 The example blow is orientated on the upstream GMT example at
 https://docs.generic-mapping-tools.org/dev/legend.html#examples.
