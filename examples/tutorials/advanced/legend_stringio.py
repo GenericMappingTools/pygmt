@@ -18,16 +18,16 @@ import pygmt
 # ---------------------
 #
 # For auto-legends, the ``label`` parameter of :meth:`pygmt.Figure.plot` has to
-# be specified to state the desired text in the legend entry.
-# Optionally, to adjust the legend, users can append different modifiers to the
-# string passed to ``label`. A list of all available modifiers can be found at
-# :gmt-docs:`gmt.html#l-full`. To create a multiple-column legend **+N** is used
-# with the desired number of columns; see also gallery example
+# be specified to state the desired text in the legend entry (white spaces are
+# allowed) Optionally, to adjust the legend, users can append different modifiers
+# to the string passed to ``label`. A list of all available modifiers can be
+# found at :gmt-docs:`gmt.html#l-full`. To create a multiple-column legend **+N**
+# is used with the desired number of columns; see also gallery example
 # https://www.pygmt.org/dev/gallery/embellishments/legend.html.
 
 fig = pygmt.Figure()
+fig.basemap(region=[-5, 5] * 2, projection="X5c", frame=True)
 
-fig.basemap(region=[0, 10] * 2, projection="M5c", frame=True)
 fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
 fig.legend()
 
@@ -43,8 +43,8 @@ fig.show()
 # The default of ``box`` is changed, i.e. no box plotted anymore.
 
 fig = pygmt.Figure()
+fig.basemap(region=[-5, 5] * 2, projection="X5c", frame=True)
 
-fig.basemap(region=[0, 10] * 2, projection="M5c", frame=True)
 fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
 fig.legend(position="jMC")
 
@@ -60,14 +60,14 @@ fig.show()
 # **+g** for fill
 
 fig = pygmt.Figure()
+fig.basemap(region=[-5, 5] * 2, projection="X5c", frame=True)
 
-fig.basemap(region=[0, 10] * 2, projection="M5c", frame=True)
 fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
 fig.legend(position="jMC", box=True)
 
 fig.shift_origin(xshift="w+1c")
+fig.basemap(region=[-5, 5] * 2, projection="X5c", frame=True)
 
-fig.basemap(region=[0, 10] * 2, projection="M5c", frame=True)
 fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
 fig.legend(position="jMC", box="+p2p,cyan+gblue@70")
 
@@ -126,9 +126,9 @@ T so we may have to adjust the height to get the right size box.
 # width (``position`` parameter) required for multi-columns legends!
 
 fig = pygmt.Figure()
+fig.basemap(region=[-5, 5] * 2, projection="X10c", frame=True)
 
 # Pass the io.StringIO object to the spec parameter
-fig.basemap(region=[0, 10] * 2, projection="M10c", frame=0)
 fig.legend(spec=spec_io, position="jMC+w5c", box="+p1p,gray50+ggray90")
 
 fig.show()
