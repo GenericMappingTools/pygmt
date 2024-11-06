@@ -27,6 +27,11 @@ def _check_result(result, expected_dtype):
     [
         pytest.param([1, 2, 3], np.int64, id="int"),
         pytest.param([1.0, 2.0, 3.0], np.float64, id="float"),
+        pytest.param(
+            [complex(+1), complex(-2j), complex("-Infinity+NaNj")],
+            np.complex128,
+            id="complex",
+        ),
     ],
 )
 def test_to_numpy_python_types_numeric(data, expected_dtype):
@@ -83,7 +88,7 @@ def test_to_numpy_ndarray_numpy_dtypes_numeric(dtype, expected_dtype):
     """
     Test the _to_numpy function with NumPy arrays of NumPy numeric dtypes.
 
-    Test both 1-D and 2-D arrays.
+    Test both 1-D and 2-D arrays which are not C-contiguous.
     """
     # 1-D array that is not C-contiguous
     array = np.array([1, 2, 3, 4, 5, 6], dtype=dtype)[::2]
