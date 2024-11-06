@@ -79,6 +79,30 @@ def test_to_numpy_python_types(data, expected_dtype):
     npt.assert_array_equal(result, data)
 
 
+@pytest.mark.parametrize(
+    "data",
+    [
+        pytest.param(
+            ["2018", "2018-02", "2018-03-01", "2018-04-01T01:02:03"], id="iso8601"
+        ),
+        pytest.param(
+            [datetime.date(2018, 1, 1), datetime.datetime(2019, 1, 1)],
+            id="datetime",
+        ),
+        pytest.param(
+            ["2018-01-01", np.datetime64("2018-01-01"), datetime.datetime(2018, 1, 1)],
+            id="mixed",
+        ),
+    ],
+)
+def test_to_numpy_python_datetime(data):
+    """
+    Test the _to_numpy function with Python built-in datetime types.
+    """
+    result = _to_numpy(data)
+    assert result.dtype.type == np.datetime64
+
+
 ########################################################################################
 # Test the _to_numpy function with NumPy arrays.
 #
