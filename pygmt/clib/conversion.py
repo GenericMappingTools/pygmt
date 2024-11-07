@@ -162,19 +162,36 @@ def _to_numpy(data: Any) -> np.ndarray:
         "date64[ms][pyarrow]": np.datetime64,
     }
 
-    if (
-        hasattr(data, "isna")
-        and data.isna().any()
-        and Version(pd.__version__) < Version("2.2")
-    ):
-        # Workaround for dealing with pd.NA with pandas < 2.2.
-        # Bug report at: https://github.com/GenericMappingTools/pygmt/issues/2844
-        # Following SPEC0, pandas 2.1 will be dropped in 2025 Q3, so it's likely
-        # we can remove the workaround in PyGMT v0.17.0.
-        array = np.ascontiguousarray(data.astype(float))
-    else:
-        vec_dtype = str(getattr(data, "dtype", ""))
-        array = np.ascontiguousarray(data, dtype=dtypes.get(vec_dtype))
+    # pandas nullable dtypes and pyarrow types were converted to np.object_ dtype
+    # before, and are converted to suitable numpy dtypes since pandas 2.2.
+    # Refer to the following link for details:
+    # https://pandas.pydata.org/docs/whatsnew/v2.2.0.html#to-numpy-for-numpy-nullable-and-arrow-types-converts-to-suitable-numpy-dtype
+    # Here are the workarounds for pandas < 2.2.
+    # Following SPEC 0, pandas 2.1 should be dropped in 2025 Q3, so it's likely we can
+    # remove the workaround in PyGMT v0.17.0.
+    if Version(pd.__version__) < Version("2.2"):
+        dtypes.update(
+            {
+                "Int8": np.int8,
+                "Int16": np.int16,
+                "Int32": np.int32,
+                "Int64": np.int64,
+                "UInt8": np.uint8,
+                "UInt16": np.uint16,
+                "UInt32": np.uint32,
+                "UInt64": np.uint64,
+                "Float32": np.float32,
+                "Float64": np.float64,
+            }
+        )
+        if hasattr(data, "isna") and data.isna().any():
+            # Integer dtypes with missing values are cast to NumPy float dtypes and NaN
+            # is used as missing value indicator.
+            dtype = np.float64 if data.dtype.kind in "iu" else data.dtype.numpy_dtype
+            data = data.to_numpy(dtype=dtype, na_value=np.nan)
+
+    vec_dtype = str(getattr(data, "dtype", ""))
+    array = np.ascontiguousarray(data, dtype=dtypes.get(vec_dtype))
     return array
 
 
