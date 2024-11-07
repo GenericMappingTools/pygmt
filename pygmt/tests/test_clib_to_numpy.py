@@ -206,7 +206,7 @@ def test_to_numpy_pandas_series_pyarrow_dtypes_numeric(dtype, expected_dtype):
         pytest.param("uint32[pyarrow]", np.float64, id="uint32[pyarrow]"),
         pytest.param("uint64[pyarrow]", np.float64, id="uint64[pyarrow]"),
         # pytest.param("float16[pyarrow]", np.float64, id="float16[pyarrow]"),
-        pytest.param("float32[pyarrow]", np.float64, id="float32[pyarrow]"),
+        pytest.param("float32[pyarrow]", np.float32, id="float32[pyarrow]"),
         pytest.param("float64[pyarrow]", np.float64, id="float64[pyarrow]"),
     ],
 )
