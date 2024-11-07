@@ -2,10 +2,13 @@
 Tests for the _to_numpy function in the clib.conversion module.
 """
 
+import sys
+
 import numpy as np
 import numpy.testing as npt
 import pandas as pd
 import pytest
+from packaging.version import Version
 from pygmt.clib.conversion import _to_numpy
 
 
@@ -25,7 +28,13 @@ def _check_result(result, expected_dtype):
 @pytest.mark.parametrize(
     ("data", "expected_dtype"),
     [
-        pytest.param([1, 2, 3], np.int64, id="int"),
+        pytest.param(
+            [1, 2, 3],
+            np.int32
+            if sys.platform == "win32" and Version(np.__version__) < Version("2.0")
+            else np.int64,
+            id="int",
+        ),
         pytest.param([1.0, 2.0, 3.0], np.float64, id="float"),
         pytest.param(
             [complex(+1), complex(-2j), complex("-Infinity+NaNj")],
