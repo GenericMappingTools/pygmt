@@ -187,7 +187,12 @@ def test_to_numpy_pandas_series_pyarrow_dtypes_numeric(dtype, expected_dtype):
     """
     Test the _to_numpy function with pandas.Series of PyArrow numeric dtypes.
     """
-    series = pd.Series([1, 2, 3, 4, 5, 6], dtype=dtype)[::2]  # Not C-contiguous
+    data = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
+    if dtype == "float16[pyarrow]" and Version(pd.__version__) < Version("2.2"):
+        # float16 needs special handling for pandas < 2.2.
+        # Example from https://arrow.apache.org/docs/python/generated/pyarrow.float16.html
+        data = np.array(data, dtype=np.float16)
+    series = pd.Series(data, dtype=dtype)[::2]  # Not C-contiguous
     result = _to_numpy(series)
     _check_result(result, expected_dtype)
     npt.assert_array_equal(result, series)
@@ -214,7 +219,12 @@ def test_to_numpy_pandas_series_pyarrow_dtypes_numeric_with_na(dtype, expected_d
     """
     Test the _to_numpy function with pandas.Series of PyArrow numeric dtypes and NA.
     """
-    series = pd.Series([1, 2, pd.NA, 4, 5, 6], dtype=dtype)[::2]
+    data = [1.0, 2.0, None, 4.0, 5.0, 6.0]
+    if dtype == "float16[pyarrow]" and Version(pd.__version__) < Version("2.2"):
+        # float16 needs special handling for pandas < 2.2.
+        # Example from https://arrow.apache.org/docs/python/generated/pyarrow.float16.html
+        data = np.array(data, dtype=np.float16)
+    series = pd.Series(data, dtype=dtype)[::2]  # Not C-contiguous
     assert series.isna().any()
     result = _to_numpy(series)
     _check_result(result, expected_dtype)
