@@ -42,7 +42,7 @@ dependencies:
     - sphinx-copybutton
     - sphinx-design
     - sphinx-gallery>=0.17.0
-    - sphinx_rtd_theme<=2.x
+    - sphinx_rtd_theme<3.0
     # Dev dependencies (type hints)
     - mypy
     - pandas-stubs
