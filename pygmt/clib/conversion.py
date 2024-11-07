@@ -188,7 +188,7 @@ def _to_numpy(data: Any) -> np.ndarray:
             # Integer dtypes with missing values are cast to NumPy float dtypes and NaN
             # is used as missing value indicator.
             dtype = np.float64 if data.dtype.kind in "iu" else data.dtype.numpy_dtype
-            data = data.to_numpy(dtype=dtype, na_value=np.nan)
+            data = data.to_numpy(na_value=np.nan).astype(dtype=dtype)
 
     vec_dtype = str(getattr(data, "dtype", ""))
     array = np.ascontiguousarray(data, dtype=dtypes.get(vec_dtype))
