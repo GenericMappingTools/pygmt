@@ -41,11 +41,12 @@ def _check_result(result, expected_dtype):
             np.complex128,
             id="complex",
         ),
+        pytest.param(["abc", "defh", "12345"], np.str_, id="string"),
     ],
 )
-def test_to_numpy_python_types_numeric(data, expected_dtype):
+def test_to_numpy_python_types(data, expected_dtype):
     """
-    Test the _to_numpy function with Python built-in numeric types.
+    Test the _to_numpy function with Python built-in types.
     """
     result = _to_numpy(data)
     _check_result(result, expected_dtype)
@@ -112,6 +113,17 @@ def test_to_numpy_ndarray_numpy_dtypes_numeric(dtype, expected_dtype):
     result = _to_numpy(array)
     _check_result(result, expected_dtype)
     npt.assert_array_equal(result, array, strict=True)
+
+
+@pytest.mark.parametrize("dtype", [None, np.str_, "U10"])
+def test_to_numpy_ndarray_numpy_dtypes_string(dtype):
+    """
+    Test the _to_numpy function with NumPy arrays of string types.
+    """
+    array = np.array(["abc", "defg", "12345"], dtype=dtype)
+    result = _to_numpy(array)
+    _check_result(result, np.str_)
+    npt.assert_array_equal(result, array)
 
 
 ########################################################################################
