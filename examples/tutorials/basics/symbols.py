@@ -58,7 +58,7 @@ fig.show()
 
 # %%
 # Use the ``symbol`` parameter to plot the data points with individual symbols. Provide
-# the different symbols as a list of strings. Here, only single parameter symbols can
+# the different symbols as a list of strings. Here, only single-parameter symbols can
 # be used.
 
 fig = pygmt.Figure()
