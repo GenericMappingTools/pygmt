@@ -41,7 +41,7 @@ def _check_result(result, expected_dtype):
             np.complex128,
             id="complex",
         ),
-        pytest.param(["abc", "defh", "12345"], np.str_, id="string"),
+        pytest.param(["abc", "defg", "12345"], np.str_, id="string"),
     ],
 )
 def test_to_numpy_python_types(data, expected_dtype):
