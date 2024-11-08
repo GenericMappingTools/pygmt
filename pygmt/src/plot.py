@@ -214,7 +214,7 @@ def plot(
         # Parameters for vector styles
         if (
             kwargs.get("S") is not None
-            and kwargs["S"][0] in "vV"
+            and (kwargs["S"] == "" or kwargs["S"] is True or (isinstance(kwargs["S"], str) and kwargs["S"][0] in "vV"))
             and is_nonstr_iter(direction)
         ):
             extra_arrays.extend(direction)
