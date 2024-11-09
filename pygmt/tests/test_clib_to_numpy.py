@@ -145,7 +145,7 @@ def test_to_numpy_ndarray_numpy_dtypes_numeric(dtype, expected_dtype):
 # - BooleanDtype
 # - ArrowDtype: a special dtype used to store data in the PyArrow format.
 #
-# PyArrow dtypes can be specified using the following formats:
+# In pandas, PyArrow types can be specified using the following formats:
 #
 # - Prefixed with the name of the dtype and "[pyarrow]" (e.g., "int8[pyarrow]")
 # - Specified using ``ArrowDType`` (e.g., "pd.ArrowDtype(pa.int8())")
