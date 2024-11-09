@@ -85,9 +85,9 @@ jobs:
           - os: 'ubuntu-latest'
             python-version: '3.11'  # Can't be 3.10 or 3.12.
             numpy-version: '1.24'
-            pandas-version: '=2.0'
+            pandas-version: ''
             xarray-version: ''
-            optional-packages: ' geopandas<1 pyarrow'
+            optional-packages: ' geopandas<1'
 
     timeout-minutes: 30
     defaults:
