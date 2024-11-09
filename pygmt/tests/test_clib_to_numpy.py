@@ -164,9 +164,9 @@ def test_to_numpy_pandas_series_numpy_dtypes_numeric(dtype, expected_dtype):
 ########################################################################################
 # Test the _to_numpy function with PyArrow arrays.
 #
-# PyArrow provides the following dtypes:
+# PyArrow provides the following types:
 #
-# - Numeric dtypes:
+# - Numeric types:
 #   - int8, int16, int32, int64
 #   - uint8, uint16, uint32, uint64
 #   - float16, float32, float64
@@ -197,7 +197,7 @@ def test_to_numpy_pandas_series_numpy_dtypes_numeric(dtype, expected_dtype):
 )
 def test_to_numpy_pyarrow_array_pyarrow_dtypes_numeric(dtype, expected_dtype):
     """
-    Test the _to_numpy function with PyArrow arrays of PyArrow numeric dtypes.
+    Test the _to_numpy function with PyArrow arrays of PyArrow numeric types.
     """
     data = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
     if dtype == "float16":  # float16 needs special handling
@@ -228,7 +228,7 @@ def test_to_numpy_pyarrow_array_pyarrow_dtypes_numeric(dtype, expected_dtype):
 )
 def test_to_numpy_pyarrow_array_pyarrow_dtypes_numeric_with_na(dtype, expected_dtype):
     """
-    Test the _to_numpy function with PyArrow arrays of PyArrow numeric dtypes and NA.
+    Test the _to_numpy function with PyArrow arrays of PyArrow numeric types and NA.
     """
     data = [1.0, 2.0, None, 4.0, 5.0, 6.0]
     if dtype == "float16":  # float16 needs special handling
