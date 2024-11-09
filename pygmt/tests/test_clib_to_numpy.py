@@ -128,7 +128,7 @@ def test_to_numpy_ndarray_numpy_dtypes_numeric(dtype, expected_dtype):
 #
 # 1. NumPy dtypes (see above)
 # 2. pandas dtypes
-# 3. PyArrow dtypes
+# 3. PyArrow types (see below)
 #
 # pandas provides following dtypes:
 #
