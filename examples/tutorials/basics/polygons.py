@@ -4,9 +4,10 @@ Plotting polygons
 
 Plotting polygons is handled by the :meth:`pygmt.Figure.plot` method.
 
-This tutorial focuses on input data given via lists or NumPy arrays. For
-plotting GeoPandas polygon geometry, e.g. to create a chorophlet map, see the
-gallery example :doc:`Choropleth map </gallery/symbols/maps/choropleth_map>`.
+This tutorial focuses on input data given as NumPy arrays. Besides NumPy arrays,
+array-like objects are supported. For plotting a GeoPandas GeoDataFrame with
+polygon geometrie, e.g. to create a chorophlet map, see the gallery example
+:doc:`Choropleth map </gallery/symbols/maps/choropleth_map>`.
 """
 
 # %%
@@ -17,14 +18,14 @@ import pygmt
 # Plot polygons
 # -------------
 #
-# Set up sample data points as lists for the x and y values.
+# Set up sample data points as NumPy arrays for the x and y values.
 
-x_list = [-2, 1, 3, 0, -4, -2]
-y_list = [-3, -1, 1, 3, 2, -3]
+x = np.array([-2, 1, 3, 0, -4, -2])
+y = np.array([-3, -1, 1, 3, 2, -3])
 
 # %%
 # Create a Cartesian plot via the :meth:`pygmt.Figure.basemap` method.
-# Pass lists to the ``x`` and ``y`` parameters of the :meth:`pygmt.Figure.plot`
+# Pass arrays to the ``x`` and ``y`` parameters of the :meth:`pygmt.Figure.plot`
 # method. Without further adjustments, lines are drawn between the data points.
 # By default, the lines are 0.25-points thick, black, and solid. In this example,
 # the data points are chosen to make the lines form a polygon.
@@ -32,7 +33,7 @@ y_list = [-3, -1, 1, 3, 2, -3]
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
-fig.plot(x=x_list, y=y_list)
+fig.plot(x=x, y=y)
 
 fig.show()
 
@@ -45,7 +46,7 @@ fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
 # Use a 2-points thick, darkred, dashed outline
-fig.plot(x=x_list, y=y_list, pen="2p,darkred,dashed")
+fig.plot(x=x, y=y, pen="2p,darkred,dashed")
 
 fig.show()
 
@@ -58,7 +59,7 @@ fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
 # Fill the polygon with color "orange"
-fig.plot(x=x_list, y=y_list, fill="orange", pen="2p,darkred,dashed")
+fig.plot(x=x, y=y, fill="orange", pen="2p,darkred,dashed")
 
 fig.show()
 
@@ -70,8 +71,8 @@ fig.show()
 # Set up sample data points as NumPy array for the x and y values. Now,
 # the data points do not form a polygon.
 
-x_array = np.array([-2, 1, 3, 0, -4])
-y_array = np.array([-3, -1, 1, 3, 2])
+x = np.array([-2, 1, 3, 0, -4])
+y = np.array([-3, -1, 1, 3, 2])
 
 # %%
 # The ``close`` parameter can be used to force the polygon to be closed.
@@ -79,12 +80,12 @@ y_array = np.array([-3, -1, 1, 3, 2])
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
-fig.plot(x=x_array, y=y_array, pen=True)
+fig.plot(x=x, y=y, pen=True)
 
 fig.shift_origin(xshift="w+1c")
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
-fig.plot(x=x_array, y=y_array, pen=True, close=True)
+fig.plot(x=x, y=y, pen=True, close=True)
 
 fig.show()
 
@@ -94,12 +95,12 @@ fig.show()
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
-fig.plot(x=x_array, y=y_array, pen=True)
+fig.plot(x=x, y=y, pen=True)
 
 fig.shift_origin(xshift="w+1c")
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
-fig.plot(x=x_array, y=y_array, pen=True, fill="orange")
+fig.plot(x=x, y=y, pen=True, fill="orange")
 
 fig.show()
 
