@@ -165,6 +165,55 @@ def test_to_numpy_pandas_series_numpy_dtypes_numeric(dtype, expected_dtype):
     _check_result(result, expected_dtype)
     npt.assert_array_equal(result, series)
 
+@pytest.mark.parametrize(
+    ("dtype", "expected_dtype"),
+    [
+        pytest.param(pd.Int8Dtype(), np.int8, id="Int8"),
+        pytest.param(pd.Int16Dtype(), np.int16, id="Int16"),
+        pytest.param(pd.Int32Dtype(), np.int32, id="Int32"),
+        pytest.param(pd.Int64Dtype(), np.int64, id="Int64"),
+        pytest.param(pd.UInt8Dtype(), np.uint8, id="UInt8"),
+        pytest.param(pd.UInt16Dtype(), np.uint16, id="UInt16"),
+        pytest.param(pd.UInt32Dtype(), np.uint32, id="UInt32"),
+        pytest.param(pd.UInt64Dtype(), np.uint64, id="UInt64"),
+        pytest.param(pd.Float32Dtype(), np.float32, id="Float32"),
+        pytest.param(pd.Float64Dtype(), np.float64, id="Float64"),
+    ],
+)
+def test_to_numpy_pandas_series_pandas_dtypes_numeric(dtype, expected_dtype):
+    """
+    Test the _to_numpy function with pandas.Series of pandas numeric dtypes.
+    """
+    series = pd.Series([1, 2, 3, 4, 5, 6], dtype=dtype)[::2]  # Not C-contiguous
+    result = _to_numpy(series)
+    _check_result(result, expected_dtype)
+    npt.assert_array_equal(result, series)
+
+@pytest.mark.parametrize(
+    ("dtype", "expected_dtype"),
+    [
+        pytest.param(pd.Int8Dtype(), np.float64, id="Int8"),
+        pytest.param(pd.Int16Dtype(), np.float64, id="Int16"),
+        pytest.param(pd.Int32Dtype(), np.float64, id="Int32"),
+        pytest.param(pd.Int64Dtype(), np.float64, id="Int64"),
+        pytest.param(pd.UInt8Dtype(), np.float64, id="UInt8"),
+        pytest.param(pd.UInt16Dtype(), np.float64, id="UInt16"),
+        pytest.param(pd.UInt32Dtype(), np.float64, id="UInt32"),
+        pytest.param(pd.UInt64Dtype(), np.float64, id="UInt64"),
+        pytest.param(pd.Float32Dtype(), np.float32, id="Float32"),
+        pytest.param(pd.Float64Dtype(), np.float64, id="Float64"),
+    ],
+)
+def test_to_numpy_pandas_series_pandas_dtypes_numeric_with_na(dtype, expected_dtype):
+    """
+    Test the _to_numpy function with pandas.Series of pandas numeric dtypes and NA.
+    """
+    series = pd.Series([1, 2, pd.NA, 4, 5, 6], dtype=dtype)[::2]  # Not C-contiguous
+    assert series.isna().any()
+    result = _to_numpy(series)
+    _check_result(result, expected_dtype)
+    npt.assert_array_equal(result, np.array([1.0, np.nan, 5.0], dtype=expected_dtype))
+
 
 @pytest.mark.skipif(not _HAS_PYARROW, reason="pyarrow is not installed")
 @pytest.mark.parametrize(
