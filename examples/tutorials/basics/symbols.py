@@ -1,4 +1,4 @@
-r"""
+"""
 Plotting single-parameter symbols
 =================================
 
