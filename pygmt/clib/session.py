@@ -1475,7 +1475,7 @@ class Session:
         # 2 columns contains coordinates like longitude, latitude, or datetime string
         # types.
         for col, array in enumerate(arrays[2:]):
-            if pd.api.types.is_string_dtype(array.dtype):
+            if np.issubdtype(array.dtype, np.str_):
                 columns = col + 2
                 break
 
@@ -1506,9 +1506,9 @@ class Session:
                 strings = string_arrays[0]
             elif len(string_arrays) > 1:
                 strings = np.array(
-                    [" ".join(vals) for vals in zip(*string_arrays, strict=True)]
+                    [" ".join(vals) for vals in zip(*string_arrays, strict=True)],
+                    dtype=np.str_,
                 )
-            strings = np.asanyarray(a=strings, dtype=np.str_)
             self.put_strings(
                 dataset, family="GMT_IS_VECTOR|GMT_IS_DUPLICATE", strings=strings
             )
