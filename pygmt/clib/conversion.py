@@ -158,6 +158,9 @@ def _to_numpy(data: Any) -> np.ndarray:
     """
     # Mapping of unsupported dtypes to the expected NumPy dtype.
     dtypes: dict[str, type] = {
+        # For pandas string dtype, "string[python]", "string[pyarrow]" and
+        # "string[pyarrow_numpy]".
+        "string": np.str_,
         "date32[day][pyarrow]": np.datetime64,
         "date64[ms][pyarrow]": np.datetime64,
     }
