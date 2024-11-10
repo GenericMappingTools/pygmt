@@ -28,7 +28,8 @@ y = np.array([0, 0, 0, 0, 0])
 # -----------------------------
 #
 # Use the ``style`` parameter of the :meth:`pygmt.Figure.plot` method to plot all data
-# points with the same symbol and size.
+# points with the same symbol and size. By default the symbols are drawn unfilled with
+# an 0.25-points, thick, solid outline.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -2, 2], projection="X10c/4c", frame=True)
@@ -39,9 +40,9 @@ fig.plot(x=x, y=y, style="c0.5c")
 fig.show()
 
 # %%
-# Use the ``fill`` and ``pen`` parameters to add a fill color (or pattern) and an
-# outline, respectively. Note, that no outline is drawn by default when ``fill`` is
-# used.
+# Use the ``fill`` the parameter to add a fill color (or pattern). Via ``pen`` an (the)
+# outline can be added (adjusted). Note, that no outline is drawn by default when
+# ``fill`` is used.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -2, 2], projection="X10c/4c", frame=True)
