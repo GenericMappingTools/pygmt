@@ -1,12 +1,12 @@
-"""
+r"""
 Plotting single-parameter symbols
 =================================
 
 The :meth:`pygmt.Figure.plot` method can plot symbols via the ``style``, ``size``, and
 ``symbol`` parameters. The ``fill`` parameter can fill the symbols with a color or
 pattern. For the available patterns see the Technical Reference
-:doc:`Bit and hachure patterns </techref/patterns>`. Using the ``pen`` parameter a (the)
-outline can be added (adjusted) by providing a string argument in the form
+:doc:`Bit and hachure patterns </techref/patterns>`. Using the ``pen`` parameter the
+outline can be adjusted by providing a string argument in the form
 *width*,\ *color*,\ *style*. For details on adjusting ``pen`` see the Gallery example
 :doc:`Line styles </gallery/lines/linestyles>`. For the available single- and multi-
 parameter symbols see the Gallery examples
@@ -28,8 +28,8 @@ y = np.array([0, 0, 0, 0, 0])
 # -----------------------------
 #
 # Use the ``style`` parameter of the :meth:`pygmt.Figure.plot` method to plot all data
-# points with the same symbol and size. By default the symbols are drawn unfilled with
-# an 0.25-points, thick, solid outline.
+# points with the same symbol and size. By default, the symbol is drawn unfilled with
+# an 0.25-points, thick, solid outline. Use the ``pen`` parameter to adjust the outline.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -2, 2], projection="X10c/4c", frame=True)
@@ -37,23 +37,28 @@ fig.basemap(region=[-5, 5, -2, 2], projection="X10c/4c", frame=True)
 # Plot circles (first "c") with a diameter of 0.5 centimeters (second "c")
 fig.plot(x=x, y=y, style="c0.5c")
 
+fig.shift_origin(xshift="w+1c")
+fig.basemap(region=[-5, 5, -2, 2], projection="X10c/4c", frame=True)
+
+# Adjust the outline via the pen parameter
+fig.plot(x=x, y=y, style="c0.5c", pen="1p,orange")
+
 fig.show()
 
 # %%
-# Use the ``fill`` the parameter to add a fill color (or pattern). Via ``pen`` an (the)
-# outline can be added (adjusted). Note, that no outline is drawn by default when
-# ``fill`` is used.
+# Use the ``fill`` the parameter to add a fill color (or pattern). Note, that no outline
+# is drawn by default when ``fill`` is used.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -2, 2], projection="X10c/4c", frame=True)
 
-# Add a color (or pattern) via the fill parameter
+# Add a color via the fill parameter
 fig.plot(x=x, y=y, style="c0.5c", fill="gray")
 
 fig.shift_origin(xshift="w+1c")
 fig.basemap(region=[-5, 5, -2, 2], projection="X10c/4c", frame=True)
 
-# Add (Adjust) an (the) outline via the pen parameter
+# Add an outline via the pen parameter
 fig.plot(x=x, y=y, style="c0.5c", fill="gray", pen="1p,orange")
 
 fig.show()
