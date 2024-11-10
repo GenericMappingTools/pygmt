@@ -81,7 +81,7 @@ fig.basemap(region=[-5, 5] * 2, projection="X5c", frame=True)
 
 fig.plot(x=x_array, y=y_array, pen=True)
 
-fig.shift_origin(xshift="+w1c")
+fig.shift_origin(xshift="w+1c")
 fig.basemap(region=[-5, 5] * 2, projection="X5c", frame=True)
 
 fig.plot(x=x_array, y=y_array, pen=True, close=True)
@@ -96,7 +96,7 @@ fig.basemap(region=[-5, 5] * 2, projection="X5c", frame=True)
 
 fig.plot(x=x_array, y=y_array, pen=True)
 
-fig.shift_origin(xshift="+w1c")
+fig.shift_origin(xshift="w+1c")
 fig.basemap(region=[-5, 5] * 2, projection="X5c", frame=True)
 
 fig.plot(x=x_array, y=y_array, pen=True, fill="orange")
