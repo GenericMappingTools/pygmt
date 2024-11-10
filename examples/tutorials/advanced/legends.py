@@ -78,17 +78,18 @@ fig.show()
 # Create a manual legend
 # ----------------------
 #
-# For more complicated legends, users need to write an ASCII file with
-# instructions for the layout of the legend items and pass it to the ``spec``
-# parameter of :meth:`pygmt.Figure.legend`. Besides providing this information
-# as in the form of an ASCII file PyGMT allows to use an ``io.StringIO`` object.
+# For more complicated legends in GMT, users need to write an ASCII file with
+# instructions for the layout of the legend items. In PyGMT it is addionaly
+# possible to provide this information as an ``io.StringIO`` object. Both, the
+# ASCII file or the ``io.StringIO`` object are passed to the ``spec`` parameter
+# of :meth:`pygmt.Figure.legend`.
 #
 # The example below is orientated on the upstream GMT example at
 # https://docs.generic-mapping-tools.org/dev/legend.html#examples.
 
 
 # %%
-# First, we set up an io.StringIO object
+# First, we set up an ``io.StringIO`` object.
 
 spec_io = io.StringIO(
     """
@@ -121,9 +122,9 @@ T so we may have to adjust the height to get the right size box.
 )
 
 # %%
-# Now, we can add a legend based on this `io.StringIO` object.
-#
-# width (``position`` parameter) required for multi-columns legends!
+# Now, we can add a legend based on this `io.StringIO` object. For
+# multi-columns legends, width (**+w**) has to be specified via a the
+# ``position`` parameter.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5] * 2, projection="M10c", frame=True)
