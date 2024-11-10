@@ -165,6 +165,7 @@ def test_to_numpy_pandas_series_numpy_dtypes_numeric(dtype, expected_dtype):
     _check_result(result, expected_dtype)
     npt.assert_array_equal(result, series)
 
+
 @pytest.mark.parametrize(
     ("dtype", "expected_dtype"),
     [
@@ -188,6 +189,7 @@ def test_to_numpy_pandas_series_pandas_dtypes_numeric(dtype, expected_dtype):
     result = _to_numpy(series)
     _check_result(result, expected_dtype)
     npt.assert_array_equal(result, series)
+
 
 @pytest.mark.parametrize(
     ("dtype", "expected_dtype"),
