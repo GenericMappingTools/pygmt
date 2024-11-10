@@ -2,6 +2,7 @@
 Functions to convert data types into ctypes friendly formats.
 """
 
+import contextlib
 import ctypes as ctp
 import warnings
 from collections.abc import Sequence
@@ -178,6 +179,11 @@ def _to_numpy(data: Any) -> np.ndarray:
     else:
         vec_dtype = str(getattr(data, "dtype", ""))
         array = np.ascontiguousarray(data, dtype=dtypes.get(vec_dtype))
+
+    # Check if a np.object_ array can be converted to np.str_.
+    if array.dtype == np.object_:
+        with contextlib.suppress(TypeError, ValueError):
+            return np.ascontiguousarray(array, dtype=np.str_)
     return array
 
 
