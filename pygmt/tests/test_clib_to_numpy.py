@@ -161,6 +161,28 @@ def test_to_numpy_pandas_series_numpy_dtypes_numeric(dtype, expected_dtype):
     npt.assert_array_equal(result, series)
 
 
+@pytest.mark.skipif(not _HAS_PYARROW, reason="pyarrow is not installed")
+@pytest.mark.parametrize(
+    ("dtype", "expected_dtype"),
+    [
+        pytest.param("date32[day][pyarrow]", "datetime64[D]", id="date32[day]"),
+        pytest.param("date64[ms][pyarrow]", "datetime64[ms]", id="date64[ms]"),
+    ],
+)
+def test_to_numpy_pandas_series_pyarrow_dtypes_date(dtype, expected_dtype):
+    """
+    Test the _to_numpy function with pandas.Series of PyArrow date32/date64 types.
+    """
+    series = pd.Series(pd.date_range(start="2024-01-01", periods=3), dtype=dtype)
+    result = _to_numpy(series)
+    _check_result(result, np.datetime64)
+    assert result.dtype == expected_dtype  # Explicitly check the date unit.
+    npt.assert_array_equal(
+        result,
+        np.array(["2024-01-01", "2024-01-02", "2024-01-03"], dtype=expected_dtype),
+    )
+
+
 ########################################################################################
 # Test the _to_numpy function with PyArrow arrays.
 #
