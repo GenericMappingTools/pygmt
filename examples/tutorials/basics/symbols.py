@@ -81,10 +81,10 @@ fig.show()
 
 # %%
 # Use the ``symbol`` and ``size`` parameters together to plot the data points with
-# individual symbols and sizes. ``symbol`` and ``size`` need to have the same length.
-# The unit used by ``size`` is now set via the GMT default parameter
-# ``PROJ_LENGTH_UNIT`` and is by default centimeters. Use :class:`pygmt.config` to
-# change this.
+# individual symbols and sizes. The arguments passed to ``symbol`` and ``size`` must
+# have the same length. The unit for ``size`` is now set via the GMT default parameter
+# ``PROJ_LENGTH_UNIT`` which can by adjusted using :class:`pygmt.config`[Default is
+# centimeters].
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -2, 2], projection="X10c/4c", frame=True)
