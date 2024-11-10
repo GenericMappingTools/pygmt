@@ -30,7 +30,7 @@ y_list = [-3, -1, 1, 3, 2, -3]
 # the data points are chosen to make the lines form a polygon.
 
 fig = pygmt.Figure()
-fig.basemap(region=[-5, 5] * 2, projection="X5c", frame=True)
+fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
 fig.plot(x=x_list, y=y_list)
 
@@ -42,7 +42,7 @@ fig.show()
 # values *width*,\ *color*,\ *style*.
 
 fig = pygmt.Figure()
-fig.basemap(region=[-5, 5] * 2, projection="X5c", frame=True)
+fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
 # Use a 2-points thick, darkred, dashed outline
 fig.plot(x=x_list, y=y_list, pen="2p,darkred,dashed")
@@ -55,7 +55,7 @@ fig.show()
 # https://www.pygmt.org/dev/techref/patterns.html.
 
 fig = pygmt.Figure()
-fig.basemap(region=[-5, 5] * 2, projection="X5c", frame=True)
+fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
 # Fill the polygon with color "orange"
 fig.plot(x=x_list, y=y_list, fill="orange", pen="2p,darkred,dashed")
@@ -77,12 +77,12 @@ y_array = np.array([-3, -1, 1, 3, 2])
 # The ``close`` parameter can be used to force the polygon to be closed.
 
 fig = pygmt.Figure()
-fig.basemap(region=[-5, 5] * 2, projection="X5c", frame=True)
+fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
 fig.plot(x=x_array, y=y_array, pen=True)
 
 fig.shift_origin(xshift="w+1c")
-fig.basemap(region=[-5, 5] * 2, projection="X5c", frame=True)
+fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
 fig.plot(x=x_array, y=y_array, pen=True, close=True)
 
@@ -92,12 +92,12 @@ fig.show()
 # When using the ``fill`` parameter, the polygon is automatically closed.
 
 fig = pygmt.Figure()
-fig.basemap(region=[-5, 5] * 2, projection="X5c", frame=True)
+fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
 fig.plot(x=x_array, y=y_array, pen=True)
 
 fig.shift_origin(xshift="w+1c")
-fig.basemap(region=[-5, 5] * 2, projection="X5c", frame=True)
+fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
 fig.plot(x=x_array, y=y_array, pen=True, fill="orange")
 
