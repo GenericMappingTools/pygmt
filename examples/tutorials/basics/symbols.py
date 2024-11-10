@@ -15,11 +15,12 @@ available single- and multi-parameter symbols see the Gallery examples
 """
 
 # %%
+import numpy as np
 import pygmt
 
-# Set up five sample data points as lists for the x and y values
-x = [-4, -2, 0, 2, 4]
-y = [0] * len(x)
+# Set up five sample data points as NumPy arrays for the x and y values
+x = np.array([-4, -2, 0, 2, 4])
+y = np.array([0, 0, 0, 0, 0])
 
 
 # %%
