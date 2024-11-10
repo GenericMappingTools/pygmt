@@ -5,8 +5,8 @@ Plotting polygons
 Plotting polygons is handled by the :meth:`pygmt.Figure.plot` method.
 
 This tutorial focuses on input data given via lists or NumPy arrays. For
-plotting GeoPandas polygon geometry, e.g. to create a chorophlet map, see
-the gallery example https://www.pygmt.org/dev/gallery/maps/choropleth_map.html.
+plotting GeoPandas polygon geometry, e.g. to create a chorophlet map, see the
+gallery example :doc:`Choropleth map </gallery/symbols/maps/choropleth_map>`.
 """
 
 # %%
