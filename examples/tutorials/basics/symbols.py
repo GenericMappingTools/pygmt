@@ -3,15 +3,11 @@ Plotting single-parameter symbols
 =================================
 
 The :meth:`pygmt.Figure.plot` method can plot symbols via the ``style``, ``size``, and
-``symbol`` parameters. The ``fill`` parameter can fill the symbols with a color or
-pattern. For the available patterns see the Technical Reference
-:doc:`Bit and hachure patterns </techref/patterns>`. Using the ``pen`` parameter the
-outline can be adjusted by providing a string argument in the form
-*width*,\ *color*,\ *style*. For details on adjusting ``pen`` see the Gallery example
-:doc:`Line styles </gallery/lines/linestyles>`. For the available single- and multi-
-parameter symbols see the Gallery examples
-:doc:`Single-parameter symbols </gallery/symbols/basic_symbols>` and
-:doc:`Multi-parameter symbols </gallery/symbols/multi_parameter_symbols>`, respectively.
+``symbol`` parameters. This tutorial focuses on single-parameter symbols; for an
+overview of the available single-parameter symbols see the Gallery example
+:doc:`Single-parameter symbols </gallery/symbols/basic_symbols>`. The available multi-
+parameter symbols are explained in the Gallery example
+:doc:`Multi-parameter symbols </gallery/symbols/multi_parameter_symbols>`.
 """
 
 # %%
@@ -29,7 +25,9 @@ y = np.array([0, 0, 0, 0, 0])
 #
 # Use the ``style`` parameter of the :meth:`pygmt.Figure.plot` method to plot all data
 # points with the same symbol and size. By default, the symbol is drawn unfilled with
-# an 0.25-points, thick, solid outline. Use the ``pen`` parameter to adjust the outline.
+# an 0.25-points, thick, solid outline. Use the ``pen`` parameter to adjust the outline
+# by providing a string argument in the form *width*,\ *color*,\ *style*; for details
+# see the Gallery example :doc:`Line styles </gallery/lines/linestyles>`.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -2, 2], projection="X10c/4c", frame=True)
@@ -46,8 +44,9 @@ fig.plot(x=x, y=y, style="c0.5c", pen="1p,orange")
 fig.show()
 
 # %%
-# Use the ``fill`` the parameter to add a fill color (or pattern). Note, that no outline
-# is drawn by default when ``fill`` is used.
+# Use the ``fill`` the parameter to add a fill color or pattern. Note, that no outline
+# is drawn by default when ``fill`` is used. For the available patterns see the
+# Technical Reference :doc:`Bit and hachure patterns </techref/patterns>`.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -2, 2], projection="X10c/4c", frame=True)
