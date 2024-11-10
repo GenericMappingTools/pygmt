@@ -103,6 +103,7 @@ jobs:
             contextily
             geopandas<1.0
             ipython
+            pyarrow
             rioxarray
             make
             pip
@@ -114,7 +115,7 @@ jobs:
             sphinx-copybutton
             sphinx-design
             sphinx-gallery
-            sphinx_rtd_theme
+            sphinx_rtd_theme<3.0
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
