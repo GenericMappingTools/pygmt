@@ -10,6 +10,7 @@ import pandas as pd
 import pytest
 from packaging.version import Version
 from pygmt.clib.conversion import _to_numpy
+from pygmt.helpers.testing import skip_if_no
 
 try:
     import pyarrow as pa
@@ -159,6 +160,31 @@ def test_to_numpy_pandas_series_numpy_dtypes_numeric(dtype, expected_dtype):
     result = _to_numpy(series)
     _check_result(result, expected_dtype)
     npt.assert_array_equal(result, series)
+
+
+@pytest.mark.parametrize(
+    "dtype",
+    [
+        None,
+        np.str_,
+        "U10",
+        "string[python]",
+        pytest.param("string[pyarrow]", marks=skip_if_no(package="pyarrow")),
+        pytest.param("string[pyarrow_numpy]", marks=skip_if_no(package="pyarrow")),
+    ],
+)
+def test_to_numpy_pandas_series_pandas_dtypes_string(dtype):
+    """
+    Test the _to_numpy function with pandas.Series of pandas string types.
+
+    In pandas, string arrays can be specified in multiple ways.
+
+    Reference: https://pandas.pydata.org/docs/reference/api/pandas.StringDtype.html
+    """
+    array = pd.Series(["abc", "defg", "12345"], dtype=dtype)
+    result = _to_numpy(array)
+    _check_result(result, np.str_)
+    npt.assert_array_equal(result, array)
 
 
 ########################################################################################
