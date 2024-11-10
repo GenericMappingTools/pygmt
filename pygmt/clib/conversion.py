@@ -157,9 +157,9 @@ def _to_numpy(data: Any) -> np.ndarray:
         The C contiguous NumPy array.
     """
     # Mapping of unsupported dtypes to the expected NumPy dtype.
-    dtypes: dict[str, type] = {
-        "date32[day][pyarrow]": np.datetime64,
-        "date64[ms][pyarrow]": np.datetime64,
+    dtypes: dict[str, str | type] = {
+        "date32[day][pyarrow]": "datetime64[D]",
+        "date64[ms][pyarrow]": "datetime64[ms]",
     }
 
     if (
