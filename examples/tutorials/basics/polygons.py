@@ -51,9 +51,7 @@ fig.plot(x=x, y=y, pen="2p,darkred,dashed")
 fig.show()
 
 # %%
-# Use the ``fill`` parameter to fill the polygon with a color or pattern.
-# For the patterns avilable in GMT see the Technical Reference at
-# https://www.pygmt.org/dev/techref/patterns.html.
+# Use the ``fill`` parameter to fill the polygon with a color or :doc:`pattern </techref/patterns>`.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
