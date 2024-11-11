@@ -19,12 +19,11 @@ import pygmt
 # specified to state the desired text in the legend entry (white spaces are allowed).
 # Optionally, to adjust the legend, users can append different modifiers to the string
 # passed to ``label``. A list of all available modifiers can be found at
-# :gmt-docs:`gmt.html#l-full`. To create a multiple-column legend **+N** is used with
-# the desired number of columns; for details see the gallery example
-# :doc:`</gallery/embellishments/legend>`.
-# By default, the legend is placed in the Upper Right corner with an offset of 0.1
-# centimeters in both x and y directions and a box with a white fill and a 1-point
-# thick, black, solid outline is drawn around the legend.
+# :gmt-docs:`gmt.html#l-full`. To create a
+# :doc:`multiple-column legend </gallery/embellishments/legend>` **+N** is used with
+# the desired number of columns. By default, the legend is placed in the Upper Right
+# corner with an offset of 0.1 centimeters in both x and y directions and a box with
+# a white fill and a 1-point thick, black, solid outline is drawn around the legend.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
