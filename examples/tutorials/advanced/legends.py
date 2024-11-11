@@ -126,9 +126,9 @@ T so we may have to adjust the height to get the right size box.
 )
 
 # %%
-# Now, we can add a legend based on this ``io.StringIO`` object. For multi-
-# columns legends, width (**+w**) has to be specified via a the ``position``
-# parameter.
+# Now, we can add a legend based on this :class:`io.StringIO` object. For
+# multi- columns legends, width (**+w**) has to be specified via a the
+# ``position`` parameter.
 
 fig = pygmt.Figure()
 # Note, that we are now using a Mercator projection
