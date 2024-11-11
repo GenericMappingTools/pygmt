@@ -28,15 +28,15 @@ supports most of the numeric dtypes provided by NumPy, pandas, and PyArrow.
 - `pandas.Float32`, `pandas.Float64`
 - `pyarrow.float32`, `pyarrow.float64`
 
-```{note}
+:::{note}
 
 1. Currently, `numpy.float16`, `numpy.longdouble` and `pyarrow.float16` are not
    supported.
 2. For 3-D {class}`xarray.DataArray` objects representing raster images, only 8-bit
    unsigned integers (i.e., `numpy.uint8`) are supported.
-```
+:::
 
-````{example}
+:::{tip} Examples
 ```python
 # A list of integers
 [1, 2, 3]
@@ -56,7 +56,7 @@ pd.Series([1, 2, 3], dtype="float64[pyarrow]")
 # A PyArrow array with pyarrow.uint8 dtype
 pa.array([1, 2, 3], type=pa.uint8())
 ```
-````
+:::
 
 ## String Dtypes
 
