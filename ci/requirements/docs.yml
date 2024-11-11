@@ -1,6 +1,7 @@
 name: pygmt
 channels:
     - conda-forge
+    - conda-forge/label/python_rc
     - nodefaults
 dependencies:
     # Required dependencies
