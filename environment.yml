@@ -3,7 +3,7 @@ channels:
     - conda-forge
     - nodefaults
 dependencies:
-    - python=3.13
+    - python>=3.10
     # Required dependencies
     - gmt=6.5.0
     - ghostscript=10.04.0
