@@ -5,7 +5,7 @@ Plotting polygons
 Plotting polygons is handled by the :meth:`pygmt.Figure.plot` method.
 
 This tutorial focuses on input data given as NumPy arrays. Besides NumPy arrays,
-array-like objects are supported. For plotting a GeoPandas GeoDataFrame with
+array-like objects are supported. For plotting a :class:`geopandas.GeoDataFrame` object with
 polygon geometries, e.g. to create a choropleth map, see the gallery example
 :doc:`Choropleth map </gallery/maps/choropleth_map>`.
 """
