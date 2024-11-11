@@ -36,7 +36,10 @@ supports most of the numeric dtypes provided by NumPy, pandas, and PyArrow.
    unsigned integers (i.e., `numpy.uint8`) are supported.
 :::
 
-:::{tip} Examples
+:::{note}
+
+Here are some examples for creating array-like objects that PyGMT supports:
+
 ```python
 # A list of integers
 [1, 2, 3]
