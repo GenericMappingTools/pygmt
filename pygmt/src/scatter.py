@@ -4,7 +4,7 @@ scatter - Scatter plot.
 
 from collections.abc import Sequence
 
-from pygmt.helpers import is_nonstr_iter
+from pygmt.helpers import fmt_docstring, is_nonstr_iter
 
 
 def _parse_symbol_size(symbol, size):
@@ -25,6 +25,7 @@ def _parse_symbol_size(symbol, size):
     return "".join(f"{arg}" for arg in [symbol, size] if not is_nonstr_iter(arg))
 
 
+@fmt_docstring
 def scatter(  # noqa: PLR0913
     self,
     x,
@@ -39,17 +40,26 @@ def scatter(  # noqa: PLR0913
     perspective=None,
 ):
     """
-    Plot scatter points on a map.
+    Plot scatter points.
 
-    This function can plot points with different symbols, sizes, and colors.
+    It can plot data points with constant or varying symbols, sizes, colors, and
+    transparencies, and intensities.
 
+    The parameters ``symbol``, ``size``, ``fill``, ``intensity``, and
+    ``transparency`` can be a single scalar value or a sequence of values with the
+    same length as the number of data points. If a single value is given, it is
+    used for all data points. If a sequence is given, different values are used
+    for different data points.
 
     Parameters
     ----------
-    x, y : array-like
-        The coordinates of the points to plot.
+    x, y
+        The data coordinates.
     symbol
-        Symbol to use for the points. Can be a single symbol or a sequence of symbols.
+        The symbol(s) to use. It can be a single symbol string to use the same
+        symbol for all data points or a sequence of symbol strings to have
+        different symbols for different data points.
+
         Valid symbols are:
 
         - ``-``: X-dash (-)
@@ -67,17 +77,25 @@ def scatter(  # noqa: PLR0913
         - ``x``: Cross
         - ``y``: Y-dash (|)
     size
-        The size of the points.
+        The size(s) of the points.
     intensity
-        The intensity of the points.
+        The intensity(ies) of the points.
     transparency
-        The transparency of the points.
+        The transparency(ies) of the points.
     cmap
-        The colormap to use for the points.
+        The colormap to map scalar values in ``fill`` to colors. In this case,
+        ``fill`` must be a sequence of numbers.
     no_clip
-        If True, do not clip the points to the viewport.
-    perspective
-        The perspective of the points.
+        If True, do not clip the points that fall outside the frame boundaries.
+    {perspective}
+
+    Examples
+    --------
+    >>> import pygmt
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[0, 3, 0, 3], projection="X10c/5c", frame=True)
+    >>> fig.scatter(x=[0, 1, 2], y=[0, 1, 2], symbol="c", size=0.5)
+    >>> fig.show()
     """
     self._preprocess()
 
