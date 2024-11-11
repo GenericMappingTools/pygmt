@@ -36,6 +36,7 @@ def scatter(  # noqa: PLR0913
     intensity: float | Sequence[float] | None = None,
     transparency: float | Sequence[float] | None = None,
     cmap: str | None = None,
+    pen: str | float | None = None,
     no_clip: bool = False,
     perspective=None,
 ):
@@ -85,16 +86,35 @@ def scatter(  # noqa: PLR0913
     cmap
         The colormap to map scalar values in ``fill`` to colors. In this case,
         ``fill`` must be a sequence of numbers.
+    pen
+        The pen property of the symbol outline.
     no_clip
         If True, do not clip the points that fall outside the frame boundaries.
     {perspective}
 
     Examples
     --------
+
+    Plot three points with the same symbol and size.
+
     >>> import pygmt
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 3, 0, 3], projection="X10c/5c", frame=True)
-    >>> fig.scatter(x=[0, 1, 2], y=[0, 1, 2], symbol="c", size=0.5)
+    >>> fig.scatter(x=[0, 1, 2], y=[0, 1, 2], symbol="c", size=0.3, fill="red")
+    >>> fig.show()
+
+    Plot three points with different sizes and transparencies.
+
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[0, 3, 0, 3], projection="X10c/5c", frame=True)
+    >>> fig.scatter(
+    ...     x=[0, 1, 2],
+    ...     y=[0, 1, 2],
+    ...     symbol="c",
+    ...     size=[0.5, 0.3, 0.2],
+    ...     fill="blue",
+    ...     transparency=[50, 70, 90],
+    ... )
     >>> fig.show()
     """
     self._preprocess()
@@ -116,6 +136,7 @@ def scatter(  # noqa: PLR0913
         intensity=intensity,
         transparency=transparency,
         cmap=cmap,
+        pen=pen,
         no_clip=no_clip,
         perspective=perspective,
     )
