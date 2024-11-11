@@ -84,8 +84,8 @@ fig.show()
 #
 # For more complicated legends in GMT, users need to write an ASCII file with
 # instructions for the layout of the legend items. In PyGMT it is additionally
-# possible to provide this information as an ``io.StringIO`` object. Both, the
-# ASCII file or the ``io.StringIO`` object are passed to the ``spec`` parameter
+# possible to provide this information as an :class:`io.StringIO` object. Both, the
+# ASCII file or the :class:`io.StringIO` object are passed to the ``spec`` parameter
 # of :meth:`pygmt.Figure.legend`.
 #
 # The example below is orientated on the upstream GMT example at
@@ -93,7 +93,7 @@ fig.show()
 
 
 # %%
-# First, we set up an ``io.StringIO`` object.
+# First, we set up an :class:`io.StringIO` object.
 
 spec_io = io.StringIO(
     """
