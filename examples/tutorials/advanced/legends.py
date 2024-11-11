@@ -28,7 +28,7 @@ import pygmt
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
-fig.plot(x=0, y=-3, style="c0.25c", fill="orange", label="orange circle")
+fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
 fig.legend()
 
 fig.show()
@@ -39,14 +39,15 @@ fig.show()
 # -------------------
 # Use the ``position`` parameter to adjust the position of the legend.
 # j within, J outside of bounding box
+# offset via **+o**
 # also adjust ``width`` via **+w** modifier
 # The default of ``box`` is changed, i.e. no box plotted anymore.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
-fig.plot(x=0, y=-3, style="c0.25c", fill="orange", label="orange circle")
-fig.legend(position="jMC")
+fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
+fig.legend(position="jLT+o0.3c/0.2c")
 
 fig.show()
 
@@ -62,14 +63,14 @@ fig.show()
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
-fig.plot(x=0, y=-3, style="c0.25c", fill="orange", label="orange circle")
-fig.legend(position="jMC", box=True)
+fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
+fig.legend(position="jTL+o0.3c/0.2c", box=True)
 
 fig.shift_origin(xshift="w+1c")
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
-fig.plot(x=0, y=-3, style="c0.25c", fill="orange", label="orange circle")
-fig.legend(position="jMC", box="+p2p,cyan+gblue@70")
+fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
+fig.legend(position="jTL+o0.3c/0.2c", box="+p2p,cyan+gblue@70")
 
 fig.show()
 
