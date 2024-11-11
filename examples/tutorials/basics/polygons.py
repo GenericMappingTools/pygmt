@@ -5,9 +5,9 @@ Plotting polygons
 Plotting polygons is handled by the :meth:`pygmt.Figure.plot` method.
 
 This tutorial focuses on input data given as NumPy arrays. Besides NumPy arrays,
-array-like objects are supported. For plotting a :class:`geopandas.GeoDataFrame` object with
-polygon geometries, e.g. to create a choropleth map, see the gallery example
-:doc:`Choropleth map </gallery/maps/choropleth_map>`.
+array-like objects are supported. For plotting a :class:`geopandas.GeoDataFrame`
+object with polygon geometries, e.g. to create a choropleth map, see the gallery
+example :doc:`Choropleth map </gallery/maps/choropleth_map>`.
 """
 
 # %%
@@ -51,7 +51,8 @@ fig.plot(x=x, y=y, pen="2p,darkred,dashed")
 fig.show()
 
 # %%
-# Use the ``fill`` parameter to fill the polygon with a color or :doc:`pattern </techref/patterns>`.
+# Use the ``fill`` parameter to fill the polygon with a color or
+# :doc:`pattern </techref/patterns>`.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
