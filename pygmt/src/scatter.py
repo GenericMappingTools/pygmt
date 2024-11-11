@@ -30,7 +30,7 @@ def scatter(
     x,
     y,
     symbol: str | Sequence[str],
-    size: float | str | Sequence[float, str],
+    size: float | str | Sequence[float | str],
     **kwargs,
 ):
     """
