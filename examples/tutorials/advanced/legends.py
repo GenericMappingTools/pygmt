@@ -24,6 +24,9 @@ import pygmt
 # found at :gmt-docs:`gmt.html#l-full`. To create a multiple-column legend **+N**
 # is used with the desired number of columns; see also gallery example
 # https://www.pygmt.org/dev/gallery/embellishments/legend.html.
+# By default, the legend is placed in the Upper Right corner with an offset of 0.1
+# centimeters in x and y directions and a box with white fill and a 1-point thick,
+# black, solid outline is drawn around the legend.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
@@ -37,11 +40,12 @@ fig.show()
 # %%
 # Adjust the position
 # -------------------
-# Use the ``position`` parameter to adjust the position of the legend.
-# j within, J outside of bounding box
-# offset via **+o**
-# also adjust ``width`` via **+w** modifier
-# The default of ``box`` is changed, i.e. no box plotted anymore.
+# Use the ``position`` parameter to adjust the position of the legend. For the
+# different ways to specifiy the placement of an plotting element (e.g., legends,
+# colorbars) on a plot in GMT, please refer to the Technical Reference TODO (: .
+# Add an offset via **+o** for the x and y directions. Addionally append **+w**
+# to adjust the ``width of the legenth. Note, no box is drawn by default if
+# ``position`` is used.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
@@ -55,10 +59,11 @@ fig.show()
 # %%
 # Add a box
 # ---------
-# ``box`` parameter, Default: 1-point thick, black, solid outline with white fill.
-# The default of ``position`` is preserved.
-# **+p** for outline
-# **+g** for fill
+# Use the ``box`` parameter for adjusting the box around the legend. Append
+# **g+** to fill the legend with a color or pattern [Default is a white fill].
+# The outline of the box an be adjusted by appending **p**. The default of
+# ``position`` is preserved.
+
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
