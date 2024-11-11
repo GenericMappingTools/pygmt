@@ -2,8 +2,8 @@
 Creating legends
 ================
 
-The :meth:`pygmt.Figure.legend` method creates legends, whereby auto-legends as
-well as manually created legends are supported.
+The :meth:`pygmt.Figure.legend` method creates legends, whereby auto-legends as well
+as manually created legends are supported.
 """
 
 # %%
@@ -15,16 +15,16 @@ import pygmt
 # Create an auto-legend
 # ---------------------
 #
-# For auto-legends, the ``label`` parameter of :meth:`pygmt.Figure.plot` has to
-# be specified to state the desired text in the legend entry (white spaces are
-# allowed). Optionally, to adjust the legend, users can append different modifiers
-# to the string passed to ``label`. A list of all available modifiers can be
-# found at :gmt-docs:`gmt.html#l-full`. To create a multiple-column legend **+N**
-# is used with the desired number of columns; see also gallery example
+# For auto-legends, the ``label`` parameter of :meth:`pygmt.Figure.plot` has to be
+# specified to state the desired text in the legend entry (white spaces are allowed).
+# Optionally, to adjust the legend, users can append different modifiers to the string
+# passed to ``label``. A list of all available modifiers can be found at
+# :gmt-docs:`gmt.html#l-full`. To create a multiple-column legend **+N** is used with
+# the desired number of columns; for details see the gallery example
 # https://www.pygmt.org/dev/gallery/embellishments/legend.html.
 # By default, the legend is placed in the Upper Right corner with an offset of 0.1
-# centimeters in x and y directions and a box with white fill and a 1-point thick,
-# black, solid outline is drawn around the legend.
+# centimeters in both x and y directions and a box with a white fill and a 1-point
+# thick, black, solid outline is drawn around the legend.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
@@ -39,10 +39,10 @@ fig.show()
 # Adjust the position
 # -------------------
 # Use the ``position`` parameter to adjust the position of the legend. For the
-# different ways to specifiy the placement of an plotting element (e.g., legends,
+# different ways to specify the placement of a plotting element (e.g., legends,
 # colorbars) on a plot in GMT, please refer to the Technical Reference TODO (: .
-# Add an offset via **+o** for the x and y directions. Addionally append **+w**
-# to adjust the ``width of the legenth. Note, no box is drawn by default if
+# Add an offset via **+o** for the x and y directions. Additionally append **+w**
+# to adjust the ``width`` of the length. Note, no box is drawn by default if
 # ``position`` is used.
 
 fig = pygmt.Figure()
@@ -57,9 +57,9 @@ fig.show()
 # %%
 # Add a box
 # ---------
-# Use the ``box`` parameter for adjusting the box around the legend. Append
-# **g+** to fill the legend with a color or pattern [Default is a white fill].
-# The outline of the box an be adjusted by appending **p**. The default of
+# Use the ``box`` parameter for adjusting the box around the legend. Append **+g**
+# to fill the legend with a color (or pattern) [Default is a white fill]. The
+# outline of the box can be adjusted by appending **+p**. The default of
 # ``position`` is preserved.
 
 
@@ -83,7 +83,7 @@ fig.show()
 # ----------------------
 #
 # For more complicated legends in GMT, users need to write an ASCII file with
-# instructions for the layout of the legend items. In PyGMT it is addionaly
+# instructions for the layout of the legend items. In PyGMT it is additionally
 # possible to provide this information as an ``io.StringIO`` object. Both, the
 # ASCII file or the ``io.StringIO`` object are passed to the ``spec`` parameter
 # of :meth:`pygmt.Figure.legend`.
@@ -126,15 +126,15 @@ T so we may have to adjust the height to get the right size box.
 )
 
 # %%
-# Now, we can add a legend based on this ``io.StringIO`` object. For
-# multi-columns legends, width (**+w**) has to be specified via a the
-# ``position`` parameter.
+# Now, we can add a legend based on this ``io.StringIO`` object. For multi-
+# columns legends, width (**+w**) has to be specified via a the ``position``
+# parameter.
 
 fig = pygmt.Figure()
 # Note, that we are now using a Mercator projection
 fig.basemap(region=[-5, 5, -5, 5], projection="M10c", frame=True)
 
-# Pass the io.StringIO object to the spec parameter
+# Pass the io.StringIO object to the "spec" parameter
 fig.legend(spec=spec_io, position="jMC+w9c", box="+p1p,gray50+ggray95")
 
 fig.show()
