@@ -110,7 +110,7 @@ jobs:
 
       - name: Get current week number of year
         id: date
-        run: echo "date=$(date +%Y-W%W)" >> $GITHUB_OUTPUT  # e.g., 2024-W19
+        run: echo "date=$(date +%Y-W%W-)" >> $GITHUB_OUTPUT  # e.g., 2024-W19
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
