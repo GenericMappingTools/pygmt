@@ -6,8 +6,8 @@ PyGMT.
 
 ## Numeric Dtypes
 
-For 1-D and 2-D arrays, PyGMT supports most numeric dtypes provided by NumPy, pandas, and
-PyArrow.
+For 1-D and 2-D arrays, PyGMT supports most numeric dtypes provided by NumPy, pandas,
+and PyArrow.
 
 **Signed Integers:**
 
@@ -27,8 +27,12 @@ PyArrow.
 - `pandas.Float32`, `pandas.Float64`
 - `pyarrow.float32`, `pyarrow.float64`
 
-For 3-D {class}`xarray.DataArray` objects representing raster images, only 8-bit unsigned
-intergers (i.e., `numpy.uint8`) are supported.
+.. notes::
+
+    1. Currently, `numpy.float16`, `numpy.longdouble` and `pyarrow.float16` are not
+       supported
+    2. For 3-D {class}`xarray.DataArray` objects representing raster images, only 8-bit
+       unsigned intergers (i.e., `numpy.uint8`) are supported.
 
 ## String Dtypes
 
