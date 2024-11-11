@@ -69,7 +69,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.2.1
+        uses: actions/checkout@v4.2.2
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -104,6 +104,7 @@ jobs:
             contextily
             geopandas<1.0
             ipython
+            pyarrow
             rioxarray
             make
             pip
@@ -115,7 +116,7 @@ jobs:
             sphinx-copybutton
             sphinx-design
             sphinx-gallery
-            sphinx_rtd_theme
+            sphinx_rtd_theme<3.0
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
@@ -139,7 +140,7 @@ jobs:
         run: make -C doc clean all
 
       - name: Checkout the gh-pages branch
-        uses: actions/checkout@v4.2.1
+        uses: actions/checkout@v4.2.2
         with:
           ref: gh-pages
           # Checkout to this folder instead of the current one
