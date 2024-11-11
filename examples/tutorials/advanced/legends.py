@@ -4,8 +4,6 @@ Creating legends
 
 The :meth:`pygmt.Figure.legend` method creates legends, whereby auto-legends as
 well as manually created legends are supported.
-
-Users can adjust the position of the legend and add a box around the legend.
 """
 
 # %%
@@ -128,7 +126,7 @@ T so we may have to adjust the height to get the right size box.
 )
 
 # %%
-# Now, we can add a legend based on this `io.StringIO` object. For
+# Now, we can add a legend based on this ``io.StringIO`` object. For
 # multi-columns legends, width (**+w**) has to be specified via a the
 # ``position`` parameter.
 
