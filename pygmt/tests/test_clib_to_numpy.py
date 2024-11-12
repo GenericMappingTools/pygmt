@@ -205,6 +205,10 @@ def test_to_numpy_pandas_numeric(dtype, expected_dtype):
 @pytest.mark.parametrize(
     ("dtype", "expected_dtype"),
     [
+        pytest.param(np.float16, np.float16, id="float16"),
+        pytest.param(np.float32, np.float32, id="float32"),
+        pytest.param(np.float64, np.float64, id="float64"),
+        pytest.param(np.longdouble, np.longdouble, id="longdouble"),
         pytest.param(pd.Int8Dtype(), np.float64, id="Int8"),
         pytest.param(pd.Int16Dtype(), np.float64, id="Int16"),
         pytest.param(pd.Int32Dtype(), np.float64, id="Int32"),
@@ -230,8 +234,8 @@ def test_to_numpy_pandas_numeric(dtype, expected_dtype):
 )
 def test_to_numpy_pandas_numeric_with_na(dtype, expected_dtype):
     """
-    Test the _to_numpy function with pandas.Series of pandas/PyArrow numeric dtypes and
-    missing values (NA).
+    Test the _to_numpy function with pandas.Series of NumPy/pandas/PyArrow numeric
+    dtypes and missing values (NA).
     """
     data = [1.0, 2.0, None, 4.0, 5.0, 6.0]
     if dtype == "float16[pyarrow]" and Version(pd.__version__) < Version("2.2"):
