@@ -159,20 +159,10 @@ def test_to_numpy_ndarray_numpy_dtypes_numeric(dtype, expected_dtype):
 # 2. https://pandas.pydata.org/docs/user_guide/basics.html#basics-dtypes
 # 3. https://pandas.pydata.org/docs/user_guide/pyarrow.html
 ########################################################################################
-@pytest.mark.parametrize(("dtype", "expected_dtype"), np_dtype_params)
-def test_to_numpy_pandas_series_numpy_dtypes_numeric(dtype, expected_dtype):
-    """
-    Test the _to_numpy function with pandas.Series of NumPy numeric dtypes.
-    """
-    series = pd.Series([1, 2, 3, 4, 5, 6], dtype=dtype)[::2]  # Not C-contiguous
-    result = _to_numpy(series)
-    _check_result(result, expected_dtype)
-    npt.assert_array_equal(result, series)
-
-
 @pytest.mark.parametrize(
     ("dtype", "expected_dtype"),
     [
+        *np_dtype_params,
         pytest.param(pd.Int8Dtype(), np.int8, id="Int8"),
         pytest.param(pd.Int16Dtype(), np.int16, id="Int16"),
         pytest.param(pd.Int32Dtype(), np.int32, id="Int32"),
@@ -196,16 +186,16 @@ def test_to_numpy_pandas_series_numpy_dtypes_numeric(dtype, expected_dtype):
         pytest.param("float64[pyarrow]", np.float64, id="float64[pyarrow]", **pa_marks),
     ],
 )
-def test_to_numpy_pandas_series_pandas_dtypes_numeric(dtype, expected_dtype):
+def test_to_numpy_pandas_numeric(dtype, expected_dtype):
     """
-    Test the _to_numpy function with pandas.Series of pandas/PyArrow numeric dtypes.
+    Test the _to_numpy function with pandas.Series of NumPy/pandas/PyArrow numeric
+    dtypes.
     """
     data = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
     if dtype == "float16[pyarrow]" and Version(pd.__version__) < Version("2.2"):
         # float16 needs special handling for pandas < 2.2.
         # Example from https://arrow.apache.org/docs/python/generated/pyarrow.float16.html
         data = np.array(data, dtype=np.float16)
-
     series = pd.Series(data, dtype=dtype)[::2]  # Not C-contiguous
     result = _to_numpy(series)
     _check_result(result, expected_dtype)
