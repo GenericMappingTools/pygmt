@@ -18,11 +18,12 @@ import pygmt
 # An auto-legend can be created for the methods :meth:`pygmt.Figure.plot`,
 # :meth:`pygmt.Figure.plot3d`, and :meth:`pygmt.Figure.histogram`. Therefore the
 # ``label`` parameter has to be specified to state the desired text for the legend
-# entry (white spaces are supported). Here, we focus on :meth:`pygmt.Figure.plot`,
+# entry (white spaces are supported). Here, we use :meth:`pygmt.Figure.plot`,
 # examplarly. By default, the legend is placed in the Upper Right corner with an
 # offset of 0.1 centimeters in both x and y directions and a box with a white fill
-# and a 1-point thick, black, solid outline is drawn around the legend. Optionally,
-# to adjust the legend, users can append different modifiers to the string passed
+# and a 1-point thick, black, solid outline is drawn around the legend. The order
+# of the legend entries (top to bottom) is determine by the plotting order.
+# Optionally, to adjust the legend, append different modifiers to the string passed
 # to ``label``. For a list of available modifiers see :gmt-docs:`gmt.html#l-full`.
 # To create a :doc:`multiple-column legend </gallery/embellishments/legend>` **+N**
 # is used with the desired number of columns.
@@ -30,7 +31,12 @@ import pygmt
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
+# Plot three data points with different symbols and sizes
 fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
+fig.plot(x=1, y=0, style="t0.3c", fill="pink", label="pink triangle")
+fig.plot(x=-1, y=0, style="s0.3c", fill="darkred", label="darkred square")
+
+# Add a legend based on the explanation text given via the "label" parameter
 fig.legend()
 
 fig.show()
@@ -50,6 +56,10 @@ fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
 fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
+fig.plot(x=1, y=0, style="t0.3c", fill="pink", label="pink triangle")
+fig.plot(x=-1, y=0, style="s0.3c", fill="darkred", label="darkred square")
+
+# Left Top
 fig.legend(position="jLT+o0.3c/0.2c")
 
 fig.show()
@@ -68,12 +78,16 @@ fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
 fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
+fig.plot(x=1, y=0, style="t0.3c", fill="pink", label="pink triangle")
+fig.plot(x=-1, y=0, style="s0.3c", fill="darkred", label="darkred square")
 fig.legend(position="jTL+o0.3c/0.2c", box=True)
 
 fig.shift_origin(xshift="w+1c")
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
 fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
+fig.plot(x=1, y=0, style="t0.3c", fill="pink", label="pink triangle")
+fig.plot(x=-1, y=0, style="s0.3c", fill="darkred", label="darkred square")
 fig.legend(position="jTL+o0.3c/0.2c", box="+p2p,cyan+gblue@70")
 
 fig.show()
