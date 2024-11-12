@@ -238,15 +238,12 @@ def text_(  # noqa: PLR0912
 
         # Append text to the last column. Text must be passed in as str type.
         text = np.asarray(text, dtype=np.str_)
-        encoding = _check_encoding("".join(text.flatten()))
-        if encoding != "ascii":
+        if (encoding := _check_encoding("".join(text.flatten()))) != "ascii":
             text = np.vectorize(non_ascii_to_octal, excluded="encoding")(
                 text, encoding=encoding
             )
+            confdict["PS_CHAR_ENCODING"] = encoding
         extra_arrays.append(text)
-
-        if encoding not in {"ascii", "ISOLatin1+"}:
-            confdict = {"PS_CHAR_ENCODING": encoding}
     else:
         if isinstance(position, str):
             kwargs["F"] += f"+c{position}+t{text}"

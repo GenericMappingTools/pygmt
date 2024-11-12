@@ -506,17 +506,14 @@ def build_arg_list(  # noqa: PLR0912
         else:
             gmt_args.append(f"-{key}{value}")
 
-    # Convert non-ASCII characters (if any) in the arguments to octal codes
-    encoding = _check_encoding("".join(gmt_args))
-    if encoding != "ascii":
-        gmt_args = [non_ascii_to_octal(arg, encoding=encoding) for arg in gmt_args]
     gmt_args = sorted(gmt_args)
 
-    # Set --PS_CHAR_ENCODING=encoding if necessary
-    if encoding not in {"ascii", "ISOLatin1+"} and not (
-        confdict and "PS_CHAR_ENCODING" in confdict
-    ):
-        gmt_args.append(f"--PS_CHAR_ENCODING={encoding}")
+    # Convert non-ASCII characters (if any) in the arguments to octal codes and set
+    # --PS_CHAR_ENCODING=encoding if necessary
+    if (encoding := _check_encoding("".join(gmt_args))) != "ascii":
+        gmt_args = [non_ascii_to_octal(arg, encoding=encoding) for arg in gmt_args]
+        if not (confdict and "PS_CHAR_ENCODING" in confdict):
+            gmt_args.append(f"--PS_CHAR_ENCODING={encoding}")
 
     if confdict:
         gmt_args.extend(f"--{key}={value}" for key, value in confdict.items())
