@@ -45,6 +45,7 @@ fig.show()
 # %%
 # Adjust the position
 # -------------------
+#
 # Use the ``position`` parameter to adjust the position of the legend. For the
 # different ways to specify the placement of a plotting element (e.g., legends,
 # colorbars) on a plot in GMT, please refer to the Technical Reference TODO (: .
