@@ -38,7 +38,7 @@ supports most of the numeric dtypes provided by NumPy, pandas, and PyArrow.
 
 :::{note}
 
-Here are some examples for creating array-like objects that PyGMT supports:
+Here are some examples for creating array-like numeric objects that PyGMT supports:
 
 ```python
 # A list of integers
@@ -62,5 +62,33 @@ pa.array([1, 2, 3], type=pa.uint8())
 :::
 
 ## String Dtypes
+
+In addition to the Python built-in `str` type, PyGMT also support following string dtypes:
+
+- NumPy: `numpy.str_`
+- pandas: `pandas.StringDtype` (including `string[python]`, `string[pyarrow]` and
+  `string[pyarrow_numpy]`)
+- PyArrow: `pyarrow.string`, `pyarrow.large_string`, and `pyarrow.string_view`
+
+:::{note}
+Here are some examples for creating string arrays that PyGMT supports:
+
+```python
+# A list of strings
+["a", "b", "c"]
+
+# A NumPy string array
+np.array(["a", "b", "c"])
+np.array(["a", "b", "c"], dtype=np.str_)
+
+# A pandas.Series string array
+pd.Series(["a", "b", "c"], dtype="string")
+pd.Series(["a", "b", "c"], dtype="string[python]")
+pd.Series(["a", "b", "c"], dtype="string[pyarrow]")
+pd.Series(["a", "b", "c"], dtype="string[pyarrow_numpy]")
+
+# A PyArrow array with pyarrow.string dtype
+pa.array(["a", "b", "c"], type=pa.string())
+```
 
 ## Datetime Dtypes
