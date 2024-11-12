@@ -102,9 +102,9 @@ fig.show()
 # Create a manual legend
 # ----------------------
 #
-# For more complicated legends in GMT, users need to write an ASCII file with
-# instructions for the layout of the legend items. In PyGMT it is additionally
-# possible to provide this information as an :class:`io.StringIO` object. Both, the
+# For more complicated legends, users need to prepare a legend specification with 
+# instructions for the layout of the legend items. The legend specification can be 
+# either an ASCII file or an :class:`io.StringIO` object. Both, the
 # ASCII file or the :class:`io.StringIO` object are passed to the ``spec`` parameter
 # of :meth:`pygmt.Figure.legend`.
 #
