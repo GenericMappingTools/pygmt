@@ -110,9 +110,7 @@ fig.show()
 #
 # The example below is orientated on the upstream GMT example at
 # https://docs.generic-mapping-tools.org/dev/legend.html#examples.
-
-
-# %%
+#
 # First, we set up an :class:`io.StringIO` object.
 
 spec_io = io.StringIO(
