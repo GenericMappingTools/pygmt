@@ -60,7 +60,8 @@ fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
 fig.plot(x=1, y=0, style="t0.3c", fill="pink", label="pink triangle")
 fig.plot(x=-1, y=0, style="s0.3c", fill="darkred", label="darkred square")
 
-# Left Top
+# Set the reference point to Left Top and use an offset of 0.3 and 0.2 centimeters
+# in the x and y directions, respectively
 fig.legend(position="jLT+o0.3c/0.2c")
 
 fig.show()
@@ -69,9 +70,9 @@ fig.show()
 # %%
 # Add a box
 # ---------
-# Use the ``box`` parameter for adjusting the box around the legend. The outline
-# of the box can be adjusted by appending **+p**. Append **+g** to fill the legend
-# with a color (or pattern) [Default is a white fill]. The default of ``position``
+# Use the ``box`` parameter for adjusting the box around the legend. The outline of
+# the box can be adjusted by appending **+p**. Append **+g** to fill the legend with
+# a color (or pattern) [Default is a white fill]. The default of ``position`` is
 # is preserved.
 
 fig = pygmt.Figure()
@@ -90,6 +91,8 @@ fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
 fig.plot(x=1, y=0, style="t0.3c", fill="pink", label="pink triangle")
 fig.plot(x=-1, y=0, style="s0.3c", fill="darkred", label="darkred square")
 
+# Add a box with a 2-points thick cyan, solid outline and a blue fill with a
+# transparency of 70 percentage ("@70")
 fig.legend(position="jTL+o0.3c/0.2c", box="+p2p,cyan+gblue@70")
 
 fig.show()
@@ -144,7 +147,7 @@ T so we may have to adjust the height to get the right size box.
 
 # %%
 # Now, we can add a legend based on this :class:`io.StringIO` object. For
-# multi- columns legends, width (**+w**) has to be specified via a the
+# multi-columns legends, width (**+w**) has to be specified via a the
 # ``position`` parameter.
 
 fig = pygmt.Figure()
