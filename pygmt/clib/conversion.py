@@ -163,13 +163,13 @@ def _to_numpy(data: Any) -> np.ndarray:
     }
 
     # pandas numeric dtypes were converted to np.object_ dtype prior pandas 2.2, and are
-    # converted to suitable numpy dtypes since pandas 2.2. Refer to the following link
+    # converted to suitable NumPy dtypes since pandas 2.2. Refer to the following link
     # for details: https://pandas.pydata.org/docs/whatsnew/v2.2.0.html#to-numpy-for-numpy-nullable-and-arrow-types-converts-to-suitable-numpy-dtype
     # Here are the workarounds for pandas < 2.2.
     # Following SPEC 0, pandas 2.1 should be dropped in 2025 Q3, so it's likely we can
     # remove the workaround in PyGMT v0.17.0.
     if Version(pd.__version__) < Version("2.2"):
-        # Specify mapping from pandas nullable dtypes to suitable numpy dtypes
+        # Specify mapping from pandas nullable dtypes to suitable NumPy dtypes
         dtypes.update(
             {
                 "Int8": np.int8,
@@ -184,7 +184,7 @@ def _to_numpy(data: Any) -> np.ndarray:
                 "Float64": np.float64,
             }
         )
-        # For pandas.Index/pandas.Series, pandas/pyarrow integer dtypes with missing
+        # For pandas.Index/pandas.Series, pandas/PyArrow integer dtypes with missing
         # values should be cast to NumPy float dtypes and NaN is used as missing value
         # indicator.
         if getattr(data, "hasnans", False):  # pandas.Index/pandas.Series has 'hasnans'
