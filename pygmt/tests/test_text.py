@@ -6,7 +6,7 @@ from pathlib import Path
 
 import numpy as np
 import pytest
-from pygmt import Figure
+from pygmt import Figure, config
 from pygmt.exceptions import GMTCLibError, GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
@@ -410,12 +410,17 @@ def test_text_nonstr_text():
     return fig
 
 
-@pytest.mark.mpl_image_compare
-def test_text_nonascii():
+@pytest.mark.mpl_image_compare(filename="test_text_nonascii.png")
+@pytest.mark.parametrize("encoding", ["ISOLatin1+", "Standard+"])
+def test_text_nonascii(encoding):
     """
     Test passing text strings with non-ascii characters.
+
+    Default PS_CHAR_ENCODING setting should not affect the result.
     """
     fig = Figure()
+    if encoding == "Standard+":  # Temporarily set the PS_CHAR_ENCODING to "Standard+".
+        config(PS_CHAR_ENCODING="Standard+")
     fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
     fig.text(position="TL", text="position-text:°α")  # noqa: RUF001
     fig.text(x=1, y=1, text="xytext:°α")  # noqa: RUF001
