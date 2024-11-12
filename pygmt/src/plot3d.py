@@ -197,7 +197,8 @@ def plot3d(
     if kind == "empty":  # Add more columns for vectors input
         # Parameters for vector styles
         if (
-            kwargs.get("S") is not None
+            isinstance(kwargs.get("S"), str)
+            and len(kwargs["S"]) >= 1
             and kwargs["S"][0] in "vV"
             and is_nonstr_iter(direction)
         ):
