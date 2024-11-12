@@ -68,11 +68,10 @@ fig.show()
 # %%
 # Add a box
 # ---------
-# Use the ``box`` parameter for adjusting the box around the legend. Append **+g**
-# to fill the legend with a color (or pattern) [Default is a white fill]. The
-# outline of the box can be adjusted by appending **+p**. The default of
-# ``position`` is preserved.
-
+# Use the ``box`` parameter for adjusting the box around the legend. The outline
+# of the box can be adjusted by appending **+p**. Append **+g** to fill the legend
+# with a color (or pattern) [Default is a white fill]. The default of ``position``
+# is preserved.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
@@ -80,6 +79,7 @@ fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
 fig.plot(x=1, y=0, style="t0.3c", fill="pink", label="pink triangle")
 fig.plot(x=-1, y=0, style="s0.3c", fill="darkred", label="darkred square")
+
 fig.legend(position="jTL+o0.3c/0.2c", box=True)
 
 fig.shift_origin(xshift="w+1c")
@@ -88,6 +88,7 @@ fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
 fig.plot(x=1, y=0, style="t0.3c", fill="pink", label="pink triangle")
 fig.plot(x=-1, y=0, style="s0.3c", fill="darkred", label="darkred square")
+
 fig.legend(position="jTL+o0.3c/0.2c", box="+p2p,cyan+gblue@70")
 
 fig.show()
