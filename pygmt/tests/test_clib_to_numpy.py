@@ -10,7 +10,7 @@ import pandas as pd
 import pytest
 from packaging.version import Version
 from pygmt.clib.conversion import _to_numpy
-from pygmt.tests.helpers import skip_if_no
+from pygmt.helpers.testing import skip_if_no
 
 try:
     import pyarrow as pa
