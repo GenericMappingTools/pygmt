@@ -104,9 +104,13 @@ fig.show()
 #
 # For more complicated legends, users need to prepare a legend specification with
 # instructions for the layout of the legend items. The legend specification can be
-# either an ASCII file or an :class:`io.StringIO` object. Both, the
-# ASCII file or the :class:`io.StringIO` object are passed to the ``spec`` parameter
-# of :meth:`pygmt.Figure.legend`.
+# either an ASCII file or an :class:`io.StringIO` object. Both, the ASCII file or
+# the :class:`io.StringIO` object are passed to the ``spec`` parameter of
+# :meth:`pygmt.Figure.legend`. There are multiple legend codes available to create
+# complicated legends; an full overview can be found at
+# https://docs.generic-mapping-tools.org/dev/legend.html#legend-codes. It's
+# supported to include length scales, faults, and images as well as to add specific
+# lines.
 #
 # The example below is orientated on the upstream GMT example at
 # https://docs.generic-mapping-tools.org/dev/legend.html#examples.
