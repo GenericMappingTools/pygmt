@@ -1,10 +1,10 @@
-r"""
+"""
 Plotting single-parameter symbols
 =================================
 
 The :meth:`pygmt.Figure.plot` method can plot symbols via the ``style``, ``size``, and
 ``symbol`` parameters. This tutorial focuses on single-parameter symbols; for an
-overview of the available single-parameter symbols see the Gallery example
+overview of the available single-parameter symbols, see the Gallery example
 :doc:`Single-parameter symbols </gallery/symbols/basic_symbols>`. The available multi-
 parameter symbols are explained in the Gallery example
 :doc:`Multi-parameter symbols </gallery/symbols/multi_parameter_symbols>`.
@@ -103,7 +103,7 @@ fig.plot(
     y=y,
     # Use a constant size of 0.5 centimeters
     style="0.5c",
-    # Plot a circle, a square, a triangle, a inverse triangle, a diamond
+    # Plot a circle, a square, a triangle, an inverse triangle, a diamond
     symbol=["c", "s", "t", "i", "d"],
     fill="gray",
     pen="1p,orange",
