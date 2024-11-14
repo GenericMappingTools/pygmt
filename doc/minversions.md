@@ -32,6 +32,11 @@ In addition to the above, the PyGMT team has also decided to:
   release. Users are encouraged to use the most up-to-date optional dependencies where
   possible.
 
+:::{note}
+The policy is not strictly enforced and occasional breaches of the policy are allowed
+after discussions within the PyGMT team.
+:::
+
 | PyGMT Version | GMT | Python | NumPy | pandas | Xarray |
 |---|---|---|---|---|---|
 | [Dev][]* [<doc:dev>] | {{ requires.gmt }} | {{ requires.python }} | {{ requires.numpy }} | {{ requires.pandas }} | {{ requires.xarray }} |
