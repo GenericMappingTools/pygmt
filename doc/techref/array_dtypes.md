@@ -92,3 +92,6 @@ pa.array(["a", "b", "c"], type=pa.string())
 ```
 
 ## Datetime Dtypes
+
+- pandas: `date32[day][pyarrow]`, `date64[ms][pyarrow]`
+- PyArrow: `pyarrow.date32`, `pyarrow.date64`
