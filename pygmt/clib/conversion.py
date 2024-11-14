@@ -157,14 +157,14 @@ def _to_numpy(data: Any) -> np.ndarray:
         The C contiguous NumPy array.
     """
     # Mapping of unsupported dtypes to expected NumPy dtypes.
-    dtypes: dict[str, type] = {
+    dtypes: dict[str, str | type] = {
         # For string dtypes.
         "large_string": np.str_,  # pa.large_string and pa.large_utf8
         "string": np.str_,  # pa.string and pa.utf8
         "string_view": np.str_,  # pa.string_view
         # For datetime dtypes.
-        "date32[day][pyarrow]": np.datetime64,
-        "date64[ms][pyarrow]": np.datetime64,
+        "date32[day][pyarrow]": "datetime64[D]",
+        "date64[ms][pyarrow]": "datetime64[ms]",
     }
 
     if (
