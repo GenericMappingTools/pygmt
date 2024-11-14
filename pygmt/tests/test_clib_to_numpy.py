@@ -205,7 +205,7 @@ def test_to_numpy_pandas_series_pyarrow_dtypes_date(dtype, expected_dtype):
 #   - int8, int16, int32, int64
 #   - uint8, uint16, uint32, uint64
 #   - float16, float32, float64
-# - String dtypes: string/utf8, large_string/large_utf8, string_view
+# - String types: string/utf8, large_string/large_utf8, string_view
 # - Date types:
 #   - date32[day]
 #   - date64[ms]
