@@ -28,13 +28,14 @@ In addition to the above, the PyGMT team has also decided to:
 
 - Drop support for GMT versions 3 years after their initial release, while ensuring at
   least two latest minor versions remain supported.
-- Maintain support for optional dependencies for at least 1 year after their initial
-  release. Users are encouraged to use the most up-to-date optional dependencies where
-  possible.
+- Maintain support for [optional dependencies](/ecosystem.md#pygmt-dependencies) for at
+  least 1 year after their initial release. Users are encouraged to use the most
+  up-to-date optional dependencies where possible.
 
 :::{note}
-The policy is not strictly enforced and occasional breaches of the policy are allowed
-after discussions within the PyGMT team.
+The SPEC 0 policy is enforced on a best-effort basis, and the PyGMT team may decide to
+drop support for core (and optional) package dependencies earlier than recommended for
+compatibility reasons.
 :::
 
 | PyGMT Version | GMT | Python | NumPy | pandas | Xarray |
