@@ -143,37 +143,3 @@ def test_open_virtual_file():
         bounds = "\t".join([f"<{col.min():.0f}/{col.max():.0f}>" for col in data.T])
         expected = f"<matrix memory>: N = {shape[0]}\t{bounds}\n"
         assert output == expected
-
-
-@pytest.mark.benchmark
-@pytest.mark.parametrize(
-    ("array_func", "dtype"),
-    [
-        pytest.param(np.array, {"dtype": np.str_}, id="str"),
-        pytest.param(np.array, {"dtype": np.object_}, id="object"),
-        pytest.param(
-            getattr(pa, "array", None),
-            {},  # pa.string()
-            marks=skip_if_no(package="pyarrow"),
-            id="pyarrow",
-        ),
-    ],
-)
-def test_virtualfile_from_vectors_one_string_or_object_column(array_func, dtype):
-    """
-    Test passing in one column with string (numpy/pyarrow) or object (numpy)
-    dtype into virtual file dataset.
-    """
-    size = 5
-    x = np.arange(size, dtype=np.int32)
-    y = np.arange(size, size * 2, 1, dtype=np.int32)
-    strings = array_func(["a", "bc", "defg", "hijklmn", "opqrst"], **dtype)
-    with clib.Session() as lib:
-        with lib.virtualfile_from_vectors(x, y, strings) as vfile:
-            with GMTTempFile() as outfile:
-                lib.call_module("convert", [vfile, f"->{outfile.name}"])
-                output = outfile.read(keep_tabs=True)
-        expected = "".join(
-            f"{i}\t{j}\t{k}\n" for i, j, k in zip(x, y, strings, strict=True)
-        )
-        assert output == expected
