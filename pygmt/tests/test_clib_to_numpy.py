@@ -205,6 +205,7 @@ def test_to_numpy_pandas_series_pyarrow_dtypes_date(dtype, expected_dtype):
 #   - int8, int16, int32, int64
 #   - uint8, uint16, uint32, uint64
 #   - float16, float32, float64
+# - String types: string/utf8, large_string/large_utf8, string_view
 # - Date types:
 #   - date32[day]
 #   - date64[ms]
@@ -275,6 +276,28 @@ def test_to_numpy_pyarrow_array_pyarrow_dtypes_numeric_with_na(dtype, expected_d
     array = pa.array(data, type=dtype)[::2]
     result = _to_numpy(array)
     _check_result(result, expected_dtype)
+    npt.assert_array_equal(result, array)
+
+
+@pytest.mark.skipif(not _HAS_PYARROW, reason="pyarrow is not installed")
+@pytest.mark.parametrize(
+    "dtype",
+    [
+        None,
+        "string",
+        "utf8",  # alias for string
+        "large_string",
+        "large_utf8",  # alias for large_string
+        "string_view",
+    ],
+)
+def test_to_numpy_pyarrow_array_pyarrow_dtypes_string(dtype):
+    """
+    Test the _to_numpy function with PyArrow arrays of PyArrow string types.
+    """
+    array = pa.array(["abc", "defg", "12345"], type=dtype)
+    result = _to_numpy(array)
+    _check_result(result, np.str_)
     npt.assert_array_equal(result, array)
 
 
