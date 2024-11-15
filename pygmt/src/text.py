@@ -48,7 +48,7 @@ def text_(  # noqa: PLR0912
     x=None,
     y=None,
     position: AnchorCode | None = None,
-    text: str | StringArrayTypes = None,
+    text: str | StringArrayTypes | None = None,
     angle=None,
     font=None,
     justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
