@@ -15,8 +15,10 @@ from pygmt.helpers.testing import skip_if_no
 
 try:
     import pyarrow as pa
+
+    pa_array = pa.array
 except ImportError:
-    pa = None
+    pa_array = None
 
 
 @pytest.fixture(scope="module", name="dtypes")
@@ -65,8 +67,8 @@ def test_virtualfile_from_vectors(dtypes):
         pytest.param(np.array, {"dtype": np.str_}, id="str"),
         pytest.param(np.array, {"dtype": np.object_}, id="object"),
         pytest.param(
-            getattr(pa, "array", None),
-            {},  # pa.string()
+            pa_array,
+            {},  # {"type": pa.string()}
             marks=skip_if_no(package="pyarrow"),
             id="pyarrow",
         ),

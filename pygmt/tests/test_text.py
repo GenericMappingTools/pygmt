@@ -13,8 +13,10 @@ from pygmt.helpers.testing import skip_if_no
 
 try:
     import pyarrow as pa
+
+    pa_array = pa.array
 except ImportError:
-    pa = None
+    pa_array = None
 
 TEST_DATA_DIR = Path(__file__).parent / "data"
 POINTS_DATA = TEST_DATA_DIR / "points.txt"
@@ -60,11 +62,7 @@ def test_text_single_line_of_text(region, projection):
     [
         list,
         pytest.param(np.array, id="numpy"),
-        pytest.param(
-            getattr(pa, "array", None),
-            marks=skip_if_no(package="pyarrow"),
-            id="pyarrow",
-        ),
+        pytest.param(pa_array, marks=skip_if_no(package="pyarrow"), id="pyarrow"),
     ],
 )
 def test_text_multiple_lines_of_text(region, projection, array_func):
