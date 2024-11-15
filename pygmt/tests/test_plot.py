@@ -446,7 +446,7 @@ def test_plot_datetime():
 
     # numpy.datetime64 types
     x = np.array(
-        ["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype="datetime64"
+        ["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype=np.datetime64
     )
     y = [1.0, 2.0, 3.0]
     fig.plot(x=x, y=y, style="c0.2c", pen="1p")

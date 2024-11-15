@@ -126,23 +126,25 @@ def load_tile_map(
     >>> # CRS is set only if rioxarray is available
     >>> if hasattr(raster, "rio"):
     ...     raster.rio.crs
-    CRS.from_epsg(3857)
+    CRS.from_wkt(...)
     """
     if not _HAS_CONTEXTILY:
-        raise ImportError(
+        msg = (
             "Package `contextily` is required to be installed to use this function. "
             "Please use `python -m pip install contextily` or "
             "`mamba install -c conda-forge contextily` to install the package."
         )
+        raise ImportError(msg)
 
     contextily_kwargs = {}
     if zoom_adjust is not None:
         contextily_kwargs["zoom_adjust"] = zoom_adjust
         if Version(contextily.__version__) < Version("1.5.0"):
-            raise TypeError(
+            msg = (
                 "The `zoom_adjust` parameter requires `contextily>=1.5.0` to work. "
                 "Please upgrade contextily, or manually set the `zoom` level instead."
             )
+            raise TypeError(msg)
 
     west, east, south, north = region
     image, extent = contextily.bounds2img(

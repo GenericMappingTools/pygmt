@@ -17,7 +17,7 @@ except ImportError:
 
 import numpy as np
 from pygmt.clib import Session
-from pygmt.exceptions import GMTError, GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import launch_external_viewer, unique_name
 
 
@@ -135,7 +135,7 @@ class Figure:
             wesn = lib.extract_region()
         return wesn
 
-    def savefig(  # noqa: PLR0912
+    def savefig(
         self,
         fname: str | PurePath,
         transparent: bool = False,
@@ -177,7 +177,8 @@ class Figure:
             The desired figure file name, including the extension. See the list of
             supported formats and their extensions above.
         transparent
-            Use a transparent background for the figure. Only valid for PNG format.
+            Use a transparent background for the figure. Only valid for PNG format and
+            the PNG file asscoiated with KML format.
         crop
             Crop the figure canvas (page) to the plot area.
         anti_alias
@@ -203,9 +204,9 @@ class Figure:
             "bmp": "b",
             "eps": "e",
             "jpg": "j",
-            "kml": "g",
+            "kml": "G" if transparent is True else "g",
             "pdf": "f",
-            "png": "g",
+            "png": "G" if transparent is True else "g",
             "ppm": "m",
             "tif": "t",
             "tiff": None,  # GeoTIFF doesn't need the -T option
@@ -226,14 +227,12 @@ class Figure:
                 msg = "Extension '.ps' is not supported. Use '.eps' or '.pdf' instead."
                 raise GMTInvalidInput(msg)
             case ext if ext not in fmts:
-                raise GMTInvalidInput(f"Unknown extension '.{ext}'.")
-
-        fmt = fmts[ext]
-        if transparent:
-            if fmt != "g":
-                msg = f"Transparency unavailable for '{ext}', only for png."
+                msg = f"Unknown extension '.{ext}'."
                 raise GMTInvalidInput(msg)
-            fmt = fmt.upper()
+
+        if transparent and ext not in {"kml", "png"}:
+            msg = f"Transparency unavailable for '{ext}', only for png and kml."
+            raise GMTInvalidInput(msg)
         if anti_alias:
             kwargs["Qt"] = 2
             kwargs["Qg"] = 2
@@ -244,18 +243,17 @@ class Figure:
                 raise GMTInvalidInput(msg)
             kwargs["W"] = True
 
-        # pytest-mpl v0.17.0 added the "metadata" parameter to Figure.savefig, which
-        # is not recognized. So remove it before calling Figure.psconvert.
+        # pytest-mpl v0.17.0 added the "metadata" parameter to Figure.savefig, which is
+        # not recognized. So remove it before calling Figure.psconvert.
         kwargs.pop("metadata", None)
-        self.psconvert(prefix=prefix, fmt=fmt, crop=crop, **kwargs)
+        self.psconvert(prefix=prefix, fmt=fmts[ext], crop=crop, **kwargs)
 
-        # Remove the .pgw world file if exists.
-        # Not necessary after GMT 6.5.0.
+        # Remove the .pgw world file if exists. Not necessary after GMT 6.5.0.
         # See upstream fix https://github.com/GenericMappingTools/gmt/pull/7865
         if ext == "tiff":
             fname.with_suffix(".pgw").unlink(missing_ok=True)
 
-        # Rename if file extension doesn't match the input file suffix
+        # Rename if file extension doesn't match the input file suffix.
         if ext != suffix[1:]:
             fname.with_suffix("." + ext).rename(fname)
 
@@ -331,11 +329,12 @@ class Figure:
         match method:
             case "notebook":
                 if not _HAS_IPYTHON:
-                    raise GMTError(
+                    msg = (
                         "Notebook display is selected, but IPython is not available. "
                         "Make sure you have IPython installed, "
                         "or run the script in a Jupyter notebook."
                     )
+                    raise ImportError(msg)
                 png = self._preview(
                     fmt="png", dpi=dpi, anti_alias=True, as_bytes=True, **kwargs
                 )
@@ -344,14 +343,15 @@ class Figure:
                 pdf = self._preview(
                     fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False, **kwargs
                 )
-                launch_external_viewer(pdf, waiting=waiting)  # type: ignore[arg-type]
+                launch_external_viewer(pdf, waiting=waiting)
             case "none":
                 pass  # Do nothing
             case _:
-                raise GMTInvalidInput(
-                    f"Invalid display method '{method}'. Valid values are 'external', "
-                    "'notebook', 'none' or None."
+                msg = (
+                    f"Invalid display method '{method}'. "
+                    "Valid values are 'external', 'notebook', 'none' or None."
                 )
+                raise GMTInvalidInput(msg)
 
     def _preview(self, fmt: str, dpi: int, as_bytes: bool = False, **kwargs):
         """
@@ -400,7 +400,7 @@ class Figure:
         html = '<img src="data:image/png;base64,{image}" width="{width}px">'
         return html.format(image=base64_png.decode("utf-8"), width=500)
 
-    from pygmt.src import (  # type: ignore [misc]
+    from pygmt.src import (  # type: ignore[misc]
         basemap,
         coast,
         colorbar,
@@ -453,27 +453,28 @@ def set_display(method: Literal["external", "notebook", "none", None] = None):
     >>> import pygmt
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c/5c", frame=True)
-    >>> fig.show()  # will display a PNG image in the current notebook
+    >>> fig.show()  # Will display a PNG image in the current notebook
     >>>
-    >>> # set the display method to "external"
+    >>> # Set the display method to "external"
     >>> pygmt.set_display(method="external")  # doctest: +SKIP
-    >>> fig.show()  # will display a PDF image using the default PDF viewer
+    >>> fig.show()  # Will display a PDF image using the default PDF viewer
     >>>
-    >>> # set the display method to "none"
+    >>> # Set the display method to "none"
     >>> pygmt.set_display(method="none")
-    >>> fig.show()  # will not show any image
+    >>> fig.show()  # Will not show any image
     >>>
-    >>> # reset to the default display method
+    >>> # Reset to the default display method
     >>> pygmt.set_display(method=None)
-    >>> fig.show()  # again, will show a PNG image in the current notebook
+    >>> fig.show()  # Again, will show a PNG image in the current notebook
     """
     match method:
         case "external" | "notebook" | "none":
-            SHOW_CONFIG["method"] = method  # type: ignore[assignment]
+            SHOW_CONFIG["method"] = method
         case None:
-            SHOW_CONFIG["method"] = _get_default_display_method()  # type: ignore[assignment]
+            SHOW_CONFIG["method"] = _get_default_display_method()
         case _:
-            raise GMTInvalidInput(
-                f"Invalid display method '{method}'. Valid values are 'external',"
-                "'notebook', 'none' or None."
+            msg = (
+                f"Invalid display method '{method}'. "
+                "Valid values are 'external', 'notebook', 'none' or None."
             )
+            raise GMTInvalidInput(msg)

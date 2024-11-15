@@ -11,7 +11,7 @@ from pygmt.clib import required_gmt_version
 from pygmt.sphinx_gallery import PyGMTScraper
 from sphinx_gallery.sorting import ExampleTitleSortKey, ExplicitOrder
 
-# Dictionary for dependency name and minimum required version.
+# Dictionary for dependency name and minimum required versions
 requirements = {
     Requirement(requirement).name: str(Requirement(requirement).specifier)
     for requirement in importlib.metadata.requires("pygmt")
@@ -50,7 +50,8 @@ autosummary_generate = []
 
 # Auto-generate header anchors with MyST parser
 myst_heading_anchors = 4
-# reference: https://myst-parser.readthedocs.io/en/latest/syntax/optional.html
+# MyST extensions
+# Reference: https://myst-parser.readthedocs.io/en/latest/syntax/optional.html
 myst_enable_extensions = [
     "attrs_inline",  # Allow inline attributes after images
     "colon_fence",  # Allow code fences using colons
@@ -61,30 +62,30 @@ myst_substitutions = {
     "requires": requirements,
 }
 
-# MyST-NB configurations.
+# Configure MyST-NB
 # Reference: https://myst-nb.readthedocs.io/en/latest/configuration.html
-nb_render_markdown_format = "myst"  # The format to use for text/markdown rendering
+nb_render_markdown_format = "myst"  # Format for text/markdown rendering
 
-# Make the list of returns arguments and attributes render the same as the
-# parameters list
+# Render the return argument and attribute lists in the same way as the parameter lists
 napoleon_use_rtype = False
 napoleon_use_ivar = True
 
-# sphinx_auto_typehints
+# Configure sphinx_auto_typehints
 typehints_defaults = "comma"
 
-# configure links to GMT docs
+# Define links to GMT docs
 extlinks = {
     "gmt-docs": ("https://docs.generic-mapping-tools.org/6.5/%s", None),
     "gmt-term": ("https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-%s", "%s"),
     "gmt-datasets": ("https://www.generic-mapping-tools.org/remote-datasets/%s", None),
 }
 
-# intersphinx configuration
+# Configure intersphinx
 intersphinx_mapping = {
     "contextily": ("https://contextily.readthedocs.io/en/stable/", None),
     "geopandas": ("https://geopandas.org/en/stable/", None),
     "numpy": ("https://numpy.org/doc/stable/", None),
+    "pyarrow": ("https://arrow.apache.org/docs/", None),
     "python": ("https://docs.python.org/3/", None),
     "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
     "rasterio": ("https://rasterio.readthedocs.io/en/stable/", None),
@@ -93,25 +94,28 @@ intersphinx_mapping = {
     "xyzservices": ("https://xyzservices.readthedocs.io/en/stable", None),
 }
 
-# options for sphinx-copybutton
-# https://sphinx-copybutton.readthedocs.io
+# Configure sphinx-copybutton
+# Reference: https://sphinx-copybutton.readthedocs.io
 copybutton_prompt_text = r">>> |\.\.\. "
 copybutton_prompt_is_regexp = True
 copybutton_only_copy_prompt_lines = True
 copybutton_remove_prompts = True
 
 sphinx_gallery_conf = {
-    # path to your examples scripts
+    # Set paths to your examples scripts
     "examples_dirs": [
-        "../examples/gallery",
+        "../examples/intro",
         "../examples/tutorials",
-        "../examples/get_started",
+        "../examples/gallery",
         "../examples/projections",
     ],
-    # path where to save gallery generated examples
-    "gallery_dirs": ["gallery", "tutorials", "get_started", "projections"],
+    # Set paths where to save the generated examples
+    "gallery_dirs": ["intro", "tutorials", "gallery", "projections"],
     "subsection_order": ExplicitOrder(
         [
+            "../examples/intro",
+            "../examples/tutorials/basics",
+            "../examples/tutorials/advanced",
             "../examples/gallery/maps",
             "../examples/gallery/lines",
             "../examples/gallery/symbols",
@@ -127,53 +131,48 @@ sphinx_gallery_conf = {
             "../examples/projections/misc",
             "../examples/projections/nongeo",
             "../examples/projections/table",
-            "../examples/tutorials/basics",
-            "../examples/tutorials/advanced",
-            "../examples/get_started",
         ]
     ),
     # Pattern to search for example files
     "filename_pattern": r"\.py",
     # Remove the "Download all examples" button from the top level gallery
     "download_all_examples": False,
-    # Sort gallery example by file name instead of number of lines (default)
+    # Sort gallery examples by the file names instead of number of lines [Default]
     "within_subsection_order": ExampleTitleSortKey,
-    # directory where function granular galleries are stored
+    # Directory where function granular galleries are stored
     "backreferences_dir": "api/generated/backreferences",
-    # Modules for which function level galleries are created.  In
-    # this case sphinx_gallery and numpy in a tuple of strings.
-    "doc_module": "pygmt",
+    # Modules for which function level galleries are created (given as tuple of strings)
+    "doc_module": ("pygmt",),
     # Insert links to documentation of objects in the examples
     "reference_url": {"pygmt": None},
     "image_scrapers": (PyGMTScraper(),),
-    # Removes configuration comments from scripts
+    # Remove configuration comments from scripts
     "remove_config_comments": True,
-    # Disable "nested_sections" (default is True), to
-    # generate only a single index file for the whole gallery.
-    # This is a new feature up on Sphinx-Gallery 0.11.0.
+    # Disable "nested_sections" [Default is True], to generate only a single index file
+    # for the whole gallery. This is a new feature up on Sphinx-Gallery 0.11.0.
     "nested_sections": False,
 }
 
-# Sphinx project configuration
+# Configure Sphinx project
 templates_path = ["_templates"]
 exclude_patterns = [
     "_build",
     "**.ipynb_checkpoints",
     # Workaround from https://github.com/executablebooks/MyST-NB/issues/363 to prevent
-    # myst-nb from parsing the .ipynb and .py files generated by sphinx-gallery.
-    "gallery/**.ipynb",
+    # MyST-NB from parsing the .ipynb and .py files generated by Sphinx-Gallery.
+    "intro/**.ipynb",
     "tutorials/**.ipynb",
-    "get_started/**.ipynb",
+    "gallery/**.ipynb",
     "projections/**.ipynb",
-    "gallery/**.py",
+    "intro/**.py",
     "tutorials/**.py",
-    "get_started/**.py",
+    "gallery/**.py",
     "projections/**.py",
 ]
 
 source_suffix = ".rst"
 needs_sphinx = "1.8"
-# The encoding of source files.
+# Encoding of source files
 source_encoding = "utf-8-sig"
 root_doc = "index"
 
@@ -183,11 +182,11 @@ project = "PyGMT"
 copyright = f"2017-{year}, The PyGMT Developers"  # noqa: A001
 if len(__version__.split("+")) > 1 or __version__ == "unknown":
     version = "dev"
-    # Set base_url for stable version
+    # Set base URL for dev version
     html_baseurl = "https://pygmt.org/dev/"
 else:
     version = __version__
-    # Set base_url for dev version
+    # Set base URL for stable version
     html_baseurl = "https://pygmt.org/latest/"
 release = __version__
 
@@ -205,7 +204,7 @@ html_show_sourcelink = False
 html_show_sphinx = False
 html_show_copyright = True
 
-# Theme config
+# Configure theme
 html_theme = "sphinx_rtd_theme"
 html_theme_options = {}
 repository = "GenericMappingTools/pygmt"
@@ -237,8 +236,7 @@ html_context = {
             repository_url,
         ),
     ],
-    # Custom variables to enable "Improve this page"" and "Download notebook"
-    # links
+    # Custom variables to enable "Improve this page"" and "Download notebook" links
     "doc_path": "doc",
     "galleries": sphinx_gallery_conf["gallery_dirs"],
     "gallery_dir": dict(

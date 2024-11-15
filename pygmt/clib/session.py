@@ -87,10 +87,12 @@ DTYPES_NUMERIC = {
     np.int16: "GMT_SHORT",
     np.int32: "GMT_INT",
     np.int64: "GMT_LONG",
+    np.longlong: "GMT_LONG",
     np.uint8: "GMT_UCHAR",
     np.uint16: "GMT_USHORT",
     np.uint32: "GMT_UINT",
     np.uint64: "GMT_ULONG",
+    np.ulonglong: "GMT_ULONG",
     np.float32: "GMT_FLOAT",
     np.float64: "GMT_DOUBLE",
     np.timedelta64: "GMT_LONG",
@@ -909,12 +911,12 @@ class Session:
         Examples
         --------
         >>> import numpy as np
-        >>> data = np.array([1, 2, 3], dtype="float64")
+        >>> data = np.array([1, 2, 3], dtype=np.float64)
         >>> with Session() as lib:
         ...     gmttype = lib._check_dtype_and_dim(data, ndim=1)
         ...     gmttype == lib["GMT_DOUBLE"]
         True
-        >>> data = np.ones((5, 2), dtype="float32")
+        >>> data = np.ones((5, 2), dtype=np.float32)
         >>> with Session() as lib:
         ...     gmttype = lib._check_dtype_and_dim(data, ndim=2)
         ...     gmttype == lib["GMT_FLOAT"]
@@ -942,8 +944,9 @@ class Session:
         The dataset must be created by :meth:`pygmt.clib.Session.create_data` first with
         ``family="GMT_IS_DATASET|GMT_VIA_VECTOR"``.
 
-        Not all numpy dtypes are supported, only: int8, int16, int32, int64, uint8,
-        uint16, uint32, uint64, float32, float64, str\_, and datetime64.
+        Not all numpy dtypes are supported, only: int8, int16, int32, int64, longlong,
+        uint8, uint16, uint32, uint64, ulonglong, float32, float64, str\_, datetime64,
+        and timedelta64.
 
         .. warning::
             The numpy array must be C contiguous in memory. Use
@@ -1054,8 +1057,8 @@ class Session:
         The dataset must be created by :meth:`pygmt.clib.Session.create_data` first with
         ``family="GMT_IS_DATASET|GMT_VIA_MATRIX"``.
 
-        Not all numpy dtypes are supported, only: int8, int16, int32, int64, uint8,
-        uint16, uint32, uint64, float32, and float64.
+        Not all numpy dtypes are supported, only: int8, int16, int32, int64, longlong,
+        uint8, uint16, uint32, uint64, ulonglong, float32, and float64.
 
         .. warning::
             The numpy array must be C contiguous in memory. Use
@@ -1466,7 +1469,7 @@ class Session:
         # 2 columns contains coordinates like longitude, latitude, or datetime string
         # types.
         for col, array in enumerate(arrays[2:]):
-            if array.dtype.type == np.str_:
+            if np.issubdtype(array.dtype, np.str_):
                 columns = col + 2
                 break
 
@@ -1497,9 +1500,9 @@ class Session:
                 strings = string_arrays[0]
             elif len(string_arrays) > 1:
                 strings = np.array(
-                    [" ".join(vals) for vals in zip(*string_arrays, strict=True)]
+                    [" ".join(vals) for vals in zip(*string_arrays, strict=True)],
+                    dtype=np.str_,
                 )
-            strings = np.asanyarray(a=strings, dtype=str)
             self.put_strings(
                 dataset, family="GMT_IS_VECTOR|GMT_IS_DUPLICATE", strings=strings
             )

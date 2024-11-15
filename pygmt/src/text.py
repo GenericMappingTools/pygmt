@@ -5,7 +5,7 @@ text - Plot text on a figure.
 from collections.abc import Sequence
 
 import numpy as np
-from pygmt._typing import AnchorCode
+from pygmt._typing import AnchorCode, StringArrayTypes
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -48,7 +48,7 @@ def text_(  # noqa: PLR0912
     x=None,
     y=None,
     position: AnchorCode | None = None,
-    text=None,
+    text: str | StringArrayTypes | None = None,
     angle=None,
     font=None,
     justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
@@ -104,7 +104,7 @@ def text_(  # noqa: PLR0912
 
         For example, ``position="TL"`` plots the text at the Top Left corner
         of the map.
-    text : str or 1-D array
+    text
         The text string, or an array of strings to plot on the figure.
     angle: float, str, bool or list
         Set the angle measured in degrees counter-clockwise from
@@ -228,7 +228,7 @@ def text_(  # noqa: PLR0912
                 if name == "angle":
                     extra_arrays.append(arg)
                 else:
-                    extra_arrays.append(np.asarray(arg, dtype=str))
+                    extra_arrays.append(np.asarray(arg, dtype=np.str_))
 
         # If an array of transparency is given, GMT will read it from the last numerical
         # column per data record.
@@ -237,7 +237,7 @@ def text_(  # noqa: PLR0912
             kwargs["t"] = True
 
         # Append text to the last column. Text must be passed in as str type.
-        text = np.asarray(text, dtype=str)
+        text = np.asarray(text, dtype=np.str_)
         encoding = _check_encoding("".join(text.flatten()))
         if encoding != "ascii":
             text = np.vectorize(non_ascii_to_octal, excluded="encoding")(
