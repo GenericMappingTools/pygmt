@@ -11,6 +11,12 @@ from pygmt import clib
 from pygmt.clib.session import DTYPES_NUMERIC
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
+from pygmt.helpers.testing import skip_if_no
+
+try:
+    import pyarrow as pa
+except ImportError:
+    pa = None
 
 
 @pytest.fixture(scope="module", name="dtypes")

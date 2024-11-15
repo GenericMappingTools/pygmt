@@ -10,13 +10,7 @@ from pygmt import clib
 from pygmt.clib.session import DTYPES_NUMERIC
 from pygmt.exceptions import GMTCLibError, GMTInvalidInput
 from pygmt.helpers import GMTTempFile
-from pygmt.helpers.testing import skip_if_no
 from pygmt.tests.test_clib import mock
-
-try:
-    import pyarrow as pa
-except ImportError:
-    pa = None
 
 POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
 
