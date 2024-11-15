@@ -2,6 +2,7 @@
 Functions to convert data types into ctypes friendly formats.
 """
 
+import contextlib
 import ctypes as ctp
 import warnings
 from collections.abc import Sequence
@@ -156,14 +157,19 @@ def _to_numpy(data: Any) -> np.ndarray:
     array
         The C contiguous NumPy array.
     """
-    # Mapping of unsupported dtypes to the expected NumPy dtype.
-    dtypes: dict[str, type] = {
-        "date32[day][pyarrow]": np.datetime64,
-        "date64[ms][pyarrow]": np.datetime64,
+    # Mapping of unsupported dtypes to expected NumPy dtypes.
+    dtypes: dict[str, type | str] = {
+        # For string dtypes.
+        "large_string": np.str_,  # pa.large_string and pa.large_utf8
+        "string": np.str_,  # pa.string, pa.utf8, pd.StringDtype
+        "string_view": np.str_,  # pa.string_view
+        # For datetime dtypes.
+        "date32[day][pyarrow]": "datetime64[D]",
+        "date64[ms][pyarrow]": "datetime64[ms]",
     }
 
     # The expected numpy dtype for the result numpy array, but can be None.
-    dtype = dtypes.get(str(getattr(data, "dtype", None)))
+    dtype = dtypes.get(str(getattr(data, "dtype", getattr(data, "type", None))))
 
     # Workarounds for pandas < 2.2. Following SPEC 0, pandas 2.1 should be dropped in
     # 2025 Q3, so it's likely we can remove the workaround in PyGMT v0.17.0.
@@ -184,6 +190,12 @@ def _to_numpy(data: Any) -> np.ndarray:
             data = data.to_numpy(na_value=np.nan)
 
     array = np.ascontiguousarray(data, dtype=dtype)
+
+    # Check if a np.object_ array can be converted to np.str_.
+    if array.dtype == np.object_:
+        with contextlib.suppress(TypeError, ValueError):
+            return np.ascontiguousarray(array, dtype=np.str_)
+
     return array
 
 
@@ -284,12 +296,13 @@ def sequence_to_ctypes_array(
 
 def strings_to_ctypes_array(strings: Sequence[str] | np.ndarray) -> ctp.Array:
     """
-    Convert a sequence (e.g., a list) of strings into a ctypes array.
+    Convert a sequence (e.g., a list) of strings or numpy.ndarray of strings into a
+    ctypes array.
 
     Parameters
     ----------
     strings
-        A sequence of strings.
+        A sequence of strings, or a numpy.ndarray of str dtype.
 
     Returns
     -------
