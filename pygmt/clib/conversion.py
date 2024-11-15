@@ -286,12 +286,13 @@ def sequence_to_ctypes_array(
 
 def strings_to_ctypes_array(strings: Sequence[str] | np.ndarray) -> ctp.Array:
     """
-    Convert a sequence (e.g., a list) of strings into a ctypes array.
+    Convert a sequence (e.g., a list) of strings or numpy.ndarray of strings into a
+    ctypes array.
 
     Parameters
     ----------
     strings
-        A sequence of strings.
+        A sequence of strings, or a numpy.ndarray of str dtype.
 
     Returns
     -------
