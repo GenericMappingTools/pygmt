@@ -128,7 +128,7 @@ def test_to_numpy_numpy_numeric(dtype, expected_dtype):
 
 
 @pytest.mark.parametrize("dtype", [None, np.str_, "U10"])
-def test_to_numpy_ndarray_numpy_dtypes_string(dtype):
+def test_to_numpy_numpy_string(dtype):
     """
     Test the _to_numpy function with NumPy arrays of string types.
     """
@@ -273,7 +273,7 @@ def test_to_numpy_pandas_numeric_with_na(dtype, expected_dtype):
         pytest.param("string[pyarrow_numpy]", marks=skip_if_no(package="pyarrow")),
     ],
 )
-def test_to_numpy_pandas_series_pandas_dtypes_string(dtype):
+def test_to_numpy_pandas_string(dtype):
     """
     Test the _to_numpy function with pandas.Series of pandas string types.
 
@@ -295,7 +295,7 @@ def test_to_numpy_pandas_series_pandas_dtypes_string(dtype):
         pytest.param("date64[ms][pyarrow]", "datetime64[ms]", id="date64[ms]"),
     ],
 )
-def test_to_numpy_pandas_series_pyarrow_dtypes_date(dtype, expected_dtype):
+def test_to_numpy_pandas_date(dtype, expected_dtype):
     """
     Test the _to_numpy function with pandas.Series of PyArrow date32/date64 types.
     """
@@ -404,7 +404,7 @@ def test_to_numpy_pyarrow_numeric_with_na(dtype, expected_dtype):
         "string_view",
     ],
 )
-def test_to_numpy_pyarrow_array_pyarrow_dtypes_string(dtype):
+def test_to_numpy_pyarrow_string(dtype):
     """
     Test the _to_numpy function with PyArrow arrays of PyArrow string types.
     """
@@ -422,7 +422,7 @@ def test_to_numpy_pyarrow_array_pyarrow_dtypes_string(dtype):
         pytest.param("date64[ms]", "datetime64[ms]", id="date64[ms]"),
     ],
 )
-def test_to_numpy_pyarrow_array_pyarrow_dtypes_date(dtype, expected_dtype):
+def test_to_numpy_pyarrow_date(dtype, expected_dtype):
     """
     Test the _to_numpy function with PyArrow arrays of PyArrow date types.
 
