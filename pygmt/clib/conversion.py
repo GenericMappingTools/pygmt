@@ -2,6 +2,7 @@
 Functions to convert data types into ctypes friendly formats.
 """
 
+import contextlib
 import ctypes as ctp
 import warnings
 from collections.abc import Sequence
@@ -160,7 +161,7 @@ def _to_numpy(data: Any) -> np.ndarray:
     dtypes: dict[str, type | str] = {
         # For string dtypes.
         "large_string": np.str_,  # pa.large_string and pa.large_utf8
-        "string": np.str_,  # pa.string and pa.utf8
+        "string": np.str_,  # pa.string, pa.utf8, pd.StringDtype
         "string_view": np.str_,  # pa.string_view
         # For datetime dtypes.
         "date32[day][pyarrow]": "datetime64[D]",
@@ -180,6 +181,11 @@ def _to_numpy(data: Any) -> np.ndarray:
     else:
         vec_dtype = str(getattr(data, "dtype", getattr(data, "type", "")))
         array = np.ascontiguousarray(data, dtype=dtypes.get(vec_dtype))
+
+    # Check if a np.object_ array can be converted to np.str_.
+    if array.dtype == np.object_:
+        with contextlib.suppress(TypeError, ValueError):
+            return np.ascontiguousarray(array, dtype=np.str_)
     return array
 
 
