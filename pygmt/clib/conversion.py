@@ -169,7 +169,7 @@ def _to_numpy(data: Any) -> np.ndarray:
     }
 
     # The expected numpy dtype for the result numpy array, but can be None.
-    dtype = dtypes.get(str(getattr(data, "dtype", getattr(data, "type", None))))
+    dtype = dtypes.get(str(getattr(data, "dtype", getattr(data, "type", ""))))
 
     # pandas numeric dtypes were converted to np.object_ dtype prior pandas 2.2, and are
     # converted to suitable NumPy dtypes since pandas 2.2. Refer to the following link
