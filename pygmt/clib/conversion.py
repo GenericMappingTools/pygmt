@@ -11,7 +11,6 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 from packaging.version import Version
-from pygmt._typing import StringArrayTypes
 from pygmt.exceptions import GMTInvalidInput
 
 
@@ -279,15 +278,15 @@ def sequence_to_ctypes_array(
     return (ctype * size)(*sequence)
 
 
-def strings_to_ctypes_array(strings: StringArrayTypes) -> ctp.Array:
+def strings_to_ctypes_array(strings: Sequence[str] | np.ndarray) -> ctp.Array:
     """
-    Convert a sequence (e.g., a list) or numpy.ndarray of strings or a
-    pyarrow.StringArray into a ctypes array.
+    Convert a sequence (e.g., a list) of strings or numpy.ndarray of strings into a
+    ctypes array.
 
     Parameters
     ----------
     strings
-        A sequence of strings, a numpy.ndarray of str dtype, or a pyarrow.StringArray.
+        A sequence of strings, or a numpy.ndarray of str dtype.
 
     Returns
     -------
@@ -303,7 +302,7 @@ def strings_to_ctypes_array(strings: StringArrayTypes) -> ctp.Array:
     >>> [s.decode() for s in ctypes_array]
     ['first', 'second', 'third']
     """
-    return (ctp.c_char_p * len(strings))(*[s.encode() for s in np.asarray(strings)])
+    return (ctp.c_char_p * len(strings))(*[s.encode() for s in strings])
 
 
 def array_to_datetime(array: Sequence[Any] | np.ndarray) -> np.ndarray:

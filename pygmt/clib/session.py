@@ -16,7 +16,6 @@ from typing import Literal
 import numpy as np
 import pandas as pd
 import xarray as xr
-from pygmt._typing import StringArrayTypes
 from pygmt.clib.conversion import (
     array_to_datetime,
     dataarray_to_matrix,
@@ -1000,40 +999,39 @@ class Session:
             )
             raise GMTCLibError(msg)
 
-    def put_strings(
-        self, dataset: ctp.c_void_p, family: str, strings: StringArrayTypes
-    ):
+    def put_strings(self, dataset: ctp.c_void_p, family: str, strings: np.ndarray):
         """
-        Attach a 1-D numpy array of dtype str or pyarrow.StringArray as a column on a
-        GMT dataset.
+        Attach a numpy 1-D array of dtype str as a column on a GMT dataset.
 
-        Use this function to attach string type numpy array data to a GMT dataset and
-        pass it to GMT modules. Wraps ``GMT_Put_Strings``.
+        Use this function to attach string type numpy array data to a GMT
+        dataset and pass it to GMT modules. Wraps ``GMT_Put_Strings``.
 
-        The dataset must be created by :meth:`pygmt.clib.Session.create_data` first.
+        The dataset must be created by :meth:`pygmt.clib.Session.create_data`
+        first.
 
         .. warning::
-            The numpy array must be C contiguous in memory. If it comes from a column
-            slice of a 2-D array, for example, you will have to make a copy. Use
-            :func:`numpy.ascontiguousarray` to make sure your vector is contiguous (it
-            won't copy if it already is).
+            The numpy array must be C contiguous in memory. If it comes from a
+            column slice of a 2-D array, for example, you will have to make a
+            copy. Use :func:`numpy.ascontiguousarray` to make sure your vector
+            is contiguous (it won't copy if it already is).
 
         Parameters
         ----------
-        dataset
-            The ctypes void pointer to a ``GMT_VECTOR``/``GMT_MATRIX`` data container.
-            Create it with :meth:`pygmt.clib.Session.create_data`.
-        family
+        dataset : :class:`ctypes.c_void_p`
+            The ctypes void pointer to a ``GMT_Dataset``. Create it with
+            :meth:`pygmt.clib.Session.create_data`.
+        family : str
             The family type of the dataset. Can be either ``GMT_IS_VECTOR`` or
             ``GMT_IS_MATRIX``.
-        strings
-            The array that will be attached to the dataset. Must be a 1-D C contiguous
-            array.
+        strings : numpy 1-D array
+            The array that will be attached to the dataset. Must be a 1-D C
+            contiguous array.
 
         Raises
         ------
         GMTCLibError
-            If given invalid input or ``GMT_Put_Strings`` exits with a non-zero status.
+            If given invalid input or ``GMT_Put_Strings`` exits with
+            status != 0.
         """
         c_put_strings = self.get_libgmt_func(
             "GMT_Put_Strings",
