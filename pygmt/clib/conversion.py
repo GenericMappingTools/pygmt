@@ -171,21 +171,22 @@ def _to_numpy(data: Any) -> np.ndarray:
     # The expected numpy dtype for the result numpy array, but can be None.
     dtype = dtypes.get(str(getattr(data, "dtype", getattr(data, "type", None))))
 
-    # Workarounds for pandas < 2.2. Following SPEC 0, pandas 2.1 should be dropped in
-    # 2025 Q3, so it's likely we can remove the workaround in PyGMT v0.17.0.
-    #
     # pandas numeric dtypes were converted to np.object_ dtype prior pandas 2.2, and are
     # converted to suitable NumPy dtypes since pandas 2.2. Refer to the following link
     # for details: https://pandas.pydata.org/docs/whatsnew/v2.2.0.html#to-numpy-for-numpy-nullable-and-arrow-types-converts-to-suitable-numpy-dtype
+    #
+    # Workarounds for pandas < 2.2. Following SPEC 0, pandas 2.1 should be dropped in
+    # 2025 Q3, so it's likely we can remove the workaround in PyGMT v0.17.0.
     if (
-        Version(pd.__version__) < Version("2.2")
-        and hasattr(data, "dtype")
-        and hasattr(data.dtype, "numpy_dtype")
-    ):  # pandas.Series/pandas.Index with pandas nullable dtypes.
-        dtype = data.dtype.numpy_dtype
-        if data.hasnans:
-            if data.dtype.kind in "iu":
-                # Integers with missing values are converted to float64
+        Version(pd.__version__) < Version("2.2")  # pandas < 2.2 only.
+        and hasattr(data, "dtype")  # NumPy array or pandas objects only.
+        and hasattr(data.dtype, "numpy_dtype")  # pandas dtypes only.
+        and data.dtype.kind in "iuf"  # Numeric dtypes only.
+    ):  # pandas Series/Index with pandas nullable numeric dtypes.
+        dtype = data.dtype.numpy_dtype  # The expected numpy dtype.
+        if getattr(data, "hasnans", False):
+            if dtype.kind in "iu":
+                # Integers with missing values are converted to float64.
                 dtype = np.float64
             data = data.to_numpy(na_value=np.nan)
 
