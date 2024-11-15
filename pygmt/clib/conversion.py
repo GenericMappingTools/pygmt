@@ -185,7 +185,7 @@ def _to_numpy(data: Any) -> np.ndarray:
     ):  # pandas Series/Index with pandas nullable numeric dtypes.
         dtype = data.dtype.numpy_dtype  # The expected numpy dtype.
         if getattr(data, "hasnans", False):
-            if dtype.kind in "iu":
+            if data.dtype.kind in "iu":
                 # Integers with missing values are converted to float64.
                 dtype = np.float64
             data = data.to_numpy(na_value=np.nan)
