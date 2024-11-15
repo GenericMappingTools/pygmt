@@ -173,5 +173,4 @@ minversion = "6.0"
 addopts = "--verbose --color=yes --durations=0 --durations-min=0.2 --doctest-modules --mpl --mpl-results-path=results"
 markers = [
     "benchmark: mark a test with custom benchmark settings.",
-    "mpl_image_compare: Compares matplotlib figures against a baseline image",
 ]
