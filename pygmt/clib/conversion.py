@@ -157,11 +157,13 @@ def _to_numpy(data: Any) -> np.ndarray:
     array
         The C contiguous NumPy array.
     """
-    # Mapping of unsupported dtypes to the expected NumPy dtype.
-    dtypes: dict[str, str | type] = {
-        # For pandas string dtype, "string[python]", "string[pyarrow]" and
-        # "string[pyarrow_numpy]".
-        "string": np.str_,
+    # Mapping of unsupported dtypes to expected NumPy dtypes.
+    dtypes: dict[str, type | str] = {
+        # For string dtypes.
+        "large_string": np.str_,  # pa.large_string and pa.large_utf8
+        "string": np.str_,  # pa.string, pa.utf8, pd.StringDtype
+        "string_view": np.str_,  # pa.string_view
+        # For datetime dtypes.
         "date32[day][pyarrow]": "datetime64[D]",
         "date64[ms][pyarrow]": "datetime64[ms]",
     }
@@ -177,7 +179,7 @@ def _to_numpy(data: Any) -> np.ndarray:
         # we can remove the workaround in PyGMT v0.17.0.
         array = np.ascontiguousarray(data.astype(float))
     else:
-        vec_dtype = str(getattr(data, "dtype", ""))
+        vec_dtype = str(getattr(data, "dtype", getattr(data, "type", "")))
         array = np.ascontiguousarray(data, dtype=dtypes.get(vec_dtype))
 
     # Check if a np.object_ array can be converted to np.str_.
