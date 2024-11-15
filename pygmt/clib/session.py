@@ -1001,31 +1001,30 @@ class Session:
 
     def put_strings(self, dataset: ctp.c_void_p, family: str, strings: np.ndarray):
         """
-        Attach a numpy 1-D array of dtype str as a column on a GMT dataset.
+        Attach a 1-D numpy array of dtype str as a column on a GMT dataset.
 
-        Use this function to attach string type numpy array data to a GMT
-        dataset and pass it to GMT modules. Wraps ``GMT_Put_Strings``.
+        Use this function to attach string type numpy array data to a GMT dataset and
+        pass it to GMT modules. Wraps ``GMT_Put_Strings``.
 
-        The dataset must be created by :meth:`pygmt.clib.Session.create_data`
-        first.
+        The dataset must be created by :meth:`pygmt.clib.Session.create_data` first.
 
         .. warning::
-            The numpy array must be C contiguous in memory. If it comes from a
-            column slice of a 2-D array, for example, you will have to make a
-            copy. Use :func:`numpy.ascontiguousarray` to make sure your vector
-            is contiguous (it won't copy if it already is).
+            The numpy array must be C contiguous in memory. If it comes from a column
+            slice of a 2-D array, for example, you will have to make a copy. Use
+            :func:`numpy.ascontiguousarray` to make sure your vector is contiguous (it
+            won't copy if it already is).
 
         Parameters
         ----------
-        dataset : :class:`ctypes.c_void_p`
-            The ctypes void pointer to a ``GMT_Dataset``. Create it with
-            :meth:`pygmt.clib.Session.create_data`.
-        family : str
+        dataset
+            The ctypes void pointer to a ``GMT_VECTOR``/``GMT_MATRIX`` data container.
+            Create it with :meth:`pygmt.clib.Session.create_data`.
+        family
             The family type of the dataset. Can be either ``GMT_IS_VECTOR`` or
             ``GMT_IS_MATRIX``.
-        strings : numpy 1-D array
-            The array that will be attached to the dataset. Must be a 1-D C
-            contiguous array.
+        strings
+            The array that will be attached to the dataset. Must be a 1-D C contiguous
+            array.
 
         Raises
         ------
