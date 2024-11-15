@@ -157,7 +157,7 @@ def _to_numpy(data: Any) -> np.ndarray:
         The C contiguous NumPy array.
     """
     # Mapping of unsupported dtypes to expected NumPy dtypes.
-    dtypes: dict[str, str | type] = {
+    dtypes: dict[str, type | str] = {
         # For string dtypes.
         "large_string": np.str_,  # pa.large_string and pa.large_utf8
         "string": np.str_,  # pa.string and pa.utf8
