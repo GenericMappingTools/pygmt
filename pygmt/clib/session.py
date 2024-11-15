@@ -1029,8 +1029,7 @@ class Session:
         Raises
         ------
         GMTCLibError
-            If given invalid input or ``GMT_Put_Strings`` exits with
-            status != 0.
+            If given invalid input or ``GMT_Put_Strings`` exits with a non-zero status.
         """
         c_put_strings = self.get_libgmt_func(
             "GMT_Put_Strings",
@@ -1051,8 +1050,7 @@ class Session:
             self.session_pointer, family_int, dataset, strings_pointer
         )
         if status != 0:
-            dtype = strings.dtype if hasattr(strings, "dtype") else type(strings)
-            msg = f"Failed to put strings of type {dtype} into dataset."
+            msg = f"Failed to put strings of type {strings.dtype} into dataset."
             raise GMTCLibError(msg)
 
     def put_matrix(self, dataset: ctp.c_void_p, matrix: np.ndarray, pad: int = 0):
