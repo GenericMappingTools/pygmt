@@ -18,6 +18,27 @@ import xarray as xr
 from pygmt.encodings import charset
 from pygmt.exceptions import GMTInvalidInput
 
+# Type hints for the list of encodings supported by PyGMT.
+Encoding = Literal[
+    "ascii",
+    "ISOLatin1+",
+    "ISO-8859-1",
+    "ISO-8859-2",
+    "ISO-8859-3",
+    "ISO-8859-4",
+    "ISO-8859-5",
+    "ISO-8859-6",
+    "ISO-8859-7",
+    "ISO-8859-8",
+    "ISO-8859-9",
+    "ISO-8859-10",
+    "ISO-8859-11",
+    "ISO-8859-13",
+    "ISO-8859-14",
+    "ISO-8859-15",
+    "ISO-8859-16",
+]
+
 
 def _validate_data_input(
     data=None, x=None, y=None, z=None, required_z=False, required_data=True, kind=None
@@ -123,27 +144,7 @@ def _validate_data_input(
                     raise GMTInvalidInput(msg)
 
 
-def _check_encoding(
-    argstr: str,
-) -> Literal[
-    "ascii",
-    "ISOLatin1+",
-    "ISO-8859-1",
-    "ISO-8859-2",
-    "ISO-8859-3",
-    "ISO-8859-4",
-    "ISO-8859-5",
-    "ISO-8859-6",
-    "ISO-8859-7",
-    "ISO-8859-8",
-    "ISO-8859-9",
-    "ISO-8859-10",
-    "ISO-8859-11",
-    "ISO-8859-13",
-    "ISO-8859-14",
-    "ISO-8859-15",
-    "ISO-8859-16",
-]:
+def _check_encoding(argstr: str) -> Encoding:
     """
     Check the charset encoding of a string.
 
@@ -185,9 +186,7 @@ def _check_encoding(
     adobe_chars = set(charset["Symbol"].values()) | set(
         charset["ZapfDingbats"].values()
     )
-    for encoding in ["ISOLatin1+"] + [f"ISO-8859-{i}" for i in range(1, 17)]:
-        if encoding == "ISO-8859-12":  # ISO-8859-12 was abandoned. Skip it.
-            continue
+    for encoding in ["ISOLatin1+"] + [f"ISO-8859-{i}" for i in range(1, 17) if i != 12]:
         if all(c in (set(charset[encoding].values()) | adobe_chars) for c in argstr):
             return encoding  # type: ignore[return-value]
     # Return the "ISOLatin1+" encoding if the string contains characters from multiple
@@ -340,34 +339,13 @@ def data_kind(
     return kind  # type: ignore[return-value]
 
 
-def non_ascii_to_octal(
-    argstr: str,
-    encoding: Literal[
-        "ascii",
-        "ISOLatin1+",
-        "ISO-8859-1",
-        "ISO-8859-2",
-        "ISO-8859-3",
-        "ISO-8859-4",
-        "ISO-8859-5",
-        "ISO-8859-6",
-        "ISO-8859-7",
-        "ISO-8859-8",
-        "ISO-8859-9",
-        "ISO-8859-10",
-        "ISO-8859-11",
-        "ISO-8859-13",
-        "ISO-8859-14",
-        "ISO-8859-15",
-        "ISO-8859-16",
-    ] = "ISOLatin1+",
-) -> str:
+def non_ascii_to_octal(argstr: str, encoding: Encoding = "ISOLatin1+") -> str:
     r"""
     Translate non-ASCII characters to their corresponding octal codes.
 
     Currently, only non-ASCII characters in the Adobe ISOLatin1+, Adobe Symbol, Adobe
     ZapfDingbats, and ISO-8850-x (x can be in 1-11, 13-17) encodings are supported.
-    The Adobe Standard encoding is not supported yet.
+    The Adobe Standard+ encoding is not supported.
 
     Parameters
     ----------
