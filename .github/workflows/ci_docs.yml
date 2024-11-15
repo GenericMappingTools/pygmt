@@ -80,7 +80,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v2.0.0
+        uses: mamba-org/setup-micromamba@v2.0.1
         with:
           environment-name: pygmt
           condarc: |
@@ -115,7 +115,7 @@ jobs:
             sphinx-copybutton
             sphinx-design
             sphinx-gallery
-            sphinx_rtd_theme
+            sphinx_rtd_theme<3.0
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub

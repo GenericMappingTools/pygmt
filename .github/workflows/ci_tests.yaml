@@ -85,9 +85,9 @@ jobs:
           - os: 'ubuntu-latest'
             python-version: '3.11'  # Can't be 3.10 or 3.12.
             numpy-version: '1.24'
-            pandas-version: ''
+            pandas-version: '=2.1'
             xarray-version: ''
-            optional-packages: ' geopandas<1'
+            optional-packages: ' geopandas<1 pyarrow'
 
     timeout-minutes: 30
     defaults:
@@ -114,7 +114,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v2.0.0
+        uses: mamba-org/setup-micromamba@v2.0.1
         with:
           environment-name: pygmt
           condarc: |
