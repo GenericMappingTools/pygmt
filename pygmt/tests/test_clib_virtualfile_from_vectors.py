@@ -76,7 +76,7 @@ def test_virtualfile_from_vectors_one_string_or_object_column(array_func, dtype)
     y = np.arange(size, size * 2, 1, dtype=np.int32)
     strings = array_func(["a", "bc", "defg", "hijklmn", "opqrst"], **dtype)
     with clib.Session() as lib:
-        with lib.virtualfile_from_vectors(x, y, strings) as vfile:
+        with lib.virtualfile_from_vectors(vectors=(x, y, strings)) as vfile:
             with GMTTempFile() as outfile:
                 lib.call_module("convert", [vfile, f"->{outfile.name}"])
                 output = outfile.read(keep_tabs=True)
