@@ -17,10 +17,20 @@ try:
     import pyarrow as pa
 
     _HAS_PYARROW = True
-    pa_timestamp = pa.timestamp
 except ImportError:
+
+    class pa:  # noqa: N801
+        """
+        A dummy class to mimic pyarrow.
+        """
+
+        @staticmethod
+        def timestamp(*args, **kwargs):
+            """
+            A dummy function to mimic pyarrow.timestamp.
+            """
+
     _HAS_PYARROW = False
-    pa_timestamp = None
 
 
 def _check_result(result, expected_dtype):
@@ -372,15 +382,15 @@ def test_to_numpy_pyarrow_array_pyarrow_dtypes_date(dtype, expected_dtype):
         pytest.param("timestamp[us]", "datetime64[us]", id="timestamp[us]"),
         pytest.param("timestamp[ns]", "datetime64[ns]", id="timestamp[ns]"),
         pytest.param(
-            pa_timestamp("s", tz="UTC"), "datetime64[s]", id="timestamp[s, tz=UTC]"
+            pa.timestamp("s", tz="UTC"), "datetime64[s]", id="timestamp[s, tz=UTC]"
         ),  # pa.timestamp with tz has no string alias.
         pytest.param(
-            pa_timestamp("s", tz="America/New_York"),
+            pa.timestamp("s", tz="America/New_York"),
             "datetime64[s]",
             id="timestamp[s, tz=America/New_York]",
         ),
         pytest.param(
-            pa_timestamp("s", tz="+07:30"),
+            pa.timestamp("s", tz="+07:30"),
             "datetime64[s]",
             id="timestamp[s, tz=+07:30]",
         ),
