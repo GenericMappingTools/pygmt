@@ -21,7 +21,7 @@ Google Maps and OpenStreetMap.
 **[EPSG:XXXX]**
 
 """
-
+# %%
 import pygmt
 
 fig = pygmt.Figure()
