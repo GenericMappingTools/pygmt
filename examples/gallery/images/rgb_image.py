@@ -34,12 +34,19 @@ image  # noqa: B018
 # Plot the RGB imagery:
 fig = pygmt.Figure()
 with pygmt.config(FONT_TITLE="Times-Roman"):  # Set title font to Times-Roman
-    fig.grdimage(
-        grid=image,
-        # Use a map scale where 1 cm on the map equals 1 km on the ground
-        projection="x1:100000",
-        frame=[r"WSne+tL@!a¯hain@!a¯, Hawai`i on 9 Aug 2023", "af"],
-        fig.coast(region=[738000,755000,2300000,2318000], projection="EPSG:32604", frame=False, shorelines="1p")
-
+    (
+        fig.grdimage(
+            grid=image,
+            # Use a map scale where 1 cm on the map equals 1 km on the ground
+            projection="x1:100000",
+            frame=[r"WSne+tL@!a¯hain@!a¯, Hawai`i on 9 Aug 2023", "af"],
+        ),
     )
+    fig.coast(
+        region=[738000, 755000, 2300000, 2318000],
+        projection="EPSG:32604",
+        frame=False,
+        shorelines="1p",
+    )
+
 fig.show()
