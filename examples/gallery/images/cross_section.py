@@ -104,8 +104,8 @@ fig.text(
 # Generate points along a great circle corresponding to the survey line
 # and store them in a pandas.DataFrame
 track_df = pygmt.project(
-    center="126/42",  # Start point of survey line (longitude/latitude)
-    endpoint="146/40",  # End point of survey line (longitude/latitude)
+    center=[126, 42],  # Start point of survey line (longitude, latitude)
+    endpoint=[146, 40],  # End point of survey line (longitude, latitude)
     generate="0.1",  # Output data in steps of 0.1 degrees
 )
 
