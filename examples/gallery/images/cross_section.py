@@ -2,13 +2,11 @@
 Cross-section along a transect
 ==============================
 
-:func:`pygmt.project` and :func:`pygmt.grdtrack` can be used to focus on
-a quantity and its variation along a desired survey line.
-In this example, the elevation is extracted from a grid provided via
-:func:`pygmt.datasets.load_earth_relief`.
-The figure consists of two parts, a map of the elevation in the study
-area showing the survey line and a Cartesian plot showing the elevation
-along the survey line.
+:func:`pygmt.project` and :func:`pygmt.grdtrack` can be used to focus on a quantity
+and its variation along a desired survey line. In this example, the elevation is
+extracted from a grid provided via :func:`pygmt.datasets.load_earth_relief`. The
+figure consists of two parts, a map of the elevation in the study area showing the
+survey line and a Cartesian plot showing the elevation along the survey line.
 
 *This example is orientated on an example in the GMT/China documentation*:
 https://docs.gmt-china.org/latest/examples/ex026/
@@ -34,8 +32,8 @@ fig.basemap(
     frame="af",
 )
 
-# Download grid for Earth relief with a resolution of 10 arc-minutes and
-# gridline registration [Default]
+# Download grid for Earth relief with a resolution of 10 arc-minutes and gridline
+# registration [Default]
 grid_map = pygmt.datasets.load_earth_relief(
     resolution="10m",
     region=region_map,
@@ -46,14 +44,12 @@ fig.grdimage(grid=grid_map, cmap="oleron")
 
 # Add a colorbar for the elevation
 fig.colorbar(
-    # Place the colorbar inside the plot (lower-case "j") in the Bottom
-    # Right (BR) corner with an offset ("+o") of 0.7 centimeters and
-    # 0.3 centimeters in x or y directions, respectively
-    # Move the x label above the horizontal colorbar ("+ml")
+    # Place the colorbar inside the plot (lower-case "j") in the Botton Right (BR)
+    # corner with an offset ("+o") of 0.7 centimeters and 0.3 centimeters in x or y
+    # directions, respectively; move the x label above the horizontal colorbar ("+ml")
     position="jBR+o0.7c/0.8c+h+w5c/0.3c+ml",
-    # Add a box around the colobar with a fill ("+g") in "white" color and
-    # a transparency ("@") of 30 % and with a 0.8-points thick black
-    # outline ("+p")
+    # Add a box around the colobar with a fill ("+g") in "white" color and a
+    # transparency ("@") of 30 % and with a 0.8-points thick black outline ("+p")
     box="+gwhite@30+p0.8p,black",
     # Add x and y labels ("+l")
     frame=["x+lElevation", "y+lm"],
@@ -84,11 +80,11 @@ fig.shift_origin(yshift="h+1.5c")
 
 fig.basemap(
     region=[0, 15, -8000, 6000],  # x_min, x_max, y_min, y_max
-    # Cartesian projection with a width of 12 centimeters and
-    # a height of 3 centimeters
+    # Cartesian projection with a width of 12 centimeters and a height of 3
+    # centimeters
     projection="X12c/3c",
-    # Add annotations ("a") and ticks ("f") as well as labels ("+l")
-    # at the west or left and south or bottom sides ("WSrt")
+    # Add annotations ("a") and ticks ("f") as well as labels ("+l") at the west or
+    # left and south or bottom sides ("WSrt")
     frame=["WSrt", "xa2f1+lDistance+u°", "ya4000+lElevation / m"],
 )
 
@@ -101,16 +97,16 @@ fig.text(
     font="10p",  # Use a font size of 10 points
 )
 
-# Generate points along a great circle corresponding to the survey line
-# and store them in a pandas.DataFrame
+# Generate points along a great circle corresponding to the survey line and store
+# them in a pandas.DataFrame
 track_df = pygmt.project(
     center=[126, 42],  # Start point of survey line (longitude, latitude)
     endpoint=[146, 40],  # End point of survey line (longitude, latitude)
     generate="0.1",  # Output data in steps of 0.1 degrees
 )
 
-# Extract the elevation at the generated points from the downloaded grid
-# and add it as new column "elevation" to the pandas.DataFrame
+# Extract the elevation at the generated points from the downloaded grid and add
+# it as new column "elevation" to the pandas.DataFrame
 track_df = pygmt.grdtrack(
     grid=grid_map,
     points=track_df,
