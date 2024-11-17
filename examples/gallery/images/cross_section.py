@@ -42,7 +42,7 @@ fig.colorbar(
     # directions, respectively; move the x label above the horizontal colorbar ("+ml")
     position="jBR+o0.7c/0.8c+h+w5c/0.3c+ml",
     # Add a box around the colobar with a fill ("+g") in "white" color and a
-    # transparency ("@") of 30 % and with a 0.8-points thick black outline ("+p")
+    # transparency ("@") of 30 % and with a 0.8-points thick, black, outline ("+p")
     box="+gwhite@30+p0.8p,black",
     # Add x and y labels ("+l")
     frame=["x+lElevation", "y+lm"],
@@ -52,7 +52,7 @@ fig.colorbar(
 fig.plot(
     x=[126, 146],  # Longitude in degrees East
     y=[42, 40],  # Latitude in degrees North
-    # Draw a 2-points thick red dashed line for the survey line
+    # Draw a 2-points thick, red, dashed line for the survey line
     pen="2p,red,dashed",
 )
 
@@ -106,7 +106,7 @@ fig.plot(
     x=[0, 15],
     y=[0, 0],
     fill="lightblue",  # Fill the polygon in "lightblue"
-    # Draw a 0.25-points thick black solid outline
+    # Draw a 0.25-points thick, black, solid outline
     pen="0.25p,black,solid",
     close="+y-8000",  # Force closed polygon
 )
@@ -116,7 +116,7 @@ fig.plot(
     x=track_df.p,
     y=track_df.elevation,
     fill="gray",  # Fill the polygon in "gray"
-    # Draw a 1-point thick black solid outline
+    # Draw a 1-point thick, black, solid outline
     pen="1p,black,solid",
     close="+y-8000",  # Force closed polygon
 )
