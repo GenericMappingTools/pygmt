@@ -31,7 +31,7 @@ import pygmt
 # - **R**: rounded rectangle, ``width/height/radius``
 # - **w**: pie wedge, ``diameter/startdir/stopdir``, the last two arguments are
 #   directions given in degrees counter-clockwise from horizontal. Append **+i** and
-#   the desired value to apply a inner diameter
+#   the desired value to apply a inner diameter.
 #
 # Upper-case versions **E**, **J**, and **W** are similar to **e**, **j**, and **w**
 # but expect geographic azimuths and distances.
