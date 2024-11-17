@@ -56,7 +56,7 @@ fig.plot(
 # Plot the data points on top
 fig.plot(data=df_devi, style="c0.2c", pen="1p,gray30", fill="darkgray")
 
-# Shift plot origin by the figure width ("+w") plus 1 centimeter in x direction
+# Shift plot origin by the figure width ("w") plus 1 centimeter in x direction
 fig.shift_origin(xshift="w+1c")
 
 # -----------------------------------------------------------------------------
