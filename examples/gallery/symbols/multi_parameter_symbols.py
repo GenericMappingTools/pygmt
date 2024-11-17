@@ -30,13 +30,14 @@ import pygmt
 # - **r**: rectangle, ``width/height``
 # - **R**: rounded rectangle, ``width/height/radius``
 # - **w**: pie wedge, ``diameter/startdir/stopdir``, the last two arguments are
-#   directions given in degrees counter-clockwise from horizontal
+#   directions given in degrees counter-clockwise from horizontal. Append **+i**
+#   and the desired values to adde inner radius
 #
 # Upper-case versions **E**, **J**, and **W** are similar to **e**, **j**, and
 # **w** but expect geographic azimuths and distances.
 
 fig = pygmt.Figure()
-fig.basemap(region=[0, 6, 0, 2], projection="x3c", frame=True)
+fig.basemap(region=[0, 7, 0, 2], projection="x3c", frame=True)
 
 # Ellipse
 fig.plot(x=0.5, y=1, style="e45/3/1", fill="orange", pen="2p,black")
@@ -48,6 +49,8 @@ fig.plot(x=3, y=1, style="r4/1.5", fill="dodgerblue", pen="2p,black")
 fig.plot(x=4.5, y=1, style="R1.25/4/0.5", fill="seagreen", pen="2p,black")
 # Pie wedge
 fig.plot(x=5.5, y=1, style="w2.5/45/330", fill="lightgray", pen="2p,black")
+# Pie wedge sector
+fig.plot(x=6.5, y=1, style="w2.5/45/330+i1c", fill="lightgray", pen="2p,black")
 
 fig.show()
 
