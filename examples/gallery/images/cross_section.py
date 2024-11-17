@@ -25,19 +25,12 @@ fig = pygmt.Figure()
 # ----------------------------------------------------------------------------
 # Bottom: Map of elevation in study area
 
-# Set up basic map
-fig.basemap(
-    region=region_map,
-    projection="M12c",  # Mercator projection with a width of 12 centimeters
-    frame="af",
-)
+# Set up basic map using a Mercator projection with a width of 12 centimeters
+fig.basemap(region=region_map, projection="M12c", frame="af")
 
 # Download grid for Earth relief with a resolution of 10 arc-minutes and gridline
 # registration [Default]
-grid_map = pygmt.datasets.load_earth_relief(
-    resolution="10m",
-    region=region_map,
-)
+grid_map = pygmt.datasets.load_earth_relief(resolution="10m", region=region_map)
 
 # Plot the downloaded grid with color-coding based on the elevation
 fig.grdimage(grid=grid_map, cmap="oleron")
@@ -107,11 +100,7 @@ track_df = pygmt.project(
 
 # Extract the elevation at the generated points from the downloaded grid and add
 # it as new column "elevation" to the pandas.DataFrame
-track_df = pygmt.grdtrack(
-    grid=grid_map,
-    points=track_df,
-    newcolname="elevation",
-)
+track_df = pygmt.grdtrack(grid=grid_map, points=track_df, newcolname="elevation")
 
 # Plot water masses
 fig.plot(
