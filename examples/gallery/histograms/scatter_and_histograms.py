@@ -58,7 +58,7 @@ fig.shift_origin(yshift=f"-{fig_width + 0.25}c", xshift=f"{fig_width + 0.25}c")
 fig.histogram(
     horizontal=True,
     projection=f"X2c/{fig_width}c",
-    # Note that the y-axis annotation "Counts" is shown in x-axis direction due to the
+    # Note that the y-axis label "Counts" is shown in x-axis direction due to the
     # rotation caused by horizontal=True
     frame=["wSrt", "xf1", "y+lCounts"],
     region=[-xymax - 0.5, xymax + 0.5, 0, 0],
