@@ -5,7 +5,7 @@ text - Plot text on a figure.
 from collections.abc import Sequence
 
 import numpy as np
-from pygmt._typing import AnchorCode
+from pygmt._typing import AnchorCode, StringArrayTypes
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -48,7 +48,7 @@ def text_(  # noqa: PLR0912
     x=None,
     y=None,
     position: AnchorCode | None = None,
-    text=None,
+    text: str | StringArrayTypes | None = None,
     angle=None,
     font=None,
     justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
@@ -104,7 +104,7 @@ def text_(  # noqa: PLR0912
 
         For example, ``position="TL"`` plots the text at the Top Left corner
         of the map.
-    text : str or 1-D array
+    text
         The text string, or an array of strings to plot on the figure.
     angle: float, str, bool or list
         Set the angle measured in degrees counter-clockwise from
