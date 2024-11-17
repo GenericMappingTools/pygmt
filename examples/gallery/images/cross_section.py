@@ -2,11 +2,11 @@
 Cross-section along a transect
 ==============================
 
-:func:`pygmt.project` and :func:`pygmt.grdtrack` can be used to focus on a quantity
-and its variation along a desired survey line. In this example, the elevation is
-extracted from a grid provided via :func:`pygmt.datasets.load_earth_relief`. The
-figure consists of two parts, a map of the elevation in the study area showing the
-survey line and a Cartesian plot showing the elevation along the survey line.
+:func:`pygmt.project` and :func:`pygmt.grdtrack` can be used to focus on a quantity and 
+its variation along a desired survey line. In this example, the elevation is extracted 
+from a grid provided via :func:`pygmt.datasets.load_earth_relief`. The figure consists 
+of two parts, a map of the elevation in the study area showing the survey line and a 
+Cartesian plot showing the elevation along the survey line.
 
 *This example is orientated on an example in the GMT/China documentation*:
 https://docs.gmt-china.org/latest/examples/ex026/
@@ -73,8 +73,7 @@ fig.shift_origin(yshift="h+1.5c")
 
 fig.basemap(
     region=[0, 15, -8000, 6000],  # x_min, x_max, y_min, y_max
-    # Cartesian projection with a width of 12 centimeters and a height of 3
-    # centimeters
+    # Cartesian projection with a width of 12 centimeters and a height of 3 centimeters
     projection="X12c/3c",
     # Add annotations ("a") and ticks ("f") as well as labels ("+l") at the west or
     # left and south or bottom sides ("WSrt")
