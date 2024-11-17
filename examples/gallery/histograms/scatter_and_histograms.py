@@ -5,7 +5,7 @@ Scatter plot with histograms
 To create a scatter plot with histograms at the sides of the plot one can use
 :meth:`pygmt.Figure.plot` in combination with :meth:`pygmt.Figure.histogram`.
 The positions of the histograms are plotte by offsetting them from the main
-scatter plot figure using :meth:`pygmt.Figure.shift_origin`.
+scatter plot using :meth:`pygmt.Figure.shift_origin`.
 """
 
 # %%
@@ -21,7 +21,7 @@ y = rng.normal(loc=0, scale=1, size=1000)
 # Get axis limits
 xymax = max(np.max(np.abs(x)), np.max(np.abs(y)))
 
-# Plot width
+# Set plot width
 fig_width = 10
 
 # Set fill color for symbols and bars
@@ -41,7 +41,7 @@ fig.plot(x=x, y=y, style="c0.15c", fill=fillcol, transparency=50)
 fig.shift_origin(yshift=f"{fig_width + 0.25}c")
 
 fig.histogram(
-    projection="X10c/2c",
+    projection=f"X{fig_width}c/2c",
     frame=["Wsrt", "xf1", "y+lCounts"],
     # Give the same value for ymin and ymax to have them calculated automatically
     region=[-xymax - 0.5, xymax + 0.5, 0, 0],
@@ -57,7 +57,7 @@ fig.shift_origin(yshift=f"-{fig_width + 0.25}c", xshift=f"{fig_width + 0.25}c")
 
 fig.histogram(
     horizontal=True,
-    projection="X2c/10c",
+    projection=f"X2c/{fig_width}c",
     # Note that the y-axis annotation "Counts" is shown in x-axis direction due to the
     # rotation caused by horizontal=True
     frame=["wSrt", "xf1", "y+lCounts"],
