@@ -32,9 +32,7 @@ y = np.array([-3, -1, 1, 3, 2, -3])
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
-
 fig.plot(x=x, y=y)
-
 fig.show()
 
 # %%
@@ -44,10 +42,8 @@ fig.show()
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
-
 # Use a 2-points thick, darkred, dashed outline
 fig.plot(x=x, y=y, pen="2p,darkred,dashed")
-
 fig.show()
 
 # %%
