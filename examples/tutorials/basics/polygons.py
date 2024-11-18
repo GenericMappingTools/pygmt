@@ -52,10 +52,8 @@ fig.show()
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
-
 # Fill the polygon with color "orange"
 fig.plot(x=x, y=y, fill="orange", pen="2p,darkred,dashed")
-
 fig.show()
 
 
@@ -74,14 +72,12 @@ y = np.array([-3, -1, 1, 3, 2])
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
-
 fig.plot(x=x, y=y, pen=True)
 
 fig.shift_origin(xshift="w+1c")
+
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
-
 fig.plot(x=x, y=y, pen=True, close=True)
-
 fig.show()
 
 # %%
@@ -89,14 +85,12 @@ fig.show()
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
-
 fig.plot(x=x, y=y, pen=True)
 
 fig.shift_origin(xshift="w+1c")
+
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
-
 fig.plot(x=x, y=y, pen=True, fill="orange")
-
 fig.show()
 
 # sphinx_gallery_thumbnail_number = 3
