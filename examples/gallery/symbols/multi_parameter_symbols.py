@@ -19,9 +19,9 @@ import pygmt
 
 # %%
 # We can plot multi-parameter symbols using the same symbol style. We need to define
-# locations (lon, lat) via the ``x`` and ``y`` parameters (scalar for a single symbol
-# or 1-D list for several ones) and two or three symbol parameters after those
-# shortcuts via the ``style`` parameter.
+# locations (lon, lat) via the ``x`` and ``y`` parameters (scalar for a single symbol or
+# 1-D list for several ones) and two or three symbol parameters after those shortcuts
+# via the ``style`` parameter.
 #
 # The multi-parameter symbols in the ``style`` parameter are defined as:
 #
@@ -30,8 +30,8 @@ import pygmt
 # - **r**: rectangle, ``width/height``
 # - **R**: rounded rectangle, ``width/height/radius``
 # - **w**: pie wedge, ``diameter/startdir/stopdir``, the last two arguments are
-#   directions given in degrees counter-clockwise from horizontal. Append **+i** and
-#   the desired value to apply a inner diameter.
+#   directions given in degrees counter-clockwise from horizontal. Append **+i** and the
+#   desired value to apply a inner diameter.
 #
 # Upper-case versions **E**, **J**, and **W** are similar to **e**, **j**, and **w**
 # but expect geographic azimuths and distances.
