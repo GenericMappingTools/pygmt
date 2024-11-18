@@ -2,8 +2,8 @@
 Creating legends
 ================
 
-The :meth:`pygmt.Figure.legend` method creates legends, whereby auto-legends as well
-as manually created legends are supported.
+The :meth:`pygmt.Figure.legend` method creates legends, whereby auto-legends as well as
+manually created legends are supported.
 """
 
 # %%
@@ -17,16 +17,16 @@ import pygmt
 #
 # An auto-legend can be created for the methods :meth:`pygmt.Figure.plot`,
 # :meth:`pygmt.Figure.plot3d`, and :meth:`pygmt.Figure.histogram`. Therefore the
-# ``label`` parameter has to be specified to state the desired text for the legend
-# entry (white spaces are supported). Here, we use :meth:`pygmt.Figure.plot`,
-# exemplary. By default, the legend is placed in the Upper Right corner with an
-# offset of 0.1 centimeters in both x and y directions and a box with a white fill
-# and a 1-point thick, black, solid outline is drawn around the legend. The order
-# of the legend entries (top to bottom) is determine by the plotting order.
-# Optionally, to adjust the legend, append different modifiers to the string passed
-# to ``label``. For a list of available modifiers see :gmt-docs:`gmt.html#l-full`.
-# To create a :doc:`multiple-column legend </gallery/embellishments/legend>` **+N**
-# is used with the desired number of columns.
+# ``label`` parameter has to be specified to state the desired text for the legend entry
+# (white spaces are supported). Here, we use :meth:`pygmt.Figure.plot`, exemplary. By
+# default, the legend is placed in the Upper Right corner with an offset of 0.1
+# centimeters in both x and y directions and a box with a white fill and a 1-point
+# thick, black, solid outline is drawn around the legend. The order of the legend
+# entries (top to bottom) is determine by the plotting order. Optionally, to adjust the
+# legend, append different modifiers to the string passed to ``label``. For a list of
+# available modifiers see :gmt-docs:`gmt.html#l-full`. To create a
+# :doc:`multiple-column legend </gallery/embellishments/legend>` **+N** is used with the
+# desired number of columns.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
@@ -48,10 +48,9 @@ fig.show()
 #
 # Use the ``position`` parameter to adjust the position of the legend. For the
 # different ways to specify the placement of a plotting element (e.g., legends,
-# colorbars) on a plot in GMT, please refer to the Technical Reference TODO (: .
-# Add an offset via **+o** for the x and y directions. Additionally append **+w**
-# to adjust the ``width`` of the length. Note, no box is drawn by default if
-# ``position`` is used.
+# colorbars) on a plot in GMT, please refer to the Technical Reference TODO (: . Add
+# an offset via **+o** for the x and y directions. Additionally append **+w** to adjust
+# the ``width`` of the length. Note, no box is drawn by default if ``position`` is used.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
@@ -60,8 +59,8 @@ fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
 fig.plot(x=1, y=0, style="t0.3c", fill="pink", label="pink triangle")
 fig.plot(x=-1, y=0, style="s0.3c", fill="darkred", label="darkred square")
 
-# Set the reference point to Left Top and use an offset of 0.3 and 0.2 centimeters
-# in the x and y directions, respectively
+# Set the reference point to Left Top and use an offset of 0.3 and 0.2 centimeters in
+# the x and y directions, respectively
 fig.legend(position="jLT+o0.3c/0.2c")
 
 fig.show()
@@ -70,10 +69,9 @@ fig.show()
 # %%
 # Add a box
 # ---------
-# Use the ``box`` parameter for adjusting the box around the legend. The outline of
-# the box can be adjusted by appending **+p**. Append **+g** to fill the legend with
-# a color (or pattern) [Default is a white fill]. The default of ``position`` is
-# is preserved.
+# Use the ``box`` parameter for adjusting the box around the legend. The outline of the
+# box can be adjusted by appending **+p**. Append **+g** to fill the legend with a color
+# (or pattern) [Default is a white fill]. The default of ``position`` is preserved.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
@@ -104,13 +102,12 @@ fig.show()
 #
 # For more complicated legends, users need to prepare a legend specification with
 # instructions for the layout of the legend items. The legend specification can be
-# either an ASCII file or an :class:`io.StringIO` object. Both, the ASCII file or
-# the :class:`io.StringIO` object are passed to the ``spec`` parameter of
+# either an ASCII file or an :class:`io.StringIO` object. Both, the ASCII file or the
+# :class:`io.StringIO` object are passed to the ``spec`` parameter of
 # :meth:`pygmt.Figure.legend`. There are multiple legend codes available to create
 # complicated legends; an full overview can be found at
-# https://docs.generic-mapping-tools.org/dev/legend.html#legend-codes. It's
-# supported to include length scales, faults, and images as well as to add specific
-# lines.
+# https://docs.generic-mapping-tools.org/dev/legend.html#legend-codes. It's supported
+# to include length scales, faults, and images as well as to add specific lines.
 #
 # The example below is orientated on the upstream GMT example at
 # https://docs.generic-mapping-tools.org/dev/legend.html#examples.
