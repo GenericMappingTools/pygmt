@@ -68,7 +68,7 @@ fig.text(
 # ----------------------------------------------------------------------------
 # Top: Elevation along survey line
 
-# Shift plot origin to the top by the hight of the map ("+h") plus 1.5 centimeters
+# Shift plot origin to the top by the height of the map ("+h") plus 1.5 centimeters
 fig.shift_origin(yshift="h+1.5c")
 
 fig.basemap(
