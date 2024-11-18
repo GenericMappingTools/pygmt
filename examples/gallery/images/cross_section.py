@@ -94,7 +94,7 @@ fig.text(
 track_df = pygmt.project(
     center=[126, 42],  # Start point of survey line (longitude, latitude)
     endpoint=[146, 40],  # End point of survey line (longitude, latitude)
-    generate="0.1",  # Output data in steps of 0.1 degrees
+    generate=0.1,  # Output data in steps of 0.1 degrees
 )
 
 # Extract the elevation at the generated points from the downloaded grid and add it as 
