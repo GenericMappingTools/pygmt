@@ -183,7 +183,16 @@ def test_to_numpy_pandas_series_numpy_dtypes_numeric(dtype, expected_dtype):
         "U10",
         "string[python]",
         pytest.param("string[pyarrow]", marks=skip_if_no(package="pyarrow")),
-        pytest.param("string[pyarrow_numpy]", marks=skip_if_no(package="pyarrow")),
+        pytest.param(
+            "string[pyarrow_numpy]",
+            marks=[
+                skip_if_no(package="pyarrow"),
+                pytest.mark.skipif(
+                    Version(pd.__version__) < Version("2.1"),
+                    reason="string[pyarrow_numpy] was added since pandas 2.1",
+                ),
+            ],
+        ),
     ],
 )
 def test_to_numpy_pandas_series_pandas_dtypes_string(dtype):
