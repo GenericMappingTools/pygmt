@@ -52,8 +52,8 @@ fig.histogram(
     # Let ymin and ymax determined automatically by setting both to the same value
     region=[0, 200, 0, 0],
     projection="X10c",  # Cartesian projection with a width of 10 centimeters
-    # Add frame, annotations ("a"), ticks ("f"), and y-axis label ("+l") "Counts"
-    # The numbers give the steps of annotations and ticks
+    # Add frame, annotations ("a"), ticks ("f"), and y-axis label ("+l") "Counts"; the
+    # numbers give the steps of annotations and ticks
     frame=["WStr", "xaf10", "ya1f1+lCounts"],
     data=data01,
     # Set the bin width via the "series" parameter
