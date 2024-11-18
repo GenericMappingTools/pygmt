@@ -89,16 +89,16 @@ fig.text(
     font="10p",  # Use a font size of 10 points
 )
 
-# Generate points along a great circle corresponding to the survey line and store
-# them in a pandas.DataFrame
+# Generate points along a great circle corresponding to the survey line and store them 
+# in a pandas.DataFrame
 track_df = pygmt.project(
     center=[126, 42],  # Start point of survey line (longitude, latitude)
     endpoint=[146, 40],  # End point of survey line (longitude, latitude)
     generate="0.1",  # Output data in steps of 0.1 degrees
 )
 
-# Extract the elevation at the generated points from the downloaded grid and add
-# it as new column "elevation" to the pandas.DataFrame
+# Extract the elevation at the generated points from the downloaded grid and add it as 
+# new column "elevation" to the pandas.DataFrame
 track_df = pygmt.grdtrack(grid=grid_map, points=track_df, newcolname="elevation")
 
 # Plot water masses
