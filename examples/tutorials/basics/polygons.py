@@ -5,9 +5,9 @@ Plotting polygons
 Plotting polygons is handled by the :meth:`pygmt.Figure.plot` method.
 
 This tutorial focuses on input data given as NumPy arrays. Besides NumPy arrays,
-array-like objects are supported. For plotting a :class:`geopandas.GeoDataFrame`
-object with polygon geometries, e.g. to create a choropleth map, see the gallery
-example :doc:`Choropleth map </gallery/maps/choropleth_map>`.
+array-like objects are supported. For plotting a :class:`geopandas.GeoDataFrame` object
+with polygon geometries, e.g. to create a choropleth map, see the gallery example
+:doc:`Choropleth map </gallery/maps/choropleth_map>`.
 """
 
 # %%
@@ -24,11 +24,11 @@ x = np.array([-2, 1, 3, 0, -4, -2])
 y = np.array([-3, -1, 1, 3, 2, -3])
 
 # %%
-# Create a Cartesian plot via the :meth:`pygmt.Figure.basemap` method.
-# Pass arrays to the ``x`` and ``y`` parameters of the :meth:`pygmt.Figure.plot`
-# method. Without further adjustments, lines are drawn between the data points.
-# By default, the lines are 0.25-points thick, black, and solid. In this example,
-# the data points are chosen to make the lines form a polygon.
+# Create a Cartesian plot via the :meth:`pygmt.Figure.basemap` method. Pass arrays to
+# the ``x`` and ``y`` parameters of the :meth:`pygmt.Figure.plot` method. Without
+# further adjustments, lines are drawn between the data points. By default, the lines
+# are 0.25-points thick, black, and solid. In this example, the data points are chosen
+# to make the lines form a polygon.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
