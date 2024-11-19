@@ -120,6 +120,15 @@ made to our documentation website every time we make a commit in a pull request.
 The service has a configuration file `.readthedocs.yaml`, with a list of options
 to change the default behaviour at <https://docs.readthedocs.io/en/stable/config-file/index.html>.
 
+## Continuous Benchmarking
+
+We use the [CodSpeed](https://codspeed.io) service to continuously track PyGMT's
+performance. The `pytest-codspeed` plugin collects benchmark data and uploads it to the
+CodSpeed server, where results are available at https://codspeed.io/GenericMappingTools/pygmt.
+
+Benchmarking is handled through the `benchmarks.yml` GitHub Actions workflow. To include
+a new test in the benchmark suite, apply the `@pytest.mark.benchmark` decorator to the
+test function.
 
 ## Dependencies Policy
 
