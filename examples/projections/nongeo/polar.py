@@ -78,7 +78,7 @@ fig.basemap(
     frame=["xa45f", "+gbisque+tprojection='P5c+a' @^ region=[0, 360, 0, 1]"],
 )
 
-fig.shift_origin(xshift="w+3sc")
+fig.shift_origin(xshift="w+3c")
 
 # ============
 # Top right
@@ -92,7 +92,7 @@ fig.basemap(
     frame=["xa45f", "ya0.2", "WNe+gbisque+tprojection='P5c+a' @^ region=[0, 90, 0, 1]"],
 )
 
-fig.shift_origin(xshift="-16c", yshift="-7c")
+fig.shift_origin(xshift="-2w-6c", yshift="-h-2c")
 
 # ============
 # Bottom left
