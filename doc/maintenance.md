@@ -136,14 +136,9 @@ decorator to a test function.
 ## Dependencies Policy
 
 PyGMT has adopted [SPEC 0](https://scientific-python.org/specs/spec-0000/) alongside the
-rest of the scientific Python ecosystem, and therefore:
-
-* Support for Python versions be dropped 3 years after their initial release.
-* Support for core package dependencies (NumPy, pandas, Xarray) be dropped 2 years after
-  their initial release.
-
-Similarly, the PyGMT team has decided to discontinue support for GMT versions 3 years
-after their initial release.
+rest of the scientific Python ecosystem, and made a few extensions based on the needs of
+the project. Please see [Minimum Supported Versions](minversions.md) for the detailed
+policy and the minimum supported versions of GMT, Python and core package dependencies.
 
 In `pyproject.toml`, the `requires-python` key should be set to the minimum supported
 version of Python. Minimum supported versions of GMT, Python and core package
