@@ -3,20 +3,16 @@ contour - Plot contour table data.
 """
 
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    build_arg_string,
-    data_kind,
-    deprecate_parameter,
-    dummy_context,
+    build_arg_list,
     fmt_docstring,
+    is_nonstr_iter,
     kwargs_to_strings,
     use_alias,
 )
 
 
 @fmt_docstring
-@deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
 @use_alias(
     A="annotation",
     B="frame",
@@ -27,11 +23,8 @@ from pygmt.helpers import (
     N="no_clip",
     R="region",
     S="skip",
-    U="timestamp",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     b="binary",
     c="panel",
     d="nodata",
@@ -44,14 +37,14 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def contour(self, x=None, y=None, z=None, data=None, **kwargs):
+def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     r"""
     Contour table data by direct triangulation.
 
-    Takes a matrix, (x,y,z) pairs, or a file name as input and plots lines,
-    polygons, or symbols at those locations on a map.
+    Takes a matrix, (x, y, z) triplets, or a file name as input and plots,
+    lines, polygons, or symbols at those locations on a map.
 
-    Must provide either ``data`` or ``x``/``y``/``z``.
+    Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
     Full option list at :gmt-docs:`contour.html`
 
@@ -59,29 +52,34 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
 
     Parameters
     ----------
-    x/y/z : 1d arrays
+    data : str, {table-like}
+        Pass in (x, y, z) or (longitude, latitude, elevation) values by
+        providing a file name to an ASCII data table, a 2-D
+        {table-classes}.
+    x/y/z : 1-D arrays
         Arrays of x and y coordinates and values z of the data points.
-    data : str or 2d array
-        Either a data file name or a 2d numpy array with the tabular data.
-    {J}
-    {R}
-    annotation : str or int
+    {projection}
+    {region}
+    annotation : float, list, or str
         Specify or disable annotated contour levels, modifies annotated
-        contours specified in ``interval``.
+        contours specified in ``levels``.
 
-        - Specify a fixed annotation interval *annot_int* or a
-          single annotation level +\ *annot_int*.
-    {B}
-    levels : str or int
+        - Specify a fixed annotation interval.
+        - Specify a list of annotation levels.
+        - Disable all annotations by setting ``annotation="n"``.
+        - Adjust the appearance by appending different modifiers, e.g.,
+          ``"annot_int+f10p+gred"`` gives annotations with a font size of 10 points and
+          a red filled box. For all available modifiers see :gmt-docs:`contour.html#a`.
+    {frame}
+    levels : float, list, or str
         Specify the contour lines to generate.
 
-        - The filename of a CPT file where the color boundaries will
-          be used as contour levels.
-        - The filename of a 2 (or 3) column file containing the contour
-          levels (col 1), (**C**)ontour or (**A**)nnotate (col 2), and optional
-          angle (col 3)
-        - A fixed contour interval *cont_int* or a single contour with
-          +\ *cont_int*
+        - The file name of a CPT file where the color boundaries will be used as
+          contour levels.
+        - The file name of a 2 (or 3) column file containing the contour levels (col 0),
+          (**C**)ontour or (**A**)nnotate (col 1), and optional angle (col 2).
+        - A fixed contour interval.
+        - A list of contour levels.
     D : str
         Dump contour coordinates.
     E : str
@@ -94,17 +92,26 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
     I : bool
         Color the triangles using CPT.
     triangular_mesh_pen : str
-        Pen to draw the underlying triangulation [Default is none].
+        Pen to draw the underlying triangulation [Default is ``None``].
     no_clip : bool
-        Do NOT clip contours or image at the boundaries [Default will clip
-        to fit inside region].
+        Do **not** clip contours or image at the frame boundaries
+        [Default is ``False`` to fit inside ``region``].
     Q : float or str
         [*cut*][**+z**].
-        Do not draw contours with less than cut number of points.
+        Do not draw contours with less than *cut* number of points.
     skip : bool or str
         [**p**\|\ **t**].
         Skip input points outside region.
-    {W}
+    pen : str or list
+        [*type*]\ *pen*\ [**+c**\ [**l**\|\ **f**]].
+        *type*, if present, can be **a** for annotated contours or **c** for regular
+        contours [Default]. The pen sets the attributes for the particular line.
+        Default pen for annotated contours is ``"0.75p,black"`` and for regular
+        contours ``"0.25p,black"``. Normally, all contours are drawn with a fixed
+        color determined by the pen setting. If **+cl** is appended the colors of the
+        contour lines are taken from the CPT (see ``levels``). If **+cf** is
+        appended the colors from the CPT file are applied to the contour annotations.
+        Select **+c** for both effects.
     label : str
         Add a legend entry for the contour being plotted. Normally, the
         annotated contour is selected for the legend. You can select the
@@ -112,34 +119,34 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
         to be of the format [*annotcontlabel*][/*contlabel*]. If either
         label contains a slash (/) character then use ``|`` as the
         separator for the two labels instead.
-    {U}
-    {V}
-    {XY}
-    {b}
-    {c}
-    {d}
-    {e}
-    {f}
-    {h}
-    {i}
-    {p}
-    {t}
+    {verbose}
+    {binary}
+    {panel}
+    {nodata}
+    {find}
+    {coltypes}
+    {header}
+    {incols}
+    {perspective}
+    {transparency}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
-    kind = data_kind(data, x, y, z)
-    if kind == "vectors" and z is None:
-        raise GMTInvalidInput("Must provided both x, y, and z.")
+    # Specify levels for contours or annotations.
+    # One level is converted to a string with a trailing comma to separate it from
+    # specifying an interval.
+    # Multiple levels are concatenated to a comma-separated string.
+    for arg in ["A", "C"]:
+        if is_nonstr_iter(kwargs.get(arg)):
+            if len(kwargs[arg]) == 1:  # One level
+                kwargs[arg] = str(kwargs[arg][0]) + ","
+            else:  # Multiple levels
+                kwargs[arg] = ",".join(f"{item}" for item in kwargs[arg])
 
     with Session() as lib:
-        # Choose how data will be passed in to the module
-        if kind == "file":
-            file_context = dummy_context(data)
-        elif kind == "matrix":
-            file_context = lib.virtualfile_from_matrix(data)
-        elif kind == "vectors":
-            file_context = lib.virtualfile_from_vectors(x, y, z)
-
-        with file_context as fname:
-            arg_str = " ".join([fname, build_arg_string(kwargs)])
-            lib.call_module("contour", arg_str)
+        with lib.virtualfile_in(
+            check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
+        ) as vintbl:
+            lib.call_module(
+                module="contour", args=build_arg_list(kwargs, infile=vintbl)
+            )

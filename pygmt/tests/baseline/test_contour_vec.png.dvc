@@ -1,4 +1,5 @@
 outs:
-- md5: 521386238fd3dd23bcaff147d7b4e0b7
-  size: 82236
+- md5: 017a19fea9fda195fae9deeb329f761a
+  size: 82368
   path: test_contour_vec.png
+  hash: md5

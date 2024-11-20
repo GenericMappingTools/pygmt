@@ -1,4 +1,5 @@
 outs:
-- md5: 77dc6e9b11b2fa1cf79c7de525704fca
-  size: 76593
+- md5: 3e0d9c5fbedf71d7bb0315797e7d0493
+  size: 71791
   path: test_basemap_compass.png
+  hash: md5

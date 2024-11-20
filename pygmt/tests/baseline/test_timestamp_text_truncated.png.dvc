@@ -1,0 +1,5 @@
+outs:
+- md5: 71aa608f602f44450260653e26bb6bc1
+  size: 3544
+  path: test_timestamp_text_truncated.png
+  hash: md5

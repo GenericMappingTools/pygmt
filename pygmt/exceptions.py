@@ -1,7 +1,8 @@
-# pylint: disable=missing-docstring
-#
-# Custom exception types used throughout the library. All exceptions derive
-# from GMTError.
+"""
+Custom exception types used throughout the library.
+
+All exceptions derive from GMTError.
+"""
 
 
 class GMTError(Exception):
@@ -34,7 +35,7 @@ class GMTCLibNoSessionError(GMTCLibError):
     """
 
 
-class GMTInvalidInput(GMTError):
+class GMTInvalidInput(GMTError):  # noqa: N818
     """
     Raised when the input of a function/method is invalid.
     """
@@ -46,7 +47,7 @@ class GMTVersionError(GMTError):
     """
 
 
-class GMTImageComparisonFailure(AssertionError):
+class GMTImageComparisonFailure(AssertionError):  # noqa: N818
     """
     Raised when a comparison between two images fails.
     """

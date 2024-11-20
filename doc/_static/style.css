@@ -33,24 +33,6 @@ p {
     font-size: 1.05em;
 }
 
-.gmtplot-output {
-    width: 100%;
-    overflow: auto;
-}
-
-.gmtplot-output img {
-    max-width: 700px;
-    width: 100%;
-}
-
-.gmtplot-output pre {
-    color: #888888;
-}
-
-.gmtplot-output-figure {
-    margin-bottom: 50px;
-}
-
 .sidebar-title {
     margin-top: 10px;
     margin-bottom: 0px;
@@ -65,38 +47,6 @@ p {
     margin-top: 40px;
     font-size: 4em;
 }
-
-.api-module {
-	margin-bottom: 80px;
-}
-
-.youtube-embed {
-    max-width: 600px;
-    margin-bottom: 24px;
-}
-
-.video-container {
-    position:relative;
-    padding-bottom:56.25%;
-    padding-top:30px;
-    height:0;
-    overflow:hidden;
-}
-
-.video-container iframe, .video-container object, .video-container embed {
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-}
-
-/*.wy-menu-vertical header, .wy-menu-vertical p.caption {*/
-    /*font-size: 90%;*/
-    /*font-weight: bold;*/
-    /*color: #eeeeee;*/
-    /*letter-spacing: 0.12em;*/
-/*}*/
 
 .wy-nav-content {
     max-width: 1000px;
@@ -155,22 +105,6 @@ html.writer-html5 .rst-content dl.field-list {
     }
 }
 
-/* Style for the copy button */
-/* Safe to remove for sphinx-copybutton>0.3.1
- * https://github.com/executablebooks/sphinx-copybutton/pull/107
- */
-a.copybtn {
-    position: absolute;
-    top: .2em;
-    right: .2em;
-    width: 1.3em;
-    height: 1.3em;
-    opacity: .3;
-    transition: opacity 0.5s;
-    border: none;
-    user-select: none;
-}
-
 /* Atkinson Hyperlegible regular */
 @font-face {
     font-family: "Atkinson Hyperlegible";
@@ -207,42 +141,34 @@ a.copybtn {
 .sphx-glr-thumbcontainer {
     border: solid #d6d6d6 1px!important;
     text-align: center!important;
+    min-height: 240px!important;
+    min-width: 180px!important;
+}
+
+.sphx-glr-thumbcontainer img {
+    max-width:95%!important;
 }
 
 .sphx-glr-single-img {
     max-width: 80%!important;
 }
 
-.team-row {
-    display: flex;
-    flex-wrap: wrap;
+/*
+ * Styles for aligning table cells.
+ * https://myst-parser.readthedocs.io/en/latest/syntax/tables.html#markdown-syntax
+ */
+th.text-left, td.text-left {
+    text-align: left !important;
 }
 
-.team-card {
-    background-color: #fff;
-    background-clip: border-box;
-    border: 1px solid rgba(0,0,0,.125);
-    border-radius: 0.5rem;
-    margin: 0.25em;
-    flex: 0 1 175px;
+th.text-center, td.text-center {
+    text-align: center !important;
 }
 
-.team-img {
-    border-radius: 0.5rem;
-    width: 100%;
-    height: 15vh!important;
-    object-fit: cover;
+th.text-right, td.text-right {
+    text-align: right !important;
 }
 
-.team-card-body {
-    padding: 1.25rem;
-    height: 100px;
-}
-
-.team-card-text {
-    display: flex;
-    margin-block-start: 0em;
-    margin-block-end: 0.2em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
+.std-term {
+	font-weight: 600;
 }

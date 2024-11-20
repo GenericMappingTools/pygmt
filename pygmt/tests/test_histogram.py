@@ -1,29 +1,30 @@
-# pylint: disable=redefined-outer-name
 """
-Tests histogram.
+Test Figure.histogram.
 """
+
 import pandas as pd
 import pytest
 from pygmt import Figure
 
 
-@pytest.fixture(scope="module", name="table", params=[list, pd.Series])
-def fixture_table(request):
+@pytest.fixture(scope="module", name="data", params=[list, pd.Series])
+def fixture_data(request):
     """
-    Returns a list of integers to be used in the histogram.
+    Return a list of integers to be used in the histogram.
     """
     data = [1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 4, 5, 6, 7, 8, 8, 8, 8, 8, 8]
     return request.param(data)
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare(filename="test_histogram.png")
-def test_histogram(table):
+def test_histogram(data):
     """
-    Tests plotting a histogram using a sequence of integers from a table.
+    Test plotting a histogram using a sequence of integers from a table.
     """
     fig = Figure()
     fig.histogram(
-        table=table,
+        data=data,
         projection="X10c/10c",
         region=[0, 9, 0, 6],
         series=1,

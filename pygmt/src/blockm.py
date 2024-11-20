@@ -1,95 +1,111 @@
 """
-blockm - Block average (x,y,z) data tables by mean or median estimation.
+blockm - Block average (x, y, z) data tables by mean, median, or mode estimation.
 """
+
+from typing import Literal
+
+import numpy as np
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
+    validate_output_table_type,
 )
 
+__doctest_skip__ = ["blockmean", "blockmedian", "blockmode"]
 
-def _blockm(block_method, table, outfile, x, y, z, **kwargs):
+
+def _blockm(
+    block_method, data, x, y, z, output_type, outfile, **kwargs
+) -> pd.DataFrame | np.ndarray | None:
     r"""
-    Block average (x,y,z) data tables by mean or median estimation.
+    Block average (x, y, z) data tables by mean, median, or mode estimation.
 
-    Reads arbitrarily located (x,y,z) triples [or optionally weighted
-    quadruples (x,y,z,w)] from a table and writes to the output a mean or
-    median (depending on ``block_method``) position and value for every
-    non-empty block in a grid region defined by the ``region`` and ``spacing``
-    parameters.
+    Reads arbitrarily located (x, y, z) triplets [or optionally weighted
+    quadruplets (x, y, z, w)] from a table and writes to the output a mean,
+    median, or mode (depending on ``block_method``) position and value for
+    every non-empty block in a grid region defined by the ``region`` and
+    ``spacing`` parameters.
 
     Parameters
     ----------
     block_method : str
-        Name of the GMT module to call. Must be "blockmean" or "blockmedian".
+        Name of the GMT module to call. Must be "blockmean", "blockmedian" or
+        "blockmode".
 
     Returns
     -------
-    output : pandas.DataFrame or None
-        Return type depends on whether the ``outfile`` parameter is set:
+    ret
+        Return type depends on ``outfile`` and ``output_type``:
 
-        - :class:`pandas.DataFrame` table with (x, y, z) columns if ``outfile``
-          is not set
-        - None if ``outfile`` is set (filtered output will be stored in file
-          set by ``outfile``)
+        - ``None`` if ``outfile`` is set (output will be stored in file set by
+          ``outfile``)
+        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
+          (depends on ``output_type``)
     """
+    output_type = validate_output_table_type(output_type, outfile=outfile)
 
-    with GMTTempFile(suffix=".csv") as tmpfile:
-        with Session() as lib:
-            # Choose how data will be passed into the module
-            table_context = lib.virtualfile_from_data(
-                check_kind="vector", data=table, x=x, y=y, z=z
+    column_names = None
+    if output_type == "pandas" and isinstance(data, pd.DataFrame):
+        column_names = data.columns.to_list()
+
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(
+                check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
+            ) as vintbl,
+            lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
+        ):
+            lib.call_module(
+                module=block_method,
+                args=build_arg_list(kwargs, infile=vintbl, outfile=vouttbl),
             )
-            # Run blockm* on data table
-            with table_context as infile:
-                if outfile is None:
-                    outfile = tmpfile.name
-                arg_str = " ".join([infile, build_arg_string(kwargs), "->" + outfile])
-                lib.call_module(module=block_method, args=arg_str)
-
-        # Read temporary csv output to a pandas table
-        if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
-            try:
-                column_names = table.columns.to_list()
-                result = pd.read_csv(tmpfile.name, sep="\t", names=column_names)
-            except AttributeError:  # 'str' object has no attribute 'columns'
-                result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")
-        elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
-            result = None
-
-    return result
+            return lib.virtualfile_to_dataset(
+                vfname=vouttbl, output_type=output_type, column_names=column_names
+            )
 
 
 @fmt_docstring
 @use_alias(
     I="spacing",
     R="region",
+    S="summary",
     V="verbose",
     a="aspatial",
+    b="binary",
+    d="nodata",
+    e="find",
     f="coltypes",
+    h="header",
     i="incols",
     o="outcols",
     r="registration",
-    s="skiprows",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence")
-def blockmean(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
+@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
+def blockmean(
+    data=None,
+    x=None,
+    y=None,
+    z=None,
+    output_type: Literal["pandas", "numpy", "file"] = "pandas",
+    outfile: str | None = None,
+    **kwargs,
+) -> pd.DataFrame | np.ndarray | None:
     r"""
-    Block average (x,y,z) data tables by mean estimation.
+    Block average (x, y, z) data tables by mean estimation.
 
-    Reads arbitrarily located (x,y,z) triples [or optionally weighted
-    quadruples (x,y,z,w)] and writes to the output a mean position and value
-    for every non-empty block in a grid region defined by the ``region`` and
-    ``spacing`` parameters.
+    Reads arbitrarily located (x, y, z) triplets [or optionally weighted
+    quadruplets (x, y, z, w)] and writes to the output a mean position and
+    value for every non-empty block in a grid region defined by the ``region``
+    and ``spacing`` parameters.
 
-    Takes a matrix, xyz triplets, or a file name as input.
+    Takes a matrix, (x, y, z) triplets, or a file name as input.
 
-    Must provide either ``table`` or ``x``, ``y``, and ``z``.
+    Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
     Full option list at :gmt-docs:`blockmean.html`
 
@@ -97,41 +113,63 @@ def blockmean(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
 
     Parameters
     ----------
-    table : str or {table-like}
+    data : str, {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
-        providing a file name to an ASCII data table, a 2D
+        providing a file name to an ASCII data table, a 2-D
         {table-classes}.
-    x/y/z : 1d arrays
+    x/y/z : 1-D arrays
         Arrays of x and y coordinates and values z of the data points.
+    {output_type}
+    {outfile}
+    {spacing}
+    summary : str
+        [**m**\|\ **n**\|\ **s**\|\ **w**].
+        Type of summary values calculated by blockmean.
 
-    {I}
-
-    {R}
-
-    outfile : str
-        The file name for the output ASCII file.
-
-    {V}
-    {a}
-    {i}
-    {f}
-    {o}
-    {r}
-    {s}
-    {w}
+        - **m** - reports mean value [Default]
+        - **n** - report the number of input points inside each block
+        - **s** - report the sum of all z-values inside a block
+        - **w** - report the sum of weights
+    {region}
+    {verbose}
+    {aspatial}
+    {binary}
+    {nodata}
+    {find}
+    {incols}
+    {coltypes}
+    {header}
+    {outcols}
+    {registration}
+    {wrap}
 
     Returns
     -------
-    output : pandas.DataFrame or None
-        Return type depends on whether the ``outfile`` parameter is set:
+    ret
+        Return type depends on ``outfile`` and ``output_type``:
 
-        - :class:`pandas.DataFrame` table with (x, y, z) columns if ``outfile``
-          is not set.
-        - None if ``outfile`` is set (filtered output will be stored in file
-          set by ``outfile``).
+        - ``None`` if ``outfile`` is set (output will be stored in file set by
+          ``outfile``)
+        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
+          (depends on ``output_type``)
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # Load a table of ship observations of bathymetry off Baja California
+    >>> data = pygmt.datasets.load_sample_data(name="bathymetry")
+    >>> # Calculate block mean values within 5 by 5 arc-minute bins
+    >>> data_bmean = pygmt.blockmean(data=data, region=[245, 255, 20, 30], spacing="5m")
     """
     return _blockm(
-        block_method="blockmean", table=table, outfile=outfile, x=x, y=y, z=z, **kwargs
+        block_method="blockmean",
+        data=data,
+        x=x,
+        y=y,
+        z=z,
+        output_type=output_type,
+        outfile=outfile,
+        **kwargs,
     )
 
 
@@ -141,26 +179,37 @@ def blockmean(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
     R="region",
     V="verbose",
     a="aspatial",
+    b="binary",
+    d="nodata",
+    e="find",
     f="coltypes",
+    h="header",
     i="incols",
     o="outcols",
     r="registration",
-    s="skiprows",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence")
-def blockmedian(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
+@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
+def blockmedian(
+    data=None,
+    x=None,
+    y=None,
+    z=None,
+    output_type: Literal["pandas", "numpy", "file"] = "pandas",
+    outfile: str | None = None,
+    **kwargs,
+) -> pd.DataFrame | np.ndarray | None:
     r"""
-    Block average (x,y,z) data tables by median estimation.
+    Block average (x, y, z) data tables by median estimation.
 
-    Reads arbitrarily located (x,y,z) triples [or optionally weighted
-    quadruples (x,y,z,w)] and writes to the output a median position and value
-    for every non-empty block in a grid region defined by the ``region`` and
-    ``spacing`` parameters.
+    Reads arbitrarily located (x, y, z) triplets [or optionally weighted
+    quadruplets (x, y, z, w)] and writes to the output a median position and
+    value for every non-empty block in a grid region defined by the ``region``
+    and ``spacing`` parameters.
 
-    Takes a matrix, xyz triplets, or a file name as input.
+    Takes a matrix, (x, y, z) triplets, or a file name as input.
 
-    Must provide either ``table`` or ``x``, ``y``, and ``z``.
+    Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
     Full option list at :gmt-docs:`blockmedian.html`
 
@@ -168,45 +217,151 @@ def blockmedian(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
 
     Parameters
     ----------
-    table : str or {table-like}
+    data : str, {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
-        providing a file name to an ASCII data table, a 2D
+        providing a file name to an ASCII data table, a 2-D
         {table-classes}.
-    x/y/z : 1d arrays
+    x/y/z : 1-D arrays
         Arrays of x and y coordinates and values z of the data points.
-
-    {I}
-
-    {R}
-
-    outfile : str
-        The file name for the output ASCII file.
-
-    {V}
-    {a}
-    {f}
-    {i}
-    {o}
-    {r}
-    {s}
-    {w}
+    {output_type}
+    {outfile}
+    {spacing}
+    {region}
+    {verbose}
+    {aspatial}
+    {binary}
+    {nodata}
+    {find}
+    {coltypes}
+    {header}
+    {incols}
+    {outcols}
+    {registration}
+    {wrap}
 
     Returns
     -------
-    output : pandas.DataFrame or None
-        Return type depends on whether the ``outfile`` parameter is set:
+    ret
+        Return type depends on ``outfile`` and ``output_type``:
 
-        - :class:`pandas.DataFrame` table with (x, y, z) columns if ``outfile``
-          is not set.
-        - None if ``outfile`` is set (filtered output will be stored in file
-          set by ``outfile``).
+        - ``None`` if ``outfile`` is set (output will be stored in file set by
+          ``outfile``)
+        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
+          (depends on ``output_type``)
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # Load a table of ship observations of bathymetry off Baja California
+    >>> data = pygmt.datasets.load_sample_data(name="bathymetry")
+    >>> # Calculate block median values within 5 by 5 arc-minute bins
+    >>> data_bmedian = pygmt.blockmedian(
+    ...     data=data, region=[245, 255, 20, 30], spacing="5m"
+    ... )
     """
     return _blockm(
         block_method="blockmedian",
-        table=table,
-        outfile=outfile,
+        data=data,
         x=x,
         y=y,
         z=z,
-        **kwargs
+        output_type=output_type,
+        outfile=outfile,
+        **kwargs,
+    )
+
+
+@fmt_docstring
+@use_alias(
+    I="spacing",
+    R="region",
+    V="verbose",
+    a="aspatial",
+    b="binary",
+    d="nodata",
+    e="find",
+    f="coltypes",
+    h="header",
+    i="incols",
+    o="outcols",
+    r="registration",
+    w="wrap",
+)
+@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
+def blockmode(
+    data=None,
+    x=None,
+    y=None,
+    z=None,
+    output_type: Literal["pandas", "numpy", "file"] = "pandas",
+    outfile: str | None = None,
+    **kwargs,
+) -> pd.DataFrame | np.ndarray | None:
+    r"""
+    Block average (x, y, z) data tables by mode estimation.
+
+    Reads arbitrarily located (x, y, z) triplets [or optionally weighted
+    quadruplets (x, y, z, w)] and writes to the output a mode position and
+    value for every non-empty block in a grid region defined by the ``region``
+    and ``spacing`` parameters.
+
+    Takes a matrix, (x, y, z) triplets, or a file name as input.
+
+    Must provide either ``data`` or ``x``, ``y``, and ``z``.
+
+    Full option list at :gmt-docs:`blockmode.html`
+
+    {aliases}
+
+    Parameters
+    ----------
+    data : str, {table-like}
+        Pass in (x, y, z) or (longitude, latitude, elevation) values by
+        providing a file name to an ASCII data table, a 2-D
+        {table-classes}.
+    x/y/z : 1-D arrays
+        Arrays of x and y coordinates and values z of the data points.
+    {output_type}
+    {outfile}
+    {spacing}
+    {region}
+    {verbose}
+    {aspatial}
+    {binary}
+    {nodata}
+    {find}
+    {coltypes}
+    {header}
+    {incols}
+    {outcols}
+    {registration}
+    {wrap}
+
+    Returns
+    -------
+    ret
+        Return type depends on ``outfile`` and ``output_type``:
+
+        - ``None`` if ``outfile`` is set (output will be stored in file set by
+          ``outfile``)
+        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
+          (depends on ``output_type``)
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # Load a table of ship observations of bathymetry off Baja California
+    >>> data = pygmt.datasets.load_sample_data(name="bathymetry")
+    >>> # Calculate block mode values within 5 by 5 arc-minute bins
+    >>> data_bmode = pygmt.blockmode(data=data, region=[245, 255, 20, 30], spacing="5m")
+    """
+    return _blockm(
+        block_method="blockmode",
+        data=data,
+        x=x,
+        y=y,
+        z=z,
+        output_type=output_type,
+        outfile=outfile,
+        **kwargs,
     )

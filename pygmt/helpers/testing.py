@@ -1,12 +1,14 @@
 """
 Helper functions for testing.
 """
-import inspect
-import os
-import string
 
-from matplotlib.testing.compare import compare_images
+import importlib
+import inspect
+import string
+from pathlib import Path
+
 from pygmt.exceptions import GMTImageComparisonFailure
+from pygmt.io import load_dataarray
 from pygmt.src import which
 
 
@@ -37,6 +39,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     >>> import pytest
     >>> import shutil
     >>> from pygmt import Figure
+    >>> from pathlib import Path
 
     >>> @check_figures_equal(result_dir="tmp_result_images")
     ... def test_check_figures_equal():
@@ -48,7 +51,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     ...     )
     ...     return fig_ref, fig_test
     >>> test_check_figures_equal()
-    >>> assert len(os.listdir("tmp_result_images")) == 0
+    >>> assert len(list(Path("tmp_result_images").iterdir())) == 0
     >>> shutil.rmtree(path="tmp_result_images")  # cleanup folder if tests pass
 
     >>> @check_figures_equal(result_dir="tmp_result_images")
@@ -60,25 +63,20 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     ...     return fig_ref, fig_test
     >>> with pytest.raises(GMTImageComparisonFailure):
     ...     test_check_figures_unequal()
-    ...
     >>> for suffix in ["", "-expected", "-failed-diff"]:
-    ...     assert os.path.exists(
-    ...         os.path.join(
-    ...             "tmp_result_images",
-    ...             f"test_check_figures_unequal{suffix}.png",
-    ...         )
-    ...     )
-    ...
+    ...     assert (
+    ...         Path("tmp_result_images") / f"test_check_figures_unequal{suffix}.png"
+    ...     ).exists()
     >>> shutil.rmtree(path="tmp_result_images")  # cleanup folder if tests pass
     """
-    # pylint: disable=invalid-name
-    ALLOWED_CHARS = set(string.digits + string.ascii_letters + "_-[]()")
-    KEYWORD_ONLY = inspect.Parameter.KEYWORD_ONLY
+    allowed_chars = set(string.digits + string.ascii_letters + "_-[]()")
+    keyword_only = inspect.Parameter.KEYWORD_ONLY
 
     def decorator(func):
         import pytest
+        from matplotlib.testing.compare import compare_images
 
-        os.makedirs(result_dir, exist_ok=True)
+        Path(result_dir).mkdir(parents=True, exist_ok=True)
         old_sig = inspect.signature(func)
 
         @pytest.mark.parametrize("ext", extensions)
@@ -88,13 +86,15 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
             if "request" in old_sig.parameters:
                 kwargs["request"] = request
             try:
-                file_name = "".join(c for c in request.node.name if c in ALLOWED_CHARS)
+                file_name = "".join(c for c in request.node.name if c in allowed_chars)
             except AttributeError:  # 'NoneType' object has no attribute 'node'
                 file_name = func.__name__
+
+            fig_ref, fig_test = None, None
             try:
                 fig_ref, fig_test = func(*args, **kwargs)
-                ref_image_path = os.path.join(result_dir, f"{file_name}-expected.{ext}")
-                test_image_path = os.path.join(result_dir, f"{file_name}.{ext}")
+                ref_image_path = Path(result_dir) / f"{file_name}-expected.{ext}"
+                test_image_path = Path(result_dir) / f"{file_name}.{ext}"
                 fig_ref.savefig(ref_image_path)
                 fig_test.savefig(test_image_path)
 
@@ -107,14 +107,15 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
                     in_decorator=True,
                 )
                 if err is None:  # Images are the same
-                    os.remove(ref_image_path)
-                    os.remove(test_image_path)
+                    ref_image_path.unlink()
+                    test_image_path.unlink()
                 else:  # Images are not the same
                     for key in ["actual", "expected", "diff"]:
-                        err[key] = os.path.relpath(err[key])
+                        err[key] = Path(err[key]).relative_to(".")
                     raise GMTImageComparisonFailure(
-                        "images not close (RMS %(rms).3f):\n\t%(actual)s\n\t%(expected)s "
-                        % err
+                        f"images not close (RMS {err['rms']:.3f}):\n"
+                        f"\t{err['actual']}\n"
+                        f"\t{err['expected']}"
                     )
             finally:
                 del fig_ref
@@ -126,9 +127,9 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
             if param.name not in {"fig_test", "fig_ref"}
         ]
         if "ext" not in old_sig.parameters:
-            parameters += [inspect.Parameter("ext", KEYWORD_ONLY)]
+            parameters += [inspect.Parameter("ext", keyword_only)]
         if "request" not in old_sig.parameters:
-            parameters += [inspect.Parameter("request", KEYWORD_ONLY)]
+            parameters += [inspect.Parameter("request", keyword_only)]
         new_sig = old_sig.replace(parameters=parameters)
         wrapper.__signature__ = new_sig
 
@@ -142,35 +143,55 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     return decorator
 
 
-def download_test_data():
+def load_static_earth_relief():
     """
-    Convenience function to download remote data files used in PyGMT tests and
-    docs.
+    Load the static_earth_relief file for internal testing.
+
+    Returns
+    -------
+    data : xarray.DataArray
+        A grid of Earth relief for internal tests.
     """
-    # List of datasets to download
-    datasets = [
-        # Earth relief grids
-        "@earth_relief_01d_p",
-        "@earth_relief_01d_g",
-        "@earth_relief_30m_p",
-        "@earth_relief_30m_g",
-        "@earth_relief_10m_p",
-        "@earth_relief_05m_p",
-        "@earth_relief_05m_g",
-        # List of tiles of 03s srtm data.
-        # Names like @N35E135.earth_relief_03s_g.nc is for internal use only.
-        # The naming scheme may change. DO NOT USE IT IN YOUR SCRIPTS.
-        "@N35E135.earth_relief_03s_g.nc",
-        "@N00W090.earth_relief_03m_p.nc",
-        # Other cache files
-        "@fractures_06.txt",
-        "@ridge.txt",
-        "@srtm_tiles.nc",  # needed for 03s and 01s relief data
-        "@Table_5_11.txt",
-        "@test.dat.nc",
-        "@tut_bathy.nc",
-        "@tut_quakes.ngdc",
-        "@tut_ship.xyz",
-        "@usgs_quakes_22.txt",
-    ]
-    which(fname=datasets, download="a")
+    fname = which("@static_earth_relief.nc", download="c")
+    return load_dataarray(fname)
+
+
+def skip_if_no(package):
+    """
+    Generic function to help skip tests when required packages are not present on the
+    testing system.
+
+    This function returns a pytest mark with a skip condition that will be
+    evaluated during test collection. An attempt will be made to import the
+    specified ``package``.
+
+    The mark can be used as either a decorator for a test class or to be
+    applied to parameters in pytest.mark.parametrize calls or parametrized
+    fixtures. Use pytest.importorskip if an imported moduled is later needed
+    or for test functions.
+
+    If the import is unsuccessful, then the test function (or test case when
+    used in conjunction with parametrization) will be skipped.
+
+    Adapted from
+    https://github.com/pandas-dev/pandas/blob/v2.1.4/pandas/util/_test_decorators.py#L121
+
+    Parameters
+    ----------
+    package : str
+        The name of the required package.
+
+    Returns
+    -------
+    pytest.MarkDecorator
+        A pytest.mark.skipif to use as either a test decorator or a
+        parametrization mark.
+    """
+    import pytest
+
+    try:
+        _ = importlib.import_module(name=package)
+        has_package = True
+    except ImportError:
+        has_package = False
+    return pytest.mark.skipif(not has_package, reason=f"Could not import '{package}'")

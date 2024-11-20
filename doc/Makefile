@@ -13,11 +13,12 @@ ALLSPHINXOPTS = -d $(BUILDDIR)/doctrees  $(SPHINXOPTS) .
 
 help:
 	@echo "Please use 'make <target>' where <target> is one of"
-	@echo "  all        build the HTML files from the existing rst sources"
-	@echo "  api        generate rst source files of API documentation"
-	@echo "  html       build the HTML files from the existing rst sources"
-	@echo "  server     make a local HTTP server for previewing the built documentation"
-	@echo "  clean      clean up built and generated files"
+	@echo "  all          build the HTML files from the existing rst sources"
+	@echo "  api          generate rst source files of API documentation"
+	@echo "  html         build the HTML files from the existing rst sources"
+	@echo "  html-noplot  build the HTML files without running any examples"
+	@echo "  server       make a local HTTP server for previewing the built documentation"
+	@echo "  clean        clean up built and generated files"
 
 all: html
 
@@ -36,6 +37,14 @@ html: api
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
+html-noplot: api
+	@echo
+	@echo "Building HTML files without example plots."
+	@echo
+	$(SPHINXBUILD) -D plot_gallery=0 -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
+	@echo
+	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
+
 server:
 	@echo
 	@echo "Running a server on port 8009."
@@ -46,6 +55,7 @@ server:
 clean:
 	rm -rf $(BUILDDIR)
 	rm -rf api/generated
-	rm -rf gallery
+	rm -rf intro
 	rm -rf tutorials
+	rm -rf gallery
 	rm -rf projections

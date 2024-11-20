@@ -1,4 +1,5 @@
 outs:
-- md5: 331f8fcdf2a864fb840ec48b865327bc
-  size: 52216
+- md5: 8cb19cc2939be8df0f813b822718d1f8
+  size: 52883
   path: test_legend_specfile.png
+  hash: md5

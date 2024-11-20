@@ -58,6 +58,11 @@ there are a few options:
 3. Indicate next to your name on `AUTHORS.md` that you do not wish to be
    included with something like `(not included in Zenodo)`.
 
+Note that authors included in the Zenodo archive will also have their name
+listed in the `CITATION.cff` file. This is a machine (and human) readable file
+that enables people to cite the PyGMT software easily, and the file will be
+updated by the PyGMT maintainers each time a new release is made.
+
 ## Scientific publications (papers)
 
 We aim to write academic papers for most of our software packages. Ideally, we

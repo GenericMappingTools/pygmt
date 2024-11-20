@@ -1,26 +1,22 @@
 """
 Test the sphinx-gallery scraper and code required to make it work.
 """
-import os
+
+from pathlib import Path
 from tempfile import TemporaryDirectory
 
 import pytest
-
-try:
-    import sphinx_gallery
-except ImportError:
-    sphinx_gallery = None
-
 from pygmt.figure import SHOWED_FIGURES, Figure
 from pygmt.sphinx_gallery import PyGMTScraper
 
+pytest.importorskip("sphinx_gallery", reason="Requires sphinx-gallery to be installed")
+pytest.importorskip("IPython", reason="Requires IPython to be installed")
 
-@pytest.mark.skipif(sphinx_gallery is None, reason="requires sphinx-gallery")
+
 def test_pygmtscraper():
     """
     Make sure the scraper finds the figures and removes them from the pool.
     """
-
     showed = SHOWED_FIGURES.copy()
     for _ in range(len(SHOWED_FIGURES)):
         SHOWED_FIGURES.pop()
@@ -31,13 +27,13 @@ def test_pygmtscraper():
         assert len(SHOWED_FIGURES) == 1
         assert SHOWED_FIGURES[0] is fig
         scraper = PyGMTScraper()
-        with TemporaryDirectory(dir=os.getcwd()) as tmpdir:
+        with TemporaryDirectory(dir=Path.cwd()) as tmpdir:
             conf = {"src_dir": "meh"}
-            fname = os.path.join(tmpdir, "meh.png")
+            fname = Path(tmpdir) / "meh.png"
             block_vars = {"image_path_iterator": (i for i in [fname])}
-            assert not os.path.exists(fname)
+            assert not fname.exists()
             scraper(None, block_vars, conf)
-            assert os.path.exists(fname)
+            assert fname.exists()
             assert not SHOWED_FIGURES
     finally:
         SHOWED_FIGURES.extend(showed)

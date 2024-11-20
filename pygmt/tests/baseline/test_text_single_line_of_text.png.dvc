@@ -1,4 +1,5 @@
 outs:
-- md5: 357038279799ac60f4106107cda36f05
-  size: 1908
+- md5: d2c9e47dceffb0b4f6573c55d7a49635
+  size: 1842
   path: test_text_single_line_of_text.png
+  hash: md5
