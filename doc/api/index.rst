@@ -29,8 +29,8 @@ Plotting map elements
     Figure.basemap
     Figure.coast
     Figure.colorbar
-    Figure.inset
     Figure.hlines
+    Figure.inset
     Figure.legend
     Figure.logo
     Figure.solar
