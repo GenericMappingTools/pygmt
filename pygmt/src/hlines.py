@@ -2,139 +2,105 @@
 hlines - Plot horizontal lines.
 """
 
+from collections.abc import Sequence
+
 import numpy as np
-from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    build_arg_string,
-    data_kind,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import is_nonstr_iter
 
 
-@fmt_docstring
-@use_alias(
-    N="no_clip",
-    V="verbose",
-    W="pen",
-    l="label",
-    p="perspective",
-    t="transparency",
-)
-@kwargs_to_strings(p="sequence")
-def hlines(self, y=None, xmin=None, xmax=None, **kwargs):
+def hlines(
+    self,
+    y: int | float | Sequence[int | float],
+    xmin=None,
+    xmax=None,
+    pen=None,
+    label=None,
+    transparency=None,
+    no_clip: bool = False,
+    perspective=None,
+):
     """
-    Plot one or a collection of horizontal lines.
-    Takes a single y value or a list of individual y values and optionally
-    lower and upper x value limits as input.
-    Must provide *y*.
-    If y values are given without x limits then the current map boundaries are
-    used as lower and upper limits. If only a single set of x limits is given
-    then all lines will have the same length, otherwise give x limits for each
-    individual line. If only a single label is given then all lines are grouped
-    under this label in the legend (if shown). If each line should appear as a
-    single entry in the legend, give corresponding labels for all lines
-    (same for **pen**).
+    Plot one or multiple horizontal line(s) at specified y-coordinates.
+
+    This method is a high-level wrapper around :meth:`pygmt.Figure.plot`, to plot one or
+    multiple horizontal lines at specified y-coordinates. By default, the lines are
+    plotted between the x-limits of the current plot, but this can be overridden by
+    specifying the ``xmin`` and ``xmax`` parameters to set the x-coordinates of the
+    start and end points of the lines.
+
+    ``y`` can be a single value or a sequence of values. If a single value, the line is
+    plotted between ``xmin`` and ``xmax``. Similarly, ``xmin`` and ``xmax`` can be a
+    single value or a sequence of values. If a sequence, the length of ``xmin`` and
+    ``xmax`` must match the length of ``y``.
 
     Parameters
     ----------
-    y : float or 1d array
-        The y coordinates or an array of y coordinates of the
-        horizontal lines to plot.
-    no_clip : bool or str
-        ``'[c|r]'``.
-        Do NOT clip lines that fall outside map border [Default plots
-        lines whose coordinates are strictly inside the map border only].
-        The option does not apply to lines which are always
-        clipped to the map region. For periodic (360-longitude) maps we
-        must plot all lines twice in case they are clipped by the
-        repeating boundary. ``no_clip=True`` will turn off clipping and not
-        plot repeating lines. Use ``no_clip="r"`` to turn off clipping
-        but retain the plotting of such repeating lines, or use
-        ``no_clip="c"`` to retain clipping but turn off plotting of
-        repeating lines.
-    {W}
-    {V}
-    label : str
-        Add a legend entry for the line being plotted.
-    {p}
-    {t}
-        *transparency* can also be a 1d array to set varying transparency
-        for lines.
+    y
+        Y-coordinates to plot the lines. It can be a single value or a sequence of
+        values.
+    xmin
+        X-coordinates of the start point of the line(s). If ``None``, defaults to the
+        minimum x-value of the current plot.
+    xmax
+        X-coordinates of the end point of the line(s). If ``None``, defaults to the
+        maximum x-value of the current plot.
+    pen
+        Pen attributes for the line(s).
+    label
+        Label for the line(s), to be displayed in the legend.
+    transparency
+        Transparency level for the lines, in [0-100] percent range. Defaults to 0, i.e.,
+        opaque. Only visible when saving figures in PDF or raster formats.
+    no_clip
+        If ``True``, do not clip the lines outside the plot region.
+    perspective
+        Select perspective view and set the azimuth and elevation angle of the
+        viewpoint. Refer to :method:`pygmt.Figure.plot` for details.
 
+    Examples
+    --------
+    >>> import pygmt
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c/10c", frame=True)
+    >>> fig.hlines(y=1, pen="1p,black", label="Line 1")
+    >>> fig.hlines(y=2, xmin=2, xmax=8, pen="1p,red,-", label="Line 2")
+    >>> fig.hlines(y=[3, 4], xmin=3, xmax=7, pen="1p,black,.", label="Line 3")
+    >>> fig.hlines(y=[5, 6], xmin=4, xmax=9, pen="1p,red", label="Line 4")
+    >>> fig.hlines(y=[7, 8], xmin=[0, 1], xmax=[7, 8], pen="1p,blue", label="Line 5")
+    >>> fig.legend()
+    >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)
+    self._preprocess()
 
-    y = np.atleast_1d(y)
-    list_length = len(y)
+    # Determine the x limits.
+    if xmin is None and xmax is None:
+        _xmin, _xmax = self.region[0:2]  # Get x limits from current plot region
+        if xmin is None:
+            xmin = _xmin
+        if xmax is None:
+            xmax = _xmax
 
-    # prepare x values
-    def prep_data(xmin, xmax, list_length):
-        if xmin is None and xmax is None:
-            # get limits from current map boundings if not given via xmin, xmax
-            xmin, xmax = self.region[0:2]
-            x = np.repeat([[xmin], [xmax]], list_length, axis=1)
-        elif xmin is None or xmax is None:
-            raise GMTInvalidInput(
-                "Must provide both, xmin and xmax if limits are not set automatically."
-            )
+    _y = np.atleast_1d(y)
+    nlines = len(_y)  # Number of lines to plot.
+    # Repeat xmin and xmax to match the length of y if they are scalars.
+    _xmin = np.atleast_1d(xmin) if is_nonstr_iter(xmin) else np.repeat(xmin, nlines)
+    _xmax = np.atleast_1d(xmax) if is_nonstr_iter(xmax) else np.repeat(xmax, nlines)
 
-        # if only a single xmin and xmax without [], repeat to fit
-        # size of y
-        elif isinstance(xmin, int | float):
-            x = np.array([[xmin], [xmax]])
-            x = np.repeat(x, list_length, axis=1)
-        elif len(xmin) != len(xmax):
-            GMTInvalidInput("Must provide same length for xmin and xmax.")
-        else:
-            x = np.array([xmin, xmax])
+    # Validate the xmin and xmax arguments.
+    if _xmin.size != nlines or _xmax.size != nlines:
+        msg = f"'xmin' and 'xmax' are expected to be scalars or have a length of {nlines}."
+        raise GMTInvalidInput(msg)
 
-        return np.atleast_1d(x)
-
-    def prep_style(kwargs, list_length):
-        # prepare labels
-        if "l" in kwargs:
-            # if several lines belong to the same label, first set all to None
-            # then replace first entry by the label given via "l"
-            if not isinstance(kwargs["l"], list):
-                label2use = kwargs["l"]
-                kwargs["l"] = np.repeat(None, list_length)
-                kwargs["l"][0] = label2use
-
-        else:
-            kwargs["l"] = np.repeat(None, list_length)
-
-        # prepare pens
-        if "W" in kwargs:
-            # select pen, no series
-            if not isinstance(kwargs["W"], list):
-                kwargs["W"] = np.repeat(kwargs["W"], list_length)
-        else:  # use as default if no pen is given (neither single nor series)
-            kwargs["W"] = np.repeat("1p,black", list_length)
-
-        return kwargs
-
-    # loop over entries
-    x = prep_data(xmin, xmax, list_length)
-    kwargs = prep_style(kwargs, list_length)
-    kwargs_copy = kwargs.copy()
-
-    for index in range(list_length):
-        with Session() as lib:
-            if (
-                data_kind(None, [x[0][index], x[1][index]], [y[index], y[index]])
-                == "vectors"
-            ):
-                file_context = lib.virtualfile_from_vectors(
-                    np.atleast_1d([x[0][index], x[1][index]]), [y[index], y[index]]
-                )
-            else:
-                raise GMTInvalidInput("Unrecognized data type.")
-
-            kwargs["l"] = kwargs_copy["l"][index]
-            kwargs["W"] = kwargs_copy["W"][index]
-
-            with file_context as fname:
-                lib.call_module("plot", " ".join([fname, build_arg_string(kwargs)]))
+    # Loop over horizontal lines
+    for i in range(nlines):
+        _label = label if i == 0 else None
+        self.plot(
+            x=[_xmin[i], _xmax[i]],
+            y=[_y[i], _y[i]],
+            pen=pen,
+            label=_label,
+            transparency=transparency,
+            no_clip=no_clip,
+            perspective=perspective,
+        )
