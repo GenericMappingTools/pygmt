@@ -13,13 +13,13 @@ __doctest_skip__ = ["hlines"]
 def hlines(
     self,
     y: int | float | Sequence[int | float],
-    xmin=None,
-    xmax=None,
-    pen=None,
-    label=None,
-    transparency=None,
+    xmin: int | float | Sequence[int | float] | None = None,
+    xmax: int | float | Sequence[int | float] | None = None,
+    pen: str | None = None,
+    label: str | None = None,
+    transparency: int | float | None = None,
     no_clip: bool = False,
-    perspective=None,
+    perspective: str | bool | None = None,
 ):
     """
     Plot one or multiple horizontal line(s).
@@ -78,35 +78,31 @@ def hlines(
     self._preprocess()
 
     # Ensure y is a 1D array.
-    y = np.atleast_1d(y)
-    nlines = len(y)  # Number of lines to plot.
+    _y = np.atleast_1d(y)
+    nlines = len(_y)  # Number of lines to plot.
 
     # Ensure xmin and xmax are 1D arrays.
     # First, determine the x limits if not specified.
     if xmin is None or xmax is None:
         xlimits = self.region[:2]  # Get x limits from current plot region
-        if xmin is None:
-            xmin = np.full(nlines, xlimits[0])
-        if xmax is None:
-            xmax = np.full(nlines, xlimits[1])
-    xmin = np.atleast_1d(xmin)
-    xmax = np.atleast_1d(xmax)
+    _xmin = np.full(nlines, xlimits[0]) if xmin is None else np.atleast_1d(xmin)
+    _xmax = np.full(nlines, xlimits[1]) if xmax is None else np.atleast_1d(xmax)
 
     # Check if xmin/xmax are scalars or have the same length.
-    if xmin.size != xmax.size:
+    if _xmin.size != _xmax.size:
         msg = "'xmin' and 'xmax' are expected to be scalars or have the same length."
         raise GMTInvalidInput(msg)
 
     # Ensure _xmin/_xmax match the _y length if they're scalars or have length 1.
-    if xmin.size == 1 and xmax.size == 1:
-        xmin = np.repeat(xmin, nlines)
-        xmax = np.repeat(xmax, nlines)
+    if _xmin.size == 1 and _xmax.size == 1:
+        _xmin = np.repeat(_xmin, nlines)
+        _xmax = np.repeat(_xmax, nlines)
 
     # Check if _xmin/_xmax match the _y length.
-    if xmin.size != nlines or xmax.size != nlines:
+    if _xmin.size != nlines or _xmax.size != nlines:
         msg = (
             f"'xmin' and 'xmax' are expected to have length '{nlines}' but "
-            f"have length '{xmin.size}' and '{xmax.size}'."
+            f"have length '{_xmin.size}' and '{_xmax.size}'."
         )
         raise GMTInvalidInput(msg)
 
@@ -119,8 +115,8 @@ def hlines(
         #    replace comma with \054 if the label contains commas.
         _label = label.replace(",", "\\054") if label and i == 0 else None
         self.plot(
-            x=[xmin[i], xmax[i]],
-            y=[y[i], y[i]],
+            x=[_xmin[i], _xmax[i]],
+            y=[_y[i], _y[i]],
             pen=pen,
             label=_label,
             transparency=transparency,
