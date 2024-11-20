@@ -1,6 +1,7 @@
 """
 Tests for hline.
 """
+
 from pygmt import Figure
 from pygmt.helpers.testing import check_figures_equal
 

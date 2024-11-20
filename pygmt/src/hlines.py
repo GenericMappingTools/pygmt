@@ -1,6 +1,7 @@
 """
 hlines - Plot horizontal lines.
 """
+
 import numpy as np
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
@@ -36,6 +37,7 @@ def hlines(self, y=None, xmin=None, xmax=None, **kwargs):
     under this label in the legend (if shown). If each line should appear as a
     single entry in the legend, give corresponding labels for all lines
     (same for **pen**).
+
     Parameters
     ----------
     y : float or 1d array
@@ -63,40 +65,35 @@ def hlines(self, y=None, xmin=None, xmax=None, **kwargs):
         for lines.
 
     """
-
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     y = np.atleast_1d(y)
     list_length = len(y)
 
     # prepare x values
     def prep_data(xmin, xmax, list_length):
-
         if xmin is None and xmax is None:
             # get limits from current map boundings if not given via xmin, xmax
-            xmin, xmax = fig.region[0:2]
+            xmin, xmax = self.region[0:2]
             x = np.repeat([[xmin], [xmax]], list_length, axis=1)
         elif xmin is None or xmax is None:
             raise GMTInvalidInput(
                 "Must provide both, xmin and xmax if limits are not set automatically."
             )
 
+        # if only a single xmin and xmax without [], repeat to fit
+        # size of y
+        elif isinstance(xmin, int | float):
+            x = np.array([[xmin], [xmax]])
+            x = np.repeat(x, list_length, axis=1)
+        elif len(xmin) != len(xmax):
+            GMTInvalidInput("Must provide same length for xmin and xmax.")
         else:
-            # if only a single xmin and xmax without [], repeat to fit
-            # size of y
-            if isinstance(xmin, (int, float)):
-                x = np.array([[xmin], [xmax]])
-                x = np.repeat(x, list_length, axis=1)
-            else:
-                if len(xmin) != len(xmax):
-                    GMTInvalidInput("Must provide same length for xmin and xmax.")
-                else:
-                    x = np.array([xmin, xmax])
+            x = np.array([xmin, xmax])
 
         return np.atleast_1d(x)
 
     def prep_style(kwargs, list_length):
-
         # prepare labels
         if "l" in kwargs:
             # if several lines belong to the same label, first set all to None
@@ -125,7 +122,6 @@ def hlines(self, y=None, xmin=None, xmax=None, **kwargs):
     kwargs_copy = kwargs.copy()
 
     for index in range(list_length):
-
         with Session() as lib:
             if (
                 data_kind(None, [x[0][index], x[1][index]], [y[index], y[index]])

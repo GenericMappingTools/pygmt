@@ -2,9 +2,9 @@
 Plot horizontal lines
 ---------------------
 
-The :meth:`pygmt.Figure.hlines` method can plot horizontal lines based on 
+The :meth:`pygmt.Figure.hlines` method can plot horizontal lines based on
 a given y value. Optionally, the lower and upper limits of the lines can be
-defined, otherwise the current map boundaries are taken. 
+defined, otherwise the current map boundaries are taken.
 
 """
 
