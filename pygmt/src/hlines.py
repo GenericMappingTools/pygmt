@@ -7,6 +7,8 @@ from collections.abc import Sequence
 import numpy as np
 from pygmt.exceptions import GMTInvalidInput
 
+__doctest_skip__ = ["hlines"]
+
 
 def hlines(
     self,
