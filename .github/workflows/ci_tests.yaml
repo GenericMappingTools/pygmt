@@ -177,10 +177,10 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4.6.0
+        uses: codecov/codecov-action@v5.0.3
         if: success() || failure()
         with:
           use_oidc: true
-          file: ./coverage.xml # optional
+          files: ./coverage.xml # optional
           env_vars: OS,PYTHON,NUMPY
           fail_ci_if_error: false
