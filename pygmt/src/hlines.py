@@ -6,7 +6,6 @@ from collections.abc import Sequence
 
 import numpy as np
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import is_nonstr_iter
 
 
 def hlines(
@@ -21,39 +20,42 @@ def hlines(
     perspective=None,
 ):
     """
-    Plot one or multiple horizontal line(s) at specified y-coordinates.
+    Plot one or multiple horizontal line(s).
 
-    This method is a high-level wrapper around :meth:`pygmt.Figure.plot`, to plot one or
-    multiple horizontal lines at specified y-coordinates. By default, the lines are
-    plotted between the x-limits of the current plot, but this can be overridden by
-    specifying the ``xmin`` and ``xmax`` parameters to set the x-coordinates of the
-    start and end points of the lines.
+    This method is a high-level wrapper around :meth:`pygmt.Figure.plot`, focusing on
+    plotting horizontal lines at Y-coordinates specified by the ``y`` parameter. The
+    ``y`` parameter can be a single value (for a single horizontal line) or a sequence
+    of values (for multiple horizontal lines).
 
-    ``y`` can be a single value or a sequence of values. If a single value, the line is
-    plotted between ``xmin`` and ``xmax``. Similarly, ``xmin`` and ``xmax`` can be a
-    single value or a sequence of values. If a sequence, the length of ``xmin`` and
-    ``xmax`` must match the length of ``y``.
+    By default, the X-coordinates of the start and end points of the lines are set to
+    be the X-limits of the current plot, but this can be overridden by specifying the
+    ``xmin`` and ``xmax`` parameters. ``xmin`` and ``xmax`` can either be a single
+    value or a sequence of values. If a single value is provided, it is applied to all
+    lines. If a sequence is provided, the length of ``xmin`` and ``xmax`` must match
+    the length of ``y``.
+
+    Currently, it only works for Cartesian coordinate system.
 
     Parameters
     ----------
     y
-        Y-coordinates to plot the lines. It can be a single value or a sequence of
-        values.
+        Y-coordinates to plot the lines. It can be a single value (for a single line)
+        or a sequence of values (for multiple lines).
     xmin
         X-coordinates of the start point of the line(s). If ``None``, defaults to the
-        minimum x-value of the current plot.
+        minimum X-limit of the current plot.
     xmax
         X-coordinates of the end point of the line(s). If ``None``, defaults to the
-        maximum x-value of the current plot.
+        maximum X-limit of the current plot.
     pen
-        Pen attributes for the line(s).
+        Pen attributes for the line(s), in the format of *width,color,style*.
     label
         Label for the line(s), to be displayed in the legend.
     transparency
         Transparency level for the lines, in [0-100] percent range. Defaults to 0, i.e.,
         opaque. Only visible when saving figures in PDF or raster formats.
     no_clip
-        If ``True``, do not clip the lines outside the plot region.
+        If ``True``, do not clip lines outside the plot region.
     perspective
         Select perspective view and set the azimuth and elevation angle of the
         viewpoint. Refer to :method:`pygmt.Figure.plot` for details.
@@ -73,31 +75,44 @@ def hlines(
     """
     self._preprocess()
 
-    # Determine the x limits.
-    if xmin is None and xmax is None:
-        _xmin, _xmax = self.region[0:2]  # Get x limits from current plot region
+    # Determine the x limits if not specified.
+    if xmin is None or xmax is None:
+        xlimits = self.region[:2]  # Get x limits from current plot region
         if xmin is None:
-            xmin = _xmin
+            xmin = xlimits[0]
         if xmax is None:
-            xmax = _xmax
+            xmax = xlimits[1]
 
-    _y = np.atleast_1d(y)
-    nlines = len(_y)  # Number of lines to plot.
-    # Repeat xmin and xmax to match the length of y if they are scalars.
-    _xmin = np.atleast_1d(xmin) if is_nonstr_iter(xmin) else np.repeat(xmin, nlines)
-    _xmax = np.atleast_1d(xmax) if is_nonstr_iter(xmax) else np.repeat(xmax, nlines)
+    # Prepare the y, xmin, and xmax arrays.
+    y = np.atleast_1d(y)
+    xmin = np.atleast_1d(xmin)
+    xmax = np.atleast_1d(xmax)
 
-    # Validate the xmin and xmax arguments.
-    if _xmin.size != nlines or _xmax.size != nlines:
-        msg = f"'xmin' and 'xmax' are expected to be scalars or have a length of {nlines}."
+    # Check if xmin/xmax are scalars or have the same length.
+    if xmin.size != xmax.size:
+        msg = "'xmin' and 'xmax' are expected to be scalars or have the same length."
         raise GMTInvalidInput(msg)
 
-    # Loop over horizontal lines
+    nlines = len(y)  # Number of lines to plot.
+    # Ensure _xmin/_xmax match the _y length if they're scalars or have length 1.
+    if xmin.size == 1 and xmax.size == 1:
+        xmin = np.repeat(xmin, nlines)
+        xmax = np.repeat(xmax, nlines)
+
+    # Check if _xmin/_xmax match the _y length.
+    if xmin.size != nlines or xmax.size != nlines:
+        msg = (
+            f"'xmin' and 'xmax' are expected to have length '{nlines}' but "
+            f"have length '{xmin.size}' and '{xmax.size}'."
+        )
+        raise GMTInvalidInput(msg)
+
+    # Call the plot method to plot the lines.
     for i in range(nlines):
-        _label = label if i == 0 else None
+        _label = label if label else None  # One label for multiple lines
         self.plot(
-            x=[_xmin[i], _xmax[i]],
-            y=[_y[i], _y[i]],
+            x=[xmin[i], xmax[i]],
+            y=[y[i], y[i]],
             pen=pen,
             label=_label,
             transparency=transparency,
