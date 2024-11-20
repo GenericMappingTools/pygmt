@@ -75,16 +75,18 @@ def hlines(
     """
     self._preprocess()
 
-    # Determine the x limits if not specified.
+    # Ensure y is a 1D array.
+    y = np.atleast_1d(y)
+    nlines = len(y)  # Number of lines to plot.
+
+    # Ensure xmin and xmax are 1D arrays.
+    # First, determine the x limits if not specified.
     if xmin is None or xmax is None:
         xlimits = self.region[:2]  # Get x limits from current plot region
         if xmin is None:
-            xmin = xlimits[0]
+            xmin = np.full(nlines, xlimits[0])
         if xmax is None:
-            xmax = xlimits[1]
-
-    # Prepare the y, xmin, and xmax arrays.
-    y = np.atleast_1d(y)
+            xmax = np.full(nlines, xlimits[1])
     xmin = np.atleast_1d(xmin)
     xmax = np.atleast_1d(xmax)
 
@@ -93,7 +95,6 @@ def hlines(
         msg = "'xmin' and 'xmax' are expected to be scalars or have the same length."
         raise GMTInvalidInput(msg)
 
-    nlines = len(y)  # Number of lines to plot.
     # Ensure _xmin/_xmax match the _y length if they're scalars or have length 1.
     if xmin.size == 1 and xmax.size == 1:
         xmin = np.repeat(xmin, nlines)
@@ -109,7 +110,12 @@ def hlines(
 
     # Call the plot method to plot the lines.
     for i in range(nlines):
-        _label = label if label else None  # One label for multiple lines
+        # Special handling for label.
+        # 1. Only specify label when plotting the first line.
+        # 2. The -l option can accept comma-separated labels for labeling multiple lines
+        #    with auto-coloring enabled. We don't need this feature here, so we need to
+        #    replace comma with \054 if the label contains commas.
+        _label = label.replace(",", "\\054") if label and i == 0 else None
         self.plot(
             x=[xmin[i], xmax[i]],
             y=[y[i], y[i]],
