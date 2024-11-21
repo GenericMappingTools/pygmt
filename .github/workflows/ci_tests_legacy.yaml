@@ -12,7 +12,7 @@ on:
   # push:
   #   branches: [ main ]
   # Uncomment the 'pull_request' line below to trigger the workflow in PR
-  # pull_request:
+  pull_request:
     # types: [ready_for_review]
     # paths:
     #  - 'pygmt/**'
