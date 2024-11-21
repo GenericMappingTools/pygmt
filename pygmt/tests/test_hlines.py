@@ -79,7 +79,7 @@ def test_hlines_polar_projection():
     Plot horizontal lines in polar projection.
     """
     fig = Figure()
-    fig.basemap(region=[0, 360, 0, 2], projection="P15c", frame=True)
+    fig.basemap(region=[0, 360, 0, 1], projection="P15c", frame=True)
     fig.hlines(0.1, pen="1p")
     fig.hlines(0.2, xmin=0, xmax=360, pen="1p")
     fig.hlines(0.3, xmin=0, xmax=180, pen="1p")
