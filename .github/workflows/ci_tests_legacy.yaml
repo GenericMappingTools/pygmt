@@ -85,11 +85,15 @@ jobs:
       # Install the package that we want to test
       - name: Install the package
         run: |
+          uv venv
+          source .venv/bin/activate
           uv run --with pip==23 --resolution lowest-direct --all-extras --dev make install
           uv pip list
 
       # Run the tests but skip images
       - name: Run tests
-        run: uv run --with pytest==8,pytest-mpl==0.17,pytest-doctestplus==1.2 --resolution lowest-direct --all-extras --dev make test_no_images PYTEST_EXTRA="-r P"
+        run: |
+          source .venv/bin/activate
+          uv run --with pytest==8,pytest-mpl==0.17,pytest-doctestplus==1.2 --resolution lowest-direct --all-extras --dev make test_no_images PYTEST_EXTRA="-r P"
         env:
           GMT_LIBRARY_PATH: $CONDA_PREFIX/lib
