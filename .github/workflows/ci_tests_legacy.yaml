@@ -1,8 +1,8 @@
-# Test PyGMT with GMT legacy versions on Linux/macOS/Windows
+# Test PyGMT with GMT legacy versions and old Python dependencies on Linux/macOS/Windows
 #
-# This workflow runs regular PyGMT tests with GMT legacy versions. Due to the minor
-# baseline image changes between GMT versions, the workflow only runs the tests but
-# doesn't do image comparisons.
+# This workflow runs regular PyGMT tests with GMT legacy versions and old versions of
+# all optional Python dependencies. Due to the minor baseline image changes between GMT
+# versions, the workflow only runs the tests but doesn't do image comparisons.
 #
 # It is scheduled to run every Tuesday on the main branch.
 #
@@ -62,23 +62,6 @@ jobs:
             python=3.10
             gmt=${{ matrix.gmt_version }}
             ghostscript<10
-            numpy
-            pandas
-            xarray
-            netCDF4
-            packaging
-            contextily
-            geopandas
-            ipython
-            pyarrow
-            rioxarray
-            sphinx-gallery
-            make
-            pip
-            python-build
-            pytest
-            pytest-doctestplus
-            pytest-mpl
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
@@ -95,10 +78,18 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
 
+      # Install uv package manager
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
       # Install the package that we want to test
       - name: Install the package
-        run: make install
+        run: |
+          uv run --with pip==23 --resolution lowest-direct --all-extras --dev make install
+          uv pip list
 
       # Run the tests but skip images
       - name: Run tests
-        run: make test_no_images PYTEST_EXTRA="-r P"
+        run: uv run --with pytest==8 --resolution lowest-direct --all-extras --dev make test_no_images PYTEST_EXTRA="-r P"
+        env:
+          GMT_LIBRARY_PATH: $CONDA_PREFIX/lib
