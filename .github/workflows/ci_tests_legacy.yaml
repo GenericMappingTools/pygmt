@@ -90,6 +90,6 @@ jobs:
 
       # Run the tests but skip images
       - name: Run tests
-        run: uv run --with pytest==8 --resolution lowest-direct --all-extras --dev make test_no_images PYTEST_EXTRA="-r P"
+        run: uv run --with pytest==8,pytest-mpl==0.17,pytest-doctestplus==1.2 --resolution lowest-direct --all-extras --dev make test_no_images PYTEST_EXTRA="-r P"
         env:
           GMT_LIBRARY_PATH: $CONDA_PREFIX/lib
