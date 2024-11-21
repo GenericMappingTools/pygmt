@@ -73,6 +73,24 @@ def test_hlines_geographic_global(region):
     return fig
 
 
+@pytest.mark.mpl_image_compare
+def test_hlines_polar_projection():
+    """
+    Plot horizontal lines in polar projection.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 360, 0, 2], projection="P15c", frame=True)
+    fig.hlines(0.1, pen="1p")
+    fig.hlines(0.2, xmin=0, xmax=360, pen="1p")
+    fig.hlines(0.3, xmin=0, xmax=180, pen="1p")
+    fig.hlines(0.4, xmin=180, xmax=360, pen="1p")
+    fig.hlines(0.5, xmin=0, xmax=90, pen="1p")
+    fig.hlines(0.6, xmin=90, xmax=180, pen="1p")
+    fig.hlines(0.7, xmin=180, xmax=270, pen="1p")
+    fig.hlines(0.8, xmin=270, xmax=360, pen="1p")
+    return fig
+
+
 def test_hlines_invalid_input():
     """
     Test invalid input for hlines.
