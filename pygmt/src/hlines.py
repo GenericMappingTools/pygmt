@@ -36,19 +36,24 @@ def hlines(
     lines. If a sequence is provided, the length of ``xmin`` and ``xmax`` must match
     the length of ``y``.
 
-    Currently, it only works for Cartesian coordinate system.
+    The term "horizontal" lines can be interpreted differently in different coordinate
+    systems:
+
+    - *Cartesian* coordinate system: lines are plotted as straight lines.
+    - *Geographic* projection: lines are plotted as parallels along constant latitude.
+    - *Polar* projection: lines are plotted as arcs along constant radius.
 
     Parameters
     ----------
     y
         Y-coordinates to plot the lines. It can be a single value (for a single line)
         or a sequence of values (for multiple lines).
-    xmin
-        X-coordinates of the start point of the line(s). If ``None``, defaults to the
-        minimum X-limit of the current plot.
-    xmax
-        X-coordinates of the end point of the line(s). If ``None``, defaults to the
-        maximum X-limit of the current plot.
+    xmin/xmax
+        X-coordinates of the start/end point of the line(s). If ``None``, defaults to
+        the X-limits of the current plot. ``xmin`` and ``xmax`` can either be a single
+        value or a sequence of values. If a single value is provided, it is applied to
+        all lines. If a sequence is provided, the length of ``xmin`` and ``xmax`` must
+        match the length of ``y``.
     pen
         Pen attributes for the line(s), in the format of *width,color,style*.
     label
