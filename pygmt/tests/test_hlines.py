@@ -43,6 +43,36 @@ def test_hlines_multiple_lines():
     return fig
 
 
+@pytest.mark.mpl_image_compare
+@pytest.mark.parametrize("region", ["g", "d"])
+def test_hlines_geographic_global(region):
+    """
+    Plot horizontal lines in geographic coordinates.
+    """
+    fig = Figure()
+    fig.basemap(region=region, projection="R15c", frame=True)
+    # Plot lines with longitude range of 0 to 360.
+    fig.hlines(10, pen="1p")
+    fig.hlines(20, xmin=0, xmax=360, pen="1p")
+    fig.hlines(30, xmin=0, xmax=180, pen="1p")
+    fig.hlines(40, xmin=180, xmax=360, pen="1p")
+    fig.hlines(50, xmin=0, xmax=90, pen="1p")
+    fig.hlines(60, xmin=90, xmax=180, pen="1p")
+    fig.hlines(70, xmin=180, xmax=270, pen="1p")
+    fig.hlines(80, xmin=270, xmax=360, pen="1p")
+
+    # Plot lines with longitude range of -180 to 180.
+    fig.hlines(-10, pen="1p,red")
+    fig.hlines(-20, xmin=-180, xmax=180, pen="1p,red")
+    fig.hlines(-30, xmin=-180, xmax=0, pen="1p,red")
+    fig.hlines(-40, xmin=0, xmax=180, pen="1p,red")
+    fig.hlines(-50, xmin=-180, xmax=-90, pen="1p,red")
+    fig.hlines(-60, xmin=-90, xmax=0, pen="1p,red")
+    fig.hlines(-70, xmin=0, xmax=90, pen="1p,red")
+    fig.hlines(-80, xmin=90, xmax=180, pen="1p,red")
+    return fig
+
+
 def test_hlines_invalid_input():
     """
     Test invalid input for hlines.

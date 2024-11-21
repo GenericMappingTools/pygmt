@@ -114,12 +114,20 @@ def hlines(
         #    with auto-coloring enabled. We don't need this feature here, so we need to
         #    replace comma with \054 if the label contains commas.
         _label = label.replace(",", "\\054") if label and i == 0 else None
+
+        # By default, points are connected as great circle arcs in geographic coordinate
+        # system and straight lines in Cartesian coordinate system (including polar
+        # projection). To plot "horizontal" lines along constant latitude (in geographic
+        # coordinate system) or constant radius (in polar projection), we need to
+        # resample the line to at least 4 points.
+        npoints = 4  # 2 for Cartesian, 4 for geographic and polar projections.
         self.plot(
-            x=[_xmin[i], _xmax[i]],
-            y=[_y[i], _y[i]],
+            x=np.linspace(_xmin[i], _xmax[i], npoints),
+            y=[_y[i]] * npoints,
             pen=pen,
             label=_label,
             transparency=transparency,
             no_clip=no_clip,
             perspective=perspective,
+            straight_line="m",  # Any one of "m", "p", "r", "t", "x", and "y" works.
         )
