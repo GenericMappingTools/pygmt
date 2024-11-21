@@ -40,10 +40,10 @@ dynamic = ["version"]
 
 [project.optional-dependencies]
 all = [
-    "contextily",
+    "contextily>=1",
     "geopandas",
-    "IPython",  # 'ipython' is not the correct module name.
-    "pyarrow",
+    "IPython>=8",  # 'ipython' is not the correct module name.
+    "pyarrow>=14",
     "rioxarray",
 ]
 
