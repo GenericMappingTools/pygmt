@@ -43,33 +43,31 @@ def binstats(data, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     Parameters
     ----------
     data : str, {table-like}
-        A file name of an ASCII data table or a 2-D
-        {table-classes}.
+        A file name of an ASCII data table or a 2-D {table-classes}.
     {outgrid}
     statistic : str
         **a**\|\ **d**\|\ **g**\|\ **i**\|\ **l**\|\ **L**\|\ **m**\|\ **n**\
         \|\ **o**\|\ **p**\|\ **q**\ [*quant*]\|\ **r**\|\ **s**\|\ **u**\
         \|\ **U**\|\ **z**.
         Choose the statistic that will be computed per node based on the
-        points that are within *radius* distance of the node.  Select one of:
+        points that are within *radius* distance of the node. Select one of:
 
-        - **a** for mean (average)
-        - **d** for median absolute deviation (MAD)
-        - **g** for full (max-min) range
-        - **i** for 25-75% interquartile range
-        - **l** for minimum (low)
-        - **L** for minimum of positive values only
-        - **m** for median
-        - **n** the number of values
-        - **o** for LMS scale
-        - **p** for mode (maximum likelihood)
-        - **q** for selected quantile (append desired quantile in
-          0-100% range [50])
-        - **r** for the r.m.s.
-        - **s** for standard deviation
-        - **u** for maximum (upper)
-        - **U** for maximum of negative values only
-        - **z** for the sum
+        - **a**: mean (average)
+        - **d**: median absolute deviation (MAD)
+        - **g**: full (max-min) range
+        - **i**: 25-75% interquartile range
+        - **l**: minimum (low)
+        - **L**: minimum of positive values only
+        - **m**: median
+        - **n**: number of values
+        - **o**: LMS scale
+        - **p**: mode (maximum likelihood)
+        - **q**: selected quantile (append desired quantile in 0-100% range [50])
+        - **r**: root mean square (RMS)
+        - **s**: standard deviation
+        - **u**: maximum (upper)
+        - **U**: maximum of negative values only
+        - **z**: sum
     empty : float
         Set the value assigned to empty nodes [Default is NaN].
     normalize : bool
