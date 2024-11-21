@@ -44,6 +44,18 @@ def test_hlines_multiple_lines():
 
 
 @pytest.mark.mpl_image_compare
+def test_hlines_clip():
+    """
+    Plot horizontal lines with clipping or not.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 10, 0, 4], projection="X10c/4c", frame=True)
+    fig.hlines(1, xmin=-2, xmax=12)
+    fig.hlines(2, xmin=-2, xmax=12, no_clip=True)
+    return fig
+
+
+@pytest.mark.mpl_image_compare
 @pytest.mark.parametrize("region", ["g", "d"])
 def test_hlines_geographic_global(region):
     """
