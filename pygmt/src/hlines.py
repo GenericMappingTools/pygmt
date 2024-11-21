@@ -12,12 +12,12 @@ __doctest_skip__ = ["hlines"]
 
 def hlines(
     self,
-    y: int | float | Sequence[int | float],
-    xmin: int | float | Sequence[int | float] | None = None,
-    xmax: int | float | Sequence[int | float] | None = None,
+    y: float | Sequence[float],
+    xmin: float | Sequence[float] | None = None,
+    xmax: float | Sequence[float] | None = None,
     pen: str | None = None,
     label: str | None = None,
-    transparency: int | float | None = None,
+    transparency: float | None = None,
     no_clip: bool = False,
     perspective: str | bool | None = None,
 ):
