@@ -125,8 +125,8 @@ def load_tile_map(
         spatial_ref  int... 0
     >>> # CRS is set only if rioxarray is available
     >>> if hasattr(raster, "rio"):
-    ...     raster.rio.crs
-    CRS.from_wkt(...)
+    ...     raster.rio.crs.to_string()
+    'EPSG:3857'
     """
     if not _HAS_CONTEXTILY:
         msg = (
