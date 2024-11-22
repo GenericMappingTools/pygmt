@@ -23,7 +23,7 @@ body:
         For more details, check out:
 
         - [Minimal Complete Verifiable Examples](https://stackoverflow.com/help/mcve)
-        - [Craft Minimal Bug Reports](http://matthewrocklin.com/blog/work/2018/02/28/minimal-bug-reports)
+        - [Craft Minimal Bug Reports](https://matthewrocklin.com/minimal-bug-reports)
 
       placeholder: "PASTE CODE HERE"
       render: python

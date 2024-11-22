@@ -7,15 +7,10 @@ from pathlib import Path
 import numpy as np
 import pytest
 import xarray as xr
-from packaging.version import Version
 from pygmt import grdfilter, load_dataarray
-from pygmt.clib import __gmt_version__
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
-
-# GMT 6.3 on conda-forge doesn't have OpenMP enabled.
-cores = 2 if Version(__gmt_version__) > Version("6.3.0") else None
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -51,7 +46,7 @@ def test_grdfilter_dataarray_in_dataarray_out(grid, expected_grid):
     Test grdfilter with an input DataArray, and output as DataArray.
     """
     result = grdfilter(
-        grid=grid, filter="g600", distance="4", region=[-53, -49, -20, -17], cores=cores
+        grid=grid, filter="g600", distance="4", region=[-53, -49, -20, -17], cores=2
     )
     # check information of the output grid
     assert isinstance(result, xr.DataArray)

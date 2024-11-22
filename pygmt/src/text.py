@@ -2,7 +2,10 @@
 text - Plot text on a figure.
 """
 
+from collections.abc import Sequence
+
 import numpy as np
+from pygmt._typing import AnchorCode, StringArrayTypes
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -44,11 +47,11 @@ def text_(  # noqa: PLR0912
     textfiles=None,
     x=None,
     y=None,
-    position=None,
-    text=None,
+    position: AnchorCode | None = None,
+    text: str | StringArrayTypes | None = None,
     angle=None,
     font=None,
-    justify=None,
+    justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
     **kwargs,
 ):
     r"""
@@ -90,18 +93,18 @@ def text_(  # noqa: PLR0912
     x/y : float or 1-D arrays
         The x and y coordinates, or an array of x and y coordinates to plot
         the text.
-    position : str
+    position
         Set reference point on the map for the text by using x, y
         coordinates extracted from ``region`` instead of providing them
         through ``x``/``y``. Specify with a two-letter (order independent)
         code, chosen from:
 
-        * Horizontal: **L**\ (eft), **C**\ (entre), **R**\ (ight)
         * Vertical: **T**\ (op), **M**\ (iddle), **B**\ (ottom)
+        * Horizontal: **L**\ (eft), **C**\ (entre), **R**\ (ight)
 
         For example, ``position="TL"`` plots the text at the Top Left corner
         of the map.
-    text : str or 1-D array
+    text
         The text string, or an array of strings to plot on the figure.
     angle: float, str, bool or list
         Set the angle measured in degrees counter-clockwise from
@@ -116,7 +119,7 @@ def text_(  # noqa: PLR0912
         font. If no font info is explicitly given (i.e. ``font=True``), then
         the input to ``textfiles`` must have this information in one of its
         columns.
-    justify : str, bool or list of str
+    justify
         Set the alignment which refers to the part of the text string that
         will be mapped onto the (x, y) point. Choose a two-letter
         combination of **L**, **C**, **R** (for left, center, or right) and
@@ -193,7 +196,7 @@ def text_(  # noqa: PLR0912
         raise GMTInvalidInput("'text' can't be None or array when 'position' is given.")
     if textfiles is not None and text is not None:
         raise GMTInvalidInput("'text' can't be specified when 'textfiles' is given.")
-    if kind == "vectors" and text is None:
+    if kind == "empty" and text is None:
         raise GMTInvalidInput("Must provide text with x/y pairs.")
 
     # Arguments that can accept arrays.
@@ -217,33 +220,30 @@ def text_(  # noqa: PLR0912
 
     extra_arrays = []
     confdict = {}
-    if kind == "vectors":
+    if kind == "empty":
         for arg, flag, name in array_args:
             if is_nonstr_iter(arg):
                 kwargs["F"] += flag
                 # angle is numeric type and font/justify are str type.
                 if name == "angle":
-                    extra_arrays.append(np.atleast_1d(arg))
+                    extra_arrays.append(arg)
                 else:
-                    extra_arrays.append(np.atleast_1d(arg).astype(str))
+                    extra_arrays.append(np.asarray(arg, dtype=np.str_))
 
         # If an array of transparency is given, GMT will read it from the last numerical
         # column per data record.
         if is_nonstr_iter(kwargs.get("t")):
-            extra_arrays.append(np.atleast_1d(kwargs["t"]))
+            extra_arrays.append(kwargs["t"])
             kwargs["t"] = True
 
         # Append text to the last column. Text must be passed in as str type.
-        text = np.atleast_1d(text).astype(str)
-        encoding = _check_encoding("".join(text))
-        if encoding != "ascii":
+        text = np.asarray(text, dtype=np.str_)
+        if (encoding := _check_encoding("".join(text.flatten()))) != "ascii":
             text = np.vectorize(non_ascii_to_octal, excluded="encoding")(
                 text, encoding=encoding
             )
+            confdict["PS_CHAR_ENCODING"] = encoding
         extra_arrays.append(text)
-
-        if encoding not in {"ascii", "ISOLatin1+"}:
-            confdict = {"PS_CHAR_ENCODING": encoding}
     else:
         if isinstance(position, str):
             kwargs["F"] += f"+c{position}+t{text}"

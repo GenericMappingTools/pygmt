@@ -17,7 +17,7 @@ import pygmt
 
 # Read shapefile data using geopandas
 gdf = gpd.read_file(
-    "http://www2.census.gov/geo/tiger/TIGER2015/PRISECROADS/tl_2015_15_prisecroads.zip"
+    "https://www2.census.gov/geo/tiger/TIGER2015/PRISECROADS/tl_2015_15_prisecroads.zip"
 )
 # The dataset contains different road types listed in the RTTYP column,
 # here we select the following ones to plot:

@@ -36,14 +36,14 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4.2.2
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.9.0
+        uses: mamba-org/setup-micromamba@v2.0.1
         with:
           environment-name: pygmt
           condarc: |
@@ -76,7 +76,7 @@ jobs:
 
       # Upload the downloaded files as artifacts to GitHub
       - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v4.4.0
+        uses: actions/upload-artifact@v4.4.3
         with:
           name: gmt-cache
           include-hidden-files: true
