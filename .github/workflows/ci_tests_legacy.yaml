@@ -62,7 +62,7 @@ jobs:
             python=3.10
             gmt=${{ matrix.gmt_version }}
             ghostscript<10
-            numpy
+            numpy<2
             pandas
             xarray
             netCDF4
