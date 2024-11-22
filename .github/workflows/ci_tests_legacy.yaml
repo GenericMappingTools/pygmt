@@ -1,8 +1,8 @@
 # Test PyGMT with GMT legacy versions and old Python dependencies on Linux/macOS/Windows
 #
 # This workflow runs regular PyGMT tests with GMT legacy versions and old versions of
-# all optional Python dependencies. Due to the minor baseline image changes between GMT
-# versions, the workflow only runs the tests but doesn't do image comparisons.
+# all optional and required Python dependencies. Due to minor baseline image changes
+# between GMT versions, the workflow runs the tests but doesn't do image comparisons.
 #
 # It is scheduled to run every Tuesday on the main branch.
 #
