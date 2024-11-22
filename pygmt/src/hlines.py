@@ -134,5 +134,5 @@ def hlines(
             transparency=transparency,
             no_clip=no_clip,
             perspective=perspective,
-            straight_line="m",  # Any one of "m", "p", "r", "t", "x", and "y" works.
+            straight_line="p",  # Any one of "m"/"p"/"r"/"t"/"x"/"y" works.
         )
