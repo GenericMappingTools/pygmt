@@ -2,19 +2,14 @@
 Internal function to load GMT remote datasets.
 """
 
-from __future__ import annotations
+from collections.abc import Sequence
+from typing import Any, Literal, NamedTuple
 
-from typing import TYPE_CHECKING, ClassVar, Literal, NamedTuple
-
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, kwargs_to_strings
 from pygmt.src import which
-
-if TYPE_CHECKING:
-    from collections.abc import Sequence
-
-    import xarray as xr
 
 
 class Resolution(NamedTuple):
@@ -23,17 +18,17 @@ class Resolution(NamedTuple):
 
     Attributes
     ----------
-    code : str
+    code
         The resolution code. E.g., "01d", "30m", "01s".
-    registrations : list
+    registrations
         A list of the accepted registrations for a given resolution. Can be either
         "pixel" or "gridline".
-    tiled : bool
+    tiled
         States if the grid is tiled, which requires an argument for ``region``.
     """
 
     code: str
-    registrations: ClassVar[list] = ["gridline", "pixel"]
+    registrations: Sequence[str] = ["gridline", "pixel"]
     tiled: bool = False
 
 
@@ -43,20 +38,20 @@ class GMTRemoteDataset(NamedTuple):
 
     Attributes
     ----------
-    description : str
+    description
        The name assigned as an attribute to the DataArray.
-    units : str, None
+    units
         The units of the values in the DataArray.
-    resolutions : dict
+    resolutions
         Dictionary of available resolution as keys and Resolution objects as values.
-    extra_attributes : dict
+    extra_attributes
         A dictionary of extra or unique attributes of the dataset.
     """
 
     description: str
     units: str | None
     resolutions: dict[str, Resolution]
-    extra_attributes: dict
+    extra_attributes: dict[str, Any]
 
 
 datasets = {
@@ -76,6 +71,25 @@ datasets = {
             "03m": Resolution("03m", tiled=True),
             "02m": Resolution("02m", tiled=True),
             "01m": Resolution("01m", registrations=["gridline"], tiled=True),
+        },
+    ),
+    "earth_day": GMTRemoteDataset(
+        description="NASA Day Images",
+        units=None,
+        extra_attributes={"long_name": "blue_marble", "horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution("01d", registrations=["pixel"]),
+            "30m": Resolution("30m", registrations=["pixel"]),
+            "20m": Resolution("20m", registrations=["pixel"]),
+            "15m": Resolution("15m", registrations=["pixel"]),
+            "10m": Resolution("10m", registrations=["pixel"]),
+            "06m": Resolution("06m", registrations=["pixel"]),
+            "05m": Resolution("05m", registrations=["pixel"]),
+            "04m": Resolution("04m", registrations=["pixel"]),
+            "03m": Resolution("03m", registrations=["pixel"]),
+            "02m": Resolution("02m", registrations=["pixel"]),
+            "01m": Resolution("01m", registrations=["pixel"]),
+            "30s": Resolution("30s", registrations=["pixel"]),
         },
     ),
     "earth_faa": GMTRemoteDataset(
@@ -193,6 +207,25 @@ datasets = {
             "01m": Resolution("01m"),
             "30s": Resolution("30s"),
             "15s": Resolution("15s"),
+        },
+    ),
+    "earth_night": GMTRemoteDataset(
+        description="NASA Night Images",
+        units=None,
+        extra_attributes={"long_name": "black_marble", "horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution("01d", registrations=["pixel"]),
+            "30m": Resolution("30m", registrations=["pixel"]),
+            "20m": Resolution("20m", registrations=["pixel"]),
+            "15m": Resolution("15m", registrations=["pixel"]),
+            "10m": Resolution("10m", registrations=["pixel"]),
+            "06m": Resolution("06m", registrations=["pixel"]),
+            "05m": Resolution("05m", registrations=["pixel"]),
+            "04m": Resolution("04m", registrations=["pixel"]),
+            "03m": Resolution("03m", registrations=["pixel"]),
+            "02m": Resolution("02m", registrations=["pixel"]),
+            "01m": Resolution("01m", registrations=["pixel"]),
+            "30s": Resolution("30s", registrations=["pixel"]),
         },
     ),
     "earth_vgg": GMTRemoteDataset(
@@ -351,9 +384,8 @@ def _load_remote_dataset(
         The grid resolution. The suffix ``d``, ``m``, and ``s`` stand for arc-degrees,
         arc-minutes, and arc-seconds, respectively.
     region
-        The subregion of the grid to load, in the form of a list
-        [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
-        Required for tiled grids.
+        The subregion of the grid to load, in the form of a sequence [*xmin*, *xmax*,
+        *ymin*, *ymax*] or an ISO country code. Required for tiled grids.
     registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``None``, where
@@ -379,45 +411,46 @@ def _load_remote_dataset(
 
     # Check resolution
     if resolution not in dataset.resolutions:
-        raise GMTInvalidInput(
+        msg = (
             f"Invalid resolution '{resolution}' for {dataset.description} dataset. "
             f"Available resolutions are: {', '.join(dataset.resolutions)}."
         )
+        raise GMTInvalidInput(msg)
     resinfo = dataset.resolutions[resolution]
 
     # Check registration
-    if registration is None:
-        # Use gridline registration unless only pixel registration is available
-        registration = "gridline" if "gridline" in resinfo.registrations else "pixel"
-    elif registration in {"pixel", "gridline"}:
-        if registration not in resinfo.registrations:
-            raise GMTInvalidInput(
-                f"{registration} registration is not available for the "
-                f"{resolution} {dataset.description} dataset. Only "
-                f"{resinfo.registrations[0]} registration is available."
+    match registration:
+        case None:
+            # Use gridline registration unless only pixel registration is available
+            reg = "g" if "gridline" in resinfo.registrations else "p"
+        case x if x not in resinfo.registrations:
+            msg = (
+                f"Invalid grid registration '{registration}' for the {resolution} "
+                f"{dataset.description} dataset. Should be either 'pixel', 'gridline' "
+                "or None. Default is None, where a gridline-registered grid is "
+                "returned unless only the pixel-registered grid is available."
             )
-    else:
-        raise GMTInvalidInput(
-            f"Invalid grid registration: '{registration}', should be either 'pixel', "
-            "'gridline' or None. Default is None, where a gridline-registered grid is "
-            "returned unless only the pixel-registered grid is available."
-        )
+            raise GMTInvalidInput(msg)
+        case _:
+            reg = registration[0]
 
-    fname = f"@{prefix}_{resolution}_{registration[0]}"
     if resinfo.tiled and region is None:
-        raise GMTInvalidInput(
-            f"'region' is required for {dataset.description} resolution '{resolution}'."
+        msg = (
+            f"The 'region' parameter is required for {dataset.description} "
+            f"resolution '{resolution}'."
         )
+        raise GMTInvalidInput(msg)
 
-    # Currently, only grids are supported. Will support images in the future.
-    kwdict = {"T": "g", "R": region}  # region can be None
+    fname = f"@{prefix}_{resolution}_{reg}"
+    kind = "image" if name in {"earth_day", "earth_night"} else "grid"
+    kwdict = {"R": region, "T": {"grid": "g", "image": "i"}[kind]}
     with Session() as lib:
-        with lib.virtualfile_out(kind="grid") as voutgrd:
+        with lib.virtualfile_out(kind=kind) as voutgrd:
             lib.call_module(
                 module="read",
                 args=[fname, voutgrd, *build_arg_list(kwdict)],
             )
-            grid = lib.virtualfile_to_raster(outgrid=None, vfname=voutgrd)
+            grid = lib.virtualfile_to_raster(kind=kind, outgrid=None, vfname=voutgrd)
 
     # Full path to the grid if not tiled grids.
     source = which(fname, download="a") if not resinfo.tiled else None

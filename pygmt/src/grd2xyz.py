@@ -2,7 +2,7 @@
 grd2xyz - Convert grid to data table
 """
 
-from typing import TYPE_CHECKING, Literal
+from typing import Literal
 
 import numpy as np
 import pandas as pd
@@ -16,9 +16,6 @@ from pygmt.helpers import (
     use_alias,
     validate_output_table_type,
 )
-
-if TYPE_CHECKING:
-    from collections.abc import Hashable
 
 __doctest_skip__ = ["grd2xyz"]
 
@@ -99,17 +96,17 @@ def grd2xyz(
         appending **y**. If the byte-order needs to be swapped, append
         **w**. Select one of several data types (all binary except **a**):
 
-        * **a** ASCII representation of a single item per record
-        * **c** int8_t, signed 1-byte character
-        * **u** uint8_t, unsigned 1-byte character
-        * **h** int16_t, short 2-byte integer
-        * **H** uint16_t, unsigned short 2-byte integer
-        * **i** int32_t, 4-byte integer
-        * **I** uint32_t, unsigned 4-byte integer
-        * **l** int64_t, long (8-byte) integer
-        * **L** uint64_t, unsigned long (8-byte) integer
-        * **f** 4-byte floating point single precision
-        * **d** 8-byte floating point double precision
+        - **a**: ASCII representation of a single item per record
+        - **c**: int8_t, signed 1-byte character
+        - **u**: uint8_t, unsigned 1-byte character
+        - **h**: int16_t, short 2-byte integer
+        - **H**: uint16_t, unsigned short 2-byte integer
+        - **i**: int32_t, 4-byte integer
+        - **I**: uint32_t, unsigned 4-byte integer
+        - **l**: int64_t, long (8-byte) integer
+        - **L**: uint64_t, unsigned long (8-byte) integer
+        - **f**: 4-byte floating point single precision
+        - **d**: 8-byte floating point double precision
 
         Default format is scanline orientation of ASCII numbers: **TLa**.
     {binary}
@@ -152,11 +149,11 @@ def grd2xyz(
         )
 
     # Set the default column names for the pandas dataframe header.
-    column_names: list[Hashable] = ["x", "y", "z"]
+    column_names: list[str] = ["x", "y", "z"]
     # Let output pandas column names match input DataArray dimension names
     if output_type == "pandas" and isinstance(grid, xr.DataArray):
         # Reverse the dims because it is rows, columns ordered.
-        column_names = [grid.dims[1], grid.dims[0], grid.name]
+        column_names = [str(grid.dims[1]), str(grid.dims[0]), str(grid.name)]
 
     with Session() as lib:
         with (

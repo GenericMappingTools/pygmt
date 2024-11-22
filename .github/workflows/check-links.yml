@@ -23,44 +23,41 @@ jobs:
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v4.1.7
+      uses: actions/checkout@v4.2.2
       with:
         path: repository
 
     - name: Checkout the documentation
-      uses: actions/checkout@v4.1.7
+      uses: actions/checkout@v4.2.2
       with:
         ref: gh-pages
         path: documentation
 
     - name: Link Checker
       id: lychee
-      uses: lycheeverse/lychee-action@v1.10.0
+      uses: lycheeverse/lychee-action@v2.1.0
       with:
+        fail: false  # Don't fail action on broken links
         output: /tmp/lychee-out.md
         # 429: Too many requests
         args: >
           --accept 429
-          --exclude "^https://doi.org/10.5281/zenodo$"
-          --exclude "^https://zenodo.org/badge/DOI/$"
-          --exclude "^https://zenodo.org/badge/DOI/10.5281/zenodo$"
-          --exclude "^https://github.com/GenericMappingTools/pygmt/pull/[0-9]*$"
-          --exclude "^https://github.com/GenericMappingTools/pygmt/issues/[0-9]*$"
+          --exclude "^https://docs.generic-mapping-tools.org/6.[0-9]?/%s$"
+          --exclude "^https://docs.generic-mapping-tools.org/6.[0-9]?/%3Cmodule-name%3E.html$"
+          --exclude "^https://doi.org"
           --exclude "^https://github.com/GenericMappingTools/gmt/releases/tag/X.Y.Z$"
           --exclude "^https://github.com/GenericMappingTools/pygmt/edit"
           --exclude "^https://github.com/GenericMappingTools/pygmt/issues/new"
+          --exclude "^https://github.com/GenericMappingTools/pygmt/pull/[0-9]*$"
+          --exclude "^https://github.com/GenericMappingTools/pygmt/issues/[0-9]*$"
           --exclude "^https://github.com/GenericMappingTools/pygmt/releases/tag/%7B%7Bpath%7D%7D"
-          --exclude "^https://www.pygmt.org/%7B%7Bpath%7D%7D"
-          --exclude "^git"
-          --exclude "^file://"
-          --exclude "https://www.adobe.com/jp/print/postscript/pdfs/PLRM.pdf"
-          --exclude "^https://docs.generic-mapping-tools.org/6.5/%s$"
-          --exclude "^https://docs.generic-mapping-tools.org/6.5/%3Cmodule-name%3E.html$"
-          --exclude "^https://www.generic-mapping-tools.org/remote-datasets/%s$"
           --exclude "^https://hackmd.io/@pygmt"
-          --exclude "^https://doi.org"
-          --exclude "^https://www.researchgate.net/"
           --exclude "^https://test.pypi.org/simple/"
+          --exclude "^https://www.adobe.com/jp/print/postscript/pdfs/PLRM.pdf"
+          --exclude "^https://www.generic-mapping-tools.org/remote-datasets/%s$"
+          --exclude "^https://www.pygmt.org/%7B%7Bpath%7D%7D"
+          --exclude "^https://www.researchgate.net/"
+          --exclude "^https://zenodo.org/badge/DOI/"
           --verbose
           "repository/**/*.rst"
           "repository/**/*.md"

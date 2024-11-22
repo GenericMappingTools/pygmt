@@ -104,26 +104,26 @@ def coast(
         Choose from the list of river types below; pass a list to ``rivers``
         to use multiple arguments.
 
-        - ``0``: Double-lined rivers (river-lakes)
-        - ``1``: Permanent major rivers
-        - ``2``: Additional major rivers
-        - ``3``: Additional rivers
-        - ``4``: Minor rivers
-        - ``5``: Intermittent rivers - major
-        - ``6``: Intermittent rivers - additional
-        - ``7``: Intermittent rivers - minor
-        - ``8``: Major canals
-        - ``9``: Minor canals
-        - ``10``: Irrigation canals
+        - ``0``: double-lined rivers (river-lakes)
+        - ``1``: permanent major rivers
+        - ``2``: additional major rivers
+        - ``3``: additional rivers
+        - ``4``: minor rivers
+        - ``5``: intermittent rivers - major
+        - ``6``: intermittent rivers - additional
+        - ``7``: intermittent rivers - minor
+        - ``8``: major canals
+        - ``9``: minor canals
+        - ``10``: irrigation canals
 
         You can also choose from several preconfigured river groups:
 
-        - ``"a"``: All rivers and canals (0-10)
-        - ``"A"``: All rivers and canals except river-lakes (1-10)
-        - ``"r"``: All permanent rivers (0-4)
-        - ``"R"``: All permanent rivers except river-lakes (1-4)
-        - ``"i"``: All intermittent rivers (5-7)
-        - ``"c"``: All canals (8-10)
+        - ``"a"``: rivers and canals (``0`` - ``10``)
+        - ``"A"``: rivers and canals except river-lakes (``1`` - ``10``)
+        - ``"r"``: permanent rivers (``0`` - ``4``)
+        - ``"R"``: permanent rivers except river-lakes (``1`` - ``4``)
+        - ``"i"``: intermittent rivers (``5`` - ``7``)
+        - ``"c"``: canals (``8`` - ``10``)
 
     map_scale : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+w**\ *length*.
@@ -154,10 +154,10 @@ def coast(
         Choose from the list of boundaries below. Pass a list to ``borders`` to
         use multiple arguments.
 
-        - ``1``: National boundaries
-        - ``2``: State boundaries within the Americas
-        - ``3``: Marine boundaries
-        - ``"a"``: All boundaries (1-3)
+        - ``1``: national boundaries
+        - ``2``: state boundaries within the Americas
+        - ``3``: marine boundaries
+        - ``"a"``: all boundaries (``1`` - ``3``)
 
     water : str
         Select filling "wet" areas.

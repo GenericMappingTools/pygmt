@@ -8,14 +8,15 @@ dependencies:
     - gmt=6.5.0
     - ghostscript=10.04.0
     - numpy>=1.24
-    - pandas>=1.5
-    - xarray>=2022.09
+    - pandas>=2.0
+    - xarray>=2023.04
     - netCDF4
     - packaging
     # Optional dependencies
     - contextily
     - geopandas
     - ipython
+    - pyarrow
     - rioxarray
     # Development dependencies (general)
     - dvc
@@ -41,7 +42,7 @@ dependencies:
     - sphinx-copybutton
     - sphinx-design
     - sphinx-gallery>=0.17.0
-    - sphinx_rtd_theme
+    - sphinx_rtd_theme<3.0
     # Dev dependencies (type hints)
     - mypy
     - pandas-stubs

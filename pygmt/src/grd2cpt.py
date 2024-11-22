@@ -57,7 +57,7 @@ def grd2cpt(grid, **kwargs):
     highest *z*-value, and the NaN color (N) painted wherever values are
     undefined. For color tables beyond the standard GMT offerings, visit
     `cpt-city <http://www.seaviewsensing.com/pub/cpt-city/>`_ and
-    `Scientific Colour-Maps <http://www.fabiocrameri.ch/colourmaps.php>`_.
+    `Scientific Colour-Maps <https://www.fabiocrameri.ch/colourmaps.php>`_.
 
     If the master CPT includes B, F, and N entries, these will be copied into
     the new master file. If not, the parameters :gmt-term:`COLOR_BACKGROUND`,

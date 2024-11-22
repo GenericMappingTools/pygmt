@@ -50,7 +50,7 @@ class GMTTempFile:
     ...     np.savetxt(tmpfile.name, (x, y, z), fmt="%.1f")
     ...     lines = tmpfile.read()
     ...     print(lines)
-    ...     nx, ny, nz = tmpfile.loadtxt(unpack=True, dtype=float)
+    ...     nx, ny, nz = tmpfile.loadtxt(unpack=True, dtype=np.float64)
     ...     print(nx, ny, nz)
     0.0 1.0 2.0
     0.0 1.0 2.0
@@ -143,6 +143,7 @@ def tempfile_from_geojson(geojson):
             # 32-bit integer overflow issue. Related issues:
             # https://github.com/geopandas/geopandas/issues/967#issuecomment-842877704
             # https://github.com/GenericMappingTools/pygmt/issues/2497
+            int32_info = np.iinfo(np.int32)
             if Version(gpd.__version__).major < 1:  # GeoPandas v0.x
                 # The default engine 'fiona' supports the 'schema' parameter.
                 if geojson.index.name is None:
@@ -151,7 +152,10 @@ def tempfile_from_geojson(geojson):
                 schema = gpd.io.file.infer_schema(geojson)
                 for col, dtype in schema["properties"].items():
                     if dtype in {"int", "int64"}:
-                        overflow = geojson[col].abs().max() > 2**31 - 1
+                        overflow = (
+                            geojson[col].max() > int32_info.max
+                            or geojson[col].min() < int32_info.min
+                        )
                         schema["properties"][col] = "float" if overflow else "int32"
                         geojson[col] = geojson[col].astype(schema["properties"][col])
                 ogrgmt_kwargs["schema"] = schema
@@ -160,7 +164,10 @@ def tempfile_from_geojson(geojson):
                 # but we can change the dtype directly.
                 for col in geojson.columns:
                     if geojson[col].dtype.name in {"int", "int64", "Int64"}:
-                        overflow = geojson[col].abs().max() > 2**31 - 1
+                        overflow = (
+                            geojson[col].max() > int32_info.max
+                            or geojson[col].min() < int32_info.min
+                        )
                         dtype = "float" if overflow else "int32"
                         geojson[col] = geojson[col].astype(dtype)
             # Using geopandas.to_file to directly export to OGR_GMT format

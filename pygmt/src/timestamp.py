@@ -6,6 +6,7 @@ import warnings
 from collections.abc import Sequence
 
 from packaging.version import Version
+from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session, __gmt_version__
 from pygmt.helpers import build_arg_list, is_nonstr_iter
@@ -18,7 +19,7 @@ def timestamp(
     self,
     text: str | None = None,
     label: str | None = None,
-    justify: str = "BL",
+    justify: AnchorCode = "BL",
     offset: float | str | Sequence[float | str] = ("-54p", "-54p"),
     font: str = "Helvetica,black",
     timefmt: str = "%Y %b %d %H:%M:%S",

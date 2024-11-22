@@ -25,7 +25,7 @@ concurrency:
 
 jobs:
   benchmarks:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     if: github.repository == 'GenericMappingTools/pygmt' && (github.event_name != 'pull_request' || contains(github.event.pull_request.labels.*.name, 'run/benchmark'))
     defaults:
       run:
@@ -34,7 +34,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4.2.2
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -45,7 +45,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.9.0
+        uses: mamba-org/setup-micromamba@v2.0.1
         with:
           environment-name: pygmt
           condarc: |
@@ -87,8 +87,8 @@ jobs:
 
       # Run the benchmark tests
       - name: Run benchmarks
-        uses: CodSpeedHQ/action@v3.0.0
+        uses: CodSpeedHQ/action@v3.1.0
         with:
           # 'bash -el -c' is needed to use the custom shell.
           # See https://github.com/CodSpeedHQ/action/issues/65.
-          run: bash -el -c "python -c \"import pygmt; pygmt.show_versions()\"; PYGMT_USE_EXTERNAL_DISPLAY=false python -m pytest -r P --pyargs pygmt --codspeed"
+          run: bash -el -c "python -c \"import pygmt; pygmt.show_versions()\"; PYGMT_USE_EXTERNAL_DISPLAY=false python -m pytest -r P --pyargs pygmt --codspeed --override-ini addopts='--verbose'"

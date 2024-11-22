@@ -101,6 +101,7 @@
 
 ### Enhancements
 
+* **Breaking**: (Unneeded) extra double quotes around text strings (containing whitespaces) are now considered as part of the text string ([#3132](https://github.com/GenericMappingTools/pygmt/pull/3132), [#3457](https://github.com/GenericMappingTools/pygmt/issues/3457))
 * pygmt.project: Add 'output_type' parameter for output in pandas/numpy/file formats ([#3110](https://github.com/GenericMappingTools/pygmt/pull/3110))
 * pygmt.grdtrack: Add 'output_type' parameter for output in pandas/numpy/file formats ([#3106](https://github.com/GenericMappingTools/pygmt/pull/3106))
 * pygmt.blockm*: Add 'output_type' parameter for output in pandas/numpy/file formats ([#3103](https://github.com/GenericMappingTools/pygmt/pull/3103))
@@ -241,7 +242,7 @@
 * Switch away from Stamen basemaps ([#2717](https://github.com/GenericMappingTools/pygmt/pull/2717))
 * Add the "validate_output_table_type" function to check the "output_type" parameter ([#2772](https://github.com/GenericMappingTools/pygmt/pull/2772))
 * Create "skip_if_no" helper function to skip tests when missing a package ([#2883](https://github.com/GenericMappingTools/pygmt/pull/2883))
-* Fix "fixture_xr_image" to open "earth_day_01d_p" directly with rioxarray ([#2963](https://github.com/GenericMappingTools/pygmt/pull/2963))
+* Fix "fixture_xr_image" to open "earth_day_01d" directly with rioxarray ([#2963](https://github.com/GenericMappingTools/pygmt/pull/2963))
 * Improve the way to import optional modules ([#2809](https://github.com/GenericMappingTools/pygmt/pull/2809))
 * Move variable `__gmt_version__` to pygmt.clib to avoid cyclic-import errors ([#2713](https://github.com/GenericMappingTools/pygmt/pull/2713))
 * Refactor the internal "_load_remote_dataset function" to simplify datasets' definitions ([#2917](https://github.com/GenericMappingTools/pygmt/pull/2917))
@@ -360,7 +361,7 @@
 * Exclude DVC files from source/binary distributions ([#2634](https://github.com/GenericMappingTools/pygmt/pull/2634))
 * CI: Use mamba-org/provision-with-micromamba to setup micromamba ([#2435](https://github.com/GenericMappingTools/pygmt/pull/2435))
 * CI: Migrate provision-with-micromamba to setup-micromamba ([#2536](https://github.com/GenericMappingTools/pygmt/pull/2536))
-* CI: Run dev tests on Scientific Python nightly wheels ([#2612](https://github.com/GenericMappingTools/pygmt/pull/2612))
+* CI: Run dev tests on scientific Python nightly wheels ([#2612](https://github.com/GenericMappingTools/pygmt/pull/2612))
 * CI: Remove the deprecated cml-publish command from the dvc-diff workflow ([#2559](https://github.com/GenericMappingTools/pygmt/pull/2559))
 * CI: Fix and simplify the dvc-diff workflow ([#2549](https://github.com/GenericMappingTools/pygmt/pull/2549))
 * CI: Add the "Doctests" workflow to run doctests weekly ([#2456](https://github.com/GenericMappingTools/pygmt/pull/2456))
