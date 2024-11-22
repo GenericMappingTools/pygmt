@@ -17,7 +17,6 @@ def hlines(
     xmax: float | Sequence[float] | None = None,
     pen: str | None = None,
     label: str | None = None,
-    transparency: float | None = None,
     no_clip: bool = False,
     perspective: str | bool | None = None,
 ):
@@ -58,9 +57,6 @@ def hlines(
         Pen attributes for the line(s), in the format of *width,color,style*.
     label
         Label for the line(s), to be displayed in the legend.
-    transparency
-        Transparency level for the lines, in [0-100] percent range. Defaults to 0, i.e.,
-        opaque. Only visible when saving figures in PDF or raster formats.
     no_clip
         If ``True``, do not clip lines outside the plot region.
     perspective
@@ -131,7 +127,6 @@ def hlines(
             y=[_y[i]] * npoints,
             pen=pen,
             label=_label,
-            transparency=transparency,
             no_clip=no_clip,
             perspective=perspective,
             straight_line="p",  # Any one of "m"/"p"/"r"/"t"/"x"/"y" works.
