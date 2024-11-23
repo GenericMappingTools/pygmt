@@ -62,7 +62,7 @@ def hlines(
         Cartesian coordinate system.
     perspective
         Select perspective view and set the azimuth and elevation angle of the
-        viewpoint. Refer to :method:`pygmt.Figure.plot` for details.
+        viewpoint. Refer to :meth:`pygmt.Figure.plot` for details.
 
     Examples
     --------
