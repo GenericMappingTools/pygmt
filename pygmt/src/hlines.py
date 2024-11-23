@@ -94,24 +94,20 @@ def hlines(
 
     nlines = len(_y)  # Number of lines to plot.
 
-    # Check if xmin/xmax have the same length or are scalars.
-    if _xmin.size != _xmax.size:
-        msg = "'xmin' and 'xmax' are expected to be scalars or have the same length."
-        raise GMTInvalidInput(msg)
-
-    # Check if xmin/xmax have the expected length.
-    # Only check xmin, since we already know that xmin/xmax have the same length.
-    if _xmin.size not in {1, nlines}:
+    # Check if xmin/xmax are scalars or have the expected length.
+    if _xmin.size not in {1, nlines} or _xmax.size not in {1, nlines}:
         msg = (
             f"'xmin' and 'xmax' are expected to be scalars or have lengths '{nlines}', "
             f"but lengths '{_xmin.size}' and '{_xmax.size}' are given."
         )
         raise GMTInvalidInput(msg)
 
-    # Ensure xmin/xmax have the same length as y.
-    if _xmin.size == 1 and nlines != 1:
-        _xmin = np.repeat(_xmin, nlines)
-        _xmax = np.repeat(_xmax, nlines)
+    # Repeat xmin/xmax to match the length of y if they are scalars.
+    if nlines != 1:
+        if _xmin.size == 1:
+            _xmin = np.repeat(_xmin, nlines)
+        if _xmax.size == 1:
+            _xmax = np.repeat(_xmax, nlines)
 
     # Call the Figure.plot method to plot the lines.
     for i in range(nlines):
