@@ -38,9 +38,9 @@ def hlines(
     The term "horizontal" lines can be interpreted differently in different coordinate
     systems:
 
-    - *Cartesian* coordinate system: lines are plotted as straight lines.
+    - **Cartesian** coordinate system: lines are plotted as straight lines.
+    - **Polar** projection: lines are plotted as arcs along constant radius.
     - *Geographic* projection: lines are plotted as parallels along constant latitude.
-    - *Polar* projection: lines are plotted as arcs along constant radius.
 
     Parameters
     ----------
@@ -58,7 +58,8 @@ def hlines(
     label
         Label for the line(s), to be displayed in the legend.
     no_clip
-        If ``True``, do not clip lines outside the plot region.
+        If ``True``, do not clip lines outside the plot region. Only makes sense in
+        Cartesian coordinate system.
     perspective
         Select perspective view and set the azimuth and elevation angle of the
         viewpoint. Refer to :method:`pygmt.Figure.plot` for details.
@@ -78,36 +79,41 @@ def hlines(
     """
     self._preprocess()
 
-    # Ensure y is a 1D array.
+    # Determine the x limits from the current plot region if not specified.
+    if xmin is None or xmax is None:
+        xlimits = self.region[:2]
+        if xmin is None:
+            xmin = xlimits[0]
+        if xmax is None:
+            xmax = xlimits[1]
+
+    # Ensure y/xmin/xmax are 1-D arrays.
     _y = np.atleast_1d(y)
+    _xmin = np.atleast_1d(xmin)
+    _xmax = np.atleast_1d(xmax)
+
     nlines = len(_y)  # Number of lines to plot.
 
-    # Ensure xmin and xmax are 1D arrays.
-    # First, determine the x limits if not specified.
-    if xmin is None or xmax is None:
-        xlimits = self.region[:2]  # Get x limits from current plot region
-    _xmin = np.full(nlines, xlimits[0]) if xmin is None else np.atleast_1d(xmin)
-    _xmax = np.full(nlines, xlimits[1]) if xmax is None else np.atleast_1d(xmax)
-
-    # Check if xmin/xmax are scalars or have the same length.
+    # Check if xmin/xmax have the same length or are scalars.
     if _xmin.size != _xmax.size:
         msg = "'xmin' and 'xmax' are expected to be scalars or have the same length."
         raise GMTInvalidInput(msg)
 
-    # Ensure _xmin/_xmax match the _y length if they're scalars or have length 1.
-    if _xmin.size == 1 and _xmax.size == 1:
-        _xmin = np.repeat(_xmin, nlines)
-        _xmax = np.repeat(_xmax, nlines)
-
-    # Check if _xmin/_xmax match the _y length.
-    if _xmin.size != nlines or _xmax.size != nlines:
+    # Check if xmin/xmax have the expected length.
+    # Only check xmin, since we already know that xmin/xmax have the same length.
+    if _xmin.size not in {1, nlines}:
         msg = (
-            f"'xmin' and 'xmax' are expected to have length '{nlines}' but "
-            f"have length '{_xmin.size}' and '{_xmax.size}'."
+            f"'xmin' and 'xmax' are expected to be scalars or have lengths '{nlines}', "
+            f"but lengths '{_xmin.size}' and '{_xmax.size}' are given."
         )
         raise GMTInvalidInput(msg)
 
-    # Call the plot method to plot the lines.
+    # Ensure xmin/xmax have the same length as y.
+    if _xmin.size == 1 and nlines != 1:
+        _xmin = np.repeat(_xmin, nlines)
+        _xmax = np.repeat(_xmax, nlines)
+
+    # Call the Figure.plot method to plot the lines.
     for i in range(nlines):
         # Special handling for label.
         # 1. Only specify label when plotting the first line.
@@ -121,7 +127,7 @@ def hlines(
         # projection). To plot "horizontal" lines along constant latitude (in geographic
         # coordinate system) or constant radius (in polar projection), we need to
         # resample the line to at least 4 points.
-        npoints = 4  # 2 for Cartesian, 4 for geographic and polar projections.
+        npoints = 4  # 2 for Cartesian, at least 4 for geographic and polar projections.
         self.plot(
             x=np.linspace(_xmin[i], _xmax[i], npoints),
             y=[_y[i]] * npoints,
