@@ -97,4 +97,4 @@ fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 fig.plot(x=x, y=y, pen=True, fill="orange")
 fig.show()
 
-# sphinx_gallery_thumbnail_number = 3
+# sphinx_gallery_thumbnail_number = 5
