@@ -51,12 +51,14 @@ fig.show()
 
 # %%
 # Use the ``fill`` parameter to fill the polygon with a color or
-# :doc:`pattern </techref/patterns>`.
+# :doc:`pattern </techref/patterns>`. Note, that there are no lines drawn between the
+# data points by default if ``fill`` is used. Use the ``pen`` parameter to add an
+# outline around the polygon.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 # Fill the polygon with color "orange"
-fig.plot(x=x, y=y, fill="orange", pen="2p,darkred,dashed")
+fig.plot(x=x, y=y, fill="orange")
 fig.show()
 
 
