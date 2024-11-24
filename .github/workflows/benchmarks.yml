@@ -91,4 +91,4 @@ jobs:
         with:
           # 'bash -el -c' is needed to use the custom shell.
           # See https://github.com/CodSpeedHQ/action/issues/65.
-          run: bash -el -c "python -c \"import pygmt; pygmt.show_versions()\"; PYGMT_USE_EXTERNAL_DISPLAY=false python -m pytest -r P --pyargs pygmt --codspeed"
+          run: bash -el -c "python -c \"import pygmt; pygmt.show_versions()\"; PYGMT_USE_EXTERNAL_DISPLAY=false python -m pytest -r P --pyargs pygmt --codspeed --override-ini addopts='--verbose'"
