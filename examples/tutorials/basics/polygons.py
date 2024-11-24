@@ -4,12 +4,11 @@ Plotting polygons
 
 Plotting polygons is handled by the :meth:`pygmt.Figure.plot` method.
 
-This tutorial focuses on input data given as NumPy arrays. Besides NumPy arrays,
-array-like objects are supported. Here, a polygon is a closed shape defined by a
-series of data points with x and y coordinates, connected by line segments, with
-the start and end points being identical. For plotting a
-:class:`geopandas.GeoDataFrame` object with polygon geometries, e.g. to create a
-choropleth map, see the gallery example
+This tutorial focuses on input data given as NumPy arrays. Besides NumPy arrays, array-
+like objects are supported. Here, a polygon is a closed shape defined by a series of
+data points with x and y coordinates, connected by line segments, with the start and
+end points being identical. For plotting a :class:`geopandas.GeoDataFrame` object with
+polygon geometries, e.g. to create a choropleth map, see the gallery example
 :doc:`Choropleth map </gallery/maps/choropleth_map>`.
 """
 
@@ -39,9 +38,9 @@ fig.plot(x=x, y=y)
 fig.show()
 
 # %%
-# The ``pen`` parameter can be used to adjust the lines or outline of the polygon.
-# The argument passed to ``pen`` is one string with the comma-separated optional
-# values *width*,\ *color*,\ *style*.
+# The ``pen`` parameter can be used to adjust the lines or outline of the polygon. The
+# argument passed to ``pen`` is one string with the comma-separated optional values
+# *width*,\ *color*,\ *style*.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
@@ -66,8 +65,8 @@ fig.show()
 # Close polygons
 # --------------
 #
-# Set up sample data points as NumPy array for the x and y values. Now,
-# the data points do not form a polygon.
+# Set up sample data points as NumPy array for the x and y values. Now, the data points
+# do not form a polygon.
 
 x = np.array([-2, 1, 3, 0, -4])
 y = np.array([-3, -1, 1, 3, 2])
