@@ -206,6 +206,14 @@ class Session:
             }
         return self._info
 
+    def __init__(self, silent: bool = False):
+        """
+        Initialize a GMT session.
+
+        Does nothing but set the Session variables.
+        """
+        self._silent = silent
+
     def __enter__(self):
         """
         Create a GMT API session.
@@ -382,6 +390,8 @@ class Session:
             We'll capture the messages and print them to stderr so that they will show
             up on the Jupyter notebook.
             """
+            if self._silent:
+                return 0
             # Have to use try..except due to upstream GMT bug in GMT <= 6.5.0.
             # See https://github.com/GenericMappingTools/pygmt/issues/3205.
             try:
@@ -2401,10 +2411,13 @@ def _raster_kind(raster: str) -> Literal["grid", "image"]:
     # The logic here is because: an image can be read into a grid container, but a grid
     # can't be read into an image container. So, try to read the file as an image first.
     # If fails, try to read it as a grid.
-    with Session() as lib:
+    with Session(silent=True) as lib:
+        from osgeo import gdal
+
+        gdal.PushErrorHandler("CPLQuietErrorHandler")
         try:
-            img = lib.read_data(infile=raster, kind="image", mode="GMT_CONTAINER_ONLY")
-            return "image" if img.contents.header.contents.n_bands == 3 else "grid"
+            _ = lib.read_data(infile=raster, kind="image", mode="GMT_CONTAINER_ONLY")
+            return "image"
         except GMTCLibError:
             pass
         try:
@@ -2412,4 +2425,5 @@ def _raster_kind(raster: str) -> Literal["grid", "image"]:
             return "grid"
         except GMTCLibError:
             pass
-    return "grid"  # Fallback to "grid" and let GMT determine the type.
+        gdal.PopErrorHandler()
+    return "grid"  # Fallback to "grid".
