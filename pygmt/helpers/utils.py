@@ -12,6 +12,7 @@ import sys
 import time
 import webbrowser
 from collections.abc import Iterable, Mapping, Sequence
+from pathlib import Path
 from typing import Any, Literal
 
 import xarray as xr
@@ -580,7 +581,7 @@ def launch_external_viewer(fname: str, waiting: float = 0):
         case "win32":  # Windows
             os.startfile(fname)  # type:ignore[attr-defined] # noqa: S606
         case _:  # Fall back to the browser if can't recognize the operating system.
-            webbrowser.open_new_tab(f"file://{fname}")
+            webbrowser.open_new_tab(f"file://{Path(fname).resolve()}")
     if waiting > 0:
         # Preview images will be deleted when a GMT modern-mode session ends, but the
         # external viewer program may take a few seconds to open the images.

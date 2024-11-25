@@ -202,5 +202,8 @@ def test_launch_external_viewer_unknown_os():
         patch("webbrowser.open_new_tab") as mock_open,
         patch("sys.platform", "unknown"),
     ):
-        launch_external_viewer("preview.png")
-        mock_open.assert_called_once_with("file://preview.png")
+        fname = "preview.png"
+        launch_external_viewer(fname)
+        fullpath = Path(fname).resolve()
+        assert fullpath.is_absolute()
+        mock_open.assert_called_once_with(f"file://{fullpath}")
