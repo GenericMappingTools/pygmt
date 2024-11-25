@@ -45,7 +45,7 @@ body:
       description: >
         Please paste the output of `python -c "import pygmt; pygmt.show_versions()"`.
 
-        If this command is not successful, please describe your operating system, 
+        If this command is not successful, please describe your operating system,
         how you installed PyGMT, how you installed GMT, and paste the full error message.
       placeholder: "PASTE THE OUTPUT HERE"
       render: bash
