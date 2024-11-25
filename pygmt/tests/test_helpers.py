@@ -198,12 +198,16 @@ def test_launch_external_viewer_unknown_os():
     """
     Test that launch_external_viewer uses the webbrowser module as a fallback.
     """
-    with (
-        patch("webbrowser.open_new_tab") as mock_open,
-        patch("sys.platform", "unknown"),
-    ):
-        fname = "preview.png"
-        launch_external_viewer(fname)
-        fullpath = Path(fname).resolve()
-        assert fullpath.is_absolute()
-        mock_open.assert_called_once_with(f"file://{fullpath}")
+    with patch("sys.platform", "unknown"):
+        with patch("webbrowser.open_new_tab") as mock_open:
+            fname = "preview.png"
+            launch_external_viewer(fname)
+            fullpath = Path(fname).resolve()
+            assert fullpath.is_absolute()
+            mock_open.assert_called_once_with(f"file://{fullpath}")
+
+        # Test full path
+        with patch("webbrowser.open_new_tab") as mock_open:
+            fname = "/full/path/to/preview.png"
+            launch_external_viewer(fname)
+            mock_open.assert_called_once_with(f"file://{fname}")
