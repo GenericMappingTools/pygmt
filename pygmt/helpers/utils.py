@@ -187,7 +187,8 @@ def _check_encoding(argstr: str) -> Encoding:
         charset["ZapfDingbats"].values()
     )
     for encoding in ["ISOLatin1+"] + [f"ISO-8859-{i}" for i in range(1, 17) if i != 12]:
-        if all(c in (set(charset[encoding].values()) | adobe_chars) for c in argstr):
+        chars = set(charset[encoding].values()) | adobe_chars
+        if all(c in chars for c in argstr):
             return encoding  # type: ignore[return-value]
     # Return the "ISOLatin1+" encoding if the string contains characters from multiple
     # charset encodings or contains characters that are not in any charset encoding.
