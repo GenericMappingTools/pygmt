@@ -36,6 +36,6 @@ body:
       required: true
   - type: markdown
     attributes:
-      value: |
+      value: >
         Progress on wrapping the module will be tracked in the 
         [project board](https://github.com/orgs/GenericMappingTools/projects/3).
