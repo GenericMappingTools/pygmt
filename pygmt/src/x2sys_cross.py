@@ -104,7 +104,7 @@ def x2sys_cross(
         via $MGD77_HOME/mgd77_paths.txt and .gmt files will be searched for via
         $GMT_SHAREDIR/mgg/gmtfile_paths).
 
-    outfile : None, str
+    outfile
         The file name for the output ASCII txt file to store the table in.
     tag : str
         Specify the x2sys TAG which identifies the attributes of this data
