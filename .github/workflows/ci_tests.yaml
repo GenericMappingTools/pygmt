@@ -142,7 +142,6 @@ jobs:
             pytest-doctestplus
             pytest-mpl
             pytest-rerunfailures
-            pytest-xdist
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
@@ -165,7 +164,7 @@ jobs:
 
       # Run the regular tests
       - name: Run tests
-        run: make test PYTEST_EXTRA="-r P -n auto --reruns 2"
+        run: make test PYTEST_EXTRA="-r P --reruns 2"
 
       # Upload diff images on test failure
       - name: Upload diff images if any test fails
