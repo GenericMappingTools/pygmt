@@ -99,9 +99,8 @@ class grdhisteq:  # noqa: N801
         ret
             Return type depends on the ``outgrid`` parameter:
 
-            - xarray.DataArray if ``outgrid`` is None
-            - None if ``outgrid`` is a str (grid output is stored in
-              ``outgrid``)
+            - :class:`xarray.DataArray` if ``outgrid`` is ``None``
+            - ``None`` if ``outgrid`` is a str (grid output is stored in ``outgrid``)
 
         Example
         -------
