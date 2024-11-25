@@ -126,10 +126,10 @@ def blockmean(
         [**m**\|\ **n**\|\ **s**\|\ **w**].
         Type of summary values calculated by blockmean.
 
-        - **m** - reports mean value [Default]
-        - **n** - report the number of input points inside each block
-        - **s** - report the sum of all z-values inside a block
-        - **w** - report the sum of weights
+        - **m**: reports mean value [Default]
+        - **n**: report the number of input points inside each block
+        - **s**: report the sum of all z-values inside a block
+        - **w**: report the sum of weights
     {region}
     {verbose}
     {aspatial}

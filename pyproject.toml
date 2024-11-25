@@ -43,6 +43,7 @@ all = [
     "contextily",
     "geopandas",
     "IPython",  # 'ipython' is not the correct module name.
+    "pyarrow",
     "rioxarray",
 ]
 
