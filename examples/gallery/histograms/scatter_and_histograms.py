@@ -59,11 +59,11 @@ fig.histogram(
 # Shift the plot origin and add right margin histogram
 fig.shift_origin(yshift=-height - 0.25, xshift=width + 0.25)
 
+# Plot the horizontal histogram.
 fig.histogram(
     horizontal=True,
     projection=f"X3/{height}",
-    # Note that the y-axis annotations, ticks, and label "Counts" are shown in x-axis
-    # direction due to the rotation caused by horizontal=True
+    # Note that the x- and y-axis are flipped, with y-axis plotted horizontally.
     frame=["wSrt", "xf", "yaf+lCounts"],
     region=[ymin, ymax, 0, 0],
     data=y,
