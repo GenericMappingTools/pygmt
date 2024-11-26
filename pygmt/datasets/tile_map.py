@@ -3,7 +3,6 @@ Function to load raster tile maps from XYZ tile providers, and load as
 :class:`xarray.DataArray`.
 """
 
-import contextlib
 from collections.abc import Sequence
 from typing import Literal
 
@@ -11,16 +10,21 @@ from packaging.version import Version
 
 try:
     import contextily
+    from rasterio.crs import CRS
     from xyzservices import TileProvider
 
     _HAS_CONTEXTILY = True
 except ImportError:
+    CRS = None
     TileProvider = None
     _HAS_CONTEXTILY = False
 
-with contextlib.suppress(ImportError):
-    # rioxarray is needed to register the rio accessor
+try:
     import rioxarray  # noqa: F401
+
+    _HAS_RIOXARRAY = True
+except ImportError:
+    _HAS_RIOXARRAY = False
 
 import numpy as np
 import xarray as xr
@@ -33,6 +37,7 @@ def load_tile_map(
     zoom: int | Literal["auto"] = "auto",
     source: TileProvider | str | None = None,
     lonlat: bool = True,
+    crs: str | CRS = "EPSG:3857",
     wait: int = 0,
     max_retries: int = 2,
     zoom_adjust: int | None = None,
@@ -42,7 +47,8 @@ def load_tile_map(
 
     The tiles that compose the map are merged and georeferenced into an
     :class:`xarray.DataArray` image with 3 bands (RGB). Note that the returned image is
-    in a Spherical Mercator (EPSG:3857) coordinate reference system.
+    in a Spherical Mercator (EPSG:3857) coordinate reference system (CRS) by default,
+    but can be customized using the ``crs`` parameter.
 
     Parameters
     ----------
@@ -80,6 +86,10 @@ def load_tile_map(
     lonlat
         If ``False``, coordinates in ``region`` are assumed to be Spherical Mercator as
         opposed to longitude/latitude.
+    crs
+        Coordinate reference system (CRS) of the returned :class:`xarray.DataArray`
+        image. Default is ``"EPSG:3857"`` (i.e., Spherical Mercator). The CRS can be in
+        either string or :class:`rasterio.crs.CRS` format.
     wait
         If the tile API is rate-limited, the number of seconds to wait between a failed
         request and the next try.
@@ -128,11 +138,21 @@ def load_tile_map(
     ...     raster.rio.crs.to_string()
     'EPSG:3857'
     """
+    _default_crs = "EPSG:3857"  # The default CRS returned from contextily
+
     if not _HAS_CONTEXTILY:
         msg = (
             "Package `contextily` is required to be installed to use this function. "
             "Please use `python -m pip install contextily` or "
             "`mamba install -c conda-forge contextily` to install the package."
+        )
+        raise ImportError(msg)
+
+    if crs != _default_crs and not _HAS_RIOXARRAY:
+        msg = (
+            f"Package `rioxarray` is required if CRS is not '{_default_crs}'. "
+            "Please use `python -m pip install rioxarray` or "
+            "`mamba install -c conda-forge rioxarray` to install the package."
         )
         raise ImportError(msg)
 
@@ -176,8 +196,12 @@ def load_tile_map(
         dims=("band", "y", "x"),
     )
 
-    # If rioxarray is installed, set the coordinate reference system
+    # If rioxarray is installed, set the coordinate reference system.
     if hasattr(dataarray, "rio"):
-        dataarray = dataarray.rio.write_crs(input_crs="EPSG:3857")
+        dataarray = dataarray.rio.write_crs(input_crs=_default_crs)
+
+    # Reproject raster image from EPSG:3857 to specified CRS, using rioxarray.
+    if crs != _default_crs:
+        dataarray = dataarray.rio.reproject(dst_crs=crs)
 
     return dataarray
