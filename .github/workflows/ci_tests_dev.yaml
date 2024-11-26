@@ -153,7 +153,7 @@ jobs:
                         --extra-index https://pypi.anaconda.org/scientific-python-nightly-wheels/simple \
                         numpy pandas xarray netCDF4 packaging \
                         build contextily dvc geopandas ipython pyarrow rioxarray \
-                        pytest pytest-cov pytest-doctestplus pytest-mpl pytest-rerunfailures pytest-xdist\
+                        pytest pytest-cov pytest-doctestplus pytest-mpl pytest-rerunfailures \
                         sphinx-gallery
 
       # Show installed pkg information for postmortem diagnostic
@@ -181,7 +181,7 @@ jobs:
 
       # Run the tests
       - name: Test with pytest
-        run: make test PYTEST_EXTRA="-r P -n auto --reruns 2"
+        run: make test PYTEST_EXTRA="-r P --reruns 2"
         env:
           GMT_LIBRARY_PATH: ${{ runner.temp }}/gmt-install-dir/lib
 

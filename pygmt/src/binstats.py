@@ -80,7 +80,7 @@ def binstats(
         Set the value assigned to empty nodes [Default is NaN].
     normalize : bool
         Normalize the resulting grid values by the area represented by the
-        search *radius* [no normalization].
+        search *radius* [Default is no normalization].
     search_radius : float or str
         Set the *search_radius* that determines which data points are
         considered close to a node. Append the distance unit.
@@ -106,7 +106,7 @@ def binstats(
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
     """
     alias = AliasSystem(

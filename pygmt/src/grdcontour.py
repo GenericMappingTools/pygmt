@@ -40,7 +40,7 @@ def grdcontour(self, grid, **kwargs):
     r"""
     Convert grids or images to contours and plot them on maps.
 
-    Takes a grid file name or an xarray.DataArray object as input.
+    Takes a grid file name or an :class:`xarray.DataArray` object as input.
 
     Full option list at :gmt-docs:`grdcontour.html`
 
