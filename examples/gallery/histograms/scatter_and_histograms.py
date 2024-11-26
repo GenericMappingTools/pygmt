@@ -35,7 +35,7 @@ fig = pygmt.Figure()
 fig.basemap(
     region=[xmin, xmax, ymin, ymax],
     projection=f"X{width}/{height}",
-    frame=["WSrt", "xaf", "yaf"],
+    frame=["WSrt", "af"],
 )
 
 # Plot data points as circles with a diameter of 0.15 centimeters
@@ -46,7 +46,7 @@ fig.shift_origin(yshift=height + 0.25)
 
 fig.histogram(
     projection=f"X{width}/3",
-    frame=["Wsrt", "xaf", "yaf+lCounts"],
+    frame=["Wsrt", "xf", "yaf+lCounts"],
     # Give the same value for ymin and ymax to have them calculated automatically.
     region=[xmin, xmax, 0, 0],
     data=x,
@@ -64,7 +64,7 @@ fig.histogram(
     projection=f"X3/{height}",
     # Note that the y-axis annotations, ticks, and label "Counts" are shown in x-axis
     # direction due to the rotation caused by horizontal=True
-    frame=["wSrt", "xf", "y+lCounts"],
+    frame=["wSrt", "xf", "yaf+lCounts"],
     region=[ymin, ymax, 0, 0],
     data=y,
     fill=fill,
