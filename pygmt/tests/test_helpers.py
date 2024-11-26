@@ -194,13 +194,16 @@ def test_launch_external_viewer_win32():
         mock_startfile.assert_called_once_with("preview.png")
 
 
-def test_launch_external_viewer_unknown_os():
+@pytest.mark.parametrize("fname", ["preview.png", "/full/path/to/preview.png"])
+def test_launch_external_viewer_unknown_os(fname):
     """
     Test that launch_external_viewer uses the webbrowser module as a fallback.
     """
     with (
-        patch("webbrowser.open_new_tab") as mock_open,
         patch("sys.platform", "unknown"),
+        patch("webbrowser.open_new_tab") as mock_open,
     ):
-        launch_external_viewer("preview.png")
-        mock_open.assert_called_once_with("file://preview.png")
+        launch_external_viewer(fname)
+        fullpath = Path(fname).resolve()
+        assert fullpath.is_absolute()
+        mock_open.assert_called_once_with(f"file://{fullpath}")

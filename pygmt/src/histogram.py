@@ -1,5 +1,5 @@
 """
-Histogram - Create a histogram
+Histogram - Create a histogram.
 """
 
 from pygmt.clib import Session
