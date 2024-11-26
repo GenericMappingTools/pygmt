@@ -28,14 +28,13 @@ ymax = np.ceil(y.max()) + 0.5
 # Set fill color for symbols and bars
 fill = "seagreen"
 
-# Set plot size.
-# The scatter plot is 10x10, and the histograms are 10x3 and 3x10, respectively.
-width, height = 10, 3
+# Set the dimensions of the scatter plot.
+width, height = 10, 8
 
 fig = pygmt.Figure()
 fig.basemap(
     region=[xmin, xmax, ymin, ymax],
-    projection=f"X{width}/{width}",
+    projection=f"X{width}/{height}",
     frame=["WSrt", "xaf", "yaf"],
 )
 
@@ -43,10 +42,10 @@ fig.basemap(
 fig.plot(x=x, y=y, style="c0.15c", fill=fill, transparency=50)
 
 # Shift the plot origin and add top margin histogram
-fig.shift_origin(yshift=width + 0.25)
+fig.shift_origin(yshift=height + 0.25)
 
 fig.histogram(
-    projection=f"X{width}/{height}",
+    projection=f"X{width}/3",
     frame=["Wsrt", "xaf", "yaf+lCounts"],
     # Give the same value for ymin and ymax to have them calculated automatically.
     region=[xmin, xmax, 0, 0],
@@ -58,11 +57,11 @@ fig.histogram(
 )
 
 # Shift the plot origin and add right margin histogram
-fig.shift_origin(yshift=-width - 0.25, xshift=width + 0.25)
+fig.shift_origin(yshift=-height - 0.25, xshift=width + 0.25)
 
 fig.histogram(
     horizontal=True,
-    projection=f"X{height}/{width}",
+    projection=f"X3/{height}",
     # Note that the y-axis annotations, ticks, and label "Counts" are shown in x-axis
     # direction due to the rotation caused by horizontal=True
     frame=["wSrt", "xf", "y+lCounts"],
