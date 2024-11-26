@@ -126,10 +126,10 @@ def blockmean(
         [**m**\|\ **n**\|\ **s**\|\ **w**].
         Type of summary values calculated by blockmean.
 
-        - **m** - reports mean value [Default]
-        - **n** - report the number of input points inside each block
-        - **s** - report the sum of all z-values inside a block
-        - **w** - report the sum of weights
+        - **m**: reports mean value [Default]
+        - **n**: report the number of input points inside each block
+        - **s**: report the sum of all z-values inside a block
+        - **w**: report the sum of weights
     {region}
     {verbose}
     {aspatial}
@@ -244,7 +244,7 @@ def blockmedian(
     ret
         Return type depends on ``outfile`` and ``output_type``:
 
-        - ``None`` if ``outfile`` is set (output will be stored in file set by
+        - ``None`` if ``outfile`` is set (output will be stored in the file set by
           ``outfile``)
         - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
           (depends on ``output_type``)
@@ -342,7 +342,7 @@ def blockmode(
     ret
         Return type depends on ``outfile`` and ``output_type``:
 
-        - ``None`` if ``outfile`` is set (output will be stored in file set by
+        - ``None`` if ``outfile`` is set (output will be stored in the file set by
           ``outfile``)
         - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
           (depends on ``output_type``)
