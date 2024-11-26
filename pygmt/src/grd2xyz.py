@@ -121,7 +121,8 @@ def grd2xyz(
     ret
         Return type depends on ``outfile`` and ``output_type``:
 
-        - None if ``outfile`` is set (output will be stored in file set by ``outfile``)
+        - ``None`` if ``outfile`` is set (output will be stored in the file set by
+          ``outfile``)
         - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
           (depends on ``output_type``)
 
@@ -133,7 +134,7 @@ def grd2xyz(
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[10, 30, 15, 25]
     ... )
-    >>> # Create a pandas DataFrame with the xyz data from an input grid
+    >>> # Create a pandas.DataFrame with the xyz data from an input grid
     >>> xyz_dataframe = pygmt.grd2xyz(grid=grid, output_type="pandas")
     >>> xyz_dataframe.head(n=2)
         lon   lat          z

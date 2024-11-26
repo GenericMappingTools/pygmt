@@ -191,7 +191,7 @@ def grdtrack(
     {region}
     no_skip : bool
         Do *not* skip points that fall outside the domain of the grid(s)
-        [Default only output points within grid domain].
+        [Default only output points within the grid domain].
     stack : str or list
         *method*/*modifiers*.
         In conjunction with ``crossprofile``, compute a single stacked profile

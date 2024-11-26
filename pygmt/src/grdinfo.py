@@ -30,7 +30,7 @@ def grdinfo(grid, **kwargs):
     r"""
     Get information about a grid.
 
-    Can read the grid from a file or given as an xarray.DataArray grid.
+    Can read the grid from a file or given as an :class:`xarray.DataArray` grid.
 
     Full option list at :gmt-docs:`grdinfo.html`
 
