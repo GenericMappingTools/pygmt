@@ -25,7 +25,7 @@ xmax = np.ceil(x.max()) + 0.5
 ymin = np.floor(y.min()) - 0.5
 ymax = np.ceil(y.max()) + 0.5
 
-# Set fill color for symbols and bars
+# Set fill color for symbols and bars.
 fill = "seagreen"
 
 # Set the dimensions of the scatter plot.
@@ -38,10 +38,10 @@ fig.basemap(
     frame=["WSrt", "af"],
 )
 
-# Plot data points as circles with a diameter of 0.15 centimeters
+# Plot data points as circles with a diameter of 0.15 centimeters.
 fig.plot(x=x, y=y, style="c0.15c", fill=fill, transparency=50)
 
-# Shift the plot origin and add top margin histogram
+# Shift the plot origin and add top margin histogram.
 fig.shift_origin(yshift=height + 0.25)
 
 fig.histogram(
@@ -56,7 +56,7 @@ fig.histogram(
     series=0.2,
 )
 
-# Shift the plot origin and add right margin histogram
+# Shift the plot origin and add right margin histogram.
 fig.shift_origin(yshift=-height - 0.25, xshift=width + 0.25)
 
 # Plot the horizontal histogram.
