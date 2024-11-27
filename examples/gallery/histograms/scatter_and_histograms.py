@@ -38,7 +38,8 @@ fig.basemap(
     frame=["WSrt", "af"],
 )
 
-# Plot data points as circles with a diameter of 0.15 centimeters.
+# Plot data points as circles with a diameter of 0.15 centimeters and set transparency
+# level for all circles to deal with overplotting.
 fig.plot(x=x, y=y, style="c0.15c", fill=fill, transparency=50)
 
 # Shift the plot origin and add top margin histogram.
