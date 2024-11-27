@@ -79,8 +79,8 @@ fig.histogram(
     fill="red3",
     pen="1p,darkgray,solid",
     histtype=0,
-    # Use horizontal bars. Note taht the x- and y-axis are flipped, with the x-axis plotted
-    # vertically and the y-axis plotted horizontally.
+    # Use horizontal bars. Note taht the x- and y-axis are flipped, with the x-axis
+    # plotted vertically and the y-axis plotted horizontally.
     horizontal=True,
 )
 

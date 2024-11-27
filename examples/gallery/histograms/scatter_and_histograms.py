@@ -13,8 +13,8 @@ import numpy as np
 import pygmt
 
 # Generate random x, y coordinates from a standard normal distribution.
-# x values are centered on 0 with a standard deviation of 1, and y values are centered on 30 with a
-# standard deviation of 2.
+# x values are centered on 0 with a standard deviation of 1, and y values are centered
+# on 30 with a standard deviation of 2.
 rng = np.random.default_rng()
 x = rng.normal(loc=0, scale=1, size=1000)
 y = rng.normal(loc=30, scale=2, size=1000)
