@@ -3,9 +3,9 @@ Scatter plot with histograms
 ============================
 
 To create a scatter plot with histograms at the sides of the plot one can use
-:meth:`pygmt.Figure.plot` in combination with :meth:`pygmt.Figure.histogram`.
-The positions of the histograms are plotted by offsetting them from the main scatter
-plot using :meth:`pygmt.Figure.shift_origin`.
+:meth:`pygmt.Figure.plot` in combination with :meth:`pygmt.Figure.histogram`. The
+positions of the histograms are plotted by offsetting them from the main scatter plot
+using :meth:`pygmt.Figure.shift_origin`.
 """
 
 # %%
@@ -13,7 +13,7 @@ import numpy as np
 import pygmt
 
 # Generate random x, y coordinates from a standard normal distribution.
-# x are centered on 0 with a standard deviation of 1, and y are centered on 30 with a
+# x values are centered on 0 with a standard deviation of 1, and y values are centered on 30 with a
 # standard deviation of 2.
 rng = np.random.default_rng()
 x = rng.normal(loc=0, scale=1, size=1000)
@@ -63,7 +63,7 @@ fig.shift_origin(yshift=-height - 0.25, xshift=width + 0.25)
 fig.histogram(
     horizontal=True,
     projection=f"X3/{height}",
-    # Note that the x- and y-axis are flipped, with y-axis plotted horizontally.
+    # Note that the x- and y-axis are flipped, with the y-axis plotted horizontally.
     frame=["wSrt", "xf", "yaf+lCounts"],
     region=[ymin, ymax, 0, 0],
     data=y,
