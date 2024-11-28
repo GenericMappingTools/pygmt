@@ -256,7 +256,7 @@ def test_to_numpy_pandas_series_pyarrow_dtypes_date(dtype, expected_dtype):
 # - Date types:
 #   - date32[day]
 #   - date64[ms]
-# - Datetime types: timestamp
+# - Timestamp types: timestamp[unit], timestamp[unit, tz]
 #
 # In PyArrow, array types can be specified in two ways:
 #
