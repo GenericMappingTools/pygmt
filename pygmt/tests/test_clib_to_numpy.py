@@ -118,7 +118,7 @@ np_dtype_params = [
 
 
 @pytest.mark.parametrize(("dtype", "expected_dtype"), np_dtype_params)
-def test_to_numpy_numpy_numeric(dtype, expected_dtype):
+def test_to_numpy_ndarray_numpy_dtypes_numeric(dtype, expected_dtype):
     """
     Test the _to_numpy function with NumPy arrays of NumPy numeric dtypes.
 
@@ -257,7 +257,7 @@ def test_to_numpy_pandas_numeric(dtype, expected_dtype):
         pytest.param("float64[pyarrow]", np.float64, id="float64[pyarrow]", **pa_marks),
     ],
 )
-def test_to_numpy_pandas_numeric_with_na(dtype, expected_dtype):
+def test_to_numpy_pandas_series_pandas_dtypes_numeric_with_na(dtype, expected_dtype):
     """
     Test the _to_numpy function with pandas.Series of NumPy/pandas/PyArrow numeric
     dtypes and missing values (NA).
@@ -369,7 +369,7 @@ def test_to_numpy_pandas_series_pyarrow_dtypes_date(dtype, expected_dtype):
         pytest.param("float64", np.float64, id="float64"),
     ],
 )
-def test_to_numpy_pyarrow_numeric(dtype, expected_dtype):
+def test_to_numpy_pyarrow_array_pyarrow_dtypes_numeric(dtype, expected_dtype):
     """
     Test the _to_numpy function with PyArrow arrays of PyArrow numeric types.
     """
@@ -400,7 +400,7 @@ def test_to_numpy_pyarrow_numeric(dtype, expected_dtype):
         pytest.param("float64", np.float64, id="float64"),
     ],
 )
-def test_to_numpy_pyarrow_numeric_with_na(dtype, expected_dtype):
+def test_to_numpy_pyarrow_array_pyarrow_dtypes_numeric_with_na(dtype, expected_dtype):
     """
     Test the _to_numpy function with PyArrow arrays of PyArrow numeric types and NA.
     """
