@@ -10,7 +10,6 @@ import numpy.testing as npt
 import pandas as pd
 import pytest
 from packaging.version import Version
-from pygmt._show_versions import _get_module_version
 from pygmt.clib.conversion import _to_numpy
 from pygmt.helpers.testing import skip_if_no
 
@@ -24,6 +23,8 @@ except ImportError:
         """
         A dummy class to mimic pyarrow.
         """
+
+        __version__ = "0.0.0"
 
         @staticmethod
         def timestamp(unit: str, tz: str | None = None):
@@ -340,7 +341,7 @@ def test_to_numpy_pyarrow_numeric_with_na(dtype, expected_dtype):
         pytest.param(
             "string_view",
             marks=pytest.mark.skipif(
-                Version(_get_module_version("pyarrow")) < Version("16"),
+                Version(pa.__version__) < Version("16"),
                 reason="string_view type was added since pyarrow 16",
             ),
         ),
