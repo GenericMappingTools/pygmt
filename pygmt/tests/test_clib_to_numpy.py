@@ -256,7 +256,7 @@ def test_to_numpy_pandas_numeric(dtype, expected_dtype):
         pytest.param("float64[pyarrow]", np.float64, id="float64[pyarrow]", **pa_marks),
     ],
 )
-def test_to_numpy_pandas_series_pandas_dtypes_numeric_with_na(dtype, expected_dtype):
+def test_to_numpy_pandas_numeric_with_na(dtype, expected_dtype):
     """
     Test the _to_numpy function with pandas.Series of NumPy/pandas/PyArrow numeric
     dtypes and missing values (NA).
