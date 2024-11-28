@@ -1,6 +1,6 @@
 """
-Double Y axes graph
--------------------
+Double Y-axes graph
+===================
 
 The ``frame`` parameter of the plotting methods of the :class:`pygmt.Figure`
 class can control which axes should be plotted and optionally show annotations,
@@ -17,13 +17,14 @@ maps separately. The base maps should share the same projection parameter and
 x-axis limits, but different y-axis limits.
 """
 
+# %%
 import numpy as np
 import pygmt
 
 # Generate two sample Y data from one common X data
 x = np.linspace(1.0, 9.0, num=9)
 y1 = x
-y2 = x ** 2 + 110
+y2 = x**2 + 110
 
 fig = pygmt.Figure()
 
@@ -46,7 +47,7 @@ with pygmt.config(
 # Plot the line for y1 data
 fig.plot(x=x, y=y1, pen="1p,blue")
 # Plot points for y1 data
-fig.plot(x=x, y=y1, style="c0.2c", color="blue", label="y1")
+fig.plot(x=x, y=y1, style="c0.2c", fill="blue", label="y1")
 
 # Plot the Y axis for y2 data
 # The right axis (E) is plotted with red annotations, ticks, and label
@@ -60,9 +61,10 @@ with pygmt.config(
 # Plot the line for y2 data
 fig.plot(x=x, y=y2, pen="1p,red")
 # Plot points for y2 data
-fig.plot(x=x, y=y2, style="s0.28c", color="red", label="y2")
+fig.plot(x=x, y=y2, style="s0.28c", fill="red", label="y2")
 
-# Create a legend in the top-left corner of the plot
+# Create a legend in the Top Left (TL) corner of the plot with an
+# offset of 0.1 centimeters
 fig.legend(position="jTL+o0.1c", box=True)
 
 fig.show()

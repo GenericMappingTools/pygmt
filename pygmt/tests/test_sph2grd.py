@@ -1,9 +1,11 @@
 """
-Tests for sph2grd.
+Test pygmt.sph2grd.
 """
-import os
+
+from pathlib import Path
 
 import numpy.testing as npt
+import pytest
 from pygmt import sph2grd
 from pygmt.helpers import GMTTempFile
 
@@ -17,14 +19,15 @@ def test_sph2grd_outgrid():
             data="@EGM96_to_36.txt", outgrid=tmpfile.name, spacing=1, region="g"
         )
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
 
 
+@pytest.mark.benchmark
 def test_sph2grd_no_outgrid():
     """
     Test sph2grd with no set outgrid.
     """
-    temp_grid = sph2grd(data="@EGM96_to_36.txt", spacing=1, region="g")
+    temp_grid = sph2grd(data="@EGM96_to_36.txt", spacing=1, region="g", cores=2)
     assert temp_grid.dims == ("y", "x")
     assert temp_grid.gmt.gtype == 0  # Cartesian grid
     assert temp_grid.gmt.registration == 0  # Gridline registration

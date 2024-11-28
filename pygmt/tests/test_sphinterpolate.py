@@ -1,21 +1,22 @@
 """
-Tests for sphinterpolate.
+Test pygmt.sphinterpolate.
 """
-import os
+
+from pathlib import Path
 
 import numpy.testing as npt
 import pytest
 from pygmt import sphinterpolate
-from pygmt.datasets import load_mars_shape
+from pygmt.datasets import load_sample_data
 from pygmt.helpers import GMTTempFile
 
 
 @pytest.fixture(scope="module", name="mars")
-def fixture_mars_shape():
+def fixture_mars():
     """
-    Load the data from the sample bathymetry dataset.
+    Load the table data for the shape of Mars.
     """
-    return load_mars_shape()
+    return load_sample_data(name="mars_shape")
 
 
 def test_sphinterpolate_outgrid(mars):
@@ -25,9 +26,10 @@ def test_sphinterpolate_outgrid(mars):
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = sphinterpolate(data=mars, outgrid=tmpfile.name, spacing=1, region="g")
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
 
 
+@pytest.mark.benchmark
 def test_sphinterpolate_no_outgrid(mars):
     """
     Test sphinterpolate with no set outgrid.

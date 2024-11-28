@@ -1,20 +1,16 @@
 """
 sph2grd - Compute grid from spherical harmonic coefficients
 """
+
+import xarray as xr
 from pygmt.clib import Session
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+
+__doctest_skip__ = ["sph2grd"]
 
 
 @fmt_docstring
 @use_alias(
-    G="outgrid",
     I="spacing",
     R="region",
     V="verbose",
@@ -25,7 +21,7 @@ from pygmt.io import load_dataarray
     x="cores",
 )
 @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
-def sph2grd(data, **kwargs):
+def sph2grd(data, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
     Create spherical grid files in tension of data.
 
@@ -39,39 +35,43 @@ def sph2grd(data, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         Pass in data with L, M, C[L,M], S[L,M] values by
-        providing a file name to an ASCII data table, a 2D
+        providing a file name to an ASCII data table, a 2-D
         {table-classes}.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
-    {I}
-    {R}
-    {V}
-    {b}
-    {h}
-    {i}
-    {r}
-    {x}
+    {outgrid}
+    {spacing}
+    {region}
+    {verbose}
+    {binary}
+    {header}
+    {incols}
+    {registration}
+    {cores}
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
-    """
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
-            with file_context as infile:
-                if "G" not in kwargs:  # if outgrid is unset, output to tempfile
-                    kwargs.update({"G": tmpfile.name})
-                outgrid = kwargs["G"]
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module("sph2grd", arg_str)
 
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+    Example
+    -------
+    >>> import pygmt
+    >>> # Create a new grid from the remote file "EGM96_to_36.txt",
+    >>> # set the grid spacing to 1 arc-degree, and the region to global ("g")
+    >>> new_grid = pygmt.sph2grd(data="@EGM96_to_36.txt", spacing=1, region="g")
+    """
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="vector", data=data) as vintbl,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            kwargs["G"] = voutgrd
+            lib.call_module(
+                module="sph2grd", args=build_arg_list(kwargs, infile=vintbl)
+            )
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

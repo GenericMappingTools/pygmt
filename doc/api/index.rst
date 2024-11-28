@@ -34,6 +34,7 @@ Plotting map elements
     Figure.logo
     Figure.solar
     Figure.text
+    Figure.timestamp
 
 Plotting tabular data
 ~~~~~~~~~~~~~~~~~~~~~
@@ -47,6 +48,7 @@ Plotting tabular data
     Figure.plot
     Figure.plot3d
     Figure.rose
+    Figure.ternary
     Figure.velo
     Figure.wiggle
 
@@ -60,6 +62,7 @@ Plotting raster data
     Figure.grdimage
     Figure.grdview
     Figure.image
+    Figure.tilemap
 
 Configuring layout
 ~~~~~~~~~~~~~~~~~~
@@ -84,7 +87,7 @@ Saving and displaying the figure
 Configuring the display settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following module is provided directly through the :mod:`pygmt` top level
+The following function is provided directly through the :mod:`pygmt` top level
 package.
 
 .. autosummary::
@@ -95,7 +98,7 @@ package.
 Color palette table generation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following modules are provided directly through the :mod:`pygmt` top level
+The following functions are provided directly through the :mod:`pygmt` top level
 package.
 
 .. autosummary::
@@ -114,9 +117,11 @@ Operations on tabular data
 .. autosummary::
     :toctree: generated
 
+    binstats
     blockmean
     blockmedian
     blockmode
+    filter1d
     nearneighbor
     project
     select
@@ -124,20 +129,27 @@ Operations on tabular data
     sphdistance
     sphinterpolate
     surface
+    triangulate
+    triangulate.regular_grid
+    triangulate.delaunay_triples
     xyz2grd
 
-Operations on grids
-~~~~~~~~~~~~~~~~~~~
+Operations on raster data
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autosummary::
     :toctree: generated
 
+    dimfilter
     grd2xyz
     grdclip
     grdcut
     grdfill
     grdfilter
     grdgradient
+    grdhisteq
+    grdhisteq.equalize_grid
+    grdhisteq.compute_bins
     grdlandmask
     grdproject
     grdsample
@@ -191,36 +203,44 @@ Miscellaneous
     :toctree: generated
 
     which
-    test
-    print_clib_info
     show_versions
-
-
-.. automodule:: pygmt.datasets
 
 .. currentmodule:: pygmt
 
 Datasets
 --------
 
-PyGMT provides access to GMT's datasets through the :mod:`pygmt.datasets` package.
+PyGMT provides access to GMT's datasets through the :mod:`pygmt.datasets` module.
 These functions will download the datasets automatically the first time they are used
-and store them in the GMT cache folder.
+and store them in GMT's user data directory.
 
 .. autosummary::
     :toctree: generated
 
+    datasets.list_sample_data
+    datasets.load_black_marble
+    datasets.load_blue_marble
     datasets.load_earth_age
+    datasets.load_earth_free_air_anomaly
+    datasets.load_earth_geoid
+    datasets.load_earth_magnetic_anomaly
+    datasets.load_earth_mask
     datasets.load_earth_relief
-    datasets.load_fractures_compilation
-    datasets.load_hotspots
-    datasets.load_japan_quakes
-    datasets.load_mars_shape
-    datasets.load_ocean_ridge_points
-    datasets.load_sample_bathymetry
-    datasets.load_usgs_quakes
+    datasets.load_earth_vertical_gravity_gradient
+    datasets.load_mars_relief
+    datasets.load_mercury_relief
+    datasets.load_moon_relief
+    datasets.load_pluto_relief
+    datasets.load_venus_relief
+    datasets.load_sample_data
 
-.. automodule:: pygmt.exceptions
+In addition, there is also a special function to load XYZ tile maps via
+:doc:`contextily <contextily:index>` to be used as base maps.
+
+.. autosummary::
+    :toctree: generated
+
+    datasets.load_tile_map
 
 .. currentmodule:: pygmt
 
@@ -241,8 +261,6 @@ All custom exceptions are derived from :class:`pygmt.exceptions.GMTError`.
     exceptions.GMTCLibNotFoundError
 
 
-.. automodule:: pygmt.clib
-
 .. currentmodule:: pygmt
 
 GMT C API
@@ -256,7 +274,7 @@ Most calls to the C API happen through the :class:`pygmt.clib.Session` class.
 
     clib.Session
 
-`GMT modules <https://docs.generic-mapping-tools.org/latest/modules.html>`__ are executed through
+:gmt-docs:`GMT modules <modules.html>` are executed through
 the :meth:`~pygmt.clib.Session.call_module` method:
 
 .. autosummary::
@@ -266,17 +284,16 @@ the :meth:`~pygmt.clib.Session.call_module` method:
 
 Passing memory blocks between Python data objects (e.g. :class:`numpy.ndarray`,
 :class:`pandas.Series`, :class:`xarray.DataArray`, etc) and GMT happens through
-*virtual files*. These methods are context managers that automate the
-conversion of Python variables to GMT virtual files:
+*virtual files*. These methods are context managers that automate the conversion of
+Python objects to and from GMT virtual files:
 
 .. autosummary::
     :toctree: generated
 
-    clib.Session.virtualfile_from_data
-    clib.Session.virtualfile_from_matrix
-    clib.Session.virtualfile_from_vectors
-    clib.Session.virtualfile_from_grid
-
+    clib.Session.virtualfile_in
+    clib.Session.virtualfile_out
+    clib.Session.virtualfile_to_dataset
+    clib.Session.virtualfile_to_raster
 
 Low level access (these are mostly used by the :mod:`pygmt.clib` package):
 
@@ -289,11 +306,19 @@ Low level access (these are mostly used by the :mod:`pygmt.clib` package):
     clib.Session.__enter__
     clib.Session.__exit__
     clib.Session.get_default
+    clib.Session.get_common
     clib.Session.create_data
     clib.Session.put_matrix
     clib.Session.put_strings
     clib.Session.put_vector
+    clib.Session.read_data
     clib.Session.write_data
-    clib.Session.open_virtual_file
+    clib.Session.open_virtualfile
+    clib.Session.read_virtualfile
     clib.Session.extract_region
     clib.Session.get_libgmt_func
+    clib.Session.virtualfile_from_data
+    clib.Session.virtualfile_from_grid
+    clib.Session.virtualfile_from_stringio
+    clib.Session.virtualfile_from_matrix
+    clib.Session.virtualfile_from_vectors

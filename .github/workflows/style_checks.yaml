@@ -1,3 +1,11 @@
+# Code lint and style checks
+#
+# This workflow runs code style and lint checks to check if the codes have
+# consistent code style and are high-quality.
+#
+# It is run on every commit to the main and pull request branches. It is also
+# scheduled to run daily on the main branch.
+#
 name: Style Checks
 
 on:
@@ -16,27 +24,31 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v4.2.2
 
-      # Setup Miniconda
+      # Setup Python
       - name: Set up Python
-        uses: actions/setup-python@v2.3.1
+        uses: actions/setup-python@v5.3.0
         with:
-          python-version: '3.10'
+          python-version: '3.12'
 
       - name: Install packages
         run: |
-          pip install black blackdoc docformatter flake8 pylint isort
-          sudo apt-get install dos2unix
+          python -m pip install ruff pre-commit
+          python -m pip list
 
-      - name: Formatting check (black, blackdoc, docformatter, flake8 and isort)
-        run: make check
-
-      - name: Linting (pylint)
-        run: make lint
-
-      - name: Ensure files use UNIX line breaks and have 644 permission
+      - name: Formatting check (ruff + pre-commit)
         run: |
-          find . -type f -not -path '*/\.git/*' -exec grep -Iq . {} \; -exec dos2unix --quiet {} \;
-          find . -type f -not -path '*/\.git/*' -exec grep -Iq . {} \; -exec chmod 644 {} \;
-          if [[ $(git ls-files -m) ]]; then git --no-pager diff HEAD; exit 1; fi
+           make check
+           pre-commit run --all-files
+
+      - name: Ensure example scripts have at least one code block separator
+        run: |
+          git ls-files 'examples/**/*.py' | xargs grep --files-without-match '# %%' > output.txt
+          nfiles=$(wc --lines output.txt | awk '{print $1}')
+          if [[ $nfiles > 0 ]]; then
+            echo "Code block separator '# %%' is required in following example files:"
+            cat output.txt
+            rm output.txt
+            exit $nfiles
+          fi

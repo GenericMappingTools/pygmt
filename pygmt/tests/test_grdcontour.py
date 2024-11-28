@@ -1,48 +1,79 @@
 """
 Test Figure.grdcontour.
 """
-import os
+
+from pathlib import Path
 
 import numpy as np
 import pytest
 from pygmt import Figure
-from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers.testing import load_static_earth_relief
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-TEST_CONTOUR_FILE = os.path.join(TEST_DATA_DIR, "contours.txt")
+TEST_CONTOUR_FILE = Path(__file__).parent / "data" / "contours.txt"
 
 
 @pytest.fixture(scope="module", name="grid")
 def fixture_grid():
     """
-    Load the grid data from the sample earth_relief file.
+    Load the grid data from the static_earth_relief file.
     """
-    return load_earth_relief(registration="gridline")
+    return load_static_earth_relief()
 
 
 @pytest.mark.mpl_image_compare
 def test_grdcontour(grid):
     """
-    Plot a contour image using an xarray grid with fixed contour interval.
+    Plot a contour image using an xarray grid with fixed (different) contour and
+    annotation intervals.
     """
     fig = Figure()
-    fig.grdcontour(grid, interval="1000", projection="W0/15c", frame=True)
+    fig.grdcontour(grid=grid, levels=50, annotation=200, projection="M10c", frame=True)
     return fig
 
 
 @pytest.mark.mpl_image_compare
-def test_grdcontour_labels(grid):
+def test_grdcontour_one_level(grid):
     """
-    Plot a contour image using a xarray grid with contour labels and alternate
-    colors.
+    Plot a contour image using an xarray grid with one contour level and one
+    (different) annotation level.
     """
     fig = Figure()
     fig.grdcontour(
-        grid,
-        interval="1000",
-        annotation="5000",
-        projection="W0/15c",
+        grid=grid, levels=[400], annotation=[570], projection="M10c", frame=True
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_grdcontour_multiple_levels(grid):
+    """
+    Plot a contour image using an xarray grid with multiple (different) contour
+    and annotation levels.
+    """
+    fig = Figure()
+    fig.grdcontour(
+        grid=grid,
+        levels=[400, 450, 500],
+        annotation=[400, 570],
+        projection="M10c",
+        frame=True,
+    )
+    return fig
+
+
+@pytest.mark.benchmark
+@pytest.mark.mpl_image_compare
+def test_grdcontour_labels(grid):
+    """
+    Plot a contour image using a xarray grid with contour labels and alternate colors.
+    """
+    fig = Figure()
+    fig.grdcontour(
+        grid=grid,
+        levels=50,
+        annotation=200,
+        projection="M10c",
         pen=["a1p,red", "c0.5p,black"],
         label_placement="d6c",
         frame=True,
@@ -55,28 +86,10 @@ def test_grdcontour_slice(grid):
     """
     Plot an contour image using an xarray grid that has been sliced.
     """
-    grid_ = grid.sel(lat=slice(-30, 30))
+    grid_ = grid.sel(lat=slice(-20, -10))
 
     fig = Figure()
-    fig.grdcontour(grid=grid_, interval="1000", projection="M15c", frame=True)
-    return fig
-
-
-@pytest.mark.mpl_image_compare
-def test_grdcontour_file():
-    """
-    Plot a contour image using grid file input.
-    """
-    fig = Figure()
-    fig.grdcontour(
-        "@earth_relief_01d_g",
-        interval="1000",
-        limit="0",
-        pen="0.5p,black",
-        region=[-180, 180, -70, 70],
-        projection="M15c",
-        frame=True,
-    )
+    fig.grdcontour(grid=grid_, levels=100, projection="M10c", frame=True)
     return fig
 
 
@@ -88,15 +101,19 @@ def test_grdcontour_interval_file_full_opts(grid):
     fig = Figure()
 
     comargs = {
-        "region": [-161.5, -154, 18.5, 23],
-        "interval": TEST_CONTOUR_FILE,
+        "region": [-53, -49, -20, -17],
+        "levels": TEST_CONTOUR_FILE,
         "grid": grid,
-        "resample": "100",
+        "resample": 100,
         "projection": "M10c",
         "cut": 10,
     }
-    fig.grdcontour(**comargs, limit=(-25000, -1), pen=["a1p,blue", "c0.5p,blue"])
-    fig.grdcontour(**comargs, limit=0, pen=["a1p,black", "c0.5p,black"], frame=True)
+    # Plot contours below 650 in blue
+    fig.grdcontour(
+        **comargs, limit=(0, 649), pen=["a1p,blue", "c0.5p,blue"], frame=True
+    )
+    # Plot contours above 650 in black
+    fig.grdcontour(**comargs, limit=(650, 1000), pen=["a1p,black", "c0.5p,black"])
 
     return fig
 

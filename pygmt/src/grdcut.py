@@ -2,15 +2,18 @@
 grdcut - Extract subregion from a grid.
 """
 
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
 )
 from pygmt.io import load_dataarray
+
+__doctest_skip__ = ["grdcut"]
 
 
 @fmt_docstring
@@ -25,14 +28,14 @@ from pygmt.io import load_dataarray
     f="coltypes",
 )
 @kwargs_to_strings(R="sequence")
-def grdcut(grid, **kwargs):
+def grdcut(grid, **kwargs) -> xr.DataArray | None:
     r"""
     Extract subregion from a grid.
 
     Produce a new ``outgrid`` file which is a subregion of ``grid``. The
     subregion is specified with ``region``; the specified range must not exceed
     the range of ``grid`` (but see ``extend``). If in doubt, run
-    :meth:`pygmt.grdinfo` to check range. Alternatively, define the subregion
+    :func:`pygmt.grdinfo` to check range. Alternatively, define the subregion
     indirectly via a range check on the node values or via distances from a
     given point. Finally, you can give ``projection`` for oblique projections
     to determine the corresponding rectangular ``region`` that will give a grid
@@ -44,14 +47,11 @@ def grdcut(grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
-    {J}
-    {R}
-    extend : bool or int or float
+    {grid}
+    {outgrid}
+    {projection}
+    {region}
+    extend : bool or float
         Allow grid to be extended if new ``region`` exceeds existing
         boundaries. Give a value to initialize nodes outside current region.
     circ_subregion : str
@@ -76,26 +76,37 @@ def grdcut(grid, **kwargs):
         considering the range of the core subset for further reduction of the
         area.
 
-    {V}
-    {f}
+    {verbose}
+    {coltypes}
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # Load a grid of @earth_relief_30m data, with a longitude range of
+    >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
+    >>> grid = pygmt.datasets.load_earth_relief(
+    ...     resolution="30m", region=[10, 30, 15, 25]
+    ... )
+    >>> # Create a new grid from an input grid, with a longitude range of
+    >>> # 12° E to 15° E and a latitude range of 21° N to 24° N
+    >>> new_grid = pygmt.grdcut(grid=grid, region=[12, 15, 21, 24])
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-            with file_context as infile:
-                if "G" not in kwargs:  # if outgrid is unset, output to tempfile
-                    kwargs.update({"G": tmpfile.name})
-                outgrid = kwargs["G"]
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module("grdcut", arg_str)
+            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
+                if (outgrid := kwargs.get("G")) is None:
+                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
+                lib.call_module(
+                    module="grdcut", args=build_arg_list(kwargs, infile=vingrd)
+                )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

@@ -1,6 +1,7 @@
 """
-Tests wiggle.
+Test Figure.wiggle.
 """
+
 import numpy as np
 import pytest
 from pygmt import Figure
@@ -23,7 +24,8 @@ def test_wiggle():
         y=y,
         z=z,
         scale="0.5c",
-        color=["red+p", "gray+n"],
+        fillpositive="red",
+        fillnegative="gray",
         pen="1.0p",
         track="0.5p",
         position="jRM+w2+lnT",
@@ -31,34 +33,31 @@ def test_wiggle():
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare(filename="test_wiggle.png")
-def test_wiggle_deprecate_columns_to_incols():
+def test_wiggle_data_incols():
     """
-    Make sure that the old parameter "columns" is supported and it reports a
-    warning.
-
-    Modified from the test_wiggle() test.
+    Make sure that incols parameter works with input data array.
     """
 
     # put data into numpy array and swap x and y columns
-    # as the use of the 'columns' parameter will reverse this action
+    # as the use of the 'incols' parameter will reverse this action
     x = np.arange(-2, 2, 0.02)
     y = np.zeros(x.size)
     z = np.cos(2 * np.pi * x)
     data = np.array([y, x, z]).T
 
     fig = Figure()
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        fig.wiggle(
-            data,
-            region=[-4, 4, -1, 1],
-            projection="X8c",
-            columns=[1, 0, 2],
-            scale="0.5c",
-            color=["red+p", "gray+n"],
-            pen="1.0p",
-            track="0.5p",
-            position="jRM+w2+lnT",
-        )
-        assert len(record) == 1  # check that only one warning was raised
+    fig.wiggle(
+        data,
+        region=[-4, 4, -1, 1],
+        projection="X8c",
+        incols=[1, 0, 2],
+        scale="0.5c",
+        fillpositive="red",
+        fillnegative="gray",
+        pen="1.0p",
+        track="0.5p",
+        position="jRM+w2+lnT",
+    )
     return fig

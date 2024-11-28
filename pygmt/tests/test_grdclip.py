@@ -1,35 +1,36 @@
 """
-Tests for grdclip.
+Test pygmt.grdclip.
 """
-import os
+
+from pathlib import Path
 
 import pytest
 import xarray as xr
 from pygmt import grdclip, load_dataarray
-from pygmt.datasets import load_earth_relief
 from pygmt.helpers import GMTTempFile
+from pygmt.helpers.testing import load_static_earth_relief
 
 
 @pytest.fixture(scope="module", name="grid")
 def fixture_grid():
     """
-    Load the grid data from the sample earth_relief file.
+    Load the grid data from the static_earth_relief file.
     """
-    return load_earth_relief(resolution="01d", region=[-5, 5, -5, 5])
+    return load_static_earth_relief()
 
 
 @pytest.fixture(scope="module", name="expected_grid")
-def fixture_grid_result():
+def fixture_expected_grid():
     """
     Load the expected grdclip grid result.
     """
     return xr.DataArray(
         data=[
-            [-1800.0, -1800.0, -1800.0, -1800.0],
-            [-1800.0, -1800.0, -1800.0, -1800.0],
-            [-656.0, 40.0, -1800.0, -1800.0],
+            [1000.0, 570.5, -1000.0, -1000.0],
+            [1000.0, 1000.0, 571.5, 638.5],
+            [555.5, 556.0, 580.0, 1000.0],
         ],
-        coords=dict(lon=[-2.5, -1.5, -0.5, 0.5], lat=[2.5, 3.5, 4.5]),
+        coords={"lon": [-52.5, -51.5, -50.5, -49.5], "lat": [-18.5, -17.5, -16.5]},
         dims=["lat", "lon"],
     )
 
@@ -42,12 +43,12 @@ def test_grdclip_outgrid(grid, expected_grid):
         result = grdclip(
             grid=grid,
             outgrid=tmpfile.name,
-            below=[-1500, -1800],
-            above=[-200, 40],
-            region=[-3, 1, 2, 5],
+            below=[550, -1000],
+            above=[700, 1000],
+            region=[-53, -49, -19, -16],
         )
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
         temp_grid = load_dataarray(tmpfile.name)
         assert temp_grid.dims == ("lat", "lon")
         assert temp_grid.gmt.gtype == 1  # Geographic grid
@@ -55,12 +56,13 @@ def test_grdclip_outgrid(grid, expected_grid):
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
+@pytest.mark.benchmark
 def test_grdclip_no_outgrid(grid, expected_grid):
     """
     Test the below and above parameters for grdclip with no set outgrid.
     """
     temp_grid = grdclip(
-        grid=grid, below=[-1500, -1800], above=[-200, 40], region=[-3, 1, 2, 5]
+        grid=grid, below=[550, -1000], above=[700, 1000], region=[-53, -49, -19, -16]
     )
     assert temp_grid.dims == ("lat", "lon")
     assert temp_grid.gmt.gtype == 1  # Geographic grid

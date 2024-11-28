@@ -8,6 +8,10 @@
 Fixes #
 
 
+<!-- If significant changes to the documentation are made, please insert the link to the documentation page after it has been built. -->
+**Preview**:
+
+
 **Reminders**
 
 - [ ] Try to get all checks passing, including style checks and test coverage.
@@ -18,7 +22,6 @@ Fixes #
 **Slash Commands**
 
 You can write slash commands (`/command`) in the first line of a comment to perform
-specific operations. Supported slash commands are:
+specific operations. Supported slash command is:
 
 - `/format`: automatically format and lint the code
-- `/test-gmt-dev`: run full tests on the latest GMT development version

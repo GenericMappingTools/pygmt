@@ -1,14 +1,15 @@
 """
-Tests for surface.
+Test pygmt.surface.
 """
-import os
+
+from pathlib import Path
 
 import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import surface, which
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import GMTTempFile, data_kind
+from pygmt.helpers import GMTTempFile
 
 
 @pytest.fixture(scope="module", name="data")
@@ -39,7 +40,7 @@ def fixture_spacing():
 
 
 @pytest.fixture(scope="module", name="expected_grid")
-def fixture_grid_result():
+def fixture_expected_grid():
     """
     Load the expected grdcut grid result.
     """
@@ -55,10 +56,10 @@ def fixture_grid_result():
             [897.4532, 822.9642, 756.4472, 687.594, 626.2299],
             [910.2932, 823.3307, 737.9952, 651.4994, 565.9981],
         ],
-        coords=dict(
-            y=[0, 1, 2, 3, 4, 5, 6, 7, 8],
-            x=[0, 1, 2, 3, 4],
-        ),
+        coords={
+            "y": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+            "x": [0, 1, 2, 3, 4],
+        },
         dims=[
             "y",
             "x",
@@ -93,7 +94,7 @@ def test_surface_input_data_array(data, region, spacing, expected_grid):
     """
     Run surface by passing in a numpy array into data.
     """
-    data = data.values  # convert pandas.DataFrame to numpy.ndarray
+    data = data.to_numpy()  # convert pandas.DataFrame to numpy.ndarray
     output = surface(
         data=data,
         spacing=spacing,
@@ -103,6 +104,7 @@ def test_surface_input_data_array(data, region, spacing, expected_grid):
     check_values(output, expected_grid)
 
 
+@pytest.mark.benchmark
 def test_surface_input_xyz(data, region, spacing, expected_grid):
     """
     Run surface by passing in x, y, z numpy.ndarrays individually.
@@ -123,7 +125,6 @@ def test_surface_wrong_kind_of_input(data, region, spacing):
     Run surface using grid input that is not file/matrix/vectors.
     """
     data = data.z.to_xarray()  # convert pandas.Series to xarray.DataArray
-    assert data_kind(data) == "grid"
     with pytest.raises(GMTInvalidInput):
         surface(data=data, spacing=spacing, region=region)
 
@@ -132,7 +133,7 @@ def test_surface_with_outgrid_param(data, region, spacing, expected_grid):
     """
     Run surface with the -Goutputfile.nc parameter.
     """
-    data = data.values  # convert pandas.DataFrame to numpy.ndarray
+    data = data.to_numpy()  # convert pandas.DataFrame to numpy.ndarray
     with GMTTempFile(suffix=".nc") as tmpfile:
         output = surface(
             data=data,
@@ -142,28 +143,6 @@ def test_surface_with_outgrid_param(data, region, spacing, expected_grid):
             verbose="e",  # Suppress warnings for IEEE 754 rounding
         )
         assert output is None  # check that output is None since outgrid is set
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists at path
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
         with xr.open_dataarray(tmpfile.name) as grid:
             check_values(grid, expected_grid)
-
-
-def test_surface_deprecate_outfile_to_outgrid(data, region, spacing, expected_grid):
-    """
-    Make sure that the old parameter "outfile" is supported and it reports a
-    warning.
-    """
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        data = data.values  # convert pandas.DataFrame to numpy.ndarray
-        with GMTTempFile(suffix=".nc") as tmpfile:
-            output = surface(
-                data=data,
-                spacing=spacing,
-                region=region,
-                outfile=tmpfile.name,
-                verbose="e",  # Suppress warnings for IEEE 754 rounding
-            )
-            assert output is None  # check that output is None since outfile is set
-            assert os.path.exists(path=tmpfile.name)  # check that file exists at path
-            with xr.open_dataarray(tmpfile.name) as grid:
-                check_values(grid, expected_grid)
-        assert len(record) == 1  # check that only one warning was raised

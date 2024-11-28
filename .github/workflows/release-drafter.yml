@@ -1,19 +1,26 @@
+# Draft the next release notes
+#
+# This workflow is run to update the next release notes as pull requests are
+# merged into the main branch. The configuration file is located at
+# `.github/release-drafter.yml`.
+#
 name: Release Drafter
 
 on:
   push:
-    # branches to consider in the event; optional, defaults to all
     branches:
       - main
 
 jobs:
   update_release_draft:
     runs-on: ubuntu-latest
+    if: github.repository == 'GenericMappingTools/pygmt'
+
     steps:
       # Drafts your next Release notes as Pull Requests are merged into "main"
-      - uses: release-drafter/release-drafter@v5.15.0
+      - uses: release-drafter/release-drafter@v6.0.0
         with:
           # (Optional) specify config name to use, relative to .github/. Default: release-drafter.yml
           config-name: release-drafter.yml
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}

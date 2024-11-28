@@ -1,16 +1,17 @@
 """
 Rose diagram
-------------
+============
 
 The :meth:`pygmt.Figure.rose` method can plot windrose diagrams or polar
 histograms.
 """
 
+# %%
 import pygmt
 
 # Load sample compilation of fracture lengths and azimuth as
 # hypothetically digitized from geological maps
-data = pygmt.datasets.load_fractures_compilation()
+data = pygmt.datasets.load_sample_data(name="fractures")
 
 fig = pygmt.Figure()
 
@@ -32,7 +33,7 @@ fig.rose(
     # 0 to 1
     norm=True,
     # use red3 as color fill for the sectors
-    color="red3",
+    fill="red3",
     # define the frame with ticks and gridlines every 0.2
     # length unit in radial direction and every 30 degrees
     # in azimuthal direction, set background color to

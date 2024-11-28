@@ -1,54 +1,83 @@
 """
-Tests for grdproject.
+Test pygmt.grdproject.
 """
-import os
 
-import numpy.testing as npt
+from pathlib import Path
+
 import pytest
-from pygmt import grdinfo, grdproject
-from pygmt.datasets import load_earth_relief
+import xarray as xr
+from pygmt import grdproject, load_dataarray
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
+from pygmt.helpers.testing import load_static_earth_relief
 
 
 @pytest.fixture(scope="module", name="grid")
 def fixture_grid():
     """
-    Load the grid data from the sample earth_relief file.
+    Load the grid data from the static_earth_relief file.
     """
-    return load_earth_relief(resolution="01d", region=[-5, 5, -5, 5])
+    return load_static_earth_relief()
 
 
-def test_grdproject_file_out(grid):
+@pytest.fixture(scope="module", name="expected_grid")
+def fixture_expected_grid():
     """
-    grdproject with an outgrid set.
+    Load the expected grdproject grid result.
+    """
+    return xr.DataArray(
+        data=[
+            [427.85062, 431.05698, 452.34268],
+            [563.92957, 540.5212, 501.46896],
+            [740.80133, 679.1116, 554.78534],
+            [794.233, 829.4449, 764.12225],
+            [749.37445, 834.55994, 831.2627],
+        ],
+        coords={
+            "x": [1.666667, 5.0, 8.333333],
+            "y": [1.572432, 4.717295, 7.862158, 11.007022, 14.151885],
+        },
+        dims=["y", "x"],
+    )
+
+
+def test_grdproject_file_out(grid, expected_grid):
+    """
+    Test grdproject with an outgrid set.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
-        result = grdproject(grid=grid, projection="M10c", outgrid=tmpfile.name)
+        result = grdproject(
+            grid=grid,
+            projection="M10c",
+            outgrid=tmpfile.name,
+            spacing=3,
+            region=[-53, -51, -20, -17],
+        )
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
-        result = grdinfo(tmpfile.name, per_column=True).strip().split()
-        npt.assert_allclose(float(result[0]), 0)  # x min
-        npt.assert_allclose(float(result[1]), 10)  # x max
-        npt.assert_allclose(float(result[2]), 0, atol=1.0e-10)  # y min
-        npt.assert_allclose(float(result[3]), 9.94585661273)  # y max
-        npt.assert_allclose(float(result[4]), -5130.48193359)  # min
-        npt.assert_allclose(float(result[5]), -152.585281372)  # max
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
+        temp_grid = load_dataarray(tmpfile.name)
+        xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
-def test_grdproject_no_outgrid(grid):
+@pytest.mark.benchmark
+@pytest.mark.parametrize(
+    "projection",
+    ["M10c", "EPSG:3395 +width=10", "+proj=merc +ellps=WGS84 +units=m +width=10"],
+)
+def test_grdproject_no_outgrid(grid, projection, expected_grid):
     """
     Test grdproject with no set outgrid.
+
+    Also check that providing the projection as an EPSG code or PROJ4 string works.
     """
     assert grid.gmt.gtype == 1  # Geographic grid
-    temp_grid = grdproject(grid=grid, projection="M10c")
-    assert temp_grid.dims == ("y", "x")
-    assert temp_grid.gmt.gtype == 0  # Rectangular grid
-    assert temp_grid.gmt.registration == 1  # Pixel registration
-    npt.assert_allclose(temp_grid.min(), -5130.482)
-    npt.assert_allclose(temp_grid.max(), -152.58528)
-    npt.assert_allclose(temp_grid.median(), -4578.288)
-    npt.assert_allclose(temp_grid.mean(), -4354.3296)
+    result = grdproject(
+        grid=grid, projection=projection, spacing=3, region=[-53, -51, -20, -17]
+    )
+    assert result.gmt.gtype == 0  # Rectangular grid
+    assert result.gmt.registration == 1  # Pixel registration
+    # check information of the output grid
+    xr.testing.assert_allclose(a=result, b=expected_grid)
 
 
 def test_grdproject_fails(grid):

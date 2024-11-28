@@ -2,17 +2,18 @@
 grdgradient - Compute directional gradients from a grid.
 """
 
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    GMTTempFile,
     args_in_kwargs,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.io import load_dataarray
+
+__doctest_skip__ = ["grdgradient"]
 
 
 @fmt_docstring
@@ -20,7 +21,6 @@ from pygmt.io import load_dataarray
     A="azimuth",
     D="direction",
     E="radiance",
-    G="outgrid",
     N="normalize",
     Q="tiles",
     R="region",
@@ -30,7 +30,7 @@ from pygmt.io import load_dataarray
     n="interpolation",
 )
 @kwargs_to_strings(A="sequence", E="sequence", R="sequence")
-def grdgradient(grid, **kwargs):
+def grdgradient(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
     Compute the directional derivative of the vector gradient of the data.
 
@@ -43,12 +43,9 @@ def grdgradient(grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
-    azimuth : int or float or str or list
+    {grid}
+    {outgrid}
+    azimuth : float, str, or list
         *azim*\ [/*azim2*].
         Azimuthal direction for a directional derivative; *azim* is the
         angle in the x,y plane measured in degrees positive clockwise from
@@ -82,7 +79,7 @@ def grdgradient(grid, **kwargs):
         [**m**\|\ **s**\|\ **p**]\ *azim/elev*\ [**+a**\ *ambient*][**+d**\
         *diffuse*][**+p**\ *specular*][**+s**\ *shine*].
         Compute Lambertian radiance appropriate to use with
-        :doc:`pygmt.Figure.grdimage` and :doc:`pygmt.Figure.grdview`. The
+        :meth:`pygmt.Figure.grdimage` and :meth:`pygmt.Figure.grdview`. The
         Lambertian Reflection assumes an ideal surface that reflects all the
         light that strikes it and the surface appears
         equally bright from all viewing directions. Here, *azim* and *elev* are
@@ -123,47 +120,58 @@ def grdgradient(grid, **kwargs):
         all nodes after gradient calculations are completed.
     tiles : str
         **c**\|\ **r**\|\ **R**.
-        Controls how normalization via ``normalize`` is carried out.  When
-        multiple  grids should be normalized the same way (i.e., with the same
-        *offset*  and/or *sigma*),
-        we must pass these values via ``normalize``.  However, this is
-        inconvenient if we compute these values from a grid.  Use **c** to
-        save  the results  of *offset* and *sigma* to a statistics file; if
-        grid output is not  needed for this run then do not specify
-        ``outgrid``. For  subsequent runs,  just use **r** to read these
-        values.  Using **R**  will read then delete the statistics file.
-    {R}
+        Control how normalization via ``normalize`` is carried out. When
+        multiple grids should be normalized the same way (i.e., with the same
+        *offset* and/or *sigma*),
+        we must pass these values via ``normalize``. However, this is
+        inconvenient if we compute these values from a grid. Use **c** to
+        save the results of *offset* and *sigma* to a statistics file; if
+        grid output is not needed for this run then do not specify
+        ``outgrid``. For subsequent runs, just use **r** to read these
+        values. Using **R** will read then delete the statistics file.
+    {region}
     slope_file : str
         Name of output grid file with scalar magnitudes of gradient vectors.
         Requires ``direction`` but makes ``outgrid`` optional.
-    {V}
-    {f}
-    {n}
+    {verbose}
+    {coltypes}
+    {interpolation}
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
-    """
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        if "Q" in kwargs and "N" not in kwargs:
-            raise GMTInvalidInput("""Must specify normalize if tiles is specified.""")
-        if not args_in_kwargs(args=["A", "D", "E"], kwargs=kwargs):
-            raise GMTInvalidInput(
-                """At least one of the following parameters must be specified:
-                azimuth, direction, or radiance"""
-            )
-        with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-            with file_context as infile:
-                if "G" not in kwargs:  # if outgrid is unset, output to tempfile
-                    kwargs.update({"G": tmpfile.name})
-                outgrid = kwargs["G"]
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module("grdgradient", arg_str)
 
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # Load a grid of @earth_relief_30m data, with a longitude range of
+    >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
+    >>> grid = pygmt.datasets.load_earth_relief(
+    ...     resolution="30m", region=[10, 30, 15, 25]
+    ... )
+    >>> # Create a new grid from an input grid, set the azimuth to 10 degrees,
+    >>> new_grid = pygmt.grdgradient(grid=grid, azimuth=10)
+    """
+    if kwargs.get("Q") is not None and kwargs.get("N") is None:
+        raise GMTInvalidInput("""Must specify normalize if tiles is specified.""")
+    if not args_in_kwargs(args=["A", "D", "E"], kwargs=kwargs):
+        raise GMTInvalidInput(
+            "At least one of the following parameters must be specified: "
+            "azimuth, direction, or radiance."
+        )
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            kwargs["G"] = voutgrd
+            lib.call_module(
+                module="grdgradient", args=build_arg_list(kwargs, infile=vingrd)
+            )
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

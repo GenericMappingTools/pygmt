@@ -1,8 +1,8 @@
 r"""
-General Perspective
-===================
+Perspective projection
+======================
 
-The general perspective projection imitates the view of the Earth from a finite
+The perspective projection imitates the view of the Earth from a finite
 point in space. In a full view of the earth one third of its surface area can
 be seen.
 
@@ -27,13 +27,16 @@ The example shows the coast of Northern Europe viewed from 250 km above sea
 level looking 30° from north at a tilt of 45°. The height and width of the
 viewing angle is both 60°, which imitates viewing with naked eye.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()
 fig.coast(
-    projection="G4/52/12c+a30+t45+v60/60+w0+z250",
     region="g",
-    frame=["x10g10", "y5g5"],
-    land="gray",
+    projection="G4/52/12c+a30+t45+v60/60+w0+z250",
+    frame="afg",
+    land="khaki",
+    water="white",
 )
 fig.show()

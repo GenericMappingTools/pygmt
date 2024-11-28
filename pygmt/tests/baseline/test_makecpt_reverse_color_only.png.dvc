@@ -1,4 +1,5 @@
 outs:
-- md5: 5ad9b6aab72e45be8a1adc20f9e1c0e9
-  size: 71377
+- md5: 6d89c3555e5ac3f92d38e27493072f40
+  size: 3958
   path: test_makecpt_reverse_color_only.png
+  hash: md5

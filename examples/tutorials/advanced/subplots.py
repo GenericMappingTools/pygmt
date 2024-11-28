@@ -17,32 +17,32 @@ couple of subplots. For more advanced subplot layouts, however, we recommend
 the use of :meth:`pygmt.Figure.subplot` which offers finer grained control, and
 this is what the tutorial below will cover.
 """
-# sphinx_gallery_thumbnail_number = 3
 
+# %%
 import pygmt
 
-###############################################################################
-#
+# %%
 # Let's start by initializing a :class:`pygmt.Figure` instance.
 
 fig = pygmt.Figure()
 
-###############################################################################
+
+# %%
 # Define subplot layout
 # ---------------------
 #
-# The :meth:`pygmt.Figure.subplot` function is used to set up the layout, size,
+# The :meth:`pygmt.Figure.subplot` method is used to set up the layout, size,
 # and other attributes of the figure. It divides the whole canvas into regular
 # grid areas with *n* rows and *m* columns. Each grid area can contain an
 # individual subplot. For example:
 
-###############################################################################
+# %%
 # .. code-block:: default
 #
 #     with fig.subplot(nrows=2, ncols=3, figsize=("15c", "6c"), frame="lrtb"):
 #         ...
 
-###############################################################################
+# %%
 # will define our figure to have a 2 row and 3 column grid layout.
 # ``figsize=("15c", "6c")`` defines the overall size of the figure to be 15 cm
 # wide by 6 cm high. Using ``frame="lrtb"`` allows us to customize the map
@@ -61,35 +61,37 @@ with fig.subplot(nrows=2, ncols=3, figsize=("15c", "6c"), frame="lrtb"):
                 )
 fig.show()
 
-###############################################################################
-# The :meth:`pygmt.Figure.set_panel` function activates a specified subplot,
-# and all subsequent plotting functions will take place in that subplot panel.
+# %%
+# The :meth:`pygmt.Figure.set_panel` method activates a specified subplot,
+# and all subsequent plotting methods will take place in that subplot panel.
 # This is similar to matplotlib's ``plt.sca`` method. In order to specify a
 # subplot, you will need to provide the identifier for that subplot via the
 # ``panel`` parameter. Pass in either the *index* number, or a tuple/list like
 # (*row*, *col*) to ``panel``.
 
-###############################################################################
+# %%
 # .. note::
 #
 #     The row and column numbering starts from 0. So for a subplot layout with
 #     N rows and M columns, row numbers will go from 0 to N-1, and column
 #     numbers will go from 0 to M-1.
 
-###############################################################################
+# %%
 # For example, to activate the subplot on the top right corner (index: 2) at
 # *row*\=0 and *col*\=2, so that all subsequent plotting commands happen
 # there, you can use the following command:
 
-###############################################################################
+# %%
 # .. code-block:: default
 #
 #     with fig.set_panel(panel=[0, 2]):
 #         ...
 
-###############################################################################
+
+# %%
 # Making your first subplot
 # -------------------------
+#
 # Next, let's use what we learned above to make a 2 row by 2 column subplot
 # figure. We'll also pick up on some new parameters to configure our subplot.
 
@@ -109,25 +111,24 @@ with fig.subplot(
     fig.basemap(region=[0, 20, 0, 20], projection="X?", panel=[1, 1])
 fig.show()
 
-###############################################################################
+# %%
 # In this example, we define a 2-row, 2-column (2x2) subplot layout using
 # :meth:`pygmt.Figure.subplot`. The overall figure dimensions is set to be
 # 15 cm wide and 6 cm high (``figsize=["15c", "6c"]``). In addition, we use
 # some optional parameters to fine-tune some details of the figure creation:
 #
-# - ``autolabel=True``: Each subplot is automatically labelled abcd
-# - ``margins=["0.1c", "0.2c"]``: adjusts the space between adjacent subplots.
-#   In this case, it is set as 0.1 cm in the X direction and 0.2 cm in the Y
-#   direction.
-# - ``title="My Subplot Heading"``: adds a title on top of the whole figure.
+# - ``autolabel=True``: Each subplot is automatically labelled 'abcd'.
+# - ``margins=["0.1c", "0.2c"]``: Adjusts the space between adjacent subplots.
+#   In this case, it is set as 0.1 cm in the x-direction and 0.2 cm in the
+#   y-direction.
+# - ``title="My Subplot Heading"``: Adds a title on top of the whole figure.
 #
 # Notice that each subplot was set to use a linear projection ``"X?"``.
 # Usually, we need to specify the width and height of the map frame, but it is
 # also possible to use a question mark ``"?"`` to let GMT decide automatically
-# on what is the most appropriate width/height for the each subplot's map
-# frame.
+# on what is the most appropriate width/height for each subplot's map frame.
 
-###############################################################################
+# %%
 # .. tip::
 #
 #     In the above example, we used the following commands to activate the
@@ -142,23 +143,25 @@ fig.show()
 #     specifying any subplot index number, and GMT will automatically activate
 #     the next subplot panel.
 
-###############################################################################
+# %%
 # .. note::
 #
-#     All plotting functions (e.g. :meth:`pygmt.Figure.coast`,
+#     All plotting methods (e.g. :meth:`pygmt.Figure.coast`,
 #     :meth:`pygmt.Figure.text`, etc) are able to use ``panel`` parameter when
 #     in subplot mode. Once a panel is activated using ``panel`` or
 #     :meth:`pygmt.Figure.set_panel`, subsequent plotting commands that don't
 #     set a ``panel`` will have their elements added to the same panel as
 #     before.
 
-###############################################################################
-# Shared X and Y axis labels
-# --------------------------
+
+# %%
+# Shared x- and y-axes
+# --------------------
+#
 # In the example above with the four subplots, the two subplots for each row
-# have the same Y-axis range, and the two subplots for each column have the
-# same X-axis range. You can use the ``sharex``/``sharey`` parameters to set a
-# common X and/or Y axis between subplots.
+# have the same y-axis range, and the two subplots for each column have the
+# same x-axis range. You can use the ``sharex``/``sharey`` parameters to set a
+# common x- and/or y-axis between subplots.
 
 fig = pygmt.Figure()
 with fig.subplot(
@@ -178,21 +181,22 @@ with fig.subplot(
     fig.basemap(region=[0, 20, 0, 20], projection="X?", panel=True)
 fig.show()
 
-###############################################################################
+# %%
 # ``sharex="b"`` indicates that subplots in a column will share the x-axis, and
 # only the **b**\ ottom axis is displayed. ``sharey="l"`` indicates that
 # subplots within a row will share the y-axis, and only the **l**\ eft axis is
 # displayed.
 #
-# Of course, instead of using the ``sharex``/``sharey`` option, you can also
-# set a different ``frame`` for each subplot to control the axis properties
-# individually for each subplot.
+# Of course, instead of using the ``sharex``/``sharey`` parameters, you can
+# also set a different ``frame`` for each subplot to control the axis
+# properties individually for each subplot.
 
-###############################################################################
+
+# %%
 # Advanced subplot layouts
 # ------------------------
 #
-# Nested subplot are currently not supported. If you want to create more
+# Nested subplots are currently not supported. If you want to create more
 # complex subplot layouts, some manual adjustments are needed.
 #
 # The following example draws three subplots in a 2-row, 2-column layout, with
@@ -218,8 +222,7 @@ with fig.subplot(nrows=1, ncols=1, figsize=("15c", "3c"), autolabel="a)"):
 
 fig.show()
 
-###############################################################################
-#
+# %%
 # We start by drawing the bottom two subplots, setting ``autolabel="b)"`` so
 # that the subplots are labelled 'b)' and 'c)'. Next, we use
 # :meth:`pygmt.Figure.shift_origin` to move the plot origin 1 cm above the
@@ -230,8 +233,10 @@ fig.show()
 # ``projection="X?"`` was used to let GMT automatically determine the size of
 # the subplot according to the size of the subplot area.
 
-###############################################################################
+# %%
 # You can also manually override the ``autolabel`` for each subplot using for
 # example, ``fig.set_panel(..., fixedlabel="b) Panel 2")`` which would allow
 # you to manually label a single subplot as you wish. This can be useful for
 # adding a more descriptive subtitle to individual subplots.
+
+# sphinx_gallery_thumbnail_number = 3

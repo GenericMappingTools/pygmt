@@ -1,14 +1,11 @@
 """
-Tests velo.
+Test Figure.velo.
 """
+
 import pandas as pd
 import pytest
-from packaging.version import Version
-from pygmt import Figure, clib
+from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
-
-with clib.Session() as _lib:
-    gmt_version = Version(_lib.info["version"])
 
 
 @pytest.fixture(scope="module", name="dataframe")
@@ -67,6 +64,7 @@ def test_velo_without_spec(dataframe):
         fig.velo(data=dataframe)
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_velo_pandas_dataframe(dataframe):
     """
@@ -81,7 +79,7 @@ def test_velo_pandas_dataframe(dataframe):
         region=[-10, 8, -10, 6],
         projection="x0.8c",
         pen="0.6p,red",
-        uncertaintycolor="lightblue1",
+        uncertaintyfill="lightblue1",
         line=True,
     )
     return fig

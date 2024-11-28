@@ -1,6 +1,6 @@
 r"""
-Cylindrical equal-area
-======================
+Cylindrical equal-area projection
+=================================
 
 This cylindrical projection is actually several projections, depending on what
 latitude is selected as the standard parallel. However, they are all equal area
@@ -11,6 +11,8 @@ and hence non-conformal. All meridians and parallels are straight lines.
 The projection is set with **y** or **Y**. The projection center is set by
 *lon0/lat0*, and the figure size is set with *scale* or *width*.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()
@@ -18,8 +20,8 @@ fig = pygmt.Figure()
 fig.coast(
     region="d",
     projection="Y35/30/12c",
-    water="dodgerblue",
-    shorelines="thinnest",
     frame="afg",
+    land="gray80",
+    water="steelblue",
 )
 fig.show()

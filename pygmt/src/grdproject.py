@@ -2,16 +2,12 @@
 grdproject - Forward and inverse map transformation of grids.
 """
 
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+
+__doctest_skip__ = ["grdproject"]
 
 
 @fmt_docstring
@@ -20,7 +16,6 @@ from pygmt.io import load_dataarray
     D="spacing",
     E="dpi",
     F="scaling",
-    G="outgrid",
     J="projection",
     I="inverse",
     M="unit",
@@ -29,12 +24,12 @@ from pygmt.io import load_dataarray
     n="interpolation",
     r="registration",
 )
-@kwargs_to_strings(C="sequence", R="sequence")
-def grdproject(grid, **kwargs):
+@kwargs_to_strings(C="sequence", D="sequence", R="sequence")
+def grdproject(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
     Change projection of gridded data between geographical and rectangular.
 
-    This module will project a geographical gridded data set onto a
+    This method will project a geographical gridded data set onto a
     rectangular grid. If ``inverse`` is ``True``, it will project a
     rectangular coordinate system to a geographic system. To obtain the value
     at each new node, its location is inversely projected back onto the input
@@ -43,69 +38,80 @@ def grdproject(grid, **kwargs):
     avoided by also forward projecting the input grid nodes. If two or more
     nodes are projected onto the same new node, their average will dominate in
     the calculation of the new node value. Interpolation and aliasing is
-    controlled with the ``interpolation`` option. The new node spacing may be
-    determined in one of several ways by specifying the grid spacing, number
-    of nodes, or resolution. Nodes not constrained by input data are set to
-    NaN. The ``region`` parameter can be used to select a map region larger or
-    smaller than that implied by the extent of the grid file.
+    controlled with the ``interpolation`` parameter. The new node spacing may
+    be determined in one of several ways by specifying the grid spacing,
+    number of nodes, or resolution. Nodes not constrained by input data are
+    set to NaN. The ``region`` parameter can be used to select a map region
+    large or smaller than that implied by the extent of the grid file.
+
+    Full option list at :gmt-docs:`grdproject.html`
 
     {aliases}
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {grid}
+    {outgrid}
     inverse : bool
-        When set to ``True`` transforms grid from rectangular to
-        geographical [Default is False].
-    {J}
-    {R}
+        When set to ``True`` transforms grid from rectangular to geographical
+        [Default is ``False``].
+    {projection}
+    {region}
     center : str or list
         [*dx*, *dy*].
         Let projected coordinates be relative to projection center [Default
         is relative to lower left corner]. Optionally, add offsets in the
         projected units to be added (or subtracted when ``inverse`` is set) to
         (from) the projected coordinates, such as false eastings and
-        northings for particular projection zones [0/0].
-    {I}
+        northings for particular projection zones [Default is ``[0, 0]``].
+    {spacing}
     dpi : int
         Set the resolution for the new grid in dots per inch.
     scaling : str
         [**c**\|\ **i**\|\ **p**\|\ **e**\|\ **f**\|\
         **k**\|\ **M**\|\ **n**\|\ **u**].
-        Force 1:1 scaling, i.e., output or output data are in actual projected
-        meters [**e**]. To specify other units, append **f** (foot),
-        **k** (km), **M** (statute mile), **n** (nautical mile), **u**
-        (US survey foot), **i** (inch), **c** (cm), or **p** (point).
+        Force 1:1 scaling, i.e., output or input data are in actual projected
+        meters [**e**]. To specify other units, append **f** (feet),
+        **k** (kilometers), **M** (statute miles), **n** (nautical miles),
+        **u** (US survey feet), **i** (inches), **c** (centimeters), or
+        **p** (points).
     unit : str
-        Append **c**, **i**, or **p** to indicate that cm, inch, or point
-        should be the projected measure unit. Cannot be used with ``scaling``.
-    {V}
-    {n}
-    {r}
+        Append **c**, **i**, or **p** to indicate that centimeters, inches, or
+        points should be the projected measure unit. Cannot be used with
+        ``scaling``.
+    {verbose}
+    {interpolation}
+    {registration}
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
-    """
-    if "J" not in kwargs:
-        raise GMTInvalidInput("The projection must be specified.")
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-            with file_context as infile:
-                if "G" not in kwargs:  # if outgrid is unset, output to tempfile
-                    kwargs.update({"G": tmpfile.name})
-                outgrid = kwargs["G"]
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module("grdproject", arg_str)
 
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+    Example
+    -------
+    >>> import pygmt
+    >>> # Load a grid of @earth_relief_30m data, with a longitude range of
+    >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
+    >>> region = [10, 30, 15, 25]
+    >>> grid = pygmt.datasets.load_earth_relief(resolution="30m", region=region)
+    >>> # Project the geographic gridded data onto a rectangular grid
+    >>> new_grid = pygmt.grdproject(grid=grid, projection="M10c", region=region)
+    """
+    if kwargs.get("J") is None:
+        raise GMTInvalidInput("The projection must be specified.")
+
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            kwargs["G"] = voutgrd
+            lib.call_module(
+                module="grdproject", args=build_arg_list(kwargs, infile=vingrd)
+            )
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

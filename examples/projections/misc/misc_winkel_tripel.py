@@ -1,6 +1,6 @@
 r"""
-Winkel Tripel
-=============
+Winkel Tripel projection
+========================
 
 In 1921, the German mathematician Oswald Winkel made a projection that was to
 strike a compromise between the properties of three elements (area, angle and
@@ -22,9 +22,11 @@ map into straight lines 0.4 times the length of equator.
 The projection is set with **r** or **R**. The central meridian is set with the
 optional *lon0*, and the figure size is set with *scale* or *width*.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()
 # Use region "d" to specify global region (-180/180/-90/90)
-fig.coast(region="d", projection="R12c", land="burlywood4", water="wheat1", frame="afg")
+fig.coast(region="d", projection="R12c", frame="afg", land="ivory", water="bisque4")
 fig.show()
