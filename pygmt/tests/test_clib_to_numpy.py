@@ -25,7 +25,7 @@ except ImportError:
         """
 
         @staticmethod
-        def timestamp(*args, **kwargs):
+        def timestamp(unit: str, tz: str | None = None):
             """
             A dummy function to mimic pyarrow.timestamp.
             """
@@ -407,7 +407,7 @@ def test_to_numpy_pyarrow_array_pyarrow_dtypes_date(dtype, expected_dtype):
 )
 def test_to_numpy_pyarrow_timestamp(dtype, expected_dtype):
     """
-    Test the _to_numpy function with PyArrow arrays of PyArrow datetime types.
+    Test the _to_numpy function with PyArrow arrays of PyArrow timestamp types.
 
     pyarrow.timestamp(unit, tz=None) can accept units "s", "ms", "us", and "ns".
 
