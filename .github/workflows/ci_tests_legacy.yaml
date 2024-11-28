@@ -51,7 +51,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v2.0.1
+        uses: mamba-org/setup-micromamba@v2.0.2
         with:
           environment-name: pygmt
           condarc: |
@@ -62,7 +62,7 @@ jobs:
             python=3.10
             gmt=${{ matrix.gmt_version }}
             ghostscript<10
-            numpy
+            numpy<2
             pandas
             xarray
             netCDF4
