@@ -18,6 +18,18 @@ try:
 
     _HAS_PYARROW = True
 except ImportError:
+
+    class pa:  # noqa: N801
+        """
+        A dummy class to mimic pyarrow.
+        """
+
+        @staticmethod
+        def timestamp(unit: str, tz: str | None = None):
+            """
+            A dummy function to mimic pyarrow.timestamp.
+            """
+
     _HAS_PYARROW = False
 
 # Mark tests that require pyarrow
@@ -331,6 +343,7 @@ def test_to_numpy_pandas_series_pyarrow_dtypes_date(dtype, expected_dtype):
 # - Date types:
 #   - date32[day]
 #   - date64[ms]
+# - Timestamp types: timestamp[unit], timestamp[unit, tz]
 #
 # In PyArrow, array types can be specified in two ways:
 #
@@ -453,3 +466,44 @@ def test_to_numpy_pyarrow_array_pyarrow_dtypes_date(dtype, expected_dtype):
         result,
         np.array(["2024-01-01", "2024-01-02", "2024-01-03"], dtype=expected_dtype),
     )
+
+
+@pytest.mark.skipif(not _HAS_PYARROW, reason="pyarrow is not installed")
+@pytest.mark.parametrize(
+    ("dtype", "expected_dtype"),
+    [
+        pytest.param(None, "datetime64[us]", id="None"),
+        pytest.param("timestamp[s]", "datetime64[s]", id="timestamp[s]"),
+        pytest.param("timestamp[ms]", "datetime64[ms]", id="timestamp[ms]"),
+        pytest.param("timestamp[us]", "datetime64[us]", id="timestamp[us]"),
+        pytest.param("timestamp[ns]", "datetime64[ns]", id="timestamp[ns]"),
+        pytest.param(
+            pa.timestamp("s", tz="UTC"), "datetime64[s]", id="timestamp[s, tz=UTC]"
+        ),  # pa.timestamp with tz has no string alias.
+        pytest.param(
+            pa.timestamp("s", tz="America/New_York"),
+            "datetime64[s]",
+            id="timestamp[s, tz=America/New_York]",
+        ),
+        pytest.param(
+            pa.timestamp("s", tz="+07:30"),
+            "datetime64[s]",
+            id="timestamp[s, tz=+07:30]",
+        ),
+    ],
+)
+def test_to_numpy_pyarrow_timestamp(dtype, expected_dtype):
+    """
+    Test the _to_numpy function with PyArrow arrays of PyArrow timestamp types.
+
+    pyarrow.timestamp(unit, tz=None) can accept units "s", "ms", "us", and "ns".
+
+    Reference: https://arrow.apache.org/docs/python/generated/pyarrow.timestamp.html
+    """
+    data = [datetime(2024, 1, 2, 3, 4, 5), datetime(2024, 1, 2, 3, 4, 6)]
+    array = pa.array(data, type=dtype)
+    result = _to_numpy(array)
+    _check_result(result, np.datetime64)
+    assert result.dtype == expected_dtype
+    assert result[0] == np.datetime64("2024-01-02T03:04:05")
+    assert result[1] == np.datetime64("2024-01-02T03:04:06")
