@@ -94,7 +94,7 @@ class triangulate:  # noqa: N801
 
         Parameters
         ----------
-        x/y/z : np.ndarray
+        x/y/z : :class:`numpy.ndarray`
             Arrays of x and y coordinates and values z of the data points.
         data : str, {table-like}
             Pass in (x, y[, z]) or (longitude, latitude[, elevation]) values by
@@ -125,9 +125,8 @@ class triangulate:  # noqa: N801
         ret
             Return type depends on whether the ``outgrid`` parameter is set:
 
-            - xarray.DataArray if ``outgrid`` is None (default)
-            - None if ``outgrid`` is a str (grid output is stored in
-              ``outgrid``)
+            - :class:`xarray.DataArray` if ``outgrid`` is ``None`` [Default]
+            - ``None`` if ``outgrid`` is a str (grid output is stored in ``outgrid``)
 
         Note
         ----
@@ -197,7 +196,7 @@ class triangulate:  # noqa: N801
 
         Parameters
         ----------
-        x/y/z : np.ndarray
+        x/y/z : :class:`numpy.ndarray`
             Arrays of x and y coordinates and values z of the data points.
         data : str, {table-like}
             Pass in (x, y, z) or (longitude, latitude, elevation) values by
@@ -222,7 +221,7 @@ class triangulate:  # noqa: N801
         ret
             Return type depends on ``outfile`` and ``output_type``:
 
-            - ``None`` if ``outfile`` is set (output will be stored in file set by
+            - ``None`` if ``outfile`` is set (output will be stored in the file set by
               ``outfile``)
             - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not
               set (depends on ``output_type``)

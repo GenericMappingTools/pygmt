@@ -12,6 +12,7 @@ import sys
 import time
 import webbrowser
 from collections.abc import Iterable, Mapping, Sequence
+from pathlib import Path
 from typing import Any, Literal
 
 import xarray as xr
@@ -187,7 +188,8 @@ def _check_encoding(argstr: str) -> Encoding:
         charset["ZapfDingbats"].values()
     )
     for encoding in ["ISOLatin1+"] + [f"ISO-8859-{i}" for i in range(1, 17) if i != 12]:
-        if all(c in (set(charset[encoding].values()) | adobe_chars) for c in argstr):
+        chars = set(charset[encoding].values()) | adobe_chars
+        if all(c in chars for c in argstr):
             return encoding  # type: ignore[return-value]
     # Return the "ISOLatin1+" encoding if the string contains characters from multiple
     # charset encodings or contains characters that are not in any charset encoding.
@@ -580,7 +582,7 @@ def launch_external_viewer(fname: str, waiting: float = 0):
         case "win32":  # Windows
             os.startfile(fname)  # type:ignore[attr-defined] # noqa: S606
         case _:  # Fall back to the browser if can't recognize the operating system.
-            webbrowser.open_new_tab(f"file://{fname}")
+            webbrowser.open_new_tab(f"file://{Path(fname).resolve()}")
     if waiting > 0:
         # Preview images will be deleted when a GMT modern-mode session ends, but the
         # external viewer program may take a few seconds to open the images.
