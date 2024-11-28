@@ -418,4 +418,5 @@ def test_to_numpy_pyarrow_timestamp(dtype, expected_dtype):
     result = _to_numpy(array)
     _check_result(result, np.datetime64)
     assert result.dtype == expected_dtype
-    npt.assert_array_equal(result, array)
+    assert result[0] == np.datetime64("2024-01-02T03:04:05")
+    assert result[1] == np.datetime64("2024-01-02T03:04:06")
