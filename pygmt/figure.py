@@ -402,6 +402,7 @@ class Figure:
 
     from pygmt.src import (  # type: ignore[misc]
         basemap,
+        clip,
         coast,
         colorbar,
         contour,
