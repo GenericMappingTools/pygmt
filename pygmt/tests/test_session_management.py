@@ -3,9 +3,9 @@ Test the session management modules.
 """
 
 import multiprocessing as mp
-from importlib import reload
 from pathlib import Path
 
+import pygmt
 import pytest
 from pygmt.clib import Session
 from pygmt.session_management import begin, end
@@ -65,13 +65,7 @@ def test_gmt_compat_6_is_applied(capsys):
 def _gmt_func_wrapper(figname):
     """
     A wrapper for running PyGMT scripts with multiprocessing.
-
-    Currently, we have to import pygmt and reload it in each process. Workaround from
-    https://github.com/GenericMappingTools/pygmt/issues/217#issuecomment-754774875.
     """
-    import pygmt
-
-    reload(pygmt)
     fig = pygmt.Figure()
     fig.basemap(region=[10, 70, -3, 8], projection="X8c/6c", frame="afg")
     fig.savefig(figname)

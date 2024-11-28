@@ -19,6 +19,7 @@ Here are just a few of the things that PyGMT does well:
 """
 
 import atexit as _atexit
+import os
 
 # Import modules to make the high-level GMT Python API
 from pygmt import datasets
@@ -66,6 +67,8 @@ from pygmt.src import (
     xyz2grd,
 )
 
+# Set the session name to the current process ID. Necessary for multiprocessing support.
+os.environ["GMT_SESSION_NAME"] = str(os.getpid())
 # Start our global modern mode session
 _begin()
 # Tell Python to run _end when shutting down
