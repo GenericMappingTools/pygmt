@@ -1268,7 +1268,7 @@ class Session:
             data,
         )
         if status != 0:
-            msg = f"Failed to write dataset to '{output}'"
+            msg = f"Failed to write dataset to '{output}'."
             raise GMTCLibError(msg)
 
     @contextlib.contextmanager
