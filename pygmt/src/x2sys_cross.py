@@ -210,7 +210,8 @@ def x2sys_cross(
                 # Save pandas.DataFrame track data to temporary file
                 file_contexts.append(tempfile_from_dftrack(track=track, suffix=suffix))
             case _:
-                raise GMTInvalidInput(f"Unrecognized data type: {type(track)}")
+                msg = f"Unrecognized data type: {type(track)}"
+                raise GMTInvalidInput(msg)
 
     with Session() as lib:
         with lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl:

@@ -102,10 +102,11 @@ def solar(
 
     valid_terminators = ["day_night", "civil", "nautical", "astronomical"]
     if terminator not in valid_terminators and terminator not in "dcna":
-        raise GMTInvalidInput(
+        msg = (
             f"Unrecognized solar terminator type '{terminator}'. "
             f"Valid values are {valid_terminators}."
         )
+        raise GMTInvalidInput(msg)
     kwargs["T"] = terminator[0]
     if terminator_datetime:
         try:
@@ -113,7 +114,8 @@ def solar(
                 "%Y-%m-%dT%H:%M:%S.%f"
             )
         except ValueError as verr:
-            raise GMTInvalidInput("Unrecognized datetime format.") from verr
+            msg = "Unrecognized datetime format."
+            raise GMTInvalidInput(msg) from verr
         kwargs["T"] += f"+d{datetime_string}"
     with Session() as lib:
         lib.call_module(module="solar", args=build_arg_list(kwargs))

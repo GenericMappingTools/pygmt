@@ -148,11 +148,11 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
     kwargs = self._preprocess(**kwargs)
 
     if nrows < 1 or ncols < 1:
-        raise GMTInvalidInput("Please ensure that both 'nrows'>=1 and 'ncols'>=1.")
+        msg = "Please ensure that both 'nrows'>=1 and 'ncols'>=1."
+        raise GMTInvalidInput(msg)
     if kwargs.get("Ff") and kwargs.get("Fs"):
-        raise GMTInvalidInput(
-            "Please provide either one of 'figsize' or 'subsize' only."
-        )
+        msg = "Please provide either one of 'figsize' or 'subsize' only."
+        raise GMTInvalidInput(msg)
 
     # Need to use separate sessions for "subplot begin" and "subplot end".
     # Otherwise, "subplot end" will use the last session, which may cause

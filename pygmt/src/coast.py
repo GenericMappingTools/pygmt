@@ -195,9 +195,10 @@ def coast(self, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)
     if not args_in_kwargs(args=["C", "G", "S", "I", "N", "E", "Q", "W"], kwargs=kwargs):
-        raise GMTInvalidInput(
-            """At least one of the following parameters must be specified:
-            lakes, land, water, rivers, borders, dcw, Q, or shorelines"""
+        msg = (
+            "At least one of the following parameters must be specified: "
+            "lakes, land, water, rivers, borders, dcw, Q, or shorelines."
         )
+        raise GMTInvalidInput(msg)
     with Session() as lib:
         lib.call_module(module="coast", args=build_arg_list(kwargs))

@@ -158,10 +158,11 @@ def grdimage(self, grid, **kwargs):
 
     # Do not support -A option
     if any(kwargs.get(arg) is not None for arg in ["A", "img_out"]):
-        raise GMTInvalidInput(
+        msg = (
             "Parameter 'img_out'/'A' is not implemented. "
             "Please consider submitting a feature request to us."
         )
+        raise GMTInvalidInput(msg)
 
     with Session() as lib:
         with (

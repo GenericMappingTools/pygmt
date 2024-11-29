@@ -103,7 +103,8 @@ def grdproject(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | Non
     >>> new_grid = pygmt.grdproject(grid=grid, projection="M10c", region=region)
     """
     if kwargs.get("J") is None:
-        raise GMTInvalidInput("The projection must be specified.")
+        msg = "The projection must be specified."
+        raise GMTInvalidInput(msg)
 
     with Session() as lib:
         with (
