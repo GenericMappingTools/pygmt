@@ -38,7 +38,7 @@ def load_dataarray(filename_or_obj, **kwargs):
     xarray.open_dataarray
     """
     if "cache" in kwargs:
-        msg = "cache has no effect in this context"
+        msg = "'cache' has no effect in this context."
         raise TypeError(msg)
 
     with xr.open_dataarray(filename_or_obj, **kwargs) as dataarray:

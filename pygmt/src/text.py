@@ -187,7 +187,7 @@ def text_(  # noqa: PLR0912
         + (position is not None)
         + (x is not None or y is not None)
     ) != 1:
-        msg = "Provide either textfiles, x/y/text, or position/text."
+        msg = "Provide either 'textfiles', 'x'/'y'/'text', or 'position'/'text'."
         raise GMTInvalidInput(msg)
 
     required_data = position is None

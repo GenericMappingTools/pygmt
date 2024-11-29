@@ -298,7 +298,7 @@ def grdtrack(
         raise GMTInvalidInput(msg)
 
     if hasattr(points, "columns") and newcolname is None:
-        msg = "Please pass in a str to 'newcolname'"
+        msg = "Please pass in a str to 'newcolname'."
         raise GMTInvalidInput(msg)
 
     output_type = validate_output_table_type(output_type, outfile=outfile)

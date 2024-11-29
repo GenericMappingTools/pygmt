@@ -243,7 +243,7 @@ def velo(self, data=None, **kwargs):
     if kwargs.get("S") is None or (
         kwargs.get("S") is not None and not isinstance(kwargs["S"], str)
     ):
-        msg = "The parameter `spec` is required and has to be a string."
+        msg = "The parameter 'spec' is required and has to be a string."
         raise GMTInvalidInput(msg)
 
     if isinstance(data, np.ndarray) and not pd.api.types.is_numeric_dtype(data):

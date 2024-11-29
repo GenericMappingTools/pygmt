@@ -230,7 +230,7 @@ def plot3d(
             ("symbol", symbol),
         ]:
             if is_nonstr_iter(value):
-                msg = f"'{name}' can't be 1-D array if 'data' is used."
+                msg = f"'{name}' can't be a 1-D array if 'data' is used."
                 raise GMTInvalidInput(msg)
 
     # Set the default style if data has a geometry of Point or MultiPoint

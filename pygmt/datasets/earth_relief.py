@@ -164,8 +164,8 @@ def load_earth_relief(
     if use_srtm and resolution in land_only_srtm_resolutions:
         if data_source != "igpp":
             msg = (
-                f"Option 'use_srtm=True' doesn't work with data source '{data_source}'."
-                " Please set 'data_source' to 'igpp'."
+                f"Option 'use_srtm=True' doesn't work with data source '{data_source}'. "
+                "Please set 'data_source' to 'igpp'."
             )
             raise GMTInvalidInput(msg)
         prefix = "srtm_relief"

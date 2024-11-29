@@ -1861,7 +1861,7 @@ class Session:
             elif check_kind == "vector":
                 valid_kinds += ("empty", "matrix", "vectors", "geojson")
             if kind not in valid_kinds:
-                msg = f"Unrecognized data type for {check_kind}: {type(data)}"
+                msg = f"Unrecognized data type for {check_kind}: {type(data)}."
                 raise GMTInvalidInput(msg)
 
         # Decide which virtualfile_from_ function to use
