@@ -115,16 +115,14 @@ def psconvert(self, **kwargs):
 
     prefix = kwargs.get("F")
     if prefix in {"", None, False, True}:
-        raise GMTInvalidInput(
-            "The 'prefix' parameter must be specified with a valid value."
-        )
+        msg = "The 'prefix' parameter must be specified with a valid value."
+        raise GMTInvalidInput(msg)
 
     # Check if the parent directory exists
     prefix_path = Path(prefix).parent
     if not prefix_path.exists():
-        raise FileNotFoundError(
-            f"No such directory: '{prefix_path}', please create it first."
-        )
+        msg = f"No such directory: '{prefix_path}', please create it first."
+        raise FileNotFoundError(msg)
 
     with Session() as lib:
         lib.call_module(module="psconvert", args=build_arg_list(kwargs))

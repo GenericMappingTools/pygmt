@@ -91,13 +91,13 @@ def convention_code(convention, component="full"):
         return codes1[convention]
     if convention in codes2:
         if component not in codes2[convention]:
-            raise GMTInvalidInput(
-                f"Invalid component '{component}' for convention '{convention}'."
-            )
+            msg = f"Invalid component '{component}' for convention '{convention}'."
+            raise GMTInvalidInput(msg)
         return codes2[convention][component]
     if convention in {"a", "c", "m", "d", "z", "p", "x", "y", "t"}:
         return convention
-    raise GMTInvalidInput(f"Invalid convention '{convention}'.")
+    msg = f"Invalid convention '{convention}'."
+    raise GMTInvalidInput(msg)
 
 
 def convention_name(code):
@@ -424,7 +424,8 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
             )
     elif isinstance(spec, np.ndarray):  # spec is a numpy array
         if convention is None:
-            raise GMTInvalidInput("'convention' must be specified for an array input.")
+            msg = "'convention' must be specified for an array input."
+            raise GMTInvalidInput(msg)
         # make sure convention is a name, not a code
         convention = convention_name(convention)
 
@@ -442,9 +443,10 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
         elif ncolsdiff == 3:
             colnames += ["plot_longitude", "plot_latitude", "event_name"]
         else:
-            raise GMTInvalidInput(
+            msg = (
                 f"Input array must have {len(colnames)} to {len(colnames) + 3} columns."
             )
+            raise GMTInvalidInput(msg)
         spec.columns = colnames
 
     # Now spec is a pd.DataFrame or a file

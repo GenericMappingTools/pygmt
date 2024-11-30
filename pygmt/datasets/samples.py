@@ -347,5 +347,6 @@ def load_sample_data(
     >>> data = load_sample_data("bathymetry")
     """  # noqa: W505
     if name not in datasets:
-        raise GMTInvalidInput(f"Invalid dataset name '{name}'.")
+        msg = f"Invalid dataset name '{name}'."
+        raise GMTInvalidInput(msg)
     return datasets[name].func()

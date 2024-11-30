@@ -111,7 +111,8 @@ def filter1d(
           (depends on ``output_type``)
     """
     if kwargs.get("F") is None:
-        raise GMTInvalidInput("Pass a required argument to 'filter_type'.")
+        msg = "Pass a required argument to 'filter_type'."
+        raise GMTInvalidInput(msg)
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 

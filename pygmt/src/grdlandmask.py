@@ -96,7 +96,8 @@ def grdlandmask(outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     >>> landmask = pygmt.grdlandmask(spacing=1, region=[125, 130, 30, 35])
     """
     if kwargs.get("I") is None or kwargs.get("R") is None:
-        raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
+        msg = "Both 'region' and 'spacing' must be specified."
+        raise GMTInvalidInput(msg)
 
     with Session() as lib:
         with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
