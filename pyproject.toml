@@ -94,6 +94,7 @@ select = [
     "COM",  # flake8-commas
     "D",    # pydocstyle
     "E",    # pycodestyle
+    "EM",   # flake8-errmsg
     "EXE",  # flake8-executable
     "F",    # pyflakes
     "FA",   # flake8-future-annotations
