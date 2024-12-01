@@ -226,7 +226,8 @@ class grdhisteq:  # noqa: N801
         output_type = validate_output_table_type(output_type, outfile=outfile)
 
         if kwargs.get("h") is not None and output_type != "file":
-            raise GMTInvalidInput("'header' is only allowed with output_type='file'.")
+            msg = "'header' is only allowed with output_type='file'."
+            raise GMTInvalidInput(msg)
 
         with Session() as lib:
             with (

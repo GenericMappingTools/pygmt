@@ -133,7 +133,7 @@ fig.show()
 # ----------------------------
 #
 # By default, a histogram showing the counts in each bin is created (``histtype=0``).
-# To show the frequency percent set the ``histtpye`` parameter to ``1``. For further
+# To show the frequency percent set the ``histtype`` parameter to ``1``. For further
 # options please have a look at the documentation of :meth:`pygmt.Figure.histogram`.
 
 fig = pygmt.Figure()

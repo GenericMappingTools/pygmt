@@ -222,15 +222,14 @@ def project(
           (depends on ``output_type``)
     """
     if kwargs.get("C") is None:
-        raise GMTInvalidInput("The `center` parameter must be specified.")
+        msg = "The 'center' parameter must be specified."
+        raise GMTInvalidInput(msg)
     if kwargs.get("G") is None and data is None:
-        raise GMTInvalidInput(
-            "The `data` parameter must be specified unless `generate` is used."
-        )
+        msg = "The 'data' parameter must be specified unless 'generate' is used."
+        raise GMTInvalidInput(msg)
     if kwargs.get("G") is not None and kwargs.get("F") is not None:
-        raise GMTInvalidInput(
-            "The `convention` parameter is not allowed with `generate`."
-        )
+        msg = "The 'convention' parameter is not allowed with 'generate'."
+        raise GMTInvalidInput(msg)
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
