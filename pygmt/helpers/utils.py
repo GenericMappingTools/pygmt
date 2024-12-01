@@ -505,16 +505,12 @@ def build_arg_list(  # noqa: PLR0912
     ['-A', '-D0', '-E200', '-F', '-G1/2/3/4']
     >>> build_arg_list(dict(A="1/2/3/4", B=["xaf", "yaf", "WSen"], C=("1p", "2p")))
     ['-A1/2/3/4', '-BWSen', '-Bxaf', '-Byaf', '-C1p', '-C2p']
-    >>> print(
-    ...     build_arg_list(
-    ...         dict(
-    ...             B=["af", "WSne+tBlank Space"],
-    ...             F='+t"Empty Spaces"',
-    ...             l="'Void Space'",
-    ...         )
-    ...     )
-    ... )
-    ['-BWSne+tBlank Space', '-Baf', '-F+t"Empty Spaces"', "-l'Void Space'"]
+    >>> build_arg_list(dict(B=["af", "WSne+tBlank Space"]))
+    ['-BWSne+tBlank Space', '-Baf']
+    >>> build_arg_list(dict(F='+t"Empty Spaces"'))
+    ['-F+t"Empty Spaces"']
+    >>> build_arg_list(dict(l="'Void Space'"))
+    ['-l\\234Void Space\\234', '--PS_CHAR_ENCODING=ISOLatin1+']
     >>> print(
     ...     build_arg_list(
     ...         dict(A="0", B=True, C="rainbow"),
