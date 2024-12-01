@@ -196,7 +196,7 @@ fig.show()
 # uses :func:`pandas.date_range` to fill the DataArray with data, but this is not
 # essential for the creation of a valid DataArray.
 
-x = xr.DataArray(data=pd.date_range(start="2020-01-01", periods=4, freq="Q"))
+x = xr.DataArray(data=pd.date_range(start="2020-01-01", periods=4, freq="QE"))
 y = [4, 7, 5, 6]
 
 fig = pygmt.Figure()
