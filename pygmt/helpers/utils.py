@@ -168,6 +168,41 @@ def _is_ascii(argstr: str) -> bool:
     return all(32 <= ord(c) <= 126 for c in argstr)
 
 
+def _has_apostrophe_or_backtick(argstr: str) -> bool:
+    """
+    Check if a string contains apostrophe (') or backtick (`).
+
+    For typographical reasons, apostrophe (') and backtick (`) are mapped to left and
+    right single quotation marks (‘ and ’) in Adobe ISOLatin1+ encoding. To ensure what
+    you type is what you get (https://github.com/GenericMappingTools/pygmt/issues/3476),
+    they need special handling in the ``_check_encoding`` and ``non_ascii_to_octal``
+    functions. More specifically, a string that contains ASCII characters without
+    apostrophe (') and backtick (`) will be considered as "ascii" encoding.
+
+    Parameters
+    ----------
+    argstr
+        The string to be checked.
+
+    Returns
+    -------
+    ``True`` if the string contains apostrophe (') or backtick (`). Otherwise, return
+    ``False``.
+
+    Examples
+    --------
+    >>> _has_apostrophe_or_backtick("12AB±β①②")
+    False
+    >>> _has_apostrophe_or_backtick("12AB`")
+    True
+    >>> _has_apostrophe_or_backtick("12AB'")
+    True
+    >>> _has_apostrophe_or_backtick("12AB'`")
+    True
+    """  # noqa: RUF002
+    return "'" in argstr or "`" in argstr
+
+
 def _check_encoding(argstr: str) -> Encoding:
     """
     Check the charset encoding of a string.
@@ -200,8 +235,9 @@ def _check_encoding(argstr: str) -> Encoding:
     >>> _check_encoding("123AB中文")  # Characters not in any charset encoding
     'ISOLatin1+'
     """
-    # Return "ascii" if the string only contains ASCII characters.
-    if _is_ascii(argstr):
+    # Return "ascii" if the string only contains ASCII characters, excluding apostrophe
+    # (') and backtick (`).
+    if _is_ascii(argstr) and not _has_apostrophe_or_backtick(argstr):
         return "ascii"
     # Loop through all supported encodings and check if all characters in the string
     # are in the charset of the encoding. If all characters are in the charset, return
@@ -397,8 +433,11 @@ def non_ascii_to_octal(argstr: str, encoding: Encoding = "ISOLatin1+") -> str:
     >>> non_ascii_to_octal("12ABāáâãäåβ①②", encoding="ISO-8859-4")
     '12AB\\340\\341\\342\\343\\344\\345@~\\142@~@%34%\\254@%%@%34%\\255@%%'
     """  # noqa: RUF002
-    # Return the input string if it only contains ASCII characters.
-    if encoding == "ascii" or _is_ascii(argstr):
+    # Return the input string if it only contains ASCII characters, excluding apostrophe
+    # (') and backtick (`).
+    if encoding == "ascii" or (
+        _is_ascii(argstr) and not _has_apostrophe_or_backtick(argstr)
+    ):
         return argstr
 
     # Dictionary mapping non-ASCII characters to octal codes
@@ -412,8 +451,13 @@ def non_ascii_to_octal(argstr: str, encoding: Encoding = "ISOLatin1+") -> str:
     # ISOLatin1+ or ISO-8859-x charset.
     mapping.update({c: f"\\{i:03o}" for i, c in charset[encoding].items()})
 
-    # Remove any printable characters
+    # Remove any printable characters.
     mapping = {k: v for k, v in mapping.items() if k not in string.printable}
+
+    if encoding == "ISOLatin1+":
+        # Map apostrophe (') and backtick (`) to correct octal codes.
+        # See _has_apostrophe_or_backtick() for explanations.
+        mapping.update({"'": "\\234", "`": "\\221"})
     return argstr.translate(str.maketrans(mapping))
 
 
