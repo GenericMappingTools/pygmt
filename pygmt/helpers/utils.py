@@ -145,6 +145,29 @@ def _validate_data_input(
                     raise GMTInvalidInput(msg)
 
 
+def _is_ascii(argstr: str) -> bool:
+    """
+    Check if a string only contains ASCII characters.
+
+    Parameters
+    ----------
+    argstr
+        The string to be checked.
+
+    Returns
+    -------
+    ``True`` if the string only contains ASCII characters. Otherwise, return ``False``.
+
+    Examples
+    --------
+    >>> _is_ascii("123ABC+-?!")
+    True
+    >>> _is_ascii("12AB±β①②")
+    False
+    """
+    return all(32 <= ord(c) <= 126 for c in argstr)
+
+
 def _check_encoding(argstr: str) -> Encoding:
     """
     Check the charset encoding of a string.
@@ -178,7 +201,7 @@ def _check_encoding(argstr: str) -> Encoding:
     'ISOLatin1+'
     """
     # Return "ascii" if the string only contains ASCII characters.
-    if all(32 <= ord(c) <= 126 for c in argstr):
+    if _is_ascii(argstr):
         return "ascii"
     # Loop through all supported encodings and check if all characters in the string
     # are in the charset of the encoding. If all characters are in the charset, return
@@ -375,7 +398,7 @@ def non_ascii_to_octal(argstr: str, encoding: Encoding = "ISOLatin1+") -> str:
     '12AB\\340\\341\\342\\343\\344\\345@~\\142@~@%34%\\254@%%@%34%\\255@%%'
     """  # noqa: RUF002
     # Return the input string if it only contains ASCII characters.
-    if encoding == "ascii" or all(32 <= ord(c) <= 126 for c in argstr):
+    if encoding == "ascii" or _is_ascii(argstr):
         return argstr
 
     # Dictionary mapping non-ASCII characters to octal codes
