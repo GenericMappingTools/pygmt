@@ -118,7 +118,8 @@ def clib_names(os_name: str) -> list[str]:
         case "win32":  # Windows
             libnames = ["gmt.dll", "gmt_w64.dll", "gmt_w32.dll"]
         case _:
-            raise GMTOSError(f"Operating system '{os_name}' is not supported.")
+            msg = f"Operating system '{os_name}' is not supported."
+            raise GMTOSError(msg)
     return libnames
 
 

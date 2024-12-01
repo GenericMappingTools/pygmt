@@ -135,11 +135,11 @@ def dimfilter(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None
     ... )
     """
     if not all(arg in kwargs for arg in ["D", "F", "N"]) and "Q" not in kwargs:
-        raise GMTInvalidInput(
-            """At least one of the following parameters must be specified:
-            distance, filters, or sectors."""
+        msg = (
+            "At least one of the following parameters must be specified: "
+            "distance, filters, or sectors."
         )
-
+        raise GMTInvalidInput(msg)
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,

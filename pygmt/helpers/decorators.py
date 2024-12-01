@@ -569,10 +569,11 @@ def use_alias(**aliases):
             """
             for short_param, long_alias in aliases.items():
                 if long_alias in kwargs and short_param in kwargs:
-                    raise GMTInvalidInput(
+                    msg = (
                         f"Parameters in short-form ({short_param}) and "
                         f"long-form ({long_alias}) can't coexist."
                     )
+                    raise GMTInvalidInput(msg)
                 if long_alias in kwargs:
                     kwargs[short_param] = kwargs.pop(long_alias)
                 elif short_param in kwargs:
@@ -721,9 +722,8 @@ def kwargs_to_strings(**conversions):
 
     for arg, fmt in conversions.items():
         if fmt not in separators:
-            raise GMTInvalidInput(
-                f"Invalid conversion type '{fmt}' for argument '{arg}'."
-            )
+            msg = f"Invalid conversion type '{fmt}' for argument '{arg}'."
+            raise GMTInvalidInput(msg)
 
     # Make the actual decorator function
     def converter(module_func):
@@ -837,9 +837,8 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
             """
             if oldname in kwargs:
                 if newname in kwargs:
-                    raise GMTInvalidInput(
-                        f"Can't provide both '{newname}' and '{oldname}'."
-                    )
+                    msg = f"Can't provide both '{newname}' and '{oldname}'."
+                    raise GMTInvalidInput(msg)
                 msg = (
                     f"The '{oldname}' parameter has been deprecated since {deprecate_version}"
                     f" and will be removed in {remove_version}."
