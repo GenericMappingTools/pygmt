@@ -432,6 +432,8 @@ def non_ascii_to_octal(argstr: str, encoding: Encoding = "ISOLatin1+") -> str:
     'ABC \\261120\\260 DEF @~\\141@~ @%34%\\252@%%'
     >>> non_ascii_to_octal("12ABāáâãäåβ①②", encoding="ISO-8859-4")
     '12AB\\340\\341\\342\\343\\344\\345@~\\142@~@%34%\\254@%%@%34%\\255@%%'
+    >>> non_ascii_to_octal("'‘’\"“”")
+    '\\234\\140\\047"\\216\\217'
     """  # noqa: RUF002
     # Return the input string if it only contains ASCII characters, excluding apostrophe
     # (') and backtick (`).
