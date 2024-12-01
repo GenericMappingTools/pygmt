@@ -331,7 +331,7 @@ fig.show()
 # found at :gmt-term:`FORMAT_CLOCK_MAP`, :gmt-term:`FORMAT_CLOCK_IN`, and
 # :gmt-term:`FORMAT_CLOCK_OUT`.
 
-x = pd.date_range("2021-04-15", periods=8, freq="6H")
+x = pd.date_range("2021-04-15", periods=8, freq="6h")
 y = [2, 5, 3, 1, 5, 7, 9, 6]
 
 fig = pygmt.Figure()
