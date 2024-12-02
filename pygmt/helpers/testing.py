@@ -7,9 +7,9 @@ import inspect
 import string
 from pathlib import Path
 
+import xarray as xr
 from pygmt.exceptions import GMTImageComparisonFailure
-from pygmt.io import load_dataarray
-from pygmt.src import which
+from pygmt.src import read
 
 
 def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_images"):
@@ -144,17 +144,16 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     return decorator
 
 
-def load_static_earth_relief():
+def load_static_earth_relief() -> xr.DataArray:
     """
     Load the static_earth_relief file for internal testing.
 
     Returns
     -------
-    data : xarray.DataArray
+    data
         A grid of Earth relief for internal tests.
     """
-    fname = which("@static_earth_relief.nc", download="c")
-    return load_dataarray(fname)
+    return read("@static_earth_relief.nc", kind="grid")  # type: ignore[return-value]
 
 
 def skip_if_no(package):

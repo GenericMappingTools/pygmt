@@ -54,6 +54,7 @@ from pygmt.src import (
     makecpt,
     nearneighbor,
     project,
+    read,
     select,
     sph2grd,
     sphdistance,

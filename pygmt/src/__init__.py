@@ -41,6 +41,7 @@ from pygmt.src.plot import plot
 from pygmt.src.plot3d import plot3d
 from pygmt.src.project import project
 from pygmt.src.psconvert import psconvert
+from pygmt.src.read import read
 from pygmt.src.rose import rose
 from pygmt.src.select import select
 from pygmt.src.shift_origin import shift_origin
