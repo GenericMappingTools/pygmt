@@ -290,13 +290,16 @@ def grdtrack(
     ... )
     """
     if points is not None and kwargs.get("E") is not None:
-        raise GMTInvalidInput("Can't set both 'points' and 'profile'.")
+        msg = "Can't set both 'points' and 'profile'."
+        raise GMTInvalidInput(msg)
 
     if points is None and kwargs.get("E") is None:
-        raise GMTInvalidInput("Must give 'points' or set 'profile'.")
+        msg = "Must give 'points' or set 'profile'."
+        raise GMTInvalidInput(msg)
 
     if hasattr(points, "columns") and newcolname is None:
-        raise GMTInvalidInput("Please pass in a str to 'newcolname'")
+        msg = "Please pass in a str to 'newcolname'."
+        raise GMTInvalidInput(msg)
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
