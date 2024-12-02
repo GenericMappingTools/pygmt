@@ -168,8 +168,10 @@ def _to_numpy(data: Any) -> np.ndarray:
         "date64[ms][pyarrow]": "datetime64[ms]",
     }
 
-    # The expected numpy dtype for the result numpy array, but can be None.
-    dtype = dtypes.get(str(getattr(data, "dtype", getattr(data, "type", ""))))
+    # The dtype for the input object.
+    dtype = getattr(data, "dtype", getattr(data, "type", ""))
+    # The numpy dtype for the result numpy array, but can be None.
+    numpy_dtype = dtypes.get(str(dtype))
 
     # pandas numeric dtypes were converted to np.object_ dtype prior pandas 2.2, and are
     # converted to suitable NumPy dtypes since pandas 2.2. Refer to the following link
@@ -183,20 +185,20 @@ def _to_numpy(data: Any) -> np.ndarray:
         and hasattr(data.dtype, "numpy_dtype")  # pandas dtypes only.
         and data.dtype.kind in "iuf"  # Numeric dtypes only.
     ):  # pandas Series/Index with pandas nullable numeric dtypes.
-        dtype = data.dtype.numpy_dtype  # The expected numpy dtype.
+        # The numpy dtype of the result numpy array.
+        numpy_dtype = data.dtype.numpy_dtype
         if getattr(data, "hasnans", False):
             if data.dtype.kind in "iu":
                 # Integers with missing values are converted to float64.
-                dtype = np.float64
+                numpy_dtype = np.float64
             data = data.to_numpy(na_value=np.nan)
 
-    array = np.ascontiguousarray(data, dtype=dtype)
+    array = np.ascontiguousarray(data, dtype=numpy_dtype)
 
     # Check if a np.object_ array can be converted to np.str_.
     if array.dtype == np.object_:
         with contextlib.suppress(TypeError, ValueError):
             return np.ascontiguousarray(array, dtype=np.str_)
-
     return array
 
 
