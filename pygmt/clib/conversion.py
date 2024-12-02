@@ -133,6 +133,41 @@ def dataarray_to_matrix(
     return matrix, region, inc
 
 
+def matrix_to_dataarray(
+    matrix: np.ndarray,
+    region: list[float] | None = None,
+    inc: list[float] | None = None,
+    registration=None,
+) -> xr.DataArray:
+    """
+    Transform a 2-D numpy array and metadata into an xarray.DataArray.
+
+    Parameters
+    ----------
+    matrix
+        The 2-D array of data.
+    region
+        The West, East, South, North boundaries of the grid.
+    inc
+        The grid spacing in East-West and North-South, respectively.
+    """
+    if matrix.ndim != 2:
+        msg = f"Invalid number of grid dimensions 'len({matrix.ndim})'. Must be 2."
+        raise GMTInvalidInput(msg)
+
+    if region is None:
+        region = [0, matrix.shape[1], 0, matrix.shape[0]]
+    if inc is None:
+        inc = [1, 1]
+
+    return xr.DataArray(
+        matrix,
+        dims=["y", "x"],
+        coords={"y": range(*region[2:4][::-1]), "x": range(*region[:2])},
+        attrs={"registration": registration},
+    )
+
+
 def _to_numpy(data: Any) -> np.ndarray:
     """
     Convert an array-like object to a C contiguous NumPy array.
