@@ -10,7 +10,6 @@ import numpy.testing as npt
 import pandas as pd
 import pytest
 from packaging.version import Version
-from pygmt._show_versions import _get_module_version
 from pygmt.clib.conversion import _to_numpy
 from pygmt.helpers.testing import skip_if_no
 
