@@ -39,7 +39,7 @@ def hlines(
     systems:
 
     - **Cartesian** coordinate system: lines are plotted as straight lines.
-    - **Polar** projection: lines are plotted as arcs along constant radius.
+    - **Polar** projection: lines are plotted as arcs along a constant radius.
     - **Geographic** projection: lines are plotted as parallels along constant latitude.
 
     Parameters
@@ -112,16 +112,16 @@ def hlines(
     # Call the Figure.plot method to plot the lines.
     for i in range(nlines):
         # Special handling for label.
-        # 1. Only specify label when plotting the first line.
+        # 1. Only specify a label when plotting the first line.
         # 2. The -l option can accept comma-separated labels for labeling multiple lines
         #    with auto-coloring enabled. We don't need this feature here, so we need to
         #    replace comma with \054 if the label contains commas.
         _label = label.replace(",", "\\054") if label and i == 0 else None
 
         # By default, points are connected as great circle arcs in geographic coordinate
-        # system and straight lines in Cartesian coordinate system (including polar
+        # systems and straight lines in Cartesian coordinate systems (including polar
         # projection). To plot "horizontal" lines along constant latitude (in geographic
-        # coordinate system) or constant radius (in polar projection), we need to
+        # coordinate systems) or constant radius (in polar projection), we need to
         # resample the line to at least 4 points.
         npoints = 4  # 2 for Cartesian, at least 4 for geographic and polar projections.
         self.plot(
