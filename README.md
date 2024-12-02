@@ -191,14 +191,7 @@ Other official wrappers for GMT:
 ## Minimum supported versions
 
 PyGMT has adopted [SPEC 0](https://scientific-python.org/specs/spec-0000/) alongside the
-rest of the scientific Python ecosystem, and therefore:
-
-- Support for Python versions be dropped 3 years after their initial release.
-- Support for core package dependencies (NumPy, pandas, Xarray) be dropped 2 years after
-  their initial release.
-
-Similarly, the PyGMT team has decided to discontinue support for GMT versions 3 years
-after their initial release.
-
-Please see [Minimum Supported Versions](https://www.pygmt.org/dev/minversions.html) for
-the minimum supported versions of GMT, Python and core package dependencies.
+rest of the scientific Python ecosystem, and made a few extensions based on the needs of
+the project. Please see [Minimum Supported Versions](https://www.pygmt.org/dev/minversions.html)
+for the detailed policy and the minimum supported versions of GMT, Python and core
+package dependencies.

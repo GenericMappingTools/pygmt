@@ -3,6 +3,7 @@ Tests for the _to_numpy function in the clib.conversion module.
 """
 
 import sys
+from datetime import date, datetime
 
 import numpy as np
 import numpy.testing as npt
@@ -10,12 +11,27 @@ import pandas as pd
 import pytest
 from packaging.version import Version
 from pygmt.clib.conversion import _to_numpy
+from pygmt.helpers.testing import skip_if_no
 
 try:
     import pyarrow as pa
 
     _HAS_PYARROW = True
 except ImportError:
+
+    class pa:  # noqa: N801
+        """
+        A dummy class to mimic pyarrow.
+        """
+
+        __version__ = "0.0.0"
+
+        @staticmethod
+        def timestamp(unit: str, tz: str | None = None):
+            """
+            A dummy function to mimic pyarrow.timestamp.
+            """
+
     _HAS_PYARROW = False
 
 
@@ -48,11 +64,12 @@ def _check_result(result, expected_dtype):
             np.complex128,
             id="complex",
         ),
+        pytest.param(["abc", "defg", "12345"], np.str_, id="string"),
     ],
 )
-def test_to_numpy_python_types_numeric(data, expected_dtype):
+def test_to_numpy_python_types(data, expected_dtype):
     """
-    Test the _to_numpy function with Python built-in numeric types.
+    Test the _to_numpy function with Python built-in types.
     """
     result = _to_numpy(data)
     _check_result(result, expected_dtype)
@@ -100,9 +117,9 @@ np_dtype_params = [
 
 
 @pytest.mark.parametrize(("dtype", "expected_dtype"), np_dtype_params)
-def test_to_numpy_ndarray_numpy_dtypes_numeric(dtype, expected_dtype):
+def test_to_numpy_numpy_numeric(dtype, expected_dtype):
     """
-    Test the _to_numpy function with NumPy arrays of NumPy numeric dtypes.
+    Test the _to_numpy function with NumPy arrays of numeric dtypes.
 
     Test both 1-D and 2-D arrays which are not C-contiguous.
     """
@@ -119,6 +136,17 @@ def test_to_numpy_ndarray_numpy_dtypes_numeric(dtype, expected_dtype):
     result = _to_numpy(array)
     _check_result(result, expected_dtype)
     npt.assert_array_equal(result, array, strict=True)
+
+
+@pytest.mark.parametrize("dtype", [None, np.str_, "U10"])
+def test_to_numpy_numpy_string(dtype):
+    """
+    Test the _to_numpy function with NumPy arrays of string dtypes.
+    """
+    array = np.array(["abc", "defg", "12345"], dtype=dtype)
+    result = _to_numpy(array)
+    _check_result(result, np.str_)
+    npt.assert_array_equal(result, array)
 
 
 ########################################################################################
@@ -151,14 +179,70 @@ def test_to_numpy_ndarray_numpy_dtypes_numeric(dtype, expected_dtype):
 # 3. https://pandas.pydata.org/docs/user_guide/pyarrow.html
 ########################################################################################
 @pytest.mark.parametrize(("dtype", "expected_dtype"), np_dtype_params)
-def test_to_numpy_pandas_series_numpy_dtypes_numeric(dtype, expected_dtype):
+def test_to_numpy_pandas_numeric(dtype, expected_dtype):
     """
-    Test the _to_numpy function with pandas.Series of NumPy numeric dtypes.
+    Test the _to_numpy function with pandas.Series of numeric dtypes.
     """
     series = pd.Series([1, 2, 3, 4, 5, 6], dtype=dtype)[::2]  # Not C-contiguous
     result = _to_numpy(series)
     _check_result(result, expected_dtype)
     npt.assert_array_equal(result, series)
+
+
+@pytest.mark.parametrize(
+    "dtype",
+    [
+        None,
+        np.str_,
+        "U10",
+        "string[python]",
+        pytest.param("string[pyarrow]", marks=skip_if_no(package="pyarrow")),
+        pytest.param(
+            "string[pyarrow_numpy]",
+            marks=[
+                skip_if_no(package="pyarrow"),
+                pytest.mark.skipif(
+                    Version(pd.__version__) < Version("2.1"),
+                    reason="string[pyarrow_numpy] was added since pandas 2.1",
+                ),
+            ],
+        ),
+    ],
+)
+def test_to_numpy_pandas_string(dtype):
+    """
+    Test the _to_numpy function with pandas.Series of string dtypes.
+
+    In pandas, string arrays can be specified in multiple ways.
+
+    Reference: https://pandas.pydata.org/docs/reference/api/pandas.StringDtype.html
+    """
+    array = pd.Series(["abc", "defg", "12345"], dtype=dtype)
+    result = _to_numpy(array)
+    _check_result(result, np.str_)
+    npt.assert_array_equal(result, array)
+
+
+@pytest.mark.skipif(not _HAS_PYARROW, reason="pyarrow is not installed")
+@pytest.mark.parametrize(
+    ("dtype", "expected_dtype"),
+    [
+        pytest.param("date32[day][pyarrow]", "datetime64[D]", id="date32[day]"),
+        pytest.param("date64[ms][pyarrow]", "datetime64[ms]", id="date64[ms]"),
+    ],
+)
+def test_to_numpy_pandas_date(dtype, expected_dtype):
+    """
+    Test the _to_numpy function with pandas.Series of PyArrow date32/date64 types.
+    """
+    series = pd.Series(pd.date_range(start="2024-01-01", periods=3), dtype=dtype)
+    result = _to_numpy(series)
+    _check_result(result, np.datetime64)
+    assert result.dtype == expected_dtype  # Explicitly check the date unit.
+    npt.assert_array_equal(
+        result,
+        np.array(["2024-01-01", "2024-01-02", "2024-01-03"], dtype=expected_dtype),
+    )
 
 
 ########################################################################################
@@ -170,6 +254,11 @@ def test_to_numpy_pandas_series_numpy_dtypes_numeric(dtype, expected_dtype):
 #   - int8, int16, int32, int64
 #   - uint8, uint16, uint32, uint64
 #   - float16, float32, float64
+# - String types: string/utf8, large_string/large_utf8, string_view
+# - Date types:
+#   - date32[day]
+#   - date64[ms]
+# - Timestamp types: timestamp[unit], timestamp[unit, tz]
 #
 # In PyArrow, array types can be specified in two ways:
 #
@@ -195,9 +284,9 @@ def test_to_numpy_pandas_series_numpy_dtypes_numeric(dtype, expected_dtype):
         pytest.param("float64", np.float64, id="float64"),
     ],
 )
-def test_to_numpy_pyarrow_array_pyarrow_dtypes_numeric(dtype, expected_dtype):
+def test_to_numpy_pyarrow_numeric(dtype, expected_dtype):
     """
-    Test the _to_numpy function with PyArrow arrays of PyArrow numeric types.
+    Test the _to_numpy function with PyArrow arrays of numeric types.
     """
     data = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
     if dtype == "float16":  # float16 needs special handling
@@ -226,9 +315,9 @@ def test_to_numpy_pyarrow_array_pyarrow_dtypes_numeric(dtype, expected_dtype):
         pytest.param("float64", np.float64, id="float64"),
     ],
 )
-def test_to_numpy_pyarrow_array_pyarrow_dtypes_numeric_with_na(dtype, expected_dtype):
+def test_to_numpy_pyarrow_numeric_with_na(dtype, expected_dtype):
     """
-    Test the _to_numpy function with PyArrow arrays of PyArrow numeric types and NA.
+    Test the _to_numpy function with PyArrow arrays of numeric types and NA.
     """
     data = [1.0, 2.0, None, 4.0, 5.0, 6.0]
     if dtype == "float16":  # float16 needs special handling
@@ -238,3 +327,104 @@ def test_to_numpy_pyarrow_array_pyarrow_dtypes_numeric_with_na(dtype, expected_d
     result = _to_numpy(array)
     _check_result(result, expected_dtype)
     npt.assert_array_equal(result, array)
+
+
+@pytest.mark.skipif(not _HAS_PYARROW, reason="pyarrow is not installed")
+@pytest.mark.parametrize(
+    "dtype",
+    [
+        None,
+        "string",
+        "utf8",  # alias for string
+        "large_string",
+        "large_utf8",  # alias for large_string
+        pytest.param(
+            "string_view",
+            marks=pytest.mark.skipif(
+                Version(pa.__version__) < Version("16"),
+                reason="string_view type was added since pyarrow 16",
+            ),
+        ),
+    ],
+)
+def test_to_numpy_pyarrow_string(dtype):
+    """
+    Test the _to_numpy function with PyArrow arrays of string types.
+    """
+    array = pa.array(["abc", "defg", "12345"], type=dtype)
+    result = _to_numpy(array)
+    _check_result(result, np.str_)
+    npt.assert_array_equal(result, array)
+
+
+@pytest.mark.skipif(not _HAS_PYARROW, reason="pyarrow is not installed")
+@pytest.mark.parametrize(
+    ("dtype", "expected_dtype"),
+    [
+        pytest.param("date32[day]", "datetime64[D]", id="date32[day]"),
+        pytest.param("date64[ms]", "datetime64[ms]", id="date64[ms]"),
+    ],
+)
+def test_to_numpy_pyarrow_date(dtype, expected_dtype):
+    """
+    Test the _to_numpy function with PyArrow arrays of date32/date64 types.
+
+    date32[day] and date64[ms] are stored as 32-bit and 64-bit integers, respectively,
+    representing the number of days and milliseconds since the UNIX epoch (1970-01-01).
+
+    Here we explicitly check the dtype and date unit of the result.
+    """
+    data = [
+        date(2024, 1, 1),
+        datetime(2024, 1, 2),
+        datetime(2024, 1, 3),
+    ]
+    array = pa.array(data, type=dtype)
+    result = _to_numpy(array)
+    _check_result(result, np.datetime64)
+    assert result.dtype == expected_dtype  # Explicitly check the date unit.
+    npt.assert_array_equal(
+        result,
+        np.array(["2024-01-01", "2024-01-02", "2024-01-03"], dtype=expected_dtype),
+    )
+
+
+@pytest.mark.skipif(not _HAS_PYARROW, reason="pyarrow is not installed")
+@pytest.mark.parametrize(
+    ("dtype", "expected_dtype"),
+    [
+        pytest.param(None, "datetime64[us]", id="None"),
+        pytest.param("timestamp[s]", "datetime64[s]", id="timestamp[s]"),
+        pytest.param("timestamp[ms]", "datetime64[ms]", id="timestamp[ms]"),
+        pytest.param("timestamp[us]", "datetime64[us]", id="timestamp[us]"),
+        pytest.param("timestamp[ns]", "datetime64[ns]", id="timestamp[ns]"),
+        pytest.param(
+            pa.timestamp("s", tz="UTC"), "datetime64[s]", id="timestamp[s, tz=UTC]"
+        ),  # pa.timestamp with tz has no string alias.
+        pytest.param(
+            pa.timestamp("s", tz="America/New_York"),
+            "datetime64[s]",
+            id="timestamp[s, tz=America/New_York]",
+        ),
+        pytest.param(
+            pa.timestamp("s", tz="+07:30"),
+            "datetime64[s]",
+            id="timestamp[s, tz=+07:30]",
+        ),
+    ],
+)
+def test_to_numpy_pyarrow_timestamp(dtype, expected_dtype):
+    """
+    Test the _to_numpy function with PyArrow arrays of PyArrow timestamp types.
+
+    pyarrow.timestamp(unit, tz=None) can accept units "s", "ms", "us", and "ns".
+
+    Reference: https://arrow.apache.org/docs/python/generated/pyarrow.timestamp.html
+    """
+    data = [datetime(2024, 1, 2, 3, 4, 5), datetime(2024, 1, 2, 3, 4, 6)]
+    array = pa.array(data, type=dtype)
+    result = _to_numpy(array)
+    _check_result(result, np.datetime64)
+    assert result.dtype == expected_dtype
+    assert result[0] == np.datetime64("2024-01-02T03:04:05")
+    assert result[1] == np.datetime64("2024-01-02T03:04:06")

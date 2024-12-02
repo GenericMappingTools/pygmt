@@ -85,6 +85,7 @@ intersphinx_mapping = {
     "contextily": ("https://contextily.readthedocs.io/en/stable/", None),
     "geopandas": ("https://geopandas.org/en/stable/", None),
     "numpy": ("https://numpy.org/doc/stable/", None),
+    "pyarrow": ("https://arrow.apache.org/docs/", None),
     "python": ("https://docs.python.org/3/", None),
     "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
     "rasterio": ("https://rasterio.readthedocs.io/en/stable/", None),
