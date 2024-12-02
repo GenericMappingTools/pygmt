@@ -168,24 +168,35 @@ def _to_numpy(data: Any) -> np.ndarray:
         "date64[ms][pyarrow]": "datetime64[ms]",
     }
 
+    # The expected numpy dtype for the result numpy array, but can be None.
+    dtype = dtypes.get(str(getattr(data, "dtype", getattr(data, "type", ""))))
+
+    # pandas numeric dtypes were converted to np.object_ dtype prior pandas 2.2, and are
+    # converted to suitable NumPy dtypes since pandas 2.2. Refer to the following link
+    # for details: https://pandas.pydata.org/docs/whatsnew/v2.2.0.html#to-numpy-for-numpy-nullable-and-arrow-types-converts-to-suitable-numpy-dtype
+    #
+    # Workarounds for pandas < 2.2. Following SPEC 0, pandas 2.1 should be dropped in
+    # 2025 Q3, so it's likely we can remove the workaround in PyGMT v0.17.0.
     if (
-        hasattr(data, "isna")
-        and data.isna().any()
-        and Version(pd.__version__) < Version("2.2")
-    ):
-        # Workaround for dealing with pd.NA with pandas < 2.2.
-        # Bug report at: https://github.com/GenericMappingTools/pygmt/issues/2844
-        # Following SPEC0, pandas 2.1 will be dropped in 2025 Q3, so it's likely
-        # we can remove the workaround in PyGMT v0.17.0.
-        array = np.ascontiguousarray(data.astype(float))
-    else:
-        vec_dtype = str(getattr(data, "dtype", getattr(data, "type", "")))
-        array = np.ascontiguousarray(data, dtype=dtypes.get(vec_dtype))
+        Version(pd.__version__) < Version("2.2")  # pandas < 2.2 only.
+        and hasattr(data, "dtype")  # NumPy array or pandas objects only.
+        and hasattr(data.dtype, "numpy_dtype")  # pandas dtypes only.
+        and data.dtype.kind in "iuf"  # Numeric dtypes only.
+    ):  # pandas Series/Index with pandas nullable numeric dtypes.
+        dtype = data.dtype.numpy_dtype  # The expected numpy dtype.
+        if getattr(data, "hasnans", False):
+            if data.dtype.kind in "iu":
+                # Integers with missing values are converted to float64.
+                dtype = np.float64
+            data = data.to_numpy(na_value=np.nan)
+
+    array = np.ascontiguousarray(data, dtype=dtype)
 
     # Check if a np.object_ array can be converted to np.str_.
     if array.dtype == np.object_:
         with contextlib.suppress(TypeError, ValueError):
             return np.ascontiguousarray(array, dtype=np.str_)
+
     return array
 
 
