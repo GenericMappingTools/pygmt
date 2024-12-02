@@ -24,6 +24,8 @@ except ImportError:
         A dummy class to mimic pyarrow.
         """
 
+        __version__ = "0.0.0"
+
         @staticmethod
         def timestamp(unit: str, tz: str | None = None):
             """
@@ -336,7 +338,13 @@ def test_to_numpy_pyarrow_numeric_with_na(dtype, expected_dtype):
         "utf8",  # alias for string
         "large_string",
         "large_utf8",  # alias for large_string
-        "string_view",
+        pytest.param(
+            "string_view",
+            marks=pytest.mark.skipif(
+                Version(pa.__version__) < Version("16"),
+                reason="string_view type was added since pyarrow 16",
+            ),
+        ),
     ],
 )
 def test_to_numpy_pyarrow_string(dtype):
