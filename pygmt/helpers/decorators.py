@@ -468,7 +468,7 @@ def fmt_docstring(module_func):
     if hasattr(module_func, "aliases"):
         aliases = ["**Aliases:**\n"]
         aliases.append(".. hlist::")
-        aliases.append("   :columns: 4\n")
+        aliases.append("   :columns: 3\n")
         for arg in sorted(module_func.aliases):
             alias = module_func.aliases[arg]
             aliases.append(f"   - {arg} = {alias}")
