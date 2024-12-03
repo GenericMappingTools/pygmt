@@ -138,9 +138,9 @@ def load_tile_map(
     ...     raster.rio.crs.to_string()
     'EPSG:3857'
     """
-    # The CRS of the returned image. Use the tile provider's CRS if available.
-    # Otherwise, default to EPSG:3857.
-    _default_crs = getattr(source, "crs", "EPSG:3857")
+    # The CRS of the source tile provider. If the source is a TileProvider object, use
+    # its crs attribute if available. Otherwise, default to EPSG:3857.
+    _source_crs = getattr(source, "crs", "EPSG:3857")
 
     if not _HAS_CONTEXTILY:
         msg = (
@@ -150,9 +150,9 @@ def load_tile_map(
         )
         raise ImportError(msg)
 
-    if crs != _default_crs and not _HAS_RIOXARRAY:
+    if crs != _source_crs and not _HAS_RIOXARRAY:
         msg = (
-            f"Package `rioxarray` is required if CRS is not '{_default_crs}'. "
+            f"Package `rioxarray` is required if CRS is not '{_source_crs}'. "
             "Please use `python -m pip install rioxarray` or "
             "`mamba install -c conda-forge rioxarray` to install the package."
         )
@@ -198,10 +198,10 @@ def load_tile_map(
 
     # If rioxarray is installed, set the coordinate reference system.
     if hasattr(dataarray, "rio"):
-        dataarray = dataarray.rio.write_crs(input_crs=_default_crs)
+        dataarray = dataarray.rio.write_crs(input_crs=_source_crs)
 
-        # Reproject raster image from EPSG:3857 to specified CRS, using rioxarray.
-        if crs != _default_crs:
+        # Reproject raster image from the source CRS to the specified CRS.
+        if crs != _source_crs:
             dataarray = dataarray.rio.reproject(dst_crs=crs)
 
     return dataarray
