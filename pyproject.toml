@@ -120,6 +120,7 @@ select = [
     "T20",  # flake8-print
     "TC",   # flake8-type-checking
     "TID",  # flake8-tidy-imports
+    "TRY",  # tryceratops
     "UP",   # pyupgrade
     "W",    # pycodestyle warnings
     "YTT",  # flake8-2020
