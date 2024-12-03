@@ -457,7 +457,7 @@ def fmt_docstring(module_func):
     <BLANKLINE>
     **Aliases:**
     .. hlist::
-       :columns: 4
+       :columns: 3
     <BLANKLINE>
        - J = projection
        - R = region
