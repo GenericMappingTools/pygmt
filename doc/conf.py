@@ -171,7 +171,7 @@ exclude_patterns = [
 ]
 
 source_suffix = ".rst"
-needs_sphinx = "1.8"
+needs_sphinx = "6.2"
 # Encoding of source files
 source_encoding = "utf-8-sig"
 root_doc = "index"
