@@ -80,7 +80,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v2.0.1
+        uses: mamba-org/setup-micromamba@v2.0.2
         with:
           environment-name: pygmt
           condarc: |
@@ -104,13 +104,14 @@ jobs:
             geopandas<1.0
             ipython
             pyarrow
+            rasterio<1.4.3
             rioxarray
             make
             pip
             python-build
             myst-nb
             panel
-            sphinx
+            sphinx>=6.2
             sphinx-autodoc-typehints
             sphinx-copybutton
             sphinx-design

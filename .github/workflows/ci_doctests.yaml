@@ -42,7 +42,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v2.0.1
+        uses: mamba-org/setup-micromamba@v2.0.2
         with:
           environment-name: pygmt
           condarc: |
@@ -61,6 +61,7 @@ jobs:
             geopandas
             ipython
             pyarrow
+            rasterio<1.4.3
             rioxarray
             make
             pip

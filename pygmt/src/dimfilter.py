@@ -138,11 +138,11 @@ def dimfilter(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None
         not all(arg in kwargs for arg in ["distance", "filter", "sectors"])
         and "Q" not in kwargs
     ):
-        raise GMTInvalidInput(
-            """At least one of the following parameters must be specified:
-            distance, filter, or sectors."""
+        msg = (
+            "At least one of the following parameters must be specified: "
+            "distance, filters, or sectors."
         )
-
+        raise GMTInvalidInput(msg)
     kwdict = alias.kwdict
     with Session() as lib:
         with (
