@@ -9,7 +9,6 @@ from packaging.requirements import Requirement
 from pygmt import __commit__, __version__
 from pygmt.clib import required_gmt_version
 from pygmt.sphinx_gallery import PyGMTScraper
-from sphinx_gallery.sorting import ExampleTitleSortKey, ExplicitOrder
 
 # Dictionary for dependency name and minimum required versions
 requirements = {
@@ -111,34 +110,32 @@ sphinx_gallery_conf = {
     ],
     # Set paths where to save the generated examples
     "gallery_dirs": ["intro", "tutorials", "gallery", "projections"],
-    "subsection_order": ExplicitOrder(
-        [
-            "../examples/intro",
-            "../examples/tutorials/basics",
-            "../examples/tutorials/advanced",
-            "../examples/gallery/maps",
-            "../examples/gallery/lines",
-            "../examples/gallery/symbols",
-            "../examples/gallery/images",
-            "../examples/gallery/3d_plots",
-            "../examples/gallery/seismology",
-            "../examples/gallery/basemaps",
-            "../examples/gallery/histograms",
-            "../examples/gallery/embellishments",
-            "../examples/projections/azim",
-            "../examples/projections/conic",
-            "../examples/projections/cyl",
-            "../examples/projections/misc",
-            "../examples/projections/nongeo",
-            "../examples/projections/table",
-        ]
-    ),
+    "subsection_order": [
+        "../examples/intro",
+        "../examples/tutorials/basics",
+        "../examples/tutorials/advanced",
+        "../examples/gallery/maps",
+        "../examples/gallery/lines",
+        "../examples/gallery/symbols",
+        "../examples/gallery/images",
+        "../examples/gallery/3d_plots",
+        "../examples/gallery/seismology",
+        "../examples/gallery/basemaps",
+        "../examples/gallery/histograms",
+        "../examples/gallery/embellishments",
+        "../examples/projections/azim",
+        "../examples/projections/conic",
+        "../examples/projections/cyl",
+        "../examples/projections/misc",
+        "../examples/projections/nongeo",
+        "../examples/projections/table",
+    ],
     # Pattern to search for example files
     "filename_pattern": r"\.py",
     # Remove the "Download all examples" button from the top level gallery
     "download_all_examples": False,
     # Sort gallery examples by the file names instead of number of lines [Default]
-    "within_subsection_order": ExampleTitleSortKey,
+    "within_subsection_order": "ExampleTitleSortKey",
     # Directory where function granular galleries are stored
     "backreferences_dir": "api/generated/backreferences",
     # Modules for which function level galleries are created (given as tuple of strings)
