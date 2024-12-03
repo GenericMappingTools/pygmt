@@ -156,13 +156,6 @@ def load_tile_map(
         )
         raise ImportError(msg)
 
-    if zoom_adjust is not None and Version(contextily.__version__) < Version("1.5.0"):
-        msg = (
-            "The `zoom_adjust` parameter requires `contextily>=1.5.0` to work. "
-            "Please upgrade contextily, or manually set the `zoom` level instead."
-        )
-        raise ValueError(msg)
-
     # Keyword arguments for contextily.bounds2img
     contextily_kwargs = {
         "zoom": zoom,
@@ -170,8 +163,16 @@ def load_tile_map(
         "ll": lonlat,
         "wait": wait,
         "max_retries": max_retries,
-        "zoom_adjust": zoom_adjust,
     }
+    if zoom_adjust is not None:
+        if Version(contextily.__version__) < Version("1.5.0"):
+            msg = (
+                "The `zoom_adjust` parameter requires `contextily>=1.5.0` to work. "
+                "Please upgrade contextily, or manually set the `zoom` level instead."
+            )
+            raise ValueError(msg)
+        contextily_kwargs["zoom_adjust"] = zoom_adjust
+
     west, east, south, north = region
     image, extent = contextily.bounds2img(
         w=west, s=south, e=east, n=north, **contextily_kwargs
