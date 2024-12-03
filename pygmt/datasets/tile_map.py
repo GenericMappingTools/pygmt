@@ -198,8 +198,8 @@ def load_tile_map(
     if hasattr(dataarray, "rio"):
         dataarray = dataarray.rio.write_crs(input_crs=_default_crs)
 
-    # Reproject raster image from EPSG:3857 to specified CRS, using rioxarray.
-    if crs != _default_crs:
-        dataarray = dataarray.rio.reproject(dst_crs=crs)
+        # Reproject raster image from EPSG:3857 to specified CRS, using rioxarray.
+        if crs != _default_crs:
+            dataarray = dataarray.rio.reproject(dst_crs=crs)
 
     return dataarray
