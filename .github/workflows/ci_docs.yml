@@ -104,6 +104,7 @@ jobs:
             geopandas<1.0
             ipython
             pyarrow
+            rasterio<1.4.3
             rioxarray
             make
             pip
