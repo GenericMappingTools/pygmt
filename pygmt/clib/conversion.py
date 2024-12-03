@@ -193,6 +193,13 @@ def _to_numpy(data: Any) -> np.ndarray:
                 numpy_dtype = np.float64
             data = data.to_numpy(na_value=np.nan)
 
+    # Deal with timezone-aware datetime dtypes.
+    if getattr(dtype, "tz", None):  # pandas.DatetimeTZDtype
+        numpy_dtype = getattr(dtype, "base", None)
+    elif getattr(getattr(dtype, "pyarrow_dtype", None), "tz", None):
+        # pd.ArrayDtype[pa.Timestamp]
+        numpy_dtype = getattr(dtype, "numpy_dtype", None)
+
     array = np.ascontiguousarray(data, dtype=numpy_dtype)
 
     # Check if a np.object_ array can be converted to np.str_.
