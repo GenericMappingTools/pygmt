@@ -31,9 +31,9 @@ fig.show()
 # There are several optional parameters to adjust the text label:
 #
 # * ``font``: Sets the size, family/weight, and color of the font for the text.
-#   A list of all recognized fonts can be found at
-#   :gmt-docs:`PostScript Fonts Used by GMT <reference/postscript-fonts.html>`,
-#   including details of how to use non-default fonts.
+#   A list of all recognized fonts can be found at :doc:`/techref/fonts`.
+#   For details of how to use non-default fonts, refer to
+#   :gmt-docs:`PostScript Fonts Used by GMT <reference/postscript-fonts.html>`.
 # * ``angle``: Specifies the rotation of the text. It is measured counter-clockwise
 #   from the horizontal in degrees.
 # * ``justify``: Defines the anchor point of the bounding box for the text. It is

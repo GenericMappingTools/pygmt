@@ -26,21 +26,20 @@ xpoints = np.arange(0, 101, 10)
 ypoints = xpoints**0.5
 
 fig = pygmt.Figure()
-fig.plot(
+fig.basemap(
     region=[1, 100, 0, 10],
     # Set a logarithmic transformation on the x-axis
     projection="X15cl/10c",
     # Set the figures frame and color as well as
     # annotations, ticks, and gridlines
     frame=["WSne+gbisque", "xa2g3", "ya2f1g2"],
-    x=xline,
-    y=yline,
-    # Set the line thickness to "1p", the color to "blue",
-    # and the style to "-", i.e. "dashed"
-    pen="1p,blue,-",
 )
-# Plot square root values as points on the line
-# Style of points is 0.3 cm squares, color fill is "red" with a "black" outline
-# Points are not clipped if they go off the figure
-fig.plot(x=xpoints, y=ypoints, style="s0.3c", fill="red", no_clip=True, pen="black")
+
+# Set the line thickness to "2p", the color to "black", and the style to "dashed"
+fig.plot(x=xline, y=yline, pen="2p,black,dashed")
+
+# Plot the square root values on top of the line
+# Use squares with a size of 0.3 centimeters, an "orange" fill and a "black" outline
+# Symbols are not clipped if they go off the figure
+fig.plot(x=xpoints, y=ypoints, style="s0.3c", fill="orange", pen="black", no_clip=True)
 fig.show()

@@ -3,6 +3,7 @@ sphdistance - Create Voronoi distance, node,
 or natural nearest-neighbor grid on a sphere
 """
 
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -23,7 +24,9 @@ __doctest_skip__ = ["sphdistance"]
     V="verbose",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def sphdistance(data=None, x=None, y=None, outgrid: str | None = None, **kwargs):
+def sphdistance(
+    data=None, x=None, y=None, outgrid: str | None = None, **kwargs
+) -> xr.DataArray | None:
     r"""
     Create Voronoi distance, node, or natural nearest-neighbor grid on a sphere.
 
@@ -86,7 +89,7 @@ def sphdistance(data=None, x=None, y=None, outgrid: str | None = None, **kwargs)
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
@@ -107,7 +110,8 @@ def sphdistance(data=None, x=None, y=None, outgrid: str | None = None, **kwargs)
     ... )
     """
     if kwargs.get("I") is None or kwargs.get("R") is None:
-        raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
+        msg = "Both 'region' and 'spacing' must be specified."
+        raise GMTInvalidInput(msg)
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="vector", data=data, x=x, y=y) as vintbl,

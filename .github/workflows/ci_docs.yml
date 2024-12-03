@@ -69,7 +69,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4.2.2
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -80,7 +80,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.9.0
+        uses: mamba-org/setup-micromamba@v2.0.2
         with:
           environment-name: pygmt
           condarc: |
@@ -94,7 +94,7 @@ jobs:
           create-args: >-
             python=3.12
             gmt=6.5.0
-            ghostscript=10.03.1
+            ghostscript=10.04.0
             numpy
             pandas
             xarray
@@ -103,18 +103,19 @@ jobs:
             contextily
             geopandas
             ipython
+            pyarrow
             rioxarray
-            build
             make
             pip
-            myst-parser
+            python-build
+            myst-nb
             panel
             sphinx
             sphinx-autodoc-typehints
             sphinx-copybutton
             sphinx-design
             sphinx-gallery
-            sphinx_rtd_theme
+            sphinx_rtd_theme<3.0
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
@@ -138,7 +139,7 @@ jobs:
         run: make -C doc clean all
 
       - name: Checkout the gh-pages branch
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4.2.2
         with:
           ref: gh-pages
           # Checkout to this folder instead of the current one

@@ -2,6 +2,7 @@
 sphinterpolate - Spherical gridding in tension of data on a sphere
 """
 
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -15,7 +16,7 @@ __doctest_skip__ = ["sphinterpolate"]
     V="verbose",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def sphinterpolate(data, outgrid: str | None = None, **kwargs):
+def sphinterpolate(data, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
     Create spherical grid files in tension of data.
 
@@ -42,7 +43,7 @@ def sphinterpolate(data, outgrid: str | None = None, **kwargs):
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set

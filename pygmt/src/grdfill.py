@@ -2,6 +2,7 @@
 grdfill - Fill blank areas from a grid.
 """
 
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -17,7 +18,7 @@ __doctest_skip__ = ["grdfill"]
     V="verbose",
 )
 @kwargs_to_strings(R="sequence")
-def grdfill(grid, outgrid: str | None = None, **kwargs):
+def grdfill(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
     Fill blank areas from a grid file.
 
@@ -51,11 +52,11 @@ def grdfill(grid, outgrid: str | None = None, **kwargs):
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
     Example
@@ -68,7 +69,8 @@ def grdfill(grid, outgrid: str | None = None, **kwargs):
     >>> filled_grid = pygmt.grdfill(grid=earth_relief_holes, mode="c20")
     """
     if kwargs.get("A") is None and kwargs.get("L") is None:
-        raise GMTInvalidInput("At least parameter 'mode' or 'L' must be specified.")
+        msg = "At least parameter 'mode' or 'L' must be specified."
+        raise GMTInvalidInput(msg)
 
     with Session() as lib:
         with (

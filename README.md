@@ -4,19 +4,19 @@
 
 [Documentation (development version)](https://www.pygmt.org/dev) | [Contact](https://forum.generic-mapping-tools.org) | [TryOnline](https://github.com/GenericMappingTools/try-gmt)
 
-[![Latest version on PyPI](http://img.shields.io/pypi/v/pygmt.svg?style=flat-square)](https://pypi.python.org/pypi/pygmt)
-[![Latest version on conda-forge](https://img.shields.io/conda/v/conda-forge/pygmt?style=flat-square)](https://anaconda.org/conda-forge/pygmt)
-[![GitHub Actions Tests status](https://github.com/GenericMappingTools/pygmt/workflows/Tests/badge.svg)](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests.yaml)
-[![GitHub Actions GMT Dev Tests status](https://github.com/GenericMappingTools/pygmt/workflows/GMT%20Dev%20Tests/badge.svg)](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml)
-[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-[![Test coverage status](https://codecov.io/gh/GenericMappingTools/pygmt/branch/main/graph/badge.svg?token=78Fu4EWstx)](https://app.codecov.io/gh/GenericMappingTools/pygmt)
-[![CodSpeed Performance Benchmarks](https://img.shields.io/endpoint?url=https://codspeed.io/badge.json)](https://codspeed.io/GenericMappingTools/pygmt)
-[![Compatible Python versions.](https://img.shields.io/pypi/pyversions/pygmt.svg?style=flat-square)](https://pypi.python.org/pypi/pygmt)
-[![Discourse forum](https://img.shields.io/discourse/status?label=forum&server=https%3A%2F%2Fforum.generic-mapping-tools.org%2F&style=flat-square)](https://forum.generic-mapping-tools.org)
+[![Latest version on PyPI](https://img.shields.io/pypi/v/pygmt)](https://pypi.org/project/pygmt)
+[![Latest version on conda-forge](https://img.shields.io/conda/v/conda-forge/pygmt)](https://anaconda.org/conda-forge/pygmt)
+[![GitHub license](https://img.shields.io/github/license/GenericMappingTools/pygmt)](https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt)
+[![Compatible Python versions](https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2FGenericMappingTools%2Fpygmt%2Frefs%2Fheads%2Fmain%2Fpyproject.toml)](https://www.pygmt.org/dev/minversions.html)
 [![Digital Object Identifier for the Zenodo archive](https://zenodo.org/badge/DOI/10.5281/3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
+[![Discourse forum](https://img.shields.io/discourse/status?label=forum&server=https%3A%2F%2Fforum.generic-mapping-tools.org)](https://forum.generic-mapping-tools.org)
 [![PyOpenSci](https://tinyurl.com/y22nb8up)](https://github.com/pyOpenSci/software-review/issues/43)
-[![GitHub license](https://img.shields.io/github/license/GenericMappingTools/pygmt?style=flat-square)](https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt)
 [![Contributor Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-v2.1%20adopted-ff69b4.svg)](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md)
+[![GitHub Actions Tests status](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests.yaml/badge.svg)](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests.yaml)
+[![GitHub Actions GMT Dev Tests status](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml/badge.svg)](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml)
+[![Test coverage status](https://codecov.io/gh/GenericMappingTools/pygmt/graph/badge.svg?token=78Fu4EWstx)](https://app.codecov.io/gh/GenericMappingTools/pygmt)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![CodSpeed Performance Benchmarks](https://img.shields.io/endpoint?url=https://codspeed.io/badge.json)](https://codspeed.io/GenericMappingTools/pygmt)
 
 <!-- doc-index-start-after -->
 
@@ -45,8 +45,8 @@ widely used across the Earth, Ocean, and Planetary sciences and beyond.
 - Build a Pythonic API for GMT.
 - Interface with the GMT C API directly using ctypes (no system calls).
 - Support for rich display in the Jupyter notebook.
-- Integration with the [PyData ecosystem](https://pydata.org/): `numpy.ndarray` or `pandas.DataFrame` for
-  data tables, `xarray.DataArray` for grids, and `geopandas.GeoDataFrame` for geographical data.
+- Integration with the [scientific Python ecosystem](https://scientific-python.org/): `numpy.ndarray` or
+  `pandas.DataFrame` for data tables, `xarray.DataArray` for grids, and `geopandas.GeoDataFrame` for geographical data.
 
 ## Quickstart
 
@@ -132,7 +132,7 @@ research using the following BibTeX:
 
 ```
 @software{
-  pygmt_2024_11062720,
+  pygmt_2024_13679420,
   author       = {Tian, Dongdong and
                   Uieda, Leonardo and
                   Leong, Wei Ji and
@@ -152,12 +152,12 @@ research using the following BibTeX:
                   Quinn, Jamie and
                   Wessel, Paul},
   title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-  month        = may,
+  month        = sep,
   year         = 2024,
   publisher    = {Zenodo},
-  version      = {0.12.0},
-  doi          = {10.5281/zenodo.11062720},
-  url          = {https://doi.org/10.5281/zenodo.11062720}
+  version      = {0.13.0},
+  doi          = {10.5281/zenodo.13679420},
+  url          = {https://doi.org/10.5281/zenodo.13679420}
 }
 ```
 
@@ -186,25 +186,12 @@ Other official wrappers for GMT:
 - [GMT.jl](https://github.com/GenericMappingTools/GMT.jl): A Julia wrapper for GMT.
 - [gmtmex](https://github.com/GenericMappingTools/gmtmex): A Matlab/Octave wrapper for GMT.
 
-Other non-official Python wrappers for GMT (not maintained):
-
-- [gmtpy](https://github.com/emolch/gmtpy) by [Sebastian Heimann](https://github.com/emolch)
-- [pygmt](https://github.com/ian-r-rose/pygmt) by [Ian Rose](https://github.com/ian-r-rose)
-- [PyGMT](https://github.com/glimmer-cism/PyGMT) by [Magnus Hagdorn](https://github.com/mhagdorn)
-
 <!-- doc-index-end-before -->
 
 ## Minimum supported versions
 
 PyGMT has adopted [SPEC 0](https://scientific-python.org/specs/spec-0000/) alongside the
-rest of the Scientific Python ecosystem, and therefore:
-
-- Support for Python versions be dropped 3 years after their initial release.
-- Support for core package dependencies (NumPy/Pandas/Xarray) be dropped 2 years after
-  their initial release.
-
-Similarly, the PyGMT team has decided to discontinue support for GMT versions 3 years
-after their initial release.
-
-Please see [Minimum Supported Versions](https://www.pygmt.org/dev/minversions.html) for
-the minimum supported versions of GMT, Python and core package dependencies.
+rest of the scientific Python ecosystem, and made a few extensions based on the needs of
+the project. Please see [Minimum Supported Versions](https://www.pygmt.org/dev/minversions.html)
+for the detailed policy and the minimum supported versions of GMT, Python and core
+package dependencies.

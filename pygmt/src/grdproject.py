@@ -2,6 +2,7 @@
 grdproject - Forward and inverse map transformation of grids.
 """
 
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -24,7 +25,7 @@ __doctest_skip__ = ["grdproject"]
     r="registration",
 )
 @kwargs_to_strings(C="sequence", D="sequence", R="sequence")
-def grdproject(grid, outgrid: str | None = None, **kwargs):
+def grdproject(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
     Change projection of gridded data between geographical and rectangular.
 
@@ -52,8 +53,8 @@ def grdproject(grid, outgrid: str | None = None, **kwargs):
     {grid}
     {outgrid}
     inverse : bool
-        When set to ``True`` transforms grid from rectangular to
-        geographical [Default is False].
+        When set to ``True`` transforms grid from rectangular to geographical
+        [Default is ``False``].
     {projection}
     {region}
     center : str or list
@@ -62,7 +63,7 @@ def grdproject(grid, outgrid: str | None = None, **kwargs):
         is relative to lower left corner]. Optionally, add offsets in the
         projected units to be added (or subtracted when ``inverse`` is set) to
         (from) the projected coordinates, such as false eastings and
-        northings for particular projection zones [0/0].
+        northings for particular projection zones [Default is ``[0, 0]``].
     {spacing}
     dpi : int
         Set the resolution for the new grid in dots per inch.
@@ -84,11 +85,11 @@ def grdproject(grid, outgrid: str | None = None, **kwargs):
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
     Example
@@ -102,7 +103,8 @@ def grdproject(grid, outgrid: str | None = None, **kwargs):
     >>> new_grid = pygmt.grdproject(grid=grid, projection="M10c", region=region)
     """
     if kwargs.get("J") is None:
-        raise GMTInvalidInput("The projection must be specified.")
+        msg = "The projection must be specified."
+        raise GMTInvalidInput(msg)
 
     with Session() as lib:
         with (

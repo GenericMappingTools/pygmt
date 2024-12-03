@@ -2,6 +2,7 @@
 grdgradient - Compute directional gradients from a grid.
 """
 
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -29,7 +30,7 @@ __doctest_skip__ = ["grdgradient"]
     n="interpolation",
 )
 @kwargs_to_strings(A="sequence", E="sequence", R="sequence")
-def grdgradient(grid, outgrid: str | None = None, **kwargs):
+def grdgradient(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
     Compute the directional derivative of the vector gradient of the data.
 
@@ -138,11 +139,11 @@ def grdgradient(grid, outgrid: str | None = None, **kwargs):
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
 
@@ -158,12 +159,14 @@ def grdgradient(grid, outgrid: str | None = None, **kwargs):
     >>> new_grid = pygmt.grdgradient(grid=grid, azimuth=10)
     """
     if kwargs.get("Q") is not None and kwargs.get("N") is None:
-        raise GMTInvalidInput("""Must specify normalize if tiles is specified.""")
+        msg = "Must specify normalize if tiles is specified."
+        raise GMTInvalidInput(msg)
     if not args_in_kwargs(args=["A", "D", "E"], kwargs=kwargs):
-        raise GMTInvalidInput(
+        msg = (
             "At least one of the following parameters must be specified: "
             "azimuth, direction, or radiance."
         )
+        raise GMTInvalidInput(msg)
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,

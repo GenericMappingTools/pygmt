@@ -1,6 +1,6 @@
 r"""
-Sinusoidal
-==========
+Sinusoidal projection
+=====================
 
 The sinusoidal projection is one of the oldest known projections, is
 equal-area, and has been used since the mid-16th century. It has also been
@@ -20,5 +20,5 @@ import pygmt
 
 fig = pygmt.Figure()
 # Use region "d" to specify global region (-180/180/-90/90)
-fig.coast(region="d", projection="I12c", land="coral4", water="azure3", frame="afg")
+fig.coast(region="d", projection="I12c", frame="afg", land="ivory", water="bisque4")
 fig.show()

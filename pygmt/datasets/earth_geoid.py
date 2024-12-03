@@ -8,6 +8,7 @@ The grids are available in various resolutions.
 from collections.abc import Sequence
 from typing import Literal
 
+import xarray as xr
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 
 __doctest_skip__ = ["load_earth_geoid"]
@@ -19,7 +20,7 @@ def load_earth_geoid(
     ] = "01d",
     region: Sequence[float] | str | None = None,
     registration: Literal["gridline", "pixel"] = "gridline",
-):
+) -> xr.DataArray:
     r"""
     Load the EGM2008 Earth geoid dataset in various resolutions.
 
@@ -58,7 +59,7 @@ def load_earth_geoid(
 
     Returns
     -------
-    grid : :class:`xarray.DataArray`
+    grid
         The Earth geoid grid. Coordinates are latitude and
         longitude in degrees. Units are in meters.
 

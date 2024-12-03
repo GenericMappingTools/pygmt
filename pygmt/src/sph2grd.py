@@ -2,6 +2,7 @@
 sph2grd - Compute grid from spherical harmonic coefficients
 """
 
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -20,7 +21,7 @@ __doctest_skip__ = ["sph2grd"]
     x="cores",
 )
 @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
-def sph2grd(data, outgrid: str | None = None, **kwargs):
+def sph2grd(data, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
     Create spherical grid files in tension of data.
 
@@ -50,7 +51,7 @@ def sph2grd(data, outgrid: str | None = None, **kwargs):
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set

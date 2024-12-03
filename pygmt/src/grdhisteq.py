@@ -6,6 +6,7 @@ from typing import Literal
 
 import numpy as np
 import pandas as pd
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -61,7 +62,9 @@ class grdhisteq:  # noqa: N801
         h="header",
     )
     @kwargs_to_strings(R="sequence")
-    def equalize_grid(grid, outgrid: str | None = None, **kwargs):
+    def equalize_grid(
+        grid, outgrid: str | None = None, **kwargs
+    ) -> xr.DataArray | None:
         r"""
         Perform histogram equalization for a grid.
 
@@ -93,12 +96,11 @@ class grdhisteq:  # noqa: N801
 
         Returns
         -------
-        ret: xarray.DataArray or None
+        ret
             Return type depends on the ``outgrid`` parameter:
 
-            - xarray.DataArray if ``outgrid`` is None
-            - None if ``outgrid`` is a str (grid output is stored in
-              ``outgrid``)
+            - :class:`xarray.DataArray` if ``outgrid`` is ``None``
+            - ``None`` if ``outgrid`` is a str (grid output is stored in ``outgrid``)
 
         Example
         -------
@@ -224,7 +226,8 @@ class grdhisteq:  # noqa: N801
         output_type = validate_output_table_type(output_type, outfile=outfile)
 
         if kwargs.get("h") is not None and output_type != "file":
-            raise GMTInvalidInput("'header' is only allowed with output_type='file'.")
+            msg = "'header' is only allowed with output_type='file'."
+            raise GMTInvalidInput(msg)
 
         with Session() as lib:
             with (

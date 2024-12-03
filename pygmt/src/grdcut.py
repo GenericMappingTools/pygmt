@@ -2,6 +2,7 @@
 grdcut - Extract subregion from a grid.
 """
 
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
@@ -27,7 +28,7 @@ __doctest_skip__ = ["grdcut"]
     f="coltypes",
 )
 @kwargs_to_strings(R="sequence")
-def grdcut(grid, **kwargs):
+def grdcut(grid, **kwargs) -> xr.DataArray | None:
     r"""
     Extract subregion from a grid.
 
@@ -80,11 +81,11 @@ def grdcut(grid, **kwargs):
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
     Example

@@ -5,7 +5,7 @@ Test Figure.grdview.
 import pytest
 from pygmt import Figure, grdcut
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import GMTTempFile, data_kind
+from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
 
@@ -58,8 +58,6 @@ def test_grdview_wrong_kind_of_grid(xrgrid):
     Run grdview using grid input that is not an xarray.DataArray or file.
     """
     dataset = xrgrid.to_dataset()  # convert xarray.DataArray to xarray.Dataset
-    assert data_kind(dataset) == "matrix"
-
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
         fig.grdview(grid=dataset)
@@ -238,8 +236,6 @@ def test_grdview_wrong_kind_of_drapegrid(xrgrid):
     Run grdview using drapegrid input that is not an xarray.DataArray or file.
     """
     dataset = xrgrid.to_dataset()  # convert xarray.DataArray to xarray.Dataset
-    assert data_kind(dataset) == "matrix"
-
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
         fig.grdview(grid=xrgrid, drapegrid=dataset)

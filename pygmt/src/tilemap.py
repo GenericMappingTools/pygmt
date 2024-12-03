@@ -122,11 +122,12 @@ def tilemap(
     kwargs = self._preprocess(**kwargs)
 
     if not _HAS_RIOXARRAY:
-        raise ImportError(
+        msg = (
             "Package `rioxarray` is required to be installed to use this function. "
             "Please use `python -m pip install rioxarray` or "
             "`mamba install -c conda-forge rioxarray` to install the package."
         )
+        raise ImportError(msg)
 
     raster = load_tile_map(
         region=region,

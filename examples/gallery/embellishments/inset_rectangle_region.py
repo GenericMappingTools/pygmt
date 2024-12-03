@@ -25,8 +25,8 @@ fig.basemap(region=region, projection="U54S/12c", frame=["WSne", "af"])
 # figure
 fig.coast(land="lightbrown", water="azure1", shorelines="2p", area_thresh=1000)
 
-# Create an inset map, setting the position to bottom right, and the x- and
-# y-offsets to 0.1 cm, respectively.
+# Create an inset map, placing it in the Bottom Right (BR) corner with x- and
+# y-offsets of 0.1 cm, respectively.
 # The inset map contains the Japan main land. "U54S/3c" means UTM projection
 # with a map width of 3 cm. The inset width and height are automatically
 # calculated from the specified ``region`` and ``projection`` parameters.

@@ -23,7 +23,14 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
+def ternary(
+    self,
+    data,
+    alabel: str | None = None,
+    blabel: str | None = None,
+    clabel: str | None = None,
+    **kwargs,
+):
     r"""
     Plot ternary diagrams.
 
@@ -56,14 +63,14 @@ def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
         and **c**.
     {cmap}
     {fill}
-    alabel : str
-        Set the label for the *a* vertex where the component is 100%. The
-        label is placed at a distance of three times the
-        :gmt-term:`MAP_LABEL_OFFSET` setting from the corner.
-    blabel : str
-        Set the label for the *b* vertex where the component is 100%.
-    clabel : str
-        Set the label for the *c* vertex where the component is 100%.
+    alabel
+        Set the label for the *a* vertex where the component is 100%. The label is
+        placed at a distance of three times the :gmt-term:`MAP_LABEL_OFFSET` setting
+        from the corner.
+    blabel
+        Same as ``alabel`` but for the *b* vertex.
+    clabel
+        Same as ``alabel`` but for the *c* vertex.
     style : str
         *symbol*\[\ *size*].
         Plot individual symbols in a ternary diagram.
@@ -75,11 +82,10 @@ def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)
 
-    if alabel or blabel or clabel:
-        alabel = str(alabel) if alabel is not None else "-"
-        blabel = str(blabel) if blabel is not None else "-"
-        clabel = str(clabel) if clabel is not None else "-"
-        kwargs["L"] = f"{alabel}/{blabel}/{clabel}"
+    # -Lalabel/blabel/clabel. '-' means skipping the label.
+    labels = (alabel, blabel, clabel)
+    if any(v is not None for v in labels):
+        kwargs["L"] = "/".join(str(v) if v is not None else "-" for v in labels)
 
     # Patch for GMT < 6.5.0.
     # See https://github.com/GenericMappingTools/pygmt/pull/2138
