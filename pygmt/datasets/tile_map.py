@@ -138,7 +138,9 @@ def load_tile_map(
     ...     raster.rio.crs.to_string()
     'EPSG:3857'
     """
-    _default_crs = "EPSG:3857"  # The default CRS returned from contextily
+    # The CRS of the returned image. Use the tile provider's CRS if available.
+    # Otherwise, default to EPSG:3857.
+    _default_crs = getattr(source, "crs", "EPSG:3857")
 
     if not _HAS_CONTEXTILY:
         msg = (
