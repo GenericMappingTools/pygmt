@@ -73,13 +73,13 @@ jobs:
             numpy-version: '1.24'
             pandas-version: '=2.0'
             xarray-version: '=2023.04'
-            optional-packages: ' contextily geopandas<1 ipython pyarrow rasterio<1.4.3 rioxarray sphinx-gallery'
+            optional-packages: ' contextily geopandas<1 ipython pyarrow rioxarray sphinx-gallery'
           # Python 3.12 + core packages (latest versions) + optional packages
           - python-version: '3.12'
             numpy-version: '2.1'
             pandas-version: ''
             xarray-version: ''
-            optional-packages: ' contextily geopandas>=1.0 ipython pyarrow rasterio<1.4.3 rioxarray sphinx-gallery'
+            optional-packages: ' contextily geopandas>=1.0 ipython pyarrow rioxarray sphinx-gallery'
           # Python 3.11 + core packages (Linux only)
           - os: 'ubuntu-latest'
             python-version: '3.11'
