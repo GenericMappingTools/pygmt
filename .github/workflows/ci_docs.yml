@@ -101,10 +101,9 @@ jobs:
             netCDF4
             packaging
             contextily
-            geopandas<1.0
+            geopandas
             ipython
             pyarrow
-            rasterio<1.4.3
             rioxarray
             make
             pip
