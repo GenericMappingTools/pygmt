@@ -207,6 +207,14 @@ class Session:
             }
         return self._info
 
+    def __init__(self, silent: bool = False):
+        """
+        Initialize a GMT session.
+
+        Does nothing but set the Session variables.
+        """
+        self._silent = silent
+
     def __enter__(self):
         """
         Create a GMT API session.
@@ -384,6 +392,8 @@ class Session:
             We'll capture the messages and print them to stderr so that they will show
             up on the Jupyter notebook.
             """
+            if self._silent:
+                return 0
             # Have to use try..except due to upstream GMT bug in GMT <= 6.5.0.
             # See https://github.com/GenericMappingTools/pygmt/issues/3205.
             try:
@@ -2017,6 +2027,7 @@ class Session:
                 "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE"),
                 "image": ("GMT_IS_IMAGE", "GMT_IS_SURFACE"),
             }[kind]
+            # For unknown reasons, 'GMT_OUT' crashes for 'image' kind.
             direction = "GMT_OUT|GMT_IS_REFERENCE" if kind == "image" else "GMT_OUT"
             with self.open_virtualfile(family, geometry, direction, None) as vfile:
                 yield vfile
@@ -2388,3 +2399,39 @@ class Session:
             msg = "Failed to extract region from current figure."
             raise GMTCLibError(msg)
         return region
+
+
+def _raster_kind(raster: str) -> Literal["grid", "image"]:
+    """
+    Determine the raster kind.
+
+    Examples
+    --------
+    >>> _raster_kind("@earth_relief_01d")
+    'grid'
+    >>> _raster_kind("@static_earth_relief.nc")
+    'grid'
+    >>> _raster_kind("@earth_day_01d")
+    'image'
+    >>> _raster_kind("@hotspots.txt")
+    'grid'
+    """
+    # The logic here is because: an image can be read into a grid container, but a grid
+    # can't be read into an image container. So, try to read the file as an image first.
+    # If fails, try to read it as a grid.
+    with Session(silent=True) as lib:
+        from osgeo import gdal
+
+        gdal.PushErrorHandler("CPLQuietErrorHandler")
+        try:
+            _ = lib.read_data(infile=raster, kind="image", mode="GMT_CONTAINER_ONLY")
+            return "image"
+        except GMTCLibError:
+            pass
+        try:
+            _ = lib.read_data(infile=raster, kind="grid", mode="GMT_CONTAINER_ONLY")
+            return "grid"
+        except GMTCLibError:
+            pass
+        gdal.PopErrorHandler()
+    return "grid"  # Fallback to "grid".
