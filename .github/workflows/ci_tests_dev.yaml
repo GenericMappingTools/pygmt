@@ -46,7 +46,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.2.1
+        uses: actions/checkout@v4.2.2
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -57,7 +57,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v2.0.0
+        uses: mamba-org/setup-micromamba@v2.0.2
         with:
           environment-name: pygmt
           condarc: |
@@ -86,9 +86,17 @@ jobs:
             pcre
             zlib
 
+      # Install the GSHHG and DCW datasets on Linux/macOS to avoid corrupted files
+      # during GMT auto-downloading. Currently, we can't install them on Windows CI,
+      # because the Windows CI fails to compile "gshhg_version.c" due to unknown reasons
+      # (likely missing DLLs).
+      - name: Install GMT GSHHG and DCW datasets (Linux/macOS)
+        run: micromamba install dcw-gmt gshhg-gmt
+        if: runner.os != 'Windows'
+
       # Checkout current GMT repository
       - name: Checkout the GMT source from ${{ matrix.gmt_git_ref }} branch
-        uses: actions/checkout@v4.2.1
+        uses: actions/checkout@v4.2.2
         with:
           repository: 'GenericMappingTools/gmt'
           ref: ${{ matrix.gmt_git_ref }}
@@ -145,7 +153,7 @@ jobs:
                         --extra-index https://pypi.anaconda.org/scientific-python-nightly-wheels/simple \
                         numpy pandas xarray netCDF4 packaging \
                         build contextily dvc geopandas ipython pyarrow rioxarray \
-                        pytest pytest-cov pytest-doctestplus pytest-mpl pytest-rerunfailures pytest-xdist\
+                        pytest pytest-cov pytest-doctestplus pytest-mpl pytest-rerunfailures \
                         sphinx-gallery
 
       # Show installed pkg information for postmortem diagnostic
@@ -173,7 +181,7 @@ jobs:
 
       # Run the tests
       - name: Test with pytest
-        run: make test PYTEST_EXTRA="-r P -n auto --reruns 2"
+        run: make test PYTEST_EXTRA="-r P --reruns 2"
         env:
           GMT_LIBRARY_PATH: ${{ runner.temp }}/gmt-install-dir/lib
 

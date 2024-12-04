@@ -155,17 +155,19 @@ def load_earth_relief(
         "synbath": "earth_synbath",
     }.get(data_source)
     if prefix is None:
-        raise GMTInvalidInput(
+        msg = (
             f"Invalid earth relief data source '{data_source}'. "
             "Valid values are 'igpp', 'gebco', 'gebcosi', and 'synbath'."
         )
+        raise GMTInvalidInput(msg)
     # Use SRTM or not.
     if use_srtm and resolution in land_only_srtm_resolutions:
         if data_source != "igpp":
-            raise GMTInvalidInput(
-                f"Option 'use_srtm=True' doesn't work with data source '{data_source}'."
-                " Please set 'data_source' to 'igpp'."
+            msg = (
+                f"Option 'use_srtm=True' doesn't work with data source '{data_source}'. "
+                "Please set 'data_source' to 'igpp'."
             )
+            raise GMTInvalidInput(msg)
         prefix = "srtm_relief"
     # Choose earth relief dataset
     match data_source:
