@@ -71,7 +71,6 @@ jobs:
             geopandas
             ipython
             pyarrow
-            rasterio<1.4.3
             rioxarray
             sphinx-gallery
             make
