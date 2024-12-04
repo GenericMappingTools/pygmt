@@ -25,13 +25,9 @@ from pygmt.clib.conversion import (
 )
 from pygmt.clib.loading import get_gmt_version, load_libgmt
 from pygmt.datatypes import _GMT_DATASET, _GMT_GRID, _GMT_IMAGE
+from pygmt.datatypes.header import gmt_grdfloat
 from pygmt.exceptions import GMTCLibError, GMTCLibNoSessionError, GMTInvalidInput
-from pygmt.helpers import (
-    _validate_data_input,
-    data_kind,
-    tempfile_from_geojson,
-    tempfile_from_image,
-)
+from pygmt.helpers import _validate_data_input, data_kind, tempfile_from_geojson
 
 FAMILIES = [
     "GMT_IS_DATASET",  # Entity is a data table
@@ -1687,6 +1683,40 @@ class Session:
             yield vfile
 
     @contextlib.contextmanager
+    def virtualfile_from_image(self, image):
+        """
+        Create a virtual file from an xarray.DataArray object.
+        """
+        family = "GMT_IS_GRID"
+        geometry = "GMT_IS_SURFACE"
+        matrix, region, inc = dataarray_to_matrix(image)
+        print(region)
+
+        _gtype = {0: "GMT_GRID_IS_CARTESIAN", 1: "GMT_GRID_IS_GEO"}[image.gmt.gtype]
+        _reg = {0: "GMT_GRID_NODE_REG", 1: "GMT_GRID_PIXEL_REG"}[image.gmt.registration]
+
+        data = self.create_data(
+            family,
+            geometry,
+            mode=f"GMT_CONTAINER_ONLY|{_gtype}",
+            ranges=region,
+            inc=inc,
+            registration=_reg,
+            pad=self["GMT_PAD_DEFAULT"],
+        )
+
+        gmtgrid = ctp.cast(data, ctp.POINTER(_GMT_GRID))
+        header = gmtgrid.contents.header.contents
+        header.z_min, header.z_max = matrix.min(), matrix.max()
+
+        matrix = np.pad(matrix, self["GMT_PAD_DEFAULT"]).astype(np.float32)
+        print(matrix)
+        gmtgrid.contents.data = matrix.ctypes.data_as(ctp.POINTER(gmt_grdfloat))
+
+        with self.open_virtualfile(family, geometry, "GMT_IN", gmtgrid) as vfile:
+            yield vfile
+
+    @contextlib.contextmanager
     def virtualfile_from_stringio(
         self, stringio: io.StringIO
     ) -> Generator[str, None, None]:
@@ -1873,7 +1903,7 @@ class Session:
             "file": contextlib.nullcontext,
             "geojson": tempfile_from_geojson,
             "grid": self.virtualfile_from_grid,
-            "image": tempfile_from_image,
+            "image": self.virtualfile_from_image,
             "stringio": self.virtualfile_from_stringio,
             "matrix": self.virtualfile_from_matrix,
             "vectors": self.virtualfile_from_vectors,

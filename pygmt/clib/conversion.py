@@ -91,15 +91,15 @@ def dataarray_to_matrix(
     >>> print(inc)
     [2.0, 2.0]
     """
-    if len(grid.dims) != 2:
-        msg = f"Invalid number of grid dimensions 'len({grid.dims})'. Must be 2."
+    if len(grid.dims) not in {2, 3}:
+        msg = f"Invalid number of grid dimensions 'len({grid.dims})'. Must be 2 or 3."
         raise GMTInvalidInput(msg)
 
     # Extract region and inc from the grid
     region, inc = [], []
     # Reverse the dims because it is rows, columns ordered. In geographic grids, this
     # would be North-South, East-West. GMT's region and inc are East-West, North-South.
-    for dim in grid.dims[::-1]:
+    for dim in grid.dims[::-1][:2]:
         coord = grid.coords[dim].to_numpy()
         coord_incs = coord[1:] - coord[:-1]
         coord_inc = coord_incs[0]
