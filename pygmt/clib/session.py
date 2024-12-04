@@ -209,6 +209,12 @@ class Session:
             }
         return self._info
 
+    def __init__(self, mode="GMT_IN"):
+        """
+        Initialize to store session-specific values.
+        """
+        self._mode = mode
+
     def __enter__(self):
         """
         Create a GMT API session.
@@ -1808,7 +1814,6 @@ class Session:
         extra_arrays=None,
         required_z=False,
         required_data=True,
-        _grid_mode="GMT_IN",  # An internal parameter to workaround GMT API bugs.
     ):
         """
         Store any data inside a virtual file.
@@ -2140,7 +2145,7 @@ class Session:
         return ctp.cast(pointer, ctp.POINTER(dtype))
 
     @contextlib.contextmanager
-    def virtualfile_from_xrgrid(self, xrgrid, _grid_mode="GMT_IN"):
+    def virtualfile_from_xrgrid(self, xrgrid):
         """
         Create a virtual file from an xarray.DataArray object.
         """
@@ -2173,7 +2178,7 @@ class Session:
         matrix = np.pad(matrix, self["GMT_PAD_DEFAULT"]).astype(np.float32)
         gmtgrid.contents.data = matrix.ctypes.data_as(ctp.POINTER(gmt_grdfloat))
 
-        with self.open_virtualfile(family, geometry, _grid_mode, gmtgrid) as vfile:
+        with self.open_virtualfile(family, geometry, self._mode, gmtgrid) as vfile:
             yield vfile
 
     def virtualfile_to_dataset(

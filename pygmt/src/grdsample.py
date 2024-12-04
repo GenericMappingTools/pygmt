@@ -80,11 +80,9 @@ def grdsample(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None
     >>> # and set both x- and y-spacing to 0.5 arc-degrees
     >>> new_grid = pygmt.grdsample(grid=grid, translate=True, spacing=[0.5, 0.5])
     """
-    with Session() as lib:
+    with Session(mode="GMT_IN|GMT_IS_REFERENCE") as lib:
         with (
-            lib.virtualfile_in(
-                check_kind="raster", data=grid, _grid_mode="GMT_IN|GMT_IS_REFERENCE"
-            ) as vingrd,
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
             kwargs["G"] = voutgrd
