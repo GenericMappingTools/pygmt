@@ -41,9 +41,9 @@ def test_tilemap_web_mercator():
     not (_HAS_CONTEXTILY and _HAS_RIOXARRAY),
     reason="contextily and rioxarray are not installed",
 )
-def test_tilemap_ogc_wgs84():
+def test_tilemap_ogc_crs84():
     """
-    Create a tilemap plot using longitude/latitude coordinates (OGC:WGS84), centred on
+    Create a tilemap plot using longitude/latitude coordinates (OGC:CRS84), centred on
     the international date line.
     """
     fig = Figure()
