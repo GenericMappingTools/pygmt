@@ -218,6 +218,8 @@ and store them in GMT's user data directory.
     :toctree: generated
 
     datasets.list_sample_data
+    datasets.load_black_marble
+    datasets.load_blue_marble
     datasets.load_earth_age
     datasets.load_earth_free_air_anomaly
     datasets.load_earth_geoid
@@ -317,5 +319,6 @@ Low level access (these are mostly used by the :mod:`pygmt.clib` package):
     clib.Session.get_libgmt_func
     clib.Session.virtualfile_from_data
     clib.Session.virtualfile_from_grid
+    clib.Session.virtualfile_from_stringio
     clib.Session.virtualfile_from_matrix
     clib.Session.virtualfile_from_vectors

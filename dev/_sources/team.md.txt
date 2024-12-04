@@ -4,7 +4,7 @@ We are an international team dedicated to building a Pythonic API for the Generi
 Tools (GMT).
 
 All are welcome to become involved with the PyGMT project! For more information about how
-to get involved, see the {doc}`contributing`. A more complete list of contributors
+to get involved, see the [](contributing.md). A more complete list of contributors
 is available in the [`AUTHORS.md`](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md)
 file in the source repository.
 
@@ -12,7 +12,7 @@ Distinguished Contributors are recognized for their substantial contributions to
 which may include code, documentation, pull request review, triaging, forum responses,
 community building and engagement, outreach, and inclusion and diversity. Maintainers
 are recognized for their responsibilities in maintaining the project, as detailed in
-the {doc}`maintenance`.
+the [](maintenance.md).
 
 New Distinguished Contributors and Active Maintainers are selected and voted by current
 Active Maintainers before each release. Maintainers that are inactive for more than one

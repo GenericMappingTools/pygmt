@@ -105,6 +105,10 @@ pygmt.clib.Session
     
     
     
+    Session.virtualfile_from_stringio
+    
+    
+    
     Session.virtualfile_from_vectors
     
     

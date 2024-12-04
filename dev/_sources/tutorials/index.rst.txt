@@ -1,7 +1,5 @@
 :orphan:
 
-.. _tutorials:
-
 Tutorials
 =========
 
@@ -85,7 +83,7 @@ Basics
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Plotting lines is handled by pygmt.Figure.plot.">
+    <div class="sphx-glr-thumbcontainer" tooltip="Plotting lines is handled by the pygmt.Figure.plot method.">
 
 .. only:: html
 
@@ -97,6 +95,23 @@ Basics
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">Plotting lines</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Plotting polygons is handled by the pygmt.Figure.plot method.">
+
+.. only:: html
+
+  .. image:: /tutorials/basics/images/thumb/sphx_glr_polygons_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_basics_polygons.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plotting polygons</div>
     </div>
 
 
@@ -148,6 +163,7 @@ Basics
    /tutorials/basics/frames
    /tutorials/basics/plot
    /tutorials/basics/lines
+   /tutorials/basics/polygons
    /tutorials/basics/text
    /tutorials/basics/regions
 
