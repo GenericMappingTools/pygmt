@@ -110,8 +110,11 @@ def grdinfo(grid, **kwargs):
     info : str
         A string with information about the grid.
     """
+    # Workaround for upstream bug https://github.com/GenericMappingTools/gmt/issues/8525
+    grid_as_matrix = bool(kwargs.get("L"))
+
     with GMTTempFile() as outfile:
-        with Session() as lib:
+        with Session(grid_as_matrix=grid_as_matrix) as lib:
             with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
                 lib.call_module(
                     module="grdinfo",

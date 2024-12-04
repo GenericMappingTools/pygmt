@@ -209,7 +209,7 @@ class Session:
             }
         return self._info
 
-    def __init__(self, in_mode: str = "GMT_IN"):
+    def __init__(self, in_mode: str = "GMT_IN", grid_as_matrix: bool = False):
         """
         Initialize to store session-level variables.
 
@@ -220,8 +220,12 @@ class Session:
             :meth:`pygmt.clib.Session.virtualfile_from_xrgrid` only. For some modules
             (e.g., ``grdgradient`` and ``grdsample``), we may need
             ``"GMT_IN|GMT_IS_REFERENCE"`` due to potential upstream bugs in GMT.
+        grid_as_matrix
+            Whether to treat the grid as a matrix. Defaults to ``False``. If ``True``,
+            will use the :meth:`pygmt.clib.Session.virtualfile_from_grid` method instead
         """
         self._in_mode = in_mode
+        self._grid_as_matrix = grid_as_matrix
 
     def __enter__(self):
         """
@@ -1812,7 +1816,7 @@ class Session:
                     seg.header = None
                     seg.text = None
 
-    def virtualfile_in(
+    def virtualfile_in(  # noqa: PLR0912
         self,
         check_kind=None,
         data=None,
@@ -1909,6 +1913,11 @@ class Session:
             "matrix": self.virtualfile_from_matrix,
             "vectors": self.virtualfile_from_vectors,
         }[kind]
+
+        # Patch for upstream bugs where grdinfo -L doesn't work with
+        # virtualfile_from_xrgrid.
+        if kind == "grid" and self._grid_as_matrix is True:
+            _virtualfile_from = self.virtualfile_from_grid
 
         # "_data" is the data that will be passed to the _virtualfile_from function.
         # "_data" defaults to "data" but should be adjusted for some cases.
