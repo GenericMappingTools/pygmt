@@ -2,7 +2,8 @@
 grdinfo - Retrieve info about grid file.
 """
 
-from pygmt.clib import Session
+from packaging.version import Version
+from pygmt.clib import Session, __gmt_version__
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_list,
@@ -111,7 +112,9 @@ def grdinfo(grid, **kwargs):
         A string with information about the grid.
     """
     # Workaround for upstream bug https://github.com/GenericMappingTools/gmt/issues/8525
-    grid_as_matrix = bool(kwargs.get("L"))
+    grid_as_matrix = Version(__gmt_version__) <= Version("6.5.0") and bool(
+        kwargs.get("L")
+    )
 
     with GMTTempFile() as outfile:
         with Session(grid_as_matrix=grid_as_matrix) as lib:
