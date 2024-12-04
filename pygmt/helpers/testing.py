@@ -7,9 +7,8 @@ import inspect
 import string
 from pathlib import Path
 
+from pygmt.clib import Session
 from pygmt.exceptions import GMTImageComparisonFailure
-from pygmt.io import load_dataarray
-from pygmt.src import which
 
 
 def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_images"):
@@ -153,8 +152,13 @@ def load_static_earth_relief():
     data : xarray.DataArray
         A grid of Earth relief for internal tests.
     """
-    fname = which("@static_earth_relief.nc", download="c")
-    return load_dataarray(fname)
+    with Session() as lib:
+        with lib.virtualfile_out(kind="grid") as voutgrd:
+            lib.call_module(
+                module="read", args=["@static_earth_relief.nc", voutgrd, "-Tg"]
+            )
+            grid = lib.virtualfile_to_raster(vfname=voutgrd, kind="grid")
+        return grid
 
 
 def skip_if_no(package):

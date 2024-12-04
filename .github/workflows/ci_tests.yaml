@@ -131,7 +131,6 @@ jobs:
             numpy=${{ matrix.numpy-version }}
             pandas${{ matrix.pandas-version }}
             xarray${{ matrix.xarray-version }}
-            netCDF4
             packaging
             dvc
             make
