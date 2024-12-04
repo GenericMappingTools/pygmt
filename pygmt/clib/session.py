@@ -209,11 +209,19 @@ class Session:
             }
         return self._info
 
-    def __init__(self, mode="GMT_IN"):
+    def __init__(self, in_mode: str = "GMT_IN"):
         """
-        Initialize to store session-specific values.
+        Initialize to store session-level variables.
+
+        Parameters
+        ----------
+        in_mode
+            Mode when creating a virtualfile. Defaults to ``"GMT_IN"``. It's used in
+            :meth:`pygmt.clib.Session.virtualfile_from_xrgrid` only. For some modules
+            (e.g., ``grdgradient`` and ``grdsample``), we may need
+            ``"GMT_IN|GMT_IS_REFERENCE"`` due to potential upstream bugs in GMT.
         """
-        self._mode = mode
+        self._in_mode = in_mode
 
     def __enter__(self):
         """
@@ -2178,7 +2186,7 @@ class Session:
         matrix = np.pad(matrix, self["GMT_PAD_DEFAULT"]).astype(np.float32)
         gmtgrid.contents.data = matrix.ctypes.data_as(ctp.POINTER(gmt_grdfloat))
 
-        with self.open_virtualfile(family, geometry, self._mode, gmtgrid) as vfile:
+        with self.open_virtualfile(family, geometry, self._in_mode, gmtgrid) as vfile:
             yield vfile
 
     def virtualfile_to_dataset(
