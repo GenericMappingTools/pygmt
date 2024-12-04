@@ -2,6 +2,7 @@
 GMT accessor for :class:`xarray.DataArray`.
 """
 
+import contextlib
 from pathlib import Path
 
 import xarray as xr
@@ -59,7 +60,7 @@ class GMTDataArrayAccessor:
     >>> longrid, latgrid = np.meshgrid(lon, lat)
     >>> data = np.sin(np.deg2rad(longrid)) * np.cos(np.deg2rad(latgrid))
     >>> grid = xr.DataArray(data, coords=[("latitude", lat), ("longitude", lon)])
-    >>> # default to a gridline-registrated Cartesian grid
+    >>> # default to a gridline-registered Cartesian grid
     >>> grid.gmt.registration, grid.gmt.gtype
     (0, 0)
     >>> # set it to a gridline-registered geographic grid
@@ -115,22 +116,17 @@ class GMTDataArrayAccessor:
 
     def __init__(self, xarray_obj):
         self._obj = xarray_obj
+        # Default to Gridline registration and Cartesian grid type
+        self._registration = 0
+        self._gtype = 0
 
-        self._source = self._obj.encoding.get("source")
-        if self._source is not None and Path(self._source).exists():
-            try:
-                # Get grid registration and grid type from the last two columns
-                # of the shortened summary information of `grdinfo`.
+        # If the source file exists, get grid registration and grid type from the last
+        # two columns of the shortened summary information of grdinfo.
+        if (_source := self._obj.encoding.get("source")) and Path(_source).exists():
+            with contextlib.suppress(ValueError):
                 self._registration, self._gtype = map(
-                    int, grdinfo(self._source, per_column="n").split()[-2:]
+                    int, grdinfo(_source, per_column="n").split()[-2:]
                 )
-            except ValueError:
-                self._registration = 0  # Default to Gridline registration
-                self._gtype = 0  # Default to Cartesian grid type
-        else:
-            self._registration = 0  # Default to Gridline registration
-            self._gtype = 0  # Default to Cartesian grid type
-        del self._source
 
     @property
     def registration(self):
@@ -142,10 +138,11 @@ class GMTDataArrayAccessor:
     @registration.setter
     def registration(self, value):
         if value not in {0, 1}:
-            raise GMTInvalidInput(
+            msg = (
                 f"Invalid grid registration value: {value}, should be either "
                 "0 for Gridline registration or 1 for Pixel registration."
             )
+            raise GMTInvalidInput(msg)
         self._registration = value
 
     @property
@@ -158,8 +155,9 @@ class GMTDataArrayAccessor:
     @gtype.setter
     def gtype(self, value):
         if value not in {0, 1}:
-            raise GMTInvalidInput(
+            msg = (
                 f"Invalid coordinate system type: {value}, should be "
                 "either 0 for Cartesian or 1 for Geographic."
             )
+            raise GMTInvalidInput(msg)
         self._gtype = value

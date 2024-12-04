@@ -47,7 +47,7 @@ def surface(
     oscillations and false local maxima or minima (see Smith and Wessel,
     1990), and you may wish to use :math:`t > 0` to suppress these effects.
     Experience suggests :math:`t \sim 0.25` usually looks good for potential
-    field data and t should be larger (:math:`t \sim 0.35`) for steep
+    field data and :math:`t` should be larger (:math:`t \sim 0.35`) for steep
     topography data. :math:`t = 1` gives a harmonic surface (no maxima or
     minima are possible except at control data points). It is recommended that
     the user preprocess the data with :func:`pygmt.blockmean`,

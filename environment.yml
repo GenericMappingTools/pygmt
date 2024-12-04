@@ -16,6 +16,7 @@ dependencies:
     - contextily
     - geopandas
     - ipython
+    - pyarrow
     - rioxarray
     # Development dependencies (general)
     - dvc
@@ -26,7 +27,7 @@ dependencies:
     # Dev dependencies (style checks)
     - codespell
     - pre-commit
-    - ruff>=0.3.0
+    - ruff>=0.8.0
     # Dev dependencies (unit testing)
     - matplotlib-base
     - pytest>=6.0
@@ -36,12 +37,12 @@ dependencies:
     # Dev dependencies (building documentation)
     - myst-nb
     - panel
-    - sphinx
+    - sphinx>=6.2
     - sphinx-autodoc-typehints
     - sphinx-copybutton
     - sphinx-design
     - sphinx-gallery>=0.17.0
-    - sphinx_rtd_theme
+    - sphinx_rtd_theme<3.0
     # Dev dependencies (type hints)
     - mypy
     - pandas-stubs

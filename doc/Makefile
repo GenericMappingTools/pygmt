@@ -55,7 +55,5 @@ server:
 clean:
 	rm -rf $(BUILDDIR)
 	rm -rf api/generated
-	rm -rf gallery
-	rm -rf tutorials
-	rm -rf get_started
-	rm -rf projections
+	rm -rf intro tutorials gallery projections
+	rm -rf sg_execution_times.rst
