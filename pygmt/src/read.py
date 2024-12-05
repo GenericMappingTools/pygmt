@@ -83,4 +83,6 @@ def read(
             case "dataset":
                 return lib.virtualfile_to_dataset(vfname=voutfile, **kwargs)
             case "grid" | "image":
-                return lib.virtualfile_to_raster(vfname=voutfile, kind=kind)
+                raster = lib.virtualfile_to_raster(vfname=voutfile, kind=kind)
+                _ = raster.gmt   # Load GMTDataArray accessor information
+                return raster
