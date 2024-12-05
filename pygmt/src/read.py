@@ -8,13 +8,14 @@ import pandas as pd
 import xarray as xr
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.src.which import which
 
 
 @fmt_docstring
 @use_alias(R="region")
 @kwargs_to_strings(R="sequence")
 def read(
-    file,
+    file: str,
     kind: Literal["dataset", "grid", "image"],
     **kwargs,
 ) -> pd.DataFrame | xr.DataArray:
@@ -84,5 +85,6 @@ def read(
                 return lib.virtualfile_to_dataset(vfname=voutfile, **kwargs)
             case "grid" | "image":
                 raster = lib.virtualfile_to_raster(vfname=voutfile, kind=kind)
-                _ = raster.gmt   # Load GMTDataArray accessor information
+                raster.encoding["source"] = which(fname=file)  # Add "source" encoding
+                _ = raster.gmt  # Load GMTDataArray accessor information
                 return raster
