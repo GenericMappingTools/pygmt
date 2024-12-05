@@ -14,10 +14,9 @@ dependencies:
     - packaging
     # Optional dependencies
     - contextily
-    - geopandas<1.0
+    - geopandas
     - ipython
     - pyarrow
-    - rasterio<1.4.3
     - rioxarray
     # Development dependencies (general)
     - make

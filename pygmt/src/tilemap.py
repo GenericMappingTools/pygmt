@@ -50,7 +50,7 @@ def tilemap(
 
     **Note**: By default, standard web map tiles served in a Spherical Mercator
     (EPSG:3857) Cartesian format will be reprojected to a geographic coordinate
-    reference system (OGC:WGS84) and plotted with longitude/latitude bounds when
+    reference system (OGC:CRS84) and plotted with longitude/latitude bounds when
     ``lonlat=True``. If reprojection is not desired, please set ``lonlat=False`` and
     provide Spherical Mercator (EPSG:3857) coordinates to the ``region`` parameter.
 
