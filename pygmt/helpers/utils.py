@@ -177,7 +177,7 @@ def _has_apostrophe_or_backtick(argstr: str) -> bool:
     you type is what you get (https://github.com/GenericMappingTools/pygmt/issues/3476),
     they need special handling in the ``_check_encoding`` and ``non_ascii_to_octal``
     functions. More specifically, a string that contains ASCII characters without
-    apostrophe (') and backtick (`) will be considered as "ascii" encoding.
+    apostrophe (') and backtick (`) will not be considered as "ascii" encoding.
 
     Parameters
     ----------
