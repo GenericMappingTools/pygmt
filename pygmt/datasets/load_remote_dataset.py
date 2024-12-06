@@ -6,9 +6,10 @@ from collections.abc import Sequence
 from typing import Any, Literal, NamedTuple
 
 import xarray as xr
+from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import kwargs_to_strings
-from pygmt.src import read
+from pygmt.helpers import build_arg_list, kwargs_to_strings
+from pygmt.src import which
 
 
 class Resolution(NamedTuple):
@@ -442,7 +443,20 @@ def _load_remote_dataset(
 
     fname = f"@{prefix}_{resolution}_{reg}"
     kind = "image" if name in {"earth_day", "earth_night"} else "grid"
-    grid = read(fname, kind=kind, region=region)
+    kwdict = {"R": region, "T": {"grid": "g", "image": "i"}[kind]}
+    with Session() as lib:
+        with lib.virtualfile_out(kind=kind) as voutgrd:
+            lib.call_module(
+                module="read",
+                args=[fname, voutgrd, *build_arg_list(kwdict)],
+            )
+            grid = lib.virtualfile_to_raster(kind=kind, outgrid=None, vfname=voutgrd)
+
+    # Full path to the grid if not tiled grids.
+    source = which(fname, download="a") if not resinfo.tiled else None
+    # Manually add source to xarray.DataArray encoding to make the GMT accessors work.
+    if source:
+        grid.encoding["source"] = source
 
     # Add some metadata to the grid
     grid.attrs["description"] = dataset.description
