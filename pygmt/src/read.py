@@ -34,7 +34,7 @@ def read(
         ``"image"``.
     {region}
 
-    For datasets, the following keyword arguments are supported:
+        For datasets, the following keyword arguments are supported:
 
     column_names
         A list of column names.
@@ -50,15 +50,15 @@ def read(
 
     Returns
     -------
-    Return type depends on the ``kind`` argument:
+    data
+        Return type depends on the ``kind`` argument:
 
-    - ``"dataset"``: :class:`pandas.DataFrame`
-    - ``"grid"`` or ``"image"``: :class:`xarray.DataArray`
+        - ``"dataset"``: :class:`pandas.DataFrame`
+        - ``"grid"`` or ``"image"``: :class:`xarray.DataArray`
 
 
     Examples
     --------
-
     Read a dataset into a :class:`pandas.DataFrame` object:
 
     >>> from pygmt import read
@@ -67,6 +67,7 @@ def read(
     <class 'pandas.core.frame.DataFrame'>
 
     Read a grid into an :class:`xarray.DataArray` object:
+
     >>> dataarray = read("@earth_relief_01d", kind="grid")
     >>> type(dataarray)
     <class 'xarray.core.dataarray.DataArray'>
