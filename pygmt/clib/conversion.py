@@ -173,6 +173,13 @@ def _to_numpy(data: Any) -> np.ndarray:
     # The numpy dtype for the result numpy array, but can be None.
     numpy_dtype = dtypes.get(str(dtype))
 
+    # Deal with timezone-aware datetime dtypes, including pandas.DatetimeTZDtype,
+    # pd.ArrowDtype, and pyarrow.Timestamp.
+    if getattr(dtype, "tz", None) or getattr(
+        getattr(dtype, "pyarrow_dtype", None), "tz", None
+    ):
+        numpy_dtype = getattr(dtype, "base", getattr(dtype, "numpy_dtype", None))
+
     # pandas numeric dtypes were converted to np.object_ dtype prior pandas 2.2, and are
     # converted to suitable NumPy dtypes since pandas 2.2. Refer to the following link
     # for details: https://pandas.pydata.org/docs/whatsnew/v2.2.0.html#to-numpy-for-numpy-nullable-and-arrow-types-converts-to-suitable-numpy-dtype
