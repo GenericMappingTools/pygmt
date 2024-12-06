@@ -146,7 +146,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
 
 def load_static_earth_relief() -> xr.DataArray:
     """
-    Load the static_earth_relief file for internal testing.
+    Load the static_earth_relief.nc file for internal testing.
 
     Returns
     -------
