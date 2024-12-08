@@ -8,8 +8,7 @@ from typing import Literal, NamedTuple
 import pandas as pd
 import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.io import load_dataarray
-from pygmt.src import which
+from pygmt.src import read, which
 
 
 def _load_japan_quakes() -> pd.DataFrame:
@@ -203,8 +202,7 @@ def _load_earth_relief_holes() -> xr.DataArray:
         The Earth relief grid. Coordinates are latitude and longitude in degrees. Relief
         is in meters.
     """
-    fname = which("@earth_relief_20m_holes.grd", download="c")
-    return load_dataarray(fname, engine="netcdf4")
+    return read("@earth_relief_20m_holes.grd", kind="grid")
 
 
 class GMTSampleData(NamedTuple):
