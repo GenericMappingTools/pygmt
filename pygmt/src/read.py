@@ -32,6 +32,9 @@ def read(
     The returned object is a :class:`pandas.DataFrame` for datasets, and
     :class:`xarray.DataArray` for grids and images.
 
+    For datasets, keyword arguments ``column_names``, ``header``, ``dtype``, and
+    ``index_col`` are supported.
+
     Parameters
     ----------
     file
