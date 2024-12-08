@@ -8,15 +8,10 @@ from typing import Any, Literal
 import pandas as pd
 import xarray as xr
 from pygmt.clib import Session
-from pygmt.helpers import (
-    build_arg_list,
-    fmt_docstring,
-    is_nonstr_iter,
-)
+from pygmt.helpers import build_arg_list, is_nonstr_iter
 from pygmt.src.which import which
 
 
-@fmt_docstring
 def read(
     file: str,
     kind: Literal["dataset", "grid", "image"],
