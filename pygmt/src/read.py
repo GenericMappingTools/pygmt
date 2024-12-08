@@ -1,29 +1,36 @@
 """
-Read data from files
+Read a file into an appropriate object.
 """
 
-from typing import Literal
+from collections.abc import Mapping, Sequence
+from typing import Any, Literal
 
 import pandas as pd
 import xarray as xr
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_list,
+    fmt_docstring,
+    is_nonstr_iter,
+)
 from pygmt.src.which import which
 
 
 @fmt_docstring
-@use_alias(R="region")
-@kwargs_to_strings(R="sequence")
 def read(
     file: str,
     kind: Literal["dataset", "grid", "image"],
-    **kwargs,
+    region: Sequence[float] | str | None = None,
+    header: int | None = None,
+    column_names: pd.Index | None = None,
+    dtype: type | Mapping[Any, type] | None = None,
+    index_col: str | int | None = None,
 ) -> pd.DataFrame | xr.DataArray:
     """
     Read a dataset, grid, or image from a file and return the appropriate object.
 
-    For datasets, it returns a :class:`pandas.DataFrame`. For grids and images, it
-    returns a :class:`xarray.DataArray`.
+    The returned object is a :class:`pandas.DataFrame` for datasets, and
+    :class:`xarray.DataArray` for grids and images.
 
     Parameters
     ----------
@@ -32,10 +39,8 @@ def read(
     kind
         The kind of data to read. Valid values are ``"dataset"``, ``"grid"``, and
         ``"image"``.
-    {region}
-
-        For datasets, the following keyword arguments are supported:
-
+    region
+        The region of interest. Only data within this region will be read.
     column_names
         A list of column names.
     header
@@ -43,8 +48,8 @@ def read(
         column names from table header. Ignored if the row number is larger than the
         number of headers in the table.
     dtype
-        Data type. Can be a single type for all columns or a dictionary mapping column
-        names to types.
+        Data type. Can be a single type for all columns or a dictionary mapping
+        column names to types.
     index_col
         Column to set as index.
 
@@ -72,8 +77,18 @@ def read(
     >>> type(dataarray)
     <class 'xarray.core.dataarray.DataArray'>
     """
+
+    if kind != "dataset" and any(
+        v is not None for v in [column_names, header, dtype, index_col]
+    ):
+        msg = (
+            "Only the 'dataset' kind supports the 'column_names', 'header', "
+            "'dtype', and 'index_col' arguments."
+        )
+        raise ValueError(msg)
+
     kwdict = {
-        "R": kwargs.get("R"),
+        "R": "/".join(f"{v}" for v in region) if is_nonstr_iter(region) else region,
         "T": {"dataset": "d", "grid": "g", "image": "i"}[kind],
     }
 
@@ -83,7 +98,13 @@ def read(
 
         match kind:
             case "dataset":
-                return lib.virtualfile_to_dataset(vfname=voutfile, **kwargs)
+                return lib.virtualfile_to_dataset(
+                    vfname=voutfile,
+                    column_names=column_names,
+                    header=header,
+                    dtype=dtype,
+                    index_col=index_col,
+                )
             case "grid" | "image":
                 raster = lib.virtualfile_to_raster(vfname=voutfile, kind=kind)
                 # Add "source" encoding
