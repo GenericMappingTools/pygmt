@@ -108,8 +108,7 @@ def grdcut(
     >>> new_grid = pygmt.grdcut(grid=grid, region=[12, 15, 21, 24])
     """
     # Determine the output data kind based on the input data kind.
-    inkind = data_kind(grid)
-    match inkind:
+    match inkind := data_kind(grid):
         case "image" | "grid":
             outkind = inkind
         case "file":
