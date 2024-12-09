@@ -64,6 +64,7 @@ def test_grdcut_image_file(region, expected_image):
 
 
 @pytest.mark.benchmark
+@pytest.mark.skipif(not _HAS_RIOXARRAY, reason="rioxarray is not installed")
 def test_grdcut_image_dataarray(region, expected_image):
     """
     Test grdcut on an input xarray.DataArray object.
