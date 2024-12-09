@@ -3,7 +3,7 @@ Read a file into an appropriate object.
 """
 
 from collections.abc import Mapping, Sequence
-from typing import Any, Literal
+from typing import Any, Literal, overload
 
 import pandas as pd
 import xarray as xr
@@ -12,15 +12,29 @@ from pygmt.helpers import build_arg_list, is_nonstr_iter
 from pygmt.src.which import which
 
 
+@overload
 def read(
     file: str,
-    kind: Literal["dataset", "grid", "image"],
+    kind: Literal["dataset"],
     region: Sequence[float] | str | None = None,
     header: int | None = None,
     column_names: pd.Index | None = None,
     dtype: type | Mapping[Any, type] | None = None,
     index_col: str | int | None = None,
-) -> pd.DataFrame | xr.DataArray:
+) -> pd.DataFrame: ...
+
+
+@overload
+def read(
+    file: str,
+    kind: Literal["grid", "image"],
+    region: Sequence[float] | str | None = None,
+) -> xr.DataArray: ...
+
+
+def read(
+    file, kind, region, header=None, column_names=None, dtype=None, index_col=None
+):
     """
     Read a dataset, grid, or image from a file and return the appropriate object.
 
