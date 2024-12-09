@@ -10,7 +10,6 @@ dependencies:
     - numpy>=1.24
     - pandas>=2.0
     - xarray>=2023.04
-    - netCDF4
     - packaging
     # Optional dependencies
     - contextily
@@ -34,6 +33,8 @@ dependencies:
     - pytest-cov
     - pytest-doctestplus
     - pytest-mpl
+    # Dev dependencies (testing)
+    - netCDF4
     # Dev dependencies (building documentation)
     - myst-nb
     - panel

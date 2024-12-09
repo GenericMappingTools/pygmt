@@ -65,13 +65,13 @@ jobs:
             numpy<2
             pandas
             xarray
-            netCDF4
             packaging
             contextily
             geopandas
             ipython
             pyarrow
             rioxarray
+            netCDF4
             sphinx-gallery
             make
             pip
