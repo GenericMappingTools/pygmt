@@ -112,7 +112,7 @@ def read(
                 # Add "source" encoding
                 source = which(fname=file)
                 raster.encoding["source"] = (
-                    source if isinstance(source, str) else source[0]
+                    source[0] if isinstance(source, list) else source
                 )
                 _ = raster.gmt  # Load GMTDataArray accessor information
                 return raster
