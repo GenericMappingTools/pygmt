@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 import xarray as xr
-from pygmt import dimfilter, load_dataarray
+from pygmt import dimfilter, read
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
@@ -56,7 +56,7 @@ def test_dimfilter_outgrid(grid, expected_grid):
         )
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
-        temp_grid = load_dataarray(tmpfile.name)
+        temp_grid = read(tmpfile.name, kind="grid")
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 

@@ -5,7 +5,7 @@ Test pygmt.grdcut.
 import numpy as np
 import pytest
 import xarray as xr
-from pygmt import grdcut, load_dataarray
+from pygmt import grdcut, read
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
@@ -50,7 +50,7 @@ def test_grdcut_dataarray_in_file_out(grid, expected_grid, region):
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = grdcut(grid, outgrid=tmpfile.name, region=region)
         assert result is None  # grdcut returns None if output to a file
-        temp_grid = load_dataarray(tmpfile.name)
+        temp_grid = read(tmpfile.name, kind="grid")
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
