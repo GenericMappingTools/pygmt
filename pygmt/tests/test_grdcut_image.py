@@ -82,5 +82,6 @@ def test_grdcut_image_file_in_file_out(region, expected_image):
         assert result is None
         assert Path(tmp.name).stat().st_size > 0
         if _HAS_RIOXARRAY:
-            raster = rioxarray.open_rasterio(tmp.name).load().drop_vars("spatial_ref")
-            xr.testing.assert_allclose(a=raster, b=expected_image)
+            with rioxarray.open_rasterio(tmp.name) as raster:
+                image = raster.load().drop_vars("spatial_ref")
+                xr.testing.assert_allclose(a=image, b=expected_image)
