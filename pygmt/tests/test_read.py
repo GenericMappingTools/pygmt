@@ -2,7 +2,7 @@
 Test the read function.
 """
 
-import importlib.util
+import importlib
 
 import numpy as np
 import pytest
