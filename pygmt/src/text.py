@@ -187,17 +187,21 @@ def text_(  # noqa: PLR0912
         + (position is not None)
         + (x is not None or y is not None)
     ) != 1:
-        raise GMTInvalidInput("Provide either textfiles, x/y/text, or position/text.")
+        msg = "Provide either 'textfiles', 'x'/'y'/'text', or 'position'/'text'."
+        raise GMTInvalidInput(msg)
 
     required_data = position is None
     kind = data_kind(textfiles, required=required_data)
 
     if position is not None and (text is None or is_nonstr_iter(text)):
-        raise GMTInvalidInput("'text' can't be None or array when 'position' is given.")
+        msg = "'text' can't be None or array when 'position' is given."
+        raise GMTInvalidInput(msg)
     if textfiles is not None and text is not None:
-        raise GMTInvalidInput("'text' can't be specified when 'textfiles' is given.")
+        msg = "'text' can't be specified when 'textfiles' is given."
+        raise GMTInvalidInput(msg)
     if kind == "empty" and text is None:
-        raise GMTInvalidInput("Must provide text with x/y pairs.")
+        msg = "Must provide text with x/y pairs."
+        raise GMTInvalidInput(msg)
 
     # Arguments that can accept arrays.
     array_args = [
