@@ -153,7 +153,7 @@ def load_static_earth_relief() -> xr.DataArray:
     data
         A grid of Earth relief for internal tests.
     """
-    return read("@static_earth_relief.nc", kind="grid")
+    return read("@static_earth_relief.nc", kind="grid")  # type: ignore[return-value]
 
 
 def skip_if_no(package):

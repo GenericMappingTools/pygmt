@@ -202,7 +202,7 @@ def _load_earth_relief_holes() -> xr.DataArray:
         The Earth relief grid. Coordinates are latitude and longitude in degrees. Relief
         is in meters.
     """
-    return read("@earth_relief_20m_holes.grd", kind="grid")
+    return read("@earth_relief_20m_holes.grd", kind="grid")  # type: ignore[return-value]
 
 
 class GMTSampleData(NamedTuple):

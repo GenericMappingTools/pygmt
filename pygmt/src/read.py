@@ -3,7 +3,8 @@ Read a file into an appropriate object.
 """
 
 from collections.abc import Mapping, Sequence
-from typing import Any, Literal, overload
+from pathlib import PurePath
+from typing import Any, Literal
 
 import pandas as pd
 import xarray as xr
@@ -12,29 +13,15 @@ from pygmt.helpers import build_arg_list, is_nonstr_iter
 from pygmt.src.which import which
 
 
-@overload
 def read(
-    file: str,
-    kind: Literal["dataset"],
+    file: str | PurePath,
+    kind: Literal["dataset", "grid", "image"],
     region: Sequence[float] | str | None = None,
     header: int | None = None,
     column_names: pd.Index | None = None,
     dtype: type | Mapping[Any, type] | None = None,
     index_col: str | int | None = None,
-) -> pd.DataFrame: ...
-
-
-@overload
-def read(
-    file: str,
-    kind: Literal["grid", "image"],
-    region: Sequence[float] | str | None = None,
-) -> xr.DataArray: ...
-
-
-def read(
-    file, kind, region=None, header=None, column_names=None, dtype=None, index_col=None
-):
+) -> pd.DataFrame | xr.DataArray:
     """
     Read a dataset, grid, or image from a file and return the appropriate object.
 
@@ -89,6 +76,9 @@ def read(
     >>> type(dataarray)
     <class 'xarray.core.dataarray.DataArray'>
     """
+    if kind not in {"dataset", "grid", "image"}:
+        msg = f"Invalid kind {kind}: must be one of 'dataset', 'grid', or 'image'."
+        raise ValueError(msg)
 
     if kind != "dataset" and any(
         v is not None for v in [column_names, header, dtype, index_col]
@@ -100,7 +90,7 @@ def read(
         raise ValueError(msg)
 
     kwdict = {
-        "R": "/".join(f"{v}" for v in region) if is_nonstr_iter(region) else region,
+        "R": "/".join(f"{v}" for v in region) if is_nonstr_iter(region) else region,  # type: ignore[union-attr]
         "T": {"dataset": "d", "grid": "g", "image": "i"}[kind],
     }
 
