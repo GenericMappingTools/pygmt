@@ -76,7 +76,7 @@ jobs:
             optional-packages: ' contextily geopandas<1 ipython pyarrow rioxarray sphinx-gallery'
           # Python 3.12 + core packages (latest versions) + optional packages
           - python-version: '3.12'
-            numpy-version: '2.1'
+            numpy-version: '2.2'
             pandas-version: ''
             xarray-version: ''
             optional-packages: ' contextily geopandas>=1.0 ipython pyarrow rioxarray sphinx-gallery'
