@@ -29,6 +29,7 @@ Plotting map elements
     Figure.basemap
     Figure.coast
     Figure.colorbar
+    Figure.hlines
     Figure.inset
     Figure.legend
     Figure.logo
