@@ -11,8 +11,8 @@ import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTCLibError
 from pygmt.helpers import GMTTempFile
-from pygmt.io import load_dataarray
 from pygmt.src import which
+from pygmt.tests.helpers import load_static_earth_relief
 
 try:
     import rioxarray
@@ -27,7 +27,7 @@ def fixture_expected_xrgrid():
     """
     The expected xr.DataArray object for the static_earth_relief.nc file.
     """
-    return load_dataarray(which("@static_earth_relief.nc"))
+    return load_static_earth_relief()
 
 
 @pytest.fixture(scope="module", name="expected_xrimage")
