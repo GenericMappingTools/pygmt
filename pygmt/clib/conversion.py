@@ -307,6 +307,13 @@ def strings_to_ctypes_array(strings: Sequence[str] | np.ndarray) -> ctp.Array:
     <class 'pygmt.clib.conversion.c_char_p_Array_3'>
     >>> [s.decode() for s in ctypes_array]
     ['first', 'second', 'third']
+
+    >>> strings = np.array(["first", "second", "third"])
+    >>> ctypes_array = strings_to_ctypes_array(strings)
+    >>> type(ctypes_array)
+    <class 'pygmt.clib.conversion.c_char_p_Array_3'>
+    >>> [s.decode() for s in ctypes_array]
+    ['first', 'second', 'third']
     """
     return (ctp.c_char_p * len(strings))(*[s.encode() for s in strings])
 

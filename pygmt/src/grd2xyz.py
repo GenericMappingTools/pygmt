@@ -121,7 +121,8 @@ def grd2xyz(
     ret
         Return type depends on ``outfile`` and ``output_type``:
 
-        - None if ``outfile`` is set (output will be stored in file set by ``outfile``)
+        - ``None`` if ``outfile`` is set (output will be stored in the file set by
+          ``outfile``)
         - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
           (depends on ``output_type``)
 
@@ -133,7 +134,7 @@ def grd2xyz(
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[10, 30, 15, 25]
     ... )
-    >>> # Create a pandas DataFrame with the xyz data from an input grid
+    >>> # Create a pandas.DataFrame with the xyz data from an input grid
     >>> xyz_dataframe = pygmt.grd2xyz(grid=grid, output_type="pandas")
     >>> xyz_dataframe.head(n=2)
         lon   lat          z
@@ -143,12 +144,12 @@ def grd2xyz(
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
     if kwargs.get("o") is not None and output_type == "pandas":
-        raise GMTInvalidInput(
-            "If 'outcols' is specified, 'output_type' must be either 'numpy'"
+        msg = (
+            "If 'outcols' is specified, 'output_type' must be either 'numpy' "
             "or 'file'."
         )
-
-    # Set the default column names for the pandas dataframe header.
+        raise GMTInvalidInput(msg)
+    # Set the default column names for the pandas DataFrame header.
     column_names: list[str] = ["x", "y", "z"]
     # Let output pandas column names match input DataArray dimension names
     if output_type == "pandas" and isinstance(grid, xr.DataArray):

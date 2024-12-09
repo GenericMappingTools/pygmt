@@ -203,10 +203,11 @@ def tempfile_from_image(image):
         try:
             image.rio.to_raster(raster_path=tmpfile.name)
         except AttributeError as e:  # object has no attribute 'rio'
-            raise ImportError(
+            msg = (
                 "Package `rioxarray` is required to be installed to use this function. "
                 "Please use `python -m pip install rioxarray` or "
                 "`mamba install -c conda-forge rioxarray` "
                 "to install the package."
-            ) from e
+            )
+            raise ImportError(msg) from e
         yield tmpfile.name

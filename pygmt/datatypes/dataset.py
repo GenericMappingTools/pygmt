@@ -11,6 +11,60 @@ import numpy as np
 import pandas as pd
 
 
+class _GMT_DATASEGMENT(ctp.Structure):  # noqa: N801
+    """
+    GMT datasegment structure for holding a segment with multiple columns.
+    """
+
+    _fields_: ClassVar = [
+        # Number of rows/records in this segment
+        ("n_rows", ctp.c_uint64),
+        # Number of fields in each record
+        ("n_columns", ctp.c_uint64),
+        # Minimum coordinate for each column
+        ("min", ctp.POINTER(ctp.c_double)),
+        # Maximum coordinate for each column
+        ("max", ctp.POINTER(ctp.c_double)),
+        # Data x, y, and possibly other columns
+        ("data", ctp.POINTER(ctp.POINTER(ctp.c_double))),
+        # Label string (if applicable)
+        ("label", ctp.c_char_p),
+        # Segment header (if applicable)
+        ("header", ctp.c_char_p),
+        # text beyond the data
+        ("text", ctp.POINTER(ctp.c_char_p)),
+        # Book-keeping variables "hidden" from the API
+        ("hidden", ctp.c_void_p),
+    ]
+
+
+class _GMT_DATATABLE(ctp.Structure):  # noqa: N801
+    """
+    GMT datatable structure for holding a table with multiple segments.
+    """
+
+    _fields_: ClassVar = [
+        # Number of file header records (0 if no header)
+        ("n_headers", ctp.c_uint),
+        # Number of columns (fields) in each record
+        ("n_columns", ctp.c_uint64),
+        # Number of segments in the array
+        ("n_segments", ctp.c_uint64),
+        # Total number of data records across all segments
+        ("n_records", ctp.c_uint64),
+        # Minimum coordinate for each column
+        ("min", ctp.POINTER(ctp.c_double)),
+        # Maximum coordinate for each column
+        ("max", ctp.POINTER(ctp.c_double)),
+        # Array with all file header records, if any
+        ("header", ctp.POINTER(ctp.c_char_p)),
+        # Pointer to array of segments
+        ("segment", ctp.POINTER(ctp.POINTER(_GMT_DATASEGMENT))),
+        # Book-keeping variables "hidden" from the API
+        ("hidden", ctp.c_void_p),
+    ]
+
+
 class _GMT_DATASET(ctp.Structure):  # noqa: N801
     """
     GMT dataset structure for holding multiple tables (files).
@@ -66,58 +120,6 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
     [9.0, 12.0]
     [b'TEXT8 TEXT90', b'TEXT123 TEXT456789']
     """
-
-    class _GMT_DATATABLE(ctp.Structure):  # noqa: N801
-        """
-        GMT datatable structure for holding a table with multiple segments.
-        """
-
-        class _GMT_DATASEGMENT(ctp.Structure):  # noqa: N801
-            """
-            GMT datasegment structure for holding a segment with multiple columns.
-            """
-
-            _fields_: ClassVar = [
-                # Number of rows/records in this segment
-                ("n_rows", ctp.c_uint64),
-                # Number of fields in each record
-                ("n_columns", ctp.c_uint64),
-                # Minimum coordinate for each column
-                ("min", ctp.POINTER(ctp.c_double)),
-                # Maximum coordinate for each column
-                ("max", ctp.POINTER(ctp.c_double)),
-                # Data x, y, and possibly other columns
-                ("data", ctp.POINTER(ctp.POINTER(ctp.c_double))),
-                # Label string (if applicable)
-                ("label", ctp.c_char_p),
-                # Segment header (if applicable)
-                ("header", ctp.c_char_p),
-                # text beyond the data
-                ("text", ctp.POINTER(ctp.c_char_p)),
-                # Book-keeping variables "hidden" from the API
-                ("hidden", ctp.c_void_p),
-            ]
-
-        _fields_: ClassVar = [
-            # Number of file header records (0 if no header)
-            ("n_headers", ctp.c_uint),
-            # Number of columns (fields) in each record
-            ("n_columns", ctp.c_uint64),
-            # Number of segments in the array
-            ("n_segments", ctp.c_uint64),
-            # Total number of data records across all segments
-            ("n_records", ctp.c_uint64),
-            # Minimum coordinate for each column
-            ("min", ctp.POINTER(ctp.c_double)),
-            # Maximum coordinate for each column
-            ("max", ctp.POINTER(ctp.c_double)),
-            # Array with all file header records, if any
-            ("header", ctp.POINTER(ctp.c_char_p)),
-            # Pointer to array of segments
-            ("segment", ctp.POINTER(ctp.POINTER(_GMT_DATASEGMENT))),
-            # Book-keeping variables "hidden" from the API
-            ("hidden", ctp.c_void_p),
-        ]
 
     _fields_: ClassVar = [
         # The total number of tables (files) contained
