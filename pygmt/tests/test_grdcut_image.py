@@ -59,7 +59,7 @@ def test_grdcut_image_file(region, expected_image):
     """
     Test grdcut on an input image file.
     """
-    result = grdcut("@earth_day_01d", region=region)
+    result = grdcut("@earth_day_01d", region=region, kind="image")
     xr.testing.assert_allclose(a=result, b=expected_image)
 
 
@@ -69,7 +69,7 @@ def test_grdcut_image_dataarray(region, expected_image):
     Test grdcut on an input xarray.DataArray object.
     """
     raster = load_blue_marble()
-    result = grdcut(raster, region=region)
+    result = grdcut(raster, region=region, kind="image")
     xr.testing.assert_allclose(a=result, b=expected_image)
 
 

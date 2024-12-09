@@ -2,9 +2,10 @@
 grdcut - Extract subregion from a grid.
 """
 
+from typing import Literal
+
 import xarray as xr
 from pygmt.clib import Session
-from pygmt.clib.session import _raster_kind
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_list,
@@ -28,7 +29,9 @@ __doctest_skip__ = ["grdcut"]
     f="coltypes",
 )
 @kwargs_to_strings(R="sequence")
-def grdcut(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
+def grdcut(
+    grid, kind: Literal["grid", "image"] = "grid", outgrid: str | None = None, **kwargs
+) -> xr.DataArray | None:
     r"""
     Extract subregion from a grid or image.
 
@@ -48,6 +51,10 @@ def grdcut(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     Parameters
     ----------
     {grid}
+    kind
+        The raster data kind. Valid values are ``grid`` and ``image``. When the input
+        ``grid`` is a file name, it's hard to determine if the file is a grid or an
+        image, so we need to specify the kind explicitly. The default is ``grid``.
     {outgrid}
     {projection}
     {region}
@@ -106,7 +113,7 @@ def grdcut(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
         case "image" | "grid":
             outkind = inkind
         case "file":
-            outkind = _raster_kind(grid)
+            outkind = kind
         case "_":
             msg = f"Unsupported data type {type(grid)}."
             raise GMTInvalidInput(msg)
