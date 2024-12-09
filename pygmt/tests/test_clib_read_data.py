@@ -11,8 +11,8 @@ import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTCLibError
 from pygmt.helpers import GMTTempFile
+from pygmt.helpers.testing import load_static_earth_relief
 from pygmt.src import which
-from pygmt.tests.helpers import load_static_earth_relief
 
 try:
     import rioxarray
