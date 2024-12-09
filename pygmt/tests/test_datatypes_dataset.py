@@ -6,8 +6,7 @@ from pathlib import Path
 
 import pandas as pd
 import pytest
-from pygmt import which
-from pygmt.clib import Session
+from pygmt import read, which
 from pygmt.helpers import GMTTempFile
 
 
@@ -44,11 +43,7 @@ def dataframe_from_gmt(fname, **kwargs):
     """
     Read tabular data as pandas.DataFrame using GMT virtual file.
     """
-    with Session() as lib:
-        with lib.virtualfile_out(kind="dataset") as vouttbl:
-            lib.call_module("read", [fname, vouttbl, "-Td"])
-            df = lib.virtualfile_to_dataset(vfname=vouttbl, **kwargs)
-            return df
+    return read(fname, kind="dataset", **kwargs)
 
 
 @pytest.mark.benchmark
