@@ -33,7 +33,7 @@ def read(
 
 
 def read(
-    file, kind, region, header=None, column_names=None, dtype=None, index_col=None
+    file, kind, region=None, header=None, column_names=None, dtype=None, index_col=None
 ):
     """
     Read a dataset, grid, or image from a file and return the appropriate object.
