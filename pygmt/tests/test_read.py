@@ -2,8 +2,26 @@
 Test the read function.
 """
 
+import importlib.util
+
+import numpy as np
 import pytest
-from pygmt import read
+import xarray as xr
+from pygmt import read, which
+
+_HAS_NETCDF4 = bool(importlib.util.find_spec("netCDF4"))
+
+
+@pytest.mark.skipif(not _HAS_NETCDF4, reason="netCDF4 is not installed.")
+def test_read_grid():
+    """
+    Test that reading a grid returns an xr.DataArray and the grid is the same as the one
+    loaded via xarray.load_dataarray.
+    """
+    grid = read("@static_earth_relief.nc", kind="grid")
+    assert isinstance(grid, xr.DataArray)
+    expected_grid = xr.load_dataarray(which("@static_earth_relief.nc", download="a"))
+    assert np.allclose(grid, expected_grid)
 
 
 def test_read_invalid_kind():
