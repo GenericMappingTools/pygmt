@@ -331,6 +331,68 @@ def test_to_numpy_pandas_date(dtype, expected_dtype):
     )
 
 
+@pytest.mark.parametrize(
+    ("dtype", "expected_dtype"),
+    [
+        # NumPy datetime64 types. Only unit 's'/'ms'/'us'/'ns' are supported.
+        pytest.param("datetime64[s]", "datetime64[s]", id="datetime64[s]"),
+        pytest.param("datetime64[ms]", "datetime64[ms]", id="datetime64[ms]"),
+        pytest.param("datetime64[us]", "datetime64[us]", id="datetime64[us]"),
+        pytest.param("datetime64[ns]", "datetime64[ns]", id="datetime64[ns]"),
+        # pandas.DatetimeTZDtype can be given in two ways:
+        # 1. pandas.DatetimeTZDtype(unit, tz)
+        # 2. String aliases: "datetime64[unit, tz]"
+        pytest.param("datetime64[s, UTC]", "datetime64[s]", id="datetime64[s, tz=UTC]"),
+        pytest.param(
+            "datetime64[s, America/New_York]",
+            "datetime64[s]",
+            id="datetime64[s, tz=America/New_York]",
+        ),
+        pytest.param(
+            "datetime64[s, +07:30]", "datetime64[s]", id="datetime64[s, +07:30]"
+        ),
+        # PyArrow timestamp types can be given in two ways:
+        # 1. pd.ArrowDtype(pyarrow.Timestamp(unit, tz=tz))
+        # 2. String aliases: "timestamp[unit, tz][pyarrow]"
+        pytest.param(
+            "timestamp[s, UTC][pyarrow]",
+            "datetime64[s]",
+            id="timestamp[s, UTC][pyarrow]",
+            marks=skip_if_no(package="pyarrow"),
+        ),
+        pytest.param(
+            "timestamp[s, America/New_York][pyarrow]",
+            "datetime64[s]",
+            id="timestamp[s, America/New_York][pyarrow]",
+            marks=skip_if_no(package="pyarrow"),
+        ),
+        pytest.param(
+            "timestamp[s, +08:00][pyarrow]",
+            "datetime64[s]",
+            id="timestamp[s, +08:00][pyarrow]",
+            marks=skip_if_no(package="pyarrow"),
+        ),
+    ],
+)
+def test_to_numpy_pandas_datetime(dtype, expected_dtype):
+    """
+    Test the _to_numpy function with pandas.Series of datetime types.
+    """
+    series = pd.Series(
+        [pd.Timestamp("2024-01-02T03:04:05"), pd.Timestamp("2024-01-02T03:04:06")],
+        dtype=dtype,
+    )
+    result = _to_numpy(series)
+    _check_result(result, np.datetime64)
+    assert result.dtype == expected_dtype
+
+    if "," in str(dtype):  # A hacky solution to decide if the dtype is timezone-aware.
+        series = series.dt.tz_convert("UTC")  # Convert to UTC if timezone-aware.
+    expected_series = series.dt.strftime("%Y-%m-%dT%H:%M:%S").to_list()
+
+    npt.assert_array_equal(result, np.array(expected_series, dtype=expected_dtype))
+
+
 ########################################################################################
 # Test the _to_numpy function with PyArrow arrays.
 #
