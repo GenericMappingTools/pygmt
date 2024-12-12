@@ -425,14 +425,15 @@ def test_to_numpy_pandas_datetime(dtype, expected_dtype):
     _check_result(result, np.datetime64)
     assert result.dtype == expected_dtype
 
-    if "," in str(dtype):  # A hacky solution to decide if the dtype is timezone-aware.
+    # Convert to UTC if the dtype is timezone-aware
+    if "," in str(dtype):  # A hacky way to decide if the dtype is timezone-aware.
         if Version(pd.__version__) < Version("2.1") and dtype.startswith("timestamp"):
             # pandas 2.0 doesn't have the dt.tz_convert method for pyarrow.Timestamp.
             series = pd.to_datetime(series, utc=True)
         else:
-            series = series.dt.tz_convert("UTC")  # Convert to UTC if timezone-aware.
-    expected_series = series.dt.strftime("%Y-%m-%dT%H:%M:%S").to_list()
-
+            series = series.dt.tz_convert("UTC")
+    # Remove time zone information and preserve local time.
+    expected_series = series.dt.tz_localize(tz=None)
     npt.assert_array_equal(result, np.array(expected_series, dtype=expected_dtype))
 
 
