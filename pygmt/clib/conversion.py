@@ -194,10 +194,10 @@ def _to_numpy(data: Any) -> np.ndarray:
             data = data.to_numpy(na_value=np.nan)
 
     # Deal with timezone-aware datetime dtypes.
-    if getattr(dtype, "tz", None):  # pandas.DatetimeTZDtype
+    if isinstance(dtype, pd.DatetimeTZDtype):  # pandas.DatetimeTZDtype
         numpy_dtype = getattr(dtype, "base", None)
-    elif getattr(dtype, "pyarrow_dtype", None) and hasattr(dtype.pyarrow_dtype, "tz"):
-        # pd.ArrayDtype[pa.Timestamp]
+    elif isinstance(dtype, pd.ArrowDtype) and hasattr(dtype.pyarrow_dtype, "tz"):
+        # pd.ArrowDtype[pa.Timestamp]
         numpy_dtype = getattr(dtype, "numpy_dtype", None)
         if Version(pd.__version__) < Version("2.1"):
             # In pandas 2.0, dtype.numpy_type is dtype("O").
