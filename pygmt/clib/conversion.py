@@ -195,12 +195,7 @@ def _to_numpy(data: Any) -> np.ndarray:
 
     # Deal with timezone-aware datetime dtypes.
     if getattr(dtype, "tz", None):  # pandas.DatetimeTZDtype
-        if Version(pd.__version__) < Version("2.1"):
-            # Workaround for bug https://github.com/pandas-dev/pandas/issues/52705.
-            # Solution from https://github.com/pandas-dev/pandas/pull/52706.
-            numpy_dtype = np.dtype(f"M8[{dtype.unit}]")
-        else:
-            numpy_dtype = getattr(dtype, "base", None)
+        numpy_dtype = getattr(dtype, "base", None)
     elif getattr(getattr(dtype, "pyarrow_dtype", None), "tz", None):
         # pd.ArrayDtype[pa.Timestamp]
         numpy_dtype = getattr(dtype, "numpy_dtype", None)
