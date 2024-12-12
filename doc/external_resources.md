@@ -17,7 +17,7 @@ to submit a pull request with your recommended addition to the
 :text-align: center
 :margin: 0 3 0 0
 
-![](https://user-images.githubusercontent.com/TODO.png)
+![](https://private-user-images.githubusercontent.com/94163266/395280687-efdddffe-1748-4083-8d7b-528190444086.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MzQwMjc0NjMsIm5iZiI6MTczNDAyNzE2MywicGF0aCI6Ii85NDE2MzI2Ni8zOTUyODA2ODctZWZkZGRmZmUtMTc0OC00MDgzLThkN2ItNTI4MTkwNDQ0MDg2LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDEyMTIlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQxMjEyVDE4MTI0M1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTYwZmNlZTdmMjgyOThlZjU3OTkzYmY4ZWY5NjM4Y2QzNThkOTE0Nzg5MDBhMjNiODg3MmNjNzNhNWE1ZTc3YWMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.XS2FNcssU15X3yg6fCI2kg1QRP3XbdnkpEf4oQBlskw)
 +++
 Wei Ji Leong, Yvonne Fröhlich, Jing-Hui Tong, Federico Esteban, Max Jones, Andre Belem
 ::::
