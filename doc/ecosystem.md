@@ -80,7 +80,7 @@ PyGMT relies on [rioxarray][] in several aspects:
 3. To reproject raster tiles to the target CRS in {func}`pygmt.datasets.load_tile_map`.
 
 ```{note}
-We're working towards to get rid of temporary files when processing/plotting multi-band
+We're working towards avoiding temporary files when processing/plotting multi-band
 rasters in [PR #3468](https://github.com/GenericMappingTools/pygmt/pull/3468).
 ```
 
