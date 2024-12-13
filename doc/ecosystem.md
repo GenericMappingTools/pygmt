@@ -77,7 +77,7 @@ PyGMT relies on [rioxarray][] in several aspects:
 1. To save multi-band rasters to temporary files in GeoTIFF format, to support processing
    and plotting 3-D {class}`xarray.DataArray` images.
 2. To write CRS information to the {class}`xarray.DataArray` objects.
-3. To reproject raster tiles to the target CRS in {meth}`pygmt.Figure.tilemap`.
+3. To reproject raster tiles to the target CRS in {func}`pygmt.datasets.load_tile_map`.
 
 ```{note}
 We're working towards to get rid of temporary files when processing/plotting multi-band
