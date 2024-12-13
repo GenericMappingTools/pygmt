@@ -10,6 +10,8 @@ to submit a pull request with your recommended addition to the
 
 ## Tutorials
 
+:::::{grid} 1 2 2 3
+
 ::::{grid-item-card} 2024 PyGMT Webinar using Google Colab (in Portuguese)
 :link: https://github.com/andrebelem/Oficina_PyGMT
 :text-align: center
