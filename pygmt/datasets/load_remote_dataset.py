@@ -48,6 +48,7 @@ class GMTRemoteDataset(NamedTuple):
         A dictionary of extra or unique attributes of the dataset.
     """
 
+    kind: Literal["grid", "image"]
     description: str
     units: str | None
     resolutions: dict[str, Resolution]
@@ -56,6 +57,7 @@ class GMTRemoteDataset(NamedTuple):
 
 datasets = {
     "earth_age": GMTRemoteDataset(
+        kind="grid",
         description="EarthByte Earth seafloor crustal age",
         units="Myr",
         extra_attributes={"horizontal_datum": "WGS84"},
@@ -74,6 +76,7 @@ datasets = {
         },
     ),
     "earth_day": GMTRemoteDataset(
+        kind="image",
         description="NASA Day Images",
         units=None,
         extra_attributes={"long_name": "blue_marble", "horizontal_datum": "WGS84"},
@@ -93,6 +96,7 @@ datasets = {
         },
     ),
     "earth_faa": GMTRemoteDataset(
+        kind="grid",
         description="IGPP Earth free-air anomaly",
         units="mGal",
         extra_attributes={"horizontal_datum": "WGS84"},
@@ -111,6 +115,7 @@ datasets = {
         },
     ),
     "earth_gebco": GMTRemoteDataset(
+        kind="grid",
         description="GEBCO Earth relief",
         units="meters",
         extra_attributes={"vertical_datum": "EGM96", "horizontal_datum": "WGS84"},
@@ -133,6 +138,7 @@ datasets = {
         },
     ),
     "earth_geoid": GMTRemoteDataset(
+        kind="grid",
         description="EGM2008 Earth geoid",
         units="m",
         extra_attributes={"horizontal_datum": "WGS84"},
@@ -151,6 +157,7 @@ datasets = {
         },
     ),
     "earth_igpp": GMTRemoteDataset(
+        kind="grid",
         description="IGPP Earth relief",
         units="meters",
         extra_attributes={"vertical_datum": "EGM96", "horizontal_datum": "WGS84"},
@@ -173,6 +180,7 @@ datasets = {
         },
     ),
     "earth_mag": GMTRemoteDataset(
+        kind="grid",
         description="EMAG2 Earth Magnetic Anomaly Model",
         units="nT",
         extra_attributes={"horizontal_datum": "WGS84"},
@@ -190,6 +198,7 @@ datasets = {
         },
     ),
     "earth_mask": GMTRemoteDataset(
+        kind="grid",
         description="GSHHG Earth mask",
         units=None,
         extra_attributes={"horizontal_datum": "WGS84"},
@@ -210,6 +219,7 @@ datasets = {
         },
     ),
     "earth_night": GMTRemoteDataset(
+        kind="image",
         description="NASA Night Images",
         units=None,
         extra_attributes={"long_name": "black_marble", "horizontal_datum": "WGS84"},
@@ -229,6 +239,7 @@ datasets = {
         },
     ),
     "earth_vgg": GMTRemoteDataset(
+        kind="grid",
         description="IGPP Earth vertical gravity gradient",
         units="Eotvos",
         extra_attributes={"horizontal_datum": "WGS84"},
@@ -247,6 +258,7 @@ datasets = {
         },
     ),
     "earth_wdmam": GMTRemoteDataset(
+        kind="grid",
         description="WDMAM World Digital Magnetic Anomaly Map",
         units="nT",
         extra_attributes={"horizontal_datum": "WGS84"},
@@ -263,6 +275,7 @@ datasets = {
         },
     ),
     "mars_relief": GMTRemoteDataset(
+        kind="grid",
         description="NASA Mars (MOLA) relief",
         units="meters",
         extra_attributes={},
@@ -284,6 +297,7 @@ datasets = {
         },
     ),
     "moon_relief": GMTRemoteDataset(
+        kind="grid",
         description="USGS Moon (LOLA) relief",
         units="meters",
         extra_attributes={},
@@ -305,6 +319,7 @@ datasets = {
         },
     ),
     "mercury_relief": GMTRemoteDataset(
+        kind="grid",
         description="USGS Mercury relief",
         units="meters",
         extra_attributes={},
@@ -324,6 +339,7 @@ datasets = {
         },
     ),
     "pluto_relief": GMTRemoteDataset(
+        kind="grid",
         description="USGS Pluto relief",
         units="meters",
         extra_attributes={},
@@ -343,6 +359,7 @@ datasets = {
         },
     ),
     "venus_relief": GMTRemoteDataset(
+        kind="grid",
         description="NASA Magellan Venus relief",
         units="meters",
         extra_attributes={},
@@ -442,15 +459,16 @@ def _load_remote_dataset(
         raise GMTInvalidInput(msg)
 
     fname = f"@{prefix}_{resolution}_{reg}"
-    kind = "image" if name in {"earth_day", "earth_night"} else "grid"
-    kwdict = {"R": region, "T": {"grid": "g", "image": "i"}[kind]}
+    kwdict = {"R": region, "T": {"grid": "g", "image": "i"}[dataset.kind]}
     with Session() as lib:
-        with lib.virtualfile_out(kind=kind) as voutgrd:
+        with lib.virtualfile_out(kind=dataset.kind) as voutgrd:
             lib.call_module(
                 module="read",
                 args=[fname, voutgrd, *build_arg_list(kwdict)],
             )
-            grid = lib.virtualfile_to_raster(kind=kind, outgrid=None, vfname=voutgrd)
+            grid = lib.virtualfile_to_raster(
+                kind=dataset.kind, outgrid=None, vfname=voutgrd
+            )
 
     # Full path to the grid if not tiled grids.
     source = which(fname, download="a") if not resinfo.tiled else None
