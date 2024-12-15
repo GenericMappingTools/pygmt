@@ -14,7 +14,7 @@ dependencies:
     - packaging
     # Optional dependencies
     - contextily
-    - geopandas<1.0
+    - geopandas
     - ipython
     - pyarrow
     - rioxarray
@@ -25,7 +25,7 @@ dependencies:
     # Dev dependencies (building documentation)
     - myst-nb
     - panel
-    - sphinx
+    - sphinx>=6.2
     - sphinx-autodoc-typehints
     - sphinx-copybutton
     - sphinx-design

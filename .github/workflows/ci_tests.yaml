@@ -76,7 +76,7 @@ jobs:
             optional-packages: ' contextily geopandas<1 ipython pyarrow rioxarray sphinx-gallery'
           # Python 3.12 + core packages (latest versions) + optional packages
           - python-version: '3.12'
-            numpy-version: '2.1'
+            numpy-version: '2.2'
             pandas-version: ''
             xarray-version: ''
             optional-packages: ' contextily geopandas>=1.0 ipython pyarrow rioxarray sphinx-gallery'
@@ -113,7 +113,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v2.0.1
+        uses: mamba-org/setup-micromamba@v2.0.3
         with:
           environment-name: pygmt
           condarc: |
@@ -176,7 +176,7 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5.0.3
+        uses: codecov/codecov-action@v5.0.7
         if: success() || failure()
         with:
           use_oidc: true

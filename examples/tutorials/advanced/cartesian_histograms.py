@@ -79,9 +79,8 @@ fig.histogram(
     fill="red3",
     pen="1p,darkgray,solid",
     histtype=0,
-    # Use horizontal bars
-    # Please note the flip of the x and y axes regarding annotations, ticks, gridlines,
-    # and labels
+    # Use horizontal bars. Note that the x- and y-axis are flipped, with the x-axis
+    # plotted vertically and the y-axis plotted horizontally.
     horizontal=True,
 )
 
@@ -134,7 +133,7 @@ fig.show()
 # ----------------------------
 #
 # By default, a histogram showing the counts in each bin is created (``histtype=0``).
-# To show the frequency percent set the ``histtpye`` parameter to ``1``. For further
+# To show the frequency percent set the ``histtype`` parameter to ``1``. For further
 # options please have a look at the documentation of :meth:`pygmt.Figure.histogram`.
 
 fig = pygmt.Figure()
