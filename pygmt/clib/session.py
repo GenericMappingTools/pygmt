@@ -400,7 +400,9 @@ class Session:
         self._print_callback = print_func
 
         padding = self["GMT_PAD_DEFAULT"]
-        session_type = self["GMT_SESSION_EXTERNAL"]
+        # GMT_SESSION_EXTERNAL: GMT is called by an external wrapper.
+        # GMT_SESSION_NOGDALCLOSE: Do not call GDALDestroyDriverManager when using GDAL.
+        session_type = self["GMT_SESSION_EXTERNAL"] + self["GMT_SESSION_NOGDALCLOSE"]
         session = c_create_session(name.encode(), padding, session_type, print_func)
 
         if session is None:

@@ -456,18 +456,22 @@ def fmt_docstring(module_func):
         Select map :doc:`projection </projections/index>`.
     <BLANKLINE>
     **Aliases:**
+    .. hlist::
+       :columns: 3
     <BLANKLINE>
-    - J = projection
-    - R = region
+       - J = projection
+       - R = region
     <BLANKLINE>
     """  # noqa: D410,D411
     filler_text = {}
 
     if hasattr(module_func, "aliases"):
         aliases = ["**Aliases:**\n"]
+        aliases.append(".. hlist::")
+        aliases.append("   :columns: 3\n")
         for arg in sorted(module_func.aliases):
             alias = module_func.aliases[arg]
-            aliases.append(f"- {arg} = {alias}")
+            aliases.append(f"   - {arg} = {alias}")
         filler_text["aliases"] = "\n".join(aliases)
 
     filler_text["table-like"] = (
