@@ -38,8 +38,10 @@ class GMTRemoteDataset(NamedTuple):
 
     Attributes
     ----------
+    kind    
+        The kind of the dataset source. Valid values are ``"grid"`` and ``"image"``.
     description
-       The name assigned as an attribute to the DataArray.
+        The name assigned as an attribute to the DataArray.
     units
         The units of the values in the DataArray.
     resolutions
