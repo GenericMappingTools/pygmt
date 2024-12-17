@@ -195,6 +195,19 @@ Getting metadata from tabular or grid data:
     info
     grdinfo
 
+Enums
+-----
+
+.. currentmodule:: pygmt.enums
+
+.. autosummary::
+    :toctree: generated
+    :nosignatures:
+    :template: autosummary/enums.rst
+
+    GridFormat
+
+.. currentmodule:: pygmt
 
 Miscellaneous
 -------------
@@ -204,8 +217,6 @@ Miscellaneous
 
     which
     show_versions
-
-.. currentmodule:: pygmt
 
 Datasets
 --------
