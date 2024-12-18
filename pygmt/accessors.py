@@ -162,7 +162,8 @@ class GMTDataArrayAccessor:
     def registration(self, value):
         if value in {"gridline", "pixel"}:  # Support for string-type values
             value = GridReg[value.upper()]
-        if value not in GridReg:
+        # Can be simplified to `if value not in GridReg` after requiring Python 3.12+.
+        if value not in GridReg.__members__.values():
             msg = (
                 f"Invalid grid registration: {value}. "
                 "Should be either GridReg.GRIDLINE or GridReg.PIXEL."
@@ -182,7 +183,8 @@ class GMTDataArrayAccessor:
     def gtype(self, value):
         if value in {"cartesian", "geographic"}:  # Support for string-type values
             value = GridType[value.upper()]
-        if value not in GridType:
+        # Can be simplified to `if value not in GridType` after requiring Python 3.12+.
+        if value not in GridType.__members__.values():
             msg = (
                 f"Invalid grid coordinate system type: '{value}'. "
                 "Should be either GridType.CARTESIAN or GridType.GEOGRAPHIC."
