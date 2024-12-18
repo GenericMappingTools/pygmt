@@ -38,7 +38,7 @@ These are conference presentations about the development of PyGMT (previously "G
 	Presented at *AGU 2024*.
 	doi:[10.6084/m9.figshare.28049495](https://doi.org/10.6084/m9.figshare.28049495)
 
-    ![](_static/agu2024_talk.jpg){.align-center width="80%"}
+    ![](https://www.researchgate.net/publication/387127897/figure/fig1/AS:11431281298764520@1734548139508/Slide-1_W640.jpg){.align-center width="80%"}
 
 -   "Geospatial Analysis & Visualization with PyGMT".
     2022.
