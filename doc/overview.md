@@ -36,7 +36,7 @@ These are conference presentations about the development of PyGMT (previously "G
     2024.
 	Yvonne Fröhlich, Dongdong Tian, Wei Ji Leong, Max Jones, and Michael Grund.
 	Presented at *AGU 2024*.
-	doi:[upload_of_slides_coming_soon]()
+	doi:[10.6084/m9.figshare.28049495](https://doi.org/10.6084/m9.figshare.28049495)
 
     ![](_static/agu2024_talk.jpg){.align-center width="80%"}
 
