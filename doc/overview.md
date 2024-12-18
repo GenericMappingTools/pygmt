@@ -38,7 +38,7 @@ These are conference presentations about the development of PyGMT (previously "G
 	Presented at *AGU 2024*.
 	doi:[10.6084/m9.figshare.28049495](https://doi.org/10.6084/m9.figshare.28049495)
 
-    ![](https://s3-eu-west-1.amazonaws.com/pfigshare-u-previews/51279815/thumb.png){.align-center width="80%"}
+    ![](https://s3-eu-west-1.amazonaws.com/pfigshare-u-previews/51279815/thumb.png){.align-center width="50%"}
 
 -   "Geospatial Analysis & Visualization with PyGMT".
     2022.
@@ -46,7 +46,7 @@ These are conference presentations about the development of PyGMT (previously "G
     Presented at *SciPy 2022*.
     doi:[10.6084/m9.figshare.20483793](https://doi.org/10.6084/m9.figshare.20483793)
 
-    ![](https://s3-eu-west-1.amazonaws.com/pfigshare-u-previews/36664998/thumb.png){.align-center width="80%"}
+    ![](https://s3-eu-west-1.amazonaws.com/pfigshare-u-previews/36664998/thumb.png){.align-center width="50%"}
 
 -   "PyGMT: Accessing the Generic Mapping Tools from Python".
     2019.
@@ -54,7 +54,7 @@ These are conference presentations about the development of PyGMT (previously "G
     Presented at *AGU 2019*.
     doi:[10.6084/m9.figshare.11320280](https://doi.org/10.6084/m9.figshare.11320280)
 
-    ![](https://s3-eu-west-1.amazonaws.com/pfigshare-u-previews/20081594/thumb.png){.align-center width="80%"}
+    ![](https://s3-eu-west-1.amazonaws.com/pfigshare-u-previews/20081594/thumb.png){.align-center width="50%"}
 
 -   "Building an object-oriented Python interface for the Generic Mapping Tools".
     2018.
@@ -62,7 +62,7 @@ These are conference presentations about the development of PyGMT (previously "G
     Presented at *SciPy 2018*.
     doi:[10.6084/m9.figshare.6814052](https://doi.org/10.6084/m9.figshare.6814052)
 
-    ![](https://s3-eu-west-1.amazonaws.com/pfigshare-u-previews/12389807/thumb.png){.align-center width="80%"}
+    ![](https://s3-eu-west-1.amazonaws.com/pfigshare-u-previews/12389807/thumb.png){.align-center width="50%"}
 
 -   "Integrating the Generic Mapping Tools with the Scientific Python Ecosystem".
     2018.
@@ -70,7 +70,7 @@ These are conference presentations about the development of PyGMT (previously "G
     Presented at *AOGS Annual Meeting 2018*.
     doi:[10.6084/m9.figshare.6399944](https://doi.org/10.6084/m9.figshare.6399944)
 
-    ![](https://s3-eu-west-1.amazonaws.com/pfigshare-u-previews/11812445/thumb.png){.align-center width="80%"}
+    ![](https://s3-eu-west-1.amazonaws.com/pfigshare-u-previews/11812445/thumb.png){.align-center width="50%"}
 
 -   "Bringing the Generic Mapping Tools to Python".
     2017.
@@ -78,7 +78,7 @@ These are conference presentations about the development of PyGMT (previously "G
     Presented at *SciPy 2017*.
     doi:[10.6084/m9.figshare.7635833](https://doi.org/10.6084/m9.figshare.7635833)
 
-    ![](https://s3-eu-west-1.amazonaws.com/pfigshare-u-previews/14184932/thumb.png){.align-center width="80%"}
+    ![](https://s3-eu-west-1.amazonaws.com/pfigshare-u-previews/14184932/thumb.png){.align-center width="50%"}
 
 -   "A modern Python interface for the Generic Mapping Tools".
     2017.
@@ -86,4 +86,4 @@ These are conference presentations about the development of PyGMT (previously "G
     Presented at *AGU 2017*.
     doi:[10.6084/m9.figshare.5662411](https://doi.org/10.6084/m9.figshare.5662411)
 
-    ![](https://s3-eu-west-1.amazonaws.com/pfigshare-u-previews/9920755/thumb.png){.align-center width="80%"}
+    ![](https://s3-eu-west-1.amazonaws.com/pfigshare-u-previews/9920755/thumb.png){.align-center width="50%"}
