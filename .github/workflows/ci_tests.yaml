@@ -157,11 +157,17 @@ jobs:
         uses: astral-sh/setup-uv@v4.2.0
 
       - name: Install dvc
-        run: uv pip install dvc
+        run: |
+          uv venv
+          source .venv/bin/activate
+          uv pip install dvc
+          uv pip list
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
-        run: dvc pull --no-run-cache --verbose && ls -lhR pygmt/tests/baseline/
+        run: |
+          source .venv/bin/activate
+          uv run dvc pull --no-run-cache --verbose && ls -lhR pygmt/tests/baseline/
 
       # Install the package that we want to test
       - name: Install the package
