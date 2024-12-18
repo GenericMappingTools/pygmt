@@ -160,8 +160,6 @@ class GMTDataArrayAccessor:
 
     @registration.setter
     def registration(self, value):
-        if value in {"gridline", "pixel"}:  # Support for string-type values
-            value = GridReg[value.upper()]
         # Can be simplified to `if value not in GridReg` after requiring Python 3.12+.
         if value not in GridReg.__members__.values():
             msg = (
@@ -181,8 +179,6 @@ class GMTDataArrayAccessor:
 
     @gtype.setter
     def gtype(self, value):
-        if value in {"cartesian", "geographic"}:  # Support for string-type values
-            value = GridType[value.upper()]
         # Can be simplified to `if value not in GridType` after requiring Python 3.12+.
         if value not in GridType.__members__.values():
             msg = (
