@@ -1,5 +1,5 @@
 """
-scatter - Scatter plot.
+scatter - Plot scatter points.
 """
 
 from collections.abc import Sequence
@@ -7,10 +7,14 @@ from collections.abc import Sequence
 from pygmt.helpers import fmt_docstring, is_nonstr_iter
 
 
-def _parse_symbol_size(symbol, size):
+def _parse_symbol_size(
+    symbol: str | Sequence[str], size: float | str | Sequence[float | str]
+) -> str:
     """
-    Parse the symbol and size into a style string.
+    Parse the 'symbol' and 'size' parameter into GMT's style string.
 
+    Examples
+    --------
     >>> _parse_symbol_size("c", 0.2)
     'c0.2'
     >>> _parse_symbol_size("c", "0.2c")
@@ -43,25 +47,19 @@ def scatter(  # noqa: PLR0913
     """
     Plot scatter points.
 
-    It can plot data points with constant or varying symbols, sizes, colors, and
-    transparencies, and intensities.
-
-    The parameters ``symbol``, ``size``, ``fill``, ``intensity``, and
-    ``transparency`` can be a single scalar value or a sequence of values with the
-    same length as the number of data points. If a single value is given, it is
-    used for all data points. If a sequence is given, different values are used
-    for different data points.
+    It can plot data points with constant or varying symbols, sizes, colors,
+    transparencies, and intensities. The parameters ``symbol``, ``size``, ``fill``,
+    ``intensity``, and ``transparency`` can be a single scalar value or a sequence of
+    values with the same length as the number of data points. If a single value is
+    given, it is used for all data points. If a sequence is given, different values are
+    used for different data points.
 
     Parameters
     ----------
     x, y
         The data coordinates.
     symbol
-        The symbol(s) to use. It can be a single symbol string to use the same
-        symbol for all data points or a sequence of symbol strings to have
-        different symbols for different data points.
-
-        Valid symbols are:
+        The symbol(s) to use. Valid symbols are:
 
         - ``-``: X-dash (-)
         - ``+``: Plus
@@ -79,13 +77,16 @@ def scatter(  # noqa: PLR0913
         - ``y``: Y-dash (|)
     size
         The size(s) of the points.
+    fill
+        Set color or pattern for filling symbols [Default is no fill]. If ``cmap`` is
+        used, ``fill`` must be a sequence of values.
     intensity
         The intensity(ies) of the points.
     transparency
         The transparency(ies) of the points.
     cmap
-        The colormap to map scalar values in ``fill`` to colors. In this case,
-        ``fill`` must be a sequence of numbers.
+        The colormap to map scalar values in ``fill`` to colors. In this case, ``fill``
+        must be a sequence of values.
     pen
         The pen property of the symbol outline.
     no_clip
@@ -119,19 +120,18 @@ def scatter(  # noqa: PLR0913
     """
     self._preprocess()
 
-    # style is a combination of symbol and size, but only if they are string-like
-    style = _parse_symbol_size(symbol, size)
-    if not is_nonstr_iter(symbol):
-        symbol = None
-    if not is_nonstr_iter(size):
-        size = None
+    # Create GMT plot's "style" from "symbol" and "size".
+    _style = _parse_symbol_size(symbol, size)
+    # Set "symbol" and "size" to None if they're not sequences.
+    _symbol = symbol if is_nonstr_iter(symbol) else None
+    _size = size if is_nonstr_iter(size) else None
 
     self.plot(
         x=x,
         y=y,
-        style=style,
-        symbol=symbol,
-        size=size,
+        style=_style,
+        symbol=_symbol,
+        size=_size,
         fill=fill,
         intensity=intensity,
         transparency=transparency,
