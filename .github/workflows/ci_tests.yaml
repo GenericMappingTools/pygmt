@@ -133,7 +133,6 @@ jobs:
             xarray${{ matrix.xarray-version }}
             netCDF4
             packaging
-            dvc
             make
             pip
             python-build
