@@ -153,8 +153,13 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
 
-      - name: Setup data version control (DVC)
+      - name: Setup data version control (DVC) [Unix]
         run: python -m pip install dvc
+        if: runner.os != 'Windows'
+
+      - name: Setup data version control (DVC) [Windows]
+        run: choco install dvc
+        if: runner.os == 'Windows'
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
