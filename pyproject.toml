@@ -94,6 +94,7 @@ select = [
     "COM",  # flake8-commas
     "D",    # pydocstyle
     "E",    # pycodestyle
+    "EM",   # flake8-errmsg
     "EXE",  # flake8-executable
     "F",    # pyflakes
     "FA",   # flake8-future-annotations
@@ -117,8 +118,9 @@ select = [
     "S",    # flake8-bandit
     "SIM",  # flake8-simplify
     "T20",  # flake8-print
-    "TCH",  # flake8-type-checking
+    "TC",   # flake8-type-checking
     "TID",  # flake8-tidy-imports
+    "TRY",  # tryceratops
     "UP",   # pyupgrade
     "W",    # pycodestyle warnings
     "YTT",  # flake8-2020

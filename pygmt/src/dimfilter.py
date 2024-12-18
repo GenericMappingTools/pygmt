@@ -98,12 +98,12 @@ def dimfilter(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None
     spacing : str or list
         *x_inc* [and optionally *y_inc*] is the output increment. Append
         **m** to indicate minutes, or **c** to indicate seconds. If the new
-        *x_inc*, *y_inc* are NOT integer multiples of the old ones (in the
+        *x_inc*, *y_inc* are **not** integer multiples of the old ones (in the
         input data), filtering will be considerably slower. [Default is same
-        as input.]
+        as the input.]
     region : str or list
         [*xmin*, *xmax*, *ymin*, *ymax*].
-        Define the region of the output points [Default is same as input].
+        Define the region of the output points [Default is the same as the input].
     {verbose}
 
     Returns
@@ -112,7 +112,7 @@ def dimfilter(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
     Example
@@ -135,11 +135,11 @@ def dimfilter(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None
     ... )
     """
     if not all(arg in kwargs for arg in ["D", "F", "N"]) and "Q" not in kwargs:
-        raise GMTInvalidInput(
-            """At least one of the following parameters must be specified:
-            distance, filters, or sectors."""
+        msg = (
+            "At least one of the following parameters must be specified: "
+            "distance, filters, or sectors."
         )
-
+        raise GMTInvalidInput(msg)
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,

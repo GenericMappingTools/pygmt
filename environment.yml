@@ -27,7 +27,7 @@ dependencies:
     # Dev dependencies (style checks)
     - codespell
     - pre-commit
-    - ruff>=0.3.0
+    - ruff>=0.8.2
     # Dev dependencies (unit testing)
     - matplotlib-base
     - pytest>=6.0
@@ -37,7 +37,7 @@ dependencies:
     # Dev dependencies (building documentation)
     - myst-nb
     - panel
-    - sphinx
+    - sphinx>=6.2
     - sphinx-autodoc-typehints
     - sphinx-copybutton
     - sphinx-design
