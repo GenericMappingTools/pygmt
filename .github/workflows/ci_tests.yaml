@@ -158,7 +158,7 @@ jobs:
         if: runner.os != 'Windows'
 
       - name: Setup data version control (DVC) [Windows]
-        run: winget install --id Iterative.DVC
+        run: choco install dvc
         if: runner.os == 'Windows'
 
       # Pull baseline image data from dvc remote (DAGsHub)
