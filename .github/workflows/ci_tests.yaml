@@ -154,7 +154,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: Setup data version control (DVC)
-        uses: iterative/setup-dvc@v1.1.2
+        run: python -m pip install dvc
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
