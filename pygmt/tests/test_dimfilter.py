@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 import xarray as xr
 from pygmt import dimfilter, load_dataarray
-from pygmt.enums import GridReg, GridType
+from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
@@ -71,7 +71,7 @@ def test_dimfilter_no_outgrid(grid, expected_grid):
     )
     assert result.dims == ("lat", "lon")
     assert result.gmt.gtype == GridType.GEOGRAPHIC
-    assert result.gmt.registration == GridReg.PIXEL
+    assert result.gmt.registration == GridRegistration.PIXEL
     xr.testing.assert_allclose(a=result, b=expected_grid)
 
 

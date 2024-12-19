@@ -5,7 +5,7 @@ Test input/output (I/O) utilities.
 import numpy as np
 import pytest
 import xarray as xr
-from pygmt.enums import GridReg, GridType
+from pygmt.enums import GridRegistration, GridType
 from pygmt.helpers import GMTTempFile
 from pygmt.io import load_dataarray
 
@@ -24,7 +24,7 @@ def test_io_load_dataarray():
         grid.to_netcdf(tmpfile.name)
         dataarray = load_dataarray(tmpfile.name)
         assert dataarray.gmt.gtype == GridType.CARTESIAN
-        assert dataarray.gmt.registration == GridReg.PIXEL
+        assert dataarray.gmt.registration == GridRegistration.PIXEL
         # this would fail if we used xr.open_dataarray instead of load_dataarray
         dataarray.to_netcdf(tmpfile.name)
 

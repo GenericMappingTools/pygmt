@@ -5,7 +5,7 @@ Test basic functionality for loading Earth mask datasets.
 import numpy as np
 import numpy.testing as npt
 from pygmt.datasets import load_earth_mask
-from pygmt.enums import GridReg, GridType
+from pygmt.enums import GridRegistration, GridType
 
 
 def test_earth_mask_01d():
@@ -17,7 +17,7 @@ def test_earth_mask_01d():
     assert data.attrs["description"] == "GSHHG Earth mask"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
-    assert data.gmt.registration == GridReg.GRIDLINE
+    assert data.gmt.registration == GridRegistration.GRIDLINE
     assert data.gmt.gtype == GridType.GEOGRAPHIC
     assert data.dtype == "int8"
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
@@ -33,7 +33,7 @@ def test_earth_mask_01d_with_region():
     """
     data = load_earth_mask(resolution="01d", region=[-7, 4, 13, 19])
     assert data.shape == (7, 12)
-    assert data.gmt.registration == GridReg.GRIDLINE
+    assert data.gmt.registration == GridRegistration.GRIDLINE
     assert data.gmt.gtype == GridType.GEOGRAPHIC
     assert data.dtype == "int8"
     npt.assert_allclose(data.lat, np.arange(13, 20, 1))

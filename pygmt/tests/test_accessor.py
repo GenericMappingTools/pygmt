@@ -11,7 +11,7 @@ from packaging.version import Version
 from pygmt import which
 from pygmt.clib import __gmt_version__
 from pygmt.datasets import load_earth_relief
-from pygmt.enums import GridReg, GridType
+from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 
 
@@ -22,7 +22,7 @@ def test_accessor_gridline_cartesian():
     """
     fname = which(fname="@test.dat.nc", download="a")
     grid = xr.open_dataarray(fname, engine="netcdf4")
-    assert grid.gmt.registration == GridReg.GRIDLINE
+    assert grid.gmt.registration == GridRegistration.GRIDLINE
     assert grid.gmt.gtype == GridType.CARTESIAN
 
 
@@ -33,7 +33,7 @@ def test_accessor_pixel_geographic():
     """
     fname = which(fname="@earth_relief_01d_p", download="a")
     grid = xr.open_dataarray(fname, engine="netcdf4")
-    assert grid.gmt.registration == GridReg.PIXEL
+    assert grid.gmt.registration == GridRegistration.PIXEL
     assert grid.gmt.gtype == GridType.GEOGRAPHIC
 
 
@@ -42,23 +42,25 @@ def test_accessor_set_registration():
     Check that we can set the registration of a grid.
     """
     grid = xr.DataArray(data=[[0.1, 0.2], [0.3, 0.4]])
-    assert grid.gmt.registration == GridReg.GRIDLINE == 0  # Default registration
+    assert (
+        grid.gmt.registration == GridRegistration.GRIDLINE == 0
+    )  # Default registration
 
     # Set the registration to pixel
-    grid.gmt.registration = GridReg.PIXEL
-    assert grid.gmt.registration == GridReg.PIXEL == 1
+    grid.gmt.registration = GridRegistration.PIXEL
+    assert grid.gmt.registration == GridRegistration.PIXEL == 1
 
     # Set the registration to gridline
-    grid.gmt.registration = GridReg.GRIDLINE
-    assert grid.gmt.registration == GridReg.GRIDLINE == 0
+    grid.gmt.registration = GridRegistration.GRIDLINE
+    assert grid.gmt.registration == GridRegistration.GRIDLINE == 0
 
     # Set the registration to pixel but using a numerical value
     grid.gmt.registration = 1
-    assert grid.gmt.registration == GridReg.PIXEL == 1
+    assert grid.gmt.registration == GridRegistration.PIXEL == 1
 
     # Set the registration to gridline but using a numerical value
     grid.gmt.registration = 0
-    assert grid.gmt.registration == GridReg.GRIDLINE == 0
+    assert grid.gmt.registration == GridRegistration.GRIDLINE == 0
 
 
 @pytest.mark.benchmark
@@ -122,7 +124,7 @@ def test_accessor_sliced_datacube():
         with xr.open_dataset(fname) as dataset:
             grid = dataset.sel(level=500, month=1, drop=True).z
 
-        assert grid.gmt.registration == GridReg.GRIDLINE
+        assert grid.gmt.registration == GridRegistration.GRIDLINE
         assert grid.gmt.gtype == GridType.GEOGRAPHIC
     finally:
         Path(fname).unlink()
@@ -138,7 +140,7 @@ def test_accessor_grid_source_file_not_exist():
         resolution="05m", region=[0, 5, -5, 5], registration="pixel"
     )
     # Registration and gtype are correct.
-    assert grid.gmt.registration == GridReg.PIXEL
+    assert grid.gmt.registration == GridRegistration.PIXEL
     assert grid.gmt.gtype == GridType.GEOGRAPHIC
     # The source grid file is undefined.
     assert grid.encoding.get("source") is None
@@ -146,11 +148,11 @@ def test_accessor_grid_source_file_not_exist():
     # For a sliced grid, fallback to default registration and gtype, because the source
     # grid file doesn't exist.
     sliced_grid = grid[1:3, 1:3]
-    assert sliced_grid.gmt.registration == GridReg.GRIDLINE
+    assert sliced_grid.gmt.registration == GridRegistration.GRIDLINE
     assert sliced_grid.gmt.gtype == GridType.CARTESIAN
 
     # Still possible to manually set registration and gtype.
-    sliced_grid.gmt.registration = GridReg.PIXEL
+    sliced_grid.gmt.registration = GridRegistration.PIXEL
     sliced_grid.gmt.gtype = GridType.GEOGRAPHIC
-    assert sliced_grid.gmt.registration == GridReg.PIXEL
+    assert sliced_grid.gmt.registration == GridRegistration.PIXEL
     assert sliced_grid.gmt.gtype == GridType.GEOGRAPHIC

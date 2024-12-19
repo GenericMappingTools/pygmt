@@ -6,7 +6,7 @@ import contextlib
 from pathlib import Path
 
 import xarray as xr
-from pygmt.enums import GridReg, GridType
+from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.src.grdinfo import grdinfo
 
@@ -22,8 +22,8 @@ class GMTDataArrayAccessor:
 
     The *gmt* accessor contains following properties:
 
-    - ``registration``: Grid registration type, either ``GridReg.GRIDLINE`` or
-      ``GridReg.PIXEL``.
+    - ``registration``: Grid registration type, either ``GridRegistration.GRIDLINE`` or
+      ``GridRegistration.PIXEL``.
     - ``gtype``: Grid coordinate system type, either ``GridType.CARTESIAN`` or
       ``GridType.GEOGRAPHIC``.
 
@@ -47,20 +47,20 @@ class GMTDataArrayAccessor:
     >>> grid = load_earth_relief(resolution="01d", registration="pixel")
     >>> # See if grid is Gridline or Pixel registration
     >>> grid.gmt.registration
-    <GridReg.PIXEL: 1>
+    <GridRegistration.PIXEL: 1>
     >>> # See if grid is in Cartesian or Geographic coordinate system
     >>> grid.gmt.gtype
     <GridType.GEOGRAPHIC: 1>
 
     For :class:`xarray.DataArray` grids created by yourself, ``registration`` and
-    ``gtype`` default to ``GridReg.GRIDLINE`` and ``GridType.CARTESIAN`` (i.e., a
-    gridline-registered, Cartesian grid). You need to set the correct properties before
-    passing it to PyGMT functions:
+    ``gtype`` default to ``GridRegistration.GRIDLINE`` and ``GridType.CARTESIAN`` (i.e.,
+    a gridline-registered, Cartesian grid). You need to set the correct properties
+    before passing it to PyGMT functions:
 
     >>> import numpy as np
     >>> import xarray as xr
     >>> import pygmt
-    >>> from pygmt.enums import GridReg, GridType
+    >>> from pygmt.enums import GridRegistration, GridType
     >>> # Create a DataArray in gridline coordinates of sin(lon) * cos(lat)
     >>> interval = 2.5
     >>> lat = np.arange(90, -90 - interval, -interval)
@@ -70,14 +70,14 @@ class GMTDataArrayAccessor:
     >>> grid = xr.DataArray(data, coords=[("latitude", lat), ("longitude", lon)])
     >>> # Default to a gridline-registrated Cartesian grid
     >>> grid.gmt.registration
-    <GridReg.GRIDLINE: 0>
+    <GridRegistration.GRIDLINE: 0>
     >>> grid.gmt.gtype
     <GridType.CARTESIAN: 0>
     >>> # Manually set it to a gridline-registered geographic grid
-    >>> grid.gmt.registration = GridReg.GRIDLINE
+    >>> grid.gmt.registration = GridRegistration.GRIDLINE
     >>> grid.gmt.gtype = GridType.GEOGRAPHIC
     >>> grid.gmt.registration
-    <GridReg.GRIDLINE: 0>
+    <GridRegistration.GRIDLINE: 0>
     >>> grid.gmt.gtype
     <GridType.GEOGRAPHIC: 1>
 
@@ -89,7 +89,7 @@ class GMTDataArrayAccessor:
 
     >>> grid *= 2.0
     >>> grid.gmt.registration
-    <GridReg.GRIDLINE: 0>
+    <GridRegistration.GRIDLINE: 0>
     >>> grid.gmt.gtype
     <GridType.GEOGRAPHIC: 1>
 
@@ -100,14 +100,14 @@ class GMTDataArrayAccessor:
     >>> grid2 = grid[0:30, 50:80]
     >>> # Properties are reset to the default values for new instance
     >>> grid2.gmt.registration
-    <GridReg.GRIDLINE: 0>
+    <GridRegistration.GRIDLINE: 0>
     >>> grid2.gmt.gtype
     <GridType.CARTESIAN: 0>
     >>> # Need to set these properties before passing the grid to PyGMT
     >>> grid2.gmt.registration = grid.gmt.registration
     >>> grid2.gmt.gtype = grid.gmt.gtype
     >>> grid2.gmt.registration
-    <GridReg.GRIDLINE: 0>
+    <GridRegistration.GRIDLINE: 0>
     >>> grid2.gmt.gtype
     <GridType.GEOGRAPHIC: 1>
 
@@ -117,29 +117,29 @@ class GMTDataArrayAccessor:
 
     >>> ds = xr.Dataset({"zval": grid})
     >>> ds.zval.gmt.registration
-    <GridReg.GRIDLINE: 0>
+    <GridRegistration.GRIDLINE: 0>
     >>> ds.zval.gmt.gtype
     <GridType.CARTESIAN: 0>
     >>> # Manually set these properties won't work as expected
-    >>> ds.zval.gmt.registration = GridReg.GRIDLINE
+    >>> ds.zval.gmt.registration = GridRegistration.GRIDLINE
     >>> ds.zval.gmt.gtype = GridType.GEOGRAPHIC
     >>> ds.zval.gmt.registration, ds.zval.gmt.gtype
-    (<GridReg.GRIDLINE: 0>, <GridType.CARTESIAN: 0>)
+    (<GridRegistration.GRIDLINE: 0>, <GridType.CARTESIAN: 0>)
     >>> # workaround: assign the DataArray into a variable
     >>> zval = ds.zval
     >>> zval.gmt.registration, zval.gmt.gtype
-    (<GridReg.GRIDLINE: 0>, <GridType.CARTESIAN: 0>)
-    >>> zval.gmt.registration = GridReg.GRIDLINE
+    (<GridRegistration.GRIDLINE: 0>, <GridType.CARTESIAN: 0>)
+    >>> zval.gmt.registration = GridRegistration.GRIDLINE
     >>> zval.gmt.gtype = GridType.GEOGRAPHIC
     >>> zval.gmt.registration, zval.gmt.gtype
-    (<GridReg.GRIDLINE: 0>, <GridType.GEOGRAPHIC: 1>)
+    (<GridRegistration.GRIDLINE: 0>, <GridType.GEOGRAPHIC: 1>)
     """
 
     def __init__(self, xarray_obj):
         self._obj = xarray_obj
 
         # Default to Gridline registration and Cartesian grid type
-        self._registration = GridReg.GRIDLINE
+        self._registration = GridRegistration.GRIDLINE
         self._gtype = GridType.CARTESIAN
 
         # If the source file exists, get grid registration and grid type from the last
@@ -153,21 +153,22 @@ class GMTDataArrayAccessor:
     @property
     def registration(self):
         """
-        Registration type of the grid, either ``GridReg.GRIDLINE`` or
-        ``GridReg.PIXEL``.
+        Registration type of the grid, either ``GridRegistration.GRIDLINE`` or
+        ``GridRegistration.PIXEL``.
         """
         return self._registration
 
     @registration.setter
     def registration(self, value):
-        # Can be simplified to `if value not in GridReg` after requiring Python 3.12+.
-        if value not in GridReg.__members__.values():
+        # Can be simplified to `if value not in GridRegistration` after requiring
+        # Python 3.12+.
+        if value not in GridRegistration.__members__.values():
             msg = (
                 f"Invalid grid registration: {value}. "
-                "Should be either GridReg.GRIDLINE or GridReg.PIXEL."
+                "Should be either GridRegistration.GRIDLINE or GridRegistration.PIXEL."
             )
             raise GMTInvalidInput(msg)
-        self._registration = GridReg(value)
+        self._registration = GridRegistration(value)
 
     @property
     def gtype(self):

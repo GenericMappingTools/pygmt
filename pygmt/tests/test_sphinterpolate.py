@@ -8,7 +8,7 @@ import numpy.testing as npt
 import pytest
 from pygmt import sphinterpolate
 from pygmt.datasets import load_sample_data
-from pygmt.enums import GridReg, GridType
+from pygmt.enums import GridRegistration, GridType
 from pygmt.helpers import GMTTempFile
 
 
@@ -38,7 +38,7 @@ def test_sphinterpolate_no_outgrid(mars):
     temp_grid = sphinterpolate(data=mars, spacing=1, region="g")
     assert temp_grid.dims == ("lat", "lon")
     assert temp_grid.gmt.gtype == GridType.GEOGRAPHIC
-    assert temp_grid.gmt.registration == GridReg.GRIDLINE
+    assert temp_grid.gmt.registration == GridRegistration.GRIDLINE
     npt.assert_allclose(temp_grid.max(), 14628.144)
     npt.assert_allclose(temp_grid.min(), -6908.1987)
     npt.assert_allclose(temp_grid.median(), 118.96849)
