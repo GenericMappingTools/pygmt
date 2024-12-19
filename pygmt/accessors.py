@@ -20,10 +20,8 @@ class GMTDataArrayAccessor:
     properties for grids, which are important for PyGMT to correctly process and plot
     the grids. The *gmt* accessor contains the following properties:
 
-    - ``registration``: Grid registration type, either ``GridRegistration.GRIDLINE`` or
-      ``GridRegistration.PIXEL``.
-    - ``gtype``: Grid coordinate system type, either ``GridType.CARTESIAN`` or
-      ``GridType.GEOGRAPHIC``.
+    - ``registration``: Grid registration type :class:`pygmt.enums.GridRegistration`.
+    - ``gtype``: Grid coordinate system type :class:`pygmt.enums.GridType`.
 
     Examples
     --------
