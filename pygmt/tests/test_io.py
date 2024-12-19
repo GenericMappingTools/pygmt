@@ -8,6 +8,8 @@ import xarray as xr
 from pygmt.helpers import GMTTempFile
 from pygmt.io import load_dataarray
 
+pytest.importorskip("netCDF4")
+
 
 @pytest.mark.benchmark
 def test_io_load_dataarray():
