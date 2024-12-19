@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 import xarray as xr
-from pygmt import grdsample, load_dataarray
+from pygmt import grdsample, read
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -66,7 +66,7 @@ def test_grdsample_file_out(grid, expected_grid, region, spacing):
         )
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
-        temp_grid = load_dataarray(tmpfile.name)
+        temp_grid = read(tmpfile.name, kind="grid")
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
