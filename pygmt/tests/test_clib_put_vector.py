@@ -126,7 +126,7 @@ def test_put_vector_string_dtype():
             "2021-02-03T00:00:00",
             "2021-02-03T04:00:00",
             "2021-02-03T04:05:06",
-            f"{datetime.datetime.now(tz=datetime.timezone.utc).strftime('%Y-%m-%d')}T04:50:06",
+            f"{datetime.datetime.now(tz=datetime.UTC).strftime('%Y-%m-%d')}T04:50:06",
         ],
     ]
 
