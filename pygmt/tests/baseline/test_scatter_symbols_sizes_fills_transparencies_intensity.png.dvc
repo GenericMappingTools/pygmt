@@ -1,0 +1,5 @@
+outs:
+- md5: 488eec9d3ef156993a82cc2a66125a67
+  size: 20879
+  hash: md5
+  path: test_scatter_symbols_sizes_fills_transparencies_intensity.png
