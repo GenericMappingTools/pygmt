@@ -205,7 +205,8 @@ Enums
     :nosignatures:
     :template: autosummary/enums.rst
 
-    GridFormat
+    GridReg
+    GridType
 
 .. currentmodule:: pygmt
 
