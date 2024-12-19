@@ -18,7 +18,7 @@ class GMTDataArrayAccessor:
 
     The *gmt* accessor extends :class:`xarray.DataArray` to store GMT-specific
     properties for grids, which are important for PyGMT to correctly process and plot
-    the grids. The *gmt* accessor contains following properties:
+    the grids. The *gmt* accessor contains the following properties:
 
     - ``registration``: Grid registration type, either ``GridRegistration.GRIDLINE`` or
       ``GridRegistration.PIXEL``.
