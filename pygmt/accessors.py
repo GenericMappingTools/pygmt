@@ -18,24 +18,12 @@ class GMTDataArrayAccessor:
 
     The *gmt* accessor extends :class:`xarray.DataArray` to store GMT-specific
     properties for grids, which are important for PyGMT to correctly process and plot
-    the grids.
-
-    The *gmt* accessor contains following properties:
+    the grids. The *gmt* accessor contains following properties:
 
     - ``registration``: Grid registration type, either ``GridRegistration.GRIDLINE`` or
       ``GridRegistration.PIXEL``.
     - ``gtype``: Grid coordinate system type, either ``GridType.CARTESIAN`` or
       ``GridType.GEOGRAPHIC``.
-
-    and can be accessed like ``grid.gmt.registration`` and ``grid.gmt.gtype``.
-
-    Notes
-    -----
-    Due to the limitations of xarray accessors, the GMT accessors are created once per
-    :class:`xarray.DataArray` instance. You may lose these GMT-specific properties when
-    manipulating grids (e.g., arithmetic and slice operations) or when accessing a
-    :class:`xarray.DataArray` from a :class:`xarray.Dataset`. In these cases, you need
-    to manually set these properties before passing the grid to PyGMT.
 
     Examples
     --------
@@ -81,8 +69,13 @@ class GMTDataArrayAccessor:
     >>> grid.gmt.gtype
     <GridType.GEOGRAPHIC: 1>
 
-    Note that the accessors are created once per :class:`xarray.DataArray` instance, so
-    you may lose these GMT-specific properties after manipulating your grid.
+    Notes
+    -----
+    Due to the limitations of xarray accessors, the GMT accessors are created once per
+    :class:`xarray.DataArray` instance. You may lose these GMT-specific properties when
+    manipulating grids (e.g., arithmetic and slice operations) or when accessing a
+    :class:`xarray.DataArray` from a :class:`xarray.Dataset`. In these cases, you need
+    to manually set these properties before passing the grid to PyGMT.
 
     Inplace assignment operators like ``*=`` don't create new instances, so the
     properties are still kept:
