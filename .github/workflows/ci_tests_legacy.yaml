@@ -70,7 +70,7 @@ jobs:
             contextily
             geopandas
             ipython
-            pyarrow
+            pyarrow-core
             rioxarray
             sphinx-gallery
             make
