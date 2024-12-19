@@ -70,7 +70,6 @@ def scatter(  # noqa: PLR0913
         - ``h``: Hexagon
         - ``i``: Inverted triangle
         - ``n``: Pentagon
-        - ``p``: Point
         - ``s``: Square
         - ``t``: Triangle
         - ``x``: Cross
