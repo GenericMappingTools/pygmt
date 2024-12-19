@@ -70,7 +70,7 @@ jobs:
         include:
           # Python 3.11 + core packages (minimum supported versions) + optional packages (minimum supported versions if any)
           - python-version: '3.11'
-            numpy-version: '1.24'
+            numpy-version: '1.25'
             pandas-version: '=2.0'
             xarray-version: '=2023.04'
             optional-packages: ' contextily geopandas<1 ipython pyarrow rioxarray sphinx-gallery'
