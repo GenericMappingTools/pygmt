@@ -39,7 +39,7 @@ def scatter(  # noqa: PLR0913
     fill: str | Sequence[float] | None = None,
     intensity: float | Sequence[float] | None = None,
     transparency: float | Sequence[float] | None = None,
-    cmap: str | None = None,
+    cmap: str | bool | None = None,
     pen: str | float | None = None,
     no_clip: bool = False,
     perspective=None,
@@ -77,8 +77,8 @@ def scatter(  # noqa: PLR0913
     size
         The size(s) of the points.
     fill
-        Set color or pattern for filling symbols [Default is no fill]. If ``cmap`` is
-        used, ``fill`` must be a sequence of values.
+        Set color or pattern for filling symbols [Default is no fill]. If a sequence of
+        values is given, ``cmap`` must be specified.
     intensity
         The intensity(ies) of the points.
     transparency
