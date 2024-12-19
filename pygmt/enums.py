@@ -39,7 +39,7 @@ class GridFormat(IntEnum):
     EF = 24  #: ESRI Arc/Info ASCII Grid Interchange format (ASCII float)
 
 
-class GridReg(IntEnum):
+class GridRegistration(IntEnum):
     """
     Enum for the grid registration.
     """
