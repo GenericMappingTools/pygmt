@@ -60,7 +60,7 @@ jobs:
             contextily
             geopandas
             ipython
-            pyarrow
+            pyarrow-core
             rioxarray
             make
             pip

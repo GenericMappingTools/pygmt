@@ -65,7 +65,7 @@ jobs:
             netCDF4
             packaging
             geopandas
-            pyarrow
+            pyarrow-core
             pytest
             pytest-codspeed
             pytest-mpl
