@@ -126,6 +126,10 @@ def scatter(  # noqa: PLR0913
     _symbol = symbol if is_nonstr_iter(symbol) else None
     _size = size if is_nonstr_iter(size) else None
 
+    # Set "cmap" to True if "fill" is a sequence of values.
+    if is_nonstr_iter(fill) and cmap is None:
+        cmap = True
+
     self.plot(
         x=x,
         y=y,
