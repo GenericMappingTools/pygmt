@@ -17,7 +17,7 @@ to submit a pull request with your recommended addition to the
 :text-align: center
 :margin: 0 3 0 0
 
-![](https://user-images.githubusercontent.com/TODO.png)
+![](https://github.com/user-attachments/assets/f92e1391-78f4-41bc-8ed8-5df1f59b8362)
 +++
 Wei Ji Leong, Yvonne Fröhlich, Jing-Hui Tong, Federico Esteban, Max Jones, Andre Belem
 ::::
