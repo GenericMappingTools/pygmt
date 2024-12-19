@@ -79,7 +79,7 @@ jobs:
             numpy-version: '2.2'
             pandas-version: ''
             xarray-version: ''
-            optional-packages: ' contextily geopandas>=1.0 ipython pyarrow rioxarray sphinx-gallery'
+            optional-packages: ' contextily geopandas>=1.0 ipython pyarrow-core rioxarray sphinx-gallery'
           # Python 3.12 + core packages (Linux only)
           - os: 'ubuntu-latest'
             python-version: '3.12'
