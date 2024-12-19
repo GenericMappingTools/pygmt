@@ -8,6 +8,7 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import surface, which
+from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
@@ -72,8 +73,8 @@ def check_values(grid, expected_grid):
     Check the attributes and values of the DataArray returned by surface.
     """
     assert isinstance(grid, xr.DataArray)
-    assert grid.gmt.registration == 0  # Gridline registration
-    assert grid.gmt.gtype == 0  # Cartesian type
+    assert grid.gmt.registration == GridRegistration.GRIDLINE
+    assert grid.gmt.gtype == GridType.CARTESIAN
     xr.testing.assert_allclose(a=grid, b=expected_grid)
 
 
