@@ -17,7 +17,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=a51cd8ab" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=845ca4e4" />
 
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
@@ -28,7 +28,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=aa3fe5bf"></script>
+        <script src="../../../_static/documentation_options.js?v=91b82557"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -89,7 +89,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../get_started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../intro/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -98,12 +98,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ecosystem.html">Ecosystem</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -251,13 +252,13 @@
         <span class="k">return</span> <span class="n">codes1</span><span class="p">[</span><span class="n">convention</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">convention</span> <span class="ow">in</span> <span class="n">codes2</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">component</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">codes2</span><span class="p">[</span><span class="n">convention</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Invalid component &#39;</span><span class="si">{</span><span class="n">component</span><span class="si">}</span><span class="s2">&#39; for convention &#39;</span><span class="si">{</span><span class="n">convention</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
-            <span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Invalid component &#39;</span><span class="si">{</span><span class="n">component</span><span class="si">}</span><span class="s2">&#39; for convention &#39;</span><span class="si">{</span><span class="n">convention</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">codes2</span><span class="p">[</span><span class="n">convention</span><span class="p">][</span><span class="n">component</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">convention</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">}:</span>
         <span class="k">return</span> <span class="n">convention</span>
-    <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid convention &#39;</span><span class="si">{</span><span class="n">convention</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Invalid convention &#39;</span><span class="si">{</span><span class="n">convention</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+    <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">convention_name</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
@@ -387,7 +388,7 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    spec : str, 1-D array, 2-D array, dict, or pd.DataFrame</span>
+<span class="sd">    spec : str, 1-D array, 2-D array, dict, or :class:`pandas.DataFrame`</span>
 <span class="sd">        Data that contain focal mechanism parameters.</span>
 
 <span class="sd">        ``spec`` can be specified in either of the following types:</span>
@@ -410,9 +411,10 @@
 <span class="sd">          The meanings of columns are the same as above.</span>
 <span class="sd">        - *2-D array*: focal mechanism parameters of multiple events.</span>
 <span class="sd">          The meanings of columns are the same as above.</span>
-<span class="sd">        - *dictionary or pd.DataFrame*: The dictionary keys or pd.DataFrame</span>
-<span class="sd">          column names determine the focal mechanism convention. For</span>
-<span class="sd">          different conventions, the following combination of keys are allowed:</span>
+<span class="sd">        - *dictionary or :class:`pandas.DataFrame`*: The dictionary keys or</span>
+<span class="sd">          :class:`pandas.DataFrame` column names determine the focal mechanism</span>
+<span class="sd">          convention. For different conventions, the following combination of</span>
+<span class="sd">          keys are allowed:</span>
 
 <span class="sd">          - ``&quot;aki&quot;``: *strike, dip, rake, magnitude*</span>
 <span class="sd">          - ``&quot;gcmt&quot;``: *strike1, dip1, rake1, strike2, dip2, rake2, mantissa,*</span>
@@ -425,13 +427,13 @@
 <span class="sd">          A dictionary may contain values for a single focal mechanism or</span>
 <span class="sd">          lists of values for multiple focal mechanisms.</span>
 
-<span class="sd">          Both dictionary and pd.DataFrame may optionally contain</span>
+<span class="sd">          Both dictionary and :class:`pandas.DataFrame` may optionally contain</span>
 <span class="sd">          keys/column names: ``latitude``, ``longitude``, ``depth``,</span>
 <span class="sd">          ``plot_longitude``, ``plot_latitude``, and/or ``event_name``.</span>
 
 <span class="sd">        If ``spec`` is either a str, a 1-D array or a 2-D array, the</span>
 <span class="sd">        ``convention`` parameter is required so we know how to interpret the</span>
-<span class="sd">        columns. If ``spec`` is a dictionary or a pd.DataFrame,</span>
+<span class="sd">        columns. If ``spec`` is a dictionary or a :class:`pandas.DataFrame`,</span>
 <span class="sd">        ``convention`` is not needed and is ignored if specified.</span>
 <span class="sd">    scale : float or str</span>
 <span class="sd">        *scale*\ [**+a**\ *angle*][**+f**\ *font*][**+j**\ *justify*]\</span>
@@ -459,7 +461,7 @@
 <span class="sd">        - ``&quot;partial&quot;`` (partial focal mechanism)</span>
 <span class="sd">        - ``&quot;principal_axis&quot;`` (principal axis)</span>
 
-<span class="sd">        Ignored if ``spec`` is a dictionary or pd.DataFrame.</span>
+<span class="sd">        Ignored if ``spec`` is a dictionary or :class:`pandas.DataFrame`.</span>
 <span class="sd">    component : str</span>
 <span class="sd">        The component of the seismic moment tensor to plot.</span>
 
@@ -470,28 +472,28 @@
 <span class="sd">    longitude : float, list, or 1-D numpy array</span>
 <span class="sd">        Longitude(s) of event location(s). Must be the same length as the</span>
 <span class="sd">        number of events. Will override the ``longitude`` values</span>
-<span class="sd">        in ``spec`` if ``spec`` is a dictionary or pd.DataFrame.</span>
+<span class="sd">        in ``spec`` if ``spec`` is a dictionary or :class:`pandas.DataFrame`.</span>
 <span class="sd">    latitude : float, list, or 1-D numpy array</span>
 <span class="sd">        Latitude(s) of event location(s). Must be the same length as the</span>
 <span class="sd">        number of events. Will override the ``latitude`` values</span>
-<span class="sd">        in ``spec`` if ``spec`` is a dictionary or pd.DataFrame.</span>
+<span class="sd">        in ``spec`` if ``spec`` is a dictionary or :class:`pandas.DataFrame`.</span>
 <span class="sd">    depth : float, list, or 1-D numpy array</span>
 <span class="sd">        Depth(s) of event location(s) in kilometers. Must be the same length</span>
 <span class="sd">        as the number of events. Will override the ``depth`` values in ``spec``</span>
-<span class="sd">        if ``spec`` is a dictionary or pd.DataFrame.</span>
+<span class="sd">        if ``spec`` is a dictionary or :class:`pandas.DataFrame`.</span>
 <span class="sd">    plot_longitude : float, str, list, or 1-D numpy array</span>
 <span class="sd">        Longitude(s) at which to place beachball(s). Must be the same length</span>
 <span class="sd">        as the number of events. Will override the ``plot_longitude`` values</span>
-<span class="sd">        in ``spec`` if ``spec`` is a dictionary or pd.DataFrame.</span>
+<span class="sd">        in ``spec`` if ``spec`` is a dictionary or :class:`pandas.DataFrame`.</span>
 <span class="sd">    plot_latitude : float, str, list, or 1-D numpy array</span>
 <span class="sd">        Latitude(s) at which to place beachball(s). List must be the same</span>
 <span class="sd">        length as the number of events. Will override the ``plot_latitude``</span>
-<span class="sd">        values in ``spec`` if ``spec`` is a dictionary or pd.DataFrame.</span>
+<span class="sd">        values in ``spec`` if ``spec`` is a dictionary or :class:`pandas.DataFrame`.</span>
 <span class="sd">    event_name : str, list of str, or 1-D numpy array</span>
 <span class="sd">        Text string(s), e.g., event name(s) to appear near the beachball(s).</span>
 <span class="sd">        List must be the same length as the number of events. Will override</span>
 <span class="sd">        the ``event_name`` labels in ``spec`` if ``spec`` is a dictionary</span>
-<span class="sd">        or pd.DataFrame.</span>
+<span class="sd">        or :class:`pandas.DataFrame`.</span>
 <span class="sd">    labelbox : bool or str</span>
 <span class="sd">        [*fill*].</span>
 <span class="sd">        Draw a box behind the label if given. Use *fill* to give a fill color</span>
@@ -583,7 +585,8 @@
             <span class="p">)</span>
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>  <span class="c1"># spec is a numpy array</span>
         <span class="k">if</span> <span class="n">convention</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;&#39;convention&#39; must be specified for an array input.&quot;</span><span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;&#39;convention&#39; must be specified for an array input.&quot;</span>
+            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="c1"># make sure convention is a name, not a code</span>
         <span class="n">convention</span> <span class="o">=</span> <span class="n">convention_name</span><span class="p">(</span><span class="n">convention</span><span class="p">)</span>
 
@@ -601,9 +604,10 @@
         <span class="k">elif</span> <span class="n">ncolsdiff</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
             <span class="n">colnames</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;plot_longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;plot_latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;event_name&quot;</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;Input array must have </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">colnames</span><span class="p">)</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">colnames</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="si">}</span><span class="s2"> columns.&quot;</span>
             <span class="p">)</span>
+            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="n">spec</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">colnames</span>
 
     <span class="c1"># Now spec is a pd.DataFrame or a file</span>
@@ -662,15 +666,15 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8fab7c3d">8fab7c3d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 05, 2024.
+      <span class="lastupdated">Last updated on Dec 18, 2024.
       </span></p>
   </div>
 
   
 <p>
-Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
 using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
 provided by <a href="https://readthedocs.org">Read the Docs</a>
 </p>

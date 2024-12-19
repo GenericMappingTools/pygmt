@@ -10,5 +10,7 @@ visit the {gmt-docs}`GMT Technical Reference <reference.html>`.
 
 projections.md
 fonts.md
+patterns.md
 encodings.md
+environment_variables.md
 ```
