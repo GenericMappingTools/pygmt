@@ -42,9 +42,8 @@ def test_accessor_set_registration():
     Check that we can set the registration of a grid.
     """
     grid = xr.DataArray(data=[[0.1, 0.2], [0.3, 0.4]])
-    assert (
-        grid.gmt.registration == GridRegistration.GRIDLINE == 0
-    )  # Default registration
+    # Default to gridline registration
+    assert grid.gmt.registration == GridRegistration.GRIDLINE == 0
 
     # Set the registration to pixel
     grid.gmt.registration = GridRegistration.PIXEL

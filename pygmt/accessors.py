@@ -164,7 +164,7 @@ class GMTDataArrayAccessor:
         # Python 3.12+.
         if value not in GridRegistration.__members__.values():
             msg = (
-                f"Invalid grid registration: {value}. "
+                f"Invalid grid registration: '{value}'. "
                 "Should be either GridRegistration.GRIDLINE or GridRegistration.PIXEL."
             )
             raise GMTInvalidInput(msg)
