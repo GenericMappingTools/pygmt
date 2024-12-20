@@ -78,15 +78,6 @@ class _FocalMechanismConvention:
     """
     Class to handle focal mechanism convention, code, and associated parameters.
 
-    Attributes
-    ----------
-    convention
-        The focal mechanism convention.
-    params
-        List of parameters associated with the focal mechanism convention.
-    code
-        The single-letter code that can be used in meca/coupe's -S option.
-
     Examples
     --------
     >>> from pygmt.src._common import _FocalMechanismConvention
