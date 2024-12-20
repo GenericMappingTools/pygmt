@@ -8,7 +8,7 @@ import numpy as np
 import numpy.testing as npt
 import pytest
 import xarray as xr
-from pygmt import nearneighbor
+from pygmt import nearneighbor, read
 from pygmt.datasets import load_sample_data
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
@@ -81,7 +81,8 @@ def test_nearneighbor_with_outgrid_param(ship_data):
         )
         assert output is None  # check that output is None since outgrid is set
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
-        with xr.open_dataarray(tmpfile.name) as grid:
-            assert isinstance(grid, xr.DataArray)  # ensure netCDF grid loads ok
-            assert grid.shape == (121, 121)
-            npt.assert_allclose(grid.mean(), -2378.2385)
+
+        grid = read(tmpfile.name, kind="grid")
+        assert isinstance(grid, xr.DataArray)  # ensure netCDF grid loads ok
+        assert grid.shape == (121, 121)
+        npt.assert_allclose(grid.mean(), -2378.2385)

@@ -56,7 +56,6 @@ jobs:
             numpy
             pandas
             xarray
-            netCDF4
             packaging
             python-build
 
