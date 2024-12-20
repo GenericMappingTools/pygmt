@@ -3,6 +3,7 @@ Common functions used in multiple PyGMT functions/methods.
 """
 
 from collections.abc import Sequence
+from enum import StrEnum
 from pathlib import Path
 from typing import Any, ClassVar, Literal
 
@@ -43,29 +44,31 @@ def _data_geometry_is_point(data: Any, kind: str) -> bool:
     return False
 
 
+class _ConventionCode(StrEnum):
+    """
+    Enum to handle focal mechanism convention codes.
+    """
+
+    AKI_DC = "a"
+    AKI_DEVIATORIC = "a"
+    AKI_FULL = "a"
+    GCMT_DC = "c"
+    GCMT_DEVIATORIC = "c"
+    GCMT_FULL = "c"
+    PARTIAL_DC = "p"
+    PARTIAL_DEVIATORIC = "p"
+    PARTIAL_FULL = "p"
+    MT_DC = "d"
+    MT_DEVIATORIC = "z"
+    MT_FULL = "m"
+    PRINCIPAL_AXIS_DC = "y"
+    PRINCIPAL_AXIS_DEVIATORIC = "t"
+    PRINCIPAL_AXIS_FULL = "x"
+
+
 class _FocalMechanismConvention:
     """
     Class to handle focal mechanism convention, code, and associated parameters.
-
-    Parameters
-    ----------
-    convention
-        The focal mechanism convention. Valid values are:
-
-        - ``"aki"``: Aki and Richards convention.
-        - ``"gcmt"``: Global CMT (Centroid Moment Tensor) convention.
-        - ``"partial"``: Partial focal mechanism convention.
-        - ``"mt"``: Moment Tensor convention.
-        - ``"principal_axis"``: Principal axis convention.
-    component
-        The component of the seismic moment tensor to plot. Valid values are:
-
-        - ``"full"``: the full tensor seismic moment tensor
-        - ``"dc"``: the closest double coupe defined from the moment tensor (zero trace
-          and zero determinant)
-        - ``"deviatoric"``: deviatoric part of the moment tensor (zero trace)
-
-        Only valid for conventions ``"mt"`` and ``"principal_axis"``.
 
     Attributes
     ----------
@@ -81,80 +84,50 @@ class _FocalMechanismConvention:
     >>> from pygmt.src._common import _FocalMechanismConvention
 
     >>> conv = _FocalMechanismConvention("aki")
-    >>> conv.convention, conv.code
-    ('aki', 'a')
+    >>> conv.code
+    <_ConventionCode.AKI_DC: 'a'>
     >>> conv.params
     ['strike', 'dip', 'rake', 'magnitude']
 
-    >>> conv = _FocalMechanismConvention("gcmt")
-    >>> conv.convention, conv.code
-    ('gcmt', 'c')
-    >>> conv.params
-    ['strike1', 'dip1', 'rake1', 'strike2', 'dip2', 'rake2', 'mantissa', 'exponent']
-
-    >>> conv = _FocalMechanismConvention("partial")
-    >>> conv.convention, conv.code
-    ('partial', 'p')
-    >>> conv.params
-    ['strike1', 'dip1', 'strike2', 'fault_type', 'magnitude']
-
-    >>> conv = _FocalMechanismConvention("mt", component="dc")
-    >>> conv.convention, conv.code
-    ('mt', 'd')
+    >>> conv = _FocalMechanismConvention("mt")
+    >>> conv.code
+    <_ConventionCode.MT_FULL: 'm'>
     >>> conv.params
     ['mrr', 'mtt', 'mff', 'mrt', 'mrf', 'mtf', 'exponent']
 
-    >>> conv = _FocalMechanismConvention("principal_axis", component="deviatoric")
-    >>> conv.convention, conv.code
-    ('principal_axis', 't')
+    >>> conv = _FocalMechanismConvention("mt", component="dc")
+    >>> conv.code
+    <_ConventionCode.MT_DC: 'd'>
+    >>> conv.params
+    ['mrr', 'mtt', 'mff', 'mrt', 'mrf', 'mtf', 'exponent']
 
     >>> conv = _FocalMechanismConvention("a")
-    >>> conv.convention, conv.code
-    ('aki', 'a')
+    >>> conv.code
+    <_ConventionCode.AKI_DC: 'a'>
+    >>> conv.params
+    ['strike', 'dip', 'rake', 'magnitude']
 
     >>> conv = _FocalMechanismConvention.from_params(
     ...     ["strike", "dip", "rake", "magnitude"]
     ... )
-    >>> conv.convention, conv.code
-    ('aki', 'a')
+    >>> conv.code
+    <_ConventionCode.AKI_DC: 'a'>
 
     >>> conv = _FocalMechanismConvention(convention="invalid")
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Invalid focal mechanism convention 'invalid'.
+    pygmt.exceptions.GMTInvalidInput: Invalid focal mechanism ...'.
 
     >>> conv = _FocalMechanismConvention("mt", component="invalid")
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Invalid component 'invalid' for ... 'mt'.
+    pygmt.exceptions.GMTInvalidInput: Invalid focal mechanism ...'.
 
     >>> _FocalMechanismConvention.from_params(["strike", "dip", "rake"])
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Fail to determine ...
+    pygmt.exceptions.GMTInvalidInput: Fail to determine focal mechanism convention...
     """
-
-    # Mapping of focal mechanism conventions to their single-letter codes.
-    _conventions: ClassVar = {
-        "aki": "a",
-        "gcmt": "c",
-        "partial": "p",
-        "mt": {"full": "m", "deviatoric": "z", "dc": "d"},
-        "principal_axis": {"full": "x", "deviatoric": "t", "dc": "y"},
-    }
-
-    # Mapping of single-letter codes to focal mechanism convention names
-    _codes: ClassVar = {
-        "a": "aki",
-        "c": "gcmt",
-        "p": "partial",
-        "m": "mt",
-        "z": "mt",
-        "d": "mt",
-        "x": "principal_axis",
-        "t": "principal_axis",
-        "y": "principal_axis",
-    }
 
     # Mapping of focal mechanism conventions to their parameters.
     _params: ClassVar = {
@@ -191,36 +164,63 @@ class _FocalMechanismConvention:
         component: Literal["full", "deviatoric", "dc"] = "full",
     ):
         """
-        Initialize the FocalMechanismConvention object.
+        Initialize the FocalMechanismConvention object from convention and component.
+
+        If the convention is specified via a single-letter code, the convention and
+        component are determined from the code.
+
+        Parameters
+        ----------
+        convention
+            The focal mechanism convention. Valid values are:
+
+            - ``"aki"``: Aki and Richards convention.
+            - ``"gcmt"``: Global CMT (Centroid Moment Tensor) convention.
+            - ``"partial"``: Partial focal mechanism convention.
+            - ``"mt"``: Moment Tensor convention.
+            - ``"principal_axis"``: Principal axis convention.
+        component
+            The component of the seismic moment tensor to plot. Valid values are:
+
+            - ``"full"``: the full tensor seismic moment tensor
+            - ``"dc"``: the closest double coupe defined from the moment tensor (zero
+              trace and zero determinant)
+            - ``"deviatoric"``: deviatoric part of the moment tensor (zero trace)
+
+            Doesn't apply to conventions ``"aki"``, ``"gcmt"``, and ``"partial"``.
         """
-        if convention in self._conventions:
-            # Convention is given via 'convention' and 'component' parameters.
-            if component not in {"full", "deviatoric", "dc"}:
+        if convention in _ConventionCode.__members__.values():
+            # 'convention' is specified via the actual single-letter convention code.
+            self.code = _ConventionCode(convention)
+            # Parse the convention from the convention code name.
+            self._convention = "_".join(self.code.name.split("_")[:-1]).lower()
+        else:
+            # Convention is specified via 'convention' and 'component'.
+            name = f"{convention.upper()}_{component.upper()}"  # e.g., "AKI_DC"
+            if name not in _ConventionCode.__members__:
                 msg = (
-                    f"Invalid component '{component}' for focal mechanism convention "
-                    f"'{convention}'."
+                    "Invalid focal mechanism convention with "
+                    f"convention='{convention}' and component='{component}'."
                 )
                 raise GMTInvalidInput(msg)
+            self.code = _ConventionCode[name]
+            self._convention = convention
 
-            self.convention = convention
-            self.code = self._conventions[convention]
-            if isinstance(self.code, dict):
-                self.code = self.code[component]
-        elif convention in self._codes:
-            # Convention is given as a single-letter code.
-            self.code = convention
-            self.convention = self._codes[convention]
-        else:
-            msg = f"Invalid focal mechanism convention '{convention}'."
-            raise GMTInvalidInput(msg)
-        self.params = self._params[self.convention]
+    @property
+    def params(self):
+        """
+        The parameters associated with the focal mechanism convention.
+        """
+        return self._params[self._convention]
 
-    @staticmethod
+    @classmethod
     def from_params(
-        params: Sequence[str], component: Literal["full", "deviatoric", "dc"] = "full"
+        cls,
+        params: Sequence[str],
+        component: Literal["full", "deviatoric", "dc"] = "full",
     ) -> "_FocalMechanismConvention":
         """
-        Create a FocalMechanismConvention object from a sequence of parameters.
+        Create a _FocalMechanismConvention object from a sequence of parameters.
 
         The method checks if the given parameters are a superset of a known focal
         mechanism convention to determine the convention. If the parameters are not
@@ -235,16 +235,19 @@ class _FocalMechanismConvention:
         Returns
         -------
         _FocalMechanismConvention
-            The FocalMechanismConvention object.
+            The _FocalMechanismConvention object.
 
         Raises
         ------
         GMTInvalidInput
             If the focal mechanism convention cannot be determined from the given
-            parameters
+            parameters.
         """
-        for convention, param_list in _FocalMechanismConvention._params.items():
+        for convention, param_list in cls._params.items():
             if set(param_list).issubset(set(params)):
-                return _FocalMechanismConvention(convention, component=component)
-        msg = "Fail to determine focal mechanism convention from the data column names."
+                return cls(convention, component=component)
+        msg = (
+            "Fail to determine focal mechanism convention from the given parameters: "
+            f"{', '.join(params)}."
+        )
         raise GMTInvalidInput(msg)
