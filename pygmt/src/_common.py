@@ -47,6 +47,14 @@ def _data_geometry_is_point(data: Any, kind: str) -> bool:
 class _ConventionCode(StrEnum):
     """
     Enum to handle focal mechanism convention codes.
+
+    The enum names are in the format of ``CONVENTION_COMPONENT``, where ``CONVENTION``
+    is the focal mechanism convention and ``COMPONENT`` is the component of the seismic
+    moment tensor to plot. The enum values are the single-letter codes that can be used
+    in meca/coupe's -S option.
+
+    For some conventions, ``COMPONENT`` is not applicable, but we still define the enums
+    to simplify the code logic.
     """
 
     AKI_DC = "a"
