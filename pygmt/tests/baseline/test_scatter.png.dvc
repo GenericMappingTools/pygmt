@@ -1,0 +1,5 @@
+outs:
+- md5: 5705688b5f45ec842980b94bec239b02
+  size: 20703
+  hash: md5
+  path: test_scatter.png
