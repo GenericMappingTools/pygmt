@@ -2,6 +2,7 @@
 Internal function to load GMT remote datasets.
 """
 
+import contextlib
 from collections.abc import Sequence
 from typing import Any, Literal, NamedTuple
 
@@ -10,6 +11,10 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, kwargs_to_strings
 from pygmt.src import which
+
+with contextlib.suppress(ImportError):
+    # rioxarray is needed to register the rio accessor
+    import rioxarray  # noqa: F401
 
 
 class Resolution(NamedTuple):
@@ -46,12 +51,15 @@ class GMTRemoteDataset(NamedTuple):
         Dictionary of available resolution as keys and Resolution objects as values.
     extra_attributes
         A dictionary of extra or unique attributes of the dataset.
+    crs
+        The coordinate reference system of the raster image.
     """
 
     description: str
     units: str | None
     resolutions: dict[str, Resolution]
     extra_attributes: dict[str, Any]
+    crs: str | None = None
 
 
 datasets = {
@@ -76,6 +84,7 @@ datasets = {
     "earth_day": GMTRemoteDataset(
         description="NASA Day Images",
         units=None,
+        crs="OGC:CRS84",
         extra_attributes={"long_name": "blue_marble", "horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution("01d", registrations=["pixel"]),
@@ -212,6 +221,7 @@ datasets = {
     "earth_night": GMTRemoteDataset(
         description="NASA Night Images",
         units=None,
+        crs="OGC:CRS84",
         extra_attributes={"long_name": "black_marble", "horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution("01d", registrations=["pixel"]),
@@ -469,4 +479,9 @@ def _load_remote_dataset(
     grid.attrs.pop("actual_range", None)
     for coord in grid.coords:
         grid[coord].attrs.pop("actual_range", None)
+
+    # For images, if rioxarray is installed, set the coordinate reference system.
+    if dataset.crs is not None and hasattr(grid, "rio"):
+        grid = grid.rio.write_crs(input_crs=dataset.crs)
+
     return grid
