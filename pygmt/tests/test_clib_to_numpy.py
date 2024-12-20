@@ -284,7 +284,7 @@ def test_to_numpy_pandas_numeric_with_na(dtype, expected_dtype):
         "string[python]",
         pytest.param("string[pyarrow]", marks=skip_if_no(package="pyarrow")),
         pytest.param(
-            pd.StringDtype(storage="pyarrow"),
+            pd.StringDtype(storage="pyarrow", na_value=np.nan),
             marks=[
                 skip_if_no(package="pyarrow"),
                 pytest.mark.skipif(
