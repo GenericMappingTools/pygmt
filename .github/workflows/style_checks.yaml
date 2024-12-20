@@ -55,8 +55,8 @@ jobs:
 
       - name: Ensure hyphens are not used in names of directories and Python files
         run: |
-          git ls-files '*.py' | grep '-' > output.txt
-          git ls-tree -rd --name-only main | grep '-' >> output.txt
+          git ls-files '*.py' | grep '-' > output.txt || true
+          git ls-tree -rd --name-only main | grep '-' >> output.txt || true
           nfiles=$(wc --lines output.txt | awk '{print $1}')
           if [[ $nfiles > 0 ]]; then
             echo "Following directories/files use hyphens in file names:"
