@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 import xarray as xr
 from pygmt import grdsample, load_dataarray
+from pygmt.enums import GridRegistration, GridType
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -78,8 +79,8 @@ def test_grdsample_dataarray_out(grid, expected_grid, region, spacing):
     result = grdsample(grid=grid, spacing=spacing, region=region, cores=2)
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
-    assert result.gmt.gtype == 1  # Geographic grid
-    assert result.gmt.registration == 1  # Pixel registration
+    assert result.gmt.gtype == GridType.GEOGRAPHIC
+    assert result.gmt.registration == GridRegistration.PIXEL
     # check information of the output grid
     xr.testing.assert_allclose(a=result, b=expected_grid)
 
@@ -88,8 +89,8 @@ def test_grdsample_registration_changes(grid):
     """
     Test grdsample with no set outgrid and applying registration changes.
     """
-    assert grid.gmt.registration == 1  # Pixel registration
+    assert grid.gmt.registration == GridRegistration.PIXEL
     translated_grid = grdsample(grid=grid, translate=True)
-    assert translated_grid.gmt.registration == 0  # Gridline registration
+    assert translated_grid.gmt.registration == GridRegistration.GRIDLINE
     registration_grid = grdsample(grid=translated_grid, registration="p")
-    assert registration_grid.gmt.registration == 1  # Pixel registration
+    assert registration_grid.gmt.registration == GridRegistration.PIXEL
