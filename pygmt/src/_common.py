@@ -44,14 +44,14 @@ def _data_geometry_is_point(data: Any, kind: str) -> bool:
     return False
 
 
-class _ConventionCode(StrEnum):
+class _FocalMechanismConventionCode(StrEnum):
     """
     Enum to handle focal mechanism convention codes.
 
     The enum names are in the format of ``CONVENTION_COMPONENT``, where ``CONVENTION``
     is the focal mechanism convention and ``COMPONENT`` is the component of the seismic
     moment tensor to plot. The enum values are the single-letter codes that can be used
-    in meca/coupe's -S option.
+    in meca/coupe's ``-S`` option.
 
     For some conventions, ``COMPONENT`` is not applicable, but we still define the enums
     to simplify the code logic.
@@ -84,25 +84,25 @@ class _FocalMechanismConvention:
 
     >>> conv = _FocalMechanismConvention("aki")
     >>> conv.code
-    <_ConventionCode.AKI_DC: 'a'>
+    <_FocalMechanismConventionCode.AKI_DC: 'a'>
     >>> conv.params
     ['strike', 'dip', 'rake', 'magnitude']
 
     >>> conv = _FocalMechanismConvention("mt")
     >>> conv.code
-    <_ConventionCode.MT_FULL: 'm'>
+    <_FocalMechanismConventionCode.MT_FULL: 'm'>
     >>> conv.params
     ['mrr', 'mtt', 'mff', 'mrt', 'mrf', 'mtf', 'exponent']
 
     >>> conv = _FocalMechanismConvention("mt", component="dc")
     >>> conv.code
-    <_ConventionCode.MT_DC: 'd'>
+    <_FocalMechanismConventionCode.MT_DC: 'd'>
     >>> conv.params
     ['mrr', 'mtt', 'mff', 'mrt', 'mrf', 'mtf', 'exponent']
 
     >>> conv = _FocalMechanismConvention("a")
     >>> conv.code
-    <_ConventionCode.AKI_DC: 'a'>
+    <_FocalMechanismConventionCode.AKI_DC: 'a'>
     >>> conv.params
     ['strike', 'dip', 'rake', 'magnitude']
 
@@ -110,7 +110,7 @@ class _FocalMechanismConvention:
     ...     ["strike", "dip", "rake", "magnitude"]
     ... )
     >>> conv.code
-    <_ConventionCode.AKI_DC: 'a'>
+    <_FocalMechanismConventionCode.AKI_DC: 'a'>
 
     >>> conv = _FocalMechanismConvention(convention="invalid")
     Traceback (most recent call last):
@@ -163,7 +163,7 @@ class _FocalMechanismConvention:
         component: Literal["full", "deviatoric", "dc"] = "full",
     ):
         """
-        Initialize the FocalMechanismConvention object from convention and component.
+        Initialize the _FocalMechanismConvention object from convention and component.
 
         If the convention is specified via a single-letter code, the convention and
         component are determined from the code.
@@ -188,21 +188,23 @@ class _FocalMechanismConvention:
 
             Doesn't apply to conventions ``"aki"``, ``"gcmt"``, and ``"partial"``.
         """
-        if convention in _ConventionCode.__members__.values():
-            # 'convention' is specified via the actual single-letter convention code.
-            self.code = _ConventionCode(convention)
+        # TODO: Simplify to "convention in _FocalMechanismConventionCode" after
+        # requiring Python>=3.12.
+        if convention in _FocalMechanismConventionCode.__members__.values():
+            # Convention is specified via the actual single-letter convention code.
+            self.code = _FocalMechanismConventionCode(convention)
             # Parse the convention from the convention code name.
             self._convention = "_".join(self.code.name.split("_")[:-1]).lower()
         else:
             # Convention is specified via 'convention' and 'component'.
             name = f"{convention.upper()}_{component.upper()}"  # e.g., "AKI_DC"
-            if name not in _ConventionCode.__members__:
+            if name not in _FocalMechanismConventionCode.__members__:
                 msg = (
                     "Invalid focal mechanism convention with "
                     f"convention='{convention}' and component='{component}'."
                 )
                 raise GMTInvalidInput(msg)
-            self.code = _ConventionCode[name]
+            self.code = _FocalMechanismConventionCode[name]
             self._convention = convention
 
     @property
