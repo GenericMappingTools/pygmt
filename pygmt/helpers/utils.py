@@ -145,9 +145,12 @@ def _validate_data_input(
                     raise GMTInvalidInput(msg)
 
 
-def _is_ascii(argstr: str) -> bool:
+def _is_printable_ascii(argstr: str) -> bool:
     """
-    Check if a string only contains ASCII characters.
+    Check if a string only contains printable ASCII characters.
+
+    Printable ASCII characters are defined as the characters in the range of 32 to 126
+    in the ASCII table.
 
     Parameters
     ----------
@@ -156,13 +159,14 @@ def _is_ascii(argstr: str) -> bool:
 
     Returns
     -------
-    ``True`` if the string only contains ASCII characters. Otherwise, return ``False``.
+    ``True`` if the string only contains printable ASCII characters. Otherwise, return
+    ``False``.
 
     Examples
     --------
-    >>> _is_ascii("123ABC+-?!")
+    >>> _is_printable_ascii("123ABC+-?!")
     True
-    >>> _is_ascii("12AB±β①②")
+    >>> _is_printable_ascii("12AB±β①②")
     False
     """
     return all(32 <= ord(c) <= 126 for c in argstr)
@@ -176,7 +180,7 @@ def _has_apostrophe_or_backtick(argstr: str) -> bool:
     right single quotation marks (‘ and ’) in Adobe ISOLatin1+ encoding. To ensure what
     you type is what you get (https://github.com/GenericMappingTools/pygmt/issues/3476),
     they need special handling in the ``_check_encoding`` and ``non_ascii_to_octal``
-    functions. More specifically, a string that contains ASCII characters without
+    functions. More specifically, a string that contains printable ASCII characters with
     apostrophe (') and backtick (`) will not be considered as "ascii" encoding.
 
     Parameters
@@ -235,9 +239,9 @@ def _check_encoding(argstr: str) -> Encoding:
     >>> _check_encoding("123AB中文")  # Characters not in any charset encoding
     'ISOLatin1+'
     """
-    # Return "ascii" if the string only contains ASCII characters, excluding apostrophe
-    # (') and backtick (`).
-    if _is_ascii(argstr) and not _has_apostrophe_or_backtick(argstr):
+    # Return "ascii" if the string only contains printable ASCII characters, excluding
+    # apostrophe (') and backtick (`).
+    if _is_printable_ascii(argstr) and not _has_apostrophe_or_backtick(argstr):
         return "ascii"
     # Loop through all supported encodings and check if all characters in the string
     # are in the charset of the encoding. If all characters are in the charset, return
@@ -435,10 +439,10 @@ def non_ascii_to_octal(argstr: str, encoding: Encoding = "ISOLatin1+") -> str:
     >>> non_ascii_to_octal("'‘’\"“”")
     '\\234\\140\\047"\\216\\217'
     """  # noqa: RUF002
-    # Return the input string if it only contains ASCII characters, excluding apostrophe
-    # (') and backtick (`).
+    # Return the input string if it only contains printable ASCII characters, excluding
+    # apostrophe (') and backtick (`).
     if encoding == "ascii" or (
-        _is_ascii(argstr) and not _has_apostrophe_or_backtick(argstr)
+        _is_printable_ascii(argstr) and not _has_apostrophe_or_backtick(argstr)
     ):
         return argstr
 
