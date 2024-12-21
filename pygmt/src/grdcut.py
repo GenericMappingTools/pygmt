@@ -52,9 +52,10 @@ def grdcut(
     ----------
     {grid}
     kind
-        The raster data kind. Valid values are ``grid`` and ``image``. When the input
-        ``grid`` is a file name, it's hard to determine if the file is a grid or an
-        image, so we need to specify the kind explicitly. The default is ``grid``.
+        The raster data kind. Valid values are ``"grid"`` and ``"image"``. When the
+        input ``grid`` is a file name, it's difficult to determine if the file is a grid
+        or an image, so we need to specify the raster kind explicitly. The default is
+        ``"grid"``.
     {outgrid}
     {projection}
     {region}
@@ -107,9 +108,13 @@ def grdcut(
     >>> # 12° E to 15° E and a latitude range of 21° N to 24° N
     >>> new_grid = pygmt.grdcut(grid=grid, region=[12, 15, 21, 24])
     """
+    if kind not in {"grid", "image"}:
+        msg = f"Invalid raster kind: '{kind}'. Valid values are 'grid' and 'image'."
+        raise GMTInvalidInput(msg)
+
     # Determine the output data kind based on the input data kind.
     match inkind := data_kind(grid):
-        case "image" | "grid":
+        case "grid" | "image":
             outkind = inkind
         case "file":
             outkind = kind
