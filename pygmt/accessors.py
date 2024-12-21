@@ -144,14 +144,13 @@ class GMTDataArrayAccessor:
     @property
     def registration(self):
         """
-        Registration type of the grid, either ``GridRegistration.GRIDLINE`` or
-        ``GridRegistration.PIXEL``.
+        Grid registration type :class:`pygmt.enums.GridRegistration`.
         """
         return self._registration
 
     @registration.setter
     def registration(self, value):
-        # Can be simplified to `if value not in GridRegistration` after requiring
+        # TODO: Simplify to `if value not in GridRegistration` after requiring
         # Python 3.12+.
         if value not in GridRegistration.__members__.values():
             msg = (
@@ -164,14 +163,13 @@ class GMTDataArrayAccessor:
     @property
     def gtype(self):
         """
-        Coordinate system type of the grid, either ``GridType.CARTESIAN`` or
-        ``GridType.GEOGRAPHIC``.
+        Grid coordinate system type :class:`pygmt.enums.GridType`.
         """
         return self._gtype
 
     @gtype.setter
     def gtype(self, value):
-        # Can be simplified to `if value not in GridType` after requiring Python 3.12+.
+        # TODO: Simplify to `if value not in GridType` after requiring Python 3.12+..
         if value not in GridType.__members__.values():
             msg = (
                 f"Invalid grid coordinate system type: '{value}'. "
