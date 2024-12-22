@@ -62,13 +62,13 @@ def load_earth_dist(
     arc-minutes (i.e., ``"05m"``).
     registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
-    ``"gridline"`` for gridline registration.
+        ``"gridline"`` for gridline registration.
 
     Returns
     -------
     grid
         The GSHHG Earth distance to shoreline grid. Coordinates are latitude and
-    longitude in degrees. Units are in XXX.
+        longitude in degrees. Distances are in kilometers.
 
     Note
     ----

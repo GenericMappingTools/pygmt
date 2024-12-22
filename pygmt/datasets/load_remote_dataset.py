@@ -94,7 +94,7 @@ datasets = {
     ),
     "earth_dist": GMTRemoteDataset(
         description="GSHHG Earth distance to shoreline",
-        units="XXX",
+        units="km",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution("01d"),
