@@ -54,7 +54,7 @@ def load_earth_dist(
     ----------
     resolution
         The grid resolution. The suffix ``d`` and ``m`` stand for arc-degrees and
-    arc-minutes.
+        arc-minutes.
     region
         The subregion of the grid to load, in the form of a sequence
     [*xmin*, *xmax*, *ymin*, *ymax*]
