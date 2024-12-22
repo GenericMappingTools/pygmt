@@ -17,7 +17,7 @@ to submit a pull request with your recommended addition to the
 :text-align: center
 :margin: 0 3 0 0
 
-![](https://github.com/user-attachments/assets/b86fd4c1-c5dd-4d51-a7fe-362d86cc01b0)
+![](https://github.com/user-attachments/assets/9f3ab0ed-83f1-4cff-bc68-387fc13ca61f)
 +++
 Wei Ji Leong, Yvonne Fröhlich, Jing-Hui Tong, Federico Esteban, Max Jones, Andre Belem
 ::::
