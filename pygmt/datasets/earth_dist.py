@@ -56,10 +56,9 @@ def load_earth_dist(
         The grid resolution. The suffix ``d`` and ``m`` stand for arc-degrees and
         arc-minutes.
     region
-        The subregion of the grid to load, in the form of a sequence
-    [*xmin*, *xmax*, *ymin*, *ymax*]
-        or an ISO country code. Required for grids with resolutions higher than 5
-    arc-minutes (i.e., ``"05m"``).
+        The subregion of the grid to load, in the form of a sequence [*xmin*, *xmax*,
+        *ymin*, *ymax*] or an ISO country code. Required for grids with resolutions
+		higher than 5 arc-minutes (i.e., ``"05m"``).
     registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration.
