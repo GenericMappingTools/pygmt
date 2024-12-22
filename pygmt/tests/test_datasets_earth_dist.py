@@ -14,7 +14,7 @@ def test_earth_dist_01d():
     data = load_earth_dist(resolution="01d")
     assert data.name == "z"
     assert data.attrs["description"] == "GSHHG Earth distance to shoreline"
-    assert data.attrs["units"] == "???"
+    assert data.attrs["units"] == "XXX"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
     assert data.gmt.registration == 0
@@ -39,7 +39,8 @@ def test_earth_dist_01d_with_region():
 
 def test_earth_dist_01m_default_registration():
     """
-    Test that the grid returned by default for the 1 arc-minute resolution has a "gridline" registration.
+    Test that the grid returned by default for the 1 arc-minute resolution has a
+    "gridline" registration.
     """
     data = load_earth_dist(resolution="01m", region=[-10, -9, 3, 5])
     assert data.shape == (121, 61)

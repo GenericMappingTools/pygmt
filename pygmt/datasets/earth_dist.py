@@ -1,6 +1,6 @@
 """
-Function to download the GSHHG Earth distance to shoreline dataset from the GMT data server, and load
-as :class:`xarray.DataArray`.
+Function to download the GSHHG Earth distance to shoreline dataset from the GMT data
+server, and loadas :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
@@ -30,49 +30,55 @@ def load_earth_dist(
 
        GSHHG Earth distance to shoreline dataset.
 
-    The grids are downloaded to a user data directory (usually ``~/.gmt/server/earth/earth_dist/``)
-    the first time you invoke this function. Afterwards, it will load the grid from the data
-    directory. So you'll need an internet connection the first time around.
+    The grids are downloaded to a user data directory (usually
+    ``~/.gmt/server/earth/earth_dist/``) the first time you invoke this function.
+    Afterwards, it will load the grid from the data directory. So you'll need an
+    internet connection the first time around.
 
-    These grids can also be accessed by passing in the file name **@earth_dist**\_\ *res*\[_\ *reg*]
-    to any grid processing function or plotting method. *res* is the grid resolution (see below),
-    and *reg* is the grid registration type (**p** for pixel registration or **g** for gridline
-    registration).
+    These grids can also be accessed by passing in the file name
+    **@earth_dist**\_\ *res*\[_\ *reg*] to any grid processing function or plotting
+    method. *res* is the grid resolution (see below), and *reg* is the grid registration
+    type (**p** for pixel registration or **g** for gridline registration).
 
-    The default color palette table (CPT) for this dataset is *earth_dist*. It's implicitly used when
-    passing in the file name of the dataset to any grid plotting method if no CPT is explicitl
-    specified. When the dataset is loaded and plotted as an :class:`xarray.DataArray` object, the
-    default CPT is ignored, and GMT's default CPT (*turbo*) is used. To use the dataset-specific CPT,
-    you need to explicitly set ``cmap="earth_dist"``.
+    The default color palette table (CPT) for this dataset is *earth_dist*. It's
+    implicitly used when passing in the file name of the dataset to any grid plotting
+    method if no CPT is explicitly specified. When the dataset is loaded and plotted
+    as an :class:`xarray.DataArray` object, the default CPT is ignored, and GMT's
+    default CPT (*turbo*) is used. To use the dataset-specific CPT, you need to
+    explicitly set ``cmap="earth_dist"``.
 
-    Refer to :gmt-datasets:`earth-dist.html` for more details about available datasets, including
-    version information and references.
+    Refer to :gmt-datasets:`earth-dist.html` for more details about available datasets,
+    including version information and references.
 
     Parameters
     ----------
     resolution
-        The grid resolution. The suffix ``d`` and ``m`` stand for arc-degrees and arc-minutes.
+        The grid resolution. The suffix ``d`` and ``m`` stand for arc-degrees and
+    arc-minutes.
     region
-        The subregion of the grid to load, in the form of a sequence [*xmin*, *xmax*, *ymin*, *ymax*]
-        or an ISO country code. Required for grids with resolutions higher than 5 arc-minutes (i.e.,
-        ``"05m"``).
+        The subregion of the grid to load, in the form of a sequence
+    [*xmin*, *xmax*, *ymin*, *ymax*]
+        or an ISO country code. Required for grids with resolutions higher than 5
+    arc-minutes (i.e., ``"05m"``).
     registration
-        Grid registration type. Either ``"pixel"`` for pixel registration or ``"gridline"`` for
-        gridline registration.
+        Grid registration type. Either ``"pixel"`` for pixel registration or
+    ``"gridline"`` for gridline registration.
 
     Returns
     -------
     grid
-        The Earth geoid grid. Coordinates are latitude and longitude in degrees. Units are in meters.
+        The GSHHG Earth distance to shoreline grid. Coordinates are latitude and
+    longitude in degrees. Units are in XXX.
 
     Note
     ----
-    The registration and coordinate system type of the returned :class:`xarray.DataArray` grid can
-    be accessed via the GMT accessors (i.e., ``grid.gmt.registration`` and ``grid.gmt.gtype``
-    respectively). However, these properties may be lost after specific grid operations (such as
-    slicing) and will need to be manually set before passing the grid to any PyGMT data processing
-    or plotting functions. Refer to :class:`pygmt.GMTDataArrayAccessor` for detailed explanations
-    and workarounds.
+    The registration and coordinate system type of the returned
+    :class:`xarray.DataArray` grid can be accessed via the GMT accessors (i.e.,
+    ``grid.gmt.registration`` and ``grid.gmt.gtype`` respectively). However, these
+    properties may be lost after specific grid operations (such as slicing) and will
+    need to be manually set before passing the grid to any PyGMT data processing or
+    plotting functions. Refer to :class:`pygmt.GMTDataArrayAccessor` for detailed
+    explanations and workarounds.
 
     Examples
     --------
