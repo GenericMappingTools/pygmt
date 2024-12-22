@@ -14,7 +14,7 @@ from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 __doctest_skip__ = ["load_earth_dist"]
 
 
-def load_earth_geoid(
+def load_earth_dist(
     resolution: Literal[
         "01d", "30m", "20m", "15m", "10m", "06m", "05m", "04m", "03m", "02m", "01m"
     ] = "01d",
