@@ -50,24 +50,7 @@ Azimuthal Projections
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Azimuthal Equidistant</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="The general perspective projection imitates the view of the Earth from a finite point in space. In a full view of the earth one third of its surface area can be seen.">
-
-.. only:: html
-
-  .. image:: /projections/azim/images/thumb/sphx_glr_azim_general_perspective_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_projections_azim_azim_general_perspective.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">General Perspective</div>
+      <div class="sphx-glr-thumbnail-title">Azimuthal equidistant projection</div>
     </div>
 
 
@@ -84,7 +67,7 @@ Azimuthal Projections
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">General Stereographic</div>
+      <div class="sphx-glr-thumbnail-title">General stereographic projection</div>
     </div>
 
 
@@ -101,7 +84,7 @@ Azimuthal Projections
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Gnomonic</div>
+      <div class="sphx-glr-thumbnail-title">Gnomonic projection</div>
     </div>
 
 
@@ -118,7 +101,7 @@ Azimuthal Projections
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Lambert Azimuthal Equal Area</div>
+      <div class="sphx-glr-thumbnail-title">Lambert azimuthal equal-area projection</div>
     </div>
 
 
@@ -135,7 +118,24 @@ Azimuthal Projections
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Orthographic</div>
+      <div class="sphx-glr-thumbnail-title">Orthographic projection</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The perspective projection imitates the view of the Earth from a finite point in space. In a full view of the earth one third of its surface area can be seen.">
+
+.. only:: html
+
+  .. image:: /projections/azim/images/thumb/sphx_glr_azim_general_perspective_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_projections_azim_azim_general_perspective.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Perspective projection</div>
     </div>
 
 
@@ -150,11 +150,11 @@ Azimuthal Projections
    :hidden:
 
    /projections/azim/azim_equidistant
-   /projections/azim/azim_general_perspective
    /projections/azim/azim_general_stereographic
    /projections/azim/azim_gnomonic
    /projections/azim/azim_lambert
    /projections/azim/azim_orthographic
+   /projections/azim/azim_general_perspective
 
 Conic Projections
 -----------------
@@ -180,7 +180,7 @@ Conic Projections
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Albers Conic Equal Area</div>
+      <div class="sphx-glr-thumbnail-title">Albers conic equal-area projection</div>
     </div>
 
 
@@ -197,7 +197,7 @@ Conic Projections
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Equidistant conic</div>
+      <div class="sphx-glr-thumbnail-title">Equidistant conic projection</div>
     </div>
 
 
@@ -214,7 +214,7 @@ Conic Projections
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Lambert Conic Conformal Projection</div>
+      <div class="sphx-glr-thumbnail-title">Lambert conic conformal projection</div>
     </div>
 
 
@@ -231,7 +231,7 @@ Conic Projections
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Polyconic Projection</div>
+      <div class="sphx-glr-thumbnail-title">Polyconic projection</div>
     </div>
 
 
@@ -274,24 +274,7 @@ Cylindric Projections
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Cassini Cylindrical</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="The cylindrical stereographic projections are certainly not as notable as other cylindrical projections, but are still used because of their relative simplicity and their ability to overcome some of the downsides of other cylindrical projections, like extreme distortions of the higher latitudes. The stereographic projections are perspective projections, projecting the sphere onto a cylinder in the direction of the antipodal point on the equator. The cylinder crosses the sphere at two standard parallels, equidistant from the equator.">
-
-.. only:: html
-
-  .. image:: /projections/cyl/images/thumb/sphx_glr_cyl_stereographic_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_projections_cyl_cyl_stereographic.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Cylindrical Stereographic</div>
+      <div class="sphx-glr-thumbnail-title">Cassini cylindrical projection</div>
     </div>
 
 
@@ -308,7 +291,7 @@ Cylindric Projections
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Cylindrical equal-area</div>
+      <div class="sphx-glr-thumbnail-title">Cylindrical equal-area projection</div>
     </div>
 
 
@@ -325,7 +308,24 @@ Cylindric Projections
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Cylindrical equidistant</div>
+      <div class="sphx-glr-thumbnail-title">Cylindrical equidistant projection</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The cylindrical stereographic projections are certainly not as notable as other cylindrical projections, but are still used because of their relative simplicity and their ability to overcome some of the downsides of other cylindrical projections, like extreme distortions of the higher latitudes. The stereographic projections are perspective projections, projecting the sphere onto a cylinder in the direction of the antipodal point on the equator. The cylinder crosses the sphere at two standard parallels, equidistant from the equator.">
+
+.. only:: html
+
+  .. image:: /projections/cyl/images/thumb/sphx_glr_cyl_stereographic_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_projections_cyl_cyl_stereographic.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Cylindrical stereographic projection</div>
     </div>
 
 
@@ -342,7 +342,7 @@ Cylindric Projections
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Mercator</div>
+      <div class="sphx-glr-thumbnail-title">Mercator projection</div>
     </div>
 
 
@@ -359,7 +359,7 @@ Cylindric Projections
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Miller cylindrical</div>
+      <div class="sphx-glr-thumbnail-title">Miller cylindrical projection</div>
     </div>
 
 
@@ -369,48 +369,14 @@ Cylindric Projections
 
 .. only:: html
 
-  .. image:: /projections/cyl/images/thumb/sphx_glr_cyl_oblique_mercator_1_thumb.png
+  .. image:: /projections/cyl/images/thumb/sphx_glr_cyl_oblique_mercator_thumb.png
     :alt:
 
-  :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator_1.py`
+  :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Oblique Mercator, 1: origin and azimuth</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is particularly useful when mapping regions of large lateral extent in an oblique direction. Both parallels and meridians are complex curves. The projection was developed in the early 1900s by several workers.">
-
-.. only:: html
-
-  .. image:: /projections/cyl/images/thumb/sphx_glr_cyl_oblique_mercator_2_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator_2.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Oblique Mercator, 2: two points</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is particularly useful when mapping regions of large lateral extent in an oblique direction. Both parallels and meridians are complex curves. The projection was developed in the early 1900s by several workers.">
-
-.. only:: html
-
-  .. image:: /projections/cyl/images/thumb/sphx_glr_cyl_oblique_mercator_3_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator_3.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Oblique Mercator, 3: origin and pole</div>
+      <div class="sphx-glr-thumbnail-title">Oblique Mercator projection</div>
     </div>
 
 
@@ -427,7 +393,7 @@ Cylindric Projections
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Transverse Mercator</div>
+      <div class="sphx-glr-thumbnail-title">Transverse Mercator projection</div>
     </div>
 
 
@@ -444,7 +410,7 @@ Cylindric Projections
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Universal Transverse Mercator</div>
+      <div class="sphx-glr-thumbnail-title">Universal Transverse Mercator projection</div>
     </div>
 
 
@@ -459,14 +425,12 @@ Cylindric Projections
    :hidden:
 
    /projections/cyl/cyl_cassini
-   /projections/cyl/cyl_stereographic
    /projections/cyl/cyl_equal_area
    /projections/cyl/cyl_equidistant
+   /projections/cyl/cyl_stereographic
    /projections/cyl/cyl_mercator
    /projections/cyl/cyl_miller
-   /projections/cyl/cyl_oblique_mercator_1
-   /projections/cyl/cyl_oblique_mercator_2
-   /projections/cyl/cyl_oblique_mercator_3
+   /projections/cyl/cyl_oblique_mercator
    /projections/cyl/cyl_transverse_mercator
    /projections/cyl/cyl_universal_transverse_mercator
 
@@ -494,7 +458,7 @@ Miscellaneous Projections
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Eckert IV</div>
+      <div class="sphx-glr-thumbnail-title">Eckert IV equal-area projection</div>
     </div>
 
 
@@ -511,7 +475,7 @@ Miscellaneous Projections
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Eckert VI</div>
+      <div class="sphx-glr-thumbnail-title">Eckert VI equal-area projection</div>
     </div>
 
 
@@ -528,7 +492,7 @@ Miscellaneous Projections
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Hammer</div>
+      <div class="sphx-glr-thumbnail-title">Hammer projection</div>
     </div>
 
 
@@ -545,7 +509,7 @@ Miscellaneous Projections
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Mollweide</div>
+      <div class="sphx-glr-thumbnail-title">Mollweide projection</div>
     </div>
 
 
@@ -562,7 +526,7 @@ Miscellaneous Projections
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Robinson</div>
+      <div class="sphx-glr-thumbnail-title">Robinson projection</div>
     </div>
 
 
@@ -579,7 +543,7 @@ Miscellaneous Projections
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Sinusoidal</div>
+      <div class="sphx-glr-thumbnail-title">Sinusoidal projection</div>
     </div>
 
 
@@ -596,7 +560,7 @@ Miscellaneous Projections
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Van der Grinten</div>
+      <div class="sphx-glr-thumbnail-title">Van der Grinten projection</div>
     </div>
 
 
@@ -613,7 +577,7 @@ Miscellaneous Projections
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Winkel Tripel</div>
+      <div class="sphx-glr-thumbnail-title">Winkel Tripel projection</div>
     </div>
 
 

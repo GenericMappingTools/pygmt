@@ -1,6 +1,6 @@
 r"""
-Cylindrical equidistant
-=======================
+Cylindrical equidistant projection
+==================================
 
 This simple cylindrical projection is really a linear scaling of longitudes and
 latitudes. The most common form is the Plate Carrée projection, where the
@@ -24,8 +24,8 @@ fig = pygmt.Figure()
 fig.coast(
     region="d",
     projection="Q12c",
-    land="tan4",
-    water="lightcyan",
     frame="afg",
+    land="gray80",
+    water="steelblue",
 )
 fig.show()

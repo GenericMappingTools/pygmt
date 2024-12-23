@@ -74,7 +74,7 @@
            window.location.href = new_url;
         },
         error: function() {
-            window.location.href = 'http://' + doc_url + '/' + selected;
+            window.location.href = 'https://' + doc_url + '/' + selected;
         }
       });
     }

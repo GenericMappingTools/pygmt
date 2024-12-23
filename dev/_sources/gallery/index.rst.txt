@@ -1,7 +1,5 @@
 :orphan:
 
-.. _gallery:
-
 Gallery
 =======
 
@@ -438,7 +436,7 @@ Symbols and markers
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="PyGMT allows using bit or hachure patterns via the fill parameter or similar parameters:">
+    <div class="sphx-glr-thumbcontainer" tooltip="In addition to colors, PyGMT also allows using bit and hachure patterns to fill symbols, polygons, and other areas, via the fill parameter or similar parameters.">
 
 .. only:: html
 
@@ -1050,7 +1048,7 @@ Histograms
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="To create a scatter plot with histograms at the sides of the plot one can use pygmt.Figure.plot in combination with pygmt.Figure.histogram. The positions of the histograms are plotted by offsetting them from the main scatter plot figure using pygmt.Figure.shift_origin.">
+    <div class="sphx-glr-thumbcontainer" tooltip="To create a scatter plot with histograms at the sides of the plot one can use pygmt.Figure.plot in combination with pygmt.Figure.histogram. The positions of the histograms are plotted by offsetting them from the main scatter plot using pygmt.Figure.shift_origin.">
 
 .. only:: html
 

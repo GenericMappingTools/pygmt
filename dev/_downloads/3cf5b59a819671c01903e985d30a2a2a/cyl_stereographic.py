@@ -1,6 +1,6 @@
 r"""
-Cylindrical Stereographic
-=========================
+Cylindrical stereographic projection
+====================================
 
 The cylindrical stereographic projections are certainly not as notable as other
 cylindrical projections, but are still used because of their relative
@@ -32,5 +32,11 @@ The standard parallel is typically one of these (but can be any value):
 import pygmt
 
 fig = pygmt.Figure()
-fig.coast(region="g", frame="afg", land="gray", projection="Cyl_stere/30/-20/12c")
+fig.coast(
+    region="g",
+    projection="Cyl_stere/30/-20/12c",
+    frame="afg",
+    land="gray80",
+    water="steelblue",
+)
 fig.show()

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
@@ -18,7 +18,7 @@
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="_static/style.css?v=a51cd8ab" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css?v=845ca4e4" />
 
   
     <link rel="shortcut icon" href="_static/favicon.png"/>
@@ -29,7 +29,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=aa3fe5bf"></script>
+        <script src="_static/documentation_options.js?v=34b3dc9d"></script>
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -91,7 +91,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="get_started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -100,12 +100,13 @@
 <li class="toctree-l1"><a class="reference internal" href="projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="external_resources.html">External Resources</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="minversions.html">Minimum Supported Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ecosystem.html">Ecosystem</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
@@ -123,6 +124,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#reviewing-and-merging-pull-requests">Reviewing and Merging Pull Requests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#continuous-integration">Continuous Integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#continuous-documentation">Continuous Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#continuous-benchmarking">Continuous Benchmarking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dependencies-policy">Dependencies Policy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#backwards-compatibility-and-deprecation-policy">Backwards Compatibility and Deprecation Policy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#making-a-release">Making a Release</a><ul>
@@ -189,7 +191,7 @@
 <h1>Maintainers Guide<a class="headerlink" href="#maintainers-guide" title="Link to this heading"></a></h1>
 <p>This page contains instructions for project maintainers about how our setup works,
 making releases, creating packages, etc.</p>
-<p>If you want to make a contribution to the project, see the <a class="reference internal" href="contributing.html"><span class="doc">Contributors Guide</span></a> instead.</p>
+<p>If you want to make a contribution to the project, see the <a class="reference internal" href="contributing.html"><span class="std std-doc">Contributors Guide</span></a> instead.</p>
 <section id="onboarding-offboarding-access-checklist">
 <h2>Onboarding/Offboarding Access Checklist<a class="headerlink" href="#onboarding-offboarding-access-checklist" title="Link to this heading"></a></h2>
 <p>Note that anyone can contribute to PyGMT, even without being added to the
@@ -209,7 +211,7 @@ communication tools we use.</p>
 <h3>As a Maintainer<a class="headerlink" href="#as-a-maintainer" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Add to the <a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers">pygmt-maintainers team</a> (gives ‘maintain’ permission to the repository)</p></li>
-<li><p>Add to “Active Maintainers” on the <a class="reference internal" href="team.html"><span class="doc">Team Gallery page</span></a></p></li>
+<li><p>Add to “Active Maintainers” on the <a class="reference internal" href="team.html"><span class="std std-doc">Team Gallery page</span></a></p></li>
 <li><p>Add as a moderator on the <a class="reference external" href="https://forum.generic-mapping-tools.org">GMT forum</a> (to see mod-only discussions) [optional]</p></li>
 <li><p>Add as a maintainer on <a class="reference external" href="https://readthedocs.org/projects/pygmt-dev">ReadtheDocs</a> [optional]</p></li>
 <li><p>Add as a curator to the <a class="reference external" href="https://zenodo.org/communities/generic-mapping-tools/">GMT community</a> on Zenodo (for making releases) [optional]</p></li>
@@ -227,7 +229,7 @@ the onboarding access checklist:</p>
 <ul class="simple">
 <li><p>Move from the <a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers">pygmt-maintainers team</a>
 to the <a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors">pygmt-contributors team</a></p></li>
-<li><p>Move from “Active Maintainers” to “Distinguished Contributors” on the <a class="reference internal" href="team.html"><span class="doc">Team Gallery page</span></a></p></li>
+<li><p>Move from “Active Maintainers” to “Distinguished Contributors” on the <a class="reference internal" href="team.html"><span class="std std-doc">Team Gallery page</span></a></p></li>
 <li><p>Remove ‘maintain’ permission from GMT forum, ReadTheDocs, Zenodo</p></li>
 </ul>
 </section>
@@ -314,17 +316,23 @@ made to our documentation website every time we make a commit in a pull request.
 The service has a configuration file <code class="docutils literal notranslate"><span class="pre">.readthedocs.yaml</span></code>, with a list of options
 to change the default behaviour at <a class="reference external" href="https://docs.readthedocs.io/en/stable/config-file/index.html">https://docs.readthedocs.io/en/stable/config-file/index.html</a>.</p>
 </section>
+<section id="continuous-benchmarking">
+<h2>Continuous Benchmarking<a class="headerlink" href="#continuous-benchmarking" title="Link to this heading"></a></h2>
+<p>We use the <a class="reference external" href="https://codspeed.io">CodSpeed</a> service to continuously track PyGMT’s
+performance. The <code class="docutils literal notranslate"><span class="pre">pytest-codspeed</span></code> plugin collects benchmark data and uploads it to the
+CodSpeed server, where results are available at <a class="reference external" href="https://codspeed.io/GenericMappingTools/pygmt">https://codspeed.io/GenericMappingTools/pygmt</a>.</p>
+<p>Benchmarking is handled through the <code class="docutils literal notranslate"><span class="pre">benchmarks.yml</span></code> GitHub Actions workflow. It’s
+automatically executed when a pull request is merged into the main branch. To trigger
+benchmarking in a pull request, add the <code class="docutils literal notranslate"><span class="pre">run/benchmark</span></code> label to the pull request.</p>
+<p>To include a new test in the benchmark suite, apply the <code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.benchmark</span></code>
+decorator to a test function.</p>
+</section>
 <section id="dependencies-policy">
 <h2>Dependencies Policy<a class="headerlink" href="#dependencies-policy" title="Link to this heading"></a></h2>
 <p>PyGMT has adopted <a class="reference external" href="https://scientific-python.org/specs/spec-0000/">SPEC 0</a> alongside the
-rest of the Scientific Python ecosystem, and therefore:</p>
-<ul class="simple">
-<li><p>Support for Python versions be dropped 3 years after their initial release.</p></li>
-<li><p>Support for core package dependencies (NumPy/Pandas/Xarray) be dropped 2 years after
-their initial release.</p></li>
-</ul>
-<p>Similarly, the PyGMT team has decided to discontinue support for GMT versions 3 years
-after their initial release.</p>
+rest of the scientific Python ecosystem, and made a few extensions based on the needs of
+the project. Please see <a class="reference internal" href="minversions.html"><span class="std std-doc">Minimum Supported Versions</span></a> for the detailed
+policy and the minimum supported versions of GMT, Python and core package dependencies.</p>
 <p>In <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>, the <code class="docutils literal notranslate"><span class="pre">requires-python</span></code> key should be set to the minimum supported
 version of Python. Minimum supported versions of GMT, Python and core package
 dependencies should be adjusted upward on every major and minor release, but never on a
@@ -387,7 +395,7 @@ at <code class="docutils literal notranslate"><span class="pre">.github/workflow
 at <code class="docutils literal notranslate"><span class="pre">.github/release-drafter.yml</span></code>. Configuration settings can be found at
 <a class="reference external" href="https://github.com/release-drafter/release-drafter">https://github.com/release-drafter/release-drafter</a>.</p>
 <p>The drafted release notes are not perfect, so we will need to tidy it prior to
-publishing the actual release notes at <a class="reference internal" href="changes.html"><span class="doc">Changelog</span></a>.</p>
+publishing the actual release notes at <a class="reference internal" href="changes.html"><span class="std std-doc">Changelog</span></a>.</p>
 <ol class="arabic">
 <li><p>Go to <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases">https://github.com/GenericMappingTools/pygmt/releases</a> and click on the
 ‘Edit’ button next to the current draft release note. Copy the text of the
@@ -415,7 +423,7 @@ GitHub accounts. Sort their names by the number of commits made since the
 last release (e.g., use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">shortlog</span> <span class="pre">HEAD...v0.4.0</span> <span class="pre">-sne</span></code>).</p></li>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">doc/minversions.md</span></code> with new information on the new release version,
 including a vX.Y.Z documentation link, and minimum required versions of GMT, Python
-and core package dependencies (NumPy/Pandas/Xarray). Follow
+and core package dependencies (NumPy, pandas, Xarray). Follow
 <a class="reference external" href="https://scientific-python.org/specs/spec-0000/">SPEC 0</a> for updates.</p></li>
 <li><p>Refresh citation information. Specifically, the BibTeX in <code class="docutils literal notranslate"><span class="pre">README.md</span></code> and
 <code class="docutils literal notranslate"><span class="pre">CITATION.cff</span></code> needs to be updated with any metadata changes, including the
@@ -474,15 +482,15 @@ from the <a class="reference external" href="https://pypi.org/project/pygmt/#fil
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/5a3a2903">5a3a2903</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 05, 2024.
+      <span class="lastupdated">Last updated on Dec 22, 2024.
       </span></p>
   </div>
 
   
 <p>
-Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
 using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
 provided by <a href="https://readthedocs.org">Read the Docs</a>
 </p>
