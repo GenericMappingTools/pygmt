@@ -34,7 +34,7 @@ def test_earth_dist_01d_with_region():
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
     npt.assert_allclose(data.min(), -1081.94, atol=0.01)
-    npt.assert_allclose(data.max(), 105.17999, atol=0.01)
+    npt.assert_allclose(data.max(), 105.18, atol=0.01)
 
 
 def test_earth_dist_01m_default_registration():
@@ -50,4 +50,4 @@ def test_earth_dist_01m_default_registration():
     assert data.coords["lon"].data.min() == -10.0
     assert data.coords["lon"].data.max() == -9.0
     npt.assert_allclose(data.min(), -243.62, atol=0.01)
-    npt.assert_allclose(data.max(), 2.939995, atol=0.01)
+    npt.assert_allclose(data.max(), 2.94, atol=0.01)
