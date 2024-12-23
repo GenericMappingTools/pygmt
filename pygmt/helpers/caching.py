@@ -46,6 +46,7 @@ def cache_data():
         "@N00W030.earth_age_01m_g.nc",
         "@N30E060.earth_age_01m_g.nc",
         "@N30E090.earth_age_01m_g.nc",
+        "@N00W030.earth_dist_01m_g.nc",
         "@N00W030.earth_faa_01m_p.nc",
         "@N00W030.earth_geoid_01m_g.nc",
         "@S30W060.earth_mag_02m_p.nc",
