@@ -91,10 +91,12 @@ def dataarray_to_matrix(
     >>> print(inc)
     [2.0, 2.0]
     """
-    if len(grid.dims) != 2:
-        msg = f"Invalid number of grid dimensions 'len({grid.dims})'. Must be 2."
+    if len(grid.dims) not in {2, 3}:
+        msg = (
+            f"Invalid number of grid/image dimensions 'len({grid.dims})'. "
+            "Must be 2 for grid, or 3 for image."
+        )
         raise GMTInvalidInput(msg)
-
     # Extract region and inc from the grid
     region, inc = [], []
     # Reverse the dims because it is rows, columns ordered. In geographic grids, this
