@@ -1,0 +1,5 @@
+outs:
+- md5: 986772f58935f81e9596736e914acb78
+  size: 13604
+  hash: md5
+  path: test_vlines_one_line.png

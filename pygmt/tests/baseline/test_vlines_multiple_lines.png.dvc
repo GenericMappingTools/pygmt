@@ -1,0 +1,5 @@
+outs:
+- md5: 7a955781529e2205d9b856631c48ec7a
+  size: 13893
+  hash: md5
+  path: test_vlines_multiple_lines.png
