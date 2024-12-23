@@ -20,7 +20,6 @@ Fixes #
 - [ ] Write detailed docstrings for all functions/methods.
 - [ ] If wrapping a new module, open a 'Wrap new GMT module' issue and submit reasonably-sized PRs.
 - [ ] If adding new functionality, add an example to docstrings or tutorials.
-- [ ] Use underscores (not hyphens) in names of Python files and directories.
 
 **Slash Commands**
 
