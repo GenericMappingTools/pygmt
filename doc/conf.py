@@ -206,7 +206,7 @@ html_show_copyright = True
 
 # Configure theme
 html_theme = "sphinx_rtd_theme"
-html_theme_options = {"version_selector": True}
+html_theme_options = {}
 repository = "GenericMappingTools/pygmt"
 repository_url = "https://github.com/GenericMappingTools/pygmt"
 if __commit__:
