@@ -67,7 +67,8 @@ def load_earth_dist(
     -------
     grid
         The GSHHG Earth distance to shoreline grid. Coordinates are latitude and
-        longitude in degrees. Distances are in kilometers.
+        longitude in degrees. Distances are in kilometers, where positive (negative)
+		values mean land to coastline (ocean to coastline).
 
     Note
     ----
