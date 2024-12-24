@@ -250,12 +250,12 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
           The meanings of columns are the same as above.
         - *dictionary or :class:`pandas.DataFrame`*: The dictionary keys or
           :class:`pandas.DataFrame` column names determine the focal mechanism
-          convention. For the different conventions, the following combination of
-          keys/column names are required:
+          convention. For the different conventions, the following combination of keys/
+          column names are required:
 
           - ``"aki"``: *strike*, *dip*, *rake*, *magnitude*
-          - ``"gcmt"``: *strike1*, *dip1*, *rake1*, *strike2*, *dip2*, *rake2*, *mantissa,*
-            *exponent*
+          - ``"gcmt"``: *strike1*, *dip1*, *rake1*, *strike2*, *dip2*, *rake2*,
+            *mantissa*, *exponent*
           - ``"mt"``: *mrr*, *mtt*, *mff*, *mrt*, *mrf*, *mtf*, *exponent*
           - ``"partial"``: *strike1*, *dip1*, *strike2*, *fault_type*, *magnitude*
           - ``"principal_axis"``: *t_value*, *t_azimuth*, *t_plunge*, *n_value*,
@@ -270,7 +270,8 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
 
         If ``spec`` is either a str or a 1-D or 2-D numpy array, the ``convention``
         parameter is required to interpret the columns. If ``spec`` is a dictionary or
-        a :class:`pandas.DataFrame`, ``convention`` is not needed and ignored if specified.
+        a :class:`pandas.DataFrame`, ``convention`` is not needed and ignored if
+        specified.
     scale : float or str
         *scale*\ [**+a**\ *angle*][**+f**\ *font*][**+j**\ *justify*]\
         [**+l**][**+m**][**+o**\ *dx*\ [/\ *dy*]][**+s**\ *reference*].
@@ -316,12 +317,12 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
         dictionary or :class:`pandas.DataFrame`.
     plot_longitude : float, str, list, or 1-D numpy array
         Longitude(s) at which to place the beachball(s). Length must match the number
-        of events. Overrides the ``plot_longitude`` values in ``spec`` if ``spec`` is
-        a dictionary or :class:`pandas.DataFrame`.
+        of events. Overrides the ``plot_longitude`` values in ``spec`` if ``spec`` is a
+        dictionary or :class:`pandas.DataFrame`.
     plot_latitude : float, str, list, or 1-D numpy array
         Latitude(s) at which to place the beachball(s). Length must match the number
-        of events. Overrides the ``plot_latitude`` values in ``spec`` if ``spec`` is
-        a dictionary or :class:`pandas.DataFrame`.
+        of events. Overrides the ``plot_latitude`` values in ``spec`` if ``spec`` is a
+        dictionary or :class:`pandas.DataFrame`.
     event_name : str, list of str, or 1-D numpy array
         Text string(s), e.g., event name(s) to appear near the beachball(s). Length
         must match the number of events. Overrides the ``event_name`` labels in
