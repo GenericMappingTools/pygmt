@@ -40,7 +40,9 @@ fig.basemap(
 )
 
 # numpy.datetime64 types
-x = np.array(["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype="datetime64")
+x = np.array(
+    ["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype=np.datetime64
+)
 y = [1, 2, 3]
 fig.plot(x=x, y=y, style="c0.4c", pen="1p", fill="red3")
 

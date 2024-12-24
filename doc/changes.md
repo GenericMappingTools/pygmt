@@ -361,7 +361,7 @@
 * Exclude DVC files from source/binary distributions ([#2634](https://github.com/GenericMappingTools/pygmt/pull/2634))
 * CI: Use mamba-org/provision-with-micromamba to setup micromamba ([#2435](https://github.com/GenericMappingTools/pygmt/pull/2435))
 * CI: Migrate provision-with-micromamba to setup-micromamba ([#2536](https://github.com/GenericMappingTools/pygmt/pull/2536))
-* CI: Run dev tests on Scientific Python nightly wheels ([#2612](https://github.com/GenericMappingTools/pygmt/pull/2612))
+* CI: Run dev tests on scientific Python nightly wheels ([#2612](https://github.com/GenericMappingTools/pygmt/pull/2612))
 * CI: Remove the deprecated cml-publish command from the dvc-diff workflow ([#2559](https://github.com/GenericMappingTools/pygmt/pull/2559))
 * CI: Fix and simplify the dvc-diff workflow ([#2549](https://github.com/GenericMappingTools/pygmt/pull/2549))
 * CI: Add the "Doctests" workflow to run doctests weekly ([#2456](https://github.com/GenericMappingTools/pygmt/pull/2456))

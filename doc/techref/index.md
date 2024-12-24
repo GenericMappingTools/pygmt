@@ -12,5 +12,5 @@ projections.md
 fonts.md
 patterns.md
 encodings.md
-environment_variables
+environment_variables.md
 ```

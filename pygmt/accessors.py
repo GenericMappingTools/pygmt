@@ -60,7 +60,7 @@ class GMTDataArrayAccessor:
     >>> longrid, latgrid = np.meshgrid(lon, lat)
     >>> data = np.sin(np.deg2rad(longrid)) * np.cos(np.deg2rad(latgrid))
     >>> grid = xr.DataArray(data, coords=[("latitude", lat), ("longitude", lon)])
-    >>> # default to a gridline-registrated Cartesian grid
+    >>> # default to a gridline-registered Cartesian grid
     >>> grid.gmt.registration, grid.gmt.gtype
     (0, 0)
     >>> # set it to a gridline-registered geographic grid
@@ -138,10 +138,11 @@ class GMTDataArrayAccessor:
     @registration.setter
     def registration(self, value):
         if value not in {0, 1}:
-            raise GMTInvalidInput(
+            msg = (
                 f"Invalid grid registration value: {value}, should be either "
                 "0 for Gridline registration or 1 for Pixel registration."
             )
+            raise GMTInvalidInput(msg)
         self._registration = value
 
     @property
@@ -154,8 +155,9 @@ class GMTDataArrayAccessor:
     @gtype.setter
     def gtype(self, value):
         if value not in {0, 1}:
-            raise GMTInvalidInput(
+            msg = (
                 f"Invalid coordinate system type: {value}, should be "
                 "either 0 for Cartesian or 1 for Geographic."
             )
+            raise GMTInvalidInput(msg)
         self._gtype = value

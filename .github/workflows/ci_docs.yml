@@ -55,7 +55,7 @@ jobs:
         # Is it a draft Pull Request (true or false)?
         isDraft:
           - ${{ github.event.pull_request.draft }}
-        # Only run one job (Ubuntu + Python 3.12) for draft PRs
+        # Only run jobs on Ubuntu for draft PRs
         exclude:
           - os: macos-latest
             isDraft: true
@@ -69,7 +69,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.2.0
+        uses: actions/checkout@v4.2.2
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -80,7 +80,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v2.0.0
+        uses: mamba-org/setup-micromamba@v2.0.3
         with:
           environment-name: pygmt
           condarc: |
@@ -92,7 +92,7 @@ jobs:
           # environment cache is persistent for one week.
           cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
           create-args: >-
-            python=3.12
+            python=3.13
             gmt=6.5.0
             ghostscript=10.04.0
             numpy
@@ -101,20 +101,21 @@ jobs:
             netCDF4
             packaging
             contextily
-            geopandas<1.0
+            geopandas
             ipython
+            pyarrow-core
             rioxarray
             make
             pip
             python-build
             myst-nb
             panel
-            sphinx
+            sphinx>=6.2
             sphinx-autodoc-typehints
             sphinx-copybutton
             sphinx-design
             sphinx-gallery
-            sphinx_rtd_theme
+            sphinx_rtd_theme<3.0
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
@@ -138,7 +139,7 @@ jobs:
         run: make -C doc clean all
 
       - name: Checkout the gh-pages branch
-        uses: actions/checkout@v4.2.0
+        uses: actions/checkout@v4.2.2
         with:
           ref: gh-pages
           # Checkout to this folder instead of the current one

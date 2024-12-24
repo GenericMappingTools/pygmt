@@ -1,0 +1,5 @@
+outs:
+- md5: 39b241fdd879271cf1e8cf1f73454706
+  size: 9910
+  hash: md5
+  path: test_shift_origin.png

@@ -6,9 +6,17 @@ from pathlib import Path
 
 import numpy as np
 import pytest
-from pygmt import Figure
+from pygmt import Figure, config
 from pygmt.exceptions import GMTCLibError, GMTInvalidInput
 from pygmt.helpers import GMTTempFile
+from pygmt.helpers.testing import skip_if_no
+
+try:
+    import pyarrow as pa
+
+    pa_array = pa.array
+except ImportError:
+    pa_array = None
 
 TEST_DATA_DIR = Path(__file__).parent / "data"
 POINTS_DATA = TEST_DATA_DIR / "points.txt"
@@ -48,8 +56,16 @@ def test_text_single_line_of_text(region, projection):
 
 
 @pytest.mark.benchmark
-@pytest.mark.mpl_image_compare
-def test_text_multiple_lines_of_text(region, projection):
+@pytest.mark.mpl_image_compare(filename="test_text_multiple_lines_of_text.png")
+@pytest.mark.parametrize(
+    "array_func",
+    [
+        list,
+        pytest.param(np.array, id="numpy"),
+        pytest.param(pa_array, marks=skip_if_no(package="pyarrow"), id="pyarrow"),
+    ],
+)
+def test_text_multiple_lines_of_text(region, projection, array_func):
     """
     Place multiple lines of text at their respective x, y locations.
     """
@@ -59,7 +75,7 @@ def test_text_multiple_lines_of_text(region, projection):
         projection=projection,
         x=[1.2, 1.6],
         y=[0.6, 0.3],
-        text=["This is a line of text", "This is another line of text"],
+        text=array_func(["This is a line of text", "This is another line of text"]),
     )
     return fig
 
@@ -410,12 +426,17 @@ def test_text_nonstr_text():
     return fig
 
 
-@pytest.mark.mpl_image_compare
-def test_text_nonascii():
+@pytest.mark.mpl_image_compare(filename="test_text_nonascii.png")
+@pytest.mark.parametrize("encoding", ["ISOLatin1+", "Standard+"])
+def test_text_nonascii(encoding):
     """
     Test passing text strings with non-ascii characters.
+
+    Default PS_CHAR_ENCODING setting should not affect the result.
     """
     fig = Figure()
+    if encoding == "Standard+":  # Temporarily set the PS_CHAR_ENCODING to "Standard+".
+        config(PS_CHAR_ENCODING="Standard+")
     fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
     fig.text(position="TL", text="position-text:°α")  # noqa: RUF001
     fig.text(x=1, y=1, text="xytext:°α")  # noqa: RUF001

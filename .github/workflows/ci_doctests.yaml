@@ -35,14 +35,14 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.2.0
+        uses: actions/checkout@v4.2.2
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v2.0.0
+        uses: mamba-org/setup-micromamba@v2.0.3
         with:
           environment-name: pygmt
           condarc: |
@@ -50,7 +50,7 @@ jobs:
               - conda-forge
               - nodefaults
           create-args: >-
-            python=3.12
+            python=3.13
             gmt=6.5.0
             numpy
             pandas
@@ -60,7 +60,7 @@ jobs:
             contextily
             geopandas
             ipython
-            pyarrow
+            pyarrow-core
             rioxarray
             make
             pip

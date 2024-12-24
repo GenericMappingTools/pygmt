@@ -120,18 +120,25 @@ made to our documentation website every time we make a commit in a pull request.
 The service has a configuration file `.readthedocs.yaml`, with a list of options
 to change the default behaviour at <https://docs.readthedocs.io/en/stable/config-file/index.html>.
 
+## Continuous Benchmarking
+
+We use the [CodSpeed](https://codspeed.io) service to continuously track PyGMT's
+performance. The `pytest-codspeed` plugin collects benchmark data and uploads it to the
+CodSpeed server, where results are available at <https://codspeed.io/GenericMappingTools/pygmt>.
+
+Benchmarking is handled through the `benchmarks.yml` GitHub Actions workflow. It's
+automatically executed when a pull request is merged into the main branch. To trigger
+benchmarking in a pull request, add the `run/benchmark` label to the pull request.
+
+To include a new test in the benchmark suite, apply the `@pytest.mark.benchmark`
+decorator to a test function.
 
 ## Dependencies Policy
 
 PyGMT has adopted [SPEC 0](https://scientific-python.org/specs/spec-0000/) alongside the
-rest of the Scientific Python ecosystem, and therefore:
-
-* Support for Python versions be dropped 3 years after their initial release.
-* Support for core package dependencies (NumPy/Pandas/Xarray) be dropped 2 years after
-  their initial release.
-
-Similarly, the PyGMT team has decided to discontinue support for GMT versions 3 years
-after their initial release.
+rest of the scientific Python ecosystem, and made a few extensions based on the needs of
+the project. Please see [Minimum Supported Versions](minversions.md) for the detailed
+policy and the minimum supported versions of GMT, Python and core package dependencies.
 
 In `pyproject.toml`, the `requires-python` key should be set to the minimum supported
 version of Python. Minimum supported versions of GMT, Python and core package
@@ -229,7 +236,7 @@ publishing the actual release notes at [](changes.md).
    last release (e.g., use `git shortlog HEAD...v0.4.0 -sne`).
 8. Update `doc/minversions.md` with new information on the new release version,
    including a vX.Y.Z documentation link, and minimum required versions of GMT, Python
-   and core package dependencies (NumPy/Pandas/Xarray). Follow
+   and core package dependencies (NumPy, pandas, Xarray). Follow
    [SPEC 0](https://scientific-python.org/specs/spec-0000/) for updates.
 9. Refresh citation information. Specifically, the BibTeX in `README.md` and
    `CITATION.cff` needs to be updated with any metadata changes, including the

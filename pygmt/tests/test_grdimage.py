@@ -261,7 +261,7 @@ def test_grdimage_imgout_fails(grid):
     reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8554",
 )
 @pytest.mark.mpl_image_compare()
-def test_grdimage_grid_no_redunant_360():
+def test_grdimage_grid_no_redundant_360():
     """
     Test that global grids with and without redundant 360/0 longitude values work.
 
