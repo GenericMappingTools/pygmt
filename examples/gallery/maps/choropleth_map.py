@@ -20,7 +20,7 @@ import pygmt
 
 # Read the example dataset provided by geodatasets.
 gdf = gpd.read_file(geodatasets.get_path("geoda airbnb"))
-print(gdf)
+gdf  # noqa: B018
 
 # %%
 fig = pygmt.Figure()
