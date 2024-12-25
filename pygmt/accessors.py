@@ -138,10 +138,11 @@ class GMTDataArrayAccessor:
     @registration.setter
     def registration(self, value):
         if value not in {0, 1}:
-            raise GMTInvalidInput(
+            msg = (
                 f"Invalid grid registration value: {value}, should be either "
                 "0 for Gridline registration or 1 for Pixel registration."
             )
+            raise GMTInvalidInput(msg)
         self._registration = value
 
     @property
@@ -154,8 +155,9 @@ class GMTDataArrayAccessor:
     @gtype.setter
     def gtype(self, value):
         if value not in {0, 1}:
-            raise GMTInvalidInput(
+            msg = (
                 f"Invalid coordinate system type: {value}, should be "
                 "either 0 for Cartesian or 1 for Geographic."
             )
+            raise GMTInvalidInput(msg)
         self._gtype = value

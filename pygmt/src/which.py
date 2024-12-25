@@ -68,7 +68,8 @@ def which(fname, **kwargs) -> str | list[str]:
     match paths.size:
         case 0:
             _fname = "', '".join(fname) if is_nonstr_iter(fname) else fname
-            raise FileNotFoundError(f"File(s) '{_fname}' not found.")
+            msg = f"File(s) '{_fname}' not found."
+            raise FileNotFoundError(msg)
         case 1:
             return paths[0]
         case _:

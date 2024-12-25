@@ -102,7 +102,7 @@ def grdfilter(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
     Examples

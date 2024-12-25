@@ -133,7 +133,8 @@ class TestLibgmtBrokenLibs:
         if isinstance(libname, str):
             # libname is an invalid library path in string type,
             # raise OSError like the original ctypes.CDLL
-            raise OSError(f"Unable to find '{libname}'")
+            msg = f"Unable to find '{libname}'."
+            raise OSError(msg)
         # libname is a loaded GMT library
         return self.loaded_libgmt
 

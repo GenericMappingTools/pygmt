@@ -82,21 +82,28 @@ MODE_MODIFIERS = [
 
 REGISTRATIONS = ["GMT_GRID_NODE_REG", "GMT_GRID_PIXEL_REG"]
 
-DTYPES = {
+# Dictionary for mapping numpy dtypes to GMT data types.
+DTYPES_NUMERIC = {
     np.int8: "GMT_CHAR",
     np.int16: "GMT_SHORT",
     np.int32: "GMT_INT",
     np.int64: "GMT_LONG",
+    np.longlong: "GMT_LONG",
     np.uint8: "GMT_UCHAR",
     np.uint16: "GMT_USHORT",
     np.uint32: "GMT_UINT",
     np.uint64: "GMT_ULONG",
+    np.ulonglong: "GMT_ULONG",
     np.float32: "GMT_FLOAT",
     np.float64: "GMT_DOUBLE",
-    np.str_: "GMT_TEXT",
-    np.datetime64: "GMT_DATETIME",
     np.timedelta64: "GMT_LONG",
 }
+DTYPES_TEXT = {
+    np.str_: "GMT_TEXT",
+    np.datetime64: "GMT_DATETIME",
+}
+DTYPES = DTYPES_NUMERIC | DTYPES_TEXT
+
 # Dictionary for storing the values of GMT constants.
 GMT_CONSTANTS = {}
 
@@ -166,7 +173,8 @@ class Session:
             the context manager).
         """
         if getattr(self, "_session_pointer", None) is None:
-            raise GMTCLibNoSessionError("No currently open GMT API session.")
+            msg = "No currently open GMT API session."
+            raise GMTCLibNoSessionError(msg)
         return self._session_pointer
 
     @session_pointer.setter
@@ -269,7 +277,8 @@ class Session:
         session = None
         value = c_get_enum(session, name.encode())
         if value is None or value == -99999:
-            raise GMTCLibError(f"Constant '{name}' doesn't exist in libgmt.")
+            msg = f"Constant '{name}' doesn't exist in libgmt."
+            raise GMTCLibError(msg)
         return value
 
     def get_libgmt_func(
@@ -391,7 +400,9 @@ class Session:
         self._print_callback = print_func
 
         padding = self["GMT_PAD_DEFAULT"]
-        session_type = self["GMT_SESSION_EXTERNAL"]
+        # GMT_SESSION_EXTERNAL: GMT is called by an external wrapper.
+        # GMT_SESSION_NOGDALCLOSE: Do not call GDALDestroyDriverManager when using GDAL.
+        session_type = self["GMT_SESSION_EXTERNAL"] + self["GMT_SESSION_NOGDALCLOSE"]
         session = c_create_session(name.encode(), padding, session_type, print_func)
 
         if session is None:
@@ -551,7 +562,8 @@ class Session:
         pygmt.exceptions.GMTInvalidInput: Unknown GMT common option flag 'A'.
         """
         if option not in "BIJRUVXYabfghinoprst:":
-            raise GMTInvalidInput(f"Unknown GMT common option flag '{option}'.")
+            msg = f"Unknown GMT common option flag '{option}'."
+            raise GMTInvalidInput(msg)
 
         c_get_common = self.get_libgmt_func(
             "GMT_Get_Common",
@@ -879,63 +891,59 @@ class Session:
         integer_value = sum(self[part] for part in parts)
         return integer_value
 
-    def _check_dtype_and_dim(self, array, ndim):
+    def _check_dtype_and_dim(self, array: np.ndarray, ndim: int) -> int:
         """
         Check that a numpy array has the given number of dimensions and is a valid data
         type.
 
         Parameters
         ----------
-        array : numpy.ndarray
+        array
             The array to be tested.
-        ndim : int
+        ndim
             The desired number of array dimensions.
 
         Returns
         -------
-        gmt_type : int
+        gmt_type
             The GMT constant value representing this data type.
 
         Raises
         ------
         GMTInvalidInput
-            If the array has the wrong number of dimensions or
-            is an unsupported data type.
+            If the array has the wrong number of dimensions or is an unsupported data
+            type.
 
         Examples
         --------
-
         >>> import numpy as np
-        >>> data = np.array([1, 2, 3], dtype="float64")
-        >>> with Session() as ses:
-        ...     gmttype = ses._check_dtype_and_dim(data, ndim=1)
-        ...     gmttype == ses["GMT_DOUBLE"]
+        >>> data = np.array([1, 2, 3], dtype=np.float64)
+        >>> with Session() as lib:
+        ...     gmttype = lib._check_dtype_and_dim(data, ndim=1)
+        ...     gmttype == lib["GMT_DOUBLE"]
         True
-        >>> data = np.ones((5, 2), dtype="float32")
-        >>> with Session() as ses:
-        ...     gmttype = ses._check_dtype_and_dim(data, ndim=2)
-        ...     gmttype == ses["GMT_FLOAT"]
+        >>> data = np.ones((5, 2), dtype=np.float32)
+        >>> with Session() as lib:
+        ...     gmttype = lib._check_dtype_and_dim(data, ndim=2)
+        ...     gmttype == lib["GMT_FLOAT"]
         True
         """
-        # Check that the array has the given number of dimensions
+        # Check that the array has the given number of dimensions.
         if array.ndim != ndim:
-            raise GMTInvalidInput(
-                f"Expected a numpy {ndim}-D array, got {array.ndim}-D."
-            )
+            msg = f"Expected a numpy {ndim}-D array, got {array.ndim}-D."
+            raise GMTInvalidInput(msg)
 
-        # Check that the array has a valid/known data type
-        if array.dtype.type not in DTYPES:
-            try:
-                if array.dtype.type is np.object_:
-                    # Try to convert unknown object type to np.datetime64
-                    array = array_to_datetime(array)
-                else:
-                    raise ValueError
-            except ValueError as e:
-                raise GMTInvalidInput(
-                    f"Unsupported numpy data type '{array.dtype.type}'."
-                ) from e
-        return self[DTYPES[array.dtype.type]]
+        # For 1-D arrays, try to convert unknown object type to np.datetime64.
+        if ndim == 1 and array.dtype.type is np.object_:
+            with contextlib.suppress(ValueError):
+                array = array_to_datetime(array)
+
+        # 1-D arrays can be numeric or text, 2-D arrays can only be numeric.
+        valid_dtypes = DTYPES if ndim == 1 else DTYPES_NUMERIC
+        if (dtype := array.dtype.type) not in valid_dtypes:
+            msg = f"Unsupported numpy data type '{dtype}'."
+            raise GMTInvalidInput(msg)
+        return self[DTYPES[dtype]]
 
     def put_vector(self, dataset: ctp.c_void_p, column: int, vector: np.ndarray):
         r"""
@@ -947,8 +955,9 @@ class Session:
         The dataset must be created by :meth:`pygmt.clib.Session.create_data` first with
         ``family="GMT_IS_DATASET|GMT_VIA_VECTOR"``.
 
-        Not all numpy dtypes are supported, only: int8, int16, int32, int64, uint8,
-        uint16, uint32, uint64, float32, float64, str\_, and datetime64.
+        Not all numpy dtypes are supported, only: int8, int16, int32, int64, longlong,
+        uint8, uint16, uint32, uint64, ulonglong, float32, float64, str\_, datetime64,
+        and timedelta64.
 
         .. warning::
             The numpy array must be C contiguous in memory. Use
@@ -1059,8 +1068,8 @@ class Session:
         The dataset must be created by :meth:`pygmt.clib.Session.create_data` first with
         ``family="GMT_IS_DATASET|GMT_VIA_MATRIX"``.
 
-        Not all numpy dtypes are supported, only: int8, int16, int32, int64, uint8,
-        uint16, uint32, uint64, float32, and float64.
+        Not all numpy dtypes are supported, only: int8, int16, int32, int64, longlong,
+        uint8, uint16, uint32, uint64, ulonglong, float32, and float64.
 
         .. warning::
             The numpy array must be C contiguous in memory. Use
@@ -1190,7 +1199,8 @@ class Session:
             data,
         )
         if data_ptr is None:
-            raise GMTCLibError(f"Failed to read dataset from '{infile}'.")
+            msg = f"Failed to read dataset from '{infile}'."
+            raise GMTCLibError(msg)
         return ctp.cast(data_ptr, ctp.POINTER(dtype))
 
     def write_data(self, family, geometry, mode, wesn, output, data):
@@ -1260,7 +1270,8 @@ class Session:
             data,
         )
         if status != 0:
-            raise GMTCLibError(f"Failed to write dataset to '{output}'")
+            msg = f"Failed to write dataset to '{output}'."
+            raise GMTCLibError(msg)
 
     @contextlib.contextmanager
     def open_virtualfile(
@@ -1471,7 +1482,7 @@ class Session:
         # 2 columns contains coordinates like longitude, latitude, or datetime string
         # types.
         for col, array in enumerate(arrays[2:]):
-            if pd.api.types.is_string_dtype(array.dtype):
+            if np.issubdtype(array.dtype, np.str_):
                 columns = col + 2
                 break
 
@@ -1502,9 +1513,9 @@ class Session:
                 strings = string_arrays[0]
             elif len(string_arrays) > 1:
                 strings = np.array(
-                    [" ".join(vals) for vals in zip(*string_arrays, strict=True)]
+                    [" ".join(vals) for vals in zip(*string_arrays, strict=True)],
+                    dtype=np.str_,
                 )
-            strings = np.asanyarray(a=strings, dtype=str)
             self.put_strings(
                 dataset, family="GMT_IS_VECTOR|GMT_IS_DUPLICATE", strings=strings
             )
@@ -1859,9 +1870,8 @@ class Session:
             elif check_kind == "vector":
                 valid_kinds += ("empty", "matrix", "vectors", "geojson")
             if kind not in valid_kinds:
-                raise GMTInvalidInput(
-                    f"Unrecognized data type for {check_kind}: {type(data)}"
-                )
+                msg = f"Unrecognized data type for {check_kind}: {type(data)}."
+                raise GMTInvalidInput(msg)
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
@@ -2120,7 +2130,8 @@ class Session:
         if kind is None:  # Return the ctypes void pointer
             return pointer
         if kind == "cube":
-            raise NotImplementedError(f"kind={kind} is not supported yet.")
+            msg = f"kind={kind} is not supported yet."
+            raise NotImplementedError(msg)
         dtype = {"dataset": _GMT_DATASET, "grid": _GMT_GRID, "image": _GMT_IMAGE}[kind]
         return ctp.cast(pointer, ctp.POINTER(dtype))
 
@@ -2388,5 +2399,6 @@ class Session:
             region.ctypes.data_as(ctp.POINTER(ctp.c_double)),
         )
         if status != 0:
-            raise GMTCLibError("Failed to extract region from current figure.")
+            msg = "Failed to extract region from current figure."
+            raise GMTCLibError(msg)
         return region

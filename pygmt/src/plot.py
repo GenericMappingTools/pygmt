@@ -216,7 +216,8 @@ def plot(
         data = {"x": x, "y": y}
         # Parameters for vector styles
         if (
-            kwargs.get("S") is not None
+            isinstance(kwargs.get("S"), str)
+            and len(kwargs["S"]) >= 1
             and kwargs["S"][0] in "vV"
             and is_nonstr_iter(direction)
         ):
@@ -249,7 +250,8 @@ def plot(
             ("symbol", symbol),
         ]:
             if is_nonstr_iter(value):
-                raise GMTInvalidInput(f"'{name}' can't be 1-D array if 'data' is used.")
+                msg = f"'{name}' can't be a 1-D array if 'data' is used."
+                raise GMTInvalidInput(msg)
 
     # Set the default style if data has a geometry of Point or MultiPoint
     if kwargs.get("S") is None and _data_geometry_is_point(data, kind):

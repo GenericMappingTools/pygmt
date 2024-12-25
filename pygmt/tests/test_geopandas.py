@@ -2,6 +2,7 @@
 Test integration with geopandas.
 """
 
+import numpy as np
 import numpy.testing as npt
 import pandas as pd
 import pytest
@@ -221,7 +222,7 @@ def test_geopandas_plot_int64_as_float(gdf_ridge):
     gdf = gdf_ridge.copy()
     factor = 2**32
     # Convert NPOINTS column to int64 type and make big integers
-    gdf["NPOINTS"] = gdf.NPOINTS.astype(dtype="int64")
+    gdf["NPOINTS"] = gdf.NPOINTS.astype(dtype=np.int64)
     gdf["NPOINTS"] *= factor
 
     # Make sure the column is bigger than the largest 32-bit integer

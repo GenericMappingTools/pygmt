@@ -2,7 +2,7 @@
 Character encodings supported by GMT.
 
 Currently, Adobe Symbol, Adobe ZapfDingbats, Adobe ISOLatin1+ and ISO-8859-x (x can be
-1-11, 13-16) encodings are supported. Adobe Standard encoding is not supported.
+1-11, 13-16) encodings are supported. Adobe Standard+ encoding is not supported.
 
 The corresponding Unicode characters in each Adobe character encoding are generated from
 the mapping tables and conversion scripts in the

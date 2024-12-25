@@ -91,13 +91,13 @@ def convention_code(convention, component="full"):
         return codes1[convention]
     if convention in codes2:
         if component not in codes2[convention]:
-            raise GMTInvalidInput(
-                f"Invalid component '{component}' for convention '{convention}'."
-            )
+            msg = f"Invalid component '{component}' for convention '{convention}'."
+            raise GMTInvalidInput(msg)
         return codes2[convention][component]
     if convention in {"a", "c", "m", "d", "z", "p", "x", "y", "t"}:
         return convention
-    raise GMTInvalidInput(f"Invalid convention '{convention}'.")
+    msg = f"Invalid convention '{convention}'."
+    raise GMTInvalidInput(msg)
 
 
 def convention_name(code):
@@ -227,7 +227,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
 
     Parameters
     ----------
-    spec : str, 1-D array, 2-D array, dict, or pd.DataFrame
+    spec : str, 1-D array, 2-D array, dict, or :class:`pandas.DataFrame`
         Data that contain focal mechanism parameters.
 
         ``spec`` can be specified in either of the following types:
@@ -250,9 +250,10 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
           The meanings of columns are the same as above.
         - *2-D array*: focal mechanism parameters of multiple events.
           The meanings of columns are the same as above.
-        - *dictionary or pd.DataFrame*: The dictionary keys or pd.DataFrame
-          column names determine the focal mechanism convention. For
-          different conventions, the following combination of keys are allowed:
+        - *dictionary or :class:`pandas.DataFrame`*: The dictionary keys or
+          :class:`pandas.DataFrame` column names determine the focal mechanism
+          convention. For different conventions, the following combination of
+          keys are allowed:
 
           - ``"aki"``: *strike, dip, rake, magnitude*
           - ``"gcmt"``: *strike1, dip1, rake1, strike2, dip2, rake2, mantissa,*
@@ -265,13 +266,13 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
           A dictionary may contain values for a single focal mechanism or
           lists of values for multiple focal mechanisms.
 
-          Both dictionary and pd.DataFrame may optionally contain
+          Both dictionary and :class:`pandas.DataFrame` may optionally contain
           keys/column names: ``latitude``, ``longitude``, ``depth``,
           ``plot_longitude``, ``plot_latitude``, and/or ``event_name``.
 
         If ``spec`` is either a str, a 1-D array or a 2-D array, the
         ``convention`` parameter is required so we know how to interpret the
-        columns. If ``spec`` is a dictionary or a pd.DataFrame,
+        columns. If ``spec`` is a dictionary or a :class:`pandas.DataFrame`,
         ``convention`` is not needed and is ignored if specified.
     scale : float or str
         *scale*\ [**+a**\ *angle*][**+f**\ *font*][**+j**\ *justify*]\
@@ -299,7 +300,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
         - ``"partial"`` (partial focal mechanism)
         - ``"principal_axis"`` (principal axis)
 
-        Ignored if ``spec`` is a dictionary or pd.DataFrame.
+        Ignored if ``spec`` is a dictionary or :class:`pandas.DataFrame`.
     component : str
         The component of the seismic moment tensor to plot.
 
@@ -310,28 +311,28 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
     longitude : float, list, or 1-D numpy array
         Longitude(s) of event location(s). Must be the same length as the
         number of events. Will override the ``longitude`` values
-        in ``spec`` if ``spec`` is a dictionary or pd.DataFrame.
+        in ``spec`` if ``spec`` is a dictionary or :class:`pandas.DataFrame`.
     latitude : float, list, or 1-D numpy array
         Latitude(s) of event location(s). Must be the same length as the
         number of events. Will override the ``latitude`` values
-        in ``spec`` if ``spec`` is a dictionary or pd.DataFrame.
+        in ``spec`` if ``spec`` is a dictionary or :class:`pandas.DataFrame`.
     depth : float, list, or 1-D numpy array
         Depth(s) of event location(s) in kilometers. Must be the same length
         as the number of events. Will override the ``depth`` values in ``spec``
-        if ``spec`` is a dictionary or pd.DataFrame.
+        if ``spec`` is a dictionary or :class:`pandas.DataFrame`.
     plot_longitude : float, str, list, or 1-D numpy array
         Longitude(s) at which to place beachball(s). Must be the same length
         as the number of events. Will override the ``plot_longitude`` values
-        in ``spec`` if ``spec`` is a dictionary or pd.DataFrame.
+        in ``spec`` if ``spec`` is a dictionary or :class:`pandas.DataFrame`.
     plot_latitude : float, str, list, or 1-D numpy array
         Latitude(s) at which to place beachball(s). List must be the same
         length as the number of events. Will override the ``plot_latitude``
-        values in ``spec`` if ``spec`` is a dictionary or pd.DataFrame.
+        values in ``spec`` if ``spec`` is a dictionary or :class:`pandas.DataFrame`.
     event_name : str, list of str, or 1-D numpy array
         Text string(s), e.g., event name(s) to appear near the beachball(s).
         List must be the same length as the number of events. Will override
         the ``event_name`` labels in ``spec`` if ``spec`` is a dictionary
-        or pd.DataFrame.
+        or :class:`pandas.DataFrame`.
     labelbox : bool or str
         [*fill*].
         Draw a box behind the label if given. Use *fill* to give a fill color
@@ -423,7 +424,8 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
             )
     elif isinstance(spec, np.ndarray):  # spec is a numpy array
         if convention is None:
-            raise GMTInvalidInput("'convention' must be specified for an array input.")
+            msg = "'convention' must be specified for an array input."
+            raise GMTInvalidInput(msg)
         # make sure convention is a name, not a code
         convention = convention_name(convention)
 
@@ -441,9 +443,10 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
         elif ncolsdiff == 3:
             colnames += ["plot_longitude", "plot_latitude", "event_name"]
         else:
-            raise GMTInvalidInput(
+            msg = (
                 f"Input array must have {len(colnames)} to {len(colnames) + 3} columns."
             )
+            raise GMTInvalidInput(msg)
         spec.columns = colnames
 
     # Now spec is a pd.DataFrame or a file

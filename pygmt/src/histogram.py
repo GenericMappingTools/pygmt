@@ -1,5 +1,5 @@
 """
-Histogram - Create a histogram
+Histogram - Create a histogram.
 """
 
 from pygmt.clib import Session
@@ -104,8 +104,9 @@ def histogram(self, data, **kwargs):
         Draw a stairs-step diagram which does not include the internal bars
         of the default histogram.
     horizontal : bool
-        Plot the histogram using horizontal bars instead of the
-        default vertical bars.
+        Plot the histogram horizontally from x = 0 [Default is vertically from y = 0].
+        The plot dimensions remain the same, but the two axes are flipped, i.e., the
+        x-axis is plotted vertically and the y-axis is plotted horizontally.
     series : int, str, or list
         [*min*\ /*max*\ /]\ *inc*\ [**+n**\ ].
         Set the interval for the width of each bar in the histogram.
