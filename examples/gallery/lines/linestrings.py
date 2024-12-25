@@ -1,6 +1,6 @@
 # ruff: noqa: RUF003
 """
-Rivers
+Plotting lines with LineString/MultiLineString geometry
 =====
 
 The :meth:`pygmt.Figure.plot` method allows us to plot geographical data such
@@ -22,24 +22,24 @@ gpd_lines = gpd.read_file(
 )
 
 gpd_lines.crs
-# Convert to EPSG 4326
+# Convert object to EPSG 4326 coordinate system
 gpd_lines_new = gpd_lines.to_crs("EPSG:4326")
 gpd_lines_new
 
-# -----------------------------------------------------------------------------
 fig = pygmt.Figure()
 
 fig.coast(
     projection="M10c",
     region=[-10, 30, 35, 57],
     resolution="l",
-    land="gray99",
+    land="gray95",
     shorelines="1/0.1p,gray50",
     borders="1/0.1,gray30",
     frame=True,
 )
 
-fig.plot(data=gpd_lines_new, pen="0.5p,steelblue")
+# Add rivers to map
+fig.plot(data=gpd_lines_new, pen="1p,steelblue")
 
 fig.show()
 
