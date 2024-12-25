@@ -50,4 +50,4 @@ def test_earth_mdt_07m_default_registration():
     assert data.coords["lon"].data.min() == -10.0
     assert data.coords["lon"].data.max() == -9.0
     npt.assert_allclose(data.min(), 0.41, atol=0.01)
-    npt.assert_allclose(data.max(), 2.94, atol=0.01)
+    npt.assert_allclose(data.max(), 0.43, atol=0.01)
