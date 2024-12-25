@@ -6,7 +6,13 @@ from typing import Literal
 
 from pygmt.clib import Session
 from pygmt.datasets.tile_map import load_tile_map
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_list,
+    fmt_docstring,
+    kwargs_to_strings,
+    sequence_join,
+    use_alias,
+)
 
 try:
     from xyzservices import TileProvider
@@ -126,7 +132,7 @@ def tilemap(
     # Only set region if no_clip is None or False, so that plot is clipped to exact
     # bounding box region
     if kwargs.get("N") in {None, False}:
-        kwargs["R"] = "/".join(str(coordinate) for coordinate in region)
+        kwargs["R"] = sequence_join(region, sep="/")
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=raster) as vingrd:

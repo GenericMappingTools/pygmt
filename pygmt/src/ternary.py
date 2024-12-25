@@ -5,7 +5,13 @@ ternary - Plot data on ternary diagrams.
 import pandas as pd
 from packaging.version import Version
 from pygmt.clib import Session, __gmt_version__
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_list,
+    fmt_docstring,
+    kwargs_to_strings,
+    sequence_join,
+    use_alias,
+)
 
 
 @fmt_docstring
@@ -85,7 +91,7 @@ def ternary(
     # -Lalabel/blabel/clabel. '-' means skipping the label.
     labels = (alabel, blabel, clabel)
     if any(v is not None for v in labels):
-        kwargs["L"] = "/".join(str(v) if v is not None else "-" for v in labels)
+        kwargs["L"] = sequence_join(["-" if v is None else v for v in labels], sep="/")
 
     # Patch for GMT < 6.5.0.
     # See https://github.com/GenericMappingTools/pygmt/pull/2138

@@ -8,6 +8,7 @@ from pygmt.helpers import (
     fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
+    sequence_join,
     use_alias,
 )
 
@@ -141,7 +142,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
             if len(kwargs[arg]) == 1:  # One level
                 kwargs[arg] = str(kwargs[arg][0]) + ","
             else:  # Multiple levels
-                kwargs[arg] = ",".join(f"{item}" for item in kwargs[arg])
+                kwargs[arg] = sequence_join(kwargs[arg], sep=",")
 
     with Session() as lib:
         with lib.virtualfile_in(

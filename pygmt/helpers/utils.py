@@ -634,3 +634,33 @@ def args_in_kwargs(args, kwargs):
     return any(
         kwargs.get(arg) is not None and kwargs.get(arg) is not False for arg in args
     )
+
+
+def sequence_join(seq: Iterable[Any], sep: str = "/") -> str:
+    """
+    Join a sequence of values into a string with a separator.
+
+    Parameters
+    ----------
+    seq
+        The sequence of values to join.
+    sep
+        The separator to use between the values.
+
+    Returns
+    -------
+    str
+        The joined string.
+
+    Examples
+    --------
+    >>> sequence_join([1, 2, 3], sep="/")
+    '1/2/3'
+    >>> sequence_join([1, 2, 3], sep=",")
+    '1,2,3'
+    >>> sequence_join([1, 2, 3], sep=" ")
+    '1 2 3'
+    >>> sequence_join([1, "2", 3], sep="/")
+    '1/2/3'
+    """
+    return sep.join(str(value) for value in seq)

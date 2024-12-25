@@ -13,7 +13,7 @@ from inspect import Parameter, signature
 
 import numpy as np
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers.utils import is_nonstr_iter
+from pygmt.helpers.utils import is_nonstr_iter, sequence_join
 
 COMMON_DOCSTRINGS = {
     "area_thresh": r"""
@@ -765,7 +765,7 @@ def kwargs_to_strings(**conversions):
                             value[index] = np.datetime_as_string(
                                 np.asarray(item, dtype=np.datetime64)
                             )
-                    newvalue = separators[fmt].join(f"{item}" for item in value)
+                    newvalue = sequence_join(value, sep=separators[fmt])
                     # Changes in bound.arguments will reflect in bound.args
                     # and bound.kwargs.
                     if arg in bound.arguments:
