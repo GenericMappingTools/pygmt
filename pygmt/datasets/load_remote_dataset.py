@@ -230,7 +230,7 @@ datasets = {
     ),
     "earth_mdt": GMTRemoteDataset(
         description="CNES Earth mean dynamic topography",
-        units="m",
+        units="meters",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution("01d"),
