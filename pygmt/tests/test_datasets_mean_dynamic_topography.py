@@ -20,7 +20,7 @@ def test_earth_mdt_01d():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
-    npt.assert_allclose(data.min(), -1.47, atol=0.0001)
+    npt.assert_allclose(data.min(), -1.4668, atol=0.0001)
     npt.assert_allclose(data.max(), 1.72, atol=0.0001)
 
 
@@ -33,7 +33,7 @@ def test_earth_mdt_01d_with_region():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
-    npt.assert_allclose(data.min(), 0.35, atol=0.0001)
+    npt.assert_allclose(data.min(), 0.346, atol=0.0001)
     npt.assert_allclose(data.max(), 0.48, atol=0.0001)
 
 
@@ -49,5 +49,5 @@ def test_earth_mdt_07m_default_registration():
     assert data.coords["lat"].data.max() == 5.0
     assert data.coords["lon"].data.min() == -10.0
     assert data.coords["lon"].data.max() == -9.0
-    npt.assert_allclose(data.min(), 0.41, atol=0.0001)
+    npt.assert_allclose(data.min(), 0.4138, atol=0.0001)
     npt.assert_allclose(data.max(), 0.43, atol=0.0001)
