@@ -131,5 +131,5 @@ def hlines(
             label=_label,
             no_clip=no_clip,
             perspective=perspective,
-            straight_line="p",  # Any one of "m"/"p"/"r"/"t"/"x"/"y" works.
+            straight_line="x",
         )
