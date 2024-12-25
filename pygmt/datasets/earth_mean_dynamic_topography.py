@@ -95,8 +95,8 @@ def load_earth_mean_dynamic_topography(
     ... )
     """
     grid = _load_remote_dataset(
-        name="earth_mean_dynamic_topography",
-        prefix="earth_mean_dynamic_topography",
+        name="earth_mdt",
+        prefix="earth_mdt",
         resolution=resolution,
         region=region,
         registration=registration,
