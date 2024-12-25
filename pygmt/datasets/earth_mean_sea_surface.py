@@ -95,8 +95,8 @@ def load_earth_mean_sea_surface(
     ... )
     """
     grid = _load_remote_dataset(
-        name="earth_mean_sea_surface",
-        prefix="earth_mean_sea_surface",
+        name="earth_mss",
+        prefix="earth_mss",
         resolution=resolution,
         region=region,
         registration=registration,
