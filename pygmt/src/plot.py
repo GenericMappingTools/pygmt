@@ -2,6 +2,8 @@
 plot - Plot in two dimensions.
 """
 
+from typing import Literal
+
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -49,7 +51,15 @@ from pygmt.src._common import _data_geometry_is_point
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def plot(
-    self, data=None, x=None, y=None, size=None, symbol=None, direction=None, **kwargs
+    self,
+    data=None,
+    x=None,
+    y=None,
+    size=None,
+    symbol=None,
+    direction=None,
+    straight_line: bool | Literal["x", "y"] = False,  # noqa: ARG001
+    **kwargs,
 ):
     r"""
     Plot lines, polygons, and symbols in 2-D.
@@ -98,18 +108,18 @@ def plot(
         depending on the style options chosen.
     {projection}
     {region}
-    straight_line : bool or str
-        [**m**\|\ **p**\|\ **x**\|\ **y**].
-        By default, geographic line segments are drawn as great circle
-        arcs. To draw them as straight lines, use
-        ``straight_line=True``.
-        Alternatively, add **m** to draw the line by first following a
-        meridian, then a parallel. Or append **p** to start following a
-        parallel, then a meridian. (This can be practical to draw a line
-        along parallels, for example). For Cartesian data, points are
-        simply connected, unless you append **x** or **y** to draw
-        stair-case curves that whose first move is along *x* or *y*,
-        respectively.
+    straight_line
+        By default, geographic line segments are drawn as great circle arcs by
+        resampling coarse input data along such arcs. To draw them as straight lines,
+        use ``straight_line=True``. Alternatively, setting it to ``"x"`` or ``"y"`` will
+        draw the line by first along *x*, then along *y*.
+
+        Here, *x* and *y* have following meanings:
+
+        - For Cartesian coordinate systems, *x* and *y* are the X- and Y-axes,
+          respectively
+        - For gragraphic projections, *x* and *y* are parallels and meridians
+        - For polar projections, *x* and *y* are theta and radius
     {frame}
     {cmap}
     offset : str
