@@ -50,7 +50,7 @@ def cache_data():
         "@N00W030.earth_geoid_01m_g.nc",
         "@S30W060.earth_mag_02m_p.nc",
         "@S30W120.earth_mag4km_02m_p.nc",
-        "@N00W030.earth_mdt_01m_p.nc",
+        "@N00W030.earth_mdt_07m_g.nc",
         "@N00W090.earth_relief_03m_p.nc",
         "@N00E135.earth_relief_30s_g.nc",
         "@N00W010.earth_relief_15s_p.nc",
