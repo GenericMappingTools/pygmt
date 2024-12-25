@@ -210,8 +210,8 @@ datasets = {
         },
     ),
     "earth_mss": GMTRemoteDataset(
-        description="CNES Earth Mean Sea Surface",
-        units="m",
+        description="CNES Earth mean sea surface",
+        units="meters",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution("01d"),
