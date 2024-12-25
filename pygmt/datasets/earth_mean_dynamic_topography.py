@@ -52,7 +52,7 @@ def load_earth_mean_dynamic_topography(
     ----------
     resolution
         The grid resolution. The suffix ``d`` and ``m`` stand for arc-degrees and
-        arc-minutes.
+        arc-minutes. Note that ``"07m"`` refers to a resolution of 7.5 arc-minutes.
     region
         The subregion of the grid to load, in the form of a sequence [*xmin*, *xmax*,
         *ymin*, *ymax*] or an ISO country code. Required for grids with resolutions
