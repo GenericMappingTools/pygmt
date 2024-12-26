@@ -15,7 +15,7 @@ def test_earth_age_01d():
     assert data.name == "z"
     assert data.attrs["long_name"] == "ages (Myr)"
     assert data.attrs["description"] == "EarthByte Earth seafloor crustal age"
-    assert data.attrs["units"] == "Myr"
+    assert data.attrs["units"] == "million years"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
     assert data.gmt.registration == 0

@@ -17,7 +17,7 @@ def test_earth_mag_01d():
     assert data.name == "z"
     assert data.attrs["long_name"] == "anomaly (nT)"
     assert data.attrs["description"] == "EMAG2 Earth Magnetic Anomaly Model"
-    assert data.attrs["units"] == "nT"
+    assert data.attrs["units"] == "nano Tesla"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
     assert data.gmt.registration == 0
@@ -121,7 +121,7 @@ def test_earth_mag_01d_wdmam():
     assert data.name == "z"
     assert data.attrs["long_name"] == "anomaly (nT)"
     assert data.attrs["description"] == "WDMAM World Digital Magnetic Anomaly Map"
-    assert data.attrs["units"] == "nT"
+    assert data.attrs["units"] == "nano Tesla"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))

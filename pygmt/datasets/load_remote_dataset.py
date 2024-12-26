@@ -57,7 +57,7 @@ class GMTRemoteDataset(NamedTuple):
 datasets = {
     "earth_age": GMTRemoteDataset(
         description="EarthByte Earth seafloor crustal age",
-        units="Myr",
+        units="million years",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution("01d"),
@@ -94,7 +94,7 @@ datasets = {
     ),
     "earth_dist": GMTRemoteDataset(
         description="GSHHG Earth distance to shoreline",
-        units="km",
+        units="kilometers",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution("01d"),
@@ -112,7 +112,7 @@ datasets = {
     ),
     "earth_faa": GMTRemoteDataset(
         description="IGPP Earth free-air anomaly",
-        units="mGal",
+        units="milli Gal",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution("01d"),
@@ -152,7 +152,7 @@ datasets = {
     ),
     "earth_geoid": GMTRemoteDataset(
         description="EGM2008 Earth geoid",
-        units="m",
+        units="meters",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution("01d"),
@@ -192,7 +192,7 @@ datasets = {
     ),
     "earth_mag": GMTRemoteDataset(
         description="EMAG2 Earth Magnetic Anomaly Model",
-        units="nT",
+        units="nano Tesla",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution("01d"),
@@ -266,7 +266,7 @@ datasets = {
     ),
     "earth_wdmam": GMTRemoteDataset(
         description="WDMAM World Digital Magnetic Anomaly Map",
-        units="nT",
+        units="nano Tesla",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution("01d"),

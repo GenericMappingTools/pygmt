@@ -15,7 +15,7 @@ def test_earth_faa_01d():
     assert data.name == "z"
     assert data.attrs["long_name"] == "faa (mGal)"
     assert data.attrs["description"] == "IGPP Earth free-air anomaly"
-    assert data.attrs["units"] == "mGal"
+    assert data.attrs["units"] == "milli Gal"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
     assert data.gmt.registration == 0
