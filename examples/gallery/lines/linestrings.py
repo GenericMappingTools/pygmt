@@ -1,4 +1,3 @@
-# ruff: noqa: RUF003
 """
 Plotting lines with LineString/MultiLineString geometry
 =======================================================
