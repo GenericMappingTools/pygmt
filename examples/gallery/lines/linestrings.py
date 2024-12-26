@@ -17,8 +17,7 @@ import pygmt
 
 # Read shapefile data using geopandas
 gpd_lines = gpd.read_file(
-    "https://www.eea.europa.eu/data-and-maps/data/wise-large-rivers-and-large-lakes/zipped-shapefile-with-wise-large-rivers-vector-line/zipped-shapefile-with-wise-large-rivers-vector-line/at_download/file/" + \
-    "wise_large_rivers.zip"
+    "https://www.eea.europa.eu/data-and-maps/data/wise-large-rivers-and-large-lakes/zipped-shapefile-with-wise-large-rivers-vector-line/zipped-shapefile-with-wise-large-rivers-vector-line/at_download/file/wise_large_rivers.zip"
 )
 
 # Convert object to EPSG 4326 coordinate system
