@@ -115,7 +115,7 @@ def load_earth_free_air_anomaly(
         )
         raise GMTInvalidInput(msg)
     grid = _load_remote_dataset(
-        name=prefix,
+        name="earth_faa" if data_source == "faa" else "earth_faaerror",
         prefix=prefix,
         resolution=resolution,
         region=region,
