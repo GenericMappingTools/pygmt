@@ -10,6 +10,7 @@ from typing import Literal
 
 import xarray as xr
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
+from pygmt.exceptions import GMTInvalidInput
 
 __doctest_skip__ = ["load_earth_free_air_anomaly"]
 
@@ -20,6 +21,7 @@ def load_earth_free_air_anomaly(
     ] = "01d",
     region: Sequence[float] | str | None = None,
     registration: Literal["gridline", "pixel", None] = None,
+    data_source: Literal["faa", "faaerror"] = "faa",
 ) -> xr.DataArray:
     r"""
     Load the IGPP Earth free-air anomaly dataset in various resolutions.
@@ -30,26 +32,28 @@ def load_earth_free_air_anomaly(
 
        IGPP Earth free-air anomaly dataset.
 
-    The grids are downloaded to a user data directory
-    (usually ``~/.gmt/server/earth/earth_faa/``) the first time you invoke
-    this function. Afterwards, it will load the grid from the data directory.
-    So you'll need an internet connection the first time around.
+    The grids are downloaded to a user data directory (usually
+    ``~/.gmt/server/earth/earth_faa/`` or ``~/.gmt/server/earth/earth_faaerror/``) the
+    first time you invoke this function. Afterwards, it will load the grid from data
+    directory. So you'll need an internet connection the first time around.
 
     These grids can also be accessed by passing in the file name
-    **@earth_faa**\_\ *res*\[_\ *reg*] to any grid processing function or
-    plotting method. *res* is the grid resolution (see below), and *reg* is
-    the grid registration type (**p** for pixel registration or **g** for
-    gridline registration).
+    **@earth_faa_type**\_\ *res*\[_\ *reg*] to any grid processing function or
+    plotting method. *earth_faa_type* is the GMT name for the dataset. The available
+    options are **earth_faa**\ and **earth_faaerror**\. *res* is the grid resolution
+    (see below), and *reg* is the grid registration type (**p** for pixel registration
+    or **g** for gridline registration).
 
-    The default color palette table (CPT) for this dataset is *@earth_faa.cpt*.
-    It's implicitly used when passing in the file name of the dataset to any
-    grid plotting method if no CPT is explicitly specified. When the dataset
-    is loaded and plotted as an :class:`xarray.DataArray` object, the default
-    CPT is ignored, and GMT's default CPT (*turbo*) is used. To use the
-    dataset-specific CPT, you need to explicitly set ``cmap="@earth_faa.cpt"``.
+    The default color palette tables (CPTs) for these datasets are *@earth_faa.cpt* and
+    *@earth_faaerror.cpt*. The dataset-specific CPT is implicitly used when passing in
+    the file name of the dataset to any grid plotting method if no CPT is explicitly
+    specified. When the dataset is loaded and plotted as an :class:`xarray.DataArray`
+    object, the default CPT is ignored, and GMT's default CPT (*turbo*) is used. To use
+    the dataset-specific CPT, you need to explicitly set ``cmap="@earth_faa.cpt"`` or
+    ``cmap="@earth_faaerror.cpt"``.
 
-    Refer to :gmt-datasets:`earth-faa.html` for more details about available
-    datasets, including version information and references.
+    Refer to :gmt-datasets:`earth-faa.html` and :gmt-datasets:`earth-faaerror.html` for
+    more details about available datasets, including version information and references.
 
     Parameters
     ----------
@@ -63,8 +67,12 @@ def load_earth_free_air_anomaly(
     registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``None``, means
-        ``"gridline"`` for all resolutions except ``"01m"`` which is
-        ``"pixel"`` only.
+        ``"gridline"`` for all resolutions except ``"01m"`` which is ``"pixel"`` only.
+    data_source
+        Select the free air anomaly data. Available options are:
+
+        - ``"faa"``: Altimetry-based marine free-air anomaly values. [Default].
+        - ``"faaerror"``: Uncertainties to the free-air anomaly values.
 
     Returns
     -------
@@ -75,13 +83,12 @@ def load_earth_free_air_anomaly(
     Note
     ----
     The registration and coordinate system type of the returned
-    :class:`xarray.DataArray` grid can be accessed via the GMT accessors
-    (i.e., ``grid.gmt.registration`` and ``grid.gmt.gtype`` respectively).
-    However, these properties may be lost after specific grid operations (such
-    as slicing) and will need to be manually set before passing the grid to any
-    PyGMT data processing or plotting functions. Refer to
-    :class:`pygmt.GMTDataArrayAccessor` for detailed explanations and
-    workarounds.
+    :class:`xarray.DataArray` grid can be accessed via the GMT accessors (i.e.,
+    ``grid.gmt.registration`` and ``grid.gmt.gtype`` respectively). However, these
+    properties may be lost after specific grid operations (such as slicing) and will
+    need to be manually set before passing the grid to any PyGMT data processing or
+    plotting functions. Refer to :class:`pygmt.GMTDataArrayAccessor` for detailed
+    explanations and workarounds.
 
     Examples
     --------
@@ -93,14 +100,23 @@ def load_earth_free_air_anomaly(
     >>> grid = load_earth_free_air_anomaly(resolution="30m", registration="gridline")
     >>> # load high-resolution (5 arc-minutes) grid for a specific region
     >>> grid = load_earth_free_air_anomaly(
-    ...     resolution="05m",
-    ...     region=[120, 160, 30, 60],
-    ...     registration="gridline",
+    ...     resolution="05m", region=[120, 160, 30, 60], registration="gridline"
     ... )
     """
+    # Map data source to prefix
+    prefix = {
+        "earth_faa": "faa",
+        "earth_faaerror": "faaerror",
+    }.get(data_source)
+    if prefix is None:
+        msg = (
+            f"Invalid earth free air anomaly data source '{data_source}'. "
+            "Valid values are 'faa' and 'faaerror'."
+        )
+        raise GMTInvalidInput(msg)
     grid = _load_remote_dataset(
-        name="earth_faa",
-        prefix="earth_faa",
+        name=prefix,
+        prefix=prefix,
         resolution=resolution,
         region=region,
         registration=registration,
