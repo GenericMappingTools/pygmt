@@ -238,6 +238,8 @@ and store them in GMT's user data directory.
     datasets.load_earth_geoid
     datasets.load_earth_magnetic_anomaly
     datasets.load_earth_mask
+    datasets.load_earth_mean_dynamic_topography
+    datasets.load_earth_mean_sea_surface
     datasets.load_earth_relief
     datasets.load_earth_vertical_gravity_gradient
     datasets.load_mars_relief
