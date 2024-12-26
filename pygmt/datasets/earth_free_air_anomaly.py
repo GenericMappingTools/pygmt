@@ -40,7 +40,7 @@ def load_earth_free_air_anomaly(
     These grids can also be accessed by passing in the file name
     **@earth_faa_type**\_\ *res*\[_\ *reg*] to any grid processing function or
     plotting method. *earth_faa_type* is the GMT name for the dataset. The available
-    options are **earth_faa**\ and **earth_faaerror**\. *res* is the grid resolution
+    options are **earth_faa** and **earth_faaerror**. *res* is the grid resolution
     (see below), and *reg* is the grid registration type (**p** for pixel registration
     or **g** for gridline registration).
 
@@ -71,7 +71,7 @@ def load_earth_free_air_anomaly(
     data_source
         Select the free air anomaly data. Available options are:
 
-        - ``"faa"``: Altimetry-based marine free-air anomaly values. [Default].
+        - ``"faa"``: Altimetry-based marine free-air anomaly values.
         - ``"faaerror"``: Uncertainties to the free-air anomaly values.
 
     Returns
