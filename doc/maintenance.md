@@ -172,10 +172,11 @@ When making incompatible changes, we should follow the process:
 
 To rename a function parameter, add the `@deprecate_parameter` decorator near the top
 after the `@fmt_docstring` decorator but before the `@use_alias` decorator (if those two
-exist). A `TODO` comment should also be added to indicate the deprecation period (see below). Here is an example:
+exist). A `TODO` comment should also be added to indicate the deprecation period (see below).
+Here is an example:
 
 ```python
-# TODO(PyGMT>=0.6.0): Remove the deprecated `columns` parameter.
+# TODO(PyGMT>=0.6.0): Remove the deprecated "columns" parameter.
 @fmt_docstring
 @deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
 @use_alias(J="projection", R="region", V="verbose", i="incols")
