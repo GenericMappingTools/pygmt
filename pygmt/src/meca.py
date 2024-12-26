@@ -303,11 +303,11 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
         - ``"dc"``: the closest double couple defined from the moment tensor (zero
           trace and zero determinant)
         - ``"deviatoric"``: deviatoric part of the moment tensor (zero trace)
-    longitude / latitude / depth : float, list, or 1-D numpy array
+    longitude/latitude/depth : float, list, or 1-D numpy array
         Longitude(s) / latitude(s) / depth(s) of the event(s). Length must match the
         number of events. Overrides the ``longitude`` / ``latitude`` / ``depth`` values
         in ``spec`` if ``spec`` is a dictionary or :class:`pandas.DataFrame`.
-    plot_longitude / plot_latitude : float, str, list, or 1-D numpy array
+    plot_longitude/plot_latitude : float, str, list, or 1-D numpy array
         Longitude(s) / Latitude(s) at which to place the beachball(s). Length must match
         the number of events. Overrides the ``plot_longitude`` / ``plot_latitude``
         values in ``spec`` if ``spec`` is a dictionary or :class:`pandas.DataFrame`.
