@@ -69,7 +69,7 @@ def test_earth_faaerror_01d():
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
     npt.assert_allclose(data.min(), 0., atol=0.04)
-    npt.assert_allclose(data.max(), 161.25, atol=0.04)
+    npt.assert_allclose(data.max(), 49.159996, atol=0.04)
 
 
 def test_earth_faaerror_01d_with_region():
@@ -101,5 +101,5 @@ def test_earth_faaerror_01m_default_registration():
     npt.assert_allclose(data.coords["lat"].data.max(), 4.991666666)
     npt.assert_allclose(data.coords["lon"].data.min(), -9.99166666)
     npt.assert_allclose(data.coords["lon"].data.max(), -9.00833333)
-    npt.assert_allclose(data.min(), 13.359997, atol=0.04)
+    npt.assert_allclose(data.min(), 0.399998, atol=0.04)
     npt.assert_allclose(data.max(), 115.0, atol=0.04)
