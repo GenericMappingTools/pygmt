@@ -57,7 +57,7 @@ class GMTRemoteDataset(NamedTuple):
 datasets = {
     "earth_age": GMTRemoteDataset(
         description="EarthByte Earth seafloor crustal age",
-        units="million years",
+        units="Myr",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution("01d"),
@@ -112,7 +112,7 @@ datasets = {
     ),
     "earth_faa": GMTRemoteDataset(
         description="IGPP Earth free-air anomaly",
-        units="milli Gal",
+        units="mGal",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution("01d"),
@@ -192,7 +192,7 @@ datasets = {
     ),
     "earth_mag": GMTRemoteDataset(
         description="EMAG2 Earth Magnetic Anomaly Model",
-        units="nano Tesla",
+        units="nT",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution("01d"),
@@ -266,7 +266,7 @@ datasets = {
     ),
     "earth_wdmam": GMTRemoteDataset(
         description="WDMAM World Digital Magnetic Anomaly Map",
-        units="nano Tesla",
+        units="nT",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution("01d"),
