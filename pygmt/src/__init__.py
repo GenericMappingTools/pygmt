@@ -29,6 +29,7 @@ from pygmt.src.grdtrack import grdtrack
 from pygmt.src.grdview import grdview
 from pygmt.src.grdvolume import grdvolume
 from pygmt.src.histogram import histogram
+from pygmt.src.hlines import hlines
 from pygmt.src.image import image
 from pygmt.src.info import info
 from pygmt.src.inset import inset
