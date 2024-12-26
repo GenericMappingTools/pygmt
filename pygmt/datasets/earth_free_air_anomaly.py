@@ -105,8 +105,8 @@ def load_earth_free_air_anomaly(
     """
     # Map data source to prefix
     prefix = {
-        "earth_faa": "faa",
-        "earth_faaerror": "faaerror",
+        "faa": "earth_faa",
+        "faaerror": "earth_faaerror",
     }.get(data_source)
     if prefix is None:
         msg = (
