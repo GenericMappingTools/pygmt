@@ -110,8 +110,8 @@ datasets = {
             "01m": Resolution("01m", registrations=["gridline"], tiled=True),
         },
     ),
-    "earth_faaerror": GMTRemoteDataset(
-        description="IGPP Earth free-air anomaly errors",
+    "earth_faa": GMTRemoteDataset(
+        description="IGPP Earth free-air anomaly",
         units="mGal",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -128,8 +128,8 @@ datasets = {
             "01m": Resolution("01m", registrations=["pixel"], tiled=True),
         },
     ),
-    "earth_faa": GMTRemoteDataset(
-        description="IGPP Earth free-air anomaly",
+    "earth_faaerror": GMTRemoteDataset(
+        description="IGPP Earth free-air anomaly errors",
         units="mGal",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
