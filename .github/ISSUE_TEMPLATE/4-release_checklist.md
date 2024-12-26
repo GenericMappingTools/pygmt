@@ -1,6 +1,6 @@
 ---
 name: PyGMT release checklist
-about: Checklist for a new PyGMT release.
+about: Checklist for a new PyGMT release. [For project maintainers only!]
 title: Release PyGMT vX.Y.Z
 labels: maintenance
 assignees: ''
