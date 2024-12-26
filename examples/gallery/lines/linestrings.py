@@ -19,7 +19,7 @@ import pygmt
 gdf = gpd.read_file(geodatasets.get_path("eea large_rivers"))
 
 # Convert object to EPSG 4326 coordinate system
-gpd = gpd.to_crs("EPSG:4326")
+gdf = gdf.to_crs("EPSG:4326")
 
 fig = pygmt.Figure()
 
