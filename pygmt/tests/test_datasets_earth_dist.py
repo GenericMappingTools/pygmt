@@ -14,7 +14,7 @@ def test_earth_dist_01d():
     data = load_earth_dist(resolution="01d")
     assert data.name == "z"
     assert data.attrs["description"] == "GSHHG Earth distance to shoreline"
-    assert data.attrs["units"] == "km"
+    assert data.attrs["units"] == "kilometers"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
     assert data.gmt.registration == 0
