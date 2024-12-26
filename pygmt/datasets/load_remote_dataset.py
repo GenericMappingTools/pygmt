@@ -264,6 +264,19 @@ datasets = {
             "30s": Resolution("30s", registrations=["pixel"]),
         },
     ),
+    "earth_mdt": GMTRemoteDataset(
+        description="CNES Earth mean dynamic topography",
+        units="meters",
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution("01d"),
+            "30m": Resolution("30m"),
+            "20m": Resolution("20m"),
+            "15m": Resolution("15m"),
+            "10m": Resolution("10m"),
+            "07m": Resolution("07m", registrations=["gridline"]),
+        },
+    ),
     "earth_vgg": GMTRemoteDataset(
         description="IGPP Earth vertical gravity gradient",
         units="Eotvos",
