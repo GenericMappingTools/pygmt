@@ -23,14 +23,14 @@ def hlines(
     """
     Plot one or multiple horizontal line(s).
 
-    This method is a high-level wrapper around :meth:`pygmt.Figure.plot`, focusing on
+    This method is a high-level wrapper around :meth:`pygmt.Figure.plot` that focuses on
     plotting horizontal lines at Y-coordinates specified by the ``y`` parameter. The
     ``y`` parameter can be a single value (for a single horizontal line) or a sequence
     of values (for multiple horizontal lines).
 
     By default, the X-coordinates of the start and end points of the lines are set to
     be the X-limits of the current plot, but this can be overridden by specifying the
-    ``xmin`` and ``xmax`` parameters. ``xmin`` and ``xmax`` can either be a single
+    ``xmin`` and ``xmax`` parameters. ``xmin`` and ``xmax`` can be either a single
     value or a sequence of values. If a single value is provided, it is applied to all
     lines. If a sequence is provided, the length of ``xmin`` and ``xmax`` must match
     the length of ``y``.
@@ -49,7 +49,7 @@ def hlines(
         or a sequence of values (for multiple lines).
     xmin/xmax
         X-coordinates of the start/end point of the line(s). If ``None``, defaults to
-        the X-limits of the current plot. ``xmin`` and ``xmax`` can either be a single
+        the X-limits of the current plot. ``xmin`` and ``xmax`` can be either a single
         value or a sequence of values. If a single value is provided, it is applied to
         all lines. If a sequence is provided, the length of ``xmin`` and ``xmax`` must
         match the length of ``y``.
@@ -58,7 +58,7 @@ def hlines(
     label
         Label for the line(s), to be displayed in the legend.
     no_clip
-        If ``True``, do not clip lines outside the plot region. Only makes sense in
+        If ``True``, do not clip lines outside the plot region. Only makes sense in the
         Cartesian coordinate system.
     perspective
         Select perspective view and set the azimuth and elevation angle of the
@@ -69,11 +69,11 @@ def hlines(
     >>> import pygmt
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c/10c", frame=True)
-    >>> fig.hlines(y=1, pen="1p,black", label="Line 1")
-    >>> fig.hlines(y=2, xmin=2, xmax=8, pen="1p,red,-", label="Line 2")
-    >>> fig.hlines(y=[3, 4], xmin=3, xmax=7, pen="1p,black,.", label="Line 3")
-    >>> fig.hlines(y=[5, 6], xmin=4, xmax=9, pen="1p,red", label="Line 4")
-    >>> fig.hlines(y=[7, 8], xmin=[0, 1], xmax=[7, 8], pen="1p,blue", label="Line 5")
+    >>> fig.hlines(y=1, pen="1p,black", label="Line at y=1")
+    >>> fig.hlines(y=2, xmin=2, xmax=8, pen="1p,red,-", label="Line at y=2")
+    >>> fig.hlines(y=[3, 4], xmin=3, xmax=7, pen="1p,black,.", label="Lines at y=3,4")
+    >>> fig.hlines(y=[5, 6], xmin=4, xmax=9, pen="1p,red", label="Lines at y=5,6")
+    >>> fig.hlines(y=[7, 8], xmin=[0, 1], xmax=[7, 8], pen="1p,blue", label="Lines at y=7,8")
     >>> fig.legend()
     >>> fig.show()
     """

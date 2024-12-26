@@ -35,9 +35,9 @@ def test_hlines_multiple_lines():
     fig.hlines([3, 4, 5], xmin=[1, 2, 3])
     fig.hlines([6, 7, 8], xmax=[7, 8, 9])
     fig.hlines([9, 10], xmin=[1, 2], xmax=[9, 10])
-    fig.hlines([11, 12], xmin=1, xmax=9, pen="1p,blue", label="Line at y=11,12")
+    fig.hlines([11, 12], xmin=1, xmax=9, pen="1p,blue", label="Lines at y=11,12")
     fig.hlines(
-        [13, 14], xmin=[3, 4], xmax=[8, 9], pen="1p,red", label="Line at y=13,14"
+        [13, 14], xmin=[3, 4], xmax=[8, 9], pen="1p,red", label="Lines at y=13,14"
     )
     fig.legend()
     return fig
