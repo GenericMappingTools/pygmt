@@ -1,6 +1,7 @@
+# ruff: noqa: RUF003
 """
 Plotting lines with LineString/MultiLineString geometry
-=======================================================
+=====
 
 The :meth:`pygmt.Figure.plot` method allows us to plot geographical data such
 as lines which are stored in a :class:`geopandas.GeoDataFrame` object. Use
@@ -23,7 +24,6 @@ gpd_lines = gpd.read_file(
 gpd_lines.crs
 # Convert object to EPSG 4326 coordinate system
 gpd_lines_new = gpd_lines.to_crs("EPSG:4326")
-gpd_lines_new
 
 fig = pygmt.Figure()
 
@@ -41,9 +41,3 @@ fig.coast(
 fig.plot(data=gpd_lines_new, pen="1p,steelblue")
 
 fig.show()
-
-
-
-
-
-
