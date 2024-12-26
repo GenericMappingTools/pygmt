@@ -73,7 +73,9 @@ def hlines(
     >>> fig.hlines(y=2, xmin=2, xmax=8, pen="1p,red,-", label="Line at y=2")
     >>> fig.hlines(y=[3, 4], xmin=3, xmax=7, pen="1p,black,.", label="Lines at y=3,4")
     >>> fig.hlines(y=[5, 6], xmin=4, xmax=9, pen="1p,red", label="Lines at y=5,6")
-    >>> fig.hlines(y=[7, 8], xmin=[0, 1], xmax=[7, 8], pen="1p,blue", label="Lines at y=7,8")
+    >>> fig.hlines(
+    ...     y=[7, 8], xmin=[0, 1], xmax=[7, 8], pen="1p,blue", label="Lines at y=7,8"
+    ... )
     >>> fig.legend()
     >>> fig.show()
     """
