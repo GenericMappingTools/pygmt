@@ -21,7 +21,6 @@ gpd_lines = gpd.read_file(
     "wise_large_rivers.zip"
 )
 
-gpd_lines.crs
 # Convert object to EPSG 4326 coordinate system
 gpd_lines_new = gpd_lines.to_crs("EPSG:4326")
 
