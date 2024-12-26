@@ -60,7 +60,7 @@ def _check_result(result, expected_dtype):
             if sys.platform == "win32" and Version(np.__version__) < Version("2.0")
             else np.int64,
             id="int",
-        ),
+        ),  # TODO(NumPy>=2.0): Remove the if-else statement after NumPy>=2.0.
         pytest.param([1.0, 2.0, 3.0], np.float64, id="float"),
         pytest.param(
             [complex(+1), complex(-2j), complex("-Infinity+NaNj")],
@@ -218,6 +218,7 @@ def test_to_numpy_pandas_numeric(dtype, expected_dtype):
     Test the _to_numpy function with pandas.Series of numeric dtypes.
     """
     data = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
+    # TODO(pandas>=2.2): Remove the workaround for float16 dtype in pandas<2.2.
     if dtype == "float16[pyarrow]" and Version(pd.__version__) < Version("2.2"):
         # float16 needs special handling for pandas < 2.2.
         # Example from https://arrow.apache.org/docs/python/generated/pyarrow.float16.html
@@ -264,6 +265,7 @@ def test_to_numpy_pandas_numeric_with_na(dtype, expected_dtype):
     dtypes and missing values (NA).
     """
     data = [1.0, 2.0, None, 4.0, 5.0, 6.0]
+    # TODO(pandas>=2.2): Remove the workaround for float16 dtype in pandas<2.2.
     if dtype == "float16[pyarrow]" and Version(pd.__version__) < Version("2.2"):
         # float16 needs special handling for pandas < 2.2.
         # Example from https://arrow.apache.org/docs/python/generated/pyarrow.float16.html
@@ -291,7 +293,7 @@ def test_to_numpy_pandas_numeric_with_na(dtype, expected_dtype):
                     Version(pd.__version__) < Version("2.1"),
                     reason="string[pyarrow_numpy] was added since pandas 2.1",
                 ),
-            ],
+            ],  # TODO(pandas>=2.1): Remove the skipif marker for pandas<2.1.
         ),
     ],
 )
@@ -429,7 +431,7 @@ def test_to_numpy_pyarrow_numeric_with_na(dtype, expected_dtype):
             marks=pytest.mark.skipif(
                 Version(pa.__version__) < Version("16"),
                 reason="string_view type was added since pyarrow 16",
-            ),
+            ),  # TODO(pyarrow>=16): Remove the skipif marker for pyarrow<16.
         ),
     ],
 )

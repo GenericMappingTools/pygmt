@@ -154,7 +154,7 @@ def test_meca_spec_multiple_focalmecha(inputtype):
             marks=pytest.mark.skipif(
                 condition=Version(__gmt_version__) < Version("6.5.0"),
                 reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/7557",
-            ),
+            ),  # TODO(GMT>=6.5.0): Remove the skipif condition for GMT>=6.5.0.
         ),
     ],
 )
@@ -213,7 +213,7 @@ def test_meca_offset(inputtype):
             marks=pytest.mark.skipif(
                 condition=Version(__gmt_version__) < Version("6.5.0"),
                 reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/7557",
-            ),
+            ),  # TODO(GMT>=6.5.0): Remove the skipif marker for GMT>=6.5.0.
         ),
     ],
 )

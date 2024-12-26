@@ -144,6 +144,7 @@ def tempfile_from_geojson(geojson):
             # https://github.com/geopandas/geopandas/issues/967#issuecomment-842877704
             # https://github.com/GenericMappingTools/pygmt/issues/2497
             int32_info = np.iinfo(np.int32)
+            # TODO(GeoPandas>=1.0): Remove the workaround for GeoPandas < 1.
             if Version(gpd.__version__).major < 1:  # GeoPandas v0.x
                 # The default engine 'fiona' supports the 'schema' parameter.
                 if geojson.index.name is None:

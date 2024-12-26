@@ -37,6 +37,7 @@ def fixture_tracks():
     return [dataframe.query(expr="z > -20")]  # reduce size of dataset
 
 
+# TODO(GMT>=6.5.0): Remove the xfail marker for the upstream bug fixed in GMT 6.5.0.
 @pytest.mark.usefixtures("mock_x2sys_home")
 @pytest.mark.xfail(
     condition=Version(__gmt_version__) < Version("6.5.0"),
