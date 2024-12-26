@@ -34,6 +34,6 @@ fig.coast(
 )
 
 # Add rivers to map
-fig.plot(data=gpd, pen="1p,steelblue")
+fig.plot(data=gdf, pen="1p,steelblue")
 
 fig.show()
