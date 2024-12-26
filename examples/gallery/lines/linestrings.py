@@ -1,7 +1,6 @@
-# ruff: noqa: RUF003
 """
 Plotting lines with LineString/MultiLineString geometry
-=====
+=======================================================
 
 The :meth:`pygmt.Figure.plot` method allows us to plot geographical data such
 as lines which are stored in a :class:`geopandas.GeoDataFrame` object. Use
@@ -12,16 +11,15 @@ a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the
 """
 
 # %%
+import geodatasets
 import geopandas as gpd
 import pygmt
 
-# Read shapefile data using geopandas
-gpd_lines = gpd.read_file(
-    "https://www.eea.europa.eu/data-and-maps/data/wise-large-rivers-and-large-lakes/zipped-shapefile-with-wise-large-rivers-vector-line/zipped-shapefile-with-wise-large-rivers-vector-line/at_download/file/wise_large_rivers.zip"
-)
+# Read shapefile data of large rivers in Europe using geopandas
+gdf = gpd.read_file(geodatasets.get_path("eea large_rivers"))
 
 # Convert object to EPSG 4326 coordinate system
-gpd_lines_new = gpd_lines.to_crs("EPSG:4326")
+gpd = gpd.to_crs("EPSG:4326")
 
 fig = pygmt.Figure()
 
@@ -36,6 +34,6 @@ fig.coast(
 )
 
 # Add rivers to map
-fig.plot(data=gpd_lines_new, pen="1p,steelblue")
+fig.plot(data=gpd, pen="1p,steelblue")
 
 fig.show()
