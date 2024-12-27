@@ -7,11 +7,10 @@ assignees: ''
 
 ---
 
-:tada: [GMT X.Y.Z](https://github.com/GenericMappingTools/gmt/releases/tag/X.Y.Z) has been released!
-It is installable from the [conda-forge channel](https://anaconda.org/conda-forge/gmt/files)
-using the following command:
-
-`mamba install -c conda-forge gmt=X.Y.Z`
+:tada: [GMT X.Y.Z](https://github.com/GenericMappingTools/gmt/releases/tag/X.Y.Z) has been released! It is installable from the [conda-forge channel](https://anaconda.org/conda-forge/gmt/files) using the following command:
+```
+mamba install -c conda-forge gmt=X.Y.Z
+```
 
 <!-- Please add specific checklist items for the tests, xfail pytest markers, and deprecated syntax that need to be updated. -->
 
@@ -29,7 +28,10 @@ using the following command:
   - [ ] Update GMT 6.x minor version for `extlinks` urls in `doc/conf.py`
 - [ ] Fix failing tests (1 or more PRs)
 - [ ] Fix failing doctests reported in the ["Doctest" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_doctests.yaml)
-- [ ] Fix [xfail](https://docs.pytest.org/en/stable/skipping.html#xfail-mark-test-functions-as-expected-to-fail) pytest markers on tests that are now xpass
+- [ ] Run `grep "# TODO(GMT.*)" **/*.py` to find TODO items related to GMT
+  - [ ] Remove related workarounds/patches
+  - [ ] Fix tests with pytest `xfail`/`skipif` markers that now pass
+- [ ] Update this checklist if necessary
 
 **To-Do for bumping the minimum required GMT version**:
 
@@ -37,5 +39,8 @@ using the following command:
   - [ ] Update `required_gmt_version` in `pygmt/clib/__init__.py`
   - [ ] Remove unsupported GMT version from `.github/workflows/ci_tests_legacy.yaml`
   - [ ] Ensure minimum required version is correct in `doc/minversions.md`
-- [ ] Remove [xfail](https://docs.pytest.org/en/stable/skipping.html#xfail-mark-test-functions-as-expected-to-fail) pytest markers on tests that are now xpass
+- [ ] Run `grep "# TODO(GMT.*)" **/*.py` to find TODO items related to GMT
+  - [ ] Remove related workarounds/patches
+  - [ ] Fix tests with pytest `xfail`/`skipif` markers that now pass
 - [ ] Update deprecated syntax in source code and examples based on the [GMT Changelog](https://docs.generic-mapping-tools.org/latest/changes.html)
+- [ ] Update this checklist if necessary
