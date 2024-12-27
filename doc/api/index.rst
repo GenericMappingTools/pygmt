@@ -173,6 +173,7 @@ Input/output
     :toctree: generated
 
     load_dataarray
+    read
 
 GMT Defaults
 ------------
