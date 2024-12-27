@@ -49,7 +49,7 @@ def vlines(
         X-coordinates to plot the lines. It can be a single value (for a single line)
         or a sequence of values (for multiple lines).
     ymin/ymax
-        Y-coordinates of the start/end point of the line(s). If ``None``, defaults to
+        Y-coordinates of the start/end point(s) of the line(s). If ``None``, defaults to
         the Y-limits of the current plot. ``ymin`` and ``ymax`` can either be a single
         value or a sequence of values. If a single value is provided, it is applied to
         all lines. If a sequence is provided, the length of ``ymin`` and ``ymax`` must
@@ -82,7 +82,7 @@ def vlines(
     """
     self._preprocess()
 
-    # Determine the x limits from the current plot region if not specified.
+    # Determine the y limits from the current plot region if not specified.
     if ymin is None or ymax is None:
         ylimits = self.region[2:]
         if ymin is None:
@@ -90,7 +90,7 @@ def vlines(
         if ymax is None:
             ymax = ylimits[1]
 
-    # Ensure y/xmin/xmax are 1-D arrays.
+    # Ensure x/ymin/ymax are 1-D arrays.
     _x = np.atleast_1d(x)
     _ymin = np.atleast_1d(ymin)
     _ymax = np.atleast_1d(ymax)

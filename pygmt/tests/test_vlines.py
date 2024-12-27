@@ -18,8 +18,8 @@ def test_vlines_one_line():
     fig.vlines(2, ymin=1)
     fig.vlines(3, ymax=9)
     fig.vlines(4, ymin=3, ymax=8)
-    fig.vlines(5, ymin=4, ymax=8, pen="1p,blue", label="Line at y=5")
-    fig.vlines(6, ymin=5, ymax=7, pen="1p,red", label="Line at y=6")
+    fig.vlines(5, ymin=4, ymax=8, pen="1p,blue", label="Line at x=5")
+    fig.vlines(6, ymin=5, ymax=7, pen="1p,red", label="Line at x=6")
     fig.legend()
     return fig
 
@@ -35,9 +35,9 @@ def test_vlines_multiple_lines():
     fig.vlines([3, 4, 5], ymin=[1, 2, 3])
     fig.vlines([6, 7, 8], ymax=[7, 8, 9])
     fig.vlines([9, 10], ymin=[1, 2], ymax=[9, 10])
-    fig.vlines([11, 12], ymin=1, ymax=8, pen="1p,blue", label="Lines at y=11,12")
+    fig.vlines([11, 12], ymin=1, ymax=8, pen="1p,blue", label="Lines at x=11,12")
     fig.vlines(
-        [13, 14], ymin=[3, 4], ymax=[7, 8], pen="1p,red", label="Lines at y=13,14"
+        [13, 14], ymin=[3, 4], ymax=[7, 8], pen="1p,red", label="Lines at x=13,14"
     )
     fig.legend()
     return fig
