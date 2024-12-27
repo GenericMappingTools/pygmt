@@ -248,10 +248,10 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
           The meanings of columns are the same as above.
         - *2-D np.array*: focal mechanism parameters of multiple events.
           The meanings of columns are the same as above.
-        - *dict* or :class:`pandas.DataFrame`: The dictionary keys or
+        - *dict* or :class:`pandas.DataFrame`: The dict keys or
           :class:`pandas.DataFrame` column names determine the focal mechanism
-          convention. For the different conventions, the following combination of keys/
-          column names are required:
+          convention. For the different conventions, the following combination of
+          keys / column names are required:
 
           - ``"aki"``: *strike*, *dip*, *rake*, *magnitude*
           - ``"gcmt"``: *strike1*, *dip1*, *rake1*, *strike2*, *dip2*, *rake2*,
@@ -261,15 +261,15 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
           - ``"principal_axis"``: *t_value*, *t_azimuth*, *t_plunge*, *n_value*,
             *n_azimuth*, *n_plunge*, *p_value*, *p_azimuth*, *p_plunge*, *exponent*
 
-          A dictionary may contain values for a single focal mechanism or lists of
+          A dict may contain values for a single focal mechanism or lists of
           values for multiple focal mechanisms.
 
-          Both dictionary and :class:`pandas.DataFrame` may optionally contain the keys/
+          Both dict and :class:`pandas.DataFrame` may optionally contain the keys /
           column names: ``latitude``, ``longitude``, ``depth``, ``plot_longitude``,
           ``plot_latitude``, and/or ``event_name``.
 
         If ``spec`` is either a str or a 1-D or 2-D numpy array, the ``convention``
-        parameter is required to interpret the columns. If ``spec`` is a dictionary or
+        parameter is required to interpret the columns. If ``spec`` is a dict or
         a :class:`pandas.DataFrame`, ``convention`` is not needed and ignored if
         specified.
     scale : float or str
@@ -295,7 +295,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
         - ``"partial"`` (partial focal mechanism)
         - ``"principal_axis"`` (principal axis)
 
-        Ignored if ``spec`` is a dictionary or :class:`pandas.DataFrame`.
+        Ignored if ``spec`` is a dict or :class:`pandas.DataFrame`.
     component : str
         The component of the seismic moment tensor to plot.
 
@@ -306,15 +306,15 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
     longitude/latitude/depth : float, list, or 1-D numpy array
         Longitude(s) / latitude(s) / depth(s) of the event(s). Length must match the
         number of events. Overrides the ``longitude`` / ``latitude`` / ``depth`` values
-        in ``spec`` if ``spec`` is a dictionary or :class:`pandas.DataFrame`.
+        in ``spec`` if ``spec`` is a dict or :class:`pandas.DataFrame`.
     plot_longitude/plot_latitude : float, str, list, or 1-D numpy array
         Longitude(s) / Latitude(s) at which to place the beachball(s). Length must match
         the number of events. Overrides the ``plot_longitude`` / ``plot_latitude``
-        values in ``spec`` if ``spec`` is a dictionary or :class:`pandas.DataFrame`.
+        values in ``spec`` if ``spec`` is a dict or :class:`pandas.DataFrame`.
     event_name : str, list of str, or 1-D numpy array
         Text string(s), e.g., event name(s) to appear near the beachball(s). Length
-        must match the number of events. Overrides the ``event_name`` labels in
-        ``spec`` if ``spec`` is a dictionary or :class:`pandas.DataFrame`.
+        must match the number of events. Overrides the ``event_name`` labels in ``spec``
+        if ``spec`` is a dict or :class:`pandas.DataFrame`.
     labelbox : bool or str
         [*fill*].
         Draw a box behind the label if given via ``event_name``. Use *fill* to give a
