@@ -384,7 +384,8 @@ class Session:
             We'll capture the messages and print them to stderr so that they will show
             up on the Jupyter notebook.
             """
-            # Have to use try..except due to upstream GMT bug in GMT <= 6.5.0.
+            # TODO(GMT>6.5.0): Remove the workaround for upstream bug in GMT<=6.5.0.
+            # Have to use try..except due to upstream GMT bug in GMT<=6.5.0.
             # See https://github.com/GenericMappingTools/pygmt/issues/3205.
             try:
                 message = message.decode().strip()
