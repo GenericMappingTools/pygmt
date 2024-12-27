@@ -6,7 +6,7 @@ import base64
 import os
 from pathlib import Path, PurePath
 from tempfile import TemporaryDirectory
-from typing import Literal
+from typing import Literal, overload
 
 try:
     import IPython
@@ -353,6 +353,14 @@ class Figure:
                 )
                 raise GMTInvalidInput(msg)
 
+    @overload
+    def _preview(
+        self, fmt: str, dpi: int, as_bytes: Literal[True] = True, **kwargs
+    ) -> bytes: ...
+    @overload
+    def _preview(
+        self, fmt: str, dpi: int, as_bytes: Literal[False] = False, **kwargs
+    ) -> str: ...
     def _preview(self, fmt: str, dpi: int, as_bytes: bool = False, **kwargs):
         """
         Grab a preview of the figure.
@@ -380,7 +388,7 @@ class Figure:
             return fname.read_bytes()
         return fname
 
-    def _repr_png_(self):
+    def _repr_png_(self) -> bytes:
         """
         Show a PNG preview if the object is returned in an interactive shell.
 
@@ -389,7 +397,7 @@ class Figure:
         png = self._preview(fmt="png", dpi=70, anti_alias=True, as_bytes=True)
         return png
 
-    def _repr_html_(self):
+    def _repr_html_(self) -> str:
         """
         Show the PNG image embedded in HTML with a controlled width.
 
@@ -409,6 +417,7 @@ class Figure:
         grdimage,
         grdview,
         histogram,
+        hlines,
         image,
         inset,
         legend,

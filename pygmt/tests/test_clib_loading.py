@@ -9,6 +9,7 @@ import subprocess
 import sys
 import types
 from pathlib import PurePath
+from unittest import mock
 
 import pytest
 from pygmt.clib.loading import (
@@ -70,24 +71,15 @@ def test_load_libgmt():
     check_libgmt(load_libgmt())
 
 
-def test_load_libgmt_fails(monkeypatch):
+def test_load_libgmt_fails():
     """
     Test that GMTCLibNotFoundError is raised when GMT's shared library cannot be found.
     """
-    with monkeypatch.context() as mpatch:
-        if sys.platform == "win32":
-            mpatch.setattr(ctypes.util, "find_library", lambda name: "fakegmt.dll")  # noqa: ARG005
-        mpatch.setattr(
-            sys,
-            "platform",
-            # Pretend to be on macOS if running on Linux, and vice versa
-            "darwin" if sys.platform == "linux" else "linux",
-        )
-        mpatch.setattr(
-            subprocess,
-            "check_output",
-            lambda cmd, encoding: "libfakegmt.so",  # noqa: ARG005
-        )
+    with (
+        mock.patch("ctypes.util.find_library", return_value="fakegmt.dll"),
+        mock.patch("sys.platform", "darwin" if sys.platform == "linux" else "linux"),
+        mock.patch("subprocess.check_output", return_value="libfakegmt.so"),
+    ):
         with pytest.raises(GMTCLibNotFoundError):
             check_libgmt(load_libgmt())
 
@@ -214,42 +206,25 @@ class TestLibgmtBrokenLibs:
         assert check_libgmt(load_libgmt(lib_fullnames=lib_fullnames)) is None
 
 
-class TestLibgmtCount:
+def test_libgmt_load_counter():
     """
-    Test that the GMT library is not repeatedly loaded in every session.
+    Make sure that the GMT library is not loaded in every session.
     """
-
-    loaded_libgmt = load_libgmt()  # Load the GMT library and reuse it when necessary
-    counter = 0  # Global counter for how many times ctypes.CDLL is called
-
-    def _mock_ctypes_cdll_return(self, libname):  # noqa: ARG002
-        """
-        Mock ctypes.CDLL to count how many times the function is called.
-
-        If ctypes.CDLL is called, the counter increases by one.
-        """
-        self.counter += 1  # Increase the counter
-        return self.loaded_libgmt
-
-    def test_libgmt_load_counter(self, monkeypatch):
-        """
-        Make sure that the GMT library is not loaded in every session.
-        """
-        # Monkeypatch the ctypes.CDLL function
-        monkeypatch.setattr(ctypes, "CDLL", self._mock_ctypes_cdll_return)
-
-        # Create two sessions and check the global counter
+    loaded_libgmt = load_libgmt()  # Load the GMT library and reuse it when necessary.
+    with mock.patch("ctypes.CDLL", return_value=loaded_libgmt) as mock_cdll:
+        # Create two sessions and check the call count
         with Session() as lib:
             _ = lib
         with Session() as lib:
             _ = lib
-        assert self.counter == 0  # ctypes.CDLL is not called after two sessions.
+        # ctypes.CDLL is not called after two sessions.
+        assert mock_cdll.call_count == 0
 
-        # Explicitly calling load_libgmt to make sure the mock function is correct
+        # Explicitly calling load_libgmt to make sure the mock function is correct.
         load_libgmt()
-        assert self.counter == 1
+        assert mock_cdll.call_count == 1
         load_libgmt()
-        assert self.counter == 2
+        assert mock_cdll.call_count == 2
 
 
 ###############################################################################
