@@ -94,8 +94,8 @@ def load_earth_deflection(
     --------
 
     >>> from pygmt.datasets import load_earth_deflection
-    >>> # load the default grid for east-west deflection (gridline-registered 1
-    >>> # arc-degree grid)
+    >>> # load the default grid for east-west deflection (gridline-registered
+    >>> # 1 arc-degree grid)
     >>> grid = load_earth_deflection()
     >>> # load the default grid for south-north deflection
     >>> grid = load_earth_deflection(direction="ndefl")

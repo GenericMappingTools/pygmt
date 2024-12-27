@@ -15,7 +15,7 @@ def test_earth_edefl_01d():
     data = load_earth_deflection(resolution="01d")
     assert data.name == "z"
     assert data.attrs["long_name"] == "edefl (microradians)"
-    assert data.attrs["description"] == "IGPP Earth east-west deflections"
+    assert data.attrs["description"] == "IGPP Earth east-west deflection"
     assert data.attrs["units"] == "micro-radians"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
@@ -62,7 +62,7 @@ def test_earth_ndefl_01d():
     data = load_earth_deflection(resolution="01d", direction="ndefl")
     assert data.name == "z"
     assert data.attrs["long_name"] == "ndefl (microradians)"
-    assert data.attrs["description"] == "IGPP Earth south-north deflections"
+    assert data.attrs["description"] == "IGPP Earth south-north deflection"
     assert data.attrs["units"] == "micro-radians"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
