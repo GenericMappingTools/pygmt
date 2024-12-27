@@ -108,11 +108,9 @@ def load_earth_free_air_anomaly(
     ...     resolution="05m", region=[120, 160, 30, 60], registration="gridline"
     ... )
     """
-    # Map data source to prefix
-    prefix = {
-        False: "earth_faa",
-        True: "earth_faaerror",
-    }.get(uncertainty)
+
+    prefix = "earth_faaerror" if uncertainty is True else "earth_faa"
+
     if prefix is None:
         msg = (
             f"Invalid earth free air anomaly data type '{uncertainty}'. "
