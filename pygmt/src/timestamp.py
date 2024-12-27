@@ -100,7 +100,7 @@ def timestamp(
                 "The given text string will be truncated to 64 characters."
             )
             warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
-        # TODO(GMT>=6.5.0): Remove the workaround for the new `+t` modifier.
+        # TODO(GMT>=6.5.0): Remove the workaround for the new '+t' modifier.
         if Version(__gmt_version__) < Version("6.5.0"):
             # Workaround for GMT<6.5.0 by overriding the 'timefmt' parameter
             timefmt = text[:64]
