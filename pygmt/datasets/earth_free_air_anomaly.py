@@ -31,7 +31,7 @@ def load_earth_free_air_anomaly(
        :header-rows: 1
 
        * - IGPP Earth Free-Air Anomaly
-         - IGPP Earth Free-Air Anomaly Errors
+         - IGPP Earth Free-Air Anomaly Uncertainty
        * - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_faa.jpg
          - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_faaerror.jpg
 
