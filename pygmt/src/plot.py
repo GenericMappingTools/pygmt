@@ -111,10 +111,8 @@ def plot(
     straight_line
         By default, line segments are drawn as straight lines in the Cartesian and polar
         coordinate systems, and as great circle arcs (by resampling coarse input data
-        along such arcs) in the geographic coordinate system.
-
-        The ``straight_line`` parameter can control the drawing of line segments. Valid
-        values are:
+        along such arcs) in the geographic coordinate system. The ``straight_line``
+        parameter can control the drawing of line segments. Valid values are:
 
         - ``True``: Draw line segments as straight lines in geographic projections.
         - ``"x"``: Draw line segments by first along *x*, then along *y*.
