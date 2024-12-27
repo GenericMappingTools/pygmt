@@ -26,11 +26,14 @@ def load_earth_free_air_anomaly(
     r"""
     Load the IGPP Earth free-air anomaly dataset in various resolutions.
 
-    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_faa.jpg
-       :width: 80 %
-       :align: center
+    .. list-table::
+       :widths: 50 50
+       :header-rows: 1
 
-       IGPP Earth free-air anomaly dataset.
+       * - IGPP Earth Free-Air Anomaly
+         - IGPP Earth Free-Air Anomaly Errors
+       * - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_faa.jpg
+         - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_faaerror.jpg
 
     The grids are downloaded to a user data directory (usually
     ``~/.gmt/server/earth/earth_faa/`` or ``~/.gmt/server/earth/earth_faaerror/``) the
