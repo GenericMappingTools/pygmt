@@ -234,8 +234,8 @@ and store them in GMT's user data directory.
     datasets.load_black_marble
     datasets.load_blue_marble
     datasets.load_earth_age
+    datasets.load_earth_deflection
     datasets.load_earth_dist
-    datasets.load_earth_east_west_deflection
     datasets.load_earth_free_air_anomaly
     datasets.load_earth_geoid
     datasets.load_earth_magnetic_anomaly
@@ -249,7 +249,6 @@ and store them in GMT's user data directory.
     datasets.load_moon_relief
     datasets.load_pluto_relief
     datasets.load_venus_relief
-    datasets.load_earth_south_north_deflection
     datasets.load_sample_data
 
 In addition, there is also a special function to load XYZ tile maps via
