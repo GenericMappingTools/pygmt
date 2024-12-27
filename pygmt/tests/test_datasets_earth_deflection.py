@@ -23,7 +23,7 @@ def test_earth_edefl_01d():
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
     npt.assert_allclose(data.min(), -142.64, atol=0.04)
-    npt.assert_allclose(data.max(), 161.25, atol=0.04)
+    npt.assert_allclose(data.max(), 178.32, atol=0.04)
 
 
 def test_earth_edefl_01d_with_region():
@@ -36,7 +36,7 @@ def test_earth_edefl_01d_with_region():
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
     npt.assert_allclose(data.min(), -28.92, atol=0.04)
-    npt.assert_allclose(data.max(), 45.3, atol=0.04)
+    npt.assert_allclose(data.max(), 24.72, atol=0.04)
 
 
 def test_earth_edefl_01m_default_registration():
@@ -52,7 +52,7 @@ def test_earth_edefl_01m_default_registration():
     npt.assert_allclose(data.coords["lon"].data.min(), -9.99166666)
     npt.assert_allclose(data.coords["lon"].data.max(), -9.00833333)
     npt.assert_allclose(data.min(), -62.24, atol=0.04)
-    npt.assert_allclose(data.max(), 115.0, atol=0.04)
+    npt.assert_allclose(data.max(), 15.52, atol=0.04)
 
 
 def test_earth_ndefl_01d():
@@ -70,7 +70,7 @@ def test_earth_ndefl_01d():
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
     npt.assert_allclose(data.min(), -214.8, atol=0.04)
-    npt.assert_allclose(data.max(), 161.25, atol=0.04)
+    npt.assert_allclose(data.max(), 163.04, atol=0.04)
 
 
 def test_earth_ndefl_01d_with_region():
@@ -85,7 +85,7 @@ def test_earth_ndefl_01d_with_region():
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
     npt.assert_allclose(data.min(), -48.08, atol=0.04)
-    npt.assert_allclose(data.max(), 45.3, atol=0.04)
+    npt.assert_allclose(data.max(), 18.92, atol=0.04)
 
 
 def test_earth_ndefl_01m_default_registration():
@@ -103,4 +103,4 @@ def test_earth_ndefl_01m_default_registration():
     npt.assert_allclose(data.coords["lon"].data.min(), -9.99166666)
     npt.assert_allclose(data.coords["lon"].data.max(), -9.00833333)
     npt.assert_allclose(data.min(), -107.04, atol=0.04)
-    npt.assert_allclose(data.max(), 115.0, atol=0.04)
+    npt.assert_allclose(data.max(), 20.28, atol=0.04)
