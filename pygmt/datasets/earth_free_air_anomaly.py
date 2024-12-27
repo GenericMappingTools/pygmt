@@ -70,11 +70,10 @@ def load_earth_free_air_anomaly(
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``None``, means
         ``"gridline"`` for all resolutions except ``"01m"`` which is ``"pixel"`` only.
-    Uncertainty
-        Select the free air anomaly data. Available options are:
-
-        - ``"faa"``: Altimetry-based marine free-air anomaly values.
-        - ``"faaerror"``: Uncertainties to the free-air anomaly values.
+    uncertainty : bool
+        Set to ``uncertainty=True`` to download the uncertainties related to the
+        free-air anomaly values [Default is ``uncertainty=False`` and gives the
+        altimetry-based marine free-air anomaly values.
 
     Returns
     -------
