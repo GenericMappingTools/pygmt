@@ -23,7 +23,8 @@ def load_earth_free_air_anomaly(
     uncertainty: bool = False,
 ) -> xr.DataArray:
     r"""
-    Load the IGPP Earth free-air anomaly and uncertainty datasets in various resolutions.
+    Load the IGPP Earth free-air anomaly and uncertainty datasets in various
+    resolutions.
 
     .. list-table::
        :widths: 50 50
@@ -71,9 +72,9 @@ def load_earth_free_air_anomaly(
         ``"gridline"`` for gridline registration. Default is ``None``, means
         ``"gridline"`` for all resolutions except ``"01m"`` which is ``"pixel"`` only.
     uncertainty : bool
-        Set to ``True`` to download the uncertainties related to the
-        free-air anomaly values [Default is ``False`` and gives the
-        altimetry-based marine free-air anomaly values.
+        Set to ``True`` to download the uncertainties related to the free-air anomaly
+        values [Default is ``False`` and gives the altimetry-based marine free-air
+        anomaly values.
 
     Returns
     -------
