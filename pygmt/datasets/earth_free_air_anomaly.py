@@ -108,7 +108,6 @@ def load_earth_free_air_anomaly(
     ... )
     """
     prefix = "earth_faaerror" if uncertainty is True else "earth_faa"
-
     grid = _load_remote_dataset(
         name=prefix,
         prefix=prefix,
