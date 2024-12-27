@@ -106,7 +106,6 @@ def load_earth_free_air_anomaly(
     ...     resolution="05m", region=[120, 160, 30, 60], registration="gridline"
     ... )
     """
-
     prefix = "earth_faaerror" if uncertainty is True else "earth_faa"
 
     grid = _load_remote_dataset(
