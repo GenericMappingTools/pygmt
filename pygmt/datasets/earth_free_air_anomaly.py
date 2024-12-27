@@ -43,9 +43,9 @@ def load_earth_free_air_anomaly(
     These grids can also be accessed by passing in the file name
     **@earth_faa_type**\_\ *res*\[_\ *reg*] to any grid processing function or
     plotting method. *earth_faa_type* is the GMT name for the dataset. The available
-    options are **earth_faa** and **earth_faaerror**. *res* is the grid resolution
-    (see below), and *reg* is the grid registration type (**p** for pixel registration
-    or **g** for gridline registration).
+    options are **earth_faa** and **earth_faaerror**. *res* is the grid resolution (see
+    below), and *reg* is the grid registration type (**p** for pixel registration or
+    **g** for gridline registration).
 
     The default color palette tables (CPTs) for these datasets are *@earth_faa.cpt* and
     *@earth_faaerror.cpt*. The dataset-specific CPT is implicitly used when passing in
@@ -72,14 +72,14 @@ def load_earth_free_air_anomaly(
         ``"gridline"`` for gridline registration. Default is ``None``, means
         ``"gridline"`` for all resolutions except ``"01m"`` which is ``"pixel"`` only.
     uncertainty
-        By default, the Earth free-air anomaly values are returned. Set to ``True``
-        to return the related uncertainties instead.
+        By default, the Earth free-air anomaly values are returned. Set to ``True`` to
+        return the related uncertainties instead.
 
     Returns
     -------
     grid
-        The Earth free-air anomaly (uncertainty) grid. Coordinates are latitude
-        and longitude in degrees. Units are in mGal.
+        The Earth free-air anomaly (uncertainty) grid. Coordinates are latitude and
+        longitude in degrees. Units are in mGal.
 
     Note
     ----
