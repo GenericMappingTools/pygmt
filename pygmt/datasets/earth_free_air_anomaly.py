@@ -21,7 +21,7 @@ def load_earth_free_air_anomaly(
     ] = "01d",
     region: Sequence[float] | str | None = None,
     registration: Literal["gridline", "pixel", None] = None,
-    uncertainty: False | True = False,
+    uncertainty: Literal[False, True] = False,
 ) -> xr.DataArray:
     r"""
     Load the IGPP Earth free-air anomaly dataset in various resolutions.
