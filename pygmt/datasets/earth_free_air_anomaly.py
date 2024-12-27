@@ -1,6 +1,6 @@
 """
-Function to download the IGPP Earth free-air anomaly dataset from the GMT data server,
-and load as :class:`xarray.DataArray`.
+Function to download the IGPP Earth free-air anomaly and uncertainty datasets from
+the GMT data server, and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
@@ -30,8 +30,8 @@ def load_earth_free_air_anomaly(
        :widths: 50 50
        :header-rows: 1
 
-       * - IGPP Earth Free-Air Anomaly
-         - IGPP Earth Free-Air Anomaly Uncertainty
+       * - IGPP Earth free-Air anomaly
+         - IGPP Earth free-Air anomaly uncertainty
        * - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_faa.jpg
          - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_faaerror.jpg
 
@@ -74,13 +74,13 @@ def load_earth_free_air_anomaly(
     uncertainty
         Set to ``True`` to download the uncertainties related to the free-air anomaly
         values [Default is ``False`` and gives the altimetry-based marine free-air
-        anomaly values.
+        anomaly values].
 
     Returns
     -------
     grid
-        The Earth free-air anomaly grid (or its uncertainty). Coordinates are latitude and longitude in
-        degrees. Units are in mGal.
+        The Earth free-air anomaly grid (or its uncertainty). Coordinates are latitude
+        and longitude in degrees. Units are in mGal.
 
     Note
     ----
