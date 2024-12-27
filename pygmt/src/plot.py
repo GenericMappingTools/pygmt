@@ -109,17 +109,23 @@ def plot(
     {projection}
     {region}
     straight_line
-        By default, geographic line segments are drawn as great circle arcs by
-        resampling coarse input data along such arcs. To draw them as straight lines,
-        use ``straight_line=True``. Alternatively, setting it to ``"x"`` or ``"y"`` will
-        draw the line by first along *x*, then along *y*.
+        By default, line segments are drawn as straight lines in the Cartesian and polar
+        coordinate systems, and as great circle arcs (by resampling coarse input data
+        along such arcs) in the geographic coordinate system.
 
-        Here, *x* and *y* have following meanings:
+        The ``straight_line`` parameter can control the drawing of line segments. Valid
+        values are:
 
-        - For Cartesian coordinate systems, *x* and *y* are the X- and Y-axes,
-          respectively
-        - For gragraphic projections, *x* and *y* are parallels and meridians
-        - For polar projections, *x* and *y* are theta and radius
+        - ``True``: Draw line segments as straight lines in geographic projections.
+        - ``"x"``: Draw line segments by first along *x*, then along *y*.
+        - ``"y"``: Draw line segments by first along *y*, then along *x*.
+
+        Here, *x* and *y* have different meanings depending on the coordinate system:
+
+        - **Cartesian coordinate system**: *x* and *y* are the X- and Y-axes.
+        - **Polar coordinate system**: *x* and *y* are theta and radius.
+        - **Gragraphic coordinate system**: *x* and *y* are parallels and meridians.
+
     {frame}
     {cmap}
     offset : str
