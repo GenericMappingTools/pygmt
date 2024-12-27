@@ -10,7 +10,6 @@ from typing import Literal
 
 import xarray as xr
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
-from pygmt.exceptions import GMTInvalidInput
 
 __doctest_skip__ = ["load_earth_free_air_anomaly"]
 
@@ -111,12 +110,6 @@ def load_earth_free_air_anomaly(
 
     prefix = "earth_faaerror" if uncertainty is True else "earth_faa"
 
-    if prefix is None:
-        msg = (
-            f"Invalid earth free air anomaly data type '{uncertainty}'. "
-            "Valid inputs are False for the values and True for the uncertainties."
-        )
-        raise GMTInvalidInput(msg)
     grid = _load_remote_dataset(
         name=prefix,
         prefix=prefix,
