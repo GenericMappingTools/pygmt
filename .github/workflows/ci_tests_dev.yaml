@@ -36,7 +36,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-24.04, macos-15, windows-2022]
+        os: [ubuntu-24.04, macos-15, windows-2025]
         gmt_git_ref: [master]
     timeout-minutes: 30
     defaults:
@@ -69,7 +69,7 @@ jobs:
           # environment cache is persistent for one week.
           cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
           create-args: >-
-            python=3.12
+            python=3.13
             cmake
             make
             ninja

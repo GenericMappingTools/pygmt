@@ -30,7 +30,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5.3.0
         with:
-          python-version: '3.12'
+          python-version: '3.13'
 
       - name: Install packages
         run: |
@@ -48,6 +48,18 @@ jobs:
           nfiles=$(wc --lines output.txt | awk '{print $1}')
           if [[ $nfiles > 0 ]]; then
             echo "Code block separator '# %%' is required in following example files:"
+            cat output.txt
+            rm output.txt
+            exit $nfiles
+          fi
+
+      - name: Ensure hyphens are not used in names of directories and Python files
+        run: |
+          git ls-files '*.py' | grep '-' > output.txt || true
+          git ls-tree -rd --name-only HEAD | grep '-' >> output.txt || true
+          nfiles=$(wc --lines output.txt | awk '{print $1}')
+          if [[ $nfiles > 0 ]]; then
+            echo "Following directories/files use hyphens in file names:"
             cat output.txt
             rm output.txt
             exit $nfiles

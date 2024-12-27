@@ -67,7 +67,8 @@ def load_moon_relief(
     ----------
     resolution
         The grid resolution. The suffix ``d``, ``m`` and ``s`` stand for arc-degrees,
-        arc-minutes and arc-seconds.
+        arc-minutes and arc-seconds. Note that ``"14s"`` refers to a resolution of
+        14.0625 arc-seconds.
     region
         The subregion of the grid to load, in the form of a sequence [*xmin*, *xmax*,
         *ymin*, *ymax*] or an ISO country code. Required for grids with resolutions

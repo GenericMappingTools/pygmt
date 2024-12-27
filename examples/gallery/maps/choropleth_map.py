@@ -2,25 +2,27 @@
 Choropleth map
 ==============
 
-The :meth:`pygmt.Figure.plot` method allows us to plot geographical data such
-as polygons which are stored in a :class:`geopandas.GeoDataFrame` object. Use
-:func:`geopandas.read_file` to load data from any supported OGR format such as
-a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. You can also
-use a full URL pointing to your desired data source. Then, pass the
-:class:`geopandas.GeoDataFrame` as an argument to the ``data`` parameter of
-:meth:`pygmt.Figure.plot`, and style the geometry using the ``pen`` parameter.
-To fill the polygons based on a corresponding column you need to set
-``fill="+z"`` as well as select the appropriate column using the ``aspatial``
-parameter as shown in the example below.
+The :meth:`pygmt.Figure.plot` method allows us to plot geographical data such as
+polygons which are stored in a :class:`geopandas.GeoDataFrame` object. Use
+:func:`geopandas.read_file` to load data from any supported OGR format such as a
+shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. You can also use a full
+URL pointing to your desired data source. Then, pass the class:`geopandas.GeoDataFrame`
+as an argument to the ``data`` parameter of :meth:`pygmt.Figure.plot`, and style the
+geometry using the ``pen`` parameter. To fill the polygons based on a corresponding
+column you need to set ``fill="+z"`` as well as select the appropriate column using the
+``aspatial`` parameter as shown in the example below.
 """
 
 # %%
+import geodatasets
 import geopandas as gpd
 import pygmt
 
-# Read polygon data using geopandas
-gdf = gpd.read_file("https://geodacenter.github.io/data-and-lab/data/airbnb.zip")
+# Read the example dataset provided by geodatasets.
+gdf = gpd.read_file(geodatasets.get_path("geoda airbnb"))
+print(gdf)
 
+# %%
 fig = pygmt.Figure()
 
 fig.basemap(
@@ -29,11 +31,10 @@ fig.basemap(
     frame="+tPopulation of Chicago",
 )
 
-# The dataset contains different attributes, here we select
-# the "population" column to plot.
+# The dataset contains different attributes, here we select the "population" column to
+# plot.
 
-# First, we define the colormap to fill the polygons based on
-# the "population" column.
+# First, we define the colormap to fill the polygons based on the "population" column.
 pygmt.makecpt(
     cmap="acton",
     series=[gdf["population"].min(), gdf["population"].max(), 10],
@@ -41,8 +42,8 @@ pygmt.makecpt(
     reverse=True,
 )
 
-# Next, we plot the polygons and fill them using the defined colormap.
-# The target column is defined by the aspatial parameter.
+# Next, we plot the polygons and fill them using the defined colormap. The target column
+# is defined by the aspatial parameter.
 fig.plot(
     data=gdf,
     pen="0.3p,gray10",
@@ -51,7 +52,7 @@ fig.plot(
     aspatial="Z=population",
 )
 
-# Add colorbar legend
+# Add colorbar legend.
 fig.colorbar(frame="x+lPopulation", position="jML+o-0.5c+w3.5c/0.2c")
 
 fig.show()
