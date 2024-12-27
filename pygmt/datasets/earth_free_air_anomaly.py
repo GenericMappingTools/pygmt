@@ -80,7 +80,7 @@ def load_earth_free_air_anomaly(
     -------
     grid
         The Earth free-air anomaly grid. Coordinates are latitude and longitude in
-        degrees Units are in mGal.
+        degrees. Units are in mGal.
 
     Note
     ----
