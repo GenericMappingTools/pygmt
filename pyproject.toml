@@ -119,6 +119,7 @@ select = [
     "SIM",  # flake8-simplify
     "T20",  # flake8-print
     "TC",   # flake8-type-checking
+    "TD",   # flake8-todos
     "TID",  # flake8-tidy-imports
     "TRY",  # tryceratops
     "UP",   # pyupgrade
@@ -147,6 +148,7 @@ ignore = [
     "RET504",   # Allow variable assignment and return immediately for readability
     "S603",     # Allow method calls that initiate a subprocess without a shell
     "SIM117",   # Allow nested `with` statements
+    "TD003",    # Allow TODO comments without associated issue link
 ]
 preview = true
 explicit-preview-rules = true
