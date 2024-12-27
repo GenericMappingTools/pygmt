@@ -23,7 +23,7 @@ def load_earth_free_air_anomaly(
     uncertainty: bool = False,
 ) -> xr.DataArray:
     r"""
-    Load the IGPP Earth free-air anomaly dataset in various resolutions.
+    Load the IGPP Earth free-air anomaly and uncertainty datasets in various resolutions.
 
     .. list-table::
        :widths: 50 50
