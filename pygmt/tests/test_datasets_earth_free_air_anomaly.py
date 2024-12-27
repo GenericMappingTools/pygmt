@@ -58,7 +58,7 @@ def test_earth_faaerror_01d():
     """
     Test some properties of the free air anomaly error 01d data.
     """
-    data = load_earth_free_air_anomaly(resolution="01d", data_source="faaerror")
+    data = load_earth_free_air_anomaly(resolution="01d", uncertainty=True)
     assert data.name == "z"
     assert data.attrs["long_name"] == "faaerror (mGal)"
     assert data.attrs["description"] == "IGPP Earth free-air anomaly errors"
@@ -77,7 +77,7 @@ def test_earth_faaerror_01d_with_region():
     Test loading low-resolution earth free air anomaly error with 'region'.
     """
     data = load_earth_free_air_anomaly(
-        resolution="01d", region=[-10, 10, -5, 5], data_source="faaerror"
+        resolution="01d", region=[-10, 10, -5, 5], uncertainty=True
     )
     assert data.shape == (11, 21)
     assert data.gmt.registration == 0
@@ -93,7 +93,7 @@ def test_earth_faaerror_01m_default_registration():
     registration.
     """
     data = load_earth_free_air_anomaly(
-        resolution="01m", region=[-10, -9, 3, 5], data_source="faaerror"
+        resolution="01m", region=[-10, -9, 3, 5], uncertainty=True
     )
     assert data.shape == (120, 60)
     assert data.gmt.registration == 1

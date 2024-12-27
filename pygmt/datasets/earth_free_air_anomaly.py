@@ -21,7 +21,7 @@ def load_earth_free_air_anomaly(
     ] = "01d",
     region: Sequence[float] | str | None = None,
     registration: Literal["gridline", "pixel", None] = None,
-    data_source: Literal["faa", "faaerror"] = "faa",
+    uncertainty: False | True = False,
 ) -> xr.DataArray:
     r"""
     Load the IGPP Earth free-air anomaly dataset in various resolutions.
@@ -71,7 +71,7 @@ def load_earth_free_air_anomaly(
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``None``, means
         ``"gridline"`` for all resolutions except ``"01m"`` which is ``"pixel"`` only.
-    data_source
+    Uncertainty
         Select the free air anomaly data. Available options are:
 
         - ``"faa"``: Altimetry-based marine free-air anomaly values.
@@ -80,8 +80,8 @@ def load_earth_free_air_anomaly(
     Returns
     -------
     grid
-        The Earth free-air anomaly grid. Coordinates are latitude and
-        longitude in degrees. Units are in mGal.
+        The Earth free-air anomaly grid. Coordinates are latitude and longitude in
+        degrees Units are in mGal.
 
     Note
     ----
@@ -99,6 +99,8 @@ def load_earth_free_air_anomaly(
     >>> from pygmt.datasets import load_earth_free_air_anomaly
     >>> # load the default grid (gridline-registered 1 arc-degree grid)
     >>> grid = load_earth_free_air_anomaly()
+    >>> # load the uncertainties related to the default grid
+    >>> grid = load_earth_free_air_anomaly(uncertainty=True)
     >>> # load the 30 arc-minutes grid with "gridline" registration
     >>> grid = load_earth_free_air_anomaly(resolution="30m", registration="gridline")
     >>> # load high-resolution (5 arc-minutes) grid for a specific region
@@ -108,13 +110,13 @@ def load_earth_free_air_anomaly(
     """
     # Map data source to prefix
     prefix = {
-        "faa": "earth_faa",
-        "faaerror": "earth_faaerror",
-    }.get(data_source)
+        False: "earth_faa",
+        True: "earth_faaerror",
+    }.get(uncertainty)
     if prefix is None:
         msg = (
-            f"Invalid earth free air anomaly data source '{data_source}'. "
-            "Valid values are 'faa' and 'faaerror'."
+            f"Invalid earth free air anomaly data type '{uncertainty}'. "
+            "Valid inputs are False for the values and True for the uncertainties."
         )
         raise GMTInvalidInput(msg)
     grid = _load_remote_dataset(
