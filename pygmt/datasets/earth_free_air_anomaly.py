@@ -79,7 +79,7 @@ def load_earth_free_air_anomaly(
     -------
     grid
         The Earth free-air anomaly (uncertainty) grid. Coordinates are latitude and
-        longitude in degrees. Values are in mGal.
+        longitude in degrees. Values and uncertainties are in mGal.
 
     Note
     ----
