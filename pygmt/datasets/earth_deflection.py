@@ -36,7 +36,7 @@ def load_earth_deflection(
          - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_ndefl.jpg
 
     The grids are downloaded to a user data directory (usually
-    ``~/.gmt/server/earth/earth_edefl/`` and``~/.gmt/server/earth/earth_ndefl/`` the
+    ``~/.gmt/server/earth/earth_edefl/`` and ``~/.gmt/server/earth/earth_ndefl/`` the
     first time you invoke this function. Afterwards, it will load the grid from the
     data directory. So you'll need an internet connection the first time around.
 
