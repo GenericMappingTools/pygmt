@@ -296,7 +296,7 @@ datasets = {
         },
     ),
     "earth_ndefl": GMTRemoteDataset(
-        description="IGPP Earth south-north deflection",
+        description="IGPP Earth north-south deflection",
         units="micro-radians",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={

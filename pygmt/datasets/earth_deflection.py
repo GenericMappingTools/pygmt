@@ -1,5 +1,5 @@
 """
-Function to download the IGPP Earth east-west and south-north deflection datasets from
+Function to download the IGPP Earth east-west and north-south deflection datasets from
 the GMT data server, and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
@@ -20,10 +20,10 @@ def load_earth_deflection(
     ] = "01d",
     region: Sequence[float] | str | None = None,
     registration: Literal["gridline", "pixel", None] = None,
-    direction: Literal["east_west", "south_north"] = "east_west",
+    direction: Literal["east", "north"] = "east",
 ) -> xr.DataArray:
     r"""
-    Load the IGPP Earth east-west and south-north deflection datasets in various
+    Load the IGPP Earth east-west and north-south deflection datasets in various
     resolutions.
 
     .. list-table::
@@ -31,7 +31,7 @@ def load_earth_deflection(
        :header-rows: 1
 
        * - IGPP Earth east-west deflection
-         - IGPP Earth south-north deflection
+         - IGPP Earth north-south deflection
        * - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_edefl.jpg
          - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_ndefl.jpg
 
@@ -71,8 +71,8 @@ def load_earth_deflection(
         ``"gridline"`` for gridline registration. Default is ``None``, means
         ``"gridline"`` for all resolutions except ``"01m"`` which is ``"pixel"`` only.
     direction
-        By default, the east-west deflection (``direction="east_west"``) is returned,
-        ``direction="south_north"`` to return the south-north deflection.
+        By default, the east-west deflection (``direction="east"``) is returned,
+        ``direction="north"`` to return the north-south deflection.
 
     Returns
     -------
@@ -97,8 +97,8 @@ def load_earth_deflection(
     >>> # load the default grid for east-west deflection (gridline-registered
     >>> # 1 arc-degree grid)
     >>> grid = load_earth_deflection()
-    >>> # load the default grid for south-north deflection
-    >>> grid = load_earth_deflection(direction="ndefl")
+    >>> # load the default grid for north-south deflection
+    >>> grid = load_earth_deflection(component="ndefl")
     >>> # load the 30 arc-minutes grid with "gridline" registration
     >>> grid = load_earth_deflection(resolution="30m", registration="gridline")
     >>> # load high-resolution (5 arc-minutes) grid for a specific region
@@ -106,7 +106,7 @@ def load_earth_deflection(
     ...     resolution="05m", region=[120, 160, 30, 60], registration="gridline"
     ... )
     """
-    prefix = "earth_ndefl" if direction == "south_north" else "earth_edefl"
+    prefix = "earth_ndefl" if direction == "north" else "earth_edefl"
     grid = _load_remote_dataset(
         name=prefix,
         prefix=prefix,
