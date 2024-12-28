@@ -113,7 +113,12 @@
 
 ### Contributors
 
-[@core](https://github.com/core)-man, [Michael Grund](https://github.com/michaelgrund), [Dongdong Tian](https://github.com/seisman), [Wei Ji Leong](https://github.com/weiji14), [Will Schlitzer](https://github.com/willschlitzer) and [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
+* [Dongdong Tian](https://github.com/seisman)
+* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
+* [Wei Ji Leong](https://github.com/weiji14)
+* [Michael Grund](https://github.com/michaelgrund)
+* [Will Schlitzer](https://github.com/willschlitzer)
+* [Jiayuan Yao](https://github.com/core-man)
 
 ## Release v0.13.0 (2024/09/05)
 
