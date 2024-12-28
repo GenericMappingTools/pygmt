@@ -76,10 +76,10 @@ def load_earth_magnetic_anomaly(
         higher than 5 arc-minutes (i.e., ``"05m"``).
     registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
-        ``"gridline"`` for gridline registration. Default is ``None``, means
+        ``"gridline"`` for gridline registration. Default is ``None``, which means
         ``"gridline"`` for all resolutions except ``"02m"`` for
-        ``data_source="emag2"`` or ``data_source="emag2_4km"``, which are
-        ``"pixel"`` only.
+        ``data_source="emag2"`` or ``data_source="emag2_4km"``, which are ``"pixel"``
+        only.
     data_source
         Select the source of the magnetic anomaly data. Available options are:
 
