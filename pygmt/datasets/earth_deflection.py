@@ -78,7 +78,7 @@ def load_earth_deflection(
     -------
     grid
         The Earth east-west or south-north deflection grid. Coordinates are latitude
-        and longitude in degrees. Units are in micro-radians.
+        and longitude in degrees. Deflection values are in micro-radians.
 
     Note
     ----
