@@ -59,7 +59,7 @@ def test_earth_ndefl_01d():
     """
     Test some properties of the Earth south-north deflection 01d data.
     """
-    data = load_earth_deflection(resolution="01d", direction="ndefl")
+    data = load_earth_deflection(resolution="01d", direction="south_north")
     assert data.name == "z"
     assert data.attrs["long_name"] == "ndefl (microradians)"
     assert data.attrs["description"] == "IGPP Earth south-north deflection"
@@ -78,7 +78,7 @@ def test_earth_ndefl_01d_with_region():
     Test loading low-resolution Earth south-north deflection with "region".
     """
     data = load_earth_deflection(
-        resolution="01d", region=[-10, 10, -5, 5], direction="ndefl"
+        resolution="01d", region=[-10, 10, -5, 5], direction="south_north"
     )
     assert data.shape == (11, 21)
     assert data.gmt.registration == 0
@@ -94,7 +94,7 @@ def test_earth_ndefl_01m_default_registration():
     registration.
     """
     data = load_earth_deflection(
-        resolution="01m", region=[-10, -9, 3, 5], direction="ndefl"
+        resolution="01m", region=[-10, -9, 3, 5], direction="south_north"
     )
     assert data.shape == (120, 60)
     assert data.gmt.registration == 1

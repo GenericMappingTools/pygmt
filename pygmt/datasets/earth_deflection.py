@@ -20,10 +20,10 @@ def load_earth_deflection(
     ] = "01d",
     region: Sequence[float] | str | None = None,
     registration: Literal["gridline", "pixel", None] = None,
-    direction: Literal["edefl", "ndefl"] = "edefl",
+    direction: Literal["east_west", "south_north"] = "east_west",
 ) -> xr.DataArray:
     r"""
-    Load the IGPP Earth east-west and south-north deflections datasets in various
+    Load the IGPP Earth east-west and south-north deflection datasets in various
     resolutions.
 
     .. list-table::
@@ -71,8 +71,8 @@ def load_earth_deflection(
         ``"gridline"`` for gridline registration. Default is ``None``, means
         ``"gridline"`` for all resolutions except ``"01m"`` which is ``"pixel"`` only.
     direction
-        By default, the east-west deflection (``direction="edefl"``) is returned, set
-        ``direction="ndefl"`` to return the south-north deflection.
+        By default, the east-west deflection (``direction="east_west"``) is returned,
+        ``direction="south_north"`` to return the south-north deflection.
 
     Returns
     -------
@@ -106,7 +106,7 @@ def load_earth_deflection(
     ...     resolution="05m", region=[120, 160, 30, 60], registration="gridline"
     ... )
     """
-    prefix = "earth_ndefl" if direction == "ndefl" else "earth_edefl"
+    prefix = "earth_ndefl" if direction == "south_north" else "earth_edefl"
     grid = _load_remote_dataset(
         name=prefix,
         prefix=prefix,
