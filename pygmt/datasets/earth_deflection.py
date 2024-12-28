@@ -20,7 +20,7 @@ def load_earth_deflection(
     ] = "01d",
     region: Sequence[float] | str | None = None,
     registration: Literal["gridline", "pixel", None] = None,
-    direction: Literal["east", "north"] = "east",
+    component: Literal["east", "north"] = "east",
 ) -> xr.DataArray:
     r"""
     Load the IGPP Earth east-west and north-south deflection datasets in various
