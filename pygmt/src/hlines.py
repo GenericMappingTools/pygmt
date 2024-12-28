@@ -48,7 +48,7 @@ def hlines(
         Y-coordinates to plot the lines. It can be a single value (for a single line)
         or a sequence of values (for multiple lines).
     xmin/xmax
-        X-coordinates of the start/end point of the line(s). If ``None``, defaults to
+        X-coordinates of the start/end point(s) of the line(s). If ``None``, defaults to
         the X-limits of the current plot. ``xmin`` and ``xmax`` can be either a single
         value or a sequence of values. If a single value is provided, it is applied to
         all lines. If a sequence is provided, the length of ``xmin`` and ``xmax`` must
