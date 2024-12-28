@@ -437,6 +437,7 @@ class Figure:
         tilemap,
         timestamp,
         velo,
+        vlines,
         wiggle,
     )
 
