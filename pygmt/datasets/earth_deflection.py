@@ -70,9 +70,9 @@ def load_earth_deflection(
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``None``, means
         ``"gridline"`` for all resolutions except ``"01m"`` which is ``"pixel"`` only.
-    direction
-        By default, the east-west deflection (``direction="east"``) is returned,
-        ``direction="north"`` to return the north-south deflection.
+    component
+        By default, the east-west deflection (``component="east"``) is returned,
+        ``component="north"`` to return the north-south deflection.
 
     Returns
     -------
@@ -106,7 +106,7 @@ def load_earth_deflection(
     ...     resolution="05m", region=[120, 160, 30, 60], registration="gridline"
     ... )
     """
-    prefix = "earth_ndefl" if direction == "north" else "earth_edefl"
+    prefix = "earth_ndefl" if component == "north" else "earth_edefl"
     grid = _load_remote_dataset(
         name=prefix,
         prefix=prefix,
