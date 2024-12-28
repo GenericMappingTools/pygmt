@@ -86,9 +86,9 @@ def load_earth_mean_dynamic_topography(
     >>> grid = load_earth_mean_dynamic_topography(
     ...     resolution="30m", registration="gridline"
     ... )
-    >>> # load high-resolution (5 arc-minutes) grid for a specific region
+    >>> # load high-resolution (7 arc-minutes) grid for a specific region
     >>> grid = load_earth_mean_dynamic_topography(
-    ...     resolution="05m",
+    ...     resolution="07m",
     ...     region=[120, 160, 30, 60],
     ...     registration="gridline",
     ... )
