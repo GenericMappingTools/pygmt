@@ -72,7 +72,7 @@ def load_earth_deflection(
         ``"gridline"`` for all resolutions except ``"01m"`` which is ``"pixel"`` only.
     component
         By default, the east-west deflection (``component="east"``) is returned,
-        ``component="north"`` to return the north-south deflection.
+       set  ``component="north"`` to return the north-south deflection.
 
     Returns
     -------
