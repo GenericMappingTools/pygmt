@@ -1,5 +1,120 @@
 # Changelog
 
+## Release v0.14.0 (20YY/MM/DD)
+
+[![Digital Object Identifier for PyGMT v0.14.0](https://zenodo.org/badge/DOI/10.5281/zenodo.3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
+
+### Highlights
+
+*
+
+### New Features
+
+* Remote datasets: Add "uncertainty" parameter to "load_earth_free_air_anomaly" to load the "free-air anomaly uncertainty" dataset  ([#3727](https://github.com/GenericMappingTools/pygmt/pull/3727))
+* Remote datasets: Add "load_earth_mean_sea_surface" to load "CNES Earth Mean Sea Surface" dataset ([#3717](https://github.com/GenericMappingTools/pygmt/pull/3717))
+* Remote datasets: Add "load_earth_mean_dynamic_topography" to load "CNES Earth Mean Dynamic Topography" dataset ([#3718](https://github.com/GenericMappingTools/pygmt/pull/3718))
+* Remote datasets: Add "load_earth_dist" to load "GSHHG Earth distance to shoreline" dataset ([#3706](https://github.com/GenericMappingTools/pygmt/pull/3706))
+* Add the Session.virtualfile_from_stringio method to allow StringIO input for certain functions/methods ([#3326](https://github.com/GenericMappingTools/pygmt/pull/3326))
+* Add function to load Blue Marble dataset ([#2235](https://github.com/GenericMappingTools/pygmt/pull/2235))
+* Add Figure.vlines for plotting vertical lines ([#3726](https://github.com/GenericMappingTools/pygmt/pull/3726))
+* Add Figure.hlines for plotting horizontal lines ([#923](https://github.com/GenericMappingTools/pygmt/pull/923))
+*  Add function to load Black Marble dataset ([#3469](https://github.com/GenericMappingTools/pygmt/pull/3469))
+
+### Enhancements
+
+* pyarrow: Support pyarrow arrays with string/large_string/string_view types ([#3619](https://github.com/GenericMappingTools/pygmt/pull/3619))
+* pyarrow: Map date32[day]/date64[ms] dtypes in pandas objects to np.datetime64 with correct date/time units ([#3617](https://github.com/GenericMappingTools/pygmt/pull/3617))
+* load_tile_map: Add the new parameter 'crs' to set the CRS of the returned dataarray ([#3554](https://github.com/GenericMappingTools/pygmt/pull/3554))
+* Support 1-D/2-D numpy arrays with longlong and ulonglong dtype ([#3566](https://github.com/GenericMappingTools/pygmt/pull/3566))
+* GMT_IMAGE: Implement the GMT_IMAGE.to_dataarray method for 3-band images ([#3128](https://github.com/GenericMappingTools/pygmt/pull/3128))
+* Figure.show: Raise ImportError instead of GMTError if IPython is not installed but required ([#3580](https://github.com/GenericMappingTools/pygmt/pull/3580))
+* Figure.plot: Add the "symbol" parameter to support plotting data points with varying symbols ([#1117](https://github.com/GenericMappingTools/pygmt/pull/1117))
+* Figure.plot3d: Add the "symbol" parameter to support plotting data points with varying symbols ([#3559](https://github.com/GenericMappingTools/pygmt/pull/3559))
+* Figure.legend: Support passing a StringIO object as the legend specification ([#3438](https://github.com/GenericMappingTools/pygmt/pull/3438))
+* Ensure non-ASCII characters are typeset correctly even if PS_CHAR_ENCODING is not 'ISOLatin1+' ([#3611](https://github.com/GenericMappingTools/pygmt/pull/3611))
+* Add the private _to_numpy function to convert anything to a numpy array ([#3581](https://github.com/GenericMappingTools/pygmt/pull/3581))
+* Add enums GridRegistration and GridType for grid registration and type ([#3693](https://github.com/GenericMappingTools/pygmt/pull/3693))
+* Add PyArrow as an optional dependency ([#3592](https://github.com/GenericMappingTools/pygmt/pull/3592))
+
+### Deprecations
+
+* clib.Session.virtualfile_from_vectors: Now takes a sequence of vectors as its single argument (Passing multiple arguments will be unsupported in v0.16.0) ([#3522](https://github.com/GenericMappingTools/pygmt/pull/3522))
+* Set minimum supported version to GMT>=6.4.0 ([#3450](https://github.com/GenericMappingTools/pygmt/pull/3450))
+* SPEC 0: Set minimum supported versions to pandas>=2.0 and xarray>=2023.04 ([#3460](https://github.com/GenericMappingTools/pygmt/pull/3460))
+* SPEC 0: Bump minimum supported version to Python 3.11 ([#3606](https://github.com/GenericMappingTools/pygmt/pull/3606))
+* SPEC 0: Bump minimum supported version to NumPy 1.25 ([#3697](https://github.com/GenericMappingTools/pygmt/pull/3697))
+* Remove the deprecated build_arg_string function (deprecated since v0.12.0) ([#3427](https://github.com/GenericMappingTools/pygmt/pull/3427))
+* Figure.grdcontour: Remove the deprecated syntax for the 'annotation' parameter ([#3428](https://github.com/GenericMappingTools/pygmt/pull/3428))
+
+### Bug Fixes
+
+* launch_external_viewer: Use full path when opening the file in a web browser ([#3647](https://github.com/GenericMappingTools/pygmt/pull/3647))
+* clib.session: Add the GMT_SESSION_NOGDALCLOSE flag to keep GDAL open ([#3672](https://github.com/GenericMappingTools/pygmt/pull/3672))
+* Set the 'Conventions' attribute to 'CF-1.7' for netCDF grids only ([#3463](https://github.com/GenericMappingTools/pygmt/pull/3463))
+* Improve the workarounds for handling pandas nullable dtypes in pandas<=2.1 ([#3596](https://github.com/GenericMappingTools/pygmt/pull/3596))
+* GeoPandas: Explicitly convert columns with overflow integers to avoid OverflowError with fiona 1.10 ([#3455](https://github.com/GenericMappingTools/pygmt/pull/3455))
+* Fix the conversion error for pandas.Series with missing values in pandas<=2.1 ([#3505](https://github.com/GenericMappingTools/pygmt/pull/3505))
+* Figure.plot/Figure.plot3d: Improve the check of the "style" parameter for "v" or "V" ([#3603](https://github.com/GenericMappingTools/pygmt/pull/3603))
+* Correctly reserve the grid data dtype by converting ctypes array to numpy array with np.ctypeslib.as_array ([#3446](https://github.com/GenericMappingTools/pygmt/pull/3446))
+* **Breaking**: Figure.text: Fix typesetting of integers when mixed with floating-point values ([#3493](https://github.com/GenericMappingTools/pygmt/pull/3493))
+
+### Documentation
+
+* Update "PyData Ecosystem" to "Scientific Python Ecosystem" ([#3447](https://github.com/GenericMappingTools/pygmt/pull/3447))
+* Mention breaking change regarding extra quotation marks around text strings in changelog v0.12.0 ([#3462](https://github.com/GenericMappingTools/pygmt/pull/3462))
+* List function aliases in a more compact layout ([#3666](https://github.com/GenericMappingTools/pygmt/pull/3666))
+* Figure.savefig: Clarify that 'transparent' also works for the PNG file associated with the KML format ([#3579](https://github.com/GenericMappingTools/pygmt/pull/3579))
+* Document the support policy for optional packages ([#3616](https://github.com/GenericMappingTools/pygmt/pull/3616))
+* Document the environment variables that can affect the behavior of PyGMT ([#3432](https://github.com/GenericMappingTools/pygmt/pull/3432))
+* Document the built-in patterns in the Technical Reference section ([#3466](https://github.com/GenericMappingTools/pygmt/pull/3466))
+* Document Continuous Benchmarking in Maintainers Guides ([#3631](https://github.com/GenericMappingTools/pygmt/pull/3631))
+* DOC: Add basic tutorial "Plotting polygons" ([#3593](https://github.com/GenericMappingTools/pygmt/pull/3593))
+* Combine the Oblique Mercator projection pages into one page ([#3451](https://github.com/GenericMappingTools/pygmt/pull/3451))
+* Add the PyGMT talk at AGU24 to the "Overview" section ([#3685](https://github.com/GenericMappingTools/pygmt/pull/3685))
+* Add the PyGMT ecosystem page ([#3475](https://github.com/GenericMappingTools/pygmt/pull/3475))
+* Add the GMT/PyGMT preworkshop at AGU24 to the "External resources" section ([#3689](https://github.com/GenericMappingTools/pygmt/pull/3689))
+* Add instructions for installing optional dependencies ([#3506](https://github.com/GenericMappingTools/pygmt/pull/3506))
+* Add TODO comments in the maintainers guides and update the release checklist ([#3724](https://github.com/GenericMappingTools/pygmt/pull/3724))
+
+### Maintenance
+
+* pyarrow: Check compatibility of pyarrow.array with string type ([#2933](https://github.com/GenericMappingTools/pygmt/pull/2933))
+* doc: Rename sphinx-gallery's README.txt to GALLERY_HEADER.rst and require Sphinx-Gallery>=0.17.0 ([#3348](https://github.com/GenericMappingTools/pygmt/pull/3348))
+* clib.conversion: Remove the as_c_contiguous function and use np.ascontiguousarray instead ([#3492](https://github.com/GenericMappingTools/pygmt/pull/3492))
+* clib.Session: Add type hints and improve docstrings of the Session create/destroy methods ([#3515](https://github.com/GenericMappingTools/pygmt/pull/3515))
+* Use TODO comments to track deprecations and workarounds ([#3722](https://github.com/GenericMappingTools/pygmt/pull/3722))
+* Refactor the _get_module_version function using importlib and add two more tests ([#3538](https://github.com/GenericMappingTools/pygmt/pull/3538))
+* Pin numpy<2 in ci_tests_legacy.yaml ([#3641](https://github.com/GenericMappingTools/pygmt/pull/3641))
+* Move Figure.psconvert into a separate file ([#3553](https://github.com/GenericMappingTools/pygmt/pull/3553))
+* Improve the data type checking for 2-D arrays passed to the GMT C API ([#3563](https://github.com/GenericMappingTools/pygmt/pull/3563))
+* GMT_DATASET: Refactor nested classes to improve code readability ([#3653](https://github.com/GenericMappingTools/pygmt/pull/3653))
+* Enable ruff's flake8-todos (TD) rules ([#3723](https://github.com/GenericMappingTools/pygmt/pull/3723))
+* Enable ruff's flake8-commas (COM) and refurb (FURB) rules ([#3531](https://github.com/GenericMappingTools/pygmt/pull/3531))
+* Enable ruff's TRY (tryceratops) rules ([#3665](https://github.com/GenericMappingTools/pygmt/pull/3665))
+* Enable ruff's EM (flake8-errmsg) rules and fix violations ([#3661](https://github.com/GenericMappingTools/pygmt/pull/3661))
+* CI: Use windows-2025 in the GMT Dev Tests workflow ([#3701](https://github.com/GenericMappingTools/pygmt/pull/3701))
+* CI: Test NumPy 2.2 in the GMT Tests workflow ([#3677](https://github.com/GenericMappingTools/pygmt/pull/3677))
+* CI: Run the 'GMT Tests' workflow on Python 3.10/3.12 with optional packages and Python 3.11 without optional packages ([#3618](https://github.com/GenericMappingTools/pygmt/pull/3618))
+* CI: Remove the pytest-xdist plugin from the "Tests" and "Dev Tests" workflows ([#3627](https://github.com/GenericMappingTools/pygmt/pull/3627))
+* CI: Pin to sphinx>=6.2 for docs build on Python 3.13 ([#3667](https://github.com/GenericMappingTools/pygmt/pull/3667))
+* CI: Install pyarrow-core instead of pyarrow from conda-forge ([#3698](https://github.com/GenericMappingTools/pygmt/pull/3698))
+* CI: Ensure no hyphens in Python file and directory names in the "Style Checks" workflow ([#3703](https://github.com/GenericMappingTools/pygmt/pull/3703))
+* CI: Add a separate CI job on Ubuntu to test geopandas v0.x ([#3420](https://github.com/GenericMappingTools/pygmt/pull/3420))
+* Bump to ruff>=0.8.0 and rename rule TCH to TC ([#3662](https://github.com/GenericMappingTools/pygmt/pull/3662))
+* Bump to Ghostscript 10.04.0 ([#3443](https://github.com/GenericMappingTools/pygmt/pull/3443))
+* Add support for Python 3.13 ([#3490](https://github.com/GenericMappingTools/pygmt/pull/3490))
+* Add enums GridFormat for GMT grid format ID ([#3449](https://github.com/GenericMappingTools/pygmt/pull/3449))
+* Add a test for plotting global grid without the redundant 360 longitude ([#3358](https://github.com/GenericMappingTools/pygmt/pull/3358))
+* Add 'geodatasets' as a dependency for docs and update the choropleth example ([#3719](https://github.com/GenericMappingTools/pygmt/pull/3719))
+* **Breaking**: data_kind: data is None and required now returns the 'empty' kind ([#3482](https://github.com/GenericMappingTools/pygmt/pull/3482))
+* **Breaking**: data_kind: Now 'matrix' represents a 2-D numpy array and unrecognized data types fall back to 'vectors' ([#3351](https://github.com/GenericMappingTools/pygmt/pull/3351))
+
+**Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.13.0...v0.14.0>
+
+### Contributors
+
+[@core](https://github.com/core)-man, [Michael Grund](https://github.com/michaelgrund), [Dongdong Tian](https://github.com/seisman), [Wei Ji Leong](https://github.com/weiji14), [Will Schlitzer](https://github.com/willschlitzer) and [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
+
 ## Release v0.13.0 (2024/09/05)
 
 [![Digital Object Identifier for PyGMT v0.13.0](https://zenodo.org/badge/DOI/10.5281/zenodo.13679420.svg)](https://doi.org/10.5281/zenodo.13679420)
