@@ -22,15 +22,14 @@
 
 ### Enhancements
 
-* pyarrow: Support pyarrow arrays with string/large_string/string_view types ([#3619](https://github.com/GenericMappingTools/pygmt/pull/3619))
-* pyarrow: Map date32[day]/date64[ms] dtypes in pandas objects to np.datetime64 with correct date/time units ([#3617](https://github.com/GenericMappingTools/pygmt/pull/3617))
-* load_tile_map: Add the new parameter 'crs' to set the CRS of the returned dataarray ([#3554](https://github.com/GenericMappingTools/pygmt/pull/3554))
-* Support 1-D/2-D numpy arrays with longlong and ulonglong dtype ([#3566](https://github.com/GenericMappingTools/pygmt/pull/3566))
-* GMT_IMAGE: Implement the GMT_IMAGE.to_dataarray method for 3-band images ([#3128](https://github.com/GenericMappingTools/pygmt/pull/3128))
 * Figure.show: Raise ImportError instead of GMTError if IPython is not installed but required ([#3580](https://github.com/GenericMappingTools/pygmt/pull/3580))
 * Figure.plot: Add the "symbol" parameter to support plotting data points with varying symbols ([#1117](https://github.com/GenericMappingTools/pygmt/pull/1117))
 * Figure.plot3d: Add the "symbol" parameter to support plotting data points with varying symbols ([#3559](https://github.com/GenericMappingTools/pygmt/pull/3559))
 * Figure.legend: Support passing a StringIO object as the legend specification ([#3438](https://github.com/GenericMappingTools/pygmt/pull/3438))
+* load_tile_map: Add the new parameter 'crs' to set the CRS of the returned dataarray ([#3554](https://github.com/GenericMappingTools/pygmt/pull/3554))
+* pyarrow: Support pyarrow arrays with string/large_string/string_view types ([#3619](https://github.com/GenericMappingTools/pygmt/pull/3619))
+* Support 1-D/2-D numpy arrays with longlong and ulonglong dtype ([#3566](https://github.com/GenericMappingTools/pygmt/pull/3566))
+* GMT_IMAGE: Implement the GMT_IMAGE.to_dataarray method for 3-band images ([#3128](https://github.com/GenericMappingTools/pygmt/pull/3128))
 * Ensure non-ASCII characters are typeset correctly even if PS_CHAR_ENCODING is not 'ISOLatin1+' ([#3611](https://github.com/GenericMappingTools/pygmt/pull/3611))
 * Add the private _to_numpy function to convert anything to a numpy array ([#3581](https://github.com/GenericMappingTools/pygmt/pull/3581))
 * Add enums GridRegistration and GridType for grid registration and type ([#3693](https://github.com/GenericMappingTools/pygmt/pull/3693))
@@ -47,6 +46,8 @@
 ### Bug Fixes
 
 * launch_external_viewer: Use full path when opening the file in a web browser ([#3647](https://github.com/GenericMappingTools/pygmt/pull/3647))
+* pyarrow: Map date32[day]/date64[ms] dtypes in pandas objects to np.datetime64 with correct date/time units ([#3617](https://github.com/GenericMappingTools/pygmt/pull/3617))
+
 * clib.session: Add the GMT_SESSION_NOGDALCLOSE flag to keep GDAL open ([#3672](https://github.com/GenericMappingTools/pygmt/pull/3672))
 * Set the 'Conventions' attribute to 'CF-1.7' for netCDF grids only ([#3463](https://github.com/GenericMappingTools/pygmt/pull/3463))
 * Improve the workarounds for handling pandas nullable dtypes in pandas<=2.1 ([#3596](https://github.com/GenericMappingTools/pygmt/pull/3596))
