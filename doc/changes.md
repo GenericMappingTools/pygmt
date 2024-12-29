@@ -18,7 +18,7 @@
 * Add function to load Blue Marble dataset ([#2235](https://github.com/GenericMappingTools/pygmt/pull/2235))
 * Add Figure.vlines for plotting vertical lines ([#3726](https://github.com/GenericMappingTools/pygmt/pull/3726))
 * Add Figure.hlines for plotting horizontal lines ([#923](https://github.com/GenericMappingTools/pygmt/pull/923))
-*  Add function to load Black Marble dataset ([#3469](https://github.com/GenericMappingTools/pygmt/pull/3469))
+* Add function to load Black Marble dataset ([#3469](https://github.com/GenericMappingTools/pygmt/pull/3469))
 
 ### Enhancements
 
@@ -40,9 +40,7 @@
 
 * clib.Session.virtualfile_from_vectors: Now takes a sequence of vectors as its single argument (Passing multiple arguments will be unsupported in v0.16.0) ([#3522](https://github.com/GenericMappingTools/pygmt/pull/3522))
 * Set minimum supported version to GMT>=6.4.0 ([#3450](https://github.com/GenericMappingTools/pygmt/pull/3450))
-* SPEC 0: Set minimum supported versions to pandas>=2.0 and xarray>=2023.04 ([#3460](https://github.com/GenericMappingTools/pygmt/pull/3460))
-* SPEC 0: Bump minimum supported version to Python 3.11 ([#3606](https://github.com/GenericMappingTools/pygmt/pull/3606))
-* SPEC 0: Bump minimum supported version to NumPy 1.25 ([#3697](https://github.com/GenericMappingTools/pygmt/pull/3697))
+* SPEC 0: Bump minimum supported versions to Python 3.11, NumPy 1.25, pandas>=2.0 and xarray>=2023.04 ([#3460](https://github.com/GenericMappingTools/pygmt/pull/3460), [#3606](https://github.com/GenericMappingTools/pygmt/pull/3606), [#3697](https://github.com/GenericMappingTools/pygmt/pull/3697))
 * Remove the deprecated build_arg_string function (deprecated since v0.12.0) ([#3427](https://github.com/GenericMappingTools/pygmt/pull/3427))
 * Figure.grdcontour: Remove the deprecated syntax for the 'annotation' parameter ([#3428](https://github.com/GenericMappingTools/pygmt/pull/3428))
 
@@ -81,17 +79,13 @@
 * pyarrow: Check compatibility of pyarrow.array with string type ([#2933](https://github.com/GenericMappingTools/pygmt/pull/2933))
 * doc: Rename sphinx-gallery's README.txt to GALLERY_HEADER.rst and require Sphinx-Gallery>=0.17.0 ([#3348](https://github.com/GenericMappingTools/pygmt/pull/3348))
 * clib.conversion: Remove the as_c_contiguous function and use np.ascontiguousarray instead ([#3492](https://github.com/GenericMappingTools/pygmt/pull/3492))
-* clib.Session: Add type hints and improve docstrings of the Session create/destroy methods ([#3515](https://github.com/GenericMappingTools/pygmt/pull/3515))
 * Use TODO comments to track deprecations and workarounds ([#3722](https://github.com/GenericMappingTools/pygmt/pull/3722))
 * Refactor the _get_module_version function using importlib and add two more tests ([#3538](https://github.com/GenericMappingTools/pygmt/pull/3538))
 * Pin numpy<2 in ci_tests_legacy.yaml ([#3641](https://github.com/GenericMappingTools/pygmt/pull/3641))
 * Move Figure.psconvert into a separate file ([#3553](https://github.com/GenericMappingTools/pygmt/pull/3553))
 * Improve the data type checking for 2-D arrays passed to the GMT C API ([#3563](https://github.com/GenericMappingTools/pygmt/pull/3563))
 * GMT_DATASET: Refactor nested classes to improve code readability ([#3653](https://github.com/GenericMappingTools/pygmt/pull/3653))
-* Enable ruff's flake8-todos (TD) rules ([#3723](https://github.com/GenericMappingTools/pygmt/pull/3723))
-* Enable ruff's flake8-commas (COM) and refurb (FURB) rules ([#3531](https://github.com/GenericMappingTools/pygmt/pull/3531))
-* Enable ruff's TRY (tryceratops) rules ([#3665](https://github.com/GenericMappingTools/pygmt/pull/3665))
-* Enable ruff's EM (flake8-errmsg) rules and fix violations ([#3661](https://github.com/GenericMappingTools/pygmt/pull/3661))
+* Enable ruff's TD (flake8-todos), COM (flake8-commas), TRY (tryceratops), and EM (flake8-errmsg) rules ([#3723](https://github.com/GenericMappingTools/pygmt/pull/3723), [#3531](https://github.com/GenericMappingTools/pygmt/pull/3531), [#3665](https://github.com/GenericMappingTools/pygmt/pull/3665), [#3661](https://github.com/GenericMappingTools/pygmt/pull/3661))
 * CI: Use windows-2025 in the GMT Dev Tests workflow ([#3701](https://github.com/GenericMappingTools/pygmt/pull/3701))
 * CI: Test NumPy 2.2 in the GMT Tests workflow ([#3677](https://github.com/GenericMappingTools/pygmt/pull/3677))
 * CI: Run the 'GMT Tests' workflow on Python 3.10/3.12 with optional packages and Python 3.11 without optional packages ([#3618](https://github.com/GenericMappingTools/pygmt/pull/3618))
