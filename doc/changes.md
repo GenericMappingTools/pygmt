@@ -71,16 +71,18 @@
 * Add TODO comments in the maintainers guides and update the release checklist ([#3724](https://github.com/GenericMappingTools/pygmt/pull/3724))
 
 ### Maintenance
+
+* **Breaking**: data_kind: data is None and required now returns the 'empty' kind ([#3482](https://github.com/GenericMappingTools/pygmt/pull/3482))
+* **Breaking**: data_kind: Now 'matrix' represents a 2-D numpy array and unrecognized data types fall back to 'vectors' ([#3351](https://github.com/GenericMappingTools/pygmt/pull/3351))
 * Add the Session.virtualfile_from_stringio method to allow StringIO input for certain functions/methods ([#3326](https://github.com/GenericMappingTools/pygmt/pull/3326))
+* Add 'geodatasets' as a dependency for docs and update the choropleth example ([#3719](https://github.com/GenericMappingTools/pygmt/pull/3719))
 * pyarrow: Check compatibility of pyarrow.array with string type ([#2933](https://github.com/GenericMappingTools/pygmt/pull/2933))
 * doc: Rename sphinx-gallery's README.txt to GALLERY_HEADER.rst and require Sphinx-Gallery>=0.17.0 ([#3348](https://github.com/GenericMappingTools/pygmt/pull/3348))
 * clib.conversion: Remove the as_c_contiguous function and use np.ascontiguousarray instead ([#3492](https://github.com/GenericMappingTools/pygmt/pull/3492))
 * Use TODO comments to track deprecations and workarounds ([#3722](https://github.com/GenericMappingTools/pygmt/pull/3722))
-* Refactor the _get_module_version function using importlib and add two more tests ([#3538](https://github.com/GenericMappingTools/pygmt/pull/3538))
 * Pin numpy<2 in ci_tests_legacy.yaml ([#3641](https://github.com/GenericMappingTools/pygmt/pull/3641))
 * Move Figure.psconvert into a separate file ([#3553](https://github.com/GenericMappingTools/pygmt/pull/3553))
 * Improve the data type checking for 2-D arrays passed to the GMT C API ([#3563](https://github.com/GenericMappingTools/pygmt/pull/3563))
-* GMT_DATASET: Refactor nested classes to improve code readability ([#3653](https://github.com/GenericMappingTools/pygmt/pull/3653))
 * Enable ruff's TD (flake8-todos), COM (flake8-commas), TRY (tryceratops), and EM (flake8-errmsg) rules ([#3723](https://github.com/GenericMappingTools/pygmt/pull/3723), [#3531](https://github.com/GenericMappingTools/pygmt/pull/3531), [#3665](https://github.com/GenericMappingTools/pygmt/pull/3665), [#3661](https://github.com/GenericMappingTools/pygmt/pull/3661))
 * CI: Use windows-2025 in the GMT Dev Tests workflow ([#3701](https://github.com/GenericMappingTools/pygmt/pull/3701))
 * CI: Test NumPy 2.2 in the GMT Tests workflow ([#3677](https://github.com/GenericMappingTools/pygmt/pull/3677))
@@ -94,10 +96,6 @@
 * Bump to Ghostscript 10.04.0 ([#3443](https://github.com/GenericMappingTools/pygmt/pull/3443))
 * Add support for Python 3.13 ([#3490](https://github.com/GenericMappingTools/pygmt/pull/3490))
 * Add enums GridFormat for GMT grid format ID ([#3449](https://github.com/GenericMappingTools/pygmt/pull/3449))
-* Add a test for plotting global grid without the redundant 360 longitude ([#3358](https://github.com/GenericMappingTools/pygmt/pull/3358))
-* Add 'geodatasets' as a dependency for docs and update the choropleth example ([#3719](https://github.com/GenericMappingTools/pygmt/pull/3719))
-* **Breaking**: data_kind: data is None and required now returns the 'empty' kind ([#3482](https://github.com/GenericMappingTools/pygmt/pull/3482))
-* **Breaking**: data_kind: Now 'matrix' represents a 2-D numpy array and unrecognized data types fall back to 'vectors' ([#3351](https://github.com/GenericMappingTools/pygmt/pull/3351))
 
 **Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.13.0...v0.14.0>
 
