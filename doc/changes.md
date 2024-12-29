@@ -14,11 +14,10 @@
 * Remote datasets: Add "load_earth_mean_sea_surface" to load "CNES Earth Mean Sea Surface" dataset ([#3717](https://github.com/GenericMappingTools/pygmt/pull/3717))
 * Remote datasets: Add "load_earth_mean_dynamic_topography" to load "CNES Earth Mean Dynamic Topography" dataset ([#3718](https://github.com/GenericMappingTools/pygmt/pull/3718))
 * Remote datasets: Add "load_earth_dist" to load "GSHHG Earth distance to shoreline" dataset ([#3706](https://github.com/GenericMappingTools/pygmt/pull/3706))
-* Add the Session.virtualfile_from_stringio method to allow StringIO input for certain functions/methods ([#3326](https://github.com/GenericMappingTools/pygmt/pull/3326))
-* Add function to load Blue Marble dataset ([#2235](https://github.com/GenericMappingTools/pygmt/pull/2235))
+* Add "load_blue_marble" to load Blue Marble dataset ([#2235](https://github.com/GenericMappingTools/pygmt/pull/2235))
 * Add Figure.vlines for plotting vertical lines ([#3726](https://github.com/GenericMappingTools/pygmt/pull/3726))
 * Add Figure.hlines for plotting horizontal lines ([#923](https://github.com/GenericMappingTools/pygmt/pull/923))
-* Add function to load Black Marble dataset ([#3469](https://github.com/GenericMappingTools/pygmt/pull/3469))
+* Add "load_black_marble" to load Black Marble dataset ([#3469](https://github.com/GenericMappingTools/pygmt/pull/3469))
 
 ### Enhancements
 
@@ -75,7 +74,7 @@
 * Add TODO comments in the maintainers guides and update the release checklist ([#3724](https://github.com/GenericMappingTools/pygmt/pull/3724))
 
 ### Maintenance
-
+* Add the Session.virtualfile_from_stringio method to allow StringIO input for certain functions/methods ([#3326](https://github.com/GenericMappingTools/pygmt/pull/3326))
 * pyarrow: Check compatibility of pyarrow.array with string type ([#2933](https://github.com/GenericMappingTools/pygmt/pull/2933))
 * doc: Rename sphinx-gallery's README.txt to GALLERY_HEADER.rst and require Sphinx-Gallery>=0.17.0 ([#3348](https://github.com/GenericMappingTools/pygmt/pull/3348))
 * clib.conversion: Remove the as_c_contiguous function and use np.ascontiguousarray instead ([#3492](https://github.com/GenericMappingTools/pygmt/pull/3492))
