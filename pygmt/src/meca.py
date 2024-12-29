@@ -227,169 +227,145 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
 
     Parameters
     ----------
-    spec : str, 1-D array, 2-D array, dict, or :class:`pandas.DataFrame`
+    spec : str, 1-D numpy array, 2-D numpy array, dict, or pandas.DataFrame
         Data that contain focal mechanism parameters.
 
         ``spec`` can be specified in either of the following types:
 
-        - *str*: a file name containing focal mechanism parameters as
-          columns. The meaning of each column is:
+        - *str*: a file name containing focal mechanism parameters as columns. The
+          meaning of each column is:
 
           - Columns 1 and 2: event longitude and latitude
-          - Column 3: event depth (in km)
-          - Columns 4 to 3+n: focal mechanism parameters. The number of columns
-            *n* depends on the choice of ``convention``, which will be
-            described below.
-          - Columns 4+n and 5+n: longitude, latitude at which to place
-            beachball. Using ``0 0`` will plot the beachball at the longitude,
-            latitude given in columns 1 and 2. [optional and requires
-            ``offset=True`` to take effect].
-          - Text string to appear near the beachball [optional].
+          - Column 3: event depth (in kilometers)
+          - Columns 4 to 3+n: focal mechanism parameters. The number of columns *n*
+            depends on the choice of ``convention``, which is described below.
+          - Columns 4+n and 5+n: longitude and latitude at which to place the
+            beachball. ``0 0`` plots the beachball at the longitude and latitude
+            given in the columns 1 and 2. [optional; requires ``offset=True``].
+          - Last Column: text string to appear near the beachball [optional].
 
-        - *1-D array*: focal mechanism parameters of a single event.
+        - *1-D np.array*: focal mechanism parameters of a single event.
           The meanings of columns are the same as above.
-        - *2-D array*: focal mechanism parameters of multiple events.
+        - *2-D np.array*: focal mechanism parameters of multiple events.
           The meanings of columns are the same as above.
-        - *dictionary or :class:`pandas.DataFrame`*: The dictionary keys or
+        - *dict* or :class:`pandas.DataFrame`: The dict keys or
           :class:`pandas.DataFrame` column names determine the focal mechanism
-          convention. For different conventions, the following combination of
-          keys are allowed:
+          convention. For the different conventions, the following combination of
+          keys / column names are required:
 
-          - ``"aki"``: *strike, dip, rake, magnitude*
-          - ``"gcmt"``: *strike1, dip1, rake1, strike2, dip2, rake2, mantissa,*
-            *exponent*
-          - ``"mt"``: *mrr, mtt, mff, mrt, mrf, mtf, exponent*
-          - ``"partial"``: *strike1, dip1, strike2, fault_type, magnitude*
-          - ``"principal_axis"``: *t_value, t_azimuth, t_plunge, n_value,
-            n_azimuth, n_plunge, p_value, p_azimuth, p_plunge, exponent*
+          - ``"aki"``: *strike*, *dip*, *rake*, *magnitude*
+          - ``"gcmt"``: *strike1*, *dip1*, *rake1*, *strike2*, *dip2*, *rake2*,
+            *mantissa*, *exponent*
+          - ``"mt"``: *mrr*, *mtt*, *mff*, *mrt*, *mrf*, *mtf*, *exponent*
+          - ``"partial"``: *strike1*, *dip1*, *strike2*, *fault_type*, *magnitude*
+          - ``"principal_axis"``: *t_value*, *t_azimuth*, *t_plunge*, *n_value*,
+            *n_azimuth*, *n_plunge*, *p_value*, *p_azimuth*, *p_plunge*, *exponent*
 
-          A dictionary may contain values for a single focal mechanism or
-          lists of values for multiple focal mechanisms.
+          A dict may contain values for a single focal mechanism or lists of
+          values for multiple focal mechanisms.
 
-          Both dictionary and :class:`pandas.DataFrame` may optionally contain
-          keys/column names: ``latitude``, ``longitude``, ``depth``,
-          ``plot_longitude``, ``plot_latitude``, and/or ``event_name``.
+          Both dict and :class:`pandas.DataFrame` may optionally contain the keys /
+          column names: ``latitude``, ``longitude``, ``depth``, ``plot_longitude``,
+          ``plot_latitude``, and/or ``event_name``.
 
-        If ``spec`` is either a str, a 1-D array or a 2-D array, the
-        ``convention`` parameter is required so we know how to interpret the
-        columns. If ``spec`` is a dictionary or a :class:`pandas.DataFrame`,
-        ``convention`` is not needed and is ignored if specified.
+        If ``spec`` is either a str or a 1-D or 2-D numpy array, the ``convention``
+        parameter is required to interpret the columns. If ``spec`` is a dict or
+        a :class:`pandas.DataFrame`, ``convention`` is not needed and ignored if
+        specified.
     scale : float or str
         *scale*\ [**+a**\ *angle*][**+f**\ *font*][**+j**\ *justify*]\
         [**+l**][**+m**][**+o**\ *dx*\ [/\ *dy*]][**+s**\ *reference*].
-        Adjust scaling of the radius of the beachball, which is
-        proportional to the magnitude. By default, *scale* defines the
-        size for magnitude = 5 (i.e., scalar seismic moment
-        M0 = 4.0E23 dynes-cm). If **+l** is used the radius will be
-        proportional to the seismic moment instead. Use **+s** and give
-        a *reference* to change the reference magnitude (or moment), and
-        use **+m** to plot all beachballs with the same size. A text
-        string can be specified to appear near the beachball
-        (corresponding to column or parameter ``event_name``).
-        Append **+a**\ *angle* to change the angle of the text string;
-        append **+f**\ *font* to change its font (size,fontname,color);
-        append **+j**\ *justify* to change the text location relative
-        to the beachball [Default is ``"TC"``, i.e., Top Center];
-        append **+o** to offset the text string by *dx*\ /*dy*.
+        Adjust scaling of the radius of the beachball, which is  proportional to the
+        magnitude. By default, *scale* defines the size for magnitude = 5 (i.e., scalar
+        seismic moment M0 = 4.0E23 dynes-cm). If **+l** is used the radius will be
+        proportional to the seismic moment instead. Use **+s** and give a *reference*
+        to change the reference magnitude (or moment), and use **+m** to plot all
+        beachballs with the same size. A text string can be specified to appear near
+        the beachball (corresponding to column or parameter ``event_name``). Append
+        **+a**\ *angle* to change the angle of the text string; append **+f**\ *font*
+        to change its font (size,fontname,color); append **+j**\ *justify* to change
+        the text location relative to the beachball [Default is ``"TC"``, i.e., Top
+        Center]; append **+o** to offset the text string by *dx*\ /*dy*.
     convention : str
         Focal mechanism convention. Choose from:
 
-        - ``"aki"`` (Aki & Richards)
+        - ``"aki"`` (Aki and Richards)
         - ``"gcmt"`` (global CMT)
         - ``"mt"`` (seismic moment tensor)
         - ``"partial"`` (partial focal mechanism)
         - ``"principal_axis"`` (principal axis)
 
-        Ignored if ``spec`` is a dictionary or :class:`pandas.DataFrame`.
+        Ignored if ``spec`` is a dict or :class:`pandas.DataFrame`.
     component : str
         The component of the seismic moment tensor to plot.
 
         - ``"full"``: the full seismic moment tensor
-        - ``"dc"``: the closest double couple defined from the moment tensor
-          (zero trace and zero determinant)
+        - ``"dc"``: the closest double couple defined from the moment tensor (zero
+          trace and zero determinant)
         - ``"deviatoric"``: deviatoric part of the moment tensor (zero trace)
-    longitude : float, list, or 1-D numpy array
-        Longitude(s) of event location(s). Must be the same length as the
-        number of events. Will override the ``longitude`` values
-        in ``spec`` if ``spec`` is a dictionary or :class:`pandas.DataFrame`.
-    latitude : float, list, or 1-D numpy array
-        Latitude(s) of event location(s). Must be the same length as the
-        number of events. Will override the ``latitude`` values
-        in ``spec`` if ``spec`` is a dictionary or :class:`pandas.DataFrame`.
-    depth : float, list, or 1-D numpy array
-        Depth(s) of event location(s) in kilometers. Must be the same length
-        as the number of events. Will override the ``depth`` values in ``spec``
-        if ``spec`` is a dictionary or :class:`pandas.DataFrame`.
-    plot_longitude : float, str, list, or 1-D numpy array
-        Longitude(s) at which to place beachball(s). Must be the same length
-        as the number of events. Will override the ``plot_longitude`` values
-        in ``spec`` if ``spec`` is a dictionary or :class:`pandas.DataFrame`.
-    plot_latitude : float, str, list, or 1-D numpy array
-        Latitude(s) at which to place beachball(s). List must be the same
-        length as the number of events. Will override the ``plot_latitude``
-        values in ``spec`` if ``spec`` is a dictionary or :class:`pandas.DataFrame`.
+    longitude/latitude/depth : float, list, or 1-D numpy array
+        Longitude(s) / latitude(s) / depth(s) of the event(s). Length must match the
+        number of events. Overrides the ``longitude`` / ``latitude`` / ``depth`` values
+        in ``spec`` if ``spec`` is a dict or :class:`pandas.DataFrame`.
+    plot_longitude/plot_latitude : float, str, list, or 1-D numpy array
+        Longitude(s) / Latitude(s) at which to place the beachball(s). Length must match
+        the number of events. Overrides the ``plot_longitude`` / ``plot_latitude``
+        values in ``spec`` if ``spec`` is a dict or :class:`pandas.DataFrame`.
     event_name : str, list of str, or 1-D numpy array
-        Text string(s), e.g., event name(s) to appear near the beachball(s).
-        List must be the same length as the number of events. Will override
-        the ``event_name`` labels in ``spec`` if ``spec`` is a dictionary
-        or :class:`pandas.DataFrame`.
+        Text string(s), e.g., event name(s) to appear near the beachball(s). Length
+        must match the number of events. Overrides the ``event_name`` labels in ``spec``
+        if ``spec`` is a dict or :class:`pandas.DataFrame`.
     labelbox : bool or str
         [*fill*].
-        Draw a box behind the label if given. Use *fill* to give a fill color
-        [Default is ``"white"``].
+        Draw a box behind the label if given via ``event_name``. Use *fill* to give a
+        fill color [Default is ``"white"``].
     offset : bool or str
         [**+p**\ *pen*][**+s**\ *size*].
-        Offset beachball(s) to longitude(s) and latitude(s) specified in the
-        the last two columns of the input file or array, or by
-        ``plot_longitude`` and ``plot_latitude`` if provided. A small circle
-        is plotted at the initial location and a line connects the beachball
-        to the circle. Use **+s**\ *size* to set the diameter of the circle
-        [Default is no circle]. Use **+p**\ *pen* to set the pen attributes
-        for this feature [Default is set via ``pen``]. The fill of the
-        circle is set via ``compressionfill`` or ``cmap``, i.e.,
-        corresponds to the fill of the compressive quadrants.
+        Offset beachball(s) to the longitude(s) and latitude(s) specified in the last
+        two columns of the input file or array, or by ``plot_longitude`` and
+        ``plot_latitude`` if provided. A line from the beachball to the inital location
+        is drawn. Use **+s**\ *size* to plot a small circle at the initial location and
+        to set the diameter of this circle [Default is no circle]. Use **+p**\ *pen* to
+        set the pen attributes for this feature [Default is set via ``pen``]. The fill
+        of the circle is set via ``compressionfill`` or ``cmap``, i.e., corresponds to
+        the fill of the compressive quadrants.
     compressionfill : str
-        Set color or pattern for filling compressive quadrants
-        [Default is ``"black"``]. This setting also applies to the fill of
-        the circle defined via ``offset``.
+        Set color or pattern for filling compressive quadrants [Default is ``"black"``].
+        This setting also applies to the fill of the circle defined via ``offset``.
     extensionfill : str
-        Set color or pattern for filling extensive quadrants
-        [Default is ``"white"``].
+        Set color or pattern for filling extensive quadrants [Default is ``"white"``].
     pen : str
-        Set pen attributes for all lines related to beachball [Default is
-        ``"0.25p,black,solid"``]. This setting applies to ``outline``,
-        ``nodal``, and ``offset``, unless overruled by arguments passed to
-        those parameters. Draws circumference of beachball.
+        Set (default) pen attributes for all lines related to the beachball [Default is
+        ``"0.25p,black,solid"``]. This setting applies to ``outline``, ``nodal``, and
+        ``offset``, unless overruled by arguments passed to those parameters. Draws the
+        circumference of the beachball.
     outline : bool or str
         [*pen*].
-        Draw circumference and nodal planes of beachball. Use *pen* to set
-        the pen attributes for this feature [Default is set via ``pen``].
+        Draw circumference and nodal planes of the beachball. Use *pen* to set  the pen
+        attributes for this feature [Default is set via ``pen``].
     nodal : bool, int, or str
         [*nplane*][/*pen*].
-        Plot the nodal planes and outline the bubble which is transparent.
-        If *nplane* is
+        Plot the nodal planes and outline the bubble which is transparent. If *nplane*
+        is
 
         - ``0`` or ``True``: both nodal planes are plotted [Default].
         - ``1``: only the first nodal plane is plotted.
         - ``2``: only the second nodal plane is plotted.
 
-        Use /*pen* to set the pen attributes for this feature [Default is
-        set via ``pen``].
-        For double couple mechanisms, ``nodal`` renders the beachball
-        transparent by drawing only the nodal planes and the circumference.
-        For non-double couple mechanisms, ``nodal=0`` overlays best
-        double couple transparently.
+        Use /*pen* to set the pen attributes for this feature [Default is set via
+        ``pen``].
+        For double couple mechanisms, ``nodal`` renders the beachball transparent by
+        drawing only the nodal planes and the circumference. For non-double couple
+        mechanisms, ``nodal=0`` overlays best double couple transparently.
     cmap : str
         File name of a CPT file or a series of comma-separated colors (e.g.,
-        *color1,color2,color3*) to build a linear continuous CPT from those
-        colors automatically. The color of the compressive quadrants is
-        determined by the z-value (i.e., event depth or the third column for
-        an input file). This setting also applies to the fill of the circle
-        defined via ``offset``.
+        *color1,color2,color3*) to build a linear continuous CPT from those colors
+        automatically. The color of the compressive quadrants is determined by the
+        z-value (i.e., event depth or the third column for an input file). This setting
+        also applies to the fill of the circle defined via ``offset``.
     no_clip : bool
-        Do **not** skip symbols that fall outside the frame boundaries
-        [Default is ``False``, i.e., plot symbols inside the frame
-        boundaries only].
+        Do **not** skip symbols that fall outside the frame boundaries [Default is
+       ``False``, i.e., plot symbols inside the frame boundaries only].
     {projection}
     {region}
     {frame}

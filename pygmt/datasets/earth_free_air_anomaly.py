@@ -69,8 +69,9 @@ def load_earth_free_air_anomaly(
         higher than 5 arc-minutes (i.e., ``"05m"``).
     registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
-        ``"gridline"`` for gridline registration. Default is ``None`` which means
-        ``"gridline"`` for all resolutions except ``"01m"`` which is ``"pixel"`` only.
+        ``"gridline"`` for gridline registration. Default is ``None``, which means
+        ``"gridline"`` for all resolutions except ``"01m"`` which is ``"pixel"``
+        only.
     uncertainty
         By default, the Earth free-air anomaly values are returned. Set to ``True`` to
         return the related uncertainties instead.
