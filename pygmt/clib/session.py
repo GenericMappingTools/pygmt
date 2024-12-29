@@ -384,7 +384,8 @@ class Session:
             We'll capture the messages and print them to stderr so that they will show
             up on the Jupyter notebook.
             """
-            # Have to use try..except due to upstream GMT bug in GMT <= 6.5.0.
+            # TODO(GMT>6.5.0): Remove the workaround for upstream bug in GMT<=6.5.0.
+            # Have to use try..except due to upstream GMT bug in GMT<=6.5.0.
             # See https://github.com/GenericMappingTools/pygmt/issues/3205.
             try:
                 message = message.decode().strip()
@@ -1388,6 +1389,7 @@ class Session:
                 msg = f"Failed to close virtual file '{vfname}'."
                 raise GMTCLibError(msg)
 
+    # TODO(PyGMT>=0.15.0): Remove the deprecated open_virtual_file method.
     def open_virtual_file(self, family, geometry, direction, data):
         """
         Open a GMT virtual file associated with a data object for reading or writing.
@@ -1454,9 +1456,9 @@ class Session:
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <1/3> <4/6> <7/9>
         """
+        # TODO(PyGMT>=0.16.0): Remove the "*args" parameter and related codes.
         # "*args" is added in v0.14.0 for backward-compatibility with the deprecated
         # syntax of passing multiple vectors as positional arguments.
-        # Remove it in v0.16.0.
         if len(args) > 0:
             msg = (
                 "Passing multiple arguments to Session.virtualfile_from_vectors is "
@@ -1918,6 +1920,7 @@ class Session:
         file_context = _virtualfile_from(_data)
         return file_context
 
+    # TODO(PyGMT>=0.15.0): Remove the deprecated virtualfile_from_data method.
     def virtualfile_from_data(
         self,
         check_kind=None,

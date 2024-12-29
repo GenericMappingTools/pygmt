@@ -109,6 +109,8 @@ def test_open_virtualfile_bad_direction():
                 pass
 
 
+# TODO(PyGMT>=0.15.0): Remove the test after removing the deprecated open_virtual_file
+# method.
 def test_open_virtual_file():
     """
     Test the deprecated Session.open_virtual_file method.
