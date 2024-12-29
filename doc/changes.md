@@ -37,9 +37,9 @@
 
 ### Deprecations
 
-* clib.Session.virtualfile_from_vectors: Now takes a sequence of vectors as its single argument (Passing multiple arguments will be unsupported in v0.16.0) ([#3522](https://github.com/GenericMappingTools/pygmt/pull/3522))
-* Set minimum supported version to GMT>=6.4.0 ([#3450](https://github.com/GenericMappingTools/pygmt/pull/3450))
+* Bump minimum supported version to GMT>=6.4.0 ([#3450](https://github.com/GenericMappingTools/pygmt/pull/3450))
 * SPEC 0: Bump minimum supported versions to Python 3.11, NumPy 1.25, pandas>=2.0 and xarray>=2023.04 ([#3460](https://github.com/GenericMappingTools/pygmt/pull/3460), [#3606](https://github.com/GenericMappingTools/pygmt/pull/3606), [#3697](https://github.com/GenericMappingTools/pygmt/pull/3697))
+* clib.Session.virtualfile_from_vectors: Now takes a sequence of vectors as its single argument (Passing multiple arguments will be unsupported in v0.16.0) ([#3522](https://github.com/GenericMappingTools/pygmt/pull/3522))
 * Remove the deprecated build_arg_string function (deprecated since v0.12.0) ([#3427](https://github.com/GenericMappingTools/pygmt/pull/3427))
 * Figure.grdcontour: Remove the deprecated syntax for the 'annotation' parameter ([#3428](https://github.com/GenericMappingTools/pygmt/pull/3428))
 
@@ -47,7 +47,6 @@
 
 * launch_external_viewer: Use full path when opening the file in a web browser ([#3647](https://github.com/GenericMappingTools/pygmt/pull/3647))
 * pyarrow: Map date32[day]/date64[ms] dtypes in pandas objects to np.datetime64 with correct date/time units ([#3617](https://github.com/GenericMappingTools/pygmt/pull/3617))
-
 * clib.session: Add the GMT_SESSION_NOGDALCLOSE flag to keep GDAL open ([#3672](https://github.com/GenericMappingTools/pygmt/pull/3672))
 * Set the 'Conventions' attribute to 'CF-1.7' for netCDF grids only ([#3463](https://github.com/GenericMappingTools/pygmt/pull/3463))
 * Improve the workarounds for handling pandas nullable dtypes in pandas<=2.1 ([#3596](https://github.com/GenericMappingTools/pygmt/pull/3596))
