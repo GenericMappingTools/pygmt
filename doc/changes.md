@@ -57,20 +57,17 @@
 
 ### Documentation
 
-* Update "PyData Ecosystem" to "Scientific Python Ecosystem" ([#3447](https://github.com/GenericMappingTools/pygmt/pull/3447))
-* Mention breaking change regarding extra quotation marks around text strings in changelog v0.12.0 ([#3462](https://github.com/GenericMappingTools/pygmt/pull/3462))
-* List function aliases in a more compact layout ([#3666](https://github.com/GenericMappingTools/pygmt/pull/3666))
-* Figure.savefig: Clarify that 'transparent' also works for the PNG file associated with the KML format ([#3579](https://github.com/GenericMappingTools/pygmt/pull/3579))
+* Add basic tutorial "Plotting polygons" ([#3593](https://github.com/GenericMappingTools/pygmt/pull/3593))
+* Add the PyGMT ecosystem page ([#3475](https://github.com/GenericMappingTools/pygmt/pull/3475))
 * Document the support policy for optional packages ([#3616](https://github.com/GenericMappingTools/pygmt/pull/3616))
 * Document the environment variables that can affect the behavior of PyGMT ([#3432](https://github.com/GenericMappingTools/pygmt/pull/3432))
 * Document the built-in patterns in the Technical Reference section ([#3466](https://github.com/GenericMappingTools/pygmt/pull/3466))
 * Document Continuous Benchmarking in Maintainers Guides ([#3631](https://github.com/GenericMappingTools/pygmt/pull/3631))
-* DOC: Add basic tutorial "Plotting polygons" ([#3593](https://github.com/GenericMappingTools/pygmt/pull/3593))
-* Combine the Oblique Mercator projection pages into one page ([#3451](https://github.com/GenericMappingTools/pygmt/pull/3451))
-* Add the PyGMT talk at AGU24 to the "Overview" section ([#3685](https://github.com/GenericMappingTools/pygmt/pull/3685))
-* Add the PyGMT ecosystem page ([#3475](https://github.com/GenericMappingTools/pygmt/pull/3475))
-* Add the GMT/PyGMT preworkshop at AGU24 to the "External resources" section ([#3689](https://github.com/GenericMappingTools/pygmt/pull/3689))
 * Add instructions for installing optional dependencies ([#3506](https://github.com/GenericMappingTools/pygmt/pull/3506))
+* Update "PyData Ecosystem" to "Scientific Python Ecosystem" ([#3447](https://github.com/GenericMappingTools/pygmt/pull/3447))
+* Figure.savefig: Clarify that 'transparent' also works for the PNG file associated with the KML format ([#3579](https://github.com/GenericMappingTools/pygmt/pull/3579))
+* Add the PyGMT talk at AGU24 to the "Overview" section ([#3685](https://github.com/GenericMappingTools/pygmt/pull/3685))
+* Add the GMT/PyGMT preworkshop at AGU24 to the "External resources" section ([#3689](https://github.com/GenericMappingTools/pygmt/pull/3689))
 * Add TODO comments in the maintainers guides and update the release checklist ([#3724](https://github.com/GenericMappingTools/pygmt/pull/3724))
 
 ### Maintenance
