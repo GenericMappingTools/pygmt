@@ -20,6 +20,7 @@
 * Add load_earth_mean_sea_surface to load "CNES Earth Mean Sea Surface" dataset ([#3717](https://github.com/GenericMappingTools/pygmt/pull/3717))
 * Add load_earth_mean_dynamic_topography to load "CNES Earth Mean Dynamic Topography" dataset ([#3718](https://github.com/GenericMappingTools/pygmt/pull/3718))
 * Add load_earth_dist to load "GSHHG Earth distance to shoreline" dataset ([#3706](https://github.com/GenericMappingTools/pygmt/pull/3706))
+* Add load_earth_deflection to load "IGPP Earth east-west and north-south deflection" datasets ([#3728](https://github.com/GenericMappingTools/pygmt/pull/3728))
 * load_earth_free_air_anomaly: Add "uncertainty" parameter to load the "free-air anomaly uncertainty" dataset  ([#3727](https://github.com/GenericMappingTools/pygmt/pull/3727))
 
 
