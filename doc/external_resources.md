@@ -12,6 +12,16 @@ to submit a pull request with your recommended addition to the
 
 :::::{grid} 1 2 2 3
 
+::::{grid-item-card} 2024 AGU PREWS9: Mastering Geospatial Visualizations with GMT/PyGMT
+:link: https://www.generic-mapping-tools.org/agu24workshop/
+:text-align: center
+:margin: 0 3 0 0
+
+![](https://github.com/user-attachments/assets/9f3ab0ed-83f1-4cff-bc68-387fc13ca61f)
++++
+Wei Ji Leong, Yvonne Fröhlich, Jing-Hui Tong, Federico Esteban, Max Jones, Andre Belem
+::::
+
 ::::{grid-item-card} 2024 PyGMT Webinar using Google Colab (in Portuguese)
 :link: https://github.com/andrebelem/Oficina_PyGMT
 :text-align: center
@@ -107,7 +117,7 @@ Andre Belem
 :text-align: center
 :margin: 0 3 0 0
 
-![](https://github.com/tktmyd/pygmt-howto-jp/raw/main/docs/_images/inf_on_map_12_0.png)
+![](https://github.com/tktmyd/pygmt-howto-jp/raw/main/docs/_images/915fa767426edefb4ec413f6094bafcfe1f3f1410b1d53073a29d2ffe9f8e6c9.png)
 +++
 Takuto Maeda
 ::::

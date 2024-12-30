@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "pygmt"
 description = "A Python interface for the Generic Mapping Tools"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 authors = [{name = "The PyGMT Developers", email = "pygmt.team@gmail.com"}]
 keywords = [
     "cartography",
@@ -24,13 +24,13 @@ classifiers = [
     "Intended Audience :: Education",
     "Topic :: Scientific/Engineering",
     "Topic :: Software Development :: Libraries",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "License :: OSI Approved :: BSD License",
 ]
 dependencies = [
-    "numpy>=1.24",
+    "numpy>=1.25",
     "pandas>=2.0",
     "xarray>=2023.04",
     "netCDF4",
@@ -119,6 +119,7 @@ select = [
     "SIM",  # flake8-simplify
     "T20",  # flake8-print
     "TC",   # flake8-type-checking
+    "TD",   # flake8-todos
     "TID",  # flake8-tidy-imports
     "TRY",  # tryceratops
     "UP",   # pyupgrade
@@ -147,6 +148,7 @@ ignore = [
     "RET504",   # Allow variable assignment and return immediately for readability
     "S603",     # Allow method calls that initiate a subprocess without a shell
     "SIM117",   # Allow nested `with` statements
+    "TD003",    # Allow TODO comments without associated issue link
 ]
 preview = true
 explicit-preview-rules = true

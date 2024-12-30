@@ -6,10 +6,15 @@ Data are downloaded from the GMT data server.
 
 from pygmt.datasets.earth_age import load_earth_age
 from pygmt.datasets.earth_day import load_blue_marble
+from pygmt.datasets.earth_dist import load_earth_dist
 from pygmt.datasets.earth_free_air_anomaly import load_earth_free_air_anomaly
 from pygmt.datasets.earth_geoid import load_earth_geoid
 from pygmt.datasets.earth_magnetic_anomaly import load_earth_magnetic_anomaly
 from pygmt.datasets.earth_mask import load_earth_mask
+from pygmt.datasets.earth_mean_dynamic_topography import (
+    load_earth_mean_dynamic_topography,
+)
+from pygmt.datasets.earth_mean_sea_surface import load_earth_mean_sea_surface
 from pygmt.datasets.earth_night import load_black_marble
 from pygmt.datasets.earth_relief import load_earth_relief
 from pygmt.datasets.earth_vertical_gravity_gradient import (

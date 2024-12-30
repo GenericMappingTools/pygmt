@@ -88,8 +88,8 @@ def timestamp(
 
     self._preprocess()
 
-    # Workarounds for bugs/missing features for GMT<=6.4.0
-    if Version(__gmt_version__) <= Version("6.4.0"):
+    # TODO(GMT>=6.5.0): Remove the patch for upstream bug fixed in GMT 6.5.0.
+    if Version(__gmt_version__) < Version("6.5.0"):
         # Giving a single offset doesn't work.
         # See https://github.com/GenericMappingTools/gmt/issues/7107.
         if (is_nonstr_iter(offset) and len(offset) == 1) or "/" not in str(offset):  # type: ignore[arg-type]

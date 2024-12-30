@@ -128,14 +128,14 @@ installed (we'll call it `pygmt` but feel free to change it to whatever you want
 ::: {tab-item} mamba
 :sync: mamba
 ```
-mamba create --name pygmt python=3.12 numpy pandas xarray netcdf4 packaging gmt
+mamba create --name pygmt python=3.13 numpy pandas xarray netcdf4 packaging gmt
 ```
 :::
 
 ::: {tab-item} conda
 :sync: conda
 ```
-conda create --name pygmt python=3.12 numpy pandas xarray netcdf4 packaging gmt
+conda create --name pygmt python=3.13 numpy pandas xarray netcdf4 packaging gmt
 ```
 :::
 ::::
@@ -162,19 +162,20 @@ From now on, all commands will take place inside the virtual environment called 
 and won't affect your default `base` installation.
 
 ::::: {tip}
-You can also enable more PyGMT functionality by installing PyGMT's optional dependencies in the environment.
+You can also enable more PyGMT functionalities by installing PyGMT's optional
+dependencies in the environment.
 :::: {tab-set}
 ::: {tab-item} mamba
 :sync: mamba
 ```
-mamba install contextily geopandas ipython pyarrow rioxarray
+mamba install contextily geopandas ipython pyarrow-core rioxarray
 ```
 :::
 
 ::: {tab-item} conda
 :sync: conda
 ```
-conda install contextily geopandas ipython pyarrow rioxarray
+conda install contextily geopandas ipython pyarrow-core rioxarray
 ```
 :::
 ::::
