@@ -14,13 +14,13 @@
 
 * Add Figure.hlines for plotting horizontal lines ([#923](https://github.com/GenericMappingTools/pygmt/pull/923))
 * Add Figure.vlines for plotting vertical lines ([#3726](https://github.com/GenericMappingTools/pygmt/pull/3726))
-* Add load_blue_marble to load Blue Marble dataset ([#2235](https://github.com/GenericMappingTools/pygmt/pull/2235))
-* Add load_black_marble to load Black Marble dataset ([#3469](https://github.com/GenericMappingTools/pygmt/pull/3469))
+* Add load_blue_marble to load "Blue Marble" dataset ([#2235](https://github.com/GenericMappingTools/pygmt/pull/2235))
+* Add load_black_marble to load "Black Marble" dataset ([#3469](https://github.com/GenericMappingTools/pygmt/pull/3469))
 * Add load_earth_mean_sea_surface to load "CNES Earth Mean Sea Surface" dataset ([#3717](https://github.com/GenericMappingTools/pygmt/pull/3717))
 * Add load_earth_mean_dynamic_topography to load "CNES Earth Mean Dynamic Topography" dataset ([#3718](https://github.com/GenericMappingTools/pygmt/pull/3718))
 * Add load_earth_dist to load "GSHHG Earth distance to shoreline" dataset ([#3706](https://github.com/GenericMappingTools/pygmt/pull/3706))
 * Add load_earth_deflection to load "IGPP Earth east-west and north-south deflection" datasets ([#3728](https://github.com/GenericMappingTools/pygmt/pull/3728))
-* load_earth_free_air_anomaly: Add "uncertainty" parameter to load the "free-air anomaly uncertainty" dataset  ([#3727](https://github.com/GenericMappingTools/pygmt/pull/3727))
+* load_earth_free_air_anomaly: Add "uncertainty" parameter to load the "IGPP Earth free-air anomaly uncertainty" dataset  ([#3727](https://github.com/GenericMappingTools/pygmt/pull/3727))
 
 
 ### Enhancements
@@ -28,11 +28,11 @@
 * Figure.plot: Add the "symbol" parameter to support plotting data points with varying symbols ([#1117](https://github.com/GenericMappingTools/pygmt/pull/1117))
 * Figure.plot3d: Add the "symbol" parameter to support plotting data points with varying symbols ([#3559](https://github.com/GenericMappingTools/pygmt/pull/3559))
 * Figure.legend: Support passing a StringIO object as the legend specification ([#3438](https://github.com/GenericMappingTools/pygmt/pull/3438))
-* load_tile_map: Add parameter 'crs' to set the CRS of the returned dataarray ([#3554](https://github.com/GenericMappingTools/pygmt/pull/3554))
+* load_tile_map: Add parameter "crs" to set the CRS of the returned dataarray ([#3554](https://github.com/GenericMappingTools/pygmt/pull/3554))
 * PyArrow: Support pyarrow arrays with string/large_string/string_view types ([#3619](https://github.com/GenericMappingTools/pygmt/pull/3619))
 * Support 1-D/2-D numpy arrays with longlong and ulonglong dtype ([#3566](https://github.com/GenericMappingTools/pygmt/pull/3566))
 * GMT_IMAGE: Implement the to_dataarray method for 3-band images ([#3128](https://github.com/GenericMappingTools/pygmt/pull/3128))
-* Ensure non-ASCII characters are typeset correctly even if PS_CHAR_ENCODING is not 'ISOLatin1+' ([#3611](https://github.com/GenericMappingTools/pygmt/pull/3611))
+* Ensure non-ASCII characters are typeset correctly even if PS_CHAR_ENCODING is not "ISOLatin1+" ([#3611](https://github.com/GenericMappingTools/pygmt/pull/3611))
 * Add enums GridRegistration and GridType for grid registration and type ([#3693](https://github.com/GenericMappingTools/pygmt/pull/3693))
 * Add PyArrow as an optional dependency ([#3592](https://github.com/GenericMappingTools/pygmt/pull/3592))
 
@@ -48,7 +48,7 @@
 * launch_external_viewer: Use full path when opening the file in a web browser ([#3647](https://github.com/GenericMappingTools/pygmt/pull/3647))
 * PyArrow: Map date32[day]/date64[ms] dtypes in pandas objects to np.datetime64 with correct date/time units ([#3617](https://github.com/GenericMappingTools/pygmt/pull/3617))
 * clib.session: Add the GMT_SESSION_NOGDALCLOSE flag to keep GDAL open ([#3672](https://github.com/GenericMappingTools/pygmt/pull/3672))
-* Set the 'Conventions' attribute to 'CF-1.7' for netCDF grids only ([#3463](https://github.com/GenericMappingTools/pygmt/pull/3463))
+* Set the "Conventions" attribute to "CF-1.7" for netCDF grids only ([#3463](https://github.com/GenericMappingTools/pygmt/pull/3463))
 * Fix the conversion error for pandas.Series with missing values in pandas<=2.1 ([#3505](https://github.com/GenericMappingTools/pygmt/pull/3505), [#3596](https://github.com/GenericMappingTools/pygmt/pull/3596))
 * GeoPandas: Explicitly convert columns with overflow integers to avoid OverflowError with fiona 1.10 ([#3455](https://github.com/GenericMappingTools/pygmt/pull/3455))
 * Figure.plot/Figure.plot3d: Improve the check of the "style" parameter for "v" or "V" ([#3603](https://github.com/GenericMappingTools/pygmt/pull/3603))
@@ -65,18 +65,18 @@
 * Document Continuous Benchmarking in Maintainers Guides ([#3631](https://github.com/GenericMappingTools/pygmt/pull/3631))
 * Add instructions for installing optional dependencies ([#3506](https://github.com/GenericMappingTools/pygmt/pull/3506))
 * Update "PyData Ecosystem" to "Scientific Python Ecosystem" ([#3447](https://github.com/GenericMappingTools/pygmt/pull/3447))
-* Figure.savefig: Clarify that 'transparent' also works for the PNG file associated with the KML format ([#3579](https://github.com/GenericMappingTools/pygmt/pull/3579))
+* Figure.savefig: Clarify that the "transparent" parameter also works for the PNG file associated with the KML format ([#3579](https://github.com/GenericMappingTools/pygmt/pull/3579))
 * Add the PyGMT talk at AGU24 to the "Overview" section ([#3685](https://github.com/GenericMappingTools/pygmt/pull/3685))
 * Add the GMT/PyGMT pre-conference workshop at AGU24 to the "External resources" section ([#3689](https://github.com/GenericMappingTools/pygmt/pull/3689))
 * Add TODO comments in the maintainers guides and update the release checklist ([#3724](https://github.com/GenericMappingTools/pygmt/pull/3724))
 
 ### Maintenance
 
-* **Breaking**: data_kind: data is None and required now returns the 'empty' kind ([#3482](https://github.com/GenericMappingTools/pygmt/pull/3482))
-* **Breaking**: data_kind: Now 'matrix' represents a 2-D numpy array and unrecognized data types fall back to 'vectors' ([#3351](https://github.com/GenericMappingTools/pygmt/pull/3351))
+* **Breaking**: data_kind: data is None and required now returns the "empty" kind ([#3482](https://github.com/GenericMappingTools/pygmt/pull/3482))
+* **Breaking**: data_kind: Now "matrix" represents a 2-D numpy array and unrecognized data types fall back to "vectors" ([#3351](https://github.com/GenericMappingTools/pygmt/pull/3351))
 * Add Support for Python 3.13 ([#3490](https://github.com/GenericMappingTools/pygmt/pull/3490))
 * Add the Session.virtualfile_from_stringio method to allow StringIO input for certain functions/methods ([#3326](https://github.com/GenericMappingTools/pygmt/pull/3326))
-* Add 'geodatasets' as a dependency for docs and update the choropleth example ([#3719](https://github.com/GenericMappingTools/pygmt/pull/3719))
+* Add "geodatasets" as a dependency for docs and update the choropleth example ([#3719](https://github.com/GenericMappingTools/pygmt/pull/3719))
 * PyArrow: Check compatibility of pyarrow.array with string type ([#2933](https://github.com/GenericMappingTools/pygmt/pull/2933))
 * Rename sphinx-gallery's README.txt to GALLERY_HEADER.rst and require Sphinx-Gallery>=0.17.0 ([#3348](https://github.com/GenericMappingTools/pygmt/pull/3348))
 * clib.conversion: Remove the as_c_contiguous function and use np.ascontiguousarray instead ([#3492](https://github.com/GenericMappingTools/pygmt/pull/3492))
