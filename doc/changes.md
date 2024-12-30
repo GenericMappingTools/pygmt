@@ -7,7 +7,9 @@
 ### Highlights
 
 * 🎉 Fourteenth minor release of PyGMT 🎉
+* Support for Python 3.13 ([#3490](https://github.com/GenericMappingTools/pygmt/pull/3490))
 * Bump minimum supported version to GMT>=6.4.0 ([#3450](https://github.com/GenericMappingTools/pygmt/pull/3450))
+* Two new plotting methods and six new functions to access more GMT remote datasets
 
 ### New Features
 
@@ -92,7 +94,6 @@
 * CI: Add a separate CI job on Ubuntu to test geopandas v0.x ([#3420](https://github.com/GenericMappingTools/pygmt/pull/3420))
 * Bump to ruff>=0.8.0 and rename rule TCH to TC ([#3662](https://github.com/GenericMappingTools/pygmt/pull/3662))
 * Bump to Ghostscript 10.04.0 ([#3443](https://github.com/GenericMappingTools/pygmt/pull/3443))
-* Add support for Python 3.13 ([#3490](https://github.com/GenericMappingTools/pygmt/pull/3490))
 * Add enums GridFormat for GMT grid format ID ([#3449](https://github.com/GenericMappingTools/pygmt/pull/3449))
 
 **Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.13.0...v0.14.0>
