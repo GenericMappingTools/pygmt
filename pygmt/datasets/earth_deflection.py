@@ -100,7 +100,7 @@ def load_earth_deflection(
     >>> # 1 arc-degree grid)
     >>> grid = load_earth_deflection()
     >>> # load the default grid for north-south deflection
-    >>> grid = load_earth_deflection(component="ndefl")
+    >>> grid = load_earth_deflection(component="north")
     >>> # load the 30 arc-minutes grid with "gridline" registration
     >>> grid = load_earth_deflection(resolution="30m", registration="gridline")
     >>> # load high-resolution (5 arc-minutes) grid for a specific region
