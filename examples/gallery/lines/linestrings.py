@@ -1,6 +1,6 @@
 """
-Plotting lines with LineString/MultiLineString geometry
-=======================================================
+GeoPandas: Plotting lines with LineString/MultiLineString geometry
+==================================================================
 
 The :meth:`pygmt.Figure.plot` method allows us to plot geographical data such
 as lines which are stored in a :class:`geopandas.GeoDataFrame` object. Use
