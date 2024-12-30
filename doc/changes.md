@@ -68,7 +68,7 @@
 * Update "PyData Ecosystem" to "Scientific Python Ecosystem" ([#3447](https://github.com/GenericMappingTools/pygmt/pull/3447))
 * Figure.savefig: Clarify that 'transparent' also works for the PNG file associated with the KML format ([#3579](https://github.com/GenericMappingTools/pygmt/pull/3579))
 * Add the PyGMT talk at AGU24 to the "Overview" section ([#3685](https://github.com/GenericMappingTools/pygmt/pull/3685))
-* Add the GMT/PyGMT preworkshop at AGU24 to the "External resources" section ([#3689](https://github.com/GenericMappingTools/pygmt/pull/3689))
+* Add the GMT/PyGMT pre-conference workshop at AGU24 to the "External resources" section ([#3689](https://github.com/GenericMappingTools/pygmt/pull/3689))
 * Add TODO comments in the maintainers guides and update the release checklist ([#3724](https://github.com/GenericMappingTools/pygmt/pull/3724))
 
 ### Maintenance
