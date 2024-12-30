@@ -142,8 +142,8 @@ research using the following BibTeX:
                   Jones, Max and
                   Toney, Liam and
                   Yao, Jiayuan and
-                  Magen, Yohai and
                   Tong, Jing-Hui and
+                  Magen, Yohai and
                   Materna, Kathryn and
                   Belem, Andre and
                   Newton, Tyler and
