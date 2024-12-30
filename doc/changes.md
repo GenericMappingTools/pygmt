@@ -7,7 +7,6 @@
 ### Highlights
 
 * 🎉 Fourteenth minor release of PyGMT 🎉
-* Support for Python 3.13 ([#3490](https://github.com/GenericMappingTools/pygmt/pull/3490))
 * Bump minimum supported version to GMT>=6.4.0 ([#3450](https://github.com/GenericMappingTools/pygmt/pull/3450))
 * Two new plotting methods and six new functions to access more GMT remote datasets
 
@@ -75,6 +74,7 @@
 
 * **Breaking**: data_kind: data is None and required now returns the 'empty' kind ([#3482](https://github.com/GenericMappingTools/pygmt/pull/3482))
 * **Breaking**: data_kind: Now 'matrix' represents a 2-D numpy array and unrecognized data types fall back to 'vectors' ([#3351](https://github.com/GenericMappingTools/pygmt/pull/3351))
+* Add Support for Python 3.13 ([#3490](https://github.com/GenericMappingTools/pygmt/pull/3490))
 * Add the Session.virtualfile_from_stringio method to allow StringIO input for certain functions/methods ([#3326](https://github.com/GenericMappingTools/pygmt/pull/3326))
 * Add 'geodatasets' as a dependency for docs and update the choropleth example ([#3719](https://github.com/GenericMappingTools/pygmt/pull/3719))
 * PyArrow: Check compatibility of pyarrow.array with string type ([#2933](https://github.com/GenericMappingTools/pygmt/pull/2933))
