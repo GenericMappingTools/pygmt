@@ -2,12 +2,12 @@
 GeoPandas: Plotting lines with LineString/MultiLineString geometry
 ==================================================================
 
-The :meth:`pygmt.Figure.plot` method allows us to plot geographical data 
-such as lines which are stored in a :class:`geopandas.GeoDataFrame` object. 
-Use :func:`geopandas.read_file` to load data from any supported OGR format 
-such as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. 
-Then, pass the :class:`geopandas.GeoDataFrame` as an argument to the 
-``data`` parameter of :meth:`pygmt.Figure.plot`, and style the geometry 
+The :meth:`pygmt.Figure.plot` method allows us to plot geographical data
+such as lines which are stored in a :class:`geopandas.GeoDataFrame` object.
+Use :func:`geopandas.read_file` to load data from any supported OGR format
+such as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc.
+Then, pass the :class:`geopandas.GeoDataFrame` as an argument to the
+``data`` parameter of :meth:`pygmt.Figure.plot`, and style the geometry
 using the ``pen`` parameter.
 """
 
