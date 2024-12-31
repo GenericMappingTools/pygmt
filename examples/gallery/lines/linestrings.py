@@ -1,14 +1,16 @@
 """
-GeoPandas: Plotting lines with LineString/MultiLineString geometry
-==================================================================
+GeoPandas: Plotting lines with LineString or MultiLineString geometry
+=====================================================================
 
-The :meth:`pygmt.Figure.plot` method allows us to plot geographical data
-such as lines which are stored in a :class:`geopandas.GeoDataFrame` object.
-Use :func:`geopandas.read_file` to load data from any supported OGR format
-such as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc.
-Then, pass the :class:`geopandas.GeoDataFrame` as an argument to the
-``data`` parameter of :meth:`pygmt.Figure.plot`, and style the geometry
-using the ``pen`` parameter.
+The :meth:`pygmt.Figure.plot` method allows us to plot geographical data such as lines
+with LineString or MultiLineString geometry types stored in a
+:class:`geopandas.GeoDataFrame` object or any object that implements the
+`__geo_interface__ <https://gist.github.com/sgillies/2217756>`__ property.
+
+Use :func:`geopandas.read_file` to load data from any supported OGR format such as a
+shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the
+:class:`geopandas.GeoDataFrame` object as an argument to the ``data`` parameter of
+:meth:`pygmt.Figure.plot`, and style the lines using the ``pen`` parameter.
 """
 
 # %%
@@ -16,13 +18,16 @@ import geodatasets
 import geopandas as gpd
 import pygmt
 
-# Read shapefile data of large rivers in Europe using geopandas
+# Read a sample dataset provided by the geodatasets package.
+# The dataset contains large rivers in Europe, stored as LineString/MultiLineString
+# geometry types.
 gdf = gpd.read_file(geodatasets.get_path("eea large_rivers"))
 
 # Convert object to EPSG 4326 coordinate system
 gdf = gdf.to_crs("EPSG:4326")
-print(gdf)
+print(gdf.head())
 
+# %%
 fig = pygmt.Figure()
 
 fig.coast(
