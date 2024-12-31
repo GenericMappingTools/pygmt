@@ -112,7 +112,7 @@ with rasterio.open(url_to_image) as dataset:
 fig = pygmt.Figure()
 
 # Set up a colormap with two colors for the EU flag: blue (0/51/153) for the background
-# (value 0 in the nedCDF file -> lower half of 0-255 range) and yellow (255/204/0) for
+# (value 0 in the netCDF file -> lower half of 0-255 range) and yellow (255/204/0) for
 # the stars (value 255 -> upper half)
 pygmt.makecpt(cmap="0/51/153,255/204/0", series=[0, 256, 128])
 

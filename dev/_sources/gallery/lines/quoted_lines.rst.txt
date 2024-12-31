@@ -115,7 +115,7 @@ to the ``style`` parameter.
 .. code-block:: Python
 
 
-    # Generate sinus curve
+    # Generate sine curve
     x = np.arange(0, 10 * np.pi, 0.1)
     y = np.sin(0.8 * x)
 
@@ -149,7 +149,7 @@ to the ``style`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.164 seconds)
+   **Total running time of the script:** (0 minutes 1.150 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_quoted_lines.py:

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
@@ -18,7 +18,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=a51cd8ab" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=845ca4e4" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
@@ -29,7 +29,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=aa3fe5bf"></script>
+        <script src="../../_static/documentation_options.js?v=35ee300d"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -92,7 +92,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../get_started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -101,7 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../index.html#main-features">Main Features</a></li>
@@ -125,6 +125,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#input-output">Input/output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#enums">Enums</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#datasets">Datasets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#exceptions">Exceptions</a></li>
@@ -134,6 +135,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ecosystem.html">Ecosystem</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -209,8 +211,8 @@ web browser).</p>
 current figure. The parameters <code class="docutils literal notranslate"><span class="pre">dpi</span></code> and <code class="docutils literal notranslate"><span class="pre">width</span></code> can be used to control the
 resolution and dimension of the figure in the notebook.</p>
 <p>The external viewer can be disabled by setting the environment variable
-<strong>PYGMT_USE_EXTERNAL_DISPLAY</strong> to <code class="docutils literal notranslate"><span class="pre">&quot;false&quot;</span></code>. This is useful when running tests
-and building the documentation to avoid popping up windows.</p>
+<a class="reference internal" href="../../techref/environment_variables.html#term-PYGMT_USE_EXTERNAL_DISPLAY"><span class="xref std std-term">PYGMT_USE_EXTERNAL_DISPLAY</span></a> to <code class="docutils literal notranslate"><span class="pre">&quot;false&quot;</span></code>. This is useful when running
+tests and building the documentation to avoid popping up windows.</p>
 <p>The external viewer does not block the current process, thus it’s necessary to
 suspend the execution of the current process for a short while after launching
 the external viewer, so that the preview image won’t be deleted before the
@@ -219,7 +221,7 @@ number if the image viewer on your computer is slow to open the figure.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>method</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'external'</span></code>, <code class="docutils literal notranslate"><span class="pre">'notebook'</span></code>, <code class="docutils literal notranslate"><span class="pre">'none'</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <p>The method to display the current image preview. Choose from:</p>
+<li><p><strong>method</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'external'</span></code>, <code class="docutils literal notranslate"><span class="pre">'notebook'</span></code>, <code class="docutils literal notranslate"><span class="pre">'none'</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <p>The method to display the current image preview. Choose from:</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;external&quot;</span></code>: External PDF preview using the default PDF viewer</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;notebook&quot;</span></code>: Inline PNG preview in the current notebook</p></li>
@@ -230,11 +232,11 @@ number if the image viewer on your computer is slow to open the figure.</p>
 <code class="docutils literal notranslate"><span class="pre">&quot;notebook&quot;</span></code> in Jupyter notebooks, but can be changed by
 <a class="reference internal" href="pygmt.set_display.html#pygmt.set_display" title="pygmt.set_display"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.set_display</span></code></a>.</p>
 </p></li>
-<li><p><strong>dpi</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">300</span></code>) – The image resolution (dots per inch) in Jupyter notebooks.</p></li>
-<li><p><strong>width</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">500</span></code>) – The image width (in pixels) in Jupyter notebooks.</p></li>
-<li><p><strong>waiting</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">0.5</span></code>) – Suspend the execution of the current process for a given number of seconds
+<li><p><strong>dpi</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">300</span></code>) – The image resolution (dots per inch) in Jupyter notebooks.</p></li>
+<li><p><strong>width</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">500</span></code>) – The image width (in pixels) in Jupyter notebooks.</p></li>
+<li><p><strong>waiting</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">0.5</span></code>) – Suspend the execution of the current process for a given number of seconds
 after launching an external viewer. Only works if <code class="docutils literal notranslate"><span class="pre">method=&quot;external&quot;</span></code>.</p></li>
-<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – Additional keyword arguments passed to <a class="reference internal" href="pygmt.Figure.psconvert.html#pygmt.Figure.psconvert" title="pygmt.Figure.psconvert"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.psconvert</span></code></a>. Valid
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Additional keyword arguments passed to <a class="reference internal" href="pygmt.Figure.psconvert.html#pygmt.Figure.psconvert" title="pygmt.Figure.psconvert"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.psconvert</span></code></a>. Valid
 parameters are <code class="docutils literal notranslate"><span class="pre">gs_path</span></code>, <code class="docutils literal notranslate"><span class="pre">gs_option</span></code>, <code class="docutils literal notranslate"><span class="pre">resize</span></code>, <code class="docutils literal notranslate"><span class="pre">bb_style</span></code>, and
 <code class="docutils literal notranslate"><span class="pre">verbose</span></code>.</p></li>
 </ul>
@@ -244,7 +246,79 @@ parameters are <code class="docutils literal notranslate"><span class="pre">gs_p
 
 <section id="examples-using-pygmt-figure-show">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.show</span></code><a class="headerlink" href="#examples-using-pygmt-figure-show" title="Link to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows us to plot geographical data such as polygons which are stored in a geopandas.GeoDataFrame object. Use geopandas.read_file to load data from any supported OGR format such as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. You can also use a full URL pointing to your desired data source. Then, pass the geopandas.GeoDataFrame as an argument to the data parameter of pygmt.Figure.plot, and style the geometry using the pen parameter. To fill the polygons based on a corresponding column you need to set fill=&quot;+z&quot; as well as select the appropriate column using the aspatial parameter as shown in the example below."><img alt="" src="../../_images/sphx_glr_choropleth_map_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This tutorial covers the basics of creating a figure using PyGMT - a Python wrapper for the Generic Mapping Tools (GMT). It will only use the pygmt.Figure.coast method for plotting. Later tutorials will address other PyGMT methods."><img alt="" src="../../_images/sphx_glr_01_first_figure_thumb.png" />
+<p><a class="reference internal" href="../../intro/01_first_figure.html#sphx-glr-intro-01-first-figure-py"><span class="std std-ref">1. Making your first figure</span></a></p>
+  <div class="sphx-glr-thumbnail-title">1. Making your first figure</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This tutorial page covers the basics of creating a figure of the Earth relief, using a remote dataset hosted by GMT, using the method pygmt.datasets.load_earth_relief. It will use the pygmt.Figure.grdimage, pygmt.Figure.grdcontour, pygmt.Figure.colorbar, and pygmt.Figure.coast methods for plotting."><img alt="" src="../../_images/sphx_glr_02_contour_map_thumb.png" />
+<p><a class="reference internal" href="../../intro/02_contour_map.html#sphx-glr-intro-02-contour-map-py"><span class="std std-ref">2. Create a contour map</span></a></p>
+  <div class="sphx-glr-thumbnail-title">2. Create a contour map</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The figure below shows the naming of figure elements in PyGMT."><img alt="" src="../../_images/sphx_glr_03_figure_element_thumb.png" />
+<p><a class="reference internal" href="../../intro/03_figure_element.html#sphx-glr-intro-03-figure-element-py"><span class="std std-ref">3. Figure elements</span></a></p>
+  <div class="sphx-glr-thumbnail-title">3. Figure elements</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Generally, PyGMT accepts two different types of data inputs: tables and grids."><img alt="" src="../../_images/sphx_glr_04_table_inputs_thumb.png" />
+<p><a class="reference internal" href="../../intro/04_table_inputs.html#sphx-glr-intro-04-table-inputs-py"><span class="std std-ref">4. PyGMT I/O: Table inputs</span></a></p>
+  <div class="sphx-glr-thumbnail-title">4. PyGMT I/O: Table inputs</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting coastlines and borders is handled by pygmt.Figure.coast."><img alt="" src="../../_images/sphx_glr_coastlines_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/basics/coastlines.html#sphx-glr-tutorials-basics-coastlines-py"><span class="std std-ref">Coastlines and borders</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Coastlines and borders</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Setting frame, ticks, title, etc., of the plot is handled by the frame parameter that most plotting methods of the pygmt.Figure class contain."><img alt="" src="../../_images/sphx_glr_frames_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/basics/frames.html#sphx-glr-tutorials-basics-frames-py"><span class="std std-ref">Frames, ticks, titles, and labels</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Frames, ticks, titles, and labels</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is packaged with GMT to try this out. PyGMT provides access to these datasets through the pygmt.datasets package. If you don&#x27;t have the data files already, they are automatically downloaded and saved to a cache directory the first time you use them (usually ~/.gmt/cache)."><img alt="" src="../../_images/sphx_glr_plot_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/basics/plot.html#sphx-glr-tutorials-basics-plot-py"><span class="std std-ref">Plotting data points</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting data points</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting lines is handled by the pygmt.Figure.plot method."><img alt="" src="../../_images/sphx_glr_lines_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/basics/lines.html#sphx-glr-tutorials-basics-lines-py"><span class="std std-ref">Plotting lines</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting lines</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting polygons is handled by the pygmt.Figure.plot method."><img alt="" src="../../_images/sphx_glr_polygons_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/basics/polygons.html#sphx-glr-tutorials-basics-polygons-py"><span class="std std-ref">Plotting polygons</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting polygons</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add text annotations to a plot or map. This is handled by the pygmt.Figure.text method of the pygmt.Figure class."><img alt="" src="../../_images/sphx_glr_text_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/basics/text.html#sphx-glr-tutorials-basics-text-py"><span class="std std-ref">Plotting text</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting text</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Many of the plotting methods take the region parameter, which sets the area that will be shown in the figure. This tutorial covers the different types of inputs that it can accept."><img alt="" src="../../_images/sphx_glr_regions_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/basics/regions.html#sphx-glr-tutorials-basics-regions-py"><span class="std std-ref">Setting the region</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Setting the region</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="To plot an inset figure inside another larger figure, we can use the pygmt.Figure.inset method. After a large figure has been created, call inset using a with statement, and new plot elements will be added to the inset figure instead of the larger figure."><img alt="" src="../../_images/sphx_glr_insets_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/insets.html#sphx-glr-tutorials-advanced-insets-py"><span class="std std-ref">Adding an inset to the figure</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Adding an inset to the figure</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Cartesian histograms can be generated using the pygmt.Figure.histogram method. In this tutorial, different histogram related aspects are addressed:"><img alt="" src="../../_images/sphx_glr_cartesian_histograms_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/cartesian_histograms.html#sphx-glr-tutorials-advanced-cartesian-histograms-py"><span class="std std-ref">Cartesian histograms</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cartesian histograms</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Default GMT parameters can be set globally or locally using pygmt.config."><img alt="" src="../../_images/sphx_glr_configuration_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/configuration.html#sphx-glr-tutorials-advanced-configuration-py"><span class="std std-ref">Configuring PyGMT defaults</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Configuring PyGMT defaults</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Create 3-D perspective image or surface mesh from a grid using pygmt.Figure.grdview."><img alt="" src="../../_images/sphx_glr_3d_perspective_image_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/3d_perspective_image.html#sphx-glr-tutorials-advanced-3d-perspective-image-py"><span class="std std-ref">Creating a 3-D perspective image</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Creating a 3-D perspective image</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting a contour map is handled by pygmt.Figure.grdcontour."><img alt="" src="../../_images/sphx_glr_contour_map_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/contour_map.html#sphx-glr-tutorials-advanced-contour-map-py"><span class="std std-ref">Creating a map with contour lines</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Creating a map with contour lines</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="It can be visually appealing to &quot;drape&quot; a dataset over a topographic surface. This can be accomplished using the drapegrid parameter of pygmt.Figure.grdview."><img alt="" src="../../_images/sphx_glr_draping_on_3d_surface_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/draping_on_3d_surface.html#sphx-glr-tutorials-advanced-draping-on-3d-surface-py"><span class="std std-ref">Draping a dataset on top of a topographic surface</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Draping a dataset on top of a topographic surface</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="    Please run the following code examples in a notebook environment     otherwise the interactive parts of this tutorial will not work. You can     use the button &quot;Download Jupyter notebook&quot; at the bottom of this page     to download this script as a Jupyter notebook."><img alt="" src="../../_images/sphx_glr_working_with_panel_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/working_with_panel.html#sphx-glr-tutorials-advanced-working-with-panel-py"><span class="std std-ref">Interactive data visualization using Panel</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Interactive data visualization using Panel</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put many individual plots into one large figure, and label them &#x27;abcd&#x27;. These individual plots are called subplots."><img alt="" src="../../_images/sphx_glr_subplots_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/subplots.html#sphx-glr-tutorials-advanced-subplots-py"><span class="std std-ref">Making subplots</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Making subplots</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdhisteq.equalize_grid method creates a grid using statistics based on a cumulative distribution function."><img alt="" src="../../_images/sphx_glr_grid_equalization_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/grid_equalization.html#sphx-glr-tutorials-advanced-grid-equalization-py"><span class="std std-ref">Performing grid histogram equalization</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Performing grid histogram equalization</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="PyGMT provides the pygmt.datasets.load_earth_relief function to download the Earth relief data from the GMT remote server and load as an xarray.DataArray object. The data can then be plotted using the pygmt.Figure.grdimage method."><img alt="" src="../../_images/sphx_glr_earth_relief_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/earth_relief.html#sphx-glr-tutorials-advanced-earth-relief-py"><span class="std std-ref">Plotting Earth relief</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting Earth relief</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="PyGMT accepts a variety of datetime objects to plot data and create charts. Aside from the built-in Python datetime module, PyGMT supports inputs containing ISO formatted strings as well as objects generated with numpy, pandas, and xarray. These data types can be used to plot specific points as well as get passed into the region parameter to create a range of the data on an axis."><img alt="" src="../../_images/sphx_glr_date_time_charts_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/date_time_charts.html#sphx-glr-tutorials-advanced-date-time-charts-py"><span class="std std-ref">Plotting datetime charts</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting datetime charts</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting vectors is handled by pygmt.Figure.plot."><img alt="" src="../../_images/sphx_glr_vectors_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/vectors.html#sphx-glr-tutorials-advanced-vectors-py"><span class="std std-ref">Plotting vectors</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting vectors</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="In addition to ASCII printable characters, sometimes you may also want to typeset non-ASCII characters on the plot, such as Greek letters, mathematical symbols, or special characters."><img alt="" src="../../_images/sphx_glr_non_ascii_text_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/non_ascii_text.html#sphx-glr-tutorials-advanced-non-ascii-text-py"><span class="std std-ref">Typesetting non-ASCII text</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Typesetting non-ASCII text</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows us to plot geographical data such as polygons which are stored in a geopandas.GeoDataFrame object. Use geopandas.read_file to load data from any supported OGR format such as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. You can also use a full URL pointing to your desired data source. Then, pass the class:`geopandas.GeoDataFrame` as an argument to the data parameter of pygmt.Figure.plot, and style the geometry using the pen parameter. To fill the polygons based on a corresponding column you need to set fill=&quot;+z&quot; as well as select the appropriate column using the aspatial parameter as shown in the example below."><img alt="" src="../../_images/sphx_glr_choropleth_map_thumb.png" />
 <p><a class="reference internal" href="../../gallery/maps/choropleth_map.html#sphx-glr-gallery-maps-choropleth-map-py"><span class="std std-ref">Choropleth map</span></a></p>
   <div class="sphx-glr-thumbnail-title">Choropleth map</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The land and water parameters of pygmt.Figure.coast specify a color to fill in the land and water masses, respectively. There are many color codes in GMT &lt;gmtcolors.html&gt;, including standard GMT color names (like &quot;skyblue&quot;), R/G/B levels (like &quot;0/0/255&quot;), a hex value (like &quot;#333333&quot;), and a gray level (like &quot;gray50&quot;)."><img alt="" src="../../_images/sphx_glr_land_and_water_thumb.png" />
@@ -277,6 +351,9 @@ parameters are <code class="docutils literal notranslate"><span class="pre">gs_p
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.project function can generate points along a great circle whose center and end points can be defined via the center and endpoint parameters, respectively. Using the generate parameter allows to generate (r, s, p) points every dist units of p along a profile as output. By default, all units (r, s and p) are set to degrees while unit=True allows to set the unit for p to km."><img alt="" src="../../_images/sphx_glr_great_circles_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/great_circles.html#sphx-glr-gallery-lines-great-circles-py"><span class="std std-ref">Generate points along great circles</span></a></p>
   <div class="sphx-glr-thumbnail-title">Generate points along great circles</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows us to plot geographical data such as lines with LineString or MultiLineString geometry types stored in a geopandas.GeoDataFrame object or any object that implements the __geo_interface__ property."><img alt="" src="../../_images/sphx_glr_linestrings_thumb.png" />
+<p><a class="reference internal" href="../../gallery/lines/linestrings.html#sphx-glr-gallery-lines-linestrings-py"><span class="std std-ref">GeoPandas: Plotting lines with LineString or MultiLineString geometry</span></a></p>
+  <div class="sphx-glr-thumbnail-title">GeoPandas: Plotting lines with LineString or MultiLineString geometry</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The color of the lines made by pygmt.Figure.plot can be set according to a custom CPT and assigned with the pen parameter."><img alt="" src="../../_images/sphx_glr_line_custom_cpt_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/line_custom_cpt.html#sphx-glr-gallery-lines-line-custom-cpt-py"><span class="std std-ref">Line colors with a custom CPT</span></a></p>
   <div class="sphx-glr-thumbnail-title">Line colors with a custom CPT</div>
@@ -292,9 +369,6 @@ parameters are <code class="docutils literal notranslate"><span class="pre">gs_p
 </div><div class="sphx-glr-thumbcontainer" tooltip="To plot a so-called quoted line, i.e., labels along a line or curve, use the style parameter of the pygmt.Figure.plot method with the argument &quot;q&quot; and the desired modifiers. A colon (``&quot;:&quot;``) is used to separate the algorithm settings from the label information. This example shows how to adjust the labels. For modifying the main quoted line via the pen parameter, see the Line styles example &lt;/gallery/lines/linestyles&gt;. For details on the input data see the upstream GMT documentation at plot.html#s."><img alt="" src="../../_images/sphx_glr_quoted_lines_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/quoted_lines.html#sphx-glr-gallery-lines-quoted-lines-py"><span class="std std-ref">Quoted lines</span></a></p>
   <div class="sphx-glr-thumbnail-title">Quoted lines</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows us to plot geographical data such as lines which are stored in a geopandas.GeoDataFrame object. Use geopandas.read_file to load data from any supported OGR format such as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the geopandas.GeoDataFrame as an argument to the data parameter of pygmt.Figure.plot, and style the geometry using the pen parameter."><img alt="" src="../../_images/sphx_glr_roads_thumb.png" />
-<p><a class="reference internal" href="../../gallery/lines/roads.html#sphx-glr-gallery-lines-roads-py"><span class="std std-ref">Roads</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Roads</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Many methods in PyGMT allow plotting vectors with individual heads and tails. For this purpose, several modifiers may be appended to the corresponding vector-producing parameters for specifying the placement of vector heads and tails, their shapes, and the justification of the vector."><img alt="" src="../../_images/sphx_glr_vector_heads_tails_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/vector_heads_tails.html#sphx-glr-gallery-lines-vector-heads-tails-py"><span class="std std-ref">Vector heads and tails</span></a></p>
   <div class="sphx-glr-thumbnail-title">Vector heads and tails</div>
@@ -304,7 +378,7 @@ parameters are <code class="docutils literal notranslate"><span class="pre">gs_p
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual geometric symbols by passing the corresponding shortcuts to the style parameter. The 14 basic geometric symbols are shown underneath their corresponding shortcut codes. Four symbols (-, +, x and y) are line-symbols only for which we can adjust the linewidth via the pen parameter. The point symbol (p) only takes a color fill which we can define via the fill parameter. For the remaining symbols we may define a linewidth as well as a color fill."><img alt="" src="../../_images/sphx_glr_basic_symbols_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/basic_symbols.html#sphx-glr-gallery-symbols-basic-symbols-py"><span class="std std-ref">Basic geometric symbols</span></a></p>
   <div class="sphx-glr-thumbnail-title">Basic geometric symbols</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="PyGMT allows using bit or hachure patterns via the fill parameter or similar parameters:"><img alt="" src="../../_images/sphx_glr_patterns_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="In addition to colors, PyGMT also allows using bit and hachure patterns to fill symbols, polygons, and other areas, via the fill parameter or similar parameters."><img alt="" src="../../_images/sphx_glr_patterns_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/patterns.html#sphx-glr-gallery-symbols-patterns-py"><span class="std std-ref">Bit and hachure patterns</span></a></p>
   <div class="sphx-glr-thumbnail-title">Bit and hachure patterns</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can be used to plot symbols which are color-coded by categories. In the example below, we show how the Palmer Penguins dataset can be visualized. Here, we can pass the individual categories included in the &quot;species&quot; column directly to the fill parameter via fill=df.species.cat.codes.astype(int). Additionally, we have to set cmap=True. A desired colormap can be selected via the pygmt.makecpt function."><img alt="" src="../../_images/sphx_glr_points_categorical_thumb.png" />
@@ -388,7 +462,7 @@ parameters are <code class="docutils literal notranslate"><span class="pre">gs_p
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.rose method can plot windrose diagrams or polar histograms."><img alt="" src="../../_images/sphx_glr_rose_thumb.png" />
 <p><a class="reference internal" href="../../gallery/histograms/rose.html#sphx-glr-gallery-histograms-rose-py"><span class="std std-ref">Rose diagram</span></a></p>
   <div class="sphx-glr-thumbnail-title">Rose diagram</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="To create a scatter plot with histograms at the sides of the plot one can use pygmt.Figure.plot in combination with pygmt.Figure.histogram. The positions of the histograms are plotted by offsetting them from the main scatter plot figure using pygmt.Figure.shift_origin."><img alt="" src="../../_images/sphx_glr_scatter_and_histograms_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="To create a scatter plot with histograms at the sides of the plot one can use pygmt.Figure.plot in combination with pygmt.Figure.histogram. The positions of the histograms are plotted by offsetting them from the main scatter plot using pygmt.Figure.shift_origin."><img alt="" src="../../_images/sphx_glr_scatter_and_histograms_thumb.png" />
 <p><a class="reference internal" href="../../gallery/histograms/scatter_and_histograms.html#sphx-glr-gallery-histograms-scatter-and-histograms-py"><span class="std std-ref">Scatter plot with histograms</span></a></p>
   <div class="sphx-glr-thumbnail-title">Scatter plot with histograms</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.colorbar method creates a color scalebar. The colormap is set via the cmap parameter. A full list of available color palette tables can be found at reference/cpts.html. Use the frame parameter to add labels to the x and y axes of the colorbar by appending +l followed by the desired text. To add and adjust the annotations (a) and ticks (f) append the letter followed by the desired interval. The placement of the colorbar is set via the position parameter. There are the following options:"><img alt="" src="../../_images/sphx_glr_colorbar_thumb.png" />
@@ -418,162 +492,87 @@ parameters are <code class="docutils literal notranslate"><span class="pre">gs_p
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.timestamp method can draw the GMT timestamp logo on the plot. The timestamp will always be shown relative to the Bottom Left (BL) corner of the plot. By default, the offset and justify parameters are set to (&quot;-54p&quot;, &quot;-54p&quot;) (x, y directions) and &quot;BL&quot; (Bottom Left), respectively."><img alt="" src="../../_images/sphx_glr_timestamp_thumb.png" />
 <p><a class="reference internal" href="../../gallery/embellishments/timestamp.html#sphx-glr-gallery-embellishments-timestamp-py"><span class="std std-ref">Timestamp</span></a></p>
   <div class="sphx-glr-thumbnail-title">Timestamp</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting coastlines and borders is handled by pygmt.Figure.coast."><img alt="" src="../../_images/sphx_glr_coastlines_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/basics/coastlines.html#sphx-glr-tutorials-basics-coastlines-py"><span class="std std-ref">Coastlines and borders</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Coastlines and borders</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Setting frame, ticks, title, etc., of the plot is handled by the frame parameter that most plotting methods of the pygmt.Figure class contain."><img alt="" src="../../_images/sphx_glr_frames_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/basics/frames.html#sphx-glr-tutorials-basics-frames-py"><span class="std std-ref">Frames, ticks, titles, and labels</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Frames, ticks, titles, and labels</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is packaged with GMT to try this out. PyGMT provides access to these datasets through the pygmt.datasets package. If you don&#x27;t have the data files already, they are automatically downloaded and saved to a cache directory the first time you use them (usually ~/.gmt/cache)."><img alt="" src="../../_images/sphx_glr_plot_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/basics/plot.html#sphx-glr-tutorials-basics-plot-py"><span class="std std-ref">Plotting data points</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Plotting data points</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting lines is handled by pygmt.Figure.plot."><img alt="" src="../../_images/sphx_glr_lines_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/basics/lines.html#sphx-glr-tutorials-basics-lines-py"><span class="std std-ref">Plotting lines</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Plotting lines</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add text annotations to a plot or map. This is handled by the pygmt.Figure.text method of the pygmt.Figure class."><img alt="" src="../../_images/sphx_glr_text_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/basics/text.html#sphx-glr-tutorials-basics-text-py"><span class="std std-ref">Plotting text</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Plotting text</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Many of the plotting methods take the region parameter, which sets the area that will be shown in the figure. This tutorial covers the different types of inputs that it can accept."><img alt="" src="../../_images/sphx_glr_regions_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/basics/regions.html#sphx-glr-tutorials-basics-regions-py"><span class="std std-ref">Setting the region</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Setting the region</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="To plot an inset figure inside another larger figure, we can use the pygmt.Figure.inset method. After a large figure has been created, call inset using a with statement, and new plot elements will be added to the inset figure instead of the larger figure."><img alt="" src="../../_images/sphx_glr_insets_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/insets.html#sphx-glr-tutorials-advanced-insets-py"><span class="std std-ref">Adding an inset to the figure</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Adding an inset to the figure</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Cartesian histograms can be generated using the pygmt.Figure.histogram method. In this tutorial, different histogram related aspects are addressed:"><img alt="" src="../../_images/sphx_glr_cartesian_histograms_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/cartesian_histograms.html#sphx-glr-tutorials-advanced-cartesian-histograms-py"><span class="std std-ref">Cartesian histograms</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Cartesian histograms</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Default GMT parameters can be set globally or locally using pygmt.config."><img alt="" src="../../_images/sphx_glr_configuration_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/configuration.html#sphx-glr-tutorials-advanced-configuration-py"><span class="std std-ref">Configuring PyGMT defaults</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Configuring PyGMT defaults</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Create 3-D perspective image or surface mesh from a grid using pygmt.Figure.grdview."><img alt="" src="../../_images/sphx_glr_3d_perspective_image_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/3d_perspective_image.html#sphx-glr-tutorials-advanced-3d-perspective-image-py"><span class="std std-ref">Creating a 3-D perspective image</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Creating a 3-D perspective image</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting a contour map is handled by pygmt.Figure.grdcontour."><img alt="" src="../../_images/sphx_glr_contour_map_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/contour_map.html#sphx-glr-tutorials-advanced-contour-map-py"><span class="std std-ref">Creating a map with contour lines</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Creating a map with contour lines</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="It can be visually appealing to &quot;drape&quot; a dataset over a topographic surface. This can be accomplished using the drapegrid parameter of pygmt.Figure.grdview."><img alt="" src="../../_images/sphx_glr_draping_on_3d_surface_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/draping_on_3d_surface.html#sphx-glr-tutorials-advanced-draping-on-3d-surface-py"><span class="std std-ref">Draping a dataset on top of a topographic surface</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Draping a dataset on top of a topographic surface</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="    Please run the following code examples in a notebook environment     otherwise the interactive parts of this tutorial will not work. You can     use the button &quot;Download Jupyter notebook&quot; at the bottom of this page     to download this script as a Jupyter notebook."><img alt="" src="../../_images/sphx_glr_working_with_panel_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/working_with_panel.html#sphx-glr-tutorials-advanced-working-with-panel-py"><span class="std std-ref">Interactive data visualization using Panel</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Interactive data visualization using Panel</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put many individual plots into one large figure, and label them &#x27;abcd&#x27;. These individual plots are called subplots."><img alt="" src="../../_images/sphx_glr_subplots_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/subplots.html#sphx-glr-tutorials-advanced-subplots-py"><span class="std std-ref">Making subplots</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Making subplots</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdhisteq.equalize_grid method creates a grid using statistics based on a cumulative distribution function."><img alt="" src="../../_images/sphx_glr_grid_equalization_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/grid_equalization.html#sphx-glr-tutorials-advanced-grid-equalization-py"><span class="std std-ref">Performing grid histogram equalization</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Performing grid histogram equalization</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="PyGMT provides the pygmt.datasets.load_earth_relief function to download the Earth relief data from the GMT remote server and load as an xarray.DataArray object. The data can then be plotted using the pygmt.Figure.grdimage method."><img alt="" src="../../_images/sphx_glr_earth_relief_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/earth_relief.html#sphx-glr-tutorials-advanced-earth-relief-py"><span class="std std-ref">Plotting Earth relief</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Plotting Earth relief</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="PyGMT accepts a variety of datetime objects to plot data and create charts. Aside from the built-in Python datetime module, PyGMT supports inputs containing ISO formatted strings as well as objects generated with numpy, pandas, and xarray. These data types can be used to plot specific points as well as get passed into the region parameter to create a range of the data on an axis."><img alt="" src="../../_images/sphx_glr_date_time_charts_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/date_time_charts.html#sphx-glr-tutorials-advanced-date-time-charts-py"><span class="std std-ref">Plotting datetime charts</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Plotting datetime charts</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting vectors is handled by pygmt.Figure.plot."><img alt="" src="../../_images/sphx_glr_vectors_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/vectors.html#sphx-glr-tutorials-advanced-vectors-py"><span class="std std-ref">Plotting vectors</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Plotting vectors</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="In addition to ASCII printable characters, sometimes you may also want to typeset non-ASCII characters on the plot, such as Greek letters, mathematical symbols, or special characters."><img alt="" src="../../_images/sphx_glr_non_ascii_text_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/non_ascii_text.html#sphx-glr-tutorials-advanced-non-ascii-text-py"><span class="std std-ref">Typesetting non-ASCII text</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Typesetting non-ASCII text</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This tutorial covers the basics of creating a figure using PyGMT - a Python wrapper for the Generic Mapping Tools (GMT). It will only use the pygmt.Figure.coast method for plotting. Later tutorials will address other PyGMT methods."><img alt="" src="../../_images/sphx_glr_01_first_figure_thumb.png" />
-<p><a class="reference internal" href="../../get_started/01_first_figure.html#sphx-glr-get-started-01-first-figure-py"><span class="std std-ref">1. Making your first figure</span></a></p>
-  <div class="sphx-glr-thumbnail-title">1. Making your first figure</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This tutorial page covers the basics of creating a figure of the Earth relief, using a remote dataset hosted by GMT, using the method pygmt.datasets.load_earth_relief. It will use the pygmt.Figure.grdimage, pygmt.Figure.grdcontour, pygmt.Figure.colorbar, and pygmt.Figure.coast methods for plotting."><img alt="" src="../../_images/sphx_glr_02_contour_map_thumb.png" />
-<p><a class="reference internal" href="../../get_started/02_contour_map.html#sphx-glr-get-started-02-contour-map-py"><span class="std std-ref">2. Create a contour map</span></a></p>
-  <div class="sphx-glr-thumbnail-title">2. Create a contour map</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The figure below shows the naming of figure elements in PyGMT."><img alt="" src="../../_images/sphx_glr_03_figure_element_thumb.png" />
-<p><a class="reference internal" href="../../get_started/03_figure_element.html#sphx-glr-get-started-03-figure-element-py"><span class="std std-ref">3. Figure elements</span></a></p>
-  <div class="sphx-glr-thumbnail-title">3. Figure elements</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Generally, PyGMT accepts two different types of data inputs: tables and grids."><img alt="" src="../../_images/sphx_glr_04_table_inputs_thumb.png" />
-<p><a class="reference internal" href="../../get_started/04_table_inputs.html#sphx-glr-get-started-04-table-inputs-py"><span class="std std-ref">4. PyGMT I/O: Table inputs</span></a></p>
-  <div class="sphx-glr-thumbnail-title">4. PyGMT I/O: Table inputs</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The main advantage of this projection is that distances from the projection center are displayed in correct proportions. Also directions measured from the projection center are correct. It is very useful for a global view on locations that lie within a certain distance or for comparing distances of different locations relative to the projection center."><img alt="" src="../../_images/sphx_glr_azim_equidistant_thumb.png" />
-<p><a class="reference internal" href="../../projections/azim/azim_equidistant.html#sphx-glr-projections-azim-azim-equidistant-py"><span class="std std-ref">Azimuthal Equidistant</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Azimuthal Equidistant</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The general perspective projection imitates the view of the Earth from a finite point in space. In a full view of the earth one third of its surface area can be seen."><img alt="" src="../../_images/sphx_glr_azim_general_perspective_thumb.png" />
-<p><a class="reference internal" href="../../projections/azim/azim_general_perspective.html#sphx-glr-projections-azim-azim-general-perspective-py"><span class="std std-ref">General Perspective</span></a></p>
-  <div class="sphx-glr-thumbnail-title">General Perspective</div>
+<p><a class="reference internal" href="../../projections/azim/azim_equidistant.html#sphx-glr-projections-azim-azim-equidistant-py"><span class="std std-ref">Azimuthal equidistant projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Azimuthal equidistant projection</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This map projection is a conformal, azimuthal projection. It is mainly used with a projection center in one of the poles. Then meridians appear as straight lines and cross latitudes at a right angle. Unlike the azimuthal equidistant projection, the distances in this projection are not displayed in correct proportions. It is often used as a hemisphere map like the Lambert Azimuthal Equal Area projection."><img alt="" src="../../_images/sphx_glr_azim_general_stereographic_thumb.png" />
-<p><a class="reference internal" href="../../projections/azim/azim_general_stereographic.html#sphx-glr-projections-azim-azim-general-stereographic-py"><span class="std std-ref">General Stereographic</span></a></p>
-  <div class="sphx-glr-thumbnail-title">General Stereographic</div>
+<p><a class="reference internal" href="../../projections/azim/azim_general_stereographic.html#sphx-glr-projections-azim-azim-general-stereographic-py"><span class="std std-ref">General stereographic projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">General stereographic projection</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The point of perspective of the gnomonic projection lies at the center of the Earth. As a consequence great circles (orthodromes) on the surface of the Earth are displayed as straight lines, which makes it suitable for distance estimation for navigational purposes. It is neither conformal nor equal-area and the distortion increases greatly with distance to the projection center. It follows that the scope of application is restricted to a small area around the projection center (at a maximum of 60°)."><img alt="" src="../../_images/sphx_glr_azim_gnomonic_thumb.png" />
-<p><a class="reference internal" href="../../projections/azim/azim_gnomonic.html#sphx-glr-projections-azim-azim-gnomonic-py"><span class="std std-ref">Gnomonic</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Gnomonic</div>
+<p><a class="reference internal" href="../../projections/azim/azim_gnomonic.html#sphx-glr-projections-azim-azim-gnomonic-py"><span class="std std-ref">Gnomonic projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Gnomonic projection</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This projection was developed by Johann Heinrich Lambert in 1772 and is typically used for mapping large regions like continents and hemispheres. It is an azimuthal, equal-area projection, but is not perspective. Distortion is zero at the center of the projection, and increases radially away from this point."><img alt="" src="../../_images/sphx_glr_azim_lambert_thumb.png" />
-<p><a class="reference internal" href="../../projections/azim/azim_lambert.html#sphx-glr-projections-azim-azim-lambert-py"><span class="std std-ref">Lambert Azimuthal Equal Area</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Lambert Azimuthal Equal Area</div>
+<p><a class="reference internal" href="../../projections/azim/azim_lambert.html#sphx-glr-projections-azim-azim-lambert-py"><span class="std std-ref">Lambert azimuthal equal-area projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Lambert azimuthal equal-area projection</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This is a perspective projection like the general perspective, but with the difference that the point of perspective lies in infinite distance. It is therefore often used to give the appearance of a globe viewed from outer space, were one hemisphere can be seen as a whole. It is neither conformal nor equal-area and the distortion increases near the edges."><img alt="" src="../../_images/sphx_glr_azim_orthographic_thumb.png" />
-<p><a class="reference internal" href="../../projections/azim/azim_orthographic.html#sphx-glr-projections-azim-azim-orthographic-py"><span class="std std-ref">Orthographic</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Orthographic</div>
+<p><a class="reference internal" href="../../projections/azim/azim_orthographic.html#sphx-glr-projections-azim-azim-orthographic-py"><span class="std std-ref">Orthographic projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Orthographic projection</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The perspective projection imitates the view of the Earth from a finite point in space. In a full view of the earth one third of its surface area can be seen."><img alt="" src="../../_images/sphx_glr_azim_general_perspective_thumb.png" />
+<p><a class="reference internal" href="../../projections/azim/azim_general_perspective.html#sphx-glr-projections-azim-azim-general-perspective-py"><span class="std std-ref">Perspective projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Perspective projection</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This projection, developed by Heinrich C. Albers in 1805, is predominantly used to map regions of large east-west extent, in particular the United States. It is a conic, equal-area projection, in which parallels are unequally spaced arcs of concentric circles, more closely spaced at the north and south edges of the map. Meridians, on the other hand, are equally spaced radii about a common center, and cut the parallels at right angles. Distortion in scale and shape vanishes along the two standard parallels. Between them, the scale along parallels is too small; beyond them it is too large. The opposite is true for the scale along meridians."><img alt="" src="../../_images/sphx_glr_conic_albers_thumb.png" />
-<p><a class="reference internal" href="../../projections/conic/conic_albers.html#sphx-glr-projections-conic-conic-albers-py"><span class="std std-ref">Albers Conic Equal Area</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Albers Conic Equal Area</div>
+<p><a class="reference internal" href="../../projections/conic/conic_albers.html#sphx-glr-projections-conic-conic-albers-py"><span class="std std-ref">Albers conic equal-area projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Albers conic equal-area projection</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The equidistant conic projection was described by the Greek philosopher Claudius Ptolemy about A.D. 150. It is neither conformal or equal-area, but serves as a compromise between them. The scale is true along all meridians and the standard parallels."><img alt="" src="../../_images/sphx_glr_conic_equidistant_thumb.png" />
-<p><a class="reference internal" href="../../projections/conic/conic_equidistant.html#sphx-glr-projections-conic-conic-equidistant-py"><span class="std std-ref">Equidistant conic</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Equidistant conic</div>
+<p><a class="reference internal" href="../../projections/conic/conic_equidistant.html#sphx-glr-projections-conic-conic-equidistant-py"><span class="std std-ref">Equidistant conic projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Equidistant conic projection</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This conic projection was designed by the Alsatian mathematician Johann Heinrich Lambert (1772) and has been used extensively for mapping of regions with predominantly east-west orientation, just like the Albers projection. Unlike the Albers projection, Lambert&#x27;s conformal projection is not equal-area. The parallels are arcs of circles with a common origin, and meridians are the equally spaced radii of these circles. As with Albers projection, it is only the two standard parallels that are distortion-free."><img alt="" src="../../_images/sphx_glr_conic_lambert_thumb.png" />
-<p><a class="reference internal" href="../../projections/conic/conic_lambert.html#sphx-glr-projections-conic-conic-lambert-py"><span class="std std-ref">Lambert Conic Conformal Projection</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Lambert Conic Conformal Projection</div>
+<p><a class="reference internal" href="../../projections/conic/conic_lambert.html#sphx-glr-projections-conic-conic-lambert-py"><span class="std std-ref">Lambert conic conformal projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Lambert conic conformal projection</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The polyconic projection, in Europe usually referred to as the American polyconic projection, was introduced shortly before 1820 by the Swiss-American cartographer Ferdinand Rodulph Hassler (1770-1843). As head of the Survey of the Coast, he was looking for a projection that would give the least distortion for mapping the coast of the United States. The projection acquired its name from the construction of each parallel, which is achieved by projecting the parallel onto the cone while it is rolled around the globe, along the central meridian, tangent to that parallel. As a consequence, the projection involves many cones rather than a single one used in regular conic projections."><img alt="" src="../../_images/sphx_glr_polyconic_thumb.png" />
-<p><a class="reference internal" href="../../projections/conic/polyconic.html#sphx-glr-projections-conic-polyconic-py"><span class="std std-ref">Polyconic Projection</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Polyconic Projection</div>
+<p><a class="reference internal" href="../../projections/conic/polyconic.html#sphx-glr-projections-conic-polyconic-py"><span class="std std-ref">Polyconic projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Polyconic projection</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This cylindrical projection was developed in 1745 by César-François Cassini de Thury for the survey of France. It is occasionally called Cassini-Soldner since the latter provided the more accurate mathematical analysis that led to the development of the ellipsoidal formulae. The projection is neither conformal nor equal-area, and behaves as a compromise between the two end-members. The distortion is zero along the central meridian. It is best suited for mapping regions of north-south extent. The central meridian, each meridian 90° away, and equator are straight lines; all other meridians and parallels are complex curves."><img alt="" src="../../_images/sphx_glr_cyl_cassini_thumb.png" />
-<p><a class="reference internal" href="../../projections/cyl/cyl_cassini.html#sphx-glr-projections-cyl-cyl-cassini-py"><span class="std std-ref">Cassini Cylindrical</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Cassini Cylindrical</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The cylindrical stereographic projections are certainly not as notable as other cylindrical projections, but are still used because of their relative simplicity and their ability to overcome some of the downsides of other cylindrical projections, like extreme distortions of the higher latitudes. The stereographic projections are perspective projections, projecting the sphere onto a cylinder in the direction of the antipodal point on the equator. The cylinder crosses the sphere at two standard parallels, equidistant from the equator."><img alt="" src="../../_images/sphx_glr_cyl_stereographic_thumb.png" />
-<p><a class="reference internal" href="../../projections/cyl/cyl_stereographic.html#sphx-glr-projections-cyl-cyl-stereographic-py"><span class="std std-ref">Cylindrical Stereographic</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Cylindrical Stereographic</div>
+<p><a class="reference internal" href="../../projections/cyl/cyl_cassini.html#sphx-glr-projections-cyl-cyl-cassini-py"><span class="std std-ref">Cassini cylindrical projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cassini cylindrical projection</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This cylindrical projection is actually several projections, depending on what latitude is selected as the standard parallel. However, they are all equal area and hence non-conformal. All meridians and parallels are straight lines."><img alt="" src="../../_images/sphx_glr_cyl_equal_area_thumb.png" />
-<p><a class="reference internal" href="../../projections/cyl/cyl_equal_area.html#sphx-glr-projections-cyl-cyl-equal-area-py"><span class="std std-ref">Cylindrical equal-area</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Cylindrical equal-area</div>
+<p><a class="reference internal" href="../../projections/cyl/cyl_equal_area.html#sphx-glr-projections-cyl-cyl-equal-area-py"><span class="std std-ref">Cylindrical equal-area projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cylindrical equal-area projection</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This simple cylindrical projection is really a linear scaling of longitudes and latitudes. The most common form is the Plate Carrée projection, where the scaling of longitudes and latitudes is the same. All meridians and parallels are straight lines."><img alt="" src="../../_images/sphx_glr_cyl_equidistant_thumb.png" />
-<p><a class="reference internal" href="../../projections/cyl/cyl_equidistant.html#sphx-glr-projections-cyl-cyl-equidistant-py"><span class="std std-ref">Cylindrical equidistant</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Cylindrical equidistant</div>
+<p><a class="reference internal" href="../../projections/cyl/cyl_equidistant.html#sphx-glr-projections-cyl-cyl-equidistant-py"><span class="std std-ref">Cylindrical equidistant projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cylindrical equidistant projection</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The cylindrical stereographic projections are certainly not as notable as other cylindrical projections, but are still used because of their relative simplicity and their ability to overcome some of the downsides of other cylindrical projections, like extreme distortions of the higher latitudes. The stereographic projections are perspective projections, projecting the sphere onto a cylinder in the direction of the antipodal point on the equator. The cylinder crosses the sphere at two standard parallels, equidistant from the equator."><img alt="" src="../../_images/sphx_glr_cyl_stereographic_thumb.png" />
+<p><a class="reference internal" href="../../projections/cyl/cyl_stereographic.html#sphx-glr-projections-cyl-cyl-stereographic-py"><span class="std std-ref">Cylindrical stereographic projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cylindrical stereographic projection</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The Mercator projection takes its name from the Flemish cartographer Gheert Cremer, better known as Gerardus Mercator, who presented it in 1569. The projection is a cylindrical and conformal, with no distortion along the equator. A major navigational feature of the projection is that a line of constant azimuth is straight. Such a line is called a rhumb line or loxodrome. Thus, to sail from one point to another one only had to connect the points with a straight line, determine the azimuth of the line, and keep this constant course for the entire voyage. The Mercator projection has been used extensively for world maps in which the distortion towards the polar regions grows rather large."><img alt="" src="../../_images/sphx_glr_cyl_mercator_thumb.png" />
-<p><a class="reference internal" href="../../projections/cyl/cyl_mercator.html#sphx-glr-projections-cyl-cyl-mercator-py"><span class="std std-ref">Mercator</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Mercator</div>
+<p><a class="reference internal" href="../../projections/cyl/cyl_mercator.html#sphx-glr-projections-cyl-cyl-mercator-py"><span class="std std-ref">Mercator projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Mercator projection</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This cylindrical projection, presented by Osborn Maitland Miller of the American Geographic Society in 1942, is neither equal nor conformal. All meridians and parallels are straight lines. The projection was designed to be a compromise between Mercator and other cylindrical projections. Specifically, Miller spaced the parallels by using Mercator&#x27;s formula with 0.8 times the actual latitude, thus avoiding the singular poles; the result was then divided by 0.8."><img alt="" src="../../_images/sphx_glr_cyl_miller_thumb.png" />
-<p><a class="reference internal" href="../../projections/cyl/cyl_miller.html#sphx-glr-projections-cyl-cyl-miller-py"><span class="std std-ref">Miller cylindrical</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Miller cylindrical</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is particularly useful when mapping regions of large lateral extent in an oblique direction. Both parallels and meridians are complex curves. The projection was developed in the early 1900s by several workers."><img alt="" src="../../_images/sphx_glr_cyl_oblique_mercator_1_thumb.png" />
-<p><a class="reference internal" href="../../projections/cyl/cyl_oblique_mercator_1.html#sphx-glr-projections-cyl-cyl-oblique-mercator-1-py"><span class="std std-ref">Oblique Mercator, 1: origin and azimuth</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Oblique Mercator, 1: origin and azimuth</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is particularly useful when mapping regions of large lateral extent in an oblique direction. Both parallels and meridians are complex curves. The projection was developed in the early 1900s by several workers."><img alt="" src="../../_images/sphx_glr_cyl_oblique_mercator_2_thumb.png" />
-<p><a class="reference internal" href="../../projections/cyl/cyl_oblique_mercator_2.html#sphx-glr-projections-cyl-cyl-oblique-mercator-2-py"><span class="std std-ref">Oblique Mercator, 2: two points</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Oblique Mercator, 2: two points</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is particularly useful when mapping regions of large lateral extent in an oblique direction. Both parallels and meridians are complex curves. The projection was developed in the early 1900s by several workers."><img alt="" src="../../_images/sphx_glr_cyl_oblique_mercator_3_thumb.png" />
-<p><a class="reference internal" href="../../projections/cyl/cyl_oblique_mercator_3.html#sphx-glr-projections-cyl-cyl-oblique-mercator-3-py"><span class="std std-ref">Oblique Mercator, 3: origin and pole</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Oblique Mercator, 3: origin and pole</div>
+<p><a class="reference internal" href="../../projections/cyl/cyl_miller.html#sphx-glr-projections-cyl-cyl-miller-py"><span class="std std-ref">Miller cylindrical projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Miller cylindrical projection</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is particularly useful when mapping regions of large lateral extent in an oblique direction. Both parallels and meridians are complex curves. The projection was developed in the early 1900s by several workers."><img alt="" src="../../_images/sphx_glr_cyl_oblique_mercator_thumb.png" />
+<p><a class="reference internal" href="../../projections/cyl/cyl_oblique_mercator.html#sphx-glr-projections-cyl-cyl-oblique-mercator-py"><span class="std std-ref">Oblique Mercator projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Oblique Mercator projection</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The transverse Mercator was invented by Johann Heinrich Lambert in 1772. In this projection the cylinder touches a meridian along which there is no distortion. The distortion increases away from the central meridian and goes to infinity at 90° from center. The central meridian, each meridian 90° away from the center, and equator are straight lines; other parallels and meridians are complex curves."><img alt="" src="../../_images/sphx_glr_cyl_transverse_mercator_thumb.png" />
-<p><a class="reference internal" href="../../projections/cyl/cyl_transverse_mercator.html#sphx-glr-projections-cyl-cyl-transverse-mercator-py"><span class="std std-ref">Transverse Mercator</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Transverse Mercator</div>
+<p><a class="reference internal" href="../../projections/cyl/cyl_transverse_mercator.html#sphx-glr-projections-cyl-cyl-transverse-mercator-py"><span class="std std-ref">Transverse Mercator projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Transverse Mercator projection</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="A particular subset of the transverse Merctor &lt;/projections/cyl/cyl_transverse_mercator&gt; is the Universal Transverse Mercator (UTM) which was adopted by the US Army for large-scale military maps. Here, the globe is divided into 60 zones between 84°S and 84°N, most of which are 6° (in longitude) wide. Each of these UTM zones have their unique central meridian. Furthermore, each zone is divided into latitude bands but these are not needed to specify the projection for most cases. See Figure Universal Transverse Mercator &lt;GMT_utm_zones&gt; for all zone designations."><img alt="" src="../../_images/sphx_glr_cyl_universal_transverse_mercator_thumb.png" />
-<p><a class="reference internal" href="../../projections/cyl/cyl_universal_transverse_mercator.html#sphx-glr-projections-cyl-cyl-universal-transverse-mercator-py"><span class="std std-ref">Universal Transverse Mercator</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Universal Transverse Mercator</div>
+<p><a class="reference internal" href="../../projections/cyl/cyl_universal_transverse_mercator.html#sphx-glr-projections-cyl-cyl-universal-transverse-mercator-py"><span class="std std-ref">Universal Transverse Mercator projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Universal Transverse Mercator projection</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The Eckert IV projection, presented by the German cartographer Max Eckert-Greiffendorff in 1906, is a pseudo-cylindrical equal-area projection. Central meridian and all parallels are straight lines; other meridians are equally spaced elliptical arcs. The scale is true along latitude 40°30&#x27;."><img alt="" src="../../_images/sphx_glr_misc_eckertIV_thumb.png" />
-<p><a class="reference internal" href="../../projections/misc/misc_eckertIV.html#sphx-glr-projections-misc-misc-eckertiv-py"><span class="std std-ref">Eckert IV</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Eckert IV</div>
+<p><a class="reference internal" href="../../projections/misc/misc_eckertIV.html#sphx-glr-projections-misc-misc-eckertiv-py"><span class="std std-ref">Eckert IV equal-area projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Eckert IV equal-area projection</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The Eckert VI projections, presented by the German cartographer Max Eckert-Greiffendorff in 1906, is a pseudo-cylindrical equal-area projection. Central meridian and all parallels are straight lines; other meridians are equally spaced sinusoids. The scale is true along latitude 49°16&#x27;."><img alt="" src="../../_images/sphx_glr_misc_eckertVI_thumb.png" />
-<p><a class="reference internal" href="../../projections/misc/misc_eckertVI.html#sphx-glr-projections-misc-misc-eckertvi-py"><span class="std std-ref">Eckert VI</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Eckert VI</div>
+<p><a class="reference internal" href="../../projections/misc/misc_eckertVI.html#sphx-glr-projections-misc-misc-eckertvi-py"><span class="std std-ref">Eckert VI equal-area projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Eckert VI equal-area projection</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The equal-area Hammer projection, first presented by the German mathematician Ernst von Hammer in 1892, is also known as Hammer-Aitoff (the Aitoff projection looks similar, but is not equal-area). The border is an ellipse, equator and central meridian are straight lines, while other parallels and meridians are complex curves."><img alt="" src="../../_images/sphx_glr_misc_hammer_thumb.png" />
-<p><a class="reference internal" href="../../projections/misc/misc_hammer.html#sphx-glr-projections-misc-misc-hammer-py"><span class="std std-ref">Hammer</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Hammer</div>
+<p><a class="reference internal" href="../../projections/misc/misc_hammer.html#sphx-glr-projections-misc-misc-hammer-py"><span class="std std-ref">Hammer projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Hammer projection</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This pseudo-cylindrical, equal-area projection was developed by the German mathematician and astronomer Karl Brandan Mollweide in 1805. Parallels are unequally spaced straight lines with the meridians being equally spaced elliptical arcs. The scale is only true along latitudes 40°44&#x27; north and south. The projection is used mainly for global maps showing data distributions. It is occasionally referenced under the name homalographic projection."><img alt="" src="../../_images/sphx_glr_misc_mollweide_thumb.png" />
-<p><a class="reference internal" href="../../projections/misc/misc_mollweide.html#sphx-glr-projections-misc-misc-mollweide-py"><span class="std std-ref">Mollweide</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Mollweide</div>
+<p><a class="reference internal" href="../../projections/misc/misc_mollweide.html#sphx-glr-projections-misc-misc-mollweide-py"><span class="std std-ref">Mollweide projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Mollweide projection</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The Robinson projection, presented by the American geographer and cartographer Arthur H. Robinson in 1963, is a modified cylindrical projection that is neither conformal nor equal-area. Central meridian and all parallels are straight lines; other meridians are curved. It uses lookup tables rather than analytic expressions to make the world map &quot;look&quot; right [#f1]_. The scale is true along latitudes 38° north and south. The projection was originally developed for use by Rand McNally and is currently used by the National Geographic Society."><img alt="" src="../../_images/sphx_glr_misc_robinson_thumb.png" />
-<p><a class="reference internal" href="../../projections/misc/misc_robinson.html#sphx-glr-projections-misc-misc-robinson-py"><span class="std std-ref">Robinson</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Robinson</div>
+<p><a class="reference internal" href="../../projections/misc/misc_robinson.html#sphx-glr-projections-misc-misc-robinson-py"><span class="std std-ref">Robinson projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Robinson projection</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The sinusoidal projection is one of the oldest known projections, is equal-area, and has been used since the mid-16th century. It has also been called the &quot;Equal-area Mercator&quot; projection. The central meridian is a straight line; all other meridians are sinusoidal curves. Parallels are all equally spaced straight lines, with scale being true along all parallels (and central meridian)."><img alt="" src="../../_images/sphx_glr_misc_sinusoidal_thumb.png" />
-<p><a class="reference internal" href="../../projections/misc/misc_sinusoidal.html#sphx-glr-projections-misc-misc-sinusoidal-py"><span class="std std-ref">Sinusoidal</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Sinusoidal</div>
+<p><a class="reference internal" href="../../projections/misc/misc_sinusoidal.html#sphx-glr-projections-misc-misc-sinusoidal-py"><span class="std std-ref">Sinusoidal projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Sinusoidal projection</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The Van der Grinten projection, presented by Alphons J. van der Grinten in 1904, is neither equal-area nor conformal. Central meridian and Equator are straight lines; other meridians are arcs of circles. The scale is true along the Equator only. Its main use is to show the entire world enclosed in a circle."><img alt="" src="../../_images/sphx_glr_misc_van_der_grinten_thumb.png" />
-<p><a class="reference internal" href="../../projections/misc/misc_van_der_grinten.html#sphx-glr-projections-misc-misc-van-der-grinten-py"><span class="std std-ref">Van der Grinten</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Van der Grinten</div>
+<p><a class="reference internal" href="../../projections/misc/misc_van_der_grinten.html#sphx-glr-projections-misc-misc-van-der-grinten-py"><span class="std std-ref">Van der Grinten projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Van der Grinten projection</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="In 1921, the German mathematician Oswald Winkel made a projection that was to strike a compromise between the properties of three elements (area, angle and distance). The German word &quot;tripel&quot; refers to this junction of where each of these elements are least distorted when plotting global maps. The projection was popularized when Bartholomew and Son started to use it in its world-renowned &quot;The Times Atlas of the World&quot; in the mid-20th century. In 1998, the National Geographic Society made the Winkel Tripel as its map projection of choice for global maps."><img alt="" src="../../_images/sphx_glr_misc_winkel_tripel_thumb.png" />
-<p><a class="reference internal" href="../../projections/misc/misc_winkel_tripel.html#sphx-glr-projections-misc-misc-winkel-tripel-py"><span class="std std-ref">Winkel Tripel</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Winkel Tripel</div>
+<p><a class="reference internal" href="../../projections/misc/misc_winkel_tripel.html#sphx-glr-projections-misc-misc-winkel-tripel-py"><span class="std std-ref">Winkel Tripel projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Winkel Tripel projection</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="X\ width\ [/height] or x\ x-scale\ [/y-scale]"><img alt="" src="../../_images/sphx_glr_cartesian_linear_thumb.png" />
 <p><a class="reference internal" href="../../projections/nongeo/cartesian_linear.html#sphx-glr-projections-nongeo-cartesian-linear-py"><span class="std std-ref">Cartesian linear</span></a></p>
   <div class="sphx-glr-thumbnail-title">Cartesian linear</div>
@@ -602,15 +601,15 @@ parameters are <code class="docutils literal notranslate"><span class="pre">gs_p
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2a84b5e4">2a84b5e4</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 05, 2024.
+      <span class="lastupdated">Last updated on Dec 31, 2024.
       </span></p>
   </div>
 
   
 <p>
-Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
 using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
 provided by <a href="https://readthedocs.org">Read the Docs</a>
 </p>

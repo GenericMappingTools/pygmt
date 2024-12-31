@@ -8,7 +8,7 @@ PyGMT supports the 35 standard PostScript fonts. The table below lists them with
 font numbers and font names. When specifying fonts in PyGMT, you can either give the
 font name or just the font number. For example, to use the font "Helvetica", you can use
 either `"Helvetica"` or `"0"`. For the special fonts "Symbol" (**12**) and
-"ZapfDingbats" (**34**), see the {doc}`/techref/encodings` for the character set.
+"ZapfDingbats" (**34**), see the [](/techref/encodings.md) for the character set.
 The image below the table shows a visual sample for each font.
 
 ```{code-cell}

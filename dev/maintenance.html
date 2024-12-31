@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
@@ -18,7 +18,7 @@
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="_static/style.css?v=a51cd8ab" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css?v=845ca4e4" />
 
   
     <link rel="shortcut icon" href="_static/favicon.png"/>
@@ -29,7 +29,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=aa3fe5bf"></script>
+        <script src="_static/documentation_options.js?v=35ee300d"></script>
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -91,7 +91,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="get_started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -100,12 +100,13 @@
 <li class="toctree-l1"><a class="reference internal" href="projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="external_resources.html">External Resources</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="minversions.html">Minimum Supported Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ecosystem.html">Ecosystem</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
@@ -123,8 +124,13 @@
 <li class="toctree-l2"><a class="reference internal" href="#reviewing-and-merging-pull-requests">Reviewing and Merging Pull Requests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#continuous-integration">Continuous Integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#continuous-documentation">Continuous Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#continuous-benchmarking">Continuous Benchmarking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dependencies-policy">Dependencies Policy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#backwards-compatibility-and-deprecation-policy">Backwards Compatibility and Deprecation Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#backwards-compatibility-and-deprecation-policy">Backwards Compatibility and Deprecation Policy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#deprecating-a-function-parameter">Deprecating a function parameter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#todo-comments">TODO comments</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#making-a-release">Making a Release</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#updating-the-changelog">Updating the Changelog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pushing-to-pypi-and-updating-the-documentation">Pushing to PyPI and Updating the Documentation</a></li>
@@ -189,7 +195,7 @@
 <h1>Maintainers Guide<a class="headerlink" href="#maintainers-guide" title="Link to this heading"></a></h1>
 <p>This page contains instructions for project maintainers about how our setup works,
 making releases, creating packages, etc.</p>
-<p>If you want to make a contribution to the project, see the <a class="reference internal" href="contributing.html"><span class="doc">Contributors Guide</span></a> instead.</p>
+<p>If you want to make a contribution to the project, see the <a class="reference internal" href="contributing.html"><span class="std std-doc">Contributors Guide</span></a> instead.</p>
 <section id="onboarding-offboarding-access-checklist">
 <h2>Onboarding/Offboarding Access Checklist<a class="headerlink" href="#onboarding-offboarding-access-checklist" title="Link to this heading"></a></h2>
 <p>Note that anyone can contribute to PyGMT, even without being added to the
@@ -209,7 +215,7 @@ communication tools we use.</p>
 <h3>As a Maintainer<a class="headerlink" href="#as-a-maintainer" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Add to the <a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers">pygmt-maintainers team</a> (gives ‘maintain’ permission to the repository)</p></li>
-<li><p>Add to “Active Maintainers” on the <a class="reference internal" href="team.html"><span class="doc">Team Gallery page</span></a></p></li>
+<li><p>Add to “Active Maintainers” on the <a class="reference internal" href="team.html"><span class="std std-doc">Team Gallery page</span></a></p></li>
 <li><p>Add as a moderator on the <a class="reference external" href="https://forum.generic-mapping-tools.org">GMT forum</a> (to see mod-only discussions) [optional]</p></li>
 <li><p>Add as a maintainer on <a class="reference external" href="https://readthedocs.org/projects/pygmt-dev">ReadtheDocs</a> [optional]</p></li>
 <li><p>Add as a curator to the <a class="reference external" href="https://zenodo.org/communities/generic-mapping-tools/">GMT community</a> on Zenodo (for making releases) [optional]</p></li>
@@ -227,7 +233,7 @@ the onboarding access checklist:</p>
 <ul class="simple">
 <li><p>Move from the <a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers">pygmt-maintainers team</a>
 to the <a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors">pygmt-contributors team</a></p></li>
-<li><p>Move from “Active Maintainers” to “Distinguished Contributors” on the <a class="reference internal" href="team.html"><span class="doc">Team Gallery page</span></a></p></li>
+<li><p>Move from “Active Maintainers” to “Distinguished Contributors” on the <a class="reference internal" href="team.html"><span class="std std-doc">Team Gallery page</span></a></p></li>
 <li><p>Remove ‘maintain’ permission from GMT forum, ReadTheDocs, Zenodo</p></li>
 </ul>
 </section>
@@ -314,17 +320,23 @@ made to our documentation website every time we make a commit in a pull request.
 The service has a configuration file <code class="docutils literal notranslate"><span class="pre">.readthedocs.yaml</span></code>, with a list of options
 to change the default behaviour at <a class="reference external" href="https://docs.readthedocs.io/en/stable/config-file/index.html">https://docs.readthedocs.io/en/stable/config-file/index.html</a>.</p>
 </section>
+<section id="continuous-benchmarking">
+<h2>Continuous Benchmarking<a class="headerlink" href="#continuous-benchmarking" title="Link to this heading"></a></h2>
+<p>We use the <a class="reference external" href="https://codspeed.io">CodSpeed</a> service to continuously track PyGMT’s
+performance. The <code class="docutils literal notranslate"><span class="pre">pytest-codspeed</span></code> plugin collects benchmark data and uploads it to the
+CodSpeed server, where results are available at <a class="reference external" href="https://codspeed.io/GenericMappingTools/pygmt">https://codspeed.io/GenericMappingTools/pygmt</a>.</p>
+<p>Benchmarking is handled through the <code class="docutils literal notranslate"><span class="pre">benchmarks.yml</span></code> GitHub Actions workflow. It’s
+automatically executed when a pull request is merged into the main branch. To trigger
+benchmarking in a pull request, add the <code class="docutils literal notranslate"><span class="pre">run/benchmark</span></code> label to the pull request.</p>
+<p>To include a new test in the benchmark suite, apply the <code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.benchmark</span></code>
+decorator to a test function.</p>
+</section>
 <section id="dependencies-policy">
 <h2>Dependencies Policy<a class="headerlink" href="#dependencies-policy" title="Link to this heading"></a></h2>
 <p>PyGMT has adopted <a class="reference external" href="https://scientific-python.org/specs/spec-0000/">SPEC 0</a> alongside the
-rest of the Scientific Python ecosystem, and therefore:</p>
-<ul class="simple">
-<li><p>Support for Python versions be dropped 3 years after their initial release.</p></li>
-<li><p>Support for core package dependencies (NumPy/Pandas/Xarray) be dropped 2 years after
-their initial release.</p></li>
-</ul>
-<p>Similarly, the PyGMT team has decided to discontinue support for GMT versions 3 years
-after their initial release.</p>
+rest of the scientific Python ecosystem, and made a few extensions based on the needs of
+the project. Please see <a class="reference internal" href="minversions.html"><span class="std std-doc">Minimum Supported Versions</span></a> for the detailed
+policy and the minimum supported versions of GMT, Python and core package dependencies.</p>
 <p>In <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>, the <code class="docutils literal notranslate"><span class="pre">requires-python</span></code> key should be set to the minimum supported
 version of Python. Minimum supported versions of GMT, Python and core package
 dependencies should be adjusted upward on every major and minor release, but never on a
@@ -332,33 +344,34 @@ patch release.</p>
 </section>
 <section id="backwards-compatibility-and-deprecation-policy">
 <h2>Backwards Compatibility and Deprecation Policy<a class="headerlink" href="#backwards-compatibility-and-deprecation-policy" title="Link to this heading"></a></h2>
-<p>PyGMT is still undergoing rapid development. All of the API is subject to change
-until the v1.0.0 release. Versioning in PyGMT is based on the
+<p>PyGMT is still undergoing rapid development. All of the API is subject to change until
+the v1.0.0 release. Versioning in PyGMT is based on the
 <a class="reference external" href="https://semver.org/spec/v2.0.0.html">semantic versioning specification</a>
-(i.e., v<em>MAJOR</em>.<em>MINOR</em>.<em>PATCH</em>).
-Basic policy for backwards compatibility:</p>
+(i.e., v<em>MAJOR</em>.<em>MINOR</em>.<em>PATCH</em>). Basic policy for backwards compatibility:</p>
 <ul class="simple">
 <li><p>Any incompatible changes should go through the deprecation process below.</p></li>
-<li><p>Incompatible changes are only allowed in major and minor releases, not in
-patch releases.</p></li>
+<li><p>Incompatible changes are only allowed in major and minor releases, not in patch releases.</p></li>
 <li><p>Incompatible changes should be documented in the release notes.</p></li>
 </ul>
 <p>When making incompatible changes, we should follow the process:</p>
 <ul class="simple">
 <li><p>Discuss whether the incompatible changes are necessary on GitHub.</p></li>
-<li><p>Make the changes in a backwards compatible way, and raise a <code class="docutils literal notranslate"><span class="pre">FutureWarning</span></code>
-warning for the old usage. At least one test using the old usage should be added.</p></li>
-<li><p>The warning message should clearly explain the changes and include the versions
-in which the old usage is deprecated and is expected to be removed.</p></li>
-<li><p>The <code class="docutils literal notranslate"><span class="pre">FutureWarning</span></code> warning should appear for 2-4 minor versions, depending on
-the impact of the changes. It means the deprecation period usually lasts
-3-12 months.</p></li>
+<li><p>Make the changes in a backwards compatible way, and raise a <code class="docutils literal notranslate"><span class="pre">FutureWarning</span></code> warning
+for the old usage. At least one test using the old usage should be added.</p></li>
+<li><p>The warning message should clearly explain the changes and include the versions in
+which the old usage is deprecated and is expected to be removed.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">FutureWarning</span></code> warning should appear for 2-4 minor versions, depending on the
+impact of the changes. It means the deprecation period usually lasts 3-12 months.</p></li>
 <li><p>Remove the old usage and warning when reaching the declared version.</p></li>
 </ul>
-<p>To rename a function parameter, add the <code class="docutils literal notranslate"><span class="pre">&#64;deprecate_parameter</span></code> decorator near
-the top after the <code class="docutils literal notranslate"><span class="pre">&#64;fmt_docstring</span></code> decorator but before the <code class="docutils literal notranslate"><span class="pre">&#64;use_alias</span></code>
-decorator (if those two exist). Here is an example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@fmt_docstring</span>
+<section id="deprecating-a-function-parameter">
+<h3>Deprecating a function parameter<a class="headerlink" href="#deprecating-a-function-parameter" title="Link to this heading"></a></h3>
+<p>To rename a function parameter, add the <code class="docutils literal notranslate"><span class="pre">&#64;deprecate_parameter</span></code> decorator near the top
+after the <code class="docutils literal notranslate"><span class="pre">&#64;fmt_docstring</span></code> decorator but before the <code class="docutils literal notranslate"><span class="pre">&#64;use_alias</span></code> decorator (if those two
+exist). A <code class="docutils literal notranslate"><span class="pre">TODO</span></code> comment should also be added to indicate the deprecation period (see below).
+Here is an example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO(PyGMT&gt;=0.6.0): Remove the deprecated &quot;columns&quot; parameter.</span>
+<span class="nd">@fmt_docstring</span>
 <span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;columns&quot;</span><span class="p">,</span> <span class="s2">&quot;incols&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.4.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.6.0&quot;</span><span class="p">)</span>
 <span class="nd">@use_alias</span><span class="p">(</span><span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span> <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s2">&quot;incols&quot;</span><span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">)</span>
@@ -366,8 +379,29 @@ decorator (if those two exist). Here is an example:</p>
     <span class="k">pass</span>
 </pre></div>
 </div>
-<p>In this case, the old parameter name <code class="docutils literal notranslate"><span class="pre">columns</span></code> is deprecated since v0.4.0, and
-will be fully removed in v0.6.0. The new parameter name is <code class="docutils literal notranslate"><span class="pre">incols</span></code>.</p>
+<p>In this case, the old parameter name <code class="docutils literal notranslate"><span class="pre">columns</span></code> is deprecated since v0.4.0, and will be
+fully removed in v0.6.0. The new parameter name is <code class="docutils literal notranslate"><span class="pre">incols</span></code>.</p>
+</section>
+<section id="todo-comments">
+<h3>TODO comments<a class="headerlink" href="#todo-comments" title="Link to this heading"></a></h3>
+<p>Occasionally, we need to implement temporary code that should be removed in the future.
+This can occur in situations such as:</p>
+<ul class="simple">
+<li><p>When a parameter, function, or method is deprecated and scheduled for removal.</p></li>
+<li><p>When workarounds are necessary to address issues in older or upcoming versions of GMT
+or other dependencies.</p></li>
+</ul>
+<p>To track these temporary codes or workarounds, we use TODO comments. These comments
+should adhere to the following format:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO(package&gt;=X.Y.Z): A brief description of the TODO item.</span>
+<span class="c1"># Additional details if necessary.</span>
+</pre></div>
+</div>
+<p>The TODO comment indicates that we should address the item when <em>package</em> version
+<em>X.Y.Z</em> or later is required.</p>
+<p>It’s important not to overuse TODO comments for tracking unimplemented features.
+Instead, open issues to monitor these features.</p>
+</section>
 </section>
 <section id="making-a-release">
 <h2>Making a Release<a class="headerlink" href="#making-a-release" title="Link to this heading"></a></h2>
@@ -387,7 +421,7 @@ at <code class="docutils literal notranslate"><span class="pre">.github/workflow
 at <code class="docutils literal notranslate"><span class="pre">.github/release-drafter.yml</span></code>. Configuration settings can be found at
 <a class="reference external" href="https://github.com/release-drafter/release-drafter">https://github.com/release-drafter/release-drafter</a>.</p>
 <p>The drafted release notes are not perfect, so we will need to tidy it prior to
-publishing the actual release notes at <a class="reference internal" href="changes.html"><span class="doc">Changelog</span></a>.</p>
+publishing the actual release notes at <a class="reference internal" href="changes.html"><span class="std std-doc">Changelog</span></a>.</p>
 <ol class="arabic">
 <li><p>Go to <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases">https://github.com/GenericMappingTools/pygmt/releases</a> and click on the
 ‘Edit’ button next to the current draft release note. Copy the text of the
@@ -415,7 +449,7 @@ GitHub accounts. Sort their names by the number of commits made since the
 last release (e.g., use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">shortlog</span> <span class="pre">HEAD...v0.4.0</span> <span class="pre">-sne</span></code>).</p></li>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">doc/minversions.md</span></code> with new information on the new release version,
 including a vX.Y.Z documentation link, and minimum required versions of GMT, Python
-and core package dependencies (NumPy/Pandas/Xarray). Follow
+and core package dependencies (NumPy, pandas, Xarray). Follow
 <a class="reference external" href="https://scientific-python.org/specs/spec-0000/">SPEC 0</a> for updates.</p></li>
 <li><p>Refresh citation information. Specifically, the BibTeX in <code class="docutils literal notranslate"><span class="pre">README.md</span></code> and
 <code class="docutils literal notranslate"><span class="pre">CITATION.cff</span></code> needs to be updated with any metadata changes, including the
@@ -474,15 +508,15 @@ from the <a class="reference external" href="https://pypi.org/project/pygmt/#fil
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2a84b5e4">2a84b5e4</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 05, 2024.
+      <span class="lastupdated">Last updated on Dec 31, 2024.
       </span></p>
   </div>
 
   
 <p>
-Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
 using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
 provided by <a href="https://readthedocs.org">Read the Docs</a>
 </p>

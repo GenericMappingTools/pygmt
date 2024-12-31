@@ -18,10 +18,10 @@
 .. _sphx_glr_projections_azim_azim_general_perspective.py:
 
 
-General Perspective
-===================
+Perspective projection
+======================
 
-The general perspective projection imitates the view of the Earth from a finite
+The perspective projection imitates the view of the Earth from a finite
 point in space. In a full view of the earth one third of its surface area can
 be seen.
 
@@ -46,7 +46,7 @@ The example shows the coast of Northern Europe viewed from 250 km above sea
 level looking 30° from north at a tilt of 45°. The height and width of the
 viewing angle is both 60°, which imitates viewing with naked eye.
 
-.. GENERATED FROM PYTHON SOURCE LINES 32-42
+.. GENERATED FROM PYTHON SOURCE LINES 32-43
 
 
 
@@ -65,17 +65,18 @@ viewing angle is both 60°, which imitates viewing with naked eye.
 
     fig = pygmt.Figure()
     fig.coast(
-        projection="G4/52/12c+a30+t45+v60/60+w0+z250",
         region="g",
-        frame=["x10g10", "y5g5"],
-        land="gray",
+        projection="G4/52/12c+a30+t45+v60/60+w0+z250",
+        frame="afg",
+        land="khaki",
+        water="white",
     )
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.573 seconds)
+   **Total running time of the script:** (0 minutes 1.530 seconds)
 
 
 .. _sphx_glr_download_projections_azim_azim_general_perspective.py:

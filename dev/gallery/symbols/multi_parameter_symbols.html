@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
@@ -18,7 +18,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=a51cd8ab" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=845ca4e4" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
@@ -29,7 +29,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=aa3fe5bf"></script>
+        <script src="../../_static/documentation_options.js?v=35ee300d"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -92,7 +92,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../get_started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul class="current">
@@ -125,12 +125,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ecosystem.html">Ecosystem</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -203,9 +204,9 @@ to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="multi-parameter-symbols">
 <span id="sphx-glr-gallery-symbols-multi-parameter-symbols-py"></span><h1>Multi-parameter symbols<a class="headerlink" href="#multi-parameter-symbols" title="Link to this heading"></a></h1>
-<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.plot</span></code></a> method can plot individual multi-parameter
-symbols by passing the corresponding shortcuts (<strong>e</strong>, <strong>j</strong>, <strong>r</strong>, <strong>R</strong>,
-<strong>w</strong>) to the <code class="docutils literal notranslate"><span class="pre">style</span></code> parameter:</p>
+<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.plot</span></code></a> method can plot individual multi-parameter symbols by
+passing the corresponding shortcuts (<strong>e</strong>, <strong>j</strong>, <strong>r</strong>, <strong>R</strong>, <strong>w</strong>) to the <code class="docutils literal notranslate"><span class="pre">style</span></code>
+parameter:</p>
 <ul class="simple">
 <li><p><strong>e</strong>: ellipse</p></li>
 <li><p><strong>j</strong>: rotated rectangle</p></li>
@@ -216,10 +217,10 @@ symbols by passing the corresponding shortcuts (<strong>e</strong>, <strong>j</s
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
 </pre></div>
 </div>
-<p>We can plot multi-parameter symbols using the same symbol style. We need to
-define locations (lon, lat) via the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> parameters (scalar for
-a single symbol or 1-D list for several ones) and two or three symbol
-parameters after those shortcuts via the <code class="docutils literal notranslate"><span class="pre">style</span></code> parameter.</p>
+<p>We can plot multi-parameter symbols using the same symbol style. We need to define
+locations (lon, lat) via the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> parameters (scalar for a single symbol or
+1-D list for several ones) and two or three symbol parameters after those shortcuts
+via the <code class="docutils literal notranslate"><span class="pre">style</span></code> parameter.</p>
 <p>The multi-parameter symbols in the <code class="docutils literal notranslate"><span class="pre">style</span></code> parameter are defined as:</p>
 <ul class="simple">
 <li><p><strong>e</strong>: ellipse, <code class="docutils literal notranslate"><span class="pre">direction/major_axis/minor_axis</span></code></p></li>
@@ -227,12 +228,13 @@ parameters after those shortcuts via the <code class="docutils literal notransla
 <li><p><strong>r</strong>: rectangle, <code class="docutils literal notranslate"><span class="pre">width/height</span></code></p></li>
 <li><p><strong>R</strong>: rounded rectangle, <code class="docutils literal notranslate"><span class="pre">width/height/radius</span></code></p></li>
 <li><p><strong>w</strong>: pie wedge, <code class="docutils literal notranslate"><span class="pre">diameter/startdir/stopdir</span></code>, the last two arguments are
-directions given in degrees counter-clockwise from horizontal</p></li>
+directions given in degrees counter-clockwise from horizontal. Append <strong>+i</strong> and the
+desired value to apply an inner diameter.</p></li>
 </ul>
-<p>Upper-case versions <strong>E</strong>, <strong>J</strong>, and <strong>W</strong> are similar to <strong>e</strong>, <strong>j</strong>, and
-<strong>w</strong> but expect geographic azimuths and distances.</p>
+<p>Upper-case versions <strong>E</strong>, <strong>J</strong>, and <strong>W</strong> are similar to <strong>e</strong>, <strong>j</strong>, and <strong>w</strong>
+but expect geographic azimuths and distances.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
-<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;x3c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;x3c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Ellipse</span>
 <a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;e45/3/1&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;2p,black&quot;</span><span class="p">)</span>
@@ -244,26 +246,27 @@ directions given in degrees counter-clockwise from horizontal</p></li>
 <a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;R1.25/4/0.5&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;seagreen&quot;</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;2p,black&quot;</span><span class="p">)</span>
 <span class="c1"># Pie wedge</span>
 <a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mf">5.5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;w2.5/45/330&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;2p,black&quot;</span><span class="p">)</span>
+<span class="c1"># Ring sector</span>
+<a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;w2.5/45/330+i1&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;2p,black&quot;</span><span class="p">)</span>
 
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_multi_parameter_symbols_001.png" srcset="../../_images/sphx_glr_multi_parameter_symbols_001.png" alt="multi parameter symbols" class = "sphx-glr-single-img"/><p>We can also plot symbols with varying parameters via defining those values in
-a 2-D list or numpy array (<code class="docutils literal notranslate"><span class="pre">[[parameters]]</span></code> for a single symbol or
-<code class="docutils literal notranslate"><span class="pre">[[parameters_1],[parameters_2],[parameters_i]]</span></code> for several ones) or using
-an appropriately formatted input file and passing it to <code class="docutils literal notranslate"><span class="pre">data</span></code>.</p>
+<img src="../../_images/sphx_glr_multi_parameter_symbols_001.png" srcset="../../_images/sphx_glr_multi_parameter_symbols_001.png" alt="multi parameter symbols" class = "sphx-glr-single-img"/><p>We can also plot symbols with varying parameters via defining those values in a 2-D
+list or numpy array (<code class="docutils literal notranslate"><span class="pre">[[parameters]]</span></code> for a single symbol or
+<code class="docutils literal notranslate"><span class="pre">[[parameters_1],[parameters_2],[parameters_i]]</span></code> for several ones) or using an
+appropriately formatted input file and passing it to <code class="docutils literal notranslate"><span class="pre">data</span></code>.</p>
 <p>The symbol parameters in the 2-D list or numpy array are defined as:</p>
 <ul class="simple">
 <li><p><strong>e</strong>: ellipse, <code class="docutils literal notranslate"><span class="pre">[[lon,</span> <span class="pre">lat,</span> <span class="pre">direction,</span> <span class="pre">major_axis,</span> <span class="pre">minor_axis]]</span></code></p></li>
 <li><p><strong>j</strong>: rotated rectangle, <code class="docutils literal notranslate"><span class="pre">[[lon,</span> <span class="pre">lat,</span> <span class="pre">direction,</span> <span class="pre">width,</span> <span class="pre">height]]</span></code></p></li>
 <li><p><strong>r</strong>: rectangle, <code class="docutils literal notranslate"><span class="pre">[[lon,</span> <span class="pre">lat,</span> <span class="pre">width,</span> <span class="pre">height]]</span></code></p></li>
 <li><p><strong>R</strong>: rounded rectangle, <code class="docutils literal notranslate"><span class="pre">[[lon,</span> <span class="pre">lat,</span> <span class="pre">width,</span> <span class="pre">height,</span> <span class="pre">radius]]</span></code></p></li>
-<li><p><strong>w</strong>: pie wedge, <code class="docutils literal notranslate"><span class="pre">[[lon,</span> <span class="pre">lat,</span> <span class="pre">diameter,</span> <span class="pre">startdir,</span> <span class="pre">stopdir]]</span></code>, the last
-two arguments are directions given in degrees counter-clockwise from
-horizontal</p></li>
+<li><p><strong>w</strong>: pie wedge, <code class="docutils literal notranslate"><span class="pre">[[lon,</span> <span class="pre">lat,</span> <span class="pre">diameter,</span> <span class="pre">startdir,</span> <span class="pre">stopdir]]</span></code>, the last two
+arguments are directions given in degrees counter-clockwise from horizontal</p></li>
 </ul>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
-<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;x3c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;xa1f0.2&quot;</span><span class="p">,</span> <span class="s2">&quot;ya0.5f0.1&quot;</span><span class="p">])</span>
+<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;x3c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;xa1f0.2&quot;</span><span class="p">,</span> <span class="s2">&quot;ya0.5f0.1&quot;</span><span class="p">])</span>
 
 <span class="c1"># Ellipse</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">135</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
@@ -280,11 +283,14 @@ horizontal</p></li>
 <span class="c1"># Pie wedge</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a> <span class="o">=</span> <span class="p">[[</span><span class="mf">5.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">330</span><span class="p">],</span> <span class="p">[</span><span class="mf">5.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">300</span><span class="p">]]</span>
 <a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;2p,black&quot;</span><span class="p">)</span>
+<span class="c1"># Ring sector</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a> <span class="o">=</span> <span class="p">[[</span><span class="mf">6.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">330</span><span class="p">],</span> <span class="p">[</span><span class="mf">6.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">300</span><span class="p">]]</span>
+<a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;w+i1&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;2p,black&quot;</span><span class="p">)</span>
 
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_multi_parameter_symbols_002.png" srcset="../../_images/sphx_glr_multi_parameter_symbols_002.png" alt="multi parameter symbols" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.401 seconds)</p>
+<img src="../../_images/sphx_glr_multi_parameter_symbols_002.png" srcset="../../_images/sphx_glr_multi_parameter_symbols_002.png" alt="multi parameter symbols" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.425 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-symbols-multi-parameter-symbols-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/6b83cfb8d478c1614b9787c132e6a9c7/multi_parameter_symbols.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">multi_parameter_symbols.ipynb</span></code></a></p>
@@ -312,15 +318,15 @@ horizontal</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2a84b5e4">2a84b5e4</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 05, 2024.
+      <span class="lastupdated">Last updated on Dec 31, 2024.
       </span></p>
   </div>
 
   
 <p>
-Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
 using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
 provided by <a href="https://readthedocs.org">Read the Docs</a>
 </p>

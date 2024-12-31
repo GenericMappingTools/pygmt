@@ -18,8 +18,8 @@
 .. _sphx_glr_projections_cyl_cyl_stereographic.py:
 
 
-Cylindrical Stereographic
-=========================
+Cylindrical stereographic projection
+====================================
 
 The cylindrical stereographic projections are certainly not as notable as other
 cylindrical projections, but are still used because of their relative
@@ -45,7 +45,7 @@ The standard parallel is typically one of these (but can be any value):
 * 30 - Bolshoi Sovietskii Atlas Mira or Kamenetskiy's Second
 * 0 - Braun's Cylindrical
 
-.. GENERATED FROM PYTHON SOURCE LINES 32-37
+.. GENERATED FROM PYTHON SOURCE LINES 32-43
 
 
 
@@ -63,13 +63,19 @@ The standard parallel is typically one of these (but can be any value):
     import pygmt
 
     fig = pygmt.Figure()
-    fig.coast(region="g", frame="afg", land="gray", projection="Cyl_stere/30/-20/12c")
+    fig.coast(
+        region="g",
+        projection="Cyl_stere/30/-20/12c",
+        frame="afg",
+        land="gray80",
+        water="steelblue",
+    )
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.200 seconds)
+   **Total running time of the script:** (0 minutes 0.208 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_stereographic.py:

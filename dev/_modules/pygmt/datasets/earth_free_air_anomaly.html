@@ -17,7 +17,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=a51cd8ab" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=845ca4e4" />
 
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
@@ -28,7 +28,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=aa3fe5bf"></script>
+        <script src="../../../_static/documentation_options.js?v=35ee300d"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -89,7 +89,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../get_started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../intro/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -98,12 +98,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ecosystem.html">Ecosystem</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -159,8 +160,8 @@
              
   <h1>Source code for pygmt.datasets.earth_free_air_anomaly</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Function to download the IGPP Earth free-air anomaly dataset from the GMT data server,</span>
-<span class="sd">and load as :class:`xarray.DataArray`.</span>
+<span class="sd">Function to download the IGPP Earth free-air anomaly and uncertainty datasets from</span>
+<span class="sd">the GMT data server, and load as :class:`xarray.DataArray`.</span>
 
 <span class="sd">The grids are available in various resolutions.</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -182,36 +183,43 @@
     <span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;01d&quot;</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">registration</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;gridline&quot;</span><span class="p">,</span> <span class="s2">&quot;pixel&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">uncertainty</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Load the IGPP Earth free-air anomaly dataset in various resolutions.</span>
+<span class="sd">    Load the IGPP Earth free-air anomaly and uncertainty datasets in various</span>
+<span class="sd">    resolutions.</span>
 
-<span class="sd">    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_faa.jpg</span>
-<span class="sd">       :width: 80 %</span>
-<span class="sd">       :align: center</span>
+<span class="sd">    .. list-table::</span>
+<span class="sd">       :widths: 50 50</span>
+<span class="sd">       :header-rows: 1</span>
 
-<span class="sd">       IGPP Earth free-air anomaly dataset.</span>
+<span class="sd">       * - IGPP Earth free-air anomaly</span>
+<span class="sd">         - IGPP Earth free-air anomaly uncertainty</span>
+<span class="sd">       * - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_faa.jpg</span>
+<span class="sd">         - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_faaerror.jpg</span>
 
-<span class="sd">    The grids are downloaded to a user data directory</span>
-<span class="sd">    (usually ``~/.gmt/server/earth/earth_faa/``) the first time you invoke</span>
-<span class="sd">    this function. Afterwards, it will load the grid from the data directory.</span>
-<span class="sd">    So you&#39;ll need an internet connection the first time around.</span>
+<span class="sd">    The grids are downloaded to a user data directory (usually</span>
+<span class="sd">    ``~/.gmt/server/earth/earth_faa/`` or ``~/.gmt/server/earth/earth_faaerror/``) the</span>
+<span class="sd">    first time you invoke this function. Afterwards, it will load the grid from data</span>
+<span class="sd">    directory. So you&#39;ll need an internet connection the first time around.</span>
 
 <span class="sd">    These grids can also be accessed by passing in the file name</span>
-<span class="sd">    **@earth_faa**\_\ *res*\[_\ *reg*] to any grid processing function or</span>
-<span class="sd">    plotting method. *res* is the grid resolution (see below), and *reg* is</span>
-<span class="sd">    the grid registration type (**p** for pixel registration or **g** for</span>
-<span class="sd">    gridline registration).</span>
+<span class="sd">    **@earth_faa_type**\_\ *res*\[_\ *reg*] to any grid processing function or</span>
+<span class="sd">    plotting method. *earth_faa_type* is the GMT name for the dataset. The available</span>
+<span class="sd">    options are **earth_faa** and **earth_faaerror**. *res* is the grid resolution (see</span>
+<span class="sd">    below), and *reg* is the grid registration type (**p** for pixel registration or</span>
+<span class="sd">    **g** for gridline registration).</span>
 
-<span class="sd">    The default color palette table (CPT) for this dataset is *@earth_faa.cpt*.</span>
-<span class="sd">    It&#39;s implicitly used when passing in the file name of the dataset to any</span>
-<span class="sd">    grid plotting method if no CPT is explicitly specified. When the dataset</span>
-<span class="sd">    is loaded and plotted as an :class:`xarray.DataArray` object, the default</span>
-<span class="sd">    CPT is ignored, and GMT&#39;s default CPT (*turbo*) is used. To use the</span>
-<span class="sd">    dataset-specific CPT, you need to explicitly set ``cmap=&quot;@earth_faa.cpt&quot;``.</span>
+<span class="sd">    The default color palette tables (CPTs) for these datasets are *@earth_faa.cpt* and</span>
+<span class="sd">    *@earth_faaerror.cpt*. The dataset-specific CPT is implicitly used when passing in</span>
+<span class="sd">    the file name of the dataset to any grid plotting method if no CPT is explicitly</span>
+<span class="sd">    specified. When the dataset is loaded and plotted as an :class:`xarray.DataArray`</span>
+<span class="sd">    object, the default CPT is ignored, and GMT&#39;s default CPT (*turbo*) is used. To use</span>
+<span class="sd">    the dataset-specific CPT, you need to explicitly set ``cmap=&quot;@earth_faa.cpt&quot;`` or</span>
+<span class="sd">    ``cmap=&quot;@earth_faaerror.cpt&quot;``.</span>
 
-<span class="sd">    Refer to :gmt-datasets:`earth-faa.html` for more details about available</span>
-<span class="sd">    datasets, including version information and references.</span>
+<span class="sd">    Refer to :gmt-datasets:`earth-faa.html` and :gmt-datasets:`earth-faaerror.html` for</span>
+<span class="sd">    more details about available datasets, including version information and references.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -224,26 +232,28 @@
 <span class="sd">        higher than 5 arc-minutes (i.e., ``&quot;05m&quot;``).</span>
 <span class="sd">    registration</span>
 <span class="sd">        Grid registration type. Either ``&quot;pixel&quot;`` for pixel registration or</span>
-<span class="sd">        ``&quot;gridline&quot;`` for gridline registration. Default is ``None``, means</span>
-<span class="sd">        ``&quot;gridline&quot;`` for all resolutions except ``&quot;01m&quot;`` which is</span>
-<span class="sd">        ``&quot;pixel&quot;`` only.</span>
+<span class="sd">        ``&quot;gridline&quot;`` for gridline registration. Default is ``None``, which means</span>
+<span class="sd">        ``&quot;gridline&quot;`` for all resolutions except ``&quot;01m&quot;`` which is ``&quot;pixel&quot;``</span>
+<span class="sd">        only.</span>
+<span class="sd">    uncertainty</span>
+<span class="sd">        By default, the Earth free-air anomaly values are returned. Set to ``True`` to</span>
+<span class="sd">        return the related uncertainties instead.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    grid</span>
-<span class="sd">        The Earth free-air anomaly grid. Coordinates are latitude and</span>
-<span class="sd">        longitude in degrees. Units are in mGal.</span>
+<span class="sd">        The Earth free-air anomaly (uncertainty) grid. Coordinates are latitude and</span>
+<span class="sd">        longitude in degrees. Values and uncertainties are in mGal.</span>
 
 <span class="sd">    Note</span>
 <span class="sd">    ----</span>
 <span class="sd">    The registration and coordinate system type of the returned</span>
-<span class="sd">    :class:`xarray.DataArray` grid can be accessed via the GMT accessors</span>
-<span class="sd">    (i.e., ``grid.gmt.registration`` and ``grid.gmt.gtype`` respectively).</span>
-<span class="sd">    However, these properties may be lost after specific grid operations (such</span>
-<span class="sd">    as slicing) and will need to be manually set before passing the grid to any</span>
-<span class="sd">    PyGMT data processing or plotting functions. Refer to</span>
-<span class="sd">    :class:`pygmt.GMTDataArrayAccessor` for detailed explanations and</span>
-<span class="sd">    workarounds.</span>
+<span class="sd">    :class:`xarray.DataArray` grid can be accessed via the GMT accessors (i.e.,</span>
+<span class="sd">    ``grid.gmt.registration`` and ``grid.gmt.gtype`` respectively). However, these</span>
+<span class="sd">    properties may be lost after specific grid operations (such as slicing) and will</span>
+<span class="sd">    need to be manually set before passing the grid to any PyGMT data processing or</span>
+<span class="sd">    plotting functions. Refer to :class:`pygmt.GMTDataArrayAccessor` for detailed</span>
+<span class="sd">    explanations and workarounds.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -251,18 +261,19 @@
 <span class="sd">    &gt;&gt;&gt; from pygmt.datasets import load_earth_free_air_anomaly</span>
 <span class="sd">    &gt;&gt;&gt; # load the default grid (gridline-registered 1 arc-degree grid)</span>
 <span class="sd">    &gt;&gt;&gt; grid = load_earth_free_air_anomaly()</span>
+<span class="sd">    &gt;&gt;&gt; # load the uncertainties related to the default grid</span>
+<span class="sd">    &gt;&gt;&gt; grid = load_earth_free_air_anomaly(uncertainty=True)</span>
 <span class="sd">    &gt;&gt;&gt; # load the 30 arc-minutes grid with &quot;gridline&quot; registration</span>
 <span class="sd">    &gt;&gt;&gt; grid = load_earth_free_air_anomaly(resolution=&quot;30m&quot;, registration=&quot;gridline&quot;)</span>
 <span class="sd">    &gt;&gt;&gt; # load high-resolution (5 arc-minutes) grid for a specific region</span>
 <span class="sd">    &gt;&gt;&gt; grid = load_earth_free_air_anomaly(</span>
-<span class="sd">    ...     resolution=&quot;05m&quot;,</span>
-<span class="sd">    ...     region=[120, 160, 30, 60],</span>
-<span class="sd">    ...     registration=&quot;gridline&quot;,</span>
+<span class="sd">    ...     resolution=&quot;05m&quot;, region=[120, 160, 30, 60], registration=&quot;gridline&quot;</span>
 <span class="sd">    ... )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;earth_faaerror&quot;</span> <span class="k">if</span> <span class="n">uncertainty</span> <span class="ow">is</span> <span class="kc">True</span> <span class="k">else</span> <span class="s2">&quot;earth_faa&quot;</span>
     <span class="n">grid</span> <span class="o">=</span> <span class="n">_load_remote_dataset</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;earth_faa&quot;</span><span class="p">,</span>
-        <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;earth_faa&quot;</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span>
+        <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span>
         <span class="n">resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">,</span>
         <span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
         <span class="n">registration</span><span class="o">=</span><span class="n">registration</span><span class="p">,</span>
@@ -280,15 +291,15 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2a84b5e4">2a84b5e4</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 05, 2024.
+      <span class="lastupdated">Last updated on Dec 31, 2024.
       </span></p>
   </div>
 
   
 <p>
-Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
 using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
 provided by <a href="https://readthedocs.org">Read the Docs</a>
 </p>

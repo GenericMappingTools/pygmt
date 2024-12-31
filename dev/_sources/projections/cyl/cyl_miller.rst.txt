@@ -18,8 +18,8 @@
 .. _sphx_glr_projections_cyl_cyl_miller.py:
 
 
-Miller cylindrical
-==================
+Miller cylindrical projection
+=============================
 
 This cylindrical projection, presented by Osborn Maitland Miller of the
 American Geographic Society in 1942, is neither equal nor conformal. All
@@ -34,7 +34,7 @@ by 0.8.
 The projection is set with **j** or **J**. The central meridian is set by the
 optional *lon0*, and the figure size is set with *scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 20-32
+.. GENERATED FROM PYTHON SOURCE LINES 20-31
 
 
 
@@ -55,17 +55,16 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
     fig.coast(
         region=[-180, 180, -80, 80],
         projection="J-65/12c",
-        land="khaki",
-        water="azure",
-        shorelines="thinnest",
         frame="afg",
+        land="gray80",
+        water="steelblue",
     )
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.233 seconds)
+   **Total running time of the script:** (0 minutes 0.204 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_miller.py:

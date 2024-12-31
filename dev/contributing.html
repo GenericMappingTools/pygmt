@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
@@ -18,7 +18,7 @@
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="_static/style.css?v=a51cd8ab" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css?v=845ca4e4" />
 
   
     <link rel="shortcut icon" href="_static/favicon.png"/>
@@ -29,7 +29,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=aa3fe5bf"></script>
+        <script src="_static/documentation_options.js?v=35ee300d"></script>
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -92,7 +92,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="get_started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -101,12 +101,13 @@
 <li class="toctree-l1"><a class="reference internal" href="projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="external_resources.html">External Resources</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="minversions.html">Minimum Supported Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ecosystem.html">Ecosystem</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
@@ -287,7 +288,7 @@ such as:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python &lt;test&gt;.py 2&gt;&amp;1 | awk -F&#39;: &#39; &#39;$2==&quot;GMT_Call_Command string&quot; {print $3}&#39;
 </pre></div>
 </div>
-<p>where <code class="docutils literal notranslate"><span class="pre">&lt;test&gt;</span></code> is the name of your test script. Note that this script works only with GMT&gt;=6.4</p>
+<p>where <code class="docutils literal notranslate"><span class="pre">&lt;test&gt;</span></code> is the name of your test script.</p>
 </li>
 <li><p>If the bug is produced when passing an in-memory data object (e.g., a
 pandas.DataFrame or xarray.DataArray) to a PyGMT function, try writing the
@@ -330,7 +331,7 @@ where you can submit general comments and/or questions:</p>
 hesitate to <a class="reference internal" href="#getting-help"><span class="std std-ref">ask questions</span></a>):</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://opensource.guide/how-to-contribute/">How to Contribute to Open Source</a>.</p></li>
-<li><p><a class="reference external" href="http://www.asmeurer.com/git-workflow/">Git Workflow Tutorial</a> by Aaron Meurer.</p></li>
+<li><p><a class="reference external" href="https://www.asmeurer.com/git-workflow/">Git Workflow Tutorial</a> by Aaron Meurer.</p></li>
 <li><p><a class="reference external" href="https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github">How to Contribute to an Open Source Project on GitHub</a>.</p></li>
 </ul>
 </section>
@@ -342,7 +343,7 @@ the project where you can ask questions.</p>
 </section>
 <section id="pull-request-workflow">
 <h3>Pull Request Workflow<a class="headerlink" href="#pull-request-workflow" title="Link to this heading"></a></h3>
-<p>We follow the <a class="reference external" href="http://www.asmeurer.com/git-workflow">git pull request workflow</a>
+<p>We follow the <a class="reference external" href="https://www.asmeurer.com/git-workflow">git pull request workflow</a>
 to make changes to our codebase. Every change made goes through a pull request, even
 our own, so that our
 <a class="reference external" href="https://en.wikipedia.org/wiki/Continuous_integration">continuous integration</a>
@@ -366,8 +367,8 @@ integrated separately.</p></li>
 <li><p>How to write and submit a PR</p>
 <ul>
 <li><p>Use underscores for all Python (*.py) files as per
-<a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">PEP8</a>, not hyphens. Directory
-names should also use underscores instead of hyphens.</p></li>
+<a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">PEP8</a>, not hyphens. Directory names
+should also use underscores instead of hyphens.</p></li>
 <li><p>Describe what your PR changes and <em>why</em> this is a good thing. Be as
 specific as you can. The PR description is how we keep track of the changes
 made to the project over time.</p></li>
@@ -412,7 +413,7 @@ or <a class="reference internal" href="#contributing-tutorials"><span class="std
 <li><p>Have a good coding style</p>
 <ul>
 <li><p>Use readable code, as it is better than clever code (even with comments).</p></li>
-<li><p>Follow the <a class="reference external" href="http://pep8.org">PEP8</a> style guide for code and the
+<li><p>Follow the <a class="reference external" href="https://pep8.org">PEP8</a> style guide for code and the
 <a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html">NumPy style guide</a>
 for docstrings. Please refer to <a class="reference internal" href="#code-style"><span class="std std-ref">Code style</span></a>.</p></li>
 </ul>
@@ -490,8 +491,8 @@ and markdown <code class="docutils literal notranslate"><span class="pre">*.md</
 </ul>
 <p>The documentation is written primarily in
 <a class="reference external" href="https://docutils.sourceforge.io/rst.html">reStructuredText</a> and built by
-<a class="reference external" href="http://www.sphinx-doc.org/">Sphinx</a>. Please refer to
-<a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a>
+<a class="reference external" href="https://www.sphinx-doc.org/">Sphinx</a>. Please refer to
+<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a>
 if you are new to reStructuredText. When contributing documentation, be sure to
 follow the general guidelines in the <a class="reference internal" href="#pull-request-workflow"><span class="std std-ref">pull request workflow</span></a>
 section.</p>
@@ -683,9 +684,9 @@ to <a class="reference external" href="https://www.pygmt.org/latest/install.html
 <li><p><code>:gmt-term:`GMT_PARAMETER`</code></p></li>
 </ul>
 <p>An example would be using
-<code>:gmt-docs:`makecpt.html`</code> to link to <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/makecpt.html">https://docs.generic-mapping-tools.org/6.5/makecpt.html</a>.
+<code>:gmt-docs:`makecpt.html`</code> to link to <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/makecpt.html">https://docs.generic-mapping-tools.org/6.5/makecpt.html</a>.
 For GMT configuration parameters, an example is
-<code>:gmt-term:`COLOR_FOREGROUND`</code> to link to <a class="extlink-gmt-term reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-COLOR_FOREGROUND">COLOR_FOREGROUND</a>.</p>
+<code>:gmt-term:`COLOR_FOREGROUND`</code> to link to <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-COLOR_FOREGROUND">COLOR_FOREGROUND</a>.</p>
 <p>Sphinx will create a link to the automatically generated page for that
 function/class/module/method.</p>
 </section>
@@ -701,7 +702,7 @@ code, be sure to follow the general guidelines in the
 <section id="code-style">
 <h3>Code Style<a class="headerlink" href="#code-style" title="Link to this heading"></a></h3>
 <p>We use the <a class="reference external" href="https://docs.astral.sh/ruff">ruff</a> tool to format the code, so we
-don’t have to think about it. It loosely follow the <a class="reference external" href="http://pep8.org">PEP8</a> guide
+don’t have to think about it. It loosely follow the <a class="reference external" href="https://pep8.org">PEP8</a> guide
 but with a few differences. Regardless, you won’t have to worry about formatting
 the code yourself. Before committing, run it to automatically format your code:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>format
@@ -919,15 +920,15 @@ Here’s an example:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2a84b5e4">2a84b5e4</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 05, 2024.
+      <span class="lastupdated">Last updated on Dec 31, 2024.
       </span></p>
   </div>
 
   
 <p>
-Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
 using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
 provided by <a href="https://readthedocs.org">Read the Docs</a>
 </p>

@@ -2,11 +2,11 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-        <title>Gnomonic &mdash; PyGMT</title>
+        <title>Gnomonic projection &mdash; PyGMT</title>
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
@@ -18,7 +18,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=a51cd8ab" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=845ca4e4" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
@@ -29,7 +29,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=aa3fe5bf"></script>
+        <script src="../../_static/documentation_options.js?v=35ee300d"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -38,8 +38,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Lambert Azimuthal Equal Area" href="azim_lambert.html" />
-    <link rel="prev" title="General Stereographic" href="azim_general_stereographic.html" />
+    <link rel="next" title="Lambert azimuthal equal-area projection" href="azim_lambert.html" />
+    <link rel="prev" title="General stereographic projection" href="azim_general_stereographic.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -92,7 +92,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../get_started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul class="current">
@@ -100,12 +100,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Projections</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#azimuthal-projections">Azimuthal Projections</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="azim_equidistant.html">Azimuthal Equidistant</a></li>
-<li class="toctree-l3"><a class="reference internal" href="azim_general_perspective.html">General Perspective</a></li>
-<li class="toctree-l3"><a class="reference internal" href="azim_general_stereographic.html">General Stereographic</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Gnomonic</a></li>
-<li class="toctree-l3"><a class="reference internal" href="azim_lambert.html">Lambert Azimuthal Equal Area</a></li>
-<li class="toctree-l3"><a class="reference internal" href="azim_orthographic.html">Orthographic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="azim_equidistant.html">Azimuthal equidistant projection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="azim_general_stereographic.html">General stereographic projection</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Gnomonic projection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="azim_lambert.html">Lambert azimuthal equal-area projection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="azim_orthographic.html">Orthographic projection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="azim_general_perspective.html">Perspective projection</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#conic-projections">Conic Projections</a></li>
@@ -116,12 +116,13 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ecosystem.html">Ecosystem</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -164,7 +165,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Projections</a></li>
-      <li class="breadcrumb-item active">Gnomonic</li>
+      <li class="breadcrumb-item active">Gnomonic projection</li>
     <li class="source-link">
         
             
@@ -192,8 +193,8 @@
 <p><a class="reference internal" href="#sphx-glr-download-projections-azim-azim-gnomonic-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code.</p>
 </div>
-<section class="sphx-glr-example-title" id="gnomonic">
-<span id="sphx-glr-projections-azim-azim-gnomonic-py"></span><h1>Gnomonic<a class="headerlink" href="#gnomonic" title="Link to this heading"></a></h1>
+<section class="sphx-glr-example-title" id="gnomonic-projection">
+<span id="sphx-glr-projections-azim-azim-gnomonic-py"></span><h1>Gnomonic projection<a class="headerlink" href="#gnomonic-projection" title="Link to this heading"></a></h1>
 <p>The point of perspective of the gnomonic projection lies at the center of the
 Earth. As a consequence great circles (orthodromes) on the surface of the Earth
 are displayed as straight lines, which makes it suitable for distance
@@ -210,11 +211,17 @@ distance from projection center (in degrees, &lt; 90, default 60), and <em>scale
 <img src="../../_images/sphx_glr_azim_gnomonic_001.png" srcset="../../_images/sphx_glr_azim_gnomonic_001.png" alt="azim gnomonic" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
 
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
-<a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s2">&quot;F-90/15/12c&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;20g20&quot;</span><span class="p">,</span> <span class="n">land</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
+<a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
+    <span class="n">region</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;F-90/15/12c&quot;</span><span class="p">,</span>
+    <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;afg&quot;</span><span class="p">,</span>
+    <span class="n">land</span><span class="o">=</span><span class="s2">&quot;khaki&quot;</span><span class="p">,</span>
+    <span class="n">water</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+<span class="p">)</span>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.251 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.236 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-projections-azim-azim-gnomonic-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/1531a9df00bb16391ab596ddc2b0de1c/azim_gnomonic.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">azim_gnomonic.ipynb</span></code></a></p>
@@ -234,23 +241,23 @@ distance from projection center (in degrees, &lt; 90, default 60), and <em>scale
           </div>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="azim_general_stereographic.html" class="btn btn-neutral float-left" title="General Stereographic" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="azim_lambert.html" class="btn btn-neutral float-right" title="Lambert Azimuthal Equal Area" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="azim_general_stereographic.html" class="btn btn-neutral float-left" title="General stereographic projection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="azim_lambert.html" class="btn btn-neutral float-right" title="Lambert azimuthal equal-area projection" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2a84b5e4">2a84b5e4</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 05, 2024.
+      <span class="lastupdated">Last updated on Dec 31, 2024.
       </span></p>
   </div>
 
   
 <p>
-Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
 using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
 provided by <a href="https://readthedocs.org">Read the Docs</a>
 </p>

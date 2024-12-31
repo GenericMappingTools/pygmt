@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:01.747** total execution time for 8 files **from projections/misc**:
+**00:01.731** total execution time for 8 files **from projections/misc**:
 
 .. container::
 
@@ -33,26 +33,26 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_projections_misc_misc_winkel_tripel.py` (``misc_winkel_tripel.py``)
-     - 00:00.241
+     - 00:00.242
      - 0.0
    * - :ref:`sphx_glr_projections_misc_misc_van_der_grinten.py` (``misc_van_der_grinten.py``)
      - 00:00.240
      - 0.0
-   * - :ref:`sphx_glr_projections_misc_misc_eckertIV.py` (``misc_eckertIV.py``)
-     - 00:00.221
-     - 0.0
    * - :ref:`sphx_glr_projections_misc_misc_mollweide.py` (``misc_mollweide.py``)
-     - 00:00.216
+     - 00:00.217
      - 0.0
-   * - :ref:`sphx_glr_projections_misc_misc_eckertVI.py` (``misc_eckertVI.py``)
+   * - :ref:`sphx_glr_projections_misc_misc_eckertIV.py` (``misc_eckertIV.py``)
      - 00:00.214
      - 0.0
-   * - :ref:`sphx_glr_projections_misc_misc_robinson.py` (``misc_robinson.py``)
-     - 00:00.208
+   * - :ref:`sphx_glr_projections_misc_misc_eckertVI.py` (``misc_eckertVI.py``)
+     - 00:00.210
      - 0.0
    * - :ref:`sphx_glr_projections_misc_misc_hammer.py` (``misc_hammer.py``)
-     - 00:00.206
+     - 00:00.205
+     - 0.0
+   * - :ref:`sphx_glr_projections_misc_misc_robinson.py` (``misc_robinson.py``)
+     - 00:00.204
      - 0.0
    * - :ref:`sphx_glr_projections_misc_misc_sinusoidal.py` (``misc_sinusoidal.py``)
-     - 00:00.202
+     - 00:00.199
      - 0.0

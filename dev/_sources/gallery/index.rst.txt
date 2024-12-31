@@ -1,7 +1,5 @@
 :orphan:
 
-.. _gallery:
-
 Gallery
 =======
 
@@ -35,7 +33,7 @@ Maps and map elements
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows us to plot geographical data such as polygons which are stored in a geopandas.GeoDataFrame object. Use geopandas.read_file to load data from any supported OGR format such as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. You can also use a full URL pointing to your desired data source. Then, pass the geopandas.GeoDataFrame as an argument to the data parameter of pygmt.Figure.plot, and style the geometry using the pen parameter. To fill the polygons based on a corresponding column you need to set fill=&quot;+z&quot; as well as select the appropriate column using the aspatial parameter as shown in the example below.">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows us to plot geographical data such as polygons which are stored in a geopandas.GeoDataFrame object. Use geopandas.read_file to load data from any supported OGR format such as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. You can also use a full URL pointing to your desired data source. Then, pass the class:`geopandas.GeoDataFrame` as an argument to the data parameter of pygmt.Figure.plot, and style the geometry using the pen parameter. To fill the polygons based on a corresponding column you need to set fill=&quot;+z&quot; as well as select the appropriate column using the aspatial parameter as shown in the example below.">
 
 .. only:: html
 
@@ -250,6 +248,23 @@ Lines and vectors
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows us to plot geographical data such as lines with LineString or MultiLineString geometry types stored in a geopandas.GeoDataFrame object or any object that implements the __geo_interface__ property.">
+
+.. only:: html
+
+  .. image:: /gallery/lines/images/thumb/sphx_glr_linestrings_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_gallery_lines_linestrings.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">GeoPandas: Plotting lines with LineString or MultiLineString geometry</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="The color of the lines made by pygmt.Figure.plot can be set according to a custom CPT and assigned with the pen parameter.">
 
 .. only:: html
@@ -335,23 +350,6 @@ Lines and vectors
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows us to plot geographical data such as lines which are stored in a geopandas.GeoDataFrame object. Use geopandas.read_file to load data from any supported OGR format such as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the geopandas.GeoDataFrame as an argument to the data parameter of pygmt.Figure.plot, and style the geometry using the pen parameter.">
-
-.. only:: html
-
-  .. image:: /gallery/lines/images/thumb/sphx_glr_roads_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_gallery_lines_roads.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Roads</div>
-    </div>
-
-
-.. raw:: html
-
     <div class="sphx-glr-thumbcontainer" tooltip="Many methods in PyGMT allow plotting vectors with individual heads and tails. For this purpose, several modifiers may be appended to the corresponding vector-producing parameters for specifying the placement of vector heads and tails, their shapes, and the justification of the vector.">
 
 .. only:: html
@@ -399,12 +397,12 @@ Lines and vectors
    /gallery/lines/decorated_lines
    /gallery/lines/envelope
    /gallery/lines/great_circles
+   /gallery/lines/linestrings
    /gallery/lines/line_custom_cpt
    /gallery/lines/linefronts
    /gallery/lines/line_segment_ends
    /gallery/lines/linestyles
    /gallery/lines/quoted_lines
-   /gallery/lines/roads
    /gallery/lines/vector_heads_tails
    /gallery/lines/wiggle
 
@@ -438,7 +436,7 @@ Symbols and markers
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="PyGMT allows using bit or hachure patterns via the fill parameter or similar parameters:">
+    <div class="sphx-glr-thumbcontainer" tooltip="In addition to colors, PyGMT also allows using bit and hachure patterns to fill symbols, polygons, and other areas, via the fill parameter or similar parameters.">
 
 .. only:: html
 
@@ -1050,7 +1048,7 @@ Histograms
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="To create a scatter plot with histograms at the sides of the plot one can use pygmt.Figure.plot in combination with pygmt.Figure.histogram. The positions of the histograms are plotted by offsetting them from the main scatter plot figure using pygmt.Figure.shift_origin.">
+    <div class="sphx-glr-thumbcontainer" tooltip="To create a scatter plot with histograms at the sides of the plot one can use pygmt.Figure.plot in combination with pygmt.Figure.histogram. The positions of the histograms are plotted by offsetting them from the main scatter plot using pygmt.Figure.shift_origin.">
 
 .. only:: html
 

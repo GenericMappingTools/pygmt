@@ -2,11 +2,11 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-        <title>Van der Grinten &mdash; PyGMT</title>
+        <title>Van der Grinten projection &mdash; PyGMT</title>
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
@@ -18,7 +18,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=a51cd8ab" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=845ca4e4" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
@@ -29,7 +29,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=aa3fe5bf"></script>
+        <script src="../../_static/documentation_options.js?v=35ee300d"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -38,8 +38,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Winkel Tripel" href="misc_winkel_tripel.html" />
-    <link rel="prev" title="Sinusoidal" href="misc_sinusoidal.html" />
+    <link rel="next" title="Winkel Tripel projection" href="misc_winkel_tripel.html" />
+    <link rel="prev" title="Sinusoidal projection" href="misc_sinusoidal.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -92,7 +92,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../get_started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul class="current">
@@ -103,14 +103,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#conic-projections">Conic Projections</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#cylindric-projections">Cylindric Projections</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#miscellaneous-projections">Miscellaneous Projections</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="misc_eckertIV.html">Eckert IV</a></li>
-<li class="toctree-l3"><a class="reference internal" href="misc_eckertVI.html">Eckert VI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="misc_hammer.html">Hammer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="misc_mollweide.html">Mollweide</a></li>
-<li class="toctree-l3"><a class="reference internal" href="misc_robinson.html">Robinson</a></li>
-<li class="toctree-l3"><a class="reference internal" href="misc_sinusoidal.html">Sinusoidal</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Van der Grinten</a></li>
-<li class="toctree-l3"><a class="reference internal" href="misc_winkel_tripel.html">Winkel Tripel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc_eckertIV.html">Eckert IV equal-area projection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc_eckertVI.html">Eckert VI equal-area projection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc_hammer.html">Hammer projection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc_mollweide.html">Mollweide projection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc_robinson.html">Robinson projection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc_sinusoidal.html">Sinusoidal projection</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Van der Grinten projection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc_winkel_tripel.html">Winkel Tripel projection</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#non-geographic-projections">Non-geographic Projections</a></li>
@@ -118,12 +118,13 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ecosystem.html">Ecosystem</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -166,7 +167,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Projections</a></li>
-      <li class="breadcrumb-item active">Van der Grinten</li>
+      <li class="breadcrumb-item active">Van der Grinten projection</li>
     <li class="source-link">
         
             
@@ -194,8 +195,8 @@
 <p><a class="reference internal" href="#sphx-glr-download-projections-misc-misc-van-der-grinten-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code.</p>
 </div>
-<section class="sphx-glr-example-title" id="van-der-grinten">
-<span id="sphx-glr-projections-misc-misc-van-der-grinten-py"></span><h1>Van der Grinten<a class="headerlink" href="#van-der-grinten" title="Link to this heading"></a></h1>
+<section class="sphx-glr-example-title" id="van-der-grinten-projection">
+<span id="sphx-glr-projections-misc-misc-van-der-grinten-py"></span><h1>Van der Grinten projection<a class="headerlink" href="#van-der-grinten-projection" title="Link to this heading"></a></h1>
 <p>The Van der Grinten projection, presented by Alphons J. van der Grinten in
 1904, is neither equal-area nor conformal. Central meridian and Equator are
 straight lines; other meridians are arcs of circles. The scale is true along
@@ -208,7 +209,7 @@ optional <em>lon0</em>, and the figure size is set with <em>scale</em> or <em>wi
 
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <span class="c1"># Use region &quot;d&quot; to specify global region (-180/180/-90/90)</span>
-<a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;V12c&quot;</span><span class="p">,</span> <span class="n">land</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">water</span><span class="o">=</span><span class="s2">&quot;cornsilk&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;afg&quot;</span><span class="p">)</span>
+<a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;V12c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;afg&quot;</span><span class="p">,</span> <span class="n">land</span><span class="o">=</span><span class="s2">&quot;ivory&quot;</span><span class="p">,</span> <span class="n">water</span><span class="o">=</span><span class="s2">&quot;bisque4&quot;</span><span class="p">)</span>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
@@ -232,23 +233,23 @@ optional <em>lon0</em>, and the figure size is set with <em>scale</em> or <em>wi
           </div>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="misc_sinusoidal.html" class="btn btn-neutral float-left" title="Sinusoidal" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="misc_winkel_tripel.html" class="btn btn-neutral float-right" title="Winkel Tripel" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="misc_sinusoidal.html" class="btn btn-neutral float-left" title="Sinusoidal projection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="misc_winkel_tripel.html" class="btn btn-neutral float-right" title="Winkel Tripel projection" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2a84b5e4">2a84b5e4</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 05, 2024.
+      <span class="lastupdated">Last updated on Dec 31, 2024.
       </span></p>
   </div>
 
   
 <p>
-Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
 using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
 provided by <a href="https://readthedocs.org">Read the Docs</a>
 </p>

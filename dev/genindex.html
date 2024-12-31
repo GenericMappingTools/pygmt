@@ -17,7 +17,7 @@
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="_static/style.css?v=a51cd8ab" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css?v=845ca4e4" />
 
   
     <link rel="shortcut icon" href="_static/favicon.png"/>
@@ -28,7 +28,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=aa3fe5bf"></script>
+        <script src="_static/documentation_options.js?v=35ee300d"></script>
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -89,7 +89,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="get_started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -98,12 +98,13 @@
 <li class="toctree-l1"><a class="reference internal" href="projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="external_resources.html">External Resources</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="minversions.html">Minimum Supported Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ecosystem.html">Ecosystem</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -221,14 +222,16 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/generated/pygmt.clib.Session.call_module.html#pygmt.clib.Session.call_module">call_module() (pygmt.clib.Session method)</a>
 </li>
+      <li><a href="api/generated/pygmt.enums.GridType.html#pygmt.enums.GridType.CARTESIAN">CARTESIAN (pygmt.enums.GridType attribute)</a>
+</li>
       <li><a href="api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast">coast() (pygmt.Figure method)</a>
 </li>
       <li><a href="api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar">colorbar() (pygmt.Figure method)</a>
 </li>
-      <li><a href="api/generated/pygmt.grdhisteq.compute_bins.html#pygmt.grdhisteq.compute_bins">compute_bins() (pygmt.grdhisteq static method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pygmt.grdhisteq.compute_bins.html#pygmt.grdhisteq.compute_bins">compute_bins() (pygmt.grdhisteq static method)</a>
+</li>
       <li><a href="api/generated/pygmt.config.html#pygmt.config">config (class in pygmt)</a>
 </li>
       <li><a href="api/generated/pygmt.Figure.contour.html#pygmt.Figure.contour">contour() (pygmt.Figure method)</a>
@@ -281,11 +284,15 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pygmt.enums.GridType.html#pygmt.enums.GridType.GEOGRAPHIC">GEOGRAPHIC (pygmt.enums.GridType attribute)</a>
+</li>
       <li><a href="api/generated/pygmt.clib.Session.get_common.html#pygmt.clib.Session.get_common">get_common() (pygmt.clib.Session method)</a>
 </li>
       <li><a href="api/generated/pygmt.clib.Session.get_default.html#pygmt.clib.Session.get_default">get_default() (pygmt.clib.Session method)</a>
 </li>
       <li><a href="api/generated/pygmt.clib.Session.get_libgmt_func.html#pygmt.clib.Session.get_libgmt_func">get_libgmt_func() (pygmt.clib.Session method)</a>
+</li>
+      <li><a href="techref/environment_variables.html#term-GMT_LIBRARY_PATH"><strong>GMT_LIBRARY_PATH</strong></a>
 </li>
       <li><a href="api/generated/pygmt.exceptions.GMTCLibError.html#pygmt.exceptions.GMTCLibError">GMTCLibError</a>
 </li>
@@ -309,10 +316,10 @@
 </li>
       <li><a href="api/generated/pygmt.grdclip.html#pygmt.grdclip">grdclip() (in module pygmt)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/generated/pygmt.Figure.grdcontour.html#pygmt.Figure.grdcontour">grdcontour() (pygmt.Figure method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/generated/pygmt.grdcut.html#pygmt.grdcut">grdcut() (in module pygmt)</a>
 </li>
       <li><a href="api/generated/pygmt.grdfill.html#pygmt.grdfill">grdfill() (in module pygmt)</a>
@@ -339,6 +346,12 @@
 </li>
       <li><a href="api/generated/pygmt.grdvolume.html#pygmt.grdvolume">grdvolume() (in module pygmt)</a>
 </li>
+      <li><a href="api/generated/pygmt.enums.GridRegistration.html#pygmt.enums.GridRegistration.GRIDLINE">GRIDLINE (pygmt.enums.GridRegistration attribute)</a>
+</li>
+      <li><a href="api/generated/pygmt.enums.GridRegistration.html#pygmt.enums.GridRegistration">GridRegistration (class in pygmt.enums)</a>
+</li>
+      <li><a href="api/generated/pygmt.enums.GridType.html#pygmt.enums.GridType">GridType (class in pygmt.enums)</a>
+</li>
       <li><a href="api/generated/pygmt.GMTDataArrayAccessor.html#pygmt.GMTDataArrayAccessor.gtype">gtype (pygmt.GMTDataArrayAccessor property)</a>
 </li>
   </ul></td>
@@ -348,6 +361,10 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/generated/pygmt.Figure.histogram.html#pygmt.Figure.histogram">histogram() (pygmt.Figure method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pygmt.Figure.hlines.html#pygmt.Figure.hlines">hlines() (pygmt.Figure method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -375,9 +392,17 @@
 </li>
       <li><a href="api/generated/pygmt.datasets.list_sample_data.html#pygmt.datasets.list_sample_data">list_sample_data() (in module pygmt.datasets)</a>
 </li>
+      <li><a href="api/generated/pygmt.datasets.load_black_marble.html#pygmt.datasets.load_black_marble">load_black_marble() (in module pygmt.datasets)</a>
+</li>
+      <li><a href="api/generated/pygmt.datasets.load_blue_marble.html#pygmt.datasets.load_blue_marble">load_blue_marble() (in module pygmt.datasets)</a>
+</li>
       <li><a href="api/generated/pygmt.load_dataarray.html#pygmt.load_dataarray">load_dataarray() (in module pygmt)</a>
 </li>
       <li><a href="api/generated/pygmt.datasets.load_earth_age.html#pygmt.datasets.load_earth_age">load_earth_age() (in module pygmt.datasets)</a>
+</li>
+      <li><a href="api/generated/pygmt.datasets.load_earth_deflection.html#pygmt.datasets.load_earth_deflection">load_earth_deflection() (in module pygmt.datasets)</a>
+</li>
+      <li><a href="api/generated/pygmt.datasets.load_earth_dist.html#pygmt.datasets.load_earth_dist">load_earth_dist() (in module pygmt.datasets)</a>
 </li>
       <li><a href="api/generated/pygmt.datasets.load_earth_free_air_anomaly.html#pygmt.datasets.load_earth_free_air_anomaly">load_earth_free_air_anomaly() (in module pygmt.datasets)</a>
 </li>
@@ -387,10 +412,14 @@
 </li>
       <li><a href="api/generated/pygmt.datasets.load_earth_mask.html#pygmt.datasets.load_earth_mask">load_earth_mask() (in module pygmt.datasets)</a>
 </li>
-      <li><a href="api/generated/pygmt.datasets.load_earth_relief.html#pygmt.datasets.load_earth_relief">load_earth_relief() (in module pygmt.datasets)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pygmt.datasets.load_earth_mean_dynamic_topography.html#pygmt.datasets.load_earth_mean_dynamic_topography">load_earth_mean_dynamic_topography() (in module pygmt.datasets)</a>
+</li>
+      <li><a href="api/generated/pygmt.datasets.load_earth_mean_sea_surface.html#pygmt.datasets.load_earth_mean_sea_surface">load_earth_mean_sea_surface() (in module pygmt.datasets)</a>
+</li>
+      <li><a href="api/generated/pygmt.datasets.load_earth_relief.html#pygmt.datasets.load_earth_relief">load_earth_relief() (in module pygmt.datasets)</a>
+</li>
       <li><a href="api/generated/pygmt.datasets.load_earth_vertical_gravity_gradient.html#pygmt.datasets.load_earth_vertical_gravity_gradient">load_earth_vertical_gravity_gradient() (in module pygmt.datasets)</a>
 </li>
       <li><a href="api/generated/pygmt.datasets.load_mars_relief.html#pygmt.datasets.load_mars_relief">load_mars_relief() (in module pygmt.datasets)</a>
@@ -450,6 +479,8 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pygmt.enums.GridRegistration.html#pygmt.enums.GridRegistration.PIXEL">PIXEL (pygmt.enums.GridRegistration attribute)</a>
+</li>
       <li><a href="api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot">plot() (pygmt.Figure method)</a>
 </li>
       <li><a href="api/generated/pygmt.Figure.plot3d.html#pygmt.Figure.plot3d">plot3d() (pygmt.Figure method)</a>
@@ -473,6 +504,8 @@
         <li><a href="api/index.html#module-pygmt">module</a>
 </li>
       </ul></li>
+      <li><a href="techref/environment_variables.html#term-PYGMT_USE_EXTERNAL_DISPLAY"><strong>PYGMT_USE_EXTERNAL_DISPLAY</strong></a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -541,13 +574,15 @@
 </li>
       <li><a href="api/generated/pygmt.Figure.text.html#pygmt.Figure.text">text() (pygmt.Figure method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/generated/pygmt.Figure.tilemap.html#pygmt.Figure.tilemap">tilemap() (pygmt.Figure method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/generated/pygmt.Figure.timestamp.html#pygmt.Figure.timestamp">timestamp() (pygmt.Figure method)</a>
 </li>
       <li><a href="api/generated/pygmt.triangulate.html#pygmt.triangulate">triangulate (class in pygmt)</a>
+</li>
+      <li><a href="techref/environment_variables.html#term-TZ"><strong>TZ</strong></a>
 </li>
   </ul></td>
 </tr></table>
@@ -563,6 +598,8 @@
 </li>
       <li><a href="api/generated/pygmt.clib.Session.virtualfile_from_matrix.html#pygmt.clib.Session.virtualfile_from_matrix">virtualfile_from_matrix() (pygmt.clib.Session method)</a>
 </li>
+      <li><a href="api/generated/pygmt.clib.Session.virtualfile_from_stringio.html#pygmt.clib.Session.virtualfile_from_stringio">virtualfile_from_stringio() (pygmt.clib.Session method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/generated/pygmt.clib.Session.virtualfile_from_vectors.html#pygmt.clib.Session.virtualfile_from_vectors">virtualfile_from_vectors() (pygmt.clib.Session method)</a>
@@ -574,6 +611,8 @@
       <li><a href="api/generated/pygmt.clib.Session.virtualfile_to_dataset.html#pygmt.clib.Session.virtualfile_to_dataset">virtualfile_to_dataset() (pygmt.clib.Session method)</a>
 </li>
       <li><a href="api/generated/pygmt.clib.Session.virtualfile_to_raster.html#pygmt.clib.Session.virtualfile_to_raster">virtualfile_to_raster() (pygmt.clib.Session method)</a>
+</li>
+      <li><a href="api/generated/pygmt.Figure.vlines.html#pygmt.Figure.vlines">vlines() (pygmt.Figure method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -597,6 +636,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/generated/pygmt.x2sys_cross.html#pygmt.x2sys_cross">x2sys_cross() (in module pygmt)</a>
 </li>
+      <li><a href="techref/environment_variables.html#term-X2SYS_HOME"><strong>X2SYS_HOME</strong></a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/generated/pygmt.x2sys_init.html#pygmt.x2sys_init">x2sys_init() (in module pygmt)</a>
@@ -617,15 +658,15 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2a84b5e4">2a84b5e4</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 05, 2024.
+      <span class="lastupdated">Last updated on Dec 31, 2024.
       </span></p>
   </div>
 
   
 <p>
-Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
 using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
 provided by <a href="https://readthedocs.org">Read the Docs</a>
 </p>

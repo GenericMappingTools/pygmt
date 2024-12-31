@@ -54,6 +54,10 @@ pygmt.Figure
     
     
     
+    Figure.hlines
+    
+    
+    
     Figure.image
     
     
@@ -131,6 +135,10 @@ pygmt.Figure
     
     
     Figure.velo
+    
+    
+    
+    Figure.vlines
     
     
     

@@ -187,7 +187,7 @@ download in this example has 1000 x 667 pixels, i.e. an aspect ratio of 3 x 2.
     grdblend [NOTICE]: Remote data courtesy of GMT data server oceania [http://oceania.generic-mapping-tools.org]
     grdblend [NOTICE]: SRTM15 Earth Relief v2.6 at 30x30 arc seconds reduced by Gaussian Cartesian filtering (2.6 km fullwidth) [Tozer et al., 2019].
     grdblend [NOTICE]:   -> Download 15x15 degree grid tile (earth_relief_30s_g): N45E000
-    /home/runner/micromamba/envs/pygmt/lib/python3.12/site-packages/rasterio/__init__.py:304: NotGeoreferencedWarning: Dataset has no geotransform, gcps, or rpcs. The identity matrix will be returned.
+    /home/runner/micromamba/envs/pygmt/lib/python3.13/site-packages/rasterio/__init__.py:356: NotGeoreferencedWarning: Dataset has no geotransform, gcps, or rpcs. The identity matrix will be returned.
       dataset = DatasetReader(path, driver=driver, sharing=sharing, **kwargs)
 
 
@@ -208,7 +208,7 @@ parameter.
     fig = pygmt.Figure()
 
     # Set up a colormap with two colors for the EU flag: blue (0/51/153) for the background
-    # (value 0 in the nedCDF file -> lower half of 0-255 range) and yellow (255/204/0) for
+    # (value 0 in the netCDF file -> lower half of 0-255 range) and yellow (255/204/0) for
     # the stars (value 255 -> upper half)
     pygmt.makecpt(cmap="0/51/153,255/204/0", series=[0, 256, 128])
 
@@ -243,7 +243,7 @@ parameter.
 
  .. code-block:: none
 
-    /home/runner/micromamba/envs/pygmt/lib/python3.12/site-packages/rasterio/__init__.py:314: NotGeoreferencedWarning: The given matrix is equal to Affine.identity or its flipped counterpart. GDAL may ignore this matrix and save no geotransform without raising an error. This behavior is somewhat driver-specific.
+    /home/runner/micromamba/envs/pygmt/lib/python3.13/site-packages/rasterio/__init__.py:366: NotGeoreferencedWarning: The given matrix is equal to Affine.identity or its flipped counterpart. GDAL may ignore this matrix and save no geotransform without raising an error. This behavior is somewhat driver-specific.
       dataset = writer(
 
 
@@ -252,7 +252,7 @@ parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 5.329 seconds)
+   **Total running time of the script:** (0 minutes 6.622 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_draping_on_3d_surface.py:

@@ -18,8 +18,8 @@
 .. _sphx_glr_projections_cyl_cyl_universal_transverse_mercator.py:
 
 
-Universal Transverse Mercator
-=============================
+Universal Transverse Mercator projection
+========================================
 
 A particular subset of the
 :doc:`transverse Merctor </projections/cyl/cyl_transverse_mercator>`
@@ -54,7 +54,7 @@ conformal latitude in the general spherical formulae instead.
 The projection is set with **u** or **U**. *zone* sets the zone for the figure,
 and the figure size is set with *scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 40-53
+.. GENERATED FROM PYTHON SOURCE LINES 40-52
 
 
 
@@ -76,17 +76,16 @@ and the figure size is set with *scale* or *width*.
     fig.coast(
         region=[127.5, 128.5, 26, 27],
         projection="U52R/12c",
-        land="lightgreen",
-        water="lightblue",
-        shorelines="thinnest",
         frame="afg",
+        land="gray80",
+        water="steelblue",
     )
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.213 seconds)
+   **Total running time of the script:** (0 minutes 0.199 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_universal_transverse_mercator.py:

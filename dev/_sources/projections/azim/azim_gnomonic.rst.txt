@@ -18,8 +18,8 @@
 .. _sphx_glr_projections_azim_azim_gnomonic.py:
 
 
-Gnomonic
-========
+Gnomonic projection
+===================
 
 The point of perspective of the gnomonic projection lies at the center of the
 Earth. As a consequence great circles (orthodromes) on the surface of the Earth
@@ -37,7 +37,7 @@ projection center, the optional parameter *horizon* specifies the maximum
 distance from projection center (in degrees, < 90, default 60), and *scale* or
 *width* sets the size of the figure.
 
-.. GENERATED FROM PYTHON SOURCE LINES 23-28
+.. GENERATED FROM PYTHON SOURCE LINES 23-34
 
 
 
@@ -55,13 +55,19 @@ distance from projection center (in degrees, < 90, default 60), and *scale* or
     import pygmt
 
     fig = pygmt.Figure()
-    fig.coast(projection="F-90/15/12c", region="g", frame="20g20", land="gray")
+    fig.coast(
+        region="g",
+        projection="F-90/15/12c",
+        frame="afg",
+        land="khaki",
+        water="white",
+    )
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.251 seconds)
+   **Total running time of the script:** (0 minutes 0.236 seconds)
 
 
 .. _sphx_glr_download_projections_azim_azim_gnomonic.py:

@@ -21,7 +21,7 @@
 Plotting lines
 ==============
 
-Plotting lines is handled by :meth:`pygmt.Figure.plot`.
+Plotting lines is handled by the :meth:`pygmt.Figure.plot` method.
 
 .. GENERATED FROM PYTHON SOURCE LINES 9-11
 
@@ -36,29 +36,26 @@ Plotting lines is handled by :meth:`pygmt.Figure.plot`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 12-18
+.. GENERATED FROM PYTHON SOURCE LINES 12-19
 
 Plot lines
 ----------
 
-Create a Cartesian figure using ``projection`` parameter and set the axis
-scales using ``region`` (in this case, each axis is 0-10). Pass a list of
-``x`` and ``y`` values to be plotted as a line.
+Create a Cartesian figure using the :meth:`pygmt.Figure.basemap` method. Pass lists
+containing two values to the ``x`` and ``y`` parameters of the
+:meth:`pygmt.Figure.plot` method. By default, a 0.25-points thick, black, solid
+line is drawn between these two data points.
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-30
+.. GENERATED FROM PYTHON SOURCE LINES 19-27
 
 .. code-block:: Python
 
 
     fig = pygmt.Figure()
-    fig.plot(
-        region=[0, 10, 0, 10],
-        projection="X15c/10c",
-        frame="a",
-        x=[1, 8],
-        y=[5, 9],
-        pen="1p,black",
-    )
+    fig.basemap(region=[0, 10, 0, 10], projection="X15c/10c", frame=True)
+
+    fig.plot(x=[1, 5], y=[5, 9])
+
     fig.show()
 
 
@@ -73,25 +70,21 @@ scales using ``region`` (in this case, each axis is 0-10). Pass a list of
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 31-33
+.. GENERATED FROM PYTHON SOURCE LINES 28-30
 
-Additional line segments can be added by including additional values for
-``x`` and ``y``.
+Additional line segments can be added by including more data points in the lists
+passed to ``x`` and ``y``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 33-45
+.. GENERATED FROM PYTHON SOURCE LINES 30-38
 
 .. code-block:: Python
 
 
     fig = pygmt.Figure()
-    fig.plot(
-        region=[0, 10, 0, 10],
-        projection="X15c/10c",
-        frame="a",
-        x=[1, 6, 9],
-        y=[5, 7, 4],
-        pen="1p,black",
-    )
+    fig.basemap(region=[0, 10, 0, 10], projection="X15c/10c", frame=True)
+
+    fig.plot(x=[1, 5, 8], y=[5, 9, 4])
+
     fig.show()
 
 
@@ -106,27 +99,22 @@ Additional line segments can be added by including additional values for
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-49
+.. GENERATED FROM PYTHON SOURCE LINES 39-41
 
-To plot multiple lines, :meth:`pygmt.Figure.plot` needs to be used for each
-additional line. Parameters such as ``region``, ``projection``, and ``frame``
-do not need to be repeated in subsequent uses.
+To plot multiple lines, :meth:`pygmt.Figure.plot` needs to be used for each line
+separately.
 
-.. GENERATED FROM PYTHON SOURCE LINES 49-63
+.. GENERATED FROM PYTHON SOURCE LINES 41-51
 
 .. code-block:: Python
 
 
     fig = pygmt.Figure()
-    fig.plot(
-        region=[0, 10, 0, 10],
-        projection="X15c/10c",
-        frame="a",
-        x=[1, 6, 9],
-        y=[5, 7, 4],
-        pen="2p,blue",
-    )
-    fig.plot(x=[2, 4, 10], y=[3, 8, 9], pen="2p,red")
+    fig.basemap(region=[0, 10, 0, 10], projection="X15c/10c", frame=True)
+
+    fig.plot(x=[1, 5, 8], y=[5, 9, 4])
+    fig.plot(x=[2, 4, 9], y=[3, 7, 5])
+
     fig.show()
 
 
@@ -142,31 +130,26 @@ do not need to be repeated in subsequent uses.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 64-72
+.. GENERATED FROM PYTHON SOURCE LINES 52-57
 
 Change line attributes
 ----------------------
 
-The line attributes can be set by the ``pen`` parameter. ``pen`` takes a
-string argument with the optional values *width*,\ *color*,\ *style*.
+The line attributes can be set by the ``pen`` parameter which takes a string
+argument with the optional values *width*,\ *color*,\ *style*.
 
-In the example below, the pen width is set to ``5p``, and with ``black`` as
-the default color and ``solid`` as the default style.
-
-.. GENERATED FROM PYTHON SOURCE LINES 72-84
+.. GENERATED FROM PYTHON SOURCE LINES 57-67
 
 .. code-block:: Python
 
 
     fig = pygmt.Figure()
-    fig.plot(
-        region=[0, 10, 0, 10],
-        projection="X15c/10c",
-        frame="a",
-        x=[1, 8],
-        y=[3, 9],
-        pen="5p",
-    )
+    fig.basemap(region=[0, 10, 0, 10], projection="X15c/10c", frame=True)
+
+    # Set the pen width to "5p" (5 points), and use the default color "black" and the
+    # default style "solid"
+    fig.plot(x=[1, 8], y=[3, 9], pen="5p")
+
     fig.show()
 
 
@@ -181,25 +164,22 @@ the default color and ``solid`` as the default style.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 85-87
+.. GENERATED FROM PYTHON SOURCE LINES 68-70
 
 The line color can be set and is added after the line width to the ``pen``
-parameter. In the example below, the line color is set to ``red``.
+parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 87-99
+.. GENERATED FROM PYTHON SOURCE LINES 70-79
 
 .. code-block:: Python
 
 
     fig = pygmt.Figure()
-    fig.plot(
-        region=[0, 10, 0, 10],
-        projection="X15c/10c",
-        frame="a",
-        x=[1, 8],
-        y=[3, 9],
-        pen="5p,red",
-    )
+    fig.basemap(region=[0, 10, 0, 10], projection="X15c/10c", frame=True)
+
+    # Set the line color to "red", use the default style "solid"
+    fig.plot(x=[1, 8], y=[3, 9], pen="5p,red")
+
     fig.show()
 
 
@@ -214,26 +194,22 @@ parameter. In the example below, the line color is set to ``red``.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 100-103
+.. GENERATED FROM PYTHON SOURCE LINES 80-82
 
 The line style can be set and is added after the line width or color to the
-``pen`` parameter.  In the example below, the line style is set to
-``..-`` (*dot dot dash*), and the default color ``black`` is used.
+``pen`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 103-115
+.. GENERATED FROM PYTHON SOURCE LINES 82-91
 
 .. code-block:: Python
 
 
     fig = pygmt.Figure()
-    fig.plot(
-        region=[0, 10, 0, 10],
-        projection="X15c/10c",
-        frame="a",
-        x=[1, 8],
-        y=[3, 9],
-        pen="5p,..-",
-    )
+    fig.basemap(region=[0, 10, 0, 10], projection="X15c/10c", frame=True)
+
+    # Set the line style to "..-" (dot dot dash), use the default color "black"
+    fig.plot(x=[1, 8], y=[3, 9], pen="5p,..-")
+
     fig.show()
 
 
@@ -248,29 +224,23 @@ The line style can be set and is added after the line width or color to the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 116-122
+.. GENERATED FROM PYTHON SOURCE LINES 92-95
 
-The line width, color, and style can all be set in the same ``pen``
-parameter. In the example below, the line width is set to ``7p``, the color
-is set to ``green``, and the line style is ``-.-`` (*dash dot dash*).
-
-For a gallery showing other ``pen`` settings, see
+The line width, color, and style can all be set in the same ``pen`` parameter.
+For a gallery example showing other ``pen`` settings, see
 :doc:`/gallery/lines/linestyles`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 122-134
+.. GENERATED FROM PYTHON SOURCE LINES 95-104
 
 .. code-block:: Python
 
 
     fig = pygmt.Figure()
-    fig.plot(
-        region=[0, 10, 0, 10],
-        projection="X15c/10c",
-        frame="a",
-        x=[1, 8],
-        y=[3, 9],
-        pen="7p,green,-.-",
-    )
+    fig.basemap(region=[0, 10, 0, 10], projection="X15c/10c", frame=True)
+
+    # Draw a 7-points thick, green line with style "-.-" (dash dot dash)
+    fig.plot(x=[1, 8], y=[3, 9], pen="7p,green,-.-")
+
     fig.show()
 
 
@@ -288,7 +258,7 @@ For a gallery showing other ``pen`` settings, see
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.931 seconds)
+   **Total running time of the script:** (0 minutes 0.932 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_lines.py:

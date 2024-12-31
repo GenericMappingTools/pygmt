@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
@@ -18,7 +18,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=a51cd8ab" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=845ca4e4" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
@@ -29,7 +29,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=aa3fe5bf"></script>
+        <script src="../../_static/documentation_options.js?v=35ee300d"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -92,7 +92,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../get_started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -101,7 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../index.html#main-features">Main Features</a></li>
@@ -111,12 +111,14 @@
 <li class="toctree-l4 current"><a class="current reference internal" href="#">pygmt.Figure.basemap</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.coast.html">pygmt.Figure.coast</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.colorbar.html">pygmt.Figure.colorbar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.hlines.html">pygmt.Figure.hlines</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.inset.html">pygmt.Figure.inset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.legend.html">pygmt.Figure.legend</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.logo.html">pygmt.Figure.logo</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.solar.html">pygmt.Figure.solar</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.text.html">pygmt.Figure.text</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.timestamp.html">pygmt.Figure.timestamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.vlines.html">pygmt.Figure.vlines</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../index.html#plotting-tabular-data">Plotting tabular data</a></li>
@@ -131,6 +133,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#input-output">Input/output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#enums">Enums</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#datasets">Datasets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#exceptions">Exceptions</a></li>
@@ -140,6 +143,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ecosystem.html">Ecosystem</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -212,38 +216,43 @@ tick-mark intervals for boundary annotation, ticking, and [optionally]
 gridlines. A simple map scale or directional rose may also be plotted.</p>
 <p>At least one of the parameters <code class="docutils literal notranslate"><span class="pre">frame</span></code>, <code class="docutils literal notranslate"><span class="pre">map_scale</span></code>, <code class="docutils literal notranslate"><span class="pre">rose</span></code>, or
 <code class="docutils literal notranslate"><span class="pre">compass</span></code> must be specified if not in subplot mode.</p>
-<p>Full option list at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/basemap.html">https://docs.generic-mapping-tools.org/6.5/basemap.html</a></p>
+<p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/basemap.html">https://docs.generic-mapping-tools.org/6.5/basemap.html</a></p>
 <p><strong>Aliases:</strong></p>
-<ul class="simple">
+<table class="hlist"><tr><td><ul class="simple">
 <li><p>B = frame</p></li>
 <li><p>F = box</p></li>
 <li><p>J = projection</p></li>
 <li><p>JZ = zsize</p></li>
 <li><p>Jz = zscale</p></li>
+</ul>
+</td><td><ul class="simple">
 <li><p>L = map_scale</p></li>
 <li><p>R = region</p></li>
 <li><p>Td = rose</p></li>
 <li><p>Tm = compass</p></li>
 <li><p>V = verbose</p></li>
+</ul>
+</td><td><ul class="simple">
 <li><p>c = panel</p></li>
 <li><p>f = coltypes</p></li>
 <li><p>p = perspective</p></li>
 <li><p>t = transparency</p></li>
 </ul>
+</td></tr></table>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>projection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <em>projcode</em>[<em>projparams</em>/]<em>width</em>|<em>scale</em>.
+<li><p><strong>projection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <em>projcode</em>[<em>projparams</em>/]<em>width</em>|<em>scale</em>.
 Select map <a class="reference internal" href="../../projections/index.html"><span class="doc">projection</span></a>.</p></li>
-<li><p><strong>zscale/zsize</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Set z-axis scaling or z-axis size.</p></li>
-<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
+<li><p><strong>zscale/zsize</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Set z-axis scaling or z-axis size.</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
 Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.
 <em>Required if this is the first plot command.</em></p></li>
-<li><p><strong>frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – Set map boundary
+<li><p><strong>frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – Set map boundary
 <a class="reference internal" href="../../tutorials/basics/frames.html"><span class="doc">frame and axes attributes</span></a>.</p></li>
-<li><p><strong>map_scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – [<strong>g</strong>|<strong>j</strong>|<strong>J</strong>|<strong>n</strong>|<strong>x</strong>]<em>refpoint</em><strong>+w</strong><em>length</em>.
+<li><p><strong>map_scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – [<strong>g</strong>|<strong>j</strong>|<strong>J</strong>|<strong>n</strong>|<strong>x</strong>]<em>refpoint</em><strong>+w</strong><em>length</em>.
 Draw a simple map scale centered on the reference point specified.</p></li>
-<li><p><strong>box</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – [<strong>+c</strong><em>clearances</em>][<strong>+g</strong><em>fill</em>][<strong>+i</strong>[[<em>gap</em>/]<em>pen</em>]][<strong>+p</strong>[<em>pen</em>]][<strong>+r</strong>[<em>radius</em>]][<strong>+s</strong>[[<em>dx</em>/<em>dy</em>/][<em>shade</em>]]].
+<li><p><strong>box</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – [<strong>+c</strong><em>clearances</em>][<strong>+g</strong><em>fill</em>][<strong>+i</strong>[[<em>gap</em>/]<em>pen</em>]][<strong>+p</strong>[<em>pen</em>]][<strong>+r</strong>[<em>radius</em>]][<strong>+s</strong>[[<em>dx</em>/<em>dy</em>/][<em>shade</em>]]].
 If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, draw a rectangular border around the
 map scale or rose. Alternatively, specify a different pen with
 <strong>+p</strong><em>pen</em>. Add <strong>+g</strong><em>fill</em> to fill the scale panel [Default is
@@ -252,18 +261,18 @@ xgap/ygap, or lgap/rgap/bgap/tgap where these items are uniform,
 separate in x- and y-direction, or individual side spacings between
 scale and border. Append <strong>+i</strong> to draw a secondary, inner border as
 well. We use a uniform gap between borders of 2p and the
-<a class="extlink-gmt-term reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-MAP_DEFAULTS_PEN">MAP_DEFAULTS_PEN</a> unless other values are specified. Append
+<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-MAP_DEFAULTS_PEN">MAP_DEFAULTS_PEN</a> unless other values are specified. Append
 <strong>+r</strong> to draw rounded rectangular borders instead, with a 6p corner
 radius. You can override this radius by appending another value.
 Finally, append <strong>+s</strong> to draw an offset background shaded region.
 Here, <em>dx/dy</em> indicates the shift relative to the foreground frame
 [Default is <code class="docutils literal notranslate"><span class="pre">&quot;4p/-4p&quot;</span></code>] and shade sets the fill style to use for
 shading [Default is <code class="docutils literal notranslate"><span class="pre">&quot;gray50&quot;</span></code>].</p></li>
-<li><p><strong>rose</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Draw a map directional rose on the map at the location defined by
+<li><p><strong>rose</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Draw a map directional rose on the map at the location defined by
 the reference and anchor points.</p></li>
-<li><p><strong>compass</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Draw a map magnetic rose on the map at the location defined by the
+<li><p><strong>compass</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Draw a map magnetic rose on the map at the location defined by the
 reference and anchor points.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
 written to stderr. Choose among 7 levels of verbosity:</p>
 <ul>
 <li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
@@ -275,22 +284,22 @@ written to stderr. Choose among 7 levels of verbosity:</p>
 <li><p><strong>d</strong> - Debugging messages</p></li>
 </ul>
 </p></li>
-<li><p><strong>panel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – [<em>row,col</em>|<em>index</em>].
+<li><p><strong>panel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – [<em>row,col</em>|<em>index</em>].
 Select a specific subplot panel. Only allowed when in subplot
 mode. Use <code class="docutils literal notranslate"><span class="pre">panel=True</span></code> to advance to the next panel in the
 selected order. Instead of <em>row,col</em> you may also give a scalar
 value <em>index</em> which depends on the order you set via <code class="docutils literal notranslate"><span class="pre">autolabel</span></code>
 when the subplot was defined. <strong>Note</strong>: <em>row</em>, <em>col</em>, and <em>index</em>
 all start at 0.</p></li>
-<li><p><strong>coltypes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – [<strong>i</strong>|<strong>o</strong>]<em>colinfo</em>.
+<li><p><strong>coltypes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – [<strong>i</strong>|<strong>o</strong>]<em>colinfo</em>.
 Specify data types of input and/or output columns (time or
 geographical data). Full documentation is at
-<a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#f-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#f-full</a>.</p></li>
-<li><p><strong>perspective</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – [<strong>x</strong>|<strong>y</strong>|<strong>z</strong>]<em>azim</em>[/<em>elev</em>[/<em>zlevel</em>]][<strong>+w</strong><em>lon0</em>/<em>lat0</em>[/<em>z0</em>]][<strong>+v</strong><em>x0</em>/<em>y0</em>].
+<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#f-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#f-full</a>.</p></li>
+<li><p><strong>perspective</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – [<strong>x</strong>|<strong>y</strong>|<strong>z</strong>]<em>azim</em>[/<em>elev</em>[/<em>zlevel</em>]][<strong>+w</strong><em>lon0</em>/<em>lat0</em>[/<em>z0</em>]][<strong>+v</strong><em>x0</em>/<em>y0</em>].
 Select perspective view and set the azimuth and elevation angle of
 the viewpoint [Default is <code class="docutils literal notranslate"><span class="pre">[180,</span> <span class="pre">90]</span></code>]. Full documentation is at
-<a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#perspective-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#perspective-full</a>.</p></li>
-<li><p><strong>transparency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – Set transparency level, in [0-100] percent range
+<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#perspective-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#perspective-full</a>.</p></li>
+<li><p><strong>transparency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Set transparency level, in [0-100] percent range
 [Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>, i.e., opaque].
 Only visible when PDF or raster format output is selected.
 Only the PNG format selection adds a transparency layer
@@ -302,7 +311,40 @@ in the image (for further processing).</p></li>
 
 <section id="examples-using-pygmt-figure-basemap">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.basemap</span></code><a class="headerlink" href="#examples-using-pygmt-figure-basemap" title="Link to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows us to plot geographical data such as polygons which are stored in a geopandas.GeoDataFrame object. Use geopandas.read_file to load data from any supported OGR format such as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. You can also use a full URL pointing to your desired data source. Then, pass the geopandas.GeoDataFrame as an argument to the data parameter of pygmt.Figure.plot, and style the geometry using the pen parameter. To fill the polygons based on a corresponding column you need to set fill=&quot;+z&quot; as well as select the appropriate column using the aspatial parameter as shown in the example below."><img alt="" src="../../_images/sphx_glr_choropleth_map_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The figure below shows the naming of figure elements in PyGMT."><img alt="" src="../../_images/sphx_glr_03_figure_element_thumb.png" />
+<p><a class="reference internal" href="../../intro/03_figure_element.html#sphx-glr-intro-03-figure-element-py"><span class="std std-ref">3. Figure elements</span></a></p>
+  <div class="sphx-glr-thumbnail-title">3. Figure elements</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Generally, PyGMT accepts two different types of data inputs: tables and grids."><img alt="" src="../../_images/sphx_glr_04_table_inputs_thumb.png" />
+<p><a class="reference internal" href="../../intro/04_table_inputs.html#sphx-glr-intro-04-table-inputs-py"><span class="std std-ref">4. PyGMT I/O: Table inputs</span></a></p>
+  <div class="sphx-glr-thumbnail-title">4. PyGMT I/O: Table inputs</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting coastlines and borders is handled by pygmt.Figure.coast."><img alt="" src="../../_images/sphx_glr_coastlines_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/basics/coastlines.html#sphx-glr-tutorials-basics-coastlines-py"><span class="std std-ref">Coastlines and borders</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Coastlines and borders</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Setting frame, ticks, title, etc., of the plot is handled by the frame parameter that most plotting methods of the pygmt.Figure class contain."><img alt="" src="../../_images/sphx_glr_frames_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/basics/frames.html#sphx-glr-tutorials-basics-frames-py"><span class="std std-ref">Frames, ticks, titles, and labels</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Frames, ticks, titles, and labels</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is packaged with GMT to try this out. PyGMT provides access to these datasets through the pygmt.datasets package. If you don&#x27;t have the data files already, they are automatically downloaded and saved to a cache directory the first time you use them (usually ~/.gmt/cache)."><img alt="" src="../../_images/sphx_glr_plot_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/basics/plot.html#sphx-glr-tutorials-basics-plot-py"><span class="std std-ref">Plotting data points</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting data points</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting lines is handled by the pygmt.Figure.plot method."><img alt="" src="../../_images/sphx_glr_lines_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/basics/lines.html#sphx-glr-tutorials-basics-lines-py"><span class="std std-ref">Plotting lines</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting lines</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting polygons is handled by the pygmt.Figure.plot method."><img alt="" src="../../_images/sphx_glr_polygons_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/basics/polygons.html#sphx-glr-tutorials-basics-polygons-py"><span class="std std-ref">Plotting polygons</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting polygons</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add text annotations to a plot or map. This is handled by the pygmt.Figure.text method of the pygmt.Figure class."><img alt="" src="../../_images/sphx_glr_text_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/basics/text.html#sphx-glr-tutorials-basics-text-py"><span class="std std-ref">Plotting text</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting text</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Default GMT parameters can be set globally or locally using pygmt.config."><img alt="" src="../../_images/sphx_glr_configuration_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/configuration.html#sphx-glr-tutorials-advanced-configuration-py"><span class="std std-ref">Configuring PyGMT defaults</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Configuring PyGMT defaults</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put many individual plots into one large figure, and label them &#x27;abcd&#x27;. These individual plots are called subplots."><img alt="" src="../../_images/sphx_glr_subplots_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/subplots.html#sphx-glr-tutorials-advanced-subplots-py"><span class="std std-ref">Making subplots</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Making subplots</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="In addition to ASCII printable characters, sometimes you may also want to typeset non-ASCII characters on the plot, such as Greek letters, mathematical symbols, or special characters."><img alt="" src="../../_images/sphx_glr_non_ascii_text_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/non_ascii_text.html#sphx-glr-tutorials-advanced-non-ascii-text-py"><span class="std std-ref">Typesetting non-ASCII text</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Typesetting non-ASCII text</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows us to plot geographical data such as polygons which are stored in a geopandas.GeoDataFrame object. Use geopandas.read_file to load data from any supported OGR format such as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. You can also use a full URL pointing to your desired data source. Then, pass the class:`geopandas.GeoDataFrame` as an argument to the data parameter of pygmt.Figure.plot, and style the geometry using the pen parameter. To fill the polygons based on a corresponding column you need to set fill=&quot;+z&quot; as well as select the appropriate column using the aspatial parameter as shown in the example below."><img alt="" src="../../_images/sphx_glr_choropleth_map_thumb.png" />
 <p><a class="reference internal" href="../../gallery/maps/choropleth_map.html#sphx-glr-gallery-maps-choropleth-map-py"><span class="std std-ref">Choropleth map</span></a></p>
   <div class="sphx-glr-thumbnail-title">Choropleth map</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The land and water parameters of pygmt.Figure.coast specify a color to fill in the land and water masses, respectively. There are many color codes in GMT &lt;gmtcolors.html&gt;, including standard GMT color names (like &quot;skyblue&quot;), R/G/B levels (like &quot;0/0/255&quot;), a hex value (like &quot;#333333&quot;), and a gray level (like &quot;gray50&quot;)."><img alt="" src="../../_images/sphx_glr_land_and_water_thumb.png" />
@@ -341,9 +383,6 @@ in the image (for further processing).</p></li>
 </div><div class="sphx-glr-thumbcontainer" tooltip="To plot a so-called quoted line, i.e., labels along a line or curve, use the style parameter of the pygmt.Figure.plot method with the argument &quot;q&quot; and the desired modifiers. A colon (``&quot;:&quot;``) is used to separate the algorithm settings from the label information. This example shows how to adjust the labels. For modifying the main quoted line via the pen parameter, see the Line styles example &lt;/gallery/lines/linestyles&gt;. For details on the input data see the upstream GMT documentation at plot.html#s."><img alt="" src="../../_images/sphx_glr_quoted_lines_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/quoted_lines.html#sphx-glr-gallery-lines-quoted-lines-py"><span class="std std-ref">Quoted lines</span></a></p>
   <div class="sphx-glr-thumbnail-title">Quoted lines</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows us to plot geographical data such as lines which are stored in a geopandas.GeoDataFrame object. Use geopandas.read_file to load data from any supported OGR format such as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the geopandas.GeoDataFrame as an argument to the data parameter of pygmt.Figure.plot, and style the geometry using the pen parameter."><img alt="" src="../../_images/sphx_glr_roads_thumb.png" />
-<p><a class="reference internal" href="../../gallery/lines/roads.html#sphx-glr-gallery-lines-roads-py"><span class="std std-ref">Roads</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Roads</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Many methods in PyGMT allow plotting vectors with individual heads and tails. For this purpose, several modifiers may be appended to the corresponding vector-producing parameters for specifying the placement of vector heads and tails, their shapes, and the justification of the vector."><img alt="" src="../../_images/sphx_glr_vector_heads_tails_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/vector_heads_tails.html#sphx-glr-gallery-lines-vector-heads-tails-py"><span class="std std-ref">Vector heads and tails</span></a></p>
   <div class="sphx-glr-thumbnail-title">Vector heads and tails</div>
@@ -353,7 +392,7 @@ in the image (for further processing).</p></li>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual geometric symbols by passing the corresponding shortcuts to the style parameter. The 14 basic geometric symbols are shown underneath their corresponding shortcut codes. Four symbols (-, +, x and y) are line-symbols only for which we can adjust the linewidth via the pen parameter. The point symbol (p) only takes a color fill which we can define via the fill parameter. For the remaining symbols we may define a linewidth as well as a color fill."><img alt="" src="../../_images/sphx_glr_basic_symbols_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/basic_symbols.html#sphx-glr-gallery-symbols-basic-symbols-py"><span class="std std-ref">Basic geometric symbols</span></a></p>
   <div class="sphx-glr-thumbnail-title">Basic geometric symbols</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="PyGMT allows using bit or hachure patterns via the fill parameter or similar parameters:"><img alt="" src="../../_images/sphx_glr_patterns_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="In addition to colors, PyGMT also allows using bit and hachure patterns to fill symbols, polygons, and other areas, via the fill parameter or similar parameters."><img alt="" src="../../_images/sphx_glr_patterns_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/patterns.html#sphx-glr-gallery-symbols-patterns-py"><span class="std std-ref">Bit and hachure patterns</span></a></p>
   <div class="sphx-glr-thumbnail-title">Bit and hachure patterns</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can be used to plot symbols which are color-coded by categories. In the example below, we show how the Palmer Penguins dataset can be visualized. Here, we can pass the individual categories included in the &quot;species&quot; column directly to the fill parameter via fill=df.species.cat.codes.astype(int). Additionally, we have to set cmap=True. A desired colormap can be selected via the pygmt.makecpt function."><img alt="" src="../../_images/sphx_glr_points_categorical_thumb.png" />
@@ -401,7 +440,7 @@ in the image (for further processing).</p></li>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The frame parameter of the plotting methods of the pygmt.Figure class can control which axes should be plotted and optionally show annotations, tick marks, and gridlines. By default, all 4 axes are plotted, along with annotations and tick marks (denoted W, S, E, N). Lower case versions (w, s, e, n) can be used to denote to only plot the axes with tick marks. We can also only plot the axes without annotations and tick marks using l (left axis), r (right axis), t (top axis), b (bottom axis). When frame is used to change the frame settings, any axes that are not defined using one of these three options are not drawn."><img alt="" src="../../_images/sphx_glr_double_y_axes_thumb.png" />
 <p><a class="reference internal" href="../../gallery/basemaps/double_y_axes.html#sphx-glr-gallery-basemaps-double-y-axes-py"><span class="std std-ref">Double Y-axes graph</span></a></p>
   <div class="sphx-glr-thumbnail-title">Double Y-axes graph</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="To create a scatter plot with histograms at the sides of the plot one can use pygmt.Figure.plot in combination with pygmt.Figure.histogram. The positions of the histograms are plotted by offsetting them from the main scatter plot figure using pygmt.Figure.shift_origin."><img alt="" src="../../_images/sphx_glr_scatter_and_histograms_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="To create a scatter plot with histograms at the sides of the plot one can use pygmt.Figure.plot in combination with pygmt.Figure.histogram. The positions of the histograms are plotted by offsetting them from the main scatter plot using pygmt.Figure.shift_origin."><img alt="" src="../../_images/sphx_glr_scatter_and_histograms_thumb.png" />
 <p><a class="reference internal" href="../../gallery/histograms/scatter_and_histograms.html#sphx-glr-gallery-histograms-scatter-and-histograms-py"><span class="std std-ref">Scatter plot with histograms</span></a></p>
   <div class="sphx-glr-thumbnail-title">Scatter plot with histograms</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.colorbar method creates a color scalebar. The colormap is set via the cmap parameter. A full list of available color palette tables can be found at reference/cpts.html. Use the frame parameter to add labels to the x and y axes of the colorbar by appending +l followed by the desired text. To add and adjust the annotations (a) and ticks (f) append the letter followed by the desired interval. The placement of the colorbar is set via the position parameter. There are the following options:"><img alt="" src="../../_images/sphx_glr_colorbar_thumb.png" />
@@ -422,33 +461,15 @@ in the image (for further processing).</p></li>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.timestamp method can draw the GMT timestamp logo on the plot. The timestamp will always be shown relative to the Bottom Left (BL) corner of the plot. By default, the offset and justify parameters are set to (&quot;-54p&quot;, &quot;-54p&quot;) (x, y directions) and &quot;BL&quot; (Bottom Left), respectively."><img alt="" src="../../_images/sphx_glr_timestamp_thumb.png" />
 <p><a class="reference internal" href="../../gallery/embellishments/timestamp.html#sphx-glr-gallery-embellishments-timestamp-py"><span class="std std-ref">Timestamp</span></a></p>
   <div class="sphx-glr-thumbnail-title">Timestamp</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting coastlines and borders is handled by pygmt.Figure.coast."><img alt="" src="../../_images/sphx_glr_coastlines_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/basics/coastlines.html#sphx-glr-tutorials-basics-coastlines-py"><span class="std std-ref">Coastlines and borders</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Coastlines and borders</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Setting frame, ticks, title, etc., of the plot is handled by the frame parameter that most plotting methods of the pygmt.Figure class contain."><img alt="" src="../../_images/sphx_glr_frames_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/basics/frames.html#sphx-glr-tutorials-basics-frames-py"><span class="std std-ref">Frames, ticks, titles, and labels</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Frames, ticks, titles, and labels</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is packaged with GMT to try this out. PyGMT provides access to these datasets through the pygmt.datasets package. If you don&#x27;t have the data files already, they are automatically downloaded and saved to a cache directory the first time you use them (usually ~/.gmt/cache)."><img alt="" src="../../_images/sphx_glr_plot_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/basics/plot.html#sphx-glr-tutorials-basics-plot-py"><span class="std std-ref">Plotting data points</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Plotting data points</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add text annotations to a plot or map. This is handled by the pygmt.Figure.text method of the pygmt.Figure class."><img alt="" src="../../_images/sphx_glr_text_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/basics/text.html#sphx-glr-tutorials-basics-text-py"><span class="std std-ref">Plotting text</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Plotting text</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Default GMT parameters can be set globally or locally using pygmt.config."><img alt="" src="../../_images/sphx_glr_configuration_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/configuration.html#sphx-glr-tutorials-advanced-configuration-py"><span class="std std-ref">Configuring PyGMT defaults</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Configuring PyGMT defaults</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put many individual plots into one large figure, and label them &#x27;abcd&#x27;. These individual plots are called subplots."><img alt="" src="../../_images/sphx_glr_subplots_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/subplots.html#sphx-glr-tutorials-advanced-subplots-py"><span class="std std-ref">Making subplots</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Making subplots</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="In addition to ASCII printable characters, sometimes you may also want to typeset non-ASCII characters on the plot, such as Greek letters, mathematical symbols, or special characters."><img alt="" src="../../_images/sphx_glr_non_ascii_text_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/non_ascii_text.html#sphx-glr-tutorials-advanced-non-ascii-text-py"><span class="std std-ref">Typesetting non-ASCII text</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Typesetting non-ASCII text</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The figure below shows the naming of figure elements in PyGMT."><img alt="" src="../../_images/sphx_glr_03_figure_element_thumb.png" />
-<p><a class="reference internal" href="../../get_started/03_figure_element.html#sphx-glr-get-started-03-figure-element-py"><span class="std std-ref">3. Figure elements</span></a></p>
-  <div class="sphx-glr-thumbnail-title">3. Figure elements</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Generally, PyGMT accepts two different types of data inputs: tables and grids."><img alt="" src="../../_images/sphx_glr_04_table_inputs_thumb.png" />
-<p><a class="reference internal" href="../../get_started/04_table_inputs.html#sphx-glr-get-started-04-table-inputs-py"><span class="std std-ref">4. PyGMT I/O: Table inputs</span></a></p>
-  <div class="sphx-glr-thumbnail-title">4. PyGMT I/O: Table inputs</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="X\ width\ [/height] or x\ x-scale\ [/y-scale]"><img alt="" src="../../_images/sphx_glr_cartesian_linear_thumb.png" />
+<p><a class="reference internal" href="../../projections/nongeo/cartesian_linear.html#sphx-glr-projections-nongeo-cartesian-linear-py"><span class="std std-ref">Cartesian linear</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cartesian linear</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="X\ width\ [l][/height\ [l]] or x\ x-scale\ [l][/y-scale\ [l]]"><img alt="" src="../../_images/sphx_glr_cartesian_logarithmic_thumb.png" />
+<p><a class="reference internal" href="../../projections/nongeo/cartesian_logarithmic.html#sphx-glr-projections-nongeo-cartesian-logarithmic-py"><span class="std std-ref">Cartesian logarithmic</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cartesian logarithmic</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="X\ width\ [p\ pvalue][/height\ [p\ pvalue]] or x\ x-scale\ [p\ pvalue][/y-scale\ [p\ pvalue]]"><img alt="" src="../../_images/sphx_glr_cartesian_power_thumb.png" />
+<p><a class="reference internal" href="../../projections/nongeo/cartesian_power.html#sphx-glr-projections-nongeo-cartesian-power-py"><span class="std std-ref">Cartesian power</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cartesian power</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Polar projections allow plotting polar coordinate data (e.g. angle \theta and radius r)."><img alt="" src="../../_images/sphx_glr_polar_thumb.png" />
 <p><a class="reference internal" href="../../projections/nongeo/polar.html#sphx-glr-projections-nongeo-polar-py"><span class="std std-ref">Polar</span></a></p>
   <div class="sphx-glr-thumbnail-title">Polar</div>
@@ -468,15 +489,15 @@ in the image (for further processing).</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2a84b5e4">2a84b5e4</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 05, 2024.
+      <span class="lastupdated">Last updated on Dec 31, 2024.
       </span></p>
   </div>
 
   
 <p>
-Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
 using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
 provided by <a href="https://readthedocs.org">Read the Docs</a>
 </p>

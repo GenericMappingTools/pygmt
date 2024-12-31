@@ -18,8 +18,8 @@
 .. _sphx_glr_projections_cyl_cyl_transverse_mercator.py:
 
 
-Transverse Mercator
-===================
+Transverse Mercator projection
+==============================
 
 The transverse Mercator was invented by Johann Heinrich Lambert in 1772. In
 this projection the cylinder touches a meridian along which there is no
@@ -34,7 +34,7 @@ The projection is set with **t** or **T**. The central meridian is set
 by  *lon0*, the latitude of the origin is set by the optional *lat0*, and the
 figure size is set with *scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 20-32
+.. GENERATED FROM PYTHON SOURCE LINES 20-31
 
 
 
@@ -55,17 +55,16 @@ figure size is set with *scale* or *width*.
     fig.coast(
         region=[20, 50, 30, 45],
         projection="T35/12c",
-        land="lightbrown",
-        water="seashell",
-        shorelines="thinnest",
         frame="afg",
+        land="gray80",
+        water="steelblue",
     )
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.198 seconds)
+   **Total running time of the script:** (0 minutes 0.175 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_transverse_mercator.py:

@@ -17,7 +17,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=a51cd8ab" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=845ca4e4" />
 
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
@@ -28,7 +28,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=aa3fe5bf"></script>
+        <script src="../../../_static/documentation_options.js?v=35ee300d"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -89,7 +89,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../get_started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../intro/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -98,12 +98,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ecosystem.html">Ecosystem</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -251,13 +252,13 @@
         <span class="k">return</span> <span class="n">codes1</span><span class="p">[</span><span class="n">convention</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">convention</span> <span class="ow">in</span> <span class="n">codes2</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">component</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">codes2</span><span class="p">[</span><span class="n">convention</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Invalid component &#39;</span><span class="si">{</span><span class="n">component</span><span class="si">}</span><span class="s2">&#39; for convention &#39;</span><span class="si">{</span><span class="n">convention</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
-            <span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Invalid component &#39;</span><span class="si">{</span><span class="n">component</span><span class="si">}</span><span class="s2">&#39; for convention &#39;</span><span class="si">{</span><span class="n">convention</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">codes2</span><span class="p">[</span><span class="n">convention</span><span class="p">][</span><span class="n">component</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">convention</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">}:</span>
         <span class="k">return</span> <span class="n">convention</span>
-    <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid convention &#39;</span><span class="si">{</span><span class="n">convention</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Invalid convention &#39;</span><span class="si">{</span><span class="n">convention</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+    <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">convention_name</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
@@ -387,168 +388,145 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    spec : str, 1-D array, 2-D array, dict, or pd.DataFrame</span>
+<span class="sd">    spec : str, 1-D numpy array, 2-D numpy array, dict, or pandas.DataFrame</span>
 <span class="sd">        Data that contain focal mechanism parameters.</span>
 
 <span class="sd">        ``spec`` can be specified in either of the following types:</span>
 
-<span class="sd">        - *str*: a file name containing focal mechanism parameters as</span>
-<span class="sd">          columns. The meaning of each column is:</span>
+<span class="sd">        - *str*: a file name containing focal mechanism parameters as columns. The</span>
+<span class="sd">          meaning of each column is:</span>
 
 <span class="sd">          - Columns 1 and 2: event longitude and latitude</span>
-<span class="sd">          - Column 3: event depth (in km)</span>
-<span class="sd">          - Columns 4 to 3+n: focal mechanism parameters. The number of columns</span>
-<span class="sd">            *n* depends on the choice of ``convention``, which will be</span>
-<span class="sd">            described below.</span>
-<span class="sd">          - Columns 4+n and 5+n: longitude, latitude at which to place</span>
-<span class="sd">            beachball. Using ``0 0`` will plot the beachball at the longitude,</span>
-<span class="sd">            latitude given in columns 1 and 2. [optional and requires</span>
-<span class="sd">            ``offset=True`` to take effect].</span>
-<span class="sd">          - Text string to appear near the beachball [optional].</span>
+<span class="sd">          - Column 3: event depth (in kilometers)</span>
+<span class="sd">          - Columns 4 to 3+n: focal mechanism parameters. The number of columns *n*</span>
+<span class="sd">            depends on the choice of ``convention``, which is described below.</span>
+<span class="sd">          - Columns 4+n and 5+n: longitude and latitude at which to place the</span>
+<span class="sd">            beachball. ``0 0`` plots the beachball at the longitude and latitude</span>
+<span class="sd">            given in the columns 1 and 2. [optional; requires ``offset=True``].</span>
+<span class="sd">          - Last Column: text string to appear near the beachball [optional].</span>
 
-<span class="sd">        - *1-D array*: focal mechanism parameters of a single event.</span>
+<span class="sd">        - *1-D np.array*: focal mechanism parameters of a single event.</span>
 <span class="sd">          The meanings of columns are the same as above.</span>
-<span class="sd">        - *2-D array*: focal mechanism parameters of multiple events.</span>
+<span class="sd">        - *2-D np.array*: focal mechanism parameters of multiple events.</span>
 <span class="sd">          The meanings of columns are the same as above.</span>
-<span class="sd">        - *dictionary or pd.DataFrame*: The dictionary keys or pd.DataFrame</span>
-<span class="sd">          column names determine the focal mechanism convention. For</span>
-<span class="sd">          different conventions, the following combination of keys are allowed:</span>
+<span class="sd">        - *dict* or :class:`pandas.DataFrame`: The dict keys or</span>
+<span class="sd">          :class:`pandas.DataFrame` column names determine the focal mechanism</span>
+<span class="sd">          convention. For the different conventions, the following combination of</span>
+<span class="sd">          keys / column names are required:</span>
 
-<span class="sd">          - ``&quot;aki&quot;``: *strike, dip, rake, magnitude*</span>
-<span class="sd">          - ``&quot;gcmt&quot;``: *strike1, dip1, rake1, strike2, dip2, rake2, mantissa,*</span>
-<span class="sd">            *exponent*</span>
-<span class="sd">          - ``&quot;mt&quot;``: *mrr, mtt, mff, mrt, mrf, mtf, exponent*</span>
-<span class="sd">          - ``&quot;partial&quot;``: *strike1, dip1, strike2, fault_type, magnitude*</span>
-<span class="sd">          - ``&quot;principal_axis&quot;``: *t_value, t_azimuth, t_plunge, n_value,</span>
-<span class="sd">            n_azimuth, n_plunge, p_value, p_azimuth, p_plunge, exponent*</span>
+<span class="sd">          - ``&quot;aki&quot;``: *strike*, *dip*, *rake*, *magnitude*</span>
+<span class="sd">          - ``&quot;gcmt&quot;``: *strike1*, *dip1*, *rake1*, *strike2*, *dip2*, *rake2*,</span>
+<span class="sd">            *mantissa*, *exponent*</span>
+<span class="sd">          - ``&quot;mt&quot;``: *mrr*, *mtt*, *mff*, *mrt*, *mrf*, *mtf*, *exponent*</span>
+<span class="sd">          - ``&quot;partial&quot;``: *strike1*, *dip1*, *strike2*, *fault_type*, *magnitude*</span>
+<span class="sd">          - ``&quot;principal_axis&quot;``: *t_value*, *t_azimuth*, *t_plunge*, *n_value*,</span>
+<span class="sd">            *n_azimuth*, *n_plunge*, *p_value*, *p_azimuth*, *p_plunge*, *exponent*</span>
 
-<span class="sd">          A dictionary may contain values for a single focal mechanism or</span>
-<span class="sd">          lists of values for multiple focal mechanisms.</span>
+<span class="sd">          A dict may contain values for a single focal mechanism or lists of</span>
+<span class="sd">          values for multiple focal mechanisms.</span>
 
-<span class="sd">          Both dictionary and pd.DataFrame may optionally contain</span>
-<span class="sd">          keys/column names: ``latitude``, ``longitude``, ``depth``,</span>
-<span class="sd">          ``plot_longitude``, ``plot_latitude``, and/or ``event_name``.</span>
+<span class="sd">          Both dict and :class:`pandas.DataFrame` may optionally contain the keys /</span>
+<span class="sd">          column names: ``latitude``, ``longitude``, ``depth``, ``plot_longitude``,</span>
+<span class="sd">          ``plot_latitude``, and/or ``event_name``.</span>
 
-<span class="sd">        If ``spec`` is either a str, a 1-D array or a 2-D array, the</span>
-<span class="sd">        ``convention`` parameter is required so we know how to interpret the</span>
-<span class="sd">        columns. If ``spec`` is a dictionary or a pd.DataFrame,</span>
-<span class="sd">        ``convention`` is not needed and is ignored if specified.</span>
+<span class="sd">        If ``spec`` is either a str or a 1-D or 2-D numpy array, the ``convention``</span>
+<span class="sd">        parameter is required to interpret the columns. If ``spec`` is a dict or</span>
+<span class="sd">        a :class:`pandas.DataFrame`, ``convention`` is not needed and ignored if</span>
+<span class="sd">        specified.</span>
 <span class="sd">    scale : float or str</span>
 <span class="sd">        *scale*\ [**+a**\ *angle*][**+f**\ *font*][**+j**\ *justify*]\</span>
 <span class="sd">        [**+l**][**+m**][**+o**\ *dx*\ [/\ *dy*]][**+s**\ *reference*].</span>
-<span class="sd">        Adjust scaling of the radius of the beachball, which is</span>
-<span class="sd">        proportional to the magnitude. By default, *scale* defines the</span>
-<span class="sd">        size for magnitude = 5 (i.e., scalar seismic moment</span>
-<span class="sd">        M0 = 4.0E23 dynes-cm). If **+l** is used the radius will be</span>
-<span class="sd">        proportional to the seismic moment instead. Use **+s** and give</span>
-<span class="sd">        a *reference* to change the reference magnitude (or moment), and</span>
-<span class="sd">        use **+m** to plot all beachballs with the same size. A text</span>
-<span class="sd">        string can be specified to appear near the beachball</span>
-<span class="sd">        (corresponding to column or parameter ``event_name``).</span>
-<span class="sd">        Append **+a**\ *angle* to change the angle of the text string;</span>
-<span class="sd">        append **+f**\ *font* to change its font (size,fontname,color);</span>
-<span class="sd">        append **+j**\ *justify* to change the text location relative</span>
-<span class="sd">        to the beachball [Default is ``&quot;TC&quot;``, i.e., Top Center];</span>
-<span class="sd">        append **+o** to offset the text string by *dx*\ /*dy*.</span>
+<span class="sd">        Adjust scaling of the radius of the beachball, which is  proportional to the</span>
+<span class="sd">        magnitude. By default, *scale* defines the size for magnitude = 5 (i.e., scalar</span>
+<span class="sd">        seismic moment M0 = 4.0E23 dynes-cm). If **+l** is used the radius will be</span>
+<span class="sd">        proportional to the seismic moment instead. Use **+s** and give a *reference*</span>
+<span class="sd">        to change the reference magnitude (or moment), and use **+m** to plot all</span>
+<span class="sd">        beachballs with the same size. A text string can be specified to appear near</span>
+<span class="sd">        the beachball (corresponding to column or parameter ``event_name``). Append</span>
+<span class="sd">        **+a**\ *angle* to change the angle of the text string; append **+f**\ *font*</span>
+<span class="sd">        to change its font (size,fontname,color); append **+j**\ *justify* to change</span>
+<span class="sd">        the text location relative to the beachball [Default is ``&quot;TC&quot;``, i.e., Top</span>
+<span class="sd">        Center]; append **+o** to offset the text string by *dx*\ /*dy*.</span>
 <span class="sd">    convention : str</span>
 <span class="sd">        Focal mechanism convention. Choose from:</span>
 
-<span class="sd">        - ``&quot;aki&quot;`` (Aki &amp; Richards)</span>
+<span class="sd">        - ``&quot;aki&quot;`` (Aki and Richards)</span>
 <span class="sd">        - ``&quot;gcmt&quot;`` (global CMT)</span>
 <span class="sd">        - ``&quot;mt&quot;`` (seismic moment tensor)</span>
 <span class="sd">        - ``&quot;partial&quot;`` (partial focal mechanism)</span>
 <span class="sd">        - ``&quot;principal_axis&quot;`` (principal axis)</span>
 
-<span class="sd">        Ignored if ``spec`` is a dictionary or pd.DataFrame.</span>
+<span class="sd">        Ignored if ``spec`` is a dict or :class:`pandas.DataFrame`.</span>
 <span class="sd">    component : str</span>
 <span class="sd">        The component of the seismic moment tensor to plot.</span>
 
 <span class="sd">        - ``&quot;full&quot;``: the full seismic moment tensor</span>
-<span class="sd">        - ``&quot;dc&quot;``: the closest double couple defined from the moment tensor</span>
-<span class="sd">          (zero trace and zero determinant)</span>
+<span class="sd">        - ``&quot;dc&quot;``: the closest double couple defined from the moment tensor (zero</span>
+<span class="sd">          trace and zero determinant)</span>
 <span class="sd">        - ``&quot;deviatoric&quot;``: deviatoric part of the moment tensor (zero trace)</span>
-<span class="sd">    longitude : float, list, or 1-D numpy array</span>
-<span class="sd">        Longitude(s) of event location(s). Must be the same length as the</span>
-<span class="sd">        number of events. Will override the ``longitude`` values</span>
-<span class="sd">        in ``spec`` if ``spec`` is a dictionary or pd.DataFrame.</span>
-<span class="sd">    latitude : float, list, or 1-D numpy array</span>
-<span class="sd">        Latitude(s) of event location(s). Must be the same length as the</span>
-<span class="sd">        number of events. Will override the ``latitude`` values</span>
-<span class="sd">        in ``spec`` if ``spec`` is a dictionary or pd.DataFrame.</span>
-<span class="sd">    depth : float, list, or 1-D numpy array</span>
-<span class="sd">        Depth(s) of event location(s) in kilometers. Must be the same length</span>
-<span class="sd">        as the number of events. Will override the ``depth`` values in ``spec``</span>
-<span class="sd">        if ``spec`` is a dictionary or pd.DataFrame.</span>
-<span class="sd">    plot_longitude : float, str, list, or 1-D numpy array</span>
-<span class="sd">        Longitude(s) at which to place beachball(s). Must be the same length</span>
-<span class="sd">        as the number of events. Will override the ``plot_longitude`` values</span>
-<span class="sd">        in ``spec`` if ``spec`` is a dictionary or pd.DataFrame.</span>
-<span class="sd">    plot_latitude : float, str, list, or 1-D numpy array</span>
-<span class="sd">        Latitude(s) at which to place beachball(s). List must be the same</span>
-<span class="sd">        length as the number of events. Will override the ``plot_latitude``</span>
-<span class="sd">        values in ``spec`` if ``spec`` is a dictionary or pd.DataFrame.</span>
+<span class="sd">    longitude/latitude/depth : float, list, or 1-D numpy array</span>
+<span class="sd">        Longitude(s) / latitude(s) / depth(s) of the event(s). Length must match the</span>
+<span class="sd">        number of events. Overrides the ``longitude`` / ``latitude`` / ``depth`` values</span>
+<span class="sd">        in ``spec`` if ``spec`` is a dict or :class:`pandas.DataFrame`.</span>
+<span class="sd">    plot_longitude/plot_latitude : float, str, list, or 1-D numpy array</span>
+<span class="sd">        Longitude(s) / Latitude(s) at which to place the beachball(s). Length must match</span>
+<span class="sd">        the number of events. Overrides the ``plot_longitude`` / ``plot_latitude``</span>
+<span class="sd">        values in ``spec`` if ``spec`` is a dict or :class:`pandas.DataFrame`.</span>
 <span class="sd">    event_name : str, list of str, or 1-D numpy array</span>
-<span class="sd">        Text string(s), e.g., event name(s) to appear near the beachball(s).</span>
-<span class="sd">        List must be the same length as the number of events. Will override</span>
-<span class="sd">        the ``event_name`` labels in ``spec`` if ``spec`` is a dictionary</span>
-<span class="sd">        or pd.DataFrame.</span>
+<span class="sd">        Text string(s), e.g., event name(s) to appear near the beachball(s). Length</span>
+<span class="sd">        must match the number of events. Overrides the ``event_name`` labels in ``spec``</span>
+<span class="sd">        if ``spec`` is a dict or :class:`pandas.DataFrame`.</span>
 <span class="sd">    labelbox : bool or str</span>
 <span class="sd">        [*fill*].</span>
-<span class="sd">        Draw a box behind the label if given. Use *fill* to give a fill color</span>
-<span class="sd">        [Default is ``&quot;white&quot;``].</span>
+<span class="sd">        Draw a box behind the label if given via ``event_name``. Use *fill* to give a</span>
+<span class="sd">        fill color [Default is ``&quot;white&quot;``].</span>
 <span class="sd">    offset : bool or str</span>
 <span class="sd">        [**+p**\ *pen*][**+s**\ *size*].</span>
-<span class="sd">        Offset beachball(s) to longitude(s) and latitude(s) specified in the</span>
-<span class="sd">        the last two columns of the input file or array, or by</span>
-<span class="sd">        ``plot_longitude`` and ``plot_latitude`` if provided. A small circle</span>
-<span class="sd">        is plotted at the initial location and a line connects the beachball</span>
-<span class="sd">        to the circle. Use **+s**\ *size* to set the diameter of the circle</span>
-<span class="sd">        [Default is no circle]. Use **+p**\ *pen* to set the pen attributes</span>
-<span class="sd">        for this feature [Default is set via ``pen``]. The fill of the</span>
-<span class="sd">        circle is set via ``compressionfill`` or ``cmap``, i.e.,</span>
-<span class="sd">        corresponds to the fill of the compressive quadrants.</span>
+<span class="sd">        Offset beachball(s) to the longitude(s) and latitude(s) specified in the last</span>
+<span class="sd">        two columns of the input file or array, or by ``plot_longitude`` and</span>
+<span class="sd">        ``plot_latitude`` if provided. A line from the beachball to the initial location</span>
+<span class="sd">        is drawn. Use **+s**\ *size* to plot a small circle at the initial location and</span>
+<span class="sd">        to set the diameter of this circle [Default is no circle]. Use **+p**\ *pen* to</span>
+<span class="sd">        set the pen attributes for this feature [Default is set via ``pen``]. The fill</span>
+<span class="sd">        of the circle is set via ``compressionfill`` or ``cmap``, i.e., corresponds to</span>
+<span class="sd">        the fill of the compressive quadrants.</span>
 <span class="sd">    compressionfill : str</span>
-<span class="sd">        Set color or pattern for filling compressive quadrants</span>
-<span class="sd">        [Default is ``&quot;black&quot;``]. This setting also applies to the fill of</span>
-<span class="sd">        the circle defined via ``offset``.</span>
+<span class="sd">        Set color or pattern for filling compressive quadrants [Default is ``&quot;black&quot;``].</span>
+<span class="sd">        This setting also applies to the fill of the circle defined via ``offset``.</span>
 <span class="sd">    extensionfill : str</span>
-<span class="sd">        Set color or pattern for filling extensive quadrants</span>
-<span class="sd">        [Default is ``&quot;white&quot;``].</span>
+<span class="sd">        Set color or pattern for filling extensive quadrants [Default is ``&quot;white&quot;``].</span>
 <span class="sd">    pen : str</span>
-<span class="sd">        Set pen attributes for all lines related to beachball [Default is</span>
-<span class="sd">        ``&quot;0.25p,black,solid&quot;``]. This setting applies to ``outline``,</span>
-<span class="sd">        ``nodal``, and ``offset``, unless overruled by arguments passed to</span>
-<span class="sd">        those parameters. Draws circumference of beachball.</span>
+<span class="sd">        Set (default) pen attributes for all lines related to the beachball [Default is</span>
+<span class="sd">        ``&quot;0.25p,black,solid&quot;``]. This setting applies to ``outline``, ``nodal``, and</span>
+<span class="sd">        ``offset``, unless overruled by arguments passed to those parameters. Draws the</span>
+<span class="sd">        circumference of the beachball.</span>
 <span class="sd">    outline : bool or str</span>
 <span class="sd">        [*pen*].</span>
-<span class="sd">        Draw circumference and nodal planes of beachball. Use *pen* to set</span>
-<span class="sd">        the pen attributes for this feature [Default is set via ``pen``].</span>
+<span class="sd">        Draw circumference and nodal planes of the beachball. Use *pen* to set  the pen</span>
+<span class="sd">        attributes for this feature [Default is set via ``pen``].</span>
 <span class="sd">    nodal : bool, int, or str</span>
 <span class="sd">        [*nplane*][/*pen*].</span>
-<span class="sd">        Plot the nodal planes and outline the bubble which is transparent.</span>
-<span class="sd">        If *nplane* is</span>
+<span class="sd">        Plot the nodal planes and outline the bubble which is transparent. If *nplane*</span>
+<span class="sd">        is</span>
 
 <span class="sd">        - ``0`` or ``True``: both nodal planes are plotted [Default].</span>
 <span class="sd">        - ``1``: only the first nodal plane is plotted.</span>
 <span class="sd">        - ``2``: only the second nodal plane is plotted.</span>
 
-<span class="sd">        Use /*pen* to set the pen attributes for this feature [Default is</span>
-<span class="sd">        set via ``pen``].</span>
-<span class="sd">        For double couple mechanisms, ``nodal`` renders the beachball</span>
-<span class="sd">        transparent by drawing only the nodal planes and the circumference.</span>
-<span class="sd">        For non-double couple mechanisms, ``nodal=0`` overlays best</span>
-<span class="sd">        double couple transparently.</span>
+<span class="sd">        Use /*pen* to set the pen attributes for this feature [Default is set via</span>
+<span class="sd">        ``pen``].</span>
+<span class="sd">        For double couple mechanisms, ``nodal`` renders the beachball transparent by</span>
+<span class="sd">        drawing only the nodal planes and the circumference. For non-double couple</span>
+<span class="sd">        mechanisms, ``nodal=0`` overlays best double couple transparently.</span>
 <span class="sd">    cmap : str</span>
 <span class="sd">        File name of a CPT file or a series of comma-separated colors (e.g.,</span>
-<span class="sd">        *color1,color2,color3*) to build a linear continuous CPT from those</span>
-<span class="sd">        colors automatically. The color of the compressive quadrants is</span>
-<span class="sd">        determined by the z-value (i.e., event depth or the third column for</span>
-<span class="sd">        an input file). This setting also applies to the fill of the circle</span>
-<span class="sd">        defined via ``offset``.</span>
+<span class="sd">        *color1,color2,color3*) to build a linear continuous CPT from those colors</span>
+<span class="sd">        automatically. The color of the compressive quadrants is determined by the</span>
+<span class="sd">        z-value (i.e., event depth or the third column for an input file). This setting</span>
+<span class="sd">        also applies to the fill of the circle defined via ``offset``.</span>
 <span class="sd">    no_clip : bool</span>
-<span class="sd">        Do **not** skip symbols that fall outside the frame boundaries</span>
-<span class="sd">        [Default is ``False``, i.e., plot symbols inside the frame</span>
-<span class="sd">        boundaries only].</span>
+<span class="sd">        Do **not** skip symbols that fall outside the frame boundaries [Default is</span>
+<span class="sd">       ``False``, i.e., plot symbols inside the frame boundaries only].</span>
 <span class="sd">    {projection}</span>
 <span class="sd">    {region}</span>
 <span class="sd">    {frame}</span>
@@ -583,7 +561,8 @@
             <span class="p">)</span>
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>  <span class="c1"># spec is a numpy array</span>
         <span class="k">if</span> <span class="n">convention</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;&#39;convention&#39; must be specified for an array input.&quot;</span><span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;&#39;convention&#39; must be specified for an array input.&quot;</span>
+            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="c1"># make sure convention is a name, not a code</span>
         <span class="n">convention</span> <span class="o">=</span> <span class="n">convention_name</span><span class="p">(</span><span class="n">convention</span><span class="p">)</span>
 
@@ -601,9 +580,10 @@
         <span class="k">elif</span> <span class="n">ncolsdiff</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
             <span class="n">colnames</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;plot_longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;plot_latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;event_name&quot;</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;Input array must have </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">colnames</span><span class="p">)</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">colnames</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="si">}</span><span class="s2"> columns.&quot;</span>
             <span class="p">)</span>
+            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="n">spec</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">colnames</span>
 
     <span class="c1"># Now spec is a pd.DataFrame or a file</span>
@@ -662,15 +642,15 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1ff03a3c">1ff03a3c</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2a84b5e4">2a84b5e4</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 05, 2024.
+      <span class="lastupdated">Last updated on Dec 31, 2024.
       </span></p>
   </div>
 
   
 <p>
-Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
 using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
 provided by <a href="https://readthedocs.org">Read the Docs</a>
 </p>
