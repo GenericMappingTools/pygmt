@@ -58,6 +58,7 @@
 ### Documentation
 
 * Add basic tutorial "Plotting polygons" ([#3593](https://github.com/GenericMappingTools/pygmt/pull/3593))
+* Update the gallery example for plotting lines with LineString/MultiLineString geometry ([#3711](https://github.com/GenericMappingTools/pygmt/pull/3711))
 * Add the PyGMT ecosystem page ([#3475](https://github.com/GenericMappingTools/pygmt/pull/3475))
 * Document the support policy for optional packages ([#3616](https://github.com/GenericMappingTools/pygmt/pull/3616))
 * Document the environment variables that can affect the behavior of PyGMT ([#3432](https://github.com/GenericMappingTools/pygmt/pull/3432))
