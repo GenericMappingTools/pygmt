@@ -122,7 +122,7 @@ def plot(
 
         - **Cartesian** coordinate system: *x* and *y* are the X- and Y-axes.
         - **Polar** coordinate system: *x* and *y* are theta and radius.
-        - **Gragraphic** coordinate system: *x* and *y* are parallels and meridians.
+        - **Geographic** coordinate system: *x* and *y* are parallels and meridians.
 
     {frame}
     {cmap}
