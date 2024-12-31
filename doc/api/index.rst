@@ -235,6 +235,7 @@ and store them in GMT's user data directory.
     datasets.load_black_marble
     datasets.load_blue_marble
     datasets.load_earth_age
+    datasets.load_earth_deflection
     datasets.load_earth_dist
     datasets.load_earth_free_air_anomaly
     datasets.load_earth_geoid
