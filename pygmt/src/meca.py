@@ -323,7 +323,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
         [**+p**\ *pen*][**+s**\ *size*].
         Offset beachball(s) to the longitude(s) and latitude(s) specified in the last
         two columns of the input file or array, or by ``plot_longitude`` and
-        ``plot_latitude`` if provided. A line from the beachball to the inital location
+        ``plot_latitude`` if provided. A line from the beachball to the initial location
         is drawn. Use **+s**\ *size* to plot a small circle at the initial location and
         to set the diameter of this circle [Default is no circle]. Use **+p**\ *pen* to
         set the pen attributes for this feature [Default is set via ``pen``]. The fill
