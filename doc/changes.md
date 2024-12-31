@@ -6,9 +6,10 @@
 
 ### Highlights
 
-* 🎉 Fourteenth minor release of PyGMT 🎉
+* 🎉 **Fourteenth minor release of PyGMT** 🎉
 * Bump minimum supported version to GMT>=6.4.0 ([#3450](https://github.com/GenericMappingTools/pygmt/pull/3450))
 * Two new plotting methods and six new functions to access more GMT remote datasets
+* PyArrow as an optional dependency and improved support of PyArrow data types ([#3592](https://github.com/GenericMappingTools/pygmt/pull/3592))
 
 ### New Features
 
@@ -34,7 +35,6 @@
 * GMT_IMAGE: Implement the to_dataarray method for 3-band images ([#3128](https://github.com/GenericMappingTools/pygmt/pull/3128))
 * Ensure non-ASCII characters are typeset correctly even if PS_CHAR_ENCODING is not "ISOLatin1+" ([#3611](https://github.com/GenericMappingTools/pygmt/pull/3611))
 * Add enums GridRegistration and GridType for grid registration and type ([#3693](https://github.com/GenericMappingTools/pygmt/pull/3693))
-* Add PyArrow as an optional dependency ([#3592](https://github.com/GenericMappingTools/pygmt/pull/3592))
 
 ### Deprecations
 
