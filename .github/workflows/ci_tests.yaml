@@ -165,8 +165,7 @@ jobs:
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
-        run: |
-          uv run dvc pull --no-run-cache --verbose && ls -lhR pygmt/tests/baseline/
+        run: uv run dvc pull --no-run-cache --verbose && ls -lhR pygmt/tests/baseline/
 
       # Install the package that we want to test
       - name: Install the package
