@@ -57,6 +57,7 @@ from pygmt.src.tilemap import tilemap
 from pygmt.src.timestamp import timestamp
 from pygmt.src.triangulate import triangulate
 from pygmt.src.velo import velo
+from pygmt.src.vlines import vlines
 from pygmt.src.which import which
 from pygmt.src.wiggle import wiggle
 from pygmt.src.x2sys_cross import x2sys_cross
