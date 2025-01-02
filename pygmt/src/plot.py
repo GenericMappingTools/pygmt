@@ -114,7 +114,8 @@ def plot(
         along such arcs) in the geographic coordinate system. The ``straight_line``
         parameter can control the drawing of line segments. Valid values are:
 
-        - ``True``: Draw line segments as straight lines in geographic projections.
+        - ``True``: Draw line segments as straight lines in geographic coordinate
+          systems.
         - ``"x"``: Draw line segments by first along *x*, then along *y*.
         - ``"y"``: Draw line segments by first along *y*, then along *x*.
 
@@ -124,6 +125,12 @@ def plot(
         - **Polar** coordinate system: *x* and *y* are theta and radius.
         - **Geographic** coordinate system: *x* and *y* are parallels and meridians.
 
+        .. attention::
+
+            There exits a bug in GMT<=6.5.0 that, in geographic coordinate systems, the
+            meaning of *x* and *y* is reversed, i.e., *x* means meridians and *y* means
+            parallels. The bug is fixed by upstream
+            `PR #8648 <https://github.com/GenericMappingTools/gmt/pull/8648>`__.
     {frame}
     {cmap}
     offset : str
@@ -220,6 +227,8 @@ def plot(
         ``x``/``y``.
     {wrap}
     """
+    # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
+    # parameter.
     kwargs = self._preprocess(**kwargs)
 
     kind = data_kind(data)
