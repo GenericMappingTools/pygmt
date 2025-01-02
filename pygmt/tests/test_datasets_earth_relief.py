@@ -192,6 +192,7 @@ def test_earth_relief_15s_default_registration():
     npt.assert_allclose(data.max(), -76.5, atol=0.5)
 
 
+# TODO(GMT X.Y.Z): Upstream bug which is not fixed yet.
 @pytest.mark.xfail(
     condition=Version(__gmt_version__) >= Version("6.5.0"),
     reason="Upstream bug tracked in https://github.com/GenericMappingTools/pygmt/issues/2511",

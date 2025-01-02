@@ -4,7 +4,7 @@ channels:
     - nodefaults
 dependencies:
     # Required dependencies
-    - python=3.12
+    - python=3.13
     - gmt=6.5.0
     - ghostscript=10.04.0
     - numpy
@@ -14,18 +14,19 @@ dependencies:
     - packaging
     # Optional dependencies
     - contextily
-    - geopandas<1.0
+    - geopandas
     - ipython
-    - pyarrow
+    - pyarrow-core
     - rioxarray
     # Development dependencies (general)
     - make
     - pip
     - python-build
     # Dev dependencies (building documentation)
+    - geodatasets
     - myst-nb
     - panel
-    - sphinx
+    - sphinx>=6.2
     - sphinx-autodoc-typehints
     - sphinx-copybutton
     - sphinx-design

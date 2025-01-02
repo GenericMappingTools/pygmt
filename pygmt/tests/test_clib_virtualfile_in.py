@@ -105,6 +105,7 @@ def test_virtualfile_in_fail_non_valid_data(data):
             )
 
 
+# TODO(GMT>6.5.0): Remove the xfail marker for GMT<=6.5.0.
 @pytest.mark.xfail(
     condition=Version(__gmt_version__) <= Version("6.5.0"),
     reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8600",
@@ -129,6 +130,8 @@ def test_virtualfile_in_matrix_string_dtype():
                 # not lib.virtualfile_from_matrix, but it's technically complicated.
 
 
+# TODO(PyGMT>=0.16.0): Remove this test in PyGMT v0.16.0 in which the old usage of
+# virtualfile_from_data is removed.
 def test_virtualfile_from_data():
     """
     Test the backwards compatibility of the virtualfile_from_data method.
