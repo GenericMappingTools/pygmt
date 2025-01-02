@@ -8,6 +8,7 @@ import pytest
 from packaging.version import Version
 from pygmt.clib import __gmt_version__
 from pygmt.datasets import load_earth_relief
+from pygmt.enums import GridRegistration
 from pygmt.exceptions import GMTInvalidInput
 
 
@@ -25,7 +26,7 @@ def test_earth_relief_01d_igpp_synbath(data_source):
     assert data.attrs["vertical_datum"] == "EGM96"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
-    assert data.gmt.registration == 0
+    assert data.gmt.registration == GridRegistration.GRIDLINE
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
     npt.assert_allclose(data.min(), -7174.0, atol=0.5)
@@ -45,7 +46,7 @@ def test_earth_relief_01d_gebco(data_source):
     assert data.attrs["vertical_datum"] == "EGM96"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
-    assert data.gmt.registration == 0
+    assert data.gmt.registration == GridRegistration.GRIDLINE
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
     npt.assert_allclose(data.min(), -7169.0, atol=1.0)
@@ -62,7 +63,7 @@ def test_earth_relief_01d_with_region_srtm():
         data_source="igpp",
     )
     assert data.shape == (11, 21)
-    assert data.gmt.registration == 0
+    assert data.gmt.registration == GridRegistration.GRIDLINE
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
     npt.assert_allclose(data.min(), -5118.0, atol=0.5)
@@ -79,7 +80,7 @@ def test_earth_relief_01d_with_region_gebco():
         data_source="gebco",
     )
     assert data.shape == (11, 21)
-    assert data.gmt.registration == 0
+    assert data.gmt.registration == GridRegistration.GRIDLINE
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
     npt.assert_allclose(data.min(), -5118.0, atol=1.0)
@@ -92,7 +93,7 @@ def test_earth_relief_30m():
     """
     data = load_earth_relief(resolution="30m")
     assert data.shape == (361, 721)
-    assert data.gmt.registration == 0
+    assert data.gmt.registration == GridRegistration.GRIDLINE
     npt.assert_allclose(data.lat, np.arange(-90, 90.5, 0.5))
     npt.assert_allclose(data.lon, np.arange(-180, 180.5, 0.5))
     npt.assert_allclose(data.min(), -8279.5, atol=0.5)
@@ -110,7 +111,7 @@ def test_earth_gebcosi_15m_with_region():
         data_source="gebcosi",
     )
     assert data.shape == (16, 8)
-    assert data.gmt.registration == 1
+    assert data.gmt.registration == GridRegistration.PIXEL
     npt.assert_allclose(data.lat, np.arange(-87.875, -84, 0.25))
     npt.assert_allclose(data.lon, np.arange(85.125, 87, 0.25))
     npt.assert_allclose(data.min(), -492, atol=1.0)
@@ -183,7 +184,7 @@ def test_earth_relief_15s_default_registration():
     """
     data = load_earth_relief(resolution="15s", region=[-10, -9.5, 4, 5])
     assert data.shape == (240, 120)
-    assert data.gmt.registration == 1
+    assert data.gmt.registration == GridRegistration.PIXEL
     npt.assert_allclose(data.coords["lat"].data.min(), 4.002083)
     npt.assert_allclose(data.coords["lat"].data.max(), 4.997917)
     npt.assert_allclose(data.coords["lon"].data.min(), -9.997917)
@@ -204,7 +205,7 @@ def test_earth_relief_03s_default_registration():
     """
     data = load_earth_relief(resolution="03s", region=[-10, -9.8, 4.9, 5])
     assert data.shape == (121, 241)
-    assert data.gmt.registration == 0
+    assert data.gmt.registration == GridRegistration.GRIDLINE
     npt.assert_allclose(data.coords["lat"].data.min(), 4.9)
     npt.assert_allclose(data.coords["lat"].data.max(), 5)
     npt.assert_allclose(data.coords["lon"].data.min(), -10)
