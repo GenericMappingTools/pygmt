@@ -59,7 +59,7 @@ jobs:
               - conda-forge
               - nodefaults
           create-args: >-
-            python=3.10
+            python=3.11
             gmt=${{ matrix.gmt_version }}
             ghostscript<10
             numpy<2
@@ -70,7 +70,7 @@ jobs:
             contextily
             geopandas
             ipython
-            pyarrow
+            pyarrow-core
             rioxarray
             sphinx-gallery
             make

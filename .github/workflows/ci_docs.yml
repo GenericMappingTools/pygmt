@@ -55,7 +55,7 @@ jobs:
         # Is it a draft Pull Request (true or false)?
         isDraft:
           - ${{ github.event.pull_request.draft }}
-        # Only run one job (Ubuntu + Python 3.12) for draft PRs
+        # Only run jobs on Ubuntu for draft PRs
         exclude:
           - os: macos-latest
             isDraft: true
@@ -92,7 +92,7 @@ jobs:
           # environment cache is persistent for one week.
           cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
           create-args: >-
-            python=3.12
+            python=3.13
             gmt=6.5.0
             ghostscript=10.04.0
             numpy
@@ -103,11 +103,12 @@ jobs:
             contextily
             geopandas
             ipython
-            pyarrow
+            pyarrow-core
             rioxarray
             make
             pip
             python-build
+            geodatasets
             myst-nb
             panel
             sphinx>=6.2
