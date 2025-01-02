@@ -173,7 +173,8 @@ class Session:
             the context manager).
         """
         if getattr(self, "_session_pointer", None) is None:
-            raise GMTCLibNoSessionError("No currently open GMT API session.")
+            msg = "No currently open GMT API session."
+            raise GMTCLibNoSessionError(msg)
         return self._session_pointer
 
     @session_pointer.setter
@@ -276,7 +277,8 @@ class Session:
         session = None
         value = c_get_enum(session, name.encode())
         if value is None or value == -99999:
-            raise GMTCLibError(f"Constant '{name}' doesn't exist in libgmt.")
+            msg = f"Constant '{name}' doesn't exist in libgmt."
+            raise GMTCLibError(msg)
         return value
 
     def get_libgmt_func(
@@ -382,7 +384,8 @@ class Session:
             We'll capture the messages and print them to stderr so that they will show
             up on the Jupyter notebook.
             """
-            # Have to use try..except due to upstream GMT bug in GMT <= 6.5.0.
+            # TODO(GMT>6.5.0): Remove the workaround for upstream bug in GMT<=6.5.0.
+            # Have to use try..except due to upstream GMT bug in GMT<=6.5.0.
             # See https://github.com/GenericMappingTools/pygmt/issues/3205.
             try:
                 message = message.decode().strip()
@@ -398,7 +401,9 @@ class Session:
         self._print_callback = print_func
 
         padding = self["GMT_PAD_DEFAULT"]
-        session_type = self["GMT_SESSION_EXTERNAL"]
+        # GMT_SESSION_EXTERNAL: GMT is called by an external wrapper.
+        # GMT_SESSION_NOGDALCLOSE: Do not call GDALDestroyDriverManager when using GDAL.
+        session_type = self["GMT_SESSION_EXTERNAL"] + self["GMT_SESSION_NOGDALCLOSE"]
         session = c_create_session(name.encode(), padding, session_type, print_func)
 
         if session is None:
@@ -558,7 +563,8 @@ class Session:
         pygmt.exceptions.GMTInvalidInput: Unknown GMT common option flag 'A'.
         """
         if option not in "BIJRUVXYabfghinoprst:":
-            raise GMTInvalidInput(f"Unknown GMT common option flag '{option}'.")
+            msg = f"Unknown GMT common option flag '{option}'."
+            raise GMTInvalidInput(msg)
 
         c_get_common = self.get_libgmt_func(
             "GMT_Get_Common",
@@ -1194,7 +1200,8 @@ class Session:
             data,
         )
         if data_ptr is None:
-            raise GMTCLibError(f"Failed to read dataset from '{infile}'.")
+            msg = f"Failed to read dataset from '{infile}'."
+            raise GMTCLibError(msg)
         return ctp.cast(data_ptr, ctp.POINTER(dtype))
 
     def write_data(self, family, geometry, mode, wesn, output, data):
@@ -1264,7 +1271,8 @@ class Session:
             data,
         )
         if status != 0:
-            raise GMTCLibError(f"Failed to write dataset to '{output}'")
+            msg = f"Failed to write dataset to '{output}'."
+            raise GMTCLibError(msg)
 
     @contextlib.contextmanager
     def open_virtualfile(
@@ -1381,6 +1389,7 @@ class Session:
                 msg = f"Failed to close virtual file '{vfname}'."
                 raise GMTCLibError(msg)
 
+    # TODO(PyGMT>=0.15.0): Remove the deprecated open_virtual_file method.
     def open_virtual_file(self, family, geometry, direction, data):
         """
         Open a GMT virtual file associated with a data object for reading or writing.
@@ -1447,9 +1456,9 @@ class Session:
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <1/3> <4/6> <7/9>
         """
+        # TODO(PyGMT>=0.16.0): Remove the "*args" parameter and related codes.
         # "*args" is added in v0.14.0 for backward-compatibility with the deprecated
         # syntax of passing multiple vectors as positional arguments.
-        # Remove it in v0.16.0.
         if len(args) > 0:
             msg = (
                 "Passing multiple arguments to Session.virtualfile_from_vectors is "
@@ -1856,9 +1865,8 @@ class Session:
             elif check_kind == "vector":
                 valid_kinds += ("empty", "matrix", "vectors", "geojson")
             if kind not in valid_kinds:
-                raise GMTInvalidInput(
-                    f"Unrecognized data type for {check_kind}: {type(data)}"
-                )
+                msg = f"Unrecognized data type for {check_kind}: {type(data)}."
+                raise GMTInvalidInput(msg)
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
@@ -1912,6 +1920,7 @@ class Session:
         file_context = _virtualfile_from(_data)
         return file_context
 
+    # TODO(PyGMT>=0.15.0): Remove the deprecated virtualfile_from_data method.
     def virtualfile_from_data(
         self,
         check_kind=None,
@@ -2110,7 +2119,8 @@ class Session:
         if kind is None:  # Return the ctypes void pointer
             return pointer
         if kind == "cube":
-            raise NotImplementedError(f"kind={kind} is not supported yet.")
+            msg = f"kind={kind} is not supported yet."
+            raise NotImplementedError(msg)
         dtype = {"dataset": _GMT_DATASET, "grid": _GMT_GRID, "image": _GMT_IMAGE}[kind]
         return ctp.cast(pointer, ctp.POINTER(dtype))
 
@@ -2378,5 +2388,6 @@ class Session:
             region.ctypes.data_as(ctp.POINTER(ctp.c_double)),
         )
         if status != 0:
-            raise GMTCLibError("Failed to extract region from current figure.")
+            msg = "Failed to extract region from current figure."
+            raise GMTCLibError(msg)
         return region

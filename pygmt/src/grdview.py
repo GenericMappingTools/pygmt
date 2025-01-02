@@ -61,7 +61,7 @@ def grdview(self, grid, **kwargs):
     {frame}
     cmap : str
         The name of the color palette table to use.
-    drapegrid : str or xarray.DataArray
+    drapegrid : str or :class:`xarray.DataArray`
         The file name or a DataArray of the image grid to be draped on top
         of the relief provided by ``grid`` [Default determines colors from grid].
         Note that ``zscale`` and ``plane`` always refer to the grid.
