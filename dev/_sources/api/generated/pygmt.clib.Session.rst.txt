@@ -65,10 +65,6 @@ pygmt.clib.Session
     
     
     
-    Session.open_virtual_file
-    
-    
-    
     Session.open_virtualfile
     
     
@@ -90,10 +86,6 @@ pygmt.clib.Session
     
     
     Session.read_virtualfile
-    
-    
-    
-    Session.virtualfile_from_data
     
     
     
