@@ -22,6 +22,7 @@ assignees: ''
 - [ ] Check [SPEC 0](https://scientific-python.org/specs/spec-0000/) to see if we need to bump the minimum supported versions of GMT, Python and core package dependencies (NumPy, pandas, Xarray)
 - [ ] Review the ["PyGMT Team" page](https://www.pygmt.org/dev/team.html)
 - [ ] Check to ensure that:
+  - [ ] README looks good on TestPyPI. Visit [TestPyPI](https://test.pypi.org/project/pygmt/#history), click the latest pre-release, and check the homepage.
   - [ ] Deprecated workarounds/codes/tests are removed. Run `grep "# TODO" **/*.py` to find all potential TODOs.
   - [ ] All tests pass in the ["GMT Legacy Tests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_legacy.yaml)
   - [ ] All tests pass in the ["GMT Dev Tests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml)
