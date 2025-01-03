@@ -36,6 +36,7 @@ Plotting map elements
     Figure.solar
     Figure.text
     Figure.timestamp
+    Figure.vlines
 
 Plotting tabular data
 ~~~~~~~~~~~~~~~~~~~~~
@@ -234,6 +235,7 @@ and store them in GMT's user data directory.
     datasets.load_black_marble
     datasets.load_blue_marble
     datasets.load_earth_age
+    datasets.load_earth_deflection
     datasets.load_earth_dist
     datasets.load_earth_free_air_anomaly
     datasets.load_earth_geoid
@@ -333,7 +335,6 @@ Low level access (these are mostly used by the :mod:`pygmt.clib` package):
     clib.Session.read_virtualfile
     clib.Session.extract_region
     clib.Session.get_libgmt_func
-    clib.Session.virtualfile_from_data
     clib.Session.virtualfile_from_grid
     clib.Session.virtualfile_from_stringio
     clib.Session.virtualfile_from_matrix
