@@ -1389,24 +1389,6 @@ class Session:
                 msg = f"Failed to close virtual file '{vfname}'."
                 raise GMTCLibError(msg)
 
-    # TODO(PyGMT>=0.15.0): Remove the deprecated open_virtual_file method.
-    def open_virtual_file(self, family, geometry, direction, data):
-        """
-        Open a GMT virtual file associated with a data object for reading or writing.
-
-        .. deprecated: 0.11.0
-
-           Will be removed in v0.15.0. Use :meth:`pygmt.clib.Session.open_virtualfile`
-           instead.
-        """
-        msg = (
-            "API function `Session.open_virtual_file()' has been deprecated "
-            "since v0.11.0 and will be removed in v0.15.0. "
-            "Use `Session.open_virtualfile()' instead."
-        )
-        warnings.warn(msg, category=FutureWarning, stacklevel=2)
-        return self.open_virtualfile(family, geometry, direction, data)
-
     @contextlib.contextmanager
     def virtualfile_from_vectors(
         self, vectors: Sequence, *args
