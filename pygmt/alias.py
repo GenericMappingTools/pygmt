@@ -1,5 +1,5 @@
 """
-Alias system that converts PyGMT parameters to GMT short-form options.
+Alias system converting PyGMT parameters to GMT short-form options.
 """
 
 import dataclasses
@@ -20,14 +20,18 @@ def value_to_string(
     """
     Convert any value to a string, a sequence of strings or None.
 
-    ``None`` or ``False`` will be converted to ``None``.
+    - ``None`` or ``False`` will be converted to ``None``.
+    - ``True`` will be converted to an empty string.
+    - A sequence will be joined by the separator if a separator is provided. Otherwise,
+      each item in the sequence will be converted to a string and a sequence of strings
+      will be returned.
+    - Any other value will be converted to a string if possible.
 
-    ``True`` will be converted to an empty string. If the value is a sequence and a
-    separator is provided, the sequence will be joined by the separator. Otherwise, each
-    item in the sequence will be converted to a string and a sequence of strings will be
-    returned. Any other value will be converted to a string if possible. It also tried
-    to convert PyGMT's long-form arguments into GMT's short-form arguments by using a
-    mapping dictionary or simply using the first letter of the long-form arguments.
+    If a mapping dictionary is provided, the value will be converted to the short-form
+    value that GMT accepts (e.g., mapping PyGMT long-form argument ``high`` to GMT's
+    short-form argument ``h``). For values not in the mapping dictionary, the original
+    value will be returned. If ``mapping`` is set to ``True``, the first letter of the
+    long-form argument will be used as the short-form argument.
 
     An optional prefix (e.g., `"+o"`) can be added to the beginning of the converted
     string.
@@ -37,12 +41,17 @@ def value_to_string(
     value
         The value to convert.
     prefix
-        The string to add as a prefix to the value.
+        The string to add as a prefix to the returned value.
     separator
         The separator to use if the value is a sequence.
     mapping
-        Map long-form arguments to GMT's short-form arguments. If ``True``, will use the
-        first letter of the long-form arguments.
+        A mapping dictionary or ``True`` to map long-form arguments to GMT's short-form
+        arguments. If ``True``, will use the first letter of the long-form arguments.
+
+    Returns
+    -------
+    ret
+        The converted value.
 
     Examples
     --------
@@ -66,8 +75,6 @@ def value_to_string(
     ['xaf', 'yaf', 'WSen']
     >>> value_to_string("high", mapping=True)
     'h'
-    >>> value_to_string("low", mapping=True)
-    'l'
     >>> value_to_string("mean", mapping={"mean": "a", "mad": "d", "full": "g"})
     'a'
     >>> value_to_string("invalid", mapping={"mean": "a", "mad": "d", "full": "g"})
@@ -77,11 +84,11 @@ def value_to_string(
     if value is None or value is False:
         return None
     # True means the parameter is specified, returns an empty string with the optional
-    # prefix ('prefix' defaults to an empty string!).
+    # prefix. We don't have to check 'prefix' since it defaults to an empty string!
     if value is True:
         return f"{prefix}"
 
-    # Convert any value to a string or a sequence of strings
+    # Convert any value to a string or a sequence of strings.
     if is_nonstr_iter(value):  # Is a sequence
         value = [str(item) for item in value]  # Convert to a sequence of strings
         if separator is None:
@@ -89,8 +96,8 @@ def value_to_string(
             # a sequence of strings, which is used to support repeated GMT options like
             # '-B'. 'prefix' makes no sense here, so ignored.
             return value
-        value = separator.join(value)  # Join the sequence by the specified separator.
-    if mapping:  # Mapping long-form arguments to short-form arguments
+        value = separator.join(value)  # Join the sequence with the separator.
+    elif mapping:  # Mapping long-form arguments to short-form arguments.
         value = value[0] if mapping is True else mapping.get(value, value)
     return f"{prefix}{value}"
 
