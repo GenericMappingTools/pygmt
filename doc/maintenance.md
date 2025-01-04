@@ -148,34 +148,35 @@ patch release.
 
 ## Backwards Compatibility and Deprecation Policy
 
-PyGMT is still undergoing rapid development. All of the API is subject to change
-until the v1.0.0 release. Versioning in PyGMT is based on the
+PyGMT is still undergoing rapid development. All of the API is subject to change until
+the v1.0.0 release. Versioning in PyGMT is based on the
 [semantic versioning specification](https://semver.org/spec/v2.0.0.html)
-(i.e., v*MAJOR*.*MINOR*.*PATCH*).
-Basic policy for backwards compatibility:
+(i.e., v*MAJOR*.*MINOR*.*PATCH*). Basic policy for backwards compatibility:
 
 - Any incompatible changes should go through the deprecation process below.
-- Incompatible changes are only allowed in major and minor releases, not in
-  patch releases.
+- Incompatible changes are only allowed in major and minor releases, not in patch releases.
 - Incompatible changes should be documented in the release notes.
 
 When making incompatible changes, we should follow the process:
 
 - Discuss whether the incompatible changes are necessary on GitHub.
-- Make the changes in a backwards compatible way, and raise a `FutureWarning`
-  warning for the old usage. At least one test using the old usage should be added.
-- The warning message should clearly explain the changes and include the versions
-  in which the old usage is deprecated and is expected to be removed.
-- The `FutureWarning` warning should appear for 2-4 minor versions, depending on
-  the impact of the changes. It means the deprecation period usually lasts
-  3-12 months.
+- Make the changes in a backwards compatible way, and raise a `FutureWarning` warning
+  for the old usage. At least one test using the old usage should be added.
+- The warning message should clearly explain the changes and include the versions in
+  which the old usage is deprecated and is expected to be removed.
+- The `FutureWarning` warning should appear for 2-4 minor versions, depending on the
+  impact of the changes. It means the deprecation period usually lasts 3-12 months.
 - Remove the old usage and warning when reaching the declared version.
 
-To rename a function parameter, add the `@deprecate_parameter` decorator near
-the top after the `@fmt_docstring` decorator but before the `@use_alias`
-decorator (if those two exist). Here is an example:
+### Deprecating a function parameter
 
-```
+To rename a function parameter, add the `@deprecate_parameter` decorator near the top
+after the `@fmt_docstring` decorator but before the `@use_alias` decorator (if those two
+exist). A `TODO` comment should also be added to indicate the deprecation period (see below).
+Here is an example:
+
+```python
+# TODO(PyGMT>=0.6.0): Remove the deprecated "columns" parameter.
 @fmt_docstring
 @deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
 @use_alias(J="projection", R="region", V="verbose", i="incols")
@@ -184,8 +185,30 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     pass
 ```
 
-In this case, the old parameter name `columns` is deprecated since v0.4.0, and
-will be fully removed in v0.6.0. The new parameter name is `incols`.
+In this case, the old parameter name `columns` is deprecated since v0.4.0, and will be
+fully removed in v0.6.0. The new parameter name is `incols`.
+
+### TODO comments
+
+Occasionally, we need to implement temporary code that should be removed in the future.
+This can occur in situations such as:
+
+- When a parameter, function, or method is deprecated and scheduled for removal.
+- When workarounds are necessary to address issues in older or upcoming versions of GMT
+  or other dependencies.
+
+To track these temporary codes or workarounds, we use TODO comments. These comments
+should adhere to the following format:
+
+```python
+# TODO(package>=X.Y.Z): A brief description of the TODO item.
+# Additional details if necessary.
+```
+The TODO comment indicates that we should address the item when *package* version
+*X.Y.Z* or later is required.
+
+It's important not to overuse TODO comments for tracking unimplemented features.
+Instead, open issues to monitor these features.
 
 
 ## Making a Release
