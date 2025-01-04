@@ -38,10 +38,10 @@ class GMTRemoteDataset(NamedTuple):
 
     Attributes
     ----------
-    kind
-        The kind of the dataset source. Valid values are ``"grid"`` and ``"image"``.
     description
         The name assigned as an attribute to the DataArray.
+    kind
+        The kind of the dataset source. Valid values are ``"grid"`` and ``"image"``.
     units
         The units of the values in the DataArray.
     resolutions
@@ -50,8 +50,8 @@ class GMTRemoteDataset(NamedTuple):
         A dictionary of extra or unique attributes of the dataset.
     """
 
-    kind: Literal["grid", "image"]
     description: str
+    kind: Literal["grid", "image"]
     units: str | None
     resolutions: dict[str, Resolution]
     extra_attributes: dict[str, Any]
@@ -59,8 +59,8 @@ class GMTRemoteDataset(NamedTuple):
 
 datasets = {
     "earth_age": GMTRemoteDataset(
-        kind="grid",
         description="EarthByte Earth seafloor crustal age",
+        kind="grid",
         units="Myr",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -78,8 +78,8 @@ datasets = {
         },
     ),
     "earth_day": GMTRemoteDataset(
-        kind="image",
         description="NASA Day Images",
+        kind="image",
         units=None,
         extra_attributes={"long_name": "blue_marble", "horizontal_datum": "WGS84"},
         resolutions={
@@ -99,6 +99,7 @@ datasets = {
     ),
     "earth_dist": GMTRemoteDataset(
         description="GSHHG Earth distance to shoreline",
+        kind="grid",
         units="kilometers",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -117,6 +118,7 @@ datasets = {
     ),
     "earth_edefl": GMTRemoteDataset(
         description="IGPP Earth east-west deflection",
+        kind="grid",
         units="micro-radians",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -134,8 +136,8 @@ datasets = {
         },
     ),
     "earth_faa": GMTRemoteDataset(
-        kind="grid",
         description="IGPP Earth free-air anomaly",
+        kind="grid",
         units="mGal",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -154,6 +156,7 @@ datasets = {
     ),
     "earth_faaerror": GMTRemoteDataset(
         description="IGPP Earth free-air anomaly errors",
+        kind="grid",
         units="mGal",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -171,8 +174,8 @@ datasets = {
         },
     ),
     "earth_gebco": GMTRemoteDataset(
-        kind="grid",
         description="GEBCO Earth relief",
+        kind="grid",
         units="meters",
         extra_attributes={"vertical_datum": "EGM96", "horizontal_datum": "WGS84"},
         resolutions={
@@ -194,8 +197,8 @@ datasets = {
         },
     ),
     "earth_geoid": GMTRemoteDataset(
-        kind="grid",
         description="EGM2008 Earth geoid",
+        kind="grid",
         units="meters",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -213,8 +216,8 @@ datasets = {
         },
     ),
     "earth_igpp": GMTRemoteDataset(
-        kind="grid",
         description="IGPP Earth relief",
+        kind="grid",
         units="meters",
         extra_attributes={"vertical_datum": "EGM96", "horizontal_datum": "WGS84"},
         resolutions={
@@ -236,8 +239,8 @@ datasets = {
         },
     ),
     "earth_mag": GMTRemoteDataset(
-        kind="grid",
         description="EMAG2 Earth Magnetic Anomaly Model",
+        kind="grid",
         units="nT",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -254,8 +257,8 @@ datasets = {
         },
     ),
     "earth_mask": GMTRemoteDataset(
-        kind="grid",
         description="GSHHG Earth mask",
+        kind="grid",
         units=None,
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -276,6 +279,7 @@ datasets = {
     ),
     "earth_mss": GMTRemoteDataset(
         description="CNES Earth mean sea surface",
+        kind="grid",
         units="meters",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -293,8 +297,8 @@ datasets = {
         },
     ),
     "earth_night": GMTRemoteDataset(
-        kind="image",
         description="NASA Night Images",
+        kind="image",
         units=None,
         extra_attributes={"long_name": "black_marble", "horizontal_datum": "WGS84"},
         resolutions={
@@ -314,6 +318,7 @@ datasets = {
     ),
     "earth_mdt": GMTRemoteDataset(
         description="CNES Earth mean dynamic topography",
+        kind="grid",
         units="meters",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -327,6 +332,7 @@ datasets = {
     ),
     "earth_ndefl": GMTRemoteDataset(
         description="IGPP Earth north-south deflection",
+        kind="grid",
         units="micro-radians",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -344,8 +350,8 @@ datasets = {
         },
     ),
     "earth_vgg": GMTRemoteDataset(
-        kind="grid",
         description="IGPP Earth vertical gravity gradient",
+        kind="grid",
         units="Eotvos",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -363,8 +369,8 @@ datasets = {
         },
     ),
     "earth_wdmam": GMTRemoteDataset(
-        kind="grid",
         description="WDMAM World Digital Magnetic Anomaly Map",
+        kind="grid",
         units="nT",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -380,8 +386,8 @@ datasets = {
         },
     ),
     "mars_relief": GMTRemoteDataset(
-        kind="grid",
         description="NASA Mars (MOLA) relief",
+        kind="grid",
         units="meters",
         extra_attributes={},
         resolutions={
@@ -402,8 +408,8 @@ datasets = {
         },
     ),
     "moon_relief": GMTRemoteDataset(
-        kind="grid",
         description="USGS Moon (LOLA) relief",
+        kind="grid",
         units="meters",
         extra_attributes={},
         resolutions={
@@ -424,8 +430,8 @@ datasets = {
         },
     ),
     "mercury_relief": GMTRemoteDataset(
-        kind="grid",
         description="USGS Mercury relief",
+        kind="grid",
         units="meters",
         extra_attributes={},
         resolutions={
@@ -444,8 +450,8 @@ datasets = {
         },
     ),
     "pluto_relief": GMTRemoteDataset(
-        kind="grid",
         description="USGS Pluto relief",
+        kind="grid",
         units="meters",
         extra_attributes={},
         resolutions={
@@ -464,8 +470,8 @@ datasets = {
         },
     ),
     "venus_relief": GMTRemoteDataset(
-        kind="grid",
         description="NASA Magellan Venus relief",
+        kind="grid",
         units="meters",
         extra_attributes={},
         resolutions={
