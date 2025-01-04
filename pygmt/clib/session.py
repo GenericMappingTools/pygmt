@@ -384,7 +384,8 @@ class Session:
             We'll capture the messages and print them to stderr so that they will show
             up on the Jupyter notebook.
             """
-            # Have to use try..except due to upstream GMT bug in GMT <= 6.5.0.
+            # TODO(GMT>6.5.0): Remove the workaround for upstream bug in GMT<=6.5.0.
+            # Have to use try..except due to upstream GMT bug in GMT<=6.5.0.
             # See https://github.com/GenericMappingTools/pygmt/issues/3205.
             try:
                 message = message.decode().strip()
@@ -1388,23 +1389,6 @@ class Session:
                 msg = f"Failed to close virtual file '{vfname}'."
                 raise GMTCLibError(msg)
 
-    def open_virtual_file(self, family, geometry, direction, data):
-        """
-        Open a GMT virtual file associated with a data object for reading or writing.
-
-        .. deprecated: 0.11.0
-
-           Will be removed in v0.15.0. Use :meth:`pygmt.clib.Session.open_virtualfile`
-           instead.
-        """
-        msg = (
-            "API function `Session.open_virtual_file()' has been deprecated "
-            "since v0.11.0 and will be removed in v0.15.0. "
-            "Use `Session.open_virtualfile()' instead."
-        )
-        warnings.warn(msg, category=FutureWarning, stacklevel=2)
-        return self.open_virtualfile(family, geometry, direction, data)
-
     @contextlib.contextmanager
     def virtualfile_from_vectors(
         self, vectors: Sequence, *args
@@ -1454,9 +1438,9 @@ class Session:
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <1/3> <4/6> <7/9>
         """
+        # TODO(PyGMT>=0.16.0): Remove the "*args" parameter and related codes.
         # "*args" is added in v0.14.0 for backward-compatibility with the deprecated
         # syntax of passing multiple vectors as positional arguments.
-        # Remove it in v0.16.0.
         if len(args) > 0:
             msg = (
                 "Passing multiple arguments to Session.virtualfile_from_vectors is "
@@ -1917,42 +1901,6 @@ class Session:
         # Finally create the virtualfile from the data, to be passed into GMT
         file_context = _virtualfile_from(_data)
         return file_context
-
-    def virtualfile_from_data(
-        self,
-        check_kind=None,
-        data=None,
-        x=None,
-        y=None,
-        z=None,
-        extra_arrays=None,
-        required_z=False,
-        required_data=True,
-    ):
-        """
-        Store any data inside a virtual file.
-
-        .. deprecated: 0.13.0
-
-           Will be removed in v0.15.0. Use :meth:`pygmt.clib.Session.virtualfile_in`
-           instead.
-        """
-        msg = (
-            "API function 'Session.virtualfile_from_data()' has been deprecated since "
-            "v0.13.0 and will be removed in v0.15.0. Use 'Session.virtualfile_in()' "
-            "instead."
-        )
-        warnings.warn(msg, category=FutureWarning, stacklevel=2)
-        return self.virtualfile_in(
-            check_kind=check_kind,
-            data=data,
-            x=x,
-            y=y,
-            z=z,
-            extra_arrays=extra_arrays,
-            required_z=required_z,
-            required_data=required_data,
-        )
 
     @contextlib.contextmanager
     def virtualfile_out(

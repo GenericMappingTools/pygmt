@@ -1,6 +1,6 @@
 ---
 name: PyGMT release checklist
-about: Checklist for a new PyGMT release.
+about: Checklist for a new PyGMT release. [For project maintainers only!]
 title: Release PyGMT vX.Y.Z
 labels: maintenance
 assignees: ''
@@ -23,7 +23,7 @@ assignees: ''
       core package dependencies (NumPy, pandas, Xarray)
 - [ ] Review the ["PyGMT Team" page](https://www.pygmt.org/dev/team.html)
 - [ ] Check to ensure that:
-  - [ ] Deprecations and related tests are removed for this version by running `grep --include="*.py" -r vX.Y.Z` from the base of the repository
+  - [ ] Deprecated workarounds/codes/tests are removed. Run `grep "# TODO" **/*.py` to find all potential TODOs.
   - [ ] All tests pass in the ["GMT Legacy Tests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_legacy.yaml)
   - [ ] All tests pass in the ["GMT Dev Tests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml)
   - [ ] All tests pass in the ["Doctests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_doctests.yaml)

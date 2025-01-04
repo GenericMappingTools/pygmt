@@ -58,14 +58,14 @@ jobs:
           cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
           create-args: >-
             gmt=6.5.0
-            python=3.12
+            python=3.13
             numpy
             pandas
             xarray
             netCDF4
             packaging
             geopandas
-            pyarrow
+            pyarrow-core
             pytest
             pytest-codspeed
             pytest-mpl
