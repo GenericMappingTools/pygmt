@@ -94,7 +94,7 @@ datasets = {
     ),
     "earth_dist": GMTRemoteDataset(
         description="GSHHG Earth distance to shoreline",
-        units="km",
+        units="kilometers",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution("01d"),
@@ -110,8 +110,44 @@ datasets = {
             "01m": Resolution("01m", registrations=["gridline"], tiled=True),
         },
     ),
+    "earth_edefl": GMTRemoteDataset(
+        description="IGPP Earth east-west deflection",
+        units="micro-radians",
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution("01d"),
+            "30m": Resolution("30m"),
+            "20m": Resolution("20m"),
+            "15m": Resolution("15m"),
+            "10m": Resolution("10m"),
+            "06m": Resolution("06m"),
+            "05m": Resolution("05m", tiled=True),
+            "04m": Resolution("04m", tiled=True),
+            "03m": Resolution("03m", tiled=True),
+            "02m": Resolution("02m", tiled=True),
+            "01m": Resolution("01m", registrations=["pixel"], tiled=True),
+        },
+    ),
     "earth_faa": GMTRemoteDataset(
         description="IGPP Earth free-air anomaly",
+        units="mGal",
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution("01d"),
+            "30m": Resolution("30m"),
+            "20m": Resolution("20m"),
+            "15m": Resolution("15m"),
+            "10m": Resolution("10m"),
+            "06m": Resolution("06m"),
+            "05m": Resolution("05m", tiled=True),
+            "04m": Resolution("04m", tiled=True),
+            "03m": Resolution("03m", tiled=True),
+            "02m": Resolution("02m", tiled=True),
+            "01m": Resolution("01m", registrations=["pixel"], tiled=True),
+        },
+    ),
+    "earth_faaerror": GMTRemoteDataset(
+        description="IGPP Earth free-air anomaly errors",
         units="mGal",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -152,7 +188,7 @@ datasets = {
     ),
     "earth_geoid": GMTRemoteDataset(
         description="EGM2008 Earth geoid",
-        units="m",
+        units="meters",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution("01d"),
@@ -275,6 +311,24 @@ datasets = {
             "15m": Resolution("15m"),
             "10m": Resolution("10m"),
             "07m": Resolution("07m", registrations=["gridline"]),
+        },
+    ),
+    "earth_ndefl": GMTRemoteDataset(
+        description="IGPP Earth north-south deflection",
+        units="micro-radians",
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution("01d"),
+            "30m": Resolution("30m"),
+            "20m": Resolution("20m"),
+            "15m": Resolution("15m"),
+            "10m": Resolution("10m"),
+            "06m": Resolution("06m"),
+            "05m": Resolution("05m", tiled=True),
+            "04m": Resolution("04m", tiled=True),
+            "03m": Resolution("03m", tiled=True),
+            "02m": Resolution("02m", tiled=True),
+            "01m": Resolution("01m", registrations=["pixel"], tiled=True),
         },
     ),
     "earth_vgg": GMTRemoteDataset(

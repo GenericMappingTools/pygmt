@@ -248,6 +248,7 @@ class Figure:
         kwargs.pop("metadata", None)
         self.psconvert(prefix=prefix, fmt=fmts[ext], crop=crop, **kwargs)
 
+        # TODO(GMT>=6.5.0): Remove the workaround for upstream bug in GMT<6.5.0.
         # Remove the .pgw world file if exists. Not necessary after GMT 6.5.0.
         # See upstream fix https://github.com/GenericMappingTools/gmt/pull/7865
         if ext == "tiff":
@@ -417,6 +418,7 @@ class Figure:
         grdimage,
         grdview,
         histogram,
+        hlines,
         image,
         inset,
         legend,
@@ -435,6 +437,7 @@ class Figure:
         tilemap,
         timestamp,
         velo,
+        vlines,
         wiggle,
     )
 

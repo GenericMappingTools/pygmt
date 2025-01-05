@@ -103,6 +103,7 @@ def test_accessor_set_invalid_registration_and_gtype():
         grid.gmt.gtype = "geographic"
 
 
+# TODO(GMT>=6.5.0): Remove the xfail marker for GMT>=6.5.0.
 @pytest.mark.xfail(
     condition=sys.platform == "win32" and Version(__gmt_version__) < Version("6.5.0"),
     reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/7573",
