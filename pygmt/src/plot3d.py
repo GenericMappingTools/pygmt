@@ -128,6 +128,8 @@ def plot3d(
         - **Polar** coordinate system: *x* and *y* are theta and radius.
         - **Geographic** coordinate system: *x* and *y* are parallels and meridians.
 
+        **NOTE**: The ``straight_line`` parameter requires constant *z*-coordinates.
+
         .. attention::
 
             There exits a bug in GMT<=6.5.0 that, in geographic coordinate systems, the
