@@ -102,6 +102,8 @@
 * [Will Schlitzer](https://github.com/willschlitzer)
 * [Jiayuan Yao](https://github.com/core-man)
 
+---
+
 ## Release v0.13.0 (2024/09/05)
 
 [![Digital Object Identifier for PyGMT v0.13.0](https://zenodo.org/badge/DOI/10.5281/zenodo.13679420.svg)](https://doi.org/10.5281/zenodo.13679420)
@@ -279,6 +281,8 @@
 * [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
 * [Michael Grund](https://github.com/michaelgrund)
 * [Wei Ji Leong](https://github.com/weiji14)
+
+---
 
 ## Release v0.11.0 (2024/02/01)
 
