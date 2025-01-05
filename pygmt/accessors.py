@@ -150,8 +150,7 @@ class GMTDataArrayAccessor:
 
     @registration.setter
     def registration(self, value):
-        # TODO: Simplify to `if value not in GridRegistration` after requiring
-        # Python 3.12+.
+        # TODO(Python>=3.12): Simplify to `if value not in GridRegistration`.
         if value not in GridRegistration.__members__.values():
             msg = (
                 f"Invalid grid registration: '{value}'. "
@@ -169,7 +168,7 @@ class GMTDataArrayAccessor:
 
     @gtype.setter
     def gtype(self, value):
-        # TODO: Simplify to `if value not in GridType` after requiring Python 3.12+..
+        # TODO(Python>=3.12): Simplify to `if value not in GridType`.
         if value not in GridType.__members__.values():
             msg = (
                 f"Invalid grid coordinate system type: '{value}'. "
