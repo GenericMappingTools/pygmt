@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:06.450** total execution time for 13 files **from gallery/lines**:
+**00:06.474** total execution time for 13 files **from gallery/lines**:
 
 .. container::
 
@@ -33,40 +33,40 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_gallery_lines_linestrings.py` (``linestrings.py``)
-     - 00:02.838
+     - 00:02.773
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_quoted_lines.py` (``quoted_lines.py``)
-     - 00:01.150
+     - 00:01.165
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_envelope.py` (``envelope.py``)
-     - 00:00.309
+     - 00:00.319
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_decorated_lines.py` (``decorated_lines.py``)
-     - 00:00.301
+     - 00:00.310
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_vector_styles.py` (``vector_styles.py``)
-     - 00:00.294
+     - 00:00.301
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_vector_heads_tails.py` (``vector_heads_tails.py``)
-     - 00:00.259
+     - 00:00.268
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_line_custom_cpt.py` (``line_custom_cpt.py``)
-     - 00:00.222
+     - 00:00.233
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_great_circles.py` (``great_circles.py``)
-     - 00:00.211
+     - 00:00.218
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_linefronts.py` (``linefronts.py``)
-     - 00:00.205
+     - 00:00.213
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_line_segment_ends.py` (``line_segment_ends.py``)
-     - 00:00.202
+     - 00:00.208
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_linestyles.py` (``linestyles.py``)
-     - 00:00.178
+     - 00:00.181
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_connection_lines.py` (``connection_lines.py``)
-     - 00:00.154
+     - 00:00.160
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_wiggle.py` (``wiggle.py``)
      - 00:00.126

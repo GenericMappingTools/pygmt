@@ -28,7 +28,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=35ee300d"></script>
+        <script src="../../../_static/documentation_options.js?v=00410d46"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1600,24 +1600,6 @@
                 <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
 
 
-    <span class="c1"># TODO(PyGMT&gt;=0.15.0): Remove the deprecated open_virtual_file method.</span>
-    <span class="k">def</span> <span class="nf">open_virtual_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Open a GMT virtual file associated with a data object for reading or writing.</span>
-
-<span class="sd">        .. deprecated: 0.11.0</span>
-
-<span class="sd">           Will be removed in v0.15.0. Use :meth:`pygmt.clib.Session.open_virtualfile`</span>
-<span class="sd">           instead.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="s2">&quot;API function `Session.open_virtual_file()&#39; has been deprecated &quot;</span>
-            <span class="s2">&quot;since v0.11.0 and will be removed in v0.15.0. &quot;</span>
-            <span class="s2">&quot;Use `Session.open_virtualfile()&#39; instead.&quot;</span>
-        <span class="p">)</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_virtualfile</span><span class="p">(</span><span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-
 <div class="viewcode-block" id="Session.virtualfile_from_vectors">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.virtualfile_from_vectors.html#pygmt.clib.Session.virtualfile_from_vectors">[docs]</a>
     <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
@@ -2146,46 +2128,6 @@
         <span class="k">return</span> <span class="n">file_context</span></div>
 
 
-    <span class="c1"># TODO(PyGMT&gt;=0.15.0): Remove the deprecated virtualfile_from_data method.</span>
-<div class="viewcode-block" id="Session.virtualfile_from_data">
-<a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.virtualfile_from_data.html#pygmt.clib.Session.virtualfile_from_data">[docs]</a>
-    <span class="k">def</span> <span class="nf">virtualfile_from_data</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">check_kind</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">extra_arrays</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">required_z</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">required_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Store any data inside a virtual file.</span>
-
-<span class="sd">        .. deprecated: 0.13.0</span>
-
-<span class="sd">           Will be removed in v0.15.0. Use :meth:`pygmt.clib.Session.virtualfile_in`</span>
-<span class="sd">           instead.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="s2">&quot;API function &#39;Session.virtualfile_from_data()&#39; has been deprecated since &quot;</span>
-            <span class="s2">&quot;v0.13.0 and will be removed in v0.15.0. Use &#39;Session.virtualfile_in()&#39; &quot;</span>
-            <span class="s2">&quot;instead.&quot;</span>
-        <span class="p">)</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span>
-            <span class="n">check_kind</span><span class="o">=</span><span class="n">check_kind</span><span class="p">,</span>
-            <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
-            <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
-            <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
-            <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span>
-            <span class="n">extra_arrays</span><span class="o">=</span><span class="n">extra_arrays</span><span class="p">,</span>
-            <span class="n">required_z</span><span class="o">=</span><span class="n">required_z</span><span class="p">,</span>
-            <span class="n">required_data</span><span class="o">=</span><span class="n">required_data</span><span class="p">,</span>
-        <span class="p">)</span></div>
-
-
 <div class="viewcode-block" id="Session.virtualfile_out">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.virtualfile_out.html#pygmt.clib.Session.virtualfile_out">[docs]</a>
     <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
@@ -2646,10 +2588,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2a84b5e4">2a84b5e4</a></code>.
+    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/af66e2ab">af66e2ab</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 31, 2024.
+      <span class="lastupdated">Last updated on Jan 05, 2025.
       </span></p>
   </div>
 
