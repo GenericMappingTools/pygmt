@@ -66,7 +66,7 @@ def test_earth_faaerror_01d():
     assert data.attrs["units"] == "mGal"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
-    assert data.gmt.registration == 0
+    assert data.gmt.registration == GridRegistration.GRIDLINE
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
     npt.assert_allclose(data.min(), 0.0, atol=0.04)
@@ -81,7 +81,7 @@ def test_earth_faaerror_01d_with_region():
         resolution="01d", region=[-10, 10, -5, 5], uncertainty=True
     )
     assert data.shape == (11, 21)
-    assert data.gmt.registration == 0
+    assert data.gmt.registration == GridRegistration.GRIDLINE
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
     npt.assert_allclose(data.min(), 0.72, atol=0.04)
@@ -97,7 +97,7 @@ def test_earth_faaerror_01m_default_registration():
         resolution="01m", region=[-10, -9, 3, 5], uncertainty=True
     )
     assert data.shape == (120, 60)
-    assert data.gmt.registration == 1
+    assert data.gmt.registration == GridRegistration.PIXEL
     npt.assert_allclose(data.coords["lat"].data.min(), 3.008333333)
     npt.assert_allclose(data.coords["lat"].data.max(), 4.991666666)
     npt.assert_allclose(data.coords["lon"].data.min(), -9.99166666)
