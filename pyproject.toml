@@ -48,10 +48,11 @@ all = [
 ]
 
 [project.urls]
-homepage = "https://www.pygmt.org"
-documentation = "https://www.pygmt.org"
-repository = "https://github.com/GenericMappingTools/pygmt"
-changelog = "https://www.pygmt.org/latest/changes.html"
+"Homepage" = "https://www.pygmt.org"
+"Documentation" = "https://www.pygmt.org"
+"Source Code" = "https://github.com/GenericMappingTools/pygmt"
+"Changelog" = "https://www.pygmt.org/latest/changes.html"
+"Issue Tracker" = "https://github.com/GenericMappingTools/pygmt/issues"
 
 [tool.setuptools]
 platforms = ["Any"]
