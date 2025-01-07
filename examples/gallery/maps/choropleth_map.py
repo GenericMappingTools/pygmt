@@ -6,7 +6,7 @@ The :meth:`pygmt.Figure.plot` method allows us to plot geographical data such as
 polygons which are stored in a :class:`geopandas.GeoDataFrame` object. Use
 :func:`geopandas.read_file` to load data from any supported OGR format such as a
 shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. You can also use a full
-URL pointing to your desired data source. Then, pass the class:`geopandas.GeoDataFrame`
+URL pointing to your desired data source. Then, pass the :class:`geopandas.GeoDataFrame`
 as an argument to the ``data`` parameter of :meth:`pygmt.Figure.plot`, and style the
 geometry using the ``pen`` parameter. To fill the polygons based on a corresponding
 column you need to set ``fill="+z"`` as well as select the appropriate column using the
