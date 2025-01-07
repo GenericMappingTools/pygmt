@@ -181,8 +181,8 @@ class _FocalMechanismConvention:
         component
             The component of the seismic moment tensor to plot. Valid values are:
 
-            - ``"full"``: the full tensor seismic moment tensor
-            - ``"dc"``: the closest double coupe defined from the moment tensor (zero
+            - ``"full"``: the full seismic moment tensor
+            - ``"dc"``: the closest double couple defined from the moment tensor (zero
               trace and zero determinant)
             - ``"deviatoric"``: deviatoric part of the moment tensor (zero trace)
 
