@@ -16,22 +16,25 @@ fig.basemap(
     region=[0, 10, 0, 10], projection="X10c/10c", frame=["+thlines Cartesian", "af"]
 )
 
+# add a red horizontal line at y=9 without specifying limits
 fig.hlines(y=9, pen="1.5p,red3", label="Line 1")
+# add a gray dashed horizontal line at y=8 with x limits at 2 and 8
 fig.hlines(y=8, xmin=2, xmax=8, pen="1.5p,gray30,-", label="Line 2")
-fig.hlines(y=[6, 7], xmin=3, xmax=7, pen="1.5p,black,.", label="Line 3")
-fig.hlines(y=[4, 5], xmin=4, xmax=9, pen="1.5p,salmon", label="Line 4")
+# add two salmon-colored horizontal lines at y=6 and y=7 both with x limits at 3 and 7
+fig.hlines(y=[6, 7], xmin=3, xmax=7, pen="1.5p,salmon", label="Line 3")
+# add two black dotted horizontal lines at y=4 and y=5 both with x limits at 4 and 9
+fig.hlines(y=[4, 5], xmin=4, xmax=9, pen="1.5p,black,.", label="Line 4")
+# add two blue horizontal lines at y=2 and y=3 with different x limits
 fig.hlines(y=[2, 3], xmin=[0, 1], xmax=[7, 7.5], pen="1.5p,dodgerblue3", label="Line 5")
-fig.legend(position="JBR+jBR+o0.2c", box="+gwhite+p1p")
+fig.legend(position="JBR+jBR+o0.2c", box= "+gwhite+p1p")
 
 fig.shift_origin(xshift="w+2c")
 
-fig.basemap(
-    region=[0, 10, 0, 10], projection="X10c/10c", frame=["+tvlines Cartesian", "af"]
-)
+fig.basemap(region=[0, 10, 0, 10], projection="X10c/10c", frame=["+tvlines Cartesian", "af"])
 fig.vlines(x=1, pen="1.5p,red3", label="Line 1")
 fig.vlines(x=2, ymin=2, ymax=8, pen="1.5p,gray30,-", label="Line 2")
-fig.vlines(x=[3, 4], ymin=3, ymax=7, pen="1.5p,black,.", label="Line 3")
-fig.vlines(x=[5, 6], ymin=4, ymax=9, pen="1.5p,salmon", label="Line 4")
+fig.vlines(x=[3, 4], ymin=3, ymax=7, pen="1.5p,salmon", label="Line 3")
+fig.vlines(x=[5, 6], ymin=4, ymax=9, pen="1.5p,black,.", label="Line 4")
 fig.vlines(x=[7, 8], ymin=[0, 1], ymax=[7, 7.5], pen="1.5p,dodgerblue3", label="Line 5")
 fig.legend()
 
