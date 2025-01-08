@@ -54,9 +54,9 @@ fig.legend()
 fig.show()
 
 # %%
-# The same can be done for Geographic projections where horizontal means
-# the lines are plotted as parallels along constant latitude and vertical
-# lines are plotted as parallels along constant longitude.
+# The same can be done for Geographic projections where "horizontal" means lines 
+# are plotted along paralles (constant latitude) while "vertical" means lines are 
+# plotted along meridians (constant longitude).
 
 fig = pygmt.Figure()
 
@@ -85,8 +85,8 @@ fig.legend()
 fig.show()
 
 # %%
-# When using Polar projections horizontal means lines are plotted as
-# arcs along a constant radius while vertical lines are plotted as
+# When using Polar projections "horizontal" means lines are plotted as
+# arcs along a constant radius while "vertical" means lines are plotted as
 # straight lines along radius at a specified azimuth.
 
 fig = pygmt.Figure()
