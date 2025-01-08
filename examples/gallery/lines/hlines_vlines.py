@@ -55,7 +55,7 @@ fig.show()
 
 # %%
 # The same can be done for Geographic projections where "horizontal" means lines
-# are plotted along paralles (constant latitude) while "vertical" means lines are
+# are plotted along parallels (constant latitude) while "vertical" means lines are
 # plotted along meridians (constant longitude).
 
 fig = pygmt.Figure()
