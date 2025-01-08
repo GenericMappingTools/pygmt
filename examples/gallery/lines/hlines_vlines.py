@@ -56,6 +56,8 @@ fig.legend()
 fig.show()
 
 # %%
+# Geographic coordinate system
+# ----------------------------
 # The same can be done for Geographic projections where "horizontal" means lines
 # are plotted along parallels (constant latitude) while "vertical" means lines are
 # plotted along meridians (constant longitude).
@@ -87,6 +89,8 @@ fig.legend()
 fig.show()
 
 # %%
+# Polar coordinate system
+# -----------------------
 # When using Polar projections "horizontal" means lines are plotted as
 # arcs along a constant radius while "vertical" means lines are plotted as
 # straight lines along radius at a specified azimuth.
