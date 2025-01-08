@@ -27,7 +27,9 @@ fig.hlines(y=[6, 7], xmin=3, xmax=7, pen="1.5p,salmon", label="Lines 3 & 4")
 # add two black dotted horizontal lines at y=4 and y=5 both with x limits at 4 and 9
 fig.hlines(y=[4, 5], xmin=4, xmax=9, pen="1.5p,black,.", label="Lines 5 & 6")
 # add two blue horizontal lines at y=2 and y=3 with different x limits
-fig.hlines(y=[2, 3], xmin=[0, 1], xmax=[7, 7.5], pen="1.5p,dodgerblue3", label="Lines 7 & 8")
+fig.hlines(
+    y=[2, 3], xmin=[0, 1], xmax=[7, 7.5], pen="1.5p,dodgerblue3", label="Lines 7 & 8"
+)
 fig.legend(position="JBR+jBR+o0.2c", box="+gwhite+p1p")
 
 fig.shift_origin(xshift="w+2c")
@@ -44,7 +46,9 @@ fig.vlines(x=[3, 4], ymin=3, ymax=7, pen="1.5p,salmon", label="Lines 3 & 4")
 # add two black dotted vertical lines at x=5 and x=6 both with y limits at 4 and 9
 fig.vlines(x=[5, 6], ymin=4, ymax=9, pen="1.5p,black,.", label="Lines 5 & 6")
 # add two blue vertical lines at x=7 and x=8 with different y limits
-fig.vlines(x=[7, 8], ymin=[0, 1], ymax=[7, 7.5], pen="1.5p,dodgerblue3", label="Lines 7 & 8")
+fig.vlines(
+    x=[7, 8], ymin=[0, 1], ymax=[7, 7.5], pen="1.5p,dodgerblue3", label="Lines 7 & 8"
+)
 fig.legend()
 
 fig.show()
