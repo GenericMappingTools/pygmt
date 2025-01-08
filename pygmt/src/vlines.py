@@ -40,8 +40,7 @@ def vlines(
 
     - **Cartesian** coordinate system: lines are plotted as straight lines.
     - **Polar** projection: lines are plotted as straight lines along radius.
-    - **Geographic** projection: lines are plotted as meridians along constant
-      longitude.
+    - **Geographic** projection: lines are plotted along meridians (constant longitude).
 
     Parameters
     ----------
