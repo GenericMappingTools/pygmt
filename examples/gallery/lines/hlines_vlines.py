@@ -100,10 +100,10 @@ fig.shift_origin(xshift="w+2c")
 fig.basemap(region=[0, 360, 0, 1], projection="P10c", frame=["+tvlines Polar", "af"])
 # add a red vertical line along at an azimuth of 120° without specifying radius limits
 fig.vlines(120, pen="1.5p,red3", label="line1")
-# add a blue vertical line along at an azimuth of 190° with radius limits at 0.2 and 0.8.
+# add a blue vertical line along at an azimuth of 190° with radius limits at 0.2 and 0.8
 fig.vlines(190, ymin=0.2, ymax=0.8, pen="1.5p,dodgerblue3", label="line2")
 # add a gray dashed vertical line along at an azimuth of 320° with radius limits at 0.5 
-# and 0.9.
+# and 0.9
 fig.vlines(320, ymin=0.5, ymax=0.9, pen="1.5p,gray30,-", label="line3")
 fig.legend()
 
