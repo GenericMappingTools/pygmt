@@ -163,9 +163,14 @@ jobs:
           # to get the right commit hash.
           message="Deploy $version from $(git rev-parse --short HEAD)"
           cd deploy
-          # Need to have this file so that GitHub doesn't try to run Jekyll
+          # Create some files in the root directory.
+          # .nojekyll: Need to have this file so that GitHub doesn't try to run Jekyll
           touch .nojekyll
-          # Delete all the files and replace with our new  set
+          # CNAME: Set the custom domain name
+          echo "www.pygmt.org" > CNAME
+          # index.html: Redirect to the latest version
+          echo '<meta http-equiv="Refresh" content="0;url=latest/"/>' > index.html
+          # Delete all the files and replace with our new set
           echo -e "\nRemoving old files from previous builds of ${version}:"
           rm -rvf ${version}
           echo -e "\nCopying HTML files to ${version}:"
