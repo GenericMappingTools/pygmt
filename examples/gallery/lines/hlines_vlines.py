@@ -8,6 +8,8 @@ Cartesian, Geographic and Polar projections.
 """
 
 # %%
+# Cartesian coordinate system
+# ---------------------------
 # In Cartesian projections lines are plotted as straight lines.
 
 import pygmt
