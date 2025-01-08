@@ -85,7 +85,7 @@ def _check_ghostscript_version(gs_version: str | None) -> str | None:
     return None
 
 
-def show_versions(file: TextIO | None = sys.stdout):
+def show_versions(file: TextIO | None = sys.stdout) -> None:
     """
     Print various dependency versions which are useful when submitting bug reports.
 

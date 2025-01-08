@@ -5,7 +5,7 @@ Functions for downloading remote data files to cache.
 from pygmt.src import which
 
 
-def cache_data():
+def cache_data() -> None:
     """
     Download GMT remote data files used in PyGMT tests and docs to cache folder.
     """

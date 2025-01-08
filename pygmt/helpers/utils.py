@@ -43,7 +43,7 @@ Encoding = Literal[
 
 def _validate_data_input(
     data=None, x=None, y=None, z=None, required_z=False, required_data=True, kind=None
-):
+) -> None:
     """
     Check if the combination of data/x/y/z is valid.
 
@@ -552,7 +552,7 @@ def is_nonstr_iter(value):
     return isinstance(value, Iterable) and not isinstance(value, str)
 
 
-def launch_external_viewer(fname: str, waiting: float = 0):
+def launch_external_viewer(fname: str, waiting: float = 0) -> None:
     """
     Open a file in an external viewer program.
 
