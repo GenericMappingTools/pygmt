@@ -51,17 +51,23 @@ fig.show()
 fig = pygmt.Figure()
 
 fig.basemap(region="g", projection="R15c", frame=["+thlines Geographic", "af"])
-fig.hlines(70, xmin=0, xmax=360, pen="1.5p,red3", label="line1")
-fig.hlines(50, xmin=20, xmax=160, pen="1.5p,gray30,-", label="line2")
-fig.hlines(-30, xmin=60, xmax=270, pen="1.5p,dodgerblue3", label="line3")
+# add a red horizontal line at a latitude of 70°N without specifying longitude limits
+fig.hlines(70, xmin=0, xmax=360, pen="1.5p,red3", label = "line1")
+# add a blue line at a latitude of 50°N with longitude limits at 20°E and 160°E
+fig.hlines(50, xmin=20, xmax=160, pen="1.5p,dodgerblue3", label = "line2")
+# add a gray dashed horizontal line at a latitude of 30°S with longitude limits at 60°E and 270°E
+fig.hlines(-30, xmin=60, xmax=270, pen="1.5p,gray30,-", label = "line3")
 fig.legend()
 
 fig.shift_origin(xshift="w+2c")
 
 fig.basemap(region="g", projection="R15c", frame=["+tvlines Geographic", "af"])
-fig.vlines(70, ymin=-90, ymax=90, pen="1.5p,red3", label="line1")
-fig.vlines(120, ymin=-50, ymax=70, pen="1.5p,gray30,-", label="line2")
-fig.vlines(230, ymin=-70, ymax=80, pen="1.5p,dodgerblue3", label="line3")
+# add a red vertical line at a longitude of 70°E without specifying latitude limits
+fig.vlines(70, ymin=-90, ymax=90, pen="1.5p,red3", label = "line1")
+# add a blue vertical line at a longitude of 120°E with latitude limits at 50°S and 70°N
+fig.vlines(120, ymin=-50, ymax=70, pen="1.5p,dodgerblue3", label = "line2")
+# add a gray dashed vertical line at a longitude of 230°E with latitude limits at 70°S and 80°N
+fig.vlines(230, ymin=-70, ymax=80, pen="1.5p,gray30,-", label = "line3")
 fig.legend()
 
 fig.show()
