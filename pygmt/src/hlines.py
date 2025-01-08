@@ -40,7 +40,7 @@ def hlines(
 
     - **Cartesian** coordinate system: lines are plotted as straight lines.
     - **Polar** projection: lines are plotted as arcs along a constant radius.
-    - **Geographic** projection: lines are plotted as parallels along constant latitude.
+    - **Geographic** projection: lines are plotted along parallels (constant latitude).
 
     Parameters
     ----------
