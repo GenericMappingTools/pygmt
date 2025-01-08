@@ -112,6 +112,43 @@ def _bounds2dataarray(region, src_crs, dst_crs, **contextily_kwargs):
     return dataarray
 
 
+def _split_region(region: Sequence[float]) -> list[Sequence[float], Sequence[float]]:
+    """
+    Split a region into two sub-regions if it crosses the antimeridian.
+
+    Parameters
+    ----------
+    region
+        The bounding box of the map in the form of a list [*xmin*, *xmax*, *ymin*,
+        *ymax*].
+
+    Returns
+    -------
+    regions
+        A list of one or two regions.
+
+    Examples
+    --------
+    >>> _split_region([-180.0, 180.0, -90.0, 90.0])
+    [[-180.0, 180.0, -90.0, 90.0]]
+    >>> _split_region([0, 360, -90.0, 90.0])
+    [[0, 180.0, -90.0, 90.0], [-180.0, 0.0, -90.0, 90.0]]
+    >>> _split_region([90, 180.0, -90.0, 90.0])
+    [[90, 180.0, -90.0, 90.0]]
+    >>> _split_region([200, 260, -90.0, 90.0])
+    [[-160.0, -100.0, -90.0, 90.0]]
+    >>> _split_region([160, 220, -90.0, 90.0])
+    [[160, 180.0, -90.0, 90.0], [-180.0, -140.0, -90.0, 90.0]]
+    """
+    west, east, south, north = region
+    if east <= 180.0:  # Region in the eastern hemisphere or in [-180, 180] range.
+        return [region]
+    if west >= 180.0:  # Region in the western hemisphere.
+        return [[west - 360.0, east - 360.0, south, north]]
+    # Region crosses the antimeridian.
+    return [[west, 180.0, south, north], [-180.0, east - 360.0, south, north]]
+
+
 def load_tile_map(
     region: Sequence[float],
     zoom: int | Literal["auto"] = "auto",
@@ -256,7 +293,24 @@ def load_tile_map(
             raise ValueError(msg)
         contextily_kwargs["zoom_adjust"] = zoom_adjust
 
-    dataarray = _bounds2dataarray(
-        region=region, src_crs=_source_crs, dst_crs=crs, **contextily_kwargs
-    )
+    # The contexily.bounds2img function only accepts bounds in Sphere Mercator
+    # projection (EPSG:3857) or longitude/latitude in [-180, 180, -90, 90].
+    # When 'region' is given in longitude/latitude, it may cross the 180th meridian, and
+    # needs to be split into two sub-regions. The two sub-regions are then concatenated
+    # along the x-axis to form the final data array.
+    if lonlat is False:  # Region is in Spherical Mercator projection (EPSG:3857).
+        dataarray = _bounds2dataarray(
+            region=region, src_crs=_source_crs, dst_crs=crs, **contextily_kwargs
+        )
+    else:  # Region is in longitude/latitude.
+        dataarrays = [
+            _bounds2dataarray(
+                region=_region,
+                src_crs=_source_crs,
+                dst_crs=crs,
+                **contextily_kwargs,
+            )
+            for _region in _split_region(region)
+        ]
+        dataarray = xr.concat(dataarrays, dim="x")
     return dataarray
