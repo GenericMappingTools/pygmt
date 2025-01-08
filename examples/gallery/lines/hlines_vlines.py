@@ -35,6 +35,8 @@ fig.vlines(x=[5, 6], ymin=4, ymax=9, pen="1.5p,salmon", label="Line 4")
 fig.vlines(x=[7, 8], ymin=[0, 1], ymax=[7, 7.5], pen="1.5p,dodgerblue3", label="Line 5")
 fig.legend()
 
+fig.show()
+
 # %%
 # The same can be done for geographic projections where horizontal means
 # the lines are plotted as parallels along constant latitude and vertical
@@ -55,6 +57,8 @@ fig.vlines(70, ymin=-90, ymax=90, pen="1.5p,red3", label="line1")
 fig.vlines(120, ymin=-50, ymax=70, pen="1.5p,gray30,-", label="line2")
 fig.vlines(230, ymin=-70, ymax=80, pen="1.5p,dodgerblue3", label="line2")
 fig.legend()
+
+fig.show()
 
 # %%
 # When using polar projections horizonal means lines are plotted as
