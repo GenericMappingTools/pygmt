@@ -2,8 +2,8 @@
 Horizontal and vertical lines
 =============================
 
-The :meth:`pygmt.Figure.hlines` and :meth:`pygmt.Figure.vlines` 
-methods allow to plot horizontal and vertical lines in 
+The :meth:`pygmt.Figure.hlines` and :meth:`pygmt.Figure.vlines`
+methods allow to plot horizontal and vertical lines in
 Cartesian, Geographic and Polar projections.
 """
 
@@ -32,7 +32,7 @@ fig.vlines(x=[7, 8], ymin=[0, 1], ymax=[7, 7.5], pen="1.5p,dodgerblue3", label="
 fig.legend()
 
 # %%
-# The same can be done for geographic projections where horizontal means 
+# The same can be done for geographic projections where horizontal means
 # the lines are plotted as parallels along constant latitude and vertical
 # lines are plotted as parallels along constant longitude.
 
@@ -53,8 +53,8 @@ fig.vlines(230, ymin=-70, ymax=80, pen="1.5p,dodgerblue3", label = "line2")
 fig.legend()
 
 # %%
-# When using polar projections horizonal means lines are plotted as 
-# arcs along a constant radius while vertical lines are plotted as 
+# When using polar projections horizonal means lines are plotted as
+# arcs along a constant radius while vertical lines are plotted as
 # straight lines along radius at a specified azimuth.
 
 fig = pygmt.Figure()
