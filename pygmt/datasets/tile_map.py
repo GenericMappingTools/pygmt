@@ -83,6 +83,35 @@ def _image_to_datarray(
     return dataarray
 
 
+def _bounds2dataarray(region, src_crs, dst_crs, **contextily_kwargs):
+    """
+    Wrapper function to call contextily.bounds2img and convert the returned image to an
+    xarray.DataArray object.
+
+    Parameters
+    ----------
+    region
+        The bounding box of the map in the form of a list [*xmin*, *xmax*, *ymin*,
+        *ymax*].
+    src_crs/dst_crs
+        The source and destination CRS of the image. The CRS can be in either string or
+        :class:`rasterio.crs.CRS` format.
+    contextily_kwargs
+        Extra keywords arguments for :func:`contextily.bounds2img`.
+
+    Returns
+    -------
+    dataarray
+        An xarray.DataArray object with 3 bands (RGB) and georeferenced coordinates.
+    """
+    west, east, south, north = region
+    image, extent = contextily.bounds2img(
+        w=west, s=south, e=east, n=north, **contextily_kwargs
+    )
+    dataarray = _image_to_datarray(image, extent, src_crs=src_crs, dst_crs=dst_crs)
+    return dataarray
+
+
 def load_tile_map(
     region: Sequence[float],
     zoom: int | Literal["auto"] = "auto",
@@ -227,9 +256,7 @@ def load_tile_map(
             raise ValueError(msg)
         contextily_kwargs["zoom_adjust"] = zoom_adjust
 
-    west, east, south, north = region
-    image, extent = contextily.bounds2img(
-        w=west, s=south, e=east, n=north, **contextily_kwargs
+    dataarray = _bounds2dataarray(
+        region=region, src_crs=_source_crs, dst_crs=crs, **contextily_kwargs
     )
-    dataarray = _image_to_datarray(image, extent, src_crs=_source_crs, dst_crs=crs)
     return dataarray
