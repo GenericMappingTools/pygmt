@@ -81,7 +81,7 @@ fig.legend()
 fig.show()
 
 # %%
-# When using Polar projections horizonal means lines are plotted as
+# When using Polar projections horizontal means lines are plotted as
 # arcs along a constant radius while vertical lines are plotted as
 # straight lines along radius at a specified azimuth.
 
