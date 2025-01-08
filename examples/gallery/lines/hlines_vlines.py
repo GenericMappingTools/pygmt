@@ -80,17 +80,23 @@ fig.show()
 fig = pygmt.Figure()
 
 fig.basemap(region=[0, 360, 0, 1], projection="P10c", frame=["+thlines Polar", "af"])
-fig.hlines(0.8, xmin=0, xmax=360, pen="1.5p,red3", label="line1")
-fig.hlines(0.5, xmin=30, xmax=160, pen="1.5p,gray30,-", label="line2")
-fig.hlines(0.25, xmin=60, xmax=270, pen="1.5p,dodgerblue3", label="line3")
+# add a red horizontal line along a radius of 0.8 without specifying azimuth limits
+fig.hlines(0.8, xmin=0, xmax=360, pen="1.5p,red3", label = "line1")
+# add a blue horizontal line along a radius of 0.5 with azimuth limits at 30° and 160°
+fig.hlines(0.5, xmin=30, xmax=160, pen="1.5p,dodgerblue3", label = "line2")
+# add a gray dashed horizontal line along a radius of 0.25 with azimuth limits at 60° and 270°
+fig.hlines(0.25, xmin=60, xmax=270, pen="1.5p,gray30,-", label = "line3")
 fig.legend()
 
 fig.shift_origin(xshift="w+2c")
 
 fig.basemap(region=[0, 360, 0, 1], projection="P10c", frame=["+tvlines Polar", "af"])
-fig.vlines(120, ymin=0, ymax=1, pen="1.5p,red3", label="line1")
-fig.vlines(190, ymin=0.2, ymax=0.8, pen="1.5p,gray30,-", label="line2")
-fig.vlines(320, ymin=0.5, ymax=0.9, pen="1.5p,dodgerblue3", label="line3")
+# add a red vertical line along at an azimuth of 120° with radius limits at 0 and 1.
+fig.vlines(120, ymin=0, ymax=1, pen="1.5p,red3", label = "line1")
+# add a blue vertical line along at an azimuth of 190° with radius limits at 0.2 and 0.8.
+fig.vlines(190, ymin=0.2, ymax=0.8, pen="1.5p,dodgerblue3", label = "line2")
+# add a gray dashed vertical line along at an azimuth of 320° with radius limits at 0.5 and 0.9.
+fig.vlines(320, ymin=0.5, ymax=0.9, pen="1.5p,gray30,-", label = "line3")
 fig.legend()
 
 fig.show()
