@@ -32,6 +32,57 @@ import xarray as xr
 __doctest_requires__ = {("load_tile_map"): ["contextily"]}
 
 
+def _image_to_datarray(
+    image: np.ndarray,
+    extent: Sequence[float, float, float, float],
+    src_crs: str | CRS | None = None,
+    dst_crs: str | CRS | None = None,
+) -> xr.DataArray:
+    """
+    Convert an image and its extent to an xarray.DataArray object and warp to the
+    specified coordinate reference system (CRS).
+
+    Parameters
+    ----------
+    image
+        An RGBA image returned from :func:`contextily.bounds2img`.
+    extent
+        Extent of the image as a sequence of floats (left, right, bottom, top).
+    src_crs/dst_crs
+        The source and destination CRS of the image. The CRS can be in either string or
+        :class:`rasterio.crs.CRS` format.
+
+    Returns
+    -------
+    dataarray
+        An xarray.DataArray object with 3 bands (RGB) and georeferenced coordinates.
+    """
+    # Turn RGBA image from channel-last to channel-first and get 3-band RGB only
+    _image = image.transpose(2, 0, 1)  # Change image from (H, W, C) to (C, H, W)
+    rgb_image = _image[0:3, :, :]  # Get just RGB by dropping RGBA's alpha channel
+
+    # Georeference RGB image into an xarray.DataArray
+    left, right, bottom, top = extent
+    dataarray = xr.DataArray(
+        data=rgb_image,
+        coords={
+            "band": np.array(object=[1, 2, 3], dtype=np.uint8),  # Red, Green, Blue
+            "y": np.linspace(start=top, stop=bottom, num=rgb_image.shape[1]),
+            "x": np.linspace(start=left, stop=right, num=rgb_image.shape[2]),
+        },
+        dims=("band", "y", "x"),
+    )
+
+    # If rioxarray is installed, set the coordinate reference system.
+    if hasattr(dataarray, "rio") and src_crs is not None:
+        dataarray = dataarray.rio.write_crs(input_crs=src_crs)
+        # Reproject raster image from the source CRS to the specified CRS.
+        if dst_crs is not None and dst_crs != src_crs:
+            dataarray = dataarray.rio.reproject(dst_crs=dst_crs)
+
+    return dataarray
+
+
 def load_tile_map(
     region: Sequence[float],
     zoom: int | Literal["auto"] = "auto",
@@ -180,29 +231,5 @@ def load_tile_map(
     image, extent = contextily.bounds2img(
         w=west, s=south, e=east, n=north, **contextily_kwargs
     )
-
-    # Turn RGBA img from channel-last to channel-first and get 3-band RGB only
-    _image = image.transpose(2, 0, 1)  # Change image from (H, W, C) to (C, H, W)
-    rgb_image = _image[0:3, :, :]  # Get just RGB by dropping RGBA's alpha channel
-
-    # Georeference RGB image into an xarray.DataArray
-    left, right, bottom, top = extent
-    dataarray = xr.DataArray(
-        data=rgb_image,
-        coords={
-            "band": np.array(object=[1, 2, 3], dtype=np.uint8),  # Red, Green, Blue
-            "y": np.linspace(start=top, stop=bottom, num=rgb_image.shape[1]),
-            "x": np.linspace(start=left, stop=right, num=rgb_image.shape[2]),
-        },
-        dims=("band", "y", "x"),
-    )
-
-    # If rioxarray is installed, set the coordinate reference system.
-    if hasattr(dataarray, "rio"):
-        dataarray = dataarray.rio.write_crs(input_crs=_source_crs)
-
-        # Reproject raster image from the source CRS to the specified CRS.
-        if crs != _source_crs:
-            dataarray = dataarray.rio.reproject(dst_crs=crs)
-
+    dataarray = _image_to_datarray(image, extent, src_crs=_source_crs, dst_crs=crs)
     return dataarray
