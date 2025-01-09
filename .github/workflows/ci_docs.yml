@@ -1,4 +1,4 @@
-# Build and deploy documentation
+# Build and deploy documentation.
 #
 # This workflow builds the documentation on Linux/macOS/Windows.
 #
@@ -42,11 +42,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
-permissions:
-  contents: write
+permissions: {}
 
 jobs:
-  docs:
+  build-docs:
     name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     if: github.repository == 'GenericMappingTools/pygmt'
@@ -168,6 +167,30 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           REF_NAME: ${{ github.ref_name }}
 
+      - name: Upload HMTL documentation artifact
+        uses: actions/upload-artifact@v4.5.0
+        with:
+          name: pygmt-docs-html
+          path: doc/_build/html/
+        if: matrix.os == 'ubuntu-latest'
+
+  deploy-docs:
+    name: Deploy documentation
+    needs: build-docs
+    runs-on: ubuntu-latest
+    if: (github.event_name == 'release' || github.event_name == 'push') && github.repository == 'GenericMappingTools/pygmt'
+    permissions:
+      contents: write
+
+    steps:
+      # Checkout current git repository
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+        with:
+          # fetch all history so that setuptools-scm works
+          fetch-depth: 0
+          persist-credentials: false
+
       - name: Checkout the gh-pages branch
         uses: actions/checkout@v4.2.2
         with:
@@ -177,7 +200,12 @@ jobs:
           # Download the entire history
           fetch-depth: 0
           persist-credentials: true
-        if: (github.event_name == 'release' || github.event_name == 'push') && (matrix.os == 'ubuntu-latest')
+
+      - name: Download HTML documentation artifact
+        uses: actions/download-artifact@v4.1.8
+        with:
+          name: pygmt-docs-html
+          path: pygmt-docs-html
 
       - name: Push the built HTML to gh-pages
         run: |
@@ -189,10 +217,10 @@ jobs:
               version=dev
           fi
           echo "Deploying version: $version"
-          # Make the new commit message. Needs to happen before cd into deploy
-          # to get the right commit hash.
+          # Make the new commit message. Needs to happen before cd into deploy to get
+          # the right commit hash.
           message="Deploy $version from $(git rev-parse --short HEAD)"
-          cd deploy
+          cd deploy/
           # Create some files in the root directory.
           # .nojekyll: Need to have this file so that GitHub doesn't try to run Jekyll
           touch .nojekyll
@@ -204,7 +232,7 @@ jobs:
           echo -e "\nRemoving old files from previous builds of ${version}:"
           rm -rvf ${version}
           echo -e "\nCopying HTML files to ${version}:"
-          cp -Rvf ../doc/_build/html/ ${version}/
+          cp -Rvf ../pygmt-docs-html/ ${version}/
           # If this is a new release, update the link from /latest to it
           if [[ "${version}" != "dev" ]]; then
               echo -e "\nSetup link from ${version} to 'latest'."
@@ -218,9 +246,8 @@ jobs:
           # Configure git to be the GitHub Actions account
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
-          # If this is a dev build and the last commit was from a dev build
-          # (detect if "dev" was in the previous commit message), reuse the
-          # same commit
+          # If this is a dev build and the last commit was from a dev build (detect if
+          # "dev" was in the previous commit message), reuse the same commit.
           if [[ "${version}" == "dev" && `git log -1 --format='%s'` == *"dev"* ]]; then
               echo -e "\nAmending last commit:"
               git commit --amend --reset-author -m "$message"
@@ -228,9 +255,8 @@ jobs:
               echo -e "\nMaking a new commit:"
               git commit -m "$message"
           fi
-          # Make the push quiet just in case there is anything that could leak
-          # sensitive information.
+          # Make the push quiet just in case there is anything that could leak sensitive
+          # information.
           echo -e "\nPushing changes to gh-pages."
           git push -fq origin gh-pages 2>&1 >/dev/null
           echo -e "\nFinished uploading generated files."
-        if: (github.event_name == 'release' || github.event_name == 'push') && (matrix.os == 'ubuntu-latest')
