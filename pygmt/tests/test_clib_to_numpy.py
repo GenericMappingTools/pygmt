@@ -461,6 +461,7 @@ def test_to_numpy_pandas_datetime(dtype, expected_dtype):
 
     # Convert to UTC if the dtype is timezone-aware
     if "," in str(dtype):  # A hacky way to decide if the dtype is timezone-aware.
+        # TODO(pandas>=2.1): Simplify the if-else statement.
         if Version(pd.__version__) < Version("2.1") and dtype.startswith("timestamp"):
             # pandas 2.0 doesn't have the dt.tz_convert method for pyarrow.Timestamp.
             series = pd.to_datetime(series, utc=True)
