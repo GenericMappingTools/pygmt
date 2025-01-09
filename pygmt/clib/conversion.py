@@ -173,12 +173,11 @@ def _to_numpy(data: Any) -> np.ndarray:
     # The numpy dtype for the result numpy array, but can be None.
     numpy_dtype = dtypes.get(str(dtype))
 
+    # TODO(pandas>=2.2): Remove the workaround for pandas<2.2.
+    #
     # pandas numeric dtypes were converted to np.object_ dtype prior pandas 2.2, and are
     # converted to suitable NumPy dtypes since pandas 2.2. Refer to the following link
     # for details: https://pandas.pydata.org/docs/whatsnew/v2.2.0.html#to-numpy-for-numpy-nullable-and-arrow-types-converts-to-suitable-numpy-dtype
-    #
-    # Workarounds for pandas < 2.2. Following SPEC 0, pandas 2.1 should be dropped in
-    # 2025 Q3, so it's likely we can remove the workaround in PyGMT v0.17.0.
     if (
         Version(pd.__version__) < Version("2.2")  # pandas < 2.2 only.
         and hasattr(data, "dtype")  # NumPy array or pandas objects only.
