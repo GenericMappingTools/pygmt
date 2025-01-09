@@ -2,8 +2,8 @@
 Tests for the _to_numpy function in the clib.conversion module.
 """
 
+import datetime
 import sys
-from datetime import date, datetime
 
 import numpy as np
 import numpy.testing as npt
@@ -87,11 +87,30 @@ def test_to_numpy_python_types(data, expected_dtype):
             ["2018", "2018-02", "2018-03-01", "2018-04-01T01:02:03"], id="iso8601"
         ),
         pytest.param(
-            [datetime.date(2018, 1, 1), datetime.datetime(2019, 1, 1)],
+            [
+                datetime.date(2018, 1, 1),
+                datetime.datetime(2018, 2, 1),
+                datetime.date(2018, 3, 1),
+                datetime.datetime(2018, 4, 1, 1, 2, 3),
+            ],
             id="datetime",
         ),
         pytest.param(
-            ["2018-01-01", np.datetime64("2018-01-01"), datetime.datetime(2018, 1, 1)],
+            [
+                pd.Timestamp("2018-01-01"),
+                pd.Timestamp("2018-02-01"),
+                pd.Timestamp("2018-03-01"),
+                pd.Timestamp("2018-04-01T01:02:03"),
+            ],
+            id="pd_timestamp",
+        ),
+        pytest.param(
+            [
+                "2018-01-01",
+                np.datetime64("2018-02-01"),
+                datetime.datetime(2018, 3, 1),
+                pd.Timestamp("2018-04-01T01:02:03"),
+            ],
             id="mixed",
         ),
     ],
@@ -102,6 +121,18 @@ def test_to_numpy_python_datetime(data):
     """
     result = _to_numpy(data)
     assert result.dtype.type == np.datetime64
+    npt.assert_array_equal(
+        result,
+        np.array(
+            [
+                "2018-01-01T00:00:00",
+                "2018-02-01T00:00:00",
+                "2018-03-01T00:00:00",
+                "2018-04-01T01:02:03",
+            ],
+            dtype="datetime64[s]",
+        ),
+    )
 
 
 ########################################################################################
@@ -520,9 +551,9 @@ def test_to_numpy_pyarrow_date(dtype, expected_dtype):
     Here we explicitly check the dtype and date unit of the result.
     """
     data = [
-        date(2024, 1, 1),
-        datetime(2024, 1, 2),
-        datetime(2024, 1, 3),
+        datetime.date(2024, 1, 1),
+        datetime.datetime(2024, 1, 2),
+        datetime.datetime(2024, 1, 3),
     ]
     array = pa.array(data, type=dtype)
     result = _to_numpy(array)
@@ -566,7 +597,10 @@ def test_to_numpy_pyarrow_timestamp(dtype, expected_dtype):
 
     Reference: https://arrow.apache.org/docs/python/generated/pyarrow.timestamp.html
     """
-    data = [datetime(2024, 1, 2, 3, 4, 5), datetime(2024, 1, 2, 3, 4, 6)]
+    data = [
+        datetime.datetime(2024, 1, 2, 3, 4, 5),
+        datetime.datetime(2024, 1, 2, 3, 4, 6),
+    ]
     array = pa.array(data, type=dtype)
     result = _to_numpy(array)
     _check_result(result, np.datetime64)
