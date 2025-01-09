@@ -57,13 +57,13 @@ fig.show()
 # %%
 # Geographic coordinate system
 # ----------------------------
-# The same can be done for Geographic projections where "horizontal" means lines are
+# The same can be done for geographic projections where "horizontal" means lines are
 # plotted along parallels (constant latitude) while "vertical" means lines are plotted
 # along meridians (constant longitude).
 
 fig = pygmt.Figure()
 
-fig.basemap(region="g", projection="R15c", frame=["+thlines Geographic", "af"])
+fig.basemap(region="g", projection="R15c", frame=["+thlines geographic", "af"])
 # add a red horizontal line at a latitude of 70°N without specifying longitude limits
 fig.hlines(y=70, pen="1.5p,red3", label="Line 1")
 # add a blue line at a latitude of 50°N with longitude limits at 20°E and 160°E
@@ -75,7 +75,7 @@ fig.legend()
 
 fig.shift_origin(xshift="w+2c")
 
-fig.basemap(region="g", projection="R15c", frame=["+tvlines Geographic", "af"])
+fig.basemap(region="g", projection="R15c", frame=["+tvlines geographic", "af"])
 # add a red vertical line at a longitude of 70°E without specifying latitude limits
 fig.vlines(x=70, pen="1.5p,red3", label="Line 1")
 # add a blue vertical line at a longitude of 120°E with latitude limits at 50°S and 70°N
@@ -90,13 +90,13 @@ fig.show()
 # %%
 # Polar coordinate system
 # -----------------------
-# When using Polar projections "horizontal" means lines are plotted as arcs along a
+# When using polar projections "horizontal" means lines are plotted as arcs along a
 # constant radius while "vertical" means lines are plotted as straight lines along
 # radius at a specified azimuth.
 
 fig = pygmt.Figure()
 
-fig.basemap(region=[0, 360, 0, 1], projection="P10c", frame=["+thlines Polar", "af"])
+fig.basemap(region=[0, 360, 0, 1], projection="P10c", frame=["+thlines polar", "af"])
 # add a red horizontal line along a radius of 0.8 without specifying azimuth limits
 fig.hlines(y=0.8, pen="1.5p,red3", label="Line 1")
 # add a blue horizontal line along a radius of 0.5 with azimuth limits at 30° and 160°
@@ -108,7 +108,7 @@ fig.legend()
 
 fig.shift_origin(xshift="w+2c")
 
-fig.basemap(region=[0, 360, 0, 1], projection="P10c", frame=["+tvlines Polar", "af"])
+fig.basemap(region=[0, 360, 0, 1], projection="P10c", frame=["+tvlines polar", "af"])
 # add a red vertical line along at an azimuth of 120° without specifying radius limits
 fig.vlines(x=120, pen="1.5p,red3", label="Line 1")
 # add a blue vertical line along at an azimuth of 190° with radius limits at 0.2 and 0.8
