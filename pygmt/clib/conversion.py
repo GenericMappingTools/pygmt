@@ -198,6 +198,7 @@ def _to_numpy(data: Any) -> np.ndarray:
     elif isinstance(dtype, pd.ArrowDtype) and hasattr(dtype.pyarrow_dtype, "tz"):
         # pd.ArrowDtype[pa.Timestamp]
         numpy_dtype = getattr(dtype, "numpy_dtype", None)
+        # TODO(pandas>=2.1): Remove the workaround for pandas<2.1.
         if Version(pd.__version__) < Version("2.1"):
             # In pandas 2.0, dtype.numpy_type is dtype("O").
             numpy_dtype = np.dtype(f"M8[{dtype.pyarrow_dtype.unit}]")  # type: ignore[assignment, attr-defined]
