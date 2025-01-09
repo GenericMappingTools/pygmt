@@ -205,6 +205,11 @@ def _to_numpy(data: Any) -> np.ndarray:
 
     array = np.ascontiguousarray(data, dtype=numpy_dtype)
 
+    # Check if a np.object_ or np.str_ array can be converted to np.datetime64.
+    if array.dtype.type in {np.object_, np.str_}:
+        with contextlib.suppress(TypeError, ValueError):
+            return np.ascontiguousarray(array, dtype=np.datetime64)
+
     # Check if a np.object_ array can be converted to np.str_.
     if array.dtype == np.object_:
         with contextlib.suppress(TypeError, ValueError):
