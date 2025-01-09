@@ -192,6 +192,17 @@ def _to_numpy(data: Any) -> np.ndarray:
                 numpy_dtype = np.float64
             data = data.to_numpy(na_value=np.nan)
 
+    # Deal with timezone-aware datetime dtypes.
+    if isinstance(dtype, pd.DatetimeTZDtype):  # pandas.DatetimeTZDtype
+        numpy_dtype = getattr(dtype, "base", None)
+    elif isinstance(dtype, pd.ArrowDtype) and hasattr(dtype.pyarrow_dtype, "tz"):
+        # pd.ArrowDtype[pa.Timestamp]
+        numpy_dtype = getattr(dtype, "numpy_dtype", None)
+        # TODO(pandas>=2.1): Remove the workaround for pandas<2.1.
+        if Version(pd.__version__) < Version("2.1"):
+            # In pandas 2.0, dtype.numpy_type is dtype("O").
+            numpy_dtype = np.dtype(f"M8[{dtype.pyarrow_dtype.unit}]")  # type: ignore[assignment, attr-defined]
+
     array = np.ascontiguousarray(data, dtype=numpy_dtype)
 
     # Check if a np.object_ array can be converted to np.str_.
