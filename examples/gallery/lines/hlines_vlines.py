@@ -2,9 +2,8 @@
 Horizontal and vertical lines
 =============================
 
-The :meth:`pygmt.Figure.hlines` and :meth:`pygmt.Figure.vlines`
-methods allow to plot horizontal and vertical lines in
-Cartesian, Geographic and Polar projections.
+The :meth:`pygmt.Figure.hlines` and :meth:`pygmt.Figure.vlines` methods allow to plot
+horizontal and vertical lines in Cartesian, geographic and polar projections.
 """
 
 # %%
@@ -58,15 +57,15 @@ fig.show()
 # %%
 # Geographic coordinate system
 # ----------------------------
-# The same can be done for Geographic projections where "horizontal" means lines
-# are plotted along parallels (constant latitude) while "vertical" means lines are
-# plotted along meridians (constant longitude).
+# The same can be done for Geographic projections where "horizontal" means lines are
+# plotted along parallels (constant latitude) while "vertical" means lines are plotted
+# along meridians (constant longitude).
 
 fig = pygmt.Figure()
 
 fig.basemap(region="g", projection="R15c", frame=["+thlines Geographic", "af"])
 # add a red horizontal line at a latitude of 70°N without specifying longitude limits
-fig.hlines(y=70, xmin=0, xmax=360, pen="1.5p,red3", label="Line 1")
+fig.hlines(y=70, pen="1.5p,red3", label="Line 1")
 # add a blue line at a latitude of 50°N with longitude limits at 20°E and 160°E
 fig.hlines(y=50, xmin=20, xmax=160, pen="1.5p,dodgerblue3", label="Line 2")
 # add a gray dashed horizontal line at a latitude of 30°S with longitude limits at 60°E
@@ -78,7 +77,7 @@ fig.shift_origin(xshift="w+2c")
 
 fig.basemap(region="g", projection="R15c", frame=["+tvlines Geographic", "af"])
 # add a red vertical line at a longitude of 70°E without specifying latitude limits
-fig.vlines(x=70, ymin=-90, ymax=90, pen="1.5p,red3", label="Line 1")
+fig.vlines(x=70, pen="1.5p,red3", label="Line 1")
 # add a blue vertical line at a longitude of 120°E with latitude limits at 50°S and 70°N
 fig.vlines(x=120, ymin=-50, ymax=70, pen="1.5p,dodgerblue3", label="Line 2")
 # add a gray dashed vertical line at a longitude of 230°E with latitude limits at 70°S
@@ -91,9 +90,9 @@ fig.show()
 # %%
 # Polar coordinate system
 # -----------------------
-# When using Polar projections "horizontal" means lines are plotted as
-# arcs along a constant radius while "vertical" means lines are plotted as
-# straight lines along radius at a specified azimuth.
+# When using Polar projections "horizontal" means lines are plotted as arcs along a
+# constant radius while "vertical" means lines are plotted as straight lines along
+# radius at a specified azimuth.
 
 fig = pygmt.Figure()
 
