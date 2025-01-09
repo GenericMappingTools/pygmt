@@ -119,13 +119,13 @@ COMMON_DOCSTRINGS = {
             criteria.
 
                 - **x**\|\ **X**: define a gap when there is a large enough
-                  change in the x coordinates (upper case to use projected
+                  change in the x coordinates (uppercase to use projected
                   coordinates).
                 - **y**\|\ **Y**: define a gap when there is a large enough
-                  change in the y coordinates (upper case to use projected
+                  change in the y coordinates (uppercase to use projected
                   coordinates).
                 - **d**\|\ **D**: define a gap when there is a large enough
-                  distance between coordinates (upper case to use projected
+                  distance between coordinates (uppercase to use projected
                   coordinates).
                 - **z**: define a gap when there is a large enough change in
                   the z data. Use **+c**\ *col* to change the z data column

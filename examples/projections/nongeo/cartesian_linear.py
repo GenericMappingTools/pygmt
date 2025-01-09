@@ -4,7 +4,7 @@ Cartesian linear
 
 **X**\ *width*\ [/*height*] or **x**\ *x-scale*\ [/*y-scale*]
 
-Give the *width* of the figure and the optional *height*. The lower-case version
+Give the *width* of the figure and the optional *height*. The lowercase version
 **x** is similar to **X** but expects an *x-scale* and an optional *y-scale*.
 
 The Cartesian linear projection is primarily designed for regular floating point
