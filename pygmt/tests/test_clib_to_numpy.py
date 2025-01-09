@@ -97,6 +97,15 @@ def test_to_numpy_python_types(data, expected_dtype):
         ),
         pytest.param(
             [
+                np.datetime64("2018"),
+                np.datetime64("2018-02"),
+                np.datetime64("2018-03-01"),
+                np.datetime64("2018-04-01T01:02:03"),
+            ],
+            id="np_datetime64",
+        ),
+        pytest.param(
+            [
                 pd.Timestamp("2018-01-01"),
                 pd.Timestamp("2018-02-01"),
                 pd.Timestamp("2018-03-01"),
@@ -117,7 +126,7 @@ def test_to_numpy_python_types(data, expected_dtype):
 )
 def test_to_numpy_python_datetime(data):
     """
-    Test the _to_numpy function with Python built-in datetime types.
+    Test the _to_numpy function with Python sequence of datetime types.
     """
     result = _to_numpy(data)
     assert result.dtype.type == np.datetime64
