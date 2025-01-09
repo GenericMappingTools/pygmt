@@ -48,13 +48,13 @@ def grdfilter(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None
         [/*width2*\][*modifiers*].
         Name of the filter type you wish to apply, followed by the *width*:
 
-        - **b** - Box Car
-        - **c** - Cosine Arch
-        - **g** - Gaussian
-        - **o** - Operator
-        - **m** - Median
-        - **p** - Maximum Likelihood probability
-        - **h** - Histogram
+        - **b**: Box Car
+        - **c**: Cosine Arch
+        - **g**: Gaussian
+        - **o**: Operator
+        - **m**: Median
+        - **p**: Maximum Likelihood probability
+        - **h**: Histogram
 
     distance : str
         State how the grid (x,y) relates to the filter *width*:
