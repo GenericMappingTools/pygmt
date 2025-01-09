@@ -144,12 +144,12 @@ def grd2xyz(
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
     if kwargs.get("o") is not None and output_type == "pandas":
-        raise GMTInvalidInput(
-            "If 'outcols' is specified, 'output_type' must be either 'numpy'"
+        msg = (
+            "If 'outcols' is specified, 'output_type' must be either 'numpy' "
             "or 'file'."
         )
-
-    # Set the default column names for the pandas dataframe header.
+        raise GMTInvalidInput(msg)
+    # Set the default column names for the pandas DataFrame header.
     column_names: list[str] = ["x", "y", "z"]
     # Let output pandas column names match input DataArray dimension names
     if output_type == "pandas" and isinstance(grid, xr.DataArray):

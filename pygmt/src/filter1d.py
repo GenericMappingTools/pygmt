@@ -75,7 +75,7 @@ def filter1d(
         - **u**: upper (absolute). Return maximum of all values.
         - **U**: upper. Return maximum of all negative values only.
 
-        Upper case type **B**, **C**, **G**, **M**, **P**, **F** will use
+        Uppercase type **B**, **C**, **G**, **M**, **P**, **F** will use
         robust filter versions: i.e., replace outliers (2.5 L1 scale off
         median, using 1.4826 \* median absolute deviation [MAD]) with median
         during filtering.
@@ -111,7 +111,8 @@ def filter1d(
           (depends on ``output_type``)
     """
     if kwargs.get("F") is None:
-        raise GMTInvalidInput("Pass a required argument to 'filter_type'.")
+        msg = "Pass a required argument to 'filter_type'."
+        raise GMTInvalidInput(msg)
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 

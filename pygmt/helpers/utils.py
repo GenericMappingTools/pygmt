@@ -43,7 +43,7 @@ Encoding = Literal[
 
 def _validate_data_input(
     data=None, x=None, y=None, z=None, required_z=False, required_data=True, kind=None
-):
+) -> None:
     """
     Check if the combination of data/x/y/z is valid.
 
@@ -476,7 +476,8 @@ def build_arg_list(  # noqa: PLR0912
     gmt_args = []
     for key, value in kwdict.items():
         if len(key) > 2:  # Raise an exception for unrecognized options
-            raise GMTInvalidInput(f"Unrecognized parameter '{key}'.")
+            msg = f"Unrecognized parameter '{key}'."
+            raise GMTInvalidInput(msg)
         if value is None or value is False:  # Exclude arguments that are None or False
             pass
         elif value is True:
@@ -509,7 +510,8 @@ def build_arg_list(  # noqa: PLR0912
             or str(outfile) in {"", ".", ".."}
             or str(outfile).endswith(("/", "\\"))
         ):
-            raise GMTInvalidInput(f"Invalid output file name '{outfile}'.")
+            msg = f"Invalid output file name '{outfile}'."
+            raise GMTInvalidInput(msg)
         gmt_args.append(f"->{outfile}")
     return gmt_args
 
@@ -550,7 +552,7 @@ def is_nonstr_iter(value):
     return isinstance(value, Iterable) and not isinstance(value, str)
 
 
-def launch_external_viewer(fname: str, waiting: float = 0):
+def launch_external_viewer(fname: str, waiting: float = 0) -> None:
     """
     Open a file in an external viewer program.
 
