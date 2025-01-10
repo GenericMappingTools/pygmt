@@ -3,13 +3,13 @@ Horizontal and vertical lines
 =============================
 
 The :meth:`pygmt.Figure.hlines` and :meth:`pygmt.Figure.vlines` methods allow to plot
-horizontal and vertical lines in Cartesian, geographic and polar projections.
+horizontal and vertical lines in Cartesian, geographic and polar coordinate systems.
 """
 
 # %%
 # Cartesian coordinate system
 # ---------------------------
-# In Cartesian projections lines are plotted as straight lines.
+# In Cartesian coordinate systems lines are plotted as straight lines.
 
 import pygmt
 
@@ -57,9 +57,9 @@ fig.show()
 # %%
 # Geographic coordinate system
 # ----------------------------
-# The same can be done for geographic projections where "horizontal" means lines are
-# plotted along parallels (constant latitude) while "vertical" means lines are plotted
-# along meridians (constant longitude).
+# The same can be done in geographic coordinate systems where "horizontal" means lines
+# are plotted along parallels (constant latitude) while "vertical" means lines are
+# plotted along meridians (constant longitude).
 
 fig = pygmt.Figure()
 
@@ -90,7 +90,7 @@ fig.show()
 # %%
 # Polar coordinate system
 # -----------------------
-# When using polar projections "horizontal" means lines are plotted as arcs along a
+# When using coordinate systems "horizontal" means lines are plotted as arcs along a
 # constant radius while "vertical" means lines are plotted as straight lines along
 # radius at a specified azimuth.
 
