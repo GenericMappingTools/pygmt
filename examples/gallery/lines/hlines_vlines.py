@@ -38,7 +38,7 @@ fig.shift_origin(xshift="w+2c")
 fig.basemap(
     region=[0, 10, 0, 10], projection="X10c/10c", frame=["+tvlines Cartesian", "af"]
 )
-# Add a vertical line at x=1 
+# Add a vertical line at x=1
 fig.vlines(x=1, pen="1.5p,red3", label="Line 1")
 # Add a vertical line at x=2 with y from 2 to 8
 fig.vlines(x=2, ymin=2, ymax=8, pen="1.5p,gray30,-", label="Line 2")
