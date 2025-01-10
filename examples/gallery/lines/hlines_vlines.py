@@ -16,7 +16,7 @@ import pygmt
 fig = pygmt.Figure()
 
 fig.basemap(
-    region=[0, 10, 0, 10], projection="X10c/10c", frame=["+thlines Cartesian", "af"]
+    region=[0, 10, 0, 10], projection="X10c/10c", frame=["+tCartesian hlines", "af"]
 )
 
 # Add a horizontal line at y=9
@@ -36,7 +36,7 @@ fig.legend(position="JBR+jBR+o0.2c", box="+gwhite+p1p")
 fig.shift_origin(xshift="w+2c")
 
 fig.basemap(
-    region=[0, 10, 0, 10], projection="X10c/10c", frame=["+tvlines Cartesian", "af"]
+    region=[0, 10, 0, 10], projection="X10c/10c", frame=["+tCartesian vlines", "af"]
 )
 # Add a vertical line at x=1
 fig.vlines(x=1, pen="1.5p,red3", label="Line 1")
@@ -63,7 +63,7 @@ fig.show()
 
 fig = pygmt.Figure()
 
-fig.basemap(region="g", projection="R15c", frame=["+thlines geographic", "af"])
+fig.basemap(region="g", projection="R15c", frame=["+tGeographic hlines", "af"])
 # Add a horizontal line at 70°N
 fig.hlines(y=70, pen="1.5p,red3", label="Line 1")
 # Add a horizontal line at 50°N with longitude limits at 20°E and 160°E
@@ -74,7 +74,7 @@ fig.legend()
 
 fig.shift_origin(xshift="w+2c")
 
-fig.basemap(region="g", projection="R15c", frame=["+tvlines geographic", "af"])
+fig.basemap(region="g", projection="R15c", frame=["+tGeographic vlines", "af"])
 # Add a vertical line at 70°E
 fig.vlines(x=70, pen="1.5p,red3", label="Line 1")
 # Add a vertical line at 20°E with latitude limits at 50°S and 70°N
@@ -94,7 +94,7 @@ fig.show()
 
 fig = pygmt.Figure()
 
-fig.basemap(region=[0, 360, 0, 1], projection="P10c", frame=["+thlines polar", "af"])
+fig.basemap(region=[0, 360, 0, 1], projection="P10c", frame=["+tPolar hlines", "af"])
 # Add a horizontal line along radius=0.8
 fig.hlines(y=0.8, pen="1.5p,red3", label="Line 1")
 # Add a horizontal line along radius=0.5 with azimuth limits at 30° and 160°
@@ -105,7 +105,7 @@ fig.legend()
 
 fig.shift_origin(xshift="w+2c")
 
-fig.basemap(region=[0, 360, 0, 1], projection="P10c", frame=["+tvlines polar", "af"])
+fig.basemap(region=[0, 360, 0, 1], projection="P10c", frame=["+tPolar vlines", "af"])
 # Add a vertical line along azimuth=120°
 fig.vlines(x=120, pen="1.5p,red3", label="Line 1")
 # Add a vertical line along azimuth=190° with radius limits at 0.2 and 0.8
