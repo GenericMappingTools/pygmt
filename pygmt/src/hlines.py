@@ -38,9 +38,9 @@ def hlines(
     The term "horizontal" lines can be interpreted differently in different coordinate
     systems:
 
-    - **Cartesian** coordinate system: lines are plotted as straight lines.
-    - **Polar** projection: lines are plotted as arcs along a constant radius.
-    - **Geographic** projection: lines are plotted along parallels (constant latitude).
+    - **Cartesian**: lines are plotted as straight lines.
+    - **Polar**: lines are plotted as arcs along a constant radius.
+    - **Geographic**: lines are plotted along parallels (constant latitude).
 
     Parameters
     ----------
