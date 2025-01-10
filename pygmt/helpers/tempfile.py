@@ -1,3 +1,4 @@
+# noqa: A005
 """
 Utilities for dealing with temporary file management.
 """
