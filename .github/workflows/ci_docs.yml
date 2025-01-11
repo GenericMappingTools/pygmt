@@ -117,7 +117,8 @@ jobs:
             sphinx-design
             sphinx-gallery
             sphinx_rtd_theme<3.0
-            imagemagick
+            librsvg
+            sphinxcontrib-svg2pdfconverter
             tectonic
 
       # Download cached remote files (artifacts) from GitHub
