@@ -38,7 +38,7 @@ extensions = [
     "sphinx_copybutton",
     "sphinx_design",
     "sphinx_gallery.gen_gallery",
-    "sphinxcontrib.rsvgconverter",
+    "sphinxcontrib.cairosvgconverter",
 ]
 
 # Suppress warnings
