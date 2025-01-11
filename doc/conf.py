@@ -249,3 +249,6 @@ html_context = {
     "github_version": "main",
     "commit": commit_link,
 }
+
+# Configurations for LaTeX
+latex_engine = "xelatex"
