@@ -117,6 +117,7 @@ jobs:
             sphinx-design
             sphinx-gallery
             sphinx_rtd_theme<3.0
+            tectonic
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
@@ -137,7 +138,15 @@ jobs:
 
       # Build the documentation
       - name: Build the documentation
-        run: make -C doc clean all
+        run: make -C doc clean html pdf
+
+      # Temporarily upload the built PDF to the artifacts
+      - name: Upload PDF to artifacts
+        uses: actions/upload-artifact@v4.5.0
+        with:
+          name: pygmt-docs-pdf
+          path: doc/_build/latex/pygmt.pdf
+        if: matrix.os == 'ubuntu-latest'
 
       - name: Checkout the gh-pages branch
         uses: actions/checkout@v4.2.2

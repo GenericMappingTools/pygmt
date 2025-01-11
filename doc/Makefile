@@ -43,6 +43,14 @@ html-noplot: api
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
+pdf: latex
+	@echo
+	@echo "Building PDF via Tectonic."
+	@echo
+	tectonic $(BUILDDIR)/latex/pygmt.tex
+	@echo
+	@echo "PDF build finished. The PDF file is in $(BUILDDIR)/latex/pygmt.pdf."
+
 server:
 	@echo
 	@echo "Running a server on port 8009."
