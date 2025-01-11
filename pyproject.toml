@@ -92,6 +92,7 @@ docstring-code-line-length = "dynamic"
 [tool.ruff.lint]
 select = [
     "A",    # flake8-builtins
+    "ANN",  # flake8-annotations
     "ARG",  # flake8-unused-arguments
     "B",    # flake8-bugbear
     "BLE",  # flake8-blind-except
@@ -162,8 +163,12 @@ known-third-party = ["pygmt"]
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]  # Ignore `F401` (unused-import) in all `__init__.py` files
-"*/tests/test_*.py" = ["S101"]  # Ignore `S101` (use of assert) in all tests files
+"*/tests/test_*.py" = [  # Ignore rules in tests
+    "ANN",  # Disable ANN linter
+    "S101",  # Ignore `S101` (use of assert)
+]
 "examples/**/*.py" = [ # Ignore rules in examples
+    "ANN", # Disable ANN linter
     "B018",  # Allow useless expressions in Jupyter Notebooks
     "T201",  # Allow `print` statements
 ]
