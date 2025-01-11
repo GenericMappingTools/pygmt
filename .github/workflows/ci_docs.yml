@@ -138,7 +138,12 @@ jobs:
 
       # Build the documentation
       - name: Build the documentation
-        run: make -C doc clean html pdf
+        run: make -C doc clean html
+
+      - name: Build the PDF
+        run: |
+          make -C doc pdf
+          ls -lh doc/_build/latex/*
 
       # Temporarily upload the built PDF to the artifacts
       - name: Upload PDF to artifacts
