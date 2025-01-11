@@ -1,13 +1,11 @@
 # Makefile for Sphinx documentation
 
 # You can set these variables from the command line.
-SPHINXOPTS    = -j auto
-SPHINXBUILD   = sphinx-build
+SPHINXOPTS    ?= -j auto
+SPHINXBUILD   ?= sphinx-build
 SPHINXAUTOGEN = sphinx-autogen
+SOURCEDIR     = .
 BUILDDIR      = _build
-
-# Internal variables.
-ALLSPHINXOPTS = -d $(BUILDDIR)/doctrees  $(SPHINXOPTS) .
 
 .PHONY: help all api html server clean
 
@@ -28,20 +26,20 @@ api:
 	@echo
 	$(SPHINXAUTOGEN) -i -t _templates -o api/generated api/*.rst
 
-html: api
+html latex: api
 	@echo
-	@echo "Building HTML files."
+	@echo "Building "$@" files."
 	@echo
 	# Set PYGMT_USE_EXTERNAL_DISPLAY to "false" to disable external display
-	PYGMT_USE_EXTERNAL_DISPLAY="false" $(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
+	PYGMT_USE_EXTERNAL_DISPLAY="false" $(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS)
 	@echo
-	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
+	@echo "Build finished. The files are in $(BUILDDIR)/$@."
 
 html-noplot: api
 	@echo
 	@echo "Building HTML files without example plots."
 	@echo
-	$(SPHINXBUILD) -D plot_gallery=0 -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
+	$(SPHINXBUILD) -D plot_gallery=0 -M html $(SPHINXOPTS) "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS)
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 

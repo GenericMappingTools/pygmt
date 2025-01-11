@@ -574,9 +574,8 @@ def launch_external_viewer(fname: str, waiting: float = 0) -> None:
     }
 
     match sys.platform:
-        case name if (
-            (name == "linux" or name.startswith("freebsd"))
-            and (xdgopen := shutil.which("xdg-open"))
+        case name if (name == "linux" or name.startswith("freebsd")) and (
+            xdgopen := shutil.which("xdg-open")
         ):  # Linux/FreeBSD
             subprocess.run([xdgopen, fname], check=False, **run_args)  # type:ignore[call-overload]
         case "darwin":  # macOS
