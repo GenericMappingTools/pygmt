@@ -16,12 +16,44 @@ from pygmt.helpers import (
 __doctest_skip__ = ["grdfill"]
 
 
+def _parse_filling_mode(constantfill, gridfill, neighborfill, splinefill) -> str | None:
+    """
+    Parse the filling parameters and return the appropriate string for the -A option.
+    """
+    fill_params = [constantfill, gridfill, neighborfill, splinefill]
+
+    if sum(param is not False for param in fill_params) > 1:
+        msg = (
+            "The 'constantfill', 'gridfill', 'neighborfill', and 'splinefill' "
+            "parameters are mutually exclusive."
+        )
+        raise GMTInvalidInput(msg)
+
+    if constantfill is not False:
+        return f"c{constantfill}"
+    if gridfill is not False:
+        return f"g{gridfill}"
+    if neighborfill is not False:
+        return "n" if neighborfill is True else f"n{neighborfill}"
+    if splinefill is not False:
+        return "s" if splinefill is True else f"s{splinefill}"
+    return None
+
+
 @fmt_docstring
 # TODO(PyGMT>=0.19.0): Remove the deprecated 'no_data' parameter.
 @deprecate_parameter("no_data", "hole", "v0.15.0", remove_version="v0.19.0")
 @use_alias(A="mode", N="hole", R="region", V="verbose")
 @kwargs_to_strings(R="sequence")
-def grdfill(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
+def grdfill(
+    grid,
+    outgrid: str | None = None,
+    constantfill: float | False = False,
+    gridfill: str | xr.DataArray | False = False,
+    neighborfill: float | bool = False,
+    splinefill: float | bool = False,
+    **kwargs,
+) -> xr.DataArray | None:
     r"""
     Interpolate across holes in a grid.
 
@@ -31,7 +63,7 @@ def grdfill(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     replace the hole values. If no holes are found the original unchanged grid is
     returned.
 
-    Full option list at :gmt-docs:`grdfill.html`
+    Full option list at :gmt-docs:`grdfill.html`.
 
     {aliases}
 
@@ -39,14 +71,19 @@ def grdfill(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     ----------
     {grid}
     {outgrid}
-    mode : str
-        Specify the hole-filling algorithm to use.  Choose from **c** for
-        constant fill and append the constant value, **n** for nearest
-        neighbor (and optionally append a search radius in
-        pixels [default radius is :math:`r^2 = \sqrt{{ X^2 + Y^2 }}`,
-        where (*X,Y*) are the node dimensions of the grid]), or
-        **s** for bicubic spline (optionally append a *tension*
-        parameter [Default is no tension]).
+    constantfill
+        Fill the holes with a constant value. Specify the constant value to use.
+    gridfill
+        Fill the holes with values sampled from another (possibly coarser) grid. Specify
+        the grid to use for the fill.
+    neighborfill
+        Fill the holes with the nearest neighbor. Specify the search radius in pixels.
+        If ``neighborfill`` is set to ``True``, the default search radius will be used
+        (:math:`r^2 = \sqrt{n^2 + m^2}`, where (n,m) are the node dimensions of the
+        grid).
+    splinefill
+        Fill the holes with a bicubic spline. Specify the tension value to use. If
+        ``splinefill`` is set to ``True``, no tension will be used.
     hole : float
         Set the node value used to identify a point as a member of a hole [Default is
         NaN].
@@ -74,6 +111,8 @@ def grdfill(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     if kwargs.get("A") is None and kwargs.get("L") is None:
         msg = "At least parameter 'mode' or 'L' must be specified."
         raise GMTInvalidInput(msg)
+
+    kwargs["A"] = _parse_filling_mode(constantfill, gridfill, neighborfill, splinefill)
 
     with Session() as lib:
         with (
