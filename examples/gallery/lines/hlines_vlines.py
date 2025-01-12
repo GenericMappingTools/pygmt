@@ -88,14 +88,14 @@ fig.show()
 # %%
 # Polar coordinate system
 # -----------------------
-# When using coordinate systems "horizontal" means lines are plotted as arcs along a
+# When using polar coordinate systems "horizontal" means lines are plotted as arcs along a
 # constant radius while "vertical" means lines are plotted as straight lines along
 # radius at a specified azimuth.
 
 fig = pygmt.Figure()
 
 fig.basemap(region=[0, 360, 0, 1], projection="P10c", frame=["+tPolar hlines", "af"])
-# Add a horizontal line along radius=0.8
+# Add a line along radius=0.8
 fig.hlines(y=0.8, pen="1.5p,red3", label="Line 1")
 # Add a horizontal line along radius=0.5 with azimuth limits at 30° and 160°
 fig.hlines(y=0.5, xmin=30, xmax=160, pen="1.5p,dodgerblue3", label="Line 2")
