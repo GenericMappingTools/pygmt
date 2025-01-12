@@ -144,6 +144,19 @@ jobs:
       - name: Build the PDF documentation
         run:  make -C doc pdf
 
+      - name: Upload the documentation as release asset
+        if: github.event_name == 'release' && matrix.os == 'ubuntu-latest'
+        run: |
+          cd doc/_build
+          cp -r html pygmt-docs
+          zip -r pygmt-docs.zip pygmt-docs
+          gh release upload ${{ github.event.release.tag_name }} pygmt-docs.zip
+
+          mv latex/pygmt.pdf pygmt-docs.pdf
+          gh release upload ${{ github.event.release.tag_name }} pygmt-docs.pdf
+        env:
+          GH_TOKEN: ${{ github.token }}
+
       - name: Checkout the gh-pages branch
         uses: actions/checkout@v4.2.2
         with:
