@@ -39,7 +39,7 @@ html-noplot: api
 	@echo
 	@echo "Building HTML files without example plots."
 	@echo
-	$(SPHINXBUILD) -D plot_gallery=0 -M html $(SPHINXOPTS) "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS)
+	$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) -D plot_gallery=0
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
