@@ -145,7 +145,6 @@ jobs:
       - name: Build the PDF
         run:  make -C doc pdf
 
-      # Temporarily upload the built PDF to the artifacts
       - name: Upload PDF to artifacts
         uses: actions/upload-artifact@v4.5.0
         with:
