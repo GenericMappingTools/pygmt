@@ -145,8 +145,7 @@ def grd2xyz(
 
     if kwargs.get("o") is not None and output_type == "pandas":
         msg = (
-            "If 'outcols' is specified, 'output_type' must be either 'numpy' "
-            "or 'file'."
+            "If 'outcols' is specified, 'output_type' must be either 'numpy' or 'file'."
         )
         raise GMTInvalidInput(msg)
     # Set the default column names for the pandas DataFrame header.
