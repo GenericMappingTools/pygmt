@@ -138,19 +138,11 @@ jobs:
           python -m build --sdist
           python -m pip install dist/*
 
-      # Build the documentation
-      - name: Build the documentation
+      - name: Build the HTML documentation
         run: make -C doc clean html
 
-      - name: Build the PDF
+      - name: Build the PDF documentation
         run:  make -C doc pdf
-
-      - name: Upload PDF to artifacts
-        uses: actions/upload-artifact@v4.5.0
-        with:
-          name: pygmt-docs-pdf
-          path: doc/_build/latex/pygmt.pdf
-        if: matrix.os == 'ubuntu-latest'
 
       - name: Checkout the gh-pages branch
         uses: actions/checkout@v4.2.2
