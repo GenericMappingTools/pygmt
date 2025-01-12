@@ -1,5 +1,5 @@
 """
-grdfill - Fill blank areas from a grid.
+grdfill - Interpolate across holes in a grid.
 """
 
 import xarray as xr
@@ -10,6 +10,16 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 __doctest_skip__ = ["grdfill"]
 
 
+def _parse_mode_value(mode, value=None):
+    """
+    Parse the mode and value arguments.
+    """
+    if mode not in {"constant", "grid", "neighbor", "spline", "c", "g", "n", "s"}:
+        msg = "Invalid mode. Valid modes are: 'constant', 'grid', 'neighbor', 'spline'."
+        raise GMTInvalidInput(msg)
+    return f"{mode[0]}{value}"
+
+
 @fmt_docstring
 @use_alias(
     A="mode",
@@ -18,16 +28,23 @@ __doctest_skip__ = ["grdfill"]
     V="verbose",
 )
 @kwargs_to_strings(R="sequence")
-def grdfill(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
+def grdfill(
+    grid,
+    outgrid: str | None = None,
+    mode: Literal["constant", "grid", "neighbor", "spline"] | None = None,
+    value: float | None = None,
+    **kwargs,
+) -> xr.DataArray | None:
     r"""
-    Fill blank areas from a grid file.
+    Interpolate across holes in a grid.
 
-    Read a grid that presumably has unfilled holes that the user wants to
-    fill in some fashion. Holes are identified by NaN values but this
-    criteria can be changed via the ``no_data`` parameter. There are several
-    different algorithms that can be used to replace the hole values.
+    Read a grid that presumably has unfilled holes that the user wants to fill in some
+    fashion. Holes are identified by NaN values but this criteria can be changed via the
+    ``no_data`` parameter. There are several different algorithms that can be used to
+    replace the hole values. If no holes are found, the original unchanged grid is
+    returned.
 
-    Full option list at :gmt-docs:`grdfill.html`
+    Full option list at :gmt-docs:`grdfill.html`.
 
     {aliases}
 
@@ -35,14 +52,16 @@ def grdfill(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     ----------
     {grid}
     {outgrid}
-    mode : str
-        Specify the hole-filling algorithm to use.  Choose from **c** for
-        constant fill and append the constant value, **n** for nearest
-        neighbor (and optionally append a search radius in
-        pixels [default radius is :math:`r^2 = \sqrt{{ X^2 + Y^2 }}`,
-        where (*X,Y*) are the node dimensions of the grid]), or
-        **s** for bicubic spline (optionally append a *tension*
-        parameter [Default is no tension]).
+    mode/value
+        The hole-filling algorithm to use. Valid values are:
+
+        - ``"constant"``: Select a constant fill (and append the constant fill value).
+        - ``"grid"``: Sample the (possibly coarser) grid arg at the nodes making up the
+          holes.
+        - ``"neighbor"``: Select nearest neighbor fill (and optionally append a search radius
+          in pixels [default radius is :math:`r^2 = \sqrt{n^2 + m^2}`, where (n,m) are
+          the node dimensions of the grid]).
+        - ``"spline"``: Select bicubic spline (optionally append a tension parameter [no tension]).
     no_data : float
         Set the node value used to identify a point as a member of a hole
         [Default is NaN].
