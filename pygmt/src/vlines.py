@@ -40,7 +40,8 @@ def vlines(
 
     - **Cartesian**: lines are plotted as straight lines.
     - **Polar**: lines are plotted as straight lines along a constant azimuth.
-    - **Geographic**: lines are plotted as arcs along meridians (i.e., constant longitude).
+    - **Geographic**: lines are plotted as arcs along meridians (i.e., constant
+      longitude).
 
     Parameters
     ----------
