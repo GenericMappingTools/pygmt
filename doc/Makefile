@@ -15,6 +15,7 @@ help:
 	@echo "  api          generate rst source files of API documentation"
 	@echo "  html         build the HTML files from the existing rst sources"
 	@echo "  html-noplot  build the HTML files without running any examples"
+	@echo "  pdf          build the PDF documentation"
 	@echo "  server       make a local HTTP server for previewing the built documentation"
 	@echo "  clean        clean up built and generated files"
 
