@@ -47,7 +47,7 @@ pdf: latex
 	@echo
 	@echo "Building PDF via Tectonic."
 	@echo
-	tectonic $(BUILDDIR)/latex/pygmt.tex
+	tectonic -X compile $(BUILDDIR)/latex/pygmt.tex
 	@echo
 	@echo "PDF build finished. The PDF file is in $(BUILDDIR)/latex/pygmt.pdf."
 
