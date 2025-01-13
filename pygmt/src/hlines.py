@@ -40,7 +40,7 @@ def hlines(
 
     - **Cartesian**: lines are plotted as straight lines.
     - **Polar**: lines are plotted as arcs along a constant radius.
-    - **Geographic**: lines are plotted along parallels (constant latitude).
+    - **Geographic**: lines are plotted as arcs along parallels (i.e., constant latitude).
 
     Parameters
     ----------
