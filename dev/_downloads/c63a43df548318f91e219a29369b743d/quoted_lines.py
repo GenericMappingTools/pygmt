@@ -33,7 +33,7 @@ for quotedline in [
     "qd1c:+ltext+i",
     # Give the number of equally spaced labels by using "n" instead of "d"
     "qn5:+ltext",
-    # Use upper-case "N" to have labels at the start and end of the line
+    # Use uppercase "N" to have labels at the start and end of the line
     "qN5:+ltext",
     # To only plot a label at the start of the line use "N-1"
     "qN-1:+ltext",

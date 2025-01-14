@@ -348,7 +348,7 @@ fig.histogram(
     # of the bin width
     # Offset ("+o") the bars to align each bar with the left limit of the corresponding
     # bin
-    barwidth=f"{binwidth/2}+o-{binwidth/4}",
+    barwidth=f"{binwidth / 2}+o-{binwidth / 4}",
     label="data01",
 )
 
@@ -359,7 +359,7 @@ fig.histogram(
     fill="orange",
     pen="1p,darkgray,solid",
     histtype=0,
-    barwidth=f"{binwidth/2}+o{binwidth/4}",
+    barwidth=f"{binwidth / 2}+o{binwidth / 4}",
     label="data02",
 )
 
