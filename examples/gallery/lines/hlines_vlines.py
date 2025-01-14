@@ -88,7 +88,7 @@ fig.show()
 # %%
 # Polar coordinate system
 # -----------------------
-# When using polar coordinate systems "horizontal" means lines are plotted as arcs along 
+# When using polar coordinate systems "horizontal" means lines are plotted as arcs along
 # a constant radius while "vertical" means lines are plotted as straight lines along
 # radius at a specified azimuth.
 
