@@ -44,6 +44,10 @@ dependencies:
     - sphinx-design
     - sphinx-gallery>=0.17.0
     - sphinx_rtd_theme<3.0
+    # Dev dependencies (building PDF documentation)
+    - cairosvg
+    - sphinxcontrib-svg2pdfconverter
+    - tectonic
     # Dev dependencies (type hints)
     - mypy
     - pandas-stubs

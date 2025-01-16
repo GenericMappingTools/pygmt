@@ -117,6 +117,9 @@ jobs:
             sphinx-design
             sphinx-gallery
             sphinx_rtd_theme<3.0
+            cairosvg
+            sphinxcontrib-svg2pdfconverter
+            tectonic
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
@@ -135,9 +138,11 @@ jobs:
           python -m build --sdist
           python -m pip install dist/*
 
-      # Build the documentation
-      - name: Build the documentation
-        run: make -C doc clean all
+      - name: Build the HTML documentation
+        run: make -C doc clean html
+
+      - name: Build the PDF documentation
+        run:  make -C doc pdf
 
       - name: Checkout the gh-pages branch
         uses: actions/checkout@v4.2.2
