@@ -13,7 +13,7 @@ to submit a pull request with your recommended addition to the
 :::::{grid} 1 2 2 3
 
 ::::{grid-item-card} 2024 AGU PREWS9: Mastering Geospatial Visualizations with GMT/PyGMT
-:link: https://github.com/GenericMappingTools/agu24workshop
+:link: https://www.generic-mapping-tools.org/agu24workshop/
 :text-align: center
 :margin: 0 3 0 0
 

@@ -173,12 +173,11 @@ def _to_numpy(data: Any) -> np.ndarray:
     # The numpy dtype for the result numpy array, but can be None.
     numpy_dtype = dtypes.get(str(dtype))
 
+    # TODO(pandas>=2.2): Remove the workaround for pandas<2.2.
+    #
     # pandas numeric dtypes were converted to np.object_ dtype prior pandas 2.2, and are
     # converted to suitable NumPy dtypes since pandas 2.2. Refer to the following link
     # for details: https://pandas.pydata.org/docs/whatsnew/v2.2.0.html#to-numpy-for-numpy-nullable-and-arrow-types-converts-to-suitable-numpy-dtype
-    #
-    # Workarounds for pandas < 2.2. Following SPEC 0, pandas 2.1 should be dropped in
-    # 2025 Q3, so it's likely we can remove the workaround in PyGMT v0.17.0.
     if (
         Version(pd.__version__) < Version("2.2")  # pandas < 2.2 only.
         and hasattr(data, "dtype")  # NumPy array or pandas objects only.
@@ -193,7 +192,23 @@ def _to_numpy(data: Any) -> np.ndarray:
                 numpy_dtype = np.float64
             data = data.to_numpy(na_value=np.nan)
 
+    # Deal with timezone-aware datetime dtypes.
+    if isinstance(dtype, pd.DatetimeTZDtype):  # pandas.DatetimeTZDtype
+        numpy_dtype = getattr(dtype, "base", None)
+    elif isinstance(dtype, pd.ArrowDtype) and hasattr(dtype.pyarrow_dtype, "tz"):
+        # pd.ArrowDtype[pa.Timestamp]
+        numpy_dtype = getattr(dtype, "numpy_dtype", None)
+        # TODO(pandas>=2.1): Remove the workaround for pandas<2.1.
+        if Version(pd.__version__) < Version("2.1"):
+            # In pandas 2.0, dtype.numpy_type is dtype("O").
+            numpy_dtype = np.dtype(f"M8[{dtype.pyarrow_dtype.unit}]")  # type: ignore[assignment, attr-defined]
+
     array = np.ascontiguousarray(data, dtype=numpy_dtype)
+
+    # Check if a np.object_ or np.str_ array can be converted to np.datetime64.
+    if array.dtype.type in {np.object_, np.str_}:
+        with contextlib.suppress(TypeError, ValueError):
+            return np.ascontiguousarray(array, dtype=np.datetime64)
 
     # Check if a np.object_ array can be converted to np.str_.
     if array.dtype == np.object_:

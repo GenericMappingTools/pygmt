@@ -2,8 +2,8 @@
 Tests for the _to_numpy function in the clib.conversion module.
 """
 
+import datetime
 import sys
-from datetime import date, datetime
 
 import numpy as np
 import numpy.testing as npt
@@ -54,6 +54,7 @@ def _check_result(result, expected_dtype):
 @pytest.mark.parametrize(
     ("data", "expected_dtype"),
     [
+        # TODO(NumPy>=2.0): Remove the if-else statement after NumPy>=2.0.
         pytest.param(
             [1, 2, 3],
             np.int32
@@ -77,6 +78,70 @@ def test_to_numpy_python_types(data, expected_dtype):
     result = _to_numpy(data)
     _check_result(result, expected_dtype)
     npt.assert_array_equal(result, data)
+
+
+@pytest.mark.parametrize(
+    "data",
+    [
+        pytest.param(
+            ["2018", "2018-02", "2018-03-01", "2018-04-01T01:02:03"], id="iso8601"
+        ),
+        pytest.param(
+            [
+                datetime.date(2018, 1, 1),
+                datetime.datetime(2018, 2, 1),
+                datetime.date(2018, 3, 1),
+                datetime.datetime(2018, 4, 1, 1, 2, 3),
+            ],
+            id="datetime",
+        ),
+        pytest.param(
+            [
+                np.datetime64("2018"),
+                np.datetime64("2018-02"),
+                np.datetime64("2018-03-01"),
+                np.datetime64("2018-04-01T01:02:03"),
+            ],
+            id="np_datetime64",
+        ),
+        pytest.param(
+            [
+                pd.Timestamp("2018-01-01"),
+                pd.Timestamp("2018-02-01"),
+                pd.Timestamp("2018-03-01"),
+                pd.Timestamp("2018-04-01T01:02:03"),
+            ],
+            id="pd_timestamp",
+        ),
+        pytest.param(
+            [
+                "2018-01-01",
+                np.datetime64("2018-02-01"),
+                datetime.datetime(2018, 3, 1),
+                pd.Timestamp("2018-04-01T01:02:03"),
+            ],
+            id="mixed",
+        ),
+    ],
+)
+def test_to_numpy_python_datetime(data):
+    """
+    Test the _to_numpy function with Python sequence of datetime types.
+    """
+    result = _to_numpy(data)
+    assert result.dtype.type == np.datetime64
+    npt.assert_array_equal(
+        result,
+        np.array(
+            [
+                "2018-01-01T00:00:00",
+                "2018-02-01T00:00:00",
+                "2018-03-01T00:00:00",
+                "2018-04-01T01:02:03",
+            ],
+            dtype="datetime64[s]",
+        ),
+    )
 
 
 ########################################################################################
@@ -152,6 +217,36 @@ def test_to_numpy_numpy_string(dtype):
     npt.assert_array_equal(result, array)
 
 
+@pytest.mark.parametrize(
+    "dtype",
+    [
+        np.datetime64,  # The expected dtype is "datetime64[D]" for this test.
+        "datetime64[Y]",
+        "datetime64[M]",
+        "datetime64[W]",
+        "datetime64[D]",
+        "datetime64[h]",
+        "datetime64[m]",
+        "datetime64[s]",
+        "datetime64[ms]",
+        "datetime64[us]",
+        "datetime64[ns]",
+    ],
+)
+def test_to_numpy_numpy_datetime(dtype):
+    """
+    Test the _to_ndarray function with 1-D NumPy arrays of datetime.
+
+    Time units "fs", "as", "ps" are not tested here because they can only represent a
+    small range of times in 1969-1970.
+    """
+    array = np.array(["2024-01-01", "2024-01-02", "2024-01-03"], dtype=dtype)
+    result = _to_numpy(array)
+    _check_result(result, np.datetime64)
+    assert result.dtype == (dtype if isinstance(dtype, str) else "datetime64[D]")
+    npt.assert_array_equal(result, array)
+
+
 ########################################################################################
 # Test the _to_numpy function with pandas.Series.
 #
@@ -218,9 +313,10 @@ def test_to_numpy_pandas_numeric(dtype, expected_dtype):
     Test the _to_numpy function with pandas.Series of numeric dtypes.
     """
     data = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
+    # TODO(pandas>=2.2): Remove the workaround for float16 dtype in pandas<2.2.
+    # float16 needs special handling for pandas < 2.2.
+    # Example from https://arrow.apache.org/docs/python/generated/pyarrow.float16.html
     if dtype == "float16[pyarrow]" and Version(pd.__version__) < Version("2.2"):
-        # float16 needs special handling for pandas < 2.2.
-        # Example from https://arrow.apache.org/docs/python/generated/pyarrow.float16.html
         data = np.array(data, dtype=np.float16)
     series = pd.Series(data, dtype=dtype)[::2]  # Not C-contiguous
     result = _to_numpy(series)
@@ -264,9 +360,10 @@ def test_to_numpy_pandas_numeric_with_na(dtype, expected_dtype):
     dtypes and missing values (NA).
     """
     data = [1.0, 2.0, None, 4.0, 5.0, 6.0]
+    # TODO(pandas>=2.2): Remove the workaround for float16 dtype in pandas<2.2.
+    # float16 needs special handling for pandas < 2.2.
+    # Example from https://arrow.apache.org/docs/python/generated/pyarrow.float16.html
     if dtype == "float16[pyarrow]" and Version(pd.__version__) < Version("2.2"):
-        # float16 needs special handling for pandas < 2.2.
-        # Example from https://arrow.apache.org/docs/python/generated/pyarrow.float16.html
         data = np.array(data, dtype=np.float16)
     series = pd.Series(data, dtype=dtype)[::2]  # Not C-contiguous
     assert series.isna().any()
@@ -287,6 +384,7 @@ def test_to_numpy_pandas_numeric_with_na(dtype, expected_dtype):
             "string[pyarrow_numpy]",
             marks=[
                 skip_if_no(package="pyarrow"),
+                # TODO(pandas>=2.1): Remove the skipif marker for pandas<2.1.
                 pytest.mark.skipif(
                     Version(pd.__version__) < Version("2.1"),
                     reason="string[pyarrow_numpy] was added since pandas 2.1",
@@ -329,6 +427,113 @@ def test_to_numpy_pandas_date(dtype, expected_dtype):
         result,
         np.array(["2024-01-01", "2024-01-02", "2024-01-03"], dtype=expected_dtype),
     )
+
+
+pandas_old_version = pytest.mark.xfail(
+    condition=Version(pd.__version__) < Version("2.1"),
+    reason="pandas 2.0 bug reported in https://github.com/pandas-dev/pandas/issues/52705",
+)
+
+
+@pytest.mark.parametrize(
+    ("dtype", "expected_dtype"),
+    [
+        # NumPy datetime64 types. Only unit 's'/'ms'/'us'/'ns' are supported.
+        pytest.param("datetime64[s]", "datetime64[s]", id="datetime64[s]"),
+        pytest.param("datetime64[ms]", "datetime64[ms]", id="datetime64[ms]"),
+        pytest.param("datetime64[us]", "datetime64[us]", id="datetime64[us]"),
+        pytest.param("datetime64[ns]", "datetime64[ns]", id="datetime64[ns]"),
+        # pandas.DatetimeTZDtype can be given in two ways [tz is required]:
+        # 1. pandas.DatetimeTZDtype(unit, tz)
+        # 2. String aliases: "datetime64[unit, tz]"
+        pytest.param(
+            "datetime64[s, UTC]",
+            "datetime64[s]",
+            id="datetime64[s, tz=UTC]",
+            marks=pandas_old_version,
+        ),
+        pytest.param(
+            "datetime64[s, America/New_York]",
+            "datetime64[s]",
+            id="datetime64[s, tz=America/New_York]",
+            marks=pandas_old_version,
+        ),
+        pytest.param(
+            "datetime64[s, +07:30]",
+            "datetime64[s]",
+            id="datetime64[s, +07:30]",
+            marks=pandas_old_version,
+        ),
+        # PyArrow timestamp types can be given in two ways [tz is optional]:
+        # 1. pd.ArrowDtype(pyarrow.Timestamp(unit, tz=tz))
+        # 2. String aliases: "timestamp[unit, tz][pyarrow]"
+        pytest.param(
+            "timestamp[s][pyarrow]",
+            "datetime64[s]",
+            id="timestamp[s][pyarrow]",
+            marks=skip_if_no(package="pyarrow"),
+        ),
+        pytest.param(
+            "timestamp[ms][pyarrow]",
+            "datetime64[ms]",
+            id="timestamp[ms][pyarrow]",
+            marks=[skip_if_no(package="pyarrow"), pandas_old_version],
+        ),
+        pytest.param(
+            "timestamp[us][pyarrow]",
+            "datetime64[us]",
+            id="timestamp[us][pyarrow]",
+            marks=[skip_if_no(package="pyarrow"), pandas_old_version],
+        ),
+        pytest.param(
+            "timestamp[ns][pyarrow]",
+            "datetime64[ns]",
+            id="timestamp[ns][pyarrow]",
+            marks=skip_if_no(package="pyarrow"),
+        ),
+        pytest.param(
+            "timestamp[s, UTC][pyarrow]",
+            "datetime64[s]",
+            id="timestamp[s, UTC][pyarrow]",
+            marks=skip_if_no(package="pyarrow"),
+        ),
+        pytest.param(
+            "timestamp[s, America/New_York][pyarrow]",
+            "datetime64[s]",
+            id="timestamp[s, America/New_York][pyarrow]",
+            marks=skip_if_no(package="pyarrow"),
+        ),
+        pytest.param(
+            "timestamp[s, +08:00][pyarrow]",
+            "datetime64[s]",
+            id="timestamp[s, +08:00][pyarrow]",
+            marks=skip_if_no(package="pyarrow"),
+        ),
+    ],
+)
+def test_to_numpy_pandas_datetime(dtype, expected_dtype):
+    """
+    Test the _to_numpy function with pandas.Series of datetime types.
+    """
+    series = pd.Series(
+        [pd.Timestamp("2024-01-02T03:04:05"), pd.Timestamp("2024-01-02T03:04:06")],
+        dtype=dtype,
+    )
+    result = _to_numpy(series)
+    _check_result(result, np.datetime64)
+    assert result.dtype == expected_dtype
+
+    # Convert to UTC if the dtype is timezone-aware
+    if "," in str(dtype):  # A hacky way to decide if the dtype is timezone-aware.
+        # TODO(pandas>=2.1): Simplify the if-else statement.
+        if Version(pd.__version__) < Version("2.1") and dtype.startswith("timestamp"):
+            # pandas 2.0 doesn't have the dt.tz_convert method for pyarrow.Timestamp.
+            series = pd.to_datetime(series, utc=True)
+        else:
+            series = series.dt.tz_convert("UTC")
+    # Remove time zone information and preserve local time.
+    expected_series = series.dt.tz_localize(tz=None)
+    npt.assert_array_equal(result, np.array(expected_series, dtype=expected_dtype))
 
 
 ########################################################################################
@@ -426,6 +631,7 @@ def test_to_numpy_pyarrow_numeric_with_na(dtype, expected_dtype):
         "large_utf8",  # alias for large_string
         pytest.param(
             "string_view",
+            # TODO(pyarrow>=16): Remove the skipif marker for pyarrow<16.
             marks=pytest.mark.skipif(
                 Version(pa.__version__) < Version("16"),
                 reason="string_view type was added since pyarrow 16",
@@ -461,9 +667,9 @@ def test_to_numpy_pyarrow_date(dtype, expected_dtype):
     Here we explicitly check the dtype and date unit of the result.
     """
     data = [
-        date(2024, 1, 1),
-        datetime(2024, 1, 2),
-        datetime(2024, 1, 3),
+        datetime.date(2024, 1, 1),
+        datetime.datetime(2024, 1, 2),
+        datetime.datetime(2024, 1, 3),
     ]
     array = pa.array(data, type=dtype)
     result = _to_numpy(array)
@@ -507,7 +713,10 @@ def test_to_numpy_pyarrow_timestamp(dtype, expected_dtype):
 
     Reference: https://arrow.apache.org/docs/python/generated/pyarrow.timestamp.html
     """
-    data = [datetime(2024, 1, 2, 3, 4, 5), datetime(2024, 1, 2, 3, 4, 6)]
+    data = [
+        datetime.datetime(2024, 1, 2, 3, 4, 5),
+        datetime.datetime(2024, 1, 2, 3, 4, 6),
+    ]
     array = pa.array(data, type=dtype)
     result = _to_numpy(array)
     _check_result(result, np.datetime64)
