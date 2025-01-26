@@ -19,10 +19,6 @@ from pygmt.datasets import load_sample_data
 from pygmt.exceptions import GMTInvalidInput
 
 
-def test_platform_machine():
-    assert platform.machine() == ""
-
-
 @pytest.fixture(name="mock_x2sys_home")
 def _fixture_mock_x2sys_home(monkeypatch):
     """
