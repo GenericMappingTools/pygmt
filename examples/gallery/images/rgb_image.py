@@ -22,7 +22,7 @@ import rioxarray
 # %%
 # Read 3-band data from GeoTIFF into an xarray.DataArray object:
 with rioxarray.open_rasterio(
-    filename="https://oin-hotosm.s3.us-east-1.amazonaws.com/64d6a49a19cb3a000147a65b/0/64d6a49a19cb3a000147a65c.tif",
+    filename="https://oin-hotosm-temp.s3.us-east-1.amazonaws.com/64d6a49a19cb3a000147a65b/0/64d6a49a19cb3a000147a65c.tif",
     overview_level=5,
 ) as img:
     # Subset to area of Lāhainā in EPSG:32604 coordinates
