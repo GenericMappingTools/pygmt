@@ -25,7 +25,7 @@ The :meth:`pygmt.Figure.plot` method allows us to plot geographical data such as
 polygons which are stored in a :class:`geopandas.GeoDataFrame` object. Use
 :func:`geopandas.read_file` to load data from any supported OGR format such as a
 shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. You can also use a full
-URL pointing to your desired data source. Then, pass the class:`geopandas.GeoDataFrame`
+URL pointing to your desired data source. Then, pass the :class:`geopandas.GeoDataFrame`
 as an argument to the ``data`` parameter of :meth:`pygmt.Figure.plot`, and style the
 geometry using the ``pen`` parameter. To fill the polygons based on a corresponding
 column you need to set ``fill="+z"`` as well as select the appropriate column using the
@@ -41,7 +41,7 @@ column you need to set ``fill="+z"`` as well as select the appropriate column us
 
     # Read the example dataset provided by geodatasets.
     gdf = gpd.read_file(geodatasets.get_path("geoda airbnb"))
-    print(gdf)
+    print(gdf.head())
 
 
 
@@ -52,20 +52,14 @@ column you need to set ``fill="+z"`` as well as select the appropriate column us
  .. code-block:: none
 
     Downloading file 'airbnb.zip' from 'https://geodacenter.github.io/data-and-lab//data/airbnb.zip' to '/home/runner/.cache/geodatasets'.
-              community  ...                                           geometry
-    0           DOUGLAS  ...  POLYGON ((-87.60914 41.84469, -87.60915 41.844...
-    1           OAKLAND  ...  POLYGON ((-87.59215 41.81693, -87.59231 41.816...
-    2       FULLER PARK  ...  POLYGON ((-87.6288 41.80189, -87.62879 41.8017...
-    3   GRAND BOULEVARD  ...  POLYGON ((-87.60671 41.81681, -87.6067 41.8165...
-    4           KENWOOD  ...  POLYGON ((-87.59215 41.81693, -87.59215 41.816...
-    ..              ...  ...                                                ...
-    72  MOUNT GREENWOOD  ...  POLYGON ((-87.69646 41.70714, -87.69644 41.706...
-    73      MORGAN PARK  ...  POLYGON ((-87.64215 41.68508, -87.64249 41.685...
-    74            OHARE  ...  MULTIPOLYGON (((-87.83658 41.9864, -87.83658 4...
-    75        EDGEWATER  ...  POLYGON ((-87.65456 41.99817, -87.65456 41.998...
-    76      EDISON PARK  ...  POLYGON ((-87.80676 42.00084, -87.80676 42.000...
+             community  ...                                           geometry
+    0          DOUGLAS  ...  POLYGON ((-87.60914 41.84469, -87.60915 41.844...
+    1          OAKLAND  ...  POLYGON ((-87.59215 41.81693, -87.59231 41.816...
+    2      FULLER PARK  ...  POLYGON ((-87.6288 41.80189, -87.62879 41.8017...
+    3  GRAND BOULEVARD  ...  POLYGON ((-87.60671 41.81681, -87.6067 41.8165...
+    4          KENWOOD  ...  POLYGON ((-87.59215 41.81693, -87.59215 41.816...
 
-    [77 rows x 21 columns]
+    [5 rows x 21 columns]
 
 
 
@@ -122,7 +116,7 @@ column you need to set ``fill="+z"`` as well as select the appropriate column us
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.652 seconds)
+   **Total running time of the script:** (0 minutes 0.584 seconds)
 
 
 .. _sphx_glr_download_gallery_maps_choropleth_map.py:

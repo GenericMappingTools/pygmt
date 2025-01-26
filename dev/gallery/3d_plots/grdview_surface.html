@@ -9,7 +9,7 @@
         <title>Plotting a surface &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -29,7 +29,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=00410d46"></script>
+        <script src="../../_static/documentation_options.js?v=dd65f908"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -197,7 +197,7 @@ to download the full example code.</p>
 <section class="sphx-glr-example-title" id="plotting-a-surface">
 <span id="sphx-glr-gallery-3d-plots-grdview-surface-py"></span><h1>Plotting a surface<a class="headerlink" href="#plotting-a-surface" title="Link to this heading"></a></h1>
 <p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.grdview.html#pygmt.Figure.grdview" title="pygmt.Figure.grdview"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.grdview</span></code></a> method can plot 3-D surfaces with
-<code class="docutils literal notranslate"><span class="pre">surftype=&quot;s&quot;</span></code>. Here, we supply the data as an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> with
+<code class="docutils literal notranslate"><span class="pre">surftype=&quot;s&quot;</span></code>. Here, we supply the data as an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> with
 the coordinate vectors <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> defined. Note that the <code class="docutils literal notranslate"><span class="pre">perspective</span></code>
 parameter here controls the azimuth and elevation angle of the view. We provide
 a list of two arguments to <code class="docutils literal notranslate"><span class="pre">frame</span></code> - the first argument specifies the
@@ -206,14 +206,14 @@ prepended with <code class="docutils literal notranslate"><span class="pre">&quo
 Specifying the same scale for the <code class="docutils literal notranslate"><span class="pre">projection</span></code> and <code class="docutils literal notranslate"><span class="pre">zscale</span></code> parameters
 ensures equal axis scaling. The <code class="docutils literal notranslate"><span class="pre">shading</span></code> parameter specifies illumination;
 here we choose an azimuth of 45° with <code class="docutils literal notranslate"><span class="pre">shading=&quot;+a45&quot;</span></code>.</p>
-<img src="../../_images/sphx_glr_grdview_surface_001.png" srcset="../../_images/sphx_glr_grdview_surface_001.png" alt="grdview surface" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pygmt</span>
-<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<img src="../../_images/sphx_glr_grdview_surface_001.png" srcset="../../_images/sphx_glr_grdview_surface_001.png" alt="grdview surface" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
 
 
 <span class="c1"># Define an interesting function of two variables, see:</span>
 <span class="c1"># https://en.wikipedia.org/wiki/Ackley_function</span>
-<span class="k">def</span> <span class="nf">ackley</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">ackley</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Ackley function.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -257,7 +257,7 @@ here we choose an azimuth of 45° with <code class="docutils literal notranslate
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.279 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.276 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-3d-plots-grdview-surface-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/89a0144193ccaf2fb27f81e1e31c7d4f/grdview_surface.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">grdview_surface.ipynb</span></code></a></p>
@@ -285,9 +285,9 @@ here we choose an azimuth of 45° with <code class="docutils literal notranslate
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/af66e2ab">af66e2ab</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a8365eec">a8365eec</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 05, 2025.
+      <span class="lastupdated">Last updated on Jan 26, 2025.
       </span></p>
   </div>
 

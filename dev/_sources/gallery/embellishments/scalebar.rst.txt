@@ -31,8 +31,9 @@ This example shows how such a scale bar can be customized:
    - **g**: Give map coordinates as *longitude*\/\ *latitude*.
    - **j**\|\ **J**: Specify a two-character (order independent) code.
      Choose from vertical **T**\(op), **M**\(iddle), or **B**\(ottom) and
-     horizontal **L**\(eft), **C**\(entre), or **R**\(ight). Lower / upper
-     case **j** / **J** mean inside / outside of the map bounding box.
+     horizontal **L**\(eft), **C**\(entre), or **R**\(ight). Lower /
+     uppercase **j** / **J** mean inside / outside of the map bounding
+     box.
    - **n**: Give normalized bounding box coordinates as *nx*\/\ *ny*.
    - **x**: Give plot coordinates as *x*\/\ *y*.
 
@@ -59,7 +60,7 @@ This example shows how such a scale bar can be customized:
  - alignment: **+a**. Set the label alignment. Choose from **t**\(op)
    [Default], **b**\(ottom), **l**\(eft), or **r**\(ight).
 
-.. GENERATED FROM PYTHON SOURCE LINES 45-86
+.. GENERATED FROM PYTHON SOURCE LINES 46-87
 
 .. code-block:: Python
 
@@ -116,7 +117,7 @@ This example shows how such a scale bar can be customized:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 87-92
+.. GENERATED FROM PYTHON SOURCE LINES 88-93
 
 The ``box`` parameter allows surrounding the scale bar. This can be useful
 when adding a scale bar to a colorful map. To fill the box, append **+g**
@@ -124,7 +125,7 @@ with the desired color (or pattern). The outline of the box can be adjusted
 by appending **+p** with the desired thickness, color, and style. To force
 rounded edges append **+r** with the desired radius.
 
-.. GENERATED FROM PYTHON SOURCE LINES 92-112
+.. GENERATED FROM PYTHON SOURCE LINES 93-113
 
 .. code-block:: Python
 
@@ -163,7 +164,7 @@ rounded edges append **+r** with the desired radius.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.342 seconds)
+   **Total running time of the script:** (0 minutes 0.337 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_scalebar.py:

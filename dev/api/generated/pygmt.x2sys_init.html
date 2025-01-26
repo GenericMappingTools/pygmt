@@ -9,7 +9,7 @@
         <title>pygmt.x2sys_init &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -29,7 +29,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=00410d46"></script>
+        <script src="../../_static/documentation_options.js?v=dd65f908"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -260,13 +260,13 @@ Set the units used for distance and speed when requested by other
 programs. Append <strong>d</strong> for distance or <strong>s</strong> for speed, then give the
 desired <em>unit</em> as:</p>
 <ul>
-<li><p><strong>c</strong> - Cartesian userdist or userdist/usertime</p></li>
-<li><p><strong>e</strong> - meters or m/s</p></li>
-<li><p><strong>f</strong> - feet or ft/s</p></li>
-<li><p><strong>k</strong> - kilometers or km/hr</p></li>
-<li><p><strong>m</strong> - miles or mi/hr</p></li>
-<li><p><strong>n</strong> - nautical miles or knots</p></li>
-<li><p><strong>u</strong> - survey feet or sft/s</p></li>
+<li><p><strong>c</strong>: Cartesian userdist or userdist/usertime</p></li>
+<li><p><strong>e</strong>: meters or m/s</p></li>
+<li><p><strong>f</strong>: feet or ft/s</p></li>
+<li><p><strong>k</strong>: kilometers or km/hr</p></li>
+<li><p><strong>m</strong>: miles or mi/hr</p></li>
+<li><p><strong>n</strong>: nautical miles or knots</p></li>
+<li><p><strong>u</strong>: survey feet or sft/s</p></li>
 </ul>
 <p>[Default is <code class="docutils literal notranslate"><span class="pre">units=[&quot;dk&quot;,</span> <span class="pre">&quot;se&quot;]</span></code> (km and m/s) if <code class="docutils literal notranslate"><span class="pre">discontinuity</span></code> is
 set, and <code class="docutils literal notranslate"><span class="pre">units=[&quot;dc&quot;,</span> <span class="pre">&quot;sc&quot;]</span></code> otherwise (e.g., for Cartesian units)].</p>
@@ -276,13 +276,13 @@ Specify the <a class="reference internal" href="../../tutorials/basics/regions.h
 <li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
 written to stderr. Choose among 7 levels of verbosity:</p>
 <ul>
-<li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
-<li><p><strong>e</strong> - Error messages only</p></li>
-<li><p><strong>w</strong> - Warnings [Default]</p></li>
-<li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorithms)</p></li>
-<li><p><strong>i</strong> - Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
-<li><p><strong>c</strong> - Compatibility warnings</p></li>
-<li><p><strong>d</strong> - Debugging messages</p></li>
+<li><p><strong>q</strong>: Quiet, not even fatal error messages are produced</p></li>
+<li><p><strong>e</strong>: Error messages only</p></li>
+<li><p><strong>w</strong>: Warnings [Default]</p></li>
+<li><p><strong>t</strong>: Timings (report runtimes for time-intensive algorithms)</p></li>
+<li><p><strong>i</strong>: Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
+<li><p><strong>c</strong>: Compatibility warnings</p></li>
+<li><p><strong>d</strong>: Debugging messages</p></li>
 </ul>
 </p></li>
 <li><p><strong>gap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <strong>t</strong>|<strong>d</strong><em>gap</em>.
@@ -295,9 +295,9 @@ be determined.</p></li>
 <li><p><strong>distcalc</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p><strong>e</strong>|<strong>f</strong>|<strong>g</strong>.
 Determine how spherical distances are calculated.</p>
 <ul>
-<li><p><strong>e</strong> - Ellipsoidal (or geodesic) mode</p></li>
-<li><p><strong>f</strong> - Flat Earth mode</p></li>
-<li><p><strong>g</strong> - Great circle distance [Default]</p></li>
+<li><p><strong>e</strong>: Ellipsoidal (or geodesic) mode</p></li>
+<li><p><strong>f</strong>: Flat Earth mode</p></li>
+<li><p><strong>g</strong>: Great circle distance [Default]</p></li>
 </ul>
 <p>All spherical distance calculations depend on the current ellipsoid
 (<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-PROJ_ELLIPSOID">PROJ_ELLIPSOID</a>), the definition of the mean radius
@@ -325,9 +325,9 @@ controlled by method (<a class="reference external" href="https://docs.generic-m
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/af66e2ab">af66e2ab</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a8365eec">a8365eec</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 05, 2025.
+      <span class="lastupdated">Last updated on Jan 26, 2025.
       </span></p>
   </div>
 

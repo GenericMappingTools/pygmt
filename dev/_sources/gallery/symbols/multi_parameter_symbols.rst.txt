@@ -61,7 +61,7 @@ The multi-parameter symbols in the ``style`` parameter are defined as:
   directions given in degrees counter-clockwise from horizontal. Append **+i** and the
   desired value to apply an inner diameter.
 
-Upper-case versions **E**, **J**, and **W** are similar to **e**, **j**, and **w**
+Uppercase versions **E**, **J**, and **W** are similar to **e**, **j**, and **w**
 but expect geographic azimuths and distances.
 
 .. GENERATED FROM PYTHON SOURCE LINES 38-57
@@ -159,7 +159,7 @@ The symbol parameters in the 2-D list or numpy array are defined as:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.429 seconds)
+   **Total running time of the script:** (0 minutes 0.422 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_multi_parameter_symbols.py:

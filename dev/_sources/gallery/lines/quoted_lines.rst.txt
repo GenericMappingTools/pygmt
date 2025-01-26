@@ -54,7 +54,7 @@ at :gmt-docs:`plot.html#s`.
         "qd1c:+ltext+i",
         # Give the number of equally spaced labels by using "n" instead of "d"
         "qn5:+ltext",
-        # Use upper-case "N" to have labels at the start and end of the line
+        # Use uppercase "N" to have labels at the start and end of the line
         "qN5:+ltext",
         # To only plot a label at the start of the line use "N-1"
         "qN-1:+ltext",
@@ -149,7 +149,7 @@ to the ``style`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.165 seconds)
+   **Total running time of the script:** (0 minutes 1.147 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_quoted_lines.py:

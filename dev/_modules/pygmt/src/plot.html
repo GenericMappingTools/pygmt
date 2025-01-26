@@ -8,7 +8,7 @@
         <title>pygmt.src.plot &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -28,7 +28,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=00410d46"></script>
+        <script src="../../../_static/documentation_options.js?v=dd65f908"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -163,9 +163,11 @@
 <span class="sd">plot - Plot in two dimensions.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTInvalidInput</span>
-<span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTInvalidInput</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">build_arg_list</span><span class="p">,</span>
     <span class="n">data_kind</span><span class="p">,</span>
     <span class="n">fmt_docstring</span><span class="p">,</span>
@@ -173,7 +175,7 @@
     <span class="n">kwargs_to_strings</span><span class="p">,</span>
     <span class="n">use_alias</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">pygmt.src._common</span> <span class="kn">import</span> <span class="n">_data_geometry_is_point</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src._common</span><span class="w"> </span><span class="kn">import</span> <span class="n">_data_geometry_is_point</span>
 
 
 <span class="nd">@fmt_docstring</span>
@@ -209,8 +211,16 @@
     <span class="n">w</span><span class="o">=</span><span class="s2">&quot;wrap&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">plot</span><span class="p">(</span>
-    <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">direction</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">straight_line</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># noqa: ARG001</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot lines, polygons, and symbols in 2-D.</span>
@@ -259,18 +269,29 @@
 <span class="sd">        depending on the style options chosen.</span>
 <span class="sd">    {projection}</span>
 <span class="sd">    {region}</span>
-<span class="sd">    straight_line : bool or str</span>
-<span class="sd">        [**m**\|\ **p**\|\ **x**\|\ **y**].</span>
-<span class="sd">        By default, geographic line segments are drawn as great circle</span>
-<span class="sd">        arcs. To draw them as straight lines, use</span>
-<span class="sd">        ``straight_line=True``.</span>
-<span class="sd">        Alternatively, add **m** to draw the line by first following a</span>
-<span class="sd">        meridian, then a parallel. Or append **p** to start following a</span>
-<span class="sd">        parallel, then a meridian. (This can be practical to draw a line</span>
-<span class="sd">        along parallels, for example). For Cartesian data, points are</span>
-<span class="sd">        simply connected, unless you append **x** or **y** to draw</span>
-<span class="sd">        stair-case curves that whose first move is along *x* or *y*,</span>
-<span class="sd">        respectively.</span>
+<span class="sd">    straight_line</span>
+<span class="sd">        By default, line segments are drawn as straight lines in the Cartesian and polar</span>
+<span class="sd">        coordinate systems, and as great circle arcs (by resampling coarse input data</span>
+<span class="sd">        along such arcs) in the geographic coordinate system. The ``straight_line``</span>
+<span class="sd">        parameter can control the drawing of line segments. Valid values are:</span>
+
+<span class="sd">        - ``True``: Draw line segments as straight lines in geographic coordinate</span>
+<span class="sd">          systems.</span>
+<span class="sd">        - ``&quot;x&quot;``: Draw line segments by first along *x*, then along *y*.</span>
+<span class="sd">        - ``&quot;y&quot;``: Draw line segments by first along *y*, then along *x*.</span>
+
+<span class="sd">        Here, *x* and *y* have different meanings depending on the coordinate system:</span>
+
+<span class="sd">        - **Cartesian** coordinate system: *x* and *y* are the X- and Y-axes.</span>
+<span class="sd">        - **Polar** coordinate system: *x* and *y* are theta and radius.</span>
+<span class="sd">        - **Geographic** coordinate system: *x* and *y* are parallels and meridians.</span>
+
+<span class="sd">        .. attention::</span>
+
+<span class="sd">            There exits a bug in GMT&lt;=6.5.0 that, in geographic coordinate systems, the</span>
+<span class="sd">            meaning of *x* and *y* is reversed, i.e., *x* means meridians and *y* means</span>
+<span class="sd">            parallels. The bug is fixed by upstream</span>
+<span class="sd">            `PR #8648 &lt;https://github.com/GenericMappingTools/gmt/pull/8648&gt;`__.</span>
 <span class="sd">    {frame}</span>
 <span class="sd">    {cmap}</span>
 <span class="sd">    offset : str</span>
@@ -367,6 +388,8 @@
 <span class="sd">        ``x``/``y``.</span>
 <span class="sd">    {wrap}</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO(GMT&gt;6.5.0): Remove the note for the upstream bug of the &quot;straight_line&quot;</span>
+    <span class="c1"># parameter.</span>
     <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="n">kind</span> <span class="o">=</span> <span class="n">data_kind</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -430,9 +453,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/af66e2ab">af66e2ab</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a8365eec">a8365eec</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 05, 2025.
+      <span class="lastupdated">Last updated on Jan 26, 2025.
       </span></p>
   </div>
 

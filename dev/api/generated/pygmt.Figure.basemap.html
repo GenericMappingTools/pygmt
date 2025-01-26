@@ -9,7 +9,7 @@
         <title>pygmt.Figure.basemap &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -29,7 +29,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=00410d46"></script>
+        <script src="../../_static/documentation_options.js?v=dd65f908"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -275,13 +275,13 @@ reference and anchor points.</p></li>
 <li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
 written to stderr. Choose among 7 levels of verbosity:</p>
 <ul>
-<li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
-<li><p><strong>e</strong> - Error messages only</p></li>
-<li><p><strong>w</strong> - Warnings [Default]</p></li>
-<li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorithms)</p></li>
-<li><p><strong>i</strong> - Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
-<li><p><strong>c</strong> - Compatibility warnings</p></li>
-<li><p><strong>d</strong> - Debugging messages</p></li>
+<li><p><strong>q</strong>: Quiet, not even fatal error messages are produced</p></li>
+<li><p><strong>e</strong>: Error messages only</p></li>
+<li><p><strong>w</strong>: Warnings [Default]</p></li>
+<li><p><strong>t</strong>: Timings (report runtimes for time-intensive algorithms)</p></li>
+<li><p><strong>i</strong>: Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
+<li><p><strong>c</strong>: Compatibility warnings</p></li>
+<li><p><strong>d</strong>: Debugging messages</p></li>
 </ul>
 </p></li>
 <li><p><strong>panel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – [<em>row,col</em>|<em>index</em>].
@@ -344,7 +344,7 @@ in the image (for further processing).</p></li>
 </div><div class="sphx-glr-thumbcontainer" tooltip="In addition to ASCII printable characters, sometimes you may also want to typeset non-ASCII characters on the plot, such as Greek letters, mathematical symbols, or special characters."><img alt="" src="../../_images/sphx_glr_non_ascii_text_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/non_ascii_text.html#sphx-glr-tutorials-advanced-non-ascii-text-py"><span class="std std-ref">Typesetting non-ASCII text</span></a></p>
   <div class="sphx-glr-thumbnail-title">Typesetting non-ASCII text</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows us to plot geographical data such as polygons which are stored in a geopandas.GeoDataFrame object. Use geopandas.read_file to load data from any supported OGR format such as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. You can also use a full URL pointing to your desired data source. Then, pass the class:`geopandas.GeoDataFrame` as an argument to the data parameter of pygmt.Figure.plot, and style the geometry using the pen parameter. To fill the polygons based on a corresponding column you need to set fill=&quot;+z&quot; as well as select the appropriate column using the aspatial parameter as shown in the example below."><img alt="" src="../../_images/sphx_glr_choropleth_map_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows us to plot geographical data such as polygons which are stored in a geopandas.GeoDataFrame object. Use geopandas.read_file to load data from any supported OGR format such as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. You can also use a full URL pointing to your desired data source. Then, pass the geopandas.GeoDataFrame as an argument to the data parameter of pygmt.Figure.plot, and style the geometry using the pen parameter. To fill the polygons based on a corresponding column you need to set fill=&quot;+z&quot; as well as select the appropriate column using the aspatial parameter as shown in the example below."><img alt="" src="../../_images/sphx_glr_choropleth_map_thumb.png" />
 <p><a class="reference internal" href="../../gallery/maps/choropleth_map.html#sphx-glr-gallery-maps-choropleth-map-py"><span class="std std-ref">Choropleth map</span></a></p>
   <div class="sphx-glr-thumbnail-title">Choropleth map</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The land and water parameters of pygmt.Figure.coast specify a color to fill in the land and water masses, respectively. There are many color codes in GMT &lt;gmtcolors.html&gt;, including standard GMT color names (like &quot;skyblue&quot;), R/G/B levels (like &quot;0/0/255&quot;), a hex value (like &quot;#333333&quot;), and a gray level (like &quot;gray50&quot;)."><img alt="" src="../../_images/sphx_glr_land_and_water_thumb.png" />
@@ -368,6 +368,9 @@ in the image (for further processing).</p></li>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.project function can generate points along a great circle whose center and end points can be defined via the center and endpoint parameters, respectively. Using the generate parameter allows to generate (r, s, p) points every dist units of p along a profile as output. By default, all units (r, s and p) are set to degrees while unit=True allows to set the unit for p to km."><img alt="" src="../../_images/sphx_glr_great_circles_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/great_circles.html#sphx-glr-gallery-lines-great-circles-py"><span class="std std-ref">Generate points along great circles</span></a></p>
   <div class="sphx-glr-thumbnail-title">Generate points along great circles</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.hlines and pygmt.Figure.vlines methods allow to plot horizontal and vertical lines in Cartesian, geographic and polar coordinate systems."><img alt="" src="../../_images/sphx_glr_hlines_vlines_thumb.png" />
+<p><a class="reference internal" href="../../gallery/lines/hlines_vlines.html#sphx-glr-gallery-lines-hlines-vlines-py"><span class="std std-ref">Horizontal and vertical lines</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Horizontal and vertical lines</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The color of the lines made by pygmt.Figure.plot can be set according to a custom CPT and assigned with the pen parameter."><img alt="" src="../../_images/sphx_glr_line_custom_cpt_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/line_custom_cpt.html#sphx-glr-gallery-lines-line-custom-cpt-py"><span class="std std-ref">Line colors with a custom CPT</span></a></p>
   <div class="sphx-glr-thumbnail-title">Line colors with a custom CPT</div>
@@ -437,7 +440,7 @@ in the image (for further processing).</p></li>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need to input a 2-D raster to grid which can be an xarray.DataArray. The argument passed to the points parameter can be a pandas.DataFrame table where the first two columns are x and y (or longitude and latitude). Note also that there is a newcolname parameter that will be used to name the new column of values sampled from the grid."><img alt="" src="../../_images/sphx_glr_track_sampling_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/track_sampling.html#sphx-glr-gallery-images-track-sampling-py"><span class="std std-ref">Sampling along tracks</span></a></p>
   <div class="sphx-glr-thumbnail-title">Sampling along tracks</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The frame parameter of the plotting methods of the pygmt.Figure class can control which axes should be plotted and optionally show annotations, tick marks, and gridlines. By default, all 4 axes are plotted, along with annotations and tick marks (denoted W, S, E, N). Lower case versions (w, s, e, n) can be used to denote to only plot the axes with tick marks. We can also only plot the axes without annotations and tick marks using l (left axis), r (right axis), t (top axis), b (bottom axis). When frame is used to change the frame settings, any axes that are not defined using one of these three options are not drawn."><img alt="" src="../../_images/sphx_glr_double_y_axes_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The frame parameter of the plotting methods of the pygmt.Figure class can control which axes should be plotted and optionally show annotations, tick marks, and gridlines. By default, all 4 axes are plotted, along with annotations and tick marks (denoted W, S, E, N). Lowercase versions (w, s, e, n) can be used to denote to only plot the axes with tick marks. We can also only plot the axes without annotations and tick marks using l (left axis), r (right axis), t (top axis), b (bottom axis). When frame is used to change the frame settings, any axes that are not defined using one of these three options are not drawn."><img alt="" src="../../_images/sphx_glr_double_y_axes_thumb.png" />
 <p><a class="reference internal" href="../../gallery/basemaps/double_y_axes.html#sphx-glr-gallery-basemaps-double-y-axes-py"><span class="std std-ref">Double Y-axes graph</span></a></p>
   <div class="sphx-glr-thumbnail-title">Double Y-axes graph</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="To create a scatter plot with histograms at the sides of the plot one can use pygmt.Figure.plot in combination with pygmt.Figure.histogram. The positions of the histograms are plotted by offsetting them from the main scatter plot using pygmt.Figure.shift_origin."><img alt="" src="../../_images/sphx_glr_scatter_and_histograms_thumb.png" />
@@ -489,9 +492,9 @@ in the image (for further processing).</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/af66e2ab">af66e2ab</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a8365eec">a8365eec</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 05, 2025.
+      <span class="lastupdated">Last updated on Jan 26, 2025.
       </span></p>
   </div>
 

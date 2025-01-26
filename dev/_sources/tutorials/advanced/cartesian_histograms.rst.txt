@@ -506,7 +506,7 @@ Limitations of histograms with grouped bars are:
         # of the bin width
         # Offset ("+o") the bars to align each bar with the left limit of the corresponding
         # bin
-        barwidth=f"{binwidth/2}+o-{binwidth/4}",
+        barwidth=f"{binwidth / 2}+o-{binwidth / 4}",
         label="data01",
     )
 
@@ -517,7 +517,7 @@ Limitations of histograms with grouped bars are:
         fill="orange",
         pen="1p,darkgray,solid",
         histtype=0,
-        barwidth=f"{binwidth/2}+o{binwidth/4}",
+        barwidth=f"{binwidth / 2}+o{binwidth / 4}",
         label="data02",
     )
 
@@ -541,7 +541,7 @@ Limitations of histograms with grouped bars are:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.267 seconds)
+   **Total running time of the script:** (0 minutes 1.249 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_cartesian_histograms.py:

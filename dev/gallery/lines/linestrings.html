@@ -9,7 +9,7 @@
         <title>GeoPandas: Plotting lines with LineString or MultiLineString geometry &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -29,7 +29,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=00410d46"></script>
+        <script src="../../_static/documentation_options.js?v=dd65f908"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -38,7 +38,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Line colors with a custom CPT" href="line_custom_cpt.html" />
+    <link rel="next" title="Horizontal and vertical lines" href="hlines_vlines.html" />
     <link rel="prev" title="Generate points along great circles" href="great_circles.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
@@ -106,6 +106,7 @@
 <li class="toctree-l3"><a class="reference internal" href="envelope.html">Envelope</a></li>
 <li class="toctree-l3"><a class="reference internal" href="great_circles.html">Generate points along great circles</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">GeoPandas: Plotting lines with LineString or MultiLineString geometry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hlines_vlines.html">Horizontal and vertical lines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="line_custom_cpt.html">Line colors with a custom CPT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="linefronts.html">Line fronts</a></li>
 <li class="toctree-l3"><a class="reference internal" href="line_segment_ends.html">Line segment caps and joints</a></li>
@@ -214,9 +215,9 @@ with LineString or MultiLineString geometry types stored in a
 shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the
 <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v1.0.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a> object as an argument to the <code class="docutils literal notranslate"><span class="pre">data</span></code> parameter of
 <a class="reference internal" href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.plot</span></code></a>, and style the lines using the <code class="docutils literal notranslate"><span class="pre">pen</span></code> parameter.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geodatasets</span>
-<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-<span class="kn">import</span> <span class="nn">pygmt</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">geodatasets</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
 
 <span class="c1"># Read a sample dataset provided by the geodatasets package.</span>
 <span class="c1"># The dataset contains large rivers in Europe, stored as LineString/MultiLineString</span>
@@ -225,20 +226,70 @@ shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the
 
 <span class="c1"># Convert object to EPSG 4326 coordinate system</span>
 <a href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="geopandas.GeoDataFrame" class="sphx-glr-backref-module-geopandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">gdf</span></a> <span class="o">=</span> <a href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.to_crs.html#geopandas.GeoDataFrame.to_crs" title="geopandas.GeoDataFrame.to_crs" class="sphx-glr-backref-module-geopandas sphx-glr-backref-type-py-method"><span class="n">gdf</span><span class="o">.</span><span class="n">to_crs</span></a><span class="p">(</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.head.html#pandas.DataFrame.head" title="pandas.DataFrame.head" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">gdf</span><span class="o">.</span><span class="n">head</span></a><span class="p">())</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.head.html#pandas.DataFrame.head" title="pandas.DataFrame.head" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">gdf</span><span class="o">.</span><span class="n">head</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>           NAME  ...                                           geometry
-0        Danube  ...  MULTILINESTRING ((8.1846 48.0807, 8.19049 48.0...
-1         Douro  ...  MULTILINESTRING ((-8.67141 41.14934, -8.64362 ...
-2          Ebro  ...  MULTILINESTRING ((-4.05971 42.97715, -4.06841 ...
-3          Elbe  ...  MULTILINESTRING ((8.69715 53.90109, 8.72716 53...
-4  Guadalquivir  ...  MULTILINESTRING ((-6.37899 36.80363, -6.34806 ...
+<div class="output_subarea output_html rendered_html output_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-[5 rows x 3 columns]
-</pre></div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>NAME</th>
+      <th>Shape_Leng</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Danube</td>
+      <td>2.770357e+06</td>
+      <td>MULTILINESTRING ((8.1846 48.0807, 8.19049 48.0...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Douro</td>
+      <td>8.162452e+05</td>
+      <td>MULTILINESTRING ((-8.67141 41.14934, -8.64362 ...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Ebro</td>
+      <td>8.269909e+05</td>
+      <td>MULTILINESTRING ((-4.05971 42.97715, -4.06841 ...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Elbe</td>
+      <td>1.087288e+06</td>
+      <td>MULTILINESTRING ((8.69715 53.90109, 8.72716 53...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Guadalquivir</td>
+      <td>5.997583e+05</td>
+      <td>MULTILINESTRING ((-6.37899 36.80363, -6.34806 ...</td>
+    </tr>
+  </tbody>
+</table>
 </div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
+</div>
+<br />
+<br /><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 
 <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M10c&quot;</span><span class="p">,</span>
@@ -256,7 +307,7 @@ shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_linestrings_001.png" srcset="../../_images/sphx_glr_linestrings_001.png" alt="linestrings" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.773 seconds)</p>
+<img src="../../_images/sphx_glr_linestrings_001.png" srcset="../../_images/sphx_glr_linestrings_001.png" alt="linestrings" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 3.256 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-lines-linestrings-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/0511f0ea20672dfb94a45be5bdc7a003/linestrings.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">linestrings.ipynb</span></code></a></p>
@@ -277,16 +328,16 @@ shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="great_circles.html" class="btn btn-neutral float-left" title="Generate points along great circles" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="line_custom_cpt.html" class="btn btn-neutral float-right" title="Line colors with a custom CPT" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="hlines_vlines.html" class="btn btn-neutral float-right" title="Horizontal and vertical lines" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/af66e2ab">af66e2ab</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a8365eec">a8365eec</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 05, 2025.
+      <span class="lastupdated">Last updated on Jan 26, 2025.
       </span></p>
   </div>
 

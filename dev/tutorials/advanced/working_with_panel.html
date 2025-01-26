@@ -9,7 +9,7 @@
         <title>Interactive data visualization using Panel &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -29,7 +29,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=00410d46"></script>
+        <script src="../../_static/documentation_options.js?v=dd65f908"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -221,9 +221,9 @@ create interactive dashboards by connecting user-defined widgets to plots.
 <li><p>Add a grid for Earth relief</p></li>
 </ul>
 <p>Import the required packages</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">panel</span> <span class="k">as</span> <span class="nn">pn</span>
-<span class="kn">import</span> <span class="nn">pygmt</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">panel</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
 
 <span class="n">pn</span><span class="o">.</span><span class="n">extension</span><span class="p">()</span>
 </pre></div>
@@ -267,7 +267,7 @@ with a slider (works only in a notebook environment, e.g., Jupyter notebook).</p
 
 
 <span class="nd">@pn</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">central_lon</span><span class="o">=</span><span class="n">slider_lon</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="n">central_lon</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">view</span><span class="p">(</span><span class="n">central_lon</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Define a function for plotting the single slices.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -311,7 +311,7 @@ displayed. Here, the Earth relief is shown by color-coding the elevation.</p>
 
 
 <span class="nd">@pn</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">central_lon</span><span class="o">=</span><span class="n">slider_lon</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="n">central_lon</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">view</span><span class="p">(</span><span class="n">central_lon</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Define a function for plotting the single slices.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -347,7 +347,7 @@ displayed. Here, the Earth relief is shown by color-coding the elevation.</p>
     [1] ParamFunction(function, _pane=PNG, defer_load=False)
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.667 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.677 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-working-with-panel-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/9607cce8c2a328be63cfb98745cd1baf/working_with_panel.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">working_with_panel.ipynb</span></code></a></p>
@@ -376,9 +376,9 @@ displayed. Here, the Earth relief is shown by color-coding the elevation.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/af66e2ab">af66e2ab</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a8365eec">a8365eec</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 05, 2025.
+      <span class="lastupdated">Last updated on Jan 26, 2025.
       </span></p>
   </div>
 

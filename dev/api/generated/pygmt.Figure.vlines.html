@@ -9,7 +9,7 @@
         <title>pygmt.Figure.vlines &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -29,7 +29,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=00410d46"></script>
+        <script src="../../_static/documentation_options.js?v=dd65f908"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -223,10 +223,10 @@ of <code class="docutils literal notranslate"><span class="pre">x</span></code>.
 <p>The term “vertical” lines can be interpreted differently in different coordinate
 systems:</p>
 <ul class="simple">
-<li><p><strong>Cartesian</strong> coordinate system: lines are plotted as straight lines.</p></li>
-<li><p><strong>Polar</strong> projection: lines are plotted as straight lines along radius.</p></li>
-<li><p><strong>Geographic</strong> projection: lines are plotted as meridians along constant
-longitude.</p></li>
+<li><p><strong>Cartesian</strong>: lines are plotted as straight lines.</p></li>
+<li><p><strong>Polar</strong>: lines are plotted as straight lines along a constant azimuth.</p></li>
+<li><p><strong>Geographic</strong>: lines are plotted as arcs along meridians (i.e., constant
+longitude).</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -248,7 +248,7 @@ viewpoint. Refer to <a class="reference internal" href="pygmt.Figure.plot.html#p
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pygmt</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X10c/10c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;1p,black&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Line at x=1&quot;</span><span class="p">)</span>
@@ -264,7 +264,13 @@ viewpoint. Refer to <a class="reference internal" href="pygmt.Figure.plot.html#p
 </div>
 </dd></dl>
 
-<div style='clear:both'></div></section>
+<section id="examples-using-pygmt-figure-vlines">
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.vlines</span></code><a class="headerlink" href="#examples-using-pygmt-figure-vlines" title="Link to this heading"></a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.hlines and pygmt.Figure.vlines methods allow to plot horizontal and vertical lines in Cartesian, geographic and polar coordinate systems."><img alt="" src="../../_images/sphx_glr_hlines_vlines_thumb.png" />
+<p><a class="reference internal" href="../../gallery/lines/hlines_vlines.html#sphx-glr-gallery-lines-hlines-vlines-py"><span class="std std-ref">Horizontal and vertical lines</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Horizontal and vertical lines</div>
+</div></div><div style='clear:both'></div></section>
+</section>
 
 
            </div>
@@ -279,9 +285,9 @@ viewpoint. Refer to <a class="reference internal" href="pygmt.Figure.plot.html#p
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/af66e2ab">af66e2ab</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a8365eec">a8365eec</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 05, 2025.
+      <span class="lastupdated">Last updated on Jan 26, 2025.
       </span></p>
   </div>
 

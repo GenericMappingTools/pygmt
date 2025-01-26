@@ -9,7 +9,7 @@
         <title>Vector heads and tails &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -29,7 +29,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=00410d46"></script>
+        <script src="../../_static/documentation_options.js?v=dd65f908"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -106,6 +106,7 @@
 <li class="toctree-l3"><a class="reference internal" href="envelope.html">Envelope</a></li>
 <li class="toctree-l3"><a class="reference internal" href="great_circles.html">Generate points along great circles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="linestrings.html">GeoPandas: Plotting lines with LineString or MultiLineString geometry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hlines_vlines.html">Horizontal and vertical lines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="line_custom_cpt.html">Line colors with a custom CPT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="linefronts.html">Line fronts</a></li>
 <li class="toctree-l3"><a class="reference internal" href="line_segment_ends.html">Line segment caps and joints</a></li>
@@ -228,7 +229,7 @@ with individual heads and tails. We must specify the modifiers (together with
 the vector type, here <code class="docutils literal notranslate"><span class="pre">&quot;v&quot;</span></code> for Cartesian vector, see also the
 <a class="reference internal" href="vector_styles.html"><span class="doc">Vector types example</span></a>)
 by passing the corresponding shortcuts to the <code class="docutils literal notranslate"><span class="pre">style</span></code> parameter.</p>
-<img src="../../_images/sphx_glr_vector_heads_tails_001.png" srcset="../../_images/sphx_glr_vector_heads_tails_001.png" alt="vector heads tails" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
+<img src="../../_images/sphx_glr_vector_heads_tails_001.png" srcset="../../_images/sphx_glr_vector_heads_tails_001.png" alt="vector heads tails" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
 
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span>
@@ -281,7 +282,7 @@ by passing the corresponding shortcuts to the <code class="docutils literal notr
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.268 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.262 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-lines-vector-heads-tails-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/0c945e86732f528ab720eb6eb270ec15/vector_heads_tails.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">vector_heads_tails.ipynb</span></code></a></p>
@@ -309,9 +310,9 @@ by passing the corresponding shortcuts to the <code class="docutils literal notr
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/af66e2ab">af66e2ab</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a8365eec">a8365eec</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 05, 2025.
+      <span class="lastupdated">Last updated on Jan 26, 2025.
       </span></p>
   </div>
 

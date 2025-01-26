@@ -9,7 +9,7 @@
         <title>Sampling along tracks &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -29,7 +29,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=00410d46"></script>
+        <script src="../../_static/documentation_options.js?v=dd65f908"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -204,7 +204,7 @@ to download the full example code.</p>
 <span id="sphx-glr-gallery-images-track-sampling-py"></span><h1>Sampling along tracks<a class="headerlink" href="#sampling-along-tracks" title="Link to this heading"></a></h1>
 <p>The <a class="reference internal" href="../../api/generated/pygmt.grdtrack.html#pygmt.grdtrack" title="pygmt.grdtrack"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.grdtrack</span></code></a> function samples a raster grid’s value along
 specified points. We will need to input a 2-D raster to <code class="docutils literal notranslate"><span class="pre">grid</span></code> which can be
-an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>. The argument passed to the <code class="docutils literal notranslate"><span class="pre">points</span></code> parameter
+an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>. The argument passed to the <code class="docutils literal notranslate"><span class="pre">points</span></code> parameter
 can be a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> table where the first two columns are
 x and y (or longitude and latitude). Note also that there is a <code class="docutils literal notranslate"><span class="pre">newcolname</span></code>
 parameter that will be used to name the new column of values sampled from the
@@ -212,7 +212,7 @@ grid.</p>
 <p>Alternatively, a netCDF file path can be passed to <code class="docutils literal notranslate"><span class="pre">grid</span></code>. An ASCII file path
 can also be accepted for <code class="docutils literal notranslate"><span class="pre">points</span></code>. To save an output ASCII file, a file name
 argument needs to be passed to the <code class="docutils literal notranslate"><span class="pre">outfile</span></code> parameter.</p>
-<img src="../../_images/sphx_glr_track_sampling_001.png" srcset="../../_images/sphx_glr_track_sampling_001.png" alt="track sampling" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
+<img src="../../_images/sphx_glr_track_sampling_001.png" srcset="../../_images/sphx_glr_track_sampling_001.png" alt="track sampling" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
 
 <span class="c1"># Load sample grid and point datasets</span>
 <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.datasets.load_earth_relief.html#pygmt.datasets.load_earth_relief" title="pygmt.datasets.load_earth_relief" class="sphx-glr-backref-module-pygmt-datasets sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_earth_relief</span></a><span class="p">()</span>
@@ -239,7 +239,7 @@ argument needs to be passed to the <code class="docutils literal notranslate"><s
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.377 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.372 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-images-track-sampling-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/1cd4356b2c55d053bfeb91e9bce93f36/track_sampling.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">track_sampling.ipynb</span></code></a></p>
@@ -267,9 +267,9 @@ argument needs to be passed to the <code class="docutils literal notranslate"><s
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/af66e2ab">af66e2ab</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a8365eec">a8365eec</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 05, 2025.
+      <span class="lastupdated">Last updated on Jan 26, 2025.
       </span></p>
   </div>
 

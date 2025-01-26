@@ -9,7 +9,7 @@
         <title>Plotting data points &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -29,7 +29,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=00410d46"></script>
+        <script src="../../_static/documentation_options.js?v=dd65f908"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -198,33 +198,111 @@ that is packaged with GMT to try this out. PyGMT provides access to these
 datasets through the <code class="xref py py-mod docutils literal notranslate"><span class="pre">pygmt.datasets</span></code> package. If you don’t have the data
 files already, they are automatically downloaded and saved to a cache directory
 the first time you use them (usually <code class="docutils literal notranslate"><span class="pre">~/.gmt/cache</span></code>).</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
 </pre></div>
 </div>
 <p>For example, let’s load the sample dataset of tsunami generating earthquakes
 around Japan using <a class="reference internal" href="../../api/generated/pygmt.datasets.load_sample_data.html#pygmt.datasets.load_sample_data" title="pygmt.datasets.load_sample_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.datasets.load_sample_data</span></code></a>.
 The data are loaded as a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.datasets.load_sample_data.html#pygmt.datasets.load_sample_data" title="pygmt.datasets.load_sample_data" class="sphx-glr-backref-module-pygmt-datasets sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_sample_data</span></a><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;japan_quakes&quot;</span><span class="p">)</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.head.html#pandas.DataFrame.head" title="pandas.DataFrame.head" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">data</span><span class="o">.</span><span class="n">head</span></a><span class="p">()</span>
+</pre></div>
+</div>
+<div class="output_subarea output_html rendered_html output_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="c1"># Set the region for the plot to be slightly larger than the data bounds.</span>
-<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region</span></a> <span class="o">=</span> <span class="p">[</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>month</th>
+      <th>day</th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>depth_km</th>
+      <th>magnitude</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1987</td>
+      <td>1</td>
+      <td>4</td>
+      <td>49.77</td>
+      <td>149.29</td>
+      <td>489</td>
+      <td>4.1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1987</td>
+      <td>1</td>
+      <td>9</td>
+      <td>39.90</td>
+      <td>141.68</td>
+      <td>67</td>
+      <td>6.8</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1987</td>
+      <td>1</td>
+      <td>9</td>
+      <td>39.82</td>
+      <td>141.64</td>
+      <td>84</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1987</td>
+      <td>1</td>
+      <td>14</td>
+      <td>42.56</td>
+      <td>142.85</td>
+      <td>102</td>
+      <td>6.5</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1987</td>
+      <td>1</td>
+      <td>16</td>
+      <td>42.79</td>
+      <td>145.10</td>
+      <td>54</td>
+      <td>5.1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+<br />
+<br /><p>Set the region for the plot to be slightly larger than the data bounds.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region</span></a> <span class="o">=</span> <span class="p">[</span>
     <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.min.html#pandas.Series.min" title="pandas.Series.min" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">data</span><span class="o">.</span><span class="n">longitude</span><span class="o">.</span><span class="n">min</span></a><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
     <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.max.html#pandas.Series.max" title="pandas.Series.max" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">data</span><span class="o">.</span><span class="n">longitude</span><span class="o">.</span><span class="n">max</span></a><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
     <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.min.html#pandas.Series.min" title="pandas.Series.min" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">data</span><span class="o">.</span><span class="n">latitude</span><span class="o">.</span><span class="n">min</span></a><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
     <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.max.html#pandas.Series.max" title="pandas.Series.max" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">data</span><span class="o">.</span><span class="n">latitude</span><span class="o">.</span><span class="n">max</span></a><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
 <span class="p">]</span>
-
-<span class="nb">print</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region</span></a><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.head.html#pandas.DataFrame.head" title="pandas.DataFrame.head" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">data</span><span class="o">.</span><span class="n">head</span></a><span class="p">())</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region</span></a>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[np.float64(131.29), np.float64(150.89), np.float64(34.02), np.float64(50.77)]
-   year  month  day  latitude  longitude  depth_km  magnitude
-0  1987      1    4     49.77     149.29       489        4.1
-1  1987      1    9     39.90     141.68        67        6.8
-2  1987      1    9     39.82     141.64        84        4.0
-3  1987      1   14     42.56     142.85       102        6.5
-4  1987      1   16     42.79     145.10        54        5.1
 </pre></div>
 </div>
 <p>We’ll use the <a class="reference internal" href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.plot</span></code></a> method to plot circles on the
@@ -284,7 +362,7 @@ also plot a colorbar showing the colormap used in the plot.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_003.png" srcset="../../_images/sphx_glr_plot_003.png" alt="plot" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.986 seconds)</p>
+<img src="../../_images/sphx_glr_plot_003.png" srcset="../../_images/sphx_glr_plot_003.png" alt="plot" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.744 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-basics-plot-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/0f92b102d0472c0a184b3e2f3808cb44/plot.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot.ipynb</span></code></a></p>
@@ -312,9 +390,9 @@ also plot a colorbar showing the colormap used in the plot.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/af66e2ab">af66e2ab</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a8365eec">a8365eec</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 05, 2025.
+      <span class="lastupdated">Last updated on Jan 26, 2025.
       </span></p>
   </div>
 

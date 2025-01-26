@@ -9,7 +9,7 @@
         <title>Contributors Guide &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -29,7 +29,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=00410d46"></script>
+        <script src="_static/documentation_options.js?v=dd65f908"></script>
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -567,7 +567,7 @@ begin with <code class="docutils literal notranslate"><span class="pre">&gt;&gt;
 <p>At the end of the function’s docstring:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Example</span>
 <span class="o">-------</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pygmt</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="c1"># Comment describing what is happening</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">Code</span> <span class="n">example</span>
 </pre></div>
@@ -791,7 +791,7 @@ correct ones stored in <code class="docutils literal notranslate"><span class="p
 If your test created a <code class="docutils literal notranslate"><span class="pre">pygmt.Figure</span></code> object, you can test it by adding a <em>decorator</em> and
 returning the <code class="docutils literal notranslate"><span class="pre">pygmt.Figure</span></code> object:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">mpl_image_compare</span>
-<span class="k">def</span> <span class="nf">test_my_plotting_case</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_my_plotting_case</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Test that my plotting method works.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -892,7 +892,7 @@ It takes two <code class="docutils literal notranslate"><span class="pre">pygmt.
 image, and checks for the Root Mean Square (RMS) error between the two.
 Here’s an example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@check_figures_equal</span><span class="p">()</span>
-<span class="k">def</span> <span class="nf">test_my_plotting_case</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_my_plotting_case</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Test that my plotting method works.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -920,9 +920,9 @@ Here’s an example:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/af66e2ab">af66e2ab</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a8365eec">a8365eec</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 05, 2025.
+      <span class="lastupdated">Last updated on Jan 26, 2025.
       </span></p>
   </div>
 

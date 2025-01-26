@@ -28,7 +28,7 @@ developed in the early 1900s by several workers.
 
 The projection is set with **o** or **O**. There are three different specification
 ways (**a**\|\ **A**, **b**\|\ **B**, **c**\|\ **C**) available. For all three
-definitions, the upper case letter mean the projection pole is set in the southern
+definitions, the uppercase letter mean the projection pole is set in the southern
 hemisphere [Default is northern hemisphere]. Align the y-axis with the optional
 modifier **+v**. The figure size is set with *scale* or *width*.
 
@@ -151,7 +151,7 @@ The central meridian is set by *lon0/lat0*. The projection pole is set by *lonp/
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.401 seconds)
+   **Total running time of the script:** (0 minutes 0.392 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_oblique_mercator.py:

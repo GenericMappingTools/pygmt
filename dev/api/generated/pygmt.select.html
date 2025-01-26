@@ -9,7 +9,7 @@
         <title>pygmt.select &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -29,7 +29,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=00410d46"></script>
+        <script src="../../_static/documentation_options.js?v=dd65f908"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -259,9 +259,9 @@ using the <code class="docutils literal notranslate"><span class="pre">reverse</
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.2)"><em>numpy.ndarray</em></a><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><em>pandas.DataFrame</em></a><em>, </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2025.1.1.dev0)"><em>xarray.Dataset</em></a><em>, or </em><a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v1.0.1)"><em>geopandas.GeoDataFrame</em></a>) – Pass in either a file name to an ASCII data table, a 2-D
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.2)"><em>numpy.ndarray</em></a><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><em>pandas.DataFrame</em></a><em>, </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2025.1.2.dev0)"><em>xarray.Dataset</em></a><em>, or </em><a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v1.0.1)"><em>geopandas.GeoDataFrame</em></a>) – Pass in either a file name to an ASCII data table, a 2-D
 <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>, an
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2025.1.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a> made up of 1-D <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2025.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a> made up of 1-D <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>
 data variables, or a <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v1.0.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a> containing the
 tabular data.</p></li>
 <li><p><strong>output_type</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'pandas'</span></code>, <code class="docutils literal notranslate"><span class="pre">'numpy'</span></code>, <code class="docutils literal notranslate"><span class="pre">'file'</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">'pandas'</span></code>) – <p>Desired output type of the result data.</p>
@@ -352,13 +352,13 @@ Specify the <a class="reference internal" href="../../tutorials/basics/regions.h
 <li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
 written to stderr. Choose among 7 levels of verbosity:</p>
 <ul>
-<li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
-<li><p><strong>e</strong> - Error messages only</p></li>
-<li><p><strong>w</strong> - Warnings [Default]</p></li>
-<li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorithms)</p></li>
-<li><p><strong>i</strong> - Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
-<li><p><strong>c</strong> - Compatibility warnings</p></li>
-<li><p><strong>d</strong> - Debugging messages</p></li>
+<li><p><strong>q</strong>: Quiet, not even fatal error messages are produced</p></li>
+<li><p><strong>e</strong>: Error messages only</p></li>
+<li><p><strong>w</strong>: Warnings [Default]</p></li>
+<li><p><strong>t</strong>: Timings (report runtimes for time-intensive algorithms)</p></li>
+<li><p><strong>i</strong>: Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
+<li><p><strong>c</strong>: Compatibility warnings</p></li>
+<li><p><strong>d</strong>: Debugging messages</p></li>
 </ul>
 </p></li>
 <li><p><strong>z_subregion</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <em>min</em>[/<em>max</em>][<strong>+a</strong>][<strong>+c</strong><em>col</em>][<strong>+i</strong>].
@@ -385,17 +385,17 @@ Select native binary input (using <code class="docutils literal notranslate"><sp
 of <em>type</em>, which must be one of:</p>
 <blockquote>
 <div><ul>
-<li><p><strong>c</strong> - int8_t (1-byte signed char)</p></li>
-<li><p><strong>u</strong> - uint8_t (1-byte unsigned char)</p></li>
-<li><p><strong>h</strong> - int16_t (2-byte signed int)</p></li>
-<li><p><strong>H</strong> - uint16_t (2-byte unsigned int)</p></li>
-<li><p><strong>i</strong> - int32_t (4-byte signed int)</p></li>
-<li><p><strong>I</strong> - uint32_t (4-byte unsigned int)</p></li>
-<li><p><strong>l</strong> - int64_t (8-byte signed int)</p></li>
-<li><p><strong>L</strong> - uint64_t (8-byte unsigned int)</p></li>
-<li><p><strong>f</strong> - 4-byte single-precision float</p></li>
-<li><p><strong>d</strong> - 8-byte double-precision float</p></li>
-<li><p><strong>x</strong> - use to skip <em>ncols</em> anywhere in the record</p></li>
+<li><p><strong>c</strong>: int8_t (1-byte signed char)</p></li>
+<li><p><strong>u</strong>: uint8_t (1-byte unsigned char)</p></li>
+<li><p><strong>h</strong>: int16_t (2-byte signed int)</p></li>
+<li><p><strong>H</strong>: uint16_t (2-byte unsigned int)</p></li>
+<li><p><strong>i</strong>: int32_t (4-byte signed int)</p></li>
+<li><p><strong>I</strong>: uint32_t (4-byte unsigned int)</p></li>
+<li><p><strong>l</strong>: int64_t (8-byte signed int)</p></li>
+<li><p><strong>L</strong>: uint64_t (8-byte unsigned int)</p></li>
+<li><p><strong>f</strong>: 4-byte single-precision float</p></li>
+<li><p><strong>d</strong>: 8-byte double-precision float</p></li>
+<li><p><strong>x</strong>: use to skip <em>ncols</em> anywhere in the record</p></li>
 </ul>
 </div></blockquote>
 <p>For records with mixed types, append additional comma-separated
@@ -433,16 +433,16 @@ a list with each item containing a string describing one set of
 criteria.</p>
 <blockquote>
 <div><ul>
-<li><p><strong>x</strong>|<strong>X</strong> - define a gap when there is a large enough
-change in the x coordinates (upper case to use projected
+<li><p><strong>x</strong>|<strong>X</strong>: define a gap when there is a large enough
+change in the x coordinates (uppercase to use projected
 coordinates).</p></li>
-<li><p><strong>y</strong>|<strong>Y</strong> - define a gap when there is a large enough
-change in the y coordinates (upper case to use projected
+<li><p><strong>y</strong>|<strong>Y</strong>: define a gap when there is a large enough
+change in the y coordinates (uppercase to use projected
 coordinates).</p></li>
-<li><p><strong>d</strong>|<strong>D</strong> - define a gap when there is a large enough
-distance between coordinates (upper case to use projected
+<li><p><strong>d</strong>|<strong>D</strong>: define a gap when there is a large enough
+distance between coordinates (uppercase to use projected
 coordinates).</p></li>
-<li><p><strong>z</strong> - define a gap when there is a large enough change in
+<li><p><strong>z</strong>: define a gap when there is a large enough change in
 the z data. Use <strong>+c</strong><em>col</em> to change the z data column
 [Default <em>col</em> is 2 (i.e., 3rd column)].</p></li>
 </ul>
@@ -464,9 +464,9 @@ met [default imposes breaks if any one criterion is met].</p>
 <p>One of the following modifiers can be appended:</p>
 <blockquote>
 <div><ul>
-<li><p><strong>+n</strong> - specify that the previous value minus the current
+<li><p><strong>+n</strong>: specify that the previous value minus the current
 column value must exceed <em>gap</em> for a break to be imposed.</p></li>
-<li><p><strong>+p</strong> - specify that the current value minus the previous
+<li><p><strong>+p</strong>: specify that the current value minus the previous
 value must exceed <em>gap</em> for a break to be imposed.</p></li>
 </ul>
 </div></blockquote>
@@ -574,14 +574,14 @@ different column if selected via <strong>+c</strong><em>col</em>. The following
 cyclical coordinate transformations are supported:</p>
 <blockquote>
 <div><ul>
-<li><p><strong>y</strong> - yearly cycle (normalized)</p></li>
-<li><p><strong>a</strong> - annual cycle (monthly)</p></li>
-<li><p><strong>w</strong> - weekly cycle (day)</p></li>
-<li><p><strong>d</strong> - daily cycle (hour)</p></li>
-<li><p><strong>h</strong> - hourly cycle (minute)</p></li>
-<li><p><strong>m</strong> - minute cycle (second)</p></li>
-<li><p><strong>s</strong> - second cycle (second)</p></li>
-<li><p><strong>c</strong> - custom cycle (normalized)</p></li>
+<li><p><strong>y</strong>: yearly cycle (normalized)</p></li>
+<li><p><strong>a</strong>: annual cycle (monthly)</p></li>
+<li><p><strong>w</strong>: weekly cycle (day)</p></li>
+<li><p><strong>d</strong>: daily cycle (hour)</p></li>
+<li><p><strong>h</strong>: hourly cycle (minute)</p></li>
+<li><p><strong>m</strong>: minute cycle (second)</p></li>
+<li><p><strong>s</strong>: second cycle (second)</p></li>
+<li><p><strong>c</strong>: custom cycle (normalized)</p></li>
 </ul>
 </div></blockquote>
 <p>Full documentation is at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#w-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#w-full</a>.</p>
@@ -603,7 +603,7 @@ cyclical coordinate transformations are supported:</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pygmt</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Load a table of ship observations of bathymetry off Baja California</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ship_data</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;bathymetry&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Only return the data points that lie within the region between</span>
@@ -628,9 +628,9 @@ cyclical coordinate transformations are supported:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/af66e2ab">af66e2ab</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a8365eec">a8365eec</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 05, 2025.
+      <span class="lastupdated">Last updated on Jan 26, 2025.
       </span></p>
   </div>
 

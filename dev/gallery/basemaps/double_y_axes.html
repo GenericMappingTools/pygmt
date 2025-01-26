@@ -9,7 +9,7 @@
         <title>Double Y-axes graph &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -29,7 +29,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=00410d46"></script>
+        <script src="../../_static/documentation_options.js?v=dd65f908"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -198,7 +198,7 @@ to download the full example code.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">frame</span></code> parameter of the plotting methods of the <a class="reference internal" href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.Figure</span></code></a>
 class can control which axes should be plotted and optionally show annotations,
 tick marks, and gridlines. By default, all 4 axes are plotted, along with
-annotations and tick marks (denoted <strong>W</strong>, <strong>S</strong>, <strong>E</strong>, <strong>N</strong>). Lower case
+annotations and tick marks (denoted <strong>W</strong>, <strong>S</strong>, <strong>E</strong>, <strong>N</strong>). Lowercase
 versions (<strong>w</strong>, <strong>s</strong>, <strong>e</strong>, <strong>n</strong>) can be used to denote to only plot the
 axes with tick marks. We can also only plot the axes without annotations and
 tick marks using <strong>l</strong> (left axis), <strong>r</strong> (right axis), <strong>t</strong> (top axis),
@@ -207,8 +207,8 @@ axes that are not defined using one of these three options are not drawn.</p>
 <p>To plot a double Y-axes graph using PyGMT, we need to plot at least two base
 maps separately. The base maps should share the same projection parameter and
 x-axis limits, but different y-axis limits.</p>
-<img src="../../_images/sphx_glr_double_y_axes_001.png" srcset="../../_images/sphx_glr_double_y_axes_001.png" alt="double y axes" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pygmt</span>
+<img src="../../_images/sphx_glr_double_y_axes_001.png" srcset="../../_images/sphx_glr_double_y_axes_001.png" alt="double y axes" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
 
 <span class="c1"># Generate two sample Y data from one common X data</span>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
@@ -259,7 +259,7 @@ x-axis limits, but different y-axis limits.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.202 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.201 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-basemaps-double-y-axes-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/fd5290a478b39b6e70f563ad7bdc92b9/double_y_axes.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">double_y_axes.ipynb</span></code></a></p>
@@ -287,9 +287,9 @@ x-axis limits, but different y-axis limits.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/af66e2ab">af66e2ab</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a8365eec">a8365eec</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 05, 2025.
+      <span class="lastupdated">Last updated on Jan 26, 2025.
       </span></p>
   </div>
 

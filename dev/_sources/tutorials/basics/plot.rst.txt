@@ -46,23 +46,122 @@ For example, let's load the sample dataset of tsunami generating earthquakes
 around Japan using :func:`pygmt.datasets.load_sample_data`.
 The data are loaded as a :class:`pandas.DataFrame`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 19-33
+.. GENERATED FROM PYTHON SOURCE LINES 19-23
 
 .. code-block:: Python
 
 
     data = pygmt.datasets.load_sample_data(name="japan_quakes")
+    data.head()
 
-    # Set the region for the plot to be slightly larger than the data bounds.
+
+
+
+
+
+.. raw:: html
+
+    <div class="output_subarea output_html rendered_html output_result">
+    <div>
+    <style scoped>
+        .dataframe tbody tr th:only-of-type {
+            vertical-align: middle;
+        }
+
+        .dataframe tbody tr th {
+            vertical-align: top;
+        }
+
+        .dataframe thead th {
+            text-align: right;
+        }
+    </style>
+    <table border="1" class="dataframe">
+      <thead>
+        <tr style="text-align: right;">
+          <th></th>
+          <th>year</th>
+          <th>month</th>
+          <th>day</th>
+          <th>latitude</th>
+          <th>longitude</th>
+          <th>depth_km</th>
+          <th>magnitude</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>0</th>
+          <td>1987</td>
+          <td>1</td>
+          <td>4</td>
+          <td>49.77</td>
+          <td>149.29</td>
+          <td>489</td>
+          <td>4.1</td>
+        </tr>
+        <tr>
+          <th>1</th>
+          <td>1987</td>
+          <td>1</td>
+          <td>9</td>
+          <td>39.90</td>
+          <td>141.68</td>
+          <td>67</td>
+          <td>6.8</td>
+        </tr>
+        <tr>
+          <th>2</th>
+          <td>1987</td>
+          <td>1</td>
+          <td>9</td>
+          <td>39.82</td>
+          <td>141.64</td>
+          <td>84</td>
+          <td>4.0</td>
+        </tr>
+        <tr>
+          <th>3</th>
+          <td>1987</td>
+          <td>1</td>
+          <td>14</td>
+          <td>42.56</td>
+          <td>142.85</td>
+          <td>102</td>
+          <td>6.5</td>
+        </tr>
+        <tr>
+          <th>4</th>
+          <td>1987</td>
+          <td>1</td>
+          <td>16</td>
+          <td>42.79</td>
+          <td>145.10</td>
+          <td>54</td>
+          <td>5.1</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    </div>
+    <br />
+    <br />
+
+.. GENERATED FROM PYTHON SOURCE LINES 24-25
+
+Set the region for the plot to be slightly larger than the data bounds.
+
+.. GENERATED FROM PYTHON SOURCE LINES 25-33
+
+.. code-block:: Python
+
     region = [
         data.longitude.min() - 1,
         data.longitude.max() + 1,
         data.latitude.min() - 1,
         data.latitude.max() + 1,
     ]
-
-    print(region)
-    print(data.head())
+    region
 
 
 
@@ -72,14 +171,8 @@ The data are loaded as a :class:`pandas.DataFrame`.
 
  .. code-block:: none
 
-    [np.float64(131.29), np.float64(150.89), np.float64(34.02), np.float64(50.77)]
-       year  month  day  latitude  longitude  depth_km  magnitude
-    0  1987      1    4     49.77     149.29       489        4.1
-    1  1987      1    9     39.90     141.68        67        6.8
-    2  1987      1    9     39.82     141.64        84        4.0
-    3  1987      1   14     42.56     142.85       102        6.5
-    4  1987      1   16     42.79     145.10        54        5.1
 
+    [np.float64(131.29), np.float64(150.89), np.float64(34.02), np.float64(50.77)]
 
 
 
@@ -203,7 +296,7 @@ also plot a colorbar showing the colormap used in the plot.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.986 seconds)
+   **Total running time of the script:** (0 minutes 0.744 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_plot.py:

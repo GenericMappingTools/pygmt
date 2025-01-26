@@ -9,7 +9,7 @@
         <title>Line segment caps and joints &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -29,7 +29,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=00410d46"></script>
+        <script src="../../_static/documentation_options.js?v=dd65f908"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -106,6 +106,7 @@
 <li class="toctree-l3"><a class="reference internal" href="envelope.html">Envelope</a></li>
 <li class="toctree-l3"><a class="reference internal" href="great_circles.html">Generate points along great circles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="linestrings.html">GeoPandas: Plotting lines with LineString or MultiLineString geometry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hlines_vlines.html">Horizontal and vertical lines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="line_custom_cpt.html">Line colors with a custom CPT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="linefronts.html">Line fronts</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Line segment caps and joints</a></li>
@@ -211,8 +212,8 @@ appearance can be set via the GMT default parameters <a class="reference externa
 (<code class="docutils literal notranslate"><span class="pre">&quot;butt&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;round&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;square&quot;</span></code> [Default]) as well as <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-PS_LINE_JOIN">PS_LINE_JOIN</a>
 (<code class="docutils literal notranslate"><span class="pre">&quot;bevel&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;round&quot;</span></code>, and <code class="docutils literal notranslate"><span class="pre">&quot;miter&quot;</span></code> [Default]) and <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-PS_MITER_LIMIT">PS_MITER_LIMIT</a>
 (limit on the angle at the mitered joint below which a bevel is applied).</p>
-<img src="../../_images/sphx_glr_line_segment_ends_001.png" srcset="../../_images/sphx_glr_line_segment_ends_001.png" alt="line segment ends" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pygmt</span>
+<img src="../../_images/sphx_glr_line_segment_ends_001.png" srcset="../../_images/sphx_glr_line_segment_ends_001.png" alt="line segment ends" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
 
 <span class="c1"># Set up dictionary for colors</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dict_col</span></a> <span class="o">=</span> <span class="p">{</span>
@@ -278,7 +279,7 @@ appearance can be set via the GMT default parameters <a class="reference externa
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.208 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.206 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-lines-line-segment-ends-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/64f4c8ad99864e0879265cc2c70045ca/line_segment_ends.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">line_segment_ends.ipynb</span></code></a></p>
@@ -306,9 +307,9 @@ appearance can be set via the GMT default parameters <a class="reference externa
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/af66e2ab">af66e2ab</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a8365eec">a8365eec</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 05, 2025.
+      <span class="lastupdated">Last updated on Jan 26, 2025.
       </span></p>
   </div>
 

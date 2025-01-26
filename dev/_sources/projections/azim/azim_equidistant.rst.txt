@@ -51,7 +51,7 @@ world map) in degrees <= 180° (default 180°). The size of the figure is set by
  .. code-block:: none
 
     coast [WARNING]: Fill/clip continent option (-G) may not work for this projection.
-    coast [WARNING]: If the antipode (0/4.65651e-310) is in the ocean then chances are good it will work.
+    coast [WARNING]: If the antipode (0/4.65288e-310) is in the ocean then chances are good it will work.
     coast [WARNING]: Otherwise, avoid projection center coordinates that are exact multiples of 80 degrees.
 
 

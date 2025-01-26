@@ -8,7 +8,7 @@
         <title>pygmt.clib.session &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -28,7 +28,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=00410d46"></script>
+        <script src="../../../_static/documentation_options.js?v=dd65f908"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -166,28 +166,28 @@
 <span class="sd">Uses ctypes to wrap most of the core functions from the C API.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">contextlib</span>
-<span class="kn">import</span> <span class="nn">ctypes</span> <span class="k">as</span> <span class="nn">ctp</span>
-<span class="kn">import</span> <span class="nn">io</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">Sequence</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">contextlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ctypes</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ctp</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">io</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">Sequence</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
-<span class="kn">from</span> <span class="nn">pygmt.clib.conversion</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib.conversion</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">array_to_datetime</span><span class="p">,</span>
     <span class="n">dataarray_to_matrix</span><span class="p">,</span>
     <span class="n">sequence_to_ctypes_array</span><span class="p">,</span>
     <span class="n">strings_to_ctypes_array</span><span class="p">,</span>
     <span class="n">vectors_to_arrays</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">pygmt.clib.loading</span> <span class="kn">import</span> <span class="n">get_gmt_version</span><span class="p">,</span> <span class="n">load_libgmt</span>
-<span class="kn">from</span> <span class="nn">pygmt.datatypes</span> <span class="kn">import</span> <span class="n">_GMT_DATASET</span><span class="p">,</span> <span class="n">_GMT_GRID</span><span class="p">,</span> <span class="n">_GMT_IMAGE</span>
-<span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTCLibError</span><span class="p">,</span> <span class="n">GMTCLibNoSessionError</span><span class="p">,</span> <span class="n">GMTInvalidInput</span>
-<span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib.loading</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_gmt_version</span><span class="p">,</span> <span class="n">load_libgmt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.datatypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">_GMT_DATASET</span><span class="p">,</span> <span class="n">_GMT_GRID</span><span class="p">,</span> <span class="n">_GMT_IMAGE</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTCLibError</span><span class="p">,</span> <span class="n">GMTCLibNoSessionError</span><span class="p">,</span> <span class="n">GMTInvalidInput</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">_validate_data_input</span><span class="p">,</span>
     <span class="n">data_kind</span><span class="p">,</span>
     <span class="n">tempfile_from_geojson</span><span class="p">,</span>
@@ -275,7 +275,7 @@
 
 <div class="viewcode-block" id="Session">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.html#pygmt.clib.Session">[docs]</a>
-<span class="k">class</span> <span class="nc">Session</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Session</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A GMT API session where most operations involving the C API happen.</span>
 
@@ -325,7 +325,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">session_pointer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">session_pointer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The :class:`ctypes.c_void_p` pointer to the current open GMT session.</span>
 
@@ -341,14 +341,14 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session_pointer</span>
 
     <span class="nd">@session_pointer</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">session_pointer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">session_pointer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the session void pointer.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_session_pointer</span> <span class="o">=</span> <span class="n">session</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Dictionary with the GMT version and default paths and parameters.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -372,7 +372,7 @@
 
 <div class="viewcode-block" id="Session.__enter__">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.__enter__.html#pygmt.clib.Session.__enter__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a GMT API session.</span>
 
@@ -384,7 +384,7 @@
 
 <div class="viewcode-block" id="Session.__exit__">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.__exit__.html#pygmt.clib.Session.__exit__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Destroy the currently open GMT API session.</span>
 
@@ -395,7 +395,7 @@
 
 <div class="viewcode-block" id="Session.__getitem__">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.__getitem__.html#pygmt.clib.Session.__getitem__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the value of a GMT constant.</span>
 
@@ -415,7 +415,7 @@
         <span class="k">return</span> <span class="n">GMT_CONSTANTS</span><span class="p">[</span><span class="n">name</span><span class="p">]</span></div>
 
 
-    <span class="k">def</span> <span class="nf">get_enum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_enum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the value of a GMT constant (C enum) from ``gmt_resources.h``.</span>
 
@@ -455,7 +455,7 @@
 
 <div class="viewcode-block" id="Session.get_libgmt_func">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.get_libgmt_func.html#pygmt.clib.Session.get_libgmt_func">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_libgmt_func</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_libgmt_func</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">argtypes</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">restype</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -504,7 +504,7 @@
 
 <div class="viewcode-block" id="Session.create">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.create.html#pygmt.clib.Session.create">[docs]</a>
-    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a new GMT C API session.</span>
 
@@ -553,7 +553,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_error_log</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="nd">@ctp</span><span class="o">.</span><span class="n">CFUNCTYPE</span><span class="p">(</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_int</span><span class="p">,</span> <span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">ctp</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
-        <span class="k">def</span> <span class="nf">print_func</span><span class="p">(</span><span class="n">file_pointer</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>  <span class="c1"># noqa: ARG001</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">print_func</span><span class="p">(</span><span class="n">file_pointer</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>  <span class="c1"># noqa: ARG001</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Callback function that the GMT C API will use to print log and error</span>
 <span class="sd">            messages.</span>
@@ -591,7 +591,7 @@
 
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">_error_message</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_error_message</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A string with all error messages emitted by the C API.</span>
 
@@ -604,7 +604,7 @@
 
 <div class="viewcode-block" id="Session.destroy">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.destroy.html#pygmt.clib.Session.destroy">[docs]</a>
-    <span class="k">def</span> <span class="nf">destroy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">destroy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Destroy the currently open GMT API session.</span>
 
@@ -638,7 +638,7 @@
 
 <div class="viewcode-block" id="Session.get_default">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.get_default.html#pygmt.clib.Session.get_default">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the value of a GMT configuration parameter or a GMT API parameter.</span>
 
@@ -690,7 +690,7 @@
 
 <div class="viewcode-block" id="Session.get_common">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.get_common.html#pygmt.clib.Session.get_common">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_common</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">option</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_common</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">option</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Inquire if a GMT common option has been set and return its current value if</span>
 <span class="sd">        possible.</span>
@@ -783,7 +783,7 @@
 
 <div class="viewcode-block" id="Session.call_module">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.call_module.html#pygmt.clib.Session.call_module">[docs]</a>
-    <span class="k">def</span> <span class="nf">call_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">call_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Call a GMT module with the given arguments.</span>
 
@@ -851,7 +851,7 @@
 
 <div class="viewcode-block" id="Session.create_data">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.create_data.html#pygmt.clib.Session.create_data">[docs]</a>
-    <span class="k">def</span> <span class="nf">create_data</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_data</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">family</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">geometry</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -1010,7 +1010,7 @@
         <span class="k">return</span> <span class="n">data_ptr</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_parse_pad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">family</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pad</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_parse_pad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">family</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pad</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parse and return an appropriate value for pad if ``None`` is given.</span>
 
@@ -1022,7 +1022,7 @@
             <span class="n">pad</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="s2">&quot;MATRIX&quot;</span> <span class="ow">in</span> <span class="n">family</span> <span class="k">else</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;GMT_PAD_DEFAULT&quot;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">pad</span>
 
-    <span class="k">def</span> <span class="nf">_parse_constant</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_parse_constant</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">constant</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">valid</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
@@ -1085,7 +1085,7 @@
         <span class="n">integer_value</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">part</span><span class="p">]</span> <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">integer_value</span>
 
-    <span class="k">def</span> <span class="nf">_check_dtype_and_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">ndim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_dtype_and_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">ndim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check that a numpy array has the given number of dimensions and is a valid data</span>
 <span class="sd">        type.</span>
@@ -1141,7 +1141,9 @@
 
 <div class="viewcode-block" id="Session.put_vector">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.put_vector.html#pygmt.clib.Session.put_vector">[docs]</a>
-    <span class="k">def</span> <span class="nf">put_vector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">column</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">vector</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">put_vector</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">column</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">vector</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Attach a 1-D numpy array as a column on a GMT dataset.</span>
 
@@ -1203,7 +1205,9 @@
 
 <div class="viewcode-block" id="Session.put_strings">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.put_strings.html#pygmt.clib.Session.put_strings">[docs]</a>
-    <span class="k">def</span> <span class="nf">put_strings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">family</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">strings</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">put_strings</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">family</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">strings</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Attach a 1-D numpy array of dtype str as a column on a GMT dataset.</span>
 
@@ -1260,7 +1264,9 @@
 
 <div class="viewcode-block" id="Session.put_matrix">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.put_matrix.html#pygmt.clib.Session.put_matrix">[docs]</a>
-    <span class="k">def</span> <span class="nf">put_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">pad</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">put_matrix</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">pad</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Attach a 2-D numpy array to a GMT dataset.</span>
 
@@ -1313,7 +1319,7 @@
 
 <div class="viewcode-block" id="Session.read_data">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.read_data.html#pygmt.clib.Session.read_data">[docs]</a>
-    <span class="k">def</span> <span class="nf">read_data</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_data</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">infile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">kind</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;dataset&quot;</span><span class="p">,</span> <span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">],</span>
@@ -1411,7 +1417,7 @@
 
 <div class="viewcode-block" id="Session.write_data">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.write_data.html#pygmt.clib.Session.write_data">[docs]</a>
-    <span class="k">def</span> <span class="nf">write_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">wesn</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">wesn</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Write a GMT data container to a file.</span>
 
@@ -1485,7 +1491,7 @@
 <div class="viewcode-block" id="Session.open_virtualfile">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.open_virtualfile.html#pygmt.clib.Session.open_virtualfile">[docs]</a>
     <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
-    <span class="k">def</span> <span class="nf">open_virtualfile</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">open_virtualfile</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">family</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">geometry</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -1603,7 +1609,7 @@
 <div class="viewcode-block" id="Session.virtualfile_from_vectors">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.virtualfile_from_vectors.html#pygmt.clib.Session.virtualfile_from_vectors">[docs]</a>
     <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
-    <span class="k">def</span> <span class="nf">virtualfile_from_vectors</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">virtualfile_from_vectors</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">vectors</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1726,7 +1732,7 @@
 <div class="viewcode-block" id="Session.virtualfile_from_matrix">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.virtualfile_from_matrix.html#pygmt.clib.Session.virtualfile_from_matrix">[docs]</a>
     <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
-    <span class="k">def</span> <span class="nf">virtualfile_from_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">virtualfile_from_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Store a 2-D numpy array as a matrix inside a virtual file.</span>
 
@@ -1806,7 +1812,7 @@
 <div class="viewcode-block" id="Session.virtualfile_from_grid">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.virtualfile_from_grid.html#pygmt.clib.Session.virtualfile_from_grid">[docs]</a>
     <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
-    <span class="k">def</span> <span class="nf">virtualfile_from_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">virtualfile_from_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Store a grid in a virtual file.</span>
 
@@ -1893,7 +1899,7 @@
 <div class="viewcode-block" id="Session.virtualfile_from_stringio">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.virtualfile_from_stringio.html#pygmt.clib.Session.virtualfile_from_stringio">[docs]</a>
     <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
-    <span class="k">def</span> <span class="nf">virtualfile_from_stringio</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">virtualfile_from_stringio</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">stringio</span><span class="p">:</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -1990,7 +1996,7 @@
 
 <div class="viewcode-block" id="Session.virtualfile_in">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.virtualfile_in.html#pygmt.clib.Session.virtualfile_in">[docs]</a>
-    <span class="k">def</span> <span class="nf">virtualfile_in</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">virtualfile_in</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">check_kind</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -2131,7 +2137,7 @@
 <div class="viewcode-block" id="Session.virtualfile_out">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.virtualfile_out.html#pygmt.clib.Session.virtualfile_out">[docs]</a>
     <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
-    <span class="k">def</span> <span class="nf">virtualfile_out</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">virtualfile_out</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">kind</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;dataset&quot;</span><span class="p">,</span> <span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;dataset&quot;</span><span class="p">,</span>
         <span class="n">fname</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2198,7 +2204,7 @@
                 <span class="k">yield</span> <span class="n">vfile</span></div>
 
 
-    <span class="k">def</span> <span class="nf">inquire_virtualfile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vfname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">inquire_virtualfile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vfname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the family of a virtual file.</span>
 
@@ -2229,7 +2235,7 @@
 
 <div class="viewcode-block" id="Session.read_virtualfile">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.read_virtualfile.html#pygmt.clib.Session.read_virtualfile">[docs]</a>
-    <span class="k">def</span> <span class="nf">read_virtualfile</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_virtualfile</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">vfname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">kind</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;dataset&quot;</span><span class="p">,</span> <span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;cube&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2303,7 +2309,7 @@
 
 <div class="viewcode-block" id="Session.virtualfile_to_dataset">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.virtualfile_to_dataset.html#pygmt.clib.Session.virtualfile_to_dataset">[docs]</a>
-    <span class="k">def</span> <span class="nf">virtualfile_to_dataset</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">virtualfile_to_dataset</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">vfname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">output_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;pandas&quot;</span><span class="p">,</span> <span class="s2">&quot;numpy&quot;</span><span class="p">,</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="s2">&quot;strings&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;pandas&quot;</span><span class="p">,</span>
@@ -2448,7 +2454,7 @@
 
 <div class="viewcode-block" id="Session.virtualfile_to_raster">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.virtualfile_to_raster.html#pygmt.clib.Session.virtualfile_to_raster">[docs]</a>
-    <span class="k">def</span> <span class="nf">virtualfile_to_raster</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">virtualfile_to_raster</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">vfname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">kind</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;cube&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;grid&quot;</span><span class="p">,</span>
@@ -2515,7 +2521,7 @@
 
 <div class="viewcode-block" id="Session.extract_region">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.extract_region.html#pygmt.clib.Session.extract_region">[docs]</a>
-    <span class="k">def</span> <span class="nf">extract_region</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">extract_region</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extract the region of the currently active figure.</span>
 
@@ -2589,9 +2595,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/af66e2ab">af66e2ab</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a8365eec">a8365eec</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 05, 2025.
+      <span class="lastupdated">Last updated on Jan 26, 2025.
       </span></p>
   </div>
 
