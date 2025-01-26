@@ -76,9 +76,9 @@ authors:
   family-names: Wessel
   affiliation: University of Hawaiʻi at Mānoa, USA
   orcid: https://orcid.org/0000-0001-5708-7336
-date-released: 2024-12-31
-doi: 10.5281/zenodo.14535921
+date-released: 2025-01-30
+doi: 10.5281/zenodo.14742338
 license: BSD-3-Clause
 repository-code: https://github.com/GenericMappingTools/pygmt
 type: software
-version: 0.14.0
+version: 0.14.1
