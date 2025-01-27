@@ -6,14 +6,17 @@
 
 ### Highlights
 
+### Bug Fixes
+
+- Fix the bug of converting Python sequence of datetime-like objects ([#3760](https://github.com/GenericMappingTools/pygmt/pull/3760))
+
 ### Maintenance
 
-- Fix the dataset link in the RGB image gallery example ([#3781](https://github.com/GenericMappingTools/pygmt/pull/3781))
-- clib.conversion._to_numpy: Add tests for Python sequence of datetime-like objects ([#3758](https://github.com/GenericMappingTools/pygmt/pull/3758))
-- Update License year to 2025 ([#3737](https://github.com/GenericMappingTools/pygmt/pull/3737))
-- Fix an image in README.md (broken on PyPI) and rewrap to 88 characters ([#3740](https://github.com/GenericMappingTools/pygmt/pull/3740))
-- Fix the bug of converting Python sequence of datetime-like objects ([#3760](https://github.com/GenericMappingTools/pygmt/pull/3760))
 - CI: Separate jobs for publishing to TestPyPI and PyPI ([#3742](https://github.com/GenericMappingTools/pygmt/pull/3742))
+- clib.conversion._to_numpy: Add tests for Python sequence of datetime-like objects ([#3758](https://github.com/GenericMappingTools/pygmt/pull/3758))
+- Fix an image in README.md (broken on PyPI) and rewrap to 88 characters ([#3740](https://github.com/GenericMappingTools/pygmt/pull/3740))
+- Fix the dataset link in the RGB image gallery example ([#3781](https://github.com/GenericMappingTools/pygmt/pull/3781))
+- Update License year to 2025 ([#3737](https://github.com/GenericMappingTools/pygmt/pull/3737))
 
 **Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.14.0...v0.14.1>
 
