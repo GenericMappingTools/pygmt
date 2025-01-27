@@ -6,8 +6,7 @@
 
 ### Highlights
 
-### Bug Fixes
-
+- **Patch release fixing the bug in PyGMT v0.14.0**
 - Fix the bug of converting Python sequence of datetime-like objects ([#3760](https://github.com/GenericMappingTools/pygmt/pull/3760))
 
 ### Maintenance
