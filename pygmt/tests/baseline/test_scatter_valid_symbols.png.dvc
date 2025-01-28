@@ -1,0 +1,5 @@
+outs:
+- md5: 6d4e6acdd44006be6e384f425c302932
+  size: 24570
+  hash: md5
+  path: test_scatter_valid_symbols.png
