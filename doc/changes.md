@@ -1,6 +1,6 @@
 # Changelog
 
-## Release v0.14.1 (2025/01/30)
+## Release v0.14.1 (2025/02/01)
 
 [![Digital Object Identifier for PyGMT v0.14.1](https://zenodo.org/badge/DOI/10.5281/zenodo.14742338.svg)](https://doi.org/10.5281/zenodo.14742338)
 
