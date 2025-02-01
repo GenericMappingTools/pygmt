@@ -17,7 +17,6 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 from pygmt.clib.conversion import (
-    array_to_datetime,
     dataarray_to_matrix,
     sequence_to_ctypes_array,
     strings_to_ctypes_array,
@@ -934,11 +933,6 @@ class Session:
             msg = f"Expected a numpy {ndim}-D array, got {array.ndim}-D."
             raise GMTInvalidInput(msg)
 
-        # For 1-D arrays, try to convert unknown object type to np.datetime64.
-        if ndim == 1 and array.dtype.type is np.object_:
-            with contextlib.suppress(ValueError):
-                array = array_to_datetime(array)
-
         # 1-D arrays can be numeric or text, 2-D arrays can only be numeric.
         valid_dtypes = DTYPES if ndim == 1 else DTYPES_NUMERIC
         if (dtype := array.dtype.type) not in valid_dtypes:
@@ -993,7 +987,7 @@ class Session:
         gmt_type = self._check_dtype_and_dim(vector, ndim=1)
         if gmt_type in {self["GMT_TEXT"], self["GMT_DATETIME"]}:
             if gmt_type == self["GMT_DATETIME"]:
-                vector = np.datetime_as_string(array_to_datetime(vector))
+                vector = np.datetime_as_string(vector)
             vector_pointer = strings_to_ctypes_array(vector)
         else:
             vector_pointer = vector.ctypes.data_as(ctp.c_void_p)
