@@ -157,7 +157,7 @@ Feel free to cite our work in your research using the following BibTeX:
                   Quinn, Jamie and
                   Wessel, Paul},
   title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-  month        = jan,
+  month        = feb,
   year         = 2025,
   publisher    = {Zenodo},
   version      = {0.14.1},
