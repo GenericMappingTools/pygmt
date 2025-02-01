@@ -3,6 +3,7 @@ Test pygmt.x2sys_cross.
 """
 
 import copy
+import platform
 import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -270,7 +271,7 @@ def test_x2sys_cross_region_interpolation_numpoints():
         )
 
         assert isinstance(output, pd.DataFrame)
-        if sys.platform == "darwin":
+        if platform.machine() in {"aarch64", "arm64"}:
             assert output.shape == (3894, 12)
             # Check crossover errors (z_X) and mean value of observables (z_M)
             npt.assert_allclose(output.z_X.mean(), -138.23215, rtol=1e-4)
@@ -298,7 +299,7 @@ def test_x2sys_cross_trackvalues():
         output = x2sys_cross(tracks=["@tut_ship.xyz"], tag=tag, trackvalues=True)
 
         assert isinstance(output, pd.DataFrame)
-        if sys.platform == "darwin":
+        if platform.machine() in {"aarch64", "arm64"}:
             assert output.shape == (14374, 12)
             # Check mean of track 1 values (z_1) and track 2 values (z_2)
             npt.assert_allclose(output.z_1.mean(), -2422.973372, rtol=1e-4)
