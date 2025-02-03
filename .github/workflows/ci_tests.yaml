@@ -61,8 +61,10 @@ jobs:
         # Is it a draft Pull Request (true or false)?
         isDraft:
           - ${{ github.event.pull_request.draft }}
-        # Only run three jobs on Ubuntu for draft PRs
+        # Only run jobs on Ubuntu for draft PRs
         exclude:
+          - os: ubuntu-24.04-arm
+            isDraft: true
           - os: macos-latest
             isDraft: true
           - os: windows-latest
