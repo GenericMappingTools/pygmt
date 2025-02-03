@@ -43,14 +43,9 @@ def test_virtualfile_from_stringio():
     Test the virtualfile_from_stringio method.
     """
     data = io.StringIO(
-        "# Comment\n"
-        "H 24p Legend\n"
-        "N 2\n"
-        "S 0.1i c 0.15i p300/12 0.25p 0.3i My circle\n"
+        "# Comment\nH 24p Legend\nN 2\nS 0.1i c 0.15i p300/12 0.25p 0.3i My circle\n"
     )
-    expected = (
-        ">\n" "H 24p Legend\n" "N 2\n" "S 0.1i c 0.15i p300/12 0.25p 0.3i My circle\n"
-    )
+    expected = ">\nH 24p Legend\nN 2\nS 0.1i c 0.15i p300/12 0.25p 0.3i My circle\n"
     assert _stringio_to_dataset(data) == expected
 
 
@@ -66,13 +61,7 @@ def test_one_segment():
         "6 7 8   9  FGHIJK LMN OPQ\n"
         "RSTUVWXYZ\n"
     )
-    expected = (
-        "> Segment 1\n"
-        "1 2 3 ABC\n"
-        "4 5 DE\n"
-        "6 7 8   9  FGHIJK LMN OPQ\n"
-        "RSTUVWXYZ\n"
-    )
+    expected = "> Segment 1\n1 2 3 ABC\n4 5 DE\n6 7 8   9  FGHIJK LMN OPQ\nRSTUVWXYZ\n"
     assert _stringio_to_dataset(data) == expected
 
 
