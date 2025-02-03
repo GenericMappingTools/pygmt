@@ -327,7 +327,7 @@ class Session:
             function.restype = restype
         return function
 
-    def create(self, name: str):
+    def create(self, name: str) -> None:
         """
         Create a new GMT C API session.
 
@@ -594,7 +594,7 @@ class Session:
             case _:  # 'status' is the option value (in integer type).
                 return status
 
-    def call_module(self, module: str, args: str | list[str]):
+    def call_module(self, module: str, args: str | list[str]) -> None:
         """
         Call a GMT module with the given arguments.
 
@@ -946,7 +946,9 @@ class Session:
             raise GMTInvalidInput(msg)
         return self[DTYPES[dtype]]
 
-    def put_vector(self, dataset: ctp.c_void_p, column: int, vector: np.ndarray):
+    def put_vector(
+        self, dataset: ctp.c_void_p, column: int, vector: np.ndarray
+    ) -> None:
         r"""
         Attach a 1-D numpy array as a column on a GMT dataset.
 
@@ -1005,7 +1007,9 @@ class Session:
             )
             raise GMTCLibError(msg)
 
-    def put_strings(self, dataset: ctp.c_void_p, family: str, strings: np.ndarray):
+    def put_strings(
+        self, dataset: ctp.c_void_p, family: str, strings: np.ndarray
+    ) -> None:
         """
         Attach a 1-D numpy array of dtype str as a column on a GMT dataset.
 
@@ -1059,7 +1063,9 @@ class Session:
             msg = f"Failed to put strings of type {strings.dtype} into dataset."
             raise GMTCLibError(msg)
 
-    def put_matrix(self, dataset: ctp.c_void_p, matrix: np.ndarray, pad: int = 0):
+    def put_matrix(
+        self, dataset: ctp.c_void_p, matrix: np.ndarray, pad: int = 0
+    ) -> None:
         """
         Attach a 2-D numpy array to a GMT dataset.
 
@@ -1204,7 +1210,7 @@ class Session:
             raise GMTCLibError(msg)
         return ctp.cast(data_ptr, ctp.POINTER(dtype))
 
-    def write_data(self, family, geometry, mode, wesn, output, data):
+    def write_data(self, family, geometry, mode, wesn, output, data) -> None:
         """
         Write a GMT data container to a file.
 
