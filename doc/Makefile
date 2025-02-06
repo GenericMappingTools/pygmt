@@ -15,6 +15,7 @@ help:
 	@echo "  api          generate rst source files of API documentation"
 	@echo "  html         build the HTML files from the existing rst sources"
 	@echo "  html-noplot  build the HTML files without running any examples"
+	@echo "  pdf          build the PDF documentation"
 	@echo "  server       make a local HTTP server for previewing the built documentation"
 	@echo "  clean        clean up built and generated files"
 
@@ -42,6 +43,14 @@ html-noplot: api
 	$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) -D plot_gallery=0
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
+
+pdf: latex
+	@echo
+	@echo "Building PDF via Tectonic."
+	@echo
+	tectonic -X compile $(BUILDDIR)/latex/pygmt.tex
+	@echo
+	@echo "PDF build finished. The PDF file is in $(BUILDDIR)/latex/pygmt.pdf."
 
 server:
 	@echo
