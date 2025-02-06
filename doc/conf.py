@@ -28,16 +28,17 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
     "sphinx.ext.coverage",
-    "sphinx.ext.mathjax",
     "sphinx.ext.doctest",
-    "sphinx.ext.viewcode",
     "sphinx.ext.extlinks",
     "sphinx.ext.intersphinx",
+    "sphinx.ext.mathjax",
     "sphinx.ext.napoleon",
+    "sphinx.ext.viewcode",
     "sphinx_autodoc_typehints",
     "sphinx_copybutton",
     "sphinx_design",
     "sphinx_gallery.gen_gallery",
+    "sphinxcontrib.cairosvgconverter",
 ]
 
 # Suppress warnings
@@ -55,7 +56,7 @@ myst_heading_anchors = 4
 myst_enable_extensions = [
     "attrs_inline",  # Allow inline attributes after images
     "colon_fence",  # Allow code fences using colons
-    "substitution",  # Allow substituitions
+    "substitution",  # Allow substitutions
 ]
 # These enable substitutions using {{ key }} in the Markdown files
 myst_substitutions = {
@@ -248,3 +249,6 @@ html_context = {
     "github_version": "main",
     "commit": commit_link,
 }
+
+# Configurations for LaTeX
+latex_engine = "xelatex"
