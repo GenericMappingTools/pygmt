@@ -28,16 +28,17 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
     "sphinx.ext.coverage",
-    "sphinx.ext.mathjax",
     "sphinx.ext.doctest",
-    "sphinx.ext.viewcode",
     "sphinx.ext.extlinks",
     "sphinx.ext.intersphinx",
+    "sphinx.ext.mathjax",
     "sphinx.ext.napoleon",
+    "sphinx.ext.viewcode",
     "sphinx_autodoc_typehints",
     "sphinx_copybutton",
     "sphinx_design",
     "sphinx_gallery.gen_gallery",
+    "sphinxcontrib.cairosvgconverter",
 ]
 
 # Suppress warnings
@@ -55,7 +56,7 @@ myst_heading_anchors = 4
 myst_enable_extensions = [
     "attrs_inline",  # Allow inline attributes after images
     "colon_fence",  # Allow code fences using colons
-    "substitution",  # Allow substituitions
+    "substitution",  # Allow substitutions
 ]
 # These enable substitutions using {{ key }} in the Markdown files
 myst_substitutions = {
@@ -85,6 +86,7 @@ intersphinx_mapping = {
     "contextily": ("https://contextily.readthedocs.io/en/stable/", None),
     "geopandas": ("https://geopandas.org/en/stable/", None),
     "numpy": ("https://numpy.org/doc/stable/", None),
+    "pyarrow": ("https://arrow.apache.org/docs/", None),
     "python": ("https://docs.python.org/3/", None),
     "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
     "rasterio": ("https://rasterio.readthedocs.io/en/stable/", None),
@@ -170,7 +172,7 @@ exclude_patterns = [
 ]
 
 source_suffix = ".rst"
-needs_sphinx = "1.8"
+needs_sphinx = "6.2"
 # Encoding of source files
 source_encoding = "utf-8-sig"
 root_doc = "index"
@@ -209,12 +211,10 @@ html_theme_options = {}
 repository = "GenericMappingTools/pygmt"
 repository_url = "https://github.com/GenericMappingTools/pygmt"
 if __commit__:
-    commit_link = (
-        f'<a href="{repository_url}/commit/{ __commit__ }">{ __commit__[:8] }</a>'
-    )
+    commit_link = f'<a href="{repository_url}/commit/{__commit__}">{__commit__[:8]}</a>'
 else:
     commit_link = (
-        f'<a href="{repository_url}/releases/tag/{ __version__ }">{ __version__ }</a>'
+        f'<a href="{repository_url}/releases/tag/{__version__}">{__version__}</a>'
     )
 html_context = {
     "menu_links": [
@@ -249,3 +249,6 @@ html_context = {
     "github_version": "main",
     "commit": commit_link,
 }
+
+# Configurations for LaTeX
+latex_engine = "xelatex"

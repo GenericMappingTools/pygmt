@@ -2,6 +2,7 @@
 Functions to convert data types into ctypes friendly formats.
 """
 
+import contextlib
 import ctypes as ctp
 import warnings
 from collections.abc import Sequence
@@ -156,25 +157,63 @@ def _to_numpy(data: Any) -> np.ndarray:
     array
         The C contiguous NumPy array.
     """
-    # Mapping of unsupported dtypes to the expected NumPy dtype.
-    dtypes: dict[str, str | type] = {
+    # Mapping of unsupported dtypes to expected NumPy dtypes.
+    dtypes: dict[str, type | str] = {
+        # For string dtypes.
+        "large_string": np.str_,  # pa.large_string and pa.large_utf8
+        "string": np.str_,  # pa.string, pa.utf8, pd.StringDtype
+        "string_view": np.str_,  # pa.string_view
+        # For datetime dtypes.
         "date32[day][pyarrow]": "datetime64[D]",
         "date64[ms][pyarrow]": "datetime64[ms]",
     }
 
+    # The dtype for the input object.
+    dtype = getattr(data, "dtype", getattr(data, "type", ""))
+    # The numpy dtype for the result numpy array, but can be None.
+    numpy_dtype = dtypes.get(str(dtype))
+
+    # TODO(pandas>=2.2): Remove the workaround for pandas<2.2.
+    #
+    # pandas numeric dtypes were converted to np.object_ dtype prior pandas 2.2, and are
+    # converted to suitable NumPy dtypes since pandas 2.2. Refer to the following link
+    # for details: https://pandas.pydata.org/docs/whatsnew/v2.2.0.html#to-numpy-for-numpy-nullable-and-arrow-types-converts-to-suitable-numpy-dtype
     if (
-        hasattr(data, "isna")
-        and data.isna().any()
-        and Version(pd.__version__) < Version("2.2")
-    ):
-        # Workaround for dealing with pd.NA with pandas < 2.2.
-        # Bug report at: https://github.com/GenericMappingTools/pygmt/issues/2844
-        # Following SPEC0, pandas 2.1 will be dropped in 2025 Q3, so it's likely
-        # we can remove the workaround in PyGMT v0.17.0.
-        array = np.ascontiguousarray(data.astype(float))
-    else:
-        vec_dtype = str(getattr(data, "dtype", ""))
-        array = np.ascontiguousarray(data, dtype=dtypes.get(vec_dtype))
+        Version(pd.__version__) < Version("2.2")  # pandas < 2.2 only.
+        and hasattr(data, "dtype")  # NumPy array or pandas objects only.
+        and hasattr(data.dtype, "numpy_dtype")  # pandas dtypes only.
+        and data.dtype.kind in "iuf"  # Numeric dtypes only.
+    ):  # pandas Series/Index with pandas nullable numeric dtypes.
+        # The numpy dtype of the result numpy array.
+        numpy_dtype = data.dtype.numpy_dtype
+        if getattr(data, "hasnans", False):
+            if data.dtype.kind in "iu":
+                # Integers with missing values are converted to float64.
+                numpy_dtype = np.float64
+            data = data.to_numpy(na_value=np.nan)
+
+    # Deal with timezone-aware datetime dtypes.
+    if isinstance(dtype, pd.DatetimeTZDtype):  # pandas.DatetimeTZDtype
+        numpy_dtype = getattr(dtype, "base", None)
+    elif isinstance(dtype, pd.ArrowDtype) and hasattr(dtype.pyarrow_dtype, "tz"):
+        # pd.ArrowDtype[pa.Timestamp]
+        numpy_dtype = getattr(dtype, "numpy_dtype", None)
+        # TODO(pandas>=2.1): Remove the workaround for pandas<2.1.
+        if Version(pd.__version__) < Version("2.1"):
+            # In pandas 2.0, dtype.numpy_type is dtype("O").
+            numpy_dtype = np.dtype(f"M8[{dtype.pyarrow_dtype.unit}]")  # type: ignore[assignment, attr-defined]
+
+    array = np.ascontiguousarray(data, dtype=numpy_dtype)
+
+    # Check if a np.object_ or np.str_ array can be converted to np.datetime64.
+    if array.dtype.type in {np.object_, np.str_}:
+        with contextlib.suppress(TypeError, ValueError):
+            return np.ascontiguousarray(array, dtype=np.datetime64)
+
+    # Check if a np.object_ array can be converted to np.str_.
+    if array.dtype == np.object_:
+        with contextlib.suppress(TypeError, ValueError):
+            return np.ascontiguousarray(array, dtype=np.str_)
     return array
 
 
@@ -275,12 +314,13 @@ def sequence_to_ctypes_array(
 
 def strings_to_ctypes_array(strings: Sequence[str] | np.ndarray) -> ctp.Array:
     """
-    Convert a sequence (e.g., a list) of strings into a ctypes array.
+    Convert a sequence (e.g., a list) of strings or numpy.ndarray of strings into a
+    ctypes array.
 
     Parameters
     ----------
     strings
-        A sequence of strings.
+        A sequence of strings, or a numpy.ndarray of str dtype.
 
     Returns
     -------
@@ -290,6 +330,13 @@ def strings_to_ctypes_array(strings: Sequence[str] | np.ndarray) -> ctp.Array:
     Examples
     --------
     >>> strings = ["first", "second", "third"]
+    >>> ctypes_array = strings_to_ctypes_array(strings)
+    >>> type(ctypes_array)
+    <class 'pygmt.clib.conversion.c_char_p_Array_3'>
+    >>> [s.decode() for s in ctypes_array]
+    ['first', 'second', 'third']
+
+    >>> strings = np.array(["first", "second", "third"])
     >>> ctypes_array = strings_to_ctypes_array(strings)
     >>> type(ctypes_array)
     <class 'pygmt.clib.conversion.c_char_p_Array_3'>

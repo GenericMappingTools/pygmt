@@ -34,7 +34,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04, macos-13, windows-2019]
+        os: [ubuntu-22.04, ubuntu-22.04-arm, macos-13, windows-2019]
         gmt_version: ['6.4']
     timeout-minutes: 30
     defaults:
@@ -51,7 +51,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v2.0.1
+        uses: mamba-org/setup-micromamba@v2.0.4
         with:
           environment-name: pygmt
           condarc: |
@@ -59,10 +59,10 @@ jobs:
               - conda-forge
               - nodefaults
           create-args: >-
-            python=3.10
+            python=3.11
             gmt=${{ matrix.gmt_version }}
             ghostscript<10
-            numpy
+            numpy<2
             pandas
             xarray
             netCDF4
@@ -70,7 +70,7 @@ jobs:
             contextily
             geopandas
             ipython
-            pyarrow
+            pyarrow-core
             rioxarray
             sphinx-gallery
             make

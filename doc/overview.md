@@ -32,6 +32,14 @@ our [Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-
 
 These are conference presentations about the development of PyGMT (previously "GMT/Python"):
 
+-   "Accessing and Integrating GMT with Python and the Scientific Python Ecosystem".
+    2024.
+	Yvonne Fröhlich, Dongdong Tian, Wei Ji Leong, Max Jones, and Michael Grund.
+	Presented at *AGU 2024*.
+	doi:[10.6084/m9.figshare.28049495](https://doi.org/10.6084/m9.figshare.28049495)
+
+    ![](https://github.com/user-attachments/assets/19e1391e-648d-43da-b6f6-ecfb4f3e83e8){.align-center width="80%"}
+
 -   "Geospatial Analysis & Visualization with PyGMT".
     2022.
     Max Jones, Wei Ji Leong, and Leonardo Uieda.

@@ -1,3 +1,4 @@
+# noqa: A005
 """
 Utilities for dealing with temporary file management.
 """
@@ -59,7 +60,7 @@ class GMTTempFile:
     [0. 0. 0.] [1. 1. 1.] [2. 2. 2.]
     """
 
-    def __init__(self, prefix: str = "pygmt-", suffix: str = ".txt"):
+    def __init__(self, prefix: str = "pygmt-", suffix: str = ".txt") -> None:
         """
         Initialize the object.
         """
@@ -144,6 +145,8 @@ def tempfile_from_geojson(geojson):
             # https://github.com/geopandas/geopandas/issues/967#issuecomment-842877704
             # https://github.com/GenericMappingTools/pygmt/issues/2497
             int32_info = np.iinfo(np.int32)
+            # TODO(GeoPandas>=1.0): Remove the workaround for GeoPandas < 1.
+            # The default engine is "fiona" in v0.x and "pyogrio" in v1.x.
             if Version(gpd.__version__).major < 1:  # GeoPandas v0.x
                 # The default engine 'fiona' supports the 'schema' parameter.
                 if geojson.index.name is None:
@@ -203,10 +206,11 @@ def tempfile_from_image(image):
         try:
             image.rio.to_raster(raster_path=tmpfile.name)
         except AttributeError as e:  # object has no attribute 'rio'
-            raise ImportError(
+            msg = (
                 "Package `rioxarray` is required to be installed to use this function. "
                 "Please use `python -m pip install rioxarray` or "
                 "`mamba install -c conda-forge rioxarray` "
                 "to install the package."
-            ) from e
+            )
+            raise ImportError(msg) from e
         yield tmpfile.name
