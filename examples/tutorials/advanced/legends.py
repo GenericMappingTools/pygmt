@@ -36,7 +36,7 @@ fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
 fig.plot(x=1, y=0, style="t0.3c", fill="pink", label="pink triangle")
 fig.plot(x=-1, y=0, style="s0.3c", fill="darkred", label="darkred square")
 
-# Add a legend based on the explanation text given via the "label" parameter
+# Add a legend based on the explanation text given via the "label" parameter.
 fig.legend()
 
 fig.show()
@@ -46,11 +46,9 @@ fig.show()
 # Adjust the position
 # -------------------
 #
-# Use the ``position`` parameter to adjust the position of the legend. For the
-# different ways to specify the placement of a plotting element (e.g., legends,
-# colorbars) on a plot in GMT, please refer to the Technical Reference TODO (: . Add
-# an offset via **+o** for the x and y directions. Additionally append **+w** to adjust
-# the ``width`` of the length. Note, no box is drawn by default if ``position`` is used.
+# Use the ``position`` parameter to adjust the position of the legend. Add an offset via
+# **+o** for the x and y directions. Additionally append **+w** to adjust the ``width``
+# of the length. Note, no box is drawn by default if ``position`` is used.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
@@ -59,9 +57,10 @@ fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
 fig.plot(x=1, y=0, style="t0.3c", fill="pink", label="pink triangle")
 fig.plot(x=-1, y=0, style="s0.3c", fill="darkred", label="darkred square")
 
-# Set the reference point to Left Top and use an offset of 0.3 and 0.2 centimeters in
-# the x and y directions, respectively
-fig.legend(position="jLT+o0.3c/0.2c")
+# Set the reference point to the Top Left corner within the bounding box ("j") of the
+# plot and use offsets of 0.3 and 0.2 centimeters in the x and y directions,
+# respectively.
+fig.legend(position="jTL+o0.3c/0.2c")
 
 fig.show()
 
@@ -90,7 +89,7 @@ fig.plot(x=1, y=0, style="t0.3c", fill="pink", label="pink triangle")
 fig.plot(x=-1, y=0, style="s0.3c", fill="darkred", label="darkred square")
 
 # Add a box with a 2-points thick cyan, solid outline and a blue fill with a
-# transparency of 70 percentage ("@70")
+# transparency of 70 percentage ("@70").
 fig.legend(position="jTL+o0.3c/0.2c", box="+p2p,cyan+gblue@70")
 
 fig.show()
@@ -101,18 +100,19 @@ fig.show()
 # ----------------------
 #
 # For more complicated legends, users need to prepare a legend specification with
-# instructions for the layout of the legend items. The legend specification can be
-# either an ASCII file or an :class:`io.StringIO` object. Both, the ASCII file or the
-# :class:`io.StringIO` object are passed to the ``spec`` parameter of
-# :meth:`pygmt.Figure.legend`. There are multiple legend codes available to create
-# complicated legends; an full overview can be found at
-# https://docs.generic-mapping-tools.org/dev/legend.html#legend-codes. It's supported
-# to include length scales, faults, and images as well as to add specific lines.
+# instructions for the layout of the legend entries. In PyGMT, the legend specification
+# can be either an ASCII file or an :class:`io.StringIO` object. Both are passed to the
+# ``spec`` parameter of :meth:`pygmt.Figure.legend`. Multiple legend codes available to
+# create complicated legends. In the example below we show an subset; an full overview
+# can be found at https://docs.generic-mapping-tools.org/dev/legend.html#legend-codes.
+# It's also supported to include length scales, faults, and images as well as to add
+# specific lines.
 #
-# The example below is orientated on the upstream GMT example at
-# https://docs.generic-mapping-tools.org/dev/legend.html#examples.
+# The following example is orientated on the upstream GMT example at
+# https://docs.generic-mapping-tools.org/dev/legend.html#examples, but modified to use
+# an :class:`io.StringIO` object.
 #
-# First, we set up an :class:`io.StringIO` object.
+# We start with setting up the :class:`io.StringIO` object.
 
 spec_io = io.StringIO(
     """
