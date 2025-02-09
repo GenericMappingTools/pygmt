@@ -124,6 +124,7 @@ Operations on tabular data
     blockmedian
     blockmode
     filter1d
+    fitcircle
     nearneighbor
     project
     select
