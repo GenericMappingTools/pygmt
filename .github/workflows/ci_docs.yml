@@ -83,11 +83,6 @@ jobs:
         uses: mamba-org/setup-micromamba@v2.0.4
         with:
           environment-name: pygmt
-          condarc: |
-            channels:
-              - conda-forge
-              - nodefaults
-          cache-downloads: false
           cache-environment: true
           # environment cache is persistent for one week.
           cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
@@ -117,6 +112,9 @@ jobs:
             sphinx-design
             sphinx-gallery
             sphinx_rtd_theme<3.0
+            cairosvg
+            sphinxcontrib-svg2pdfconverter
+            tectonic
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
@@ -135,9 +133,11 @@ jobs:
           python -m build --sdist
           python -m pip install dist/*
 
-      # Build the documentation
-      - name: Build the documentation
-        run: make -C doc clean all
+      - name: Build the HTML documentation
+        run: make -C doc clean html
+
+      - name: Build the PDF documentation
+        run:  make -C doc pdf
 
       - name: Checkout the gh-pages branch
         uses: actions/checkout@v4.2.2
