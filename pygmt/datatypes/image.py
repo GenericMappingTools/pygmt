@@ -96,7 +96,7 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
         ("hidden", ctp.c_void_p),
     ]
 
-    def to_dataarray(self) -> xr.DataArray:
+    def to_xarray(self) -> xr.DataArray:
         """
         Convert a _GMT_IMAGE object to an :class:`xarray.DataArray` object.
 
@@ -114,7 +114,7 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
         ...         # Read the image from the virtual file
         ...         image = lib.read_virtualfile(voutimg, kind="image")
         ...         # Convert to xarray.DataArray and use it later
-        ...         da = image.contents.to_dataarray()
+        ...         da = image.contents.to_xarray()
         >>> da  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
         <xarray.DataArray 'z' (band: 3, y: 180, x: 360)>...
         array([[[ 10,  10,  10, ...,  10,  10,  10],
