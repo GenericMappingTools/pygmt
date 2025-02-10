@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 import xarray as xr
 from pygmt import grdproject, load_dataarray
+from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
@@ -70,12 +71,12 @@ def test_grdproject_no_outgrid(grid, projection, expected_grid):
 
     Also check that providing the projection as an EPSG code or PROJ4 string works.
     """
-    assert grid.gmt.gtype == 1  # Geographic grid
+    assert grid.gmt.gtype == GridType.GEOGRAPHIC
     result = grdproject(
         grid=grid, projection=projection, spacing=3, region=[-53, -51, -20, -17]
     )
-    assert result.gmt.gtype == 0  # Rectangular grid
-    assert result.gmt.registration == 1  # Pixel registration
+    assert result.gmt.gtype == GridType.CARTESIAN
+    assert result.gmt.registration == GridRegistration.PIXEL
     # check information of the output grid
     xr.testing.assert_allclose(a=result, b=expected_grid)
 
