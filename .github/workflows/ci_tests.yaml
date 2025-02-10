@@ -118,11 +118,6 @@ jobs:
         uses: mamba-org/setup-micromamba@v2.0.4
         with:
           environment-name: pygmt
-          condarc: |
-            channels:
-              - conda-forge
-              - nodefaults
-          cache-downloads: false
           cache-environment: true
           # environment cache is persistent for one week.
           cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
@@ -182,7 +177,7 @@ jobs:
         uses: actions/upload-artifact@v4.6.0
         if: failure()
         with:
-          name: artifact-${{ runner.os }}-${{ matrix.python-version }}
+          name: artifact-${{ matrix.os }}-${{ matrix.python-version }}
           path: tmp-test-dir-with-unique-name
 
       # Upload coverage to Codecov
