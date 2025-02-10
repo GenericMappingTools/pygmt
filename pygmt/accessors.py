@@ -31,7 +31,7 @@ class GMTDataArrayAccessor:
     >>> from pygmt.datasets import load_earth_relief
     >>> # Use the global Earth relief grid with 1 degree spacing
     >>> grid = load_earth_relief(resolution="01d", registration="pixel")
-    >>> # See if grid is Gridline or Pixel registration
+    >>> # See if grid uses Gridline or Pixel registration
     >>> grid.gmt.registration
     <GridRegistration.PIXEL: 1>
     >>> # See if grid is in Cartesian or Geographic coordinate system
@@ -54,7 +54,7 @@ class GMTDataArrayAccessor:
     >>> longrid, latgrid = np.meshgrid(lon, lat)
     >>> data = np.sin(np.deg2rad(longrid)) * np.cos(np.deg2rad(latgrid))
     >>> grid = xr.DataArray(data, coords=[("latitude", lat), ("longitude", lon)])
-    >>> # Default to a gridline-registrated Cartesian grid
+    >>> # Default to a gridline-registered Cartesian grid
     >>> grid.gmt.registration
     <GridRegistration.GRIDLINE: 0>
     >>> grid.gmt.gtype
@@ -154,7 +154,7 @@ class GMTDataArrayAccessor:
         if value not in GridRegistration.__members__.values():
             msg = (
                 f"Invalid grid registration: '{value}'. "
-                "Should be either GridRegistration.GRIDLINE or GridRegistration.PIXEL."
+                "Should be either GridRegistration.GRIDLINE (0) or GridRegistration.PIXEL (1)."
             )
             raise GMTInvalidInput(msg)
         self._registration = GridRegistration(value)
