@@ -165,7 +165,7 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
             axis:           Y
             actual_range:   [-24. -10.]
         >>> da.gmt.registration, da.gmt.gtype
-        (1, 1)
+        (<GridRegistration.PIXEL: 1>, <GridType.GEOGRAPHIC: 1>)
         """
         # The grid header
         header = self.header.contents
