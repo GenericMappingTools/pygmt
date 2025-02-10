@@ -177,7 +177,7 @@ jobs:
         uses: actions/upload-artifact@v4.6.0
         if: failure()
         with:
-          name: artifact-${{ runner.os }}-${{ matrix.python-version }}
+          name: artifact-${{ matrix.os }}-${{ matrix.python-version }}
           path: tmp-test-dir-with-unique-name
 
       # Upload coverage to Codecov
