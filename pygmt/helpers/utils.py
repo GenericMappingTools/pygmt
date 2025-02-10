@@ -43,7 +43,7 @@ Encoding = Literal[
 
 def _validate_data_input(
     data=None, x=None, y=None, z=None, required_z=False, required_data=True, kind=None
-):
+) -> None:
     """
     Check if the combination of data/x/y/z is valid.
 
@@ -149,8 +149,10 @@ def _is_printable_ascii(argstr: str) -> bool:
     """
     Check if a string only contains printable ASCII characters.
 
-    Printable ASCII characters are defined as the characters in the range of 32 to 126
-    in the ASCII table.
+    Here, printable ASCII characters are defined as the characters in the range of 32 to
+    126 in the ASCII table. It's different from the ``string.printable`` constant that
+    it doesn't include the control characters that are considered whitespace (tab,
+    linefeed, return, formfeed, and vertical tab).
 
     Parameters
     ----------
@@ -267,8 +269,8 @@ def data_kind(
     r"""
     Check the kind of data that is provided to a module.
 
-    The argument passed to the ``data`` parameter can have any data type. The
-    following data kinds are recognized and returned as ``kind``:
+    The argument passed to the ``data`` parameter can have any data type. The following
+    data kinds are recognized and returned as ``kind``:
 
     - ``"arg"``: ``data`` is ``None`` and ``required=False``, or bool, int, float,
       representing an optional argument, used for dealing with optional virtual files
@@ -285,7 +287,7 @@ def data_kind(
       (e.g., :class:`numpy.ndarray`)
     - ``"vectors"``: any unrecognized data. Common data types include, a
       :class:`pandas.DataFrame` object, a dictionary with array-like values, a 1-D/3-D
-      :class:`numpy.ndarray` object, or array-like objects.
+      :class:`numpy.ndarray` object, or array-like objects
 
     Parameters
     ----------
@@ -343,12 +345,12 @@ def data_kind(
     >>> data_kind(data=xr.DataArray(np.random.rand(3, 4, 5)))  # 3-D xarray.DataArray
     'image'
 
-    The "stringio"`` kind:
+    The "stringio" kind:
 
     >>> data_kind(data=io.StringIO("TEXT1\nTEXT23\n"))
     'stringio'
 
-    The "matrix"`` kind:
+    The "matrix" kind:
 
     >>> data_kind(data=np.arange(10).reshape((5, 2)))  # 2-D numpy.ndarray
     'matrix'
@@ -621,7 +623,7 @@ def is_nonstr_iter(value):
     return isinstance(value, Iterable) and not isinstance(value, str)
 
 
-def launch_external_viewer(fname: str, waiting: float = 0):
+def launch_external_viewer(fname: str, waiting: float = 0) -> None:
     """
     Open a file in an external viewer program.
 
@@ -643,9 +645,8 @@ def launch_external_viewer(fname: str, waiting: float = 0):
     }
 
     match sys.platform:
-        case name if (
-            (name == "linux" or name.startswith("freebsd"))
-            and (xdgopen := shutil.which("xdg-open"))
+        case name if (name == "linux" or name.startswith("freebsd")) and (
+            xdgopen := shutil.which("xdg-open")
         ):  # Linux/FreeBSD
             subprocess.run([xdgopen, fname], check=False, **run_args)  # type:ignore[call-overload]
         case "darwin":  # macOS
