@@ -153,8 +153,8 @@ class GMTDataArrayAccessor:
         # TODO(Python>=3.12): Simplify to `if value not in GridRegistration`.
         if value not in GridRegistration.__members__.values():
             msg = (
-                f"Invalid grid registration: '{value}'. "
-                "Should be either GridRegistration.GRIDLINE (0) or GridRegistration.PIXEL (1)."
+                f"Invalid grid registration: '{value}'. Should be either "
+                "GridRegistration.GRIDLINE (0) or GridRegistration.PIXEL (1)."
             )
             raise GMTInvalidInput(msg)
         self._registration = GridRegistration(value)
@@ -172,7 +172,7 @@ class GMTDataArrayAccessor:
         if value not in GridType.__members__.values():
             msg = (
                 f"Invalid grid coordinate system type: '{value}'. "
-                "Should be either GridType.CARTESIAN or GridType.GEOGRAPHIC."
+                "Should be either GridType.CARTESIAN (0) or GridType.GEOGRAPHIC (1)."
             )
             raise GMTInvalidInput(msg)
         self._gtype = GridType(value)
