@@ -447,13 +447,17 @@ def test_text_nonascii(encoding):
 @pytest.mark.mpl_image_compare
 def test_text_quotation_marks():
     """
-    Test typesetting quotation marks.
+    Test typesetting single and double quotation marks.
 
-    See https://github.com/GenericMappingTools/pygmt/issues/3104.
+    See https://github.com/GenericMappingTools/pygmt/issues/3104 and
+    https://github.com/GenericMappingTools/pygmt/issues/3476.
     """
+    quotations = "` ' ‘ ’ \" “ ”"  # noqa: RUF001
     fig = Figure()
-    fig.basemap(projection="X4c/2c", region=[0, 4, 0, 2], frame=0)
-    fig.text(x=2, y=1, text='\\234 ‘ ’ " “ ”', font="20p")  # noqa: RUF001
+    fig.basemap(
+        projection="X4c/2c", region=[0, 4, 0, 2], frame=["S", f"x+l{quotations}"]
+    )
+    fig.text(x=2, y=1, text=quotations, font="20p")
     return fig
 
 
