@@ -57,8 +57,8 @@ fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
 fig.plot(x=1, y=0, style="t0.3c", fill="pink", pen="black", label="pink triangle")
 fig.plot(x=[-3, 3], y=[-2, -2], pen="darkred", label="darkred line")
 
-# Set the reference point to the Top Left corner within the bounding box ("j") of the
-# plot and use offsets of 0.3 and 0.2 centimeters in the x and y directions,
+# Set the reference point to the Top Left corner within (lowercase "j") the bounding box
+# of the plot and use an offset of 0.3 and 0.2 centimeters in the x and y directions,
 # respectively.
 fig.legend(position="jTL+o0.3c/0.2c")
 
@@ -102,15 +102,14 @@ fig.show()
 # For more complicated legends, users need to prepare a legend specification with
 # instructions for the layout of the legend entries. In PyGMT, the legend specification
 # can be either an ASCII file or an :class:`io.StringIO` object. Both are passed to the
-# ``spec`` parameter of :meth:`pygmt.Figure.legend`. Multiple legend codes available to
-# create complicated legends. In the example below we show an subset; an full overview
-# can be found at https://docs.generic-mapping-tools.org/dev/legend.html#legend-codes.
-# It's also supported to include length scales (for geographic projections), faults,
-# and images as well as to add specific lines.
+# ``spec`` parameter of :meth:`pygmt.Figure.legend`. Multiple legend codes are available
+# to create complicated legends. In the example below we show an subset; an full
+# overview can be found at :gmt-docs:`legend.html#legend-codes`. It's also supported to
+# include length scales (for geographic projections), faults, and images as well as to
+# add specific lines.
 #
-# The following example is orientated on the upstream GMT example at
-# https://docs.generic-mapping-tools.org/dev/legend.html#examples, but modified to use
-# an :class:`io.StringIO` object.
+# The following example is orientated on the related GMT example at
+# :gmt-docs:`legend.html#examples`, but modified to use an :class:`io.StringIO` object.
 #
 # We start with setting up the :class:`io.StringIO` object.
 
@@ -145,9 +144,8 @@ T so we may have to adjust the height to get the right size box.
 )
 
 # %%
-# Now, we can add a legend based on this :class:`io.StringIO` object. For
-# multi-columns legends, width (**+w**) has to be specified via a the
-# ``position`` parameter.
+# Now, we can add a legend based on this :class:`io.StringIO` object. For multi-columns
+# legends, width (**+w**) has to be specified via a the ``position`` parameter.
 
 fig = pygmt.Figure()
 # Note, that we are now using a Mercator projection
