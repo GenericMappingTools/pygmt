@@ -103,7 +103,7 @@ fig.show()
 # instructions for the layout of the legend entries. In PyGMT, the legend specification
 # can be either an ASCII file or an :class:`io.StringIO` object. Both are passed to the
 # ``spec`` parameter of :meth:`pygmt.Figure.legend`. Multiple legend codes are available
-# to create complicated legends. In the example below we show an subset; an full
+# to create complicated legends. In the example below we show an subset; a full
 # overview can be found at :gmt-docs:`legend.html#legend-codes`. It's also supported to
 # include length scales (for geographic projections), faults, and images as well as to
 # add specific lines.
