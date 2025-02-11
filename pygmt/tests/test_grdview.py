@@ -161,7 +161,7 @@ def test_grdview_with_perspective_and_zaxis_frame(xrgrid, region):
     a Transverse Mercator (T) projection.
     """
     fig = Figure()
-    projection = f"T{(region[0]+region[1])/2}/{abs((region[2]+region[3])/2)}"
+    projection = f"T{(region[0] + region[1]) / 2}/{abs((region[2] + region[3]) / 2)}"
     fig.grdview(
         grid=xrgrid,
         projection=projection,

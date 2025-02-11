@@ -59,7 +59,7 @@ class GMTTempFile:
     [0. 0. 0.] [1. 1. 1.] [2. 2. 2.]
     """
 
-    def __init__(self, prefix: str = "pygmt-", suffix: str = ".txt"):
+    def __init__(self, prefix: str = "pygmt-", suffix: str = ".txt") -> None:
         """
         Initialize the object.
         """

@@ -95,19 +95,19 @@ class Figure:
     122.94, 145.82, 20.53, 45.52
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._name = unique_name()
         self._preview_dir = TemporaryDirectory(prefix=f"{self._name}-preview-")
         self._activate_figure()
 
-    def __del__(self):
+    def __del__(self) -> None:
         """
         Clean up the temporary directory that stores the previews.
         """
         if hasattr(self, "_preview_dir"):
             self._preview_dir.cleanup()
 
-    def _activate_figure(self):
+    def _activate_figure(self) -> None:
         """
         Start and/or activate the current figure.
 
@@ -144,7 +144,7 @@ class Figure:
         show: bool = False,
         worldfile: bool = False,
         **kwargs,
-    ):
+    ) -> None:
         """
         Save the figure to an image file.
 
@@ -268,7 +268,7 @@ class Figure:
         width: int = 500,
         waiting: float = 0.5,
         **kwargs,
-    ):
+    ) -> None:
         """
         Display a preview of the figure.
 
@@ -443,7 +443,7 @@ class Figure:
     )
 
 
-def set_display(method: Literal["external", "notebook", "none", None] = None):
+def set_display(method: Literal["external", "notebook", "none", None] = None) -> None:
     """
     Set the display method when calling :meth:`pygmt.Figure.show`.
 

@@ -145,9 +145,9 @@ def x2sys_cross(
         Sets the interpolation mode for estimating values at the crossover.
         Choose among:
 
-        - **l** - Linear interpolation [Default].
-        - **a** - Akima spline interpolation.
-        - **c** - Cubic spline interpolation.
+        - **l**: Linear interpolation [Default].
+        - **a**: Akima spline interpolation.
+        - **c**: Cubic spline interpolation.
 
     coe : str
         Use **e** for external COEs only, and **i** for internal COEs only
