@@ -58,7 +58,7 @@ fig.plot(x=1, y=0, style="t0.3c", fill="pink", pen="black", label="pink triangle
 fig.plot(x=[-3, 3], y=[-2, -2], pen="darkred", label="darkred line")
 
 # Set the reference point to the Top Left corner within (lowercase "j") the bounding box
-# of the plot and use an offset of 0.3 and 0.2 centimeters in the x and y directions,
+# of the plot and use offsets of 0.3 and 0.2 centimeters in the x and y directions,
 # respectively.
 fig.legend(position="jTL+o0.3c/0.2c")
 
@@ -145,7 +145,7 @@ T so we may have to adjust the height to get the right size box.
 
 # %%
 # Now, we can add a legend based on this :class:`io.StringIO` object. For multi-columns
-# legends, width (**+w**) has to be specified via a the ``position`` parameter.
+# legends, the width (**+w**) has to be specified via a the ``position`` parameter.
 
 fig = pygmt.Figure()
 # Note, that we are now using a Mercator projection
