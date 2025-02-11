@@ -16,15 +16,15 @@ import pygmt
 # ---------------------
 #
 # An auto-legend can be created for the methods :meth:`pygmt.Figure.plot` and
-# :meth:`pygmt.Figure.plot3d`, :meth:`pygmt.Figure.hline` and :meth:`pygmt.Figure.vline`
-# as well as :meth:`pygmt.Figure.histogram`. Therefore the ``label`` parameter has to
-# be specified to state the desired text for the legend entry (white spaces are
-# supported). Here, we use :meth:`pygmt.Figure.plot`, exemplary. By default, the legend
-# is placed in the Upper Right corner with an offset of 0.1 centimeters in both x and y
-# directions, and surrounded by a box with a white fill and a 1-point thick, black,
-# solid outline. The order of the legend entries (top to bottom) is determine by the
-# plotting order. Optionally, to adjust the legend, append different modifiers to the
-# string passed to ``label``. For a list of available modifiers see
+# :meth:`pygmt.Figure.plot3d`, :meth:`pygmt.Figure.hlines` and
+# :meth:`pygmt.Figure.vlines` as well as :meth:`pygmt.Figure.histogram`. Therefore the
+# ``label`` parameter has to be specified to state the desired text for the legend entry
+# (white spaces are supported). Here, we use :meth:`pygmt.Figure.plot`, exemplary. By
+# default, the legend is placed in the Upper Right corner with an offset of 0.1
+# centimeters in both x and y directions, and surrounded by a box with a white fill and
+# a 1-point thick, black, solid outline. The order of the legend entries (top to bottom)
+# is determine by the plotting order. Optionally, to adjust the legend, append different
+# modifiers to the string passed to ``label``. For a list of available modifiers see
 # :gmt-docs:`gmt.html#l-full`. To create a :doc:`multiple-column legend
 # </gallery/embellishments/legend>` **+N** is used with the desired number of columns.
 
