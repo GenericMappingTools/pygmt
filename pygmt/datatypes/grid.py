@@ -95,7 +95,7 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
         ("hidden", ctp.c_void_p),
     ]
 
-    def to_dataarray(self) -> xr.DataArray:
+    def to_xarray(self) -> xr.DataArray:
         """
         Convert a _GMT_GRID object to a :class:`xarray.DataArray` object.
 
@@ -113,7 +113,7 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
         ...         # Read the grid from the virtual file
         ...         grid = lib.read_virtualfile(voutgrd, kind="grid")
         ...         # Convert to xarray.DataArray and use it later
-        ...         da = grid.contents.to_dataarray()
+        ...         da = grid.contents.to_xarray()
         >>> da  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
         <xarray.DataArray 'z' (lat: 14, lon: 8)>...
         array([[347.5, 344.5, 386. , 640.5, 617. , 579. , 646.5, 671. ],
