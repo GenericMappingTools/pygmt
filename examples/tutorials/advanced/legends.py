@@ -47,8 +47,8 @@ fig.show()
 # -------------------
 #
 # Use the ``position`` parameter to adjust the position of the legend. Add an offset via
-# **+o** for the x and y directions. Additionally append **+w** to adjust the ``width``
-# of the length. Note, no box is drawn by default if ``position`` is used.
+# **+o** for the x and y directions. Additionally append **+w** to adjust the width
+# of the legend. Note, no box is drawn by default if ``position`` is used.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
