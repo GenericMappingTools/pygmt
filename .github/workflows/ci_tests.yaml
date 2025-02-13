@@ -57,12 +57,14 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ['3.11', '3.13']
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest, windows-latest]
         # Is it a draft Pull Request (true or false)?
         isDraft:
           - ${{ github.event.pull_request.draft }}
-        # Only run three jobs on Ubuntu for draft PRs
+        # Only run jobs on Ubuntu for draft PRs
         exclude:
+          - os: ubuntu-24.04-arm
+            isDraft: true
           - os: macos-latest
             isDraft: true
           - os: windows-latest
@@ -116,11 +118,6 @@ jobs:
         uses: mamba-org/setup-micromamba@v2.0.4
         with:
           environment-name: pygmt
-          condarc: |
-            channels:
-              - conda-forge
-              - nodefaults
-          cache-downloads: false
           cache-environment: true
           # environment cache is persistent for one week.
           cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
@@ -154,7 +151,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v5.2.1
+        uses: astral-sh/setup-uv@v5.2.2
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -180,7 +177,7 @@ jobs:
         uses: actions/upload-artifact@v4.6.0
         if: failure()
         with:
-          name: artifact-${{ runner.os }}-${{ matrix.python-version }}
+          name: artifact-${{ matrix.os }}-${{ matrix.python-version }}
           path: tmp-test-dir-with-unique-name
 
       # Upload coverage to Codecov

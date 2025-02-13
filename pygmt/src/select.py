@@ -1,4 +1,3 @@
-# noqa: A005
 """
 select - Select data table subsets based on multiple spatial criteria.
 """
