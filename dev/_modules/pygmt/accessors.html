@@ -28,7 +28,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=dd65f908"></script>
+        <script src="../../_static/documentation_options.js?v=24e39716"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -167,6 +167,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.enums</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridRegistration</span><span class="p">,</span> <span class="n">GridType</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTInvalidInput</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.grdinfo</span><span class="w"> </span><span class="kn">import</span> <span class="n">grdinfo</span>
 
@@ -178,110 +179,122 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    GMT accessor for :class:`xarray.DataArray`.</span>
 
-<span class="sd">    The accessor extends :class:`xarray.DataArray` to store GMT-specific</span>
-<span class="sd">    properties about grids, which are important for PyGMT to correctly process</span>
-<span class="sd">    and plot the grids.</span>
+<span class="sd">    The *gmt* accessor extends :class:`xarray.DataArray` to store GMT-specific</span>
+<span class="sd">    properties for grids, which are important for PyGMT to correctly process and plot</span>
+<span class="sd">    the grids. The *gmt* accessor contains the following properties:</span>
 
-<span class="sd">    Notes</span>
-<span class="sd">    -----</span>
-
-<span class="sd">    Due to the limitations of xarray accessors, the GMT accessors are created</span>
-<span class="sd">    once per :class:`xarray.DataArray` instance. You may lose these</span>
-<span class="sd">    GMT-specific properties when manipulating grids (e.g., arithmetic and slice</span>
-<span class="sd">    operations) or when accessing a :class:`xarray.DataArray` from a</span>
-<span class="sd">    :class:`xarray.Dataset`. In these cases, you need to manually set these</span>
-<span class="sd">    properties before passing the grid to PyGMT.</span>
+<span class="sd">    - ``registration``: Grid registration type :class:`pygmt.enums.GridRegistration`.</span>
+<span class="sd">    - ``gtype``: Grid coordinate system type :class:`pygmt.enums.GridType`.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-
-<span class="sd">    For GMT&#39;s built-in remote datasets, these GMT-specific properties are</span>
-<span class="sd">    automatically determined and you can access them as follows:</span>
+<span class="sd">    For GMT&#39;s built-in remote datasets, these GMT-specific properties are automatically</span>
+<span class="sd">    determined and you can access them as follows:</span>
 
 <span class="sd">    &gt;&gt;&gt; from pygmt.datasets import load_earth_relief</span>
 <span class="sd">    &gt;&gt;&gt; # Use the global Earth relief grid with 1 degree spacing</span>
 <span class="sd">    &gt;&gt;&gt; grid = load_earth_relief(resolution=&quot;01d&quot;, registration=&quot;pixel&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; # See if grid uses Gridline (0) or Pixel (1) registration</span>
+<span class="sd">    &gt;&gt;&gt; # See if grid uses Gridline or Pixel registration</span>
 <span class="sd">    &gt;&gt;&gt; grid.gmt.registration</span>
-<span class="sd">    1</span>
-<span class="sd">    &gt;&gt;&gt; # See if grid uses Cartesian (0) or Geographic (1) coordinate system</span>
+<span class="sd">    &lt;GridRegistration.PIXEL: 1&gt;</span>
+<span class="sd">    &gt;&gt;&gt; # See if grid is in Cartesian or Geographic coordinate system</span>
 <span class="sd">    &gt;&gt;&gt; grid.gmt.gtype</span>
-<span class="sd">    1</span>
+<span class="sd">    &lt;GridType.GEOGRAPHIC: 1&gt;</span>
 
-<span class="sd">    For :class:`xarray.DataArray` grids created by yourself, grid properties</span>
-<span class="sd">    ``registration`` and ``gtype`` default to 0 (i.e., a gridline-registered,</span>
-<span class="sd">    Cartesian grid). You need to set the correct properties before</span>
-<span class="sd">    passing it to PyGMT functions:</span>
+<span class="sd">    For :class:`xarray.DataArray` grids created by yourself, ``registration`` and</span>
+<span class="sd">    ``gtype`` default to ``GridRegistration.GRIDLINE`` and ``GridType.CARTESIAN`` (i.e.,</span>
+<span class="sd">    a gridline-registered, Cartesian grid). You need to set the correct properties</span>
+<span class="sd">    before passing it to PyGMT functions:</span>
 
 <span class="sd">    &gt;&gt;&gt; import numpy as np</span>
-<span class="sd">    &gt;&gt;&gt; import pygmt</span>
 <span class="sd">    &gt;&gt;&gt; import xarray as xr</span>
-<span class="sd">    &gt;&gt;&gt; # create a DataArray in gridline coordinates of sin(lon) * cos(lat)</span>
+<span class="sd">    &gt;&gt;&gt; import pygmt</span>
+<span class="sd">    &gt;&gt;&gt; from pygmt.enums import GridRegistration, GridType</span>
+<span class="sd">    &gt;&gt;&gt; # Create a DataArray in gridline coordinates of sin(lon) * cos(lat)</span>
 <span class="sd">    &gt;&gt;&gt; interval = 2.5</span>
 <span class="sd">    &gt;&gt;&gt; lat = np.arange(90, -90 - interval, -interval)</span>
 <span class="sd">    &gt;&gt;&gt; lon = np.arange(0, 360 + interval, interval)</span>
 <span class="sd">    &gt;&gt;&gt; longrid, latgrid = np.meshgrid(lon, lat)</span>
 <span class="sd">    &gt;&gt;&gt; data = np.sin(np.deg2rad(longrid)) * np.cos(np.deg2rad(latgrid))</span>
 <span class="sd">    &gt;&gt;&gt; grid = xr.DataArray(data, coords=[(&quot;latitude&quot;, lat), (&quot;longitude&quot;, lon)])</span>
-<span class="sd">    &gt;&gt;&gt; # default to a gridline-registered Cartesian grid</span>
-<span class="sd">    &gt;&gt;&gt; grid.gmt.registration, grid.gmt.gtype</span>
-<span class="sd">    (0, 0)</span>
-<span class="sd">    &gt;&gt;&gt; # set it to a gridline-registered geographic grid</span>
-<span class="sd">    &gt;&gt;&gt; grid.gmt.registration = 0</span>
-<span class="sd">    &gt;&gt;&gt; grid.gmt.gtype = 1</span>
-<span class="sd">    &gt;&gt;&gt; grid.gmt.registration, grid.gmt.gtype</span>
-<span class="sd">    (0, 1)</span>
+<span class="sd">    &gt;&gt;&gt; # Default to a gridline-registered Cartesian grid</span>
+<span class="sd">    &gt;&gt;&gt; grid.gmt.registration</span>
+<span class="sd">    &lt;GridRegistration.GRIDLINE: 0&gt;</span>
+<span class="sd">    &gt;&gt;&gt; grid.gmt.gtype</span>
+<span class="sd">    &lt;GridType.CARTESIAN: 0&gt;</span>
+<span class="sd">    &gt;&gt;&gt; # Manually set it to a gridline-registered geographic grid</span>
+<span class="sd">    &gt;&gt;&gt; grid.gmt.registration = GridRegistration.GRIDLINE</span>
+<span class="sd">    &gt;&gt;&gt; grid.gmt.gtype = GridType.GEOGRAPHIC</span>
+<span class="sd">    &gt;&gt;&gt; grid.gmt.registration</span>
+<span class="sd">    &lt;GridRegistration.GRIDLINE: 0&gt;</span>
+<span class="sd">    &gt;&gt;&gt; grid.gmt.gtype</span>
+<span class="sd">    &lt;GridType.GEOGRAPHIC: 1&gt;</span>
 
-<span class="sd">    Note that the accessors are created once per :class:`xarray.DataArray`</span>
-<span class="sd">    instance, so you may lose these GMT-specific properties after manipulating</span>
-<span class="sd">    your grid.</span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Due to the limitations of xarray accessors, the GMT accessors are created once per</span>
+<span class="sd">    :class:`xarray.DataArray` instance. You may lose these GMT-specific properties when</span>
+<span class="sd">    manipulating grids (e.g., arithmetic and slice operations) or when accessing a</span>
+<span class="sd">    :class:`xarray.DataArray` from a :class:`xarray.Dataset`. In these cases, you need</span>
+<span class="sd">    to manually set these properties before passing the grid to PyGMT.</span>
 
 <span class="sd">    Inplace assignment operators like ``*=`` don&#39;t create new instances, so the</span>
 <span class="sd">    properties are still kept:</span>
 
 <span class="sd">    &gt;&gt;&gt; grid *= 2.0</span>
-<span class="sd">    &gt;&gt;&gt; grid.gmt.registration, grid.gmt.gtype</span>
-<span class="sd">    (0, 1)</span>
+<span class="sd">    &gt;&gt;&gt; grid.gmt.registration</span>
+<span class="sd">    &lt;GridRegistration.GRIDLINE: 0&gt;</span>
+<span class="sd">    &gt;&gt;&gt; grid.gmt.gtype</span>
+<span class="sd">    &lt;GridType.GEOGRAPHIC: 1&gt;</span>
 
-<span class="sd">    Other grid operations (e.g., arithmetic or slice operations) create new</span>
-<span class="sd">    instances, so the properties will be lost:</span>
+<span class="sd">    Other grid operations (e.g., arithmetic or slice operations) create new instances,</span>
+<span class="sd">    so the properties will be lost:</span>
 
 <span class="sd">    &gt;&gt;&gt; # grid2 is a slice of the original grid</span>
 <span class="sd">    &gt;&gt;&gt; grid2 = grid[0:30, 50:80]</span>
-<span class="sd">    &gt;&gt;&gt; # properties are reset to the default values for new instance</span>
-<span class="sd">    &gt;&gt;&gt; grid2.gmt.registration, grid2.gmt.gtype</span>
-<span class="sd">    (0, 0)</span>
-<span class="sd">    &gt;&gt;&gt; # need to set these properties before passing the grid to PyGMT</span>
+<span class="sd">    &gt;&gt;&gt; # Properties are reset to the default values for new instance</span>
+<span class="sd">    &gt;&gt;&gt; grid2.gmt.registration</span>
+<span class="sd">    &lt;GridRegistration.GRIDLINE: 0&gt;</span>
+<span class="sd">    &gt;&gt;&gt; grid2.gmt.gtype</span>
+<span class="sd">    &lt;GridType.CARTESIAN: 0&gt;</span>
+<span class="sd">    &gt;&gt;&gt; # Need to set these properties before passing the grid to PyGMT</span>
 <span class="sd">    &gt;&gt;&gt; grid2.gmt.registration = grid.gmt.registration</span>
 <span class="sd">    &gt;&gt;&gt; grid2.gmt.gtype = grid.gmt.gtype</span>
-<span class="sd">    &gt;&gt;&gt; grid2.gmt.registration, grid2.gmt.gtype</span>
-<span class="sd">    (0, 1)</span>
+<span class="sd">    &gt;&gt;&gt; grid2.gmt.registration</span>
+<span class="sd">    &lt;GridRegistration.GRIDLINE: 0&gt;</span>
+<span class="sd">    &gt;&gt;&gt; grid2.gmt.gtype</span>
+<span class="sd">    &lt;GridType.GEOGRAPHIC: 1&gt;</span>
 
-<span class="sd">    Accessing a :class:`xarray.DataArray` from a :class:`xarray.Dataset` always</span>
-<span class="sd">    creates new instances, so these properties are always lost. The workaround</span>
-<span class="sd">    is to assign the :class:`xarray.DataArray` into a variable:</span>
+<span class="sd">    Accessing a :class:`xarray.DataArray` from a :class:`xarray.Dataset` always creates</span>
+<span class="sd">    new instances, so these properties are always lost. The workaround is to assign the</span>
+<span class="sd">    :class:`xarray.DataArray` into a variable:</span>
 
 <span class="sd">    &gt;&gt;&gt; ds = xr.Dataset({&quot;zval&quot;: grid})</span>
+<span class="sd">    &gt;&gt;&gt; ds.zval.gmt.registration</span>
+<span class="sd">    &lt;GridRegistration.GRIDLINE: 0&gt;</span>
+<span class="sd">    &gt;&gt;&gt; ds.zval.gmt.gtype</span>
+<span class="sd">    &lt;GridType.CARTESIAN: 0&gt;</span>
+<span class="sd">    &gt;&gt;&gt; # Manually set these properties won&#39;t work as expected</span>
+<span class="sd">    &gt;&gt;&gt; ds.zval.gmt.registration = GridRegistration.GRIDLINE</span>
+<span class="sd">    &gt;&gt;&gt; ds.zval.gmt.gtype = GridType.GEOGRAPHIC</span>
 <span class="sd">    &gt;&gt;&gt; ds.zval.gmt.registration, ds.zval.gmt.gtype</span>
-<span class="sd">    (0, 0)</span>
-<span class="sd">    &gt;&gt;&gt; # manually set these properties won&#39;t work as expected</span>
-<span class="sd">    &gt;&gt;&gt; ds.zval.gmt.registration, ds.zval.gmt.gtype = 0, 1</span>
-<span class="sd">    &gt;&gt;&gt; ds.zval.gmt.registration, ds.zval.gmt.gtype</span>
-<span class="sd">    (0, 0)</span>
+<span class="sd">    (&lt;GridRegistration.GRIDLINE: 0&gt;, &lt;GridType.CARTESIAN: 0&gt;)</span>
 <span class="sd">    &gt;&gt;&gt; # workaround: assign the DataArray into a variable</span>
 <span class="sd">    &gt;&gt;&gt; zval = ds.zval</span>
 <span class="sd">    &gt;&gt;&gt; zval.gmt.registration, zval.gmt.gtype</span>
-<span class="sd">    (0, 0)</span>
-<span class="sd">    &gt;&gt;&gt; zval.gmt.registration, zval.gmt.gtype = 0, 1</span>
+<span class="sd">    (&lt;GridRegistration.GRIDLINE: 0&gt;, &lt;GridType.CARTESIAN: 0&gt;)</span>
+<span class="sd">    &gt;&gt;&gt; zval.gmt.registration = GridRegistration.GRIDLINE</span>
+<span class="sd">    &gt;&gt;&gt; zval.gmt.gtype = GridType.GEOGRAPHIC</span>
 <span class="sd">    &gt;&gt;&gt; zval.gmt.registration, zval.gmt.gtype</span>
-<span class="sd">    (0, 1)</span>
+<span class="sd">    (&lt;GridRegistration.GRIDLINE: 0&gt;, &lt;GridType.GEOGRAPHIC: 1&gt;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xarray_obj</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span> <span class="o">=</span> <span class="n">xarray_obj</span>
+
         <span class="c1"># Default to Gridline registration and Cartesian grid type</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_registration</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_gtype</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_registration</span> <span class="o">=</span> <span class="n">GridRegistration</span><span class="o">.</span><span class="n">GRIDLINE</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_gtype</span> <span class="o">=</span> <span class="n">GridType</span><span class="o">.</span><span class="n">CARTESIAN</span>
 
         <span class="c1"># If the source file exists, get grid registration and grid type from the last</span>
         <span class="c1"># two columns of the shortened summary information of grdinfo.</span>
@@ -294,36 +307,38 @@
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">registration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Registration type of the grid, either 0 (Gridline) or 1 (Pixel).</span>
+<span class="sd">        Grid registration type :class:`pygmt.enums.GridRegistration`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_registration</span>
 
     <span class="nd">@registration</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">registration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">}:</span>
+        <span class="c1"># TODO(Python&gt;=3.12): Simplify to `if value not in GridRegistration`.</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">GridRegistration</span><span class="o">.</span><span class="n">__members__</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Invalid grid registration value: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">, should be either &quot;</span>
-                <span class="s2">&quot;0 for Gridline registration or 1 for Pixel registration.&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Invalid grid registration: &#39;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&#39;. Should be either &quot;</span>
+                <span class="s2">&quot;GridRegistration.GRIDLINE (0) or GridRegistration.PIXEL (1).&quot;</span>
             <span class="p">)</span>
             <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_registration</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_registration</span> <span class="o">=</span> <span class="n">GridRegistration</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">gtype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Coordinate system type of the grid, either 0 (Cartesian) or 1 (Geographic).</span>
+<span class="sd">        Grid coordinate system type :class:`pygmt.enums.GridType`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gtype</span>
 
     <span class="nd">@gtype</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">gtype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">}:</span>
+        <span class="c1"># TODO(Python&gt;=3.12): Simplify to `if value not in GridType`.</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">GridType</span><span class="o">.</span><span class="n">__members__</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Invalid coordinate system type: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">, should be &quot;</span>
-                <span class="s2">&quot;either 0 for Cartesian or 1 for Geographic.&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Invalid grid coordinate system type: &#39;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
+                <span class="s2">&quot;Should be either GridType.CARTESIAN (0) or GridType.GEOGRAPHIC (1).&quot;</span>
             <span class="p">)</span>
             <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_gtype</span> <span class="o">=</span> <span class="n">value</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_gtype</span> <span class="o">=</span> <span class="n">GridType</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
 
 </pre></div>
 
@@ -336,9 +351,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a8365eec">a8365eec</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 26, 2025.
+      <span class="lastupdated">Last updated on Feb 13, 2025.
       </span></p>
   </div>
 

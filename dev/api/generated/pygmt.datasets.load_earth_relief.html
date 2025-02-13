@@ -29,7 +29,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=dd65f908"></script>
+        <script src="../../_static/documentation_options.js?v=24e39716"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -236,7 +236,7 @@ grid resolution (see below), and <em>reg</em> is the grid registration type
 <p>The default color palette table (CPT) for this dataset is <em>geo</em>.
 It’s implicitly used when passing in the file name of the dataset to any
 grid plotting method if no CPT is explicitly specified. When the dataset
-is loaded and plotted as an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object, the default
+is loaded and plotted as an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object, the default
 CPT is ignored, and GMT’s default CPT (<em>turbo</em>) is used. To use the
 dataset-specific CPT, you need to explicitly set <code class="docutils literal notranslate"><span class="pre">cmap=&quot;geo&quot;</span></code>.</p>
 <p>Refer to <a class="reference external" href="https://www.generic-mapping-tools.org/remote-datasets/earth-relief.html">https://www.generic-mapping-tools.org/remote-datasets/earth-relief.html</a> for more details about available
@@ -274,7 +274,7 @@ land-only SRTM tiles. Only works when <code class="docutils literal notranslate"
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>grid</em> – The Earth relief grid. Coordinates are latitude and longitude in
@@ -284,7 +284,7 @@ degrees. Relief is in meters.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The registration and coordinate system type of the returned
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> grid can be accessed via the GMT accessors
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> grid can be accessed via the GMT accessors
 (i.e., <code class="docutils literal notranslate"><span class="pre">grid.gmt.registration</span></code> and <code class="docutils literal notranslate"><span class="pre">grid.gmt.gtype</span></code> respectively).
 However, these properties may be lost after specific grid operations (such
 as slicing) and will need to be manually set before passing the grid to any
@@ -317,7 +317,25 @@ workarounds.</p>
 
 <section id="examples-using-pygmt-datasets-load-earth-relief">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.datasets.load_earth_relief</span></code><a class="headerlink" href="#examples-using-pygmt-datasets-load-earth-relief" title="Link to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This tutorial page covers the basics of creating a figure of the Earth relief, using a remote dataset hosted by GMT, using the method pygmt.datasets.load_earth_relief. It will use the pygmt.Figure.grdimage, pygmt.Figure.grdcontour, pygmt.Figure.colorbar, and pygmt.Figure.coast methods for plotting."><img alt="" src="../../_images/sphx_glr_02_contour_map_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This gallery example shows how to create multiple colormaps for different subplots. To better understand how GMT modern mode maintains several levels of colormaps, please refer to reference/features.html#gmt-modern-mode-hierarchical-levels for details."><img alt="" src="../../_images/sphx_glr_colorbars_multiple_thumb.png" />
+<p><a class="reference internal" href="../../gallery/embellishments/colorbars_multiple.html#sphx-glr-gallery-embellishments-colorbars-multiple-py"><span class="std std-ref">Multiple colormaps</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Multiple colormaps</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="pygmt.project and pygmt.grdtrack can be used to focus on a quantity and its variation along a desired survey line. In this example, the elevation is extracted from a grid provided via pygmt.datasets.load_earth_relief. The figure consists of two parts, a map of the elevation in the study area showing the survey line and a Cartesian plot showing the elevation along the survey line."><img alt="" src="../../_images/sphx_glr_cross_section_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/cross_section.html#sphx-glr-gallery-images-cross-section-py"><span class="std std-ref">Cross-section along a transect</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cross-section along a transect</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdclip function allows to clip defined ranges of grid values. In the example shown below we set all elevation values (grid points) smaller than 0 m (in general the bathymetric part of the grid) to a common value of -2000 m via the below parameter."><img alt="" src="../../_images/sphx_glr_grdclip_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/grdclip.html#sphx-glr-gallery-images-grdclip-py"><span class="std std-ref">Clipping grid values</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Clipping grid values</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdgradient function calculates the gradient of a grid file. In the example shown below we will see how to calculate a hillshade map based on a Data Elevation Model (DEM). As input pygmt.grdgradient gets an xarray.DataArray object or a path string to a grid file, calculates the respective gradient and returns it as an xarray.DataArray object. We will use the radiance parameter in order to set the illumination source direction and altitude."><img alt="" src="../../_images/sphx_glr_grdgradient_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/grdgradient.html#sphx-glr-gallery-images-grdgradient-py"><span class="std std-ref">Calculating grid gradient and radiance</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Calculating grid gradient and radiance</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdgradient function calculates the gradient of a grid file. As input, pygmt.grdgradient gets an xarray.DataArray object or a path string to a grid file. It then calculates the respective gradient and returns an xarray.DataArray object. The example below sets two main parameters:"><img alt="" src="../../_images/sphx_glr_grdgradient_shading_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/grdgradient_shading.html#sphx-glr-gallery-images-grdgradient-shading-py"><span class="std std-ref">Calculating grid gradient with custom azimuth and normalize parameters</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Calculating grid gradient with custom azimuth and normalize parameters</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need to input a 2-D raster to grid which can be an xarray.DataArray. The argument passed to the points parameter can be a pandas.DataFrame table where the first two columns are x and y (or longitude and latitude). Note also that there is a newcolname parameter that will be used to name the new column of values sampled from the grid."><img alt="" src="../../_images/sphx_glr_track_sampling_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/track_sampling.html#sphx-glr-gallery-images-track-sampling-py"><span class="std std-ref">Sampling along tracks</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Sampling along tracks</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This tutorial page covers the basics of creating a figure of the Earth relief, using a remote dataset hosted by GMT, using the method pygmt.datasets.load_earth_relief. It will use the pygmt.Figure.grdimage, pygmt.Figure.grdcontour, pygmt.Figure.colorbar, and pygmt.Figure.coast methods for plotting."><img alt="" src="../../_images/sphx_glr_02_contour_map_thumb.png" />
 <p><a class="reference internal" href="../../intro/02_contour_map.html#sphx-glr-intro-02-contour-map-py"><span class="std std-ref">2. Create a contour map</span></a></p>
   <div class="sphx-glr-thumbnail-title">2. Create a contour map</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Create 3-D perspective image or surface mesh from a grid using pygmt.Figure.grdview."><img alt="" src="../../_images/sphx_glr_3d_perspective_image_thumb.png" />
@@ -329,33 +347,15 @@ workarounds.</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="It can be visually appealing to &quot;drape&quot; a dataset over a topographic surface. This can be accomplished using the drapegrid parameter of pygmt.Figure.grdview."><img alt="" src="../../_images/sphx_glr_draping_on_3d_surface_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/draping_on_3d_surface.html#sphx-glr-tutorials-advanced-draping-on-3d-surface-py"><span class="std std-ref">Draping a dataset on top of a topographic surface</span></a></p>
   <div class="sphx-glr-thumbnail-title">Draping a dataset on top of a topographic surface</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="    Please run the following code examples in a notebook environment     otherwise the interactive parts of this tutorial will not work. You can     use the button &quot;Download Jupyter notebook&quot; at the bottom of this page     to download this script as a Jupyter notebook."><img alt="" src="../../_images/sphx_glr_working_with_panel_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/working_with_panel.html#sphx-glr-tutorials-advanced-working-with-panel-py"><span class="std std-ref">Interactive data visualization using Panel</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Interactive data visualization using Panel</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdhisteq.equalize_grid method creates a grid using statistics based on a cumulative distribution function."><img alt="" src="../../_images/sphx_glr_grid_equalization_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/grid_equalization.html#sphx-glr-tutorials-advanced-grid-equalization-py"><span class="std std-ref">Performing grid histogram equalization</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Performing grid histogram equalization</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="PyGMT provides the pygmt.datasets.load_earth_relief function to download the Earth relief data from the GMT remote server and load as an xarray.DataArray object. The data can then be plotted using the pygmt.Figure.grdimage method."><img alt="" src="../../_images/sphx_glr_earth_relief_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/earth_relief.html#sphx-glr-tutorials-advanced-earth-relief-py"><span class="std std-ref">Plotting Earth relief</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting Earth relief</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdgradient function calculates the gradient of a grid file. In the example shown below we will see how to calculate a hillshade map based on a Data Elevation Model (DEM). As input pygmt.grdgradient gets an xarray.DataArray object or a path string to a grid file, calculates the respective gradient and returns it as an xarray.DataArray object. We will use the radiance parameter in order to set the illumination source direction and altitude."><img alt="" src="../../_images/sphx_glr_grdgradient_thumb.png" />
-<p><a class="reference internal" href="../../gallery/images/grdgradient.html#sphx-glr-gallery-images-grdgradient-py"><span class="std std-ref">Calculating grid gradient and radiance</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Calculating grid gradient and radiance</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdgradient function calculates the gradient of a grid file. As input, pygmt.grdgradient gets an xarray.DataArray object or a path string to a grid file. It then calculates the respective gradient and returns an xarray.DataArray object. The example below sets two main parameters:"><img alt="" src="../../_images/sphx_glr_grdgradient_shading_thumb.png" />
-<p><a class="reference internal" href="../../gallery/images/grdgradient_shading.html#sphx-glr-gallery-images-grdgradient-shading-py"><span class="std std-ref">Calculating grid gradient with custom azimuth and normalize parameters</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Calculating grid gradient with custom azimuth and normalize parameters</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdclip function allows to clip defined ranges of grid values. In the example shown below we set all elevation values (grid points) smaller than 0 m (in general the bathymetric part of the grid) to a common value of -2000 m via the below parameter."><img alt="" src="../../_images/sphx_glr_grdclip_thumb.png" />
-<p><a class="reference internal" href="../../gallery/images/grdclip.html#sphx-glr-gallery-images-grdclip-py"><span class="std std-ref">Clipping grid values</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Clipping grid values</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="pygmt.project and pygmt.grdtrack can be used to focus on a quantity and its variation along a desired survey line. In this example, the elevation is extracted from a grid provided via pygmt.datasets.load_earth_relief. The figure consists of two parts, a map of the elevation in the study area showing the survey line and a Cartesian plot showing the elevation along the survey line."><img alt="" src="../../_images/sphx_glr_cross_section_thumb.png" />
-<p><a class="reference internal" href="../../gallery/images/cross_section.html#sphx-glr-gallery-images-cross-section-py"><span class="std std-ref">Cross-section along a transect</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Cross-section along a transect</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need to input a 2-D raster to grid which can be an xarray.DataArray. The argument passed to the points parameter can be a pandas.DataFrame table where the first two columns are x and y (or longitude and latitude). Note also that there is a newcolname parameter that will be used to name the new column of values sampled from the grid."><img alt="" src="../../_images/sphx_glr_track_sampling_thumb.png" />
-<p><a class="reference internal" href="../../gallery/images/track_sampling.html#sphx-glr-gallery-images-track-sampling-py"><span class="std std-ref">Sampling along tracks</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Sampling along tracks</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This gallery example shows how to create multiple colormaps for different subplots. To better understand how GMT modern mode maintains several levels of colormaps, please refer to reference/features.html#gmt-modern-mode-hierarchical-levels for details."><img alt="" src="../../_images/sphx_glr_colorbars_multiple_thumb.png" />
-<p><a class="reference internal" href="../../gallery/embellishments/colorbars_multiple.html#sphx-glr-gallery-embellishments-colorbars-multiple-py"><span class="std std-ref">Multiple colormaps</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Multiple colormaps</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdhisteq.equalize_grid method creates a grid using statistics based on a cumulative distribution function."><img alt="" src="../../_images/sphx_glr_grid_equalization_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/grid_equalization.html#sphx-glr-tutorials-advanced-grid-equalization-py"><span class="std std-ref">Performing grid histogram equalization</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Performing grid histogram equalization</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="    Please run the following code examples in a notebook environment     otherwise the interactive parts of this tutorial will not work. You can     use the button &quot;Download Jupyter notebook&quot; at the bottom of this page     to download this script as a Jupyter notebook."><img alt="" src="../../_images/sphx_glr_working_with_panel_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/working_with_panel.html#sphx-glr-tutorials-advanced-working-with-panel-py"><span class="std std-ref">Interactive data visualization using Panel</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Interactive data visualization using Panel</div>
 </div></div><div style='clear:both'></div></section>
 </section>
 
@@ -372,9 +372,9 @@ workarounds.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a8365eec">a8365eec</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 26, 2025.
+      <span class="lastupdated">Last updated on Feb 13, 2025.
       </span></p>
   </div>
 

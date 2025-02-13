@@ -28,7 +28,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=dd65f908"></script>
+        <script src="../../../_static/documentation_options.js?v=24e39716"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -178,7 +178,6 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib.conversion</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">array_to_datetime</span><span class="p">,</span>
     <span class="n">dataarray_to_matrix</span><span class="p">,</span>
     <span class="n">sequence_to_ctypes_array</span><span class="p">,</span>
     <span class="n">strings_to_ctypes_array</span><span class="p">,</span>
@@ -1127,11 +1126,6 @@
             <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Expected a numpy </span><span class="si">{</span><span class="n">ndim</span><span class="si">}</span><span class="s2">-D array, got </span><span class="si">{</span><span class="n">array</span><span class="o">.</span><span class="n">ndim</span><span class="si">}</span><span class="s2">-D.&quot;</span>
             <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
-        <span class="c1"># For 1-D arrays, try to convert unknown object type to np.datetime64.</span>
-        <span class="k">if</span> <span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">array</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">object_</span><span class="p">:</span>
-            <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
-                <span class="n">array</span> <span class="o">=</span> <span class="n">array_to_datetime</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
-
         <span class="c1"># 1-D arrays can be numeric or text, 2-D arrays can only be numeric.</span>
         <span class="n">valid_dtypes</span> <span class="o">=</span> <span class="n">DTYPES</span> <span class="k">if</span> <span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">DTYPES_NUMERIC</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">dtype</span> <span class="o">:=</span> <span class="n">array</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_dtypes</span><span class="p">:</span>
@@ -1188,7 +1182,7 @@
         <span class="n">gmt_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_dtype_and_dim</span><span class="p">(</span><span class="n">vector</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">gmt_type</span> <span class="ow">in</span> <span class="p">{</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;GMT_TEXT&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;GMT_DATETIME&quot;</span><span class="p">]}:</span>
             <span class="k">if</span> <span class="n">gmt_type</span> <span class="o">==</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;GMT_DATETIME&quot;</span><span class="p">]:</span>
-                <span class="n">vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime_as_string</span><span class="p">(</span><span class="n">array_to_datetime</span><span class="p">(</span><span class="n">vector</span><span class="p">))</span>
+                <span class="n">vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime_as_string</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span>
             <span class="n">vector_pointer</span> <span class="o">=</span> <span class="n">strings_to_ctypes_array</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">vector_pointer</span> <span class="o">=</span> <span class="n">vector</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">)</span>
@@ -2595,9 +2589,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a8365eec">a8365eec</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 26, 2025.
+      <span class="lastupdated">Last updated on Feb 13, 2025.
       </span></p>
   </div>
 

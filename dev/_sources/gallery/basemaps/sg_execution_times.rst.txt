@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:00.399** total execution time for 2 files **from gallery/basemaps**:
+**00:00.418** total execution time for 2 files **from gallery/basemaps**:
 
 .. container::
 
@@ -32,9 +32,9 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
-   * - :ref:`sphx_glr_gallery_basemaps_double_y_axes.py` (``double_y_axes.py``)
-     - 00:00.201
-     - 0.0
    * - :ref:`sphx_glr_gallery_basemaps_ternary.py` (``ternary.py``)
-     - 00:00.198
+     - 00:00.210
+     - 0.0
+   * - :ref:`sphx_glr_gallery_basemaps_double_y_axes.py` (``double_y_axes.py``)
+     - 00:00.208
      - 0.0

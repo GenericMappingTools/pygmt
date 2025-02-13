@@ -29,7 +29,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=dd65f908"></script>
+        <script src="../../_static/documentation_options.js?v=24e39716"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -248,24 +248,24 @@ may be a basemap, image, logo, legend, colorbar, etc.</p>
 
 <section id="examples-using-pygmt-figure-shift-origin">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.shift_origin</span></code><a class="headerlink" href="#examples-using-pygmt-figure-shift-origin" title="Link to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Plotting coastlines and borders is handled by pygmt.Figure.coast."><img alt="" src="../../_images/sphx_glr_coastlines_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/basics/coastlines.html#sphx-glr-tutorials-basics-coastlines-py"><span class="std std-ref">Coastlines and borders</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Coastlines and borders</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting polygons is handled by the pygmt.Figure.plot method."><img alt="" src="../../_images/sphx_glr_polygons_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/basics/polygons.html#sphx-glr-tutorials-basics-polygons-py"><span class="std std-ref">Plotting polygons</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Plotting polygons</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add text annotations to a plot or map. This is handled by the pygmt.Figure.text method of the pygmt.Figure class."><img alt="" src="../../_images/sphx_glr_text_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/basics/text.html#sphx-glr-tutorials-basics-text-py"><span class="std std-ref">Plotting text</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Plotting text</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Cartesian histograms can be generated using the pygmt.Figure.histogram method. In this tutorial, different histogram related aspects are addressed:"><img alt="" src="../../_images/sphx_glr_cartesian_histograms_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/cartesian_histograms.html#sphx-glr-tutorials-advanced-cartesian-histograms-py"><span class="std std-ref">Cartesian histograms</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Cartesian histograms</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Default GMT parameters can be set globally or locally using pygmt.config."><img alt="" src="../../_images/sphx_glr_configuration_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/configuration.html#sphx-glr-tutorials-advanced-configuration-py"><span class="std std-ref">Configuring PyGMT defaults</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Configuring PyGMT defaults</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put many individual plots into one large figure, and label them &#x27;abcd&#x27;. These individual plots are called subplots."><img alt="" src="../../_images/sphx_glr_subplots_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/subplots.html#sphx-glr-tutorials-advanced-subplots-py"><span class="std std-ref">Making subplots</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Making subplots</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot3d method can be used to plot symbols in 3-D. In the example below, we show how the Iris flower dataset can be visualized using a perspective 3-D plot. The region parameter has to include the x, y, z axis limits in the form of (xmin, xmax, ymin, ymax, zmin, zmax), which can be done automatically using pygmt.info. To plot the z-axis frame, set frame as a minimum to something like frame=[&quot;WsNeZ&quot;, &quot;zaf&quot;]. Use perspective to control the azimuth and elevation angle of the view, and zscale to adjust the vertical exaggeration factor."><img alt="" src="../../_images/sphx_glr_scatter3d_thumb.png" />
+<p><a class="reference internal" href="../../gallery/3d_plots/scatter3d.html#sphx-glr-gallery-3d-plots-scatter3d-py"><span class="std std-ref">3-D scatter plots</span></a></p>
+  <div class="sphx-glr-thumbnail-title">3-D scatter plots</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.blockmean function calculates different quantities inside blocks/bins whose dimensions are defined via the spacing parameter. The following examples show how to calculate the averages of the given values inside each bin and how to report the number of points inside each bin."><img alt="" src="../../_images/sphx_glr_blockm_thumb.png" />
+<p><a class="reference internal" href="../../gallery/histograms/blockm.html#sphx-glr-gallery-histograms-blockm-py"><span class="std std-ref">Blockmean</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Blockmean</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="To create a scatter plot with histograms at the sides of the plot one can use pygmt.Figure.plot in combination with pygmt.Figure.histogram. The positions of the histograms are plotted by offsetting them from the main scatter plot using pygmt.Figure.shift_origin."><img alt="" src="../../_images/sphx_glr_scatter_and_histograms_thumb.png" />
+<p><a class="reference internal" href="../../gallery/histograms/scatter_and_histograms.html#sphx-glr-gallery-histograms-scatter-and-histograms-py"><span class="std std-ref">Scatter plot with histograms</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Scatter plot with histograms</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="pygmt.project and pygmt.grdtrack can be used to focus on a quantity and its variation along a desired survey line. In this example, the elevation is extracted from a grid provided via pygmt.datasets.load_earth_relief. The figure consists of two parts, a map of the elevation in the study area showing the survey line and a Cartesian plot showing the elevation along the survey line."><img alt="" src="../../_images/sphx_glr_cross_section_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/cross_section.html#sphx-glr-gallery-images-cross-section-py"><span class="std std-ref">Cross-section along a transect</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cross-section along a transect</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdclip function allows to clip defined ranges of grid values. In the example shown below we set all elevation values (grid points) smaller than 0 m (in general the bathymetric part of the grid) to a common value of -2000 m via the below parameter."><img alt="" src="../../_images/sphx_glr_grdclip_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/grdclip.html#sphx-glr-gallery-images-grdclip-py"><span class="std std-ref">Clipping grid values</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Clipping grid values</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdgradient function calculates the gradient of a grid file. In the example shown below we will see how to calculate a hillshade map based on a Data Elevation Model (DEM). As input pygmt.grdgradient gets an xarray.DataArray object or a path string to a grid file, calculates the respective gradient and returns it as an xarray.DataArray object. We will use the radiance parameter in order to set the illumination source direction and altitude."><img alt="" src="../../_images/sphx_glr_grdgradient_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/grdgradient.html#sphx-glr-gallery-images-grdgradient-py"><span class="std std-ref">Calculating grid gradient and radiance</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Calculating grid gradient and radiance</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The connection parameter of the pygmt.Figure.plot method allows to plot connection lines between a set of data points. Width, color, and style of the lines can be adjusted via the pen parameter. The data points must be plotted separately using the style parameter, with adjustments for the symbol fill and outline via the fill and pen parameters, respectively."><img alt="" src="../../_images/sphx_glr_connection_lines_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/connection_lines.html#sphx-glr-gallery-lines-connection-lines-py"><span class="std std-ref">Connection lines</span></a></p>
   <div class="sphx-glr-thumbnail-title">Connection lines</div>
@@ -278,27 +278,27 @@ may be a basemap, image, logo, legend, colorbar, etc.</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Line segment caps and joints"><img alt="" src="../../_images/sphx_glr_line_segment_ends_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/line_segment_ends.html#sphx-glr-gallery-lines-line-segment-ends-py"><span class="std std-ref">Line segment caps and joints</span></a></p>
   <div class="sphx-glr-thumbnail-title">Line segment caps and joints</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdgradient function calculates the gradient of a grid file. In the example shown below we will see how to calculate a hillshade map based on a Data Elevation Model (DEM). As input pygmt.grdgradient gets an xarray.DataArray object or a path string to a grid file, calculates the respective gradient and returns it as an xarray.DataArray object. We will use the radiance parameter in order to set the illumination source direction and altitude."><img alt="" src="../../_images/sphx_glr_grdgradient_thumb.png" />
-<p><a class="reference internal" href="../../gallery/images/grdgradient.html#sphx-glr-gallery-images-grdgradient-py"><span class="std std-ref">Calculating grid gradient and radiance</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Calculating grid gradient and radiance</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdclip function allows to clip defined ranges of grid values. In the example shown below we set all elevation values (grid points) smaller than 0 m (in general the bathymetric part of the grid) to a common value of -2000 m via the below parameter."><img alt="" src="../../_images/sphx_glr_grdclip_thumb.png" />
-<p><a class="reference internal" href="../../gallery/images/grdclip.html#sphx-glr-gallery-images-grdclip-py"><span class="std std-ref">Clipping grid values</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Clipping grid values</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="pygmt.project and pygmt.grdtrack can be used to focus on a quantity and its variation along a desired survey line. In this example, the elevation is extracted from a grid provided via pygmt.datasets.load_earth_relief. The figure consists of two parts, a map of the elevation in the study area showing the survey line and a Cartesian plot showing the elevation along the survey line."><img alt="" src="../../_images/sphx_glr_cross_section_thumb.png" />
-<p><a class="reference internal" href="../../gallery/images/cross_section.html#sphx-glr-gallery-images-cross-section-py"><span class="std std-ref">Cross-section along a transect</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Cross-section along a transect</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot3d method can be used to plot symbols in 3-D. In the example below, we show how the Iris flower dataset can be visualized using a perspective 3-D plot. The region parameter has to include the x, y, z axis limits in the form of (xmin, xmax, ymin, ymax, zmin, zmax), which can be done automatically using pygmt.info. To plot the z-axis frame, set frame as a minimum to something like frame=[&quot;WsNeZ&quot;, &quot;zaf&quot;]. Use perspective to control the azimuth and elevation angle of the view, and zscale to adjust the vertical exaggeration factor."><img alt="" src="../../_images/sphx_glr_scatter3d_thumb.png" />
-<p><a class="reference internal" href="../../gallery/3d_plots/scatter3d.html#sphx-glr-gallery-3d-plots-scatter3d-py"><span class="std std-ref">3-D scatter plots</span></a></p>
-  <div class="sphx-glr-thumbnail-title">3-D scatter plots</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.blockmean function calculates different quantities inside blocks/bins whose dimensions are defined via the spacing parameter. The following examples show how to calculate the averages of the given values inside each bin and how to report the number of points inside each bin."><img alt="" src="../../_images/sphx_glr_blockm_thumb.png" />
-<p><a class="reference internal" href="../../gallery/histograms/blockm.html#sphx-glr-gallery-histograms-blockm-py"><span class="std std-ref">Blockmean</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Blockmean</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="To create a scatter plot with histograms at the sides of the plot one can use pygmt.Figure.plot in combination with pygmt.Figure.histogram. The positions of the histograms are plotted by offsetting them from the main scatter plot using pygmt.Figure.shift_origin."><img alt="" src="../../_images/sphx_glr_scatter_and_histograms_thumb.png" />
-<p><a class="reference internal" href="../../gallery/histograms/scatter_and_histograms.html#sphx-glr-gallery-histograms-scatter-and-histograms-py"><span class="std std-ref">Scatter plot with histograms</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Scatter plot with histograms</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Polar projections allow plotting polar coordinate data (e.g. angle \theta and radius r)."><img alt="" src="../../_images/sphx_glr_polar_thumb.png" />
 <p><a class="reference internal" href="../../projections/nongeo/polar.html#sphx-glr-projections-nongeo-polar-py"><span class="std std-ref">Polar</span></a></p>
   <div class="sphx-glr-thumbnail-title">Polar</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Cartesian histograms can be generated using the pygmt.Figure.histogram method. In this tutorial, different histogram related aspects are addressed:"><img alt="" src="../../_images/sphx_glr_cartesian_histograms_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/cartesian_histograms.html#sphx-glr-tutorials-advanced-cartesian-histograms-py"><span class="std std-ref">Cartesian histograms</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cartesian histograms</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Default GMT parameters can be set globally or locally using pygmt.config."><img alt="" src="../../_images/sphx_glr_configuration_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/configuration.html#sphx-glr-tutorials-advanced-configuration-py"><span class="std std-ref">Configuring PyGMT defaults</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Configuring PyGMT defaults</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put many individual plots into one large figure, and label them &#x27;abcd&#x27;. These individual plots are called subplots."><img alt="" src="../../_images/sphx_glr_subplots_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/subplots.html#sphx-glr-tutorials-advanced-subplots-py"><span class="std std-ref">Making subplots</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Making subplots</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting coastlines and borders is handled by pygmt.Figure.coast."><img alt="" src="../../_images/sphx_glr_coastlines_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/basics/coastlines.html#sphx-glr-tutorials-basics-coastlines-py"><span class="std std-ref">Coastlines and borders</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Coastlines and borders</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting polygons is handled by the pygmt.Figure.plot method."><img alt="" src="../../_images/sphx_glr_polygons_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/basics/polygons.html#sphx-glr-tutorials-basics-polygons-py"><span class="std std-ref">Plotting polygons</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting polygons</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add text annotations to a plot or map. This is handled by the pygmt.Figure.text method of the pygmt.Figure class."><img alt="" src="../../_images/sphx_glr_text_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/basics/text.html#sphx-glr-tutorials-basics-text-py"><span class="std std-ref">Plotting text</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting text</div>
 </div></div><div style='clear:both'></div></section>
 </section>
 
@@ -315,9 +315,9 @@ may be a basemap, image, logo, legend, colorbar, etc.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a8365eec">a8365eec</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 26, 2025.
+      <span class="lastupdated">Last updated on Feb 13, 2025.
       </span></p>
   </div>
 

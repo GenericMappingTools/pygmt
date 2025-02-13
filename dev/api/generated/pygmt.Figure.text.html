@@ -29,7 +29,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=dd65f908"></script>
+        <script src="../../_static/documentation_options.js?v=24e39716"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -424,30 +424,18 @@ cyclical coordinate transformations are supported:</p>
 
 <section id="examples-using-pygmt-figure-text">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.text</span></code><a class="headerlink" href="#examples-using-pygmt-figure-text" title="Link to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The figure below shows the naming of figure elements in PyGMT."><img alt="" src="../../_images/sphx_glr_03_figure_element_thumb.png" />
-<p><a class="reference internal" href="../../intro/03_figure_element.html#sphx-glr-intro-03-figure-element-py"><span class="std std-ref">3. Figure elements</span></a></p>
-  <div class="sphx-glr-thumbnail-title">3. Figure elements</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add text annotations to a plot or map. This is handled by the pygmt.Figure.text method of the pygmt.Figure class."><img alt="" src="../../_images/sphx_glr_text_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/basics/text.html#sphx-glr-tutorials-basics-text-py"><span class="std std-ref">Plotting text</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Plotting text</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put many individual plots into one large figure, and label them &#x27;abcd&#x27;. These individual plots are called subplots."><img alt="" src="../../_images/sphx_glr_subplots_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/subplots.html#sphx-glr-tutorials-advanced-subplots-py"><span class="std std-ref">Making subplots</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Making subplots</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="In addition to ASCII printable characters, sometimes you may also want to typeset non-ASCII characters on the plot, such as Greek letters, mathematical symbols, or special characters."><img alt="" src="../../_images/sphx_glr_non_ascii_text_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/non_ascii_text.html#sphx-glr-tutorials-advanced-non-ascii-text-py"><span class="std std-ref">Typesetting non-ASCII text</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Typesetting non-ASCII text</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot Cartesian, circular, and geographic vectors. The style parameter controls vector attributes. See also the Vector attributes example &lt;/gallery/lines/vector_heads_tails&gt;."><img alt="" src="../../_images/sphx_glr_vector_styles_thumb.png" />
-<p><a class="reference internal" href="../../gallery/lines/vector_styles.html#sphx-glr-gallery-lines-vector-styles-py"><span class="std std-ref">Cartesian, circular, and geographic vectors</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Cartesian, circular, and geographic vectors</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="pygmt.project and pygmt.grdtrack can be used to focus on a quantity and its variation along a desired survey line. In this example, the elevation is extracted from a grid provided via pygmt.datasets.load_earth_relief. The figure consists of two parts, a map of the elevation in the study area showing the survey line and a Cartesian plot showing the elevation along the survey line."><img alt="" src="../../_images/sphx_glr_cross_section_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/cross_section.html#sphx-glr-gallery-images-cross-section-py"><span class="std std-ref">Cross-section along a transect</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cross-section along a transect</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="To draw a so-called decorated line, i.e., symbols along a line or curve, use the style parameter of the pygmt.Figure.plot method with the argument &quot;~&quot; and the desired modifiers. A colon (``&quot;:&quot;``) is used to separate the algorithm settings from the symbol information. This example shows how to adjust the symbols. Beside the built-in symbols also custom symbols can be used. For modifying the main decorated line via the pen parameter, see the Line styles example &lt;/gallery/lines/linestyles&gt;. For details on the input data see the upstream GMT documentation at plot.html#s. Furthermore, there are so-called line fronts, which are often used to plot fault lines, subduction zones, or weather fronts; for details see the Line fronts example &lt;/gallery/lines/linefronts&gt;."><img alt="" src="../../_images/sphx_glr_decorated_lines_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/decorated_lines.html#sphx-glr-gallery-lines-decorated-lines-py"><span class="std std-ref">Decorated lines</span></a></p>
   <div class="sphx-glr-thumbnail-title">Decorated lines</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Using the pygmt.Figure.plot method you can draw a so-called front which allows to plot specific symbols distributed along a line or curve. Typical use cases are weather fronts, fault lines, subduction zones, and more. To draw general symbols along a line or curve, i.e., a so-called decorated line, see the Decorated lines example &lt;/gallery/lines/decorated_lines&gt;."><img alt="" src="../../_images/sphx_glr_linefronts_thumb.png" />
-<p><a class="reference internal" href="../../gallery/lines/linefronts.html#sphx-glr-gallery-lines-linefronts-py"><span class="std std-ref">Line fronts</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Line fronts</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Line segment caps and joints"><img alt="" src="../../_images/sphx_glr_line_segment_ends_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/line_segment_ends.html#sphx-glr-gallery-lines-line-segment-ends-py"><span class="std std-ref">Line segment caps and joints</span></a></p>
   <div class="sphx-glr-thumbnail-title">Line segment caps and joints</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Using the pygmt.Figure.plot method you can draw a so-called front which allows to plot specific symbols distributed along a line or curve. Typical use cases are weather fronts, fault lines, subduction zones, and more. To draw general symbols along a line or curve, i.e., a so-called decorated line, see the Decorated lines example &lt;/gallery/lines/decorated_lines&gt;."><img alt="" src="../../_images/sphx_glr_linefronts_thumb.png" />
+<p><a class="reference internal" href="../../gallery/lines/linefronts.html#sphx-glr-gallery-lines-linefronts-py"><span class="std std-ref">Line fronts</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Line fronts</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot lines in different styles. The default line style is a 0.25-point wide, black, solid line, and can be customized with the pen parameter."><img alt="" src="../../_images/sphx_glr_linestyles_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/linestyles.html#sphx-glr-gallery-lines-linestyles-py"><span class="std std-ref">Line styles</span></a></p>
   <div class="sphx-glr-thumbnail-title">Line styles</div>
@@ -457,21 +445,33 @@ cyclical coordinate transformations are supported:</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Many methods in PyGMT allow plotting vectors with individual heads and tails. For this purpose, several modifiers may be appended to the corresponding vector-producing parameters for specifying the placement of vector heads and tails, their shapes, and the justification of the vector."><img alt="" src="../../_images/sphx_glr_vector_heads_tails_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/vector_heads_tails.html#sphx-glr-gallery-lines-vector-heads-tails-py"><span class="std std-ref">Vector heads and tails</span></a></p>
   <div class="sphx-glr-thumbnail-title">Vector heads and tails</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot Cartesian, circular, and geographic vectors. The style parameter controls vector attributes. See also the Vector attributes example &lt;/gallery/lines/vector_heads_tails&gt;."><img alt="" src="../../_images/sphx_glr_vector_styles_thumb.png" />
+<p><a class="reference internal" href="../../gallery/lines/vector_styles.html#sphx-glr-gallery-lines-vector-styles-py"><span class="std std-ref">Cartesian, circular, and geographic vectors</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cartesian, circular, and geographic vectors</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual geometric symbols by passing the corresponding shortcuts to the style parameter. The 14 basic geometric symbols are shown underneath their corresponding shortcut codes. Four symbols (-, +, x and y) are line-symbols only for which we can adjust the linewidth via the pen parameter. The point symbol (p) only takes a color fill which we can define via the fill parameter. For the remaining symbols we may define a linewidth as well as a color fill."><img alt="" src="../../_images/sphx_glr_basic_symbols_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/basic_symbols.html#sphx-glr-gallery-symbols-basic-symbols-py"><span class="std std-ref">Basic geometric symbols</span></a></p>
   <div class="sphx-glr-thumbnail-title">Basic geometric symbols</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="In addition to colors, PyGMT also allows using bit and hachure patterns to fill symbols, polygons, and other areas, via the fill parameter or similar parameters."><img alt="" src="../../_images/sphx_glr_patterns_thumb.png" />
-<p><a class="reference internal" href="../../gallery/symbols/patterns.html#sphx-glr-gallery-symbols-patterns-py"><span class="std std-ref">Bit and hachure patterns</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Bit and hachure patterns</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual custom symbols by passing the corresponding symbol name together with the k shortcut to the style parameter."><img alt="" src="../../_images/sphx_glr_custom_symbols_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/custom_symbols.html#sphx-glr-gallery-symbols-custom-symbols-py"><span class="std std-ref">Custom symbols</span></a></p>
   <div class="sphx-glr-thumbnail-title">Custom symbols</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="In addition to colors, PyGMT also allows using bit and hachure patterns to fill symbols, polygons, and other areas, via the fill parameter or similar parameters."><img alt="" src="../../_images/sphx_glr_patterns_thumb.png" />
+<p><a class="reference internal" href="../../gallery/symbols/patterns.html#sphx-glr-gallery-symbols-patterns-py"><span class="std std-ref">Bit and hachure patterns</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Bit and hachure patterns</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows to plot text symbols. Text is normally placed with the pygmt.Figure.text method but there are times we wish to treat a character or even a string as a plottable symbol. A text symbol can be drawn by passing l\ size\ +t\ string to the style parameter where size defines the size of the text symbol (note: the size is only approximate; no individual scaling is done for different characters) and string can be a letter or a text string (less than 256 characters). Optionally, you can append +f\ font,outlinecolor to select a particular font [Default is FONT_ANNOT_PRIMARY] and outline color [Default is black] as well as +j\ justify to change the justification [Default is CM]. For all supported fonts see /techref/fonts. The fill color of the text symbols can be set with the fill parameter, and the outline width can be customized with the pen parameter."><img alt="" src="../../_images/sphx_glr_text_symbols_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/text_symbols.html#sphx-glr-gallery-symbols-text-symbols-py"><span class="std std-ref">Text symbols</span></a></p>
   <div class="sphx-glr-thumbnail-title">Text symbols</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="pygmt.project and pygmt.grdtrack can be used to focus on a quantity and its variation along a desired survey line. In this example, the elevation is extracted from a grid provided via pygmt.datasets.load_earth_relief. The figure consists of two parts, a map of the elevation in the study area showing the survey line and a Cartesian plot showing the elevation along the survey line."><img alt="" src="../../_images/sphx_glr_cross_section_thumb.png" />
-<p><a class="reference internal" href="../../gallery/images/cross_section.html#sphx-glr-gallery-images-cross-section-py"><span class="std std-ref">Cross-section along a transect</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Cross-section along a transect</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The figure below shows the naming of figure elements in PyGMT."><img alt="" src="../../_images/sphx_glr_03_figure_element_thumb.png" />
+<p><a class="reference internal" href="../../intro/03_figure_element.html#sphx-glr-intro-03-figure-element-py"><span class="std std-ref">3. Figure elements</span></a></p>
+  <div class="sphx-glr-thumbnail-title">3. Figure elements</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="In addition to ASCII printable characters, sometimes you may also want to typeset non-ASCII characters on the plot, such as Greek letters, mathematical symbols, or special characters."><img alt="" src="../../_images/sphx_glr_non_ascii_text_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/non_ascii_text.html#sphx-glr-tutorials-advanced-non-ascii-text-py"><span class="std std-ref">Typesetting non-ASCII text</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Typesetting non-ASCII text</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put many individual plots into one large figure, and label them &#x27;abcd&#x27;. These individual plots are called subplots."><img alt="" src="../../_images/sphx_glr_subplots_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/subplots.html#sphx-glr-tutorials-advanced-subplots-py"><span class="std std-ref">Making subplots</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Making subplots</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add text annotations to a plot or map. This is handled by the pygmt.Figure.text method of the pygmt.Figure class."><img alt="" src="../../_images/sphx_glr_text_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/basics/text.html#sphx-glr-tutorials-basics-text-py"><span class="std std-ref">Plotting text</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting text</div>
 </div></div><div style='clear:both'></div></section>
 </section>
 
@@ -488,9 +488,9 @@ cyclical coordinate transformations are supported:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a8365eec">a8365eec</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 26, 2025.
+      <span class="lastupdated">Last updated on Feb 13, 2025.
       </span></p>
   </div>
 

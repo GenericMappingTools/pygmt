@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:02.653** total execution time for 9 files **from gallery/embellishments**:
+**00:02.774** total execution time for 9 files **from gallery/embellishments**:
 
 .. container::
 
@@ -33,29 +33,29 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_gallery_embellishments_inset.py` (``inset.py``)
-     - 00:00.477
-     - 0.0
-   * - :ref:`sphx_glr_gallery_embellishments_solar.py` (``solar.py``)
-     - 00:00.361
-     - 0.0
-   * - :ref:`sphx_glr_gallery_embellishments_scalebar.py` (``scalebar.py``)
-     - 00:00.337
-     - 0.0
-   * - :ref:`sphx_glr_gallery_embellishments_timestamp.py` (``timestamp.py``)
-     - 00:00.333
-     - 0.0
-   * - :ref:`sphx_glr_gallery_embellishments_inset_rectangle_region.py` (``inset_rectangle_region.py``)
-     - 00:00.327
+     - 00:00.504
      - 0.0
    * - :ref:`sphx_glr_gallery_embellishments_colorbars_multiple.py` (``colorbars_multiple.py``)
-     - 00:00.305
+     - 00:00.369
+     - 0.0
+   * - :ref:`sphx_glr_gallery_embellishments_solar.py` (``solar.py``)
+     - 00:00.364
+     - 0.0
+   * - :ref:`sphx_glr_gallery_embellishments_scalebar.py` (``scalebar.py``)
+     - 00:00.342
+     - 0.0
+   * - :ref:`sphx_glr_gallery_embellishments_inset_rectangle_region.py` (``inset_rectangle_region.py``)
+     - 00:00.336
+     - 0.0
+   * - :ref:`sphx_glr_gallery_embellishments_timestamp.py` (``timestamp.py``)
+     - 00:00.336
      - 0.0
    * - :ref:`sphx_glr_gallery_embellishments_logo.py` (``logo.py``)
-     - 00:00.209
+     - 00:00.212
      - 0.0
    * - :ref:`sphx_glr_gallery_embellishments_colorbar.py` (``colorbar.py``)
-     - 00:00.164
+     - 00:00.167
      - 0.0
    * - :ref:`sphx_glr_gallery_embellishments_legend.py` (``legend.py``)
-     - 00:00.140
+     - 00:00.143
      - 0.0

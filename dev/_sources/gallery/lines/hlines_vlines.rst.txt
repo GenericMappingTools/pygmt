@@ -190,7 +190,7 @@ radius at a specified azimuth.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.810 seconds)
+   **Total running time of the script:** (0 minutes 0.842 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_hlines_vlines.py:

@@ -29,7 +29,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=dd65f908"></script>
+        <script src="../../_static/documentation_options.js?v=24e39716"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -241,8 +241,8 @@ intensities provided in a separate grid file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.2.dev0)"><em>xarray.DataArray</em></a>) – <p>Name of the input grid file or the grid loaded as a
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.</p>
+<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><em>xarray.DataArray</em></a>) – <p>Name of the input grid file or the grid loaded as a
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.</p>
 <p>For reading a specific grid file format or applying basic data operations,
 see <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#grd-inout-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#grd-inout-full</a> for the available modifiers.</p>
 </p></li>
@@ -257,7 +257,7 @@ Select map <a class="reference internal" href="../../projections/index.html"><sp
 <li><p><strong>frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – Set map boundary
 <a class="reference internal" href="../../tutorials/basics/frames.html"><span class="doc">frame and axes attributes</span></a>.</p></li>
 <li><p><strong>cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The name of the color palette table to use.</p></li>
-<li><p><strong>drapegrid</strong> (str or <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The file name or a DataArray of the image grid to be draped on top
+<li><p><strong>drapegrid</strong> (str or <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The file name or a DataArray of the image grid to be draped on top
 of the relief provided by <code class="docutils literal notranslate"><span class="pre">grid</span></code> [Default determines colors from grid].
 Note that <code class="docutils literal notranslate"><span class="pre">zscale</span></code> and <code class="docutils literal notranslate"><span class="pre">plane</span></code> always refer to the grid.
 The drapegrid only provides the information pertaining to colors, which
@@ -375,15 +375,15 @@ in the image (for further processing).</p></li>
 
 <section id="examples-using-pygmt-figure-grdview">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.grdview</span></code><a class="headerlink" href="#examples-using-pygmt-figure-grdview" title="Link to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Create 3-D perspective image or surface mesh from a grid using pygmt.Figure.grdview."><img alt="" src="../../_images/sphx_glr_3d_perspective_image_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.grdview() method can plot 3-D surfaces with surftype=&quot;s&quot;. Here, we supply the data as an xarray.DataArray with the coordinate vectors x and y defined. Note that the perspective parameter here controls the azimuth and elevation angle of the view. We provide a list of two arguments to frame - the first argument specifies the x- and y-axes frame attributes and the second argument, prepended with &quot;z&quot;, specifies the z-axis frame attributes. Specifying the same scale for the projection and zscale parameters ensures equal axis scaling. The shading parameter specifies illumination; here we choose an azimuth of 45° with shading=&quot;+a45&quot;."><img alt="" src="../../_images/sphx_glr_grdview_surface_thumb.png" />
+<p><a class="reference internal" href="../../gallery/3d_plots/grdview_surface.html#sphx-glr-gallery-3d-plots-grdview-surface-py"><span class="std std-ref">Plotting a surface</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting a surface</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Create 3-D perspective image or surface mesh from a grid using pygmt.Figure.grdview."><img alt="" src="../../_images/sphx_glr_3d_perspective_image_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/3d_perspective_image.html#sphx-glr-tutorials-advanced-3d-perspective-image-py"><span class="std std-ref">Creating a 3-D perspective image</span></a></p>
   <div class="sphx-glr-thumbnail-title">Creating a 3-D perspective image</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="It can be visually appealing to &quot;drape&quot; a dataset over a topographic surface. This can be accomplished using the drapegrid parameter of pygmt.Figure.grdview."><img alt="" src="../../_images/sphx_glr_draping_on_3d_surface_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/draping_on_3d_surface.html#sphx-glr-tutorials-advanced-draping-on-3d-surface-py"><span class="std std-ref">Draping a dataset on top of a topographic surface</span></a></p>
   <div class="sphx-glr-thumbnail-title">Draping a dataset on top of a topographic surface</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.grdview() method can plot 3-D surfaces with surftype=&quot;s&quot;. Here, we supply the data as an xarray.DataArray with the coordinate vectors x and y defined. Note that the perspective parameter here controls the azimuth and elevation angle of the view. We provide a list of two arguments to frame - the first argument specifies the x- and y-axes frame attributes and the second argument, prepended with &quot;z&quot;, specifies the z-axis frame attributes. Specifying the same scale for the projection and zscale parameters ensures equal axis scaling. The shading parameter specifies illumination; here we choose an azimuth of 45° with shading=&quot;+a45&quot;."><img alt="" src="../../_images/sphx_glr_grdview_surface_thumb.png" />
-<p><a class="reference internal" href="../../gallery/3d_plots/grdview_surface.html#sphx-glr-gallery-3d-plots-grdview-surface-py"><span class="std std-ref">Plotting a surface</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Plotting a surface</div>
 </div></div><div style='clear:both'></div></section>
 </section>
 
@@ -400,9 +400,9 @@ in the image (for further processing).</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a8365eec">a8365eec</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 26, 2025.
+      <span class="lastupdated">Last updated on Feb 13, 2025.
       </span></p>
   </div>
 

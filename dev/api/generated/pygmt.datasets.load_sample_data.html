@@ -29,7 +29,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=dd65f908"></script>
+        <script src="../../_static/documentation_options.js?v=24e39716"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -222,11 +222,11 @@ you’ll need an internet connection the first time around.</p>
 <dd class="field-odd"><p><strong>name</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'bathymetry'</span></code>, <code class="docutils literal notranslate"><span class="pre">'earth_relief_holes'</span></code>, <code class="docutils literal notranslate"><span class="pre">'fractures'</span></code>, <code class="docutils literal notranslate"><span class="pre">'hotspots'</span></code>, <code class="docutils literal notranslate"><span class="pre">'japan_quakes'</span></code>, <code class="docutils literal notranslate"><span class="pre">'mars_shape'</span></code>, <code class="docutils literal notranslate"><span class="pre">'maunaloa_co2'</span></code>, <code class="docutils literal notranslate"><span class="pre">'notre_dame_topography'</span></code>, <code class="docutils literal notranslate"><span class="pre">'ocean_ridge_points'</span></code>, <code class="docutils literal notranslate"><span class="pre">'rock_compositions'</span></code>, <code class="docutils literal notranslate"><span class="pre">'usgs_quakes'</span></code>]</span>) – Name of the dataset to load.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> | <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> | <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>data</em> – Sample dataset loaded as a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> for tabular data or
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> for raster data.</p>
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> for raster data.</p>
 </dd>
 </dl>
 <div class="admonition seealso">
@@ -260,13 +260,7 @@ you’ll need an internet connection the first time around.</p>
 
 <section id="examples-using-pygmt-datasets-load-sample-data">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.datasets.load_sample_data</span></code><a class="headerlink" href="#examples-using-pygmt-datasets-load-sample-data" title="Link to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is packaged with GMT to try this out. PyGMT provides access to these datasets through the pygmt.datasets package. If you don&#x27;t have the data files already, they are automatically downloaded and saved to a cache directory the first time you use them (usually ~/.gmt/cache)."><img alt="" src="../../_images/sphx_glr_plot_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/basics/plot.html#sphx-glr-tutorials-basics-plot-py"><span class="std std-ref">Plotting data points</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Plotting data points</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need to input a 2-D raster to grid which can be an xarray.DataArray. The argument passed to the points parameter can be a pandas.DataFrame table where the first two columns are x and y (or longitude and latitude). Note also that there is a newcolname parameter that will be used to name the new column of values sampled from the grid."><img alt="" src="../../_images/sphx_glr_track_sampling_thumb.png" />
-<p><a class="reference internal" href="../../gallery/images/track_sampling.html#sphx-glr-gallery-images-track-sampling-py"><span class="std std-ref">Sampling along tracks</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Sampling along tracks</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.ternary method can draw ternary diagrams. The example shows how to plot circles with a diameter of 0.1 centimeters (``style=&quot;c0.1c&quot;``) on a 10-centimeters-wide (``width=&quot;10c&quot;``) ternary diagram at the positions listed in the first three columns of the sample dataset rock_compositions, with default annotations and gridline spacings, using the specified labeling defined via alabel, blabel, and clabel. Points are colored based on the values given in the fourth columns of the sample dataset via cmap=True."><img alt="" src="../../_images/sphx_glr_ternary_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.ternary method can draw ternary diagrams. The example shows how to plot circles with a diameter of 0.1 centimeters (``style=&quot;c0.1c&quot;``) on a 10-centimeters-wide (``width=&quot;10c&quot;``) ternary diagram at the positions listed in the first three columns of the sample dataset rock_compositions, with default annotations and gridline spacings, using the specified labeling defined via alabel, blabel, and clabel. Points are colored based on the values given in the fourth columns of the sample dataset via cmap=True."><img alt="" src="../../_images/sphx_glr_ternary_thumb.png" />
 <p><a class="reference internal" href="../../gallery/basemaps/ternary.html#sphx-glr-gallery-basemaps-ternary-py"><span class="std std-ref">Ternary diagram</span></a></p>
   <div class="sphx-glr-thumbnail-title">Ternary diagram</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.blockmean function calculates different quantities inside blocks/bins whose dimensions are defined via the spacing parameter. The following examples show how to calculate the averages of the given values inside each bin and how to report the number of points inside each bin."><img alt="" src="../../_images/sphx_glr_blockm_thumb.png" />
@@ -275,6 +269,12 @@ you’ll need an internet connection the first time around.</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.rose method can plot windrose diagrams or polar histograms."><img alt="" src="../../_images/sphx_glr_rose_thumb.png" />
 <p><a class="reference internal" href="../../gallery/histograms/rose.html#sphx-glr-gallery-histograms-rose-py"><span class="std std-ref">Rose diagram</span></a></p>
   <div class="sphx-glr-thumbnail-title">Rose diagram</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need to input a 2-D raster to grid which can be an xarray.DataArray. The argument passed to the points parameter can be a pandas.DataFrame table where the first two columns are x and y (or longitude and latitude). Note also that there is a newcolname parameter that will be used to name the new column of values sampled from the grid."><img alt="" src="../../_images/sphx_glr_track_sampling_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/track_sampling.html#sphx-glr-gallery-images-track-sampling-py"><span class="std std-ref">Sampling along tracks</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Sampling along tracks</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is packaged with GMT to try this out. PyGMT provides access to these datasets through the pygmt.datasets package. If you don&#x27;t have the data files already, they are automatically downloaded and saved to a cache directory the first time you use them (usually ~/.gmt/cache)."><img alt="" src="../../_images/sphx_glr_plot_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/basics/plot.html#sphx-glr-tutorials-basics-plot-py"><span class="std std-ref">Plotting data points</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting data points</div>
 </div></div><div style='clear:both'></div></section>
 </section>
 
@@ -291,9 +291,9 @@ you’ll need an internet connection the first time around.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a8365eec">a8365eec</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 26, 2025.
+      <span class="lastupdated">Last updated on Feb 13, 2025.
       </span></p>
   </div>
 
