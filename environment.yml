@@ -42,7 +42,7 @@ dependencies:
     - sphinx-autodoc-typehints
     - sphinx-copybutton
     - sphinx-design
-    - sphinx-gallery>=0.17.0
+    - sphinx-gallery>=0.19.0
     - sphinx_rtd_theme<3.0
     # Dev dependencies (building PDF documentation)
     - cairosvg
