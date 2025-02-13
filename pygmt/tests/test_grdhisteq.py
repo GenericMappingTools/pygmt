@@ -9,6 +9,7 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import grdhisteq, load_dataarray
+from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
@@ -78,8 +79,8 @@ def test_equalize_grid_no_outgrid(grid, expected_grid, region):
     temp_grid = grdhisteq.equalize_grid(
         grid=grid, divisions=2, region=region, outgrid=None
     )
-    assert temp_grid.gmt.gtype == 1  # Geographic grid
-    assert temp_grid.gmt.registration == 1  # Pixel registration
+    assert temp_grid.gmt.gtype == GridType.GEOGRAPHIC
+    assert temp_grid.gmt.registration == GridRegistration.PIXEL
     xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 

@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 import xarray as xr
 from pygmt import grdclip, load_dataarray
+from pygmt.enums import GridRegistration, GridType
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -51,8 +52,8 @@ def test_grdclip_outgrid(grid, expected_grid):
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
         temp_grid = load_dataarray(tmpfile.name)
         assert temp_grid.dims == ("lat", "lon")
-        assert temp_grid.gmt.gtype == 1  # Geographic grid
-        assert temp_grid.gmt.registration == 1  # Pixel registration
+        assert temp_grid.gmt.gtype == GridType.GEOGRAPHIC
+        assert temp_grid.gmt.registration == GridRegistration.PIXEL
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
@@ -65,6 +66,6 @@ def test_grdclip_no_outgrid(grid, expected_grid):
         grid=grid, below=[550, -1000], above=[700, 1000], region=[-53, -49, -19, -16]
     )
     assert temp_grid.dims == ("lat", "lon")
-    assert temp_grid.gmt.gtype == 1  # Geographic grid
-    assert temp_grid.gmt.registration == 1  # Pixel registration
+    assert temp_grid.gmt.gtype == GridType.GEOGRAPHIC
+    assert temp_grid.gmt.registration == GridRegistration.PIXEL
     xr.testing.assert_allclose(a=temp_grid, b=expected_grid)

@@ -60,11 +60,6 @@ jobs:
         uses: mamba-org/setup-micromamba@v2.0.4
         with:
           environment-name: pygmt
-          condarc: |
-            channels:
-              - conda-forge
-              - nodefaults
-          cache-downloads: false
           cache-environment: true
           # environment cache is persistent for one week.
           cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
@@ -190,5 +185,5 @@ jobs:
         uses: actions/upload-artifact@v4.6.0
         if: ${{ failure() }}
         with:
-          name: artifact-GMT-${{ matrix.gmt_git_ref }}-${{ runner.os }}
+          name: artifact-${{ matrix.os }}-GMT-${{ matrix.gmt_git_ref }}
           path: tmp-test-dir-with-unique-name

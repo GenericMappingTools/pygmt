@@ -9,6 +9,7 @@ import pytest
 import xarray as xr
 from pygmt import load_dataarray, xyz2grd
 from pygmt.datasets import load_sample_data
+from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
@@ -48,8 +49,8 @@ def test_xyz2grd_input_array(array_func, ship_data, expected_grid):
     """
     output = xyz2grd(data=array_func(ship_data), spacing=5, region=[245, 255, 20, 30])
     assert isinstance(output, xr.DataArray)
-    assert output.gmt.registration == 0  # Gridline registration
-    assert output.gmt.gtype == 0  # Cartesian type
+    assert output.gmt.registration == GridRegistration.GRIDLINE
+    assert output.gmt.gtype == GridType.CARTESIAN
     xr.testing.assert_allclose(a=output, b=expected_grid)
 
 

@@ -1,4 +1,3 @@
-# noqa: A005
 """
 PyGMT input/output (I/O) utilities.
 """
