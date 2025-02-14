@@ -6,8 +6,8 @@ import numpy as np
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTError, GMTInvalidInput
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
-from pygmt.src.meca import convention_params, convention_code
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.src.meca import convention_params, convention_code, convention_name
 
 def section_convention_code(section_format):
 
@@ -86,6 +86,7 @@ def coupe(
         - *dictionary or pd.DataFrame*: The dictionary keys or pd.DataFrame
           column names determine the focal mechanism convention. For
           different conventions, the following combination of keys are allowed:
+
           - ``"aki"``: *strike, dip, rake, magnitude*
           - ``"gcmt"``: *strike1, dip1, rake1, strike2, dip2, rake2, mantissa,*
             *exponent*
@@ -93,6 +94,7 @@ def coupe(
           - ``"partial"``: *strike1, dip1, strike2, fault_type, magnitude*
           - ``"principal_axis"``: *t_value, t_azimuth, t_plunge, n_value,
             n_azimuth, n_plunge, p_value, p_azimuth, p_plunge, exponent*
+
           A dictionary may contain values for a single focal mechanism or
           lists of values for multiple focal mechanisms.
           Both dictionary and pd.DataFrame may optionally contain
@@ -100,8 +102,9 @@ def coupe(
           ``plot_longitude``, ``plot_latitude``, and/or ``event_name``.
           If ``spec`` is either a str, a 1-D array or a 2-D array, the
           ``convention`` parameter is required so we know how to interpret the
-          columns. If ``spec`` is a dictionary or a pd.DataFrame,
-          ``convention`` is not needed and is ignored if specified.
+          columns. If ``spec`` is a dict or a :class:`pandas.DataFrame`, 
+          ``convention`` is not needed and ignored if specified.
+        
     scale : int, float, or str
         *scale*\ [**+a**\ *angle*][**+f**\ *font*][**+j**\ *justify*]\
         [**+l**][**+m**][**+o**\ *dx*\ [/\ *dy*]][**+s**\ *reference*].
@@ -148,30 +151,21 @@ def coupe(
         - ``"mt"`` (seismic moment tensor)
         - ``"partial"`` (partial focal mechanism)
         - ``"principal_axis"`` (principal axis)
-        Ignored if ``spec`` is a dictionary or pd.DataFrame.
+        Ignored if ``spec`` is a dict or :class:`pandas.DataFrame`.
     component : str
         The component of the seismic moment tensor to plot.
         - ``"full"``: the full seismic moment tensor
         - ``"dc"``: the closest double couple defined from the moment tensor
           (zero trace and zero determinant)
         - ``"deviatoric"``: deviatoric part of the moment tensor (zero trace)
-    longitude : int, float, list, or 1-D numpy array
-        Longitude(s) of event location(s). Must be the same length as the
-        number of events. Will override the ``longitude`` values
-        in ``spec`` if ``spec`` is a dictionary or pd.DataFrame.
-    latitude : int, float, list, or 1-D numpy array
-        Latitude(s) of event location(s). Must be the same length as the
-        number of events. Will override the ``latitude`` values
-        in ``spec`` if ``spec`` is a dictionary or pd.DataFrame.
-    depth : int, float, list, or 1-D numpy array
-        Depth(s) of event location(s) in kilometers. Must be the same length
-        as the number of events. Will override the ``depth`` values in ``spec``
-        if ``spec`` is a dictionary or pd.DataFrame.
+    longitude/latitude/depth : float, list, or 1-D numpy array
+        Longitude(s) / latitude(s) / depth(s) of the event(s). Length must match the
+        number of events. Overrides the ``longitude`` / ``latitude`` / ``depth`` values
+        in ``spec`` if ``spec`` is a dict or :class:`pandas.DataFrame`.
     event_name : str or list of str, or 1-D numpy array
         Text string(s), e.g., event name(s) to appear near the beachball(s).
         List must be the same length as the number of events. Will override
-        the ``event_name`` labels in ``spec`` if ``spec`` is a dictionary
-        or pd.DataFrame.
+        the ``event_name`` labels in ``spec`` if ``spec`` is a dict or :class:`pandas.DataFrame`.
     labelbox : bool or str
         [*fill*].
         Draw a box behind the label if given. Use *fill* to give a fill color
@@ -264,6 +258,32 @@ def coupe(
             spec = pd.DataFrame(
                 {key: np.atleast_1d(value) for key, value in spec.items()}
             )
+    elif isinstance(spec, np.ndarray):  # spec is a numpy array
+        if convention is None:
+            msg = "'convention' must be specified for an array input."
+            raise GMTInvalidInput(msg)
+        # make sure convention is a name, not a code
+        convention = convention_name(convention)
+
+        # Convert array to pd.DataFrame and assign column names
+        spec = pd.DataFrame(np.atleast_2d(spec))
+        colnames = ["longitude", "latitude", "depth", *convention_params(convention)]
+        # check if spec has the expected number of columns
+        ncolsdiff = len(spec.columns) - len(colnames)
+        if ncolsdiff == 0:
+            pass
+        elif ncolsdiff == 1:
+            colnames += ["event_name"]
+        elif ncolsdiff == 2:
+            colnames += ["plot_longitude", "plot_latitude"]
+        elif ncolsdiff == 3:
+            colnames += ["plot_longitude", "plot_latitude", "event_name"]
+        else:
+            msg = (
+                f"Input array must have {len(colnames)} to {len(colnames) + 3} columns."
+            )
+            raise GMTInvalidInput(msg)
+        spec.columns = colnames
 
     # Now spec is a pd.DataFrame or a file
     if isinstance(spec, pd.DataFrame):
@@ -298,6 +318,7 @@ def coupe(
 
     with Session() as lib:
         # Choose how data will be passed into the module
-        file_context = lib.virtualfile_from_data(check_kind="vector", data=spec)
+        file_context = lib.virtualfile_in(check_kind="vector", data=spec)
         with file_context as fname:
-            lib.call_module(module="coupe", args=build_arg_string(kwargs, infile=fname))
+            lib.call_module(module="coupe", args=build_arg_list(kwargs, infile=fname))
+            
