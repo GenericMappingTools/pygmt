@@ -13,7 +13,7 @@ from pygmt.clib import __gmt_version__
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
-@pytest.mark.mpl_image_compare(filename="test_coupe_one_type.png")
+@pytest.mark.mpl_image_compare(filename="test_coupe_spec_single_focalmech.png")
 @pytest.mark.parametrize("inputtype", ["dict_mecha", "dict_full", "array1d", "pandas"])
 def test_coupe_spec_single_focalmecha(inputtype):
     """
@@ -68,7 +68,7 @@ def test_coupe_spec_single_focalmecha(inputtype):
 
     return fig
     
-@pytest.mark.mpl_image_compare(filename="test_coupe_one_type.png")
+@pytest.mark.mpl_image_compare(filename="test_coupe_spec_single_focalmech.png")
 def test_coupe_spec_single_focalmecha_file():
     """
     Test supplying a file containing focal mechanisms and locations to the spec
