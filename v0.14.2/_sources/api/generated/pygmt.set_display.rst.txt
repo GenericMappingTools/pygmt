@@ -1,0 +1,13 @@
+pygmt.set\_display
+==================
+
+.. currentmodule:: pygmt
+
+.. autofunction:: set_display
+
+.. minigallery:: pygmt.set_display
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>
