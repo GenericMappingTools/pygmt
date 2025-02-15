@@ -223,6 +223,39 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
 
     Full option list at :gmt-docs:`supplements/seis/meca.html`
 
+    Different conventions are supported:
+
+    | Convention | Description | Focal parameters |
+    | --- | --- | --- |
+    | ``"aki"`` | Aki and Richard | *strike*, *dip*, *rake*, *magnitude* |
+    | ``"gcmt"`` | global CMT | *strike1*, *dip1*, *rake1*, *strike2*, *dip2*, *rake2*, *mantissa*, *exponent* |
+    | ``"mt"`` | seismic moment tensor | *mrr*, *mtt*, *mff*, *mrt*, *mrf*, *mtf*, *exponent* |
+    | ``"partial"`` | partial focal mechanism | *strike1*, *dip1*, *strike2*, *fault_type*, *magnitude* |
+    | ``"principal_axis"`` | principal axis | *t_value*, *t_azimuth*, *t_plunge*, *n_value*, *n_azimuth*, *n_plunge*, *p_value*, *p_azimuth*, *p_plunge*, *exponent* |
+
+    .. list-table::
+       :widths: 30  30 30
+       :header-rows: 1
+
+       * - Convention
+         - Description
+         - Focal parameters
+       * - ``"aki"``
+         - Aki and Richard 
+         - *strike*, *dip*, *rake*, *magnitude*
+       * - ``"gcmt"``
+	     - global CMT
+         - *strike1*, *dip1*, *rake1*, *strike2*, *dip2*, *rake2*, *mantissa*, *exponent*
+       * - ``"mt"``
+	     - seismic moment tensor 
+         - *mrr*, *mtt*, *mff*, *mrt*, *mrf*, *mtf*, *exponent*
+       * - ``"partial"`` 
+	     - partial focal mechanism
+         - *strike1*, *dip1*, *strike2*, *fault_type*, *magnitude*
+	   * - ``"principal_axis"`` 
+	     - principal axis
+         - *t_value*, *t_azimuth*, *t_plunge*, *n_value*, *n_azimuth*, *n_plunge*, *p_value*, *p_azimuth*, *p_plunge*, *exponent*
+
     {aliases}
 
     Parameters
@@ -250,16 +283,8 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
           The meanings of columns are the same as above.
         - *dict* or :class:`pandas.DataFrame`: The dict keys or
           :class:`pandas.DataFrame` column names determine the focal mechanism
-          convention. For the different conventions, the following combination of
-          keys / column names are required:
-
-          - ``"aki"``: *strike*, *dip*, *rake*, *magnitude*
-          - ``"gcmt"``: *strike1*, *dip1*, *rake1*, *strike2*, *dip2*, *rake2*,
-            *mantissa*, *exponent*
-          - ``"mt"``: *mrr*, *mtt*, *mff*, *mrt*, *mrf*, *mtf*, *exponent*
-          - ``"partial"``: *strike1*, *dip1*, *strike2*, *fault_type*, *magnitude*
-          - ``"principal_axis"``: *t_value*, *t_azimuth*, *t_plunge*, *n_value*,
-            *n_azimuth*, *n_plunge*, *p_value*, *p_azimuth*, *p_plunge*, *exponent*
+          convention. For the different conventions, the combination of keys /
+          column names as given in the tabel above are required.
 
           A dict may contain values for a single focal mechanism or lists of
           values for multiple focal mechanisms.
@@ -287,14 +312,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
         the text location relative to the beachball [Default is ``"TC"``, i.e., Top
         Center]; append **+o** to offset the text string by *dx*\ /*dy*.
     convention : str
-        Focal mechanism convention. Choose from:
-
-        - ``"aki"`` (Aki and Richards)
-        - ``"gcmt"`` (global CMT)
-        - ``"mt"`` (seismic moment tensor)
-        - ``"partial"`` (partial focal mechanism)
-        - ``"principal_axis"`` (principal axis)
-
+        Focal mechanism convention. See the table above for the supported conventions.
         Ignored if ``spec`` is a dict or :class:`pandas.DataFrame`.
     component : str
         The component of the seismic moment tensor to plot.
