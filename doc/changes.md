@@ -4,10 +4,10 @@
 
 [![Digital Object Identifier for PyGMT v0.14.2](https://zenodo.org/badge/DOI/10.5281/zenodo.14868324.svg)](https://doi.org/10.5281/zenodo.14868324)
 
-This is a patch release fixing a critical bug introduced in PyGMT v0.14.1.
 
-### Bugs
+### Bug Fixes
 
+- **Patch release fixing a critical bug introduced in PyGMT v0.14.1**
 - Fix the bug for passing text strings with numeric values ([#3804](https://github.com/GenericMappingTools/pygmt/pull/3804))
 
 **Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.14.1...v0.14.2>
