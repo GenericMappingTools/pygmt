@@ -151,12 +151,6 @@ jobs:
         run: cp -v doc/_build/pygmt-docs.zip doc/_build/pygmt-docs.pdf doc/_build/html/
         if: github.event_name == 'push' && matrix.os == 'ubuntu-latest'
 
-      - name: Upload the HTML ZIP archive and PDF as release assets
-        run: gh release upload ${{ github.ref_name }} doc/_build/pygmt-docs.zip doc/_build/pygmt-docs.pdf
-        if: github.event_name == 'release' && matrix.os == 'ubuntu-latest'
-        env:
-          GH_TOKEN: ${{ github.token }}
-
       - name: Checkout the gh-pages branch
         uses: actions/checkout@v4.2.2
         with:
