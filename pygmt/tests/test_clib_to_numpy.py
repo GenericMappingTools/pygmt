@@ -84,9 +84,6 @@ def test_to_numpy_python_types(data, expected_dtype):
     "data",
     [
         pytest.param(
-            ["2018", "2018-02", "2018-03-01", "2018-04-01T01:02:03"], id="iso8601"
-        ),
-        pytest.param(
             [
                 datetime.date(2018, 1, 1),
                 datetime.datetime(2018, 2, 1),
@@ -141,6 +138,20 @@ def test_to_numpy_python_datetime(data):
             ],
             dtype="datetime64[s]",
         ),
+    )
+
+
+def test_to_numpy_python_datetime_string():
+    """
+    Test the _to_numpy function with Python sequence of datetime strings.
+
+    Datetime strings are NOT converted to np.datetime64, but GMT can be process the
+    strings as datetime strings.
+    """
+    result = _to_numpy(["2018", "2018-02", "2018-03-01", "2018-04-01T01:02:03"])
+    _check_result(result, np.str_)
+    npt.assert_array_equal(
+        result, ["2018", "2018-02", "2018-03-01", "2018-04-01T01:02:03"]
     )
 
 
