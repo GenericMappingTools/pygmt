@@ -221,7 +221,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
     r"""
     Plot focal mechanisms.
 
-    The following conventions are supported:
+    The following focal mechanism conventions are supported:
 
     .. list-table:: Supported focal mechanism conventions
        :widths: 15 15 70
