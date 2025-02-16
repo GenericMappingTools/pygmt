@@ -223,7 +223,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
 
     The following conventions are supported:
 
-    .. list-table::
+    .. list-table:: Supported focal mechanism conventions
        :widths: 15 15 70
        :header-rows: 1
 
