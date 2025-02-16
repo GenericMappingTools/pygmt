@@ -5,14 +5,14 @@ Plotting focal mechanisms
 Focal mechanisms can be plotted as beachballs with the :meth:`pygmt.Figure.meca`
 method.
 
-The focal mechanism data or parameters can be provided as different input
-types: external file, 1-D or 2-D ``numpy.array``, dictionary, ``pandas.Dataframe``.
-Different conventions to define the focal mechanism are supported: Aki and
-Richards (``"aki"``), global CMT (``"gcmt"``), moment tensor (``"mt"``), partial
-focal mechanism (``"partial"``), principal axis (``"principal_axis"``). Please
-refer to the documentation of :meth:`pygmt.Figure.meca` regarding how to set up
-the input data in respect to the chosen input type and convention (i.e the
-expected column order, keys, or column names).
+The focal mechanism data or parameters can be provided as different input types:
+external file, 1-D or 2-D ``numpy.array``, dictionary, ``pandas.Dataframe``.
+Different conventions to define the focal mechanism are supported: Aki and Richards
+(``"aki"``), global CMT (``"gcmt"``), moment tensor (``"mt"``), partial focal
+mechanism (``"partial"``), principal axis (``"principal_axis"``). Please refer to
+the documentation of :meth:`pygmt.Figure.meca` regarding how to set up the input
+data in respect to the chosen input type and convention (i.e the expected column
+order, keys, or column names).
 
 This tutorial focus on how to adjust the display of the beachballs:
 
@@ -60,8 +60,8 @@ aki_dict_single = {"strike": 318, "dip": 89, "rake": -179, "magnitude": 7.75}
 # Plotting a single beachball
 # ---------------------------
 #
-# Required parameters are ``spec``, ``scale``, ``longitude`` and ``latitude``
-# (event location) as well as ``convention``. For the input types dictionary and
+# Required parameters are ``spec``, ``scale``, ``longitude`` and ``latitude`` (event
+# location) as well as ``convention``. For the input types dictionary and
 # ``pandas.Dataframe``, ``convention`` is not required.
 
 fig = pygmt.Figure()
@@ -76,10 +76,10 @@ fig.show()
 # Filling the quadrants
 # ---------------------
 #
-# Use the parameters ``compressionfill`` and ``extensionfill`` to fill the
-# quadrants with different colors or patterns. Regarding pattern see the
-# gallery example :doc:`Bit and hachure patterns </gallery/symbols/patterns>`
-# and the Technical Reference :doc:`Bit and hachure patterns </techref/patterns>`.
+# Use the parameters ``compressionfill`` and ``extensionfill`` to fill the quadrants
+# with different colors or patterns. Regarding pattern see the gallery example
+# :doc:`Bit and hachure patterns </gallery/symbols/patterns>` and the Technical
+# Reference :doc:`Bit and hachure patterns </techref/patterns>`.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
@@ -176,8 +176,8 @@ fig.show()
 # Adjusting the outlines
 # ----------------------
 #
-# Use the parameters ``pen`` and ``outline`` for adjusting the circumference of
-# the beachball or all lines (circumference of the beachball and both nodal planes).
+# Use the parameters ``pen`` and ``outline`` for adjusting the circumference of the
+# beachball or all lines (circumference of the beachball and both nodal planes).
 
 fig = pygmt.Figure()
 fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
@@ -206,11 +206,11 @@ fig.show()
 # Highlighting the nodal planes
 # -----------------------------
 #
-# Use the parameter ``nodal``, whereby ``"0"`` refers to both, ``"1"`` to the
-# first, and ``"2"`` to the second nodal plane(s). Only the circumference and the
-# specified nodal plane(s) are plotted, i.e. the quadrants remain unfilled
-# (transparent). If needed, make usage of the stacking concept of (Py)GMT and use
-# ``nodal`` with the ``outline`` or / and ``pen``  parameters in combination.
+# Use the parameter ``nodal``, whereby ``"0"`` refers to both, ``"1"`` to the first,
+# and ``"2"`` to the second nodal plane(s). Only the circumference and the specified
+# nodal plane(s) are plotted, i.e. the quadrants remain unfilled (transparent). If
+# needed, make usage of the stacking concept of (Py)GMT and use ``nodal`` with the
+# ``outline`` or / and ``pen``  parameters in combination.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
@@ -255,12 +255,12 @@ fig.show()
 # ---------------------------------
 #
 # Specify the optional parameters ``plot_longitude`` and ``plot_latitude``.
-# Additionally the parameter ``offset`` has to be set. Besides just drawing a
-# line between the beachball and the event location, a small circle can be
-# plotted at the event location by appending **+s** and the descired circle
-# diameter. The connecting line as well as the outline of the circle are
-# plotted with the setting of pen, or can be adjusted separately. The fill of
-# the small circle corresponds to the fill of the compressive quadrantes.
+# Additionally the parameter ``offset`` has to be set. Besides just drawing a line
+# between the beachball and the event location, a small circle can be plotted at the
+# event location by appending **+s** and the descired circle diameter. The connecting
+# line as well as the outline of the circle are plotted with the  setting of pen, or
+# can be adjusted separately. The fill of the small circle corresponds to the fill
+# of the compressive quadrantes.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
@@ -322,15 +322,14 @@ aki_df_multiple = pd.DataFrame(aki_dict_multiple)
 # Adding a label
 # --------------
 #
-# Use the optional parameter ``event_name`` to add a label near the beachball,
-# e.g., event name or event date and time. Change the font of the the label text
-# by appending **+f** and the desired font (size,name,color) to the argument passed
-# to the ``scale`` parameter. Additionally, the location of the label relative to the
-# beachball [Default is ``"TC"``, i.e., Top Center]; can be changed by appending
-# **+j** and an offset can be applied by appending **+o** with values for *dx*\ /*dy*.
-# Add a colored [Default is white] box behind the label via the label ``labelbox``.
-# Force a fixed size of the beachball by appending **+m** to the argument passed to
-# the ``scale`` parameter.
+# Use the optional parameter ``event_name`` to add a label near the beachball, e.g.,
+# event name or event date and time. Change the font of the the label text by appending
+# **+f** and the desired font (size,name,color) to the argument passed to the ``scale``
+# parameter. Additionally, the location of the label relative to the beachball [Default
+# is ``"TC"``, i.e., Top Center]; can be changed by appending **+j** and an offset can
+# be applied by appending **+o** with values for *dx*\ /*dy*. Add a colored [Default
+# is white] box behind the label via the label ``labelbox``. Force a fixed size of the
+# beachball by appending **+m** to the argument passed to the ``scale`` parameter.
 
 fig = pygmt.Figure()
 fig.coast(region="d", projection="N10c", land="lightgray", frame=True)
