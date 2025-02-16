@@ -221,7 +221,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
     r"""
     Plot focal mechanisms.
 
-    Different conventions are supported:
+    The following conventions are supported:
 
     .. list-table::
        :widths: 15 15 70
@@ -234,7 +234,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
          - Aki and Richard
          - *strike*, *dip*, *rake*, *magnitude*
        * - ``"gcmt"``
-         - global CMT
+         - global centroid moment tensor
          - *strike1*, *dip1*, *rake1*, *strike2*, *dip2*, *rake2*,
            *mantissa*, *exponent*
        * - ``"mt"``
@@ -265,7 +265,8 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
           - Columns 1 and 2: event longitude and latitude
           - Column 3: event depth (in kilometers)
           - Columns 4 to 3+n: focal mechanism parameters. The number of columns *n*
-            depends on the choice of ``convention``, which is described below.
+            depends on the choice of ``convention`` (see the table above for the
+            supported conventions).
           - Columns 4+n and 5+n: longitude and latitude at which to place the
             beachball. ``0 0`` plots the beachball at the longitude and latitude
             given in the columns 1 and 2. [optional; requires ``offset=True``].
