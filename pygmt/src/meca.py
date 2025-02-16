@@ -235,8 +235,8 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
          - *strike*, *dip*, *rake*, *magnitude*
        * - ``"gcmt"``
          - global CMT
-         - | *strike1*, *dip1*, *rake1*, *strike2*, *dip2*, *rake2*,
-           | *mantissa*, *exponent*
+         - *strike1*, *dip1*, *rake1*, *strike2*, *dip2*, *rake2*,
+           *mantissa*, *exponent*
        * - ``"mt"``
          - seismic moment tensor
          - *mrr*, *mtt*, *mff*, *mrt*, *mrf*, *mtf*, *exponent*
@@ -245,8 +245,8 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
          - *strike1*, *dip1*, *strike2*, *fault_type*, *magnitude*
        * - ``"principal_axis"``
          - principal axis
-         - | *t_value*, *t_azimuth*, *t_plunge*, *n_value*, *n_azimuth*, *n_plunge*,
-           | *p_value*, *p_azimuth*, *p_plunge*, *exponent*
+         - *t_value*, *t_azimuth*, *t_plunge*, *n_value*, *n_azimuth*, *n_plunge*,
+           *p_value*, *p_azimuth*, *p_plunge*, *exponent*
 
     Full option list at :gmt-docs:`supplements/seis/meca.html`
 
