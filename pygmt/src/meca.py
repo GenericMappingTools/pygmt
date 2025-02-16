@@ -221,12 +221,10 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
     r"""
     Plot focal mechanisms.
 
-    Full option list at :gmt-docs:`supplements/seis/meca.html`
-
     Different conventions are supported:
 
     .. list-table::
-       :widths: 30 30 30
+       :widths: 15 15 70
        :header-rows: 1
 
        * - Convention
@@ -234,19 +232,22 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
          - Focal parameters
        * - ``"aki"``
          - Aki and Richard
-         - strike, dip, rake, magnitude
+         - *strike*, *dip*, *rake*, *magnitude*
        * - ``"gcmt"``
          - global CMT
-         - strike1, dip1, rake1, strike2, dip2, rake2, mantissa, exponent
+         - *strike1*, *dip1*, *rake1*, *strike2*, *dip2*, *rake2*, *mantissa*, *exponent*
        * - ``"mt"``
          - seismic moment tensor
-         - mrr, mtt, mff, mrt, mrf, mtf, exponent
+         - *mrr*, *mtt*, *mff*, *mrt*, *mrf*, *mtf*, *exponent*
        * - ``"partial"``
          - partial focal mechanism
-         - strike1, dip1, strike2, fault_type, magnitude
+         - *strike1*, *dip1*, *strike2*, *fault_type*, *magnitude*
        * - ``"principal_axis"``
          - principal axis
-         - t_value, t_azimuth, t_plunge, n_value, n_azimuth, n_plunge, p_value, p_azimuth, p_plunge, exponent
+         - | *t_value*, *t_azimuth*, *t_plunge*, *n_value*, *n_azimuth*, *n_plunge*, 
+         - | *p_value*, *p_azimuth*, *p_plunge*, *exponent*
+
+    Full option list at :gmt-docs:`supplements/seis/meca.html`
 
     {aliases}
 
