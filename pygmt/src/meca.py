@@ -246,18 +246,21 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
          - | *mrr*, *mtt*, *mff*,
            | *mrt*, *mrf*, *mtf*,
            | *exponent*
-         - moment components in dynes-cm
+         - | moment components
+           | in dynes-cm
        * - ``"partial"``
          - partial focal mechanism
          - | *strike1*, *dip1*, *strike2*,
            | *fault_type*, *magnitude*
-         - | angles in degrees; *fault_type* means
-           | +1/-1 for normal/reverse fault
+         - | angles in degrees;
+           | *fault_type* means +1/-1 for
+           | normal/reverse fault
        * - ``"principal_axis"``
          - principal axis
          - | *t_value*, *t_azimuth*, *t_plunge*,
            | *n_value*, *n_azimuth*, *n_plunge*,
-           | *p_value*, *p_azimuth*, *p_plunge*, *exponent*
+           | *p_value*, *p_azimuth*, *p_plunge*,
+           | *exponent*
          - angles in degrees
 
     Full option list at :gmt-docs:`supplements/seis/meca.html`
