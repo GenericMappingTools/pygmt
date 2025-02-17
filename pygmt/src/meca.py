@@ -224,29 +224,41 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
     The following focal mechanism conventions are supported:
 
     .. list-table:: Supported focal mechanism conventions
-       :widths: 15 15 70
+       :widths: 15 15 45 25
        :header-rows: 1
 
        * - Convention
          - Description
          - Focal parameters
+         - Remark
        * - ``"aki"``
          - Aki and Richard
          - *strike*, *dip*, *rake*, *magnitude*
+         - angles in degrees
        * - ``"gcmt"``
          - global centroid moment tensor
-         - *strike1*, *dip1*, *rake1*, *strike2*, *dip2*, *rake2*,
-           *mantissa*, *exponent*
+         - | *strike1*, *dip1*, *rake1*,
+           | *strike2*, *dip2*, *rake2*,
+           | *mantissa*, *exponent*
+         - angles in degrees
        * - ``"mt"``
          - seismic moment tensor
-         - *mrr*, *mtt*, *mff*, *mrt*, *mrf*, *mtf*, *exponent*
+         - | *mrr*, *mtt*, *mff*,
+           | *mrt*, *mrf*, *mtf*,
+           | *exponent*
+         - moment components in dynes-cm
        * - ``"partial"``
          - partial focal mechanism
-         - *strike1*, *dip1*, *strike2*, *fault_type*, *magnitude*
+         - | *strike1*, *dip1*, *strike2*,
+           | *fault_type*, *magnitude*
+         - | angles in degrees; *fault_type* means
+           | +1/-1 for normal/reverse fault
        * - ``"principal_axis"``
          - principal axis
-         - *t_value*, *t_azimuth*, *t_plunge*, *n_value*, *n_azimuth*, *n_plunge*,
-           *p_value*, *p_azimuth*, *p_plunge*, *exponent*
+         - | *t_value*, *t_azimuth*, *t_plunge*,
+           | *n_value*, *n_azimuth*, *n_plunge*,
+           | *p_value*, *p_azimuth*, *p_plunge*, *exponent*
+         - angles in degrees
 
     Full option list at :gmt-docs:`supplements/seis/meca.html`
 
