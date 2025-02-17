@@ -223,8 +223,8 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
 
     The following focal mechanism conventions are supported:
 
-    .. list-table:: Supported focal mechanism conventions
-       :widths: 15 15 45 25
+    .. list-table:: Supported focal mechanism conventions.
+       :widths: 15 15 40 30
        :header-rows: 1
 
        * - Convention
