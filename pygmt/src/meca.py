@@ -240,7 +240,9 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
          - | *strike1*, *dip1*, *rake1*,
            | *strike2*, *dip2*, *rake2*,
            | *mantissa*, *exponent*
-         - angles in degrees
+         - | angles in degrees;
+           | *mantissa*, *exponent*are for
+           | seismic moment in dyne-cm
        * - ``"mt"``
          - seismic moment tensor
          - | *mrr*, *mtt*, *mff*,
@@ -261,7 +263,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
            | *n_value*, *n_azimuth*, *n_plunge*,
            | *p_value*, *p_azimuth*, *p_plunge*,
            | *exponent*
-         - angles in degrees
+         - values in dyne-cm
 
     Full option list at :gmt-docs:`supplements/seis/meca.html`
 
