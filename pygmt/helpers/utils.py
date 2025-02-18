@@ -145,6 +145,35 @@ def _validate_data_input(
                     raise GMTInvalidInput(msg)
 
 
+def _is_printable_ascii(argstr: str) -> bool:
+    """
+    Check if a string only contains printable ASCII characters.
+
+    Here, printable ASCII characters are defined as the characters in the range of 32 to
+    126 in the ASCII table. It's different from the ``string.printable`` constant that
+    it doesn't include the control characters that are considered whitespace (tab,
+    linefeed, return, formfeed, and vertical tab).
+
+    Parameters
+    ----------
+    argstr
+        The string to be checked.
+
+    Returns
+    -------
+    ``True`` if the string only contains printable ASCII characters. Otherwise, return
+    ``False``.
+
+    Examples
+    --------
+    >>> _is_printable_ascii("123ABC+-?!")
+    True
+    >>> _is_printable_ascii("12AB±β①②")
+    False
+    """
+    return all(32 <= ord(c) <= 126 for c in argstr)
+
+
 def _check_encoding(argstr: str) -> Encoding:
     """
     Check the charset encoding of a string.
@@ -177,8 +206,8 @@ def _check_encoding(argstr: str) -> Encoding:
     >>> _check_encoding("123AB中文")  # Characters not in any charset encoding
     'ISOLatin1+'
     """
-    # Return "ascii" if the string only contains ASCII characters.
-    if all(32 <= ord(c) <= 126 for c in argstr):
+    # Return "ascii" if the string only contains printable ASCII characters.
+    if _is_printable_ascii(argstr):
         return "ascii"
     # Loop through all supported encodings and check if all characters in the string
     # are in the charset of the encoding. If all characters are in the charset, return
@@ -374,8 +403,8 @@ def non_ascii_to_octal(argstr: str, encoding: Encoding = "ISOLatin1+") -> str:
     >>> non_ascii_to_octal("12ABāáâãäåβ①②", encoding="ISO-8859-4")
     '12AB\\340\\341\\342\\343\\344\\345@~\\142@~@%34%\\254@%%@%34%\\255@%%'
     """  # noqa: RUF002
-    # Return the input string if it only contains ASCII characters.
-    if encoding == "ascii" or all(32 <= ord(c) <= 126 for c in argstr):
+    # Return the input string if it only contains printable ASCII characters.
+    if encoding == "ascii" or _is_printable_ascii(argstr):
         return argstr
 
     # Dictionary mapping non-ASCII characters to octal codes
@@ -389,7 +418,7 @@ def non_ascii_to_octal(argstr: str, encoding: Encoding = "ISOLatin1+") -> str:
     # ISOLatin1+ or ISO-8859-x charset.
     mapping.update({c: f"\\{i:03o}" for i, c in charset[encoding].items()})
 
-    # Remove any printable characters
+    # Remove any printable characters.
     mapping = {k: v for k, v in mapping.items() if k not in string.printable}
     return argstr.translate(str.maketrans(mapping))
 
