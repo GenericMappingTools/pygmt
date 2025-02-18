@@ -163,10 +163,10 @@ class _FocalMechanismConvention:
         component: Literal["full", "deviatoric", "dc"] = "full",
     ):
         """
-        Initialize the _FocalMechanismConvention object from convention and component.
+        Initialize the ``_FocalMechanismConvention`` object from ``convention`` and ``component``.
 
-        If the convention is specified via a single-letter code, the convention and
-        component are determined from the code.
+        If the convention is specified via a single-letter code, ``convention`` and
+        ``component`` are determined from the code.
 
         Parameters
         ----------
@@ -186,7 +186,7 @@ class _FocalMechanismConvention:
               trace and zero determinant)
             - ``"deviatoric"``: deviatoric part of the moment tensor (zero trace)
 
-            Doesn't apply to conventions ``"aki"``, ``"gcmt"``, and ``"partial"``.
+            Doesn't apply to the conventions ``"aki"``, ``"gcmt"``, and ``"partial"``.
         """
         # TODO(Python>=3.12): Simplify to "convention in _FocalMechanismConventionCode".
         if convention in _FocalMechanismConventionCode.__members__.values():
@@ -194,7 +194,7 @@ class _FocalMechanismConvention:
             self.code = _FocalMechanismConventionCode(convention)
             # Parse the convention from the convention code name.
             self._convention = "_".join(self.code.name.split("_")[:-1]).lower()
-        else:  # Convention is specified via 'convention' and 'component'.
+        else:  # Convention is specified via "convention" and "component".
             name = f"{convention.upper()}_{component.upper()}"  # e.g., "AKI_DC"
             if name not in _FocalMechanismConventionCode.__members__:
                 msg = (
@@ -221,7 +221,7 @@ class _FocalMechanismConvention:
         """
         Create a _FocalMechanismConvention object from a sequence of parameters.
 
-        The method checks if the given parameters are a superset of a known focal
+        The method checks if the given parameters are a superset of a supported focal
         mechanism convention to determine the convention. If the parameters are not
         sufficient to determine the convention, an exception is raised.
 
