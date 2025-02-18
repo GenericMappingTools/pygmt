@@ -249,7 +249,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
            | *mrt*, *mrf*, *mtf*,
            | *exponent*
          - | moment components 
-           | in :math:`10*{exponent}` dyn-cm
+           | in :math:`10 ^ {exponent}` dyn-cm
        * - ``"partial"``
          - partial focal mechanism
          - | *strike1*, *dip1*, *strike2*,
@@ -263,7 +263,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
            | *n_value*, *n_azimuth*, *n_plunge*,
            | *p_value*, *p_azimuth*, *p_plunge*,
            | *exponent*
-         - | values in :math:`10*{exponent}` dyn-cm;
+         - | values in :math:`10 ^ {exponent}` dyn-cm;
            | azimuth and plunge in degrees
 
     Full option list at :gmt-docs:`supplements/seis/meca.html`
