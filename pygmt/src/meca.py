@@ -241,15 +241,15 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
            | *strike2*, *dip2*, *rake2*,
            | *mantissa*, *exponent*
          - | angles in degrees;
-           | *mantissa*, *exponent*are for
-           | seismic moment in dyne-cm
+           | seismic moment is :math:`mantissa * 10 ^ {exponent}`
+           | in dyne-cm
        * - ``"mt"``
          - seismic moment tensor
          - | *mrr*, *mtt*, *mff*,
            | *mrt*, *mrf*, *mtf*,
            | *exponent*
-         - | moment components
-           | in dynes-cm
+         - | moment components 
+           | in :math:`10*{exponent}` dyne-cm
        * - ``"partial"``
          - partial focal mechanism
          - | *strike1*, *dip1*, *strike2*,
@@ -263,7 +263,8 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
            | *n_value*, *n_azimuth*, *n_plunge*,
            | *p_value*, *p_azimuth*, *p_plunge*,
            | *exponent*
-         - values in dyne-cm
+         - | values in :math:`10*{exponent}` dyne-cm;
+           | azimuth and plunge in degrees
 
     Full option list at :gmt-docs:`supplements/seis/meca.html`
 
