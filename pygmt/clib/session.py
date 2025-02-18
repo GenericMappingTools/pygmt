@@ -2204,7 +2204,7 @@ class Session:
         if output_type == "strings":  # strings output
             return result.to_strings()
 
-        result = result.to_dataframe(
+        result = result.to_pandas(
             header=header, column_names=column_names, dtype=dtype, index_col=index_col
         )
         if output_type == "numpy":  # numpy.ndarray output
@@ -2273,7 +2273,7 @@ class Session:
                 self["GMT_IS_IMAGE"]: "image",
                 self["GMT_IS_CUBE"]: "cube",
             }[family]
-        return self.read_virtualfile(vfname, kind=kind).contents.to_dataarray()
+        return self.read_virtualfile(vfname, kind=kind).contents.to_xarray()
 
     def extract_region(self) -> np.ndarray:
         """
