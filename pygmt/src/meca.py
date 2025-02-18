@@ -241,7 +241,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
            | *strike2*, *dip2*, *rake2*,
            | *mantissa*, *exponent*
          - | angles in degrees;
-           | seismic moment is :math:`mantissa * 10 ^ {exponent}`
+           | seismic moment is :math:`mantissa * 10 ^ {{exponent}}`
            | in dyn cm
        * - ``"mt"``
          - seismic moment tensor
