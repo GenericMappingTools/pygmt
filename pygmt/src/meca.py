@@ -242,14 +242,14 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
            | *mantissa*, *exponent*
          - | angles in degrees;
            | seismic moment is :math:`mantissa * 10 ^ {exponent}`
-           | in dyne-cm
+           | in dyn-cm
        * - ``"mt"``
          - seismic moment tensor
          - | *mrr*, *mtt*, *mff*,
            | *mrt*, *mrf*, *mtf*,
            | *exponent*
          - | moment components 
-           | in :math:`10*{exponent}` dyne-cm
+           | in :math:`10*{exponent}` dyn-cm
        * - ``"partial"``
          - partial focal mechanism
          - | *strike1*, *dip1*, *strike2*,
@@ -263,7 +263,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
            | *n_value*, *n_azimuth*, *n_plunge*,
            | *p_value*, *p_azimuth*, *p_plunge*,
            | *exponent*
-         - | values in :math:`10*{exponent}` dyne-cm;
+         - | values in :math:`10*{exponent}` dyn-cm;
            | azimuth and plunge in degrees
 
     Full option list at :gmt-docs:`supplements/seis/meca.html`
@@ -315,7 +315,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
         [**+l**][**+m**][**+o**\ *dx*\ [/\ *dy*]][**+s**\ *reference*].
         Adjust scaling of the radius of the beachball, which is  proportional to the
         magnitude. By default, *scale* defines the size for magnitude = 5 (i.e., scalar
-        seismic moment M0 = 4.0E23 dynes-cm). If **+l** is used the radius will be
+        seismic moment M0 = 4.0E23 dyn-cm). If **+l** is used the radius will be
         proportional to the seismic moment instead. Use **+s** and give a *reference*
         to change the reference magnitude (or moment), and use **+m** to plot all
         beachballs with the same size. A text string can be specified to appear near
