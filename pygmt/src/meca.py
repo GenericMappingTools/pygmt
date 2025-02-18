@@ -296,7 +296,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
         - *dict* or :class:`pandas.DataFrame`: The dict keys or
           :class:`pandas.DataFrame` column names determine the focal mechanism
           convention. For the different conventions, the combination of keys /
-          column names as given in the tabel above are required.
+          column names as given in the table above are required.
 
           A dict may contain values for a single focal mechanism or lists of
           values for multiple focal mechanisms.
