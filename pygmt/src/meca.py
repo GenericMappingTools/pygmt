@@ -248,7 +248,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
          - | *mrr*, *mtt*, *mff*,
            | *mrt*, *mrf*, *mtf*,
            | *exponent*
-         - | moment components 
+         - | moment components
            | in :math:`10 ^ {exponent}` dyn-cm
        * - ``"partial"``
          - partial focal mechanism
