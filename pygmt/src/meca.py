@@ -241,7 +241,8 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
            | *strike2*, *dip2*, *rake2*,
            | *mantissa*, *exponent*
          - | angles in degrees;
-           | seismic moment is :math:`mantissa * 10 ^ {{exponent}}`
+           | seismic moment is
+           | :math:`mantissa * 10 ^ {{exponent}}`
            | in dyn cm
        * - ``"mt"``
          - seismic moment tensor
@@ -264,7 +265,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
            | *p_value*, *p_azimuth*, *p_plunge*,
            | *exponent*
          - | values in :math:`10 ^ {{exponent}}` dyn cm;
-           | azimuth and plunge in degrees
+           | azimuths and plunges in degrees
 
     Full option list at :gmt-docs:`supplements/seis/meca.html`
 
