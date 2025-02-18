@@ -163,7 +163,8 @@ class _FocalMechanismConvention:
         component: Literal["full", "deviatoric", "dc"] = "full",
     ):
         """
-        Initialize the ``_FocalMechanismConvention`` object from ``convention`` and ``component``.
+        Initialize the ``_FocalMechanismConvention`` object from ``convention`` and 
+        ``component``.
 
         If the convention is specified via a single-letter code, ``convention`` and
         ``component`` are determined from the code.
