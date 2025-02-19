@@ -47,6 +47,52 @@ def meca(  # noqa: PLR0912, PLR0913
     r"""
     Plot focal mechanisms.
 
+    The following focal mechanism conventions are supported:
+
+    .. list-table:: Supported focal mechanism conventions.
+       :widths: 15 15 40 30
+       :header-rows: 1
+
+       * - Convention
+         - Description
+         - Focal parameters
+         - Remark
+       * - ``"aki"``
+         - Aki and Richard
+         - *strike*, *dip*, *rake*, *magnitude*
+         - angles in degrees
+       * - ``"gcmt"``
+         - global centroid moment tensor
+         - | *strike1*, *dip1*, *rake1*,
+           | *strike2*, *dip2*, *rake2*,
+           | *mantissa*, *exponent*
+         - | angles in degrees;
+           | seismic moment is
+           | :math:`mantissa * 10 ^ {{exponent}}`
+           | in dyn cm
+       * - ``"mt"``
+         - seismic moment tensor
+         - | *mrr*, *mtt*, *mff*,
+           | *mrt*, *mrf*, *mtf*,
+           | *exponent*
+         - | moment components
+           | in :math:`10 ^ {{exponent}}` dyn cm
+       * - ``"partial"``
+         - partial focal mechanism
+         - | *strike1*, *dip1*, *strike2*,
+           | *fault_type*, *magnitude*
+         - | angles in degrees;
+           | *fault_type* means +1/-1 for
+           | normal/reverse fault
+       * - ``"principal_axis"``
+         - principal axis
+         - | *t_value*, *t_azimuth*, *t_plunge*,
+           | *n_value*, *n_azimuth*, *n_plunge*,
+           | *p_value*, *p_azimuth*, *p_plunge*,
+           | *exponent*
+         - | values in :math:`10 ^ {{exponent}}` dyn cm;
+           | azimuths and plunges in degrees
+
     Full option list at :gmt-docs:`supplements/seis/meca.html`
 
     {aliases}
@@ -64,7 +110,8 @@ def meca(  # noqa: PLR0912, PLR0913
           - Columns 1 and 2: event longitude and latitude
           - Column 3: event depth (in kilometers)
           - Columns 4 to 3+n: focal mechanism parameters. The number of columns *n*
-            depends on the choice of ``convention``, which is described below.
+            depends on the choice of ``convention`` (see the table above for the
+            supported conventions).
           - Columns 4+n and 5+n: longitude and latitude at which to place the
             beachball. ``0 0`` plots the beachball at the longitude and latitude
             given in the columns 1 and 2. [optional; requires ``offset=True``].
@@ -76,16 +123,8 @@ def meca(  # noqa: PLR0912, PLR0913
           The meanings of columns are the same as above.
         - *dict* or :class:`pandas.DataFrame`: The dict keys or
           :class:`pandas.DataFrame` column names determine the focal mechanism
-          convention. For the different conventions, the following combination of
-          keys / column names are required:
-
-          - ``"aki"``: *strike*, *dip*, *rake*, *magnitude*
-          - ``"gcmt"``: *strike1*, *dip1*, *rake1*, *strike2*, *dip2*, *rake2*,
-            *mantissa*, *exponent*
-          - ``"mt"``: *mrr*, *mtt*, *mff*, *mrt*, *mrf*, *mtf*, *exponent*
-          - ``"partial"``: *strike1*, *dip1*, *strike2*, *fault_type*, *magnitude*
-          - ``"principal_axis"``: *t_value*, *t_azimuth*, *t_plunge*, *n_value*,
-            *n_azimuth*, *n_plunge*, *p_value*, *p_azimuth*, *p_plunge*, *exponent*
+          convention. For the different conventions, the combination of keys /
+          column names as given in the table above are required.
 
           A dict may contain values for a single focal mechanism or lists of
           values for multiple focal mechanisms.
@@ -103,7 +142,7 @@ def meca(  # noqa: PLR0912, PLR0913
         [**+l**][**+m**][**+o**\ *dx*\ [/\ *dy*]][**+s**\ *reference*].
         Adjust scaling of the radius of the beachball, which is  proportional to the
         magnitude. By default, *scale* defines the size for magnitude = 5 (i.e., scalar
-        seismic moment M0 = 4.0E23 dynes-cm). If **+l** is used the radius will be
+        seismic moment M0 = 4.0E23 dyn cm). If **+l** is used the radius will be
         proportional to the seismic moment instead. Use **+s** and give a *reference*
         to change the reference magnitude (or moment), and use **+m** to plot all
         beachballs with the same size. A text string can be specified to appear near
@@ -113,14 +152,7 @@ def meca(  # noqa: PLR0912, PLR0913
         the text location relative to the beachball [Default is ``"TC"``, i.e., Top
         Center]; append **+o** to offset the text string by *dx*\ /*dy*.
     convention : str
-        Focal mechanism convention. Choose from:
-
-        - ``"aki"`` (Aki and Richards)
-        - ``"gcmt"`` (global CMT)
-        - ``"mt"`` (seismic moment tensor)
-        - ``"partial"`` (partial focal mechanism)
-        - ``"principal_axis"`` (principal axis)
-
+        Focal mechanism convention. See the table above for the supported conventions.
         Ignored if ``spec`` is a dict or :class:`pandas.DataFrame`.
     component : str
         The component of the seismic moment tensor to plot.
