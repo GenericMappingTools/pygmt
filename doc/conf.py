@@ -252,3 +252,6 @@ html_context = {
 
 # Options for LaTeX output.
 latex_engine = "xelatex"
+latex_documents = [
+    (root_doc, "pygmt.tex", "The PyGMT Documentation", author, "manual", True)
+]
