@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "pygmt"
 description = "A Python interface for the Generic Mapping Tools"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 authors = [{name = "The PyGMT Developers", email = "pygmt.team@gmail.com"}]
 keywords = [
     "cartography",
@@ -24,15 +24,19 @@ classifiers = [
     "Intended Audience :: Education",
     "Topic :: Scientific/Engineering",
     "Topic :: Software Development :: Libraries",
-    "Programming Language :: Python :: 3.10",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Operating System :: Unix",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "License :: OSI Approved :: BSD License",
 ]
 dependencies = [
-    "numpy>=1.24",
-    "pandas>=1.5",
-    "xarray>=2022.09",
+    "numpy>=1.25",
+    "pandas>=2.0",
+    "xarray>=2023.04",
     "netCDF4",
     "packaging",
 ]
@@ -43,17 +47,18 @@ all = [
     "contextily",
     "geopandas",
     "IPython",  # 'ipython' is not the correct module name.
+    "pyarrow",
     "rioxarray",
 ]
 
 [project.urls]
-homepage = "https://www.pygmt.org"
-documentation = "https://www.pygmt.org"
-repository = "https://github.com/GenericMappingTools/pygmt"
-changelog = "https://www.pygmt.org/latest/changes.html"
+"Homepage" = "https://www.pygmt.org"
+"Documentation" = "https://www.pygmt.org"
+"Source Code" = "https://github.com/GenericMappingTools/pygmt"
+"Changelog" = "https://www.pygmt.org/latest/changes.html"
+"Issue Tracker" = "https://github.com/GenericMappingTools/pygmt/issues"
 
 [tool.setuptools]
-platforms = ["Any"]
 license-files = ["LICENSE.txt"]
 
 [tool.setuptools.packages.find]
@@ -65,7 +70,7 @@ local_scheme = "node-and-date"
 fallback_version = "999.999.999+unknown"
 
 [tool.codespell]
-ignore-words-list = "astroid,oints,reenable,tripel,trough"
+ignore-words-list = "astroid,oints,reenable,tripel,trough,ND"
 
 [tool.coverage.run]
 omit = ["*/tests/*", "*pygmt/__init__.py"]
@@ -90,12 +95,15 @@ select = [
     "B",    # flake8-bugbear
     "BLE",  # flake8-blind-except
     "C4",   # flake8-comprehensions
+    "COM",  # flake8-commas
     "D",    # pydocstyle
     "E",    # pycodestyle
+    "EM",   # flake8-errmsg
     "EXE",  # flake8-executable
     "F",    # pyflakes
     "FA",   # flake8-future-annotations
     "FLY",  # flynt
+    "FURB", # refurb
     "I",    # isort
     "ICN",  # flake8-import-conventions
     "ISC",  # flake8-implicit-str-concat
@@ -114,8 +122,10 @@ select = [
     "S",    # flake8-bandit
     "SIM",  # flake8-simplify
     "T20",  # flake8-print
-    "TCH",  # flake8-type-checking
+    "TC",   # flake8-type-checking
+    "TD",   # flake8-todos
     "TID",  # flake8-tidy-imports
+    "TRY",  # tryceratops
     "UP",   # pyupgrade
     "W",    # pycodestyle warnings
     "YTT",  # flake8-2020
@@ -127,6 +137,7 @@ extend-select = [
     "PLW1514",  # {function_name} in text mode without explicit encoding argument
 ]
 ignore = [
+    "COM812",   # Do not always add the trailing commas
     "D200",     # One-line docstring should fit on one line
     "D202",     # No blank lines allowed after function docstring
     "D205",     # 1 blank line required between summary line and description
@@ -141,6 +152,7 @@ ignore = [
     "RET504",   # Allow variable assignment and return immediately for readability
     "S603",     # Allow method calls that initiate a subprocess without a shell
     "SIM117",   # Allow nested `with` statements
+    "TD003",    # Allow TODO comments without associated issue link
 ]
 preview = true
 explicit-preview-rules = true
@@ -151,7 +163,10 @@ known-third-party = ["pygmt"]
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]  # Ignore `F401` (unused-import) in all `__init__.py` files
 "*/tests/test_*.py" = ["S101"]  # Ignore `S101` (use of assert) in all tests files
-"examples/**/*.py" = ["T201"]  # Allow `print` in examples
+"examples/**/*.py" = [ # Ignore rules in examples
+    "B018",  # Allow useless expressions in Jupyter Notebooks
+    "T201",  # Allow `print` statements
+]
 
 [tool.ruff.lint.pycodestyle]
 max-doc-length = 88

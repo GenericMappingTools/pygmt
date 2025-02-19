@@ -94,7 +94,7 @@ def test_dataset_header():
             print("1.0 2.0 3.0 TEXT1 TEXT23", file=fp)
             print("4.0 5.0 6.0 TEXT4 TEXT567", file=fp)
 
-        # Parse columne names from the first header line
+        # Parse column names from the first header line
         df = dataframe_from_gmt(tmpfile.name, header=0)
         assert df.columns.tolist() == ["lon", "lat", "z", "text"]
         # pd.read_csv() can't parse the header line with a leading '#'.

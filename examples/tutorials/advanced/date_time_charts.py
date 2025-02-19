@@ -191,12 +191,12 @@ fig.show()
 #
 # In this example, instead of using a list of :class:`pandas.DatetimeIndex` objects,
 # ``x`` is initialized as an :class:`xarray.DataArray` object. This object provides a
-# wrapper around regular PyData formats. It also allows the data to have labeled
-# dimensions while supporting operations that use various pieces of metadata. The
-# following code uses :func:`pandas.date_range` to fill the DataArray with data, but
-# this is not essential for the creation of a valid DataArray.
+# wrapper around numpy ndarrays. It also allows the data to have labeled dimensions
+# while supporting operations that use various pieces of metadata. The following code
+# uses :func:`pandas.date_range` to fill the DataArray with data, but this is not
+# essential for the creation of a valid DataArray.
 
-x = xr.DataArray(data=pd.date_range(start="2020-01-01", periods=4, freq="Q"))
+x = xr.DataArray(data=pd.date_range(start="2020-01-01", periods=4, freq="QE"))
 y = [4, 7, 5, 6]
 
 fig = pygmt.Figure()
@@ -222,7 +222,9 @@ fig.show()
 # before passing it as an argument. However, ``np.array`` objects use less memory and
 # allow developers to specify data types.
 
-x = np.array(["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype="datetime64")
+x = np.array(
+    ["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype=np.datetime64
+)
 y = [2, 7, 5]
 
 fig = pygmt.Figure()
@@ -329,7 +331,7 @@ fig.show()
 # found at :gmt-term:`FORMAT_CLOCK_MAP`, :gmt-term:`FORMAT_CLOCK_IN`, and
 # :gmt-term:`FORMAT_CLOCK_OUT`.
 
-x = pd.date_range("2021-04-15", periods=8, freq="6H")
+x = pd.date_range("2021-04-15", periods=8, freq="6h")
 y = [2, 5, 3, 1, 5, 7, 9, 6]
 
 fig = pygmt.Figure()

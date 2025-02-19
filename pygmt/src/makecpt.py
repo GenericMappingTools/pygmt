@@ -43,7 +43,7 @@ def makecpt(**kwargs):
     reversed relative to the master cpt, and can be made continuous or
     discrete. For color tables beyond the standard GMT offerings, visit
     `cpt-city <http://www.seaviewsensing.com/pub/cpt-city/>`_ and
-    `Scientific Colour-Maps <http://www.fabiocrameri.ch/colourmaps.php>`_.
+    `Scientific Colour-Maps <https://www.fabiocrameri.ch/colourmaps.php>`_.
 
     The CPT includes three additional colors beyond the range of z-values.
     These are the background color (B) assigned to values lower than the lowest
@@ -154,7 +154,8 @@ def makecpt(**kwargs):
         ``categorical=True``.
     """
     if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
-        raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")
+        msg = "Set only categorical or cyclic to True, not both."
+        raise GMTInvalidInput(msg)
 
     if (output := kwargs.pop("H", None)) is not None:
         kwargs["H"] = True

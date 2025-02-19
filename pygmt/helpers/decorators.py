@@ -37,17 +37,17 @@ COMMON_DOCSTRINGS = {
             (using ``binary="o"``), where *ncols* is the number of data columns
             of *type*, which must be one of:
 
-                - **c** - int8_t (1-byte signed char)
-                - **u** - uint8_t (1-byte unsigned char)
-                - **h** - int16_t (2-byte signed int)
-                - **H** - uint16_t (2-byte unsigned int)
-                - **i** - int32_t (4-byte signed int)
-                - **I** - uint32_t (4-byte unsigned int)
-                - **l** - int64_t (8-byte signed int)
-                - **L** - uint64_t (8-byte unsigned int)
-                - **f** - 4-byte single-precision float
-                - **d** - 8-byte double-precision float
-                - **x** - use to skip *ncols* anywhere in the record
+                - **c**: int8_t (1-byte signed char)
+                - **u**: uint8_t (1-byte unsigned char)
+                - **h**: int16_t (2-byte signed int)
+                - **H**: uint16_t (2-byte unsigned int)
+                - **i**: int32_t (4-byte signed int)
+                - **I**: uint32_t (4-byte unsigned int)
+                - **l**: int64_t (8-byte signed int)
+                - **L**: uint64_t (8-byte unsigned int)
+                - **f**: 4-byte single-precision float
+                - **d**: 8-byte double-precision float
+                - **x**: use to skip *ncols* anywhere in the record
 
             For records with mixed types, append additional comma-separated
             combinations of *ncols* *type* (no space). The following modifiers
@@ -84,9 +84,9 @@ COMMON_DOCSTRINGS = {
             **e**\|\ **f**\|\ **g**.
             Determine how spherical distances are calculated.
 
-            - **e** - Ellipsoidal (or geodesic) mode
-            - **f** - Flat Earth mode
-            - **g** - Great circle distance [Default]
+            - **e**: Ellipsoidal (or geodesic) mode
+            - **f**: Flat Earth mode
+            - **g**: Great circle distance [Default]
 
             All spherical distance calculations depend on the current ellipsoid
             (:gmt-term:`PROJ_ELLIPSOID`), the definition of the mean radius
@@ -118,16 +118,16 @@ COMMON_DOCSTRINGS = {
             a list with each item containing a string describing one set of
             criteria.
 
-                - **x**\|\ **X** - define a gap when there is a large enough
-                  change in the x coordinates (upper case to use projected
+                - **x**\|\ **X**: define a gap when there is a large enough
+                  change in the x coordinates (uppercase to use projected
                   coordinates).
-                - **y**\|\ **Y** - define a gap when there is a large enough
-                  change in the y coordinates (upper case to use projected
+                - **y**\|\ **Y**: define a gap when there is a large enough
+                  change in the y coordinates (uppercase to use projected
                   coordinates).
-                - **d**\|\ **D** - define a gap when there is a large enough
-                  distance between coordinates (upper case to use projected
+                - **d**\|\ **D**: define a gap when there is a large enough
+                  distance between coordinates (uppercase to use projected
                   coordinates).
-                - **z** - define a gap when there is a large enough change in
+                - **z**: define a gap when there is a large enough change in
                   the z data. Use **+c**\ *col* to change the z data column
                   [Default *col* is 2 (i.e., 3rd column)].
 
@@ -146,9 +146,9 @@ COMMON_DOCSTRINGS = {
 
             One of the following modifiers can be appended:
 
-                - **+n** - specify that the previous value minus the current
+                - **+n**: specify that the previous value minus the current
                   column value must exceed *gap* for a break to be imposed.
-                - **+p** - specify that the current value minus the previous
+                - **+p**: specify that the current value minus the previous
                   value must exceed *gap* for a break to be imposed.""",
     "grid": r"""
         grid : str or xarray.DataArray
@@ -367,13 +367,13 @@ COMMON_DOCSTRINGS = {
             Select verbosity level [Default is **w**], which modulates the messages
             written to stderr. Choose among 7 levels of verbosity:
 
-            - **q** - Quiet, not even fatal error messages are produced
-            - **e** - Error messages only
-            - **w** - Warnings [Default]
-            - **t** - Timings (report runtimes for time-intensive algorithms)
-            - **i** - Informational messages (same as ``verbose=True``)
-            - **c** - Compatibility warnings
-            - **d** - Debugging messages""",
+            - **q**: Quiet, not even fatal error messages are produced
+            - **e**: Error messages only
+            - **w**: Warnings [Default]
+            - **t**: Timings (report runtimes for time-intensive algorithms)
+            - **i**: Informational messages (same as ``verbose=True``)
+            - **c**: Compatibility warnings
+            - **d**: Debugging messages""",
     "wrap": r"""
         wrap : str
             **y**\|\ **a**\|\ **w**\|\ **d**\|\ **h**\|\ **m**\|\ **s**\|\
@@ -382,14 +382,14 @@ COMMON_DOCSTRINGS = {
             different column if selected via **+c**\ *col*. The following
             cyclical coordinate transformations are supported:
 
-                - **y** - yearly cycle (normalized)
-                - **a** - annual cycle (monthly)
-                - **w** - weekly cycle (day)
-                - **d** - daily cycle (hour)
-                - **h** - hourly cycle (minute)
-                - **m** - minute cycle (second)
-                - **s** - second cycle (second)
-                - **c** - custom cycle (normalized)
+                - **y**: yearly cycle (normalized)
+                - **a**: annual cycle (monthly)
+                - **w**: weekly cycle (day)
+                - **d**: daily cycle (hour)
+                - **h**: hourly cycle (minute)
+                - **m**: minute cycle (second)
+                - **s**: second cycle (second)
+                - **c**: custom cycle (normalized)
 
             Full documentation is at :gmt-docs:`gmt.html#w-full`.""",
 }
@@ -456,18 +456,22 @@ def fmt_docstring(module_func):
         Select map :doc:`projection </projections/index>`.
     <BLANKLINE>
     **Aliases:**
+    .. hlist::
+       :columns: 3
     <BLANKLINE>
-    - J = projection
-    - R = region
+       - J = projection
+       - R = region
     <BLANKLINE>
     """  # noqa: D410,D411
     filler_text = {}
 
     if hasattr(module_func, "aliases"):
         aliases = ["**Aliases:**\n"]
+        aliases.append(".. hlist::")
+        aliases.append("   :columns: 3\n")
         for arg in sorted(module_func.aliases):
             alias = module_func.aliases[arg]
-            aliases.append(f"- {arg} = {alias}")
+            aliases.append(f"   - {arg} = {alias}")
         filler_text["aliases"] = "\n".join(aliases)
 
     filler_text["table-like"] = (
@@ -569,10 +573,11 @@ def use_alias(**aliases):
             """
             for short_param, long_alias in aliases.items():
                 if long_alias in kwargs and short_param in kwargs:
-                    raise GMTInvalidInput(
+                    msg = (
                         f"Parameters in short-form ({short_param}) and "
                         f"long-form ({long_alias}) can't coexist."
                     )
+                    raise GMTInvalidInput(msg)
                 if long_alias in kwargs:
                     kwargs[short_param] = kwargs.pop(long_alias)
                 elif short_param in kwargs:
@@ -721,9 +726,8 @@ def kwargs_to_strings(**conversions):
 
     for arg, fmt in conversions.items():
         if fmt not in separators:
-            raise GMTInvalidInput(
-                f"Invalid conversion type '{fmt}' for argument '{arg}'."
-            )
+            msg = f"Invalid conversion type '{fmt}' for argument '{arg}'."
+            raise GMTInvalidInput(msg)
 
     # Make the actual decorator function
     def converter(module_func):
@@ -837,9 +841,8 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
             """
             if oldname in kwargs:
                 if newname in kwargs:
-                    raise GMTInvalidInput(
-                        f"Can't provide both '{newname}' and '{oldname}'."
-                    )
+                    msg = f"Can't provide both '{newname}' and '{oldname}'."
+                    raise GMTInvalidInput(msg)
                 msg = (
                     f"The '{oldname}' parameter has been deprecated since {deprecate_version}"
                     f" and will be removed in {remove_version}."

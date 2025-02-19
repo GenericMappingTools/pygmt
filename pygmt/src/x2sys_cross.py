@@ -23,13 +23,13 @@ from pygmt.helpers import (
 @contextlib.contextmanager
 def tempfile_from_dftrack(track, suffix):
     """
-    Saves pandas.DataFrame track table to a temporary tab-separated ASCII text file with
-    a unique name (to prevent clashes when running x2sys_cross), adding a suffix
-    extension to the end.
+    Saves :class:`pandas.DataFrame` track table to a temporary tab-separated ASCII text
+    file with a unique name (to prevent clashes when running x2sys_cross), adding a
+    suffix extension to the end.
 
     Parameters
     ----------
-    track : pandas.DataFrame
+    track : :class:`pandas.DataFrame`
         A table holding track data with coordinate (x, y) or (lon, lat) values,
         and (optionally) time (t).
     suffix : str
@@ -39,7 +39,7 @@ def tempfile_from_dftrack(track, suffix):
     ------
     tmpfilename : str
         A temporary tab-separated value file with a unique name holding the
-        track data. E.g. 'track-1a2b3c4.tsv'.
+        track data. E.g. "track-1a2b3c4.tsv".
     """
     try:
         tmpfilename = f"track-{unique_name()[:7]}.{suffix}"
@@ -90,19 +90,19 @@ def x2sys_cross(
 
     Parameters
     ----------
-    tracks : pandas.DataFrame or str or list
+    tracks : :class:`pandas.DataFrame`, str, or list
         A table or a list of tables with (x, y) or (lon, lat) values in the
-        first two columns. Track(s) can be provided as pandas DataFrame tables
+        first two columns. Track(s) can be provided as :class:`pandas.DataFrame` tables
         or file names. Supported file formats are ASCII, native binary, or
         COARDS netCDF 1-D data. More columns may also be present.
 
-        If the file names are missing their file extension, we will append the
-        suffix specified for this TAG. Track files will be searched for first
-        in the current directory and second in all directories listed in
-        $X2SYS_HOME/TAG/TAG_paths.txt (if it exists). [If $X2SYS_HOME is not
-        set it will default to $GMT_SHAREDIR/x2sys]. (**Note**: MGD77 files
-        will also be looked for via $MGD77_HOME/mgd77_paths.txt and .gmt
-        files will be searched for via $GMT_SHAREDIR/mgg/gmtfile_paths).
+        If the file names are missing their file extension, we will append the suffix
+        specified for this TAG. Track files will be searched for first in the current
+        directory and second in all directories listed in $X2SYS_HOME/TAG/TAG_paths.txt
+        (if it exists). [If environment variable :term:`X2SYS_HOME` is not set it will
+        default to $GMT_SHAREDIR/x2sys]. (**Note**: MGD77 files will also be looked for
+        via $MGD77_HOME/mgd77_paths.txt and .gmt files will be searched for via
+        $GMT_SHAREDIR/mgg/gmtfile_paths).
 
     outfile
         The file name for the output ASCII txt file to store the table in.
@@ -145,9 +145,9 @@ def x2sys_cross(
         Sets the interpolation mode for estimating values at the crossover.
         Choose among:
 
-        - **l** - Linear interpolation [Default].
-        - **a** - Akima spline interpolation.
-        - **c** - Cubic spline interpolation.
+        - **l**: Linear interpolation [Default].
+        - **a**: Akima spline interpolation.
+        - **c**: Cubic spline interpolation.
 
     coe : str
         Use **e** for external COEs only, and **i** for internal COEs only
@@ -195,7 +195,7 @@ def x2sys_cross(
         match data_kind(track):
             case "file":
                 file_contexts.append(contextlib.nullcontext(track))
-            case "matrix":
+            case "vectors":
                 # find suffix (-E) of trackfiles used (e.g. xyz, csv, etc) from
                 # $X2SYS_HOME/TAGNAME/TAGNAME.tag file
                 tagfile = Path(
@@ -210,7 +210,8 @@ def x2sys_cross(
                 # Save pandas.DataFrame track data to temporary file
                 file_contexts.append(tempfile_from_dftrack(track=track, suffix=suffix))
             case _:
-                raise GMTInvalidInput(f"Unrecognized data type: {type(track)}")
+                msg = f"Unrecognized data type: {type(track)}."
+                raise GMTInvalidInput(msg)
 
     with Session() as lib:
         with lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl:

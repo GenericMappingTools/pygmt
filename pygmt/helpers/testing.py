@@ -89,6 +89,8 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
                 file_name = "".join(c for c in request.node.name if c in allowed_chars)
             except AttributeError:  # 'NoneType' object has no attribute 'node'
                 file_name = func.__name__
+
+            fig_ref, fig_test = None, None
             try:
                 fig_ref, fig_test = func(*args, **kwargs)
                 ref_image_path = Path(result_dir) / f"{file_name}-expected.{ext}"
@@ -110,11 +112,12 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
                 else:  # Images are not the same
                     for key in ["actual", "expected", "diff"]:
                         err[key] = Path(err[key]).relative_to(".")
-                    raise GMTImageComparisonFailure(
+                    msg = (
                         f"images not close (RMS {err['rms']:.3f}):\n"
                         f"\t{err['actual']}\n"
                         f"\t{err['expected']}"
                     )
+                    raise GMTImageComparisonFailure(msg)
             finally:
                 del fig_ref
                 del fig_test

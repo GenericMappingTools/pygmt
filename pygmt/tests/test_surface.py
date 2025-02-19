@@ -8,8 +8,9 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import surface, which
+from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import GMTTempFile, data_kind
+from pygmt.helpers import GMTTempFile
 
 
 @pytest.fixture(scope="module", name="data")
@@ -72,8 +73,8 @@ def check_values(grid, expected_grid):
     Check the attributes and values of the DataArray returned by surface.
     """
     assert isinstance(grid, xr.DataArray)
-    assert grid.gmt.registration == 0  # Gridline registration
-    assert grid.gmt.gtype == 0  # Cartesian type
+    assert grid.gmt.registration == GridRegistration.GRIDLINE
+    assert grid.gmt.gtype == GridType.CARTESIAN
     xr.testing.assert_allclose(a=grid, b=expected_grid)
 
 
@@ -125,7 +126,6 @@ def test_surface_wrong_kind_of_input(data, region, spacing):
     Run surface using grid input that is not file/matrix/vectors.
     """
     data = data.z.to_xarray()  # convert pandas.Series to xarray.DataArray
-    assert data_kind(data) == "grid"
     with pytest.raises(GMTInvalidInput):
         surface(data=data, spacing=spacing, region=region)
 
