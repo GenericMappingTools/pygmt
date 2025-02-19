@@ -1,0 +1,5 @@
+outs:
+- md5: 5593426a0fde7cc591e89b8309f73402
+  size: 9170
+  hash: md5
+  path: test_plot3d_symbol.png

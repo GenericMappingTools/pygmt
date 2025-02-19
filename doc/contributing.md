@@ -64,7 +64,7 @@ the problem:
 
       python <test>.py 2>&1 | awk -F': ' '$2=="GMT_Call_Command string" {print $3}'
 
-  where `<test>` is the name of your test script. Note that this script works only with GMT>=6.4
+  where `<test>` is the name of your test script.
 * If the bug is produced when passing an in-memory data object (e.g., a
   pandas.DataFrame or xarray.DataArray) to a PyGMT function, try writing the
   data to a file (e.g., a netCDF or ASCII txt file) and passing the data file
@@ -130,9 +130,9 @@ our tests. This way, the *main* branch is always stable.
     integrated separately.
   - Bug fixes should be submitted in separate PRs.
 * How to write and submit a PR
-  - Use underscores for all Python (*.py) files as per
-    [PEP8](https://www.python.org/dev/peps/pep-0008/), not hyphens. Directory
-    names should also use underscores instead of hyphens.
+  - Use underscores for all Python (\*.py) files as per
+    [PEP8](https://www.python.org/dev/peps/pep-0008/), not hyphens. Directory names
+    should also use underscores instead of hyphens.
   - Describe what your PR changes and *why* this is a good thing. Be as
     specific as you can. The PR description is how we keep track of the changes
     made to the project over time.

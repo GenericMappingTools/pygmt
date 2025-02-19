@@ -1,0 +1,5 @@
+outs:
+- md5: 4eb9c7fd7e3a803dcc3cde1409ad7fa7
+  size: 7361
+  hash: md5
+  path: test_vlines_clip.png

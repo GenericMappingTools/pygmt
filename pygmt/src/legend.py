@@ -91,10 +91,12 @@ def legend(
             kwargs["F"] = box
 
     kind = data_kind(spec)
-    if kind not in {"vectors", "file", "stringio"}:  # kind="vectors" means spec is None
-        raise GMTInvalidInput(f"Unrecognized data type: {type(spec)}")
+    if kind not in {"empty", "file", "stringio"}:
+        msg = f"Unrecognized data type: {type(spec)}"
+        raise GMTInvalidInput(msg)
     if kind == "file" and is_nonstr_iter(spec):
-        raise GMTInvalidInput("Only one legend specification file is allowed.")
+        msg = "Only one legend specification file is allowed."
+        raise GMTInvalidInput(msg)
 
     with Session() as lib:
         with lib.virtualfile_in(data=spec, required_data=False) as vintbl:
