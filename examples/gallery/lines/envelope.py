@@ -2,18 +2,18 @@
 Envelope
 ========
 
-The ``close`` parameter of the :meth:`pygmt.Figure.plot` method can be
-used to build a symmetrical or an asymmetrical envelope. The user can
-give either the deviations or the bounds in y-direction. For the first
-case append ``"+d"`` or ``"+D"`` and for the latter case ``"+b"``.
+The ``close`` parameter of the :meth:`pygmt.Figure.plot` method can be used to build a
+symmetrical or an asymmetrical envelope. The user can give either the deviations or the
+bounds in y-direction. For the first case append ``"+d"`` or ``"+D"`` and for the latter
+case ``"+b"``.
 """
 
 # %%
 import pandas as pd
 import pygmt
 
-# Define a pandas DataFrame with columns for x and y as well as the
-# lower and upper deviations
+# Define a pandas.DataFrame with columns for x and y as well as the lower and upper
+# deviations
 df_devi = pd.DataFrame(
     data={
         "x": [1, 3, 5, 7, 9],
@@ -23,7 +23,7 @@ df_devi = pd.DataFrame(
     }
 )
 
-# Define the same pandas DataFrame but with lower and upper bounds
+# Define the same pandas.DataFrame but with lower and upper bounds
 df_bound = pd.DataFrame(
     data={
         "x": [1, 3, 5, 7, 9],
@@ -34,7 +34,6 @@ df_bound = pd.DataFrame(
 )
 
 
-# Create Figure instance
 fig = pygmt.Figure()
 
 # -----------------------------------------------------------------------------
@@ -55,15 +54,10 @@ fig.plot(
 )
 
 # Plot the data points on top
-fig.plot(
-    data=df_devi,
-    style="c0.2c",  # Use circles with a diameter of 0.2 centimeters
-    pen="1p,gray30",
-    fill="darkgray",
-)
+fig.plot(data=df_devi, style="c0.2c", pen="1p,gray30", fill="darkgray")
 
-# Shift plot origin 11 centimeters in x direction
-fig.shift_origin(xshift="11c")
+# Shift plot origin by the figure width ("w") plus 1 centimeter in x direction
+fig.shift_origin(xshift="w+1c")
 
 # -----------------------------------------------------------------------------
 # Middle
@@ -77,18 +71,15 @@ fig.basemap(
 fig.plot(
     data=df_devi,
     fill="gray@50",
-    # Add an outline around the envelope
-    # Here, a dashed pen ("+p") with 0.5-points thickness and
-    # "gray30" color is used
+    # Add an outline around the envelope. Here, a dashed pen ("+p") with 0.5-points
+    # thickness and "gray30" color is used
     close="+D+p0.5p,gray30,dashed",
     pen="1p,gray30",
 )
 
-# Plot the data points on top
 fig.plot(data=df_devi, style="c0.2c", pen="1p,gray30", fill="darkgray")
 
-# Shift plot origin 11 centimeters in x-direction
-fig.shift_origin(xshift="11c")
+fig.shift_origin(xshift="w+1c")
 
 # -----------------------------------------------------------------------------
 # Right
@@ -102,7 +93,6 @@ fig.basemap(
 # Plot an envelope based on the bounds ("+b")
 fig.plot(data=df_bound, close="+b+p0.5p,gray30,dashed", pen="1p,gray30")
 
-# Plot the data points on top
 fig.plot(data=df_bound, style="c0.2c", pen="1p,gray30", fill="darkgray")
 
 fig.show()

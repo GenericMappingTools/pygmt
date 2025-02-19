@@ -243,15 +243,15 @@ def velo(self, data=None, **kwargs):
     if kwargs.get("S") is None or (
         kwargs.get("S") is not None and not isinstance(kwargs["S"], str)
     ):
-        raise GMTInvalidInput(
-            "The parameter `spec` is required and has to be a string."
-        )
+        msg = "The parameter 'spec' is required and has to be a string."
+        raise GMTInvalidInput(msg)
 
     if isinstance(data, np.ndarray) and not pd.api.types.is_numeric_dtype(data):
-        raise GMTInvalidInput(
+        msg = (
             "Text columns are not supported with numpy.ndarray type inputs. "
             "They are only supported with file or pandas.DataFrame inputs."
         )
+        raise GMTInvalidInput(msg)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:

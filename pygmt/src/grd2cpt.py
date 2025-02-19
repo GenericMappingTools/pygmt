@@ -182,7 +182,8 @@ def grd2cpt(grid, **kwargs):
     >>> fig.show()
     """
     if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
-        raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")
+        msg = "Set only 'categorical' or 'cyclic' to True, not both."
+        raise GMTInvalidInput(msg)
 
     if (output := kwargs.pop("H", None)) is not None:
         kwargs["H"] = True

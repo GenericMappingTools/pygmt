@@ -13,12 +13,15 @@ column you need to specify the colum name to the ``column`` parameter.
 """
 
 # %%
+import geodatasets
 import geopandas as gpd
 import pygmt
 
-# Read polygon data using geopandas
-gdf = gpd.read_file("https://geodacenter.github.io/data-and-lab/data/airbnb.zip")
+# Read the example dataset provided by geodatasets.
+gdf = gpd.read_file(geodatasets.get_path("geoda airbnb"))
+print(gdf.head())
 
+# %%
 fig = pygmt.Figure()
 
 fig.basemap(
@@ -42,7 +45,7 @@ pygmt.makecpt(
 # is specified by the `column` parameter.
 fig.choropleth(data=gdf, column="population", pen="0.3p,gray10", cmap=True)
 
-# Add colorbar legend
+# Add colorbar legend.
 fig.colorbar(frame="x+lPopulation", position="jML+o-0.5c+w3.5c/0.2c")
 
 fig.show()

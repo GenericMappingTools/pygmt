@@ -6,7 +6,7 @@ Cartesian logarithmic
 **x**\ *x-scale*\ [**l**][/*y-scale*\ [**l**]]
 
 Give the *width* of the figure and the optional *height*.
-The lower-case version **x** is similar to **X** but expects
+The lowercase version **x** is similar to **X** but expects
 an *x-scale* and an optional *y-scale*.
 Each axis with a logarithmic transformation requires **l** after
 its size argument.

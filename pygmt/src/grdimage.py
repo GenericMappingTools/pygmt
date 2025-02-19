@@ -103,7 +103,7 @@ def grdimage(self, grid, **kwargs):
         paint the mask with the given color. Append **+b** to paint the
         background pixels (1) or **+f** for the foreground pixels
         [Default is **+f**].
-    shading : str or xarray.DataArray
+    shading : str or :class:`xarray.DataArray`
         [*intensfile*\|\ *intensity*\|\ *modifiers*].
         Give the name of a grid file or a DataArray with intensities in the
         (-1,+1) range, or a constant intensity to apply everywhere (affects the
@@ -158,10 +158,11 @@ def grdimage(self, grid, **kwargs):
 
     # Do not support -A option
     if any(kwargs.get(arg) is not None for arg in ["A", "img_out"]):
-        raise GMTInvalidInput(
+        msg = (
             "Parameter 'img_out'/'A' is not implemented. "
             "Please consider submitting a feature request to us."
         )
+        raise GMTInvalidInput(msg)
 
     with Session() as lib:
         with (
