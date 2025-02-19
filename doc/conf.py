@@ -9,7 +9,6 @@ from packaging.requirements import Requirement
 from pygmt import __commit__, __version__
 from pygmt.clib import required_gmt_version
 from pygmt.sphinx_gallery import PyGMTScraper
-from sphinx_gallery.sorting import ExampleTitleSortKey, ExplicitOrder
 
 # Dictionary for dependency name and minimum required versions
 requirements = {
@@ -28,16 +27,17 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
     "sphinx.ext.coverage",
-    "sphinx.ext.mathjax",
     "sphinx.ext.doctest",
-    "sphinx.ext.viewcode",
     "sphinx.ext.extlinks",
     "sphinx.ext.intersphinx",
+    "sphinx.ext.mathjax",
     "sphinx.ext.napoleon",
+    "sphinx.ext.viewcode",
     "sphinx_autodoc_typehints",
     "sphinx_copybutton",
     "sphinx_design",
     "sphinx_gallery.gen_gallery",
+    "sphinxcontrib.cairosvgconverter",
 ]
 
 # Suppress warnings
@@ -55,7 +55,7 @@ myst_heading_anchors = 4
 myst_enable_extensions = [
     "attrs_inline",  # Allow inline attributes after images
     "colon_fence",  # Allow code fences using colons
-    "substitution",  # Allow substituitions
+    "substitution",  # Allow substitutions
 ]
 # These enable substitutions using {{ key }} in the Markdown files
 myst_substitutions = {
@@ -111,34 +111,32 @@ sphinx_gallery_conf = {
     ],
     # Set paths where to save the generated examples
     "gallery_dirs": ["intro", "tutorials", "gallery", "projections"],
-    "subsection_order": ExplicitOrder(
-        [
-            "../examples/intro",
-            "../examples/tutorials/basics",
-            "../examples/tutorials/advanced",
-            "../examples/gallery/maps",
-            "../examples/gallery/lines",
-            "../examples/gallery/symbols",
-            "../examples/gallery/images",
-            "../examples/gallery/3d_plots",
-            "../examples/gallery/seismology",
-            "../examples/gallery/basemaps",
-            "../examples/gallery/histograms",
-            "../examples/gallery/embellishments",
-            "../examples/projections/azim",
-            "../examples/projections/conic",
-            "../examples/projections/cyl",
-            "../examples/projections/misc",
-            "../examples/projections/nongeo",
-            "../examples/projections/table",
-        ]
-    ),
+    "subsection_order": [
+        "../examples/intro",
+        "../examples/tutorials/basics",
+        "../examples/tutorials/advanced",
+        "../examples/gallery/maps",
+        "../examples/gallery/lines",
+        "../examples/gallery/symbols",
+        "../examples/gallery/images",
+        "../examples/gallery/3d_plots",
+        "../examples/gallery/seismology",
+        "../examples/gallery/basemaps",
+        "../examples/gallery/histograms",
+        "../examples/gallery/embellishments",
+        "../examples/projections/azim",
+        "../examples/projections/conic",
+        "../examples/projections/cyl",
+        "../examples/projections/misc",
+        "../examples/projections/nongeo",
+        "../examples/projections/table",
+    ],
     # Pattern to search for example files
     "filename_pattern": r"\.py",
     # Remove the "Download all examples" button from the top level gallery
     "download_all_examples": False,
     # Sort gallery examples by the file names instead of number of lines [Default]
-    "within_subsection_order": ExampleTitleSortKey,
+    "within_subsection_order": "ExampleTitleSortKey",
     # Directory where function granular galleries are stored
     "backreferences_dir": "api/generated/backreferences",
     # Modules for which function level galleries are created (given as tuple of strings)
@@ -210,12 +208,10 @@ html_theme_options = {}
 repository = "GenericMappingTools/pygmt"
 repository_url = "https://github.com/GenericMappingTools/pygmt"
 if __commit__:
-    commit_link = (
-        f'<a href="{repository_url}/commit/{ __commit__ }">{ __commit__[:8] }</a>'
-    )
+    commit_link = f'<a href="{repository_url}/commit/{__commit__}">{__commit__[:8]}</a>'
 else:
     commit_link = (
-        f'<a href="{repository_url}/releases/tag/{ __version__ }">{ __version__ }</a>'
+        f'<a href="{repository_url}/releases/tag/{__version__}">{__version__}</a>'
     )
 html_context = {
     "menu_links": [
@@ -250,3 +246,6 @@ html_context = {
     "github_version": "main",
     "commit": commit_link,
 }
+
+# Configurations for LaTeX
+latex_engine = "xelatex"
