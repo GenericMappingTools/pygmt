@@ -18,6 +18,7 @@ from pygmt.helpers import GMTTempFile
 def test_coupe_spec_single_focalmecha(inputtype):
     """
     Test passing a single focal mechanism to the spec parameter.
+    Original script: https://github.com/GenericMappingTools/gmt-for-geodesy/blob/main/05_seismology/beachball-cross-section.sh
     """
     if inputtype == "dict_mecha":
         args = {
@@ -297,7 +298,6 @@ def test_coupe_PT_axis(inputtype):
         pt_axis="0.1c/cd",
         no_clip=True,
         no_file=True,
-        verbose=True,
         **args
     )
     fig.basemap(frame=True)
