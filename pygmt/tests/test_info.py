@@ -23,10 +23,7 @@ def test_info():
     """
     output = info(data=POINTS_DATA)
     expected_output = (
-        f"{POINTS_DATA}: N = 20 "
-        "<11.5309/61.7074> "
-        "<-2.9289/7.8648> "
-        "<0.1412/0.9338>\n"
+        f"{POINTS_DATA}: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
     )
     assert output == expected_output
 
@@ -57,10 +54,7 @@ def test_info_path(table):
     """
     output = info(data=table)
     expected_output = (
-        f"{POINTS_DATA}: N = 20 "
-        "<11.5309/61.7074> "
-        "<-2.9289/7.8648> "
-        "<0.1412/0.9338>\n"
+        f"{POINTS_DATA}: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
     )
     assert output == expected_output
 

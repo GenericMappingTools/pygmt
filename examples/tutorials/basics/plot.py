@@ -18,7 +18,9 @@ import pygmt
 # The data are loaded as a :class:`pandas.DataFrame`.
 
 data = pygmt.datasets.load_sample_data(name="japan_quakes")
+data.head()
 
+# %%
 # Set the region for the plot to be slightly larger than the data bounds.
 region = [
     data.longitude.min() - 1,
@@ -26,9 +28,7 @@ region = [
     data.latitude.min() - 1,
     data.latitude.max() + 1,
 ]
-
-print(region)
-print(data.head())
+region
 
 # %%
 # We'll use the :meth:`pygmt.Figure.plot` method to plot circles on the

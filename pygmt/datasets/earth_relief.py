@@ -83,9 +83,9 @@ def load_earth_relief(
         higher than 5 arc-minutes (i.e., ``"05m"``).
     registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
-        ``"gridline"`` for gridline registration. Default is ``None``, means
-        ``"gridline"`` for all resolutions except ``"15s"`` which is
-        ``"pixel"`` only.
+        ``"gridline"`` for gridline registration. Default is ``None``, which means
+        ``"gridline"`` for all resolutions except ``"15s"`` which is ``"pixel"``
+        only.
     data_source
         Select the source for the Earth relief data. Available options are:
 

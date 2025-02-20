@@ -76,12 +76,12 @@ def grdview(self, grid, **kwargs):
         Specify cover type of the grid.
         Select one of following settings:
 
-        - **m** - mesh plot [Default].
-        - **mx** or **my** - waterfall plots (row or column profiles).
-        - **s** - surface plot, and optionally append **m** to have mesh lines
+        - **m**: mesh plot [Default].
+        - **mx** or **my**: waterfall plots (row or column profiles).
+        - **s**: surface plot, and optionally append **m** to have mesh lines
           drawn on top of the surface.
-        - **i** - image plot.
-        - **c** - Same as **i** but will make nodes with z = NaN transparent.
+        - **i**: image plot.
+        - **c**: Same as **i** but will make nodes with z = NaN transparent.
 
         For any of these choices, you may force a monochrome image by
         appending the modifier **+m**.

@@ -9,7 +9,7 @@ from pygmt.clib import Session
 from pygmt.helpers import unique_name
 
 
-def begin():
+def begin() -> None:
     """
     Initiate a new GMT modern mode session.
 
@@ -28,7 +28,7 @@ def begin():
         lib.call_module(module="set", args=["GMT_COMPATIBILITY=6"])
 
 
-def end():
+def end() -> None:
     """
     Terminate the GMT modern mode session created by :func:`pygmt.begin`.
 

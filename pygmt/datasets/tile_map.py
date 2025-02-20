@@ -166,6 +166,7 @@ def load_tile_map(
         "wait": wait,
         "max_retries": max_retries,
     }
+    # TODO(contextily>=1.5.0): Remove the check for the 'zoom_adjust' parameter.
     if zoom_adjust is not None:
         if Version(contextily.__version__) < Version("1.5.0"):
             msg = (

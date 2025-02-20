@@ -59,7 +59,7 @@ def test_clib_read_data_dataset():
 
         with Session() as lib:
             ds = lib.read_data(tmpfile.name, kind="dataset").contents
-            df = ds.to_dataframe(header=0)
+            df = ds.to_pandas(header=0)
             expected_df = pd.DataFrame(
                 data={
                     "x": [1.0, 4.0, 7.0, 10.0],
@@ -85,7 +85,7 @@ def test_clib_read_data_grid(expected_xrgrid):
     """
     with Session() as lib:
         grid = lib.read_data("@static_earth_relief.nc", kind="grid").contents
-        xrgrid = grid.to_dataarray()
+        xrgrid = grid.to_xarray()
         xr.testing.assert_equal(xrgrid, expected_xrgrid)
         assert grid.header.contents.n_bands == 1  # Explicitly check n_bands
 
@@ -113,7 +113,7 @@ def test_clib_read_data_grid_two_steps(expected_xrgrid):
         lib.read_data(infile, kind="grid", mode="GMT_DATA_ONLY", data=data_ptr)
 
         # Full check
-        xrgrid = data_ptr.contents.to_dataarray()
+        xrgrid = data_ptr.contents.to_xarray()
         xr.testing.assert_equal(xrgrid, expected_xrgrid)
 
 
@@ -126,7 +126,7 @@ def test_clib_read_data_grid_actual_image(expected_xrimage):
         # Explicitly check n_bands. Only one band is read for 3-band images.
         assert image.header.contents.n_bands == 1
 
-        xrimage = image.to_dataarray()
+        xrimage = image.to_xarray()
         assert xrimage.shape == (180, 360)
         assert xrimage.coords["x"].data.min() == -179.5
         assert xrimage.coords["x"].data.max() == 179.5
@@ -153,7 +153,7 @@ def test_clib_read_data_image(expected_xrimage):
     with Session() as lib:
         image = lib.read_data("@earth_day_01d", kind="image").contents
 
-        xrimage = image.to_dataarray()
+        xrimage = image.to_xarray()
         assert xrimage.shape == (3, 180, 360)
         assert xrimage.coords["x"].data.min() == -179.5
         assert xrimage.coords["x"].data.max() == 179.5
@@ -187,7 +187,7 @@ def test_clib_read_data_image_two_steps(expected_xrimage):
         # Read the data
         lib.read_data(infile, kind="image", mode="GMT_DATA_ONLY", data=data_ptr)
 
-        xrimage = image.to_dataarray()
+        xrimage = image.to_xarray()
         assert xrimage.shape == (3, 180, 360)
         assert xrimage.coords["x"].data.min() == -179.5
         assert xrimage.coords["x"].data.max() == 179.5

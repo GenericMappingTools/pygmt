@@ -87,7 +87,7 @@ def ternary(
     if any(v is not None for v in labels):
         kwargs["L"] = "/".join(str(v) if v is not None else "-" for v in labels)
 
-    # Patch for GMT < 6.5.0.
+    # TODO(GMT>=6.5.0): Remove the patch for upstream bug fixed in GMT 6.5.0.
     # See https://github.com/GenericMappingTools/pygmt/pull/2138
     if Version(__gmt_version__) < Version("6.5.0") and isinstance(data, pd.DataFrame):
         data = data.to_numpy()

@@ -192,6 +192,8 @@ def test_virtualfile_from_vectors_arraylike():
         assert output == expected
 
 
+# TODO(PyGMT>=0.16.0): Remove this test in PyGMT v0.16.0 in which the "*args" parameter
+# will be removed.
 def test_virtualfile_from_vectors_args():
     """
     Test the backward compatibility of the deprecated syntax for passing multiple

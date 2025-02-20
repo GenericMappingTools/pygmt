@@ -172,7 +172,7 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
             textvector = [item if item is not None else b"" for item in textvector]
         return np.char.decode(textvector) if textvector else np.array([], dtype=np.str_)
 
-    def to_dataframe(
+    def to_pandas(
         self,
         header: int | None = None,
         column_names: pd.Index | None = None,
@@ -229,7 +229,7 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
         ...             lib.call_module("read", [tmpfile.name, vouttbl, "-Td"])
         ...             ds = lib.read_virtualfile(vouttbl, kind="dataset")
         ...             text = ds.contents.to_strings()
-        ...             df = ds.contents.to_dataframe(header=0)
+        ...             df = ds.contents.to_pandas(header=0)
         >>> text
         array(['TEXT1 TEXT23', 'TEXT4 TEXT567', 'TEXT8 TEXT90',
            'TEXT123 TEXT456789'], dtype='<U18')

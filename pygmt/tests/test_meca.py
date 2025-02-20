@@ -143,6 +143,7 @@ def test_meca_spec_multiple_focalmecha(inputtype):
     return fig
 
 
+# TODO(GMT>=6.5.0): Remove the skipif condition for GMT>=6.5.0.
 @pytest.mark.mpl_image_compare(filename="test_meca_offset.png")
 @pytest.mark.parametrize(
     "inputtype",
@@ -201,8 +202,9 @@ def test_meca_offset(inputtype):
     return fig
 
 
-# Passing event names via pandas doesn't work for GMT<=6.4, thus marked as
-# xfail. See https://github.com/GenericMappingTools/pygmt/issues/2524.
+# TODO(GMT>=6.5.0): Remove the skipif marker for GMT>=6.5.0.
+# Passing event names via pandas doesn't work for GMT<=6.4.
+# See https://github.com/GenericMappingTools/pygmt/issues/2524.
 @pytest.mark.mpl_image_compare(filename="test_meca_eventname.png")
 @pytest.mark.parametrize(
     "inputtype",

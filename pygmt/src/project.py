@@ -136,7 +136,7 @@ def project(
     convention : str
         Specify the desired output using any combination of **xyzpqrs**, in
         any order [Default is **xypqrsz**]. Do not space between the letters.
-        Use lower case. The output will be columns of values corresponding to
+        Use lowercase. The output will be columns of values corresponding to
         your ``convention``. The **z** flag is special and refers to all
         numerical columns beyond the leading **x** and **y** in your input
         record. The **z** flag also includes any trailing text (which is

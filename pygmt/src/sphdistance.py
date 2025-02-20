@@ -65,10 +65,10 @@ def sphdistance(
         Specify the quantity that should be assigned to the grid nodes [Default
         is **d**]:
 
-        - **d** - compute distances to the nearest data point
-        - **n** - assign the ID numbers of the Voronoi polygons that each
+        - **d**: compute distances to the nearest data point
+        - **n**: assign the ID numbers of the Voronoi polygons that each
           grid node is inside
-        - **z** - assign all nodes inside the polygon the z-value of the center
+        - **z**: assign all nodes inside the polygon the z-value of the center
           node for a natural nearest-neighbor grid.
 
         Optionally, append the resampling interval along Voronoi arcs in

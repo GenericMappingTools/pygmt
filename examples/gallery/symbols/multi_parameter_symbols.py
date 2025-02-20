@@ -33,7 +33,7 @@ import pygmt
 #   directions given in degrees counter-clockwise from horizontal. Append **+i** and the
 #   desired value to apply an inner diameter.
 #
-# Upper-case versions **E**, **J**, and **W** are similar to **e**, **j**, and **w**
+# Uppercase versions **E**, **J**, and **W** are similar to **e**, **j**, and **w**
 # but expect geographic azimuths and distances.
 
 fig = pygmt.Figure()
