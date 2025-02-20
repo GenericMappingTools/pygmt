@@ -179,11 +179,11 @@ def _contains_apostrophe_or_backtick(argstr: str) -> bool:
     Check if a string contains apostrophe (') or backtick (`).
 
     For typographical reasons, apostrophe (') and backtick (`) are mapped to left and
-    right single quotation marks (‘ and ’) in Adobe ISOLatin1+ encoding. To ensure that what
-    you type is what you get (https://github.com/GenericMappingTools/pygmt/issues/3476),
-    they need special handling in the ``_check_encoding`` and ``non_ascii_to_octal``
-    functions. More specifically, a string containing printable ASCII characters with
-    apostrophe (') and backtick (`) will not be considered as "ascii" encoding.
+    right single quotation marks (‘ and ’) in Adobe ISOLatin1+ encoding. To ensure that
+    what you type is what you get (issue #3476), they need special handling in the
+    ``_check_encoding`` and ``non_ascii_to_octal`` functions. More specifically, a
+    string containing printable ASCII characters with apostrophe (') and backtick (`)
+    will not be considered as "ascii" encoding.
 
     Parameters
     ----------
@@ -197,13 +197,13 @@ def _contains_apostrophe_or_backtick(argstr: str) -> bool:
 
     Examples
     --------
-    >>> _has_apostrophe_or_backtick("12AB±β①②")
+    >>> _contains_apostrophe_or_backtick("12AB±β①②")
     False
-    >>> _has_apostrophe_or_backtick("12AB`")
+    >>> _contains_apostrophe_or_backtick("12AB`")
     True
-    >>> _has_apostrophe_or_backtick("12AB'")
+    >>> _contains_apostrophe_or_backtick("12AB'")
     True
-    >>> _has_apostrophe_or_backtick("12AB'`")
+    >>> _contains_apostrophe_or_backtick("12AB'`")
     True
     """  # noqa: RUF002
     return "'" in argstr or "`" in argstr
@@ -243,7 +243,7 @@ def _check_encoding(argstr: str) -> Encoding:
     """
     # Return "ascii" if the string only contains printable ASCII characters, excluding
     # apostrophe (') and backtick (`).
-    if _is_printable_ascii(argstr) and not _has_apostrophe_or_backtick(argstr):
+    if _is_printable_ascii(argstr) and not _contains_apostrophe_or_backtick(argstr):
         return "ascii"
     # Loop through all supported encodings and check if all characters in the string
     # are in the charset of the encoding. If all characters are in the charset, return
@@ -444,7 +444,7 @@ def non_ascii_to_octal(argstr: str, encoding: Encoding = "ISOLatin1+") -> str:
     # Return the input string if it only contains printable ASCII characters, excluding
     # apostrophe (') and backtick (`).
     if encoding == "ascii" or (
-        _is_printable_ascii(argstr) and not _has_apostrophe_or_backtick(argstr)
+        _is_printable_ascii(argstr) and not _contains_apostrophe_or_backtick(argstr)
     ):
         return argstr
 
@@ -464,7 +464,7 @@ def non_ascii_to_octal(argstr: str, encoding: Encoding = "ISOLatin1+") -> str:
 
     if encoding == "ISOLatin1+":
         # Map apostrophe (') and backtick (`) to correct octal codes.
-        # See _has_apostrophe_or_backtick() for explanations.
+        # See _contains_apostrophe_or_backtick() for explanations.
         mapping.update({"'": "\\234", "`": "\\221"})
     return argstr.translate(str.maketrans(mapping))
 
