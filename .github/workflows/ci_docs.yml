@@ -139,6 +139,24 @@ jobs:
       - name: Build the PDF documentation
         run:  make -C doc pdf
 
+      - name: Create the HTML ZIP archive and rename the PDF file
+        run: |
+          cd doc/_build/
+          cp -r html/ pygmt-docs/
+          zip -r pygmt-docs.zip pygmt-docs/
+          mv latex/pygmt.pdf pygmt-docs.pdf
+          cd ../..
+
+      - name: Copy the HTML ZIP archive and PDF to the html folder for dev version
+        run: cp -v doc/_build/pygmt-docs.zip doc/_build/pygmt-docs.pdf doc/_build/html/
+        if: github.event_name == 'push' && matrix.os == 'ubuntu-latest'
+
+      - name: Upload the HTML ZIP archive and PDF as release assets
+        run: gh release upload ${{ github.ref_name }} doc/_build/pygmt-docs.zip doc/_build/pygmt-docs.pdf
+        if: github.event_name == 'release' && matrix.os == 'ubuntu-latest'
+        env:
+          GH_TOKEN: ${{ github.token }}
+
       - name: Checkout the gh-pages branch
         uses: actions/checkout@v4.2.2
         with:

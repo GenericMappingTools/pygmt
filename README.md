@@ -137,7 +137,7 @@ Feel free to cite our work in your research using the following BibTeX:
 
 ```
 @software{
-  pygmt_2025_14742338,
+  pygmt_2025_14868324,
   author       = {Tian, Dongdong and
                   Uieda, Leonardo and
                   Leong, Wei Ji and
@@ -160,9 +160,9 @@ Feel free to cite our work in your research using the following BibTeX:
   month        = feb,
   year         = 2025,
   publisher    = {Zenodo},
-  version      = {0.14.1},
-  doi          = {10.5281/zenodo.14742338},
-  url          = {https://doi.org/10.5281/zenodo.14742338}
+  version      = {0.14.2},
+  doi          = {10.5281/zenodo.14868324},
+  url          = {https://doi.org/10.5281/zenodo.14868324}
 }
 ```
 
