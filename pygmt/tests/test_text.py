@@ -466,7 +466,7 @@ def test_text_nonascii(encoding):
 @pytest.mark.mpl_image_compare
 def test_text_quotation_marks():
     """
-    Test typesetting single and double quotation marks.
+    Test typesetting backtick, apostrophe, and single and double quotation marks.
 
     See https://github.com/GenericMappingTools/pygmt/issues/3104 and
     https://github.com/GenericMappingTools/pygmt/issues/3476.

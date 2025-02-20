@@ -174,15 +174,15 @@ def _is_printable_ascii(argstr: str) -> bool:
     return all(32 <= ord(c) <= 126 for c in argstr)
 
 
-def _has_apostrophe_or_backtick(argstr: str) -> bool:
+def _contains_apostrophe_or_backtick(argstr: str) -> bool:
     """
     Check if a string contains apostrophe (') or backtick (`).
 
     For typographical reasons, apostrophe (') and backtick (`) are mapped to left and
-    right single quotation marks (‘ and ’) in Adobe ISOLatin1+ encoding. To ensure what
+    right single quotation marks (‘ and ’) in Adobe ISOLatin1+ encoding. To ensure that what
     you type is what you get (https://github.com/GenericMappingTools/pygmt/issues/3476),
     they need special handling in the ``_check_encoding`` and ``non_ascii_to_octal``
-    functions. More specifically, a string that contains printable ASCII characters with
+    functions. More specifically, a string containing printable ASCII characters with
     apostrophe (') and backtick (`) will not be considered as "ascii" encoding.
 
     Parameters
