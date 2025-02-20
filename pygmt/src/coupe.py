@@ -29,6 +29,7 @@ def section_convention_code(section_format):
     B="frame",
     C="cmap",
     E="extensionfill",
+    Fa="PTaxis",
     Fr="labelbox",
     G="compressionfill",
     J="projection",
@@ -54,6 +55,8 @@ def coupe(
     latitude=None,
     depth=None,
     section_format='lonlat_lonlat',
+    plot_longitude=None,
+    plot_latitude=None,
     event_name=None,
     **kwargs
 ):
