@@ -64,7 +64,13 @@ def test_coupe_spec_single_focalmecha(inputtype):
     fig.meca(scale="2.5c", **args)
     fig.shift_origin(yshift="5.5c")
     fig.basemap(region=[0, 1000, 0, 30], projection="X8c/-4c", frame=True)
-    fig.coupe(scale="2.5c", section=[110, 33, 120, 33], section_format='lonlat_lonlat', **args)
+    fig.coupe(
+        scale="2.5c", 
+        section=[110, 33, 120, 33], 
+        section_format="lonlat_lonlat",
+        no_file=True, 
+        **args
+    )
 
     return fig
     
@@ -83,8 +89,8 @@ def test_coupe_spec_single_focalmecha_file():
     fig.basemap(region=[0, 1000, 0, 30], projection="X8c", frame=True)
     with GMTTempFile() as temp:
         Path(temp.name).write_text("112 32 25 30 90 0 4", encoding="utf-8")
-        fig.coupe(spec=temp.name,  convention="aki", scale="2.5c", 
-                  section=[110, 33, 120, 33], section_format='lonlat_lonlat')
+        fig.coupe(spec=temp.name, convention="aki", scale="2.5c", 
+                  section=[110, 33, 120, 33], section_format="lonlat_lonlat")
     return fig
 
 @pytest.mark.benchmark
@@ -152,5 +158,115 @@ def test_coupe_spec_multiple_focalmecha(inputtype):
     fig.meca(scale="1.5c", **args)
     fig.shift_origin(yshift="5.5c")
     fig.basemap(region=[0, 1000, 0, 60], projection="X8c/-4c", frame=True)
-    fig.coupe(scale="1.5c", section=[110, 33, 120, 33], section_format='lonlat_lonlat', **args)
+    fig.coupe(
+        scale="1.5c", 
+        section=[110, 33, 120, 33], 
+        section_format="lonlat_lonlat", 
+        no_file=True, 
+        **args
+    )
+    return fig
+
+# TODO(GMT>=6.5.0): Remove the skipif marker for GMT>=6.5.0.
+# Passing event names via pandas doesn't work for GMT<=6.4.
+# See https://github.com/GenericMappingTools/pygmt/issues/2524.
+@pytest.mark.mpl_image_compare(filename="test_coupe_eventname.png")
+@pytest.mark.parametrize(
+    "inputtype",
+    [
+        "args",
+        pytest.param(
+            "dataframe",
+            marks=pytest.mark.skipif(
+                condition=Version(__gmt_version__) < Version("6.5.0"),
+                reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/7557",
+            ),
+        ),
+    ],
+)
+def test_coupe_eventname(inputtype):
+    """
+    Test passing event names.
+    """
+    if inputtype == "args":
+        args = {
+            "spec": {"strike": 30, "dip": 90, "rake": 0, "magnitude": 4},
+            "longitude": 112,
+            "latitude": 32,
+            "depth": 25,
+            "event_name": "Strike-slip"
+        }
+    elif inputtype == "dataframe":
+        # Test pandas.DataFrame input. Requires GMT>=6.5.
+        # See https://github.com/GenericMappingTools/pygmt/issues/2524.
+        # The numeric columns must be in float type to trigger the bug.
+        args = {
+            "spec": pd.DataFrame(
+                {
+                    "longitude": [112],
+                    "latitude": [32],
+                    "depth": [25],
+                    "strike": [30],
+                    "dip": [90],
+                    "rake": [0],
+                    "magnitude": [4],
+                    "event_name": ["Strike-slip"]
+                },
+                index=[0],
+            )
+        }
+    fig = Figure()
+    fig.basemap(region=[111, 113, 31.5, 32.5], projection="M8c", frame=True)
+    fig.meca(scale="1.5c", **args)
+    fig.shift_origin(yshift="5.5c")
+    fig.basemap(region=[0, 1000, 0, 30], projection="X8c/-4c", frame=True)
+    fig.coupe(
+            scale="1.5c",
+            section=[110, 33, 120, 33], 
+            section_format="lonlat_lonlat", 
+            no_file=True, 
+            **args
+    )
+    return fig
+
+
+@pytest.mark.benchmark
+@pytest.mark.mpl_image_compare(filename="test_coupe_vertical_profile.png")
+@pytest.mark.parametrize(
+    "inputtype", ["dict_mecha",]
+)
+def test_coupe_vertical_profile(inputtype):
+    """
+    Test passing vertical profile.
+    See example of https://docs.gmt-china.org/6.1/module/coupe/
+    """
+
+    if inputtype == "dict_mecha":
+        args = {
+            "spec": {
+                "mrr": [1.14, 6.19, 0.95, -2.49],
+                "mtt": [-0.10, -1.14, 0.11, 3.40],
+                "mff": [-1.04, -5.05, -1.06, -0.91],
+                "mrt": [-0.51, -0.72, -0.20, 3.09],
+                "mrf": [-2.21, -9.03, -2.32, 0.83],
+                "mtf": [-0.99, -4.24, 0.90, -3.64],
+                "exponent": [26, 25, 25, 25]
+            },
+            "longitude": [131.55, 133.74, 135.52, 138.37],
+            "latitude": [41.48, 41.97, 37.64, 42.85],
+            "depth": [579, 604, 432, 248],
+        }
+
+    fig = Figure()
+    fig.coupe(projection="X15c/-6c",
+        scale="0.8", 
+        section=[130, 43, 140, 36, 90, 100, 0, 700, "+f"], 
+        section_format="lonlat_lonlat", 
+        component="dc",
+        no_clip=True,
+        no_file=True,
+        **args
+    )
+    fig.basemap(frame=True)
+
     return fig
