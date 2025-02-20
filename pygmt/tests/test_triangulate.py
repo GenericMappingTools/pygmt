@@ -161,4 +161,3 @@ def test_regular_grid_with_outgrid_param(dataframe, expected_grid):
         assert grid.gmt.registration == GridRegistration.GRIDLINE
         assert grid.gmt.gtype == GridType.CARTESIAN
         xr.testing.assert_allclose(a=grid, b=expected_grid)
-        
