@@ -192,15 +192,11 @@ def coupe(
     no_file : bool, default to False
         If True, creates no output files in the current path.
     convention : str
-        Focal mechanism convention. Choose from:
-        - ``"aki"`` (Aki & Richards)
-        - ``"gcmt"`` (global CMT)
-        - ``"mt"`` (seismic moment tensor)
-        - ``"partial"`` (partial focal mechanism)
-        - ``"principal_axis"`` (principal axis)
+        Focal mechanism convention. See the table above for the supported conventions.
         Ignored if ``spec`` is a dict or :class:`pandas.DataFrame`.
     component : str
         The component of the seismic moment tensor to plot.
+
         - ``"full"``: the full seismic moment tensor
         - ``"dc"``: the closest double couple defined from the moment tensor
           (zero trace and zero determinant)
