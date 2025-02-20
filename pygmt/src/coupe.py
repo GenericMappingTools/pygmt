@@ -7,7 +7,7 @@ import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTError, GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
-from pygmt.src.meca import convention_params, convention_code, convention_name
+from pygmt.src._common import _FocalMechanismConvention
 
 def section_convention_code(section_format):
 
@@ -29,7 +29,7 @@ def section_convention_code(section_format):
     B="frame",
     C="cmap",
     E="extensionfill",
-    Fa="PTaxis",
+    Fa="pt_axis",
     Fr="labelbox",
     G="compressionfill",
     J="projection",
@@ -61,10 +61,59 @@ def coupe(
     **kwargs
 ):
     r"""
-    Plot focal mechanisms in a vertical cross section.
+    Plot focal mechanisms in a cross section.
     This function/method is copied from `pygmt.src.meca.meca()`
+
+    The following focal mechanism conventions are supported:
+
+    .. list-table:: Supported focal mechanism conventions.
+       :widths: 15 15 40 30
+       :header-rows: 1
+
+       * - Convention
+         - Description
+         - Focal parameters
+         - Remark
+       * - ``"aki"``
+         - Aki and Richard
+         - *strike*, *dip*, *rake*, *magnitude*
+         - angles in degrees
+       * - ``"gcmt"``
+         - global centroid moment tensor
+         - | *strike1*, *dip1*, *rake1*,
+           | *strike2*, *dip2*, *rake2*,
+           | *mantissa*, *exponent*
+         - | angles in degrees;
+           | seismic moment is
+           | :math:`mantissa * 10 ^ {{exponent}}`
+           | in dyn cm
+       * - ``"mt"``
+         - seismic moment tensor
+         - | *mrr*, *mtt*, *mff*,
+           | *mrt*, *mrf*, *mtf*,
+           | *exponent*
+         - | moment components
+           | in :math:`10 ^ {{exponent}}` dyn cm
+       * - ``"partial"``
+         - partial focal mechanism
+         - | *strike1*, *dip1*, *strike2*,
+           | *fault_type*, *magnitude*
+         - | angles in degrees;
+           | *fault_type* means +1/-1 for
+           | normal/reverse fault
+       * - ``"principal_axis"``
+         - principal axis
+         - | *t_value*, *t_azimuth*, *t_plunge*,
+           | *n_value*, *n_azimuth*, *n_plunge*,
+           | *p_value*, *p_azimuth*, *p_plunge*,
+           | *exponent*
+         - | values in :math:`10 ^ {{exponent}}` dyn cm;
+           | azimuths and plunges in degrees
+
     Full option list at :gmt-docs:`supplements/seis/coupe.html`
+
     {aliases}
+
     Parameters
     ----------
     spec : str, 1-D array, 2-D array, dict, or pd.DataFrame
@@ -86,23 +135,18 @@ def coupe(
           The meanings of columns are the same as above.
         - *2-D array*: focal mechanism parameters of multiple events.
           The meanings of columns are the same as above.
-        - *dictionary or pd.DataFrame*: The dictionary keys or pd.DataFrame
-          column names determine the focal mechanism convention. For
-          different conventions, the following combination of keys are allowed:
+        - *dict* or :class:`pandas.DataFrame`: The dict keys or
+          :class:`pandas.DataFrame` column names determine the focal mechanism
+          convention. For the different conventions, the combination of keys /
+          column names as given in the table above are required.
 
-          - ``"aki"``: *strike, dip, rake, magnitude*
-          - ``"gcmt"``: *strike1, dip1, rake1, strike2, dip2, rake2, mantissa,*
-            *exponent*
-          - ``"mt"``: *mrr, mtt, mff, mrt, mrf, mtf, exponent*
-          - ``"partial"``: *strike1, dip1, strike2, fault_type, magnitude*
-          - ``"principal_axis"``: *t_value, t_azimuth, t_plunge, n_value,
-            n_azimuth, n_plunge, p_value, p_azimuth, p_plunge, exponent*
+          A dict may contain values for a single focal mechanism or lists of
+          values for multiple focal mechanisms.
 
-          A dictionary may contain values for a single focal mechanism or
-          lists of values for multiple focal mechanisms.
-          Both dictionary and pd.DataFrame may optionally contain
-          keys/column names: ``latitude``, ``longitude``, ``depth``,
-          ``plot_longitude``, ``plot_latitude``, and/or ``event_name``.
+          Both dict and :class:`pandas.DataFrame` may optionally contain the keys /
+          column names: ``latitude``, ``longitude``, ``depth``, ``plot_longitude``,
+          ``plot_latitude``, and/or ``event_name``.
+
           If ``spec`` is either a str, a 1-D array or a 2-D array, the
           ``convention`` parameter is required so we know how to interpret the
           columns. If ``spec`` is a dict or a :class:`pandas.DataFrame`, 
@@ -239,19 +283,11 @@ def coupe(
         raise GMTInvalidInput("The `section` parameter must be specified.")
     kwargs["A"] = section_convention_code(section_format) + kwargs["A"]
 
-    # Convert spec to pandas.DataFrame unless it's a file
-    if isinstance(spec, (dict, pd.DataFrame)):  # spec is a dict or pd.DataFrame
-        # determine convention from dict keys or pd.DataFrame column names
-        for conv in ["aki", "gcmt", "mt", "partial", "pricipal_axis"]:
-            if set(convention_params(conv)).issubset(set(spec.keys())):
-                convention = conv
-                break
-        else:
-            if isinstance(spec, dict):
-                msg = "Keys in dict 'spec' do not match known conventions."
-            else:
-                msg = "Column names in pd.DataFrame 'spec' do not match known conventions."
-            raise GMTError(msg)
+    if isinstance(spec, dict | pd.DataFrame):  # spec is a dict or pd.DataFrame
+        # Determine convention from dict keys or pd.DataFrame column names
+        _convention = _FocalMechanismConvention.from_params(
+            spec.keys(), component=component
+        )
 
         # convert dict to pd.DataFrame so columns can be reordered
         if isinstance(spec, dict):
@@ -265,12 +301,14 @@ def coupe(
         if convention is None:
             msg = "'convention' must be specified for an array input."
             raise GMTInvalidInput(msg)
-        # make sure convention is a name, not a code
-        convention = convention_name(convention)
+
+        _convention = _FocalMechanismConvention(
+            convention=convention, component=component
+        )
 
         # Convert array to pd.DataFrame and assign column names
         spec = pd.DataFrame(np.atleast_2d(spec))
-        colnames = ["longitude", "latitude", "depth", *convention_params(convention)]
+        colnames = ["longitude", "latitude", "depth", *_convention.params]
         # check if spec has the expected number of columns
         ncolsdiff = len(spec.columns) - len(colnames)
         if ncolsdiff == 0:
@@ -287,37 +325,49 @@ def coupe(
             )
             raise GMTInvalidInput(msg)
         spec.columns = colnames
+    else:
+        _convention = _FocalMechanismConvention(
+            convention=convention, component=component
+        )
 
     # Now spec is a pd.DataFrame or a file
     if isinstance(spec, pd.DataFrame):
         # override the values in pd.DataFrame if parameters are given
-        if longitude is not None:
-            spec["longitude"] = np.atleast_1d(longitude)
-        if latitude is not None:
-            spec["latitude"] = np.atleast_1d(latitude)
-        if depth is not None:
-            spec["depth"] = np.atleast_1d(depth)
-        if event_name is not None:
-            spec["event_name"] = np.atleast_1d(event_name)
+        for arg, name in [
+            (longitude, "longitude"),
+            (latitude, "latitude"),
+            (depth, "depth"),
+            (plot_longitude, "plot_longitude"),
+            (plot_latitude, "plot_latitude"),
+            (event_name, "event_name"),
+        ]:
+            if arg is not None:
+                spec[name] = np.atleast_1d(arg)
 
         # Due to the internal implementation of the meca module, we need to
         # convert the following columns to strings if they exist
+        if "plot_longitude" in spec.columns and "plot_latitude" in spec.columns:
+            spec["plot_longitude"] = spec["plot_longitude"].astype(str)
+            spec["plot_latitude"] = spec["plot_latitude"].astype(str)
         if "event_name" in spec.columns:
             spec["event_name"] = spec["event_name"].astype(str)
 
         # Reorder columns in DataFrame to match convention if necessary
         # expected columns are:
         # longitude, latitude, depth, focal_parameters,
-        #   [event_name]
-        newcols = ["longitude", "latitude", "depth"] + convention_params(convention)
+        #   [plot_longitude, plot_latitude] [event_name]
+        newcols = ["longitude", "latitude", "depth", *_convention.params]
+        if "plot_longitude" in spec.columns and "plot_latitude" in spec.columns:
+            newcols += ["plot_longitude", "plot_latitude"]
+            if kwargs.get("A") is None:
+                kwargs["A"] = True
         if "event_name" in spec.columns:
             newcols += ["event_name"]
         # reorder columns in DataFrame
         if spec.columns.tolist() != newcols:
             spec = spec.reindex(newcols, axis=1)
 
-    data_format = convention_code(convention=convention, component=component)
-    kwargs["S"] = f"{data_format}{scale}"
+    kwargs["S"] = f"{_convention.code}{scale}"
 
     with Session() as lib:
         # Choose how data will be passed into the module
