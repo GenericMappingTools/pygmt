@@ -89,7 +89,7 @@ def test_coupe_spec_single_focalmecha_file():
     fig.basemap(region=[0, 1000, 0, 30], projection="X8c", frame=True)
     with GMTTempFile() as temp:
         Path(temp.name).write_text("112 32 25 30 90 0 4", encoding="utf-8")
-        fig.coupe(spec=temp.name, convention="aki", scale="2.5c", 
+        fig.coupe(spec=temp.name, convention="aki", scale="2.5c", no_file=True,
                   section=[110, 33, 120, 33], section_format="lonlat_lonlat")
     return fig
 
@@ -232,9 +232,7 @@ def test_coupe_eventname(inputtype):
 
 @pytest.mark.benchmark
 @pytest.mark.mpl_image_compare(filename="test_coupe_vertical_profile.png")
-@pytest.mark.parametrize(
-    "inputtype", ["dict_mecha",]
-)
+@pytest.mark.parametrize("inputtype", ["dict_mecha"])
 def test_coupe_vertical_profile(inputtype):
     """
     Test passing vertical profile.
@@ -258,7 +256,8 @@ def test_coupe_vertical_profile(inputtype):
         }
 
     fig = Figure()
-    fig.coupe(projection="X15c/-6c",
+    fig.coupe(
+        projection="X15c/-6c",
         scale="0.8", 
         section=[130, 43, 140, 36, 90, 100, 0, 700, "+f"], 
         section_format="lonlat_lonlat", 
@@ -270,3 +269,38 @@ def test_coupe_vertical_profile(inputtype):
     fig.basemap(frame=True)
 
     return fig
+
+@pytest.mark.benchmark
+@pytest.mark.mpl_image_compare(filename="test_coupe_PT_axis.png")
+@pytest.mark.parametrize("inputtype", ["dict_mecha"]) 
+def test_coupe_PT_axis(inputtype):
+    """
+    Test plotting P and T axis with W-E cross-section
+    See example of https://docs.gmt-china.org/5.4/module/pscoupe/
+    """
+
+    if inputtype == "dict_mecha":
+        args = {
+            "spec": {"strike1": [0], "dip1": [90], "rake1": [0],
+                     "strike2": [90], "dip2": [90], "rake2": [180],
+                     "mantissa": [1], "exponent": [24]},
+            "longitude": [129.5],
+            "latitude": [10.5],
+            "depth": [10]
+        }
+    fig = Figure()
+    fig.coupe(
+        projection="X1.5c/-1.5c",
+        scale="0.4c", 
+        section=[128, 11, 130, 11, 10, 60, 0, 100, "+f"], 
+        section_format="lonlat_lonlat", 
+        pt_axis="0.1c/cd",
+        no_clip=True,
+        no_file=True,
+        verbose=True,
+        **args
+    )
+    fig.basemap(frame=True)
+
+    return fig   
+
