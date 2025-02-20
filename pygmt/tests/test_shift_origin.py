@@ -58,7 +58,7 @@ def test_shift_origin_context_manager():
 @pytest.mark.mpl_image_compare
 def test_shift_origin_nested_context_manager():
     """
-    Test if Figure.shift_origin shift origin correctly when used in a nested context
+    Test if Figure.shift_origin shifts origin correctly when used in a nested context
     manager.
 
     Expected output is:
