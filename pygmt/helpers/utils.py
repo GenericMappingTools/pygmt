@@ -174,6 +174,41 @@ def _is_printable_ascii(argstr: str) -> bool:
     return all(32 <= ord(c) <= 126 for c in argstr)
 
 
+def _contains_apostrophe_or_backtick(argstr: str) -> bool:
+    """
+    Check if a string contains apostrophe (') or backtick (`).
+
+    For typographical reasons, apostrophe (') and backtick (`) are mapped to left and
+    right single quotation marks (‘ and ’) in Adobe ISOLatin1+ encoding. To ensure that
+    what you type is what you get (issue #3476), they need special handling in the
+    ``_check_encoding`` and ``non_ascii_to_octal`` functions. More specifically, a
+    string containing printable ASCII characters with apostrophe (') and backtick (`)
+    will not be considered as "ascii" encoding.
+
+    Parameters
+    ----------
+    argstr
+        The string to be checked.
+
+    Returns
+    -------
+    ``True`` if the string contains apostrophe (') or backtick (`). Otherwise, return
+    ``False``.
+
+    Examples
+    --------
+    >>> _contains_apostrophe_or_backtick("12AB±β①②")
+    False
+    >>> _contains_apostrophe_or_backtick("12AB`")
+    True
+    >>> _contains_apostrophe_or_backtick("12AB'")
+    True
+    >>> _contains_apostrophe_or_backtick("12AB'`")
+    True
+    """  # noqa: RUF002
+    return "'" in argstr or "`" in argstr
+
+
 def _check_encoding(argstr: str) -> Encoding:
     """
     Check the charset encoding of a string.
@@ -206,8 +241,9 @@ def _check_encoding(argstr: str) -> Encoding:
     >>> _check_encoding("123AB中文")  # Characters not in any charset encoding
     'ISOLatin1+'
     """
-    # Return "ascii" if the string only contains printable ASCII characters.
-    if _is_printable_ascii(argstr):
+    # Return "ascii" if the string only contains printable ASCII characters, excluding
+    # apostrophe (') and backtick (`).
+    if _is_printable_ascii(argstr) and not _contains_apostrophe_or_backtick(argstr):
         return "ascii"
     # Loop through all supported encodings and check if all characters in the string
     # are in the charset of the encoding. If all characters are in the charset, return
@@ -402,9 +438,14 @@ def non_ascii_to_octal(argstr: str, encoding: Encoding = "ISOLatin1+") -> str:
     'ABC \\261120\\260 DEF @~\\141@~ @%34%\\252@%%'
     >>> non_ascii_to_octal("12ABāáâãäåβ①②", encoding="ISO-8859-4")
     '12AB\\340\\341\\342\\343\\344\\345@~\\142@~@%34%\\254@%%@%34%\\255@%%'
+    >>> non_ascii_to_octal("'‘’\"“”")
+    '\\234\\140\\047"\\216\\217'
     """  # noqa: RUF002
-    # Return the input string if it only contains printable ASCII characters.
-    if encoding == "ascii" or _is_printable_ascii(argstr):
+    # Return the input string if it only contains printable ASCII characters, excluding
+    # apostrophe (') and backtick (`).
+    if encoding == "ascii" or (
+        _is_printable_ascii(argstr) and not _contains_apostrophe_or_backtick(argstr)
+    ):
         return argstr
 
     # Dictionary mapping non-ASCII characters to octal codes
@@ -420,6 +461,11 @@ def non_ascii_to_octal(argstr: str, encoding: Encoding = "ISOLatin1+") -> str:
 
     # Remove any printable characters.
     mapping = {k: v for k, v in mapping.items() if k not in string.printable}
+
+    if encoding == "ISOLatin1+":
+        # Map apostrophe (') and backtick (`) to correct octal codes.
+        # See _contains_apostrophe_or_backtick() for explanations.
+        mapping.update({"'": "\\234", "`": "\\221"})
     return argstr.translate(str.maketrans(mapping))
 
 
@@ -465,16 +511,12 @@ def build_arg_list(  # noqa: PLR0912
     ['-A', '-D0', '-E200', '-F', '-G1/2/3/4']
     >>> build_arg_list(dict(A="1/2/3/4", B=["xaf", "yaf", "WSen"], C=("1p", "2p")))
     ['-A1/2/3/4', '-BWSen', '-Bxaf', '-Byaf', '-C1p', '-C2p']
-    >>> print(
-    ...     build_arg_list(
-    ...         dict(
-    ...             B=["af", "WSne+tBlank Space"],
-    ...             F='+t"Empty Spaces"',
-    ...             l="'Void Space'",
-    ...         )
-    ...     )
-    ... )
-    ['-BWSne+tBlank Space', '-Baf', '-F+t"Empty Spaces"', "-l'Void Space'"]
+    >>> build_arg_list(dict(B=["af", "WSne+tBlank Space"]))
+    ['-BWSne+tBlank Space', '-Baf']
+    >>> build_arg_list(dict(F='+t"Empty Spaces"'))
+    ['-F+t"Empty Spaces"']
+    >>> build_arg_list(dict(l="'Void Space'"))
+    ['-l\\234Void Space\\234', '--PS_CHAR_ENCODING=ISOLatin1+']
     >>> print(
     ...     build_arg_list(
     ...         dict(A="0", B=True, C="rainbow"),
