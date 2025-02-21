@@ -9,7 +9,7 @@ developed in the early 1900s by several workers.
 
 The projection is set with **o** or **O**. There are three different specification
 ways (**a**\|\ **A**, **b**\|\ **B**, **c**\|\ **C**) available. For all three
-definitions, the upper case letter mean the projection pole is set in the southern
+definitions, the uppercase letter mean the projection pole is set in the southern
 hemisphere [Default is northern hemisphere]. Align the y-axis with the optional
 modifier **+v**. The figure size is set with *scale* or *width*.
 """

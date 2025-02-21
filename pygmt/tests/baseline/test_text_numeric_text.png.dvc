@@ -1,0 +1,5 @@
+outs:
+- md5: 97d7780216d535c0400f6117cf47ff65
+  size: 8657
+  hash: md5
+  path: test_text_numeric_text.png

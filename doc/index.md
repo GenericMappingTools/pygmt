@@ -22,7 +22,7 @@
 
 overview.md
 install.md
-get_started/index.rst
+intro/index.rst
 ```
 
 ```{toctree}
@@ -39,12 +39,13 @@ external_resources.md
 ```{toctree}
 :maxdepth: 2
 :hidden:
-:caption: Reference documentation
+:caption: Reference Documentation
 
 api/index.rst
 techref/index.md
 changes.md
 minversions.md
+ecosystem.md
 ```
 
 ```{toctree}

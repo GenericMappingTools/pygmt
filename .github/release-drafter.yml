@@ -24,6 +24,8 @@ exclude-contributors:
   - 'actions-bot'
   - 'dependabot'
   - 'dependabot[bot]'
+  - 'pre-commit-ci'
+  - 'pre-commit-ci[bot]'
 category-template: '### $TITLE'
 change-template: '* $TITLE ([#$NUMBER]($URL))'
 sort-by: 'title'

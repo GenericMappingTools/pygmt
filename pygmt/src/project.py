@@ -136,7 +136,7 @@ def project(
     convention : str
         Specify the desired output using any combination of **xyzpqrs**, in
         any order [Default is **xypqrsz**]. Do not space between the letters.
-        Use lower case. The output will be columns of values corresponding to
+        Use lowercase. The output will be columns of values corresponding to
         your ``convention``. The **z** flag is special and refers to all
         numerical columns beyond the leading **x** and **y** in your input
         record. The **z** flag also includes any trailing text (which is
@@ -222,15 +222,14 @@ def project(
           (depends on ``output_type``)
     """
     if kwargs.get("C") is None:
-        raise GMTInvalidInput("The `center` parameter must be specified.")
+        msg = "The 'center' parameter must be specified."
+        raise GMTInvalidInput(msg)
     if kwargs.get("G") is None and data is None:
-        raise GMTInvalidInput(
-            "The `data` parameter must be specified unless `generate` is used."
-        )
+        msg = "The 'data' parameter must be specified unless 'generate' is used."
+        raise GMTInvalidInput(msg)
     if kwargs.get("G") is not None and kwargs.get("F") is not None:
-        raise GMTInvalidInput(
-            "The `convention` parameter is not allowed with `generate`."
-        )
+        msg = "The 'convention' parameter is not allowed with 'generate'."
+        raise GMTInvalidInput(msg)
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 

@@ -6,6 +6,7 @@ import warnings
 from collections.abc import Sequence
 
 from packaging.version import Version
+from pygmt._typing import AnchorCode
 from pygmt.clib import Session, __gmt_version__
 from pygmt.helpers import build_arg_list, kwargs_to_strings
 
@@ -17,7 +18,7 @@ def timestamp(
     self,
     text: str | None = None,
     label: str | None = None,
-    justify: str = "BL",
+    justify: AnchorCode = "BL",
     offset: float | str | Sequence[float | str] = ("-54p", "-54p"),
     font: str = "Helvetica,black",
     timefmt: str = "%Y %b %d %H:%M:%S",
@@ -83,6 +84,7 @@ def timestamp(
         kwdict["U"] += f"{label}"
     kwdict["U"] += f"+j{justify}"
 
+    # TODO(GMT>=6.5.0): Remove the patch for upstream bug fixed in GMT 6.5.0.
     if Version(__gmt_version__) < Version("6.5.0") and "/" not in str(offset):
         # Giving a single offset doesn't work in GMT < 6.5.0.
         # See https://github.com/GenericMappingTools/gmt/issues/7107.
@@ -98,6 +100,7 @@ def timestamp(
                 "The given text string will be truncated to 64 characters."
             )
             warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
+        # TODO(GMT>=6.5.0): Remove the workaround for the new '+t' modifier.
         if Version(__gmt_version__) < Version("6.5.0"):
             # Workaround for GMT<6.5.0 by overriding the 'timefmt' parameter
             timefmt = text[:64]

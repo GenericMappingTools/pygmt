@@ -3,11 +3,11 @@ channels:
     - conda-forge
     - nodefaults
 dependencies:
-    - python=3.12
+    - python>=3.11
     # Required dependencies
     - gmt=6.5.0
     - ghostscript=10.04.0
-    - numpy>=1.24
+    - numpy>=1.25
     - pandas>=2.0
     - xarray>=2023.04
     - netCDF4
@@ -16,6 +16,7 @@ dependencies:
     - contextily
     - geopandas
     - ipython
+    - pyarrow-core
     - rioxarray
     # Development dependencies (general)
     - dvc
@@ -26,7 +27,7 @@ dependencies:
     # Dev dependencies (style checks)
     - codespell
     - pre-commit
-    - ruff>=0.3.0
+    - ruff>=0.9.6
     # Dev dependencies (unit testing)
     - matplotlib-base
     - pytest>=6.0
@@ -34,14 +35,19 @@ dependencies:
     - pytest-doctestplus
     - pytest-mpl
     # Dev dependencies (building documentation)
+    - geodatasets
     - myst-nb
     - panel
-    - sphinx
+    - sphinx>=6.2
     - sphinx-autodoc-typehints
     - sphinx-copybutton
     - sphinx-design
-    - sphinx-gallery>=0.17.0
-    - sphinx_rtd_theme
+    - sphinx-gallery>=0.19.0
+    - sphinx_rtd_theme<3.0
+    # Dev dependencies (building PDF documentation)
+    - cairosvg
+    - sphinxcontrib-svg2pdfconverter
+    - tectonic
     # Dev dependencies (type hints)
     - mypy
     - pandas-stubs
