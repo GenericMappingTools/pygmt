@@ -14,25 +14,24 @@ def shift_origin(
     r"""
     Shift the plot origin in x and/or y directions.
 
-    The shifts can be temporary or permanent. If used as a context manager, the shifts
-    are temporary and only apply to the block of code within the context manager. If
-    used as a standalone method, the shifts are permanent and apply to all subsequent
-    plots.
+    The shifts can be permanent or temporary. If used as a standalone method, the shifts
+    are permanent and apply to all subsequent plots. If used as a context manager, the
+    shifts are temporary and only apply to the block of code within the context manager.
 
-    1.  Use as a context manager to shift the plot origin temporarily:
+    1.  Use as a standalone method to shift the plot origin permanently:
+
+        .. code-block:: python
+
+            fig.shift_origin(xshift=12)
+            ...  # Other plot commands
+
+    2.  Use as a context manager to shift the plot origin temporarily:
 
         .. code-block:: python
 
             with fig.shift_origin(...):
                 ...  # Other plot commands
                 ...
-
-    2.  Use as a standalone method to shift the plot origin permanently:
-
-        .. code-block:: python
-
-            fig.shift_origin(xshift=12)
-            ...  # Other plot commands
 
     The shifts *xshift* and *yshift* in x and y directions are relative to the current
     plot origin. The default unit for shifts is centimeters (**c**) but can be changed
