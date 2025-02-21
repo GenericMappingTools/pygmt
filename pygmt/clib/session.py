@@ -1765,7 +1765,7 @@ class Session:
                     seg.header = None
                     seg.text = None
 
-    def virtualfile_in(
+    def virtualfile_in(  # noqa: PLR0912
         self,
         check_kind=None,
         data=None,
@@ -1833,23 +1833,25 @@ class Session:
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
-        kind = data_kind(data, required=required_data)
-        _validate_data_input(
-            data=data,
-            x=x,
-            y=y,
-            z=z,
-            required_z=required_z,
-            required_data=required_data,
-            kind=kind,
-        )
+        # Specify either data or x/y/z.
+        if data is not None and any(v is not None for v in (x, y, z)):
+            msg = "Too much data. Use either data or x/y/z."
+            raise GMTInvalidInput(msg)
 
+        # Determine the kind of data.
+        kind = data_kind(data, required=required_data)
+
+        # Check if the kind of data is valid.
         if check_kind:
             valid_kinds = ("file", "arg") if required_data is False else ("file",)
-            if check_kind == "raster":
-                valid_kinds += ("grid", "image")
-            elif check_kind == "vector":
-                valid_kinds += ("empty", "matrix", "vectors", "geojson")
+            match check_kind:
+                case "raster":
+                    valid_kinds += ("grid", "image")
+                case "vector":
+                    valid_kinds += ("empty", "matrix", "vectors", "geojson")
+                case _:
+                    msg = f"Invalid value for check_kind: '{check_kind}'."
+                    raise GMTInvalidInput(msg)
             if kind not in valid_kinds:
                 msg = f"Unrecognized data type for {check_kind}: {type(data)}."
                 raise GMTInvalidInput(msg)
@@ -1908,6 +1910,9 @@ class Session:
                 # non-integer/float type inputs (e.g. for string or datetime data types)
                 _virtualfile_from = self.virtualfile_from_vectors
                 _data = data.T
+
+        # Check if _data to be passed to the virtualfile_from_ function is valid.
+        _validate_data_input(data=_data, kind=kind, required_z=required_z)
 
         # Finally create the virtualfile from the data, to be passed into GMT
         file_context = _virtualfile_from(_data)
