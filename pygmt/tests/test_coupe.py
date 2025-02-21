@@ -231,7 +231,6 @@ def test_coupe_eventname(inputtype):
     return fig
 
 
-@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare(filename="test_coupe_vertical_profile.png")
 @pytest.mark.parametrize("inputtype", ["dict_mecha"])
 def test_coupe_vertical_profile(inputtype):
@@ -271,7 +270,6 @@ def test_coupe_vertical_profile(inputtype):
 
     return fig
 
-@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare(filename="test_coupe_PT_axis.png")
 @pytest.mark.parametrize("inputtype", ["dict_mecha"]) 
 def test_coupe_PT_axis(inputtype):
@@ -295,7 +293,7 @@ def test_coupe_PT_axis(inputtype):
         scale="0.4c", 
         section=[128, 11, 130, 11, 10, 60, 0, 100, "+f"], 
         section_format="lonlat_lonlat", 
-        pt_axis="0.1c/cd",
+        pt_axes=True,
         no_clip=True,
         no_file=True,
         **args

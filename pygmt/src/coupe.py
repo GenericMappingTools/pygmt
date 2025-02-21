@@ -29,7 +29,7 @@ def section_convention_code(section_format):
     B="frame",
     C="cmap",
     E="extensionfill",
-    Fa="pt_axis",
+    Fa="pt_axes",
     Fr="labelbox",
     G="compressionfill",
     J="projection",
@@ -174,15 +174,15 @@ def coupe(
         *section*\ a|b|c|dparams[+c[n|t]][+ddip][+r[a|e|dx]][+wwidth]\
         [+z[s]a|e|dz|min/max]. 
         a, b, c, and d are specified by *section_format*.
-        a: List of four float values of the longitude and latitude of points 1 and 2
+        - a: List of four float values of the longitude and latitude of points 1 and 2
         limiting the length of the cross-section.
-        b: List of four float values of the longitude and latitude of 
+        - b: List of four float values of the longitude and latitude of 
         the beginning of the cross-section, strike is the azimuth of 
         the direction of the cross-section, and length is the length 
         along which the cross-section is made (in km).
-        c: List of four float values the same as `a` option 
+        - c: List of four float values the same as `a` option 
         with x and y given as Cartesian coordinates.
-        d: List of four float values the same as `b` option 
+        - d: List of four float values the same as `b` option 
         with x and y given as Cartesian coordinates.
     section_format : str, `"lonlat_lonlat"`
         `"lonlat_lonlat"`: a
@@ -209,6 +209,12 @@ def coupe(
         Text string(s), e.g., event name(s) to appear near the beachball(s).
         List must be the same length as the number of events. Will override
         the ``event_name`` labels in ``spec`` if ``spec`` is a dict or :class:`pandas.DataFrame`.
+    pt_axes : bool or str
+        [*size*[/*Psymbol*[*Tsymbol*]]]
+        Compute and plot P and T axes with symbols. Optionally specify size and 
+        (separate) P and T axis symbols from the following: (c) circle, 
+        (d) diamond, (h) hexagon, (i) inverse triangle, (p) point, (s) square, 
+        (t) triangle, (x) cross. [Default is ``"6p/cc"``]
     labelbox : bool or str
         [*fill*].
         Draw a box behind the label if given. Use *fill* to give a fill color
