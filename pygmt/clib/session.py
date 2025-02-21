@@ -1871,15 +1871,15 @@ class Session:
                     "equalization function like skimage.exposure.equalize_hist."
                 )
                 warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
-            case "empty":  # data is None, so data must be given via x/y/z
+            case "empty":  # data is None, so data must be given via x/y/z.
                 _data = [x, y]
                 if z is not None:
-                    _data.append(np.atleast_1d(z))
+                    _data.append(z)
             case "vectors":
                 if hasattr(data, "items") and not hasattr(data, "to_frame"):
                     # Dict, pandas.DataFrame or xarray.Dataset types.
                     # pandas.Series will be handled below like a 1-D numpy.ndarray.
-                    _data = [np.atleast_1d(array) for _, array in data.items()]
+                    _data = [array for _, array in data.items()]
                 else:
                     # Python list, tuple, numpy.ndarray, and pandas.Series types
                     _data = np.atleast_2d(np.asanyarray(data).T)

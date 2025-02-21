@@ -80,13 +80,14 @@ def _validate_data_input(  # noqa: PLR0912
     >>> _validate_data_input(
     ...     data=pd.DataFrame(data, columns=["x", "y"]),
     ...     required_cols=3,
-    ...     kind="matrix",
+    ...     kind="vectors",
     ... )
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: data needs 3 columns but 2 column(s) are given.
     >>> _validate_data_input(
     ...     data=xr.Dataset(pd.DataFrame(data, columns=["x", "y"])),
+    ...     kind="vectors",
     ...     required_cols=3,
     ... )
     Traceback (most recent call last):
@@ -122,15 +123,15 @@ def _validate_data_input(  # noqa: PLR0912
         raise GMTInvalidInput(msg)
 
     match kind:
-        case "none":
-            if x is None and y is None:  # both x and y are None
+        case "empty":
+            if x is None and y is None:  # Both x and y are None.
                 msg = "No input data provided."
                 raise GMTInvalidInput(msg)
-            if x is None or y is None:  # either x or y is None
+            if x is None or y is None:  # Either x or y is None.
                 msg = "Must provide both x and y."
                 raise GMTInvalidInput(msg)
             if required_cols >= 3 and z is None:
-                # both x and y are not None, now check z
+                # Both x and y are not None, now check z.
                 msg = "Must provide x, y, and z."
                 raise GMTInvalidInput(msg)
         case "matrix":  # 2-D numpy.ndarray
@@ -269,9 +270,9 @@ def _check_encoding(argstr: str) -> Encoding:
 
 
 def data_kind(
-    data: Any = None, required: bool = True
+    data: Any, required: bool = True
 ) -> Literal[
-    "empty", "arg", "file", "geojson", "grid", "image", "matrix", "stringio", "vectors"
+    "arg", "empty", "file", "geojson", "grid", "image", "matrix", "stringio", "vectors"
 ]:
     r"""
     Check the kind of data that is provided to a module.
