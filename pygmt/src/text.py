@@ -42,7 +42,7 @@ from pygmt.helpers import (
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def text_(  # noqa: PLR0912
+def text_(  # noqa: PLR0912, PLR0915
     self,
     textfiles=None,
     x=None,
@@ -222,22 +222,25 @@ def text_(  # noqa: PLR0912
         elif isinstance(arg, int | float | str):
             kwargs["F"] += f"{flag}{arg}"
 
-    extra_arrays = []
     confdict = {}
+    data = None
     if kind == "empty":
+        data = {"x": x, "y": y}
+        x, y = None, None
+
         for arg, flag, name in array_args:
             if is_nonstr_iter(arg):
                 kwargs["F"] += flag
                 # angle is numeric type and font/justify are str type.
                 if name == "angle":
-                    extra_arrays.append(arg)
+                    data["angle"] = arg
                 else:
-                    extra_arrays.append(np.asarray(arg, dtype=np.str_))
+                    data[name] = np.asarray(arg, dtype=np.str_)
 
         # If an array of transparency is given, GMT will read it from the last numerical
         # column per data record.
         if is_nonstr_iter(kwargs.get("t")):
-            extra_arrays.append(kwargs["t"])
+            data["transparency"] = kwargs["t"]
             kwargs["t"] = True
 
         # Append text to the last column. Text must be passed in as str type.
@@ -247,7 +250,7 @@ def text_(  # noqa: PLR0912
                 text, encoding=encoding
             )
             confdict["PS_CHAR_ENCODING"] = encoding
-        extra_arrays.append(text)
+        data["text"] = text
     else:
         if isinstance(position, str):
             kwargs["F"] += f"+c{position}+t{text}"
@@ -260,10 +263,9 @@ def text_(  # noqa: PLR0912
     with Session() as lib:
         with lib.virtualfile_in(
             check_kind="vector",
-            data=textfiles,
+            data=textfiles or data,
             x=x,
             y=y,
-            extra_arrays=extra_arrays,
             required_data=required_data,
         ) as vintbl:
             lib.call_module(
