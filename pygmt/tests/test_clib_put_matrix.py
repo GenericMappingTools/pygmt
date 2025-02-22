@@ -5,8 +5,7 @@ Test the functions that put matrix data into GMT.
 import numpy as np
 import numpy.testing as npt
 import pytest
-import xarray as xr
-from pygmt import clib
+from pygmt import clib, read
 from pygmt.clib.session import DTYPES_NUMERIC
 from pygmt.exceptions import GMTCLibError
 from pygmt.helpers import GMTTempFile
@@ -101,7 +100,7 @@ def test_put_matrix_grid(dtypes):
                 newdata = tmp_file.loadtxt(dtype=dtype)
                 npt.assert_allclose(newdata, data)
 
-            # Save the data to a netCDF grid and check that xarray can load it
+            # Save the data to a netCDF grid and check it can be read again.
             with GMTTempFile(suffix=".nc") as tmp_grid:
                 lib.write_data(
                     "GMT_IS_MATRIX",
@@ -111,12 +110,12 @@ def test_put_matrix_grid(dtypes):
                     tmp_grid.name,
                     grid,
                 )
-                with xr.open_dataarray(tmp_grid.name) as dataarray:
-                    assert dataarray.shape == shape
-                    npt.assert_allclose(dataarray.data, np.flipud(data))
-                    npt.assert_allclose(
-                        dataarray.coords["x"].actual_range, np.array(wesn[0:2])
-                    )
-                    npt.assert_allclose(
-                        dataarray.coords["y"].actual_range, np.array(wesn[2:4])
-                    )
+                dataarray = read(tmp_grid.name, kind="grid")
+                assert dataarray.shape == shape
+                npt.assert_allclose(dataarray.data, np.flipud(data))
+                npt.assert_allclose(
+                    dataarray.coords["x"].actual_range, np.array(wesn[0:2])
+                )
+                npt.assert_allclose(
+                    dataarray.coords["y"].actual_range, np.array(wesn[2:4])
+                )

@@ -49,7 +49,7 @@ jobs:
           # 3. type checker and stub packages
           # 4. other packages that are used somewhere in PyGMT
           python -m pip install \
-            numpy pandas xarray netcdf4 packaging \
+            numpy pandas xarray packaging \
             contextily geopandas ipython pyarrow rioxarray \
             mypy pandas-stubs pyarrow-stubs \
             matplotlib pytest

@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 import xarray as xr
-from pygmt import grdclip, load_dataarray
+from pygmt import grdclip, read
 from pygmt.enums import GridRegistration, GridType
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
@@ -50,7 +50,7 @@ def test_grdclip_outgrid(grid, expected_grid):
         )
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
-        temp_grid = load_dataarray(tmpfile.name)
+        temp_grid = read(tmpfile.name, kind="grid")
         assert temp_grid.dims == ("lat", "lon")
         assert temp_grid.gmt.gtype == GridType.GEOGRAPHIC
         assert temp_grid.gmt.registration == GridRegistration.PIXEL
