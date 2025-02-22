@@ -22,7 +22,7 @@ def shift_origin(
 
         .. code-block:: python
 
-            fig.shift_origin(xshift=12)
+            fig.shift_origin(...)
             ...  # Other plot commands
 
     2.  Use as a context manager to shift the plot origin temporarily:
