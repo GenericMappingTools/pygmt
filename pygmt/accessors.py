@@ -126,7 +126,7 @@ class GMTDataArrayAccessor:
     (<GridRegistration.GRIDLINE: 0>, <GridType.GEOGRAPHIC: 1>)
     """
 
-    def __init__(self, xarray_obj):
+    def __init__(self, xarray_obj: xr.DataArray):
         self._obj = xarray_obj
 
         # Default to Gridline registration and Cartesian grid type
@@ -137,19 +137,19 @@ class GMTDataArrayAccessor:
         # two columns of the shortened summary information of grdinfo.
         if (_source := self._obj.encoding.get("source")) and Path(_source).exists():
             with contextlib.suppress(ValueError):
-                self._registration, self._gtype = map(
+                self._registration, self._gtype = map(  # type: ignore[assignment]
                     int, grdinfo(_source, per_column="n").split()[-2:]
                 )
 
     @property
-    def registration(self):
+    def registration(self) -> GridRegistration:
         """
         Grid registration type :class:`pygmt.enums.GridRegistration`.
         """
         return self._registration
 
     @registration.setter
-    def registration(self, value):
+    def registration(self, value: GridRegistration | int):
         # TODO(Python>=3.12): Simplify to `if value not in GridRegistration`.
         if value not in GridRegistration.__members__.values():
             msg = (
@@ -160,14 +160,14 @@ class GMTDataArrayAccessor:
         self._registration = GridRegistration(value)
 
     @property
-    def gtype(self):
+    def gtype(self) -> GridType:
         """
         Grid coordinate system type :class:`pygmt.enums.GridType`.
         """
         return self._gtype
 
     @gtype.setter
-    def gtype(self, value):
+    def gtype(self, value: GridType | int):
         # TODO(Python>=3.12): Simplify to `if value not in GridType`.
         if value not in GridType.__members__.values():
             msg = (
