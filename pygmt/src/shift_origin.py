@@ -2,7 +2,7 @@
 shift_origin - Shift plot origin in x and/or y directions.
 """
 
-from contextlib import contextmanager
+import contextlib
 
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list
@@ -106,7 +106,7 @@ def shift_origin(
         _xshift = lib.get_common("X")  # False or xshift in inches
         _yshift = lib.get_common("Y")  # False or yshift in inches
 
-    @contextmanager
+    @contextlib.contextmanager
     def _shift_origin_context():
         """
         An internal context manager to shift the plot origin temporarily.
