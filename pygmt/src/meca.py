@@ -10,6 +10,62 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 from pygmt.src._common import _FocalMechanismConvention
 
 
+def _spec_to_dataframe(
+    spec, convention, component
+) -> tuple[pd.DataFrame, _FocalMechanismConvention]:
+    """
+    Convert spec to pandas.DataFrame unless it's a file.
+    """
+    # Convert spec to pandas.DataFrame unless it's a file
+    if isinstance(spec, dict | pd.DataFrame):  # spec is a dict or pd.DataFrame
+        # Determine convention from dict keys or pd.DataFrame column names
+        _convention = _FocalMechanismConvention.from_params(
+            spec.keys(), component=component
+        )
+
+        # convert dict to pd.DataFrame so columns can be reordered
+        if isinstance(spec, dict):
+            # convert values to ndarray so pandas doesn't complain about "all
+            # scalar values". See
+            # https://github.com/GenericMappingTools/pygmt/pull/2174
+            spec = pd.DataFrame(
+                {key: np.atleast_1d(value) for key, value in spec.items()}
+            )
+    elif isinstance(spec, np.ndarray):  # spec is a numpy array
+        if convention is None:
+            msg = "'convention' must be specified for an array input."
+            raise GMTInvalidInput(msg)
+
+        _convention = _FocalMechanismConvention(
+            convention=convention, component=component
+        )
+
+        # Convert array to pd.DataFrame and assign column names
+        spec = pd.DataFrame(np.atleast_2d(spec))
+        colnames = ["longitude", "latitude", "depth", *_convention.params]
+        # check if spec has the expected number of columns
+        ncolsdiff = len(spec.columns) - len(colnames)
+        if ncolsdiff == 0:
+            pass
+        elif ncolsdiff == 1:
+            colnames += ["event_name"]
+        elif ncolsdiff == 2:
+            colnames += ["plot_longitude", "plot_latitude"]
+        elif ncolsdiff == 3:
+            colnames += ["plot_longitude", "plot_latitude", "event_name"]
+        else:
+            msg = (
+                f"Input array must have {len(colnames)} to {len(colnames) + 3} columns."
+            )
+            raise GMTInvalidInput(msg)
+        spec.columns = colnames
+    else:
+        _convention = _FocalMechanismConvention(
+            convention=convention, component=component
+        )
+    return spec, _convention
+
+
 @fmt_docstring
 @use_alias(
     A="offset",
@@ -30,7 +86,7 @@ from pygmt.src._common import _FocalMechanismConvention
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def meca(  # noqa: PLR0912, PLR0913
+def meca(  # noqa: PLR0913
     self,
     spec,
     scale,
@@ -234,53 +290,8 @@ def meca(  # noqa: PLR0912, PLR0913
     """
     kwargs = self._preprocess(**kwargs)
 
-    # Convert spec to pandas.DataFrame unless it's a file
-    if isinstance(spec, dict | pd.DataFrame):  # spec is a dict or pd.DataFrame
-        # Determine convention from dict keys or pd.DataFrame column names
-        _convention = _FocalMechanismConvention.from_params(
-            spec.keys(), component=component
-        )
-
-        # convert dict to pd.DataFrame so columns can be reordered
-        if isinstance(spec, dict):
-            # convert values to ndarray so pandas doesn't complain about "all
-            # scalar values". See
-            # https://github.com/GenericMappingTools/pygmt/pull/2174
-            spec = pd.DataFrame(
-                {key: np.atleast_1d(value) for key, value in spec.items()}
-            )
-    elif isinstance(spec, np.ndarray):  # spec is a numpy array
-        if convention is None:
-            msg = "'convention' must be specified for an array input."
-            raise GMTInvalidInput(msg)
-
-        _convention = _FocalMechanismConvention(
-            convention=convention, component=component
-        )
-
-        # Convert array to pd.DataFrame and assign column names
-        spec = pd.DataFrame(np.atleast_2d(spec))
-        colnames = ["longitude", "latitude", "depth", *_convention.params]
-        # check if spec has the expected number of columns
-        ncolsdiff = len(spec.columns) - len(colnames)
-        if ncolsdiff == 0:
-            pass
-        elif ncolsdiff == 1:
-            colnames += ["event_name"]
-        elif ncolsdiff == 2:
-            colnames += ["plot_longitude", "plot_latitude"]
-        elif ncolsdiff == 3:
-            colnames += ["plot_longitude", "plot_latitude", "event_name"]
-        else:
-            msg = (
-                f"Input array must have {len(colnames)} to {len(colnames) + 3} columns."
-            )
-            raise GMTInvalidInput(msg)
-        spec.columns = colnames
-    else:
-        _convention = _FocalMechanismConvention(
-            convention=convention, component=component
-        )
+    # Determine the convetion and convert spec to pandas.DataFrame (unless it's a file).
+    spec, _convention = _spec_to_dataframe(spec, convention, component)
 
     # Now spec is a pd.DataFrame or a file
     if isinstance(spec, pd.DataFrame):
