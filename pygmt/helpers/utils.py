@@ -15,7 +15,6 @@ from collections.abc import Iterable, Mapping, Sequence
 from pathlib import Path
 from typing import Any, Literal
 
-import numpy as np
 import xarray as xr
 from pygmt.encodings import charset
 from pygmt.exceptions import GMTInvalidInput
@@ -46,15 +45,7 @@ Kind = Literal[
 ]
 
 
-def _validate_data_input(
-    data=None,
-    x=None,
-    y=None,
-    z=None,
-    required_z: bool = False,
-    required_data: bool = True,
-    kind: Kind | None = None,
-) -> None:
+def _validate_data_input(data: Any, kind: Kind, required_z: bool = False) -> None:
     """
     Check if the combination of data/x/y/z is valid.
 
@@ -126,28 +117,17 @@ def _validate_data_input(
     GMTInvalidInput
         If the data input is not valid.
     """
-    # Check if too much data is provided.
-    if data is not None and any(v is not None for v in (x, y, z)):
-        msg = "Too much data. Use either data or x/y/z."
-        raise GMTInvalidInput(msg)
-
-    # Determine the data kind if not provided.
-    kind = kind or data_kind(data, required=required_data)
-
     # Determine the required number of columns based on the required_z flag.
     required_cols = 3 if required_z else 1
 
     # Check based on the data kind.
     match kind:
-        case "empty":  # data is given via a series vectors like x/y/z.
-            if x is None and y is None:
-                msg = "No input data provided."
-                raise GMTInvalidInput(msg)
-            if x is None or y is None:
-                msg = "Must provide both x and y."
-                raise GMTInvalidInput(msg)
-            if required_z and z is None:
+        case "empty":  # data = [x, y, z]
+            if required_z and len(data) < 3:
                 msg = "Must provide x, y, and z."
+                raise GMTInvalidInput(msg)
+            if any(v is None for v in data):
+                msg = "Must provide both x and y."
                 raise GMTInvalidInput(msg)
         case "matrix":  # 2-D numpy.ndarray
             if (actual_cols := data.shape[1]) < required_cols:
@@ -157,16 +137,8 @@ def _validate_data_input(
                 )
                 raise GMTInvalidInput(msg)
         case "vectors":
-            # The if-else block should match the codes in the virtualfile_in function.
-            if hasattr(data, "items") and not hasattr(data, "to_frame"):
-                # Dict, pandas.DataFrame, or xarray.Dataset, but not pd.Series.
-                _data = [array for _, array in data.items()]
-            else:
-                # Python list, tuple, numpy.ndarray, and pandas.Series types
-                _data = np.atleast_2d(np.asanyarray(data).T)
-
             # Check if the number of columns is sufficient.
-            if (actual_cols := len(_data)) < required_cols:
+            if (actual_cols := len(data)) < required_cols:
                 msg = (
                     f"Need at least {required_cols} columns but {actual_cols} "
                     "column(s) are given."
