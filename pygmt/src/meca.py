@@ -42,20 +42,18 @@ def _spec_to_dataframe(
         spec = pd.DataFrame(np.atleast_2d(spec))
         colnames = ["longitude", "latitude", "depth", *_convention.params]
         # Check if spec has the expected number of columns
-        ncolsdiff = len(spec.columns) - len(colnames)
-        if ncolsdiff == 0:
-            pass
-        elif ncolsdiff == 1:
-            colnames += ["event_name"]
-        elif ncolsdiff == 2:
-            colnames += ["plot_longitude", "plot_latitude"]
-        elif ncolsdiff == 3:
-            colnames += ["plot_longitude", "plot_latitude", "event_name"]
-        else:
-            msg = (
-                f"Input array must have {len(colnames)} to {len(colnames) + 3} columns."
-            )
-            raise GMTInvalidInput(msg)
+        match len(spec.columns) - len(colnames):
+            case 0:
+                pass
+            case 1:
+                colnames += ["event_name"]
+            case 2:
+                colnames += ["plot_longitude", "plot_latitude"]
+            case 3:
+                colnames += ["plot_longitude", "plot_latitude", "event_name"]
+            case _:
+                msg = f"Input array must have {len(colnames)} to {len(colnames) + 3} columns."
+                raise GMTInvalidInput(msg)
         spec.columns = colnames
     else:
         _convention = _FocalMechanismConvention(
