@@ -16,18 +16,16 @@ def _spec_to_dataframe(
     """
     Convert spec to pandas.DataFrame unless it's a file.
     """
-    # Convert spec to pandas.DataFrame unless it's a file
     if isinstance(spec, dict | pd.DataFrame):  # spec is a dict or pd.DataFrame
         # Determine convention from dict keys or pd.DataFrame column names
         _convention = _FocalMechanismConvention.from_params(
             spec.keys(), component=component
         )
 
-        # convert dict to pd.DataFrame so columns can be reordered
+        # Convert dict to pd.DataFrame so columns can be reordered.
         if isinstance(spec, dict):
-            # convert values to ndarray so pandas doesn't complain about "all
-            # scalar values". See
-            # https://github.com/GenericMappingTools/pygmt/pull/2174
+            # Convert values to ndarray so pandas doesn't complain about "all scalar
+            # values". See https://github.com/GenericMappingTools/pygmt/pull/2174.
             spec = pd.DataFrame(
                 {key: np.atleast_1d(value) for key, value in spec.items()}
             )
@@ -43,7 +41,7 @@ def _spec_to_dataframe(
         # Convert array to pd.DataFrame and assign column names
         spec = pd.DataFrame(np.atleast_2d(spec))
         colnames = ["longitude", "latitude", "depth", *_convention.params]
-        # check if spec has the expected number of columns
+        # Check if spec has the expected number of columns
         ncolsdiff = len(spec.columns) - len(colnames)
         if ncolsdiff == 0:
             pass
