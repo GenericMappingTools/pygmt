@@ -5,7 +5,7 @@ coupe - Plot cross-sections of focal mechanisms.
 import numpy as np
 import pandas as pd
 from pygmt.clib import Session
-from pygmt.exceptions import GMTError, GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 from pygmt.src._common import _FocalMechanismConvention
 
@@ -62,6 +62,7 @@ def coupe(
 ):
     r"""
     Plot focal mechanisms in a cross section.
+
     This function/method is copied from `pygmt.src.meca.meca()`
 
     The following focal mechanism conventions are supported:
@@ -121,6 +122,7 @@ def coupe(
         ``spec`` can be specified in either of the following types:
         - *str*: a file name containing focal mechanism parameters as
           columns. The meaning of each column is:
+
           - Columns 1 and 2: event longitude and latitude
           - Column 3: event depth (in km)
           - Columns 4 to 3+n: focal mechanism parameters. The number of columns
@@ -169,28 +171,30 @@ def coupe(
         append **+j**\ *justify* to change the text location relative
         to the beachball [Default is ``"TC"``, i.e., Top Center];
         append **+o** to offset the text string by *dx*\ /*dy*.
-    section : list, or str
+    section : list or str
         Cross-section parameters.
         *section*\ a|b|c|dparams[+c[n|t]][+ddip][+r[a|e|dx]][+wwidth]\
         [+z[s]a|e|dz|min/max]. 
         a, b, c, and d are specified by *section_format*.
+
         - a: List of four float values of the longitude and latitude of points 1 and 2
         limiting the length of the cross-section.
-        - b: List of four float values of the longitude and latitude of 
-        the beginning of the cross-section, strike is the azimuth of 
+        - b: List of four float values of the longitude and latitude of
+        the beginning of the cross-section, strike is the azimuth of
         the direction of the cross-section, and length is the length 
         along which the cross-section is made (in km).
-        - c: List of four float values the same as `a` option 
+        - c: List of four float values the same as `a` option
         with x and y given as Cartesian coordinates.
         - d: List of four float values the same as `b` option 
         with x and y given as Cartesian coordinates.
-    section_format : str, `"lonlat_lonlat"`
-        `"lonlat_lonlat"`: a
-        `"lonlat_strlen"`: b
-        `"xy_xy"`: c
-        `"xy_strlen"`: d
-    no_file : bool, default to False
-        If True, creates no output files in the current path.
+    section_format : str
+        
+        - ``"lonlat_lonlat"``: a
+        - ``"lonlat_strlen"``: b
+        - ``"xy_xy"``: c
+        - ``"xy_strlen"``: d
+    no_file : bool
+        If True, creates no output files in the current path. [Default is ``False``].
     convention : str
         Focal mechanism convention. See the table above for the supported conventions.
         Ignored if ``spec`` is a dict or :class:`pandas.DataFrame`.
