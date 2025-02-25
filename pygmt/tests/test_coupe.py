@@ -66,10 +66,10 @@ def test_coupe_spec_single_focalmecha(inputtype):
     fig.shift_origin(yshift="5.5c")
     fig.basemap(region=[0, 1000, 0, 30], projection="X8c/-4c", frame=True)
     fig.coupe(
-        scale="2.5c", 
-        section=[110, 33, 120, 33], 
+        scale="2.5c",
+        section=[110, 33, 120, 33],
         section_format="lonlat_lonlat",
-        no_file=True, 
+        no_file=True,
         **args
     )
 
@@ -160,10 +160,10 @@ def test_coupe_spec_multiple_focalmecha(inputtype):
     fig.shift_origin(yshift="5.5c")
     fig.basemap(region=[0, 1000, 0, 60], projection="X8c/-4c", frame=True)
     fig.coupe(
-        scale="1.5c", 
-        section=[110, 33, 120, 33], 
-        section_format="lonlat_lonlat", 
-        no_file=True, 
+        scale="1.5c",
+        section=[110, 33, 120, 33],
+        section_format="lonlat_lonlat",
+        no_file=True,
         **args
     )
     return fig
@@ -223,9 +223,9 @@ def test_coupe_eventname(inputtype):
     fig.basemap(region=[0, 1000, 0, 30], projection="X8c/-4c", frame=True)
     fig.coupe(
             scale="1.5c",
-            section=[110, 33, 120, 33], 
-            section_format="lonlat_lonlat", 
-            no_file=True, 
+            section=[110, 33, 120, 33],
+            section_format="lonlat_lonlat",
+            no_file=True,
             **args
     )
     return fig
@@ -258,9 +258,9 @@ def test_coupe_vertical_profile(inputtype):
     fig = Figure()
     fig.coupe(
         projection="X15c/-6c",
-        scale="0.8", 
-        section=[130, 43, 140, 36, 90, 100, 0, 700, "+f"], 
-        section_format="lonlat_lonlat", 
+        scale="0.8",
+        section=[130, 43, 140, 36, 90, 100, 0, 700, "+f"],
+        section_format="lonlat_lonlat",
         component="dc",
         no_clip=True,
         no_file=True,
@@ -271,10 +271,10 @@ def test_coupe_vertical_profile(inputtype):
     return fig
 
 @pytest.mark.mpl_image_compare(filename="test_coupe_PT_axis.png")
-@pytest.mark.parametrize("inputtype", ["dict_mecha"]) 
+@pytest.mark.parametrize("inputtype", ["dict_mecha"])
 def test_coupe_PT_axis(inputtype):
     """
-    Test plotting P and T axis with W-E cross-section
+    Test plotting P and T axis with W-E cross-section.
     See example of https://docs.gmt-china.org/5.4/module/pscoupe/
     """
 
@@ -290,9 +290,9 @@ def test_coupe_PT_axis(inputtype):
     fig = Figure()
     fig.coupe(
         projection="X1.5c/-1.5c",
-        scale="0.4c", 
-        section=[128, 11, 130, 11, 10, 60, 0, 100, "+f"], 
-        section_format="lonlat_lonlat", 
+        scale="0.4c",
+        section=[128, 11, 130, 11, 10, 60, 0, 100, "+f"],
+        section_format="lonlat_lonlat",
         pt_axes=True,
         no_clip=True,
         no_file=True,
