@@ -62,7 +62,7 @@ with fig.shift_origin(xshift=width + 0.25):
     fig.histogram(
         horizontal=True,
         projection=f"X3/{height}",
-        # Note that the x- and y-axis are flipped, with the y-axis plotted horizontally.
+        # Note that the x- and y-axes are flipped, with the y-axis plotted horizontally.
         frame=["wSrt", "xf", "yaf+lCounts"],
         region=[ymin, ymax, 0, 0],
         data=y,
