@@ -53,8 +53,8 @@ def grdview(self, grid, **kwargs):
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
         Specify the :doc:`region </tutorials/basics/regions>` of interest.
         When used with ``perspective``, optionally append */zmin/zmax* to
-        indicate the range to use for the 3-D axes [Default is the region in
-        the input grid].
+        indicate the range to use for the 3-D axes [Default is the region given
+        by the input grid].
     {projection}
     zscale/zsize : float or str
         Set z-axis scaling or z-axis size.
