@@ -68,39 +68,37 @@ def grdview(self, grid, **kwargs):
         grid) will be looked-up via the CPT (see ``cmap``).
     plane : float or str
         *level*\ [**+g**\ *fill*].
-        Draw a plane at this z-level. If the optional color is provided
-        via the **+g** modifier, and the projection is not oblique, the frontal
-        facade between the plane and the data perimeter is colored.
+        Draw a plane at this z-level. If the optional color is provided via the
+        **+g** modifier, and the projection is not oblique, the frontal facade between
+        the plane and the data perimeter is colored.
     surftype : str
-        Specify cover type of the grid.
-        Select one of following settings:
+        Specify cover type of the grid. Select one of following settings:
 
         - **m**: mesh plot [Default].
         - **mx** or **my**: waterfall plots (row or column profiles).
-        - **s**: surface plot, and optionally append **m** to have mesh lines
-          drawn on top of the surface.
+        - **s**: surface plot, and optionally append **m** to have mesh lines drawn on
+          top of the surface.
         - **i**: image plot.
         - **c**: Same as **i** but will make nodes with z = NaN transparent.
 
-        For any of these choices, you may force a monochrome image by
-        appending the modifier **+m**.
+        For any of these choices, you may force a monochrome image by appending the
+        modifier **+m**.
     contourpen : str
-        Draw contour lines on top of surface or mesh (not image). Append
-        pen attributes used for the contours.
+        Draw contour lines on top of surface or mesh (not image). Append pen attributes
+        used for the contours.
     meshpen : str
-        Set the pen attributes used for the mesh. You must also select
-        ``surftype`` of **m** or **sm** for meshlines to be drawn.
+        Set the pen attributes used for the mesh. You must also select ``surftype`` of
+        **m** or **sm** for meshlines to be drawn.
     facadepen :str
-        Set the pen attributes used for the facade. You must also select
-        ``plane`` for the facade outline to be drawn.
+        Set the pen attributes used for the facade. You must also select ``plane`` for
+        the facade outline to be drawn.
     shading : str
-        Provide the name of a grid file with intensities in the (-1,+1)
-        range, or a constant intensity to apply everywhere (affects the
-        ambient light). Alternatively, derive an intensity grid from the
-        input data grid reliefgrid via a call to :func:`pygmt.grdgradient`;
-        append **+a**\ *azimuth*, **+n**\ *args*, and **+m**\ *ambient* to
-        specify azimuth, intensity, and ambient arguments for that function,
-        or just give **+d** to select the default arguments
+        Provide the name of a grid file with intensities in the (-1,+1) range, or a
+        constant intensity to apply everywhere (affects the ambient light).
+        Alternatively, derive an intensity grid from the input data grid reliefgrid via
+        a call to :func:`pygmt.grdgradient`; append **+a**\ *azimuth*, **+n**\ *args*,
+        and **+m**\ *ambient* to specify azimuth, intensity, and ambient arguments for
+        that function, or just give **+d** to select the default arguments
         [Default is **+a**\ -45\ **+nt**\ 1\ **+m**\ 0].
     {verbose}
     {panel}
