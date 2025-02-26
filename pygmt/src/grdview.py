@@ -50,10 +50,9 @@ def grdview(self, grid, **kwargs):
     {grid}
     region : str or list
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
-        Specify the :doc:`region </tutorials/basics/regions>` of interest. When
-        used with ``perspective``, optionally append */zmin/zmax* to indicate the
-        range to use for the 3-D axes [Default is the region given by the input
-        grid].
+        Specify the :doc:`region </tutorials/basics/regions>` of interest. When used
+        with ``perspective``, optionally append */zmin/zmax* to indicate the range to
+        use for the 3-D axes [Default is the region given by the input grid].
     {projection}
     zscale/zsize : float or str
         Set z-axis scaling or z-axis size.
@@ -68,9 +67,9 @@ def grdview(self, grid, **kwargs):
         grid) will be looked-up via the CPT (see ``cmap``).
     plane : float or str
         *level*\ [**+g**\ *fill*].
-        Draw a plane at this z-level. If the optional color is provided via the
-        **+g** modifier, and the projection is not oblique, the frontal facade between
-        the plane and the data perimeter is colored.
+        Draw a plane at this z-level. If the optional color is provided via the **+g**
+        modifier, and the projection is not oblique, the frontal facade between the
+        plane and the data perimeter is colored.
     surftype : str
         Specify cover type of the grid. Select one of following settings:
 
@@ -98,8 +97,8 @@ def grdview(self, grid, **kwargs):
         Alternatively, derive an intensity grid from the input data grid reliefgrid via
         a call to :func:`pygmt.grdgradient`; append **+a**\ *azimuth*, **+n**\ *args*,
         and **+m**\ *ambient* to specify azimuth, intensity, and ambient arguments for
-        that function, or just give **+d** to select the default arguments
-        [Default is **+a**\ -45\ **+nt**\ 1\ **+m**\ 0].
+        that function, or just give **+d** to select the default arguments [Default is
+        **+a**\ -45\ **+nt**\ 1\ **+m**\ 0].
     {verbose}
     {panel}
     {coltypes}
