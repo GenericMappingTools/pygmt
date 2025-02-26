@@ -35,12 +35,11 @@ def grdview(self, grid, **kwargs):
     r"""
     Create 3-D perspective image or surface mesh from a grid.
 
-    Reads a 2-D grid file and produces a 3-D perspective plot by drawing a
-    mesh, painting a colored/gray-shaded surface made up of polygons, or by
-    scanline conversion of these polygons to a raster image. Options
-    include draping a data set on top of a surface, plotting of contours on
-    top of the surface, and apply artificial illumination based on
-    intensities provided in a separate grid file.
+    Reads a 2-D grid file and produces a 3-D perspective plot by drawing a mesh,
+    painting a colored/gray-shaded surface made up of polygons, or by scanline
+    conversion of these polygons to a raster image. Options include draping a data
+    set on top of a surface, plotting of contours on top of the surface, and apply
+    artificial illumination based on intensities provided in a separate grid file.
 
     Full option list at :gmt-docs:`grdview.html`
 
@@ -51,10 +50,10 @@ def grdview(self, grid, **kwargs):
     {grid}
     region : str or list
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
-        Specify the :doc:`region </tutorials/basics/regions>` of interest.
-        When used with ``perspective``, optionally append */zmin/zmax* to
-        indicate the range to use for the 3-D axes [Default is the region given
-        by the input grid].
+        Specify the :doc:`region </tutorials/basics/regions>` of interest. When
+        used with ``perspective``, optionally append */zmin/zmax* to indicate the
+        range to use for the 3-D axes [Default is the region given by the input
+        grid].
     {projection}
     zscale/zsize : float or str
         Set z-axis scaling or z-axis size.
