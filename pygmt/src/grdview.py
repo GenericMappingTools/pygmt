@@ -94,11 +94,11 @@ def grdview(self, grid, **kwargs):
     shading : str
         Provide the name of a grid file with intensities in the (-1,+1) range, or a
         constant intensity to apply everywhere (affects the ambient light).
-        Alternatively, derive an intensity grid from the input data grid reliefgrid via
-        a call to :func:`pygmt.grdgradient`; append **+a**\ *azimuth*, **+n**\ *args*,
-        and **+m**\ *ambient* to specify azimuth, intensity, and ambient arguments for
-        that function, or just give **+d** to select the default arguments [Default is
-        **+a**\ -45\ **+nt**\ 1\ **+m**\ 0].
+        Alternatively, derive an intensity grid from the main input data grid by using
+        :func:`pygmt.grdgradient` first; append **+a**\ *azimuth*, **+n**\ *args*, and
+        **+m**\ *ambient* to specify azimuth, intensity, and ambient arguments for that
+        function, or just give **+d** to select the default arguments [Default is
+        "+a-45+nt1+m0"].
     {verbose}
     {panel}
     {coltypes}
