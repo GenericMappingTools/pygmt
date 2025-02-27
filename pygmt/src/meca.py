@@ -99,6 +99,7 @@ def meca(  # noqa: PLR0912, PLR0913
 
     Parameters
     ----------
+    {spec}
     scale : float or str
         *scale*\ [**+a**\ *angle*][**+f**\ *font*][**+j**\ *justify*]\
         [**+l**][**+m**][**+o**\ *dx*\ [/\ *dy*]][**+s**\ *reference*].
@@ -192,7 +193,6 @@ def meca(  # noqa: PLR0912, PLR0913
     {verbose}
     {panel}
     {perspective}
-    {spec}
     {transparency}
     """
     kwargs = self._preprocess(**kwargs)
