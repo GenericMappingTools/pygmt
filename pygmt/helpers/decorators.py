@@ -393,7 +393,7 @@ COMMON_DOCSTRINGS = {
             If ``spec`` is either a str or a 1-D or 2-D numpy array, the ``convention``
             parameter is required to interpret the columns. If ``spec`` is a dict or
             a :class:`pandas.DataFrame`, ``convention`` is not needed and ignored if
-            specified.
+            specified. """,
     "transparency": r"""
         transparency : float
             Set transparency level, in [0-100] percent range
