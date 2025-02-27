@@ -355,6 +355,45 @@ COMMON_DOCSTRINGS = {
             **Note**: If ``region=grdfile`` is used then the grid spacing and
             the registration have already been initialized; use ``spacing`` and
             ``registration`` to override these values.""",
+    "spec": r"""
+        spec : str, 1-D numpy array, 2-D numpy array, dict, or pandas.DataFrame
+            Data that contain focal mechanism parameters.
+    
+            ``spec`` can be specified in either of the following types:
+    
+            - *str*: a file name containing focal mechanism parameters as columns. The
+              meaning of each column is:
+    
+              - Columns 1 and 2: event longitude and latitude
+              - Column 3: event depth (in kilometers)
+              - Columns 4 to 3+n: focal mechanism parameters. The number of columns *n*
+                depends on the choice of ``convention`` (see the table above for the
+                supported conventions).
+              - Columns 4+n and 5+n: longitude and latitude at which to place the
+                beachball. ``0 0`` plots the beachball at the longitude and latitude
+                given in the columns 1 and 2. [optional; requires ``offset=True``].
+              - Last Column: text string to appear near the beachball [optional].
+    
+            - *1-D np.array*: focal mechanism parameters of a single event.
+              The meanings of columns are the same as above.
+            - *2-D np.array*: focal mechanism parameters of multiple events.
+              The meanings of columns are the same as above.
+            - *dict* or :class:`pandas.DataFrame`: The dict keys or
+              :class:`pandas.DataFrame` column names determine the focal mechanism
+              convention. For the different conventions, the combination of keys /
+              column names as given in the table above are required.
+    
+              A dict may contain values for a single focal mechanism or lists of
+              values for multiple focal mechanisms.
+    
+              Both dict and :class:`pandas.DataFrame` may optionally contain the keys /
+              column names: ``latitude``, ``longitude``, ``depth``, ``plot_longitude``,
+              ``plot_latitude``, and/or ``event_name``.
+    
+            If ``spec`` is either a str or a 1-D or 2-D numpy array, the ``convention``
+            parameter is required to interpret the columns. If ``spec`` is a dict or
+            a :class:`pandas.DataFrame`, ``convention`` is not needed and ignored if
+            specified.
     "transparency": r"""
         transparency : float
             Set transparency level, in [0-100] percent range
