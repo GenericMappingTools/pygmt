@@ -26,7 +26,7 @@ To create a scatter plot with histograms at the sides of the plot one can use
 positions of the histograms are plotted by offsetting them from the main scatter plot
 using :meth:`pygmt.Figure.shift_origin`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 12-77
+.. GENERATED FROM PYTHON SOURCE LINES 12-75
 
 
 
@@ -74,43 +74,41 @@ using :meth:`pygmt.Figure.shift_origin`.
     # level for all circles to deal with overplotting.
     fig.plot(x=x, y=y, style="c0.15c", fill=fill, transparency=50)
 
-    # Shift the plot origin and add top margin histogram.
-    fig.shift_origin(yshift=height + 0.25)
+    # Shift the plot origin in y direction temporarily and add top margin histogram.
+    with fig.shift_origin(yshift=height + 0.25):
+        fig.histogram(
+            projection=f"X{width}/3",
+            frame=["Wsrt", "xf", "yaf+lCounts"],
+            # Give the same value for ymin and ymax to have them calculated automatically.
+            region=[xmin, xmax, 0, 0],
+            data=x,
+            fill=fill,
+            pen="0.1p,white",
+            histtype=0,
+            series=0.2,
+        )
 
-    fig.histogram(
-        projection=f"X{width}/3",
-        frame=["Wsrt", "xf", "yaf+lCounts"],
-        # Give the same value for ymin and ymax to have them calculated automatically.
-        region=[xmin, xmax, 0, 0],
-        data=x,
-        fill=fill,
-        pen="0.1p,white",
-        histtype=0,
-        series=0.2,
-    )
-
-    # Shift the plot origin and add right margin histogram.
-    fig.shift_origin(yshift=-height - 0.25, xshift=width + 0.25)
-
-    # Plot the horizontal histogram.
-    fig.histogram(
-        horizontal=True,
-        projection=f"X3/{height}",
-        # Note that the x- and y-axis are flipped, with the y-axis plotted horizontally.
-        frame=["wSrt", "xf", "yaf+lCounts"],
-        region=[ymin, ymax, 0, 0],
-        data=y,
-        fill=fill,
-        pen="0.1p,white",
-        histtype=0,
-        series=0.2,
-    )
+    # Shift the plot origin in x direction temporarily and add right margin histogram.
+    with fig.shift_origin(xshift=width + 0.25):
+        # Plot the horizontal histogram.
+        fig.histogram(
+            horizontal=True,
+            projection=f"X3/{height}",
+            # Note that the x- and y-axes are flipped, with the y-axis plotted horizontally.
+            frame=["wSrt", "xf", "yaf+lCounts"],
+            region=[ymin, ymax, 0, 0],
+            data=y,
+            fill=fill,
+            pen="0.1p,white",
+            histtype=0,
+            series=0.2,
+        )
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.275 seconds)
+   **Total running time of the script:** (0 minutes 0.272 seconds)
 
 
 .. _sphx_glr_download_gallery_histograms_scatter_and_histograms.py:
