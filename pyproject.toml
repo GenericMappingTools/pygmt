@@ -66,6 +66,7 @@ include = ["pygmt*"]
 exclude = ["doc"]
 
 [tool.setuptools_scm]
+version_scheme = "release-branch-semver"
 local_scheme = "node-and-date"
 fallback_version = "999.999.999+unknown"
 
