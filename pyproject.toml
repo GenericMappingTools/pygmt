@@ -37,7 +37,6 @@ dependencies = [
     "numpy>=1.25",
     "pandas>=2.0",
     "xarray>=2023.04",
-    "netCDF4",
     "packaging",
 ]
 dynamic = ["version"]
