@@ -10,6 +10,21 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 from pygmt.src._common import _FocalMechanismConvention
 
 
+def _get_focal_convention(spec, convention, component) -> _FocalMechanismConvention:
+    """
+    Determine the focal mechanism convention from the input data or parameters.
+    """
+    # Determine the convention from dictionary keys or pandas.DataFrame column names.
+    if hasattr(spec, "keys"):  # Dictionary or pandas.DataFrame
+        return _FocalMechanismConvention.from_params(spec.keys(), component=component)
+
+    # Determine the convention from the 'convention' parameter.
+    if convention is None:
+        msg = "Parameter 'convention' must be specified."
+        raise GMTInvalidInput(msg)
+    return _FocalMechanismConvention(convention=convention, component=component)
+
+
 @fmt_docstring
 @use_alias(
     A="offset",
@@ -234,13 +249,11 @@ def meca(  # noqa: PLR0912, PLR0913
     """
     kwargs = self._preprocess(**kwargs)
 
+    # Determine the focal mechanism convention from the input data or parameters.
+    _convention = _get_focal_convention(spec, convention, component)
+
     # Convert spec to pandas.DataFrame unless it's a file
     if isinstance(spec, dict | pd.DataFrame):  # spec is a dict or pd.DataFrame
-        # Determine convention from dict keys or pd.DataFrame column names
-        _convention = _FocalMechanismConvention.from_params(
-            spec.keys(), component=component
-        )
-
         # convert dict to pd.DataFrame so columns can be reordered
         if isinstance(spec, dict):
             # convert values to ndarray so pandas doesn't complain about "all
@@ -250,14 +263,6 @@ def meca(  # noqa: PLR0912, PLR0913
                 {key: np.atleast_1d(value) for key, value in spec.items()}
             )
     elif isinstance(spec, np.ndarray):  # spec is a numpy array
-        if convention is None:
-            msg = "'convention' must be specified for an array input."
-            raise GMTInvalidInput(msg)
-
-        _convention = _FocalMechanismConvention(
-            convention=convention, component=component
-        )
-
         # Convert array to pd.DataFrame and assign column names
         spec = pd.DataFrame(np.atleast_2d(spec))
         colnames = ["longitude", "latitude", "depth", *_convention.params]
@@ -277,10 +282,6 @@ def meca(  # noqa: PLR0912, PLR0913
             )
             raise GMTInvalidInput(msg)
         spec.columns = colnames
-    else:
-        _convention = _FocalMechanismConvention(
-            convention=convention, component=component
-        )
 
     # Now spec is a pd.DataFrame or a file
     if isinstance(spec, pd.DataFrame):
