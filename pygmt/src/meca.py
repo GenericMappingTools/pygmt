@@ -93,16 +93,18 @@ def _preprocess_spec(spec, colnames, override_cols):
     return spec
 
 
-def _set_offset(spec, offset):
+def _auto_offset(spec) -> bool:
     """
-    Determine the offset parameter if not provided.
+    Determine if offset should be set based on the input data.
 
     If the input data contains ``plot_longitude`` and ``plot_latitude``, then we set the
     ``offset`` parameter to ``True`` automatically.
     """
-    if offset is not None:
-        return offset
-    return "plot_longitude" in spec and "plot_latitude" in spec
+    return (
+        isinstance(spec, dict | pd.DataFrame)
+        and "plot_longitude" in spec
+        and "plot_latitude" in spec
+    )
 
 
 @fmt_docstring
@@ -345,7 +347,8 @@ def meca(  # noqa: PLR0913
         },
     )
     # Determine the offset parameter if not provided.
-    kwargs["A"] = _set_offset(spec, kwargs.get("A"))
+    if kwargs.get("A") is None:
+        kwargs["A"] = _auto_offset(spec)
     kwargs["S"] = f"{_convention.code}{scale}"
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=spec) as vintbl:
