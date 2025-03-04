@@ -57,7 +57,7 @@ def validate_output_table_type(
     if output_type != "file" and outfile is not None:
         msg = (
             f"Changing 'output_type' from '{output_type}' to 'file' since 'outfile' "
-            "parameter is set. Please use output_type='file' suppress this warning."
+            "parameter is set. Please use output_type='file' to suppress the warning."
         )
         warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
         output_type = "file"
