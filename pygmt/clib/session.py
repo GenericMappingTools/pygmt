@@ -1772,7 +1772,6 @@ class Session:
         x=None,
         y=None,
         z=None,
-        extra_arrays=None,
         required_z=False,
         required_data=True,
     ):
@@ -1794,9 +1793,6 @@ class Session:
             data input.
         x/y/z : 1-D arrays or None
             x, y, and z columns as numpy arrays.
-        extra_arrays : list of 1-D arrays
-            Optional. A list of numpy arrays in addition to x, y, and z.
-            All of these arrays must be of the same size as the x/y/z arrays.
         required_z : bool
             State whether the 'z' column is required.
         required_data : bool
@@ -1879,11 +1875,9 @@ class Session:
                 _data = [x, y]
                 if z is not None:
                     _data.append(z)
-                if extra_arrays:
-                    _data.extend(extra_arrays)
             case "vectors":
                 if hasattr(data, "items") and not hasattr(data, "to_frame"):
-                    # pandas.DataFrame or xarray.Dataset types.
+                    # Dictionary, pandas.DataFrame or xarray.Dataset types.
                     # pandas.Series will be handled below like a 1-D numpy.ndarray.
                     _data = [array for _, array in data.items()]
                 else:
