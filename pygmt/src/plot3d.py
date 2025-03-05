@@ -263,6 +263,6 @@ def plot3d(
             y=y,
             z=z,
             extra_arrays=extra_arrays,
-            required_z=True,
+            required_ncols=3,
         ) as vintbl:
             lib.call_module(module="plot3d", args=build_arg_list(kwargs, infile=vintbl))
