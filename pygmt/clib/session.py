@@ -1773,8 +1773,8 @@ class Session:
         y=None,
         z=None,
         extra_arrays=None,
-        required_z=False,
         required_data=True,
+        required_ncols=2,
     ):
         """
         Store any data inside a virtual file.
@@ -1797,11 +1797,11 @@ class Session:
         extra_arrays : list of 1-D arrays
             Optional. A list of numpy arrays in addition to x, y, and z.
             All of these arrays must be of the same size as the x/y/z arrays.
-        required_z : bool
-            State whether the 'z' column is required.
         required_data : bool
             Set to True when 'data' is required, or False when dealing with
             optional virtual files. [Default is True].
+        required_ncols
+            Number of minimum required columns.
 
         Returns
         -------
@@ -1835,8 +1835,8 @@ class Session:
             x=x,
             y=y,
             z=z,
-            required_z=required_z,
             required_data=required_data,
+            required_ncols=required_ncols,
             kind=kind,
         )
 
