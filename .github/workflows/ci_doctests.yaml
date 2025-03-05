@@ -51,7 +51,6 @@ jobs:
             numpy
             pandas
             xarray
-            netCDF4
             packaging
             contextily
             geopandas

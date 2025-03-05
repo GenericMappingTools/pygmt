@@ -2,37 +2,70 @@
 Test the behaviour of the GMTDataArrayAccessor class.
 """
 
+import importlib
 import sys
 from pathlib import Path
 
 import pytest
 import xarray as xr
 from packaging.version import Version
-from pygmt import which
+from pygmt import read, which
 from pygmt.clib import __gmt_version__
 from pygmt.datasets import load_earth_relief
 from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 
+_HAS_NETCDF4 = bool(importlib.util.find_spec("netCDF4"))
 
-def test_accessor_gridline_cartesian():
+
+@pytest.mark.parametrize(
+    ("readfunc", "kwargs"),
+    [
+        pytest.param(read, {"kind": "grid"}, id="read"),
+        pytest.param(
+            xr.open_dataarray,
+            {"engine": "netcdf4"},
+            id="xr.open_dataarray",
+            marks=pytest.mark.skipif(
+                condition=not _HAS_NETCDF4,
+                reason="netCDF4 is not installed",
+            ),
+        ),
+    ],
+)
+def test_accessor_gridline_cartesian(readfunc, kwargs):
     """
     Check that the accessor returns the correct registration and gtype values for a
     Cartesian, gridline-registered grid.
     """
     fname = which(fname="@test.dat.nc", download="a")
-    grid = xr.open_dataarray(fname, engine="netcdf4")
+    grid = readfunc(fname, **kwargs)
     assert grid.gmt.registration == GridRegistration.GRIDLINE
     assert grid.gmt.gtype == GridType.CARTESIAN
 
 
-def test_accessor_pixel_geographic():
+@pytest.mark.parametrize(
+    ("readfunc", "kwargs"),
+    [
+        pytest.param(read, {"kind": "grid"}, id="read"),
+        pytest.param(
+            xr.open_dataarray,
+            {"engine": "netcdf4"},
+            id="xr.open_dataarray",
+            marks=pytest.mark.skipif(
+                condition=not _HAS_NETCDF4,
+                reason="netCDF4 is not installed",
+            ),
+        ),
+    ],
+)
+def test_accessor_pixel_geographic(readfunc, kwargs):
     """
     Check that the accessor returns the correct registration and gtype values for a
     geographic, pixel-registered grid.
     """
     fname = which(fname="@earth_relief_01d_p", download="a")
-    grid = xr.open_dataarray(fname, engine="netcdf4")
+    grid = readfunc(fname, **kwargs)
     assert grid.gmt.registration == GridRegistration.PIXEL
     assert grid.gmt.gtype == GridType.GEOGRAPHIC
 
@@ -103,6 +136,7 @@ def test_accessor_set_invalid_registration_and_gtype():
         grid.gmt.gtype = "geographic"
 
 
+@pytest.mark.skipif(condition=not _HAS_NETCDF4, reason="netCDF4 is not installed")
 # TODO(GMT>=6.5.0): Remove the xfail marker for GMT>=6.5.0.
 @pytest.mark.xfail(
     condition=sys.platform == "win32" and Version(__gmt_version__) < Version("6.5.0"),
@@ -121,7 +155,7 @@ def test_accessor_sliced_datacube():
             "https://github.com/pydata/xarray-data/raw/master/eraint_uvz.nc",
             download="u",
         )
-        with xr.open_dataset(fname) as dataset:
+        with xr.open_dataset(fname, engine="netcdf4") as dataset:
             grid = dataset.sel(level=500, month=1, drop=True).z
 
         assert grid.gmt.registration == GridRegistration.GRIDLINE
