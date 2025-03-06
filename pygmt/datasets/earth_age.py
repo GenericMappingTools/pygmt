@@ -30,26 +30,32 @@ def load_earth_age(
 
        Earth seafloor crustal age dataset.
 
-    The grids are downloaded to a user data directory
-    (usually ``~/.gmt/server/earth/earth_age/``) the first time you invoke
-    this function. Afterwards, it will load the grid from the data directory.
-    So you'll need an internet connection the first time around.
+    This function downloads the dataset files to a user data directory,
+    (usually ``~/.gmt/server/earth/earth_age/``), the first time you invoke this
+    function. An internet connection is required the first time around, but subsequent
+    calls will load the grid from the data directory.
 
-    These grids can also be accessed by passing in the file name
-    **@earth_age**\_\ *res*\[_\ *reg*] to any grid processing function or
-    plotting method. *res* is the grid resolution (see below), and *reg* is
-    the grid registration type (**p** for pixel registration or **g** for
-    the gridline registration).
+    This dataset comes with a color palette table (CPT) file, ``@earth_age.cpt``. To use
+    the dataset-specific CPT when plotting the dataset, explicitly set
+    ``cmap="@earth_age.cpt"``, otherwise GMT's default CPT (*turbo*) will be used.
 
-    The default color palette table (CPT) for this dataset is *@earth_age.cpt*.
-    It's implicitly used when passing in the file name of the dataset to any
-    grid plotting method if no CPT is explicitly specified. When the dataset
-    is loaded and plotted as an :class:`xarray.DataArray` object, the default
-    CPT is ignored, and GMT's default CPT (*turbo*) is used. To use the
-    dataset-specific CPT, you need to explicitly set ``cmap="@earth_age.cpt"``.
+    The dataset can also be accessed by specifying a file name in any grid processing
+    function or plotting method, using the following file name format:
 
-    Refer to :gmt-datasets:`earth-age.html` for more details about available
-    datasets, including version information and references.
+        **@earth_age**\_\ *res*\[_\ *reg*].
+
+    - *res* is the grid resolution. If omitted, GMT automatically selects a suitable
+      resolution based on the current region and projection settings
+    - *reg* is the grid registration type (**p** for pixel registration, **g** for
+      gridline registration). If omitted, the gridline-registered grid will be loaded by
+      default.
+
+    If the dataset is referenced by file name in a grid plotting method, the
+    dataset-specific CPT file mentioned above is used automatically unless another CPT
+    is specified.
+
+    Refer to :gmt-datasets:`earth-age.html` for more details about available datasets,
+    including version information and references.
 
     Parameters
     ----------
@@ -67,29 +73,28 @@ def load_earth_age(
     Returns
     -------
     grid
-        The Earth seafloor crustal age grid. Coordinates are latitude and
-        longitude in degrees. Age is in millions of years (Myr).
+        The Earth seafloor crustal age grid. Coordinates are latitude and longitude in
+        degrees. Age is in millions of years (Myr).
 
     Note
     ----
     The registration and coordinate system type of the returned
-    :class:`xarray.DataArray` grid can be accessed via the GMT accessors
-    (i.e., ``grid.gmt.registration`` and ``grid.gmt.gtype`` respectively).
-    However, these properties may be lost after specific grid operations (such
-    as slicing) and will need to be manually set before passing the grid to any
-    PyGMT data processing or plotting functions. Refer to
-    :class:`pygmt.GMTDataArrayAccessor` for detailed explanations and
-    workarounds.
+    :class:`xarray.DataArray` grid can be accessed via the GMT accessors (i.e.,
+    ``grid.gmt.registration`` and ``grid.gmt.gtype`` respectively). However, these
+    properties may be lost after specific grid operations (such as slicing) and will
+    need to be manually set before passing the grid to any PyGMT data processing or
+    plotting functions. Refer to :class:`pygmt.GMTDataArrayAccessor` for detailed
+    explanations and workarounds.
 
     Examples
     --------
 
     >>> from pygmt.datasets import load_earth_age
-    >>> # load the default grid (gridline-registered 1 arc-degree grid)
+    >>> # Load the default grid (gridline-registered 1 arc-degree grid)
     >>> grid = load_earth_age()
-    >>> # load the 30 arc-minutes grid with "gridline" registration
+    >>> # Load the 30 arc-minutes grid with "gridline" registration
     >>> grid = load_earth_age(resolution="30m", registration="gridline")
-    >>> # load high-resolution (5 arc-minutes) grid for a specific region
+    >>> # Load high-resolution (5 arc-minutes) grid for a specific region
     >>> grid = load_earth_age(
     ...     resolution="05m",
     ...     region=[120, 160, 30, 60],
