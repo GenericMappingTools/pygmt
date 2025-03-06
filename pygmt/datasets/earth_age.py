@@ -41,8 +41,7 @@ def load_earth_age(
 
     The dataset can also be accessed by specifying a file name in any grid processing
     function or plotting method, using the following file name format:
-
-        **@earth_age**\_\ *res*\[_\ *reg*].
+    **@earth_age**\_\ *res*\[_\ *reg*].
 
     - *res* is the grid resolution. If omitted, GMT automatically selects a suitable
       resolution based on the current region and projection settings
