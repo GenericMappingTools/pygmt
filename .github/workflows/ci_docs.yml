@@ -147,16 +147,16 @@ jobs:
           mv latex/pygmt.pdf pygmt-docs.pdf
           cd ../..
 
-      - name: Copy the HTML ZIP archive and PDF to the html folder for dev version
-        run: cp -v doc/_build/pygmt-docs.zip doc/_build/pygmt-docs.pdf doc/_build/html/
-        if: github.event_name == 'push' && matrix.os == 'ubuntu-latest'
-
-      - name: Upload PDF as artifact for previewing
+      - name: Upload PDF as artifact for previewing on pull requests
         uses: actions/upload-artifact@v4.6.1
-        if: github.event_name == 'push' && matrix.os == 'ubuntu-latest'
+        if: github.event_name == 'pull_request' && matrix.os == 'ubuntu-latest'
         with:
           name: artifact-pygmt-docs-pdf
           path: doc/_build/pygmt-docs.pdf
+
+      - name: Copy the HTML ZIP archive and PDF to the html folder for dev version
+        run: cp -v doc/_build/pygmt-docs.zip doc/_build/pygmt-docs.pdf doc/_build/html/
+        if: github.event_name == 'push' && matrix.os == 'ubuntu-latest'
 
       - name: Upload the HTML ZIP archive and PDF as release assets
         run: gh release upload ${{ github.ref_name }} doc/_build/pygmt-docs.zip doc/_build/pygmt-docs.pdf
