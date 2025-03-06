@@ -30,28 +30,25 @@ def load_earth_age(
 
        Earth seafloor crustal age dataset.
 
-    This function downloads the dataset files to a user data directory,
-    (usually ``~/.gmt/server/earth/earth_age/``), the first time you invoke this
-    function. An internet connection is required the first time around, but subsequent
-    calls will load the grid from the data directory.
-
-    This dataset comes with a color palette table (CPT) file, ``@earth_age.cpt``. To use
-    the dataset-specific CPT when plotting the dataset, explicitly set
-    ``cmap="@earth_age.cpt"``, otherwise GMT's default CPT (*turbo*) will be used.
+    This function downloads the dataset from the GMT data server, caches it in a user
+    data directory (usually ``~/.gmt/server/earth/earth_age/``), and load the dataset as
+    an :class:`xarray.DataArray`. An internet connection is required the first time
+    around, but subsequent calls will load the dataset from the local data directory.
 
     The dataset can also be accessed by specifying a file name in any grid processing
     function or plotting method, using the following file name format:
-    **@earth_age**\_\ *res*\[_\ *reg*].
+    **@earth_age**\_\ *res*\_\ *reg*. *res* is the grid resolution; *reg* is the grid
+    registration type (**p** for pixel registration, **g** for gridline registration).
+    If *reg* is omitted (e.g., ``@earth_age_01d``), the gridline-registered grid will
+    be loaded by default. If *res* is also omitted (i.e., ``@earth_age``), GMT
+    automatically selects a suitable resolution based on the current region and
+    projection settings.
 
-    - *res* is the grid resolution. If omitted, GMT automatically selects a suitable
-      resolution based on the current region and projection settings
-    - *reg* is the grid registration type (**p** for pixel registration, **g** for
-      gridline registration). If omitted, the gridline-registered grid will be loaded by
-      default.
-
-    If the dataset is referenced by file name in a grid plotting method, the
-    dataset-specific CPT file mentioned above is used automatically unless another CPT
-    is specified.
+    This dataset comes with a color palette table (CPT) file, ``@earth_age.cpt``. To use
+    the dataset-specific CPT when plotting the dataset, explicitly set
+    ``cmap="@earth_age.cpt"``, otherwise GMT's default CPT (*turbo*) will be used. If
+    the dataset is referenced by file name in a grid plotting method, the
+    dataset-specific CPT file is used automatically unless another CPT is specified.
 
     Refer to :gmt-datasets:`earth-age.html` for more details about available datasets,
     including version information and references.
