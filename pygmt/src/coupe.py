@@ -13,7 +13,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.src._common import _FocalMechanismConvention
+from pygmt.src.meca import _get_focal_convention, _preprocess_spec, _auto_offset
 
 def section_convention_code(section_format):
 
@@ -29,96 +29,6 @@ def section_convention_code(section_format):
     else:
         raise GMTInvalidInput(f"Invalid section format '{section_format}'.")
         
-def _get_focal_convention(spec, convention, component) -> _FocalMechanismConvention:
-    """
-    Determine the focal mechanism convention from the input data or parameters.
-    """
-    # Determine the convention from dictionary keys or pandas.DataFrame column names.
-    if hasattr(spec, "keys"):  # Dictionary or pandas.DataFrame
-        return _FocalMechanismConvention.from_params(spec.keys(), component=component)
-
-    # Determine the convention from the 'convention' parameter.
-    if convention is None:
-        msg = "Parameter 'convention' must be specified."
-        raise GMTInvalidInput(msg)
-    return _FocalMechanismConvention(convention=convention, component=component)
-
-
-def _preprocess_spec(spec, colnames, override_cols):
-    """
-    Preprocess the input data.
-
-    Parameters
-    ----------
-    spec
-        The input data to be preprocessed.
-    colnames
-        The minimum required column names of the input data.
-    override_cols
-        Dictionary of column names and values to override in the input data. Only makes
-        sense if ``spec`` is a dict or :class:`pandas.DataFrame`.
-    """
-    kind = data_kind(spec)  # Determine the kind of the input data.
-
-    # Convert pandas.DataFrame and numpy.ndarray to dict.
-    if isinstance(spec, pd.DataFrame):
-        spec = {k: v.to_numpy() for k, v in spec.items()}
-    elif isinstance(spec, np.ndarray):
-        spec = np.atleast_2d(spec)
-        # Optional columns that are not required by the convention. The key is the
-        # number of extra columns, and the value is a list of optional column names.
-        extra_cols = {
-            0: [],
-            1: ["event_name"],
-            2: ["plot_longitude", "plot_latitude"],
-            3: ["plot_longitude", "plot_latitude", "event_name"],
-        }
-        ndiff = spec.shape[1] - len(colnames)
-        if ndiff not in extra_cols:
-            msg = f"Input array must have {len(colnames)} or two/three more columns."
-            raise GMTInvalidInput(msg)
-        spec = dict(zip([*colnames, *extra_cols[ndiff]], spec.T, strict=False))
-
-    # Now, the input data is a dict or an ASCII file.
-    if isinstance(spec, dict):
-        # The columns can be overridden by the parameters given in the function
-        # arguments. Only makes sense for dict/pandas.DataFrame input.
-        if kind != "matrix" and override_cols is not None:
-            spec.update({k: v for k, v in override_cols.items() if v is not None})
-        # Due to the internal implementation of the meca module, we need to convert the
-        # ``plot_longitude``, ``plot_latitude``, and ``event_name`` columns into strings
-        # if they exist.
-        for key in ["plot_longitude", "plot_latitude", "event_name"]:
-            if key in spec:
-                spec[key] = np.array(spec[key], dtype=str)
-
-        # Reorder columns to match convention if necessary. The expected columns are:
-        # longitude, latitude, depth, focal_parameters, [plot_longitude, plot_latitude],
-        # [event_name].
-        extra_cols = []
-        if "plot_longitude" in spec and "plot_latitude" in spec:
-            extra_cols.extend(["plot_longitude", "plot_latitude"])
-        if "event_name" in spec:
-            extra_cols.append("event_name")
-        cols = [*colnames, *extra_cols]
-        if list(spec.keys()) != cols:
-            spec = {k: spec[k] for k in cols}
-    return spec
-
-
-def _auto_offset(spec) -> bool:
-    """
-    Determine if offset should be set based on the input data.
-
-    If the input data contains ``plot_longitude`` and ``plot_latitude``, then we set the
-    ``offset`` parameter to ``True`` automatically.
-    """
-    return (
-        isinstance(spec, dict | pd.DataFrame)
-        and "plot_longitude" in spec
-        and "plot_latitude" in spec
-    )
-
 
 @fmt_docstring
 @use_alias(
