@@ -1,10 +1,11 @@
 """
 clip - Create a polygonal clip path.
 """
+
 import contextlib
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
@@ -33,8 +34,7 @@ def clip(self, data=None, x=None, y=None, **kwargs):
     Parameters
     ----------
     data : str or {table-like}
-        Pass in either a file name to an ASCII data table, a 2D
-        {table-classes}.
+        Pass in either a file name to an ASCII data table, a 2D {table-classes}.
     x/y : 1d arrays
         The x and y coordinates of the clip path.
     {B}
@@ -82,21 +82,17 @@ def clip(self, data=None, x=None, y=None, **kwargs):
     >>> with fig.clip(x=x, y=y):
     ...     # Map elements under the "with" statement are clipped
     ...     fig.grdimage(grid=grid)
-    ...
     >>> fig.show()  # doctest: +SKIP
     <IPython.core.display.Image object>
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
         try:
-            file_context = lib.virtualfile_from_data(
-                check_kind="vector", data=data, x=x, y=y
-            )
-
-            with file_context as fname:
-                arg_str = " ".join([fname, build_arg_string(kwargs)])
-                lib.call_module("clip", arg_str)
+            with lib.virtualfile_in(check_kind="vector", data=data, x=x, y=y) as vintbl:
+                lib.call_module(
+                    module="clip", args=build_arg_list(kwargs, infile=vintbl)
+                )
             yield
         finally:
             # End the top most clipping path
-            lib.call_module("clip", "-C1")
+            lib.call_module(module="clip", args="-C1")
