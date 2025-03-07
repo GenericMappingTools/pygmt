@@ -587,9 +587,9 @@ def build_arg_list(  # noqa: PLR0912
     return gmt_args
 
 
-def is_nonstr_iter(value):
+def is_nonstr_iter(value: Any) -> bool:
     """
-    Check if the value is not a string but is iterable (list, tuple, array)
+    Check if the value is iterable (e.g., list, tuple, array) but not a string.
 
     Parameters
     ----------
@@ -598,12 +598,11 @@ def is_nonstr_iter(value):
 
     Returns
     -------
-    is_iterable : bool
+    is_iterable
         Whether it is a non-string iterable or not.
 
     Examples
     --------
-
     >>> is_nonstr_iter("abc")
     False
     >>> is_nonstr_iter(10)
@@ -662,32 +661,29 @@ def launch_external_viewer(fname: str, waiting: float = 0) -> None:
         time.sleep(waiting)
 
 
-def args_in_kwargs(args, kwargs):
+def args_in_kwargs(args: Sequence[str], kwargs: dict[str, Any]) -> bool:
     """
-    Take a list and a dictionary, and determine if any entries in the list are keys in
-    the dictionary.
+    Take a sequence and a dictionary, and determine if any entries in the sequence are
+    keys in the dictionary.
 
-    This function is used to determine if at least one of the required
-    arguments is passed to raise a GMTInvalidInput Error.
+    This function is used to determine if at least one of the required arguments is
+    passed to raise a GMTInvalidInput Error.
 
     Parameters
     ----------
-    args : list
-        List of required arguments, using the GMT short-form aliases.
-
-    kwargs : dict
-        The dictionary of kwargs is the format returned by the _preprocess
-        function of the BasePlotting class. The keys are the GMT
-        short-form aliases of the parameters.
+    args
+        Sequence of required arguments, using the GMT short-form aliases.
+    kwargs
+        The dictionary of GMT options and arguments. The keys are the GMT short-form
+        aliases of the parameters.
 
     Returns
     -------
     bool
-        If one of the required arguments is in ``kwargs``.
+        Whether one of the required arguments is in ``kwargs``.
 
     Examples
     --------
-
     >>> args_in_kwargs(args=["A", "B"], kwargs={"C": "xyz"})
     False
     >>> args_in_kwargs(args=["A", "B"], kwargs={"B": "af"})
