@@ -37,31 +37,40 @@ def clip(self, data=None, x=None, y=None, **kwargs):
         Pass in either a file name to an ASCII data table, a 2D {table-classes}.
     x/y : 1d arrays
         The x and y coordinates of the clip path.
-    {B}
-    {J}
-    {R}
-    straight_line : bool or str
-        [**m**\|\ **p**\|\ **x**\|\ **y**\|\ **r**\|\ **t**].
-        By default, geographic line segments are connected as great circle
-        arcs. To connect them as straight lines, use ``straight_line``.
-        Alternatively, add **m** to connect the line by first following a
-        meridian, then a parallel. Or append **p** to start following a
-        parallel, then a meridian. (This can be practical to connect a line
-        along parallels, for example). For Cartesian data, points are
-        simply connected, unless you append **x** or **y** to draw
-        stair-case curves that whose first move is along *x* or *y*,
-        respectively. For polar projection, append **r** or **t** to connect
-        staircase curves whose first move is along *r* or *theta*,
-        respectively.
-    invert : bool
-        Invert the sense of what is inside and outside. For example, when
-        using a single clip path, use ``invert=True`` to only plot points
-        outside to path. Cannot be used with ``frame``.
-    {V}
-    pen : str
-        Draw the output of the clip path using the pen attributes before
-        clipping is initiated [Default is no outline].
+    {frame}
+    {projection}
+    {region}
+    straight_line
+        By default, line segments are drawn as straight lines in the Cartesian and polar
+        coordinate systems, and as great circle arcs (by resampling coarse input data
+        along such arcs) in the geographic coordinate system. The ``straight_line``
+        parameter can control the drawing of line segments. Valid values are:
 
+        - ``True``: Draw line segments as straight lines in geographic coordinate
+          systems.
+        - ``"x"``: Draw line segments by first along *x*, then along *y*.
+        - ``"y"``: Draw line segments by first along *y*, then along *x*.
+
+        Here, *x* and *y* have different meanings depending on the coordinate system:
+
+        - **Cartesian** coordinate system: *x* and *y* are the X- and Y-axes.
+        - **Polar** coordinate system: *x* and *y* are theta and radius.
+        - **Geographic** coordinate system: *x* and *y* are parallels and meridians.
+
+        .. attention::
+
+            There exits a bug in GMT<=6.5.0 that, in geographic coordinate systems, the
+            meaning of *x* and *y* is reversed, i.e., *x* means meridians and *y* means
+            parallels. The bug is fixed by upstream
+            `PR #8648 <https://github.com/GenericMappingTools/gmt/pull/8648>`__.
+    invert : bool
+        Invert the sense of what is inside and outside. For example, when using a single
+        path, ``invert=True`` means only plot points outside that path will be shown.
+        Cannot be used together with ``frame``.
+    {verbose}
+    pen : str
+        Draw outline of clip path using given pen attributes before clipping is
+        initiated [Default is no outline].
 
     Examples
     --------
