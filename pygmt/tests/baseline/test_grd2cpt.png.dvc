@@ -1,4 +1,5 @@
 outs:
-- md5: 6d535fbb53a470a3a12fafeab1cf4f66
-  size: 22230
+- md5: 3ef5930b17345f3f50ac65c0a8d46c22
+  size: 22020
   path: test_grd2cpt.png
+  hash: md5

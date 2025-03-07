@@ -1,11 +1,13 @@
 """
-Tests for grdgradient.
+Test pygmt.grdgradient.
 """
+
 from pathlib import Path
 
 import pytest
 import xarray as xr
 from pygmt import grdgradient, load_dataarray
+from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
@@ -30,18 +32,17 @@ def fixture_expected_grid():
             [-1.5880326e-03, -1.6113354e-03, -5.4624723e-04, -5.0047837e-04],
             [7.2569086e-04, 2.4801277e-04, 1.8859128e-05, -1.2269041e-03],
         ],
-        coords=dict(
-            lon=[-52.5, -51.5, -50.5, -49.5],
-            lat=[-19.5, -18.5, -17.5],
-        ),
+        coords={
+            "lon": [-52.5, -51.5, -50.5, -49.5],
+            "lat": [-19.5, -18.5, -17.5],
+        },
         dims=["lat", "lon"],
     )
 
 
 def test_grdgradient_outgrid(grid, expected_grid):
     """
-    Test the azimuth and direction parameters for grdgradient with a set
-    outgrid.
+    Test the azimuth and direction parameters for grdgradient with a set outgrid.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = grdgradient(
@@ -53,10 +54,10 @@ def test_grdgradient_outgrid(grid, expected_grid):
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
+@pytest.mark.benchmark
 def test_grdgradient_no_outgrid(grid, expected_grid):
     """
-    Test the azimuth and direction parameters for grdgradient with no set
-    outgrid.
+    Test the azimuth and direction parameters for grdgradient with no set outgrid.
 
     This is a regression test for
     https://github.com/GenericMappingTools/pygmt/issues/1807.
@@ -66,8 +67,8 @@ def test_grdgradient_no_outgrid(grid, expected_grid):
     )
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
-    assert result.gmt.gtype == 1  # Geographic grid
-    assert result.gmt.registration == 1  # Pixel registration
+    assert result.gmt.gtype == GridType.GEOGRAPHIC
+    assert result.gmt.registration == GridRegistration.PIXEL
     # check information of the output grid
     xr.testing.assert_allclose(a=result, b=expected_grid)
 

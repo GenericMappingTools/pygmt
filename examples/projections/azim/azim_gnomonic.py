@@ -1,6 +1,6 @@
 r"""
-Gnomonic
-========
+Gnomonic projection
+===================
 
 The point of perspective of the gnomonic projection lies at the center of the
 Earth. As a consequence great circles (orthodromes) on the surface of the Earth
@@ -18,8 +18,16 @@ projection center, the optional parameter *horizon* specifies the maximum
 distance from projection center (in degrees, < 90, default 60), and *scale* or
 *width* sets the size of the figure.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()
-fig.coast(projection="F-90/15/12c", region="g", frame="20g20", land="gray")
+fig.coast(
+    region="g",
+    projection="F-90/15/12c",
+    frame="afg",
+    land="khaki",
+    water="white",
+)
 fig.show()

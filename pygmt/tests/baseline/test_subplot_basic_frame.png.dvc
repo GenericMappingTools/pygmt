@@ -1,4 +1,5 @@
 outs:
-- md5: 91b55787b5aae4b5e65e885d9185c1e1
-  size: 7693
+- md5: 192b6e13adb19e698ea584295ddcfec1
+  size: 7724
   path: test_subplot_basic_frame.png
+  hash: md5

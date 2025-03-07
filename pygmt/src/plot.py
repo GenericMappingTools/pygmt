@@ -1,22 +1,23 @@
 """
 plot - Plot in two dimensions.
 """
+
+from typing import Literal
+
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     data_kind,
-    deprecate_parameter,
     fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.src.which import which
+from pygmt.src._common import _data_geometry_is_point
 
 
 @fmt_docstring
-@deprecate_parameter("color", "fill", "v0.8.0", remove_version="v0.12.0")
 @use_alias(
     A="straight_line",
     B="frame",
@@ -31,7 +32,6 @@ from pygmt.src.which import which
     N="no_clip",
     R="region",
     S="style",
-    U="timestamp",
     V="verbose",
     W="pen",
     Z="zvalue",
@@ -50,7 +50,17 @@ from pygmt.src.which import which
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
+def plot(
+    self,
+    data=None,
+    x=None,
+    y=None,
+    size=None,
+    symbol=None,
+    direction=None,
+    straight_line: bool | Literal["x", "y"] = False,  # noqa: ARG001
+    **kwargs,
+):
     r"""
     Plot lines, polygons, and symbols in 2-D.
 
@@ -59,7 +69,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
 
     Must provide either ``data`` or ``x``/``y``.
 
-    If providing data through ``x``/``y``, ``fill`` can be a 1d array that
+    If providing data through ``x``/``y``, ``fill`` can be a 1-D array that
     will be mapped to a colormap.
 
     If a symbol is selected and no symbol size given, then plot will
@@ -78,36 +88,49 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
-        Pass in either a file name to an ASCII data table, a 2D
+    data : str, {table-like}
+        Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
         Use parameter ``incols`` to choose which columns are x, y, fill, and
         size, respectively.
-    x/y : float or 1d arrays
+    x/y : float or 1-D arrays
         The x and y coordinates, or arrays of x and y coordinates of the
         data points
-    size : 1d array
+    size : 1-D array
         The size of the data points in units specified using ``style``.
         Only valid if using ``x``/``y``.
-    direction : list of two 1d arrays
+    symbol : 1-D array
+        The symbols of the data points. Only valid if using ``x``/``y``.
+    direction : list of two 1-D arrays
         If plotting vectors (using ``style="V"`` or ``style="v"``), then
-        should be a list of two 1d arrays with the vector directions. These
+        should be a list of two 1-D arrays with the vector directions. These
         can be angle and length, azimuth and length, or x and y components,
         depending on the style options chosen.
     {projection}
     {region}
-    straight_line : bool or str
-        [**m**\|\ **p**\|\ **x**\|\ **y**].
-        By default, geographic line segments are drawn as great circle
-        arcs. To draw them as straight lines, use
-        ``straight_line=True``.
-        Alternatively, add **m** to draw the line by first following a
-        meridian, then a parallel. Or append **p** to start following a
-        parallel, then a meridian. (This can be practical to draw a line
-        along parallels, for example). For Cartesian data, points are
-        simply connected, unless you append **x** or **y** to draw
-        stair-case curves that whose first move is along *x* or *y*,
-        respectively.
+    straight_line
+        By default, line segments are drawn as straight lines in the Cartesian and polar
+        coordinate systems, and as great circle arcs (by resampling coarse input data
+        along such arcs) in the geographic coordinate system. The ``straight_line``
+        parameter can control the drawing of line segments. Valid values are:
+
+        - ``True``: Draw line segments as straight lines in geographic coordinate
+          systems.
+        - ``"x"``: Draw line segments by first along *x*, then along *y*.
+        - ``"y"``: Draw line segments by first along *y*, then along *x*.
+
+        Here, *x* and *y* have different meanings depending on the coordinate system:
+
+        - **Cartesian** coordinate system: *x* and *y* are the X- and Y-axes.
+        - **Polar** coordinate system: *x* and *y* are theta and radius.
+        - **Geographic** coordinate system: *x* and *y* are parallels and meridians.
+
+        .. attention::
+
+            There exits a bug in GMT<=6.5.0 that, in geographic coordinate systems, the
+            meaning of *x* and *y* is reversed, i.e., *x* means meridians and *y* means
+            parallels. The bug is fixed by upstream
+            `PR #8648 <https://github.com/GenericMappingTools/gmt/pull/8648>`__.
     {frame}
     {cmap}
     offset : str
@@ -121,47 +144,40 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         Draw error bars. Full documentation is at
         :gmt-docs:`plot.html#e`.
     connection : str
-        [**c**\|\ **n**\|\ **r**]\
-        [**a**\|\ **f**\|\ **s**\|\ **r**\|\ *refpoint*].
-        Alter the way points are connected (by specifying a *scheme*) and
-        data are grouped (by specifying a *method*). Append one of three
-        line connection schemes:
+        [**c**\|\ **n**\|\ **p**][**a**\|\ **r**\|\ **s**\|\ **t**\|\ *refpoint*].
+        Alter the way points are connected (by specifying a *scheme*) and data are
+        grouped (by specifying a *method*). Append one of three line connection schemes:
 
-        - **c** : Draw continuous line segments for each group [Default].
-        - **r** : Draw line segments from a reference point reset for each
-          group.
-        - **n** : Draw networks of line segments between all points in
-          each group.
+        - **c**: Draw continuous line segments for each group [Default].
+        - **n**: Draw networks of line segments between all points in each group.
+        - **p**: Draw line segments from a reference point reset for each group.
 
-        Optionally, append the one of four segmentation methods to define
-        the group:
+        Optionally, append the one of four segmentation methods to define the group:
 
-        - **a** : Ignore all segment headers, i.e., let all points belong
-          to a single group, and set group reference point to the very
-          first point of the first file.
-        - **f** : Consider all data in each file to be a single separate
-          group and reset the group reference point to the first point of
-          each group.
-        - **s** : Segment headers are honored so each segment is a group;
-          the group reference point is reset to the first point of each
-          incoming segment [Default].
-        - **r** : Same as **s**, but the group reference point is reset
-          after each record to the previous point (this method is only
-          available with the ``connection="r"`` scheme).
+        - **a**: Ignore all segment headers, i.e., let all points belong to a single
+          group, and set group the reference point to the very first point of the first
+          file.
+        - **r**: Segment headers are honored so each segment is a group; the group
+          reference point is reset after each record to the previous point (this method
+          is only available with the ``connection="p"`` scheme).
+        - **s**: Same as **r**, but the group reference point is reset to the first
+          point of each incoming segment [Default].
+        - **t**: Consider all data in each file to be a single separate group and reset
+          the group reference point to the first point of each group.
 
-        Instead of the codes **a**\|\ **f**\|\ **s**\|\ **r** you may append
-        the coordinates of a *refpoint* which will serve as a fixed external
-        reference point for all groups.
+        Instead of the codes **a**\|\ **r**\|\ **s**\|\ **t** you may append the
+        coordinates of a *refpoint* which will serve as a fixed external reference point
+        for all groups.
     {fill}
-        *fill* can be a 1d array, but it is only valid if using ``x``/``y``
+        *fill* can be a 1-D array, but it is only valid if using ``x``/``y``
         and ``cmap=True`` is also required.
-    intensity : float or bool or 1d array
+    intensity : float, bool, or 1-D array
         Provide an *intensity* value (nominally in the -1 to +1 range) to
         modulate the fill color by simulating illumination. If using
         ``intensity=True``, we will instead read *intensity* from the first
         data column after the symbol parameters (if given). *intensity* can
-        also be a 1d array to set varying intensity for symbols, but it is only
-        valid for ``x``/``y`` pairs.
+        also be a 1-D array to set varying intensity for symbols, but it is
+        only valid for ``x``/``y`` pairs.
     close : str
         [**+b**\|\ **d**\|\ **D**][**+xl**\|\ **r**\|\ *x0*]\
         [**+yl**\|\ **r**\|\ *y0*][**+p**\ *pen*].
@@ -169,8 +185,9 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         :gmt-docs:`plot.html#l`.
     no_clip : bool or str
         [**c**\|\ **r**].
-        Do NOT clip symbols that fall outside map border [Default plots
-        points whose coordinates are strictly inside the map border only].
+        Do **not** clip symbols that fall outside the frame boundaries
+        [Default plots points whose coordinates are strictly inside the
+        frame boundaries only].
         The parameter does not apply to lines and polygons which are always
         clipped to the map region. For periodic (360-longitude) maps we
         must plot all symbols twice in case they are clipped by the
@@ -183,7 +200,6 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         Plot symbols (including vectors, pie slices, fronts, decorated or
         quoted lines).
     {pen}
-    {timestamp}
     {verbose}
     zvalue : str
         *value*\|\ *file*.
@@ -206,63 +222,62 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     {label}
     {perspective}
     {transparency}
-        ``transparency`` can also be a 1d array to set varying
+        ``transparency`` can also be a 1-D array to set varying
         transparency for symbols, but this option is only valid if using
         ``x``/``y``.
     {wrap}
     """
-    # pylint: disable=too-many-locals
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
+    # parameter.
+    kwargs = self._preprocess(**kwargs)
 
-    kind = data_kind(data, x, y)
-
+    kind = data_kind(data)
     extra_arrays = []
-    if kwargs.get("S") is not None and kwargs["S"][0] in "vV" and direction is not None:
-        extra_arrays.extend(direction)
-    elif (
-        kwargs.get("S") is None
-        and kind == "geojson"
-        and data.geom_type.isin(["Point", "MultiPoint"]).all()
-    ):  # checking if the geometry of a geoDataFrame is Point or MultiPoint
-        kwargs["S"] = "s0.2c"
-    elif kwargs.get("S") is None and kind == "file" and str(data).endswith(".gmt"):
-        # checking that the data is a file path to set default style
-        try:
-            with open(which(data), mode="r", encoding="utf8") as file:
-                line = file.readline()
-            if "@GMULTIPOINT" in line or "@GPOINT" in line:
-                # if the file is gmt style and geometry is set to Point
-                kwargs["S"] = "s0.2c"
-        except FileNotFoundError:
-            pass
-    if kwargs.get("G") is not None and is_nonstr_iter(kwargs["G"]):
-        if kind != "vectors":
-            raise GMTInvalidInput(
-                "Can't use arrays for fill if data is matrix or file."
-            )
-        extra_arrays.append(kwargs["G"])
-        del kwargs["G"]
-    if size is not None:
-        if kind != "vectors":
-            raise GMTInvalidInput(
-                "Can't use arrays for 'size' if data is a matrix or file."
-            )
-        extra_arrays.append(size)
+    if kind == "empty":  # Add more columns for vectors input
+        # Parameters for vector styles
+        if (
+            isinstance(kwargs.get("S"), str)
+            and len(kwargs["S"]) >= 1
+            and kwargs["S"][0] in "vV"
+            and is_nonstr_iter(direction)
+        ):
+            extra_arrays.extend(direction)
+        # Fill
+        if is_nonstr_iter(kwargs.get("G")):
+            extra_arrays.append(kwargs.get("G"))
+            del kwargs["G"]
+        # Size
+        if is_nonstr_iter(size):
+            extra_arrays.append(size)
+        # Intensity and transparency
+        for flag in ["I", "t"]:
+            if is_nonstr_iter(kwargs.get(flag)):
+                extra_arrays.append(kwargs.get(flag))
+                kwargs[flag] = ""
+        # Symbol must be at the last column
+        if is_nonstr_iter(symbol):
+            if "S" not in kwargs:
+                kwargs["S"] = True
+            extra_arrays.append(symbol)
+    else:
+        for name, value in [
+            ("direction", direction),
+            ("fill", kwargs.get("G")),
+            ("size", size),
+            ("intensity", kwargs.get("I")),
+            ("transparency", kwargs.get("t")),
+            ("symbol", symbol),
+        ]:
+            if is_nonstr_iter(value):
+                msg = f"'{name}' can't be a 1-D array if 'data' is used."
+                raise GMTInvalidInput(msg)
 
-    for flag in ["I", "t"]:
-        if kwargs.get(flag) is not None and is_nonstr_iter(kwargs[flag]):
-            if kind != "vectors":
-                raise GMTInvalidInput(
-                    f"Can't use arrays for {plot.aliases[flag]} if data is matrix or file."
-                )
-            extra_arrays.append(kwargs[flag])
-            kwargs[flag] = ""
+    # Set the default style if data has a geometry of Point or MultiPoint
+    if kwargs.get("S") is None and _data_geometry_is_point(data, kind):
+        kwargs["S"] = "s0.2c"
 
     with Session() as lib:
-        # Choose how data will be passed in to the module
-        file_context = lib.virtualfile_from_data(
+        with lib.virtualfile_in(
             check_kind="vector", data=data, x=x, y=y, extra_arrays=extra_arrays
-        )
-
-        with file_context as fname:
-            lib.call_module(module="plot", args=build_arg_string(kwargs, infile=fname))
+        ) as vintbl:
+            lib.call_module(module="plot", args=build_arg_list(kwargs, infile=vintbl))

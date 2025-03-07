@@ -1,11 +1,13 @@
 """
-Tests for dimfilter.
+Test pygmt.dimfilter.
 """
+
 from pathlib import Path
 
 import pytest
 import xarray as xr
 from pygmt import dimfilter, load_dataarray
+from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
@@ -32,10 +34,10 @@ def fixture_expected_grid():
             [367.5, 349.0, 385.5, 349.0],
             [435.0, 385.5, 413.5, 481.5],
         ],
-        coords=dict(
-            lon=[-54.5, -53.5, -52.5, -51.5],
-            lat=[-23.5, -22.5, -21.5, -20.5, -19.5],
-        ),
+        coords={
+            "lon": [-54.5, -53.5, -52.5, -51.5],
+            "lat": [-23.5, -22.5, -21.5, -20.5, -19.5],
+        },
         dims=["lat", "lon"],
     )
 
@@ -59,6 +61,7 @@ def test_dimfilter_outgrid(grid, expected_grid):
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
+@pytest.mark.benchmark
 def test_dimfilter_no_outgrid(grid, expected_grid):
     """
     Test the required parameters for dimfilter with no set outgrid.
@@ -67,15 +70,15 @@ def test_dimfilter_no_outgrid(grid, expected_grid):
         grid=grid, filter="m600", distance=4, sectors="l6", region=[-55, -51, -24, -19]
     )
     assert result.dims == ("lat", "lon")
-    assert result.gmt.gtype == 1  # Geographic grid
-    assert result.gmt.registration == 1  # Pixel registration
+    assert result.gmt.gtype == GridType.GEOGRAPHIC
+    assert result.gmt.registration == GridRegistration.PIXEL
     xr.testing.assert_allclose(a=result, b=expected_grid)
 
 
 def test_dimfilter_fails(grid):
     """
-    Check that dimfilter fails correctly when not all of sectors, filters, and
-    distance are specified.
+    Check that dimfilter fails correctly when not all of sectors, filters, and distance
+    are specified.
     """
     with pytest.raises(GMTInvalidInput):
         dimfilter(grid=grid, sectors="l6", distance=4)

@@ -1,10 +1,13 @@
 """
 solar - Plot day-night terminators and twilight.
 """
+
+from typing import Literal
+
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["solar"]
 
@@ -15,7 +18,6 @@ __doctest_skip__ = ["solar"]
     G="fill",
     J="projection",
     R="region",
-    U="timestamp",
     V="verbose",
     W="pen",
     c="panel",
@@ -23,13 +25,17 @@ __doctest_skip__ = ["solar"]
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def solar(self, terminator="d", terminator_datetime=None, **kwargs):
+def solar(
+    self,
+    terminator: Literal["astronomical", "civil", "day_night", "nautical"] = "day_night",
+    terminator_datetime=None,
+    **kwargs,
+):
     r"""
     Plot day-light terminators or twilights.
 
-    This function plots the day-night terminator. Alternatively, it can plot
-    the terminators for civil twilight, nautical twilight, or astronomical
-    twilight.
+    This function plots the day-night terminator. Alternatively, it can plot the
+    terminators for civil twilight, nautical twilight, or astronomical twilight.
 
     Full option list at :gmt-docs:`solar.html`
 
@@ -37,26 +43,27 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
 
     Parameters
     ----------
-    terminator : str
-        Set the type of terminator displayed. Valid arguments are
-        **day_night**, **civil**, **nautical**, and **astronomical**, which
-        can be set with either the full name or the first letter of the name
-        [Default is **day_night**].
+    terminator
+        Set the type of terminator displayed, which can be set with either the full name
+        or the first letter of the name. Available options are:
 
-        Refer to https://en.wikipedia.org/wiki/Twilight for the definitions of
-        different types of twilight.
+        - ``"astronomical"``: Astronomical twilight
+        - ``"civil"``: Civil twilight
+        - ``"day_night"``: Day/night terminator
+        - ``"nautical"``: Nautical twilight
+
+        Refer to https://en.wikipedia.org/wiki/Twilight for the definitions of different
+        types of twilight.
     terminator_datetime : str or datetime object
-        Set the UTC date and time of the displayed terminator
-        [Default is the current UTC date and time]. It can be
-        passed as a string or Python datetime object.
+        Set the UTC date and time of the displayed terminator [Default is the current
+        UTC date and time]. It can be passed as a string or Python datetime object.
     {region}
     {projection}
     {frame}
     fill : str
-        Color or pattern for filling of terminators.
+        Set color or pattern for filling terminators [Default is no fill].
     pen : str
         Set pen attributes for lines [Default is ``"0.25p,black,solid"``].
-    {timestamp}
     {verbose}
     {panel}
     {perspective}
@@ -74,9 +81,7 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     >>> # create a new plot with pygmt.Figure()
     >>> fig = pygmt.Figure()
     >>> # create a map of the Earth with the coast method
-    >>> fig.coast(
-    ...     land="lightgreen", water="lightblue", projection="W10c", region="d"
-    ... )
+    >>> fig.coast(land="darkgreen", water="lightblue", projection="W10c", region="d")
     >>> fig.solar(
     ...     # set the terminator to "day_night"
     ...     terminator="day_night",
@@ -90,26 +95,18 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     >>> # show the plot
     >>> fig.show()
     """
-
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
     if kwargs.get("T") is not None:
-        raise GMTInvalidInput(
-            "Use 'terminator' and 'terminator_datetime' instead of 'T'."
+        msg = "Use 'terminator' and 'terminator_datetime' instead of 'T'."
+        raise GMTInvalidInput(msg)
+
+    valid_terminators = ["day_night", "civil", "nautical", "astronomical"]
+    if terminator not in valid_terminators and terminator not in "dcna":
+        msg = (
+            f"Unrecognized solar terminator type '{terminator}'. "
+            f"Valid values are {valid_terminators}."
         )
-    if terminator not in [
-        "day_night",
-        "civil",
-        "nautical",
-        "astronomical",
-        "d",
-        "c",
-        "n",
-        "a",
-    ]:
-        raise GMTInvalidInput(
-            f"Unrecognized solar terminator type '{terminator}'. Valid values "
-            "are 'day_night', 'civil', 'nautical', and 'astronomical'."
-        )
+        raise GMTInvalidInput(msg)
     kwargs["T"] = terminator[0]
     if terminator_datetime:
         try:
@@ -117,7 +114,8 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
                 "%Y-%m-%dT%H:%M:%S.%f"
             )
         except ValueError as verr:
-            raise GMTInvalidInput("Unrecognized datetime format.") from verr
+            msg = "Unrecognized datetime format."
+            raise GMTInvalidInput(msg) from verr
         kwargs["T"] += f"+d{datetime_string}"
     with Session() as lib:
-        lib.call_module(module="solar", args=build_arg_string(kwargs))
+        lib.call_module(module="solar", args=build_arg_list(kwargs))

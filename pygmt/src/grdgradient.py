@@ -2,17 +2,16 @@
 grdgradient - Compute directional gradients from a grid.
 """
 
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    GMTTempFile,
     args_in_kwargs,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.io import load_dataarray
 
 __doctest_skip__ = ["grdgradient"]
 
@@ -22,7 +21,6 @@ __doctest_skip__ = ["grdgradient"]
     A="azimuth",
     D="direction",
     E="radiance",
-    G="outgrid",
     N="normalize",
     Q="tiles",
     R="region",
@@ -32,7 +30,7 @@ __doctest_skip__ = ["grdgradient"]
     n="interpolation",
 )
 @kwargs_to_strings(A="sequence", E="sequence", R="sequence")
-def grdgradient(grid, **kwargs):
+def grdgradient(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
     Compute the directional derivative of the vector gradient of the data.
 
@@ -45,12 +43,9 @@ def grdgradient(grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
-    azimuth : int or float or str or list
+    {grid}
+    {outgrid}
+    azimuth : float, str, or list
         *azim*\ [/*azim2*].
         Azimuthal direction for a directional derivative; *azim* is the
         angle in the x,y plane measured in degrees positive clockwise from
@@ -74,11 +69,11 @@ def grdgradient(grid, **kwargs):
         Find the direction of the positive (up-slope) gradient of the data.
         The following options are supported:
 
-        - **a** - Find the aspect (i.e., the down-slope direction)
-        - **c** - Use the conventional Cartesian angles measured
+        - **a**: Find the aspect (i.e., the down-slope direction)
+        - **c**: Use the conventional Cartesian angles measured
           counterclockwise from the positive x (east) direction.
-        - **o** - Report orientations (0-180) rather than directions (0-360).
-        - **n** - Add 90 degrees to all angles (e.g., to give local strikes of
+        - **o**: Report orientations (0-180) rather than directions (0-360).
+        - **n**: Add 90 degrees to all angles (e.g., to give local strikes of
           the surface).
     radiance : str or list
         [**m**\|\ **s**\|\ **p**]\ *azim/elev*\ [**+a**\ *ambient*][**+d**\
@@ -107,14 +102,14 @@ def grdgradient(grid, **kwargs):
         given, it is set to the average of :math:`g`. The following forms are
         supported:
 
-        - **True** - Normalize using :math:`g_n = \mbox{{amp}}\
+        - **True**: Normalize using :math:`g_n = \mbox{{amp}}\
           (\frac{{g - \mbox{{offset}}}}{{max(|g - \mbox{{offset}}|)}})`
-        - **e** - Normalize using a cumulative Laplace distribution yielding:
+        - **e**: Normalize using a cumulative Laplace distribution yielding:
           :math:`g_n = \mbox{{amp}}(1 - \
           \exp{{(\sqrt{{2}}\frac{{g - \mbox{{offset}}}}{{\sigma}}))}}`, where
           :math:`\sigma` is estimated using the L1 norm of
           :math:`(g - \mbox{{offset}})` if it is not given.
-        - **t** - Normalize using a cumulative Cauchy distribution yielding:
+        - **t**: Normalize using a cumulative Cauchy distribution yielding:
           :math:`g_n = \
           \frac{{2(\mbox{{amp}})}}{{\pi}}(\tan^{{-1}}(\frac{{g - \
           \mbox{{offset}}}}{{\sigma}}))` where :math:`\sigma` is estimated
@@ -125,15 +120,15 @@ def grdgradient(grid, **kwargs):
         all nodes after gradient calculations are completed.
     tiles : str
         **c**\|\ **r**\|\ **R**.
-        Controls how normalization via ``normalize`` is carried out.  When
-        multiple  grids should be normalized the same way (i.e., with the same
-        *offset*  and/or *sigma*),
-        we must pass these values via ``normalize``.  However, this is
-        inconvenient if we compute these values from a grid.  Use **c** to
-        save  the results  of *offset* and *sigma* to a statistics file; if
-        grid output is not  needed for this run then do not specify
-        ``outgrid``. For  subsequent runs,  just use **r** to read these
-        values.  Using **R**  will read then delete the statistics file.
+        Control how normalization via ``normalize`` is carried out. When
+        multiple grids should be normalized the same way (i.e., with the same
+        *offset* and/or *sigma*),
+        we must pass these values via ``normalize``. However, this is
+        inconvenient if we compute these values from a grid. Use **c** to
+        save the results of *offset* and *sigma* to a statistics file; if
+        grid output is not needed for this run then do not specify
+        ``outgrid``. For subsequent runs, just use **r** to read these
+        values. Using **R** will read then delete the statistics file.
     {region}
     slope_file : str
         Name of output grid file with scalar magnitudes of gradient vectors.
@@ -144,40 +139,41 @@ def grdgradient(grid, **kwargs):
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
 
     Example
     -------
     >>> import pygmt
-    >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
-    >>> # and a y-range of 15 to 25
+    >>> # Load a grid of @earth_relief_30m data, with a longitude range of
+    >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[10, 30, 15, 25]
     ... )
     >>> # Create a new grid from an input grid, set the azimuth to 10 degrees,
     >>> new_grid = pygmt.grdgradient(grid=grid, azimuth=10)
     """
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        if kwargs.get("Q") is not None and kwargs.get("N") is None:
-            raise GMTInvalidInput("""Must specify normalize if tiles is specified.""")
-        if not args_in_kwargs(args=["A", "D", "E"], kwargs=kwargs):
-            raise GMTInvalidInput(
-                """At least one of the following parameters must be specified:
-                azimuth, direction, or radiance"""
+    if kwargs.get("Q") is not None and kwargs.get("N") is None:
+        msg = "Must specify normalize if tiles is specified."
+        raise GMTInvalidInput(msg)
+    if not args_in_kwargs(args=["A", "D", "E"], kwargs=kwargs):
+        msg = (
+            "At least one of the following parameters must be specified: "
+            "azimuth, direction, or radiance."
+        )
+        raise GMTInvalidInput(msg)
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            kwargs["G"] = voutgrd
+            lib.call_module(
+                module="grdgradient", args=build_arg_list(kwargs, infile=vingrd)
             )
-        with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-            with file_context as infile:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="grdgradient", args=build_arg_string(kwargs, infile=infile)
-                )
-
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

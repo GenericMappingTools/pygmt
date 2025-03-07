@@ -12,6 +12,26 @@ to submit a pull request with your recommended addition to the
 
 :::::{grid} 1 2 2 3
 
+::::{grid-item-card} 2024 AGU PREWS9: Mastering Geospatial Visualizations with GMT/PyGMT
+:link: https://www.generic-mapping-tools.org/agu24workshop/
+:text-align: center
+:margin: 0 3 0 0
+
+![](https://github.com/user-attachments/assets/9f3ab0ed-83f1-4cff-bc68-387fc13ca61f)
++++
+Wei Ji Leong, Yvonne Fröhlich, Jing-Hui Tong, Federico Esteban, Max Jones, Andre Belem
+::::
+
+::::{grid-item-card} 2024 PyGMT Webinar using Google Colab (in Portuguese)
+:link: https://github.com/andrebelem/Oficina_PyGMT
+:text-align: center
+:margin: 0 3 0 0
+
+![](https://github.com/andrebelem/Oficina_PyGMT/raw/main/Datasets/3D_sample.png)
++++
+Andre Belem
+::::
+
 ::::{grid-item-card} 2022 EGU SC5.2: Crafting beautiful maps with PyGMT
 :link: https://www.generic-mapping-tools.org/egu22pygmt/
 :text-align: center
@@ -91,6 +111,17 @@ Andre Belem
 +++
 Andre Belem
 ::::
+
+::::{grid-item-card} PyGMT-HOWTO
+:link: https://tktmyd.github.io/pygmt-howto-jp/pygmt
+:text-align: center
+:margin: 0 3 0 0
+
+![](https://github.com/tktmyd/pygmt-howto-jp/raw/main/docs/_images/915fa767426edefb4ec413f6094bafcfe1f3f1410b1d53073a29d2ffe9f8e6c9.png)
++++
+Takuto Maeda
+::::
+
 :::::
 
 ## Examples from Publications and Posters
@@ -115,6 +146,16 @@ Michael Grund
 ![](https://user-images.githubusercontent.com/23487320/107176140-6aa4e580-6a33-11eb-8f30-1a7913788d6c.png)
 +++
 Wei Ji Leong
+::::
+
+::::{grid-item-card} PyGMT plotting examples
+:link: https://github.com/yvonnefroehlich/gmt-pygmt-plotting
+:text-align: center
+:margin: 0 3 0 0
+
+![](https://github.com/yvonnefroehlich/gmt-pygmt-plotting/raw/main/_images/github_maps_readme_main.png)
++++
+Yvonne Fröhlich
 ::::
 
 :::::

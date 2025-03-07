@@ -1,26 +1,24 @@
 """
-Tests for grdfill.
+Test pygmt.grdfill.
 """
+
 from pathlib import Path
 
 import numpy as np
 import pytest
 import xarray as xr
-from packaging.version import Version
-from pygmt import clib, grdfill, load_dataarray
+from pygmt import grdfill, load_dataarray
+from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
-
-with clib.Session() as _lib:
-    gmt_version = Version(_lib.info["version"])
 
 
 @pytest.fixture(scope="module", name="grid")
 def fixture_grid():
     """
-    Load the grid data from the static_earth_relief file and set value(s) to
-    NaN and inf.
+    Load the grid data from the static_earth_relief file and set value(s) to NaN and
+    inf.
     """
     grid = load_static_earth_relief()
     grid[3:6, 3:5] = np.nan
@@ -50,9 +48,9 @@ def fixture_expected_grid():
             [349.0, 313.0, 325.5, 247.0, 191.0, 225.0, 260.0, 452.5],
             [347.5, 331.5, 309.0, 282.0, 190.0, 208.0, 299.5, 348.0],
         ],
-        coords=dict(
-            lon=[-54.5, -53.5, -52.5, -51.5, -50.5, -49.5, -48.5, -47.5],
-            lat=[
+        coords={
+            "lon": [-54.5, -53.5, -52.5, -51.5, -50.5, -49.5, -48.5, -47.5],
+            "lat": [
                 -23.5,
                 -22.5,
                 -21.5,
@@ -68,11 +66,12 @@ def fixture_expected_grid():
                 -11.5,
                 -10.5,
             ],
-        ),
+        },
         dims=["lat", "lon"],
     )
 
 
+@pytest.mark.benchmark
 def test_grdfill_dataarray_out(grid, expected_grid):
     """
     Test grdfill with a DataArray output.
@@ -80,28 +79,23 @@ def test_grdfill_dataarray_out(grid, expected_grid):
     result = grdfill(grid=grid, mode="c20")
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
-    assert result.gmt.gtype == 1  # Geographic grid
-    assert result.gmt.registration == 1  # Pixel registration
+    assert result.gmt.gtype == GridType.GEOGRAPHIC
+    assert result.gmt.registration == GridRegistration.PIXEL
     # check information of the output grid
     xr.testing.assert_allclose(a=result, b=expected_grid)
 
 
-@pytest.mark.skipif(
-    gmt_version < Version("6.4.0"),
-    reason="Upstream bug/crash fixed in https://github.com/GenericMappingTools/gmt/pull/6418.",
-)
 def test_grdfill_asymmetric_pad(grid, expected_grid):
     """
     Test grdfill using a region that includes the edge of the grid.
 
-    Regression test for
-    https://github.com/GenericMappingTools/pygmt/issues/1745.
+    Regression test for https://github.com/GenericMappingTools/pygmt/issues/1745.
     """
     result = grdfill(grid=grid, mode="c20", region=[-55, -50, -24, -16])
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
-    assert result.gmt.gtype == 1  # Geographic grid
-    assert result.gmt.registration == 1  # Pixel registration
+    assert result.gmt.gtype == GridType.GEOGRAPHIC
+    assert result.gmt.registration == GridRegistration.PIXEL
     # check information of the output grid
     xr.testing.assert_allclose(
         a=result, b=expected_grid.sel(lon=slice(-55, -50), lat=slice(-24, -16))

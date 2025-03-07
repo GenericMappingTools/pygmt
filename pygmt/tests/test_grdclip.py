@@ -1,11 +1,13 @@
 """
-Tests for grdclip.
+Test pygmt.grdclip.
 """
+
 from pathlib import Path
 
 import pytest
 import xarray as xr
 from pygmt import grdclip, load_dataarray
+from pygmt.enums import GridRegistration, GridType
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -29,7 +31,7 @@ def fixture_expected_grid():
             [1000.0, 1000.0, 571.5, 638.5],
             [555.5, 556.0, 580.0, 1000.0],
         ],
-        coords=dict(lon=[-52.5, -51.5, -50.5, -49.5], lat=[-18.5, -17.5, -16.5]),
+        coords={"lon": [-52.5, -51.5, -50.5, -49.5], "lat": [-18.5, -17.5, -16.5]},
         dims=["lat", "lon"],
     )
 
@@ -50,11 +52,12 @@ def test_grdclip_outgrid(grid, expected_grid):
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
         temp_grid = load_dataarray(tmpfile.name)
         assert temp_grid.dims == ("lat", "lon")
-        assert temp_grid.gmt.gtype == 1  # Geographic grid
-        assert temp_grid.gmt.registration == 1  # Pixel registration
+        assert temp_grid.gmt.gtype == GridType.GEOGRAPHIC
+        assert temp_grid.gmt.registration == GridRegistration.PIXEL
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
+@pytest.mark.benchmark
 def test_grdclip_no_outgrid(grid, expected_grid):
     """
     Test the below and above parameters for grdclip with no set outgrid.
@@ -63,6 +66,6 @@ def test_grdclip_no_outgrid(grid, expected_grid):
         grid=grid, below=[550, -1000], above=[700, 1000], region=[-53, -49, -19, -16]
     )
     assert temp_grid.dims == ("lat", "lon")
-    assert temp_grid.gmt.gtype == 1  # Geographic grid
-    assert temp_grid.gmt.registration == 1  # Pixel registration
+    assert temp_grid.gmt.gtype == GridType.GEOGRAPHIC
+    assert temp_grid.gmt.registration == GridRegistration.PIXEL
     xr.testing.assert_allclose(a=temp_grid, b=expected_grid)

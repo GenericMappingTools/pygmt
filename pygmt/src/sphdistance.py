@@ -2,16 +2,11 @@
 sphdistance - Create Voronoi distance, node,
 or natural nearest-neighbor grid on a sphere
 """
+
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["sphdistance"]
 
@@ -21,7 +16,6 @@ __doctest_skip__ = ["sphdistance"]
     C="single_form",
     D="duplicate",
     E="quantity",
-    G="outgrid",
     I="spacing",
     L="unit",
     N="node_table",
@@ -30,10 +24,11 @@ __doctest_skip__ = ["sphdistance"]
     V="verbose",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def sphdistance(data=None, x=None, y=None, **kwargs):
+def sphdistance(
+    data=None, x=None, y=None, outgrid: str | None = None, **kwargs
+) -> xr.DataArray | None:
     r"""
-    Create Voronoi distance, node, or natural nearest-neighbor grid on a
-    sphere.
+    Create Voronoi distance, node, or natural nearest-neighbor grid on a sphere.
 
     Reads a table containing *lon, lat* columns and performs
     the construction of Voronoi polygons. These polygons are
@@ -46,15 +41,13 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         Pass in (x, y) or (longitude, latitude) values by
-        providing a file name to an ASCII data table, a 2D
+        providing a file name to an ASCII data table, a 2-D
         {table-classes}.
-    x/y : 1d arrays
+    x/y : 1-D arrays
         Arrays of x and y coordinates.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {outgrid}
     {spacing}
     {region}
     {verbose}
@@ -72,18 +65,18 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
         Specify the quantity that should be assigned to the grid nodes [Default
         is **d**]:
 
-        - **d** - compute distances to the nearest data point
-        - **n** - assign the ID numbers of the Voronoi polygons that each
+        - **d**: compute distances to the nearest data point
+        - **n**: assign the ID numbers of the Voronoi polygons that each
           grid node is inside
-        - **z** - assign all nodes inside the polygon the z-value of the center
+        - **z**: assign all nodes inside the polygon the z-value of the center
           node for a natural nearest-neighbor grid.
 
         Optionally, append the resampling interval along Voronoi arcs in
         spherical degrees.
     unit : str
         Specify the unit used for distance calculations. Choose among **d**
-        (spherical degree), **e** (m), **f** (feet), **k** (km), **M**
-        (mile), **n** (nautical mile) or **u** survey foot.
+        (spherical degrees), **e** (meters), **f** (feet), **k** (kilometers),
+        **M** (miles), **n** (nautical miles), or **u** (survey feet).
     node_table : str
         Read the information pertaining to each Voronoi
         polygon (the unique node lon, lat and polygon area) from a separate
@@ -93,9 +86,10 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
     voronoi : str
         Append the name of a file with pre-calculated Voronoi polygons
         [Default performs the Voronoi construction on input data].
+
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
@@ -116,17 +110,15 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
     ... )
     """
     if kwargs.get("I") is None or kwargs.get("R") is None:
-        raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            file_context = lib.virtualfile_from_data(
-                check_kind="vector", data=data, x=x, y=y
+        msg = "Both 'region' and 'spacing' must be specified."
+        raise GMTInvalidInput(msg)
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="vector", data=data, x=x, y=y) as vintbl,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            kwargs["G"] = voutgrd
+            lib.call_module(
+                module="sphdistance", args=build_arg_list(kwargs, infile=vintbl)
             )
-            with file_context as infile:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="sphdistance", args=build_arg_string(kwargs, infile=infile)
-                )
-
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

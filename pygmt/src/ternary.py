@@ -1,8 +1,11 @@
 """
 ternary - Plot data on ternary diagrams.
 """
-from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+
+import pandas as pd
+from packaging.version import Version
+from pygmt.clib import Session, __gmt_version__
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
@@ -13,7 +16,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     JX="width",
     R="region",
     S="style",
-    U="timestamp",
     V="verbose",
     W="pen",
     c="panel",
@@ -21,8 +23,17 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
+def ternary(
+    self,
+    data,
+    alabel: str | None = None,
+    blabel: str | None = None,
+    clabel: str | None = None,
+    **kwargs,
+):
     r"""
+    Plot ternary diagrams.
+
     Reads (*a*,\ *b*,\ *c*\ [,\ *z*]) records from *data* and plots symbols at
     those locations on a ternary diagram. If a symbol is selected and no symbol
     size given, then we will interpret the fourth column of the input data as
@@ -37,8 +48,8 @@ def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
 
     Parameters
     ----------
-    data : str or list or {table-like}
-        Pass in either a file name to an ASCII data table, a Python list, a 2D
+    data : str, list, {table-like}
+        Pass in either a file name to an ASCII data table, a Python list, a 2-D
         {table-classes}.
     width : str
         Set the width of the figure by passing a number, followed by
@@ -52,36 +63,38 @@ def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
         and **c**.
     {cmap}
     {fill}
-    alabel : str
-        Set the label for the *a* vertex where the component is 100%. The
-        label is placed at a distance of three times the
-        :gmt-term:`MAP_LABEL_OFFSET` setting from the corner.
-    blabel : str
-        Set the label for the *b* vertex where the component is 100%.
-    clabel : str
-        Set the label for the *c* vertex where the component is 100%.
+    alabel
+        Set the label for the *a* vertex where the component is 100%. The label is
+        placed at a distance of three times the :gmt-term:`MAP_LABEL_OFFSET` setting
+        from the corner.
+    blabel
+        Same as ``alabel`` but for the *b* vertex.
+    clabel
+        Same as ``alabel`` but for the *c* vertex.
     style : str
         *symbol*\[\ *size*].
         Plot individual symbols in a ternary diagram.
     {pen}
-    {timestamp}
     {verbose}
     {panel}
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
-    if alabel or blabel or clabel:
-        alabel = str(alabel) if alabel is not None else "-"
-        blabel = str(blabel) if blabel is not None else "-"
-        clabel = str(clabel) if clabel is not None else "-"
-        kwargs["L"] = "/".join([alabel, blabel, clabel])
+    # -Lalabel/blabel/clabel. '-' means skipping the label.
+    labels = (alabel, blabel, clabel)
+    if any(v is not None for v in labels):
+        kwargs["L"] = "/".join(str(v) if v is not None else "-" for v in labels)
+
+    # TODO(GMT>=6.5.0): Remove the patch for upstream bug fixed in GMT 6.5.0.
+    # See https://github.com/GenericMappingTools/pygmt/pull/2138
+    if Version(__gmt_version__) < Version("6.5.0") and isinstance(data, pd.DataFrame):
+        data = data.to_numpy()
 
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
-        with file_context as infile:
+        with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
             lib.call_module(
                 module="ternary",
-                args=build_arg_string(kwargs, infile=infile),
+                args=build_arg_list(kwargs, infile=vintbl),
             )

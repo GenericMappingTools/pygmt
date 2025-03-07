@@ -1,4 +1,5 @@
 outs:
-- md5: bddfcb0522ac241902adfafb24af1dd3
-  size: 1998
+- md5: 34a424220e49e9e36463587755acc7fa
+  size: 1964
   path: test_text_fill.png
+  hash: md5

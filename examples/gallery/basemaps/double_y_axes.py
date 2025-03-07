@@ -1,11 +1,11 @@
 """
-Double Y axes graph
--------------------
+Double Y-axes graph
+===================
 
 The ``frame`` parameter of the plotting methods of the :class:`pygmt.Figure`
 class can control which axes should be plotted and optionally show annotations,
 tick marks, and gridlines. By default, all 4 axes are plotted, along with
-annotations and tick marks (denoted **W**, **S**, **E**, **N**). Lower case
+annotations and tick marks (denoted **W**, **S**, **E**, **N**). Lowercase
 versions (**w**, **s**, **e**, **n**) can be used to denote to only plot the
 axes with tick marks. We can also only plot the axes without annotations and
 tick marks using **l** (left axis), **r** (right axis), **t** (top axis),
@@ -17,6 +17,7 @@ maps separately. The base maps should share the same projection parameter and
 x-axis limits, but different y-axis limits.
 """
 
+# %%
 import numpy as np
 import pygmt
 
@@ -62,7 +63,8 @@ fig.plot(x=x, y=y2, pen="1p,red")
 # Plot points for y2 data
 fig.plot(x=x, y=y2, style="s0.28c", fill="red", label="y2")
 
-# Create a legend in the top-left corner of the plot
+# Create a legend in the Top Left (TL) corner of the plot with an
+# offset of 0.1 centimeters
 fig.legend(position="jTL+o0.1c", box=True)
 
 fig.show()

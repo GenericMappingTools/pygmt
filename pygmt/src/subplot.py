@@ -1,14 +1,14 @@
 """
 subplot - Manage modern mode figure subplot configuration and selection.
 """
+
 import contextlib
 
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
-    is_nonstr_iter,
     kwargs_to_strings,
     use_alias,
 )
@@ -51,10 +51,10 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         Number of vertical rows of the subplot grid.
     ncols : int
         Number of horizontal columns of the subplot grid.
-    figsize : tuple
-        Specify the final figure dimensions as (*width*, *height*).
-    subsize : tuple
-        Specify the dimensions of each subplot directly as (*width*, *height*).
+    figsize : list
+        Specify the final figure dimensions as [*width*, *height*].
+    subsize : list
+        Specify the dimensions of each subplot directly as [*width*, *height*].
         Note that only one of ``figsize`` or ``subsize`` can be provided at
         once.
 
@@ -145,28 +145,37 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         [no heading]. Font is determined by setting :gmt-term:`FONT_HEADING`.
     {verbose}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     if nrows < 1 or ncols < 1:
-        raise GMTInvalidInput("Please ensure that both 'nrows'>=1 and 'ncols'>=1.")
+        msg = "Please ensure that both 'nrows'>=1 and 'ncols'>=1."
+        raise GMTInvalidInput(msg)
     if kwargs.get("Ff") and kwargs.get("Fs"):
-        raise GMTInvalidInput(
-            "Please provide either one of 'figsize' or 'subsize' only."
-        )
+        msg = "Please provide either one of 'figsize' or 'subsize' only."
+        raise GMTInvalidInput(msg)
 
-    with Session() as lib:
-        try:
-            arg_str = " ".join(["begin", f"{nrows}x{ncols}", build_arg_string(kwargs)])
-            lib.call_module(module="subplot", args=arg_str)
+    # Need to use separate sessions for "subplot begin" and "subplot end".
+    # Otherwise, "subplot end" will use the last session, which may cause
+    # strange positioning issues for later plotting calls.
+    # See https://github.com/GenericMappingTools/pygmt/issues/2426.
+    try:
+        with Session() as lib:
+            lib.call_module(
+                module="subplot",
+                args=["begin", f"{nrows}x{ncols}", *build_arg_list(kwargs)],
+            )
             yield
-        finally:
-            v_arg = build_arg_string({"V": kwargs.get("V")})
-            lib.call_module(module="subplot", args=f"end {v_arg}")
+    finally:
+        with Session() as lib:
+            lib.call_module(
+                module="subplot", args=["end", *build_arg_list({"V": kwargs.get("V")})]
+            )
 
 
 @fmt_docstring
 @contextlib.contextmanager
 @use_alias(A="fixedlabel", C="clearance", V="verbose")
+@kwargs_to_strings(panel="sequence_comma")
 def set_panel(self, panel=None, **kwargs):
     r"""
     Set the current subplot panel to plot on.
@@ -215,11 +224,10 @@ def set_panel(self, panel=None, **kwargs):
 
     {verbose}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-    # convert tuple or list to comma-separated str
-    panel = ",".join(map(str, panel)) if is_nonstr_iter(panel) else panel
+    kwargs = self._preprocess(**kwargs)
 
     with Session() as lib:
-        arg_str = " ".join(["set", f"{panel}", build_arg_string(kwargs)])
-        lib.call_module(module="subplot", args=arg_str)
+        lib.call_module(
+            module="subplot", args=["set", str(panel), *build_arg_list(kwargs)]
+        )
         yield

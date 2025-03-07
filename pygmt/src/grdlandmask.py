@@ -1,16 +1,11 @@
 """
 grdlandmask - Create a "wet-dry" mask grid from shoreline data base
 """
+
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["grdlandmask"]
 
@@ -20,15 +15,15 @@ __doctest_skip__ = ["grdlandmask"]
     A="area_thresh",
     D="resolution",
     E="bordervalues",
-    G="outgrid",
     I="spacing",
     N="maskvalues",
     R="region",
     V="verbose",
     r="registration",
+    x="cores",
 )
 @kwargs_to_strings(I="sequence", R="sequence", N="sequence", E="sequence")
-def grdlandmask(**kwargs):
+def grdlandmask(outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
     Create a grid file with set values for land and water.
 
@@ -45,14 +40,12 @@ def grdlandmask(**kwargs):
 
     Parameters
     ----------
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {outgrid}
     {spacing}
     {region}
     {area_thresh}
     resolution : str
-        *res*\[\ **+f**\]. Selects the resolution of the data set to use
+        *res*\[\ **+f**\]. Select the resolution of the data set to use
         ((**f**)ull, (**h**)igh, (**i**)ntermediate, (**l**)ow, or
         (**c**)rude). The resolution drops off by ~80% between data sets.
         [Default is **l**]. Append **+f** to automatically select a lower
@@ -62,7 +55,7 @@ def grdlandmask(**kwargs):
         the coastlines differ in details a node in a mask file using one
         resolution is not guaranteed to remain inside [or outside] when a
         different resolution is selected.
-    bordervalues : bool or str or float or list
+    bordervalues : bool, str, float, or list
         Nodes that fall exactly on a polygon boundary should be
         considered to be outside the polygon [Default considers them to be
         inside]. Alternatively, append either a list of four values
@@ -77,37 +70,37 @@ def grdlandmask(**kwargs):
         ponds-in-islands-in-lakes outlines [Default is no line tracing].
     maskvalues : str or list
         [*wet*, *dry*] or [*ocean*, *land*, *lake*, *island*, *pond*].
-        Sets the values that will be assigned to nodes. Values can
+        Set the values that will be assigned to nodes. Values can
         be any number, including the textstring NaN
         [Default is [0, 1, 0, 1, 0] (i.e., [0, 1])]. Also select
         ``bordervalues`` to let nodes exactly on feature boundaries be
         considered outside [Default is inside].
     {verbose}
     {registration}
+    {cores}
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
     Example
     -------
     >>> import pygmt
-    >>> # Create a landmask grid with an x-range of 125 to 130,
-    >>> # and a y-range of 30 to 35
+    >>> # Create a landmask grid with a longitude range of 125° E to 130° E, a
+    >>> # latitude range of 30° N to 35° N, and a grid spacing of 1 arc-degree
     >>> landmask = pygmt.grdlandmask(spacing=1, region=[125, 130, 30, 35])
     """
     if kwargs.get("I") is None or kwargs.get("R") is None:
-        raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
+        msg = "Both 'region' and 'spacing' must be specified."
+        raise GMTInvalidInput(msg)
 
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            if (outgrid := kwargs.get("G")) is None:
-                kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-            lib.call_module(module="grdlandmask", args=build_arg_string(kwargs))
-
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+    with Session() as lib:
+        with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
+            kwargs["G"] = voutgrd
+            lib.call_module(module="grdlandmask", args=build_arg_list(kwargs))
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

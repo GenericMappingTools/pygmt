@@ -4,6 +4,16 @@
 
 .. autoclass:: {{ objname }}
 
+{% if attributes %}
+.. rubric:: Attributes
+
+{% for item in attributes %}
+.. autoproperty::
+    {{ objname }}.{{ item }}
+{% endfor %}
+{% endif %}
+
+{% if methods != ["__init__"] %}
 .. rubric:: Methods Summary
 
 .. autosummary::
@@ -12,10 +22,11 @@
     {{ objname }}.{{ item }}
     {% endif %}
     {% endfor %}
+{% endif %}
 
-.. include:: backreferences/{{ fullname }}.examples
+.. minigallery:: {{ fullname }}
+    :add-heading:
 
 .. raw:: html
 
      <div style='clear:both'></div>
-

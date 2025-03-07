@@ -2,10 +2,11 @@
 grdcut - Extract subregion from a grid.
 """
 
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -27,7 +28,7 @@ __doctest_skip__ = ["grdcut"]
     f="coltypes",
 )
 @kwargs_to_strings(R="sequence")
-def grdcut(grid, **kwargs):
+def grdcut(grid, **kwargs) -> xr.DataArray | None:
     r"""
     Extract subregion from a grid.
 
@@ -46,14 +47,11 @@ def grdcut(grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {grid}
+    {outgrid}
     {projection}
     {region}
-    extend : bool or int or float
+    extend : bool or float
         Allow grid to be extended if new ``region`` exceeds existing
         boundaries. Give a value to initialize nodes outside current region.
     circ_subregion : str
@@ -83,33 +81,32 @@ def grdcut(grid, **kwargs):
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
     Example
     -------
     >>> import pygmt
-    >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
-    >>> # and a y-range of 15 to 25
+    >>> # Load a grid of @earth_relief_30m data, with a longitude range of
+    >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[10, 30, 15, 25]
     ... )
-    >>> # Create a new grid from an input grid, with an x-range of 12 to 15,
-    >>> # and a y-range of 21 to 24
+    >>> # Create a new grid from an input grid, with a longitude range of
+    >>> # 12° E to 15° E and a latitude range of 21° N to 24° N
     >>> new_grid = pygmt.grdcut(grid=grid, region=[12, 15, 21, 24])
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-            with file_context as infile:
+            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
                 lib.call_module(
-                    module="grdcut", args=build_arg_string(kwargs, infile=infile)
+                    module="grdcut", args=build_arg_list(kwargs, infile=vingrd)
                 )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

@@ -1,6 +1,7 @@
 """
-Tests for xyz2grd.
+Test pygmt.xyz2grd.
 """
+
 from pathlib import Path
 
 import numpy as np
@@ -8,6 +9,7 @@ import pytest
 import xarray as xr
 from pygmt import load_dataarray, xyz2grd
 from pygmt.datasets import load_sample_data
+from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
@@ -31,14 +33,15 @@ def fixture_expected_grid():
             [-2546.2512, -1977.8754, -963.23303],
             [-352.3795, -1025.4508, np.nan],
         ],
-        coords=dict(
-            x=[245.0, 250.0, 255.0],
-            y=[20.0, 25.0, 30.0],
-        ),
+        coords={
+            "x": [245.0, 250.0, 255.0],
+            "y": [20.0, 25.0, 30.0],
+        },
         dims=["y", "x"],
     )
 
 
+@pytest.mark.benchmark
 @pytest.mark.parametrize("array_func", [np.array, xr.Dataset])
 def test_xyz2grd_input_array(array_func, ship_data, expected_grid):
     """
@@ -46,8 +49,8 @@ def test_xyz2grd_input_array(array_func, ship_data, expected_grid):
     """
     output = xyz2grd(data=array_func(ship_data), spacing=5, region=[245, 255, 20, 30])
     assert isinstance(output, xr.DataArray)
-    assert output.gmt.registration == 0  # Gridline registration
-    assert output.gmt.gtype == 0  # Cartesian type
+    assert output.gmt.registration == GridRegistration.GRIDLINE
+    assert output.gmt.gtype == GridType.CARTESIAN
     xr.testing.assert_allclose(a=output, b=expected_grid)
 
 

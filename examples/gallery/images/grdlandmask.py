@@ -1,11 +1,12 @@
 """
 Create 'wet-dry' mask grid
---------------------------
-The :func:`pygmt.grdlandmask` function allows setting
-all nodes on land or water to a specified value using
-the ``maskvalues`` parameter.
+==========================
+
+The :func:`pygmt.grdlandmask` function allows setting all nodes on land
+or water to a specified value using the ``maskvalues`` parameter.
 """
 
+# %%
 import pygmt
 
 fig = pygmt.Figure()

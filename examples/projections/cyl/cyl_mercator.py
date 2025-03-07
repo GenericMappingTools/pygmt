@@ -1,6 +1,6 @@
 r"""
-Mercator
-========
+Mercator projection
+===================
 
 The Mercator projection takes its name from the Flemish cartographer Gheert
 Cremer, better known as Gerardus Mercator, who presented it in 1569. The
@@ -13,14 +13,22 @@ course for the entire voyage. The Mercator projection has been used extensively
 for world maps in which the distortion towards the polar regions grows
 rather large.
 
-**m**\ [*lon0[/lat0]*]\ */scale* or **M**\ [*lon0*][*/lat0*]\ */width*
+**m**\ [*lon0*/\ [*lat0*/]]\ *scale* or **M**\ [*lon0*/\ [*lat0*/]]\ *width*
 
 The projection is set with **m** or **M**. The central meridian is set with the
 optional *lon0* and the standard parallel is set with the optional *lat0*.
 The figure size is set with *scale* or *width*.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()
-fig.coast(region=[0, 360, -80, 80], frame="afg", land="red", projection="M0/0/12c")
+fig.coast(
+    region=[0, 360, -80, 80],
+    projection="M0/0/12c",
+    frame="afg",
+    land="gray80",
+    water="steelblue",
+)
 fig.show()
