@@ -101,13 +101,13 @@ def load_earth_free_air_anomaly(
     --------
 
     >>> from pygmt.datasets import load_earth_free_air_anomaly
-    >>> # load the default grid (gridline-registered 1 arc-degree grid)
+    >>> # Load the default grid (gridline-registered 1 arc-degree grid)
     >>> grid = load_earth_free_air_anomaly()
-    >>> # load the uncertainties related to the default grid
+    >>> # Load the uncertainties related to the default grid
     >>> grid = load_earth_free_air_anomaly(uncertainty=True)
-    >>> # load the 30 arc-minutes grid with "gridline" registration
+    >>> # Load the 30 arc-minutes grid with "gridline" registration
     >>> grid = load_earth_free_air_anomaly(resolution="30m", registration="gridline")
-    >>> # load high-resolution (5 arc-minutes) grid for a specific region
+    >>> # Load high-resolution (5 arc-minutes) grid for a specific region
     >>> grid = load_earth_free_air_anomaly(
     ...     resolution="05m", region=[120, 160, 30, 60], registration="gridline"
     ... )

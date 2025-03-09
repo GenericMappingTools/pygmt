@@ -88,7 +88,7 @@ def load_blue_marble(
     --------
 
     >>> from pygmt.datasets import load_blue_marble
-    >>> # load the default image (pixel-registered 1 arc-degree image)
+    >>> # Load the default image (pixel-registered 1 arc-degree image)
     >>> image = load_blue_marble()
     """
     image = _load_remote_dataset(

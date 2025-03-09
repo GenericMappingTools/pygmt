@@ -84,13 +84,13 @@ def load_earth_mean_dynamic_topography(
     --------
 
     >>> from pygmt.datasets import load_earth_mean_dynamic_topography
-    >>> # load the default grid (gridline-registered 1 arc-degree grid)
+    >>> # Load the default grid (gridline-registered 1 arc-degree grid)
     >>> grid = load_earth_mean_dynamic_topography()
-    >>> # load the 30 arc-minutes grid with "gridline" registration
+    >>> # Load the 30 arc-minutes grid with "gridline" registration
     >>> grid = load_earth_mean_dynamic_topography(
     ...     resolution="30m", registration="gridline"
     ... )
-    >>> # load high-resolution (7 arc-minutes) grid for a specific region
+    >>> # Load high-resolution (7 arc-minutes) grid for a specific region
     >>> grid = load_earth_mean_dynamic_topography(
     ...     resolution="07m",
     ...     region=[120, 160, 30, 60],

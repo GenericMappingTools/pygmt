@@ -101,14 +101,14 @@ def load_earth_deflection(
     --------
 
     >>> from pygmt.datasets import load_earth_deflection
-    >>> # load the default grid for east-west deflection (gridline-registered
+    >>> # Load the default grid for east-west deflection (gridline-registered
     >>> # 1 arc-degree grid)
     >>> grid = load_earth_deflection()
-    >>> # load the default grid for north-south deflection
+    >>> # Load the default grid for north-south deflection
     >>> grid = load_earth_deflection(component="north")
-    >>> # load the 30 arc-minutes grid with "gridline" registration
+    >>> # Load the 30 arc-minutes grid with "gridline" registration
     >>> grid = load_earth_deflection(resolution="30m", registration="gridline")
-    >>> # load high-resolution (5 arc-minutes) grid for a specific region
+    >>> # Load high-resolution (5 arc-minutes) grid for a specific region
     >>> grid = load_earth_deflection(
     ...     resolution="05m", region=[120, 160, 30, 60], registration="gridline"
     ... )

@@ -114,21 +114,21 @@ def load_earth_magnetic_anomaly(
     --------
 
     >>> from pygmt.datasets import load_earth_magnetic_anomaly
-    >>> # load the default grid (gridline-registered 1 arc-degree grid)
+    >>> # Load the default grid (gridline-registered 1 arc-degree grid)
     >>> grid = load_earth_magnetic_anomaly()
-    >>> # load the 30 arc-minutes grid with "gridline" registration
+    >>> # Load the 30 arc-minutes grid with "gridline" registration
     >>> grid = load_earth_magnetic_anomaly(resolution="30m", registration="gridline")
-    >>> # load high-resolution (5 arc-minutes) grid for a specific region
+    >>> # Load high-resolution (5 arc-minutes) grid for a specific region
     >>> grid = load_earth_magnetic_anomaly(
     ...     resolution="05m",
     ...     region=[120, 160, 30, 60],
     ...     registration="gridline",
     ... )
-    >>> # load the 20 arc-minutes grid of the emag2_4km dataset
+    >>> # Load the 20 arc-minutes grid of the emag2_4km dataset
     >>> grid = load_earth_magnetic_anomaly(
     ...     resolution="20m", registration="gridline", data_source="emag2_4km"
     ... )
-    >>> # load the 20 arc-minutes grid of the WDMAM dataset
+    >>> # Load the 20 arc-minutes grid of the WDMAM dataset
     >>> grid = load_earth_magnetic_anomaly(
     ...     resolution="20m", registration="gridline", data_source="wdmam"
     ... )

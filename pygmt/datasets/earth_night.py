@@ -87,7 +87,7 @@ def load_black_marble(
     --------
 
     >>> from pygmt.datasets import load_black_marble
-    >>> # load the default image (pixel-registered 1 arc-degree image)
+    >>> # Load the default image (pixel-registered 1 arc-degree image)
     >>> image = load_black_marble()
     """
     image = _load_remote_dataset(
