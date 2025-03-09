@@ -45,14 +45,17 @@ def load_blue_marble(
 
        Earth day/night dataset.
 
-    The images are downloaded to a user data directory (usually
-    ``~/.gmt/server/earth/earth_day/``) the first time you invoke this function.
-    Afterwards, it will load the image from the data directory. So you'll need an
-    internet connection the first time around.
 
-    These images can also be accessed by passing in the file name
-    **@earth_day**\_\ *res* to any image processing function or plotting method. *res*
-    is the image resolution (see below).
+    This function downloads the dataset from the GMT data server, caches it in a user
+    data directory (usually ``~/.gmt/server/earth/earth_day/``), and load the dataset as
+    an :class:`xarray.DataArray`. An internet connection is required the first time
+    around, but subsequent calls will load the dataset from the local data directory.
+
+    The dataset can also be accessed by specifying a file name in any image processing
+    function or plotting method, using the following file name format:
+    **@earth_day**\_\ *res*. *res* is the image resolution. If *res* is omitted (i.e.,
+    ``@earth_day``), GMT automatically selects a suitable resolution based on the
+    current region and projection settings.
 
     Refer to :gmt-datasets:`earth-daynight.html` for more details about available
     datasets, including version information and references.
