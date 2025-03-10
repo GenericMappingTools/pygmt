@@ -35,34 +35,35 @@ def load_earth_magnetic_anomaly(
        * - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_mag.jpg
          - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_wdmam.jpg
 
-    The grids are downloaded to a user data directory
-    (usually ``~/.gmt/server/earth/earth_mag/``,
-    ``~/.gmt/server/earth/earth_mag4km/``,
-    or ``~/.gmt/server/earth/earth_wdmam/``) the first time you invoke
-    this function. Afterwards, it will load the grid from the data directory.
-    So you'll need an internet connection the first time around.
+    This function downloads the dataset from the GMT data server, caches it in a user
+    data directory (usually ``~/.gmt/server/earth/earth_mag/``,
+    ``~/.gmt/server/earth/earth_mag4km/``, ``~/.gmt/server/earth/earth_wdmam/``), and
+    load the dataset as an :class:`xarray.DataArray`. An internet connection is required
+    the first time around, but subsequent calls will load the dataset from the local
+    data directory.
 
-    These grids can also be accessed by passing in the file name
-    **@**\ *earth_mag_type*\_\ *res*\[_\ *reg*] to any grid processing
-    function or plotting method. *earth_mag_type* is the GMT name
-    for the dataset. The available options are **earth_mag**,
-    **earth_mag4km**, and **earth_wdmam**. *res* is the grid resolution
-    (see below), and *reg* is the grid registration type (**p** for pixel
-    registration or **g** for gridline registration).
+    The dataset can also be accessed by specifying a file name in any grid processing
+    function or plotting method, using the following file name format:
+    **@**\ *earth_mag_type*\_\ *res*\_\ *reg*. *earth_mag_type* is the GMT name for the
+    dataset. The available options are **earth_mag**, **earth_mag4km**, and
+    **earth_wdmam**; *res* is the grid resolution; *reg* is the grid
+    registration type (**p** for pixel registration, **g** for gridline registration).
+    If *reg* is omitted (e.g., ``@earth_mag_01d``), the gridline-registered grid will be
+    loaded for grid proccessing functions and the pixel-registered grid will be loaded
+    for plotting functions. If *res* is also omitted (i.e., ``@earth_mag``), GMT
+    automatically selects a suitable resolution based on the current region and
+    projection settings.
 
-    The default color palette tables (CPTs) for this dataset are
-    *@earth_mag.cpt* for ``data_source="emag2"`` and
-    ``data_source="emag2_4km"``, and *@earth_wdmam.cpt* for
-    ``data_source="wdmam"``. The dataset-specific CPT is implicitly used when
-    passing in the file name of the dataset to any grid plotting method if no
-    CPT is explicitly specified. When the dataset is loaded and plotted as an
-    :class:`xarray.DataArray` object, the default CPT is ignored, and GMT's
-    default CPT (*turbo*) is used. To use the dataset-specific CPT, you need to
-    explicitly set ``cmap="@earth_mag.cpt"`` or ``cmap="@earth_wdmam.cpt"``.
+    The default color palette tables (CPTs) for this dataset are ``@earth_mag.cpt`` for
+    ``data_source="emag2"`` and ``data_source="emag2_4km"``, and ``@earth_wdmam.cpt``
+    for ``data_source="wdmam"``. To use the dataset-specific CPT when plotting the
+    dataset, explicitly set ``cmap="@earth_mag.cpt"`` or ``cmap="@earth_wdmam.cpt"``,
+    otherwise GMT's default CPT (*turbo*) will be used. If the dataset is referenced by
+    the file name in a grid plotting method, the dataset-specific CPT file is used
+    automatically unless another CPT is specified.
 
-    Refer to :gmt-datasets:`earth-mag.html`
-    and :gmt-datasets:`earth-wdmam.html` for more details about available
-    datasets, including version information and references.
+    Refer to :gmt-datasets:`earth-mag.html` and :gmt-datasets:`earth-wdmam.html` for
+    more details about available datasets, including version information and references.
 
     Parameters
     ----------
@@ -113,21 +114,21 @@ def load_earth_magnetic_anomaly(
     --------
 
     >>> from pygmt.datasets import load_earth_magnetic_anomaly
-    >>> # load the default grid (gridline-registered 1 arc-degree grid)
+    >>> # Load the default grid (gridline-registered 1 arc-degree grid)
     >>> grid = load_earth_magnetic_anomaly()
-    >>> # load the 30 arc-minutes grid with "gridline" registration
+    >>> # Load the 30 arc-minutes grid with "gridline" registration
     >>> grid = load_earth_magnetic_anomaly(resolution="30m", registration="gridline")
-    >>> # load high-resolution (5 arc-minutes) grid for a specific region
+    >>> # Load high-resolution (5 arc-minutes) grid for a specific region
     >>> grid = load_earth_magnetic_anomaly(
     ...     resolution="05m",
     ...     region=[120, 160, 30, 60],
     ...     registration="gridline",
     ... )
-    >>> # load the 20 arc-minutes grid of the emag2_4km dataset
+    >>> # Load the 20 arc-minutes grid of the emag2_4km dataset
     >>> grid = load_earth_magnetic_anomaly(
     ...     resolution="20m", registration="gridline", data_source="emag2_4km"
     ... )
-    >>> # load the 20 arc-minutes grid of the WDMAM dataset
+    >>> # Load the 20 arc-minutes grid of the WDMAM dataset
     >>> grid = load_earth_magnetic_anomaly(
     ...     resolution="20m", registration="gridline", data_source="wdmam"
     ... )
