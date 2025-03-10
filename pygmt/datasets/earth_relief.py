@@ -62,7 +62,7 @@ def load_earth_relief(
     **earth_gebcosi**\, and **earth_synbath**\. *res* is the grid resolution; *reg* is
     the grid registration type (**p** for pixel registration, **g** for gridline
     registration). If *reg* is omitted (e.g., ``@earth_relief_01d``), the
-    gridline-registered grid will be loaded for grid proccessing functions and the
+    gridline-registered grid will be loaded for grid processing functions and the
     pixel-registered grid willcbe loaded for plotting functions. If *res* is also
     omitted (i.e., ``@earth_relief``), GMT automatically selects a suitable resolution
     based on the current region and projection settings.
