@@ -80,14 +80,9 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v2.0.3
+        uses: mamba-org/setup-micromamba@v2.0.4
         with:
           environment-name: pygmt
-          condarc: |
-            channels:
-              - conda-forge
-              - nodefaults
-          cache-downloads: false
           cache-environment: true
           # environment cache is persistent for one week.
           cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
@@ -108,6 +103,7 @@ jobs:
             make
             pip
             python-build
+            geodatasets
             myst-nb
             panel
             sphinx>=6.2
@@ -116,6 +112,9 @@ jobs:
             sphinx-design
             sphinx-gallery
             sphinx_rtd_theme<3.0
+            cairosvg
+            sphinxcontrib-svg2pdfconverter
+            tectonic
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
@@ -134,9 +133,36 @@ jobs:
           python -m build --sdist
           python -m pip install dist/*
 
-      # Build the documentation
-      - name: Build the documentation
-        run: make -C doc clean all
+      - name: Build the HTML documentation
+        run: make -C doc clean html
+
+      - name: Build the PDF documentation
+        run:  make -C doc pdf
+
+      - name: Create the HTML ZIP archive and rename the PDF file
+        run: |
+          cd doc/_build/
+          cp -r html/ pygmt-docs/
+          zip -r pygmt-docs.zip pygmt-docs/
+          mv latex/pygmt.pdf pygmt-docs.pdf
+          cd ../..
+
+      - name: Upload PDF as artifact for previewing on pull requests
+        uses: actions/upload-artifact@v4.6.1
+        if: github.event_name == 'pull_request' && matrix.os == 'ubuntu-latest'
+        with:
+          name: artifact-pygmt-docs-pdf
+          path: doc/_build/pygmt-docs.pdf
+
+      - name: Copy the HTML ZIP archive and PDF to the html folder for dev version
+        run: cp -v doc/_build/pygmt-docs.zip doc/_build/pygmt-docs.pdf doc/_build/html/
+        if: github.event_name == 'push' && matrix.os == 'ubuntu-latest'
+
+      - name: Upload the HTML ZIP archive and PDF as release assets
+        run: gh release upload ${{ github.ref_name }} doc/_build/pygmt-docs.zip doc/_build/pygmt-docs.pdf
+        if: github.event_name == 'release' && matrix.os == 'ubuntu-latest'
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Checkout the gh-pages branch
         uses: actions/checkout@v4.2.2
@@ -162,9 +188,14 @@ jobs:
           # to get the right commit hash.
           message="Deploy $version from $(git rev-parse --short HEAD)"
           cd deploy
-          # Need to have this file so that GitHub doesn't try to run Jekyll
+          # Create some files in the root directory.
+          # .nojekyll: Need to have this file so that GitHub doesn't try to run Jekyll
           touch .nojekyll
-          # Delete all the files and replace with our new  set
+          # CNAME: Set the custom domain name
+          echo "www.pygmt.org" > CNAME
+          # index.html: Redirect to the latest version
+          echo '<meta http-equiv="Refresh" content="0;url=latest/"/>' > index.html
+          # Delete all the files and replace with our new set
           echo -e "\nRemoving old files from previous builds of ${version}:"
           rm -rvf ${version}
           echo -e "\nCopying HTML files to ${version}:"

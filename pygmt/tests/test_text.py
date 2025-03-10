@@ -426,6 +426,25 @@ def test_text_nonstr_text():
     return fig
 
 
+@pytest.mark.mpl_image_compare
+def test_text_numeric_text():
+    """
+    Test passing text strings that are numeric.
+
+    Regression test for https://github.com/GenericMappingTools/pygmt/issues/3803.
+    """
+    fig = Figure()
+    fig.text(
+        region=[0, 10, 0, 5],
+        projection="X10c/5c",
+        frame=True,
+        x=[1, 2, 3, 4],
+        y=[1, 2, 3, 4],
+        text=["2012", "2013", "2014", "2015"],
+    )
+    return fig
+
+
 @pytest.mark.mpl_image_compare(filename="test_text_nonascii.png")
 @pytest.mark.parametrize("encoding", ["ISOLatin1+", "Standard+"])
 def test_text_nonascii(encoding):
@@ -447,13 +466,17 @@ def test_text_nonascii(encoding):
 @pytest.mark.mpl_image_compare
 def test_text_quotation_marks():
     """
-    Test typesetting quotation marks.
+    Test typesetting backtick, apostrophe, and single and double quotation marks.
 
-    See https://github.com/GenericMappingTools/pygmt/issues/3104.
+    See https://github.com/GenericMappingTools/pygmt/issues/3104 and
+    https://github.com/GenericMappingTools/pygmt/issues/3476.
     """
+    quotations = "` ' ‘ ’ \" “ ”"  # noqa: RUF001
     fig = Figure()
-    fig.basemap(projection="X4c/2c", region=[0, 4, 0, 2], frame=0)
-    fig.text(x=2, y=1, text='\\234 ‘ ’ " “ ”', font="20p")  # noqa: RUF001
+    fig.basemap(
+        projection="X4c/2c", region=[0, 4, 0, 2], frame=["S", f"x+l{quotations}"]
+    )
+    fig.text(x=2, y=1, text=quotations, font="20p")
     return fig
 
 
