@@ -80,16 +80,16 @@ def value_to_string(
     >>> value_to_string("invalid", mapping={"mean": "a", "mad": "d", "full": "g"})
     'invalid'
     """
-    # None or False means the parameter is not specified, returns None.
+    # Return None if the value is None or False.
     if value is None or value is False:
         return None
-    # True means the parameter is specified, returns an empty string with the optional
-    # prefix. We don't have to check 'prefix' since it defaults to an empty string!
+    # Return an empty string if the value is True. We don't have to check 'prefix' since
+    # it defaults to an empty string!
     if value is True:
         return f"{prefix}"
 
     # Convert any value to a string or a sequence of strings.
-    if is_nonstr_iter(value):  # Is a sequence
+    if is_nonstr_iter(value):  # Is a sequence.
         value = [str(item) for item in value]  # Convert to a sequence of strings
         if separator is None:
             # A sequence is given but separator is not specified. In this case, return
@@ -99,6 +99,7 @@ def value_to_string(
         value = separator.join(value)  # Join the sequence with the separator.
     elif mapping:  # Mapping long-form arguments to short-form arguments.
         value = value[0] if mapping is True else mapping.get(value, value)
+    # Return the final string with the optional prefix.
     return f"{prefix}{value}"
 
 
