@@ -42,7 +42,7 @@ frame = ["af", "+ggray90"]
 # Store focal mechanism parameters for one event in a dictionary following the
 
 # moment tensor convention
-mt_dict_single = mt_virginia = {
+mt_dict_single = {
     "mrr": 4.71,
     "mtt": 0.0381,
     "mff": -4.74,
