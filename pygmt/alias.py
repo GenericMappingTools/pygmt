@@ -124,21 +124,34 @@ class Alias:
 
     Examples
     --------
+    >>> par = Alias("offset", prefix="+o", separator="/", value=(3.0, 3.0))
+    >>> par.value
+    '+o3.0/3.0'
+
     >>> par = Alias("offset", prefix="+o", separator="/")
     >>> par.value = (2.0, 2.0)
     >>> par.value
     '+o2.0/2.0'
+
     >>> par = Alias("frame")
     >>> par.value = ("xaf", "yaf", "WSen")
     >>> par.value
     ['xaf', 'yaf', 'WSen']
     """
 
-    name: str
-    prefix: str = ""  # Default to an empty string to simplify code logic.
-    separator: str | None = None
-    mapping: bool | Mapping = False
-    _value: Any = None
+    def __init__(
+        self,
+        name: str,
+        prefix: str = "",
+        separator: str | None = None,
+        mapping: bool | Mapping = False,
+        value: Any = None,
+    ):
+        self.name = name
+        self.prefix = prefix
+        self.separator = separator
+        self.mapping = mapping
+        self.value = value
 
     @property
     def value(self) -> str | Sequence[str] | None:
