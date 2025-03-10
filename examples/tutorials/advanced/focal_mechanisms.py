@@ -66,7 +66,7 @@ aki_dict_single = {"strike": 318, "dip": 89, "rake": -179, "magnitude": 7.75}
 fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
 
-fig.meca(spec=mt_dict_single, scale="1c", longitude=0, latitude=0)
+fig.meca(spec=mt_dict_single, scale="1c", longitude=0, latitude=0, depth=0)
 
 fig.show()
 
@@ -88,6 +88,7 @@ fig.meca(
     scale="1c",
     longitude=-2,
     latitude=0,
+    depth=0,
     compressionfill="darkorange",
     extensionfill="cornsilk",
 )
@@ -97,6 +98,7 @@ fig.meca(
     scale="1c",
     longitude=2,
     latitude=0,
+    depth=0,
     compressionfill="p8",
     extensionfill="p31",
     outline=True,
@@ -119,6 +121,7 @@ fig.meca(
     scale="1c",
     longitude=-3,
     latitude=0,
+    depth=0,
     component="full",  # full seismic moment tensor
 )
 fig.meca(
@@ -126,6 +129,7 @@ fig.meca(
     scale="1c",
     longitude=0,
     latitude=0,
+    depth=0,
     component="dc",  # closest double couple
 )
 fig.meca(
@@ -133,6 +137,7 @@ fig.meca(
     scale="1c",
     longitude=2,
     latitude=0,
+    depth=0,
     component="deviatoric",  # deviatoric part
 )
 
@@ -154,6 +159,7 @@ fig.meca(
     scale="1c",
     longitude=-2,
     latitude=0,
+    depth=0,
     # Use a 1-point thick, darkorange and solid line
     pen="1p,darkorange,solid",
 )
@@ -163,6 +169,7 @@ fig.meca(
     scale="1c",
     longitude=2,
     latitude=0,
+    depth=0,
     outline="1p,darkorange,solid",
 )
 
@@ -187,6 +194,7 @@ fig.meca(
     scale="1c",
     longitude=-2,
     latitude=0,
+    depth=0,
     nodal="0/1p,black,solid",
 )
 
@@ -195,6 +203,7 @@ fig.meca(
     scale="1c",
     longitude=2,
     latitude=0,
+    depth=0,
     compressionfill="lightorange",
     outline="0.5p,black,solid",
 )
@@ -203,6 +212,7 @@ fig.meca(
     scale="1c",
     longitude=2,
     latitude=0,
+    depth=0,
     nodal="1/1p,darkorange,solid",
 )
 fig.meca(
@@ -210,6 +220,7 @@ fig.meca(
     scale="1c",
     longitude=2,
     latitude=0,
+    depth=0,
     compressionfill="white@100",
     extensionfill="white@100",
     pen="1p,gray30,solid",
@@ -237,6 +248,7 @@ fig.meca(
     scale="1c",
     longitude=-1,
     latitude=0,
+    depth=0,
     plot_longitude=-3,
     plot_latitude=2,
     offset=True,
@@ -247,6 +259,7 @@ fig.meca(
     scale="1c",
     longitude=3,
     latitude=0,
+    depth=0,
     plot_longitude=1,
     plot_latitude=2,
     offset="+p1p,darkorange+s0.25c",
