@@ -48,7 +48,7 @@ jobs:
         persist-credentials: false
 
     - name: Set up Python
-      uses: actions/setup-python@v5.3.0
+      uses: actions/setup-python@v5.4.0
       with:
         python-version: '3.13'
 
@@ -72,7 +72,7 @@ jobs:
         ls -lh dist/
 
     - name: Store the distribution packages
-      uses: actions/upload-artifact@v4.6.0
+      uses: actions/upload-artifact@v4.6.1
       with:
         name: python-package-distributions
         path: dist/
@@ -91,13 +91,13 @@ jobs:
 
     steps:
     - name: Download all the dists
-      uses: actions/download-artifact@v4.1.8
+      uses: actions/download-artifact@v4.1.9
       with:
         name: python-package-distributions
         path: dist/
 
     - name: Publish distribution 📦 to TestPyPI
-      uses: pypa/gh-action-pypi-publish@v1.12.3
+      uses: pypa/gh-action-pypi-publish@v1.12.4
       with:
         repository-url: https://test.pypi.org/legacy/
 
@@ -115,10 +115,10 @@ jobs:
 
     steps:
     - name: Download all the dists
-      uses: actions/download-artifact@v4.1.8
+      uses: actions/download-artifact@v4.1.9
       with:
         name: python-package-distributions
         path: dist/
 
     - name: Publish distribution 📦 to PyPI
-      uses: pypa/gh-action-pypi-publish@v1.12.3
+      uses: pypa/gh-action-pypi-publish@v1.12.4

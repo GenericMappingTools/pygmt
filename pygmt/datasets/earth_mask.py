@@ -42,16 +42,20 @@ def load_earth_mask(
 
        GSHHG Earth mask dataset.
 
-    The grids are downloaded to a user data directory
-    (usually ``~/.gmt/server/earth/earth_mask/``) the first time you invoke
-    this function. Afterwards, it will load the grid from the data directory.
-    So you'll need an internet connection the first time around.
+    This function downloads the dataset from the GMT data server, caches it in a user
+    data directory (usually ``~/.gmt/server/earth/earth_mask/``), and load the dataset
+    as an :class:`xarray.DataArray`. An internet connection is required the first time
+    around, but subsequent calls will load the dataset from the local data directory.
 
-    These grids can also be accessed by passing in the file name
-    **@earth_mask**\_\ *res*\[_\ *reg*] to any grid processing function or
-    plotting method. *res* is the grid resolution (see below), and *reg* is
-    the grid registration type (**p** for pixel registration or **g** for
-    gridline registration).
+    The dataset can also be accessed by specifying a file name in any grid processing
+    function or plotting method, using the following file name format:
+    **@earth_mask**\_\ *res*\_\ *reg*. *res* is the grid resolution; *reg* is the grid
+    registration type (**p** for pixel registration, **g** for gridline registration).
+    If *reg* is omitted (e.g., ``@earth_mask_01d``), the gridline-registered grid will
+    be loaded for grid proccessing functions and the pixel-registered grid will be
+    loaded for plotting functions. If *res* is also omitted (i.e., ``@earth_mask``), GMT
+    automatically selects a suitable resolution based on the current region and
+    projection settings.
 
     Refer to :gmt-datasets:`earth-mask.html` for more details about available
     datasets, including version information and references.
@@ -97,7 +101,7 @@ def load_earth_mask(
     --------
 
     >>> from pygmt.datasets import load_earth_mask
-    >>> # load the default grid (gridline-registered 1 arc-degree grid)
+    >>> # Load the default grid (gridline-registered 1 arc-degree grid)
     >>> grid = load_earth_mask()
     >>> # location (120°E, 50°N) is in land area (1)
     >>> grid.sel(lon=120, lat=50).values

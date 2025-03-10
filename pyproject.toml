@@ -24,6 +24,10 @@ classifiers = [
     "Intended Audience :: Education",
     "Topic :: Scientific/Engineering",
     "Topic :: Software Development :: Libraries",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Operating System :: Unix",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
@@ -55,7 +59,6 @@ all = [
 "Issue Tracker" = "https://github.com/GenericMappingTools/pygmt/issues"
 
 [tool.setuptools]
-platforms = ["Any"]
 license-files = ["LICENSE.txt"]
 
 [tool.setuptools.packages.find]
@@ -63,6 +66,7 @@ include = ["pygmt*"]
 exclude = ["doc"]
 
 [tool.setuptools_scm]
+version_scheme = "release-branch-semver"
 local_scheme = "node-and-date"
 fallback_version = "999.999.999+unknown"
 
