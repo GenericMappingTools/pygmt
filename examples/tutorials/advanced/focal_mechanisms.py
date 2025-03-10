@@ -6,7 +6,7 @@ Focal mechanisms can be plotted as beachballs with the :meth:`pygmt.Figure.meca`
 method.
 
 The focal mechanism data or parameters can be provided as different input types:
-external file, 1-D or 2-D ``numpy.array``, dictionary, ``pandas.Dataframe``.
+an ASCII file, 1-D or 2-D :class:`numpy.array`, dictionary, :class:`pandas.Dataframe`.
 Different conventions to define the focal mechanism are supported: Aki and Richards
 (``"aki"``), global CMT (``"gcmt"``), moment tensor (``"mt"``), partial focal
 mechanism (``"partial"``), and, principal axis (``"principal_axis"``). Please refer to
