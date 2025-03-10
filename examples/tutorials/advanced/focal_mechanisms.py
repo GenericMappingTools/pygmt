@@ -30,7 +30,7 @@ import pandas as pd
 import pygmt
 
 # Set up arguments for basemap
-size = 5
+region = [-5, 5, -5, 5]
 projection = "X10c/4c"
 frame = ["af", "+ggray90"]
 
@@ -64,7 +64,7 @@ aki_dict_single = {"strike": 318, "dip": 89, "rake": -179, "magnitude": 7.75}
 # ``pandas.Dataframe``, ``convention`` is not required.
 
 fig = pygmt.Figure()
-fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
+fig.basemap(region=region, projection=projection, frame=frame)
 
 fig.meca(spec=mt_dict_single, scale="1c", longitude=0, latitude=0)
 
@@ -81,7 +81,7 @@ fig.show()
 # Reference :doc:`Bit and hachure patterns </techref/patterns>`.
 
 fig = pygmt.Figure()
-fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
+fig.basemap(region=region, projection=projection, frame=frame)
 
 fig.meca(
     spec=mt_dict_single,
@@ -112,7 +112,7 @@ fig.show()
 # Use the ``component`` parameter to plot the components of a seismic moment tensor.
 
 fig = pygmt.Figure()
-fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
+fig.basemap(region=region, projection=projection, frame=frame)
 
 fig.meca(
     spec=mt_dict_single,
@@ -147,7 +147,7 @@ fig.show()
 # beachball or all lines (circumference of the beachball and both nodal planes).
 
 fig = pygmt.Figure()
-fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
+fig.basemap(region=region, projection=projection, frame=frame)
 
 fig.meca(
     spec=aki_dict_single,
@@ -180,7 +180,7 @@ fig.show()
 # ``outline`` or / and ``pen``  parameters in combination.
 
 fig = pygmt.Figure()
-fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
+fig.basemap(region=region, projection=projection, frame=frame)
 
 fig.meca(
     spec=aki_dict_single,
@@ -230,7 +230,7 @@ fig.show()
 # of the compressive quadrantes.
 
 fig = pygmt.Figure()
-fig.basemap(region=[-size, size] * 2, projection=projection, frame=frame)
+fig.basemap(region=region, projection=projection, frame=frame)
 
 fig.meca(
     spec=aki_dict_single,
