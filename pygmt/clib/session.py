@@ -1774,7 +1774,7 @@ class Session:
         z=None,
         extra_arrays=None,
         required_data=True,
-        required_ncols=2,
+        ncols=2,
     ):
         """
         Store any data inside a virtual file.
@@ -1800,7 +1800,7 @@ class Session:
         required_data : bool
             Set to True when 'data' is required, or False when dealing with
             optional virtual files. [Default is True].
-        required_ncols
+        ncols
             Number of minimum required columns.
 
         Returns
@@ -1836,7 +1836,7 @@ class Session:
             y=y,
             z=z,
             required_data=required_data,
-            required_ncols=required_ncols,
+            ncols=ncols,
             kind=kind,
         )
 

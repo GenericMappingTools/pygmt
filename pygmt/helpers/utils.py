@@ -42,7 +42,7 @@ Encoding = Literal[
 
 
 def _validate_data_input(
-    data=None, x=None, y=None, z=None, required_data=True, required_ncols=2, kind=None
+    data=None, x=None, y=None, z=None, required_data=True, ncols=2, kind=None
 ) -> None:
     """
     Check if the combination of data/x/y/z is valid.
@@ -65,7 +65,7 @@ def _validate_data_input(
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Must provide both x and y.
-    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6], required_ncols=3)
+    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6], ncols=3)
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Must provide x, y, and z.
@@ -73,13 +73,13 @@ def _validate_data_input(
     >>> import pandas as pd
     >>> import xarray as xr
     >>> data = np.arange(8).reshape((4, 2))
-    >>> _validate_data_input(data=data, required_ncols=3, kind="matrix")
+    >>> _validate_data_input(data=data, ncols=3, kind="matrix")
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
     >>> _validate_data_input(
     ...     data=pd.DataFrame(data, columns=["x", "y"]),
-    ...     required_ncols=3,
+    ...     ncols=3,
     ...     kind="vectors",
     ... )
     Traceback (most recent call last):
@@ -87,7 +87,7 @@ def _validate_data_input(
     pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
     >>> _validate_data_input(
     ...     data=xr.Dataset(pd.DataFrame(data, columns=["x", "y"])),
-    ...     required_ncols=3,
+    ...     ncols=3,
     ...     kind="vectors",
     ... )
     Traceback (most recent call last):
@@ -115,7 +115,7 @@ def _validate_data_input(
     GMTInvalidInput
         If the data input is not valid.
     """
-    required_z = required_ncols >= 3
+    required_z = ncols >= 3
     if data is None:  # data is None
         if x is None and y is None:  # both x and y are None
             if required_data:  # data is not optional

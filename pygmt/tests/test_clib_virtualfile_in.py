@@ -41,9 +41,7 @@ def test_virtualfile_in_required_z_matrix(array_func, kind):
     )
     data = array_func(dataframe)
     with clib.Session() as lib:
-        with lib.virtualfile_in(
-            data=data, required_ncols=3, check_kind="vector"
-        ) as vfile:
+        with lib.virtualfile_in(data=data, ncols=3, check_kind="vector") as vfile:
             with GMTTempFile() as outfile:
                 lib.call_module("info", [vfile, f"->{outfile.name}"])
                 output = outfile.read(keep_tabs=True)
@@ -64,7 +62,7 @@ def test_virtualfile_in_required_z_matrix_missing():
     data = np.ones((5, 2))
     with clib.Session() as lib:
         with pytest.raises(GMTInvalidInput):
-            with lib.virtualfile_in(data=data, required_ncols=3, check_kind="vector"):
+            with lib.virtualfile_in(data=data, ncols=3, check_kind="vector"):
                 pass
 
 
@@ -90,9 +88,7 @@ def test_virtualfile_in_fail_non_valid_data(data):
             continue
         with clib.Session() as lib:
             with pytest.raises(GMTInvalidInput):
-                lib.virtualfile_in(
-                    x=variable[0], y=variable[1], z=variable[2], required_ncols=3
-                )
+                lib.virtualfile_in(x=variable[0], y=variable[1], z=variable[2], ncols=3)
 
     # Should also fail if given too much data
     with clib.Session() as lib:
