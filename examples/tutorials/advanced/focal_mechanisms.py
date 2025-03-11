@@ -16,8 +16,8 @@ order, keys, or column names).
 
 This tutorial focus on how to adjust the display of the beachballs:
 
-- Filling the quadrants
 - Plotting the components of a seismic moment tensor
+- Filling the quadrants
 - Adjusting the outlines
 - Highlighting the nodal planes
 - Adding offset from the event location
@@ -65,7 +65,10 @@ aki_dict_single = {"strike": 318, "dip": 89, "rake": -179, "magnitude": 7.75}
 # to ``spec``). Additionally the ``convention`` parameter is required if ``spec`` is
 # an 1-D or 2-D numpy array; for the input types dictionary and ``pandas.Dataframe``,
 # the focal mechanism convention is automatically determined from dictionary keys or
-# :class:`pandas.DataFrame` column names.
+# :class:`pandas.DataFrame` column names. The ``scale`` parameter controlls the radius
+# of the beachball. By default, the value defines the size for a magnitude of 5 (i.e.,
+# a scalar seismic moment of M0 = 4.0E23 dyn cm). Appand ``"+l"`` to force the radius
+# to be proportional to the seismic moment.
 
 fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
