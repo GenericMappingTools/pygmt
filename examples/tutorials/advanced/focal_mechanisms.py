@@ -59,7 +59,7 @@ aki_dict_single = {"strike": 318, "dip": 89, "rake": -179, "magnitude": 7.75}
 # Plotting a single beachball
 # ---------------------------
 #
-# Required parameters are ``spec` and ``scale`` as well as ``longitude``, ``latitude``
+# Required parameters are ``spec`` and ``scale`` as well as ``longitude``, ``latitude``
 # (event location), and depth (if these values are not included in the argument passed
 # to ``spec``). Additionally the ``convention`` parameter is required if ``spec`` is
 # an 1-D or 2-D numpy array; for the input types dictionary and ``pandas.Dataframe``,
