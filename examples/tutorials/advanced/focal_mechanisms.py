@@ -114,7 +114,9 @@ fig.show()
 # Plotting the components of a seismic moment tensor
 # --------------------------------------------------
 #
-# Use the ``component`` parameter to plot the components of a seismic moment tensor.
+# A moment tensor can be decomposed into isotropic and deviatoric parts, and deviatoric 
+# part can be further decomposed into multiple parts (e.g., a double couple and A compensated linear vector dipole (CLVD)).
+# Use the ``component`` parameter to specify the component to plot.
 
 fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
