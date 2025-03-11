@@ -1,6 +1,4 @@
-# PyGMT
-
-> A Python interface for the Generic Mapping Tools
+<img alt="PyGMT - A Python interface for the Generic Mapping Tools" class="right" style="width: 65%" src="https://github.com/sfrooti/PyGMT-Logo/blob/75add2ab7fc522bcfd5ce199e7cc73e82bbab910/PyGMT_Transparent_Horizontal.png"/>
 
 [Documentation (development version)](https://www.pygmt.org/dev) | [Contact](https://forum.generic-mapping-tools.org) | [TryOnline](https://github.com/GenericMappingTools/try-gmt)
 
