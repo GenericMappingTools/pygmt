@@ -76,49 +76,13 @@ fig.show()
 
 
 # %%
-# Filling the quadrants
-# ---------------------
-#
-# Use the parameters ``compressionfill`` and ``extensionfill`` to fill the quadrants
-# with different colors or patterns. Regarding pattern see the gallery example
-# :doc:`Bit and hachure patterns </gallery/symbols/patterns>` and the Technical
-# Reference :doc:`Bit and hachure patterns </techref/patterns>`.
-
-fig = pygmt.Figure()
-fig.basemap(region=region, projection=projection, frame=frame)
-
-fig.meca(
-    spec=mt_dict_single,
-    scale="1c",
-    longitude=-2,
-    latitude=0,
-    depth=0,
-    compressionfill="darkorange",
-    extensionfill="cornsilk",
-)
-
-fig.meca(
-    spec=mt_dict_single,
-    scale="1c",
-    longitude=2,
-    latitude=0,
-    depth=0,
-    compressionfill="p8",
-    extensionfill="p31",
-    outline=True,
-)
-
-fig.show()
-
-
-# %%
 # Plotting the components of a seismic moment tensor
 # --------------------------------------------------
 #
 # A moment tensor can be decomposed into isotropic and deviatoric parts, and deviatoric
 # part can be further decomposed into multiple parts (e.g., a double couple and a
 # compensated linear vector dipole (CLVD)). Use the ``component`` parameter to specify
-# the component to plot.
+# the component you want to plot.
 
 fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
@@ -146,6 +110,42 @@ fig.meca(
     latitude=0,
     depth=0,
     component="deviatoric",  # deviatoric part
+)
+
+fig.show()
+
+
+# %%
+# Filling the quadrants
+# ---------------------
+#
+# Use the parameters ``compressionfill`` and ``extensionfill`` to fill the quadrants
+# with different colors or patterns. Regarding patterns see the gallery example
+# :doc:`Bit and hachure patterns </gallery/symbols/patterns>` and the Technical
+# Reference :doc:`Bit and hachure patterns </techref/patterns>`.
+
+fig = pygmt.Figure()
+fig.basemap(region=region, projection=projection, frame=frame)
+
+fig.meca(
+    spec=mt_dict_single,
+    scale="1c",
+    longitude=-2,
+    latitude=0,
+    depth=0,
+    compressionfill="darkorange",
+    extensionfill="cornsilk",
+)
+
+fig.meca(
+    spec=mt_dict_single,
+    scale="1c",
+    longitude=2,
+    latitude=0,
+    depth=0,
+    compressionfill="p8",
+    extensionfill="p31",
+    outline=True,
 )
 
 fig.show()
