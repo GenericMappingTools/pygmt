@@ -39,8 +39,8 @@ frame = ["af", "+ggray90"]
 # Set up the focal mechanism data
 # -------------------------------
 #
-# Here we store focal mechanism parameters (in moment tensor and Aki & Richards conventions)
-# for one event in a dictionary:
+# Here we store focal mechanism parameters (in moment tensor and Aki & Richards
+# conventions) for one event in a dictionary:
 
 # moment tensor convention
 mt_dict_single = {
@@ -65,7 +65,7 @@ aki_dict_single = {"strike": 318, "dip": 89, "rake": -179, "magnitude": 7.75}
 # to ``spec``). Additionally the ``convention`` parameter is required if ``spec`` is
 # an 1-D or 2-D numpy array; for the input types dictionary and ``pandas.Dataframe``,
 # the focal mechanism convention is automatically determined from dictionary keys or
-:class:`pandas.DataFrame` column names.
+# :class:`pandas.DataFrame` column names.
 
 fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
@@ -116,8 +116,9 @@ fig.show()
 # --------------------------------------------------
 #
 # A moment tensor can be decomposed into isotropic and deviatoric parts, and deviatoric
-# part can be further decomposed into multiple parts (e.g., a double couple and A compensated linear vector dipole (CLVD)).
-# Use the ``component`` parameter to specify the component to plot.
+# part can be further decomposed into multiple parts (e.g., a double couple and a
+# compensated linear vector dipole (CLVD)). Use the ``component`` parameter to specify
+# the component to plot.
 
 fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
