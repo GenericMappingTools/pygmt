@@ -262,12 +262,12 @@ def meca(  # noqa: PLR0913
         - ``"dc"``: the closest double couple defined from the moment tensor (zero trace
           and zero determinant)
         - ``"deviatoric"``: deviatoric part of the moment tensor (zero trace)
-    longitude, latitude, depth
+    longitude/latitude/depth
         Longitude(s), latitude(s), and depth(s) of the event(s). The length of each must
         match the number of events. These parameters are only used if ``spec`` is a
         dictionary or a :class:`pandas.DataFrame`, and they override any existing
         ``longitude``, ``latitude``, or ``depth`` values in ``spec``.
-    plot_longitude, plot_latitude
+    plot_longitude/plot_latitude
         Longitude(s) and latitude(s) at which to place the beachball(s). The length of
         each must match the number of events. These parameters are only used if ``spec``
         is a dictionary or a :class:`pandas.DataFrame`, and they override any existing
