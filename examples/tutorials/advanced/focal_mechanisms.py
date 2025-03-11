@@ -64,7 +64,7 @@ aki_dict_single = {"strike": 318, "dip": 89, "rake": -179, "magnitude": 7.75}
 # (event location), and depth (if these values are not included in the argument passed
 # to ``spec``). Additionally the ``convention`` parameter is required if ``spec`` is
 # an 1-D or 2-D numpy array; for the input types dictionary and ``pandas.Dataframe``,
-# the focal mechanism convention is automatically determined from dictionary keys or 
+# the focal mechanism convention is automatically determined from dictionary keys or
 :class:`pandas.DataFrame` column names.
 
 fig = pygmt.Figure()
@@ -115,7 +115,7 @@ fig.show()
 # Plotting the components of a seismic moment tensor
 # --------------------------------------------------
 #
-# A moment tensor can be decomposed into isotropic and deviatoric parts, and deviatoric 
+# A moment tensor can be decomposed into isotropic and deviatoric parts, and deviatoric
 # part can be further decomposed into multiple parts (e.g., a double couple and A compensated linear vector dipole (CLVD)).
 # Use the ``component`` parameter to specify the component to plot.
 
