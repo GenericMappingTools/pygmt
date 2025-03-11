@@ -39,7 +39,8 @@ frame = ["af", "+ggray90"]
 # Set up the focal mechanism data
 # -------------------------------
 #
-# Store focal mechanism parameters for one event in a dictionary following the
+# Here we store focal mechanism parameters (in moment tensor and Aki & Richards convention)
+for one event in a dictionary:
 
 # moment tensor convention
 mt_dict_single = {
