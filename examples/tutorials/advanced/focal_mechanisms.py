@@ -348,4 +348,4 @@ fig.meca(
 
 fig.show()
 
-# sphinx_gallery_thumbnail_number = 9
+# sphinx_gallery_thumbnail_number = 8
