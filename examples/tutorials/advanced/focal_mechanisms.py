@@ -242,13 +242,14 @@ fig.show()
 # Adding offset from event location
 # ---------------------------------
 #
-# Specify the optional parameters ``plot_longitude`` and ``plot_latitude``.
-# Additionally the parameter ``offset`` has to be set. Besides just drawing a line
-# between the beachball and the event location, a small circle can be plotted at the
-# event location by appending **+s** and the descired circle diameter. The connecting
-# line as well as the outline of the circle are plotted with the  setting of pen, or
-# can be adjusted separately. The fill of the small circle corresponds to the fill
-# of the compressive quadrantes.
+# Specify the optional parameters ``plot_longitude`` and ``plot_latitude``. If ``spec``
+# is an ASCII file with columns for ``plot_longitude`` and ``plot_latitude`` the
+# ``offset`` parameter has to be set to ``True``. Besides just drawing a line between
+# the beachball and the event location, a small circle can be plotted at the event
+# location by appending **+s** and the descired circle diameter. The connecting line
+# as well as the outline of the circle are plotted with the  setting of pen, or can be
+# adjusted separately. The fill of the small circle corresponds to the fill of the
+# compressive quadrantes.
 
 fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
