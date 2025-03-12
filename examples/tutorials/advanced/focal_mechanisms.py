@@ -261,7 +261,6 @@ fig.meca(
     depth=0,
     plot_longitude=-3,
     plot_latitude=2,
-    offset=True,
 )
 
 fig.meca(
