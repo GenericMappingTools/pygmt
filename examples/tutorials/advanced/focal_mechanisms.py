@@ -270,8 +270,9 @@ fig.show()
 # Plotting multiple beachballs
 # ----------------------------
 #
-# Data of four earthquakes taken from USGS.
-# Provide lists.
+# Now we want to plot multiple beachballs with one call of :meth:`pygmt.Figure.meca`. We
+# use data of four earthquakes taken from USGS. For each focal mechanism parameter a
+# list with a length corresponding to the numeber of events has to be given.
 
 # Set up a pandas.DataFrame with multiple focal mechanism parameters.
 aki_multiple = pd.DataFrame(
