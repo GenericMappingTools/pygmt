@@ -245,7 +245,7 @@ class AliasSystem:
         # Get the local variables from the calling function.
         p_locals = inspect.currentframe().f_back.f_locals
         # Get parameters/arguments from **kwargs of the calling function.
-        p_kwargs = p_locals.pop("kwargs", {})
+        p_kwargs = p_locals.get("kwargs", {})
 
         params = p_locals | p_kwargs
         # Default value is an empty string to simplify code logic.
