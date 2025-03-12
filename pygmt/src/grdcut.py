@@ -118,7 +118,7 @@ def grdcut(
             outkind = inkind
         case "file":
             outkind = kind
-        case "_":
+        case _:
             msg = f"Unsupported data type {type(grid)}."
             raise GMTInvalidInput(msg)
 
