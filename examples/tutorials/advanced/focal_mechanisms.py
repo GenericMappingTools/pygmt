@@ -43,7 +43,7 @@ frame = ["af", "+ggray90"]
 # conventions) for one event in a dictionary:
 
 # moment tensor convention
-mt_dict_single = {
+mt_single = {
     "mrr": 4.71,
     "mtt": 0.0381,
     "mff": -4.74,
@@ -53,7 +53,7 @@ mt_dict_single = {
     "exponent": 24,
 }
 # Aki and Richards convention
-aki_dict_single = {"strike": 318, "dip": 89, "rake": -179, "magnitude": 7.75}
+aki_single = {"strike": 318, "dip": 89, "rake": -179, "magnitude": 7.75}
 
 
 # %%
@@ -73,7 +73,7 @@ aki_dict_single = {"strike": 318, "dip": 89, "rake": -179, "magnitude": 7.75}
 fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
 
-fig.meca(spec=mt_dict_single, scale="1c", longitude=0, latitude=0, depth=0)
+fig.meca(spec=mt_single, scale="1c", longitude=0, latitude=0, depth=0)
 
 fig.show()
 
@@ -91,7 +91,7 @@ fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
 
 fig.meca(
-    spec=mt_dict_single,
+    spec=mt_single,
     scale="1c",
     longitude=-3,
     latitude=0,
@@ -99,7 +99,7 @@ fig.meca(
     component="full",  # full seismic moment tensor
 )
 fig.meca(
-    spec=mt_dict_single,
+    spec=mt_single,
     scale="1c",
     longitude=0,
     latitude=0,
@@ -107,7 +107,7 @@ fig.meca(
     component="dc",  # closest double couple
 )
 fig.meca(
-    spec=mt_dict_single,
+    spec=mt_single,
     scale="1c",
     longitude=2,
     latitude=0,
@@ -131,7 +131,7 @@ fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
 
 fig.meca(
-    spec=mt_dict_single,
+    spec=mt_single,
     scale="1c",
     longitude=-2,
     latitude=0,
@@ -141,7 +141,7 @@ fig.meca(
 )
 
 fig.meca(
-    spec=mt_dict_single,
+    spec=mt_single,
     scale="1c",
     longitude=2,
     latitude=0,
@@ -165,7 +165,7 @@ fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
 
 fig.meca(
-    spec=aki_dict_single,
+    spec=aki_single,
     scale="1c",
     longitude=-2,
     latitude=0,
@@ -175,7 +175,7 @@ fig.meca(
 )
 
 fig.meca(
-    spec=aki_dict_single,
+    spec=aki_single,
     scale="1c",
     longitude=2,
     latitude=0,
@@ -200,7 +200,7 @@ fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
 
 fig.meca(
-    spec=aki_dict_single,
+    spec=aki_single,
     scale="1c",
     longitude=-2,
     latitude=0,
@@ -209,7 +209,7 @@ fig.meca(
 )
 
 fig.meca(
-    spec=aki_dict_single,
+    spec=aki_single,
     scale="1c",
     longitude=2,
     latitude=0,
@@ -218,7 +218,7 @@ fig.meca(
     outline="0.5p,black,solid",
 )
 fig.meca(
-    spec=aki_dict_single,
+    spec=aki_single,
     scale="1c",
     longitude=2,
     latitude=0,
@@ -226,7 +226,7 @@ fig.meca(
     nodal="1/1p,darkorange,solid",
 )
 fig.meca(
-    spec=aki_dict_single,
+    spec=aki_single,
     scale="1c",
     longitude=2,
     latitude=0,
@@ -254,7 +254,7 @@ fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
 
 fig.meca(
-    spec=aki_dict_single,
+    spec=aki_single,
     scale="1c",
     longitude=-1,
     latitude=0,
@@ -265,7 +265,7 @@ fig.meca(
 )
 
 fig.meca(
-    spec=aki_dict_single,
+    spec=aki_single,
     scale="1c",
     longitude=3,
     latitude=0,
@@ -287,7 +287,7 @@ fig.show()
 # Provide lists.
 
 # Set up a pandas.DataFrame with multiple focal mechanism parameters.
-aki_df_multiple = pd.DataFrame(
+aki_multiple = pd.DataFrame(
     {
         "strike": [255, 173, 295, 318],
         "dip": [70, 68, 79, 89],
@@ -324,7 +324,7 @@ aki_df_multiple = pd.DataFrame(
 fig = pygmt.Figure()
 fig.coast(region="d", projection="N10c", land="lightgray", frame=True)
 
-fig.meca(spec=aki_df_multiple, scale="0.4c+m+f5p", labelbox="white@30", offset="+s0.1c")
+fig.meca(spec=aki_multiple, scale="0.4c+m+f5p", labelbox="white@30", offset="+s0.1c")
 
 fig.show()
 
@@ -346,7 +346,7 @@ pygmt.makecpt(cmap="lajolla", series=[0, 20])
 fig.colorbar(frame=["x+lhypocentral depth", "y+lkm"])
 
 fig.meca(
-    spec=aki_df_multiple,
+    spec=aki_multiple,
     scale="0.4c+f5p",
     offset="0.2p,gray30+s0.1c",
     labelbox="white@30",
