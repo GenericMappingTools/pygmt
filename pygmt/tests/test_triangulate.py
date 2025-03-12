@@ -158,6 +158,6 @@ def test_regular_grid_with_outgrid_param(dataframe, expected_grid):
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
         grid = read(tmpfile.name, kind="grid")
         assert isinstance(grid, xr.DataArray)
-        assert grid.gmt.registration == GridRegistration.GRIDLINE  
-        assert grid.gmt.gtype == GridType.CARTESIAN   
+        assert grid.gmt.registration == GridRegistration.GRIDLINE
+        assert grid.gmt.gtype == GridType.CARTESIAN
         xr.testing.assert_allclose(a=grid, b=expected_grid)
