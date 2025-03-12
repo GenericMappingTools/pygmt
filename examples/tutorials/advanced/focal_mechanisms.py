@@ -286,26 +286,26 @@ fig.show()
 # Data of four earthquakes taken from USGS.
 # Provide lists.
 
-# Set up a dictionary
-aki_dict_multiple = {
-    "strike": [255, 173, 295, 318],
-    "dip": [70, 68, 79, 89],
-    "rake": [20, 83, -177, -179],
-    "magnitude": [7.0, 5.8, 6.0, 7.8],
-    "longitude": [-72.53, -79.61, 69.46, 37.01],
-    "latitude": [18.44, 0.90, 33.02, 37.23],
-    "depth": [13, 19, 4, 10],
-    "plot_longitude": [-70, -110, 100, 0],
-    "plot_latitude": [40, 10, 50, 55],
-    "event_name": [
-        "Haiti - 2010/01/12",
-        "Esmeraldas - 2022/03/27",
-        "Afghanistan - 2022/06/21",
-        "Syria/Turkey - 2023/02/06",
-    ],
-}
-# Convert to a pandas.DataFrame
-aki_df_multiple = pd.DataFrame(aki_dict_multiple)
+# Set up a pandas.DataFrame with multiple focal mechanism parameters.
+aki_df_multiple = pd.DataFrame(
+    {
+        "strike": [255, 173, 295, 318],
+        "dip": [70, 68, 79, 89],
+        "rake": [20, 83, -177, -179],
+        "magnitude": [7.0, 5.8, 6.0, 7.8],
+        "longitude": [-72.53, -79.61, 69.46, 37.01],
+        "latitude": [18.44, 0.90, 33.02, 37.23],
+        "depth": [13, 19, 4, 10],
+        "plot_longitude": [-70, -110, 100, 0],
+        "plot_latitude": [40, 10, 50, 55],
+        "event_name": [
+            "Haiti - 2010/01/12",
+            "Esmeraldas - 2022/03/27",
+            "Afghanistan - 2022/06/21",
+            "Syria/Turkey - 2023/02/06",
+        ],
+    }
+)
 
 
 # %%
