@@ -47,27 +47,31 @@ def load_earth_relief(
 
        Earth relief datasets (topography and bathymetry).
 
-    The grids are downloaded to a user data directory
-    (usually ``~/.gmt/server/earth/earth_relief``,
+
+    This function downloads the dataset from the GMT data server, caches it in a user
+    data directory (usually ``~/.gmt/server/earth/earth_relief``,
     ``~/.gmt/server/earth/earth_gebco``, ``~/.gmt/server/earth/earth_gebcosi``,
-    or ``~/.gmt/server/earth/earth_synbath``) the first time you
-    invoke this function. Afterwards, it will load the grid from the data
-    directory. So you'll need an internet connection the first time around.
+    ``~/.gmt/server/earth/earth_synbath``), and load the dataset as an
+    :class:`xarray.DataArray`. An internet connection is required the first time around,
+    but subsequent calls will load the dataset from the local data directory.
 
-    This module downloads the grids that can also be accessed by
-    passing in the file name **@**\ *earth_relief_type*\_\ *res*\[_\ *reg*] to
-    any grid processing function or plotting method. *earth_relief_type* is
-    the GMT name for the dataset. The available options are **earth_relief**\,
-    **earth_gebco**\, **earth_gebcosi**\, and **earth_synbath**\. *res* is the
-    grid resolution (see below), and *reg* is the grid registration type
-    (**p** for pixel registration or **g** for gridline registration).
+    The dataset can also be accessed by specifying a file name in any grid processing
+    function or plotting method, using the following file name format:
+    **@**\ *earth_relief_type*\_\ *res*\_\ *reg*. *earth_relief_type* is the GMT name
+    for the dataset. The available options are **earth_relief**\, **earth_gebco**\,
+    **earth_gebcosi**\, and **earth_synbath**\. *res* is the grid resolution; *reg* is
+    the grid registration type (**p** for pixel registration, **g** for gridline
+    registration). If *reg* is omitted (e.g., ``@earth_relief_01d``), the
+    gridline-registered grid will be loaded for grid processing functions and the
+    pixel-registered grid willcbe loaded for plotting functions. If *res* is also
+    omitted (i.e., ``@earth_relief``), GMT automatically selects a suitable resolution
+    based on the current region and projection settings.
 
-    The default color palette table (CPT) for this dataset is *geo*.
-    It's implicitly used when passing in the file name of the dataset to any
-    grid plotting method if no CPT is explicitly specified. When the dataset
-    is loaded and plotted as an :class:`xarray.DataArray` object, the default
-    CPT is ignored, and GMT's default CPT (*turbo*) is used. To use the
-    dataset-specific CPT, you need to explicitly set ``cmap="geo"``.
+    This dataset comes with a color palette table (CPT) file, ``geo``. To use the
+    dataset-specific CPT when plotting the dataset, explicitly set ``cmap="geo"``,
+    otherwise GMT's default CPT (*turbo*) will be used. If the dataset is referenced by
+    the file name in a grid plotting method, the dataset-specific CPT file is used
+    automatically unless another CPT is specified.
 
     Refer to :gmt-datasets:`earth-relief.html` for more details about available
     datasets, including version information and references.
@@ -83,9 +87,9 @@ def load_earth_relief(
         higher than 5 arc-minutes (i.e., ``"05m"``).
     registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
-        ``"gridline"`` for gridline registration. Default is ``None``, means
-        ``"gridline"`` for all resolutions except ``"15s"`` which is
-        ``"pixel"`` only.
+        ``"gridline"`` for gridline registration. Default is ``None``, which means
+        ``"gridline"`` for all resolutions except ``"15s"`` which is ``"pixel"``
+        only.
     data_source
         Select the source for the Earth relief data. Available options are:
 
@@ -126,17 +130,17 @@ def load_earth_relief(
     --------
 
     >>> from pygmt.datasets import load_earth_relief
-    >>> # load the default grid (gridline-registered 1 arc-degree grid)
+    >>> # Load the default grid (gridline-registered 1 arc-degree grid)
     >>> grid = load_earth_relief()
-    >>> # load the 30 arc-minutes grid with "gridline" registration
+    >>> # Load the 30 arc-minutes grid with "gridline" registration
     >>> grid = load_earth_relief(resolution="30m", registration="gridline")
-    >>> # load high-resolution (5 arc-minutes) grid for a specific region
+    >>> # Load high-resolution (5 arc-minutes) grid for a specific region
     >>> grid = load_earth_relief(
     ...     resolution="05m",
     ...     region=[120, 160, 30, 60],
     ...     registration="gridline",
     ... )
-    >>> # load the original 3 arc-seconds land-only SRTM tiles from NASA
+    >>> # Load the original 3 arc-seconds land-only SRTM tiles from NASA
     >>> grid = load_earth_relief(
     ...     resolution="03s",
     ...     region=[135, 136, 35, 36],
