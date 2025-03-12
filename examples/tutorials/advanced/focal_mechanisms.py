@@ -82,38 +82,25 @@ fig.show()
 # Plotting the components of a seismic moment tensor
 # --------------------------------------------------
 #
-# A moment tensor can be decomposed into isotropic and deviatoric parts, and deviatoric
-# part can be further decomposed into multiple parts (e.g., a double couple and a
+# A moment tensor can be decomposed into isotropic and deviatoric parts. The deviatoric
+# part can be further decomposed into multiple parts (e.g., a double couple (DC) and a
 # compensated linear vector dipole (CLVD)). Use the ``component`` parameter to specify
 # the component you want to plot.
 
 fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
 
-fig.meca(
-    spec=mt_single,
-    scale="1c",
-    longitude=-3,
-    latitude=0,
-    depth=0,
-    component="full",  # full seismic moment tensor
-)
-fig.meca(
-    spec=mt_single,
-    scale="1c",
-    longitude=0,
-    latitude=0,
-    depth=0,
-    component="dc",  # closest double couple
-)
-fig.meca(
-    spec=mt_single,
-    scale="1c",
-    longitude=2,
-    latitude=0,
-    depth=0,
-    component="deviatoric",  # deviatoric part
-)
+longitude = -3
+for component in ["full", "dc", "deviatoric"]:
+    fig.meca(
+        spec=mt_single,
+        scale="1c",
+        longitude=longitude,
+        latitude=0,
+        depth=0,
+        component=component,
+    )
+    longitude = longitude + 3
 
 fig.show()
 
