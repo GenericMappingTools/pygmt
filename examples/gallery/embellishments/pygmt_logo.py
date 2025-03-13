@@ -89,9 +89,8 @@ pen_red = f"10p,{color_red}"
 # Creating the visual
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 fig = pygmt.Figure()
-pygmt.config(MAP_FRAME_PEN="0.01p,cyan@100")
+pygmt.config(MAP_FRAME_PEN="cyan@100")
 fig.basemap(region=region, projection=f"X{size * 2}c", frame=[0, "+gcyan@100"])
-# "a1f0.5g0.5"
 
 # .............................................................................
 # blue circle / hexagon for Earth
@@ -183,7 +182,7 @@ print(fig_name)
 # Replot and apply rotation
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 fig = pygmt.Figure()
-pygmt.config(MAP_FRAME_PEN="0.01p,cyan@100")
+pygmt.config(MAP_FRAME_PEN="cyan@100")
 fig.basemap(region=region, projection=f"X{size * 2}c", frame=[0, f"+g{color_bg}"])
 
 fig.image(
@@ -227,8 +226,7 @@ if wordmark is True:
             args_cover = {"x": -0.5, "y": -0.2}
 
     fig = pygmt.Figure()
-    pygmt.config(MAP_FRAME_PEN="0.01p,cyan@100")
-    # pygmt.config(MAP_FRAME_PEN="1p,cyan")
+    pygmt.config(MAP_FRAME_PEN="cyan@100")
     fig.basemap(region=region, projection=projection, frame=[0, f"+g{color_bg}"])
 
     fig.image(imagefile=f"{fig_name_rot}.eps", position=position)
