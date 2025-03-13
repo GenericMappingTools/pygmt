@@ -169,12 +169,11 @@ fig.plot(x=0, y=-3.55, style="i1.1c", fill=color_red, pen=f"3p,{color_bg}")
 fig.plot(x=[0, 0], y=[-2, -3.57], pen=f"12p,{color_red}")
 
 # .............................................................................
-# Save (-> Get ride of the white margin; only transparent in PNG)
+# Save
 # .............................................................................
 # fig.show()
 fig_name = f"pygmt_logo_{shape}_{color_concept}_{bg_concept}"
-for ext in ["eps"]:
-    fig.savefig(fname=f"{fig_name}.{ext}", dpi=dpi_png)
+fig.savefig(fname=f"{fig_name}.eps", dpi=dpi_png)
 print(fig_name)
 
 
@@ -199,10 +198,9 @@ fig.image(
 # .............................................................................
 # fig.show()
 fig_name_rot = f"{fig_name}_rot{angle_rot}deg"
-exts = ["png"]
-if wordmark is True:
-    exts = ["eps"]
+exts = ["eps"] if wordmark is True else ["png", "pdf", "eps"]
 for ext in exts:
+    # transparent = True if ext == "png" else False  # problems with code style
     transparent = False
     if ext == "png":
         transparent = True
@@ -243,7 +241,8 @@ if wordmark is True:
     # Save
     # .............................................................................
     fig_name_rot_text = f"{fig_name_rot}_wordmark_{orientation}"
-    for ext in ["png"]:
+    for ext in ["png", "pdf", "eps"]:
+        # transparent = True if ext == "png" else False  # problems with code style
         transparent = False
         if ext == "png":
             transparent = True
