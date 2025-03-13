@@ -158,7 +158,7 @@ fig.meca(
     latitude=0,
     depth=0,
     # Use a 1-point thick, darkorange and solid line
-    pen="1p,darkorange,solid",
+    pen="1p,darkorange",
 )
 
 fig.meca(
@@ -167,7 +167,7 @@ fig.meca(
     longitude=2,
     latitude=0,
     depth=0,
-    outline="1p,darkorange,solid",
+    outline="1p,darkorange",
 )
 
 fig.show()
@@ -192,7 +192,7 @@ fig.meca(
     longitude=-2,
     latitude=0,
     depth=0,
-    nodal="0/1p,black,solid",
+    nodal="0/1p,black",
 )
 
 fig.meca(
@@ -202,7 +202,7 @@ fig.meca(
     latitude=0,
     depth=0,
     compressionfill="lightorange",
-    outline="0.5p,black,solid",
+    outline="0.5p,black",
 )
 fig.meca(
     spec=aki_single,
@@ -210,7 +210,7 @@ fig.meca(
     longitude=2,
     latitude=0,
     depth=0,
-    nodal="1/1p,darkorange,solid",
+    nodal="1/1p,darkorange",
 )
 fig.meca(
     spec=aki_single,
@@ -220,7 +220,7 @@ fig.meca(
     depth=0,
     compressionfill="white@100",
     extensionfill="white@100",
-    pen="1p,gray30,solid",
+    pen="1p,gray30",
 )
 fig.show()
 
