@@ -261,3 +261,5 @@ for ext in ["png"]:  # , "pdf", "eps"]:
         fname=f"{fig_name_rot_text}.{ext}", dpi=dpi_png, transparent=transparent
     )
 print(fig_name_rot_text)
+
+# sphinx_gallery_thumbnail_number = 3
