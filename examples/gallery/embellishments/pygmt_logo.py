@@ -1,9 +1,9 @@
 """
 PyGMT logo
 ==========
-The PyGMT logo coded in Python using PyGMT. The design of the logo is by
-[@sfrooti](https://github.com/sfrooti). The logo consist of a visual and the wordmark
-"PyGMT". There are different versions available:
+The PyGMT logo coded in Python using PyGMT. The design of the logo is kindly provided
+by `@sfrooti <https://github.com/sfrooti>`_. The logo consists of a visual and the
+wordmark "PyGMT". There are different versions available:
 
 - ``color_concept``: colors of the visual and workmark.
   Select between ``"colors"`` (colors for Python (blue and yellow) and GMT (red)) and
