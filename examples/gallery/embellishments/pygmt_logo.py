@@ -151,8 +151,8 @@ fig.plot(x=[0.90, 1.43], y=[1.00, 1.527], pen=pen_red)
 # middle pick
 fig.plot(x=0.9, y=0.9, style="d0.3c", fill=color_red)
 # vertical lines
-fig.plot(x=[0.285, 0.285], y=[0.00, 1.65], pen=pen_red)
-fig.plot(x=[1.47, 1.47], y=[0.00, 1.65], pen=pen_red)
+fig.plot(x=[0.285, 0.285], y=[0.30, 1.65], pen=pen_red)
+fig.plot(x=[1.47, 1.47], y=[0.30, 1.65], pen=pen_red)
 
 # .............................................................................
 # letter T
