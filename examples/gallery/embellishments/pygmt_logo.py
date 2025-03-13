@@ -73,7 +73,7 @@ size = 5
 region = [-size, size] * 2
 
 xy_yellow_1 = 2.65
-xy_yellow_2 = 1.4
+xy_yellow_2 = 1.3
 
 pen_yellow = f"5p,{color_yellow}"
 pen_red = f"10p,{color_red}"
@@ -143,7 +143,7 @@ fig.plot(x=[0, 0], y=[4.00, 1.9], pen=f"12p,{color_red}")
 # letter M
 # .............................................................................
 # space between letter M and yellow line at the right side
-# fig.plot(x=[1.6, 1.6], y=[1.5, 1.8], pen=f"10p,{color_bg}")
+# fig.plot(x=[1.6, 1.6], y=[1.5, 1.775], pen=f"10p,{color_bg}")
 fig.plot(x=[1.6, 1.6], y=[1.5, 2.0], pen=f"10p,{color_bg}")
 # diagonal lines
 fig.plot(x=[0.33, 0.90], y=[1.527, 1.00], pen=pen_red)
