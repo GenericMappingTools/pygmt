@@ -15,15 +15,18 @@ wordmark "PyGMT". There are different versions available:
 - ``shape``: shape of the visual.
   Select between ``"circle"`` and ``"hexagon"``.
   [Default is ``"circle"``].
-- ``angle_rot``: rotation angle of the visual.
-  Give an angle in degrees (mesuared contour-clockwise from the vertical).
-  [Default is ``30``]. Should this be flexible ???
 - ``wordmark``: add the wordmark "PyGMT".
   ``True`` or ``False``.
   [Default is ``True``]. ???
 - ``orientation``: orientation of the wordmark.
   Select between ``"vertical"`` (at the bottom) and ``"horizontal"`` (at the right).
   [Default is ``"vertical"``].
+- ``bg_transparent``: make visual transparent outside of the circle or hexagon.
+  ``True`` or ``False``. Only available for PNG output.
+  [Default is ``False``].
+- ``angle_rot``: rotation angle of the visual.
+  Give an angle in degrees (mesuared contour-clockwise from the vertical).
+  [Default is ``30``]. Should this be flexible ???
 """
 
 # %%
@@ -36,10 +39,12 @@ import pygmt
 # -----------------------------------------------------------------------------
 color_concept = "color"  # "color" | "bw"
 bg_concept = "dark"  # "light" | "dark"
-shape = "circle"  # "circle" | "hexagon"
-angle_rot = 30  # degrees
+shape = "hexagon"  # "circle" | "hexagon"
 wordmark = True  # True | False
 orientation = "horizontal"  # "horizontal" | "vertical"
+bg_transparent = True  # True | False
+
+angle_rot = 30  # degrees
 dpi_png = 720  # resolution of saved PNG image
 
 
@@ -184,8 +189,10 @@ print(fig_name)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 fig = pygmt.Figure()
 pygmt.config(MAP_FRAME_PEN="cyan@100")
+
+bg_alpha = 100 if bg_transparent is True else 0
 fig.basemap(
-    region=region, projection=f"X{(size + 0.1) * 2}c", frame=[0, f"+g{color_bg}"]
+    region=region, projection=f"X{(size + 0.1) * 2}c", frame=f"+g{color_bg}@{bg_alpha}"
 )
 
 fig.image(
