@@ -5,16 +5,11 @@ load as :class:`xarray.DataArray`.
 The images are available in various resolutions.
 """
 
-import contextlib
 from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
-
-with contextlib.suppress(ImportError):
-    # rioxarray is needed to register the rio accessor
-    import rioxarray  # noqa: F401
 
 __doctest_skip__ = ["load_black_marble"]
 
@@ -97,7 +92,4 @@ def load_black_marble(
         region=region,
         registration="pixel",
     )
-    # If rioxarray is installed, set the coordinate reference system
-    if hasattr(image, "rio"):
-        image = image.rio.write_crs(input_crs="OGC:CRS84")
     return image
