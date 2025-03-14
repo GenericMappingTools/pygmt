@@ -6,7 +6,7 @@ by `@sfrooti <https://github.com/sfrooti>`_. The logo consists of a visual and t
 wordmark "PyGMT". There are different versions available:
 
 - ``black_white``: draw in black and white.
-  ``False`` colors for Python (blue and yellow) and GMT (red)) [Default] or ``True``
+  ``False`` colors for Python (blue and yellow) and GMT (red) [Default] or ``True``
     for black and white.
 - ``dark_mode``: use dark background.
   ``False`` white or ``True`` darkgray / gray20 [Default].
