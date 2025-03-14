@@ -5,26 +5,19 @@ The PyGMT logo coded in Python using PyGMT. The design of the logo is kindly pro
 by `@sfrooti <https://github.com/sfrooti>`_. The logo consists of a visual and the
 wordmark "PyGMT". There are different versions available:
 
-- ``color_concept``: colors of the visual and workmark.
-  Select between ``"colors"`` (colors for Python (blue and yellow) and GMT (red)) and
-  ``"bw"`` for black and white.
-  [Default is ``"color"``].
-- ``bg_concept``: color of the background.
-  Select between ``"light"`` (white) and ``"dark"`` (darkgray / gray20).
-  [Default is ``"dark"``].
-- ``shape``: shape of the visual.
-  Select between ``"circle"`` and ``"hexagon"``.
-  [Default is ``"circle"``].
+- ``black_white``: draw in black and white.
+  ``True`` colors for Python (blue and yellow) and GMT (red)) [Default] and ``False``
+    for black and white.
+- ``dark_mode``: use dark background.
+  ``True`` white and ``False`` arkgray / gray20 [Default].
+- ``hex_shape``: use hexagon shape.
+  ``True`` circle [Default] and ``False`` hexagon.
 - ``wordmark``: add the wordmark "PyGMT".
-  ``True`` or ``False``.
-  [Default is ``True``].
+  ``True`` [Default] or ``False``.
 - ``orientation``: orientation of the wordmark.
-  Select between ``"vertical"`` (at the bottom) and ``"horizontal"`` (at the right).
-  [Default is ``"vertical"``].
+  `"vertical"`` at the bottom and ``"horizontal"`` at the right [Default].
 - ``bg_transparent``: make visual transparent outside of the circle or hexagon.
-  ``True`` or ``False``.
-  Only available for PNG format. Not supported for adding a wordmark.
-  [Default is ``False``].
+  ``True`` or ``False``[Default]. Not supported for adding a wordmark.
 """
 
 # %%
@@ -34,12 +27,12 @@ import pygmt
 
 
 def pygmtlogo(
-    color_concept="color",  # "color" | "bw"
-    bg_concept="dark",  # "light" | "dark"
-    shape="circle",  # "circle" | "hexagon"
-    wordmark=True,  # True | False
+    black_white=False,
+    dark_mode=True,
+    hex_shape=False,
+    wordmark=True,
     orientation="horizontal",  # "horizontal" | "vertical"
-    bg_transparent=False,  # True | False
+    bg_transparent=False,
     position="jRT+o0.1c+w4c",  # -> use position parameter of Figure.image
     box=False,  # True | False  # -> use box parameter of Figure.image
 ):
@@ -50,21 +43,21 @@ def pygmtlogo(
     # -----------------------------------------------------------------------------
     # Define colors (-> can be discussed)
     # -----------------------------------------------------------------------------
-    if color_concept == "color":
+    if not black_white:
         color_blue = "48/105/152"  # Python blue
         color_yellow = "255/212/59"  # Python yellow
         color_red = "238/86/52"  # GMT red
-    elif color_concept == "bw" and bg_concept == "light":
+    elif black_white and not dark_mode:
         color_blue = color_yellow = color_red = "gray20"
-    elif color_concept == "bw" and bg_concept == "dark":
+    elif black_white and dark_mode:
         color_blue = color_yellow = color_red = "white"
 
-    match bg_concept:
-        case "light":
+    match dark_mode:
+        case False:
             color_bg = "white"
             color_py = color_blue
             color_gmt = "gray20"
-        case "dark":
+        case True:
             color_bg = "gray20"
             color_py = color_yellow
             color_gmt = "white"
@@ -72,9 +65,9 @@ def pygmtlogo(
     # Start of subfunction
 
     def create_logo(
-        color_concept=color_concept,
-        bg_concept=bg_concept,
-        shape=shape,
+        black_white=black_white,
+        dark_mode=dark_mode,
+        hex_shape=hex_shape,
         wordmark=wordmark,
         orientation=orientation,
         bg_transparent=bg_transparent,
@@ -107,13 +100,13 @@ def pygmtlogo(
         # .............................................................................
         # blue circle / hexagon for Earth
         # .............................................................................
-        match shape:
-            case "circle":
+        match hex_shape:
+            case False:
                 diameter = 7.5
                 diameter_add = 0.5
                 symbol = "c"
                 margin = -1.2
-            case "hexagon":
+            case True:
                 diameter = 8.6
                 diameter_add = 0.6
                 symbol = "h"
@@ -204,11 +197,8 @@ def pygmtlogo(
 
         # margin around shape with slight overplotting for clean borders
         color_margin = color_bg
-        if (color_concept == "color" and bg_transparent and not wordmark) or (
-            color_concept == "bw"
-            and bg_transparent
-            and not wordmark
-            and bg_concept == "light"
+        if (not black_white and bg_transparent and not wordmark) or (
+            black_white and bg_transparent and not wordmark and not dark_mode
         ):
             color_margin = "white@100"
         fig.plot(
@@ -223,7 +213,8 @@ def pygmtlogo(
         # Save
         # .............................................................................
         # fig.show()
-        fig_name = f"pygmt_logo_{shape}_{color_concept}_{bg_concept}"
+        # fig_name = f"pygmt_logo_{shape}_{color_concept}_{bg_concept}"
+        fig_name = "pygmt_logo"
         fig.savefig(fname=f"{fig_name}.eps")
         # print(fig_name)
 
@@ -301,7 +292,7 @@ def pygmtlogo(
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     fig_name_logo = create_logo()
 
-    # Use parameters of Figure.image
+    # Use parameters of pygmt.Figure.image
     fig.image(imagefile=f"{fig_name_logo}.eps", position=position, box=box)
 
     Path.unlink(f"{fig_name_logo}.eps")
@@ -317,7 +308,7 @@ fig = pygmt.Figure()
 pygmt.config(MAP_FRAME_PEN="cyan@100")
 fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame="+gcyan@100")
 
-pygmtlogo(bg_concept="dark", position="jMC+w10c", wordmark=False, bg_transparent=True)
+pygmtlogo(position="jMC+w10c", wordmark=False, bg_transparent=True)
 
 fig.show()
 
@@ -327,7 +318,7 @@ fig = pygmt.Figure()
 pygmt.config(MAP_FRAME_PEN="cyan@100")
 fig.basemap(region=[-5, 5, -5, 5], projection="X10c/2c", frame="+gcyan@100")
 
-pygmtlogo(bg_concept="light", position="jMC+w10c")
+pygmtlogo(dark_mode=False, position="jMC+w10c")
 
 fig.show()
 
@@ -337,43 +328,43 @@ fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=[1, "+gtan"])
 
 pygmtlogo()
-pygmtlogo(bg_concept="light", shape="hexagon", position="jTL+o0.1c+w4c")
+pygmtlogo(dark_mode=False, hex_shape=True, position="jTL+o0.1c+w4c")
 
-pygmtlogo(shape="circle", wordmark=False, position="jML+w2c", box=True)
+pygmtlogo(wordmark=False, position="jML+w2c", box=True)
 pygmtlogo(
-    bg_concept="light",
+    dark_mode=False,
     wordmark=False,
     bg_transparent=True,
     position="jBL+w2c",
     box=True,
 )
 pygmtlogo(
-    color_concept="bw",
+    black_white=True,
     orientation="vertical",
     bg_transparent=True,
     position="jMC+w2c",
     box="+p1p,blue+gcyan",
 )
 pygmtlogo(
-    color_concept="bw",
-    shape="hexagon",
+    black_white=True,
+    hex_shape=True,
     orientation="vertical",
     position="jBC+w2c",
     box="+ggray20",
 )
-pygmtlogo(shape="hexagon", wordmark=False, position="jMR+w2c")
-pygmtlogo(bg_concept="light", shape="hexagon", wordmark=False, position="jBR+w2c")
+pygmtlogo(hex_shape=True, wordmark=False, position="jMR+w2c")
+pygmtlogo(dark_mode=False, hex_shape=True, wordmark=False, position="jBR+w2c")
 
 pygmtlogo(
-    color_concept="bw",
-    bg_concept="light",
+    black_white=True,
+    dark_mode=False,
     wordmark=False,
     bg_transparent=True,
     position="jTL+o0c/1.5c+w2c",
 )
 pygmtlogo(
-    color_concept="bw",
-    shape="hexagon",
+    black_white=True,
+    hex_shape=True,
     wordmark=False,
     bg_transparent=True,
     position="jTR+o0c/1.5c+w2c",
