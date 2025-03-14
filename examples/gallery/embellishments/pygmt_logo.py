@@ -38,10 +38,10 @@ import pygmt
 # Changebale settings  (-> adjust for your needs; later input for function)
 # -----------------------------------------------------------------------------
 color_concept = "color"  # "color" | "bw"
-bg_concept = "dark"  # "light" | "dark"
+bg_concept = "light"  # "light" | "dark"
 shape = "circle"  # "circle" | "hexagon"
 wordmark = True  # True | False
-orientation = "horizontal"  # "horizontal" | "vertical"
+orientation = "vertical"  # "horizontal" | "vertical"
 bg_transparent = False  # True | False
 
 angle_rot = 30  # degrees
@@ -195,7 +195,7 @@ fig.plot(
 # .............................................................................
 # Save
 # .............................................................................
-fig.show()
+# fig.show()
 fig_name = f"pygmt_logo_{shape}_{color_concept}_{bg_concept}"
 fig.savefig(fname=f"{fig_name}.eps")
 print(fig_name)
@@ -209,7 +209,9 @@ fig = pygmt.Figure()
 pygmt.config(MAP_FRAME_PEN="cyan@100")
 
 bg_alpha = 100 if bg_transparent is True else 0
-fig.basemap(region=region, projection=f"X{size * 2}c", frame=f"+g{color_bg}@{bg_alpha}")
+fig.basemap(
+    region=region, projection=f"X{size * 2}c", frame=[0, f"+g{color_bg}@{bg_alpha}"]
+)
 
 fig.image(
     imagefile=f"{fig_name}.eps",
@@ -221,24 +223,23 @@ fig.image(
 # .............................................................................
 # Save
 # .............................................................................
-fig.show()
+# fig.show()
 fig_name_rot = f"{fig_name}_rot{angle_rot}deg"
 exts = ["eps"] if wordmark is True else ["png", "pdf", "eps"]
 for ext in exts:
-    # transparent = True if ext == "png" else False  # problems with code style
-    transparent = False
+    # alpha_png = True if ext == "png" else False  # problems with code style
+    alpha_png = False
     if ext == "png":
-        transparent = True
-    fig.savefig(fname=f"{fig_name_rot}.{ext}", dpi=dpi_png, transparent=transparent)
+        alpha_png = True
+    fig.savefig(fname=f"{fig_name_rot}.{ext}", dpi=dpi_png, transparent=alpha_png)
 print(fig_name_rot)
 
 # %%
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Replot and add WordMark "PyGMT"
+# Replot and add wordmark "PyGMT"
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 if wordmark is True:
-    size = 4
     match orientation:
         case "vertical":
             projection = f"X{size * 2 - 1.5}c/{size * 2}c"
@@ -267,11 +268,11 @@ if wordmark is True:
     fig_name_rot_text = f"{fig_name_rot}_wordmark_{orientation}"
     for ext in ["png", "pdf", "eps"]:
         # transparent = True if ext == "png" else False  # problems with code style
-        transparent = False
+        alpha_png = False
         if ext == "png":
-            transparent = True
+            alpha_png = True
         fig.savefig(
-            fname=f"{fig_name_rot_text}.{ext}", dpi=dpi_png, transparent=transparent
+            fname=f"{fig_name_rot_text}.{ext}", dpi=dpi_png, transparent=alpha_png
         )
     print(fig_name_rot_text)
     Path.unlink(f"{fig_name_rot}.eps")
