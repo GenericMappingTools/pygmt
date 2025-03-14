@@ -54,7 +54,8 @@ class GMTRemoteDataset(NamedTuple):
     extra_attributes
         A dictionary of extra or unique attributes of the dataset.
     crs
-        The coordinate reference system of the raster image.
+        The coordinate reference system of the raster image. Need to be set for images,
+        and should be ``None`` for grids.
     """
 
     description: str
