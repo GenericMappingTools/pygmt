@@ -84,7 +84,7 @@ def pygmtlogo(
         bg_transparent=bg_transparent,
     ):
         # -----------------------------------------------------------------------------
-        # Not-changebale settings (-> need to extended)
+        # Not-changebale settings
         # -----------------------------------------------------------------------------
         size = 4
         region = [-size, size] * 2
@@ -106,7 +106,7 @@ def pygmtlogo(
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         fig = pygmt.Figure()
         pygmt.config(MAP_FRAME_PEN="cyan@100")
-        fig.basemap(region=region, projection=f"X{size * 2}c", frame=[0, "+gcyan@100"])
+        fig.basemap(region=region, projection=f"X{size * 2}c", frame="+gcyan@100")
 
         # .............................................................................
         # blue circle / hexagon for Earth
@@ -315,6 +315,27 @@ def pygmtlogo(
 # Plot logo in an existing PyGMT Figure instance
 #
 # Limitations: works only for a PyGMT Figure instance named "fig"
+
+
+fig = pygmt.Figure()
+pygmt.config(MAP_FRAME_PEN="cyan@100")
+fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame="+gcyan@100")
+
+pygmtlogo(bg_concept="dark", position="jMC+w10c", wordmark=False, bg_transparent=True)
+
+fig.show()
+
+# %%
+
+fig = pygmt.Figure()
+pygmt.config(MAP_FRAME_PEN="cyan@100")
+fig.basemap(region=[-5, 5, -5, 5], projection="X10c/2c", frame="+gcyan@100")
+
+pygmtlogo(bg_concept="light", position="jMC+w10c")
+
+fig.show()
+
+# %%
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=[1, "+gtan"])
