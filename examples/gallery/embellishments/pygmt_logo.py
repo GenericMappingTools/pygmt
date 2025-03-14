@@ -73,7 +73,6 @@ def pygmtlogo(
             color_py = color_yellow
             color_gmt = "white"
 
-
     # Start of subfunction
 
     def create_logo(
@@ -84,7 +83,6 @@ def pygmtlogo(
         orientation=orientation,
         bg_transparent=bg_transparent,
     ):
-
         # -----------------------------------------------------------------------------
         # Not-changebale settings (-> need to extended)
         # -----------------------------------------------------------------------------
@@ -210,8 +208,12 @@ def pygmtlogo(
 
         # margin around shape with slight overplotting for clean borders
         color_margin = color_bg
-        if (color_concept == "color" and bg_transparent and not wordmark) or \
-            (color_concept == "bw" and bg_transparent and not wordmark and bg_concept == "light"):
+        if (color_concept == "color" and bg_transparent and not wordmark) or (
+            color_concept == "bw"
+            and bg_transparent
+            and not wordmark
+            and bg_concept == "light"
+        ):
             color_margin = "white@100"
         fig.plot(
             x=0,
@@ -275,9 +277,7 @@ def pygmtlogo(
 
             fig = pygmt.Figure()
             pygmt.config(MAP_FRAME_PEN="cyan@100")
-            fig.basemap(
-                region=region, projection=projection, frame=f"+g{color_bg}"
-            )
+            fig.basemap(region=region, projection=projection, frame=f"+g{color_bg}")
 
             fig.image(imagefile=f"{fig_name_rot}.eps", position=position)
 
@@ -323,11 +323,35 @@ pygmtlogo()
 pygmtlogo(bg_concept="light", shape="hexagon", position="jTL+o0.1c+w4c")
 
 pygmtlogo(shape="circle", wordmark=False, position="jML+w2c", box=True)
-pygmtlogo(bg_concept="light", shape="circle", wordmark=False, bg_transparent=True, position="jBL+w2c", box=True)
-pygmtlogo(color_concept="bw", shape="circle", wordmark=True, bg_transparent=True, orientation="vertical", position="jMC+w2c", box="+p1p,blue+gcyan")
-pygmtlogo(color_concept="bw", shape="hexagon", wordmark=True, orientation="vertical", position="jBC+w2c", box="+ggray20")
+pygmtlogo(
+    bg_concept="light",
+    shape="circle",
+    wordmark=False,
+    bg_transparent=True,
+    position="jBL+w2c",
+    box=True,
+)
+pygmtlogo(
+    color_concept="bw",
+    shape="circle",
+    wordmark=True,
+    bg_transparent=True,
+    orientation="vertical",
+    position="jMC+w2c",
+    box="+p1p,blue+gcyan",
+)
+pygmtlogo(
+    color_concept="bw",
+    shape="hexagon",
+    wordmark=True,
+    orientation="vertical",
+    position="jBC+w2c",
+    box="+ggray20",
+)
 pygmtlogo(shape="hexagon", wordmark=False, position="jMR+w2c", box=True)
-pygmtlogo(bg_concept="light", shape="hexagon", wordmark=False, position="jBR+w2c", box=True)
+pygmtlogo(
+    bg_concept="light", shape="hexagon", wordmark=False, position="jBR+w2c", box=True
+)
 pygmtlogo(
     color_concept="bw",
     bg_concept="light",
@@ -346,4 +370,3 @@ pygmtlogo(
 )
 
 fig.show()
-
