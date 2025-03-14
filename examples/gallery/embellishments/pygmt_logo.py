@@ -36,6 +36,7 @@ from pathlib import Path
 
 import pygmt
 
+
 # -----------------------------------------------------------------------------
 # Changebale settings  (-> adjust for your needs; later input for function)
 # -----------------------------------------------------------------------------
@@ -46,9 +47,12 @@ def pygmtlogo(
     wordmark=True,  # True | False
     orientation="horizontal",  # "horizontal" | "vertical"
     bg_transparent=False,  # True | False
-    box=False,  # True | False  # TODO use box parameter of Figure.image
+    box=False,  # True | False  # -> use box parameter of Figure.image
     position="jRT+o0.1c+w4c",
 ):
+    """
+    Docstrings
+    """
 
     def create_logo(
         color_concept=color_concept,
@@ -59,7 +63,6 @@ def pygmtlogo(
         bg_transparent=bg_transparent,
         box=box,
     ):
-
         # -----------------------------------------------------------------------------
         # Define colors (-> can be discussed)
         # -----------------------------------------------------------------------------
@@ -137,13 +140,23 @@ def pygmtlogo(
         fig.plot(x=[-4, 4], y=[0, 0], pen=pen_yellow, no_clip=True)
         # diagonal yellow lines
         # upper left
-        fig.plot(x=[-xy_yellow_1, -xy_yellow_2], y=[xy_yellow_1, xy_yellow_2], pen=pen_yellow)
+        fig.plot(
+            x=[-xy_yellow_1, -xy_yellow_2], y=[xy_yellow_1, xy_yellow_2], pen=pen_yellow
+        )
         # lower right
-        fig.plot(x=[xy_yellow_2, xy_yellow_1], y=[-xy_yellow_2, -xy_yellow_1], pen=pen_yellow)
+        fig.plot(
+            x=[xy_yellow_2, xy_yellow_1], y=[-xy_yellow_2, -xy_yellow_1], pen=pen_yellow
+        )
         # lower left
-        fig.plot(x=[-xy_yellow_1, -xy_yellow_2], y=[-xy_yellow_1, -xy_yellow_2], pen=pen_yellow)
+        fig.plot(
+            x=[-xy_yellow_1, -xy_yellow_2],
+            y=[-xy_yellow_1, -xy_yellow_2],
+            pen=pen_yellow,
+        )
         # upper right
-        fig.plot(x=[xy_yellow_2, xy_yellow_1], y=[xy_yellow_2, xy_yellow_1], pen=pen_yellow)
+        fig.plot(
+            x=[xy_yellow_2, xy_yellow_1], y=[xy_yellow_2, xy_yellow_1], pen=pen_yellow
+        )
 
         # .............................................................................
         # letter G
@@ -198,7 +211,7 @@ def pygmtlogo(
         # margin around shape with slight overplotting for clean borders
         color_margin = color_bg
         if color_concept == "color" and bg_transparent and not wordmark:
-            color_margin = "white"
+            color_margin = "white@100"
         fig.plot(
             x=0,
             y=0,
@@ -213,7 +226,7 @@ def pygmtlogo(
         # fig.show()
         fig_name = f"pygmt_logo_{shape}_{color_concept}_{bg_concept}"
         fig.savefig(fname=f"{fig_name}.eps")
-        print(fig_name)
+        # print(fig_name)
 
         # %%
 
@@ -226,7 +239,9 @@ def pygmtlogo(
 
         bg_alpha = 100 if bg_transparent is True else 0
         fig.basemap(
-            region=region, projection=f"X{size * 2}c", frame=[0, f"+g{color_bg}@{bg_alpha}"]
+            region=region,
+            projection=f"X{(size + 0.3) * 2}c",
+            frame=[0, f"+g{color_bg}@{bg_alpha}"],
         )
 
         fig.image(
@@ -242,7 +257,7 @@ def pygmtlogo(
         # fig.show()
         fig_name_rot = fig_name_logo = f"{fig_name}_rot{angle_rot}deg"
         fig.savefig(fname=f"{fig_name_rot}.eps")
-        print(fig_name_rot)
+        # print(fig_name_rot)
 
         # %%
 
@@ -265,7 +280,9 @@ def pygmtlogo(
             fig = pygmt.Figure()
             frame_pen = "0.5p,gray20" if box else "cyan@100"
             pygmt.config(MAP_FRAME_PEN=frame_pen)
-            fig.basemap(region=region, projection=projection, frame=[0, f"+g{color_bg}"])
+            fig.basemap(
+                region=region, projection=projection, frame=[0, f"+g{color_bg}"]
+            )
 
             fig.image(imagefile=f"{fig_name_rot}.eps", position=position)
 
@@ -273,12 +290,12 @@ def pygmtlogo(
             fig.plot(style="s2.6c", fill=color_bg, **args_cover)
             fig.text(text="Py", font=f"45p,AvantGarde-Book,{color_py}", **args_text)
 
-            # .............................................................................
+            # .........................................................................
             # Save
-            # .............................................................................
+            # .........................................................................
             fig_name_rot_text = fig_name_logo = f"{fig_name_rot}_wordmark_{orientation}"
             fig.savefig(fname=f"{fig_name_rot_text}.eps")
-            print(fig_name_rot_text)
+            # print(fig_name_rot_text)
             Path.unlink(f"{fig_name_rot}.eps")
 
         # %%
@@ -287,8 +304,8 @@ def pygmtlogo(
 
         return fig_name_logo
 
-
     # %%
+
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Replot and add to Figure instance (-> works only for a Figure instance named fig)
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -300,17 +317,44 @@ def pygmtlogo(
     Path.unlink(f"{fig_name_logo}.eps")
 
 
-
 # %%
+# Plot logo in an existing Figure instance
+#
+# Limitations:
+# - works only for a PyGMT Figure instance named "fig"
+# - margin is now transparent but still included the size so can not use box parameter
+#   of Figure.image yet
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=[1, "+gcyan"])
 
 pygmtlogo()
-pygmtlogo(orientation="vertical", position="jTL+o0.2c+w3c")
-pygmtlogo(color_concept="bw", bg_concept="dark", position="jLB+o0.2c+w6c")
+pygmtlogo(bg_concept="light", position="jTR+o0.1c/2c+w4c", box=True)
+pygmtlogo(orientation="vertical", position="jTL+o0.1c+w3c")
+pygmtlogo(color_concept="bw", bg_concept="dark", position="jLB+o0.1c+w6c")
 pygmtlogo(bg_concept="light", wordmark=False, bg_transparent=True, position="jMC+w4c")
-pygmtlogo(color_concept="bw", bg_concept="light", shape="hexagon", wordmark=False, position="jRB+w4c", box=True)
+pygmtlogo(
+    color_concept="bw",
+    bg_concept="light",
+    shape="hexagon",
+    wordmark=False,
+    position="jRB+w4c",
+    box=True,
+)
+pygmtlogo(
+    color_concept="bw",
+    bg_concept="dark",
+    wordmark=False,
+    bg_transparent=True,
+    position="jLM+w2c",
+)
+pygmtlogo(
+    color_concept="bw",
+    bg_concept="dark",
+    shape="hexagon",
+    wordmark=False,
+    bg_transparent=True,
+    position="jRM+w2c",
+)
 
 fig.show()
-
