@@ -17,7 +17,7 @@ wordmark "PyGMT". There are different versions available:
   [Default is ``"circle"``].
 - ``wordmark``: add the wordmark "PyGMT".
   ``True`` or ``False``.
-  [Default is ``True``]. ???
+  [Default is ``True``].
 - ``orientation``: orientation of the wordmark.
   Select between ``"vertical"`` (at the bottom) and ``"horizontal"`` (at the right).
   [Default is ``"vertical"``].
@@ -29,9 +29,6 @@ wordmark "PyGMT". There are different versions available:
   ``True`` or ``False``.
   Mainly relevant for ``bg_concept = "light"``.
   [Default is ``False``].
-- ``angle_rot``: rotation angle of the visual.
-  Give an angle in degrees (mesuared contour-clockwise from the vertical).
-  [Default is ``30``]. Should this be flexible ???
 """
 
 # %%
@@ -42,249 +39,278 @@ import pygmt
 # -----------------------------------------------------------------------------
 # Changebale settings  (-> adjust for your needs; later input for function)
 # -----------------------------------------------------------------------------
-color_concept = "color"  # "color" | "bw"
-bg_concept = "light"  # "light" | "dark"
-shape = "circle"  # "circle" | "hexagon"
-wordmark = True  # True | False
-orientation = "vertical"  # "horizontal" | "vertical"
-bg_transparent = True  # True | False
-box = True  # True | False
+def pygmtlogo(
+    color_concept="color",  # "color" | "bw"
+    bg_concept="dark",  # "light" | "dark"
+    shape="circle",  # "circle" | "hexagon"
+    wordmark=True,  # True | False
+    orientation="horizontal",  # "horizontal" | "vertical"
+    bg_transparent=False,  # True | False
+    box=False,  # True | False  # TODO use box parameter of Figure.image
+    position="jRT+o0.1c+w4c",
+):
 
-angle_rot = 30  # degrees
-dpi_png = 720  # resolution of saved PNG image
+    def create_logo(
+        color_concept=color_concept,
+        bg_concept=bg_concept,
+        shape=shape,
+        wordmark=wordmark,
+        orientation=orientation,
+        bg_transparent=bg_transparent,
+        box=box,
+    ):
 
-# -----------------------------------------------------------------------------
-# Define colors (-> can be discussed)
-# -----------------------------------------------------------------------------
-if color_concept == "color":
-    color_blue = "48/105/152"  # Python blue
-    color_yellow = "255/212/59"  # Python yellow
-    color_red = "238/86/52"  # GMT red
-elif color_concept == "bw" and bg_concept == "light":
-    color_blue = color_yellow = color_red = "gray20"
-elif color_concept == "bw" and bg_concept == "dark":
-    color_blue = color_yellow = color_red = "white"
+        # -----------------------------------------------------------------------------
+        # Define colors (-> can be discussed)
+        # -----------------------------------------------------------------------------
+        if color_concept == "color":
+            color_blue = "48/105/152"  # Python blue
+            color_yellow = "255/212/59"  # Python yellow
+            color_red = "238/86/52"  # GMT red
+        elif color_concept == "bw" and bg_concept == "light":
+            color_blue = color_yellow = color_red = "gray20"
+        elif color_concept == "bw" and bg_concept == "dark":
+            color_blue = color_yellow = color_red = "white"
 
-match bg_concept:
-    case "light":
-        color_bg = "white"
-        color_py = color_blue
-        color_gmt = "gray20"
-    case "dark":
-        color_bg = "gray20"
-        color_py = color_yellow
-        color_gmt = "white"
+        match bg_concept:
+            case "light":
+                color_bg = "white"
+                color_py = color_blue
+                color_gmt = "gray20"
+            case "dark":
+                color_bg = "gray20"
+                color_py = color_yellow
+                color_gmt = "white"
 
-# -----------------------------------------------------------------------------
-# Not-changebale settings (-> need to extended)
-# -----------------------------------------------------------------------------
-size = 4
-region = [-size, size] * 2
+        # -----------------------------------------------------------------------------
+        # Not-changebale settings (-> need to extended)
+        # -----------------------------------------------------------------------------
+        size = 4
+        region = [-size, size] * 2
 
-xy_yellow_1 = 2.65
-xy_yellow_2 = 1.3
+        xy_yellow_1 = 2.65
+        xy_yellow_2 = 1.3
 
-pen_yellow = f"5p,{color_yellow}"
-pen_red = f"10p,{color_red}"
+        pen_yellow = f"5p,{color_yellow}"
+        pen_red = f"10p,{color_red}"
 
-# %%
+        angle_rot = 30  # degrees
 
-# -----------------------------------------------------------------------------
-# Start plotting
-# -----------------------------------------------------------------------------
+        # %%
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Creating the visual
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-fig = pygmt.Figure()
-pygmt.config(MAP_FRAME_PEN="cyan@100")
-fig.basemap(region=region, projection=f"X{size * 2}c", frame=[0, "+gcyan@100"])
+        # -----------------------------------------------------------------------------
+        # Start plotting
+        # -----------------------------------------------------------------------------
 
-# .............................................................................
-# blue circle / hexagon for Earth
-# .............................................................................
-match shape:
-    case "circle":
-        diameter = 7.5
-        diameter_add = 0.5
-        symbol = "c"
-    case "hexagon":
-        diameter = 8.6
-        diameter_add = 0.6
-        symbol = "h"
-fig.plot(
-    x=0,
-    y=0,
-    style=f"{symbol}{diameter}c",
-    pen=f"15p,{color_blue}",
-    fill=color_bg,
-    no_clip=True,
-)
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        # Creating the visual
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        fig = pygmt.Figure()
+        pygmt.config(MAP_FRAME_PEN="cyan@100")
+        fig.basemap(region=region, projection=f"X{size * 2}c", frame=[0, "+gcyan@100"])
 
-# .............................................................................
-# yellow lines for compass
-# .............................................................................
-# horizontal yellow line
-fig.plot(x=[-4, 4], y=[0, 0], pen=pen_yellow, no_clip=True)
-# diagonal yellow lines
-# upper left
-fig.plot(x=[-xy_yellow_1, -xy_yellow_2], y=[xy_yellow_1, xy_yellow_2], pen=pen_yellow)
-# lower right
-fig.plot(x=[xy_yellow_2, xy_yellow_1], y=[-xy_yellow_2, -xy_yellow_1], pen=pen_yellow)
-# lower left
-fig.plot(x=[-xy_yellow_1, -xy_yellow_2], y=[-xy_yellow_1, -xy_yellow_2], pen=pen_yellow)
-# upper right
-fig.plot(x=[xy_yellow_2, xy_yellow_1], y=[xy_yellow_2, xy_yellow_1], pen=pen_yellow)
-
-# .............................................................................
-# letter G
-# .............................................................................
-# horizontal red line
-fig.plot(x=[0.1, 1.65], y=[0, 0], pen=f"12p,{color_red}")
-# red ring sector
-fig.plot(x=0, y=0, style="w3.3c/90/0+i2.35c", fill=color_red)
-# space between yellow lines and ring sector
-fig.plot(x=0, y=0, style="w3.7c/0/360+i3.3c", fill=color_bg)
-# vertical yellow line
-fig.plot(x=[0, 0], y=[-4, 4], pen=f"6p,{color_yellow}")
-# cover yellow line in lower part of the ring sector
-fig.plot(x=0, y=0, style="w3.3c/260/-80+i2.35c", fill=color_red)
-
-# .............................................................................
-# upper vertical red line
-# .............................................................................
-# space between red line and blue circle / hexagon
-fig.plot(x=[0, 0], y=[4, 3.0], pen=f"18p,{color_bg}")
-# red line
-fig.plot(x=[0, 0], y=[4, 1.9], pen=f"12p,{color_red}")
-
-# .............................................................................
-# letter M
-# .............................................................................
-# space between letter M and yellow line at the right side
-# fig.plot(x=[1.6, 1.6], y=[1.5, 1.775], pen=f"10p,{color_bg}")
-fig.plot(x=[1.6, 1.6], y=[1.5, 2.0], pen=f"10p,{color_bg}")
-# diagonal lines
-fig.plot(x=[0.33, 0.90], y=[1.527, 1.00], pen=pen_red)
-fig.plot(x=[0.90, 1.43], y=[1.00, 1.527], pen=pen_red)
-# middle pick
-fig.plot(x=0.9, y=0.9, style="d0.3c", fill=color_red)
-# vertical lines with small distance to horizontal line of letter G
-fig.plot(x=[0.285, 0.285], y=[0.30, 1.65], pen=pen_red)
-fig.plot(x=[1.47, 1.47], y=[0.30, 1.65], pen=pen_red)
-
-# .............................................................................
-# letter T
-# .............................................................................
-# red curved horizontal line
-fig.plot(x=0, y=0, style="w4.6c/240/-60+i3.7c", fill=color_red)
-# vertical endings of curved horizontal line
-fig.plot(x=[-1.05, -1.05], y=[-1.5, -2.5], pen=f"9p,{color_bg}")
-fig.plot(x=[1.05, 1.05], y=[-1.5, -2.5], pen=f"9p,{color_bg}")
-# arrow head as inverse triangle with pen for space to blue circle / hexagon
-fig.plot(x=0, y=-3.55, style="i1.1c", fill=color_red, pen=f"3p,{color_bg}")
-# arrow tail
-fig.plot(x=[0, 0], y=[-2, -3.57], pen=f"12p,{color_red}")
-
-# margin around shape with slight overplotting for clean borders
-color_margin = color_bg
-if color_concept == "color" and bg_transparent and not wordmark:
-    color_margin = "white"
-fig.plot(
-    x=0,
-    y=0,
-    style=f"{symbol}{diameter + diameter_add}c",
-    pen=f"1p,{color_margin}",
-    no_clip=True,
-)
-
-# .............................................................................
-# Save
-# .............................................................................
-# fig.show()
-fig_name = f"pygmt_logo_{shape}_{color_concept}_{bg_concept}"
-fig.savefig(fname=f"{fig_name}.eps")
-print(fig_name)
-
-# %%
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Replot and apply rotation
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-fig = pygmt.Figure()
-frame_pen = "0.5p,gray20" if box and not wordmark else "cyan@100"
-pygmt.config(MAP_FRAME_PEN=frame_pen)
-
-bg_alpha = 100 if bg_transparent is True else 0
-fig.basemap(
-    region=region, projection=f"X{size * 2}c", frame=[0, f"+g{color_bg}@{bg_alpha}"]
-)
-
-fig.image(
-    imagefile=f"{fig_name}.eps",
-    position=f"jMC+w{size * 2}c",
-    # Rotation around z (vertical) axis placed in the center
-    perspective=f"{angle_rot}+w0/0",
-)
-
-# .............................................................................
-# Save
-# .............................................................................
-# fig.show()
-fig_name_rot = f"{fig_name}_rot{angle_rot}deg"
-exts = ["eps"] if wordmark is True else ["png", "pdf", "eps"]
-for ext in exts:
-    # alpha_png = True if ext == "png" else False  # problems with code style
-    alpha_png = False
-    if ext == "png":
-        alpha_png = True
-    fig.savefig(fname=f"{fig_name_rot}.{ext}", dpi=dpi_png, transparent=alpha_png)
-print(fig_name_rot)
-
-# %%
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Replot and add wordmark "PyGMT"
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-if wordmark is True:
-    match orientation:
-        case "vertical":
-            projection = f"X{size * 2 - 1.5}c/{size * 2}c"
-            position = f"jMC+w{size * 2 - 1.5}c+o0c/0.9c"
-            args_text = {"x": -3.2, "y": -2.8, "justify": "LM"}
-            args_cover = {"x": -2.2, "y": -2.8}
-        case "horizontal":
-            projection = f"X{size * 2}c/{size - 2}c"
-            position = f"jLM+w{size - 2}c"
-            args_text = {"x": -1.6, "y": 0, "justify": "LM"}
-            args_cover = {"x": -0.7, "y": 0}
-
-    fig = pygmt.Figure()
-    frame_pen = "0.5p,gray20" if box else "cyan@100"
-    pygmt.config(MAP_FRAME_PEN=frame_pen)
-    fig.basemap(region=region, projection=projection, frame=[0, f"+g{color_bg}"])
-
-    fig.image(imagefile=f"{fig_name_rot}.eps", position=position)
-
-    fig.text(text="PyGMT", font=f"45p,AvantGarde-Book,{color_gmt}", **args_text)
-    fig.plot(style="s2.6c", fill=color_bg, **args_cover)
-    fig.text(text="Py", font=f"45p,AvantGarde-Book,{color_py}", **args_text)
-
-    # .............................................................................
-    # Save
-    # .............................................................................
-    fig_name_rot_text = f"{fig_name_rot}_wordmark_{orientation}"
-    for ext in ["png", "pdf", "eps"]:
-        # alpha_png = True if ext == "png" else False  # problems with code style
-        alpha_png = False
-        if ext == "png":
-            alpha_png = True
-        fig.savefig(
-            fname=f"{fig_name_rot_text}.{ext}", dpi=dpi_png, transparent=alpha_png
+        # .............................................................................
+        # blue circle / hexagon for Earth
+        # .............................................................................
+        match shape:
+            case "circle":
+                diameter = 7.5
+                diameter_add = 0.5
+                symbol = "c"
+            case "hexagon":
+                diameter = 8.6
+                diameter_add = 0.6
+                symbol = "h"
+        fig.plot(
+            x=0,
+            y=0,
+            style=f"{symbol}{diameter}c",
+            pen=f"15p,{color_blue}",
+            fill=color_bg,
+            no_clip=True,
         )
-    print(fig_name_rot_text)
-    Path.unlink(f"{fig_name_rot}.eps")
+
+        # .............................................................................
+        # yellow lines for compass
+        # .............................................................................
+        # horizontal yellow line
+        fig.plot(x=[-4, 4], y=[0, 0], pen=pen_yellow, no_clip=True)
+        # diagonal yellow lines
+        # upper left
+        fig.plot(x=[-xy_yellow_1, -xy_yellow_2], y=[xy_yellow_1, xy_yellow_2], pen=pen_yellow)
+        # lower right
+        fig.plot(x=[xy_yellow_2, xy_yellow_1], y=[-xy_yellow_2, -xy_yellow_1], pen=pen_yellow)
+        # lower left
+        fig.plot(x=[-xy_yellow_1, -xy_yellow_2], y=[-xy_yellow_1, -xy_yellow_2], pen=pen_yellow)
+        # upper right
+        fig.plot(x=[xy_yellow_2, xy_yellow_1], y=[xy_yellow_2, xy_yellow_1], pen=pen_yellow)
+
+        # .............................................................................
+        # letter G
+        # .............................................................................
+        # horizontal red line
+        fig.plot(x=[0.1, 1.65], y=[0, 0], pen=f"12p,{color_red}")
+        # red ring sector
+        fig.plot(x=0, y=0, style="w3.3c/90/0+i2.35c", fill=color_red)
+        # space between yellow lines and ring sector
+        fig.plot(x=0, y=0, style="w3.7c/0/360+i3.3c", fill=color_bg)
+        # vertical yellow line
+        fig.plot(x=[0, 0], y=[-4, 4], pen=f"6p,{color_yellow}")
+        # cover yellow line in lower part of the ring sector
+        fig.plot(x=0, y=0, style="w3.3c/260/-80+i2.35c", fill=color_red)
+
+        # .............................................................................
+        # upper vertical red line
+        # .............................................................................
+        # space between red line and blue circle / hexagon
+        fig.plot(x=[0, 0], y=[4, 3.0], pen=f"18p,{color_bg}")
+        # red line
+        fig.plot(x=[0, 0], y=[4, 1.9], pen=f"12p,{color_red}")
+
+        # .............................................................................
+        # letter M
+        # .............................................................................
+        # space between letter M and yellow line at the right side
+        # fig.plot(x=[1.6, 1.6], y=[1.5, 1.775], pen=f"10p,{color_bg}")
+        fig.plot(x=[1.6, 1.6], y=[1.5, 2.0], pen=f"10p,{color_bg}")
+        # diagonal lines
+        fig.plot(x=[0.33, 0.90], y=[1.527, 1.00], pen=pen_red)
+        fig.plot(x=[0.90, 1.43], y=[1.00, 1.527], pen=pen_red)
+        # middle pick
+        fig.plot(x=0.9, y=0.9, style="d0.3c", fill=color_red)
+        # vertical lines with small distance to horizontal line of letter G
+        fig.plot(x=[0.285, 0.285], y=[0.30, 1.65], pen=pen_red)
+        fig.plot(x=[1.47, 1.47], y=[0.30, 1.65], pen=pen_red)
+
+        # .............................................................................
+        # letter T
+        # .............................................................................
+        # red curved horizontal line
+        fig.plot(x=0, y=0, style="w4.6c/240/-60+i3.7c", fill=color_red)
+        # vertical endings of curved horizontal line
+        fig.plot(x=[-1.05, -1.05], y=[-1.5, -2.5], pen=f"9p,{color_bg}")
+        fig.plot(x=[1.05, 1.05], y=[-1.5, -2.5], pen=f"9p,{color_bg}")
+        # arrow head as inverse triangle with pen for space to blue circle / hexagon
+        fig.plot(x=0, y=-3.55, style="i1.1c", fill=color_red, pen=f"3p,{color_bg}")
+        # arrow tail
+        fig.plot(x=[0, 0], y=[-2, -3.57], pen=f"12p,{color_red}")
+
+        # margin around shape with slight overplotting for clean borders
+        color_margin = color_bg
+        if color_concept == "color" and bg_transparent and not wordmark:
+            color_margin = "white"
+        fig.plot(
+            x=0,
+            y=0,
+            style=f"{symbol}{diameter + diameter_add}c",
+            pen=f"1p,{color_margin}",
+            no_clip=True,
+        )
+
+        # .............................................................................
+        # Save
+        # .............................................................................
+        # fig.show()
+        fig_name = f"pygmt_logo_{shape}_{color_concept}_{bg_concept}"
+        fig.savefig(fname=f"{fig_name}.eps")
+        print(fig_name)
+
+        # %%
+
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        # Replot and apply rotation
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        fig = pygmt.Figure()
+        frame_pen = "0.5p,gray20" if box and not wordmark else "cyan@100"
+        pygmt.config(MAP_FRAME_PEN=frame_pen)
+
+        bg_alpha = 100 if bg_transparent is True else 0
+        fig.basemap(
+            region=region, projection=f"X{size * 2}c", frame=[0, f"+g{color_bg}@{bg_alpha}"]
+        )
+
+        fig.image(
+            imagefile=f"{fig_name}.eps",
+            position=f"jMC+w{size * 2}c",
+            # Rotation around z (vertical) axis placed in the center
+            perspective=f"{angle_rot}+w0/0",
+        )
+
+        # .............................................................................
+        # Save
+        # .............................................................................
+        # fig.show()
+        fig_name_rot = fig_name_logo = f"{fig_name}_rot{angle_rot}deg"
+        fig.savefig(fname=f"{fig_name_rot}.eps")
+        print(fig_name_rot)
+
+        # %%
+
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        # Replot and add wordmark "PyGMT"
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        if wordmark is True:
+            match orientation:
+                case "vertical":
+                    projection = f"X{size * 2 - 1.5}c/{size * 2}c"
+                    position = f"jMC+w{size * 2 - 1.5}c+o0c/0.9c"
+                    args_text = {"x": -3.2, "y": -2.8, "justify": "LM"}
+                    args_cover = {"x": -2.2, "y": -2.8}
+                case "horizontal":
+                    projection = f"X{size * 2}c/{size - 2}c"
+                    position = f"jLM+w{size - 2}c"
+                    args_text = {"x": -1.6, "y": 0, "justify": "LM"}
+                    args_cover = {"x": -0.7, "y": 0}
+
+            fig = pygmt.Figure()
+            frame_pen = "0.5p,gray20" if box else "cyan@100"
+            pygmt.config(MAP_FRAME_PEN=frame_pen)
+            fig.basemap(region=region, projection=projection, frame=[0, f"+g{color_bg}"])
+
+            fig.image(imagefile=f"{fig_name_rot}.eps", position=position)
+
+            fig.text(text="PyGMT", font=f"45p,AvantGarde-Book,{color_gmt}", **args_text)
+            fig.plot(style="s2.6c", fill=color_bg, **args_cover)
+            fig.text(text="Py", font=f"45p,AvantGarde-Book,{color_py}", **args_text)
+
+            # .............................................................................
+            # Save
+            # .............................................................................
+            fig_name_rot_text = fig_name_logo = f"{fig_name_rot}_wordmark_{orientation}"
+            fig.savefig(fname=f"{fig_name_rot_text}.eps")
+            print(fig_name_rot_text)
+            Path.unlink(f"{fig_name_rot}.eps")
+
+        # %%
+        # fig.show()
+        Path.unlink(f"{fig_name}.eps")
+
+        return fig_name_logo
+
+
+    # %%
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # Replot and add to Figure instance (-> works only for a Figure instance named fig)
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    fig_name_logo = create_logo()
+
+    # Use position parameter of Figure.image
+    fig.image(imagefile=f"{fig_name_logo}.eps", position=position)
+
+    Path.unlink(f"{fig_name_logo}.eps")
+
+
 
 # %%
+
+fig = pygmt.Figure()
+fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=[1, "+gcyan"])
+
+pygmtlogo()
+pygmtlogo(orientation="vertical", position="jTL+o0.2c+w3c")
+pygmtlogo(color_concept="bw", bg_concept="dark", position="jLB+o0.2c+w6c")
+pygmtlogo(bg_concept="light", wordmark=False, bg_transparent=True, position="jMC+w4c")
+pygmtlogo(color_concept="bw", bg_concept="light", shape="hexagon", wordmark=False, position="jRB+w4c", box=True)
+
 fig.show()
-Path.unlink(f"{fig_name}.eps")
+
