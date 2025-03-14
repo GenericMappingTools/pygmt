@@ -37,9 +37,6 @@ from pathlib import Path
 import pygmt
 
 
-# -----------------------------------------------------------------------------
-# Changebale settings  (-> adjust for your needs; later input for function)
-# -----------------------------------------------------------------------------
 def pygmtlogo(
     color_concept="color",  # "color" | "bw"
     bg_concept="dark",  # "light" | "dark"
@@ -53,6 +50,8 @@ def pygmtlogo(
     """
     Docstrings
     """
+
+    # Start of subfunction
 
     def create_logo(
         color_concept=color_concept,
@@ -98,8 +97,6 @@ def pygmtlogo(
         pen_red = f"10p,{color_red}"
 
         angle_rot = 30  # degrees
-
-        # %%
 
         # -----------------------------------------------------------------------------
         # Start plotting
@@ -228,8 +225,6 @@ def pygmtlogo(
         fig.savefig(fname=f"{fig_name}.eps")
         # print(fig_name)
 
-        # %%
-
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # Replot and apply rotation
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -258,8 +253,6 @@ def pygmtlogo(
         fig_name_rot = fig_name_logo = f"{fig_name}_rot{angle_rot}deg"
         fig.savefig(fname=f"{fig_name_rot}.eps")
         # print(fig_name_rot)
-
-        # %%
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # Replot and add wordmark "PyGMT"
@@ -298,27 +291,26 @@ def pygmtlogo(
             # print(fig_name_rot_text)
             Path.unlink(f"{fig_name_rot}.eps")
 
-        # %%
         # fig.show()
         Path.unlink(f"{fig_name}.eps")
 
         return fig_name_logo
 
-    # %%
+    # End of subfunction
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    # Replot and add to Figure instance (-> works only for a Figure instance named fig)
+    # Replot and add to existing Figure instance (-> requires Figure instance named fig)
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     fig_name_logo = create_logo()
 
-    # Use position parameter of Figure.image
+    # Use parameters of Figure.image
     fig.image(imagefile=f"{fig_name_logo}.eps", position=position)
 
     Path.unlink(f"{fig_name_logo}.eps")
 
 
 # %%
-# Plot logo in an existing Figure instance
+# Plot logo in an existing PyGMT Figure instance
 #
 # Limitations:
 # - works only for a PyGMT Figure instance named "fig"
