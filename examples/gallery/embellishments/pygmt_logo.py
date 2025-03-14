@@ -22,7 +22,12 @@ wordmark "PyGMT". There are different versions available:
   Select between ``"vertical"`` (at the bottom) and ``"horizontal"`` (at the right).
   [Default is ``"vertical"``].
 - ``bg_transparent``: make visual transparent outside of the circle or hexagon.
-  ``True`` or ``False``. Only available for PNG output.
+  ``True`` or ``False``.
+  Only available for PNG format. Not supported for adding a wordmark.
+  [Default is ``False``].
+- ``box``: add a box around the logo.
+  ``True`` or ``False``.
+  Mainly relevant for ``bg_concept = "light"``.
   [Default is ``False``].
 - ``angle_rot``: rotation angle of the visual.
   Give an angle in degrees (mesuared contour-clockwise from the vertical).
@@ -34,6 +39,7 @@ from pathlib import Path
 
 import pygmt
 
+
 # -----------------------------------------------------------------------------
 # Changebale settings  (-> adjust for your needs; later input for function)
 # -----------------------------------------------------------------------------
@@ -42,7 +48,8 @@ bg_concept = "light"  # "light" | "dark"
 shape = "circle"  # "circle" | "hexagon"
 wordmark = True  # True | False
 orientation = "vertical"  # "horizontal" | "vertical"
-bg_transparent = False  # True | False
+bg_transparent = True  # True | False
+box = True,  # True | False
 
 angle_rot = 30  # degrees
 dpi_png = 720  # resolution of saved PNG image
@@ -122,11 +129,17 @@ fig.plot(
 fig.plot(x=[-4, 4], y=[0, 0], pen=pen_yellow, no_clip=True)
 # diagonal yellow lines
 # upper left
-fig.plot(x=[-xy_yellow_1, -xy_yellow_2], y=[xy_yellow_1, xy_yellow_2], pen=pen_yellow)
+fig.plot(
+    x=[-xy_yellow_1, -xy_yellow_2], y=[xy_yellow_1, xy_yellow_2], pen=pen_yellow
+)
 # lower right
-fig.plot(x=[xy_yellow_2, xy_yellow_1], y=[-xy_yellow_2, -xy_yellow_1], pen=pen_yellow)
+fig.plot(
+    x=[xy_yellow_2, xy_yellow_1], y=[-xy_yellow_2, -xy_yellow_1], pen=pen_yellow
+)
 # lower left
-fig.plot(x=[-xy_yellow_1, -xy_yellow_2], y=[-xy_yellow_1, -xy_yellow_2], pen=pen_yellow)
+fig.plot(
+    x=[-xy_yellow_1, -xy_yellow_2], y=[-xy_yellow_1, -xy_yellow_2], pen=pen_yellow
+)
 # upper right
 fig.plot(x=[xy_yellow_2, xy_yellow_1], y=[xy_yellow_2, xy_yellow_1], pen=pen_yellow)
 
@@ -206,7 +219,10 @@ print(fig_name)
 # Replot and apply rotation
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 fig = pygmt.Figure()
-pygmt.config(MAP_FRAME_PEN="cyan@100")
+frame_pen = "cyan@100"
+if box == True and wordmark == False:
+    frame_pen = "0.5p,gray20"
+pygmt.config(MAP_FRAME_PEN=frame_pen)
 
 bg_alpha = 100 if bg_transparent is True else 0
 fig.basemap(
@@ -253,7 +269,8 @@ if wordmark is True:
             args_cover = {"x": -0.7, "y": 0}
 
     fig = pygmt.Figure()
-    pygmt.config(MAP_FRAME_PEN="cyan@100")
+    frame_pen = "cyan@100" if box == True else "0.5p,gray20"
+    pygmt.config(MAP_FRAME_PEN=frame_pen)
     fig.basemap(region=region, projection=projection, frame=[0, f"+g{color_bg}"])
 
     fig.image(imagefile=f"{fig_name_rot}.eps", position=position)
