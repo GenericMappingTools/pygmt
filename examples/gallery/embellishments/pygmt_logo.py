@@ -69,7 +69,7 @@ match bg_concept:
 # -----------------------------------------------------------------------------
 # Not-changebale settings (-> need to extended)
 # -----------------------------------------------------------------------------
-size = 5
+size = 4
 region = [-size, size] * 2
 
 xy_yellow_1 = 2.65
@@ -100,13 +100,13 @@ match shape:
         style = "c7.5c"
     case "hexagon":
         style = "h8.6c"
-fig.plot(x=0, y=0, style=style, pen=f"15p,{color_blue}", fill=color_bg)
+fig.plot(x=0, y=0, style=style, pen=f"15p,{color_blue}", fill=color_bg, no_clip=True)
 
 # .............................................................................
 # yellow lines for compass
 # .............................................................................
 # horizontal yellow line
-fig.plot(x=[-4, 4], y=[0, 0], pen=pen_yellow)
+fig.plot(x=[-4, 4], y=[0, 0], pen=pen_yellow, no_clip=True)
 # diagonal yellow lines
 # upper left
 fig.plot(x=[-xy_yellow_1, -xy_yellow_2], y=[xy_yellow_1, xy_yellow_2], pen=pen_yellow)
@@ -170,9 +170,10 @@ fig.plot(x=[0, 0], y=[-2, -3.57], pen=f"12p,{color_red}")
 # .............................................................................
 # Save
 # .............................................................................
-# fig.show()
+fig.show()
 fig_name = f"pygmt_logo_{shape}_{color_concept}_{bg_concept}"
-fig.savefig(fname=f"{fig_name}.eps", dpi=dpi_png)
+fig.savefig(fname=f"{fig_name}.eps")
+# fig.savefig(fname=f"{fig_name}.png", dpi=dpi_png, transparent=True)
 print(fig_name)
 
 
@@ -183,7 +184,9 @@ print(fig_name)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 fig = pygmt.Figure()
 pygmt.config(MAP_FRAME_PEN="cyan@100")
-fig.basemap(region=region, projection=f"X{size * 2}c", frame=[0, f"+g{color_bg}"])
+fig.basemap(
+    region=region, projection=f"X{(size + 0.1) * 2}c", frame=[0, f"+g{color_bg}"]
+)
 
 fig.image(
     imagefile=f"{fig_name}.eps",
@@ -195,7 +198,7 @@ fig.image(
 # .............................................................................
 # Save
 # .............................................................................
-# fig.show()
+fig.show()
 fig_name_rot = f"{fig_name}_rot{angle_rot}deg"
 exts = ["eps"] if wordmark is True else ["png", "pdf", "eps"]
 for ext in exts:
@@ -213,17 +216,18 @@ print(fig_name_rot)
 # Replot and add WordMark "PyGMT"
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 if wordmark is True:
+    size = 4
     match orientation:
         case "vertical":
-            projection = f"X{size * 2 - 2}c/{size * 2}c"
-            position = f"jMC+w{size * 2}c+o0c/1.1c"
-            args_text = {"x": -3.6, "y": -3.6, "justify": "LM"}
-            args_cover = {"x": -2.4, "y": -3.6}
+            projection = f"X{size * 2 - 1.5}c/{size * 2}c"
+            position = f"jMC+w{size * 2 - 1.5}c+o0c/0.9c"
+            args_text = {"x": -3.2, "y": -2.8, "justify": "LM"}
+            args_cover = {"x": -2.2, "y": -2.8}
         case "horizontal":
             projection = f"X{size * 2}c/{size - 2}c"
-            position = f"jLM+w{size - 1.5}c"
-            args_text = {"x": -1.5, "y": 0, "justify": "LM"}
-            args_cover = {"x": -0.5, "y": -0.2}
+            position = f"jLM+w{size - 2}c"
+            args_text = {"x": -1.6, "y": 0, "justify": "LM"}
+            args_cover = {"x": -0.7, "y": 0}
 
     fig = pygmt.Figure()
     pygmt.config(MAP_FRAME_PEN="cyan@100")
@@ -231,9 +235,9 @@ if wordmark is True:
 
     fig.image(imagefile=f"{fig_name_rot}.eps", position=position)
 
-    fig.text(text="PyGMT", font=f"50p,AvantGarde-Book,{color_gmt}", **args_text)
-    fig.plot(style="s2.9c", fill=color_bg, **args_cover)
-    fig.text(text="Py", font=f"50p,AvantGarde-Book,{color_py}", **args_text)
+    fig.text(text="PyGMT", font=f"45p,AvantGarde-Book,{color_gmt}", **args_text)
+    fig.plot(style="s2.6c", fill=color_bg, **args_cover)
+    fig.text(text="Py", font=f"45p,AvantGarde-Book,{color_py}", **args_text)
 
     # .............................................................................
     # Save
