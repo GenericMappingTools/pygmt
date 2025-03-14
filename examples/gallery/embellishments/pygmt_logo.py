@@ -323,6 +323,9 @@ fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=[1, "+gcyan"])
 pygmtlogo()
 pygmtlogo(bg_concept="light", position="jTR+o0.1c/2c+w4c", box=True)
 pygmtlogo(orientation="vertical", position="jTL+o0.1c+w3c")
+pygmtlogo(
+    bg_concept="light", orientation="vertical", position="jML+o0.1c/-1c+w3c", box=True
+)
 pygmtlogo(color_concept="bw", bg_concept="dark", position="jLB+o0.1c+w6c")
 pygmtlogo(bg_concept="light", wordmark=False, bg_transparent=True, position="jMC+w4c")
 pygmtlogo(
@@ -338,7 +341,7 @@ pygmtlogo(
     bg_concept="dark",
     wordmark=False,
     bg_transparent=True,
-    position="jLM+w2c",
+    position="jTC+w2c",
 )
 pygmtlogo(
     color_concept="bw",
