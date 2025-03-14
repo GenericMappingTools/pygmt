@@ -39,14 +39,13 @@ import pygmt
 # -----------------------------------------------------------------------------
 color_concept = "color"  # "color" | "bw"
 bg_concept = "dark"  # "light" | "dark"
-shape = "hexagon"  # "circle" | "hexagon"
+shape = "circle"  # "circle" | "hexagon"
 wordmark = True  # True | False
 orientation = "horizontal"  # "horizontal" | "vertical"
-bg_transparent = True  # True | False
+bg_transparent = False  # True | False
 
 angle_rot = 30  # degrees
 dpi_png = 720  # resolution of saved PNG image
-
 
 # -----------------------------------------------------------------------------
 # Define colors (-> can be discussed)
@@ -70,7 +69,6 @@ match bg_concept:
         color_py = color_yellow
         color_gmt = "white"
 
-
 # -----------------------------------------------------------------------------
 # Not-changebale settings (-> need to extended)
 # -----------------------------------------------------------------------------
@@ -82,7 +80,6 @@ xy_yellow_2 = 1.3
 
 pen_yellow = f"5p,{color_yellow}"
 pen_red = f"10p,{color_red}"
-
 
 # %%
 
@@ -102,10 +99,21 @@ fig.basemap(region=region, projection=f"X{size * 2}c", frame=[0, "+gcyan@100"])
 # .............................................................................
 match shape:
     case "circle":
-        style = "c7.5c"
+        diameter = 7.5
+        diameter_add = 0.5
+        symbol = "c"
     case "hexagon":
-        style = "h8.6c"
-fig.plot(x=0, y=0, style=style, pen=f"15p,{color_blue}", fill=color_bg, no_clip=True)
+        diameter = 8.6
+        diameter_add = 0.6
+        symbol = "h"
+fig.plot(
+    x=0,
+    y=0,
+    style=f"{symbol}{diameter}c",
+    pen=f"15p,{color_blue}",
+    fill=color_bg,
+    no_clip=True,
+)
 
 # .............................................................................
 # yellow lines for compass
@@ -140,9 +148,9 @@ fig.plot(x=0, y=0, style="w3.3c/260/-80+i2.35c", fill=color_red)
 # upper vertical red line
 # .............................................................................
 # space between red line and blue circle / hexagon
-fig.plot(x=[0, 0], y=[4.01, 3.0], pen=f"18p,{color_bg}")
+fig.plot(x=[0, 0], y=[4, 3.0], pen=f"18p,{color_bg}")
 # red line
-fig.plot(x=[0, 0], y=[4.00, 1.9], pen=f"12p,{color_red}")
+fig.plot(x=[0, 0], y=[4, 1.9], pen=f"12p,{color_red}")
 
 # .............................................................................
 # letter M
@@ -172,15 +180,25 @@ fig.plot(x=0, y=-3.55, style="i1.1c", fill=color_red, pen=f"3p,{color_bg}")
 # arrow tail
 fig.plot(x=[0, 0], y=[-2, -3.57], pen=f"12p,{color_red}")
 
+# margin around shape with slight overplotting for clean borders
+color_margin = color_bg
+if color_concept == "color" and bg_transparent and not wordmark:
+    color_margin = "white"
+fig.plot(
+    x=0,
+    y=0,
+    style=f"{symbol}{diameter + diameter_add}c",
+    pen=f"1p,{color_margin}",
+    no_clip=True,
+)
+
 # .............................................................................
 # Save
 # .............................................................................
 fig.show()
 fig_name = f"pygmt_logo_{shape}_{color_concept}_{bg_concept}"
 fig.savefig(fname=f"{fig_name}.eps")
-# fig.savefig(fname=f"{fig_name}.png", dpi=dpi_png, transparent=True)
 print(fig_name)
-
 
 # %%
 
@@ -191,9 +209,7 @@ fig = pygmt.Figure()
 pygmt.config(MAP_FRAME_PEN="cyan@100")
 
 bg_alpha = 100 if bg_transparent is True else 0
-fig.basemap(
-    region=region, projection=f"X{(size + 0.1) * 2}c", frame=f"+g{color_bg}@{bg_alpha}"
-)
+fig.basemap(region=region, projection=f"X{size * 2}c", frame=f"+g{color_bg}@{bg_alpha}")
 
 fig.image(
     imagefile=f"{fig_name}.eps",
@@ -215,7 +231,6 @@ for ext in exts:
         transparent = True
     fig.savefig(fname=f"{fig_name_rot}.{ext}", dpi=dpi_png, transparent=transparent)
 print(fig_name_rot)
-
 
 # %%
 
@@ -260,7 +275,6 @@ if wordmark is True:
         )
     print(fig_name_rot_text)
     Path.unlink(f"{fig_name_rot}.eps")
-
 
 # %%
 fig.show()
