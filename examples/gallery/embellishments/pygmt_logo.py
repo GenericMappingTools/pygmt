@@ -39,7 +39,6 @@ from pathlib import Path
 
 import pygmt
 
-
 # -----------------------------------------------------------------------------
 # Changebale settings  (-> adjust for your needs; later input for function)
 # -----------------------------------------------------------------------------
@@ -49,7 +48,7 @@ shape = "circle"  # "circle" | "hexagon"
 wordmark = True  # True | False
 orientation = "vertical"  # "horizontal" | "vertical"
 bg_transparent = True  # True | False
-box = True,  # True | False
+box = True  # True | False
 
 angle_rot = 30  # degrees
 dpi_png = 720  # resolution of saved PNG image
@@ -129,17 +128,11 @@ fig.plot(
 fig.plot(x=[-4, 4], y=[0, 0], pen=pen_yellow, no_clip=True)
 # diagonal yellow lines
 # upper left
-fig.plot(
-    x=[-xy_yellow_1, -xy_yellow_2], y=[xy_yellow_1, xy_yellow_2], pen=pen_yellow
-)
+fig.plot(x=[-xy_yellow_1, -xy_yellow_2], y=[xy_yellow_1, xy_yellow_2], pen=pen_yellow)
 # lower right
-fig.plot(
-    x=[xy_yellow_2, xy_yellow_1], y=[-xy_yellow_2, -xy_yellow_1], pen=pen_yellow
-)
+fig.plot(x=[xy_yellow_2, xy_yellow_1], y=[-xy_yellow_2, -xy_yellow_1], pen=pen_yellow)
 # lower left
-fig.plot(
-    x=[-xy_yellow_1, -xy_yellow_2], y=[-xy_yellow_1, -xy_yellow_2], pen=pen_yellow
-)
+fig.plot(x=[-xy_yellow_1, -xy_yellow_2], y=[-xy_yellow_1, -xy_yellow_2], pen=pen_yellow)
 # upper right
 fig.plot(x=[xy_yellow_2, xy_yellow_1], y=[xy_yellow_2, xy_yellow_1], pen=pen_yellow)
 
@@ -219,9 +212,7 @@ print(fig_name)
 # Replot and apply rotation
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 fig = pygmt.Figure()
-frame_pen = "cyan@100"
-if box == True and wordmark == False:
-    frame_pen = "0.5p,gray20"
+frame_pen = "0.5p,gray20" if box and not wordmark else "cyan@100"
 pygmt.config(MAP_FRAME_PEN=frame_pen)
 
 bg_alpha = 100 if bg_transparent is True else 0
@@ -269,7 +260,7 @@ if wordmark is True:
             args_cover = {"x": -0.7, "y": 0}
 
     fig = pygmt.Figure()
-    frame_pen = "cyan@100" if box == True else "0.5p,gray20"
+    frame_pen = "0.5p,gray20" if box else "cyan@100"
     pygmt.config(MAP_FRAME_PEN=frame_pen)
     fig.basemap(region=region, projection=projection, frame=[0, f"+g{color_bg}"])
 
