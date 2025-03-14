@@ -51,7 +51,7 @@ for decoline in [
     "~d1c:+sd0.5c+gtan+p1p,black+n-0.2c/0.1c",
     # Give the number of equally spaced symbols by using "n" instead of "d"
     "~n6:+sn0.5c+gtan+p1p,black",
-    # Use upper-case "N" to have symbols at the start and end of the line
+    # Use uppercase "N" to have symbols at the start and end of the line
     "~N6:+sh0.5c+gtan+p1p,black",
     # Suppress the main decorated line by appending "+i"
     "~d1c:+sg0.5c+gtan+p1p,black+i",

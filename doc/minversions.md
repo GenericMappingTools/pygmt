@@ -12,7 +12,13 @@ myst:
       title: "{{path}}"
     doc:
       url: "https://www.pygmt.org/{{path}}"
-      title: "Docs"
+      title: "Web"
+    html:
+      url: "https://github.com/GenericMappingTools/pygmt/releases/download/{{path}}/pygmt-docs.zip"
+      title: "HTML+ZIP"
+    pdf:
+      url: "https://github.com/GenericMappingTools/pygmt/releases/download/{{path}}/pygmt-docs.pdf"
+      title: "PDF"
 ---
 
 # Minimum Supported Versions
@@ -38,28 +44,31 @@ drop support for core (and optional) package dependencies earlier than recommend
 compatibility reasons.
 :::
 
-| PyGMT Version | GMT | Python | NumPy | pandas | Xarray |
-|---|---|---|---|---|---|
-| [Dev][]* [<doc:dev>] | {{ requires.gmt }} | {{ requires.python }} | {{ requires.numpy }} | {{ requires.pandas }} | {{ requires.xarray }} |
-| <tag:v0.13.0> [<doc:v0.13.0>] | >=6.3.0 | >=3.10 | >=1.24 | >=1.5 | >=2022.09 |
-| <tag:v0.12.0> [<doc:v0.12.0>] | >=6.3.0 | >=3.10 | >=1.23 | >=1.5 | >=2022.06 |
-| <tag:v0.11.0> [<doc:v0.11.0>] | >=6.3.0 | >=3.9 | >=1.23 |  |  |
-| <tag:v0.10.0> [<doc:v0.10.0>] | >=6.3.0 | >=3.9 | >=1.22 |  |  |
-| <tag:v0.9.0> [<doc:v0.9.0>] | >=6.3.0 | >=3.8 | >=1.21 |  |  |
-| <tag:v0.8.0> [<doc:v0.8.0>] | >=6.3.0 | >=3.8 | >=1.20 |  |  |
-| <tag:v0.7.0> [<doc:v0.7.0>] | >=6.3.0 | >=3.8 | >=1.20 |  |  |
-| <tag:v0.6.1> [<doc:v0.6.1>] | >=6.3.0 | >=3.8 | >=1.19 |  |  |
-| <tag:v0.6.0> [<doc:v0.6.0>] | >=6.3.0 | >=3.8 | >=1.19 |  |  |
-| <tag:v0.5.0> [<doc:v0.5.0>] | >=6.2.0 | >=3.7 | >=1.18 |  |  |
-| <tag:v0.4.1> [<doc:v0.4.1>] | >=6.2.0 | >=3.7 | >=1.17 |  |  |
-| <tag:v0.4.0> [<doc:v0.4.0>] | >=6.2.0 | >=3.7 | >=1.17 |  |  |
-| <tag:v0.3.1> [<doc:v0.3.1>] | >=6.1.1 | >=3.7 |  |  |  |
-| <tag:v0.3.0> [<doc:v0.3.0>] | >=6.1.1 | >=3.7 |  |  |  |
-| <tag:v0.2.1> [<doc:v0.2.1>] | >=6.1.1 | >=3.6 |  |  |  |
-| <tag:v0.2.0> [<doc:v0.2.0>] | >=6.1.1 | 3.6 - 3.8 |  |  |  |
-| <tag:v0.1.2> [<doc:v0.1.2>] | >=6.0.0 | 3.6 - 3.8 |  |  |  |
-| <tag:v0.1.1> [<doc:v0.1.1>] | >=6.0.0 | 3.6 - 3.8 |  |  |  |
-| <tag:v0.1.0> [<doc:v0.1.0>] | >=6.0.0 | 3.6 - 3.8 |  |  |  |
+| PyGMT Version | Documentation | GMT | Python | NumPy | pandas | Xarray |
+|---|---|---|---|---|---|---|
+| [Dev][]* | <doc:dev>, [HTML+ZIP](doc:dev/pygmt-docs.zip), [PDF](doc:dev/pygmt-docs.pdf) | {{ requires.gmt }} | {{ requires.python }} | {{ requires.numpy }} | {{ requires.pandas }} | {{ requires.xarray }} |
+| <tag:v0.14.2> | <doc:v0.14.2>, <html:v0.14.2> | >=6.4.0 | >=3.11 | >=1.25 | >=2.0 | >=2023.04 |
+| <tag:v0.14.1> | <doc:v0.14.1>, <html:v0.14.1> | >=6.4.0 | >=3.11 | >=1.25 | >=2.0 | >=2023.04 |
+| <tag:v0.14.0> | <doc:v0.14.0>, <html:v0.14.0> | >=6.4.0 | >=3.11 | >=1.25 | >=2.0 | >=2023.04 |
+| <tag:v0.13.0> | <doc:v0.13.0>, <html:v0.13.0> | >=6.3.0 | >=3.10 | >=1.24 | >=1.5 | >=2022.09 |
+| <tag:v0.12.0> | <doc:v0.12.0>, <html:v0.12.0> | >=6.3.0 | >=3.10 | >=1.23 | >=1.5 | >=2022.06 |
+| <tag:v0.11.0> | <doc:v0.11.0>, <html:v0.11.0> | >=6.3.0 | >=3.9 | >=1.23 |  |  |
+| <tag:v0.10.0> | <doc:v0.10.0>, <html:v0.10.0> | >=6.3.0 | >=3.9 | >=1.22 |  |  |
+| <tag:v0.9.0> | <doc:v0.9.0>, <html:v0.9.0> | >=6.3.0 | >=3.8 | >=1.21 |  |  |
+| <tag:v0.8.0> | <doc:v0.8.0>, <html:v0.8.0> | >=6.3.0 | >=3.8 | >=1.20 |  |  |
+| <tag:v0.7.0> | <doc:v0.7.0>, <html:v0.7.0> | >=6.3.0 | >=3.8 | >=1.20 |  |  |
+| <tag:v0.6.1> | <doc:v0.6.1>, <html:v0.6.1> | >=6.3.0 | >=3.8 | >=1.19 |  |  |
+| <tag:v0.6.0> | <doc:v0.6.0>, <html:v0.6.0> | >=6.3.0 | >=3.8 | >=1.19 |  |  |
+| <tag:v0.5.0> | <doc:v0.5.0>, <html:v0.5.0> | >=6.2.0 | >=3.7 | >=1.18 |  |  |
+| <tag:v0.4.1> | <doc:v0.4.1>, <html:v0.4.1> | >=6.2.0 | >=3.7 | >=1.17 |  |  |
+| <tag:v0.4.0> | <doc:v0.4.0>, <html:v0.4.0> | >=6.2.0 | >=3.7 | >=1.17 |  |  |
+| <tag:v0.3.1> | <doc:v0.3.1>, <html:v0.3.1> | >=6.1.1 | >=3.7 |  |  |  |
+| <tag:v0.3.0> | <doc:v0.3.0>, <html:v0.3.0> | >=6.1.1 | >=3.7 |  |  |  |
+| <tag:v0.2.1> | <doc:v0.2.1>, <html:v0.2.1> | >=6.1.1 | >=3.6 |  |  |  |
+| <tag:v0.2.0> | <doc:v0.2.0>, <html:v0.2.0> | >=6.1.1 | 3.6 - 3.8 |  |  |  |
+| <tag:v0.1.2> | <doc:v0.1.2>, <html:v0.1.2> | >=6.0.0 | 3.6 - 3.8 |  |  |  |
+| <tag:v0.1.1> | <doc:v0.1.1>, <html:v0.1.1> | >=6.0.0 | 3.6 - 3.8 |  |  |  |
+| <tag:v0.1.0> | <doc:v0.1.0>, <html:v0.1.0> | >=6.0.0 | 3.6 - 3.8 |  |  |  |
 
 *Dev reflects the main branch and is for the upcoming release.
 
