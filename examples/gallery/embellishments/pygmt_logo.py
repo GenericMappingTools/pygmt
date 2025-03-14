@@ -25,10 +25,6 @@ wordmark "PyGMT". There are different versions available:
   ``True`` or ``False``.
   Only available for PNG format. Not supported for adding a wordmark.
   [Default is ``False``].
-- ``box``: add a box around the logo.
-  ``True`` or ``False``.
-  Mainly relevant for ``bg_concept = "light"``.
-  [Default is ``False``].
 """
 
 # %%
