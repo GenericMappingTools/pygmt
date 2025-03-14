@@ -275,7 +275,7 @@ if wordmark is True:
     # .............................................................................
     fig_name_rot_text = f"{fig_name_rot}_wordmark_{orientation}"
     for ext in ["png", "pdf", "eps"]:
-        # transparent = True if ext == "png" else False  # problems with code style
+        # alpha_png = True if ext == "png" else False  # problems with code style
         alpha_png = False
         if ext == "png":
             alpha_png = True
