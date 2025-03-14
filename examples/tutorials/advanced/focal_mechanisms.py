@@ -67,7 +67,7 @@ aki_single = {"strike": 318, "dip": 89, "rake": -179, "magnitude": 7.75}
 # the focal mechanism convention is automatically determined from dictionary keys or
 # :class:`pandas.DataFrame` column names. The ``scale`` parameter controls the radius
 # of the beachball. By default, the value defines the size for a magnitude of 5 (i.e.,
-# a scalar seismic moment of :math:`M_0 = 4.0 \times 10^23`: dyn cm) and the beachball
+# a scalar seismic moment of :math:`M_0 = 4.0 \times 10^{23}`: dyn cm) and the beachball
 # size is proportional to the magnitude. Appand ``"+l"`` to force the radius
 # to be proportional to the seismic moment.
 
