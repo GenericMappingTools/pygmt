@@ -342,7 +342,6 @@ pygmtlogo(bg_concept="light", shape="hexagon", position="jTL+o0.1c+w4c")
 pygmtlogo(shape="circle", wordmark=False, position="jML+w2c", box=True)
 pygmtlogo(
     bg_concept="light",
-    shape="circle",
     wordmark=False,
     bg_transparent=True,
     position="jBL+w2c",
@@ -350,40 +349,34 @@ pygmtlogo(
 )
 pygmtlogo(
     color_concept="bw",
-    shape="circle",
-    wordmark=True,
-    bg_transparent=True,
     orientation="vertical",
+    bg_transparent=True,
     position="jMC+w2c",
     box="+p1p,blue+gcyan",
 )
 pygmtlogo(
     color_concept="bw",
     shape="hexagon",
-    wordmark=True,
     orientation="vertical",
     position="jBC+w2c",
     box="+ggray20",
 )
-pygmtlogo(shape="hexagon", wordmark=False, position="jMR+w2c", box=True)
-pygmtlogo(
-    bg_concept="light", shape="hexagon", wordmark=False, position="jBR+w2c", box=True
-)
+pygmtlogo(shape="hexagon", wordmark=False, position="jMR+w2c")
+pygmtlogo(bg_concept="light", shape="hexagon", wordmark=False, position="jBR+w2c")
+
 pygmtlogo(
     color_concept="bw",
     bg_concept="light",
-    shape="circle",
     wordmark=False,
-    position="jTL+o0c/1.5c+w2c",
     bg_transparent=True,
+    position="jTL+o0c/1.5c+w2c",
 )
 pygmtlogo(
     color_concept="bw",
-    bg_concept="dark",
     shape="hexagon",
     wordmark=False,
-    position="jTR+o0c/1.5c+w2c",
     bg_transparent=True,
+    position="jTR+o0c/1.5c+w2c",
 )
 
 fig.show()
