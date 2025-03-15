@@ -104,10 +104,19 @@ def pygmtlogo(  # noqa: PLR0915
         # -----------------------------------------------------------------------------
         match orientation:
             case "vertical":
-                args_text_wm = {"x": 0, "y": -4.5, "justify": "CT", "font": "2.5c,AvantGarde-Book"}
+                args_text_wm = {
+                    "x": 0,
+                    "y": -4.5,
+                    "justify": "CT",
+                    "font": "2.5c,AvantGarde-Book",
+                }
             case "horizontal":
-                args_text_wm = {"x": 4.5, "y": 0, "justify": "LM", "font": "8c,AvantGarde-Book"}
-
+                args_text_wm = {
+                    "x": 4.5,
+                    "y": 0,
+                    "justify": "LM",
+                    "font": "8c,AvantGarde-Book",
+                }
 
         # -----------------------------------------------------------------------------
         # Start plotting
