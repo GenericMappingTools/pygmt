@@ -105,12 +105,12 @@ def pygmtlogo(
         match hex_shape:
             case False:
                 diameter = 7.5
-                # diameter_add = 0.5
+                diameter_add = 0.5
                 symbol = "c"
                 margin = -1.2
             case True:
                 diameter = 8.6
-                # diameter_add = 0.6
+                diameter_add = 0.6
                 symbol = "h"
                 margin = -0.5
         fig.plot(
@@ -197,19 +197,17 @@ def pygmtlogo(
         # arrow tail
         fig.plot(x=[0, 0], y=[-2, -3.57], pen=f"12p,{color_red}")
 
-        # # margin around shape with slight overplotting for clean borders
-        # color_margin = color_bg
-        # if (not black_white and bg_transparent) or (
-        #     black_white and bg_transparent and not dark_mode
-        # ):
-        #     color_margin = "white@100"
-        # fig.plot(
-        #     x=0,
-        #     y=0,
-        #     style=f"{symbol}{diameter + diameter_add}c",
-        #     pen=f"1p,{color_margin}",
-        #     no_clip=True,
-        # )
+        # margin around shape for black_white in dark_mode
+        # Needed ???
+        if black_white and dark_mode:
+            color_margin = color_dark
+            fig.plot(
+                x=0,
+                y=0,
+                style=f"{symbol}{diameter + diameter_add}c",
+                pen=f"1p,{color_margin}",
+                no_clip=True,
+            )
 
         # .............................................................................
         # Save
@@ -266,8 +264,6 @@ def pygmtlogo(
 
             fig.text(text="PyGMT", font=f"45p,AvantGarde-Book,{color_gmt}", **args_text)
             fig.text(text="Py", font=f"45p,AvantGarde-Book,{color_py}", **args_text)
-            # text_logo = f"@{color_py}Py@@;@{color_gmt}GMT@@;"
-            # fig.text(text=text_logo, font="45p,AvantGarde-Book", **args_text)
 
             # .........................................................................
             # Save
