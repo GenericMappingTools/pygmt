@@ -214,10 +214,9 @@ def pygmtlogo(  # noqa: PLR0915
             x=0, y=0, style="w4.6c/240/-60+i3.7c", fill=color_red, perspective=True
         )
         # vertical endings of curved horizontal line
-        fig.plot(
-            x=[-1.05, -1.05], y=[-1.5, -2.5], pen=f"9p,{color_bg}", perspective=True
-        )
-        fig.plot(x=[1.05, 1.05], y=[-1.5, -2.5], pen=f"9p,{color_bg}", perspective=True)
+        args_vert = {"y": [-1.5, -2.5], "pen": f"9p,{color_bg}", "perspective": True}
+        fig.plot(x=[-1.05, -1.05], **args_vert)
+        fig.plot(x=[1.05, 1.05], **args_vert)
         # arrow head as inverse triangle with pen for space to blue circle / hexagon
         fig.plot(
             x=0,
