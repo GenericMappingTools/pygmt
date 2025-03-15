@@ -30,7 +30,7 @@ def pygmtlogo(  # noqa: PLR0915
     hex_shape=False,
     wordmark=True,
     orientation="horizontal",  # "horizontal" | "vertical"
-    position="jRT+o0.1c+w4c",  # -> use position parameter of Figure.image
+    position="jRT+o0.1c+w5c",  # -> use position parameter of Figure.image
     box=None,  # -> use box parameter of Figure.image
 ):
     """
@@ -46,6 +46,24 @@ def pygmtlogo(  # noqa: PLR0915
         wordmark=wordmark,
         orientation=orientation,
     ):
+
+        # -----------------------------------------------------------------------------
+        # Helpful definitions
+        # -----------------------------------------------------------------------------
+        size = 4
+        region = [-size, size] * 2
+
+        xy_yellow_1 = 2.65
+        xy_yellow_2 = 1.3
+
+        no_line = "cyan@100"
+        no_fill = f"+g{no_line}"
+
+        # Rotation around z (vertical) axis placed in the center
+        # Has to be applied to each plotting command, up on second call set to True
+        angle_rot = 30  # degrees
+        perspective = f"{angle_rot}+w0/0"
+
         # -----------------------------------------------------------------------------
         # Define colors
         # -----------------------------------------------------------------------------
@@ -89,21 +107,17 @@ def pygmtlogo(  # noqa: PLR0915
                 margin = -0.5
 
         # -----------------------------------------------------------------------------
-        # Helpful definitions
+        # Define wordmark
         # -----------------------------------------------------------------------------
-        size = 4
-        region = [-size, size] * 2
-
-        xy_yellow_1 = 2.65
-        xy_yellow_2 = 1.3
-
-        no_line = "cyan@100"
-        no_fill = f"+g{no_line}"
-
-        # Rotation around z (vertical) axis placed in the center
-        # Has to be applied to each plotting command, up on second call set to True
-        angle_rot = 30  # degrees
-        perspective = f"{angle_rot}+w0/0"
+        match orientation:
+            case "vertical":
+                proj_wm = f"X{size * 2 - 1.5}c/{size * 2}c"
+                pos_wm = f"jTC+o0c/0.2c+w{size * 2 - 2.3}c"
+                args_text_wm = {"x": -3.2, "y": -2.8, "justify": "LM"}
+            case "horizontal":
+                proj_wm = f"X{size * 2}c/{size - 2}c"
+                pos_wm = f"jLM+o0.1c/0c+w{size - 2}c"
+                args_text_wm = {"x": -1.5, "y": 0, "justify": "LM"}
 
         # -----------------------------------------------------------------------------
         # Start plotting
@@ -248,16 +262,6 @@ def pygmtlogo(  # noqa: PLR0915
         # Replot and add wordmark "PyGMT"
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         if wordmark is True:
-            match orientation:
-                case "vertical":
-                    proj_wm = f"X{size * 2 - 1.5}c/{size * 2}c"
-                    pos_wm = f"jTC+o0c/0.2c+w{size * 2 - 2.3}c"
-                    args_text_wm = {"x": -3.2, "y": -2.8, "justify": "LM"}
-                case "horizontal":
-                    proj_wm = f"X{size * 2}c/{size - 2}c"
-                    pos_wm = f"jLM+o0.2c/0c+w{size - 2.3}c"
-                    args_text_wm = {"x": -1.7, "y": 0, "justify": "LM"}
-
             fig = pygmt.Figure()
             pygmt.config(MAP_FRAME_PEN=no_line)
             fig.basemap(region=region, projection=proj_wm, frame=no_fill)
@@ -302,7 +306,6 @@ def pygmtlogo(  # noqa: PLR0915
 #
 # Limitations: works only for a PyGMT Figure instance named "fig"
 
-
 fig = pygmt.Figure()
 pygmt.config(MAP_FRAME_PEN="cyan@100")
 fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame="+gcyan@100")
@@ -326,12 +329,28 @@ fig.show()
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=[1, "+gtan"])
 
+fig.logo()  # GMT logo
+
 pygmtlogo()
 pygmtlogo(dark_mode=False, hex_shape=True, position="jTL+o0.1c+w4c", box=False)
-pygmtlogo(position="jTC+o0c/1.5c+w4c", box="+p1p,black")
+pygmtlogo(dark_mode=False, position="jTC+o0c/2c+w5c", box="+p1p,black")
 
+pygmtlogo(
+    black_white=True,
+    dark_mode=False,
+    wordmark=False,
+    position="jTL+o0c/1.5c+w2c",
+    box=False,
+)
+pygmtlogo(
+    black_white=True,
+    hex_shape=True,
+    wordmark=False,
+    position="jTR+o0c/1.5c+w2c",
+    box=False,
+)
 
-# """
+"""
 pygmtlogo(wordmark=False, position="jML+w2c", box=True)
 pygmtlogo(
     dark_mode=False,
@@ -354,22 +373,6 @@ pygmtlogo(
 )
 pygmtlogo(hex_shape=True, wordmark=False, position="jMR+w2c")
 pygmtlogo(dark_mode=False, hex_shape=True, wordmark=False, position="jBR+w2c")
-
-pygmtlogo(
-    black_white=True,
-    dark_mode=False,
-    wordmark=False,
-    position="jTL+o0c/1.5c+w2c",
-    box=False,
-)
-pygmtlogo(
-    black_white=True,
-    hex_shape=True,
-    wordmark=False,
-    position="jTR+o0c/1.5c+w2c",
-    box=False,
-)
-
-# """
+"""
 
 fig.show()
