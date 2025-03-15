@@ -198,7 +198,7 @@ def pygmtlogo(  # noqa: PLR0915
         ]
         for x_coords, y_coords in lines_m:
             fig.plot(x=x_coords, y=y_coords, **args_m)
-        # middle pick
+        # middle corner
         fig.plot(x=0.9, y=0.9, style="d0.3c", fill=color_red, perspective=True)
 
         # .............................................................................
@@ -224,8 +224,7 @@ def pygmtlogo(  # noqa: PLR0915
         # arrow tail
         fig.plot(x=[0, 0], y=[-2, -3.57], pen=f"12p,{color_red}", perspective=True)
 
-        # margin around shape for black_white in dark_mode
-        # Needed ???
+        # margin around shape for black_white in dark_mode - Needed ???
         if black_white and dark_mode:
             fig.plot(
                 x=0,
