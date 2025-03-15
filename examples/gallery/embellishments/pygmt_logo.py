@@ -97,9 +97,6 @@ def pygmtlogo(
         xy_yellow_1 = 2.65
         xy_yellow_2 = 1.3
 
-        pen_yellow = f"5p,{color_yellow}"
-        pen_red = f"10p,{color_red}"
-
         no_line = "cyan@100"
         no_fill = f"+g{no_line}"
 
@@ -140,24 +137,28 @@ def pygmtlogo(
         # .............................................................................
         # yellow lines for compass
         # .............................................................................
+        args_yellow = {"pen": f"5p,{color_yellow}", "perspective": True}
         # horizontal yellow line
-        fig.plot(x=[-4, 4], y=[0, 0], pen=pen_yellow, no_clip=True, perspective=True)
+        fig.plot(x=[-4, 4], y=[0, 0], no_clip=True, **args_yellow)
         # diagonal yellow lines
-        args_dia = {"pen": pen_yellow, "perspective": True}
         # upper left
         fig.plot(
-            x=[-xy_yellow_1, -xy_yellow_2], y=[xy_yellow_1, xy_yellow_2], **args_dia
+            x=[-xy_yellow_1, -xy_yellow_2], y=[xy_yellow_1, xy_yellow_2], **args_yellow
         )
         # lower right
         fig.plot(
-            x=[xy_yellow_2, xy_yellow_1], y=[-xy_yellow_2, -xy_yellow_1], **args_dia
+            x=[xy_yellow_2, xy_yellow_1], y=[-xy_yellow_2, -xy_yellow_1], **args_yellow
         )
         # lower left
         fig.plot(
-            x=[-xy_yellow_1, -xy_yellow_2], y=[-xy_yellow_1, -xy_yellow_2], **args_dia
+            x=[-xy_yellow_1, -xy_yellow_2],
+            y=[-xy_yellow_1, -xy_yellow_2],
+            **args_yellow,
         )
         # upper right
-        fig.plot(x=[xy_yellow_2, xy_yellow_1], y=[xy_yellow_2, xy_yellow_1], **args_dia)
+        fig.plot(
+            x=[xy_yellow_2, xy_yellow_1], y=[xy_yellow_2, xy_yellow_1], **args_yellow
+        )
 
         # .............................................................................
         # letter G
@@ -189,14 +190,15 @@ def pygmtlogo(
         # space between letter M and yellow line at the right side
         # fig.plot(x=[1.6, 1.6], y=[1.5, 1.775], pen=f"10p,{color_bg}")
         fig.plot(x=[1.6, 1.6], y=[1.5, 2.0], pen=f"10p,{color_bg}", perspective=True)
+        args_m = {"pen": f"10p,{color_red}", "perspective": True}
         # diagonal lines
-        fig.plot(x=[0.33, 0.90], y=[1.527, 1.00], pen=pen_red, perspective=True)
-        fig.plot(x=[0.90, 1.43], y=[1.00, 1.527], pen=pen_red, perspective=True)
+        fig.plot(x=[0.33, 0.90], y=[1.527, 1.00], **args_m)
+        fig.plot(x=[0.90, 1.43], y=[1.00, 1.527], **args_m)
+        # vertical lines with small distance to horizontal line of letter G
+        fig.plot(x=[0.285, 0.285], y=[0.30, 1.65], **args_m)
+        fig.plot(x=[1.47, 1.47], y=[0.30, 1.65], **args_m)
         # middle pick
         fig.plot(x=0.9, y=0.9, style="d0.3c", fill=color_red, perspective=True)
-        # vertical lines with small distance to horizontal line of letter G
-        fig.plot(x=[0.285, 0.285], y=[0.30, 1.65], pen=pen_red, perspective=True)
-        fig.plot(x=[1.47, 1.47], y=[0.30, 1.65], pen=pen_red, perspective=True)
 
         # .............................................................................
         # letter T
