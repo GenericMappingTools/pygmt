@@ -2,18 +2,16 @@
 Plotting focal mechanisms
 =========================
 
-Focal mechanisms can be plotted as beachballs with the :meth:`pygmt.Figure.meca`
-method.
+Focal mechanisms can be plotted as beachballs with the :meth:`pygmt.Figure.meca` method.
 
-The focal mechanism data or parameters can be provided as different input types:
-an ASCII file, 1-D or 2-D :class:`numpy.array`, dictionary, :class:`pandas.Dataframe`.
+The focal mechanism data or parameters can be provided as different input types: an
+ASCII file, 1-D or 2-D :class:`numpy.array`, dictionary, :class:`pandas.Dataframe`.
 Different conventions to define the focal mechanism are supported: Aki and Richards
-(``"aki"``), global CMT (``"gcmt"``), moment tensor (``"mt"``), partial focal
-mechanism (``"partial"``), and, principal axis (``"principal_axis"``). Please refer to
-the documentation of :meth:`pygmt.Figure.meca` regarding how to set up the input
-data in respect to the chosen input type and convention (i.e., the expected column
-order, keys, or column names). This tutorial focus on how to adjust the display of
-the beachballs.
+(``"aki"``), global CMT (``"gcmt"``), moment tensor (``"mt"``), partial focal mechanism
+(``"partial"``), and, principal axis (``"principal_axis"``). Please refer to the
+documentation of :meth:`pygmt.Figure.meca` regarding how to set up the input data in
+respect to the chosen input type and convention (i.e., the expected column order, keys,
+or column names). This tutorial focus on how to adjust the display of the beachballs.
 """
 
 # %%
@@ -59,8 +57,8 @@ aki_single = {"strike": 318, "dip": 89, "rake": -179, "magnitude": 7.75}
 # :class:`pandas.DataFrame` column names. The ``scale`` parameter controls the radius
 # of the beachball. By default, the value defines the size for a magnitude of 5 (i.e.,
 # a scalar seismic moment of :math:`M_0 = 4.0 \times 10^{23}` dyn cm) and the beachball
-# size is proportional to the magnitude. Appand ``"+l"`` to force the radius
-# to be proportional to the seismic moment.
+# size is proportional to the magnitude. Appand ``"+l"`` to force the radius to be
+# proportional to the seismic moment.
 
 fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
@@ -167,11 +165,11 @@ fig.show()
 # Highlighting the nodal planes
 # -----------------------------
 #
-# Use the parameter ``nodal``, whereby ``"0"`` refers to both, ``"1"`` to the first,
-# and ``"2"`` to the second nodal plane(s). Only the circumference and the specified
-# nodal plane(s) are plotted, i.e. the quadrants remain unfilled (transparent). If
-# needed, make usage of the stacking concept of (Py)GMT and use ``nodal`` with the
-# ``outline`` or / and ``pen``  parameters in combination.
+# Use the parameter ``nodal``, whereby ``"0"`` refers to both, ``"1"`` to the first, and
+# ``"2"`` to the second nodal plane(s). Only the circumference and the specified nodal
+# plane(s) are plotted, i.e. the quadrants remain unfilled (transparent). If needed,
+# make usage of the stacking concept of (Py)GMT and use ``nodal`` with the ``outline``
+# or / and ``pen``  parameters in combination.
 
 fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
@@ -223,8 +221,8 @@ fig.show()
 # is an ASCII file with columns for ``plot_longitude`` and ``plot_latitude`` the
 # ``offset`` parameter has to be set to ``True``. Besides just drawing a line between
 # the beachball and the event location, a small circle can be plotted at the event
-# location by appending **+s** and the descired circle diameter. The connecting line
-# as well as the outline of the circle are plotted with the  setting of pen, or can be
+# location by appending **+s** and the descired circle diameter. The connecting line as
+# well as the outline of the circle are plotted with the  setting of pen, or can be
 # adjusted separately. The fill of the small circle corresponds to the fill of the
 # compressive quadrantes.
 
@@ -295,8 +293,8 @@ aki_multiple = pd.DataFrame(
 # **+f** and the desired font (size,name,color) to the argument passed to the ``scale``
 # parameter. Additionally, the location of the label relative to the beachball [Default
 # is ``"TC"``, i.e., Top Center]; can be changed by appending **+j** and an offset can
-# be applied by appending **+o** with values for *dx*\ /*dy*. Add a colored [Default
-# is white] box behind the label via the label ``labelbox``. Force a fixed size of the
+# be applied by appending **+o** with values for *dx*\ /*dy*. Add a colored [Default is
+# white] box behind the label via the label ``labelbox``. Force a fixed size of the
 # beachball by appending **+m** to the argument passed to the ``scale`` parameter.
 
 fig = pygmt.Figure()
