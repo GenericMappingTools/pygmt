@@ -100,10 +100,13 @@ def pygmtlogo(
         pen_yellow = f"5p,{color_yellow}"
         pen_red = f"10p,{color_red}"
 
-        angle_rot = 30  # degrees
-
-        no_line = "cyan@100"
+        no_line = "cyan@10"
         no_fill = f"+g{no_line}"
+
+        # Rotation around z (vertical) axis placed in the center
+        # Has to be applied to each plotting command, up on second call set to True
+        angle_rot = 30  # degrees
+        perspective = f"{angle_rot}+w0/0"
 
         # -----------------------------------------------------------------------------
         # Start plotting
@@ -114,7 +117,12 @@ def pygmtlogo(
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         fig = pygmt.Figure()
         pygmt.config(MAP_FRAME_PEN=no_line)
-        fig.basemap(region=region, projection=f"X{size * 2}c", frame=no_fill)
+        fig.basemap(
+            region=region,
+            projection=f"X{size * 2}c",
+            frame=no_fill,
+            perspective=perspective,
+        )
 
         # .............................................................................
         # blue circle / hexagon for Earth
@@ -126,82 +134,93 @@ def pygmtlogo(
             pen=f"15p,{color_blue}",
             fill=color_bg,
             no_clip=True,
+            perspective=True,
         )
 
         # .............................................................................
         # yellow lines for compass
         # .............................................................................
         # horizontal yellow line
-        fig.plot(x=[-4, 4], y=[0, 0], pen=pen_yellow, no_clip=True)
+        fig.plot(x=[-4, 4], y=[0, 0], pen=pen_yellow, no_clip=True, perspective=True)
         # diagonal yellow lines
+        args_dia = {"pen": pen_yellow, "perspective": True}
         # upper left
         fig.plot(
-            x=[-xy_yellow_1, -xy_yellow_2], y=[xy_yellow_1, xy_yellow_2], pen=pen_yellow
+            x=[-xy_yellow_1, -xy_yellow_2], y=[xy_yellow_1, xy_yellow_2], **args_dia
         )
         # lower right
         fig.plot(
-            x=[xy_yellow_2, xy_yellow_1], y=[-xy_yellow_2, -xy_yellow_1], pen=pen_yellow
+            x=[xy_yellow_2, xy_yellow_1], y=[-xy_yellow_2, -xy_yellow_1], **args_dia
         )
         # lower left
         fig.plot(
-            x=[-xy_yellow_1, -xy_yellow_2],
-            y=[-xy_yellow_1, -xy_yellow_2],
-            pen=pen_yellow,
+            x=[-xy_yellow_1, -xy_yellow_2], y=[-xy_yellow_1, -xy_yellow_2], **args_dia
         )
         # upper right
-        fig.plot(
-            x=[xy_yellow_2, xy_yellow_1], y=[xy_yellow_2, xy_yellow_1], pen=pen_yellow
-        )
+        fig.plot(x=[xy_yellow_2, xy_yellow_1], y=[xy_yellow_2, xy_yellow_1], **args_dia)
 
         # .............................................................................
         # letter G
         # .............................................................................
         # horizontal red line
-        fig.plot(x=[0.1, 1.65], y=[0, 0], pen=f"12p,{color_red}")
+        fig.plot(x=[0.1, 1.65], y=[0, 0], pen=f"12p,{color_red}", perspective=True)
         # red ring sector
-        fig.plot(x=0, y=0, style="w3.3c/90/0+i2.35c", fill=color_red)
+        fig.plot(x=0, y=0, style="w3.3c/90/0+i2.35c", fill=color_red, perspective=True)
         # space between yellow lines and ring sector
-        fig.plot(x=0, y=0, style="w3.7c/0/360+i3.3c", fill=color_bg)
+        fig.plot(x=0, y=0, style="w3.7c/0/360+i3.3c", fill=color_bg, perspective=True)
         # vertical yellow line
-        fig.plot(x=[0, 0], y=[-4, 4], pen=f"6p,{color_yellow}")
+        fig.plot(x=[0, 0], y=[-4, 4], pen=f"6p,{color_yellow}", perspective=True)
         # cover yellow line in lower part of the ring sector
-        fig.plot(x=0, y=0, style="w3.3c/260/-80+i2.35c", fill=color_red)
+        fig.plot(
+            x=0, y=0, style="w3.3c/260/-80+i2.35c", fill=color_red, perspective=True
+        )
 
         # .............................................................................
         # upper vertical red line
         # .............................................................................
         # space between red line and blue circle / hexagon
-        fig.plot(x=[0, 0], y=[4, 3.0], pen=f"18p,{color_bg}")
+        fig.plot(x=[0, 0], y=[4, 3.0], pen=f"18p,{color_bg}", perspective=True)
         # red line
-        fig.plot(x=[0, 0], y=[4, 1.9], pen=f"12p,{color_red}")
+        fig.plot(x=[0, 0], y=[4, 1.9], pen=f"12p,{color_red}", perspective=True)
 
         # .............................................................................
         # letter M
         # .............................................................................
         # space between letter M and yellow line at the right side
         # fig.plot(x=[1.6, 1.6], y=[1.5, 1.775], pen=f"10p,{color_bg}")
-        fig.plot(x=[1.6, 1.6], y=[1.5, 2.0], pen=f"10p,{color_bg}")
+        fig.plot(x=[1.6, 1.6], y=[1.5, 2.0], pen=f"10p,{color_bg}", perspective=True)
         # diagonal lines
-        fig.plot(x=[0.33, 0.90], y=[1.527, 1.00], pen=pen_red)
-        fig.plot(x=[0.90, 1.43], y=[1.00, 1.527], pen=pen_red)
+        fig.plot(x=[0.33, 0.90], y=[1.527, 1.00], pen=pen_red, perspective=True)
+        fig.plot(x=[0.90, 1.43], y=[1.00, 1.527], pen=pen_red, perspective=True)
         # middle pick
-        fig.plot(x=0.9, y=0.9, style="d0.3c", fill=color_red)
+        fig.plot(x=0.9, y=0.9, style="d0.3c", fill=color_red, perspective=True)
         # vertical lines with small distance to horizontal line of letter G
-        fig.plot(x=[0.285, 0.285], y=[0.30, 1.65], pen=pen_red)
-        fig.plot(x=[1.47, 1.47], y=[0.30, 1.65], pen=pen_red)
+        fig.plot(x=[0.285, 0.285], y=[0.30, 1.65], pen=pen_red, perspective=True)
+        fig.plot(x=[1.47, 1.47], y=[0.30, 1.65], pen=pen_red, perspective=True)
 
         # .............................................................................
         # letter T
         # .............................................................................
         # red curved horizontal line
-        fig.plot(x=0, y=0, style="w4.6c/240/-60+i3.7c", fill=color_red)
+        fig.plot(
+            x=0, y=0, style="w4.6c/240/-60+i3.7c", fill=color_red, perspective=True
+        )
         # vertical endings of curved horizontal line
-        fig.plot(x=[-1.05, -1.05], y=[-1.5, -2.5], pen=f"9p,{color_bg}")
-        fig.plot(x=[1.05, 1.05], y=[-1.5, -2.5], pen=f"9p,{color_bg}")
+        fig.plot(
+            x=[-1.05, -1.05], y=[-1.5, -2.5], pen=f"9p,{color_bg}", perspective=True
+        )
+        fig.plot(x=[1.05, 1.05], y=[-1.5, -2.5], pen=f"9p,{color_bg}", perspective=True)
         # arrow head as inverse triangle with pen for space to blue circle / hexagon
-        fig.plot(x=0, y=-3.55, style="i1.1c", fill=color_red, pen=f"3p,{color_bg}")
+        fig.plot(
+            x=0,
+            y=-3.55,
+            style="i1.1c",
+            fill=color_red,
+            pen=f"3p,{color_bg}",
+            perspective=True,
+        )
         # arrow tail
-        fig.plot(x=[0, 0], y=[-2, -3.57], pen=f"12p,{color_red}")
+        fig.plot(x=[0, 0], y=[-2, -3.57], pen=f"12p,{color_red}", perspective=True)
 
         # margin around shape for black_white in dark_mode
         # Needed ???
@@ -212,35 +231,14 @@ def pygmtlogo(
                 style=f"{symbol}{diameter + diameter_add}c",
                 pen=f"1p,{color_dark}",
                 no_clip=True,
+                perspective=True,
             )
 
         # .............................................................................
         # Save
         # .............................................................................
         # fig.show()
-        fig_name = "pygmt_logo"
-        fig.savefig(fname=f"{fig_name}.eps")
-        # print(fig_name)
-
-        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        # Replot and apply rotation
-        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        fig = pygmt.Figure()
-        pygmt.config(MAP_FRAME_PEN=no_line)
-        fig.basemap(region=region, projection=f"X{(size + 0.3) * 2}c", frame=no_fill)
-
-        fig.image(
-            imagefile=f"{fig_name}.eps",
-            position=f"jMC+w{size * 2}c",
-            # Rotation around z (vertical) axis placed in the center
-            perspective=f"{angle_rot}+w0/0",
-        )
-
-        # .............................................................................
-        # Save
-        # .............................................................................
-        # fig.show()
-        fig_name_rot = fig_name_logo = f"{fig_name}_rot{angle_rot}deg"
+        fig_name_rot = fig_name_logo = "pygmt_logo_rot"
         fig.savefig(fname=f"{fig_name_rot}.eps", resize=f"+m{margin}c")
         # print(fig_name_rot)
 
@@ -277,7 +275,7 @@ def pygmtlogo(
             Path.unlink(f"{fig_name_rot}.eps")
 
         # fig.show()
-        Path.unlink(f"{fig_name}.eps")
+        # Path.unlink(f"{fig_name}.eps")
 
         return fig_name_logo, color_bg
 
