@@ -15,8 +15,8 @@ wordmark "PyGMT". There are different versions available:
   ``True`` with wordmark [Default] or ``False`` without wordmark.
 - ``orientation``: orientation of the wordmark.
   ``"horizontal"`` at the right [Default] or ``"vertical"`` at the bottom.
-- ``bg_transparent``: make visual transparent outside of the circle or hexagon.
-  ``False`` [Default] or ``True``. Not supported for adding a wordmark.
+- ``bg_transparent``: make background transparent.
+  ``False`` not transparent [Default] or ``True`` transparent.
 """
 
 # %%
@@ -266,7 +266,9 @@ def pygmtlogo(
 
             fig = pygmt.Figure()
             pygmt.config(MAP_FRAME_PEN="cyan@100")
-            fig.basemap(region=region, projection=projection, frame=f"+g{color_bg}")
+
+            bg_alpha = 100 if bg_transparent is True else 0
+            fig.basemap(region=region, projection=projection, frame=f"+g{color_bg}@{bg_alpha}")
 
             fig.image(imagefile=f"{fig_name_rot}.eps", position=position)
 
