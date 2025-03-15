@@ -6,7 +6,8 @@ by `@sfrooti <https://github.com/sfrooti>`_. The logo consists of a visual and t
 wordmark "PyGMT". There are different versions available:
 
 - ``black_white``: draw in black and white.
-  ``False`` colors for Python (blue and yellow) and GMT (red) [Default] or ``True`` for black and white.
+  ``False`` colors for Python (blue and yellow) and GMT (red) [Default] or ``True``
+  for black and white.
 - ``dark_mode``: use dark background.
   ``False`` white or ``True`` darkgray / gray20 [Default].
 - ``hex_shape``: use hexagon shape.
@@ -42,8 +43,8 @@ def pygmtlogo(
     # -----------------------------------------------------------------------------
     # Define colors (-> can be discussed)
     # -----------------------------------------------------------------------------
-	color_dark = "gray20"
-	color_light = "white"
+    color_dark = "gray20"
+    color_light = "white"
 
     if not black_white:
         color_blue = "48/105/152"  # Python blue
@@ -268,7 +269,9 @@ def pygmtlogo(
             pygmt.config(MAP_FRAME_PEN="cyan@100")
 
             bg_alpha = 100 if bg_transparent is True else 0
-            fig.basemap(region=region, projection=projection, frame=f"+g{color_bg}@{bg_alpha}")
+            fig.basemap(
+                region=region, projection=projection, frame=f"+g{color_bg}@{bg_alpha}"
+            )
 
             fig.image(imagefile=f"{fig_name_rot}.eps", position=position)
 
