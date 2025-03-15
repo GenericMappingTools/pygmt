@@ -233,36 +233,14 @@ def pygmtlogo(  # noqa: PLR0915
                 perspective=True,
             )
 
-        # .............................................................................
-        # Save
-        # .............................................................................
-        # fig.show()
-        fig_name_rot = fig_name_logo = "pygmt_logo_rot"
-        fig.savefig(fname=f"{fig_name_rot}.eps")
-        # print(fig_name_rot)
-
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        # Replot and add wordmark "PyGMT"
+        # Add wordmark "PyGMT"
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         if wordmark is True:
-            fig = pygmt.Figure()
-            pygmt.config(MAP_FRAME_PEN=no_line)
-            fig.basemap(region=region, projection=proj_wm, frame=no_fill)
-
-            fig.image(imagefile=f"{fig_name_rot}.eps", position=pos_wm)
-
-            # Try GMT color setting to avoid re / overplotting
             text_wm = f"@;{color_py};Py@;;@;{color_gmt};GMT@;;"
-            fig.text(text=text_wm, font="45p,AvantGarde-Book", **args_text_wm)
-
-            # .........................................................................
-            # Save
-            # .........................................................................
-            fig_name_rot_wm = fig_name_logo = f"{fig_name_rot}_wordmark_{orientation}"
-            fig.savefig(fname=f"{fig_name_rot_wm}.eps")
-            # print(fig_name_rot_wm)
-            Path.unlink(f"{fig_name_rot}.eps")
-
+            fig.text(text=text_wm, no_clip=True, **args_text_wm)
+        fig_name_logo = "pygmt_logo"
+        fig.savefig(fname=f"{fig_name_logo}.eps")
         # fig.show()
         # Path.unlink(f"{fig_name}.eps")
 
