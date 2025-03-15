@@ -35,6 +35,7 @@ def pygmtlogo(
     bg_transparent=False,
     position="jRT+o0.1c+w4c",  # -> use position parameter of Figure.image
     box=False,  # True | False  # -> use box parameter of Figure.image
+    # Combine bg_transparent and box ?!
 ):
     """
     Docstrings
