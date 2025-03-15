@@ -24,7 +24,7 @@ from pathlib import Path
 import pygmt
 
 
-def pygmtlogo(
+def pygmtlogo(  # noqa: PLR0915
     black_white=False,
     dark_mode=True,
     hex_shape=False,
@@ -39,7 +39,7 @@ def pygmtlogo(
 
     # Start of subfunction
 
-    def create_logo(
+    def create_logo(  # noqa: PLR0915
         black_white=black_white,
         dark_mode=dark_mode,
         hex_shape=hex_shape,
