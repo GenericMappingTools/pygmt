@@ -104,13 +104,10 @@ def pygmtlogo(  # noqa: PLR0915
         # -----------------------------------------------------------------------------
         match orientation:
             case "vertical":
-                proj_wm = f"X{size * 2 - 1.5}c/{size * 2}c"
-                pos_wm = f"jTC+o0c/0.2c+w{size * 2 - 2.7}c"
-                args_text_wm = {"x": -3.2, "y": -2.8, "justify": "LM"}
+                args_text_wm = {"x": 0, "y": -4.5, "justify": "CT", "font": "2.5c,AvantGarde-Book"}
             case "horizontal":
-                proj_wm = f"X{size * 2}c/{size - 2}c"
-                pos_wm = f"jLM+o0.1c/0c+w{size - 2}c"
-                args_text_wm = {"x": -1.5, "y": 0, "justify": "LM"}
+                args_text_wm = {"x": 4.5, "y": 0, "justify": "LM", "font": "8c,AvantGarde-Book"}
+
 
         # -----------------------------------------------------------------------------
         # Start plotting
