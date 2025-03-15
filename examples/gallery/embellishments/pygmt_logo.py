@@ -100,7 +100,7 @@ def pygmtlogo(
         pen_yellow = f"5p,{color_yellow}"
         pen_red = f"10p,{color_red}"
 
-        no_line = "cyan@10"
+        no_line = "cyan@100"
         no_fill = f"+g{no_line}"
 
         # Rotation around z (vertical) axis placed in the center
