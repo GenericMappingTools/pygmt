@@ -42,24 +42,27 @@ def pygmtlogo(
     # -----------------------------------------------------------------------------
     # Define colors (-> can be discussed)
     # -----------------------------------------------------------------------------
+	color_dark = "gray20"
+	color_light = "white"
+
     if not black_white:
         color_blue = "48/105/152"  # Python blue
         color_yellow = "255/212/59"  # Python yellow
         color_red = "238/86/52"  # GMT red
     elif black_white and not dark_mode:
-        color_blue = color_yellow = color_red = "gray20"
+        color_blue = color_yellow = color_red = color_dark
     elif black_white and dark_mode:
-        color_blue = color_yellow = color_red = "white"
+        color_blue = color_yellow = color_red = color_light
 
     match dark_mode:
         case False:
-            color_bg = "white"
+            color_bg = color_light
             color_py = color_blue
-            color_gmt = "gray20"
+            color_gmt = color_dark
         case True:
-            color_bg = "gray20"
+            color_bg = color_dark
             color_py = color_yellow
-            color_gmt = "white"
+            color_gmt = color_light
 
     # Start of subfunction
 
