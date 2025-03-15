@@ -1,31 +1,35 @@
 """
-grdfill - Fill blank areas from a grid.
+grdfill - Interpolate across holes in a grid.
 """
 
 import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_list,
+    deprecate_parameter,
+    fmt_docstring,
+    kwargs_to_strings,
+    use_alias,
+)
 
 __doctest_skip__ = ["grdfill"]
 
 
 @fmt_docstring
-@use_alias(
-    A="mode",
-    N="no_data",
-    R="region",
-    V="verbose",
-)
+# TODO(PyGMT>=0.19.0): Remove the deprecated 'no_data' parameter.
+@deprecate_parameter("no_data", "hole", "v0.15.0", remove_version="v0.19.0")
+@use_alias(A="mode", N="hole", R="region", V="verbose")
 @kwargs_to_strings(R="sequence")
 def grdfill(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
-    Fill blank areas from a grid file.
+    Interpolate across holes in a grid.
 
-    Read a grid that presumably has unfilled holes that the user wants to
-    fill in some fashion. Holes are identified by NaN values but this
-    criteria can be changed via the ``no_data`` parameter. There are several
-    different algorithms that can be used to replace the hole values.
+    Read a grid that presumably has unfilled holes that the user wants to fill in some
+    fashion. Holes are identified by NaN values but this criteria can be changed via the
+    ``hole`` parameter. There are several different algorithms that can be used to
+    replace the hole values. If no holes are found the original unchanged grid is
+    returned.
 
     Full option list at :gmt-docs:`grdfill.html`
 
@@ -43,10 +47,9 @@ def grdfill(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
         where (*X,Y*) are the node dimensions of the grid]), or
         **s** for bicubic spline (optionally append a *tension*
         parameter [Default is no tension]).
-    no_data : float
-        Set the node value used to identify a point as a member of a hole
-        [Default is NaN].
-
+    hole : float
+        Set the node value used to identify a point as a member of a hole [Default is
+        NaN].
     {region}
     {verbose}
 
