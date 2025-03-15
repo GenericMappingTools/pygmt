@@ -62,16 +62,14 @@ def pygmtlogo(
             color_py = color_yellow
             color_gmt = color_light
 
-    if box == None:
-      box = f"+g{color_dark}"
-      if not dark_mode:
-          box = f"+g{color_light}"
+    if box is None:
+        box = f"+g{color_dark}"
+        if not dark_mode:
+            box = f"+g{color_light}"
 
     # Start of subfunction
 
     def create_logo(
-        black_white=black_white,
-        dark_mode=dark_mode,
         hex_shape=hex_shape,
         wordmark=wordmark,
         orientation=orientation,
@@ -107,12 +105,12 @@ def pygmtlogo(
         match hex_shape:
             case False:
                 diameter = 7.5
-                diameter_add = 0.5
+                # diameter_add = 0.5
                 symbol = "c"
                 margin = -1.2
             case True:
                 diameter = 8.6
-                diameter_add = 0.6
+                # diameter_add = 0.6
                 symbol = "h"
                 margin = -0.5
         fig.plot(
@@ -227,7 +225,9 @@ def pygmtlogo(
         fig = pygmt.Figure()
         pygmt.config(MAP_FRAME_PEN="cyan@100")
 
-        fig.basemap(region=region, projection=f"X{(size + 0.3) * 2}c", frame="+gcyan@100")
+        fig.basemap(
+            region=region, projection=f"X{(size + 0.3) * 2}c", frame="+gcyan@100"
+        )
 
         fig.image(
             imagefile=f"{fig_name}.eps",
@@ -329,7 +329,7 @@ pygmtlogo(dark_mode=False, hex_shape=True, position="jTL+o0.1c+w4c", box=False)
 pygmtlogo(position="jTC+o0c/1.5c+w4c", box="+p1p,black")
 
 
-"""
+# """
 pygmtlogo(wordmark=False, position="jML+w2c", box=True)
 pygmtlogo(
     dark_mode=False,
@@ -368,6 +368,6 @@ pygmtlogo(
     box=False,
 )
 
-"""
+# """
 
 fig.show()
