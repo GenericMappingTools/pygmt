@@ -262,8 +262,11 @@ def pygmtlogo(
 
             fig.image(imagefile=f"{fig_name_rot}.eps", position=position)
 
-            fig.text(text="PyGMT", font=f"45p,AvantGarde-Book,{color_gmt}", **args_text)
-            fig.text(text="Py", font=f"45p,AvantGarde-Book,{color_py}", **args_text)
+            # fig.text(text="PyGMT", font=f"45p,AvantGarde-Book,{color_gmt}", **args_text)
+            # fig.text(text="Py", font=f"45p,AvantGarde-Book,{color_py}", **args_text)
+            # Try GMT color setting to avoid re / overplotting
+            text_wordmark = f"@;{color_py};Py@;;@;{color_gmt};GMT@;;"
+            fig.text(text=text_wordmark, font="45p,AvantGarde-Book", **args_text)
 
             # .........................................................................
             # Save
