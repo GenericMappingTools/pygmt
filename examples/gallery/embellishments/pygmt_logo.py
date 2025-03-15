@@ -338,7 +338,7 @@ pygmtlogo()
 pygmtlogo(
     dark_mode=False, hex_shape=True, position="jTL+o0.1c+w4c", bg_transparent=True
 )
-pygmtlogo(bg_transparent=True, position="jTC+o1c+w4c")
+pygmtlogo(bg_transparent=True, position="jTC+o0c/1.5c+w4c")
 
 pygmtlogo(wordmark=False, position="jML+w2c", box=True)
 pygmtlogo(
