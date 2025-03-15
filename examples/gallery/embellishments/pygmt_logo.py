@@ -37,45 +37,59 @@ def pygmtlogo(
     Docstrings
     """
 
-    # -----------------------------------------------------------------------------
-    # Define colors (-> can be discussed)
-    # -----------------------------------------------------------------------------
-    color_dark = "gray20"
-    color_light = "white"
-
-    if not black_white:
-        color_blue = "48/105/152"  # Python blue
-        color_yellow = "255/212/59"  # Python yellow
-        color_red = "238/86/52"  # GMT red
-    elif black_white:
-        color_blue = color_yellow = color_red = color_light
-        if not dark_mode:
-            color_blue = color_yellow = color_red = color_dark
-
-    match dark_mode:
-        case False:
-            color_bg = color_light
-            color_py = color_blue
-            color_gmt = color_dark
-        case True:
-            color_bg = color_dark
-            color_py = color_yellow
-            color_gmt = color_light
-
-    if box is None:
-        box = f"+g{color_dark}"
-        if not dark_mode:
-            box = f"+g{color_light}"
-
     # Start of subfunction
 
     def create_logo(
+        black_white=black_white,
+        dark_mode=dark_mode,
         hex_shape=hex_shape,
         wordmark=wordmark,
-        orientation=orientation,
+        orientation=orientation
     ):
         # -----------------------------------------------------------------------------
-        # Not-changebale settings
+        # Define colors
+        # -----------------------------------------------------------------------------
+        color_dark = "gray20"
+        color_light = "white"
+
+        # visual
+        if not black_white:
+            color_blue = "48/105/152"  # Python blue
+            color_yellow = "255/212/59"  # Python yellow
+            color_red = "238/86/52"  # GMT red
+        elif black_white:
+            color_blue = color_yellow = color_red = color_light
+            if not dark_mode:
+                color_blue = color_yellow = color_red = color_dark
+
+        # background and wordmark
+        match dark_mode:
+            case False:
+                color_bg = color_light
+                color_py = color_blue
+                color_gmt = color_dark
+            case True:
+                color_bg = color_dark
+                color_py = color_yellow
+                color_gmt = color_light
+
+        # -----------------------------------------------------------------------------
+        # Define shape
+        # -----------------------------------------------------------------------------
+        match hex_shape:
+            case False:
+                diameter = 7.5
+                diameter_add = 0.5
+                symbol = "c"
+                margin = -1.2
+            case True:
+                diameter = 8.6
+                diameter_add = 0.6
+                symbol = "h"
+                margin = -0.5
+
+        # -----------------------------------------------------------------------------
+        # Helpful definitions
         # -----------------------------------------------------------------------------
         size = 4
         region = [-size, size] * 2
@@ -88,6 +102,9 @@ def pygmtlogo(
 
         angle_rot = 30  # degrees
 
+        no_line = "cyan@100"
+        no_fill = f"+g{no_line}"
+
         # -----------------------------------------------------------------------------
         # Start plotting
         # -----------------------------------------------------------------------------
@@ -96,23 +113,12 @@ def pygmtlogo(
         # Creating the visual
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         fig = pygmt.Figure()
-        pygmt.config(MAP_FRAME_PEN="cyan@100")
-        fig.basemap(region=region, projection=f"X{size * 2}c", frame="+gcyan@100")
+        pygmt.config(MAP_FRAME_PEN=no_line)
+        fig.basemap(region=region, projection=f"X{size * 2}c", frame=no_fill)
 
         # .............................................................................
         # blue circle / hexagon for Earth
         # .............................................................................
-        match hex_shape:
-            case False:
-                diameter = 7.5
-                diameter_add = 0.5
-                symbol = "c"
-                margin = -1.2
-            case True:
-                diameter = 8.6
-                diameter_add = 0.6
-                symbol = "h"
-                margin = -0.5
         fig.plot(
             x=0,
             y=0,
@@ -200,12 +206,11 @@ def pygmtlogo(
         # margin around shape for black_white in dark_mode
         # Needed ???
         if black_white and dark_mode:
-            color_margin = color_dark
             fig.plot(
                 x=0,
                 y=0,
                 style=f"{symbol}{diameter + diameter_add}c",
-                pen=f"1p,{color_margin}",
+                pen=f"1p,{color_dark}",
                 no_clip=True,
             )
 
@@ -221,11 +226,8 @@ def pygmtlogo(
         # Replot and apply rotation
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         fig = pygmt.Figure()
-        pygmt.config(MAP_FRAME_PEN="cyan@100")
-
-        fig.basemap(
-            region=region, projection=f"X{(size + 0.3) * 2}c", frame="+gcyan@100"
-        )
+        pygmt.config(MAP_FRAME_PEN=no_line)
+        fig.basemap(region=region, projection=f"X{(size + 0.3) * 2}c", frame=no_fill)
 
         fig.image(
             imagefile=f"{fig_name}.eps",
@@ -257,8 +259,8 @@ def pygmtlogo(
                     args_text = {"x": -1.7, "y": 0, "justify": "LM"}
 
             fig = pygmt.Figure()
-            pygmt.config(MAP_FRAME_PEN="cyan@100")
-            fig.basemap(region=region, projection=projection, frame="+gcyan@100")
+            pygmt.config(MAP_FRAME_PEN=no_line)
+            fig.basemap(region=region, projection=projection, frame=no_fill)
 
             fig.image(imagefile=f"{fig_name_rot}.eps", position=position)
 
@@ -277,14 +279,17 @@ def pygmtlogo(
         # fig.show()
         Path.unlink(f"{fig_name}.eps")
 
-        return fig_name_logo
+        return fig_name_logo, color_bg
 
     # End of subfunction
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Replot and add to existing Figure instance (-> requires Figure instance named fig)
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    fig_name_logo = create_logo()
+    fig_name_logo, color_bg = create_logo()
+
+    if box is None:
+        box = f"+g{color_bg}"
 
     # Use parameters of pygmt.Figure.image
     fig.image(imagefile=f"{fig_name_logo}.eps", position=position, box=box)
