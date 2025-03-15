@@ -154,13 +154,13 @@ def pygmtlogo(  # noqa: PLR0915
         # horizontal yellow line
         fig.plot(x=[-4, 4], y=[0, 0], no_clip=True, **args_yellow)
         # diagonal yellow lines
-        diagonal_lines = [
+        lines_diagonal = [
             ([-xy_yellow_1, -xy_yellow_2], [xy_yellow_1, xy_yellow_2]),  # upper left
             ([xy_yellow_2, xy_yellow_1], [-xy_yellow_2, -xy_yellow_1]),  # lower right
             ([-xy_yellow_1, -xy_yellow_2], [-xy_yellow_1, -xy_yellow_2]),  # lower left
             ([xy_yellow_2, xy_yellow_1], [xy_yellow_2, xy_yellow_1]),  # upper right
         ]
-        for x_coords, y_coords in diagonal_lines:
+        for x_coords, y_coords in lines_diagonal:
             fig.plot(x=x_coords, y=y_coords, **args_yellow)
 
         # .............................................................................
