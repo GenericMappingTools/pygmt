@@ -332,11 +332,7 @@ pygmtlogo(
     position="jTR+o0.5c/2c+w1.5c",
     box=False,
 )
-pygmtlogo(
-    black_white=True,
-    orientation="vertical",
-    position="jMC+w2c",
-)
+pygmtlogo(black_white=True, orientation="vertical", position="jMC+w2c")
 
 """
 pygmtlogo(wordmark=False, position="jML+w2c", box=True)
