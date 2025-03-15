@@ -250,30 +250,30 @@ def pygmtlogo(
         if wordmark is True:
             match orientation:
                 case "vertical":
-                    projection = f"X{size * 2 - 1.5}c/{size * 2}c"
-                    position = f"jTC+o0c/0.2c+w{size * 2 - 2.3}c"
-                    args_text = {"x": -3.2, "y": -2.8, "justify": "LM"}
+                    proj_wm = f"X{size * 2 - 1.5}c/{size * 2}c"
+                    pos_wm = f"jTC+o0c/0.2c+w{size * 2 - 2.3}c"
+                    args_text_wm = {"x": -3.2, "y": -2.8, "justify": "LM"}
                 case "horizontal":
-                    projection = f"X{size * 2}c/{size - 2}c"
-                    position = f"jLM+o0.2c/0c+w{size - 2.3}c"
-                    args_text = {"x": -1.7, "y": 0, "justify": "LM"}
+                    proj_wm = f"X{size * 2}c/{size - 2}c"
+                    pos_wm = f"jLM+o0.2c/0c+w{size - 2.3}c"
+                    args_text_wm = {"x": -1.7, "y": 0, "justify": "LM"}
 
             fig = pygmt.Figure()
             pygmt.config(MAP_FRAME_PEN=no_line)
-            fig.basemap(region=region, projection=projection, frame=no_fill)
+            fig.basemap(region=region, projection=proj_wm, frame=no_fill)
 
-            fig.image(imagefile=f"{fig_name_rot}.eps", position=position)
+            fig.image(imagefile=f"{fig_name_rot}.eps", position=pos_wm)
 
             # Try GMT color setting to avoid re / overplotting
-            text_wordmark = f"@;{color_py};Py@;;@;{color_gmt};GMT@;;"
-            fig.text(text=text_wordmark, font="45p,AvantGarde-Book", **args_text)
+            text_wm = f"@;{color_py};Py@;;@;{color_gmt};GMT@;;"
+            fig.text(text=text_wm, font="45p,AvantGarde-Book", **args_text_wm)
 
             # .........................................................................
             # Save
             # .........................................................................
-            fig_name_rot_text = fig_name_logo = f"{fig_name_rot}_wordmark_{orientation}"
-            fig.savefig(fname=f"{fig_name_rot_text}.eps")
-            # print(fig_name_rot_text)
+            fig_name_rot_wm = fig_name_logo = f"{fig_name_rot}_wordmark_{orientation}"
+            fig.savefig(fname=f"{fig_name_rot_wm}.eps")
+            # print(fig_name_rot_wm)
             Path.unlink(f"{fig_name_rot}.eps")
 
         # fig.show()
