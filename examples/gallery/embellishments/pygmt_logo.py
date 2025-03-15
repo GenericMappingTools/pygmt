@@ -60,6 +60,7 @@ def pygmtlogo(  # noqa: PLR0915
 
         # Rotation around z (vertical) axis placed in the center
         # Has to be applied to each plotting command, up on second call set to True
+        # Do NOT rotated initial basemap
         angle_rot = 30  # degrees
         perspective = f"{angle_rot}+w0/0"
 
@@ -93,12 +94,10 @@ def pygmtlogo(  # noqa: PLR0915
         symbol = "c"  # circle
         diameter = 7.5
         diameter_add = 0.5
-        margin = -1.2
         if hex_shape:
             symbol = "h"  # hexagon
             diameter = 8.6
             diameter_add = 0.6
-            margin = -0.5
 
         # -----------------------------------------------------------------------------
         # Define wordmark
@@ -106,7 +105,7 @@ def pygmtlogo(  # noqa: PLR0915
         match orientation:
             case "vertical":
                 proj_wm = f"X{size * 2 - 1.5}c/{size * 2}c"
-                pos_wm = f"jTC+o0c/0.2c+w{size * 2 - 2.3}c"
+                pos_wm = f"jTC+o0c/0.2c+w{size * 2 - 2.7}c"
                 args_text_wm = {"x": -3.2, "y": -2.8, "justify": "LM"}
             case "horizontal":
                 proj_wm = f"X{size * 2}c/{size - 2}c"
@@ -126,7 +125,6 @@ def pygmtlogo(  # noqa: PLR0915
             region=region,
             projection=f"X{size * 2}c",
             frame=no_fill,
-            perspective=perspective,
         )
 
         # .............................................................................
@@ -139,7 +137,7 @@ def pygmtlogo(  # noqa: PLR0915
             pen=f"15p,{color_blue}",
             fill=color_bg,
             no_clip=True,
-            perspective=True,
+            perspective=perspective,
         )
 
         # .............................................................................
@@ -240,7 +238,7 @@ def pygmtlogo(  # noqa: PLR0915
         # .............................................................................
         # fig.show()
         fig_name_rot = fig_name_logo = "pygmt_logo_rot"
-        fig.savefig(fname=f"{fig_name_rot}.eps", resize=f"+m{margin}c")
+        fig.savefig(fname=f"{fig_name_rot}.eps")
         # print(fig_name_rot)
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -324,15 +322,20 @@ pygmtlogo(
     black_white=True,
     dark_mode=False,
     wordmark=False,
-    position="jTL+o0c/1.5c+w2c",
+    position="jTL+o0.5c/2c+w1.5c",
     box=False,
 )
 pygmtlogo(
     black_white=True,
     hex_shape=True,
     wordmark=False,
-    position="jTR+o0c/1.5c+w2c",
+    position="jTR+o0.5c/2c+w1.5c",
     box=False,
+)
+pygmtlogo(
+    black_white=True,
+    orientation="vertical",
+    position="jMC+w2c",
 )
 
 """
