@@ -44,7 +44,7 @@ def pygmtlogo(
         dark_mode=dark_mode,
         hex_shape=hex_shape,
         wordmark=wordmark,
-        orientation=orientation
+        orientation=orientation,
     ):
         # -----------------------------------------------------------------------------
         # Define colors
