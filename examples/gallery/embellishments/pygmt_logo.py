@@ -154,24 +154,6 @@ def pygmtlogo(  # noqa: PLR0915
         # horizontal yellow line
         fig.plot(x=[-4, 4], y=[0, 0], no_clip=True, **args_yellow)
         # diagonal yellow lines
-        # # upper left
-        # fig.plot(
-        #     x=[-xy_yellow_1, -xy_yellow_2], y=[xy_yellow_1, xy_yellow_2], **args_yellow
-        # )
-        # # lower right
-        # fig.plot(
-        #     x=[xy_yellow_2, xy_yellow_1], y=[-xy_yellow_2, -xy_yellow_1], **args_yellow
-        # )
-        # # lower left
-        # fig.plot(
-        #     x=[-xy_yellow_1, -xy_yellow_2],
-        #     y=[-xy_yellow_1, -xy_yellow_2],
-        #     **args_yellow,
-        # )
-        # # upper right
-        # fig.plot(
-        #     x=[xy_yellow_2, xy_yellow_1], y=[xy_yellow_2, xy_yellow_1], **args_yellow
-        # )
         diagonal_lines = [
             ([-xy_yellow_1, -xy_yellow_2], [xy_yellow_1, xy_yellow_2]),  # upper left
             ([xy_yellow_2, xy_yellow_1], [-xy_yellow_2, -xy_yellow_1]),  # lower right
@@ -211,13 +193,16 @@ def pygmtlogo(  # noqa: PLR0915
         # space between letter M and yellow line at the right side
         # fig.plot(x=[1.6, 1.6], y=[1.5, 1.775], pen=f"10p,{color_bg}")
         fig.plot(x=[1.6, 1.6], y=[1.5, 2.0], pen=f"10p,{color_bg}", perspective=True)
+        # lines with small distance to horizontal line of letter G
         args_m = {"pen": f"10p,{color_red}", "perspective": True}
-        # diagonal lines
-        fig.plot(x=[0.33, 0.90], y=[1.527, 1.00], **args_m)
-        fig.plot(x=[0.90, 1.43], y=[1.00, 1.527], **args_m)
-        # vertical lines with small distance to horizontal line of letter G
-        fig.plot(x=[0.285, 0.285], y=[0.30, 1.65], **args_m)
-        fig.plot(x=[1.47, 1.47], y=[0.30, 1.65], **args_m)
+        lines_m = [
+            ([0.33, 0.90], [1.527, 1.00]),  # diagonal left
+            ([0.90, 1.43], [1.00, 1.527]),  # diagonal right
+            ([0.285, 0.285], [0.30, 1.65]),  # vertical left
+            ([1.47, 1.47], [0.30, 1.65]),  # vertical right
+        ]
+        for x_coords, y_coords in lines_m:
+            fig.plot(x=x_coords, y=y_coords, **args_m)
         # middle pick
         fig.plot(x=0.9, y=0.9, style="d0.3c", fill=color_red, perspective=True)
 
