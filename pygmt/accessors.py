@@ -8,7 +8,7 @@ from pathlib import Path
 import xarray as xr
 from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.src.grdinfo import grdinfo
+from pygmt.src import grdfill, grdinfo
 
 
 @xr.register_dataarray_accessor("gmt")
@@ -176,3 +176,11 @@ class GMTDataArrayAccessor:
             )
             raise GMTInvalidInput(msg)
         self._gtype = GridType(value)
+
+    def fill(self, **kwargs):
+        """
+        Interpolate across holes in the grid.
+
+        See the :meth:`pygmt.grdfill` for available parameters.
+        """
+        return grdfill(grid=self._obj, **kwargs)
