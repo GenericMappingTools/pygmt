@@ -200,8 +200,8 @@ def pygmtlogo(
 
         # margin around shape with slight overplotting for clean borders
         color_margin = color_bg
-        if (not black_white and bg_transparent and not wordmark) or (
-            black_white and bg_transparent and not wordmark and not dark_mode
+        if (not black_white and bg_transparent) or (
+            black_white and bg_transparent and not dark_mode
         ):
             color_margin = "white@100"
         fig.plot(
@@ -258,12 +258,12 @@ def pygmtlogo(
                     projection = f"X{size * 2 - 1.5}c/{size * 2}c"
                     position = f"jTC+o0c/0.2c+w{size * 2 - 2.3}c"
                     args_text = {"x": -3.2, "y": -2.8, "justify": "LM"}
-                    args_cover = {"x": -2.2, "y": -2.8}
+                    # args_cover = {"x": -2.2, "y": -2.8}
                 case "horizontal":
                     projection = f"X{size * 2}c/{size - 2}c"
                     position = f"jLM+o0.2c/0c+w{size - 2.3}c"
                     args_text = {"x": -1.7, "y": 0, "justify": "LM"}
-                    args_cover = {"x": -0.8, "y": 0}
+                    # args_cover = {"x": -0.8, "y": 0}
 
             fig = pygmt.Figure()
             pygmt.config(MAP_FRAME_PEN="cyan@100")
@@ -276,7 +276,7 @@ def pygmtlogo(
             fig.image(imagefile=f"{fig_name_rot}.eps", position=position)
 
             fig.text(text="PyGMT", font=f"45p,AvantGarde-Book,{color_gmt}", **args_text)
-            fig.plot(style="s2.6c", fill=color_bg, **args_cover)
+            # fig.plot(style="s2.6c", fill=color_bg, **args_cover)
             fig.text(text="Py", font=f"45p,AvantGarde-Book,{color_py}", **args_text)
 
             # .........................................................................
@@ -335,7 +335,10 @@ fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=[1, "+gtan"])
 
 pygmtlogo()
-pygmtlogo(dark_mode=False, hex_shape=True, position="jTL+o0.1c+w4c")
+pygmtlogo(
+    dark_mode=False, hex_shape=True, position="jTL+o0.1c+w4c", bg_transparent=True
+)
+pygmtlogo(bg_transparent=True, position="jTC+o1c+w4c")
 
 pygmtlogo(wordmark=False, position="jML+w2c", box=True)
 pygmtlogo(
