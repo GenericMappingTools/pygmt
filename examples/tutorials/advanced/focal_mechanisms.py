@@ -12,7 +12,7 @@ Different conventions to define the focal mechanism are supported: Aki and Richa
 mechanism (``"partial"``), and, principal axis (``"principal_axis"``). Please refer to
 the documentation of :meth:`pygmt.Figure.meca` regarding how to set up the input
 data in respect to the chosen input type and convention (i.e., the expected column
-order, keys, or column names). This tutorial focus on how to adjust the display of 
+order, keys, or column names). This tutorial focus on how to adjust the display of
 the beachballs.
 """
 
