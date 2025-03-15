@@ -70,40 +70,35 @@ def pygmtlogo(  # noqa: PLR0915
         color_light = "white"
 
         # visual
-        if not black_white:
-            color_blue = "48/105/152"  # Python blue
-            color_yellow = "255/212/59"  # Python yellow
-            color_red = "238/86/52"  # GMT red
-        elif black_white:
+        color_blue = "48/105/152"  # Python blue
+        color_yellow = "255/212/59"  # Python yellow
+        color_red = "238/86/52"  # GMT red
+        if black_white:
             color_blue = color_yellow = color_red = color_light
             if not dark_mode:
                 color_blue = color_yellow = color_red = color_dark
 
         # background and wordmark
-        match dark_mode:
-            case False:
-                color_bg = color_light
-                color_py = color_blue
-                color_gmt = color_dark
-            case True:
-                color_bg = color_dark
-                color_py = color_yellow
-                color_gmt = color_light
+        color_bg = color_dark
+        color_py = color_yellow
+        color_gmt = color_light
+        if not dark_mode:
+            color_bg = color_light
+            color_py = color_blue
+            color_gmt = color_dark
 
         # -----------------------------------------------------------------------------
         # Define shape
         # -----------------------------------------------------------------------------
-        match hex_shape:
-            case False:
-                diameter = 7.5
-                diameter_add = 0.5
-                symbol = "c"
-                margin = -1.2
-            case True:
-                diameter = 8.6
-                diameter_add = 0.6
-                symbol = "h"
-                margin = -0.5
+        symbol = "c"  # circle
+        diameter = 7.5
+        diameter_add = 0.5
+        margin = -1.2
+        if hex_shape:
+            symbol = "h"  # hexagon
+            diameter = 8.6
+            diameter_add = 0.6
+            margin = -0.5
 
         # -----------------------------------------------------------------------------
         # Define wordmark
