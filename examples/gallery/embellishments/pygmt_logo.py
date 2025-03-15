@@ -6,8 +6,7 @@ by `@sfrooti <https://github.com/sfrooti>`_. The logo consists of a visual and t
 wordmark "PyGMT". There are different versions available:
 
 - ``black_white``: draw in black and white.
-  ``False`` colors for Python (blue and yellow) and GMT (red) [Default] or ``True``
-    for black and white.
+  ``False`` colors for Python (blue and yellow) and GMT (red) [Default] or ``True`` for black and white.
 - ``dark_mode``: use dark background.
   ``False`` white or ``True`` darkgray / gray20 [Default].
 - ``hex_shape``: use hexagon shape.
@@ -17,7 +16,7 @@ wordmark "PyGMT". There are different versions available:
 - ``orientation``: orientation of the wordmark.
   ``"horizontal"`` at the right [Default] or ``"vertical"`` at the bottom.
 - ``bg_transparent``: make visual transparent outside of the circle or hexagon.
-  ``False``[Default] or ``True``. Not supported for adding a wordmark.
+  ``False`` [Default] or ``True``. Not supported for adding a wordmark.
 """
 
 # %%
