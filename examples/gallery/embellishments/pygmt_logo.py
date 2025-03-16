@@ -34,48 +34,48 @@ fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=[1, "+gtan"])
 fig.logo()  # GMT logo
 
 fig.pygmtlogo()
-fig.pygmtlogo(dark_mode=False, hex_shape=True, position="jTL+o0.1c+w4c", box=False)
-fig.pygmtlogo(dark_mode=False, position="jTC+o0c/2c+w5c", box="+p1p,black")
+fig.pygmtlogo(darkmode=False, hexshape=True, position="jTL+o0.1c+w4c", box=False)
+fig.pygmtlogo(darkmode=False, position="jTC+o0c/2c+w5c", box="+p1p,black")
 
 fig.pygmtlogo(
-    black_white=True,
-    dark_mode=False,
+    blackwhite=True,
+    darkmode=False,
     wordmark=False,
     position="jTL+o0.5c/2c+w1.5c",
     box=False,
 )
 fig.pygmtlogo(
-    black_white=True,
-    hex_shape=True,
+    blackwhite=True,
+    hexshape=True,
     wordmark=False,
     position="jTR+o0.5c/2c+w1.5c",
     box=False,
 )
-fig.pygmtlogo(black_white=True, orientation="vertical", position="jMC+w2c")
+fig.pygmtlogo(blackwhite=True, orientation="vertical", position="jMC+w2c")
 
 """
 fig.pygmtlogo(wordmark=False, position="jML+w2c", box=True)
 fig.pygmtlogo(
-    dark_mode=False,
+    darkmode=False,
     wordmark=False,
     position="jBL+w2c",
     box="+p1p,black",
 )
 fig.pygmtlogo(
-    black_white=True,
+    blackwhite=True,
     orientation="vertical",
     position="jMC+w2c",
     box="+p1p,blue+gcyan",
 )
 fig.pygmtlogo(
-    black_white=True,
-    hex_shape=True,
+    blackwhite=True,
+    hexshape=True,
     orientation="vertical",
     position="jBC+w2c",
     box="+ggray20",
 )
-fig.pygmtlogo(hex_shape=True, wordmark=False, position="jMR+w2c")
-fig.pygmtlogo(dark_mode=False, hex_shape=True, wordmark=False, position="jBR+w2c")
+fig.pygmtlogo(hexshape=True, wordmark=False, position="jMR+w2c")
+fig.pygmtlogo(darkmode=False, hexshape=True, wordmark=False, position="jBR+w2c")
 """
 
 fig.show()

@@ -10,9 +10,9 @@ import pygmt
 
 def pygmtlogo(  # noqa: PLR0915
     self,
-    black_white=False,
-    dark_mode=True,
-    hex_shape=False,
+    blackwhite=False,
+    darkmode=True,
+    hexshape=False,
     wordmark=True,
     orientation="horizontal",  # "horizontal" | "vertical"
     position="jRT+o0.1c+w5c",  # -> use position parameter of Figure.image
@@ -25,13 +25,13 @@ def pygmtlogo(  # noqa: PLR0915
     Parameters
     ----------
 
-    black_white : bool
+    blackwhite : bool
         Draw in black and white. ``False`` colors for Python (blue and yellow)
         and GMT (red) are used [Default]. Use ``True`` for black and white.
-    dark_mode : bool
+    darkmode : bool
         Use dark background. ``True`` leads to dark mode [Default] and ``False``
         to light mode.
-    hex_shape : bool
+    hexshape : bool
         Use a hexagon shape. ``False`` leads to a circle shape [Default]. Use
         ``True`` for a hexagon shape.
     wordmark : bool
@@ -46,9 +46,9 @@ def pygmtlogo(  # noqa: PLR0915
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     def create_logo(  # noqa: PLR0915
-        black_white=black_white,
-        dark_mode=dark_mode,
-        hex_shape=hex_shape,
+        blackwhite=blackwhite,
+        darkmode=darkmode,
+        hexshape=hexshape,
         wordmark=wordmark,
         orientation=orientation,
     ):
@@ -80,16 +80,16 @@ def pygmtlogo(  # noqa: PLR0915
         color_blue = "48/105/152"  # Python blue
         color_yellow = "255/212/59"  # Python yellow
         color_red = "238/86/52"  # GMT red
-        if black_white:
+        if blackwhite:
             color_blue = color_yellow = color_red = color_light
-            if not dark_mode:
+            if not darkmode:
                 color_blue = color_yellow = color_red = color_dark
 
         # background and wordmark
         color_bg = color_dark
         color_py = color_yellow
         color_gmt = color_light
-        if not dark_mode:
+        if not darkmode:
             color_bg = color_light
             color_py = color_blue
             color_gmt = color_dark
@@ -100,7 +100,7 @@ def pygmtlogo(  # noqa: PLR0915
         symbol = "c"  # circle
         diameter = 7.5
         diameter_add = 0.5
-        if hex_shape:
+        if hexshape:
             symbol = "h"  # hexagon
             diameter = 8.6
             diameter_add = 0.6
@@ -231,8 +231,8 @@ def pygmtlogo(  # noqa: PLR0915
         # arrow tail
         fig.plot(x=[0, 0], y=[-2, -3.57], pen=f"12p,{color_red}", perspective=True)
 
-        # margin around shape for black_white in dark_mode - Needed ???
-        if black_white and dark_mode:
+        # margin around shape for blackwhite=True in darkmode=True
+        if blackwhite and darkmode:
             fig.plot(
                 x=0,
                 y=0,
