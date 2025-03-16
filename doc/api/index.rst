@@ -33,6 +33,7 @@ Plotting map elements
     Figure.inset
     Figure.legend
     Figure.logo
+    Figure.pygmtlogo
     Figure.solar
     Figure.text
     Figure.timestamp
