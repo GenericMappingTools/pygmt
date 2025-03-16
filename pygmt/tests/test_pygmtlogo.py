@@ -10,9 +10,10 @@ from pygmt import Figure
 @pytest.mark.mpl_image_compare
 def test_pylogo():
     """
-    Plot the PyGMT logo as a stand-alone plot.
+    Plot the PyGMT logo using the default settings.
     """
     fig = Figure()
+    fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=1)
     fig.pygmtlogo()
     return fig
 
@@ -20,9 +21,42 @@ def test_pylogo():
 @pytest.mark.mpl_image_compare
 def test_pylogo_on_a_map():
     """
-    Plot the PyGMT logo at the lower right corner of a map.
+    Plot the PyGMT logo and adjust the position, offset, and size.
     """
     fig = Figure()
-    fig.basemap(region=[-90, -70, 0, 20], projection="M15c", frame=True)
-    fig.pygmtlogo(position="jBR+o0.25c/0.25c+w7.5c", box=True)
+    fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=1)
+    fig.pygmtlogo(position="jMC+o0.25c/0.25c+w7.5c", box=True)
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_pylogo_no_wordmark():
+    """
+    Plot the PyGMT logo without wordmark.
+    """
+    fig = Figure()
+    fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=1)
+    fig.pygmtlogo(wordmark=False)
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_pylogo_lightmode():
+    """
+    Plot the PyGMT logo in light mode.
+    """
+    fig = Figure()
+    fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=1)
+    fig.pygmtlogo(darkmode=False)
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_pylogo_vertical():
+    """
+    Plot the PyGMT logo with vertical orientation of the wordmark.
+    """
+    fig = Figure()
+    fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=1)
+    fig.pygmtlogo(orientation="vertical")
     return fig
