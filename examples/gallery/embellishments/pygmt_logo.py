@@ -3,19 +3,7 @@ PyGMT logo
 ==========
 The PyGMT logo coded in Python using PyGMT. The design of the logo is kindly provided
 by `@sfrooti <https://github.com/sfrooti>`_. The logo consists of a visual and the
-wordmark "PyGMT". There are different versions available:
-
-- ``black_white``: draw in black and white.
-  ``False`` colors for Python (blue and yellow) and GMT (red) [Default] or ``True``
-  for black and white.
-- ``dark_mode``: use dark background.
-  ``False`` white or ``True`` darkgray / gray20 [Default].
-- ``hex_shape``: use hexagon shape.
-  ``False`` circle [Default] or ``True`` hexagon.
-- ``wordmark``: add the wordmark "PyGMT".
-  ``True`` with wordmark [Default] or ``False`` without wordmark.
-- ``orientation``: orientation of the wordmark.
-  ``"horizontal"`` at the right [Default] or ``"vertical"`` at the bottom.
+wordmark "PyGMT".
 """
 
 import pygmt

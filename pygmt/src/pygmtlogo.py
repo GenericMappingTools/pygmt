@@ -1,5 +1,6 @@
 """
 pygmtlogo - Create and plot the PyGMT logo.
+The design of the logo is kindly provided by `@sfrooti <https://github.com/sfrooti>`_.
 """
 
 from pathlib import Path
