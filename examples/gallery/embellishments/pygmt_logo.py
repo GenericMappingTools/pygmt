@@ -53,29 +53,6 @@ fig.pygmtlogo(
 )
 fig.pygmtlogo(blackwhite=True, orientation="vertical", position="jMC+w2c")
 
-"""
-fig.pygmtlogo(wordmark=False, position="jML+w2c", box=True)
-fig.pygmtlogo(
-    darkmode=False,
-    wordmark=False,
-    position="jBL+w2c",
-    box="+p1p,black",
-)
-fig.pygmtlogo(
-    blackwhite=True,
-    orientation="vertical",
-    position="jMC+w2c",
-    box="+p1p,blue+gcyan",
-)
-fig.pygmtlogo(
-    blackwhite=True,
-    hexshape=True,
-    orientation="vertical",
-    position="jBC+w2c",
-    box="+ggray20",
-)
-fig.pygmtlogo(hexshape=True, wordmark=False, position="jMR+w2c")
-fig.pygmtlogo(darkmode=False, hexshape=True, wordmark=False, position="jBR+w2c")
-"""
-
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 3
