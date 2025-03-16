@@ -20,21 +20,26 @@ def pygmtlogo(  # noqa: PLR0915
 ):
     """
     Plot the PyGMT logo.
+    The design of the logo is kindly provided by `@sfrooti <https://github.com/sfrooti>`_.
 
     Parameters
     ----------
 
-    black_white : Draw in black and white.
-        ``False`` use colors for Python (blue and yellow) and GMT (red) [Default] or
-    ``True`` for black and white.
-    dark_mode : Use dark background.
-        ``False`` white or ``True`` darkgray [Default].
-    hex_shape : Use hexagon shape.
-        ``False`` circle [Default] or ``True`` hexagon.
-    wordmark : add the wordmark "PyGMT".
-        ``True`` with wordmark [Default] or ``False`` without wordmark.
-    orientation : Orientation of the wordmark.
-       ``"horizontal"`` at the right [Default] or ``"vertical"`` at the bottom.
+    black_white : bool
+        Draw in black and white. ``False`` colors for Python (blue and yellow)
+        and GMT (red) are used [Default]. Use ``True`` for black and white.
+    dark_mode : bool
+        Use dark background. ``True`` leads to dark mode [Default] and ``False``
+        to light mode.
+    hex_shape : bool
+        Use a hexagon shape. ``False`` leads to a circle shape [Default]. Use
+        ``True`` for a hexagon shape.
+    wordmark : bool
+        Add the wordmark "PyGMT". ``True`` adds the wordmark [Default] and ``False``
+        to skipes it.
+    orientation : str
+        Orientation of the wordmark. Use ``"horizontal"`` to place the wordmark at
+        the right side [Default] or ``"vertical"`` to place it below the visual.
     """
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Start of subfunction
