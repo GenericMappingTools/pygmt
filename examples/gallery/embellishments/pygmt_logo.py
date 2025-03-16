@@ -18,6 +18,8 @@ wordmark "PyGMT". There are different versions available:
   ``"horizontal"`` at the right [Default] or ``"vertical"`` at the bottom.
 """
 
+import pygmt
+
 fig = pygmt.Figure()
 pygmt.config(MAP_FRAME_PEN="cyan@100")
 fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame="+gcyan@100")
