@@ -8,7 +8,7 @@ import pygmt
 
 
 def pygmtlogo(  # noqa: PLR0915
-	self,
+    self,
     black_white=False,
     dark_mode=True,
     hex_shape=False,
@@ -18,14 +18,14 @@ def pygmtlogo(  # noqa: PLR0915
     box=None,  # -> use box parameter of Figure.image
 ):
     """
-	Plot the PyGMT logo.
+    Plot the PyGMT logo.
 
     Parameters
     ----------
 
-	black_white : Draw in black and white.
+    black_white : Draw in black and white.
         ``False`` use colors for Python (blue and yellow) and GMT (red) [Default] or
-		``True`` for black and white.
+    ``True`` for black and white.
     dark_mode : Use dark background.
         ``False`` white or ``True`` darkgray [Default].
     hex_shape : Use hexagon shape.
