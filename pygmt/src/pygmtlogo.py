@@ -18,9 +18,23 @@ def pygmtlogo(  # noqa: PLR0915
     box=None,  # -> use box parameter of Figure.image
 ):
     """
-    Docstrings
-    """
+	Plot the PyGMT logo.
 
+    Parameters
+    ----------
+
+	black_white : Draw in black and white.
+        ``False`` use colors for Python (blue and yellow) and GMT (red) [Default] or
+		``True`` for black and white.
+    dark_mode : Use dark background.
+        ``False`` white or ``True`` darkgray [Default].
+    hex_shape : Use hexagon shape.
+        ``False`` circle [Default] or ``True`` hexagon.
+    wordmark : add the wordmark "PyGMT".
+        ``True`` with wordmark [Default] or ``False`` without wordmark.
+    orientation : Orientation of the wordmark.
+       ``"horizontal"`` at the right [Default] or ``"vertical"`` at the bottom.
+    """
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Start of subfunction
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
