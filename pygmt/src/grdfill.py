@@ -2,6 +2,8 @@
 grdfill - Interpolate across holes in a grid.
 """
 
+import warnings
+
 import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
@@ -135,9 +137,26 @@ def grdfill(
     >>> # Fill the holes with a constant value of 20
     >>> filled_grid = pygmt.grdfill(grid=earth_relief_holes, constantfill=20)
     """
-
-    # Determine the -A option from the fill parameters.
-    kwargs["A"] = _parse_fill_mode(constantfill, gridfill, neighborfill, splinefill)
+    # TODO(PyGMT>=0.19.0): Remove the deprecated 'mode' parameter.
+    if kwargs.get("A") is not None:  # The deprecated 'mode' parameter is given.
+        warnings.warn(
+            "The 'mode' parameter is deprecated since v0.15.0 and will be removed in "
+            "v0.19.0. Use 'constantfill/gridfill/neighborfill/splinefill' instead.",
+            FutureWarning,
+            stacklevel=1,
+        )
+        if any(
+            param is not None
+            for param in [constantfill, gridfill, neighborfill, splinefill]
+        ):
+            msg = (
+                "Parameters 'constantfill/gridfill/neighborfill/splinefill' "
+                "and 'mode' are mutually exclusive."
+            )
+            raise GMTInvalidInput(msg)
+    else:
+        # Determine the -A option from the fill parameters.
+        kwargs["A"] = _parse_fill_mode(constantfill, gridfill, neighborfill, splinefill)
 
     if kwargs.get("A") is None and kwargs.get("L") is None:
         msg = "At least parameter 'mode' or 'L' must be specified."
