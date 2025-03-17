@@ -114,7 +114,7 @@ def grdfill(
         where (*X,Y*) are the node dimensions of the grid]), or **s** for bicubic spline
         (optionally append a *tension* parameter [Default is no tension]).
 
-        .. deprecated:: v0.15.0
+        .. deprecated:: 0.15.0
             The ``mode`` parameter is deprecated since v0.15.0 and will be removed in
             v0.19.0. Use ``constantfill/gridfill/neighborfill/splinefill`` instead.
     {region}
