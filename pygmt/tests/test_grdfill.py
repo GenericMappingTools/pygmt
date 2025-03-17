@@ -99,6 +99,20 @@ def test_grdfill_file_out(grid, expected_grid):
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
+def test_grdfill_gridfill_dataarray(grid):
+    """
+    Test grdfill with a DataArray input.
+    """
+    bggrid = xr.DataArray(
+        np.arange(grid.size).reshape(grid.shape),
+        dims=grid.dims,
+        coords={"lon": grid.lon, "lat": grid.lat},
+    )
+    result = grdfill(grid=grid, gridfill=bggrid)
+    assert not result.isnull().any()
+    npt.assert_array_equal(result[3:6, 3:5], bggrid[3:6, 3:5])
+
+
 def test_grdfill_required_args(grid):
     """
     Test that grdfill fails without arguments for `mode` and `L`.
