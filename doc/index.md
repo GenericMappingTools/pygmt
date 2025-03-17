@@ -3,7 +3,6 @@
 
 <div class="banner">
     <img src="_static/pygmt_logo.png" alt="PyGMT Logo" style="width: 600px; height: auto;">
-    <h1>PyGMT<h1>
     <h2>
         A Python interface for the
         <a href="https://www.generic-mapping-tools.org/">Generic Mapping Tools</a>
