@@ -15,7 +15,7 @@ def pygmtlogo(  # noqa: PLR0915
     hexshape=False,
     wordmark=True,
     orientation="horizontal",  # "horizontal" | "vertical"
-    position="jRT+o0.1c+w5c",  # -> use position parameter of Figure.image
+    position=None,  # -> use position parameter of Figure.image
     box=None,  # -> use box parameter of Figure.image
 ):
     """
