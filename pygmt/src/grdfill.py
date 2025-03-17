@@ -99,7 +99,7 @@ def grdfill(
     neighborfill
         Fill the holes with the nearest neighbor. Specify the search radius in pixels.
         If set to ``True``, the default search radius will be used
-        (:math:`r^2 = \sqrt{{n^2 + m^2}}`, where (n,m) are the node dimensions of the
+        (:math:`r^2 = \sqrt{{n^2 + m^2}}`, where (*n,m*) are the node dimensions of the
         grid).
     splinefill
         Fill the holes with a bicubic spline. Specify the tension value to use. If set
