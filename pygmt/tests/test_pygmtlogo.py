@@ -13,7 +13,6 @@ def test_pylogo():
     Plot the PyGMT logo using the default settings.
     """
     fig = Figure()
-    fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=1)
     fig.pygmtlogo()
     return fig
 
