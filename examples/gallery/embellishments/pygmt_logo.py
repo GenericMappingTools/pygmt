@@ -9,11 +9,7 @@ wordmark "PyGMT".
 import pygmt
 
 fig = pygmt.Figure()
-pygmt.config(MAP_FRAME_PEN="cyan@100")
-fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame="+gcyan@100")
-
-fig.pygmtlogo(position="jMC+w10c", wordmark=False, box=False)
-
+fig.pygmtlogo()
 fig.show()
 
 # %%
