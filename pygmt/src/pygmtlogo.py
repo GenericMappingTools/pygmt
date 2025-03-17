@@ -17,6 +17,11 @@ def pygmtlogo(  # noqa: PLR0915
     orientation="horizontal",  # "horizontal" | "vertical"
     position=None,  # -> use position parameter of Figure.image
     box=None,  # -> use box parameter of Figure.image
+    projection=None,
+    region=None,
+    verbose=None,
+    panel=None,
+    transparency=None,
 ):
     """
     Plot the PyGMT logo.
@@ -270,6 +275,15 @@ def pygmtlogo(  # noqa: PLR0915
         box = f"+g{color_bg}"
 
     # Use parameters of pygmt.Figure.image
-    self.image(imagefile=f"{fig_name_logo}.eps", position=position, box=box)
+    self.image(
+        imagefile=f"{fig_name_logo}.eps",
+        position=position,
+        box=box,
+        projection=projection,
+        region=region,
+        verbose=verbose,
+        panel=panel,
+        transparency=transparency,
+    )
 
     Path.unlink(f"{fig_name_logo}.eps")
