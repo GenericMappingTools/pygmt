@@ -49,23 +49,8 @@ def fixture_expected_grid():
             [347.5, 331.5, 309.0, 282.0, 190.0, 208.0, 299.5, 348.0],
         ],
         coords={
-            "lon": [-54.5, -53.5, -52.5, -51.5, -50.5, -49.5, -48.5, -47.5],
-            "lat": [
-                -23.5,
-                -22.5,
-                -21.5,
-                -20.5,
-                -19.5,
-                -18.5,
-                -17.5,
-                -16.5,
-                -15.5,
-                -14.5,
-                -13.5,
-                -12.5,
-                -11.5,
-                -10.5,
-            ],
+            "lon": np.arange(-54.5, -46.5, 1),
+            "lat": np.arange(-23.5, -9.5, 1),
         },
         dims=["lat", "lon"],
     )
@@ -76,7 +61,7 @@ def test_grdfill_dataarray_out(grid, expected_grid):
     """
     Test grdfill with a DataArray output.
     """
-    result = grdfill(grid=grid, mode="c20")
+    result = grdfill(grid=grid, constantfill=20)
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
     assert result.gmt.gtype == GridType.GEOGRAPHIC
@@ -91,7 +76,7 @@ def test_grdfill_asymmetric_pad(grid, expected_grid):
 
     Regression test for https://github.com/GenericMappingTools/pygmt/issues/1745.
     """
-    result = grdfill(grid=grid, mode="c20", region=[-55, -50, -24, -16])
+    result = grdfill(grid=grid, constantfill=20, region=[-55, -50, -24, -16])
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
     assert result.gmt.gtype == GridType.GEOGRAPHIC
@@ -107,7 +92,7 @@ def test_grdfill_file_out(grid, expected_grid):
     Test grdfill with an outgrid set.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
-        result = grdfill(grid=grid, mode="c20", outgrid=tmpfile.name)
+        result = grdfill(grid=grid, constantfill=20, outgrid=tmpfile.name)
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0  # check that outfile exists
         temp_grid = load_dataarray(tmpfile.name)
