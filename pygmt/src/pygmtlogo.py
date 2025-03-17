@@ -8,7 +8,7 @@ from pathlib import Path
 import pygmt
 
 
-def pygmtlogo(  # noqa: PLR0915
+def pygmtlogo(  # noqa: PLR0915, PLR0913
     self,
     blackwhite=False,
     darkmode=True,
