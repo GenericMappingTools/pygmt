@@ -204,7 +204,7 @@ sphinx_gallery_conf = {
 # Options for HTML output.
 html_theme = "sphinx_rtd_theme"
 html_theme_options = {}
-html_title = project
+html_title = ""
 html_short_title = project
 html_baseurl = f"{doc_url}/dev/" if isdev else f"{doc_url}/latest/"
 html_logo = "_static/favicon.png"
