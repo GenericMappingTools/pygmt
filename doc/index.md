@@ -2,6 +2,7 @@
 ```
 
 <div class="banner">
+    <img src="_static/favicon.png" alt="PyGMT Logo" style="width: 100px; height: auto;">
     <h1>PyGMT<h1>
     <h2>
         A Python interface for the
