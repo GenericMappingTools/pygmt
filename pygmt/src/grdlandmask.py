@@ -1,5 +1,5 @@
 """
-grdlandmask - Create a "wet-dry" mask grid from shoreline data base.
+grdlandmask - Create a "wet-dry" mask grid from shoreline database.
 """
 
 import xarray as xr
@@ -25,7 +25,7 @@ __doctest_skip__ = ["grdlandmask"]
 @kwargs_to_strings(I="sequence", R="sequence", N="sequence", E="sequence")
 def grdlandmask(outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
-    Create a "wet-dry" mask grid from shoreline data base.
+    Create a "wet-dry" mask grid from shoreline database.
 
     Read the selected shoreline database and create a grid to specify which
     nodes in the specified grid are over land or over water. The nodes defined
