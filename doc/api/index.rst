@@ -153,6 +153,7 @@ Operations on raster data
     grdhisteq.equalize_grid
     grdhisteq.compute_bins
     grdlandmask
+    grdmix
     grdproject
     grdsample
     grdtrack
