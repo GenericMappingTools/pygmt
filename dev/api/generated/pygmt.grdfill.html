@@ -22,14 +22,14 @@
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.grdfill.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.grdfill.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../../_static/documentation_options.js?v=baaa5f51"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -209,16 +209,17 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="pygmt.grdfill">
 <span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">grdfill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outgrid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/grdfill.html#grdfill"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.grdfill" title="Link to this definition"></a></dt>
-<dd><p>Fill blank areas from a grid file.</p>
-<p>Read a grid that presumably has unfilled holes that the user wants to
-fill in some fashion. Holes are identified by NaN values but this
-criteria can be changed via the <code class="docutils literal notranslate"><span class="pre">no_data</span></code> parameter. There are several
-different algorithms that can be used to replace the hole values.</p>
+<dd><p>Interpolate across holes in a grid.</p>
+<p>Read a grid that presumably has unfilled holes that the user wants to fill in some
+fashion. Holes are identified by NaN values but this criteria can be changed via the
+<code class="docutils literal notranslate"><span class="pre">hole</span></code> parameter. There are several different algorithms that can be used to
+replace the hole values. If no holes are found the original unchanged grid is
+returned.</p>
 <p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/grdfill.html">https://docs.generic-mapping-tools.org/6.5/grdfill.html</a></p>
 <p><strong>Aliases:</strong></p>
 <table class="hlist"><tr><td><ul class="simple">
 <li><p>A = mode</p></li>
-<li><p>N = no_data</p></li>
+<li><p>N = hole</p></li>
 </ul>
 </td><td><ul class="simple">
 <li><p>R = region</p></li>
@@ -246,8 +247,8 @@ pixels [default radius is <span class="math notranslate nohighlight">\(r^2 = \sq
 where (<em>X,Y</em>) are the node dimensions of the grid]), or
 <strong>s</strong> for bicubic spline (optionally append a <em>tension</em>
 parameter [Default is no tension]).</p></li>
-<li><p><strong>no_data</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Set the node value used to identify a point as a member of a hole
-[Default is NaN].</p></li>
+<li><p><strong>hole</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Set the node value used to identify a point as a member of a hole [Default is
+NaN].</p></li>
 <li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
 Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.</p></li>
 <li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
@@ -303,9 +304,9 @@ written to stderr. Choose among 7 levels of verbosity:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/4380c505">4380c505</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 18, 2025.
       </span></p>
   </div>
 

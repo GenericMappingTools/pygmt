@@ -21,14 +21,14 @@
 
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/grdfill.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/grdfill.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../../../_static/documentation_options.js?v=baaa5f51"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -160,13 +160,19 @@
              
   <h1>Source code for pygmt.src.grdfill</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">grdfill - Fill blank areas from a grid.</span>
+<span class="sd">grdfill - Interpolate across holes in a grid.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTInvalidInput</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">build_arg_list</span><span class="p">,</span>
+    <span class="n">deprecate_parameter</span><span class="p">,</span>
+    <span class="n">fmt_docstring</span><span class="p">,</span>
+    <span class="n">kwargs_to_strings</span><span class="p">,</span>
+    <span class="n">use_alias</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;grdfill&quot;</span><span class="p">]</span>
 
@@ -174,21 +180,19 @@
 <div class="viewcode-block" id="grdfill">
 <a class="viewcode-back" href="../../../api/generated/pygmt.grdfill.html#pygmt.grdfill">[docs]</a>
 <span class="nd">@fmt_docstring</span>
-<span class="nd">@use_alias</span><span class="p">(</span>
-    <span class="n">A</span><span class="o">=</span><span class="s2">&quot;mode&quot;</span><span class="p">,</span>
-    <span class="n">N</span><span class="o">=</span><span class="s2">&quot;no_data&quot;</span><span class="p">,</span>
-    <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
-    <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="c1"># TODO(PyGMT&gt;=0.19.0): Remove the deprecated &#39;no_data&#39; parameter.</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;no_data&quot;</span><span class="p">,</span> <span class="s2">&quot;hole&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.15.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.19.0&quot;</span><span class="p">)</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">A</span><span class="o">=</span><span class="s2">&quot;mode&quot;</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="s2">&quot;hole&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span> <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">grdfill</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">outgrid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Fill blank areas from a grid file.</span>
+<span class="sd">    Interpolate across holes in a grid.</span>
 
-<span class="sd">    Read a grid that presumably has unfilled holes that the user wants to</span>
-<span class="sd">    fill in some fashion. Holes are identified by NaN values but this</span>
-<span class="sd">    criteria can be changed via the ``no_data`` parameter. There are several</span>
-<span class="sd">    different algorithms that can be used to replace the hole values.</span>
+<span class="sd">    Read a grid that presumably has unfilled holes that the user wants to fill in some</span>
+<span class="sd">    fashion. Holes are identified by NaN values but this criteria can be changed via the</span>
+<span class="sd">    ``hole`` parameter. There are several different algorithms that can be used to</span>
+<span class="sd">    replace the hole values. If no holes are found the original unchanged grid is</span>
+<span class="sd">    returned.</span>
 
 <span class="sd">    Full option list at :gmt-docs:`grdfill.html`</span>
 
@@ -206,10 +210,9 @@
 <span class="sd">        where (*X,Y*) are the node dimensions of the grid]), or</span>
 <span class="sd">        **s** for bicubic spline (optionally append a *tension*</span>
 <span class="sd">        parameter [Default is no tension]).</span>
-<span class="sd">    no_data : float</span>
-<span class="sd">        Set the node value used to identify a point as a member of a hole</span>
-<span class="sd">        [Default is NaN].</span>
-
+<span class="sd">    hole : float</span>
+<span class="sd">        Set the node value used to identify a point as a member of a hole [Default is</span>
+<span class="sd">        NaN].</span>
 <span class="sd">    {region}</span>
 <span class="sd">    {verbose}</span>
 
@@ -257,9 +260,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/4380c505">4380c505</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 18, 2025.
       </span></p>
   </div>
 

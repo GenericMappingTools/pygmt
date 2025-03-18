@@ -42,35 +42,33 @@ fig.basemap(
 # level for all circles to deal with overplotting.
 fig.plot(x=x, y=y, style="c0.15c", fill=fill, transparency=50)
 
-# Shift the plot origin and add top margin histogram.
-fig.shift_origin(yshift=height + 0.25)
+# Shift the plot origin in y direction temporarily and add top margin histogram.
+with fig.shift_origin(yshift=height + 0.25):
+    fig.histogram(
+        projection=f"X{width}/3",
+        frame=["Wsrt", "xf", "yaf+lCounts"],
+        # Give the same value for ymin and ymax to have them calculated automatically.
+        region=[xmin, xmax, 0, 0],
+        data=x,
+        fill=fill,
+        pen="0.1p,white",
+        histtype=0,
+        series=0.2,
+    )
 
-fig.histogram(
-    projection=f"X{width}/3",
-    frame=["Wsrt", "xf", "yaf+lCounts"],
-    # Give the same value for ymin and ymax to have them calculated automatically.
-    region=[xmin, xmax, 0, 0],
-    data=x,
-    fill=fill,
-    pen="0.1p,white",
-    histtype=0,
-    series=0.2,
-)
-
-# Shift the plot origin and add right margin histogram.
-fig.shift_origin(yshift=-height - 0.25, xshift=width + 0.25)
-
-# Plot the horizontal histogram.
-fig.histogram(
-    horizontal=True,
-    projection=f"X3/{height}",
-    # Note that the x- and y-axis are flipped, with the y-axis plotted horizontally.
-    frame=["wSrt", "xf", "yaf+lCounts"],
-    region=[ymin, ymax, 0, 0],
-    data=y,
-    fill=fill,
-    pen="0.1p,white",
-    histtype=0,
-    series=0.2,
-)
+# Shift the plot origin in x direction temporarily and add right margin histogram.
+with fig.shift_origin(xshift=width + 0.25):
+    # Plot the horizontal histogram.
+    fig.histogram(
+        horizontal=True,
+        projection=f"X3/{height}",
+        # Note that the x- and y-axes are flipped, with the y-axis plotted horizontally.
+        frame=["wSrt", "xf", "yaf+lCounts"],
+        region=[ymin, ymax, 0, 0],
+        data=y,
+        fill=fill,
+        pen="0.1p,white",
+        histtype=0,
+        series=0.2,
+    )
 fig.show()
