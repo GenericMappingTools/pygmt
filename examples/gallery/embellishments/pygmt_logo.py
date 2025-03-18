@@ -15,10 +15,7 @@ fig.show()
 # %%
 
 fig = pygmt.Figure()
-pygmt.config(MAP_FRAME_PEN="cyan@100")
-fig.basemap(region=[-5, 5, -5, 5], projection="X10c/2c", frame="+gcyan@100")
-
-fig.pygmtlogo(dark_mode=False, position="jMC+w10c")
+fig.pygmtlogo(darkmode=False)
 
 fig.show()
 
