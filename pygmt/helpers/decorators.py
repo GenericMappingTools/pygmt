@@ -364,7 +364,7 @@ COMMON_DOCSTRINGS = {
             in the image (for further processing). """,
     "verbose": r"""
         verbose : bool or str
-            Select verbosity level [:term:`See full usage <verbose>`].""",
+            Select verbosity level [:term:`Full usage <verbose>`].""",
     "wrap": r"""
         wrap : str
             **y**\|\ **a**\|\ **w**\|\ **d**\|\ **h**\|\ **m**\|\ **s**\|\
