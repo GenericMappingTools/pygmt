@@ -119,9 +119,8 @@ def grdfill(
         (optionally append a *tension* parameter [Default is no tension]).
 
         .. deprecated:: 0.15.0
-            The ``mode`` parameter is deprecated since v0.15.0 and will be removed in
-            v0.19.0. Use ``constantfill``, ``gridfill``, ``neighborfill``, or
-            ``splinefill`` instead.
+            Use ``constantfill``, ``gridfill``, ``neighborfill``, or ``splinefill``
+            instead. The parameter will be removed in v0.19.0.
     {region}
     {verbose}
 
