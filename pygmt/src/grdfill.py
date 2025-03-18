@@ -116,7 +116,7 @@ def grdfill(
 
         .. deprecated:: 0.15.0
             The ``mode`` parameter is deprecated since v0.15.0 and will be removed in
-            v0.19.0. Use ``constantfill``, ``gridfill``, ``neighborfill``, or 
+            v0.19.0. Use ``constantfill``, ``gridfill``, ``neighborfill``, or
             ``splinefill`` instead.
     {region}
     {verbose}
@@ -142,7 +142,8 @@ def grdfill(
     if kwargs.get("A") is not None:  # The deprecated 'mode' parameter is given.
         warnings.warn(
             "The 'mode' parameter is deprecated since v0.15.0 and will be removed in "
-            "v0.19.0. Use 'constantfill/gridfill/neighborfill/splinefill' instead.",
+            "v0.19.0. Use 'constantfill'/'gridfill'/'neighborfill'/'splinefill' "
+            "instead.",
             FutureWarning,
             stacklevel=1,
         )
@@ -151,8 +152,8 @@ def grdfill(
             for param in [constantfill, gridfill, neighborfill, splinefill]
         ):
             msg = (
-                "Parameters 'constantfill/gridfill/neighborfill/splinefill' "
-                "and 'mode' are mutually exclusive."
+                "Parameters 'constantfill'/'gridfill'/'neighborfill'/'splinefill' and "
+                "'mode' are mutually exclusive."
             )
             raise GMTInvalidInput(msg)
     else:
