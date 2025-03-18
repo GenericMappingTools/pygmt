@@ -3,11 +3,15 @@
 # Currently, only one slash command `format` is supported.
 #
 name: Slash Command Dispatch
+
 on:
   issue_comment:
     types: [created]
     # Add "edited" type for test purposes. Where possible, avoid using to prevent processing unnecessary events.
     # types: [created, edited]
+
+permissions: {}
+
 jobs:
   slashCommandDispatch:
     if: ${{ github.event.issue.pull_request }}

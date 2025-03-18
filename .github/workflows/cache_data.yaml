@@ -25,6 +25,8 @@ on:
   schedule:
     - cron: '0 12 * * 0'
 
+permissions: {}
+
 jobs:
   gmt_cache:
     name: Cache GMT artifacts

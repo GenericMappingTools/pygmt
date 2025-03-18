@@ -16,6 +16,8 @@ on:
   schedule:
     - cron: '0 0 * * *'
 
+permissions: {}
+
 jobs:
   style_check:
     name: Style Checks

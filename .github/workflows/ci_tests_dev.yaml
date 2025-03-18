@@ -28,6 +28,8 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
+permissions: {}
+
 jobs:
   test_gmt_dev:
     name: ${{ matrix.os }} - GMT ${{ matrix.gmt_git_ref }}

@@ -25,6 +25,8 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
+permissions: {}
+
 jobs:
   static_check:
     name: Static Type Check
