@@ -183,33 +183,20 @@ fig.meca(
     nodal="0/1p,black",
 )
 
-fig.meca(
-    spec=aki_single,
-    scale="1c",
-    longitude=2,
-    latitude=0,
-    depth=0,
-    compressionfill="lightorange",
-    outline="0.5p,black",
-)
-fig.meca(
-    spec=aki_single,
-    scale="1c",
-    longitude=2,
-    latitude=0,
-    depth=0,
-    nodal="1/1p,darkorange",
-)
-fig.meca(
-    spec=aki_single,
-    scale="1c",
-    longitude=2,
-    latitude=0,
-    depth=0,
-    compressionfill="white@100",
-    extensionfill="white@100",
-    pen="1p,gray30",
-)
+# Plot the same beachball three times with different settings.
+for kwargs in [
+    {"compressionfill": "lightorange", "outline": "0.5p,black"},
+    {"nodal": "1/1p,darkorange"},
+    {"compressionfill": "-", "extensionfill": "-", "pen": "1p,gray30"},
+]: 
+    fig.meca(
+        spec=aki_single,
+        scale="1c",
+        longitude=0,
+        latitude=0,
+        depth=0,
+        **kwargs,
+    )
 fig.show()
 
 
