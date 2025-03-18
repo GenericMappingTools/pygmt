@@ -1,11 +1,12 @@
 """
-Day-night terminator line and twilights
-=======================================
+Day-night terminator and twilights
+==================================
 
 Use :meth:`pygmt.Figure.solar` to show the different transition stages between daytime
 and nighttime. The parameter ``terminator`` is used to set the twilight stage, and can
-be either ``"day_night"`` (brightest), ``"civil"``, ``"nautical"``, or ``"astronomical"``
-(darkest). Refer to https://en.wikipedia.org/wiki/Twilight for more information.
+be either ``"day_night"`` (brightest), ``"civil"``, ``"nautical"``, or
+``"astronomical"`` (darkest). Refer to https://en.wikipedia.org/wiki/Twilight for more
+information.
 """
 
 # %%
@@ -23,7 +24,7 @@ terminator_datetime = datetime.datetime(
     year=2000, month=1, day=1, hour=17, minute=0, second=0
 )
 
-# Plot the day-night terminator line and twilight stages
+# Plot the day-night terminator and twilights
 for terminator in ["day_night", "civil", "nautical", "astronomical"]:
     fig.solar(
         terminator=terminator,
