@@ -16,7 +16,6 @@ fig.show()
 
 fig = pygmt.Figure()
 fig.pygmtlogo(darkmode=False)
-
 fig.show()
 
 # %%
