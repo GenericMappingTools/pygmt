@@ -40,6 +40,10 @@ def _parse_fill_mode(
     's0.5'
     >>> _parse_fill_mode(splinefill=True)
     's'
+    >>> _parse_fill_mode(constantfill=20, gridfill="bggrid.nc")
+    Traceback (most recent call last):
+    ...
+    pygmt.exceptions.GMTInvalidInput: The ... parameters are mutually exclusive.
     """
     fill_params = [constantfill, gridfill, neighborfill, splinefill]
     if sum(param is not None for param in fill_params) > 1:
