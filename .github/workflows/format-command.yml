@@ -23,6 +23,7 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
           repository: ${{ github.event.client_payload.pull_request.head.repo.full_name }}
           ref: ${{ github.event.client_payload.pull_request.head.ref }}
+          persist-credentials: false
 
       # Setup Python environment
       - uses: actions/setup-python@v5.4.0

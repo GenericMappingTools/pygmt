@@ -50,6 +50,7 @@ jobs:
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Get current week number of year
         id: date
@@ -96,6 +97,7 @@ jobs:
           repository: 'GenericMappingTools/gmt'
           ref: ${{ matrix.gmt_git_ref }}
           path: 'gmt'
+          persist-credentials: false
 
       # Build GMT from source on Linux/macOS, script is adapted from
       # https://github.com/GenericMappingTools/gmt/blob/6.5.0/ci/build-gmt.sh

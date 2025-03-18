@@ -38,6 +38,7 @@ jobs:
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Get current week number of year
         id: date

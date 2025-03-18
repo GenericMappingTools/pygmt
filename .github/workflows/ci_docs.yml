@@ -73,6 +73,7 @@ jobs:
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Get current week number of year
         id: date
@@ -172,6 +173,7 @@ jobs:
           path: deploy
           # Download the entire history
           fetch-depth: 0
+          persist-credentials: false
         if: (github.event_name == 'release' || github.event_name == 'push') && (matrix.os == 'ubuntu-latest')
 
       - name: Push the built HTML to gh-pages
