@@ -32,7 +32,7 @@ def ternary(
     **kwargs,
 ):
     r"""
-    Plot ternary diagrams.
+    Plot data on ternary diagrams.
 
     Reads (*a*,\ *b*,\ *c*\ [,\ *z*]) records from *data* and plots symbols at
     those locations on a ternary diagram. If a symbol is selected and no symbol

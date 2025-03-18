@@ -1,5 +1,5 @@
 """
-text - Plot text on a figure.
+text - Plot or typeset text.
 """
 
 from collections.abc import Sequence
@@ -55,7 +55,7 @@ def text_(  # noqa: PLR0912
     **kwargs,
 ):
     r"""
-    Plot or typeset text strings of variable size, font type, and orientation.
+    Plot or typeset text.
 
     Must provide at least one of the following combinations as input:
 
