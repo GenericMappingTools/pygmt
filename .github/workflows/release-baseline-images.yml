@@ -41,6 +41,7 @@ jobs:
         shasum -a 256 baseline-images.zip
 
     - name: Upload baseline image as a release asset
-      run: gh release upload ${{ github.ref_name }} baseline-images.zip
+      run: gh release upload ${REF_NAME} baseline-images.zip
       env:
         GH_TOKEN: ${{ github.token }}
+        REF_NAME: ${{ github.ref_name }}
