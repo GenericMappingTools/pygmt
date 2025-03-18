@@ -1,7 +1,7 @@
 # Common Parameters
 
 ```{glossary}
-**verbose**
+``verbose``
     Select verbosity level, which modulates the messages written to stderr.
 
     Choose among 7 levels of verbosity [Default is ``"w"``]:
