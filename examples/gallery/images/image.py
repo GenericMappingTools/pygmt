@@ -1,6 +1,6 @@
 """
-Image on figure
-===============
+Image on a figure
+=================
 
 The :meth:`pygmt.Figure.image` method can be used to read and place an image file in
 many formats (e.g., png, jpg, eps, pdf) on a figure. We must specify the filename via
