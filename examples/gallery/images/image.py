@@ -20,7 +20,7 @@ fig.basemap(region=[0, 2, 0, 2], projection="X10c", frame=True)
 # Place and center ("+jCM") an image to the position ("+g") 1/1 on the current plot,
 # scale it to a width of 8 centimeters ("+w") and draw a rectangular border around it
 fig.image(
-    imagefile="https://www.emirates247.com/polopoly_fs/1.569712.1452551297!/image/image.jpg",
+    imagefile="https://oceania.generic-mapping-tools.org/cache/needle.jpg",
     position="g1/1+w8c+jCM",
     box=True,
 )
