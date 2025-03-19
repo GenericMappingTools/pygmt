@@ -28,4 +28,4 @@ fig.image(
 fig.show()
 
 # Clean up the downloaded image in the current directory
-Path("image.jpg").unlink()
+Path("needle.jpg").unlink()
