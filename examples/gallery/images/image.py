@@ -10,14 +10,22 @@ us to set a reference point on the map for the image.
 """
 
 # %%
+from pathlib import Path
 
 import pygmt
 
 fig = pygmt.Figure()
 fig.basemap(region=[0, 2, 0, 2], projection="X10c", frame=True)
 
-# Place and center ("+jCM") an image provided by GMT to the position ("+g") 1/1 on the
-# current plot, scaled up to be 8 cm wide ("+w") and draw a rectangular border around it
-fig.image(imagefile="@needle.jpg", position="g1/1+w8c+jCM", box=True)
+# Place and center ("+jCM") an image to the position ("+g") 1/1 on the current plot,
+# scale it to a width of 8 centimeters ("+w") and draw a rectangular border around it
+fig.image(
+    imagefile="https://www.emirates247.com/polopoly_fs/1.569712.1452551297!/image/image.jpg",
+    position="g1/1+w8c+jCM",
+    box=True,
+)
 
 fig.show()
+
+# Clean up the downloaded image in the current directory
+Path("image.jpg").unlink()
