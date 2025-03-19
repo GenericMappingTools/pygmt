@@ -16,6 +16,8 @@ on:
   schedule:
     - cron: '0 0 * * *'
 
+permissions: {}
+
 jobs:
   style_check:
     name: Style Checks
@@ -25,6 +27,8 @@ jobs:
       # Checkout current git repository
       - name: Checkout
         uses: actions/checkout@v4.2.2
+        with:
+          persist-credentials: false
 
       # Setup Python
       - name: Set up Python
