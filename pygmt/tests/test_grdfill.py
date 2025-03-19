@@ -130,13 +130,3 @@ def test_grdfill_deprecated_mode(grid, expected_grid):
     with pytest.warns(FutureWarning):
         result = grdfill(grid=grid, mode="c20")
         xr.testing.assert_allclose(a=result, b=expected_grid)
-
-
-# TODO(PyGMT>=0.19.0): Remove this test.
-def test_grdfill_deprecated_mode_with_fill_parameters(grid):
-    """
-    Test that grdfill fails with deprecated `mode` argument and fill parameters.
-    """
-    with pytest.warns(FutureWarning):
-        with pytest.raises(GMTInvalidInput):
-            grdfill(grid=grid, mode="c20", constantfill=20)

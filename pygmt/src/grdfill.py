@@ -150,15 +150,6 @@ def grdfill(
             FutureWarning,
             stacklevel=1,
         )
-        if any(
-            param is not None
-            for param in [constantfill, gridfill, neighborfill, splinefill]
-        ):
-            msg = (
-                "Parameters 'constantfill'/'gridfill'/'neighborfill'/'splinefill' and "
-                "'mode' are mutually exclusive."
-            )
-            raise GMTInvalidInput(msg)
     else:
         # Determine the -A option from the fill parameters.
         kwargs["A"] = _parse_fill_mode(constantfill, gridfill, neighborfill, splinefill)
