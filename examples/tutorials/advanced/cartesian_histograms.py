@@ -52,7 +52,7 @@ fig.histogram(
     # Let ymin and ymax determined automatically by setting both to the same value
     region=[0, 200, 0, 0],
     projection="X10c",  # Cartesian projection with a width of 10 centimeters
-    # Add frame, annotations ("a"), ticks ("f"), and y-axis label ("+l") "Counts"; the
+    # Add frame, annotations ("a"), ticks ("f"), and y axis label ("+l") "Counts"; the
     # numbers give the steps of annotations and ticks
     frame=["WStr", "xaf10", "ya1f1+lCounts"],
     data=data01,
@@ -79,8 +79,8 @@ fig.histogram(
     fill="red3",
     pen="1p,darkgray,solid",
     histtype=0,
-    # Use horizontal bars. Note that the x- and y-axis are flipped, with the x-axis
-    # plotted vertically and the y-axis plotted horizontally.
+    # Use horizontal bars. Note that the x and y axis are flipped, with the x axis
+    # plotted vertically and the y axis plotted horizontally.
     horizontal=True,
 )
 
@@ -212,7 +212,7 @@ fig.histogram(
     histtype=0,
     # Show cumulative counts
     cumulative=True,
-    # Offset ("+o") the label by 10 points in negative y-direction
+    # Offset ("+o") the label by 10 points in negative y direction
     annotate="+o-10p",
 )
 
