@@ -119,7 +119,7 @@ def coast(self, **kwargs):
         **+p**\ *pen*. Add **+g**\ *fill* to fill the scale panel [Default is
         no fill]. Append **+c**\ *clearance* where *clearance* is either gap,
         xgap/ygap, or lgap/rgap/bgap/tgap where these items are uniform,
-        separate in x- and y-direction, or individual side spacings between
+        separate in x and y direction, or individual side spacings between
         scale and border. Append **+i** to draw a secondary, inner border as
         well. We use a uniform gap between borders of 2p and the
         :gmt-term:`MAP_DEFAULTS_PEN` unless other values are specified. Append
