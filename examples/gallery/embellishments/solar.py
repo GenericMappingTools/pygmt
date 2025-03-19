@@ -15,7 +15,7 @@ import datetime
 import pygmt
 
 fig = pygmt.Figure()
-# Create a global map using the Mollweide projection, centered at 0°E, with a width of 
+# Create a global map using the Mollweide projection, centered at 0°E, with a width of
 # 15 centimeters.
 fig.basemap(region="d", projection="W15c", frame=True)
 fig.coast(land="darkgreen", water="lightblue")
