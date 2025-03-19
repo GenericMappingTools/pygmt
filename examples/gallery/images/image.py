@@ -16,8 +16,8 @@ import pygmt
 fig = pygmt.Figure()
 fig.basemap(region=[0, 2, 0, 2], projection="X10c", frame=True)
 
-# Place and center ("+jCM") an image provided by GMT to the position ("+g") 1/1 on a
-# basemap, scaled up to be 8 cm wide ("+w") and draw a rectangular border around it
+# Place and center ("+jCM") an image provided by GMT to the position ("+g") 1/1 on the
+# current plot, scaled up to be 8 cm wide ("+w") and draw a rectangular border around it
 fig.image(imagefile="@needle.jpg", position="g1/1+w8c+jCM", box=True)
 
 fig.show()
