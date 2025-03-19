@@ -18,7 +18,7 @@ fig = pygmt.Figure()
 # Create a global map with central longitude 0° East ("d") using a Mollweide ("W")
 # projection with a width of 15 centimeters
 fig.basemap(region="d", projection="W15c", frame=True)
-fig.coast(land="darkgreen", water="lightblue", shorelines="1/1p,gray50")
+fig.coast(land="darkgreen", water="lightblue")
 
 # Set a time for the day-night terminator and twilights to 17:00 UTC on January 1, 2000
 terminator_datetime = datetime.datetime(
