@@ -83,8 +83,8 @@ def inset(self, **kwargs):
         [Default is no fill].
         Append **+c**\ *clearance* where *clearance* is either
         *gap*, *xgap*\ /\ *ygap*, or *lgap*\ /\ *rgap*\ /\ *bgap*\ /\
-        *tgap* where these items are uniform, separate in x- and
-        y-directions, or individual side spacings between map embellishment
+        *tgap* where these items are uniform, separate in x and
+        y directions, or individual side spacings between map embellishment
         and border. Append **+i** to draw a secondary, inner border as well.
         We use a uniform *gap* between borders of 2p and the default pen
         unless other values are specified. Append **+r** to draw rounded
