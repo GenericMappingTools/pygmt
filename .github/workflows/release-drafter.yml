@@ -11,6 +11,8 @@ on:
     branches:
       - main
 
+permissions: {}
+
 jobs:
   update_release_draft:
     runs-on: ubuntu-latest
