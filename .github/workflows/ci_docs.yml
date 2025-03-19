@@ -43,6 +43,8 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
+permissions: {}
+
 jobs:
   docs:
     name: ${{ matrix.os }}
@@ -73,6 +75,7 @@ jobs:
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Get current week number of year
         id: date
@@ -159,10 +162,11 @@ jobs:
         if: github.event_name == 'push' && matrix.os == 'ubuntu-latest'
 
       - name: Upload the HTML ZIP archive and PDF as release assets
-        run: gh release upload ${{ github.ref_name }} doc/_build/pygmt-docs.zip doc/_build/pygmt-docs.pdf
+        run: gh release upload ${REF_NAME} doc/_build/pygmt-docs.zip doc/_build/pygmt-docs.pdf
         if: github.event_name == 'release' && matrix.os == 'ubuntu-latest'
         env:
           GH_TOKEN: ${{ github.token }}
+          REF_NAME: ${{ github.ref_name }}
 
       - name: Checkout the gh-pages branch
         uses: actions/checkout@v4.2.2
@@ -172,6 +176,7 @@ jobs:
           path: deploy
           # Download the entire history
           fetch-depth: 0
+          persist-credentials: false
         if: (github.event_name == 'release' || github.event_name == 'push') && (matrix.os == 'ubuntu-latest')
 
       - name: Push the built HTML to gh-pages
