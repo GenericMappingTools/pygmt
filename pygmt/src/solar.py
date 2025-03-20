@@ -49,7 +49,7 @@ def solar(
 
         - ``"astronomical"``: Astronomical twilight
         - ``"civil"``: Civil twilight
-        - ``"day_night"``: Day/night terminator
+        - ``"day_night"``: Day-night terminator
         - ``"nautical"``: Nautical twilight
 
         Refer to https://en.wikipedia.org/wiki/Twilight for the definitions of different
