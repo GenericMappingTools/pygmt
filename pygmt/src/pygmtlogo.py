@@ -10,7 +10,7 @@ import pygmt
 
 def create_logo(  # noqa: PLR0915
     blackwhite=False,
-    darkmode=Flase,
+    darkmode=False,
     hexshape=False,
     wordmark=True,
     orientation="horizontal",
