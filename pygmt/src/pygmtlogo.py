@@ -10,7 +10,7 @@ import pygmt
 
 def create_logo(  # noqa: PLR0915
     blackwhite=False,
-    darkmode=True,
+    darkmode=Flase,
     hexshape=False,
     wordmark=True,
     orientation="horizontal",
@@ -244,7 +244,7 @@ def create_logo(  # noqa: PLR0915
 def pygmtlogo(  # noqa: PLR0913
     self,
     blackwhite=False,
-    darkmode=True,
+    darkmode=False,
     hexshape=False,
     wordmark=True,
     orientation="horizontal",
@@ -275,8 +275,8 @@ def pygmtlogo(  # noqa: PLR0913
     # -----------------------------------------------------------------------------
     # Add box around logo
     # -----------------------------------------------------------------------------
-    if box is None:
-        box = f"+g{color_bg}"
+    # if box is None:
+    #    box = f"+g{color_bg}"
 
     # -----------------------------------------------------------------------------
     # Add to existing Figure instance
