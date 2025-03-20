@@ -15,7 +15,7 @@ fig.show()
 # %%
 
 fig = pygmt.Figure()
-fig.pygmtlogo(darkmode=False)
+fig.pygmtlogo(darkmode=True)
 fig.show()
 
 # %%
@@ -23,11 +23,8 @@ fig.show()
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=[1, "+gtan"])
 
-fig.logo()  # GMT logo
-
-fig.pygmtlogo()
-fig.pygmtlogo(darkmode=False, hexshape=True, position="jTL+o0.1c+w4c", box=False)
-fig.pygmtlogo(darkmode=False, position="jTC+o0c/2c+w5c", box="+p1p,black")
+fig.pygmtlogo(darkmode=False, position="jTR+o0.2c+w4c", box="+p1p,black")
+fig.pygmtlogo(darkmode=False, hexshape=True, position="jTL+o0.2c+w4c", box=False)
 
 fig.pygmtlogo(
     blackwhite=True,
