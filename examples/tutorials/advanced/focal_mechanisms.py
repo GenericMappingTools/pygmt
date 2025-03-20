@@ -188,7 +188,7 @@ for kwargs in [
     {"compressionfill": "lightorange", "outline": "0.5p,black"},
     {"nodal": "1/1p,darkorange"},
     {"compressionfill": "-", "extensionfill": "-", "pen": "1p,gray30"},
-]: 
+]:
     fig.meca(
         spec=aki_single,
         scale="1c",
