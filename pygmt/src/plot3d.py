@@ -1,5 +1,5 @@
 """
-plot3d - Plot in three dimensions.
+plot3d - Plot lines, polygons, and symbols in 3-D.
 """
 
 from typing import Literal

@@ -1,5 +1,5 @@
 """
-grdview - Create a three-dimensional plot from a grid.
+grdview - Create 3-D perspective image or surface mesh from a grid.
 """
 
 from pygmt.clib import Session
