@@ -15,7 +15,7 @@ fig.show()
 # %%
 
 fig = pygmt.Figure()
-fig.pygmtlogo(darkmode=True, box="+gray20")
+fig.pygmtlogo(darkmode=True, box="+ggray20")
 fig.show()
 
 # %%
