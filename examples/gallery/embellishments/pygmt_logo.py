@@ -15,7 +15,7 @@ fig.show()
 # %%
 
 fig = pygmt.Figure()
-fig.pygmtlogo(darkmode=True)
+fig.pygmtlogo(darkmode=True, box="+gray20")
 fig.show()
 
 # %%
@@ -23,24 +23,24 @@ fig.show()
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=[1, "+gtan"])
 
-fig.pygmtlogo(darkmode=False, position="jTR+o0.2c+w4c", box="+p1p,black")
-fig.pygmtlogo(darkmode=False, hexshape=True, position="jTL+o0.2c+w4c", box=False)
+fig.pygmtlogo(position="jTL+o0.2c+w4c", box="+gwhite+p1p,gray")
+fig.pygmtlogo(hexshape=True, position="jTR+o0.2c+w4c")
 
 fig.pygmtlogo(
     blackwhite=True,
-    darkmode=False,
     wordmark=False,
     position="jTL+o0.5c/2c+w1.5c",
     box=False,
 )
 fig.pygmtlogo(
     blackwhite=True,
+    darkmode=True,
     hexshape=True,
     wordmark=False,
     position="jTR+o0.5c/2c+w1.5c",
     box=False,
 )
-fig.pygmtlogo(blackwhite=True, orientation="vertical", position="jMC+w2c")
+fig.pygmtlogo(orientation="vertical", position="jMC+w2c")
 
 fig.show()
 
