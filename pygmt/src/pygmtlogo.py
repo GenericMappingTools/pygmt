@@ -23,17 +23,17 @@ def create_logo(  # noqa: PLR0915
     ----------
 
     blackwhite : bool
-        Draw in black and white. ``False`` colors for Python (blue and yellow)
-        and GMT (red) are used [Default]. Use ``True`` for black and white.
+        Draw in black and white. Set to ``True`` for black and white [Default is
+        ``False`` and uses colors for Python (blue and yellow) and GMT (red)].
     darkmode : bool
-        Use dark background. ``True`` leads to dark mode [Default] and ``False``
-        to light mode.
+        Use dark mode. Set to``True`` for dark mode [Default is ``False`` for light
+        mode].
     hexshape : bool
-        Use a hexagon shape. ``False`` leads to a circle shape [Default]. Use
-        ``True`` for a hexagon shape.
+        Use a hexagon shape. Set to ``True`` for a hexagon shape [Default is `False``
+        and uses to a circle shape].
     wordmark : bool
-        Add the wordmark "PyGMT". ``True`` adds the wordmark [Default] and ``False``
-        to skipes it.
+        Add the wordmark "PyGMT". Set to `True`` to add the wordmark [Default]. For
+        ``False`` no wordmark is added.
     orientation : str
         Orientation of the wordmark. Use ``"horizontal"`` to place the wordmark at
         the right side [Default] or ``"vertical"`` to place it below the visual.
