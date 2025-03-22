@@ -81,7 +81,7 @@ fig.show()
 fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
 
-for component, longitude in zip(["full", "dc", "deviatoric"], [-3, 0, 2], strict=True):
+for component, longitude in zip(["full", "dc", "deviatoric"], [-2, 0, 2], strict=True):
     fig.meca(
         spec=mt_single,
         scale="1c",
