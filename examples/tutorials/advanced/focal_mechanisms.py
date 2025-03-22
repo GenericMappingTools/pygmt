@@ -4,14 +4,15 @@ Plotting focal mechanisms
 
 Focal mechanisms can be plotted as beachballs with the :meth:`pygmt.Figure.meca` method.
 
-The focal mechanism data or parameters can be provided as different input types: an
-ASCII file, 1-D or 2-D :class:`numpy.array`, dictionary, :class:`pandas.Dataframe`.
-Different conventions to define the focal mechanism are supported: Aki and Richards
-(``"aki"``), global CMT (``"gcmt"``), moment tensor (``"mt"``), partial focal mechanism
-(``"partial"``), and, principal axis (``"principal_axis"``). Please refer to the
-documentation of :meth:`pygmt.Figure.meca` regarding how to set up the input data in
-respect to the chosen input type and convention (i.e., the expected column order, keys,
-or column names). This tutorial focus on how to adjust the display of the beachballs.
+The focal mechanism data or parameters can be provided as various input types: ASCII
+file, :class:`numpy.array`, dictionary, or :class:`pandas.Dataframe`. Different
+conventions to define the focal mechanism are supported: Aki and Richards (``"aki"``),
+global CMT (``"gcmt"``), moment tensor (``"mt"``), partial focal mechanism
+(``"partial"``), and, principal axis (``"principal_axis"``). Please refer to the table
+in the documentation of :meth:`pygmt.Figure.meca` regarding how to set up the input data
+in respect to the chosen input type and convention (i.e., the expected column order,
+keys, or column names). This tutorial we focus on how to adjust the display of the
+beachballs.
 """
 
 # %%
@@ -28,8 +29,8 @@ frame = ["af", "+ggray90"]
 # Set up the focal mechanism data
 # -------------------------------
 #
-# Here we store focal mechanism parameters (in moment tensor and Aki & Richards
-# conventions) for one event in a dictionary:
+# We store focal mechanism parameters for two single events in a dictionary using the
+# moment tensor and Aki and Richards conventions:
 
 # moment tensor convention
 mt_single = {
