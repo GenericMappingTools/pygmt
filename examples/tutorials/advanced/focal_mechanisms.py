@@ -26,10 +26,10 @@ frame = ["af", "+ggray90"]
 
 
 # %%
-# Set up the focal mechanism data
-# -------------------------------
+# Setting up the focal mechanism data
+# -----------------------------------
 #
-# We store focal mechanism parameters for two single events in a dictionary using the
+# We store focal mechanism parameters for two single events in dictionaries using the
 # moment tensor and Aki and Richards conventions:
 
 # moment tensor convention
@@ -135,7 +135,7 @@ fig.show()
 # ----------------------
 #
 # Use the parameters ``pen`` and ``outline`` for adjusting the circumference of the
-# beachball or all lines (circumference of the beachball and both nodal planes).
+# beachball or all lines (i.e, circumference and both nodal planes).
 
 fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
@@ -166,11 +166,12 @@ fig.show()
 # Highlighting the nodal planes
 # -----------------------------
 #
-# Use the parameter ``nodal``, whereby ``"0"`` refers to both, ``"1"`` to the first, and
-# ``"2"`` to the second nodal plane(s). Only the circumference and the specified nodal
-# plane(s) are plotted, i.e. the quadrants remain unfilled (transparent). If needed,
-# make usage of the stacking concept of (Py)GMT and use ``nodal`` with the ``outline``
-# or / and ``pen``  parameters in combination.
+# Use the parameter ``nodal`` to highlight specific nodal planes. ``"0"`` refers to
+# both, ``"1"`` to the first, and ``"2"`` to the second nodal plane(s). Only the
+# circumference and the specified nodal plane(s) are plotted, i.e. the quadrants
+# remain unfilled (transparent). We can make usage of the stacking concept of (Py)GMT,
+# and use ``nodal`` in combination with the ``outline``, ``compressionfill`` /
+# ``extensionfill`` and ``pen``  parameters.
 
 fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
@@ -184,9 +185,12 @@ fig.meca(
     nodal="0/1p,black",
 )
 
-# Plot the same beachball three times with different settings.
+# Plot the same beachball three times with different settings:
+# (i) Fill the compressiv quadrants
+# (ii) Plot the first nodal plane and the circumference in darkorange
+# (iii) Plot the circumfence in black on top; use "-" to not fill the quadrants
 for kwargs in [
-    {"compressionfill": "lightorange", "outline": "0.5p,black"},
+    {"compressionfill": "lightorange"},
     {"nodal": "1/1p,darkorange"},
     {"compressionfill": "-", "extensionfill": "-", "pen": "1p,gray30"},
 ]:
