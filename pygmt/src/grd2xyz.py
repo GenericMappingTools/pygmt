@@ -1,5 +1,5 @@
 """
-grd2xyz - Convert grid to data table
+grd2xyz - Convert grid to data table.
 """
 
 from typing import Literal

@@ -1,5 +1,5 @@
 """
-binstats - Bin spatial data and determine statistics per bin
+binstats - Bin spatial data and determine statistics per bin.
 """
 
 import xarray as xr
