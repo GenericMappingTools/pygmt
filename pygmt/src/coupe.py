@@ -24,10 +24,10 @@ def section_convention_code(section_format):
         "xy_strlen": "d"
     }
 
-    if section_format in codes:
-        return codes[section_format]
-    else:
-        raise GMTInvalidInput(f"Invalid section format '{section_format}'.")
+    if section_format not in codes:
+        msg = f"Invalid section format '{section_format}'."
+        raise GMTInvalidInput(msg)
+    return codes[section_format]
         
 
 @fmt_docstring
