@@ -58,7 +58,7 @@ aki_single = {"strike": 318, "dip": 89, "rake": -179, "magnitude": 7.75}
 # :class:`pandas.DataFrame` column names. The ``scale`` parameter controls the radius
 # of the beachball. By default, the value defines the size for a magnitude of 5 (i.e.,
 # a scalar seismic moment of :math:`M_0 = 4.0 \times 10^{23}` dyn cm) and the beachball
-# size is proportional to the magnitude. Appand ``"+l"`` to force the radius to be
+# size is proportional to the magnitude. Append ``"+l"`` to force the radius to be
 # proportional to the seismic moment.
 
 fig = pygmt.Figure()
@@ -186,7 +186,7 @@ fig.meca(
 )
 
 # Plot the same beachball three times with different settings:
-# (i) Fill the compressiv quadrants
+# (i) Fill the compressive quadrants
 # (ii) Plot the first nodal plane and the circumference in darkorange
 # (iii) Plot the circumfence in black on top; use "-" to not fill the quadrants
 for kwargs in [
