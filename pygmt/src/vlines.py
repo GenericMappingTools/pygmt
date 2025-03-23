@@ -38,10 +38,10 @@ def vlines(
     The term "vertical" lines can be interpreted differently in different coordinate
     systems:
 
-    - **Cartesian** coordinate system: lines are plotted as straight lines.
-    - **Polar** projection: lines are plotted as straight lines along radius.
-    - **Geographic** projection: lines are plotted as meridians along constant
-      longitude.
+    - **Cartesian**: lines are plotted as straight lines.
+    - **Polar**: lines are plotted as straight lines along a constant azimuth.
+    - **Geographic**: lines are plotted as arcs along meridians (i.e., constant
+      longitude).
 
     Parameters
     ----------

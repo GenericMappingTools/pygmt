@@ -17,7 +17,6 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 from pygmt.clib.conversion import (
-    array_to_datetime,
     dataarray_to_matrix,
     sequence_to_ctypes_array,
     strings_to_ctypes_array,
@@ -327,7 +326,7 @@ class Session:
             function.restype = restype
         return function
 
-    def create(self, name: str):
+    def create(self, name: str) -> None:
         """
         Create a new GMT C API session.
 
@@ -594,7 +593,7 @@ class Session:
             case _:  # 'status' is the option value (in integer type).
                 return status
 
-    def call_module(self, module: str, args: str | list[str]):
+    def call_module(self, module: str, args: str | list[str]) -> None:
         """
         Call a GMT module with the given arguments.
 
@@ -934,11 +933,6 @@ class Session:
             msg = f"Expected a numpy {ndim}-D array, got {array.ndim}-D."
             raise GMTInvalidInput(msg)
 
-        # For 1-D arrays, try to convert unknown object type to np.datetime64.
-        if ndim == 1 and array.dtype.type is np.object_:
-            with contextlib.suppress(ValueError):
-                array = array_to_datetime(array)
-
         # 1-D arrays can be numeric or text, 2-D arrays can only be numeric.
         valid_dtypes = DTYPES if ndim == 1 else DTYPES_NUMERIC
         if (dtype := array.dtype.type) not in valid_dtypes:
@@ -946,7 +940,9 @@ class Session:
             raise GMTInvalidInput(msg)
         return self[DTYPES[dtype]]
 
-    def put_vector(self, dataset: ctp.c_void_p, column: int, vector: np.ndarray):
+    def put_vector(
+        self, dataset: ctp.c_void_p, column: int, vector: np.ndarray
+    ) -> None:
         r"""
         Attach a 1-D numpy array as a column on a GMT dataset.
 
@@ -991,7 +987,7 @@ class Session:
         gmt_type = self._check_dtype_and_dim(vector, ndim=1)
         if gmt_type in {self["GMT_TEXT"], self["GMT_DATETIME"]}:
             if gmt_type == self["GMT_DATETIME"]:
-                vector = np.datetime_as_string(array_to_datetime(vector))
+                vector = np.datetime_as_string(vector)
             vector_pointer = strings_to_ctypes_array(vector)
         else:
             vector_pointer = vector.ctypes.data_as(ctp.c_void_p)
@@ -1005,7 +1001,9 @@ class Session:
             )
             raise GMTCLibError(msg)
 
-    def put_strings(self, dataset: ctp.c_void_p, family: str, strings: np.ndarray):
+    def put_strings(
+        self, dataset: ctp.c_void_p, family: str, strings: np.ndarray
+    ) -> None:
         """
         Attach a 1-D numpy array of dtype str as a column on a GMT dataset.
 
@@ -1059,7 +1057,9 @@ class Session:
             msg = f"Failed to put strings of type {strings.dtype} into dataset."
             raise GMTCLibError(msg)
 
-    def put_matrix(self, dataset: ctp.c_void_p, matrix: np.ndarray, pad: int = 0):
+    def put_matrix(
+        self, dataset: ctp.c_void_p, matrix: np.ndarray, pad: int = 0
+    ) -> None:
         """
         Attach a 2-D numpy array to a GMT dataset.
 
@@ -1204,7 +1204,7 @@ class Session:
             raise GMTCLibError(msg)
         return ctp.cast(data_ptr, ctp.POINTER(dtype))
 
-    def write_data(self, family, geometry, mode, wesn, output, data):
+    def write_data(self, family, geometry, mode, wesn, output, data) -> None:
         """
         Write a GMT data container to a file.
 
@@ -1388,24 +1388,6 @@ class Session:
             if status != 0:
                 msg = f"Failed to close virtual file '{vfname}'."
                 raise GMTCLibError(msg)
-
-    # TODO(PyGMT>=0.15.0): Remove the deprecated open_virtual_file method.
-    def open_virtual_file(self, family, geometry, direction, data):
-        """
-        Open a GMT virtual file associated with a data object for reading or writing.
-
-        .. deprecated: 0.11.0
-
-           Will be removed in v0.15.0. Use :meth:`pygmt.clib.Session.open_virtualfile`
-           instead.
-        """
-        msg = (
-            "API function `Session.open_virtual_file()' has been deprecated "
-            "since v0.11.0 and will be removed in v0.15.0. "
-            "Use `Session.open_virtualfile()' instead."
-        )
-        warnings.warn(msg, category=FutureWarning, stacklevel=2)
-        return self.open_virtualfile(family, geometry, direction, data)
 
     @contextlib.contextmanager
     def virtualfile_from_vectors(
@@ -1920,43 +1902,6 @@ class Session:
         file_context = _virtualfile_from(_data)
         return file_context
 
-    # TODO(PyGMT>=0.15.0): Remove the deprecated virtualfile_from_data method.
-    def virtualfile_from_data(
-        self,
-        check_kind=None,
-        data=None,
-        x=None,
-        y=None,
-        z=None,
-        extra_arrays=None,
-        required_z=False,
-        required_data=True,
-    ):
-        """
-        Store any data inside a virtual file.
-
-        .. deprecated: 0.13.0
-
-           Will be removed in v0.15.0. Use :meth:`pygmt.clib.Session.virtualfile_in`
-           instead.
-        """
-        msg = (
-            "API function 'Session.virtualfile_from_data()' has been deprecated since "
-            "v0.13.0 and will be removed in v0.15.0. Use 'Session.virtualfile_in()' "
-            "instead."
-        )
-        warnings.warn(msg, category=FutureWarning, stacklevel=2)
-        return self.virtualfile_in(
-            check_kind=check_kind,
-            data=data,
-            x=x,
-            y=y,
-            z=z,
-            extra_arrays=extra_arrays,
-            required_z=required_z,
-            required_data=required_data,
-        )
-
     @contextlib.contextmanager
     def virtualfile_out(
         self,
@@ -2259,7 +2204,7 @@ class Session:
         if output_type == "strings":  # strings output
             return result.to_strings()
 
-        result = result.to_dataframe(
+        result = result.to_pandas(
             header=header, column_names=column_names, dtype=dtype, index_col=index_col
         )
         if output_type == "numpy":  # numpy.ndarray output
@@ -2328,7 +2273,7 @@ class Session:
                 self["GMT_IS_IMAGE"]: "image",
                 self["GMT_IS_CUBE"]: "cube",
             }[family]
-        return self.read_virtualfile(vfname, kind=kind).contents.to_dataarray()
+        return self.read_virtualfile(vfname, kind=kind).contents.to_xarray()
 
     def extract_region(self) -> np.ndarray:
         """

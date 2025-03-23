@@ -26,6 +26,8 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
+permissions: {}
+
 jobs:
   test:
     name: ${{ matrix.os }} - GMT ${{ matrix.gmt_version }}
@@ -34,7 +36,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04, macos-13, windows-2019]
+        os: [ubuntu-22.04, ubuntu-22.04-arm, macos-13, windows-2019]
         gmt_version: ['6.4']
     timeout-minutes: 30
     defaults:
@@ -48,16 +50,13 @@ jobs:
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
+          persist-credentials: false
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v2.0.3
+        uses: mamba-org/setup-micromamba@v2.0.4
         with:
           environment-name: pygmt
-          condarc: |
-            channels:
-              - conda-forge
-              - nodefaults
           create-args: >-
             python=3.11
             gmt=${{ matrix.gmt_version }}

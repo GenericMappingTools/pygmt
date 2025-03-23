@@ -1,5 +1,5 @@
 """
-contour - Plot contour table data.
+contour - Contour table data by direct triangulation.
 """
 
 from pygmt.clib import Session

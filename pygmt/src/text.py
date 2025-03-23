@@ -1,5 +1,5 @@
 """
-text - Plot text on a figure.
+text - Plot or typeset text.
 """
 
 from collections.abc import Sequence
@@ -55,7 +55,7 @@ def text_(  # noqa: PLR0912
     **kwargs,
 ):
     r"""
-    Plot or typeset text strings of variable size, font type, and orientation.
+    Plot or typeset text.
 
     Must provide at least one of the following combinations as input:
 
@@ -138,11 +138,11 @@ def text_(  # noqa: PLR0912
         **i** for inches, or **p** for points; if not given we consult
         :gmt-term:`PROJ_LENGTH_UNIT`) or *%* for a percentage of the font
         size. Optionally, use modifier **+t** to set the shape of the text
-        box when using ``fill`` and/or ``pen``. Append lower case **o**
-        to get a straight rectangle [Default is **o**]. Append upper case
+        box when using ``fill`` and/or ``pen``. Append lowercase **o**
+        to get a straight rectangle [Default is **o**]. Append uppercase
         **O** to get a rounded rectangle. In paragraph mode (*paragraph*)
-        you can also append lower case **c** to get a concave rectangle or
-        append upper case **C** to get a convex rectangle.
+        you can also append lowercase **c** to get a concave rectangle or
+        append uppercase **C** to get a convex rectangle.
     fill : str
         Set color for filling text boxes [Default is no fill].
     offset : str
