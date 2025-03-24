@@ -2,7 +2,7 @@
 
 ```{glossary}
 ``distcalc``
-    Determine how spherical distances are calculated.
+    Determine how spherical distances are calculated. Valid values are:
 
     - ``"g"``: Perform great circle distance calculations, with parameters such as
       distance increments or radii compared against calculated great circle distances
