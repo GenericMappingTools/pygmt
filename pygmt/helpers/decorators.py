@@ -82,7 +82,7 @@ COMMON_DOCSTRINGS = {
     "distcalc": r"""
         distcalc : str
             Determine how spherical distances are calculated
-            [:term:`Full usage <distcal>`].""",
+            [:term:`Full usage <distcalc>`].""",
     "fill": r"""
         fill : str
             Set color or pattern for filling symbols or polygons
