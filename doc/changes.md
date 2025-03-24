@@ -23,6 +23,7 @@
 
 ### Documentation
 
+* Add a tutorial for plotting focal mechanisms (beachballs) ([#2550](https://github.com/GenericMappingTools/pygmt/pull/2550))
 * Add an advanced tutorial "Creating legends" ([#3594](https://github.com/GenericMappingTools/pygmt/pull/3594))
 * Add a gallery example for Figure.hlines and Figure.vlines ([#3755](https://github.com/GenericMappingTools/pygmt/pull/3755))
 
