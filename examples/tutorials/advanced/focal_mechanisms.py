@@ -11,7 +11,7 @@ global CMT (``"gcmt"``), moment tensor (``"mt"``), partial focal mechanism
 (``"partial"``), and, principal axis (``"principal_axis"``). Please refer to the table
 in the documentation of :meth:`pygmt.Figure.meca` regarding how to set up the input data
 in respect to the chosen input type and convention (i.e., the expected column order,
-keys, or column names). This tutorial we focus on how to adjust the display of the
+keys, or column names). In this tutorial we focus on how to adjust the display of the
 beachballs.
 """
 
@@ -52,7 +52,7 @@ aki_single = {"strike": 318, "dip": 89, "rake": -179, "magnitude": 7.75}
 #
 # Required parameters are ``spec`` and ``scale`` as well as ``longitude``, ``latitude``
 # (event location), and depth (if these values are not included in the argument passed
-# to ``spec``). Additionally the ``convention`` parameter is required if ``spec`` is
+# to ``spec``). Additionally, the ``convention`` parameter is required if ``spec`` is
 # an 1-D or 2-D numpy array; for the input types dictionary and ``pandas.Dataframe``,
 # the focal mechanism convention is automatically determined from dictionary keys or
 # :class:`pandas.DataFrame` column names. The ``scale`` parameter controls the radius
@@ -169,9 +169,9 @@ fig.show()
 # Use the parameter ``nodal`` to highlight specific nodal planes. ``"0"`` refers to
 # both, ``"1"`` to the first, and ``"2"`` to the second nodal plane(s). Only the
 # circumference and the specified nodal plane(s) are plotted, i.e. the quadrants
-# remain unfilled (transparent). We can make usage of the stacking concept of (Py)GMT,
+# remain unfilled (transparent). We can make use of the stacking concept of (Py)GMT,
 # and use ``nodal`` in combination with the ``outline``, ``compressionfill`` /
-# ``extensionfill`` and ``pen``  parameters.
+# ``extensionfill`` and ``pen`` parameters.
 
 fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
@@ -210,7 +210,7 @@ fig.show()
 # ---------------------------------
 #
 # Specify the optional parameters ``plot_longitude`` and ``plot_latitude``. If ``spec``
-# is an ASCII file with columns for ``plot_longitude`` and ``plot_latitude`` the
+# is an ASCII file with columns for ``plot_longitude`` and ``plot_latitude``, the
 # ``offset`` parameter has to be set to ``True``. Besides just drawing a line between
 # the beachball and the event location, a small circle can be plotted at the event
 # location by appending **+s** and the descired circle diameter. The connecting line as
@@ -281,10 +281,10 @@ aki_multiple = pd.DataFrame(
 # --------------
 #
 # Use the optional parameter ``event_name`` to add a label near the beachball, e.g.,
-# event name or event date and time. Change the font of the the label text by appending
+# event name or event date and time. Change the font of the label text by appending
 # **+f** and the desired font (size,name,color) to the argument passed to the ``scale``
 # parameter. Additionally, the location of the label relative to the beachball [Default
-# is ``"TC"``, i.e., Top Center]; can be changed by appending **+j** and an offset can
+# is ``"TC"``, i.e., Top Center] can be changed by appending **+j** and an offset can
 # be applied by appending **+o** with values for *dx*\ /*dy*. Add a colored [Default is
 # white] box behind the label via the label ``labelbox``. Force a fixed size of the
 # beachball by appending **+m** to the argument passed to the ``scale`` parameter.
