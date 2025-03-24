@@ -1,5 +1,45 @@
 # Changelog
 
+## Release v0.14.3 (20YY/MM/DD)
+
+[![Digital Object Identifier for PyGMT v0.14.3](https://zenodo.org/badge/DOI/10.5281/zenodo.3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
+
+### Highlights
+
+*
+
+### Enhancements
+
+* Figure.shift_origin: Support shifting origins temporarily when used as a context manager ([#2509](https://github.com/GenericMappingTools/pygmt/pull/2509))
+* BREAKING: Support typesetting apostrophe (') and backtick (`) ([#3105](https://github.com/GenericMappingTools/pygmt/pull/3105))
+* **BREAKING** pygmt.grdcut: Refactor to store output in virtualfiles for grids ([#3115](https://github.com/GenericMappingTools/pygmt/pull/3115))
+
+### Deprecations
+
+* pygmt.grdfill: Deprecate parameter 'no_data' to 'hole' (remove in v0.19.0) ([#3852](https://github.com/GenericMappingTools/pygmt/pull/3852))
+
+### Documentation
+
+* Add advanced tutorial "Creating legends" ([#3594](https://github.com/GenericMappingTools/pygmt/pull/3594))
+
+### Maintenance
+
+* Use the 'release-branch-semver' version scheme for setuptools_scm ([#3828](https://github.com/GenericMappingTools/pygmt/pull/3828))
+* Rename _GMT_DATASET.to_dataframe to .to_pandas and _GMT_GRID.to_dataarray/_GMT_IMAGE.to_dataarray to .to_xarray ([#3798](https://github.com/GenericMappingTools/pygmt/pull/3798))
+* Refactor _load_remote_dataset to write CRS information for raster images ([#3678](https://github.com/GenericMappingTools/pygmt/pull/3678))
+* CI: Upload documentation HTML ZIP archive and PDF file as release assets ([#3814](https://github.com/GenericMappingTools/pygmt/pull/3814))
+* CI: Deploy documentation HTML ZIP archive and PDF file for dev versions ([#3794](https://github.com/GenericMappingTools/pygmt/pull/3794))
+* Bump to sphinx-gallery>=0.19 and use list in subsection_order and string in within_subsection_order ([#3805](https://github.com/GenericMappingTools/pygmt/pull/3805))
+* Add links to the documentation HTML ZIP archive and PDF files ([#3833](https://github.com/GenericMappingTools/pygmt/pull/3833))
+
+**Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.14.2...v0.14.3>
+
+### Contributors
+
+[Dongdong Tian](https://github.com/seisman), [Wei Ji Leong](https://github.com/weiji14) and [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
+
+
+
 ## Release v0.14.2 (2025/02/15)
 
 [![Digital Object Identifier for PyGMT v0.14.2](https://zenodo.org/badge/DOI/10.5281/zenodo.14868324.svg)](https://doi.org/10.5281/zenodo.14868324)
