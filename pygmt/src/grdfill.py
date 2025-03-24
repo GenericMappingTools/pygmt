@@ -19,7 +19,7 @@ __doctest_skip__ = ["grdfill"]
 @fmt_docstring
 # TODO(PyGMT>=0.19.0): Remove the deprecated 'no_data' parameter.
 @deprecate_parameter("no_data", "hole", "v0.15.0", remove_version="v0.19.0")
-@use_alias(A="mode", N="hole", R="region", V="verbose")
+@use_alias(A="mode", N="hole", R="region", V="verbose", f="coltypes")
 @kwargs_to_strings(R="sequence")
 def grdfill(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
@@ -51,6 +51,7 @@ def grdfill(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
         Set the node value used to identify a point as a member of a hole [Default is
         NaN].
     {region}
+    {coltypes}
     {verbose}
 
     Returns
