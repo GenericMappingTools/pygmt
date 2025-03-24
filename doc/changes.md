@@ -13,14 +13,23 @@
 * Figure.shift_origin: Support shifting origins temporarily when used as a context manager ([#2509](https://github.com/GenericMappingTools/pygmt/pull/2509))
 * BREAKING: Support typesetting apostrophe (') and backtick (`) ([#3105](https://github.com/GenericMappingTools/pygmt/pull/3105))
 * **BREAKING** pygmt.grdcut: Refactor to store output in virtualfiles for grids ([#3115](https://github.com/GenericMappingTools/pygmt/pull/3115))
+* _load_remote_dataset: Add the "kind" attribute to explicitly specify if data is a grid or image ([#3688](https://github.com/GenericMappingTools/pygmt/pull/3688))
+* GMTDataArrayAccessor: Support passing values using enums GridRegistration and GridType for grid registration and type ([#3696](https://github.com/GenericMappingTools/pygmt/pull/3696))
 
 ### Deprecations
 
 * pygmt.grdfill: Deprecate parameter 'no_data' to 'hole' (remove in v0.19.0) ([#3852](https://github.com/GenericMappingTools/pygmt/pull/3852))
+- clib.Session: Remove deprecated open_virtual_file method, use open_virtualfile instead  (Deprecated since v0.11.0) ([#3738](https://github.com/GenericMappingTools/pygmt/pull/3738))
+- clib.Session: Remove deprecated virtualfile_from_data method, use virtualfile_in instead (Deprecated since v0.13.0) ([#3739](https://github.com/GenericMappingTools/pygmt/pull/3739))
+
+### Bug Fixes
+
+* Fix the bug for passing text strings with numeric values ([#3804](https://github.com/GenericMappingTools/pygmt/pull/3804))
 
 ### Documentation
 
 * Add advanced tutorial "Creating legends" ([#3594](https://github.com/GenericMappingTools/pygmt/pull/3594))
+* Add a gallery example showing the usage of Figure.hlines and Figure.vlines ([#3755](https://github.com/GenericMappingTools/pygmt/pull/3755))
 
 ### Maintenance
 
@@ -29,8 +38,18 @@
 * Refactor _load_remote_dataset to write CRS information for raster images ([#3678](https://github.com/GenericMappingTools/pygmt/pull/3678))
 * CI: Upload documentation HTML ZIP archive and PDF file as release assets ([#3814](https://github.com/GenericMappingTools/pygmt/pull/3814))
 * CI: Deploy documentation HTML ZIP archive and PDF file for dev versions ([#3794](https://github.com/GenericMappingTools/pygmt/pull/3794))
+* CI: Separate jobs for publishing to TestPyPI and PyPI ([#3742](https://github.com/GenericMappingTools/pygmt/pull/3742))
+* CI: Bump to Ubuntu 22.04 in the GMT Legacy Tests workflow ([#3777](https://github.com/GenericMappingTools/pygmt/pull/3777))
 * Bump to sphinx-gallery>=0.19 and use list in subsection_order and string in within_subsection_order ([#3805](https://github.com/GenericMappingTools/pygmt/pull/3805))
 * Add links to the documentation HTML ZIP archive and PDF files ([#3833](https://github.com/GenericMappingTools/pygmt/pull/3833))
+* Simplify doc/Makefile with sphinx-build make-mode ([#3761](https://github.com/GenericMappingTools/pygmt/pull/3761))
+* Bump to ruff 0.9.0, apply ruff 2025 style, and ignore A005 (stdlib-module-shadowing) violations ([#3763](https://github.com/GenericMappingTools/pygmt/pull/3763))
+* CI: Update the doc deploy script to generate CNAME and index.html ([#3749](https://github.com/GenericMappingTools/pygmt/pull/3749))
+* Use well-known labels in project URLs following PEP753 ([#3743](https://github.com/GenericMappingTools/pygmt/pull/3743))
+* clib.conversion: Remove the unused array_to_datetime function ([#3507](https://github.com/GenericMappingTools/pygmt/pull/3507))
+* CI: Test on Linux arm64 runners ([#3778](https://github.com/GenericMappingTools/pygmt/pull/3778))
+* CI: Build PDF documentation using tectonic ([#3765](https://github.com/GenericMappingTools/pygmt/pull/3765))
+
 
 **Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.14.2...v0.14.3>
 
