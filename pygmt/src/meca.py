@@ -2,6 +2,9 @@
 meca - Plot focal mechanisms.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
 import numpy as np
 import pandas as pd
 from pygmt.clib import Session
@@ -131,14 +134,14 @@ def meca(  # noqa: PLR0913
     self,
     spec,
     scale,
-    convention=None,
-    component="full",
-    longitude=None,
-    latitude=None,
-    depth=None,
-    plot_longitude=None,
-    plot_latitude=None,
-    event_name=None,
+    convention: Literal["aki", "gcmt", "mt", "partial", "principal_axis"] | None = None,
+    component: Literal["full", "dc", "deviatoric"] = "full",
+    longitude: float | Sequence[float] | None = None,
+    latitude: float | Sequence[float] | None = None,
+    depth: float | Sequence[float] | None = None,
+    plot_longitude: float | Sequence[float] | None = None,
+    plot_latitude: float | Sequence[float] | None = None,
+    event_name: str | Sequence[str] | None = None,
     **kwargs,
 ):
     r"""
@@ -248,28 +251,32 @@ def meca(  # noqa: PLR0913
         to change its font (size,fontname,color); append **+j**\ *justify* to change
         the text location relative to the beachball [Default is ``"TC"``, i.e., Top
         Center]; append **+o** to offset the text string by *dx*\ /*dy*.
-    convention : str
-        Focal mechanism convention. See the table above for the supported conventions.
-        Ignored if ``spec`` is a dict or :class:`pandas.DataFrame`.
-    component : str
-        The component of the seismic moment tensor to plot.
+    convention
+        Specify the focal mechanism convention of the input data. Ignored if ``spec`` is
+        a dict or :class:`pandas.DataFrame`. See the table above for the supported
+        conventions.
+    component
+        The component of the seismic moment tensor to plot. Valid values are:
 
         - ``"full"``: the full seismic moment tensor
-        - ``"dc"``: the closest double couple defined from the moment tensor (zero
-          trace and zero determinant)
+        - ``"dc"``: the closest double couple defined from the moment tensor (zero trace
+          and zero determinant)
         - ``"deviatoric"``: deviatoric part of the moment tensor (zero trace)
-    longitude/latitude/depth : float, list, or 1-D numpy array
-        Longitude(s) / latitude(s) / depth(s) of the event(s). Length must match the
-        number of events. Overrides the ``longitude`` / ``latitude`` / ``depth`` values
-        in ``spec`` if ``spec`` is a dict or :class:`pandas.DataFrame`.
-    plot_longitude/plot_latitude : float, str, list, or 1-D numpy array
-        Longitude(s) / Latitude(s) at which to place the beachball(s). Length must match
-        the number of events. Overrides the ``plot_longitude`` / ``plot_latitude``
-        values in ``spec`` if ``spec`` is a dict or :class:`pandas.DataFrame`.
-    event_name : str, list of str, or 1-D numpy array
-        Text string(s), e.g., event name(s) to appear near the beachball(s). Length
-        must match the number of events. Overrides the ``event_name`` labels in ``spec``
-        if ``spec`` is a dict or :class:`pandas.DataFrame`.
+    longitude/latitude/depth
+        Longitude(s), latitude(s), and depth(s) of the event(s). The length of each must
+        match the number of events. These parameters are only used if ``spec`` is a
+        dictionary or a :class:`pandas.DataFrame`, and they override any existing
+        ``longitude``, ``latitude``, or ``depth`` values in ``spec``.
+    plot_longitude/plot_latitude
+        Longitude(s) and latitude(s) at which to place the beachball(s). The length of
+        each must match the number of events. These parameters are only used if ``spec``
+        is a dictionary or a :class:`pandas.DataFrame`, and they override any existing
+        ``plot_longitude`` or ``plot_latitude`` values in ``spec``.
+    event_name
+        Text string(s), such as event name(s), to appear near the beachball(s). The
+        length must match the number of events. This parameter is only used if ``spec``
+        is a dictionary or a :class:`pandas.DataFrame`, and it overrides any existing
+        ``event_name`` labels in ``spec``.
     labelbox : bool or str
         [*fill*].
         Draw a box behind the label if given via ``event_name``. Use *fill* to give a

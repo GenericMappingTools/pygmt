@@ -1,4 +1,4 @@
-# Bit and hachure patterns
+# Bit and Hachure Patterns
 
 PyGMT supports a variety of bit and hachure patterns that can be used to fill polygons.
 

@@ -1,5 +1,5 @@
 """
-plot - Plot in two dimensions.
+plot - Plot lines, polygons, and symbols in 2-D.
 """
 
 from typing import Literal

@@ -1,5 +1,5 @@
 """
-grd2cpt - Create a CPT from a grid file.
+grd2cpt - Make linear or histogram-equalized color palette table from grid.
 """
 
 from pygmt.clib import Session
@@ -33,7 +33,7 @@ __doctest_skip__ = ["grd2cpt"]
 @kwargs_to_strings(G="sequence", L="sequence", R="sequence", T="sequence")
 def grd2cpt(grid, **kwargs):
     r"""
-    Make GMT color palette tables from a grid file.
+    Make linear or histogram-equalized color palette table from grid.
 
     This function will help you to make static color palette tables (CPTs).
     By default, the CPT will be saved as the current CPT of the session,
