@@ -1,6 +1,23 @@
 # Common Parameters
 
 ```{glossary}
+``distcalc``
+    Determine how spherical distances are calculated.
+
+    - ``"g"``: Perform great circle distance calculations, with parameters such as
+      distance increments or radii compared against calculated great circle distances
+      [Default]
+    - ``"e"``: Select ellipsoidal (or geodesic) mode for the highest precision and
+      slowest calculation time.
+    - ``"f"``: Select Flat Earth mode, which gives a more approximate but faster result
+
+    **Note** (1) All spherical distance calculations depend on the current ellipsoid
+    (:gmt-term:`PROJ_ELLIPSOID`), the definition of the mean radius
+    (:gmt-term:`PROJ_MEAN_RADIUS`), and the specification of latitude type
+    (:gmt-term:`PROJ_AUX_LATITUDE`). Geodesic distance calculations is also controlled
+    by method (:gmt-term:`PROJ_GEODESIC`). (2) Coordinate transformations that can use
+    ellipsoidal or spherical forms will first consult this parameter if given.
+
 ``verbose``
     Select verbosity level, which modulates the messages written to stderr.
 
