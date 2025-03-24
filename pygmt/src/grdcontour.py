@@ -1,5 +1,5 @@
 """
-grdcontour - Plot a contour figure.
+grdcontour - Make contour map using a grid.
 """
 
 from pygmt.clib import Session
@@ -38,7 +38,7 @@ __doctest_skip__ = ["grdcontour"]
 @kwargs_to_strings(R="sequence", L="sequence", c="sequence_comma", p="sequence")
 def grdcontour(self, grid, **kwargs):
     r"""
-    Convert grids or images to contours and plot them on maps.
+    Make contour map using a grid.
 
     Takes a grid file name or an :class:`xarray.DataArray` object as input.
 

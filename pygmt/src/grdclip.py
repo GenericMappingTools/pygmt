@@ -1,5 +1,5 @@
 """
-grdclip - Change the range and extremes of grid values.
+grdclip - Clip the range of grid values.
 """
 
 import xarray as xr
@@ -27,7 +27,7 @@ __doctest_skip__ = ["grdclip"]
 )
 def grdclip(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
-    Set values in a grid that meet certain criteria to a new value.
+    Clip the range of grid values.
 
     Produce a clipped ``outgrid`` or :class:`xarray.DataArray` version of the
     input ``grid`` file.
