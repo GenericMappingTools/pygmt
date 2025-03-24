@@ -51,7 +51,7 @@
 * CI: Build PDF documentation using tectonic ([#3765](https://github.com/GenericMappingTools/pygmt/pull/3765))
 
 
-**Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.14.2...v0.14.3>
+**Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.14.0...v0.15.0>
 
 ### Contributors
 
