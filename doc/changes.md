@@ -48,8 +48,8 @@
 ### Contributors
 
 * [Dongdong Tian](https://github.com/seisman)
-* [Wei Ji Leong](https://github.com/weiji14)
 * [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
+* [Wei Ji Leong](https://github.com/weiji14)
 * [Michael Grund](https://github.com/michaelgrund)
 
 ---
