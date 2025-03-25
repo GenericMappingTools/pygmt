@@ -73,7 +73,7 @@ jobs:
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
     - name: Create Issue From File
-      if: env.lychee_exit_code != 0
+      if: ${{ steps.lychee.outputs.exit_code }} != 0
       run: |
         cd repository/
         title="Link Checker Report on ${CURRENT_DATE}"
