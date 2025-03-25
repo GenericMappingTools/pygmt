@@ -6,7 +6,9 @@
 
 ### Highlights
 
-*
+* One new gallery example and two new tutorials
+* Figure.shift_origin: Support shifting origins temporarily when used as a context manager 
+* Documentation in PDF format
 
 ### Enhancements
 
