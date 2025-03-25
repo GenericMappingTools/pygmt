@@ -67,7 +67,7 @@ def _parse_fill_mode(
 @fmt_docstring
 # TODO(PyGMT>=0.19.0): Remove the deprecated 'no_data' parameter.
 @deprecate_parameter("no_data", "hole", "v0.15.0", remove_version="v0.19.0")
-@use_alias(A="mode", N="hole", R="region", V="verbose")
+@use_alias(A="mode", N="hole", R="region", V="verbose", f="coltypes")
 @kwargs_to_strings(R="sequence")
 def grdfill(
     grid: str | xr.DataArray,
@@ -122,6 +122,7 @@ def grdfill(
             Use ``constantfill``, ``gridfill``, ``neighborfill``, or ``splinefill``
             instead. The parameter will be removed in v0.19.0.
     {region}
+    {coltypes}
     {verbose}
 
     Returns
