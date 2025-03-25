@@ -10,7 +10,8 @@ on:
     # Add "edited" type for test purposes. Where possible, avoid using to prevent processing unnecessary events.
     # types: [created, edited]
 
-permissions: {}
+permissions:
+  issues: write
 
 jobs:
   slashCommandDispatch:
