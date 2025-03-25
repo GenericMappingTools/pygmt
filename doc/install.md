@@ -57,9 +57,8 @@ import pygmt
 pygmt.show_versions()
 ```
 
-You are now ready to make your first figure! Start by looking at our
-[Intro](intro/GALLERY_HEADER.rst), [Tutorials](tutorials/GALLERY_HEADER.rst), and
-[Gallery](gallery/GALLERY_HEADER.rst). Good luck!
+You are now ready to make your first figure! Start by looking at our [Intro](intro/index.rst),
+[Tutorials](tutorials/index.rst), and [Gallery](gallery/index.rst). Good luck!
 
 :::{note}
 The sections below provide more detailed, step by step instructions to install and test
