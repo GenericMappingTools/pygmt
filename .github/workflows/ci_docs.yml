@@ -176,7 +176,7 @@ jobs:
           path: deploy
           # Download the entire history
           fetch-depth: 0
-          persist-credentials: false
+          persist-credentials: true
         if: (github.event_name == 'release' || github.event_name == 'push') && (matrix.os == 'ubuntu-latest')
 
       - name: Push the built HTML to gh-pages
