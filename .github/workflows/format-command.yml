@@ -8,7 +8,8 @@ on:
   repository_dispatch:
     types: [format-command]
 
-permissions: {}
+permissions:
+  contents: write
 
 jobs:
   format:
