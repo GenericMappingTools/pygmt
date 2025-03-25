@@ -15,7 +15,8 @@ on:
   schedule:
     - cron: '0 12 * * 0'
 
-permissions: {}
+permissions: 
+  issues: write
 
 jobs:
   check_links:
