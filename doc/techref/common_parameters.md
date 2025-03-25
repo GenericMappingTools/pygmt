@@ -14,7 +14,7 @@
     **Note:** (1) All spherical distance calculations depend on the current ellipsoid
     ({gmt-term}`PROJ_ELLIPSOID`), the definition of the mean radius
     ({gmt-term}`PROJ_MEAN_RADIUS`), and the specification of latitude type
-    ({gmt-term}`PROJ_AUX_LATITUDE`). Geodesic distance calculations is also controlled
+    ({gmt-term}`PROJ_AUX_LATITUDE`). Geodesic distance calculations are also controlled
     by the algorithm to use for geodesic calculations ({gmt-term}`PROJ_GEODESIC`).
     (2) Coordinate transformations that can use ellipsoidal or spherical forms will
     first consult this parameter if given.
