@@ -66,6 +66,8 @@ jobs:
           --exclude "^https://github.com/GenericMappingTools/pygmt/releases/download/%7B%7Bpath%7D%7D/pygmt-docs.zip"
           --exclude "^https://www.researchgate.net/"
           --exclude "^https://zenodo.org/badge/DOI/"
+          --exclude-path "repository/doc/**/*.rst"
+          --exclude-path "repository/doc/**/*.md"
           --verbose
           "repository/**/*.rst"
           "repository/**/*.md"
