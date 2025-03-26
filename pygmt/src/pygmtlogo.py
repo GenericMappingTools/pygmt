@@ -13,7 +13,6 @@ def create_logo(  # noqa: PLR0915
     darkmode=False,
     hexshape=False,
     wordmark=True,
-    orientation="horizontal",
 ):
     """
     Creat the PyGMT logo.
@@ -95,7 +94,7 @@ def create_logo(  # noqa: PLR0915
     # Define wordmark
     # -----------------------------------------------------------------------------
     font = "AvantGarde-Book"
-    match orientation:
+    match wordmark:
         case "vertical":
             args_text_wm = {
                 "x": 0,
@@ -103,7 +102,7 @@ def create_logo(  # noqa: PLR0915
                 "justify": "CT",
                 "font": f"2.5c,{font}",
             }
-        case "horizontal":
+        case True | "horizontal":
             args_text_wm = {
                 "x": 6,
                 "y": 0,
@@ -246,7 +245,6 @@ def pygmtlogo(  # noqa: PLR0913
     darkmode=False,
     hexshape=False,
     wordmark=True,
-    orientation="horizontal",
     position=None,  # -> use position parameter of Figure.image
     box=None,  # -> use box parameter of Figure.image
     projection=None,
@@ -268,7 +266,6 @@ def pygmtlogo(  # noqa: PLR0913
         darkmode=darkmode,
         hexshape=hexshape,
         wordmark=wordmark,
-        orientation=orientation,
     )
 
     # -----------------------------------------------------------------------------
