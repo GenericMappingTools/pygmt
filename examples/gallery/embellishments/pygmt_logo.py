@@ -64,7 +64,9 @@ for blackwhite in [False, True]:
                         elif darkmode:
                             box_used = "+ggray20"
                     # fig = pygmt.Figure()
-                    fig.basemap(region=[-1, 1, -1, 1], projection="X2.5c", frame="+gtan")
+                    fig.basemap(
+                        region=[-1, 1, -1, 1], projection="X2.5c", frame="+gtan"
+                    )
                     # fig.image("@needle.png", position="jMC+w2c", box=box_used)
                     fig.pygmtlogo(
                         blackwhite=blackwhite,
