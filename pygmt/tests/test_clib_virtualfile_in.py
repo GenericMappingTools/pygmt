@@ -130,6 +130,7 @@ def test_virtualfile_in_matrix_string_dtype():
                 # not lib.virtualfile_from_matrix, but it's technically complicated.
 
 
+# TODO(PyGMT>=0.20.0): Remove the test related to deprecated parameter 'extra_arrays'.
 def test_virtualfile_in_extra_arrays(data):
     """
     Test that the extra_arrays parameter is deprecated.

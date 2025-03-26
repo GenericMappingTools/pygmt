@@ -1883,6 +1883,7 @@ class Session:
                 _data = [x, y]
                 if z is not None:
                     _data.append(z)
+                # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'extra_arrays'.
                 if extra_arrays:
                     msg = (
                         "The parameter 'extra_arrays' will be removed in v0.20.0. "
