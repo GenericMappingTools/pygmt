@@ -1774,6 +1774,7 @@ class Session:
         z=None,
         required_z=False,
         required_data=True,
+        extra_arrays=None,
     ):
         """
         Store any data inside a virtual file.
@@ -1798,6 +1799,13 @@ class Session:
         required_data : bool
             Set to True when 'data' is required, or False when dealing with
             optional virtual files. [Default is True].
+        extra_arrays : list of 1-D arrays
+            Optional. A list of numpy arrays in addition to x, y, and z. All of these
+            arrays must be of the same size as the x/y/z arrays.
+
+            .. deprecated:: v0.16.0
+               The parameter 'extra_arrays' will be removed in v0.20.0. Prepare and pass
+               a dictionary of arrays instead. E.g., `{"x": x, "y": y, "size": size}`.
 
         Returns
         -------
@@ -1875,6 +1883,14 @@ class Session:
                 _data = [x, y]
                 if z is not None:
                     _data.append(z)
+                if extra_arrays:
+                    msg = (
+                        "The parameter 'extra_arrays' will be removed in v0.20.0. "
+                        "Prepare and pass a dictionary of arrays instead. E.g., "
+                        "`{'x': x, 'y': y, 'size': size}`."
+                    )
+                    warnings.warn(message=msg, category=FutureWarning, stacklevel=1)
+                    _data.extend(extra_arrays)
             case "vectors":
                 if hasattr(data, "items") and not hasattr(data, "to_frame"):
                     # Dictionary, pandas.DataFrame or xarray.Dataset types.
