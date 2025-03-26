@@ -1765,7 +1765,7 @@ class Session:
                     seg.header = None
                     seg.text = None
 
-    def virtualfile_in(
+    def virtualfile_in(  # noqa: PLR0912
         self,
         check_kind=None,
         data=None,
@@ -1775,6 +1775,7 @@ class Session:
         extra_arrays=None,
         required_data=True,
         ncols=2,
+        required_z=False,
     ):
         """
         Store any data inside a virtual file.
@@ -1802,6 +1803,12 @@ class Session:
             optional virtual files. [Default is True].
         ncols
             Number of minimum required columns.
+        required_z : bool
+            State whether the 'z' column is required.
+
+            .. deprecated:: v0.16.0
+               The parameter 'required_z' will be removed in v0.20.0. Use parameter
+               'ncols' instead. E.g., ``required_z=True`` is equivalent to ``ncols=3``.
 
         Returns
         -------
@@ -1829,6 +1836,17 @@ class Session:
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
+        # TODO(PyGMT>=0.20.0): Remove the deprecated 'required_z' parameter.
+        if required_z is True:
+            warnings.warn(
+                "The parameter 'required_z' is deprecated and will be removed in "
+                "v0.20.0. Use parameter 'ncols' instead. E.g., ``required_z=True`` is "
+                "equivalent to ``ncols=3``.",
+                category=FutureWarning,
+                stacklevel=1,
+            )
+            ncols = 3
+
         kind = data_kind(data, required=required_data)
         _validate_data_input(
             data=data,
