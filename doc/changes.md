@@ -9,7 +9,7 @@
 * 🎉 **Fifteenth minor release of PyGMT** 🎉
 * One new gallery example and two new tutorials
 * Figure.shift_origin: Support shifting origins temporarily when used as a context manager ([#2509](https://github.com/GenericMappingTools/pygmt/pull/2509))
-* Documentation in PDF format
+* Documentation in HTML ZIP archive and PDF format for offline reference
 
 ### Enhancements
 
@@ -29,7 +29,7 @@
 ### Documentation
 
 * Add an advanced tutorial for plotting focal mechanisms (beachballs) ([#2550](https://github.com/GenericMappingTools/pygmt/pull/2550))
-* Add an advanced tutorial "Creating legends" ([#3594](https://github.com/GenericMappingTools/pygmt/pull/3594))
+* Add an advanced tutorial for creating legends ([#3594](https://github.com/GenericMappingTools/pygmt/pull/3594))
 * Add a gallery example for Figure.hlines and Figure.vlines ([#3755](https://github.com/GenericMappingTools/pygmt/pull/3755))
 
 ### Maintenance
