@@ -90,7 +90,7 @@ def test_plot3d_fail_1d_array_with_data(data, region):
 
 def test_plot3d_fail_no_data(data, region):
     """
-    Should raise an exception if data is not enough.
+    Should raise an exception if data is not enough or too much.
     """
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
