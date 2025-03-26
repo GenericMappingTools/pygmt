@@ -64,14 +64,14 @@ for blackwhite in [False, True]:
                         elif darkmode:
                             box_used = "+ggray20"
                     # fig = pygmt.Figure()
-                    fig.basemap(region=[-1, 1, -1, 1], projection="X2c", frame="+gtan")
-                    # fig.image("@needle.png", position="jMC+w1.5c", box=box_used)
+                    fig.basemap(region=[-1, 1, -1, 1], projection="X2.5c", frame="+gtan")
+                    # fig.image("@needle.png", position="jMC+w2c", box=box_used)
                     fig.pygmtlogo(
                         blackwhite=blackwhite,
                         darkmode=darkmode,
                         hexshape=hexshape,
                         wordmark=wordmark,
-                        position="jMC+w1.8c",
+                        position="jMC+w2c",
                         box=box_used,
                     )
 
@@ -79,7 +79,7 @@ for blackwhite in [False, True]:
                     n_hor = 8
                     if i_plot in range(n_hor - 1, 100, n_hor):
                         fig.shift_origin(
-                            xshift=f"-{(n_hor * 2 + n_hor * 0.5)}c",
+                            xshift=f"-{(n_hor * 2.5 + n_hor * 0.5)}c",
                             yshift="-h-0.5c",
                         )  # n_hor*width + n_hor*xshift
 

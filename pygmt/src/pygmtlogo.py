@@ -48,7 +48,6 @@ def create_logo(  # noqa: PLR0915
 
     # Rotation around z (vertical) axis placed in the center
     # Has to be applied to each plotting command, up on second call set to True
-    # Do NOT rotated initial basemap
     angle_rot = 30  # degrees
     perspective = f"{angle_rot}+w0/0"
 
