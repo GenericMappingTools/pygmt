@@ -16,7 +16,7 @@
 * **BREAKING** Support typesetting apostrophe (') and backtick (`) ([#3105](https://github.com/GenericMappingTools/pygmt/pull/3105))
 * **BREAKING** pygmt.grdcut: Refactor to store output in virtualfiles for grids ([#3115](https://github.com/GenericMappingTools/pygmt/pull/3115))
 * GMTDataArrayAccessor: Support passing values using enums GridRegistration and GridType for grid registration and type ([#3696](https://github.com/GenericMappingTools/pygmt/pull/3696))
-* pygmt.grdfill: Add new parameters 'constantfill'/'gridfill'/'neighborfill'/'splinefill' for filling the holes ([#3855](https://github.com/GenericMappingTools/pygmt/pull/3855))
+* pygmt.grdfill: Add new parameters 'constantfill'/'gridfill'/'neighborfill'/'splinefill' for filling holes ([#3855](https://github.com/GenericMappingTools/pygmt/pull/3855))
 * pygmt.grdfill: Add alias 'coltypes' (-f) ([#3869](https://github.com/GenericMappingTools/pygmt/pull/3869))
 
 ### Deprecations
