@@ -81,18 +81,8 @@ COMMON_DOCSTRINGS = {
             """,
     "distcalc": r"""
         distcalc : str
-            **e**\|\ **f**\|\ **g**.
-            Determine how spherical distances are calculated.
-
-            - **e**: Ellipsoidal (or geodesic) mode
-            - **f**: Flat Earth mode
-            - **g**: Great circle distance [Default]
-
-            All spherical distance calculations depend on the current ellipsoid
-            (:gmt-term:`PROJ_ELLIPSOID`), the definition of the mean radius
-            (:gmt-term:`PROJ_MEAN_RADIUS`), and the specification of latitude type
-            (:gmt-term:`PROJ_AUX_LATITUDE`). Geodesic distance calculations is also
-            controlled by method (:gmt-term:`PROJ_GEODESIC`).""",
+            Determine how spherical distances are calculated
+            [:term:`Full usage <distcalc>`].""",
     "fill": r"""
         fill : str
             Set color or pattern for filling symbols or polygons
