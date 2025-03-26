@@ -1,9 +1,13 @@
 """
 PyGMT logo
 ==========
-The PyGMT logo coded in Python using PyGMT. The design of the logo is kindly provided
-by `@sfrooti <https://github.com/sfrooti>`_. The logo consists of a visual and the
-wordmark "PyGMT".
+Beside the GMT logo, there is a separate PyGMT logo which can be plotted and added
+to a figure using :method:`pygmt.Figure.pygmtlogo`. The design of the logo itself
+is kindly provided by `@sfrooti <https://github.com/sfrooti>`_ and consists of a
+visual and the wordmark "PyGMT".
+The logo is available in circle and hexagon shape. It can be plotted using colors
+of Python (blue and yellow) and GMT (red) or in black and white as well as in light
+or dark mode. The wordmark can be added at the right side or bottom of the visual.
 """
 
 import pygmt
@@ -40,7 +44,7 @@ fig.pygmtlogo(
     position="jTR+o0.5c/2c+w1.5c",
     box=False,
 )
-fig.pygmtlogo(wordmark="vertical", position="jMC+w2c")
+fig.pygmtlogo(wordmark="vertical", position="jMC+w2c", box="+gwhite")
 
 fig.show()
 
@@ -54,7 +58,7 @@ fig = pygmt.Figure()
 for blackwhite in [False, True]:
     for darkmode in [False, True]:
         for hexshape in [False, True]:
-            for wordmark in [True, False, "horizontal", "vertical"]:
+            for wordmark in [False, True, "horizontal", "vertical"]:
                 for box in [False, True]:
                     if not box:
                         box_used = False
