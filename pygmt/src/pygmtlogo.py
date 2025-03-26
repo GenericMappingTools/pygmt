@@ -1,6 +1,7 @@
 """
 pygmtlogo - Create and plot the PyGMT logo.
-The design of the logo is kindly provided by `@sfrooti <https://github.com/sfrooti>`_.
+The design of the logo is kindly provided by `@sfrooti <https://github.com/sfrooti>`_
+and consists of a visual and the wordmark "PyGMT".
 """
 
 from pathlib import Path
@@ -15,8 +16,9 @@ def create_logo(  # noqa: PLR0915
     wordmark=True,
 ):
     """
-    Creat the PyGMT logo.
-    The design of the logo is kindly provided by `@sfrooti <https://github.com/sfrooti>`_.
+    Create the PyGMT logo using PyGMT.
+    The design of the logo is kindly provided by `@sfrooti <https://github.com/sfrooti>`_
+    and consists of a visual and the wordmark "PyGMT".
 
     Parameters
     ----------
@@ -247,7 +249,6 @@ def pygmtlogo(  # noqa: PLR0913
 ):
     """
     Plot the PyGMT logo.
-    The design of the logo is kindly provided by `@sfrooti <https://github.com/sfrooti>`_.
     """
 
     # -----------------------------------------------------------------------------
