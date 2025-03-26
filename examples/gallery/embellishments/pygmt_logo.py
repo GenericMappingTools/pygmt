@@ -40,8 +40,50 @@ fig.pygmtlogo(
     position="jTR+o0.5c/2c+w1.5c",
     box=False,
 )
-fig.pygmtlogo(orientation="vertical", position="jMC+w2c")
+fig.pygmtlogo(wordmark="vertical", position="jMC+w2c")
 
+fig.show()
+
+# %%
+# All combinations
+
+i_plot = 0
+
+fig = pygmt.Figure()
+
+for blackwhite in [False, True]:
+    for darkmode in [False, True]:
+        for hexshape in [False, True]:
+            for wordmark in [True, False, "horizontal", "vertical"]:
+                for box in [False, True]:
+                    if not box:
+                        box_used = False
+                    elif box:
+                        if not darkmode:
+                            box_used = "+gwhite"
+                        elif darkmode:
+                            box_used = "+ggray20"
+                    # fig = pygmt.Figure()
+                    fig.basemap(region=[-1, 1, -1, 1], projection="X2c", frame="+gcyan")
+                    # fig.image("@needle.png", position="jMC+w1.8c", box=box_used)
+                    fig.pygmtlogo(
+                        blackwhite=blackwhite,
+                        darkmode=darkmode,
+                        hexshape=hexshape,
+                        wordmark=wordmark,
+                        position="jMC+w1.8c",
+                        box=box,
+                    )
+
+                    fig.shift_origin(xshift="+w+0.5c")
+                    n_hor = 8
+                    if i_plot in range(n_hor - 1, 100, n_hor):
+                        fig.shift_origin(
+                            xshift=f"-{(n_hor * 2 + n_hor * 0.5)}c",
+                            yshift="-h-0.5c",
+                        )  # n_hor*width + n_hor*xshift
+
+                    i_plot = i_plot + 1
 fig.show()
 
 # sphinx_gallery_thumbnail_number = 3
