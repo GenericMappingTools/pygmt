@@ -31,12 +31,11 @@ def create_logo(  # noqa: PLR0915
     hexshape : bool
         Use a hexagon shape. Set to ``True`` for a hexagon shape [Default is `False``
         and uses to a circle shape].
-    wordmark : bool
-        Add the wordmark "PyGMT". Set to `True`` to add the wordmark [Default]. For
-        ``False`` no wordmark is added.
-    orientation : str
-        Orientation of the wordmark. Use ``"horizontal"`` to place the wordmark at
-        the right side [Default] or ``"vertical"`` to place it below the visual.
+    wordmark : bool, str
+        Add the wordmark "PyGMT" and adjust its orientation relative to the visual.
+        Set to `True`` or ``"horizontal"``, to add the wordmark at the right side of
+        the visual [Default]. Use ``"vertical"`` to place the wordmark below the
+        visual and ``False`` to add no wordmark.
     """
 
     # -----------------------------------------------------------------------------
