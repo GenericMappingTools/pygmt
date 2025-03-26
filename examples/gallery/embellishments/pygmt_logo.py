@@ -64,15 +64,15 @@ for blackwhite in [False, True]:
                         elif darkmode:
                             box_used = "+ggray20"
                     # fig = pygmt.Figure()
-                    fig.basemap(region=[-1, 1, -1, 1], projection="X2c", frame="+gcyan")
-                    # fig.image("@needle.png", position="jMC+w1.8c", box=box_used)
+                    fig.basemap(region=[-1, 1, -1, 1], projection="X2c", frame="+gtan")
+                    # fig.image("@needle.png", position="jMC+w1.5c", box=box_used)
                     fig.pygmtlogo(
                         blackwhite=blackwhite,
                         darkmode=darkmode,
                         hexshape=hexshape,
                         wordmark=wordmark,
                         position="jMC+w1.8c",
-                        box=box,
+                        box=box_used,
                     )
 
                     fig.shift_origin(xshift="+w+0.5c")
