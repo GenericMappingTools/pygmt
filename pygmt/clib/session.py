@@ -1772,9 +1772,10 @@ class Session:
         x=None,
         y=None,
         z=None,
-        required_z=False,
         required_data=True,
+        ncols=2,
         extra_arrays=None,
+        required_z=False,
     ):
         """
         Store any data inside a virtual file.
@@ -1794,11 +1795,17 @@ class Session:
             data input.
         x/y/z : 1-D arrays or None
             x, y, and z columns as numpy arrays.
-        required_z : bool
-            State whether the 'z' column is required.
         required_data : bool
             Set to True when 'data' is required, or False when dealing with
             optional virtual files. [Default is True].
+        ncols
+            Number of minimum required columns.
+        required_z : bool
+            State whether the 'z' column is required.
+
+            .. deprecated:: v0.16.0
+               The parameter 'required_z' will be removed in v0.20.0. Use parameter
+               'ncols' instead. E.g., ``required_z=True`` is equivalent to ``ncols=3``.
         extra_arrays : list of 1-D arrays
             Optional. A list of numpy arrays in addition to x, y, and z. All of these
             arrays must be of the same size as the x/y/z arrays.
@@ -1833,6 +1840,17 @@ class Session:
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
+        # TODO(PyGMT>=0.20.0): Remove the deprecated 'required_z' parameter.
+        if required_z is True:
+            warnings.warn(
+                "The parameter 'required_z' is deprecated and will be removed in "
+                "v0.20.0. Use parameter 'ncols' instead. E.g., ``required_z=True`` is "
+                "equivalent to ``ncols=3``.",
+                category=FutureWarning,
+                stacklevel=1,
+            )
+            ncols = 3
+
         # Specify either data or x/y/z.
         if data is not None and any(v is not None for v in (x, y, z)):
             msg = "Too much data. Use either data or x/y/z."
@@ -1912,7 +1930,7 @@ class Session:
                 _data = data.T
 
         # Check if _data to be passed to the virtualfile_from_ function is valid.
-        _validate_data_input(data=_data, kind=kind, required_z=required_z)
+        _validate_data_input(data=_data, kind=kind, ncols=ncols)
 
         # Finally create the virtualfile from the data, to be passed into GMT
         file_context = _virtualfile_from(_data)
