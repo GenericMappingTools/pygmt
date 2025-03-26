@@ -66,6 +66,22 @@ def test_virtualfile_in_required_z_matrix_missing():
                 pass
 
 
+# TODO(PyGMT>=0.20.0): Remove this test for the deprecated 'required_z' parameter.
+def test_virtualfile_in_required_z_deprecated():
+    """
+    Same as test_virtualfile_in_required_z_matrix_missing but using the deprecated
+    'required_z' parameter.
+    """
+    data = np.ones((5, 2))
+    with clib.Session() as lib:
+        with pytest.raises(GMTInvalidInput):  # noqa: PT012
+            with pytest.warns(FutureWarning):
+                with lib.virtualfile_in(
+                    data=data, required_z=True, check_kind="vector"
+                ):
+                    pass
+
+
 def test_virtualfile_in_fail_non_valid_data(data):
     """
     Should raise an exception if too few or too much data is given.
