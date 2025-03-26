@@ -114,12 +114,6 @@ def create_logo(  # noqa: PLR0915
     # Start plotting
     # -----------------------------------------------------------------------------
     fig = pygmt.Figure()
-    pygmt.config(MAP_FRAME_PEN=no_line)
-    fig.basemap(
-        region=region,
-        projection=f"X{size * 2}c",
-        frame=no_fill,
-    )
 
     # .............................................................................
     # blue circle / hexagon for Earth
@@ -127,6 +121,8 @@ def create_logo(  # noqa: PLR0915
     fig.plot(
         x=0,
         y=0,
+        region=region,
+        projection=f"X{size * 2}c",
         style=f"{symbol}{diameter}c",
         pen=f"15p,{color_blue}",
         fill=color_bg,
