@@ -1,5 +1,5 @@
 """
-grdcut - Extract subregion from a grid.
+grdcut - Extract subregion from a grid or image or a slice from a cube.
 """
 
 from typing import Literal
@@ -33,7 +33,7 @@ def grdcut(
     grid, kind: Literal["grid", "image"] = "grid", outgrid: str | None = None, **kwargs
 ) -> xr.DataArray | None:
     r"""
-    Extract subregion from a grid or image.
+    Extract subregion from a grid or image or a slice from a cube.
 
     Produce a new ``outgrid`` file which is a subregion of ``grid``. The
     subregion is specified with ``region``; the specified range must not exceed
