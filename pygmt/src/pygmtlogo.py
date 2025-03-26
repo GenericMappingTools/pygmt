@@ -46,9 +46,6 @@ def create_logo(  # noqa: PLR0915
     xy_yellow_1 = 2.65
     xy_yellow_2 = 1.3
 
-    no_line = "cyan@100"
-    no_fill = f"+g{no_line}"
-
     # Rotation around z (vertical) axis placed in the center
     # Has to be applied to each plotting command, up on second call set to True
     # Do NOT rotated initial basemap
