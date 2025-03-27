@@ -132,7 +132,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     lines_diagonal = [
         ([-r1, -r2], [r1, r2]),  # upper left
         ([-r1, -r2], [-r1, -r2]),  # lower left
-        ([r1, r2], [r1, r2]),  # lower left
+        ([r1, r2], [r1, r2]),  # upper right
         ([r1, r2], [-r1, -r2]),  # lower right
     ]
     for x, y in lines_diagonal:
