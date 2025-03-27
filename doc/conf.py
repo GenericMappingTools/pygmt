@@ -63,7 +63,7 @@ extensions = [
     "sphinxcontrib.cairosvgconverter",
 ]
 needs_extensions = {
-    "sphinx_gallery.gen_gallery": "0.19.0",
+    "sphinx_gallery.gen_gallery": "0.19",
 }
 # Options for highlighting.
 pygments_style = "default"
