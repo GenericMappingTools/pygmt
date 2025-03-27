@@ -10,9 +10,9 @@ import pygmt
 
 
 def create_logo(  # noqa: PLR0915
-    blackwhite=False,
-    darkmode=False,
-    hexshape=False,
+    color=True,
+    theme="light",
+    shape="circle",
     wordmark=True,
 ):
     """
@@ -23,15 +23,15 @@ def create_logo(  # noqa: PLR0915
     Parameters
     ----------
 
-    blackwhite : bool
-        Draw in black and white. Set to ``True`` for black and white [Default is
-        ``False`` and uses colors for Python (blue and yellow) and GMT (red)].
-    darkmode : bool
-        Use dark mode. Set to``True`` for dark mode [Default is ``False`` for light
-        mode].
-    hexshape : bool
-        Use a hexagon shape. Set to ``True`` for a hexagon shape [Default is `False``
-        and uses to a circle shape].
+    color : bool
+        Set to ``True`` to use colors refering to Python (blue and yellow) and GMT (red)
+        [Default]. For ``False``, the logo is drawn in black and white.
+    theme : str
+        Use ``"light"`` for light mode (i.e., white background) [Default] and ``"dark"``
+        for dark mode (i.e., gray20 background).
+    shape : str
+        Shape of the visual. Use ``"circle"`` for a circle shape [Default] or
+        ``"hexagon"`` for a hexagon shape.
     wordmark : bool, str
         Add the wordmark "PyGMT" and adjust its orientation relative to the visual.
         Set to `True`` or ``"horizontal"``, to add the wordmark at the right side of
@@ -54,26 +54,26 @@ def create_logo(  # noqa: PLR0915
     # -----------------------------------------------------------------------------
     # Define colors
     # -----------------------------------------------------------------------------
-    color_dark = "gray20"
     color_light = "white"
+    color_dark = "gray20"
 
     # visual
     color_blue = "48/105/152"  # Python blue
     color_yellow = "255/212/59"  # Python yellow
     color_red = "238/86/52"  # GMT red
-    if blackwhite:
-        color_blue = color_yellow = color_red = color_light
-        if not darkmode:
-            color_blue = color_yellow = color_red = color_dark
+    if not color:
+        color_blue = color_yellow = color_red = color_dark
+        if theme == "dark":
+            color_blue = color_yellow = color_red = color_light
 
     # background and wordmark
-    color_bg = color_dark
-    color_py = color_yellow
-    color_gmt = color_light
-    if not darkmode:
-        color_bg = color_light
-        color_py = color_blue
-        color_gmt = color_dark
+    color_bg = color_light
+    color_py = color_blue
+    color_gmt = color_dark
+    if theme == "dark":
+        color_bg = color_dark
+        color_py = color_yellow
+        color_gmt = color_light
 
     # -----------------------------------------------------------------------------
     # Define shape
@@ -81,7 +81,7 @@ def create_logo(  # noqa: PLR0915
     symbol = "c"  # circle
     diameter = 7.5
     diameter_add = 0.5
-    if hexshape:
+    if shape == "hexagon":
         symbol = "h"  # hexagon
         diameter = 8.6
         diameter_add = 0.6
@@ -203,8 +203,8 @@ def create_logo(  # noqa: PLR0915
     # arrow tail
     fig.plot(x=[0, 0], y=[-2, -3.57], pen=f"12p,{color_red}", perspective=True)
 
-    # margin around shape for blackwhite=True in darkmode=True
-    if blackwhite and darkmode:
+    # margin around shape
+    if not color and theme == "dark":
         fig.plot(
             x=0,
             y=0,
@@ -232,9 +232,9 @@ def create_logo(  # noqa: PLR0915
 
 def pygmtlogo(  # noqa: PLR0913
     self,
-    blackwhite=False,
-    darkmode=False,
-    hexshape=False,
+    color=True,
+    theme="light",
+    shape="circle",
     wordmark=True,
     position=None,  # -> use position parameter of Figure.image
     box=None,  # -> use box parameter of Figure.image
@@ -252,9 +252,9 @@ def pygmtlogo(  # noqa: PLR0913
     # Create logo file
     # -----------------------------------------------------------------------------
     fig_name_logo, color_bg = create_logo(
-        blackwhite=blackwhite,
-        darkmode=darkmode,
-        hexshape=hexshape,
+        color=color,
+        theme=theme,
+        shape=shape,
         wordmark=wordmark,
     )
 
