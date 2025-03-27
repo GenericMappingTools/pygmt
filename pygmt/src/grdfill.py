@@ -67,8 +67,9 @@ def _parse_fill_mode(
 
 @fmt_docstring
 # TODO(PyGMT>=0.19.0): Remove the deprecated 'no_data' parameter.
+# TODO(PyGMT>=0.19.0): Remove the deprecated 'mode' parameter.
 @deprecate_parameter("no_data", "hole", "v0.15.0", remove_version="v0.19.0")
-@use_alias(A="mode", N="hole", R="region", V="verbose", f="coltypes")
+@use_alias(N="hole", R="region", V="verbose", f="coltypes")
 @kwargs_to_strings(R="sequence")
 def grdfill(
     grid: str | xr.DataArray,
@@ -78,6 +79,7 @@ def grdfill(
     neighborfill: float | bool | None = None,
     splinefill: float | bool | None = None,
     inquire: bool = False,
+    mode: str | None = None,
     **kwargs,
 ) -> xr.DataArray | np.ndarray | None:
     r"""
@@ -117,7 +119,7 @@ def grdfill(
         Output the bounds of each hole. The bounds are returned as a 2-D numpy array in
         the form of (west, east, south, north). No grid fill takes place and ``outgrid``
         is ignored.
-    mode : str
+    mode
         Specify the hole-filling algorithm to use. Choose from **c** for constant fill
         and append the constant value, **n** for nearest neighbor (and optionally append
         a search radius in pixels [default radius is :math:`r^2 = \sqrt{{ X^2 + Y^2 }}`,
@@ -155,8 +157,7 @@ def grdfill(
     array([[1.83333333, 6.16666667, 3.83333333, 8.16666667],
            [6.16666667, 7.83333333, 0.5       , 2.5       ]])
     """
-    # TODO(PyGMT>=0.19.0): Remove the deprecated 'mode' parameter.
-    if kwargs.get("A") is not None:  # The deprecated 'mode' parameter is given.
+    if mode is not None:  # The deprecated 'mode' parameter is given.
         warnings.warn(
             "The 'mode' parameter is deprecated since v0.15.0 and will be removed in "
             "v0.19.0. Use 'constantfill'/'gridfill'/'neighborfill'/'splinefill' "
@@ -164,8 +165,8 @@ def grdfill(
             FutureWarning,
             stacklevel=1,
         )
+        kwargs["A"] = mode
     else:
-        # Determine the -A option from the fill parameters.
         kwargs["A"] = _parse_fill_mode(constantfill, gridfill, neighborfill, splinefill)
 
     if kwargs.get("A") is None and inquire is False:
