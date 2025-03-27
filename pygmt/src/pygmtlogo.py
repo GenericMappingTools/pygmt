@@ -19,7 +19,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     ----------
 
     color : bool
-        Set to ``True`` to use colors refering to Python (blue and yellow) and GMT (red)
+        Set to ``True`` to use colors referring to Python (blue and yellow) and GMT (red)
         [Default]. For ``False``, the logo is drawn in black and white.
     theme : str
         Use ``"light"`` for light mode (i.e., white background) [Default] and ``"dark"``
