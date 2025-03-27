@@ -9,12 +9,7 @@ from pathlib import Path
 import pygmt
 
 
-def create_logo(  # noqa: PLR0915
-    color=True,
-    theme="light",
-    shape="circle",
-    wordmark=True,
-):
+def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # noqa: PLR0915
     """
     Create the PyGMT logo using PyGMT.
     The design of the logo is kindly provided by `@sfrooti <https://github.com/sfrooti>`_
@@ -253,10 +248,7 @@ def pygmtlogo(  # noqa: PLR0913
     # Create logo file
     # -----------------------------------------------------------------------------
     fig_name_logo, color_bg = create_logo(
-        color=color,
-        theme=theme,
-        shape=shape,
-        wordmark=wordmark,
+        color=color, theme=theme, shape=shape, wordmark=wordmark
     )
 
     # -----------------------------------------------------------------------------
