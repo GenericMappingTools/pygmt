@@ -172,15 +172,14 @@ def create_logo(  # noqa: PLR0915
     # fig.plot(x=[1.6, 1.6], y=[1.5, 1.775], pen=f"10p,{color_bg}")
     fig.plot(x=[1.6, 1.6], y=[1.5, 2.0], pen=f"10p,{color_bg}", perspective=True)
     # lines with small distance to horizontal line of letter G
-    args_m = {"pen": f"10p,{color_red}", "perspective": True}
     lines_m = [
         ([0.33, 0.90], [1.527, 1.00]),  # diagonal left
         ([0.90, 1.43], [1.00, 1.527]),  # diagonal right
         ([0.285, 0.285], [0.30, 1.65]),  # vertical left
         ([1.47, 1.47], [0.30, 1.65]),  # vertical right
     ]
-    for x_coords, y_coords in lines_m:
-        fig.plot(x=x_coords, y=y_coords, **args_m)
+    for x, y in lines_m:
+        fig.plot(x=x, y=y, pen=f"10p,{color_red}", perspective=True)
     # middle corner
     fig.plot(x=0.9, y=0.9, style="d0.3c", fill=color_red, perspective=True)
 
