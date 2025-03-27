@@ -50,8 +50,7 @@ def create_logo(  # noqa: PLR0915
 
     # Rotation around z (vertical) axis placed in the center
     # Has to be applied to each plotting command, up on second call set to True
-    angle_rot = 30  # degrees
-    perspective = f"{angle_rot}+w0/0"
+    perspective = f"30+w0/0"  # Rotation by 30 degrees
 
     # -----------------------------------------------------------------------------
     # Define colors
