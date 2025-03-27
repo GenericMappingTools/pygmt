@@ -19,7 +19,7 @@ fig.show()
 # %%
 
 fig = pygmt.Figure()
-fig.pygmtlogo(darkmode=True, box="+ggray20")
+fig.pygmtlogo(theme="dark", box="+ggray20")
 fig.show()
 
 # %%
@@ -28,18 +28,18 @@ fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=[1, "+gtan"])
 
 fig.pygmtlogo(position="jTL+o0.2c+w4c", box="+gwhite+p1p,gray")
-fig.pygmtlogo(hexshape=True, position="jTR+o0.2c+w4c")
+fig.pygmtlogo(shape="hexagon", position="jTR+o0.2c+w4c")
 
 fig.pygmtlogo(
-    blackwhite=True,
+    color=False,
     wordmark=False,
     position="jTL+o0.5c/2c+w1.5c",
     box=False,
 )
 fig.pygmtlogo(
-    blackwhite=True,
-    darkmode=True,
-    hexshape=True,
+    color=False,
+    theme="dark",
+    shape="hexagon",
     wordmark=False,
     position="jTR+o0.5c/2c+w1.5c",
     box=False,
@@ -55,17 +55,17 @@ i_plot = 0
 
 fig = pygmt.Figure()
 
-for blackwhite in [False, True]:
-    for darkmode in [False, True]:
-        for hexshape in [False, True]:
+for color in [True, False]:
+    for theme in ["light", "dark"]:
+        for shape in ["circle", "hexagon"]:
             for wordmark in [False, True, "horizontal", "vertical"]:
                 for box in [False, True]:
                     if not box:
                         box_used = False
                     elif box:
-                        if not darkmode:
+                        if theme == "light":
                             box_used = "+gwhite"
-                        elif darkmode:
+                        elif theme == "dark":
                             box_used = "+ggray20"
                     # fig = pygmt.Figure()
                     fig.basemap(
@@ -73,9 +73,9 @@ for blackwhite in [False, True]:
                     )
                     # fig.image("@needle.png", position="jMC+w2c", box=box_used)
                     fig.pygmtlogo(
-                        blackwhite=blackwhite,
-                        darkmode=darkmode,
-                        hexshape=hexshape,
+                        color=color,
+                        theme=theme,
+                        shape=shape,
                         wordmark=wordmark,
                         position="jMC+w2c",
                         box=box_used,
