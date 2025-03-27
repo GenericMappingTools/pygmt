@@ -28,7 +28,7 @@ def create_logo(  # noqa: PLR0915
         [Default]. For ``False``, the logo is drawn in black and white.
     theme : str
         Use ``"light"`` for light mode (i.e., white background) [Default] and ``"dark"``
-        for dark mode (i.e., gray20 background).
+        for dark mode (i.e., darkgray [gray20] background).
     shape : str
         Shape of the visual. Use ``"circle"`` for a circle shape [Default] or
         ``"hexagon"`` for a hexagon shape.
@@ -45,6 +45,7 @@ def create_logo(  # noqa: PLR0915
     size = 4
     region = [-size, size] * 2
 
+    # Outer and inner radii of compass lines
     r1, r2 = size * 0.625, size * 0.325
 
     # Rotation around z (vertical) axis placed in the center
