@@ -30,12 +30,7 @@ fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=[1, "+gtan"])
 fig.pygmtlogo(position="jTL+o0.2c+w4c", box="+gwhite+p1p,gray")
 fig.pygmtlogo(shape="hexagon", position="jTR+o0.2c+w4c")
 
-fig.pygmtlogo(
-    color=False,
-    wordmark=False,
-    position="jTL+o0.5c/2c+w1.5c",
-    box=False,
-)
+fig.pygmtlogo(color=False, wordmark=False, position="jTL+o0.5c/2c+w1.5c", box=False)
 fig.pygmtlogo(
     color=False,
     theme="dark",
