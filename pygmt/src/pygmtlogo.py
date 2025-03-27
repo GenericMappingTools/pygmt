@@ -45,8 +45,7 @@ def create_logo(  # noqa: PLR0915
     size = 4
     region = [-size, size] * 2
 
-    xy_yellow_1 = 2.65
-    xy_yellow_2 = 1.3
+    r1, r2 = size * 0.625, size * 0.325
 
     # Rotation around z (vertical) axis placed in the center
     # Has to be applied to each plotting command, up on second call set to True
@@ -135,13 +134,13 @@ def create_logo(  # noqa: PLR0915
     fig.plot(x=[-4, 4], y=[0, 0], no_clip=True, **args_yellow)
     # diagonal yellow lines
     lines_diagonal = [
-        ([-xy_yellow_1, -xy_yellow_2], [xy_yellow_1, xy_yellow_2]),  # upper left
-        ([xy_yellow_2, xy_yellow_1], [-xy_yellow_2, -xy_yellow_1]),  # lower right
-        ([-xy_yellow_1, -xy_yellow_2], [-xy_yellow_1, -xy_yellow_2]),  # lower left
-        ([xy_yellow_2, xy_yellow_1], [xy_yellow_2, xy_yellow_1]),  # upper right
+        ([-r1, -r2], [r1, r2]),  # upper left
+        ([-r1, -r2], [-r1, -r2]),  # lower left
+        ([r1, r2], [r1, r2]),  # lower left
+        ([r1, r2], [-r1, -r2]),  # lower right
     ]
-    for x_coords, y_coords in lines_diagonal:
-        fig.plot(x=x_coords, y=y_coords, **args_yellow)
+    for x, y in lines_diagonal:
+        fig.plot(x=x, y=y, **args_yellow)
 
     # .............................................................................
     # letter G
