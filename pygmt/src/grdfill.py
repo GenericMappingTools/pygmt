@@ -19,6 +19,57 @@ from pygmt.helpers import (
 __doctest_skip__ = ["grdfill"]
 
 
+def _validate_params(
+    constantfill=None,
+    gridfill=None,
+    neighborfill=None,
+    splinefill=None,
+    inquire=False,
+    mode=None,
+):
+    """
+    Validate the fill/inquire parameters.
+
+    >>> _validate_params(constantfill=20.0)
+    >>> _validate_params(inquire=True)
+    >>> _validate_params(mode="c20.0")
+    >>> _validate_params(constantfill=20.0, gridfill="bggrid.nc")
+    Traceback (most recent call last):
+    ...
+    pygmt.exceptions.GMTInvalidInput: Parameters ... are mutually exclusive.
+    >>> _validate_params(constantfill=20.0, inquire=True)
+    Traceback (most recent call last):
+    ...
+    pygmt.exceptions.GMTInvalidInput: Parameters ... are mutually exclusive.
+    >>> _validate_params()
+    Traceback (most recent call last):
+    ...
+    pygmt.exceptions.GMTInvalidInput: Need to specify parameter ...
+    """
+    _fill_params = "'constantfill'/'gridfill'/'neighborfill'/'splinefill'"
+    # The deprecated 'mode' parameter is given.
+    if mode is not None:
+        msg = (
+            "The 'mode' parameter is deprecated since v0.15.0 and will be removed in "
+            f"v0.19.0. Use {_fill_params} instead."
+        )
+        warnings.warn(msg, FutureWarning, stacklevel=2)
+
+    n_given = sum(
+        param is not None and param is not False
+        for param in [constantfill, gridfill, neighborfill, splinefill, inquire, mode]
+    )
+    if n_given > 1:  # More than one mutually exclusive parameters are given.
+        msg = f"Parameters {_fill_params}/'inquire'/'mode' are mutually exclusive."
+        raise GMTInvalidInput(msg)
+    if n_given == 0:  # No parameters are given.
+        msg = (
+            "Need to specify parameter {_fill_params} for filling holes or "
+            "'inquire' for inquiring the bounds of each hole."
+        )
+        raise GMTInvalidInput(msg)
+
+
 def _parse_fill_mode(
     constantfill=None, gridfill=None, neighborfill=None, splinefill=None
 ) -> str | None:
@@ -41,19 +92,7 @@ def _parse_fill_mode(
     's0.5'
     >>> _parse_fill_mode(splinefill=True)
     's'
-    >>> _parse_fill_mode(constantfill=20, gridfill="bggrid.nc")
-    Traceback (most recent call last):
-    ...
-    pygmt.exceptions.GMTInvalidInput: The ... parameters are mutually exclusive.
     """
-    fill_params = [constantfill, gridfill, neighborfill, splinefill]
-    if sum(param is not None for param in fill_params) > 1:
-        msg = (
-            "The 'constantfill', 'gridfill', 'neighborfill', and 'splinefill' "
-            "parameters are mutually exclusive."
-        )
-        raise GMTInvalidInput(msg)
-
     if constantfill is not None:
         return f"c{constantfill}"
     if gridfill is not None:
@@ -157,21 +196,15 @@ def grdfill(
     array([[1.83333333, 6.16666667, 3.83333333, 8.16666667],
            [6.16666667, 7.83333333, 0.5       , 2.5       ]])
     """
-    if mode is not None:  # The deprecated 'mode' parameter is given.
-        warnings.warn(
-            "The 'mode' parameter is deprecated since v0.15.0 and will be removed in "
-            "v0.19.0. Use 'constantfill'/'gridfill'/'neighborfill'/'splinefill' "
-            "instead.",
-            FutureWarning,
-            stacklevel=1,
-        )
-        kwargs["A"] = mode
-    else:
-        kwargs["A"] = _parse_fill_mode(constantfill, gridfill, neighborfill, splinefill)
+    # Validate the fill/inquire parameters.
+    _validate_params(constantfill, gridfill, neighborfill, splinefill, inquire, mode)
 
-    if kwargs.get("A") is None and inquire is False:
-        msg = "At least parameter 'mode' or 'inquire' must be specified."
-        raise GMTInvalidInput(msg)
+    # Parse the fill parameters and return the appropriate string for the -A option.
+    kwargs["A"] = (
+        _parse_fill_mode(constantfill, gridfill, neighborfill, splinefill)
+        if mode is None
+        else mode
+    )
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
