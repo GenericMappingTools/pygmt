@@ -124,14 +124,14 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     # .............................................................................
     # yellow lines for compass
     # .............................................................................
-    lines = [
+    lines_yellow = [
         ([-size, size], [0, 0]),  # horizontal line
         ([-r1, -r2], [r1, r2]),  # upper left
         ([-r1, -r2], [-r1, -r2]),  # lower left
         ([r1, r2], [r1, r2]),  # upper right
         ([r1, r2], [-r1, -r2]),  # lower right
     ]
-    for x, y in lines:
+    for x, y in lines_yellow:
         fig.plot(x=x, y=y, pen=f"5p,{color_yellow}", perspective=True)
 
     # .............................................................................
