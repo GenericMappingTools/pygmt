@@ -64,7 +64,7 @@ def _validate_params(
         raise GMTInvalidInput(msg)
     if n_given == 0:  # No parameters are given.
         msg = (
-            "Need to specify parameter {_fill_params} for filling holes or "
+            f"Need to specify parameter {_fill_params} for filling holes or "
             "'inquire' for inquiring the bounds of each hole."
         )
         raise GMTInvalidInput(msg)
