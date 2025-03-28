@@ -1765,6 +1765,7 @@ class Session:
                     seg.header = None
                     seg.text = None
 
+    # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'extra_arrays'.
     def virtualfile_in(
         self,
         check_kind=None,
@@ -1800,12 +1801,12 @@ class Session:
             Set to True when 'data' is required, or False when dealing with
             optional virtual files. [Default is True].
         extra_arrays : list of 1-D arrays
-            Optional. A list of numpy arrays in addition to x, y, and z. All of these
-            arrays must be of the same size as the x/y/z arrays.
+            A list of numpy arrays in addition to x, y, and z. All of these arrays must
+            be of the same size as the x/y/z arrays.
 
             .. deprecated:: v0.16.0
                The parameter 'extra_arrays' will be removed in v0.20.0. Prepare and pass
-               a dictionary of arrays instead. E.g., `{"x": x, "y": y, "size": size}`.
+               a dictionary of arrays instead. E.g., ``{"x": x, "y": y, "size": size}``.
 
         Returns
         -------
@@ -1883,7 +1884,6 @@ class Session:
                 _data = [x, y]
                 if z is not None:
                     _data.append(z)
-                # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'extra_arrays'.
                 if extra_arrays:
                     msg = (
                         "The parameter 'extra_arrays' will be removed in v0.20.0. "
