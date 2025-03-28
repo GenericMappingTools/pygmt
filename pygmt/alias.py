@@ -1,12 +1,12 @@
 """
-Alias system converting PyGMT parameters to GMT short-form options.
+PyGMT's alias system for converting PyGMT parameters to GMT short-form options.
 """
 
 import dataclasses
 import inspect
 from collections import defaultdict
 from collections.abc import Mapping, Sequence
-from typing import Any
+from typing import Any, Literal
 
 from pygmt.helpers.utils import is_nonstr_iter
 
@@ -14,7 +14,7 @@ from pygmt.helpers.utils import is_nonstr_iter
 def value_to_string(
     value: Any,
     prefix: str = "",  # Default to an empty string to simplify the code logic.
-    separator: str | None = None,
+    separator: Literal["/", ","] | None = None,
     mapping: bool | Mapping = False,
 ) -> str | Sequence[str] | None:
     """
@@ -28,13 +28,18 @@ def value_to_string(
     - Any other value will be converted to a string if possible.
 
     If a mapping dictionary is provided, the value will be converted to the short-form
-    value that GMT accepts (e.g., mapping PyGMT long-form argument ``high`` to GMT's
-    short-form argument ``h``). For values not in the mapping dictionary, the original
-    value will be returned. If ``mapping`` is set to ``True``, the first letter of the
-    long-form argument will be used as the short-form argument.
+    string that GMT accepts (e.g., mapping PyGMT long-form argument ``"high"`` to GMT's
+    short-form argument ``"h"``). If the value is not in the mapping dictionary, the
+    original value will be returned. If ``mapping`` is set to ``True``, the first letter
+    of the long-form argument will be used as the short-form argument.
 
     An optional prefix (e.g., `"+o"`) can be added to the beginning of the converted
     string.
+
+    Need to note that this function doesn't check if the given parameters are valid, to
+    avoid the overhead of checking. For example, if ``value`` is a sequence but
+    ``separator`` is not specified, a sequence of strings will be returned. ``prefix``
+    makes no sense here, but this function won't check it.
 
     Parameters
     ----------
@@ -92,11 +97,11 @@ def value_to_string(
     if is_nonstr_iter(value):  # Is a sequence.
         value = [str(item) for item in value]  # Convert to a sequence of strings
         if separator is None:
-            # A sequence is given but separator is not specified. In this case, return
-            # a sequence of strings, which is used to support repeated GMT options like
-            # '-B'. 'prefix' makes no sense here, so ignored.
+            # A sequence is given but separator is not specified. Return a sequence of
+            # strings, to support repeated GMT options like '-B'. 'prefix' makes no
+            # sense and is ignored.
             return value
-        value = separator.join(value)  # Join the sequence with the separator.
+        value = separator.join(value)  # Join the sequence by the separator.
     elif mapping:  # Mapping long-form arguments to short-form arguments.
         value = value[0] if mapping is True else mapping.get(value, value)
     # Return the final string with the optional prefix.
@@ -143,7 +148,7 @@ class Alias:
         self,
         name: str,
         prefix: str = "",
-        separator: str | None = None,
+        separator: Literal["/", ","] | None = None,
         mapping: bool | Mapping = False,
         value: Any = None,
     ):
