@@ -1765,6 +1765,7 @@ class Session:
                     seg.header = None
                     seg.text = None
 
+    # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'required_z'.
     def virtualfile_in(  # noqa: PLR0912
         self,
         check_kind=None,
@@ -1836,12 +1837,11 @@ class Session:
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
-        # TODO(PyGMT>=0.20.0): Remove the deprecated 'required_z' parameter.
         if required_z is True:
             warnings.warn(
-                "The parameter 'required_z' is deprecated and will be removed in "
-                "v0.20.0. Use parameter 'ncols' instead. E.g., ``required_z=True`` is "
-                "equivalent to ``ncols=3``.",
+                "The parameter 'required_z' is deprecated in v0.16.0 and will be "
+                "removed in v0.20.0. Use parameter 'ncols' instead. E.g., "
+                "``required_z=True`` is equivalent to ``ncols=3``.",
                 category=FutureWarning,
                 stacklevel=1,
             )
