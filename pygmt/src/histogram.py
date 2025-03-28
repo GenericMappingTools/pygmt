@@ -1,5 +1,5 @@
 """
-Histogram - Create a histogram.
+Histogram - Calculate and plot histograms.
 """
 
 from pygmt.clib import Session
@@ -41,7 +41,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 )
 def histogram(self, data, **kwargs):
     r"""
-    Plot Cartesian histograms.
+    Calculate and plot histograms.
 
     Full option list at :gmt-docs:`histogram.html`
 

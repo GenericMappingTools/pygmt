@@ -1,5 +1,5 @@
 """
-coast - Plot land and water.
+coast - Plot continents, countries, shorelines, rivers, and borders.
 """
 
 from typing import Literal
@@ -47,7 +47,7 @@ def coast(
     **kwargs,
 ):
     r"""
-    Plot continents, shorelines, rivers, and borders on maps.
+    Plot continents, countries, shorelines, rivers, and borders.
 
     Plots grayshaded, colored, or textured land masses [or water masses] on
     maps and [optionally] draws coastlines, rivers, and political
