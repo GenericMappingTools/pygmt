@@ -59,7 +59,7 @@ def _validate_params(
         param is not None and param is not False
         for param in [constantfill, gridfill, neighborfill, splinefill, inquire, mode]
     )
-    if n_given > 1:  # More than one mutually exclusive parameters are given.
+    if n_given > 1:  # More than one mutually exclusive parameter is given.
         msg = f"Parameters {_fill_params}/'inquire'/'mode' are mutually exclusive."
         raise GMTInvalidInput(msg)
     if n_given == 0:  # No parameters are given.
@@ -176,7 +176,7 @@ def grdfill(
     -------
     ret
         If ``inquire`` is ``True``, return the bounds of each hole as a 2-D numpy array.
-        Otherwise, return type depends on whether the ``outgrid`` parameter is set:
+        Otherwise, the return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
         - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
