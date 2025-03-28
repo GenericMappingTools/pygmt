@@ -125,18 +125,15 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     # .............................................................................
     # yellow lines for compass
     # .............................................................................
-    args_yellow = {"pen": f"5p,{color_yellow}", "perspective": True}
-    # horizontal yellow line
-    fig.plot(x=[-4, 4], y=[0, 0], no_clip=True, **args_yellow)
-    # diagonal yellow lines
-    lines_diagonal = [
+    lines = [
+        ([-size, size], [0, 0]),  # horizontal line
         ([-r1, -r2], [r1, r2]),  # upper left
         ([-r1, -r2], [-r1, -r2]),  # lower left
         ([r1, r2], [r1, r2]),  # upper right
         ([r1, r2], [-r1, -r2]),  # lower right
     ]
-    for x, y in lines_diagonal:
-        fig.plot(x=x, y=y, **args_yellow)
+    for x, y in lines:
+        fig.plot(x=x, y=y, pen=f"5p,{color_yellow}", perspective=True)
 
     # .............................................................................
     # letter G
