@@ -28,11 +28,23 @@ class GMTDataArrayAccessor:
     GMT accessor for :class:`xarray.DataArray`.
 
     The *gmt* accessor extends :class:`xarray.DataArray` to store GMT-specific
-    properties for grids, which are important for PyGMT to correctly process and plot
-    the grids. The *gmt* accessor contains the following properties:
+    properties for grids or images, which are important for PyGMT to correctly process
+    and plot them. The *gmt* accessor contains the following properties:
 
     - ``registration``: Grid registration type :class:`pygmt.enums.GridRegistration`.
     - ``gtype``: Grid coordinate system type :class:`pygmt.enums.GridType`.
+
+    It also contains a set of methods for grid operations.
+
+    - :meth:`dimfilter`: Directional filtering of grids in the space domain.
+    - :meth:`clip`: Clip the range of grid values.
+    - :meth:`cut`: Extract subregion from a grid or image or a slice from a cube.
+    - :meth:`fill`: Interpolate across holes in the grid.
+    - :meth:`filter`: Filter a grid in the space (or time) domain.
+    - :meth:`gradient`: Compute directional gradients from a grid.
+    - :meth:`project`: Forward and inverse map transformation of grids.
+    - :meth:`sample`: Resample a grid onto a new lattice.
+    - :meth:`track`: Sample one or more grids at specified locations.
 
     Examples
     --------
@@ -236,7 +248,7 @@ class GMTDataArrayAccessor:
         """
         return grdgradient(grid=self._obj, **kwargs)
 
-    def grdproject(self, **kwargs) -> xr.DataArray:
+    def project(self, **kwargs) -> xr.DataArray:
         """
         Forward and inverse map transformation of grids.
 
@@ -244,7 +256,7 @@ class GMTDataArrayAccessor:
         """
         return grdproject(grid=self._obj, **kwargs)
 
-    def grdsample(self, **kwargs) -> xr.DataArray:
+    def sample(self, **kwargs) -> xr.DataArray:
         """
         Resample a grid onto a new lattice.
 
@@ -252,7 +264,7 @@ class GMTDataArrayAccessor:
         """
         return grdsample(grid=self._obj, **kwargs)
 
-    def grdtrack(self, **kwargs) -> xr.DataArray:
+    def track(self, **kwargs) -> xr.DataArray:
         """
         Sample one or more grids at specified locations.
 
