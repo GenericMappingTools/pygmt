@@ -47,6 +47,7 @@ Plotting tabular data
     Figure.contour
     Figure.histogram
     Figure.meca
+    Figure.clip
     Figure.plot
     Figure.plot3d
     Figure.rose
