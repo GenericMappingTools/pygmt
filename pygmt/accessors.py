@@ -202,7 +202,7 @@ class GMTDataArrayAccessor:
 
     def dimfilter(self, **kwargs) -> xr.DataArray:
         """
-        Directional filtering of grids in the space domain.
+        Directional filtering of a grid in the space domain.
 
         See the :func:`pygmt.dimfilter` function for available parameters.
         """
@@ -266,7 +266,7 @@ class GMTDataArrayAccessor:
 
     def track(self, **kwargs) -> xr.DataArray:
         """
-        Sample one or more grids at specified locations.
+        Sample a grid at specified locations.
 
         See the :func:`pygmt.grdtrack` function for available parameters.
         """
