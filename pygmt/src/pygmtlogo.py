@@ -202,7 +202,6 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
             y=0,
             style=f"{symbol}{diameter + diameter_add}c",
             pen=f"1p,{color_dark}",
-            no_clip=True,
             perspective=True,
         )
 
