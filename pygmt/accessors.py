@@ -8,7 +8,18 @@ from pathlib import Path
 import xarray as xr
 from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.src.grdinfo import grdinfo
+from pygmt.src import (
+    dimfilter,
+    grdclip,
+    grdcut,
+    grdfill,
+    grdfilter,
+    grdgradient,
+    grdinfo,
+    grdproject,
+    grdsample,
+    grdtrack,
+)
 
 
 @xr.register_dataarray_accessor("gmt")
@@ -17,11 +28,23 @@ class GMTDataArrayAccessor:
     GMT accessor for :class:`xarray.DataArray`.
 
     The *gmt* accessor extends :class:`xarray.DataArray` to store GMT-specific
-    properties for grids, which are important for PyGMT to correctly process and plot
-    the grids. The *gmt* accessor contains the following properties:
+    properties for grids or images, which are important for PyGMT to correctly process
+    and plot them. The *gmt* accessor contains the following properties:
 
     - ``registration``: Grid registration type :class:`pygmt.enums.GridRegistration`.
     - ``gtype``: Grid coordinate system type :class:`pygmt.enums.GridType`.
+
+    The *gmt* accessor also provides a set of grid-operation methods:
+
+    - :meth:`dimfilter`: Directional filtering of a grid in the space domain.
+    - :meth:`clip`: Clip the range of grid values.
+    - :meth:`cut`: Extract subregion from a grid or image or a slice from a cube.
+    - :meth:`fill`: Interpolate across holes in the grid.
+    - :meth:`filter`: Filter a grid in the space (or time) domain.
+    - :meth:`gradient`: Compute directional gradients from a grid.
+    - :meth:`project`: Forward and inverse map transformation of grids.
+    - :meth:`sample`: Resample a grid onto a new lattice.
+    - :meth:`track`: Sample a grid at specified locations.
 
     Examples
     --------
@@ -176,3 +199,75 @@ class GMTDataArrayAccessor:
             )
             raise GMTInvalidInput(msg)
         self._gtype = GridType(value)
+
+    def dimfilter(self, **kwargs) -> xr.DataArray:
+        """
+        Directional filtering of a grid in the space domain.
+
+        See the :func:`pygmt.dimfilter` function for available parameters.
+        """
+        return dimfilter(grid=self._obj, **kwargs)
+
+    def clip(self, **kwargs) -> xr.DataArray:
+        """
+        Clip the range of grid values.
+
+        See the :func:`pygmt.grdclip` function for available parameters.
+        """
+        return grdclip(grid=self._obj, **kwargs)
+
+    def cut(self, **kwargs) -> xr.DataArray:
+        """
+        Extract subregion from a grid or image or a slice from a cube.
+
+        See the :func:`pygmt.grdcut` function for available parameters.
+        """
+        return grdcut(grid=self._obj, **kwargs)
+
+    def fill(self, **kwargs) -> xr.DataArray:
+        """
+        Interpolate across holes in the grid.
+
+        See the :func:`pygmt.grdfill` function for available parameters.
+        """
+        return grdfill(grid=self._obj, **kwargs)
+
+    def filter(self, **kwargs) -> xr.DataArray:
+        """
+        Filter a grid in the space (or time) domain.
+
+        See the :func:`pygmt.grdfilter` function for available parameters.
+        """
+        return grdfilter(grid=self._obj, **kwargs)
+
+    def gradient(self, **kwargs) -> xr.DataArray:
+        """
+        Compute directional gradients from a grid.
+
+        See the :func:`pygmt.grdgradient` function for available parameters.
+        """
+        return grdgradient(grid=self._obj, **kwargs)
+
+    def project(self, **kwargs) -> xr.DataArray:
+        """
+        Forward and inverse map transformation of grids.
+
+        See the :func:`pygmt.grdproject` function for available parameters.
+        """
+        return grdproject(grid=self._obj, **kwargs)
+
+    def sample(self, **kwargs) -> xr.DataArray:
+        """
+        Resample a grid onto a new lattice.
+
+        See the :func:`pygmt.grdsample` function for available parameters.
+        """
+        return grdsample(grid=self._obj, **kwargs)
+
+    def track(self, **kwargs) -> xr.DataArray:
+        """
+        Sample a grid at specified locations.
+
+        See the :func:`pygmt.grdtrack` function for available parameters.
+        """
+        return grdtrack(grid=self._obj, **kwargs)
