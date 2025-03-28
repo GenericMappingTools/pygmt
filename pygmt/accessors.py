@@ -34,9 +34,9 @@ class GMTDataArrayAccessor:
     - ``registration``: Grid registration type :class:`pygmt.enums.GridRegistration`.
     - ``gtype``: Grid coordinate system type :class:`pygmt.enums.GridType`.
 
-    It also contains a set of methods for grid operations.
+    The *gmt* accessor also provides a set of grid-operation methods:
 
-    - :meth:`dimfilter`: Directional filtering of grids in the space domain.
+    - :meth:`dimfilter`: Directional filtering of a grid in the space domain.
     - :meth:`clip`: Clip the range of grid values.
     - :meth:`cut`: Extract subregion from a grid or image or a slice from a cube.
     - :meth:`fill`: Interpolate across holes in the grid.
@@ -44,7 +44,7 @@ class GMTDataArrayAccessor:
     - :meth:`gradient`: Compute directional gradients from a grid.
     - :meth:`project`: Forward and inverse map transformation of grids.
     - :meth:`sample`: Resample a grid onto a new lattice.
-    - :meth:`track`: Sample one or more grids at specified locations.
+    - :meth:`track`: Sample a grid at specified locations.
 
     Examples
     --------
