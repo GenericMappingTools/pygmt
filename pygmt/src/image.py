@@ -2,25 +2,27 @@
 image - Plot raster or EPS images.
 """
 
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring
 
 
 @fmt_docstring
-@use_alias(
-    D="position",
-    F="box",
-    G="bitcolor",
-    J="projection",
-    M="monochrome",
-    R="region",
-    V="verbose",
-    c="panel",
-    p="perspective",
-    t="transparency",
-)
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def image(self, imagefile, **kwargs):
+def image(
+    self,
+    imagefile,
+    region=None,
+    projection=None,
+    position=None,
+    box=None,
+    bitcolor=None,
+    monochrome=None,
+    verbose=None,
+    panel=None,
+    perspective=None,
+    transparency=None,
+    **kwargs,
+):
     r"""
     Plot raster or EPS images.
 
@@ -28,8 +30,6 @@ def image(self, imagefile, **kwargs):
     it on a map.
 
     Full option list at :gmt-docs:`image.html`
-
-    {aliases}
 
     Parameters
     ----------
@@ -67,6 +67,21 @@ def image(self, imagefile, **kwargs):
     {perspective}
     {transparency}
     """
+    alias = AliasSystem(
+        R=Alias("region", separator="/", value=region),
+        J=Alias("projection", value=projection),
+        D=Alias("position", value=position),
+        F=Alias("box", value=box),
+        G=Alias("bitcolor", value=bitcolor),
+        M=Alias("monochrome", value=monochrome),
+        V=Alias("verbose", value=verbose),
+        c=Alias("panel", separator=","),
+        p=Alias("perspective", separator="/"),
+        t=Alias("transparency", value=transparency),
+    )
+
     kwargs = self._preprocess(**kwargs)
     with Session() as lib:
-        lib.call_module(module="image", args=build_arg_list(kwargs, infile=imagefile))
+        lib.call_module(
+            module="image", args=build_arg_list(alias.kwdict | kwargs, infile=imagefile)
+        )
