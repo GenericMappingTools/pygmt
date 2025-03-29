@@ -105,7 +105,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     # Start plotting
     # -----------------------------------------------------------------------------
     fig = pygmt.Figure()
-    fig.basemap(region=[-size, size] * 2, projection=f"X{size * 2}c", frame="+gcyn@100")
+    fig.basemap(region=[-size, size] * 2, projection=f"X{size * 2}c", frame="+gcyan@100")
 
     # .............................................................................
     # blue circle / hexagon for Earth
