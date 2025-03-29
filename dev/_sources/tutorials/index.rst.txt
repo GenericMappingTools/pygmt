@@ -265,6 +265,23 @@ Advanced
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.legend method creates legends, whereby auto-legends as well as manually created legends are supported.">
+
+.. only:: html
+
+  .. image:: /tutorials/advanced/images/thumb/sphx_glr_legends_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_advanced_legends.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Creating legends</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="It can be visually appealing to &quot;drape&quot; a dataset over a topographic surface. This can be accomplished using the drapegrid parameter of pygmt.Figure.grdview.">
 
 .. only:: html
@@ -367,6 +384,23 @@ Advanced
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Focal mechanisms can be plotted as beachballs with the pygmt.Figure.meca method.">
+
+.. only:: html
+
+  .. image:: /tutorials/advanced/images/thumb/sphx_glr_focal_mechanisms_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_advanced_focal_mechanisms.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plotting focal mechanisms</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Plotting vectors is handled by pygmt.Figure.plot.">
 
 .. only:: html
@@ -414,12 +448,14 @@ Advanced
    /tutorials/advanced/configuration
    /tutorials/advanced/3d_perspective_image
    /tutorials/advanced/contour_map
+   /tutorials/advanced/legends
    /tutorials/advanced/draping_on_3d_surface
    /tutorials/advanced/working_with_panel
    /tutorials/advanced/subplots
    /tutorials/advanced/grid_equalization
    /tutorials/advanced/earth_relief
    /tutorials/advanced/date_time_charts
+   /tutorials/advanced/focal_mechanisms
    /tutorials/advanced/vectors
    /tutorials/advanced/non_ascii_text
 
