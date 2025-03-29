@@ -29,7 +29,7 @@ def binstats(
     outgrid: str | None = None,
     statistic=None,
     quantile_value=50,
-    **kwargs,  # noqa: ARG001
+    **kwargs,
 ) -> xr.DataArray | None:
     r"""
     Bin spatial data and determine statistics per bin.
@@ -130,13 +130,14 @@ def binstats(
                 "maxneg": "U",
                 "sum": "z",
             },
+            value=statistic,
         ),
-        G="outgrid",
+        G=Alias("outgrid", value=outgrid),
     )
     if statistic == "quantile":
         statistic += str(quantile_value)
 
-    kwdict = alias.kwdict
+    kwdict = alias.kwdict | kwargs
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="vector", data=data) as vintbl,

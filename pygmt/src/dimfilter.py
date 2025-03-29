@@ -12,7 +12,17 @@ __doctest_skip__ = ["dimfilter"]
 
 
 @fmt_docstring
-def dimfilter(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
+def dimfilter(
+    grid,
+    outgrid: str | None = None,
+    distance: int | str | None = None,
+    filter: str | None = None,
+    sectors: str | None = None,
+    spacing: str | list | None = None,
+    region: str | list | None = None,
+    verbose: bool | None = None,
+    **kwargs,
+) -> xr.DataArray | None:
     r"""
     Directional filtering of grids in the space domain.
 
@@ -125,17 +135,17 @@ def dimfilter(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None
     ... )
     """
     alias = AliasSystem(
-        D=Alias("distance"),
-        G=Alias("outgrid"),
-        F=Alias("filter"),
-        I=Alias("spacing", separator="/"),
-        N=Alias("sectors"),
-        R=Alias("region", separator="/"),
-        V=Alias("verbose"),
+        D=Alias("distance", value=distance),
+        G=Alias("outgrid", value=outgrid),
+        F=Alias("filter", value=filter),
+        I=Alias("spacing", separator="/", value=spacing),
+        N=Alias("sectors", value=sectors),
+        R=Alias("region", separator="/", value=region),
+        V=Alias("verbose", value=verbose),
     )
 
     if (
-        not all(arg in kwargs for arg in ["distance", "filter", "sectors"])
+        not all(v is not None for v in [distance, filter, sectors])
         and "Q" not in kwargs
     ):
         msg = (
@@ -143,7 +153,7 @@ def dimfilter(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None
             "distance, filters, or sectors."
         )
         raise GMTInvalidInput(msg)
-    kwdict = alias.kwdict
+    kwdict = alias.kwdict | kwargs
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,

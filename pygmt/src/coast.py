@@ -221,4 +221,4 @@ def coast(
         )
         raise GMTInvalidInput(msg)
     with Session() as lib:
-        lib.call_module(module="coast", args=build_arg_list(alias.kwdict))
+        lib.call_module(module="coast", args=build_arg_list(alias.kwdict | kwargs))

@@ -8,7 +8,21 @@ from pygmt.helpers import build_arg_list, fmt_docstring
 
 
 @fmt_docstring
-def image(self, imagefile, **kwargs):
+def image(
+    self,
+    imagefile,
+    region=None,
+    projection=None,
+    position=None,
+    box=None,
+    bitcolor=None,
+    monochrome=None,
+    verbose=None,
+    panel=None,
+    perspective=None,
+    transparency=None,
+    **kwargs,
+):
     r"""
     Plot raster or EPS images.
 
@@ -54,20 +68,20 @@ def image(self, imagefile, **kwargs):
     {transparency}
     """
     alias = AliasSystem(
-        R=Alias("region", separator="/"),
-        J="projection",
-        D="position",
-        F="box",
-        G="bitcolor",
-        M="monochrome",
-        V="verbose",
+        R=Alias("region", separator="/", value=region),
+        J=Alias("projection", value=projection),
+        D=Alias("position", value=position),
+        F=Alias("box", value=box),
+        G=Alias("bitcolor", value=bitcolor),
+        M=Alias("monochrome", value=monochrome),
+        V=Alias("verbose", value=verbose),
         c=Alias("panel", separator=","),
         p=Alias("perspective", separator="/"),
-        t="transparency",
+        t=Alias("transparency", value=transparency),
     )
 
     kwargs = self._preprocess(**kwargs)
     with Session() as lib:
         lib.call_module(
-            module="image", args=build_arg_list(alias.kwdict, infile=imagefile)
+            module="image", args=build_arg_list(alias.kwdict | kwargs, infile=imagefile)
         )

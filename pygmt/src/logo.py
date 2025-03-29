@@ -59,4 +59,4 @@ def logo(self, **kwargs):
     )
     kwargs = self._preprocess(**kwargs)
     with Session() as lib:
-        lib.call_module(module="logo", args=build_arg_list(alias.kwdict))
+        lib.call_module(module="logo", args=build_arg_list(alias.kwdict | kwargs))

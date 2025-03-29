@@ -77,14 +77,6 @@ def timestamp(
     >>> fig.timestamp(label="Powered by PyGMT")
     >>> fig.show()
     """
-    alias = AliasSystem(
-        U=[
-            Alias("label"),
-            Alias("justify", prefix="+j"),
-            Alias("offset", prefix="+o", separator="/"),
-            Alias("text", prefix="+t"),
-        ]
-    )
 
     self._preprocess()
 
@@ -109,7 +101,16 @@ def timestamp(
         warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
         text = text[:64]
 
-    kwdict: dict = {"T": True, "U": True} | alias.kwdict
+    alias = AliasSystem(
+        U=[
+            Alias("label", value=label),
+            Alias("justify", prefix="+j", value=justify),
+            Alias("offset", prefix="+o", separator="/", value=offset),
+            Alias("text", prefix="+t", value=text),
+        ]
+    )
+
+    kwdict = {"T": True} | alias.kwdict
     with Session() as lib:
         lib.call_module(
             module="plot",

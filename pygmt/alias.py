@@ -3,7 +3,6 @@ PyGMT's alias system for converting PyGMT parameters to GMT short-form options.
 """
 
 import dataclasses
-import inspect
 from collections import defaultdict
 from collections.abc import Mapping, Sequence
 from typing import Any, Literal
@@ -210,14 +209,14 @@ class AliasSystem:
     ... ):
     ...     alias = AliasSystem(
     ...         A=[
-    ...             Alias("par1"),
-    ...             Alias("par2", prefix="+j"),
-    ...             Alias("par3", prefix="+o", separator="/"),
+    ...             Alias("par1", value=par1),
+    ...             Alias("par2", prefix="+j", value=par2),
+    ...             Alias("par3", prefix="+o", separator="/", value=par3),
     ...         ],
-    ...         B=Alias("frame"),
-    ...         c=Alias("panel", separator=","),
+    ...         B=Alias("frame", value=frame),
+    ...         c=Alias("panel", separator=",", value=panel),
     ...     )
-    ...     return build_arg_list(alias.kwdict)
+    ...     return build_arg_list(alias.kwdict | kwargs)
     >>> func(
     ...     "infile",
     ...     par1="mytext",
@@ -235,33 +234,26 @@ class AliasSystem:
         """
         self.options = {}
         for option, aliases in kwargs.items():
-            if isinstance(aliases, list):
-                self.options[option] = aliases
-            elif isinstance(aliases, str):  # Support shorthand like 'J="projection"'
-                self.options[option] = [Alias(aliases)]
-            else:
-                self.options[option] = [aliases]
+            match aliases:
+                case list():
+                    self.options[option] = aliases
+                case str():  # Support shorthand like 'J="projection"'
+                    self.options[option] = [Alias(aliases)]
+                case _:
+                    self.options[option] = [aliases]
 
     @property
     def kwdict(self):
         """
         A keyword dictionary that stores the current parameter values.
         """
-        # Get the local variables from the calling function.
-        p_locals = inspect.currentframe().f_back.f_locals
-        # Get parameters/arguments from **kwargs of the calling function.
-        p_kwargs = p_locals.get("kwargs", {})
-
-        params = p_locals | p_kwargs
         # Default value is an empty string to simplify code logic.
         kwdict = defaultdict(str)
         for option, aliases in self.options.items():
             for alias in aliases:
-                alias.value = params.get(alias.name)
                 # value can be a string, a sequence of strings or None.
                 if alias.value is None:
                     continue
-
                 # Special handing of repeatable parameter like -B/frame.
                 if is_nonstr_iter(alias.value):
                     kwdict[option] = alias.value
@@ -270,24 +262,24 @@ class AliasSystem:
 
                 kwdict[option] += alias.value
 
-        # Support short-form parameter names specified in kwargs.
-        # Short-form parameters can be either one-letter (e.g., '-B'), or two-letters
-        # (e.g., '-Td').
-        for option, value in p_kwargs.items():
-            # Here, we assume that long-form parameters specified in kwargs are longer
-            # than two characters. Sometimes, we may use parameter like 'az', but it's
-            # not specified in kwargs. So, the assumption is still valid.
-            if len(option) > 2:
-                continue
+        # # Support short-form parameter names specified in kwargs.
+        # # Short-form parameters can be either one-letter (e.g., '-B'), or two-letters
+        # # (e.g., '-Td').
+        # for option, value in self.options.items():
+        #     # Here, we assume that long-form parameters specified in kwargs are longer
+        #     # than two characters. Sometimes, we may use parameter like 'az', but it's
+        #     # not specified in kwargs. So, the assumption is still valid.
+        #     if len(option) > 2:
+        #         continue
 
-            # Two cases for short-form parameters:
-            #
-            # If it has an alias and the long-form parameter is also specified, (e.g.,
-            # 'projection="X10c", J="X10c"'), then we silently ignore the short-form
-            # parameter.
-            #
-            # If it has an alias but the long-form parameter is not specified, or it
-            # doesn't has an alias, then we use the value of the short-form parameter.
-            if option not in self.options or option not in kwdict:
-                kwdict[option] = value
+        #     # Two cases for short-form parameters:
+        #     #
+        #     # If it has an alias and the long-form parameter is also specified, (e.g.,
+        #     # 'projection="X10c", J="X10c"'), then we silently ignore the short-form
+        #     # parameter.
+        #     #
+        #     # If it has an alias but the long-form parameter is not specified, or it
+        #     # doesn't has an alias, then we use the value of the short-form parameter.
+        #     if option not in self.options or option not in kwdict:
+        #         kwdict[option] = value
         return kwdict
