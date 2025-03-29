@@ -88,7 +88,7 @@ for color in [True, False]:
 fig.show()
 
 
-# ##
+# %%
 # All versions
 # modified from
 # https://github.com/GenericMappingTools/pygmt/pull/3849#issuecomment-2753372170
