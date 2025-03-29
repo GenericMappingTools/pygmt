@@ -29,7 +29,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         ``"hexagon"`` for a hexagon shape.
     wordmark : bool, str
         Add the wordmark "PyGMT" and adjust its orientation relative to the visual.
-        Set to `True`` or ``"horizontal"``, to add the wordmark at the right side of
+        Set to ``True`` or ``"horizontal"``, to add the wordmark at the right side of
         the visual [Default]. Use ``"vertical"`` to place the wordmark below the
         visual and ``False`` to add no wordmark.
     """
