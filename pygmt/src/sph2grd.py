@@ -1,5 +1,5 @@
 """
-sph2grd - Compute grid from spherical harmonic coefficients
+sph2grd - Compute grid from spherical harmonic coefficients.
 """
 
 import xarray as xr
@@ -23,7 +23,7 @@ __doctest_skip__ = ["sph2grd"]
 @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
 def sph2grd(data, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
-    Create spherical grid files in tension of data.
+    Compute grid from spherical harmonic coefficients.
 
     Reads a spherical harmonics coefficient table with records of L, M,
     C[L,M], S[L,M] and evaluates the spherical harmonic model on the

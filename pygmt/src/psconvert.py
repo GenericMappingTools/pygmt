@@ -1,5 +1,5 @@
 """
-psconvert - Convert [E]PS file(s) to other formats.
+psconvert - Convert [E]PS file(s) to other formats using Ghostscript.
 """
 
 from pathlib import Path
@@ -25,7 +25,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @kwargs_to_strings()
 def psconvert(self, **kwargs):
     r"""
-    Convert [E]PS file(s) to other formats.
+    Convert [E]PS file(s) to other formats using Ghostscript.
 
     Converts one or more PostScript files to other formats (BMP, EPS, JPEG,
     PDF, PNG, PPM, TIFF) using Ghostscript.

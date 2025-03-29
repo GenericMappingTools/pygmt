@@ -25,6 +25,8 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
+permissions: {}
+
 jobs:
   static_check:
     name: Static Type Check
@@ -34,10 +36,12 @@ jobs:
       # Checkout current git repository
       - name: Checkout
         uses: actions/checkout@v4.2.2
+        with:
+          persist-credentials: false
 
       # Setup Python
       - name: Set up Python
-        uses: actions/setup-python@v5.4.0
+        uses: actions/setup-python@v5.5.0
         with:
           python-version: '3.13'
 
