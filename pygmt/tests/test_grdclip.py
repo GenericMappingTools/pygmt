@@ -4,6 +4,8 @@ Test pygmt.grdclip.
 
 from pathlib import Path
 
+import numpy as np
+import numpy.testing as npt
 import pytest
 import xarray as xr
 from pygmt import grdclip, load_dataarray
@@ -69,3 +71,18 @@ def test_grdclip_no_outgrid(grid, expected_grid):
     assert temp_grid.gmt.gtype == GridType.GEOGRAPHIC
     assert temp_grid.gmt.registration == GridRegistration.PIXEL
     xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
+
+
+def test_grdclip_between():
+    """
+    Test passing a 2D sequence to the between parameter for grdclip.
+    """
+    grid = load_static_earth_relief()
+    # Replace values in the range 0-250 with 0, 250-500 with 1, 500-750 with 2, and
+    # 750-1000 with 3
+    result = grdclip(
+        grid,
+        between=[[0, 250, 0], [250, 500, 1], [500, 750, 2], [750, 1000, 3]],
+    )
+    # result should have 4 unique values.
+    npt.assert_array_equal(np.unique(result.data), [0, 1, 2, 3])
