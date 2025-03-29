@@ -2,12 +2,12 @@
 PyGMT logo
 ==========
 Beside the GMT logo, there is a separate PyGMT logo which can be plotted and added
-to a figure using :method:`pygmt.Figure.pygmtlogo`. The design of the logo itself
-is kindly provided by `@sfrooti <https://github.com/sfrooti>`_ and consists of a
-visual and the wordmark "PyGMT".
-The logo is available in circle and hexagon shape. It can be plotted using colors
-of Python (blue and yellow) and GMT (red) or in black and white as well as in light
-or dark mode. The wordmark can be added at the right side or bottom of the visual.
+to a figure using :meth:`pygmt.Figure.pygmtlogo`. The design of the logo itself is
+kindly provided by `@sfrooti <https://github.com/sfrooti>`_ and consists of a visual
+and the wordmark "PyGMT".
+The logo is available in circle and hexagon shape. It can be plotted using colors of
+Python (blue and yellow) and GMT (red) or in black and white as well as in light or
+dark mode. The wordmark can be added at the right side or bottom of the visual.
 """
 
 import pygmt
