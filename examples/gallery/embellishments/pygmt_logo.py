@@ -87,4 +87,59 @@ for color in [True, False]:
                     i_plot = i_plot + 1
 fig.show()
 
+
+# ##
+# All versions
+# modified from
+# https://github.com/GenericMappingTools/pygmt/pull/3849#issuecomment-2753372170
+# by @seisman
+
+fig = pygmt.Figure()
+
+# Logo without workmark.
+fig.basemap(region=[0, 7, 0, 13], projection="x1c", frame="a1f1g1")
+for x, y, theme in [(1, 3, "light"), (4, 3, "dark")]:
+    for color, shape in [(True, "circle"), (False, "hexagon")]:
+        fig.pygmtlogo(
+            color=color,
+            theme=theme,
+            shape=shape,
+            wordmark=False,
+            position=f"g{x}/{y}+jTL+w2c",
+        )
+        y += 3  # noqa: PLW2901
+
+fig.shift_origin(xshift=8)
+
+# Logo with vertical wordmark.
+fig.basemap(region=[0, 7, 0, 13], projection="x1c", frame="a1f1g1")
+for x, y, theme in [(1, 3, "light"), (4, 3, "dark")]:
+    for color, shape in [(True, "circle"), (False, "hexagon")]:
+        fig.pygmtlogo(
+            color=color,
+            theme=theme,
+            shape=shape,
+            wordmark="vertical",
+            position=f"g{x}/{y}+jTL+w2c",
+        )
+        y += 3  # noqa: PLW2901
+
+fig.shift_origin(xshift=8)
+
+# Logo with horizontal wordmark.
+fig.basemap(region=[0, 20, 0, 13], projection="x1c", frame="a1f1g1")
+for x, y, theme in [(1, 3, "light"), (11, 3, "dark")]:
+    for color, shape in [(True, "circle"), (False, "hexagon")]:
+        fig.pygmtlogo(
+            color=color,
+            theme=theme,
+            shape=shape,
+            wordmark="horizontal",
+            position=f"g{x}/{y}+jTL+w0/2c",
+        )
+        y += 3  # noqa: PLW2901
+
+fig.show(width=1000)
+
+
 # sphinx_gallery_thumbnail_number = 3
