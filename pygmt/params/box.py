@@ -43,25 +43,60 @@ class Box(BaseParam):
     ...         clearance=0.2,
     ...         pen="blue",
     ...         radius="10p",
-    ...         shading=("5p", "5p", "lightred"),
+    ...         shading_offset=("5p", "5p"),
+    ...         shading_fill="lightred",
     ...     )
     ... )
     '+c0.2+pblue+r10p+s5p/5p/lightred'
-    >>> str(Box(clearance=0.2, innerborder=("2p", "1p,red"), pen="blue"))
+    >>> str(Box(clearance=0.2, inner_gap="2p", inner_pen="1p,red", pen="blue"))
     '+c0.2+i2p/1p,red+pblue'
+    >>> str(Box(clearance=0.2, shading_offset=("5p", "5p"), shading_fill="lightred"))
+    '+c0.2+s5p/5p/lightred'
     """
 
+    """
+    The GMT syntax:
+
+    [+c<clearance(s)>]
+    [+g<fill>]
+    [+i[[<gap>/]<pen>]]
+    [+p[<pen>]]
+    [+r[<radius>]]
+    [+s[<dx>/<dy>/][<fill>]]
+    """
     clearance: float | str | Sequence[float | str] | None = None
     fill: str | None = None
-    innerborder: str | Sequence | None = None
+    inner_gap: float | str | None = None
+    inner_pen: str | None = None
     pen: str | None = None
     radius: float | bool | None = False
-    shading: str | Sequence | None = None
+    shading_offset: Sequence[float | str] | None = None
+    shading_fill: str | None = None
+
+    @property
+    def innerborder(self) -> str | None:
+        """
+        innerborder="{inner_gap}/{inner_pen}"
+        """
+        args = [self.inner_gap, self.inner_pen]
+        return "/".join([v for v in args if v is not None]) or None
+
+    @property
+    def shading(self) -> str | None:
+        """
+        shading="{shading_offset}/{shading_fill}"
+        """
+        args = (
+            [*self.shading_offset, self.shading_fill]
+            if self.shading_offset
+            else [self.shading_fill]
+        )
+        return "/".join([v for v in args if v is not None]) or None
 
     _aliases: ClassVar = [
         Alias("clearance", prefix="+c", separator="/"),
         Alias("fill", prefix="+g"),
-        Alias("innerborder", prefix="+i", separator="/"),
+        Alias("innerborder", prefix="+i"),
         Alias("pen", prefix="+p"),
         Alias("radius", prefix="+r"),
         Alias("shading", prefix="+s", separator="/"),
