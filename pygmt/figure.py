@@ -8,6 +8,8 @@ from pathlib import Path, PurePath
 from tempfile import TemporaryDirectory
 from typing import Literal, overload
 
+from pygmt.src import clip
+
 try:
     import IPython
 
@@ -99,6 +101,8 @@ class Figure:
         self._name = unique_name()
         self._preview_dir = TemporaryDirectory(prefix=f"{self._name}-preview-")
         self._activate_figure()
+
+        self.clip = clip()
 
     def __del__(self) -> None:
         """
@@ -411,6 +415,7 @@ class Figure:
 
     from pygmt.src import (  # type: ignore[misc]
         basemap,
+        clip,
         coast,
         colorbar,
         contour,
