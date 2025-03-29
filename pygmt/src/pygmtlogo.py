@@ -38,7 +38,6 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     # Helpful definitions
     # -----------------------------------------------------------------------------
     size = 4
-    region = [-size, size] * 2
 
     # Outer and inner radii of compass lines
     r1, r2 = size * 0.625, size * 0.325
@@ -106,6 +105,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     # Start plotting
     # -----------------------------------------------------------------------------
     fig = pygmt.Figure()
+    fig.basemap(region=[-size, size] * 2, projection=f"X{size * 2}c", frame="+gcyn@100")
 
     # .............................................................................
     # blue circle / hexagon for Earth
@@ -113,8 +113,8 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     fig.plot(
         x=0,
         y=0,
-        region=region,
-        projection=f"X{size * 2}c",
+        # region=[-size, size] * 2,
+        # projection=f"X{size * 2}c",
         style=f"{symbol}{diameter}c",
         pen=f"15p,{color_blue}",
         fill=color_bg,
