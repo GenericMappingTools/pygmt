@@ -9,7 +9,7 @@
 * 🎉 **Fifteenth minor release of PyGMT** 🎉
 * One new gallery example and two new tutorials
 * Figure.shift_origin: Support shifting origins temporarily when used as a context manager ([#2509](https://github.com/GenericMappingTools/pygmt/pull/2509))
-* Documentation in HTML ZIP archive and PDF format for offline reference
+* Documentation as HTML ZIP archive and in PDF format for offline reference
 
 ### Enhancements
 
