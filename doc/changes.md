@@ -37,7 +37,6 @@
 
 * Use the 'release-branch-semver' version scheme for setuptools_scm ([#3828](https://github.com/GenericMappingTools/pygmt/pull/3828))
 * Rename _GMT_DATASET.to_dataframe to .to_pandas and _GMT_GRID.to_dataarray/_GMT_IMAGE.to_dataarray to .to_xarray ([#3798](https://github.com/GenericMappingTools/pygmt/pull/3798))
-* CI: Separate jobs for publishing to TestPyPI and PyPI ([#3742](https://github.com/GenericMappingTools/pygmt/pull/3742))
 * Bump to ruff 0.9.0, apply ruff 2025 style, and ignore A005 (stdlib-module-shadowing) violations ([#3763](https://github.com/GenericMappingTools/pygmt/pull/3763))
 * Use well-known labels in project URLs following PEP753 ([#3743](https://github.com/GenericMappingTools/pygmt/pull/3743))
 * clib.conversion: Remove the unused array_to_datetime function ([#3507](https://github.com/GenericMappingTools/pygmt/pull/3507))
