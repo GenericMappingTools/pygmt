@@ -66,6 +66,9 @@ jobs:
           --exclude "^https://www.pygmt.org/%7B%7Bpath%7D%7D"
           --exclude "^https://www.researchgate.net/"
           --exclude "^https://zenodo.org/badge/DOI/"
+          --exclude-path "file:///home/runner/work/pygmt/pygmt/repository/doc/gallery/index.rst"
+          --exclude-path "file:///home/runner/work/pygmt/pygmt/repository/doc/tutorials/index.rst"
+          --exclude-path "file:///home/runner/work/pygmt/pygmt/repository/doc/intro/index.rst"
           --exclude-path "repository/doc/**/*.rst"
           --exclude-path "repository/doc/**/*.md"
           --verbose
