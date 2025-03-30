@@ -261,25 +261,4 @@ class AliasSystem:
                     break
 
                 kwdict[option] += alias.value
-
-        # # Support short-form parameter names specified in kwargs.
-        # # Short-form parameters can be either one-letter (e.g., '-B'), or two-letters
-        # # (e.g., '-Td').
-        # for option, value in self.options.items():
-        #     # Here, we assume that long-form parameters specified in kwargs are longer
-        #     # than two characters. Sometimes, we may use parameter like 'az', but it's
-        #     # not specified in kwargs. So, the assumption is still valid.
-        #     if len(option) > 2:
-        #         continue
-
-        #     # Two cases for short-form parameters:
-        #     #
-        #     # If it has an alias and the long-form parameter is also specified, (e.g.,
-        #     # 'projection="X10c", J="X10c"'), then we silently ignore the short-form
-        #     # parameter.
-        #     #
-        #     # If it has an alias but the long-form parameter is not specified, or it
-        #     # doesn't has an alias, then we use the value of the short-form parameter.
-        #     if option not in self.options or option not in kwdict:
-        #         kwdict[option] = value
         return kwdict
