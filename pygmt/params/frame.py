@@ -61,7 +61,7 @@ class Frame(BaseParam):
     ...     xaxis=Axis(10, angle=30, label="X axis", unit="km"),
     ... )
     >>> def func(frame):
-    ...     alias = AliasSystem(B="frame")
+    ...     alias = AliasSystem(B=Alias("frame", value=frame))
     ...     return alias.kwdict
     >>> dict(func(frame))
     {'B': ['WSen+glightred+tMy Plot Title', 'x10+a30+lX axis+ukm']}

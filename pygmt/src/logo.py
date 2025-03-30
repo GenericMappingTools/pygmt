@@ -18,7 +18,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def logo(self, **kwargs):
+def logo(self, box=None, **kwargs):
     r"""
     Plot the GMT logo.
 
@@ -55,7 +55,7 @@ def logo(self, **kwargs):
     {transparency}
     """
     alias = AliasSystem(
-        F=Alias("box"),
+        F=Alias("box", value=box),
     )
     kwargs = self._preprocess(**kwargs)
     with Session() as lib:
