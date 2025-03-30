@@ -75,8 +75,8 @@ def image(
         G=Alias("bitcolor", value=bitcolor),
         M=Alias("monochrome", value=monochrome),
         V=Alias("verbose", value=verbose),
-        c=Alias("panel", separator=","),
-        p=Alias("perspective", separator="/"),
+        c=Alias("panel", separator=",", value=panel),
+        p=Alias("perspective", separator="/", value=perspective),
         t=Alias("transparency", value=transparency),
     )
 

@@ -204,7 +204,7 @@ Common Parameters
 
 .. autosummary::
     :toctree: generated
-    
+
     Box
     Frame
 
