@@ -22,14 +22,14 @@
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/tutorials/advanced/draping_on_3d_surface.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/tutorials/advanced/draping_on_3d_surface.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../../_static/documentation_options.js?v=6e6bddb7"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -39,7 +39,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Interactive data visualization using Panel" href="working_with_panel.html" />
-    <link rel="prev" title="Creating a map with contour lines" href="contour_map.html" />
+    <link rel="prev" title="Creating legends" href="legends.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -104,6 +104,7 @@
 <li class="toctree-l3"><a class="reference internal" href="configuration.html">Configuring PyGMT defaults</a></li>
 <li class="toctree-l3"><a class="reference internal" href="3d_perspective_image.html">Creating a 3-D perspective image</a></li>
 <li class="toctree-l3"><a class="reference internal" href="contour_map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="legends.html">Creating legends</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Draping a dataset on top of a topographic surface</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#drapping-a-grid">1. Drapping a grid</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#draping-an-image">2. Draping an image</a></li>
@@ -114,6 +115,7 @@
 <li class="toctree-l3"><a class="reference internal" href="grid_equalization.html">Performing grid histogram equalization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="earth_relief.html">Plotting Earth relief</a></li>
 <li class="toctree-l3"><a class="reference internal" href="date_time_charts.html">Plotting datetime charts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="focal_mechanisms.html">Plotting focal mechanisms</a></li>
 <li class="toctree-l3"><a class="reference internal" href="vectors.html">Plotting vectors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="non_ascii_text.html">Typesetting non-ASCII text</a></li>
 </ul>
@@ -309,7 +311,7 @@ grdblend [NOTICE]:   -&gt; Download 15x15 degree grid tile (earth_relief_30s_g):
 </div>
 <p>Again we create a 3-D plot with <a class="reference internal" href="../../api/generated/pygmt.Figure.grdview.html#pygmt.Figure.grdview" title="pygmt.Figure.grdview"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.grdview</span></code></a> and pass an Earth relief
 grid to the <code class="docutils literal notranslate"><span class="pre">grid</span></code> parameter to create the topographic surface. But now we pass the
-PNG image which was loaded into an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> to the <code class="docutils literal notranslate"><span class="pre">drapgrid</span></code>
+PNG image which was loaded into an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> to the <code class="docutils literal notranslate"><span class="pre">drapgrid</span></code>
 parameter.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 
@@ -341,7 +343,7 @@ parameter.</p>
   dataset = writer(
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 7.470 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 4.840 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-draping-on-3d-surface-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/d6898c911a108b9ab370974c1c772ce9/draping_on_3d_surface.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">draping_on_3d_surface.ipynb</span></code></a></p>
@@ -362,7 +364,7 @@ parameter.</p>
           </div>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="contour_map.html" class="btn btn-neutral float-left" title="Creating a map with contour lines" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="legends.html" class="btn btn-neutral float-left" title="Creating legends" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="working_with_panel.html" class="btn btn-neutral float-right" title="Interactive data visualization using Panel" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
@@ -370,9 +372,9 @@ parameter.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 31, 2025.
       </span></p>
   </div>
 

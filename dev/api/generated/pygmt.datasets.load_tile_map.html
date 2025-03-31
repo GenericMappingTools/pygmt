@@ -22,14 +22,14 @@
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.datasets.load_tile_map.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.datasets.load_tile_map.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../../_static/documentation_options.js?v=6e6bddb7"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -214,7 +214,7 @@
 <span class="sig-prename descclassname"><span class="pre">pygmt.datasets.</span></span><span class="sig-name descname"><span class="pre">load_tile_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zoom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lonlat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'EPSG:3857'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zoom_adjust</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/datasets/tile_map.html#load_tile_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.datasets.load_tile_map" title="Link to this definition"></a></dt>
 <dd><p>Load a georeferenced raster tile map from XYZ tile providers.</p>
 <p>The tiles that compose the map are merged and georeferenced into an
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> image with 3 bands (RGB). Note that the returned image is
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> image with 3 bands (RGB). Note that the returned image is
 in a Spherical Mercator (EPSG:3857) coordinate reference system (CRS) by default,
 but can be customized using the <code class="docutils literal notranslate"><span class="pre">crs</span></code> parameter.</p>
 <dl class="field-list simple">
@@ -255,7 +255,7 @@ all bands are loaded into the basemap. See
 </p></li>
 <li><p><strong>lonlat</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – If <code class="docutils literal notranslate"><span class="pre">False</span></code>, coordinates in <code class="docutils literal notranslate"><span class="pre">region</span></code> are assumed to be Spherical Mercator as
 opposed to longitude/latitude.</p></li>
-<li><p><strong>crs</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://rasterio.readthedocs.io/en/stable/api/rasterio.crs.html#rasterio.crs.CRS" title="(in rasterio)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CRS</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">'EPSG:3857'</span></code>) – Coordinate reference system (CRS) of the returned <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>
+<li><p><strong>crs</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://rasterio.readthedocs.io/en/stable/api/rasterio.crs.html#rasterio.crs.CRS" title="(in rasterio)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CRS</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">'EPSG:3857'</span></code>) – Coordinate reference system (CRS) of the returned <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>
 image. Default is <code class="docutils literal notranslate"><span class="pre">&quot;EPSG:3857&quot;</span></code> (i.e., Spherical Mercator). The CRS can be in
 either string or <a class="reference external" href="https://rasterio.readthedocs.io/en/stable/api/rasterio.crs.html#rasterio.crs.CRS" title="(in rasterio)"><code class="xref py py-class docutils literal notranslate"><span class="pre">rasterio.crs.CRS</span></code></a> format.</p></li>
 <li><p><strong>wait</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">0</span></code>) – If the tile API is rate-limited, the number of seconds to wait between a failed
@@ -272,7 +272,7 @@ outside of -1 to 1 are not recommended as they can lead to slow execution.</p>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>raster</em> – Georeferenced 3-D data array of RGB values.</p>
@@ -323,9 +323,9 @@ outside of -1 to 1 are not recommended as they can lead to slow execution.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 31, 2025.
       </span></p>
   </div>
 

@@ -21,14 +21,14 @@
 
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/datasets/mercury_relief.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/datasets/mercury_relief.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../../../_static/documentation_options.js?v=6e6bddb7"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -204,22 +204,27 @@
 
 <span class="sd">       Mercury relief dataset.</span>
 
-<span class="sd">    The grids are downloaded to a user data directory (usually</span>
-<span class="sd">    ``~/.gmt/server/mercury/mercury_relief/``) the first time you invoke this function.</span>
-<span class="sd">    Afterwards, it will load the grid from the data directory. So you&#39;ll need an</span>
-<span class="sd">    internet connection the first time around.</span>
+<span class="sd">    This function downloads the dataset from the GMT data server, caches it in a user</span>
+<span class="sd">    data directory (usually ``~/.gmt/server/mercury/mercury_relief/``), and load the</span>
+<span class="sd">    dataset as an :class:`xarray.DataArray`. An internet connection is required the</span>
+<span class="sd">    first time around, but subsequent calls will load the dataset from the local data</span>
+<span class="sd">    directory.</span>
 
-<span class="sd">    These grids can also be accessed by passing in the file name</span>
-<span class="sd">    **@mercury_relief**\_\ *res*\[_\ *reg*] to any grid processing function or plotting</span>
-<span class="sd">    method. *res* is the grid resolution (see below), and *reg* is the grid registration</span>
-<span class="sd">    type (**p** for pixel registration or **g** for gridline registration).</span>
+<span class="sd">    The dataset can also be accessed by specifying a file name in any grid processing</span>
+<span class="sd">    function or plotting method, using the following file name format:</span>
+<span class="sd">    **@mercury_relief**\_\ *res*\_\ *reg*. *res* is the grid resolution; *reg* is the</span>
+<span class="sd">    grid registration type (**p** for pixel registration, **g** for gridline</span>
+<span class="sd">    registration). If *reg* is omitted (e.g., ``@mercury_relief_01d``), the</span>
+<span class="sd">    gridline-registered grid will be loaded for grid processing functions and the</span>
+<span class="sd">    pixel-registered grid will be loaded for plotting functions. If *res* is also</span>
+<span class="sd">    omitted (i.e., ``@mercury_relief``), GMT automatically selects a suitable resolution</span>
+<span class="sd">    based on the current region and projection settings.</span>
 
-<span class="sd">    The default color palette table (CPT) for this dataset is *@mercury_relief.cpt*.</span>
-<span class="sd">    It&#39;s implicitly used when passing in the file name of the dataset to any grid</span>
-<span class="sd">    plotting method if no CPT is explicitly specified. When the dataset is loaded and</span>
-<span class="sd">    plotted as an :class:`xarray.DataArray` object, the default CPT is ignored, and</span>
-<span class="sd">    GMT&#39;s default CPT (*turbo*) is used. To use the dataset-specific CPT, you need to</span>
-<span class="sd">    explicitly set ``cmap=&quot;@mercury_relief.cpt&quot;``.</span>
+<span class="sd">    This dataset comes with a color palette table (CPT) file, ``@mercury_relief.cpt``.</span>
+<span class="sd">    To use the dataset-specific CPT when plotting the dataset, explicitly set</span>
+<span class="sd">    ``cmap=&quot;@mercury_relief.cpt&quot;``, otherwise GMT&#39;s default CPT (*turbo*) will be used.</span>
+<span class="sd">    If the dataset is referenced by the file name in a grid plotting method, the</span>
+<span class="sd">    dataset-specific CPT file is used automatically unless another CPT is specified.</span>
 
 <span class="sd">    Refer to :gmt-datasets:`mercury-relief.html` for more details about available</span>
 <span class="sd">    datasets, including version information and references.</span>
@@ -259,11 +264,11 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; from pygmt.datasets import load_mercury_relief</span>
-<span class="sd">    &gt;&gt;&gt; # load the default grid (gridline-registered 1 arc-degree grid)</span>
+<span class="sd">    &gt;&gt;&gt; # Load the default grid (gridline-registered 1 arc-degree grid)</span>
 <span class="sd">    &gt;&gt;&gt; grid = load_mercury_relief()</span>
-<span class="sd">    &gt;&gt;&gt; # load the 30 arc-minutes grid with &quot;gridline&quot; registration</span>
+<span class="sd">    &gt;&gt;&gt; # Load the 30 arc-minutes grid with &quot;gridline&quot; registration</span>
 <span class="sd">    &gt;&gt;&gt; grid = load_mercury_relief(resolution=&quot;30m&quot;, registration=&quot;gridline&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; # load high-resolution (5 arc-minutes) grid for a specific region</span>
+<span class="sd">    &gt;&gt;&gt; # Load high-resolution (5 arc-minutes) grid for a specific region</span>
 <span class="sd">    &gt;&gt;&gt; grid = load_mercury_relief(</span>
 <span class="sd">    ...     resolution=&quot;05m&quot;,</span>
 <span class="sd">    ...     region=[120, 160, 30, 60],</span>
@@ -290,9 +295,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 31, 2025.
       </span></p>
   </div>
 

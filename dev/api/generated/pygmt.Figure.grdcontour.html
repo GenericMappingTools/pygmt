@@ -22,14 +22,14 @@
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.Figure.grdcontour.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.Figure.grdcontour.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../../_static/documentation_options.js?v=6e6bddb7"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -203,8 +203,8 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="pygmt.Figure.grdcontour">
 <span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">grdcontour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_placement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cut</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resample</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">panel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coltypes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perspective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.grdcontour" title="Link to this definition"></a></dt>
-<dd><p>Convert grids or images to contours and plot them on maps.</p>
-<p>Takes a grid file name or an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object as input.</p>
+<dd><p>Make contour map using a grid.</p>
+<p>Takes a grid file name or an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object as input.</p>
 <p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/grdcontour.html">https://docs.generic-mapping-tools.org/6.5/grdcontour.html</a></p>
 <p><strong>Aliases:</strong></p>
 <table class="hlist"><tr><td><ul class="simple">
@@ -233,8 +233,8 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><em>xarray.DataArray</em></a>) – <p>Name of the input grid file or the grid loaded as a
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.</p>
+<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><em>xarray.DataArray</em></a>) – <p>Name of the input grid file or the grid loaded as a
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.</p>
 <p>For reading a specific grid file format or applying basic data operations,
 see <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#grd-inout-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#grd-inout-full</a> for the available modifiers.</p>
 </p></li>
@@ -274,18 +274,7 @@ Specify the <a class="reference internal" href="../../tutorials/basics/regions.h
 Control the placement of labels along the quoted lines. It supports
 five controlling algorithms. See <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/grdcontour.html#g">https://docs.generic-mapping-tools.org/6.5/grdcontour.html#g</a> for
 details.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
-written to stderr. Choose among 7 levels of verbosity:</p>
-<ul>
-<li><p><strong>q</strong>: Quiet, not even fatal error messages are produced</p></li>
-<li><p><strong>e</strong>: Error messages only</p></li>
-<li><p><strong>w</strong>: Warnings [Default]</p></li>
-<li><p><strong>t</strong>: Timings (report runtimes for time-intensive algorithms)</p></li>
-<li><p><strong>i</strong>: Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
-<li><p><strong>c</strong>: Compatibility warnings</p></li>
-<li><p><strong>d</strong>: Debugging messages</p></li>
-</ul>
-</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
 <li><p><strong>pen</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – [<em>type</em>]<em>pen</em>[<strong>+c</strong>[<strong>l</strong>|<strong>f</strong>]].
 <em>type</em>, if present, can be <strong>a</strong> for annotated contours or <strong>c</strong> for regular
 contours [Default]. The pen sets the attributes for the particular line.
@@ -378,9 +367,9 @@ in the image (for further processing).</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 31, 2025.
       </span></p>
   </div>
 

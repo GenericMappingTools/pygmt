@@ -22,14 +22,14 @@
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.Figure.coast.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.Figure.coast.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../../_static/documentation_options.js?v=6e6bddb7"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -209,7 +209,7 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="pygmt.Figure.coast">
 <span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">coast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">area_thresh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lakes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dcw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">land</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rivers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">borders</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">water</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shorelines</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">panel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perspective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.coast" title="Link to this definition"></a></dt>
-<dd><p>Plot continents, shorelines, rivers, and borders on maps.</p>
+<dd><p>Plot continents, countries, shorelines, rivers, and borders.</p>
 <p>Plots grayshaded, colored, or textured land masses [or water masses] on
 maps and [optionally] draws coastlines, rivers, and political
 boundaries. The data files come in 5 different resolutions: (<strong>f</strong>)ull,
@@ -366,18 +366,7 @@ the viewpoint [Default is <code class="docutils literal notranslate"><span class
 Only visible when PDF or raster format output is selected.
 Only the PNG format selection adds a transparency layer
 in the image (for further processing).</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
-written to stderr. Choose among 7 levels of verbosity:</p>
-<ul>
-<li><p><strong>q</strong>: Quiet, not even fatal error messages are produced</p></li>
-<li><p><strong>e</strong>: Error messages only</p></li>
-<li><p><strong>w</strong>: Warnings [Default]</p></li>
-<li><p><strong>t</strong>: Timings (report runtimes for time-intensive algorithms)</p></li>
-<li><p><strong>i</strong>: Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
-<li><p><strong>c</strong>: Compatibility warnings</p></li>
-<li><p><strong>d</strong>: Debugging messages</p></li>
-</ul>
-</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
 </ul>
 </dd>
 </dl>
@@ -418,8 +407,8 @@ written to stderr. Choose among 7 levels of verbosity:</p>
 <p><a class="reference internal" href="../../gallery/embellishments/scalebar.html#sphx-glr-gallery-embellishments-scalebar-py"><span class="std std-ref">Scale bar</span></a></p>
   <div class="sphx-glr-thumbnail-title">Scale bar</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.solar to show the different transition stages between daytime and nighttime. The parameter terminator is used to set the twilight stage, and can be either &quot;day_night&quot; (brightest), &quot;civil&quot;, &quot;nautical&quot;, or &quot;astronomical&quot; (darkest). Refer to https://en.wikipedia.org/wiki/Twilight for more information."><img alt="" src="../../_images/sphx_glr_solar_thumb.png" />
-<p><a class="reference internal" href="../../gallery/embellishments/solar.html#sphx-glr-gallery-embellishments-solar-py"><span class="std std-ref">Day-night terminator line and twilights</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Day-night terminator line and twilights</div>
+<p><a class="reference internal" href="../../gallery/embellishments/solar.html#sphx-glr-gallery-embellishments-solar-py"><span class="std std-ref">Day-night terminator and twilights</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Day-night terminator and twilights</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.timestamp method can draw the GMT timestamp logo on the plot. The timestamp will always be shown relative to the Bottom Left (BL) corner of the plot. By default, the offset and justify parameters are set to (&quot;-54p&quot;, &quot;-54p&quot;) (x, y directions) and &quot;BL&quot; (Bottom Left), respectively."><img alt="" src="../../_images/sphx_glr_timestamp_thumb.png" />
 <p><a class="reference internal" href="../../gallery/embellishments/timestamp.html#sphx-glr-gallery-embellishments-timestamp-py"><span class="std std-ref">Timestamp</span></a></p>
   <div class="sphx-glr-thumbnail-title">Timestamp</div>
@@ -546,6 +535,9 @@ written to stderr. Choose among 7 levels of verbosity:</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Default GMT parameters can be set globally or locally using pygmt.config."><img alt="" src="../../_images/sphx_glr_configuration_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/configuration.html#sphx-glr-tutorials-advanced-configuration-py"><span class="std std-ref">Configuring PyGMT defaults</span></a></p>
   <div class="sphx-glr-thumbnail-title">Configuring PyGMT defaults</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Focal mechanisms can be plotted as beachballs with the pygmt.Figure.meca method."><img alt="" src="../../_images/sphx_glr_focal_mechanisms_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/focal_mechanisms.html#sphx-glr-tutorials-advanced-focal-mechanisms-py"><span class="std std-ref">Plotting focal mechanisms</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting focal mechanisms</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="To plot an inset figure inside another larger figure, we can use the pygmt.Figure.inset method. After a large figure has been created, call inset using a with statement, and new plot elements will be added to the inset figure instead of the larger figure."><img alt="" src="../../_images/sphx_glr_insets_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/insets.html#sphx-glr-tutorials-advanced-insets-py"><span class="std std-ref">Adding an inset to the figure</span></a></p>
   <div class="sphx-glr-thumbnail-title">Adding an inset to the figure</div>
@@ -589,9 +581,9 @@ written to stderr. Choose among 7 levels of verbosity:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 31, 2025.
       </span></p>
   </div>
 

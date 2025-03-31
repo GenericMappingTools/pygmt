@@ -22,14 +22,14 @@
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.datasets.load_earth_relief.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.datasets.load_earth_relief.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../../_static/documentation_options.js?v=6e6bddb7"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -220,25 +220,28 @@
 <p><span class="caption-text">Earth relief datasets (topography and bathymetry).</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>The grids are downloaded to a user data directory
-(usually <code class="docutils literal notranslate"><span class="pre">~/.gmt/server/earth/earth_relief</span></code>,
+<p>This function downloads the dataset from the GMT data server, caches it in a user
+data directory (usually <code class="docutils literal notranslate"><span class="pre">~/.gmt/server/earth/earth_relief</span></code>,
 <code class="docutils literal notranslate"><span class="pre">~/.gmt/server/earth/earth_gebco</span></code>, <code class="docutils literal notranslate"><span class="pre">~/.gmt/server/earth/earth_gebcosi</span></code>,
-or <code class="docutils literal notranslate"><span class="pre">~/.gmt/server/earth/earth_synbath</span></code>) the first time you
-invoke this function. Afterwards, it will load the grid from the data
-directory. So you’ll need an internet connection the first time around.</p>
-<p>This module downloads the grids that can also be accessed by
-passing in the file name <strong>&#64;</strong><em>earth_relief_type</em>_<em>res</em>[_<em>reg</em>] to
-any grid processing function or plotting method. <em>earth_relief_type</em> is
-the GMT name for the dataset. The available options are <strong>earth_relief</strong>,
-<strong>earth_gebco</strong>, <strong>earth_gebcosi</strong>, and <strong>earth_synbath</strong>. <em>res</em> is the
-grid resolution (see below), and <em>reg</em> is the grid registration type
-(<strong>p</strong> for pixel registration or <strong>g</strong> for gridline registration).</p>
-<p>The default color palette table (CPT) for this dataset is <em>geo</em>.
-It’s implicitly used when passing in the file name of the dataset to any
-grid plotting method if no CPT is explicitly specified. When the dataset
-is loaded and plotted as an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object, the default
-CPT is ignored, and GMT’s default CPT (<em>turbo</em>) is used. To use the
-dataset-specific CPT, you need to explicitly set <code class="docutils literal notranslate"><span class="pre">cmap=&quot;geo&quot;</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">~/.gmt/server/earth/earth_synbath</span></code>), and load the dataset as an
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>. An internet connection is required the first time around,
+but subsequent calls will load the dataset from the local data directory.</p>
+<p>The dataset can also be accessed by specifying a file name in any grid processing
+function or plotting method, using the following file name format:
+<strong>&#64;</strong><em>earth_relief_type</em>_<em>res</em>_<em>reg</em>. <em>earth_relief_type</em> is the GMT name
+for the dataset. The available options are <strong>earth_relief</strong>, <strong>earth_gebco</strong>,
+<strong>earth_gebcosi</strong>, and <strong>earth_synbath</strong>. <em>res</em> is the grid resolution; <em>reg</em> is
+the grid registration type (<strong>p</strong> for pixel registration, <strong>g</strong> for gridline
+registration). If <em>reg</em> is omitted (e.g., <code class="docutils literal notranslate"><span class="pre">&#64;earth_relief_01d</span></code>), the
+gridline-registered grid will be loaded for grid processing functions and the
+pixel-registered grid willcbe loaded for plotting functions. If <em>res</em> is also
+omitted (i.e., <code class="docutils literal notranslate"><span class="pre">&#64;earth_relief</span></code>), GMT automatically selects a suitable resolution
+based on the current region and projection settings.</p>
+<p>This dataset comes with a color palette table (CPT) file, <code class="docutils literal notranslate"><span class="pre">geo</span></code>. To use the
+dataset-specific CPT when plotting the dataset, explicitly set <code class="docutils literal notranslate"><span class="pre">cmap=&quot;geo&quot;</span></code>,
+otherwise GMT’s default CPT (<em>turbo</em>) will be used. If the dataset is referenced by
+the file name in a grid plotting method, the dataset-specific CPT file is used
+automatically unless another CPT is specified.</p>
 <p>Refer to <a class="reference external" href="https://www.generic-mapping-tools.org/remote-datasets/earth-relief.html">https://www.generic-mapping-tools.org/remote-datasets/earth-relief.html</a> for more details about available
 datasets, including version information and references.</p>
 <dl class="field-list simple">
@@ -274,7 +277,7 @@ land-only SRTM tiles. Only works when <code class="docutils literal notranslate"
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>grid</em> – The Earth relief grid. Coordinates are latitude and longitude in
@@ -284,7 +287,7 @@ degrees. Relief is in meters.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The registration and coordinate system type of the returned
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> grid can be accessed via the GMT accessors
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> grid can be accessed via the GMT accessors
 (i.e., <code class="docutils literal notranslate"><span class="pre">grid.gmt.registration</span></code> and <code class="docutils literal notranslate"><span class="pre">grid.gmt.gtype</span></code> respectively).
 However, these properties may be lost after specific grid operations (such
 as slicing) and will need to be manually set before passing the grid to any
@@ -294,17 +297,17 @@ workarounds.</p>
 </div>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_earth_relief</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># load the default grid (gridline-registered 1 arc-degree grid)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Load the default grid (gridline-registered 1 arc-degree grid)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">grid</span> <span class="o">=</span> <span class="n">load_earth_relief</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># load the 30 arc-minutes grid with &quot;gridline&quot; registration</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Load the 30 arc-minutes grid with &quot;gridline&quot; registration</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">grid</span> <span class="o">=</span> <span class="n">load_earth_relief</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;30m&quot;</span><span class="p">,</span> <span class="n">registration</span><span class="o">=</span><span class="s2">&quot;gridline&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># load high-resolution (5 arc-minutes) grid for a specific region</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Load high-resolution (5 arc-minutes) grid for a specific region</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">grid</span> <span class="o">=</span> <span class="n">load_earth_relief</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;05m&quot;</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="n">registration</span><span class="o">=</span><span class="s2">&quot;gridline&quot;</span><span class="p">,</span>
 <span class="gp">... </span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># load the original 3 arc-seconds land-only SRTM tiles from NASA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Load the original 3 arc-seconds land-only SRTM tiles from NASA</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">grid</span> <span class="o">=</span> <span class="n">load_earth_relief</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;03s&quot;</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">135</span><span class="p">,</span> <span class="mi">136</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">36</span><span class="p">],</span>
@@ -372,9 +375,9 @@ workarounds.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 31, 2025.
       </span></p>
   </div>
 

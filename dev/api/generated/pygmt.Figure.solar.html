@@ -22,14 +22,14 @@
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.Figure.solar.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.Figure.solar.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../../_static/documentation_options.js?v=6e6bddb7"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -209,7 +209,7 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="pygmt.Figure.solar">
 <span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">solar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terminator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'day_night'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">terminator_datetime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.solar" title="Link to this definition"></a></dt>
-<dd><p>Plot day-light terminators or twilights.</p>
+<dd><p>Plot day-light terminators and other sunlight parameters.</p>
 <p>This function plots the day-night terminator. Alternatively, it can plot the
 terminators for civil twilight, nautical twilight, or astronomical twilight.</p>
 <p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/solar.html">https://docs.generic-mapping-tools.org/6.5/solar.html</a></p>
@@ -238,7 +238,7 @@ or the first letter of the name. Available options are:</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;astronomical&quot;</span></code>: Astronomical twilight</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;civil&quot;</span></code>: Civil twilight</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;day_night&quot;</span></code>: Day/night terminator</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;day_night&quot;</span></code>: Day-night terminator</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;nautical&quot;</span></code>: Nautical twilight</p></li>
 </ul>
 <p>Refer to <a class="reference external" href="https://en.wikipedia.org/wiki/Twilight">https://en.wikipedia.org/wiki/Twilight</a> for the definitions of different
@@ -254,18 +254,7 @@ Select map <a class="reference internal" href="../../projections/index.html"><sp
 <a class="reference internal" href="../../tutorials/basics/frames.html"><span class="doc">frame and axes attributes</span></a>.</p></li>
 <li><p><strong>fill</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Set color or pattern for filling terminators [Default is no fill].</p></li>
 <li><p><strong>pen</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Set pen attributes for lines [Default is <code class="docutils literal notranslate"><span class="pre">&quot;0.25p,black,solid&quot;</span></code>].</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
-written to stderr. Choose among 7 levels of verbosity:</p>
-<ul>
-<li><p><strong>q</strong>: Quiet, not even fatal error messages are produced</p></li>
-<li><p><strong>e</strong>: Error messages only</p></li>
-<li><p><strong>w</strong>: Warnings [Default]</p></li>
-<li><p><strong>t</strong>: Timings (report runtimes for time-intensive algorithms)</p></li>
-<li><p><strong>i</strong>: Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
-<li><p><strong>c</strong>: Compatibility warnings</p></li>
-<li><p><strong>d</strong>: Debugging messages</p></li>
-</ul>
-</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
 <li><p><strong>panel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – [<em>row,col</em>|<em>index</em>].
 Select a specific subplot panel. Only allowed when in subplot
 mode. Use <code class="docutils literal notranslate"><span class="pre">panel=True</span></code> to advance to the next panel in the
@@ -316,8 +305,8 @@ in the image (for further processing).</p></li>
 <section id="examples-using-pygmt-figure-solar">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.solar</span></code><a class="headerlink" href="#examples-using-pygmt-figure-solar" title="Link to this heading"></a></h2>
 <div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.solar to show the different transition stages between daytime and nighttime. The parameter terminator is used to set the twilight stage, and can be either &quot;day_night&quot; (brightest), &quot;civil&quot;, &quot;nautical&quot;, or &quot;astronomical&quot; (darkest). Refer to https://en.wikipedia.org/wiki/Twilight for more information."><img alt="" src="../../_images/sphx_glr_solar_thumb.png" />
-<p><a class="reference internal" href="../../gallery/embellishments/solar.html#sphx-glr-gallery-embellishments-solar-py"><span class="std std-ref">Day-night terminator line and twilights</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Day-night terminator line and twilights</div>
+<p><a class="reference internal" href="../../gallery/embellishments/solar.html#sphx-glr-gallery-embellishments-solar-py"><span class="std std-ref">Day-night terminator and twilights</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Day-night terminator and twilights</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="In addition to colors, PyGMT also allows using bit and hachure patterns to fill symbols, polygons, and other areas, via the fill parameter or similar parameters."><img alt="" src="../../_images/sphx_glr_patterns_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/patterns.html#sphx-glr-gallery-symbols-patterns-py"><span class="std std-ref">Bit and hachure patterns</span></a></p>
   <div class="sphx-glr-thumbnail-title">Bit and hachure patterns</div>
@@ -337,9 +326,9 @@ in the image (for further processing).</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 31, 2025.
       </span></p>
   </div>
 

@@ -21,14 +21,14 @@
 
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/grdview.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/grdview.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../../../_static/documentation_options.js?v=6e6bddb7"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -160,7 +160,7 @@
              
   <h1>Source code for pygmt.src.grdview</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">grdview - Create a three-dimensional plot from a grid.</span>
+<span class="sd">grdview - Create 3-D perspective image or surface mesh from a grid.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
@@ -196,12 +196,11 @@
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create 3-D perspective image or surface mesh from a grid.</span>
 
-<span class="sd">    Reads a 2-D grid file and produces a 3-D perspective plot by drawing a</span>
-<span class="sd">    mesh, painting a colored/gray-shaded surface made up of polygons, or by</span>
-<span class="sd">    scanline conversion of these polygons to a raster image. Options</span>
-<span class="sd">    include draping a data set on top of a surface, plotting of contours on</span>
-<span class="sd">    top of the surface, and apply artificial illumination based on</span>
-<span class="sd">    intensities provided in a separate grid file.</span>
+<span class="sd">    Reads a 2-D grid file and produces a 3-D perspective plot by drawing a mesh,</span>
+<span class="sd">    painting a colored/gray-shaded surface made up of polygons, or by scanline</span>
+<span class="sd">    conversion of these polygons to a raster image. Options include draping a data</span>
+<span class="sd">    set on top of a surface, plotting of contours on top of the surface, and apply</span>
+<span class="sd">    artificial illumination based on intensities provided in a separate grid file.</span>
 
 <span class="sd">    Full option list at :gmt-docs:`grdview.html`</span>
 
@@ -212,10 +211,9 @@
 <span class="sd">    {grid}</span>
 <span class="sd">    region : str or list</span>
 <span class="sd">        *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].</span>
-<span class="sd">        Specify the :doc:`region &lt;/tutorials/basics/regions&gt;` of interest.</span>
-<span class="sd">        When used with ``perspective``, optionally append */zmin/zmax* to</span>
-<span class="sd">        indicate the range to use for the 3-D axes [Default is the region in</span>
-<span class="sd">        the input grid].</span>
+<span class="sd">        Specify the :doc:`region &lt;/tutorials/basics/regions&gt;` of interest. When used</span>
+<span class="sd">        with ``perspective``, optionally append */zmin/zmax* to indicate the range to</span>
+<span class="sd">        use for the 3-D axes [Default is the region given by the input grid].</span>
 <span class="sd">    {projection}</span>
 <span class="sd">    zscale/zsize : float or str</span>
 <span class="sd">        Set z-axis scaling or z-axis size.</span>
@@ -223,47 +221,45 @@
 <span class="sd">    cmap : str</span>
 <span class="sd">        The name of the color palette table to use.</span>
 <span class="sd">    drapegrid : str or :class:`xarray.DataArray`</span>
-<span class="sd">        The file name or a DataArray of the image grid to be draped on top</span>
-<span class="sd">        of the relief provided by ``grid`` [Default determines colors from grid].</span>
-<span class="sd">        Note that ``zscale`` and ``plane`` always refer to the grid.</span>
-<span class="sd">        The drapegrid only provides the information pertaining to colors, which</span>
-<span class="sd">        (if drapegrid is a grid) will be looked-up via the CPT (see ``cmap``).</span>
+<span class="sd">        The file name or a :class:`xarray.DataArray` of the image grid to be draped on</span>
+<span class="sd">        top of the relief provided by ``grid`` [Default determines colors from ``grid``]</span>
+<span class="sd">        Note that ``zscale`` and ``plane`` always refer to ``grid``. ``drapegrid`` only</span>
+<span class="sd">        provides the information pertaining to colors, which (if ``drapegrid`` is a</span>
+<span class="sd">        grid) will be looked-up via the CPT (see ``cmap``).</span>
 <span class="sd">    plane : float or str</span>
 <span class="sd">        *level*\ [**+g**\ *fill*].</span>
-<span class="sd">        Draw a plane at this z-level. If the optional color is provided</span>
-<span class="sd">        via the **+g** modifier, and the projection is not oblique, the frontal</span>
-<span class="sd">        facade between the plane and the data perimeter is colored.</span>
+<span class="sd">        Draw a plane at this z-level. If the optional color is provided via the **+g**</span>
+<span class="sd">        modifier, and the projection is not oblique, the frontal facade between the</span>
+<span class="sd">        plane and the data perimeter is colored.</span>
 <span class="sd">    surftype : str</span>
-<span class="sd">        Specify cover type of the grid.</span>
-<span class="sd">        Select one of following settings:</span>
+<span class="sd">        Specify cover type of the grid. Select one of following settings:</span>
 
 <span class="sd">        - **m**: mesh plot [Default].</span>
 <span class="sd">        - **mx** or **my**: waterfall plots (row or column profiles).</span>
-<span class="sd">        - **s**: surface plot, and optionally append **m** to have mesh lines</span>
-<span class="sd">          drawn on top of the surface.</span>
+<span class="sd">        - **s**: surface plot, and optionally append **m** to have mesh lines drawn on</span>
+<span class="sd">          top of the surface.</span>
 <span class="sd">        - **i**: image plot.</span>
 <span class="sd">        - **c**: Same as **i** but will make nodes with z = NaN transparent.</span>
 
-<span class="sd">        For any of these choices, you may force a monochrome image by</span>
-<span class="sd">        appending the modifier **+m**.</span>
+<span class="sd">        For any of these choices, you may force a monochrome image by appending the</span>
+<span class="sd">        modifier **+m**.</span>
 <span class="sd">    contourpen : str</span>
-<span class="sd">        Draw contour lines on top of surface or mesh (not image). Append</span>
-<span class="sd">        pen attributes used for the contours.</span>
+<span class="sd">        Draw contour lines on top of surface or mesh (not image). Append pen attributes</span>
+<span class="sd">        used for the contours.</span>
 <span class="sd">    meshpen : str</span>
-<span class="sd">        Set the pen attributes used for the mesh. You must also select</span>
-<span class="sd">        ``surftype`` of **m** or **sm** for meshlines to be drawn.</span>
+<span class="sd">        Set the pen attributes used for the mesh. You must also select ``surftype`` of</span>
+<span class="sd">        **m** or **sm** for meshlines to be drawn.</span>
 <span class="sd">    facadepen :str</span>
-<span class="sd">        Set the pen attributes used for the facade. You must also select</span>
-<span class="sd">        ``plane`` for the facade outline to be drawn.</span>
+<span class="sd">        Set the pen attributes used for the facade. You must also select ``plane`` for</span>
+<span class="sd">        the facade outline to be drawn.</span>
 <span class="sd">    shading : str</span>
-<span class="sd">        Provide the name of a grid file with intensities in the (-1,+1)</span>
-<span class="sd">        range, or a constant intensity to apply everywhere (affects the</span>
-<span class="sd">        ambient light). Alternatively, derive an intensity grid from the</span>
-<span class="sd">        input data grid reliefgrid via a call to :func:`pygmt.grdgradient`;</span>
-<span class="sd">        append **+a**\ *azimuth*, **+n**\ *args*, and **+m**\ *ambient* to</span>
-<span class="sd">        specify azimuth, intensity, and ambient arguments for that function,</span>
-<span class="sd">        or just give **+d** to select the default arguments</span>
-<span class="sd">        [Default is **+a**\ -45\ **+nt**\ 1\ **+m**\ 0].</span>
+<span class="sd">        Provide the name of a grid file with intensities in the (-1,+1) range, or a</span>
+<span class="sd">        constant intensity to apply everywhere (affects the ambient light).</span>
+<span class="sd">        Alternatively, derive an intensity grid from the main input data grid by using</span>
+<span class="sd">        :func:`pygmt.grdgradient` first; append **+a**\ *azimuth*, **+n**\ *args*, and</span>
+<span class="sd">        **+m**\ *ambient* to specify azimuth, intensity, and ambient arguments for that</span>
+<span class="sd">        function, or just give **+d** to select the default arguments [Default is</span>
+<span class="sd">        &quot;+a-45+nt1+m0&quot;].</span>
 <span class="sd">    {verbose}</span>
 <span class="sd">    {panel}</span>
 <span class="sd">    {coltypes}</span>
@@ -274,34 +270,33 @@
 <span class="sd">    Example</span>
 <span class="sd">    -------</span>
 <span class="sd">    &gt;&gt;&gt; import pygmt</span>
-<span class="sd">    &gt;&gt;&gt; # load the 30 arc-minutes grid with &quot;gridline&quot; registration</span>
-<span class="sd">    &gt;&gt;&gt; # in a specified region</span>
+<span class="sd">    &gt;&gt;&gt; # Load the 30 arc-minutes grid with &quot;gridline&quot; registration in a given region</span>
 <span class="sd">    &gt;&gt;&gt; grid = pygmt.datasets.load_earth_relief(</span>
 <span class="sd">    ...     resolution=&quot;30m&quot;,</span>
 <span class="sd">    ...     region=[-92.5, -82.5, -3, 7],</span>
 <span class="sd">    ...     registration=&quot;gridline&quot;,</span>
 <span class="sd">    ... )</span>
-<span class="sd">    &gt;&gt;&gt; # create a new figure instance with pygmt.Figure()</span>
+<span class="sd">    &gt;&gt;&gt; # Create a new figure instance with pygmt.Figure()</span>
 <span class="sd">    &gt;&gt;&gt; fig = pygmt.Figure()</span>
-<span class="sd">    &gt;&gt;&gt; # create the contour plot</span>
+<span class="sd">    &gt;&gt;&gt; # Create the contour plot</span>
 <span class="sd">    &gt;&gt;&gt; fig.grdview(</span>
-<span class="sd">    ...     # pass in the grid downloaded above</span>
+<span class="sd">    ...     # Pass in the grid downloaded above</span>
 <span class="sd">    ...     grid=grid,</span>
-<span class="sd">    ...     # set the perspective to an azimuth of 130° and an elevation of 30°</span>
+<span class="sd">    ...     # Set the perspective to an azimuth of 130° and an elevation of 30°</span>
 <span class="sd">    ...     perspective=[130, 30],</span>
-<span class="sd">    ...     # add a frame to the x- and y-axes</span>
-<span class="sd">    ...     # specify annotations on the south and east borders of the plot</span>
+<span class="sd">    ...     # Add a frame to the x- and y-axes</span>
+<span class="sd">    ...     # Specify annotations on the south and east borders of the plot</span>
 <span class="sd">    ...     frame=[&quot;xa&quot;, &quot;ya&quot;, &quot;wSnE&quot;],</span>
-<span class="sd">    ...     # set the projection of the 2-D map to Mercator with a 10 cm width</span>
+<span class="sd">    ...     # Set the projection of the 2-D map to Mercator with a 10 cm width</span>
 <span class="sd">    ...     projection=&quot;M10c&quot;,</span>
-<span class="sd">    ...     # set the vertical scale (z-axis) to 2 cm</span>
+<span class="sd">    ...     # Set the vertical scale (z-axis) to 2 cm</span>
 <span class="sd">    ...     zsize=&quot;2c&quot;,</span>
-<span class="sd">    ...     # set &quot;surface plot&quot; to color the surface via a CPT</span>
+<span class="sd">    ...     # Set &quot;surface plot&quot; to color the surface via a CPT</span>
 <span class="sd">    ...     surftype=&quot;s&quot;,</span>
-<span class="sd">    ...     # specify CPT to &quot;geo&quot;</span>
+<span class="sd">    ...     # Specify CPT to &quot;geo&quot;</span>
 <span class="sd">    ...     cmap=&quot;geo&quot;,</span>
 <span class="sd">    ... )</span>
-<span class="sd">    &gt;&gt;&gt; # show the plot</span>
+<span class="sd">    &gt;&gt;&gt; # Show the plot</span>
 <span class="sd">    &gt;&gt;&gt; fig.show()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -327,9 +322,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 31, 2025.
       </span></p>
   </div>
 

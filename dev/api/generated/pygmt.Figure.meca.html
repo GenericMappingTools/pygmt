@@ -22,19 +22,20 @@
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.Figure.meca.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.Figure.meca.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../../_static/documentation_options.js?v=6e6bddb7"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../../_static/copybutton.js?v=ccdb6887"></script>
         <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -206,8 +207,91 @@
 <h1>pygmt.Figure.meca<a class="headerlink" href="#pygmt-figure-meca" title="Link to this heading"></a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="pygmt.Figure.meca">
-<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">meca</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convention</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">component</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'full'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_longitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_latitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extensionfill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelbox</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compressionfill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_clip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">panel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perspective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.meca" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">meca</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convention</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">component</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'full'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_longitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_latitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.meca" title="Link to this definition"></a></dt>
 <dd><p>Plot focal mechanisms.</p>
+<p>The following focal mechanism conventions are supported:</p>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Supported focal mechanism conventions.</span><a class="headerlink" href="#id1" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 40%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Convention</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Focal parameters</p></th>
+<th class="head"><p>Remark</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;aki&quot;</span></code></p></td>
+<td><p>Aki and Richard</p></td>
+<td><p><em>strike</em>, <em>dip</em>, <em>rake</em>, <em>magnitude</em></p></td>
+<td><p>angles in degrees</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;gcmt&quot;</span></code></p></td>
+<td><p>global centroid moment tensor</p></td>
+<td><div class="line-block">
+<div class="line"><em>strike1</em>, <em>dip1</em>, <em>rake1</em>,</div>
+<div class="line"><em>strike2</em>, <em>dip2</em>, <em>rake2</em>,</div>
+<div class="line"><em>mantissa</em>, <em>exponent</em></div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line">angles in degrees;</div>
+<div class="line">seismic moment is</div>
+<div class="line"><span class="math notranslate nohighlight">\(mantissa * 10 ^ {exponent}\)</span></div>
+<div class="line">in dyn cm</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;mt&quot;</span></code></p></td>
+<td><p>seismic moment tensor</p></td>
+<td><div class="line-block">
+<div class="line"><em>mrr</em>, <em>mtt</em>, <em>mff</em>,</div>
+<div class="line"><em>mrt</em>, <em>mrf</em>, <em>mtf</em>,</div>
+<div class="line"><em>exponent</em></div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line">moment components</div>
+<div class="line">in <span class="math notranslate nohighlight">\(10 ^ {exponent}\)</span> dyn cm</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;partial&quot;</span></code></p></td>
+<td><p>partial focal mechanism</p></td>
+<td><div class="line-block">
+<div class="line"><em>strike1</em>, <em>dip1</em>, <em>strike2</em>,</div>
+<div class="line"><em>fault_type</em>, <em>magnitude</em></div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line">angles in degrees;</div>
+<div class="line"><em>fault_type</em> means +1/-1 for</div>
+<div class="line">normal/reverse fault</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;principal_axis&quot;</span></code></p></td>
+<td><p>principal axis</p></td>
+<td><div class="line-block">
+<div class="line"><em>t_value</em>, <em>t_azimuth</em>, <em>t_plunge</em>,</div>
+<div class="line"><em>n_value</em>, <em>n_azimuth</em>, <em>n_plunge</em>,</div>
+<div class="line"><em>p_value</em>, <em>p_azimuth</em>, <em>p_plunge</em>,</div>
+<div class="line"><em>exponent</em></div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line">values in <span class="math notranslate nohighlight">\(10 ^ {exponent}\)</span> dyn cm;</div>
+<div class="line">azimuths and plunges in degrees</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/supplements/seis/meca.html">https://docs.generic-mapping-tools.org/6.5/supplements/seis/meca.html</a></p>
 <p><strong>Aliases:</strong></p>
 <table class="hlist"><tr><td><ul class="simple">
@@ -245,7 +329,8 @@ meaning of each column is:</p>
 <li><p>Columns 1 and 2: event longitude and latitude</p></li>
 <li><p>Column 3: event depth (in kilometers)</p></li>
 <li><p>Columns 4 to 3+n: focal mechanism parameters. The number of columns <em>n</em>
-depends on the choice of <code class="docutils literal notranslate"><span class="pre">convention</span></code>, which is described below.</p></li>
+depends on the choice of <code class="docutils literal notranslate"><span class="pre">convention</span></code> (see the table above for the
+supported conventions).</p></li>
 <li><p>Columns 4+n and 5+n: longitude and latitude at which to place the
 beachball. <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">0</span></code> plots the beachball at the longitude and latitude
 given in the columns 1 and 2. [optional; requires <code class="docutils literal notranslate"><span class="pre">offset=True</span></code>].</p></li>
@@ -258,17 +343,8 @@ The meanings of columns are the same as above.</p></li>
 The meanings of columns are the same as above.</p></li>
 <li><p><em>dict</em> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>: The dict keys or
 <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> column names determine the focal mechanism
-convention. For the different conventions, the following combination of
-keys / column names are required:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;aki&quot;</span></code>: <em>strike</em>, <em>dip</em>, <em>rake</em>, <em>magnitude</em></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;gcmt&quot;</span></code>: <em>strike1</em>, <em>dip1</em>, <em>rake1</em>, <em>strike2</em>, <em>dip2</em>, <em>rake2</em>,
-<em>mantissa</em>, <em>exponent</em></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;mt&quot;</span></code>: <em>mrr</em>, <em>mtt</em>, <em>mff</em>, <em>mrt</em>, <em>mrf</em>, <em>mtf</em>, <em>exponent</em></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;partial&quot;</span></code>: <em>strike1</em>, <em>dip1</em>, <em>strike2</em>, <em>fault_type</em>, <em>magnitude</em></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;principal_axis&quot;</span></code>: <em>t_value</em>, <em>t_azimuth</em>, <em>t_plunge</em>, <em>n_value</em>,
-<em>n_azimuth</em>, <em>n_plunge</em>, <em>p_value</em>, <em>p_azimuth</em>, <em>p_plunge</em>, <em>exponent</em></p></li>
-</ul>
+convention. For the different conventions, the combination of keys /
+column names as given in the table above are required.</p>
 <p>A dict may contain values for a single focal mechanism or lists of
 values for multiple focal mechanisms.</p>
 <p>Both dict and <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> may optionally contain the keys /
@@ -284,7 +360,7 @@ specified.</p>
 <li><p><strong>scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <em>scale</em>[<strong>+a</strong><em>angle</em>][<strong>+f</strong><em>font</em>][<strong>+j</strong><em>justify</em>][<strong>+l</strong>][<strong>+m</strong>][<strong>+o</strong><em>dx</em>[/<em>dy</em>]][<strong>+s</strong><em>reference</em>].
 Adjust scaling of the radius of the beachball, which is  proportional to the
 magnitude. By default, <em>scale</em> defines the size for magnitude = 5 (i.e., scalar
-seismic moment M0 = 4.0E23 dynes-cm). If <strong>+l</strong> is used the radius will be
+seismic moment M0 = 4.0E23 dyn cm). If <strong>+l</strong> is used the radius will be
 proportional to the seismic moment instead. Use <strong>+s</strong> and give a <em>reference</em>
 to change the reference magnitude (or moment), and use <strong>+m</strong> to plot all
 beachballs with the same size. A text string can be specified to appear near
@@ -293,33 +369,29 @@ the beachball (corresponding to column or parameter <code class="docutils litera
 to change its font (size,fontname,color); append <strong>+j</strong><em>justify</em> to change
 the text location relative to the beachball [Default is <code class="docutils literal notranslate"><span class="pre">&quot;TC&quot;</span></code>, i.e., Top
 Center]; append <strong>+o</strong> to offset the text string by <em>dx</em>/<em>dy</em>.</p></li>
-<li><p><strong>convention</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p>Focal mechanism convention. Choose from:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;aki&quot;</span></code> (Aki and Richards)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;gcmt&quot;</span></code> (global CMT)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;mt&quot;</span></code> (seismic moment tensor)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;partial&quot;</span></code> (partial focal mechanism)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;principal_axis&quot;</span></code> (principal axis)</p></li>
-</ul>
-<p>Ignored if <code class="docutils literal notranslate"><span class="pre">spec</span></code> is a dict or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>.</p>
-</p></li>
-<li><p><strong>component</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p>The component of the seismic moment tensor to plot.</p>
+<li><p><strong>convention</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'aki'</span></code>, <code class="docutils literal notranslate"><span class="pre">'gcmt'</span></code>, <code class="docutils literal notranslate"><span class="pre">'mt'</span></code>, <code class="docutils literal notranslate"><span class="pre">'partial'</span></code>, <code class="docutils literal notranslate"><span class="pre">'principal_axis'</span></code>]]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Specify the focal mechanism convention of the input data. Ignored if <code class="docutils literal notranslate"><span class="pre">spec</span></code> is
+a dict or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>. See the table above for the supported
+conventions.</p></li>
+<li><p><strong>component</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'full'</span></code>, <code class="docutils literal notranslate"><span class="pre">'dc'</span></code>, <code class="docutils literal notranslate"><span class="pre">'deviatoric'</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">'full'</span></code>) – <p>The component of the seismic moment tensor to plot. Valid values are:</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;full&quot;</span></code>: the full seismic moment tensor</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;dc&quot;</span></code>: the closest double couple defined from the moment tensor (zero
-trace and zero determinant)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;dc&quot;</span></code>: the closest double couple defined from the moment tensor (zero trace
+and zero determinant)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;deviatoric&quot;</span></code>: deviatoric part of the moment tensor (zero trace)</p></li>
 </ul>
 </p></li>
-<li><p><strong>longitude/latitude/depth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>, or </em><em>1-D numpy array</em>) – Longitude(s) / latitude(s) / depth(s) of the event(s). Length must match the
-number of events. Overrides the <code class="docutils literal notranslate"><span class="pre">longitude</span></code> / <code class="docutils literal notranslate"><span class="pre">latitude</span></code> / <code class="docutils literal notranslate"><span class="pre">depth</span></code> values
-in <code class="docutils literal notranslate"><span class="pre">spec</span></code> if <code class="docutils literal notranslate"><span class="pre">spec</span></code> is a dict or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>.</p></li>
-<li><p><strong>plot_longitude/plot_latitude</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>, or </em><em>1-D numpy array</em>) – Longitude(s) / Latitude(s) at which to place the beachball(s). Length must match
-the number of events. Overrides the <code class="docutils literal notranslate"><span class="pre">plot_longitude</span></code> / <code class="docutils literal notranslate"><span class="pre">plot_latitude</span></code>
-values in <code class="docutils literal notranslate"><span class="pre">spec</span></code> if <code class="docutils literal notranslate"><span class="pre">spec</span></code> is a dict or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>.</p></li>
-<li><p><strong>event_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, or </em><em>1-D numpy array</em>) – Text string(s), e.g., event name(s) to appear near the beachball(s). Length
-must match the number of events. Overrides the <code class="docutils literal notranslate"><span class="pre">event_name</span></code> labels in <code class="docutils literal notranslate"><span class="pre">spec</span></code>
-if <code class="docutils literal notranslate"><span class="pre">spec</span></code> is a dict or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>.</p></li>
+<li><p><strong>longitude/latitude/depth</strong> – Longitude(s), latitude(s), and depth(s) of the event(s). The length of each must
+match the number of events. These parameters are only used if <code class="docutils literal notranslate"><span class="pre">spec</span></code> is a
+dictionary or a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>, and they override any existing
+<code class="docutils literal notranslate"><span class="pre">longitude</span></code>, <code class="docutils literal notranslate"><span class="pre">latitude</span></code>, or <code class="docutils literal notranslate"><span class="pre">depth</span></code> values in <code class="docutils literal notranslate"><span class="pre">spec</span></code>.</p></li>
+<li><p><strong>plot_longitude/plot_latitude</strong> – Longitude(s) and latitude(s) at which to place the beachball(s). The length of
+each must match the number of events. These parameters are only used if <code class="docutils literal notranslate"><span class="pre">spec</span></code>
+is a dictionary or a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>, and they override any existing
+<code class="docutils literal notranslate"><span class="pre">plot_longitude</span></code> or <code class="docutils literal notranslate"><span class="pre">plot_latitude</span></code> values in <code class="docutils literal notranslate"><span class="pre">spec</span></code>.</p></li>
+<li><p><strong>event_name</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Text string(s), such as event name(s), to appear near the beachball(s). The
+length must match the number of events. This parameter is only used if <code class="docutils literal notranslate"><span class="pre">spec</span></code>
+is a dictionary or a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>, and it overrides any existing
+<code class="docutils literal notranslate"><span class="pre">event_name</span></code> labels in <code class="docutils literal notranslate"><span class="pre">spec</span></code>.</p></li>
 <li><p><strong>labelbox</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – [<em>fill</em>].
 Draw a box behind the label if given via <code class="docutils literal notranslate"><span class="pre">event_name</span></code>. Use <em>fill</em> to give a
 fill color [Default is <code class="docutils literal notranslate"><span class="pre">&quot;white&quot;</span></code>].</p></li>
@@ -369,18 +441,7 @@ Select map <a class="reference internal" href="../../projections/index.html"><sp
 Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.</p></li>
 <li><p><strong>frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – Set map boundary
 <a class="reference internal" href="../../tutorials/basics/frames.html"><span class="doc">frame and axes attributes</span></a>.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
-written to stderr. Choose among 7 levels of verbosity:</p>
-<ul>
-<li><p><strong>q</strong>: Quiet, not even fatal error messages are produced</p></li>
-<li><p><strong>e</strong>: Error messages only</p></li>
-<li><p><strong>w</strong>: Warnings [Default]</p></li>
-<li><p><strong>t</strong>: Timings (report runtimes for time-intensive algorithms)</p></li>
-<li><p><strong>i</strong>: Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
-<li><p><strong>c</strong>: Compatibility warnings</p></li>
-<li><p><strong>d</strong>: Debugging messages</p></li>
-</ul>
-</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
 <li><p><strong>panel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – [<em>row,col</em>|<em>index</em>].
 Select a specific subplot panel. Only allowed when in subplot
 mode. Use <code class="docutils literal notranslate"><span class="pre">panel=True</span></code> to advance to the next panel in the
@@ -410,6 +471,9 @@ in the image (for further processing).</p></li>
 </div><div class="sphx-glr-thumbcontainer" tooltip="In addition to colors, PyGMT also allows using bit and hachure patterns to fill symbols, polygons, and other areas, via the fill parameter or similar parameters."><img alt="" src="../../_images/sphx_glr_patterns_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/patterns.html#sphx-glr-gallery-symbols-patterns-py"><span class="std std-ref">Bit and hachure patterns</span></a></p>
   <div class="sphx-glr-thumbnail-title">Bit and hachure patterns</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Focal mechanisms can be plotted as beachballs with the pygmt.Figure.meca method."><img alt="" src="../../_images/sphx_glr_focal_mechanisms_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/focal_mechanisms.html#sphx-glr-tutorials-advanced-focal-mechanisms-py"><span class="std std-ref">Plotting focal mechanisms</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting focal mechanisms</div>
 </div></div><div style='clear:both'></div></section>
 </section>
 
@@ -426,9 +490,9 @@ in the image (for further processing).</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 31, 2025.
       </span></p>
   </div>
 

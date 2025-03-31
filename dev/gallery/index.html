@@ -22,14 +22,14 @@
 
   
     <link rel="shortcut icon" href="../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/gallery/index.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/gallery/index.html" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../_static/documentation_options.js?v=6e6bddb7"></script>
         <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -146,7 +146,7 @@
 <li class="toctree-l3"><a class="reference internal" href="images/contours.html">Contours</a></li>
 <li class="toctree-l3"><a class="reference internal" href="images/grdlandmask.html">Create ‘wet-dry’ mask grid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="images/cross_section.html">Cross-section along a transect</a></li>
-<li class="toctree-l3"><a class="reference internal" href="images/image.html">Images on figures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="images/image.html">Image on a figure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="images/rgb_image.html">RGB image</a></li>
 <li class="toctree-l3"><a class="reference internal" href="images/track_sampling.html">Sampling along tracks</a></li>
 </ul>
@@ -175,11 +175,11 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#plot-embellishments">Plot embellishments</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="embellishments/colorbar.html">Colorbar</a></li>
-<li class="toctree-l3"><a class="reference internal" href="embellishments/solar.html">Day-night terminator line and twilights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="embellishments/solar.html">Day-night terminator and twilights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="embellishments/gmt_logo.html">GMT logo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="embellishments/inset.html">Inset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="embellishments/inset_rectangle_region.html">Inset map showing a rectangular region</a></li>
 <li class="toctree-l3"><a class="reference internal" href="embellishments/legend.html">Legend</a></li>
-<li class="toctree-l3"><a class="reference internal" href="embellishments/logo.html">Logo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="embellishments/colorbars_multiple.html">Multiple colormaps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="embellishments/scalebar.html">Scale bar</a></li>
 <li class="toctree-l3"><a class="reference internal" href="embellishments/timestamp.html">Timestamp</a></li>
@@ -394,8 +394,8 @@ code used to generate it.</p>
 <p><a class="reference internal" href="images/cross_section.html#sphx-glr-gallery-images-cross-section-py"><span class="std std-ref">Cross-section along a transect</span></a></p>
   <div class="sphx-glr-thumbnail-title">Cross-section along a transect</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.image method can be used to read and place an image file in many formats (e.g., png, jpg, eps, pdf) on a figure. We must specify the filename via the imagefile parameter or simply use the filename as the first argument. You can also use a full URL pointing to your desired image. The position parameter allows us to set a reference point on the map for the image."><img alt="" src="../_images/sphx_glr_image_thumb.png" />
-<p><a class="reference internal" href="images/image.html#sphx-glr-gallery-images-image-py"><span class="std std-ref">Images on figures</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Images on figures</div>
+<p><a class="reference internal" href="images/image.html#sphx-glr-gallery-images-image-py"><span class="std std-ref">Image on a figure</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Image on a figure</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.grdimage method can be used to plot Red, Green, Blue (RGB) images, or any 3-band false color combination. Here, we&#x27;ll use :pyrioxarray.open_rasterio to read a GeoTIFF file into an xarray.DataArray format, and plot it on a map."><img alt="" src="../_images/sphx_glr_rgb_image_thumb.png" />
 <p><a class="reference internal" href="images/rgb_image.html#sphx-glr-gallery-images-rgb-image-py"><span class="std std-ref">RGB image</span></a></p>
   <div class="sphx-glr-thumbnail-title">RGB image</div>
@@ -461,8 +461,11 @@ code used to generate it.</p>
 <p><a class="reference internal" href="embellishments/colorbar.html#sphx-glr-gallery-embellishments-colorbar-py"><span class="std std-ref">Colorbar</span></a></p>
   <div class="sphx-glr-thumbnail-title">Colorbar</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.solar to show the different transition stages between daytime and nighttime. The parameter terminator is used to set the twilight stage, and can be either &quot;day_night&quot; (brightest), &quot;civil&quot;, &quot;nautical&quot;, or &quot;astronomical&quot; (darkest). Refer to https://en.wikipedia.org/wiki/Twilight for more information."><img alt="" src="../_images/sphx_glr_solar_thumb.png" />
-<p><a class="reference internal" href="embellishments/solar.html#sphx-glr-gallery-embellishments-solar-py"><span class="std std-ref">Day-night terminator line and twilights</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Day-night terminator line and twilights</div>
+<p><a class="reference internal" href="embellishments/solar.html#sphx-glr-gallery-embellishments-solar-py"><span class="std std-ref">Day-night terminator and twilights</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Day-night terminator and twilights</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.logo method allows to place the GMT logo on a figure."><img alt="" src="../_images/sphx_glr_gmt_logo_thumb.png" />
+<p><a class="reference internal" href="embellishments/gmt_logo.html#sphx-glr-gallery-embellishments-gmt-logo-py"><span class="std std-ref">GMT logo</span></a></p>
+  <div class="sphx-glr-thumbnail-title">GMT logo</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.inset method adds an inset figure inside a larger figure. The method is called using a with statement, and its position, box, offset, and margin parameters are set. Plotting methods called within the with statement are applied to the inset figure."><img alt="" src="../_images/sphx_glr_inset_thumb.png" />
 <p><a class="reference internal" href="embellishments/inset.html#sphx-glr-gallery-embellishments-inset-py"><span class="std std-ref">Inset</span></a></p>
   <div class="sphx-glr-thumbnail-title">Inset</div>
@@ -472,9 +475,6 @@ code used to generate it.</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.legend method can automatically create a legend for symbols plotted using pygmt.Figure.plot. A legend entry is only added when the label parameter is used to state the desired text. Optionally, to adjust the legend, users can append different modifiers. A list of all available modifiers can be found at gmt.html#l-full. To create a multiple-column legend +N is used with the desired number of columns. For more complicated legends, users may want to write an ASCII file with instructions for the layout of the legend items and pass it to the spec parameter of pygmt.Figure.legend. For details on how to set up such a file, please see the GMT documentation at legend.html#legend-codes."><img alt="" src="../_images/sphx_glr_legend_thumb.png" />
 <p><a class="reference internal" href="embellishments/legend.html#sphx-glr-gallery-embellishments-legend-py"><span class="std std-ref">Legend</span></a></p>
   <div class="sphx-glr-thumbnail-title">Legend</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.logo method allows to place the GMT logo on a map."><img alt="" src="../_images/sphx_glr_logo_thumb.png" />
-<p><a class="reference internal" href="embellishments/logo.html#sphx-glr-gallery-embellishments-logo-py"><span class="std std-ref">Logo</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Logo</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This gallery example shows how to create multiple colormaps for different subplots. To better understand how GMT modern mode maintains several levels of colormaps, please refer to reference/features.html#gmt-modern-mode-hierarchical-levels for details."><img alt="" src="../_images/sphx_glr_colorbars_multiple_thumb.png" />
 <p><a class="reference internal" href="embellishments/colorbars_multiple.html#sphx-glr-gallery-embellishments-colorbars-multiple-py"><span class="std std-ref">Multiple colormaps</span></a></p>
   <div class="sphx-glr-thumbnail-title">Multiple colormaps</div>
@@ -503,9 +503,9 @@ code used to generate it.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 31, 2025.
       </span></p>
   </div>
 

@@ -21,14 +21,14 @@
 
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/datasets/earth_relief.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/datasets/earth_relief.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../../../_static/documentation_options.js?v=6e6bddb7"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -210,27 +210,31 @@
 
 <span class="sd">       Earth relief datasets (topography and bathymetry).</span>
 
-<span class="sd">    The grids are downloaded to a user data directory</span>
-<span class="sd">    (usually ``~/.gmt/server/earth/earth_relief``,</span>
+
+<span class="sd">    This function downloads the dataset from the GMT data server, caches it in a user</span>
+<span class="sd">    data directory (usually ``~/.gmt/server/earth/earth_relief``,</span>
 <span class="sd">    ``~/.gmt/server/earth/earth_gebco``, ``~/.gmt/server/earth/earth_gebcosi``,</span>
-<span class="sd">    or ``~/.gmt/server/earth/earth_synbath``) the first time you</span>
-<span class="sd">    invoke this function. Afterwards, it will load the grid from the data</span>
-<span class="sd">    directory. So you&#39;ll need an internet connection the first time around.</span>
+<span class="sd">    ``~/.gmt/server/earth/earth_synbath``), and load the dataset as an</span>
+<span class="sd">    :class:`xarray.DataArray`. An internet connection is required the first time around,</span>
+<span class="sd">    but subsequent calls will load the dataset from the local data directory.</span>
 
-<span class="sd">    This module downloads the grids that can also be accessed by</span>
-<span class="sd">    passing in the file name **@**\ *earth_relief_type*\_\ *res*\[_\ *reg*] to</span>
-<span class="sd">    any grid processing function or plotting method. *earth_relief_type* is</span>
-<span class="sd">    the GMT name for the dataset. The available options are **earth_relief**\,</span>
-<span class="sd">    **earth_gebco**\, **earth_gebcosi**\, and **earth_synbath**\. *res* is the</span>
-<span class="sd">    grid resolution (see below), and *reg* is the grid registration type</span>
-<span class="sd">    (**p** for pixel registration or **g** for gridline registration).</span>
+<span class="sd">    The dataset can also be accessed by specifying a file name in any grid processing</span>
+<span class="sd">    function or plotting method, using the following file name format:</span>
+<span class="sd">    **@**\ *earth_relief_type*\_\ *res*\_\ *reg*. *earth_relief_type* is the GMT name</span>
+<span class="sd">    for the dataset. The available options are **earth_relief**\, **earth_gebco**\,</span>
+<span class="sd">    **earth_gebcosi**\, and **earth_synbath**\. *res* is the grid resolution; *reg* is</span>
+<span class="sd">    the grid registration type (**p** for pixel registration, **g** for gridline</span>
+<span class="sd">    registration). If *reg* is omitted (e.g., ``@earth_relief_01d``), the</span>
+<span class="sd">    gridline-registered grid will be loaded for grid processing functions and the</span>
+<span class="sd">    pixel-registered grid willcbe loaded for plotting functions. If *res* is also</span>
+<span class="sd">    omitted (i.e., ``@earth_relief``), GMT automatically selects a suitable resolution</span>
+<span class="sd">    based on the current region and projection settings.</span>
 
-<span class="sd">    The default color palette table (CPT) for this dataset is *geo*.</span>
-<span class="sd">    It&#39;s implicitly used when passing in the file name of the dataset to any</span>
-<span class="sd">    grid plotting method if no CPT is explicitly specified. When the dataset</span>
-<span class="sd">    is loaded and plotted as an :class:`xarray.DataArray` object, the default</span>
-<span class="sd">    CPT is ignored, and GMT&#39;s default CPT (*turbo*) is used. To use the</span>
-<span class="sd">    dataset-specific CPT, you need to explicitly set ``cmap=&quot;geo&quot;``.</span>
+<span class="sd">    This dataset comes with a color palette table (CPT) file, ``geo``. To use the</span>
+<span class="sd">    dataset-specific CPT when plotting the dataset, explicitly set ``cmap=&quot;geo&quot;``,</span>
+<span class="sd">    otherwise GMT&#39;s default CPT (*turbo*) will be used. If the dataset is referenced by</span>
+<span class="sd">    the file name in a grid plotting method, the dataset-specific CPT file is used</span>
+<span class="sd">    automatically unless another CPT is specified.</span>
 
 <span class="sd">    Refer to :gmt-datasets:`earth-relief.html` for more details about available</span>
 <span class="sd">    datasets, including version information and references.</span>
@@ -289,17 +293,17 @@
 <span class="sd">    --------</span>
 
 <span class="sd">    &gt;&gt;&gt; from pygmt.datasets import load_earth_relief</span>
-<span class="sd">    &gt;&gt;&gt; # load the default grid (gridline-registered 1 arc-degree grid)</span>
+<span class="sd">    &gt;&gt;&gt; # Load the default grid (gridline-registered 1 arc-degree grid)</span>
 <span class="sd">    &gt;&gt;&gt; grid = load_earth_relief()</span>
-<span class="sd">    &gt;&gt;&gt; # load the 30 arc-minutes grid with &quot;gridline&quot; registration</span>
+<span class="sd">    &gt;&gt;&gt; # Load the 30 arc-minutes grid with &quot;gridline&quot; registration</span>
 <span class="sd">    &gt;&gt;&gt; grid = load_earth_relief(resolution=&quot;30m&quot;, registration=&quot;gridline&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; # load high-resolution (5 arc-minutes) grid for a specific region</span>
+<span class="sd">    &gt;&gt;&gt; # Load high-resolution (5 arc-minutes) grid for a specific region</span>
 <span class="sd">    &gt;&gt;&gt; grid = load_earth_relief(</span>
 <span class="sd">    ...     resolution=&quot;05m&quot;,</span>
 <span class="sd">    ...     region=[120, 160, 30, 60],</span>
 <span class="sd">    ...     registration=&quot;gridline&quot;,</span>
 <span class="sd">    ... )</span>
-<span class="sd">    &gt;&gt;&gt; # load the original 3 arc-seconds land-only SRTM tiles from NASA</span>
+<span class="sd">    &gt;&gt;&gt; # Load the original 3 arc-seconds land-only SRTM tiles from NASA</span>
 <span class="sd">    &gt;&gt;&gt; grid = load_earth_relief(</span>
 <span class="sd">    ...     resolution=&quot;03s&quot;,</span>
 <span class="sd">    ...     region=[135, 136, 35, 36],</span>
@@ -358,9 +362,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 31, 2025.
       </span></p>
   </div>
 

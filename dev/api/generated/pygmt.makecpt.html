@@ -22,14 +22,14 @@
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.makecpt.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.makecpt.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../../_static/documentation_options.js?v=6e6bddb7"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -317,18 +317,7 @@ Expects input z-values provided via <code class="docutils literal notranslate"><
 assigns colors, and writes out <em>z</em>.</p></li>
 <li><p><strong>continuous</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Force a continuous CPT when building from a list of colors and a list
 of z-values [Default is None, i.e. discrete values].</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
-written to stderr. Choose among 7 levels of verbosity:</p>
-<ul>
-<li><p><strong>q</strong>: Quiet, not even fatal error messages are produced</p></li>
-<li><p><strong>e</strong>: Error messages only</p></li>
-<li><p><strong>w</strong>: Warnings [Default]</p></li>
-<li><p><strong>t</strong>: Timings (report runtimes for time-intensive algorithms)</p></li>
-<li><p><strong>i</strong>: Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
-<li><p><strong>c</strong>: Compatibility warnings</p></li>
-<li><p><strong>d</strong>: Debugging messages</p></li>
-</ul>
-</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
 <li><p><strong>categorical</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Do not interpolate the input color table but pick the output colors
 starting at the beginning of the color table, until colors for all
 intervals are assigned. This is particularly useful in combination with
@@ -379,6 +368,9 @@ range. Note that <code class="docutils literal notranslate"><span class="pre">cy
 </div><div class="sphx-glr-thumbcontainer" tooltip="It can be visually appealing to &quot;drape&quot; a dataset over a topographic surface. This can be accomplished using the drapegrid parameter of pygmt.Figure.grdview."><img alt="" src="../../_images/sphx_glr_draping_on_3d_surface_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/draping_on_3d_surface.html#sphx-glr-tutorials-advanced-draping-on-3d-surface-py"><span class="std std-ref">Draping a dataset on top of a topographic surface</span></a></p>
   <div class="sphx-glr-thumbnail-title">Draping a dataset on top of a topographic surface</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Focal mechanisms can be plotted as beachballs with the pygmt.Figure.meca method."><img alt="" src="../../_images/sphx_glr_focal_mechanisms_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/focal_mechanisms.html#sphx-glr-tutorials-advanced-focal-mechanisms-py"><span class="std std-ref">Plotting focal mechanisms</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting focal mechanisms</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdhisteq.equalize_grid method creates a grid using statistics based on a cumulative distribution function."><img alt="" src="../../_images/sphx_glr_grid_equalization_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/grid_equalization.html#sphx-glr-tutorials-advanced-grid-equalization-py"><span class="std std-ref">Performing grid histogram equalization</span></a></p>
   <div class="sphx-glr-thumbnail-title">Performing grid histogram equalization</div>
@@ -404,9 +396,9 @@ range. Note that <code class="docutils literal notranslate"><span class="pre">cy
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 31, 2025.
       </span></p>
   </div>
 

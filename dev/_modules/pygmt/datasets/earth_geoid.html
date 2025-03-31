@@ -21,14 +21,14 @@
 
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/datasets/earth_geoid.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/datasets/earth_geoid.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../../../_static/documentation_options.js?v=6e6bddb7"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -193,16 +193,20 @@
 
 <span class="sd">       EGM2008 Earth geoid dataset.</span>
 
-<span class="sd">    The grids are downloaded to a user data directory</span>
-<span class="sd">    (usually ``~/.gmt/server/earth/earth_geoid/``) the first time you invoke</span>
-<span class="sd">    this function. Afterwards, it will load the grid from the data directory.</span>
-<span class="sd">    So you&#39;ll need an internet connection the first time around.</span>
+<span class="sd">    This function downloads the dataset from the GMT data server, caches it in a user</span>
+<span class="sd">    data directory (usually ``~/.gmt/server/earth/earth_geoid/``), and load the dataset</span>
+<span class="sd">    as an :class:`xarray.DataArray`. An internet connection is required the first time</span>
+<span class="sd">    around, but subsequent calls will load the dataset from the local data directory.</span>
 
-<span class="sd">    These grids can also be accessed by passing in the file name</span>
-<span class="sd">    **@earth_geoid**\_\ *res*\[_\ *reg*] to any grid processing function or</span>
-<span class="sd">    plotting method. *res* is the grid resolution (see below), and *reg* is</span>
-<span class="sd">    the grid registration type (**p** for pixel registration or **g** for</span>
-<span class="sd">    gridline registration).</span>
+<span class="sd">    The dataset can also be accessed by specifying a file name in any grid processing</span>
+<span class="sd">    function or plotting method, using the following file name format:</span>
+<span class="sd">    **@earth_geoid**\_\ *res*\_\ *reg*. *res* is the grid resolution; *reg* is the grid</span>
+<span class="sd">    registration type (**p** for pixel registration, **g** for gridline registration).</span>
+<span class="sd">    If *reg* is omitted (e.g., ``@earth_geoid_01d``), the gridline-registered grid will</span>
+<span class="sd">    be loaded for grid processing functions and the pixel-registered grid will be</span>
+<span class="sd">    loaded for plotting functions. If *res* is also omitted (i.e., ``@earth_geoid``),</span>
+<span class="sd">    GMT automatically selects a suitable resolution based on the current region and</span>
+<span class="sd">    projection settings.</span>
 
 <span class="sd">    Refer to :gmt-datasets:`earth-geoid.html` for more details about available</span>
 <span class="sd">    datasets, including version information and references.</span>
@@ -241,11 +245,11 @@
 <span class="sd">    --------</span>
 
 <span class="sd">    &gt;&gt;&gt; from pygmt.datasets import load_earth_geoid</span>
-<span class="sd">    &gt;&gt;&gt; # load the default grid (gridline-registered 1 arc-degree grid)</span>
+<span class="sd">    &gt;&gt;&gt; # Load the default grid (gridline-registered 1 arc-degree grid)</span>
 <span class="sd">    &gt;&gt;&gt; grid = load_earth_geoid()</span>
-<span class="sd">    &gt;&gt;&gt; # load the 30 arc-minutes grid with &quot;gridline&quot; registration</span>
+<span class="sd">    &gt;&gt;&gt; # Load the 30 arc-minutes grid with &quot;gridline&quot; registration</span>
 <span class="sd">    &gt;&gt;&gt; grid = load_earth_geoid(resolution=&quot;30m&quot;, registration=&quot;gridline&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; # load high-resolution (5 arc-minutes) grid for a specific region</span>
+<span class="sd">    &gt;&gt;&gt; # Load high-resolution (5 arc-minutes) grid for a specific region</span>
 <span class="sd">    &gt;&gt;&gt; grid = load_earth_geoid(</span>
 <span class="sd">    ...     resolution=&quot;05m&quot;,</span>
 <span class="sd">    ...     region=[120, 160, 30, 60],</span>
@@ -272,9 +276,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 31, 2025.
       </span></p>
   </div>
 

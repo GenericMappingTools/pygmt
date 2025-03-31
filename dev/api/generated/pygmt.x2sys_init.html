@@ -22,14 +22,14 @@
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.x2sys_init.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.x2sys_init.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../../_static/documentation_options.js?v=6e6bddb7"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -273,18 +273,7 @@ set, and <code class="docutils literal notranslate"><span class="pre">units=[&qu
 </p></li>
 <li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
 Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
-written to stderr. Choose among 7 levels of verbosity:</p>
-<ul>
-<li><p><strong>q</strong>: Quiet, not even fatal error messages are produced</p></li>
-<li><p><strong>e</strong>: Error messages only</p></li>
-<li><p><strong>w</strong>: Warnings [Default]</p></li>
-<li><p><strong>t</strong>: Timings (report runtimes for time-intensive algorithms)</p></li>
-<li><p><strong>i</strong>: Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
-<li><p><strong>c</strong>: Compatibility warnings</p></li>
-<li><p><strong>d</strong>: Debugging messages</p></li>
-</ul>
-</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
 <li><p><strong>gap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <strong>t</strong>|<strong>d</strong><em>gap</em>.
 Give <strong>t</strong> or <strong>d</strong> and append the corresponding maximum time gap (in
 user units; this is typically seconds [Default is infinity]), or
@@ -292,19 +281,8 @@ distance (for units, see <code class="docutils literal notranslate"><span class=
 between the two data points immediately on either side of a crossover.
 If these limits are exceeded then a data gap is assumed and no COE will
 be determined.</p></li>
-<li><p><strong>distcalc</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p><strong>e</strong>|<strong>f</strong>|<strong>g</strong>.
-Determine how spherical distances are calculated.</p>
-<ul>
-<li><p><strong>e</strong>: Ellipsoidal (or geodesic) mode</p></li>
-<li><p><strong>f</strong>: Flat Earth mode</p></li>
-<li><p><strong>g</strong>: Great circle distance [Default]</p></li>
-</ul>
-<p>All spherical distance calculations depend on the current ellipsoid
-(<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-PROJ_ELLIPSOID">PROJ_ELLIPSOID</a>), the definition of the mean radius
-(<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-PROJ_MEAN_RADIUS">PROJ_MEAN_RADIUS</a>), and the specification of latitude type
-(<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-PROJ_AUX_LATITUDE">PROJ_AUX_LATITUDE</a>). Geodesic distance calculations is also
-controlled by method (<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-PROJ_GEODESIC">PROJ_GEODESIC</a>).</p>
-</p></li>
+<li><p><strong>distcalc</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Determine how spherical distances are calculated
+[<a class="reference internal" href="../../techref/common_parameters.html#term-distcalc"><span class="xref std std-term">Full usage</span></a>].</p></li>
 </ul>
 </dd>
 </dl>
@@ -325,9 +303,9 @@ controlled by method (<a class="reference external" href="https://docs.generic-m
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 31, 2025.
       </span></p>
   </div>
 

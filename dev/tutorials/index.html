@@ -22,19 +22,20 @@
 
   
     <link rel="shortcut icon" href="../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/tutorials/index.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/tutorials/index.html" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../_static/documentation_options.js?v=6e6bddb7"></script>
         <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../_static/copybutton.js?v=ccdb6887"></script>
         <script src="../_static/design-tabs.js?v=f930bc37"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -113,12 +114,14 @@
 <li class="toctree-l3"><a class="reference internal" href="advanced/configuration.html">Configuring PyGMT defaults</a></li>
 <li class="toctree-l3"><a class="reference internal" href="advanced/3d_perspective_image.html">Creating a 3-D perspective image</a></li>
 <li class="toctree-l3"><a class="reference internal" href="advanced/contour_map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="advanced/legends.html">Creating legends</a></li>
 <li class="toctree-l3"><a class="reference internal" href="advanced/draping_on_3d_surface.html">Draping a dataset on top of a topographic surface</a></li>
 <li class="toctree-l3"><a class="reference internal" href="advanced/working_with_panel.html">Interactive data visualization using <code class="docutils literal notranslate"><span class="pre">Panel</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="advanced/subplots.html">Making subplots</a></li>
 <li class="toctree-l3"><a class="reference internal" href="advanced/grid_equalization.html">Performing grid histogram equalization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="advanced/earth_relief.html">Plotting Earth relief</a></li>
 <li class="toctree-l3"><a class="reference internal" href="advanced/date_time_charts.html">Plotting datetime charts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="advanced/focal_mechanisms.html">Plotting focal mechanisms</a></li>
 <li class="toctree-l3"><a class="reference internal" href="advanced/vectors.html">Plotting vectors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="advanced/non_ascii_text.html">Typesetting non-ASCII text</a></li>
 </ul>
@@ -246,6 +249,9 @@
 </div><div class="sphx-glr-thumbcontainer" tooltip="Plotting a contour map is handled by pygmt.Figure.grdcontour."><img alt="" src="../_images/sphx_glr_contour_map_thumb.png" />
 <p><a class="reference internal" href="advanced/contour_map.html#sphx-glr-tutorials-advanced-contour-map-py"><span class="std std-ref">Creating a map with contour lines</span></a></p>
   <div class="sphx-glr-thumbnail-title">Creating a map with contour lines</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.legend method creates legends, whereby auto-legends as well as manually created legends are supported."><img alt="" src="../_images/sphx_glr_legends_thumb.png" />
+<p><a class="reference internal" href="advanced/legends.html#sphx-glr-tutorials-advanced-legends-py"><span class="std std-ref">Creating legends</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Creating legends</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="It can be visually appealing to &quot;drape&quot; a dataset over a topographic surface. This can be accomplished using the drapegrid parameter of pygmt.Figure.grdview."><img alt="" src="../_images/sphx_glr_draping_on_3d_surface_thumb.png" />
 <p><a class="reference internal" href="advanced/draping_on_3d_surface.html#sphx-glr-tutorials-advanced-draping-on-3d-surface-py"><span class="std std-ref">Draping a dataset on top of a topographic surface</span></a></p>
   <div class="sphx-glr-thumbnail-title">Draping a dataset on top of a topographic surface</div>
@@ -264,6 +270,9 @@
 </div><div class="sphx-glr-thumbcontainer" tooltip="PyGMT accepts a variety of datetime objects to plot data and create charts. Aside from the built-in Python datetime module, PyGMT supports inputs containing ISO formatted strings as well as objects generated with numpy, pandas, and xarray. These data types can be used to plot specific points as well as get passed into the region parameter to create a range of the data on an axis."><img alt="" src="../_images/sphx_glr_date_time_charts_thumb.png" />
 <p><a class="reference internal" href="advanced/date_time_charts.html#sphx-glr-tutorials-advanced-date-time-charts-py"><span class="std std-ref">Plotting datetime charts</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting datetime charts</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Focal mechanisms can be plotted as beachballs with the pygmt.Figure.meca method."><img alt="" src="../_images/sphx_glr_focal_mechanisms_thumb.png" />
+<p><a class="reference internal" href="advanced/focal_mechanisms.html#sphx-glr-tutorials-advanced-focal-mechanisms-py"><span class="std std-ref">Plotting focal mechanisms</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting focal mechanisms</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Plotting vectors is handled by pygmt.Figure.plot."><img alt="" src="../_images/sphx_glr_vectors_thumb.png" />
 <p><a class="reference internal" href="advanced/vectors.html#sphx-glr-tutorials-advanced-vectors-py"><span class="std std-ref">Plotting vectors</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting vectors</div>
@@ -289,9 +298,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 31, 2025.
       </span></p>
   </div>
 

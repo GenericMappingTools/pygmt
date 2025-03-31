@@ -6,7 +6,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-        <title>Images on figures &mdash; PyGMT</title>
+        <title>Image on a figure &mdash; PyGMT</title>
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
@@ -22,14 +22,14 @@
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/gallery/images/image.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/gallery/images/image.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../../_static/documentation_options.js?v=6e6bddb7"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -108,7 +108,7 @@
 <li class="toctree-l3"><a class="reference internal" href="contours.html">Contours</a></li>
 <li class="toctree-l3"><a class="reference internal" href="grdlandmask.html">Create ‘wet-dry’ mask grid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cross_section.html">Cross-section along a transect</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Images on figures</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Image on a figure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rgb_image.html">RGB image</a></li>
 <li class="toctree-l3"><a class="reference internal" href="track_sampling.html">Sampling along tracks</a></li>
 </ul>
@@ -172,7 +172,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Gallery</a></li>
-      <li class="breadcrumb-item active">Images on figures</li>
+      <li class="breadcrumb-item active">Image on a figure</li>
     <li class="source-link">
         
             
@@ -200,14 +200,13 @@
 <p><a class="reference internal" href="#sphx-glr-download-gallery-images-image-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code.</p>
 </div>
-<section class="sphx-glr-example-title" id="images-on-figures">
-<span id="sphx-glr-gallery-images-image-py"></span><h1>Images on figures<a class="headerlink" href="#images-on-figures" title="Link to this heading"></a></h1>
-<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.image.html#pygmt.Figure.image" title="pygmt.Figure.image"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.image</span></code></a> method can be used to read and place an image
-file in many formats (e.g., png, jpg, eps, pdf) on a figure. We must specify
-the filename via the <code class="docutils literal notranslate"><span class="pre">imagefile</span></code> parameter or simply use the filename as
-the first argument. You can also use a full URL pointing to your desired image.
-The <code class="docutils literal notranslate"><span class="pre">position</span></code> parameter allows us to set a reference point on the map for
-the image.</p>
+<section class="sphx-glr-example-title" id="image-on-a-figure">
+<span id="sphx-glr-gallery-images-image-py"></span><h1>Image on a figure<a class="headerlink" href="#image-on-a-figure" title="Link to this heading"></a></h1>
+<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.image.html#pygmt.Figure.image" title="pygmt.Figure.image"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.image</span></code></a> method can be used to read and place an image file in
+many formats (e.g., png, jpg, eps, pdf) on a figure. We must specify the filename via
+the <code class="docutils literal notranslate"><span class="pre">imagefile</span></code> parameter or simply use the filename as the first argument. You can
+also use a full URL pointing to your desired image. The <code class="docutils literal notranslate"><span class="pre">position</span></code> parameter allows
+us to set a reference point on the map for the image.</p>
 <img src="../../_images/sphx_glr_image_001.png" srcset="../../_images/sphx_glr_image_001.png" alt="image" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class"><span class="n">Path</span></a>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
@@ -215,22 +214,22 @@ the image.</p>
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X10c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="c1"># place and center the GMT logo from the GMT website to the position 1/1</span>
-<span class="c1"># on a basemap, scaled up to be 3 cm wide and draw a rectangular border</span>
-<span class="c1"># around the image</span>
+<span class="c1"># Place and center (&quot;+jCM&quot;) the image &quot;needle.jpg&quot; provided by GMT to the position</span>
+<span class="c1"># (&quot;+g&quot;) 1/1 on the current plot, scale it to a width of 8 centimeters (&quot;+w&quot;) and draw</span>
+<span class="c1"># a rectangular border around it</span>
 <a href="../../api/generated/pygmt.Figure.image.html#pygmt.Figure.image" title="pygmt.Figure.image" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">image</span></a><span class="p">(</span>
-    <span class="n">imagefile</span><span class="o">=</span><span class="s2">&quot;https://www.generic-mapping-tools.org/_static/gmt-logo.png&quot;</span><span class="p">,</span>
-    <span class="n">position</span><span class="o">=</span><span class="s2">&quot;g1/1+w3c+jCM&quot;</span><span class="p">,</span>
+    <span class="n">imagefile</span><span class="o">=</span><span class="s2">&quot;https://oceania.generic-mapping-tools.org/cache/needle.jpg&quot;</span><span class="p">,</span>
+    <span class="n">position</span><span class="o">=</span><span class="s2">&quot;g1/1+w8c+jCM&quot;</span><span class="p">,</span>
     <span class="n">box</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="c1"># clean up the downloaded image in the current directory</span>
-<a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class"><span class="n">Path</span></a><span class="p">(</span><span class="s2">&quot;gmt-logo.png&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
-
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
+
+<span class="c1"># Clean up the downloaded image in the current directory</span>
+<a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class"><span class="n">Path</span></a><span class="p">(</span><span class="s2">&quot;needle.jpg&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.508 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.613 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-images-image-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/6ef0d9e15dd7547721a2378987ce444c/image.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">image.ipynb</span></code></a></p>
@@ -258,9 +257,9 @@ the image.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 31, 2025.
       </span></p>
   </div>
 

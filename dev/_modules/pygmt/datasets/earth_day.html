@@ -21,14 +21,14 @@
 
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/datasets/earth_day.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/datasets/earth_day.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../../../_static/documentation_options.js?v=6e6bddb7"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -166,16 +166,11 @@
 <span class="sd">The images are available in various resolutions.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">contextlib</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.datasets.load_remote_dataset</span><span class="w"> </span><span class="kn">import</span> <span class="n">_load_remote_dataset</span>
-
-<span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">ImportError</span><span class="p">):</span>
-    <span class="c1"># rioxarray is needed to register the rio accessor</span>
-    <span class="kn">import</span><span class="w"> </span><span class="nn">rioxarray</span>  <span class="c1"># noqa: F401</span>
 
 <span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;load_blue_marble&quot;</span><span class="p">]</span>
 
@@ -208,14 +203,17 @@
 
 <span class="sd">       Earth day/night dataset.</span>
 
-<span class="sd">    The images are downloaded to a user data directory (usually</span>
-<span class="sd">    ``~/.gmt/server/earth/earth_day/``) the first time you invoke this function.</span>
-<span class="sd">    Afterwards, it will load the image from the data directory. So you&#39;ll need an</span>
-<span class="sd">    internet connection the first time around.</span>
 
-<span class="sd">    These images can also be accessed by passing in the file name</span>
-<span class="sd">    **@earth_day**\_\ *res* to any image processing function or plotting method. *res*</span>
-<span class="sd">    is the image resolution (see below).</span>
+<span class="sd">    This function downloads the dataset from the GMT data server, caches it in a user</span>
+<span class="sd">    data directory (usually ``~/.gmt/server/earth/earth_day/``), and load the dataset as</span>
+<span class="sd">    an :class:`xarray.DataArray`. An internet connection is required the first time</span>
+<span class="sd">    around, but subsequent calls will load the dataset from the local data directory.</span>
+
+<span class="sd">    The dataset can also be accessed by specifying a file name in any image processing</span>
+<span class="sd">    function or plotting method, using the following file name format:</span>
+<span class="sd">    **@earth_day**\_\ *res*. *res* is the image resolution. If *res* is omitted (i.e.,</span>
+<span class="sd">    ``@earth_day``), GMT automatically selects a suitable resolution based on the</span>
+<span class="sd">    current region and projection settings.</span>
 
 <span class="sd">    Refer to :gmt-datasets:`earth-daynight.html` for more details about available</span>
 <span class="sd">    datasets, including version information and references.</span>
@@ -248,7 +246,7 @@
 <span class="sd">    --------</span>
 
 <span class="sd">    &gt;&gt;&gt; from pygmt.datasets import load_blue_marble</span>
-<span class="sd">    &gt;&gt;&gt; # load the default image (pixel-registered 1 arc-degree image)</span>
+<span class="sd">    &gt;&gt;&gt; # Load the default image (pixel-registered 1 arc-degree image)</span>
 <span class="sd">    &gt;&gt;&gt; image = load_blue_marble()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">image</span> <span class="o">=</span> <span class="n">_load_remote_dataset</span><span class="p">(</span>
@@ -258,9 +256,6 @@
         <span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
         <span class="n">registration</span><span class="o">=</span><span class="s2">&quot;pixel&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="c1"># If rioxarray is installed, set the coordinate reference system</span>
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="s2">&quot;rio&quot;</span><span class="p">):</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">write_crs</span><span class="p">(</span><span class="n">input_crs</span><span class="o">=</span><span class="s2">&quot;OGC:CRS84&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">image</span></div>
 
 </pre></div>
@@ -274,9 +269,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 31, 2025.
       </span></p>
   </div>
 

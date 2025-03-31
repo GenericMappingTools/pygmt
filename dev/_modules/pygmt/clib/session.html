@@ -21,14 +21,14 @@
 
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/clib/session.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/clib/session.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../../../_static/documentation_options.js?v=6e6bddb7"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -2438,7 +2438,7 @@
         <span class="k">if</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s2">&quot;strings&quot;</span><span class="p">:</span>  <span class="c1"># strings output</span>
             <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">to_strings</span><span class="p">()</span>
 
-        <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">(</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span> <span class="n">column_names</span><span class="o">=</span><span class="n">column_names</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="n">index_col</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s2">&quot;numpy&quot;</span><span class="p">:</span>  <span class="c1"># numpy.ndarray output</span>
@@ -2510,7 +2510,7 @@
                 <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;GMT_IS_IMAGE&quot;</span><span class="p">]:</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span>
                 <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;GMT_IS_CUBE&quot;</span><span class="p">]:</span> <span class="s2">&quot;cube&quot;</span><span class="p">,</span>
             <span class="p">}[</span><span class="n">family</span><span class="p">]</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_virtualfile</span><span class="p">(</span><span class="n">vfname</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">)</span><span class="o">.</span><span class="n">contents</span><span class="o">.</span><span class="n">to_dataarray</span><span class="p">()</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_virtualfile</span><span class="p">(</span><span class="n">vfname</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">)</span><span class="o">.</span><span class="n">contents</span><span class="o">.</span><span class="n">to_xarray</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Session.extract_region">
@@ -2589,9 +2589,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 31, 2025.
       </span></p>
   </div>
 

@@ -21,14 +21,14 @@
 
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/grdclip.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/grdclip.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../../../_static/documentation_options.js?v=6e6bddb7"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -160,25 +160,33 @@
              
   <h1>Source code for pygmt.src.grdclip</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">grdclip - Change the range and extremes of grid values.</span>
+<span class="sd">grdclip - Clip the range of grid values.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">build_arg_list</span><span class="p">,</span>
+    <span class="n">deprecate_parameter</span><span class="p">,</span>
+    <span class="n">fmt_docstring</span><span class="p">,</span>
+    <span class="n">kwargs_to_strings</span><span class="p">,</span>
+    <span class="n">use_alias</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;grdclip&quot;</span><span class="p">]</span>
 
 
+<span class="c1"># TODO(PyGMT&gt;=0.19.0): Remove the deprecated &quot;new&quot; parameter.</span>
 <div class="viewcode-block" id="grdclip">
 <a class="viewcode-back" href="../../../api/generated/pygmt.grdclip.html#pygmt.grdclip">[docs]</a>
 <span class="nd">@fmt_docstring</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;new&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.15.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.19.0&quot;</span><span class="p">)</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
     <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
     <span class="n">Sa</span><span class="o">=</span><span class="s2">&quot;above&quot;</span><span class="p">,</span>
     <span class="n">Sb</span><span class="o">=</span><span class="s2">&quot;below&quot;</span><span class="p">,</span>
     <span class="n">Si</span><span class="o">=</span><span class="s2">&quot;between&quot;</span><span class="p">,</span>
-    <span class="n">Sr</span><span class="o">=</span><span class="s2">&quot;new&quot;</span><span class="p">,</span>
+    <span class="n">Sr</span><span class="o">=</span><span class="s2">&quot;replace&quot;</span><span class="p">,</span>
     <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span>
@@ -190,7 +198,7 @@
 <span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">grdclip</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">outgrid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Set values in a grid that meet certain criteria to a new value.</span>
+<span class="sd">    Clip the range of grid values.</span>
 
 <span class="sd">    Produce a clipped ``outgrid`` or :class:`xarray.DataArray` version of the</span>
 <span class="sd">    input ``grid`` file.</span>
@@ -218,7 +226,7 @@
 <span class="sd">    between : str or list</span>
 <span class="sd">        [*low*, *high*, *between*].</span>
 <span class="sd">        Set all data[i] &gt;= *low* and &lt;= *high* to *between*.</span>
-<span class="sd">    new : str or list</span>
+<span class="sd">    replace : str or list</span>
 <span class="sd">        [*old*, *new*].</span>
 <span class="sd">        Set all data[i] == *old* to *new*. This is mostly useful when</span>
 <span class="sd">        your data are known to be integer values.</span>
@@ -273,9 +281,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 31, 2025.
       </span></p>
   </div>
 

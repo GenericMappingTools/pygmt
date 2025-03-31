@@ -22,14 +22,14 @@
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.grdfill.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.grdfill.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../../_static/documentation_options.js?v=6e6bddb7"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -208,69 +208,79 @@
 <h1>pygmt.grdfill<a class="headerlink" href="#pygmt-grdfill" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="pygmt.grdfill">
-<span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">grdfill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outgrid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/grdfill.html#grdfill"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.grdfill" title="Link to this definition"></a></dt>
-<dd><p>Fill blank areas from a grid file.</p>
-<p>Read a grid that presumably has unfilled holes that the user wants to
-fill in some fashion. Holes are identified by NaN values but this
-criteria can be changed via the <code class="docutils literal notranslate"><span class="pre">no_data</span></code> parameter. There are several
-different algorithms that can be used to replace the hole values.</p>
-<p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/grdfill.html">https://docs.generic-mapping-tools.org/6.5/grdfill.html</a></p>
+<span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">grdfill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outgrid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constantfill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gridfill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neighborfill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">splinefill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inquire</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/grdfill.html#grdfill"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.grdfill" title="Link to this definition"></a></dt>
+<dd><p>Interpolate across holes in a grid.</p>
+<p>Read a grid that presumably has unfilled holes that the user wants to fill in some
+fashion. Holes are identified by NaN values but this criteria can be changed via the
+<code class="docutils literal notranslate"><span class="pre">hole</span></code> parameter. There are several different algorithms that can be used to
+replace the hole values. If no holes are found the original unchanged grid is
+returned.</p>
+<p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/grdfill.html">https://docs.generic-mapping-tools.org/6.5/grdfill.html</a>.</p>
 <p><strong>Aliases:</strong></p>
 <table class="hlist"><tr><td><ul class="simple">
-<li><p>A = mode</p></li>
-<li><p>N = no_data</p></li>
-</ul>
-</td><td><ul class="simple">
+<li><p>N = hole</p></li>
 <li><p>R = region</p></li>
 </ul>
 </td><td><ul class="simple">
 <li><p>V = verbose</p></li>
 </ul>
+</td><td><ul class="simple">
+<li><p>f = coltypes</p></li>
+</ul>
 </td></tr></table>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><em>xarray.DataArray</em></a>) – <p>Name of the input grid file or the grid loaded as a
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.</p>
+<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><em>xarray.DataArray</em></a>) – <p>Name of the input grid file or the grid loaded as a
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.</p>
 <p>For reading a specific grid file format or applying basic data operations,
 see <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#grd-inout-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#grd-inout-full</a> for the available modifiers.</p>
 </p></li>
 <li><p><strong>outgrid</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Name of the output netCDF grid file. If not specified, will return an
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object. For writing a specific grid file format or
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object. For writing a specific grid file format or
 applying basic data operations to the output grid, see
 <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#grd-inout-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#grd-inout-full</a> for the available modifiers.</p></li>
-<li><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Specify the hole-filling algorithm to use.  Choose from <strong>c</strong> for
-constant fill and append the constant value, <strong>n</strong> for nearest
-neighbor (and optionally append a search radius in
-pixels [default radius is <span class="math notranslate nohighlight">\(r^2 = \sqrt{ X^2 + Y^2 }\)</span>,
-where (<em>X,Y</em>) are the node dimensions of the grid]), or
-<strong>s</strong> for bicubic spline (optionally append a <em>tension</em>
-parameter [Default is no tension]).</p></li>
-<li><p><strong>no_data</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Set the node value used to identify a point as a member of a hole
-[Default is NaN].</p></li>
+<li><p><strong>constantfill</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Fill the holes with a constant value. Specify the constant value to use.</p></li>
+<li><p><strong>gridfill</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Fill the holes with values sampled from another (possibly coarser) grid. Specify
+the grid (a file name or an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) to use for the fill.</p></li>
+<li><p><strong>neighborfill</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Fill the holes with the nearest neighbor. Specify the search radius in pixels.
+If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the default search radius will be used
+(<span class="math notranslate nohighlight">\(r^2 = \sqrt{n^2 + m^2}\)</span>, where (<em>n,m</em>) are the node dimensions of the
+grid).</p></li>
+<li><p><strong>splinefill</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Fill the holes with a bicubic spline. Specify the tension value to use. If set
+to <code class="docutils literal notranslate"><span class="pre">True</span></code>, no tension will be used.</p></li>
+<li><p><strong>hole</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Set the node value used to identify a point as a member of a hole [Default is
+NaN].</p></li>
+<li><p><strong>inquire</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Output the bounds of each hole. The bounds are returned as a 2-D numpy array in
+the form of (west, east, south, north). No grid fill takes place and <code class="docutils literal notranslate"><span class="pre">outgrid</span></code>
+is ignored.</p></li>
+<li><p><strong>mode</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <p>Specify the hole-filling algorithm to use. Choose from <strong>c</strong> for constant fill
+and append the constant value, <strong>n</strong> for nearest neighbor (and optionally append
+a search radius in pixels [default radius is <span class="math notranslate nohighlight">\(r^2 = \sqrt{ X^2 + Y^2 }\)</span>,
+where (<em>X,Y</em>) are the node dimensions of the grid]), or <strong>s</strong> for bicubic spline
+(optionally append a <em>tension</em> parameter [Default is no tension]).</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 0.15.0: </span>Use <code class="docutils literal notranslate"><span class="pre">constantfill</span></code>, <code class="docutils literal notranslate"><span class="pre">gridfill</span></code>, <code class="docutils literal notranslate"><span class="pre">neighborfill</span></code>, or <code class="docutils literal notranslate"><span class="pre">splinefill</span></code>
+instead. The parameter will be removed in v0.19.0.</p>
+</div>
+</p></li>
 <li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
 Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
-written to stderr. Choose among 7 levels of verbosity:</p>
-<ul>
-<li><p><strong>q</strong>: Quiet, not even fatal error messages are produced</p></li>
-<li><p><strong>e</strong>: Error messages only</p></li>
-<li><p><strong>w</strong>: Warnings [Default]</p></li>
-<li><p><strong>t</strong>: Timings (report runtimes for time-intensive algorithms)</p></li>
-<li><p><strong>i</strong>: Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
-<li><p><strong>c</strong>: Compatibility warnings</p></li>
-<li><p><strong>d</strong>: Debugging messages</p></li>
-</ul>
-</p></li>
+<li><p><strong>coltypes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – [<strong>i</strong>|<strong>o</strong>]<em>colinfo</em>.
+Specify data types of input and/or output columns (time or
+geographical data). Full documentation is at
+<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#f-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#f-full</a>.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a> | <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><p><em>ret</em> – Return type depends on whether the <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> parameter is set:</p>
+<dd class="field-odd"><p><p><em>ret</em> – If <code class="docutils literal notranslate"><span class="pre">inquire</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, return the bounds of each hole as a 2-D numpy array.
+Otherwise, the return type depends on whether the <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> parameter is set:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> if <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> is not set</p></li>
+<li><p><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> if <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> is not set</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> if <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> is set (grid output will be stored in the file set by
 <code class="docutils literal notranslate"><span class="pre">outgrid</span></code>)</p></li>
 </ul>
@@ -278,14 +288,18 @@ written to stderr. Choose among 7 levels of verbosity:</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Load a bathymetric grid with missing data</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">earth_relief_holes</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;earth_relief_holes&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Perform grid filling operations on the sample grid</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Set all empty values to &quot;20&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">filled_grid</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">grdfill</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="n">earth_relief_holes</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;c20&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
+<p>Fill holes in a bathymetric grid with a constant value of 20.
+&gt;&gt;&gt; import pygmt
+&gt;&gt;&gt; # Load a bathymetric grid with missing data
+&gt;&gt;&gt; earth_relief_holes = pygmt.datasets.load_sample_data(name=”earth_relief_holes”)
+&gt;&gt;&gt; # Fill the holes with a constant value of 20
+&gt;&gt;&gt; filled_grid = pygmt.grdfill(grid=earth_relief_holes, constantfill=20)</p>
+<p>Inquire the bounds of each hole.
+&gt;&gt;&gt; pygmt.grdfill(grid=earth_relief_holes, inquire=True)
+array([[1.83333333, 6.16666667, 3.83333333, 8.16666667],</p>
+<blockquote>
+<div><p>[6.16666667, 7.83333333, 0.5       , 2.5       ]])</p>
+</div></blockquote>
 </dd></dl>
 
 <div style='clear:both'></div></section>
@@ -303,9 +317,9 @@ written to stderr. Choose among 7 levels of verbosity:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 31, 2025.
       </span></p>
   </div>
 

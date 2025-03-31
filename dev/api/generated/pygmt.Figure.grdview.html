@@ -22,14 +22,14 @@
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.Figure.grdview.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.Figure.grdview.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../../_static/documentation_options.js?v=6e6bddb7"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -204,12 +204,11 @@
 <dt class="sig sig-object py" id="pygmt.Figure.grdview">
 <span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">grdview</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zscale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drapegrid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plane</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surftype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contourpen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meshpen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">facadepen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shading</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">panel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coltypes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perspective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.grdview" title="Link to this definition"></a></dt>
 <dd><p>Create 3-D perspective image or surface mesh from a grid.</p>
-<p>Reads a 2-D grid file and produces a 3-D perspective plot by drawing a
-mesh, painting a colored/gray-shaded surface made up of polygons, or by
-scanline conversion of these polygons to a raster image. Options
-include draping a data set on top of a surface, plotting of contours on
-top of the surface, and apply artificial illumination based on
-intensities provided in a separate grid file.</p>
+<p>Reads a 2-D grid file and produces a 3-D perspective plot by drawing a mesh,
+painting a colored/gray-shaded surface made up of polygons, or by scanline
+conversion of these polygons to a raster image. Options include draping a data
+set on top of a surface, plotting of contours on top of the surface, and apply
+artificial illumination based on intensities provided in a separate grid file.</p>
 <p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/grdview.html">https://docs.generic-mapping-tools.org/6.5/grdview.html</a></p>
 <p><strong>Aliases:</strong></p>
 <table class="hlist"><tr><td><ul class="simple">
@@ -241,70 +240,56 @@ intensities provided in a separate grid file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><em>xarray.DataArray</em></a>) – <p>Name of the input grid file or the grid loaded as a
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.</p>
+<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><em>xarray.DataArray</em></a>) – <p>Name of the input grid file or the grid loaded as a
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.</p>
 <p>For reading a specific grid file format or applying basic data operations,
 see <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#grd-inout-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#grd-inout-full</a> for the available modifiers.</p>
 </p></li>
 <li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
-Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.
-When used with <code class="docutils literal notranslate"><span class="pre">perspective</span></code>, optionally append <em>/zmin/zmax</em> to
-indicate the range to use for the 3-D axes [Default is the region in
-the input grid].</p></li>
+Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest. When used
+with <code class="docutils literal notranslate"><span class="pre">perspective</span></code>, optionally append <em>/zmin/zmax</em> to indicate the range to
+use for the 3-D axes [Default is the region given by the input grid].</p></li>
 <li><p><strong>projection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <em>projcode</em>[<em>projparams</em>/]<em>width</em>|<em>scale</em>.
 Select map <a class="reference internal" href="../../projections/index.html"><span class="doc">projection</span></a>.</p></li>
 <li><p><strong>zscale/zsize</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Set z-axis scaling or z-axis size.</p></li>
 <li><p><strong>frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – Set map boundary
 <a class="reference internal" href="../../tutorials/basics/frames.html"><span class="doc">frame and axes attributes</span></a>.</p></li>
 <li><p><strong>cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The name of the color palette table to use.</p></li>
-<li><p><strong>drapegrid</strong> (str or <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The file name or a DataArray of the image grid to be draped on top
-of the relief provided by <code class="docutils literal notranslate"><span class="pre">grid</span></code> [Default determines colors from grid].
-Note that <code class="docutils literal notranslate"><span class="pre">zscale</span></code> and <code class="docutils literal notranslate"><span class="pre">plane</span></code> always refer to the grid.
-The drapegrid only provides the information pertaining to colors, which
-(if drapegrid is a grid) will be looked-up via the CPT (see <code class="docutils literal notranslate"><span class="pre">cmap</span></code>).</p></li>
+<li><p><strong>drapegrid</strong> (str or <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The file name or a <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> of the image grid to be draped on
+top of the relief provided by <code class="docutils literal notranslate"><span class="pre">grid</span></code> [Default determines colors from <code class="docutils literal notranslate"><span class="pre">grid</span></code>]
+Note that <code class="docutils literal notranslate"><span class="pre">zscale</span></code> and <code class="docutils literal notranslate"><span class="pre">plane</span></code> always refer to <code class="docutils literal notranslate"><span class="pre">grid</span></code>. <code class="docutils literal notranslate"><span class="pre">drapegrid</span></code> only
+provides the information pertaining to colors, which (if <code class="docutils literal notranslate"><span class="pre">drapegrid</span></code> is a
+grid) will be looked-up via the CPT (see <code class="docutils literal notranslate"><span class="pre">cmap</span></code>).</p></li>
 <li><p><strong>plane</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <em>level</em>[<strong>+g</strong><em>fill</em>].
-Draw a plane at this z-level. If the optional color is provided
-via the <strong>+g</strong> modifier, and the projection is not oblique, the frontal
-facade between the plane and the data perimeter is colored.</p></li>
-<li><p><strong>surftype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p>Specify cover type of the grid.
-Select one of following settings:</p>
+Draw a plane at this z-level. If the optional color is provided via the <strong>+g</strong>
+modifier, and the projection is not oblique, the frontal facade between the
+plane and the data perimeter is colored.</p></li>
+<li><p><strong>surftype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p>Specify cover type of the grid. Select one of following settings:</p>
 <ul>
 <li><p><strong>m</strong>: mesh plot [Default].</p></li>
 <li><p><strong>mx</strong> or <strong>my</strong>: waterfall plots (row or column profiles).</p></li>
-<li><p><strong>s</strong>: surface plot, and optionally append <strong>m</strong> to have mesh lines
-drawn on top of the surface.</p></li>
+<li><p><strong>s</strong>: surface plot, and optionally append <strong>m</strong> to have mesh lines drawn on
+top of the surface.</p></li>
 <li><p><strong>i</strong>: image plot.</p></li>
 <li><p><strong>c</strong>: Same as <strong>i</strong> but will make nodes with z = NaN transparent.</p></li>
 </ul>
-<p>For any of these choices, you may force a monochrome image by
-appending the modifier <strong>+m</strong>.</p>
+<p>For any of these choices, you may force a monochrome image by appending the
+modifier <strong>+m</strong>.</p>
 </p></li>
-<li><p><strong>contourpen</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Draw contour lines on top of surface or mesh (not image). Append
-pen attributes used for the contours.</p></li>
-<li><p><strong>meshpen</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Set the pen attributes used for the mesh. You must also select
-<code class="docutils literal notranslate"><span class="pre">surftype</span></code> of <strong>m</strong> or <strong>sm</strong> for meshlines to be drawn.</p></li>
-<li><p><strong>facadepen</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Set the pen attributes used for the facade. You must also select
-<code class="docutils literal notranslate"><span class="pre">plane</span></code> for the facade outline to be drawn.</p></li>
-<li><p><strong>shading</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Provide the name of a grid file with intensities in the (-1,+1)
-range, or a constant intensity to apply everywhere (affects the
-ambient light). Alternatively, derive an intensity grid from the
-input data grid reliefgrid via a call to <a class="reference internal" href="pygmt.grdgradient.html#pygmt.grdgradient" title="pygmt.grdgradient"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.grdgradient</span></code></a>;
-append <strong>+a</strong><em>azimuth</em>, <strong>+n</strong><em>args</em>, and <strong>+m</strong><em>ambient</em> to
-specify azimuth, intensity, and ambient arguments for that function,
-or just give <strong>+d</strong> to select the default arguments
-[Default is <strong>+a</strong>-45<strong>+nt</strong>1<strong>+m</strong>0].</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
-written to stderr. Choose among 7 levels of verbosity:</p>
-<ul>
-<li><p><strong>q</strong>: Quiet, not even fatal error messages are produced</p></li>
-<li><p><strong>e</strong>: Error messages only</p></li>
-<li><p><strong>w</strong>: Warnings [Default]</p></li>
-<li><p><strong>t</strong>: Timings (report runtimes for time-intensive algorithms)</p></li>
-<li><p><strong>i</strong>: Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
-<li><p><strong>c</strong>: Compatibility warnings</p></li>
-<li><p><strong>d</strong>: Debugging messages</p></li>
-</ul>
-</p></li>
+<li><p><strong>contourpen</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Draw contour lines on top of surface or mesh (not image). Append pen attributes
+used for the contours.</p></li>
+<li><p><strong>meshpen</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Set the pen attributes used for the mesh. You must also select <code class="docutils literal notranslate"><span class="pre">surftype</span></code> of
+<strong>m</strong> or <strong>sm</strong> for meshlines to be drawn.</p></li>
+<li><p><strong>facadepen</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Set the pen attributes used for the facade. You must also select <code class="docutils literal notranslate"><span class="pre">plane</span></code> for
+the facade outline to be drawn.</p></li>
+<li><p><strong>shading</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Provide the name of a grid file with intensities in the (-1,+1) range, or a
+constant intensity to apply everywhere (affects the ambient light).
+Alternatively, derive an intensity grid from the main input data grid by using
+<a class="reference internal" href="pygmt.grdgradient.html#pygmt.grdgradient" title="pygmt.grdgradient"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.grdgradient</span></code></a> first; append <strong>+a</strong><em>azimuth</em>, <strong>+n</strong><em>args</em>, and
+<strong>+m</strong><em>ambient</em> to specify azimuth, intensity, and ambient arguments for that
+function, or just give <strong>+d</strong> to select the default arguments [Default is
+“+a-45+nt1+m0”].</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
 <li><p><strong>panel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – [<em>row,col</em>|<em>index</em>].
 Select a specific subplot panel. Only allowed when in subplot
 mode. Use <code class="docutils literal notranslate"><span class="pre">panel=True</span></code> to advance to the next panel in the
@@ -340,34 +325,33 @@ in the image (for further processing).</p></li>
 </dl>
 <p class="rubric">Example</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># load the 30 arc-minutes grid with &quot;gridline&quot; registration</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># in a specified region</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Load the 30 arc-minutes grid with &quot;gridline&quot; registration in a given region</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">grid</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_earth_relief</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;30m&quot;</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">92.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">82.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="n">registration</span><span class="o">=</span><span class="s2">&quot;gridline&quot;</span><span class="p">,</span>
 <span class="gp">... </span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># create a new figure instance with pygmt.Figure()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a new figure instance with pygmt.Figure()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># create the contour plot</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create the contour plot</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">grdview</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="c1"># pass in the grid downloaded above</span>
+<span class="gp">... </span>    <span class="c1"># Pass in the grid downloaded above</span>
 <span class="gp">... </span>    <span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="c1"># set the perspective to an azimuth of 130° and an elevation of 30°</span>
+<span class="gp">... </span>    <span class="c1"># Set the perspective to an azimuth of 130° and an elevation of 30°</span>
 <span class="gp">... </span>    <span class="n">perspective</span><span class="o">=</span><span class="p">[</span><span class="mi">130</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span>
-<span class="gp">... </span>    <span class="c1"># add a frame to the x- and y-axes</span>
-<span class="gp">... </span>    <span class="c1"># specify annotations on the south and east borders of the plot</span>
+<span class="gp">... </span>    <span class="c1"># Add a frame to the x- and y-axes</span>
+<span class="gp">... </span>    <span class="c1"># Specify annotations on the south and east borders of the plot</span>
 <span class="gp">... </span>    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;xa&quot;</span><span class="p">,</span> <span class="s2">&quot;ya&quot;</span><span class="p">,</span> <span class="s2">&quot;wSnE&quot;</span><span class="p">],</span>
-<span class="gp">... </span>    <span class="c1"># set the projection of the 2-D map to Mercator with a 10 cm width</span>
+<span class="gp">... </span>    <span class="c1"># Set the projection of the 2-D map to Mercator with a 10 cm width</span>
 <span class="gp">... </span>    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M10c&quot;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="c1"># set the vertical scale (z-axis) to 2 cm</span>
+<span class="gp">... </span>    <span class="c1"># Set the vertical scale (z-axis) to 2 cm</span>
 <span class="gp">... </span>    <span class="n">zsize</span><span class="o">=</span><span class="s2">&quot;2c&quot;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="c1"># set &quot;surface plot&quot; to color the surface via a CPT</span>
+<span class="gp">... </span>    <span class="c1"># Set &quot;surface plot&quot; to color the surface via a CPT</span>
 <span class="gp">... </span>    <span class="n">surftype</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="c1"># specify CPT to &quot;geo&quot;</span>
+<span class="gp">... </span>    <span class="c1"># Specify CPT to &quot;geo&quot;</span>
 <span class="gp">... </span>    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;geo&quot;</span><span class="p">,</span>
 <span class="gp">... </span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># show the plot</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Show the plot</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -400,9 +384,9 @@ in the image (for further processing).</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 31, 2025.
       </span></p>
   </div>
 

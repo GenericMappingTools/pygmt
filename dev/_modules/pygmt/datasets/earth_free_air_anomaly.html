@@ -21,14 +21,14 @@
 
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/datasets/earth_free_air_anomaly.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/datasets/earth_free_air_anomaly.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../../../_static/documentation_options.js?v=6e6bddb7"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -198,25 +198,30 @@
 <span class="sd">       * - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_faa.jpg</span>
 <span class="sd">         - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_faaerror.jpg</span>
 
-<span class="sd">    The grids are downloaded to a user data directory (usually</span>
-<span class="sd">    ``~/.gmt/server/earth/earth_faa/`` or ``~/.gmt/server/earth/earth_faaerror/``) the</span>
-<span class="sd">    first time you invoke this function. Afterwards, it will load the grid from data</span>
-<span class="sd">    directory. So you&#39;ll need an internet connection the first time around.</span>
 
-<span class="sd">    These grids can also be accessed by passing in the file name</span>
-<span class="sd">    **@earth_faa_type**\_\ *res*\[_\ *reg*] to any grid processing function or</span>
-<span class="sd">    plotting method. *earth_faa_type* is the GMT name for the dataset. The available</span>
-<span class="sd">    options are **earth_faa** and **earth_faaerror**. *res* is the grid resolution (see</span>
-<span class="sd">    below), and *reg* is the grid registration type (**p** for pixel registration or</span>
-<span class="sd">    **g** for gridline registration).</span>
+<span class="sd">    This function downloads the dataset from the GMT data server, caches it in a user</span>
+<span class="sd">    data directory (usually ``~/.gmt/server/earth/earth_faa/`` or</span>
+<span class="sd">    ``~/.gmt/server/earth/earth_faaerror/``), and load the dataset as an</span>
+<span class="sd">    :class:`xarray.DataArray`. An internet connection is required the first time around,</span>
+<span class="sd">    but subsequent calls will load the dataset from the local data directory.</span>
 
-<span class="sd">    The default color palette tables (CPTs) for these datasets are *@earth_faa.cpt* and</span>
-<span class="sd">    *@earth_faaerror.cpt*. The dataset-specific CPT is implicitly used when passing in</span>
-<span class="sd">    the file name of the dataset to any grid plotting method if no CPT is explicitly</span>
-<span class="sd">    specified. When the dataset is loaded and plotted as an :class:`xarray.DataArray`</span>
-<span class="sd">    object, the default CPT is ignored, and GMT&#39;s default CPT (*turbo*) is used. To use</span>
-<span class="sd">    the dataset-specific CPT, you need to explicitly set ``cmap=&quot;@earth_faa.cpt&quot;`` or</span>
-<span class="sd">    ``cmap=&quot;@earth_faaerror.cpt&quot;``.</span>
+<span class="sd">    The dataset can also be accessed by specifying a file name in any grid processing</span>
+<span class="sd">    function or plotting method, using the following file name format:</span>
+<span class="sd">    **@**\ *earth_faa_type*\_\ *res*\_\ *reg*. *earth_faa_type* is the GMT name for the</span>
+<span class="sd">    dataset. The available options are **earth_faa** and **earth_faaerror**. *res* is</span>
+<span class="sd">    the grid resolution; *reg* is the grid registration type (**p** for pixel</span>
+<span class="sd">    registration, **g** for gridline registration). If *reg* is omitted (e.g.,</span>
+<span class="sd">    ``@earth_faa_01d``), the gridline-registered grid will be loaded for grid</span>
+<span class="sd">    processing functions and the pixel-registered grid will be loaded for plotting</span>
+<span class="sd">    functions. If *res* is also omitted (i.e., ``@earth_faa``), GMT automatically</span>
+<span class="sd">    selects a suitable resolution based on the current region and projection settings.</span>
+
+<span class="sd">    This dataset comes with two color palette table (CPT) files, ``@earth_faa.cpt`` and</span>
+<span class="sd">    ``@earth_faaerror.cpt``. To use the dataset-specific CPT when plotting the dataset,</span>
+<span class="sd">    explicitly set ``cmap=&quot;@earth_faa.cpt&quot;`` or ``cmap=&quot;@earth_faaerror.cpt&quot;``,</span>
+<span class="sd">    otherwise GMT&#39;s default CPT (*turbo*) will be used. If the dataset is referenced by</span>
+<span class="sd">    the file name in a grid plotting method, the dataset-specific CPT file is used</span>
+<span class="sd">    automatically unless another CPT is specified.</span>
 
 <span class="sd">    Refer to :gmt-datasets:`earth-faa.html` and :gmt-datasets:`earth-faaerror.html` for</span>
 <span class="sd">    more details about available datasets, including version information and references.</span>
@@ -259,13 +264,13 @@
 <span class="sd">    --------</span>
 
 <span class="sd">    &gt;&gt;&gt; from pygmt.datasets import load_earth_free_air_anomaly</span>
-<span class="sd">    &gt;&gt;&gt; # load the default grid (gridline-registered 1 arc-degree grid)</span>
+<span class="sd">    &gt;&gt;&gt; # Load the default grid (gridline-registered 1 arc-degree grid)</span>
 <span class="sd">    &gt;&gt;&gt; grid = load_earth_free_air_anomaly()</span>
-<span class="sd">    &gt;&gt;&gt; # load the uncertainties related to the default grid</span>
+<span class="sd">    &gt;&gt;&gt; # Load the uncertainties related to the default grid</span>
 <span class="sd">    &gt;&gt;&gt; grid = load_earth_free_air_anomaly(uncertainty=True)</span>
-<span class="sd">    &gt;&gt;&gt; # load the 30 arc-minutes grid with &quot;gridline&quot; registration</span>
+<span class="sd">    &gt;&gt;&gt; # Load the 30 arc-minutes grid with &quot;gridline&quot; registration</span>
 <span class="sd">    &gt;&gt;&gt; grid = load_earth_free_air_anomaly(resolution=&quot;30m&quot;, registration=&quot;gridline&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; # load high-resolution (5 arc-minutes) grid for a specific region</span>
+<span class="sd">    &gt;&gt;&gt; # Load high-resolution (5 arc-minutes) grid for a specific region</span>
 <span class="sd">    &gt;&gt;&gt; grid = load_earth_free_air_anomaly(</span>
 <span class="sd">    ...     resolution=&quot;05m&quot;, region=[120, 160, 30, 60], registration=&quot;gridline&quot;</span>
 <span class="sd">    ... )</span>
@@ -291,9 +296,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 31, 2025.
       </span></p>
   </div>
 

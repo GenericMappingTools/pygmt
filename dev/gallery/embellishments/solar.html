@@ -6,7 +6,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-        <title>Day-night terminator line and twilights &mdash; PyGMT</title>
+        <title>Day-night terminator and twilights &mdash; PyGMT</title>
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
@@ -22,14 +22,14 @@
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/gallery/embellishments/solar.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/gallery/embellishments/solar.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../../_static/documentation_options.js?v=6e6bddb7"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -38,7 +38,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Inset" href="inset.html" />
+    <link rel="next" title="GMT logo" href="gmt_logo.html" />
     <link rel="prev" title="Colorbar" href="colorbar.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
@@ -108,11 +108,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#histograms">Histograms</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#plot-embellishments">Plot embellishments</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="colorbar.html">Colorbar</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Day-night terminator line and twilights</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Day-night terminator and twilights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gmt_logo.html">GMT logo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="inset.html">Inset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="inset_rectangle_region.html">Inset map showing a rectangular region</a></li>
 <li class="toctree-l3"><a class="reference internal" href="legend.html">Legend</a></li>
-<li class="toctree-l3"><a class="reference internal" href="logo.html">Logo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="colorbars_multiple.html">Multiple colormaps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="scalebar.html">Scale bar</a></li>
 <li class="toctree-l3"><a class="reference internal" href="timestamp.html">Timestamp</a></li>
@@ -172,7 +172,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Gallery</a></li>
-      <li class="breadcrumb-item active">Day-night terminator line and twilights</li>
+      <li class="breadcrumb-item active">Day-night terminator and twilights</li>
     <li class="source-link">
         
             
@@ -200,57 +200,42 @@
 <p><a class="reference internal" href="#sphx-glr-download-gallery-embellishments-solar-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code.</p>
 </div>
-<section class="sphx-glr-example-title" id="day-night-terminator-line-and-twilights">
-<span id="sphx-glr-gallery-embellishments-solar-py"></span><h1>Day-night terminator line and twilights<a class="headerlink" href="#day-night-terminator-line-and-twilights" title="Link to this heading"></a></h1>
-<p>Use <a class="reference internal" href="../../api/generated/pygmt.Figure.solar.html#pygmt.Figure.solar" title="pygmt.Figure.solar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.solar</span></code></a> to show the different transition stages between
-daytime and nighttime. The parameter <code class="docutils literal notranslate"><span class="pre">terminator</span></code> is used to set the twilight
-stage, and can be either <code class="docutils literal notranslate"><span class="pre">&quot;day_night&quot;</span></code> (brightest), <code class="docutils literal notranslate"><span class="pre">&quot;civil&quot;</span></code>,
-<code class="docutils literal notranslate"><span class="pre">&quot;nautical&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;astronomical&quot;</span></code> (darkest).
-Refer to <a class="reference external" href="https://en.wikipedia.org/wiki/Twilight">https://en.wikipedia.org/wiki/Twilight</a> for more information.</p>
+<section class="sphx-glr-example-title" id="day-night-terminator-and-twilights">
+<span id="sphx-glr-gallery-embellishments-solar-py"></span><h1>Day-night terminator and twilights<a class="headerlink" href="#day-night-terminator-and-twilights" title="Link to this heading"></a></h1>
+<p>Use <a class="reference internal" href="../../api/generated/pygmt.Figure.solar.html#pygmt.Figure.solar" title="pygmt.Figure.solar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.solar</span></code></a> to show the different transition stages between daytime
+and nighttime. The parameter <code class="docutils literal notranslate"><span class="pre">terminator</span></code> is used to set the twilight stage, and can
+be either <code class="docutils literal notranslate"><span class="pre">&quot;day_night&quot;</span></code> (brightest), <code class="docutils literal notranslate"><span class="pre">&quot;civil&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;nautical&quot;</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">&quot;astronomical&quot;</span></code> (darkest). Refer to <a class="reference external" href="https://en.wikipedia.org/wiki/Twilight">https://en.wikipedia.org/wiki/Twilight</a> for more
+information.</p>
 <img src="../../_images/sphx_glr_solar_001.png" srcset="../../_images/sphx_glr_solar_001.png" alt="solar" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
 
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
-<span class="c1"># Create a figure showing the global region on a Mollweide projection</span>
-<span class="c1"># Land color is set to dark green and water color is set to light blue</span>
-<a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;W0/15c&quot;</span><span class="p">,</span> <span class="n">land</span><span class="o">=</span><span class="s2">&quot;darkgreen&quot;</span><span class="p">,</span> <span class="n">water</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">)</span>
-<span class="c1"># Set a time for the day-night terminator and twilights, 17:00 UTC on</span>
-<span class="c1"># January 1, 2000</span>
-<a href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="datetime.datetime" class="sphx-glr-backref-module-datetime sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">terminator_datetime</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="datetime.datetime" class="sphx-glr-backref-module-datetime sphx-glr-backref-type-py-class"><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span></a><span class="p">(</span>
+<span class="c1"># Create a global map using the Mollweide projection, centered at 0°E, with a width of</span>
+<span class="c1"># 15 centimeters.</span>
+<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;W15c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">land</span><span class="o">=</span><span class="s2">&quot;darkgreen&quot;</span><span class="p">,</span> <span class="n">water</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">)</span>
+
+<span class="c1"># Set a time for the day-night terminator and twilights to 17:00 UTC on January 1, 2000</span>
+<a href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="datetime.datetime" class="sphx-glr-backref-module-datetime sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">reference_time</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="datetime.datetime" class="sphx-glr-backref-module-datetime sphx-glr-backref-type-py-class"><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span></a><span class="p">(</span>
     <span class="n">year</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">0</span>
 <span class="p">)</span>
-<span class="c1"># Set the pen line to be 0.5 points thick</span>
-<span class="c1"># Set the fill for the night area to be navy blue at different transparency</span>
-<span class="c1"># levels</span>
-<a href="../../api/generated/pygmt.Figure.solar.html#pygmt.Figure.solar" title="pygmt.Figure.solar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">solar</span></a><span class="p">(</span>
-    <span class="n">terminator</span><span class="o">=</span><span class="s2">&quot;day_night&quot;</span><span class="p">,</span>
-    <a href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="datetime.datetime" class="sphx-glr-backref-module-datetime sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">terminator_datetime</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="datetime.datetime" class="sphx-glr-backref-module-datetime sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">terminator_datetime</span></a><span class="p">,</span>
-    <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;navyblue@95&quot;</span><span class="p">,</span>
-    <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;0.5p&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-<a href="../../api/generated/pygmt.Figure.solar.html#pygmt.Figure.solar" title="pygmt.Figure.solar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">solar</span></a><span class="p">(</span>
-    <span class="n">terminator</span><span class="o">=</span><span class="s2">&quot;civil&quot;</span><span class="p">,</span>
-    <a href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="datetime.datetime" class="sphx-glr-backref-module-datetime sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">terminator_datetime</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="datetime.datetime" class="sphx-glr-backref-module-datetime sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">terminator_datetime</span></a><span class="p">,</span>
-    <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;navyblue@85&quot;</span><span class="p">,</span>
-    <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;0.5p&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-<a href="../../api/generated/pygmt.Figure.solar.html#pygmt.Figure.solar" title="pygmt.Figure.solar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">solar</span></a><span class="p">(</span>
-    <span class="n">terminator</span><span class="o">=</span><span class="s2">&quot;nautical&quot;</span><span class="p">,</span>
-    <a href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="datetime.datetime" class="sphx-glr-backref-module-datetime sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">terminator_datetime</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="datetime.datetime" class="sphx-glr-backref-module-datetime sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">terminator_datetime</span></a><span class="p">,</span>
-    <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;navyblue@80&quot;</span><span class="p">,</span>
-    <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;0.5p&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-<a href="../../api/generated/pygmt.Figure.solar.html#pygmt.Figure.solar" title="pygmt.Figure.solar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">solar</span></a><span class="p">(</span>
-    <span class="n">terminator</span><span class="o">=</span><span class="s2">&quot;astronomical&quot;</span><span class="p">,</span>
-    <a href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="datetime.datetime" class="sphx-glr-backref-module-datetime sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">terminator_datetime</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="datetime.datetime" class="sphx-glr-backref-module-datetime sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">terminator_datetime</span></a><span class="p">,</span>
-    <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;navyblue@80&quot;</span><span class="p">,</span>
-    <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;0.5p&quot;</span><span class="p">,</span>
-<span class="p">)</span>
+
+<span class="c1"># Plot the day-night terminator and twilights</span>
+<span class="k">for</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">terminator</span></a> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;day_night&quot;</span><span class="p">,</span> <span class="s2">&quot;civil&quot;</span><span class="p">,</span> <span class="s2">&quot;nautical&quot;</span><span class="p">,</span> <span class="s2">&quot;astronomical&quot;</span><span class="p">]:</span>
+    <a href="../../api/generated/pygmt.Figure.solar.html#pygmt.Figure.solar" title="pygmt.Figure.solar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">solar</span></a><span class="p">(</span>
+        <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">terminator</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">terminator</span></a><span class="p">,</span>
+        <span class="n">terminator_datetime</span><span class="o">=</span><a href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="datetime.datetime" class="sphx-glr-backref-module-datetime sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">reference_time</span></a><span class="p">,</span>
+        <span class="c1"># Set the fill for the night area to navy blue with 85 % transparency</span>
+        <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;navyblue@85&quot;</span><span class="p">,</span>
+        <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;0.5p&quot;</span><span class="p">,</span>  <span class="c1"># Set the outline to be 0.5 points thick</span>
+    <span class="p">)</span>
+
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.364 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.374 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-embellishments-solar-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/e7a05a71bbb8801b482b6d65cf3f1426/solar.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">solar.ipynb</span></code></a></p>
@@ -271,16 +256,16 @@ Refer to <a class="reference external" href="https://en.wikipedia.org/wiki/Twili
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="colorbar.html" class="btn btn-neutral float-left" title="Colorbar" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="inset.html" class="btn btn-neutral float-right" title="Inset" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="gmt_logo.html" class="btn btn-neutral float-right" title="GMT logo" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 31, 2025.
       </span></p>
   </div>
 

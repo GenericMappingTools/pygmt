@@ -22,14 +22,14 @@
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.Figure.shift_origin.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.Figure.shift_origin.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../../_static/documentation_options.js?v=6e6bddb7"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -201,12 +201,29 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="pygmt.Figure.shift_origin">
 <span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">shift_origin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xshift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yshift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.shift_origin" title="Link to this definition"></a></dt>
-<dd><p>Shift plot origin in x and/or y directions.</p>
-<p>This method shifts the plot origin relative to the current origin by <em>xshift</em> and
-<em>yshift</em> in x and y directions, respectively. Optionally, append the length unit
-(<strong>c</strong> for centimeters, <strong>i</strong> for inches, or <strong>p</strong> for points) to the shifts.
-Default unit if not explicitly given is <strong>c</strong>, but can be changed to other units via
-<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-PROJ_LENGTH_UNIT">PROJ_LENGTH_UNIT</a>.</p>
+<dd><p>Shift the plot origin in x and/or y directions.</p>
+<p>The shifts can be permanent or temporary. If used as a standalone method, the shifts
+are permanent and apply to all subsequent plots. If used as a context manager, the
+shifts are temporary and only apply to the block of code within the context manager.</p>
+<ol class="arabic">
+<li><p>Use as a standalone method to shift the plot origin permanently:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="o">.</span><span class="n">shift_origin</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="o">...</span>  <span class="c1"># Other plot commands</span>
+</pre></div>
+</div>
+</li>
+<li><p>Use as a context manager to shift the plot origin temporarily:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">fig</span><span class="o">.</span><span class="n">shift_origin</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+    <span class="o">...</span>  <span class="c1"># Other plot commands</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>The shifts <em>xshift</em> and <em>yshift</em> in x and y directions are relative to the current
+plot origin. The default unit for shifts is centimeters (<strong>c</strong>) but can be changed
+to other units via <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-PROJ_LENGTH_UNIT">PROJ_LENGTH_UNIT</a>. Optionally, append the length unit
+(<strong>c</strong> for centimeters, <strong>i</strong> for inches, or <strong>p</strong> for points) to the shifts.</p>
 <p>For <em>xshift</em>, a special character <strong>w</strong> can also be used, which represents the
 bounding box <strong>width</strong> of the previous plot. The full syntax is
 [[±][<em>f</em>]<strong>w</strong>[/<em>d</em>]±]<em>xoff</em>, where optional signs, factor <em>f</em> and divisor
@@ -232,15 +249,35 @@ may be a basemap, image, logo, legend, colorbar, etc.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
+<p>Shifting the plot origin permanently:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X10c/10c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Shift the plot origin in x direction by 12 cm</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">shift_origin</span><span class="p">(</span><span class="n">xshift</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X14c/10c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Shift the plot origin in x direction based on the previous plot width</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Here, the width is 14 cm, and xshift is 16 cm</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">shift_origin</span><span class="p">(</span><span class="n">xshift</span><span class="o">=</span><span class="s2">&quot;w+2c&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X5c/5c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Shift the plot origin in x direction by 6 cm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">shift_origin</span><span class="p">(</span><span class="n">xshift</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="go">&lt;contextlib._GeneratorContextManager object at ...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X7c/5c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Shift the plot origin in x direction based on the previous plot width.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Here, the width is 7 cm, and xshift is 8 cm.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">shift_origin</span><span class="p">(</span><span class="n">xshift</span><span class="o">=</span><span class="s2">&quot;w+1c&quot;</span><span class="p">)</span>
+<span class="go">&lt;contextlib._GeneratorContextManager object at ...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X10c/5c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Shifting the plot origin temporarily:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X5c/5c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Shift the plot origin in x direction by 6 cm temporarily. The plot origin will</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># revert back to the original plot origin after the block of code is executed.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">fig</span><span class="o">.</span><span class="n">shift_origin</span><span class="p">(</span><span class="n">xshift</span><span class="o">=</span><span class="mi">6</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X5c/5c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Shift the plot origin in y direction by 6 cm temporarily.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">fig</span><span class="o">.</span><span class="n">shift_origin</span><span class="p">(</span><span class="n">yshift</span><span class="o">=</span><span class="mi">6</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X5c/5c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Shift the plot origin in x and y directions by 6 cm temporarily.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">fig</span><span class="o">.</span><span class="n">shift_origin</span><span class="p">(</span><span class="n">xshift</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">yshift</span><span class="o">=</span><span class="mi">6</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X5c/5c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -287,6 +324,9 @@ may be a basemap, image, logo, legend, colorbar, etc.</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Default GMT parameters can be set globally or locally using pygmt.config."><img alt="" src="../../_images/sphx_glr_configuration_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/configuration.html#sphx-glr-tutorials-advanced-configuration-py"><span class="std std-ref">Configuring PyGMT defaults</span></a></p>
   <div class="sphx-glr-thumbnail-title">Configuring PyGMT defaults</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.legend method creates legends, whereby auto-legends as well as manually created legends are supported."><img alt="" src="../../_images/sphx_glr_legends_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/legends.html#sphx-glr-tutorials-advanced-legends-py"><span class="std std-ref">Creating legends</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Creating legends</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put many individual plots into one large figure, and label them &#x27;abcd&#x27;. These individual plots are called subplots."><img alt="" src="../../_images/sphx_glr_subplots_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/subplots.html#sphx-glr-tutorials-advanced-subplots-py"><span class="std std-ref">Making subplots</span></a></p>
   <div class="sphx-glr-thumbnail-title">Making subplots</div>
@@ -315,9 +355,9 @@ may be a basemap, image, logo, legend, colorbar, etc.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 31, 2025.
       </span></p>
   </div>
 

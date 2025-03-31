@@ -22,14 +22,14 @@
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.datasets.load_sample_data.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.datasets.load_sample_data.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=24e39716"></script>
+        <script src="../../_static/documentation_options.js?v=6e6bddb7"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -222,11 +222,11 @@ you’ll need an internet connection the first time around.</p>
 <dd class="field-odd"><p><strong>name</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'bathymetry'</span></code>, <code class="docutils literal notranslate"><span class="pre">'earth_relief_holes'</span></code>, <code class="docutils literal notranslate"><span class="pre">'fractures'</span></code>, <code class="docutils literal notranslate"><span class="pre">'hotspots'</span></code>, <code class="docutils literal notranslate"><span class="pre">'japan_quakes'</span></code>, <code class="docutils literal notranslate"><span class="pre">'mars_shape'</span></code>, <code class="docutils literal notranslate"><span class="pre">'maunaloa_co2'</span></code>, <code class="docutils literal notranslate"><span class="pre">'notre_dame_topography'</span></code>, <code class="docutils literal notranslate"><span class="pre">'ocean_ridge_points'</span></code>, <code class="docutils literal notranslate"><span class="pre">'rock_compositions'</span></code>, <code class="docutils literal notranslate"><span class="pre">'usgs_quakes'</span></code>]</span>) – Name of the dataset to load.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> | <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> | <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>data</em> – Sample dataset loaded as a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> for tabular data or
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.1.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> for raster data.</p>
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> for raster data.</p>
 </dd>
 </dl>
 <div class="admonition seealso">
@@ -252,7 +252,7 @@ you’ll need an internet connection the first time around.</p>
 <span class="go"> &#39;ocean_ridge_points&#39;: &#39;Table of ocean ridge points for the entire world&#39;,</span>
 <span class="go"> &#39;rock_compositions&#39;: &#39;Table of rock sample compositions&#39;,</span>
 <span class="go"> &#39;usgs_quakes&#39;: &#39;Table of earthquakes from the USGS&#39;}</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># load the sample bathymetry dataset</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Load the sample bathymetry dataset</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">load_sample_data</span><span class="p">(</span><span class="s2">&quot;bathymetry&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -291,9 +291,9 @@ you’ll need an internet connection the first time around.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a4a16762">a4a16762</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 13, 2025.
+      <span class="lastupdated">Last updated on Mar 31, 2025.
       </span></p>
   </div>
 
