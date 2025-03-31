@@ -11,6 +11,7 @@ import xarray as xr
 from pygmt import grdclip, load_dataarray
 from pygmt.datasets import load_earth_mask
 from pygmt.enums import GridRegistration, GridType
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -103,3 +104,11 @@ def test_grdclip_between_repeated():
     )
     # result should have 4 unique values.
     npt.assert_array_equal(np.unique(result.data), [0, 1, 2, 3])
+
+
+def test_grdclip_missing_required_parameter(grid):
+    """
+    Test that grdclip raises a ValueError if the required parameter is missing.
+    """
+    with pytest.raises(GMTInvalidInput):
+        grdclip(grid=grid)
