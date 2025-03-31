@@ -1,0 +1,13 @@
+pygmt.clib.Session.\_\_exit\_\_
+===============================
+
+.. currentmodule:: pygmt.clib
+
+.. automethod:: Session.__exit__
+
+.. minigallery:: pygmt.clib.Session.__exit__
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>
