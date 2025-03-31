@@ -24,6 +24,7 @@
 
 * pygmt.grdfill: Deprecate parameter 'no_data' to 'hole' (remove in v0.19.0) ([#3852](https://github.com/GenericMappingTools/pygmt/pull/3852))
 * pygmt.grdfill: Deprecate parameter 'mode', use parameters 'constantfill'/'gridfill'/'neighborfill'/'splinefill' instead (remove in v0.19.0) ([#3855](https://github.com/GenericMappingTools/pygmt/pull/3855))
+* pygmt.grdclip: Deprecate parameter 'new' to 'replace' (remove in v0.19.0) ([#3884](https://github.com/GenericMappingTools/pygmt/pull/3884))
 * clib.Session: Remove deprecated open_virtual_file method, use open_virtualfile instead (Deprecated since v0.11.0) ([#3738](https://github.com/GenericMappingTools/pygmt/pull/3738))
 * clib.Session: Remove deprecated virtualfile_from_data method, use virtualfile_in instead (Deprecated since v0.13.0) ([#3739](https://github.com/GenericMappingTools/pygmt/pull/3739))
 
