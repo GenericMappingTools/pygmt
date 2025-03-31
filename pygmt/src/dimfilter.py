@@ -16,7 +16,7 @@ def dimfilter(
     grid,
     outgrid: str | None = None,
     distance: int | str | None = None,
-    filter: str | None = None,
+    filter: str | None = None,  # noqa: A002
     sectors: str | None = None,
     spacing: str | list | None = None,
     region: str | list | None = None,

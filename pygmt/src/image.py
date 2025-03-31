@@ -8,7 +8,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring
 
 
 @fmt_docstring
-def image(
+def image(  # noqa: PLR0913
     self,
     imagefile,
     region=None,

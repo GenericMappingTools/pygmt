@@ -78,8 +78,7 @@ class Box(BaseParam):
         """
         innerborder="{inner_gap}/{inner_pen}"
         """
-        args = [self.inner_gap, self.inner_pen]
-        return "/".join([v for v in args if v is not None]) or None
+        return [v for v in (self.inner_gap, self.inner_pen) if v is not None] or None
 
     @property
     def shading(self) -> str | None:
@@ -91,12 +90,12 @@ class Box(BaseParam):
             if self.shading_offset
             else [self.shading_fill]
         )
-        return "/".join([v for v in args if v is not None]) or None
+        return [v for v in args if v is not None] or None
 
     _aliases: ClassVar = [
         Alias("clearance", prefix="+c", separator="/"),
         Alias("fill", prefix="+g"),
-        Alias("innerborder", prefix="+i"),
+        Alias("innerborder", prefix="+i", separator="/"),
         Alias("pen", prefix="+p"),
         Alias("radius", prefix="+r"),
         Alias("shading", prefix="+s", separator="/"),
