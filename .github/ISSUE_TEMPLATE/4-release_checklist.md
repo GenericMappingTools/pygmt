@@ -48,7 +48,7 @@ assignees: ''
 
 **After release**:
 
-- [ ] Update conda-forge [pygmt-feedstock](https://github.com/conda-forge/pygmt-feedstock) [Done automatically by conda-forge's bot. If you don't want to wait, open a new issue in the `conda-forge/pygmt-feedstock` repository with the title `@conda-forge-admin, please update version`. This will trigger the bot immediately. Remember to pin GMT, Python and SPEC0 versions]
+- [ ] Update conda-forge [pygmt-feedstock](https://github.com/conda-forge/pygmt-feedstock) (Done automatically by conda-forge's bot. If you don't want to wait, open a new issue in the `conda-forge/pygmt-feedstock` repository with the title `@conda-forge-admin, please update version`. This will trigger the bot immediately. Remember to pin GMT, Python and SPEC0 versions)
 - [ ] Bump PyGMT version on https://github.com/GenericMappingTools/try-gmt (after conda-forge update)
 - [ ] Announce the release on:
   - [ ] GMT [forum](https://forum.generic-mapping-tools.org/c/news/) (do this announcement first! Requires moderator status)
