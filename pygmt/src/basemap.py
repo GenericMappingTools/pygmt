@@ -1,5 +1,5 @@
 """
-basemap - Plot base maps and frames for the figure.
+basemap - Plot base maps and frames.
 """
 
 from pygmt.clib import Session
@@ -26,7 +26,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def basemap(self, **kwargs):
     r"""
-    Plot base maps and frames for the figure.
+    Plot base maps and frames.
 
     Creates a basic or fancy basemap with axes, fill, and titles. Several
     map projections are available, and the user may specify separate
