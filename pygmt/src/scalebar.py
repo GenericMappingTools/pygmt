@@ -2,6 +2,8 @@
 scalebar - Add a scale bar.
 """
 
+from typing import Literal
+
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list
@@ -12,6 +14,7 @@ def scalebar(  # noqa: PLR0913
     self,
     position,
     length,
+    position_type: Literal["g", "j", "J", "n", "x"] = "g",
     label_alignment=None,
     scale_position=None,
     fancy=None,
@@ -36,7 +39,8 @@ def scalebar(  # noqa: PLR0913
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 80, -30, 30], projection="M10c", frame=True)
     >>> fig.scalebar(
-    ...     "g10/10",
+    ...     position=(10, 10),
+    ...     position_type="g",
     ...     length=1000,
     ...     fancy=True,
     ...     label="Scale",
@@ -45,9 +49,9 @@ def scalebar(  # noqa: PLR0913
     ... )
     >>> fig.show()
     """
-    alias = AliasSystem(
+    kwdict = AliasSystem(
         L=[
-            Alias(position, separator="/"),
+            Alias(position, separator="/", prefix=position_type),
             Alias(length, prefix="+w"),
             Alias(label_alignment, prefix="+a"),
             Alias(scale_position, prefix="+c", separator="/"),
@@ -59,8 +63,8 @@ def scalebar(  # noqa: PLR0913
             Alias(vertical, prefix="+v"),
         ],
         F=Alias(box),
-    )
+    ).kwdict
 
     self._preprocess()
     with Session() as lib:
-        lib.call_module(module="basemap", args=build_arg_list(alias.kwdict))
+        lib.call_module(module="basemap", args=build_arg_list(kwdict))
