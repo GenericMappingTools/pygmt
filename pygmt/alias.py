@@ -114,8 +114,8 @@ class Alias:
 
     Attributes
     ----------
-    name
-        Parameter name.
+    value
+        Value of the parameter.
     prefix
         String to add at the beginning of the value.
     separator
@@ -123,8 +123,6 @@ class Alias:
     mapping
         Map long-form arguments to GMT's short-form arguments. If ``True``, will use the
         first letter of the long-form arguments.
-    value
-        Value of the parameter.
 
     Examples
     --------
@@ -210,8 +208,6 @@ class AliasSystem:
             match aliases:
                 case list():
                     self.options[option] = aliases
-                case str():  # Support shorthand like 'J="projection"'
-                    self.options[option] = [Alias(aliases)]
                 case _:
                     self.options[option] = [aliases]
 
