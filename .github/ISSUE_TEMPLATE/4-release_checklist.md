@@ -11,7 +11,7 @@ assignees: ''
 **Scheduled Date**: 20YY/MM/DD
 **Pull request due date**: 20YY/MM/DD
 **DOI**: `10.5281/zenodo.XXXXXXX`
-**Announcement draft:** https://hackmd.io/@pygmt/xxxxxxxx
+**Announcement draft**: https://hackmd.io/@pygmt/xxxxxxxx
 
 **Priority PRs/issues to complete prior to release**
 
