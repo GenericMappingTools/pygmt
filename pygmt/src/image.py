@@ -68,16 +68,16 @@ def image(  # noqa: PLR0913
     {transparency}
     """
     alias = AliasSystem(
-        R=Alias("region", separator="/", value=region),
-        J=Alias("projection", value=projection),
-        D=Alias("position", value=position),
-        F=Alias("box", value=box),
-        G=Alias("bitcolor", value=bitcolor),
-        M=Alias("monochrome", value=monochrome),
-        V=Alias("verbose", value=verbose),
-        c=Alias("panel", separator=",", value=panel),
-        p=Alias("perspective", separator="/", value=perspective),
-        t=Alias("transparency", value=transparency),
+        R=Alias(region, separator="/"),
+        J=Alias(projection),
+        D=Alias(position),
+        F=Alias(box),
+        G=Alias(bitcolor),
+        M=Alias(monochrome),
+        V=Alias(verbose),
+        c=Alias(panel, separator=","),
+        p=Alias(perspective, separator="/"),
+        t=Alias(transparency),
     )
 
     kwargs = self._preprocess(**kwargs)

@@ -55,7 +55,7 @@ def logo(self, box=None, **kwargs):
     {transparency}
     """
     alias = AliasSystem(
-        F=Alias("box", value=box),
+        F=Alias(box),
     )
     kwargs = self._preprocess(**kwargs)
     with Session() as lib:

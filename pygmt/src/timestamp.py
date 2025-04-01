@@ -103,10 +103,10 @@ def timestamp(
 
     alias = AliasSystem(
         U=[
-            Alias("label", value=label),
-            Alias("justify", prefix="+j", value=justify),
-            Alias("offset", prefix="+o", separator="/", value=offset),
-            Alias("text", prefix="+t", value=text),
+            Alias(label),
+            Alias(justify, prefix="+j"),
+            Alias(offset, prefix="+o", separator="/"),
+            Alias(text, prefix="+t"),
         ]
     )
 

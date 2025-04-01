@@ -111,7 +111,7 @@ def binstats(
     """
     alias = AliasSystem(
         C=Alias(
-            "statistic",
+            statistic,
             mapping={
                 "mean": "a",
                 "mad": "d",
@@ -130,9 +130,8 @@ def binstats(
                 "maxneg": "U",
                 "sum": "z",
             },
-            value=statistic,
         ),
-        G=Alias("outgrid", value=outgrid),
+        G=Alias(outgrid),
     )
     if statistic == "quantile":
         statistic += str(quantile_value)

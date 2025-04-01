@@ -20,11 +20,13 @@ class BaseParam:
     ...     par2: Any = None
     ...     par3: Any = None
     ...
-    ...     _aliases = [
-    ...         Alias("par1"),
-    ...         Alias("par2", prefix="+a"),
-    ...         Alias("par3", prefix="+b", separator="/"),
-    ...     ]
+    ...     @property
+    ...     def _aliases(self):
+    ...         return [
+    ...             Alias(self.par1),
+    ...             Alias(self.par2, prefix="+a"),
+    ...             Alias(self.par3, prefix="+b", separator="/"),
+    ...         ]
     >>> var = Test(par1="val1")
     >>> str(var)
     'val1'
@@ -36,8 +38,6 @@ class BaseParam:
         """
         String representation of the object that can be passed to GMT directly.
         """
-        for alias in self._aliases:
-            alias.value = getattr(self, alias.name)
         return "".join(
             [alias.value for alias in self._aliases if alias.value is not None]
         )
@@ -46,10 +46,9 @@ class BaseParam:
         """
         String representation of the object.
         """
-        string = []
-        for alias in self._aliases:
-            value = getattr(self, alias.name)
-            if value is None or value is False:
-                continue
-            string.append(f"{alias.name}={value!r}")
-        return f"{self.__class__.__name__}({', '.join(string)})"
+        params = ", ".join(
+            f"{k}={v!r}"
+            for k, v in vars(self).items()
+            if v is not None and v is not False
+        )
+        return f"{self.__class__.__name__}({params})"

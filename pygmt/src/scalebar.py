@@ -47,18 +47,18 @@ def scalebar(  # noqa: PLR0913
     """
     alias = AliasSystem(
         L=[
-            Alias("position", separator="/", value=position),
-            Alias("length", prefix="+w", value=length),
-            Alias("label_alignment", prefix="+a", value=label_alignment),
-            Alias("scale_position", prefix="+c", separator="/", value=scale_position),
-            Alias("fancy", prefix="+f", value=fancy),
-            Alias("justify", prefix="+j", value=justify),
-            Alias("label", prefix="+l", value=label),
-            Alias("offset", prefix="+o", separator="/"),
-            Alias("unit", prefix="+u"),
-            Alias("vertical", prefix="+v"),
+            Alias(position, separator="/"),
+            Alias(length, prefix="+w"),
+            Alias(label_alignment, prefix="+a"),
+            Alias(scale_position, prefix="+c", separator="/"),
+            Alias(fancy, prefix="+f"),
+            Alias(justify, prefix="+j"),
+            Alias(label, prefix="+l"),
+            Alias(offset, prefix="+o", separator="/"),
+            Alias(unit, prefix="+u"),
+            Alias(vertical, prefix="+v"),
         ],
-        F="box",
+        F=Alias(box),
     )
 
     self._preprocess()

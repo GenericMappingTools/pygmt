@@ -83,7 +83,7 @@ def basemap(self, frame=None, **kwargs):
     {transparency}
     """
     alias = AliasSystem(
-        B=Alias("frame", value=frame),
+        B=Alias(frame),
     )
     kwargs = self._preprocess(**kwargs)
     with Session() as lib:

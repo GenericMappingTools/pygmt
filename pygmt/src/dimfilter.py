@@ -135,13 +135,13 @@ def dimfilter(
     ... )
     """
     alias = AliasSystem(
-        D=Alias("distance", value=distance),
-        G=Alias("outgrid", value=outgrid),
-        F=Alias("filter", value=filter),
-        I=Alias("spacing", separator="/", value=spacing),
-        N=Alias("sectors", value=sectors),
-        R=Alias("region", separator="/", value=region),
-        V=Alias("verbose", value=verbose),
+        D=Alias(distance),
+        G=Alias(outgrid),
+        F=Alias(filter),
+        I=Alias(spacing, separator="/"),
+        N=Alias(sectors),
+        R=Alias(region, separator="/"),
+        V=Alias(verbose),
     )
 
     if (

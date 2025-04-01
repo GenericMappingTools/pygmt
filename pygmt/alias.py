@@ -128,51 +128,24 @@ class Alias:
 
     Examples
     --------
-    >>> par = Alias("offset", prefix="+o", separator="/", value=(3.0, 3.0))
+    >>> par = Alias((3.0, 3.0), prefix="+o", separator="/")
     >>> par.value
     '+o3.0/3.0'
 
-    >>> par = Alias("offset", prefix="+o", separator="/")
-    >>> par.value = (2.0, 2.0)
-    >>> par.value
-    '+o2.0/2.0'
-
-    >>> par = Alias("frame")
-    >>> par.value = ("xaf", "yaf", "WSen")
+    >>> par = Alias(["xaf", "yaf", "WSen"])
     >>> par.value
     ['xaf', 'yaf', 'WSen']
     """
 
     def __init__(
         self,
-        name: str,
+        value: Any,
         prefix: str = "",
         separator: Literal["/", ","] | None = None,
         mapping: bool | Mapping = False,
-        value: Any = None,
     ):
-        self.name = name
-        self.prefix = prefix
-        self.separator = separator
-        self.mapping = mapping
-        self.value = value
-
-    @property
-    def value(self) -> str | Sequence[str] | None:
-        """
-        Get the value of the parameter.
-        """
-        return self._value
-
-    @value.setter
-    def value(self, new_value: Any):
-        """
-        Set the value of the parameter.
-
-        Internally, the value is converted to a string, a sequence of strings or None.
-        """
-        self._value = value_to_string(
-            new_value, self.prefix, self.separator, self.mapping
+        self.value = value_to_string(
+            value=value, prefix=prefix, separator=separator, mapping=mapping
         )
 
 
@@ -209,12 +182,12 @@ class AliasSystem:
     ... ):
     ...     alias = AliasSystem(
     ...         A=[
-    ...             Alias("par1", value=par1),
-    ...             Alias("par2", prefix="+j", value=par2),
-    ...             Alias("par3", prefix="+o", separator="/", value=par3),
+    ...             Alias(par1),
+    ...             Alias(par2, prefix="+j"),
+    ...             Alias(par3, prefix="+o", separator="/"),
     ...         ],
-    ...         B=Alias("frame", value=frame),
-    ...         c=Alias("panel", separator=",", value=panel),
+    ...         B=Alias(frame),
+    ...         c=Alias(panel, separator=","),
     ...     )
     ...     return build_arg_list(alias.kwdict | kwargs)
     >>> func(

@@ -4,7 +4,6 @@ The box parameter.
 
 from collections.abc import Sequence
 from dataclasses import dataclass
-from typing import ClassVar
 
 from pygmt.alias import Alias
 from pygmt.params.base import BaseParam
@@ -92,11 +91,13 @@ class Box(BaseParam):
         )
         return [v for v in args if v is not None] or None
 
-    _aliases: ClassVar = [
-        Alias("clearance", prefix="+c", separator="/"),
-        Alias("fill", prefix="+g"),
-        Alias("innerborder", prefix="+i", separator="/"),
-        Alias("pen", prefix="+p"),
-        Alias("radius", prefix="+r"),
-        Alias("shading", prefix="+s", separator="/"),
-    ]
+    @property
+    def _aliases(self):
+        return [
+            Alias(self.clearance, prefix="+c", separator="/"),
+            Alias(self.fill, prefix="+g"),
+            Alias(self.innerborder, prefix="+i", separator="/"),
+            Alias(self.pen, prefix="+p"),
+            Alias(self.radius, prefix="+r"),
+            Alias(self.shading, prefix="+s", separator="/"),
+        ]

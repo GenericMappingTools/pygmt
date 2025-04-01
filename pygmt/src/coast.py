@@ -41,7 +41,7 @@ __doctest_skip__ = ["coast"]
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def coast(
     self,
-    resolution: Literal[  # noqa: ARG001
+    resolution: Literal[
         "auto", "full", "high", "intermediate", "low", "crude"
     ] = "auto",
     **kwargs,
@@ -211,7 +211,7 @@ def coast(
     >>> fig.show()
     """
     alias = AliasSystem(
-        D=Alias("resolution", mapping=True),
+        D=Alias(resolution, mapping=True),
     )
     kwargs = self._preprocess(**kwargs)
     if not args_in_kwargs(args=["C", "G", "S", "I", "N", "E", "Q", "W"], kwargs=kwargs):
