@@ -46,9 +46,5 @@ class BaseParam:
         """
         String representation of the object.
         """
-        params = ", ".join(
-            f"{k}={v!r}"
-            for k, v in vars(self).items()
-            if v is not None and v is not False
-        )
+        params = ", ".join(f"{k}={v!r}" for k, v in vars(self).items() if v is not None)
         return f"{self.__class__.__name__}({params})"
