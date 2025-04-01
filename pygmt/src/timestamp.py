@@ -77,7 +77,6 @@ def timestamp(
     >>> fig.timestamp(label="Powered by PyGMT")
     >>> fig.show()
     """
-
     self._preprocess()
 
     # TODO(GMT>=6.5.0): Remove the patch for upstream bug fixed in GMT 6.5.0.
@@ -101,16 +100,15 @@ def timestamp(
         warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
         text = text[:64]
 
-    alias = AliasSystem(
+    kwdict = AliasSystem(
         U=[
             Alias(label),
             Alias(justify, prefix="+j"),
             Alias(offset, prefix="+o", separator="/"),
             Alias(text, prefix="+t"),
         ]
-    )
+    ).kwdict | {"T": True}
 
-    kwdict = {"T": True} | alias.kwdict
     with Session() as lib:
         lib.call_module(
             module="plot",
