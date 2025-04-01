@@ -72,15 +72,13 @@ class Box(BaseParam):
     shading_offset: Sequence[float | str] | None = None
     shading_fill: str | None = None
 
-    @property
-    def innerborder(self) -> str | None:
+    def _innerborder(self) -> str | None:
         """
         innerborder="{inner_gap}/{inner_pen}"
         """
         return [v for v in (self.inner_gap, self.inner_pen) if v is not None] or None
 
-    @property
-    def shading(self) -> str | None:
+    def _shading(self) -> str | None:
         """
         shading="{shading_offset}/{shading_fill}"
         """
@@ -93,6 +91,8 @@ class Box(BaseParam):
 
     @property
     def _aliases(self):
+        self.innerborder = self._innerborder()
+        self.shading = self._shading()
         return [
             Alias(self.clearance, prefix="+c", separator="/"),
             Alias(self.fill, prefix="+g"),
