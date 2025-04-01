@@ -43,10 +43,7 @@ assignees: ''
 - [ ] Verify that [all workflows triggered by the release](https://github.com/GenericMappingTools/pygmt/actions?query=event%3Arelease) pass
   - [ ] The latest version is correct on [PyPI](https://pypi.org/project/pygmt/)
   - [ ] The latest version is correct on https://www.pygmt.org/latest/
-- [ ] Ensure the release page includes the following assets [Need to wait for CI completion.]
-  - [ ] baseline-images.zip
-  - [ ] pygmt-docs.zip
-  - [ ] pygmt-docs.pdf
+  - [ ] The [release page](https://github.com/GenericMappingTools/pygmt/releases) has five assets, including `baseline-images.zip`, `pygmt-docs.zip` and `pygmt-docs.pdf`
 - [ ] Download pygmt-X.Y.Z.zip (rename to pygmt-vX.Y.Z.zip) and baseline-images.zip from the release page, and upload the two zip files to https://zenodo.org/deposit, ensure that they are filed under the correct reserved DOI
 
 **After release**:
