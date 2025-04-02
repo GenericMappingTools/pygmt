@@ -114,12 +114,30 @@ def test_grdfill_gridfill_dataarray(grid):
     npt.assert_array_equal(result[3:6, 3:5], bggrid[3:6, 3:5])
 
 
+def test_grdfill_inquire(grid):
+    """
+    Test grdfill with inquire mode.
+    """
+    bounds = grdfill(grid=grid, inquire=True)
+    assert isinstance(bounds, np.ndarray)
+    assert bounds.shape == (1, 4)
+    npt.assert_allclose(bounds, [[-52.0, -50.0, -21.0, -18.0]])
+
+
 def test_grdfill_required_args(grid):
     """
-    Test that grdfill fails without arguments for `mode` and `L`.
+    Test that grdfill fails without filling parameters or 'inquire'.
     """
     with pytest.raises(GMTInvalidInput):
         grdfill(grid=grid)
+
+
+def test_grdfill_inquire_and_fill(grid):
+    """
+    Test that grdfill fails if both inquire and fill parameters are given.
+    """
+    with pytest.raises(GMTInvalidInput):
+        grdfill(grid=grid, inquire=True, constantfill=20)
 
 
 # TODO(PyGMT>=0.19.0): Remove this test.
