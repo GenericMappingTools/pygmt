@@ -52,6 +52,14 @@ p {
     max-width: 1000px;
 }
 
+/* Version compatibility override */
+.wy-side-nav-search>div.version {
+    margin-top: -.4045em;
+    margin-bottom: .809em;
+    font-weight: 400;
+    color: hsla(0, 0%, 100%, .3);
+}
+
 /* Format parameters section similar to sphinx_rtd_theme v4.x.x (not a grid) */
 html.writer-html5 .rst-content dl.field-list {
     display: initial;
