@@ -102,8 +102,6 @@ class Figure:
         self._preview_dir = TemporaryDirectory(prefix=f"{self._name}-preview-")
         self._activate_figure()
 
-        self.clip = clip()
-
     def __del__(self) -> None:
         """
         Clean up the temporary directory that stores the previews.
@@ -138,6 +136,17 @@ class Figure:
         with Session() as lib:
             wesn = lib.extract_region()
         return wesn
+
+    @property
+    def clip(self) -> clip:
+        """
+        Set up a clipping path.
+
+        - :meth:`pygmt.Figure.clip.land`
+        - :meth:`pygmt.Figure.clip.water`
+        - :meth:`pygmt.Figure.clip.polygon`
+        """
+        return clip()
 
     def savefig(
         self,
@@ -415,7 +424,6 @@ class Figure:
 
     from pygmt.src import (  # type: ignore[misc]
         basemap,
-        clip,
         coast,
         colorbar,
         contour,
