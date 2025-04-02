@@ -28,7 +28,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=6e6bddb7"></script>
+        <script src="../../../_static/documentation_options.js?v=e240ebed"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -348,6 +348,7 @@
 <span class="sd">    Example</span>
 <span class="sd">    -------</span>
 <span class="sd">    Fill holes in a bathymetric grid with a constant value of 20.</span>
+
 <span class="sd">    &gt;&gt;&gt; import pygmt</span>
 <span class="sd">    &gt;&gt;&gt; # Load a bathymetric grid with missing data</span>
 <span class="sd">    &gt;&gt;&gt; earth_relief_holes = pygmt.datasets.load_sample_data(name=&quot;earth_relief_holes&quot;)</span>
@@ -355,6 +356,7 @@
 <span class="sd">    &gt;&gt;&gt; filled_grid = pygmt.grdfill(grid=earth_relief_holes, constantfill=20)</span>
 
 <span class="sd">    Inquire the bounds of each hole.</span>
+
 <span class="sd">    &gt;&gt;&gt; pygmt.grdfill(grid=earth_relief_holes, inquire=True)</span>
 <span class="sd">    array([[1.83333333, 6.16666667, 3.83333333, 8.16666667],</span>
 <span class="sd">           [6.16666667, 7.83333333, 0.5       , 2.5       ]])</span>
@@ -409,9 +411,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/4af6d205">4af6d205</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2025.
+      <span class="lastupdated">Last updated on Apr 02, 2025.
       </span></p>
   </div>
 
