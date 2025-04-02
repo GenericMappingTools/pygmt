@@ -185,6 +185,7 @@ def grdfill(
     Example
     -------
     Fill holes in a bathymetric grid with a constant value of 20.
+
     >>> import pygmt
     >>> # Load a bathymetric grid with missing data
     >>> earth_relief_holes = pygmt.datasets.load_sample_data(name="earth_relief_holes")
@@ -192,6 +193,7 @@ def grdfill(
     >>> filled_grid = pygmt.grdfill(grid=earth_relief_holes, constantfill=20)
 
     Inquire the bounds of each hole.
+
     >>> pygmt.grdfill(grid=earth_relief_holes, inquire=True)
     array([[1.83333333, 6.16666667, 3.83333333, 8.16666667],
            [6.16666667, 7.83333333, 0.5       , 2.5       ]])
