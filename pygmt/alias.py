@@ -10,7 +10,7 @@ from typing import Any, Literal
 from pygmt.helpers.utils import is_nonstr_iter
 
 
-def value_to_string(
+def to_string(
     value: Any,
     prefix: str = "",  # Default to an empty string to simplify the code logic.
     separator: Literal["/", ","] | None = None,
@@ -59,29 +59,29 @@ def value_to_string(
 
     Examples
     --------
-    >>> value_to_string("text")
+    >>> to_string("text")
     'text'
-    >>> value_to_string(12)
+    >>> to_string(12)
     '12'
-    >>> value_to_string((12, 34), separator="/")
+    >>> to_string((12, 34), separator="/")
     '12/34'
-    >>> value_to_string(("12p", "34p"), separator=",")
+    >>> to_string(("12p", "34p"), separator=",")
     '12p,34p'
-    >>> value_to_string(("12p", "34p"), prefix="+o", separator="/")
+    >>> to_string(("12p", "34p"), prefix="+o", separator="/")
     '+o12p/34p'
-    >>> value_to_string(True)
+    >>> to_string(True)
     ''
-    >>> value_to_string(True, prefix="+a")
+    >>> to_string(True, prefix="+a")
     '+a'
-    >>> value_to_string(False)
-    >>> value_to_string(None)
-    >>> value_to_string(["xaf", "yaf", "WSen"])
+    >>> to_string(False)
+    >>> to_string(None)
+    >>> to_string(["xaf", "yaf", "WSen"])
     ['xaf', 'yaf', 'WSen']
-    >>> value_to_string("high", mapping=True)
+    >>> to_string("high", mapping=True)
     'h'
-    >>> value_to_string("mean", mapping={"mean": "a", "mad": "d", "full": "g"})
+    >>> to_string("mean", mapping={"mean": "a", "mad": "d", "full": "g"})
     'a'
-    >>> value_to_string("invalid", mapping={"mean": "a", "mad": "d", "full": "g"})
+    >>> to_string("invalid", mapping={"mean": "a", "mad": "d", "full": "g"})
     'invalid'
     """
     # Return None if the value is None or False.
@@ -142,7 +142,7 @@ class Alias:
         separator: Literal["/", ","] | None = None,
         mapping: bool | Mapping = False,
     ):
-        self.value = value_to_string(
+        self.value = to_string(
             value=value, prefix=prefix, separator=separator, mapping=mapping
         )
 
