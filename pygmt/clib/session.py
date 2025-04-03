@@ -1765,7 +1765,8 @@ class Session:
                     seg.header = None
                     seg.text = None
 
-    def virtualfile_in(
+    # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'required_z'.
+    def virtualfile_in(  # noqa: PLR0912
         self,
         check_kind=None,
         data=None,
@@ -1773,8 +1774,9 @@ class Session:
         y=None,
         z=None,
         extra_arrays=None,
-        required_z=False,
         required_data=True,
+        ncols=2,
+        required_z=False,
     ):
         """
         Store any data inside a virtual file.
@@ -1797,11 +1799,17 @@ class Session:
         extra_arrays : list of 1-D arrays
             Optional. A list of numpy arrays in addition to x, y, and z.
             All of these arrays must be of the same size as the x/y/z arrays.
-        required_z : bool
-            State whether the 'z' column is required.
         required_data : bool
             Set to True when 'data' is required, or False when dealing with
             optional virtual files. [Default is True].
+        ncols
+            Number of minimum required columns.
+        required_z : bool
+            State whether the 'z' column is required.
+
+            .. deprecated:: v0.16.0
+               The parameter 'required_z' will be removed in v0.20.0. Use parameter
+               'ncols' instead. E.g., ``required_z=True`` is equivalent to ``ncols=3``.
 
         Returns
         -------
@@ -1829,14 +1837,24 @@ class Session:
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
+        if required_z is True:
+            warnings.warn(
+                "The parameter 'required_z' is deprecated in v0.16.0 and will be "
+                "removed in v0.20.0. Use parameter 'ncols' instead. E.g., "
+                "``required_z=True`` is equivalent to ``ncols=3``.",
+                category=FutureWarning,
+                stacklevel=1,
+            )
+            ncols = 3
+
         kind = data_kind(data, required=required_data)
         _validate_data_input(
             data=data,
             x=x,
             y=y,
             z=z,
-            required_z=required_z,
             required_data=required_data,
+            ncols=ncols,
             kind=kind,
         )
 
