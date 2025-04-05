@@ -2,6 +2,7 @@
 logo - Plot the GMT logo.
 """
 
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -11,14 +12,22 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     R="region",
     J="projection",
     D="position",
-    F="box",
     S="style",
     V="verbose",
     c="panel",
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def logo(self, **kwargs):
+def logo(
+    self,
+    position=None,
+    position_type=None,
+    length=None,
+    height=None,
+    offset=None,
+    box=None,
+    **kwargs,
+):
     r"""
     Plot the GMT logo.
 
@@ -54,6 +63,15 @@ def logo(self, **kwargs):
     {panel}
     {transparency}
     """
+    alias = AliasSystem(
+        D=[
+            Alias(position, separator="/", prefix=position_type),
+            Alias(length, prefix="+w"),
+            Alias(height, prefix="+h"),
+            Alias(offset, prefix="+o", separator="/"),
+        ],
+        F=Alias(box),
+    )
     kwargs = self._preprocess(**kwargs)
     with Session() as lib:
-        lib.call_module(module="logo", args=build_arg_list(kwargs))
+        lib.call_module(module="logo", args=build_arg_list(alias.kwdict | kwargs))

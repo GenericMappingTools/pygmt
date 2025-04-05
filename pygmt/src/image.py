@@ -2,25 +2,32 @@
 image - Plot raster or EPS images.
 """
 
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring
 
 
 @fmt_docstring
-@use_alias(
-    D="position",
-    F="box",
-    G="bitcolor",
-    J="projection",
-    M="monochrome",
-    R="region",
-    V="verbose",
-    c="panel",
-    p="perspective",
-    t="transparency",
-)
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def image(self, imagefile, **kwargs):
+def image(  # noqa: PLR0913
+    self,
+    imagefile,
+    region=None,
+    projection=None,
+    position=None,
+    position_type=None,
+    dimension=None,
+    repeat=None,
+    offset=None,
+    dpi=None,
+    box=None,
+    bitcolor=None,
+    monochrome=None,
+    verbose=None,
+    panel=None,
+    perspective=None,
+    transparency=None,
+    **kwargs,
+):
     r"""
     Plot raster or EPS images.
 
@@ -28,8 +35,6 @@ def image(self, imagefile, **kwargs):
     it on a map.
 
     Full option list at :gmt-docs:`image.html`
-
-    {aliases}
 
     Parameters
     ----------
@@ -67,6 +72,27 @@ def image(self, imagefile, **kwargs):
     {perspective}
     {transparency}
     """
+    alias = AliasSystem(
+        R=Alias(region, separator="/"),
+        J=Alias(projection),
+        D=[
+            Alias(position, separator="/", prefix=position_type),
+            Alias(dimension, prefix="+w", separator="/"),
+            Alias(repeat, prefix="+n", separator="/"),
+            Alias(offset, prefix="+o", separator="/"),
+            Alias(dpi, prefix="+r"),
+        ],
+        F=Alias(box),
+        G=Alias(bitcolor),
+        M=Alias(monochrome),
+        V=Alias(verbose),
+        c=Alias(panel, separator=","),
+        p=Alias(perspective, separator="/"),
+        t=Alias(transparency),
+    )
+
     kwargs = self._preprocess(**kwargs)
     with Session() as lib:
-        lib.call_module(module="image", args=build_arg_list(kwargs, infile=imagefile))
+        lib.call_module(
+            module="image", args=build_arg_list(alias.kwdict | kwargs, infile=imagefile)
+        )
