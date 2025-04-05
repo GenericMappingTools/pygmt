@@ -39,7 +39,7 @@ class BaseParam:
         String representation of the object that can be passed to GMT directly.
         """
         return "".join(
-            [alias.value for alias in self._aliases if alias.value is not None]
+            [alias._value for alias in self._aliases if alias._value is not None]
         )
 
     def __repr__(self):

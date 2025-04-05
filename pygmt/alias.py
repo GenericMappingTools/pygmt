@@ -127,23 +127,29 @@ class Alias:
     Examples
     --------
     >>> par = Alias((3.0, 3.0), prefix="+o", separator="/")
-    >>> par.value
+    >>> par._value
     '+o3.0/3.0'
 
     >>> par = Alias(["xaf", "yaf", "WSen"])
-    >>> par.value
+    >>> par._value
     ['xaf', 'yaf', 'WSen']
     """
 
-    def __init__(
-        self,
-        value: Any,
-        prefix: str = "",
-        separator: Literal["/", ","] | None = None,
-        mapping: bool | Mapping = False,
-    ):
-        self.value = to_string(
-            value=value, prefix=prefix, separator=separator, mapping=mapping
+    value: Any
+    prefix: str = ""
+    separator: Literal["/", ","] | None = None
+    mapping: bool | Mapping = False
+
+    @property
+    def _value(self) -> str | Sequence[str] | None:
+        """
+        The value of the alias as a string, a sequence of strings or None.
+        """
+        return to_string(
+            value=self.value,
+            prefix=self.prefix,
+            separator=self.separator,
+            mapping=self.mapping,
         )
 
 
@@ -221,13 +227,13 @@ class AliasSystem:
         for option, aliases in self.options.items():
             for alias in aliases:
                 # value can be a string, a sequence of strings or None.
-                if alias.value is None:
+                if alias._value is None:
                     continue
                 # Special handing of repeatable parameter like -B/frame.
-                if is_nonstr_iter(alias.value):
-                    kwdict[option] = alias.value
+                if is_nonstr_iter(alias._value):
+                    kwdict[option] = alias._value
                     # A repeatable option should have only one alias, so break.
                     break
 
-                kwdict[option] += alias.value
+                kwdict[option] += alias._value
         return kwdict

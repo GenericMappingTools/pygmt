@@ -93,4 +93,4 @@ class Frame(BaseParam):
         ------
         The value of each alias in the class. None are excluded.
         """
-        yield from (alias.value for alias in self._aliases if alias.value is not None)
+        yield from (alias._value for alias in self._aliases if alias._value is not None)
