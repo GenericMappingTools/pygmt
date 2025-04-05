@@ -114,7 +114,7 @@ jobs:
             sphinx-copybutton
             sphinx-design
             sphinx-gallery
-            sphinx_rtd_theme<3.0
+            sphinx_rtd_theme
             cairosvg
             sphinxcontrib-svg2pdfconverter
             tectonic
