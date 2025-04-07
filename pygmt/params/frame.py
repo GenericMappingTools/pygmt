@@ -12,6 +12,8 @@ from pygmt.params.base import BaseParam
 @dataclass(repr=False)
 class Axes(BaseParam):
     """
+    Class for setting up the axes, title, and fill of a plot.
+
     Examples
     --------
     >>> from pygmt.params import Axes
@@ -35,6 +37,10 @@ class Axes(BaseParam):
 @dataclass(repr=False)
 class Axis(BaseParam):
     """
+    Class for setting up one axis of a plot.
+
+    Examples
+    --------
     >>> from pygmt.params import Axis
     >>> str(Axis(10, angle=30, label="X axis", unit="km"))
     '10+a30+lX axis+ukm'
@@ -58,6 +64,8 @@ class Axis(BaseParam):
 @dataclass(repr=False)
 class Frame(BaseParam):
     """
+    Class for setting up the frame of a plot.
+
     >>> from pygmt.alias import AliasSystem, Alias
     >>> from pygmt.params import Frame, Axes, Axis
     >>> frame = Frame(
