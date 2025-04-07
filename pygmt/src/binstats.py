@@ -109,34 +109,37 @@ def binstats(
         - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
     """
-    alias = AliasSystem(
-        C=Alias(
-            statistic,
-            mapping={
-                "mean": "a",
-                "mad": "d",
-                "full": "g",
-                "interquartile": "i",
-                "min": "l",
-                "minpos": "L",
-                "median": "m",
-                "number": "n",
-                "lms": "o",
-                "mode": "p",
-                "quantile": "q",
-                "rms": "r",
-                "stddev": "s",
-                "max": "u",
-                "maxneg": "U",
-                "sum": "z",
-            },
-        ),
-        G=Alias(outgrid),
+    kwdict = (
+        AliasSystem(
+            C=Alias(
+                statistic,
+                mapping={
+                    "mean": "a",
+                    "mad": "d",
+                    "full": "g",
+                    "interquartile": "i",
+                    "min": "l",
+                    "minpos": "L",
+                    "median": "m",
+                    "number": "n",
+                    "lms": "o",
+                    "mode": "p",
+                    "quantile": "q",
+                    "rms": "r",
+                    "stddev": "s",
+                    "max": "u",
+                    "maxneg": "U",
+                    "sum": "z",
+                },
+            ),
+            G=Alias(outgrid),
+        ).kwdict
+        | kwargs
     )
+
     if statistic == "quantile":
         statistic += str(quantile_value)
 
-    kwdict = alias.kwdict | kwargs
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="vector", data=data) as vintbl,

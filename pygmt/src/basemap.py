@@ -82,9 +82,14 @@ def basemap(self, frame=None, **kwargs):
     {perspective}
     {transparency}
     """
-    alias = AliasSystem(
-        B=Alias(frame),
-    )
     kwargs = self._preprocess(**kwargs)
+
+    kwdict = (
+        AliasSystem(
+            B=Alias(frame),
+        ).kwdict
+        | kwargs
+    )
+
     with Session() as lib:
-        lib.call_module(module="basemap", args=build_arg_list(alias.kwdict | kwargs))
+        lib.call_module(module="basemap", args=build_arg_list(kwdict))

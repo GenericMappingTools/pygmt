@@ -72,27 +72,29 @@ def image(  # noqa: PLR0913
     {perspective}
     {transparency}
     """
-    alias = AliasSystem(
-        R=Alias(region, separator="/"),
-        J=Alias(projection),
-        D=[
-            Alias(position, separator="/", prefix=position_type),
-            Alias(dimension, prefix="+w", separator="/"),
-            Alias(repeat, prefix="+n", separator="/"),
-            Alias(offset, prefix="+o", separator="/"),
-            Alias(dpi, prefix="+r"),
-        ],
-        F=Alias(box),
-        G=Alias(bitcolor),
-        M=Alias(monochrome),
-        V=Alias(verbose),
-        c=Alias(panel, separator=","),
-        p=Alias(perspective, separator="/"),
-        t=Alias(transparency),
+    kwargs = self._preprocess(**kwargs)
+
+    kwdict = (
+        AliasSystem(
+            R=Alias(region, separator="/"),
+            J=Alias(projection),
+            D=[
+                Alias(position, separator="/", prefix=position_type),
+                Alias(dimension, prefix="+w", separator="/"),
+                Alias(repeat, prefix="+n", separator="/"),
+                Alias(offset, prefix="+o", separator="/"),
+                Alias(dpi, prefix="+r"),
+            ],
+            F=Alias(box),
+            G=Alias(bitcolor),
+            M=Alias(monochrome),
+            V=Alias(verbose),
+            c=Alias(panel, separator=","),
+            p=Alias(perspective, separator="/"),
+            t=Alias(transparency),
+        ).kwdict
+        | kwargs
     )
 
-    kwargs = self._preprocess(**kwargs)
     with Session() as lib:
-        lib.call_module(
-            module="image", args=build_arg_list(alias.kwdict | kwargs, infile=imagefile)
-        )
+        lib.call_module(module="image", args=build_arg_list(kwdict, infile=imagefile))
