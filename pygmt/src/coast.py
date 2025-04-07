@@ -210,6 +210,9 @@ def coast(
     >>> # Show the plot
     >>> fig.show()
     """
+    alias = AliasSystem(
+        D=Alias(resolution, mapping=True),
+    )
     kwargs = self._preprocess(**kwargs)
     if not args_in_kwargs(args=["C", "G", "S", "I", "N", "E", "Q", "W"], kwargs=kwargs):
         msg = (
@@ -217,13 +220,5 @@ def coast(
             "lakes, land, water, rivers, borders, dcw, Q, or shorelines."
         )
         raise GMTInvalidInput(msg)
-
-    kwdict = (
-        AliasSystem(
-            D=Alias(resolution, mapping=True),
-        ).kwdict
-        | kwargs
-    )
-
     with Session() as lib:
-        lib.call_module(module="coast", args=build_arg_list(kwdict))
+        lib.call_module(module="coast", args=build_arg_list(alias.kwdict | kwargs))
