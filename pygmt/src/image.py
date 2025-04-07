@@ -72,6 +72,8 @@ def image(  # noqa: PLR0913
     {perspective}
     {transparency}
     """
+    kwargs = self._preprocess(**kwargs)
+
     alias = AliasSystem(
         R=Alias(region, separator="/"),
         J=Alias(projection),
@@ -90,9 +92,7 @@ def image(  # noqa: PLR0913
         p=Alias(perspective, separator="/"),
         t=Alias(transparency),
     )
+    kwdict = alias.kwdict | kwargs
 
-    kwargs = self._preprocess(**kwargs)
     with Session() as lib:
-        lib.call_module(
-            module="image", args=build_arg_list(alias.kwdict | kwargs, infile=imagefile)
-        )
+        lib.call_module(module="image", args=build_arg_list(kwdict, infile=imagefile))

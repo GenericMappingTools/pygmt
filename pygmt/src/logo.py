@@ -64,6 +64,8 @@ def logo(
     {panel}
     {transparency}
     """
+    kwargs = self._preprocess(**kwargs)
+
     alias = AliasSystem(
         D=[
             Alias(position, separator="/", prefix=position_type),
@@ -73,6 +75,7 @@ def logo(
         ],
         F=Alias(box),
     )
-    kwargs = self._preprocess(**kwargs)
+    kwdict = alias.kwdict | kwargs
+
     with Session() as lib:
-        lib.call_module(module="logo", args=build_arg_list(alias.kwdict | kwargs))
+        lib.call_module(module="logo", args=build_arg_list(kwdict))

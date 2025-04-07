@@ -135,8 +135,8 @@ def binstats(
     )
     if statistic == "quantile":
         statistic += str(quantile_value)
-
     kwdict = alias.kwdict | kwargs
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="vector", data=data) as vintbl,

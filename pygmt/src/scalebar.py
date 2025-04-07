@@ -49,6 +49,8 @@ def scalebar(  # noqa: PLR0913
     ... )
     >>> fig.show()
     """
+    self._preprocess()
+
     kwdict = AliasSystem(
         L=[
             Alias(position, separator="/", prefix=position_type),
@@ -65,6 +67,5 @@ def scalebar(  # noqa: PLR0913
         F=Alias(box),
     ).kwdict
 
-    self._preprocess()
     with Session() as lib:
         lib.call_module(module="basemap", args=build_arg_list(kwdict))

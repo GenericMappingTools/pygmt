@@ -134,16 +134,6 @@ def dimfilter(
     ...     region=[-55, -51, -24, -19],
     ... )
     """
-    alias = AliasSystem(
-        D=Alias(distance),
-        G=Alias(outgrid),
-        F=Alias(filter),
-        I=Alias(spacing, separator="/"),
-        N=Alias(sectors),
-        R=Alias(region, separator="/"),
-        V=Alias(verbose),
-    )
-
     if (
         not all(v is not None for v in [distance, filter, sectors])
         and "Q" not in kwargs
@@ -153,7 +143,18 @@ def dimfilter(
             "distance, filters, or sectors."
         )
         raise GMTInvalidInput(msg)
+
+    alias = AliasSystem(
+        D=Alias(distance),
+        G=Alias(outgrid),
+        F=Alias(filter),
+        I=Alias(spacing, separator="/"),
+        N=Alias(sectors),
+        R=Alias(region, separator="/"),
+        V=Alias(verbose),
+    )
     kwdict = alias.kwdict | kwargs
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
