@@ -14,7 +14,6 @@ from pygmt.helpers import build_arg_list, is_nonstr_iter
 __doctest_skip__ = ["timestamp"]
 
 
-# ruff: noqa: ARG001
 def timestamp(
     self,
     text: str | None = None,
@@ -79,6 +78,14 @@ def timestamp(
     """
     self._preprocess()
 
+    if text is not None and len(text) > 64:
+        msg = (
+            "Argument of 'text' must be no longer than 64 characters. "
+            "The given text string will be truncated to 64 characters."
+        )
+        warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
+        text = text[:64]
+
     # TODO(GMT>=6.5.0): Remove the patch for upstream bug fixed in GMT 6.5.0.
     if Version(__gmt_version__) < Version("6.5.0"):
         # Giving a single offset doesn't work.
@@ -89,16 +96,7 @@ def timestamp(
         # See https://github.com/GenericMappingTools/gmt/pull/7127.
         if text is not None:
             # Overriding the 'timefmt' parameter and set 'text' to None
-            timefmt = text[:64]
-            text = None
-
-    if text is not None and len(text) > 64:
-        msg = (
-            "Argument of 'text' must be no longer than 64 characters. "
-            "The given text string will be truncated to 64 characters."
-        )
-        warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
-        text = text[:64]
+            timefmt, text = text, None
 
     kwdict = AliasSystem(
         U=[
