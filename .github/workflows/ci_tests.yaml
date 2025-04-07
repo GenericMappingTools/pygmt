@@ -49,7 +49,7 @@ concurrency:
 
 jobs:
   test:
-    name: ${{ matrix.os }} - Python ${{ matrix.python-version }} / NumPy ${{ matrix.numpy-version }}
+    name: ${{ matrix.os }} - Python ${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}
     permissions:
       id-token: write  # This is required for requesting OIDC token for codecov
