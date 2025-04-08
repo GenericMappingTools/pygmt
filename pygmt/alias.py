@@ -15,7 +15,7 @@ def to_string(
     prefix: str = "",  # Default to an empty string to simplify the code logic.
     separator: Literal["/", ","] | None = None,
     mapping: bool | Mapping = False,
-) -> str | Sequence[str] | None:
+) -> str | list[str] | None:
     """
     Convert any value to a string, a sequence of strings or None.
 
@@ -100,11 +100,9 @@ def to_string(
     # Convert a sequence of values to a sequence of strings.
     # In some cases, "prefix" and "mapping" are ignored. We can enable them when needed.
     _values = [str(item) for item in value]
-    if separator is None:
-        # Sequence is given but separator is not specified. Return a sequence of strings
-        # for repeatable GMT options like '-B'.
-        return _values
-    return f"{prefix}{separator.join(_values)}"
+    # When separator is not specified, return a sequence of strings for repeatable GMT
+    # options like '-B'. Otherwise, join the sequence of strings with the separator.
+    return _values if separator is None else f"{prefix}{separator.join(_values)}"
 
 
 @dataclasses.dataclass
