@@ -62,6 +62,9 @@ extensions = [
     "sphinx_gallery.gen_gallery",
     "sphinxcontrib.cairosvgconverter",
 ]
+needs_extensions = {
+    "sphinx_gallery.gen_gallery": "0.19",
+}
 # Options for highlighting.
 pygments_style = "default"
 # Options for object signatures.
@@ -150,7 +153,7 @@ nb_render_markdown_format = "myst"  # Format for text/markdown rendering
 typehints_defaults = "comma"
 
 # Options for Sphinx-Gallery.
-# Reference: https://sphinx-gallery.readthedocs.io/en/latest/configuration.html
+# Reference: https://sphinx-gallery.github.io/stable/configuration.html
 sphinx_gallery_conf = {
     # Set paths to your examples scripts
     "examples_dirs": [
