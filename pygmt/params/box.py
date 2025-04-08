@@ -72,13 +72,13 @@ class Box(BaseParam):
     shading_offset: Sequence[float | str] | None = None
     shading_fill: str | None = None
 
-    def _innerborder(self) -> str | None:
+    def _innerborder(self) -> list[str | float] | None:
         """
         innerborder="{inner_gap}/{inner_pen}"
         """
         return [v for v in (self.inner_gap, self.inner_pen) if v is not None] or None
 
-    def _shading(self) -> str | None:
+    def _shading(self) -> list[str | float] | None:
         """
         shading="{shading_offset}/{shading_fill}"
         """
