@@ -155,19 +155,15 @@ class Alias:
 
 class AliasSystem:
     """
-    Alias system to convert PyGMT parameter into a keyword dictionary for GMT options.
+    Alias system for converting PyGMT parameters to GMT options.
 
-    The AliasSystem class is initialized by keyword arguments where the key is the GMT
-    single-letter option flag and the value is one or a list of ``Alias`` objects.
+    The AliasSystem class is initialized with keyword arguments, where each key is a GMT
+    option flag, and the corresponding value is an ``Alias`` object or a list of
+    ``Alias`` objects.
 
-    The ``kwdict`` property is a keyword dictionary that stores the current parameter
-    values. The key of the dictionary is the GMT single-letter option flag, and the
-    value is the corresponding value of the option. The value can be a string or a
-    sequence of strings, or None. The keyword dictionary can be passed to the
-    ``build_arg_list`` function.
-
-    Need to note that the ``kwdict`` property is dynamically computed from the current
-    values of parameters. So, don't change it and avoid accessing it multiple times.
+    The class provides the ``kwdict`` attribute, which is a dictionary mapping each GMT
+    option flag to its current value. The value can be a string or a list of strings.
+    This keyword dictionary can then be passed to the ``build_arg_list`` function.
 
     Examples
     --------
@@ -207,33 +203,24 @@ class AliasSystem:
 
     def __init__(self, **kwargs):
         """
-        Initialize as a dictionary of GMT options and their aliases.
+        Initialize the alias system and create the keyword dictionary that stores the
+        current parameter values.
         """
-        self.options = {}
+        # Keyword dictionary with an empty string as default value.
+        self.kwdict = defaultdict(str)
+
         for option, aliases in kwargs.items():
-            match aliases:
-                case list():
-                    self.options[option] = aliases
-                case _:
-                    self.options[option] = [aliases]
+            if not is_nonstr_iter(aliases):  # Single alias.
+                self.kwdict[option] = aliases._value
+                continue
 
-    @property
-    def kwdict(self):
-        """
-        A keyword dictionary that stores the current parameter values.
-        """
-        # Default value is an empty string to simplify code logic.
-        kwdict = defaultdict(str)
-        for option, aliases in self.options.items():
-            for alias in aliases:
-                # value can be a string, a sequence of strings or None.
-                if alias._value is None:
-                    continue
-                # Special handing of repeatable parameter like -B/frame.
-                if is_nonstr_iter(alias._value):
-                    kwdict[option] = alias._value
-                    # A repeatable option should have only one alias, so break.
-                    break
-
-                kwdict[option] += alias._value
-        return kwdict
+            for alias in aliases:  # List of aliases.
+                match alias._value:
+                    case None:
+                        continue
+                    case str():
+                        self.kwdict[option] += alias._value
+                    case list():
+                        # A repeatable option should have only one alias, so break.
+                        self.kwdict[option] = alias._value
+                        break
