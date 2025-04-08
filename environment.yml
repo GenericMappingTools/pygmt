@@ -27,7 +27,7 @@ dependencies:
     # Dev dependencies (style checks)
     - codespell
     - pre-commit
-    - ruff>=0.8.2
+    - ruff>=0.10.0
     # Dev dependencies (unit testing)
     - matplotlib-base
     - pytest>=6.0
@@ -35,14 +35,19 @@ dependencies:
     - pytest-doctestplus
     - pytest-mpl
     # Dev dependencies (building documentation)
+    - geodatasets
     - myst-nb
     - panel
     - sphinx>=6.2
     - sphinx-autodoc-typehints
     - sphinx-copybutton
     - sphinx-design
-    - sphinx-gallery>=0.17.0
+    - sphinx-gallery>=0.19.0
     - sphinx_rtd_theme<3.0
+    # Dev dependencies (building PDF documentation)
+    - cairosvg
+    - sphinxcontrib-svg2pdfconverter
+    - tectonic
     # Dev dependencies (type hints)
     - mypy
     - pandas-stubs

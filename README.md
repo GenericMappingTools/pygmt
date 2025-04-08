@@ -10,7 +10,7 @@
 [![Compatible Python versions](https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2FGenericMappingTools%2Fpygmt%2Frefs%2Fheads%2Fmain%2Fpyproject.toml)](https://www.pygmt.org/dev/minversions.html)
 [![Digital Object Identifier for the Zenodo archive](https://zenodo.org/badge/DOI/10.5281/3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
 [![Discourse forum](https://img.shields.io/discourse/status?label=forum&server=https%3A%2F%2Fforum.generic-mapping-tools.org)](https://forum.generic-mapping-tools.org)
-[![PyOpenSci](https://tinyurl.com/y22nb8up)](https://github.com/pyOpenSci/software-review/issues/43)
+[![PyOpenSci](https://tinyurl.com/y22nb8up)](https://github.com/pyOpenSci/software-submission/issues/43)
 [![Contributor Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-v2.1%20adopted-ff69b4.svg)](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md)
 [![GitHub Actions Tests status](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests.yaml/badge.svg)](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests.yaml)
 [![GitHub Actions GMT Dev Tests status](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml/badge.svg)](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml)
@@ -22,22 +22,22 @@
 
 ## Why PyGMT?
 
-A beautiful map is worth a thousand words. To truly understand how powerful PyGMT is, play with it online on
-[Binder](https://github.com/GenericMappingTools/try-gmt)! For a quicker introduction, check out our
-[3 minute overview](https://youtu.be/4iPnITXrxVU)!
+A beautiful map is worth a thousand words. To truly understand how powerful PyGMT is,
+play with it online on [Binder](https://github.com/GenericMappingTools/try-gmt)! For a
+quicker introduction, check out our [3 minute overview](https://youtu.be/4iPnITXrxVU)!
 
-Afterwards, feel free to look at our [Tutorials](https://www.pygmt.org/latest/tutorials), visit the
-[Gallery](https://www.pygmt.org/latest/gallery), and check out some
+Afterwards, feel free to look at our [Tutorials](https://www.pygmt.org/latest/tutorials),
+visit the [Gallery](https://www.pygmt.org/latest/gallery), and check out some
 [external PyGMT examples](https://www.pygmt.org/latest/external_resources.html)!
 
-![Quick Introduction to PyGMT YouTube Video](doc/_static/scipy2022-youtube-thumbnail.jpg)
+![Quick Introduction to PyGMT YouTube Video](https://raw.githubusercontent.com/GenericMappingTools/pygmt/refs/heads/main/doc/_static/scipy2022-youtube-thumbnail.jpg)
 
 ## About
 
-PyGMT is a library for processing geospatial and geophysical data and making publication-quality
-maps and figures. It provides a Pythonic interface for the
-[Generic Mapping Tools (GMT)](https://github.com/GenericMappingTools/gmt), a command-line program
-widely used across the Earth, Ocean, and Planetary sciences and beyond.
+PyGMT is a library for processing geospatial and geophysical data and making
+publication-quality maps and figures. It provides a Pythonic interface for the
+[Generic Mapping Tools (GMT)](https://github.com/GenericMappingTools/gmt), a command-line
+program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 
 ## Project goals
 
@@ -45,8 +45,9 @@ widely used across the Earth, Ocean, and Planetary sciences and beyond.
 - Build a Pythonic API for GMT.
 - Interface with the GMT C API directly using ctypes (no system calls).
 - Support for rich display in the Jupyter notebook.
-- Integration with the [scientific Python ecosystem](https://scientific-python.org/): `numpy.ndarray` or
-  `pandas.DataFrame` for data tables, `xarray.DataArray` for grids, and `geopandas.GeoDataFrame` for geographical data.
+- Integration with the [scientific Python ecosystem](https://scientific-python.org/):
+  `numpy.ndarray` or `pandas.DataFrame` for data tables, `xarray.DataArray` for grids,
+  and `geopandas.GeoDataFrame` for geographical data.
 
 ## Quickstart
 
@@ -69,7 +70,8 @@ For other ways to install `pygmt`, see the [full installation instructions](http
 ### Getting started
 
 As a starting point, you can open a [Python interpreter](https://docs.python.org/3/tutorial/interpreter.html)
-or a [Jupyter notebook](https://docs.jupyter.org/en/latest/running.html), and try the following example:
+or a [Jupyter notebook](https://docs.jupyter.org/en/latest/running.html), and try the
+following example:
 
 ``` python
 import pygmt
@@ -79,18 +81,18 @@ fig.text(position="MC", text="PyGMT", font="80p,Helvetica-Bold,red@75")
 fig.show()
 ```
 
-You should see a global map with land and water masses colored in tan and lightblue, respectively. On top,
-there should be the semi-transparent text "PyGMT". For more examples, please have a look at the
-[Gallery](https://www.pygmt.org/latest/gallery/index.html) and
+You should see a global map with land and water masses colored in tan and lightblue,
+respectively. On top, there should be the semi-transparent text "PyGMT". For more examples,
+please have a look at the [Gallery](https://www.pygmt.org/latest/gallery/index.html) and
 [Tutorials](https://www.pygmt.org/latest/tutorials/index.html).
 
 ## Contacting us
 
 - Most discussion happens [on GitHub](https://github.com/GenericMappingTools/pygmt).
-  Feel free to [open an issue](https://github.com/GenericMappingTools/pygmt/issues/new) or comment on any open
-  issue or pull request.
-- We have a [Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a) where you can ask
-  questions and leave comments.
+  Feel free to [open an issue](https://github.com/GenericMappingTools/pygmt/issues/new)
+  or comment on any open issue or pull request.
+- We have a [Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a)
+  where you can ask questions and leave comments.
 
 ## Contributing
 
@@ -109,30 +111,33 @@ to see how you can help and give feedback.
 
 **We want your help.** No, really.
 
-There may be a little voice inside your head that is telling you that you're not ready to be an open source
-contributor; that your skills aren't nearly good enough to contribute. What could you possibly offer?
+There may be a little voice inside your head that is telling you that you're not ready
+to be an open source contributor; that your skills aren't nearly good enough to
+contribute. What could you possibly offer?
 
 We assure you that the little voice in your head is wrong.
 
-**Being a contributor doesn't just mean writing code.** Equally important contributions include: writing or
-proof-reading documentation, suggesting or implementing tests, or even giving feedback about the project
-(including giving feedback about the contribution process). If you're coming to the project with fresh eyes,
-you might see the errors and assumptions that seasoned contributors have glossed over. If you can write any
-code at all, you can contribute code to open source. We are constantly trying out new skills, making mistakes,
-and learning from those mistakes. That's how we all improve and we are happy to help others learn.
+**Being a contributor doesn't just mean writing code.** Equally important contributions
+include: writing or proof-reading documentation, suggesting or implementing tests, or
+even giving feedback about the project (including giving feedback about the contribution
+process). If you're coming to the project with fresh eyes, you might see the errors and
+assumptions that seasoned contributors have glossed over. If you can write any code at
+all, you can contribute code to open source. We are constantly trying out new skills,
+making mistakes, and learning from those mistakes. That's how we all improve and we are
+happy to help others learn.
 
 *This disclaimer was adapted from the* [MetPy project](https://github.com/Unidata/MetPy).
 
 ## Citing PyGMT
 
 PyGMT is a community developed project. See the
-[AUTHORS.md](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md) file on GitHub for a list of
-the people involved and a definition of the term "PyGMT Developers". Feel free to cite our work in your
-research using the following BibTeX:
+[AUTHORS.md](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md) file
+on GitHub for a list of the people involved and a definition of the term "PyGMT Developers".
+Feel free to cite our work in your research using the following BibTeX:
 
 ```
 @software{
-  pygmt_2024_13679420,
+  pygmt_2025_15071586,
   author       = {Tian, Dongdong and
                   Uieda, Leonardo and
                   Leong, Wei Ji and
@@ -142,8 +147,8 @@ research using the following BibTeX:
                   Jones, Max and
                   Toney, Liam and
                   Yao, Jiayuan and
-                  Magen, Yohai and
                   Tong, Jing-Hui and
+                  Magen, Yohai and
                   Materna, Kathryn and
                   Belem, Andre and
                   Newton, Tyler and
@@ -152,20 +157,20 @@ research using the following BibTeX:
                   Quinn, Jamie and
                   Wessel, Paul},
   title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-  month        = sep,
-  year         = 2024,
+  month        = mar,
+  year         = 2025,
   publisher    = {Zenodo},
-  version      = {0.13.0},
-  doi          = {10.5281/zenodo.13679420},
-  url          = {https://doi.org/10.5281/zenodo.13679420}
+  version      = {0.15.0},
+  doi          = {10.5281/zenodo.15071586},
+  url          = {https://doi.org/10.5281/zenodo.15071586}
 }
 ```
 
 To cite a specific version of PyGMT, go to our Zenodo page at <https://doi.org/10.5281/zenodo.3781524>
-and use the "Export to BibTeX" function there. It is also strongly recommended to cite the
-[GMT 6 paper](https://doi.org/10.1029/2019GC008515) (which PyGMT wraps around). Note that some modules
-like `dimfilter`, `surface`, and `x2sys` also have their dedicated citations. Further information for
-all these can be found at <https://www.generic-mapping-tools.org/cite>.
+and use the "Export to BibTeX" function there. It is also strongly recommended to cite
+the [GMT 6 paper](https://doi.org/10.1029/2019GC008515) (which PyGMT wraps around). Note
+that some modules like `dimfilter`, `surface`, and `x2sys` also have their dedicated
+citations. Further information for all these can be found at <https://www.generic-mapping-tools.org/cite>.
 
 ## License
 

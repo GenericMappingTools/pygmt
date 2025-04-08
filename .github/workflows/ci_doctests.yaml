@@ -18,6 +18,8 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
+permissions: {}
+
 jobs:
   test:
     name: ${{ matrix.os }}
@@ -39,16 +41,13 @@ jobs:
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
+          persist-credentials: false
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v2.0.3
+        uses: mamba-org/setup-micromamba@v2.0.4
         with:
           environment-name: pygmt
-          condarc: |
-            channels:
-              - conda-forge
-              - nodefaults
           create-args: >-
             python=3.13
             gmt=6.5.0

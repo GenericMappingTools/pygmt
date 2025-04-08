@@ -1,0 +1,5 @@
+outs:
+- md5: 0c0eeb160dd6beb06bb6d3dcc264127a
+  size: 57789
+  hash: md5
+  path: test_hlines_polar_projection.png

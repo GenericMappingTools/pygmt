@@ -6,6 +6,7 @@ from typing import Literal
 
 from pygmt.clib import Session
 from pygmt.datasets.tile_map import load_tile_map
+from pygmt.enums import GridType
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 try:
@@ -121,7 +122,7 @@ def tilemap(
         zoom_adjust=zoom_adjust,
     )
     if lonlat:
-        raster.gmt.gtype = 1  # Set to geographic type
+        raster.gmt.gtype = GridType.GEOGRAPHIC
 
     # Only set region if no_clip is None or False, so that plot is clipped to exact
     # bounding box region

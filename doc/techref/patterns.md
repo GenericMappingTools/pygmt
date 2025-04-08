@@ -1,4 +1,4 @@
-# Bit and hachure patterns
+# Bit and Hachure Patterns
 
 PyGMT supports a variety of bit and hachure patterns that can be used to fill polygons.
 
@@ -11,7 +11,7 @@ image raster file. The former will result in one of the 90 predefined 64x64 bit-
 provided by GMT (see the figure below). The latter allows the user to create customized,
 repeating images using image raster files.
 
-By specifying upper case **P** instead of **p** the image will be bit-reversed, i.e.,
+By specifying uppercase **P** instead of **p** the image will be bit-reversed, i.e.,
 white and black areas will be interchanged (only applies to 1-bit images or predefined
 bit-image patterns). For these patterns and other 1-bit images one may specify
 alternative **b**ackground and **f**oreground colors (by appending **+b**_color_ and/or
