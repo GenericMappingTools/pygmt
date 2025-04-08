@@ -4,7 +4,7 @@ PyGMT's alias system for converting PyGMT parameters to GMT short-form options.
 
 import dataclasses
 from collections import defaultdict
-from collections.abc import Mapping, Sequence
+from collections.abc import Mapping
 from typing import Any, Literal
 
 from pygmt.helpers.utils import is_nonstr_iter
@@ -131,6 +131,18 @@ class Alias:
     >>> par = Alias(["xaf", "yaf", "WSen"])
     >>> par._value
     ['xaf', 'yaf', 'WSen']
+
+    >>> par = Alias("high", mapping=True)
+    >>> par._value
+    'h'
+
+    >>> par = Alias("mean", mapping={"mean": "a", "mad": "d", "full": "g"})
+    >>> par._value
+    'a'
+
+    >>> par = Alias("invalid", mapping={"mean": "a", "mad": "d", "full": "g"})
+    >>> par._value
+    'invalid'
     """
 
     value: Any
@@ -139,7 +151,7 @@ class Alias:
     mapping: bool | Mapping = False
 
     @property
-    def _value(self) -> str | Sequence[str] | None:
+    def _value(self) -> str | list[str] | None:
         """
         The value of the alias as a string, a sequence of strings or None.
         """
