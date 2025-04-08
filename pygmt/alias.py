@@ -19,12 +19,14 @@ def to_string(
     """
     Convert any value to a string, a sequence of strings or None.
 
-    - ``None`` or ``False`` will be converted to ``None``.
+    The general rules are:
+
+    - ``None``/``False`` will be converted to ``None``.
     - ``True`` will be converted to an empty string.
     - A sequence will be joined by the separator if a separator is provided. Otherwise,
       each item in the sequence will be converted to a string and a sequence of strings
       will be returned.
-    - Any other value will be converted to a string if possible.
+    - Any other type of values will be converted to a string if possible.
 
     If a mapping dictionary is provided, the value will be converted to the short-form
     string that GMT accepts (e.g., mapping PyGMT long-form argument ``"high"`` to GMT's
@@ -35,10 +37,10 @@ def to_string(
     An optional prefix (e.g., `"+o"`) can be added to the beginning of the converted
     string.
 
-    Need to note that this function doesn't check if the given parameters are valid, to
-    avoid the overhead of checking. For example, if ``value`` is a sequence but
-    ``separator`` is not specified, a sequence of strings will be returned. ``prefix``
-    makes no sense here, but this function won't check it.
+    To avoid extra overhead, this function does not validate parameter combinations. For
+    example, if ``value`` is a sequence but ``separator`` is not specified, the function
+    will return a sequence of strings. In this case, ``prefix`` has no effect, but the
+    function does not check for such inconsistencies.
 
     Parameters
     ----------
