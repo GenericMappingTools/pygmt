@@ -59,9 +59,6 @@ all = [
 "Changelog" = "https://www.pygmt.org/latest/changes.html"
 "Issue Tracker" = "https://github.com/GenericMappingTools/pygmt/issues"
 
-[tool.setuptools]
-license-files = ["LICENSE.txt"]
-
 [tool.setuptools.packages.find]
 include = ["pygmt*"]
 exclude = ["doc"]
