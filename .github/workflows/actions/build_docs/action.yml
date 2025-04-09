@@ -8,10 +8,12 @@ inputs:
 
 runs:
   using: 'composite'
+
   steps:
     - name: Get current week number of year
       id: date
       run: echo "date=$(date +%Y-W%W)" >> $GITHUB_OUTPUT  # e.g., 2024-W19
+      shell: bash
 
     # Install Micromamba with conda-forge dependencies
     - name: Setup Micromamba
@@ -59,6 +61,7 @@ runs:
         # Change modification times of the two files, so GMT won't refresh it
         touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
         ls -lhR ~/.gmt
+      shell: bash -l {0}
       env:
         GH_TOKEN: ${{ github.token }}
 
@@ -67,9 +70,12 @@ runs:
       run: |
         python -m build --sdist
         python -m pip install dist/*
+      shell: bash
 
     - name: Build the HTML documentation
       run: make -C doc clean html
+      shell: bash -l {0}
 
     - name: Build the PDF documentation
       run:  make -C doc pdf
+      shell: bash -l {0}
