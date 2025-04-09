@@ -117,7 +117,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         region=region,
         projection=projection,
         style=f"{symbol}{diameter}c",
-        pen=f"15p,{color_blue}",
+        pen=f"0.5c,{color_blue}",
         fill=color_bg,
         perspective=perspective,
         no_clip=True,  # needed for corners of hexagon shape
