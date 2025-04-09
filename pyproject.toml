@@ -38,18 +38,18 @@ dependencies = [
     "numpy>=1.25",
     "pandas>=2.0",
     "xarray>=2023.04",
-    "netCDF4",
-    "packaging",
+    "netCDF4>=1.7",
+    "packaging>=22.0",
 ]
 dynamic = ["version"]
 
 [project.optional-dependencies]
 all = [
-    "contextily",
-    "geopandas",
-    "IPython",  # 'ipython' is not the correct module name.
-    "pyarrow",
-    "rioxarray",
+    "contextily>=1.2",
+    "geopandas>=0.14",
+    "IPython>=8",  # 'ipython' is not the correct module name.
+    "pyarrow>=13",
+    "rioxarray>=0.14",
 ]
 
 [project.urls]
