@@ -8,6 +8,8 @@ from pathlib import Path, PurePath
 from tempfile import TemporaryDirectory
 from typing import Literal, overload
 
+from pygmt._state import _STATE
+
 try:
     import IPython
 
@@ -112,10 +114,23 @@ class Figure:
         Start and/or activate the current figure.
 
         All plotting commands run afterward will append to this figure.
+
+        Unlike the command-line version (``gmt figure``), this method does not trigger
+        the generation of a figure file. An explicit call to
+        :meth:`pygmt.Figure.savefig` or :meth:`pygmt.Figure.psconvert` must be made in
+        order to get a file.
         """
-        fmt = "-"  # Passing format "-" tells pygmt.end to not produce any files.
+        # Activate the figure only if it's not already activated
+        if _STATE["current_figure"] == self._name:
+            return
+
         with Session() as lib:
+            # Passing format '-' tells pygmt.end to not produce any files.
+            fmt = "-"
             lib.call_module(module="figure", args=[self._name, fmt])
+
+        # Track the current activated figure name
+        _STATE["current_figure"] = self._name
 
     def _preprocess(self, **kwargs):
         """
