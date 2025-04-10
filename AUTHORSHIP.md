@@ -42,7 +42,7 @@ The order of authors will be defined by the number of contributions (including c
 and PR reviews) to the repository
 (`git shortlog -sne --group=author --group=trailer:co-authored-by`).
 The order can also be changed on a case-by-case basis. The most common reasons for
-case-by-case changes are contributions to the PyGMT project that due not relate to
+case-by-case changes are contributions to the PyGMT project that do not relate to
 commit numbers, including developing PyGMT lessons such as the
 [ROSES unit](https://www.youtube.com/watch?v=SSIGJEe0BIk), organizing workshops/sprints
 such as the [FOSS4G Workshop](https://github.com/GenericMappingTools/foss4g2019oceania),
