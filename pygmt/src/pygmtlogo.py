@@ -6,6 +6,7 @@ and consists of a visual and the wordmark "PyGMT".
 
 from pathlib import Path
 
+import numpy as np  # get ride of the x shift for letter M
 import pygmt
 
 
@@ -164,17 +165,45 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     # space between letter M and yellow line at the right side
     # fig.plot(x=[1.6, 1.6], y=[1.5, 1.775], pen=f"10p,{color_bg}")
     fig.plot(x=[1.6, 1.6], y=[1.5, 2.0], pen=f"10p,{color_bg}", perspective=True)
-    # lines with small distance to horizontal line of letter G
-    lines_m = [
-        ([0.33, 0.90], [1.527, 1.00]),  # diagonal left
-        ([0.90, 1.43], [1.00, 1.527]),  # diagonal right
-        ([0.285, 0.285], [0.30, 1.65]),  # vertical left
-        ([1.47, 1.47], [0.30, 1.65]),  # vertical right
+
+    # polygon with small distance to horizontal line of letter G
+    # starting point: lower right corner of the left vertical line of letter M
+    # direction: clockwise
+    m_x1 = 0.35
+    m_x2 = 1.52
+    m_x = np.array(
+        [
+            m_x1 + m_x1 / 2,  # vertical left upwarts
+            m_x1 - m_x1 / 2,
+            m_x1 - m_x1 / 2,
+            m_x1 + m_x1 / 2,
+            (m_x2 + m_x1 / 2) / 2 + m_x1 / 4,  # mid pick above
+            m_x2 - m_x1 / 2,  # vertical right downwarts
+            m_x2 + m_x1 / 2,
+            m_x2 + m_x1 / 2,
+            m_x2 - m_x1 / 2,
+            m_x2 - m_x1 / 2,  # right pick below
+            (m_x2 + m_x1 / 2) / 2 + m_x1 / 4,  # mid pick below
+            m_x1 + m_x1 / 2,  # left pick below
+        ]
+    )  # get ride of the x shift
+    m_y1 = 0.3
+    m_y2 = 1.63
+    m_y = [
+        m_y1,  # vertical left upwarts
+        m_y1,
+        m_y2,
+        m_y2,
+        m_y2 - m_y2 / 4,  # mid pick above
+        m_y2,  # vertical right downwarts
+        m_y2,
+        m_y1,
+        m_y1,
+        m_y2 - m_y2 / 3,  # right pick below
+        m_y2 - m_y2 / 2 - m_y2 / 18,  # mid pick below
+        m_y2 - m_y2 / 3,  # left pick below
     ]
-    for x, y in lines_m:
-        fig.plot(x=x, y=y, pen=f"10p,{color_red}", perspective=True)
-    # middle corner
-    fig.plot(x=0.9, y=0.9, style="d0.3c", fill=color_red, perspective=True)
+    fig.plot(x=m_x - 0.06, y=m_y, close=True, fill=color_red)  # get ride of the x shift
 
     # .............................................................................
     # letter T
