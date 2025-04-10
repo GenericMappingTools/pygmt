@@ -6,7 +6,6 @@ and consists of a visual and the wordmark "PyGMT".
 
 from pathlib import Path
 
-import numpy as np  # get ride of the x shift for letter M
 import pygmt
 
 
@@ -169,24 +168,22 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     # polygon with small distance to horizontal line of letter G
     # starting point: lower right corner of the left vertical line of letter M
     # direction: clockwise
-    m_x1 = 0.35
-    m_x2 = 1.52
-    m_x = np.array(
-        [
-            m_x1 + m_x1 / 2,  # vertical left upwarts
-            m_x1 - m_x1 / 2,
-            m_x1 - m_x1 / 2,
-            m_x1 + m_x1 / 2,
-            (m_x2 + m_x1 / 2) / 2 + m_x1 / 4,  # mid pick above
-            m_x2 - m_x1 / 2,  # vertical right downwarts
-            m_x2 + m_x1 / 2,
-            m_x2 + m_x1 / 2,
-            m_x2 - m_x1 / 2,
-            m_x2 - m_x1 / 2,  # right pick below
-            (m_x2 + m_x1 / 2) / 2 + m_x1 / 4,  # mid pick below
-            m_x1 + m_x1 / 2,  # left pick below
-        ]
-    )  # get ride of the x shift
+    m_x1 = 0.35 - 0.35 / 2 - 0.06
+    m_x2 = 1.52 + 0.35 / 2 - 0.06
+    m_x = [
+        m_x1 + m_x2 / 5,  # vertical left upwarts
+        m_x1,
+        m_x1,
+        m_x1 + m_x2 / 5,
+        m_x1 + (m_x2 - m_x1) / 2,  # mid pick above
+        m_x2 - m_x2 / 5,  # vertical right downwarts
+        m_x2,
+        m_x2,
+        m_x2 - m_x2 / 5,
+        m_x2 - m_x2 / 5,  # right pick below
+        m_x1 + (m_x2 - m_x1) / 2,  # mid pick below
+        m_x1 + m_x2 / 5,  # left pick below
+    ]
     m_y1 = 0.3
     m_y2 = 1.63
     m_y = [
@@ -203,7 +200,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         m_y2 - m_y2 / 2 - m_y2 / 18,  # mid pick below
         m_y2 - m_y2 / 3,  # left pick below
     ]
-    fig.plot(x=m_x - 0.06, y=m_y, close=True, fill=color_red)  # get ride of the x shift
+    fig.plot(x=m_x, y=m_y, close=True, fill=color_red)
 
     # .............................................................................
     # letter T
