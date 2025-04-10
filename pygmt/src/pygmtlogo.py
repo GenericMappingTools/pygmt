@@ -168,8 +168,8 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     # polygon with small distance to horizontal line of letter G
     # starting point: lower right corner of the left vertical line of letter M
     # direction: clockwise
-    m_x1 = 0.35 - 0.35 / 2 - 0.06
-    m_x2 = 1.52 + 0.35 / 2 - 0.06
+    m_x1 = 0.33 - 0.33 / 2 - 0.06
+    m_x2 = 1.54 + 0.33 / 2 - 0.06  # outer radius of letter G
     m_x = [
         m_x1 + m_x2 / 5,  # vertical left upwarts
         m_x1,
@@ -185,7 +185,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         m_x1 + m_x2 / 5,  # left pick below
     ]
     m_y1 = 0.3
-    m_y2 = 1.63
+    m_y2 = 1.65  # outer radius of letter G
     m_y = [
         m_y1,  # vertical left upwarts
         m_y1,
