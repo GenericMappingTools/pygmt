@@ -8,6 +8,8 @@ from pathlib import Path, PurePath
 from tempfile import TemporaryDirectory
 from typing import Literal, overload
 
+from pygmt.src import clip
+
 try:
     import IPython
 
@@ -134,6 +136,17 @@ class Figure:
         with Session() as lib:
             wesn = lib.extract_region()
         return wesn
+
+    @property
+    def clip(self) -> clip:
+        """
+        Set up a clipping path.
+
+        - :meth:`pygmt.Figure.clip.land`
+        - :meth:`pygmt.Figure.clip.water`
+        - :meth:`pygmt.Figure.clip.polygon`
+        """
+        return clip()
 
     def savefig(
         self,
