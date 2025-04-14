@@ -8,14 +8,15 @@ on:
   repository_dispatch:
     types: [format-command]
 
-permissions: {}
+permissions:
+  contents: write
 
 jobs:
   format:
     runs-on: ubuntu-latest
     steps:
       # Generate token from GenericMappingTools bot
-      - uses: actions/create-github-app-token@v1.11.6
+      - uses: actions/create-github-app-token@v1.12.0
         id: generate-token
         with:
           app-id: ${{ secrets.APP_ID }}
@@ -30,7 +31,7 @@ jobs:
           persist-credentials: false
 
       # Setup Python environment
-      - uses: actions/setup-python@v5.4.0
+      - uses: actions/setup-python@v5.5.0
         with:
           python-version: '3.13'
 
