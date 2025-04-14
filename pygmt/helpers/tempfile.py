@@ -9,7 +9,6 @@ from pathlib import Path
 from tempfile import NamedTemporaryFile
 
 import numpy as np
-from packaging.version import Version
 
 
 def unique_name() -> str:
@@ -144,34 +143,16 @@ def tempfile_from_geojson(geojson):
             # https://github.com/geopandas/geopandas/issues/967#issuecomment-842877704
             # https://github.com/GenericMappingTools/pygmt/issues/2497
             int32_info = np.iinfo(np.int32)
-            # TODO(GeoPandas>=1.0): Remove the workaround for GeoPandas < 1.
-            # The default engine is "fiona" in v0.x and "pyogrio" in v1.x.
-            if Version(gpd.__version__).major < 1:  # GeoPandas v0.x
-                # The default engine 'fiona' supports the 'schema' parameter.
-                if geojson.index.name is None:
-                    geojson.index.name = "index"
-                geojson = geojson.reset_index(drop=False)
-                schema = gpd.io.file.infer_schema(geojson)
-                for col, dtype in schema["properties"].items():
-                    if dtype in {"int", "int64"}:
-                        overflow = (
-                            geojson[col].max() > int32_info.max
-                            or geojson[col].min() < int32_info.min
-                        )
-                        schema["properties"][col] = "float" if overflow else "int32"
-                        geojson[col] = geojson[col].astype(schema["properties"][col])
-                ogrgmt_kwargs["schema"] = schema
-            else:  # GeoPandas v1.x.
-                # The default engine "pyogrio" doesn't support the 'schema' parameter
-                # but we can change the dtype directly.
-                for col in geojson.columns:
-                    if geojson[col].dtype.name in {"int", "int64", "Int64"}:
-                        overflow = (
-                            geojson[col].max() > int32_info.max
-                            or geojson[col].min() < int32_info.min
-                        )
-                        dtype = "float" if overflow else "int32"
-                        geojson[col] = geojson[col].astype(dtype)
+            # The default engine "pyogrio" doesn't support the 'schema' parameter
+            # but we can change the dtype directly.
+            for col in geojson.columns:
+                if geojson[col].dtype.name in {"int", "int64", "Int64"}:
+                    overflow = (
+                        geojson[col].max() > int32_info.max
+                        or geojson[col].min() < int32_info.min
+                    )
+                    dtype = "float" if overflow else "int32"
+                    geojson[col] = geojson[col].astype(dtype)
             # Using geopandas.to_file to directly export to OGR_GMT format
             geojson.to_file(**ogrgmt_kwargs)
         except AttributeError:
