@@ -140,3 +140,32 @@ def test_virtualfile_in_matrix_string_dtype():
                 assert output == "347.5 348.5 -30.5 -30\n"
                 # Should check that lib.virtualfile_from_vectors is called once,
                 # not lib.virtualfile_from_matrix, but it's technically complicated.
+
+
+# TODO(PyGMT>=0.20.0): Remove the test related to deprecated parameter 'extra_arrays'.
+def test_virtualfile_in_extra_arrays(data):
+    """
+    Test that the extra_arrays parameter is deprecated.
+    """
+    with clib.Session() as lib:
+        # Call the method twice to ensure only one statement in the with block.
+        # Test that a FutureWarning is raised when extra_arrays is used.
+        with pytest.warns(FutureWarning):
+            with lib.virtualfile_in(
+                check_kind="vector",
+                x=data[:, 0],
+                y=data[:, 1],
+                extra_arrays=[data[:, 2]],
+            ) as vfile:
+                pass
+        # Test that the output is correct.
+        with GMTTempFile() as outfile:
+            with lib.virtualfile_in(
+                check_kind="vector",
+                x=data[:, 0],
+                y=data[:, 1],
+                extra_arrays=[data[:, 2]],
+            ) as vfile:
+                lib.call_module("info", [vfile, "-C", f"->{outfile.name}"])
+                output = outfile.read(keep_tabs=False)
+                assert output == "11.5309 61.7074 -2.9289 7.8648 0.1412 0.9338\n"
