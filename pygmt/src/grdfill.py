@@ -4,6 +4,7 @@ grdfill - Interpolate across holes in a grid.
 
 import warnings
 
+import numpy as np
 import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
@@ -16,6 +17,57 @@ from pygmt.helpers import (
 )
 
 __doctest_skip__ = ["grdfill"]
+
+
+def _validate_params(
+    constantfill=None,
+    gridfill=None,
+    neighborfill=None,
+    splinefill=None,
+    inquire=False,
+    mode=None,
+):
+    """
+    Validate the fill/inquire parameters.
+
+    >>> _validate_params(constantfill=20.0)
+    >>> _validate_params(inquire=True)
+    >>> _validate_params(mode="c20.0")
+    >>> _validate_params(constantfill=20.0, gridfill="bggrid.nc")
+    Traceback (most recent call last):
+    ...
+    pygmt.exceptions.GMTInvalidInput: Parameters ... are mutually exclusive.
+    >>> _validate_params(constantfill=20.0, inquire=True)
+    Traceback (most recent call last):
+    ...
+    pygmt.exceptions.GMTInvalidInput: Parameters ... are mutually exclusive.
+    >>> _validate_params()
+    Traceback (most recent call last):
+    ...
+    pygmt.exceptions.GMTInvalidInput: Need to specify parameter ...
+    """
+    _fill_params = "'constantfill'/'gridfill'/'neighborfill'/'splinefill'"
+    # The deprecated 'mode' parameter is given.
+    if mode is not None:
+        msg = (
+            "The 'mode' parameter is deprecated since v0.15.0 and will be removed in "
+            f"v0.19.0. Use {_fill_params} instead."
+        )
+        warnings.warn(msg, FutureWarning, stacklevel=2)
+
+    n_given = sum(
+        param is not None and param is not False
+        for param in [constantfill, gridfill, neighborfill, splinefill, inquire, mode]
+    )
+    if n_given > 1:  # More than one mutually exclusive parameter is given.
+        msg = f"Parameters {_fill_params}/'inquire'/'mode' are mutually exclusive."
+        raise GMTInvalidInput(msg)
+    if n_given == 0:  # No parameters are given.
+        msg = (
+            f"Need to specify parameter {_fill_params} for filling holes or "
+            "'inquire' for inquiring the bounds of each hole."
+        )
+        raise GMTInvalidInput(msg)
 
 
 def _parse_fill_mode(
@@ -40,19 +92,7 @@ def _parse_fill_mode(
     's0.5'
     >>> _parse_fill_mode(splinefill=True)
     's'
-    >>> _parse_fill_mode(constantfill=20, gridfill="bggrid.nc")
-    Traceback (most recent call last):
-    ...
-    pygmt.exceptions.GMTInvalidInput: The ... parameters are mutually exclusive.
     """
-    fill_params = [constantfill, gridfill, neighborfill, splinefill]
-    if sum(param is not None for param in fill_params) > 1:
-        msg = (
-            "The 'constantfill', 'gridfill', 'neighborfill', and 'splinefill' "
-            "parameters are mutually exclusive."
-        )
-        raise GMTInvalidInput(msg)
-
     if constantfill is not None:
         return f"c{constantfill}"
     if gridfill is not None:
@@ -66,8 +106,9 @@ def _parse_fill_mode(
 
 @fmt_docstring
 # TODO(PyGMT>=0.19.0): Remove the deprecated 'no_data' parameter.
+# TODO(PyGMT>=0.19.0): Remove the deprecated 'mode' parameter.
 @deprecate_parameter("no_data", "hole", "v0.15.0", remove_version="v0.19.0")
-@use_alias(A="mode", N="hole", R="region", V="verbose", f="coltypes")
+@use_alias(N="hole", R="region", V="verbose", f="coltypes")
 @kwargs_to_strings(R="sequence")
 def grdfill(
     grid: str | xr.DataArray,
@@ -76,8 +117,10 @@ def grdfill(
     gridfill: str | xr.DataArray | None = None,
     neighborfill: float | bool | None = None,
     splinefill: float | bool | None = None,
+    inquire: bool = False,
+    mode: str | None = None,
     **kwargs,
-) -> xr.DataArray | None:
+) -> xr.DataArray | np.ndarray | None:
     r"""
     Interpolate across holes in a grid.
 
@@ -111,7 +154,11 @@ def grdfill(
     hole : float
         Set the node value used to identify a point as a member of a hole [Default is
         NaN].
-    mode : str
+    inquire
+        Output the bounds of each hole. The bounds are returned as a 2-D numpy array in
+        the form of (west, east, south, north). No grid fill takes place and ``outgrid``
+        is ignored.
+    mode
         Specify the hole-filling algorithm to use. Choose from **c** for constant fill
         and append the constant value, **n** for nearest neighbor (and optionally append
         a search radius in pixels [default radius is :math:`r^2 = \sqrt{{ X^2 + Y^2 }}`,
@@ -128,7 +175,8 @@ def grdfill(
     Returns
     -------
     ret
-        Return type depends on whether the ``outgrid`` parameter is set:
+        If ``inquire`` is ``True``, return the bounds of each hole as a 2-D numpy array.
+        Otherwise, the return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
         - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
@@ -136,42 +184,55 @@ def grdfill(
 
     Example
     -------
+    Fill holes in a bathymetric grid with a constant value of 20.
+
     >>> import pygmt
     >>> # Load a bathymetric grid with missing data
     >>> earth_relief_holes = pygmt.datasets.load_sample_data(name="earth_relief_holes")
     >>> # Fill the holes with a constant value of 20
     >>> filled_grid = pygmt.grdfill(grid=earth_relief_holes, constantfill=20)
-    """
-    # TODO(PyGMT>=0.19.0): Remove the deprecated 'mode' parameter.
-    if kwargs.get("A") is not None:  # The deprecated 'mode' parameter is given.
-        warnings.warn(
-            "The 'mode' parameter is deprecated since v0.15.0 and will be removed in "
-            "v0.19.0. Use 'constantfill'/'gridfill'/'neighborfill'/'splinefill' "
-            "instead.",
-            FutureWarning,
-            stacklevel=1,
-        )
-    else:
-        # Determine the -A option from the fill parameters.
-        kwargs["A"] = _parse_fill_mode(constantfill, gridfill, neighborfill, splinefill)
 
-    if kwargs.get("A") is None and kwargs.get("L") is None:
-        msg = "At least parameter 'mode' or 'L' must be specified."
-        raise GMTInvalidInput(msg)
+    Inquire the bounds of each hole.
+
+    >>> pygmt.grdfill(grid=earth_relief_holes, inquire=True)
+    array([[1.83333333, 6.16666667, 3.83333333, 8.16666667],
+           [6.16666667, 7.83333333, 0.5       , 2.5       ]])
+    """
+    # Validate the fill/inquire parameters.
+    _validate_params(constantfill, gridfill, neighborfill, splinefill, inquire, mode)
+
+    # Parse the fill parameters and return the appropriate string for the -A option.
+    kwargs["A"] = (
+        _parse_fill_mode(constantfill, gridfill, neighborfill, splinefill)
+        if mode is None
+        else mode
+    )
 
     with Session() as lib:
-        with (
-            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
-            lib.virtualfile_in(
-                check_kind="raster", data=gridfill, required_data=False
-            ) as vbggrd,
-            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
-        ):
-            if gridfill is not None:
-                # Fill by a grid. Append the actual or virtual grid file name.
-                kwargs["A"] = f"g{vbggrd}"
-            kwargs["G"] = voutgrd
-            lib.call_module(
-                module="grdfill", args=build_arg_list(kwargs, infile=vingrd)
-            )
-            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
+        with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
+            if inquire:  # Inquire mode.
+                kwargs["L"] = True
+                with lib.virtualfile_out(kind="dataset") as vouttbl:
+                    lib.call_module(
+                        module="grdfill",
+                        args=build_arg_list(kwargs, infile=vingrd, outfile=vouttbl),
+                    )
+                    return lib.virtualfile_to_dataset(
+                        vfname=vouttbl, output_type="numpy"
+                    )
+
+            # Fill mode.
+            with (
+                lib.virtualfile_in(
+                    check_kind="raster", data=gridfill, required_data=False
+                ) as vbggrd,
+                lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+            ):
+                if gridfill is not None:
+                    # Fill by a grid. Append the actual or virtual grid file name.
+                    kwargs["A"] = f"g{vbggrd}"
+                kwargs["G"] = voutgrd
+                lib.call_module(
+                    module="grdfill", args=build_arg_list(kwargs, infile=vingrd)
+                )
+                return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

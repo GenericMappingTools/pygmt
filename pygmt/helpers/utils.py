@@ -12,6 +12,7 @@ import sys
 import time
 import webbrowser
 from collections.abc import Iterable, Mapping, Sequence
+from itertools import islice
 from pathlib import Path
 from typing import Any, Literal
 
@@ -129,6 +130,23 @@ def _validate_data_input(data: Any, kind: Kind, ncols=2) -> None:
             if (actual_cols := len(data)) < ncols:
                 msg = f"Need at least {ncols} columns but {actual_cols} column(s) are given."
                 raise GMTInvalidInput(msg)
+            if kind == "vectors":
+                if hasattr(data, "shape") and (
+                    (len(data.shape) == 1 and data.shape[0] < 3)
+                    or (len(data.shape) > 1 and data.shape[1] < 3)
+                ):  # np.ndarray or pd.DataFrame
+                    raise GMTInvalidInput(msg)
+                if hasattr(data, "data_vars") and len(data.data_vars) < 3:  # xr.Dataset
+                    raise GMTInvalidInput(msg)
+            if kind == "vectors" and isinstance(data, dict):
+                # Iterator over the up-to-3 first elements.
+                arrays = list(islice(data.values(), 3))
+                if len(arrays) < 2 or any(v is None for v in arrays[:2]):  # Check x/y
+                    msg = "Must provide x and y."
+                    raise GMTInvalidInput(msg)
+                if required_z and (len(arrays) < 3 or arrays[2] is None):  # Check z
+                    msg = "Must provide x, y, and z."
+                    raise GMTInvalidInput(msg)
 
 
 def _is_printable_ascii(argstr: str) -> bool:

@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=64", "setuptools_scm[toml]>=6.2"]
+requires = ["setuptools>=77", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,6 +8,8 @@ description = "A Python interface for the Generic Mapping Tools"
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [{name = "The PyGMT Developers", email = "pygmt.team@gmail.com"}]
+license = "BSD-3-Clause"
+license-files = ["LICENSE.txt"]
 keywords = [
     "cartography",
     "geodesy",
@@ -31,11 +33,10 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
-    "License :: OSI Approved :: BSD License",
 ]
 dependencies = [
     "numpy>=1.25",
-    "pandas>=2.0",
+    "pandas>=2.1",
     "xarray>=2023.04",
     "netCDF4",
     "packaging",
@@ -45,7 +46,7 @@ dynamic = ["version"]
 [project.optional-dependencies]
 all = [
     "contextily",
-    "geopandas",
+    "geopandas>=1.0",
     "IPython",  # 'ipython' is not the correct module name.
     "pyarrow",
     "rioxarray",
@@ -57,9 +58,6 @@ all = [
 "Source Code" = "https://github.com/GenericMappingTools/pygmt"
 "Changelog" = "https://www.pygmt.org/latest/changes.html"
 "Issue Tracker" = "https://github.com/GenericMappingTools/pygmt/issues"
-
-[tool.setuptools]
-license-files = ["LICENSE.txt"]
 
 [tool.setuptools.packages.find]
 include = ["pygmt*"]

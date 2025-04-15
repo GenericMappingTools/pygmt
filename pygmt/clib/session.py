@@ -1390,9 +1390,7 @@ class Session:
                 raise GMTCLibError(msg)
 
     @contextlib.contextmanager
-    def virtualfile_from_vectors(
-        self, vectors: Sequence, *args
-    ) -> Generator[str, None, None]:
+    def virtualfile_from_vectors(self, vectors: Sequence) -> Generator[str, None, None]:
         """
         Store a sequence of 1-D vectors as columns of a dataset inside a virtual file.
 
@@ -1438,21 +1436,6 @@ class Session:
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <1/3> <4/6> <7/9>
         """
-        # TODO(PyGMT>=0.16.0): Remove the "*args" parameter and related codes.
-        # "*args" is added in v0.14.0 for backward-compatibility with the deprecated
-        # syntax of passing multiple vectors as positional arguments.
-        if len(args) > 0:
-            msg = (
-                "Passing multiple arguments to Session.virtualfile_from_vectors is "
-                "deprecated since v0.14.0 and will be unsupported in v0.16.0. "
-                "Put all vectors in a sequence (a tuple or a list) instead and pass "
-                "the sequence as the single argument to this function. "
-                "E.g., use `with lib.virtualfile_from_vectors((x, y, z)) as vfile` "
-                "instead of `with lib.virtualfile_from_vectors(x, y, z) as vfile`."
-            )
-            warnings.warn(message=msg, category=FutureWarning, stacklevel=3)
-            vectors = (vectors, *args)
-
         # Conversion to a C-contiguous array needs to be done here and not in put_vector
         # or put_strings because we need to maintain a reference to the copy while it is
         # being used by the C API. Otherwise, the array would be garbage collected and
@@ -1765,6 +1748,8 @@ class Session:
                     seg.header = None
                     seg.text = None
 
+    # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'required_z'.
+    # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'extra_arrays'.
     def virtualfile_in(  # noqa: PLR0912
         self,
         check_kind=None,
@@ -1772,10 +1757,10 @@ class Session:
         x=None,
         y=None,
         z=None,
-        required_data=True,
         ncols=2,
-        extra_arrays=None,
+        required_data=True,
         required_z=False,
+        extra_arrays=None,
     ):
         """
         Store any data inside a virtual file.
@@ -1795,11 +1780,11 @@ class Session:
             data input.
         x/y/z : 1-D arrays or None
             x, y, and z columns as numpy arrays.
+        ncols
+            Number of minimum required columns.
         required_data : bool
             Set to True when 'data' is required, or False when dealing with
             optional virtual files. [Default is True].
-        ncols
-            Number of minimum required columns.
         required_z : bool
             State whether the 'z' column is required.
 
@@ -1807,12 +1792,13 @@ class Session:
                The parameter 'required_z' will be removed in v0.20.0. Use parameter
                'ncols' instead. E.g., ``required_z=True`` is equivalent to ``ncols=3``.
         extra_arrays : list of 1-D arrays
-            Optional. A list of numpy arrays in addition to x, y, and z. All of these
-            arrays must be of the same size as the x/y/z arrays.
+            A list of numpy arrays in addition to x, y, and z. All of these arrays must
+            be of the same size as the x/y/z arrays.
 
             .. deprecated:: v0.16.0
                The parameter 'extra_arrays' will be removed in v0.20.0. Prepare and pass
-               a dictionary of arrays instead. E.g., `{"x": x, "y": y, "size": size}`.
+               a dictionary of arrays instead to the `data` parameter. E.g.,
+               ``data={"x": x, "y": y, "size": size}``.
 
         Returns
         -------
@@ -1840,12 +1826,11 @@ class Session:
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
-        # TODO(PyGMT>=0.20.0): Remove the deprecated 'required_z' parameter.
         if required_z is True:
             warnings.warn(
-                "The parameter 'required_z' is deprecated and will be removed in "
-                "v0.20.0. Use parameter 'ncols' instead. E.g., ``required_z=True`` is "
-                "equivalent to ``ncols=3``.",
+                "The parameter 'required_z' is deprecated in v0.16.0 and will be "
+                "removed in v0.20.0. Use parameter 'ncols' instead. E.g., "
+                "``required_z=True`` is equivalent to ``ncols=3``.",
                 category=FutureWarning,
                 stacklevel=1,
             )
@@ -1907,8 +1892,8 @@ class Session:
                 if extra_arrays:
                     msg = (
                         "The parameter 'extra_arrays' will be removed in v0.20.0. "
-                        "Prepare and pass a dictionary of arrays instead. E.g., "
-                        "`{'x': x, 'y': y, 'size': size}`."
+                        "Prepare and pass a dictionary of arrays instead to the `data` "
+                        "parameter. E.g., `data={'x': x, 'y': y, 'size': size}`"
                     )
                     warnings.warn(message=msg, category=FutureWarning, stacklevel=1)
                     _data.extend(extra_arrays)
