@@ -45,8 +45,8 @@ The order can also be changed on a case-by-case basis. The most common reasons f
 case-by-case changes are contributions to the PyGMT project that do not relate to
 commit numbers, including developing PyGMT lessons such as the
 [ROSES unit](https://www.youtube.com/watch?v=SSIGJEe0BIk), organizing workshops/sprints
-such as the [FOSS4G Workshop](https://github.com/GenericMappingTools/foss4g2019oceania),
-the 2020 and 2021 SciPy sprints, writing grants/proposals to support PyGMT, and team
+such as the [AGU24 Workshop](https://github.com/GenericMappingTools/agu24workshop) or
+2020 and 2021 SciPy sprints, writing grants/proposals to support PyGMT, and team
 programming efforts (including reviewing PRs).
 
 If you have contributed and do not wish to be included in Zenodo archives, there are a
