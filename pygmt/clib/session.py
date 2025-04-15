@@ -1789,7 +1789,8 @@ class Session:
 
             .. deprecated:: v0.16.0
                The parameter 'extra_arrays' will be removed in v0.20.0. Prepare and pass
-               a dictionary of arrays instead. E.g., ``{"x": x, "y": y, "size": size}``.
+               a dictionary of arrays instead to the `data` parameter. E.g.,
+               ``data={"x": x, "y": y, "size": size}``.
 
         Returns
         -------
@@ -1870,8 +1871,8 @@ class Session:
                 if extra_arrays:
                     msg = (
                         "The parameter 'extra_arrays' will be removed in v0.20.0. "
-                        "Prepare and pass a dictionary of arrays instead. E.g., "
-                        "`{'x': x, 'y': y, 'size': size}`."
+                        "Prepare and pass a dictionary of arrays instead to the `data` "
+                        "parameter. E.g., `data={'x': x, 'y': y, 'size': size}`"
                     )
                     warnings.warn(message=msg, category=FutureWarning, stacklevel=1)
                     _data.extend(extra_arrays)
