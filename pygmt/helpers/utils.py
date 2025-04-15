@@ -43,7 +43,7 @@ Encoding = Literal[
 
 
 def _validate_data_input(  # noqa: PLR0912
-    data=None, x=None, y=None, z=None, required_data=True, ncols=2, kind=None
+    data=None, x=None, y=None, z=None, ncols=2, required_data=True, kind=None
 ) -> None:
     """
     Check if the combination of data/x/y/z is valid.

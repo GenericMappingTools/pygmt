@@ -1842,8 +1842,8 @@ class Session:
             x=x,
             y=y,
             z=z,
-            required_data=required_data,
             ncols=ncols,
+            required_data=required_data,
             kind=kind,
         )
 
