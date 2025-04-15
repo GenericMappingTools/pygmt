@@ -222,8 +222,7 @@ def plot3d(  # noqa: PLR0912
             data.update({"x2": direction[0], "y2": direction[1]})
         # Fill
         if is_nonstr_iter(kwargs.get("G")):
-            data["fill"] = kwargs["G"]
-            del kwargs["G"]
+            data["fill"] = kwargs.pop("G")
         # Size
         if is_nonstr_iter(size):
             data["size"] = size
