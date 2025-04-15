@@ -1390,9 +1390,7 @@ class Session:
                 raise GMTCLibError(msg)
 
     @contextlib.contextmanager
-    def virtualfile_from_vectors(
-        self, vectors: Sequence, *args
-    ) -> Generator[str, None, None]:
+    def virtualfile_from_vectors(self, vectors: Sequence) -> Generator[str, None, None]:
         """
         Store a sequence of 1-D vectors as columns of a dataset inside a virtual file.
 
@@ -1438,21 +1436,6 @@ class Session:
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <1/3> <4/6> <7/9>
         """
-        # TODO(PyGMT>=0.16.0): Remove the "*args" parameter and related codes.
-        # "*args" is added in v0.14.0 for backward-compatibility with the deprecated
-        # syntax of passing multiple vectors as positional arguments.
-        if len(args) > 0:
-            msg = (
-                "Passing multiple arguments to Session.virtualfile_from_vectors is "
-                "deprecated since v0.14.0 and will be unsupported in v0.16.0. "
-                "Put all vectors in a sequence (a tuple or a list) instead and pass "
-                "the sequence as the single argument to this function. "
-                "E.g., use `with lib.virtualfile_from_vectors((x, y, z)) as vfile` "
-                "instead of `with lib.virtualfile_from_vectors(x, y, z) as vfile`."
-            )
-            warnings.warn(message=msg, category=FutureWarning, stacklevel=3)
-            vectors = (vectors, *args)
-
         # Conversion to a C-contiguous array needs to be done here and not in put_vector
         # or put_strings because we need to maintain a reference to the copy while it is
         # being used by the C API. Otherwise, the array would be garbage collected and

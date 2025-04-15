@@ -1,5 +1,5 @@
 """
-solar - Plot day-light terminators and other sunlight parameters.
+solar - Plot day-night terminators and other sunlight parameters.
 """
 
 from typing import Literal
@@ -32,7 +32,7 @@ def solar(
     **kwargs,
 ):
     r"""
-    Plot day-light terminators and other sunlight parameters.
+    Plot day-night terminators and other sunlight parameters.
 
     This function plots the day-night terminator. Alternatively, it can plot the
     terminators for civil twilight, nautical twilight, or astronomical twilight.
