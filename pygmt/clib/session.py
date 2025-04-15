@@ -1748,6 +1748,7 @@ class Session:
                     seg.header = None
                     seg.text = None
 
+    # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'extra_arrays'.
     def virtualfile_in(
         self,
         check_kind=None,
@@ -1755,9 +1756,9 @@ class Session:
         x=None,
         y=None,
         z=None,
-        extra_arrays=None,
         required_z=False,
         required_data=True,
+        extra_arrays=None,
     ):
         """
         Store any data inside a virtual file.
@@ -1771,20 +1772,25 @@ class Session:
         check_kind : str or None
             Used to validate the type of data that can be passed in. Choose
             from 'raster', 'vector', or None. Default is None (no validation).
-        data : str or pathlib.Path or xarray.DataArray or {table-like} or None
+        data : str or pathlib.Path or xarray.DataArray or {table-like} or dict or None
             Any raster or vector data format. This could be a file name or
             path, a raster grid, a vector matrix/arrays, or other supported
             data input.
         x/y/z : 1-D arrays or None
             x, y, and z columns as numpy arrays.
-        extra_arrays : list of 1-D arrays
-            Optional. A list of numpy arrays in addition to x, y, and z.
-            All of these arrays must be of the same size as the x/y/z arrays.
         required_z : bool
             State whether the 'z' column is required.
         required_data : bool
             Set to True when 'data' is required, or False when dealing with
             optional virtual files. [Default is True].
+        extra_arrays : list of 1-D arrays
+            A list of numpy arrays in addition to x, y, and z. All of these arrays must
+            be of the same size as the x/y/z arrays.
+
+            .. deprecated:: v0.16.0
+               The parameter 'extra_arrays' will be removed in v0.20.0. Prepare and pass
+               a dictionary of arrays instead to the `data` parameter. E.g.,
+               ``data={"x": x, "y": y, "size": size}``.
 
         Returns
         -------
@@ -1863,10 +1869,16 @@ class Session:
                 if z is not None:
                     _data.append(z)
                 if extra_arrays:
+                    msg = (
+                        "The parameter 'extra_arrays' will be removed in v0.20.0. "
+                        "Prepare and pass a dictionary of arrays instead to the `data` "
+                        "parameter. E.g., `data={'x': x, 'y': y, 'size': size}`"
+                    )
+                    warnings.warn(message=msg, category=FutureWarning, stacklevel=1)
                     _data.extend(extra_arrays)
             case "vectors":
                 if hasattr(data, "items") and not hasattr(data, "to_frame"):
-                    # pandas.DataFrame or xarray.Dataset types.
+                    # Dictionary, pandas.DataFrame or xarray.Dataset types.
                     # pandas.Series will be handled below like a 1-D numpy.ndarray.
                     _data = [array for _, array in data.items()]
                 else:
