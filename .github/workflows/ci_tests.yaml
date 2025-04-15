@@ -57,7 +57,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ['3.11', '3.13']
-        os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest, windows-latest]
+        os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest, windows-latest, windows-11-arm]
         # Is it a draft Pull Request (true or false)?
         isDraft:
           - ${{ github.event.pull_request.draft }}
@@ -68,6 +68,8 @@ jobs:
           - os: macos-latest
             isDraft: true
           - os: windows-latest
+            isDraft: true
+          - os: windows-11-arm
             isDraft: true
         include:
           # Python 3.11 + core packages (minimum supported versions) + optional packages (minimum supported versions if any)
