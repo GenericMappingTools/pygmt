@@ -13,7 +13,7 @@ dependencies:
     - netCDF4
     - packaging
     # Optional dependencies
-    - contextily
+    - contextily>=1.5
     - geopandas>=1.0
     - ipython
     - pyarrow-core
