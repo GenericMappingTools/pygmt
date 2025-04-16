@@ -16,7 +16,7 @@ dependencies:
     - contextily>=1.5
     - geopandas>=1.0
     - ipython
-    - pyarrow-core
+    - pyarrow-core>=16
     - rioxarray
     # Development dependencies (general)
     - dvc
