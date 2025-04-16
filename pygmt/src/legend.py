@@ -37,7 +37,7 @@ def legend(
     **kwargs,
 ):
     r"""
-    Plot legends on maps.
+    Plot a legend.
 
     Makes legends that can be overlaid on maps. Reads specific
     legend-related information from an input file, or automatically creates

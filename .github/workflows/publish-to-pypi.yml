@@ -34,6 +34,8 @@ on:
   #  branches:
   #    - main
 
+permissions: {}
+
 jobs:
   build:
     name: Build distribution 📦
@@ -48,7 +50,7 @@ jobs:
         persist-credentials: false
 
     - name: Set up Python
-      uses: actions/setup-python@v5.4.0
+      uses: actions/setup-python@v5.5.0
       with:
         python-version: '3.13'
 
@@ -72,7 +74,7 @@ jobs:
         ls -lh dist/
 
     - name: Store the distribution packages
-      uses: actions/upload-artifact@v4.6.1
+      uses: actions/upload-artifact@v4.6.2
       with:
         name: python-package-distributions
         path: dist/
@@ -91,7 +93,7 @@ jobs:
 
     steps:
     - name: Download all the dists
-      uses: actions/download-artifact@v4.1.9
+      uses: actions/download-artifact@v4.2.1
       with:
         name: python-package-distributions
         path: dist/
@@ -115,7 +117,7 @@ jobs:
 
     steps:
     - name: Download all the dists
-      uses: actions/download-artifact@v4.1.9
+      uses: actions/download-artifact@v4.2.1
       with:
         name: python-package-distributions
         path: dist/
