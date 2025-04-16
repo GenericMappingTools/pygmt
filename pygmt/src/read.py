@@ -77,15 +77,15 @@ def read(
     <class 'xarray.core.dataarray.DataArray'>
     """
     if kind not in {"dataset", "grid", "image"}:
-        msg = f"Invalid kind {kind}: must be one of 'dataset', 'grid', or 'image'."
+        msg = f"Invalid kind '{kind}': must be one of 'dataset', 'grid', or 'image'."
         raise ValueError(msg)
 
     if kind != "dataset" and any(
         v is not None for v in [column_names, header, dtype, index_col]
     ):
         msg = (
-            "Only the 'dataset' kind supports the 'column_names', 'header', "
-            "'dtype', and 'index_col' arguments."
+            "Only the 'dataset' kind supports the 'column_names', 'header', 'dtype', "
+            "and 'index_col' arguments."
         )
         raise ValueError(msg)
 
@@ -96,7 +96,9 @@ def read(
 
     with Session() as lib:
         with lib.virtualfile_out(kind=kind) as voutfile:
-            lib.call_module("read", args=[file, voutfile, *build_arg_list(kwdict)])
+            lib.call_module(
+                module="read", args=[file, voutfile, *build_arg_list(kwdict)]
+            )
 
         match kind:
             case "dataset":

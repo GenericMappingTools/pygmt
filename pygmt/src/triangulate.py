@@ -1,6 +1,6 @@
 """
-triangulate - Delaunay triangulation or Voronoi partitioning and gridding of
-Cartesian data.
+triangulate - Delaunay triangulation or Voronoi partitioning and gridding of Cartesian
+data.
 """
 
 from typing import Literal

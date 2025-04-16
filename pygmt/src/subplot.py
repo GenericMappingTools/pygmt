@@ -1,5 +1,5 @@
 """
-subplot - Manage modern mode figure subplot configuration and selection.
+subplot - Manage figure subplot configuration and selection.
 """
 
 import contextlib
@@ -33,7 +33,7 @@ from pygmt.helpers import (
 @kwargs_to_strings(Ff="sequence", Fs="sequence", M="sequence", R="sequence")
 def subplot(self, nrows=1, ncols=1, **kwargs):
     r"""
-    Create multi-panel subplot figures.
+    Manage figure subplot configuration and selection.
 
     This method is used to split the current figure into a rectangular layout
     of subplots that each may contain a single self-contained figure. Begin by

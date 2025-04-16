@@ -1,5 +1,5 @@
 """
-grdtrack - Sample grids at specified (x,y) locations.
+grdtrack - Sample one or more grids at specified locations.
 """
 
 from typing import Literal
@@ -56,7 +56,7 @@ def grdtrack(
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
-    Sample grids at specified (x,y) locations.
+    Sample one or more grids at specified locations.
 
     Reads one or more grid files and a table (from file or an array input; but
     see ``profile`` for exception) with (x,y) [or (lon,lat)] positions in the

@@ -70,3 +70,11 @@ def test_grdcut_fails():
     """
     with pytest.raises(GMTInvalidInput):
         grdcut(np.arange(10).reshape((5, 2)))
+
+
+def test_grdcut_invalid_kind(grid, region):
+    """
+    Check that grdcut fails with incorrect 'kind'.
+    """
+    with pytest.raises(GMTInvalidInput):
+        grdcut(grid, kind="invalid", region=region)

@@ -1,0 +1,5 @@
+outs:
+- md5: cd83745f2657ff7daeaba368143db72f
+  size: 4876
+  hash: md5
+  path: test_shift_origin_nested_context_manager.png

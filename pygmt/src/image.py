@@ -1,5 +1,5 @@
 """
-image - Plot an image.
+image - Plot raster or EPS images.
 """
 
 from pygmt.clib import Session
@@ -22,7 +22,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def image(self, imagefile, **kwargs):
     r"""
-    Place images or EPS files on maps.
+    Plot raster or EPS images.
 
     Reads an Encapsulated PostScript file or a raster image file and plots
     it on a map.

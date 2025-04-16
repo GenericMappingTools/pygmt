@@ -32,7 +32,7 @@ __doctest_skip__ = ["grdgradient"]
 @kwargs_to_strings(A="sequence", E="sequence", R="sequence")
 def grdgradient(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
-    Compute the directional derivative of the vector gradient of the data.
+    Compute directional gradients from a grid.
 
     Can accept ``azimuth``, ``direction``, and ``radiance`` input to create
     the resulting gradient.

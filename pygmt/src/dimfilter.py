@@ -22,7 +22,7 @@ __doctest_skip__ = ["dimfilter"]
 @kwargs_to_strings(I="sequence", R="sequence")
 def dimfilter(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
-    Filter a grid by dividing the filter circle.
+    Directional filtering of grids in the space domain.
 
     Filter a grid in the space (or time) domain by
     dividing the given filter circle into the given number of sectors,

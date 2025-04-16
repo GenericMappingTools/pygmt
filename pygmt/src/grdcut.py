@@ -1,5 +1,5 @@
 """
-grdcut - Extract subregion from a grid.
+grdcut - Extract subregion from a grid or image or a slice from a cube.
 """
 
 from typing import Literal
@@ -33,7 +33,7 @@ def grdcut(
     grid, kind: Literal["grid", "image"] = "grid", outgrid: str | None = None, **kwargs
 ) -> xr.DataArray | None:
     r"""
-    Extract subregion from a grid or image.
+    Extract subregion from a grid or image or a slice from a cube.
 
     Produce a new ``outgrid`` file which is a subregion of ``grid``. The
     subregion is specified with ``region``; the specified range must not exceed
@@ -52,9 +52,10 @@ def grdcut(
     ----------
     {grid}
     kind
-        The raster data kind. Valid values are ``grid`` and ``image``. When the input
-        ``grid`` is a file name, it's hard to determine if the file is a grid or an
-        image, so we need to specify the kind explicitly. The default is ``grid``.
+        The raster data kind. Valid values are ``"grid"`` and ``"image"``. When the
+        input ``grid`` is a file name, it's difficult to determine if the file is a grid
+        or an image, so we need to specify the raster kind explicitly. The default is
+        ``"grid"``.
     {outgrid}
     {projection}
     {region}
@@ -107,13 +108,17 @@ def grdcut(
     >>> # 12° E to 15° E and a latitude range of 21° N to 24° N
     >>> new_grid = pygmt.grdcut(grid=grid, region=[12, 15, 21, 24])
     """
+    if kind not in {"grid", "image"}:
+        msg = f"Invalid raster kind: '{kind}'. Valid values are 'grid' and 'image'."
+        raise GMTInvalidInput(msg)
+
     # Determine the output data kind based on the input data kind.
     match inkind := data_kind(grid):
-        case "image" | "grid":
+        case "grid" | "image":
             outkind = inkind
         case "file":
             outkind = kind
-        case "_":
+        case _:
             msg = f"Unsupported data type {type(grid)}."
             raise GMTInvalidInput(msg)
 

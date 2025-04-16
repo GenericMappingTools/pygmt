@@ -1,5 +1,5 @@
 """
-rose - Plot windrose diagrams or polar histograms.
+rose - Plot a polar histogram (rose, sector, windrose diagrams).
 """
 
 from pygmt.clib import Session
@@ -44,7 +44,7 @@ from pygmt.helpers import (
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def rose(self, data=None, length=None, azimuth=None, **kwargs):
     """
-    Plot windrose diagrams or polar histograms.
+    Plot a polar histogram (rose, sector, windrose diagrams).
 
     Takes a matrix, (length,azimuth) pairs, or a file name as input
     and plots windrose diagrams or polar histograms (sector diagram

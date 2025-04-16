@@ -1,6 +1,6 @@
 """
-sphdistance - Create Voronoi distance, node,
-or natural nearest-neighbor grid on a sphere
+sphdistance - Create Voronoi distance, node, or natural nearest-neighbor grid on a
+sphere.
 """
 
 import xarray as xr

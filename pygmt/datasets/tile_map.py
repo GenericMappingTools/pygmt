@@ -6,8 +6,6 @@ Function to load raster tile maps from XYZ tile providers, and load as
 from collections.abc import Sequence
 from typing import Literal
 
-from packaging.version import Version
-
 try:
     import contextily
     from rasterio.crs import CRS
@@ -100,9 +98,6 @@ def load_tile_map(
         The amount to adjust a chosen zoom level if it is chosen automatically. Values
         outside of -1 to 1 are not recommended as they can lead to slow execution.
 
-        .. note::
-           The ``zoom_adjust`` parameter requires ``contextily>=1.5.0``.
-
     Returns
     -------
     raster
@@ -165,16 +160,8 @@ def load_tile_map(
         "ll": lonlat,
         "wait": wait,
         "max_retries": max_retries,
+        "zoom_adjust": zoom_adjust,
     }
-    # TODO(contextily>=1.5.0): Remove the check for the 'zoom_adjust' parameter.
-    if zoom_adjust is not None:
-        if Version(contextily.__version__) < Version("1.5.0"):
-            msg = (
-                "The `zoom_adjust` parameter requires `contextily>=1.5.0` to work. "
-                "Please upgrade contextily, or manually set the `zoom` level instead."
-            )
-            raise ValueError(msg)
-        contextily_kwargs["zoom_adjust"] = zoom_adjust
 
     west, east, south, north = region
     image, extent = contextily.bounds2img(

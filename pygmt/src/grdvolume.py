@@ -33,7 +33,7 @@ def grdvolume(
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
-    Determine the volume between the surface of a grid and a plane.
+    Calculate grid volume and area constrained by a contour.
 
     Read a 2-D grid file and calculate the volume contained below the surface
     and above the plane specified by the given contour (or zero if not given)

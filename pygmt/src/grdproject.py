@@ -27,7 +27,7 @@ __doctest_skip__ = ["grdproject"]
 @kwargs_to_strings(C="sequence", D="sequence", R="sequence")
 def grdproject(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
-    Change projection of gridded data between geographical and rectangular.
+    Forward and inverse map transformation of grids.
 
     This method will project a geographical gridded data set onto a
     rectangular grid. If ``inverse`` is ``True``, it will project a

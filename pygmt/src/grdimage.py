@@ -1,5 +1,5 @@
 """
-grdimage - Plot grids or images.
+grdimage - Project and plot grids or images.
 """
 
 from pygmt.clib import Session

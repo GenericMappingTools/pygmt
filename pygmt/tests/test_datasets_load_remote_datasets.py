@@ -41,7 +41,7 @@ def test_load_remote_dataset_invalid_resolutions():
     """
     Make sure _load_remote_dataset fails for invalid resolutions.
     """
-    resolutions = "1m 1d bla 60d 001m 03".split()
+    resolutions = ["1m", "1d", "bla", "60d", "001m", "03"]
     resolutions.append(60)
     for resolution in resolutions:
         with pytest.raises(GMTInvalidInput):

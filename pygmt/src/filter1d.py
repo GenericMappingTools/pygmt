@@ -1,5 +1,5 @@
 """
-filter1d - Time domain filtering of 1-D data tables
+filter1d - Time domain filtering of 1-D data tables.
 """
 
 from typing import Literal

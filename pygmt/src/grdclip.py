@@ -1,21 +1,29 @@
 """
-grdclip - Change the range and extremes of grid values.
+grdclip - Clip the range of grid values.
 """
 
 import xarray as xr
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_list,
+    deprecate_parameter,
+    fmt_docstring,
+    kwargs_to_strings,
+    use_alias,
+)
 
 __doctest_skip__ = ["grdclip"]
 
 
+# TODO(PyGMT>=0.19.0): Remove the deprecated "new" parameter.
 @fmt_docstring
+@deprecate_parameter("new", "replace", "v0.15.0", remove_version="v0.19.0")
 @use_alias(
     R="region",
     Sa="above",
     Sb="below",
     Si="between",
-    Sr="new",
+    Sr="replace",
     V="verbose",
 )
 @kwargs_to_strings(
@@ -27,7 +35,7 @@ __doctest_skip__ = ["grdclip"]
 )
 def grdclip(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
-    Set values in a grid that meet certain criteria to a new value.
+    Clip the range of grid values.
 
     Produce a clipped ``outgrid`` or :class:`xarray.DataArray` version of the
     input ``grid`` file.
@@ -55,7 +63,7 @@ def grdclip(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     between : str or list
         [*low*, *high*, *between*].
         Set all data[i] >= *low* and <= *high* to *between*.
-    new : str or list
+    replace : str or list
         [*old*, *new*].
         Set all data[i] == *old* to *new*. This is mostly useful when
         your data are known to be integer values.

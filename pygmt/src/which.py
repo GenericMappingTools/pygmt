@@ -1,5 +1,5 @@
 """
-which - Find the full path to specified files.
+which - Find full path to specified files.
 """
 
 from pygmt.clib import Session
@@ -10,7 +10,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, is_nonstr_iter, use_ali
 @use_alias(G="download", V="verbose")
 def which(fname, **kwargs) -> str | list[str]:
     r"""
-    Find the full path to specified files.
+    Find full path to specified files.
 
     Reports the full paths to the files given through ``fname``. We look
     for the file in (1) the current directory, (2) in $GMT_USERDIR (if
