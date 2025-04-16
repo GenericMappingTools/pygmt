@@ -66,7 +66,7 @@ jobs:
             xarray
             netCDF4
             packaging
-            contextily
+            contextily=1.5
             geopandas=1.0
             ipython
             pyarrow-core
