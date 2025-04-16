@@ -625,14 +625,7 @@ def test_to_numpy_pyarrow_numeric_with_na(dtype, expected_dtype):
         "utf8",  # alias for string
         "large_string",
         "large_utf8",  # alias for large_string
-        pytest.param(
-            "string_view",
-            # TODO(pyarrow>=16): Remove the skipif marker for pyarrow<16.
-            marks=pytest.mark.skipif(
-                Version(pa.__version__) < Version("16"),
-                reason="string_view type was added since pyarrow 16",
-            ),
-        ),
+        "string_view",
     ],
 )
 def test_to_numpy_pyarrow_string(dtype):
