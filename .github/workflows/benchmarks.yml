@@ -60,7 +60,6 @@ jobs:
             numpy
             pandas
             xarray
-            netCDF4
             packaging
             geopandas
             pyarrow-core

@@ -2,5 +2,4 @@
 numpy>=1.26
 pandas>=2.1
 xarray>=2023.07
-netCDF4
 packaging

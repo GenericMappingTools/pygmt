@@ -64,13 +64,13 @@ jobs:
             numpy=1.26
             pandas
             xarray
-            netCDF4
             packaging
             contextily=1.5
             geopandas=1.0
             ipython
             pyarrow-core=16
             rioxarray
+            netCDF4
             sphinx-gallery
             make
             pip
