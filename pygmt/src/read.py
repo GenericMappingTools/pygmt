@@ -96,7 +96,9 @@ def read(
 
     with Session() as lib:
         with lib.virtualfile_out(kind=kind) as voutfile:
-            lib.call_module("read", args=[file, voutfile, *build_arg_list(kwdict)])
+            lib.call_module(
+                module="read", args=[file, voutfile, *build_arg_list(kwdict)]
+            )
 
         match kind:
             case "dataset":
