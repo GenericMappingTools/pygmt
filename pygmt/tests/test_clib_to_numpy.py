@@ -24,8 +24,6 @@ except ImportError:
         A dummy class to mimic pyarrow.
         """
 
-        __version__ = "0.0.0"
-
         @staticmethod
         def timestamp(unit: str, tz: str | None = None):
             """
