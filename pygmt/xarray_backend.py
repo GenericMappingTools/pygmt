@@ -7,6 +7,7 @@ from pathlib import Path
 import xarray as xr
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list
+from pygmt.src.which import which
 from xarray.backends import BackendEntrypoint
 
 
@@ -41,6 +42,11 @@ class GMTReadBackendEntrypoint(BackendEntrypoint):
 
                 raster: xr.DataArray = lib.virtualfile_to_raster(
                     vfname=voutfile, kind="grid"
+                )
+                # Add "source" encoding
+                source = which(fname=filename_or_obj)
+                raster.encoding["source"] = (
+                    source[0] if isinstance(source, list) else source
                 )
                 _ = raster.gmt  # Load GMTDataArray accessor information
                 return raster.to_dataset()
