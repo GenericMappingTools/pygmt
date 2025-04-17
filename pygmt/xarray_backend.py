@@ -12,8 +12,6 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list
 from pygmt.src.which import which
 from xarray.backends import BackendEntrypoint
-from xarray.backends.common import AbstractDataStore
-from xarray.core.types import ReadBuffer
 
 
 class GMTReadBackendEntrypoint(BackendEntrypoint):
@@ -24,13 +22,13 @@ class GMTReadBackendEntrypoint(BackendEntrypoint):
     GeoTIFF files.
     """
 
-    description = "Open .nc and .tif files in Xarray via GMT read."
+    description = "Open raster (.grd, .nc or .tif) files in Xarray via GMT read."
     open_dataset_parameters = ("filename_or_obj", "kind")
     url = "https://github.com/GenericMappingTools/pygmt"
 
-    def open_dataset(
+    def open_dataset(  # type: ignore[override]
         self,
-        filename_or_obj: str | os.PathLike | ReadBuffer | AbstractDataStore,
+        filename_or_obj: str | os.PathLike,
         *,
         drop_variables=None,  # noqa: ARG002
         decode_kind: Literal["grid", "image"] | None = None,
