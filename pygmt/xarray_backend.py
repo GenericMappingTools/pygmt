@@ -71,4 +71,4 @@ class GMTReadBackendEntrypoint(BackendEntrypoint):
             ext = Path(filename_or_obj).suffix
         except TypeError:
             return False
-        return ext in {".nc", ".tif"}
+        return ext in {".grd", ".nc", ".tif"}
