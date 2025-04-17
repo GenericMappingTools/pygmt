@@ -65,14 +65,14 @@ def gmtread(
     --------
     Read a dataset into a :class:`pandas.DataFrame` object:
 
-    >>> from pygmt import read
-    >>> df = read("@hotspots.txt", kind="dataset")
+    >>> from pygmt import gmtread
+    >>> df = gmtread("@hotspots.txt", kind="dataset")
     >>> type(df)
     <class 'pandas.core.frame.DataFrame'>
 
     Read a grid into an :class:`xarray.DataArray` object:
 
-    >>> dataarray = read("@earth_relief_01d", kind="grid")
+    >>> dataarray = gmtread("@earth_relief_01d", kind="grid")
     >>> type(dataarray)
     <class 'xarray.core.dataarray.DataArray'>
     """
