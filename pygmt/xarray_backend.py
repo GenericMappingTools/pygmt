@@ -33,27 +33,27 @@ class GMTReadBackendEntrypoint(BackendEntrypoint):
         filename_or_obj: str | os.PathLike | ReadBuffer | AbstractDataStore,
         *,
         drop_variables=None,  # noqa: ARG002
-        kind: Literal["grid", "image"],
+        decode_kind: Literal["grid", "image"] | None = None,
         # other backend specific keyword arguments
         # `chunks` and `cache` DO NOT go here, they are handled by xarray
     ) -> xr.Dataset:
         """
         Backend open_dataset method used by Xarray in :py:func:`~xarray.open_dataset`.
         """
-        if kind not in {"grid", "image"}:
-            msg = f"Invalid raster kind: '{kind}'. Valid values are 'grid' or 'image'."
+        if decode_kind not in {"grid", "image"}:
+            msg = f"Invalid raster kind: '{decode_kind}'. Valid values are 'grid' or 'image'."
             raise GMTInvalidInput(msg)
 
         with Session() as lib:
-            with lib.virtualfile_out(kind=kind) as voutfile:
-                kwdict = {"T": {"grid": "g", "image": "i"}[kind]}
+            with lib.virtualfile_out(kind=decode_kind) as voutfile:
+                kwdict = {"T": {"grid": "g", "image": "i"}[decode_kind]}
                 lib.call_module(
                     module="read",
                     args=[filename_or_obj, voutfile, *build_arg_list(kwdict)],
                 )
 
                 raster: xr.DataArray = lib.virtualfile_to_raster(
-                    vfname=voutfile, kind=kind
+                    vfname=voutfile, kind=decode_kind
                 )
                 # Add "source" encoding
                 source = which(fname=filename_or_obj)
