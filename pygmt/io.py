@@ -7,7 +7,6 @@ from typing import Literal
 import xarray as xr
 
 
-
 def load_dataarray(
     filename_or_obj, engine="gmtread", kind: Literal["grid", "image"] = "grid", **kwargs
 ):

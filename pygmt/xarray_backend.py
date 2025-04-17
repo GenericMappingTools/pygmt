@@ -2,6 +2,7 @@
 An xarray backend for reading grid/image files using the 'gmtread' engine.
 """
 
+import os
 from pathlib import Path
 from typing import Literal
 
@@ -10,6 +11,8 @@ from pygmt.clib import Session
 from pygmt.helpers import build_arg_list
 from pygmt.src.which import which
 from xarray.backends import BackendEntrypoint
+from xarray.backends.common import AbstractDataStore
+from xarray.core.types import ReadBuffer
 
 
 class GMTReadBackendEntrypoint(BackendEntrypoint):
@@ -26,7 +29,7 @@ class GMTReadBackendEntrypoint(BackendEntrypoint):
 
     def open_dataset(
         self,
-        filename_or_obj: str,
+        filename_or_obj: str | os.PathLike | ReadBuffer | AbstractDataStore,
         *,
         drop_variables=None,  # noqa: ARG002
         kind: Literal["grid", "image"] = "grid",
