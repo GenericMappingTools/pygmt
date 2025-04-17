@@ -31,7 +31,7 @@ class GMTReadBackendEntrypoint(BackendEntrypoint):
         filename_or_obj: str | os.PathLike,
         *,
         drop_variables=None,  # noqa: ARG002
-        decode_kind: Literal["grid", "image"] | None = None,
+        decode_kind: Literal["grid", "image"],
         # other backend specific keyword arguments
         # `chunks` and `cache` DO NOT go here, they are handled by xarray
     ) -> xr.Dataset:

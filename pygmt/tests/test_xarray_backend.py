@@ -2,6 +2,8 @@
 Tests for xarray 'gmtread' backend engine.
 """
 
+import re
+
 import pytest
 import xarray as xr
 from pygmt.enums import GridRegistration, GridType
@@ -41,7 +43,12 @@ def test_xarray_backend_gmtread_invalid_kind():
     Check that xarray.open_dataarray(..., engine="gmtread") fails with missing or
     incorrect 'decode_kind'.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(
+        TypeError,
+        match=re.escape(
+            "GMTReadBackendEntrypoint.open_dataset() missing 1 required keyword-only argument: 'decode_kind'"
+        ),
+    ):
         xr.open_dataarray("nokind.nc", engine="gmtread")
 
     with pytest.raises(GMTInvalidInput):
