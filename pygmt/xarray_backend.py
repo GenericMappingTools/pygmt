@@ -1,5 +1,5 @@
 """
-An xarray backend for reading raster grid/image files using the 'gmtread' engine.
+An xarray backend for reading raster grid/image files using the 'gmt' engine.
 """
 
 import os
@@ -14,9 +14,9 @@ from pygmt.src.which import which
 from xarray.backends import BackendEntrypoint
 
 
-class GMTReadBackendEntrypoint(BackendEntrypoint):
+class GMTBackendEntrypoint(BackendEntrypoint):
     """
-    Xarray backend to read raster grid/image files using 'gmtread' engine.
+    Xarray backend to read raster grid/image files using 'gmt' engine.
 
     Relies on the libgdal-netcdf driver used by GMT C for NetCDF files, and libgdal for
     GeoTIFF files.

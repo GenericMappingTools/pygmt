@@ -53,7 +53,7 @@ all = [
 ]
 
 [project.entry-points."xarray.backends"]
-gmtread = "pygmt.xarray_backend:GMTReadBackendEntrypoint"
+gmt = "pygmt.xarray_backend:GMTBackendEntrypoint"
 
 [project.urls]
 "Homepage" = "https://www.pygmt.org"
