@@ -22,8 +22,8 @@ class GMTBackendEntrypoint(BackendEntrypoint):
     GeoTIFF files.
     """
 
-    description = "Open raster (.grd, .nc or .tif) files in Xarray via GMT read."
-    open_dataset_parameters = ("filename_or_obj", "kind")
+    description = "Open raster (.grd, .nc or .tif) files in Xarray via GMT."
+    open_dataset_parameters = ("filename_or_obj", "decode_kind")
     url = "https://github.com/GenericMappingTools/pygmt"
 
     def open_dataset(  # type: ignore[override]
@@ -69,4 +69,4 @@ class GMTBackendEntrypoint(BackendEntrypoint):
             ext = Path(filename_or_obj).suffix
         except TypeError:
             return False
-        return ext in {".grd", ".nc", ".tif"}
+        return ext in {".grd", ".nc", ".tif", ".tiff"}
