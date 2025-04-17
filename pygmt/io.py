@@ -8,7 +8,7 @@ import xarray as xr
 
 
 def load_dataarray(
-    filename_or_obj, engine="gmtread", kind: Literal["grid", "image"] = "grid", **kwargs
+    filename_or_obj, *, engine="gmtread", kind: Literal["grid", "image"], **kwargs
 ):
     """
     Open, load into memory, and close a DataArray from a file or file-like object

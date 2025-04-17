@@ -1,5 +1,5 @@
 """
-An xarray backend for reading grid/image files using the 'gmtread' engine.
+An xarray backend for reading raster grid/image files using the 'gmtread' engine.
 """
 
 import os
@@ -8,6 +8,7 @@ from typing import Literal
 
 import xarray as xr
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list
 from pygmt.src.which import which
 from xarray.backends import BackendEntrypoint
@@ -17,7 +18,7 @@ from xarray.core.types import ReadBuffer
 
 class GMTReadBackendEntrypoint(BackendEntrypoint):
     """
-    Xarray backend to read grid/image files using 'gmtread' engine.
+    Xarray backend to read raster grid/image files using 'gmtread' engine.
 
     Relies on the libgdal-netcdf driver used by GMT C for NetCDF files, and libgdal for
     GeoTIFF files.
@@ -32,13 +33,17 @@ class GMTReadBackendEntrypoint(BackendEntrypoint):
         filename_or_obj: str | os.PathLike | ReadBuffer | AbstractDataStore,
         *,
         drop_variables=None,  # noqa: ARG002
-        kind: Literal["grid", "image"] = "grid",
+        kind: Literal["grid", "image"],
         # other backend specific keyword arguments
         # `chunks` and `cache` DO NOT go here, they are handled by xarray
     ) -> xr.Dataset:
         """
         Backend open_dataset method used by Xarray in :py:func:`~xarray.open_dataset`.
         """
+        if kind not in {"grid", "image"}:
+            msg = f"Invalid raster kind: '{kind}'. Valid values are 'grid' or 'image'."
+            raise GMTInvalidInput(msg)
+
         with Session() as lib:
             with lib.virtualfile_out(kind=kind) as voutfile:
                 kwdict = {"T": {"grid": "g", "image": "i"}[kind]}

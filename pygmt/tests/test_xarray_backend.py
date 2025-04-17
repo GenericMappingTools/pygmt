@@ -2,8 +2,12 @@
 Tests for xarray 'gmtread' backend engine.
 """
 
+import re
+
+import pytest
 import xarray as xr
 from pygmt.enums import GridRegistration, GridType
+from pygmt.exceptions import GMTInvalidInput
 
 
 def test_xarray_backend_gmtread_grid():
@@ -12,7 +16,7 @@ def test_xarray_backend_gmtread_grid():
     NetCDF grids.
     """
     with xr.open_dataarray(
-        filename_or_obj="@static_earth_relief.nc", engine="gmtread"
+        filename_or_obj="@static_earth_relief.nc", engine="gmtread", kind="grid"
     ) as da:
         assert da.sizes == {"lat": 14, "lon": 8}
         assert da.dtype == "float32"
@@ -32,3 +36,22 @@ def test_xarray_backend_gmtread_image():
         assert da.dtype == "uint8"
         assert da.gmt.registration == GridRegistration.PIXEL
         assert da.gmt.gtype == GridType.GEOGRAPHIC
+
+
+def test_xarray_backend_gmtread_invalid_kind():
+    """
+    Check that xarray.open_dataarray(..., engine="gmtread") fails with missing or
+    incorrect 'kind'.
+    """
+    with pytest.raises(
+        TypeError,
+        match=re.escape(
+            "GMTReadBackendEntrypoint.open_dataset() missing 1 required keyword-only argument: 'kind'"
+        ),
+    ):
+        xr.open_dataarray("nokind.nc", engine="gmtread")
+
+    with pytest.raises(GMTInvalidInput):
+        xr.open_dataarray(
+            filename_or_obj="invalid.tif", engine="gmtread", kind="invalid"
+        )
