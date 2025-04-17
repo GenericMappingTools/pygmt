@@ -8,7 +8,8 @@ from typing import Literal, NamedTuple
 import pandas as pd
 import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.src import gmtread, which
+from pygmt.io import gmtread
+from pygmt.src import which
 
 
 def _load_japan_quakes() -> pd.DataFrame:

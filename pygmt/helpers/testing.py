@@ -9,7 +9,7 @@ from pathlib import Path
 
 import xarray as xr
 from pygmt.exceptions import GMTImageComparisonFailure
-from pygmt.src import gmtread
+from pygmt.io import gmtread
 
 
 def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_images"):

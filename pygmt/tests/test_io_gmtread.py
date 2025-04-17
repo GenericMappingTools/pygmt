@@ -1,5 +1,5 @@
 """
-Test the read function.
+Test the gmtread function.
 """
 
 import importlib
@@ -13,7 +13,7 @@ _HAS_NETCDF4 = bool(importlib.util.find_spec("netCDF4"))
 
 
 @pytest.mark.skipif(not _HAS_NETCDF4, reason="netCDF4 is not installed.")
-def test_read_grid():
+def test_io_gmtread_grid():
     """
     Test that reading a grid returns an xr.DataArray and the grid is the same as the one
     loaded via xarray.load_dataarray.
@@ -24,7 +24,7 @@ def test_read_grid():
     assert np.allclose(grid, expected_grid)
 
 
-def test_read_invalid_kind():
+def test_io_gmtread_invalid_kind():
     """
     Test that an invalid kind raises a ValueError.
     """
@@ -32,7 +32,7 @@ def test_read_invalid_kind():
         gmtread("file.cpt", kind="cpt")
 
 
-def test_read_invalid_arguments():
+def test_io_gmtread_invalid_arguments():
     """
     Test that invalid arguments raise a ValueError for non-'dataset' kind.
     """
