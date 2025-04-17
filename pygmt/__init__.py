@@ -25,7 +25,7 @@ from pygmt import datasets
 from pygmt._show_versions import __commit__, __version__, show_versions
 from pygmt.accessors import GMTDataArrayAccessor
 from pygmt.figure import Figure, set_display
-from pygmt.io import load_dataarray
+from pygmt.io import gmtread, load_dataarray
 from pygmt.session_management import begin as _begin
 from pygmt.session_management import end as _end
 from pygmt.src import (

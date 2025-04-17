@@ -1,5 +1,5 @@
 """
-PyGMT input/output (I/O) utilities.
+Load xarray.DataArray from a file or file-like object.
 """
 
 import xarray as xr
