@@ -8,7 +8,11 @@ import xarray as xr
 
 
 def load_dataarray(
-    filename_or_obj, *, engine="gmtread", kind: Literal["grid", "image"], **kwargs
+    filename_or_obj,
+    *,
+    engine="gmtread",
+    decode_kind: Literal["grid", "image"],
+    **kwargs,
 ):
     """
     Open, load into memory, and close a DataArray from a file or file-like object
@@ -38,8 +42,8 @@ def load_dataarray(
         The newly created DataArray.
     engine : str
         Engine to use when reading files. Default engine is 'gmtread'.
-    kind
-        The kind of data to read. Valid values are ``"grid"``, and ``"image"``.
+    decode_kind
+        The kind of data to read. Valid values are ``"grid"`` or ``"image"``.
 
     See Also
     --------
@@ -50,7 +54,7 @@ def load_dataarray(
         raise TypeError(msg)
 
     with xr.open_dataarray(
-        filename_or_obj, engine=engine, kind=kind, **kwargs
+        filename_or_obj, engine=engine, decode_kind=decode_kind, **kwargs
     ) as dataarray:
         result = dataarray.load()
         _ = result.gmt  # load GMTDataArray accessor information
