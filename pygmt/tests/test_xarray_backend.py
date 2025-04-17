@@ -2,8 +2,6 @@
 Tests for xarray 'gmtread' backend engine.
 """
 
-import re
-
 import pytest
 import xarray as xr
 from pygmt.enums import GridRegistration, GridType
