@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 import xarray as xr
-from pygmt import grdlandmask, read
+from pygmt import gmtread, grdlandmask
 from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
@@ -42,7 +42,7 @@ def test_grdlandmask_outgrid(expected_grid):
         result = grdlandmask(outgrid=tmpfile.name, spacing=1, region=[125, 130, 30, 35])
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
-        temp_grid = read(tmpfile.name, kind="grid")
+        temp_grid = gmtread(tmpfile.name, kind="grid")
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 

@@ -7,7 +7,7 @@ from pathlib import Path
 import pandas as pd
 import pytest
 import xarray as xr
-from pygmt import read, surface, which
+from pygmt import gmtread, surface, which
 from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
@@ -145,5 +145,5 @@ def test_surface_with_outgrid_param(data, region, spacing, expected_grid):
         )
         assert output is None  # check that output is None since outgrid is set
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
-        grid = read(tmpfile.name, kind="grid")
+        grid = gmtread(tmpfile.name, kind="grid")
         check_values(grid, expected_grid)

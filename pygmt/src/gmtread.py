@@ -13,7 +13,7 @@ from pygmt.helpers import build_arg_list, is_nonstr_iter
 from pygmt.src.which import which
 
 
-def read(
+def gmtread(
     file: str | PurePath,
     kind: Literal["dataset", "grid", "image"],
     region: Sequence[float] | str | None = None,

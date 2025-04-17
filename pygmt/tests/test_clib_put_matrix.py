@@ -5,7 +5,7 @@ Test the functions that put matrix data into GMT.
 import numpy as np
 import numpy.testing as npt
 import pytest
-from pygmt import clib, read
+from pygmt import clib, gmtread
 from pygmt.clib.session import DTYPES_NUMERIC
 from pygmt.exceptions import GMTCLibError
 from pygmt.helpers import GMTTempFile
@@ -110,7 +110,7 @@ def test_put_matrix_grid(dtypes):
                     tmp_grid.name,
                     grid,
                 )
-                dataarray = read(tmp_grid.name, kind="grid")
+                dataarray = gmtread(tmp_grid.name, kind="grid")
                 assert dataarray.shape == shape
                 npt.assert_allclose(dataarray.data, np.flipud(data))
                 npt.assert_allclose(
