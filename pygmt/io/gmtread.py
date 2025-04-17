@@ -75,6 +75,11 @@ def gmtread(
     >>> dataarray = gmtread("@earth_relief_01d", kind="grid")
     >>> type(dataarray)
     <class 'xarray.core.dataarray.DataArray'>
+
+    Read an image into an :class:`xarray.DataArray` object:
+    >>> image = gmtread("@earth_day_01d", kind="image")
+    >>> type(image)
+    <class 'xarray.core.dataarray.DataArray'>
     """
     if kind not in {"dataset", "grid", "image"}:
         msg = f"Invalid kind '{kind}': must be one of 'dataset', 'grid', or 'image'."

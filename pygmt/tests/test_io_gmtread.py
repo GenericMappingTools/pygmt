@@ -6,10 +6,12 @@ import importlib
 
 import numpy as np
 import pytest
+import rioxarray
 import xarray as xr
 from pygmt import gmtread, which
 
 _HAS_NETCDF4 = bool(importlib.util.find_spec("netCDF4"))
+_HAS_RIORASTERIO = bool(importlib.util.find_spec("rioxarray"))
 
 
 @pytest.mark.skipif(not _HAS_NETCDF4, reason="netCDF4 is not installed.")
@@ -22,6 +24,19 @@ def test_io_gmtread_grid():
     assert isinstance(grid, xr.DataArray)
     expected_grid = xr.load_dataarray(which("@static_earth_relief.nc", download="a"))
     assert np.allclose(grid, expected_grid)
+
+
+@pytest.mark.skipif(not _HAS_RIORASTERIO, reason="rioxarray is not installed.")
+def test_io_gmtread_image():
+    """
+    Test that reading an image returns an xr.DataArray.
+    """
+    image = gmtread("@earth_day_01d", kind="image")
+    assert isinstance(image, xr.DataArray)
+    with rioxarray.open_rasterio(
+        which("@earth_day_01d", download="a")
+    ) as expected_image:
+        assert np.allclose(image, expected_image)
 
 
 def test_io_gmtread_invalid_kind():
