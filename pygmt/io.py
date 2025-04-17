@@ -5,7 +5,7 @@ PyGMT input/output (I/O) utilities.
 import xarray as xr
 
 
-def load_dataarray(filename_or_obj, **kwargs):
+def load_dataarray(filename_or_obj, engine="gmtread", **kwargs):
     """
     Open, load into memory, and close a DataArray from a file or file-like object
     containing a single data variable.
@@ -32,6 +32,8 @@ def load_dataarray(filename_or_obj, **kwargs):
     -------
     datarray : xarray.DataArray
         The newly created DataArray.
+    engine : str
+        Engine to use when reading files. Default engine is 'gmtread'.
 
     See Also
     --------
@@ -41,7 +43,7 @@ def load_dataarray(filename_or_obj, **kwargs):
         msg = "'cache' has no effect in this context."
         raise TypeError(msg)
 
-    with xr.open_dataarray(filename_or_obj, **kwargs) as dataarray:
+    with xr.open_dataarray(filename_or_obj, engine=engine, **kwargs) as dataarray:
         result = dataarray.load()
         _ = result.gmt  # load GMTDataArray accessor information
 
