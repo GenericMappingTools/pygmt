@@ -173,6 +173,7 @@ Input/output
 .. autosummary::
     :toctree: generated
 
+    GMTBackendEntrypoint
     load_dataarray
 
 GMT Defaults
