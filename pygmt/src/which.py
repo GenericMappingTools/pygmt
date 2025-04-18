@@ -4,7 +4,7 @@ which - Find full path to specified files.
 
 from collections.abc import Sequence
 
-from pygmt._type import PathLike
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, is_nonstr_iter, use_alias
 
