@@ -4,7 +4,6 @@ Utilities and common tasks for wrapping the GMT modules.
 
 import io
 import os
-import pathlib
 import shutil
 import string
 import subprocess
@@ -17,6 +16,7 @@ from pathlib import Path
 from typing import Any, Literal
 
 import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.encodings import charset
 from pygmt.exceptions import GMTInvalidInput
 
@@ -387,10 +387,10 @@ def data_kind(
     match data:
         case None if required:  # No data provided and required=True.
             kind = "empty"
-        case str() | pathlib.PurePath():  # One file.
+        case str() | os.PathLike():  # One file.
             kind = "file"
         case list() | tuple() if all(
-            isinstance(_file, str | pathlib.PurePath) for _file in data
+            isinstance(_file, str | os.PathLike) for _file in data
         ):  # A list/tuple of files.
             kind = "file"
         case io.StringIO():
@@ -482,8 +482,8 @@ def non_ascii_to_octal(argstr: str, encoding: Encoding = "ISOLatin1+") -> str:
 def build_arg_list(  # noqa: PLR0912
     kwdict: dict[str, Any],
     confdict: Mapping[str, Any] | None = None,
-    infile: str | pathlib.PurePath | Sequence[str | pathlib.PurePath] | None = None,
-    outfile: str | pathlib.PurePath | None = None,
+    infile: PathLike | Sequence[PathLike] | None = None,
+    outfile: PathLike | None = None,
 ) -> list[str]:
     r"""
     Convert keyword dictionaries and input/output files into a list of GMT arguments.
@@ -581,13 +581,13 @@ def build_arg_list(  # noqa: PLR0912
         gmt_args.extend(f"--{key}={value}" for key, value in confdict.items())
 
     if infile:  # infile can be a single file or a list of files
-        if isinstance(infile, str | pathlib.PurePath):
+        if isinstance(infile, str | os.PathLike):
             gmt_args = [str(infile), *gmt_args]
         else:
             gmt_args = [str(_file) for _file in infile] + gmt_args
     if outfile is not None:
         if (
-            not isinstance(outfile, str | pathlib.PurePath)
+            not isinstance(outfile, str | os.PathLike)
             or str(outfile) in {"", ".", ".."}
             or str(outfile).endswith(("/", "\\"))
         ):
@@ -632,7 +632,7 @@ def is_nonstr_iter(value: Any) -> bool:
     return isinstance(value, Iterable) and not isinstance(value, str)
 
 
-def launch_external_viewer(fname: str, waiting: float = 0) -> None:
+def launch_external_viewer(fname: PathLike, waiting: float = 0) -> None:
     """
     Open a file in an external viewer program.
 
