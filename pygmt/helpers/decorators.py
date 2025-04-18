@@ -408,7 +408,7 @@ def fmt_docstring(module_func):
     ...
     ...     Parameters
     ...     ----------
-    ...     data : str, {table-like}
+    ...     data
     ...         Pass in either a file name to an ASCII data table, a 2-D
     ...         {table-classes}.
     ...     {region}
@@ -423,7 +423,7 @@ def fmt_docstring(module_func):
     <BLANKLINE>
     Parameters
     ----------
-    data : str, numpy.ndarray, pandas.DataFrame, xarray.Dataset, or geo...
+    data
         Pass in either a file name to an ASCII data table, a 2-D
         :class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an
         :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`
@@ -455,9 +455,6 @@ def fmt_docstring(module_func):
             aliases.append(f"   - {arg} = {alias}")
         filler_text["aliases"] = "\n".join(aliases)
 
-    filler_text["table-like"] = (
-        "numpy.ndarray, pandas.DataFrame, xarray.Dataset, or geopandas.GeoDataFrame"
-    )
     filler_text["table-classes"] = (
         ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an\n"
         "    :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`\n"
