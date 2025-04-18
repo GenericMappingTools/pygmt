@@ -70,7 +70,7 @@ def which(fname: PathLike | Sequence[PathLike], **kwargs) -> str | list[str]:
 
     match paths.size:
         case 0:
-            _fname = "', '".join(fname) if is_nonstr_iter(fname) else fname
+            _fname = "', '".join(fname) if is_nonstr_iter(fname) else fname  # type: ignore[arg-type]
             msg = f"File(s) '{_fname}' not found."
             raise FileNotFoundError(msg)
         case 1:
