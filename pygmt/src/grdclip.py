@@ -3,6 +3,7 @@ grdclip - Clip the range of grid values.
 """
 
 import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -33,7 +34,11 @@ __doctest_skip__ = ["grdclip"]
     Si="sequence",
     Sr="sequence",
 )
-def grdclip(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
+def grdclip(
+    grid: PathLike | xr.DataArray,
+    outgrid: PathLike | None = None,
+    **kwargs,
+) -> xr.DataArray | None:
     r"""
     Clip the range of grid values.
 
