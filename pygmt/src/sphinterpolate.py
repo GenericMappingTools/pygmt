@@ -3,6 +3,7 @@ sphinterpolate - Spherical gridding in tension of data on a sphere.
 """
 
 import xarray as xr
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -16,7 +17,9 @@ __doctest_skip__ = ["sphinterpolate"]
     V="verbose",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def sphinterpolate(data, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
+def sphinterpolate(
+    data: PathLike | TableLike, outgrid: PathLike | None = None, **kwargs
+) -> xr.DataArray | None:
     r"""
     Spherical gridding in tension of data on a sphere.
 
@@ -32,7 +35,7 @@ def sphinterpolate(data, outgrid: str | None = None, **kwargs) -> xr.DataArray |
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.

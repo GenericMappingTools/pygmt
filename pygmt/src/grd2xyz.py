@@ -7,6 +7,7 @@ from typing import Literal
 import numpy as np
 import pandas as pd
 import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -36,9 +37,9 @@ __doctest_skip__ = ["grd2xyz"]
 )
 @kwargs_to_strings(R="sequence", o="sequence_comma")
 def grd2xyz(
-    grid,
+    grid: PathLike | xr.DataArray,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
-    outfile: str | None = None,
+    outfile: PathLike | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""

@@ -2,6 +2,8 @@
 grdinfo - Extract information from 2-D grids or 3-D cubes.
 """
 
+import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
@@ -26,7 +28,7 @@ from pygmt.helpers import (
     f="coltypes",
 )
 @kwargs_to_strings(D="sequence", I="sequence", R="sequence")
-def grdinfo(grid, **kwargs):
+def grdinfo(grid: PathLike | xr.DataArray, **kwargs):
     r"""
     Extract information from 2-D grids or 3-D cubes.
 

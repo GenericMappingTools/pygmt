@@ -3,6 +3,7 @@ grdlandmask - Create a "wet-dry" mask grid from shoreline database.
 """
 
 import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -23,7 +24,7 @@ __doctest_skip__ = ["grdlandmask"]
     x="cores",
 )
 @kwargs_to_strings(I="sequence", R="sequence", N="sequence", E="sequence")
-def grdlandmask(outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
+def grdlandmask(outgrid: PathLike | None = None, **kwargs) -> xr.DataArray | None:
     r"""
     Create a "wet-dry" mask grid from shoreline database.
 

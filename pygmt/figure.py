@@ -4,9 +4,11 @@ Define the Figure class that handles all plotting.
 
 import base64
 import os
-from pathlib import Path, PurePath
+from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Literal, overload
+
+from pygmt._typing import PathLike
 
 try:
     import IPython
@@ -137,7 +139,7 @@ class Figure:
 
     def savefig(
         self,
-        fname: str | PurePath,
+        fname: PathLike,
         transparent: bool = False,
         crop: bool = True,
         anti_alias: bool = True,

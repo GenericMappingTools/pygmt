@@ -2,6 +2,8 @@
 grd2cpt - Make linear or histogram-equalized color palette table from grid.
 """
 
+import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -31,7 +33,7 @@ __doctest_skip__ = ["grd2cpt"]
     Z="continuous",
 )
 @kwargs_to_strings(G="sequence", L="sequence", R="sequence", T="sequence")
-def grd2cpt(grid, **kwargs):
+def grd2cpt(grid: PathLike | xr.DataArray, **kwargs):
     r"""
     Make linear or histogram-equalized color palette table from grid.
 

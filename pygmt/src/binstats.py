@@ -3,6 +3,7 @@ binstats - Bin spatial data and determine statistics per bin.
 """
 
 import xarray as xr
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -24,7 +25,9 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     r="registration",
 )
 @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
-def binstats(data, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
+def binstats(
+    data: PathLike | TableLike, outgrid: PathLike | None = None, **kwargs
+) -> xr.DataArray | None:
     r"""
     Bin spatial data and determine statistics per bin.
 
@@ -42,7 +45,7 @@ def binstats(data, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         A file name of an ASCII data table or a 2-D {table-classes}.
     {outgrid}
     statistic : str

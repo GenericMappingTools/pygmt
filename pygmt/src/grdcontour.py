@@ -2,6 +2,8 @@
 grdcontour - Make contour map using a grid.
 """
 
+import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -36,7 +38,7 @@ __doctest_skip__ = ["grdcontour"]
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", L="sequence", c="sequence_comma", p="sequence")
-def grdcontour(self, grid, **kwargs):
+def grdcontour(self, grid: PathLike | xr.DataArray, **kwargs):
     r"""
     Make contour map using a grid.
 

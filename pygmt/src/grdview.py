@@ -2,6 +2,8 @@
 grdview - Create 3-D perspective image or surface mesh from a grid.
 """
 
+import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -31,7 +33,7 @@ __doctest_skip__ = ["grdview"]
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def grdview(self, grid, **kwargs):
+def grdview(self, grid: PathLike | xr.DataArray, **kwargs):
     r"""
     Create 3-D perspective image or surface mesh from a grid.
 
