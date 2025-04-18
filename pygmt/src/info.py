@@ -3,6 +3,7 @@ info - Get information about data tables.
 """
 
 import numpy as np
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
@@ -25,7 +26,7 @@ from pygmt.helpers import (
     r="registration",
 )
 @kwargs_to_strings(I="sequence", i="sequence_comma")
-def info(data, **kwargs):
+def info(data: PathLike | TableLike, **kwargs):
     r"""
     Get information about data tables.
 
@@ -48,7 +49,7 @@ def info(data, **kwargs):
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in either a file name to an ASCII data table, a 1-D/2-D
         {table-classes}.
     per_column : bool

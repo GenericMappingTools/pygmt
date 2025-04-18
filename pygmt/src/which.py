@@ -2,13 +2,16 @@
 which - Find full path to specified files.
 """
 
+from collections.abc import Sequence
+
+from pygmt._type import PathLike
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, is_nonstr_iter, use_alias
 
 
 @fmt_docstring
 @use_alias(G="download", V="verbose")
-def which(fname, **kwargs) -> str | list[str]:
+def which(fname: PathLike | Sequence[PathLike], **kwargs) -> str | list[str]:
     r"""
     Find full path to specified files.
 
