@@ -141,7 +141,7 @@ COMMON_DOCSTRINGS = {
                 - **+p**: specify that the current value minus the previous
                   value must exceed *gap* for a break to be imposed.""",
     "grid": r"""
-        grid : str or xarray.DataArray
+        grid
             Name of the input grid file or the grid loaded as a
             :class:`xarray.DataArray` object.
 
