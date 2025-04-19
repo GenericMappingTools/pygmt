@@ -4,15 +4,18 @@ Tests for xarray 'gmt' backend engine.
 
 import re
 
+import numpy as np
 import pytest
 import xarray as xr
 from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 
 
-def test_xarray_backend_gmt_read_grid():
+
+
+def test_xarray_backend_gmt_open_nc_grid():
     """
-    Ensure that passing engine='gmt' to xarray.open_dataarray works for reading
+    Ensure that passing engine='gmt' to xarray.open_dataarray works for opening
     NetCDF grids.
     """
     with xr.open_dataarray(
@@ -24,9 +27,9 @@ def test_xarray_backend_gmt_read_grid():
         assert da.gmt.gtype == GridType.GEOGRAPHIC
 
 
-def test_xarray_backend_gmt_read_image():
+def test_xarray_backend_gmt_open_tif_image():
     """
-    Ensure that passing engine='gmt' to xarray.open_dataarray works for reading
+    Ensure that passing engine='gmt' to xarray.open_dataarray works for opening
     GeoTIFF images.
     """
     with xr.open_dataarray(
@@ -35,6 +38,24 @@ def test_xarray_backend_gmt_read_image():
         assert da.sizes == {"band": 3, "y": 180, "x": 360}
         assert da.dtype == "uint8"
         assert da.gmt.registration == GridRegistration.PIXEL
+        assert da.gmt.gtype == GridType.GEOGRAPHIC
+
+
+def test_xarray_backend_gmt_load_grd_grid():
+    """
+    Ensure that passing engine='gmt' to xarray.open_dataarray works for loading
+    GRD grids.
+    """
+    with xr.load_dataarray(
+        filename_or_obj="@earth_relief_20m_holes.grd", engine="gmt", decode_kind="grid"
+    ) as da:
+        assert isinstance(
+            da.data,
+            np.ndarray,  # ensure data is in memory and not a dask array
+        )
+        assert da.sizes == {"lat": 31, "lon": 31}
+        assert da.dtype == "float32"
+        assert da.gmt.registration == GridRegistration.GRIDLINE
         assert da.gmt.gtype == GridType.GEOGRAPHIC
 
 
