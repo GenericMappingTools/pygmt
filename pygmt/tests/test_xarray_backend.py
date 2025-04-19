@@ -11,8 +11,6 @@ from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 
 
-
-
 def test_xarray_backend_gmt_open_nc_grid():
     """
     Ensure that passing engine='gmt' to xarray.open_dataarray works for opening
