@@ -18,8 +18,8 @@ class GMTBackendEntrypoint(BackendEntrypoint):
     """
     Xarray backend to read raster grid/image files using 'gmt' engine.
 
-    Relies on the libgdal-netcdf driver used by GMT C for NetCDF files, and libgdal for
-    GeoTIFF files.
+    Internally, GMT uses the NetCDF C library to read NetCDF files, and GDAL for GeoTIFF
+    files.
     """
 
     description = "Open raster (.grd, .nc or .tif) files in Xarray via GMT."
