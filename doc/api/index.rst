@@ -173,7 +173,6 @@ Input/output
 .. autosummary::
     :toctree: generated
 
-    GMTBackendEntrypoint
     load_dataarray
 
 GMT Defaults
@@ -197,6 +196,14 @@ Getting metadata from tabular or grid data:
     GMTDataArrayAccessor
     info
     grdinfo
+
+Xarray integration
+------------------
+
+.. autosummary::
+    :toctree: generated
+
+    GMTBackendEntrypoint
 
 Enums
 -----
