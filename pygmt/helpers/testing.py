@@ -154,7 +154,7 @@ def load_static_earth_relief():
         A grid of Earth relief for internal tests.
     """
     fname = which("@static_earth_relief.nc", download="c")
-    return load_dataarray(fname, decode_kind="grid")
+    return load_dataarray(fname)
 
 
 def skip_if_no(package):
