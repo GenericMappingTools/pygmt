@@ -36,7 +36,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-22.04, ubuntu-22.04-arm, macos-13, windows-2019]
+        os: [ubuntu-22.04, ubuntu-22.04-arm, macos-13, windows-2022]
         gmt_version: ['6.4']
     timeout-minutes: 30
     defaults:
@@ -61,15 +61,15 @@ jobs:
             python=3.11
             gmt=${{ matrix.gmt_version }}
             ghostscript<10
-            numpy<2
+            numpy=1.26
             pandas
             xarray
             netCDF4
             packaging
-            contextily
-            geopandas
+            contextily=1.5
+            geopandas=1.0
             ipython
-            pyarrow-core
+            pyarrow-core=16
             rioxarray
             sphinx-gallery
             make

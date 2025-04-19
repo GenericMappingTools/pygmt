@@ -7,16 +7,16 @@ dependencies:
     # Required dependencies
     - gmt=6.5.0
     - ghostscript=10.04.0
-    - numpy>=1.25
-    - pandas>=2.0
-    - xarray>=2023.04
+    - numpy>=1.26
+    - pandas>=2.1
+    - xarray>=2023.07
     - netCDF4
     - packaging
     # Optional dependencies
-    - contextily
-    - geopandas
+    - contextily>=1.5
+    - geopandas>=1.0
     - ipython
-    - pyarrow-core
+    - pyarrow-core>=16
     - rioxarray
     # Development dependencies (general)
     - dvc

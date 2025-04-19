@@ -35,9 +35,9 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
-    "numpy>=1.25",
-    "pandas>=2.0",
-    "xarray>=2023.04",
+    "numpy>=1.26",
+    "pandas>=2.1",
+    "xarray>=2023.07",
     "netCDF4",
     "packaging",
 ]
@@ -45,10 +45,10 @@ dynamic = ["version"]
 
 [project.optional-dependencies]
 all = [
-    "contextily",
-    "geopandas",
+    "contextily>=1.5",
+    "geopandas>=1.0",
     "IPython",  # 'ipython' is not the correct module name.
-    "pyarrow",
+    "pyarrow>=16",
     "rioxarray",
 ]
 
