@@ -1,5 +1,5 @@
 """
-grdlandmask - Create a "wet-dry" mask grid from shoreline data base
+grdlandmask - Create a "wet-dry" mask grid from shoreline database.
 """
 
 import xarray as xr
@@ -25,7 +25,7 @@ __doctest_skip__ = ["grdlandmask"]
 @kwargs_to_strings(I="sequence", R="sequence", N="sequence", E="sequence")
 def grdlandmask(outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
-    Create a grid file with set values for land and water.
+    Create a "wet-dry" mask grid from shoreline database.
 
     Read the selected shoreline database and create a grid to specify which
     nodes in the specified grid are over land or over water. The nodes defined
@@ -85,7 +85,7 @@ def grdlandmask(outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
     Example
@@ -96,7 +96,8 @@ def grdlandmask(outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     >>> landmask = pygmt.grdlandmask(spacing=1, region=[125, 130, 30, 35])
     """
     if kwargs.get("I") is None or kwargs.get("R") is None:
-        raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
+        msg = "Both 'region' and 'spacing' must be specified."
+        raise GMTInvalidInput(msg)
 
     with Session() as lib:
         with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:

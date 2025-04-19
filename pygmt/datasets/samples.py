@@ -343,9 +343,10 @@ def load_sample_data(
      'ocean_ridge_points': 'Table of ocean ridge points for the entire world',
      'rock_compositions': 'Table of rock sample compositions',
      'usgs_quakes': 'Table of earthquakes from the USGS'}
-    >>> # load the sample bathymetry dataset
+    >>> # Load the sample bathymetry dataset
     >>> data = load_sample_data("bathymetry")
     """  # noqa: W505
     if name not in datasets:
-        raise GMTInvalidInput(f"Invalid dataset name '{name}'.")
+        msg = f"Invalid dataset name '{name}'."
+        raise GMTInvalidInput(msg)
     return datasets[name].func()

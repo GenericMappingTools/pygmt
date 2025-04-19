@@ -32,7 +32,7 @@ def xyz2grd(
     data=None, x=None, y=None, z=None, outgrid: str | None = None, **kwargs
 ) -> xr.DataArray | None:
     r"""
-    Create a grid file from table data.
+    Convert data table to a grid.
 
     Reads one or more tables with *x, y, z* columns and creates a binary grid
     file. :func:`pygmt.xyz2grd` will report if some of the nodes are not filled
@@ -143,7 +143,8 @@ def xyz2grd(
     ... )
     """
     if kwargs.get("I") is None or kwargs.get("R") is None:
-        raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
+        msg = "Both 'region' and 'spacing' must be specified."
+        raise GMTInvalidInput(msg)
 
     with Session() as lib:
         with (

@@ -1,5 +1,5 @@
 """
-sphinterpolate - Spherical gridding in tension of data on a sphere
+sphinterpolate - Spherical gridding in tension of data on a sphere.
 """
 
 import xarray as xr
@@ -18,7 +18,7 @@ __doctest_skip__ = ["sphinterpolate"]
 @kwargs_to_strings(I="sequence", R="sequence")
 def sphinterpolate(data, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
-    Create spherical grid files in tension of data.
+    Spherical gridding in tension of data on a sphere.
 
     Reads a table containing *lon, lat, z* columns and performs a Delaunay
     triangulation to set up a spherical interpolation in tension. Several

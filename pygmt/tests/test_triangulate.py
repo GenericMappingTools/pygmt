@@ -9,6 +9,7 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import triangulate, which
+from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
@@ -45,7 +46,7 @@ def fixture_expected_dataframe():
             [3, 4, 2],
             [9, 3, 8],
         ],
-        dtype=float,
+        dtype=np.float64,
     )
 
 
@@ -117,7 +118,7 @@ def test_delaunay_triples_outfile(dataframe, expected_dataframe):
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0
         temp_df = pd.read_csv(
-            filepath_or_buffer=tmpfile.name, sep="\t", header=None, dtype=float
+            filepath_or_buffer=tmpfile.name, sep="\t", header=None, dtype=np.float64
         )
         pd.testing.assert_frame_equal(left=temp_df, right=expected_dataframe)
 
@@ -139,8 +140,8 @@ def test_regular_grid_no_outgrid(dataframe, expected_grid):
     data = dataframe.to_numpy()
     output = triangulate.regular_grid(data=data, spacing=1, region=[2, 4, 5, 6])
     assert isinstance(output, xr.DataArray)
-    assert output.gmt.registration == 0  # Gridline registration
-    assert output.gmt.gtype == 0  # Cartesian type
+    assert output.gmt.registration == GridRegistration.GRIDLINE
+    assert output.gmt.gtype == GridType.CARTESIAN
     xr.testing.assert_allclose(a=output, b=expected_grid)
 
 
@@ -157,6 +158,6 @@ def test_regular_grid_with_outgrid_param(dataframe, expected_grid):
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
         with xr.open_dataarray(tmpfile.name) as grid:
             assert isinstance(grid, xr.DataArray)
-            assert grid.gmt.registration == 0  # Gridline registration
-            assert grid.gmt.gtype == 0  # Cartesian type
+            assert grid.gmt.registration == GridRegistration.GRIDLINE
+            assert grid.gmt.gtype == GridType.CARTESIAN
             xr.testing.assert_allclose(a=grid, b=expected_grid)

@@ -17,16 +17,15 @@ def validate_output_table_type(
     Parameters
     ----------
     output_type
-        Desired output type of tabular data. Valid values are ``"pandas"``,
-        ``"numpy"`` and ``"file"``.
+        Desired output type of tabular data. Valid values are ``"pandas"``, ``"numpy"``,
+        and ``"file"``.
     outfile
         File name for saving the result data. Required if ``output_type`` is ``"file"``.
         If specified, ``output_type`` will be forced to be ``"file"``.
 
     Returns
     -------
-    str
-        The original or updated output type.
+    The original or updated output type.
 
     Examples
     --------
@@ -50,16 +49,15 @@ def validate_output_table_type(
     'file'
     """
     if output_type not in {"file", "numpy", "pandas"}:
-        raise GMTInvalidInput(
-            "Must specify 'output_type' either as 'file', 'numpy', or 'pandas'."
-        )
+        msg = "Must specify 'output_type' either as 'file', 'numpy', or 'pandas'."
+        raise GMTInvalidInput(msg)
     if output_type == "file" and outfile is None:
-        raise GMTInvalidInput("Must specify 'outfile' for output_type='file'.")
+        msg = "Must specify 'outfile' for output_type='file'."
+        raise GMTInvalidInput(msg)
     if output_type != "file" and outfile is not None:
         msg = (
-            f"Changing 'output_type' from '{output_type}' to 'file' "
-            "since 'outfile' parameter is set. Please use output_type='file' "
-            "to silence this warning."
+            f"Changing 'output_type' from '{output_type}' to 'file' since 'outfile' "
+            "parameter is set. Please use output_type='file' to suppress the warning."
         )
         warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
         output_type = "file"

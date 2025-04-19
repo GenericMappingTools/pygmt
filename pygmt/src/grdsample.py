@@ -1,5 +1,5 @@
 """
-grdsample - Resample a grid onto a new lattice
+grdsample - Resample a grid onto a new lattice.
 """
 
 import xarray as xr
@@ -23,7 +23,7 @@ __doctest_skip__ = ["grdsample"]
 @kwargs_to_strings(I="sequence", R="sequence")
 def grdsample(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
     r"""
-    Change the registration, spacing, or nodes in a grid file.
+    Resample a grid onto a new lattice.
 
     This reads a grid file and interpolates it to create a new grid
     file. It can change the registration with ``translate`` or
@@ -65,7 +65,7 @@ def grdsample(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
     Example

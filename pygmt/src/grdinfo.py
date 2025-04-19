@@ -1,5 +1,5 @@
 """
-grdinfo - Retrieve info about grid file.
+grdinfo - Extract information from 2-D grids or 3-D cubes.
 """
 
 from pygmt.clib import Session
@@ -28,9 +28,9 @@ from pygmt.helpers import (
 @kwargs_to_strings(D="sequence", I="sequence", R="sequence")
 def grdinfo(grid, **kwargs):
     r"""
-    Get information about a grid.
+    Extract information from 2-D grids or 3-D cubes.
 
-    Can read the grid from a file or given as an xarray.DataArray grid.
+    Can read the grid from a file or given as an :class:`xarray.DataArray` grid.
 
     Full option list at :gmt-docs:`grdinfo.html`
 

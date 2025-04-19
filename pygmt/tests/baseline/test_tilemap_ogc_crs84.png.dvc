@@ -1,5 +1,5 @@
 outs:
 - md5: 5f225e4dd26f44e07bcbd8e713c67dbe
   size: 37343
-  path: test_tilemap_ogc_wgs84.png
+  path: test_tilemap_ogc_crs84.png
   hash: md5
