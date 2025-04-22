@@ -13,11 +13,11 @@ from pygmt.exceptions import GMTInvalidInput
 
 def test_xarray_backend_gmt_open_nc_grid():
     """
-    Ensure that passing engine='gmt' to xarray.open_dataarray works for opening
-    NetCDF grids.
+    Ensure that passing engine='gmt' to xarray.open_dataarray works for opening NetCDF
+    grids.
     """
     with xr.open_dataarray(
-       "@static_earth_relief.nc", engine="gmt", decode_kind="grid"
+        "@static_earth_relief.nc", engine="gmt", decode_kind="grid"
     ) as da:
         assert da.sizes == {"lat": 14, "lon": 8}
         assert da.dtype == "float32"
@@ -27,8 +27,8 @@ def test_xarray_backend_gmt_open_nc_grid():
 
 def test_xarray_backend_gmt_open_tif_image():
     """
-    Ensure that passing engine='gmt' to xarray.open_dataarray works for opening
-    GeoTIFF images.
+    Ensure that passing engine='gmt' to xarray.open_dataarray works for opening GeoTIFF
+    images.
     """
     with xr.open_dataarray("@earth_day_01d", engine="gmt", decode_kind="image") as da:
         assert da.sizes == {"band": 3, "y": 180, "x": 360}
@@ -39,8 +39,8 @@ def test_xarray_backend_gmt_open_tif_image():
 
 def test_xarray_backend_gmt_load_grd_grid():
     """
-    Ensure that passing engine='gmt' to xarray.open_dataarray works for loading
-    GRD grids.
+    Ensure that passing engine='gmt' to xarray.open_dataarray works for loading GRD
+    grids.
     """
     with xr.load_dataarray(
         "@earth_relief_20m_holes.grd", engine="gmt", decode_kind="grid"
