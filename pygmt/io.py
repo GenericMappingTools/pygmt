@@ -2,14 +2,10 @@
 PyGMT input/output (I/O) utilities.
 """
 
-from typing import Literal
-
 import xarray as xr
 
 
-def load_dataarray(
-    filename_or_obj, *, engine="gmt", decode_kind: Literal["grid", "image"], **kwargs
-):
+def load_dataarray(filename_or_obj, **kwargs):
     """
     Open, load into memory, and close a DataArray from a file or file-like object
     containing a single data variable.
@@ -36,10 +32,6 @@ def load_dataarray(
     -------
     datarray : xarray.DataArray
         The newly created DataArray.
-    engine : str
-        Engine to use when reading files. Default engine is 'gmt'.
-    decode_kind
-        The kind of data to read. Valid values are ``"grid"`` or ``"image"``.
 
     See Also
     --------
@@ -49,9 +41,7 @@ def load_dataarray(
         msg = "'cache' has no effect in this context."
         raise TypeError(msg)
 
-    with xr.open_dataarray(
-        filename_or_obj, engine=engine, decode_kind=decode_kind, **kwargs
-    ) as dataarray:
+    with xr.open_dataarray(filename_or_obj, **kwargs) as dataarray:
         result = dataarray.load()
         _ = result.gmt  # load GMTDataArray accessor information
 
