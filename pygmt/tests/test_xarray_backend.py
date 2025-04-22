@@ -5,6 +5,7 @@ Tests for xarray 'gmt' backend engine.
 import re
 
 import numpy as np
+import numpy.testing as npt
 import pytest
 import xarray as xr
 from pygmt.enums import GridRegistration, GridType
@@ -47,7 +48,7 @@ def test_xarray_backend_gmt_load_grd_grid():
     )
     # Ensure data is in memory.
     assert isinstance(da.data, np.ndarray)
-    assert da.data.min() == -4929.5
+    npt.assert_allclose(da.min(), -4929.5)
     assert da.sizes == {"lat": 31, "lon": 31}
     assert da.dtype == "float32"
     assert da.gmt.registration == GridRegistration.GRIDLINE
