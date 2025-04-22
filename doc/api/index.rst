@@ -197,7 +197,7 @@ Getting metadata from tabular or grid data:
     info
     grdinfo
 
-Xarray integration
+Xarray Integration
 ------------------
 
 .. autosummary::
