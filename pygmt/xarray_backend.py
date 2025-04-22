@@ -2,11 +2,11 @@
 An xarray backend for reading raster grid/image files using the 'gmt' engine.
 """
 
-import os
 from pathlib import Path
 from typing import Literal
 
 import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list
@@ -73,7 +73,7 @@ class GMTBackendEntrypoint(BackendEntrypoint):
 
     def open_dataset(  # type: ignore[override]
         self,
-        filename_or_obj: str | os.PathLike,
+        filename_or_obj: PathLike,
         *,
         drop_variables=None,  # noqa: ARG002
         decode_kind: Literal["grid", "image"],
