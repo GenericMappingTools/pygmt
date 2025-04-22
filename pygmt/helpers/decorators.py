@@ -71,14 +71,11 @@ COMMON_DOCSTRINGS = {
             :gmt-docs:`gmt.html#f-full`.""",
     "cores": r"""
         cores : bool or int
-            [[**-**]\ *n*].
-            Limit the number of cores to be used in any OpenMP-enabled
-            multi-threaded algorithms. By default we try to use all available
-            cores. Set a number *n* to only use n cores (if too large it will
-            be truncated to the maximum cores available). Finally, give a
-            negative number *-n* to select (all - *n*) cores (or at least 1 if
-            *n* equals or exceeds all).
-            """,
+            Specify the number of active cores to be used in any OpenMP-enabled
+            multi-threaded algorithms. By default, all available cores are used. Set a
+            number *n* to use *n* cores (if too large it will be truncated to the
+            maximum cores available); or set a negative number *-n* to select
+            (all - *n*) cores (or at least 1 if *n* equals or exceeds all).""",
     "distcalc": r"""
         distcalc : str
             Determine how spherical distances are calculated
