@@ -2,6 +2,7 @@
 contour - Contour table data by direct triangulation.
 """
 
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -37,7 +38,9 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def contour(self, data=None, x=None, y=None, z=None, **kwargs):
+def contour(
+    self, data: PathLike | TableLike | None = None, x=None, y=None, z=None, **kwargs
+):
     r"""
     Contour table data by direct triangulation.
 
@@ -52,7 +55,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.

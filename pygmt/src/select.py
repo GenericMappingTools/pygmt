@@ -6,6 +6,7 @@ from typing import Literal
 
 import numpy as np
 import pandas as pd
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -45,9 +46,9 @@ __doctest_skip__ = ["select"]
 )
 @kwargs_to_strings(M="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
 def select(
-    data=None,
+    data: PathLike | TableLike | None = None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
-    outfile: str | None = None,
+    outfile: PathLike | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -75,7 +76,7 @@ def select(
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
     {output_type}

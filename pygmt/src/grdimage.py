@@ -2,6 +2,8 @@
 grdimage - Project and plot grids or images.
 """
 
+import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -36,7 +38,7 @@ __doctest_skip__ = ["grdimage"]
     x="cores",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def grdimage(self, grid, **kwargs):
+def grdimage(self, grid: PathLike | xr.DataArray, **kwargs):
     r"""
     Project and plot grids or images.
 
