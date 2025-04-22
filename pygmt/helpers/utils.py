@@ -582,18 +582,18 @@ def build_arg_list(  # noqa: PLR0912
 
     if infile:  # infile can be a single file or a list of files
         if isinstance(infile, str | os.PathLike):
-            gmt_args = [str(infile), *gmt_args]
+            gmt_args = [os.fspath(infile), *gmt_args]
         else:
-            gmt_args = [str(_file) for _file in infile] + gmt_args
+            gmt_args = [os.fspath(_file) for _file in infile] + gmt_args
     if outfile is not None:
         if (
             not isinstance(outfile, str | os.PathLike)
-            or str(outfile) in {"", ".", ".."}
-            or str(outfile).endswith(("/", "\\"))
+            or os.fspath(outfile) in {"", ".", ".."}
+            or os.fspath(outfile).endswith(("/", "\\"))
         ):
             msg = f"Invalid output file name '{outfile}'."
             raise GMTInvalidInput(msg)
-        gmt_args.append(f"->{outfile}")
+        gmt_args.append(f"->{os.fspath(outfile)}")
     return gmt_args
 
 
