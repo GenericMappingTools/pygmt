@@ -26,7 +26,7 @@ from pygmt.helpers import (
     r="registration",
 )
 @kwargs_to_strings(I="sequence", i="sequence_comma")
-def info(data: PathLike | TableLike, **kwargs):
+def info(data: PathLike | TableLike, **kwargs) -> np.ndarray | str:
     r"""
     Get information about data tables.
 

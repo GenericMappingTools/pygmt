@@ -28,7 +28,7 @@ from pygmt.helpers import (
     f="coltypes",
 )
 @kwargs_to_strings(D="sequence", I="sequence", R="sequence")
-def grdinfo(grid: PathLike | xr.DataArray, **kwargs):
+def grdinfo(grid: PathLike | xr.DataArray, **kwargs) -> str:
     r"""
     Extract information from 2-D grids or 3-D cubes.
 
