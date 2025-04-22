@@ -2,6 +2,7 @@
 image - Plot raster or EPS images.
 """
 
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -20,7 +21,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def image(self, imagefile, **kwargs):
+def image(self, imagefile: PathLike, **kwargs):
     r"""
     Plot raster or EPS images.
 
