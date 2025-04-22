@@ -63,7 +63,10 @@ class GMTBackendEntrypoint(BackendEntrypoint):
 
     def guess_can_open(self, filename_or_obj) -> bool:
         """
-        Backend open_dataset method used by Xarray in :py:func:`~xarray.open_dataset`.
+        Try to guess whether we can read this file.
+
+        This allows files ending in '.grd', '.nc', or '.tif(f)' to be automatically
+        opened by xarray.
         """
         try:
             ext = Path(filename_or_obj).suffix
