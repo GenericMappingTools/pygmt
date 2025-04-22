@@ -19,13 +19,13 @@ class GMTBackendEntrypoint(BackendEntrypoint):
     Xarray backend to read raster grid/image files using 'gmt' engine.
 
     Internally, GMT uses the NetCDF C library to read NetCDF files, and GDAL for GeoTIFF
-    files.
+    and other raster formats.
 
     When using :py:func:`xarray.open_dataarray` or :py:func:`xarray.load_dataarray` with
-    ``engine='gmt'``, pass the ``decode_kind`` parameter that can be either:
+    ``engine="gmt"``, pass the ``decode_kind`` parameter that can be either:
 
-    - ``grid`` - for reading single-band raster grids
-    - ``image`` - for reading multi-band raster images
+    - ``"grid"`` - for reading single-band raster grids
+    - ``"image"`` - for reading multi-band raster images
 
     Examples
     --------
@@ -34,7 +34,7 @@ class GMTBackendEntrypoint(BackendEntrypoint):
     >>> import pygmt
     >>> import xarray as xr
     >>>
-    >>> da_grid: xr.Dataset = xr.open_dataarray(
+    >>> da_grid = xr.open_dataarray(
     ...     "@static_earth_relief.nc", engine="gmt", decode_kind="grid"
     ... )
     >>> da_grid
@@ -53,7 +53,7 @@ class GMTBackendEntrypoint(BackendEntrypoint):
 
     Read a multi-band GeoTIFF file using ``decode_kind="image"``
 
-    >>> da_image: xr.Dataset = xr.open_dataarray(
+    >>> da_image = xr.open_dataarray(
     ...     "@earth_night_01d", engine="gmt", decode_kind="image"
     ... )
     >>> da_image

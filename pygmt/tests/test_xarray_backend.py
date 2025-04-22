@@ -39,18 +39,19 @@ def test_xarray_backend_gmt_open_tif_image():
 
 def test_xarray_backend_gmt_load_grd_grid():
     """
-    Ensure that passing engine='gmt' to xarray.open_dataarray works for loading GRD
+    Ensure that passing engine='gmt' to xarray.load_dataarray works for loading GRD
     grids.
     """
-    with xr.load_dataarray(
+    da = xr.load_dataarray(
         "@earth_relief_20m_holes.grd", engine="gmt", decode_kind="grid"
-    ) as da:
-        # ensure data is in memory and not a dask array
-        assert isinstance(da.data, np.ndarray)
-        assert da.sizes == {"lat": 31, "lon": 31}
-        assert da.dtype == "float32"
-        assert da.gmt.registration == GridRegistration.GRIDLINE
-        assert da.gmt.gtype == GridType.GEOGRAPHIC
+    )
+    # Ensure data is in memory.
+    assert isinstance(da.data, np.ndarray)
+    assert da.data.min() == -4929.5
+    assert da.sizes == {"lat": 31, "lon": 31}
+    assert da.dtype == "float32"
+    assert da.gmt.registration == GridRegistration.GRIDLINE
+    assert da.gmt.gtype == GridType.GEOGRAPHIC
 
 
 def test_xarray_backend_gmt_read_invalid_kind():
