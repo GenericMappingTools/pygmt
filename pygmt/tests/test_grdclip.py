@@ -93,7 +93,7 @@ def test_grdclip_replace():
 
 def test_grdclip_between_repeated():
     """
-    Test passing a 2D sequence to the between parameter for grdclip.
+    Test passing a 2-D sequence to the between parameter for grdclip.
     """
     grid = load_static_earth_relief()
     # Replace values in the range 0-250 with 0, 250-500 with 1, 500-750 with 2, and
@@ -102,7 +102,7 @@ def test_grdclip_between_repeated():
         grid,
         between=[[0, 250, 0], [250, 500, 1], [500, 750, 2], [750, 1000, 3]],
     )
-    # result should have 4 unique values.
+    # Result should have 4 unique values.
     npt.assert_array_equal(np.unique(result.data), [0, 1, 2, 3])
 
 
