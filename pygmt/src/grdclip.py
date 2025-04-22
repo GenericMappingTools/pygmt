@@ -5,6 +5,7 @@ grdclip - Clip the range of grid values.
 from collections.abc import Sequence
 
 import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -111,8 +112,8 @@ def _parse_sequence(name, value, separator="/", size=2, ndim=1):
 @use_alias(R="region", V="verbose")
 @kwargs_to_strings(R="sequence")
 def grdclip(
-    grid,
-    outgrid: str | None = None,
+    grid: PathLike | xr.DataArray,
+    outgrid: PathLike | None = None,
     above: Sequence[float] | None = None,
     below: Sequence[float] | None = None,
     between: Sequence[float] | Sequence[Sequence[float]] | None = None,
