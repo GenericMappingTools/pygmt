@@ -105,16 +105,3 @@ class GMTBackendEntrypoint(BackendEntrypoint):
                 )
                 _ = raster.gmt  # Load GMTDataArray accessor information
                 return raster.to_dataset()
-
-    def guess_can_open(self, filename_or_obj) -> bool:
-        """
-        Try to guess whether we can read this file.
-
-        This allows files ending in '.grd', '.nc', or '.tif(f)' to be automatically
-        opened by xarray.
-        """
-        try:
-            ext = Path(filename_or_obj).suffix
-        except TypeError:
-            return False
-        return ext in {".grd", ".nc", ".tif", ".tiff"}
