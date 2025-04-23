@@ -2,7 +2,6 @@
 An xarray backend for reading raster grid/image files using the 'gmt' engine.
 """
 
-from pathlib import Path
 from typing import Literal
 
 import xarray as xr
