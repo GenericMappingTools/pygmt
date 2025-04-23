@@ -69,7 +69,7 @@ class GMTBackendEntrypoint(BackendEntrypoint):
 
     description = "Open raster (.grd, .nc or .tif) files in Xarray via GMT."
     open_dataset_parameters = ("filename_or_obj", "raster_kind")
-    url = "https://github.com/GenericMappingTools/pygmt"
+    url = "https://pygmt.org/dev/api/generated/pygmt.GMTBackendEntrypoint.html"
 
     def open_dataset(  # type: ignore[override]
         self,
