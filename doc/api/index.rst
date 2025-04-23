@@ -3,7 +3,7 @@
 API Reference
 =============
 
-.. automodule:: pygmt
+This page gives an overview of all public PyGMT objects, functions and methods.
 
 .. currentmodule:: pygmt
 
