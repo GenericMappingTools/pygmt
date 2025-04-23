@@ -22,20 +22,20 @@ class GMTBackendEntrypoint(BackendEntrypoint):
     and other raster formats.
 
     When using :py:func:`xarray.open_dataarray` or :py:func:`xarray.load_dataarray` with
-    ``engine="gmt"``, pass the ``decode_kind`` parameter that can be either:
+    ``engine="gmt"``, pass the ``raster_kind`` parameter that can be either:
 
     - ``"grid"`` - for reading single-band raster grids
     - ``"image"`` - for reading multi-band raster images
 
     Examples
     --------
-    Read a single-band NetCDF file using ``decode_kind="grid"``
+    Read a single-band NetCDF file using ``raster_kind="grid"``
 
     >>> import pygmt
     >>> import xarray as xr
     >>>
     >>> da_grid = xr.open_dataarray(
-    ...     "@static_earth_relief.nc", engine="gmt", decode_kind="grid"
+    ...     "@static_earth_relief.nc", engine="gmt", raster_kind="grid"
     ... )
     >>> da_grid  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
     <xarray.DataArray 'z' (lat: 14, lon: 8)>...
@@ -51,10 +51,10 @@ class GMTBackendEntrypoint(BackendEntrypoint):
         actual_range:  [190. 981.]
         long_name:     elevation (m)
 
-    Read a multi-band GeoTIFF file using ``decode_kind="image"``
+    Read a multi-band GeoTIFF file using ``raster_kind="image"``
 
     >>> da_image = xr.open_dataarray(
-    ...     "@earth_night_01d", engine="gmt", decode_kind="image"
+    ...     "@earth_night_01d", engine="gmt", raster_kind="image"
     ... )
     >>> da_image  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
     <xarray.DataArray 'z' (band: 3, y: 180, x: 360)>...
@@ -68,7 +68,7 @@ class GMTBackendEntrypoint(BackendEntrypoint):
     """
 
     description = "Open raster (.grd, .nc or .tif) files in Xarray via GMT."
-    open_dataset_parameters = ("filename_or_obj", "decode_kind")
+    open_dataset_parameters = ("filename_or_obj", "raster_kind")
     url = "https://github.com/GenericMappingTools/pygmt"
 
     def open_dataset(  # type: ignore[override]
@@ -76,27 +76,27 @@ class GMTBackendEntrypoint(BackendEntrypoint):
         filename_or_obj: PathLike,
         *,
         drop_variables=None,  # noqa: ARG002
-        decode_kind: Literal["grid", "image"],
+        raster_kind: Literal["grid", "image"],
         # other backend specific keyword arguments
         # `chunks` and `cache` DO NOT go here, they are handled by xarray
     ) -> xr.Dataset:
         """
         Backend open_dataset method used by Xarray in :py:func:`~xarray.open_dataset`.
         """
-        if decode_kind not in {"grid", "image"}:
-            msg = f"Invalid raster kind: '{decode_kind}'. Valid values are 'grid' or 'image'."
+        if raster_kind not in {"grid", "image"}:
+            msg = f"Invalid raster kind: '{raster_kind}'. Valid values are 'grid' or 'image'."
             raise GMTInvalidInput(msg)
 
         with Session() as lib:
-            with lib.virtualfile_out(kind=decode_kind) as voutfile:
-                kwdict = {"T": {"grid": "g", "image": "i"}[decode_kind]}
+            with lib.virtualfile_out(kind=raster_kind) as voutfile:
+                kwdict = {"T": {"grid": "g", "image": "i"}[raster_kind]}
                 lib.call_module(
                     module="read",
                     args=[filename_or_obj, voutfile, *build_arg_list(kwdict)],
                 )
 
                 raster: xr.DataArray = lib.virtualfile_to_raster(
-                    vfname=voutfile, kind=decode_kind
+                    vfname=voutfile, kind=raster_kind
                 )
                 # Add "source" encoding
                 source = which(fname=filename_or_obj)
