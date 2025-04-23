@@ -73,8 +73,8 @@ COMMON_DOCSTRINGS = {
         cores : bool or int
             Specify the number of active cores to be used in any OpenMP-enabled
             multi-threaded algorithms. By default, all available cores are used. Set a
-            number *n* to use *n* cores (if too large it will be truncated to the
-            maximum cores available); or set a negative number *-n* to select
+            positive number *n* to use *n* cores (if too large it will be truncated to
+            the maximum cores available); or set a negative number *-n* to select
             (all - *n*) cores (or at least 1 if *n* equals or exceeds all).""",
     "distcalc": r"""
         distcalc : str
