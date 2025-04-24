@@ -43,7 +43,7 @@ class GMTBackendEntrypoint(BackendEntrypoint):
     Coordinates:
       * lat      (lat) float64... -23.5 -22.5 -21.5 -20.5 ... -12.5 -11.5 -10.5
       * lon      (lon) float64... -54.5 -53.5 -52.5 -51.5 -50.5 -49.5 -48.5 -47.5
-    Attributes:
+    Attributes: ...
         Conventions:   CF-1.7
         title:         Produced by grdcut
         history:       grdcut @earth_relief_01d_p -R-55/-47/-24/-10 -Gstatic_eart...
@@ -63,7 +63,7 @@ class GMTBackendEntrypoint(BackendEntrypoint):
       * y        (y) float64... 89.5 88.5 87.5 86.5 ... -86.5 -87.5 -88.5 -89.5
       * x        (x) float64... -179.5 -178.5 -177.5 -176.5 ... 177.5 178.5 179.5
       * band     (band) uint8... 1 2 3
-    Attributes:
+    Attributes: ...
         long_name:  z
     """
 
