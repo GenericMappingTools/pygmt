@@ -18,8 +18,11 @@ class GMTBackendEntrypoint(BackendEntrypoint):
     Xarray backend to read raster grid/image files using 'gmt' engine.
 
     Internally, GMT uses the netCDF C library to read netCDF files, and GDAL for GeoTIFF
-    and other raster formats. See also
-    :gmt-docs:`reference/features.html#grid-file-format`.
+    and other raster formats. See :gmt-docs:`reference/features.html#grid-file-format`
+    for more details about supported formats. This GMT engine can also read
+    :gmt-docs:`GMT remote datasets <datasets/remote-data.html>` (file names starting
+    with an `@`) directly, and pre-loads :class:`pygmt.GMTDataArrayAccessor` properties
+    (in the '.gmt' accessor) for easy access to GMT-specific metadata and features.
 
     When using :py:func:`xarray.open_dataarray` or :py:func:`xarray.load_dataarray` with
     ``engine="gmt"``, the ``raster_kind`` parameter is required and can be either:
