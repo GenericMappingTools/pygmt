@@ -65,7 +65,7 @@ from pygmt.src import (
     x2sys_init,
     xyz2grd,
 )
-from pygmt.xarray_backend import GMTBackendEntrypoint
+from pygmt.xarray import GMTBackendEntrypoint
 
 # Start our global modern mode session
 _begin()
