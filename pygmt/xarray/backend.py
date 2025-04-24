@@ -22,10 +22,10 @@ class GMTBackendEntrypoint(BackendEntrypoint):
     :gmt-docs:`reference/features.html#grid-file-format`.
 
     When using :py:func:`xarray.open_dataarray` or :py:func:`xarray.load_dataarray` with
-    ``engine="gmt"``, pass the ``raster_kind`` parameter that can be either:
+    ``engine="gmt"``, the ``raster_kind`` parameter is required and can be either:
 
-    - ``"grid"`` - for reading single-band raster grids
-    - ``"image"`` - for reading multi-band raster images
+    - ``"grid"``: for reading single-band raster grids
+    - ``"image"``: for reading multi-band raster images
 
     Examples
     --------
