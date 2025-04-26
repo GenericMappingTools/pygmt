@@ -8,6 +8,122 @@ from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, is_nonstr_iter
 
 
+class _ClipContext:
+    """
+    Base class for the clip context manager.
+    """
+
+    def __init__(self, figure, data=None, **kwargs):
+        self._figure = figure  # The parent Figure object.
+        self._data = data
+        self._kwargs = kwargs
+
+    def __enter__(self):
+        self._figure._preprocess()  # Activate the current figure.
+        self._activate()
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self._figure._preprocess()  # Activate the current figure.
+        self._deactivate()
+
+    def _activate(self):
+        """
+        Activate clipping.
+        """
+        raise NotImplementedError
+
+    def _deactivate(self):
+        """
+        Deactivate clipping.
+        """
+        raise NotImplementedError
+
+
+class _ClipLand(_ClipContext):
+    """
+    Clip the land area (i.e., "dry" areas).
+    """
+
+    def _activate(self):
+        self._figure.coast(land=True, **self._kwargs)
+
+    def _deactivate(self):
+        self._figure.coast(Q=True)
+
+
+class _ClipWater(_ClipContext):
+    """
+    Clip the water areas (i.e., "wet" areas such as oceans and lakes).
+    """
+
+    def _activate(self):
+        self._figure.coast(water=True, **self._kwargs)
+
+    def _deactivate(self):
+        self._figure.coast(Q=True)
+
+
+class _ClipDcw(_ClipContext):
+    """
+    Clip based on the Digital Chart of the World.
+    """
+
+    def _activate(self):
+        self._figure.coast(**self._kwargs)
+
+    def _deactivate(self):
+        self._figure.coast(Q=True)
+
+
+class _ClipSolar(_ClipContext):
+    """
+    Clip the data to the solar terminator.
+    """
+
+    def _activate(self):
+        self._figure.solar(fill=True, **self._kwargs)
+
+    def _deactivate(self):
+        with Session() as lib:
+            lib.call_module(module="clip", args=build_arg_list({"C": True}))
+
+
+class _ClipPolygon(_ClipContext):
+    """
+    Clip polygonal paths.
+    """
+
+    def _activate(self):
+        with Session() as lib:
+            with lib.virtualfile_in(data=self._data) as vintbl:
+                lib.call_module(
+                    module="clip",
+                    args=build_arg_list(self._kwargs, infile=vintbl),
+                )
+
+    def _deactivate(self):
+        with Session() as lib:
+            lib.call_module(module="clip", args=build_arg_list({"C": True}))
+
+
+class _ClipMask(_ClipContext):
+    """
+    Clip the data to a mask.
+    """
+
+    def _activate(self):
+        with Session() as lib:
+            with lib.virtualfile_in(data=self._data) as vintbl:
+                lib.call_module(
+                    module="mask",
+                    args=build_arg_list(self._kwargs, infile=vintbl),
+                )
+
+    def _deactivate(self):
+        with Session() as lib:
+            lib.call_module(module="mask", args=build_arg_list({"C": True}))
+
+
 class ClipAccessor:
     """
     Accessor for the clip methods.
@@ -40,11 +156,7 @@ class ClipAccessor:
         ...     fig.grdimage(grid, cmap="geo")
         >>> fig.show()
         """
-        self.data = None
-        self.module_enter = self.module_exit = "coast"
-        self.kwargs_enter = {"G": True} | kwargs
-        self.kwargs_exit = {"Q": True}
-        return self
+        return _ClipLand(self._fig, **kwargs)
 
     def water(self, **kwargs):
         """
@@ -70,11 +182,7 @@ class ClipAccessor:
         ...     fig.grdimage(grid, cmap="geo")
         >>> fig.show()
         """
-        self.data = None
-        self.module_enter = self.module_exit = "coast"
-        self.kwargs_enter = {"S": True} | kwargs
-        self.kwargs_exit = {"Q": True}
-        return self
+        return _ClipWater(self._fig, **kwargs)
 
     def polygon(self, x, y, **kwargs):
         """
@@ -99,14 +207,9 @@ class ClipAccessor:
         ...     fig.grdimage(grid, cmap="geo")
         >>> fig.show()
         """
-        self.data = (x, y)
-        self.module_enter = self.module_exit = "clip"
-        self.kwargs_enter = kwargs
-        self.kwargs_exit = {"C": True}
+        return _ClipPolygon(self._fig, data={"x": x, "y": y}, **kwargs)
 
-        return self
-
-    def dcw(self, code: str | Sequence[str]):
+    def dcw(self, code: str | Sequence[str], **kwargs):
         """
         Clip based on the Digital Chart of the World.
 
@@ -123,12 +226,7 @@ class ClipAccessor:
         >>> fig.show()
         """
         _code = ",".join(code) if is_nonstr_iter(code) else code
-        self.data = None
-        self.module_enter = "coast"
-        self.kwargs_enter = {"E": _code + "+c"}
-        self.module_exit = "coast"
-        self.kwargs_exit = {"Q": True}
-        return self
+        return _ClipDcw(self._fig, dcw=f"{_code}+c", **kwargs)
 
     def solar(self, **kwargs):
         """
@@ -142,17 +240,11 @@ class ClipAccessor:
         >>> grid = load_earth_relief()
         >>> fig = Figure()
         >>> fig.basemap(region="g", projection="W15c", frame=True)
-        >>> with fig.clip.solar(T="c"):
+        >>> with fig.clip.solar(terminator="civil"):
         ...     fig.grdimage(grid, cmap="geo")
         >>> fig.show()
         """
-        self.data = None
-        self.module_enter = "solar"
-        self.kwargs_enter = {"G": True} | kwargs
-        self.module_exit = "clip"
-        self.kwargs_exit = {"C": True}
-
-        return self
+        return _ClipSolar(self._fig, **kwargs)
 
     def mask(self, x, y, spacing, radius=None):
         """
@@ -172,36 +264,4 @@ class ClipAccessor:
         ...     fig.grdimage(grid, cmap="geo")
         >>> fig.show()
         """
-        self.data = (x, y)
-        self.module_enter = self.module_exit = "mask"
-        self.kwargs_enter = {"I": spacing, "S": radius}
-        self.kwargs_exit = {"C": True}
-        return self
-
-    def __enter__(self):
-        """
-        Enter the context manager.
-        """
-        self._fig._preprocess()  # Activate the current figure.
-        with Session() as lib:
-            if self.data:
-                with lib.virtualfile_in(x=self.data[0], y=self.data[1]) as vintbl:
-                    lib.call_module(
-                        module=self.module_enter,
-                        args=build_arg_list(self.kwargs_enter, infile=vintbl),
-                    )
-            else:
-                lib.call_module(
-                    module=self.module_enter, args=build_arg_list(self.kwargs_enter)
-                )
-        return self
-
-    def __exit__(self, exc_type, exc_value, traceback):
-        """
-        Exit the context manager.
-        """
-        self._fig._preprocess()  # Activate the current figure.
-        with Session() as lib:
-            lib.call_module(
-                module=self.module_exit, args=build_arg_list(self.kwargs_exit)
-            )
+        return _ClipMask(self._fig, data={"x": x, "y": y}, I=spacing, S=radius)
