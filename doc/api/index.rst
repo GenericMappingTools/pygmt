@@ -1,9 +1,7 @@
-.. _api:
-
 API Reference
 =============
 
-.. automodule:: pygmt
+This page gives an overview of all public PyGMT objects, functions and methods.
 
 .. currentmodule:: pygmt
 
@@ -196,6 +194,14 @@ Getting metadata from tabular or grid data:
     GMTDataArrayAccessor
     info
     grdinfo
+
+Xarray Integration
+------------------
+
+.. autosummary::
+    :toctree: generated
+
+    GMTBackendEntrypoint
 
 Enums
 -----

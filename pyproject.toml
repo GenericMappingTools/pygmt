@@ -52,6 +52,9 @@ all = [
     "rioxarray",
 ]
 
+[project.entry-points."xarray.backends"]
+gmt = "pygmt.xarray:GMTBackendEntrypoint"
+
 [project.urls]
 "Homepage" = "https://www.pygmt.org"
 "Documentation" = "https://www.pygmt.org"
