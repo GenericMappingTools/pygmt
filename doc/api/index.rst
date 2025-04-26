@@ -195,6 +195,14 @@ Getting metadata from tabular or grid data:
     info
     grdinfo
 
+Xarray Integration
+------------------
+
+.. autosummary::
+    :toctree: generated
+
+    GMTBackendEntrypoint
+
 Enums
 -----
 
