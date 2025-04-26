@@ -11,6 +11,7 @@ import xarray as xr
 from pygmt import grdclip, load_dataarray
 from pygmt.datasets import load_earth_mask
 from pygmt.enums import GridRegistration, GridType
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -88,3 +89,26 @@ def test_grdclip_replace():
     with pytest.warns(FutureWarning):
         grid = grdclip(grid=grid, new=[1, 3])  # Replace 1 with 3
         npt.assert_array_equal(np.unique(grid), [2, 3])
+
+
+def test_grdclip_between_repeated():
+    """
+    Test passing a 2-D sequence to the between parameter for grdclip.
+    """
+    grid = load_static_earth_relief()
+    # Replace values in the range 0-250 with 0, 250-500 with 1, 500-750 with 2, and
+    # 750-1000 with 3
+    result = grdclip(
+        grid,
+        between=[[0, 250, 0], [250, 500, 1], [500, 750, 2], [750, 1000, 3]],
+    )
+    # Result should have 4 unique values.
+    npt.assert_array_equal(np.unique(result.data), [0, 1, 2, 3])
+
+
+def test_grdclip_missing_required_parameter(grid):
+    """
+    Test that grdclip raises a ValueError if the required parameter is missing.
+    """
+    with pytest.raises(GMTInvalidInput):
+        grdclip(grid=grid)
