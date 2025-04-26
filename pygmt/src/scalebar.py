@@ -9,7 +9,6 @@ from pygmt.clib import Session
 from pygmt.helpers import build_arg_list
 
 
-# ruff: noqa: ARG001
 def scalebar(  # noqa: PLR0913
     self,
     position,

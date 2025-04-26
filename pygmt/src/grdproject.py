@@ -3,6 +3,7 @@ grdproject - Forward and inverse map transformation of grids.
 """
 
 import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -25,7 +26,9 @@ __doctest_skip__ = ["grdproject"]
     r="registration",
 )
 @kwargs_to_strings(C="sequence", D="sequence", R="sequence")
-def grdproject(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
+def grdproject(
+    grid: PathLike | xr.DataArray, outgrid: PathLike | None = None, **kwargs
+) -> xr.DataArray | None:
     r"""
     Forward and inverse map transformation of grids.
 

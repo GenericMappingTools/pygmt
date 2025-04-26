@@ -3,6 +3,7 @@ dimfilter - Directional filtering of grids in the space domain.
 """
 
 import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
@@ -13,8 +14,8 @@ __doctest_skip__ = ["dimfilter"]
 
 @fmt_docstring
 def dimfilter(
-    grid,
-    outgrid: str | None = None,
+    grid: PathLike | xr.DataArray,
+    outgrid: PathLike | None = None,
     distance: int | str | None = None,
     filter: str | None = None,  # noqa: A002
     sectors: str | None = None,

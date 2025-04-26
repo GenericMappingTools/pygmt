@@ -4,6 +4,7 @@ plot3d - Plot lines, polygons, and symbols in 3-D.
 
 from typing import Literal
 
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -53,7 +54,7 @@ from pygmt.src._common import _data_geometry_is_point
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def plot3d(  # noqa: PLR0912
     self,
-    data=None,
+    data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     z=None,
@@ -90,7 +91,7 @@ def plot3d(  # noqa: PLR0912
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Either a data file name, a 2-D {table-classes}.
         Optionally, use parameter ``incols`` to specify which columns are x, y,
         z, fill, and size, respectively.

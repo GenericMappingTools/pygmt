@@ -5,7 +5,7 @@ text - Plot or typeset text.
 from collections.abc import Sequence
 
 import numpy as np
-from pygmt._typing import AnchorCode, StringArrayTypes
+from pygmt._typing import AnchorCode, PathLike, StringArrayTypes, TableLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -44,7 +44,7 @@ from pygmt.helpers import (
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def text_(  # noqa: PLR0912
     self,
-    textfiles=None,
+    textfiles: PathLike | TableLike | None = None,
     x=None,
     y=None,
     position: AnchorCode | None = None,

@@ -2,6 +2,7 @@
 image - Plot raster or EPS images.
 """
 
+from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring
@@ -10,7 +11,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring
 @fmt_docstring
 def image(  # noqa: PLR0913
     self,
-    imagefile,
+    imagefile: PathLike,
     region=None,
     projection=None,
     position=None,
