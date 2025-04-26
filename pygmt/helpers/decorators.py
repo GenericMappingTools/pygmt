@@ -261,15 +261,16 @@ COMMON_DOCSTRINGS = {
             :gmt-docs:`gmt.html#grd-inout-full` for the available modifiers.
         """,
     "panel": r"""
-        panel : bool, int, or list
-            [*row,col*\|\ *index*].
-            Select a specific subplot panel. Only allowed when in subplot
-            mode. Use ``panel=True`` to advance to the next panel in the
-            selected order. Instead of *row,col* you may also give a scalar
-            value *index* which depends on the order you set via ``autolabel``
-            when the subplot was defined. **Note**: *row*, *col*, and *index*
-            all start at 0.
-         """,
+        panel : bool, int, or Sequence
+            Select a specific subplot panel. Only allowed when used in
+            :meth:`Figure.subplot`.
+
+            - ``True`` to advance to the next panel in the selected order.
+            - *index* to specify the index of the desired panel.
+            - (*row*, *col*) to specify the row and column of the desired panel.
+
+            The order of panels is determined by settings in the :meth:`Figure.subplot`
+            method. *row*, *col* and *index* all start at 0.""",
     "pen": r"""
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
