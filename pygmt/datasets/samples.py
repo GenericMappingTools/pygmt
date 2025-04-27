@@ -203,7 +203,7 @@ def _load_earth_relief_holes() -> xr.DataArray:
         is in meters.
     """
     fname = which("@earth_relief_20m_holes.grd", download="c")
-    return xr.load_dataarray(fname, engine="gmt", decode_kind="grid")
+    return xr.load_dataarray(fname, engine="gmt", raster_kind="grid")
 
 
 class GMTSampleData(NamedTuple):

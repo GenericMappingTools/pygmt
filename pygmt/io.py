@@ -24,8 +24,8 @@ def load_dataarray(filename_or_obj, **kwargs):
 
     .. deprecated:: v0.16.0
        The 'pygmt.io.load_dataarray' function will be removed in v0.20.0. Please use
-       `xarray.load_dataarray(..., engine='gmt', decode_kind='grid')` instead if you
-       were reading grids using the engine='netcdf'; otherwise use `decode_kind='image'`
+       `xarray.load_dataarray(..., engine='gmt', raster_kind='grid')` instead if you
+       were reading grids using the engine='netcdf'; otherwise use `raster_kind='image'`
        if you were reading multi-band images using engine='rasterio'.
 
     Parameters
@@ -48,9 +48,9 @@ def load_dataarray(filename_or_obj, **kwargs):
     """
     msg = (
         "The 'pygmt.io.load_dataarray' function will be removed in v0.20.0. Please use "
-        "`xarray.load_dataarray(..., engine='gmt', decode_kind='grid')` instead if you "
+        "`xarray.load_dataarray(..., engine='gmt', raster_kind='grid')` instead if you "
         "were reading grids using the engine='netcdf'; otherwise use "
-        "`decode_kind='image'` if you were reading multi-band images using "
+        "`raster_kind='image'` if you were reading multi-band images using "
         "engine='rasterio'."
     )
     warnings.warn(message=msg, category=FutureWarning, stacklevel=1)
