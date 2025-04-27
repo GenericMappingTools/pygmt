@@ -11,7 +11,6 @@ from pygmt.io import load_dataarray
 
 
 # TODO(PyGMT>=0.20.0): Remove test_io_load_dataarray
-@pytest.mark.benchmark
 def test_io_load_dataarray():
     """
     Check that load_dataarray works to read a netCDF grid with GMTDataArrayAccessor
