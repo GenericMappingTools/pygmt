@@ -191,7 +191,6 @@ Getting metadata from tabular or grid data:
 .. autosummary::
     :toctree: generated
 
-    GMTDataArrayAccessor
     info
     grdinfo
 
@@ -202,6 +201,7 @@ Xarray Integration
     :toctree: generated
 
     GMTBackendEntrypoint
+    GMTDataArrayAccessor
 
 Enums
 -----

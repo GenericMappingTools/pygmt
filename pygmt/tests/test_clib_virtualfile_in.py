@@ -41,9 +41,7 @@ def test_virtualfile_in_required_z_matrix(array_func, kind):
     )
     data = array_func(dataframe)
     with clib.Session() as lib:
-        with lib.virtualfile_in(
-            data=data, required_z=True, check_kind="vector"
-        ) as vfile:
+        with lib.virtualfile_in(data=data, mincols=3, check_kind="vector") as vfile:
             with GMTTempFile() as outfile:
                 lib.call_module("info", [vfile, f"->{outfile.name}"])
                 output = outfile.read(keep_tabs=True)
@@ -64,8 +62,24 @@ def test_virtualfile_in_required_z_matrix_missing():
     data = np.ones((5, 2))
     with clib.Session() as lib:
         with pytest.raises(GMTInvalidInput):
-            with lib.virtualfile_in(data=data, required_z=True, check_kind="vector"):
+            with lib.virtualfile_in(data=data, mincols=3, check_kind="vector"):
                 pass
+
+
+# TODO(PyGMT>=0.20.0): Remove this test for the deprecated 'required_z' parameter.
+def test_virtualfile_in_required_z_deprecated():
+    """
+    Same as test_virtualfile_in_required_z_matrix_missing but using the deprecated
+    'required_z' parameter.
+    """
+    data = np.ones((5, 2))
+    with clib.Session() as lib:
+        with pytest.raises(GMTInvalidInput):  # noqa: PT012
+            with pytest.warns(FutureWarning):
+                with lib.virtualfile_in(
+                    data=data, required_z=True, check_kind="vector"
+                ):
+                    pass
 
 
 def test_virtualfile_in_fail_non_valid_data(data):
@@ -91,7 +105,7 @@ def test_virtualfile_in_fail_non_valid_data(data):
         with clib.Session() as lib:
             with pytest.raises(GMTInvalidInput):
                 lib.virtualfile_in(
-                    x=variable[0], y=variable[1], z=variable[2], required_z=True
+                    x=variable[0], y=variable[1], z=variable[2], mincols=3
                 )
 
     # Should also fail if given too much data
