@@ -261,9 +261,7 @@ def text_(  # noqa: PLR0912
 
     with Session() as lib:
         with lib.virtualfile_in(
-            check_kind="vector",
-            data=textfiles or data,
-            required_data=required_data,
+            check_kind="vector", data=textfiles or data, required=required_data
         ) as vintbl:
             lib.call_module(
                 module="text",

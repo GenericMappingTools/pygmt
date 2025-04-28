@@ -43,7 +43,7 @@ Encoding = Literal[
 
 
 def _validate_data_input(  # noqa: PLR0912
-    data=None, x=None, y=None, z=None, mincols=2, required_data=True, kind=None
+    data=None, x=None, y=None, z=None, mincols=2, required=True, kind=None
 ) -> None:
     """
     Check if the combination of data/x/y/z is valid.
@@ -53,7 +53,7 @@ def _validate_data_input(  # noqa: PLR0912
     >>> _validate_data_input(data="infile")
     >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6])
     >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6], z=[7, 8, 9])
-    >>> _validate_data_input(data=None, required_data=False)
+    >>> _validate_data_input(data=None, required=False)
     >>> _validate_data_input()
     Traceback (most recent call last):
         ...
@@ -119,7 +119,7 @@ def _validate_data_input(  # noqa: PLR0912
     required_z = mincols >= 3
     if data is None:  # data is None
         if x is None and y is None:  # both x and y are None
-            if required_data:  # data is not optional
+            if required:  # data is not optional
                 msg = "No input data provided."
                 raise GMTInvalidInput(msg)
         elif x is None or y is None:  # either x or y is None
