@@ -43,7 +43,7 @@ Encoding = Literal[
 
 
 def _validate_data_input(  # noqa: PLR0912
-    data=None, x=None, y=None, z=None, required_z=False, required_data=True, kind=None
+    data=None, x=None, y=None, z=None, mincols=2, required_data=True, kind=None
 ) -> None:
     """
     Check if the combination of data/x/y/z is valid.
@@ -66,7 +66,7 @@ def _validate_data_input(  # noqa: PLR0912
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Must provide both x and y.
-    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6], required_z=True)
+    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6], mincols=3)
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Must provide x, y, and z.
@@ -74,13 +74,13 @@ def _validate_data_input(  # noqa: PLR0912
     >>> import pandas as pd
     >>> import xarray as xr
     >>> data = np.arange(8).reshape((4, 2))
-    >>> _validate_data_input(data=data, required_z=True, kind="matrix")
+    >>> _validate_data_input(data=data, mincols=3, kind="matrix")
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
     >>> _validate_data_input(
     ...     data=pd.DataFrame(data, columns=["x", "y"]),
-    ...     required_z=True,
+    ...     mincols=3,
     ...     kind="vectors",
     ... )
     Traceback (most recent call last):
@@ -88,7 +88,7 @@ def _validate_data_input(  # noqa: PLR0912
     pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
     >>> _validate_data_input(
     ...     data=xr.Dataset(pd.DataFrame(data, columns=["x", "y"])),
-    ...     required_z=True,
+    ...     mincols=3,
     ...     kind="vectors",
     ... )
     Traceback (most recent call last):
@@ -116,6 +116,7 @@ def _validate_data_input(  # noqa: PLR0912
     GMTInvalidInput
         If the data input is not valid.
     """
+    required_z = mincols >= 3
     if data is None:  # data is None
         if x is None and y is None:  # both x and y are None
             if required_data:  # data is not optional
