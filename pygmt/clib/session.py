@@ -1757,7 +1757,7 @@ class Session:
         x=None,
         y=None,
         z=None,
-        ncols=2,
+        mincols=2,
         required_data=True,
         required_z=False,
         extra_arrays=None,
@@ -1780,7 +1780,7 @@ class Session:
             data input.
         x/y/z : 1-D arrays or None
             x, y, and z columns as numpy arrays.
-        ncols
+        mincols
             Number of minimum required columns. Default is 2 (i.e. require x and y
             columns).
         required_data : bool
@@ -1791,7 +1791,8 @@ class Session:
 
             .. deprecated:: v0.16.0
                The parameter 'required_z' will be removed in v0.20.0. Use parameter
-               'ncols' instead. E.g., ``required_z=True`` is equivalent to ``ncols=3``.
+               'mincols' instead. E.g., ``required_z=True`` is equivalent to
+               ``mincols=3``.
         extra_arrays : list of 1-D arrays
             A list of numpy arrays in addition to x, y, and z. All of these arrays must
             be of the same size as the x/y/z arrays.
@@ -1830,12 +1831,12 @@ class Session:
         if required_z is True:
             warnings.warn(
                 "The parameter 'required_z' is deprecated in v0.16.0 and will be "
-                "removed in v0.20.0. Use parameter 'ncols' instead. E.g., "
-                "``required_z=True`` is equivalent to ``ncols=3``.",
+                "removed in v0.20.0. Use parameter 'mincols' instead. E.g., "
+                "``required_z=True`` is equivalent to ``mincols=3``.",
                 category=FutureWarning,
                 stacklevel=1,
             )
-            ncols = 3
+            mincols = 3
 
         kind = data_kind(data, required=required_data)
         _validate_data_input(
@@ -1843,7 +1844,7 @@ class Session:
             x=x,
             y=y,
             z=z,
-            ncols=ncols,
+            mincols=mincols,
             required_data=required_data,
             kind=kind,
         )

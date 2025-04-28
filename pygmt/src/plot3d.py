@@ -259,5 +259,5 @@ def plot3d(  # noqa: PLR0912
         kwargs["S"] = "u0.2c"
 
     with Session() as lib:
-        with lib.virtualfile_in(check_kind="vector", data=data, ncols=3) as vintbl:
+        with lib.virtualfile_in(check_kind="vector", data=data, mincols=3) as vintbl:
             lib.call_module(module="plot3d", args=build_arg_list(kwargs, infile=vintbl))

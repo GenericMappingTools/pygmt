@@ -148,7 +148,7 @@ def contour(
 
     with Session() as lib:
         with lib.virtualfile_in(
-            check_kind="vector", data=data, x=x, y=y, z=z, ncols=3
+            check_kind="vector", data=data, x=x, y=y, z=z, mincols=3
         ) as vintbl:
             lib.call_module(
                 module="contour", args=build_arg_list(kwargs, infile=vintbl)
