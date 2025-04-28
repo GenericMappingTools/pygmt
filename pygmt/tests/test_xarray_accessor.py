@@ -15,7 +15,7 @@ from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 
 
-def test_accessor_gridline_cartesian():
+def test_xarray_accessor_gridline_cartesian():
     """
     Check that the accessor returns the correct registration and gtype values for a
     Cartesian, gridline-registered grid.
@@ -26,7 +26,7 @@ def test_accessor_gridline_cartesian():
     assert grid.gmt.gtype == GridType.CARTESIAN
 
 
-def test_accessor_pixel_geographic():
+def test_xarray_accessor_pixel_geographic():
     """
     Check that the accessor returns the correct registration and gtype values for a
     geographic, pixel-registered grid.
@@ -37,7 +37,7 @@ def test_accessor_pixel_geographic():
     assert grid.gmt.gtype == GridType.GEOGRAPHIC
 
 
-def test_accessor_set_registration():
+def test_xarray_accessor_set_registration():
     """
     Check that we can set the registration of a grid.
     """
@@ -63,7 +63,7 @@ def test_accessor_set_registration():
 
 
 @pytest.mark.benchmark
-def test_accessor_set_gtype():
+def test_xarray_accessor_set_gtype():
     """
     Check that we can set the gtype of a grid.
     """
@@ -87,7 +87,7 @@ def test_accessor_set_gtype():
     assert grid.gmt.gtype == GridType.CARTESIAN == 0
 
 
-def test_accessor_set_invalid_registration_and_gtype():
+def test_xarray_accessor_set_invalid_registration_and_gtype():
     """
     Check that setting invalid values on registration and gtype do not work.
     """
@@ -108,7 +108,7 @@ def test_accessor_set_invalid_registration_and_gtype():
     condition=sys.platform == "win32" and Version(__gmt_version__) < Version("6.5.0"),
     reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/7573",
 )
-def test_accessor_sliced_datacube():
+def test_xarray_accessor_sliced_datacube():
     """
     Check that a 2-D grid which is sliced from an n-dimensional datacube works with
     accessor methods.
@@ -130,7 +130,7 @@ def test_accessor_sliced_datacube():
         Path(fname).unlink()
 
 
-def test_accessor_grid_source_file_not_exist():
+def test_xarray_accessor_grid_source_file_not_exist():
     """
     Check that the accessor fallbacks to the default registration and gtype when the
     grid source file (i.e., grid.encoding["source"]) doesn't exist.
