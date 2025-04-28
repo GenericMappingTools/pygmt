@@ -1781,7 +1781,8 @@ class Session:
         x/y/z : 1-D arrays or None
             x, y, and z columns as numpy arrays.
         ncols
-            Number of minimum required columns.
+            Number of minimum required columns. Default is 2 (i.e. require x and y
+            columns).
         required_data : bool
             Set to True when 'data' is required, or False when dealing with
             optional virtual files. [Default is True].
