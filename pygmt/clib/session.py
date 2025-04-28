@@ -1757,7 +1757,7 @@ class Session:
         x=None,
         y=None,
         z=None,
-        ncols=2,
+        mincols=2,
         required_data=True,
         required_z=False,
         extra_arrays=None,
@@ -1774,14 +1774,15 @@ class Session:
         check_kind : str or None
             Used to validate the type of data that can be passed in. Choose
             from 'raster', 'vector', or None. Default is None (no validation).
-        data : str or pathlib.Path or xarray.DataArray or {table-like} or dict or None
+        data
             Any raster or vector data format. This could be a file name or
             path, a raster grid, a vector matrix/arrays, or other supported
             data input.
         x/y/z : 1-D arrays or None
             x, y, and z columns as numpy arrays.
-        ncols
-            Number of minimum required columns.
+        mincols
+            Number of minimum required columns. Default is 2 (i.e. require x and y
+            columns).
         required_data : bool
             Set to True when 'data' is required, or False when dealing with
             optional virtual files. [Default is True].
@@ -1790,7 +1791,8 @@ class Session:
 
             .. deprecated:: v0.16.0
                The parameter 'required_z' will be removed in v0.20.0. Use parameter
-               'ncols' instead. E.g., ``required_z=True`` is equivalent to ``ncols=3``.
+               'mincols' instead. E.g., ``required_z=True`` is equivalent to
+               ``mincols=3``.
         extra_arrays : list of 1-D arrays
             A list of numpy arrays in addition to x, y, and z. All of these arrays must
             be of the same size as the x/y/z arrays.
@@ -1829,12 +1831,12 @@ class Session:
         if required_z is True:
             warnings.warn(
                 "The parameter 'required_z' is deprecated in v0.16.0 and will be "
-                "removed in v0.20.0. Use parameter 'ncols' instead. E.g., "
-                "``required_z=True`` is equivalent to ``ncols=3``.",
+                "removed in v0.20.0. Use parameter 'mincols' instead. E.g., "
+                "``required_z=True`` is equivalent to ``mincols=3``.",
                 category=FutureWarning,
                 stacklevel=1,
             )
-            ncols = 3
+            mincols = 3
 
         # Specify either data or x/y/z.
         if data is not None and any(v is not None for v in (x, y, z)):
@@ -1915,7 +1917,7 @@ class Session:
                 _data = data.T
 
         # Check if _data to be passed to the virtualfile_from_ function is valid.
-        _validate_data_input(data=_data, kind=kind, ncols=ncols)
+        _validate_data_input(data=_data, kind=kind, mincols=mincols)
 
         # Finally create the virtualfile from the data, to be passed into GMT
         file_context = _virtualfile_from(_data)

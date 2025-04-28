@@ -2,6 +2,7 @@
 wiggle - Plot z=f(x,y) anomalies along tracks.
 """
 
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -31,7 +32,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def wiggle(
     self,
-    data=None,
+    data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     z=None,
@@ -55,7 +56,7 @@ def wiggle(
     ----------
     x/y/z : 1-D arrays
         The arrays of x and y coordinates and z data points.
-    data : str, {table-like}
+    data
         Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
         Use parameter ``incols`` to choose which columns are x, y, z,
@@ -108,6 +109,6 @@ def wiggle(
 
     with Session() as lib:
         with lib.virtualfile_in(
-            check_kind="vector", data=data, x=x, y=y, z=z, ncols=3
+            check_kind="vector", data=data, x=x, y=y, z=z, mincols=3
         ) as vintbl:
             lib.call_module(module="wiggle", args=build_arg_list(kwargs, infile=vintbl))
