@@ -121,5 +121,4 @@ class GMTBackendEntrypoint(BackendEntrypoint):
                 raster.encoding["source"] = (
                     source[0] if isinstance(source, list) else source
                 )
-                _ = raster.gmt  # Load GMTDataArray accessor information
                 return raster.to_dataset()
