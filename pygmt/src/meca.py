@@ -7,6 +7,7 @@ from typing import Literal
 
 import numpy as np
 import pandas as pd
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -132,7 +133,7 @@ def _auto_offset(spec) -> bool:
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def meca(  # noqa: PLR0913
     self,
-    spec,
+    spec: PathLike | TableLike,
     scale,
     convention: Literal["aki", "gcmt", "mt", "partial", "principal_axis"] | None = None,
     component: Literal["full", "dc", "deviatoric"] = "full",

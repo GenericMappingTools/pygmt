@@ -4,6 +4,7 @@ ternary - Plot data on ternary diagrams.
 
 import pandas as pd
 from packaging.version import Version
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session, __gmt_version__
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -25,7 +26,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def ternary(
     self,
-    data,
+    data: PathLike | TableLike,
     alabel: str | None = None,
     blabel: str | None = None,
     clabel: str | None = None,
@@ -48,7 +49,7 @@ def ternary(
 
     Parameters
     ----------
-    data : str, list, {table-like}
+    data
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         {table-classes}.
     width : str

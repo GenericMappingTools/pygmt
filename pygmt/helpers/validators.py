@@ -5,11 +5,12 @@ Functions to check if given arguments are valid.
 import warnings
 from typing import Literal
 
+from pygmt._typing import PathLike
 from pygmt.exceptions import GMTInvalidInput
 
 
 def validate_output_table_type(
-    output_type: Literal["pandas", "numpy", "file"], outfile: str | None = None
+    output_type: Literal["pandas", "numpy", "file"], outfile: PathLike | None = None
 ) -> Literal["pandas", "numpy", "file"]:
     """
     Check if the ``output_type`` and ``outfile`` parameters are valid.
