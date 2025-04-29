@@ -33,7 +33,6 @@ dependencies:
     - pytest-cov
     - pytest-doctestplus
     - pytest-mpl
-    # Dev dependencies (testing)
     - netCDF4
     # Dev dependencies (building documentation)
     - geodatasets
