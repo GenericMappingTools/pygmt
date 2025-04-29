@@ -119,9 +119,7 @@ def test_xarray_backend_gmt_read_invalid_kind():
     """
     with pytest.raises(
         TypeError,
-        match=re.escape(
-            "GMTBackendEntrypoint.open_dataset() missing 1 required keyword-only argument: 'raster_kind'"
-        ),
+        match=re.escape("missing a required argument: 'raster_kind'"),
     ):
         xr.open_dataarray("nokind.nc", engine="gmt")
 
