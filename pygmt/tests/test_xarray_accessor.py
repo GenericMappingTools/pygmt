@@ -20,8 +20,7 @@ def test_xarray_accessor_gridline_cartesian():
     Check that the accessor returns the correct registration and gtype values for a
     Cartesian, gridline-registered grid.
     """
-    fname = which(fname="@test.dat.nc", download="a")
-    grid = xr.open_dataarray(fname, engine="netcdf4")
+    grid = xr.load_dataarray("@test.dat.nc", engine="gmt", raster_kind="grid")
     assert grid.gmt.registration == GridRegistration.GRIDLINE
     assert grid.gmt.gtype == GridType.CARTESIAN
 
@@ -31,8 +30,7 @@ def test_xarray_accessor_pixel_geographic():
     Check that the accessor returns the correct registration and gtype values for a
     geographic, pixel-registered grid.
     """
-    fname = which(fname="@earth_relief_01d_p", download="a")
-    grid = xr.open_dataarray(fname, engine="netcdf4")
+    grid = xr.load_dataarray("@earth_relief_01d_p", engine="gmt", raster_kind="grid")
     assert grid.gmt.registration == GridRegistration.PIXEL
     assert grid.gmt.gtype == GridType.GEOGRAPHIC
 
