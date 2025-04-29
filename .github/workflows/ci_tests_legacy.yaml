@@ -64,7 +64,6 @@ jobs:
             numpy=1.26
             pandas
             xarray
-            netCDF4
             packaging
             contextily=1.5
             geopandas=1.0

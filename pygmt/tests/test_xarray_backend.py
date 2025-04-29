@@ -2,6 +2,7 @@
 Tests for xarray 'gmt' backend engine.
 """
 
+import importlib
 import re
 
 import numpy as np
@@ -12,8 +13,11 @@ from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
+_HAS_NETCDF4 = bool(importlib.util.find_spec("netCDF4"))
+
 
 @pytest.mark.benchmark
+@pytest.mark.skipif(condition=not _HAS_NETCDF4, reason="netCDF4 is not installed")
 def test_xarray_backend_load_dataarray():
     """
     Check that xarray.load_dataarray works to read a netCDF grid with
