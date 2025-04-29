@@ -2,13 +2,14 @@
 An xarray backend for reading raster grid/image files using the 'gmt' engine.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list
+from pygmt.helpers import build_arg_list, kwargs_to_strings
 from pygmt.src.which import which
 from xarray.backends import BackendEntrypoint
 
@@ -71,15 +72,17 @@ class GMTBackendEntrypoint(BackendEntrypoint):
     """
 
     description = "Open raster (.grd, .nc or .tif) files in Xarray via GMT."
-    open_dataset_parameters = ("filename_or_obj", "raster_kind")
+    open_dataset_parameters = ("filename_or_obj", "raster_kind", "region")
     url = "https://pygmt.org/dev/api/generated/pygmt.GMTBackendEntrypoint.html"
 
+    @kwargs_to_strings(region="sequence")
     def open_dataset(  # type: ignore[override]
         self,
         filename_or_obj: PathLike,
         *,
         drop_variables=None,  # noqa: ARG002
         raster_kind: Literal["grid", "image"],
+        region: Sequence[float] | str | None = None,
         # other backend specific keyword arguments
         # `chunks` and `cache` DO NOT go here, they are handled by xarray
     ) -> xr.Dataset:
@@ -94,6 +97,9 @@ class GMTBackendEntrypoint(BackendEntrypoint):
             :gmt-docs:`reference/features.html#grid-file-format`.
         raster_kind
             Whether to read the file as a "grid" (single-band) or "image" (multi-band).
+        region
+            Optional. The subregion of the grid or image to load, in the form of a
+            sequence [*xmin*, *xmax*, *ymin*, *ymax*] or an ISO country code.
         """
         if raster_kind not in {"grid", "image"}:
             msg = f"Invalid raster kind: '{raster_kind}'. Valid values are 'grid' or 'image'."
@@ -101,7 +107,7 @@ class GMTBackendEntrypoint(BackendEntrypoint):
 
         with Session() as lib:
             with lib.virtualfile_out(kind=raster_kind) as voutfile:
-                kwdict = {"T": {"grid": "g", "image": "i"}[raster_kind]}
+                kwdict = {"R": region, "T": {"grid": "g", "image": "i"}[raster_kind]}
                 lib.call_module(
                     module="read",
                     args=[filename_or_obj, voutfile, *build_arg_list(kwdict)],
