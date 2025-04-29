@@ -144,7 +144,7 @@ def test_xarray_accessor_grid_source_file_not_exist():
     # Registration and gtype are correct.
     assert grid.gmt.registration == GridRegistration.PIXEL
     assert grid.gmt.gtype == GridType.GEOGRAPHIC
-    # The source grid file is undefined.
+    # The source grid file is undefined for tiled grids.
     assert grid.encoding.get("source") is None
 
     # For a sliced grid, fallback to default registration and gtype, because the source
