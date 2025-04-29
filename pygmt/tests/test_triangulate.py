@@ -156,8 +156,8 @@ def test_regular_grid_with_outgrid_param(dataframe, expected_grid):
         )
         assert output is None  # check that output is None since outgrid is set
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
-        with xr.open_dataarray(tmpfile.name) as grid:
-            assert isinstance(grid, xr.DataArray)
-            assert grid.gmt.registration == GridRegistration.GRIDLINE
-            assert grid.gmt.gtype == GridType.CARTESIAN
-            xr.testing.assert_allclose(a=grid, b=expected_grid)
+        grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
+        assert isinstance(grid, xr.DataArray)
+        assert grid.gmt.registration == GridRegistration.GRIDLINE
+        assert grid.gmt.gtype == GridType.CARTESIAN
+        xr.testing.assert_allclose(a=grid, b=expected_grid)

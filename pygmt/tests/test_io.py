@@ -12,7 +12,7 @@ from pygmt.io import load_dataarray
 pytest.importorskip("netCDF4")
 
 
-@pytest.mark.benchmark
+# TODO(PyGMT>=0.20.0): Remove test_io_load_dataarray
 def test_io_load_dataarray():
     """
     Check that load_dataarray works to read a netCDF grid with GMTDataArrayAccessor
@@ -24,7 +24,10 @@ def test_io_load_dataarray():
             data=rng.random((2, 2)), coords=[[0.1, 0.2], [0.3, 0.4]], dims=("x", "y")
         )
         grid.to_netcdf(tmpfile.name)
-        dataarray = load_dataarray(tmpfile.name)
+
+        with pytest.warns(FutureWarning):
+            dataarray = load_dataarray(tmpfile.name)
+
         assert dataarray.gmt.gtype == GridType.CARTESIAN
         assert dataarray.gmt.registration == GridRegistration.PIXEL
         # this would fail if we used xr.open_dataarray instead of load_dataarray
