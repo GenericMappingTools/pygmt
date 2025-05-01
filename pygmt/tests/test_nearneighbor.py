@@ -82,7 +82,7 @@ def test_nearneighbor_with_outgrid_param(ship_data):
         )
         assert output is None  # check that output is None since outgrid is set
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
-        with xr.open_dataarray(tmpfile.name) as grid:
-            assert isinstance(grid, xr.DataArray)  # ensure netCDF grid loads ok
-            assert grid.shape == (121, 121)
-            npt.assert_allclose(grid.mean(), -2378.2385)
+        grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
+        assert isinstance(grid, xr.DataArray)  # ensure netCDF grid loads ok
+        assert grid.shape == (121, 121)
+        npt.assert_allclose(grid.mean(), -2378.2385)
