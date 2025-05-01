@@ -263,7 +263,7 @@ COMMON_DOCSTRINGS = {
     "panel": r"""
         panel : bool, int, or list
             Select a specific subplot panel. Only allowed when used in
-            :meth:`Figure.subplot`.
+            :meth:`Figure.subplot` mode.
 
             - ``True`` to advance to the next panel in the selected order.
             - *index* to specify the index of the desired panel.
