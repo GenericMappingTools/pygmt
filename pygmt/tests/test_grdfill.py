@@ -8,7 +8,7 @@ import numpy as np
 import numpy.testing as npt
 import pytest
 import xarray as xr
-from pygmt import grdfill, load_dataarray
+from pygmt import grdfill
 from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
@@ -96,7 +96,7 @@ def test_grdfill_file_out(grid, expected_grid):
         result = grdfill(grid=grid, constantfill=20, outgrid=tmpfile.name)
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0  # check that outfile exists
-        temp_grid = load_dataarray(tmpfile.name)
+        temp_grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
@@ -114,12 +114,30 @@ def test_grdfill_gridfill_dataarray(grid):
     npt.assert_array_equal(result[3:6, 3:5], bggrid[3:6, 3:5])
 
 
+def test_grdfill_inquire(grid):
+    """
+    Test grdfill with inquire mode.
+    """
+    bounds = grdfill(grid=grid, inquire=True)
+    assert isinstance(bounds, np.ndarray)
+    assert bounds.shape == (1, 4)
+    npt.assert_allclose(bounds, [[-52.0, -50.0, -21.0, -18.0]])
+
+
 def test_grdfill_required_args(grid):
     """
-    Test that grdfill fails without arguments for `mode` and `L`.
+    Test that grdfill fails without filling parameters or 'inquire'.
     """
     with pytest.raises(GMTInvalidInput):
         grdfill(grid=grid)
+
+
+def test_grdfill_inquire_and_fill(grid):
+    """
+    Test that grdfill fails if both inquire and fill parameters are given.
+    """
+    with pytest.raises(GMTInvalidInput):
+        grdfill(grid=grid, inquire=True, constantfill=20)
 
 
 # TODO(PyGMT>=0.19.0): Remove this test.
