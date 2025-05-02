@@ -6,6 +6,7 @@ from typing import Literal
 
 import numpy as np
 import pandas as pd
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -36,12 +37,12 @@ from pygmt.helpers import (
 )
 @kwargs_to_strings(E="sequence", L="sequence", T="sequence", W="sequence", C="sequence")
 def project(
-    data=None,
+    data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
-    outfile: str | None = None,
+    outfile: PathLike | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -112,7 +113,7 @@ def project(
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
@@ -136,7 +137,7 @@ def project(
     convention : str
         Specify the desired output using any combination of **xyzpqrs**, in
         any order [Default is **xypqrsz**]. Do not space between the letters.
-        Use lower case. The output will be columns of values corresponding to
+        Use lowercase. The output will be columns of values corresponding to
         your ``convention``. The **z** flag is special and refers to all
         numerical columns beyond the leading **x** and **y** in your input
         record. The **z** flag also includes any trailing text (which is
@@ -222,15 +223,14 @@ def project(
           (depends on ``output_type``)
     """
     if kwargs.get("C") is None:
-        raise GMTInvalidInput("The `center` parameter must be specified.")
+        msg = "The 'center' parameter must be specified."
+        raise GMTInvalidInput(msg)
     if kwargs.get("G") is None and data is None:
-        raise GMTInvalidInput(
-            "The `data` parameter must be specified unless `generate` is used."
-        )
+        msg = "The 'data' parameter must be specified unless 'generate' is used."
+        raise GMTInvalidInput(msg)
     if kwargs.get("G") is not None and kwargs.get("F") is not None:
-        raise GMTInvalidInput(
-            "The `convention` parameter is not allowed with `generate`."
-        )
+        msg = "The 'convention' parameter is not allowed with 'generate'."
+        raise GMTInvalidInput(msg)
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
@@ -246,7 +246,7 @@ def project(
                 x=x,
                 y=y,
                 z=z,
-                required_z=False,
+                mincols=2,
                 required_data=False,
             ) as vintbl,
             lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,

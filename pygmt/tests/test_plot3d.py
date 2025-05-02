@@ -88,6 +88,21 @@ def test_plot3d_fail_1d_array_with_data(data, region):
         fig.plot3d(style="cc", fill="red", transparency=data[:, 2] * 100, **kwargs)
 
 
+def test_plot3d_fail_no_data(data, region):
+    """
+    Should raise an exception if data is not enough or too much.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.plot3d(
+            style="c0.2c", x=data[0], y=data[1], region=region, projection="X10c"
+        )
+    with pytest.raises(GMTInvalidInput):
+        fig.plot3d(
+            style="c0.2c", data=data, x=data[0], region=region, projection="X10c"
+        )
+
+
 @pytest.mark.mpl_image_compare
 def test_plot3d_projection(data, region):
     """
@@ -311,6 +326,28 @@ def test_plot3d_sizes_colors_transparencies():
         size=size,
         cmap="gray",
         transparency=transparency,
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_plot3d_symbol():
+    """
+    Plot the data using array-like symbols.
+    """
+    fig = Figure()
+    fig.plot3d(
+        x=[1, 2, 3, 4],
+        y=[1, 2, 3, 4],
+        z=[1, 2, 3, 4],
+        region=[0, 5, 0, 5, 0, 5],
+        projection="X4c",
+        zsize="3c",
+        fill="blue",
+        size=[0.1, 0.2, 0.3, 0.4],
+        symbol=["c", "t", "i", "u"],
+        frame=["WSenZ", "afg"],
+        perspective=[135, 30],
     )
     return fig
 

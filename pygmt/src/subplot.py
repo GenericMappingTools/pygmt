@@ -1,5 +1,5 @@
 """
-subplot - Manage modern mode figure subplot configuration and selection.
+subplot - Manage figure subplot configuration and selection.
 """
 
 import contextlib
@@ -33,7 +33,7 @@ from pygmt.helpers import (
 @kwargs_to_strings(Ff="sequence", Fs="sequence", M="sequence", R="sequence")
 def subplot(self, nrows=1, ncols=1, **kwargs):
     r"""
-    Create multi-panel subplot figures.
+    Manage figure subplot configuration and selection.
 
     This method is used to split the current figure into a rectangular layout
     of subplots that each may contain a single self-contained figure. Begin by
@@ -148,11 +148,11 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
     kwargs = self._preprocess(**kwargs)
 
     if nrows < 1 or ncols < 1:
-        raise GMTInvalidInput("Please ensure that both 'nrows'>=1 and 'ncols'>=1.")
+        msg = "Please ensure that both 'nrows'>=1 and 'ncols'>=1."
+        raise GMTInvalidInput(msg)
     if kwargs.get("Ff") and kwargs.get("Fs"):
-        raise GMTInvalidInput(
-            "Please provide either one of 'figsize' or 'subsize' only."
-        )
+        msg = "Please provide either one of 'figsize' or 'subsize' only."
+        raise GMTInvalidInput(msg)
 
     # Need to use separate sessions for "subplot begin" and "subplot end".
     # Otherwise, "subplot end" will use the last session, which may cause

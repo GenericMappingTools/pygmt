@@ -9,7 +9,7 @@ from packaging.version import Version
 from pygmt.clib.session import Session, __gmt_version__
 from pygmt.exceptions import GMTVersionError
 
-required_gmt_version = "6.3.0"
+required_gmt_version = "6.4.0"
 
 # Check if the GMT version is older than the required version.
 if Version(__gmt_version__) < Version(required_gmt_version):

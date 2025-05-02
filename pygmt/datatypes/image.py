@@ -20,7 +20,7 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
     >>> from pygmt.clib import Session
     >>> with Session() as lib:
     ...     with lib.virtualfile_out(kind="image") as voutimg:
-    ...         lib.call_module("read", ["@earth_day_01d_p", voutimg, "-Ti"])
+    ...         lib.call_module("read", ["@earth_day_01d", voutimg, "-Ti"])
     ...         # Read the image from the virtual file
     ...         image = lib.read_virtualfile(vfname=voutimg, kind="image").contents
     ...         # The image header
@@ -96,7 +96,7 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
         ("hidden", ctp.c_void_p),
     ]
 
-    def to_dataarray(self) -> xr.DataArray:
+    def to_xarray(self) -> xr.DataArray:
         """
         Convert a _GMT_IMAGE object to an :class:`xarray.DataArray` object.
 
@@ -110,11 +110,11 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
         >>> from pygmt.clib import Session
         >>> with Session() as lib:
         ...     with lib.virtualfile_out(kind="image") as voutimg:
-        ...         lib.call_module("read", ["@earth_day_01d_p", voutimg, "-Ti"])
+        ...         lib.call_module("read", ["@earth_day_01d", voutimg, "-Ti"])
         ...         # Read the image from the virtual file
         ...         image = lib.read_virtualfile(voutimg, kind="image")
         ...         # Convert to xarray.DataArray and use it later
-        ...         da = image.contents.to_dataarray()
+        ...         da = image.contents.to_xarray()
         >>> da  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
         <xarray.DataArray 'z' (band: 3, y: 180, x: 360)>...
         array([[[ 10,  10,  10, ...,  10,  10,  10],
@@ -166,7 +166,7 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
             axis:          Y
             actual_range:  [-90.  90.]
         >>> da.gmt.registration, da.gmt.gtype
-        (1, 1)
+        (<GridRegistration.PIXEL: 1>, <GridType.GEOGRAPHIC: 1>)
         """
         # The image header
         header = self.header.contents

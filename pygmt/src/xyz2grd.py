@@ -3,6 +3,7 @@ xyz2grd - Convert data table to a grid.
 """
 
 import xarray as xr
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -29,10 +30,15 @@ __doctest_skip__ = ["xyz2grd"]
 )
 @kwargs_to_strings(I="sequence", R="sequence")
 def xyz2grd(
-    data=None, x=None, y=None, z=None, outgrid: str | None = None, **kwargs
+    data: PathLike | TableLike | None = None,
+    x=None,
+    y=None,
+    z=None,
+    outgrid: PathLike | None = None,
+    **kwargs,
 ) -> xr.DataArray | None:
     r"""
-    Create a grid file from table data.
+    Convert data table to a grid.
 
     Reads one or more tables with *x, y, z* columns and creates a binary grid
     file. :func:`pygmt.xyz2grd` will report if some of the nodes are not filled
@@ -46,7 +52,7 @@ def xyz2grd(
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D {table-classes}.
     x/y/z : 1-D arrays
@@ -143,12 +149,13 @@ def xyz2grd(
     ... )
     """
     if kwargs.get("I") is None or kwargs.get("R") is None:
-        raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
+        msg = "Both 'region' and 'spacing' must be specified."
+        raise GMTInvalidInput(msg)
 
     with Session() as lib:
         with (
             lib.virtualfile_in(
-                check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
+                check_kind="vector", data=data, x=x, y=y, z=z, mincols=3
             ) as vintbl,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):

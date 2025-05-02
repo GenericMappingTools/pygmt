@@ -1,5 +1,5 @@
 """
-logo - Plot the GMT logo
+logo - Plot the GMT logo.
 """
 
 from pygmt.clib import Session

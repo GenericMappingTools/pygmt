@@ -1,10 +1,11 @@
 """
-binstats - Bin spatial data and determine statistics per bin
+binstats - Bin spatial data and determine statistics per bin.
 """
 
 from typing import Literal
 
 import xarray as xr
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -32,8 +33,8 @@ from pygmt.helpers import (
 )
 @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
 def binstats(
-    data,
-    outgrid: str | None = None,
+    data: PathLike | TableLike,
+    outgrid: PathLike | None = None,
     statistic: Literal[
         "mean",
         "mad",
@@ -72,9 +73,8 @@ def binstats(
 
     Parameters
     ----------
-    data : str, {table-like}
-        A file name of an ASCII data table or a 2-D
-        {table-classes}.
+    data
+        A file name of an ASCII data table or a 2-D {table-classes}.
     {outgrid}
     statistic
         Choose the statistic that will be computed per node based on the points that are
@@ -103,7 +103,7 @@ def binstats(
         Set the value assigned to empty nodes [Default is NaN].
     normalize : bool
         Normalize the resulting grid values by the area represented by the
-        search *radius* [no normalization].
+        search *radius* [Default is no normalization].
     search_radius : float or str
         Set the *search_radius* that determines which data points are
         considered close to a node. Append the distance unit.
@@ -129,7 +129,7 @@ def binstats(
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
     """
     # The 'statistic' parameter is alised to the C option.
@@ -152,7 +152,8 @@ def binstats(
         "sum": "z",
     }
     if statistic not in {*lookup_statistic.keys(), *lookup_statistic.values()}:
-        raise GMTInvalidInput(f"Unknown 'statistic' method: {statistic}.")
+        msg = f"Unknown 'statistic' method: {statistic}."
+        raise GMTInvalidInput(msg)
     kwargs["C"] = lookup_statistic.get(statistic, statistic)
     if statistic == "quantile":
         kwargs["C"] += f"{quantile_value}"

@@ -7,8 +7,8 @@ import inspect
 import string
 from pathlib import Path
 
+import xarray as xr
 from pygmt.exceptions import GMTImageComparisonFailure
-from pygmt.io import load_dataarray
 from pygmt.src import which
 
 
@@ -112,11 +112,12 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
                 else:  # Images are not the same
                     for key in ["actual", "expected", "diff"]:
                         err[key] = Path(err[key]).relative_to(".")
-                    raise GMTImageComparisonFailure(
+                    msg = (
                         f"images not close (RMS {err['rms']:.3f}):\n"
                         f"\t{err['actual']}\n"
                         f"\t{err['expected']}"
                     )
+                    raise GMTImageComparisonFailure(msg)
             finally:
                 del fig_ref
                 del fig_test
@@ -153,7 +154,7 @@ def load_static_earth_relief():
         A grid of Earth relief for internal tests.
     """
     fname = which("@static_earth_relief.nc", download="c")
-    return load_dataarray(fname)
+    return xr.load_dataarray(fname, engine="gmt", raster_kind="grid")
 
 
 def skip_if_no(package):

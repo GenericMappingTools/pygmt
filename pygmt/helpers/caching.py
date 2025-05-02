@@ -5,7 +5,7 @@ Functions for downloading remote data files to cache.
 from pygmt.src import which
 
 
-def cache_data():
+def cache_data() -> None:
     """
     Download GMT remote data files used in PyGMT tests and docs to cache folder.
     """
@@ -13,8 +13,11 @@ def cache_data():
     datasets = [
         # List of GMT remote datasets.
         "@earth_age_01d_g",
-        "@earth_day_01d_p",
+        "@earth_day_01d",
+        "@earth_dist_01d",
+        "@earth_edefl_01d",
         "@earth_faa_01d_g",
+        "@earth_faaerror_01d_g",
         "@earth_gebco_01d_g",
         "@earth_gebcosi_01d_g",
         "@earth_gebcosi_15m_p",
@@ -22,6 +25,11 @@ def cache_data():
         "@earth_mag_01d_g",
         "@earth_mag4km_01d_g",
         "@earth_mask_01d_g",
+        "@earth_mdt_01d_g",
+        "@earth_mdt_07m_g",
+        "@earth_mss_01d_g",
+        "@earth_ndefl_01d",
+        "@earth_night_01d",
         "@earth_relief_01d_g",
         "@earth_relief_01d_p",
         "@earth_relief_10m_g",
@@ -44,10 +52,15 @@ def cache_data():
         "@N00W030.earth_age_01m_g.nc",
         "@N30E060.earth_age_01m_g.nc",
         "@N30E090.earth_age_01m_g.nc",
+        "@N00W030.earth_dist_01m_g.nc",
+        "@N00W030.earth_edefl_01m_p.nc",
         "@N00W030.earth_faa_01m_p.nc",
+        "@N00W030.earth_faaerror_01m_p.nc",
         "@N00W030.earth_geoid_01m_g.nc",
         "@S30W060.earth_mag_02m_p.nc",
         "@S30W120.earth_mag4km_02m_p.nc",
+        "@N30E090.earth_mss_01m_g.nc",
+        "@N30E090.earth_ndefl_01m_p.nc",
         "@N00W090.earth_relief_03m_p.nc",
         "@N00E135.earth_relief_30s_g.nc",
         "@N00W010.earth_relief_15s_p.nc",

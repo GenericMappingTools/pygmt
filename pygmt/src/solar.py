@@ -1,5 +1,5 @@
 """
-solar - Plot day-night terminators and twilight.
+solar - Plot day-night terminators and other sunlight parameters.
 """
 
 from typing import Literal
@@ -32,7 +32,7 @@ def solar(
     **kwargs,
 ):
     r"""
-    Plot day-light terminators or twilights.
+    Plot day-night terminators and other sunlight parameters.
 
     This function plots the day-night terminator. Alternatively, it can plot the
     terminators for civil twilight, nautical twilight, or astronomical twilight.
@@ -49,7 +49,7 @@ def solar(
 
         - ``"astronomical"``: Astronomical twilight
         - ``"civil"``: Civil twilight
-        - ``"day_night"``: Day/night terminator
+        - ``"day_night"``: Day-night terminator
         - ``"nautical"``: Nautical twilight
 
         Refer to https://en.wikipedia.org/wiki/Twilight for the definitions of different
@@ -102,10 +102,11 @@ def solar(
 
     valid_terminators = ["day_night", "civil", "nautical", "astronomical"]
     if terminator not in valid_terminators and terminator not in "dcna":
-        raise GMTInvalidInput(
+        msg = (
             f"Unrecognized solar terminator type '{terminator}'. "
             f"Valid values are {valid_terminators}."
         )
+        raise GMTInvalidInput(msg)
     kwargs["T"] = terminator[0]
     if terminator_datetime:
         try:
@@ -113,7 +114,8 @@ def solar(
                 "%Y-%m-%dT%H:%M:%S.%f"
             )
         except ValueError as verr:
-            raise GMTInvalidInput("Unrecognized datetime format.") from verr
+            msg = "Unrecognized datetime format."
+            raise GMTInvalidInput(msg) from verr
         kwargs["T"] += f"+d{datetime_string}"
     with Session() as lib:
         lib.call_module(module="solar", args=build_arg_list(kwargs))

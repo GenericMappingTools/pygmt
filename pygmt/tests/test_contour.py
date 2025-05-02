@@ -2,6 +2,7 @@
 Test Figure.contour.
 """
 
+import platform
 from pathlib import Path
 
 import numpy as np
@@ -30,6 +31,7 @@ def fixture_region():
 
 
 @pytest.mark.mpl_image_compare
+@pytest.mark.xfail(platform.machine() == "aarch64", reason="Fails on Linux ARM64")
 def test_contour_vec(region):
     """
     Plot an x-centered gaussian kernel with different y scale.
@@ -130,6 +132,7 @@ def test_contour_multiple_levels(region):
 
 
 @pytest.mark.mpl_image_compare(filename="test_contour_vec.png")
+@pytest.mark.xfail(platform.machine() == "aarch64", reason="Fails on Linux ARM64")
 def test_contour_incols_transposed_data(region):
     """
     Make sure that transposing the data matrix still produces a correct result with

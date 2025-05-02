@@ -2,8 +2,11 @@
 Test Figure.grdimage on 3-band RGB images.
 """
 
+import numpy as np
 import pytest
-from pygmt import Figure, which
+from pygmt import Figure
+from pygmt.clib.session import DTYPES_NUMERIC
+from pygmt.datasets import load_blue_marble
 
 rioxarray = pytest.importorskip("rioxarray")
 
@@ -14,12 +17,9 @@ def fixture_xr_image():
     Load the image data from Blue Marble as an xarray.DataArray with shape {"band": 3,
     "y": 180, "x": 360}.
     """
-    geotiff = which(fname="@earth_day_01d_p", download="c")
-    with rioxarray.open_rasterio(filename=geotiff) as rda:
-        if len(rda.band) == 3:
-            xr_image = rda.load()
-        assert xr_image.sizes == {"band": 3, "y": 180, "x": 360}
-        return xr_image
+    xr_image = load_blue_marble(resolution="01d")
+    assert xr_image.sizes == {"band": 3, "y": 180, "x": 360}
+    return xr_image
 
 
 @pytest.mark.mpl_image_compare
@@ -45,7 +45,7 @@ def test_grdimage_image_dataarray(xr_image):
 
 @pytest.mark.parametrize(
     "dtype",
-    ["int8", "uint16", "int16", "uint32", "int32", "float32", "float64"],
+    [dtype for dtype in DTYPES_NUMERIC if dtype not in {np.uint8, np.timedelta64}],
 )
 def test_grdimage_image_dataarray_unsupported_dtype(dtype, xr_image):
     """

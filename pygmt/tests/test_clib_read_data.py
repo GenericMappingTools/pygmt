@@ -11,7 +11,6 @@ import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTCLibError
 from pygmt.helpers import GMTTempFile
-from pygmt.io import load_dataarray
 from pygmt.src import which
 
 try:
@@ -27,16 +26,18 @@ def fixture_expected_xrgrid():
     """
     The expected xr.DataArray object for the static_earth_relief.nc file.
     """
-    return load_dataarray(which("@static_earth_relief.nc"))
+    return xr.load_dataarray(
+        "@static_earth_relief.nc", engine="gmt", raster_kind="grid"
+    )
 
 
 @pytest.fixture(scope="module", name="expected_xrimage")
 def fixture_expected_xrimage():
     """
-    The expected xr.DataArray object for the @earth_day_01d_p file.
+    The expected xr.DataArray object for the @earth_day_01d file.
     """
     if _HAS_RIOXARRAY:
-        with rioxarray.open_rasterio(which("@earth_day_01d_p")) as da:
+        with rioxarray.open_rasterio(which("@earth_day_01d")) as da:
             dataarray = da.load().drop_vars("spatial_ref")
             return dataarray
     return None
@@ -59,7 +60,7 @@ def test_clib_read_data_dataset():
 
         with Session() as lib:
             ds = lib.read_data(tmpfile.name, kind="dataset").contents
-            df = ds.to_dataframe(header=0)
+            df = ds.to_pandas(header=0)
             expected_df = pd.DataFrame(
                 data={
                     "x": [1.0, 4.0, 7.0, 10.0],
@@ -85,7 +86,7 @@ def test_clib_read_data_grid(expected_xrgrid):
     """
     with Session() as lib:
         grid = lib.read_data("@static_earth_relief.nc", kind="grid").contents
-        xrgrid = grid.to_dataarray()
+        xrgrid = grid.to_xarray()
         xr.testing.assert_equal(xrgrid, expected_xrgrid)
         assert grid.header.contents.n_bands == 1  # Explicitly check n_bands
 
@@ -113,7 +114,7 @@ def test_clib_read_data_grid_two_steps(expected_xrgrid):
         lib.read_data(infile, kind="grid", mode="GMT_DATA_ONLY", data=data_ptr)
 
         # Full check
-        xrgrid = data_ptr.contents.to_dataarray()
+        xrgrid = data_ptr.contents.to_xarray()
         xr.testing.assert_equal(xrgrid, expected_xrgrid)
 
 
@@ -122,11 +123,11 @@ def test_clib_read_data_grid_actual_image(expected_xrimage):
     Test the Session.read_data method for grid, but actually the file is an image.
     """
     with Session() as lib:
-        image = lib.read_data("@earth_day_01d_p", kind="grid").contents
+        image = lib.read_data("@earth_day_01d", kind="grid").contents
         # Explicitly check n_bands. Only one band is read for 3-band images.
         assert image.header.contents.n_bands == 1
 
-        xrimage = image.to_dataarray()
+        xrimage = image.to_xarray()
         assert xrimage.shape == (180, 360)
         assert xrimage.coords["x"].data.min() == -179.5
         assert xrimage.coords["x"].data.max() == 179.5
@@ -151,9 +152,9 @@ def test_clib_read_data_image(expected_xrimage):
     Test the Session.read_data method for images.
     """
     with Session() as lib:
-        image = lib.read_data("@earth_day_01d_p", kind="image").contents
+        image = lib.read_data("@earth_day_01d", kind="image").contents
 
-        xrimage = image.to_dataarray()
+        xrimage = image.to_xarray()
         assert xrimage.shape == (3, 180, 360)
         assert xrimage.coords["x"].data.min() == -179.5
         assert xrimage.coords["x"].data.max() == 179.5
@@ -172,7 +173,7 @@ def test_clib_read_data_image_two_steps(expected_xrimage):
     Test the Session.read_data method for images in two steps, first reading the header
     and then the data.
     """
-    infile = "@earth_day_01d_p"
+    infile = "@earth_day_01d"
     with Session() as lib:
         # Read the header first
         data_ptr = lib.read_data(infile, kind="image", mode="GMT_CONTAINER_ONLY")
@@ -187,7 +188,7 @@ def test_clib_read_data_image_two_steps(expected_xrimage):
         # Read the data
         lib.read_data(infile, kind="image", mode="GMT_DATA_ONLY", data=data_ptr)
 
-        xrimage = image.to_dataarray()
+        xrimage = image.to_xarray()
         assert xrimage.shape == (3, 180, 360)
         assert xrimage.coords["x"].data.min() == -179.5
         assert xrimage.coords["x"].data.max() == 179.5
@@ -207,4 +208,4 @@ def test_clib_read_data_fails():
     """
     with Session() as lib:
         with pytest.raises(GMTCLibError):
-            lib.read_data("not-exsits.txt", kind="dataset")
+            lib.read_data("not-exists.txt", kind="dataset")

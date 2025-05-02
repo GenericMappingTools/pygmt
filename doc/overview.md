@@ -18,8 +18,8 @@ and JPG for use on the web and elsewhere. In fact, PyGMT users will usually not 
 contact with the original PostScript files and get only the more convenient formats like
 PDF and PNG.
 
-The project was started in 2017 by [Leonardo Uieda](http://www.leouieda.com) and
-[Paul Wessel](http://www.soest.hawaii.edu/wessel) (the co-creator and main developer of
+The project was started in 2017 by [Leonardo Uieda](https://www.leouieda.com) and
+[Paul Wessel](https://www.soest.hawaii.edu/wessel) (the co-creator and main developer of
 GMT) at the University of Hawaiʻi at Mānoa. The development of PyGMT has been supported
 by NSF grants [OCE-1558403](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403)
 and [EAR-1948602](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1948602).
@@ -31,6 +31,14 @@ our [Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-
 ## Presentations
 
 These are conference presentations about the development of PyGMT (previously "GMT/Python"):
+
+-   "Accessing and Integrating GMT with Python and the Scientific Python Ecosystem".
+    2024.
+	Yvonne Fröhlich, Dongdong Tian, Wei Ji Leong, Max Jones, and Michael Grund.
+	Presented at *AGU 2024*.
+	doi:[10.6084/m9.figshare.28049495](https://doi.org/10.6084/m9.figshare.28049495)
+
+    ![](https://github.com/user-attachments/assets/19e1391e-648d-43da-b6f6-ecfb4f3e83e8){.align-center width="80%"}
 
 -   "Geospatial Analysis & Visualization with PyGMT".
     2022.

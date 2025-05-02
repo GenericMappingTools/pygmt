@@ -19,5 +19,5 @@ import pygmt
 
 fig = pygmt.Figure()
 # Use region "d" to specify global region (-180/180/-90/90)
-fig.coast(region="d", projection="Ks12c", land="ivory", water="bisque4", frame="afg")
+fig.coast(region="d", projection="Ks12c", frame="afg", land="ivory", water="bisque4")
 fig.show()

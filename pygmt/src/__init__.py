@@ -29,6 +29,7 @@ from pygmt.src.grdtrack import grdtrack
 from pygmt.src.grdview import grdview
 from pygmt.src.grdvolume import grdvolume
 from pygmt.src.histogram import histogram
+from pygmt.src.hlines import hlines
 from pygmt.src.image import image
 from pygmt.src.info import info
 from pygmt.src.inset import inset
@@ -40,6 +41,7 @@ from pygmt.src.nearneighbor import nearneighbor
 from pygmt.src.plot import plot
 from pygmt.src.plot3d import plot3d
 from pygmt.src.project import project
+from pygmt.src.psconvert import psconvert
 from pygmt.src.rose import rose
 from pygmt.src.select import select
 from pygmt.src.shift_origin import shift_origin
@@ -55,6 +57,7 @@ from pygmt.src.tilemap import tilemap
 from pygmt.src.timestamp import timestamp
 from pygmt.src.triangulate import triangulate
 from pygmt.src.velo import velo
+from pygmt.src.vlines import vlines
 from pygmt.src.which import which
 from pygmt.src.wiggle import wiggle
 from pygmt.src.x2sys_cross import x2sys_cross

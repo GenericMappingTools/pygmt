@@ -8,7 +8,6 @@ from typing import Literal, NamedTuple
 import pandas as pd
 import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.io import load_dataarray
 from pygmt.src import which
 
 
@@ -204,7 +203,7 @@ def _load_earth_relief_holes() -> xr.DataArray:
         is in meters.
     """
     fname = which("@earth_relief_20m_holes.grd", download="c")
-    return load_dataarray(fname, engine="netcdf4")
+    return xr.load_dataarray(fname, engine="gmt", raster_kind="grid")
 
 
 class GMTSampleData(NamedTuple):
@@ -343,9 +342,10 @@ def load_sample_data(
      'ocean_ridge_points': 'Table of ocean ridge points for the entire world',
      'rock_compositions': 'Table of rock sample compositions',
      'usgs_quakes': 'Table of earthquakes from the USGS'}
-    >>> # load the sample bathymetry dataset
+    >>> # Load the sample bathymetry dataset
     >>> data = load_sample_data("bathymetry")
     """  # noqa: W505
     if name not in datasets:
-        raise GMTInvalidInput(f"Invalid dataset name '{name}'.")
+        msg = f"Invalid dataset name '{name}'."
+        raise GMTInvalidInput(msg)
     return datasets[name].func()

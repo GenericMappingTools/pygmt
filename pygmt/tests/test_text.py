@@ -6,9 +6,17 @@ from pathlib import Path
 
 import numpy as np
 import pytest
-from pygmt import Figure
+from pygmt import Figure, config
 from pygmt.exceptions import GMTCLibError, GMTInvalidInput
 from pygmt.helpers import GMTTempFile
+from pygmt.helpers.testing import skip_if_no
+
+try:
+    import pyarrow as pa
+
+    pa_array = pa.array
+except ImportError:
+    pa_array = None
 
 TEST_DATA_DIR = Path(__file__).parent / "data"
 POINTS_DATA = TEST_DATA_DIR / "points.txt"
@@ -48,8 +56,16 @@ def test_text_single_line_of_text(region, projection):
 
 
 @pytest.mark.benchmark
-@pytest.mark.mpl_image_compare
-def test_text_multiple_lines_of_text(region, projection):
+@pytest.mark.mpl_image_compare(filename="test_text_multiple_lines_of_text.png")
+@pytest.mark.parametrize(
+    "array_func",
+    [
+        list,
+        pytest.param(np.array, id="numpy"),
+        pytest.param(pa_array, marks=skip_if_no(package="pyarrow"), id="pyarrow"),
+    ],
+)
+def test_text_multiple_lines_of_text(region, projection, array_func):
     """
     Place multiple lines of text at their respective x, y locations.
     """
@@ -59,7 +75,7 @@ def test_text_multiple_lines_of_text(region, projection):
         projection=projection,
         x=[1.2, 1.6],
         y=[0.6, 0.3],
-        text=["This is a line of text", "This is another line of text"],
+        text=array_func(["This is a line of text", "This is another line of text"]),
     )
     return fig
 
@@ -411,11 +427,35 @@ def test_text_nonstr_text():
 
 
 @pytest.mark.mpl_image_compare
-def test_text_nonascii():
+def test_text_numeric_text():
     """
-    Test passing text strings with non-ascii characters.
+    Test passing text strings that are numeric.
+
+    Regression test for https://github.com/GenericMappingTools/pygmt/issues/3803.
     """
     fig = Figure()
+    fig.text(
+        region=[0, 10, 0, 5],
+        projection="X10c/5c",
+        frame=True,
+        x=[1, 2, 3, 4],
+        y=[1, 2, 3, 4],
+        text=["2012", "2013", "2014", "2015"],
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_text_nonascii.png")
+@pytest.mark.parametrize("encoding", ["ISOLatin1+", "Standard+"])
+def test_text_nonascii(encoding):
+    """
+    Test passing text strings with non-ascii characters.
+
+    Default PS_CHAR_ENCODING setting should not affect the result.
+    """
+    fig = Figure()
+    if encoding == "Standard+":  # Temporarily set the PS_CHAR_ENCODING to "Standard+".
+        config(PS_CHAR_ENCODING="Standard+")
     fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
     fig.text(position="TL", text="position-text:°α")  # noqa: RUF001
     fig.text(x=1, y=1, text="xytext:°α")  # noqa: RUF001
@@ -426,13 +466,17 @@ def test_text_nonascii():
 @pytest.mark.mpl_image_compare
 def test_text_quotation_marks():
     """
-    Test typesetting quotation marks.
+    Test typesetting backtick, apostrophe, and single and double quotation marks.
 
-    See https://github.com/GenericMappingTools/pygmt/issues/3104.
+    See https://github.com/GenericMappingTools/pygmt/issues/3104 and
+    https://github.com/GenericMappingTools/pygmt/issues/3476.
     """
+    quotations = "` ' ‘ ’ \" “ ”"  # noqa: RUF001
     fig = Figure()
-    fig.basemap(projection="X4c/2c", region=[0, 4, 0, 2], frame=0)
-    fig.text(x=2, y=1, text='\\234 ‘ ’ " “ ”', font="20p")  # noqa: RUF001
+    fig.basemap(
+        projection="X4c/2c", region=[0, 4, 0, 2], frame=["S", f"x+l{quotations}"]
+    )
+    fig.text(x=2, y=1, text=quotations, font="20p")
     return fig
 
 

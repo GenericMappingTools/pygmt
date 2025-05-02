@@ -9,7 +9,7 @@ developed in the early 1900s by several workers.
 
 The projection is set with **o** or **O**. There are three different specification
 ways (**a**\|\ **A**, **b**\|\ **B**, **c**\|\ **C**) available. For all three
-definitions, the upper case letter mean the projection pole is set in the southern
+definitions, the uppercase letter mean the projection pole is set in the southern
 hemisphere [Default is northern hemisphere]. Align the y-axis with the optional
 modifier **+v**. The figure size is set with *scale* or *width*.
 """
@@ -31,7 +31,8 @@ fig.coast(
     # Set bottom left and top right coordinates of the figure with "+r"
     region="-122/35/-107/22+r",
     frame="afg",
-    land="gray",
+    land="gray80",
+    water="steelblue",
 )
 fig.show()
 
@@ -47,7 +48,11 @@ fig.show()
 
 fig = pygmt.Figure()
 fig.coast(
-    projection="Ob130/35/25/35/3c", region="130/35/145/40+r", frame="afg", land="gray"
+    projection="Ob130/35/25/35/3c",
+    region="130/35/145/40+r",
+    frame="afg",
+    land="gray80",
+    water="steelblue",
 )
 fig.show()
 
@@ -63,7 +68,11 @@ fig.show()
 
 fig = pygmt.Figure()
 fig.coast(
-    projection="Oc280/25.5/22/69/4c", region="270/20/305/25+r", frame="afg", land="gray"
+    projection="Oc280/25.5/22/69/4c",
+    region="270/20/305/25+r",
+    frame="afg",
+    land="gray80",
+    water="steelblue",
 )
 fig.show()
 

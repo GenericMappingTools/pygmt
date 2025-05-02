@@ -20,11 +20,10 @@ import pygmt
 
 fig = pygmt.Figure()
 fig.coast(
-    shorelines="1/0.5p",
     region=[-88, -70, 18, 24],
     projection="D-79/21/19/23/12c",
-    land="lightgreen",
-    water="lightblue",
     frame="afg",
+    land="seagreen",
+    water="gray90",
 )
 fig.show()
