@@ -1,7 +1,10 @@
 """
-plot - Plot in two dimensions.
+plot - Plot lines, polygons, and symbols in 2-D.
 """
 
+from typing import Literal
+
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -48,8 +51,16 @@ from pygmt.src._common import _data_geometry_is_point
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot(
-    self, data=None, x=None, y=None, size=None, symbol=None, direction=None, **kwargs
+def plot(  # noqa: PLR0912
+    self,
+    data: PathLike | TableLike | None = None,
+    x=None,
+    y=None,
+    size=None,
+    symbol=None,
+    direction=None,
+    straight_line: bool | Literal["x", "y"] = False,  # noqa: ARG001
+    **kwargs,
 ):
     r"""
     Plot lines, polygons, and symbols in 2-D.
@@ -78,7 +89,7 @@ def plot(
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
         Use parameter ``incols`` to choose which columns are x, y, fill, and
@@ -98,18 +109,29 @@ def plot(
         depending on the style options chosen.
     {projection}
     {region}
-    straight_line : bool or str
-        [**m**\|\ **p**\|\ **x**\|\ **y**].
-        By default, geographic line segments are drawn as great circle
-        arcs. To draw them as straight lines, use
-        ``straight_line=True``.
-        Alternatively, add **m** to draw the line by first following a
-        meridian, then a parallel. Or append **p** to start following a
-        parallel, then a meridian. (This can be practical to draw a line
-        along parallels, for example). For Cartesian data, points are
-        simply connected, unless you append **x** or **y** to draw
-        stair-case curves that whose first move is along *x* or *y*,
-        respectively.
+    straight_line
+        By default, line segments are drawn as straight lines in the Cartesian and polar
+        coordinate systems, and as great circle arcs (by resampling coarse input data
+        along such arcs) in the geographic coordinate system. The ``straight_line``
+        parameter can control the drawing of line segments. Valid values are:
+
+        - ``True``: Draw line segments as straight lines in geographic coordinate
+          systems.
+        - ``"x"``: Draw line segments by first along *x*, then along *y*.
+        - ``"y"``: Draw line segments by first along *y*, then along *x*.
+
+        Here, *x* and *y* have different meanings depending on the coordinate system:
+
+        - **Cartesian** coordinate system: *x* and *y* are the X- and Y-axes.
+        - **Polar** coordinate system: *x* and *y* are theta and radius.
+        - **Geographic** coordinate system: *x* and *y* are parallels and meridians.
+
+        .. attention::
+
+            There exits a bug in GMT<=6.5.0 that, in geographic coordinate systems, the
+            meaning of *x* and *y* is reversed, i.e., *x* means meridians and *y* means
+            parallels. The bug is fixed by upstream
+            `PR #8648 <https://github.com/GenericMappingTools/gmt/pull/8648>`__.
     {frame}
     {cmap}
     offset : str
@@ -206,36 +228,41 @@ def plot(
         ``x``/``y``.
     {wrap}
     """
+    # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
+    # parameter.
     kwargs = self._preprocess(**kwargs)
 
     kind = data_kind(data)
-    extra_arrays = []
-    if kind == "empty":  # Add more columns for vectors input
+    if kind == "empty":  # Data is given via a series of vectors.
+        data = {"x": x, "y": y}
         # Parameters for vector styles
         if (
-            kwargs.get("S") is not None
+            isinstance(kwargs.get("S"), str)
+            and len(kwargs["S"]) >= 1
             and kwargs["S"][0] in "vV"
             and is_nonstr_iter(direction)
         ):
-            extra_arrays.extend(direction)
+            data.update({"x2": direction[0], "y2": direction[1]})
         # Fill
         if is_nonstr_iter(kwargs.get("G")):
-            extra_arrays.append(kwargs.get("G"))
-            del kwargs["G"]
+            data["fill"] = kwargs.pop("G")
         # Size
         if is_nonstr_iter(size):
-            extra_arrays.append(size)
+            data["size"] = size
         # Intensity and transparency
-        for flag in ["I", "t"]:
+        for flag, name in [("I", "intensity"), ("t", "transparency")]:
             if is_nonstr_iter(kwargs.get(flag)):
-                extra_arrays.append(kwargs.get(flag))
+                data[name] = kwargs[flag]
                 kwargs[flag] = ""
         # Symbol must be at the last column
         if is_nonstr_iter(symbol):
             if "S" not in kwargs:
                 kwargs["S"] = True
-            extra_arrays.append(symbol)
+            data["symbol"] = symbol
     else:
+        if any(v is not None for v in (x, y)):
+            msg = "Too much data. Use either data or x/y/z."
+            raise GMTInvalidInput(msg)
         for name, value in [
             ("direction", direction),
             ("fill", kwargs.get("G")),
@@ -245,14 +272,13 @@ def plot(
             ("symbol", symbol),
         ]:
             if is_nonstr_iter(value):
-                raise GMTInvalidInput(f"'{name}' can't be 1-D array if 'data' is used.")
+                msg = f"'{name}' can't be a 1-D array if 'data' is used."
+                raise GMTInvalidInput(msg)
 
     # Set the default style if data has a geometry of Point or MultiPoint
     if kwargs.get("S") is None and _data_geometry_is_point(data, kind):
         kwargs["S"] = "s0.2c"
 
     with Session() as lib:
-        with lib.virtualfile_in(
-            check_kind="vector", data=data, x=x, y=y, extra_arrays=extra_arrays
-        ) as vintbl:
+        with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
             lib.call_module(module="plot", args=build_arg_list(kwargs, infile=vintbl))

@@ -1,16 +1,19 @@
 """
-which - Find the full path to specified files.
+which - Find full path to specified files.
 """
 
+from collections.abc import Sequence
+
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, is_nonstr_iter, use_alias
 
 
 @fmt_docstring
 @use_alias(G="download", V="verbose")
-def which(fname, **kwargs) -> str | list[str]:
+def which(fname: PathLike | Sequence[PathLike], **kwargs) -> str | list[str]:
     r"""
-    Find the full path to specified files.
+    Find full path to specified files.
 
     Reports the full paths to the files given through ``fname``. We look
     for the file in (1) the current directory, (2) in $GMT_USERDIR (if
@@ -67,8 +70,9 @@ def which(fname, **kwargs) -> str | list[str]:
 
     match paths.size:
         case 0:
-            _fname = "', '".join(fname) if is_nonstr_iter(fname) else fname
-            raise FileNotFoundError(f"File(s) '{_fname}' not found.")
+            _fname = "', '".join(fname) if is_nonstr_iter(fname) else fname  # type: ignore[arg-type]
+            msg = f"File(s) '{_fname}' not found."
+            raise FileNotFoundError(msg)
         case 1:
             return paths[0]
         case _:

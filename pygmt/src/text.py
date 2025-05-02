@@ -1,11 +1,11 @@
 """
-text - Plot text on a figure.
+text - Plot or typeset text.
 """
 
 from collections.abc import Sequence
 
 import numpy as np
-from pygmt._typing import AnchorCode
+from pygmt._typing import AnchorCode, PathLike, StringArrayTypes, TableLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -44,18 +44,18 @@ from pygmt.helpers import (
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def text_(  # noqa: PLR0912
     self,
-    textfiles=None,
+    textfiles: PathLike | TableLike | None = None,
     x=None,
     y=None,
     position: AnchorCode | None = None,
-    text=None,
+    text: str | StringArrayTypes | None = None,
     angle=None,
     font=None,
     justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
     **kwargs,
 ):
     r"""
-    Plot or typeset text strings of variable size, font type, and orientation.
+    Plot or typeset text.
 
     Must provide at least one of the following combinations as input:
 
@@ -104,7 +104,7 @@ def text_(  # noqa: PLR0912
 
         For example, ``position="TL"`` plots the text at the Top Left corner
         of the map.
-    text : str or 1-D array
+    text
         The text string, or an array of strings to plot on the figure.
     angle: float, str, bool or list
         Set the angle measured in degrees counter-clockwise from
@@ -138,11 +138,11 @@ def text_(  # noqa: PLR0912
         **i** for inches, or **p** for points; if not given we consult
         :gmt-term:`PROJ_LENGTH_UNIT`) or *%* for a percentage of the font
         size. Optionally, use modifier **+t** to set the shape of the text
-        box when using ``fill`` and/or ``pen``. Append lower case **o**
-        to get a straight rectangle [Default is **o**]. Append upper case
+        box when using ``fill`` and/or ``pen``. Append lowercase **o**
+        to get a straight rectangle [Default is **o**]. Append uppercase
         **O** to get a rounded rectangle. In paragraph mode (*paragraph*)
-        you can also append lower case **c** to get a concave rectangle or
-        append upper case **C** to get a convex rectangle.
+        you can also append lowercase **c** to get a concave rectangle or
+        append uppercase **C** to get a convex rectangle.
     fill : str
         Set color for filling text boxes [Default is no fill].
     offset : str
@@ -187,17 +187,21 @@ def text_(  # noqa: PLR0912
         + (position is not None)
         + (x is not None or y is not None)
     ) != 1:
-        raise GMTInvalidInput("Provide either textfiles, x/y/text, or position/text.")
+        msg = "Provide either 'textfiles', 'x'/'y'/'text', or 'position'/'text'."
+        raise GMTInvalidInput(msg)
 
     required_data = position is None
     kind = data_kind(textfiles, required=required_data)
 
     if position is not None and (text is None or is_nonstr_iter(text)):
-        raise GMTInvalidInput("'text' can't be None or array when 'position' is given.")
+        msg = "'text' can't be None or array when 'position' is given."
+        raise GMTInvalidInput(msg)
     if textfiles is not None and text is not None:
-        raise GMTInvalidInput("'text' can't be specified when 'textfiles' is given.")
+        msg = "'text' can't be specified when 'textfiles' is given."
+        raise GMTInvalidInput(msg)
     if kind == "empty" and text is None:
-        raise GMTInvalidInput("Must provide text with x/y pairs.")
+        msg = "Must provide text with x/y pairs."
+        raise GMTInvalidInput(msg)
 
     # Arguments that can accept arrays.
     array_args = [
@@ -218,35 +222,34 @@ def text_(  # noqa: PLR0912
         elif isinstance(arg, int | float | str):
             kwargs["F"] += f"{flag}{arg}"
 
-    extra_arrays = []
     confdict = {}
+    data = None
     if kind == "empty":
+        data = {"x": x, "y": y}
+
         for arg, flag, name in array_args:
             if is_nonstr_iter(arg):
                 kwargs["F"] += flag
                 # angle is numeric type and font/justify are str type.
                 if name == "angle":
-                    extra_arrays.append(arg)
+                    data["angle"] = arg
                 else:
-                    extra_arrays.append(np.asarray(arg, dtype=np.str_))
+                    data[name] = np.asarray(arg, dtype=np.str_)
 
         # If an array of transparency is given, GMT will read it from the last numerical
         # column per data record.
         if is_nonstr_iter(kwargs.get("t")):
-            extra_arrays.append(kwargs["t"])
+            data["transparency"] = kwargs["t"]
             kwargs["t"] = True
 
         # Append text to the last column. Text must be passed in as str type.
         text = np.asarray(text, dtype=np.str_)
-        encoding = _check_encoding("".join(text.flatten()))
-        if encoding != "ascii":
+        if (encoding := _check_encoding("".join(text.flatten()))) != "ascii":
             text = np.vectorize(non_ascii_to_octal, excluded="encoding")(
                 text, encoding=encoding
             )
-        extra_arrays.append(text)
-
-        if encoding not in {"ascii", "ISOLatin1+"}:
-            confdict = {"PS_CHAR_ENCODING": encoding}
+            confdict["PS_CHAR_ENCODING"] = encoding
+        data["text"] = text
     else:
         if isinstance(position, str):
             kwargs["F"] += f"+c{position}+t{text}"
@@ -259,10 +262,7 @@ def text_(  # noqa: PLR0912
     with Session() as lib:
         with lib.virtualfile_in(
             check_kind="vector",
-            data=textfiles,
-            x=x,
-            y=y,
-            extra_arrays=extra_arrays,
+            data=textfiles or data,
             required_data=required_data,
         ) as vintbl:
             lib.call_module(

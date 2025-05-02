@@ -120,18 +120,25 @@ made to our documentation website every time we make a commit in a pull request.
 The service has a configuration file `.readthedocs.yaml`, with a list of options
 to change the default behaviour at <https://docs.readthedocs.io/en/stable/config-file/index.html>.
 
+## Continuous Benchmarking
+
+We use the [CodSpeed](https://codspeed.io) service to continuously track PyGMT's
+performance. The `pytest-codspeed` plugin collects benchmark data and uploads it to the
+CodSpeed server, where results are available at <https://codspeed.io/GenericMappingTools/pygmt>.
+
+Benchmarking is handled through the `benchmarks.yml` GitHub Actions workflow. It's
+automatically executed when a pull request is merged into the main branch. To trigger
+benchmarking in a pull request, add the `run/benchmark` label to the pull request.
+
+To include a new test in the benchmark suite, apply the `@pytest.mark.benchmark`
+decorator to a test function.
 
 ## Dependencies Policy
 
 PyGMT has adopted [SPEC 0](https://scientific-python.org/specs/spec-0000/) alongside the
-rest of the scientific Python ecosystem, and therefore:
-
-* Support for Python versions be dropped 3 years after their initial release.
-* Support for core package dependencies (NumPy, pandas, Xarray) be dropped 2 years after
-  their initial release.
-
-Similarly, the PyGMT team has decided to discontinue support for GMT versions 3 years
-after their initial release.
+rest of the scientific Python ecosystem, and made a few extensions based on the needs of
+the project. Please see [Minimum Supported Versions](minversions.md) for the detailed
+policy and the minimum supported versions of GMT, Python and core package dependencies.
 
 In `pyproject.toml`, the `requires-python` key should be set to the minimum supported
 version of Python. Minimum supported versions of GMT, Python and core package
@@ -141,34 +148,35 @@ patch release.
 
 ## Backwards Compatibility and Deprecation Policy
 
-PyGMT is still undergoing rapid development. All of the API is subject to change
-until the v1.0.0 release. Versioning in PyGMT is based on the
+PyGMT is still undergoing rapid development. All of the API is subject to change until
+the v1.0.0 release. Versioning in PyGMT is based on the
 [semantic versioning specification](https://semver.org/spec/v2.0.0.html)
-(i.e., v*MAJOR*.*MINOR*.*PATCH*).
-Basic policy for backwards compatibility:
+(i.e., v*MAJOR*.*MINOR*.*PATCH*). Basic policy for backwards compatibility:
 
 - Any incompatible changes should go through the deprecation process below.
-- Incompatible changes are only allowed in major and minor releases, not in
-  patch releases.
+- Incompatible changes are only allowed in major and minor releases, not in patch releases.
 - Incompatible changes should be documented in the release notes.
 
 When making incompatible changes, we should follow the process:
 
 - Discuss whether the incompatible changes are necessary on GitHub.
-- Make the changes in a backwards compatible way, and raise a `FutureWarning`
-  warning for the old usage. At least one test using the old usage should be added.
-- The warning message should clearly explain the changes and include the versions
-  in which the old usage is deprecated and is expected to be removed.
-- The `FutureWarning` warning should appear for 2-4 minor versions, depending on
-  the impact of the changes. It means the deprecation period usually lasts
-  3-12 months.
+- Make the changes in a backwards compatible way, and raise a `FutureWarning` warning
+  for the old usage. At least one test using the old usage should be added.
+- The warning message should clearly explain the changes and include the versions in
+  which the old usage is deprecated and is expected to be removed.
+- The `FutureWarning` warning should appear for 2-4 minor versions, depending on the
+  impact of the changes. It means the deprecation period usually lasts 3-12 months.
 - Remove the old usage and warning when reaching the declared version.
 
-To rename a function parameter, add the `@deprecate_parameter` decorator near
-the top after the `@fmt_docstring` decorator but before the `@use_alias`
-decorator (if those two exist). Here is an example:
+### Deprecating a function parameter
 
-```
+To rename a function parameter, add the `@deprecate_parameter` decorator near the top
+after the `@fmt_docstring` decorator but before the `@use_alias` decorator (if those two
+exist). A `TODO` comment should also be added to indicate the deprecation period (see below).
+Here is an example:
+
+```python
+# TODO(PyGMT>=0.6.0): Remove the deprecated "columns" parameter.
 @fmt_docstring
 @deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
 @use_alias(J="projection", R="region", V="verbose", i="incols")
@@ -177,8 +185,30 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     pass
 ```
 
-In this case, the old parameter name `columns` is deprecated since v0.4.0, and
-will be fully removed in v0.6.0. The new parameter name is `incols`.
+In this case, the old parameter name `columns` is deprecated since v0.4.0, and will be
+fully removed in v0.6.0. The new parameter name is `incols`.
+
+### TODO comments
+
+Occasionally, we need to implement temporary code that should be removed in the future.
+This can occur in situations such as:
+
+- When a parameter, function, or method is deprecated and scheduled for removal.
+- When workarounds are necessary to address issues in older or upcoming versions of GMT
+  or other dependencies.
+
+To track these temporary codes or workarounds, we use TODO comments. These comments
+should adhere to the following format:
+
+```python
+# TODO(package>=X.Y.Z): A brief description of the TODO item.
+# Additional details if necessary.
+```
+The TODO comment indicates that we should address the item when *package* version
+*X.Y.Z* or later is required.
+
+It's important not to overuse TODO comments for tracking unimplemented features.
+Instead, open issues to monitor these features.
 
 
 ## Making a Release
@@ -224,9 +254,10 @@ publishing the actual release notes at [](changes.md).
    modules and methods, gallery examples, API docs changes) and entries within each group
    are alphabetical.
 6. Move a few important items from the main sections to the Highlights section.
-7. Edit the list of people who contributed to the release, linking to their
-   GitHub accounts. Sort their names by the number of commits made since the
-   last release (e.g., use `git shortlog HEAD...v0.4.0 -sne`).
+7. Edit the list of people who contributed to the release, linking to their GitHub
+   accounts. Sort their names by the number of contributions (including commits and PR
+   reviews) made since the last release (e.g., use
+   `git shortlog vX.Y.Z..HEAD -sne --group=author --group=trailer:co-authored-by`).
 8. Update `doc/minversions.md` with new information on the new release version,
    including a vX.Y.Z documentation link, and minimum required versions of GMT, Python
    and core package dependencies (NumPy, pandas, Xarray). Follow

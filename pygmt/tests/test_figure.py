@@ -12,7 +12,7 @@ import numpy as np
 import numpy.testing as npt
 import pytest
 from pygmt import Figure, set_display
-from pygmt.exceptions import GMTError, GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.figure import SHOW_CONFIG, _get_default_display_method
 from pygmt.helpers import GMTTempFile
 
@@ -83,7 +83,20 @@ def test_figure_savefig_exists():
     fig = Figure()
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
     prefix = "test_figure_savefig_exists"
-    for fmt in "bmp eps jpg jpeg pdf png ppm tif PNG JPG JPEG Png".split():
+    for fmt in [
+        "bmp",
+        "eps",
+        "jpg",
+        "jpeg",
+        "pdf",
+        "png",
+        "ppm",
+        "tif",
+        "PNG",
+        "JPG",
+        "JPEG",
+        "Png",
+    ]:
         fname = Path(f"{prefix}.{fmt}")
         fig.savefig(fname)
         assert fname.exists()
@@ -192,15 +205,24 @@ def test_figure_savefig_transparent():
     fig = Figure()
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
     prefix = "test_figure_savefig_transparent"
-    for fmt in "pdf jpg bmp eps tif".split():
+    for fmt in ["pdf", "jpg", "bmp", "eps", "tif"]:
         fname = f"{prefix}.{fmt}"
         with pytest.raises(GMTInvalidInput):
             fig.savefig(fname, transparent=True)
-    # png should not raise an error
+
+    # PNG should support transparency and should not raise an error.
     fname = Path(f"{prefix}.png")
     fig.savefig(fname, transparent=True)
     assert fname.exists()
     fname.unlink()
+
+    # The companion PNG file with KML format should also support transparency.
+    fname = Path(f"{prefix}.kml")
+    fig.savefig(fname, transparent=True)
+    assert fname.exists()
+    fname.unlink()
+    assert fname.with_suffix(".png").exists()
+    fname.with_suffix(".png").unlink()
 
 
 def test_figure_savefig_filename_with_spaces():
@@ -283,26 +305,6 @@ def test_figure_show():
     fig.show()
 
 
-@pytest.mark.mpl_image_compare
-def test_figure_shift_origin():
-    """
-    Test if fig.shift_origin works.
-    """
-    kwargs = {"region": [0, 3, 0, 5], "projection": "X3c/5c", "frame": 0}
-    fig = Figure()
-    # First call shift_origin without projection and region.
-    # Test issue https://github.com/GenericMappingTools/pygmt/issues/514
-    fig.shift_origin(xshift="2c", yshift="3c")
-    fig.basemap(**kwargs)
-    fig.shift_origin(xshift="4c")
-    fig.basemap(**kwargs)
-    fig.shift_origin(yshift="6c")
-    fig.basemap(**kwargs)
-    fig.shift_origin(xshift="-4c", yshift="6c")
-    fig.basemap(**kwargs)
-    return fig
-
-
 def test_figure_show_invalid_method():
     """
     Test to check if an error is raised when an invalid method is passed to show.
@@ -321,7 +323,7 @@ def test_figure_show_notebook_error_without_ipython():
     """
     fig = Figure()
     fig.basemap(region=[0, 1, 2, 3], frame=True)
-    with pytest.raises(GMTError):
+    with pytest.raises(ImportError):
         fig.show(method="notebook")
 
 
@@ -361,7 +363,7 @@ class TestSetDisplay:
                 assert mock_viewer.call_count == 0
                 assert mock_display.call_count == 1
         else:
-            with pytest.raises(GMTError):
+            with pytest.raises(ImportError):
                 fig.show()
 
         # Test the "external" display method
@@ -396,22 +398,6 @@ class TestSetDisplay:
         """
         with pytest.raises(GMTInvalidInput):
             set_display(method="invalid")
-
-
-def test_figure_unsupported_xshift_yshift():
-    """
-    Raise an exception if X/Y/xshift/yshift is used.
-    """
-    fig = Figure()
-    fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
-    with pytest.raises(GMTInvalidInput):
-        fig.plot(x=1, y=1, style="c3c", xshift="3c")
-    with pytest.raises(GMTInvalidInput):
-        fig.plot(x=1, y=1, style="c3c", X="3c")
-    with pytest.raises(GMTInvalidInput):
-        fig.plot(x=1, y=1, style="c3c", yshift="3c")
-    with pytest.raises(GMTInvalidInput):
-        fig.plot(x=1, y=1, style="c3c", Y="3c")
 
 
 class TestGetDefaultDisplayMethod:

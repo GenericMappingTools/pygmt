@@ -6,7 +6,8 @@ from pathlib import Path
 
 import pytest
 import xarray as xr
-from pygmt import grdlandmask, load_dataarray
+from pygmt import grdlandmask
+from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
@@ -41,7 +42,7 @@ def test_grdlandmask_outgrid(expected_grid):
         result = grdlandmask(outgrid=tmpfile.name, spacing=1, region=[125, 130, 30, 35])
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
-        temp_grid = load_dataarray(tmpfile.name)
+        temp_grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
@@ -53,8 +54,8 @@ def test_grdlandmask_no_outgrid(expected_grid):
     result = grdlandmask(spacing=1, region=[125, 130, 30, 35], cores=2)
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
-    assert result.gmt.gtype == 1  # Geographic grid
-    assert result.gmt.registration == 0  # Gridline registration
+    assert result.gmt.gtype == GridType.GEOGRAPHIC
+    assert result.gmt.registration == GridRegistration.GRIDLINE
     # check information of the output grid
     xr.testing.assert_allclose(a=result, b=expected_grid)
 

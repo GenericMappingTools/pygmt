@@ -1,7 +1,9 @@
 """
-grd2cpt - Create a CPT from a grid file.
+grd2cpt - Make linear or histogram-equalized color palette table from grid.
 """
 
+import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -31,9 +33,9 @@ __doctest_skip__ = ["grd2cpt"]
     Z="continuous",
 )
 @kwargs_to_strings(G="sequence", L="sequence", R="sequence", T="sequence")
-def grd2cpt(grid, **kwargs):
+def grd2cpt(grid: PathLike | xr.DataArray, **kwargs):
     r"""
-    Make GMT color palette tables from a grid file.
+    Make linear or histogram-equalized color palette table from grid.
 
     This function will help you to make static color palette tables (CPTs).
     By default, the CPT will be saved as the current CPT of the session,
@@ -182,7 +184,8 @@ def grd2cpt(grid, **kwargs):
     >>> fig.show()
     """
     if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
-        raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")
+        msg = "Set only 'categorical' or 'cyclic' to True, not both."
+        raise GMTInvalidInput(msg)
 
     if (output := kwargs.pop("H", None)) is not None:
         kwargs["H"] = True
