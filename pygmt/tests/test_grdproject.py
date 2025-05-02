@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 import xarray as xr
-from pygmt import gmtread, grdproject
+from pygmt import grdproject
 from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
@@ -56,7 +56,7 @@ def test_grdproject_file_out(grid, expected_grid):
         )
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
-        temp_grid = gmtread(tmpfile.name, kind="grid")
+        temp_grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 

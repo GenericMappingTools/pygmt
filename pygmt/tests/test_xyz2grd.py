@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 import xarray as xr
-from pygmt import gmtread, xyz2grd
+from pygmt import xyz2grd
 from pygmt.datasets import load_sample_data
 from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
@@ -67,7 +67,7 @@ def test_xyz2grd_input_array_file_out(ship_data, expected_grid):
         )
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0
-        temp_grid = gmtread(tmpfile.name, kind="grid")
+        temp_grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 

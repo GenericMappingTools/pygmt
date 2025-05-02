@@ -8,7 +8,6 @@ from typing import Literal, NamedTuple
 import pandas as pd
 import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.io import gmtread
 from pygmt.src import which
 
 
@@ -203,7 +202,8 @@ def _load_earth_relief_holes() -> xr.DataArray:
         The Earth relief grid. Coordinates are latitude and longitude in degrees. Relief
         is in meters.
     """
-    return gmtread("@earth_relief_20m_holes.grd", kind="grid")  # type: ignore[return-value]
+    fname = which("@earth_relief_20m_holes.grd", download="c")
+    return xr.load_dataarray(fname, engine="gmt", raster_kind="grid")
 
 
 class GMTSampleData(NamedTuple):

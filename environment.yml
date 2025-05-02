@@ -10,8 +10,7 @@ dependencies:
     - numpy>=1.26
     - pandas>=2.1
     - xarray>=2023.07
-    - netCDF4
-    - packaging
+    - packaging>=24.2
     # Optional dependencies
     - contextily>=1.5
     - geopandas>=1.0
@@ -34,6 +33,7 @@ dependencies:
     - pytest-cov
     - pytest-doctestplus
     - pytest-mpl
+    - netCDF4
     # Dev dependencies (building documentation)
     - geodatasets
     - myst-nb

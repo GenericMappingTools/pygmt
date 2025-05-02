@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 import pytest
 import xarray as xr
-from pygmt import gmtread, triangulate, which
+from pygmt import triangulate, which
 from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
@@ -156,7 +156,7 @@ def test_regular_grid_with_outgrid_param(dataframe, expected_grid):
         )
         assert output is None  # check that output is None since outgrid is set
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
-        grid = gmtread(tmpfile.name, kind="grid")
+        grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
         assert isinstance(grid, xr.DataArray)
         assert grid.gmt.registration == GridRegistration.GRIDLINE
         assert grid.gmt.gtype == GridType.CARTESIAN

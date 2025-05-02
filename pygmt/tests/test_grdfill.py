@@ -8,7 +8,7 @@ import numpy as np
 import numpy.testing as npt
 import pytest
 import xarray as xr
-from pygmt import gmtread, grdfill
+from pygmt import grdfill
 from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
@@ -96,7 +96,7 @@ def test_grdfill_file_out(grid, expected_grid):
         result = grdfill(grid=grid, constantfill=20, outgrid=tmpfile.name)
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0  # check that outfile exists
-        temp_grid = gmtread(tmpfile.name, kind="grid")
+        temp_grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 

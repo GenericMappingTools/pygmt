@@ -8,9 +8,10 @@ import numpy as np
 import numpy.testing as npt
 import pytest
 import xarray as xr
-from pygmt import gmtread, grdclip
+from pygmt import grdclip
 from pygmt.datasets import load_earth_mask
 from pygmt.enums import GridRegistration, GridType
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -53,7 +54,7 @@ def test_grdclip_outgrid(grid, expected_grid):
         )
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
-        temp_grid = gmtread(tmpfile.name, kind="grid")
+        temp_grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
         assert temp_grid.dims == ("lat", "lon")
         assert temp_grid.gmt.gtype == GridType.GEOGRAPHIC
         assert temp_grid.gmt.registration == GridRegistration.PIXEL
@@ -88,3 +89,26 @@ def test_grdclip_replace():
     with pytest.warns(FutureWarning):
         grid = grdclip(grid=grid, new=[1, 3])  # Replace 1 with 3
         npt.assert_array_equal(np.unique(grid), [2, 3])
+
+
+def test_grdclip_between_repeated():
+    """
+    Test passing a 2-D sequence to the between parameter for grdclip.
+    """
+    grid = load_static_earth_relief()
+    # Replace values in the range 0-250 with 0, 250-500 with 1, 500-750 with 2, and
+    # 750-1000 with 3
+    result = grdclip(
+        grid,
+        between=[[0, 250, 0], [250, 500, 1], [500, 750, 2], [750, 1000, 3]],
+    )
+    # Result should have 4 unique values.
+    npt.assert_array_equal(np.unique(result.data), [0, 1, 2, 3])
+
+
+def test_grdclip_missing_required_parameter(grid):
+    """
+    Test that grdclip raises a ValueError if the required parameter is missing.
+    """
+    with pytest.raises(GMTInvalidInput):
+        grdclip(grid=grid)

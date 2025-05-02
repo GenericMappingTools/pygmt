@@ -9,7 +9,7 @@ from pathlib import Path
 
 import xarray as xr
 from pygmt.exceptions import GMTImageComparisonFailure
-from pygmt.io import gmtread
+from pygmt.src import which
 
 
 def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_images"):
@@ -153,7 +153,8 @@ def load_static_earth_relief() -> xr.DataArray:
     data
         A grid of Earth relief for internal tests.
     """
-    return gmtread("@static_earth_relief.nc", kind="grid")  # type: ignore[return-value]
+    fname = which("@static_earth_relief.nc", download="c")
+    return xr.load_dataarray(fname, engine="gmt", raster_kind="grid")
 
 
 def skip_if_no(package):

@@ -4,7 +4,6 @@ Utilities and common tasks for wrapping the GMT modules.
 
 import io
 import os
-import pathlib
 import shutil
 import string
 import subprocess
@@ -17,6 +16,7 @@ from pathlib import Path
 from typing import Any, Literal
 
 import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.encodings import charset
 from pygmt.exceptions import GMTInvalidInput
 
@@ -43,7 +43,7 @@ Encoding = Literal[
 
 
 def _validate_data_input(  # noqa: PLR0912
-    data=None, x=None, y=None, z=None, required_z=False, required_data=True, kind=None
+    data=None, x=None, y=None, z=None, mincols=2, required_data=True, kind=None
 ) -> None:
     """
     Check if the combination of data/x/y/z is valid.
@@ -66,7 +66,7 @@ def _validate_data_input(  # noqa: PLR0912
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Must provide both x and y.
-    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6], required_z=True)
+    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6], mincols=3)
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Must provide x, y, and z.
@@ -74,13 +74,13 @@ def _validate_data_input(  # noqa: PLR0912
     >>> import pandas as pd
     >>> import xarray as xr
     >>> data = np.arange(8).reshape((4, 2))
-    >>> _validate_data_input(data=data, required_z=True, kind="matrix")
+    >>> _validate_data_input(data=data, mincols=3, kind="matrix")
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
     >>> _validate_data_input(
     ...     data=pd.DataFrame(data, columns=["x", "y"]),
-    ...     required_z=True,
+    ...     mincols=3,
     ...     kind="vectors",
     ... )
     Traceback (most recent call last):
@@ -88,7 +88,7 @@ def _validate_data_input(  # noqa: PLR0912
     pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
     >>> _validate_data_input(
     ...     data=xr.Dataset(pd.DataFrame(data, columns=["x", "y"])),
-    ...     required_z=True,
+    ...     mincols=3,
     ...     kind="vectors",
     ... )
     Traceback (most recent call last):
@@ -116,6 +116,7 @@ def _validate_data_input(  # noqa: PLR0912
     GMTInvalidInput
         If the data input is not valid.
     """
+    required_z = mincols >= 3
     if data is None:  # data is None
         if x is None and y is None:  # both x and y are None
             if required_data:  # data is not optional
@@ -387,10 +388,10 @@ def data_kind(
     match data:
         case None if required:  # No data provided and required=True.
             kind = "empty"
-        case str() | pathlib.PurePath():  # One file.
+        case str() | os.PathLike():  # One file.
             kind = "file"
         case list() | tuple() if all(
-            isinstance(_file, str | pathlib.PurePath) for _file in data
+            isinstance(_file, str | os.PathLike) for _file in data
         ):  # A list/tuple of files.
             kind = "file"
         case io.StringIO():
@@ -482,8 +483,8 @@ def non_ascii_to_octal(argstr: str, encoding: Encoding = "ISOLatin1+") -> str:
 def build_arg_list(  # noqa: PLR0912
     kwdict: dict[str, Any],
     confdict: Mapping[str, Any] | None = None,
-    infile: str | pathlib.PurePath | Sequence[str | pathlib.PurePath] | None = None,
-    outfile: str | pathlib.PurePath | None = None,
+    infile: PathLike | Sequence[PathLike] | None = None,
+    outfile: PathLike | None = None,
 ) -> list[str]:
     r"""
     Convert keyword dictionaries and input/output files into a list of GMT arguments.
@@ -581,19 +582,19 @@ def build_arg_list(  # noqa: PLR0912
         gmt_args.extend(f"--{key}={value}" for key, value in confdict.items())
 
     if infile:  # infile can be a single file or a list of files
-        if isinstance(infile, str | pathlib.PurePath):
-            gmt_args = [str(infile), *gmt_args]
+        if isinstance(infile, str | os.PathLike):
+            gmt_args = [os.fspath(infile), *gmt_args]
         else:
-            gmt_args = [str(_file) for _file in infile] + gmt_args
+            gmt_args = [os.fspath(_file) for _file in infile] + gmt_args
     if outfile is not None:
         if (
-            not isinstance(outfile, str | pathlib.PurePath)
-            or str(outfile) in {"", ".", ".."}
-            or str(outfile).endswith(("/", "\\"))
+            not isinstance(outfile, str | os.PathLike)
+            or os.fspath(outfile) in {"", ".", ".."}
+            or os.fspath(outfile).endswith(("/", "\\"))
         ):
             msg = f"Invalid output file name '{outfile}'."
             raise GMTInvalidInput(msg)
-        gmt_args.append(f"->{outfile}")
+        gmt_args.append(f"->{os.fspath(outfile)}")
     return gmt_args
 
 
@@ -632,7 +633,7 @@ def is_nonstr_iter(value: Any) -> bool:
     return isinstance(value, Iterable) and not isinstance(value, str)
 
 
-def launch_external_viewer(fname: str, waiting: float = 0) -> None:
+def launch_external_viewer(fname: PathLike, waiting: float = 0) -> None:
     """
     Open a file in an external viewer program.
 

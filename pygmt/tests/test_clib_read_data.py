@@ -11,7 +11,6 @@ import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTCLibError
 from pygmt.helpers import GMTTempFile
-from pygmt.helpers.testing import load_static_earth_relief
 from pygmt.src import which
 
 try:
@@ -27,7 +26,9 @@ def fixture_expected_xrgrid():
     """
     The expected xr.DataArray object for the static_earth_relief.nc file.
     """
-    return load_static_earth_relief()
+    return xr.load_dataarray(
+        "@static_earth_relief.nc", engine="gmt", raster_kind="grid"
+    )
 
 
 @pytest.fixture(scope="module", name="expected_xrimage")

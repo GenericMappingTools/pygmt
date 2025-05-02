@@ -1748,16 +1748,18 @@ class Session:
                     seg.header = None
                     seg.text = None
 
+    # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'required_z'.
     # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'extra_arrays'.
-    def virtualfile_in(
+    def virtualfile_in(  # noqa: PLR0912
         self,
         check_kind=None,
         data=None,
         x=None,
         y=None,
         z=None,
-        required_z=False,
+        mincols=2,
         required_data=True,
+        required_z=False,
         extra_arrays=None,
     ):
         """
@@ -1772,17 +1774,25 @@ class Session:
         check_kind : str or None
             Used to validate the type of data that can be passed in. Choose
             from 'raster', 'vector', or None. Default is None (no validation).
-        data : str or pathlib.Path or xarray.DataArray or {table-like} or dict or None
+        data
             Any raster or vector data format. This could be a file name or
             path, a raster grid, a vector matrix/arrays, or other supported
             data input.
         x/y/z : 1-D arrays or None
             x, y, and z columns as numpy arrays.
-        required_z : bool
-            State whether the 'z' column is required.
+        mincols
+            Number of minimum required columns. Default is 2 (i.e. require x and y
+            columns).
         required_data : bool
             Set to True when 'data' is required, or False when dealing with
             optional virtual files. [Default is True].
+        required_z : bool
+            State whether the 'z' column is required.
+
+            .. deprecated:: v0.16.0
+               The parameter 'required_z' will be removed in v0.20.0. Use parameter
+               'mincols' instead. E.g., ``required_z=True`` is equivalent to
+               ``mincols=3``.
         extra_arrays : list of 1-D arrays
             A list of numpy arrays in addition to x, y, and z. All of these arrays must
             be of the same size as the x/y/z arrays.
@@ -1818,13 +1828,23 @@ class Session:
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
+        if required_z is True:
+            warnings.warn(
+                "The parameter 'required_z' is deprecated in v0.16.0 and will be "
+                "removed in v0.20.0. Use parameter 'mincols' instead. E.g., "
+                "``required_z=True`` is equivalent to ``mincols=3``.",
+                category=FutureWarning,
+                stacklevel=1,
+            )
+            mincols = 3
+
         kind = data_kind(data, required=required_data)
         _validate_data_input(
             data=data,
             x=x,
             y=y,
             z=z,
-            required_z=required_z,
+            mincols=mincols,
             required_data=required_data,
             kind=kind,
         )
