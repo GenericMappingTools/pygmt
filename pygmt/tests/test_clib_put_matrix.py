@@ -101,7 +101,7 @@ def test_put_matrix_grid(dtypes):
                 newdata = tmp_file.loadtxt(dtype=dtype)
                 npt.assert_allclose(newdata, data)
 
-            # Save the data to a netCDF grid and check it can be read again.
+            # Save the data to a netCDF grid and check that xarray can load it
             with GMTTempFile(suffix=".nc") as tmp_grid:
                 lib.write_data(
                     "GMT_IS_MATRIX",
