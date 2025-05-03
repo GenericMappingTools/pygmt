@@ -933,7 +933,7 @@ class Session:
             msg = f"Expected a numpy {ndim}-D array, got {array.ndim}-D."
             raise GMTInvalidInput(msg)
 
-        # 1-D arrays can be numeric or text, 2-D arrays can only be numeric.
+        # 1-D arrays can be numeric or text, 2-D or 3-D arrays can only be numeric.
         valid_dtypes = DTYPES if ndim == 1 else DTYPES_NUMERIC
         if (dtype := array.dtype.type) not in valid_dtypes:
             msg = f"Unsupported numpy data type '{dtype}'."
@@ -1088,6 +1088,9 @@ class Session:
         pad
             The amount of padding that should be added to the matrix. Use when creating
             grids for modules that require padding.
+        ndim
+            Number of dimensions in the array, use 2 for grids, or 3 for images. Default
+            is 2.
 
         Raises
         ------
