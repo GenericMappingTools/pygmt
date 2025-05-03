@@ -1697,7 +1697,8 @@ class Session:
         # freed. Creating it in this context manager guarantees that the copy will be
         # around until the virtual file is closed. The conversion is implicit in
         # dataarray_to_matrix.
-        matrix, region, inc = dataarray_to_matrix(image)
+        nbands, nrows, ncols = image.shape  # CHW
+        matrix, _region, _inc = dataarray_to_matrix(image)
 
         family = "GMT_IS_IMAGE|GMT_VIA_MATRIX"
         geometry = "GMT_IS_SURFACE"
@@ -1705,8 +1706,9 @@ class Session:
             family,
             geometry,
             mode=f"GMT_CONTAINER_ONLY|{_gtype}",
-            ranges=region[0:4],  # (xmin, xmax, ymin, ymax) only, leave out (zmin, zmax)
-            inc=inc[0:2],  # (x-inc, y-inc) only, leave out z-inc
+            dim=(ncols, nrows, nbands, self["GMT_UCHAR"]),
+            # ranges=_region[0:4],  # (xmin, xmax, ymin, ymax) only, no (zmin, zmax)
+            # inc=_inc[0:2],  # (x-inc, y-inc) only, leave out z-inc
             registration=_reg,  # type: ignore[arg-type]
         )
         self.put_matrix(gmt_image, matrix, ndim=3)
