@@ -15,6 +15,7 @@ from pygmt.src import (
     grdfill,
     grdfilter,
     grdgradient,
+    grdhisteq,
     grdinfo,
     grdproject,
     grdsample,
@@ -229,6 +230,14 @@ class GMTDataArrayAccessor:
         See the :func:`pygmt.grdcut` function for available parameters.
         """
         return grdcut(grid=self._obj, **kwargs)
+
+    def equalize_hist(self, **kwargs) -> xr.DataArray:
+        """
+        Perform histogram equalization for a grid.
+
+        See the :meth:`pygmt.grdhisteq.equalize_grid` method for available parameters.
+        """
+        return grdhisteq.equalize_grid(grid=self._obj, **kwargs)
 
     def fill(self, **kwargs) -> xr.DataArray:
         """
