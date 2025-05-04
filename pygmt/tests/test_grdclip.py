@@ -8,7 +8,7 @@ import numpy as np
 import numpy.testing as npt
 import pytest
 import xarray as xr
-from pygmt import grdclip, load_dataarray
+from pygmt import grdclip
 from pygmt.datasets import load_earth_mask
 from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
@@ -54,7 +54,7 @@ def test_grdclip_outgrid(grid, expected_grid):
         )
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
-        temp_grid = load_dataarray(tmpfile.name)
+        temp_grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
         assert temp_grid.dims == ("lat", "lon")
         assert temp_grid.gmt.gtype == GridType.GEOGRAPHIC
         assert temp_grid.gmt.registration == GridRegistration.PIXEL

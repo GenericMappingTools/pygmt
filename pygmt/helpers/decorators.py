@@ -262,14 +262,15 @@ COMMON_DOCSTRINGS = {
         """,
     "panel": r"""
         panel : bool, int, or list
-            [*row,col*\|\ *index*].
-            Select a specific subplot panel. Only allowed when in subplot
-            mode. Use ``panel=True`` to advance to the next panel in the
-            selected order. Instead of *row,col* you may also give a scalar
-            value *index* which depends on the order you set via ``autolabel``
-            when the subplot was defined. **Note**: *row*, *col*, and *index*
-            all start at 0.
-         """,
+            Select a specific subplot panel. Only allowed when used in
+            :meth:`Figure.subplot` mode.
+
+            - ``True`` to advance to the next panel in the selected order.
+            - *index* to specify the index of the desired panel.
+            - (*row*, *col*) to specify the row and column of the desired panel.
+
+            The panel order is determined by the :meth:`Figure.subplot` method. *row*,
+            *col* and *index* all start at 0.""",
     "pen": r"""
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
