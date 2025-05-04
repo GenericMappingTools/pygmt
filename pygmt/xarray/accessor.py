@@ -34,17 +34,10 @@ class GMTDataArrayAccessor:
     - ``registration``: Grid registration type :class:`pygmt.enums.GridRegistration`.
     - ``gtype``: Grid coordinate system type :class:`pygmt.enums.GridType`.
 
-    The *gmt* accessor also provides a set of grid-operation methods:
-
-    - :meth:`dimfilter`: Directional filtering of a grid in the space domain.
-    - :meth:`clip`: Clip the range of grid values.
-    - :meth:`cut`: Extract subregion from a grid or image or a slice from a cube.
-    - :meth:`fill`: Interpolate across holes in the grid.
-    - :meth:`filter`: Filter a grid in the space (or time) domain.
-    - :meth:`gradient`: Compute directional gradients from a grid.
-    - :meth:`project`: Forward and inverse map transformation of grids.
-    - :meth:`sample`: Resample a grid onto a new lattice.
-    - :meth:`track`: Sample a grid at specified locations.
+    The *gmt* accessor also provides a set of grid-operation methods that enables
+    applying GMT's grid processing functionalities directly to the current
+    :class:`xarray.DataArray` object. See the summary table below for the list of
+    available methods.
 
     Examples
     --------
@@ -89,6 +82,19 @@ class GMTDataArrayAccessor:
     <GridRegistration.GRIDLINE: 0>
     >>> grid.gmt.gtype
     <GridType.GEOGRAPHIC: 1>
+
+    Instead of calling a grid-processing function and passing the
+    :class:`xarray.DataArray` object as an input, you can call the corresponding method
+    directly on the object. For example, the following two are equivalent:
+
+    >>> from pygmt.datasets import load_earth_relief
+    >>> grid = load_earth_relief(resolution="30m", region=[10, 30, 15, 25])
+    >>> # Create a new grid from an input grid. Set all values below 1,000 to
+    >>> # 0 and all values above 1,500 to 10,000.
+    >>> # Option 1:
+    >>> new_grid = pygmt.grdclip(grid=grid, below=[1000, 0], above=[1500, 10000])
+    >>> # Option 2:
+    >>> new_grid = grid.gmt.clip(below=[1000, 0], above=[1500, 10000])
 
     Notes
     -----
