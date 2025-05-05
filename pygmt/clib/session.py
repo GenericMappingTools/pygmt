@@ -1789,7 +1789,7 @@ class Session:
             Number of minimum required columns. Default is 2 (i.e. require x and y
             columns).
         required : bool
-            Set to True when 'data' or (`x` and `y`) is required . Set to False when
+            Set to True when 'data' or ('x' and 'y') is required. Set to False when
             dealing with optional virtual files. Default is True.
 
             .. versionchanged:: v0.16.0
@@ -1853,8 +1853,8 @@ class Session:
             x=x,
             y=y,
             z=z,
-            mincols=mincols,
             required=required,
+            mincols=mincols,
             kind=kind,
         )
 
