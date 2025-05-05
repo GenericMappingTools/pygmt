@@ -1785,9 +1785,6 @@ class Session:
             data input.
         x/y/z : 1-D arrays or None
             x, y, and z columns as numpy arrays.
-        mincols
-            Number of minimum required columns. Default is 2 (i.e. require x and y
-            columns).
         required : bool
             Set to True when 'data' or ('x' and 'y') is required. Set to False when
             dealing with optional virtual files. Default is True.
@@ -1795,6 +1792,9 @@ class Session:
             .. versionchanged:: v0.16.0
                The parameter 'required_data' is renamed to 'required'. The parameter
                'required_data' is deprecated in v0.16.0 and will be removed in v0.20.0.
+        mincols
+            Number of minimum required columns. Default is 2 (i.e. require x and y
+            columns).
         required_z : bool
             State whether the 'z' column is required.
 
