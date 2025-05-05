@@ -110,7 +110,6 @@ def _validate_data_input(data: Any, kind: Kind, mincols=2) -> None:  # noqa: PLR
         If the data input is not valid.
     """
     required_z = mincols >= 3
-
     match kind:
         case "empty":  # data = [x, y], [x, y, z], [x, y, z, ...]
             if len(data) < 2 or any(v is None for v in data[:2]):

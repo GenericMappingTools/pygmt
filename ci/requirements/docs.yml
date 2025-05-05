@@ -10,7 +10,6 @@ dependencies:
     - numpy
     - pandas
     - xarray
-    - netCDF4
     - packaging
     # Optional dependencies
     - contextily

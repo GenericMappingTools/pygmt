@@ -225,7 +225,7 @@ def grdfill(
             # Fill mode.
             with (
                 lib.virtualfile_in(
-                    check_kind="raster", data=gridfill, required_data=False
+                    check_kind="raster", data=gridfill, required=False
                 ) as vbggrd,
                 lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
             ):

@@ -28,6 +28,7 @@ from pygmt.exceptions import GMTCLibError, GMTCLibNoSessionError, GMTInvalidInpu
 from pygmt.helpers import (
     _validate_data_input,
     data_kind,
+    deprecate_parameter,
     tempfile_from_geojson,
     tempfile_from_image,
 )
@@ -1750,6 +1751,10 @@ class Session:
 
     # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'required_z'.
     # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'extra_arrays'.
+    # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'required_data'.
+    @deprecate_parameter(
+        "required_data", "required", "v0.16.0", remove_version="v0.20.0"
+    )
     def virtualfile_in(  # noqa: PLR0912
         self,
         check_kind=None,
@@ -1757,8 +1762,8 @@ class Session:
         x=None,
         y=None,
         z=None,
+        required=True,
         mincols=2,
-        required_data=True,
         required_z=False,
         extra_arrays=None,
     ):
@@ -1780,12 +1785,16 @@ class Session:
             data input.
         x/y/z : 1-D arrays or None
             x, y, and z columns as numpy arrays.
+        required : bool
+            Set to True when 'data' or ('x' and 'y') is required. Set to False when
+            dealing with optional virtual files. Default is True.
+
+            .. versionchanged:: v0.16.0
+               The parameter 'required_data' is renamed to 'required'. The parameter
+               'required_data' is deprecated in v0.16.0 and will be removed in v0.20.0.
         mincols
             Number of minimum required columns. Default is 2 (i.e. require x and y
             columns).
-        required_data : bool
-            Set to True when 'data' is required, or False when dealing with
-            optional virtual files. [Default is True].
         required_z : bool
             State whether the 'z' column is required.
 
@@ -1844,11 +1853,11 @@ class Session:
             raise GMTInvalidInput(msg)
 
         # Determine the kind of data.
-        kind = data_kind(data, required=required_data)
+        kind = data_kind(data, required=required)
 
         # Check if the kind of data is valid.
         if check_kind:
-            valid_kinds = ("file", "arg") if required_data is False else ("file",)
+            valid_kinds = ("file", "arg") if required is False else ("file",)
             match check_kind:
                 case "raster":
                     valid_kinds += ("grid", "image")
