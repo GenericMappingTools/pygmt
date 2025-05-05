@@ -11,7 +11,6 @@ import sys
 import time
 import webbrowser
 from collections.abc import Iterable, Mapping, Sequence
-from itertools import islice
 from pathlib import Path
 from typing import Any, Literal
 
@@ -46,7 +45,7 @@ Kind = Literal[
 ]
 
 
-def _validate_data_input(data: Any, kind: Kind, mincols=2) -> None:  # noqa: PLR0912
+def _validate_data_input(data: Any, kind: Kind, mincols=2) -> None:
     """
     Check if the data to be passed to the virtualfile_from_ functions is valid.
 
@@ -109,7 +108,6 @@ def _validate_data_input(data: Any, kind: Kind, mincols=2) -> None:  # noqa: PLR
     GMTInvalidInput
         If the data input is not valid.
     """
-    required_z = mincols >= 3
     match kind:
         case "empty":  # data = [x, y], [x, y, z], [x, y, z, ...]
             if len(data) < 2 or any(v is None for v in data[:2]):
@@ -130,23 +128,9 @@ def _validate_data_input(data: Any, kind: Kind, mincols=2) -> None:  # noqa: PLR
             if (actual_cols := len(data)) < mincols:
                 msg = f"Need at least {mincols} columns but {actual_cols} column(s) are given."
                 raise GMTInvalidInput(msg)
-            if kind == "vectors":
-                if hasattr(data, "shape") and (
-                    (len(data.shape) == 1 and data.shape[0] < 3)
-                    or (len(data.shape) > 1 and data.shape[1] < 3)
-                ):  # np.ndarray or pd.DataFrame
-                    raise GMTInvalidInput(msg)
-                if hasattr(data, "data_vars") and len(data.data_vars) < 3:  # xr.Dataset
-                    raise GMTInvalidInput(msg)
-            if kind == "vectors" and isinstance(data, dict):
-                # Iterator over the up-to-3 first elements.
-                arrays = list(islice(data.values(), 3))
-                if len(arrays) < 2 or any(v is None for v in arrays[:2]):  # Check x/y
-                    msg = "Must provide x and y."
-                    raise GMTInvalidInput(msg)
-                if required_z and (len(arrays) < 3 or arrays[2] is None):  # Check z
-                    msg = "Must provide x, y, and z."
-                    raise GMTInvalidInput(msg)
+            if any(array is None for array in data[:mincols]):
+                msg = "At least one column is None."
+                raise GMTInvalidInput(msg)
 
 
 def _is_printable_ascii(argstr: str) -> bool:
