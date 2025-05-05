@@ -1789,8 +1789,8 @@ class Session:
             Number of minimum required columns. Default is 2 (i.e. require x and y
             columns).
         required : bool
-            Set to True when 'data' is required, or False when dealing with optional
-            virtual files. Default is True.
+            Set to True when 'data' or (`x` and `y`) is required . Set to False when
+            dealing with optional virtual files. Default is True.
 
             .. versionchanged:: v0.16.0
                The parameter 'required_data' is renamed to 'required'. The parameter
