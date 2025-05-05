@@ -1855,17 +1855,12 @@ class Session:
         # Determine the kind of data.
         kind = data_kind(data, required=required)
 
-        # Check if the kind of data is valid.
         if check_kind:
             valid_kinds = ("file", "arg") if required is False else ("file",)
-            match check_kind:
-                case "raster":
-                    valid_kinds += ("grid", "image")
-                case "vector":
-                    valid_kinds += ("empty", "matrix", "vectors", "geojson")
-                case _:
-                    msg = f"Invalid value for check_kind: '{check_kind}'."
-                    raise GMTInvalidInput(msg)
+            if check_kind == "raster":
+                valid_kinds += ("grid", "image")
+            elif check_kind == "vector":
+                valid_kinds += ("empty", "matrix", "vectors", "geojson")
             if kind not in valid_kinds:
                 msg = f"Unrecognized data type for {check_kind}: {type(data)}."
                 raise GMTInvalidInput(msg)
@@ -1899,7 +1894,6 @@ class Session:
                 _data = [x, y]
                 if z is not None:
                     _data.append(z)
-                # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'extra_arrays'.
                 if extra_arrays:
                     msg = (
                         "The parameter 'extra_arrays' will be removed in v0.20.0. "
