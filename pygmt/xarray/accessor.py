@@ -137,9 +137,11 @@ class GMTDataArrayAccessor:
         # two columns of the shortened summary information of grdinfo.
         if (_source := self._obj.encoding.get("source")) and Path(_source).exists():
             with contextlib.suppress(ValueError):
-                self._registration, self._gtype = map(  # type: ignore[assignment]
+                _registration, _gtype = map(
                     int, grdinfo(_source, per_column="n").split()[-2:]
                 )
+                self._registration = GridRegistration(_registration)
+                self._gtype = GridType(_gtype)
 
     @property
     def registration(self) -> GridRegistration:
