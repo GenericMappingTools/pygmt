@@ -145,7 +145,7 @@ def grdview(self, grid: PathLike | xr.DataArray, **kwargs):
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_in(
-                check_kind="raster", data=kwargs.get("G"), required_data=False
+                check_kind="raster", data=kwargs.get("G"), required=False
             ) as vdrapegrid,
         ):
             kwargs["G"] = vdrapegrid
