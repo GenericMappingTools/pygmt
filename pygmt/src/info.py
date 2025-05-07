@@ -83,7 +83,9 @@ def info(data: PathLike | TableLike, **kwargs) -> np.ndarray | str:
     """
     with Session() as lib:
         with GMTTempFile() as tmpfile:
-            with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
+            with lib.virtualfile_in(
+                check_kind="vector", data=data, mincols=1
+            ) as vintbl:
                 lib.call_module(
                     module="info",
                     args=build_arg_list(kwargs, infile=vintbl, outfile=tmpfile.name),
