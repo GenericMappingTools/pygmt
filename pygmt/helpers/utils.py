@@ -41,6 +41,11 @@ Encoding = Literal[
     "ISO-8859-16",
 ]
 
+# Type hints for the list of data kinds.
+Kind = Literal[
+    "arg", "empty", "file", "geojson", "grid", "image", "matrix", "stringio", "vectors"
+]
+
 
 def _validate_data_input(  # noqa: PLR0912
     data=None, x=None, y=None, z=None, required=True, mincols=2, kind=None
@@ -272,11 +277,11 @@ def _check_encoding(argstr: str) -> Encoding:
     return "ISOLatin1+"
 
 
-def data_kind(
-    data: Any, required: bool = True
-) -> Literal[
-    "arg", "empty", "file", "geojson", "grid", "image", "matrix", "stringio", "vectors"
-]:
+def data_kind(  # noqa: PLR0912
+    data: Any,
+    required: bool = True,
+    check_kind: Kind | Sequence[Kind] | Literal["raster", "vector"] | None = None,
+) -> Kind:
     r"""
     Check the kind of data that is provided to a module.
 
@@ -307,6 +312,14 @@ def data_kind(
     required
         Whether 'data' is required. Set to ``False`` when dealing with optional virtual
         files.
+    check_kind
+        Used to validate the type of data that can be passed in. Valid values are:
+
+        - Any recognized data kind
+        - A list/tuple of recognized data kinds
+        - ``"raster"``: shorthand for a sequence of raster-like data kinds
+        - ``"vector"``: shorthand for a sequence of vector-like data kinds
+        - ``None``: means no validatation.
 
     Returns
     -------
@@ -414,6 +427,24 @@ def data_kind(
             kind = "matrix"
         case _:  # Fall back to "vectors" if data is None and required=True.
             kind = "vectors"
+
+    # Now start to check if the data kind is valid.
+    if check_kind is not None:
+        valid_kinds = ("file", "arg") if required is False else ("file",)
+        match check_kind:
+            case "raster":
+                valid_kinds += ("grid", "image")
+            case "vector":
+                valid_kinds += ("empty", "matrix", "vectors", "geojson")
+            case str():
+                valid_kinds = (check_kind,)
+            case list() | tuple():
+                valid_kinds = check_kind
+
+        if kind not in valid_kinds:
+            msg = f"Unrecognized data type: {type(data)}."
+            raise GMTInvalidInput(msg)
+
     return kind  # type: ignore[return-value]
 
 
