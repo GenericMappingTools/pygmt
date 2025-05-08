@@ -34,7 +34,7 @@ def test_nearneighbor_input_data(array_func, ship_data):
     )
     assert isinstance(output, xr.DataArray)
     assert output.gmt.registration == GridRegistration.GRIDLINE
-    assert output.gmt.gtype == GridType.GEOGRAPHIC
+    assert output.gmt.gtype is GridType.GEOGRAPHIC
     assert output.shape == (121, 121)
     npt.assert_allclose(output.mean(), -2378.2385)
 

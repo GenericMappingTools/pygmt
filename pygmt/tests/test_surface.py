@@ -74,7 +74,7 @@ def check_values(grid, expected_grid):
     """
     assert isinstance(grid, xr.DataArray)
     assert grid.gmt.registration == GridRegistration.GRIDLINE
-    assert grid.gmt.gtype == GridType.CARTESIAN
+    assert grid.gmt.gtype is GridType.CARTESIAN
     xr.testing.assert_allclose(a=grid, b=expected_grid)
 
 

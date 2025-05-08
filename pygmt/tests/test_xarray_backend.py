@@ -32,7 +32,7 @@ def test_xarray_backend_load_dataarray():
 
         dataarray = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
 
-        assert dataarray.gmt.gtype == GridType.CARTESIAN
+        assert dataarray.gmt.gtype is GridType.CARTESIAN
         assert dataarray.gmt.registration == GridRegistration.PIXEL
         # ensure data array can be saved back to a NetCDF file
         dataarray.to_netcdf(tmpfile.name)
@@ -48,7 +48,7 @@ def test_xarray_backend_gmt_open_nc_grid():
     ) as da:
         assert da.sizes == {"lat": 14, "lon": 8}
         assert da.dtype == "float32"
-        assert da.gmt.gtype == GridType.GEOGRAPHIC
+        assert da.gmt.gtype is GridType.GEOGRAPHIC
         assert da.gmt.registration == GridRegistration.PIXEL
 
 
@@ -60,7 +60,7 @@ def test_xarray_backend_gmt_open_tif_image():
     with xr.open_dataarray("@earth_day_01d", engine="gmt", raster_kind="image") as da:
         assert da.sizes == {"band": 3, "y": 180, "x": 360}
         assert da.dtype == "uint8"
-        assert da.gmt.gtype == GridType.GEOGRAPHIC
+        assert da.gmt.gtype is GridType.GEOGRAPHIC
         assert da.gmt.registration == GridRegistration.PIXEL
 
 
@@ -77,7 +77,7 @@ def test_xarray_backend_gmt_load_grd_grid():
     npt.assert_allclose(da.min(), -4929.5)
     assert da.sizes == {"lat": 31, "lon": 31}
     assert da.dtype == "float32"
-    assert da.gmt.gtype == GridType.GEOGRAPHIC
+    assert da.gmt.gtype is GridType.GEOGRAPHIC
     assert da.gmt.registration == GridRegistration.GRIDLINE
 
 

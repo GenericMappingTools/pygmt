@@ -30,7 +30,7 @@ def test_sphdistance_xy_inputs():
     x = [85.5, 82.3, 85.8, 86.5]
     temp_grid = sphdistance(x=x, y=y, spacing=[1, 2], region=[82, 87, 22, 24])
     assert temp_grid.dims == ("lat", "lon")
-    assert temp_grid.gmt.gtype == GridType.GEOGRAPHIC
+    assert temp_grid.gmt.gtype is GridType.GEOGRAPHIC
     assert temp_grid.gmt.registration == GridRegistration.GRIDLINE
     npt.assert_allclose(temp_grid.max(), 232977.546875)
     npt.assert_allclose(temp_grid.min(), 0)
@@ -57,7 +57,7 @@ def test_sphdistance_no_outgrid(array):
     """
     temp_grid = sphdistance(data=array, spacing=[1, 2], region=[82, 87, 22, 24])
     assert temp_grid.dims == ("lat", "lon")
-    assert temp_grid.gmt.gtype == GridType.GEOGRAPHIC
+    assert temp_grid.gmt.gtype is GridType.GEOGRAPHIC
     assert temp_grid.gmt.registration == GridRegistration.GRIDLINE
     npt.assert_allclose(temp_grid.max(), 232977.546875)
     npt.assert_allclose(temp_grid.min(), 0)

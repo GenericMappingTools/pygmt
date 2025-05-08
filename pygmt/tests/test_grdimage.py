@@ -191,7 +191,7 @@ def test_grdimage_global_subset(grid_360):
     # Get a slice of South America and Africa only (lat=-90:31, lon=-180:41)
     sliced_grid = grid_360[0:121, 0:221]
     assert sliced_grid.gmt.registration == GridRegistration.GRIDLINE
-    assert sliced_grid.gmt.gtype == GridType.CARTESIAN
+    assert sliced_grid.gmt.gtype is GridType.CARTESIAN
 
     fig = Figure()
     fig.grdimage(

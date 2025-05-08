@@ -50,7 +50,7 @@ def test_xyz2grd_input_array(array_func, ship_data, expected_grid):
     output = xyz2grd(data=array_func(ship_data), spacing=5, region=[245, 255, 20, 30])
     assert isinstance(output, xr.DataArray)
     assert output.gmt.registration == GridRegistration.GRIDLINE
-    assert output.gmt.gtype == GridType.CARTESIAN
+    assert output.gmt.gtype is GridType.CARTESIAN
     xr.testing.assert_allclose(a=output, b=expected_grid)
 
 

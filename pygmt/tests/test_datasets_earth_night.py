@@ -20,7 +20,7 @@ def test_black_marble_01d():
     assert data.shape == (3, 180, 360)
     assert data.dtype == "uint8"
     assert data.gmt.registration == GridRegistration.PIXEL
-    assert data.gmt.gtype == GridType.GEOGRAPHIC
+    assert data.gmt.gtype is GridType.GEOGRAPHIC
     npt.assert_allclose(data.y, np.arange(89.5, -90.5, -1))
     npt.assert_allclose(data.x, np.arange(-179.5, 180.5, 1))
     npt.assert_allclose(data.min(), 3, atol=1)
@@ -35,7 +35,7 @@ def test_black_marble_01d_with_region():
     assert data.shape == (3, 10, 20)
     assert data.dtype == "uint8"
     assert data.gmt.registration == GridRegistration.PIXEL
-    assert data.gmt.gtype == GridType.GEOGRAPHIC
+    assert data.gmt.gtype is GridType.GEOGRAPHIC
     npt.assert_allclose(data.y, np.arange(4.5, -5.5, -1))
     npt.assert_allclose(data.x, np.arange(-9.5, 10.5, 1))
     npt.assert_allclose(data.min(), 3, atol=1)

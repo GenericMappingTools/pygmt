@@ -79,7 +79,7 @@ def test_grdsample_dataarray_out(grid, expected_grid, region, spacing):
     result = grdsample(grid=grid, spacing=spacing, region=region, cores=2)
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
-    assert result.gmt.gtype == GridType.GEOGRAPHIC
+    assert result.gmt.gtype is GridType.GEOGRAPHIC
     assert result.gmt.registration == GridRegistration.PIXEL
     # check information of the output grid
     xr.testing.assert_allclose(a=result, b=expected_grid)

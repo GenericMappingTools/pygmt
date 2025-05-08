@@ -25,7 +25,7 @@ def test_xarray_accessor_gridline_cartesian():
     """
     grid = xr.load_dataarray("@test.dat.nc", engine="gmt", raster_kind="grid")
     assert grid.gmt.registration == GridRegistration.GRIDLINE
-    assert grid.gmt.gtype == GridType.CARTESIAN
+    assert grid.gmt.gtype is GridType.CARTESIAN
 
 
 def test_xarray_accessor_pixel_geographic():
@@ -35,7 +35,7 @@ def test_xarray_accessor_pixel_geographic():
     """
     grid = xr.load_dataarray("@earth_relief_01d_p", engine="gmt", raster_kind="grid")
     assert grid.gmt.registration == GridRegistration.PIXEL
-    assert grid.gmt.gtype == GridType.GEOGRAPHIC
+    assert grid.gmt.gtype is GridType.GEOGRAPHIC
 
 
 def test_xarray_accessor_set_registration():
@@ -69,23 +69,23 @@ def test_xarray_accessor_set_gtype():
     Check that we can set the gtype of a grid.
     """
     grid = xr.DataArray(data=[[0.1, 0.2], [0.3, 0.4]])
-    assert grid.gmt.gtype == GridType.CARTESIAN == 0  # Default gtype
+    assert grid.gmt.gtype is GridType.CARTESIAN == 0  # Default gtype
 
     # Set the gtype to geographic
     grid.gmt.gtype = GridType.GEOGRAPHIC
-    assert grid.gmt.gtype == GridType.GEOGRAPHIC == 1
+    assert grid.gmt.gtype is GridType.GEOGRAPHIC == 1
 
     # Set the gtype to Cartesian
     grid.gmt.gtype = GridType.CARTESIAN
-    assert grid.gmt.gtype == GridType.CARTESIAN == 0
+    assert grid.gmt.gtype is GridType.CARTESIAN == 0
 
     # Set the gtype to geographic but using a numerical value
     grid.gmt.gtype = 1
-    assert grid.gmt.gtype == GridType.GEOGRAPHIC == 1
+    assert grid.gmt.gtype is GridType.GEOGRAPHIC == 1
 
     # Set the gtype to Cartesian but using a numerical value
     grid.gmt.gtype = 0
-    assert grid.gmt.gtype == GridType.CARTESIAN == 0
+    assert grid.gmt.gtype is GridType.CARTESIAN == 0
 
 
 def test_xarray_accessor_set_invalid_registration_and_gtype():
@@ -127,7 +127,7 @@ def test_xarray_accessor_sliced_datacube():
             grid = dataset.sel(level=500, month=1, drop=True).z
 
         assert grid.gmt.registration == GridRegistration.GRIDLINE
-        assert grid.gmt.gtype == GridType.GEOGRAPHIC
+        assert grid.gmt.gtype is GridType.GEOGRAPHIC
     finally:
         Path(fname).unlink()
 
@@ -143,7 +143,7 @@ def test_xarray_accessor_grid_source_file_not_exist():
     )
     # Registration and gtype are correct.
     assert grid.gmt.registration == GridRegistration.PIXEL
-    assert grid.gmt.gtype == GridType.GEOGRAPHIC
+    assert grid.gmt.gtype is GridType.GEOGRAPHIC
     # The source grid file is undefined.
     assert grid.encoding.get("source") is None
 
@@ -151,10 +151,10 @@ def test_xarray_accessor_grid_source_file_not_exist():
     # grid file doesn't exist.
     sliced_grid = grid[1:3, 1:3]
     assert sliced_grid.gmt.registration == GridRegistration.GRIDLINE
-    assert sliced_grid.gmt.gtype == GridType.CARTESIAN
+    assert sliced_grid.gmt.gtype is GridType.CARTESIAN
 
     # Still possible to manually set registration and gtype.
     sliced_grid.gmt.registration = GridRegistration.PIXEL
     sliced_grid.gmt.gtype = GridType.GEOGRAPHIC
     assert sliced_grid.gmt.registration == GridRegistration.PIXEL
-    assert sliced_grid.gmt.gtype == GridType.GEOGRAPHIC
+    assert sliced_grid.gmt.gtype is GridType.GEOGRAPHIC

@@ -30,7 +30,7 @@ def test_sph2grd_no_outgrid():
     """
     temp_grid = sph2grd(data="@EGM96_to_36.txt", spacing=1, region="g", cores=2)
     assert temp_grid.dims == ("y", "x")
-    assert temp_grid.gmt.gtype == GridType.CARTESIAN
+    assert temp_grid.gmt.gtype is GridType.CARTESIAN
     assert temp_grid.gmt.registration == GridRegistration.GRIDLINE
     npt.assert_allclose(temp_grid.max(), 0.00021961, rtol=1e-4)
     npt.assert_allclose(temp_grid.min(), -0.0004326, rtol=1e-4)

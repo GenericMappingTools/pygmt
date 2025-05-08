@@ -43,7 +43,7 @@ def test_binstats_no_outgrid():
         region="g",
     )
     assert temp_grid.dims == ("y", "x")
-    assert temp_grid.gmt.gtype == GridType.CARTESIAN
+    assert temp_grid.gmt.gtype is GridType.CARTESIAN
     assert temp_grid.gmt.registration == GridRegistration.GRIDLINE
     npt.assert_allclose(temp_grid.max(), 35971536)
     npt.assert_allclose(temp_grid.min(), 53)

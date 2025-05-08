@@ -141,7 +141,7 @@ def test_regular_grid_no_outgrid(dataframe, expected_grid):
     output = triangulate.regular_grid(data=data, spacing=1, region=[2, 4, 5, 6])
     assert isinstance(output, xr.DataArray)
     assert output.gmt.registration == GridRegistration.GRIDLINE
-    assert output.gmt.gtype == GridType.CARTESIAN
+    assert output.gmt.gtype is GridType.CARTESIAN
     xr.testing.assert_allclose(a=output, b=expected_grid)
 
 
@@ -159,5 +159,5 @@ def test_regular_grid_with_outgrid_param(dataframe, expected_grid):
         grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
         assert isinstance(grid, xr.DataArray)
         assert grid.gmt.registration == GridRegistration.GRIDLINE
-        assert grid.gmt.gtype == GridType.CARTESIAN
+        assert grid.gmt.gtype is GridType.CARTESIAN
         xr.testing.assert_allclose(a=grid, b=expected_grid)

@@ -71,11 +71,11 @@ def test_grdproject_no_outgrid(grid, projection, expected_grid):
 
     Also check that providing the projection as an EPSG code or PROJ4 string works.
     """
-    assert grid.gmt.gtype == GridType.GEOGRAPHIC
+    assert grid.gmt.gtype is GridType.GEOGRAPHIC
     result = grdproject(
         grid=grid, projection=projection, spacing=3, region=[-53, -51, -20, -17]
     )
-    assert result.gmt.gtype == GridType.CARTESIAN
+    assert result.gmt.gtype is GridType.CARTESIAN
     assert result.gmt.registration == GridRegistration.PIXEL
     # check information of the output grid
     xr.testing.assert_allclose(a=result, b=expected_grid)

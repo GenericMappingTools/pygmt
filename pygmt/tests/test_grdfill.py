@@ -65,7 +65,7 @@ def test_grdfill_dataarray_out(grid, expected_grid):
     result = grdfill(grid=grid, constantfill=20)
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
-    assert result.gmt.gtype == GridType.GEOGRAPHIC
+    assert result.gmt.gtype is GridType.GEOGRAPHIC
     assert result.gmt.registration == GridRegistration.PIXEL
     # check information of the output grid
     xr.testing.assert_allclose(a=result, b=expected_grid)
@@ -80,7 +80,7 @@ def test_grdfill_asymmetric_pad(grid, expected_grid):
     result = grdfill(grid=grid, constantfill=20, region=[-55, -50, -24, -16])
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
-    assert result.gmt.gtype == GridType.GEOGRAPHIC
+    assert result.gmt.gtype is GridType.GEOGRAPHIC
     assert result.gmt.registration == GridRegistration.PIXEL
     # check information of the output grid
     xr.testing.assert_allclose(
