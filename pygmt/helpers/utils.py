@@ -45,13 +45,16 @@ Kind = Literal[
 ]
 
 
-def _validate_data_input(data: Any, kind: Kind, mincols=2) -> None:
+def _validate_data_input(data: Any, kind: Kind, mincols: int = 2) -> None:
     """
-    Check if the data to be passed to the virtualfile_from_ functions is valid.
+    Check if the data to be passed to the virtualfile_from_ functions has the required
+    number of columns.
+
+    Only checks the "empty"/"vectors"/"matrix" kinds.
 
     Examples
     --------
-    The "empty" kind means the data is given via a series of vectors like x/y/z.
+    The "empty" kind means the data is given via x/y/z.
 
     >>> _validate_data_input(data=[[1, 2, 3], [4, 5, 6]], kind="empty")
     >>> _validate_data_input(data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]], kind="empty")
@@ -72,33 +75,33 @@ def _validate_data_input(data: Any, kind: Kind, mincols=2) -> None:
         ...
     pygmt.exceptions.GMTInvalidInput: Must provide x, y, and z.
 
+    The "vectors" kind means the data is a series of 1-D vectors.
+
+    >>> _validate_data_input(data=[[1, 2, 3], [4, 5, 6]], kind="vectors")
+    >>> _validate_data_input(data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]], kind="vectors")
+    >>> _validate_data_input(data=[None, [4, 5, 6]], kind="vectors")
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: At least one column is None.
+    >>> _validate_data_input(data=[[1, 2, 3], None], kind="vectors")
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: At least one column is None.
+    >>> _validate_data_input(data=[None, None], kind="vectors")
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: At least one column is None.
+    >>> _validate_data_input(data=[[1, 2, 3], [4, 5, 6]], kind="vectors", mincols=3)
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Need at least 3 columns but 2 column(s) are given.
+
     The "matrix" kind means the data is given via a 2-D numpy.ndarray.
 
     >>> import numpy as np
-    >>> import pandas as pd
-    >>> import xarray as xr
     >>> data = np.arange(8).reshape((4, 2))
-    >>> _validate_data_input(data=data, mincols=3, kind="matrix")
-    Traceback (most recent call last):
-        ...
-    pygmt.exceptions.GMTInvalidInput: Need at least 3 columns but 2 column(s) are given.
-
-    The "vectors" kind means the original data is either dictionary, list, tuple,
-    pandas.DataFrame, pandas.Series, xarray.Dataset, or xarray.DataArray.
-
-    >>> _validate_data_input(
-    ...     data=pd.DataFrame(data, columns=["x", "y"]),
-    ...     mincols=3,
-    ...     kind="vectors",
-    ... )
-    Traceback (most recent call last):
-        ...
-    pygmt.exceptions.GMTInvalidInput: Need at least 3 columns but 2 column(s) are given.
-    >>> _validate_data_input(
-    ...     data=xr.Dataset(pd.DataFrame(data, columns=["x", "y"])),
-    ...     mincols=3,
-    ...     kind="vectors",
-    ... )
+    >>> _validate_data_input(data=data, kind="matrix", mincols=2)
+    >>> _validate_data_input(data=data, kind="matrix", mincols=3)
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Need at least 3 columns but 2 column(s) are given.
@@ -109,27 +112,23 @@ def _validate_data_input(data: Any, kind: Kind, mincols=2) -> None:
         If the data input is not valid.
     """
     match kind:
-        case "empty":  # data = [x, y], [x, y, z], [x, y, z, ...]
+        case "empty":  # data = [x, y] or [x, y, z]
             if len(data) < 2 or any(v is None for v in data[:2]):
                 msg = "Must provide both x and y."
                 raise GMTInvalidInput(msg)
             if mincols >= 3 and (len(data) < 3 or data[:3] is None):
                 msg = "Must provide x, y, and z."
                 raise GMTInvalidInput(msg)
-        case "matrix":  # 2-D numpy.ndarray
-            if (actual_cols := data.shape[1]) < mincols:
-                msg = f"Need at least {mincols} columns but {actual_cols} column(s) are given."
-                raise GMTInvalidInput(msg)
-        case "vectors":
-            # "vectors" means the original data is either dictionary, list, tuple,
-            # pandas.DataFrame, pandas.Series, xarray.Dataset, or xarray.DataArray.
-            # The original data is converted to a list of vectors or a 2-D numpy.ndarray
-            # in the virtualfile_in function.
+        case "vectors":  # A list of 1-D vectors or 2-D numpy array
             if (actual_cols := len(data)) < mincols:
                 msg = f"Need at least {mincols} columns but {actual_cols} column(s) are given."
                 raise GMTInvalidInput(msg)
             if any(array is None for array in data[:mincols]):
                 msg = "At least one column is None."
+                raise GMTInvalidInput(msg)
+        case "matrix":  # 2-D numpy.ndarray
+            if (actual_cols := data.shape[1]) < mincols:
+                msg = f"Need at least {mincols} columns but {actual_cols} column(s) are given."
                 raise GMTInvalidInput(msg)
 
 
