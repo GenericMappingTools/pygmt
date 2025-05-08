@@ -170,7 +170,7 @@ def grdimage(self, grid: PathLike | xr.DataArray, **kwargs):
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_in(
-                check_kind="raster", data=kwargs.get("I"), required_data=False
+                check_kind="raster", data=kwargs.get("I"), required=False
             ) as vshadegrid,
         ):
             kwargs["I"] = vshadegrid
