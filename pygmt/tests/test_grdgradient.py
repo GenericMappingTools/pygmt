@@ -67,8 +67,8 @@ def test_grdgradient_no_outgrid(grid, expected_grid):
     )
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
-    assert result.gmt.gtype == GridType.GEOGRAPHIC
-    assert result.gmt.registration == GridRegistration.PIXEL
+    assert result.gmt.gtype is GridType.GEOGRAPHIC
+    assert result.gmt.registration is GridRegistration.PIXEL
     # check information of the output grid
     xr.testing.assert_allclose(a=result, b=expected_grid)
 

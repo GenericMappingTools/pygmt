@@ -140,8 +140,8 @@ class GMTDataArrayAccessor:
                 _registration, _gtype = map(
                     int, grdinfo(_source, per_column="n").split()[-2:]
                 )
-                self._registration = GridRegistration(_registration)
-                self._gtype = GridType(_gtype)
+            self._registration = GridRegistration(_registration)
+            self._gtype = GridType(_gtype)
 
     @property
     def registration(self) -> GridRegistration:
