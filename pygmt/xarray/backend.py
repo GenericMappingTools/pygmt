@@ -31,6 +31,9 @@ class GMTBackendEntrypoint(BackendEntrypoint):
     - ``"grid"``: for reading single-band raster grids
     - ``"image"``: for reading multi-band raster images
 
+    Optionally, you can pass in a `region`in the form of a sequence [*xmin*, *xmax*,
+    *ymin*, *ymax*] or an ISO country code.
+
     Examples
     --------
     Read a single-band netCDF file using ``raster_kind="grid"``
@@ -69,6 +72,31 @@ class GMTBackendEntrypoint(BackendEntrypoint):
       * band     (band) uint8... 1 2 3
     Attributes:...
         long_name:  z
+
+    Load a single-band netCDF file using ``raster_kind="grid"`` over a bounding box
+    region.
+
+    >>> da_grid = xr.load_dataarray(
+    ...     "@tut_bathy.nc", engine="gmt", raster_kind="grid", region=[-64, -62, 32, 33]
+    ... )
+    >>> da_grid
+    <xarray.DataArray 'z' (lat: 13, lon: 25)>...
+    array([[-4369., -4587., -4469., -4409., -4587., -4505., -4403., -4405.,
+            -4466., -4595., -4609., -4608., -4606., -4607., -4607., -4597.,
+    ...
+            -4667., -4642., -4677., -4795., -4797., -4800., -4803., -4818.,
+            -4820.]], dtype=float32)
+    Coordinates:
+      * lat      (lat) float64... 32.0 32.08 32.17 32.25 ... 32.83 32.92 33.0
+      * lon      (lon) float64... -64.0 -63.92 -63.83 ... -62.17 -62.08 -62.0
+    Attributes:...
+        Conventions:   CF-1.7
+        title:         ETOPO5 global topography
+        history:       grdreformat -fg bermuda.grd bermuda.nc=ns
+        description:   /home/elepaio5/data/grids/etopo5.i2
+        actual_range:  [-4968. -4315.]
+        long_name:     Topography
+        units:         m
     """
 
     description = "Open raster (.grd, .nc or .tif) files in Xarray via GMT."
