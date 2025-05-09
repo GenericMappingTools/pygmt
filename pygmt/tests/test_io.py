@@ -29,7 +29,7 @@ def test_io_load_dataarray():
             dataarray = load_dataarray(tmpfile.name)
 
         assert dataarray.gmt.gtype is GridType.CARTESIAN
-        assert dataarray.gmt.registration == GridRegistration.PIXEL
+        assert dataarray.gmt.registration is GridRegistration.PIXEL
         # this would fail if we used xr.open_dataarray instead of load_dataarray
         dataarray.to_netcdf(tmpfile.name)
 

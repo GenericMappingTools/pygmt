@@ -40,7 +40,7 @@ def test_sphinterpolate_no_outgrid(mars):
     temp_grid = sphinterpolate(data=mars, spacing=1, region="g")
     assert temp_grid.dims == ("lat", "lon")
     assert temp_grid.gmt.gtype is GridType.GEOGRAPHIC
-    assert temp_grid.gmt.registration == GridRegistration.GRIDLINE
+    assert temp_grid.gmt.registration is GridRegistration.GRIDLINE
     npt.assert_allclose(temp_grid.max(), 14628.144)
     npt.assert_allclose(temp_grid.min(), -6908.1987)
     npt.assert_allclose(temp_grid.median(), 118.96849)

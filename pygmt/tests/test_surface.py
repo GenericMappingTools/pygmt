@@ -73,7 +73,7 @@ def check_values(grid, expected_grid):
     Check the attributes and values of the DataArray returned by surface.
     """
     assert isinstance(grid, xr.DataArray)
-    assert grid.gmt.registration == GridRegistration.GRIDLINE
+    assert grid.gmt.registration is GridRegistration.GRIDLINE
     assert grid.gmt.gtype is GridType.CARTESIAN
     xr.testing.assert_allclose(a=grid, b=expected_grid)
 
