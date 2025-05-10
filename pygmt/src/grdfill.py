@@ -125,13 +125,16 @@ def grdfill(
     r"""
     Interpolate across holes in a grid.
 
+    .. note::
+
+       Wraps the GMT module ``grdfill``.
+       The GMT documentation is at :gmt-docs:`grdfill.html`.
+
     Read a grid that presumably has unfilled holes that the user wants to fill in some
     fashion. Holes are identified by NaN values but this criteria can be changed via the
     ``hole`` parameter. There are several different algorithms that can be used to
     replace the hole values. If no holes are found the original unchanged grid is
     returned.
-
-    Full option list at :gmt-docs:`grdfill.html`.
 
     {aliases}
 
