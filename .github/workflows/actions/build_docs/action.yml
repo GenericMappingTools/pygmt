@@ -70,7 +70,7 @@ runs:
       run: |
         python -m build --sdist
         python -m pip install dist/*
-      shell: bash
+      shell: bash -l {0}
 
     - name: Build the HTML documentation
       run: make -C doc clean html
