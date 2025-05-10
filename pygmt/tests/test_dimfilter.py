@@ -70,8 +70,8 @@ def test_dimfilter_no_outgrid(grid, expected_grid):
         grid=grid, filter="m600", distance=4, sectors="l6", region=[-55, -51, -24, -19]
     )
     assert result.dims == ("lat", "lon")
-    assert result.gmt.gtype == GridType.GEOGRAPHIC
-    assert result.gmt.registration == GridRegistration.PIXEL
+    assert result.gmt.gtype is GridType.GEOGRAPHIC
+    assert result.gmt.registration is GridRegistration.PIXEL
     xr.testing.assert_allclose(a=result, b=expected_grid)
 
 
