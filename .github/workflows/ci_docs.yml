@@ -92,7 +92,7 @@ jobs:
         uses: actions/upload-artifact@v4.6.2
         if: github.event_name == 'pull_request' && matrix.os == 'ubuntu-latest'
         with:
-          name: artifact-pygmt-docs-pdf
+          name: pygmt-docs-pdf
           path: doc/_build/pygmt-docs.pdf
 
       - name: Copy the HTML ZIP archive and PDF to the html folder for dev version
