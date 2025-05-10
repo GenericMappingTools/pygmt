@@ -6,6 +6,8 @@ from typing import Literal
 
 import numpy as np
 import pandas as pd
+import xarray as xr
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -48,10 +50,10 @@ __doctest_skip__ = ["grdtrack"]
 )
 @kwargs_to_strings(R="sequence", S="sequence", i="sequence_comma", o="sequence_comma")
 def grdtrack(
-    grid,
-    points=None,
+    grid: PathLike | xr.DataArray,
+    points: PathLike | TableLike | None = None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
-    outfile: str | None = None,
+    outfile: PathLike | None = None,
     newcolname=None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
@@ -80,7 +82,7 @@ def grdtrack(
     ----------
     {grid}
 
-    points : str, {table-like}
+    points
         Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
     {output_type}
@@ -311,7 +313,7 @@ def grdtrack(
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_in(
-                check_kind="vector", data=points, required_data=False
+                check_kind="vector", data=points, required=False
             ) as vintbl,
             lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
         ):

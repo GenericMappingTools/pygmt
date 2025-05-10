@@ -35,22 +35,24 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
-    "numpy>=1.25",
-    "pandas>=2.0",
-    "xarray>=2023.04",
-    "netCDF4",
-    "packaging",
+    "numpy>=1.26",
+    "pandas>=2.1",
+    "xarray>=2023.07",
+    "packaging>=24.2",
 ]
 dynamic = ["version"]
 
 [project.optional-dependencies]
 all = [
-    "contextily",
-    "geopandas",
+    "contextily>=1.5",
+    "geopandas>=1.0",
     "IPython",  # 'ipython' is not the correct module name.
-    "pyarrow",
+    "pyarrow>=16",
     "rioxarray",
 ]
+
+[project.entry-points."xarray.backends"]
+gmt = "pygmt.xarray:GMTBackendEntrypoint"
 
 [project.urls]
 "Homepage" = "https://www.pygmt.org"

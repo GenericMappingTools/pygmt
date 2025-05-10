@@ -6,6 +6,7 @@ from typing import Literal
 
 import numpy as np
 import pandas as pd
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -36,12 +37,12 @@ from pygmt.helpers import (
 )
 @kwargs_to_strings(E="sequence", L="sequence", T="sequence", W="sequence", C="sequence")
 def project(
-    data=None,
+    data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
-    outfile: str | None = None,
+    outfile: PathLike | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -112,7 +113,7 @@ def project(
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
@@ -245,8 +246,8 @@ def project(
                 x=x,
                 y=y,
                 z=z,
-                required_z=False,
-                required_data=False,
+                mincols=2,
+                required=False,
             ) as vintbl,
             lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
         ):

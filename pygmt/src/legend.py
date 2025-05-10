@@ -3,8 +3,8 @@ legend - Plot a legend.
 """
 
 import io
-import pathlib
 
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -31,7 +31,7 @@ from pygmt.helpers import (
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def legend(
     self,
-    spec: str | pathlib.PurePath | io.StringIO | None = None,
+    spec: PathLike | io.StringIO | None = None,
     position="JTR+jTR+o0.2c",
     box="+gwhite+p1p",
     **kwargs,
@@ -56,9 +56,8 @@ def legend(
 
         - ``None`` which means using the automatically generated legend specification
           file
-        - A string or a :class:`pathlib.PurePath` object pointing to the legend
-          specification file
-        - A :class:`io.StringIO` object containing the legend specification.
+        - Path to the legend specification file
+        - A :class:`io.StringIO` object containing the legend specification
 
         See :gmt-docs:`legend.html` for the definition of the legend specification.
     {projection}
@@ -99,5 +98,5 @@ def legend(
         raise GMTInvalidInput(msg)
 
     with Session() as lib:
-        with lib.virtualfile_in(data=spec, required_data=False) as vintbl:
+        with lib.virtualfile_in(data=spec, required=False) as vintbl:
             lib.call_module(module="legend", args=build_arg_list(kwargs, infile=vintbl))

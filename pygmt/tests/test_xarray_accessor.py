@@ -2,6 +2,7 @@
 Test the behaviour of the GMTDataArrayAccessor class.
 """
 
+import importlib
 import sys
 from pathlib import Path
 
@@ -14,80 +15,80 @@ from pygmt.datasets import load_earth_relief
 from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 
+_HAS_NETCDF4 = bool(importlib.util.find_spec("netCDF4"))
 
-def test_accessor_gridline_cartesian():
+
+def test_xarray_accessor_gridline_cartesian():
     """
     Check that the accessor returns the correct registration and gtype values for a
     Cartesian, gridline-registered grid.
     """
-    fname = which(fname="@test.dat.nc", download="a")
-    grid = xr.open_dataarray(fname, engine="netcdf4")
-    assert grid.gmt.registration == GridRegistration.GRIDLINE
-    assert grid.gmt.gtype == GridType.CARTESIAN
+    grid = xr.load_dataarray("@test.dat.nc", engine="gmt", raster_kind="grid")
+    assert grid.gmt.registration is GridRegistration.GRIDLINE
+    assert grid.gmt.gtype is GridType.CARTESIAN
 
 
-def test_accessor_pixel_geographic():
+def test_xarray_accessor_pixel_geographic():
     """
     Check that the accessor returns the correct registration and gtype values for a
     geographic, pixel-registered grid.
     """
-    fname = which(fname="@earth_relief_01d_p", download="a")
-    grid = xr.open_dataarray(fname, engine="netcdf4")
-    assert grid.gmt.registration == GridRegistration.PIXEL
-    assert grid.gmt.gtype == GridType.GEOGRAPHIC
+    grid = xr.load_dataarray("@earth_relief_01d_p", engine="gmt", raster_kind="grid")
+    assert grid.gmt.registration is GridRegistration.PIXEL
+    assert grid.gmt.gtype is GridType.GEOGRAPHIC
 
 
-def test_accessor_set_registration():
+def test_xarray_accessor_set_registration():
     """
     Check that we can set the registration of a grid.
     """
     grid = xr.DataArray(data=[[0.1, 0.2], [0.3, 0.4]])
     # Default to gridline registration
-    assert grid.gmt.registration == GridRegistration.GRIDLINE == 0
+    assert grid.gmt.registration is GridRegistration.GRIDLINE == 0
 
     # Set the registration to pixel
     grid.gmt.registration = GridRegistration.PIXEL
-    assert grid.gmt.registration == GridRegistration.PIXEL == 1
+    assert grid.gmt.registration is GridRegistration.PIXEL == 1
 
     # Set the registration to gridline
     grid.gmt.registration = GridRegistration.GRIDLINE
-    assert grid.gmt.registration == GridRegistration.GRIDLINE == 0
+    assert grid.gmt.registration is GridRegistration.GRIDLINE == 0
 
     # Set the registration to pixel but using a numerical value
     grid.gmt.registration = 1
-    assert grid.gmt.registration == GridRegistration.PIXEL == 1
+    assert grid.gmt.registration is GridRegistration.PIXEL == 1
 
     # Set the registration to gridline but using a numerical value
     grid.gmt.registration = 0
-    assert grid.gmt.registration == GridRegistration.GRIDLINE == 0
+    assert grid.gmt.registration is GridRegistration.GRIDLINE == 0
 
 
 @pytest.mark.benchmark
-def test_accessor_set_gtype():
+def test_xarray_accessor_set_gtype():
     """
     Check that we can set the gtype of a grid.
     """
     grid = xr.DataArray(data=[[0.1, 0.2], [0.3, 0.4]])
-    assert grid.gmt.gtype == GridType.CARTESIAN == 0  # Default gtype
+    assert grid.gmt.gtype is GridType.CARTESIAN == 0  # Default gtype
 
     # Set the gtype to geographic
     grid.gmt.gtype = GridType.GEOGRAPHIC
-    assert grid.gmt.gtype == GridType.GEOGRAPHIC == 1
+    assert grid.gmt.gtype is GridType.GEOGRAPHIC == 1
 
     # Set the gtype to Cartesian
     grid.gmt.gtype = GridType.CARTESIAN
-    assert grid.gmt.gtype == GridType.CARTESIAN == 0
+    assert grid.gmt.gtype is GridType.CARTESIAN == 0
 
     # Set the gtype to geographic but using a numerical value
     grid.gmt.gtype = 1
-    assert grid.gmt.gtype == GridType.GEOGRAPHIC == 1
+    assert grid.gmt.gtype is GridType.GEOGRAPHIC == 1
 
     # Set the gtype to Cartesian but using a numerical value
     grid.gmt.gtype = 0
-    assert grid.gmt.gtype == GridType.CARTESIAN == 0
+    assert grid.gmt.gtype is GridType.CARTESIAN == 0
 
 
-def test_accessor_set_invalid_registration_and_gtype():
+def test_xarray_accessor_set_invalid_registration_and_gtype():
     """
     Check that setting invalid values on registration and gtype do not work.
     """
@@ -104,11 +105,12 @@ def test_accessor_set_invalid_registration_and_gtype():
 
 
 # TODO(GMT>=6.5.0): Remove the xfail marker for GMT>=6.5.0.
+@pytest.mark.skipif(condition=not _HAS_NETCDF4, reason="netCDF4 is not installed")
 @pytest.mark.xfail(
     condition=sys.platform == "win32" and Version(__gmt_version__) < Version("6.5.0"),
     reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/7573",
 )
-def test_accessor_sliced_datacube():
+def test_xarray_accessor_sliced_datacube():
     """
     Check that a 2-D grid which is sliced from an n-dimensional datacube works with
     accessor methods.
@@ -121,16 +123,16 @@ def test_accessor_sliced_datacube():
             "https://github.com/pydata/xarray-data/raw/master/eraint_uvz.nc",
             download="u",
         )
-        with xr.open_dataset(fname) as dataset:
+        with xr.open_dataset(fname, engine="netcdf4") as dataset:
             grid = dataset.sel(level=500, month=1, drop=True).z
 
-        assert grid.gmt.registration == GridRegistration.GRIDLINE
-        assert grid.gmt.gtype == GridType.GEOGRAPHIC
+        assert grid.gmt.registration is GridRegistration.GRIDLINE
+        assert grid.gmt.gtype is GridType.GEOGRAPHIC
     finally:
         Path(fname).unlink()
 
 
-def test_accessor_grid_source_file_not_exist():
+def test_xarray_accessor_grid_source_file_not_exist():
     """
     Check that the accessor fallbacks to the default registration and gtype when the
     grid source file (i.e., grid.encoding["source"]) doesn't exist.
@@ -140,19 +142,19 @@ def test_accessor_grid_source_file_not_exist():
         resolution="05m", region=[0, 5, -5, 5], registration="pixel"
     )
     # Registration and gtype are correct.
-    assert grid.gmt.registration == GridRegistration.PIXEL
-    assert grid.gmt.gtype == GridType.GEOGRAPHIC
+    assert grid.gmt.registration is GridRegistration.PIXEL
+    assert grid.gmt.gtype is GridType.GEOGRAPHIC
     # The source grid file is undefined.
     assert grid.encoding.get("source") is None
 
     # For a sliced grid, fallback to default registration and gtype, because the source
     # grid file doesn't exist.
     sliced_grid = grid[1:3, 1:3]
-    assert sliced_grid.gmt.registration == GridRegistration.GRIDLINE
-    assert sliced_grid.gmt.gtype == GridType.CARTESIAN
+    assert sliced_grid.gmt.registration is GridRegistration.GRIDLINE
+    assert sliced_grid.gmt.gtype is GridType.CARTESIAN
 
     # Still possible to manually set registration and gtype.
     sliced_grid.gmt.registration = GridRegistration.PIXEL
     sliced_grid.gmt.gtype = GridType.GEOGRAPHIC
-    assert sliced_grid.gmt.registration == GridRegistration.PIXEL
-    assert sliced_grid.gmt.gtype == GridType.GEOGRAPHIC
+    assert sliced_grid.gmt.registration is GridRegistration.PIXEL
+    assert sliced_grid.gmt.gtype is GridType.GEOGRAPHIC

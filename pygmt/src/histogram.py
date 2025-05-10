@@ -2,6 +2,7 @@
 Histogram - Calculate and plot histograms.
 """
 
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -39,7 +40,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @kwargs_to_strings(
     R="sequence", T="sequence", c="sequence_comma", i="sequence_comma", p="sequence"
 )
-def histogram(self, data, **kwargs):
+def histogram(self, data: PathLike | TableLike, **kwargs):
     r"""
     Calculate and plot histograms.
 
@@ -49,7 +50,7 @@ def histogram(self, data, **kwargs):
 
     Parameters
     ----------
-    data : str, list, {table-like}
+    data
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         {table-classes}.
     {projection}
