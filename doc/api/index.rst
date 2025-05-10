@@ -194,6 +194,17 @@ Getting metadata from tabular or grid data:
     info
     grdinfo
 
+Common Parameters
+-----------------
+
+.. currentmodule:: pygmt.params
+
+.. autosummary::
+    :toctree: generated
+
+    Box
+    Frame
+
 Xarray Integration
 ------------------
 

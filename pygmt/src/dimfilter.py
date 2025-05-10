@@ -4,25 +4,25 @@ dimfilter - Directional filtering of grids in the space domain.
 
 import xarray as xr
 from pygmt._typing import PathLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring
 
 __doctest_skip__ = ["dimfilter"]
 
 
 @fmt_docstring
-@use_alias(
-    D="distance",
-    F="filter",
-    I="spacing",
-    N="sectors",
-    R="region",
-    V="verbose",
-)
-@kwargs_to_strings(I="sequence", R="sequence")
 def dimfilter(
-    grid: PathLike | xr.DataArray, outgrid: PathLike | None = None, **kwargs
+    grid: PathLike | xr.DataArray,
+    outgrid: PathLike | None = None,
+    distance: int | str | None = None,
+    filter: str | None = None,  # noqa: A002
+    sectors: str | None = None,
+    spacing: str | list | None = None,
+    region: str | list | None = None,
+    verbose: bool | None = None,
+    **kwargs,
 ) -> xr.DataArray | None:
     r"""
     Directional filtering of grids in the space domain.
@@ -44,8 +44,6 @@ def dimfilter(
     of the DiM-filtered data is generally recommended.
 
     Full option list at :gmt-docs:`dimfilter.html`
-
-    {aliases}
 
     Parameters
     ----------
@@ -137,19 +135,35 @@ def dimfilter(
     ...     region=[-55, -51, -24, -19],
     ... )
     """
-    if not all(arg in kwargs for arg in ["D", "F", "N"]) and "Q" not in kwargs:
+    if (
+        not all(v is not None for v in [distance, filter, sectors])
+        and "Q" not in kwargs
+    ):
         msg = (
             "At least one of the following parameters must be specified: "
             "distance, filters, or sectors."
         )
         raise GMTInvalidInput(msg)
+
+    alias = AliasSystem(
+        D=Alias(distance),
+        G=Alias(outgrid),
+        F=Alias(filter),
+        I=Alias(spacing, separator="/"),
+        N=Alias(sectors),
+        R=Alias(region, separator="/"),
+        V=Alias(verbose),
+    )
+    kwdict = alias.kwdict | kwargs
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            kwargs["G"] = voutgrd
+            kwdict["G"] = voutgrd
             lib.call_module(
-                module="dimfilter", args=build_arg_list(kwargs, infile=vingrd)
+                module="dimfilter",
+                args=build_arg_list(kwdict, infile=vingrd),
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
