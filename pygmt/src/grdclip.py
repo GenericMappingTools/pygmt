@@ -138,6 +138,11 @@ def grdclip(
     Full option list at :gmt-docs:`grdclip.html`
 
     {aliases}
+       - G = outgrid
+       - Sa = above
+       - Sb = below
+       - Si = between
+       - Sr = replace
 
     Parameters
     ----------

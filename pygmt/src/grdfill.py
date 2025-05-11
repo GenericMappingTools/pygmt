@@ -134,6 +134,9 @@ def grdfill(
     Full option list at :gmt-docs:`grdfill.html`.
 
     {aliases}
+       - G = outgrid
+       - A = constantfill/gridfill/neighborfill/splinefill
+       - L = inquire
 
     Parameters
     ----------
