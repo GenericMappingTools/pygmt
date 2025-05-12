@@ -127,8 +127,7 @@ def grdfill(
 
     .. note::
 
-       Wraps the GMT module ``grdfill``.
-       The GMT documentation is at :gmt-docs:`grdfill.html`.
+       Wraps the GMT module :gmt-docs:`grdfill <grdfill.html>`.
 
     Read a grid that presumably has unfilled holes that the user wants to fill in some
     fashion. Holes are identified by NaN values but this criteria can be changed via the
