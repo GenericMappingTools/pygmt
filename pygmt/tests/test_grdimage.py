@@ -172,7 +172,7 @@ def test_grdimage_over_dateline(xrgrid):
     See also https://github.com/GenericMappingTools/pygmt/issues/375.
     """
     fig = Figure()
-    assert xrgrid.gmt.registration == GridRegistration.GRIDLINE
+    assert xrgrid.gmt.registration is GridRegistration.GRIDLINE
     xrgrid.gmt.gtype = GridType.GEOGRAPHIC
     fig.grdimage(grid=xrgrid, region="g", projection="A0/0/1c")
     return fig
@@ -190,8 +190,8 @@ def test_grdimage_global_subset(grid_360):
     """
     # Get a slice of South America and Africa only (lat=-90:31, lon=-180:41)
     sliced_grid = grid_360[0:121, 0:221]
-    assert sliced_grid.gmt.registration == GridRegistration.GRIDLINE
-    assert sliced_grid.gmt.gtype == GridType.CARTESIAN
+    assert sliced_grid.gmt.registration is GridRegistration.GRIDLINE
+    assert sliced_grid.gmt.gtype is GridType.CARTESIAN
 
     fig = Figure()
     fig.grdimage(

@@ -66,6 +66,7 @@ jobs:
           --exclude "^https://www.pygmt.org/%7B%7Bpath%7D%7D"
           --exclude "^https://www.researchgate.net/"
           --exclude "^https://zenodo.org/badge/DOI/"
+          --exclude "^https://stackoverflow.com/a/69170441"
           --verbose
           "repository/*.md"
           "repository/**/*.py"
