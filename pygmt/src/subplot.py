@@ -145,7 +145,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         [no heading]. Font is determined by setting :gmt-term:`FONT_HEADING`.
     {verbose}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     if nrows < 1 or ncols < 1:
         msg = "Please ensure that both 'nrows'>=1 and 'ncols'>=1."
@@ -224,7 +224,7 @@ def set_panel(self, panel=None, **kwargs):
 
     {verbose}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     with Session() as lib:
         lib.call_module(

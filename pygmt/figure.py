@@ -4,6 +4,7 @@ Define the Figure class that handles all plotting.
 
 import base64
 import os
+import warnings
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Literal, overload
@@ -119,12 +120,24 @@ class Figure:
         with Session() as lib:
             lib.call_module(module="figure", args=[self._name, fmt])
 
+    # TODO(PyGMT>=v0.20.0):  Remove the _preprocess method.
     def _preprocess(self, **kwargs):
         """
         Call the ``figure`` module before each plotting command to ensure we're plotting
         to this particular figure.
+
+        .. deprecated:: v0.16.0
+
+            This private method is deprecated since v0.16.0 and will be removed in
+            v0.20.0. Use :meth:`pygmt.Figure._activate_figure` instead.
         """
         self._activate_figure()
+        warnings.warn(
+            "The Figure._preprocess() method is deprecated since v0.16.0 and will be "
+            "removed in v0.20.0. Use Figure._activate_figure() instead.",
+            FutureWarning,
+            stacklevel=2,
+        )
         return kwargs
 
     @property
