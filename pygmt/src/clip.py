@@ -1,5 +1,5 @@
 """
-Clip.
+clip - Clip a path and only plot data inside or outside.
 """
 
 from collections.abc import Sequence
@@ -134,7 +134,7 @@ class ClipAccessor:
 
     def land(self, **kwargs):
         """
-        Clip the land area (i.e., "dry" areas).
+        Clip the land area (i.e., "dry" areas) and only plot data inside.
 
         Must be used as a context manager. Any plotting operations within the context
         manager will be clipped to the land areas.
