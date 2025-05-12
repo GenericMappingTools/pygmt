@@ -126,11 +126,14 @@ class _ClipMask(_ClipContext):
 
 class ClipAccessor:
     """
-    Accessor for the clip methods.
+    Accessor for different clip methods.
     """
 
-    def __init__(self, fig):
-        self._fig = fig  # The parent Figure object.
+    def __init__(self, figure):
+        """
+        Initialize the ClipAccessor.
+        """
+        self._figure = figure  # The parent Figure object.
 
     def land(self, **kwargs):
         """
@@ -142,7 +145,8 @@ class ClipAccessor:
         Parameters
         ----------
         kwargs
-            Additional arguments passed to :meth:`pygmt.Figure.coast`.
+            Additional keyword arguments passed to :meth:`pygmt.Figure.coast`. Not all
+            parameters make sense in this context.
 
         Examples
         --------
@@ -156,11 +160,12 @@ class ClipAccessor:
         ...     fig.grdimage(grid, cmap="geo")
         >>> fig.show()
         """
-        return _ClipLand(self._fig, **kwargs)
+        return _ClipLand(self._figure, **kwargs)
 
     def water(self, **kwargs):
         """
-        Clip the water areas (i.e., "wet" areas such as oceans and lakes).
+        Clip the water areas (i.e., "wet" areas such as oceans and lakes) and only plot
+        data inside.
 
         Must be used as a context manager. Any plotting operations within the context
         manager will be clipped to the water areas.
@@ -168,7 +173,8 @@ class ClipAccessor:
         Parameters
         ----------
         kwargs
-            Additional arguments passed to :meth:`pygmt.Figure.coast`.
+            Additional keyword arguments passed to :meth:`pygmt.Figure.coast`. Not all
+            parameters make sense in this context.
 
         Examples
         --------
@@ -182,7 +188,7 @@ class ClipAccessor:
         ...     fig.grdimage(grid, cmap="geo")
         >>> fig.show()
         """
-        return _ClipWater(self._fig, **kwargs)
+        return _ClipWater(self._figure, **kwargs)
 
     def polygon(self, x, y, **kwargs):
         """
@@ -207,7 +213,7 @@ class ClipAccessor:
         ...     fig.grdimage(grid, cmap="geo")
         >>> fig.show()
         """
-        return _ClipPolygon(self._fig, data={"x": x, "y": y}, **kwargs)
+        return _ClipPolygon(self._figure, data={"x": x, "y": y}, **kwargs)
 
     def dcw(self, code: str | Sequence[str], **kwargs):
         """
@@ -226,7 +232,7 @@ class ClipAccessor:
         >>> fig.show()
         """
         _code = ",".join(code) if is_nonstr_iter(code) else code
-        return _ClipDcw(self._fig, dcw=f"{_code}+c", **kwargs)
+        return _ClipDcw(self._figure, dcw=f"{_code}+c", **kwargs)
 
     def solar(self, **kwargs):
         """
@@ -244,7 +250,7 @@ class ClipAccessor:
         ...     fig.grdimage(grid, cmap="geo")
         >>> fig.show()
         """
-        return _ClipSolar(self._fig, **kwargs)
+        return _ClipSolar(self._figure, **kwargs)
 
     def mask(self, x, y, spacing, radius=None):
         """
@@ -264,4 +270,4 @@ class ClipAccessor:
         ...     fig.grdimage(grid, cmap="geo")
         >>> fig.show()
         """
-        return _ClipMask(self._fig, data={"x": x, "y": y}, I=spacing, S=radius)
+        return _ClipMask(self._figure, data={"x": x, "y": y}, I=spacing, S=radius)

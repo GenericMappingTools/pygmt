@@ -141,7 +141,7 @@ class Figure:
     @property
     def clip(self) -> ClipAccessor:
         """
-        Set up a clipping path and only plot data inside/outside the clipped path.
+        Set up a clipping path and only plot data inside/outside it.
 
         See :class:`pygmt.src.clip.ClipAccessor <ClipAccessor>` for the usage.
         """
