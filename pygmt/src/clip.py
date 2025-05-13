@@ -238,6 +238,12 @@ class ClipAccessor:
         """
         Clip the data to the solar terminator.
 
+        Parameters
+        ----------
+        kwargs
+            Additional keyword arguments passed to :meth:`pygmt.Figure.solar`. Not all
+            parameters make sense in this context.
+
         Examples
         --------
         >>> from pygmt import Figure
