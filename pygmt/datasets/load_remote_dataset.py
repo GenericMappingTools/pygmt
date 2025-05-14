@@ -593,7 +593,7 @@ def _load_remote_dataset(
             )
 
     # Full path to the grid
-    source: str | list = which(fname, download="a", verbose="q")
+    source: str | list = which(fname, verbose="q")
     if resinfo.tiled:
         source = sorted(source)[0]  # get first grid for tiled grids
     # Manually add source to xarray.DataArray encoding to make the GMT accessors work.
