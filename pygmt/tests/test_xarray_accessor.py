@@ -157,7 +157,7 @@ def test_xarray_accessor_tiled_grid_slice_and_add():
     assert sliced_grid.gmt.registration is GridRegistration.PIXEL
     assert sliced_grid.gmt.gtype is GridType.GEOGRAPHIC
 
-    # For a grid that underwent mathematical operations, fallback to  default
+    # For a grid that underwent mathematical operations, fallback to default
     # registration and gtype, because the source grid file doesn't exist.
     added_grid = sliced_grid + 9
     assert added_grid.encoding == {}
