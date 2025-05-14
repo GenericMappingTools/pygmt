@@ -8,7 +8,6 @@ from typing import Any, Literal, NamedTuple
 
 import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import kwargs_to_strings
 
 with contextlib.suppress(ImportError):
     # rioxarray is needed to register the rio accessor
