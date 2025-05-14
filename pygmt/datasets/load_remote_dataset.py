@@ -597,8 +597,7 @@ def _load_remote_dataset(
     if resinfo.tiled:
         source = sorted(source)[0]  # get first grid for tiled grids
     # Manually add source to xarray.DataArray encoding to make the GMT accessors work.
-    if source:
-        grid.encoding["source"] = source
+    grid.encoding["source"] = source
 
     # Add some metadata to the grid
     grid.attrs["description"] = dataset.description
