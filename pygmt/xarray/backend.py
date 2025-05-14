@@ -31,7 +31,7 @@ class GMTBackendEntrypoint(BackendEntrypoint):
     - ``"grid"``: for reading single-band raster grids
     - ``"image"``: for reading multi-band raster images
 
-    Optionally, you can pass in a `region`in the form of a sequence [*xmin*, *xmax*,
+    Optionally, you can pass in a ``region`` in the form of a sequence [*xmin*, *xmax*,
     *ymin*, *ymax*] or an ISO country code.
 
     Examples
@@ -126,8 +126,8 @@ class GMTBackendEntrypoint(BackendEntrypoint):
         raster_kind
             Whether to read the file as a "grid" (single-band) or "image" (multi-band).
         region
-            Optional. The subregion of the grid or image to load, in the form of a
-            sequence [*xmin*, *xmax*, *ymin*, *ymax*] or an ISO country code.
+            The subregion of the grid or image to load, in the form of a sequence
+            [*xmin*, *xmax*, *ymin*, *ymax*] or an ISO country code.
         """
         if raster_kind not in {"grid", "image"}:
             msg = f"Invalid raster kind: '{raster_kind}'. Valid values are 'grid' or 'image'."
