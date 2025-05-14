@@ -500,7 +500,6 @@ datasets = {
 }
 
 
-@kwargs_to_strings(region="sequence")
 def _load_remote_dataset(
     name: str,
     prefix: str,
