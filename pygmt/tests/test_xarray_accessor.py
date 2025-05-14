@@ -148,16 +148,16 @@ def test_xarray_accessor_tiled_grid_slice_and_add():
     assert grid.gmt.registration is GridRegistration.PIXEL
     assert grid.gmt.gtype is GridType.GEOGRAPHIC
     # The source grid file for tiled grids is the first tile
-    assert grid.encoding["source"].endswith("S90W180.earth_relief_05m_p.nc")
+    assert grid.encoding["source"].endswith("S90E000.earth_relief_05m_p.nc")
 
     # For a sliced grid, ensure we don't fallback to the default registration (gridline)
     # and gtype (cartesian), because the source grid file should still exist.
     sliced_grid = grid[1:3, 1:3]
-    assert sliced_grid.encoding["source"].endswith("S90W180.earth_relief_05m_p.nc")
+    assert sliced_grid.encoding["source"].endswith("S90E000.earth_relief_05m_p.nc")
     assert sliced_grid.gmt.registration is GridRegistration.PIXEL
     assert sliced_grid.gmt.gtype is GridType.GEOGRAPHIC
 
-    # For a grid that underwent mathematical operations, fallback to  default
+    # For a grid that underwent mathematical operations, fallback to default
     # registration and gtype, because the source grid file doesn't exist.
     added_grid = sliced_grid + 9
     assert added_grid.encoding == {}
