@@ -133,10 +133,17 @@ def grdfill(
 
     Full option list at :gmt-docs:`grdfill.html`.
 
-    {aliases}
-       - G = outgrid
+    .. rubric:: Aliases:
+    .. hlist::
+       :columns: 3
+
        - A = constantfill/gridfill/neighborfill/splinefill
+       - G = outgrid
        - L = inquire
+       - N = hole
+       - R = region
+       - V = verbose
+       - f = coltypes
 
     Parameters
     ----------
