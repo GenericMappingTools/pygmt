@@ -28,11 +28,11 @@ def grdlandmask(outgrid: PathLike | None = None, **kwargs) -> xr.DataArray | Non
     r"""
     Create a "wet-dry" mask grid from shoreline database.
 
-    Read the selected shoreline database and uses that information to decide which nodes
+    Read the selected shoreline database and use that information to decide which nodes
     in the specified grid are over land or over water. The nodes defined by the selected
     region and lattice spacing will be set according to one of two criteria: (1) land vs
     water, or (2) the more detailed (hierarchical) ocean vs land vs lake vs island vs
-    pond. A mask grid is created with the specified grid spacing and spacing.
+    pond. A mask grid is created with the specified grid spacing.
 
     Full option list at :gmt-docs:`grdlandmask.html`
 
