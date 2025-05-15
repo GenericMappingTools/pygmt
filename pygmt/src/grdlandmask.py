@@ -59,11 +59,10 @@ def grdlandmask(outgrid: PathLike | None = None, **kwargs) -> xr.DataArray | Non
         Set the values that will be assigned to nodes, in the form of [*wet*, *dry*], or
         [*ocean*, *land*, *lake*, *island*, *pond*]. Default is ``[0, 1, 0, 1, 0]``
         (i.e., ``[0, 1]``), meaning that all "wet" nodes will be assigned a value of 0
-        and all "dry" nodes will be assigned a value of 1.
+        and all "dry" nodes will be assigned a value of 1. Values can be any number, or
+        one of ``None``, ``"NaN"``, and ``np.nan`` for setting nodes to NaN.
 
-        Values can be any number, or one of ``None``, ``"NaN"``, and ``np.nan`` for
-        setting the nodes to NaN. Use ``bordervalues`` to control how nodes on feature
-        boundaries are handled.
+        Use ``bordervalues`` to control how nodes on feature boundaries are handled.
     bordervalues : bool, float, or list
         Sets the behavior for nodes that fall exactly on a polygon boundary. Valid
         values are:
@@ -72,15 +71,13 @@ def grdlandmask(outgrid: PathLike | None = None, **kwargs) -> xr.DataArray | Non
         - ``True``: Treat boundary nodes as outside
         - A single value: Set all boundary nodes to the same value
         - A sequence of four values in the form of [*cborder*, *lborder*, *iborder*,
-          *pborder*]: Treat different kinds of boundary nodes as the specified values:
-
-          - *cborder*: value for coastline
-          - *lborder*: value for lake outline
-          - *iborder*: value for islands in lakes
-          - *pborder*: value for ponds in islands in lakes
+          *pborder*] to treat different kinds of boundary nodes as the specified values.
+          *cborder* is for coastline, *lborder* for lake outline, *iborder* for
+          islands-in-lakes outlines, and *pborder* for ponds-in-islands-in-lakes
+          outlines.
 
         Values can be any number, or one of ``None``, ``"NaN"``, and ``np.nan`` for
-        setting the nodes to NaN.
+        setting nodes to NaN.
     {verbose}
     {registration}
     {cores}
