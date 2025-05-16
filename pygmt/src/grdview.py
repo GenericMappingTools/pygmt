@@ -140,7 +140,7 @@ def grdview(self, grid: PathLike | xr.DataArray, **kwargs):
     >>> # Show the plot
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,

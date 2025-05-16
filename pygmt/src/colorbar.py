@@ -144,6 +144,6 @@ def colorbar(self, **kwargs):
     >>> # Show the plot
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="colorbar", args=build_arg_list(kwargs))

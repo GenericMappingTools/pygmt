@@ -82,7 +82,7 @@ def legend(
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     if kwargs.get("D") is None:
         kwargs["D"] = position

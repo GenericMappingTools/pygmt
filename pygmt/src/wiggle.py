@@ -98,7 +98,7 @@ def wiggle(
     {transparency}
     {wrap}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     if fillpositive or fillnegative:
         kwargs["G"] = []
