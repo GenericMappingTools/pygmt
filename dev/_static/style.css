@@ -52,6 +52,15 @@ p {
     max-width: 1000px;
 }
 
+/* Compatibility with sphinx_rtd_theme v3.x.x */
+/* https://github.com/TexasInstruments/processor-sdk-doc/commit/4fa6276ddcf7f9db919af2e5b3aec7e70a1afa16 */
+.wy-side-nav-search>div.version {
+    margin-top: -.4045em;
+    margin-bottom: .809em;
+    font-weight: 400;
+    color: hsla(0, 0%, 100%, .3);
+}
+
 /* Format parameters section similar to sphinx_rtd_theme v4.x.x (not a grid) */
 html.writer-html5 .rst-content dl.field-list {
     display: initial;
