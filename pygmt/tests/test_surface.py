@@ -73,8 +73,8 @@ def check_values(grid, expected_grid):
     Check the attributes and values of the DataArray returned by surface.
     """
     assert isinstance(grid, xr.DataArray)
-    assert grid.gmt.registration == GridRegistration.GRIDLINE
-    assert grid.gmt.gtype == GridType.CARTESIAN
+    assert grid.gmt.registration is GridRegistration.GRIDLINE
+    assert grid.gmt.gtype is GridType.CARTESIAN
     xr.testing.assert_allclose(a=grid, b=expected_grid)
 
 
@@ -145,5 +145,5 @@ def test_surface_with_outgrid_param(data, region, spacing, expected_grid):
         )
         assert output is None  # check that output is None since outgrid is set
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
-        with xr.open_dataarray(tmpfile.name) as grid:
-            check_values(grid, expected_grid)
+        grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
+        check_values(grid, expected_grid)

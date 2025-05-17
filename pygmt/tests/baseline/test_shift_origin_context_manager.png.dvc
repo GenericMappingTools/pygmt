@@ -1,0 +1,5 @@
+outs:
+- md5: 6c63b9935618f607fe22608f7561be22
+  size: 4869
+  hash: md5
+  path: test_shift_origin_context_manager.png

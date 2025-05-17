@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 import pytest
 import xarray as xr
-from pygmt import grdhisteq, load_dataarray
+from pygmt import grdhisteq
 from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
@@ -67,7 +67,7 @@ def test_equalize_grid_outgrid_file(grid, expected_grid, region):
         )
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
-        temp_grid = load_dataarray(tmpfile.name)
+        temp_grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
@@ -79,8 +79,8 @@ def test_equalize_grid_no_outgrid(grid, expected_grid, region):
     temp_grid = grdhisteq.equalize_grid(
         grid=grid, divisions=2, region=region, outgrid=None
     )
-    assert temp_grid.gmt.gtype == GridType.GEOGRAPHIC
-    assert temp_grid.gmt.registration == GridRegistration.PIXEL
+    assert temp_grid.gmt.gtype is GridType.GEOGRAPHIC
+    assert temp_grid.gmt.registration is GridRegistration.PIXEL
     xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 

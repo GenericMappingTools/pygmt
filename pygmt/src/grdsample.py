@@ -1,8 +1,9 @@
 """
-grdsample - Resample a grid onto a new lattice
+grdsample - Resample a grid onto a new lattice.
 """
 
 import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -21,9 +22,11 @@ __doctest_skip__ = ["grdsample"]
     x="cores",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def grdsample(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
+def grdsample(
+    grid: PathLike | xr.DataArray, outgrid: PathLike | None = None, **kwargs
+) -> xr.DataArray | None:
     r"""
-    Change the registration, spacing, or nodes in a grid file.
+    Resample a grid onto a new lattice.
 
     This reads a grid file and interpolates it to create a new grid
     file. It can change the registration with ``translate`` or

@@ -11,6 +11,7 @@ assignees: ''
 **Scheduled Date**: 20YY/MM/DD
 **Pull request due date**: 20YY/MM/DD
 **DOI**: `10.5281/zenodo.XXXXXXX`
+**Announcement draft**: https://hackmd.io/@pygmt/xxxxxxxx
 
 **Priority PRs/issues to complete prior to release**
 
@@ -39,11 +40,15 @@ assignees: ''
   - [ ] Edit the draft release notes with the finalized changelog
   - [ ] Set the tag version and release title to vX.Y.Z
   - [ ] Make a release by clicking the 'Publish Release' button, this will automatically create a tag too
+- [ ] Verify that [all workflows triggered by the release](https://github.com/GenericMappingTools/pygmt/actions?query=event%3Arelease) pass
+  - [ ] The latest version is correct on [PyPI](https://pypi.org/project/pygmt/)
+  - [ ] The latest version is correct on https://www.pygmt.org/latest/
+  - [ ] The [release page](https://github.com/GenericMappingTools/pygmt/releases) has five assets, including `baseline-images.zip`, `pygmt-docs.zip` and `pygmt-docs.pdf`
 - [ ] Download pygmt-X.Y.Z.zip (rename to pygmt-vX.Y.Z.zip) and baseline-images.zip from the release page, and upload the two zip files to https://zenodo.org/deposit, ensure that they are filed under the correct reserved DOI
 
 **After release**:
 
-- [ ] Update conda-forge [pygmt-feedstock](https://github.com/conda-forge/pygmt-feedstock) [Done automatically by conda-forge's bot. Remember to pin GMT, Python and SPEC0 versions]
+- [ ] Update conda-forge [pygmt-feedstock](https://github.com/conda-forge/pygmt-feedstock) (Done automatically by conda-forge's bot. If you don't want to wait, open a new issue in the `conda-forge/pygmt-feedstock` repository with the title `@conda-forge-admin, please update version`. This will trigger the bot immediately. Remember to pin GMT, Python and SPEC0 versions)
 - [ ] Bump PyGMT version on https://github.com/GenericMappingTools/try-gmt (after conda-forge update)
 - [ ] Announce the release on:
   - [ ] GMT [forum](https://forum.generic-mapping-tools.org/c/news/) (do this announcement first! Requires moderator status)

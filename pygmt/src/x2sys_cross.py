@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 import pandas as pd
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -71,7 +72,9 @@ def tempfile_from_dftrack(track, suffix):
 )
 @kwargs_to_strings(R="sequence")
 def x2sys_cross(
-    tracks=None, outfile: str | None = None, **kwargs
+    tracks=None,
+    outfile: PathLike | None = None,
+    **kwargs,
 ) -> pd.DataFrame | None:
     r"""
     Calculate crossovers between track data files.

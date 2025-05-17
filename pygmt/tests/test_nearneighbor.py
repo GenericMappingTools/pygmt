@@ -33,8 +33,8 @@ def test_nearneighbor_input_data(array_func, ship_data):
         data=data, spacing="5m", region=[245, 255, 20, 30], search_radius="10m"
     )
     assert isinstance(output, xr.DataArray)
-    assert output.gmt.registration == GridRegistration.GRIDLINE
-    assert output.gmt.gtype == GridType.GEOGRAPHIC
+    assert output.gmt.registration is GridRegistration.GRIDLINE
+    assert output.gmt.gtype is GridType.GEOGRAPHIC
     assert output.shape == (121, 121)
     npt.assert_allclose(output.mean(), -2378.2385)
 
@@ -82,7 +82,7 @@ def test_nearneighbor_with_outgrid_param(ship_data):
         )
         assert output is None  # check that output is None since outgrid is set
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
-        with xr.open_dataarray(tmpfile.name) as grid:
-            assert isinstance(grid, xr.DataArray)  # ensure netCDF grid loads ok
-            assert grid.shape == (121, 121)
-            npt.assert_allclose(grid.mean(), -2378.2385)
+        grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
+        assert isinstance(grid, xr.DataArray)  # ensure netCDF grid loads ok
+        assert grid.shape == (121, 121)
+        npt.assert_allclose(grid.mean(), -2378.2385)

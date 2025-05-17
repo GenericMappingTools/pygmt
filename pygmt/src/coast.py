@@ -1,5 +1,5 @@
 """
-coast - Plot land and water.
+coast - Plot continents, countries, shorelines, rivers, and borders.
 """
 
 from pygmt.clib import Session
@@ -39,7 +39,7 @@ __doctest_skip__ = ["coast"]
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def coast(self, **kwargs):
     r"""
-    Plot continents, shorelines, rivers, and borders on maps.
+    Plot continents, countries, shorelines, rivers, and borders.
 
     Plots grayshaded, colored, or textured land masses [or water masses] on
     maps and [optionally] draws coastlines, rivers, and political
@@ -193,7 +193,7 @@ def coast(self, **kwargs):
     >>> # Show the plot
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
     if not args_in_kwargs(args=["C", "G", "S", "I", "N", "E", "Q", "W"], kwargs=kwargs):
         msg = (
             "At least one of the following parameters must be specified: "

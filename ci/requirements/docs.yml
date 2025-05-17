@@ -10,7 +10,6 @@ dependencies:
     - numpy
     - pandas
     - xarray
-    - netCDF4
     - packaging
     # Optional dependencies
     - contextily
@@ -31,7 +30,7 @@ dependencies:
     - sphinx-copybutton
     - sphinx-design
     - sphinx-gallery
-    - sphinx_rtd_theme<3.0
+    - sphinx_rtd_theme
     # Dev dependencies (building PDF documentation)
     # 'sphinxcontrib-svg2pdfconverter' is required since it's added to `extensions`.
     - sphinxcontrib-svg2pdfconverter

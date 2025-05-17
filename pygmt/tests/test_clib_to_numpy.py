@@ -24,8 +24,6 @@ except ImportError:
         A dummy class to mimic pyarrow.
         """
 
-        __version__ = "0.0.0"
-
         @staticmethod
         def timestamp(unit: str, tz: str | None = None):
             """
@@ -391,17 +389,7 @@ def test_to_numpy_pandas_numeric_with_na(dtype, expected_dtype):
         "U10",
         "string[python]",
         pytest.param("string[pyarrow]", marks=skip_if_no(package="pyarrow")),
-        pytest.param(
-            "string[pyarrow_numpy]",
-            marks=[
-                skip_if_no(package="pyarrow"),
-                # TODO(pandas>=2.1): Remove the skipif marker for pandas<2.1.
-                pytest.mark.skipif(
-                    Version(pd.__version__) < Version("2.1"),
-                    reason="string[pyarrow_numpy] was added since pandas 2.1",
-                ),
-            ],
-        ),
+        pytest.param("string[pyarrow_numpy]", marks=skip_if_no(package="pyarrow")),
     ],
 )
 def test_to_numpy_pandas_string(dtype):
@@ -536,12 +524,7 @@ def test_to_numpy_pandas_datetime(dtype, expected_dtype):
 
     # Convert to UTC if the dtype is timezone-aware
     if "," in str(dtype):  # A hacky way to decide if the dtype is timezone-aware.
-        # TODO(pandas>=2.1): Simplify the if-else statement.
-        if Version(pd.__version__) < Version("2.1") and dtype.startswith("timestamp"):
-            # pandas 2.0 doesn't have the dt.tz_convert method for pyarrow.Timestamp.
-            series = pd.to_datetime(series, utc=True)
-        else:
-            series = series.dt.tz_convert("UTC")
+        series = series.dt.tz_convert("UTC")
     # Remove time zone information and preserve local time.
     expected_series = series.dt.tz_localize(tz=None)
     npt.assert_array_equal(result, np.array(expected_series, dtype=expected_dtype))
@@ -640,14 +623,7 @@ def test_to_numpy_pyarrow_numeric_with_na(dtype, expected_dtype):
         "utf8",  # alias for string
         "large_string",
         "large_utf8",  # alias for large_string
-        pytest.param(
-            "string_view",
-            # TODO(pyarrow>=16): Remove the skipif marker for pyarrow<16.
-            marks=pytest.mark.skipif(
-                Version(pa.__version__) < Version("16"),
-                reason="string_view type was added since pyarrow 16",
-            ),
-        ),
+        "string_view",
     ],
 )
 def test_to_numpy_pyarrow_string(dtype):

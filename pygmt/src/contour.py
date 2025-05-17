@@ -1,7 +1,8 @@
 """
-contour - Plot contour table data.
+contour - Contour table data by direct triangulation.
 """
 
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -37,7 +38,9 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def contour(self, data=None, x=None, y=None, z=None, **kwargs):
+def contour(
+    self, data: PathLike | TableLike | None = None, x=None, y=None, z=None, **kwargs
+):
     r"""
     Contour table data by direct triangulation.
 
@@ -52,7 +55,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
@@ -130,7 +133,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     # Specify levels for contours or annotations.
     # One level is converted to a string with a trailing comma to separate it from
@@ -145,7 +148,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
 
     with Session() as lib:
         with lib.virtualfile_in(
-            check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
+            check_kind="vector", data=data, x=x, y=y, z=z, mincols=3
         ) as vintbl:
             lib.call_module(
                 module="contour", args=build_arg_list(kwargs, infile=vintbl)
