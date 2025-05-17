@@ -19,11 +19,11 @@ class _ClipContext:
         self._kwargs = kwargs
 
     def __enter__(self):
-        self._figure._preprocess()  # Activate the current figure.
+        self._figure._activate_figure()
         self._activate()
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        self._figure._preprocess()  # Activate the current figure.
+        self._figure._activate_figure()
         self._deactivate()
 
     def _activate(self):
