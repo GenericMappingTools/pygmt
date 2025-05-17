@@ -105,7 +105,7 @@ def tilemap(
     kwargs : dict
         Extra keyword arguments to pass to :meth:`pygmt.Figure.grdimage`.
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     raster = load_tile_map(
         region=region,

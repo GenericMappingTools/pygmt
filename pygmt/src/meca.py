@@ -337,7 +337,7 @@ def meca(  # noqa: PLR0913
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
     # Determine the focal mechanism convention from the input data or parameters.
     _convention = _get_focal_convention(spec, convention, component)
     # Preprocess the input data.

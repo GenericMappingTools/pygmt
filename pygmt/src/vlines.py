@@ -80,7 +80,7 @@ def vlines(
     >>> fig.legend()
     >>> fig.show()
     """
-    self._preprocess()
+    self._activate_figure()
 
     # Determine the y limits from the current plot region if not specified.
     if ymin is None or ymax is None:
