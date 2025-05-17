@@ -54,6 +54,6 @@ def logo(self, **kwargs):
     {panel}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="logo", args=build_arg_list(kwargs))

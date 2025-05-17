@@ -156,7 +156,7 @@ def grdimage(self, grid: PathLike | xr.DataArray, **kwargs):
     >>> # show the plot
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     # Do not support -A option
     if any(kwargs.get(arg) is not None for arg in ["A", "img_out"]):
