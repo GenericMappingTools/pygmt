@@ -28,12 +28,11 @@ def grdlandmask(outgrid: PathLike | None = None, **kwargs) -> xr.DataArray | Non
     r"""
     Create a "wet-dry" mask grid from shoreline database.
 
-    Read the selected shoreline database and create a grid to specify which
-    nodes in the specified grid are over land or over water. The nodes defined
-    by the selected region and lattice spacing
-    will be set according to one of two criteria: (1) land vs water, or
-    (2) the more detailed (hierarchical) ocean vs land vs lake
-    vs island vs pond.
+    Read the selected shoreline database and use that information to decide which nodes
+    in the specified grid are over land or over water. The nodes defined by the selected
+    region and lattice spacing will be set according to one of two criteria: (1) land vs
+    water, or (2) the more detailed (hierarchical) ocean vs land vs lake vs island vs
+    pond. A mask grid is created with the specified grid spacing.
 
     Full option list at :gmt-docs:`grdlandmask.html`
 
@@ -56,26 +55,29 @@ def grdlandmask(outgrid: PathLike | None = None, **kwargs) -> xr.DataArray | Non
         the coastlines differ in details a node in a mask file using one
         resolution is not guaranteed to remain inside [or outside] when a
         different resolution is selected.
-    bordervalues : bool, str, float, or list
-        Nodes that fall exactly on a polygon boundary should be
-        considered to be outside the polygon [Default considers them to be
-        inside]. Alternatively, append either a list of four values
-        [*cborder*, *lborder*, *iborder*, *pborder*] or just the single value
-        *bordervalue* (for the case when they should all be the same value).
-        This turns on the line-tracking mode. Now, after setting the mask
-        values specified via ``maskvalues`` we trace the lines and change the
-        node values for all cells traversed by a line to the corresponding
-        border value. Here, *cborder* is used for cells traversed by the
-        coastline, *lborder* for cells traversed by a lake outline, *iborder*
-        for islands-in-lakes outlines, and *pborder* for
-        ponds-in-islands-in-lakes outlines [Default is no line tracing].
-    maskvalues : str or list
-        [*wet*, *dry*] or [*ocean*, *land*, *lake*, *island*, *pond*].
-        Set the values that will be assigned to nodes. Values can
-        be any number, including the textstring NaN
-        [Default is [0, 1, 0, 1, 0] (i.e., [0, 1])]. Also select
-        ``bordervalues`` to let nodes exactly on feature boundaries be
-        considered outside [Default is inside].
+    maskvalues : list
+        Set the values that will be assigned to nodes, in the form of [*wet*, *dry*], or
+        [*ocean*, *land*, *lake*, *island*, *pond*]. Default is ``[0, 1, 0, 1, 0]``
+        (i.e., ``[0, 1]``), meaning that all "wet" nodes will be assigned a value of 0
+        and all "dry" nodes will be assigned a value of 1. Values can be any number, or
+        one of ``None``, ``"NaN"``, and ``np.nan`` for setting nodes to NaN.
+
+        Use ``bordervalues`` to control how nodes on feature boundaries are handled.
+    bordervalues : bool, float, or list
+        Sets the behavior for nodes that fall exactly on a polygon boundary. Valid
+        values are:
+
+        - ``False``: Treat boundary nodes as inside [Default]
+        - ``True``: Treat boundary nodes as outside
+        - A single value: Set all boundary nodes to the same value
+        - A sequence of four values in the form of [*cborder*, *lborder*, *iborder*,
+          *pborder*] to treat different kinds of boundary nodes as the specified values.
+          *cborder* is for coastline, *lborder* for lake outline, *iborder* for
+          islands-in-lakes outlines, and *pborder* for ponds-in-islands-in-lakes
+          outlines.
+
+        Values can be any number, or one of ``None``, ``"NaN"``, and ``np.nan`` for
+        setting nodes to NaN.
     {verbose}
     {registration}
     {cores}
