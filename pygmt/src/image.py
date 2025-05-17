@@ -68,6 +68,6 @@ def image(self, imagefile: PathLike, **kwargs):
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="image", args=build_arg_list(kwargs, infile=imagefile))

@@ -134,7 +134,7 @@ def inset(self, **kwargs):
     >>> fig.logo(position="jBR+o0.2c+w3c")
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
     with Session() as lib:
         try:
             lib.call_module(module="inset", args=["begin", *build_arg_list(kwargs)])

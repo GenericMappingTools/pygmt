@@ -133,7 +133,7 @@ def contour(
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     # Specify levels for contours or annotations.
     # One level is converted to a string with a trailing comma to separate it from

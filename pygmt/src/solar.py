@@ -95,7 +95,7 @@ def solar(
     >>> # show the plot
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
     if kwargs.get("T") is not None:
         msg = "Use 'terminator' and 'terminator_datetime' instead of 'T'."
         raise GMTInvalidInput(msg)

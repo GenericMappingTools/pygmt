@@ -199,8 +199,7 @@ def rose(
     {transparency}
     {wrap}
     """
-
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     with Session() as lib:
         with lib.virtualfile_in(
