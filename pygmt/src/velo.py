@@ -239,7 +239,7 @@ def velo(self, data: PathLike | TableLike | None = None, **kwargs):
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     if kwargs.get("S") is None or (
         kwargs.get("S") is not None and not isinstance(kwargs["S"], str)

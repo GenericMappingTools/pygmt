@@ -82,7 +82,7 @@ def basemap(self, frame=None, **kwargs):
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     alias = AliasSystem(
         B=Alias(frame),

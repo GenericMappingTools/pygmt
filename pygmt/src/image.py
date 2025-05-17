@@ -73,7 +73,7 @@ def image(  # noqa: PLR0913
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     alias = AliasSystem(
         R=Alias(region, separator="/"),

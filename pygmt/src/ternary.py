@@ -81,7 +81,7 @@ def ternary(
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     # -Lalabel/blabel/clabel. '-' means skipping the label.
     labels = (alabel, blabel, clabel)

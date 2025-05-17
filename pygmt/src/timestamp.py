@@ -76,7 +76,7 @@ def timestamp(
     >>> fig.timestamp(label="Powered by PyGMT")
     >>> fig.show()
     """
-    self._preprocess()
+    self._activate_figure()
 
     if text is not None and len(text) > 64:
         msg = (

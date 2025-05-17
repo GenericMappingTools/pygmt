@@ -64,8 +64,7 @@ def logo(
     {panel}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
-
+    self._activate_figure()
     alias = AliasSystem(
         D=[
             Alias(position, separator="/", prefix=position_type),
