@@ -5,7 +5,13 @@ clip - Clip a path and only plot data inside or outside.
 from collections.abc import Sequence
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, is_nonstr_iter, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_list,
+    fmt_docstring,
+    is_nonstr_iter,
+    kwargs_to_strings,
+    use_alias,
+)
 
 
 class _ClipContext:
@@ -190,6 +196,7 @@ class ClipAccessor:
         """
         return _ClipWater(self._figure, **kwargs)
 
+    @fmt_docstring
     @use_alias(
         A="straight_line",
         B="frame",
