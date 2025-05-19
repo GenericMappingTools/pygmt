@@ -2,6 +2,9 @@
 grdlandmask - Create a "wet-dry" mask grid from shoreline database.
 """
 
+from collections.abc import Sequence
+
+import numpy as np
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.clib import Session
@@ -11,20 +14,62 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 __doctest_skip__ = ["grdlandmask"]
 
 
+def _parse_maskvalues(maskvalues: Sequence[str, float, None] | None) -> str | None:
+    """
+    Parse the argument for the ``maskvalues`` parameter.
+
+    Examples
+    --------
+    >>> _parse_maskvalues([0, 1])
+    '0/1'
+    >>> _parse_maskvalues([0, 1, 0, 1, 0])
+    '0/1/0/1/0'
+    >>> _parse_maskvalues([0, 1, None, 1, 0])
+    '0/1/NaN/1/0'
+    >>> _parse_maskvalues([0, 1, np.nan, 1, 0])
+    '0/1/NaN/1/0'
+    >>> _parse_maskvalues([0, 1, "NaN", 1, 0])
+    '0/1/NaN/1/0'
+    >>> _parse_maskvalues([0, 1, "NaN", 1, 0])
+    '0/1/NaN/1/0'
+
+    >>> _parse_maskvalues([0, 1, 2])
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: "'maskvalues' must be a sequence of 2 or ..."
+    """
+    if maskvalues is None:
+        return None
+
+    if len(maskvalues) not in {2, 5}:
+        msg = "'maskvalues' must be a sequence of 2 or 5 values."
+        raise GMTInvalidInput(msg)
+
+    return "/".join(
+        [
+            "NaN" if x is None or (isinstance(x, float) and np.isnan(x)) else x
+            for x in maskvalues
+        ]
+    )
+
+
 @fmt_docstring
 @use_alias(
     A="area_thresh",
     D="resolution",
     E="bordervalues",
     I="spacing",
-    N="maskvalues",
     R="region",
     V="verbose",
     r="registration",
     x="cores",
 )
-@kwargs_to_strings(I="sequence", R="sequence", N="sequence", E="sequence")
-def grdlandmask(outgrid: PathLike | None = None, **kwargs) -> xr.DataArray | None:
+@kwargs_to_strings(I="sequence", R="sequence", E="sequence")
+def grdlandmask(
+    outgrid: PathLike | None = None,
+    maskvalues: Sequence[str, float, None] | None = None,
+    **kwargs,
+) -> xr.DataArray | None:
     r"""
     Create a "wet-dry" mask grid from shoreline database.
 
@@ -99,6 +144,9 @@ def grdlandmask(outgrid: PathLike | None = None, **kwargs) -> xr.DataArray | Non
     if kwargs.get("I") is None or kwargs.get("R") is None:
         msg = "Both 'region' and 'spacing' must be specified."
         raise GMTInvalidInput(msg)
+
+    if maskvalues is not None:
+        kwargs["N"] = _parse_maskvalues(maskvalues)
 
     with Session() as lib:
         with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
