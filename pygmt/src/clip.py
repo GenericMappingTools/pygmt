@@ -5,7 +5,7 @@ clip - Clip a path and only plot data inside or outside.
 from collections.abc import Sequence
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, is_nonstr_iter
+from pygmt.helpers import build_arg_list, is_nonstr_iter, kwargs_to_strings, use_alias
 
 
 class _ClipContext:
@@ -190,16 +190,61 @@ class ClipAccessor:
         """
         return _ClipWater(self._figure, **kwargs)
 
+    @use_alias(
+        A="straight_line",
+        B="frame",
+        R="region",
+        J="projection",
+        V="verbose",
+        N="invert",
+        W="pen",
+    )
+    @kwargs_to_strings(R="sequence")
     def polygon(self, x, y, **kwargs):
         """
         Clip polygonal paths.
+
+        {aliases}
 
         Parameters
         ----------
         x/y
             Coordinates of polygon.
-        kwargs
-            Additional arguments passed to GMT's ``clip`` module.
+        {B}
+        {R}
+        {J}
+        {V}
+        straight_line
+            By default, line segments are connected as straight lines in the Cartesian
+            and polar coordinate systems, and as great circle arcs (by resampling coarse
+            input data along such arcs) in the geographic coordinate system. The
+            ``straight_line`` parameter can control the connection of line segments.
+            Valid values are:
+
+            - ``True``: Draw line segments as straight lines in geographic coordinate
+              systems.
+            - ``"x"``: Draw line segments by first along *x*, then along *y*.
+            - ``"y"``: Draw line segments by first along *y*, then along *x*.
+
+            Here, *x* and *y* have different meanings depending on the coordinate system
+
+            - **Cartesian** coordinate system: *x* and *y* are the X- and Y-axes.
+            - **Polar** coordinate system: *x* and *y* are theta and radius.
+            - **Geographic** coordinate system: *x* and *y* are parallels and meridians.
+
+            .. attention::
+
+                There exits a bug in GMT<=6.5.0 that, in geographic coordinate systems,
+                the meaning of *x* and *y* is reversed, i.e., *x* means meridians and
+                *y* means parallels. The bug is fixed by upstream
+                `PR #8648 <https://github.com/GenericMappingTools/gmt/pull/8648>`__.
+        invert
+            Invert the sense of what is inside and outside. For example, when using a
+            single path, this means that only points outside that path will be shown.
+            Cannot be used together with ``frame``.
+        pen
+            Draw outline of clip path using given pen attributes before clipping is
+            initiated [Default is no outline].
 
         Examples
         --------
