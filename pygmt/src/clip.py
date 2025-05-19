@@ -217,10 +217,10 @@ class ClipAccessor:
         ----------
         x/y
             Coordinates of polygon.
-        {B}
-        {R}
-        {J}
-        {V}
+        {frame}
+        {region}
+        {projection}
+        {verbose}
         straight_line
             By default, line segments are connected as straight lines in the Cartesian
             and polar coordinate systems, and as great circle arcs (by resampling coarse
