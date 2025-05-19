@@ -711,3 +711,53 @@ def args_in_kwargs(args: Sequence[str], kwargs: dict[str, Any]) -> bool:
     return any(
         kwargs.get(arg) is not None and kwargs.get(arg) is not False for arg in args
     )
+
+
+def sequence_join(
+    value: Any | Sequence[Any] | None,
+    separator: Literal["/", ","] = "/",
+    size: int | Sequence[int] | None = None,
+    ndim: int = 1,
+) -> str | None:
+    """
+    Join a 1-D or 2-D sequence of values into a string separated by a separator.
+
+    Parameters
+    ----------
+    value
+        The 1-D or 2-D sequence of values to join.
+    separator
+        The separator to join the values.
+    size
+        The size of the sequence.
+    ndim
+        The expected maximum number of dimensions of the sequence.
+
+    Returns
+    -------
+    joined_value
+        The joined string.
+    """
+    # Return the original value if it is not a sequence (e.g., None or str) or empty.
+    if not is_nonstr_iter(value) or len(value) == 0:
+        return value
+
+    # Change size to a list to simplify the checks.
+    if size is not None and not is_nonstr_iter(size):
+        size = [size]
+
+    # Now it must be a sequence.
+    if not is_nonstr_iter(value[0]):  # 1-D sequence.
+        if size is not None and len(value) not in size:
+            msg = f"Expected a sequence of {size} values, but got {len(value)} values."
+            raise GMTInvalidInput(msg)
+        return separator.join(str(v) for v in value)
+
+    # 2-D sequence.
+    if ndim == 1:
+        msg = "Expected a 1-D sequence, but a 2-D sequence is given."
+        raise GMTInvalidInput(msg)
+    if size is not None and any(len(i) not in size for i in value):
+        msg = f"Expected a 2-D sequence with each sub-sequence having {size} values."
+        raise GMTInvalidInput(msg)
+    return [separator.join(str(j) for j in value[i]) for i in range(len(value))]
