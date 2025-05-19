@@ -2,11 +2,19 @@
 grdlandmask - Create a "wet-dry" mask grid from shoreline database.
 """
 
+from collections.abc import Sequence
+
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_list,
+    fmt_docstring,
+    kwargs_to_strings,
+    sequence_join,
+    use_alias,
+)
 
 __doctest_skip__ = ["grdlandmask"]
 
@@ -15,16 +23,19 @@ __doctest_skip__ = ["grdlandmask"]
 @use_alias(
     A="area_thresh",
     D="resolution",
-    E="bordervalues",
     I="spacing",
-    N="maskvalues",
     R="region",
     V="verbose",
     r="registration",
     x="cores",
 )
-@kwargs_to_strings(I="sequence", R="sequence", N="sequence", E="sequence")
-def grdlandmask(outgrid: PathLike | None = None, **kwargs) -> xr.DataArray | None:
+@kwargs_to_strings(I="sequence", R="sequence", E="sequence")
+def grdlandmask(
+    outgrid: PathLike | None = None,
+    maskvalues: Sequence[float] | None = None,
+    bordervalues: bool | float | Sequence[float] | None = None,
+    **kwargs,
+) -> xr.DataArray | None:
     r"""
     Create a "wet-dry" mask grid from shoreline database.
 
@@ -101,6 +112,9 @@ def grdlandmask(outgrid: PathLike | None = None, **kwargs) -> xr.DataArray | Non
     if kwargs.get("I") is None or kwargs.get("R") is None:
         msg = "Both 'region' and 'spacing' must be specified."
         raise GMTInvalidInput(msg)
+
+    kwargs["N"] = sequence_join(maskvalues, size=(2, 5), name="maskvalues")
+    kwargs["E"] = sequence_join(bordervalues, size=(1, 4), name="bordervalues")
 
     with Session() as lib:
         with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
