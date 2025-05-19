@@ -316,6 +316,7 @@ class ClipAccessor:
 
         Examples
         --------
+        >>> import numpy as np
         >>> from pygmt import Figure
         >>> from pygmt.datasets import load_earth_relief
         >>>
