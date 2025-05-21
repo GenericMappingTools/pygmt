@@ -19,9 +19,11 @@ class _ClipContext:
     Base class for the clip context manager.
     """
 
-    def __init__(self, figure, data=None, **kwargs):
+    def __init__(self, figure, data=None, x=None, y=None, **kwargs):
         self._figure = figure  # The parent Figure object.
         self._data = data
+        self._x = x
+        self._y = y
         self._kwargs = kwargs
 
     def __enter__(self):
@@ -101,7 +103,7 @@ class _ClipPolygon(_ClipContext):
 
     def _activate(self):
         with Session() as lib:
-            with lib.virtualfile_in(data=self._data) as vintbl:
+            with lib.virtualfile_in(data=self._data, x=self._x, y=self._y) as vintbl:
                 lib.call_module(
                     module="clip",
                     args=build_arg_list(self._kwargs, infile=vintbl),
@@ -207,7 +209,7 @@ class ClipAccessor:
         W="pen",
     )
     @kwargs_to_strings(R="sequence")
-    def polygon(self, x, y, **kwargs):
+    def polygon(self, data=None, x=None, y=None, **kwargs):
         """
         Clip polygonal paths.
 
@@ -215,6 +217,8 @@ class ClipAccessor:
 
         Parameters
         ----------
+        data
+            Coordinates of polygon.
         x/y
             Coordinates of polygon.
         {frame}
@@ -265,7 +269,7 @@ class ClipAccessor:
         ...     fig.grdimage(grid, cmap="geo")
         >>> fig.show()
         """
-        return _ClipPolygon(self._figure, data={"x": x, "y": y}, **kwargs)
+        return _ClipPolygon(self._figure, data=data, x=x, y=y, **kwargs)
 
     def dcw(self, code: str | Sequence[str], **kwargs):
         """
