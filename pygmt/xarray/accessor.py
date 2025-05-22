@@ -25,19 +25,19 @@ class GMTDataArrayAccessor:
 
     Notes
     -----
-    When accessed the first time, the GMT accessor will be first initialized to the
+    When accessed the first time, the *gmt* accessor will be first initialized to the
     default values (``GridRegistration.GRIDLINE`` and ``GridType.CARTESIAN``, i.e., a
     gridline-registered, Cartesian grid), and then the properties will be updated with
     the correct grid registration and type determined from the source encoding (i.e.,
     ``grid.encoding["source"]``), if it is available.
 
-    Due to the limitations of xarray accessors, the GMT accessor is created once per
-    :class:`xarray.DataArray` instance. Thus, the GMT accessor will be re-initialized in
-    cases where the :class:`xarray.DataArray` is manipulated (e.g., arithmetic and slice
-    operations) or when accessing a :class:`xarray.DataArray` from a
+    Due to the limitations of xarray accessors, the *gmt* accessor is created once per
+    :class:`xarray.DataArray` instance. Thus, the *gmt* accessor will be re-initialized
+    in cases where the :class:`xarray.DataArray` is manipulated (e.g., arithmetic and
+    slice operations) or when accessing a :class:`xarray.DataArray` from a
     :class:`xarray.Dataset`. In these cases, the GMT-specific properties will result in
-    incorrect values if the source encoding is dropped or not found, and users need to
-    manually set these properties again.
+    incorrect values if the source encoding is not defined or is dropped due to
+    operations, and users need to manually set these properties again.
 
     Examples
     --------
@@ -79,7 +79,7 @@ class GMTDataArrayAccessor:
     >>> grid_slice.gmt.gtype
     <GridType.GEOGRAPHIC: 1>
 
-    Other grid operations (e.g., arithmetic operations) create new instances and drops
+    Other grid operations (e.g., arithmetic operations) create new instances and drop
     the source encoding, so the properties will be reset to the default values:
 
     >>> grid2 = grid * 2.0
