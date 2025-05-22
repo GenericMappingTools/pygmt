@@ -198,6 +198,36 @@ class ClipAccessor:
         """
         return _ClipWater(self._figure, **kwargs)
 
+    def dcw(self, code: str | Sequence[str], **kwargs):
+        """
+        Clip based on the Digital Chart of the World.
+
+        Must be used as a context manager. Any plotting operations within the context
+        manager will be clipped to the region defined by the codes.
+
+        Parameters
+        ----------
+        code
+            The codes of the region to clip to.
+        kwargs
+            Additional keyword arguments passed to :meth:`pygmt.Figure.coast`. Not all
+            parameters make sense in this context.
+
+        Examples
+        --------
+        >>> from pygmt import Figure
+        >>> from pygmt.datasets import load_earth_relief
+        >>>
+        >>> grid = load_earth_relief()
+        >>> fig = Figure()
+        >>> fig.basemap(region="g", projection="W15c", frame=True)
+        >>> with fig.clip.dcw(code="JP"):
+        ...     fig.grdimage(grid, cmap="geo")
+        >>> fig.show()
+        """
+        _code = ",".join(code) if is_nonstr_iter(code) else code
+        return _ClipDcw(self._figure, dcw=f"{_code}+c", **kwargs)
+
     @fmt_docstring
     @use_alias(
         A="straight_line",
@@ -212,6 +242,9 @@ class ClipAccessor:
     def polygon(self, data=None, x=None, y=None, **kwargs):
         """
         Clip polygonal paths.
+
+        Must be used as a context manager. Any plotting operations within the context
+        manager will be clipped to the polygons.
 
         {aliases}
 
@@ -271,28 +304,12 @@ class ClipAccessor:
         """
         return _ClipPolygon(self._figure, data=data, x=x, y=y, **kwargs)
 
-    def dcw(self, code: str | Sequence[str], **kwargs):
-        """
-        Clip based on the Digital Chart of the World.
-
-        Examples
-        --------
-        >>> from pygmt import Figure
-        >>> from pygmt.datasets import load_earth_relief
-        >>>
-        >>> grid = load_earth_relief()
-        >>> fig = Figure()
-        >>> fig.basemap(region="g", projection="W15c", frame=True)
-        >>> with fig.clip.dcw(code="JP"):
-        ...     fig.grdimage(grid, cmap="geo")
-        >>> fig.show()
-        """
-        _code = ",".join(code) if is_nonstr_iter(code) else code
-        return _ClipDcw(self._figure, dcw=f"{_code}+c", **kwargs)
-
     def solar(self, **kwargs):
         """
         Clip the data to the solar terminator.
+
+        Must be used as a context manager. Any plotting operations within the context
+        manager will be clipped to the solar terminator.
 
         Parameters
         ----------
@@ -317,6 +334,9 @@ class ClipAccessor:
     def mask(self, x, y, spacing, radius=None):
         """
         Clip the data to a mask.
+
+        Must be used as a context manager. Any plotting operations within the context
+        manager will be clipped to the mask.
 
         Examples
         --------
