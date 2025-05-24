@@ -1,0 +1,13 @@
+pygmt.GMTBackendEntrypoint.guess\_can\_open
+===========================================
+
+.. currentmodule:: pygmt
+
+.. automethod:: GMTBackendEntrypoint.guess_can_open
+
+.. minigallery:: pygmt.GMTBackendEntrypoint.guess_can_open
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>
