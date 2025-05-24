@@ -63,8 +63,7 @@ can be directly used in data processing and plotting functions/methods of PyGMT.
 add those tiles as basemap to matplotlib figures or write tile maps to disk into
 geospatial raster files.
 
-In PyGMT, {func}`pygmt.datasets.load_tile_map` and {class}`pygmt.Figure.tilemap` rely
-on it.
+In PyGMT, {func}`pygmt.datasets.load_tile_map` and {meth}`pygmt.Figure.tilemap` rely on it.
 
 ### rioxarray
 
@@ -73,13 +72,16 @@ of rasterio, it enables seamless reading, writing, and manipulation of multi-dim
 arrays with geospatial attributes such as coordinate reference systems (CRS) and spatial
 extent (bounds).
 
-Currently, PyGMT relies on [rioxarray][] to save multi-band rasters to temporary files
-in GeoTIFF format, to support processing and plotting 3-D {class}`xarray.DataArray`
-images.
+PyGMT relies on [rioxarray][] in several aspects:
+
+1. To save multi-band rasters to temporary files in GeoTIFF format, to support processing
+   and plotting 3-D {class}`xarray.DataArray` images.
+2. To write CRS information to the {class}`xarray.DataArray` objects.
+3. To reproject raster tiles to the target CRS in {func}`pygmt.datasets.load_tile_map`.
 
 ```{note}
-We're working towards removing the dependency of the [rioxarray][] package in
-[PR #3468](https://github.com/GenericMappingTools/pygmt/pull/3468).
+We're working towards avoiding temporary files when processing/plotting multi-band
+rasters in [PR #3468](https://github.com/GenericMappingTools/pygmt/pull/3468).
 ```
 
 ### PyArrow
@@ -94,9 +96,9 @@ Python objects. They are based on the C++ implementation of Arrow.
 ```{note}
 If you have [PyArrow][] installed, PyGMT does have some initial support for
 `pandas.Series` and `pandas.DataFrame` objects with Apache Arrow-backed arrays.
-Specifically, only uint/int/float and date32/date64 are supported for now.
-Support for string Array dtypes, Duration types and GeoArrow geometry types is still a work in progress.
-For more details, see
+Specifically, only uint/int/float, date32/date64 and string types are supported for now.
+Support for Duration types and GeoArrow geometry types is still a work in progress. For
+more details, see
 [issue #2800](https://github.com/GenericMappingTools/pygmt/issues/2800).
 ```
 

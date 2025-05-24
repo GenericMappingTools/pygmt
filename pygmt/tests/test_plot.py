@@ -446,7 +446,7 @@ def test_plot_datetime():
 
     # numpy.datetime64 types
     x = np.array(
-        ["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype="datetime64"
+        ["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype=np.datetime64
     )
     y = [1.0, 2.0, 3.0]
     fig.plot(x=x, y=y, style="c0.2c", pen="1p")
@@ -467,9 +467,14 @@ def test_plot_datetime():
     fig.plot(x=x, y=y, style="a0.2c", pen="1p")
 
     # the Python built-in datetime and date
-    x = [datetime.date(2018, 1, 1), datetime.datetime(2019, 1, 1)]
+    x = [datetime.date(2018, 1, 1), datetime.datetime(2019, 1, 1, 0, 0, 0)]
     y = [8.5, 9.5]
     fig.plot(x=x, y=y, style="i0.2c", pen="1p")
+
+    # Python sequence of pd.Timestamp
+    x = [pd.Timestamp("2018-01-01"), pd.Timestamp("2019-01-01")]
+    y = [5.5, 6.5]
+    fig.plot(x=x, y=y, style="d0.2c", pen="1p")
     return fig
 
 

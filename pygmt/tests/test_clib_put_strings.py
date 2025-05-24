@@ -24,7 +24,7 @@ def test_put_strings():
         )
         x = np.array([1, 2, 3, 4, 5], dtype=np.int32)
         y = np.array([6, 7, 8, 9, 10], dtype=np.int32)
-        strings = np.array(["a", "bc", "defg", "hijklmn", "opqrst"], dtype=str)
+        strings = np.array(["a", "bc", "defg", "hijklmn", "opqrst"], dtype=np.str_)
         lib.put_vector(dataset, column=lib["GMT_X"], vector=x)
         lib.put_vector(dataset, column=lib["GMT_Y"], vector=y)
         lib.put_strings(
@@ -60,5 +60,5 @@ def test_put_strings_fails():
             lib.put_strings(
                 dataset=None,
                 family="GMT_IS_VECTOR|GMT_IS_DUPLICATE",
-                strings=np.empty(shape=(3,), dtype=str),
+                strings=np.empty(shape=(3,), dtype=np.str_),
             )

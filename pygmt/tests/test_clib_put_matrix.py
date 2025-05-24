@@ -7,6 +7,7 @@ import numpy.testing as npt
 import pytest
 import xarray as xr
 from pygmt import clib
+from pygmt.clib.session import DTYPES_NUMERIC
 from pygmt.exceptions import GMTCLibError
 from pygmt.helpers import GMTTempFile
 from pygmt.tests.test_clib import mock
@@ -17,7 +18,7 @@ def fixture_dtypes():
     """
     List of supported numpy dtypes.
     """
-    return "int8 int16 int32 int64 uint8 uint16 uint32 uint64 float32 float64".split()
+    return [dtype for dtype in DTYPES_NUMERIC if dtype != np.timedelta64]
 
 
 @pytest.mark.benchmark
@@ -110,12 +111,14 @@ def test_put_matrix_grid(dtypes):
                     tmp_grid.name,
                     grid,
                 )
-                with xr.open_dataarray(tmp_grid.name) as dataarray:
-                    assert dataarray.shape == shape
-                    npt.assert_allclose(dataarray.data, np.flipud(data))
-                    npt.assert_allclose(
-                        dataarray.coords["x"].actual_range, np.array(wesn[0:2])
-                    )
-                    npt.assert_allclose(
-                        dataarray.coords["y"].actual_range, np.array(wesn[2:4])
-                    )
+                dataarray = xr.load_dataarray(
+                    tmp_grid.name, engine="gmt", raster_kind="grid"
+                )
+                assert dataarray.shape == shape
+                npt.assert_allclose(dataarray.data, np.flipud(data))
+                npt.assert_allclose(
+                    dataarray.coords["x"].actual_range, np.array(wesn[0:2])
+                )
+                npt.assert_allclose(
+                    dataarray.coords["y"].actual_range, np.array(wesn[2:4])
+                )

@@ -4,6 +4,7 @@ ternary - Plot data on ternary diagrams.
 
 import pandas as pd
 from packaging.version import Version
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session, __gmt_version__
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -25,14 +26,14 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def ternary(
     self,
-    data,
+    data: PathLike | TableLike,
     alabel: str | None = None,
     blabel: str | None = None,
     clabel: str | None = None,
     **kwargs,
 ):
     r"""
-    Plot ternary diagrams.
+    Plot data on ternary diagrams.
 
     Reads (*a*,\ *b*,\ *c*\ [,\ *z*]) records from *data* and plots symbols at
     those locations on a ternary diagram. If a symbol is selected and no symbol
@@ -48,7 +49,7 @@ def ternary(
 
     Parameters
     ----------
-    data : str, list, {table-like}
+    data
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         {table-classes}.
     width : str
@@ -80,14 +81,14 @@ def ternary(
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     # -Lalabel/blabel/clabel. '-' means skipping the label.
     labels = (alabel, blabel, clabel)
     if any(v is not None for v in labels):
         kwargs["L"] = "/".join(str(v) if v is not None else "-" for v in labels)
 
-    # Patch for GMT < 6.5.0.
+    # TODO(GMT>=6.5.0): Remove the patch for upstream bug fixed in GMT 6.5.0.
     # See https://github.com/GenericMappingTools/pygmt/pull/2138
     if Version(__gmt_version__) < Version("6.5.0") and isinstance(data, pd.DataFrame):
         data = data.to_numpy()

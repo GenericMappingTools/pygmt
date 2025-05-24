@@ -2,14 +2,16 @@
 Internal function to load GMT remote datasets.
 """
 
+import contextlib
 from collections.abc import Sequence
 from typing import Any, Literal, NamedTuple
 
 import xarray as xr
-from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list, kwargs_to_strings
-from pygmt.src import which
+
+with contextlib.suppress(ImportError):
+    # rioxarray is needed to register the rio accessor
+    import rioxarray  # noqa: F401
 
 
 class Resolution(NamedTuple):
@@ -39,24 +41,32 @@ class GMTRemoteDataset(NamedTuple):
     Attributes
     ----------
     description
-       The name assigned as an attribute to the DataArray.
+        The name assigned as an attribute to the DataArray.
+    kind
+        The kind of the dataset source. Valid values are ``"grid"`` and ``"image"``.
     units
         The units of the values in the DataArray.
     resolutions
         Dictionary of available resolution as keys and Resolution objects as values.
     extra_attributes
         A dictionary of extra or unique attributes of the dataset.
+    crs
+        The coordinate reference system of the raster image. Need to be set for images,
+        and should be ``None`` for grids.
     """
 
     description: str
+    kind: Literal["grid", "image"]
     units: str | None
     resolutions: dict[str, Resolution]
     extra_attributes: dict[str, Any]
+    crs: str | None = None
 
 
 datasets = {
     "earth_age": GMTRemoteDataset(
         description="EarthByte Earth seafloor crustal age",
+        kind="grid",
         units="Myr",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -75,7 +85,9 @@ datasets = {
     ),
     "earth_day": GMTRemoteDataset(
         description="NASA Day Images",
+        kind="image",
         units=None,
+        crs="OGC:CRS84",
         extra_attributes={"long_name": "blue_marble", "horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution("01d", registrations=["pixel"]),
@@ -92,8 +104,66 @@ datasets = {
             "30s": Resolution("30s", registrations=["pixel"]),
         },
     ),
+    "earth_dist": GMTRemoteDataset(
+        description="GSHHG Earth distance to shoreline",
+        kind="grid",
+        units="kilometers",
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution("01d"),
+            "30m": Resolution("30m"),
+            "20m": Resolution("20m"),
+            "15m": Resolution("15m"),
+            "10m": Resolution("10m"),
+            "06m": Resolution("06m"),
+            "05m": Resolution("05m", tiled=True),
+            "04m": Resolution("04m", tiled=True),
+            "03m": Resolution("03m", tiled=True),
+            "02m": Resolution("02m", tiled=True),
+            "01m": Resolution("01m", registrations=["gridline"], tiled=True),
+        },
+    ),
+    "earth_edefl": GMTRemoteDataset(
+        description="IGPP Earth east-west deflection",
+        kind="grid",
+        units="micro-radians",
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution("01d"),
+            "30m": Resolution("30m"),
+            "20m": Resolution("20m"),
+            "15m": Resolution("15m"),
+            "10m": Resolution("10m"),
+            "06m": Resolution("06m"),
+            "05m": Resolution("05m", tiled=True),
+            "04m": Resolution("04m", tiled=True),
+            "03m": Resolution("03m", tiled=True),
+            "02m": Resolution("02m", tiled=True),
+            "01m": Resolution("01m", registrations=["pixel"], tiled=True),
+        },
+    ),
     "earth_faa": GMTRemoteDataset(
         description="IGPP Earth free-air anomaly",
+        kind="grid",
+        units="mGal",
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution("01d"),
+            "30m": Resolution("30m"),
+            "20m": Resolution("20m"),
+            "15m": Resolution("15m"),
+            "10m": Resolution("10m"),
+            "06m": Resolution("06m"),
+            "05m": Resolution("05m", tiled=True),
+            "04m": Resolution("04m", tiled=True),
+            "03m": Resolution("03m", tiled=True),
+            "02m": Resolution("02m", tiled=True),
+            "01m": Resolution("01m", registrations=["pixel"], tiled=True),
+        },
+    ),
+    "earth_faaerror": GMTRemoteDataset(
+        description="IGPP Earth free-air anomaly errors",
+        kind="grid",
         units="mGal",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -112,6 +182,7 @@ datasets = {
     ),
     "earth_gebco": GMTRemoteDataset(
         description="GEBCO Earth relief",
+        kind="grid",
         units="meters",
         extra_attributes={"vertical_datum": "EGM96", "horizontal_datum": "WGS84"},
         resolutions={
@@ -134,7 +205,8 @@ datasets = {
     ),
     "earth_geoid": GMTRemoteDataset(
         description="EGM2008 Earth geoid",
-        units="m",
+        kind="grid",
+        units="meters",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution("01d"),
@@ -152,6 +224,7 @@ datasets = {
     ),
     "earth_igpp": GMTRemoteDataset(
         description="IGPP Earth relief",
+        kind="grid",
         units="meters",
         extra_attributes={"vertical_datum": "EGM96", "horizontal_datum": "WGS84"},
         resolutions={
@@ -174,6 +247,7 @@ datasets = {
     ),
     "earth_mag": GMTRemoteDataset(
         description="EMAG2 Earth Magnetic Anomaly Model",
+        kind="grid",
         units="nT",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -191,6 +265,7 @@ datasets = {
     ),
     "earth_mask": GMTRemoteDataset(
         description="GSHHG Earth mask",
+        kind="grid",
         units=None,
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -209,9 +284,30 @@ datasets = {
             "15s": Resolution("15s"),
         },
     ),
+    "earth_mss": GMTRemoteDataset(
+        description="CNES Earth mean sea surface",
+        kind="grid",
+        units="meters",
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution("01d"),
+            "30m": Resolution("30m"),
+            "20m": Resolution("20m"),
+            "15m": Resolution("15m"),
+            "10m": Resolution("10m"),
+            "06m": Resolution("06m"),
+            "05m": Resolution("05m", tiled=True),
+            "04m": Resolution("04m", tiled=True),
+            "03m": Resolution("03m", tiled=True),
+            "02m": Resolution("02m", tiled=True),
+            "01m": Resolution("01m", tiled=True, registrations=["gridline"]),
+        },
+    ),
     "earth_night": GMTRemoteDataset(
         description="NASA Night Images",
+        kind="image",
         units=None,
+        crs="OGC:CRS84",
         extra_attributes={"long_name": "black_marble", "horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution("01d", registrations=["pixel"]),
@@ -228,8 +324,42 @@ datasets = {
             "30s": Resolution("30s", registrations=["pixel"]),
         },
     ),
+    "earth_mdt": GMTRemoteDataset(
+        description="CNES Earth mean dynamic topography",
+        kind="grid",
+        units="meters",
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution("01d"),
+            "30m": Resolution("30m"),
+            "20m": Resolution("20m"),
+            "15m": Resolution("15m"),
+            "10m": Resolution("10m"),
+            "07m": Resolution("07m", registrations=["gridline"]),
+        },
+    ),
+    "earth_ndefl": GMTRemoteDataset(
+        description="IGPP Earth north-south deflection",
+        kind="grid",
+        units="micro-radians",
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution("01d"),
+            "30m": Resolution("30m"),
+            "20m": Resolution("20m"),
+            "15m": Resolution("15m"),
+            "10m": Resolution("10m"),
+            "06m": Resolution("06m"),
+            "05m": Resolution("05m", tiled=True),
+            "04m": Resolution("04m", tiled=True),
+            "03m": Resolution("03m", tiled=True),
+            "02m": Resolution("02m", tiled=True),
+            "01m": Resolution("01m", registrations=["pixel"], tiled=True),
+        },
+    ),
     "earth_vgg": GMTRemoteDataset(
         description="IGPP Earth vertical gravity gradient",
+        kind="grid",
         units="Eotvos",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -248,6 +378,7 @@ datasets = {
     ),
     "earth_wdmam": GMTRemoteDataset(
         description="WDMAM World Digital Magnetic Anomaly Map",
+        kind="grid",
         units="nT",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -264,6 +395,7 @@ datasets = {
     ),
     "mars_relief": GMTRemoteDataset(
         description="NASA Mars (MOLA) relief",
+        kind="grid",
         units="meters",
         extra_attributes={},
         resolutions={
@@ -285,6 +417,7 @@ datasets = {
     ),
     "moon_relief": GMTRemoteDataset(
         description="USGS Moon (LOLA) relief",
+        kind="grid",
         units="meters",
         extra_attributes={},
         resolutions={
@@ -306,6 +439,7 @@ datasets = {
     ),
     "mercury_relief": GMTRemoteDataset(
         description="USGS Mercury relief",
+        kind="grid",
         units="meters",
         extra_attributes={},
         resolutions={
@@ -325,6 +459,7 @@ datasets = {
     ),
     "pluto_relief": GMTRemoteDataset(
         description="USGS Pluto relief",
+        kind="grid",
         units="meters",
         extra_attributes={},
         resolutions={
@@ -344,6 +479,7 @@ datasets = {
     ),
     "venus_relief": GMTRemoteDataset(
         description="NASA Magellan Venus relief",
+        kind="grid",
         units="meters",
         extra_attributes={},
         resolutions={
@@ -363,7 +499,6 @@ datasets = {
 }
 
 
-@kwargs_to_strings(region="sequence")
 def _load_remote_dataset(
     name: str,
     prefix: str,
@@ -442,21 +577,9 @@ def _load_remote_dataset(
         raise GMTInvalidInput(msg)
 
     fname = f"@{prefix}_{resolution}_{reg}"
-    kind = "image" if name in {"earth_day", "earth_night"} else "grid"
-    kwdict = {"R": region, "T": {"grid": "g", "image": "i"}[kind]}
-    with Session() as lib:
-        with lib.virtualfile_out(kind=kind) as voutgrd:
-            lib.call_module(
-                module="read",
-                args=[fname, voutgrd, *build_arg_list(kwdict)],
-            )
-            grid = lib.virtualfile_to_raster(kind=kind, outgrid=None, vfname=voutgrd)
-
-    # Full path to the grid if not tiled grids.
-    source = which(fname, download="a") if not resinfo.tiled else None
-    # Manually add source to xarray.DataArray encoding to make the GMT accessors work.
-    if source:
-        grid.encoding["source"] = source
+    grid = xr.load_dataarray(
+        fname, engine="gmt", raster_kind=dataset.kind, region=region
+    )
 
     # Add some metadata to the grid
     grid.attrs["description"] = dataset.description
@@ -469,4 +592,9 @@ def _load_remote_dataset(
     grid.attrs.pop("actual_range", None)
     for coord in grid.coords:
         grid[coord].attrs.pop("actual_range", None)
+
+    # For images, if rioxarray is installed, set the coordinate reference system.
+    if dataset.crs is not None and hasattr(grid, "rio"):
+        grid = grid.rio.write_crs(input_crs=dataset.crs)
+
     return grid

@@ -7,7 +7,8 @@ from pathlib import Path
 import numpy as np
 import pytest
 import xarray as xr
-from pygmt import grdfilter, load_dataarray
+from pygmt import grdfilter
+from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
@@ -50,8 +51,8 @@ def test_grdfilter_dataarray_in_dataarray_out(grid, expected_grid):
     )
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
-    assert result.gmt.gtype == 1  # Geographic grid
-    assert result.gmt.registration == 1  # Pixel registration
+    assert result.gmt.gtype is GridType.GEOGRAPHIC
+    assert result.gmt.registration is GridRegistration.PIXEL
     # check information of the output grid
     xr.testing.assert_allclose(a=result, b=expected_grid)
 
@@ -70,7 +71,7 @@ def test_grdfilter_dataarray_in_file_out(grid, expected_grid):
         )
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
-        temp_grid = load_dataarray(tmpfile.name)
+        temp_grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 

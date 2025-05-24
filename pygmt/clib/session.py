@@ -17,7 +17,6 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 from pygmt.clib.conversion import (
-    array_to_datetime,
     dataarray_to_matrix,
     sequence_to_ctypes_array,
     strings_to_ctypes_array,
@@ -29,6 +28,7 @@ from pygmt.exceptions import GMTCLibError, GMTCLibNoSessionError, GMTInvalidInpu
 from pygmt.helpers import (
     _validate_data_input,
     data_kind,
+    deprecate_parameter,
     tempfile_from_geojson,
     tempfile_from_image,
 )
@@ -82,21 +82,28 @@ MODE_MODIFIERS = [
 
 REGISTRATIONS = ["GMT_GRID_NODE_REG", "GMT_GRID_PIXEL_REG"]
 
-DTYPES = {
+# Dictionary for mapping numpy dtypes to GMT data types.
+DTYPES_NUMERIC = {
     np.int8: "GMT_CHAR",
     np.int16: "GMT_SHORT",
     np.int32: "GMT_INT",
     np.int64: "GMT_LONG",
+    np.longlong: "GMT_LONG",
     np.uint8: "GMT_UCHAR",
     np.uint16: "GMT_USHORT",
     np.uint32: "GMT_UINT",
     np.uint64: "GMT_ULONG",
+    np.ulonglong: "GMT_ULONG",
     np.float32: "GMT_FLOAT",
     np.float64: "GMT_DOUBLE",
-    np.str_: "GMT_TEXT",
-    np.datetime64: "GMT_DATETIME",
     np.timedelta64: "GMT_LONG",
 }
+DTYPES_TEXT = {
+    np.str_: "GMT_TEXT",
+    np.datetime64: "GMT_DATETIME",
+}
+DTYPES = DTYPES_NUMERIC | DTYPES_TEXT
+
 # Dictionary for storing the values of GMT constants.
 GMT_CONSTANTS = {}
 
@@ -166,7 +173,8 @@ class Session:
             the context manager).
         """
         if getattr(self, "_session_pointer", None) is None:
-            raise GMTCLibNoSessionError("No currently open GMT API session.")
+            msg = "No currently open GMT API session."
+            raise GMTCLibNoSessionError(msg)
         return self._session_pointer
 
     @session_pointer.setter
@@ -269,7 +277,8 @@ class Session:
         session = None
         value = c_get_enum(session, name.encode())
         if value is None or value == -99999:
-            raise GMTCLibError(f"Constant '{name}' doesn't exist in libgmt.")
+            msg = f"Constant '{name}' doesn't exist in libgmt."
+            raise GMTCLibError(msg)
         return value
 
     def get_libgmt_func(
@@ -318,7 +327,7 @@ class Session:
             function.restype = restype
         return function
 
-    def create(self, name: str):
+    def create(self, name: str) -> None:
         """
         Create a new GMT C API session.
 
@@ -375,7 +384,8 @@ class Session:
             We'll capture the messages and print them to stderr so that they will show
             up on the Jupyter notebook.
             """
-            # Have to use try..except due to upstream GMT bug in GMT <= 6.5.0.
+            # TODO(GMT>6.5.0): Remove the workaround for upstream bug in GMT<=6.5.0.
+            # Have to use try..except due to upstream GMT bug in GMT<=6.5.0.
             # See https://github.com/GenericMappingTools/pygmt/issues/3205.
             try:
                 message = message.decode().strip()
@@ -391,7 +401,9 @@ class Session:
         self._print_callback = print_func
 
         padding = self["GMT_PAD_DEFAULT"]
-        session_type = self["GMT_SESSION_EXTERNAL"]
+        # GMT_SESSION_EXTERNAL: GMT is called by an external wrapper.
+        # GMT_SESSION_NOGDALCLOSE: Do not call GDALDestroyDriverManager when using GDAL.
+        session_type = self["GMT_SESSION_EXTERNAL"] + self["GMT_SESSION_NOGDALCLOSE"]
         session = c_create_session(name.encode(), padding, session_type, print_func)
 
         if session is None:
@@ -551,7 +563,8 @@ class Session:
         pygmt.exceptions.GMTInvalidInput: Unknown GMT common option flag 'A'.
         """
         if option not in "BIJRUVXYabfghinoprst:":
-            raise GMTInvalidInput(f"Unknown GMT common option flag '{option}'.")
+            msg = f"Unknown GMT common option flag '{option}'."
+            raise GMTInvalidInput(msg)
 
         c_get_common = self.get_libgmt_func(
             "GMT_Get_Common",
@@ -581,7 +594,7 @@ class Session:
             case _:  # 'status' is the option value (in integer type).
                 return status
 
-    def call_module(self, module: str, args: str | list[str]):
+    def call_module(self, module: str, args: str | list[str]) -> None:
         """
         Call a GMT module with the given arguments.
 
@@ -879,65 +892,58 @@ class Session:
         integer_value = sum(self[part] for part in parts)
         return integer_value
 
-    def _check_dtype_and_dim(self, array, ndim):
+    def _check_dtype_and_dim(self, array: np.ndarray, ndim: int) -> int:
         """
         Check that a numpy array has the given number of dimensions and is a valid data
         type.
 
         Parameters
         ----------
-        array : numpy.ndarray
+        array
             The array to be tested.
-        ndim : int
+        ndim
             The desired number of array dimensions.
 
         Returns
         -------
-        gmt_type : int
+        gmt_type
             The GMT constant value representing this data type.
 
         Raises
         ------
         GMTInvalidInput
-            If the array has the wrong number of dimensions or
-            is an unsupported data type.
+            If the array has the wrong number of dimensions or is an unsupported data
+            type.
 
         Examples
         --------
-
         >>> import numpy as np
-        >>> data = np.array([1, 2, 3], dtype="float64")
-        >>> with Session() as ses:
-        ...     gmttype = ses._check_dtype_and_dim(data, ndim=1)
-        ...     gmttype == ses["GMT_DOUBLE"]
+        >>> data = np.array([1, 2, 3], dtype=np.float64)
+        >>> with Session() as lib:
+        ...     gmttype = lib._check_dtype_and_dim(data, ndim=1)
+        ...     gmttype == lib["GMT_DOUBLE"]
         True
-        >>> data = np.ones((5, 2), dtype="float32")
-        >>> with Session() as ses:
-        ...     gmttype = ses._check_dtype_and_dim(data, ndim=2)
-        ...     gmttype == ses["GMT_FLOAT"]
+        >>> data = np.ones((5, 2), dtype=np.float32)
+        >>> with Session() as lib:
+        ...     gmttype = lib._check_dtype_and_dim(data, ndim=2)
+        ...     gmttype == lib["GMT_FLOAT"]
         True
         """
-        # Check that the array has the given number of dimensions
+        # Check that the array has the given number of dimensions.
         if array.ndim != ndim:
-            raise GMTInvalidInput(
-                f"Expected a numpy {ndim}-D array, got {array.ndim}-D."
-            )
+            msg = f"Expected a numpy {ndim}-D array, got {array.ndim}-D."
+            raise GMTInvalidInput(msg)
 
-        # Check that the array has a valid/known data type
-        if array.dtype.type not in DTYPES:
-            try:
-                if array.dtype.type is np.object_:
-                    # Try to convert unknown object type to np.datetime64
-                    array = array_to_datetime(array)
-                else:
-                    raise ValueError
-            except ValueError as e:
-                raise GMTInvalidInput(
-                    f"Unsupported numpy data type '{array.dtype.type}'."
-                ) from e
-        return self[DTYPES[array.dtype.type]]
+        # 1-D arrays can be numeric or text, 2-D arrays can only be numeric.
+        valid_dtypes = DTYPES if ndim == 1 else DTYPES_NUMERIC
+        if (dtype := array.dtype.type) not in valid_dtypes:
+            msg = f"Unsupported numpy data type '{dtype}'."
+            raise GMTInvalidInput(msg)
+        return self[DTYPES[dtype]]
 
-    def put_vector(self, dataset: ctp.c_void_p, column: int, vector: np.ndarray):
+    def put_vector(
+        self, dataset: ctp.c_void_p, column: int, vector: np.ndarray
+    ) -> None:
         r"""
         Attach a 1-D numpy array as a column on a GMT dataset.
 
@@ -947,8 +953,9 @@ class Session:
         The dataset must be created by :meth:`pygmt.clib.Session.create_data` first with
         ``family="GMT_IS_DATASET|GMT_VIA_VECTOR"``.
 
-        Not all numpy dtypes are supported, only: int8, int16, int32, int64, uint8,
-        uint16, uint32, uint64, float32, float64, str\_, and datetime64.
+        Not all numpy dtypes are supported, only: int8, int16, int32, int64, longlong,
+        uint8, uint16, uint32, uint64, ulonglong, float32, float64, str\_, datetime64,
+        and timedelta64.
 
         .. warning::
             The numpy array must be C contiguous in memory. Use
@@ -981,7 +988,7 @@ class Session:
         gmt_type = self._check_dtype_and_dim(vector, ndim=1)
         if gmt_type in {self["GMT_TEXT"], self["GMT_DATETIME"]}:
             if gmt_type == self["GMT_DATETIME"]:
-                vector = np.datetime_as_string(array_to_datetime(vector))
+                vector = np.datetime_as_string(vector)
             vector_pointer = strings_to_ctypes_array(vector)
         else:
             vector_pointer = vector.ctypes.data_as(ctp.c_void_p)
@@ -995,7 +1002,9 @@ class Session:
             )
             raise GMTCLibError(msg)
 
-    def put_strings(self, dataset: ctp.c_void_p, family: str, strings: np.ndarray):
+    def put_strings(
+        self, dataset: ctp.c_void_p, family: str, strings: np.ndarray
+    ) -> None:
         """
         Attach a 1-D numpy array of dtype str as a column on a GMT dataset.
 
@@ -1049,7 +1058,9 @@ class Session:
             msg = f"Failed to put strings of type {strings.dtype} into dataset."
             raise GMTCLibError(msg)
 
-    def put_matrix(self, dataset: ctp.c_void_p, matrix: np.ndarray, pad: int = 0):
+    def put_matrix(
+        self, dataset: ctp.c_void_p, matrix: np.ndarray, pad: int = 0
+    ) -> None:
         """
         Attach a 2-D numpy array to a GMT dataset.
 
@@ -1059,8 +1070,8 @@ class Session:
         The dataset must be created by :meth:`pygmt.clib.Session.create_data` first with
         ``family="GMT_IS_DATASET|GMT_VIA_MATRIX"``.
 
-        Not all numpy dtypes are supported, only: int8, int16, int32, int64, uint8,
-        uint16, uint32, uint64, float32, and float64.
+        Not all numpy dtypes are supported, only: int8, int16, int32, int64, longlong,
+        uint8, uint16, uint32, uint64, ulonglong, float32, and float64.
 
         .. warning::
             The numpy array must be C contiguous in memory. Use
@@ -1190,10 +1201,11 @@ class Session:
             data,
         )
         if data_ptr is None:
-            raise GMTCLibError(f"Failed to read dataset from '{infile}'.")
+            msg = f"Failed to read dataset from '{infile}'."
+            raise GMTCLibError(msg)
         return ctp.cast(data_ptr, ctp.POINTER(dtype))
 
-    def write_data(self, family, geometry, mode, wesn, output, data):
+    def write_data(self, family, geometry, mode, wesn, output, data) -> None:
         """
         Write a GMT data container to a file.
 
@@ -1260,7 +1272,8 @@ class Session:
             data,
         )
         if status != 0:
-            raise GMTCLibError(f"Failed to write dataset to '{output}'")
+            msg = f"Failed to write dataset to '{output}'."
+            raise GMTCLibError(msg)
 
     @contextlib.contextmanager
     def open_virtualfile(
@@ -1377,27 +1390,8 @@ class Session:
                 msg = f"Failed to close virtual file '{vfname}'."
                 raise GMTCLibError(msg)
 
-    def open_virtual_file(self, family, geometry, direction, data):
-        """
-        Open a GMT virtual file associated with a data object for reading or writing.
-
-        .. deprecated: 0.11.0
-
-           Will be removed in v0.15.0. Use :meth:`pygmt.clib.Session.open_virtualfile`
-           instead.
-        """
-        msg = (
-            "API function `Session.open_virtual_file()' has been deprecated "
-            "since v0.11.0 and will be removed in v0.15.0. "
-            "Use `Session.open_virtualfile()' instead."
-        )
-        warnings.warn(msg, category=FutureWarning, stacklevel=2)
-        return self.open_virtualfile(family, geometry, direction, data)
-
     @contextlib.contextmanager
-    def virtualfile_from_vectors(
-        self, vectors: Sequence, *args
-    ) -> Generator[str, None, None]:
+    def virtualfile_from_vectors(self, vectors: Sequence) -> Generator[str, None, None]:
         """
         Store a sequence of 1-D vectors as columns of a dataset inside a virtual file.
 
@@ -1443,21 +1437,6 @@ class Session:
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <1/3> <4/6> <7/9>
         """
-        # "*args" is added in v0.14.0 for backward-compatibility with the deprecated
-        # syntax of passing multiple vectors as positional arguments.
-        # Remove it in v0.16.0.
-        if len(args) > 0:
-            msg = (
-                "Passing multiple arguments to Session.virtualfile_from_vectors is "
-                "deprecated since v0.14.0 and will be unsupported in v0.16.0. "
-                "Put all vectors in a sequence (a tuple or a list) instead and pass "
-                "the sequence as the single argument to this function. "
-                "E.g., use `with lib.virtualfile_from_vectors((x, y, z)) as vfile` "
-                "instead of `with lib.virtualfile_from_vectors(x, y, z) as vfile`."
-            )
-            warnings.warn(message=msg, category=FutureWarning, stacklevel=3)
-            vectors = (vectors, *args)
-
         # Conversion to a C-contiguous array needs to be done here and not in put_vector
         # or put_strings because we need to maintain a reference to the copy while it is
         # being used by the C API. Otherwise, the array would be garbage collected and
@@ -1471,7 +1450,7 @@ class Session:
         # 2 columns contains coordinates like longitude, latitude, or datetime string
         # types.
         for col, array in enumerate(arrays[2:]):
-            if pd.api.types.is_string_dtype(array.dtype):
+            if np.issubdtype(array.dtype, np.str_):
                 columns = col + 2
                 break
 
@@ -1502,9 +1481,9 @@ class Session:
                 strings = string_arrays[0]
             elif len(string_arrays) > 1:
                 strings = np.array(
-                    [" ".join(vals) for vals in zip(*string_arrays, strict=True)]
+                    [" ".join(vals) for vals in zip(*string_arrays, strict=True)],
+                    dtype=np.str_,
                 )
-            strings = np.asanyarray(a=strings, dtype=str)
             self.put_strings(
                 dataset, family="GMT_IS_VECTOR|GMT_IS_DUPLICATE", strings=strings
             )
@@ -1770,16 +1749,23 @@ class Session:
                     seg.header = None
                     seg.text = None
 
-    def virtualfile_in(
+    # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'required_z'.
+    # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'extra_arrays'.
+    # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'required_data'.
+    @deprecate_parameter(
+        "required_data", "required", "v0.16.0", remove_version="v0.20.0"
+    )
+    def virtualfile_in(  # noqa: PLR0912
         self,
         check_kind=None,
         data=None,
         x=None,
         y=None,
         z=None,
-        extra_arrays=None,
+        required=True,
+        mincols=2,
         required_z=False,
-        required_data=True,
+        extra_arrays=None,
     ):
         """
         Store any data inside a virtual file.
@@ -1793,20 +1779,37 @@ class Session:
         check_kind : str or None
             Used to validate the type of data that can be passed in. Choose
             from 'raster', 'vector', or None. Default is None (no validation).
-        data : str or pathlib.Path or xarray.DataArray or {table-like} or None
+        data
             Any raster or vector data format. This could be a file name or
             path, a raster grid, a vector matrix/arrays, or other supported
             data input.
         x/y/z : 1-D arrays or None
             x, y, and z columns as numpy arrays.
-        extra_arrays : list of 1-D arrays
-            Optional. A list of numpy arrays in addition to x, y, and z.
-            All of these arrays must be of the same size as the x/y/z arrays.
+        required : bool
+            Set to True when 'data' or ('x' and 'y') is required. Set to False when
+            dealing with optional virtual files. Default is True.
+
+            .. versionchanged:: v0.16.0
+               The parameter 'required_data' is renamed to 'required'. The parameter
+               'required_data' is deprecated in v0.16.0 and will be removed in v0.20.0.
+        mincols
+            Number of minimum required columns. Default is 2 (i.e. require x and y
+            columns).
         required_z : bool
             State whether the 'z' column is required.
-        required_data : bool
-            Set to True when 'data' is required, or False when dealing with
-            optional virtual files. [Default is True].
+
+            .. deprecated:: v0.16.0
+               The parameter 'required_z' will be removed in v0.20.0. Use parameter
+               'mincols' instead. E.g., ``required_z=True`` is equivalent to
+               ``mincols=3``.
+        extra_arrays : list of 1-D arrays
+            A list of numpy arrays in addition to x, y, and z. All of these arrays must
+            be of the same size as the x/y/z arrays.
+
+            .. deprecated:: v0.16.0
+               The parameter 'extra_arrays' will be removed in v0.20.0. Prepare and pass
+               a dictionary of arrays instead to the `data` parameter. E.g.,
+               ``data={"x": x, "y": y, "size": size}``.
 
         Returns
         -------
@@ -1834,27 +1837,36 @@ class Session:
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
-        kind = data_kind(data, required=required_data)
+        if required_z is True:
+            warnings.warn(
+                "The parameter 'required_z' is deprecated in v0.16.0 and will be "
+                "removed in v0.20.0. Use parameter 'mincols' instead. E.g., "
+                "``required_z=True`` is equivalent to ``mincols=3``.",
+                category=FutureWarning,
+                stacklevel=1,
+            )
+            mincols = 3
+
+        kind = data_kind(data, required=required)
         _validate_data_input(
             data=data,
             x=x,
             y=y,
             z=z,
-            required_z=required_z,
-            required_data=required_data,
+            required=required,
+            mincols=mincols,
             kind=kind,
         )
 
         if check_kind:
-            valid_kinds = ("file", "arg") if required_data is False else ("file",)
+            valid_kinds = ("file", "arg") if required is False else ("file",)
             if check_kind == "raster":
                 valid_kinds += ("grid", "image")
             elif check_kind == "vector":
                 valid_kinds += ("empty", "matrix", "vectors", "geojson")
             if kind not in valid_kinds:
-                raise GMTInvalidInput(
-                    f"Unrecognized data type for {check_kind}: {type(data)}"
-                )
+                msg = f"Unrecognized data type for {check_kind}: {type(data)}."
+                raise GMTInvalidInput(msg)
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
@@ -1886,10 +1898,16 @@ class Session:
                 if z is not None:
                     _data.append(z)
                 if extra_arrays:
+                    msg = (
+                        "The parameter 'extra_arrays' will be removed in v0.20.0. "
+                        "Prepare and pass a dictionary of arrays instead to the `data` "
+                        "parameter. E.g., `data={'x': x, 'y': y, 'size': size}`"
+                    )
+                    warnings.warn(message=msg, category=FutureWarning, stacklevel=1)
                     _data.extend(extra_arrays)
             case "vectors":
                 if hasattr(data, "items") and not hasattr(data, "to_frame"):
-                    # pandas.DataFrame or xarray.Dataset types.
+                    # Dictionary, pandas.DataFrame or xarray.Dataset types.
                     # pandas.Series will be handled below like a 1-D numpy.ndarray.
                     _data = [array for _, array in data.items()]
                 else:
@@ -1907,42 +1925,6 @@ class Session:
         # Finally create the virtualfile from the data, to be passed into GMT
         file_context = _virtualfile_from(_data)
         return file_context
-
-    def virtualfile_from_data(
-        self,
-        check_kind=None,
-        data=None,
-        x=None,
-        y=None,
-        z=None,
-        extra_arrays=None,
-        required_z=False,
-        required_data=True,
-    ):
-        """
-        Store any data inside a virtual file.
-
-        .. deprecated: 0.13.0
-
-           Will be removed in v0.15.0. Use :meth:`pygmt.clib.Session.virtualfile_in`
-           instead.
-        """
-        msg = (
-            "API function 'Session.virtualfile_from_data()' has been deprecated since "
-            "v0.13.0 and will be removed in v0.15.0. Use 'Session.virtualfile_in()' "
-            "instead."
-        )
-        warnings.warn(msg, category=FutureWarning, stacklevel=2)
-        return self.virtualfile_in(
-            check_kind=check_kind,
-            data=data,
-            x=x,
-            y=y,
-            z=z,
-            extra_arrays=extra_arrays,
-            required_z=required_z,
-            required_data=required_data,
-        )
 
     @contextlib.contextmanager
     def virtualfile_out(
@@ -2106,7 +2088,8 @@ class Session:
         if kind is None:  # Return the ctypes void pointer
             return pointer
         if kind == "cube":
-            raise NotImplementedError(f"kind={kind} is not supported yet.")
+            msg = f"kind={kind} is not supported yet."
+            raise NotImplementedError(msg)
         dtype = {"dataset": _GMT_DATASET, "grid": _GMT_GRID, "image": _GMT_IMAGE}[kind]
         return ctp.cast(pointer, ctp.POINTER(dtype))
 
@@ -2245,7 +2228,7 @@ class Session:
         if output_type == "strings":  # strings output
             return result.to_strings()
 
-        result = result.to_dataframe(
+        result = result.to_pandas(
             header=header, column_names=column_names, dtype=dtype, index_col=index_col
         )
         if output_type == "numpy":  # numpy.ndarray output
@@ -2314,7 +2297,7 @@ class Session:
                 self["GMT_IS_IMAGE"]: "image",
                 self["GMT_IS_CUBE"]: "cube",
             }[family]
-        return self.read_virtualfile(vfname, kind=kind).contents.to_dataarray()
+        return self.read_virtualfile(vfname, kind=kind).contents.to_xarray()
 
     def extract_region(self) -> np.ndarray:
         """
@@ -2374,5 +2357,6 @@ class Session:
             region.ctypes.data_as(ctp.POINTER(ctp.c_double)),
         )
         if status != 0:
-            raise GMTCLibError("Failed to extract region from current figure.")
+            msg = "Failed to extract region from current figure."
+            raise GMTCLibError(msg)
         return region

@@ -4,6 +4,7 @@ velo - Plot velocity vectors, crosses, anisotropy bars, and wedges.
 
 import numpy as np
 import pandas as pd
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -41,7 +42,7 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def velo(self, data=None, **kwargs):
+def velo(self, data: PathLike | TableLike | None = None, **kwargs):
     r"""
     Plot velocity vectors, crosses, anisotropy bars, and wedges.
 
@@ -60,7 +61,7 @@ def velo(self, data=None, **kwargs):
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
         Note that text columns are only supported with file or
@@ -238,20 +239,20 @@ def velo(self, data=None, **kwargs):
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     if kwargs.get("S") is None or (
         kwargs.get("S") is not None and not isinstance(kwargs["S"], str)
     ):
-        raise GMTInvalidInput(
-            "The parameter `spec` is required and has to be a string."
-        )
+        msg = "The parameter 'spec' is required and has to be a string."
+        raise GMTInvalidInput(msg)
 
     if isinstance(data, np.ndarray) and not pd.api.types.is_numeric_dtype(data):
-        raise GMTInvalidInput(
+        msg = (
             "Text columns are not supported with numpy.ndarray type inputs. "
             "They are only supported with file or pandas.DataFrame inputs."
         )
+        raise GMTInvalidInput(msg)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:

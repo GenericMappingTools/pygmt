@@ -1,5 +1,5 @@
 """
-colorbar - Plot a colorbar.
+colorbar - Plot gray scale or color scale bar.
 """
 
 from pygmt.clib import Session
@@ -32,7 +32,7 @@ __doctest_skip__ = ["colorbar"]
 )
 def colorbar(self, **kwargs):
     r"""
-    Plot colorbars on figures.
+    Plot gray scale or color scale bar.
 
     Both horizontal and vertical colorbars are supported. For CPTs with
     gradational colors (i.e., the lower and upper boundary of an interval
@@ -144,6 +144,6 @@ def colorbar(self, **kwargs):
     >>> # Show the plot
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="colorbar", args=build_arg_list(kwargs))

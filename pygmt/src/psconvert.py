@@ -1,5 +1,5 @@
 """
-psconvert - Convert [E]PS file(s) to other formats.
+psconvert - Convert [E]PS file(s) to other formats using Ghostscript.
 """
 
 from pathlib import Path
@@ -25,7 +25,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @kwargs_to_strings()
 def psconvert(self, **kwargs):
     r"""
-    Convert [E]PS file(s) to other formats.
+    Convert [E]PS file(s) to other formats using Ghostscript.
 
     Converts one or more PostScript files to other formats (BMP, EPS, JPEG,
     PDF, PNG, PPM, TIFF) using Ghostscript.
@@ -108,23 +108,21 @@ def psconvert(self, **kwargs):
         ``prefix`` parameter.
     {verbose}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
     # Default cropping the figure to True
     if kwargs.get("A") is None:
         kwargs["A"] = ""
 
     prefix = kwargs.get("F")
     if prefix in {"", None, False, True}:
-        raise GMTInvalidInput(
-            "The 'prefix' parameter must be specified with a valid value."
-        )
+        msg = "The 'prefix' parameter must be specified with a valid value."
+        raise GMTInvalidInput(msg)
 
     # Check if the parent directory exists
     prefix_path = Path(prefix).parent
     if not prefix_path.exists():
-        raise FileNotFoundError(
-            f"No such directory: '{prefix_path}', please create it first."
-        )
+        msg = f"No such directory: '{prefix_path}', please create it first."
+        raise FileNotFoundError(msg)
 
     with Session() as lib:
         lib.call_module(module="psconvert", args=build_arg_list(kwargs))

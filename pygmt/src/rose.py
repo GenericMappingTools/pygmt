@@ -1,7 +1,8 @@
 """
-rose - Plot windrose diagrams or polar histograms.
+rose - Plot a polar histogram (rose, sector, windrose diagrams).
 """
 
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -42,9 +43,11 @@ from pygmt.helpers import (
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def rose(self, data=None, length=None, azimuth=None, **kwargs):
+def rose(
+    self, data: PathLike | TableLike | None = None, length=None, azimuth=None, **kwargs
+):
     """
-    Plot windrose diagrams or polar histograms.
+    Plot a polar histogram (rose, sector, windrose diagrams).
 
     Takes a matrix, (length,azimuth) pairs, or a file name as input
     and plots windrose diagrams or polar histograms (sector diagram
@@ -62,7 +65,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
         Use parameter ``incols`` to choose which columns are length and
@@ -196,8 +199,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
     {transparency}
     {wrap}
     """
-
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     with Session() as lib:
         with lib.virtualfile_in(
