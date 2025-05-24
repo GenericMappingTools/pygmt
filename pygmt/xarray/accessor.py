@@ -25,7 +25,7 @@ class GMTDataArrayAccessor:
 
     Notes
     -----
-    When accessed the first time, the *gmt* accessor will be first initialized to the
+    When accessed the first time, the *gmt* accessor will first be initialized to the
     default values (``GridRegistration.GRIDLINE`` and ``GridType.CARTESIAN``, i.e., a
     gridline-registered, Cartesian grid), and then the properties will be updated with
     the correct grid registration and type determined from the source encoding (i.e.,
