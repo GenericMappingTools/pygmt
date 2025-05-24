@@ -28,7 +28,7 @@ def image(self, imagefile: PathLike, **kwargs):
     Reads an Encapsulated PostScript file or a raster image file and plots
     it on a map.
 
-    Full option list at :gmt-docs:`image.html`
+    Full GMT docs at :gmt-docs:`image.html`.
 
     {aliases}
 

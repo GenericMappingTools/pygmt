@@ -44,7 +44,7 @@ def histogram(self, data: PathLike | TableLike, **kwargs):
     r"""
     Calculate and plot histograms.
 
-    Full option list at :gmt-docs:`histogram.html`
+    Full GMT docs at :gmt-docs:`histogram.html`.
 
     {aliases}
 

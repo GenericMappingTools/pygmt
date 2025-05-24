@@ -63,7 +63,7 @@ def coast(
 
     A map projection must be supplied.
 
-    Full option list at :gmt-docs:`coast.html`
+    Full GMT docs at :gmt-docs:`coast.html`.
 
     {aliases}
 

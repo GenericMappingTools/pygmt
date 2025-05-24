@@ -73,7 +73,7 @@ def select(
     The sense of the tests can be reversed for each of these 7 criteria by
     using the ``reverse`` parameter.
 
-    Full option list at :gmt-docs:`gmtselect.html`
+    Full GMT docs at :gmt-docs:`gmtselect.html`.
 
     {aliases}
 
