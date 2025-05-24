@@ -424,6 +424,7 @@ class Figure:
         coast,
         colorbar,
         contour,
+        coupe,
         grdcontour,
         grdimage,
         grdview,
