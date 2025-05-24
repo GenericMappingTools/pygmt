@@ -44,7 +44,7 @@ __doctest_skip__ = ["select"]
     s="skiprows",
     w="wrap",
 )
-@kwargs_to_strings(M="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(N="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
 def select(
     data: PathLike | TableLike | None = None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
