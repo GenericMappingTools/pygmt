@@ -258,14 +258,15 @@ def _parse_coastline_resolution(
     allow_auto: bool = False,
 ) -> str | None:
     """
-    Parse the resolution parameter for coastline-related functions.
+    Parse the 'resolution' parameter for coastline-related functions.
 
     Parameters
     ----------
     resolution
         The resolution of the coastline dataset to use. The available resolutions from
         highest to lowest are: ``"full"``, ``"high"``, ``"intermediate"``, ``"low"``,
-        and ``"crude"``, which drops by 80% between levels.
+        and ``"crude"``, which drops by 80% between levels. ``None`` means using the
+        default resolution.
     allow_auto
         Whether to allow the ``"auto"`` resolution.
 
@@ -296,16 +297,24 @@ def _parse_coastline_resolution(
     ...
     pygmt.exceptions.GMTInvalidInput: Invalid resolution: 'auto'. Valid values ...
     """
-    if resolution is None:
-        return None
-
-    valid_resolutions = {"full", "high", "intermediate", "low", "crude"}
+    _valid_res = {
+        "full": "f",
+        "high": "h",
+        "intermediate": "i",
+        "low": "l",
+        "crude": "c",
+        None: None,
+    }
     if allow_auto:
-        valid_resolutions.add("auto")
-    if resolution not in {*valid_resolutions, *[res[0] for res in valid_resolutions]}:
-        msg = (
-            f"Invalid resolution: '{resolution}'. "
-            f"Valid values are {', '.join(valid_resolutions)}."
-        )
-        raise GMTInvalidInput(msg)
-    return resolution[0]
+        _valid_res["auto"] = "a"
+
+    if resolution in _valid_res:  # Long form arguments.
+        return _valid_res[resolution]
+    if resolution in _valid_res.values():  # Short form arguments.
+        return resolution
+
+    msg = (
+        f"Invalid resolution: '{resolution}'. "
+        f"Valid values are {', '.join(_valid_res.keys())}."
+    )
+    raise GMTInvalidInput(msg)
