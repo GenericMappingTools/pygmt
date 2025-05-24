@@ -69,7 +69,7 @@ def surface(
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    Full option list at :gmt-docs:`surface.html`
+    Full GMT docs at :gmt-docs:`surface.html`.
 
     {aliases}
 

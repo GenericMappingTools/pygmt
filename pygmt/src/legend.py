@@ -45,7 +45,7 @@ def legend(
     noted, annotations will be made using the primary annotation font and
     size in effect (i.e., :gmt-term:`FONT_ANNOT_PRIMARY`).
 
-    Full option list at :gmt-docs:`legend.html`
+    Full GMT docs at :gmt-docs:`legend.html`.
 
     {aliases}
 

@@ -44,7 +44,7 @@ def grdcontour(self, grid: PathLike | xr.DataArray, **kwargs):
 
     Takes a grid file name or an :class:`xarray.DataArray` object as input.
 
-    Full option list at :gmt-docs:`grdcontour.html`
+    Full GMT docs at :gmt-docs:`grdcontour.html`.
 
     {aliases}
 

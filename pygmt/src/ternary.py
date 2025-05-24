@@ -43,7 +43,7 @@ def ternary(
     last column in the input.  If ``style`` is not specified then we instead
     plot lines or polygons.
 
-    Full option list at :gmt-docs:`ternary.html`
+    Full GMT docs at :gmt-docs:`ternary.html`.
 
     {aliases}
 

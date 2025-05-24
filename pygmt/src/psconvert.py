@@ -34,7 +34,7 @@ def psconvert(self, **kwargs):
     (see :class:`pygmt.Figure`). In this case, an output name must be given
     using parameter ``prefix``.
 
-    Full option list at :gmt-docs:`psconvert.html`
+    Full GMT docs at :gmt-docs:`psconvert.html`.
 
     {aliases}
 

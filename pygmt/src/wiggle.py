@@ -48,7 +48,7 @@ def wiggle(
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    Full option list at :gmt-docs:`wiggle.html`
+    Full GMT docs at :gmt-docs:`wiggle.html`.
 
     {aliases}
 
