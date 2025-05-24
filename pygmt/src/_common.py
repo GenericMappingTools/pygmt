@@ -289,23 +289,18 @@ def _parse_coastline_resolution(
     ...
     pygmt.exceptions.GMTInvalidInput: Invalid resolution: 'invalid'. Valid values ...
     """
-    _valid_res = {
-        "auto": "a",
-        "full": "f",
-        "high": "h",
-        "intermediate": "i",
-        "low": "l",
-        "crude": "c",
-        None: None,
-    }
+    if resolution is None:
+        return None
 
-    if resolution in _valid_res:  # Long form arguments.
-        return _valid_res[resolution]
-    if resolution in _valid_res.values():  # Short form arguments.
+    _valid_res = {"auto", "full", "high", "intermediate", "low", "crude"}
+
+    if resolution in _valid_res:  # Long-form arguments.
+        return resolution[0]
+
+    if resolution in {_res[0] for _res in _valid_res}:  # Short-form arguments.
         return resolution
 
     msg = (
-        f"Invalid resolution: '{resolution}'. "
-        f"Valid values are {', '.join(_valid_res.keys())}."
+        f"Invalid resolution: '{resolution}'. Valid values are {', '.join(_valid_res)}."
     )
     raise GMTInvalidInput(msg)
