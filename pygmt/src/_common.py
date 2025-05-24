@@ -44,64 +44,6 @@ def _data_geometry_is_point(data: Any, kind: str) -> bool:
     return False
 
 
-def _parse_coastline_resolution(
-    resolution: Literal["auto", "full", "high", "intermediate", "low", "crude", None],
-    allow_auto: bool = False,
-) -> str | None:
-    """
-    Parse the resolution parameter for coastline-related functions.
-
-    Parameters
-    ----------
-    resolution
-        The resolution of the coastline dataset to use. The available resolutions from
-        highest to lowest are: ``"full"``, ``"high"``, ``"intermediate"``, ``"low"``,
-        and ``"crude"``, which drops by 80% between levels.
-    allow_auto
-        Whether to allow the ``"auto"`` resolution.
-
-    Returns
-    -------
-    The parsed single-letter resolution or ``None``.
-
-    Raises
-    ------
-    GMTInvalidInput
-        If the resolution is invalid.
-
-    Examples
-    --------
-    >>> _parse_coastline_resolution("full")
-    'f'
-    >>> _parse_coastline_resolution("f")
-    'f'
-    >>> _parse_coastline_resolution("auto", allow_auto=True)
-    'a'
-    >>> _parse_coastline_resolution(None)
-    >>> _parse_coastline_resolution("invalid")
-    Traceback (most recent call last):
-    ...
-    pygmt.exceptions.GMTInvalidInput: Invalid resolution: 'invalid'. Valid values ...
-    >>> _parse_coastline_resolution("auto")
-    Traceback (most recent call last):
-    ...
-    pygmt.exceptions.GMTInvalidInput: Invalid resolution: 'auto'. Valid values ...
-    """
-    if resolution is None:
-        return None
-
-    valid_resolutions = {"full", "high", "intermediate", "low", "crude"}
-    if allow_auto:
-        valid_resolutions.add("auto")
-    if resolution not in {*valid_resolutions, *[res[0] for res in valid_resolutions]}:
-        msg = (
-            f"Invalid resolution: '{resolution}'. "
-            f"Valid values are {', '.join(valid_resolutions)}."
-        )
-        raise GMTInvalidInput(msg)
-    return resolution[0]
-
-
 class _FocalMechanismConventionCode(StrEnum):
     """
     Enum to handle focal mechanism convention codes.
@@ -309,3 +251,61 @@ class _FocalMechanismConvention:
             f"{', '.join(params)}."
         )
         raise GMTInvalidInput(msg)
+
+
+def _parse_coastline_resolution(
+    resolution: Literal["auto", "full", "high", "intermediate", "low", "crude", None],
+    allow_auto: bool = False,
+) -> str | None:
+    """
+    Parse the resolution parameter for coastline-related functions.
+
+    Parameters
+    ----------
+    resolution
+        The resolution of the coastline dataset to use. The available resolutions from
+        highest to lowest are: ``"full"``, ``"high"``, ``"intermediate"``, ``"low"``,
+        and ``"crude"``, which drops by 80% between levels.
+    allow_auto
+        Whether to allow the ``"auto"`` resolution.
+
+    Returns
+    -------
+    The parsed single-letter resolution or ``None``.
+
+    Raises
+    ------
+    GMTInvalidInput
+        If the resolution is invalid.
+
+    Examples
+    --------
+    >>> _parse_coastline_resolution("full")
+    'f'
+    >>> _parse_coastline_resolution("f")
+    'f'
+    >>> _parse_coastline_resolution("auto", allow_auto=True)
+    'a'
+    >>> _parse_coastline_resolution(None)
+    >>> _parse_coastline_resolution("invalid")
+    Traceback (most recent call last):
+    ...
+    pygmt.exceptions.GMTInvalidInput: Invalid resolution: 'invalid'. Valid values ...
+    >>> _parse_coastline_resolution("auto")
+    Traceback (most recent call last):
+    ...
+    pygmt.exceptions.GMTInvalidInput: Invalid resolution: 'auto'. Valid values ...
+    """
+    if resolution is None:
+        return None
+
+    valid_resolutions = {"full", "high", "intermediate", "low", "crude"}
+    if allow_auto:
+        valid_resolutions.add("auto")
+    if resolution not in {*valid_resolutions, *[res[0] for res in valid_resolutions]}:
+        msg = (
+            f"Invalid resolution: '{resolution}'. "
+            f"Valid values are {', '.join(valid_resolutions)}."
+        )
+        raise GMTInvalidInput(msg)
+    return resolution[0]
