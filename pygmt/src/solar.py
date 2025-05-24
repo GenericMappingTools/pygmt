@@ -37,7 +37,7 @@ def solar(
     This function plots the day-night terminator. Alternatively, it can plot the
     terminators for civil twilight, nautical twilight, or astronomical twilight.
 
-    Full option list at :gmt-docs:`solar.html`
+    Full GMT docs at :gmt-docs:`solar.html`.
 
     {aliases}
 

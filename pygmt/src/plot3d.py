@@ -85,7 +85,7 @@ def plot3d(  # noqa: PLR0912
     polygon outline is drawn or not. If a symbol is selected, ``fill`` and
     ``pen`` determine the fill and outline/no outline, respectively.
 
-    Full option list at :gmt-docs:`plot3d.html`
+    Full GMT docs at :gmt-docs:`plot3d.html`.
 
     {aliases}
 

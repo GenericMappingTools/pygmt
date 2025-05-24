@@ -83,7 +83,7 @@ def plot(  # noqa: PLR0912
     polygon outline is drawn or not. If a symbol is selected, ``fill`` and
     ``pen`` determine the fill and outline/no outline, respectively.
 
-    Full option list at :gmt-docs:`plot.html`
+    Full GMT docs at :gmt-docs:`plot.html`.
 
     {aliases}
 

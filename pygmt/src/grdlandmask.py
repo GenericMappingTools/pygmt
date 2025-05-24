@@ -35,7 +35,7 @@ def grdlandmask(outgrid: PathLike | None = None, **kwargs) -> xr.DataArray | Non
     (2) the more detailed (hierarchical) ocean vs land vs lake
     vs island vs pond.
 
-    Full option list at :gmt-docs:`grdlandmask.html`
+    Full GMT docs at :gmt-docs:`grdlandmask.html`.
 
     {aliases}
 
