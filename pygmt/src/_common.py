@@ -295,10 +295,10 @@ def _parse_coastline_resolution(
     _valid_res = {"auto", "full", "high", "intermediate", "low", "crude"}
 
     if resolution in _valid_res:  # Long-form arguments.
-        return resolution[0]
+        return resolution[0]  # type: ignore[return-value]
 
     if resolution in {_res[0] for _res in _valid_res}:  # Short-form arguments.
-        return resolution
+        return resolution  # type: ignore[return-value]
 
     msg = (
         f"Invalid resolution: '{resolution}'. Valid values are {', '.join(_valid_res)}."
