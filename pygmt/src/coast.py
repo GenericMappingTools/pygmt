@@ -211,9 +211,7 @@ def coast(
         )
         raise GMTInvalidInput(msg)
 
-    kwargs["D"] = kwargs.get(
-        "D", _parse_coastline_resolution(resolution, allow_auto=True)
-    )
+    kwargs["D"] = kwargs.get("D", _parse_coastline_resolution(resolution))
 
     with Session() as lib:
         lib.call_module(module="coast", args=build_arg_list(kwargs))

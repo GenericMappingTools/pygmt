@@ -255,8 +255,7 @@ class _FocalMechanismConvention:
 
 def _parse_coastline_resolution(
     resolution: Literal["auto", "full", "high", "intermediate", "low", "crude", None],
-    allow_auto: bool = False,
-) -> str | None:
+) -> Literal["a", "f", "h", "i", "l", "c", None]:
     """
     Parse the 'resolution' parameter for coastline-related functions.
 
@@ -265,14 +264,13 @@ def _parse_coastline_resolution(
     resolution
         The resolution of the coastline dataset to use. The available resolutions from
         highest to lowest are: ``"full"``, ``"high"``, ``"intermediate"``, ``"low"``,
-        and ``"crude"``, which drops by 80% between levels. ``None`` means using the
-        default resolution.
-    allow_auto
-        Whether to allow the ``"auto"`` resolution.
+        and ``"crude"``, which drops by 80% between levels. Alternatively, choose
+        ``"auto"`` to automatically select the most suitable resolution given the chosen
+        map scale or region. ``None`` means using the default resolution.
 
     Returns
     -------
-    The parsed single-letter resolution or ``None``.
+    The single-letter resolution code or ``None``.
 
     Raises
     ------
@@ -285,19 +283,14 @@ def _parse_coastline_resolution(
     'f'
     >>> _parse_coastline_resolution("f")
     'f'
-    >>> _parse_coastline_resolution("auto", allow_auto=True)
-    'a'
     >>> _parse_coastline_resolution(None)
     >>> _parse_coastline_resolution("invalid")
     Traceback (most recent call last):
     ...
     pygmt.exceptions.GMTInvalidInput: Invalid resolution: 'invalid'. Valid values ...
-    >>> _parse_coastline_resolution("auto")
-    Traceback (most recent call last):
-    ...
-    pygmt.exceptions.GMTInvalidInput: Invalid resolution: 'auto'. Valid values ...
     """
     _valid_res = {
+        "auto": "a",
         "full": "f",
         "high": "h",
         "intermediate": "i",
@@ -305,8 +298,6 @@ def _parse_coastline_resolution(
         "crude": "c",
         None: None,
     }
-    if allow_auto:
-        _valid_res["auto"] = "a"
 
     if resolution in _valid_res:  # Long form arguments.
         return _valid_res[resolution]

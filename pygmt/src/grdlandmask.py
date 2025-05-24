@@ -28,7 +28,9 @@ __doctest_skip__ = ["grdlandmask"]
 @kwargs_to_strings(I="sequence", R="sequence", N="sequence", E="sequence")
 def grdlandmask(
     outgrid: PathLike | None = None,
-    resolution: Literal["full", "high", "intermediate", "low", "crude", None] = None,
+    resolution: Literal[
+        "auto", "full", "high", "intermediate", "low", "crude", None
+    ] = None,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -51,10 +53,11 @@ def grdlandmask(
     {region}
     {area_thresh}
     resolution
-        Ignored unless ``mask`` is set. Select the resolution of the coastline dataset
-        to use. The available resolutions from highest to lowest are: ``"full"``,
-        ``"high"``, ``"intermediate"``, ``"low"``, and ``"crude"``, which drops by 80%
-        between levels. Note that because the coastlines differ in details a node in a
+        Select the resolution of the coastline dataset to use. The available resolutions
+        from highest to lowest are: ``"full"``, ``"high"``, ``"intermediate"``,
+        ``"low"``, and ``"crude"``, which drops by 80% between levels. Alternatively,
+        choose ``"auto"`` to automatically select the most suitable resolution given the
+        chosen region. Note that because the coastlines differ in details, a node in a
         mask file using one resolution is not guaranteed to remain inside [or outside]
         when a different resolution is selected. If ``None``, the low resolution is used
         by default.
@@ -105,9 +108,7 @@ def grdlandmask(
         msg = "Both 'region' and 'spacing' must be specified."
         raise GMTInvalidInput(msg)
 
-    kwargs["D"] = kwargs.get(
-        "D", _parse_coastline_resolution(resolution, allow_auto=True)
-    )
+    kwargs["D"] = kwargs.get("D", _parse_coastline_resolution(resolution))
 
     with Session() as lib:
         with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:

@@ -49,7 +49,9 @@ def select(
     data: PathLike | TableLike | None = None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
-    resolution: Literal["full", "high", "intermediate", "low", "crude", None] = None,
+    resolution: Literal[
+        "auto", "full", "high", "intermediate", "low", "crude", None
+    ] = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -118,13 +120,6 @@ def select(
         <reference/file-formats.html#optional-segment-header-records>`
         *polygonfile*. For spherical polygons (lon, lat), make sure no
         consecutive points are separated by 180 degrees or more in longitude.
-    resolution
-        Ignored unless ``mask`` is set. Select the resolution of the coastline dataset
-        to use. The available resolutions from highest to lowest are: ``"full"``,
-        ``"high"``, ``"intermediate"``, ``"low"``, and ``"crude"``, which drops by 80%
-        between levels. Note that because the coastlines differ in details it is not
-        guaranteed that a point will remain inside [or outside] when a different
-        resolution is selected. If ``None``, the low resolution is used by default.
     gridmask : str
         Pass all locations that are inside the valid data area of the grid
         *gridmask*. Nodes that are outside are either NaN or zero.
@@ -153,6 +148,15 @@ def select(
 
         [Default is s/k/s/k/s (i.e., s/k), which passes all points on dry
         land].
+    resolution
+        Ignored unless ``mask`` is set. Select the resolution of the coastline dataset
+        to use. The available resolutions from highest to lowest are: ``"full"``,
+        ``"high"``, ``"intermediate"``, ``"low"``, and ``"crude"``, which drops by 80%
+        between levels. Alternatively, choose ``"auto"`` to automatically select the
+        most suitable resolution given the chosen region. Note that because the
+        coastlines differ in details, a node in a mask file using one resolution is not
+        guaranteed to remain inside [or outside] when a different resolution is
+        selected. If ``None``, the low resolution is used by default.
     {region}
     {verbose}
     z_subregion : str or list
