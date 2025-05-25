@@ -44,7 +44,7 @@ def histogram(self, data: PathLike | TableLike, **kwargs):
     r"""
     Calculate and plot histograms.
 
-    Full option list at :gmt-docs:`histogram.html`
+    Full GMT docs at :gmt-docs:`histogram.html`.
 
     {aliases}
 
@@ -135,7 +135,7 @@ def histogram(self, data: PathLike | TableLike, **kwargs):
     {transparency}
     {wrap}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
             lib.call_module(

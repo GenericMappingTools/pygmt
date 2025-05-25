@@ -46,7 +46,7 @@ def xyz2grd(
     user [Default is NaN]. Nodes with more than one value will be set to the
     mean value.
 
-    Full option list at :gmt-docs:`xyz2grd.html`
+    Full GMT docs at :gmt-docs:`xyz2grd.html`.
 
     {aliases}
 

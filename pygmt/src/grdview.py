@@ -43,7 +43,7 @@ def grdview(self, grid: PathLike | xr.DataArray, **kwargs):
     set on top of a surface, plotting of contours on top of the surface, and apply
     artificial illumination based on intensities provided in a separate grid file.
 
-    Full option list at :gmt-docs:`grdview.html`
+    Full GMT docs at :gmt-docs:`grdview.html`.
 
     {aliases}
 
@@ -140,7 +140,7 @@ def grdview(self, grid: PathLike | xr.DataArray, **kwargs):
     >>> # Show the plot
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,

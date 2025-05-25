@@ -131,7 +131,7 @@ def grdfill(
     replace the hole values. If no holes are found the original unchanged grid is
     returned.
 
-    Full option list at :gmt-docs:`grdfill.html`.
+    Full GMT docs at :gmt-docs:`grdfill.html`.
 
     .. rubric:: Aliases:
     .. hlist::
