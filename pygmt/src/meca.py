@@ -194,7 +194,7 @@ def meca(  # noqa: PLR0913
          - | values in :math:`10 ^ {{exponent}}` dyn cm;
            | azimuths and plunges in degrees
 
-    Full option list at :gmt-docs:`supplements/seis/meca.html`
+    Full GMT docs at :gmt-docs:`supplements/seis/meca.html`.
 
     {aliases}
 

@@ -32,7 +32,7 @@ def sph2grd(
     C[L,M], S[L,M] and evaluates the spherical harmonic model on the
     specified grid.
 
-    Full option list at :gmt-docs:`sph2grd.html`
+    Full GMT docs at :gmt-docs:`sph2grd.html`.
 
     {aliases}
 

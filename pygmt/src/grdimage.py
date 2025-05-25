@@ -70,7 +70,7 @@ def grdimage(self, grid: PathLike | xr.DataArray, **kwargs):
     The ``region`` parameter can be used to select a map region larger or
     smaller than that implied by the extent of the grid.
 
-    Full option list at :gmt-docs:`grdimage.html`
+    Full GMT docs at :gmt-docs:`grdimage.html`.
 
     {aliases}
 
