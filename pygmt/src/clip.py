@@ -228,14 +228,41 @@ class ClipAccessor:
         _code = ",".join(code) if is_nonstr_iter(code) else code
         return _ClipDcw(self._figure, dcw=f"{_code}+c", **kwargs)
 
+    def solar(self, **kwargs):
+        """
+        Clip the data to the solar terminator.
+
+        Must be used as a context manager. Any plotting operations within the context
+        manager will be clipped to the solar terminator.
+
+        Parameters
+        ----------
+        kwargs
+            Additional keyword arguments passed to :meth:`pygmt.Figure.solar`. Not all
+            parameters make sense in this context.
+
+        Examples
+        --------
+        >>> from pygmt import Figure
+        >>> from pygmt.datasets import load_earth_relief
+        >>>
+        >>> grid = load_earth_relief()
+        >>> fig = Figure()
+        >>> fig.basemap(region="g", projection="W15c", frame=True)
+        >>> with fig.clip.solar(terminator="civil"):
+        ...     fig.grdimage(grid, cmap="geo")
+        >>> fig.show()
+        """
+        return _ClipSolar(self._figure, **kwargs)
+
     @fmt_docstring
     @use_alias(
         A="straight_line",
         B="frame",
-        R="region",
         J="projection",
-        V="verbose",
         N="invert",
+        R="region",
+        V="verbose",
         W="pen",
     )
     @kwargs_to_strings(R="sequence")
@@ -251,9 +278,9 @@ class ClipAccessor:
         Parameters
         ----------
         data
-            Coordinates of polygon.
+            Either a file name to an ASCII data table, a 2-D {table-classes}.
         x/y
-            Coordinates of polygon.
+            X and Y coordinates of the polygon.
         {frame}
         {region}
         {projection}
@@ -304,39 +331,29 @@ class ClipAccessor:
         """
         return _ClipPolygon(self._figure, data=data, x=x, y=y, **kwargs)
 
-    def solar(self, **kwargs):
-        """
-        Clip the data to the solar terminator.
-
-        Must be used as a context manager. Any plotting operations within the context
-        manager will be clipped to the solar terminator.
-
-        Parameters
-        ----------
-        kwargs
-            Additional keyword arguments passed to :meth:`pygmt.Figure.solar`. Not all
-            parameters make sense in this context.
-
-        Examples
-        --------
-        >>> from pygmt import Figure
-        >>> from pygmt.datasets import load_earth_relief
-        >>>
-        >>> grid = load_earth_relief()
-        >>> fig = Figure()
-        >>> fig.basemap(region="g", projection="W15c", frame=True)
-        >>> with fig.clip.solar(terminator="civil"):
-        ...     fig.grdimage(grid, cmap="geo")
-        >>> fig.show()
-        """
-        return _ClipSolar(self._figure, **kwargs)
-
-    def mask(self, x, y, spacing, radius=None):
+    @fmt_docstring
+    @use_alias(
+        I="spacing",
+        N="invert",
+        S="radius",
+    )
+    @kwargs_to_strings(R="sequence")
+    def mask(self, data=None, x=None, y=None, **kwargs):
         """
         Clip the data to a mask.
 
         Must be used as a context manager. Any plotting operations within the context
         manager will be clipped to the mask.
+
+        Parameters
+        ----------
+        data
+            Either a file name to an ASCII data table, a 2-D {table-classes}.
+        x/y
+            X and Y coordinates of the mask.
+        {spacing}
+        invert
+            Invert the sense of what is inside and outside.
 
         Examples
         --------
@@ -353,4 +370,4 @@ class ClipAccessor:
         ...     fig.grdimage(grid, cmap="geo")
         >>> fig.show()
         """
-        return _ClipMask(self._figure, data={"x": x, "y": y}, I=spacing, S=radius)
+        return _ClipMask(self._figure, data=data, x=x, y=y, **kwargs)
