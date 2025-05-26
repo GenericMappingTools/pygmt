@@ -104,14 +104,15 @@ jobs:
       - name: Configure CMake for GMT
         run: |
           cd gmt/
+
           cat << EOF > cmake/ConfigUser.cmake
-          set (CMAKE_INSTALL_PREFIX ${GMT_INSTALL_DIR})
+          set (CMAKE_INSTALL_PREFIX ${GMT_INSTALL_DIR//\\//})
           set (CMAKE_BUILD_TYPE Release)
           set (GMT_ENABLE_OPENMP TRUE)
           set (GMT_USE_THREADS TRUE)
           EOF
           if [ "$RUNNER_OS" = "Windows" ]; then
-            echo 'set (CMAKE_PREFIX_PATH ${MAMBA_ROOT_PREFIX}/envs/pygmt/Library)' >> cmake/ConfigUser.cmake
+            echo 'set (CMAKE_PREFIX_PATH ${MAMBA_ROOT_PREFIX//\\//}/envs/pygmt/Library)' >> cmake/ConfigUser.cmake
           fi
 
           cat cmake/ConfigUser.cmake
