@@ -36,7 +36,7 @@ def basemap(self, **kwargs):
     At least one of the parameters ``frame``, ``map_scale``, ``rose``, or
     ``compass`` must be specified if not in subplot mode.
 
-    Full option list at :gmt-docs:`basemap.html`
+    Full GMT docs at :gmt-docs:`basemap.html`.
 
     {aliases}
 

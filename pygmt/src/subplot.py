@@ -41,7 +41,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
     parameters are available to specify the systematic layout, labeling,
     dimensions, and more for the subplots.
 
-    Full option list at :gmt-docs:`subplot.html#synopsis-begin-mode`
+    Full GMT docs at :gmt-docs:`subplot.html#synopsis-begin-mode`.
 
     {aliases}
 

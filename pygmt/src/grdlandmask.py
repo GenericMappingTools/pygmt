@@ -34,7 +34,7 @@ def grdlandmask(outgrid: PathLike | None = None, **kwargs) -> xr.DataArray | Non
     water, or (2) the more detailed (hierarchical) ocean vs land vs lake vs island vs
     pond. A mask grid is created with the specified grid spacing.
 
-    Full option list at :gmt-docs:`grdlandmask.html`
+    Full GMT docs at :gmt-docs:`grdlandmask.html`.
 
     {aliases}
 

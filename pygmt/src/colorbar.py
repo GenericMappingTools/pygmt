@@ -42,7 +42,7 @@ def colorbar(self, **kwargs):
     linear scale, all be equal size, or by providing a file with individual
     tile widths.
 
-    Full option list at :gmt-docs:`colorbar.html`
+    Full GMT docs at :gmt-docs:`colorbar.html`.
 
     {aliases}
 
