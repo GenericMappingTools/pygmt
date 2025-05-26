@@ -112,7 +112,7 @@ jobs:
           set (GMT_USE_THREADS TRUE)
           EOF
           if [ "$RUNNER_OS" = "Windows" ]; then
-            echo 'set (CMAKE_PREFIX_PATH ${MAMBA_ROOT_PREFIX//\\//}/envs/pygmt/Library)' >> cmake/ConfigUser.cmake
+            echo "set (CMAKE_PREFIX_PATH ${MAMBA_ROOT_PREFIX//\\//}/envs/pygmt/Library)" >> cmake/ConfigUser.cmake
           fi
 
           cat cmake/ConfigUser.cmake
