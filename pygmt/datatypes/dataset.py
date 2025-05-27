@@ -239,7 +239,7 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
         1   4.0   5.0   6.0       TEXT4 TEXT567
         2   7.0   8.0   9.0        TEXT8 TEXT90
         3  10.0  11.0  12.0  TEXT123 TEXT456789
-        >>> df.dtypes.to_list()[0:3]
+        >>> df.dtypes.to_list()[:3]
         [dtype('float64'), dtype('float64'), dtype('float64')]
         >>> df.dtypes["colstr"].name
         'string'
