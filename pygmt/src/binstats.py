@@ -2,15 +2,17 @@
 binstats - Bin spatial data and determine statistics per bin.
 """
 
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
 @use_alias(
-    C="statistic",
     E="empty",
     I="spacing",
     N="normalize",
@@ -26,7 +28,28 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 )
 @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
 def binstats(
-    data: PathLike | TableLike, outgrid: PathLike | None = None, **kwargs
+    data: PathLike | TableLike,
+    outgrid: PathLike | None = None,
+    statistic: Literal[
+        "mean",
+        "mad",
+        "full",
+        "interquartile",
+        "min",
+        "minpos",
+        "median",
+        "number",
+        "lms",
+        "mode",
+        "quantile",
+        "rms",
+        "stddev",
+        "max",
+        "maxneg",
+        "sum",
+    ] = "number",
+    quantile_value: float = 50,
+    **kwargs,
 ) -> xr.DataArray | None:
     r"""
     Bin spatial data and determine statistics per bin.
@@ -48,29 +71,29 @@ def binstats(
     data
         A file name of an ASCII data table or a 2-D {table-classes}.
     {outgrid}
-    statistic : str
-        **a**\|\ **d**\|\ **g**\|\ **i**\|\ **l**\|\ **L**\|\ **m**\|\ **n**\
-        \|\ **o**\|\ **p**\|\ **q**\ [*quant*]\|\ **r**\|\ **s**\|\ **u**\
-        \|\ **U**\|\ **z**.
-        Choose the statistic that will be computed per node based on the
-        points that are within *radius* distance of the node. Select one of:
+    statistic
+        Choose the statistic that will be computed per node based on the points that are
+        within *radius* distance of the node. Select one of:
 
-        - **a**: mean (average)
-        - **d**: median absolute deviation (MAD)
-        - **g**: full (max-min) range
-        - **i**: 25-75% interquartile range
-        - **l**: minimum (low)
-        - **L**: minimum of positive values only
-        - **m**: median
-        - **n**: number of values
-        - **o**: LMS scale
-        - **p**: mode (maximum likelihood)
-        - **q**: selected quantile (append desired quantile in 0-100% range [50])
-        - **r**: root mean square (RMS)
-        - **s**: standard deviation
-        - **u**: maximum (upper)
-        - **U**: maximum of negative values only
-        - **z**: sum
+        - **mean**: Compute the mean value (average).
+        - **mad**: Compute the median absolute deviation (MAD).
+        - **full**: Compute the full (max-min) range.
+        - **interquartile**: Compute the 25-75% interquartile range.
+        - **min**: Compute the minimum value.
+        - **minpos**: Compute the minimum of positive values only.
+        - **median**: Compute the median value.
+        - **number**: Compute the number of values.
+        - **lms**: Compute the LMS scale.
+        - **mode**: Compute the mode (maximum likelihood).
+        - **quantile**: Compute the selected quantile. The quantile value is in 0-100%
+          range and is specified by the ``quantile_value`` parameter.
+        - **rms**: Compute the root mean square (RMS).
+        - **stddev**: Compute the standard deviation.
+        - **max**: Compute the maximum value.
+        - **maxneg**: Compute the maximum of negative values only.
+        - **sum**: Compute the sum of values.
+    quantile_value
+        The quantile value if ``statistic="quantile"``.
     empty : float
         Set the value assigned to empty nodes [Default is NaN].
     normalize : bool
@@ -104,6 +127,32 @@ def binstats(
         - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
     """
+    # The 'statistic' parameter is alised to the C option.
+    lookup_statistic = {
+        "mean": "a",
+        "mad": "d",
+        "full": "g",
+        "interquartile": "i",
+        "min": "l",
+        "minpos": "L",
+        "median": "m",
+        "number": "n",
+        "lms": "o",
+        "mode": "p",
+        "quantile": "q",
+        "rms": "r",
+        "stddev": "s",
+        "max": "u",
+        "maxneg": "U",
+        "sum": "z",
+    }
+    if statistic not in {*lookup_statistic.keys(), *lookup_statistic.values()}:
+        msg = f"Unknown 'statistic' method: {statistic}."
+        raise GMTInvalidInput(msg)
+    kwargs["C"] = lookup_statistic.get(statistic, statistic)
+    if statistic == "quantile":
+        kwargs["C"] += f"{quantile_value}"
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="vector", data=data) as vintbl,
