@@ -4,7 +4,7 @@ Envelope
 
 The ``close`` parameter of the :meth:`pygmt.Figure.plot` method can be used to build a
 symmetrical or an asymmetrical envelope. The user can give either the deviations or the
-bounds in y direction. For the first case append ``"+d"`` or ``"+D"`` and for the latter
+bounds in y-direction. For the first case append ``"+d"`` or ``"+D"`` and for the latter
 case ``"+b"``.
 """
 
@@ -56,7 +56,7 @@ fig.plot(
 # Plot the data points on top
 fig.plot(data=df_devi, style="c0.2c", pen="1p,gray30", fill="darkgray")
 
-# Shift plot origin by the figure width ("w") plus 1 centimeter in x direction
+# Shift plot origin by the figure width ("w") plus 1 centimeter in x-direction
 fig.shift_origin(xshift="w+1c")
 
 # -----------------------------------------------------------------------------
