@@ -21,7 +21,7 @@ import pygmt
 # ``label`` parameter has to be specified to state the desired text for the legend entry
 # (white spaces are supported). Here, we use :meth:`pygmt.Figure.plot`, exemplary. By
 # default, the legend is placed in the Upper Right corner with an offset of 0.1
-# centimeters in both x and y directions, and surrounded by a box with a white fill and
+# centimeters in both x- and y-directions, and surrounded by a box with a white fill and
 # a 1-point thick, black, solid outline. The order of the legend entries (top to bottom)
 # is determine by the plotting order. Optionally, to adjust the legend, append different
 # modifiers to the string passed to ``label``. For a list of available modifiers see
