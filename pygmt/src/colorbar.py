@@ -78,8 +78,8 @@ def colorbar(self, **kwargs):
         Alternatively, specify a different pen with **+p**\ *pen*. Add
         **+g**\ *fill* to fill the scale panel [Default is no fill]. Append
         **+c**\ *clearance* where *clearance* is either gap, xgap/ygap, or
-        lgap/rgap/bgap/tgap where these items are uniform, separate in x and
-        y direction, or individual side spacings between scale and border.
+        lgap/rgap/bgap/tgap where these items are uniform, separate in x- and
+        y-direction, or individual side spacings between scale and border.
         Append **+i** to draw a secondary, inner border as well. We use a
         uniform gap between borders of 2p and the :gmt-term:`MAP_DEFAULTS_PEN`
         unless other values are specified. Append **+r** to draw rounded
@@ -138,7 +138,7 @@ def colorbar(self, **kwargs):
     >>> fig.colorbar(
     ...     # Set cmap to the "roma" CPT
     ...     cmap="roma",
-    ...     # Label the x axis "Velocity" and the y axis "m/s"
+    ...     # Label the x-axis "Velocity" and the y-axis "m/s"
     ...     frame=["x+lVelocity", "y+lm/s"],
     ... )
     >>> # Show the plot

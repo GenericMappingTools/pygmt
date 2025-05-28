@@ -92,9 +92,9 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
         ("z_scale_factor", ctp.c_double),
         # After scaling, add this offset
         ("z_add_offset", ctp.c_double),
-        # Units in x directions, in the form "long_name [units]"
+        # Units in x-directions, in the form "long_name [units]"
         ("x_units", ctp.c_char * GMT_GRID_UNIT_LEN80),
-        # Units in y direction, in the form "long_name [units]"
+        # Units in y-direction, in the form "long_name [units]"
         ("y_units", ctp.c_char * GMT_GRID_UNIT_LEN80),
         # Grid value units, in the form "long_name [units]"
         ("z_units", ctp.c_char * GMT_GRID_UNIT_LEN80),
@@ -122,9 +122,9 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
         ("type", ctp.c_uint),
         # Number of bands [1]. Used with GMT_IMAGE containers
         ("n_bands", ctp.c_uint),
-        # Actual x dimension in memory. mx = n_columns + pad[0] + pad[1]
+        # Actual x-dimension in memory. mx = n_columns + pad[0] + pad[1]
         ("mx", ctp.c_uint),
-        # Actual y dimension in memory. my = n_rows + pad[2] + pad[3]
+        # Actual y-dimension in memory. my = n_rows + pad[2] + pad[3]
         ("my", ctp.c_uint),
         # Paddings on west, east, south, north sides [2,2,2,2]
         ("pad", ctp.c_uint * 4),
