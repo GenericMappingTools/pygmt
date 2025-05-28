@@ -5,7 +5,7 @@ Timestamp
 The :meth:`pygmt.Figure.timestamp` method can draw the GMT timestamp logo on the plot.
 The timestamp will always be shown relative to the Bottom Left (BL) corner of the plot.
 By default, the ``offset`` and ``justify`` parameters are set to ``("-54p", "-54p")``
-(x, y directions) and ``"BL"`` (Bottom Left), respectively.
+(x-, y-directions) and ``"BL"`` (Bottom Left), respectively.
 """
 
 # %%

@@ -18,7 +18,7 @@ data = data[["longitude", "latitude", "depth_km"]]
 
 # Set the region for the plot
 region = [130, 152.5, 32.5, 52.5]
-# Define spacing in x and y direction (150x150 arc-minute blocks)
+# Define spacing in x- and y-direction (150x150 arc-minute blocks)
 spacing = "150m"
 
 fig = pygmt.Figure()
