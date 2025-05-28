@@ -75,7 +75,6 @@ def load_earth_vertical_gravity_gradient(
         The Earth vertical gravity gradient grid. Coordinates are latitude and
         longitude in degrees. Units are in Eotvos.
 
-
     Note
     ----
     The registration and coordinate system type of the returned
