@@ -4,6 +4,7 @@ velo - Plot velocity vectors, crosses, anisotropy bars, and wedges.
 
 import numpy as np
 import pandas as pd
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -41,7 +42,7 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def velo(self, data=None, **kwargs):
+def velo(self, data: PathLike | TableLike | None = None, **kwargs):
     r"""
     Plot velocity vectors, crosses, anisotropy bars, and wedges.
 
@@ -54,13 +55,13 @@ def velo(self, data=None, **kwargs):
 
     Must provide ``data`` and ``spec``.
 
-    Full option list at :gmt-docs:`supplements/geodesy/velo.html`
+    Full GMT docs at :gmt-docs:`supplements/geodesy/velo.html`.
 
     {aliases}
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
         Note that text columns are only supported with file or
@@ -238,7 +239,7 @@ def velo(self, data=None, **kwargs):
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     if kwargs.get("S") is None or (
         kwargs.get("S") is not None and not isinstance(kwargs["S"], str)

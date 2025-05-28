@@ -5,6 +5,7 @@ grdcut - Extract subregion from a grid or image or a slice from a cube.
 from typing import Literal
 
 import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -30,7 +31,10 @@ __doctest_skip__ = ["grdcut"]
 )
 @kwargs_to_strings(R="sequence")
 def grdcut(
-    grid, kind: Literal["grid", "image"] = "grid", outgrid: str | None = None, **kwargs
+    grid: PathLike | xr.DataArray,
+    kind: Literal["grid", "image"] = "grid",
+    outgrid: PathLike | None = None,
+    **kwargs,
 ) -> xr.DataArray | None:
     r"""
     Extract subregion from a grid or image or a slice from a cube.
@@ -44,7 +48,7 @@ def grdcut(
     to determine the corresponding rectangular ``region`` that will give a grid
     that fully covers the oblique domain.
 
-    Full option list at :gmt-docs:`grdcut.html`
+    Full GMT docs at :gmt-docs:`grdcut.html`.
 
     {aliases}
 

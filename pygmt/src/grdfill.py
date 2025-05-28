@@ -6,6 +6,7 @@ import warnings
 
 import numpy as np
 import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -111,10 +112,10 @@ def _parse_fill_mode(
 @use_alias(N="hole", R="region", V="verbose", f="coltypes")
 @kwargs_to_strings(R="sequence")
 def grdfill(
-    grid: str | xr.DataArray,
-    outgrid: str | None = None,
+    grid: PathLike | xr.DataArray,
+    outgrid: PathLike | None = None,
     constantfill: float | None = None,
-    gridfill: str | xr.DataArray | None = None,
+    gridfill: PathLike | xr.DataArray | None = None,
     neighborfill: float | bool | None = None,
     splinefill: float | bool | None = None,
     inquire: bool = False,
@@ -130,7 +131,7 @@ def grdfill(
     replace the hole values. If no holes are found the original unchanged grid is
     returned.
 
-    Full option list at :gmt-docs:`grdfill.html`.
+    Full GMT docs at :gmt-docs:`grdfill.html`.
 
     {aliases}
 
@@ -185,6 +186,7 @@ def grdfill(
     Example
     -------
     Fill holes in a bathymetric grid with a constant value of 20.
+
     >>> import pygmt
     >>> # Load a bathymetric grid with missing data
     >>> earth_relief_holes = pygmt.datasets.load_sample_data(name="earth_relief_holes")
@@ -192,6 +194,7 @@ def grdfill(
     >>> filled_grid = pygmt.grdfill(grid=earth_relief_holes, constantfill=20)
 
     Inquire the bounds of each hole.
+
     >>> pygmt.grdfill(grid=earth_relief_holes, inquire=True)
     array([[1.83333333, 6.16666667, 3.83333333, 8.16666667],
            [6.16666667, 7.83333333, 0.5       , 2.5       ]])
@@ -222,7 +225,7 @@ def grdfill(
             # Fill mode.
             with (
                 lib.virtualfile_in(
-                    check_kind="raster", data=gridfill, required_data=False
+                    check_kind="raster", data=gridfill, required=False
                 ) as vbggrd,
                 lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
             ):

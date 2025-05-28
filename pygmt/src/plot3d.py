@@ -4,6 +4,7 @@ plot3d - Plot lines, polygons, and symbols in 3-D.
 
 from typing import Literal
 
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -51,9 +52,9 @@ from pygmt.src._common import _data_geometry_is_point
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot3d(
+def plot3d(  # noqa: PLR0912
     self,
-    data=None,
+    data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     z=None,
@@ -84,13 +85,13 @@ def plot3d(
     polygon outline is drawn or not. If a symbol is selected, ``fill`` and
     ``pen`` determine the fill and outline/no outline, respectively.
 
-    Full option list at :gmt-docs:`plot3d.html`
+    Full GMT docs at :gmt-docs:`plot3d.html`.
 
     {aliases}
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Either a data file name, a 2-D {table-classes}.
         Optionally, use parameter ``incols`` to specify which columns are x, y,
         z, fill, and size, respectively.
@@ -207,12 +208,11 @@ def plot3d(
     """
     # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
     # parameter.
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     kind = data_kind(data)
-    extra_arrays = []
-
-    if kind == "empty":  # Add more columns for vectors input
+    if kind == "empty":  # Data is given via a series of vectors.
+        data = {"x": x, "y": y, "z": z}
         # Parameters for vector styles
         if (
             isinstance(kwargs.get("S"), str)
@@ -220,25 +220,28 @@ def plot3d(
             and kwargs["S"][0] in "vV"
             and is_nonstr_iter(direction)
         ):
-            extra_arrays.extend(direction)
+            data.update({"x2": direction[0], "y2": direction[1]})
         # Fill
         if is_nonstr_iter(kwargs.get("G")):
-            extra_arrays.append(kwargs.get("G"))
-            del kwargs["G"]
+            data["fill"] = kwargs.pop("G")
         # Size
         if is_nonstr_iter(size):
-            extra_arrays.append(size)
+            data["size"] = size
         # Intensity and transparency
-        for flag in ["I", "t"]:
+        for flag, name in [("I", "intensity"), ("t", "transparency")]:
             if is_nonstr_iter(kwargs.get(flag)):
-                extra_arrays.append(kwargs.get(flag))
+                data[name] = kwargs[flag]
                 kwargs[flag] = ""
         # Symbol must be at the last column
         if is_nonstr_iter(symbol):
             if "S" not in kwargs:
                 kwargs["S"] = True
-            extra_arrays.append(symbol)
+            data["symbol"] = symbol
     else:
+        if any(v is not None for v in (x, y, z)):
+            msg = "Too much data. Use either data or x/y/z."
+            raise GMTInvalidInput(msg)
+
         for name, value in [
             ("direction", direction),
             ("fill", kwargs.get("G")),
@@ -256,13 +259,5 @@ def plot3d(
         kwargs["S"] = "u0.2c"
 
     with Session() as lib:
-        with lib.virtualfile_in(
-            check_kind="vector",
-            data=data,
-            x=x,
-            y=y,
-            z=z,
-            extra_arrays=extra_arrays,
-            required_z=True,
-        ) as vintbl:
+        with lib.virtualfile_in(check_kind="vector", data=data, mincols=3) as vintbl:
             lib.call_module(module="plot3d", args=build_arg_list(kwargs, infile=vintbl))

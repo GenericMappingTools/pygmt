@@ -1,5 +1,5 @@
 """
-solar - Plot day-light terminators and other sunlight parameters.
+solar - Plot day-night terminators and other sunlight parameters.
 """
 
 from typing import Literal
@@ -32,12 +32,12 @@ def solar(
     **kwargs,
 ):
     r"""
-    Plot day-light terminators and other sunlight parameters.
+    Plot day-night terminators and other sunlight parameters.
 
     This function plots the day-night terminator. Alternatively, it can plot the
     terminators for civil twilight, nautical twilight, or astronomical twilight.
 
-    Full option list at :gmt-docs:`solar.html`
+    Full GMT docs at :gmt-docs:`solar.html`.
 
     {aliases}
 
@@ -95,7 +95,7 @@ def solar(
     >>> # show the plot
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
     if kwargs.get("T") is not None:
         msg = "Use 'terminator' and 'terminator_datetime' instead of 'T'."
         raise GMTInvalidInput(msg)
