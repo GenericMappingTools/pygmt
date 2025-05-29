@@ -49,7 +49,7 @@ def _preprocess_spec(spec, colnames, override_cols):
         Dictionary of column names and values to override in the input data. Only makes
         sense if ``spec`` is a dict or :class:`pandas.DataFrame`.
     """
-    kind = data_kind(spec)  # Determine the kind of the input data.
+    kind = data_kind(spec, check_kind="vector")  # Determine the kind of the input data.
 
     # Convert pandas.DataFrame and numpy.ndarray to dict.
     if isinstance(spec, pd.DataFrame):
@@ -359,5 +359,5 @@ def meca(  # noqa: PLR0913
         kwargs["A"] = _auto_offset(spec)
     kwargs["S"] = f"{_convention.code}{scale}"
     with Session() as lib:
-        with lib.virtualfile_in(check_kind="vector", data=spec) as vintbl:
+        with lib.virtualfile_in(data=spec) as vintbl:
             lib.call_module(module="meca", args=build_arg_list(kwargs, infile=vintbl))

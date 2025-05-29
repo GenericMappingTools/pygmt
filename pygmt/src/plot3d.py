@@ -210,7 +210,7 @@ def plot3d(  # noqa: PLR0912
     # parameter.
     self._activate_figure()
 
-    kind = data_kind(data)
+    kind = data_kind(data, check_kind="vector")
     if kind == "empty":  # Data is given via a series of vectors.
         data = {"x": x, "y": y, "z": z}
         # Parameters for vector styles
@@ -259,5 +259,5 @@ def plot3d(  # noqa: PLR0912
         kwargs["S"] = "u0.2c"
 
     with Session() as lib:
-        with lib.virtualfile_in(check_kind="vector", data=data, mincols=3) as vintbl:
+        with lib.virtualfile_in(data=data, mincols=3) as vintbl:
             lib.call_module(module="plot3d", args=build_arg_list(kwargs, infile=vintbl))
