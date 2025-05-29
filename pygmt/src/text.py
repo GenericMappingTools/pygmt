@@ -191,7 +191,7 @@ def text_(  # noqa: PLR0912
         raise GMTInvalidInput(msg)
 
     data_is_required = position is None
-    kind = data_kind(textfiles, required=data_is_required)
+    kind = data_kind(textfiles, required=data_is_required, check_kind="vector")
 
     if position is not None and (text is None or is_nonstr_iter(text)):
         msg = "'text' can't be None or array when 'position' is given."
@@ -261,7 +261,7 @@ def text_(  # noqa: PLR0912
 
     with Session() as lib:
         with lib.virtualfile_in(
-            check_kind="vector", data=textfiles or data, required=data_is_required
+            data=textfiles or data, required=data_is_required
         ) as vintbl:
             lib.call_module(
                 module="text",

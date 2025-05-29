@@ -195,7 +195,7 @@ def x2sys_cross(
 
     file_contexts: list[contextlib.AbstractContextManager[Any]] = []
     for track in tracks:
-        match data_kind(track):
+        match data_kind(track, check_kind="vector"):
             case "file":
                 file_contexts.append(contextlib.nullcontext(track))
             case "vectors":
