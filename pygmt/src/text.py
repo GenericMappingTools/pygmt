@@ -42,7 +42,7 @@ from pygmt.helpers import (
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def text_(  # noqa: PLR0912
+def text_(  # noqa: PLR0912, PLR0915
     self,
     textfiles: PathLike | TableLike | None = None,
     x=None,
@@ -225,6 +225,7 @@ def text_(  # noqa: PLR0912
     confdict = {}
     data = None
     if kind == "empty":
+        kind = "vectors"
         data = {"x": x, "y": y}
 
         for arg, flag, name in array_args:
@@ -261,7 +262,9 @@ def text_(  # noqa: PLR0912
 
     with Session() as lib:
         with lib.virtualfile_in(
-            data=textfiles or data, required=data_is_required
+            data=textfiles or data,
+            required=data_is_required,
+            kind=kind,
         ) as vintbl:
             lib.call_module(
                 module="text",

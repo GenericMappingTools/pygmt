@@ -128,7 +128,7 @@ def grdcut(
 
     with Session() as lib:
         with (
-            lib.virtualfile_in(data=grid) as vingrd,
+            lib.virtualfile_in(data=grid, kind=inkind) as vingrd,
             lib.virtualfile_out(kind=outkind, fname=outgrid) as voutgrd,
         ):
             kwargs["G"] = voutgrd

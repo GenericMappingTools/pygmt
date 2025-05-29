@@ -1758,6 +1758,7 @@ class Session:
     def virtualfile_in(
         self,
         check_kind=None,
+        kind=None,
         data=None,
         x=None,
         y=None,
@@ -1847,7 +1848,9 @@ class Session:
             )
             mincols = 3
 
-        kind = data_kind(data, required=required, check_kind=check_kind)
+        # Determine the data kind if not given.
+        if kind is None:
+            kind = data_kind(data, required=required, check_kind=check_kind)
         _validate_data_input(
             data=data,
             x=x,

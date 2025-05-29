@@ -95,5 +95,5 @@ def legend(
         raise GMTInvalidInput(msg)
 
     with Session() as lib:
-        with lib.virtualfile_in(data=spec, required=False) as vintbl:
+        with lib.virtualfile_in(data=spec, required=False, kind=kind) as vintbl:
             lib.call_module(module="legend", args=build_arg_list(kwargs, infile=vintbl))
