@@ -7,10 +7,7 @@ from collections.abc import Sequence
 from typing import Any, Literal, NamedTuple
 
 import xarray as xr
-from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list, kwargs_to_strings
-from pygmt.src import which
 
 with contextlib.suppress(ImportError):
     # rioxarray is needed to register the rio accessor
@@ -502,7 +499,6 @@ datasets = {
 }
 
 
-@kwargs_to_strings(region="sequence")
 def _load_remote_dataset(
     name: str,
     prefix: str,
@@ -581,22 +577,9 @@ def _load_remote_dataset(
         raise GMTInvalidInput(msg)
 
     fname = f"@{prefix}_{resolution}_{reg}"
-    kwdict = {"R": region, "T": {"grid": "g", "image": "i"}[dataset.kind]}
-    with Session() as lib:
-        with lib.virtualfile_out(kind=dataset.kind) as voutgrd:
-            lib.call_module(
-                module="read",
-                args=[fname, voutgrd, *build_arg_list(kwdict)],
-            )
-            grid = lib.virtualfile_to_raster(
-                kind=dataset.kind, outgrid=None, vfname=voutgrd
-            )
-
-    # Full path to the grid if not tiled grids.
-    source = which(fname, download="a") if not resinfo.tiled else None
-    # Manually add source to xarray.DataArray encoding to make the GMT accessors work.
-    if source:
-        grid.encoding["source"] = source
+    grid = xr.load_dataarray(
+        fname, engine="gmt", raster_kind=dataset.kind, region=region
+    )
 
     # Add some metadata to the grid
     grid.attrs["description"] = dataset.description

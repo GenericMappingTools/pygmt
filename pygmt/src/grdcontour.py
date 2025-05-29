@@ -44,7 +44,7 @@ def grdcontour(self, grid: PathLike | xr.DataArray, **kwargs):
 
     Takes a grid file name or an :class:`xarray.DataArray` object as input.
 
-    Full option list at :gmt-docs:`grdcontour.html`
+    Full GMT docs at :gmt-docs:`grdcontour.html`.
 
     {aliases}
 
@@ -138,7 +138,7 @@ def grdcontour(self, grid: PathLike | xr.DataArray, **kwargs):
     >>> # Show the plot
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     # Specify levels for the annotation and levels parameters.
     # One level is converted to a string with a trailing comma to separate it from

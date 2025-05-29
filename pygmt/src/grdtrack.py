@@ -74,7 +74,7 @@ def grdtrack(
     derivative normal to edge is zero) unless the grid is automatically
     recognized as periodic.)
 
-    Full option list at :gmt-docs:`grdtrack.html`
+    Full GMT docs at :gmt-docs:`grdtrack.html`.
 
     {aliases}
 

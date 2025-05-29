@@ -64,7 +64,7 @@ def makecpt(**kwargs):
     master CPT, the :gmt-term:`COLOR_MODEL` specified in the
     :gmt-docs:`gmt.conf <gmt.conf>` file will be used.
 
-    Full option list at :gmt-docs:`makecpt.html`
+    Full GMT docs at :gmt-docs:`makecpt.html`.
 
     {aliases}
 

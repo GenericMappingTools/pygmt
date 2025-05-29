@@ -98,7 +98,7 @@ def shift_origin(
     ...     fig.basemap(region=[0, 5, 0, 5], projection="X5c/5c", frame=True)
     >>> fig.show()
     """
-    self._preprocess()
+    self._activate_figure()
     kwdict = {"T": True, "X": xshift, "Y": yshift}
 
     with Session() as lib:

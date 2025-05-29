@@ -108,7 +108,7 @@ def blockmean(
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    Full option list at :gmt-docs:`blockmean.html`
+    Full GMT docs at :gmt-docs:`blockmean.html`.
 
     {aliases}
 
@@ -212,7 +212,7 @@ def blockmedian(
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    Full option list at :gmt-docs:`blockmedian.html`
+    Full GMT docs at :gmt-docs:`blockmedian.html`.
 
     {aliases}
 
@@ -310,7 +310,7 @@ def blockmode(
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    Full option list at :gmt-docs:`blockmode.html`
+    Full GMT docs at :gmt-docs:`blockmode.html`.
 
     {aliases}
 

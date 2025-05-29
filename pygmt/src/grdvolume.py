@@ -43,7 +43,7 @@ def grdvolume(
     (volume/area). Alternatively, a range of contours can be specified to
     return the volume and area inside the contour for all contour values.
 
-    Full option list at :gmt-docs:`grdvolume.html`
+    Full GMT docs at :gmt-docs:`grdvolume.html`.
 
     {aliases}
 

@@ -34,7 +34,7 @@ def grdinfo(grid: PathLike | xr.DataArray, **kwargs) -> str:
 
     Can read the grid from a file or given as an :class:`xarray.DataArray` grid.
 
-    Full option list at :gmt-docs:`grdinfo.html`
+    Full GMT docs at :gmt-docs:`grdinfo.html`.
 
     {aliases}
 

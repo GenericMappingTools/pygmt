@@ -68,7 +68,7 @@ def text_(  # noqa: PLR0912
     ZapfDingbats and ISO-8859-x (x can be 1-11, 13-16) encodings. Refer to
     :doc:`/techref/encodings` for the full list of supported non-ASCII characters.
 
-    Full option list at :gmt-docs:`text.html`.
+    Full GMT docs at :gmt-docs:`text.html`.
 
     {aliases}
 
@@ -179,7 +179,7 @@ def text_(  # noqa: PLR0912
         ``x``/``y`` and ``text``.
     {wrap}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     # Ensure inputs are either textfiles, x/y/text, or position/text
     if (

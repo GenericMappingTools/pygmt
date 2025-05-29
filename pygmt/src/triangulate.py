@@ -94,7 +94,7 @@ class triangulate:  # noqa: N801
 
         Must provide ``region`` and ``spacing``.
 
-        Full option list at :gmt-docs:`triangulate.html`
+        Full GMT docs at :gmt-docs:`triangulate.html`.
 
         {aliases}
 
@@ -196,7 +196,7 @@ class triangulate:  # noqa: N801
 
         Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-        Full option list at :gmt-docs:`triangulate.html`
+        Full GMT docs at :gmt-docs:`triangulate.html`
 
         {aliases}
 

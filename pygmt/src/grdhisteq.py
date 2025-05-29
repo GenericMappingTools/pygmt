@@ -75,7 +75,7 @@ class grdhisteq:  # noqa: N801
         the ``grid``, but the values are changed to reflect their place in the
         cumulative distribution.
 
-        Full option list at :gmt-docs:`grdhisteq.html`
+        Full GMT docs at :gmt-docs:`grdhisteq.html`.
 
         {aliases}
 
@@ -168,7 +168,7 @@ class grdhisteq:  # noqa: N801
         image with :meth:`pygmt.Figure.grdimage` that has all levels of gray
         occurring equally.
 
-        Full option list at :gmt-docs:`grdhisteq.html`
+        Full GMT docs at :gmt-docs:`grdhisteq.html`.
 
         {aliases}
 

@@ -2,13 +2,14 @@
 An xarray backend for reading raster grid/image files using the 'gmt' engine.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list
+from pygmt.helpers import build_arg_list, kwargs_to_strings
 from pygmt.src.which import which
 from xarray.backends import BackendEntrypoint
 
@@ -29,6 +30,9 @@ class GMTBackendEntrypoint(BackendEntrypoint):
 
     - ``"grid"``: for reading single-band raster grids
     - ``"image"``: for reading multi-band raster images
+
+    Optionally, you can pass in a ``region`` in the form of a sequence [*xmin*, *xmax*,
+    *ymin*, *ymax*] or an ISO country code.
 
     Examples
     --------
@@ -68,18 +72,45 @@ class GMTBackendEntrypoint(BackendEntrypoint):
       * band     (band) uint8... 1 2 3
     Attributes:...
         long_name:  z
+
+    Load a single-band netCDF file using ``raster_kind="grid"`` over a bounding box
+    region.
+
+    >>> da_grid = xr.load_dataarray(
+    ...     "@tut_bathy.nc", engine="gmt", raster_kind="grid", region=[-64, -62, 32, 33]
+    ... )
+    >>> da_grid
+    <xarray.DataArray 'z' (lat: 13, lon: 25)>...
+    array([[-4369., -4587., -4469., -4409., -4587., -4505., -4403., -4405.,
+            -4466., -4595., -4609., -4608., -4606., -4607., -4607., -4597.,
+    ...
+            -4667., -4642., -4677., -4795., -4797., -4800., -4803., -4818.,
+            -4820.]], dtype=float32)
+    Coordinates:
+      * lat      (lat) float64... 32.0 32.08 32.17 32.25 ... 32.83 32.92 33.0
+      * lon      (lon) float64... -64.0 -63.92 -63.83 ... -62.17 -62.08 -62.0
+    Attributes:...
+        Conventions:   CF-1.7
+        title:         ETOPO5 global topography
+        history:       grdreformat -fg bermuda.grd bermuda.nc=ns
+        description:   /home/elepaio5/data/grids/etopo5.i2
+        actual_range:  [-4968. -4315.]
+        long_name:     Topography
+        units:         m
     """
 
     description = "Open raster (.grd, .nc or .tif) files in Xarray via GMT."
-    open_dataset_parameters = ("filename_or_obj", "raster_kind")
+    open_dataset_parameters = ("filename_or_obj", "raster_kind", "region")
     url = "https://pygmt.org/dev/api/generated/pygmt.GMTBackendEntrypoint.html"
 
+    @kwargs_to_strings(region="sequence")
     def open_dataset(  # type: ignore[override]
         self,
         filename_or_obj: PathLike,
         *,
         drop_variables=None,  # noqa: ARG002
         raster_kind: Literal["grid", "image"],
+        region: Sequence[float] | str | None = None,
         # other backend specific keyword arguments
         # `chunks` and `cache` DO NOT go here, they are handled by xarray
     ) -> xr.Dataset:
@@ -94,6 +125,9 @@ class GMTBackendEntrypoint(BackendEntrypoint):
             :gmt-docs:`reference/features.html#grid-file-format`.
         raster_kind
             Whether to read the file as a "grid" (single-band) or "image" (multi-band).
+        region
+            The subregion of the grid or image to load, in the form of a sequence
+            [*xmin*, *xmax*, *ymin*, *ymax*] or an ISO country code.
         """
         if raster_kind not in {"grid", "image"}:
             msg = f"Invalid raster kind: '{raster_kind}'. Valid values are 'grid' or 'image'."
@@ -101,7 +135,7 @@ class GMTBackendEntrypoint(BackendEntrypoint):
 
         with Session() as lib:
             with lib.virtualfile_out(kind=raster_kind) as voutfile:
-                kwdict = {"T": {"grid": "g", "image": "i"}[raster_kind]}
+                kwdict = {"R": region, "T": {"grid": "g", "image": "i"}[raster_kind]}
                 lib.call_module(
                     module="read",
                     args=[filename_or_obj, voutfile, *build_arg_list(kwdict)],
@@ -111,9 +145,8 @@ class GMTBackendEntrypoint(BackendEntrypoint):
                     vfname=voutfile, kind=raster_kind
                 )
                 # Add "source" encoding
-                source = which(fname=filename_or_obj)
+                source: str | list = which(fname=filename_or_obj, verbose="q")
                 raster.encoding["source"] = (
-                    source[0] if isinstance(source, list) else source
+                    sorted(source)[0] if isinstance(source, list) else source
                 )
-                _ = raster.gmt  # Load GMTDataArray accessor information
                 return raster.to_dataset()

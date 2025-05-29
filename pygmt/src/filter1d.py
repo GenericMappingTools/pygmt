@@ -40,7 +40,7 @@ def filter1d(
     Read a table and output as a :class:`numpy.ndarray`,
     :class:`pandas.DataFrame`, or ASCII file.
 
-    Full option list at :gmt-docs:`filter1d.html`
+    Full GMT docs at :gmt-docs:`filter1d.html`.
 
     {aliases}
 

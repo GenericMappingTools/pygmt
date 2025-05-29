@@ -47,7 +47,7 @@ def grdproject(
     set to NaN. The ``region`` parameter can be used to select a map region
     large or smaller than that implied by the extent of the grid file.
 
-    Full option list at :gmt-docs:`grdproject.html`
+    Full GMT docs at :gmt-docs:`grdproject.html`.
 
     {aliases}
 

@@ -87,7 +87,7 @@ def x2sys_cross(
     internal COEs. As an option, you may choose to project all data using one
     of the map projections prior to calculating the COE.
 
-    Full option list at :gmt-docs:`supplements/x2sys/x2sys_cross.html`
+    Full GMT docs at :gmt-docs:`supplements/x2sys/x2sys_cross.html`.
 
     {aliases}
 

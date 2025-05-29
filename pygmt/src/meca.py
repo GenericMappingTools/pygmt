@@ -194,7 +194,7 @@ def meca(  # noqa: PLR0913
          - | values in :math:`10 ^ {{exponent}}` dyn cm;
            | azimuths and plunges in degrees
 
-    Full option list at :gmt-docs:`supplements/seis/meca.html`
+    Full GMT docs at :gmt-docs:`supplements/seis/meca.html`.
 
     {aliases}
 
@@ -337,7 +337,7 @@ def meca(  # noqa: PLR0913
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
     # Determine the focal mechanism convention from the input data or parameters.
     _convention = _get_focal_convention(spec, convention, component)
     # Preprocess the input data.

@@ -75,7 +75,7 @@ def grd2cpt(grid: PathLike | xr.DataArray, **kwargs):
     :gmt-docs:`gmt.conf <gmt.conf>` file or the ``color_model`` parameter
     will be used.
 
-    Full option list at :gmt-docs:`grd2cpt.html`
+    Full GMT docs at :gmt-docs:`grd2cpt.html`.
 
     {aliases}
 

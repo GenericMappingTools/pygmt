@@ -43,7 +43,7 @@ def dimfilter(
     Thus, an additional filtering (e.g., Gaussian via :func:`pygmt.grdfilter`)
     of the DiM-filtered data is generally recommended.
 
-    Full option list at :gmt-docs:`dimfilter.html`
+    Full GMT docs at :gmt-docs:`dimfilter.html`.
 
     {aliases}
 

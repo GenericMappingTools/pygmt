@@ -28,7 +28,7 @@ def image(self, imagefile: PathLike, **kwargs):
     Reads an Encapsulated PostScript file or a raster image file and plots
     it on a map.
 
-    Full option list at :gmt-docs:`image.html`
+    Full GMT docs at :gmt-docs:`image.html`.
 
     {aliases}
 
@@ -68,6 +68,6 @@ def image(self, imagefile: PathLike, **kwargs):
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="image", args=build_arg_list(kwargs, infile=imagefile))

@@ -38,7 +38,7 @@ def grdfilter(
     half-width of the input edges. If the filter is low-pass, then the output
     may be less frequently sampled than the input.
 
-    Full option list at :gmt-docs:`grdfilter.html`
+    Full GMT docs at :gmt-docs:`grdfilter.html`.
 
     {aliases}
 

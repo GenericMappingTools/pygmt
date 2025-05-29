@@ -40,7 +40,7 @@ def grdgradient(
     Can accept ``azimuth``, ``direction``, and ``radiance`` input to create
     the resulting gradient.
 
-    Full option list at :gmt-docs:`grdgradient.html`
+    Full GMT docs at :gmt-docs:`grdgradient.html`.
 
     {aliases}
 

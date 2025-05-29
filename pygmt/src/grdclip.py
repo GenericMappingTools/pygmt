@@ -135,7 +135,7 @@ def grdclip(
     values is required, or for reclassification of data values. The values can be any
     number or NaN (Not a Number).
 
-    Full option list at :gmt-docs:`grdclip.html`
+    Full GMT docs at :gmt-docs:`grdclip.html`.
 
     {aliases}
 

@@ -43,7 +43,7 @@ def info(data: PathLike | TableLike, **kwargs) -> np.ndarray | str:
     parameter ``nearest_multiple`` will provide a :class:`numpy.ndarray` in the form
     of [*zmin*, *zmax*, *dz*] for makecpt.
 
-    Full option list at :gmt-docs:`gmtinfo.html`
+    Full GMT docs at :gmt-docs:`gmtinfo.html`.
 
     {aliases}
 

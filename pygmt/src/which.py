@@ -27,7 +27,7 @@ def which(fname: PathLike | Sequence[PathLike], **kwargs) -> str | list[str]:
     behavior. If ``download`` is not used (or ``False``), the file will
     not be found.
 
-    Full option list at :gmt-docs:`gmtwhich.html`
+    Full GMT docs at :gmt-docs:`gmtwhich.html`.
 
     {aliases}
 
