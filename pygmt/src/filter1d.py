@@ -6,6 +6,7 @@ from typing import Literal
 
 import numpy as np
 import pandas as pd
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -23,9 +24,9 @@ from pygmt.helpers import (
     N="time_col",
 )
 def filter1d(
-    data,
+    data: PathLike | TableLike,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
-    outfile: str | None = None,
+    outfile: PathLike | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -39,7 +40,7 @@ def filter1d(
     Read a table and output as a :class:`numpy.ndarray`,
     :class:`pandas.DataFrame`, or ASCII file.
 
-    Full option list at :gmt-docs:`filter1d.html`
+    Full GMT docs at :gmt-docs:`filter1d.html`.
 
     {aliases}
 

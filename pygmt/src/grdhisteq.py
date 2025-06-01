@@ -7,6 +7,7 @@ from typing import Literal
 import numpy as np
 import pandas as pd
 import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -63,7 +64,7 @@ class grdhisteq:  # noqa: N801
     )
     @kwargs_to_strings(R="sequence")
     def equalize_grid(
-        grid, outgrid: str | None = None, **kwargs
+        grid: PathLike | xr.DataArray, outgrid: PathLike | None = None, **kwargs
     ) -> xr.DataArray | None:
         r"""
         Perform histogram equalization for a grid.
@@ -74,7 +75,7 @@ class grdhisteq:  # noqa: N801
         the ``grid``, but the values are changed to reflect their place in the
         cumulative distribution.
 
-        Full option list at :gmt-docs:`grdhisteq.html`
+        Full GMT docs at :gmt-docs:`grdhisteq.html`.
 
         {aliases}
 
@@ -145,9 +146,9 @@ class grdhisteq:  # noqa: N801
     )
     @kwargs_to_strings(R="sequence")
     def compute_bins(
-        grid,
+        grid: PathLike | xr.DataArray,
         output_type: Literal["pandas", "numpy", "file"] = "pandas",
-        outfile: str | None = None,
+        outfile: PathLike | None = None,
         **kwargs,
     ) -> pd.DataFrame | np.ndarray | None:
         r"""
@@ -167,7 +168,7 @@ class grdhisteq:  # noqa: N801
         image with :meth:`pygmt.Figure.grdimage` that has all levels of gray
         occurring equally.
 
-        Full option list at :gmt-docs:`grdhisteq.html`
+        Full GMT docs at :gmt-docs:`grdhisteq.html`.
 
         {aliases}
 

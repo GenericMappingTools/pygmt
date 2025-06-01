@@ -4,9 +4,12 @@ Define the Figure class that handles all plotting.
 
 import base64
 import os
-from pathlib import Path, PurePath
+import warnings
+from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Literal, overload
+
+from pygmt._typing import PathLike
 
 try:
     import IPython
@@ -117,12 +120,19 @@ class Figure:
         with Session() as lib:
             lib.call_module(module="figure", args=[self._name, fmt])
 
+    # TODO(PyGMT>=v0.18.0):  Remove the _preprocess method.
     def _preprocess(self, **kwargs):
         """
         Call the ``figure`` module before each plotting command to ensure we're plotting
         to this particular figure.
         """
         self._activate_figure()
+        warnings.warn(
+            "The Figure._preprocess() method is deprecated since v0.16.0 and will be "
+            "removed in v0.18.0. Use Figure._activate_figure() instead.",
+            FutureWarning,
+            stacklevel=2,
+        )
         return kwargs
 
     @property
@@ -137,7 +147,7 @@ class Figure:
 
     def savefig(
         self,
-        fname: str | PurePath,
+        fname: PathLike,
         transparent: bool = False,
         crop: bool = True,
         anti_alias: bool = True,

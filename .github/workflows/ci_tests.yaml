@@ -75,13 +75,13 @@ jobs:
             numpy-version: '1.26'
             pandas-version: '=2.1'
             xarray-version: '=2023.07'
-            optional-packages: ' contextily geopandas ipython pyarrow-core rioxarray sphinx-gallery'
+            optional-packages: ' contextily geopandas ipython pyarrow-core rioxarray netCDF4 sphinx-gallery'
           # Python 3.13 + core packages (latest versions) + optional packages
           - python-version: '3.13'
             numpy-version: '2.2'
             pandas-version: ''
             xarray-version: ''
-            optional-packages: ' contextily geopandas ipython pyarrow-core rioxarray sphinx-gallery'
+            optional-packages: ' contextily geopandas ipython pyarrow-core rioxarray netCDF4 sphinx-gallery'
           # Python 3.12 + core packages (Linux only)
           - os: 'ubuntu-latest'
             python-version: '3.12'
@@ -129,7 +129,6 @@ jobs:
             numpy=${{ matrix.numpy-version }}
             pandas${{ matrix.pandas-version }}
             xarray${{ matrix.xarray-version }}
-            netCDF4
             packaging
             make
             pip
@@ -152,8 +151,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v5.4.1
+        uses: astral-sh/setup-uv@v6.1.0
         with:
+          activate-environment: true
           python-version: ${{ matrix.python-version }}
 
       - name: Install dvc
@@ -183,7 +183,7 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5.4.0
+        uses: codecov/codecov-action@v5.4.3
         if: success() || failure()
         with:
           use_oidc: true

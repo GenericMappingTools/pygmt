@@ -42,7 +42,7 @@ def colorbar(self, **kwargs):
     linear scale, all be equal size, or by providing a file with individual
     tile widths.
 
-    Full option list at :gmt-docs:`colorbar.html`
+    Full GMT docs at :gmt-docs:`colorbar.html`.
 
     {aliases}
 
@@ -144,6 +144,6 @@ def colorbar(self, **kwargs):
     >>> # Show the plot
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="colorbar", args=build_arg_list(kwargs))

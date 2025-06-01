@@ -8,7 +8,7 @@ import numpy as np
 import numpy.testing as npt
 import pytest
 import xarray as xr
-from pygmt import grdfill, load_dataarray
+from pygmt import grdfill
 from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
@@ -65,8 +65,8 @@ def test_grdfill_dataarray_out(grid, expected_grid):
     result = grdfill(grid=grid, constantfill=20)
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
-    assert result.gmt.gtype == GridType.GEOGRAPHIC
-    assert result.gmt.registration == GridRegistration.PIXEL
+    assert result.gmt.gtype is GridType.GEOGRAPHIC
+    assert result.gmt.registration is GridRegistration.PIXEL
     # check information of the output grid
     xr.testing.assert_allclose(a=result, b=expected_grid)
 
@@ -80,8 +80,8 @@ def test_grdfill_asymmetric_pad(grid, expected_grid):
     result = grdfill(grid=grid, constantfill=20, region=[-55, -50, -24, -16])
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
-    assert result.gmt.gtype == GridType.GEOGRAPHIC
-    assert result.gmt.registration == GridRegistration.PIXEL
+    assert result.gmt.gtype is GridType.GEOGRAPHIC
+    assert result.gmt.registration is GridRegistration.PIXEL
     # check information of the output grid
     xr.testing.assert_allclose(
         a=result, b=expected_grid.sel(lon=slice(-55, -50), lat=slice(-24, -16))
@@ -96,7 +96,7 @@ def test_grdfill_file_out(grid, expected_grid):
         result = grdfill(grid=grid, constantfill=20, outgrid=tmpfile.name)
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0  # check that outfile exists
-        temp_grid = load_dataarray(tmpfile.name)
+        temp_grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 

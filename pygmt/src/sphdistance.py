@@ -4,6 +4,7 @@ sphere.
 """
 
 import xarray as xr
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -25,7 +26,11 @@ __doctest_skip__ = ["sphdistance"]
 )
 @kwargs_to_strings(I="sequence", R="sequence")
 def sphdistance(
-    data=None, x=None, y=None, outgrid: str | None = None, **kwargs
+    data: PathLike | TableLike | None = None,
+    x=None,
+    y=None,
+    outgrid: PathLike | None = None,
+    **kwargs,
 ) -> xr.DataArray | None:
     r"""
     Create Voronoi distance, node, or natural nearest-neighbor grid on a sphere.
@@ -35,13 +40,13 @@ def sphdistance(
     then processed to calculate the nearest distance to each
     node of the lattice and written to the specified grid.
 
-    Full option list at :gmt-docs:`sphdistance.html`
+    Full GMT docs at :gmt-docs:`sphdistance.html`.
 
     {aliases}
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in (x, y) or (longitude, latitude) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
