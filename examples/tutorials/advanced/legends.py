@@ -47,7 +47,7 @@ fig.show()
 # -------------------
 #
 # Use the ``position`` parameter to adjust the position of the legend. Add an offset via
-# **+o** for the x and y directions. Additionally append **+w** to adjust the width
+# **+o** for the x- and y-directions. Additionally append **+w** to adjust the width
 # of the legend. Note, no box is drawn by default if ``position`` is used.
 
 fig = pygmt.Figure()
@@ -58,7 +58,7 @@ fig.plot(x=1, y=0, style="t0.3c", fill="pink", pen="black", label="pink triangle
 fig.plot(x=[-3, 3], y=[-2, -2], pen="darkred", label="darkred line")
 
 # Set the reference point to the Top Left corner within (lowercase "j") the bounding box
-# of the plot and use offsets of 0.3 and 0.2 centimeters in the x and y directions,
+# of the plot and use offsets of 0.3 and 0.2 centimeters in the x- and y-directions,
 # respectively.
 fig.legend(position="jTL+o0.3c/0.2c")
 
