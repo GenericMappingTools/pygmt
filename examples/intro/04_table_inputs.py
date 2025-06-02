@@ -6,7 +6,7 @@ Generally, PyGMT accepts two different types of data inputs: tables and grids.
 
 - A table is a 2-D array with rows and columns. Each column represents a different
   variable (e.g., *x*, *y* and *z*) and each row represents a different record.
-- A grid is a 2-D array of data that is regularly spaced in the x and y directions (or
+- A grid is a 2-D array of data that is regularly spaced in the x- and y-directions (or
   longitude and latitude).
 
 In this tutorial, we'll focus on working with table inputs, and cover grid inputs in a
