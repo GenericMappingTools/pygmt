@@ -30,7 +30,7 @@ def inset(self, **kwargs):
     inside of the larger figure. Plotting methods that are called within the
     context manager are added to the inset figure.
 
-    Full option list at :gmt-docs:`inset.html`
+    Full GMT docs at :gmt-docs:`inset.html`.
 
     {aliases}
 

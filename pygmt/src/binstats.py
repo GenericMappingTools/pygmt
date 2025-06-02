@@ -43,7 +43,7 @@ def binstats(
     presented as is or may be normalized by the circle area to
     perhaps give density estimates.
 
-    Full option list at :gmt-docs:`gmtbinstats.html`
+    Full GMT docs at :gmt-docs:`gmtbinstats.html`.
 
     {aliases}
 

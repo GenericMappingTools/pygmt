@@ -59,7 +59,7 @@ def rose(
     of the windrose is drawn with the same color as
     :gmt-term:`MAP_DEFAULT_PEN`.
 
-    Full option list at :gmt-docs:`rose.html`
+    Full GMT docs at :gmt-docs:`rose.html`.
 
     {aliases}
 

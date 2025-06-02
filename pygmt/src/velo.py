@@ -55,7 +55,7 @@ def velo(self, data: PathLike | TableLike | None = None, **kwargs):
 
     Must provide ``data`` and ``spec``.
 
-    Full option list at :gmt-docs:`supplements/geodesy/velo.html`
+    Full GMT docs at :gmt-docs:`supplements/geodesy/velo.html`.
 
     {aliases}
 

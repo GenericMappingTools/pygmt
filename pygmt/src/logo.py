@@ -37,7 +37,7 @@ def logo(
     Use various options to change this and to place a transparent or
     opaque rectangular map panel behind the GMT logo.
 
-    Full option list at :gmt-docs:`gmtlogo.html`.
+    Full GMT docs at :gmt-docs:`gmtlogo.html`.
 
     {aliases}
 

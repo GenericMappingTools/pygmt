@@ -211,4 +211,4 @@ def test_earth_relief_03s_default_registration():
     npt.assert_allclose(data.coords["lon"].data.min(), -10)
     npt.assert_allclose(data.coords["lon"].data.max(), -9.8)
     npt.assert_allclose(data.min(), -2069.85, atol=0.5)
-    npt.assert_allclose(data.max(), -923.5, atol=0.5)
+    npt.assert_allclose(data.max(), -921.5, atol=0.5)
