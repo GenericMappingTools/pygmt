@@ -38,7 +38,7 @@ fig.grdimage(grid=grid_map, cmap="oleron")
 # Add a colorbar for the elevation
 fig.colorbar(
     # Place the colorbar inside the plot (lowercase "j") in the Bottom Right (BR)
-    # corner with an offset ("+o") of 0.7 centimeters and 0.3 centimeters in x or y
+    # corner with an offset ("+o") of 0.7 centimeters and 0.3 centimeters in x- or y-
     # directions, respectively; move the x label above the horizontal colorbar ("+ml")
     position="jBR+o0.7c/0.8c+h+w5c/0.3c+ml",
     # Add a box around the colobar with a fill ("+g") in "white" color and a
@@ -61,7 +61,7 @@ fig.text(
     x=[126, 146],
     y=[42, 40],
     text=["A", "B"],
-    offset="0c/0.2c",  # Move text 0.2 centimeters up (y direction)
+    offset="0c/0.2c",  # Move text 0.2 centimeters up (y-direction)
     font="15p",  # Use a font size of 15 points
 )
 

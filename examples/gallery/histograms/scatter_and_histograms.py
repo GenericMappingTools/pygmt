@@ -42,7 +42,7 @@ fig.basemap(
 # level for all circles to deal with overplotting.
 fig.plot(x=x, y=y, style="c0.15c", fill=fill, transparency=50)
 
-# Shift the plot origin in y direction temporarily and add top margin histogram.
+# Shift the plot origin in y-direction temporarily and add top margin histogram.
 with fig.shift_origin(yshift=height + 0.25):
     fig.histogram(
         projection=f"X{width}/3",
@@ -56,7 +56,7 @@ with fig.shift_origin(yshift=height + 0.25):
         series=0.2,
     )
 
-# Shift the plot origin in x direction temporarily and add right margin histogram.
+# Shift the plot origin in x-direction temporarily and add right margin histogram.
 with fig.shift_origin(xshift=width + 0.25):
     # Plot the horizontal histogram.
     fig.histogram(

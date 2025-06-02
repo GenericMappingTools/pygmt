@@ -44,7 +44,7 @@ fig.plot(x=x, y=y2, style="c0.07c", fill="dodgerblue", label="cos(x)+1.1")
 
 # Add a legend to the plot; place it within the plot bounding box with both
 # reference ("J") and anchor ("+j") points being the Top Right (TR) corner and an
-# offset of 0.2 centimeters in x and y directions; surround the legend with a box
+# offset of 0.2 centimeters in x- and y-directions; surround the legend with a box
 fig.legend(position="JTR+jTR+o0.2c", box=True)
 
 # -----------------------------------------------------------------------------
