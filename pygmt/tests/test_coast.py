@@ -29,7 +29,7 @@ def test_coast_world_mercator():
         projection="M15c",
         frame="af",
         land="#aaaaaa",
-        resolution="c",
+        resolution="crude",
         water="white",
     )
     return fig
