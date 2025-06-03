@@ -129,12 +129,12 @@ def coast(
         **+p**\ *pen*. Add **+g**\ *fill* to fill the scale panel [Default is
         no fill]. Append **+c**\ *clearance* where *clearance* is either gap,
         xgap/ygap, or lgap/rgap/bgap/tgap where these items are uniform,
-        separate in x- and y-direction, or individual side spacings between
-        scale and border. Append **+i** to draw a secondary, inner border as
-        well. We use a uniform gap between borders of 2p and the
+        separate x and y, or individual side spacings between scale and
+        border. Append **+i** to draw a secondary, inner border as well.
+        We use a uniform gap between borders of 2 points and the
         :gmt-term:`MAP_DEFAULTS_PEN` unless other values are specified. Append
-        **+r** to draw rounded rectangular borders instead, with a 6p corner
-        radius. You can override this radius by appending another value.
+        **+r** to draw rounded rectangular borders instead, with a 6-points
+        corner radius. You can override this radius by appending another value.
         Finally, append **+s** to draw an offset background shaded region.
         Here, *dx/dy* indicates the shift relative to the foreground frame
         [Default is ``"4p/-4p"``] and shade sets the fill style to use for
