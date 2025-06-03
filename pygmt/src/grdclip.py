@@ -12,98 +12,12 @@ from pygmt.helpers import (
     build_arg_list,
     deprecate_parameter,
     fmt_docstring,
-    is_nonstr_iter,
     kwargs_to_strings,
+    sequence_join,
     use_alias,
 )
 
 __doctest_skip__ = ["grdclip"]
-
-
-def _parse_sequence(name, value, separator="/", size=2, ndim=1):
-    """
-    Parse a 1-D or 2-D sequence of values and join them by a separator.
-
-    Parameters
-    ----------
-    name
-        The parameter name.
-    value
-        The 1-D or 2-D sequence of values to parse.
-    separator
-        The separator to join the values.
-    size
-        The number of values in the sequence.
-    ndim
-        The expected maximum number of dimensions of the sequence.
-
-    Returns
-    -------
-    str
-        The parsed sequence.
-
-    Examples
-    --------
-    >>> _parse_sequence("above_or_below", [1000, 0], size=2, ndim=1)
-    '1000/0'
-    >>> _parse_sequence("between", [1000, 1500, 10000], size=3, ndim=2)
-    '1000/1500/10000'
-    >>> _parse_sequence("between", [[1000, 1500, 10000]], size=3, ndim=2)
-    ['1000/1500/10000']
-    >>> _parse_sequence(
-    ...     "between", [[1000, 1500, 10000], [1500, 2000, 20000]], size=3, ndim=2
-    ... )
-    ['1000/1500/10000', '1500/2000/20000']
-    >>> _parse_sequence("replace", [1000, 0], size=2, ndim=2)
-    '1000/0'
-    >>> _parse_sequence("replace", [[1000, 0]], size=2, ndim=2)
-    ['1000/0']
-    >>> _parse_sequence("replace", [[1000, 0], [1500, 10000]], size=2, ndim=2)
-    ['1000/0', '1500/10000']
-    >>> _parse_sequence("any", "1000/100")
-    '1000/100'
-    >>> _parse_sequence("any", None)
-    >>> _parse_sequence("any", [])
-    []
-    >>> _parse_sequence("above_or_below", [[100, 1000], [1500, 2000]], size=2, ndim=1)
-    Traceback (most recent call last):
-        ...
-    pygmt.exceptions.GMTInvalidInput: Parameter ... must be a 1-D sequence...
-    >>> _parse_sequence("above_or_below", [100, 200, 300], size=2, ndim=1)
-    Traceback (most recent call last):
-    ...
-    pygmt.exceptions.GMTInvalidInput: Parameter ... must be a 1-D sequence ...
-    >>> _parse_sequence("between", [[100, 200, 300], [500, 600]], size=3, ndim=2)
-    Traceback (most recent call last):
-    ...
-    pygmt.exceptions.GMTInvalidInput: Parameter ... must be a 2-D sequence with ...
-    """
-    # Return the value as is if not a sequence (e.g., str or None) or empty.
-    if not is_nonstr_iter(value) or len(value) == 0:
-        return value
-
-    # 1-D sequence
-    if not is_nonstr_iter(value[0]):
-        if len(value) != size:
-            msg = (
-                f"Parameter '{name}' must be a 1-D sequence of {size} values, "
-                f"but got {len(value)} values."
-            )
-            raise GMTInvalidInput(msg)
-        return separator.join(str(i) for i in value)
-
-    # 2-D sequence
-    if ndim == 1:
-        msg = f"Parameter '{name}' must be a 1-D sequence, not a 2-D sequence."
-        raise GMTInvalidInput(msg)
-
-    if any(len(i) != size for i in value):
-        msg = (
-            f"Parameter '{name}' must be a 2-D sequence with each sub-sequence "
-            f"having {size} values."
-        )
-        raise GMTInvalidInput(msg)
-    return [separator.join(str(j) for j in value[i]) for i in range(len(value))]
 
 
 # TODO(PyGMT>=0.19.0): Remove the deprecated "new" parameter.
@@ -203,10 +117,10 @@ def grdclip(
         raise GMTInvalidInput(msg)
 
     # Parse the -S option.
-    kwargs["Sa"] = _parse_sequence("above", above, size=2, ndim=1)
-    kwargs["Sb"] = _parse_sequence("below", below, size=2, ndim=1)
-    kwargs["Si"] = _parse_sequence("between", between, size=3, ndim=2)
-    kwargs["Sr"] = _parse_sequence("replace", replace, size=2, ndim=2)
+    kwargs["Sa"] = sequence_join(above, size=2, name="above")
+    kwargs["Sb"] = sequence_join(below, size=2, name="below")
+    kwargs["Si"] = sequence_join(between, size=3, ndim=2, name="between")
+    kwargs["Sr"] = sequence_join(replace, size=2, ndim=2, name="replace")
 
     with Session() as lib:
         with (
