@@ -827,4 +827,4 @@ def sequence_join(
     if size is not None and any(len(i) not in size for i in value):
         msg = f"{errmsg['name']}Expected a sequence of {errmsg['sizes']} values."
         raise GMTInvalidInput(msg)
-    return [separator.join(str(j) for j in value[i]) for i in range(len(value))]
+    return [separator.join(str(j) for j in sub) for sub in value]
