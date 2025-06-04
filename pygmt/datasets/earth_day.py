@@ -72,12 +72,8 @@ def load_blue_marble(
     Note
     ----
     The registration and coordinate system type of the returned
-    :class:`xarray.DataArray` image can be accessed via the GMT accessors (i.e.,
-    ``image.gmt.registration`` and ``image.gmt.gtype`` respectively). However, these
-    properties may be lost after specific image operations (such as slicing) and will
-    need to be manually set before passing the image to any PyGMT data processing or
-    plotting functions. Refer to :class:`pygmt.GMTDataArrayAccessor` for detailed
-    explanations and workarounds.
+    :class:`xarray.DataArray` image can be accessed via the *gmt* accessor. Refer to
+    :class:`pygmt.GMTDataArrayAccessor` for detailed explanations and limitations.
 
     Examples
     --------

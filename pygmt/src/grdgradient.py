@@ -52,7 +52,7 @@ def grdgradient(
         *azim*\ [/*azim2*].
         Azimuthal direction for a directional derivative; *azim* is the
         angle in the x,y plane measured in degrees positive clockwise from
-        north (the +y direction) toward east (the +x direction). The
+        north (the positive y-direction) toward east (the positive x-direction). The
         negative of the directional derivative,
         :math:`-(\frac{{dz}}{{dx}}\sin(\mbox{{azim}}) + \
         \frac{{dz}}{{dy}}\cos(\mbox{{azim}}))`, is found; negation yields
