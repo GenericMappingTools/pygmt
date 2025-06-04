@@ -14,6 +14,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.src._common import _parse_coastline_resolution
 
 __doctest_skip__ = ["coast"]
 
@@ -42,8 +43,8 @@ __doctest_skip__ = ["coast"]
 def coast(
     self,
     resolution: Literal[
-        "auto", "full", "high", "intermediate", "low", "crude"
-    ] = "auto",
+        "auto", "full", "high", "intermediate", "low", "crude", None
+    ] = None,
     **kwargs,
 ):
     r"""
@@ -82,18 +83,11 @@ def coast(
         **+l** for lakes or **+r** for river-lakes, and passing multiple
         strings in a list.
     resolution
-        Select the resolution of the GSHHG coastline data set to use. The available
-        resolutions from highest to lowest are:
-
-        - ``"full"`` - Full resolution (may be very slow for large regions).
-        - ``"high"`` - High resolution (may be slow for large regions).
-        - ``"intermediate"`` - Intermediate resolution.
-        - ``"low"`` - Low resolution.
-        - ``"crude"`` - Crude resolution, for tasks that need crude continent outlines
-          only.
-
-        The default is ``"auto"`` to automatically select the best resolution given the
-        chosen map scale.
+        Select the resolution of the coastline dataset to use. The available resolutions
+        from highest to lowest are: ``"full"``, ``"high"``, ``"intermediate"``,
+        ``"low"``, and ``"crude"``, which drops by 80% between levels. Default is
+        ``"auto"`` to automatically select the most suitable resolution given the chosen
+        map scale.
     land : str
         Select filling of "dry" areas.
     rivers : int, str, or list
@@ -136,12 +130,12 @@ def coast(
         **+p**\ *pen*. Add **+g**\ *fill* to fill the scale panel [Default is
         no fill]. Append **+c**\ *clearance* where *clearance* is either gap,
         xgap/ygap, or lgap/rgap/bgap/tgap where these items are uniform,
-        separate in x- and y-direction, or individual side spacings between
-        scale and border. Append **+i** to draw a secondary, inner border as
-        well. We use a uniform gap between borders of 2p and the
+        separate x and y, or individual side spacings between scale and
+        border. Append **+i** to draw a secondary, inner border as well.
+        We use a uniform gap between borders of 2 points and the
         :gmt-term:`MAP_DEFAULTS_PEN` unless other values are specified. Append
-        **+r** to draw rounded rectangular borders instead, with a 6p corner
-        radius. You can override this radius by appending another value.
+        **+r** to draw rounded rectangular borders instead, with a 6-points
+        corner radius. You can override this radius by appending another value.
         Finally, append **+s** to draw an offset background shaded region.
         Here, *dx/dy* indicates the shift relative to the foreground frame
         [Default is ``"4p/-4p"``] and shade sets the fill style to use for
