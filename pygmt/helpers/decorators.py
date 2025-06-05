@@ -452,7 +452,7 @@ def fmt_docstring(module_func):
             alias = module_func.aliases[arg]
             # Trailing dash means it's not aliased but should be listed.
             # Remove the trailing dash if it exists.
-            aliases.append(f"   - {arg} = {alias.rstrip('-')}")
+            aliases.append(f"   - {arg} = *{alias.rstrip('-')}*")
         filler_text["aliases"] = "\n".join(aliases)
 
     filler_text["table-classes"] = (
