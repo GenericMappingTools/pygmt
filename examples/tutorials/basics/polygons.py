@@ -20,7 +20,7 @@ import pygmt
 # Plot polygons
 # -------------
 #
-# Set up sample data points as NumPy arrays for the x and y values.
+# Set up sample data points as NumPy arrays for the x- and y-values.
 
 x = np.array([-2, 1, 3, 0, -4, -2])
 y = np.array([-3, -1, 1, 3, 2, -3])
@@ -65,7 +65,7 @@ fig.show()
 # Close polygons
 # --------------
 #
-# Set up sample data points as NumPy arrays for the x and y values. Now, the data points
+# Set up sample data points as NumPy arrays for the x- and y-values. Now, the data points
 # do not form a polygon.
 
 x = np.array([-2, 1, 3, 0, -4])
