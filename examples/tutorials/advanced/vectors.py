@@ -46,7 +46,7 @@ fig.show()
 # %%
 # In this example, we apply the same concept shown previously to plot multiple
 # vectors. Notice that instead of passing int/float to ``x`` and ``y``, a list
-# of all x and y coordinates will be passed. Similarly, the length of direction
+# of all x- and y-coordinates will be passed. Similarly, the length of direction
 # list will increase accordingly.
 #
 # Additionally, we change the style of the vector to include a red
