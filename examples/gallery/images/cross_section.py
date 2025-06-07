@@ -52,7 +52,7 @@ fig.colorbar(
 )
 
 # Plot the survey line
-fig.plot(x=[lonA, lonB], y=[latA, latB], pen="2p,red,solid")
+fig.plot(x=[lonA, lonB], y=[latA, latB], pen="1p,red,solid")
 
 # Add labels "A" and "B" for the start and end points of the survey line
 fig.text(
