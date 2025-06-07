@@ -450,7 +450,9 @@ def fmt_docstring(module_func):
         aliases.append("   :columns: 3\n")
         for arg in sorted(module_func.aliases):
             alias = module_func.aliases[arg]
-            aliases.append(f"   - {arg} = {alias}")
+            # Trailing dash means it's not aliased but should be listed.
+            # Remove the trailing dash if it exists.
+            aliases.append(f"   - {arg} = {alias.rstrip('-')}")
         filler_text["aliases"] = "\n".join(aliases)
 
     filler_text["table-classes"] = (
@@ -484,6 +486,9 @@ def _insert_alias(module_func, default_value=None):
     kwargs_param = wrapped_params.pop(-1)
     # Add new parameters from aliases
     for alias in module_func.aliases.values():
+        if alias.endswith("-"):
+            # Trailing dash means it's not aliased but should be listed.
+            continue
         if alias not in sig.parameters:
             new_param = Parameter(
                 alias, kind=Parameter.KEYWORD_ONLY, default=default_value
@@ -548,6 +553,9 @@ def use_alias(**aliases):
             New module that parses and replaces the registered aliases.
             """
             for short_param, long_alias in aliases.items():
+                if long_alias.endswith("-"):
+                    # Trailing dash means it's not aliased but should be listed.
+                    continue
                 if long_alias in kwargs and short_param in kwargs:
                     msg = (
                         f"Parameters in short-form ({short_param}) and "

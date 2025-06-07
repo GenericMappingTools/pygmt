@@ -14,6 +14,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     B="frame",
     C="cmap",
     G="fill",
+    L="alabel/blabel/clabel-",
     JX="width",
     R="region",
     S="style",

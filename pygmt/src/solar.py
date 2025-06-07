@@ -18,6 +18,7 @@ __doctest_skip__ = ["solar"]
     G="fill",
     J="projection",
     R="region",
+    T="terminator/terminator_datetime-",
     V="verbose",
     W="pen",
     c="panel",
