@@ -65,8 +65,8 @@ fig.show()
 # Close polygons
 # --------------
 #
-# Set up sample data points as NumPy arrays for the x- and y-values. Now, the data points
-# do not form a polygon.
+# Set up sample data points as NumPy arrays for the x- and y-values. Now, the data
+# points do not form a polygon.
 
 x = np.array([-2, 1, 3, 0, -4])
 y = np.array([-3, -1, 1, 3, 2])
