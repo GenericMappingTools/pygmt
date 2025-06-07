@@ -46,7 +46,7 @@ fig.show()
 # %%
 # In this example, we apply the same concept shown previously to plot multiple
 # vectors. Notice that instead of passing int/float to ``x`` and ``y``, a list
-# of all x and y coordinates will be passed. Similarly, the length of direction
+# of all x- and y-coordinates will be passed. Similarly, the length of direction
 # list will increase accordingly.
 #
 # Additionally, we change the style of the vector to include a red
@@ -157,8 +157,8 @@ fig.show()
 
 # %%
 # In this example, Cartesian vectors are plotted over a Mercator
-# projection of the continental US. The x values represent the
-# longitude and y values represent the latitude where the vector starts.
+# projection of the continental US. The x-values represent the
+# longitude and y-values represent the latitude where the vector starts.
 #
 # This example also shows some of the styles a vector supports.
 # The beginning point of the vector (**+b**)
@@ -213,8 +213,8 @@ fig.show()
 # Transverse Mercator projection is used. Additionally, :func:`numpy.linspace`
 # is used to create 5 vectors with equal stops.
 
-x = np.linspace(36, 42, 5)  # x values = [36.  37.5 39.  40.5 42. ]
-y = np.linspace(39, 39, 5)  # y values = [39. 39. 39. 39.]
+x = np.linspace(36, 42, 5)  # x-values = [36.  37.5 39.  40.5 42.]
+y = np.linspace(39, 39, 5)  # y-values = [39. 39. 39. 39.]
 direction = np.linspace(-90, -90, 5)  # direction values = [-90. -90. -90. -90.]
 length = np.linspace(1.5, 1.5, 5)  # length values = [1.5 1.5 1.5 1.5]
 

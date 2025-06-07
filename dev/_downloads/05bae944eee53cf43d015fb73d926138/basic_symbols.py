@@ -24,7 +24,7 @@ font = "15p,Helvetica-Bold"
 # upper row
 y = 2
 
-# use a dash in x direction (-) with a size of 0.9 cm,
+# use a dash in x-direction (-) with a size of 0.9 cm,
 # linewidth is set to 2p and the linecolor to "gray40"
 fig.plot(x=1, y=y, style="-0.9c", pen="2p,gray40")
 fig.text(x=1, y=y + 0.6, text="-", font=font)
@@ -101,7 +101,7 @@ fig.text(x=5, y=y + 0.6, text="t", font=font)
 fig.plot(x=6, y=y, style="x0.9c", pen="2p,gray40")
 fig.text(x=6, y=y + 0.6, text="x", font=font)
 
-# use a dash in y direction (y) with a size of 0.9 cm,
+# use a dash in y-direction (y) with a size of 0.9 cm,
 # linewidth is set to 2p and the linecolor to "gray40"
 fig.plot(x=7, y=y, style="y0.9c", pen="2p,gray40")
 fig.text(x=7, y=y + 0.6, text="y", font=font)

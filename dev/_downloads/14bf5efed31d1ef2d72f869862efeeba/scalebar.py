@@ -30,7 +30,7 @@ This example shows how such a scale bar can be customized:
    independent) code. Choose from vertical **T**\(op), **M**\(iddle), or
    **B**\(ottom) and horizontal **L**\(eft), **C**\(entre), or **R**\(ight).
  - offset: **+o**\ *offset* or **+o**\ *xoffset*/\ *yoffset*. Give either a
-   common shift or individual shifts in x (longitude) and y (latitude)
+   common shift or individual shifts in x- (longitude) and y- (latitude)
    directions.
  - height: Use :gmt-term:`MAP_SCALE_HEIGHT` via :func:`pygmt.config`.
  - fancy style: **+f**. Get a scale bar that looks like train tracks.
@@ -77,7 +77,7 @@ with pygmt.config(MAP_SCALE_HEIGHT="10p"):
 # -----------------------------------------------------------------------------
 # Bottom Right: Add a scale bar valid for a specific location
 # It is placed at BottomRight (j) using MiddleRight as anchor point (+j) with
-# an offset (+o) of 1 centimeter in both x and y directions
+# an offset (+o) of 1 centimeter in both x- and y-directions
 # It applies (+c) at -7° South, add a customized label by appending text to +l
 fig.basemap(map_scale="jBR+jMR+o1c/1c+c-7+w500k+f+u+lvalid at 7° S")
 
