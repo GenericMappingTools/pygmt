@@ -116,10 +116,8 @@ fig.plot(
 )
 
 # Add map frame
-fig.basemap(
-    # Add annotations ("a") and ticks ("f") as well as labels ("+l") at the west or
-    # left and south or bottom sides ("WSrt")
-    frame=["WSrt", "xa2f1+lDistance+u°", "ya4000+lElevation / m"],
-)
+# Add annotations ("a") and ticks ("f") as well as labels ("+l") at the west or left
+# and south or bottom sides ("WSrt")
+fig.basemap(frame=["WSrt", "xa2f1+lDistance+u°", "ya4000+lElevation / m"])
 
 fig.show()
