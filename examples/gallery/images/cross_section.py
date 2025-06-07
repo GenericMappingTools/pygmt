@@ -59,8 +59,8 @@ fig.text(
     x=[lonA, lonB],
     y=[latA, latB],
     text=["A", "B"],
-    offset="0c/0.2c",  # Move text 0.2 centimeters up (y-direction)
-    font="15p",  # Use a font size of 15 points
+    offset="0c/0.3c",  # Move text 0.2 centimeters up (y-direction)
+    font="15p,red",  # Use a red font with a size of 15 points
 )
 
 # ----------------------------------------------------------------------------
@@ -82,7 +82,7 @@ fig.text(
     y=[7000, 7000],
     text=["A", "B"],
     no_clip=True,  # Do not clip text that fall outside the plot bounds
-    font="10p",  # Use a font size of 10 points
+    font="10p,red",
 )
 
 # Generate points along a great circle corresponding to the survey line and store them
