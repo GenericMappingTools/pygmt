@@ -48,7 +48,7 @@ all = [
     "geopandas>=1.0",
     "IPython>=8",  # 'ipython' is not the correct module name.
     "pyarrow>=16",
-    "rioxarray>=0.19",
+    "rioxarray>=0.14",
 ]
 
 [project.entry-points."xarray.backends"]
