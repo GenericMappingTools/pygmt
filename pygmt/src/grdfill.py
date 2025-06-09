@@ -131,7 +131,7 @@ def grdfill(
     replace the hole values. If no holes are found the original unchanged grid is
     returned.
 
-    Full option list at :gmt-docs:`grdfill.html`.
+    Full GMT docs at :gmt-docs:`grdfill.html`.
 
     {aliases}
 
@@ -225,7 +225,7 @@ def grdfill(
             # Fill mode.
             with (
                 lib.virtualfile_in(
-                    check_kind="raster", data=gridfill, required_data=False
+                    check_kind="raster", data=gridfill, required=False
                 ) as vbggrd,
                 lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
             ):

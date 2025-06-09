@@ -74,7 +74,7 @@ def grdtrack(
     derivative normal to edge is zero) unless the grid is automatically
     recognized as periodic.)
 
-    Full option list at :gmt-docs:`grdtrack.html`
+    Full GMT docs at :gmt-docs:`grdtrack.html`.
 
     {aliases}
 
@@ -313,7 +313,7 @@ def grdtrack(
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_in(
-                check_kind="vector", data=points, required_data=False
+                check_kind="vector", data=points, required=False
             ) as vintbl,
             lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
         ):

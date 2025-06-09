@@ -56,8 +56,8 @@ def test_grdclip_outgrid(grid, expected_grid):
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
         temp_grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
         assert temp_grid.dims == ("lat", "lon")
-        assert temp_grid.gmt.gtype == GridType.GEOGRAPHIC
-        assert temp_grid.gmt.registration == GridRegistration.PIXEL
+        assert temp_grid.gmt.gtype is GridType.GEOGRAPHIC
+        assert temp_grid.gmt.registration is GridRegistration.PIXEL
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
@@ -70,8 +70,8 @@ def test_grdclip_no_outgrid(grid, expected_grid):
         grid=grid, below=[550, -1000], above=[700, 1000], region=[-53, -49, -19, -16]
     )
     assert temp_grid.dims == ("lat", "lon")
-    assert temp_grid.gmt.gtype == GridType.GEOGRAPHIC
-    assert temp_grid.gmt.registration == GridRegistration.PIXEL
+    assert temp_grid.gmt.gtype is GridType.GEOGRAPHIC
+    assert temp_grid.gmt.registration is GridRegistration.PIXEL
     xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 

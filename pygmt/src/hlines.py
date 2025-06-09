@@ -80,7 +80,7 @@ def hlines(
     >>> fig.legend()
     >>> fig.show()
     """
-    self._preprocess()
+    self._activate_figure()
 
     # Determine the x limits from the current plot region if not specified.
     if xmin is None or xmax is None:

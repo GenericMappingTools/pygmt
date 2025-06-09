@@ -45,7 +45,7 @@ def legend(
     noted, annotations will be made using the primary annotation font and
     size in effect (i.e., :gmt-term:`FONT_ANNOT_PRIMARY`).
 
-    Full option list at :gmt-docs:`legend.html`
+    Full GMT docs at :gmt-docs:`legend.html`.
 
     {aliases}
 
@@ -82,7 +82,7 @@ def legend(
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     if kwargs.get("D") is None:
         kwargs["D"] = position
@@ -98,5 +98,5 @@ def legend(
         raise GMTInvalidInput(msg)
 
     with Session() as lib:
-        with lib.virtualfile_in(data=spec, required_data=False) as vintbl:
+        with lib.virtualfile_in(data=spec, required=False) as vintbl:
             lib.call_module(module="legend", args=build_arg_list(kwargs, infile=vintbl))

@@ -34,7 +34,7 @@ def x2sys_init(tag, **kwargs):
     :term:`X2SYS_HOME` to a directory where you have write permission, which is where
     x2sys can keep track of your settings.
 
-    Full option list at :gmt-docs:`supplements/x2sys/x2sys_init.html`
+    Full GMT docs at :gmt-docs:`supplements/x2sys/x2sys_init.html`.
 
     {aliases}
 
