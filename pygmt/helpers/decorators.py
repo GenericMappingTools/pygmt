@@ -555,13 +555,26 @@ def use_alias(**aliases):
             for short_param, long_alias in aliases.items():
                 if long_alias.endswith("-"):
                     # Trailing dash means it's not aliased but should be listed.
-                    if short_param in kwargs:
+                    _alias_list = long_alias.rstrip("-").split("/")
+                    if (
+                        any(_alias in kwargs for _alias in _alias_list)
+                        and short_param in kwargs
+                    ):  # Both long- and short- forms are given.
                         msg = (
-                            f"Short-form parameter ({short_param}) is not recognized. "
-                            f"Use long-form parameter(s) '{long_alias.strip('-')}' "
-                            "instead."
+                            f"Parameters in short-form ({short_param}) and "
+                            f"long-form ({long_alias.strip('-')}) can't coexist."
                         )
                         raise GMTInvalidInput(msg)
+                    if short_param in kwargs:  # Only short-alias is given
+                        if len(_alias_list) > 1:  # Aliased to multiple long-forms
+                            msg = (
+                                f"Short-form parameter ({short_param}) is not "
+                                f"recognized. Use long-form parameter(s) "
+                                f"'{long_alias.strip('-')}' instead."
+                            )
+                            raise GMTInvalidInput(msg)
+                        # If there is only one long-form parameter, use it.
+                        kwargs[long_alias] = kwargs.pop(short_param)
                     continue
 
                 if long_alias in kwargs and short_param in kwargs:
