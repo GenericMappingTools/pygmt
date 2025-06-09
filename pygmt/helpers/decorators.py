@@ -555,7 +555,15 @@ def use_alias(**aliases):
             for short_param, long_alias in aliases.items():
                 if long_alias.endswith("-"):
                     # Trailing dash means it's not aliased but should be listed.
+                    if short_param in kwargs:
+                        msg = (
+                            f"Short-form parameter ({short_param}) is not recognized. "
+                            f"Use long-form parameter(s) '{long_alias.strip('-')}' "
+                            "instead."
+                        )
+                        raise GMTInvalidInput(msg)
                     continue
+
                 if long_alias in kwargs and short_param in kwargs:
                     msg = (
                         f"Parameters in short-form ({short_param}) and "
