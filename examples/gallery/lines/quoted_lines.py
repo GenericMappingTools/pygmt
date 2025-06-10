@@ -41,7 +41,7 @@ for quotedline in [
     "qN+1:+ltext",
     # Adjust the justification of the labels via "+j", here Top Center
     "qd1c:+ltext+jTC",
-    # Shift labels using "+n" in x and y directions relative to the main
+    # Shift labels using "+n" in x- and y-directions relative to the main
     # quoted line
     "qd1c:+ltext+n-0.5c/0.1c",
     # Rotate labels via "+a" (counter-clockwise from horizontal)
@@ -54,7 +54,7 @@ for quotedline in [
     "qd1c:+ltext+p0.5p,blue,dashed",
     # Append "+o" to get a box with rounded edges
     "qd1c:+ltext+p0.5p,blue+o",
-    # Adjust the space between label and box in x and y directions via "+c"
+    # Adjust the space between label and box in x- and y-directions via "+c"
     "qd1c:+ltext+p0.5p,blue+o+c0.1c/0.1c",
     # Give a fill of the box via "+g" together with the desired color
     "qd1c:+ltext+gdodgerblue",
