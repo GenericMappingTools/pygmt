@@ -2,6 +2,7 @@
 image - Plot raster or EPS images.
 """
 
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -20,14 +21,14 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def image(self, imagefile, **kwargs):
+def image(self, imagefile: PathLike, **kwargs):
     r"""
     Plot raster or EPS images.
 
     Reads an Encapsulated PostScript file or a raster image file and plots
     it on a map.
 
-    Full option list at :gmt-docs:`image.html`
+    Full GMT docs at :gmt-docs:`image.html`.
 
     {aliases}
 
@@ -67,6 +68,6 @@ def image(self, imagefile, **kwargs):
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="image", args=build_arg_list(kwargs, infile=imagefile))

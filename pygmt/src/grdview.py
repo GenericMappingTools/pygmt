@@ -2,6 +2,8 @@
 grdview - Create 3-D perspective image or surface mesh from a grid.
 """
 
+import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -31,7 +33,7 @@ __doctest_skip__ = ["grdview"]
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def grdview(self, grid, **kwargs):
+def grdview(self, grid: PathLike | xr.DataArray, **kwargs):
     r"""
     Create 3-D perspective image or surface mesh from a grid.
 
@@ -41,7 +43,7 @@ def grdview(self, grid, **kwargs):
     set on top of a surface, plotting of contours on top of the surface, and apply
     artificial illumination based on intensities provided in a separate grid file.
 
-    Full option list at :gmt-docs:`grdview.html`
+    Full GMT docs at :gmt-docs:`grdview.html`.
 
     {aliases}
 
@@ -138,12 +140,12 @@ def grdview(self, grid, **kwargs):
     >>> # Show the plot
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_in(
-                check_kind="raster", data=kwargs.get("G"), required_data=False
+                check_kind="raster", data=kwargs.get("G"), required=False
             ) as vdrapegrid,
         ):
             kwargs["G"] = vdrapegrid

@@ -4,6 +4,7 @@ plot3d - Plot lines, polygons, and symbols in 3-D.
 
 from typing import Literal
 
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -53,7 +54,7 @@ from pygmt.src._common import _data_geometry_is_point
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def plot3d(  # noqa: PLR0912
     self,
-    data=None,
+    data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     z=None,
@@ -84,13 +85,13 @@ def plot3d(  # noqa: PLR0912
     polygon outline is drawn or not. If a symbol is selected, ``fill`` and
     ``pen`` determine the fill and outline/no outline, respectively.
 
-    Full option list at :gmt-docs:`plot3d.html`
+    Full GMT docs at :gmt-docs:`plot3d.html`.
 
     {aliases}
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Either a data file name, a 2-D {table-classes}.
         Optionally, use parameter ``incols`` to specify which columns are x, y,
         z, fill, and size, respectively.
@@ -207,7 +208,7 @@ def plot3d(  # noqa: PLR0912
     """
     # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
     # parameter.
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     kind = data_kind(data)
     if kind == "empty":  # Data is given via a series of vectors.
@@ -258,7 +259,5 @@ def plot3d(  # noqa: PLR0912
         kwargs["S"] = "u0.2c"
 
     with Session() as lib:
-        with lib.virtualfile_in(
-            check_kind="vector", data=data, required_z=True
-        ) as vintbl:
+        with lib.virtualfile_in(check_kind="vector", data=data, mincols=3) as vintbl:
             lib.call_module(module="plot3d", args=build_arg_list(kwargs, infile=vintbl))

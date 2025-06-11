@@ -4,6 +4,7 @@ plot - Plot lines, polygons, and symbols in 2-D.
 
 from typing import Literal
 
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -52,7 +53,7 @@ from pygmt.src._common import _data_geometry_is_point
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def plot(  # noqa: PLR0912
     self,
-    data=None,
+    data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     size=None,
@@ -82,13 +83,13 @@ def plot(  # noqa: PLR0912
     polygon outline is drawn or not. If a symbol is selected, ``fill`` and
     ``pen`` determine the fill and outline/no outline, respectively.
 
-    Full option list at :gmt-docs:`plot.html`
+    Full GMT docs at :gmt-docs:`plot.html`.
 
     {aliases}
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
         Use parameter ``incols`` to choose which columns are x, y, fill, and
@@ -229,7 +230,7 @@ def plot(  # noqa: PLR0912
     """
     # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
     # parameter.
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     kind = data_kind(data)
     if kind == "empty":  # Data is given via a series of vectors.

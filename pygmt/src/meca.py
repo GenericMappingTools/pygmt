@@ -7,6 +7,7 @@ from typing import Literal
 
 import numpy as np
 import pandas as pd
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -132,7 +133,7 @@ def _auto_offset(spec) -> bool:
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def meca(  # noqa: PLR0913
     self,
-    spec,
+    spec: PathLike | TableLike,
     scale,
     convention: Literal["aki", "gcmt", "mt", "partial", "principal_axis"] | None = None,
     component: Literal["full", "dc", "deviatoric"] = "full",
@@ -193,7 +194,7 @@ def meca(  # noqa: PLR0913
          - | values in :math:`10 ^ {{exponent}}` dyn cm;
            | azimuths and plunges in degrees
 
-    Full option list at :gmt-docs:`supplements/seis/meca.html`
+    Full GMT docs at :gmt-docs:`supplements/seis/meca.html`.
 
     {aliases}
 
@@ -336,7 +337,7 @@ def meca(  # noqa: PLR0913
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
     # Determine the focal mechanism convention from the input data or parameters.
     _convention = _get_focal_convention(spec, convention, component)
     # Preprocess the input data.

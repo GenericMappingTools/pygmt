@@ -4,7 +4,6 @@ Utilities and common tasks for wrapping the GMT modules.
 
 import io
 import os
-import pathlib
 import shutil
 import string
 import subprocess
@@ -17,6 +16,7 @@ from pathlib import Path
 from typing import Any, Literal
 
 import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.encodings import charset
 from pygmt.exceptions import GMTInvalidInput
 
@@ -43,7 +43,7 @@ Encoding = Literal[
 
 
 def _validate_data_input(  # noqa: PLR0912
-    data=None, x=None, y=None, z=None, required_z=False, required_data=True, kind=None
+    data=None, x=None, y=None, z=None, required=True, mincols=2, kind=None
 ) -> None:
     """
     Check if the combination of data/x/y/z is valid.
@@ -53,7 +53,7 @@ def _validate_data_input(  # noqa: PLR0912
     >>> _validate_data_input(data="infile")
     >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6])
     >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6], z=[7, 8, 9])
-    >>> _validate_data_input(data=None, required_data=False)
+    >>> _validate_data_input(data=None, required=False)
     >>> _validate_data_input()
     Traceback (most recent call last):
         ...
@@ -66,7 +66,7 @@ def _validate_data_input(  # noqa: PLR0912
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Must provide both x and y.
-    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6], required_z=True)
+    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6], mincols=3)
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Must provide x, y, and z.
@@ -74,13 +74,13 @@ def _validate_data_input(  # noqa: PLR0912
     >>> import pandas as pd
     >>> import xarray as xr
     >>> data = np.arange(8).reshape((4, 2))
-    >>> _validate_data_input(data=data, required_z=True, kind="matrix")
+    >>> _validate_data_input(data=data, mincols=3, kind="matrix")
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
     >>> _validate_data_input(
     ...     data=pd.DataFrame(data, columns=["x", "y"]),
-    ...     required_z=True,
+    ...     mincols=3,
     ...     kind="vectors",
     ... )
     Traceback (most recent call last):
@@ -88,7 +88,7 @@ def _validate_data_input(  # noqa: PLR0912
     pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
     >>> _validate_data_input(
     ...     data=xr.Dataset(pd.DataFrame(data, columns=["x", "y"])),
-    ...     required_z=True,
+    ...     mincols=3,
     ...     kind="vectors",
     ... )
     Traceback (most recent call last):
@@ -116,9 +116,10 @@ def _validate_data_input(  # noqa: PLR0912
     GMTInvalidInput
         If the data input is not valid.
     """
+    required_z = mincols >= 3
     if data is None:  # data is None
         if x is None and y is None:  # both x and y are None
-            if required_data:  # data is not optional
+            if required:  # data is not optional
                 msg = "No input data provided."
                 raise GMTInvalidInput(msg)
         elif x is None or y is None:  # either x or y is None
@@ -387,10 +388,10 @@ def data_kind(
     match data:
         case None if required:  # No data provided and required=True.
             kind = "empty"
-        case str() | pathlib.PurePath():  # One file.
+        case str() | os.PathLike():  # One file.
             kind = "file"
         case list() | tuple() if all(
-            isinstance(_file, str | pathlib.PurePath) for _file in data
+            isinstance(_file, str | os.PathLike) for _file in data
         ):  # A list/tuple of files.
             kind = "file"
         case io.StringIO():
@@ -482,8 +483,8 @@ def non_ascii_to_octal(argstr: str, encoding: Encoding = "ISOLatin1+") -> str:
 def build_arg_list(  # noqa: PLR0912
     kwdict: dict[str, Any],
     confdict: Mapping[str, Any] | None = None,
-    infile: str | pathlib.PurePath | Sequence[str | pathlib.PurePath] | None = None,
-    outfile: str | pathlib.PurePath | None = None,
+    infile: PathLike | Sequence[PathLike] | None = None,
+    outfile: PathLike | None = None,
 ) -> list[str]:
     r"""
     Convert keyword dictionaries and input/output files into a list of GMT arguments.
@@ -581,19 +582,19 @@ def build_arg_list(  # noqa: PLR0912
         gmt_args.extend(f"--{key}={value}" for key, value in confdict.items())
 
     if infile:  # infile can be a single file or a list of files
-        if isinstance(infile, str | pathlib.PurePath):
-            gmt_args = [str(infile), *gmt_args]
+        if isinstance(infile, str | os.PathLike):
+            gmt_args = [os.fspath(infile), *gmt_args]
         else:
-            gmt_args = [str(_file) for _file in infile] + gmt_args
+            gmt_args = [os.fspath(_file) for _file in infile] + gmt_args
     if outfile is not None:
         if (
-            not isinstance(outfile, str | pathlib.PurePath)
-            or str(outfile) in {"", ".", ".."}
-            or str(outfile).endswith(("/", "\\"))
+            not isinstance(outfile, str | os.PathLike)
+            or os.fspath(outfile) in {"", ".", ".."}
+            or os.fspath(outfile).endswith(("/", "\\"))
         ):
             msg = f"Invalid output file name '{outfile}'."
             raise GMTInvalidInput(msg)
-        gmt_args.append(f"->{outfile}")
+        gmt_args.append(f"->{os.fspath(outfile)}")
     return gmt_args
 
 
@@ -632,7 +633,7 @@ def is_nonstr_iter(value: Any) -> bool:
     return isinstance(value, Iterable) and not isinstance(value, str)
 
 
-def launch_external_viewer(fname: str, waiting: float = 0) -> None:
+def launch_external_viewer(fname: PathLike, waiting: float = 0) -> None:
     """
     Open a file in an external viewer program.
 
@@ -710,3 +711,120 @@ def args_in_kwargs(args: Sequence[str], kwargs: dict[str, Any]) -> bool:
     return any(
         kwargs.get(arg) is not None and kwargs.get(arg) is not False for arg in args
     )
+
+
+def sequence_join(
+    value: Any,
+    separator: str = "/",
+    size: int | Sequence[int] | None = None,
+    ndim: int = 1,
+    name: str | None = None,
+) -> str | list[str] | None | Any:
+    """
+    Join a sequence of values into a string separated by a separator.
+
+    A 1-D sequence will be joined into a single string. A 2-D sequence will be joined
+    into a list of strings. Non-sequence values will be returned as is.
+
+    Parameters
+    ----------
+    value
+        The 1-D or 2-D sequence of values to join.
+    separator
+        The separator to join the values.
+    size
+        Expected size of the 1-D sequence. It can be either an integer or a sequence of
+        integers. If an integer, it is the expected size of the 1-D sequence. If it is a
+        sequence, it is the allowed sizes of the 1-D sequence.
+    ndim
+        The expected maximum number of dimensions of the sequence.
+    name
+        The name of the parameter to be used in the error message.
+
+    Returns
+    -------
+    joined_value
+        The joined string or list of strings.
+
+    Examples
+    --------
+    >>> sequence_join("1/2/3/4")
+    '1/2/3/4'
+    >>> sequence_join(None)
+    >>> sequence_join(True)
+    True
+    >>> sequence_join(False)
+    False
+
+    >>> sequence_join([])
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Expected a sequence but got an empty sequence.
+
+    >>> sequence_join([1, 2, 3, 4])
+    '1/2/3/4'
+    >>> sequence_join([1, 2, 3, 4], separator=",")
+    '1,2,3,4'
+    >>> sequence_join([1, 2, 3, 4], separator="/", size=4)
+    '1/2/3/4'
+    >>> sequence_join([1, 2, 3, 4], separator="/", size=[2, 4])
+    '1/2/3/4'
+    >>> sequence_join([1, 2, 3, 4], separator="/", size=[2, 4], ndim=2)
+    '1/2/3/4'
+    >>> sequence_join([1, 2, 3, 4], separator="/", size=2)
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Expected a sequence of 2 values, but got 4 values.
+    >>> sequence_join([1, 2, 3, 4, 5], separator="/", size=[2, 4], name="parname")
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Parameter 'parname': Expected ...
+
+    >>> sequence_join([[1, 2], [3, 4]], separator="/")
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Expected a 1-D ..., but a 2-D sequence is given.
+    >>> sequence_join([[1, 2], [3, 4]], separator="/", ndim=2)
+    ['1/2', '3/4']
+    >>> sequence_join([[1, 2], [3, 4]], separator="/", size=2, ndim=2)
+    ['1/2', '3/4']
+    >>> sequence_join([[1, 2], [3, 4]], separator="/", size=4, ndim=2)
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Expected a sequence of 4 values.
+    >>> sequence_join([[1, 2], [3, 4]], separator="/", size=[2, 4], ndim=2)
+    ['1/2', '3/4']
+    """
+    # Return the original value if it is not a sequence (e.g., None, bool, or str).
+    if not is_nonstr_iter(value):
+        return value
+    # Now it must be a sequence.
+
+    # Change size to a list to simplify the checks.
+    size = [size] if isinstance(size, int) else size
+    errmsg = {
+        "name": f"Parameter '{name}': " if name else "",
+        "sizes": ", ".join(str(s) for s in size) if size is not None else "",
+    }
+
+    if len(value) == 0:
+        msg = f"{errmsg['name']}Expected a sequence but got an empty sequence."
+        raise GMTInvalidInput(msg)
+
+    if not is_nonstr_iter(value[0]):  # 1-D sequence.
+        if size is not None and len(value) not in size:
+            msg = (
+                f"{errmsg['name']}Expected a sequence of {errmsg['sizes']} values, "
+                f"but got {len(value)} values."
+            )
+            raise GMTInvalidInput(msg)
+        return separator.join(str(v) for v in value)
+
+    # Now it must be a 2-D sequence.
+    if ndim == 1:
+        msg = f"{errmsg['name']}Expected a 1-D sequence, but a 2-D sequence is given."
+        raise GMTInvalidInput(msg)
+    if size is not None and any(len(i) not in size for i in value):
+        msg = f"{errmsg['name']}Expected a sequence of {errmsg['sizes']} values."
+        raise GMTInvalidInput(msg)
+    return [separator.join(str(j) for j in sub) for sub in value]

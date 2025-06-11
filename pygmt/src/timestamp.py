@@ -76,7 +76,7 @@ def timestamp(
     >>> fig.timestamp(label="Powered by PyGMT")
     >>> fig.show()
     """
-    self._preprocess()
+    self._activate_figure()
 
     # Build the options passed to the "plot" module
     kwdict: dict = {"T": True, "U": ""}
