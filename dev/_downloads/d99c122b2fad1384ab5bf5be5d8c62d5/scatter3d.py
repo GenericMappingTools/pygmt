@@ -92,7 +92,7 @@ fig.plot3d(
     zscale=1.5,
 )
 
-# Shift the plot origin in x direction temporarily and add the colorbar
+# Shift the plot origin in x-direction temporarily and add the colorbar
 with fig.shift_origin(xshift=3.1):
     fig.colorbar()
 

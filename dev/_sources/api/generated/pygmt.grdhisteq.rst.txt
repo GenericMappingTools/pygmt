@@ -11,6 +11,7 @@ pygmt.grdhisteq
 .. rubric:: Methods Summary
 
 .. autosummary::
+    :toctree:
     
     
     
