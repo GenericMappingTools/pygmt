@@ -64,13 +64,15 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
             color_blue = color_yellow = color_red = color_light
 
     # background and wordmark
-    color_bg = color_light
-    color_py = color_blue
-    color_gmt = color_dark
-    if theme == "dark":
-        color_bg = color_dark
-        color_py = color_yellow
-        color_gmt = color_light
+    match theme:
+        case "light":
+            color_bg = color_light
+            color_py = color_blue
+            color_gmt = color_dark
+        case "dark":
+            color_bg = color_dark
+            color_py = color_yellow
+            color_gmt = color_light
 
     # -----------------------------------------------------------------------------
     # Define shape
