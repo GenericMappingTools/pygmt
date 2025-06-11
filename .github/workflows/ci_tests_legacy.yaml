@@ -1,8 +1,8 @@
 # Test PyGMT with GMT legacy versions on Linux/macOS/Windows
 #
-# This workflow runs regular PyGMT tests with GMT legacy versions. Due to the
-# minor baseline image changes between GMT versions, the workflow only runs
-# the tests but doesn't do image comparisons.
+# This workflow runs regular PyGMT tests with GMT legacy versions. Due to the minor
+# baseline image changes between GMT versions, the workflow only runs the tests but
+# doesn't do image comparisons.
 #
 # It is scheduled to run every Tuesday on the main branch.
 #
@@ -17,6 +17,7 @@ on:
     # paths:
     #  - 'pygmt/**'
     #  - '.github/workflows/ci_tests_legacy.yaml'
+  workflow_dispatch:
   # Schedule tests on Tuesday
   schedule:
     - cron: '0 0 * * 2'
@@ -24,6 +25,8 @@ on:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+permissions: {}
 
 jobs:
   test:
@@ -33,8 +36,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04, macos-11, windows-2019]
-        gmt_version: ['6.3', '6.4']
+        os: [ubuntu-22.04, ubuntu-22.04-arm, macos-13, windows-2022]
+        gmt_version: ['6.4']
     timeout-minutes: 30
     defaults:
       run:
@@ -43,60 +46,52 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4.2.2
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
+          persist-credentials: false
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.7.3
+        uses: mamba-org/setup-micromamba@v2.0.5
         with:
           environment-name: pygmt
-          condarc: |
-            channels:
-              - conda-forge
-              - nodefaults
-          cache-downloads: false
-          cache-environment: true
           create-args: >-
-            python=3.9
+            python=3.11
             gmt=${{ matrix.gmt_version }}
-            numpy
-            pandas<2
+            ghostscript<10
+            numpy=1.26
+            pandas
             xarray
-            netCDF4
-            packaging
-            contextily
-            geopandas
+            packaging=24.2
+            contextily=1.5
+            geopandas=1.0
             ipython
-            pyarrow
+            pyarrow-core=16
             rioxarray
             sphinx-gallery
-            build
             make
             pip
+            python-build
             pytest
             pytest-doctestplus
             pytest-mpl
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v3.0.0
-        with:
-          workflow: cache_data.yaml
-          workflow_conclusion: success
-          name: gmt-cache
-          path: .gmt
-
-      # Move downloaded files to ~/.gmt directory and list them
-      - name: Move and list downloaded remote files
         run: |
-          mkdir -p ~/.gmt
-          mv .gmt/* ~/.gmt
-          # Change modification times of the two files, so GMT won't refresh it
+          # Download cached files to ~/.gmt directory and list them
+          gh run download --name gmt-cache --dir ~/.gmt/
+          # Change modification times of the two files, so GMT won't refresh it.
+          # The two files are in the `~/.gmt/server` directory for GMT<=6.4, and in the
+          # `~/.gmt` directory for GMT>=6.5.
+          mkdir -p ~/.gmt/server/
+          mv ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt ~/.gmt/server/
           touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
           ls -lhR ~/.gmt
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       # Install the package that we want to test
       - name: Install the package

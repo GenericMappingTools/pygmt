@@ -1,13 +1,14 @@
 """
 velo - Plot velocity vectors, crosses, anisotropy bars, and wedges.
 """
+
 import numpy as np
 import pandas as pd
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    build_arg_string,
-    deprecate_parameter,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -15,10 +16,6 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@deprecate_parameter("color", "fill", "v0.8.0", remove_version="v0.12.0")
-@deprecate_parameter(
-    "uncertaintycolor", "uncertaintyfill", "v0.8.0", remove_version="v0.12.0"
-)
 @use_alias(
     A="vector",
     B="frame",
@@ -45,7 +42,7 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def velo(self, data=None, **kwargs):
+def velo(self, data: PathLike | TableLike | None = None, **kwargs):
     r"""
     Plot velocity vectors, crosses, anisotropy bars, and wedges.
 
@@ -58,13 +55,13 @@ def velo(self, data=None, **kwargs):
 
     Must provide ``data`` and ``spec``.
 
-    Full option list at :gmt-docs:`supplements/geodesy/velo.html`
+    Full GMT docs at :gmt-docs:`supplements/geodesy/velo.html`.
 
     {aliases}
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
         Note that text columns are only supported with file or
@@ -242,23 +239,21 @@ def velo(self, data=None, **kwargs):
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     if kwargs.get("S") is None or (
         kwargs.get("S") is not None and not isinstance(kwargs["S"], str)
     ):
-        raise GMTInvalidInput(
-            "The parameter `spec` is required and has to be a string."
-        )
+        msg = "The parameter 'spec' is required and has to be a string."
+        raise GMTInvalidInput(msg)
 
     if isinstance(data, np.ndarray) and not pd.api.types.is_numeric_dtype(data):
-        raise GMTInvalidInput(
+        msg = (
             "Text columns are not supported with numpy.ndarray type inputs. "
             "They are only supported with file or pandas.DataFrame inputs."
         )
+        raise GMTInvalidInput(msg)
 
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
-
-        with file_context as fname:
-            lib.call_module(module="velo", args=build_arg_string(kwargs, infile=fname))
+        with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
+            lib.call_module(module="velo", args=build_arg_list(kwargs, infile=vintbl))

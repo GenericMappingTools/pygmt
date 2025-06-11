@@ -1,6 +1,9 @@
 """
 Test Figure.meca.
 """
+
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 import pytest
@@ -71,13 +74,8 @@ def test_meca_spec_single_focalmecha_file():
     fig = Figure()
     fig.basemap(region=[-1, 1, 4, 6], projection="M8c", frame=2)
     with GMTTempFile() as temp:
-        with open(temp.name, mode="w", encoding="utf8") as temp_file:
-            temp_file.write("0 5 0 0 90 0 5")
-        fig.meca(
-            spec=temp.name,
-            convention="aki",
-            scale="2.5c",
-        )
+        Path(temp.name).write_text("0 5 0 0 90 0 5", encoding="utf-8")
+        fig.meca(spec=temp.name, convention="aki", scale="2.5c")
     return fig
 
 
@@ -145,6 +143,7 @@ def test_meca_spec_multiple_focalmecha(inputtype):
     return fig
 
 
+# TODO(GMT>=6.5.0): Remove the skipif condition for GMT>=6.5.0.
 @pytest.mark.mpl_image_compare(filename="test_meca_offset.png")
 @pytest.mark.parametrize(
     "inputtype",
@@ -203,8 +202,9 @@ def test_meca_offset(inputtype):
     return fig
 
 
-# Passing event names via pandas doesn't work for GMT<=6.4, thus marked as
-# xfail. See https://github.com/GenericMappingTools/pygmt/issues/2524.
+# TODO(GMT>=6.5.0): Remove the skipif marker for GMT>=6.5.0.
+# Passing event names via pandas doesn't work for GMT<=6.4.
+# See https://github.com/GenericMappingTools/pygmt/issues/2524.
 @pytest.mark.mpl_image_compare(filename="test_meca_eventname.png")
 @pytest.mark.parametrize(
     "inputtype",

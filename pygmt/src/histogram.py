@@ -1,8 +1,10 @@
 """
-Histogram - Create a histogram
+Histogram - Calculate and plot histograms.
 """
+
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
@@ -38,17 +40,17 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 @kwargs_to_strings(
     R="sequence", T="sequence", c="sequence_comma", i="sequence_comma", p="sequence"
 )
-def histogram(self, data, **kwargs):
+def histogram(self, data: PathLike | TableLike, **kwargs):
     r"""
-    Plot Cartesian histograms.
+    Calculate and plot histograms.
 
-    Full option list at :gmt-docs:`histogram.html`
+    Full GMT docs at :gmt-docs:`histogram.html`.
 
     {aliases}
 
     Parameters
     ----------
-    data : str, list, {table-like}
+    data
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         {table-classes}.
     {projection}
@@ -103,8 +105,9 @@ def histogram(self, data, **kwargs):
         Draw a stairs-step diagram which does not include the internal bars
         of the default histogram.
     horizontal : bool
-        Plot the histogram using horizontal bars instead of the
-        default vertical bars.
+        Plot the histogram horizontally from x = 0 [Default is vertically from y = 0].
+        The plot dimensions remain the same, but the two axes are flipped, i.e., the
+        x-axis is plotted vertically and the y-axis is plotted horizontally.
     series : int, str, or list
         [*min*\ /*max*\ /]\ *inc*\ [**+n**\ ].
         Set the interval for the width of each bar in the histogram.
@@ -132,10 +135,9 @@ def histogram(self, data, **kwargs):
     {transparency}
     {wrap}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
-        with file_context as infile:
+        with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
             lib.call_module(
-                module="histogram", args=build_arg_string(kwargs, infile=infile)
+                module="histogram", args=build_arg_list(kwargs, infile=vintbl)
             )

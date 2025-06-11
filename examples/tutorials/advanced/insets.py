@@ -31,12 +31,12 @@ fig.show()
 # %%
 # The :meth:`pygmt.Figure.inset` method uses a context manager, and is called
 # using a ``with`` statement. The ``position`` parameter, including the inset
-# width, is required to plot the inset. Using the **j** argument, the location
-# of the inset is set to one of the 9 anchors (bottom-middle-top and
-# left-center-right). In the example below, ``BL`` sets the inset to the bottom
-# left. The ``box`` parameter can set the fill and border of the inset. In the
-# example below, ``+pblack`` sets the border color to black and ``+glightred``
-# sets the fill to light red.
+# width, is required to plot the inset. Using the **j** modifier, the location
+# of the inset is set to one of the 9 anchors (Top - Middle - Bottom and Left -
+# Center - Right). In the example below, ``BL`` places the inset at the Bottom
+# Left corner. The ``box`` parameter can set the fill and border of the inset.
+# In the example below, ``+pblack`` sets the border color to black and
+# ``+glightred`` sets the fill to light red.
 
 fig = pygmt.Figure()
 fig.coast(
@@ -57,7 +57,7 @@ fig.show()
 # %%
 # When using **j** to set the anchor of the inset, the default location is in
 # contact with the nearby axis or axes. The offset of the inset can be set with
-# **+o**, followed by the offsets along the x- and y-axis. If only one offset
+# **+o**, followed by the offsets along the x- and y-axes. If only one offset
 # is passed, it is applied to both axes. Each offset can have its own unit. In
 # the example below, the inset is shifted 0.5 centimeters on the x-axis and
 # 0.2 centimeters on the y-axis.

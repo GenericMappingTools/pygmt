@@ -1,8 +1,10 @@
 """
 Test Figure.timestamp.
 """
+
 import pytest
-from pygmt import Figure, config
+from pygmt import Figure
+from pygmt.exceptions import GMTInvalidInput
 
 
 @pytest.fixture(scope="module", name="faketime")
@@ -35,16 +37,16 @@ def test_timestamp_label(faketime):
 
 
 @pytest.mark.mpl_image_compare
-def test_timestamp_justification():
+def test_timestamp_justify():
     """
-    Check if the "justification" parameter works.
+    Check if the "justify" parameter works.
 
     Only a subset of justification codes are tested to avoid overlapping timestamps.
     """
     fig = Figure()
     fig.basemap(projection="X10c/5c", region=[0, 10, 0, 5], frame=0)
     for just in ["BL", "BR", "TL", "TR"]:
-        fig.timestamp(justification=just, timefmt=just)
+        fig.timestamp(justify=just, timefmt=just)
     return fig
 
 
@@ -95,36 +97,16 @@ def test_timestamp_text_truncated():
     return fig
 
 
-@pytest.mark.mpl_image_compare(filename="test_timestamp.png")
-def test_timestamp_deprecated_timestamp(faketime):
+def test_timestamp_unsupported_u_timestamp():
     """
-    Check if the deprecated parameter 'timestamp' works but raises a warning.
+    Raise an exception when either U or timestamp is used.
+
+    Parameters U and timestamp are no longer supported since v0.12.0.
     """
     fig = Figure()
-    with pytest.warns(expected_warning=SyntaxWarning) as record:
-        with config(FORMAT_TIME_STAMP=faketime):
-            # plot nothing (the data is outside the region) but a timestamp
-            fig.plot(
-                x=0,
-                y=0,
-                style="p",
-                projection="X1c",
-                region=[1, 2, 1, 2],
-                timestamp=True,
-            )
-        assert len(record) == 1  # check that only one warning was raised
-    return fig
-
-
-@pytest.mark.mpl_image_compare(filename="test_timestamp.png")
-def test_timestamp_deprecated_u(faketime):
-    """
-    Check if the deprecated parameter 'U' works but raises a warning.
-    """
-    fig = Figure()
-    with pytest.warns(expected_warning=SyntaxWarning) as record:
-        with config(FORMAT_TIME_STAMP=faketime):
-            # plot nothing (the data is outside the region) but a timestamp
-            fig.plot(x=0, y=0, style="p", projection="X1c", region=[1, 2, 1, 2], U=True)
-        assert len(record) == 1  # check that only one warning was raised
-    return fig
+    with pytest.raises(GMTInvalidInput):
+        fig.plot(x=0, y=0, style="p", projection="X1c", region=[1, 2, 1, 2], U=True)
+    with pytest.raises(GMTInvalidInput):
+        fig.plot(
+            x=0, y=0, style="p", projection="X1c", region=[1, 2, 1, 2], timestamp=True
+        )

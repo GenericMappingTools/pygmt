@@ -1,7 +1,7 @@
 # Check links in the repository and documentation
 #
-# This workflow runs the lychee tool to check all external links in plaintext
-# and HTML files. It will create an issue if broken links are found.
+# This workflow runs the lychee tool to check all external links in plaintext and HTML
+# files. It will create an issue if broken links are found.
 #
 # It is scheduled to run weekly at 12 noon every Sunday.
 #
@@ -10,9 +10,13 @@ name: Check Links
 on:
   # Uncomment the 'pull_request' line below to trigger the workflow in PR
   # pull_request:
+  workflow_dispatch:
   # Schedule runs on 12 noon every Sunday
   schedule:
     - cron: '0 12 * * 0'
+
+permissions:
+  issues: write
 
 jobs:
   check_links:
@@ -22,43 +26,50 @@ jobs:
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v4.1.1
+      uses: actions/checkout@v4.2.2
       with:
         path: repository
+        persist-credentials: false
 
     - name: Checkout the documentation
-      uses: actions/checkout@v4.1.1
+      uses: actions/checkout@v4.2.2
       with:
         ref: gh-pages
         path: documentation
+        persist-credentials: false
 
     - name: Link Checker
       id: lychee
-      uses: lycheeverse/lychee-action@v1.9.1
+      uses: lycheeverse/lychee-action@v2.4.1
       with:
+        fail: false  # Don't fail action on broken links
+        output: /tmp/lychee-out.md
         # 429: Too many requests
         args: >
           --accept 429
-          --exclude-mail
-          --exclude "^https://doi.org/10.5281/zenodo$"
-          --exclude "^https://zenodo.org/badge/DOI/$"
-          --exclude "^https://zenodo.org/badge/DOI/10.5281/zenodo$"
+          --exclude "^https://docs.generic-mapping-tools.org/6.[0-9]?/%s$"
+          --exclude "^https://docs.generic-mapping-tools.org/6.[0-9]?/%3Cmodule-name%3E.html$"
+          --exclude "^https://doi.org"
+          --exclude "^https://github.com/%7Brepository%7D"
+          --exclude "^https://github.com/GenericMappingTools/gmt/releases/tag/X.Y.Z$"
+          --exclude "^https://github.com/GenericMappingTools/pygmt/edit"
+          --exclude "^https://github.com/GenericMappingTools/pygmt/issues/new"
           --exclude "^https://github.com/GenericMappingTools/pygmt/pull/[0-9]*$"
           --exclude "^https://github.com/GenericMappingTools/pygmt/issues/[0-9]*$"
-          --exclude "^https://github.com/GenericMappingTools/gmt/releases/tag/X.Y.Z$"
-          --exclude "^git"
-          --exclude "^file://"
-          --exclude "^https://docs.generic-mapping-tools.org/6.5/%s$"
-          --exclude "^https://docs.generic-mapping-tools.org/6.5/%3Cmodule-name%3E.html$"
-          --exclude "^https://www.generic-mapping-tools.org/remote-datasets/%s$"
+          --exclude "^https://github.com/GenericMappingTools/pygmt/releases/download/%7B%7Bpath%7D%7D/pygmt-docs.pdf"
+          --exclude "^https://github.com/GenericMappingTools/pygmt/releases/download/%7B%7Bpath%7D%7D/pygmt-docs.zip"
+          --exclude "^https://github.com/GenericMappingTools/pygmt/releases/tag/%7B%7Bpath%7D%7D"
           --exclude "^https://hackmd.io/@pygmt"
-          --exclude "^https://doi.org"
-          --exclude "^https://www.researchgate.net/project/"
           --exclude "^https://test.pypi.org/simple/"
-          --exclude "^https://twitter.com/"
+          --exclude "^https://www.adobe.com/jp/print/postscript/pdfs/PLRM.pdf"
+          --exclude "^https://www.generic-mapping-tools.org/remote-datasets/%s$"
+          --exclude "^https://www.gnu.org/software/libc/manual/html_node/TZ-Variable.html"
+          --exclude "^https://www.pygmt.org/%7B%7Bpath%7D%7D"
+          --exclude "^https://www.researchgate.net/"
+          --exclude "^https://zenodo.org/badge/DOI/"
+          --exclude "^https://stackoverflow.com/a/69170441"
           --verbose
-          "repository/**/*.rst"
-          "repository/**/*.md"
+          "repository/*.md"
           "repository/**/*.py"
           "documentation/dev/**/*.html"
 
@@ -67,8 +78,11 @@ jobs:
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
     - name: Create Issue From File
-      if: env.lychee_exit_code != 0
-      uses: peter-evans/create-issue-from-file@v4
-      with:
-        title: Link Checker Report on ${{ steps.date.outputs.date }}
-        content-filepath: ./lychee/out.md
+      if: steps.lychee.outputs.exit_code != 0
+      run: |
+        cd repository/
+        title="Link Checker Report on ${CURRENT_DATE}"
+        gh issue create --title "$title" --body-file /tmp/lychee-out.md
+      env:
+        GH_TOKEN: ${{ github.token }}
+        CURRENT_DATE: ${{ steps.date.outputs.date }}

@@ -3,11 +3,9 @@
 This page contains instructions for project maintainers about how our setup works,
 making releases, creating packages, etc.
 
-If you want to make a contribution to the project, see the
-[Contributing Guide](https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md)
-instead.
+If you want to make a contribution to the project, see the [](contributing.md) instead.
 
-## Onboarding Access Checklist
+## Onboarding/Offboarding Access Checklist
 
 Note that anyone can contribute to PyGMT, even without being added to the
 [GenericMappingTools team](https://github.com/orgs/GenericMappingTools/teams).
@@ -17,25 +15,31 @@ communication tools we use.
 
 ### As a Contributor
 
-- Added to the [pygmt-contributors team](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors) (gives 'write' permission to the repository)
-- Added as a collaborator on [DAGsHub](https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration) (gives 'write' permission to dvc remote storage)
-- Added to the [PyGMT devs Slack channel](https://pygmtdevs.slack.com) (for casual conversations)
-- Added to the {doc}`Team Gallery page <team>`
-- Added as a member on [HackMD](https://hackmd.io/@pygmt) (for draft announcements) [optional]
+- Add to the [pygmt-contributors team](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors) (gives 'write' permission to the repository)
+- Add as a collaborator on [DAGsHub](https://dagshub.com/GenericMappingTools/pygmt) (gives 'write' permission to dvc remote storage)
+- Add as a member on [HackMD](https://hackmd.io/@pygmt) (for draft announcements) [optional]
 
 ### As a Maintainer
 
-- Added to the [pygmt-maintainers team](https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers) (gives 'maintain' permission to the repository)
-- Update the role on the {doc}`Team Gallery page <team>`
-- Added as a moderator on the [GMT forum](https://forum.generic-mapping-tools.org) (to see mod-only discussions) [optional]
-- Added as a maintainer on [ReadtheDocs](https://readthedocs.org/projects/pygmt-dev) [optional]
-- Added as a curator to the [GMT community](https://zenodo.org/communities/generic-mapping-tools/) on Zenodo (for making releases) [optional]
+- Add to the [pygmt-maintainers team](https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers) (gives 'maintain' permission to the repository)
+- Add to "Active Maintainers" on the [Team Gallery page](team.md)
+- Add as a moderator on the [GMT forum](https://forum.generic-mapping-tools.org) (to see mod-only discussions) [optional]
+- Add as a maintainer on [ReadtheDocs](https://readthedocs.org/projects/pygmt-dev) [optional]
+- Add as a curator to the [GMT community](https://zenodo.org/communities/generic-mapping-tools/) on Zenodo (for making releases) [optional]
 
 ### As an Administrator
 
-- Added to the [pygmt-admin team](https://github.com/orgs/GenericMappingTools/teams/pygmt-admin) (gives 'admin' permission to the repository)
-- Added as an admin on [DAGsHub](https://www.dagshub.com/GenericMappingTools/pygmt/settings/collaboration)
-- Added as a maintainer on [PyPI](https://pypi.org/project/pygmt/) and [Test PyPI](https://test.pypi.org/project/pygmt) [optional]
+- Add to the [pygmt-admin team](https://github.com/orgs/GenericMappingTools/teams/pygmt-admin) (gives 'admin' permission to the repository)
+- Add as an admin on [DAGsHub](https://www.dagshub.com/GenericMappingTools/pygmt)
+- Add as a maintainer on [PyPI](https://pypi.org/project/pygmt/) and [Test PyPI](https://test.pypi.org/project/pygmt) [optional]
+
+**Note**: When a maintainer is no longer active (no activity in one year), we will mirror
+the onboarding access checklist:
+
+- Move from the [pygmt-maintainers team](https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers)
+  to the [pygmt-contributors team](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors)
+- Move from "Active Maintainers" to "Distinguished Contributors" on the [Team Gallery page](team.md)
+- Remove 'maintain' permission from GMT forum, ReadTheDocs, Zenodo
 
 ## Branches
 
@@ -116,52 +120,63 @@ made to our documentation website every time we make a commit in a pull request.
 The service has a configuration file `.readthedocs.yaml`, with a list of options
 to change the default behaviour at <https://docs.readthedocs.io/en/stable/config-file/index.html>.
 
+## Continuous Benchmarking
+
+We use the [CodSpeed](https://codspeed.io) service to continuously track PyGMT's
+performance. The `pytest-codspeed` plugin collects benchmark data and uploads it to the
+CodSpeed server, where results are available at <https://codspeed.io/GenericMappingTools/pygmt>.
+
+Benchmarking is handled through the `benchmarks.yml` GitHub Actions workflow. It's
+automatically executed when a pull request is merged into the main branch. To trigger
+benchmarking in a pull request, add the `run/benchmark` label to the pull request.
+
+To include a new test in the benchmark suite, apply the `@pytest.mark.benchmark`
+decorator to a test function.
 
 ## Dependencies Policy
 
-PyGMT has adopted [NEP29](https://numpy.org/neps/nep-0029-deprecation_policy)
-alongside the rest of the Scientific Python ecosystem, and therefore supports:
+PyGMT has adopted [SPEC 0](https://scientific-python.org/specs/spec-0000/) alongside the
+rest of the scientific Python ecosystem, and made a few extensions based on the needs of
+the project. Please see [Minimum Supported Versions](minversions.md) for the detailed
+policy and the minimum supported versions of GMT, Python and core package dependencies.
 
-* All minor versions of Python released 42 months prior to the project,
-  and at minimum the two latest minor versions.
-* All minor versions of NumPy released in the 24 months prior to the project,
-  and at minimum the last three minor versions.
-
-In `pyproject.toml`, the `requires-python` key should be set to the minimum
-supported version of Python. Minimum Python and NumPy version support should be
-adjusted upward on every major and minor release, but never on a patch release.
+In `pyproject.toml`, the `requires-python` key should be set to the minimum supported
+version of Python. Minimum supported versions of GMT, Python and core package
+dependencies should be adjusted upward on every major and minor release, but never on a
+patch release.
 
 
 ## Backwards Compatibility and Deprecation Policy
 
-PyGMT is still undergoing rapid development. All of the API is subject to change
-until the v1.0.0 release. Versioning in PyGMT is based on the
+PyGMT is still undergoing rapid development. All of the API is subject to change until
+the v1.0.0 release. Versioning in PyGMT is based on the
 [semantic versioning specification](https://semver.org/spec/v2.0.0.html)
-(i.e., v*MAJOR*.*MINOR*.*PATCH*).
-Basic policy for backwards compatibility:
+(i.e., v*MAJOR*.*MINOR*.*PATCH*). Basic policy for backwards compatibility:
 
 - Any incompatible changes should go through the deprecation process below.
-- Incompatible changes are only allowed in major and minor releases, not in
-  patch releases.
+- Incompatible changes are only allowed in major and minor releases, not in patch releases.
 - Incompatible changes should be documented in the release notes.
 
 When making incompatible changes, we should follow the process:
 
 - Discuss whether the incompatible changes are necessary on GitHub.
-- Make the changes in a backwards compatible way, and raise a `FutureWarning`
-  warning for the old usage. At least one test using the old usage should be added.
-- The warning message should clearly explain the changes and include the versions
-  in which the old usage is deprecated and is expected to be removed.
-- The `FutureWarning` warning should appear for 2-4 minor versions, depending on
-  the impact of the changes. It means the deprecation period usually lasts
-  3-12 months.
+- Make the changes in a backwards compatible way, and raise a `FutureWarning` warning
+  for the old usage. At least one test using the old usage should be added.
+- The warning message should clearly explain the changes and include the versions in
+  which the old usage is deprecated and is expected to be removed.
+- The `FutureWarning` warning should appear for 2-4 minor versions, depending on the
+  impact of the changes. It means the deprecation period usually lasts 3-12 months.
 - Remove the old usage and warning when reaching the declared version.
 
-To rename a function parameter, add the `@deprecate_parameter` decorator near
-the top after the `@fmt_docstring` decorator but before the `@use_alias`
-decorator (if those two exist). Here is an example:
+### Deprecating a function parameter
 
-```
+To rename a function parameter, add the `@deprecate_parameter` decorator near the top
+after the `@fmt_docstring` decorator but before the `@use_alias` decorator (if those two
+exist). A `TODO` comment should also be added to indicate the deprecation period (see below).
+Here is an example:
+
+```python
+# TODO(PyGMT>=0.6.0): Remove the deprecated "columns" parameter.
 @fmt_docstring
 @deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
 @use_alias(J="projection", R="region", V="verbose", i="incols")
@@ -170,8 +185,30 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     pass
 ```
 
-In this case, the old parameter name `columns` is deprecated since v0.4.0, and
-will be fully removed in v0.6.0. The new parameter name is `incols`.
+In this case, the old parameter name `columns` is deprecated since v0.4.0, and will be
+fully removed in v0.6.0. The new parameter name is `incols`.
+
+### TODO comments
+
+Occasionally, we need to implement temporary code that should be removed in the future.
+This can occur in situations such as:
+
+- When a parameter, function, or method is deprecated and scheduled for removal.
+- When workarounds are necessary to address issues in older or upcoming versions of GMT
+  or other dependencies.
+
+To track these temporary codes or workarounds, we use TODO comments. These comments
+should adhere to the following format:
+
+```python
+# TODO(package>=X.Y.Z): A brief description of the TODO item.
+# Additional details if necessary.
+```
+The TODO comment indicates that we should address the item when *package* version
+*X.Y.Z* or later is required.
+
+It's important not to overuse TODO comments for tracking unimplemented features.
+Instead, open issues to monitor these features.
 
 
 ## Making a Release
@@ -194,7 +231,7 @@ at `.github/release-drafter.yml`. Configuration settings can be found at
 <https://github.com/release-drafter/release-drafter>.
 
 The drafted release notes are not perfect, so we will need to tidy it prior to
-publishing the actual release notes at {doc}`changes`.
+publishing the actual release notes at [](changes.md).
 
 1. Go to <https://github.com/GenericMappingTools/pygmt/releases> and click on the
    'Edit' button next to the current draft release note. Copy the text of the
@@ -217,27 +254,20 @@ publishing the actual release notes at {doc}`changes`.
    modules and methods, gallery examples, API docs changes) and entries within each group
    are alphabetical.
 6. Move a few important items from the main sections to the Highlights section.
-7. Edit the list of people who contributed to the release, linking to their
-   GitHub accounts. Sort their names by the number of commits made since the
-   last release (e.g., use `git shortlog HEAD...v0.4.0 -sne`).
-8. Update `README.rst` with new information on the new release version,
-   including a vX.Y.Z documentation link, and compatibility with
-   GMT/Python/NumPy versions. Follow
-   [NEP 29](https://numpy.org/neps/nep-0029-deprecation_policy.html#detailed-description)
-   for compatibility updates.
-9. Refresh citation information. Specifically, the BibTeX in `README.rst` and
+7. Edit the list of people who contributed to the release, linking to their GitHub
+   accounts. Sort their names by the number of contributions (including commits and PR
+   reviews) made since the last release (e.g., use
+   `git shortlog vX.Y.Z..HEAD -sne --group=author --group=trailer:co-authored-by`).
+8. Update `doc/minversions.md` with new information on the new release version,
+   including a vX.Y.Z documentation link, and minimum required versions of GMT, Python
+   and core package dependencies (NumPy, pandas, Xarray). Follow
+   [SPEC 0](https://scientific-python.org/specs/spec-0000/) for updates.
+9. Refresh citation information. Specifically, the BibTeX in `README.md` and
    `CITATION.cff` needs to be updated with any metadata changes, including the
    DOI, release date, and version information. Please also follow
    guidelines in `AUTHORSHIP.md` for updating the author list in the BibTeX.
    More information about the `CITATION.cff` specification can be found at
    <https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md>.
-
-### Check the README Syntax
-
-GitHub is a bit forgiving when it comes to the RST syntax in the README but PyPI is not.
-To check the README syntax, visit the
-[PyGMT TestPyPI release history](https://test.pypi.org/project/pygmt/#history), select
-the latest commit, and review the left sidebar and project description for any errors.
 
 ### Pushing to PyPI and Updating the Documentation
 

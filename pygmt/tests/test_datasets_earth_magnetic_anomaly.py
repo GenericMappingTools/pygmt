@@ -1,10 +1,12 @@
 """
 Test basic functionality for loading Earth magnetic anomaly datasets.
 """
+
 import numpy as np
 import numpy.testing as npt
 import pytest
 from pygmt.datasets import load_earth_magnetic_anomaly
+from pygmt.enums import GridRegistration
 from pygmt.exceptions import GMTInvalidInput
 
 
@@ -13,12 +15,13 @@ def test_earth_mag_01d():
     Test some properties of the magnetic anomaly 01d data.
     """
     data = load_earth_magnetic_anomaly(resolution="01d")
-    assert data.name == "magnetic_anomaly"
-    assert data.attrs["long_name"] == "Earth magnetic anomaly"
+    assert data.name == "z"
+    assert data.attrs["long_name"] == "anomaly (nT)"
+    assert data.attrs["description"] == "EMAG2 Earth Magnetic Anomaly Model"
     assert data.attrs["units"] == "nT"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
-    assert data.gmt.registration == 0
+    assert data.gmt.registration is GridRegistration.GRIDLINE
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
     npt.assert_allclose(data.min(), -336.2, atol=0.2)
@@ -31,7 +34,7 @@ def test_earth_mag_01d_with_region():
     """
     data = load_earth_magnetic_anomaly(resolution="01d", region=[-10, 10, -5, 5])
     assert data.shape == (11, 21)
-    assert data.gmt.registration == 0
+    assert data.gmt.registration is GridRegistration.GRIDLINE
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
     npt.assert_allclose(data.min(), -54.4, atol=0.2)
@@ -45,7 +48,7 @@ def test_earth_mag_02m_default_registration():
     """
     data = load_earth_magnetic_anomaly(resolution="02m", region=[-10, -9, 3, 5])
     assert data.shape == (60, 30)
-    assert data.gmt.registration == 1
+    assert data.gmt.registration is GridRegistration.PIXEL
     npt.assert_allclose(data.coords["lat"].data.min(), 3.016666667)
     npt.assert_allclose(data.coords["lat"].data.max(), 4.983333333)
     npt.assert_allclose(data.coords["lon"].data.min(), -9.98333333)
@@ -59,12 +62,13 @@ def test_earth_mag4km_01d():
     Test some properties of the magnetic anomaly 4km 01d data.
     """
     data = load_earth_magnetic_anomaly(resolution="01d", data_source="emag2_4km")
-    assert data.name == "magnetic_anomaly"
-    assert data.attrs["long_name"] == "Earth magnetic anomaly"
+    assert data.name == "z"
+    assert data.attrs["long_name"] == "anomaly (nT)"
+    assert data.attrs["description"] == "EMAG2 Earth Magnetic Anomaly Model"
     assert data.attrs["units"] == "nT"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
-    assert data.gmt.registration == 0
+    assert data.gmt.registration is GridRegistration.GRIDLINE
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
     npt.assert_allclose(data.min(), -436.8, atol=0.2)
@@ -99,7 +103,7 @@ def test_earth_mag4km_02m_default_registration():
         data_source="emag2_4km",
     )
     assert data.shape == (60, 90)
-    assert data.gmt.registration == 1
+    assert data.gmt.registration is GridRegistration.PIXEL
     npt.assert_allclose(data.coords["lat"].data.min(), 4.01666667)
     npt.assert_allclose(data.coords["lat"].data.max(), 5.98333333)
     npt.assert_allclose(data.coords["lon"].data.min(), -114.98333333)
@@ -115,8 +119,9 @@ def test_earth_mag_01d_wdmam():
     data = load_earth_magnetic_anomaly(
         resolution="01d", registration="gridline", data_source="wdmam"
     )
-    assert data.name == "wdmam"
-    assert data.attrs["long_name"] == "World Digital Magnetic Anomaly Map"
+    assert data.name == "z"
+    assert data.attrs["long_name"] == "anomaly (nT)"
+    assert data.attrs["description"] == "WDMAM World Digital Magnetic Anomaly Map"
     assert data.attrs["units"] == "nT"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
@@ -139,8 +144,8 @@ def test_earth_mag_01d_wdmam_with_region():
     assert data.shape == (11, 21)
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
-    npt.assert_allclose(data.min(), -56.0, atol=0.2)
-    npt.assert_allclose(data.max(), 55.0, atol=0.2)
+    npt.assert_allclose(data.min(), -56.4, atol=0.2)
+    npt.assert_allclose(data.max(), 53.8, atol=0.2)
 
 
 def test_earth_mag_03m_wdmam_with_region():
@@ -150,14 +155,14 @@ def test_earth_mag_03m_wdmam_with_region():
     data = load_earth_magnetic_anomaly(
         resolution="03m", region=[10, 13, -60, -58], data_source="wdmam"
     )
-    assert data.gmt.registration == 0
+    assert data.gmt.registration is GridRegistration.GRIDLINE
     assert data.shape == (41, 61)
     assert data.lat.min() == -60
     assert data.lat.max() == -58
     assert data.lon.min() == 10
     assert data.lon.max() == 13
-    npt.assert_allclose(data.min(), -790.2, atol=0.2)
-    npt.assert_allclose(data.max(), 528.0, atol=0.2)
+    npt.assert_allclose(data.min(), -811.4, atol=0.2)
+    npt.assert_allclose(data.max(), 505.0, atol=0.2)
 
 
 def test_earth_mag_data_source_error():

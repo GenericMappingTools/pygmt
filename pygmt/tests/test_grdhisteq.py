@@ -1,13 +1,15 @@
 """
 Test pygmt.grdhisteq.
 """
+
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 import pytest
 import xarray as xr
-from pygmt import grdhisteq, load_dataarray
+from pygmt import grdhisteq
+from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
@@ -65,7 +67,7 @@ def test_equalize_grid_outgrid_file(grid, expected_grid, region):
         )
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
-        temp_grid = load_dataarray(tmpfile.name)
+        temp_grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
@@ -77,8 +79,8 @@ def test_equalize_grid_no_outgrid(grid, expected_grid, region):
     temp_grid = grdhisteq.equalize_grid(
         grid=grid, divisions=2, region=region, outgrid=None
     )
-    assert temp_grid.gmt.gtype == 1  # Geographic grid
-    assert temp_grid.gmt.registration == 1  # Pixel registration
+    assert temp_grid.gmt.gtype is GridType.GEOGRAPHIC
+    assert temp_grid.gmt.registration is GridRegistration.PIXEL
     xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
@@ -124,10 +126,9 @@ def test_compute_bins_outfile(grid, expected_df, region):
             header=None,
             names=["start", "stop", "bin_id"],
             dtype={"start": np.float32, "stop": np.float32, "bin_id": np.uint32},
-            index_col="bin_id",
         )
         pd.testing.assert_frame_equal(
-            left=temp_df, right=expected_df.set_index("bin_id")
+            left=temp_df.set_index("bin_id"), right=expected_df.set_index("bin_id")
         )
 
 
@@ -139,11 +140,3 @@ def test_compute_bins_invalid_format(grid):
         grdhisteq.compute_bins(grid=grid, output_type=1)
     with pytest.raises(GMTInvalidInput):
         grdhisteq.compute_bins(grid=grid, output_type="pandas", header="o+c")
-
-
-def test_equalize_grid_invalid_format(grid):
-    """
-    Test that equalize_grid fails with incorrect format.
-    """
-    with pytest.raises(GMTInvalidInput):
-        grdhisteq.equalize_grid(grid=grid, outgrid=True)

@@ -14,6 +14,8 @@ on:
     paths:
       - 'pygmt/tests/baseline/*.png.dvc'
 
+permissions: {}
+
 jobs:
   dvc-diff:
     name: DVC image diff
@@ -21,10 +23,11 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4.1.1
+      uses: actions/checkout@v4.2.2
       with:
         # fetch all history so that dvc diff works
         fetch-depth: 0
+        persist-credentials: false
 
     - name: Setup data version control (DVC)
       uses: iterative/setup-dvc@v1.1.2
@@ -52,7 +55,8 @@ jobs:
     # Report last updated at commit abcdef
     - name: Generate the image diff report
       env:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        repo_token: ${{ github.token }}
+        PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
       run: |
         echo -e "## Summary of changed images\n" > report.md
         echo -e "This is an auto-generated report of images that have changed on the DVC remote\n" >> report.md
@@ -94,7 +98,7 @@ jobs:
         echo -e "</details>\n" >> report.md
 
         # Mention git commit SHA in the report
-        echo -e "Report last updated at commit ${{ github.event.pull_request.head.sha }}" >> report.md
+        echo -e "Report last updated at commit ${PR_HEAD_SHA}" >> report.md
 
         # create/update PR comment
         cml comment update report.md

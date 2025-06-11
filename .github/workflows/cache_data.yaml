@@ -1,12 +1,16 @@
 # Cache GMT remote data files and upload as artifacts
 #
-# This workflow downloads data files needed by PyGMT tests/documentation from
-# the GMT data server and uploads as workflow artifacts which can be accessed
-# by other GitHub Actions workflows.
+# This workflow downloads data files needed by PyGMT tests/documentation from the GMT
+# data server and uploads them as workflow artifacts, which can then be accessed by other
+# GitHub Actions workflows.
 #
-# It is scheduled to run every Sunday at 12:00 (UTC). If new remote files are
-# needed urgently, maintainers can update the workflow file or the
-# 'pygmt/helpers/caching.py' file to refresh the cache.
+# It is scheduled to run every Sunday at 12:00 (UTC). If new remote files are needed
+# urgently, maintainers can refresh the cache by one of the following methods:
+#
+# 1. Update this workflow file
+# 2. Update the `pygmt/helpers/caching.py` file
+# 3. Go to https://github.com/GenericMappingTools/pygmt/actions/workflows/cache_data.yaml
+#    and click the "Run workflow" button
 #
 name: Cache data
 
@@ -16,9 +20,12 @@ on:
     paths:
       - 'pygmt/helpers/caching.py'
       - '.github/workflows/cache_data.yaml'
+  workflow_dispatch:
   # Schedule runs on 12 noon every Sunday
   schedule:
     - cron: '0 12 * * 0'
+
+permissions: {}
 
 jobs:
   gmt_cache:
@@ -31,29 +38,25 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4.2.2
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
+          persist-credentials: false
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.7.3
+        uses: mamba-org/setup-micromamba@v2.0.5
         with:
           environment-name: pygmt
-          condarc: |
-            channels:
-              - conda-forge
-              - nodefaults
           create-args: >-
-            python=3.12
+            python=3.13
             gmt=6.5.0
             numpy
             pandas
             xarray
-            netCDF4
             packaging
-            build
+            python-build
 
       # Install the package that we want to test
       - name: Install the package
@@ -66,11 +69,17 @@ jobs:
         run: |
           python -c "from pygmt.helpers.caching import cache_data; cache_data()"
 
+      - name: List downloaded remote files
+        run: ls -lhR ~/.gmt
+
       # Upload the downloaded files as artifacts to GitHub
       - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: gmt-cache
+          include-hidden-files: true
           path: |
-              ~/.gmt/cache
-              ~/.gmt/server
+            ~/.gmt/cache
+            ~/.gmt/server
+            ~/.gmt/gmt_data_server.txt
+            ~/.gmt/gmt_hash_server.txt

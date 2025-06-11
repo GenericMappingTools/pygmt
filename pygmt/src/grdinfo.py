@@ -1,10 +1,13 @@
 """
-grdinfo - Retrieve info about grid file.
+grdinfo - Extract information from 2-D grids or 3-D cubes.
 """
+
+import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -25,13 +28,13 @@ from pygmt.helpers import (
     f="coltypes",
 )
 @kwargs_to_strings(D="sequence", I="sequence", R="sequence")
-def grdinfo(grid, **kwargs):
+def grdinfo(grid: PathLike | xr.DataArray, **kwargs) -> str:
     r"""
-    Get information about a grid.
+    Extract information from 2-D grids or 3-D cubes.
 
-    Can read the grid from a file or given as an xarray.DataArray grid.
+    Can read the grid from a file or given as an :class:`xarray.DataArray` grid.
 
-    Full option list at :gmt-docs:`grdinfo.html`
+    Full GMT docs at :gmt-docs:`grdinfo.html`.
 
     {aliases}
 
@@ -111,11 +114,10 @@ def grdinfo(grid, **kwargs):
     """
     with GMTTempFile() as outfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-            with file_context as infile:
+            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
                 lib.call_module(
                     module="grdinfo",
-                    args=build_arg_string(kwargs, infile=infile, outfile=outfile.name),
+                    args=build_arg_list(kwargs, infile=vingrd, outfile=outfile.name),
                 )
         result = outfile.read()
     return result

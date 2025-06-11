@@ -1,6 +1,7 @@
 """
-config - set GMT defaults globally or locally.
+config - Change GMT default settings globally or locally.
 """
+
 from inspect import Parameter, Signature
 from typing import ClassVar
 
@@ -9,18 +10,18 @@ from pygmt.clib import Session
 
 class config:  # noqa: N801
     """
-    Set GMT defaults globally or locally.
+    Change GMT default settings globally or locally.
 
-    Change GMT defaults globally::
+    Change GMT default settings globally::
 
         pygmt.config(PARAMETER=value)
 
-    Change GMT defaults locally by using it as a context manager::
+    Change GMT default settings locally by using it as a context manager::
 
         with pygmt.config(PARAMETER=value):
             ...
 
-    Full GMT defaults list at :gmt-docs:`gmt.conf.html`
+    Full GMT defaults list at :gmt-docs:`gmt.conf.html`.
     """
 
     # Manually set the __signature__ attribute to enable tab autocompletion
@@ -198,9 +199,10 @@ class config:  # noqa: N801
                     self.old_defaults[key] = lib.get_default(key)
 
         # call gmt set to change GMT defaults
-        arg_str = " ".join([f'{key}="{value}"' for key, value in kwargs.items()])
         with Session() as lib:
-            lib.call_module(module="set", args=arg_str)
+            lib.call_module(
+                module="set", args=[f"{key}={value}" for key, value in kwargs.items()]
+            )
 
     def __enter__(self):
         """
@@ -212,8 +214,8 @@ class config:  # noqa: N801
         """
         Revert GMT configurations to initial values.
         """
-        arg_str = " ".join(
-            [f'{key}="{value}"' for key, value in self.old_defaults.items()]
-        )
         with Session() as lib:
-            lib.call_module(module="set", args=arg_str)
+            lib.call_module(
+                module="set",
+                args=[f"{key}={value}" for key, value in self.old_defaults.items()],
+            )

@@ -1,6 +1,7 @@
 """
 Test Figure.basemap.
 """
+
 import pytest
 from pygmt import Figure
 

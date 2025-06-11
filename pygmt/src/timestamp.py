@@ -1,18 +1,14 @@
 """
 timestamp - Plot the GMT timestamp logo.
 """
-from __future__ import annotations
 
 import warnings
-from typing import TYPE_CHECKING
+from collections.abc import Sequence
 
 from packaging.version import Version
+from pygmt._typing import AnchorCode
 from pygmt.clib import Session, __gmt_version__
-from pygmt.helpers import build_arg_string, kwargs_to_strings
-
-if TYPE_CHECKING:
-    from collections.abc import Sequence
-
+from pygmt.helpers import build_arg_list, kwargs_to_strings
 
 __doctest_skip__ = ["timestamp"]
 
@@ -22,17 +18,17 @@ def timestamp(
     self,
     text: str | None = None,
     label: str | None = None,
-    justification: str = "BL",
+    justify: AnchorCode = "BL",
     offset: float | str | Sequence[float | str] = ("-54p", "-54p"),
     font: str = "Helvetica,black",
     timefmt: str = "%Y %b %d %H:%M:%S",
-) -> None:
+):
     r"""
     Plot the GMT timestamp logo.
 
     Add the GMT timestamp logo with an optional label at the bottom-left corner of a
     plot with an offset of ``("-54p", "-54p")``. The timestamp will be in the locale set
-    by the environment variable **TZ** (generally local time but can be changed via
+    by the environment variable :term:`TZ` (generally local time but can be changed via
     ``os.environ["TZ"]``) and its format is controlled by the ``timefmt`` parameter. It
     can also be replaced with any custom text string using the ``text`` parameter.
 
@@ -44,13 +40,13 @@ def timestamp(
         The text must be no longer than 64 characters.
     label
         The text string shown after the GMT timestamp logo.
-    justification
+    justify
         Justification of the timestamp box relative to the plot's bottom-left corner
-        (i.e., the plot origin). The *justification* is a two-character code that is a
-        combination of a horizontal (**L**\ (eft), **C**\ (enter), or **R**\ (ight)) and
-        a vertical (**T**\ (op), **M**\ (iddle), or **B**\ (ottom)) code. For example,
-        ``justification="TL"`` means choosing the **T**\ op **L**\ eft point of the
-        timestamp as the anchor point.
+        (i.e., the plot origin). Give a two-character code that is a combination of a
+        horizontal (**L**\ (eft), **C**\ (enter), or **R**\ (ight)) and a vertical
+        (**T**\ (op), **M**\ (iddle), or **B**\ (ottom)) code. For example,
+        ``justify="TL"`` means choosing the **T**\ op **L**\ eft point of the timestamp
+        as the anchor point.
     offset
         *offset* or (*offset_x*, *offset_y*).
         Offset the anchor point of the timestamp box by *offset_x* and *offset_y*. If a
@@ -80,16 +76,17 @@ def timestamp(
     >>> fig.timestamp(label="Powered by PyGMT")
     >>> fig.show()
     """
-    self._preprocess()
+    self._activate_figure()
 
     # Build the options passed to the "plot" module
     kwdict: dict = {"T": True, "U": ""}
     if label is not None:
         kwdict["U"] += f"{label}"
-    kwdict["U"] += f"+j{justification}"
+    kwdict["U"] += f"+j{justify}"
 
-    if Version(__gmt_version__) <= Version("6.4.0") and "/" not in str(offset):
-        # Giving a single offset doesn't work in GMT <= 6.4.0.
+    # TODO(GMT>=6.5.0): Remove the patch for upstream bug fixed in GMT 6.5.0.
+    if Version(__gmt_version__) < Version("6.5.0") and "/" not in str(offset):
+        # Giving a single offset doesn't work in GMT < 6.5.0.
         # See https://github.com/GenericMappingTools/gmt/issues/7107.
         offset = f"{offset}/{offset}"
     kwdict["U"] += f"+o{offset}"
@@ -103,8 +100,9 @@ def timestamp(
                 "The given text string will be truncated to 64 characters."
             )
             warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
-        if Version(__gmt_version__) <= Version("6.4.0"):
-            # workaround for GMT<=6.4.0 by overriding the 'timefmt' parameter
+        # TODO(GMT>=6.5.0): Remove the workaround for the new '+t' modifier.
+        if Version(__gmt_version__) < Version("6.5.0"):
+            # Workaround for GMT<6.5.0 by overriding the 'timefmt' parameter
             timefmt = text[:64]
         else:
             kwdict["U"] += f"+t{text}"
@@ -112,7 +110,7 @@ def timestamp(
     with Session() as lib:
         lib.call_module(
             module="plot",
-            args=build_arg_string(
+            args=build_arg_list(
                 kwdict, confdict={"FONT_LOGO": font, "FORMAT_TIME_STAMP": timefmt}
             ),
         )

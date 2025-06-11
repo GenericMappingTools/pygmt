@@ -1,23 +1,17 @@
 """
-grdsample - Resample a grid onto a new lattice
+grdsample - Resample a grid onto a new lattice.
 """
 
+import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["grdsample"]
 
 
 @fmt_docstring
 @use_alias(
-    G="outgrid",
     I="spacing",
     R="region",
     T="translate",
@@ -28,9 +22,11 @@ __doctest_skip__ = ["grdsample"]
     x="cores",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def grdsample(grid, **kwargs):
+def grdsample(
+    grid: PathLike | xr.DataArray, outgrid: PathLike | None = None, **kwargs
+) -> xr.DataArray | None:
     r"""
-    Change the registration, spacing, or nodes in a grid file.
+    Resample a grid onto a new lattice.
 
     This reads a grid file and interpolates it to create a new grid
     file. It can change the registration with ``translate`` or
@@ -45,7 +41,7 @@ def grdsample(grid, **kwargs):
     ``translate`` can be used to change the grid registration. When omitted,
     the output grid will have the same registration as the input grid.
 
-    Full option list at :gmt-docs:`grdsample.html`
+    Full GMT docs at :gmt-docs:`grdsample.html`.
 
     {aliases}
 
@@ -68,11 +64,11 @@ def grdsample(grid, **kwargs):
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
     Example
@@ -84,17 +80,16 @@ def grdsample(grid, **kwargs):
     ...     resolution="30m", region=[10, 30, 15, 25]
     ... )
     >>> # Create a new grid from an input grid, change the registration,
-    >>> # and set both x- and y-spacing to 0.5 arc-degrees
+    >>> # and set both x- and y-spacings to 0.5 arc-degrees
     >>> new_grid = pygmt.grdsample(grid=grid, translate=True, spacing=[0.5, 0.5])
     """
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-            with file_context as infile:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="grdsample", args=build_arg_string(kwargs, infile=infile)
-                )
-
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            kwargs["G"] = voutgrd
+            lib.call_module(
+                module="grdsample", args=build_arg_list(kwargs, infile=vingrd)
+            )
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

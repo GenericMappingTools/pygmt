@@ -1,10 +1,11 @@
 """
-inset - Create inset figures.
+inset - Manage figure inset setup and completion.
 """
+
 import contextlib
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["inset"]
 
@@ -23,13 +24,13 @@ __doctest_skip__ = ["inset"]
 @kwargs_to_strings(D="sequence", M="sequence", R="sequence")
 def inset(self, **kwargs):
     r"""
-    Create an inset figure to be placed within a larger figure.
+    Manage figure inset setup and completion.
 
     This method sets the position, frame, and margins for a smaller figure
     inside of the larger figure. Plotting methods that are called within the
     context manager are added to the inset figure.
 
-    Full option list at :gmt-docs:`inset.html`
+    Full GMT docs at :gmt-docs:`inset.html`.
 
     {aliases}
 
@@ -133,11 +134,12 @@ def inset(self, **kwargs):
     >>> fig.logo(position="jBR+o0.2c+w3c")
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
     with Session() as lib:
         try:
-            lib.call_module(module="inset", args=f"begin {build_arg_string(kwargs)}")
+            lib.call_module(module="inset", args=["begin", *build_arg_list(kwargs)])
             yield
         finally:
-            v_arg = build_arg_string({"V": kwargs.get("V")})
-            lib.call_module(module="inset", args=f"end {v_arg}".strip())
+            lib.call_module(
+                module="inset", args=["end", *build_arg_list({"V": kwargs.get("V")})]
+            )

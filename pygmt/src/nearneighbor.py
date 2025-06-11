@@ -2,15 +2,10 @@
 nearneighbor - Grid table data using a "Nearest neighbor" algorithm.
 """
 
+import xarray as xr
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["nearneighbor"]
 
@@ -18,7 +13,6 @@ __doctest_skip__ = ["nearneighbor"]
 @fmt_docstring
 @use_alias(
     E="empty",
-    G="outgrid",
     I="spacing",
     N="sectors",
     R="region",
@@ -36,7 +30,14 @@ __doctest_skip__ = ["nearneighbor"]
     w="wrap",
 )
 @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
-def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
+def nearneighbor(
+    data: PathLike | TableLike | None = None,
+    x=None,
+    y=None,
+    z=None,
+    outgrid: PathLike | None = None,
+    **kwargs,
+) -> xr.DataArray | None:
     r"""
     Grid table data using a "Nearest neighbor" algorithm.
 
@@ -71,13 +72,13 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    Full option list at :gmt-docs:`nearneighbor.html`
+    Full GMT docs at :gmt-docs:`nearneighbor.html`.
 
     {aliases}
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
@@ -123,11 +124,11 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray`: if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
     Example
     -------
@@ -143,16 +144,15 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     ...     search_radius="10m",
     ... )
     """
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            table_context = lib.virtualfile_from_data(
-                check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(
+                check_kind="vector", data=data, x=x, y=y, z=z, mincols=3
+            ) as vintbl,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            kwargs["G"] = voutgrd
+            lib.call_module(
+                module="nearneighbor", args=build_arg_list(kwargs, infile=vintbl)
             )
-            with table_context as infile:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="nearneighbor", args=build_arg_string(kwargs, infile=infile)
-                )
-
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

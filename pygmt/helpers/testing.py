@@ -1,14 +1,14 @@
 """
 Helper functions for testing.
 """
+
 import importlib
 import inspect
-import os
 import string
+from pathlib import Path
 
+import xarray as xr
 from pygmt.exceptions import GMTImageComparisonFailure
-from pygmt.io import load_dataarray
-from pygmt.src import which
 
 
 def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_images"):
@@ -38,6 +38,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     >>> import pytest
     >>> import shutil
     >>> from pygmt import Figure
+    >>> from pathlib import Path
 
     >>> @check_figures_equal(result_dir="tmp_result_images")
     ... def test_check_figures_equal():
@@ -49,7 +50,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     ...     )
     ...     return fig_ref, fig_test
     >>> test_check_figures_equal()
-    >>> assert len(os.listdir("tmp_result_images")) == 0
+    >>> assert len(list(Path("tmp_result_images").iterdir())) == 0
     >>> shutil.rmtree(path="tmp_result_images")  # cleanup folder if tests pass
 
     >>> @check_figures_equal(result_dir="tmp_result_images")
@@ -62,12 +63,9 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     >>> with pytest.raises(GMTImageComparisonFailure):
     ...     test_check_figures_unequal()
     >>> for suffix in ["", "-expected", "-failed-diff"]:
-    ...     assert os.path.exists(
-    ...         os.path.join(
-    ...             "tmp_result_images",
-    ...             f"test_check_figures_unequal{suffix}.png",
-    ...         )
-    ...     )
+    ...     assert (
+    ...         Path("tmp_result_images") / f"test_check_figures_unequal{suffix}.png"
+    ...     ).exists()
     >>> shutil.rmtree(path="tmp_result_images")  # cleanup folder if tests pass
     """
     allowed_chars = set(string.digits + string.ascii_letters + "_-[]()")
@@ -77,7 +75,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
         import pytest
         from matplotlib.testing.compare import compare_images
 
-        os.makedirs(result_dir, exist_ok=True)
+        Path(result_dir).mkdir(parents=True, exist_ok=True)
         old_sig = inspect.signature(func)
 
         @pytest.mark.parametrize("ext", extensions)
@@ -90,10 +88,12 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
                 file_name = "".join(c for c in request.node.name if c in allowed_chars)
             except AttributeError:  # 'NoneType' object has no attribute 'node'
                 file_name = func.__name__
+
+            fig_ref, fig_test = None, None
             try:
                 fig_ref, fig_test = func(*args, **kwargs)
-                ref_image_path = os.path.join(result_dir, f"{file_name}-expected.{ext}")
-                test_image_path = os.path.join(result_dir, f"{file_name}.{ext}")
+                ref_image_path = Path(result_dir) / f"{file_name}-expected.{ext}"
+                test_image_path = Path(result_dir) / f"{file_name}.{ext}"
                 fig_ref.savefig(ref_image_path)
                 fig_test.savefig(test_image_path)
 
@@ -106,16 +106,17 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
                     in_decorator=True,
                 )
                 if err is None:  # Images are the same
-                    os.remove(ref_image_path)
-                    os.remove(test_image_path)
+                    ref_image_path.unlink()
+                    test_image_path.unlink()
                 else:  # Images are not the same
                     for key in ["actual", "expected", "diff"]:
-                        err[key] = os.path.relpath(err[key])
-                    raise GMTImageComparisonFailure(
+                        err[key] = Path(err[key]).relative_to(".")
+                    msg = (
                         f"images not close (RMS {err['rms']:.3f}):\n"
                         f"\t{err['actual']}\n"
                         f"\t{err['expected']}"
                     )
+                    raise GMTImageComparisonFailure(msg)
             finally:
                 del fig_ref
                 del fig_test
@@ -142,17 +143,18 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     return decorator
 
 
-def load_static_earth_relief():
+def load_static_earth_relief() -> xr.DataArray:
     """
-    Load the static_earth_relief file for internal testing.
+    Load the static_earth_relief.nc file for internal testing.
 
     Returns
     -------
-    data : xarray.DataArray
+    data
         A grid of Earth relief for internal tests.
     """
-    fname = which("@static_earth_relief.nc", download="c")
-    return load_dataarray(fname)
+    return xr.load_dataarray(
+        "@static_earth_relief.nc", engine="gmt", raster_kind="grid"
+    )
 
 
 def skip_if_no(package):

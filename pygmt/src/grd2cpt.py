@@ -1,10 +1,12 @@
 """
-grd2cpt - Create a CPT from a grid file.
+grd2cpt - Make linear or histogram-equalized color palette table from grid.
 """
 
+import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["grd2cpt"]
 
@@ -31,9 +33,9 @@ __doctest_skip__ = ["grd2cpt"]
     Z="continuous",
 )
 @kwargs_to_strings(G="sequence", L="sequence", R="sequence", T="sequence")
-def grd2cpt(grid, **kwargs):
+def grd2cpt(grid: PathLike | xr.DataArray, **kwargs):
     r"""
-    Make GMT color palette tables from a grid file.
+    Make linear or histogram-equalized color palette table from grid.
 
     This function will help you to make static color palette tables (CPTs).
     By default, the CPT will be saved as the current CPT of the session,
@@ -56,8 +58,8 @@ def grd2cpt(grid, **kwargs):
     *z*-value, the foreground color (F) assigned to values higher than the
     highest *z*-value, and the NaN color (N) painted wherever values are
     undefined. For color tables beyond the standard GMT offerings, visit
-    `cpt-city <http://soliton.vm.bytemark.co.uk/pub/cpt-city/>`_ and
-    `Scientific Colour-Maps <http://www.fabiocrameri.ch/colourmaps.php>`_.
+    `cpt-city <http://www.seaviewsensing.com/pub/cpt-city/>`_ and
+    `Scientific Colour-Maps <https://www.fabiocrameri.ch/colourmaps.php>`_.
 
     If the master CPT includes B, F, and N entries, these will be copied into
     the new master file. If not, the parameters :gmt-term:`COLOR_BACKGROUND`,
@@ -73,7 +75,7 @@ def grd2cpt(grid, **kwargs):
     :gmt-docs:`gmt.conf <gmt.conf>` file or the ``color_model`` parameter
     will be used.
 
-    Full option list at :gmt-docs:`grd2cpt.html`
+    Full GMT docs at :gmt-docs:`grd2cpt.html`.
 
     {aliases}
 
@@ -182,15 +184,15 @@ def grd2cpt(grid, **kwargs):
     >>> fig.show()
     """
     if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
-        raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")
+        msg = "Set only 'categorical' or 'cyclic' to True, not both."
+        raise GMTInvalidInput(msg)
+
+    if (output := kwargs.pop("H", None)) is not None:
+        kwargs["H"] = True
+
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-        with file_context as infile:
-            if kwargs.get("H") is None:  # if no output is set
-                arg_str = build_arg_string(kwargs, infile=infile)
-            else:  # if output is set
-                outfile, kwargs["H"] = kwargs["H"], True
-                if not outfile or not isinstance(outfile, str):
-                    raise GMTInvalidInput("'output' should be a proper file name.")
-                arg_str = build_arg_string(kwargs, infile=infile, outfile=outfile)
-            lib.call_module(module="grd2cpt", args=arg_str)
+        with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
+            lib.call_module(
+                module="grd2cpt",
+                args=build_arg_list(kwargs, infile=vingrd, outfile=output),
+            )

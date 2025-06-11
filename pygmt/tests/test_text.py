@@ -1,17 +1,26 @@
 """
 Test Figure.text.
 """
-import os
+
+from pathlib import Path
 
 import numpy as np
 import pytest
-from pygmt import Figure
+from pygmt import Figure, config
 from pygmt.exceptions import GMTCLibError, GMTInvalidInput
 from pygmt.helpers import GMTTempFile
+from pygmt.helpers.testing import skip_if_no
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
-CITIES_DATA = os.path.join(TEST_DATA_DIR, "cities.txt")
+try:
+    import pyarrow as pa
+
+    pa_array = pa.array
+except ImportError:
+    pa_array = None
+
+TEST_DATA_DIR = Path(__file__).parent / "data"
+POINTS_DATA = TEST_DATA_DIR / "points.txt"
+CITIES_DATA = TEST_DATA_DIR / "cities.txt"
 
 
 @pytest.fixture(scope="module", name="projection")
@@ -47,8 +56,16 @@ def test_text_single_line_of_text(region, projection):
 
 
 @pytest.mark.benchmark
-@pytest.mark.mpl_image_compare
-def test_text_multiple_lines_of_text(region, projection):
+@pytest.mark.mpl_image_compare(filename="test_text_multiple_lines_of_text.png")
+@pytest.mark.parametrize(
+    "array_func",
+    [
+        list,
+        pytest.param(np.array, id="numpy"),
+        pytest.param(pa_array, marks=skip_if_no(package="pyarrow"), id="pyarrow"),
+    ],
+)
+def test_text_multiple_lines_of_text(region, projection, array_func):
     """
     Place multiple lines of text at their respective x, y locations.
     """
@@ -58,7 +75,7 @@ def test_text_multiple_lines_of_text(region, projection):
         projection=projection,
         x=[1.2, 1.6],
         y=[0.6, 0.3],
-        text=["This is a line of text", "This is another line of text"],
+        text=array_func(["This is a line of text", "This is another line of text"]),
     )
     return fig
 
@@ -298,8 +315,9 @@ def test_text_angle_font_justify_from_textfile():
     """
     fig = Figure()
     with GMTTempFile(suffix=".txt") as tempfile:
-        with open(tempfile.name, "w", encoding="utf8") as tmpfile:
-            tmpfile.write("114 0.5 30 22p,Helvetica-Bold,black LM BORNEO")
+        Path(tempfile.name).write_text(
+            "114 0.5 30 22p,Helvetica-Bold,black LM BORNEO", encoding="utf-8"
+        )
         fig.text(
             region=[113, 117.5, -0.5, 3],
             projection="M5c",
@@ -316,8 +334,6 @@ def test_text_angle_font_justify_from_textfile():
 def test_text_justify_array(region):
     """
     Test passing an array of justify codes.
-
-    Re-use the baseline image from test_text_position().
     """
     fig = Figure()
     fig.basemap(region=region, projection="x1c", frame="a")
@@ -355,7 +371,7 @@ def test_text_transparency():
     """
     x = np.arange(1, 10)
     y = np.arange(11, 20)
-    text = [f"TEXT-{i}-{j}" for i, j in zip(x, y)]
+    text = [f"TEXT-{i}-{j}" for i, j in zip(x, y, strict=True)]
 
     fig = Figure()
     fig.basemap(region=[0, 10, 10, 20], projection="X10c", frame=True)
@@ -370,7 +386,7 @@ def test_text_varying_transparency():
     """
     x = np.arange(1, 10)
     y = np.arange(11, 20)
-    text = [f"TEXT-{i}-{j}" for i, j in zip(x, y)]
+    text = [f"TEXT-{i}-{j}" for i, j in zip(x, y, strict=True)]
     transparency = np.arange(10, 100, 10)
 
     fig = Figure()
@@ -411,13 +427,67 @@ def test_text_nonstr_text():
 
 
 @pytest.mark.mpl_image_compare
-def test_text_nonascii():
+def test_text_numeric_text():
     """
-    Test passing text strings with non-ascii characters.
+    Test passing text strings that are numeric.
+
+    Regression test for https://github.com/GenericMappingTools/pygmt/issues/3803.
     """
     fig = Figure()
+    fig.text(
+        region=[0, 10, 0, 5],
+        projection="X10c/5c",
+        frame=True,
+        x=[1, 2, 3, 4],
+        y=[1, 2, 3, 4],
+        text=["2012", "2013", "2014", "2015"],
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_text_nonascii.png")
+@pytest.mark.parametrize("encoding", ["ISOLatin1+", "Standard+"])
+def test_text_nonascii(encoding):
+    """
+    Test passing text strings with non-ascii characters.
+
+    Default PS_CHAR_ENCODING setting should not affect the result.
+    """
+    fig = Figure()
+    if encoding == "Standard+":  # Temporarily set the PS_CHAR_ENCODING to "Standard+".
+        config(PS_CHAR_ENCODING="Standard+")
     fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
     fig.text(position="TL", text="position-text:°α")  # noqa: RUF001
     fig.text(x=1, y=1, text="xytext:°α")  # noqa: RUF001
-    fig.text(x=[5, 5], y=[3, 5], text=["xytext1:αζΔ❡", "xytext2:∑π∇✉"])
+    fig.text(x=[5, 5], y=[3, 5], text=["xytext1:αζ∆❡", "xytext2:∑π∇✉"])
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_text_quotation_marks():
+    """
+    Test typesetting backtick, apostrophe, and single and double quotation marks.
+
+    See https://github.com/GenericMappingTools/pygmt/issues/3104 and
+    https://github.com/GenericMappingTools/pygmt/issues/3476.
+    """
+    quotations = "` ' ‘ ’ \" “ ”"  # noqa: RUF001
+    fig = Figure()
+    fig.basemap(
+        projection="X4c/2c", region=[0, 4, 0, 2], frame=["S", f"x+l{quotations}"]
+    )
+    fig.text(x=2, y=1, text=quotations, font="20p")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_text_nonascii_iso8859():
+    """
+    Test passing text strings with non-ascii characters in ISO-8859-4 encoding.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=["WSEN+tAāáâãäåB"])
+    fig.text(position="TL", text="position-text:1ÉĘËĖ2")
+    fig.text(x=1, y=1, text="xytext:1éęëė2")
+    fig.text(x=[5, 5], y=[3, 5], text=["xytext1:ųúûüũūαζ∆❡", "xytext2:íîī∑π∇✉"])
     return fig

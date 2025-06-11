@@ -1,15 +1,21 @@
 """
 select - Select data table subsets based on multiple spatial criteria.
 """
+
+from typing import Literal
+
+import numpy as np
 import pandas as pd
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
+    validate_output_table_type,
 )
+from pygmt.src._common import _parse_coastline_resolution
 
 __doctest_skip__ = ["select"]
 
@@ -18,7 +24,6 @@ __doctest_skip__ = ["select"]
 @use_alias(
     A="area_thresh",
     C="dist2pt",
-    D="resolution",
     F="polygon",
     G="gridmask",
     I="reverse",
@@ -39,8 +44,16 @@ __doctest_skip__ = ["select"]
     s="skiprows",
     w="wrap",
 )
-@kwargs_to_strings(M="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
-def select(data=None, outfile=None, **kwargs):
+@kwargs_to_strings(N="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
+def select(
+    data: PathLike | TableLike | None = None,
+    output_type: Literal["pandas", "numpy", "file"] = "pandas",
+    outfile: PathLike | None = None,
+    resolution: Literal[
+        "auto", "full", "high", "intermediate", "low", "crude", None
+    ] = None,
+    **kwargs,
+) -> pd.DataFrame | np.ndarray | None:
     r"""
     Select data table subsets based on multiple spatial criteria.
 
@@ -60,17 +73,17 @@ def select(data=None, outfile=None, **kwargs):
     The sense of the tests can be reversed for each of these 7 criteria by
     using the ``reverse`` parameter.
 
-    Full option list at :gmt-docs:`gmtselect.html`
+    Full GMT docs at :gmt-docs:`gmtselect.html`.
 
     {aliases}
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
-    outfile : str
-        The file name for the output ASCII file.
+    {output_type}
+    {outfile}
     {area_thresh}
     dist2pt : str
         *pointfile*\|\ *lon*/*lat*\ **+d**\ *dist*.
@@ -107,16 +120,6 @@ def select(data=None, outfile=None, **kwargs):
         <reference/file-formats.html#optional-segment-header-records>`
         *polygonfile*. For spherical polygons (lon, lat), make sure no
         consecutive points are separated by 180 degrees or more in longitude.
-    resolution : str
-        *resolution*\ [**+f**].
-        Ignored unless ``mask`` is set. Selects the resolution of the coastline
-        data set to use ((**f**)ull, (**h**)igh, (**i**)ntermediate, (**l**)ow,
-        or (**c**)rude). The resolution drops off by ~80% between data sets.
-        [Default is **l**]. Append (**+f**) to automatically select a lower
-        resolution should the one requested not be available [Default is abort
-        if not found]. Note that because the coastlines differ in details
-        it is not guaranteed that a point will remain inside [or outside] when
-        a different resolution is selected.
     gridmask : str
         Pass all locations that are inside the valid data area of the grid
         *gridmask*. Nodes that are outside are either NaN or zero.
@@ -145,6 +148,15 @@ def select(data=None, outfile=None, **kwargs):
 
         [Default is s/k/s/k/s (i.e., s/k), which passes all points on dry
         land].
+    resolution
+        Ignored unless ``mask`` is set. Select the resolution of the coastline dataset
+        to use. The available resolutions from highest to lowest are: ``"full"``,
+        ``"high"``, ``"intermediate"``, ``"low"``, and ``"crude"``, which drops by 80%
+        between levels. Alternatively, choose ``"auto"`` to automatically select the
+        most suitable resolution given the chosen region. Note that because the
+        coastlines differ in details, a node in a mask file using one resolution is not
+        guaranteed to remain inside [or outside] when a different resolution is
+        selected. If ``None``, the low resolution is used by default.
     {region}
     {verbose}
     z_subregion : str or list
@@ -153,7 +165,7 @@ def select(data=None, outfile=None, **kwargs):
         given range or is NaN (use ``skiprows`` to skip NaN records). If *max*
         is omitted then we test if *z* equals *min* instead. This means
         equality within 5 ULPs (unit of least precision;
-        http://en.wikipedia.org/wiki/Unit_in_the_last_place). Input file must
+        https://en.wikipedia.org/wiki/Unit_in_the_last_place). Input file must
         have at least three columns. To indicate no limit on *min* or *max*,
         specify a hyphen (-). If your 3rd column is absolute time then remember
         to supply ``coltypes="2T"``. To specify another column, append
@@ -179,12 +191,13 @@ def select(data=None, outfile=None, **kwargs):
 
     Returns
     -------
-    output : pandas.DataFrame or None
-        Return type depends on whether the ``outfile`` parameter is set:
+    ret
+        Return type depends on ``outfile`` and ``output_type``:
 
-        - :class:`pandas.DataFrame` table if ``outfile`` is not set.
-        - None if ``outfile`` is set (filtered output will be stored in file
-          set by ``outfile``).
+        - ``None`` if ``outfile`` is set (output will be stored in file set by
+          ``outfile``)
+        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
+          (depends on ``output_type``)
 
     Example
     -------
@@ -195,26 +208,25 @@ def select(data=None, outfile=None, **kwargs):
     >>> # longitudes 246 and 247 and latitudes 20 and 21
     >>> out = pygmt.select(data=ship_data, region=[246, 247, 20, 21])
     """
+    kwargs["D"] = kwargs.get("D", _parse_coastline_resolution(resolution))
 
-    with GMTTempFile(suffix=".csv") as tmpfile:
-        with Session() as lib:
-            table_context = lib.virtualfile_from_data(check_kind="vector", data=data)
-            with table_context as infile:
-                if outfile is None:
-                    outfile = tmpfile.name
-                lib.call_module(
-                    module="select",
-                    args=build_arg_string(kwargs, infile=infile, outfile=outfile),
-                )
+    output_type = validate_output_table_type(output_type, outfile=outfile)
 
-        # Read temporary csv output to a pandas table
-        if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
-            try:
-                column_names = data.columns.to_list()
-                result = pd.read_csv(tmpfile.name, sep="\t", names=column_names)
-            except AttributeError:  # 'str' object has no attribute 'columns'
-                result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")
-        elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
-            result = None
+    column_names = None
+    if output_type == "pandas" and isinstance(data, pd.DataFrame):
+        column_names = data.columns.to_list()
 
-    return result
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="vector", data=data) as vintbl,
+            lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
+        ):
+            lib.call_module(
+                module="select",
+                args=build_arg_list(kwargs, infile=vintbl, outfile=vouttbl),
+            )
+        return lib.virtualfile_to_dataset(
+            vfname=vouttbl,
+            output_type=output_type,
+            column_names=column_names,
+        )

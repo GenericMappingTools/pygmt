@@ -1,7 +1,8 @@
 """
 Test pygmt.grd2cpt.
 """
-import os
+
+from pathlib import Path
 
 import pytest
 from pygmt import Figure, grd2cpt
@@ -54,7 +55,7 @@ def test_grd2cpt_output_to_cpt_file(grid):
     """
     with GMTTempFile(suffix=".cpt") as cptfile:
         grd2cpt(grid=grid, output=cptfile.name)
-        assert os.path.getsize(cptfile.name) > 0
+        assert Path(cptfile.name).stat().st_size > 0
 
 
 def test_grd2cpt_unrecognized_data_type():

@@ -1,6 +1,7 @@
 """
 Test Figure.image.
 """
+
 import pytest
 from pygmt import Figure
 

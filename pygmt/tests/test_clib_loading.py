@@ -1,6 +1,7 @@
 """
 Test the functions that load libgmt.
 """
+
 import ctypes
 import os
 import shutil
@@ -8,9 +9,16 @@ import subprocess
 import sys
 import types
 from pathlib import PurePath
+from unittest import mock
 
 import pytest
-from pygmt.clib.loading import check_libgmt, clib_full_names, clib_names, load_libgmt
+from pygmt.clib.loading import (
+    check_libgmt,
+    clib_full_names,
+    clib_names,
+    get_gmt_version,
+    load_libgmt,
+)
 from pygmt.clib.session import Session
 from pygmt.exceptions import GMTCLibError, GMTCLibNotFoundError, GMTOSError
 
@@ -35,13 +43,7 @@ def test_check_libgmt():
     Make sure check_libgmt fails when given a bogus library.
     """
     libgmt = FakedLibGMT("/path/to/libgmt.so")
-    msg = (
-        f"Error loading '{libgmt._name}'. "
-        "Couldn't access function GMT_Create_Session. "
-        "Ensure that you have installed an up-to-date GMT version 6 library. "
-        "Please set the environment variable 'GMT_LIBRARY_PATH' to the "
-        "directory of the GMT 6 library."
-    )
+    msg = f"Error loading '{libgmt}'. Couldn't access function GMT_Create_Session."
     with pytest.raises(GMTCLibError, match=msg):
         check_libgmt(libgmt)
 
@@ -50,8 +52,7 @@ def test_clib_names():
     """
     Make sure we get the correct library name for different OS names.
     """
-    for linux in ["linux", "linux2", "linux3"]:
-        assert clib_names(linux) == ["libgmt.so"]
+    assert clib_names("linux") == ["libgmt.so"]
     assert clib_names("darwin") == ["libgmt.dylib"]
     assert clib_names("win32") == ["gmt.dll", "gmt_w64.dll", "gmt_w32.dll"]
     for freebsd in ["freebsd10", "freebsd11", "freebsd12"]:
@@ -70,23 +71,15 @@ def test_load_libgmt():
     check_libgmt(load_libgmt())
 
 
-@pytest.mark.skipif(sys.platform == "win32", reason="run on UNIX platforms only")
-def test_load_libgmt_fails(monkeypatch):
+def test_load_libgmt_fails():
     """
     Test that GMTCLibNotFoundError is raised when GMT's shared library cannot be found.
     """
-    with monkeypatch.context() as mpatch:
-        mpatch.setattr(
-            sys,
-            "platform",
-            # Pretend to be on macOS if running on Linux, and vice versa
-            "darwin" if sys.platform == "linux" else "linux",
-        )
-        mpatch.setattr(
-            subprocess,
-            "check_output",
-            lambda cmd, encoding: "libfakegmt.so",  # noqa: ARG005
-        )
+    with (
+        mock.patch("ctypes.util.find_library", return_value="fakegmt.dll"),
+        mock.patch("sys.platform", "darwin" if sys.platform == "linux" else "linux"),
+        mock.patch("subprocess.check_output", return_value="libfakegmt.so"),
+    ):
         with pytest.raises(GMTCLibNotFoundError):
             check_libgmt(load_libgmt())
 
@@ -132,11 +125,12 @@ class TestLibgmtBrokenLibs:
         if isinstance(libname, str):
             # libname is an invalid library path in string type,
             # raise OSError like the original ctypes.CDLL
-            raise OSError(f"Unable to find '{libname}'")
+            msg = f"Unable to find '{libname}'."
+            raise OSError(msg)
         # libname is a loaded GMT library
         return self.loaded_libgmt
 
-    @pytest.fixture()
+    @pytest.fixture
     def _mock_ctypes(self, monkeypatch):
         """
         Patch the ctypes.CDLL function.
@@ -212,42 +206,25 @@ class TestLibgmtBrokenLibs:
         assert check_libgmt(load_libgmt(lib_fullnames=lib_fullnames)) is None
 
 
-class TestLibgmtCount:
+def test_libgmt_load_counter():
     """
-    Test that the GMT library is not repeatedly loaded in every session.
+    Make sure that the GMT library is not loaded in every session.
     """
-
-    loaded_libgmt = load_libgmt()  # Load the GMT library and reuse it when necessary
-    counter = 0  # Global counter for how many times ctypes.CDLL is called
-
-    def _mock_ctypes_cdll_return(self, libname):  # noqa: ARG002
-        """
-        Mock ctypes.CDLL to count how many times the function is called.
-
-        If ctypes.CDLL is called, the counter increases by one.
-        """
-        self.counter += 1  # Increase the counter
-        return self.loaded_libgmt
-
-    def test_libgmt_load_counter(self, monkeypatch):
-        """
-        Make sure that the GMT library is not loaded in every session.
-        """
-        # Monkeypatch the ctypes.CDLL function
-        monkeypatch.setattr(ctypes, "CDLL", self._mock_ctypes_cdll_return)
-
-        # Create two sessions and check the global counter
+    loaded_libgmt = load_libgmt()  # Load the GMT library and reuse it when necessary.
+    with mock.patch("ctypes.CDLL", return_value=loaded_libgmt) as mock_cdll:
+        # Create two sessions and check the call count
         with Session() as lib:
             _ = lib
         with Session() as lib:
             _ = lib
-        assert self.counter == 0  # ctypes.CDLL is not called after two sessions.
+        # ctypes.CDLL is not called after two sessions.
+        assert mock_cdll.call_count == 0
 
-        # Explicitly calling load_libgmt to make sure the mock function is correct
+        # Explicitly calling load_libgmt to make sure the mock function is correct.
         load_libgmt()
-        assert self.counter == 1
+        assert mock_cdll.call_count == 1
         load_libgmt()
-        assert self.counter == 2
+        assert mock_cdll.call_count == 2
 
 
 ###############################################################################
@@ -365,3 +342,15 @@ def test_clib_full_names_gmt_library_path_incorrect_path_included(
         # Windows: find_library() searches the library in PATH, so one more
         npath = 2 if sys.platform == "win32" else 1
         assert list(lib_fullpaths) == [gmt_lib_realpath] * npath + gmt_lib_names
+
+
+###############################################################################
+# Test get_gmt_version
+def test_get_gmt_version():
+    """
+    Test if get_gmt_version returns a version string in major.minor.patch format.
+    """
+    version = get_gmt_version(load_libgmt())
+    assert isinstance(version, str)
+    assert len(version.split(".")) == 3  # In major.minor.patch format
+    assert version.split(".")[0] == "6"  # Is GMT 6.x.x

@@ -1,11 +1,15 @@
 """
 Test Figure.grdimage.
 """
+
 import numpy as np
 import pytest
 import xarray as xr
+from packaging.version import Version
 from pygmt import Figure
+from pygmt.clib import __gmt_version__
 from pygmt.datasets import load_earth_relief
+from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.testing import check_figures_equal
 
@@ -161,19 +165,20 @@ def test_grdimage_over_dateline(xrgrid):
     """
     Ensure no gaps are plotted over the 180 degree international dateline.
 
-    Specifically checking that `xrgrid.gmt.gtype = 1` sets `GMT_GRID_IS_GEO`,
-    and that `xrgrid.gmt.registration = 0` sets `GMT_GRID_NODE_REG`. Note that
-    there would be a gap over the dateline if a pixel registered grid is used.
+    Specifically checking that ``xrgrid.gmt.gtype = GridType.GEOGRAPHIC`` sets
+    ``GMT_GRID_IS_GEO``, and that ``xrgrid.gmt.registration = GridRegistration.GRIDLINE`
+    sets ``GMT_GRID_NODE_REG``. Note that there would be a gap over the dateline if a
+    pixel-registered grid is used.
     See also https://github.com/GenericMappingTools/pygmt/issues/375.
     """
     fig = Figure()
-    assert xrgrid.gmt.registration == 0  # gridline registration
-    xrgrid.gmt.gtype = 1  # geographic coordinate system
+    assert xrgrid.gmt.registration is GridRegistration.GRIDLINE
+    xrgrid.gmt.gtype = GridType.GEOGRAPHIC
     fig.grdimage(grid=xrgrid, region="g", projection="A0/0/1c")
     return fig
 
 
-@pytest.mark.mpl_image_compare(tolerance=3.0)
+@pytest.mark.mpl_image_compare(tolerance=3.6)
 def test_grdimage_global_subset(grid_360):
     """
     Ensure subsets of grids are plotted correctly on a global map.
@@ -185,8 +190,8 @@ def test_grdimage_global_subset(grid_360):
     """
     # Get a slice of South America and Africa only (lat=-90:31, lon=-180:41)
     sliced_grid = grid_360[0:121, 0:221]
-    assert sliced_grid.gmt.registration == 0  # gridline registration
-    assert sliced_grid.gmt.gtype == 0  # Cartesian coordinate system
+    assert sliced_grid.gmt.registration is GridRegistration.GRIDLINE
+    assert sliced_grid.gmt.gtype is GridType.CARTESIAN
 
     fig = Figure()
     fig.grdimage(
@@ -251,3 +256,44 @@ def test_grdimage_imgout_fails(grid):
         fig.grdimage(grid, img_out="out.png")
     with pytest.raises(GMTInvalidInput):
         fig.grdimage(grid, A="out.png")
+
+
+# TODO(GMT>6.5.0): Remove the xfail marker for GMT<=6.5.0.
+@pytest.mark.xfail(
+    condition=Version(__gmt_version__) <= Version("6.5.0"),
+    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8554",
+)
+@pytest.mark.mpl_image_compare()
+def test_grdimage_grid_no_redundant_360():
+    """
+    Test that global grids with and without redundant 360/0 longitude values work.
+
+    Test for https://github.com/GenericMappingTools/pygmt/issues/3331.
+    """
+    # Global grid [-180, 180, -90, 90] with redundant longitude at 180/-180
+    da1 = load_earth_relief(region=[-180, 180, -90, 90])
+    # Global grid [0, 360, -90, 90] with redundant longitude at 360/0
+    da2 = load_earth_relief(region=[0, 360, -90, 90])
+
+    # Global grid [-180, 179, -90, 90] without redundant longitude at 180/-180
+    da3 = da1[:, 0:360]
+    da3.gmt.registration = GridRegistration.GRIDLINE
+    da3.gmt.gtype = GridType.GEOGRAPHIC
+    assert da3.shape == (181, 360)
+    assert da3.lon.to_numpy().min() == -180.0
+    assert da3.lon.to_numpy().max() == 179.0
+
+    # Global grid [0, 359, -90, 90] without redundant longitude at 360/0
+    da4 = da2[:, 0:360]
+    da4.gmt.registration = GridRegistration.GRIDLINE
+    da4.gmt.gtype = GridType.GEOGRAPHIC
+    assert da4.shape == (181, 360)
+    assert da4.lon.to_numpy().min() == 0.0
+    assert da4.lon.to_numpy().max() == 359.0
+
+    fig = Figure()
+    kwdict = {"projection": "W120/10c", "region": "g", "frame": "+tlon=120"}
+    fig.grdimage(da3, **kwdict)
+    fig.shift_origin(xshift="w+2c")
+    fig.grdimage(da4, **kwdict)
+    return fig

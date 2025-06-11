@@ -17,6 +17,7 @@
 .. rubric:: Methods Summary
 
 .. autosummary::
+    :toctree:
     {% for item in methods %}
     {% if item != '__init__' %}
     {{ objname }}.{{ item }}
@@ -30,4 +31,3 @@
 .. raw:: html
 
      <div style='clear:both'></div>
-

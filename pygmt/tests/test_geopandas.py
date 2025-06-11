@@ -1,10 +1,13 @@
 """
 Test integration with geopandas.
 """
+
+import numpy as np
 import numpy.testing as npt
 import pandas as pd
 import pytest
 from pygmt import Figure, info, makecpt, which
+from pygmt.helpers import data_kind
 from pygmt.helpers.testing import skip_if_no
 
 gpd = pytest.importorskip("geopandas")
@@ -48,7 +51,7 @@ def fixture_gdf_ridge():
     """
     # Read shapefile into a geopandas.GeoDataFrame
     shapefile = which(
-        fname="@RidgeTest.shp @RidgeTest.shx @RidgeTest.dbf @RidgeTest.prj",
+        fname=["@RidgeTest.shp", "@RidgeTest.shx", "@RidgeTest.dbf", "@RidgeTest.prj"],
         download="c",
     )
     gdf = gpd.read_file(shapefile[0])
@@ -219,7 +222,7 @@ def test_geopandas_plot_int64_as_float(gdf_ridge):
     gdf = gdf_ridge.copy()
     factor = 2**32
     # Convert NPOINTS column to int64 type and make big integers
-    gdf["NPOINTS"] = gdf.NPOINTS.astype(dtype="int64")
+    gdf["NPOINTS"] = gdf.NPOINTS.astype(dtype=np.int64)
     gdf["NPOINTS"] *= factor
 
     # Make sure the column is bigger than the largest 32-bit integer
@@ -242,3 +245,18 @@ def test_geopandas_plot_int64_as_float(gdf_ridge):
     makecpt(cmap="lisbon", series=[10, 60, 10], continuous=True)
     fig.colorbar()
     return fig
+
+
+def test_geopandas_data_kind_geopandas(gdf):
+    """
+    Check if geopandas.GeoDataFrame object is recognized as a "geojson" kind.
+    """
+    assert data_kind(data=gdf) == "geojson"
+
+
+def test_geopandas_data_kind_shapely():
+    """
+    Check if shapely.geometry object is recognized as a "geojson" kind.
+    """
+    polygon = shapely.geometry.Polygon([(20, 10), (23, 10), (23, 14), (20, 14)])
+    assert data_kind(data=polygon) == "geojson"

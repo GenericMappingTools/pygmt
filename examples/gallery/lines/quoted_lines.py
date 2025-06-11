@@ -33,7 +33,7 @@ for quotedline in [
     "qd1c:+ltext+i",
     # Give the number of equally spaced labels by using "n" instead of "d"
     "qn5:+ltext",
-    # Use upper-case "N" to have labels at the start and end of the line
+    # Use uppercase "N" to have labels at the start and end of the line
     "qN5:+ltext",
     # To only plot a label at the start of the line use "N-1"
     "qN-1:+ltext",
@@ -41,7 +41,7 @@ for quotedline in [
     "qN+1:+ltext",
     # Adjust the justification of the labels via "+j", here Top Center
     "qd1c:+ltext+jTC",
-    # Shift labels using "+n" in x and y directions relative to the main
+    # Shift labels using "+n" in x- and y-directions relative to the main
     # quoted line
     "qd1c:+ltext+n-0.5c/0.1c",
     # Rotate labels via "+a" (counter-clockwise from horizontal)
@@ -54,7 +54,7 @@ for quotedline in [
     "qd1c:+ltext+p0.5p,blue,dashed",
     # Append "+o" to get a box with rounded edges
     "qd1c:+ltext+p0.5p,blue+o",
-    # Adjust the space between label and box in x and y directions via "+c"
+    # Adjust the space between label and box in x- and y-directions via "+c"
     "qd1c:+ltext+p0.5p,blue+o+c0.1c/0.1c",
     # Give a fill of the box via "+g" together with the desired color
     "qd1c:+ltext+gdodgerblue",
@@ -76,7 +76,7 @@ fig.show()
 # For curved labels following the line, append ``"+v"`` to the argument passed
 # to the ``style`` parameter.
 
-# Generate sinus curve
+# Generate sine curve
 x = np.arange(0, 10 * np.pi, 0.1)
 y = np.sin(0.8 * x)
 

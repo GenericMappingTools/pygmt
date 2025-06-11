@@ -1,6 +1,7 @@
 """
 Test pygmt.select.
 """
+
 from pathlib import Path
 
 import numpy.testing as npt
@@ -55,6 +56,7 @@ def test_select_input_filename():
             data="@tut_ship.xyz",
             region=[250, 251, 26, 27],
             z_subregion=["-/-630", "-120/0+a"],
+            output_type="file",
             outfile=tmpfile.name,
         )
         assert output is None  # check that output is None since outfile is set

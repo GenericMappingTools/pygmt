@@ -1,9 +1,9 @@
 """
 Test pygmt.info.
 """
-import os
-import pathlib
+
 import sys
+from pathlib import Path, PurePosixPath, PureWindowsPath
 
 import numpy as np
 import numpy.testing as npt
@@ -14,8 +14,7 @@ from pygmt import info
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.testing import skip_if_no
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
+POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
 
 
 def test_info():
@@ -24,10 +23,7 @@ def test_info():
     """
     output = info(data=POINTS_DATA)
     expected_output = (
-        f"{POINTS_DATA}: N = 20 "
-        "<11.5309/61.7074> "
-        "<-2.9289/7.8648> "
-        "<0.1412/0.9338>\n"
+        f"{POINTS_DATA}: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
     )
     assert output == expected_output
 
@@ -35,16 +31,16 @@ def test_info():
 @pytest.mark.parametrize(
     "table",
     [
-        pathlib.Path(POINTS_DATA),
+        Path(POINTS_DATA),
         pytest.param(
-            pathlib.PureWindowsPath(POINTS_DATA),
+            PureWindowsPath(POINTS_DATA),
             marks=pytest.mark.skipif(
                 sys.platform != "win32",
                 reason="PureWindowsPath is only available on Windows",
             ),
         ),
         pytest.param(
-            pathlib.PurePosixPath(POINTS_DATA),
+            PurePosixPath(POINTS_DATA),
             marks=pytest.mark.skipif(
                 sys.platform == "win32",
                 reason="PurePosixPath is not available on Windows",
@@ -58,10 +54,7 @@ def test_info_path(table):
     """
     output = info(data=table)
     expected_output = (
-        f"{POINTS_DATA}: N = 20 "
-        "<11.5309/61.7074> "
-        "<-2.9289/7.8648> "
-        "<0.1412/0.9338>\n"
+        f"{POINTS_DATA}: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
     )
     assert output == expected_output
 
@@ -77,7 +70,7 @@ def test_info_2d_list():
 
 @pytest.mark.parametrize(
     "dtype",
-    ["int64", pytest.param("int64[pyarrow]", marks=skip_if_no(package="pyarrow"))],
+    [np.int64, pytest.param("int64[pyarrow]", marks=skip_if_no(package="pyarrow"))],
 )
 def test_info_series(dtype):
     """
@@ -91,7 +84,7 @@ def test_info_series(dtype):
 @pytest.mark.parametrize(
     "dtype",
     [
-        "float64",
+        np.float64,
         pytest.param("float64[pyarrow]", marks=skip_if_no(package="pyarrow")),
     ],
 )

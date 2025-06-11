@@ -1,6 +1,7 @@
 """
 Test pygmt.triangulate.
 """
+
 from pathlib import Path
 
 import numpy as np
@@ -8,8 +9,9 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import triangulate, which
+from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import GMTTempFile, data_kind
+from pygmt.helpers import GMTTempFile
 
 
 @pytest.fixture(scope="module", name="dataframe")
@@ -43,7 +45,8 @@ def fixture_expected_dataframe():
             [4, 6, 1],
             [3, 4, 2],
             [9, 3, 8],
-        ]
+        ],
+        dtype=np.float64,
     )
 
 
@@ -91,7 +94,6 @@ def test_delaunay_triples_wrong_kind_of_input(dataframe):
     Run triangulate.delaunay_triples using grid input that is not file/matrix/vectors.
     """
     data = dataframe.z.to_xarray()  # convert pandas.Series to xarray.DataArray
-    assert data_kind(data) == "grid"
     with pytest.raises(GMTInvalidInput):
         triangulate.delaunay_triples(data=data)
 
@@ -115,7 +117,9 @@ def test_delaunay_triples_outfile(dataframe, expected_dataframe):
             assert len(record) == 1  # check that only one warning was raised
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0
-        temp_df = pd.read_csv(filepath_or_buffer=tmpfile.name, sep="\t", header=None)
+        temp_df = pd.read_csv(
+            filepath_or_buffer=tmpfile.name, sep="\t", header=None, dtype=np.float64
+        )
         pd.testing.assert_frame_equal(left=temp_df, right=expected_dataframe)
 
 
@@ -136,8 +140,8 @@ def test_regular_grid_no_outgrid(dataframe, expected_grid):
     data = dataframe.to_numpy()
     output = triangulate.regular_grid(data=data, spacing=1, region=[2, 4, 5, 6])
     assert isinstance(output, xr.DataArray)
-    assert output.gmt.registration == 0  # Gridline registration
-    assert output.gmt.gtype == 0  # Cartesian type
+    assert output.gmt.registration is GridRegistration.GRIDLINE
+    assert output.gmt.gtype is GridType.CARTESIAN
     xr.testing.assert_allclose(a=output, b=expected_grid)
 
 
@@ -152,17 +156,8 @@ def test_regular_grid_with_outgrid_param(dataframe, expected_grid):
         )
         assert output is None  # check that output is None since outgrid is set
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
-        with xr.open_dataarray(tmpfile.name) as grid:
-            assert isinstance(grid, xr.DataArray)
-            assert grid.gmt.registration == 0  # Gridline registration
-            assert grid.gmt.gtype == 0  # Cartesian type
-            xr.testing.assert_allclose(a=grid, b=expected_grid)
-
-
-def test_regular_grid_invalid_format(dataframe):
-    """
-    Test that triangulate.regular_grid fails with outgrid that is not None or a proper
-    file name.
-    """
-    with pytest.raises(GMTInvalidInput):
-        triangulate.regular_grid(data=dataframe, outgrid=True)
+        grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
+        assert isinstance(grid, xr.DataArray)
+        assert grid.gmt.registration is GridRegistration.GRIDLINE
+        assert grid.gmt.gtype is GridType.CARTESIAN
+        xr.testing.assert_allclose(a=grid, b=expected_grid)

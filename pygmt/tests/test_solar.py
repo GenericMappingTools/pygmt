@@ -1,6 +1,7 @@
 """
 Test Figure.solar.
 """
+
 import datetime
 
 import pytest

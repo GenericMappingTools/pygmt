@@ -5,6 +5,7 @@ Apply them to functions wrapping GMT modules to automate: alias generation for
 arguments, insert common text into docstrings, transform arguments to strings,
 etc.
 """
+
 import functools
 import textwrap
 import warnings
@@ -36,17 +37,17 @@ COMMON_DOCSTRINGS = {
             (using ``binary="o"``), where *ncols* is the number of data columns
             of *type*, which must be one of:
 
-                - **c** - int8_t (1-byte signed char)
-                - **u** - uint8_t (1-byte unsigned char)
-                - **h** - int16_t (2-byte signed int)
-                - **H** - uint16_t (2-byte unsigned int)
-                - **i** - int32_t (4-byte signed int)
-                - **I** - uint32_t (4-byte unsigned int)
-                - **l** - int64_t (8-byte signed int)
-                - **L** - uint64_t (8-byte unsigned int)
-                - **f** - 4-byte single-precision float
-                - **d** - 8-byte double-precision float
-                - **x** - use to skip *ncols* anywhere in the record
+                - **c**: int8_t (1-byte signed char)
+                - **u**: uint8_t (1-byte unsigned char)
+                - **h**: int16_t (2-byte signed int)
+                - **H**: uint16_t (2-byte unsigned int)
+                - **i**: int32_t (4-byte signed int)
+                - **I**: uint32_t (4-byte unsigned int)
+                - **l**: int64_t (8-byte signed int)
+                - **L**: uint64_t (8-byte unsigned int)
+                - **f**: 4-byte single-precision float
+                - **d**: 8-byte double-precision float
+                - **x**: use to skip *ncols* anywhere in the record
 
             For records with mixed types, append additional comma-separated
             combinations of *ncols* *type* (no space). The following modifiers
@@ -70,28 +71,15 @@ COMMON_DOCSTRINGS = {
             :gmt-docs:`gmt.html#f-full`.""",
     "cores": r"""
         cores : bool or int
-            [[**-**]\ *n*].
-            Limit the number of cores to be used in any OpenMP-enabled
-            multi-threaded algorithms. By default we try to use all available
-            cores. Set a number *n* to only use n cores (if too large it will
-            be truncated to the maximum cores available). Finally, give a
-            negative number *-n* to select (all - *n*) cores (or at least 1 if
-            *n* equals or exceeds all).
-            """,
+            Specify the number of active cores to be used in any OpenMP-enabled
+            multi-threaded algorithms. By default, all available cores are used. Set a
+            positive number *n* to use *n* cores (if too large it will be truncated to
+            the maximum cores available); or set a negative number *-n* to select
+            (all - *n*) cores (or at least 1 if *n* equals or exceeds all).""",
     "distcalc": r"""
         distcalc : str
-            **e**\|\ **f**\|\ **g**.
-            Determine how spherical distances are calculated.
-
-            - **e** - Ellipsoidal (or geodesic) mode
-            - **f** - Flat Earth mode
-            - **g** - Great circle distance [Default]
-
-            All spherical distance calculations depend on the current ellipsoid
-            (:gmt-term:`PROJ_ELLIPSOID`), the definition of the mean radius
-            (:gmt-term:`PROJ_MEAN_RADIUS`), and the specification of latitude type
-            (:gmt-term:`PROJ_AUX_LATITUDE`). Geodesic distance calculations is also
-            controlled by method (:gmt-term:`PROJ_GEODESIC`).""",
+            Determine how spherical distances are calculated
+            [:term:`Full usage <distcalc>`].""",
     "fill": r"""
         fill : str
             Set color or pattern for filling symbols or polygons
@@ -117,16 +105,16 @@ COMMON_DOCSTRINGS = {
             a list with each item containing a string describing one set of
             criteria.
 
-                - **x**\|\ **X** - define a gap when there is a large enough
-                  change in the x coordinates (upper case to use projected
+                - **x**\|\ **X**: define a gap when there is a large enough
+                  change in the x coordinates (uppercase to use projected
                   coordinates).
-                - **y**\|\ **Y** - define a gap when there is a large enough
-                  change in the y coordinates (upper case to use projected
+                - **y**\|\ **Y**: define a gap when there is a large enough
+                  change in the y coordinates (uppercase to use projected
                   coordinates).
-                - **d**\|\ **D** - define a gap when there is a large enough
-                  distance between coordinates (upper case to use projected
+                - **d**\|\ **D**: define a gap when there is a large enough
+                  distance between coordinates (uppercase to use projected
                   coordinates).
-                - **z** - define a gap when there is a large enough change in
+                - **z**: define a gap when there is a large enough change in
                   the z data. Use **+c**\ *col* to change the z data column
                   [Default *col* is 2 (i.e., 3rd column)].
 
@@ -145,12 +133,12 @@ COMMON_DOCSTRINGS = {
 
             One of the following modifiers can be appended:
 
-                - **+n** - specify that the previous value minus the current
+                - **+n**: specify that the previous value minus the current
                   column value must exceed *gap* for a break to be imposed.
-                - **+p** - specify that the current value minus the previous
+                - **+p**: specify that the current value minus the previous
                   value must exceed *gap* for a break to be imposed.""",
     "grid": r"""
-        grid : str or xarray.DataArray
+        grid
             Name of the input grid file or the grid loaded as a
             :class:`xarray.DataArray` object.
 
@@ -253,21 +241,36 @@ COMMON_DOCSTRINGS = {
               input and skip trailing text. **Note**: If ``incols`` is also
               used then the columns given to ``outcols`` correspond to the
               order after the ``incols`` selection has taken place.""",
+    "outfile": """
+        outfile
+            File name for saving the result data. Required if ``output_type="file"``.
+            If specified, ``output_type`` will be forced to be ``"file"``.""",
+    "output_type": """
+        output_type
+            Desired output type of the result data.
+
+            - ``pandas`` will return a :class:`pandas.DataFrame` object.
+            - ``numpy`` will return a :class:`numpy.ndarray` object.
+            - ``file`` will save the result to the file specified by the ``outfile``
+              parameter.""",
     "outgrid": """
-        outgrid : str or None
-            Name of the output netCDF grid file. For writing a specific grid
-            file format or applying basic data operations to the output grid,
-            see :gmt-docs:`gmt.html#grd-inout-full` for the available modifiers.""",
+        outgrid
+            Name of the output netCDF grid file. If not specified, will return an
+            :class:`xarray.DataArray` object. For writing a specific grid file format or
+            applying basic data operations to the output grid, see
+            :gmt-docs:`gmt.html#grd-inout-full` for the available modifiers.
+        """,
     "panel": r"""
         panel : bool, int, or list
-            [*row,col*\|\ *index*].
-            Select a specific subplot panel. Only allowed when in subplot
-            mode. Use ``panel=True`` to advance to the next panel in the
-            selected order. Instead of *row,col* you may also give a scalar
-            value *index* which depends on the order you set via ``autolabel``
-            when the subplot was defined. **Note**: *row*, *col*, and *index*
-            all start at 0.
-         """,
+            Select a specific subplot panel. Only allowed when used in
+            :meth:`Figure.subplot` mode.
+
+            - ``True`` to advance to the next panel in the selected order.
+            - *index* to specify the index of the desired panel.
+            - (*row*, *col*) to specify the row and column of the desired panel.
+
+            The panel order is determined by the :meth:`Figure.subplot` method. *row*,
+            *col* and *index* all start at 0.""",
     "pen": r"""
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
@@ -349,16 +352,7 @@ COMMON_DOCSTRINGS = {
             in the image (for further processing). """,
     "verbose": r"""
         verbose : bool or str
-            Select verbosity level [Default is **w**], which modulates the messages
-            written to stderr. Choose among 7 levels of verbosity:
-
-            - **q** - Quiet, not even fatal error messages are produced
-            - **e** - Error messages only
-            - **w** - Warnings [Default]
-            - **t** - Timings (report runtimes for time-intensive algorithms)
-            - **i** - Informational messages (same as ``verbose=True``)
-            - **c** - Compatibility warnings
-            - **d** - Debugging messages""",
+            Select verbosity level [:term:`Full usage <verbose>`].""",
     "wrap": r"""
         wrap : str
             **y**\|\ **a**\|\ **w**\|\ **d**\|\ **h**\|\ **m**\|\ **s**\|\
@@ -367,14 +361,14 @@ COMMON_DOCSTRINGS = {
             different column if selected via **+c**\ *col*. The following
             cyclical coordinate transformations are supported:
 
-                - **y** - yearly cycle (normalized)
-                - **a** - annual cycle (monthly)
-                - **w** - weekly cycle (day)
-                - **d** - daily cycle (hour)
-                - **h** - hourly cycle (minute)
-                - **m** - minute cycle (second)
-                - **s** - second cycle (second)
-                - **c** - custom cycle (normalized)
+                - **y**: yearly cycle (normalized)
+                - **a**: annual cycle (monthly)
+                - **w**: weekly cycle (day)
+                - **d**: daily cycle (hour)
+                - **h**: hourly cycle (minute)
+                - **m**: minute cycle (second)
+                - **s**: second cycle (second)
+                - **c**: custom cycle (normalized)
 
             Full documentation is at :gmt-docs:`gmt.html#w-full`.""",
 }
@@ -412,7 +406,7 @@ def fmt_docstring(module_func):
     ...
     ...     Parameters
     ...     ----------
-    ...     data : str, {table-like}
+    ...     data
     ...         Pass in either a file name to an ASCII data table, a 2-D
     ...         {table-classes}.
     ...     {region}
@@ -427,7 +421,7 @@ def fmt_docstring(module_func):
     <BLANKLINE>
     Parameters
     ----------
-    data : str, numpy.ndarray, pandas.DataFrame, xarray.Dataset, or geo...
+    data
         Pass in either a file name to an ASCII data table, a 2-D
         :class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an
         :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`
@@ -441,23 +435,24 @@ def fmt_docstring(module_func):
         Select map :doc:`projection </projections/index>`.
     <BLANKLINE>
     **Aliases:**
+    .. hlist::
+       :columns: 3
     <BLANKLINE>
-    - J = projection
-    - R = region
+       - J = projection
+       - R = region
     <BLANKLINE>
     """  # noqa: D410,D411
     filler_text = {}
 
     if hasattr(module_func, "aliases"):
         aliases = ["**Aliases:**\n"]
+        aliases.append(".. hlist::")
+        aliases.append("   :columns: 3\n")
         for arg in sorted(module_func.aliases):
             alias = module_func.aliases[arg]
-            aliases.append(f"- {arg} = {alias}")
+            aliases.append(f"   - {arg} = {alias}")
         filler_text["aliases"] = "\n".join(aliases)
 
-    filler_text[
-        "table-like"
-    ] = "numpy.ndarray, pandas.DataFrame, xarray.Dataset, or geopandas.GeoDataFrame"
     filler_text["table-classes"] = (
         ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an\n"
         "    :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`\n"
@@ -554,10 +549,11 @@ def use_alias(**aliases):
             """
             for short_param, long_alias in aliases.items():
                 if long_alias in kwargs and short_param in kwargs:
-                    raise GMTInvalidInput(
+                    msg = (
                         f"Parameters in short-form ({short_param}) and "
                         f"long-form ({long_alias}) can't coexist."
                     )
+                    raise GMTInvalidInput(msg)
                 if long_alias in kwargs:
                     kwargs[short_param] = kwargs.pop(long_alias)
                 elif short_param in kwargs:
@@ -567,38 +563,29 @@ def use_alias(**aliases):
                     )
                     warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
 
-            # timestamp (U) is deprecated since v0.9.0.
+            # timestamp (U) is deprecated since v0.9.0 and removed in v0.12.0.
             if "U" in kwargs or "timestamp" in kwargs:
-                if "timestamp" in kwargs:
-                    kwargs["U"] = kwargs.pop("timestamp")
                 msg = (
-                    "Parameters 'U' and 'timestamp' are deprecated since v0.9.0 "
-                    "and will be removed in v0.12.0. "
+                    "Parameters 'U' and 'timestamp' are no longer supported since v0.12.0. "
                     "Use Figure.timestamp() instead."
                 )
-                warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+                raise GMTInvalidInput(msg)
 
-            # xshift (X) is deprecated since v0.8.0.
+            # xshift (X) is deprecated since v0.8.0 and removed in v0.12.0.
             if "X" in kwargs or "xshift" in kwargs:
-                if "xshift" in kwargs:
-                    kwargs["X"] = kwargs.pop("xshift")
                 msg = (
-                    "Parameters 'X' and 'xshift' are deprecated since v0.8.0 "
-                    "and will be removed in v0.12.0. "
+                    "Parameters 'X' and 'xshift' are no longer supported since v0.12.0. "
                     "Use Figure.shift_origin(xshift=...) instead."
                 )
-                warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+                raise GMTInvalidInput(msg)
 
-            # yshift (Y) is deprecated since v0.8.0.
+            # yshift (Y) is deprecated since v0.8.0 and removed in v0.12.0.
             if "Y" in kwargs or "yshift" in kwargs:
-                if "yshift" in kwargs:
-                    kwargs["Y"] = kwargs.pop("yshift")
                 msg = (
-                    "Parameters 'Y' and 'yshift' are deprecated since v0.8.0. "
-                    "and will be removed in v0.12.0. "
+                    "Parameters 'Y' and 'yshift' are no longer supported since v0.12.0. "
                     "Use Figure.shift_origin(yshift=...) instead."
                 )
-                warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+                raise GMTInvalidInput(msg)
 
             return module_func(*args, **kwargs)
 
@@ -618,17 +605,14 @@ def kwargs_to_strings(**conversions):
     The strings are what GMT expects from command line arguments.
 
     Boolean arguments and None are not converted and will be processed in the
-    ``build_arg_string`` function.
+    ``build_arg_list`` function.
 
     You can also specify other conversions to specific arguments.
 
     Conversions available:
 
-    * 'sequence': transforms a sequence (list, tuple) into a ``'/'`` separated
-      string
-    * 'sequence_comma': transforms a sequence into a ``','`` separated string
-    * 'sequence_plus': transforms a sequence into a ``'+'`` separated string
-    * 'sequence_space': transforms a sequence into a ``' '`` separated string
+    * "sequence": transform a sequence (list, tuple) into a ``"/"`` separated string
+    * "sequence_comma": transform a sequence into a ``","`` separated string
 
     Parameters
     ----------
@@ -639,7 +623,7 @@ def kwargs_to_strings(**conversions):
 
     Examples
     --------
-    >>> @kwargs_to_strings(R="sequence", i="sequence_comma", files="sequence_space")
+    >>> @kwargs_to_strings(R="sequence", i="sequence_comma")
     ... def module(*args, **kwargs):
     ...     "A module that prints the arguments it received"
     ...     print("{", end="")
@@ -664,7 +648,7 @@ def kwargs_to_strings(**conversions):
     >>> module(i=[1, 2])
     {'i': '1,2'}
     >>> module(files=["data1.txt", "data2.txt"])
-    {'files': 'data1.txt data2.txt'}
+    {'files': ['data1.txt', 'data2.txt']}
     >>> # Other non-boolean arguments are passed along as they are
     >>> module(123, bla=(1, 2, 3), foo=True, A=False, i=(5, 6))
     {'A': False, 'bla': (1, 2, 3), 'foo': True, 'i': '5,6'}
@@ -689,7 +673,6 @@ def kwargs_to_strings(**conversions):
     >>> # Here is a more realistic example
     >>> # See https://github.com/GenericMappingTools/pygmt/issues/2361
     >>> @kwargs_to_strings(
-    ...     files="sequence_space",
     ...     offset="sequence",
     ...     R="sequence",
     ...     i="sequence_comma",
@@ -705,28 +688,22 @@ def kwargs_to_strings(**conversions):
     ...     )
     ...     print("}")
     >>> module(files=["data1.txt", "data2.txt"])
-    data1.txt data2.txt -54p/-54p {}
+    ['data1.txt', 'data2.txt'] -54p/-54p {}
     >>> module(["data1.txt", "data2.txt"])
-    data1.txt data2.txt -54p/-54p {}
+    ['data1.txt', 'data2.txt'] -54p/-54p {}
     >>> module(files=["data1.txt", "data2.txt"], offset=("20p", "20p"))
-    data1.txt data2.txt 20p/20p {}
+    ['data1.txt', 'data2.txt'] 20p/20p {}
     >>> module(["data1.txt", "data2.txt"], ("20p", "20p"))
-    data1.txt data2.txt 20p/20p {}
+    ['data1.txt', 'data2.txt'] 20p/20p {}
     >>> module(["data1.txt", "data2.txt"], ("20p", "20p"), R=[1, 2, 3, 4])
-    data1.txt data2.txt 20p/20p {'R': '1/2/3/4'}
+    ['data1.txt', 'data2.txt'] 20p/20p {'R': '1/2/3/4'}
     """
-    separators = {
-        "sequence": "/",
-        "sequence_comma": ",",
-        "sequence_plus": "+",
-        "sequence_space": " ",
-    }
+    separators = {"sequence": "/", "sequence_comma": ","}
 
     for arg, fmt in conversions.items():
         if fmt not in separators:
-            raise GMTInvalidInput(
-                f"Invalid conversion type '{fmt}' for argument '{arg}'."
-            )
+            msg = f"Invalid conversion type '{fmt}' for argument '{arg}'."
+            raise GMTInvalidInput(msg)
 
     # Make the actual decorator function
     def converter(module_func):
@@ -840,9 +817,8 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
             """
             if oldname in kwargs:
                 if newname in kwargs:
-                    raise GMTInvalidInput(
-                        f"Can't provide both '{newname}' and '{oldname}'."
-                    )
+                    msg = f"Can't provide both '{newname}' and '{oldname}'."
+                    raise GMTInvalidInput(msg)
                 msg = (
                     f"The '{oldname}' parameter has been deprecated since {deprecate_version}"
                     f" and will be removed in {remove_version}."

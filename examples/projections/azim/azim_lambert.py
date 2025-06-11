@@ -1,6 +1,6 @@
 r"""
-Lambert Azimuthal Equal Area
-============================
+Lambert azimuthal equal-area projection
+=======================================
 
 This projection was developed by Johann Heinrich Lambert in 1772 and is
 typically used for mapping large regions like continents and hemispheres. It is
@@ -20,5 +20,11 @@ of the figure.
 import pygmt
 
 fig = pygmt.Figure()
-fig.coast(region="g", frame="afg", land="gray", projection="A30/-20/60/12c")
+fig.coast(
+    region="g",
+    projection="A30/-20/60/12c",
+    frame="afg",
+    land="khaki",
+    water="white",
+)
 fig.show()

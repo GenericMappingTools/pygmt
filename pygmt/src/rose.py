@@ -1,11 +1,11 @@
 """
-rose - Plot windrose diagrams or polar histograms.
+rose - Plot a polar histogram (rose, sector, windrose diagrams).
 """
 
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.helpers import (
-    build_arg_string,
-    deprecate_parameter,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -13,7 +13,6 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@deprecate_parameter("color", "fill", "v0.8.0", remove_version="v0.12.0")
 @use_alias(
     A="sector",
     B="frame",
@@ -44,9 +43,11 @@ from pygmt.helpers import (
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def rose(self, data=None, length=None, azimuth=None, **kwargs):
+def rose(
+    self, data: PathLike | TableLike | None = None, length=None, azimuth=None, **kwargs
+):
     """
-    Plot windrose diagrams or polar histograms.
+    Plot a polar histogram (rose, sector, windrose diagrams).
 
     Takes a matrix, (length,azimuth) pairs, or a file name as input
     and plots windrose diagrams or polar histograms (sector diagram
@@ -58,13 +59,13 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
     of the windrose is drawn with the same color as
     :gmt-term:`MAP_DEFAULT_PEN`.
 
-    Full option list at :gmt-docs:`rose.html`
+    Full GMT docs at :gmt-docs:`rose.html`.
 
     {aliases}
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
         Use parameter ``incols`` to choose which columns are length and
@@ -198,13 +199,10 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
     {transparency}
     {wrap}
     """
-
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(
+        with lib.virtualfile_in(
             check_kind="vector", data=data, x=length, y=azimuth
-        )
-
-        with file_context as fname:
-            lib.call_module(module="rose", args=build_arg_string(kwargs, infile=fname))
+        ) as vintbl:
+            lib.call_module(module="rose", args=build_arg_list(kwargs, infile=vintbl))

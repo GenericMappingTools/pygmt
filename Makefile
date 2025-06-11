@@ -4,7 +4,6 @@ TESTDIR=tmp-test-dir-with-unique-name
 PYTEST_COV_ARGS=--cov=$(PROJECT) --cov-config=../pyproject.toml \
 			--cov-report=term-missing --cov-report=xml --cov-report=html
 FORMAT_FILES=$(PROJECT) doc/conf.py examples
-LINT_FILES=$(PROJECT) doc/conf.py
 
 help:
 	@echo "Commands:"
@@ -50,18 +49,19 @@ fulltest: PYTEST_ARGS=${PYTEST_EXTRA}
 fulltest: _runtest
 
 # run doctests only
-doctest: PYTEST_ARGS=--ignore=../pygmt/tests ${PYTEST_EXTRA}
+doctest: PYTEST_ARGS=--ignore=../${PROJECT}/tests ${PYTEST_EXTRA}
 doctest: _runtest
 
 # run tests without image comparisons
 # run pytest without the --mpl option to disable image comparisons
 # use '-o addopts' to override 'addopts' settings in pyproject.toml file
-test_no_images: PYTEST_ARGS=-o addopts="--verbose --durations=0 --durations-min=0.2 --doctest-modules"
+test_no_images: PYTEST_ARGS=-o addopts="--verbose --color=yes --durations=0 --durations-min=0.2 --doctest-modules"
 test_no_images: _runtest
 
 format:
 	ruff check --fix --exit-zero $(FORMAT_FILES)
 	ruff format $(FORMAT_FILES)
+	pre-commit run --all-files
 
 check:
 	ruff check $(FORMAT_FILES)
@@ -78,11 +78,9 @@ clean:
 	find . -name "*~" -exec rm -v {} +
 	find . -type d -name  "__pycache__" -exec rm -rv {} +
 	rm -rvf build dist .eggs MANIFEST .coverage htmlcov coverage.xml
-	rm -rvf .cache .mypy_cache .pytest_cache .ruff_cache
+	rm -rvf .benchmarks .cache .mypy_cache .pytest_cache .ruff_cache
 	rm -rvf $(TESTDIR)
-	rm -rvf baseline
-	rm -rvf result_images
-	rm -rvf results
+	rm -rvf baseline result_images results
 
 distclean: clean
 	rm -rvf *.egg-info
