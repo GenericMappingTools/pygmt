@@ -77,13 +77,15 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     # -----------------------------------------------------------------------------
     # Define shape
     # -----------------------------------------------------------------------------
-    symbol = "c"  # circle
-    diameter = 7.5
-    diameter_add = 0.5
-    if shape == "hexagon":
-        symbol = "h"  # hexagon
-        diameter = 8.6
-        diameter_add = 0.6
+    match shape:
+        case "circle":
+            symbol = "c"  # circle
+            diameter = 7.5
+            diameter_add = 0.5
+        case "hexagon":
+            symbol = "h"  # hexagon
+            diameter = 8.6
+            diameter_add = 0.6
 
     # -----------------------------------------------------------------------------
     # Define wordmark
