@@ -223,7 +223,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     # arrow tail
     fig.plot(x=[0, 0], y=[-2, -3.57], pen=f"12p,{color_red}", perspective=True)
 
-    # outline around shape for black and white with dark theme (i.e., white shape)
+    # outline around the shape for black and white color with dark theme
     if not color and theme == "dark":
         fig.plot(
             x=0,
