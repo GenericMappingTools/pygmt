@@ -1,15 +1,17 @@
 """
 Calculating grid gradient and radiance
---------------------------------------
+======================================
+
 The :func:`pygmt.grdgradient` function calculates the gradient of a grid file.
 In the example shown below we will see how to calculate a hillshade map based
 on a Data Elevation Model (DEM). As input :func:`pygmt.grdgradient` gets
-a :class:`xarray.DataArray` object or a path string to a grid file, calculates
+an :class:`xarray.DataArray` object or a path string to a grid file, calculates
 the respective gradient and returns it as an :class:`xarray.DataArray` object.
 We will use the ``radiance`` parameter in order to set the illumination source
 direction and altitude.
 """
 
+# %%
 import pygmt
 
 # Define region of interest around Yosemite valley
@@ -40,7 +42,7 @@ fig.colorbar(position="JML+o1.4c/0c+w7c/0.5c", frame=["xa1000f500+lElevation", "
 
 # --------------- plotting the hillshade map -----------
 
-# Shift plot origin of the second map by 12.5 cm in x direction
+# Shift plot origin of the second map by 12.5 cm in x-direction
 fig.shift_origin(xshift="12.5c")
 
 pygmt.makecpt(cmap="gray", series=[-1.5, 0.3, 0.01])

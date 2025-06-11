@@ -1,10 +1,11 @@
 """
-Tests for grdcut.
+Test pygmt.grdcut.
 """
+
 import numpy as np
 import pytest
 import xarray as xr
-from pygmt import grdcut, load_dataarray
+from pygmt import grdcut
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
@@ -37,25 +38,26 @@ def fixture_expected_grid():
             [757.0, 570.5, 538.5, 524.0],
             [796.0, 886.0, 571.5, 638.5],
         ],
-        coords=dict(lon=[-52.5, -51.5, -50.5, -49.5], lat=[-19.5, -18.5, -17.5]),
+        coords={"lon": [-52.5, -51.5, -50.5, -49.5], "lat": [-19.5, -18.5, -17.5]},
         dims=["lat", "lon"],
     )
 
 
 def test_grdcut_dataarray_in_file_out(grid, expected_grid, region):
     """
-    grdcut an input DataArray, and output to a grid file.
+    Test grdcut on an input DataArray, and output to a grid file.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = grdcut(grid, outgrid=tmpfile.name, region=region)
         assert result is None  # grdcut returns None if output to a file
-        temp_grid = load_dataarray(tmpfile.name)
+        temp_grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
+@pytest.mark.benchmark
 def test_grdcut_dataarray_in_dataarray_out(grid, expected_grid, region):
     """
-    grdcut an input DataArray, and output as DataArray.
+    Test grdcut on an input DataArray, and output as DataArray.
     """
     outgrid = grdcut(grid, region=region)
     assert isinstance(outgrid, xr.DataArray)
@@ -68,3 +70,11 @@ def test_grdcut_fails():
     """
     with pytest.raises(GMTInvalidInput):
         grdcut(np.arange(10).reshape((5, 2)))
+
+
+def test_grdcut_invalid_kind(grid, region):
+    """
+    Check that grdcut fails with incorrect 'kind'.
+    """
+    with pytest.raises(GMTInvalidInput):
+        grdcut(grid, kind="invalid", region=region)

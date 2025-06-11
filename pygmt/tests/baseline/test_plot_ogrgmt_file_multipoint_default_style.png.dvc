@@ -1,4 +1,5 @@
 outs:
-- md5: 6c395fb503f67d024925a2c86cae7ba8
-  size: 4272
+- md5: 1564cd76fe8323fd0164bd9eb8efa08c
+  size: 4461
   path: test_plot_ogrgmt_file_multipoint_default_style.png
+  hash: md5

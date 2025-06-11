@@ -1,0 +1,5 @@
+outs:
+- md5: b274fb18c46c404e79dc293af9529567
+  size: 2652
+  hash: md5
+  path: test_colorbar.png

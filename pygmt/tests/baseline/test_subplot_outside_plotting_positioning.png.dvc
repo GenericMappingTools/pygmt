@@ -1,0 +1,5 @@
+outs:
+- md5: ab48de732fa2243e78db5ce3eb62819b
+  size: 11565
+  path: test_subplot_outside_plotting_positioning.png
+  hash: md5

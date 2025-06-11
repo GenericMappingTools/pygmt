@@ -1,18 +1,21 @@
 """
-grd2xyz - Convert grid to data table
+grd2xyz - Convert grid to data table.
 """
-import warnings
 
+from typing import Literal
+
+import numpy as np
 import pandas as pd
 import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
+    validate_output_table_type,
 )
 
 __doctest_skip__ = ["grd2xyz"]
@@ -33,31 +36,27 @@ __doctest_skip__ = ["grd2xyz"]
     s="skiprows",
 )
 @kwargs_to_strings(R="sequence", o="sequence_comma")
-def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
+def grd2xyz(
+    grid: PathLike | xr.DataArray,
+    output_type: Literal["pandas", "numpy", "file"] = "pandas",
+    outfile: PathLike | None = None,
+    **kwargs,
+) -> pd.DataFrame | np.ndarray | None:
     r"""
     Convert grid to data table.
 
     Read a grid and output xyz-triplets as a :class:`numpy.ndarray`,
     :class:`pandas.DataFrame`, or ASCII file.
 
-    Full option list at :gmt-docs:`grd2xyz.html`
+    Full GMT docs at :gmt-docs:`grd2xyz.html`.
 
     {aliases}
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a
-        :class:`xarray.DataArray`. This is the only required parameter.
-    output_type : str
-        Determine the format the xyz data will be returned in [Default is
-        ``pandas``]:
-
-            - ``numpy`` - :class:`numpy.ndarray`
-            - ``pandas``- :class:`pandas.DataFrame`
-            - ``file`` - ASCII file (requires ``outfile``)
-    outfile : str
-        The file name for the output ASCII file.
+    {grid}
+    {output_type}
+    {outfile}
     cstyle : str
         [**f**\|\ **i**].
         Replace the x- and y-coordinates on output with the corresponding
@@ -98,17 +97,17 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
         appending **y**. If the byte-order needs to be swapped, append
         **w**. Select one of several data types (all binary except **a**):
 
-        * **a** ASCII representation of a single item per record
-        * **c** int8_t, signed 1-byte character
-        * **u** uint8_t, unsigned 1-byte character
-        * **h** int16_t, short 2-byte integer
-        * **H** uint16_t, unsigned short 2-byte integer
-        * **i** int32_t, 4-byte integer
-        * **I** uint32_t, unsigned 4-byte integer
-        * **l** int64_t, long (8-byte) integer
-        * **L** uint64_t, unsigned long (8-byte) integer
-        * **f** 4-byte floating point single precision
-        * **d** 8-byte floating point double precision
+        - **a**: ASCII representation of a single item per record
+        - **c**: int8_t, signed 1-byte character
+        - **u**: uint8_t, unsigned 1-byte character
+        - **h**: int16_t, short 2-byte integer
+        - **H**: uint16_t, unsigned short 2-byte integer
+        - **i**: int32_t, 4-byte integer
+        - **I**: uint32_t, unsigned 4-byte integer
+        - **l**: int64_t, long (8-byte) integer
+        - **L**: uint64_t, unsigned long (8-byte) integer
+        - **f**: 4-byte floating point single precision
+        - **d**: 8-byte floating point double precision
 
         Default format is scanline orientation of ASCII numbers: **TLa**.
     {binary}
@@ -120,77 +119,52 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
 
     Returns
     -------
-    ret : pandas.DataFrame or numpy.ndarray or None
+    ret
         Return type depends on ``outfile`` and ``output_type``:
 
-        - None if ``outfile`` is set (output will be stored in file set by
+        - ``None`` if ``outfile`` is set (output will be stored in the file set by
           ``outfile``)
-        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is
-          not set (depends on ``output_type``)
+        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
+          (depends on ``output_type``)
 
     Example
     -------
     >>> import pygmt
-    >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
-    >>> # and a y-range of 15 to 25
+    >>> # Load a grid of @earth_relief_30m data, with a longitude range of
+    >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[10, 30, 15, 25]
     ... )
-    >>> # Create a pandas DataFrame with the xyz data from an input grid
+    >>> # Create a pandas.DataFrame with the xyz data from an input grid
     >>> xyz_dataframe = pygmt.grd2xyz(grid=grid, output_type="pandas")
     >>> xyz_dataframe.head(n=2)
-         lon    lat  elevation
-    0  10.25  24.75      903.5
-    1  10.75  24.75      820.0
+        lon   lat          z
+    0  10.0  25.0      965.5
+    1  10.5  25.0      876.5
     """
-    if output_type not in ["numpy", "pandas", "file"]:
-        raise GMTInvalidInput(
-            "Must specify 'output_type' either as 'numpy', 'pandas' or 'file'."
-        )
-
-    if outfile is not None and output_type != "file":
-        msg = (
-            f"Changing 'output_type' of grd2xyz from '{output_type}' to 'file' "
-            "since 'outfile' parameter is set. Please use output_type='file' "
-            "to silence this warning."
-        )
-        warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
-        output_type = "file"
-    elif outfile is None and output_type == "file":
-        raise GMTInvalidInput("Must specify 'outfile' for ASCII output.")
+    output_type = validate_output_table_type(output_type, outfile=outfile)
 
     if kwargs.get("o") is not None and output_type == "pandas":
-        raise GMTInvalidInput(
-            "If 'outcols' is specified, 'output_type' must be either 'numpy'"
-            "or 'file'."
+        msg = (
+            "If 'outcols' is specified, 'output_type' must be either 'numpy' or 'file'."
         )
-
-    # Set the default column names for the pandas dataframe header
-    dataframe_header = ["x", "y", "z"]
+        raise GMTInvalidInput(msg)
+    # Set the default column names for the pandas DataFrame header.
+    column_names: list[str] = ["x", "y", "z"]
     # Let output pandas column names match input DataArray dimension names
-    if isinstance(grid, xr.DataArray) and output_type == "pandas":
+    if output_type == "pandas" and isinstance(grid, xr.DataArray):
         # Reverse the dims because it is rows, columns ordered.
-        dataframe_header = [grid.dims[1], grid.dims[0], grid.name]
+        column_names = [str(grid.dims[1]), str(grid.dims[0]), str(grid.name)]
 
-    with GMTTempFile() as tmpfile:
-        with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-            with file_context as infile:
-                if outfile is None:
-                    outfile = tmpfile.name
-                lib.call_module(
-                    module="grd2xyz",
-                    args=build_arg_string(kwargs, infile=infile, outfile=outfile),
-                )
-
-        # Read temporary csv output to a pandas table
-        if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
-            result = pd.read_csv(
-                tmpfile.name, sep="\t", names=dataframe_header, comment=">"
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
+        ):
+            lib.call_module(
+                module="grd2xyz",
+                args=build_arg_list(kwargs, infile=vingrd, outfile=vouttbl),
             )
-        elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
-            result = None
-
-        if output_type == "numpy":
-            result = result.to_numpy()
-    return result
+            return lib.virtualfile_to_dataset(
+                vfname=vouttbl, output_type=output_type, column_names=column_names
+            )

@@ -1,9 +1,9 @@
 """
-logo - Plot the GMT logo
+logo - Plot the GMT logo.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
@@ -13,7 +13,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     D="position",
     F="box",
     S="style",
-    U="timestamp",
     V="verbose",
     c="panel",
     t="transparency",
@@ -28,7 +27,7 @@ def logo(self, **kwargs):
     Use various options to change this and to place a transparent or
     opaque rectangular map panel behind the GMT logo.
 
-    Full option list at :gmt-docs:`gmtlogo.html`.
+    Full GMT docs at :gmt-docs:`gmtlogo.html`.
 
     {aliases}
 
@@ -39,9 +38,9 @@ def logo(self, **kwargs):
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *width*\ [**+j**\ *justify*]\ [**+o**\ *dx*\ [/*dy*]].
-        Sets reference point on the map for the image.
+        Set reference point on the map for the image.
     box : bool or str
-        Without further arguments, draws a rectangular border around the
+        If set to ``True``, draw a rectangular border around the
         GMT logo.
     style : str
         [**l**\|\ **n**\|\ **u**].
@@ -51,11 +50,10 @@ def logo(self, **kwargs):
           [Default]
         - **n** to skip the label placement
         - **u** to place the URL to the GMT site
-    {timestamp}
     {verbose}
     {panel}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    self._activate_figure()
     with Session() as lib:
-        lib.call_module(module="logo", args=build_arg_string(kwargs))
+        lib.call_module(module="logo", args=build_arg_list(kwargs))

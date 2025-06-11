@@ -1,4 +1,5 @@
 outs:
-- md5: f0c7a49ec4ca5b8f669c44f65394b350
-  size: 1435
+- md5: 66c152c2d2f86776415e106fc5a3c98b
+  size: 1362
   path: test_text_font_bold.png
+  hash: md5

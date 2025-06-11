@@ -1,15 +1,24 @@
 [build-system]
-requires = ["setuptools>=64", "setuptools_scm[toml]>=6.2"]
+requires = ["setuptools>=77", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "pygmt"
 description = "A Python interface for the Generic Mapping Tools"
-readme = "README.rst"
-requires-python = ">=3.8"
-license = {text = "BSD License"}
+readme = "README.md"
+requires-python = ">=3.11"
 authors = [{name = "The PyGMT Developers", email = "pygmt.team@gmail.com"}]
-keywords = []
+license = "BSD-3-Clause"
+license-files = ["LICENSE.txt"]
+keywords = [
+    "cartography",
+    "geodesy",
+    "geology",
+    "geophysics",
+    "geospatial",
+    "oceanography",
+    "seismology",
+]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
@@ -17,106 +26,163 @@ classifiers = [
     "Intended Audience :: Education",
     "Topic :: Scientific/Engineering",
     "Topic :: Software Development :: Libraries",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "License :: OSI Approved :: BSD License",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Operating System :: Unix",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
-    "numpy>=1.20",
-    "pandas",
-    "xarray",
-    "netCDF4",
-    "packaging"
+    "numpy>=1.26",
+    "pandas>=2.1",
+    "xarray>=2023.07",
+    "packaging>=24.2",
 ]
 dynamic = ["version"]
 
 [project.optional-dependencies]
 all = [
-    "geopandas",
-    "ipython"
+    "contextily>=1.5",
+    "geopandas>=1.0",
+    "IPython",  # 'ipython' is not the correct module name.
+    "pyarrow>=16",
+    "rioxarray",
 ]
 
-[project.urls]
-homepage = "https://www.pygmt.org"
-documentation = "https://www.pygmt.org"
-repository = "https://github.com/GenericMappingTools/pygmt"
-changelog = "https://www.pygmt.org/latest/changes.html"
+[project.entry-points."xarray.backends"]
+gmt = "pygmt.xarray:GMTBackendEntrypoint"
 
-[tool.setuptools]
-platforms = ["Any"]
-include-package-data = true
+[project.urls]
+"Homepage" = "https://www.pygmt.org"
+"Documentation" = "https://www.pygmt.org"
+"Source Code" = "https://github.com/GenericMappingTools/pygmt"
+"Changelog" = "https://www.pygmt.org/latest/changes.html"
+"Issue Tracker" = "https://github.com/GenericMappingTools/pygmt/issues"
 
 [tool.setuptools.packages.find]
 include = ["pygmt*"]
 exclude = ["doc"]
 
-[tool.setuptools.package-data]
-tests = ["data/*", "baseline/*"]
-
 [tool.setuptools_scm]
+version_scheme = "release-branch-semver"
 local_scheme = "node-and-date"
 fallback_version = "999.999.999+unknown"
 
-[tool.blackdoc]
-line-length = 79
+[tool.codespell]
+ignore-words-list = "astroid,oints,reenable,tripel,trough,ND"
 
 [tool.coverage.run]
 omit = ["*/tests/*", "*pygmt/__init__.py"]
 
-[tool.docformatter]
-recursive = true
-pre-summary-newline = true
-make-summary-multi-line = true
-wrap-summaries = 79
-wrap-descriptions = 79
+[tool.mypy]
+exclude = ["pygmt/tests/"]
+ignore_missing_imports = true
 
-[tool.flakeheaven]
-max_line_length = 88
-max_doc_length = 79
-show_source = true
+[tool.ruff]
+line-length = 88  # E501 (line-too-long)
+output-format = "full"
 
-[tool.flakeheaven.plugins]
-pycodestyle = ["+*", "-E501", "-W503"]
-pyflakes = ["+*"]
+[tool.ruff.format]
+line-ending = "lf"  # Use UNIX `\n` line endings for all files
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
 
-[tool.flakeheaven.exceptions."**/__init__.py"]
-pyflakes = ["-F401"]
+[tool.ruff.lint]
+select = [
+    "A",    # flake8-builtins
+    "ARG",  # flake8-unused-arguments
+    "B",    # flake8-bugbear
+    "BLE",  # flake8-blind-except
+    "C4",   # flake8-comprehensions
+    "COM",  # flake8-commas
+    "D",    # pydocstyle
+    "E",    # pycodestyle
+    "EM",   # flake8-errmsg
+    "EXE",  # flake8-executable
+    "F",    # pyflakes
+    "FA",   # flake8-future-annotations
+    "FLY",  # flynt
+    "FURB", # refurb
+    "I",    # isort
+    "ICN",  # flake8-import-conventions
+    "ISC",  # flake8-implicit-str-concat
+    "N",    # pep8-naming
+    "NPY",  # numpy
+    "PD",   # pandas-vet
+    "PERF", # perflint
+    "PGH",  # pygrep-hooks
+    "PIE",  # flake8-pie
+    "PL",   # pylint
+    "PT",   # flake8-pytest-style
+    "PTH",  # flake8-use-pathlib
+    "RET",  # flake8-return
+    "RSE",  # flake8-raise
+    "RUF",  # ruff-specific
+    "S",    # flake8-bandit
+    "SIM",  # flake8-simplify
+    "T20",  # flake8-print
+    "TC",   # flake8-type-checking
+    "TD",   # flake8-todos
+    "TID",  # flake8-tidy-imports
+    "TRY",  # tryceratops
+    "UP",   # pyupgrade
+    "W",    # pycodestyle warnings
+    "YTT",  # flake8-2020
+]
+extend-select = [
+    "D213",     # Summary lines should be positioned on the second physical line of the docstring.
+    "D410",     # A blank line after section headings.
+    "PLR6201",  # Use a set literal when testing for membership
+    "PLW1514",  # {function_name} in text mode without explicit encoding argument
+]
+ignore = [
+    "COM812",   # Do not always add the trailing commas
+    "D200",     # One-line docstring should fit on one line
+    "D202",     # No blank lines allowed after function docstring
+    "D205",     # 1 blank line required between summary line and description
+    "D400",     # First line should end with a period
+    "D401",     # First line of docstring should be in imperative mood
+    "D412",     # No blank lines allowed between a section header and its content
+    "E501",     # Avoid enforcing line-length violations
+    "ISC001",   # Single-line-implicit-string-concatenation, conflict with formatter
+    "PD901",    # Allow using the generic variable name `df` for DataFrames
+    "PT023",    # Allow using pytest marker without parentheses
+    "PLR2004",  # Allow any magic values
+    "RET504",   # Allow variable assignment and return immediately for readability
+    "S603",     # Allow method calls that initiate a subprocess without a shell
+    "SIM117",   # Allow nested `with` statements
+    "TD003",    # Allow TODO comments without associated issue link
+]
+preview = true
+explicit-preview-rules = true
+
+[tool.ruff.lint.isort]
+known-third-party = ["pygmt"]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]  # Ignore `F401` (unused-import) in all `__init__.py` files
+"*/tests/test_*.py" = ["S101"]  # Ignore `S101` (use of assert) in all tests files
+"examples/**/*.py" = [ # Ignore rules in examples
+    "B018",  # Allow useless expressions in Jupyter Notebooks
+    "T201",  # Allow `print` statements
+]
+
+[tool.ruff.lint.pycodestyle]
+max-doc-length = 88
+
+[tool.ruff.lint.pydocstyle]
+# See https://docs.astral.sh/ruff/faq/#does-ruff-support-numpy-or-google-style-docstrings
+# for the enabled/disabled rules for the "numpy" convention.
+convention = "numpy"
+
+[tool.ruff.lint.pylint]
+max-args=10
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = "--verbose --durations=0 --durations-min=0.2 --doctest-modules --mpl --mpl-results-path=results"
-
-[tool.isort]
-profile = "black"
-skip_gitignore = true
-known_third_party = "pygmt"
-
-[tool.pylint.MASTER]
-# Use multiple processes to speed up Pylint. Specifying 0 will auto-detect the
-# number of processors available to use.
-jobs=0
-
-[tool.pylint.BASIC]
-# Good variable names which should always be accepted, separated by a comma.
-good-names="i,j,k,ex,Run,_,w,e,s,n,x,y,z"
-
-[tool.pylint.DESIGN]
-# Maximum number of arguments for function / method.
-max-args=10
-
-[tool.pylint.FORMAT]
-# Maximum number of lines in a module.
-max-module-lines=2000
-
-[tool.pylint.'MESSAGE CONTROL']
-# Disable the message, report, category or checker with the given id(s). You
-# can either give multiple identifiers separated by comma (,) or put this
-# option multiple times (only on the command line, not in the configuration
-# file where it should appear only once). You can also use "--disable=all" to
-# disable everything first and then reenable specific checks. For example, if
-# you want to run only the similarities checker, you can use "--disable=all
-# --enable=similarities". If you want to run only the classes checker, but have
-# no Warning level messages displayed, use "--disable=all --enable=classes
-# --disable=W".
-disable=["duplicate-code", "import-error"]
+addopts = "--verbose --color=yes --durations=0 --durations-min=0.2 --doctest-modules --mpl --mpl-results-path=results"
+markers = [
+    "benchmark: mark a test with custom benchmark settings.",
+]

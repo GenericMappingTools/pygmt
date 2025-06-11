@@ -1,26 +1,36 @@
 name: pygmt
 channels:
     - conda-forge
-    - defaults
+    - nodefaults
 dependencies:
     # Required dependencies
-    - pip
-    - gmt=6.4.0
-    - numpy>=1.20
+    - python=3.13
+    - gmt=6.5.0
+    - ghostscript=10.04.0
+    - numpy
     - pandas
     - xarray
-    - netCDF4
     - packaging
     # Optional dependencies
+    - contextily
     - geopandas
-    # Development dependencies (general)
-    - build
     - ipython
+    - pyarrow-core
+    - rioxarray
+    # Development dependencies (general)
     - make
+    - pip
+    - python-build
     # Dev dependencies (building documentation)
-    - myst-parser
-    - sphinx
+    - geodatasets
+    - myst-nb
+    - panel
+    - sphinx>=6.2
+    - sphinx-autodoc-typehints
     - sphinx-copybutton
     - sphinx-design
     - sphinx-gallery
     - sphinx_rtd_theme
+    # Dev dependencies (building PDF documentation)
+    # 'sphinxcontrib-svg2pdfconverter' is required since it's added to `extensions`.
+    - sphinxcontrib-svg2pdfconverter

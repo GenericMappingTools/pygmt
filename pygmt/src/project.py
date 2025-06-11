@@ -1,15 +1,20 @@
 """
 project - Project data onto lines or great circles, or generate tracks.
 """
+
+from typing import Literal
+
+import numpy as np
 import pandas as pd
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
+    validate_output_table_type,
 )
 
 
@@ -31,7 +36,15 @@ from pygmt.helpers import (
     f="coltypes",
 )
 @kwargs_to_strings(E="sequence", L="sequence", T="sequence", W="sequence", C="sequence")
-def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
+def project(
+    data: PathLike | TableLike | None = None,
+    x=None,
+    y=None,
+    z=None,
+    output_type: Literal["pandas", "numpy", "file"] = "pandas",
+    outfile: PathLike | None = None,
+    **kwargs,
+) -> pd.DataFrame | np.ndarray | None:
     r"""
     Project data onto lines or great circles, or generate tracks.
 
@@ -80,8 +93,8 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
     Flat Earth (Cartesian) coordinate transformations can also be made. Set
     ``flat_earth=True`` and remember that azimuth is clockwise from North (the
-    y axis), NOT the usual cartesian theta, which is counterclockwise from the
-    x axis. azimuth = 90 - theta.
+    y-axis), NOT the usual cartesian theta, which is counterclockwise from the
+    x-axis. azimuth = 90 - theta.
 
     No assumptions are made regarding the units for
     :math:`x, y, r, s, p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}`.
@@ -94,16 +107,18 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     back-azimuths or azimuths are better done using :gmt-docs:`mapproject` as
     project is strictly spherical.
 
-    Full option list at :gmt-docs:`project.html`
+    Full GMT docs at :gmt-docs:`project.html`.
 
     {aliases}
 
     Parameters
     ----------
-    data : str or {table-like}
+    data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
-        providing a file name to an ASCII data table, a 2D
+        providing a file name to an ASCII data table, a 2-D
         {table-classes}.
+    {output_type}
+    {outfile}
 
     center : str or list
         *cx*/*cy*.
@@ -122,7 +137,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     convention : str
         Specify the desired output using any combination of **xyzpqrs**, in
         any order [Default is **xypqrsz**]. Do not space between the letters.
-        Use lower case. The output will be columns of values corresponding to
+        Use lowercase. The output will be columns of values corresponding to
         your ``convention``. The **z** flag is special and refers to all
         numerical columns beyond the leading **x** and **y** in your input
         record. The **z** flag also includes any trailing text (which is
@@ -189,65 +204,59 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         a specific number of unique equidistant data via ``generate``. For
         degenerate ellipses you can just supply a single *diameter* instead.  A
         geographic diameter may be specified in any desired unit other than km
-        by appending the unit (e.g., 3d for degrees) [Default is km];
+        by appending the unit (e.g., 3-D for degrees) [Default is km];
         the increment is assumed to be in the same unit.  **Note**:
         For the Cartesian ellipse (which requires ``flat_earth``), the
         *direction* is counter-clockwise from the horizontal instead of an
         *azimuth*.
 
-    outfile : str
-        The file name for the output ASCII file.
-
     {coltypes}
 
     Returns
     -------
-    track: pandas.DataFrame or None
-        Return type depends on whether the ``outfile`` parameter is set:
+    ret
+        Return type depends on ``outfile`` and ``output_type``:
 
-        - :class:`pandas.DataFrame` table with (x, y, ..., newcolname) if
-          ``outfile`` is not set
-        - None if ``outfile`` is set (output will be stored in file set
-          by ``outfile``)
+        - ``None`` if ``outfile`` is set (output will be stored in file set by
+          ``outfile``)
+        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
+          (depends on ``output_type``)
     """
-
     if kwargs.get("C") is None:
-        raise GMTInvalidInput("The `center` parameter must be specified.")
+        msg = "The 'center' parameter must be specified."
+        raise GMTInvalidInput(msg)
     if kwargs.get("G") is None and data is None:
-        raise GMTInvalidInput(
-            "The `data` parameter must be specified unless `generate` is used."
-        )
+        msg = "The 'data' parameter must be specified unless 'generate' is used."
+        raise GMTInvalidInput(msg)
     if kwargs.get("G") is not None and kwargs.get("F") is not None:
-        raise GMTInvalidInput(
-            "The `convention` parameter is not allowed with `generate`."
+        msg = "The 'convention' parameter is not allowed with 'generate'."
+        raise GMTInvalidInput(msg)
+
+    output_type = validate_output_table_type(output_type, outfile=outfile)
+
+    column_names = None
+    if output_type == "pandas" and kwargs.get("G") is not None:
+        column_names = list("rsp")
+
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(
+                check_kind="vector",
+                data=data,
+                x=x,
+                y=y,
+                z=z,
+                mincols=2,
+                required=False,
+            ) as vintbl,
+            lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
+        ):
+            lib.call_module(
+                module="project",
+                args=build_arg_list(kwargs, infile=vintbl, outfile=vouttbl),
+            )
+        return lib.virtualfile_to_dataset(
+            vfname=vouttbl,
+            output_type=output_type,
+            column_names=column_names,
         )
-
-    with GMTTempFile(suffix=".csv") as tmpfile:
-        if outfile is None:  # Output to tmpfile if outfile is not set
-            outfile = tmpfile.name
-        with Session() as lib:
-            if kwargs.get("G") is None:
-                # Choose how data will be passed into the module
-                table_context = lib.virtualfile_from_data(
-                    check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
-                )
-
-                # Run project on the temporary (csv) data table
-                with table_context as infile:
-                    arg_str = build_arg_string(kwargs, infile=infile, outfile=outfile)
-            else:
-                arg_str = build_arg_string(kwargs, outfile=outfile)
-            lib.call_module(module="project", args=arg_str)
-
-        # if user did not set outfile, return pd.DataFrame
-        if outfile == tmpfile.name:
-            if kwargs.get("G") is not None:
-                column_names = list("rsp")
-                result = pd.read_csv(tmpfile.name, sep="\t", names=column_names)
-            else:
-                result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")
-        # return None if outfile set, output in outfile
-        elif outfile != tmpfile.name:
-            result = None
-
-    return result

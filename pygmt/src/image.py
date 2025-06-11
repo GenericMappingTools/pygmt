@@ -1,32 +1,34 @@
 """
-image - Plot an image.
+image - Plot raster or EPS images.
 """
+
+from pygmt._typing import PathLike
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
 @use_alias(
-    R="region",
-    J="projection",
     D="position",
     F="box",
+    G="bitcolor",
+    J="projection",
     M="monochrome",
-    U="timestamp",
+    R="region",
     V="verbose",
     c="panel",
     p="perspective",
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def image(self, imagefile, **kwargs):
+def image(self, imagefile: PathLike, **kwargs):
     r"""
-    Place images or EPS files on maps.
+    Plot raster or EPS images.
 
     Reads an Encapsulated PostScript file or a raster image file and plots
     it on a map.
 
-    Full option list at :gmt-docs:`image.html`
+    Full GMT docs at :gmt-docs:`image.html`.
 
     {aliases}
 
@@ -43,22 +45,29 @@ def image(self, imagefile, **kwargs):
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+r**\ *dpi*\
         **+w**\ [**-**]\ *width*\ [/*height*]\ [**+j**\ *justify*]\
-        [**+n**\ *nx*\ [/*ny*] ]\ [**+o**\ *dx*\ [/*dy*]].
-        Sets reference point on the map for the image.
+        [**+n**\ *nx*\ [/*ny*]]\ [**+o**\ *dx*\ [/*dy*]].
+        Set reference point on the map for the image.
     box : bool or str
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
-        Without further arguments, draws a rectangular border around the image
+        If set to ``True``, draw a rectangular border around the image
         using :gmt-term:`MAP_FRAME_PEN`.
+    bitcolor : str or list
+        [*color*][**+b**\|\ **f**\|\ **t**].
+        Change certain pixel values to another color or make them transparent.
+        For 1-bit images you can specify an alternate *color* for the
+        background (**+b**) or the foreground (**+f**) pixels, or give no color
+        to make those pixels transparent. Can be repeated with different
+        settings. Alternatively, for color images you can select a single
+        *color* that should be made transparent instead (**+t**).
     monochrome : bool
         Convert color image to monochrome grayshades using the (television)
         YIQ-transformation.
-    {timestamp}
     {verbose}
     {panel}
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    self._activate_figure()
     with Session() as lib:
-        lib.call_module(module="image", args=build_arg_string(kwargs, infile=imagefile))
+        lib.call_module(module="image", args=build_arg_list(kwargs, infile=imagefile))

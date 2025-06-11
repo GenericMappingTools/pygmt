@@ -1,4 +1,5 @@
 outs:
-- md5: 2d8e82e8fb76c0cda924ce6f0ccaef77
-  size: 61962
+- md5: 065ea10a2ed961df29defd6a1dfd1a4c
+  size: 62296
   path: test_ternary.png
+  hash: md5

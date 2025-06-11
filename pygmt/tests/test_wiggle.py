@@ -1,6 +1,7 @@
 """
-Tests wiggle.
+Test Figure.wiggle.
 """
+
 import numpy as np
 import pytest
 from pygmt import Figure
@@ -23,7 +24,8 @@ def test_wiggle():
         y=y,
         z=z,
         scale="0.5c",
-        color=["red+p", "gray+n"],
+        fillpositive="red",
+        fillnegative="gray",
         pen="1.0p",
         track="0.5p",
         position="jRM+w2+lnT",
@@ -31,6 +33,7 @@ def test_wiggle():
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare(filename="test_wiggle.png")
 def test_wiggle_data_incols():
     """
@@ -51,7 +54,8 @@ def test_wiggle_data_incols():
         projection="X8c",
         incols=[1, 0, 2],
         scale="0.5c",
-        color=["red+p", "gray+n"],
+        fillpositive="red",
+        fillnegative="gray",
         pen="1.0p",
         track="0.5p",
         position="jRM+w2+lnT",

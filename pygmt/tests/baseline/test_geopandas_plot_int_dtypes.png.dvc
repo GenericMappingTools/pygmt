@@ -1,0 +1,5 @@
+outs:
+- md5: 5920ec05c2aaaf9f36df2bf371a15056
+  size: 43224
+  path: test_geopandas_plot_int_dtypes.png
+  hash: md5

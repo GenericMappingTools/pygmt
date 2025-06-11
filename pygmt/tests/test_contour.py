@@ -1,8 +1,9 @@
-# pylint: disable=redefined-outer-name
 """
-Tests contour.
+Test Figure.contour.
 """
-import os
+
+import platform
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -10,8 +11,7 @@ import pytest
 import xarray as xr
 from pygmt import Figure
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
+POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
 
 
 @pytest.fixture(scope="module", name="data")
@@ -31,6 +31,7 @@ def fixture_region():
 
 
 @pytest.mark.mpl_image_compare
+@pytest.mark.xfail(platform.machine() == "aarch64", reason="Fails on Linux ARM64")
 def test_contour_vec(region):
     """
     Plot an x-centered gaussian kernel with different y scale.
@@ -47,6 +48,7 @@ def test_contour_vec(region):
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare(filename="test_contour_matrix.png")
 @pytest.mark.parametrize(
     "array_func",
@@ -75,11 +77,66 @@ def test_contour_from_file(region):
     return fig
 
 
+@pytest.mark.mpl_image_compare
+def test_contour_interval(region):
+    """
+    Plot data with fixed (different) contour and annotation intervals.
+    """
+    fig = Figure()
+    fig.contour(
+        data=POINTS_DATA,
+        projection="X10c",
+        region=region,
+        frame="af",
+        levels=0.1,
+        annotation=0.2,
+        pen=True,
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_contour_one_level(region):
+    """
+    Plot data with one contour level and one (different) annotation level.
+    """
+    fig = Figure()
+    fig.contour(
+        data=POINTS_DATA,
+        projection="X10c",
+        region=region,
+        frame="af",
+        levels=[0.4],
+        annotation=[0.5],
+        pen=True,
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_contour_multiple_levels(region):
+    """
+    Plot data with multiple (different) contour and annotation levels.
+    """
+    fig = Figure()
+    fig.contour(
+        data=POINTS_DATA,
+        projection="X10c",
+        region=region,
+        frame="af",
+        levels=[0.2, 0.3],
+        annotation=[0.4, 0.45],
+        pen=True,
+    )
+    return fig
+
+
 @pytest.mark.mpl_image_compare(filename="test_contour_vec.png")
+@pytest.mark.xfail(platform.machine() == "aarch64", reason="Fails on Linux ARM64")
 def test_contour_incols_transposed_data(region):
     """
-    Make sure that transposing the data matrix still produces a correct result
-    with incols reordering the columns.
+    Make sure that transposing the data matrix still produces a correct result with
+    incols reordering the columns.
 
     This is a regression test for
     https://github.com/GenericMappingTools/pygmt/issues/1313

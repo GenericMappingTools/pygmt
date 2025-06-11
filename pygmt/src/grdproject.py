@@ -1,16 +1,12 @@
 """
 grdproject - Forward and inverse map transformation of grids.
 """
+
+import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["grdproject"]
 
@@ -21,7 +17,6 @@ __doctest_skip__ = ["grdproject"]
     D="spacing",
     E="dpi",
     F="scaling",
-    G="outgrid",
     J="projection",
     I="inverse",
     M="unit",
@@ -31,9 +26,11 @@ __doctest_skip__ = ["grdproject"]
     r="registration",
 )
 @kwargs_to_strings(C="sequence", D="sequence", R="sequence")
-def grdproject(grid, **kwargs):
+def grdproject(
+    grid: PathLike | xr.DataArray, outgrid: PathLike | None = None, **kwargs
+) -> xr.DataArray | None:
     r"""
-    Change projection of gridded data between geographical and rectangular.
+    Forward and inverse map transformation of grids.
 
     This method will project a geographical gridded data set onto a
     rectangular grid. If ``inverse`` is ``True``, it will project a
@@ -50,20 +47,17 @@ def grdproject(grid, **kwargs):
     set to NaN. The ``region`` parameter can be used to select a map region
     large or smaller than that implied by the extent of the grid file.
 
-    Full option list at :gmt-docs:`grdproject.html`
+    Full GMT docs at :gmt-docs:`grdproject.html`.
 
     {aliases}
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {grid}
+    {outgrid}
     inverse : bool
-        When set to ``True`` transforms grid from rectangular to
-        geographical [Default is False].
+        When set to ``True`` transforms grid from rectangular to geographical
+        [Default is ``False``].
     {projection}
     {region}
     center : str or list
@@ -72,56 +66,56 @@ def grdproject(grid, **kwargs):
         is relative to lower left corner]. Optionally, add offsets in the
         projected units to be added (or subtracted when ``inverse`` is set) to
         (from) the projected coordinates, such as false eastings and
-        northings for particular projection zones [0/0].
+        northings for particular projection zones [Default is ``[0, 0]``].
     {spacing}
     dpi : int
         Set the resolution for the new grid in dots per inch.
     scaling : str
         [**c**\|\ **i**\|\ **p**\|\ **e**\|\ **f**\|\
         **k**\|\ **M**\|\ **n**\|\ **u**].
-        Force 1:1 scaling, i.e., output or output data are in actual projected
-        meters [**e**]. To specify other units, append **f** (foot),
-        **k** (km), **M** (statute mile), **n** (nautical mile), **u**
-        (US survey foot), **i** (inch), **c** (cm), or **p** (point).
+        Force 1:1 scaling, i.e., output or input data are in actual projected
+        meters [**e**]. To specify other units, append **f** (feet),
+        **k** (kilometers), **M** (statute miles), **n** (nautical miles),
+        **u** (US survey feet), **i** (inches), **c** (centimeters), or
+        **p** (points).
     unit : str
-        Append **c**, **i**, or **p** to indicate that cm, inch, or point
-        should be the projected measure unit. Cannot be used with ``scaling``.
+        Append **c**, **i**, or **p** to indicate that centimeters, inches, or
+        points should be the projected measure unit. Cannot be used with
+        ``scaling``.
     {verbose}
     {interpolation}
     {registration}
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
     Example
     -------
     >>> import pygmt
-    >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
-    >>> # and a y-range of 15 to 25
-    >>> grid = pygmt.datasets.load_earth_relief(
-    ...     resolution="30m", region=[10, 30, 15, 25]
-    ... )
-    >>> # Create a new grid from the input grid, set the projection to
-    >>> # Mercator, and set inverse to "True" to change from "geographic"
-    >>> # to "rectangular"
-    >>> new_grid = pygmt.grdproject(grid=grid, projection="M10c", inverse=True)
+    >>> # Load a grid of @earth_relief_30m data, with a longitude range of
+    >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
+    >>> region = [10, 30, 15, 25]
+    >>> grid = pygmt.datasets.load_earth_relief(resolution="30m", region=region)
+    >>> # Project the geographic gridded data onto a rectangular grid
+    >>> new_grid = pygmt.grdproject(grid=grid, projection="M10c", region=region)
     """
     if kwargs.get("J") is None:
-        raise GMTInvalidInput("The projection must be specified.")
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-            with file_context as infile:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="grdproject", args=build_arg_string(kwargs, infile=infile)
-                )
+        msg = "The projection must be specified."
+        raise GMTInvalidInput(msg)
 
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            kwargs["G"] = voutgrd
+            lib.call_module(
+                module="grdproject", args=build_arg_list(kwargs, infile=vingrd)
+            )
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

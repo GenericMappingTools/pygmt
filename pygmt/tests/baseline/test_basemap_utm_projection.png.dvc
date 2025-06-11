@@ -1,4 +1,5 @@
 outs:
-- md5: 05267ec2d3c26463c79603a2527cc5a9
-  size: 9070
+- md5: 5ac71f946749a8c4786416d780ba9ccf
+  size: 9719
   path: test_basemap_utm_projection.png
+  hash: md5

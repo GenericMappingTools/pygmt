@@ -1,6 +1,6 @@
 """
 Line colors with a custom CPT
------------------------------
+=============================
 
 The color of the lines made by :meth:`pygmt.Figure.plot` can be set according
 to a custom CPT and assigned with the ``pen`` parameter.
@@ -12,6 +12,7 @@ setting the ``pen`` color.
 
 """
 
+# %%
 import numpy as np
 import pygmt
 
@@ -27,7 +28,7 @@ fig.basemap(frame=["WSne", "af"], region=[20, 30, -10, 10])
 pygmt.makecpt(cmap="batlow", series=[0, 9, 1], color_model="+c0-9")
 
 # Plot 10 lines and set a different z-value for each line
-for zvalue in range(0, 10):
+for zvalue in range(10):
     y = zvalue * np.sin(x)
     fig.plot(x=x, y=y, cmap=True, zvalue=zvalue, pen="thick,+z,-")
 

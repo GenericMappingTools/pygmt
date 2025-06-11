@@ -1,6 +1,6 @@
 r"""
-General Stereographic
-=====================
+General stereographic projection
+================================
 
 This map projection is a conformal, azimuthal projection. It is mainly used
 with a projection center in one of the poles. Then meridians appear as straight
@@ -17,8 +17,16 @@ projection center, the optional *horizon* parameter specifies the maximum
 distance from projection center (in degrees, < 180, default 90), and the
 *scale* or *width* sets the size of the figure.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()
-fig.coast(region=[4, 14, 52, 57], projection="S0/90/12c", frame="ag", land="gray")
+fig.coast(
+    region=[4, 14, 52, 57],
+    projection="S0/90/12c",
+    frame="afg",
+    land="khaki",
+    water="white",
+)
 fig.show()

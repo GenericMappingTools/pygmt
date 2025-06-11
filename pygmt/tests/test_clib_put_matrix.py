@@ -1,11 +1,13 @@
 """
 Test the functions that put matrix data into GMT.
 """
+
 import numpy as np
 import numpy.testing as npt
 import pytest
 import xarray as xr
 from pygmt import clib
+from pygmt.clib.session import DTYPES_NUMERIC
 from pygmt.exceptions import GMTCLibError
 from pygmt.helpers import GMTTempFile
 from pygmt.tests.test_clib import mock
@@ -16,12 +18,13 @@ def fixture_dtypes():
     """
     List of supported numpy dtypes.
     """
-    return "int8 int16 int32 int64 uint8 uint16 uint32 uint64 float32 float64".split()
+    return [dtype for dtype in DTYPES_NUMERIC if dtype != np.timedelta64]
 
 
+@pytest.mark.benchmark
 def test_put_matrix(dtypes):
     """
-    Check that assigning a numpy 2d array to a dataset works.
+    Check that assigning a numpy 2-D array to a dataset works.
     """
     shape = (3, 4)
     for dtype in dtypes:
@@ -30,7 +33,7 @@ def test_put_matrix(dtypes):
                 family="GMT_IS_DATASET|GMT_VIA_MATRIX",
                 geometry="GMT_IS_POINT",
                 mode="GMT_CONTAINER_ONLY",
-                dim=[shape[1], shape[0], 1, 0],  # columns, rows, layers, dtype
+                dim=[shape[1], shape[0], 1, 0],  # ncolumns, nrows, nlayers, dtype
             )
             data = np.arange(shape[0] * shape[1], dtype=dtype).reshape(shape)
             lib.put_matrix(dataset, matrix=data)
@@ -64,9 +67,10 @@ def test_put_matrix_fails():
                 lib.put_matrix(dataset=None, matrix=np.empty((10, 2)), pad=0)
 
 
+@pytest.mark.benchmark
 def test_put_matrix_grid(dtypes):
     """
-    Check that assigning a numpy 2d array to an ASCII and NetCDF grid works.
+    Check that assigning a numpy 2-D array to an ASCII and netCDF grid works.
     """
     wesn = [10, 15, 30, 40, 0, 0]
     inc = [1, 1]
@@ -107,12 +111,14 @@ def test_put_matrix_grid(dtypes):
                     tmp_grid.name,
                     grid,
                 )
-                with xr.open_dataarray(tmp_grid.name) as dataarray:
-                    assert dataarray.shape == shape
-                    npt.assert_allclose(dataarray.data, np.flipud(data))
-                    npt.assert_allclose(
-                        dataarray.coords["x"].actual_range, np.array(wesn[0:2])
-                    )
-                    npt.assert_allclose(
-                        dataarray.coords["y"].actual_range, np.array(wesn[2:4])
-                    )
+                dataarray = xr.load_dataarray(
+                    tmp_grid.name, engine="gmt", raster_kind="grid"
+                )
+                assert dataarray.shape == shape
+                npt.assert_allclose(dataarray.data, np.flipud(data))
+                npt.assert_allclose(
+                    dataarray.coords["x"].actual_range, np.array(wesn[0:2])
+                )
+                npt.assert_allclose(
+                    dataarray.coords["y"].actual_range, np.array(wesn[2:4])
+                )

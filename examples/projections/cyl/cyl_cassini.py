@@ -1,6 +1,6 @@
 r"""
-Cassini Cylindrical
-============================
+Cassini cylindrical projection
+==============================
 
 This cylindrical projection was developed in 1745 by César-François Cassini de
 Thury for the survey of France. It is occasionally called Cassini-Soldner since
@@ -17,9 +17,17 @@ curves.
 The projection is set with **c** or **C**. The projection center is set by
 *lon0/lat0*, and the figure size is set with *scale* or *width*.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()
 # Use the ISO code for Madagascar (MG) and pad it by 2 degrees (+R2)
-fig.coast(projection="C47/-19/12c", region="MG+R2", frame="afg", land="gray", borders=1)
+fig.coast(
+    region="MG+R2",
+    projection="C47/-19/12c",
+    frame="afg",
+    land="gray80",
+    water="steelblue",
+)
 fig.show()

@@ -1,11 +1,13 @@
 """
-Tests for fig.coast.
+Test Figure.coast.
 """
+
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_coast_region():
     """
@@ -27,7 +29,7 @@ def test_coast_world_mercator():
         projection="M15c",
         frame="af",
         land="#aaaaaa",
-        resolution="c",
+        resolution="crude",
         water="white",
     )
     return fig
