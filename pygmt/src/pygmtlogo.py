@@ -93,19 +93,9 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     font = "AvantGarde-Book"
     match wordmark:
         case "vertical":
-            args_text_wm = {
-                "x": 0,
-                "y": -5,
-                "justify": "CT",
-                "font": f"2.5c,{font}",
-            }
+            args_text_wm = {"x": 0, "y": -5, "justify": "CT", "font": f"2.5c,{font}"}
         case True | "horizontal":
-            args_text_wm = {
-                "x": 6,
-                "y": 0,
-                "justify": "LM",
-                "font": f"8c,{font}",
-            }
+            args_text_wm = {"x": 6, "y": 0, "justify": "LM", "font": f"8c,{font}"}
 
     # -----------------------------------------------------------------------------
     # Start plotting
