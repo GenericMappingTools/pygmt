@@ -38,8 +38,7 @@ dependencies = [
     "numpy>=1.26",
     "pandas>=2.1",
     "xarray>=2023.07",
-    "netCDF4",
-    "packaging",
+    "packaging>=24.2",
 ]
 dynamic = ["version"]
 
@@ -51,6 +50,9 @@ all = [
     "pyarrow>=16",
     "rioxarray",
 ]
+
+[project.entry-points."xarray.backends"]
+gmt = "pygmt.xarray:GMTBackendEntrypoint"
 
 [project.urls]
 "Homepage" = "https://www.pygmt.org"

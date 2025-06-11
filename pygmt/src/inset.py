@@ -30,7 +30,7 @@ def inset(self, **kwargs):
     inside of the larger figure. Plotting methods that are called within the
     context manager are added to the inset figure.
 
-    Full option list at :gmt-docs:`inset.html`
+    Full GMT docs at :gmt-docs:`inset.html`.
 
     {aliases}
 
@@ -134,7 +134,7 @@ def inset(self, **kwargs):
     >>> fig.logo(position="jBR+o0.2c+w3c")
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
     with Session() as lib:
         try:
             lib.call_module(module="inset", args=["begin", *build_arg_list(kwargs)])

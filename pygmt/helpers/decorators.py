@@ -71,14 +71,11 @@ COMMON_DOCSTRINGS = {
             :gmt-docs:`gmt.html#f-full`.""",
     "cores": r"""
         cores : bool or int
-            [[**-**]\ *n*].
-            Limit the number of cores to be used in any OpenMP-enabled
-            multi-threaded algorithms. By default we try to use all available
-            cores. Set a number *n* to only use n cores (if too large it will
-            be truncated to the maximum cores available). Finally, give a
-            negative number *-n* to select (all - *n*) cores (or at least 1 if
-            *n* equals or exceeds all).
-            """,
+            Specify the number of active cores to be used in any OpenMP-enabled
+            multi-threaded algorithms. By default, all available cores are used. Set a
+            positive number *n* to use *n* cores (if too large it will be truncated to
+            the maximum cores available); or set a negative number *-n* to select
+            (all - *n*) cores (or at least 1 if *n* equals or exceeds all).""",
     "distcalc": r"""
         distcalc : str
             Determine how spherical distances are calculated
@@ -141,7 +138,7 @@ COMMON_DOCSTRINGS = {
                 - **+p**: specify that the current value minus the previous
                   value must exceed *gap* for a break to be imposed.""",
     "grid": r"""
-        grid : str or xarray.DataArray
+        grid
             Name of the input grid file or the grid loaded as a
             :class:`xarray.DataArray` object.
 
@@ -265,14 +262,15 @@ COMMON_DOCSTRINGS = {
         """,
     "panel": r"""
         panel : bool, int, or list
-            [*row,col*\|\ *index*].
-            Select a specific subplot panel. Only allowed when in subplot
-            mode. Use ``panel=True`` to advance to the next panel in the
-            selected order. Instead of *row,col* you may also give a scalar
-            value *index* which depends on the order you set via ``autolabel``
-            when the subplot was defined. **Note**: *row*, *col*, and *index*
-            all start at 0.
-         """,
+            Select a specific subplot panel. Only allowed when used in
+            :meth:`Figure.subplot` mode.
+
+            - ``True`` to advance to the next panel in the selected order.
+            - *index* to specify the index of the desired panel.
+            - (*row*, *col*) to specify the row and column of the desired panel.
+
+            The panel order is determined by the :meth:`Figure.subplot` method. *row*,
+            *col* and *index* all start at 0.""",
     "pen": r"""
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
@@ -408,7 +406,7 @@ def fmt_docstring(module_func):
     ...
     ...     Parameters
     ...     ----------
-    ...     data : str, {table-like}
+    ...     data
     ...         Pass in either a file name to an ASCII data table, a 2-D
     ...         {table-classes}.
     ...     {region}
@@ -423,7 +421,7 @@ def fmt_docstring(module_func):
     <BLANKLINE>
     Parameters
     ----------
-    data : str, numpy.ndarray, pandas.DataFrame, xarray.Dataset, or geo...
+    data
         Pass in either a file name to an ASCII data table, a 2-D
         :class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an
         :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`
@@ -455,9 +453,6 @@ def fmt_docstring(module_func):
             aliases.append(f"   - {arg} = {alias}")
         filler_text["aliases"] = "\n".join(aliases)
 
-    filler_text["table-like"] = (
-        "numpy.ndarray, pandas.DataFrame, xarray.Dataset, or geopandas.GeoDataFrame"
-    )
     filler_text["table-classes"] = (
         ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an\n"
         "    :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`\n"

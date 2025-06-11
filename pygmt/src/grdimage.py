@@ -2,6 +2,8 @@
 grdimage - Project and plot grids or images.
 """
 
+import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -36,7 +38,7 @@ __doctest_skip__ = ["grdimage"]
     x="cores",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def grdimage(self, grid, **kwargs):
+def grdimage(self, grid: PathLike | xr.DataArray, **kwargs):
     r"""
     Project and plot grids or images.
 
@@ -68,7 +70,7 @@ def grdimage(self, grid, **kwargs):
     The ``region`` parameter can be used to select a map region larger or
     smaller than that implied by the extent of the grid.
 
-    Full option list at :gmt-docs:`grdimage.html`
+    Full GMT docs at :gmt-docs:`grdimage.html`.
 
     {aliases}
 
@@ -154,7 +156,7 @@ def grdimage(self, grid, **kwargs):
     >>> # show the plot
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     # Do not support -A option
     if any(kwargs.get(arg) is not None for arg in ["A", "img_out"]):
@@ -168,7 +170,7 @@ def grdimage(self, grid, **kwargs):
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_in(
-                check_kind="raster", data=kwargs.get("I"), required_data=False
+                check_kind="raster", data=kwargs.get("I"), required=False
             ) as vshadegrid,
         ):
             kwargs["I"] = vshadegrid

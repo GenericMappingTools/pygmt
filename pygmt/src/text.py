@@ -5,7 +5,7 @@ text - Plot or typeset text.
 from collections.abc import Sequence
 
 import numpy as np
-from pygmt._typing import AnchorCode, StringArrayTypes
+from pygmt._typing import AnchorCode, PathLike, StringArrayTypes, TableLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -44,7 +44,7 @@ from pygmt.helpers import (
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def text_(  # noqa: PLR0912
     self,
-    textfiles=None,
+    textfiles: PathLike | TableLike | None = None,
     x=None,
     y=None,
     position: AnchorCode | None = None,
@@ -68,7 +68,7 @@ def text_(  # noqa: PLR0912
     ZapfDingbats and ISO-8859-x (x can be 1-11, 13-16) encodings. Refer to
     :doc:`/techref/encodings` for the full list of supported non-ASCII characters.
 
-    Full option list at :gmt-docs:`text.html`.
+    Full GMT docs at :gmt-docs:`text.html`.
 
     {aliases}
 
@@ -179,7 +179,7 @@ def text_(  # noqa: PLR0912
         ``x``/``y`` and ``text``.
     {wrap}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     # Ensure inputs are either textfiles, x/y/text, or position/text
     if (
@@ -190,8 +190,8 @@ def text_(  # noqa: PLR0912
         msg = "Provide either 'textfiles', 'x'/'y'/'text', or 'position'/'text'."
         raise GMTInvalidInput(msg)
 
-    required_data = position is None
-    kind = data_kind(textfiles, required=required_data)
+    data_is_required = position is None
+    kind = data_kind(textfiles, required=data_is_required)
 
     if position is not None and (text is None or is_nonstr_iter(text)):
         msg = "'text' can't be None or array when 'position' is given."
@@ -261,9 +261,7 @@ def text_(  # noqa: PLR0912
 
     with Session() as lib:
         with lib.virtualfile_in(
-            check_kind="vector",
-            data=textfiles or data,
-            required_data=required_data,
+            check_kind="vector", data=textfiles or data, required=data_is_required
         ) as vintbl:
             lib.call_module(
                 module="text",

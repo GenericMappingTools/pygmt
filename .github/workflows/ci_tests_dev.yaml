@@ -60,7 +60,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v2.0.4
+        uses: mamba-org/setup-micromamba@v2.0.5
         with:
           environment-name: pygmt
           cache-environment: true
@@ -150,10 +150,10 @@ jobs:
         run: |
           python -m pip install --pre --prefer-binary \
                         --extra-index https://pypi.anaconda.org/scientific-python-nightly-wheels/simple \
-                        numpy pandas xarray netCDF4 packaging \
+                        numpy pandas xarray packaging \
                         build contextily dvc geopandas ipython pyarrow rioxarray \
                         pytest pytest-cov pytest-doctestplus pytest-mpl pytest-rerunfailures \
-                        sphinx-gallery
+                        netCDF4 sphinx-gallery
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages

@@ -3,6 +3,7 @@ grdsample - Resample a grid onto a new lattice.
 """
 
 import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -21,7 +22,9 @@ __doctest_skip__ = ["grdsample"]
     x="cores",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def grdsample(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
+def grdsample(
+    grid: PathLike | xr.DataArray, outgrid: PathLike | None = None, **kwargs
+) -> xr.DataArray | None:
     r"""
     Resample a grid onto a new lattice.
 
@@ -38,7 +41,7 @@ def grdsample(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None
     ``translate`` can be used to change the grid registration. When omitted,
     the output grid will have the same registration as the input grid.
 
-    Full option list at :gmt-docs:`grdsample.html`
+    Full GMT docs at :gmt-docs:`grdsample.html`.
 
     {aliases}
 
@@ -77,7 +80,7 @@ def grdsample(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None
     ...     resolution="30m", region=[10, 30, 15, 25]
     ... )
     >>> # Create a new grid from an input grid, change the registration,
-    >>> # and set both x- and y-spacing to 0.5 arc-degrees
+    >>> # and set both x- and y-spacings to 0.5 arc-degrees
     >>> new_grid = pygmt.grdsample(grid=grid, translate=True, spacing=[0.5, 0.5])
     """
     with Session() as lib:
