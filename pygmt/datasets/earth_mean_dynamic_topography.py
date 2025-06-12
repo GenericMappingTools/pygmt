@@ -28,22 +28,26 @@ def load_earth_mean_dynamic_topography(
 
        CNES Earth mean dynamic topography dataset.
 
-    The grids are downloaded to a user data directory (usually
-    ``~/.gmt/server/earth/earth_mdt/``) the first time you invoke this function.
-    Afterwards, it will load the grid from the data directory. So you'll need an
-    internet connection the first time around.
+    This function downloads the dataset from the GMT data server, caches it in a user
+    data directory (usually ``~/.gmt/server/earth/earth_mdt/``), and load the dataset as
+    an :class:`xarray.DataArray`. An internet connection is required the first time
+    around, but subsequent calls will load the dataset from the local data directory.
 
-    These grids can also be accessed by passing in the file name
-    **@earth_mdt**\_\ *res*\[_\ *reg*] to any grid processing function or plotting
-    method. *res* is the grid resolution (see below), and *reg* is the grid registration
-    type (**p** for pixel registration or **g** for gridline registration).
+    The dataset can also be accessed by specifying a file name in any grid processing
+    function or plotting method, using the following file name format:
+    **@earth_mdt**\_\ *res*\_\ *reg*. *res* is the grid resolution; *reg* is the grid
+    registration type (**p** for pixel registration, **g** for gridline registration).
+    If *reg* is omitted (e.g., ``@earth_mdt_01d``), the gridline-registered grid will be
+    loaded for grid processing functions and the pixel-registered grid will be loaded
+    for plotting functions. If *res* is also omitted (i.e., ``@earth_mdt``), GMT
+    automatically selects a suitable resolution based on the current region and
+    projection settings.
 
-    The default color palette table (CPT) for this dataset is *@earth_mdt.cpt*. It's
-    implicitly used when passing in the file name of the dataset to any grid plotting
-    method if no CPT is explicitly specified. When the dataset is loaded and plotted
-    as an :class:`xarray.DataArray` object, the default CPT is ignored, and GMT's
-    default CPT (*turbo*) is used. To use the dataset-specific CPT, you need to
-    explicitly set ``cmap="@earth_mdt.cpt"``.
+    This dataset comes with a color palette table (CPT) file, ``@earth_mdt.cpt``. To use
+    the dataset-specific CPT when plotting the dataset, explicitly set
+    ``cmap="@earth_mdt.cpt"``, otherwise GMT's default CPT (*turbo*) will be used. If
+    the dataset is referenced by the file name in a grid plotting method, the
+    dataset-specific CPT file is used automatically unless another CPT is specified.
 
     Refer to :gmt-datasets:`earth-mdt.html` for more details about available datasets,
     including version information and references.
@@ -69,24 +73,20 @@ def load_earth_mean_dynamic_topography(
     Note
     ----
     The registration and coordinate system type of the returned
-    :class:`xarray.DataArray` grid can be accessed via the GMT accessors (i.e.,
-    ``grid.gmt.registration`` and ``grid.gmt.gtype`` respectively). However, these
-    properties may be lost after specific grid operations (such as slicing) and will
-    need to be manually set before passing the grid to any PyGMT data processing or
-    plotting functions. Refer to :class:`pygmt.GMTDataArrayAccessor` for detailed
-    explanations and workarounds.
+    :class:`xarray.DataArray` grid can be accessed via the *gmt* accessor. Refer to
+    :class:`pygmt.GMTDataArrayAccessor` for detailed explanations and limitations.
 
     Examples
     --------
 
     >>> from pygmt.datasets import load_earth_mean_dynamic_topography
-    >>> # load the default grid (gridline-registered 1 arc-degree grid)
+    >>> # Load the default grid (gridline-registered 1 arc-degree grid)
     >>> grid = load_earth_mean_dynamic_topography()
-    >>> # load the 30 arc-minutes grid with "gridline" registration
+    >>> # Load the 30 arc-minutes grid with "gridline" registration
     >>> grid = load_earth_mean_dynamic_topography(
     ...     resolution="30m", registration="gridline"
     ... )
-    >>> # load high-resolution (7 arc-minutes) grid for a specific region
+    >>> # Load high-resolution (7 arc-minutes) grid for a specific region
     >>> grid = load_earth_mean_dynamic_topography(
     ...     resolution="07m",
     ...     region=[120, 160, 30, 60],

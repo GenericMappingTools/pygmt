@@ -5,9 +5,10 @@ Test pygmt.grdfill.
 from pathlib import Path
 
 import numpy as np
+import numpy.testing as npt
 import pytest
 import xarray as xr
-from pygmt import grdfill, load_dataarray
+from pygmt import grdfill
 from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
@@ -49,23 +50,8 @@ def fixture_expected_grid():
             [347.5, 331.5, 309.0, 282.0, 190.0, 208.0, 299.5, 348.0],
         ],
         coords={
-            "lon": [-54.5, -53.5, -52.5, -51.5, -50.5, -49.5, -48.5, -47.5],
-            "lat": [
-                -23.5,
-                -22.5,
-                -21.5,
-                -20.5,
-                -19.5,
-                -18.5,
-                -17.5,
-                -16.5,
-                -15.5,
-                -14.5,
-                -13.5,
-                -12.5,
-                -11.5,
-                -10.5,
-            ],
+            "lon": np.arange(-54.5, -46.5, 1),
+            "lat": np.arange(-23.5, -9.5, 1),
         },
         dims=["lat", "lon"],
     )
@@ -76,11 +62,11 @@ def test_grdfill_dataarray_out(grid, expected_grid):
     """
     Test grdfill with a DataArray output.
     """
-    result = grdfill(grid=grid, mode="c20")
+    result = grdfill(grid=grid, constantfill=20)
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
-    assert result.gmt.gtype == GridType.GEOGRAPHIC
-    assert result.gmt.registration == GridRegistration.PIXEL
+    assert result.gmt.gtype is GridType.GEOGRAPHIC
+    assert result.gmt.registration is GridRegistration.PIXEL
     # check information of the output grid
     xr.testing.assert_allclose(a=result, b=expected_grid)
 
@@ -91,11 +77,11 @@ def test_grdfill_asymmetric_pad(grid, expected_grid):
 
     Regression test for https://github.com/GenericMappingTools/pygmt/issues/1745.
     """
-    result = grdfill(grid=grid, mode="c20", region=[-55, -50, -24, -16])
+    result = grdfill(grid=grid, constantfill=20, region=[-55, -50, -24, -16])
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
-    assert result.gmt.gtype == GridType.GEOGRAPHIC
-    assert result.gmt.registration == GridRegistration.PIXEL
+    assert result.gmt.gtype is GridType.GEOGRAPHIC
+    assert result.gmt.registration is GridRegistration.PIXEL
     # check information of the output grid
     xr.testing.assert_allclose(
         a=result, b=expected_grid.sel(lon=slice(-55, -50), lat=slice(-24, -16))
@@ -107,16 +93,58 @@ def test_grdfill_file_out(grid, expected_grid):
     Test grdfill with an outgrid set.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
-        result = grdfill(grid=grid, mode="c20", outgrid=tmpfile.name)
+        result = grdfill(grid=grid, constantfill=20, outgrid=tmpfile.name)
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0  # check that outfile exists
-        temp_grid = load_dataarray(tmpfile.name)
+        temp_grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
+
+
+def test_grdfill_gridfill_dataarray(grid):
+    """
+    Test grdfill with a DataArray input.
+    """
+    bggrid = xr.DataArray(
+        np.arange(grid.size).reshape(grid.shape),
+        dims=grid.dims,
+        coords={"lon": grid.lon, "lat": grid.lat},
+    )
+    result = grdfill(grid=grid, gridfill=bggrid)
+    assert not result.isnull().any()
+    npt.assert_array_equal(result[3:6, 3:5], bggrid[3:6, 3:5])
+
+
+def test_grdfill_inquire(grid):
+    """
+    Test grdfill with inquire mode.
+    """
+    bounds = grdfill(grid=grid, inquire=True)
+    assert isinstance(bounds, np.ndarray)
+    assert bounds.shape == (1, 4)
+    npt.assert_allclose(bounds, [[-52.0, -50.0, -21.0, -18.0]])
 
 
 def test_grdfill_required_args(grid):
     """
-    Test that grdfill fails without arguments for `mode` and `L`.
+    Test that grdfill fails without filling parameters or 'inquire'.
     """
     with pytest.raises(GMTInvalidInput):
         grdfill(grid=grid)
+
+
+def test_grdfill_inquire_and_fill(grid):
+    """
+    Test that grdfill fails if both inquire and fill parameters are given.
+    """
+    with pytest.raises(GMTInvalidInput):
+        grdfill(grid=grid, inquire=True, constantfill=20)
+
+
+# TODO(PyGMT>=0.19.0): Remove this test.
+def test_grdfill_deprecated_mode(grid, expected_grid):
+    """
+    Test that grdfill fails with deprecated `mode` argument.
+    """
+    with pytest.warns(FutureWarning):
+        result = grdfill(grid=grid, mode="c20")
+        xr.testing.assert_allclose(a=result, b=expected_grid)

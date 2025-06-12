@@ -3,6 +3,7 @@ dimfilter - Directional filtering of grids in the space domain.
 """
 
 import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -20,9 +21,11 @@ __doctest_skip__ = ["dimfilter"]
     V="verbose",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def dimfilter(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
+def dimfilter(
+    grid: PathLike | xr.DataArray, outgrid: PathLike | None = None, **kwargs
+) -> xr.DataArray | None:
     r"""
-    Filter a grid by dividing the filter circle.
+    Directional filtering of grids in the space domain.
 
     Filter a grid in the space (or time) domain by
     dividing the given filter circle into the given number of sectors,
@@ -40,7 +43,7 @@ def dimfilter(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None
     Thus, an additional filtering (e.g., Gaussian via :func:`pygmt.grdfilter`)
     of the DiM-filtered data is generally recommended.
 
-    Full option list at :gmt-docs:`dimfilter.html`
+    Full GMT docs at :gmt-docs:`dimfilter.html`.
 
     {aliases}
 

@@ -7,16 +7,15 @@ dependencies:
     # Required dependencies
     - gmt=6.5.0
     - ghostscript=10.04.0
-    - numpy>=1.25
-    - pandas>=2.0
-    - xarray>=2023.04
-    - netCDF4
-    - packaging
+    - numpy>=1.26
+    - pandas>=2.1
+    - xarray>=2023.07
+    - packaging>=24.2
     # Optional dependencies
-    - contextily
-    - geopandas
+    - contextily>=1.5
+    - geopandas>=1.0
     - ipython
-    - pyarrow-core
+    - pyarrow-core>=16
     - rioxarray
     # Development dependencies (general)
     - dvc
@@ -27,13 +26,14 @@ dependencies:
     # Dev dependencies (style checks)
     - codespell
     - pre-commit
-    - ruff>=0.9.6
+    - ruff>=0.10.0
     # Dev dependencies (unit testing)
     - matplotlib-base
     - pytest>=6.0
     - pytest-cov
     - pytest-doctestplus
     - pytest-mpl
+    - netCDF4
     # Dev dependencies (building documentation)
     - geodatasets
     - myst-nb
@@ -43,7 +43,7 @@ dependencies:
     - sphinx-copybutton
     - sphinx-design
     - sphinx-gallery>=0.19.0
-    - sphinx_rtd_theme<3.0
+    - sphinx_rtd_theme
     # Dev dependencies (building PDF documentation)
     - cairosvg
     - sphinxcontrib-svg2pdfconverter

@@ -1,5 +1,5 @@
 """
-subplot - Manage modern mode figure subplot configuration and selection.
+subplot - Manage figure subplot configuration and selection.
 """
 
 import contextlib
@@ -33,7 +33,7 @@ from pygmt.helpers import (
 @kwargs_to_strings(Ff="sequence", Fs="sequence", M="sequence", R="sequence")
 def subplot(self, nrows=1, ncols=1, **kwargs):
     r"""
-    Create multi-panel subplot figures.
+    Manage figure subplot configuration and selection.
 
     This method is used to split the current figure into a rectangular layout
     of subplots that each may contain a single self-contained figure. Begin by
@@ -41,7 +41,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
     parameters are available to specify the systematic layout, labeling,
     dimensions, and more for the subplots.
 
-    Full option list at :gmt-docs:`subplot.html#synopsis-begin-mode`
+    Full GMT docs at :gmt-docs:`subplot.html#synopsis-begin-mode`.
 
     {aliases}
 
@@ -145,7 +145,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         [no heading]. Font is determined by setting :gmt-term:`FONT_HEADING`.
     {verbose}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     if nrows < 1 or ncols < 1:
         msg = "Please ensure that both 'nrows'>=1 and 'ncols'>=1."
@@ -224,7 +224,7 @@ def set_panel(self, panel=None, **kwargs):
 
     {verbose}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     with Session() as lib:
         lib.call_module(

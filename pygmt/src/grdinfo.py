@@ -1,8 +1,10 @@
 """
-grdinfo - Retrieve info about grid file.
+grdinfo - Extract information from 2-D grids or 3-D cubes.
 """
 
+import xarray as xr
 from packaging.version import Version
+from pygmt._typing import PathLike
 from pygmt.clib import Session, __gmt_version__
 from pygmt.helpers import (
     GMTTempFile,
@@ -27,13 +29,13 @@ from pygmt.helpers import (
     f="coltypes",
 )
 @kwargs_to_strings(D="sequence", I="sequence", R="sequence")
-def grdinfo(grid, **kwargs):
+def grdinfo(grid: PathLike | xr.DataArray, **kwargs) -> str:
     r"""
-    Get information about a grid.
+    Extract information from 2-D grids or 3-D cubes.
 
     Can read the grid from a file or given as an :class:`xarray.DataArray` grid.
 
-    Full option list at :gmt-docs:`grdinfo.html`
+    Full GMT docs at :gmt-docs:`grdinfo.html`.
 
     {aliases}
 

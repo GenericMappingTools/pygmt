@@ -3,6 +3,7 @@ grdgradient - Compute directional gradients from a grid.
 """
 
 import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -30,14 +31,16 @@ __doctest_skip__ = ["grdgradient"]
     n="interpolation",
 )
 @kwargs_to_strings(A="sequence", E="sequence", R="sequence")
-def grdgradient(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
+def grdgradient(
+    grid: PathLike | xr.DataArray, outgrid: PathLike | None = None, **kwargs
+) -> xr.DataArray | None:
     r"""
-    Compute the directional derivative of the vector gradient of the data.
+    Compute directional gradients from a grid.
 
     Can accept ``azimuth``, ``direction``, and ``radiance`` input to create
     the resulting gradient.
 
-    Full option list at :gmt-docs:`grdgradient.html`
+    Full GMT docs at :gmt-docs:`grdgradient.html`.
 
     {aliases}
 
@@ -49,7 +52,7 @@ def grdgradient(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | No
         *azim*\ [/*azim2*].
         Azimuthal direction for a directional derivative; *azim* is the
         angle in the x,y plane measured in degrees positive clockwise from
-        north (the +y direction) toward east (the +x direction). The
+        north (the positive y-direction) toward east (the positive x-direction). The
         negative of the directional derivative,
         :math:`-(\frac{{dz}}{{dx}}\sin(\mbox{{azim}}) + \
         \frac{{dz}}{{dy}}\cos(\mbox{{azim}}))`, is found; negation yields
