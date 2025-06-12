@@ -4,6 +4,7 @@ coast - Plot continents, countries, shorelines, rivers, and borders.
 
 from typing import Literal
 
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -211,7 +212,10 @@ def coast(
         )
         raise GMTInvalidInput(msg)
 
-    kwargs["D"] = kwargs.get("D", _parse_coastline_resolution(resolution))
+    alias = AliasSystem(
+        D=Alias(resolution, mapping=True),
+    )
+    kwdict = alias.kwdict | kwargs
 
     with Session() as lib:
-        lib.call_module(module="coast", args=build_arg_list(kwargs))
+        lib.call_module(module="coast", args=build_arg_list(kwdict))
