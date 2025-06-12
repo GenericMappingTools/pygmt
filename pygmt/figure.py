@@ -437,6 +437,7 @@ class Figure:
         plot,
         plot3d,
         psconvert,
+        pygmtlogo,
         rose,
         set_panel,
         shift_origin,
