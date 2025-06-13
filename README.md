@@ -137,7 +137,7 @@ Feel free to cite our work in your research using the following BibTeX:
 
 ```
 @software{
-  pygmt_2025_15071586,
+  pygmt_2025_15628725,
   author       = {Tian, Dongdong and
                   Uieda, Leonardo and
                   Leong, Wei Ji and
@@ -157,12 +157,12 @@ Feel free to cite our work in your research using the following BibTeX:
                   Quinn, Jamie and
                   Wessel, Paul},
   title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-  month        = mar,
+  month        = jun,
   year         = 2025,
   publisher    = {Zenodo},
-  version      = {0.15.0},
-  doi          = {10.5281/zenodo.15071586},
-  url          = {https://doi.org/10.5281/zenodo.15071586}
+  version      = {0.16.0},
+  doi          = {10.5281/zenodo.15628725},
+  url          = {https://doi.org/10.5281/zenodo.15628725}
 }
 ```
 
