@@ -10,6 +10,7 @@ information on the EPSG dataset can be found at https://epsg.org/home.html.
 
 """
 
+# %%
 import pygmt
 
 fig = pygmt.Figure()
