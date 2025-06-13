@@ -27,6 +27,7 @@ from pygmt.helpers import (
     B="frame",
     C="clearance",
     D="offset",
+    F="position/angle/font/justify-",
     G="fill",
     N="no_clip",
     V="verbose",
