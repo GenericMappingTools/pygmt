@@ -10,14 +10,13 @@
 
 ### New Features
 
-* Implement gmt xarray BackendEntrypoint ([#3919](https://github.com/GenericMappingTools/pygmt/pull/3919))
+* Implement gmt xarray BackendEntrypoint to load raster files via GMT ([#3919](https://github.com/GenericMappingTools/pygmt/pull/3919), [#3932](https://github.com/GenericMappingTools/pygmt/pull/3932))
 
 ### Enhancements
 
 * pygmt.grdclip: Parameters 'between' and 'replace'  accept a 2-D sequence ([#3883](https://github.com/GenericMappingTools/pygmt/pull/3883))
 * Store first tile as source encoding for tiled grids ([#3950](https://github.com/GenericMappingTools/pygmt/pull/3950))
 * Figure.coast/pygmt.select/pygmt.grdlandmask: Use long names ("crude"/"low"/"intermediate"/"high"/"full") for the 'resolution' parameter ([#3013](https://github.com/GenericMappingTools/pygmt/pull/3013))
-* Allow passing region to GMTBackendEntrypoint.open_dataset ([#3932](https://github.com/GenericMappingTools/pygmt/pull/3932))
 * Add a helper function sequence_join to join a sequence by a separator ([#3961](https://github.com/GenericMappingTools/pygmt/pull/3961))
 
 ### Deprecations
@@ -39,7 +38,7 @@
 
 ### Bug Fixes
 
-* pygmt.select: parameter 'mask' accepts a sequence of strings ([#3956](https://github.com/GenericMappingTools/pygmt/pull/3956))
+* pygmt.select: Parameter 'mask' accepts a sequence of strings ([#3956](https://github.com/GenericMappingTools/pygmt/pull/3956))
 
 ### Documentation
 
