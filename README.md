@@ -142,8 +142,8 @@ Feel free to cite our work in your research using the following BibTeX:
                   Uieda, Leonardo and
                   Leong, Wei Ji and
                   Fröhlich, Yvonne and
-                  Schlitzer, William and
                   Grund, Michael and
+                  Schlitzer, William and
                   Jones, Max and
                   Toney, Liam and
                   Yao, Jiayuan and

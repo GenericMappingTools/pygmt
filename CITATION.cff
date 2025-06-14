@@ -20,14 +20,14 @@ authors:
   family-names: Fröhlich
   affiliation: Unaffiliated
   orcid: https://orcid.org/0000-0002-8566-0619
-- given-names: William
-  family-names: Schlitzer
-  affiliation: Unaffiliated
-  orcid: https://orcid.org/0000-0002-5843-2282
 - given-names: Michael
   family-names: Grund
   affiliation: SNP Innovation Lab GmbH, Germany
   orcid: https://orcid.org/0000-0001-8759-2018
+- given-names: William
+  family-names: Schlitzer
+  affiliation: Unaffiliated
+  orcid: https://orcid.org/0000-0002-5843-2282
 - given-names: Max
   family-names: Jones
   affiliation: University of Hawaiʻi at Mānoa, USA
