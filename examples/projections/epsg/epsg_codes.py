@@ -17,6 +17,6 @@ fig = pygmt.Figure()
 # Pass the desired EPSG code and the width of the map, here 10 centimeters, to the
 # projection parameter
 fig.basemap(region=[-180, 180, -60, 60], projection="EPSG:3857/10c", frame=30)
-fig.coast(shorelines="1/0.1p,gray10")
+fig.coast(land="gray", shorelines="1/0.1p,gray10")
 
 fig.show()
