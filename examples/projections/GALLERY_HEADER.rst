@@ -7,6 +7,6 @@ methods. The projection is specified by a one-letter code along with (sometimes 
 reference longitude and latitude and the width of the map (for example,
 **A**\ *lon0/lat0*\ [*/horizon*\ ]\ */width*). The map height is determined based on the
 region and projection. Beside these GMT-specific projection codes,
-:doc:`EPSG codes </gallery/projections/epsg>` are suppported.
+:doc:`EPSG codes </projections/epsg>` are suppported.
 
 These are all the available projections:
