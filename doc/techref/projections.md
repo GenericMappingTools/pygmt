@@ -12,7 +12,9 @@ myst:
 
 # GMT Map Projections
 
-The table below shows the projection codes for the 31 GMT map projections:
+The table below shows the projection codes for the 31 GMT map projections. Besides these
+GMT-specific projection codes, [EPSG codes](https://www.pygmt.org/latest/gallery/maps/epsg_codes)
+are suppported.
 
 | PyGMT Projection Argument | Projection Name |
 | --- | --- |
@@ -47,6 +49,3 @@ The table below shows the projection codes for the 31 GMT map projections:
 | **W**[{{ lon0 }}/]*width*                                   | [](/projections/misc/misc_mollweide.rst) |
 | **X***width*[**l**\|**p***exp*\|**T**\|**t**][/*height*[**l**\|**p***exp*\|**T**\|**t**]][**d**] | Cartesian [linear](/projections/nongeo/cartesian_linear.rst), [logarithmic](/projections/nongeo/cartesian_logarithmic.rst), [power](/projections/nongeo/cartesian_power.rst), and time |
 | **Y**{{ lon0 }}/{{ lat0 }}/*width*                          | [](/projections/cyl/cyl_equal_area.rst) |
-
-Besides these projection codes, the usage of [EPSG codes](https://www.pygmt.org/latest/gallery/maps/epsg_codes)
-is suppported.
