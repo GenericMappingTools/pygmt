@@ -48,5 +48,5 @@ The table below shows the projection codes for the 31 GMT map projections:
 | **X***width*[**l**\|**p***exp*\|**T**\|**t**][/*height*[**l**\|**p***exp*\|**T**\|**t**]][**d**] | Cartesian [linear](/projections/nongeo/cartesian_linear.rst), [logarithmic](/projections/nongeo/cartesian_logarithmic.rst), [power](/projections/nongeo/cartesian_power.rst), and time |
 | **Y**{{ lon0 }}/{{ lat0 }}/*width*                          | [](/projections/cyl/cyl_equal_area.rst) |
 
-Besides these projection codes, the usage of :doc:`EPSG codes </gallery/maps/epsg_codes>`
+Besides these projection codes, the usage of [EPSG codes](https://www.pygmt.org/latest/techref/projections.html)
 is suppported.
