@@ -1,2 +1,2 @@
-EPSG-codes
+EPSG codes
 ----------
