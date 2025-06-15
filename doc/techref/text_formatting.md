@@ -1,4 +1,4 @@
-# GMT text formatting
+# GMT Text Formatting
 
 The table below shows how text added via :meth:`Figure.text` as well as labels of colorbars
 and Cartesian axis can be formatted.
