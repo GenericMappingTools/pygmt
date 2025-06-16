@@ -1,6 +1,10 @@
 # GMT Text Formatting
 
-The table below shows how text as well as labels of colorbars and Cartesian axis can be formatted.
+The table below shows how text add to a plot as well as labels of colorbars and
+Cartesian axes can be formatted. Changing the font as well as its color and size
+in this way allows to change those only for specific words of a longer text. The
+supported fonts are listed at [](/techref/fonts.md). For Greek letters, is there
+any official list for the assignment ??? .
 
 | Symbol | Behavior |
 | --- | --- |
