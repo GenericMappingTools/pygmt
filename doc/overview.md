@@ -46,7 +46,7 @@ These are conference presentations about the development of PyGMT (previously "G
     Presented at *SciPy 2022*.
     doi:[10.6084/m9.figshare.20483793](https://doi.org/10.6084/m9.figshare.20483793)
 
-    ![](_static/scipy2022-youtube-thumbnail.jpg){.align-center width="80%"}
+    [![](_static/scipy2022-youtube-thumbnail.jpg){.align-center width="80%"}](https://www.youtube.com/watch?v=nCktihu9bWg)
 
 -   "PyGMT: Accessing the Generic Mapping Tools from Python".
     2019.
