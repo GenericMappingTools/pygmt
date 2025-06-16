@@ -62,7 +62,7 @@ These are conference presentations about the development of PyGMT (previously "G
     Presented at *SciPy 2018*.
     doi:[10.6084/m9.figshare.6814052](https://doi.org/10.6084/m9.figshare.6814052)
 
-    ![](_static/scipy2018-youtube-thumbnail.png){.align-center width="80%"}
+    [![](_static/scipy2018-youtube-thumbnail.png){.align-center width="80%"}](https://www.youtube.com/watch?v=6wMtfZXfTRM)
 
 -   "Integrating the Generic Mapping Tools with the Scientific Python Ecosystem".
     2018.
@@ -78,7 +78,7 @@ These are conference presentations about the development of PyGMT (previously "G
     Presented at *SciPy 2017*.
     doi:[10.6084/m9.figshare.7635833](https://doi.org/10.6084/m9.figshare.7635833)
 
-    ![](_static/scipy2017-youtube-thumbnail.png){.align-center width="80%"}
+    [![](_static/scipy2017-youtube-thumbnail.png){.align-center width="80%"}](https://www.youtube.com/watch?v=93M4How7R24)    
 
 -   "A modern Python interface for the Generic Mapping Tools".
     2017.
