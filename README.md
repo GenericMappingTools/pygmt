@@ -30,7 +30,7 @@ Afterwards, feel free to look at our [Tutorials](https://www.pygmt.org/latest/tu
 visit the [Gallery](https://www.pygmt.org/latest/gallery), and check out some
 [external PyGMT examples](https://www.pygmt.org/latest/external_resources.html)!
 
-![Quick Introduction to PyGMT YouTube Video](https://raw.githubusercontent.com/GenericMappingTools/pygmt/refs/heads/main/doc/_static/scipy2022-youtube-thumbnail.jpg)
+[![Quick Introduction to PyGMT YouTube Video](https://raw.githubusercontent.com/GenericMappingTools/pygmt/refs/heads/main/doc/_static/scipy2022-youtube-thumbnail.jpg)](https://www.youtube.com/watch?v=4iPnITXrxVU)
 
 ## About
 
