@@ -6,7 +6,7 @@
 
 ### Highlights
 
-* 🎉 Sixteenth minor release of PyGMT 🎉
+* 🎉 **Sixteenth minor release of PyGMT** 🎉
 * Implement gmt xarray BackendEntrypoint to load raster files via GMT ([#3919](https://github.com/GenericMappingTools/pygmt/pull/3919), [#3932](https://github.com/GenericMappingTools/pygmt/pull/3932))
 * Remove the dependency of netCDF4 ([#3643](https://github.com/GenericMappingTools/pygmt/pull/3643))
 
