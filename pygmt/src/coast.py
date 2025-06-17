@@ -154,7 +154,7 @@ def coast(
 
     water : str
         Select filling "wet" areas.
-    shorelines : int, str, or list
+    shorelines : bool, int, str, or list
         [*level*\ /]\ *pen*.
         Draw shorelines [Default is no shorelines]. Append pen attributes
         [Default is ``"0.25p,black,solid"``] which apply to all four levels.
