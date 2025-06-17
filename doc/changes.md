@@ -14,19 +14,19 @@
 
 * pygmt.grdclip: Parameters 'between' and 'replace'  accept a 2-D sequence ([#3883](https://github.com/GenericMappingTools/pygmt/pull/3883))
 * pygmt.grdlandmask: Improve the checking of parameters 'maskvalues'/'bordervalues' ([#3963](https://github.com/GenericMappingTools/pygmt/pull/3963))
-* Store first tile as source encoding for tiled grids ([#3950](https://github.com/GenericMappingTools/pygmt/pull/3950))
 * Figure.coast/pygmt.select/pygmt.grdlandmask: Use long names ("crude"/"low"/"intermediate"/"high"/"full") for the 'resolution' parameter ([#3013](https://github.com/GenericMappingTools/pygmt/pull/3013))
 * Add a helper function sequence_join to join a sequence by a separator ([#3961](https://github.com/GenericMappingTools/pygmt/pull/3961))
 * Improve decorators @use_alias/@fmt_docstrings to list non-aliased aliases ([#3965](https://github.com/GenericMappingTools/pygmt/pull/3965))
+* Store first tile as source encoding for tiled grids ([#3950](https://github.com/GenericMappingTools/pygmt/pull/3950))
 
 ### Deprecations
 
+* Figure: Deprecate the private _preprocess method (will be removed in v0.18.0) ([#3948](https://github.com/GenericMappingTools/pygmt/pull/3948))
+* Deprecate pygmt.io.load_dataarray, use xarray.load_dataarray instead ([#3922](https://github.com/GenericMappingTools/pygmt/pull/3922))
 * Session.virtualfile_in: Deprecate the parameter 'extra_arrays'. Prepare and pass a dictionary of arrays instead (will be removed in v0.20.0) ([#3823](https://github.com/GenericMappingTools/pygmt/pull/3823))
 * Session.virtualfile_in: Deprecate parameter 'required_z'. Use 'mincols' instead (will be removed in v0.20.0) ([#3369](https://github.com/GenericMappingTools/pygmt/pull/3369))
 * Session.virtualfile_in: Deprecate parameter 'required_data' to 'required' (will be removed in v0.20.0) ([#3931](https://github.com/GenericMappingTools/pygmt/pull/3931))
 * Session.virtualfile_from_vectors: Remove the deprecated '*args' parameter [deprecated since v0.14.0] ([#3893](https://github.com/GenericMappingTools/pygmt/pull/3893))
-* Figure: Deprecate the private _preprocess method (will be removed in v0.18.0) ([#3948](https://github.com/GenericMappingTools/pygmt/pull/3948))
-* Deprecate pygmt.io.load_dataarray, use xarray.load_dataarray instead ([#3922](https://github.com/GenericMappingTools/pygmt/pull/3922))
 * SPEC 0: Bump minimum supported versions to NumPy 1.26, xarray>=2023.07 and pandas>=2.1 ([#3916](https://github.com/GenericMappingTools/pygmt/pull/3916), [#3918](https://github.com/GenericMappingTools/pygmt/pull/3918), [#3895](https://github.com/GenericMappingTools/pygmt/pull/3895))
 * Bump minimum supported version to pyarrow>=16, packaging>=24.2, geopandas>=1.0, and contextily>=1.5 ([#3917](https://github.com/GenericMappingTools/pygmt/pull/3917), [#3933](https://github.com/GenericMappingTools/pygmt/pull/3933), [#3908](https://github.com/GenericMappingTools/pygmt/pull/3908), [#3912](https://github.com/GenericMappingTools/pygmt/pull/3912))
 
