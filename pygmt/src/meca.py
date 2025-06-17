@@ -123,6 +123,7 @@ def _auto_offset(spec) -> bool:
     L="outline",
     N="no_clip",
     R="region",
+    S="scale/convention/component-",
     T="nodal",
     V="verbose",
     W="pen",
