@@ -6,11 +6,9 @@
 
 ### Highlights
 
-*
-
-### New Features
-
+* 🎉 Sixteenth minor release of PyGMT 🎉
 * Implement gmt xarray BackendEntrypoint to load raster files via GMT ([#3919](https://github.com/GenericMappingTools/pygmt/pull/3919), [#3932](https://github.com/GenericMappingTools/pygmt/pull/3932))
+* Remove the dependency of netCDF4 ([#3643](https://github.com/GenericMappingTools/pygmt/pull/3643))
 
 ### Enhancements
 
@@ -28,7 +26,6 @@
 * SPEC 0: Bump minimum supported versions to NumPy 1.26 ([#3916](https://github.com/GenericMappingTools/pygmt/pull/3916))
 * SPEC 0: Bump minimum supported version to xarray>=2023.07 ([#3918](https://github.com/GenericMappingTools/pygmt/pull/3918))
 * SPEC 0: Bump minimum supported version to pandas>=2.1 ([#3895](https://github.com/GenericMappingTools/pygmt/pull/3895))
-* Remove the dependency of netCDF4 ([#3643](https://github.com/GenericMappingTools/pygmt/pull/3643))
 * Figure: Deprecate the private _preprocess method (will be removed in v0.18.0) ([#3948](https://github.com/GenericMappingTools/pygmt/pull/3948))
 * Deprecate pygmt.io.load_dataarray, use xarray.load_dataarray instead ([#3922](https://github.com/GenericMappingTools/pygmt/pull/3922))
 * Bump minimum supported version to pyarrow>=16 ([#3917](https://github.com/GenericMappingTools/pygmt/pull/3917))
