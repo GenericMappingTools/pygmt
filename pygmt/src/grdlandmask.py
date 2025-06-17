@@ -24,7 +24,10 @@ __doctest_skip__ = ["grdlandmask"]
 @fmt_docstring
 @use_alias(
     A="area_thresh",
+    D="resolution-",
+    E="bordervalues-",
     I="spacing",
+    N="maskvalues-",
     R="region",
     V="verbose",
     r="registration",
