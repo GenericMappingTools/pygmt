@@ -23,6 +23,7 @@ __doctest_skip__ = ["coast"]
     A="area_thresh",
     B="frame",
     C="lakes",
+    D="resolution-",
     E="dcw",
     F="box",
     G="land",
