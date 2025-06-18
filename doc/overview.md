@@ -45,7 +45,7 @@ These are conference presentations about the development of PyGMT (previously "G
     Max Jones, Wei Ji Leong, and Leonardo Uieda.
     Presented at *SciPy 2022*.
     doi:[10.6084/m9.figshare.20483793](https://doi.org/10.6084/m9.figshare.20483793).
-    Recording available at <https://www.youtube.com/watch?v=nCktihu9bWg>.
+    Recording available at <https://www.youtube.com/watch?v=nCktihu9bWg>
 
     [![](_static/scipy2022-youtube-thumbnail.jpg){.align-center width="80%"}](https://www.youtube.com/watch?v=nCktihu9bWg)
 
@@ -61,8 +61,8 @@ These are conference presentations about the development of PyGMT (previously "G
     2018.
     Leonardo Uieda and Paul Wessel.
     Presented at *SciPy 2018*.
-    doi:[10.6084/m9.figshare.6814052](https://doi.org/10.6084/m9.figshare.6814052)
-    [Recording available at <https://www.youtube.com/watch?v=6wMtfZXfTRM>]
+    doi:[10.6084/m9.figshare.6814052](https://doi.org/10.6084/m9.figshare.6814052).
+    Recording available at <https://www.youtube.com/watch?v=6wMtfZXfTRM>
 
     [![](_static/scipy2018-youtube-thumbnail.png){.align-center width="80%"}](https://www.youtube.com/watch?v=6wMtfZXfTRM)
 
@@ -78,8 +78,8 @@ These are conference presentations about the development of PyGMT (previously "G
     2017.
     Leonardo Uieda and Paul Wessel.
     Presented at *SciPy 2017*.
-    doi:[10.6084/m9.figshare.7635833](https://doi.org/10.6084/m9.figshare.7635833)
-    [Recording available at <https://www.youtube.com/watch?v=93M4How7R24>]
+    doi:[10.6084/m9.figshare.7635833](https://doi.org/10.6084/m9.figshare.7635833).
+    Recording available at <https://www.youtube.com/watch?v=93M4How7R24>
 
     [![](_static/scipy2017-youtube-thumbnail.png){.align-center width="80%"}](https://www.youtube.com/watch?v=93M4How7R24)
 
