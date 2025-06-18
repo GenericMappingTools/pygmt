@@ -147,4 +147,4 @@ def test_grdfill_deprecated_mode(grid, expected_grid):
     """
     with pytest.warns(FutureWarning):
         result = grdfill(grid=grid, mode="c20")
-        xr.testing.assert_allclose(a=result, b=expected_grid)
+    xr.testing.assert_allclose(a=result, b=expected_grid)
