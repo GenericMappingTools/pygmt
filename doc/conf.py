@@ -182,7 +182,7 @@ sphinx_gallery_conf = {
         "../examples/projections/cyl",
         "../examples/projections/misc",
         "../examples/projections/nongeo",
-        "../examples/projections/table",
+        "../examples/projections/epsg",
     ],
     # Pattern to search for example files
     "filename_pattern": r"\.py",
