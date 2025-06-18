@@ -44,8 +44,8 @@ These are conference presentations about the development of PyGMT (previously "G
     2022.
     Max Jones, Wei Ji Leong, and Leonardo Uieda.
     Presented at *SciPy 2022*.
-    doi:[10.6084/m9.figshare.20483793](https://doi.org/10.6084/m9.figshare.20483793)
-    [Recording available at <https://www.youtube.com/watch?v=nCktihu9bWg>]
+    doi:[10.6084/m9.figshare.20483793](https://doi.org/10.6084/m9.figshare.20483793).
+    Recording available at <https://www.youtube.com/watch?v=nCktihu9bWg>.
 
     [![](_static/scipy2022-youtube-thumbnail.jpg){.align-center width="80%"}](https://www.youtube.com/watch?v=nCktihu9bWg)
 
