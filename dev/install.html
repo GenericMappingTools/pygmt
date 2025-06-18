@@ -1,8 +1,10 @@
 
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
@@ -10,7 +12,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
@@ -18,23 +20,19 @@
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="_static/style.css?v=845ca4e4" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css?v=2ba370f3" />
 
   
     <link rel="shortcut icon" href="_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/install.html" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=6e6bddb7"></script>
-        <script src="_static/doctools.js?v=9a2dae69"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="_static/copybutton.js?v=ccdb6887"></script>
-        <script src="_static/design-tabs.js?v=f930bc37"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=ccdb6887"></script>
+      <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -65,18 +63,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-    <a href="index.html"><h2 class="sidebar-title">PyGMT</h2></a>
-
-    
-        
-        
-            <div class="version">
-                dev
-            </div>
-        
-    
-
-    
+   
+   
+   <a href="index.html">
+     <h2 class="sidebar-title">PyGMT</h2>
+   </a>
+     <div class="version">
+       dev
+     </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -84,8 +78,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-
+ 
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
     
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
@@ -241,22 +234,21 @@ conda</label><div class="sd-tab-content docutils">
 </summary>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PyGMT information:
-  version: v0.15.0.dev115+g40211d72
+  version: v0.16.0.dev81+gc1568261
 System information:
-  python: 3.13.2 | packaged by conda-forge | (main, Feb 17 2025, 14:10:22) [GCC 13.3.0]
+  python: 3.13.5 | packaged by conda-forge | (main, Jun 16 2025, 08:27:50) [GCC 13.3.0]
   executable: /home/runner/micromamba/envs/pygmt/bin/python
-  machine: Linux-6.8.0-1021-azure-x86_64-with-glibc2.39
+  machine: Linux-6.11.0-1015-azure-x86_64-with-glibc2.39
 Dependency information:
-  numpy: 2.2.4
-  pandas: 2.2.3
-  xarray: 2025.3.0
-  netCDF4: 1.7.2
-  packaging: 24.2
+  numpy: 2.3.0
+  pandas: 2.3.0
+  xarray: 2025.6.1
+  packaging: 25.0
   contextily: 1.6.2
-  geopandas: 1.0.1
-  IPython: 9.0.2
-  pyarrow: 19.0.1
-  rioxarray: 0.18.2
+  geopandas: 1.1.0
+  IPython: 9.3.0
+  pyarrow: 20.0.0
+  rioxarray: 0.19.0
   gdal: None
   ghostscript: 10.04.0
 GMT library information:
@@ -309,7 +301,6 @@ instead.</p>
 <li><p><a class="reference external" href="https://numpy.org">NumPy</a></p></li>
 <li><p><a class="reference external" href="https://pandas.pydata.org">pandas</a></p></li>
 <li><p><a class="reference external" href="https://xarray.dev/">Xarray</a></p></li>
-<li><p><a class="reference external" href="https://unidata.github.io/netcdf4-python">netCDF4</a></p></li>
 <li><p><a class="reference external" href="https://packaging.pypa.io">packaging</a></p></li>
 </ul>
 <div class="admonition note">
@@ -340,14 +331,14 @@ installed (we’ll call it <code class="docutils literal notranslate"><span clas
 <input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
 <label class="sd-tab-label" data-sync-group="tab" data-sync-id="mamba" for="sd-tab-item-4">
 mamba</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">pygmt</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.13</span> <span class="n">numpy</span> <span class="n">pandas</span> <span class="n">xarray</span> <span class="n">netcdf4</span> <span class="n">packaging</span> <span class="n">gmt</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">pygmt</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.13</span> <span class="n">numpy</span> <span class="n">pandas</span> <span class="n">xarray</span> <span class="n">packaging</span> <span class="n">gmt</span>
 </pre></div>
 </div>
 </div>
 <input id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
 <label class="sd-tab-label" data-sync-group="tab" data-sync-id="conda" for="sd-tab-item-5">
 conda</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">pygmt</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.13</span> <span class="n">numpy</span> <span class="n">pandas</span> <span class="n">xarray</span> <span class="n">netcdf4</span> <span class="n">packaging</span> <span class="n">gmt</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">pygmt</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.13</span> <span class="n">numpy</span> <span class="n">pandas</span> <span class="n">xarray</span> <span class="n">packaging</span> <span class="n">gmt</span>
 </pre></div>
 </div>
 </div>
@@ -474,22 +465,21 @@ in your Python interpreter:</p>
 </summary>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PyGMT information:
-  version: v0.15.0.dev115+g40211d72
+  version: v0.16.0.dev81+gc1568261
 System information:
-  python: 3.13.2 | packaged by conda-forge | (main, Feb 17 2025, 14:10:22) [GCC 13.3.0]
+  python: 3.13.5 | packaged by conda-forge | (main, Jun 16 2025, 08:27:50) [GCC 13.3.0]
   executable: /home/runner/micromamba/envs/pygmt/bin/python
-  machine: Linux-6.8.0-1021-azure-x86_64-with-glibc2.39
+  machine: Linux-6.11.0-1015-azure-x86_64-with-glibc2.39
 Dependency information:
-  numpy: 2.2.4
-  pandas: 2.2.3
-  xarray: 2025.3.0
-  netCDF4: 1.7.2
-  packaging: 24.2
+  numpy: 2.3.0
+  pandas: 2.3.0
+  xarray: 2025.6.1
+  packaging: 25.0
   contextily: 1.6.2
-  geopandas: 1.0.1
-  IPython: 9.0.2
-  pyarrow: 19.0.1
-  rioxarray: 0.18.2
+  geopandas: 1.1.0
+  IPython: 9.3.0
+  pyarrow: 20.0.0
+  rioxarray: 0.19.0
   gdal: None
   ghostscript: 10.04.0
 GMT library information:
@@ -517,7 +507,8 @@ GMT library information:
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/a9bb1433fed9d9d76328850660ff89d8093e2996d8363e267481ceb0f94fb8ca.png"><img alt="_images/a9bb1433fed9d9d76328850660ff89d8093e2996d8363e267481ceb0f94fb8ca.png" src="_images/a9bb1433fed9d9d76328850660ff89d8093e2996d8363e267481ceb0f94fb8ca.png" style="width: 500px;" /></a>
+<a class="reference internal image-reference" href="_images/a9bb1433fed9d9d76328850660ff89d8093e2996d8363e267481ceb0f94fb8ca.png"><img alt="_images/a9bb1433fed9d9d76328850660ff89d8093e2996d8363e267481ceb0f94fb8ca.png" src="_images/a9bb1433fed9d9d76328850660ff89d8093e2996d8363e267481ceb0f94fb8ca.png" style="width: 500px;" />
+</a>
 </div>
 </div>
 <p>You should see a global map with land and water masses colored in tan and lightblue
@@ -589,9 +580,9 @@ We recommend:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2025.
+      <span class="lastupdated">Last updated on Jun 18, 2025.
       </span></p>
   </div>
 

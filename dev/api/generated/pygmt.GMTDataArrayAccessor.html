@@ -1,8 +1,10 @@
 
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
@@ -10,7 +12,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -18,28 +20,24 @@
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=845ca4e4" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=2ba370f3" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.GMTDataArrayAccessor.html" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=6e6bddb7"></script>
-        <script src="../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
-        <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="pygmt.info" href="pygmt.info.html" />
-    <link rel="prev" title="pygmt.config" href="pygmt.config.html" />
+    <link rel="next" title="pygmt.enums.GridRegistration" href="pygmt.enums.GridRegistration.html" />
+    <link rel="prev" title="pygmt.GMTBackendEntrypoint.open_groups_as_dict" href="pygmt.GMTBackendEntrypoint.open_groups_as_dict.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -65,18 +63,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-    <a href="../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
-
-    
-        
-        
-            <div class="version">
-                dev
-            </div>
-        
-    
-
-    
+   
+   
+   <a href="../../index.html">
+     <h2 class="sidebar-title">PyGMT</h2>
+   </a>
+     <div class="version">
+       dev
+     </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -84,8 +78,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-
+ 
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
     
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
@@ -104,18 +97,19 @@
 <p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../index.html#main-features">Main Features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#plotting">Plotting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-processing">Data Processing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#input-output">Input/output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html#metadata">Metadata</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#xarray-integration">Xarray Integration</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pygmt.GMTBackendEntrypoint.html">pygmt.GMTBackendEntrypoint</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.GMTDataArrayAccessor</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#pygmt.GMTDataArrayAccessor"><code class="docutils literal notranslate"><span class="pre">GMTDataArrayAccessor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pygmt.GMTDataArrayAccessor.gtype"><code class="docutils literal notranslate"><span class="pre">GMTDataArrayAccessor.gtype</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pygmt.GMTDataArrayAccessor.registration"><code class="docutils literal notranslate"><span class="pre">GMTDataArrayAccessor.registration</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.info.html">pygmt.info</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.grdinfo.html">pygmt.grdinfo</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#enums">Enums</a></li>
@@ -193,18 +187,32 @@
 <h1>pygmt.GMTDataArrayAccessor<a class="headerlink" href="#pygmt-gmtdataarrayaccessor" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="pygmt.GMTDataArrayAccessor">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">GMTDataArrayAccessor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xarray_obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/accessors.html#GMTDataArrayAccessor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.GMTDataArrayAccessor" title="Link to this definition"></a></dt>
-<dd><p>GMT accessor for <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>.</p>
-<p>The <em>gmt</em> accessor extends <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> to store GMT-specific
-properties for grids, which are important for PyGMT to correctly process and plot
-the grids. The <em>gmt</em> accessor contains the following properties:</p>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">GMTDataArrayAccessor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xarray_obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/xarray/accessor.html#GMTDataArrayAccessor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.GMTDataArrayAccessor" title="Link to this definition"></a></dt>
+<dd><p>GMT accessor for <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>.</p>
+<p>The <em>gmt</em> accessor extends <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> to store GMT-specific
+properties for grids and images, which are important for PyGMT to correctly process
+and plot them. The <em>gmt</em> accessor contains the following properties:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">registration</span></code>: Grid registration type <a class="reference internal" href="pygmt.enums.GridRegistration.html#pygmt.enums.GridRegistration" title="pygmt.enums.GridRegistration"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.enums.GridRegistration</span></code></a>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">gtype</span></code>: Grid coordinate system type <a class="reference internal" href="pygmt.enums.GridType.html#pygmt.enums.GridType" title="pygmt.enums.GridType"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.enums.GridType</span></code></a>.</p></li>
 </ul>
+<p class="rubric">Notes</p>
+<p>When accessed the first time, the <em>gmt</em> accessor will first be initialized to the
+default values (<code class="docutils literal notranslate"><span class="pre">GridRegistration.GRIDLINE</span></code> and <code class="docutils literal notranslate"><span class="pre">GridType.CARTESIAN</span></code>, i.e., a
+gridline-registered, Cartesian grid), and then the properties will be updated with
+the correct grid registration and type determined from the source encoding (i.e.,
+<code class="docutils literal notranslate"><span class="pre">grid.encoding[&quot;source&quot;]</span></code>), if it is available.</p>
+<p>Due to the limitations of xarray accessors, the <em>gmt</em> accessor is created once per
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> instance. Thus, the <em>gmt</em> accessor will be re-initialized
+in cases where the <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> is manipulated (e.g., arithmetic and
+slice operations) or when accessing a <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> from a
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2025.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a>. In these cases, the GMT-specific properties will result in
+incorrect values if the source encoding is not defined or is dropped due to
+operations, and users need to manually set these properties again.</p>
 <p class="rubric">Examples</p>
-<p>For GMT’s built-in remote datasets, these GMT-specific properties are automatically
-determined and you can access them as follows:</p>
+<p>For grids loaded from a file (e.g., via <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.load_dataarray.html#xarray.load_dataarray" title="(in xarray v2025.6.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.load_dataarray</span></code></a>) and GMT’s
+built-in remote datasets, the GMT-specific properties are automatically determined
+and you can access them as follows:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_earth_relief</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Use the global Earth relief grid with 1 degree spacing</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">grid</span> <span class="o">=</span> <span class="n">load_earth_relief</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;01d&quot;</span><span class="p">,</span> <span class="n">registration</span><span class="o">=</span><span class="s2">&quot;pixel&quot;</span><span class="p">)</span>
@@ -214,12 +222,55 @@ determined and you can access them as follows:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># See if grid is in Cartesian or Geographic coordinate system</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">grid</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">gtype</span>
 <span class="go">&lt;GridType.GEOGRAPHIC: 1&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grid</span><span class="o">.</span><span class="n">encoding</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+<span class="go">True</span>
 </pre></div>
 </div>
-<p>For <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> grids created by yourself, <code class="docutils literal notranslate"><span class="pre">registration</span></code> and
-<code class="docutils literal notranslate"><span class="pre">gtype</span></code> default to <code class="docutils literal notranslate"><span class="pre">GridRegistration.GRIDLINE</span></code> and <code class="docutils literal notranslate"><span class="pre">GridType.CARTESIAN</span></code> (i.e.,
-a gridline-registered, Cartesian grid). You need to set the correct properties
-before passing it to PyGMT functions:</p>
+<p>Inplace assignment operators like <code class="docutils literal notranslate"><span class="pre">*=</span></code> don’t create new instances, so the
+properties are still kept:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">grid</span> <span class="o">*=</span> <span class="mf">2.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grid</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">registration</span>
+<span class="go">&lt;GridRegistration.PIXEL: 1&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grid</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">gtype</span>
+<span class="go">&lt;GridType.GEOGRAPHIC: 1&gt;</span>
+</pre></div>
+</div>
+<p>Slice operation creates a new instance, but the source encoding is kept, so the
+properties are still kept:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">grid_slice</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">30</span><span class="p">,</span> <span class="mi">50</span><span class="p">:</span><span class="mi">80</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># grid source encoding is kept in slice operation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grid_slice</span><span class="o">.</span><span class="n">encoding</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># properties are still kept</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grid_slice</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">registration</span>
+<span class="go">&lt;GridRegistration.PIXEL: 1&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grid_slice</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">gtype</span>
+<span class="go">&lt;GridType.GEOGRAPHIC: 1&gt;</span>
+</pre></div>
+</div>
+<p>Other grid operations (e.g., arithmetic operations) create new instances and drop
+the source encoding, so the properties will be reset to the default values:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">grid2</span> <span class="o">=</span> <span class="n">grid</span> <span class="o">*</span> <span class="mf">2.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># grid source encoding is dropped in arithmetic operation.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;source&quot;</span> <span class="ow">in</span> <span class="n">grid2</span><span class="o">.</span><span class="n">encoding</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># properties are reset to the default values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grid2</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">registration</span>
+<span class="go">&lt;GridRegistration.GRIDLINE: 0&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grid2</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">gtype</span>
+<span class="go">&lt;GridType.CARTESIAN: 0&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Need to set these properties before passing the grid to PyGMT</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grid2</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">registration</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">registration</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grid2</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">gtype</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">gtype</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grid2</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">registration</span>
+<span class="go">&lt;GridRegistration.PIXEL: 1&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grid2</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">gtype</span>
+<span class="go">&lt;GridType.GEOGRAPHIC: 1&gt;</span>
+</pre></div>
+</div>
+<p>For <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> grids created from scratch, the source encoding is not
+available, so the properties will be set to the default values, and you need to
+manually set the correct properties before passing it to PyGMT functions:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
@@ -245,42 +296,10 @@ before passing it to PyGMT functions:</p>
 <span class="go">&lt;GridType.GEOGRAPHIC: 1&gt;</span>
 </pre></div>
 </div>
-<p class="rubric">Notes</p>
-<p>Due to the limitations of xarray accessors, the GMT accessors are created once per
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> instance. You may lose these GMT-specific properties when
-manipulating grids (e.g., arithmetic and slice operations) or when accessing a
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> from a <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a>. In these cases, you need
-to manually set these properties before passing the grid to PyGMT.</p>
-<p>Inplace assignment operators like <code class="docutils literal notranslate"><span class="pre">*=</span></code> don’t create new instances, so the
-properties are still kept:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">grid</span> <span class="o">*=</span> <span class="mf">2.0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">grid</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">registration</span>
-<span class="go">&lt;GridRegistration.GRIDLINE: 0&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">grid</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">gtype</span>
-<span class="go">&lt;GridType.GEOGRAPHIC: 1&gt;</span>
-</pre></div>
-</div>
-<p>Other grid operations (e.g., arithmetic or slice operations) create new instances,
-so the properties will be lost:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># grid2 is a slice of the original grid</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">grid2</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">30</span><span class="p">,</span> <span class="mi">50</span><span class="p">:</span><span class="mi">80</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Properties are reset to the default values for new instance</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">grid2</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">registration</span>
-<span class="go">&lt;GridRegistration.GRIDLINE: 0&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">grid2</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">gtype</span>
-<span class="go">&lt;GridType.CARTESIAN: 0&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Need to set these properties before passing the grid to PyGMT</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">grid2</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">registration</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">registration</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">grid2</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">gtype</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">gtype</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">grid2</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">registration</span>
-<span class="go">&lt;GridRegistration.GRIDLINE: 0&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">grid2</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">gtype</span>
-<span class="go">&lt;GridType.GEOGRAPHIC: 1&gt;</span>
-</pre></div>
-</div>
-<p>Accessing a <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> from a <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a> always creates
-new instances, so these properties are always lost. The workaround is to assign the
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> into a variable:</p>
+<p>Accessing a <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> from a <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2025.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a> always creates
+new instances, so these properties are always lost if the source encoding is not
+available. The workaround is to assign the <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> into a
+variable:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">({</span><span class="s2">&quot;zval&quot;</span><span class="p">:</span> <span class="n">grid</span><span class="p">})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="o">.</span><span class="n">zval</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">registration</span>
 <span class="go">&lt;GridRegistration.GRIDLINE: 0&gt;</span>
@@ -306,13 +325,13 @@ new instances, so these properties are always lost. The workaround is to assign 
 <p class="rubric">Attributes</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="pygmt.GMTDataArrayAccessor.gtype">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GMTDataArrayAccessor.</span></span><span class="sig-name descname"><span class="pre">gtype</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="pygmt.enums.GridType.html#pygmt.enums.GridType" title="pygmt.enums.GridType"><span class="pre">GridType</span></a></em><a class="headerlink" href="#pygmt.GMTDataArrayAccessor.gtype" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GMTDataArrayAccessor.</span></span><span class="sig-name descname"><span class="pre">gtype</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="pygmt.enums.GridType.html#pygmt.enums.GridType" title="pygmt.enums.GridType"><span class="pre">GridType</span></a></em><a class="headerlink" href="#pygmt.GMTDataArrayAccessor.gtype" title="Link to this definition"></a></dt>
 <dd><p>Grid coordinate system type <a class="reference internal" href="pygmt.enums.GridType.html#pygmt.enums.GridType" title="pygmt.enums.GridType"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.enums.GridType</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pygmt.GMTDataArrayAccessor.registration">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GMTDataArrayAccessor.</span></span><span class="sig-name descname"><span class="pre">registration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="pygmt.enums.GridRegistration.html#pygmt.enums.GridRegistration" title="pygmt.enums.GridRegistration"><span class="pre">GridRegistration</span></a></em><a class="headerlink" href="#pygmt.GMTDataArrayAccessor.registration" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GMTDataArrayAccessor.</span></span><span class="sig-name descname"><span class="pre">registration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="pygmt.enums.GridRegistration.html#pygmt.enums.GridRegistration" title="pygmt.enums.GridRegistration"><span class="pre">GridRegistration</span></a></em><a class="headerlink" href="#pygmt.GMTDataArrayAccessor.registration" title="Link to this definition"></a></dt>
 <dd><p>Grid registration type <a class="reference internal" href="pygmt.enums.GridRegistration.html#pygmt.enums.GridRegistration" title="pygmt.enums.GridRegistration"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.enums.GridRegistration</span></code></a>.</p>
 </dd></dl>
 
@@ -323,17 +342,17 @@ new instances, so these properties are always lost. The workaround is to assign 
           </div>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="pygmt.config.html" class="btn btn-neutral float-left" title="pygmt.config" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="pygmt.info.html" class="btn btn-neutral float-right" title="pygmt.info" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="pygmt.GMTBackendEntrypoint.open_groups_as_dict.html" class="btn btn-neutral float-left" title="pygmt.GMTBackendEntrypoint.open_groups_as_dict" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pygmt.enums.GridRegistration.html" class="btn btn-neutral float-right" title="pygmt.enums.GridRegistration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2025.
+      <span class="lastupdated">Last updated on Jun 18, 2025.
       </span></p>
   </div>
 

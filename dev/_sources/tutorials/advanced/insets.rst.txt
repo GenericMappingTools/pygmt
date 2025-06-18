@@ -122,7 +122,7 @@ In the example below, ``+pblack`` sets the border color to black and
 
 When using **j** to set the anchor of the inset, the default location is in
 contact with the nearby axis or axes. The offset of the inset can be set with
-**+o**, followed by the offsets along the x- and y-axis. If only one offset
+**+o**, followed by the offsets along the x- and y-axes. If only one offset
 is passed, it is applied to both axes. Each offset can have its own unit. In
 the example below, the inset is shifted 0.5 centimeters on the x-axis and
 0.2 centimeters on the y-axis.

@@ -185,7 +185,7 @@ download in this example has 1000 x 667 pixels, i.e. an aspect ratio of 3 x 2.
  .. code-block:: none
 
     grdblend [NOTICE]: Remote data courtesy of GMT data server oceania [http://oceania.generic-mapping-tools.org]
-    grdblend [NOTICE]: SRTM15 Earth Relief v2.6 at 30x30 arc seconds reduced by Gaussian Cartesian filtering (2.6 km fullwidth) [Tozer et al., 2019].
+    grdblend [NOTICE]: SRTM15 Earth Relief v2.7 at 30x30 arc seconds reduced by Gaussian Cartesian filtering (2.6 km fullwidth) [Tozer et al., 2019].
     grdblend [NOTICE]:   -> Download 15x15 degree grid tile (earth_relief_30s_g): N45E000
     /home/runner/micromamba/envs/pygmt/lib/python3.13/site-packages/rasterio/__init__.py:356: NotGeoreferencedWarning: Dataset has no geotransform, gcps, or rpcs. The identity matrix will be returned.
       dataset = DatasetReader(path, driver=driver, sharing=sharing, **kwargs)
@@ -252,7 +252,7 @@ parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 4.840 seconds)
+   **Total running time of the script:** (0 minutes 5.659 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_draping_on_3d_surface.py:

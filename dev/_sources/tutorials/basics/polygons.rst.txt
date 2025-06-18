@@ -25,7 +25,7 @@ Plotting polygons is handled by the :meth:`pygmt.Figure.plot` method.
 
 This tutorial focuses on input data given as NumPy arrays. Besides NumPy arrays,
 array-like objects are supported. Here, a polygon is a closed shape defined by a series
-of data points with x and y coordinates, connected by line segments, with the start and
+of data points with x- and y-coordinates, connected by line segments, with the start and
 end points being identical. For plotting a :class:`geopandas.GeoDataFrame` object with
 polygon geometries, e.g., to create a choropleth map, see the gallery example
 :doc:`Choropleth map </gallery/maps/choropleth_map>`.
@@ -49,7 +49,7 @@ polygon geometries, e.g., to create a choropleth map, see the gallery example
 Plot polygons
 -------------
 
-Set up sample data points as NumPy arrays for the x and y values.
+Set up sample data points as NumPy arrays for the x- and y-values.
 
 .. GENERATED FROM PYTHON SOURCE LINES 24-28
 
@@ -161,8 +161,8 @@ outline around the polygon.
 Close polygons
 --------------
 
-Set up sample data points as NumPy arrays for the x and y values. Now, the data points
-do not form a polygon.
+Set up sample data points as NumPy arrays for the x- and y-values. Now, the data
+points do not form a polygon.
 
 .. GENERATED FROM PYTHON SOURCE LINES 70-74
 
@@ -244,7 +244,7 @@ When using the ``fill`` parameter, the polygon is automatically closed.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.518 seconds)
+   **Total running time of the script:** (0 minutes 0.524 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_polygons.py:

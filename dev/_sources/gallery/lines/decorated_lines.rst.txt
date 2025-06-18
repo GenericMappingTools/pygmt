@@ -33,7 +33,7 @@ so-called *line fronts*, which are often used to plot fault lines, subduction zo
 or weather fronts; for details see the
 :doc:`Line fronts example </gallery/lines/linefronts>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 19-83
+.. GENERATED FROM PYTHON SOURCE LINES 19-84
 
 
 
@@ -79,7 +79,8 @@ or weather fronts; for details see the
         # Line with squares ("s") with a size of 0.7 centimeters in a distance of
         # 1 centimeter
         "~d1c:+ss0.7c+gtan+p1p,black",
-        # Shift symbols using "+n" in x and y directions relative to the main decorated line
+        # Shift symbols using "+n" in x- and y-directions relative to the main decorated
+        # line
         "~d1c:+sd0.5c+gtan+p1p,black+n-0.2c/0.1c",
         # Give the number of equally spaced symbols by using "n" instead of "d"
         "~n6:+sn0.5c+gtan+p1p,black",
@@ -116,7 +117,7 @@ or weather fronts; for details see the
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.307 seconds)
+   **Total running time of the script:** (0 minutes 0.312 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_decorated_lines.py:

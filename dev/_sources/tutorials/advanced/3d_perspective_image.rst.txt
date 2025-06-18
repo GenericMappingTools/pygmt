@@ -50,7 +50,7 @@ three-dimensional portion appears.
 
 The default grid surface type is *mesh plot*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 23-40
+.. GENERATED FROM PYTHON SOURCE LINES 23-39
 
 .. code-block:: Python
 
@@ -61,8 +61,7 @@ The default grid surface type is *mesh plot*.
         # Sets the view azimuth as 130 degrees, and the view elevation as 30
         # degrees
         perspective=[130, 30],
-        # Sets the x- and y-axis labels, and annotates the west, south, and east
-        # axes
+        # Sets the x- and y-axis labels, and annotates the west, south, and east axes
         frame=["xa", "ya", "WSnE"],
         # Sets a Mercator projection on a 15-centimeter figure
         projection="M15c",
@@ -83,12 +82,12 @@ The default grid surface type is *mesh plot*.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 41-43
+.. GENERATED FROM PYTHON SOURCE LINES 40-42
 
 The grid surface type can be set with the ``surftype`` parameter.
 The default CPT is *turbo* and can be customized with the ``cmap`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 43-58
+.. GENERATED FROM PYTHON SOURCE LINES 42-57
 
 .. code-block:: Python
 
@@ -119,12 +118,12 @@ The default CPT is *turbo* and can be customized with the ``cmap`` parameter.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 59-61
+.. GENERATED FROM PYTHON SOURCE LINES 58-60
 
 The ``plane`` parameter sets the elevation and color of a plane that provides
 a fill below the surface relief.
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-76
+.. GENERATED FROM PYTHON SOURCE LINES 60-75
 
 .. code-block:: Python
 
@@ -155,7 +154,7 @@ a fill below the surface relief.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 77-83
+.. GENERATED FROM PYTHON SOURCE LINES 76-82
 
 The ``perspective`` azimuth can be changed to set the direction that is "up"
 in the figure. The ``contourpen`` parameter sets the pen used to draw contour
@@ -164,7 +163,7 @@ color bar to the figure. The ``cmap`` parameter does not need to be passed
 again. To keep the color bar's alignment similar to the figure, use ``True``
 as argument for the ``perspective`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 83-101
+.. GENERATED FROM PYTHON SOURCE LINES 82-100
 
 .. code-block:: Python
 

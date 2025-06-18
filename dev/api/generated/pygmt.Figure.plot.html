@@ -1,8 +1,10 @@
 
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
@@ -10,7 +12,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -18,23 +20,19 @@
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=845ca4e4" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=2ba370f3" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.Figure.plot.html" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=6e6bddb7"></script>
-        <script src="../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
-        <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -65,18 +63,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-    <a href="../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
-
-    
-        
-        
-            <div class="version">
-                dev
-            </div>
-        
-    
-
-    
+   
+   
+   <a href="../../index.html">
+     <h2 class="sidebar-title">PyGMT</h2>
+   </a>
+     <div class="version">
+       dev
+     </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -84,8 +78,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-
+ 
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
     
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
@@ -104,7 +97,6 @@
 <p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../index.html#main-features">Main Features</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#plotting">Plotting</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../index.html#figure-class-overview">Figure class overview</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../index.html#plotting-map-elements">Plotting map elements</a></li>
@@ -131,6 +123,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#input-output">Input/output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#xarray-integration">Xarray Integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#enums">Enums</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#datasets">Datasets</a></li>
@@ -184,6 +177,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="pygmt.Figure.html">pygmt.Figure</a></li>
       <li class="breadcrumb-item active">pygmt.Figure.plot</li>
     <li class="source-link">
         
@@ -222,7 +216,7 @@ be drawn instead. To explicitly close polygons, use <code class="docutils litera
 fill with <code class="docutils literal notranslate"><span class="pre">fill</span></code>. If <code class="docutils literal notranslate"><span class="pre">fill</span></code> is set, <code class="docutils literal notranslate"><span class="pre">pen</span></code> will control whether the
 polygon outline is drawn or not. If a symbol is selected, <code class="docutils literal notranslate"><span class="pre">fill</span></code> and
 <code class="docutils literal notranslate"><span class="pre">pen</span></code> determine the fill and outline/no outline, respectively.</p>
-<p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/plot.html">https://docs.generic-mapping-tools.org/6.5/plot.html</a></p>
+<p>Full GMT docs at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/plot.html">https://docs.generic-mapping-tools.org/6.5/plot.html</a>.</p>
 <p><strong>Aliases:</strong></p>
 <table class="hlist"><tr><td><ul class="simple">
 <li><p>A = straight_line</p></li>
@@ -263,10 +257,10 @@ polygon outline is drawn or not. If a symbol is selected, <code class="docutils 
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.2)"><em>numpy.ndarray</em></a><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><em>pandas.DataFrame</em></a><em>, </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2025.3.2.dev0)"><em>xarray.Dataset</em></a><em>, or </em><a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v1.0.1)"><em>geopandas.GeoDataFrame</em></a>) – Pass in either a file name to an ASCII data table, a 2-D
-<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>, an
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a> made up of 1-D <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.3.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>
-data variables, or a <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v1.0.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a> containing the
+<li><p><strong>data</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> | <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a> | <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> | <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2025.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> | <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v1.1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeoDataFrame</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Pass in either a file name to an ASCII data table, a 2-D
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>, an
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2025.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a> made up of 1-D <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>
+data variables, or a <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v1.1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a> containing the
 tabular data.
 Use parameter <code class="docutils literal notranslate"><span class="pre">incols</span></code> to choose which columns are x, y, fill, and
 size, respectively.</p></li>
@@ -318,7 +312,7 @@ Offset the plot symbol or line locations by the given amounts
 equal to <em>dx</em>.</p></li>
 <li><p><strong>error_bar</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – [<strong>x</strong>|<strong>y</strong>|<strong>X</strong>|<strong>Y</strong>][<strong>+a</strong>|<strong>A</strong>][<strong>+cl</strong>|<strong>f</strong>][<strong>+n</strong>][<strong>+w</strong><em>cap</em>][<strong>+p</strong><em>pen</em>].
 Draw error bars. Full documentation is at
-<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/plot.html#e">https://docs.generic-mapping-tools.org/6.5/plot.html#e</a>.</p></li>
+<a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/plot.html#e">https://docs.generic-mapping-tools.org/6.5/plot.html#e</a>.</p></li>
 <li><p><strong>connection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p>[<strong>c</strong>|<strong>n</strong>|<strong>p</strong>][<strong>a</strong>|<strong>r</strong>|<strong>s</strong>|<strong>t</strong>|<em>refpoint</em>].
 Alter the way points are connected (by specifying a <em>scheme</em>) and data are
 grouped (by specifying a <em>method</em>). Append one of three line connection schemes:</p>
@@ -356,7 +350,7 @@ also be a 1-D array to set varying intensity for symbols, but it is
 only valid for <code class="docutils literal notranslate"><span class="pre">x</span></code>/<code class="docutils literal notranslate"><span class="pre">y</span></code> pairs.</p></li>
 <li><p><strong>close</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – [<strong>+b</strong>|<strong>d</strong>|<strong>D</strong>][<strong>+xl</strong>|<strong>r</strong>|<em>x0</em>][<strong>+yl</strong>|<strong>r</strong>|<em>y0</em>][<strong>+p</strong><em>pen</em>].
 Force closed polygons. Full documentation is at
-<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/plot.html#l">https://docs.generic-mapping-tools.org/6.5/plot.html#l</a>.</p></li>
+<a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/plot.html#l">https://docs.generic-mapping-tools.org/6.5/plot.html#l</a>.</p></li>
 <li><p><strong>no_clip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – [<strong>c</strong>|<strong>r</strong>].
 Do <strong>not</strong> clip symbols that fall outside the frame boundaries
 [Default plots points whose coordinates are strictly inside the
@@ -383,7 +377,7 @@ polygon in the input data. To apply it to the fill color, use
 <code class="docutils literal notranslate"><span class="pre">pen</span></code>.</p></li>
 <li><p><strong>aspatial</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – [<em>col</em>=]<em>name</em>[,…].
 Control how aspatial data are handled during input and output.
-Full documentation is at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#aspatial-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#aspatial-full</a>.</p></li>
+Full documentation is at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#aspatial-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#aspatial-full</a>.</p></li>
 <li><p><strong>binary</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p><strong>i</strong>|<strong>o</strong>[<em>ncols</em>][<em>type</em>][<strong>w</strong>][<strong>+l</strong>|<strong>b</strong>].
 Select native binary input (using <code class="docutils literal notranslate"><span class="pre">binary=&quot;i&quot;</span></code>) or output
 (using <code class="docutils literal notranslate"><span class="pre">binary=&quot;o&quot;</span></code>), where <em>ncols</em> is the number of data columns
@@ -413,15 +407,18 @@ are supported:</p>
 be read as little- or big-endian, respectively.</p></li>
 </ul>
 </div></blockquote>
-<p>Full documentation is at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#bi-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#bi-full</a>.</p>
+<p>Full documentation is at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#bi-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#bi-full</a>.</p>
 </p></li>
-<li><p><strong>panel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – [<em>row,col</em>|<em>index</em>].
-Select a specific subplot panel. Only allowed when in subplot
-mode. Use <code class="docutils literal notranslate"><span class="pre">panel=True</span></code> to advance to the next panel in the
-selected order. Instead of <em>row,col</em> you may also give a scalar
-value <em>index</em> which depends on the order you set via <code class="docutils literal notranslate"><span class="pre">autolabel</span></code>
-when the subplot was defined. <strong>Note</strong>: <em>row</em>, <em>col</em>, and <em>index</em>
-all start at 0.</p></li>
+<li><p><strong>panel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <p>Select a specific subplot panel. Only allowed when used in
+<a class="reference internal" href="pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Figure.subplot</span></code></a> mode.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code> to advance to the next panel in the selected order.</p></li>
+<li><p><em>index</em> to specify the index of the desired panel.</p></li>
+<li><p>(<em>row</em>, <em>col</em>) to specify the row and column of the desired panel.</p></li>
+</ul>
+<p>The panel order is determined by the <a class="reference internal" href="pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Figure.subplot</span></code></a> method. <em>row</em>,
+<em>col</em> and <em>index</em> all start at 0.</p>
+</p></li>
 <li><p><strong>nodata</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <strong>i</strong>|<strong>o</strong><em>nodata</em>.
 Substitute specific values with NaN (for tabular data). For
 example, <code class="docutils literal notranslate"><span class="pre">nodata=&quot;-9999&quot;</span></code> will replace all values equal to -9999
@@ -437,7 +434,7 @@ matching. This does not apply to headers or segment headers.</p></li>
 <li><p><strong>coltypes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – [<strong>i</strong>|<strong>o</strong>]<em>colinfo</em>.
 Specify data types of input and/or output columns (time or
 geographical data). Full documentation is at
-<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#f-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#f-full</a>.</p></li>
+<a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#f-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#f-full</a>.</p></li>
 <li><p><strong>gap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <p><strong>x</strong>|<strong>y</strong>|<strong>z</strong>|<strong>d</strong>|<strong>X</strong>|<strong>Y</strong>|<strong>D</strong><em>gap</em>[<strong>u</strong>][<strong>+a</strong>][<strong>+c</strong><em>col</em>][<strong>+n</strong>|<strong>p</strong>].
 Examine the spacing between consecutive data points in order to
 impose breaks in the line. To specify multiple criteria, provide
@@ -540,11 +537,11 @@ is 0].</p></li>
 </ul>
 </p></li>
 <li><p><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Add a legend entry for the symbol or line being plotted. Full
-documentation is at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#l-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#l-full</a>.</p></li>
+documentation is at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#l-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#l-full</a>.</p></li>
 <li><p><strong>perspective</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – [<strong>x</strong>|<strong>y</strong>|<strong>z</strong>]<em>azim</em>[/<em>elev</em>[/<em>zlevel</em>]][<strong>+w</strong><em>lon0</em>/<em>lat0</em>[/<em>z0</em>]][<strong>+v</strong><em>x0</em>/<em>y0</em>].
 Select perspective view and set the azimuth and elevation angle of
 the viewpoint [Default is <code class="docutils literal notranslate"><span class="pre">[180,</span> <span class="pre">90]</span></code>]. Full documentation is at
-<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#perspective-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#perspective-full</a>.</p></li>
+<a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#perspective-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#perspective-full</a>.</p></li>
 <li><p><strong>transparency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Set transparency level, in [0-100] percent range
 [Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>, i.e., opaque].
 Only visible when PDF or raster format output is selected.
@@ -569,7 +566,7 @@ cyclical coordinate transformations are supported:</p>
 <li><p><strong>c</strong>: custom cycle (normalized)</p></li>
 </ul>
 </div></blockquote>
-<p>Full documentation is at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#w-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#w-full</a>.</p>
+<p>Full documentation is at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#w-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#w-full</a>.</p>
 </p></li>
 </ul>
 </dd>
@@ -723,9 +720,9 @@ cyclical coordinate transformations are supported:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2025.
+      <span class="lastupdated">Last updated on Jun 18, 2025.
       </span></p>
   </div>
 

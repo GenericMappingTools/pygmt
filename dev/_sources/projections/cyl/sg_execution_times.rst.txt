@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:02.076** total execution time for 9 files **from projections/cyl**:
+**00:02.072** total execution time for 9 files **from projections/cyl**:
 
 .. container::
 
@@ -33,29 +33,29 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator.py` (``cyl_oblique_mercator.py``)
-     - 00:00.392
+     - 00:00.389
      - 0.0
    * - :ref:`sphx_glr_projections_cyl_cyl_cassini.py` (``cyl_cassini.py``)
-     - 00:00.286
+     - 00:00.287
      - 0.0
    * - :ref:`sphx_glr_projections_cyl_cyl_mercator.py` (``cyl_mercator.py``)
-     - 00:00.215
+     - 00:00.219
      - 0.0
    * - :ref:`sphx_glr_projections_cyl_cyl_stereographic.py` (``cyl_stereographic.py``)
-     - 00:00.209
-     - 0.0
-   * - :ref:`sphx_glr_projections_cyl_cyl_miller.py` (``cyl_miller.py``)
      - 00:00.207
      - 0.0
    * - :ref:`sphx_glr_projections_cyl_cyl_universal_transverse_mercator.py` (``cyl_universal_transverse_mercator.py``)
+     - 00:00.204
+     - 0.0
+   * - :ref:`sphx_glr_projections_cyl_cyl_miller.py` (``cyl_miller.py``)
      - 00:00.202
      - 0.0
    * - :ref:`sphx_glr_projections_cyl_cyl_equidistant.py` (``cyl_equidistant.py``)
      - 00:00.198
      - 0.0
    * - :ref:`sphx_glr_projections_cyl_cyl_equal_area.py` (``cyl_equal_area.py``)
-     - 00:00.191
+     - 00:00.192
      - 0.0
    * - :ref:`sphx_glr_projections_cyl_cyl_transverse_mercator.py` (``cyl_transverse_mercator.py``)
-     - 00:00.176
+     - 00:00.175
      - 0.0

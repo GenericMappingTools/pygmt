@@ -1,8 +1,10 @@
 
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
@@ -10,7 +12,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -18,23 +20,19 @@
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=845ca4e4" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=2ba370f3" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.Figure.html" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=6e6bddb7"></script>
-        <script src="../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
-        <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -65,18 +63,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-    <a href="../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
-
-    
-        
-        
-            <div class="version">
-                dev
-            </div>
-        
-    
-
-    
+   
+   
+   <a href="../../index.html">
+     <h2 class="sidebar-title">PyGMT</h2>
+   </a>
+     <div class="version">
+       dev
+     </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -84,8 +78,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-
+ 
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
     
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
@@ -104,7 +97,6 @@
 <p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../index.html#main-features">Main Features</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#plotting">Plotting</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="../index.html#figure-class-overview">Figure class overview</a><ul class="current">
 <li class="toctree-l4 current"><a class="current reference internal" href="#">pygmt.Figure</a></li>
@@ -123,6 +115,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#input-output">Input/output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#xarray-integration">Xarray Integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#enums">Enums</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#datasets">Datasets</a></li>
@@ -198,7 +191,7 @@
 <h1>pygmt.Figure<a class="headerlink" href="#pygmt-figure" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="pygmt.Figure">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">Figure</span></span><a class="reference internal" href="../../_modules/pygmt/figure.html#Figure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.Figure" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">Figure</span></span><a class="reference internal" href="../../_modules/pygmt/figure.html#Figure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.Figure" title="Link to this definition"></a></dt>
 <dd><p>A GMT figure to handle all plotting.</p>
 <p>Use the plotting methods of this class to add elements to the figure. You can
 preview the figure using <a class="reference internal" href="pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.show</span></code></a> and save the figure to a file
@@ -229,7 +222,7 @@ for Japan):</p>
 <p class="rubric">Attributes</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="pygmt.Figure.region">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">region</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.2)"><span class="pre">ndarray</span></a></em><a class="headerlink" href="#pygmt.Figure.region" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">region</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><span class="pre">ndarray</span></a></em><a class="headerlink" href="#pygmt.Figure.region" title="Link to this definition"></a></dt>
 <dd><p>The geographic WESN bounding box for the current figure.</p>
 </dd></dl>
 
@@ -239,31 +232,31 @@ for Japan):</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.basemap</span></code></a>(*[, region, projection, ...])</p></td>
 <td><p>Plot base maps and frames.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.coast</span></code></a>(*[, area_thresh, frame, lakes, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.coast</span></code></a>([resolution])</p></td>
 <td><p>Plot continents, countries, shorelines, rivers, and borders.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.colorbar</span></code></a>(*[, frame, cmap, position, ...])</p></td>
 <td><p>Plot gray scale or color scale bar.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.contour.html#pygmt.Figure.contour" title="pygmt.Figure.contour"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.contour</span></code></a>([data, x, y, z, annotation, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.contour.html#pygmt.Figure.contour" title="pygmt.Figure.contour"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.contour</span></code></a>([data, x, y, z])</p></td>
 <td><p>Contour table data by direct triangulation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.grdcontour.html#pygmt.Figure.grdcontour" title="pygmt.Figure.grdcontour"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.grdcontour</span></code></a>(grid, *[, annotation, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.grdcontour.html#pygmt.Figure.grdcontour" title="pygmt.Figure.grdcontour"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.grdcontour</span></code></a>(grid, **kwargs)</p></td>
 <td><p>Make contour map using a grid.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.grdimage.html#pygmt.Figure.grdimage" title="pygmt.Figure.grdimage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.grdimage</span></code></a>(grid, *[, frame, cmap, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.grdimage.html#pygmt.Figure.grdimage" title="pygmt.Figure.grdimage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.grdimage</span></code></a>(grid, **kwargs)</p></td>
 <td><p>Project and plot grids or images.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.grdview.html#pygmt.Figure.grdview" title="pygmt.Figure.grdview"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.grdview</span></code></a>(grid, *[, region, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.grdview.html#pygmt.Figure.grdview" title="pygmt.Figure.grdview"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.grdview</span></code></a>(grid, **kwargs)</p></td>
 <td><p>Create 3-D perspective image or surface mesh from a grid.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.histogram.html#pygmt.Figure.histogram" title="pygmt.Figure.histogram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.histogram</span></code></a>(data, *[, horizontal, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.histogram.html#pygmt.Figure.histogram" title="pygmt.Figure.histogram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.histogram</span></code></a>(data, **kwargs)</p></td>
 <td><p>Calculate and plot histograms.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.hlines.html#pygmt.Figure.hlines" title="pygmt.Figure.hlines"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.hlines</span></code></a>(y[, xmin, xmax, pen, label, ...])</p></td>
 <td><p>Plot one or multiple horizontal line(s).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.image.html#pygmt.Figure.image" title="pygmt.Figure.image"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.image</span></code></a>(imagefile, *[, position, box, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.image.html#pygmt.Figure.image" title="pygmt.Figure.image"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.image</span></code></a>(imagefile, **kwargs)</p></td>
 <td><p>Plot raster or EPS images.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.inset.html#pygmt.Figure.inset" title="pygmt.Figure.inset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.inset</span></code></a>(*[, position, box, projection, ...])</p></td>
@@ -287,7 +280,7 @@ for Japan):</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.psconvert.html#pygmt.Figure.psconvert" title="pygmt.Figure.psconvert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.psconvert</span></code></a>(*[, crop, gs_option, dpi, ...])</p></td>
 <td><p>Convert [E]PS file(s) to other formats using Ghostscript.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.rose.html#pygmt.Figure.rose" title="pygmt.Figure.rose"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.rose</span></code></a>([data, length, azimuth, sector, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.rose.html#pygmt.Figure.rose" title="pygmt.Figure.rose"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.rose</span></code></a>([data, length, azimuth])</p></td>
 <td><p>Plot a polar histogram (rose, sector, windrose diagrams).</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.savefig.html#pygmt.Figure.savefig" title="pygmt.Figure.savefig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.savefig</span></code></a>(fname[, transparent, crop, ...])</p></td>
@@ -297,13 +290,13 @@ for Japan):</p>
 <td><p>Set the current subplot panel to plot on.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.shift_origin.html#pygmt.Figure.shift_origin" title="pygmt.Figure.shift_origin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.shift_origin</span></code></a>([xshift, yshift])</p></td>
-<td><p>Shift the plot origin in x and/or y directions.</p></td>
+<td><p>Shift the plot origin in x- and/or y-directions.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.show</span></code></a>([method, dpi, width, waiting])</p></td>
 <td><p>Display a preview of the figure.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.solar.html#pygmt.Figure.solar" title="pygmt.Figure.solar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.solar</span></code></a>([terminator, terminator_datetime])</p></td>
-<td><p>Plot day-light terminators and other sunlight parameters.</p></td>
+<td><p>Plot day-night terminators and other sunlight parameters.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.subplot</span></code></a>([nrows, ncols, figsize, ...])</p></td>
 <td><p>Manage figure subplot configuration and selection.</p></td>
@@ -320,7 +313,7 @@ for Japan):</p>
 <tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.timestamp.html#pygmt.Figure.timestamp" title="pygmt.Figure.timestamp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.timestamp</span></code></a>([text, label, justify, ...])</p></td>
 <td><p>Plot the GMT timestamp logo.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.velo.html#pygmt.Figure.velo" title="pygmt.Figure.velo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.velo</span></code></a>([data, vector, frame, cmap, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.velo.html#pygmt.Figure.velo" title="pygmt.Figure.velo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.velo</span></code></a>([data])</p></td>
 <td><p>Plot velocity vectors, crosses, anisotropy bars, and wedges.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.vlines.html#pygmt.Figure.vlines" title="pygmt.Figure.vlines"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.vlines</span></code></a>(x[, ymin, ymax, pen, label, ...])</p></td>
@@ -369,7 +362,7 @@ for Japan):</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.solar to show the different transition stages between daytime and nighttime. The parameter terminator is used to set the twilight stage, and can be either &quot;day_night&quot; (brightest), &quot;civil&quot;, &quot;nautical&quot;, or &quot;astronomical&quot; (darkest). Refer to https://en.wikipedia.org/wiki/Twilight for more information."><img alt="" src="../../_images/sphx_glr_solar_thumb.png" />
 <p><a class="reference internal" href="../../gallery/embellishments/solar.html#sphx-glr-gallery-embellishments-solar-py"><span class="std std-ref">Day-night terminator and twilights</span></a></p>
   <div class="sphx-glr-thumbnail-title">Day-night terminator and twilights</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.timestamp method can draw the GMT timestamp logo on the plot. The timestamp will always be shown relative to the Bottom Left (BL) corner of the plot. By default, the offset and justify parameters are set to (&quot;-54p&quot;, &quot;-54p&quot;) (x, y directions) and &quot;BL&quot; (Bottom Left), respectively."><img alt="" src="../../_images/sphx_glr_timestamp_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.timestamp method can draw the GMT timestamp logo on the plot. The timestamp will always be shown relative to the Bottom Left (BL) corner of the plot. By default, the offset and justify parameters are set to (&quot;-54p&quot;, &quot;-54p&quot;) (x-, y-directions) and &quot;BL&quot; (Bottom Left), respectively."><img alt="" src="../../_images/sphx_glr_timestamp_thumb.png" />
 <p><a class="reference internal" href="../../gallery/embellishments/timestamp.html#sphx-glr-gallery-embellishments-timestamp-py"><span class="std std-ref">Timestamp</span></a></p>
   <div class="sphx-glr-thumbnail-title">Timestamp</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.blockmean function calculates different quantities inside blocks/bins whose dimensions are defined via the spacing parameter. The following examples show how to calculate the averages of the given values inside each bin and how to report the number of points inside each bin."><img alt="" src="../../_images/sphx_glr_blockm_thumb.png" />
@@ -697,9 +690,9 @@ for Japan):</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2025.
+      <span class="lastupdated">Last updated on Jun 18, 2025.
       </span></p>
   </div>
 

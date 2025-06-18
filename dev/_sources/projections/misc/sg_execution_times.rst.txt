@@ -32,27 +32,27 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
+   * - :ref:`sphx_glr_projections_misc_misc_winkel_tripel.py` (``misc_winkel_tripel.py``)
+     - 00:00.240
+     - 0.0
    * - :ref:`sphx_glr_projections_misc_misc_van_der_grinten.py` (``misc_van_der_grinten.py``)
      - 00:00.239
-     - 0.0
-   * - :ref:`sphx_glr_projections_misc_misc_winkel_tripel.py` (``misc_winkel_tripel.py``)
-     - 00:00.238
-     - 0.0
-   * - :ref:`sphx_glr_projections_misc_misc_mollweide.py` (``misc_mollweide.py``)
-     - 00:00.214
      - 0.0
    * - :ref:`sphx_glr_projections_misc_misc_eckertIV.py` (``misc_eckertIV.py``)
      - 00:00.213
      - 0.0
-   * - :ref:`sphx_glr_projections_misc_misc_eckertVI.py` (``misc_eckertVI.py``)
-     - 00:00.210
+   * - :ref:`sphx_glr_projections_misc_misc_mollweide.py` (``misc_mollweide.py``)
+     - 00:00.212
      - 0.0
-   * - :ref:`sphx_glr_projections_misc_misc_robinson.py` (``misc_robinson.py``)
-     - 00:00.204
+   * - :ref:`sphx_glr_projections_misc_misc_eckertVI.py` (``misc_eckertVI.py``)
+     - 00:00.211
      - 0.0
    * - :ref:`sphx_glr_projections_misc_misc_hammer.py` (``misc_hammer.py``)
+     - 00:00.203
+     - 0.0
+   * - :ref:`sphx_glr_projections_misc_misc_robinson.py` (``misc_robinson.py``)
      - 00:00.202
      - 0.0
    * - :ref:`sphx_glr_projections_misc_misc_sinusoidal.py` (``misc_sinusoidal.py``)
-     - 00:00.198
+     - 00:00.199
      - 0.0

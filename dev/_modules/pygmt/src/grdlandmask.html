@@ -1,4 +1,6 @@
 
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
@@ -9,7 +11,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
@@ -17,23 +19,19 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=845ca4e4" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=2ba370f3" />
 
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/grdlandmask.html" />
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=6e6bddb7"></script>
-        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
-        <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -62,18 +60,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-    <a href="../../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
-
-    
-        
-        
-            <div class="version">
-                dev
-            </div>
-        
-    
-
-    
+   
+   
+   <a href="../../../index.html">
+     <h2 class="sidebar-title">PyGMT</h2>
+   </a>
+     <div class="version">
+       dev
+     </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -81,8 +75,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-
+ 
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
     
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
@@ -163,10 +156,21 @@
 <span class="sd">grdlandmask - Create a &quot;wet-dry&quot; mask grid from shoreline database.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
+
 <span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathLike</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTInvalidInput</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">build_arg_list</span><span class="p">,</span>
+    <span class="n">fmt_docstring</span><span class="p">,</span>
+    <span class="n">kwargs_to_strings</span><span class="p">,</span>
+    <span class="n">sequence_join</span><span class="p">,</span>
+    <span class="n">use_alias</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src._common</span><span class="w"> </span><span class="kn">import</span> <span class="n">_parse_coastline_resolution</span>
 
 <span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;grdlandmask&quot;</span><span class="p">]</span>
 
@@ -176,28 +180,35 @@
 <span class="nd">@fmt_docstring</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
     <span class="n">A</span><span class="o">=</span><span class="s2">&quot;area_thresh&quot;</span><span class="p">,</span>
-    <span class="n">D</span><span class="o">=</span><span class="s2">&quot;resolution&quot;</span><span class="p">,</span>
-    <span class="n">E</span><span class="o">=</span><span class="s2">&quot;bordervalues&quot;</span><span class="p">,</span>
+    <span class="n">D</span><span class="o">=</span><span class="s2">&quot;resolution-&quot;</span><span class="p">,</span>
+    <span class="n">E</span><span class="o">=</span><span class="s2">&quot;bordervalues-&quot;</span><span class="p">,</span>
     <span class="n">I</span><span class="o">=</span><span class="s2">&quot;spacing&quot;</span><span class="p">,</span>
-    <span class="n">N</span><span class="o">=</span><span class="s2">&quot;maskvalues&quot;</span><span class="p">,</span>
+    <span class="n">N</span><span class="o">=</span><span class="s2">&quot;maskvalues-&quot;</span><span class="p">,</span>
     <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
     <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
     <span class="n">r</span><span class="o">=</span><span class="s2">&quot;registration&quot;</span><span class="p">,</span>
     <span class="n">x</span><span class="o">=</span><span class="s2">&quot;cores&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">I</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">E</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">grdlandmask</span><span class="p">(</span><span class="n">outgrid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">I</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">grdlandmask</span><span class="p">(</span>
+    <span class="n">outgrid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">maskvalues</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">bordervalues</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">resolution</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span>
+        <span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="s2">&quot;full&quot;</span><span class="p">,</span> <span class="s2">&quot;high&quot;</span><span class="p">,</span> <span class="s2">&quot;intermediate&quot;</span><span class="p">,</span> <span class="s2">&quot;low&quot;</span><span class="p">,</span> <span class="s2">&quot;crude&quot;</span><span class="p">,</span> <span class="kc">None</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a &quot;wet-dry&quot; mask grid from shoreline database.</span>
 
-<span class="sd">    Read the selected shoreline database and create a grid to specify which</span>
-<span class="sd">    nodes in the specified grid are over land or over water. The nodes defined</span>
-<span class="sd">    by the selected region and lattice spacing</span>
-<span class="sd">    will be set according to one of two criteria: (1) land vs water, or</span>
-<span class="sd">    (2) the more detailed (hierarchical) ocean vs land vs lake</span>
-<span class="sd">    vs island vs pond.</span>
+<span class="sd">    Read the selected shoreline database and use that information to decide which nodes</span>
+<span class="sd">    in the specified grid are over land or over water. The nodes defined by the selected</span>
+<span class="sd">    region and lattice spacing will be set according to one of two criteria: (1) land vs</span>
+<span class="sd">    water, or (2) the more detailed (hierarchical) ocean vs land vs lake vs island vs</span>
+<span class="sd">    pond. A mask grid is created with the specified grid spacing.</span>
 
-<span class="sd">    Full option list at :gmt-docs:`grdlandmask.html`</span>
+<span class="sd">    Full GMT docs at :gmt-docs:`grdlandmask.html`.</span>
 
 <span class="sd">    {aliases}</span>
 
@@ -207,37 +218,38 @@
 <span class="sd">    {spacing}</span>
 <span class="sd">    {region}</span>
 <span class="sd">    {area_thresh}</span>
-<span class="sd">    resolution : str</span>
-<span class="sd">        *res*\[\ **+f**\]. Select the resolution of the data set to use</span>
-<span class="sd">        ((**f**)ull, (**h**)igh, (**i**)ntermediate, (**l**)ow, or</span>
-<span class="sd">        (**c**)rude). The resolution drops off by ~80% between data sets.</span>
-<span class="sd">        [Default is **l**]. Append **+f** to automatically select a lower</span>
-<span class="sd">        resolution should the one requested not be available</span>
-<span class="sd">        [abort if not found]. Alternatively, choose (**a**)uto to automatically</span>
-<span class="sd">        select the best resolution given the chosen region. Note that because</span>
-<span class="sd">        the coastlines differ in details a node in a mask file using one</span>
-<span class="sd">        resolution is not guaranteed to remain inside [or outside] when a</span>
-<span class="sd">        different resolution is selected.</span>
-<span class="sd">    bordervalues : bool, str, float, or list</span>
-<span class="sd">        Nodes that fall exactly on a polygon boundary should be</span>
-<span class="sd">        considered to be outside the polygon [Default considers them to be</span>
-<span class="sd">        inside]. Alternatively, append either a list of four values</span>
-<span class="sd">        [*cborder*, *lborder*, *iborder*, *pborder*] or just the single value</span>
-<span class="sd">        *bordervalue* (for the case when they should all be the same value).</span>
-<span class="sd">        This turns on the line-tracking mode. Now, after setting the mask</span>
-<span class="sd">        values specified via ``maskvalues`` we trace the lines and change the</span>
-<span class="sd">        node values for all cells traversed by a line to the corresponding</span>
-<span class="sd">        border value. Here, *cborder* is used for cells traversed by the</span>
-<span class="sd">        coastline, *lborder* for cells traversed by a lake outline, *iborder*</span>
-<span class="sd">        for islands-in-lakes outlines, and *pborder* for</span>
-<span class="sd">        ponds-in-islands-in-lakes outlines [Default is no line tracing].</span>
-<span class="sd">    maskvalues : str or list</span>
-<span class="sd">        [*wet*, *dry*] or [*ocean*, *land*, *lake*, *island*, *pond*].</span>
-<span class="sd">        Set the values that will be assigned to nodes. Values can</span>
-<span class="sd">        be any number, including the textstring NaN</span>
-<span class="sd">        [Default is [0, 1, 0, 1, 0] (i.e., [0, 1])]. Also select</span>
-<span class="sd">        ``bordervalues`` to let nodes exactly on feature boundaries be</span>
-<span class="sd">        considered outside [Default is inside].</span>
+<span class="sd">    resolution</span>
+<span class="sd">        Select the resolution of the coastline dataset to use. The available resolutions</span>
+<span class="sd">        from highest to lowest are: ``&quot;full&quot;``, ``&quot;high&quot;``, ``&quot;intermediate&quot;``,</span>
+<span class="sd">        ``&quot;low&quot;``, and ``&quot;crude&quot;``, which drops by 80% between levels. Alternatively,</span>
+<span class="sd">        choose ``&quot;auto&quot;`` to automatically select the most suitable resolution given the</span>
+<span class="sd">        chosen region. Note that because the coastlines differ in details, a node in a</span>
+<span class="sd">        mask file using one resolution is not guaranteed to remain inside [or outside]</span>
+<span class="sd">        when a different resolution is selected. If ``None``, the low resolution is used</span>
+<span class="sd">        by default.</span>
+<span class="sd">    maskvalues</span>
+<span class="sd">        Set the values that will be assigned to nodes, in the form of [*wet*, *dry*], or</span>
+<span class="sd">        [*ocean*, *land*, *lake*, *island*, *pond*]. Default is ``[0, 1, 0, 1, 0]``</span>
+<span class="sd">        (i.e., ``[0, 1]``), meaning that all &quot;wet&quot; nodes will be assigned a value of 0</span>
+<span class="sd">        and all &quot;dry&quot; nodes will be assigned a value of 1. Values can be any number, or</span>
+<span class="sd">        one of ``None``, ``&quot;NaN&quot;``, and ``np.nan`` for setting nodes to NaN.</span>
+
+<span class="sd">        Use ``bordervalues`` to control how nodes on feature boundaries are handled.</span>
+<span class="sd">    bordervalues</span>
+<span class="sd">        Sets the behavior for nodes that fall exactly on a polygon boundary. Valid</span>
+<span class="sd">        values are:</span>
+
+<span class="sd">        - ``False``: Treat boundary nodes as inside [Default]</span>
+<span class="sd">        - ``True``: Treat boundary nodes as outside</span>
+<span class="sd">        - A single value: Set all boundary nodes to the same value</span>
+<span class="sd">        - A sequence of four values in the form of [*cborder*, *lborder*, *iborder*,</span>
+<span class="sd">          *pborder*] to treat different kinds of boundary nodes as the specified values.</span>
+<span class="sd">          *cborder* is for coastline, *lborder* for lake outline, *iborder* for</span>
+<span class="sd">          islands-in-lakes outlines, and *pborder* for ponds-in-islands-in-lakes</span>
+<span class="sd">          outlines.</span>
+
+<span class="sd">        Values can be any number, or one of ``None``, ``&quot;NaN&quot;``, and ``np.nan`` for</span>
+<span class="sd">        setting nodes to NaN.</span>
 <span class="sd">    {verbose}</span>
 <span class="sd">    {registration}</span>
 <span class="sd">    {cores}</span>
@@ -262,6 +274,10 @@
         <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Both &#39;region&#39; and &#39;spacing&#39; must be specified.&quot;</span>
         <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
+    <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;D&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="n">_parse_coastline_resolution</span><span class="p">(</span><span class="n">resolution</span><span class="p">))</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;N&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sequence_join</span><span class="p">(</span><span class="n">maskvalues</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;maskvalues&quot;</span><span class="p">)</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;E&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sequence_join</span><span class="p">(</span><span class="n">bordervalues</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bordervalues&quot;</span><span class="p">)</span>
+
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
         <span class="k">with</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_out</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="n">fname</span><span class="o">=</span><span class="n">outgrid</span><span class="p">)</span> <span class="k">as</span> <span class="n">voutgrd</span><span class="p">:</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;G&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">voutgrd</span>
@@ -279,9 +295,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2025.
+      <span class="lastupdated">Last updated on Jun 18, 2025.
       </span></p>
   </div>
 

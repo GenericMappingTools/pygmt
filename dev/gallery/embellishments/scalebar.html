@@ -1,8 +1,10 @@
 
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
@@ -10,7 +12,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -18,23 +20,19 @@
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=845ca4e4" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=2ba370f3" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/gallery/embellishments/scalebar.html" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=6e6bddb7"></script>
-        <script src="../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
-        <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -65,18 +63,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-    <a href="../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
-
-    
-        
-        
-            <div class="version">
-                dev
-            </div>
-        
-    
-
-    
+   
+   
+   <a href="../../index.html">
+     <h2 class="sidebar-title">PyGMT</h2>
+   </a>
+     <div class="version">
+       dev
+     </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -84,8 +78,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-
+ 
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
     
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
@@ -232,9 +225,9 @@ Mercator projection.</p></li>
 independent) code. Choose from vertical <strong>T</strong>(op), <strong>M</strong>(iddle), or
 <strong>B</strong>(ottom) and horizontal <strong>L</strong>(eft), <strong>C</strong>(entre), or <strong>R</strong>(ight).</p></li>
 <li><p>offset: <strong>+o</strong><em>offset</em> or <strong>+o</strong><em>xoffset</em>/<em>yoffset</em>. Give either a
-common shift or individual shifts in x (longitude) and y (latitude)
+common shift or individual shifts in x- (longitude) and y- (latitude)
 directions.</p></li>
-<li><p>height: Use <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-MAP_SCALE_HEIGHT">MAP_SCALE_HEIGHT</a> via <a class="reference internal" href="../../api/generated/pygmt.config.html#pygmt.config" title="pygmt.config"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.config</span></code></a>.</p></li>
+<li><p>height: Use <a class="extlink-gmt-term reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-MAP_SCALE_HEIGHT">MAP_SCALE_HEIGHT</a> via <a class="reference internal" href="../../api/generated/pygmt.config.html#pygmt.config" title="pygmt.config"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.config</span></code></a>.</p></li>
 <li><p>fancy style: <strong>+f</strong>. Get a scale bar that looks like train tracks.</p></li>
 <li><p>unit: <strong>+u</strong>. Add the distance unit given via <strong>+w</strong> to the single
 distance values.</p></li>
@@ -278,7 +271,7 @@ text to get a customized label instead.</p></li>
 <span class="c1"># -----------------------------------------------------------------------------</span>
 <span class="c1"># Bottom Right: Add a scale bar valid for a specific location</span>
 <span class="c1"># It is placed at BottomRight (j) using MiddleRight as anchor point (+j) with</span>
-<span class="c1"># an offset (+o) of 1 centimeter in both x and y directions</span>
+<span class="c1"># an offset (+o) of 1 centimeter in both x- and y-directions</span>
 <span class="c1"># It applies (+c) at -7° South, add a customized label by appending text to +l</span>
 <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">map_scale</span><span class="o">=</span><span class="s2">&quot;jBR+jMR+o1c/1c+c-7+w500k+f+u+lvalid at 7° S&quot;</span><span class="p">)</span>
 
@@ -310,7 +303,7 @@ rounded edges append <strong>+r</strong> with the desired radius.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_scalebar_002.png" srcset="../../_images/sphx_glr_scalebar_002.png" alt="scalebar" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.335 seconds)</p>
+<img src="../../_images/sphx_glr_scalebar_002.png" srcset="../../_images/sphx_glr_scalebar_002.png" alt="scalebar" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.336 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-embellishments-scalebar-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/004f6d23a04369ca0db9c83de3b6182d/scalebar.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">scalebar.ipynb</span></code></a></p>
@@ -338,9 +331,9 @@ rounded edges append <strong>+r</strong> with the desired radius.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2025.
+      <span class="lastupdated">Last updated on Jun 18, 2025.
       </span></p>
   </div>
 

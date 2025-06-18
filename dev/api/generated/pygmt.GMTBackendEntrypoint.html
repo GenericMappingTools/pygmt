@@ -1,0 +1,338 @@
+
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pygmt.GMTBackendEntrypoint &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=2ba370f3" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.GMTBackendEntrypoint.html" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pygmt.GMTBackendEntrypoint.guess_can_open" href="pygmt.GMTBackendEntrypoint.guess_can_open.html" />
+    <link rel="prev" title="pygmt.grdinfo" href="pygmt.grdinfo.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+   
+   
+   <a href="../../index.html">
+     <h2 class="sidebar-title">PyGMT</h2>
+   </a>
+     <div class="version">
+       dev
+     </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+ 
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#plotting">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#data-processing">Data Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#input-output">Input/output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#xarray-integration">Xarray Integration</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.GMTBackendEntrypoint</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pygmt.GMTBackendEntrypoint"><code class="docutils literal notranslate"><span class="pre">GMTBackendEntrypoint</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.GMTBackendEntrypoint.guess_can_open.html">pygmt.GMTBackendEntrypoint.guess_can_open</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.GMTBackendEntrypoint.open_dataset.html">pygmt.GMTBackendEntrypoint.open_dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.GMTBackendEntrypoint.open_datatree.html">pygmt.GMTBackendEntrypoint.open_datatree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.GMTBackendEntrypoint.open_groups_as_dict.html">pygmt.GMTBackendEntrypoint.open_groups_as_dict</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.GMTDataArrayAccessor.html">pygmt.GMTDataArrayAccessor</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#datasets">Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-c-api">GMT C API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ecosystem.html">Ecosystem</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../team.html">PyGMT Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">pygmt.GMTBackendEntrypoint</li>
+    <li class="source-link">
+        
+            
+                
+                
+                <a href="https://github.com/GenericMappingTools/pygmt/issues/new?title=Suggested%20improvement%20for%20api/generated/pygmt.GMTBackendEntrypoint&body=Please%20describe%20what%20could%20be%20improved%20about%20this%20page%20or%20the%20typo/mistake%20that%20you%20found%3A"
+                   class="fa fa-github"> Improve this page</a>
+            
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pygmt-gmtbackendentrypoint">
+<h1>pygmt.GMTBackendEntrypoint<a class="headerlink" href="#pygmt-gmtbackendentrypoint" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pygmt.GMTBackendEntrypoint">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">GMTBackendEntrypoint</span></span><a class="reference internal" href="../../_modules/pygmt/xarray/backend.html#GMTBackendEntrypoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.GMTBackendEntrypoint" title="Link to this definition"></a></dt>
+<dd><p>Xarray backend to read raster grid/image files using ‘gmt’ engine.</p>
+<p>Internally, GMT uses the netCDF C library to read netCDF files, and GDAL for GeoTIFF
+and other raster formats. See <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/reference/features.html#grid-file-format">https://docs.generic-mapping-tools.org/6.5/reference/features.html#grid-file-format</a>
+for more details about supported formats. This GMT engine can also read
+<a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/datasets/remote-data.html">GMT remote datasets</a> (file names starting
+with an <cite>&#64;</cite>) directly, and pre-loads <a class="reference internal" href="pygmt.GMTDataArrayAccessor.html#pygmt.GMTDataArrayAccessor" title="pygmt.GMTDataArrayAccessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.GMTDataArrayAccessor</span></code></a> properties
+(in the ‘.gmt’ accessor) for easy access to GMT-specific metadata and features.</p>
+<p>When using <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataarray.html#xarray.open_dataarray" title="(in xarray v2025.6.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.open_dataarray</span></code></a> or <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.load_dataarray.html#xarray.load_dataarray" title="(in xarray v2025.6.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.load_dataarray</span></code></a> with
+<code class="docutils literal notranslate"><span class="pre">engine=&quot;gmt&quot;</span></code>, the <code class="docutils literal notranslate"><span class="pre">raster_kind</span></code> parameter is required and can be either:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;grid&quot;</span></code>: for reading single-band raster grids</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;image&quot;</span></code>: for reading multi-band raster images</p></li>
+</ul>
+<p>Optionally, you can pass in a <code class="docutils literal notranslate"><span class="pre">region</span></code> in the form of a sequence [<em>xmin</em>, <em>xmax</em>,
+<em>ymin</em>, <em>ymax</em>] or an ISO country code.</p>
+<p class="rubric">Examples</p>
+<p>Read a single-band netCDF file using <code class="docutils literal notranslate"><span class="pre">raster_kind=&quot;grid&quot;</span></code></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">da_grid</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataarray</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s2">&quot;@static_earth_relief.nc&quot;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;gmt&quot;</span><span class="p">,</span> <span class="n">raster_kind</span><span class="o">=</span><span class="s2">&quot;grid&quot;</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">da_grid</span>
+<span class="go">&lt;xarray.DataArray &#39;z&#39; (lat: 14, lon: 8)&gt;...</span>
+<span class="go">[112 values with dtype=float32]</span>
+<span class="go">Coordinates:</span>
+<span class="go">  * lat      (lat) float64... -23.5 -22.5 -21.5 -20.5 ... -12.5 -11.5 -10.5</span>
+<span class="go">  * lon      (lon) float64... -54.5 -53.5 -52.5 -51.5 -50.5 -49.5 -48.5 -47.5</span>
+<span class="go">Attributes:...</span>
+<span class="go">    Conventions:   CF-1.7</span>
+<span class="go">    title:         Produced by grdcut</span>
+<span class="go">    history:       grdcut @earth_relief_01d_p -R-55/-47/-24/-10 -Gstatic_eart...</span>
+<span class="go">    description:   Reduced by Gaussian Cartesian filtering (111.2 km fullwidt...</span>
+<span class="go">    actual_range:  [190. 981.]</span>
+<span class="go">    long_name:     elevation (m)</span>
+</pre></div>
+</div>
+<p>Read a multi-band GeoTIFF file using <code class="docutils literal notranslate"><span class="pre">raster_kind=&quot;image&quot;</span></code></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">da_image</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataarray</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s2">&quot;@earth_night_01d&quot;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;gmt&quot;</span><span class="p">,</span> <span class="n">raster_kind</span><span class="o">=</span><span class="s2">&quot;image&quot;</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">da_image</span>
+<span class="go">&lt;xarray.DataArray &#39;z&#39; (band: 3, y: 180, x: 360)&gt;...</span>
+<span class="go">[194400 values with dtype=uint8]</span>
+<span class="go">Coordinates:</span>
+<span class="go">  * y        (y) float64... 89.5 88.5 87.5 86.5 ... -86.5 -87.5 -88.5 -89.5</span>
+<span class="go">  * x        (x) float64... -179.5 -178.5 -177.5 -176.5 ... 177.5 178.5 179.5</span>
+<span class="go">  * band     (band) uint8... 1 2 3</span>
+<span class="go">Attributes:...</span>
+<span class="go">    long_name:  z</span>
+</pre></div>
+</div>
+<p>Load a single-band netCDF file using <code class="docutils literal notranslate"><span class="pre">raster_kind=&quot;grid&quot;</span></code> over a bounding box
+region.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">da_grid</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">load_dataarray</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s2">&quot;@tut_bathy.nc&quot;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;gmt&quot;</span><span class="p">,</span> <span class="n">raster_kind</span><span class="o">=</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">64</span><span class="p">,</span> <span class="o">-</span><span class="mi">62</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">33</span><span class="p">]</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">da_grid</span>
+<span class="go">&lt;xarray.DataArray &#39;z&#39; (lat: 13, lon: 25)&gt;...</span>
+<span class="go">array([[-4369., -4587., -4469., -4409., -4587., -4505., -4403., -4405.,</span>
+<span class="go">        -4466., -4595., -4609., -4608., -4606., -4607., -4607., -4597.,</span>
+<span class="go">...</span>
+<span class="go">        -4667., -4642., -4677., -4795., -4797., -4800., -4803., -4818.,</span>
+<span class="go">        -4820.]], dtype=float32)</span>
+<span class="go">Coordinates:</span>
+<span class="go">  * lat      (lat) float64... 32.0 32.08 32.17 32.25 ... 32.83 32.92 33.0</span>
+<span class="go">  * lon      (lon) float64... -64.0 -63.92 -63.83 ... -62.17 -62.08 -62.0</span>
+<span class="go">Attributes:...</span>
+<span class="go">    Conventions:   CF-1.7</span>
+<span class="go">    title:         ETOPO5 global topography</span>
+<span class="go">    history:       grdreformat -fg bermuda.grd bermuda.nc=ns</span>
+<span class="go">    description:   /home/elepaio5/data/grids/etopo5.i2</span>
+<span class="go">    actual_range:  [-4968. -4315.]</span>
+<span class="go">    long_name:     Topography</span>
+<span class="go">    units:         m</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric">Attributes</p>
+<p class="rubric">Methods Summary</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.GMTBackendEntrypoint.guess_can_open.html#pygmt.GMTBackendEntrypoint.guess_can_open" title="pygmt.GMTBackendEntrypoint.guess_can_open"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GMTBackendEntrypoint.guess_can_open</span></code></a>(...)</p></td>
+<td><p>Backend open_dataset method used by Xarray in <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataset.html#xarray.open_dataset" title="(in xarray v2025.6.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">open_dataset</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.GMTBackendEntrypoint.open_dataset.html#pygmt.GMTBackendEntrypoint.open_dataset" title="pygmt.GMTBackendEntrypoint.open_dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GMTBackendEntrypoint.open_dataset</span></code></a>(...[, ...])</p></td>
+<td><p>Backend open_dataset method used by Xarray in <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataset.html#xarray.open_dataset" title="(in xarray v2025.6.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">open_dataset</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.GMTBackendEntrypoint.open_datatree.html#pygmt.GMTBackendEntrypoint.open_datatree" title="pygmt.GMTBackendEntrypoint.open_datatree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GMTBackendEntrypoint.open_datatree</span></code></a>(...[, ...])</p></td>
+<td><p>Backend open_datatree method used by Xarray in <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_datatree.html#xarray.open_datatree" title="(in xarray v2025.6.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">open_datatree</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.GMTBackendEntrypoint.open_groups_as_dict.html#pygmt.GMTBackendEntrypoint.open_groups_as_dict" title="pygmt.GMTBackendEntrypoint.open_groups_as_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GMTBackendEntrypoint.open_groups_as_dict</span></code></a>(...)</p></td>
+<td><p>Opens a dictionary mapping from group names to Datasets.</p></td>
+</tr>
+</tbody>
+</table>
+<div style='clear:both'></div></section>
+
+
+           </div>
+          </div>
+          
+<footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pygmt.grdinfo.html" class="btn btn-neutral float-left" title="pygmt.grdinfo" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pygmt.GMTBackendEntrypoint.guess_can_open.html" class="btn btn-neutral float-right" title="pygmt.GMTBackendEntrypoint.guess_can_open" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on Jun 18, 2025.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

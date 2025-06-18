@@ -25,7 +25,7 @@ Generally, PyGMT accepts two different types of data inputs: tables and grids.
 
 - A table is a 2-D array with rows and columns. Each column represents a different
   variable (e.g., *x*, *y* and *z*) and each row represents a different record.
-- A grid is a 2-D array of data that is regularly spaced in the x and y directions (or
+- A grid is a 2-D array of data that is regularly spaced in the x- and y-directions (or
   longitude and latitude).
 
 In this tutorial, we'll focus on working with table inputs, and cover grid inputs in a
@@ -195,7 +195,7 @@ GMT and PyGMT do not support natively.
 
  .. code-block:: none
 
-    /home/runner/micromamba/envs/pygmt/lib/python3.13/site-packages/pyogrio/geopandas.py:662: UserWarning: 'crs' was not provided.  The output dataset will not have projection information defined and may not be usable in other systems.
+    /home/runner/micromamba/envs/pygmt/lib/python3.13/site-packages/pyogrio/geopandas.py:710: UserWarning: 'crs' was not provided.  The output dataset will not have projection information defined and may not be usable in other systems.
       write(
 
 
@@ -258,7 +258,7 @@ source and analysis requirements.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.461 seconds)
+   **Total running time of the script:** (0 minutes 0.604 seconds)
 
 
 .. _sphx_glr_download_intro_04_table_inputs.py:

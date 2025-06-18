@@ -62,7 +62,7 @@ at :gmt-docs:`plot.html#s`.
         "qN+1:+ltext",
         # Adjust the justification of the labels via "+j", here Top Center
         "qd1c:+ltext+jTC",
-        # Shift labels using "+n" in x and y directions relative to the main
+        # Shift labels using "+n" in x- and y-directions relative to the main
         # quoted line
         "qd1c:+ltext+n-0.5c/0.1c",
         # Rotate labels via "+a" (counter-clockwise from horizontal)
@@ -75,7 +75,7 @@ at :gmt-docs:`plot.html#s`.
         "qd1c:+ltext+p0.5p,blue,dashed",
         # Append "+o" to get a box with rounded edges
         "qd1c:+ltext+p0.5p,blue+o",
-        # Adjust the space between label and box in x and y directions via "+c"
+        # Adjust the space between label and box in x- and y-directions via "+c"
         "qd1c:+ltext+p0.5p,blue+o+c0.1c/0.1c",
         # Give a fill of the box via "+g" together with the desired color
         "qd1c:+ltext+gdodgerblue",
@@ -149,7 +149,7 @@ to the ``style`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.148 seconds)
+   **Total running time of the script:** (0 minutes 1.149 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_quoted_lines.py:

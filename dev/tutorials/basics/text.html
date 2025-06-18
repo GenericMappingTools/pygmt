@@ -1,8 +1,10 @@
 
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
@@ -10,7 +12,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -18,23 +20,19 @@
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=845ca4e4" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=2ba370f3" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/tutorials/basics/text.html" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=6e6bddb7"></script>
-        <script src="../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
-        <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -65,18 +63,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-    <a href="../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
-
-    
-        
-        
-            <div class="version">
-                dev
-            </div>
-        
-    
-
-    
+   
+   
+   <a href="../../index.html">
+     <h2 class="sidebar-title">PyGMT</h2>
+   </a>
+     <div class="version">
+       dev
+     </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -84,8 +78,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-
+ 
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
     
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
@@ -227,7 +220,7 @@ to specify the text and position.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">font</span></code>: Sets the size, family/weight, and color of the font for the text.
 A list of all recognized fonts can be found at <a class="reference internal" href="../../techref/fonts.html"><span class="doc">Supported Fonts</span></a>.
 For details of how to use non-default fonts, refer to
-<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/reference/postscript-fonts.html">PostScript Fonts Used by GMT</a>.</p></li>
+<a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/reference/postscript-fonts.html">PostScript Fonts Used by GMT</a>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">angle</span></code>: Specifies the rotation of the text. It is measured counter-clockwise
 from the horizontal in degrees.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">justify</span></code>: Defines the anchor point of the bounding box for the text. It is
@@ -255,8 +248,8 @@ specified by a two-letter (order independent) code, chosen from:</p>
 <a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=-</span><span class="mi">3</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;s0.2c&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;darkorange&quot;</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;0.7p,darkgray&quot;</span><span class="p">)</span>
 <a href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=-</span><span class="mi">3</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;my text&quot;</span><span class="p">)</span>
 <span class="c1"># Shift the text label relatively to the position given via the x and y parameters</span>
-<span class="c1"># by 1 centimeter to the right (positive x direction) and 0.5 centimeters down</span>
-<span class="c1"># (negative y direction)</span>
+<span class="c1"># by 1 centimeter to the right (positive x-direction) and 0.5 centimeters down</span>
+<span class="c1"># (negative y-direction)</span>
 <a href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=-</span><span class="mi">3</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;my text&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="s2">&quot;1c/-0.5c&quot;</span><span class="p">)</span>
 
 <a href="../../api/generated/pygmt.Figure.shift_origin.html#pygmt.Figure.shift_origin" title="pygmt.Figure.shift_origin" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">shift_origin</span></a><span class="p">(</span><span class="n">xshift</span><span class="o">=</span><span class="s2">&quot;w+0.5c&quot;</span><span class="p">)</span>
@@ -296,7 +289,7 @@ specified by a two-letter (order independent) code, chosen from:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">fill</span></code>: Fills the text box with a color.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">pen</span></code>: Outlines the text box.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">clearance</span></code>: Adds margins in x and y directions between the text and the outline
+<li><p><code class="docutils literal notranslate"><span class="pre">clearance</span></code>: Adds margins in x-and y-directions between the text and the outline
 of the text box. Can be used to get a text box with rounded edges.</p></li>
 </ul>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
@@ -310,7 +303,7 @@ of the text box. Can be used to get a text box with rounded edges.</p></li>
 <a href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;My text&quot;</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;1p,seagreen,solid&quot;</span><span class="p">)</span>
 
 <span class="c1"># Add margins between the text and the outline of the text box of 0.1</span>
-<span class="c1"># centimeters in x direction and 0.2 centimeters in y direction</span>
+<span class="c1"># centimeters in x-direction and 0.2 centimeters in y-direction</span>
 <a href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;My text&quot;</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;1p,seagreen,dashed&quot;</span><span class="p">,</span> <span class="n">clearance</span><span class="o">=</span><span class="s2">&quot;0.1c/0.2c&quot;</span><span class="p">)</span>
 
 <span class="c1"># Get rounded edges by passing &quot;+tO&quot; to the &quot;clearance&quot; parameter</span>
@@ -422,10 +415,10 @@ frame, e.g., for depth slices.</p>
 <section id="advanced-configuration">
 <h2>Advanced configuration<a class="headerlink" href="#advanced-configuration" title="Link to this heading"></a></h2>
 <p>For crafting more advanced styles, including using special symbols and other character
-sets, be sure to check out the GMT documentation at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/text.html">https://docs.generic-mapping-tools.org/6.5/text.html</a> and also the
-Technical References at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/reference/features.html#placement-of-text">https://docs.generic-mapping-tools.org/6.5/reference/features.html#placement-of-text</a>. Good
+sets, be sure to check out the GMT documentation at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/text.html">https://docs.generic-mapping-tools.org/6.5/text.html</a> and also the
+Technical References at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/reference/features.html#placement-of-text">https://docs.generic-mapping-tools.org/6.5/reference/features.html#placement-of-text</a>. Good
 luck!</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.792 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.805 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-basics-text-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/a909548a3d09923b626767cd032b88e3/text.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">text.ipynb</span></code></a></p>
@@ -454,9 +447,9 @@ luck!</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2025.
+      <span class="lastupdated">Last updated on Jun 18, 2025.
       </span></p>
   </div>
 

@@ -1,0 +1,946 @@
+
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>xarray.backends.common &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=2ba370f3" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org//dev/_modules/xarray/backends/common.html" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+   
+   
+   <a href="../../../index.html">
+     <h2 class="sidebar-title">PyGMT</h2>
+   </a>
+     <div class="version">
+       dev
+     </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+ 
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../intro/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../techref/index.html">Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ecosystem.html">Ecosystem</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../team.html">PyGMT Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">xarray.backends.common</li>
+    <li class="source-link">
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for xarray.backends.common</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">traceback</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Hashable</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">glob</span><span class="w"> </span><span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">overload</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">xarray.coding</span><span class="w"> </span><span class="kn">import</span> <span class="n">strings</span><span class="p">,</span> <span class="n">variables</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xarray.coding.variables</span><span class="w"> </span><span class="kn">import</span> <span class="n">SerializationWarning</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xarray.conventions</span><span class="w"> </span><span class="kn">import</span> <span class="n">cf_encoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xarray.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">indexing</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xarray.core.datatree</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataTree</span><span class="p">,</span> <span class="n">Variable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xarray.core.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">ReadBuffer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xarray.core.utils</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">FrozenDict</span><span class="p">,</span>
+    <span class="n">NdimSizeLenMixin</span><span class="p">,</span>
+    <span class="n">attempt_import</span><span class="p">,</span>
+    <span class="n">emit_user_level_warning</span><span class="p">,</span>
+    <span class="n">is_remote_uri</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xarray.namedarray.parallelcompat</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_chunked_array_type</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xarray.namedarray.pycompat</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_chunked_array</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xarray.namedarray.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_duck_dask_array</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">xarray.core.dataset</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">xarray.core.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">NestedSequence</span>
+
+    <span class="n">T_Name</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">Hashable</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+
+<span class="c1"># Create a logger object, but don&#39;t add any handlers. Leave that to user code.</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="n">NONE_VAR_NAME</span> <span class="o">=</span> <span class="s2">&quot;__values__&quot;</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_normalize_path</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_normalize_path</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span> <span class="o">...</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_normalize_path</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span> <span class="o">|</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">T</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Normalize pathlikes to string.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path :</span>
+<span class="sd">        Path to file.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from pathlib import Path</span>
+
+<span class="sd">    &gt;&gt;&gt; directory = Path(xr.backends.common.__file__).parent</span>
+<span class="sd">    &gt;&gt;&gt; paths_path = Path(directory).joinpath(&quot;comm*n.py&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; paths_str = xr.backends.common._normalize_path(paths_path)</span>
+<span class="sd">    &gt;&gt;&gt; print([type(p) for p in (paths_str,)])</span>
+<span class="sd">    [&lt;class &#39;str&#39;&gt;]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">):</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fspath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_remote_uri</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">path</span>  <span class="c1"># type:ignore [return-value]</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_find_absolute_paths</span><span class="p">(</span>
+    <span class="n">paths</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">],</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span> <span class="o">...</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_find_absolute_paths</span><span class="p">(</span>
+    <span class="n">paths</span><span class="p">:</span> <span class="n">ReadBuffer</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ReadBuffer</span><span class="p">],</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">ReadBuffer</span><span class="p">]:</span> <span class="o">...</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_find_absolute_paths</span><span class="p">(</span>
+    <span class="n">paths</span><span class="p">:</span> <span class="n">NestedSequence</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NestedSequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span> <span class="o">...</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_find_absolute_paths</span><span class="p">(</span>
+    <span class="n">paths</span><span class="p">:</span> <span class="n">NestedSequence</span><span class="p">[</span><span class="n">ReadBuffer</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NestedSequence</span><span class="p">[</span><span class="n">ReadBuffer</span><span class="p">]:</span> <span class="o">...</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_find_absolute_paths</span><span class="p">(</span>
+    <span class="n">paths</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span>
+    <span class="o">|</span> <span class="n">ReadBuffer</span>
+    <span class="o">|</span> <span class="n">NestedSequence</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span> <span class="o">|</span> <span class="n">ReadBuffer</span><span class="p">],</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NestedSequence</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="n">ReadBuffer</span><span class="p">]:</span> <span class="o">...</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_find_absolute_paths</span><span class="p">(</span>
+    <span class="n">paths</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span>
+    <span class="o">|</span> <span class="n">ReadBuffer</span>
+    <span class="o">|</span> <span class="n">NestedSequence</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span> <span class="o">|</span> <span class="n">ReadBuffer</span><span class="p">],</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NestedSequence</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="n">ReadBuffer</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find absolute paths from the pattern.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    paths :</span>
+<span class="sd">        Path(s) to file(s). Can include wildcards like * .</span>
+<span class="sd">    **kwargs :</span>
+<span class="sd">        Extra kwargs. Mainly for fsspec.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from pathlib import Path</span>
+
+<span class="sd">    &gt;&gt;&gt; directory = Path(xr.backends.common.__file__).parent</span>
+<span class="sd">    &gt;&gt;&gt; paths = str(Path(directory).joinpath(&quot;comm*n.py&quot;))  # Find common with wildcard</span>
+<span class="sd">    &gt;&gt;&gt; paths = xr.backends.common._find_absolute_paths(paths)</span>
+<span class="sd">    &gt;&gt;&gt; [Path(p).name for p in paths]</span>
+<span class="sd">    [&#39;common.py&#39;]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">is_remote_uri</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;engine&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;zarr&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+                <span class="kn">import</span><span class="w"> </span><span class="nn">fsspec</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fsspec</span> <span class="o">=</span> <span class="n">attempt_import</span><span class="p">(</span><span class="s2">&quot;fsspec&quot;</span><span class="p">)</span>
+
+            <span class="n">fs</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">fsspec</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">get_fs_token_paths</span><span class="p">(</span>
+                <span class="n">paths</span><span class="p">,</span>
+                <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;rb&quot;</span><span class="p">,</span>
+                <span class="n">storage_options</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;backend_kwargs&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                    <span class="s2">&quot;storage_options&quot;</span><span class="p">,</span> <span class="p">{}</span>
+                <span class="p">),</span>
+                <span class="n">expand</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">tmp_paths</span> <span class="o">=</span> <span class="n">fs</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">fs</span><span class="o">.</span><span class="n">_strip_protocol</span><span class="p">(</span><span class="n">paths</span><span class="p">))</span>  <span class="c1"># finds directories</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">fs</span><span class="o">.</span><span class="n">get_mapper</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">tmp_paths</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">is_remote_uri</span><span class="p">(</span><span class="n">paths</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;cannot do wild-card matching for paths that are remote URLs &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;unless engine=&#39;zarr&#39; is specified. Got paths: </span><span class="si">{</span><span class="n">paths</span><span class="si">}</span><span class="s2">. &quot;</span>
+                <span class="s2">&quot;Instead, supply paths as an explicit list of strings.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">_normalize_path</span><span class="p">(</span><span class="n">paths</span><span class="p">)))</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">_normalize_path</span><span class="p">(</span><span class="n">paths</span><span class="p">)]</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="n">ReadBuffer</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">paths</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_normalize_path_list</span><span class="p">(</span>
+        <span class="n">lpaths</span><span class="p">:</span> <span class="n">NestedSequence</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span> <span class="o">|</span> <span class="n">ReadBuffer</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NestedSequence</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="n">ReadBuffer</span><span class="p">]:</span>
+        <span class="n">paths</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">lpaths</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">):</span>
+                <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_normalize_path</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_normalize_path_list</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
+        <span class="k">return</span> <span class="n">paths</span>
+
+    <span class="k">return</span> <span class="n">_normalize_path_list</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_open_remote_file</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">storage_options</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">fsspec</span>
+
+    <span class="n">fs</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">paths</span> <span class="o">=</span> <span class="n">fsspec</span><span class="o">.</span><span class="n">get_fs_token_paths</span><span class="p">(</span>
+        <span class="n">file</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">fs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_encode_variable_name</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">NONE_VAR_NAME</span>
+    <span class="k">return</span> <span class="n">name</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_decode_variable_name</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="n">NONE_VAR_NAME</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">name</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_iter_nc_groups</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">xarray.core.treenode</span><span class="w"> </span><span class="kn">import</span> <span class="n">NodePath</span>
+
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">NodePath</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+    <span class="k">yield</span> <span class="nb">str</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">path</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">gpath</span> <span class="o">=</span> <span class="n">parent</span> <span class="o">/</span> <span class="n">path</span>
+        <span class="k">yield from</span> <span class="n">_iter_nc_groups</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">gpath</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">find_root_and_group</span><span class="p">(</span><span class="n">ds</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the root and group name of a netCDF4/h5netcdf dataset.&quot;&quot;&quot;</span>
+    <span class="n">hierarchy</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="k">while</span> <span class="n">ds</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">hierarchy</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">],)</span> <span class="o">+</span> <span class="n">hierarchy</span>
+        <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">parent</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">hierarchy</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ds</span><span class="p">,</span> <span class="n">group</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">datatree_from_dict_with_io_cleanup</span><span class="p">(</span><span class="n">groups_dict</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dataset</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">DataTree</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;DataTree.from_dict with file clean-up.&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">tree</span> <span class="o">=</span> <span class="n">DataTree</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">groups_dict</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">ds</span> <span class="ow">in</span> <span class="n">groups_dict</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">ds</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">raise</span>
+    <span class="k">for</span> <span class="n">path</span><span class="p">,</span> <span class="n">ds</span> <span class="ow">in</span> <span class="n">groups_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">tree</span><span class="p">[</span><span class="n">path</span><span class="p">]</span><span class="o">.</span><span class="n">set_close</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">_close</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tree</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">robust_getitem</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">catch</span><span class="o">=</span><span class="ne">Exception</span><span class="p">,</span> <span class="n">max_retries</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">initial_delay</span><span class="o">=</span><span class="mi">500</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Robustly index an array, using retry logic with exponential backoff if any</span>
+<span class="sd">    of the errors ``catch`` are raised. The initial_delay is measured in ms.</span>
+
+<span class="sd">    With the default settings, the maximum delay will be in the range of 32-64</span>
+<span class="sd">    seconds.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">max_retries</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_retries</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">array</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">except</span> <span class="n">catch</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="n">max_retries</span><span class="p">:</span>
+                <span class="k">raise</span>
+            <span class="n">base_delay</span> <span class="o">=</span> <span class="n">initial_delay</span> <span class="o">*</span> <span class="mi">2</span><span class="o">**</span><span class="n">n</span>
+            <span class="n">next_delay</span> <span class="o">=</span> <span class="n">base_delay</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">base_delay</span><span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;getitem failed, waiting </span><span class="si">{</span><span class="n">next_delay</span><span class="si">}</span><span class="s2"> ms before trying again &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">max_retries</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">n</span><span class="si">}</span><span class="s2"> tries remaining). Full traceback: </span><span class="si">{</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1e-3</span> <span class="o">*</span> <span class="n">next_delay</span><span class="p">)</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">BackendArray</span><span class="p">(</span><span class="n">NdimSizeLenMixin</span><span class="p">,</span> <span class="n">indexing</span><span class="o">.</span><span class="n">ExplicitlyIndexed</span><span class="p">):</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_duck_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">DTypeLike</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">indexing</span><span class="o">.</span><span class="n">BasicIndexer</span><span class="p">((</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">),)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>  <span class="c1"># type: ignore[index]</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">AbstractDataStore</span><span class="p">:</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_dimensions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_attrs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_variables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_encoding</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This loads the variables and attributes simultaneously.</span>
+<span class="sd">        A centralized loading function makes it easier to create</span>
+<span class="sd">        data stores that do automatic encoding/decoding.</span>
+
+<span class="sd">        For example::</span>
+
+<span class="sd">            class SuffixAppendingDataStore(AbstractDataStore):</span>
+<span class="sd">                def load(self):</span>
+<span class="sd">                    variables, attributes = AbstractDataStore.load(self)</span>
+<span class="sd">                    variables = {&quot;%s_suffix&quot; % k: v for k, v in variables.items()}</span>
+<span class="sd">                    attributes = {&quot;%s_suffix&quot; % k: v for k, v in attributes.items()}</span>
+<span class="sd">                    return variables, attributes</span>
+
+<span class="sd">        This function will be called anytime variables or attributes</span>
+<span class="sd">        are requested, so care should be taken to make sure its fast.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">variables</span> <span class="o">=</span> <span class="n">FrozenDict</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">_decode_variable_name</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_variables</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">attributes</span> <span class="o">=</span> <span class="n">FrozenDict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_attrs</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">variables</span><span class="p">,</span> <span class="n">attributes</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exception_type</span><span class="p">,</span> <span class="n">exception_value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ArrayWriter</span><span class="p">:</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;lock&quot;</span><span class="p">,</span> <span class="s2">&quot;regions&quot;</span><span class="p">,</span> <span class="s2">&quot;sources&quot;</span><span class="p">,</span> <span class="s2">&quot;targets&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lock</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sources</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">targets</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">regions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lock</span> <span class="o">=</span> <span class="n">lock</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">is_chunked_array</span><span class="p">(</span><span class="n">source</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">targets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">regions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">region</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">region</span><span class="p">:</span>
+            <span class="n">target</span><span class="p">[</span><span class="n">region</span><span class="p">]</span> <span class="o">=</span> <span class="n">source</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">target</span><span class="p">[</span><span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">source</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">sync</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compute</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chunkmanager_store_kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="p">:</span>
+            <span class="n">chunkmanager</span> <span class="o">=</span> <span class="n">get_chunked_array_type</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="p">)</span>
+
+            <span class="c1"># TODO: consider wrapping targets with dask.delayed, if this makes</span>
+            <span class="c1"># for any discernible difference in performance, e.g.,</span>
+            <span class="c1"># targets = [dask.delayed(t) for t in self.targets]</span>
+
+            <span class="k">if</span> <span class="n">chunkmanager_store_kwargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">chunkmanager_store_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+
+            <span class="n">delayed_store</span> <span class="o">=</span> <span class="n">chunkmanager</span><span class="o">.</span><span class="n">store</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">targets</span><span class="p">,</span>
+                <span class="n">lock</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">,</span>
+                <span class="n">compute</span><span class="o">=</span><span class="n">compute</span><span class="p">,</span>
+                <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">regions</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">regions</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">chunkmanager_store_kwargs</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sources</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">targets</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">regions</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">return</span> <span class="n">delayed_store</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">AbstractWritableDataStore</span><span class="p">(</span><span class="n">AbstractDataStore</span><span class="p">):</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">attributes</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Encode the variables and attributes in this store</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        variables : dict-like</span>
+<span class="sd">            Dictionary of key/value (variable name / xr.Variable) pairs</span>
+<span class="sd">        attributes : dict-like</span>
+<span class="sd">            Dictionary of key/value (attribute name / attribute) pairs</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        variables : dict-like</span>
+<span class="sd">        attributes : dict-like</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">variables</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode_variable</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variables</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="n">attributes</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode_attribute</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">attributes</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="k">return</span> <span class="n">variables</span><span class="p">,</span> <span class="n">attributes</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">encode_variable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;encode one variable&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">v</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">encode_attribute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;encode one attribute&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">a</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">prepare_variable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">check_encoding</span><span class="p">,</span> <span class="n">unlimited_dims</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_dimension</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">is_unlimited</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_attribute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_variable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">store_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        in stores, variables are all variables AND coordinates</span>
+<span class="sd">        in xarray.Dataset variables are variables NOT coordinates,</span>
+<span class="sd">        so here we pass the whole dataset in instead of doing</span>
+<span class="sd">        dataset.variables</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">attrs</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">store</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">variables</span><span class="p">,</span>
+        <span class="n">attributes</span><span class="p">,</span>
+        <span class="n">check_encoding_set</span><span class="o">=</span><span class="nb">frozenset</span><span class="p">(),</span>
+        <span class="n">writer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">unlimited_dims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Top level method for putting data on this store, this method:</span>
+<span class="sd">          - encodes variables/attributes</span>
+<span class="sd">          - sets dimensions</span>
+<span class="sd">          - sets variables</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        variables : dict-like</span>
+<span class="sd">            Dictionary of key/value (variable name / xr.Variable) pairs</span>
+<span class="sd">        attributes : dict-like</span>
+<span class="sd">            Dictionary of key/value (attribute name / attribute) pairs</span>
+<span class="sd">        check_encoding_set : list-like</span>
+<span class="sd">            List of variables that should be checked for invalid encoding</span>
+<span class="sd">            values</span>
+<span class="sd">        writer : ArrayWriter</span>
+<span class="sd">        unlimited_dims : list-like</span>
+<span class="sd">            List of dimension names that should be treated as unlimited</span>
+<span class="sd">            dimensions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">writer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">writer</span> <span class="o">=</span> <span class="n">ArrayWriter</span><span class="p">()</span>
+
+        <span class="n">variables</span><span class="p">,</span> <span class="n">attributes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">variables</span><span class="p">,</span> <span class="n">attributes</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_attributes</span><span class="p">(</span><span class="n">attributes</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_dimensions</span><span class="p">(</span><span class="n">variables</span><span class="p">,</span> <span class="n">unlimited_dims</span><span class="o">=</span><span class="n">unlimited_dims</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_variables</span><span class="p">(</span>
+            <span class="n">variables</span><span class="p">,</span> <span class="n">check_encoding_set</span><span class="p">,</span> <span class="n">writer</span><span class="p">,</span> <span class="n">unlimited_dims</span><span class="o">=</span><span class="n">unlimited_dims</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attributes</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This provides a centralized method to set the dataset attributes on the</span>
+<span class="sd">        data store.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        attributes : dict-like</span>
+<span class="sd">            Dictionary of key/value (attribute name / attribute) pairs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">attributes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_variables</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">check_encoding_set</span><span class="p">,</span> <span class="n">writer</span><span class="p">,</span> <span class="n">unlimited_dims</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This provides a centralized method to set the variables on the data</span>
+<span class="sd">        store.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        variables : dict-like</span>
+<span class="sd">            Dictionary of key/value (variable name / xr.Variable) pairs</span>
+<span class="sd">        check_encoding_set : list-like</span>
+<span class="sd">            List of variables that should be checked for invalid encoding</span>
+<span class="sd">            values</span>
+<span class="sd">        writer : ArrayWriter</span>
+<span class="sd">        unlimited_dims : list-like</span>
+<span class="sd">            List of dimension names that should be treated as unlimited</span>
+<span class="sd">            dimensions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">vn</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variables</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">_encode_variable_name</span><span class="p">(</span><span class="n">vn</span><span class="p">)</span>
+            <span class="n">check</span> <span class="o">=</span> <span class="n">vn</span> <span class="ow">in</span> <span class="n">check_encoding_set</span>
+            <span class="n">target</span><span class="p">,</span> <span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prepare_variable</span><span class="p">(</span>
+                <span class="n">name</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">check</span><span class="p">,</span> <span class="n">unlimited_dims</span><span class="o">=</span><span class="n">unlimited_dims</span>
+            <span class="p">)</span>
+
+            <span class="n">writer</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_dimensions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">unlimited_dims</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This provides a centralized method to set the dimensions on the data</span>
+<span class="sd">        store.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        variables : dict-like</span>
+<span class="sd">            Dictionary of key/value (variable name / xr.Variable) pairs</span>
+<span class="sd">        unlimited_dims : list-like</span>
+<span class="sd">            List of dimension names that should be treated as unlimited</span>
+<span class="sd">            dimensions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">unlimited_dims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">unlimited_dims</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="n">existing_dims</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dimensions</span><span class="p">()</span>
+
+        <span class="n">dims</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">unlimited_dims</span><span class="p">:</span>  <span class="c1"># put unlimited_dims first</span>
+            <span class="n">dims</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variables</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">dims</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)))</span>
+
+        <span class="k">for</span> <span class="n">dim</span><span class="p">,</span> <span class="n">length</span> <span class="ow">in</span> <span class="n">dims</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">dim</span> <span class="ow">in</span> <span class="n">existing_dims</span> <span class="ow">and</span> <span class="n">length</span> <span class="o">!=</span> <span class="n">existing_dims</span><span class="p">[</span><span class="n">dim</span><span class="p">]:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Unable to update size for existing dimension&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dim</span><span class="si">!r}</span><span class="s2"> (</span><span class="si">{</span><span class="n">length</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">existing_dims</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="n">dim</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">existing_dims</span><span class="p">:</span>
+                <span class="n">is_unlimited</span> <span class="o">=</span> <span class="n">dim</span> <span class="ow">in</span> <span class="n">unlimited_dims</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_dimension</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">is_unlimited</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_infer_dtype</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Given an object array with no missing values, infer its dtype from all elements.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">array</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">kind</span> <span class="o">!=</span> <span class="s2">&quot;O&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;infer_type must be called on a dtype=object array&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">array</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
+    <span class="n">native_dtypes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="nb">type</span><span class="p">,</span> <span class="n">otypes</span><span class="o">=</span><span class="p">[</span><span class="nb">object</span><span class="p">])(</span><span class="n">array</span><span class="o">.</span><span class="n">ravel</span><span class="p">()))</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">native_dtypes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">native_dtypes</span> <span class="o">!=</span> <span class="p">{</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">str</span><span class="p">}:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;unable to infer dtype on variable </span><span class="si">{!r}</span><span class="s2">; object array &quot;</span>
+            <span class="s2">&quot;contains mixed native types: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">native_dtypes</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="n">element</span> <span class="o">=</span> <span class="n">array</span><span class="p">[(</span><span class="mi">0</span><span class="p">,)</span> <span class="o">*</span> <span class="n">array</span><span class="o">.</span><span class="n">ndim</span><span class="p">]</span>
+    <span class="c1"># We use the base types to avoid subclasses of bytes and str (which might</span>
+    <span class="c1"># not play nice with e.g. hdf5 datatypes), such as those from numpy</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">strings</span><span class="o">.</span><span class="n">create_vlen_dtype</span><span class="p">(</span><span class="nb">bytes</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">strings</span><span class="o">.</span><span class="n">create_vlen_dtype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+
+    <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">element</span><span class="p">)</span><span class="o">.</span><span class="n">dtype</span>
+    <span class="k">if</span> <span class="n">dtype</span><span class="o">.</span><span class="n">kind</span> <span class="o">!=</span> <span class="s2">&quot;O&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">dtype</span>
+
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;unable to infer dtype on variable </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2">; xarray &quot;</span>
+        <span class="s2">&quot;cannot serialize arbitrary Python objects&quot;</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_copy_with_dtype</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">DTypeLike</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a copy of an array with the given dtype.</span>
+
+<span class="sd">    We use this instead of np.array() to ensure that custom object dtypes end</span>
+<span class="sd">    up on the resulting array.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
+    <span class="n">result</span><span class="p">[</span><span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">ensure_dtype_not_object</span><span class="p">(</span><span class="n">var</span><span class="p">:</span> <span class="n">Variable</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">T_Name</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Variable</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;O&quot;</span><span class="p">:</span>
+        <span class="n">dims</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">attrs</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="n">variables</span><span class="o">.</span><span class="n">unpack_for_encoding</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+
+        <span class="c1"># leave vlen dtypes unchanged</span>
+        <span class="k">if</span> <span class="n">strings</span><span class="o">.</span><span class="n">check_vlen_dtype</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">var</span>
+
+        <span class="k">if</span> <span class="n">is_duck_dask_array</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+            <span class="n">emit_user_level_warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;variable </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> has data in the form of a dask array with &quot;</span>
+                <span class="s2">&quot;dtype=object, which means it is being loaded into memory &quot;</span>
+                <span class="s2">&quot;to determine a data type that can be safely stored on disk. &quot;</span>
+                <span class="s2">&quot;To avoid this, coerce this variable to a fixed-size dtype &quot;</span>
+                <span class="s2">&quot;with astype() before saving it.&quot;</span><span class="p">,</span>
+                <span class="n">category</span><span class="o">=</span><span class="n">SerializationWarning</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+
+        <span class="n">missing</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">missing</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="c1"># nb. this will fail for dask.array data</span>
+            <span class="n">non_missing_values</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">~</span><span class="n">missing</span><span class="p">]</span>
+            <span class="n">inferred_dtype</span> <span class="o">=</span> <span class="n">_infer_dtype</span><span class="p">(</span><span class="n">non_missing_values</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+            <span class="c1"># There is no safe bit-pattern for NA in typical binary string</span>
+            <span class="c1"># formats, we so can&#39;t set a fill_value. Unfortunately, this means</span>
+            <span class="c1"># we can&#39;t distinguish between missing values and empty strings.</span>
+            <span class="n">fill_value</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="nb">str</span>
+            <span class="k">if</span> <span class="n">strings</span><span class="o">.</span><span class="n">is_bytes_dtype</span><span class="p">(</span><span class="n">inferred_dtype</span><span class="p">):</span>
+                <span class="n">fill_value</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span>
+            <span class="k">elif</span> <span class="n">strings</span><span class="o">.</span><span class="n">is_unicode_dtype</span><span class="p">(</span><span class="n">inferred_dtype</span><span class="p">):</span>
+                <span class="n">fill_value</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># insist on using float for numeric values</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">inferred_dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">):</span>
+                    <span class="n">inferred_dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+                <span class="n">fill_value</span> <span class="o">=</span> <span class="n">inferred_dtype</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+            <span class="n">data</span> <span class="o">=</span> <span class="n">_copy_with_dtype</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">inferred_dtype</span><span class="p">)</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">missing</span><span class="p">]</span> <span class="o">=</span> <span class="n">fill_value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">_copy_with_dtype</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">_infer_dtype</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
+
+        <span class="k">assert</span> <span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">kind</span> <span class="o">!=</span> <span class="s2">&quot;O&quot;</span> <span class="ow">or</span> <span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">metadata</span>
+        <span class="n">var</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">dims</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">attrs</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">fastpath</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">var</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">WritableCFDataStore</span><span class="p">(</span><span class="n">AbstractWritableDataStore</span><span class="p">):</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">attributes</span><span class="p">):</span>
+        <span class="c1"># All NetCDF files get CF encoded by default, without this attempting</span>
+        <span class="c1"># to write times, for example, would fail.</span>
+        <span class="n">variables</span><span class="p">,</span> <span class="n">attributes</span> <span class="o">=</span> <span class="n">cf_encoder</span><span class="p">(</span><span class="n">variables</span><span class="p">,</span> <span class="n">attributes</span><span class="p">)</span>
+        <span class="n">variables</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">k</span><span class="p">:</span> <span class="n">ensure_dtype_not_object</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variables</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">}</span>
+        <span class="n">variables</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode_variable</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variables</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="n">attributes</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode_attribute</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">attributes</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="k">return</span> <span class="n">variables</span><span class="p">,</span> <span class="n">attributes</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">BackendEntrypoint</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ``BackendEntrypoint`` is a class container and it is the main interface</span>
+<span class="sd">    for the backend plugins, see :ref:`RST backend_entrypoint`.</span>
+<span class="sd">    It shall implement:</span>
+
+<span class="sd">    - ``open_dataset`` method: it shall implement reading from file, variables</span>
+<span class="sd">      decoding and it returns an instance of :py:class:`~xarray.Dataset`.</span>
+<span class="sd">      It shall take in input at least ``filename_or_obj`` argument and</span>
+<span class="sd">      ``drop_variables`` keyword argument.</span>
+<span class="sd">      For more details see :ref:`RST open_dataset`.</span>
+<span class="sd">    - ``guess_can_open`` method: it shall return ``True`` if the backend is able to open</span>
+<span class="sd">      ``filename_or_obj``, ``False`` otherwise. The implementation of this</span>
+<span class="sd">      method is not mandatory.</span>
+<span class="sd">    - ``open_datatree`` method: it shall implement reading from file, variables</span>
+<span class="sd">      decoding and it returns an instance of :py:class:`~datatree.DataTree`.</span>
+<span class="sd">      It shall take in input at least ``filename_or_obj`` argument. The</span>
+<span class="sd">      implementation of this method is not mandatory.  For more details see</span>
+<span class="sd">      &lt;reference to open_datatree documentation&gt;.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    open_dataset_parameters : tuple, default: None</span>
+<span class="sd">        A list of ``open_dataset`` method parameters.</span>
+<span class="sd">        The setting of this attribute is not mandatory.</span>
+<span class="sd">    description : str, default: &quot;&quot;</span>
+<span class="sd">        A short string describing the engine.</span>
+<span class="sd">        The setting of this attribute is not mandatory.</span>
+<span class="sd">    url : str, default: &quot;&quot;</span>
+<span class="sd">        A string with the URL to the backend&#39;s documentation.</span>
+<span class="sd">        The setting of this attribute is not mandatory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">open_dataset_parameters</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">tuple</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">description</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">url</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">txt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="p">:</span>
+            <span class="n">txt</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">:</span>
+            <span class="n">txt</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  Learn more at </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="n">txt</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">open_dataset</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">filename_or_obj</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="n">ReadBuffer</span> <span class="o">|</span> <span class="n">AbstractDataStore</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">drop_variables</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dataset</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Backend open_dataset method used by Xarray in :py:func:`~xarray.open_dataset`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">guess_can_open</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">filename_or_obj</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="n">ReadBuffer</span> <span class="o">|</span> <span class="n">AbstractDataStore</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Backend open_dataset method used by Xarray in :py:func:`~xarray.open_dataset`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">open_datatree</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">filename_or_obj</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="n">ReadBuffer</span> <span class="o">|</span> <span class="n">AbstractDataStore</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">drop_variables</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataTree</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Backend open_datatree method used by Xarray in :py:func:`~xarray.open_datatree`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">open_groups_as_dict</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">filename_or_obj</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="n">ReadBuffer</span> <span class="o">|</span> <span class="n">AbstractDataStore</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">drop_variables</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dataset</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Opens a dictionary mapping from group names to Datasets.</span>
+
+<span class="sd">        Called by :py:func:`~xarray.open_groups`.</span>
+<span class="sd">        This function exists to provide a universal way to open all groups in a file,</span>
+<span class="sd">        before applying any additional consistency checks or requirements necessary</span>
+<span class="sd">        to create a `DataTree` object (typically done using :py:meth:`~xarray.DataTree.from_dict`).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+
+<span class="c1"># mapping of engine name to (module name, BackendEntrypoint Class)</span>
+<span class="n">BACKEND_ENTRYPOINTS</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">type</span><span class="p">[</span><span class="n">BackendEntrypoint</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{}</span>
+</pre></div>
+
+           </div>
+          </div>
+          
+<footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on Jun 18, 2025.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

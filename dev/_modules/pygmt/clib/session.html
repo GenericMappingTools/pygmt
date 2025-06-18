@@ -1,4 +1,6 @@
 
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
@@ -9,7 +11,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
@@ -17,23 +19,19 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=845ca4e4" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=2ba370f3" />
 
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/clib/session.html" />
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=6e6bddb7"></script>
-        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
-        <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -62,18 +60,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-    <a href="../../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
-
-    
-        
-        
-            <div class="version">
-                dev
-            </div>
-        
-    
-
-    
+   
+   
+   <a href="../../../index.html">
+     <h2 class="sidebar-title">PyGMT</h2>
+   </a>
+     <div class="version">
+       dev
+     </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -81,8 +75,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-
+ 
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
     
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
@@ -189,6 +182,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">_validate_data_input</span><span class="p">,</span>
     <span class="n">data_kind</span><span class="p">,</span>
+    <span class="n">deprecate_parameter</span><span class="p">,</span>
     <span class="n">tempfile_from_geojson</span><span class="p">,</span>
     <span class="n">tempfile_from_image</span><span class="p">,</span>
 <span class="p">)</span>
@@ -414,6 +408,8 @@
         <span class="k">return</span> <span class="n">GMT_CONSTANTS</span><span class="p">[</span><span class="n">name</span><span class="p">]</span></div>
 
 
+<div class="viewcode-block" id="Session.get_enum">
+<a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.get_enum.html#pygmt.clib.Session.get_enum">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_enum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the value of a GMT constant (C enum) from ``gmt_resources.h``.</span>
@@ -450,7 +446,8 @@
         <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="o">-</span><span class="mi">99999</span><span class="p">:</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Constant &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; doesn&#39;t exist in libgmt.&quot;</span>
             <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="n">value</span></div>
+
 
 <div class="viewcode-block" id="Session.get_libgmt_func">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.get_libgmt_func.html#pygmt.clib.Session.get_libgmt_func">[docs]</a>
@@ -1603,9 +1600,7 @@
 <div class="viewcode-block" id="Session.virtualfile_from_vectors">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.virtualfile_from_vectors.html#pygmt.clib.Session.virtualfile_from_vectors">[docs]</a>
     <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">virtualfile_from_vectors</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">vectors</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">virtualfile_from_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vectors</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Store a sequence of 1-D vectors as columns of a dataset inside a virtual file.</span>
 
@@ -1651,21 +1646,6 @@
 <span class="sd">        ...             print(fout.read().strip())</span>
 <span class="sd">        &lt;vector memory&gt;: N = 3 &lt;1/3&gt; &lt;4/6&gt; &lt;7/9&gt;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># TODO(PyGMT&gt;=0.16.0): Remove the &quot;*args&quot; parameter and related codes.</span>
-        <span class="c1"># &quot;*args&quot; is added in v0.14.0 for backward-compatibility with the deprecated</span>
-        <span class="c1"># syntax of passing multiple vectors as positional arguments.</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="s2">&quot;Passing multiple arguments to Session.virtualfile_from_vectors is &quot;</span>
-                <span class="s2">&quot;deprecated since v0.14.0 and will be unsupported in v0.16.0. &quot;</span>
-                <span class="s2">&quot;Put all vectors in a sequence (a tuple or a list) instead and pass &quot;</span>
-                <span class="s2">&quot;the sequence as the single argument to this function. &quot;</span>
-                <span class="s2">&quot;E.g., use `with lib.virtualfile_from_vectors((x, y, z)) as vfile` &quot;</span>
-                <span class="s2">&quot;instead of `with lib.virtualfile_from_vectors(x, y, z) as vfile`.&quot;</span>
-            <span class="p">)</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-            <span class="n">vectors</span> <span class="o">=</span> <span class="p">(</span><span class="n">vectors</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
-
         <span class="c1"># Conversion to a C-contiguous array needs to be done here and not in put_vector</span>
         <span class="c1"># or put_strings because we need to maintain a reference to the copy while it is</span>
         <span class="c1"># being used by the C API. Otherwise, the array would be garbage collected and</span>
@@ -1988,18 +1968,25 @@
                     <span class="n">seg</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="kc">None</span></div>
 
 
+    <span class="c1"># TODO(PyGMT&gt;=0.20.0): Remove the deprecated parameter &#39;required_z&#39;.</span>
+    <span class="c1"># TODO(PyGMT&gt;=0.20.0): Remove the deprecated parameter &#39;extra_arrays&#39;.</span>
+    <span class="c1"># TODO(PyGMT&gt;=0.20.0): Remove the deprecated parameter &#39;required_data&#39;.</span>
 <div class="viewcode-block" id="Session.virtualfile_in">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.virtualfile_in.html#pygmt.clib.Session.virtualfile_in">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">virtualfile_in</span><span class="p">(</span>
+    <span class="nd">@deprecate_parameter</span><span class="p">(</span>
+        <span class="s2">&quot;required_data&quot;</span><span class="p">,</span> <span class="s2">&quot;required&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.16.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span>
+    <span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">virtualfile_in</span><span class="p">(</span>  <span class="c1"># noqa: PLR0912</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">check_kind</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">extra_arrays</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">mincols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="n">required_z</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">required_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">extra_arrays</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Store any data inside a virtual file.</span>
@@ -2013,20 +2000,37 @@
 <span class="sd">        check_kind : str or None</span>
 <span class="sd">            Used to validate the type of data that can be passed in. Choose</span>
 <span class="sd">            from &#39;raster&#39;, &#39;vector&#39;, or None. Default is None (no validation).</span>
-<span class="sd">        data : str or pathlib.Path or xarray.DataArray or {table-like} or None</span>
+<span class="sd">        data</span>
 <span class="sd">            Any raster or vector data format. This could be a file name or</span>
 <span class="sd">            path, a raster grid, a vector matrix/arrays, or other supported</span>
 <span class="sd">            data input.</span>
 <span class="sd">        x/y/z : 1-D arrays or None</span>
 <span class="sd">            x, y, and z columns as numpy arrays.</span>
-<span class="sd">        extra_arrays : list of 1-D arrays</span>
-<span class="sd">            Optional. A list of numpy arrays in addition to x, y, and z.</span>
-<span class="sd">            All of these arrays must be of the same size as the x/y/z arrays.</span>
+<span class="sd">        required : bool</span>
+<span class="sd">            Set to True when &#39;data&#39; or (&#39;x&#39; and &#39;y&#39;) is required. Set to False when</span>
+<span class="sd">            dealing with optional virtual files. Default is True.</span>
+
+<span class="sd">            .. versionchanged:: v0.16.0</span>
+<span class="sd">               The parameter &#39;required_data&#39; is renamed to &#39;required&#39;. The parameter</span>
+<span class="sd">               &#39;required_data&#39; is deprecated in v0.16.0 and will be removed in v0.20.0.</span>
+<span class="sd">        mincols</span>
+<span class="sd">            Number of minimum required columns. Default is 2 (i.e. require x and y</span>
+<span class="sd">            columns).</span>
 <span class="sd">        required_z : bool</span>
 <span class="sd">            State whether the &#39;z&#39; column is required.</span>
-<span class="sd">        required_data : bool</span>
-<span class="sd">            Set to True when &#39;data&#39; is required, or False when dealing with</span>
-<span class="sd">            optional virtual files. [Default is True].</span>
+
+<span class="sd">            .. deprecated:: v0.16.0</span>
+<span class="sd">               The parameter &#39;required_z&#39; will be removed in v0.20.0. Use parameter</span>
+<span class="sd">               &#39;mincols&#39; instead. E.g., ``required_z=True`` is equivalent to</span>
+<span class="sd">               ``mincols=3``.</span>
+<span class="sd">        extra_arrays : list of 1-D arrays</span>
+<span class="sd">            A list of numpy arrays in addition to x, y, and z. All of these arrays must</span>
+<span class="sd">            be of the same size as the x/y/z arrays.</span>
+
+<span class="sd">            .. deprecated:: v0.16.0</span>
+<span class="sd">               The parameter &#39;extra_arrays&#39; will be removed in v0.20.0. Prepare and pass</span>
+<span class="sd">               a dictionary of arrays instead to the `data` parameter. E.g.,</span>
+<span class="sd">               ``data={&quot;x&quot;: x, &quot;y&quot;: y, &quot;size&quot;: size}``.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -2054,19 +2058,29 @@
 <span class="sd">        ...             print(fout.read().strip())</span>
 <span class="sd">        &lt;vector memory&gt;: N = 3 &lt;7/9&gt; &lt;4/6&gt; &lt;1/3&gt;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">kind</span> <span class="o">=</span> <span class="n">data_kind</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="n">required_data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">required_z</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;The parameter &#39;required_z&#39; is deprecated in v0.16.0 and will be &quot;</span>
+                <span class="s2">&quot;removed in v0.20.0. Use parameter &#39;mincols&#39; instead. E.g., &quot;</span>
+                <span class="s2">&quot;``required_z=True`` is equivalent to ``mincols=3``.&quot;</span><span class="p">,</span>
+                <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">mincols</span> <span class="o">=</span> <span class="mi">3</span>
+
+        <span class="n">kind</span> <span class="o">=</span> <span class="n">data_kind</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="n">required</span><span class="p">)</span>
         <span class="n">_validate_data_input</span><span class="p">(</span>
             <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
             <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
             <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
             <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span>
-            <span class="n">required_z</span><span class="o">=</span><span class="n">required_z</span><span class="p">,</span>
-            <span class="n">required_data</span><span class="o">=</span><span class="n">required_data</span><span class="p">,</span>
+            <span class="n">required</span><span class="o">=</span><span class="n">required</span><span class="p">,</span>
+            <span class="n">mincols</span><span class="o">=</span><span class="n">mincols</span><span class="p">,</span>
             <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">check_kind</span><span class="p">:</span>
-            <span class="n">valid_kinds</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="s2">&quot;arg&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">required_data</span> <span class="ow">is</span> <span class="kc">False</span> <span class="k">else</span> <span class="p">(</span><span class="s2">&quot;file&quot;</span><span class="p">,)</span>
+            <span class="n">valid_kinds</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="s2">&quot;arg&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">required</span> <span class="ow">is</span> <span class="kc">False</span> <span class="k">else</span> <span class="p">(</span><span class="s2">&quot;file&quot;</span><span class="p">,)</span>
             <span class="k">if</span> <span class="n">check_kind</span> <span class="o">==</span> <span class="s2">&quot;raster&quot;</span><span class="p">:</span>
                 <span class="n">valid_kinds</span> <span class="o">+=</span> <span class="p">(</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">check_kind</span> <span class="o">==</span> <span class="s2">&quot;vector&quot;</span><span class="p">:</span>
@@ -2105,10 +2119,16 @@
                 <span class="k">if</span> <span class="n">z</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">extra_arrays</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="s2">&quot;The parameter &#39;extra_arrays&#39; will be removed in v0.20.0. &quot;</span>
+                        <span class="s2">&quot;Prepare and pass a dictionary of arrays instead to the `data` &quot;</span>
+                        <span class="s2">&quot;parameter. E.g., `data={&#39;x&#39;: x, &#39;y&#39;: y, &#39;size&#39;: size}`&quot;</span>
+                    <span class="p">)</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
                     <span class="n">_data</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extra_arrays</span><span class="p">)</span>
             <span class="k">case</span> <span class="s2">&quot;vectors&quot;</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;items&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;to_frame&quot;</span><span class="p">):</span>
-                    <span class="c1"># pandas.DataFrame or xarray.Dataset types.</span>
+                    <span class="c1"># Dictionary, pandas.DataFrame or xarray.Dataset types.</span>
                     <span class="c1"># pandas.Series will be handled below like a 1-D numpy.ndarray.</span>
                     <span class="n">_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">array</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">array</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
                 <span class="k">else</span><span class="p">:</span>
@@ -2198,6 +2218,8 @@
                 <span class="k">yield</span> <span class="n">vfile</span></div>
 
 
+<div class="viewcode-block" id="Session.inquire_virtualfile">
+<a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.inquire_virtualfile.html#pygmt.clib.Session.inquire_virtualfile">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">inquire_virtualfile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vfname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the family of a virtual file.</span>
@@ -2225,7 +2247,8 @@
             <span class="n">argtypes</span><span class="o">=</span><span class="p">[</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">ctp</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">],</span>
             <span class="n">restype</span><span class="o">=</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_int</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="n">c_inquire_virtualfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span><span class="p">,</span> <span class="n">vfname</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">c_inquire_virtualfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span><span class="p">,</span> <span class="n">vfname</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span></div>
+
 
 <div class="viewcode-block" id="Session.read_virtualfile">
 <a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.read_virtualfile.html#pygmt.clib.Session.read_virtualfile">[docs]</a>
@@ -2589,9 +2612,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2025.
+      <span class="lastupdated">Last updated on Jun 18, 2025.
       </span></p>
   </div>
 

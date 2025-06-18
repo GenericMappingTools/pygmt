@@ -55,7 +55,7 @@ the remaining symbols we may define a linewidth as well as a color fill.
     # upper row
     y = 2
 
-    # use a dash in x direction (-) with a size of 0.9 cm,
+    # use a dash in x-direction (-) with a size of 0.9 cm,
     # linewidth is set to 2p and the linecolor to "gray40"
     fig.plot(x=1, y=y, style="-0.9c", pen="2p,gray40")
     fig.text(x=1, y=y + 0.6, text="-", font=font)
@@ -132,7 +132,7 @@ the remaining symbols we may define a linewidth as well as a color fill.
     fig.plot(x=6, y=y, style="x0.9c", pen="2p,gray40")
     fig.text(x=6, y=y + 0.6, text="x", font=font)
 
-    # use a dash in y direction (y) with a size of 0.9 cm,
+    # use a dash in y-direction (y) with a size of 0.9 cm,
     # linewidth is set to 2p and the linecolor to "gray40"
     fig.plot(x=7, y=y, style="y0.9c", pen="2p,gray40")
     fig.text(x=7, y=y + 0.6, text="y", font=font)
@@ -142,7 +142,7 @@ the remaining symbols we may define a linewidth as well as a color fill.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.184 seconds)
+   **Total running time of the script:** (0 minutes 0.195 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_basic_symbols.py:

@@ -1,8 +1,10 @@
 
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
@@ -10,7 +12,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -18,23 +20,19 @@
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=845ca4e4" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=2ba370f3" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/gallery/images/cross_section.html" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=6e6bddb7"></script>
-        <script src="../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
-        <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -65,18 +63,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-    <a href="../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
-
-    
-        
-        
-            <div class="version">
-                dev
-            </div>
-        
-    
-
-    
+   
+   
+   <a href="../../index.html">
+     <h2 class="sidebar-title">PyGMT</h2>
+   </a>
+     <div class="version">
+       dev
+     </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -84,8 +78,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-
+ 
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
     
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
@@ -215,6 +208,9 @@ Cartesian plot showing the elevation along the survey line.</p>
 <span class="c1"># lon_min, lon_max, lat_min, lat_max in degrees East and North</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region_map</span></a> <span class="o">=</span> <span class="p">[</span><span class="mi">122</span><span class="p">,</span> <span class="mi">149</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">49</span><span class="p">]</span>
 
+<span class="c1"># Chose a survey line with start point A and end point B</span>
+<a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">lonA</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">latA</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">lonB</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">latB</span></a> <span class="o">=</span> <span class="mi">126</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">146</span><span class="p">,</span> <span class="mi">40</span>  <span class="c1"># noqa: N816</span>
+
 <span class="c1"># Create a new pygmt.Figure instance</span>
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 
@@ -234,31 +230,26 @@ Cartesian plot showing the elevation along the survey line.</p>
 <span class="c1"># Add a colorbar for the elevation</span>
 <a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span>
     <span class="c1"># Place the colorbar inside the plot (lowercase &quot;j&quot;) in the Bottom Right (BR)</span>
-    <span class="c1"># corner with an offset (&quot;+o&quot;) of 0.7 centimeters and 0.3 centimeters in x or y</span>
-    <span class="c1"># directions, respectively; move the x label above the horizontal colorbar (&quot;+ml&quot;)</span>
+    <span class="c1"># corner with an offset (&quot;+o&quot;) of 0.7 centimeters and 0.3 centimeters in x- or y-</span>
+    <span class="c1"># directions, respectively; move the x-label above the horizontal colorbar (&quot;+ml&quot;)</span>
     <span class="n">position</span><span class="o">=</span><span class="s2">&quot;jBR+o0.7c/0.8c+h+w5c/0.3c+ml&quot;</span><span class="p">,</span>
     <span class="c1"># Add a box around the colobar with a fill (&quot;+g&quot;) in &quot;white&quot; color and a</span>
     <span class="c1"># transparency (&quot;@&quot;) of 30 % and with a 0.8-points thick, black, outline (&quot;+p&quot;)</span>
     <span class="n">box</span><span class="o">=</span><span class="s2">&quot;+gwhite@30+p0.8p,black&quot;</span><span class="p">,</span>
-    <span class="c1"># Add x and y labels (&quot;+l&quot;)</span>
+    <span class="c1"># Add x- and y-labels (&quot;+l&quot;)</span>
     <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x+lElevation&quot;</span><span class="p">,</span> <span class="s2">&quot;y+lm&quot;</span><span class="p">],</span>
 <span class="p">)</span>
 
-<span class="c1"># Choose a survey line</span>
-<a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span>
-    <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">126</span><span class="p">,</span> <span class="mi">146</span><span class="p">],</span>  <span class="c1"># Longitude in degrees East</span>
-    <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">42</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span>  <span class="c1"># Latitude in degrees North</span>
-    <span class="c1"># Draw a 2-points thick, red, dashed line for the survey line</span>
-    <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;2p,red,dashed&quot;</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="c1"># Plot the survey line</span>
+<a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">lonA</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">lonB</span></a><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">latA</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">latB</span></a><span class="p">],</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;1p,red,solid&quot;</span><span class="p">)</span>
 
 <span class="c1"># Add labels &quot;A&quot; and &quot;B&quot; for the start and end points of the survey line</span>
 <a href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span>
-    <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">126</span><span class="p">,</span> <span class="mi">146</span><span class="p">],</span>
-    <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">42</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span>
+    <span class="n">x</span><span class="o">=</span><span class="p">[</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">lonA</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">lonB</span></a><span class="p">],</span>
+    <span class="n">y</span><span class="o">=</span><span class="p">[</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">latA</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">latB</span></a><span class="p">],</span>
     <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">],</span>
-    <span class="n">offset</span><span class="o">=</span><span class="s2">&quot;0c/0.2c&quot;</span><span class="p">,</span>  <span class="c1"># Move text 0.2 centimeters up (y direction)</span>
-    <span class="n">font</span><span class="o">=</span><span class="s2">&quot;15p&quot;</span><span class="p">,</span>  <span class="c1"># Use a font size of 15 points</span>
+    <span class="n">offset</span><span class="o">=</span><span class="s2">&quot;0c/0.3c&quot;</span><span class="p">,</span>  <span class="c1"># Move text 0.2 centimeters up (y-direction)</span>
+    <span class="n">font</span><span class="o">=</span><span class="s2">&quot;15p,red&quot;</span><span class="p">,</span>  <span class="c1"># Use a red font with a size of 15 points</span>
 <span class="p">)</span>
 
 <span class="c1"># ----------------------------------------------------------------------------</span>
@@ -271,9 +262,7 @@ Cartesian plot showing the elevation along the survey line.</p>
     <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">8000</span><span class="p">,</span> <span class="mi">6000</span><span class="p">],</span>  <span class="c1"># x_min, x_max, y_min, y_max</span>
     <span class="c1"># Cartesian projection with a width of 12 centimeters and a height of 3 centimeters</span>
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X12c/3c&quot;</span><span class="p">,</span>
-    <span class="c1"># Add annotations (&quot;a&quot;) and ticks (&quot;f&quot;) as well as labels (&quot;+l&quot;) at the west or</span>
-    <span class="c1"># left and south or bottom sides (&quot;WSrt&quot;)</span>
-    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;WSrt&quot;</span><span class="p">,</span> <span class="s2">&quot;xa2f1+lDistance+u°&quot;</span><span class="p">,</span> <span class="s2">&quot;ya4000+lElevation / m&quot;</span><span class="p">],</span>
+    <span class="n">frame</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># Add labels &quot;A&quot; and &quot;B&quot; for the start and end points of the survey line</span>
@@ -282,14 +271,14 @@ Cartesian plot showing the elevation along the survey line.</p>
     <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">7000</span><span class="p">,</span> <span class="mi">7000</span><span class="p">],</span>
     <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">],</span>
     <span class="n">no_clip</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Do not clip text that fall outside the plot bounds</span>
-    <span class="n">font</span><span class="o">=</span><span class="s2">&quot;10p&quot;</span><span class="p">,</span>  <span class="c1"># Use a font size of 10 points</span>
+    <span class="n">font</span><span class="o">=</span><span class="s2">&quot;10p,red&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># Generate points along a great circle corresponding to the survey line and store them</span>
 <span class="c1"># in a pandas.DataFrame</span>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">track_df</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.project.html#pygmt.project" title="pygmt.project" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">project</span></a><span class="p">(</span>
-    <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="mi">126</span><span class="p">,</span> <span class="mi">42</span><span class="p">],</span>  <span class="c1"># Start point of survey line (longitude, latitude)</span>
-    <span class="n">endpoint</span><span class="o">=</span><span class="p">[</span><span class="mi">146</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span>  <span class="c1"># End point of survey line (longitude, latitude)</span>
+    <span class="n">center</span><span class="o">=</span><span class="p">[</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">lonA</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">latA</span></a><span class="p">],</span>  <span class="c1"># Start point of survey line (longitude, latitude)</span>
+    <span class="n">endpoint</span><span class="o">=</span><span class="p">[</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">lonB</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">latB</span></a><span class="p">],</span>  <span class="c1"># End point of survey line (longitude, latitude)</span>
     <span class="n">generate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>  <span class="c1"># Output data in steps of 0.1 degrees</span>
 <span class="p">)</span>
 
@@ -302,8 +291,7 @@ Cartesian plot showing the elevation along the survey line.</p>
     <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">],</span>
     <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
     <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">,</span>  <span class="c1"># Fill the polygon in &quot;lightblue&quot;</span>
-    <span class="c1"># Draw a 0.25-points thick, black, solid outline</span>
-    <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;0.25p,black,solid&quot;</span><span class="p">,</span>
+    <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;0.25p,black,solid&quot;</span><span class="p">,</span>  <span class="c1"># Draw a 0.25-points thick, black, solid outline</span>
     <span class="n">close</span><span class="o">=</span><span class="s2">&quot;+y-8000&quot;</span><span class="p">,</span>  <span class="c1"># Force closed polygon</span>
 <span class="p">)</span>
 
@@ -311,16 +299,20 @@ Cartesian plot showing the elevation along the survey line.</p>
 <a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span>
     <span class="n">x</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">track_df</span><span class="o">.</span><span class="n">p</span></a><span class="p">,</span>
     <span class="n">y</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">track_df</span><span class="o">.</span><span class="n">elevation</span></a><span class="p">,</span>
-    <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span>  <span class="c1"># Fill the polygon in &quot;gray&quot;</span>
-    <span class="c1"># Draw a 1-point thick, black, solid outline</span>
-    <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;1p,black,solid&quot;</span><span class="p">,</span>
-    <span class="n">close</span><span class="o">=</span><span class="s2">&quot;+y-8000&quot;</span><span class="p">,</span>  <span class="c1"># Force closed polygon</span>
+    <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span>
+    <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;1p,red,solid&quot;</span><span class="p">,</span>
+    <span class="n">close</span><span class="o">=</span><span class="s2">&quot;+y-8000&quot;</span><span class="p">,</span>
 <span class="p">)</span>
+
+<span class="c1"># Add map frame</span>
+<span class="c1"># Add annotations (&quot;a&quot;) and ticks (&quot;f&quot;) as well as labels (&quot;+l&quot;) at the west or left</span>
+<span class="c1"># and south or bottom sides (&quot;WSrt&quot;)</span>
+<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;WSrt&quot;</span><span class="p">,</span> <span class="s2">&quot;xa2f1+lDistance+u°&quot;</span><span class="p">,</span> <span class="s2">&quot;ya4000+lElevation / m&quot;</span><span class="p">])</span>
 
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.309 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.310 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-images-cross-section-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/3768df33f78ba75095ebc52337213213/cross_section.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">cross_section.ipynb</span></code></a></p>
@@ -348,9 +340,9 @@ Cartesian plot showing the elevation along the survey line.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/40211d72">40211d72</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2025.
+      <span class="lastupdated">Last updated on Jun 18, 2025.
       </span></p>
   </div>
 

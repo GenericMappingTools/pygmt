@@ -129,7 +129,7 @@ bars can be achieved via ``horizontal=True``.
         fill="red3",
         pen="1p,darkgray,solid",
         histtype=0,
-        # Use horizontal bars. Note that the x- and y-axis are flipped, with the x-axis
+        # Use horizontal bars. Note that the x- and y-axes are flipped, with the x-axis
         # plotted vertically and the y-axis plotted horizontally.
         horizontal=True,
     )
@@ -541,7 +541,7 @@ Limitations of histograms with grouped bars are:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.267 seconds)
+   **Total running time of the script:** (0 minutes 1.246 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_cartesian_histograms.py:

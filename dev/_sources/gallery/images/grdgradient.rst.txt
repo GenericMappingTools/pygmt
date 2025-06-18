@@ -74,7 +74,7 @@ direction and altitude.
 
     # --------------- plotting the hillshade map -----------
 
-    # Shift plot origin of the second map by 12.5 cm in x direction
+    # Shift plot origin of the second map by 12.5 cm in x-direction
     fig.shift_origin(xshift="12.5c")
 
     pygmt.makecpt(cmap="gray", series=[-1.5, 0.3, 0.01])
@@ -90,7 +90,7 @@ direction and altitude.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.390 seconds)
+   **Total running time of the script:** (0 minutes 0.461 seconds)
 
 
 .. _sphx_glr_download_gallery_images_grdgradient.py:

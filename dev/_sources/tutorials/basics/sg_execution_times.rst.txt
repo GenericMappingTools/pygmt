@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:09.380** total execution time for 7 files **from tutorials/basics**:
+**00:10.407** total execution time for 7 files **from tutorials/basics**:
 
 .. container::
 
@@ -33,23 +33,23 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_tutorials_basics_regions.py` (``regions.py``)
-     - 00:03.421
-     - 0.0
-   * - :ref:`sphx_glr_tutorials_basics_frames.py` (``frames.py``)
-     - 00:01.868
+     - 00:03.397
      - 0.0
    * - :ref:`sphx_glr_tutorials_basics_coastlines.py` (``coastlines.py``)
-     - 00:01.089
+     - 00:02.106
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_basics_frames.py` (``frames.py``)
+     - 00:01.875
      - 0.0
    * - :ref:`sphx_glr_tutorials_basics_lines.py` (``lines.py``)
-     - 00:00.945
+     - 00:00.955
      - 0.0
    * - :ref:`sphx_glr_tutorials_basics_text.py` (``text.py``)
-     - 00:00.792
+     - 00:00.805
      - 0.0
    * - :ref:`sphx_glr_tutorials_basics_plot.py` (``plot.py``)
-     - 00:00.748
+     - 00:00.744
      - 0.0
    * - :ref:`sphx_glr_tutorials_basics_polygons.py` (``polygons.py``)
-     - 00:00.518
+     - 00:00.524
      - 0.0

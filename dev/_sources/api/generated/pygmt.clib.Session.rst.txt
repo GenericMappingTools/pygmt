@@ -21,6 +21,7 @@ pygmt.clib.Session
 .. rubric:: Methods Summary
 
 .. autosummary::
+    :toctree:
     
     
     
