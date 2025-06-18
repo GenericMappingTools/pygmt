@@ -54,6 +54,7 @@
 * [Wei Ji Leong](https://github.com/weiji14)
 * [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
 * [Michael Grund](https://github.com/michaelgrund)
+* [Federico Esteban](https://github.com/Esteban82)
 
 ---
 
