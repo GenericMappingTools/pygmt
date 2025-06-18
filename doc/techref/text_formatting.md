@@ -13,7 +13,7 @@ supported fonts are listed at [](/techref/fonts.md).
 | @-*text*@-          | Toggle subscripts on/off |
 | @+*text*@+          | Toggle superscript on/off |
 | @#*text*@#          | Toggle small caps on/off |
-| @_*text*@_          | Toggle underline on/off |
+| @\_*text*@\_        | Toggle underline on/off |
 | @!*char1char2*      | Print two characters on top of each other (composite characters, e.g., overstrike) |
 | @\~*text*@\~        | Toggle Greek letters on/off |
 | @@                  | Print the @ sign |
