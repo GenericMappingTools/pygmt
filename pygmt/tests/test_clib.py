@@ -2,6 +2,7 @@
 Test the wrappers for the C API.
 """
 
+import importlib
 from contextlib import contextmanager
 
 import pytest
@@ -241,8 +242,6 @@ def test_fails_for_wrong_version(monkeypatch):
     """
     Make sure that importing clib raise an exception if GMT is too old.
     """
-    import importlib
-
     with monkeypatch.context() as mpatch:
         # Make sure the current GMT major version is 6.
         assert clib.__gmt_version__.split(".")[0] == "6"
