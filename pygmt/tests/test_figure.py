@@ -124,9 +124,9 @@ def test_figure_savefig_geotiff():
 
     # Check if a TIFF is georeferenced or not
     if _HAS_RIOXARRAY:
-        import rioxarray
-        from rasterio.errors import NotGeoreferencedWarning
-        from rasterio.transform import Affine
+        import rioxarray  # noqa: PLC0415
+        from rasterio.errors import NotGeoreferencedWarning  # noqa: PLC0415
+        from rasterio.transform import Affine  # noqa: PLC0415
 
         # GeoTIFF
         with rioxarray.open_rasterio(geofname) as xds:
@@ -152,15 +152,17 @@ def test_figure_savefig_geotiff():
         # TIFF
         with pytest.warns(expected_warning=NotGeoreferencedWarning) as record:
             with rioxarray.open_rasterio(fname) as xds:
-                assert xds.rio.crs is None
-                npt.assert_allclose(
-                    actual=xds.rio.bounds(), desired=(0.0, 0.0, 1331.0, 1257.0)
-                )
-                assert xds.rio.shape == (1257, 1331)
-                assert xds.rio.transform() == Affine(
-                    a=1.0, b=0.0, c=0.0, d=0.0, e=1.0, f=0.0
-                )
-            assert len(record) == 1
+                pass
+        assert len(record) == 1
+        with rioxarray.open_rasterio(fname) as xds:
+            assert xds.rio.crs is None
+            npt.assert_allclose(
+                actual=xds.rio.bounds(), desired=(0.0, 0.0, 1331.0, 1257.0)
+            )
+            assert xds.rio.shape == (1257, 1331)
+            assert xds.rio.transform() == Affine(
+                a=1.0, b=0.0, c=0.0, d=0.0, e=1.0, f=0.0
+            )
     geofname.unlink()
     fname.unlink()
 

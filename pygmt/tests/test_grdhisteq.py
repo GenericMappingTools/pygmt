@@ -117,7 +117,7 @@ def test_compute_bins_outfile(grid, expected_df, region):
                 region=region,
                 outfile=tmpfile.name,
             )
-            assert len(record) == 1  # check that only one warning was raised
+        assert len(record) == 1  # check that only one warning was raised
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0
         temp_df = pd.read_csv(

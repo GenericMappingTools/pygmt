@@ -93,7 +93,7 @@ def test_timestamp_text_truncated():
     with pytest.warns(expected_warning=RuntimeWarning) as record:
         # a string with 70 characters will be truncated to 64 characters
         fig.timestamp(text="0123456789" * 7)
-        assert len(record) == 1  # check that only one warning was raised
+    assert len(record) == 1  # check that only one warning was raised
     return fig
 
 
