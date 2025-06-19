@@ -1,4 +1,4 @@
-# GMT Text Formatting
+# Text Formatting
 
 The table below shows how text add to a plot as well as labels of colorbars and
 Cartesian axes can be formatted. Changing the font as well as its color and size
