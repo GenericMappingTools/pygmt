@@ -8,7 +8,19 @@ from pathlib import Path
 import xarray as xr
 from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.src.grdinfo import grdinfo
+from pygmt.src import (
+    dimfilter,
+    grdclip,
+    grdcut,
+    grdfill,
+    grdfilter,
+    grdgradient,
+    grdhisteq,
+    grdinfo,
+    grdproject,
+    grdsample,
+    grdtrack,
+)
 
 
 @xr.register_dataarray_accessor("gmt")
@@ -22,6 +34,11 @@ class GMTDataArrayAccessor:
 
     - ``registration``: Grid registration type :class:`pygmt.enums.GridRegistration`.
     - ``gtype``: Grid coordinate system type :class:`pygmt.enums.GridType`.
+
+    The *gmt* accessor also provides a set of grid-operation methods that enables
+    applying GMT's grid processing functionalities directly to the current
+    :class:`xarray.DataArray` object. See the summary table below for the list of
+    available methods.
 
     Notes
     -----
@@ -150,6 +167,19 @@ class GMTDataArrayAccessor:
     >>> zval.gmt.gtype = GridType.GEOGRAPHIC
     >>> zval.gmt.registration, zval.gmt.gtype
     (<GridRegistration.GRIDLINE: 0>, <GridType.GEOGRAPHIC: 1>)
+
+    Instead of calling a grid-processing function and passing the
+    :class:`xarray.DataArray` object as an input, you can call the corresponding method
+    directly on the object. For example, the following two are equivalent:
+
+    >>> from pygmt.datasets import load_earth_relief
+    >>> grid = load_earth_relief(resolution="30m", region=[10, 30, 15, 25])
+    >>> # Create a new grid from an input grid. Set all values below 1,000 to
+    >>> # 0 and all values above 1,500 to 10,000.
+    >>> # Option 1:
+    >>> new_grid = pygmt.grdclip(grid=grid, below=[1000, 0], above=[1500, 10000])
+    >>> # Option 2:
+    >>> new_grid = grid.gmt.clip(below=[1000, 0], above=[1500, 10000])
     """
 
     def __init__(self, xarray_obj: xr.DataArray):
@@ -204,3 +234,83 @@ class GMTDataArrayAccessor:
             )
             raise GMTInvalidInput(msg)
         self._gtype = GridType(value)
+
+    def dimfilter(self, **kwargs) -> xr.DataArray:
+        """
+        Directional filtering of a grid in the space domain.
+
+        See the :func:`pygmt.dimfilter` function for available parameters.
+        """
+        return dimfilter(grid=self._obj, **kwargs)
+
+    def clip(self, **kwargs) -> xr.DataArray:
+        """
+        Clip the range of grid values.
+
+        See the :func:`pygmt.grdclip` function for available parameters.
+        """
+        return grdclip(grid=self._obj, **kwargs)
+
+    def cut(self, **kwargs) -> xr.DataArray:
+        """
+        Extract subregion from a grid or image or a slice from a cube.
+
+        See the :func:`pygmt.grdcut` function for available parameters.
+        """
+        return grdcut(grid=self._obj, **kwargs)
+
+    def equalize_hist(self, **kwargs) -> xr.DataArray:
+        """
+        Perform histogram equalization for a grid.
+
+        See the :meth:`pygmt.grdhisteq.equalize_grid` method for available parameters.
+        """
+        return grdhisteq.equalize_grid(grid=self._obj, **kwargs)
+
+    def fill(self, **kwargs) -> xr.DataArray:
+        """
+        Interpolate across holes in the grid.
+
+        See the :func:`pygmt.grdfill` function for available parameters.
+        """
+        return grdfill(grid=self._obj, **kwargs)
+
+    def filter(self, **kwargs) -> xr.DataArray:
+        """
+        Filter a grid in the space (or time) domain.
+
+        See the :func:`pygmt.grdfilter` function for available parameters.
+        """
+        return grdfilter(grid=self._obj, **kwargs)
+
+    def gradient(self, **kwargs) -> xr.DataArray:
+        """
+        Compute directional gradients from a grid.
+
+        See the :func:`pygmt.grdgradient` function for available parameters.
+        """
+        return grdgradient(grid=self._obj, **kwargs)
+
+    def project(self, **kwargs) -> xr.DataArray:
+        """
+        Forward and inverse map transformation of grids.
+
+        See the :func:`pygmt.grdproject` function for available parameters.
+        """
+        return grdproject(grid=self._obj, **kwargs)
+
+    def sample(self, **kwargs) -> xr.DataArray:
+        """
+        Resample a grid onto a new lattice.
+
+        See the :func:`pygmt.grdsample` function for available parameters.
+        """
+        return grdsample(grid=self._obj, **kwargs)
+
+    def track(self, **kwargs) -> xr.DataArray:
+        """
+        Sample a grid at specified locations.
+
+        See the :func:`pygmt.grdtrack` function for available parameters.
+        """
+        return grdtrack(grid=self._obj, **kwargs)
