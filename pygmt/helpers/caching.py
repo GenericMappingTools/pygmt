@@ -116,6 +116,7 @@ def cache_data() -> None:
         "@Table_5_11_mean.xyz",
         "@capitals.gmt",
         "@circuit.png",
+        "@cube.nc",
         "@earth_relief_20m_holes.grd",
         "@fractures_06.txt",
         "@hotspots.txt",
