@@ -16,6 +16,7 @@ from typing import Literal
 import numpy as np
 import pandas as pd
 import xarray as xr
+from packaging.version import Version
 from pygmt.clib.conversion import (
     dataarray_to_matrix,
     sequence_to_ctypes_array,
@@ -24,6 +25,7 @@ from pygmt.clib.conversion import (
 )
 from pygmt.clib.loading import get_gmt_version, load_libgmt
 from pygmt.datatypes import _GMT_DATASET, _GMT_GRID, _GMT_IMAGE
+from pygmt.datatypes.header import gmt_grdfloat
 from pygmt.exceptions import GMTCLibError, GMTCLibNoSessionError, GMTInvalidInput
 from pygmt.helpers import (
     _validate_data_input,
@@ -207,6 +209,24 @@ class Session:
             }
         return self._info
 
+    def __init__(self, in_mode: str = "GMT_IN", grid_as_matrix: bool = False):
+        """
+        Initialize to store session-level variables.
+
+        Parameters
+        ----------
+        in_mode
+            Mode when creating a virtualfile. Defaults to ``"GMT_IN"``. It's used in
+            :meth:`pygmt.clib.Session.virtualfile_from_xrgrid` only. For some modules
+            (e.g., ``grdgradient`` and ``grdsample``), we may need
+            ``"GMT_IN|GMT_IS_REFERENCE"`` due to potential upstream bugs in GMT.
+        grid_as_matrix
+            Whether to treat the grid as a matrix. Defaults to ``False``. If ``True``,
+            will use the :meth:`pygmt.clib.Session.virtualfile_from_grid` method instead
+        """
+        self._in_mode = in_mode
+        self._grid_as_matrix = grid_as_matrix
+
     def __enter__(self):
         """
         Create a GMT API session.
@@ -326,6 +346,21 @@ class Session:
         if restype is not None:
             function.restype = restype
         return function
+
+    def set_allocmode(self, family, obj):
+        """
+        Set allocation mode of object to external.
+        """
+        c_set_allocmode = self.get_libgmt_func(
+            "GMT_Set_AllocMode",
+            argtypes=[ctp.c_void_p, ctp.c_uint, ctp.c_void_p],
+            restype=ctp.c_void_p,
+        )
+        family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
+        status = c_set_allocmode(self.session_pointer, family_int, obj)
+        if status:
+            msg = f"Failed to set allocation mode of object to external:\n{self._error_message}"
+            raise GMTCLibError(msg)
 
     def create(self, name: str) -> None:
         """
@@ -1874,12 +1909,17 @@ class Session:
             "empty": self.virtualfile_from_vectors,
             "file": contextlib.nullcontext,
             "geojson": tempfile_from_geojson,
-            "grid": self.virtualfile_from_grid,
+            "grid": self.virtualfile_from_xrgrid,
             "image": tempfile_from_image,
             "stringio": self.virtualfile_from_stringio,
             "matrix": self.virtualfile_from_matrix,
             "vectors": self.virtualfile_from_vectors,
         }[kind]
+
+        # Patch for upstream bugs where grdinfo -L doesn't work with
+        # virtualfile_from_xrgrid.
+        if kind == "grid" and self._grid_as_matrix is True:
+            _virtualfile_from = self.virtualfile_from_grid
 
         # "_data" is the data that will be passed to the _virtualfile_from function.
         # "_data" defaults to "data" but should be adjusted for some cases.
@@ -2092,6 +2132,43 @@ class Session:
             raise NotImplementedError(msg)
         dtype = {"dataset": _GMT_DATASET, "grid": _GMT_GRID, "image": _GMT_IMAGE}[kind]
         return ctp.cast(pointer, ctp.POINTER(dtype))
+
+    @contextlib.contextmanager
+    def virtualfile_from_xrgrid(self, xrgrid):
+        """
+        Create a virtual file from an xarray.DataArray object.
+        """
+        family = "GMT_IS_GRID"
+        geometry = "GMT_IS_SURFACE"
+        matrix, region, inc = dataarray_to_matrix(xrgrid)
+
+        _gtype = {0: "GMT_GRID_IS_CARTESIAN", 1: "GMT_GRID_IS_GEO"}[xrgrid.gmt.gtype]
+        _reg = {0: "GMT_GRID_NODE_REG", 1: "GMT_GRID_PIXEL_REG"}[
+            xrgrid.gmt.registration
+        ]
+
+        data = self.create_data(
+            family,
+            geometry,
+            mode=f"GMT_CONTAINER_ONLY|{_gtype}",
+            ranges=region,
+            inc=inc,
+            registration=_reg,
+            pad=self["GMT_PAD_DEFAULT"],
+        )
+        if Version(__gmt_version__) < Version("6.5.0"):
+            # Upstream bug fixed in GMT>=6.5.0
+            self.set_allocmode(family, data)
+
+        gmtgrid = ctp.cast(data, ctp.POINTER(_GMT_GRID))
+        header = gmtgrid.contents.header.contents
+        header.z_min, header.z_max = matrix.min(), matrix.max()
+
+        matrix = np.pad(matrix, self["GMT_PAD_DEFAULT"]).astype(np.float32)
+        gmtgrid.contents.data = matrix.ctypes.data_as(ctp.POINTER(gmt_grdfloat))
+
+        with self.open_virtualfile(family, geometry, self._in_mode, gmtgrid) as vfile:
+            yield vfile
 
     def virtualfile_to_dataset(
         self,
