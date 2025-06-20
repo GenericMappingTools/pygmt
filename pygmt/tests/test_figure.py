@@ -12,7 +12,7 @@ import numpy as np
 import numpy.testing as npt
 import pytest
 from pygmt import Figure, set_display
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.figure import SHOW_CONFIG, _get_default_display_method
 from pygmt.helpers import GMTTempFile
 
@@ -313,7 +313,7 @@ def test_figure_show_invalid_method():
     """
     fig = Figure()
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         fig.show(method="test")
 
 
@@ -398,7 +398,7 @@ class TestSetDisplay:
         """
         Test if an error is raised when an invalid method is passed.
         """
-        with pytest.raises(GMTInvalidInput):
+        with pytest.raises(GMTValueError):
             set_display(method="invalid")
 
 

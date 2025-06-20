@@ -20,7 +20,7 @@ except ImportError:
 
 import numpy as np
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import launch_external_viewer, unique_name
 
 
@@ -358,11 +358,11 @@ class Figure:
             case "none":
                 pass  # Do nothing
             case _:
-                msg = (
-                    f"Invalid display method '{method}'. "
-                    "Valid values are 'external', 'notebook', 'none' or None."
+                raise GMTValueError(
+                    name="method",
+                    value=method,
+                    choices=["external", "notebook", "none", None],
                 )
-                raise GMTInvalidInput(msg)
 
     @overload
     def _preview(
@@ -494,8 +494,8 @@ def set_display(method: Literal["external", "notebook", "none", None] = None) ->
         case None:
             SHOW_CONFIG["method"] = _get_default_display_method()
         case _:
-            msg = (
-                f"Invalid display method '{method}'. "
-                "Valid values are 'external', 'notebook', 'none' or None."
+            raise GMTValueError(
+                name="method",
+                value=method,
+                choices=["external", "notebook", "none", None],
             )
-            raise GMTInvalidInput(msg)
