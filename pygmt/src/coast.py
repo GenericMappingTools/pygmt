@@ -24,6 +24,7 @@ __doctest_skip__ = ["coast"]
     A="area_thresh",
     B="frame",
     C="lakes",
+    D="resolution-",
     E="dcw",
     F="box",
     G="land",
@@ -155,7 +156,7 @@ def coast(
 
     water : str
         Select filling "wet" areas.
-    shorelines : int, str, or list
+    shorelines : bool, int, str, or list
         [*level*\ /]\ *pen*.
         Draw shorelines [Default is no shorelines]. Append pen attributes
         [Default is ``"0.25p,black,solid"``] which apply to all four levels.

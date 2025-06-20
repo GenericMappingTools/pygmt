@@ -96,7 +96,7 @@ def test_dataarray_to_matrix_irregular_inc_warning():
     grid = xr.DataArray(data, coords=[("y", y), ("x", x)])
     with pytest.warns(expected_warning=RuntimeWarning) as record:
         dataarray_to_matrix(grid)
-        assert len(record) == 1
+    assert len(record) == 1
 
 
 def test_dataarray_to_matrix_zero_inc_fails():
