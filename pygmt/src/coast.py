@@ -14,7 +14,6 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.src._common import _parse_coastline_resolution
 
 __doctest_skip__ = ["coast"]
 

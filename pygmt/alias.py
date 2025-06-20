@@ -7,14 +7,14 @@ from collections import defaultdict
 from collections.abc import Mapping
 from typing import Any, Literal
 
-from pygmt.helpers.utils import is_nonstr_iter
+from pygmt.helpers.utils import is_nonstr_iter, sequence_join
 
 
 def to_string(
     value: Any,
     prefix: str = "",  # Default to an empty string to simplify the code logic.
-    separator: Literal["/", ","] | None = None,
     mapping: bool | Mapping = False,
+    separator: Literal["/", ","] | None = None,
 ) -> str | list[str] | None:
     """
     Convert any value to a string, a sequence of strings or None.
@@ -48,11 +48,11 @@ def to_string(
         The value to convert.
     prefix
         The string to add as a prefix to the returned value.
-    separator
-        The separator to use if the value is a sequence.
     mapping
         A mapping dictionary or ``True`` to map long-form arguments to GMT's short-form
         arguments. If ``True``, will use the first letter of the long-form arguments.
+    separator
+        The separator to use if the value is a sequence.
 
     Returns
     -------
@@ -97,12 +97,14 @@ def to_string(
             value = value[0] if mapping is True else mapping.get(value, value)
         return f"{prefix}{value}"
 
-    # Convert a sequence of values to a sequence of strings.
-    # In some cases, "prefix" and "mapping" are ignored. We can enable them when needed.
-    _values = [str(item) for item in value]
-    # When separator is not specified, return a sequence of strings for repeatable GMT
-    # options like '-B'. Otherwise, join the sequence of strings with the separator.
-    return _values if separator is None else f"{prefix}{separator.join(_values)}"
+    # Return the sequence if separator is not specified for options like '-B'.
+    if separator is None:
+        return [str(item) for item in value]
+
+    # Join the sequence of values with the separator.
+    # "prefix" and "mapping" are ignored. We can enable them when needed.
+    _value = sequence_join(value, separator=separator)
+    return f"{prefix}{_value}"
 
 
 @dataclasses.dataclass
