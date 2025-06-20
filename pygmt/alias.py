@@ -10,7 +10,7 @@ from typing import Any, Literal
 from pygmt.helpers.utils import is_nonstr_iter, sequence_join
 
 
-def to_string(
+def _to_string(
     value: Any,
     prefix: str = "",  # Default to an empty string to simplify the code logic.
     mapping: bool | Mapping = False,
@@ -61,29 +61,29 @@ def to_string(
 
     Examples
     --------
-    >>> to_string("text")
+    >>> _to_string("text")
     'text'
-    >>> to_string(12)
+    >>> _to_string(12)
     '12'
-    >>> to_string((12, 34), separator="/")
+    >>> _to_string((12, 34), separator="/")
     '12/34'
-    >>> to_string(("12p", "34p"), separator=",")
+    >>> _to_string(("12p", "34p"), separator=",")
     '12p,34p'
-    >>> to_string(("12p", "34p"), prefix="+o", separator="/")
+    >>> _to_string(("12p", "34p"), prefix="+o", separator="/")
     '+o12p/34p'
-    >>> to_string(True)
+    >>> _to_string(True)
     ''
-    >>> to_string(True, prefix="+a")
+    >>> _to_string(True, prefix="+a")
     '+a'
-    >>> to_string(False)
-    >>> to_string(None)
-    >>> to_string(["xaf", "yaf", "WSen"])
+    >>> _to_string(False)
+    >>> _to_string(None)
+    >>> _to_string(["xaf", "yaf", "WSen"])
     ['xaf', 'yaf', 'WSen']
-    >>> to_string("high", mapping=True)
+    >>> _to_string("high", mapping=True)
     'h'
-    >>> to_string("mean", mapping={"mean": "a", "mad": "d", "full": "g"})
+    >>> _to_string("mean", mapping={"mean": "a", "mad": "d", "full": "g"})
     'a'
-    >>> to_string("invalid", mapping={"mean": "a", "mad": "d", "full": "g"})
+    >>> _to_string("invalid", mapping={"mean": "a", "mad": "d", "full": "g"})
     'invalid'
     """
     if value is None or value is False:  # None and False are converted to None.
@@ -157,7 +157,7 @@ class Alias:
         """
         The value of the alias as a string, a sequence of strings or None.
         """
-        return to_string(
+        return _to_string(
             value=self.value,
             prefix=self.prefix,
             separator=self.separator,
