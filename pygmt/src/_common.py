@@ -7,7 +7,7 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Any, ClassVar, Literal
 
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.src.which import which
 
 
@@ -115,12 +115,12 @@ class _FocalMechanismConvention:
     >>> conv = _FocalMechanismConvention(convention="invalid")
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Invalid focal mechanism ...'.
+    pygmt.exceptions.GMTValueError: Invalid focal mechanism convention: ...
 
     >>> conv = _FocalMechanismConvention("mt", component="invalid")
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Invalid focal mechanism ...'.
+    pygmt.exceptions.GMTValueError: Invalid focal mechanism convention: ...
 
     >>> _FocalMechanismConvention.from_params(["strike", "dip", "rake"])
     Traceback (most recent call last):
@@ -198,11 +198,8 @@ class _FocalMechanismConvention:
         else:  # Convention is specified via "convention" and "component".
             name = f"{convention.upper()}_{component.upper()}"  # e.g., "AKI_DC"
             if name not in _FocalMechanismConventionCode.__members__:
-                msg = (
-                    "Invalid focal mechanism convention with "
-                    f"convention='{convention}' and component='{component}'."
-                )
-                raise GMTInvalidInput(msg)
+                _value = f"convention='{convention}', component='{component}'"
+                raise GMTValueError(_value, description="focal mechanism convention")
             self.code = _FocalMechanismConventionCode[name]
             self._convention = convention
 
@@ -287,7 +284,7 @@ def _parse_coastline_resolution(
     >>> _parse_coastline_resolution("invalid")
     Traceback (most recent call last):
     ...
-    pygmt.exceptions.GMTInvalidInput: Invalid resolution: 'invalid'. Valid values ...
+    pygmt...GMTValueError: Invalid .... Expected ....
     """
     if resolution is None:
         return None
@@ -300,7 +297,6 @@ def _parse_coastline_resolution(
     if resolution in {_res[0] for _res in _valid_res}:  # Short-form arguments.
         return resolution  # type: ignore[return-value]
 
-    msg = (
-        f"Invalid resolution: '{resolution}'. Valid values are {', '.join(_valid_res)}."
+    raise GMTValueError(
+        resolution, choices=_valid_res, description="GSHHG coastline resolution"
     )
-    raise GMTInvalidInput(msg)

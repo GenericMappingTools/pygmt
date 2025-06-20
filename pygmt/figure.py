@@ -20,7 +20,7 @@ except ImportError:
 
 import numpy as np
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import launch_external_viewer, unique_name
 
 
@@ -234,11 +234,15 @@ class Figure:
             case "kml":  # KML
                 kwargs["W"] = "+k"
             case "ps":
-                msg = "Extension '.ps' is not supported. Use '.eps' or '.pdf' instead."
-                raise GMTInvalidInput(msg)
+                raise GMTValueError(
+                    ext,
+                    description="file extension",
+                    reason="Extension '.ps' is not supported. Use '.eps' or '.pdf' instead.",
+                )
             case ext if ext not in fmts:
-                msg = f"Unknown extension '.{ext}'."
-                raise GMTInvalidInput(msg)
+                raise GMTValueError(
+                    ext, description="file extension", choices=fmts.keys()
+                )
 
         if transparent and ext not in {"kml", "png"}:
             msg = f"Transparency unavailable for '{ext}', only for png and kml."
@@ -249,8 +253,12 @@ class Figure:
 
         if worldfile:
             if ext in {"eps", "kml", "pdf", "tiff"}:
-                msg = f"Saving a world file is not supported for '{ext}' format."
-                raise GMTInvalidInput(msg)
+                raise GMTValueError(
+                    ext,
+                    description="file extension",
+                    choices=["eps", "kml", "pdf", "tiff"],
+                    reason="Saving a world file is not supported for this format.",
+                )
             kwargs["W"] = True
 
         # pytest-mpl v0.17.0 added the "metadata" parameter to Figure.savefig, which is
@@ -358,11 +366,11 @@ class Figure:
             case "none":
                 pass  # Do nothing
             case _:
-                msg = (
-                    f"Invalid display method '{method}'. "
-                    "Valid values are 'external', 'notebook', 'none' or None."
+                raise GMTValueError(
+                    method,
+                    description="display method",
+                    choices=["external", "notebook", "none", None],
                 )
-                raise GMTInvalidInput(msg)
 
     @overload
     def _preview(
@@ -494,8 +502,8 @@ def set_display(method: Literal["external", "notebook", "none", None] = None) ->
         case None:
             SHOW_CONFIG["method"] = _get_default_display_method()
         case _:
-            msg = (
-                f"Invalid display method '{method}'. "
-                "Valid values are 'external', 'notebook', 'none' or None."
+            raise GMTValueError(
+                method,
+                description="display method",
+                choices=["external", "notebook", "none", None],
             )
-            raise GMTInvalidInput(msg)

@@ -12,7 +12,7 @@ import numpy as np
 import numpy.testing as npt
 import pytest
 from pygmt import Figure, set_display
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.figure import SHOW_CONFIG, _get_default_display_method
 from pygmt.helpers import GMTTempFile
 
@@ -185,7 +185,7 @@ def test_figure_savefig_unknown_extension():
     fig = Figure()
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
     fname = "test_figure_savefig_unknown_extension.test"
-    with pytest.raises(GMTInvalidInput, match="Unknown extension '.test'."):
+    with pytest.raises(GMTValueError, match="Invalid file extension: 'test'."):
         fig.savefig(fname)
 
 
@@ -196,7 +196,7 @@ def test_figure_savefig_ps_extension():
     fig = Figure()
     fig.basemap(region="10/70/-300/800", projection="X3c/5c", frame="af")
     fname = "test_figure_savefig_ps_extension.ps"
-    with pytest.raises(GMTInvalidInput, match="Extension '.ps' is not supported."):
+    with pytest.raises(GMTValueError, match="Extension '.ps' is not supported."):
         fig.savefig(fname)
 
 
@@ -280,7 +280,7 @@ def test_figure_savefig_worldfile():
     # unsupported formats
     for fmt in [".eps", ".kml", ".pdf", ".tiff"]:
         with GMTTempFile(prefix="pygmt-worldfile", suffix=fmt) as imgfile:
-            with pytest.raises(GMTInvalidInput):
+            with pytest.raises(GMTValueError):
                 fig.savefig(fname=imgfile.name, worldfile=True)
 
 
@@ -313,7 +313,7 @@ def test_figure_show_invalid_method():
     """
     fig = Figure()
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         fig.show(method="test")
 
 
@@ -398,7 +398,7 @@ class TestSetDisplay:
         """
         Test if an error is raised when an invalid method is passed.
         """
-        with pytest.raises(GMTInvalidInput):
+        with pytest.raises(GMTValueError):
             set_display(method="invalid")
 
 
