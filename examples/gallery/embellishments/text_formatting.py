@@ -12,9 +12,11 @@ import pygmt
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=0)
 
-# Change font color, size and style for single characters
-fig.text(x=0, y=2, text="t@;red;e@;;xt     te@:15:x@::t     tex@%Courier-Oblique%t@%%")
-# t@;red;e@;;@:15:x@::@%Courier-Oblique%t@%%")
+# Change font color for specific characters
+fig.text(x=0, y=3, text="@;63/124/173;P@;;@;255/212/59;y@;;@;238/86/52;GMT@;;")
+
+# Change font size and style for a single character, respectively
+fig.text(x=0, y=2, text="te@:15:x@::t     tex@%Courier-Oblique%t@%%")
 
 # Superscript
 fig.text(x=0, y=1, text="E = mc@+2@+")
