@@ -2,8 +2,11 @@
 Text formatting
 ===============
 
-Formatting of text added to a plot or labels of colorbars.
-:doc:`Text Formatting </techref/text_formatting>` and :doc:`Fonts </techref/fonts>`
+There are different options to format text added to a plot as well as labels of
+colorbars and Cartesian axes, including, superscripts, subscripts, underlining and
+small caps (:doc:`Text Formatting </techref/text_formatting>`). It's also possible
+to change the font as well as its color and size only for specific characters of a
+longer text. The supported fonts are listed at :doc:`Fonts  </techref/fonts.md>`.
 """
 
 # %%
