@@ -8,7 +8,7 @@ specific characters of a longer text. The supported fonts are listed at
 
 | Symbol | Behavior |
 | --- | --- |
-| @%*font*%*text*@%%  | Change the font |
+| @%*font*%*TEXT*@%%  | Change the *font* of *TEXT* |
 | @;*color*;*text*@;; | Change the font color |
 | @:*size*:*text*@::  | Change the font size |
 | @-*text*@-          | Toggle subscripts on/off |
