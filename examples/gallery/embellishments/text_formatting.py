@@ -3,7 +3,7 @@ Text formatting
 ===============
 
 There are various options to format text added to a plot as well as the title of the
-plot and labels of colorbars, Cartesian axes and legend entries, including,
+plot and labels of colorbars, Cartesian axes, and legend entries, including,
 superscripts, subscripts, underlining and small caps (for an overview see
 (:doc:`Text Formatting </techref/text_formatting>`). It's also possible to change the
 font as well as its color and size only for specific characters of a longer text. The
@@ -14,7 +14,7 @@ supported fonts are listed at :doc:`Supported Fonts  </techref/fonts>`.
 import pygmt
 
 fig = pygmt.Figure()
-fig.basemap(region=[-5, 5, -4, 4], projection="X10c/6c", frame=0)
+fig.basemap(region=[-1, 1, -4, 4], projection="X4c/5c", frame=0)
 
 # Change font color for specific characters of the word "PyGMT"
 # blue for "P", yellow for "y", and red for "GMT"
