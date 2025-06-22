@@ -27,7 +27,7 @@ fig.text(x=0, y=2, text="te@:15:x@::t     tex@%Courier-Oblique%t@%%")
 fig.text(x=0, y=1, text="E = mc@+2@+")
 
 # Subscripts and Greek letters
-fig.text(x=0, y=0, text="@~s@~@-ij@- = c@-ijkl@- @~e@~@-ij@-")
+fig.text(x=0, y=0, text="@~s@~@-ij@- = c@-ijkl@- @~e@~@-kl@-")
 
 # Combine two characters above each other
 fig.text(x=0, y=-1, text="@!_~")
