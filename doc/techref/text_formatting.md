@@ -9,13 +9,13 @@ specific characters of a longer text. The supported fonts are listed at
 | Symbol | Behavior |
 | --- | --- |
 | @%*font*%*TEXT*@%%  | Change the *font* of *TEXT* |
-| @;*color*;*text*@;; | Change the font color |
-| @:*size*:*text*@::  | Change the font size |
-| @-*text*@-          | Toggle subscripts on/off |
-| @+*text*@+          | Toggle superscript on/off |
-| @#*text*@#          | Toggle small caps on/off |
-| @\_*text*@\_        | Toggle underline on/off |
-| @!*char1char2*      | Print two characters on top of each other (composite characters, e.g., overstrike) |
-| @\~*text*@\~        | Toggle Greek letters on/off |
+| @;*color*;*TEXT*@;; | Change the font *color* of *TEXT* |
+| @:*size*:*TEXT*@::  | Change the font *size* of *TEXT* |
+| @-*TEXT*@-          | Toggle subscripts on/off |
+| @+*TEXT*@+          | Toggle superscript on/off |
+| @#*TEXT*@#          | Toggle small caps on/off |
+| @\_*TEXT*@\_        | Toggle underline on/off |
+| @!*CHAR1CHAR2*      | Print two characters on top of each other (composite characters, e.g., overstrike) |
+| @\~*TEXT*@\~        | Toggle Greek letters on/off |
 | @@                  | Print the @ sign |
 | @.                  | Print the degree symbol |
