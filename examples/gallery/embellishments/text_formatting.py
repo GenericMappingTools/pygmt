@@ -14,7 +14,7 @@ specific characters of a longer text. The supported fonts are listed at
 import pygmt
 
 fig = pygmt.Figure()
-fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=0)
+fig.basemap(region=[-5, 5, -4, 4], projection="X10c/6c", frame=0)
 
 # Change font color for specific characters of the word "PyGMT"
 # blue for "P", yellow for "y", and red for "GMT"
