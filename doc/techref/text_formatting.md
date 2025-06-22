@@ -1,9 +1,10 @@
 # Text Formatting
 
-The table below shows how text added to a plot as well as labels of colorbars and
-Cartesian axes can be formatted. Changing the font as well as its color and size in this
-way allows to change those only for specific characters of a longer text. The supported
-fonts are listed at [](/techref/fonts.md).
+The table below shows how text added to a plot as well as the title of the plot and
+labels of colorbars, Cartesian axes, and legend entries can be formatted. Changing
+the font as well as its color and size in this way allows to change those only for
+specific characters of a longer text. The supported fonts are listed at
+[](/techref/fonts.md).
 
 | Symbol | Behavior |
 | --- | --- |
