@@ -5,7 +5,7 @@ The PyGMT alias system to convert PyGMT long-form arguments to GMT's short-form.
 from collections.abc import Mapping, Sequence
 from typing import Any, Literal
 
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 from pygmt.helpers.utils import is_nonstr_iter, sequence_join
 
 
@@ -116,12 +116,11 @@ def _to_string(
                 value = value[0]
             case Mapping():
                 if value not in mapping and value not in mapping.values():
-                    _name = f"Parameter {name!r}: " if name else ""
-                    msg = (
-                        f"{_name}Invalid value: {value!r}. "
-                        f"Valid values are: {', '.join(mapping)}."
+                    raise GMTValueError(
+                        value,
+                        description="value for parameter {name!r}" if name else "value",
+                        choices=mapping.keys(),
                     )
-                    raise GMTInvalidInput(msg)
                 value = mapping.get(value, value)
         return f"{prefix}{value}"
 
