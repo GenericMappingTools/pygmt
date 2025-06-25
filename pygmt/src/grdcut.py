@@ -117,7 +117,7 @@ def grdcut(
         raise GMTInvalidInput(msg)
 
     # Determine the output data kind based on the input data kind.
-    match inkind := data_kind(grid):
+    match inkind := data_kind(grid, check_kind="raster"):
         case "grid" | "image":
             outkind = inkind
         case "file":
@@ -128,7 +128,7 @@ def grdcut(
 
     with Session() as lib:
         with (
-            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_in(data=grid, kind=inkind) as vingrd,
             lib.virtualfile_out(kind=outkind, fname=outgrid) as voutgrd,
         ):
             kwargs["G"] = voutgrd
