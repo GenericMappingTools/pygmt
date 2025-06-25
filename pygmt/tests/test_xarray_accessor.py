@@ -30,7 +30,7 @@ def fixture_grid():
 @pytest.fixture(scope="module", name="expected_clipped_grid")
 def fixture_expected_clipped_grid():
     """
-    Load the expected grdclip grid result.
+    The expected grdclip grid result.
     """
     return xr.DataArray(
         data=[
@@ -46,7 +46,7 @@ def fixture_expected_clipped_grid():
 @pytest.fixture(scope="module", name="expected_equalized_grid")
 def fixture_expected_equalized_grid():
     """
-    Load the expected grdhisteq grid result.
+    The expected grdhisteq grid result.
     """
     return xr.DataArray(
         data=[[0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 1, 1], [1, 1, 1, 1]],
@@ -225,7 +225,7 @@ def test_xarray_accessor_clip(grid, expected_clipped_grid):
 
 def test_xarray_accessor_equalize(grid, expected_equalized_grid):
     """
-    Check that the accessor has the equalize method and that it works correctly.
+    Check that the accessor has the equalize_hist method and that it works correctly.
 
     This test is adapted from the `test_equalize_grid_no_outgrid` test.
     """
