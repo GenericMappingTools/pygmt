@@ -271,7 +271,7 @@ def _parse_coastline_resolution(
 
     Raises
     ------
-    GMTInvalidInput
+    GMTValueError
         If the resolution is invalid.
 
     Examples
