@@ -3,6 +3,7 @@ GMT accessor for :class:`xarray.DataArray`.
 """
 
 import contextlib
+import functools
 from pathlib import Path
 
 import xarray as xr
@@ -174,8 +175,8 @@ class GMTDataArrayAccessor:
 
     >>> from pygmt.datasets import load_earth_relief
     >>> grid = load_earth_relief(resolution="30m", region=[10, 30, 15, 25])
-    >>> # Create a new grid from an input grid. Set all values below 1,000 to
-    >>> # 0 and all values above 1,500 to 10,000.
+    >>> # Create a new grid from an input grid. Set all values below 1,000 to 0 and all
+    >>> # values above 1,500 to 10,000.
     >>> # Option 1:
     >>> new_grid = pygmt.grdclip(grid=grid, below=[1000, 0], above=[1500, 10000])
     >>> # Option 2:
@@ -235,82 +236,28 @@ class GMTDataArrayAccessor:
             raise GMTInvalidInput(msg)
         self._gtype = GridType(value)
 
-    def dimfilter(self, **kwargs) -> xr.DataArray:
+    @staticmethod
+    def _make_method(func):
         """
-        Directional filtering of a grid in the space domain.
+        Create a wrapper method for PyGMT grid-processing methods.
 
-        See the :func:`pygmt.dimfilter` function for available parameters.
+        The :class:`xarray.DataArray` object is passed as the first argument.
         """
-        return dimfilter(grid=self._obj, **kwargs)
 
-    def clip(self, **kwargs) -> xr.DataArray:
-        """
-        Clip the range of grid values.
+        @functools.wraps(func)
+        def wrapper(self, *args, **kwargs):
+            return func(self._obj, *args, **kwargs)
 
-        See the :func:`pygmt.grdclip` function for available parameters.
-        """
-        return grdclip(grid=self._obj, **kwargs)
+        return wrapper
 
-    def cut(self, **kwargs) -> xr.DataArray:
-        """
-        Extract subregion from a grid or image or a slice from a cube.
-
-        See the :func:`pygmt.grdcut` function for available parameters.
-        """
-        return grdcut(grid=self._obj, **kwargs)
-
-    def equalize_hist(self, **kwargs) -> xr.DataArray:
-        """
-        Perform histogram equalization for a grid.
-
-        See the :meth:`pygmt.grdhisteq.equalize_grid` method for available parameters.
-        """
-        return grdhisteq.equalize_grid(grid=self._obj, **kwargs)
-
-    def fill(self, **kwargs) -> xr.DataArray:
-        """
-        Interpolate across holes in the grid.
-
-        See the :func:`pygmt.grdfill` function for available parameters.
-        """
-        return grdfill(grid=self._obj, **kwargs)
-
-    def filter(self, **kwargs) -> xr.DataArray:
-        """
-        Filter a grid in the space (or time) domain.
-
-        See the :func:`pygmt.grdfilter` function for available parameters.
-        """
-        return grdfilter(grid=self._obj, **kwargs)
-
-    def gradient(self, **kwargs) -> xr.DataArray:
-        """
-        Compute directional gradients from a grid.
-
-        See the :func:`pygmt.grdgradient` function for available parameters.
-        """
-        return grdgradient(grid=self._obj, **kwargs)
-
-    def project(self, **kwargs) -> xr.DataArray:
-        """
-        Forward and inverse map transformation of grids.
-
-        See the :func:`pygmt.grdproject` function for available parameters.
-        """
-        return grdproject(grid=self._obj, **kwargs)
-
-    def sample(self, **kwargs) -> xr.DataArray:
-        """
-        Resample a grid onto a new lattice.
-
-        See the :func:`pygmt.grdsample` function for available parameters.
-        """
-        return grdsample(grid=self._obj, **kwargs)
-
-    def track(self, **kwargs) -> xr.DataArray:
-        """
-        Sample a grid at specified locations.
-
-        See the :func:`pygmt.grdtrack` function for available parameters.
-        """
-        return grdtrack(grid=self._obj, **kwargs)
+    # Accessor methods for grid operations
+    clip = _make_method(grdclip)
+    cut = _make_method(grdcut)
+    dimfilter = _make_method(dimfilter)
+    equalize_hist = _make_method(grdhisteq.equalize_grid)
+    fill = _make_method(grdfill)
+    filter = _make_method(grdfilter)
+    gradient = _make_method(grdgradient)
+    project = _make_method(grdproject)
+    sample = _make_method(grdsample)
+    track = _make_method(grdtrack)
