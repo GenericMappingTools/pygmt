@@ -215,7 +215,7 @@ def test_xarray_accessor_clip(grid, expected_clipped_grid):
     """
     Check that the accessor has the clip method and that it works correctly.
 
-    This test is adapted from the `test_grdtest_grdclip_no_outgrid` test.
+    This test is adapted from the `test_grdclip_no_outgrid` test.
     """
     clipped_grid = grid.gmt.clip(
         below=[550, -1000], above=[700, 1000], region=[-53, -49, -19, -16]
