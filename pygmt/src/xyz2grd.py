@@ -10,6 +10,26 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 
 __doctest_skip__ = ["xyz2grd"]
 
+def _xyz2xyz(x=None, y=None, z=None):
+    if x is not None:
+        x = np.atleast_1d(x)
+    if y is not None:
+        y = np.atleast_1d(y)
+    if z is not None:
+        z = np.atleast_1d(z)
+
+    # Three 1-D arrays.
+    if x.ndim == 1 and y.ndim == 1 and z.ndim == 1:
+        pass
+    # z is a 2-D array.
+    if z.ndim == 2:
+        if x is None:
+            x = np.arange(z.shape[0])
+        if y is None:
+            y = np.arange(z.shape[1])
+        return
+    return x, y, z
+
 
 @fmt_docstring
 @use_alias(
