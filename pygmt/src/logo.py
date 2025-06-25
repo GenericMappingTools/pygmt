@@ -2,8 +2,10 @@
 logo - Plot the GMT logo.
 """
 
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.params import Box
 
 
 @fmt_docstring
@@ -11,14 +13,22 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     R="region",
     J="projection",
     D="position",
-    F="box",
     S="style",
     V="verbose",
     c="panel",
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def logo(self, **kwargs):
+def logo(
+    self,
+    position=None,
+    position_type=None,
+    length=None,
+    height=None,
+    offset=None,
+    box: Box | str | None = None,
+    **kwargs,
+):
     r"""
     Plot the GMT logo.
 
@@ -39,7 +49,7 @@ def logo(self, **kwargs):
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *width*\ [**+j**\ *justify*]\ [**+o**\ *dx*\ [/*dy*]].
         Set reference point on the map for the image.
-    box : bool or str
+    box
         If set to ``True``, draw a rectangular border around the
         GMT logo.
     style : str
@@ -55,5 +65,16 @@ def logo(self, **kwargs):
     {transparency}
     """
     self._activate_figure()
+    alias = AliasSystem(
+        D=[
+            Alias(position, separator="/", prefix=position_type),
+            Alias(length, prefix="+w"),
+            Alias(height, prefix="+h"),
+            Alias(offset, prefix="+o", separator="/"),
+        ],
+        F=Alias(box),
+    )
+    kwdict = alias.kwdict | kwargs
+
     with Session() as lib:
-        lib.call_module(module="logo", args=build_arg_list(kwargs))
+        lib.call_module(module="logo", args=build_arg_list(kwdict))
