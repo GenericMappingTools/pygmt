@@ -3,8 +3,9 @@ grdinfo - Extract information from 2-D grids or 3-D cubes.
 """
 
 import xarray as xr
+from packaging.version import Version
 from pygmt._typing import PathLike
-from pygmt.clib import Session
+from pygmt.clib import Session, __gmt_version__
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_list,
@@ -112,8 +113,13 @@ def grdinfo(grid: PathLike | xr.DataArray, **kwargs) -> str:
     info : str
         A string with information about the grid.
     """
+    # Workaround for upstream bug https://github.com/GenericMappingTools/gmt/issues/8525
+    grid_as_matrix = Version(__gmt_version__) <= Version("6.5.0") and bool(
+        kwargs.get("L")
+    )
+
     with GMTTempFile() as outfile:
-        with Session() as lib:
+        with Session(grid_as_matrix=grid_as_matrix) as lib:
             with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
                 lib.call_module(
                     module="grdinfo",
