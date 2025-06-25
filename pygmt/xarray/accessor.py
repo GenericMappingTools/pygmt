@@ -250,7 +250,7 @@ class GMTDataArrayAccessor:
 
         return wrapper
 
-    # Accessor methods for grid operations
+    # Accessor methods for grid operations.
     clip = _make_method(grdclip)
     cut = _make_method(grdcut)
     dimfilter = _make_method(dimfilter)
