@@ -1,4 +1,4 @@
-# Build and deploy documentation
+# Build and deploy documentation.
 #
 # This workflow builds the documentation on Linux/macOS/Windows.
 #
@@ -42,11 +42,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
-permissions:
-  contents: write
+permissions: {}
 
 jobs:
-  docs:
+  build-docs:
     name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     if: github.repository == 'GenericMappingTools/pygmt'
@@ -77,69 +76,9 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Get current week number of year
-        id: date
-        run: echo "date=$(date +%Y-W%W)" >> $GITHUB_OUTPUT  # e.g., 2024-W19
-
-      # Install Micromamba with conda-forge dependencies
-      - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v2.0.5
+      - uses: ./.github/workflows/actions/build_docs
         with:
-          environment-name: pygmt
-          cache-environment: true
-          # environment cache is persistent for one week.
-          cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
-          create-args: >-
-            python=3.13
-            gmt=6.5.0
-            ghostscript=10.04.0
-            numpy
-            pandas
-            xarray
-            packaging
-            contextily
-            geopandas
-            ipython
-            pyarrow-core
-            rioxarray
-            make
-            pip
-            python-build
-            geodatasets
-            myst-nb
-            panel
-            sphinx>=6.2
-            sphinx-autodoc-typehints
-            sphinx-copybutton
-            sphinx-design
-            sphinx-gallery
-            sphinx_rtd_theme
-            cairosvg
-            sphinxcontrib-svg2pdfconverter
-            tectonic
-
-      # Download cached remote files (artifacts) from GitHub
-      - name: Download remote data from GitHub
-        run: |
-          # Download cached files to ~/.gmt directory and list them
-          gh run download --name gmt-cache --dir ~/.gmt/
-          # Change modification times of the two files, so GMT won't refresh it
-          touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
-          ls -lhR ~/.gmt
-        env:
-          GH_TOKEN: ${{ github.token }}
-
-      # Install the package that we want to test
-      - name: Install the package
-        run: |
-          python -m build --sdist
-          python -m pip install dist/*
-
-      - name: Build the HTML documentation
-        run: make -C doc clean html
-
-      - name: Build the PDF documentation
-        run:  make -C doc pdf
+          os: ${{ matrix.os }}
 
       - name: Create the HTML ZIP archive and rename the PDF file
         run: |
@@ -153,7 +92,7 @@ jobs:
         uses: actions/upload-artifact@v4.6.2
         if: github.event_name == 'pull_request' && matrix.os == 'ubuntu-latest'
         with:
-          name: artifact-pygmt-docs-pdf
+          name: pygmt-docs-pdf
           path: doc/_build/pygmt-docs.pdf
 
       - name: Copy the HTML ZIP archive and PDF to the html folder for dev version
@@ -167,6 +106,30 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           REF_NAME: ${{ github.ref_name }}
 
+      - name: Upload HMTL documentation artifact
+        uses: actions/upload-artifact@v4.5.0
+        with:
+          name: pygmt-docs-html
+          path: doc/_build/html/
+        if: matrix.os == 'ubuntu-latest'
+
+  deploy-docs:
+    name: Deploy documentation
+    needs: build-docs
+    runs-on: ubuntu-latest
+    if: (github.event_name == 'release' || github.event_name == 'push') && github.repository == 'GenericMappingTools/pygmt'
+    permissions:
+      contents: write
+
+    steps:
+      # Checkout current git repository
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+        with:
+          # fetch all history so that setuptools-scm works
+          fetch-depth: 0
+          persist-credentials: false
+
       - name: Checkout the gh-pages branch
         uses: actions/checkout@v4.2.2
         with:
@@ -176,7 +139,12 @@ jobs:
           # Download the entire history
           fetch-depth: 0
           persist-credentials: true
-        if: (github.event_name == 'release' || github.event_name == 'push') && (matrix.os == 'ubuntu-latest')
+
+      - name: Download HTML documentation artifact
+        uses: actions/download-artifact@v4.1.8
+        with:
+          name: pygmt-docs-html
+          path: pygmt-docs-html
 
       - name: Push the built HTML to gh-pages
         run: |
@@ -188,10 +156,10 @@ jobs:
               version=dev
           fi
           echo "Deploying version: $version"
-          # Make the new commit message. Needs to happen before cd into deploy
-          # to get the right commit hash.
+          # Make the new commit message. Needs to happen before cd into deploy to get
+          # the right commit hash.
           message="Deploy $version from $(git rev-parse --short HEAD)"
-          cd deploy
+          cd deploy/
           # Create some files in the root directory.
           # .nojekyll: Need to have this file so that GitHub doesn't try to run Jekyll
           touch .nojekyll
@@ -203,7 +171,7 @@ jobs:
           echo -e "\nRemoving old files from previous builds of ${version}:"
           rm -rvf ${version}
           echo -e "\nCopying HTML files to ${version}:"
-          cp -Rvf ../doc/_build/html/ ${version}/
+          cp -Rvf ../pygmt-docs-html/ ${version}/
           # If this is a new release, update the link from /latest to it
           if [[ "${version}" != "dev" ]]; then
               echo -e "\nSetup link from ${version} to 'latest'."
@@ -217,9 +185,8 @@ jobs:
           # Configure git to be the GitHub Actions account
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
-          # If this is a dev build and the last commit was from a dev build
-          # (detect if "dev" was in the previous commit message), reuse the
-          # same commit
+          # If this is a dev build and the last commit was from a dev build (detect if
+          # "dev" was in the previous commit message), reuse the same commit.
           if [[ "${version}" == "dev" && `git log -1 --format='%s'` == *"dev"* ]]; then
               echo -e "\nAmending last commit:"
               git commit --amend --reset-author -m "$message"
@@ -227,9 +194,8 @@ jobs:
               echo -e "\nMaking a new commit:"
               git commit -m "$message"
           fi
-          # Make the push quiet just in case there is anything that could leak
-          # sensitive information.
+          # Make the push quiet just in case there is anything that could leak sensitive
+          # information.
           echo -e "\nPushing changes to gh-pages."
           git push -fq origin gh-pages 2>&1 >/dev/null
           echo -e "\nFinished uploading generated files."
-        if: (github.event_name == 'release' || github.event_name == 'push') && (matrix.os == 'ubuntu-latest')
