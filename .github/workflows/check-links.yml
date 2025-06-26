@@ -40,7 +40,7 @@ jobs:
 
     - name: Link Checker
       id: lychee
-      uses: lycheeverse/lychee-action@v2.4.0
+      uses: lycheeverse/lychee-action@v2.4.1
       with:
         fail: false  # Don't fail action on broken links
         output: /tmp/lychee-out.md
@@ -63,9 +63,11 @@ jobs:
           --exclude "^https://test.pypi.org/simple/"
           --exclude "^https://www.adobe.com/jp/print/postscript/pdfs/PLRM.pdf"
           --exclude "^https://www.generic-mapping-tools.org/remote-datasets/%s$"
+          --exclude "^https://www.gnu.org/software/libc/manual/html_node/TZ-Variable.html"
           --exclude "^https://www.pygmt.org/%7B%7Bpath%7D%7D"
           --exclude "^https://www.researchgate.net/"
           --exclude "^https://zenodo.org/badge/DOI/"
+          --exclude "^https://stackoverflow.com/a/69170441"
           --verbose
           "repository/*.md"
           "repository/**/*.py"

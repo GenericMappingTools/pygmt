@@ -83,7 +83,7 @@ def plot(  # noqa: PLR0912
     polygon outline is drawn or not. If a symbol is selected, ``fill`` and
     ``pen`` determine the fill and outline/no outline, respectively.
 
-    Full option list at :gmt-docs:`plot.html`
+    Full GMT docs at :gmt-docs:`plot.html`.
 
     {aliases}
 
@@ -230,7 +230,7 @@ def plot(  # noqa: PLR0912
     """
     # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
     # parameter.
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     kind = data_kind(data)
     if kind == "empty":  # Data is given via a series of vectors.

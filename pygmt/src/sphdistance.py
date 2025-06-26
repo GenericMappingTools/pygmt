@@ -40,7 +40,7 @@ def sphdistance(
     then processed to calculate the nearest distance to each
     node of the lattice and written to the specified grid.
 
-    Full option list at :gmt-docs:`sphdistance.html`
+    Full GMT docs at :gmt-docs:`sphdistance.html`.
 
     {aliases}
 

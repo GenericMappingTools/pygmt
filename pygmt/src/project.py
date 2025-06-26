@@ -93,8 +93,8 @@ def project(
 
     Flat Earth (Cartesian) coordinate transformations can also be made. Set
     ``flat_earth=True`` and remember that azimuth is clockwise from North (the
-    y axis), NOT the usual cartesian theta, which is counterclockwise from the
-    x axis. azimuth = 90 - theta.
+    y-axis), NOT the usual cartesian theta, which is counterclockwise from the
+    x-axis. azimuth = 90 - theta.
 
     No assumptions are made regarding the units for
     :math:`x, y, r, s, p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}`.
@@ -107,7 +107,7 @@ def project(
     back-azimuths or azimuths are better done using :gmt-docs:`mapproject` as
     project is strictly spherical.
 
-    Full option list at :gmt-docs:`project.html`
+    Full GMT docs at :gmt-docs:`project.html`.
 
     {aliases}
 

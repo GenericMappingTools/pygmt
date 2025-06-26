@@ -48,7 +48,7 @@ def grdcut(
     to determine the corresponding rectangular ``region`` that will give a grid
     that fully covers the oblique domain.
 
-    Full option list at :gmt-docs:`grdcut.html`
+    Full GMT docs at :gmt-docs:`grdcut.html`.
 
     {aliases}
 

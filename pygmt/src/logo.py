@@ -27,7 +27,7 @@ def logo(self, **kwargs):
     Use various options to change this and to place a transparent or
     opaque rectangular map panel behind the GMT logo.
 
-    Full option list at :gmt-docs:`gmtlogo.html`.
+    Full GMT docs at :gmt-docs:`gmtlogo.html`.
 
     {aliases}
 
@@ -54,6 +54,6 @@ def logo(self, **kwargs):
     {panel}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="logo", args=build_arg_list(kwargs))

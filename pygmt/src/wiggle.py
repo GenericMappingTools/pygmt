@@ -11,6 +11,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @use_alias(
     B="frame",
     D="position",
+    G="fillpositive/fillnegative-",
     J="projection",
     R="region",
     T="track",
@@ -48,7 +49,7 @@ def wiggle(
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    Full option list at :gmt-docs:`wiggle.html`
+    Full GMT docs at :gmt-docs:`wiggle.html`.
 
     {aliases}
 
@@ -98,7 +99,7 @@ def wiggle(
     {transparency}
     {wrap}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     if fillpositive or fillnegative:
         kwargs["G"] = []

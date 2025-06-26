@@ -18,6 +18,7 @@ __doctest_skip__ = ["solar"]
     G="fill",
     J="projection",
     R="region",
+    T="terminator/terminator_datetime-",
     V="verbose",
     W="pen",
     c="panel",
@@ -37,7 +38,7 @@ def solar(
     This function plots the day-night terminator. Alternatively, it can plot the
     terminators for civil twilight, nautical twilight, or astronomical twilight.
 
-    Full option list at :gmt-docs:`solar.html`
+    Full GMT docs at :gmt-docs:`solar.html`.
 
     {aliases}
 
@@ -95,7 +96,7 @@ def solar(
     >>> # show the plot
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
     if kwargs.get("T") is not None:
         msg = "Use 'terminator' and 'terminator_datetime' instead of 'T'."
         raise GMTInvalidInput(msg)

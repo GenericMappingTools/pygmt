@@ -75,17 +75,17 @@ def grd2cpt(grid: PathLike | xr.DataArray, **kwargs):
     :gmt-docs:`gmt.conf <gmt.conf>` file or the ``color_model`` parameter
     will be used.
 
-    Full option list at :gmt-docs:`grd2cpt.html`
+    Full GMT docs at :gmt-docs:`grd2cpt.html`.
 
     {aliases}
 
     Parameters
     ----------
     {grid}
-    transparency : int or float or str
-        Set a constant level of transparency (0-100) for all color slices.
-        Append **+a** to also affect the foreground, background, and NaN
-        colors [Default is no transparency, i.e., ``0`` (opaque)].
+    transparency : float or str
+        Set a constant level of transparency (0-100) for all color slices. Append **+a**
+        to also affect the foreground, background, and NaN colors [Default is no
+        transparency, i.e., ``0`` (opaque)].
     cmap : str
         Select the master color palette table (CPT) to use in the
         interpolation. Full list of built-in color palette tables can be found

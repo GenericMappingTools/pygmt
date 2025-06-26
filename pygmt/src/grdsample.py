@@ -41,7 +41,7 @@ def grdsample(
     ``translate`` can be used to change the grid registration. When omitted,
     the output grid will have the same registration as the input grid.
 
-    Full option list at :gmt-docs:`grdsample.html`
+    Full GMT docs at :gmt-docs:`grdsample.html`.
 
     {aliases}
 
@@ -80,7 +80,7 @@ def grdsample(
     ...     resolution="30m", region=[10, 30, 15, 25]
     ... )
     >>> # Create a new grid from an input grid, change the registration,
-    >>> # and set both x- and y-spacing to 0.5 arc-degrees
+    >>> # and set both x- and y-spacings to 0.5 arc-degrees
     >>> new_grid = pygmt.grdsample(grid=grid, translate=True, spacing=[0.5, 0.5])
     """
     with Session() as lib:

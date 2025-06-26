@@ -48,7 +48,7 @@ def grd2xyz(
     Read a grid and output xyz-triplets as a :class:`numpy.ndarray`,
     :class:`pandas.DataFrame`, or ASCII file.
 
-    Full option list at :gmt-docs:`grd2xyz.html`
+    Full GMT docs at :gmt-docs:`grd2xyz.html`.
 
     {aliases}
 

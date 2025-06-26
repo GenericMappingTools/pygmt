@@ -14,6 +14,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     B="frame",
     C="cmap",
     G="fill",
+    L="alabel/blabel/clabel-",
     JX="width",
     R="region",
     S="style",
@@ -43,7 +44,7 @@ def ternary(
     last column in the input.  If ``style`` is not specified then we instead
     plot lines or polygons.
 
-    Full option list at :gmt-docs:`ternary.html`
+    Full GMT docs at :gmt-docs:`ternary.html`.
 
     {aliases}
 
@@ -81,7 +82,7 @@ def ternary(
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     # -Lalabel/blabel/clabel. '-' means skipping the label.
     labels = (alabel, blabel, clabel)

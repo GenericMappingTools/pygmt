@@ -109,7 +109,14 @@ def _parse_fill_mode(
 # TODO(PyGMT>=0.19.0): Remove the deprecated 'no_data' parameter.
 # TODO(PyGMT>=0.19.0): Remove the deprecated 'mode' parameter.
 @deprecate_parameter("no_data", "hole", "v0.15.0", remove_version="v0.19.0")
-@use_alias(N="hole", R="region", V="verbose", f="coltypes")
+@use_alias(
+    A="constantfill/gridfill/neighborfill/splinefill/mode-",
+    L="inquire-",
+    N="hole",
+    R="region",
+    V="verbose",
+    f="coltypes",
+)
 @kwargs_to_strings(R="sequence")
 def grdfill(
     grid: PathLike | xr.DataArray,
@@ -131,7 +138,7 @@ def grdfill(
     replace the hole values. If no holes are found the original unchanged grid is
     returned.
 
-    Full option list at :gmt-docs:`grdfill.html`.
+    Full GMT docs at :gmt-docs:`grdfill.html`.
 
     {aliases}
 
