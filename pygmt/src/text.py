@@ -1,11 +1,11 @@
 """
-text - Plot text on a figure.
+text - Plot or typeset text.
 """
 
 from collections.abc import Sequence
 
 import numpy as np
-from pygmt._typing import AnchorCode, StringArrayTypes
+from pygmt._typing import AnchorCode, PathLike, StringArrayTypes, TableLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -27,6 +27,7 @@ from pygmt.helpers import (
     B="frame",
     C="clearance",
     D="offset",
+    F="position/angle/font/justify-",
     G="fill",
     N="no_clip",
     V="verbose",
@@ -44,7 +45,7 @@ from pygmt.helpers import (
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def text_(  # noqa: PLR0912
     self,
-    textfiles=None,
+    textfiles: PathLike | TableLike | None = None,
     x=None,
     y=None,
     position: AnchorCode | None = None,
@@ -55,7 +56,7 @@ def text_(  # noqa: PLR0912
     **kwargs,
 ):
     r"""
-    Plot or typeset text strings of variable size, font type, and orientation.
+    Plot or typeset text.
 
     Must provide at least one of the following combinations as input:
 
@@ -68,7 +69,7 @@ def text_(  # noqa: PLR0912
     ZapfDingbats and ISO-8859-x (x can be 1-11, 13-16) encodings. Refer to
     :doc:`/techref/encodings` for the full list of supported non-ASCII characters.
 
-    Full option list at :gmt-docs:`text.html`.
+    Full GMT docs at :gmt-docs:`text.html`.
 
     {aliases}
 
@@ -179,7 +180,7 @@ def text_(  # noqa: PLR0912
         ``x``/``y`` and ``text``.
     {wrap}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     # Ensure inputs are either textfiles, x/y/text, or position/text
     if (
@@ -190,8 +191,8 @@ def text_(  # noqa: PLR0912
         msg = "Provide either 'textfiles', 'x'/'y'/'text', or 'position'/'text'."
         raise GMTInvalidInput(msg)
 
-    required_data = position is None
-    kind = data_kind(textfiles, required=required_data)
+    data_is_required = position is None
+    kind = data_kind(textfiles, required=data_is_required)
 
     if position is not None and (text is None or is_nonstr_iter(text)):
         msg = "'text' can't be None or array when 'position' is given."
@@ -222,22 +223,24 @@ def text_(  # noqa: PLR0912
         elif isinstance(arg, int | float | str):
             kwargs["F"] += f"{flag}{arg}"
 
-    extra_arrays = []
     confdict = {}
+    data = None
     if kind == "empty":
+        data = {"x": x, "y": y}
+
         for arg, flag, name in array_args:
             if is_nonstr_iter(arg):
                 kwargs["F"] += flag
                 # angle is numeric type and font/justify are str type.
                 if name == "angle":
-                    extra_arrays.append(arg)
+                    data["angle"] = arg
                 else:
-                    extra_arrays.append(np.asarray(arg, dtype=np.str_))
+                    data[name] = np.asarray(arg, dtype=np.str_)
 
         # If an array of transparency is given, GMT will read it from the last numerical
         # column per data record.
         if is_nonstr_iter(kwargs.get("t")):
-            extra_arrays.append(kwargs["t"])
+            data["transparency"] = kwargs["t"]
             kwargs["t"] = True
 
         # Append text to the last column. Text must be passed in as str type.
@@ -247,7 +250,7 @@ def text_(  # noqa: PLR0912
                 text, encoding=encoding
             )
             confdict["PS_CHAR_ENCODING"] = encoding
-        extra_arrays.append(text)
+        data["text"] = text
     else:
         if isinstance(position, str):
             kwargs["F"] += f"+c{position}+t{text}"
@@ -259,12 +262,7 @@ def text_(  # noqa: PLR0912
 
     with Session() as lib:
         with lib.virtualfile_in(
-            check_kind="vector",
-            data=textfiles,
-            x=x,
-            y=y,
-            extra_arrays=extra_arrays,
-            required_data=required_data,
+            check_kind="vector", data=textfiles or data, required=data_is_required
         ) as vintbl:
             lib.call_module(
                 module="text",

@@ -1,8 +1,9 @@
 """
-sphinterpolate - Spherical gridding in tension of data on a sphere
+sphinterpolate - Spherical gridding in tension of data on a sphere.
 """
 
 import xarray as xr
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -16,9 +17,11 @@ __doctest_skip__ = ["sphinterpolate"]
     V="verbose",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def sphinterpolate(data, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
+def sphinterpolate(
+    data: PathLike | TableLike, outgrid: PathLike | None = None, **kwargs
+) -> xr.DataArray | None:
     r"""
-    Create spherical grid files in tension of data.
+    Spherical gridding in tension of data on a sphere.
 
     Reads a table containing *lon, lat, z* columns and performs a Delaunay
     triangulation to set up a spherical interpolation in tension. Several
@@ -26,13 +29,13 @@ def sphinterpolate(data, outgrid: str | None = None, **kwargs) -> xr.DataArray |
     global gradient estimation or optimize the tension selection to satisfy one
     of four criteria.
 
-    Full option list at :gmt-docs:`sphinterpolate.html`
+    Full GMT docs at :gmt-docs:`sphinterpolate.html`.
 
     {aliases}
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.

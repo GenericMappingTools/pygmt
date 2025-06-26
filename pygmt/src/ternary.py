@@ -4,6 +4,7 @@ ternary - Plot data on ternary diagrams.
 
 import pandas as pd
 from packaging.version import Version
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session, __gmt_version__
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -13,6 +14,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     B="frame",
     C="cmap",
     G="fill",
+    L="alabel/blabel/clabel-",
     JX="width",
     R="region",
     S="style",
@@ -25,14 +27,14 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def ternary(
     self,
-    data,
+    data: PathLike | TableLike,
     alabel: str | None = None,
     blabel: str | None = None,
     clabel: str | None = None,
     **kwargs,
 ):
     r"""
-    Plot ternary diagrams.
+    Plot data on ternary diagrams.
 
     Reads (*a*,\ *b*,\ *c*\ [,\ *z*]) records from *data* and plots symbols at
     those locations on a ternary diagram. If a symbol is selected and no symbol
@@ -42,13 +44,13 @@ def ternary(
     last column in the input.  If ``style`` is not specified then we instead
     plot lines or polygons.
 
-    Full option list at :gmt-docs:`ternary.html`
+    Full GMT docs at :gmt-docs:`ternary.html`.
 
     {aliases}
 
     Parameters
     ----------
-    data : str, list, {table-like}
+    data
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         {table-classes}.
     width : str
@@ -80,7 +82,7 @@ def ternary(
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     # -Lalabel/blabel/clabel. '-' means skipping the label.
     labels = (alabel, blabel, clabel)

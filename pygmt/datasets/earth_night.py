@@ -5,16 +5,11 @@ load as :class:`xarray.DataArray`.
 The images are available in various resolutions.
 """
 
-import contextlib
 from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
-
-with contextlib.suppress(ImportError):
-    # rioxarray is needed to register the rio accessor
-    import rioxarray  # noqa: F401
 
 __doctest_skip__ = ["load_black_marble"]
 
@@ -45,14 +40,16 @@ def load_black_marble(
 
        Earth day/night dataset.
 
-    The images are downloaded to a user data directory (usually
-    ``~/.gmt/server/earth/earth_night/``) the first time you invoke this function.
-    Afterwards, it will load the image from the data directory. So you'll need an
-    internet connection the first time around.
+    This function downloads the dataset from the GMT data server, caches it in a user
+    data directory (usually ``~/.gmt/server/earth/earth_night/``), and load the dataset
+    as an :class:`xarray.DataArray`. An internet connection is required the first time
+    around, but subsequent calls will load the dataset from the local data directory.
 
-    These images can also be accessed by passing in the file name
-    **@earth_night**\_\ *res* to any image processing function or plotting method. *res*
-    is the image resolution (see below).
+    The dataset can also be accessed by specifying a file name in any grid processing
+    function or plotting method, using the following file name format:
+    **@earth_night**\_\ *res*. *res* is the grid resolution. If *res* is omitted (i.e.,
+    ``@earth_night``), GMT automatically selects a suitable resolution based on the
+    current region and projection settings.
 
     Refer to :gmt-datasets:`earth-daynight.html` for more details about available
     datasets, including version information and references.
@@ -74,18 +71,14 @@ def load_black_marble(
     Note
     ----
     The registration and coordinate system type of the returned
-    :class:`xarray.DataArray` image can be accessed via the GMT accessors (i.e.,
-    ``image.gmt.registration`` and ``image.gmt.gtype`` respectively). However, these
-    properties may be lost after specific image operations (such as slicing) and will
-    need to be manually set before passing the image to any PyGMT data processing or
-    plotting functions. Refer to :class:`pygmt.GMTDataArrayAccessor` for detailed
-    explanations and workarounds.
+    :class:`xarray.DataArray` image can be accessed via the *gmt* accessor. Refer to
+    :class:`pygmt.GMTDataArrayAccessor` for detailed explanations and limitations.
 
     Examples
     --------
 
     >>> from pygmt.datasets import load_black_marble
-    >>> # load the default image (pixel-registered 1 arc-degree image)
+    >>> # Load the default image (pixel-registered 1 arc-degree image)
     >>> image = load_black_marble()
     """
     image = _load_remote_dataset(
@@ -95,7 +88,4 @@ def load_black_marble(
         region=region,
         registration="pixel",
     )
-    # If rioxarray is installed, set the coordinate reference system
-    if hasattr(image, "rio"):
-        image = image.rio.write_crs(input_crs="OGC:CRS84")
     return image

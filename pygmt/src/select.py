@@ -6,6 +6,7 @@ from typing import Literal
 
 import numpy as np
 import pandas as pd
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -14,6 +15,7 @@ from pygmt.helpers import (
     use_alias,
     validate_output_table_type,
 )
+from pygmt.src._common import _parse_coastline_resolution
 
 __doctest_skip__ = ["select"]
 
@@ -22,7 +24,7 @@ __doctest_skip__ = ["select"]
 @use_alias(
     A="area_thresh",
     C="dist2pt",
-    D="resolution",
+    D="resolution-",
     F="polygon",
     G="gridmask",
     I="reverse",
@@ -43,11 +45,14 @@ __doctest_skip__ = ["select"]
     s="skiprows",
     w="wrap",
 )
-@kwargs_to_strings(M="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(N="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
 def select(
-    data=None,
+    data: PathLike | TableLike | None = None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
-    outfile: str | None = None,
+    outfile: PathLike | None = None,
+    resolution: Literal[
+        "auto", "full", "high", "intermediate", "low", "crude", None
+    ] = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -69,13 +74,13 @@ def select(
     The sense of the tests can be reversed for each of these 7 criteria by
     using the ``reverse`` parameter.
 
-    Full option list at :gmt-docs:`gmtselect.html`
+    Full GMT docs at :gmt-docs:`gmtselect.html`.
 
     {aliases}
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
     {output_type}
@@ -116,16 +121,6 @@ def select(
         <reference/file-formats.html#optional-segment-header-records>`
         *polygonfile*. For spherical polygons (lon, lat), make sure no
         consecutive points are separated by 180 degrees or more in longitude.
-    resolution : str
-        *resolution*\ [**+f**].
-        Ignored unless ``mask`` is set. Selects the resolution of the coastline
-        data set to use ((**f**)ull, (**h**)igh, (**i**)ntermediate, (**l**)ow,
-        or (**c**)rude). The resolution drops off by ~80% between data sets.
-        [Default is **l**]. Append (**+f**) to automatically select a lower
-        resolution should the one requested not be available [Default is abort
-        if not found]. Note that because the coastlines differ in details
-        it is not guaranteed that a point will remain inside [or outside] when
-        a different resolution is selected.
     gridmask : str
         Pass all locations that are inside the valid data area of the grid
         *gridmask*. Nodes that are outside are either NaN or zero.
@@ -154,6 +149,15 @@ def select(
 
         [Default is s/k/s/k/s (i.e., s/k), which passes all points on dry
         land].
+    resolution
+        Ignored unless ``mask`` is set. Select the resolution of the coastline dataset
+        to use. The available resolutions from highest to lowest are: ``"full"``,
+        ``"high"``, ``"intermediate"``, ``"low"``, and ``"crude"``, which drops by 80%
+        between levels. Alternatively, choose ``"auto"`` to automatically select the
+        most suitable resolution given the chosen region. Note that because the
+        coastlines differ in details, a node in a mask file using one resolution is not
+        guaranteed to remain inside [or outside] when a different resolution is
+        selected. If ``None``, the low resolution is used by default.
     {region}
     {verbose}
     z_subregion : str or list
@@ -205,6 +209,8 @@ def select(
     >>> # longitudes 246 and 247 and latitudes 20 and 21
     >>> out = pygmt.select(data=ship_data, region=[246, 247, 20, 21])
     """
+    kwargs["D"] = kwargs.get("D", _parse_coastline_resolution(resolution))
+
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
     column_names = None

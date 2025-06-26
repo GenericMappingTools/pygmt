@@ -1,6 +1,8 @@
 """
-coast - Plot land and water.
+coast - Plot continents, countries, shorelines, rivers, and borders.
 """
+
+from typing import Literal
 
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
@@ -11,6 +13,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.src._common import _parse_coastline_resolution
 
 __doctest_skip__ = ["coast"]
 
@@ -20,7 +23,7 @@ __doctest_skip__ = ["coast"]
     A="area_thresh",
     B="frame",
     C="lakes",
-    D="resolution",
+    D="resolution-",
     E="dcw",
     F="box",
     G="land",
@@ -37,9 +40,15 @@ __doctest_skip__ = ["coast"]
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def coast(self, **kwargs):
+def coast(
+    self,
+    resolution: Literal[
+        "auto", "full", "high", "intermediate", "low", "crude", None
+    ] = None,
+    **kwargs,
+):
     r"""
-    Plot continents, shorelines, rivers, and borders on maps.
+    Plot continents, countries, shorelines, rivers, and borders.
 
     Plots grayshaded, colored, or textured land masses [or water masses] on
     maps and [optionally] draws coastlines, rivers, and political
@@ -55,7 +64,7 @@ def coast(self, **kwargs):
 
     A map projection must be supplied.
 
-    Full option list at :gmt-docs:`coast.html`
+    Full GMT docs at :gmt-docs:`coast.html`.
 
     {aliases}
 
@@ -73,10 +82,12 @@ def coast(self, **kwargs):
         parameter. Optionally, specify separate fills by appending
         **+l** for lakes or **+r** for river-lakes, and passing multiple
         strings in a list.
-    resolution : str
-        **f**\|\ **h**\|\ **i**\|\ **l**\|\ **c**.
-        Select the resolution of the data set to: (**f**\ )ull, (**h**\ )igh,
-        (**i**\ )ntermediate, (**l**\ )ow, and (**c**\ )rude.
+    resolution
+        Select the resolution of the coastline dataset to use. The available resolutions
+        from highest to lowest are: ``"full"``, ``"high"``, ``"intermediate"``,
+        ``"low"``, and ``"crude"``, which drops by 80% between levels. Default is
+        ``"auto"`` to automatically select the most suitable resolution given the chosen
+        map scale.
     land : str
         Select filling of "dry" areas.
     rivers : int, str, or list
@@ -119,12 +130,12 @@ def coast(self, **kwargs):
         **+p**\ *pen*. Add **+g**\ *fill* to fill the scale panel [Default is
         no fill]. Append **+c**\ *clearance* where *clearance* is either gap,
         xgap/ygap, or lgap/rgap/bgap/tgap where these items are uniform,
-        separate in x- and y-direction, or individual side spacings between
-        scale and border. Append **+i** to draw a secondary, inner border as
-        well. We use a uniform gap between borders of 2p and the
+        separate x and y, or individual side spacings between scale and
+        border. Append **+i** to draw a secondary, inner border as well.
+        We use a uniform gap between borders of 2 points and the
         :gmt-term:`MAP_DEFAULTS_PEN` unless other values are specified. Append
-        **+r** to draw rounded rectangular borders instead, with a 6p corner
-        radius. You can override this radius by appending another value.
+        **+r** to draw rounded rectangular borders instead, with a 6-points
+        corner radius. You can override this radius by appending another value.
         Finally, append **+s** to draw an offset background shaded region.
         Here, *dx/dy* indicates the shift relative to the foreground frame
         [Default is ``"4p/-4p"``] and shade sets the fill style to use for
@@ -144,7 +155,7 @@ def coast(self, **kwargs):
 
     water : str
         Select filling "wet" areas.
-    shorelines : int, str, or list
+    shorelines : bool, int, str, or list
         [*level*\ /]\ *pen*.
         Draw shorelines [Default is no shorelines]. Append pen attributes
         [Default is ``"0.25p,black,solid"``] which apply to all four levels.
@@ -193,12 +204,15 @@ def coast(self, **kwargs):
     >>> # Show the plot
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
     if not args_in_kwargs(args=["C", "G", "S", "I", "N", "E", "Q", "W"], kwargs=kwargs):
         msg = (
             "At least one of the following parameters must be specified: "
             "lakes, land, water, rivers, borders, dcw, Q, or shorelines."
         )
         raise GMTInvalidInput(msg)
+
+    kwargs["D"] = kwargs.get("D", _parse_coastline_resolution(resolution))
+
     with Session() as lib:
         lib.call_module(module="coast", args=build_arg_list(kwargs))

@@ -1,7 +1,9 @@
 """
-grdcontour - Plot a contour figure.
+grdcontour - Make contour map using a grid.
 """
 
+import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -36,13 +38,13 @@ __doctest_skip__ = ["grdcontour"]
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", L="sequence", c="sequence_comma", p="sequence")
-def grdcontour(self, grid, **kwargs):
+def grdcontour(self, grid: PathLike | xr.DataArray, **kwargs):
     r"""
-    Convert grids or images to contours and plot them on maps.
+    Make contour map using a grid.
 
     Takes a grid file name or an :class:`xarray.DataArray` object as input.
 
-    Full option list at :gmt-docs:`grdcontour.html`
+    Full GMT docs at :gmt-docs:`grdcontour.html`.
 
     {aliases}
 
@@ -136,7 +138,7 @@ def grdcontour(self, grid, **kwargs):
     >>> # Show the plot
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     # Specify levels for the annotation and levels parameters.
     # One level is converted to a string with a trailing comma to separate it from

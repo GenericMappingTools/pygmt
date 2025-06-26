@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=64", "setuptools_scm[toml]>=6.2"]
+requires = ["setuptools>=77", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,6 +8,8 @@ description = "A Python interface for the Generic Mapping Tools"
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [{name = "The PyGMT Developers", email = "pygmt.team@gmail.com"}]
+license = "BSD-3-Clause"
+license-files = ["LICENSE.txt"]
 keywords = [
     "cartography",
     "geodesy",
@@ -31,25 +33,26 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
-    "License :: OSI Approved :: BSD License",
 ]
 dependencies = [
-    "numpy>=1.25",
-    "pandas>=2.0",
-    "xarray>=2023.04",
-    "netCDF4",
-    "packaging",
+    "numpy>=1.26",
+    "pandas>=2.1",
+    "xarray>=2023.07",
+    "packaging>=24.2",
 ]
 dynamic = ["version"]
 
 [project.optional-dependencies]
 all = [
-    "contextily",
-    "geopandas",
+    "contextily>=1.5",
+    "geopandas>=1.0",
     "IPython",  # 'ipython' is not the correct module name.
-    "pyarrow",
+    "pyarrow>=16",
     "rioxarray",
 ]
+
+[project.entry-points."xarray.backends"]
+gmt = "pygmt.xarray:GMTBackendEntrypoint"
 
 [project.urls]
 "Homepage" = "https://www.pygmt.org"
@@ -58,14 +61,12 @@ all = [
 "Changelog" = "https://www.pygmt.org/latest/changes.html"
 "Issue Tracker" = "https://github.com/GenericMappingTools/pygmt/issues"
 
-[tool.setuptools]
-license-files = ["LICENSE.txt"]
-
 [tool.setuptools.packages.find]
 include = ["pygmt*"]
 exclude = ["doc"]
 
 [tool.setuptools_scm]
+version_scheme = "release-branch-semver"
 local_scheme = "node-and-date"
 fallback_version = "999.999.999+unknown"
 
@@ -146,7 +147,6 @@ ignore = [
     "D412",     # No blank lines allowed between a section header and its content
     "E501",     # Avoid enforcing line-length violations
     "ISC001",   # Single-line-implicit-string-concatenation, conflict with formatter
-    "PD901",    # Allow using the generic variable name `df` for DataFrames
     "PT023",    # Allow using pytest marker without parentheses
     "PLR2004",  # Allow any magic values
     "RET504",   # Allow variable assignment and return immediately for readability

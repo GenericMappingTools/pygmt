@@ -28,6 +28,7 @@ from pygmt.exceptions import GMTCLibError, GMTCLibNoSessionError, GMTInvalidInpu
 from pygmt.helpers import (
     _validate_data_input,
     data_kind,
+    deprecate_parameter,
     tempfile_from_geojson,
     tempfile_from_image,
 )
@@ -1390,9 +1391,7 @@ class Session:
                 raise GMTCLibError(msg)
 
     @contextlib.contextmanager
-    def virtualfile_from_vectors(
-        self, vectors: Sequence, *args
-    ) -> Generator[str, None, None]:
+    def virtualfile_from_vectors(self, vectors: Sequence) -> Generator[str, None, None]:
         """
         Store a sequence of 1-D vectors as columns of a dataset inside a virtual file.
 
@@ -1438,21 +1437,6 @@ class Session:
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <1/3> <4/6> <7/9>
         """
-        # TODO(PyGMT>=0.16.0): Remove the "*args" parameter and related codes.
-        # "*args" is added in v0.14.0 for backward-compatibility with the deprecated
-        # syntax of passing multiple vectors as positional arguments.
-        if len(args) > 0:
-            msg = (
-                "Passing multiple arguments to Session.virtualfile_from_vectors is "
-                "deprecated since v0.14.0 and will be unsupported in v0.16.0. "
-                "Put all vectors in a sequence (a tuple or a list) instead and pass "
-                "the sequence as the single argument to this function. "
-                "E.g., use `with lib.virtualfile_from_vectors((x, y, z)) as vfile` "
-                "instead of `with lib.virtualfile_from_vectors(x, y, z) as vfile`."
-            )
-            warnings.warn(message=msg, category=FutureWarning, stacklevel=3)
-            vectors = (vectors, *args)
-
         # Conversion to a C-contiguous array needs to be done here and not in put_vector
         # or put_strings because we need to maintain a reference to the copy while it is
         # being used by the C API. Otherwise, the array would be garbage collected and
@@ -1765,16 +1749,23 @@ class Session:
                     seg.header = None
                     seg.text = None
 
-    def virtualfile_in(
+    # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'required_z'.
+    # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'extra_arrays'.
+    # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'required_data'.
+    @deprecate_parameter(
+        "required_data", "required", "v0.16.0", remove_version="v0.20.0"
+    )
+    def virtualfile_in(  # noqa: PLR0912
         self,
         check_kind=None,
         data=None,
         x=None,
         y=None,
         z=None,
-        extra_arrays=None,
+        required=True,
+        mincols=2,
         required_z=False,
-        required_data=True,
+        extra_arrays=None,
     ):
         """
         Store any data inside a virtual file.
@@ -1788,20 +1779,37 @@ class Session:
         check_kind : str or None
             Used to validate the type of data that can be passed in. Choose
             from 'raster', 'vector', or None. Default is None (no validation).
-        data : str or pathlib.Path or xarray.DataArray or {table-like} or None
+        data
             Any raster or vector data format. This could be a file name or
             path, a raster grid, a vector matrix/arrays, or other supported
             data input.
         x/y/z : 1-D arrays or None
             x, y, and z columns as numpy arrays.
-        extra_arrays : list of 1-D arrays
-            Optional. A list of numpy arrays in addition to x, y, and z.
-            All of these arrays must be of the same size as the x/y/z arrays.
+        required : bool
+            Set to True when 'data' or ('x' and 'y') is required. Set to False when
+            dealing with optional virtual files. Default is True.
+
+            .. versionchanged:: v0.16.0
+               The parameter 'required_data' is renamed to 'required'. The parameter
+               'required_data' is deprecated in v0.16.0 and will be removed in v0.20.0.
+        mincols
+            Number of minimum required columns. Default is 2 (i.e. require x and y
+            columns).
         required_z : bool
             State whether the 'z' column is required.
-        required_data : bool
-            Set to True when 'data' is required, or False when dealing with
-            optional virtual files. [Default is True].
+
+            .. deprecated:: v0.16.0
+               The parameter 'required_z' will be removed in v0.20.0. Use parameter
+               'mincols' instead. E.g., ``required_z=True`` is equivalent to
+               ``mincols=3``.
+        extra_arrays : list of 1-D arrays
+            A list of numpy arrays in addition to x, y, and z. All of these arrays must
+            be of the same size as the x/y/z arrays.
+
+            .. deprecated:: v0.16.0
+               The parameter 'extra_arrays' will be removed in v0.20.0. Prepare and pass
+               a dictionary of arrays instead to the `data` parameter. E.g.,
+               ``data={"x": x, "y": y, "size": size}``.
 
         Returns
         -------
@@ -1829,19 +1837,29 @@ class Session:
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
-        kind = data_kind(data, required=required_data)
+        if required_z is True:
+            warnings.warn(
+                "The parameter 'required_z' is deprecated in v0.16.0 and will be "
+                "removed in v0.20.0. Use parameter 'mincols' instead. E.g., "
+                "``required_z=True`` is equivalent to ``mincols=3``.",
+                category=FutureWarning,
+                stacklevel=1,
+            )
+            mincols = 3
+
+        kind = data_kind(data, required=required)
         _validate_data_input(
             data=data,
             x=x,
             y=y,
             z=z,
-            required_z=required_z,
-            required_data=required_data,
+            required=required,
+            mincols=mincols,
             kind=kind,
         )
 
         if check_kind:
-            valid_kinds = ("file", "arg") if required_data is False else ("file",)
+            valid_kinds = ("file", "arg") if required is False else ("file",)
             if check_kind == "raster":
                 valid_kinds += ("grid", "image")
             elif check_kind == "vector":
@@ -1880,10 +1898,16 @@ class Session:
                 if z is not None:
                     _data.append(z)
                 if extra_arrays:
+                    msg = (
+                        "The parameter 'extra_arrays' will be removed in v0.20.0. "
+                        "Prepare and pass a dictionary of arrays instead to the `data` "
+                        "parameter. E.g., `data={'x': x, 'y': y, 'size': size}`"
+                    )
+                    warnings.warn(message=msg, category=FutureWarning, stacklevel=1)
                     _data.extend(extra_arrays)
             case "vectors":
                 if hasattr(data, "items") and not hasattr(data, "to_frame"):
-                    # pandas.DataFrame or xarray.Dataset types.
+                    # Dictionary, pandas.DataFrame or xarray.Dataset types.
                     # pandas.Series will be handled below like a 1-D numpy.ndarray.
                     _data = [array for _, array in data.items()]
                 else:

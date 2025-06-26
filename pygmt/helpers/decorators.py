@@ -71,28 +71,15 @@ COMMON_DOCSTRINGS = {
             :gmt-docs:`gmt.html#f-full`.""",
     "cores": r"""
         cores : bool or int
-            [[**-**]\ *n*].
-            Limit the number of cores to be used in any OpenMP-enabled
-            multi-threaded algorithms. By default we try to use all available
-            cores. Set a number *n* to only use n cores (if too large it will
-            be truncated to the maximum cores available). Finally, give a
-            negative number *-n* to select (all - *n*) cores (or at least 1 if
-            *n* equals or exceeds all).
-            """,
+            Specify the number of active cores to be used in any OpenMP-enabled
+            multi-threaded algorithms. By default, all available cores are used. Set a
+            positive number *n* to use *n* cores (if too large it will be truncated to
+            the maximum cores available); or set a negative number *-n* to select
+            (all - *n*) cores (or at least 1 if *n* equals or exceeds all).""",
     "distcalc": r"""
         distcalc : str
-            **e**\|\ **f**\|\ **g**.
-            Determine how spherical distances are calculated.
-
-            - **e**: Ellipsoidal (or geodesic) mode
-            - **f**: Flat Earth mode
-            - **g**: Great circle distance [Default]
-
-            All spherical distance calculations depend on the current ellipsoid
-            (:gmt-term:`PROJ_ELLIPSOID`), the definition of the mean radius
-            (:gmt-term:`PROJ_MEAN_RADIUS`), and the specification of latitude type
-            (:gmt-term:`PROJ_AUX_LATITUDE`). Geodesic distance calculations is also
-            controlled by method (:gmt-term:`PROJ_GEODESIC`).""",
+            Determine how spherical distances are calculated
+            [:term:`Full usage <distcalc>`].""",
     "fill": r"""
         fill : str
             Set color or pattern for filling symbols or polygons
@@ -151,7 +138,7 @@ COMMON_DOCSTRINGS = {
                 - **+p**: specify that the current value minus the previous
                   value must exceed *gap* for a break to be imposed.""",
     "grid": r"""
-        grid : str or xarray.DataArray
+        grid
             Name of the input grid file or the grid loaded as a
             :class:`xarray.DataArray` object.
 
@@ -275,14 +262,15 @@ COMMON_DOCSTRINGS = {
         """,
     "panel": r"""
         panel : bool, int, or list
-            [*row,col*\|\ *index*].
-            Select a specific subplot panel. Only allowed when in subplot
-            mode. Use ``panel=True`` to advance to the next panel in the
-            selected order. Instead of *row,col* you may also give a scalar
-            value *index* which depends on the order you set via ``autolabel``
-            when the subplot was defined. **Note**: *row*, *col*, and *index*
-            all start at 0.
-         """,
+            Select a specific subplot panel. Only allowed when used in
+            :meth:`Figure.subplot` mode.
+
+            - ``True`` to advance to the next panel in the selected order.
+            - *index* to specify the index of the desired panel.
+            - (*row*, *col*) to specify the row and column of the desired panel.
+
+            The panel order is determined by the :meth:`Figure.subplot` method. *row*,
+            *col* and *index* all start at 0.""",
     "pen": r"""
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
@@ -364,16 +352,7 @@ COMMON_DOCSTRINGS = {
             in the image (for further processing). """,
     "verbose": r"""
         verbose : bool or str
-            Select verbosity level [Default is **w**], which modulates the messages
-            written to stderr. Choose among 7 levels of verbosity:
-
-            - **q**: Quiet, not even fatal error messages are produced
-            - **e**: Error messages only
-            - **w**: Warnings [Default]
-            - **t**: Timings (report runtimes for time-intensive algorithms)
-            - **i**: Informational messages (same as ``verbose=True``)
-            - **c**: Compatibility warnings
-            - **d**: Debugging messages""",
+            Select verbosity level [:term:`Full usage <verbose>`].""",
     "wrap": r"""
         wrap : str
             **y**\|\ **a**\|\ **w**\|\ **d**\|\ **h**\|\ **m**\|\ **s**\|\
@@ -427,7 +406,7 @@ def fmt_docstring(module_func):
     ...
     ...     Parameters
     ...     ----------
-    ...     data : str, {table-like}
+    ...     data
     ...         Pass in either a file name to an ASCII data table, a 2-D
     ...         {table-classes}.
     ...     {region}
@@ -442,7 +421,7 @@ def fmt_docstring(module_func):
     <BLANKLINE>
     Parameters
     ----------
-    data : str, numpy.ndarray, pandas.DataFrame, xarray.Dataset, or geo...
+    data
         Pass in either a file name to an ASCII data table, a 2-D
         :class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an
         :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`
@@ -471,12 +450,11 @@ def fmt_docstring(module_func):
         aliases.append("   :columns: 3\n")
         for arg in sorted(module_func.aliases):
             alias = module_func.aliases[arg]
-            aliases.append(f"   - {arg} = {alias}")
+            # Trailing dash means it's not aliased but should be listed.
+            # Remove the trailing dash if it exists.
+            aliases.append(f"   - {arg} = {alias.rstrip('-')}")
         filler_text["aliases"] = "\n".join(aliases)
 
-    filler_text["table-like"] = (
-        "numpy.ndarray, pandas.DataFrame, xarray.Dataset, or geopandas.GeoDataFrame"
-    )
     filler_text["table-classes"] = (
         ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an\n"
         "    :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`\n"
@@ -508,6 +486,9 @@ def _insert_alias(module_func, default_value=None):
     kwargs_param = wrapped_params.pop(-1)
     # Add new parameters from aliases
     for alias in module_func.aliases.values():
+        if alias.endswith("-"):
+            # Trailing dash means it's not aliased but should be listed.
+            continue
         if alias not in sig.parameters:
             new_param = Parameter(
                 alias, kind=Parameter.KEYWORD_ONLY, default=default_value
@@ -572,6 +553,31 @@ def use_alias(**aliases):
             New module that parses and replaces the registered aliases.
             """
             for short_param, long_alias in aliases.items():
+                if long_alias.endswith("-"):
+                    _long_alias = long_alias.rstrip("-")
+                    # Trailing dash means it's not aliased but should be listed.
+                    _alias_list = _long_alias.split("/")
+                    if (
+                        any(_alias in kwargs for _alias in _alias_list)
+                        and short_param in kwargs
+                    ):  # Both long- and short- forms are given.
+                        msg = (
+                            f"Parameters in short-form ({short_param}) and "
+                            f"long-form ({_long_alias}) can't coexist."
+                        )
+                        raise GMTInvalidInput(msg)
+                    if short_param in kwargs:  # Only short-alias is given
+                        if len(_alias_list) > 1:  # Aliased to multiple long-forms
+                            msg = (
+                                f"Short-form parameter ({short_param}) is not "
+                                f"recognized. Use long-form parameter(s) "
+                                f"'{_long_alias}' instead."
+                            )
+                            raise GMTInvalidInput(msg)
+                        # If there is only one long-form parameter, use it.
+                        kwargs[_long_alias] = kwargs.pop(short_param)
+                    continue
+
                 if long_alias in kwargs and short_param in kwargs:
                     msg = (
                         f"Parameters in short-form ({short_param}) and "

@@ -114,7 +114,7 @@ def test_delaunay_triples_outfile(dataframe, expected_dataframe):
     with GMTTempFile(suffix=".txt") as tmpfile:
         with pytest.warns(RuntimeWarning) as record:
             result = triangulate.delaunay_triples(data=dataframe, outfile=tmpfile.name)
-            assert len(record) == 1  # check that only one warning was raised
+        assert len(record) == 1  # check that only one warning was raised
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0
         temp_df = pd.read_csv(
@@ -140,8 +140,8 @@ def test_regular_grid_no_outgrid(dataframe, expected_grid):
     data = dataframe.to_numpy()
     output = triangulate.regular_grid(data=data, spacing=1, region=[2, 4, 5, 6])
     assert isinstance(output, xr.DataArray)
-    assert output.gmt.registration == GridRegistration.GRIDLINE
-    assert output.gmt.gtype == GridType.CARTESIAN
+    assert output.gmt.registration is GridRegistration.GRIDLINE
+    assert output.gmt.gtype is GridType.CARTESIAN
     xr.testing.assert_allclose(a=output, b=expected_grid)
 
 
@@ -156,8 +156,8 @@ def test_regular_grid_with_outgrid_param(dataframe, expected_grid):
         )
         assert output is None  # check that output is None since outgrid is set
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
-        with xr.open_dataarray(tmpfile.name) as grid:
-            assert isinstance(grid, xr.DataArray)
-            assert grid.gmt.registration == GridRegistration.GRIDLINE
-            assert grid.gmt.gtype == GridType.CARTESIAN
-            xr.testing.assert_allclose(a=grid, b=expected_grid)
+        grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
+        assert isinstance(grid, xr.DataArray)
+        assert grid.gmt.registration is GridRegistration.GRIDLINE
+        assert grid.gmt.gtype is GridType.CARTESIAN
+        xr.testing.assert_allclose(a=grid, b=expected_grid)

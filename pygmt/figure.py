@@ -4,11 +4,13 @@ Define the Figure class that handles all plotting.
 
 import base64
 import os
-from pathlib import Path, PurePath
+import warnings
+from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Literal, overload
 
 from pygmt._state import _STATE
+from pygmt._typing import PathLike
 
 try:
     import IPython
@@ -132,12 +134,19 @@ class Figure:
         # Track the current activated figure name
         _STATE["current_figure"] = self._name
 
+    # TODO(PyGMT>=v0.18.0):  Remove the _preprocess method.
     def _preprocess(self, **kwargs):
         """
         Call the ``figure`` module before each plotting command to ensure we're plotting
         to this particular figure.
         """
         self._activate_figure()
+        warnings.warn(
+            "The Figure._preprocess() method is deprecated since v0.16.0 and will be "
+            "removed in v0.18.0. Use Figure._activate_figure() instead.",
+            FutureWarning,
+            stacklevel=2,
+        )
         return kwargs
 
     @property
@@ -152,7 +161,7 @@ class Figure:
 
     def savefig(
         self,
-        fname: str | PurePath,
+        fname: PathLike,
         transparent: bool = False,
         crop: bool = True,
         anti_alias: bool = True,
@@ -424,7 +433,7 @@ class Figure:
         html = '<img src="data:image/png;base64,{image}" width="{width}px">'
         return html.format(image=base64_png.decode("utf-8"), width=500)
 
-    from pygmt.src import (  # type: ignore[misc]
+    from pygmt.src import (  # type: ignore[misc] # noqa: PLC0415
         basemap,
         coast,
         colorbar,
