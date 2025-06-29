@@ -9,7 +9,7 @@ from packaging.version import Version
 from pygmt.clib import __gmt_version__
 from pygmt.datasets import load_earth_relief
 from pygmt.enums import GridRegistration
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTValueError
 
 
 # Only test 01d and 30m to avoid downloading large datasets in CI
@@ -167,7 +167,7 @@ def test_earth_relief_invalid_data_source_with_use_srtm():
     Test loading earth relief with use_srtm=True and an incompatible data_source
     argument.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         load_earth_relief(
             resolution="03s",
             region=[135, 136, 35, 36],

@@ -12,7 +12,7 @@ import numpy as np
 import numpy.testing as npt
 import pytest
 from pygmt import Figure, set_display
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTValueError
 from pygmt.figure import SHOW_CONFIG, _get_default_display_method
 from pygmt.helpers import GMTTempFile
 
@@ -209,7 +209,7 @@ def test_figure_savefig_transparent():
     prefix = "test_figure_savefig_transparent"
     for fmt in ["pdf", "jpg", "bmp", "eps", "tif"]:
         fname = f"{prefix}.{fmt}"
-        with pytest.raises(GMTInvalidInput):
+        with pytest.raises(GMTValueError):
             fig.savefig(fname, transparent=True)
 
     # PNG should support transparency and should not raise an error.
