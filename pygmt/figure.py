@@ -20,7 +20,7 @@ except ImportError:
 
 import numpy as np
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTValueError
 from pygmt.helpers import launch_external_viewer, unique_name
 
 
@@ -245,8 +245,11 @@ class Figure:
                 )
 
         if transparent and ext not in {"kml", "png"}:
-            msg = f"Transparency unavailable for '{ext}', only for png and kml."
-            raise GMTInvalidInput(msg)
+            raise GMTValueError(
+                transparent,
+                description="value for parameter 'transparent'",
+                reason=f"Transparency unavailable for '{ext}', only for png and kml.",
+            )
         if anti_alias:
             kwargs["Qt"] = 2
             kwargs["Qg"] = 2
