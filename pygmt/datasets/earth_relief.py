@@ -10,7 +10,7 @@ from typing import Literal
 
 import xarray as xr
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTValueError
 
 __doctest_skip__ = ["load_earth_relief"]
 
@@ -162,11 +162,14 @@ def load_earth_relief(
     # Use SRTM or not.
     if use_srtm and resolution in land_only_srtm_resolutions:
         if data_source != "igpp":
-            msg = (
-                f"Option 'use_srtm=True' doesn't work with data source '{data_source}'. "
-                "Please set 'data_source' to 'igpp'."
+            raise GMTValueError(
+                data_source,
+                description="data source",
+                reason=(
+                    "Option 'use_srtm=True' doesn't work with data source "
+                    f"{data_source!r}. Please set 'data_source' to 'igpp'.",
+                ),
             )
-            raise GMTInvalidInput(msg)
         prefix = "srtm_relief"
     # Choose earth relief dataset
     match data_source:
