@@ -167,7 +167,7 @@ def load_earth_relief(
                 description="data source",
                 reason=(
                     "Option 'use_srtm=True' doesn't work with data source "
-                    f"{data_source!r}. Please set 'data_source' to 'igpp'.",
+                    f"{data_source!r}. Please set 'data_source' to 'igpp'."
                 ),
             )
         prefix = "srtm_relief"
