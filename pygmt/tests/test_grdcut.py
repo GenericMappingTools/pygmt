@@ -6,7 +6,7 @@ import numpy as np
 import pytest
 import xarray as xr
 from pygmt import grdcut
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -76,5 +76,5 @@ def test_grdcut_invalid_kind(grid, region):
     """
     Check that grdcut fails with incorrect 'kind'.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         grdcut(grid, kind="invalid", region=region)

@@ -6,14 +6,14 @@ import numpy.testing as npt
 import pandas as pd
 import pytest
 from pygmt.datasets import list_sample_data, load_sample_data
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 
 
 def test_load_sample_invalid():
     """
     Check that the function raises error for unsupported filenames.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         load_sample_data(name="bad.filename")
 
 

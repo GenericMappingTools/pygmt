@@ -10,7 +10,7 @@ from typing import Literal
 
 import xarray as xr
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 
 __doctest_skip__ = ["load_earth_magnetic_anomaly"]
 
@@ -135,11 +135,11 @@ def load_earth_magnetic_anomaly(
         "wdmam": "earth_wdmam",
     }.get(data_source)
     if prefix is None:
-        msg = (
-            f"Invalid earth magnetic anomaly data source '{data_source}'. "
-            "Valid values are 'emag2', 'emag2_4km', and 'wdmam'."
+        raise GMTValueError(
+            data_source,
+            description="earth magnetic anomaly data source",
+            choices=["emag2", "emag2_4km", "wdmam"],
         )
-        raise GMTInvalidInput(msg)
     grid = _load_remote_dataset(
         name="earth_wdmam" if data_source == "wdmam" else "earth_mag",
         prefix=prefix,

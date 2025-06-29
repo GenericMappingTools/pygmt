@@ -5,7 +5,7 @@ psconvert - Convert [E]PS file(s) to other formats using Ghostscript.
 from pathlib import Path
 
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
@@ -115,8 +115,11 @@ def psconvert(self, **kwargs):
 
     prefix = kwargs.get("F")
     if prefix in {"", None, False, True}:
-        msg = "The 'prefix' parameter must be specified with a valid value."
-        raise GMTInvalidInput(msg)
+        raise GMTValueError(
+            prefix,
+            description="output file name",
+            reason="Parameter 'prefix' can't be None, bool, or an empty string.",
+        )
 
     # Check if the parent directory exists
     prefix_path = Path(prefix).parent

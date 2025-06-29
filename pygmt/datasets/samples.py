@@ -7,7 +7,7 @@ from typing import Literal, NamedTuple
 
 import pandas as pd
 import xarray as xr
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 from pygmt.src import which
 
 
@@ -346,6 +346,5 @@ def load_sample_data(
     >>> data = load_sample_data("bathymetry")
     """  # noqa: W505
     if name not in datasets:
-        msg = f"Invalid dataset name '{name}'."
-        raise GMTInvalidInput(msg)
+        raise GMTValueError(name, choices=datasets.keys(), description="dataset name")
     return datasets[name].func()

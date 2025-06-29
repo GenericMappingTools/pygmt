@@ -5,7 +5,7 @@ subplot - Manage figure subplot configuration and selection.
 import contextlib
 
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
@@ -148,8 +148,13 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
     self._activate_figure()
 
     if nrows < 1 or ncols < 1:
-        msg = "Please ensure that both 'nrows'>=1 and 'ncols'>=1."
-        raise GMTInvalidInput(msg)
+        _value = f"{nrows=}, {ncols=}"
+        raise GMTValueError(
+            _value,
+            description="number of rows/columns",
+            reason="Expect positive integers.",
+        )
+
     if kwargs.get("Ff") and kwargs.get("Fs"):
         msg = "Please provide either one of 'figsize' or 'subsize' only."
         raise GMTInvalidInput(msg)

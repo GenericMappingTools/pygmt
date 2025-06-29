@@ -13,7 +13,7 @@ from pygmt.clib.session import FAMILIES, VIAS
 from pygmt.exceptions import (
     GMTCLibError,
     GMTCLibNoSessionError,
-    GMTInvalidInput,
+    GMTValueError,
     GMTVersionError,
 )
 
@@ -170,7 +170,7 @@ def test_parse_constant_fails():
         "NOT_A_PROPER_FAMILY|ALSO_INVALID",
     ]
     for test_case in test_cases:
-        with pytest.raises(GMTInvalidInput):
+        with pytest.raises(GMTValueError):
             lib._parse_constant(test_case, valid=FAMILIES, valid_modifiers=VIAS)
 
     # Should also fail if not given valid modifiers but is using them anyway.
@@ -179,7 +179,7 @@ def test_parse_constant_fails():
         "GMT_IS_DATASET|GMT_VIA_MATRIX", valid=FAMILIES, valid_modifiers=VIAS
     )
     # But this shouldn't.
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         lib._parse_constant(
             "GMT_IS_DATASET|GMT_VIA_MATRIX", valid=FAMILIES, valid_modifiers=None
         )

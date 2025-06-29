@@ -8,7 +8,7 @@ from typing import Literal
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 from pygmt.helpers import build_arg_list, kwargs_to_strings
 from pygmt.src.which import which
 from xarray.backends import BackendEntrypoint
@@ -130,8 +130,9 @@ class GMTBackendEntrypoint(BackendEntrypoint):
             [*xmin*, *xmax*, *ymin*, *ymax*] or an ISO country code.
         """
         if raster_kind not in {"grid", "image"}:
-            msg = f"Invalid raster kind: '{raster_kind}'. Valid values are 'grid' or 'image'."
-            raise GMTInvalidInput(msg)
+            raise GMTValueError(
+                raster_kind, description="raster kind", choices=["grid", "image"]
+            )
 
         with Session() as lib:
             with lib.virtualfile_out(kind=raster_kind) as voutfile:
