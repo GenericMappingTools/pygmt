@@ -27,12 +27,13 @@ def _to_string(
     - ``True`` will be converted to an empty string.
     - A sequence will be joined by the separator if a separator is provided. Otherwise,
       each item in the sequence will be converted to a string and a sequence of strings
-      will be returned.
+      will be returned. It's also possible to validate the size and dimension of the
+      sequence.
     - Any other type of values will be converted to a string if possible.
 
     If a mapping dictionary is provided, the value will be converted to the short-form
-    string that GMT accepts (e.g., mapping PyGMT long-form argument ``"high"`` to GMT's
-    short-form argument ``"h"``).
+    string that GMT accepts (e.g., mapping PyGMT's long-form argument ``"high"`` to
+    GMT's short-form argument ``"h"``).
 
     An optional prefix (e.g., `"+o"`) can be added to the beginning of the converted
     string.
@@ -50,7 +51,7 @@ def _to_string(
     prefix
         The string to add as a prefix to the returned value.
     mapping
-        A mapping dictionary to map long-form arguments to GMT's short-form  arguments.
+        A mapping dictionary to map PyGMT's long-form arguments to GMT's short-form.
     separator
         The separator to use if the value is a sequence.
     size
