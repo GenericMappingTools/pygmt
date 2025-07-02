@@ -1,5 +1,5 @@
 """
-The PyGMT alias system to convert PyGMT long-form arguments to GMT's short-form.
+The PyGMT alias system to convert PyGMT's long-form arguments to GMT's short-form.
 """
 
 from collections.abc import Mapping, Sequence
@@ -53,6 +53,14 @@ def _to_string(
         A mapping dictionary to map long-form arguments to GMT's short-form  arguments.
     separator
         The separator to use if the value is a sequence.
+    size
+        Expected size of the 1-D sequence. It can be either an integer or a sequence of
+        integers. If an integer, it is the expected size of the 1-D sequence. If it is a
+        sequence, it is the allowed sizes of the 1-D sequence.
+    ndim
+        The expected maximum number of dimensions of the sequence.
+    name
+        The name of the parameter to be used in the error message.
 
     Returns
     -------
