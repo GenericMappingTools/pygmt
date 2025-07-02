@@ -12,7 +12,7 @@ from pygmt.helpers.utils import is_nonstr_iter, sequence_join
 def _to_string(
     value: Any,
     prefix: str = "",  # Default to an empty string to simplify the code logic.
-    mapping: bool | Mapping = False,
+    mapping: Mapping | None = None,
     separator: Literal["/", ","] | None = None,
     size: int | Sequence[int] | None = None,
     ndim: int = 1,
@@ -32,9 +32,7 @@ def _to_string(
 
     If a mapping dictionary is provided, the value will be converted to the short-form
     string that GMT accepts (e.g., mapping PyGMT long-form argument ``"high"`` to GMT's
-    short-form argument ``"h"``). If the value is not in the mapping dictionary, the
-    original value will be returned. If ``mapping`` is set to ``True``, the first letter
-    of the long-form argument will be used as the short-form argument.
+    short-form argument ``"h"``).
 
     An optional prefix (e.g., `"+o"`) can be added to the beginning of the converted
     string.
@@ -52,8 +50,7 @@ def _to_string(
     prefix
         The string to add as a prefix to the returned value.
     mapping
-        A mapping dictionary or ``True`` to map long-form arguments to GMT's short-form
-        arguments. If ``True``, will use the first letter of the long-form arguments.
+        A mapping dictionary to map long-form arguments to GMT's short-form  arguments.
     separator
         The separator to use if the value is a sequence.
 
@@ -82,8 +79,6 @@ def _to_string(
     >>> _to_string(False, prefix="+a")
     >>> _to_string(None, prefix="+a")
 
-    >>> _to_string("high", mapping=True)
-    'h'
     >>> _to_string("mean", mapping={"mean": "a", "mad": "d", "full": "g"})
     'a'
     >>> _to_string("invalid", mapping={"mean": "a", "mad": "d", "full": "g"})
@@ -109,19 +104,14 @@ def _to_string(
         return f"{prefix}"
     # Any non-sequence value is converted to a string.
     if not is_nonstr_iter(value):
-        match mapping:
-            case False:
-                pass
-            case True:
-                value = value[0]
-            case Mapping():
-                if value not in mapping and value not in mapping.values():
-                    raise GMTValueError(
-                        value,
-                        description="value for parameter {name!r}" if name else "value",
-                        choices=mapping.keys(),
-                    )
-                value = mapping.get(value, value)
+        if mapping:
+            if value not in mapping and value not in mapping.values():
+                raise GMTValueError(
+                    value,
+                    description="value for parameter {name!r}" if name else "value",
+                    choices=mapping.keys(),
+                )
+            value = mapping.get(value, value)
         return f"{prefix}{value}"
 
     # Return the sequence if separator is not specified for options like '-B'.
