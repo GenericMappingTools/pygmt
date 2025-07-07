@@ -547,7 +547,7 @@ def _load_remote_dataset(
     # Check resolution
     if resolution not in dataset.resolutions:
         raise GMTValueError(
-            value=resolution,
+            resolution,
             description=f"resolution for {dataset.description} dataset",
             choices=dataset.resolutions.keys(),
         )
