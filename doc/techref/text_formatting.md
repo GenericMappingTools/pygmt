@@ -18,4 +18,12 @@ specific characters of a longer text. The supported fonts are listed at
 | @!*CHAR1CHAR2*      | Print two characters on top of each other (composite characters, e.g., overstrike) |
 | @\~*TEXT*@\~        | Toggle Greek letters on/off |
 | @@                  | Print the @ sign |
-| @.                  | Print the degree symbol |
+| @.                  | Print the ° (degree) symbol |
+| @s                  | Print letter ß |
+| @i                  | Print letter í |
+| @a or @A            | Print letter å or Å |
+| @c or @C            | Print letter ç or Ç |
+| @e or @E            | Print letter æ or Æ |
+| @n or @N            | Print letter ñ or Ñ |
+| @o or @O            | Print letter ø or Ø |
+| @u or @U            | Print letter ü or Ü |
