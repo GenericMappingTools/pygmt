@@ -98,6 +98,7 @@ class GMTValueError(GMTError):
     def __init__(
         self,
         value: Any,
+        /,
         description: str = "value",
         choices: Iterable[Any] | None = None,
         reason: str | None = None,
