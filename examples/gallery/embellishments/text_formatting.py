@@ -6,7 +6,7 @@ There are various options to format text contained in a plot, e.g., text added v
 :meth:`pygmt.Figure.text`, the title of the plot, labels of colorbars as well as
 Cartesian axes, and legend entries. It's also possible to change the font as well
 as its color and size only for specific characters of a longer text. The supported
-fonts are listed at :doc:`Supported Fonts  </techref/fonts>`. For an complete
+fonts are listed at :doc:`Supported Fonts </techref/fonts>`. For an complete
 overview see :doc:`Text Formatting </techref/text_formatting>`.
 """
 
