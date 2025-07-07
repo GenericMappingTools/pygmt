@@ -89,11 +89,17 @@ class GMTValueError(GMTError):
     Traceback (most recent call last):
         ...
     pygmt...GMTValueError: Invalid .... Expected one of: 'a', 0, True, False, None.
+
+    >>> from pygmt.enums import GridType
+    >>> raise GMTValueError("invalid", choices=GridType)
+    Traceback (most recent call last):
+        ...
+    pygmt...GMTValueError: Invalid value: 'invalid'. Expected one of: <GridType.CARTESIAN: 0>, <GridType.GEOGRAPHIC: 1>.
     >>> raise GMTValueError("invalid", reason="Explain why it's invalid.")
     Traceback (most recent call last):
         ...
     pygmt...GMTValueError: Invalid .... Explain why it's invalid.
-    """
+    """  # noqa: W505
 
     def __init__(
         self,
