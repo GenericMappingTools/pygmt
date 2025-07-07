@@ -76,29 +76,29 @@ class GMTValueError(GMTError):
     >>> raise GMTValueError("invalid")
     Traceback (most recent call last):
         ...
-    pygmt...GMTValueError: Invalid value: 'invalid'.
+    pygmt.exceptions.GMTValueError: Invalid value: 'invalid'.
     >>> raise GMTValueError("invalid", description="constant name")
     Traceback (most recent call last):
     ...
-    pygmt...GMTValueError: Invalid constant name: 'invalid'.
+    pygmt.exceptions.GMTValueError: Invalid constant name: 'invalid'.
     >>> raise GMTValueError("invalid", choices=["a", "b", 1, 2])
     Traceback (most recent call last):
         ...
-    pygmt...GMTValueError: Invalid value: 'invalid'. Expected one of: 'a', 'b', 1, 2.
+    pygmt.exceptions.GMTValueError: Invalid value: 'invalid'. Expected one of: 'a', 'b', 1, 2.
     >>> raise GMTValueError("invalid", choices=["a", 0, True, False, None])
     Traceback (most recent call last):
         ...
-    pygmt...GMTValueError: Invalid .... Expected one of: 'a', 0, True, False, None.
+    pygmt.exceptions.GMTValueError: Invalid value: 'invalid'. Expected one of: 'a', 0, True, False, None.
 
     >>> from pygmt.enums import GridType
     >>> raise GMTValueError("invalid", choices=GridType)
     Traceback (most recent call last):
         ...
-    pygmt...GMTValueError: Invalid value: 'invalid'. Expected one of: <GridType.CARTESIAN: 0>, <GridType.GEOGRAPHIC: 1>.
+    pygmt.exceptions.GMTValueError: Invalid value: 'invalid'. Expected one of: <GridType.CARTESIAN: 0>, <GridType.GEOGRAPHIC: 1>.
     >>> raise GMTValueError("invalid", reason="Explain why it's invalid.")
     Traceback (most recent call last):
         ...
-    pygmt...GMTValueError: Invalid .... Explain why it's invalid.
+    pygmt.exceptions.GMTValueError: Invalid value: 'invalid'. Explain why it's invalid.
     """  # noqa: W505
 
     def __init__(
