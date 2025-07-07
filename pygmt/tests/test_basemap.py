@@ -143,3 +143,15 @@ def test_basemap_subplot():
         with fig.set_panel(panel=1):
             fig.basemap(region=[0, 10, 0, 10], projection="X?")
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_basemap_frame_sequence_true():
+    """
+    Test that passing a sequence with True works.
+
+    Test for https://github.com/GenericMappingTools/pygmt/issues/3981.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=[True, "WSen"])
+    return fig
