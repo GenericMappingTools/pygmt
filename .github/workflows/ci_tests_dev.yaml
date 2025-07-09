@@ -60,7 +60,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v2.0.5
+        uses: mamba-org/setup-micromamba@b09ef9b599704322748535812ca03efb2625677b # v2.0.5
         with:
           environment-name: pygmt
           cache-environment: true
@@ -131,7 +131,7 @@ jobs:
           cmake -G Ninja .. ^
             -DCMAKE_INSTALL_PREFIX=%GMT_INSTALL_DIR% ^
             -DCMAKE_BUILD_TYPE=Release ^
-            -DCMAKE_PREFIX_PATH=${{ env.MAMBA_ROOT_PREFIX }}\envs\pygmt\Library ^
+            -DCMAKE_PREFIX_PATH=%MAMBA_ROOT_PREFIX%\envs\pygmt\Library ^
             -DGMT_ENABLE_OPENMP=TRUE ^
             -DGMT_USE_THREADS=TRUE
           cmake --build .

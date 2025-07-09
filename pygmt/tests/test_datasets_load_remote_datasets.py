@@ -5,7 +5,7 @@ Test the _load_remote_dataset function.
 import pytest
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.enums import GridRegistration
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 
 
 def load_remote_dataset_wrapper(resolution="01d", region=None, registration=None):
@@ -44,7 +44,7 @@ def test_load_remote_dataset_invalid_resolutions():
     resolutions = ["1m", "1d", "bla", "60d", "001m", "03"]
     resolutions.append(60)
     for resolution in resolutions:
-        with pytest.raises(GMTInvalidInput):
+        with pytest.raises(GMTValueError):
             load_remote_dataset_wrapper(resolution=resolution)
 
 
@@ -52,7 +52,7 @@ def test_load_remote_dataset_invalid_registration():
     """
     Make sure _load_remote_dataset fails for invalid registrations.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         load_remote_dataset_wrapper(registration="improper_type")
 
 
@@ -70,7 +70,7 @@ def test_load_remote_dataset_incorrect_resolution_registration():
     Make sure _load_remote_dataset fails when trying to load a grid registration with an
     unavailable resolution.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         load_remote_dataset_wrapper(
             resolution="01m", region=[0, 1, 3, 5], registration="pixel"
         )
