@@ -7,7 +7,7 @@ from typing import Literal
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
@@ -113,8 +113,7 @@ def grdcut(
     >>> new_grid = pygmt.grdcut(grid=grid, region=[12, 15, 21, 24])
     """
     if kind not in {"grid", "image"}:
-        msg = f"Invalid raster kind: '{kind}'. Valid values are 'grid' and 'image'."
-        raise GMTInvalidInput(msg)
+        raise GMTValueError(kind, description="raster kind", choices=["grid", "image"])
 
     # Determine the output data kind based on the input data kind.
     match inkind := data_kind(grid):

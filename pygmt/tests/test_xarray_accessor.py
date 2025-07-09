@@ -13,7 +13,7 @@ from pygmt import which
 from pygmt.clib import __gmt_version__
 from pygmt.datasets import load_earth_relief
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 
 _HAS_NETCDF4 = bool(importlib.util.find_spec("netCDF4"))
 
@@ -94,13 +94,13 @@ def test_xarray_accessor_set_invalid_registration_and_gtype():
     """
     grid = xr.DataArray(data=[[0.1, 0.2], [0.3, 0.4]])
 
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         grid.gmt.registration = "2"
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         grid.gmt.registration = "pixel"
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         grid.gmt.gtype = 2
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         grid.gmt.gtype = "geographic"
 
 
