@@ -4,7 +4,7 @@ Test Figure.subplot.
 
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 
 
 @pytest.mark.benchmark
@@ -99,7 +99,7 @@ def test_subplot_nrows_ncols_less_than_one_error():
     Check that an error is raised when nrows or ncols is less than one.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         with fig.subplot(nrows=0, ncols=-1, figsize=("2c", "1c")):
             pass
 

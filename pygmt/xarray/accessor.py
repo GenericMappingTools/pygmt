@@ -7,7 +7,7 @@ from pathlib import Path
 
 import xarray as xr
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 from pygmt.src.grdinfo import grdinfo
 
 
@@ -180,11 +180,9 @@ class GMTDataArrayAccessor:
     def registration(self, value: GridRegistration | int):
         # TODO(Python>=3.12): Simplify to `if value not in GridRegistration`.
         if value not in GridRegistration.__members__.values():
-            msg = (
-                f"Invalid grid registration: '{value}'. Should be either "
-                "GridRegistration.GRIDLINE (0) or GridRegistration.PIXEL (1)."
+            raise GMTValueError(
+                value, description="grid registration", choices=GridRegistration
             )
-            raise GMTInvalidInput(msg)
         self._registration = GridRegistration(value)
 
     @property
@@ -198,9 +196,7 @@ class GMTDataArrayAccessor:
     def gtype(self, value: GridType | int):
         # TODO(Python>=3.12): Simplify to `if value not in GridType`.
         if value not in GridType.__members__.values():
-            msg = (
-                f"Invalid grid coordinate system type: '{value}'. "
-                "Should be either GridType.CARTESIAN (0) or GridType.GEOGRAPHIC (1)."
+            raise GMTValueError(
+                value, description="grid coordinate system type", choices=GridType
             )
-            raise GMTInvalidInput(msg)
         self._gtype = GridType(value)
