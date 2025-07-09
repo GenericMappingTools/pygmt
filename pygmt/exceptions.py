@@ -56,7 +56,7 @@ class GMTImageComparisonFailure(AssertionError):  # noqa: N818
     """
 
 
-class GMTValueError(GMTError):
+class GMTValueError(GMTError, ValueError):
     """
     Raised when an invalid value is passed to a function/method.
 
