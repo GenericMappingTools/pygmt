@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/index.html" />
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../_static/documentation_options.js?v=cad11b55"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -264,6 +264,7 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.exceptions.GMTCLibError.html">pygmt.exceptions.GMTCLibError</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.exceptions.GMTCLibNoSessionError.html">pygmt.exceptions.GMTCLibNoSessionError</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.exceptions.GMTCLibNotFoundError.html">pygmt.exceptions.GMTCLibNotFoundError</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/pygmt.exceptions.GMTValueError.html">pygmt.exceptions.GMTValueError</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gmt-c-api">GMT C API</a><ul>
@@ -697,7 +698,7 @@ package.</p>
 <td><p>Xarray backend to read raster grid/image files using 'gmt' engine.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.GMTDataArrayAccessor.html#pygmt.GMTDataArrayAccessor" title="pygmt.GMTDataArrayAccessor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GMTDataArrayAccessor</span></code></a>(xarray_obj)</p></td>
-<td><p>GMT accessor for <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>.</p></td>
+<td><p>GMT accessor for <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.7.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -833,6 +834,9 @@ and store them in GMT’s user data directory.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.exceptions.GMTCLibNotFoundError.html#pygmt.exceptions.GMTCLibNotFoundError" title="pygmt.exceptions.GMTCLibNotFoundError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exceptions.GMTCLibNotFoundError</span></code></a></p></td>
 <td><p>Could not find the GMT shared library.</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.exceptions.GMTValueError.html#pygmt.exceptions.GMTValueError" title="pygmt.exceptions.GMTValueError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exceptions.GMTValueError</span></code></a>(value, /[, ...])</p></td>
+<td><p>Raised when an invalid value is passed to a function/method.</p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -857,7 +861,7 @@ the <a class="reference internal" href="generated/pygmt.clib.Session.call_module
 </tbody>
 </table>
 <p>Passing memory blocks between Python data objects (e.g. <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>,
-<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>, <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>, etc) and GMT happens through
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>, <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.7.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>, etc) and GMT happens through
 <em>virtual files</em>. These methods are context managers that automate the conversion of
 Python objects to and from GMT virtual files:</p>
 <table class="autosummary longtable docutils align-default">
@@ -872,7 +876,7 @@ Python objects to and from GMT virtual files:</p>
 <td><p>Output a tabular dataset stored in a virtual file to a different format.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.clib.Session.virtualfile_to_raster.html#pygmt.clib.Session.virtualfile_to_raster" title="pygmt.clib.Session.virtualfile_to_raster"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clib.Session.virtualfile_to_raster</span></code></a>(vfname[, ...])</p></td>
-<td><p>Output raster data stored in a virtual file to an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.</p></td>
+<td><p>Output raster data stored in a virtual file to an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.7.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.</p></td>
 </tr>
 </tbody>
 </table>
@@ -960,9 +964,9 @@ Python objects to and from GMT virtual files:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/7a682ff3">7a682ff3</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jun 18, 2025.
+      <span class="lastupdated">Last updated on Jul 10, 2025.
       </span></p>
   </div>
 

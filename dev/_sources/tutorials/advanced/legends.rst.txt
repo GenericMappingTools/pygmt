@@ -272,7 +272,7 @@ legends, the width (**+w**) has to be specified via a the ``position`` parameter
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.294 seconds)
+   **Total running time of the script:** (0 minutes 1.852 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_legends.py:
