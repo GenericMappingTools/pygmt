@@ -2,6 +2,7 @@
 The PyGMT alias system to convert PyGMT's long-form arguments to GMT's short-form.
 """
 
+import dataclasses
 from collections.abc import Mapping, Sequence
 from typing import Any, Literal
 
@@ -131,3 +132,66 @@ def _to_string(
     # "prefix" and "mapping" are ignored. We can enable them when needed.
     _value = sequence_join(value, separator=separator, size=size, ndim=ndim, name=name)
     return f"{prefix}{_value}"
+
+
+@dataclasses.dataclass
+class Alias:
+    """
+    Class for aliasing a PyGMT parameter to a GMT option or a modifier.
+
+    Attributes
+    ----------
+    value
+        The value of the alias.
+    prefix
+        The string to add as a prefix to the returned value.
+    mapping
+        A mapping dictionary to map PyGMT's long-form arguments to GMT's short-form.
+    separator
+        The separator to use if the value is a sequence.
+    size
+        Expected size of the 1-D sequence. It can be either an integer or a sequence of
+        integers. If an integer, it is the expected size of the 1-D sequence. If it is a
+        sequence, it is the allowed sizes of the 1-D sequence.
+    ndim
+        The expected maximum number of dimensions of the sequence.
+    name
+        The name of the parameter to be used in the error message.
+
+    Examples
+    --------
+    >>> par = Alias((3.0, 3.0), prefix="+o", separator="/")
+    >>> par._value
+    '+o3.0/3.0'
+
+    >>> par = Alias("mean", mapping={"mean": "a", "mad": "d", "full": "g"})
+    >>> par._value
+    'a'
+
+    >>> par = Alias(["xaf", "yaf", "WSen"])
+    >>> par._value
+    ['xaf', 'yaf', 'WSen']
+    """
+
+    value: Any
+    prefix: str = ""
+    mapping: Mapping | None = None
+    separator: Literal["/", ","] | None = None
+    size: int | Sequence[int] | None = None
+    ndim: int = 1
+    name: str | None = None
+
+    @property
+    def _value(self) -> str | list[str] | None:
+        """
+        The value of the alias as a string, a sequence of strings or None.
+        """
+        return _to_string(
+            value=self.value,
+            prefix=self.prefix,
+            mapping=self.mapping,
+            separator=self.separator,
+            size=self.size,
+            ndim=self.ndim,
+            name=self.name,
+        )
