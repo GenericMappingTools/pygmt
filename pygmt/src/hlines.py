@@ -5,7 +5,7 @@ hlines - Plot horizontal lines.
 from collections.abc import Sequence
 
 import numpy as np
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 
 __doctest_skip__ = ["hlines"]
 
@@ -99,11 +99,15 @@ def hlines(
 
     # Check if xmin/xmax are scalars or have the expected length.
     if _xmin.size not in {1, nlines} or _xmax.size not in {1, nlines}:
-        msg = (
-            f"'xmin' and 'xmax' are expected to be scalars or have lengths '{nlines}', "
-            f"but lengths '{_xmin.size}' and '{_xmax.size}' are given."
+        _value = f"{xmin=}, {xmax=}"
+        raise GMTValueError(
+            _value,
+            description="size for 'xmin' or 'xmax'",
+            reason=(
+                "'xmin' and 'xmax' are expected to be scalars or have lengths "
+                f"{nlines!r} but lengths {_xmin.size!r} and {_xmax.size!r} are given."
+            ),
         )
-        raise GMTInvalidInput(msg)
 
     # Repeat xmin/xmax to match the length of y if they are scalars.
     if nlines != 1:
