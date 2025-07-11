@@ -2,8 +2,8 @@
 Text formatting
 ===============
 
-There are various options to format text contained in a plot, e.g., text added via
-:meth:`pygmt.Figure.text`, the title of the plot, labels of colorbars as well as
+There are various options for formatting text contained in a plot, e.g., text added
+via :meth:`pygmt.Figure.text`, the plot title, labels of colorbars as well as
 Cartesian axes, and legend entries. It's also possible to change the font as well
 as its color and size only for specific characters of a longer text. The supported
 fonts are listed at :doc:`Supported Fonts </techref/fonts>`. For an complete
