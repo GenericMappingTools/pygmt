@@ -16,7 +16,7 @@ repos:
     - id: chmod
       args: ['644']
 - repo: https://github.com/woodruffw/zizmor-pre-commit
-  rev: v1.5.2
+  rev: v1.11.0
   hooks:
   - id: zizmor
 

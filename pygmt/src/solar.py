@@ -6,7 +6,7 @@ from typing import Literal
 
 import pandas as pd
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["solar"]
@@ -103,11 +103,9 @@ def solar(
 
     valid_terminators = ["day_night", "civil", "nautical", "astronomical"]
     if terminator not in valid_terminators and terminator not in "dcna":
-        msg = (
-            f"Unrecognized solar terminator type '{terminator}'. "
-            f"Valid values are {valid_terminators}."
+        raise GMTValueError(
+            terminator, description="solar terminator type", choices=valid_terminators
         )
-        raise GMTInvalidInput(msg)
     kwargs["T"] = terminator[0]
     if terminator_datetime:
         try:
