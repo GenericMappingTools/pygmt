@@ -27,37 +27,6 @@ def fixture_grid():
     return load_static_earth_relief()
 
 
-@pytest.fixture(scope="module", name="expected_clipped_grid")
-def fixture_expected_clipped_grid():
-    """
-    The expected grdclip grid result.
-    """
-    return xr.DataArray(
-        data=[
-            [1000.0, 570.5, -1000.0, -1000.0],
-            [1000.0, 1000.0, 571.5, 638.5],
-            [555.5, 556.0, 580.0, 1000.0],
-        ],
-        coords={"lon": [-52.5, -51.5, -50.5, -49.5], "lat": [-18.5, -17.5, -16.5]},
-        dims=["lat", "lon"],
-    )
-
-
-@pytest.fixture(scope="module", name="expected_equalized_grid")
-def fixture_expected_equalized_grid():
-    """
-    The expected grdhisteq grid result.
-    """
-    return xr.DataArray(
-        data=[[0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 1, 1], [1, 1, 1, 1]],
-        coords={
-            "lon": [-51.5, -50.5, -49.5, -48.5],
-            "lat": [-21.5, -20.5, -19.5, -18.5],
-        },
-        dims=["lat", "lon"],
-    )
-
-
 def test_xarray_accessor_gridline_cartesian():
     """
     Check that the accessor returns the correct registration and gtype values for a
@@ -211,7 +180,7 @@ def test_xarray_accessor_tiled_grid_slice_and_add():
     assert added_grid.gmt.gtype is GridType.GEOGRAPHIC
 
 
-def test_xarray_accessor_clip(grid, expected_clipped_grid):
+def test_xarray_accessor_clip(grid):
     """
     Check that the accessor has the clip method and that it works correctly.
 
@@ -220,14 +189,33 @@ def test_xarray_accessor_clip(grid, expected_clipped_grid):
     clipped_grid = grid.gmt.clip(
         below=[550, -1000], above=[700, 1000], region=[-53, -49, -19, -16]
     )
+
+    expected_clipped_grid = xr.DataArray(
+        data=[
+            [1000.0, 570.5, -1000.0, -1000.0],
+            [1000.0, 1000.0, 571.5, 638.5],
+            [555.5, 556.0, 580.0, 1000.0],
+        ],
+        coords={"lon": [-52.5, -51.5, -50.5, -49.5], "lat": [-18.5, -17.5, -16.5]},
+        dims=["lat", "lon"],
+    )
     xr.testing.assert_allclose(a=clipped_grid, b=expected_clipped_grid)
 
 
-def test_xarray_accessor_equalize(grid, expected_equalized_grid):
+def test_xarray_accessor_equalize(grid):
     """
     Check that the accessor has the equalize_hist method and that it works correctly.
 
     This test is adapted from the `test_equalize_grid_no_outgrid` test.
     """
     equalized_grid = grid.gmt.equalize_hist(divisions=2, region=[-52, -48, -22, -18])
+
+    expected_equalized_grid = xr.DataArray(
+        data=[[0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 1, 1], [1, 1, 1, 1]],
+        coords={
+            "lon": [-51.5, -50.5, -49.5, -48.5],
+            "lat": [-21.5, -20.5, -19.5, -18.5],
+        },
+        dims=["lat", "lon"],
+    )
     xr.testing.assert_allclose(a=equalized_grid, b=expected_equalized_grid)
