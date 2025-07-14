@@ -3,11 +3,12 @@ The PyGMT alias system to convert PyGMT's long-form arguments to GMT's short-for
 """
 
 import dataclasses
+import warnings
 from collections import defaultdict
 from collections.abc import Mapping, Sequence
 from typing import Any, Literal
 
-from pygmt.exceptions import GMTValueError
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers.utils import is_nonstr_iter, sequence_join
 
 
@@ -247,7 +248,6 @@ class AliasSystem:
         """
         # Keyword dictionary with an empty string as default value.
         self.kwdict = defaultdict(str)
-
         for option, aliases in kwargs.items():
             if not is_nonstr_iter(aliases):  # A single alias.
                 self.kwdict[option] = aliases._value
@@ -263,3 +263,38 @@ class AliasSystem:
                         # A repeatable option should have only one alias, so break.
                         self.kwdict[option] = alias._value
                         break
+
+        # Dictionary mapping option flags to their alias objects.
+        self._aliasdict = {}
+        for option, aliases in kwargs.items():
+            if not is_nonstr_iter(aliases):
+                self._aliasdict[option] = [aliases.name]
+            else:
+                self._aliasdict[option] = [alias.name for alias in aliases]
+
+    def merge(self, kwargs):
+        """
+        Merge additional keyword arguments into the existing keyword dictionary.
+
+        This method is necessary to allow users to use the single-letter parameters for
+        option flags that are not aliased.
+        """
+        # Loop over short-form parameters passed in kwargs.
+        for short_param, value in kwargs.items():
+            if self._aliasdict.get(short_param):
+                long_form = ", ".join(repr(r) for r in self._aliasdict.get(short_param))
+
+            # Long-form exists and is already given.
+            if short_param in self.kwdict and self.kwdict[short_param] is not None:
+                msg = f"Parameters in short-form {short_param!r} and long-form {long_form} can't coexist."
+                raise GMTInvalidInput(msg)
+
+            # Long-form exists, but not given.
+            if short_param in self._aliasdict:
+                msg = (
+                    f"Short-form parameter {short_param!r} is not recommended. "
+                    f"Use long-form parameter {long_form} instead."
+                )
+                warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+            self.kwdict[short_param] = value
+        return self
