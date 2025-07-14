@@ -3,6 +3,7 @@ The PyGMT alias system to convert PyGMT's long-form arguments to GMT's short-for
 """
 
 import dataclasses
+from collections import defaultdict
 from collections.abc import Mapping, Sequence
 from typing import Any, Literal
 
@@ -195,3 +196,70 @@ class Alias:
             size=self.size,
             ndim=self.ndim,
         )
+
+
+class AliasSystem:
+    """
+    Alias system for converting long-form PyGMT parameters to GMT short-form options.
+
+    This class is initialized with keyword arguments, where each key is a GMT option
+    flag, and the corresponding value is an ``Alias`` object or a list of ``Alias``
+    objects.
+
+    The class provides the ``kwdict`` attribute, which is a dictionary mapping each GMT
+    option flag to its current value. The value can be a string or a list of strings.
+    This keyword dictionary can then be passed to the ``build_arg_list`` function.
+
+    Examples
+    --------
+    >>> from pygmt.alias import Alias, AliasSystem
+    >>> from pygmt.helpers import build_arg_list
+    >>>
+    >>> def func(
+    ...     par0, par1=None, par2=None, frame=False, repeat=None, panel=None, **kwargs
+    ... ):
+    ...     alias = AliasSystem(
+    ...         A=[
+    ...             Alias(par1),
+    ...             Alias(par2, prefix="+o", separator="/"),
+    ...         ],
+    ...         B=Alias(frame),
+    ...         D=Alias(repeat),
+    ...         c=Alias(panel, separator=","),
+    ...     )
+    ...     return build_arg_list(alias.kwdict | kwargs)
+    >>> func(
+    ...     "infile",
+    ...     par1="mytext",
+    ...     par2=(12, 12),
+    ...     frame=True,
+    ...     repeat=[1, 2, 3],
+    ...     panel=(1, 2),
+    ...     J="X10c/10c",
+    ... )
+    ['-Amytext+o12/12', '-B', '-D1', '-D2', '-D3', '-JX10c/10c', '-c1,2']
+    """
+
+    def __init__(self, **kwargs):
+        """
+        Initialize the alias system and create the keyword dictionary that stores the
+        current parameter values.
+        """
+        # Keyword dictionary with an empty string as default value.
+        self.kwdict = defaultdict(str)
+
+        for option, aliases in kwargs.items():
+            if not is_nonstr_iter(aliases):  # A single alias.
+                self.kwdict[option] = aliases._value
+                continue
+
+            for alias in aliases:  # List of aliases.
+                match alias._value:
+                    case None:
+                        continue
+                    case str():
+                        self.kwdict[option] += alias._value
+                    case list():
+                        # A repeatable option should have only one alias, so break.
+                        self.kwdict[option] = alias._value
+                        break
