@@ -41,7 +41,7 @@ def _to_string(
     To avoid extra overhead, this function does not validate parameter combinations. For
     example, if ``value`` is a sequence but ``separator`` is not specified, the function
     will return a sequence of strings. In this case, ``prefix`` has no effect, but the
-    function does not check for such inconsistencies. The maintaner should ensure that
+    function does not check for such inconsistencies. The maintainer should ensure that
     the parameter combinations are valid.
 
     Parameters
