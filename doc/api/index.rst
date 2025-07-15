@@ -285,6 +285,7 @@ All custom exceptions are derived from :class:`pygmt.exceptions.GMTError`.
     exceptions.GMTCLibNotFoundError
     exceptions.GMTTypeError
     exceptions.GMTValueError
+    exceptions.GMTTypeError
 
 
 .. currentmodule:: pygmt
