@@ -148,7 +148,7 @@ def grd2xyz(
         raise GMTValueError(
             output_type,
             description="value for parameter 'output_type'",
-            reason="If 'outcols' is specified, 'output_type' must be either 'numpy' or 'file'.",
+            reason="Expected one of: 'numpy', 'file' if 'outcols' is specified.",
         )
     # Set the default column names for the pandas DataFrame header.
     column_names: list[str] = ["x", "y", "z"]
