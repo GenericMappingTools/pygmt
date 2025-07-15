@@ -6,7 +6,7 @@ import warnings
 from typing import Literal
 
 from pygmt._typing import PathLike
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 
 
 def validate_output_table_type(
@@ -50,8 +50,11 @@ def validate_output_table_type(
     'file'
     """
     if output_type not in {"file", "numpy", "pandas"}:
-        msg = "Must specify 'output_type' either as 'file', 'numpy', or 'pandas'."
-        raise GMTInvalidInput(msg)
+        raise GMTValueError(
+            output_type,
+            description="value for parameter 'output_type'",
+            choices=["file", "numpy", "pandas"],
+        )
     if output_type == "file" and outfile is None:
         msg = "Must specify 'outfile' for output_type='file'."
         raise GMTInvalidInput(msg)
