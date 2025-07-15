@@ -10,7 +10,7 @@ import numpy.testing as npt
 import pytest
 from pygmt import clib
 from pygmt.clib.session import DTYPES_NUMERIC
-from pygmt.exceptions import GMTCLibError, GMTInvalidInput
+from pygmt.exceptions import GMTCLibError, GMTInvalidInput, GMTTypeError
 from pygmt.helpers import GMTTempFile
 
 
@@ -225,7 +225,7 @@ def test_put_vector_invalid_dtype():
                 dim=[2, 3, 0, 0],  # ncolumns, nrows, dtype, unused
             )
             data = np.array([37, 12, 556], dtype=dtype)
-            with pytest.raises(GMTInvalidInput, match="Unsupported numpy data type"):
+            with pytest.raises(GMTTypeError, match="Invalida data type"):
                 lib.put_vector(dataset, column=0, vector=data)
 
 
