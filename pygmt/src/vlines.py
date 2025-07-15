@@ -99,14 +99,11 @@ def vlines(
 
     # Check if ymin/ymax are scalars or have the expected length.
     if _ymin.size not in {1, nlines} or _ymax.size not in {1, nlines}:
-        _value = f"{ymin=}, {ymax=}"
+        _value = f"{_ymin.size}, {_ymax.size}"
         raise GMTValueError(
             _value,
-            description="size for 'ymin' or 'ymax'",
-            reason=(
-                "'ymin' and 'ymax' are expected to be scalars or have lengths "
-                f"{nlines!r} but lengths {_ymin.size!r} and {_ymax.size!r} are given."
-            ),
+            description="size for 'ymin'/'ymax'",
+            reason=f"'ymin'/'ymax' are expected to be scalars or have lengths {nlines!r}.",
         )
 
     # Repeat ymin/ymax to match the length of x if they are scalars.

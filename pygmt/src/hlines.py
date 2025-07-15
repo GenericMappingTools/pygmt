@@ -99,14 +99,11 @@ def hlines(
 
     # Check if xmin/xmax are scalars or have the expected length.
     if _xmin.size not in {1, nlines} or _xmax.size not in {1, nlines}:
-        _value = f"{xmin=}, {xmax=}"
+        _value = f"{_xmin.size}, {_xmax.size}"
         raise GMTValueError(
             _value,
-            description="size for 'xmin' or 'xmax'",
-            reason=(
-                "'xmin' and 'xmax' are expected to be scalars or have lengths "
-                f"{nlines!r} but lengths {_xmin.size!r} and {_xmax.size!r} are given."
-            ),
+            description="size for 'xmin'/'xmax'",
+            reason=f"'xmin'/'xmax' are expected to be scalars or have lengths {nlines!r}.",
         )
 
     # Repeat xmin/xmax to match the length of y if they are scalars.
