@@ -913,9 +913,10 @@ class Session:
 
         Raises
         ------
+        GMTValueError
+            If the array has the wrong number of dimensions.
         GMTInvalidInput
-            If the array has the wrong number of dimensions or is an unsupported data
-            type.
+            If the array is an unsupported data type.
 
         Examples
         --------
