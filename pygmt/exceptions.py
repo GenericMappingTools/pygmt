@@ -4,7 +4,7 @@ Custom exception types used throughout the library.
 All exceptions derive from GMTError.
 """
 
-from collections.abc import Iterable, Set
+from collections.abc import Iterable, Set, Tuple
 from typing import Any
 
 
@@ -137,7 +137,13 @@ class GMTParameterError(GMTError):
     Raised when a parameter is missing or invalid.
     """
 
-    def __init__(self, required: Set[str] | None = None, mutually_exclusive: Set[str] | None = None):
+    def __init__(
+        self,
+        required: Set[str] | None = None,
+        mutually_exclusive: Set[str] | None = None,
+        at_least_one: Set[str] | None = None,
+        dependent: Tuple[str, Set[str]] | None = None,
+    ):
         msg = ""
         if required:
             msg += (
@@ -145,5 +151,16 @@ class GMTParameterError(GMTError):
             )
         if mutually_exclusive:
             msg += f"Parameters {', '.join(par for par in mutually_exclusive)} are mutually exclusive."
+        if at_least_one:
+            msg += (
+                f"At least one of the following parameters must be specified: "
+                f"{', '.join(par for par in at_least_one)}."
+            )
+        if dependent:
+            for key, values in dependent.items():
+                msg += (
+                    f"Parameter '{key}' requires one or more of the following: "
+                    f"{', '.join(par for par in values)}."
+                )
 
         super().__init__(msg)
