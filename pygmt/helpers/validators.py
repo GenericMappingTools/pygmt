@@ -49,11 +49,12 @@ def validate_output_table_type(
     ...     assert len(w) == 1
     'file'
     """
-    if output_type not in {"file", "numpy", "pandas"}:
+    _valids = {"pandas", "numpy", "file"}
+    if output_type not in _valids:
         raise GMTValueError(
             output_type,
             description="value for parameter 'output_type'",
-            choices=["file", "numpy", "pandas"],
+            choices=_valids,
         )
     if output_type == "file" and outfile is None:
         msg = "Must specify 'outfile' for output_type='file'."
