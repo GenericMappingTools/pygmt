@@ -28,6 +28,7 @@ from pygmt.exceptions import (
     GMTCLibError,
     GMTCLibNoSessionError,
     GMTInvalidInput,
+    GMTTypeError,
     GMTValueError,
 )
 from pygmt.helpers import (
@@ -629,7 +630,7 @@ class Session:
 
         Raises
         ------
-        GMTInvalidInput
+        GMTTypeError
             If the ``args`` argument is not a string or a list of strings.
         GMTCLibError
             If the returned status code of the function is non-zero.
@@ -658,8 +659,10 @@ class Session:
             mode = self["GMT_MODULE_CMD"]
             argv = args.encode()
         else:
-            msg = "'args' must either be a list of strings (recommended) or a string."
-            raise GMTInvalidInput(msg)
+            raise GMTTypeError(
+                type(args),
+                reason="Parameter 'args' must either be a list of strings (recommended) or a string.",
+            )
 
         status = c_call_module(self.session_pointer, module.encode(), mode, argv)
         if status != 0:
@@ -913,9 +916,8 @@ class Session:
 
         Raises
         ------
-        GMTInvalidInput
-            If the array has the wrong number of dimensions or is an unsupported data
-            type.
+        GMTTypeError
+            If the array is an unsupported data type.
 
         Examples
         --------
@@ -939,8 +941,7 @@ class Session:
         # 1-D arrays can be numeric or text, 2-D arrays can only be numeric.
         valid_dtypes = DTYPES if ndim == 1 else DTYPES_NUMERIC
         if (dtype := array.dtype.type) not in valid_dtypes:
-            msg = f"Unsupported numpy data type '{dtype}'."
-            raise GMTInvalidInput(msg)
+            raise GMTTypeError(dtype)
         return self[DTYPES[dtype]]
 
     def put_vector(
@@ -1867,8 +1868,9 @@ class Session:
             elif check_kind == "vector":
                 valid_kinds += ("empty", "matrix", "vectors", "geojson")
             if kind not in valid_kinds:
-                msg = f"Unrecognized data type for {check_kind}: {type(data)}."
-                raise GMTInvalidInput(msg)
+                raise GMTTypeError(
+                    type(data), reason="Unrecognized for {check_kind!r} kind."
+                )
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
