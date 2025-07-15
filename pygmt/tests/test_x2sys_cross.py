@@ -16,7 +16,7 @@ from packaging.version import Version
 from pygmt import config, x2sys_cross, x2sys_init
 from pygmt.clib import __gmt_version__
 from pygmt.datasets import load_sample_data
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTTypeError
 
 
 @pytest.fixture(name="mock_x2sys_home")
@@ -239,11 +239,11 @@ def test_x2sys_cross_input_two_filenames():
 
 def test_x2sys_cross_invalid_tracks_input_type(tracks):
     """
-    Run x2sys_cross using tracks input that is not a pandas.DataFrame or str type,
-    which would raise a GMTInvalidInput error.
+    Run x2sys_cross using tracks input that is not a pandas.DataFrame or str type, which
+    would raise GMTTypeError.
     """
     invalid_tracks = tracks[0].to_xarray().z
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         x2sys_cross(tracks=[invalid_tracks])
 
 

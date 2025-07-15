@@ -10,7 +10,7 @@ import pytest
 import xarray as xr
 from pygmt import triangulate, which
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTTypeError, GMTValueError
 from pygmt.helpers import GMTTempFile
 
 
@@ -94,7 +94,7 @@ def test_delaunay_triples_wrong_kind_of_input(dataframe):
     Run triangulate.delaunay_triples using grid input that is not file/matrix/vectors.
     """
     data = dataframe.z.to_xarray()  # convert pandas.Series to xarray.DataArray
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         triangulate.delaunay_triples(data=data)
 
 

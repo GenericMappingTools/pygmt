@@ -10,7 +10,7 @@ from pygmt import Figure
 from pygmt.clib import __gmt_version__
 from pygmt.datasets import load_earth_relief
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers.testing import check_figures_equal
 
 
@@ -156,7 +156,7 @@ def test_grdimage_fails():
     Should fail for unrecognized input.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.grdimage(np.arange(20).reshape((4, 5)))
 
 

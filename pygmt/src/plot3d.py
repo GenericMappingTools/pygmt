@@ -6,7 +6,7 @@ from typing import Literal
 
 from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
@@ -251,8 +251,10 @@ def plot3d(  # noqa: PLR0912
             ("symbol", symbol),
         ]:
             if is_nonstr_iter(value):
-                msg = f"'{name}' can't be a 1-D array if 'data' is used."
-                raise GMTInvalidInput(msg)
+                raise GMTTypeError(
+                    type(value),
+                    reason=f"Parameter {name!r} can't be a 1-D array if 'data' is used.",
+                )
 
     # Set the default style if data has a geometry of Point or MultiPoint
     if kwargs.get("S") is None and _data_geometry_is_point(data, kind):

@@ -9,7 +9,7 @@ import numpy.testing as npt
 import pandas as pd
 import pytest
 from pygmt import grdtrack
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -129,7 +129,7 @@ def test_grdtrack_wrong_kind_of_points_input(dataarray, dataframe):
     Run grdtrack using points input that is not a pandas.DataFrame or file.
     """
     invalid_points = dataframe.longitude.to_xarray()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         grdtrack(points=invalid_points, grid=dataarray, newcolname="bathymetry")
 
 
@@ -138,7 +138,7 @@ def test_grdtrack_wrong_kind_of_grid_input(dataarray, dataframe):
     Run grdtrack using grid input that is not an xarray.DataArray or file.
     """
     invalid_grid = dataarray.to_dataset()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         grdtrack(points=dataframe, grid=invalid_grid, newcolname="bathymetry")
 
 

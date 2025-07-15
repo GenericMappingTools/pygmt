@@ -10,7 +10,7 @@ from typing import Any
 import pandas as pd
 from pygmt._typing import PathLike
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTTypeError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
@@ -213,8 +213,7 @@ def x2sys_cross(
                 # Save pandas.DataFrame track data to temporary file
                 file_contexts.append(tempfile_from_dftrack(track=track, suffix=suffix))
             case _:
-                msg = f"Unrecognized data type: {type(track)}."
-                raise GMTInvalidInput(msg)
+                raise GMTTypeError(type(track))
 
     with Session() as lib:
         with lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl:
