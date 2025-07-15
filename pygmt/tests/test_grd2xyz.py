@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import pytest
 from pygmt import grd2xyz
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 from pygmt.helpers.testing import load_static_earth_relief
 
 
@@ -38,5 +38,5 @@ def test_grd2xyz_pandas_output_with_o(grid):
     """
     Test that grd2xyz fails when outcols is set and output_type is set to 'pandas'.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         grd2xyz(grid=grid, output_type="pandas", outcols="2")

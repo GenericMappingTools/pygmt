@@ -7,7 +7,7 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Any, ClassVar, Literal
 
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTValueError
 from pygmt.src.which import which
 
 
@@ -125,7 +125,7 @@ class _FocalMechanismConvention:
     >>> _FocalMechanismConvention.from_params(["strike", "dip", "rake"])
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Fail to determine focal mechanism convention...
+    pygmt.exceptions.GMTValueError: Invalid focal mechanism parameters: ...
     """
 
     # Mapping of focal mechanism conventions to their parameters.
@@ -236,18 +236,14 @@ class _FocalMechanismConvention:
 
         Raises
         ------
-        GMTInvalidInput
+        GMTValueError
             If the focal mechanism convention cannot be determined from the given
             parameters.
         """
         for convention, param_list in cls._params.items():
             if set(param_list).issubset(set(params)):
                 return cls(convention, component=component)
-        msg = (
-            "Fail to determine focal mechanism convention from the given parameters: "
-            f"{', '.join(params)}."
-        )
-        raise GMTInvalidInput(msg)
+        raise GMTValueError(params, description="focal mechanism parameters")
 
 
 def _parse_coastline_resolution(

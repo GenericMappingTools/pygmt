@@ -5,7 +5,7 @@ vlines - Plot vertical lines.
 from collections.abc import Sequence
 
 import numpy as np
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 
 __doctest_skip__ = ["vlines"]
 
@@ -99,11 +99,12 @@ def vlines(
 
     # Check if ymin/ymax are scalars or have the expected length.
     if _ymin.size not in {1, nlines} or _ymax.size not in {1, nlines}:
-        msg = (
-            f"'ymin' and 'ymax' are expected to be scalars or have lengths '{nlines}', "
-            f"but lengths '{_ymin.size}' and '{_ymax.size}' are given."
+        _value = f"{_ymin.size}, {_ymax.size}"
+        raise GMTValueError(
+            _value,
+            description="size for 'ymin'/'ymax'",
+            reason=f"'ymin'/'ymax' are expected to be scalars or have lengths {nlines!r}.",
         )
-        raise GMTInvalidInput(msg)
 
     # Repeat ymin/ymax to match the length of x if they are scalars.
     if nlines != 1:

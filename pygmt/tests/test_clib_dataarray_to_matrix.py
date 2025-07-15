@@ -7,7 +7,7 @@ import numpy.testing as npt
 import pytest
 import xarray as xr
 from pygmt.clib.conversion import dataarray_to_matrix
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 
 
 @pytest.mark.benchmark
@@ -81,7 +81,7 @@ def test_dataarray_to_matrix_dims_fails():
     y = np.arange(12)
     z = np.arange(10)
     grid = xr.DataArray(data, coords=[("z", z), ("y", y), ("x", x)])
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         dataarray_to_matrix(grid)
 
 
@@ -107,11 +107,11 @@ def test_dataarray_to_matrix_zero_inc_fails():
     x = np.linspace(0, 1, 5)
     y = np.zeros_like(x)
     grid = xr.DataArray(data, coords=[("y", y), ("x", x)])
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         dataarray_to_matrix(grid)
 
     y = np.linspace(0, 1, 5)
     x = np.zeros_like(x)
     grid = xr.DataArray(data, coords=[("y", y), ("x", x)])
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         dataarray_to_matrix(grid)

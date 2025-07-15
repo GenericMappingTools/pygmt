@@ -10,7 +10,7 @@ import pytest
 import xarray as xr
 from pygmt import triangulate, which
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import GMTTempFile
 
 
@@ -127,7 +127,7 @@ def test_delaunay_triples_invalid_format(dataframe):
     """
     Test that triangulate.delaunay_triples fails with incorrect format.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         triangulate.delaunay_triples(data=dataframe, output_type=1)
 
 

@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 from pygmt import Figure, grd2cpt
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -37,7 +37,7 @@ def test_grd2cpt_blank_output(grid):
     """
     Use incorrect setting by passing in blank file name to output parameter.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         grd2cpt(grid=grid, output="")
 
 
@@ -45,7 +45,7 @@ def test_grd2cpt_invalid_output(grid):
     """
     Use incorrect setting by passing in invalid type to output parameter.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         grd2cpt(grid=grid, output=["some.cpt"])
 
 

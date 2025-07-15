@@ -10,7 +10,7 @@ import pytest
 from packaging.version import Version
 from pygmt import Figure
 from pygmt.clib import __gmt_version__
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import GMTTempFile
 
 
@@ -318,14 +318,14 @@ def test_meca_spec_ndarray_mismatched_columns():
     """
     fig = Figure()
     fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         fig.meca(
             spec=np.array([[-124, 48, 12.0, 330, 30, 90]]), convention="aki", scale="1c"
         )
 
     fig = Figure()
     fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         fig.meca(
             spec=np.array([[-124, 48, 12.0, 330, 30, 90, 3, -124.5, 47.5, 30.0, 50.0]]),
             convention="aki",
