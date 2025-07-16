@@ -10,6 +10,7 @@ manually created legends are supported.
 import io
 
 import pygmt
+from pygmt.params import Box
 
 # %%
 # Create an auto-legend
@@ -90,7 +91,7 @@ fig.plot(x=[-3, 3], y=[-2, -2], pen="darkred", label="darkred line")
 
 # Add a box with a 2-points thick blue, solid outline and a white fill with a
 # transparency of 70 percentage ("@30").
-fig.legend(position="jTL+o0.3c/0.2c", box="+p2p,blue+gwhite@30")
+fig.legend(position="jTL+o0.3c/0.2c", box=Box(pen="2p,blue", fill="white@30"))
 
 fig.show()
 
@@ -152,7 +153,7 @@ fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="M10c", frame=True)
 
 # Pass the io.StringIO object to the "spec" parameter
-fig.legend(spec=spec_io, position="jMC+w9c", box="+p1p,gray50+ggray95")
+fig.legend(spec=spec_io, position="jMC+w9c", box=Box(pen="1p,gray50", fill="gray95"))
 
 fig.show()
 
