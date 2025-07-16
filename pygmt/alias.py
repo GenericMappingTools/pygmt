@@ -58,7 +58,7 @@ def _to_string(
     size
         Expected size of the 1-D sequence. It can be either an integer or a sequence of
         integers. If an integer, it is the expected size of the 1-D sequence. If it is a
-        sequence, it is the allowed sizes of the 1-D sequence.
+        sequence, it is the allowed size of the 1-D sequence.
     ndim
         The expected maximum number of dimensions of the sequence.
     name
