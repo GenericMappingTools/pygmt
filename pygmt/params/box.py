@@ -22,17 +22,17 @@ class Box(BaseParam):
         scalar value or a sequence of two/four values.
 
         - a scalar value means a uniform clearance in all four directions.
-        - a sequence of two values means separate clearances in x- and y- directions.
+        - a sequence of two values means separate clearances in x- and y-directions.
         - a sequence of four values means separate clearances for left/right/bottom/top.
     fill
         Fill for the box. Default is no fill.
     pen
         Pen attributes for the box outline.
     radius
-        Draw a rounded rectangular borders instead of sharp. Passing a value with unit
-        to control the corner radius (default is ``"6p"``).
+        Draw a rounded rectangular border instead of sharp. Passing a value with unit
+        to control the corner radius [Default is ``"6p"``].
     inner_gap
-        Gap between the outer and inner border. Default is ``"2p"``.
+        Gap between the outer and inner borders. Default is ``"2p"``.
     inner_pen
         Pen attributes for the inner border. Default to :gmt-term:`MAP_DEFAULT_PEN`.
     shading_offset
