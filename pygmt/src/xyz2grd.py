@@ -2,32 +2,41 @@
 xyz2grd - Convert data table to a grid.
 """
 
+import numpy as np
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["xyz2grd"]
 
-def _xyz2xyz(x=None, y=None, z=None):
-    if x is not None:
-        x = np.atleast_1d(x)
-    if y is not None:
-        y = np.atleast_1d(y)
-    if z is not None:
-        z = np.atleast_1d(z)
 
-    # Three 1-D arrays.
-    if x.ndim == 1 and y.ndim == 1 and z.ndim == 1:
-        pass
-    # z is a 2-D array.
-    if z.ndim == 2:
-        if x is None:
-            x = np.arange(z.shape[0])
-        if y is None:
-            y = np.arange(z.shape[1])
-        return
+def _prepare_xyz(z, x=None, y=None):
+    """
+    Prepare the x, y, z arrays for the xyz2grd function.
+    """
+    z = np.atleast_1d(z)
+    x = np.atleast_1d(x) if x is not None else None
+    y = np.atleast_1d(y) if y is not None else None
+
+    match z.ndim:
+        case 1:
+            if (x and y) and x.size == y.size == z.size:
+                # x and y are 1-D arrays of the same length as z.
+                return x, y, z
+            if (x and y) and x.size * y.size == z.size:
+                # x and y are 1-D coordinates and z is a 1-D array of values.
+                xx, yy = np.meshgrid(x, y)
+                return xx.flatten(), yy.flatten(), z
+        case 2:
+            if (x and y) and z.shape == (y.size, x.size):
+                xx, yy = np.meshgrid(x, y)
+                return xx.flatten(), yy.flatten(), z.flatten()
+        case _:
+            raise GMTValueError(
+                z.ndim, description="number of dimensions for 'z'", choices=[1, 2]
+            )
     return x, y, z
 
 
