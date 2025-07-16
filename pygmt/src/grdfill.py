@@ -8,7 +8,7 @@ import numpy as np
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
     deprecate_parameter,
@@ -61,8 +61,7 @@ def _validate_params(
         for param in [constantfill, gridfill, neighborfill, splinefill, inquire, mode]
     )
     if n_given > 1:  # More than one mutually exclusive parameter is given.
-        msg = f"Parameters {_fill_params}/'inquire'/'mode' are mutually exclusive."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(mutual_exclusive=[*_fill_params, "inquire", "mode"])
     if n_given == 0:  # No parameters are given.
         msg = (
             f"Need to specify parameter {_fill_params} for filling holes or "
