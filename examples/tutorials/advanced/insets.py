@@ -10,6 +10,7 @@ added to the inset figure instead of the larger figure.
 
 # %%
 import pygmt
+from pygmt.params import Box
 
 # %%
 # Prior to creating an inset figure, a larger figure must first be plotted. In
@@ -48,7 +49,7 @@ fig.coast(
     water="lightblue",
     frame="a",
 )
-with fig.inset(position="jBL+w3c", box="+pblack+glightred"):
+with fig.inset(position="jBL+w3c", box=Box(pen="black", fill="lightred")):
     # pass is used to exit the with statement as no plotting methods are
     # called
     pass
@@ -72,7 +73,7 @@ fig.coast(
     water="lightblue",
     frame="a",
 )
-with fig.inset(position="jBL+w3c+o0.5c/0.2c", box="+pblack+glightred"):
+with fig.inset(position="jBL+w3c+o0.5c/0.2c", box=Box(pen="black", fill="lightred")):
     pass
 fig.show()
 
@@ -97,7 +98,7 @@ fig.coast(
 # parameters.
 with fig.inset(
     position="jBL+o0.5c/0.2c",
-    box="+pblack",
+    box=Box(pen="black"),
     region=[-80, -65, 35, 50],
     projection="M3c",
 ):
