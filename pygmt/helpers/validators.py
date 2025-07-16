@@ -49,7 +49,7 @@ def validate_output_table_type(
     ...     assert len(w) == 1
     'file'
     """
-    _valids = {"pandas", "numpy", "file"}
+    _valids = {"file", "numpy", "pandas"}
     if output_type not in _valids:
         raise GMTValueError(
             output_type,
