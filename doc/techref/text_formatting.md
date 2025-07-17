@@ -1,9 +1,9 @@
 # Text Formatting
 
-The table below shows how text added to a plot, such as text strings added via `Figure.text`, plot title, labels of Cartesian axes and colorbars, and legend entries.
-Changing
-the font as well as its color and size in this way allows to change those only for
-specific characters of a longer text. The supported fonts are listed at
+The table below shows how text added to a plot, such as text strings added via
+`Figure.text`, plot title, labels of Cartesian axes and colorbars, and legend entries.
+Changing the font as well as its color and size in this way allows to change those
+only for specific characters of a longer text. The supported fonts are listed at
 [](/techref/fonts.md).
 
 | Symbol | Behavior |
