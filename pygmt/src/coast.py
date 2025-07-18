@@ -168,7 +168,7 @@ def coast(
         *code1,code2,…*\ [**+g**\ *fill*\ ][**+p**\ *pen*\ ][**+z**].
         Select painting country polygons from the `Digital Chart of the World
         <https://en.wikipedia.org/wiki/Digital_Chart_of_the_World>`__.
-        Append one or more comma-separated countries using the 2-characters
+        Append one or more comma-separated countries using the 2-letter
         `ISO 3166-1 alpha-2 convention
         <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>`__.
         To select a state of a country (if available), append .\ *state*,

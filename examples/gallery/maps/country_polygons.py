@@ -3,7 +3,7 @@ Highlight country, continent and state polygons
 ===============================================
 
 The :meth:`pygmt.Figure.coast` method can highlight country polygons via the ``dcw``
-parameter. It accepts the country code (following the 2-characters
+parameter. It accepts the country code (following the 2-letter
 `ISO 3166-1 alpha-2 convention <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>`_) or
 full country name and can draw its borders and add a color to its landmass. It's also
 possible to define multiple countries at once by separating the individual names with
