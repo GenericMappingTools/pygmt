@@ -9,7 +9,7 @@ import pandas as pd
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
@@ -145,10 +145,11 @@ def grd2xyz(
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
     if kwargs.get("o") is not None and output_type == "pandas":
-        msg = (
-            "If 'outcols' is specified, 'output_type' must be either 'numpy' or 'file'."
+        raise GMTValueError(
+            output_type,
+            description="value for parameter 'output_type'",
+            reason="Expected one of: 'numpy', 'file' if 'outcols' is specified.",
         )
-        raise GMTInvalidInput(msg)
     # Set the default column names for the pandas DataFrame header.
     column_names: list[str] = ["x", "y", "z"]
     # Let output pandas column names match input DataArray dimension names
