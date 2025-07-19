@@ -36,6 +36,6 @@ fig.text(x=0, y=-1, text="@!_~")
 fig.text(x=0, y=-2, text="This is @_underlined@_ text")
 
 # Use small caps
-fig.text(x=0, y=-3, text="@#text in small caps@#")
+fig.text(x=0, y=-3, text="T@#ext@# in S@#mall@# C@#aps@#")
 
 fig.show()
