@@ -204,11 +204,11 @@ def test_xarray_accessor_clip(grid):
 
 def test_xarray_accessor_equalize(grid):
     """
-    Check that the accessor has the equalize_hist method and that it works correctly.
+    Check that the accessor has the histeq method and that it works correctly.
 
     This test is adapted from the `test_equalize_grid_no_outgrid` test.
     """
-    equalized_grid = grid.gmt.equalize_hist(divisions=2, region=[-52, -48, -22, -18])
+    equalized_grid = grid.gmt.histeq(divisions=2, region=[-52, -48, -22, -18])
 
     expected_equalized_grid = xr.DataArray(
         data=[[0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 1, 1], [1, 1, 1, 1]],
