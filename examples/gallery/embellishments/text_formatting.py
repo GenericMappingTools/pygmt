@@ -33,7 +33,7 @@ fig.text(x=0, y=0, text="@~s@~@-ij@- = c@-ijkl@- @~e@~@-kl@-")
 fig.text(x=0, y=-1, text="@!_~")
 
 # Underline the text
-fig.text(x=0, y=-2, text="@_underlined text@_")
+fig.text(x=0, y=-2, text="This is @_underlined@_ text")
 
 # Use small caps
 fig.text(x=0, y=-3, text="@#text in small caps@#")
