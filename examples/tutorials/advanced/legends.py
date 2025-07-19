@@ -133,7 +133,7 @@ N 1
 G 0.1c
 M 5 5 600+u+f
 G 0.1c
-I @SOEST_block4.png 3i CT
+#I @SOEST_block4.png 3i CT
 G 0.05c
 L 9p,Times-Roman R Smith et al., @%5%J. Geophys. Res., 99@%%, 2000
 G 0.1c
