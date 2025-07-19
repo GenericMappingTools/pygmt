@@ -250,7 +250,7 @@ class GMTDataArrayAccessor:
     clip = _make_method(grdclip)
     cut = _make_method(grdcut)
     dimfilter = _make_method(dimfilter)
-    equalize_hist = _make_method(grdhisteq.equalize_grid)
+    histeq = _make_method(grdhisteq.equalize_grid)
     fill = _make_method(grdfill)
     filter = _make_method(grdfilter)
     gradient = _make_method(grdgradient)
