@@ -18,7 +18,7 @@ from typing import Any, Literal
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.encodings import charset
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 
 # Type hints for the list of encodings supported by PyGMT.
 Encoding = Literal[
@@ -524,6 +524,8 @@ def build_arg_list(  # noqa: PLR0912
     ['-A1/2/3/4', '-BWSen', '-Bxaf', '-Byaf', '-C1p', '-C2p']
     >>> build_arg_list(dict(B=["af", "WSne+tBlank Space"]))
     ['-BWSne+tBlank Space', '-Baf']
+    >>> build_arg_list(dict(B=[True, "+tTitle"]))
+    ['-B', '-B+tTitle']
     >>> build_arg_list(dict(F='+t"Empty Spaces"'))
     ['-F+t"Empty Spaces"']
     >>> build_arg_list(dict(l="'Void Space'"))
@@ -565,7 +567,10 @@ def build_arg_list(  # noqa: PLR0912
         elif value is True:
             gmt_args.append(f"-{key}")
         elif is_nonstr_iter(value):
-            gmt_args.extend(f"-{key}{_value}" for _value in value)
+            gmt_args.extend(
+                f"-{key}{_value}" if _value is not True else f"-{key}"
+                for _value in value
+            )
         else:
             gmt_args.append(f"-{key}{value}")
 
@@ -592,8 +597,7 @@ def build_arg_list(  # noqa: PLR0912
             or os.fspath(outfile) in {"", ".", ".."}
             or os.fspath(outfile).endswith(("/", "\\"))
         ):
-            msg = f"Invalid output file name '{outfile}'."
-            raise GMTInvalidInput(msg)
+            raise GMTValueError(outfile, description="output file name")
         gmt_args.append(f"->{os.fspath(outfile)}")
     return gmt_args
 
