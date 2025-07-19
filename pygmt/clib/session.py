@@ -916,6 +916,8 @@ class Session:
 
         Raises
         ------
+        GMTValueError
+            If the array has the wrong number of dimensions.
         GMTTypeError
             If the array is an unsupported data type.
 
@@ -935,8 +937,11 @@ class Session:
         """
         # Check that the array has the given number of dimensions.
         if array.ndim != ndim:
-            msg = f"Expected a numpy {ndim}-D array, got {array.ndim}-D."
-            raise GMTInvalidInput(msg)
+            raise GMTValueError(
+                array.ndim,
+                description="array dimension",
+                reason=f"Expected a numpy {ndim}-D array, got {array.ndim}-D.",
+            )
 
         # 1-D arrays can be numeric or text, 2-D arrays can only be numeric.
         valid_dtypes = DTYPES if ndim == 1 else DTYPES_NUMERIC
