@@ -44,6 +44,7 @@ This example shows how such a scale bar can be customized:
 
 # %%
 import pygmt
+from pygmt.params import Box
 
 # Create a new Figure instance
 fig = pygmt.Figure()
@@ -105,7 +106,7 @@ fig.coast(
     # Fill the box in white with a transparency of 30 percent, add a solid
     # outline in darkgray (gray30) with a thickness of 0.5 points, and use
     # rounded edges with a radius of 3 points
-    box="+gwhite@30+p0.5p,gray30,solid+r3p",
+    box=Box(fill="white@30", pen="0.5p,gray30,solid", radius="3p"),
 )
 
 fig.show()
