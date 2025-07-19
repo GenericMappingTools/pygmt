@@ -202,7 +202,7 @@ def test_xarray_accessor_clip(grid):
     xr.testing.assert_allclose(a=clipped_grid, b=expected_clipped_grid)
 
 
-def test_xarray_accessor_equalize(grid):
+def test_xarray_accessor_histeq(grid):
     """
     Check that the accessor has the histeq method and that it works correctly.
 
