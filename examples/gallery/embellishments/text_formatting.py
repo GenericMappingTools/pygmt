@@ -16,7 +16,7 @@ import pygmt
 fig = pygmt.Figure()
 fig.basemap(region=[-1, 1, -4, 4], projection="X4c/5c", frame=0)
 
-# Change font color for specific characters of the word "PyGMT":
+# Change font color for specific letters of the word "PyGMT":
 # blue for "P", yellow for "y", and red for "GMT"
 fig.text(x=0, y=3, text="@;63/124/173;P@;;@;255/212/59;y@;;@;238/86/52;GMT@;;")
 
