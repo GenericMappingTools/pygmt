@@ -1874,7 +1874,8 @@ class Session:
                 valid_kinds += ("empty", "matrix", "vectors", "geojson")
             if kind not in valid_kinds:
                 raise GMTTypeError(
-                    type(data), reason=f"Unrecognized data type for {check_kind!r} kind."
+                    type(data),
+                    reason=f"Unrecognized data type for {check_kind!r} kind.",
                 )
 
         # Decide which virtualfile_from_ function to use
