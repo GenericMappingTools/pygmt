@@ -3,7 +3,7 @@ makecpt - Make GMT color palette tables.
 """
 
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
@@ -156,8 +156,7 @@ def makecpt(**kwargs):
         ``categorical=True``.
     """
     if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
-        msg = "Set only categorical or cyclic to True, not both."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(exclusive={"categorical", "cyclic"})
 
     if (output := kwargs.pop("H", None)) is not None:
         kwargs["H"] = True

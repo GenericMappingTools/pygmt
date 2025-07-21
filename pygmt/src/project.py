@@ -228,8 +228,7 @@ def project(
         msg = "The 'data' parameter must be specified unless 'generate' is used."
         raise GMTInvalidInput(msg)
     if kwargs.get("G") is not None and kwargs.get("F") is not None:
-        msg = "The 'convention' parameter is not allowed with 'generate'."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(exclusive={"generate", "convention"})
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 

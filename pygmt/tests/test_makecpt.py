@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 from pygmt import Figure, makecpt
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.helpers import GMTTempFile
 
 POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
@@ -166,5 +166,5 @@ def test_makecpt_categorical_and_cyclic():
     """
     Use incorrect setting by setting both categorical and cyclic to True.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         makecpt(cmap="batlow", categorical=True, cyclic=True)

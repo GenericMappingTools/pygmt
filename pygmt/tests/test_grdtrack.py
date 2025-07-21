@@ -170,5 +170,5 @@ def test_grdtrack_set_points_and_profile(dataarray, dataframe):
     """
     Run grdtrack but set both 'points' and 'profile'.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         grdtrack(grid=dataarray, points=dataframe, profile="BL/TR")

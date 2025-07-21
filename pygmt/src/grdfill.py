@@ -8,7 +8,7 @@ import numpy as np
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
     deprecate_parameter,
@@ -37,22 +37,22 @@ def _validate_params(
     >>> _validate_params(constantfill=20.0, gridfill="bggrid.nc")
     Traceback (most recent call last):
     ...
-    pygmt.exceptions.GMTInvalidInput: Parameters ... are mutually exclusive.
+    pygmt.exceptions.GMTParameterError: Mutually exclusive parameter...
     >>> _validate_params(constantfill=20.0, inquire=True)
     Traceback (most recent call last):
     ...
-    pygmt.exceptions.GMTInvalidInput: Parameters ... are mutually exclusive.
+    pygmt.exceptions.GMTParameterError: Mutually exclusive parameter...
     >>> _validate_params()
     Traceback (most recent call last):
     ...
     pygmt.exceptions.GMTInvalidInput: Need to specify parameter ...
     """
-    _fill_params = "'constantfill'/'gridfill'/'neighborfill'/'splinefill'"
+    _fill_params = {"constantfill", "gridfill", "neighborfill", "splinefill"}
     # The deprecated 'mode' parameter is given.
     if mode is not None:
         msg = (
             "The 'mode' parameter is deprecated since v0.15.0 and will be removed in "
-            f"v0.19.0. Use {_fill_params} instead."
+            f"v0.19.0. Use {', '.join(repr(par) for par in _fill_params)} instead."
         )
         warnings.warn(msg, FutureWarning, stacklevel=2)
 
@@ -61,8 +61,7 @@ def _validate_params(
         for param in [constantfill, gridfill, neighborfill, splinefill, inquire, mode]
     )
     if n_given > 1:  # More than one mutually exclusive parameter is given.
-        msg = f"Parameters {_fill_params}/'inquire'/'mode' are mutually exclusive."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(exclusive=[*_fill_params, "inquire", "mode"])
     if n_given == 0:  # No parameters are given.
         msg = (
             f"Need to specify parameter {_fill_params} for filling holes or "

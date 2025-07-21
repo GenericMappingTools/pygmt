@@ -292,8 +292,7 @@ def grdtrack(
     ... )
     """
     if points is not None and kwargs.get("E") is not None:
-        msg = "Can't set both 'points' and 'profile'."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(exclusive={"points", "profile"})
 
     if points is None and kwargs.get("E") is None:
         msg = "Must give 'points' or set 'profile'."
