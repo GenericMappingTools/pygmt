@@ -259,7 +259,7 @@ def text_(  # noqa: PLR0912
             if is_nonstr_iter(arg):
                 raise GMTTypeError(
                     type(arg),
-                    reason=f"Parameter {name!r} expects a scalar value or True.",
+                    reason=f"Parameter {name!r} expects a single value or True.",
                 )
 
     with Session() as lib:
