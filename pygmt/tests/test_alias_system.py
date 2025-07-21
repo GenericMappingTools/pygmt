@@ -21,19 +21,34 @@ def func(projection=None, region=None, frame=None, label=None, text=None, **kwar
     return build_arg_list(alias.kwdict)
 
 
-def test_alias_system_one_alias():
+def test_alias_system_long_form():
     """
-    Test that the alias system works with a single alias.
+    Test that the alias system works with long-form parameters.
     """
+    # One parameter
     assert func(projection="X10c") == ["-JX10c"]
+    # Multiple parameters.
     assert func(projection="H10c", region=[0, 10, 0, 20]) == ["-JH10c", "-R0/10/0/20"]
+    # Repeatable parameters.
     assert func(frame=["WSen", "xaf", "yaf"]) == ["-BWSen", "-Bxaf", "-Byaf"]
+    # Multiple long-form parameters.
+    assert func(label="abcd", text="efg") == ["-Uabcd+tefg"]
+    assert func(
+        projection="H10c",
+        region=[0, 10, 0, 20],
+        label="abcd",
+        text="efg",
+        frame=["WSen", "xaf", "yaf"],
+    ) == ["-BWSen", "-Bxaf", "-Byaf", "-JH10c", "-R0/10/0/20", "-Uabcd+tefg"]
 
 
 def test_alias_system_one_alias_short_form():
     """
     Test that the alias system works when short-form parameters coexist.
     """
+    # Long-form does not exist.
+    assert func(A="abc") == ["-Aabc"]
+
     # Long-form exists but is not given, and short-form is given.
     with pytest.warns(
         SyntaxWarning,
@@ -49,24 +64,19 @@ def test_alias_system_one_alias_short_form():
         func(projection="X10c", J="H10c")
 
 
-def test_alias_system_multiple_aliases():
-    """
-    Test that the alias system works with multiple aliases.
-    """
-    assert func(label="abcd", text="efg") == ["-Uabcd+tefg"]
-
-
 def test_alias_system_multiple_aliases_short_form():
     """
     Test that the alias system works with multiple aliases when short-form parameters
     are used.
     """
+    # Long-form exists but is not given, and short-form is given.
     with pytest.warns(
         SyntaxWarning,
         match="Short-form parameter 'U' is not recommended. Use long-form parameter 'label', 'text' instead.",
     ):
         assert func(U="abcd+tefg") == ["-Uabcd+tefg"]
 
+    # Coexistence of long-form and short-form parameters.
     with pytest.raises(
         GMTInvalidInput,
         match="Parameter in short-form 'U' conflicts with long-form parameter 'label', 'text'.",
