@@ -17,7 +17,7 @@ def func(projection=None, region=None, frame=None, label=None, text=None, **kwar
         R=Alias(region, name="region", separator="/", size=[4, 6]),
         B=Alias(frame, name="frame"),
         U=[Alias(label, name="label"), Alias(text, name="text", prefix="+t")],
-    ).merge(kwargs)
+    ).update(kwargs)
     return build_arg_list(alias.kwdict)
 
 
@@ -42,7 +42,10 @@ def test_alias_system_one_alias_short_form():
         assert func(J="X10c") == ["-JX10c"]
 
     # Coexistence of long-form and short-form parameters.
-    with pytest.raises(GMTInvalidInput, match="can't coexist"):
+    with pytest.raises(
+        GMTInvalidInput,
+        match="Parameter in short-form 'J' conflicts with long-form parameter 'projection'.",
+    ):
         func(projection="X10c", J="H10c")
 
 
@@ -64,8 +67,14 @@ def test_alias_system_multiple_aliases_short_form():
     ):
         assert func(U="abcd+tefg") == ["-Uabcd+tefg"]
 
-    with pytest.raises(GMTInvalidInput, match="can't coexist"):
+    with pytest.raises(
+        GMTInvalidInput,
+        match="Parameter in short-form 'U' conflicts with long-form parameter 'label', 'text'.",
+    ):
         func(label="abcd", U="efg")
 
-    with pytest.raises(GMTInvalidInput, match="can't coexist"):
+    with pytest.raises(
+        GMTInvalidInput,
+        match="Parameter in short-form 'U' conflicts with long-form parameter 'label', 'text'.",
+    ):
         func(text="efg", U="efg")

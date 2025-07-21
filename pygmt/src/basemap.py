@@ -86,7 +86,7 @@ def basemap(self, region=None, projection=None, frame=None, **kwargs):
         R=Alias(region, name="region", separator="/", size=[4, 6]),
         J=Alias(projection, name="projection"),
         B=Alias(frame, name="frame"),
-    ).merge(kwargs)
+    ).update(kwargs)
 
     with Session() as lib:
         lib.call_module(module="basemap", args=build_arg_list(alias.kwdict))

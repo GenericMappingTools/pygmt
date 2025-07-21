@@ -4,7 +4,6 @@ The PyGMT alias system to convert PyGMT's long-form arguments to GMT's short-for
 
 import dataclasses
 import warnings
-from collections import defaultdict
 from collections.abc import Mapping, Sequence
 from typing import Any, Literal
 
@@ -227,8 +226,8 @@ class AliasSystem:
     ...         B=Alias(frame, name="frame"),
     ...         D=Alias(repeat, name="repeat"),
     ...         c=Alias(panel, name="panel", separator=","),
-    ...     )
-    ...     return build_arg_list(alias.kwdict | kwargs)
+    ...     ).update(kwargs)
+    ...     return build_arg_list(alias.kwdict)
     >>> func(
     ...     "infile",
     ...     par1="mytext",
@@ -241,60 +240,67 @@ class AliasSystem:
     ['-Amytext+o12/12', '-B', '-D1', '-D2', '-D3', '-JX10c/10c', '-c1,2']
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Mapping[str, Alias | Sequence[Alias]]):
         """
         Initialize the alias system and create the keyword dictionary that stores the
         current parameter values.
         """
-        # Keyword dictionary with an empty string as default value.
-        self.kwdict = defaultdict(str)
-        for option, aliases in kwargs.items():
-            if not is_nonstr_iter(aliases):  # A single alias.
+        # Storing the aliases as a dictionary for easy access.
+        self.aliasdict = kwargs
+
+        # Storing option-value as a keyword dictionary.
+        self.kwdict = {}
+        # Loop over the alias dictionary.
+        # The value of each key is an Alias object or a sequence of Alias objects.
+        # If it is a single Alias object, we will use its _value property.
+        # If it is a sequence of Alias objects, we will concatenate their _value
+        # properties into a single string.
+
+        # Note that alias._value is converted by the _to_string method and can only be
+        # None, string or sequence of strings.
+        # - None means the parameter is not specified.
+        # - Sequence of strings means this is a repeatable option, so it can only have
+        #   one long-form parameter.
+        for option, aliases in self.aliasdict.items():
+            if isinstance(aliases, Sequence):  # A sequence of Alias objects.
+                values = [alias._value for alias in aliases if alias._value is not None]
+                if values:
+                    self.kwdict[option] = "".join(values)
+            elif aliases._value is not None:  # A single Alias object and not None.
                 self.kwdict[option] = aliases._value
-                continue
+        # Now, the dictionary value should be a string or a sequence of strings.
 
-            for alias in aliases:  # List of aliases.
-                match alias._value:
-                    case None:
-                        continue
-                    case str():
-                        self.kwdict[option] += alias._value
-                    case list():
-                        # A repeatable option should have only one alias, so break.
-                        self.kwdict[option] = alias._value
-                        break
-
-        # Dictionary mapping option flags to their alias objects.
-        self._aliasdict = {}
-        for option, aliases in kwargs.items():
-            if not is_nonstr_iter(aliases):
-                self._aliasdict[option] = [aliases.name]
-            else:
-                self._aliasdict[option] = [alias.name for alias in aliases]
-
-    def merge(self, kwargs):
+    def update(self, kwargs: Mapping[str, Any]):
         """
-        Merge additional keyword arguments into the existing keyword dictionary.
+        Update the kwdict dictionary with additional keyword arguments.
 
         This method is necessary to allow users to use the single-letter parameters for
         option flags that are not aliased.
         """
-        # Loop over short-form parameters passed in kwargs.
+        # Loop over short-form parameters passed via kwargs.
         for short_param, value in kwargs.items():
-            if self._aliasdict.get(short_param):
-                long_form = ", ".join(repr(r) for r in self._aliasdict.get(short_param))
+            # Long-form parameters exist.
+            if aliases := self.aliasdict.get(short_param):
+                long_params = ", ".join(
+                    [repr(alias.name) for alias in aliases]
+                    if isinstance(aliases, Sequence)
+                    else [repr(aliases.name)]
+                )
+                # Long-form parameters are already specified.
+                if short_param in self.kwdict:
+                    msg = (
+                        f"Parameter in short-form {short_param!r} conflicts with "
+                        f"long-form parameter {long_params}."
+                    )
+                    raise GMTInvalidInput(msg)
 
-            # Long-form exists and is already given.
-            if short_param in self.kwdict and self.kwdict[short_param] is not None:
-                msg = f"Parameters in short-form {short_param!r} and long-form {long_form} can't coexist."
-                raise GMTInvalidInput(msg)
-
-            # Long-form exists, but not given.
-            if short_param in self._aliasdict:
+                # Long-form parameters are not specified.
                 msg = (
                     f"Short-form parameter {short_param!r} is not recommended. "
-                    f"Use long-form parameter {long_form} instead."
+                    f"Use long-form parameter {long_params} instead."
                 )
                 warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+
+            # Update the kwdict with the short-form parameter anyway.
             self.kwdict[short_param] = value
         return self
