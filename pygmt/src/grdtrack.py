@@ -9,7 +9,7 @@ import pandas as pd
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTParameterError
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
@@ -295,8 +295,7 @@ def grdtrack(
         raise GMTParameterError(exclusive={"points", "profile"})
 
     if points is None and kwargs.get("E") is None:
-        msg = "Must give 'points' or set 'profile'."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(require_any={"points", "profile"})
 
     if hasattr(points, "columns") and newcolname is None:
         raise GMTParameterError(

@@ -140,6 +140,8 @@ class GMTParameterError(GMTError):
     ----------
     required
         Names of required parameters.
+    require_any
+        Names of parameters where at least one must be specified.
     exclusive
         Names of mutually exclusive parameters.
     reason
@@ -150,6 +152,7 @@ class GMTParameterError(GMTError):
         self,
         *,
         required: Set[str] | None = None,
+        require_any: Set[str] | None = None,
         exclusive: Set[str] | None = None,
         reason: str | None = None,
     ):
@@ -158,6 +161,11 @@ class GMTParameterError(GMTError):
             msg = (
                 "Required parameter(s) are missing: "
                 f"{', '.join(repr(par) for par in required)}."
+            )
+        if require_any:
+            msg = (
+                "At least one of the following parameters must be specified: "
+                f"{', '.join(repr(par) for par in require_any)}."
             )
         if exclusive:
             msg = (

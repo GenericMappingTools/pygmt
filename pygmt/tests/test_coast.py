@@ -4,7 +4,7 @@ Test Figure.coast.
 
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTParameterError
 
 
 @pytest.mark.benchmark
@@ -40,7 +40,7 @@ def test_coast_required_args():
     Test if fig.coast fails when not given required arguments.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.coast(region="EG")
 
 
