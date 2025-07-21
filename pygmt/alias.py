@@ -240,7 +240,7 @@ class AliasSystem:
     ['-Amytext+o12/12', '-B', '-D1', '-D2', '-D3', '-JX10c/10c', '-c1,2']
     """
 
-    def __init__(self, **kwargs: Mapping[str, Alias | Sequence[Alias]]):
+    def __init__(self, **kwargs):
         """
         Initialize the alias system and create the keyword dictionary that stores the
         current parameter values.
