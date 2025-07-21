@@ -221,12 +221,12 @@ class AliasSystem:
     ... ):
     ...     alias = AliasSystem(
     ...         A=[
-    ...             Alias(par1),
-    ...             Alias(par2, prefix="+o", separator="/"),
+    ...             Alias(par1, name="par1"),
+    ...             Alias(par2, name="par2", prefix="+o", separator="/"),
     ...         ],
-    ...         B=Alias(frame),
-    ...         D=Alias(repeat),
-    ...         c=Alias(panel, separator=","),
+    ...         B=Alias(frame, name="frame"),
+    ...         D=Alias(repeat, name="repeat"),
+    ...         c=Alias(panel, name="panel", separator=","),
     ...     )
     ...     return build_arg_list(alias.kwdict | kwargs)
     >>> func(
