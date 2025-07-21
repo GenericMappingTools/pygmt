@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 from pygmt import Figure, clib
-from pygmt.exceptions import GMTCLibError, GMTInvalidInput
+from pygmt.exceptions import GMTCLibError, GMTTypeError
 from pygmt.helpers import GMTTempFile
 
 POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
@@ -53,7 +53,7 @@ def test_call_module_invalid_argument_type():
     call_module only accepts a string or a list of strings as module arguments.
     """
     with clib.Session() as lib:
-        with pytest.raises(GMTInvalidInput):
+        with pytest.raises(GMTTypeError):
             lib.call_module("get", ("FONT_TITLE", "FONT_TAG"))
 
 

@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
@@ -248,11 +248,13 @@ def velo(self, data: PathLike | TableLike | None = None, **kwargs):
         raise GMTInvalidInput(msg)
 
     if isinstance(data, np.ndarray) and not pd.api.types.is_numeric_dtype(data):
-        msg = (
-            "Text columns are not supported with numpy.ndarray type inputs. "
-            "They are only supported with file or pandas.DataFrame inputs."
+        raise GMTTypeError(
+            type(data),
+            reason=(
+                "Text columns are not supported with numpy.ndarray type inputs. "
+                "They are only supported with file or pandas.DataFrame inputs."
+            ),
         )
-        raise GMTInvalidInput(msg)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:

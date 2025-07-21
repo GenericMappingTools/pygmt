@@ -6,7 +6,7 @@ import numpy as np
 import pytest
 import xarray as xr
 from pygmt import grdcut
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTTypeError, GMTValueError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -68,7 +68,7 @@ def test_grdcut_fails():
     """
     Check that grdcut fails correctly.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         grdcut(np.arange(10).reshape((5, 2)))
 
 
