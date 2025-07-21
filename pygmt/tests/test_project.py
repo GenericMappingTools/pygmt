@@ -10,7 +10,7 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import project
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTParameterError
 from pygmt.helpers import GMTTempFile
 
 
@@ -81,7 +81,7 @@ def test_project_incorrect_parameters():
     Run project by providing incorrect parameters such as 1) no `center`; 2) no `data`
     or `generate`; and 3) `generate` with `convention`.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError, match="center"):
         # No `center`
         project(azimuth=45)
     with pytest.raises(GMTInvalidInput):
