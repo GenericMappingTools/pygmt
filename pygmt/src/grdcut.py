@@ -7,7 +7,7 @@ from typing import Literal
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTTypeError, GMTValueError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
@@ -122,8 +122,7 @@ def grdcut(
         case "file":
             outkind = kind
         case _:
-            msg = f"Unsupported data type {type(grid)}."
-            raise GMTInvalidInput(msg)
+            raise GMTTypeError(type(grid))
 
     with Session() as lib:
         with (

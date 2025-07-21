@@ -7,7 +7,7 @@ from collections.abc import Sequence
 import numpy as np
 from pygmt._typing import AnchorCode, PathLike, StringArrayTypes, TableLike
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import (
     _check_encoding,
     build_arg_list,
@@ -257,8 +257,10 @@ def text_(  # noqa: PLR0912
 
         for arg, _, name in [*array_args, (kwargs.get("t"), "", "transparency")]:
             if is_nonstr_iter(arg):
-                msg = f"Argument of '{name}' must be a single value or True."
-                raise GMTInvalidInput(msg)
+                raise GMTTypeError(
+                    type(arg),
+                    reason=f"Parameter {name!r} expects a single value or True.",
+                )
 
     with Session() as lib:
         with lib.virtualfile_in(

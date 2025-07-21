@@ -115,3 +115,18 @@ class GMTValueError(GMTError, ValueError):
         if reason:
             msg += f" {reason}"
         super().__init__(msg)
+
+
+class GMTTypeError(GMTError, TypeError):
+    """
+    Raised when an invalid type is passed to a function/method.
+
+    This exception is used to indicate that the type of an argument does not match
+    the expected type.
+    """
+
+    def __init__(self, dtype: object, /, reason: str | None = None):
+        msg = f"Unrecognized data type: {dtype!r}."
+        if reason:
+            msg += f" {reason}"
+        super().__init__(msg)
