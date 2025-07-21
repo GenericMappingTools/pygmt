@@ -143,6 +143,8 @@ class Alias:
     ----------
     value
         The value of the alias.
+    name
+        The name of the parameter to be used in the error message.
     prefix
         The string to add as a prefix to the returned value.
     mapping
@@ -155,8 +157,6 @@ class Alias:
         sequence, it is the allowed size of the 1-D sequence.
     ndim
         The expected maximum number of dimensions of the sequence.
-    name
-        The name of the parameter to be used in the error message.
 
     Examples
     --------
@@ -174,12 +174,12 @@ class Alias:
     """
 
     value: Any
+    name: str | None = None
     prefix: str = ""
     mapping: Mapping | None = None
     separator: Literal["/", ","] | None = None
     size: int | Sequence[int] | None = None
     ndim: int = 1
-    name: str | None = None
 
     @property
     def _value(self) -> str | list[str] | None:
@@ -188,10 +188,10 @@ class Alias:
         """
         return _to_string(
             value=self.value,
+            name=self.name,
             prefix=self.prefix,
             mapping=self.mapping,
             separator=self.separator,
             size=self.size,
             ndim=self.ndim,
-            name=self.name,
         )
