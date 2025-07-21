@@ -18,7 +18,7 @@ from typing import Any, Literal
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.encodings import charset
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 
 # Type hints for the list of encodings supported by PyGMT.
 Encoding = Literal[
@@ -597,8 +597,7 @@ def build_arg_list(  # noqa: PLR0912
             or os.fspath(outfile) in {"", ".", ".."}
             or os.fspath(outfile).endswith(("/", "\\"))
         ):
-            msg = f"Invalid output file name '{outfile}'."
-            raise GMTInvalidInput(msg)
+            raise GMTValueError(outfile, description="output file name")
         gmt_args.append(f"->{os.fspath(outfile)}")
     return gmt_args
 

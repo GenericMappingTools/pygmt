@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
@@ -66,8 +66,11 @@ def _preprocess_spec(spec, colnames, override_cols):
         }
         ndiff = spec.shape[1] - len(colnames)
         if ndiff not in extra_cols:
-            msg = f"Input array must have {len(colnames)} or two/three more columns."
-            raise GMTInvalidInput(msg)
+            raise GMTValueError(
+                spec.shape[1],
+                description="input array shape",
+                reason=f"Input array must have {len(colnames)} or two/three more columns.",
+            )
         spec = dict(zip([*colnames, *extra_cols[ndiff]], spec.T, strict=False))
 
     # Now, the input data is a dict or an ASCII file.
