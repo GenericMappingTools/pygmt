@@ -15,6 +15,7 @@ from itertools import islice
 from pathlib import Path
 from typing import Any, Literal
 
+import numpy as np
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.encodings import charset
@@ -640,7 +641,7 @@ def is_nonstr_iter(value: Any) -> bool:
     return (
         isinstance(value, Iterable)
         and not isinstance(value, str)
-        and not (hasattr(value, "ndim") and value.ndim == 0)
+        and not (isinstance(value, np.ndarray) and value.ndim == 0)
     )
 
 
