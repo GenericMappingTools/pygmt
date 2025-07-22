@@ -250,12 +250,12 @@ class AliasSystem:
 
         # Storing option-value as a keyword dictionary.
         self.kwdict = {}
-        # Loop over the alias dictionary.
-        # The value of each key is an Alias object or a sequence of Alias objects.
-        # If it is a single Alias object, we will use its _value property.
-        # If it is a sequence of Alias objects, we will concatenate their _value
-        # properties into a single string.
 
+        # The value of each key in aliasdict is an Alias object or a sequence of Alias
+        # objects. If it is a single Alias object, we will use its _value property. If
+        # it is a sequence of Alias objects, we will concatenate their _value properties
+        # into a single string.
+        #
         # Note that alias._value is converted by the _to_string method and can only be
         # None, string or sequence of strings.
         # - None means the parameter is not specified.
@@ -268,7 +268,6 @@ class AliasSystem:
                     self.kwdict[option] = "".join(values)
             elif aliases._value is not None:  # A single Alias object and not None.
                 self.kwdict[option] = aliases._value
-        # Now, the dictionary value should be a string or a sequence of strings.
 
     def update(self, kwargs: Mapping[str, Any]):
         """
