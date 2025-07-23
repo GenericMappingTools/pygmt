@@ -50,7 +50,11 @@ def test_xarray_backend_load_dataarray_temp_nc_grid():
 
     with Session() as lib:
         with GMTTempFile(suffix=".nc") as tmpfile:
-            args = f"@earth_relief_01d_g -T -G{tmpfile.name}"  # change from gridline to pixel registration
+            args = [
+                "@earth_relief_01d_g",
+                "-T",  # change from gridline to pixel registration
+                f"-G{tmpfile.name}",
+            ]
             lib.call_module(module="grdedit", args=args)
             dataarray = xr.load_dataarray(
                 tmpfile.name, engine="gmt", raster_kind="grid"
