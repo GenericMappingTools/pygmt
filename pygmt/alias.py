@@ -5,6 +5,7 @@ The PyGMT alias system to convert PyGMT's long-form arguments to GMT's short-for
 from collections.abc import Mapping, Sequence
 from typing import Any, Literal
 
+import numpy as np
 from pygmt.exceptions import GMTValueError
 from pygmt.helpers.utils import is_nonstr_iter, sequence_join
 
@@ -104,6 +105,19 @@ def _to_string(
 
     >>> _to_string(["xaf", "yaf", "WSen"])
     ['xaf', 'yaf', 'WSen']
+
+    >>> import numpy as np
+    >>> import pandas as pd
+    >>> import datetime
+    >>> _to_string(
+    ...     [
+    ...         np.array("2010-01-01T00:00:00", dtype=np.datetime64),
+    ...         pd.Timestamp("2020-01-01"),
+    ...         datetime.datetime(2023, 10, 1, 12, 0),
+    ...     ],
+    ...     separator="/",
+    ... )
+    '2010-01-01T00:00:00/2020-01-01T00:00:00.000000/2023-10-01T12:00:00.000000'
     """
     # None and False are converted to None.
     if value is None or value is False:
@@ -122,6 +136,18 @@ def _to_string(
                 )
             value = mapping.get(value, value)
         return f"{prefix}{value}"
+
+    # Now, we know that value is a sequence.
+
+    # The string representation of datetime-like items (e.g., pandas.Timestamp,
+    # xr.DataArray) may contain a space " ". This can cause issues since GMT expects
+    # datetime-like items to be in ISO 8601 format (e.g., "2023-10-01T12:00:00").
+    value = [
+        np.datetime_as_string(np.asarray(item, dtype=np.datetime64))
+        if " " in str(item)
+        else item
+        for item in value
+    ]
 
     # Return the sequence if separator is not specified for options like '-B'.
     # True in a sequence will be converted to an empty string.
