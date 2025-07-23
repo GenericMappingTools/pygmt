@@ -129,7 +129,7 @@ with fig.subplot(
           fig.basemap(region = region,
            projection = projection,
            rose = "g0/0+w2.5c+f2+jCM+lW,E,,",
-           frame = True)        
+           frame = True)
 
     # Fancy, 2.5 cm wide rose of level 3 with two labels indicating the North and
     # South directions. Colors of the rose and labels are defined via
@@ -143,6 +143,6 @@ with fig.subplot(
           fig.basemap(region = region,
            projection = projection,
            rose = "g0/0+w2.5c+f3+l,,South,North+jCM",
-           frame = True)     
+           frame = True)
 
 fig.show()
