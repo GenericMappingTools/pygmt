@@ -25,8 +25,10 @@ def dataframe_from_pandas(filepath_or_buffer, sep=r"\s+", comment="#", header=No
 
     # By default, pandas reads text strings with whitespaces as multiple columns, but
     # GMT concatenates all trailing text as a single string column. Need do find all
-    # string columns (with dtype="object") and combine them into a single string column.
-    string_columns = df.select_dtypes(include=["object"]).columns
+    # string columns and combine them into a single string column.
+    # For pandas<3.0, string columns have dtype="object".
+    # For pandas>=3.0, string columns have dtype="str".
+    string_columns = df.select_dtypes(include=["object", "str"]).columns
     if len(string_columns) > 1:
         df[string_columns[0]] = df[string_columns].apply(lambda x: " ".join(x), axis=1)
         df = df.drop(string_columns[1:], axis=1)
