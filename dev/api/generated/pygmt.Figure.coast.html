@@ -13,7 +13,7 @@
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.Figure.coast.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../_static/documentation_options.js?v=c2340134"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -339,7 +339,7 @@ strings to <code class="docutils literal notranslate"><span class="pre">shorelin
 level pens are set, those not listed will not be drawn.</p></li>
 <li><p><strong>dcw</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <em>code1,code2,…</em>[<strong>+g</strong><em>fill</em>][<strong>+p</strong><em>pen</em>][<strong>+z</strong>].
 Select painting country polygons from the <a class="reference external" href="https://en.wikipedia.org/wiki/Digital_Chart_of_the_World">Digital Chart of the World</a>.
-Append one or more comma-separated countries using the 2-character
+Append one or more comma-separated countries using the 2-letter
 <a class="reference external" href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 convention</a>.
 To select a state of a country (if available), append .<em>state</em>,
 (e.g, <code class="docutils literal notranslate"><span class="pre">&quot;US.TX&quot;</span></code> for Texas). To specify a whole continent, prepend <strong>=</strong>
@@ -429,7 +429,7 @@ in the image (for further processing).</p></li>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The borders parameter of pygmt.Figure.coast specifies levels of political boundaries to plot and the pen used to draw them. Choose from the list of boundaries below:"><img alt="" src="../../_images/sphx_glr_borders_thumb.png" />
 <p><a class="reference internal" href="../../gallery/maps/borders.html#sphx-glr-gallery-maps-borders-py"><span class="std std-ref">Political boundaries</span></a></p>
   <div class="sphx-glr-thumbnail-title">Political boundaries</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.coast method can highlight country polygons via the dcw parameter. It accepts the country code or full country name and can draw its borders and add a color to its landmass. It&#x27;s also possible to define multiple countries at once by separating the individual names with commas."><img alt="" src="../../_images/sphx_glr_country_polygons_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.coast method can highlight country polygons via the dcw parameter. It accepts the country code (following the 2-letter ISO 3166-1 alpha-2 convention) or full country name and can draw its borders and add a color to its landmass. It&#x27;s also possible to define multiple countries at once by separating the individual names with commas."><img alt="" src="../../_images/sphx_glr_country_polygons_thumb.png" />
 <p><a class="reference internal" href="../../gallery/maps/country_polygons.html#sphx-glr-gallery-maps-country-polygons-py"><span class="std std-ref">Highlight country, continent and state polygons</span></a></p>
   <div class="sphx-glr-thumbnail-title">Highlight country, continent and state polygons</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The land and water parameters of pygmt.Figure.coast specify a color to fill in the land and water masses, respectively. There are many color codes in GMT &lt;gmtcolors.html&gt;, including standard GMT color names (like &quot;skyblue&quot;), R/G/B levels (like &quot;0/0/255&quot;), a hex value (like &quot;#333333&quot;), and a gray level (like &quot;gray50&quot;)."><img alt="" src="../../_images/sphx_glr_land_and_water_thumb.png" />
@@ -580,9 +580,9 @@ in the image (for further processing).</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/25febab8">25febab8</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jun 18, 2025.
+      <span class="lastupdated">Last updated on Jul 22, 2025.
       </span></p>
   </div>
 
