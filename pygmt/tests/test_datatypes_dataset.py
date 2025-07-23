@@ -29,6 +29,7 @@ def dataframe_from_pandas(filepath_or_buffer, sep=r"\s+", comment="#", header=No
     # string columns and combine them into a single string column.
     # For pandas<3.0, string columns have dtype="object".
     # For pandas>=3.0, string columns have dtype="str".
+    # TODO(pandas>=3.0): Remove the pandas version check.
     dtype = "object" if Version(pd.__version__) < Version("3.0.0.dev0") else "str"
     string_columns = df.select_dtypes(include=[dtype]).columns
     if len(string_columns) > 1:
