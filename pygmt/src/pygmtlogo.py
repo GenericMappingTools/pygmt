@@ -34,9 +34,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         visual and ``False`` to add no wordmark.
     """
 
-    # -----------------------------------------------------------------------------
     # Helpful definitions
-    # -----------------------------------------------------------------------------
     size = 4
     region = [-size, size] * 2
     projection = "x1c"
@@ -48,9 +46,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     # Has to be applied to each plotting command, up on second call set to True
     perspective = "30+w0/0"  # Rotation by 30 degrees
 
-    # -----------------------------------------------------------------------------
     # Define colors
-    # -----------------------------------------------------------------------------
     color_light = "white"
     color_dark = "gray20"
 
@@ -74,9 +70,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
             color_py = color_yellow
             color_gmt = color_light
 
-    # -----------------------------------------------------------------------------
     # Define shape
-    # -----------------------------------------------------------------------------
     match shape:
         case "circle":
             symbol = "c"  # circle
@@ -87,9 +81,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
             diameter = 8.6
             diameter_add = 0.6
 
-    # -----------------------------------------------------------------------------
     # Define wordmark
-    # -----------------------------------------------------------------------------
     font = "AvantGarde-Book"
     match wordmark:
         case "vertical":
@@ -97,9 +89,6 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         case True | "horizontal":
             args_text_wm = {"x": 6, "y": 0, "justify": "LM", "font": f"8c,{font}"}
 
-    # -----------------------------------------------------------------------------
-    # Start plotting
-    # -----------------------------------------------------------------------------
     fig = pygmt.Figure()
 
     # .............................................................................
@@ -117,9 +106,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         no_clip=True,  # needed for corners of hexagon shape
     )
 
-    # .............................................................................
     # yellow lines for compass
-    # .............................................................................
     lines_yellow = [
         ([-size, size], [0, 0]),  # horizontal line
         ([-r1, -r2], [r1, r2]),  # upper left
@@ -130,9 +117,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     for x, y in lines_yellow:
         fig.plot(x=x, y=y, pen=f"5p,{color_yellow}", perspective=True)
 
-    # .............................................................................
     # letter G
-    # .............................................................................
     # horizontal red line
     fig.plot(x=[0.1, 1.65], y=[0, 0], pen=f"12p,{color_red}", perspective=True)
     # red ring sector
@@ -144,17 +129,13 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     # cover yellow line in lower part of the ring sector
     fig.plot(x=0, y=0, style="w3.3c/260/-80+i2.35c", fill=color_red, perspective=True)
 
-    # .............................................................................
     # upper vertical red line
-    # .............................................................................
     # space between red line and blue circle / hexagon
     fig.plot(x=[0, 0], y=[4, 3.0], pen=f"18p,{color_bg}", perspective=True)
     # red line
     fig.plot(x=[0, 0], y=[4, 1.9], pen=f"12p,{color_red}", perspective=True)
 
-    # .............................................................................
     # letter M
-    # .............................................................................
     # space between letter M and yellow line at the right side
     # fig.plot(x=[1.6, 1.6], y=[1.5, 1.775], pen=f"10p,{color_bg}")
     fig.plot(x=[1.6, 1.6], y=[1.5, 2.0], pen=f"10p,{color_bg}", perspective=True)
@@ -196,9 +177,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     ]
     fig.plot(x=m_x, y=m_y, close=True, fill=color_red)
 
-    # .............................................................................
     # letter T
-    # .............................................................................
     # red curved horizontal line
     fig.plot(x=0, y=0, style="w4.6c/240/-60+i3.7c", fill=color_red, perspective=True)
     # vertical endings of curved horizontal line
@@ -228,16 +207,11 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
             no_clip=True,
         )
 
-    # .............................................................................
     # Add wordmark "PyGMT"
-    # .............................................................................
     if wordmark:
         text_wm = f"@;{color_py};Py@;;@;{color_gmt};GMT@;;"
         fig.text(text=text_wm, no_clip=True, **args_text_wm)
 
-    # .............................................................................
-    # Save
-    # .............................................................................
     fig_name_logo = "pygmt_logo"
     fig.savefig(fname=f"{fig_name_logo}.eps")
 
