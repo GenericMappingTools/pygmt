@@ -59,7 +59,7 @@ def test_alias_system_one_alias_short_form():
     # Coexistence of long-form and short-form parameters.
     with pytest.raises(
         GMTInvalidInput,
-        match="Parameter in short-form 'J' conflicts with long-form parameter 'projection'.",
+        match="Short-form parameter 'J' conflicts with long-form parameters and is not recommended. Use long-form parameter 'projection' instead.",
     ):
         func(projection="X10c", J="H10c")
 
@@ -70,21 +70,16 @@ def test_alias_system_multiple_aliases_short_form():
     are used.
     """
     # Long-form exists but is not given, and short-form is given.
-    with pytest.warns(
-        SyntaxWarning,
-        match="Short-form parameter 'U' is not recommended. Use long-form parameter 'label', 'text' instead.",
-    ):
+    msg = (
+        r"Short-form parameter 'U' is not recommended. Use long-form parameters 'label', with optional parameters 'text' \(\+t\) instead.",
+    )
+    with pytest.warns(SyntaxWarning, match=msg):
         assert func(U="abcd+tefg") == ["-Uabcd+tefg"]
 
     # Coexistence of long-form and short-form parameters.
-    with pytest.raises(
-        GMTInvalidInput,
-        match="Parameter in short-form 'U' conflicts with long-form parameter 'label', 'text'.",
-    ):
+    msg = r"Short-form parameter 'U' conflicts with long-form parameters and is not recommended. Use long-form parameters 'label', with optional parameters 'text' \(\+t\) instead."
+    with pytest.raises(GMTInvalidInput, match=msg):
         func(label="abcd", U="efg")
 
-    with pytest.raises(
-        GMTInvalidInput,
-        match="Parameter in short-form 'U' conflicts with long-form parameter 'label', 'text'.",
-    ):
+    with pytest.raises(GMTInvalidInput, match=msg):
         func(text="efg", U="efg")
