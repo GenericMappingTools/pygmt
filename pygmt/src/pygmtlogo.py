@@ -91,9 +91,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
 
     fig = pygmt.Figure()
 
-    # .............................................................................
     # blue circle / hexagon for Earth
-    # .............................................................................
     fig.plot(
         x=0,
         y=0,
