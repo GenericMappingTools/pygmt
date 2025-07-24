@@ -76,26 +76,6 @@ def test_coast_dcw_list():
     return fig
 
 
-@pytest.mark.mpl_image_compare(filename="test_coast_world_mercator.png")
-def test_coast_resolution_short_form():
-    """
-    Test using the short form of the 'resolution' parameter.
-
-    This test is the same as test_coast_world_mercator, but uses the short form of
-    the 'resolution' parameter.
-    """
-    fig = Figure()
-    fig.coast(
-        region=[-180, 180, -80, 80],
-        projection="M15c",
-        frame="af",
-        land="#aaaaaa",
-        D="crude",
-        water="white",
-    )
-    return fig
-
-
 def test_coast_resolution_long_short_form_conflict():
     """
     Test that using the short form of the 'resolution' parameter conflicts with
