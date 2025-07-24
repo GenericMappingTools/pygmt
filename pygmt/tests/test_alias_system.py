@@ -8,7 +8,15 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list
 
 
-def func(projection=None, region=None, frame=None, label=None, text=None, **kwargs):
+def func(
+    projection=None,
+    region=None,
+    frame=None,
+    label=None,
+    text=None,
+    offset=None,
+    **kwargs,
+):
     """
     A simple function to test the alias system.
     """
@@ -16,7 +24,11 @@ def func(projection=None, region=None, frame=None, label=None, text=None, **kwar
         J=Alias(projection, name="projection"),
         R=Alias(region, name="region", separator="/", size=[4, 6]),
         B=Alias(frame, name="frame"),
-        U=[Alias(label, name="label"), Alias(text, name="text", prefix="+t")],
+        U=[
+            Alias(label, name="label"),
+            Alias(text, name="text", prefix="+t"),
+            Alias(offset, name="offset", prefix="+o", separator="/"),
+        ],
     ).update(kwargs)
     return build_arg_list(alias.kwdict)
 
@@ -32,14 +44,15 @@ def test_alias_system_long_form():
     # Repeatable parameters.
     assert func(frame=["WSen", "xaf", "yaf"]) == ["-BWSen", "-Bxaf", "-Byaf"]
     # Multiple long-form parameters.
-    assert func(label="abcd", text="efg") == ["-Uabcd+tefg"]
+    assert func(label="abcd", text="efg", offset=(12, 12)) == ["-Uabcd+tefg+o12/12"]
     assert func(
         projection="H10c",
         region=[0, 10, 0, 20],
         label="abcd",
         text="efg",
+        offset=(12, 12),
         frame=["WSen", "xaf", "yaf"],
-    ) == ["-BWSen", "-Bxaf", "-Byaf", "-JH10c", "-R0/10/0/20", "-Uabcd+tefg"]
+    ) == ["-BWSen", "-Bxaf", "-Byaf", "-JH10c", "-R0/10/0/20", "-Uabcd+tefg+o12/12"]
 
 
 def test_alias_system_one_alias_short_form():
@@ -69,13 +82,14 @@ def test_alias_system_multiple_aliases_short_form():
     Test that the alias system works with multiple aliases when short-form parameters
     are used.
     """
+    _msg_long = r"Use long-form parameters 'label', with optional parameters 'text' \(\+t\), 'offset' \(\+o\) instead."
     # Long-form exists but is not given, and short-form is given.
-    msg = r"Short-form parameter 'U' is not recommended. Use long-form parameters 'label', with optional parameters 'text' \(\+t\) instead."
+    msg = rf"Short-form parameter 'U' is not recommended. {_msg_long}"
     with pytest.warns(SyntaxWarning, match=msg):
         assert func(U="abcd+tefg") == ["-Uabcd+tefg"]
 
     # Coexistence of long-form and short-form parameters.
-    msg = r"Short-form parameter 'U' conflicts with long-form parameters and is not recommended. Use long-form parameters 'label', with optional parameters 'text' \(\+t\) instead."
+    msg = rf"Short-form parameter 'U' conflicts with long-form parameters and is not recommended. {_msg_long}"
     with pytest.raises(GMTInvalidInput, match=msg):
         func(label="abcd", U="efg")
 
