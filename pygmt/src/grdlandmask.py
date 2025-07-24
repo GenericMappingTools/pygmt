@@ -16,7 +16,6 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.src._common import _parse_coastline_resolution
 
 __doctest_skip__ = ["grdlandmask"]
 
@@ -24,7 +23,6 @@ __doctest_skip__ = ["grdlandmask"]
 @fmt_docstring
 @use_alias(
     A="area_thresh",
-    D="resolution-",
     I="spacing",
     R="region",
     V="verbose",
@@ -53,6 +51,7 @@ def grdlandmask(
     Full GMT docs at :gmt-docs:`grdlandmask.html`.
 
     {aliases}
+       - D=resolution
        - E=bordervalues
        - N=maskvalues
 
@@ -118,9 +117,19 @@ def grdlandmask(
         msg = "Both 'region' and 'spacing' must be specified."
         raise GMTInvalidInput(msg)
 
-    kwargs["D"] = kwargs.get("D", _parse_coastline_resolution(resolution))
-
     aliasdict = AliasSystem(
+        D=Alias(
+            resolution,
+            name="resolution",
+            mapping={
+                "auto": "a",
+                "full": "f",
+                "high": "h",
+                "intermediate": "i",
+                "low": "l",
+                "crude": "c",
+            },
+        ),
         N=Alias(maskvalues, name="maskvalues", sep="/", size=(2, 5)),
         E=Alias(bordervalues, name="bordervalues", sep="/", size=4),
     ).merge(kwargs)
