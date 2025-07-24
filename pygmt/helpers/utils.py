@@ -18,7 +18,7 @@ from typing import Any, Literal
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.encodings import charset
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 
 # Type hints for the list of encodings supported by PyGMT.
 Encoding = Literal[
@@ -597,15 +597,15 @@ def build_arg_list(  # noqa: PLR0912
             or os.fspath(outfile) in {"", ".", ".."}
             or os.fspath(outfile).endswith(("/", "\\"))
         ):
-            msg = f"Invalid output file name '{outfile}'."
-            raise GMTInvalidInput(msg)
+            raise GMTValueError(outfile, description="output file name")
         gmt_args.append(f"->{os.fspath(outfile)}")
     return gmt_args
 
 
 def is_nonstr_iter(value: Any) -> bool:
     """
-    Check if the value is iterable (e.g., list, tuple, array) but not a string.
+    Check if the value is iterable (e.g., list, tuple, array) but not a string or a 0-D
+    array.
 
     Parameters
     ----------
@@ -634,8 +634,14 @@ def is_nonstr_iter(value: Any) -> bool:
     True
     >>> is_nonstr_iter(np.array(["abc", "def", "ghi"]))
     True
+    >>> is_nonstr_iter(np.array(42))
+    False
     """
-    return isinstance(value, Iterable) and not isinstance(value, str)
+    return (
+        isinstance(value, Iterable)
+        and not isinstance(value, str)
+        and not (hasattr(value, "ndim") and value.ndim == 0)
+    )
 
 
 def launch_external_viewer(fname: PathLike, waiting: float = 0) -> None:

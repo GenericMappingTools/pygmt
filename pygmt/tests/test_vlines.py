@@ -4,7 +4,7 @@ Tests for Figure.vlines.
 
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 
 
 @pytest.mark.mpl_image_compare
@@ -90,13 +90,13 @@ def test_vlines_invalid_input():
     """
     fig = Figure()
     fig.basemap(region=[0, 10, 0, 6], projection="X10c/6c", frame=True)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         fig.vlines(1, ymin=2, ymax=[3, 4])
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         fig.vlines(1, ymin=[2, 3], ymax=4)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         fig.vlines(1, ymin=[2, 3], ymax=[4, 5])
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         fig.vlines([1, 2], ymin=[2, 3, 4], ymax=3)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         fig.vlines([1, 2], ymin=[2, 3], ymax=[4, 5, 6])

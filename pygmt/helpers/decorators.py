@@ -12,7 +12,7 @@ import warnings
 from inspect import Parameter, signature
 
 import numpy as np
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers.utils import is_nonstr_iter
 
 COMMON_DOCSTRINGS = {
@@ -732,8 +732,11 @@ def kwargs_to_strings(**conversions):
 
     for arg, fmt in conversions.items():
         if fmt not in separators:
-            msg = f"Invalid conversion type '{fmt}' for argument '{arg}'."
-            raise GMTInvalidInput(msg)
+            raise GMTValueError(
+                fmt,
+                description=f"conversion type for parameter '{arg}'",
+                choices=separators.keys(),
+            )
 
     # Make the actual decorator function
     def converter(module_func):
