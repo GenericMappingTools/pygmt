@@ -70,9 +70,7 @@ def test_alias_system_multiple_aliases_short_form():
     are used.
     """
     # Long-form exists but is not given, and short-form is given.
-    msg = (
-        r"Short-form parameter 'U' is not recommended. Use long-form parameters 'label', with optional parameters 'text' \(\+t\) instead.",
-    )
+    msg = r"Short-form parameter 'U' is not recommended. Use long-form parameters 'label', with optional parameters 'text' \(\+t\) instead."
     with pytest.warns(SyntaxWarning, match=msg):
         assert func(U="abcd+tefg") == ["-Uabcd+tefg"]
 
