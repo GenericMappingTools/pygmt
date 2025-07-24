@@ -43,6 +43,7 @@ Colors of the map roses can be adjusted using :gmt-term:`MAP_DEFAULT_PEN`
 and :gmt-term:`MAP_TICK_PEN_PRIMARY` via :func:`pygmt.config`. Customizing
 label font and color can be done via :gmt-term:`FONT_TITLE`.
 """
+import pygmt
 
 fig = pygmt.Figure()
 
