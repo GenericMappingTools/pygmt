@@ -200,7 +200,7 @@ class Alias:
 
 class AliasSystem:
     """
-    Alias system for converting long-form PyGMT parameters to GMT short-form options.
+    Alias system for mapping PyGMT's long-form parameters to GMT's short-form options.
 
     This class is initialized with keyword arguments, where each key is a GMT option
     flag, and the corresponding value is an ``Alias`` object or a list of ``Alias``
@@ -281,22 +281,15 @@ class AliasSystem:
             # Long-form parameters exist.
             if aliases := self.aliasdict.get(short_param):
                 if not isinstance(aliases, Sequence):  # Single Alias object.
-                    _params = repr(aliases.name)
-                    _msg_long_params = f"Use long-form parameter {_params} instead."
+                    _msg_long = f"Use long-form parameter {aliases.name!r} instead."
                 else:  # Sequence of Alias objects.
-                    _params = ", ".join(
-                        [repr(alias.name) for alias in aliases if not alias.prefix]
-                    )
-                    _modifiers = ", ".join(
-                        [
-                            repr(alias.name) + f" ({alias.prefix})"
-                            for alias in aliases
-                            if alias.prefix
-                        ]
-                    )
-                    _msg_long_params = (
-                        f"Use long-form parameters {_params}, "
-                        f"with optional parameters {_modifiers} instead."
+                    _params = [f"{v.name!r}" for v in aliases if not v.prefix]
+                    _modifiers = [
+                        f"{v.name!r} ({v.prefix})" for v in aliases if v.prefix
+                    ]
+                    _msg_long = (
+                        f"Use long-form parameters {', '.join(_params)}, "
+                        f"with optional parameters {', '.join(_modifiers)} instead."
                     )
 
                 # Long-form parameters are already specified.
@@ -304,14 +297,14 @@ class AliasSystem:
                     msg = (
                         f"Short-form parameter {short_param!r} conflicts with "
                         "long-form parameters and is not recommended. "
-                        f"{_msg_long_params}"
+                        f"{_msg_long}"
                     )
                     raise GMTInvalidInput(msg)
 
                 # Long-form parameters are not specified.
                 msg = (
                     f"Short-form parameter {short_param!r} is not recommended. "
-                    f"{_msg_long_params}"
+                    f"{_msg_long}"
                 )
                 warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
 
