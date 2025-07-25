@@ -277,36 +277,40 @@ class AliasSystem(UserDict):
         """
         # Loop over short-form parameters passed via kwargs.
         for short_param, value in kwargs.items():
-            # Long-form parameters exist.
-            if aliases := self.aliasdict.get(short_param):
-                if not isinstance(aliases, Sequence):  # Single Alias object.
-                    _msg_long = f"Use long-form parameter {aliases.name!r} instead."
-                else:  # Sequence of Alias objects.
-                    _params = [f"{v.name!r}" for v in aliases if not v.prefix]
-                    _modifiers = [
-                        f"{v.name!r} ({v.prefix})" for v in aliases if v.prefix
-                    ]
-                    _msg_long = (
-                        f"Use long-form parameters {', '.join(_params)}, "
-                        f"with optional parameters {', '.join(_modifiers)} instead."
-                    )
-
-                # Long-form parameters are already specified.
-                if short_param in self:
-                    msg = (
-                        f"Short-form parameter {short_param!r} conflicts with "
-                        "long-form parameters and is not recommended. "
-                        f"{_msg_long}"
-                    )
-                    raise GMTInvalidInput(msg)
-
-                # Long-form parameters are not specified.
-                msg = (
-                    f"Short-form parameter {short_param!r} is not recommended. "
-                    f"{_msg_long}"
-                )
-                warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+            # Check if long-form parameters exist and given.
+            long_param_exists = short_param in self.aliasdict
+            long_param_given = short_param in self
 
             # Update the dictionary with the short-form parameter anyway.
             self[short_param] = value
+
+            # Long-form parameters do not exist.
+            if not long_param_exists:
+                continue
+
+            # Long-form parameters exist.
+            aliases = self.aliasdict.get(short_param)
+            if not isinstance(aliases, Sequence):  # Single Alias object.
+                _msg_long = f"Use long-form parameter {aliases.name!r} instead."
+            else:  # Sequence of Alias objects.
+                _params = [f"{v.name!r}" for v in aliases if not v.prefix]
+                _modifiers = [f"{v.name!r} ({v.prefix})" for v in aliases if v.prefix]
+                _msg_long = (
+                    f"Use long-form parameters {', '.join(_params)}, "
+                    f"with optional parameters {', '.join(_modifiers)} instead."
+                )
+
+            # Long-form parameters are already specified.
+            if long_param_given:
+                msg = (
+                    f"Short-form parameter {short_param!r} conflicts with long-form "
+                    f"parameters and is not recommended. {_msg_long}"
+                )
+                raise GMTInvalidInput(msg)
+
+            # Long-form parameters are not specified.
+            msg = (
+                f"Short-form parameter {short_param!r} is not recommended. {_msg_long}"
+            )
+            warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
         return self
