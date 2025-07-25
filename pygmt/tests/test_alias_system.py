@@ -20,7 +20,7 @@ def func(
     """
     A simple function to test the alias system.
     """
-    alias = AliasSystem(
+    aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
         R=Alias(region, name="region", separator="/", size=[4, 6]),
         B=Alias(frame, name="frame"),
@@ -29,8 +29,8 @@ def func(
             Alias(text, name="text", prefix="+t"),
             Alias(offset, name="offset", prefix="+o", separator="/"),
         ],
-    ).update(kwargs)
-    return build_arg_list(alias.kwdict)
+    ).merge(kwargs)
+    return build_arg_list(aliasdict)
 
 
 def test_alias_system_long_form():

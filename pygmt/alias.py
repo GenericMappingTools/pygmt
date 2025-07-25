@@ -4,6 +4,7 @@ The PyGMT alias system to convert PyGMT's long-form arguments to GMT's short-for
 
 import dataclasses
 import warnings
+from collections import UserDict
 from collections.abc import Mapping, Sequence
 from typing import Any, Literal
 
@@ -198,7 +199,7 @@ class Alias:
         )
 
 
-class AliasSystem:
+class AliasSystem(UserDict):
     """
     Alias system for mapping PyGMT's long-form parameters to GMT's short-form options.
 
@@ -206,9 +207,9 @@ class AliasSystem:
     flag, and the corresponding value is an ``Alias`` object or a list of ``Alias``
     objects.
 
-    The class provides the ``kwdict`` attribute, which is a dictionary mapping each GMT
-    option flag to its current value. The value can be a string or a list of strings.
-    This keyword dictionary can then be passed to the ``build_arg_list`` function.
+    This class inherits from ``UserDict``, which allows it to behave like a dictionary
+    and can be passed to the ``build_arg_list`` function. It also provides the ``merge``
+    method to update the alias dictionary with additional keyword arguments.
 
     Examples
     --------
@@ -218,7 +219,7 @@ class AliasSystem:
     >>> def func(
     ...     par0, par1=None, par2=None, frame=False, repeat=None, panel=None, **kwargs
     ... ):
-    ...     alias = AliasSystem(
+    ...     aliasdict = AliasSystem(
     ...         A=[
     ...             Alias(par1, name="par1"),
     ...             Alias(par2, name="par2", prefix="+o", separator="/"),
@@ -226,8 +227,8 @@ class AliasSystem:
     ...         B=Alias(frame, name="frame"),
     ...         D=Alias(repeat, name="repeat"),
     ...         c=Alias(panel, name="panel", separator=","),
-    ...     ).update(kwargs)
-    ...     return build_arg_list(alias.kwdict)
+    ...     ).merge(kwargs)
+    ...     return build_arg_list(aliasdict)
     >>> func(
     ...     "infile",
     ...     par1="mytext",
@@ -242,16 +243,12 @@ class AliasSystem:
 
     def __init__(self, **kwargs):
         """
-        Initialize the alias system and create the keyword dictionary that stores the
-        current parameter values.
+        Initialize the alias system as a dictionary with current parameter values.
         """
-        # Storing the aliases as a dictionary for easy access.
+        # Store the aliases in a dictionary, to be used in the merge() method.
         self.aliasdict = kwargs
 
-        # Storing option-value as a keyword dictionary.
-        self.kwdict = {}
-
-        # The value of each key in aliasdict is an Alias object or a sequence of Alias
+        # The value of each key in kwargs is an Alias object or a sequence of Alias
         # objects. If it is a single Alias object, we will use its _value property. If
         # it is a sequence of Alias objects, we will concatenate their _value properties
         # into a single string.
@@ -261,17 +258,19 @@ class AliasSystem:
         # - None means the parameter is not specified.
         # - Sequence of strings means this is a repeatable option, so it can only have
         #   one long-form parameter.
-        for option, aliases in self.aliasdict.items():
+        kwdict = {}
+        for option, aliases in kwargs.items():
             if isinstance(aliases, Sequence):  # A sequence of Alias objects.
                 values = [alias._value for alias in aliases if alias._value is not None]
                 if values:
-                    self.kwdict[option] = "".join(values)
+                    kwdict[option] = "".join(values)
             elif aliases._value is not None:  # A single Alias object and not None.
-                self.kwdict[option] = aliases._value
+                kwdict[option] = aliases._value
+        super().__init__(kwdict)
 
-    def update(self, kwargs: Mapping[str, Any]):
+    def merge(self, kwargs: Mapping[str, Any]):
         """
-        Update the kwdict dictionary with additional keyword arguments.
+        Update the dictionary with additional keyword arguments.
 
         This method is necessary to allow users to use the single-letter parameters for
         option flags that are not aliased.
@@ -293,7 +292,7 @@ class AliasSystem:
                     )
 
                 # Long-form parameters are already specified.
-                if short_param in self.kwdict:
+                if short_param in self:
                     msg = (
                         f"Short-form parameter {short_param!r} conflicts with "
                         "long-form parameters and is not recommended. "
@@ -308,6 +307,6 @@ class AliasSystem:
                 )
                 warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
 
-            # Update the kwdict with the short-form parameter anyway.
-            self.kwdict[short_param] = value
+            # Update the dictionary with the short-form parameter anyway.
+            self[short_param] = value
         return self
