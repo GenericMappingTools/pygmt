@@ -127,7 +127,7 @@ def binstats(
         - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
     """
-    alias = AliasSystem(
+    aliasdict = AliasSystem(
         C=[
             Alias(
                 statistic,
@@ -156,15 +156,15 @@ def binstats(
                 name="quantile_value",
             ),
         ]
-    ).update(kwargs)
+    ).merge(kwargs)
 
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="vector", data=data) as vintbl,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            alias.kwdict["G"] = voutgrd
+            aliasdict["G"] = voutgrd
             lib.call_module(
-                module="binstats", args=build_arg_list(alias.kwdict, infile=vintbl)
+                module="binstats", args=build_arg_list(aliasdict, infile=vintbl)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
