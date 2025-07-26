@@ -24,5 +24,11 @@ def test_logo_on_a_map():
     """
     fig = Figure()
     fig.basemap(region=[-90, -70, 0, 20], projection="M15c", frame=True)
-    fig.logo(position="jTR+o0.25c/0.25c+w7.5c", box=True)
+    fig.logo(
+        position_type="justify",
+        position="TR",
+        offset=(0.25, 0.25),
+        width="7.5c",
+        box=True,
+    )
     return fig
