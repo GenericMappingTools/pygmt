@@ -118,7 +118,7 @@ def grdlandmask(
         msg = "Both 'region' and 'spacing' must be specified."
         raise GMTInvalidInput(msg)
 
-    alias = AliasSystem(
+    aliasdict = AliasSystem(
         D=Alias(
             resolution,
             name="resolution",
@@ -131,13 +131,13 @@ def grdlandmask(
                 "crude": "c",
             },
         ),
-    ).update(kwargs)
+    ).merge(kwargs)
 
-    alias.kwdict["N"] = sequence_join(maskvalues, size=(2, 5), name="maskvalues")
-    alias.kwdict["E"] = sequence_join(bordervalues, size=(1, 4), name="bordervalues")
+    aliasdict["N"] = sequence_join(maskvalues, size=(2, 5), name="maskvalues")
+    aliasdict["E"] = sequence_join(bordervalues, size=(1, 4), name="bordervalues")
 
     with Session() as lib:
         with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
-            alias.kwdict["G"] = voutgrd
-            lib.call_module(module="grdlandmask", args=build_arg_list(alias.kwdict))
+            aliasdict["G"] = voutgrd
+            lib.call_module(module="grdlandmask", args=build_arg_list(aliasdict))
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

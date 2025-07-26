@@ -210,7 +210,7 @@ def select(
     >>> # longitudes 246 and 247 and latitudes 20 and 21
     >>> out = pygmt.select(data=ship_data, region=[246, 247, 20, 21])
     """
-    alias = AliasSystem(
+    aliasdict = AliasSystem(
         D=Alias(
             resolution,
             name="resolution",
@@ -223,7 +223,7 @@ def select(
                 "crude": "c",
             },
         ),
-    ).update(kwargs)
+    ).merge(kwargs)
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
@@ -238,7 +238,7 @@ def select(
         ):
             lib.call_module(
                 module="select",
-                args=build_arg_list(alias.kwdict, infile=vintbl, outfile=vouttbl),
+                args=build_arg_list(aliasdict, infile=vintbl, outfile=vouttbl),
             )
         return lib.virtualfile_to_dataset(
             vfname=vouttbl,
