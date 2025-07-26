@@ -99,7 +99,7 @@ def timestamp(
             # unsetting 'text'.
             timefmt, text = str(text), None
 
-    alias = AliasSystem(
+    aliasdict = AliasSystem(
         U=[
             Alias(label, name="label"),
             Alias(justify, name="justify", prefix="+j"),
@@ -107,12 +107,12 @@ def timestamp(
             Alias(text, name="text", prefix="+t"),
         ]
     )
-    alias.kwdict["T"] = True  # Add '-T' to the "plot" module.
+    aliasdict["T"] = True  # Add '-T' to the "plot" module.
 
     with Session() as lib:
         lib.call_module(
             module="plot",
             args=build_arg_list(
-                alias.kwdict, confdict={"FONT_LOGO": font, "FORMAT_TIME_STAMP": timefmt}
+                aliasdict, confdict={"FONT_LOGO": font, "FORMAT_TIME_STAMP": timefmt}
             ),
         )
