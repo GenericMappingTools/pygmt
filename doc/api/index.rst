@@ -31,6 +31,7 @@ Plotting map elements
     Figure.inset
     Figure.legend
     Figure.logo
+    Figure.scalebar
     Figure.solar
     Figure.text
     Figure.timestamp
