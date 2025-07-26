@@ -156,22 +156,25 @@ class GMTParameterError(GMTError):
         exclusive: Set[str] | None = None,
         reason: str | None = None,
     ):
-        msg = ""
+        msg = []
         if required:
-            msg = (
+            msg.append(
                 "Required parameter(s) are missing: "
                 f"{', '.join(repr(par) for par in required)}."
             )
+
         if require_any:
-            msg = (
+            msg.append(
                 "At least one of the following parameters must be specified: "
                 f"{', '.join(repr(par) for par in require_any)}."
             )
+
         if exclusive:
-            msg = (
+            msg.append(
                 "Mutually exclusive parameter(s) are specified: "
                 f"{', '.join(repr(par) for par in exclusive)}."
             )
+
         if reason:
-            msg += f" {reason}"
-        super().__init__(msg)
+            msg.append(reason)
+        super().__init__(" ".join(msg))
