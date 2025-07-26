@@ -194,6 +194,15 @@ Getting metadata from tabular or grid data:
     info
     grdinfo
 
+Xarray Integration
+------------------
+
+.. autosummary::
+    :toctree: generated
+
+    GMTBackendEntrypoint
+    GMTDataArrayAccessor
+
 Common Parameters
 -----------------
 
@@ -203,15 +212,6 @@ Common Parameters
     :toctree: generated
 
     Box
-
-Xarray Integration
-------------------
-
-.. autosummary::
-    :toctree: generated
-
-    GMTBackendEntrypoint
-    GMTDataArrayAccessor
 
 Enums
 -----
