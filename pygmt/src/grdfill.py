@@ -8,7 +8,7 @@ import numpy as np
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTParameterError
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
     deprecate_parameter,
@@ -45,7 +45,7 @@ def _validate_params(
     >>> _validate_params()
     Traceback (most recent call last):
     ...
-    pygmt.exceptions.GMTInvalidInput: Need to specify parameter ...
+    pygmt.exceptions.GMTParameterError: ...
     """
     _fill_params = {"constantfill", "gridfill", "neighborfill", "splinefill"}
     # The deprecated 'mode' parameter is given.
@@ -63,11 +63,13 @@ def _validate_params(
     if n_given > 1:  # More than one mutually exclusive parameter is given.
         raise GMTParameterError(exclusive=[*_fill_params, "inquire", "mode"])
     if n_given == 0:  # No parameters are given.
-        msg = (
-            f"Need to specify parameter {_fill_params} for filling holes or "
-            "'inquire' for inquiring the bounds of each hole."
+        raise GMTParameterError(
+            required=_fill_params,
+            reason=(
+                f"Need to specify parameter {_fill_params!r} for filling holes or "
+                "'inquire' for inquiring the bounds of each hole."
+            ),
         )
-        raise GMTInvalidInput(msg)
 
 
 def _parse_fill_mode(

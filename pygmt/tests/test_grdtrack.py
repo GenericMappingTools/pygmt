@@ -9,7 +9,7 @@ import numpy.testing as npt
 import pandas as pd
 import pytest
 from pygmt import grdtrack
-from pygmt.exceptions import GMTInvalidInput, GMTParameterError, GMTTypeError
+from pygmt.exceptions import GMTParameterError, GMTTypeError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -154,7 +154,7 @@ def test_grdtrack_without_outfile_setting(dataarray, dataframe):
     """
     Run grdtrack by not passing in outfile parameter setting.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         grdtrack(points=dataframe, grid=dataarray)
 
 

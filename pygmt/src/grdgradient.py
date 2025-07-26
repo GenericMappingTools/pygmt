@@ -5,7 +5,7 @@ grdgradient - Compute directional gradients from a grid.
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTParameterError
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     args_in_kwargs,
     build_arg_list,
@@ -162,8 +162,10 @@ def grdgradient(
     >>> new_grid = pygmt.grdgradient(grid=grid, azimuth=10)
     """
     if kwargs.get("Q") is not None and kwargs.get("N") is None:
-        msg = "Must specify normalize if tiles is specified."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(
+            required=["normalize"],
+            reason="Must specify 'normalize' if 'tiles' is specified.",
+        )
     if not args_in_kwargs(args=["A", "D", "E"], kwargs=kwargs):
         raise GMTParameterError(require_any={"azimuth", "direction", "radiance"})
 

@@ -5,7 +5,6 @@ grdimage - Project and plot grids or images.
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
@@ -164,7 +163,7 @@ def grdimage(self, grid: PathLike | xr.DataArray, **kwargs):
             "Parameter 'img_out'/'A' is not implemented. "
             "Please consider submitting a feature request to us."
         )
-        raise GMTInvalidInput(msg)
+        raise NotImplementedError(msg)
 
     with Session() as lib:
         with (
