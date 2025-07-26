@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
@@ -223,14 +223,14 @@ def project(
           (depends on ``output_type``)
     """
     if kwargs.get("C") is None:
-        msg = "The 'center' parameter must be specified."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(required={"center"})
     if kwargs.get("G") is None and data is None:
-        msg = "The 'data' parameter must be specified unless 'generate' is used."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(
+            required={"data"},
+            reason="Parameter 'data' must be specified unless 'generate' is used.",
+        )
     if kwargs.get("G") is not None and kwargs.get("F") is not None:
-        msg = "The 'convention' parameter is not allowed with 'generate'."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(exclusive={"generate", "convention"})
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 

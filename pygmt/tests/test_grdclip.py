@@ -11,7 +11,7 @@ import xarray as xr
 from pygmt import grdclip
 from pygmt.datasets import load_earth_mask
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -110,5 +110,5 @@ def test_grdclip_missing_required_parameter(grid):
     """
     Test that grdclip raises a ValueError if the required parameter is missing.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         grdclip(grid=grid)
