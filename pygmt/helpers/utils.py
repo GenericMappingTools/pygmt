@@ -604,7 +604,8 @@ def build_arg_list(  # noqa: PLR0912
 
 def is_nonstr_iter(value: Any) -> bool:
     """
-    Check if the value is iterable (e.g., list, tuple, array) but not a string.
+    Check if the value is iterable (e.g., list, tuple, array) but not a string or a 0-D
+    array.
 
     Parameters
     ----------
@@ -633,8 +634,14 @@ def is_nonstr_iter(value: Any) -> bool:
     True
     >>> is_nonstr_iter(np.array(["abc", "def", "ghi"]))
     True
+    >>> is_nonstr_iter(np.array(42))
+    False
     """
-    return isinstance(value, Iterable) and not isinstance(value, str)
+    return (
+        isinstance(value, Iterable)
+        and not isinstance(value, str)
+        and not (hasattr(value, "ndim") and value.ndim == 0)
+    )
 
 
 def launch_external_viewer(fname: PathLike, waiting: float = 0) -> None:
