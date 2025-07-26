@@ -163,7 +163,7 @@ def grdgradient(
     """
     if kwargs.get("Q") is not None and kwargs.get("N") is None:
         raise GMTParameterError(
-            required=["normalize"],
+            required={"normalize"},
             reason="Must specify 'normalize' if 'tiles' is specified.",
         )
     if not args_in_kwargs(args=["A", "D", "E"], kwargs=kwargs):

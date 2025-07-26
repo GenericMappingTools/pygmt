@@ -573,11 +573,8 @@ def _load_remote_dataset(
 
     if resinfo.tiled and region is None:
         raise GMTParameterError(
-            required=["region"],
-            reason=(
-                f"Parameter 'region' is required for {dataset.description} resolution "
-                f"{resolution!r} with tiled grids."
-            ),
+            required={"region"},
+            reason=f"Required for {dataset.description} resolution {resolution!r} with tiled grids.",
         )
 
     fname = f"@{prefix}_{resolution}_{reg}"
