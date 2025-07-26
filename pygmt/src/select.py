@@ -7,6 +7,7 @@ from typing import Literal
 import numpy as np
 import pandas as pd
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -15,7 +16,6 @@ from pygmt.helpers import (
     use_alias,
     validate_output_table_type,
 )
-from pygmt.src._common import _parse_coastline_resolution
 
 __doctest_skip__ = ["select"]
 
@@ -77,6 +77,7 @@ def select(
     Full GMT docs at :gmt-docs:`gmtselect.html`.
 
     {aliases}
+       - D=resolution
 
     Parameters
     ----------
@@ -209,7 +210,20 @@ def select(
     >>> # longitudes 246 and 247 and latitudes 20 and 21
     >>> out = pygmt.select(data=ship_data, region=[246, 247, 20, 21])
     """
-    kwargs["D"] = kwargs.get("D", _parse_coastline_resolution(resolution))
+    aliasdict = AliasSystem(
+        D=Alias(
+            resolution,
+            name="resolution",
+            mapping={
+                "auto": "a",
+                "full": "f",
+                "high": "h",
+                "intermediate": "i",
+                "low": "l",
+                "crude": "c",
+            },
+        ),
+    ).merge(kwargs)
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
@@ -224,7 +238,7 @@ def select(
         ):
             lib.call_module(
                 module="select",
-                args=build_arg_list(kwargs, infile=vintbl, outfile=vouttbl),
+                args=build_arg_list(aliasdict, infile=vintbl, outfile=vouttbl),
             )
         return lib.virtualfile_to_dataset(
             vfname=vouttbl,
