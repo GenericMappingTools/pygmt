@@ -61,3 +61,14 @@ class BaseParam:
         """
         params = ", ".join(f"{k}={v!r}" for k, v in vars(self).items() if v is not None)
         return f"{self.__class__.__name__}({params})"
+
+    @property
+    def _aliases(self):
+        """
+        List of Alias objects representing the parameters of this class.
+
+        This property must be implemented in subclasses to define the parameters
+        and their aliases.
+        """
+        msg = "The _aliases property must be implemented in subclasses."
+        raise NotImplementedError(msg)
