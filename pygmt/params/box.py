@@ -81,6 +81,20 @@ class Box(BaseParam):
     shading_offset: Sequence[float | str] | None = None
     shading_fill: str | None = None
 
+    def validate(self):
+        """
+        Validate the parameters.
+        """
+        # shading_offset must be a sequence of two values or None.
+        if (
+            self.shading_offset and not isinstance(self.shading_offset, Sequence)
+        ) or len(self.shading_offset) != 2:
+            raise GMTValueError(
+                self.shading_offset,
+                description="value for parameter 'shading_offset'",
+                reason="Must be a sequence of two values (dx, dy) or None.",
+            )
+
     @property
     def _innerborder(self) -> list[str | float] | None:
         """
@@ -93,16 +107,7 @@ class Box(BaseParam):
         """
         Shading for the box, formatted as a list of 1-3 values, or None.
         """
-        # Local variable to simplify the code.
-        _shading_offset = [] if self.shading_offset is None else self.shading_offset
-
-        # shading_offset must be a sequence of two values (dx, dy) or None.
-        if len(_shading_offset) not in {0, 2}:
-            raise GMTValueError(
-                self.shading_offset,
-                description="value for parameter 'shading_offset'",
-                reason="Must be a sequence of two values (dx, dy) or None.",
-            )
+        _shading_offset = self.shading_offset or []
         return [
             v for v in (*_shading_offset, self.shading_fill) if v is not None
         ] or None
