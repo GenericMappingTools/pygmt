@@ -51,9 +51,9 @@ class BaseParam:
         """
         Post-initialization method to _validate the _aliases property.
         """
-        self.validate()
+        self._validate()
 
-    def validate(self):
+    def _validate(self):
         """
         Validate the parameters of the object.
 

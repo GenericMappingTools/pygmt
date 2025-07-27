@@ -81,7 +81,7 @@ class Box(BaseParam):
     shading_offset: Sequence[float | str] | None = None
     shading_fill: str | None = None
 
-    def validate(self):
+    def _validate(self):
         """
         Validate the parameters.
         """
