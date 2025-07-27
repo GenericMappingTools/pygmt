@@ -2,15 +2,17 @@
 basemap - Plot base maps and frames.
 """
 
-from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
 @use_alias(
+    R="region",
+    J="projection",
     Jz="zscale",
     JZ="zsize",
+    B="frame",
     L="map_scale",
     F="box",
     Td="rose",
@@ -21,8 +23,8 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(c="sequence_comma", p="sequence")
-def basemap(self, region=None, projection=None, frame=None, **kwargs):
+@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
+def basemap(self, **kwargs):
     r"""
     Plot base maps and frames.
 
@@ -81,12 +83,5 @@ def basemap(self, region=None, projection=None, frame=None, **kwargs):
     {transparency}
     """
     self._activate_figure()
-
-    aliasdict = AliasSystem(
-        R=Alias(region, name="region", separator="/", size=[4, 6]),
-        J=Alias(projection, name="projection"),
-        B=Alias(frame, name="frame"),
-    ).merge(kwargs)
-
     with Session() as lib:
-        lib.call_module(module="basemap", args=build_arg_list(aliasdict))
+        lib.call_module(module="basemap", args=build_arg_list(kwargs))
