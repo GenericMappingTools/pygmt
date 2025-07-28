@@ -18,24 +18,24 @@ rose to a map. This example shows how such a map rose can be customized:
    - **n**: Give normalized bounding box coordinates as *nx*\/\ *ny*.
    - **x**: Give plot coordinates as *x*\/\ *y*.
 
-- width: **+w**: Set the width of the rose in plot coordinates (append
+- width: **+w**. Set the width of the rose in plot coordinates (append
   **i** (inch), **cm** (centimeters), or **p** (points).
 
-- fanciness: **+f** \[level]: Get a "fancy" rose, and optionally specify the
+- fanciness: **+f**\[level]. Get a "fancy" rose, and optionally specify the
   level of fanciness. Level 1 draws the two principal E-W, N-S orientations,
   2 adds the two intermediate NW-SE and NE-SW orientations, while 3 adds
   the four minor orientations WNW-ESE, NNW-SSE, NNE-SSW, and ENE-WSW
   [Default is 1].
 
-- justify: **+j**: Set the anchor point. Specify a two-character (order
+- justify: **+j**. Set the anchor point. Specify a two-character (order
   independent) code. Choose from vertical **T**\(op), **M**\(iddle), or
   **B**\(ottom) and horizontal **L**\(eft), **C**\(entre), or **R**\(ight).
 
-- label: **+l**\[w,e,s,n]: Label the cardinal points W,E,S,N. Optionally,
+- label: **+l**\[w,e,s,n]. Label the cardinal points W,E,S,N. Optionally,
   append your own four comma-separated strings to override the default.
   Skip a specific label by leaving it blank.
 
-- offset: **+o**\ *offset* or **+o**\ *xoffset*/\ *yoffset*: Give either a
+- offset: **+o**\ *offset* or **+o**\ *xoffset*/\ *yoffset*. Give either a
   common shift or individual shifts in x- (longitude) and y- (latitude)
   directions.
 
