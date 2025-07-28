@@ -21,7 +21,7 @@ rose to a map. This example shows how such a map rose can be customized:
 - width: **+w**: Set the width of the rose in plot coordinates (append
   **i** (inch), **cm** (centimeters), or **p** (points).
 
-- fanciness: **+f** \[level]: Get a “fancy” rose, and optionally specify the
+- fanciness: **+f** \[level]: Get a "fancy" rose, and optionally specify the
   level of fanciness. Level 1 draws the two principal E-W, N-S orientations,
   2 adds the two intermediate NW-SE and NE-SW orientations, while 3 adds
   the four minor orientations WNW-ESE, NNW-SSE, NNE-SSW, and ENE-WSW
