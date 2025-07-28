@@ -181,13 +181,8 @@ class Alias:
         size: int | Sequence[int] | None = None,
         ndim: int = 1,
     ):
-        self.value = value
         self.name = name
         self.prefix = prefix
-        self.mapping = mapping
-        self.separator = separator
-        self.size = size
-        self.ndim = ndim
         self._value = _to_string(
             value=value,
             name=name,
