@@ -2,7 +2,6 @@
 The PyGMT alias system to convert PyGMT's long-form arguments to GMT's short-form.
 """
 
-import dataclasses
 from collections.abc import Mapping, Sequence
 from typing import Any, Literal
 
@@ -134,12 +133,11 @@ def _to_string(
     return f"{prefix}{_value}"
 
 
-@dataclasses.dataclass
 class Alias:
     """
     Class for aliasing a PyGMT parameter to a GMT option or a modifier.
 
-    Attributes
+    Parameters
     ----------
     value
         The value of the alias.
@@ -152,9 +150,9 @@ class Alias:
     separator
         The separator to use if the value is a sequence.
     size
-        Expected size of the 1-D sequence. It can be either an integer or a sequence of
-        integers. If an integer, it is the expected size of the 1-D sequence. If it is a
-        sequence, it is the allowed size of the 1-D sequence.
+        Expected size of the 1-D sequence. It can be either an integer or a sequence
+        of integers. If an integer, it is the expected size of the 1-D sequence.
+        If it is a sequence, it is the allowed sizes of the 1-D sequence.
     ndim
         The expected maximum number of dimensions of the sequence.
 
@@ -173,25 +171,29 @@ class Alias:
     ['xaf', 'yaf', 'WSen']
     """
 
-    value: Any
-    name: str | None = None
-    prefix: str = ""
-    mapping: Mapping | None = None
-    separator: Literal["/", ","] | None = None
-    size: int | Sequence[int] | None = None
-    ndim: int = 1
-
-    @property
-    def _value(self) -> str | list[str] | None:
-        """
-        The value of the alias as a string, a sequence of strings or None.
-        """
-        return _to_string(
-            value=self.value,
-            name=self.name,
-            prefix=self.prefix,
-            mapping=self.mapping,
-            separator=self.separator,
-            size=self.size,
-            ndim=self.ndim,
+    def __init__(
+        self,
+        value: Any,
+        name: str | None = None,
+        prefix: str = "",
+        mapping: Mapping | None = None,
+        separator: Literal["/", ","] | None = None,
+        size: int | Sequence[int] | None = None,
+        ndim: int = 1,
+    ):
+        self.value = value
+        self.name = name
+        self.prefix = prefix
+        self.mapping = mapping
+        self.separator = separator
+        self.size = size
+        self.ndim = ndim
+        self._value = _to_string(
+            value=value,
+            name=name,
+            prefix=prefix,
+            mapping=mapping,
+            separator=separator,
+            size=size,
+            ndim=ndim,
         )
