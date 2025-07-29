@@ -27,6 +27,7 @@ Plotting map elements
     Figure.basemap
     Figure.coast
     Figure.colorbar
+    Figure.directional_rose
     Figure.hlines
     Figure.inset
     Figure.legend
@@ -35,6 +36,7 @@ Plotting map elements
     Figure.text
     Figure.timestamp
     Figure.vlines
+
 
 Plotting tabular data
 ~~~~~~~~~~~~~~~~~~~~~
