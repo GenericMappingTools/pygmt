@@ -10,6 +10,7 @@ from pygmt.src.colorbar import colorbar
 from pygmt.src.config import config
 from pygmt.src.contour import contour
 from pygmt.src.dimfilter import dimfilter
+from pygmt.src.directional_rose import directional_rose
 from pygmt.src.filter1d import filter1d
 from pygmt.src.grd2cpt import grd2cpt
 from pygmt.src.grd2xyz import grd2xyz
