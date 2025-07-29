@@ -5,7 +5,7 @@ Functions to convert data types into ctypes friendly formats.
 import contextlib
 import ctypes as ctp
 import warnings
-from collections.abc import Mapping, Sequence
+from collections.abc import Sequence
 from typing import Any
 
 import numpy as np
