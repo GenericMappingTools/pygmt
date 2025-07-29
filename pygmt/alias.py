@@ -131,3 +131,64 @@ def _to_string(
     # "prefix" and "mapping" are ignored. We can enable them when needed.
     _value = sequence_join(value, separator=separator, size=size, ndim=ndim, name=name)
     return f"{prefix}{_value}"
+
+
+class Alias:
+    """
+    Class for aliasing a PyGMT parameter to a GMT option or a modifier.
+
+    Parameters
+    ----------
+    value
+        The value of the alias.
+    name
+        The name of the parameter to be used in the error message.
+    prefix
+        The string to add as a prefix to the returned value.
+    mapping
+        A mapping dictionary to map PyGMT's long-form arguments to GMT's short-form.
+    separator
+        The separator to use if the value is a sequence.
+    size
+        Expected size of the 1-D sequence. It can be either an integer or a sequence
+        of integers. If an integer, it is the expected size of the 1-D sequence.
+        If it is a sequence, it is the allowed sizes of the 1-D sequence.
+    ndim
+        The expected maximum number of dimensions of the sequence.
+
+    Examples
+    --------
+    >>> par = Alias((3.0, 3.0), prefix="+o", separator="/")
+    >>> par._value
+    '+o3.0/3.0'
+
+    >>> par = Alias("mean", mapping={"mean": "a", "mad": "d", "full": "g"})
+    >>> par._value
+    'a'
+
+    >>> par = Alias(["xaf", "yaf", "WSen"])
+    >>> par._value
+    ['xaf', 'yaf', 'WSen']
+    """
+
+    def __init__(
+        self,
+        value: Any,
+        name: str | None = None,
+        prefix: str = "",
+        mapping: Mapping | None = None,
+        separator: Literal["/", ","] | None = None,
+        size: int | Sequence[int] | None = None,
+        ndim: int = 1,
+    ):
+        self.name = name
+        self.prefix = prefix
+        self._value = _to_string(
+            value=value,
+            name=name,
+            prefix=prefix,
+            mapping=mapping,
+            separator=separator,
+            size=size,
+            ndim=ndim,
+        )
