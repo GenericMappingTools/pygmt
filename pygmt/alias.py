@@ -2,10 +2,12 @@
 The PyGMT alias system to convert PyGMT's long-form arguments to GMT's short-form.
 """
 
+import warnings
+from collections import UserDict
 from collections.abc import Mapping, Sequence
 from typing import Any, Literal
 
-from pygmt.exceptions import GMTValueError
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers.utils import is_nonstr_iter, sequence_join
 
 
@@ -192,3 +194,120 @@ class Alias:
             size=size,
             ndim=ndim,
         )
+
+
+class AliasSystem(UserDict):
+    """
+    Alias system for mapping PyGMT's long-form parameters to GMT's short-form options.
+
+    This class is initialized with keyword arguments, where each key is a GMT option
+    flag, and the corresponding value is an ``Alias`` object or a list of ``Alias``
+    objects.
+
+    This class inherits from ``UserDict``, which allows it to behave like a dictionary
+    and can be passed to the ``build_arg_list`` function. It also provides the ``merge``
+    method to update the alias dictionary with additional keyword arguments.
+
+    Examples
+    --------
+    >>> from pygmt.alias import Alias, AliasSystem
+    >>> from pygmt.helpers import build_arg_list
+    >>>
+    >>> def func(
+    ...     par0, par1=None, par2=None, frame=False, repeat=None, panel=None, **kwargs
+    ... ):
+    ...     aliasdict = AliasSystem(
+    ...         A=[
+    ...             Alias(par1, name="par1"),
+    ...             Alias(par2, name="par2", prefix="+o", separator="/"),
+    ...         ],
+    ...         B=Alias(frame, name="frame"),
+    ...         D=Alias(repeat, name="repeat"),
+    ...         c=Alias(panel, name="panel", separator=","),
+    ...     ).merge(kwargs)
+    ...     return build_arg_list(aliasdict)
+    >>> func(
+    ...     "infile",
+    ...     par1="mytext",
+    ...     par2=(12, 12),
+    ...     frame=True,
+    ...     repeat=[1, 2, 3],
+    ...     panel=(1, 2),
+    ...     J="X10c/10c",
+    ... )
+    ['-Amytext+o12/12', '-B', '-D1', '-D2', '-D3', '-JX10c/10c', '-c1,2']
+    """
+
+    def __init__(self, **kwargs):
+        """
+        Initialize the alias system as a dictionary with current parameter values.
+        """
+        # Store the aliases in a dictionary, to be used in the merge() method.
+        self.aliasdict = kwargs
+
+        # The value of each key in kwargs is an Alias object or a sequence of Alias
+        # objects. If it is a single Alias object, we will use its _value property. If
+        # it is a sequence of Alias objects, we will concatenate their _value properties
+        # into a single string.
+        #
+        # Note that alias._value is converted by the _to_string method and can only be
+        # None, string or sequence of strings.
+        # - None means the parameter is not specified.
+        # - Sequence of strings means this is a repeatable option, so it can only have
+        #   one long-form parameter.
+        kwdict = {}
+        for option, aliases in kwargs.items():
+            if isinstance(aliases, Sequence):  # A sequence of Alias objects.
+                values = [alias._value for alias in aliases if alias._value is not None]
+                if values:
+                    kwdict[option] = "".join(values)
+            elif aliases._value is not None:  # A single Alias object and not None.
+                kwdict[option] = aliases._value
+        super().__init__(kwdict)
+
+    def merge(self, kwargs: Mapping[str, Any]):
+        """
+        Update the dictionary with additional keyword arguments.
+
+        This method is necessary to allow users to use the single-letter parameters for
+        option flags that are not aliased.
+        """
+        # Loop over short-form parameters passed via kwargs.
+        for short_param, value in kwargs.items():
+            # Check if long-form parameters exist and given.
+            long_param_exists = short_param in self.aliasdict
+            long_param_given = short_param in self
+
+            # Update the dictionary with the short-form parameter anyway.
+            self[short_param] = value
+
+            # Long-form parameters do not exist.
+            if not long_param_exists:
+                continue
+
+            # Long-form parameters exist.
+            aliases = self.aliasdict.get(short_param)
+            if not isinstance(aliases, Sequence):  # Single Alias object.
+                _msg_long = f"Use long-form parameter {aliases.name!r} instead."
+            else:  # Sequence of Alias objects.
+                _params = [f"{v.name!r}" for v in aliases if not v.prefix]
+                _modifiers = [f"{v.name!r} ({v.prefix})" for v in aliases if v.prefix]
+                _msg_long = (
+                    f"Use long-form parameters {', '.join(_params)}, "
+                    f"with optional parameters {', '.join(_modifiers)} instead."
+                )
+
+            # Long-form parameters are already specified.
+            if long_param_given:
+                msg = (
+                    f"Short-form parameter {short_param!r} conflicts with long-form "
+                    f"parameters and is not recommended. {_msg_long}"
+                )
+                raise GMTInvalidInput(msg)
+
+            # Long-form parameters are not specified.
+            msg = (
+                f"Short-form parameter {short_param!r} is not recommended. {_msg_long}"
+            )
+            warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+        return self
