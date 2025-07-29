@@ -5,7 +5,7 @@ Functions to convert data types into ctypes friendly formats.
 import contextlib
 import ctypes as ctp
 import warnings
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from typing import Any
 
 import numpy as np
@@ -164,7 +164,7 @@ def _to_numpy(data: Any) -> np.ndarray:
         The C contiguous NumPy array.
     """
     # Mapping of unsupported dtypes to expected NumPy dtypes.
-    dtypes: dict[str, type | str] = {
+    dtypes: Mapping[str, type | str] = {
         # For string dtypes.
         "large_string": np.str_,  # pa.large_string and pa.large_utf8
         "string": np.str_,  # pa.string, pa.utf8, pd.StringDtype
