@@ -16,17 +16,20 @@ def directional_rose(
     position,
     position_type: Literal["user", "justify", "mirror", "normalize", "plot"]
     | None = None,
-    width=None,
-    fancy: Literal[1, 2, 3] | bool = False,
+    width: float | str | None = None,
     justify: AnchorCode | None = None,
     offset: Sequence[float | str] | None = None,
     label: Sequence[str] | bool = False,
+    fancy: Literal[1, 2, 3] | bool = False,
 ):
     """
     Add a directional rose to the map.
 
     Parameters
     ----------
+    position
+    position_type
+
     width
         Width of the rose in plot coordinates (append **i** (inch),
         **cm** (centimeters), or **p** (points)), or append % for a size in percentage
@@ -35,6 +38,17 @@ def directional_rose(
         A sequence of four strings to label the cardinal points W,E,S,N. Use a empty
         string to skip a specific label. If set to ``True``, use the default labels
         ``["W", "E", "S", "N"]``.
+    fancy
+        Get a fancy rose. The fanciness level can be set to 1, 2, or 3:
+
+        - Level 1 draws the two principal E-W, N-S orientations
+        - Level 2 adds the two intermediate NW-SE and NE-SW orientations
+        - Level 3 adds the eight minor orientations WNW-ESE, NNW-SSE, NNE-SSW, and
+          ENE-WSW
+
+        If set to ``True``, it defaults to level 1.
+    offset
+    justify
 
     Examples
     --------
