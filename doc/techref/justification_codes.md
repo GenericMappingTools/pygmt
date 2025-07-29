@@ -6,7 +6,8 @@ colorbars, legends, and images, user can adjust the *reference* and *anchor* poi
 
 Pass to `position` parameter and if already implemented `justify`.
 
-Reference point inside / outside of the map bounding box **j** / **J**.
+Reference point inside / outside of the map bounding box **j** (lower-case) / **J**
+(upper-case), respectively.
 
 Anchor point **+j**.
 
@@ -17,6 +18,6 @@ For both, specify a two-character (order independent) code. Choose from
 
 Besides **j** / **J**, the reference point can be set based on
 
-- **g**: Map coordinates as *longitude*\/\ *latitude*
-- **n**: Normalized bounding box coordinates as *nx*\/\ *ny*
-- **x**: Plot coordinates as *x*\/\ *y*
+- **g**: Map coordinates as *longitude*/*latitude*
+- **n**: Normalized bounding box coordinates as *nx*/*ny*
+- **x**: Plot coordinates as *x*/*y*
