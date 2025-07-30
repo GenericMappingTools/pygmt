@@ -23,14 +23,11 @@ __doctest_skip__ = ["colorbar"]
     V="verbose",
     W="scale",
     Z="zfile",
-    c="panel",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(
-    R="sequence", G="sequence", I="sequence", c="sequence_comma", p="sequence"
-)
-def colorbar(self, projection=None, **kwargs):
+@kwargs_to_strings(R="sequence", G="sequence", I="sequence", p="sequence")
+def colorbar(self, projection=None, panel=None, **kwargs):
     r"""
     Plot gray scale or color scale bar.
 
@@ -46,6 +43,7 @@ def colorbar(self, projection=None, **kwargs):
 
     {aliases}
        - J=projection
+       - c=panel
 
     Parameters
     ----------
@@ -149,6 +147,7 @@ def colorbar(self, projection=None, **kwargs):
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
+        c=Alias(panel, name="panel", separator=",", size=2),
     ).merge(kwargs)
     with Session() as lib:
         lib.call_module(module="colorbar", args=build_arg_list(aliasdict))

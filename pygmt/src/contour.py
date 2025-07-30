@@ -27,7 +27,6 @@ from pygmt.helpers import (
     V="verbose",
     W="pen",
     b="binary",
-    c="panel",
     d="nodata",
     e="find",
     f="coltypes",
@@ -37,7 +36,7 @@ from pygmt.helpers import (
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
 def contour(
     self,
     data: PathLike | TableLike | None = None,
@@ -45,6 +44,7 @@ def contour(
     y=None,
     z=None,
     projection=None,
+    panel=None,
     **kwargs,
 ):
     r"""
@@ -59,6 +59,7 @@ def contour(
 
     {aliases}
        - J=projection
+       - c=panel
 
     Parameters
     ----------
@@ -155,6 +156,7 @@ def contour(
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
+        c=Alias(panel, name="panel", separator=",", size=2),
     ).merge(kwargs)
 
     with Session() as lib:

@@ -31,14 +31,15 @@ __doctest_skip__ = ["grdimage"]
     R="region",
     V="verbose",
     n="interpolation",
-    c="panel",
     f="coltypes",
     p="perspective",
     t="transparency",
     x="cores",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def grdimage(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
+@kwargs_to_strings(R="sequence", p="sequence")
+def grdimage(
+    self, grid: PathLike | xr.DataArray, projection=None, panel=None, **kwargs
+):
     r"""
     Project and plot grids or images.
 
@@ -74,6 +75,7 @@ def grdimage(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
 
     {aliases}
        - J=projection
+       - c=panel
 
     Parameters
     ----------
@@ -169,6 +171,7 @@ def grdimage(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
+        c=Alias(panel, name="panel", separator=",", size=2),
     ).merge(kwargs)
 
     with Session() as lib:

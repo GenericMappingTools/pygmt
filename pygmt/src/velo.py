@@ -33,7 +33,6 @@ from pygmt.helpers import (
     V="verbose",
     W="pen",
     Z="zvalue",
-    c="panel",
     d="nodata",
     e="find",
     h="header",
@@ -41,8 +40,14 @@ from pygmt.helpers import (
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def velo(self, data: PathLike | TableLike | None = None, projection=None, **kwargs):
+@kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
+def velo(
+    self,
+    data: PathLike | TableLike | None = None,
+    projection=None,
+    panel=None,
+    **kwargs,
+):
     r"""
     Plot velocity vectors, crosses, anisotropy bars, and wedges.
 
@@ -59,6 +64,7 @@ def velo(self, data: PathLike | TableLike | None = None, projection=None, **kwar
 
     {aliases}
        - J=projection
+       - c=panel
 
     Parameters
     ----------
@@ -259,6 +265,7 @@ def velo(self, data: PathLike | TableLike | None = None, projection=None, **kwar
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
+        c=Alias(panel, name="panel", separator=",", size=2),
     ).merge(kwargs)
 
     with Session() as lib:
