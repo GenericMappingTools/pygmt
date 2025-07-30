@@ -481,7 +481,7 @@ def non_ascii_to_octal(argstr: str, encoding: Encoding = "ISOLatin1+") -> str:
 
 
 def build_arg_list(  # noqa: PLR0912
-    kwdict: dict[str, Any],
+    kwdict: Mapping[str, Any],
     confdict: Mapping[str, Any] | None = None,
     infile: PathLike | Sequence[PathLike] | None = None,
     outfile: PathLike | None = None,
