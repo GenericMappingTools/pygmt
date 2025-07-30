@@ -14,22 +14,32 @@ from pygmt.helpers import build_arg_list
 def directional_rose(
     self,
     position,
-    position_type: Literal["user", "justify", "mirror", "normalize", "plot"]
-    | None = None,
+    position_type: Literal["user", "justify", "mirror", "normalize", "plot"] = "user",
     width: float | str | None = None,
     justify: AnchorCode | None = None,
     offset: Sequence[float | str] | None = None,
     label: Sequence[str] | bool = False,
     fancy: Literal[1, 2, 3] | bool = False,
 ):
-    """
+    r"""
     Add a directional rose to the map.
 
     Parameters
     ----------
-    position
-    position_type
+    position/position_type
+        Location of the rose. The actual meaning of this parameter depends on the
+        ``position_type`` parameter.
 
+        - ``position_type="user"``: *position* is given as (x, y) in user coordinates.
+        - ``position_type="normalize"``: *position* is given as (nx, ny) in normalized
+          coordinates, where (0, 0) is the lower-left corner and (1, 1) is the
+          upper-right corner of the map.
+        - ``position_type="plot"``: *position* is given as (x, y) in plot coordinates.
+        - ``position_type="justify"``: *position* is given as a two-character
+          justification code, meaning the anchor point of the rose is inside the map
+          bounding box.
+        - ``position_type="mirror"``: *position* is given as a two-character
+          justification code, but the rose is outside the map bounding box.
     width
         Width of the rose in plot coordinates (append **i** (inch),
         **cm** (centimeters), or **p** (points)), or append % for a size in percentage
@@ -48,7 +58,13 @@ def directional_rose(
 
         If set to ``True``, it defaults to level 1.
     offset
+        *offset* or (*offset_x*, *offset_y*).
+        Offset the anchor point by *offset_x* and *offset_y*. If a single value *offset*
+        is given, *offset_y* = *offset_x* = *offset*.
     justify
+        Set the anchor point. Specify a two-character (order independent) code. Choose
+        from vertical **T**\(op), **M**\(iddle), or **B**\(ottom) and horizontal
+        **L**\(eft), **C**\(entre), or **R**\(ight).
 
     Examples
     --------
