@@ -106,6 +106,9 @@ def _to_string(
 
     >>> _to_string(["xaf", "yaf", "WSen"])
     ['xaf', 'yaf', 'WSen']
+
+    >>> _to_string([[1, 2], [3, 4]], separator="/", ndim=2)
+    ['1/2', '3/4']
     """
     # None and False are converted to None.
     if value is None or value is False:
@@ -132,7 +135,7 @@ def _to_string(
     # Join the sequence of values with the separator.
     # "prefix" and "mapping" are ignored. We can enable them when needed.
     _value = sequence_join(value, separator=separator, size=size, ndim=ndim, name=name)
-    return f"{prefix}{_value}"
+    return _value if is_nonstr_iter(_value) else f"{prefix}{_value}"
 
 
 class Alias:
