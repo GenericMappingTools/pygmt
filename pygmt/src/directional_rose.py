@@ -35,7 +35,7 @@ def directional_rose(
         **cm** (centimeters), or **p** (points)), or append % for a size in percentage
         of map width [default is 10%].
     label
-        A sequence of four strings to label the cardinal points W,E,S,N. Use a empty
+        A sequence of four strings to label the cardinal points W,E,S,N. Use an empty
         string to skip a specific label. If set to ``True``, use the default labels
         ``["W", "E", "S", "N"]``.
     fancy
@@ -43,7 +43,7 @@ def directional_rose(
 
         - Level 1 draws the two principal E-W, N-S orientations
         - Level 2 adds the two intermediate NW-SE and NE-SW orientations
-        - Level 3 adds the eight minor orientations WNW-ESE, NNW-SSE, NNE-SSW, and
+        - Level 3 adds the four minor orientations WNW-ESE, NNW-SSE, NNE-SSW, and
           ENE-WSW
 
         If set to ``True``, it defaults to level 1.
