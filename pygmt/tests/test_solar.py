@@ -96,7 +96,7 @@ def test_invalid_datetime():
     Test if solar fails when it receives an invalid datetime string.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         fig.solar(
             region="d",
             projection="W0/15c",
