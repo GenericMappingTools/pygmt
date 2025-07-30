@@ -43,7 +43,7 @@ def directional_rose(
     width
         Width of the rose in plot coordinates (append **i** (inch),
         **cm** (centimeters), or **p** (points)), or append % for a size in percentage
-        of map width [default is 10%].
+        of map width [Default is 10 %].
     label
         A sequence of four strings to label the cardinal points W,E,S,N. Use an empty
         string to skip a specific label. If set to ``True``, use the default labels
