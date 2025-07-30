@@ -4,6 +4,7 @@ grdimage - Project and plot grids or images.
 
 import xarray as xr
 from pygmt._typing import PathLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -24,7 +25,6 @@ __doctest_skip__ = ["grdimage"]
     E="dpi",
     G="bitcolor",
     I="shading",
-    J="projection",
     M="monochrome",
     N="no_clip",
     Q="nan_transparent",
@@ -38,7 +38,7 @@ __doctest_skip__ = ["grdimage"]
     x="cores",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def grdimage(self, grid: PathLike | xr.DataArray, **kwargs):
+def grdimage(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
     r"""
     Project and plot grids or images.
 
@@ -73,6 +73,7 @@ def grdimage(self, grid: PathLike | xr.DataArray, **kwargs):
     Full GMT docs at :gmt-docs:`grdimage.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -166,6 +167,10 @@ def grdimage(self, grid: PathLike | xr.DataArray, **kwargs):
         )
         raise GMTInvalidInput(msg)
 
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
@@ -173,7 +178,7 @@ def grdimage(self, grid: PathLike | xr.DataArray, **kwargs):
                 check_kind="raster", data=kwargs.get("I"), required=False
             ) as vshadegrid,
         ):
-            kwargs["I"] = vshadegrid
+            aliasdict["I"] = vshadegrid
             lib.call_module(
-                module="grdimage", args=build_arg_list(kwargs, infile=vingrd)
+                module="grdimage", args=build_arg_list(aliasdict, infile=vingrd)
             )

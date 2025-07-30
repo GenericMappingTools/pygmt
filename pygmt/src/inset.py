@@ -4,6 +4,7 @@ inset - Manage figure inset setup and completion.
 
 import contextlib
 
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -15,14 +16,13 @@ __doctest_skip__ = ["inset"]
 @use_alias(
     D="position",
     F="box",
-    J="projection",
     M="margin",
     N="no_clip",
     R="region",
     V="verbose",
 )
 @kwargs_to_strings(D="sequence", M="sequence", R="sequence")
-def inset(self, **kwargs):
+def inset(self, projection=None, **kwargs):
     r"""
     Manage figure inset setup and completion.
 
@@ -33,6 +33,7 @@ def inset(self, **kwargs):
     Full GMT docs at :gmt-docs:`inset.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -135,11 +136,16 @@ def inset(self, **kwargs):
     >>> fig.show()
     """
     self._activate_figure()
+
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
+
     with Session() as lib:
         try:
-            lib.call_module(module="inset", args=["begin", *build_arg_list(kwargs)])
+            lib.call_module(module="inset", args=["begin", *build_arg_list(aliasdict)])
             yield
         finally:
             lib.call_module(
-                module="inset", args=["end", *build_arg_list({"V": kwargs.get("V")})]
+                module="inset", args=["end", *build_arg_list({"V": aliasdict.get("V")})]
             )

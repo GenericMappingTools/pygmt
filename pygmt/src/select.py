@@ -7,6 +7,7 @@ from typing import Literal
 import numpy as np
 import pandas as pd
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -28,7 +29,6 @@ __doctest_skip__ = ["select"]
     F="polygon",
     G="gridmask",
     I="reverse",
-    J="projection",
     L="dist2line",
     N="mask",
     R="region",
@@ -53,6 +53,7 @@ def select(
     resolution: Literal[
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
+    projection=None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -77,6 +78,7 @@ def select(
     Full GMT docs at :gmt-docs:`gmtselect.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -217,6 +219,10 @@ def select(
     if output_type == "pandas" and isinstance(data, pd.DataFrame):
         column_names = data.columns.to_list()
 
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="vector", data=data) as vintbl,
@@ -224,7 +230,7 @@ def select(
         ):
             lib.call_module(
                 module="select",
-                args=build_arg_list(kwargs, infile=vintbl, outfile=vouttbl),
+                args=build_arg_list(aliasdict, infile=vintbl, outfile=vouttbl),
             )
         return lib.virtualfile_to_dataset(
             vfname=vouttbl,
