@@ -109,7 +109,7 @@ def grdproject(
     >>> # Project the geographic gridded data onto a rectangular grid
     >>> new_grid = pygmt.grdproject(grid=grid, projection="M10c", region=region)
     """
-    if kwargs.get("J") is None:
+    if projection is None:
         msg = "The projection must be specified."
         raise GMTInvalidInput(msg)
 
