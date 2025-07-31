@@ -9,6 +9,7 @@ import string
 import subprocess
 import sys
 import time
+import warnings
 import webbrowser
 from collections.abc import Iterable, Mapping, Sequence
 from itertools import islice
@@ -19,7 +20,6 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.encodings import charset
 from pygmt.exceptions import GMTInvalidInput, GMTValueError
-from pygmt.helpers import deprecate_parameter
 
 # Type hints for the list of encodings supported by PyGMT.
 Encoding = Literal[
@@ -726,10 +726,10 @@ def args_in_kwargs(args: Sequence[str], kwargs: dict[str, Any]) -> bool:
 
 
 # TODO(PyGMT>=0.19.0): Remove the deprecate_parameter decorator.
-@deprecate_parameter("separator", "sep", "v0.17.0", remove_version="v0.19.0")
 def sequence_join(
     value: Any,
     sep: str = "/",
+    separator: str = "/",
     size: int | Sequence[int] | None = None,
     ndim: int = 1,
     name: str | None = None,
@@ -746,6 +746,12 @@ def sequence_join(
         The 1-D or 2-D sequence of values to join.
     sep
         The separator to join the values.
+    separator
+        The separator to join the values.
+
+        .. versionchanged:: v0.17.0
+
+            Deprecated and will be removed in v0.19.0. Use ``sep`` instead.
     size
         Expected size of the 1-D sequence. It can be either an integer or a sequence of
         integers. If an integer, it is the expected size of the 1-D sequence. If it is a
@@ -813,6 +819,14 @@ def sequence_join(
     if not is_nonstr_iter(value):
         return value
     # Now it must be a sequence.
+
+    if separator:
+        sep = separator  # Deprecated, use sep instead.
+        msg = (
+            "Parameter 'separator' has been deprecated since v0.17.0 and will be "
+            "removed in v0.19.0. Please use 'sep' instead."
+        )
+        warnings.warn(msg, category=FutureWarning, stacklevel=2)
 
     # Change size to a list to simplify the checks.
     size = [size] if isinstance(size, int) else size
