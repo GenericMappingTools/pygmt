@@ -820,7 +820,7 @@ def sequence_join(
         return value
     # Now it must be a sequence.
 
-    if separator:
+    if separator is not None:
         sep = separator  # Deprecated, use sep instead.
         msg = (
             "Parameter 'separator' has been deprecated since v0.17.0 and will be "
