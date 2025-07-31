@@ -814,6 +814,8 @@ def sequence_join(
     pygmt.exceptions.GMTInvalidInput: Expected a sequence of 4 values.
     >>> sequence_join([[1, 2], [3, 4]], sep="/", size=[2, 4], ndim=2)
     ['1/2', '3/4']
+    >>> sequence_join([1, 2, 3, 4], separator=",")
+    '1,2,3,4'
     """
     # Return the original value if it is not a sequence (e.g., None, bool, or str).
     if not is_nonstr_iter(value):
