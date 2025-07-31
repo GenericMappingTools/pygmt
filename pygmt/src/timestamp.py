@@ -107,7 +107,8 @@ def timestamp(
             Alias(offset, name="offset", prefix="+o", sep="/", size=2),
             Alias(text, name="text", prefix="+t"),
         ]
-    ).merge({"T": True})  # Add '-T' to the "plot" module.
+    )
+    aliasdict["T"] = ""  # Add '-T' to the "plot" module.
 
     with Session() as lib:
         lib.call_module(
