@@ -122,7 +122,7 @@ def grdlandmask(
 
     aliasdict = AliasSystem(
         N=Alias(maskvalues, name="maskvalues", sep="/", size=(2, 5)),
-        E=Alias(bordervalues, name="bordervalues", sep="/", size=(1, 4)),
+        E=Alias(bordervalues, name="bordervalues", sep="/", size=4),
     ).merge(kwargs)
 
     with Session() as lib:
