@@ -17,14 +17,13 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     F="box",
     Td="rose",
     Tm="compass",
-    V="verbose",
     c="panel",
     f="coltypes",
     p="perspective",
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def basemap(self, projection=None, **kwargs):
+def basemap(self, projection=None, verbose=None, **kwargs):
     r"""
     Plot base maps and frames.
 
@@ -40,6 +39,7 @@ def basemap(self, projection=None, **kwargs):
 
     {aliases}
        - J=projection
+       - V=verbose
 
     Parameters
     ----------
@@ -86,6 +86,19 @@ def basemap(self, projection=None, **kwargs):
     self._activate_figure()
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
+        V=Alias(
+            verbose,
+            name="verbose",
+            mapping={
+                "quiet": "q",
+                "error": "e",
+                "warning": "w",
+                "timing": "t",
+                "information": "i",
+                "compatibility": "c",
+                "debug": "d",
+            },
+        ),
     ).merge(kwargs)
     with Session() as lib:
         lib.call_module(module="basemap", args=build_arg_list(aliasdict))
