@@ -145,7 +145,7 @@ def grdview(self, grid: PathLike | xr.DataArray, projection=None, panel=None, **
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
-        c=Alias(panel, name="panel", separator=",", size=2),
+        c=Alias(panel, name="panel", sep=",", size=2),
     ).merge(kwargs)
 
     with Session() as lib:

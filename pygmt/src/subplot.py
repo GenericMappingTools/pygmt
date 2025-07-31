@@ -236,7 +236,7 @@ def set_panel(self, panel=None, **kwargs):
     {verbose}
     """
     self._activate_figure()
-    panel = sequence_join(panel, separator=",", size=2, name="panel")
+    panel = sequence_join(panel, sep=",", size=2, name="panel")
     with Session() as lib:
         lib.call_module(
             module="subplot", args=["set", str(panel), *build_arg_list(kwargs)]

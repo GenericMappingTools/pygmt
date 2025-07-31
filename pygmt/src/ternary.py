@@ -97,7 +97,7 @@ def ternary(
         data = data.to_numpy()
 
     aliasdict = AliasSystem(
-        c=Alias(panel, name="panel", separator=",", size=2),
+        c=Alias(panel, name="panel", sep=",", size=2),
     ).merge(kwargs)
 
     with Session() as lib:
