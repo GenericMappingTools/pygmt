@@ -729,7 +729,7 @@ def args_in_kwargs(args: Sequence[str], kwargs: dict[str, Any]) -> bool:
 def sequence_join(
     value: Any,
     sep: str = "/",
-    separator: str = "/",
+    separator: str | None = None,
     size: int | Sequence[int] | None = None,
     ndim: int = 1,
     name: str | None = None,
