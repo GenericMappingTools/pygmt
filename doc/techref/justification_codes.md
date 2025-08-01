@@ -139,7 +139,7 @@ x2 = [-3, -2, -1, -1, -1, -2, -3, -3, -2]
 y2 = [-1, -1, -1, 0, 1, 1, 1, 0, 0]
 
 fig = pygmt.Figure()
-fig.basemap(projection="X12c/6c", region=[-size, size, -size, size], frame=0)
+fig.basemap(projection="X10c/6c", region=[-size, size, -size, size], frame=0)
 
 fig.text(
     text=codes,
