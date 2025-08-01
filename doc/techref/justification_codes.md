@@ -75,7 +75,7 @@ fig.basemap(projection="H10c", region="g", frame=0)
 
 for code in codes:
     fig.text(
-        font="15p,1,black",
+        font="10p,1,black",
         position=code,
         justify=code,
         text=code,
@@ -112,7 +112,7 @@ for code in codes:
         position=code,
         justify=code,
         text=code,
-        offset="j0.3c/0.3c+v1p,gray30",
+        offset="j0.3c/0.15c+v1p,gray30",
     )
 fig.plot(x=x, y=y, style="c0.2c", fill="steelblue", no_clip=True)
 
@@ -146,7 +146,7 @@ fig.text(
     x=x1,
     y=y1,
     justify=codes,
-    offset="j0.5c/0.25c+v1p,gray30",
+    offset="j0.5c/0.2c+v1p,gray30",
     font="10p,1,black",
 )
 
