@@ -7,13 +7,13 @@ from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
-    sequence_join,
     use_alias,
 )
 from pygmt.src._common import _parse_coastline_resolution
@@ -25,9 +25,7 @@ __doctest_skip__ = ["grdlandmask"]
 @use_alias(
     A="area_thresh",
     D="resolution-",
-    E="bordervalues-",
     I="spacing",
-    N="maskvalues-",
     R="region",
     V="verbose",
     r="registration",
@@ -55,6 +53,8 @@ def grdlandmask(
     Full GMT docs at :gmt-docs:`grdlandmask.html`.
 
     {aliases}
+       - E=bordervalues
+       - N=maskvalues
 
     Parameters
     ----------
@@ -119,11 +119,14 @@ def grdlandmask(
         raise GMTInvalidInput(msg)
 
     kwargs["D"] = kwargs.get("D", _parse_coastline_resolution(resolution))
-    kwargs["N"] = sequence_join(maskvalues, size=(2, 5), name="maskvalues")
-    kwargs["E"] = sequence_join(bordervalues, size=(1, 4), name="bordervalues")
+
+    aliasdict = AliasSystem(
+        N=Alias(maskvalues, name="maskvalues", sep="/", size=(2, 5)),
+        E=Alias(bordervalues, name="bordervalues", sep="/", size=4),
+    ).merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
-            kwargs["G"] = voutgrd
-            lib.call_module(module="grdlandmask", args=build_arg_list(kwargs))
+            aliasdict["G"] = voutgrd
+            lib.call_module(module="grdlandmask", args=build_arg_list(aliasdict))
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
