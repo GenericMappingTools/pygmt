@@ -24,7 +24,7 @@ import pygmt
 size = 5
 x = [-size, 0, size, size, size, 0, -size, -size, 0]
 y = [-size, -size, -size, 0, size, size, size, 0, 0]
-codes =  ["BL","BC", "BR", "MR", "TR", "CT", "LT", "LM", "MC"]
+codes = ["BL", "BC", "BR", "MR", "TR", "TC", "TL", "ML", "MC"]
 
 fig = pygmt.Figure()
 fig.basemap(projection="X10c/6c", region=[-size, size, -size, size], frame=0)
@@ -48,8 +48,8 @@ fig.text(
     y=[size, 0, -size, size, size, size],
     justify=["ML", "ML", "ML", "BC", "BC", "BC"],
     text=[
-        "@%1%T@%%op", "@%1%M@%%iddle", "@%1%B@%%ottom", "@%1%L@%%eft",
-        "@%1%C@%%enter", "@%1%R@%%ight"
+        "@%1%T@%%op", "@%1%M@%%iddle", "@%1%B@%%ottom",
+        "@%1%L@%%eft", "@%1%C@%%enter", "@%1%R@%%ight"
     ],
 )
 
@@ -68,7 +68,7 @@ Script to generate sketches so visualize justification codes for a non-rectangul
 """
 import pygmt
 
-codes =  ["BL","BC", "BR", "MR", "TR", "CT", "LT", "LM", "MC"]
+codes = ["BL", "BC", "BR", "MR", "TR", "TC", "TL", "ML", "MC"]
 
 fig = pygmt.Figure()
 fig.basemap(projection="H10c", region="g", frame=0)
@@ -99,7 +99,7 @@ Script to generate sketches so visualize justification code for a colorbar.
 import pygmt
 
 size = 5
-codes =  ["BL","BC", "BR", "MR", "TR", "CT", "LT", "LM", "MC"]
+codes = ["BL", "BC", "BR", "MR", "TR", "TC", "TL", "ML", "MC"]
 
 fig = pygmt.Figure()
 fig.basemap(projection="X10c/2c", region=[-size, size, -size, size], frame=0)
@@ -134,7 +134,7 @@ import pygmt
 size = 5
 x1 = [-size, 0, size, size, size, 0, -size, -size, 0]
 y1 = [-size, -size, -size, 0, size, size, size, 0, 0]
-codes =  ["BL","BC", "BR", "MR", "TR", "CT", "LT", "LM", "MC"]
+codes = ["BL", "BC", "BR", "MR", "TR", "TC", "TL", "ML", "MC"]
 x2 = [-3, -2, -1, -1, -1, -2, -3, -3, -2]
 y2 = [-1, -1, -1, 0, 1, 1, 1, 0, 0]
 
