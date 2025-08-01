@@ -26,9 +26,6 @@ x = [-size, 0, size, size, size, 0, -size, -size, 0]
 y = [-size, -size, -size, 0, size, size, size, 0, 0]
 codes =  ["BL","BC", "BR", "MR", "TR", "CT", "LT", "LM", "MC"]
 
-
-# %%
-# -----------------------------------------------------------------------------
 fig = pygmt.Figure()
 fig.basemap(projection="X10c/6c", region=[-size, size, -size, size], frame=0)
 
@@ -57,10 +54,22 @@ fig.text(
 )
 
 fig.show(width=600)
+```
 
 
-# %%
-# -----------------------------------------------------------------------------
+Non-rectangular geographic basemap:
+
+```{code-cell}
+---
+tags: [remove-input]
+---
+"""
+Script to generate sketches so visualize justification codes for a non-rectangular geographic basemap.
+"""
+import pygmt
+
+codes =  ["BL","BC", "BR", "MR", "TR", "CT", "LT", "LM", "MC"]
+
 fig = pygmt.Figure()
 fig.basemap(projection="H10c", region="g", frame=0)
 
@@ -75,10 +84,23 @@ for code in codes:
     fig.text(font="10p,lightred", position=code, justify="MC", text="●", no_clip=True)
 
 fig.show(width=600)
+```
 
 
-# %%
-# -----------------------------------------------------------------------------
+Compasses, scalebars, legends, colorbars, text strings, etc. can also be abstracted by a rectangle.
+
+```{code-cell}
+---
+tags: [remove-input]
+---
+"""
+Script to generate sketches so visualize justification code for a colorbar.
+"""
+import pygmt
+
+size = 5
+codes =  ["BL","BC", "BR", "MR", "TR", "CT", "LT", "LM", "MC"]
+
 fig = pygmt.Figure()
 fig.basemap(projection="X10c/2c", region=[-size, size, -size, size], frame=0)
 
