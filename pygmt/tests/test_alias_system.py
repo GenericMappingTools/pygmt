@@ -22,12 +22,12 @@ def func(
     """
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
-        R=Alias(region, name="region", separator="/", size=[4, 6]),
+        R=Alias(region, name="region", sep="/", size=[4, 6]),
         B=Alias(frame, name="frame"),
         U=[
             Alias(label, name="label"),
             Alias(text, name="text", prefix="+t"),
-            Alias(offset, name="offset", prefix="+o", separator="/"),
+            Alias(offset, name="offset", prefix="+o", sep="/"),
         ],
     ).merge(kwargs)
     return build_arg_list(aliasdict)

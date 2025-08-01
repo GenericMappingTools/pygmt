@@ -4,6 +4,7 @@ xyz2grd - Convert data table to a grid.
 
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -15,7 +16,6 @@ __doctest_skip__ = ["xyz2grd"]
 @use_alias(
     A="duplicate",
     I="spacing",
-    J="projection",
     R="region",
     V="verbose",
     Z="convention",
@@ -35,6 +35,7 @@ def xyz2grd(
     y=None,
     z=None,
     outgrid: PathLike | None = None,
+    projection=None,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -49,6 +50,7 @@ def xyz2grd(
     Full GMT docs at :gmt-docs:`xyz2grd.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -152,6 +154,10 @@ def xyz2grd(
         msg = "Both 'region' and 'spacing' must be specified."
         raise GMTInvalidInput(msg)
 
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(
@@ -159,8 +165,8 @@ def xyz2grd(
             ) as vintbl,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            kwargs["G"] = voutgrd
+            aliasdict["G"] = voutgrd
             lib.call_module(
-                module="xyz2grd", args=build_arg_list(kwargs, infile=vintbl)
+                module="xyz2grd", args=build_arg_list(aliasdict, infile=vintbl)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

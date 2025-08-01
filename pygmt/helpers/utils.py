@@ -9,6 +9,7 @@ import string
 import subprocess
 import sys
 import time
+import warnings
 import webbrowser
 from collections.abc import Iterable, Mapping, Sequence
 from itertools import islice
@@ -724,9 +725,11 @@ def args_in_kwargs(args: Sequence[str], kwargs: dict[str, Any]) -> bool:
     )
 
 
+# TODO(PyGMT>=0.19.0): Remove the deprecate_parameter decorator.
 def sequence_join(
     value: Any,
-    separator: str = "/",
+    sep: str = "/",
+    separator: str | None = None,
     size: int | Sequence[int] | None = None,
     ndim: int = 1,
     name: str | None = None,
@@ -741,8 +744,14 @@ def sequence_join(
     ----------
     value
         The 1-D or 2-D sequence of values to join.
+    sep
+        The separator to join the values.
     separator
         The separator to join the values.
+
+        .. versionchanged:: v0.17.0
+
+            Deprecated and will be removed in v0.19.0. Use ``sep`` instead.
     size
         Expected size of the 1-D sequence. It can be either an integer or a sequence of
         integers. If an integer, it is the expected size of the 1-D sequence. If it is a
@@ -774,42 +783,52 @@ def sequence_join(
 
     >>> sequence_join([1, 2, 3, 4])
     '1/2/3/4'
-    >>> sequence_join([1, 2, 3, 4], separator=",")
+    >>> sequence_join([1, 2, 3, 4], sep=",")
     '1,2,3,4'
-    >>> sequence_join([1, 2, 3, 4], separator="/", size=4)
+    >>> sequence_join([1, 2, 3, 4], sep="/", size=4)
     '1/2/3/4'
-    >>> sequence_join([1, 2, 3, 4], separator="/", size=[2, 4])
+    >>> sequence_join([1, 2, 3, 4], sep="/", size=[2, 4])
     '1/2/3/4'
-    >>> sequence_join([1, 2, 3, 4], separator="/", size=[2, 4], ndim=2)
+    >>> sequence_join([1, 2, 3, 4], sep="/", size=[2, 4], ndim=2)
     '1/2/3/4'
-    >>> sequence_join([1, 2, 3, 4], separator="/", size=2)
+    >>> sequence_join([1, 2, 3, 4], sep="/", size=2)
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Expected a sequence of 2 values, but got 4 values.
-    >>> sequence_join([1, 2, 3, 4, 5], separator="/", size=[2, 4], name="parname")
+    >>> sequence_join([1, 2, 3, 4, 5], sep="/", size=[2, 4], name="parname")
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Parameter 'parname': Expected ...
 
-    >>> sequence_join([[1, 2], [3, 4]], separator="/")
+    >>> sequence_join([[1, 2], [3, 4]], sep="/")
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Expected a 1-D ..., but a 2-D sequence is given.
-    >>> sequence_join([[1, 2], [3, 4]], separator="/", ndim=2)
+    >>> sequence_join([[1, 2], [3, 4]], sep="/", ndim=2)
     ['1/2', '3/4']
-    >>> sequence_join([[1, 2], [3, 4]], separator="/", size=2, ndim=2)
+    >>> sequence_join([[1, 2], [3, 4]], sep="/", size=2, ndim=2)
     ['1/2', '3/4']
-    >>> sequence_join([[1, 2], [3, 4]], separator="/", size=4, ndim=2)
+    >>> sequence_join([[1, 2], [3, 4]], sep="/", size=4, ndim=2)
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Expected a sequence of 4 values.
-    >>> sequence_join([[1, 2], [3, 4]], separator="/", size=[2, 4], ndim=2)
+    >>> sequence_join([[1, 2], [3, 4]], sep="/", size=[2, 4], ndim=2)
     ['1/2', '3/4']
+    >>> sequence_join([1, 2, 3, 4], separator=",")
+    '1,2,3,4'
     """
     # Return the original value if it is not a sequence (e.g., None, bool, or str).
     if not is_nonstr_iter(value):
         return value
     # Now it must be a sequence.
+
+    if separator is not None:
+        sep = separator  # Deprecated, use sep instead.
+        msg = (
+            "Parameter 'separator' has been deprecated since v0.17.0 and will be "
+            "removed in v0.19.0. Please use 'sep' instead."
+        )
+        warnings.warn(msg, category=FutureWarning, stacklevel=2)
 
     # Change size to a list to simplify the checks.
     size = [size] if isinstance(size, int) else size
@@ -829,7 +848,7 @@ def sequence_join(
                 f"but got {len(value)} values."
             )
             raise GMTInvalidInput(msg)
-        return separator.join(str(v) for v in value)
+        return sep.join(str(v) for v in value)
 
     # Now it must be a 2-D sequence.
     if ndim == 1:
@@ -838,4 +857,4 @@ def sequence_join(
     if size is not None and any(len(i) not in size for i in value):
         msg = f"{errmsg['name']}Expected a sequence of {errmsg['sizes']} values."
         raise GMTInvalidInput(msg)
-    return [separator.join(str(j) for j in sub) for sub in value]
+    return [sep.join(str(j) for j in sub) for sub in value]
