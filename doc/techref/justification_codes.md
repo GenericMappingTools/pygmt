@@ -104,7 +104,7 @@ codes =  ["BL","BC", "BR", "MR", "TR", "CT", "LT", "LM", "MC"]
 fig = pygmt.Figure()
 fig.basemap(projection="X10c/2c", region=[-size, size, -size, size], frame=0)
 
-fig.colorbar(cmap="acton", frame=0, position="jMC+w10c/2c+h")
+fig.colorbar(cmap="hawaii", frame=0, position="jMC+w10c/2c+h")
 
 for code in codes:
     fig.text(
