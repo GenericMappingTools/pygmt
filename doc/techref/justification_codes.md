@@ -22,8 +22,10 @@ Script showing the justification codes used in GMT / PyGMT.
 import pygmt
 
 size = 5
-x = [-size, 0, size, size, size, 0, -size, -size, 0]
-y = [-size, -size, -size, 0, size, size, size, 0, 0]
+x1 = [-size, 0, size, size, size, 0, -size, -size, 0]
+y1 = [-size, -size, -size, 0, size, size, size, 0, 0]
+x2 = [-3, -2, -1, -1, -1, -2, -3, -3, -2]
+y2 = [-1, -1, -1, 0, 1, 1, 1, 0, 0]
 codes = ["BL", "BC", "BR", "MR", "TR", "TC", "TL", "ML", "MC"]
 
 fig = pygmt.Figure()
@@ -31,14 +33,14 @@ fig.basemap(projection="X10c/6c", region=[-size, size, -size, size], frame=0)
 
 fig.text(
     font="15p,1,black",
-    x=x,
-    y=y,
+    x=x1,
+    y=y1,
     text=codes,
     justify=codes,
     offset="j0.5c/0.5c+v2p,gray30",
 )
 
-fig.plot(x=x, y=y, style="c0.3c", fill="steelblue", no_clip=True)
+fig.plot(x=x1, y=y1, style="c0.3c", fill="steelblue", no_clip=True)
 
 fig.text(
     font="15p",
@@ -48,8 +50,12 @@ fig.text(
     y=[size, 0, -size, size, size, size],
     justify=["ML", "ML", "ML", "BC", "BC", "BC"],
     text=[
-        "@%1%T@%%op", "@%1%M@%%iddle", "@%1%B@%%ottom",
-        "@%1%L@%%eft", "@%1%C@%%enter", "@%1%R@%%ight"
+        "@%1%T@%%op",
+        "@%1%M@%%iddle",
+        "@%1%B@%%ottom",
+        "@%1%L@%%eft",
+        "@%1%C@%%enter",
+        "@%1%R@%%ight",
     ],
 )
 
@@ -66,10 +72,6 @@ tags: [remove-input]
 """
 Script showing justification codes for non-rectangular geographic basemaps.
 """
-import pygmt
-
-codes = ["BL", "BC", "BR", "MR", "TR", "TC", "TL", "ML", "MC"]
-
 fig = pygmt.Figure()
 fig.basemap(projection="H10c", region="g", frame=0)
 
@@ -96,11 +98,6 @@ tags: [remove-input]
 """
 Script showing justification codes for plot embellishments, e.g., a colorbar.
 """
-import pygmt
-
-size = 5
-codes = ["BL", "BC", "BR", "MR", "TR", "TC", "TL", "ML", "MC"]
-
 fig = pygmt.Figure()
 fig.basemap(projection="X10c/2c", region=[-size, size, -size, size], frame=0)
 
@@ -114,7 +111,7 @@ for code in codes:
         text=code,
         offset="j0.3c/0.15c+v1p,gray30",
     )
-fig.plot(x=x, y=y, style="c0.2c", fill="steelblue", no_clip=True)
+fig.plot(x=x1, y=y1, style="c0.2c", fill="steelblue", no_clip=True)
 
 fig.show(width=600)
 ```
@@ -129,15 +126,6 @@ tags: [remove-input]
 """
 Script explaining reference and anchor points.
 """
-import pygmt
-
-size = 5
-x1 = [-size, 0, size, size, size, 0, -size, -size, 0]
-y1 = [-size, -size, -size, 0, size, size, size, 0, 0]
-codes = ["BL", "BC", "BR", "MR", "TR", "TC", "TL", "ML", "MC"]
-x2 = [-3, -2, -1, -1, -1, -2, -3, -3, -2]
-y2 = [-1, -1, -1, 0, 1, 1, 1, 0, 0]
-
 fig = pygmt.Figure()
 fig.basemap(projection="X10c/6c", region=[-size, size, -size, size], frame=0)
 
