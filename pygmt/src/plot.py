@@ -38,7 +38,6 @@ from pygmt.src._common import _data_geometry_is_point
     Z="zvalue",
     a="aspatial",
     b="binary",
-    c="panel",
     d="nodata",
     e="find",
     f="coltypes",
@@ -50,7 +49,7 @@ from pygmt.src._common import _data_geometry_is_point
     t="transparency",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
 def plot(  # noqa: PLR0912
     self,
     data: PathLike | TableLike | None = None,
@@ -61,6 +60,7 @@ def plot(  # noqa: PLR0912
     direction=None,
     straight_line: bool | Literal["x", "y"] = False,  # noqa: ARG001
     projection=None,
+    panel=None,
     **kwargs,
 ):
     r"""
@@ -88,6 +88,7 @@ def plot(  # noqa: PLR0912
 
     {aliases}
        - J=projection
+       - c=panel
 
     Parameters
     ----------
@@ -285,6 +286,7 @@ def plot(  # noqa: PLR0912
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
+        c=Alias(panel, name="panel", sep=",", size=2),
     ).merge(kwargs)
 
     with Session() as lib:

@@ -26,11 +26,10 @@ except ImportError:
     Q="nan_transparent",
     # R="region",
     V="verbose",
-    c="panel",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(c="sequence_comma", p="sequence")  # R="sequence",
+@kwargs_to_strings(p="sequence")  # R="sequence",
 def tilemap(
     self,
     region: list,
@@ -41,6 +40,7 @@ def tilemap(
     max_retries: int = 2,
     zoom_adjust: int | None = None,
     projection=None,
+    panel=None,
     **kwargs,
 ):
     r"""
@@ -58,6 +58,7 @@ def tilemap(
 
     {aliases}
        - J=projection
+       - c=panel
 
     Parameters
     ----------
@@ -129,6 +130,7 @@ def tilemap(
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
+        c=Alias(panel, name="panel", sep=",", size=2),
     ).merge(kwargs)
 
     with Session() as lib:

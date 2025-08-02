@@ -11,6 +11,7 @@ from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
+    sequence_join,
     use_alias,
 )
 
@@ -186,7 +187,6 @@ def subplot(self, nrows=1, ncols=1, projection=None, **kwargs):
 @fmt_docstring
 @contextlib.contextmanager
 @use_alias(A="fixedlabel", C="clearance", V="verbose")
-@kwargs_to_strings(panel="sequence_comma")
 def set_panel(self, panel=None, **kwargs):
     r"""
     Set the current subplot panel to plot on.
@@ -236,7 +236,7 @@ def set_panel(self, panel=None, **kwargs):
     {verbose}
     """
     self._activate_figure()
-
+    panel = sequence_join(panel, sep=",", size=2, name="panel")
     with Session() as lib:
         lib.call_module(
             module="subplot", args=["set", str(panel), *build_arg_list(kwargs)]

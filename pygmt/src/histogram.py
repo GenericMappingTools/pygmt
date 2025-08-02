@@ -27,7 +27,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     W="pen",
     Z="histtype",
     b="binary",
-    c="panel",
     d="nodata",
     e="find",
     h="header",
@@ -37,10 +36,8 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     t="transparency",
     w="wrap",
 )
-@kwargs_to_strings(
-    R="sequence", T="sequence", c="sequence_comma", i="sequence_comma", p="sequence"
-)
-def histogram(self, data: PathLike | TableLike, projection=None, **kwargs):
+@kwargs_to_strings(R="sequence", T="sequence", i="sequence_comma", p="sequence")
+def histogram(self, data: PathLike | TableLike, projection=None, panel=None, **kwargs):
     r"""
     Calculate and plot histograms.
 
@@ -48,6 +45,7 @@ def histogram(self, data: PathLike | TableLike, projection=None, **kwargs):
 
     {aliases}
        - J=projection
+       - c=panel
 
     Parameters
     ----------
@@ -140,6 +138,7 @@ def histogram(self, data: PathLike | TableLike, projection=None, **kwargs):
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
+        c=Alias(panel, name="panel", sep=",", size=2),
     ).merge(kwargs)
 
     with Session() as lib:

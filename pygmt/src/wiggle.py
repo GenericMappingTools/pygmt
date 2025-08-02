@@ -19,7 +19,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     W="pen",
     Z="scale",
     b="binary",
-    c="panel",
     d="nodata",
     e="find",
     f="coltypes",
@@ -30,7 +29,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     t="transparency",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
 def wiggle(
     self,
     data: PathLike | TableLike | None = None,
@@ -40,6 +39,7 @@ def wiggle(
     fillpositive=None,
     fillnegative=None,
     projection=None,
+    panel=None,
     **kwargs,
 ):
     r"""
@@ -54,6 +54,7 @@ def wiggle(
 
     {aliases}
        - J=projection
+       - c=panel
 
     Parameters
     ----------
@@ -112,6 +113,7 @@ def wiggle(
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
+        c=Alias(panel, name="panel", sep=",", size=2),
     ).merge(kwargs)
 
     with Session() as lib:

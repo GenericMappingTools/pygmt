@@ -32,13 +32,14 @@ __doctest_skip__ = ["grdcontour"]
     V="verbose",
     W="pen",
     l="label",
-    c="panel",
     f="coltypes",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", L="sequence", c="sequence_comma", p="sequence")
-def grdcontour(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
+@kwargs_to_strings(R="sequence", L="sequence", p="sequence")
+def grdcontour(
+    self, grid: PathLike | xr.DataArray, projection=None, panel=None, **kwargs
+):
     r"""
     Make contour map using a grid.
 
@@ -48,6 +49,7 @@ def grdcontour(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
 
     {aliases}
        - J=projection
+       - c=panel
 
     Parameters
     ----------
@@ -154,6 +156,7 @@ def grdcontour(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
+        c=Alias(panel, name="panel", sep=",", size=2),
     ).merge(kwargs)
 
     with Session() as lib:

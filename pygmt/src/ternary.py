@@ -20,17 +20,17 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     S="style",
     V="verbose",
     W="pen",
-    c="panel",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", p="sequence")
 def ternary(
     self,
     data: PathLike | TableLike,
     alabel: str | None = None,
     blabel: str | None = None,
     clabel: str | None = None,
+    panel=None,
     **kwargs,
 ):
     r"""
@@ -48,6 +48,7 @@ def ternary(
 
     {aliases}
        - L=alabel/blabel/clabel
+       - c=panel
 
     Parameters
     ----------
@@ -91,6 +92,7 @@ def ternary(
 
     aliasdict = AliasSystem(
         L=Alias(labels, name="alabel/blabel/clabel", sep="/", size=3),
+        c=Alias(panel, name="panel", sep=",", size=2),
     ).merge(kwargs)
 
     # TODO(GMT>=6.5.0): Remove the patch for upstream bug fixed in GMT 6.5.0.

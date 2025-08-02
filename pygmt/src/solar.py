@@ -21,16 +21,16 @@ __doctest_skip__ = ["solar"]
     T="terminator/terminator_datetime-",
     V="verbose",
     W="pen",
-    c="panel",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", p="sequence")
 def solar(
     self,
     terminator: Literal["astronomical", "civil", "day_night", "nautical"] = "day_night",
     terminator_datetime=None,
     projection=None,
+    panel=None,
     **kwargs,
 ):
     r"""
@@ -43,6 +43,7 @@ def solar(
 
     {aliases}
        - J=projection
+       - c=panel
 
     Parameters
     ----------
@@ -121,6 +122,7 @@ def solar(
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
+        c=Alias(panel, name="panel", sep=",", size=2),
     ).merge(kwargs)
 
     with Session() as lib:
