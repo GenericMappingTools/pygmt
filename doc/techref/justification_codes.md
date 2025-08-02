@@ -17,7 +17,7 @@ code. Choose from
 tags: [remove-input]
 ---
 """
-Script to generate sketches so visualize justification codes.
+Script showing the justification codes used in GMT / PyGMT.
 """
 import pygmt
 
@@ -64,7 +64,7 @@ Non-rectangular geographic basemap:
 tags: [remove-input]
 ---
 """
-Script to generate sketches so visualize justification codes for a non-rectangular geographic basemap.
+Script showing justification codes for non-rectangular geographic basemaps.
 """
 import pygmt
 
@@ -94,7 +94,7 @@ Compasses, scalebars, legends, colorbars, text strings, etc. can also be abstrac
 tags: [remove-input]
 ---
 """
-Script to generate sketches so visualize justification code for a colorbar.
+Script showing justification codes for plot embellishments, e.g., a colorbar.
 """
 import pygmt
 
@@ -127,7 +127,7 @@ Reference and anchor points:
 tags: [remove-input]
 ---
 """
-Reference and anchor points.
+Script explaining reference and anchor points.
 """
 import pygmt
 
