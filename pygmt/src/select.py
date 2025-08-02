@@ -16,7 +16,6 @@ from pygmt.helpers import (
     use_alias,
     validate_output_table_type,
 )
-from pygmt.src._common import _parse_coastline_resolution
 
 __doctest_skip__ = ["select"]
 
@@ -78,6 +77,7 @@ def select(
     Full GMT docs at :gmt-docs:`gmtselect.html`.
 
     {aliases}
+       - D=resolution
        - J=projection
 
     Parameters
@@ -211,8 +211,6 @@ def select(
     >>> # longitudes 246 and 247 and latitudes 20 and 21
     >>> out = pygmt.select(data=ship_data, region=[246, 247, 20, 21])
     """
-    kwargs["D"] = kwargs.get("D", _parse_coastline_resolution(resolution))
-
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
     column_names = None
@@ -220,6 +218,18 @@ def select(
         column_names = data.columns.to_list()
 
     aliasdict = AliasSystem(
+        D=Alias(
+            resolution,
+            name="resolution",
+            mapping={
+                "auto": "a",
+                "full": "f",
+                "high": "h",
+                "intermediate": "i",
+                "low": "l",
+                "crude": "c",
+            },
+        ),
         J=Alias(projection, name="projection"),
     ).merge(kwargs)
 
