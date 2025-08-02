@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:00.400** total execution time for 2 files **from gallery/basemaps**:
+**00:00.398** total execution time for 2 files **from gallery/basemaps**:
 
 .. container::
 
@@ -36,5 +36,5 @@ Computation times
      - 00:00.201
      - 0.0
    * - :ref:`sphx_glr_gallery_basemaps_ternary.py` (``ternary.py``)
-     - 00:00.199
+     - 00:00.197
      - 0.0
