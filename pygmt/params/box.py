@@ -116,10 +116,10 @@ class Box(BaseParam):
         Aliases for the parameter.
         """
         return [
-            Alias(self.clearance, prefix="+c", separator="/", size=(2, 4)),
+            Alias(self.clearance, prefix="+c", sep="/", size=(2, 4)),
             Alias(self.fill, prefix="+g"),
-            Alias(self._innerborder, prefix="+i", separator="/", size=(1, 2)),
+            Alias(self._innerborder, prefix="+i", sep="/", size=(1, 2)),
             Alias(self.pen, prefix="+p"),
             Alias(self.radius, prefix="+r"),
-            Alias(self._shading, prefix="+s", separator="/", size=(1, 2, 3)),
+            Alias(self._shading, prefix="+s", sep="/", size=(1, 2, 3)),
         ]

@@ -31,7 +31,7 @@ class BaseParam:
     ...         return [
     ...             Alias(self.par1),
     ...             Alias(self.par2, prefix="+a"),
-    ...             Alias(self.par3, prefix="+b", separator="/"),
+    ...             Alias(self.par3, prefix="+b", sep="/"),
     ...         ]
 
     >>> var = Test(par1="val1")
