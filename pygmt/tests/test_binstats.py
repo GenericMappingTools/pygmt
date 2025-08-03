@@ -49,3 +49,25 @@ def test_binstats_no_outgrid():
     npt.assert_allclose(temp_grid.min(), 53)
     npt.assert_allclose(temp_grid.median(), 1232714.5)
     npt.assert_allclose(temp_grid.mean(), 4227489)
+
+
+def test_binstats_quantile():
+    """
+    Test binstats with no set outgrid.
+    """
+    temp_grid = binstats(
+        data="@capitals.gmt",
+        spacing=5,
+        statistic="quantile",
+        quantile_value=75,
+        search_radius="1000k",
+        aspatial="2=population",
+        region="g",
+    )
+    assert temp_grid.dims == ("y", "x")
+    assert temp_grid.gmt.gtype is GridType.CARTESIAN
+    assert temp_grid.gmt.registration is GridRegistration.GRIDLINE
+    npt.assert_allclose(temp_grid.max(), 15047685)
+    npt.assert_allclose(temp_grid.min(), 53)
+    npt.assert_allclose(temp_grid.median(), 543664.5)
+    npt.assert_allclose(temp_grid.mean(), 1661363.6)
