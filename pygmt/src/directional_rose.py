@@ -11,7 +11,7 @@ from pygmt.clib import Session
 from pygmt.helpers import build_arg_list
 
 
-def directional_rose(
+def directional_rose(  # noqa: PLR0913
     self,
     position,
     position_type: Literal[
@@ -22,6 +22,10 @@ def directional_rose(
     anchor_offset: Sequence[float | str] | None = None,
     label: Sequence[str] | bool = False,
     fancy: Literal[1, 2, 3] | bool = False,
+    box=None,
+    perspective=None,
+    verbose=None,
+    transparency=None,
 ):
     r"""
     Add a directional rose to the map.
@@ -81,6 +85,7 @@ def directional_rose(
     self._activate_figure()
 
     aliasdict = AliasSystem(
+        F=Alias(box, name="box"),
         Td=[
             Alias(
                 position_type,
@@ -99,7 +104,10 @@ def directional_rose(
             Alias(justify, name="justify", prefix="+j"),
             Alias(label, name="label", prefix="+l", sep=",", size=4),
             Alias(anchor_offset, name="anchor_offset", prefix="+o", sep="/", size=2),
-        ]
+        ],
+        V=Alias(verbose, name="verbose"),
+        p=Alias(perspective, name="perspective"),
+        t=Alias(transparency, name="transparency"),
     )
 
     with Session() as lib:

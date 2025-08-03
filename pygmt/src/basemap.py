@@ -2,6 +2,8 @@
 basemap - Plot base maps and frames.
 """
 
+import warnings
+
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -72,8 +74,9 @@ def basemap(self, projection=None, **kwargs):
         [Default is ``"4p/-4p"``] and shade sets the fill style to use for
         shading [Default is ``"gray50"``].
     rose : str
-        Draw a map directional rose on the map at the location defined by
-        the reference and anchor points.
+        Draw a map directional rose on the map.
+
+        Deprecated. Use :py:func:`pygmt.Figure.directional_rose` instead.
     compass : str
         Draw a map magnetic rose on the map at the location defined by the
         reference and anchor points.
@@ -87,5 +90,14 @@ def basemap(self, projection=None, **kwargs):
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
     ).merge(kwargs)
+
+    if aliasdict.get("Td"):
+        warnings.warn(
+            "Parameter 'rose' is deprecated and will be removed in a future version. "
+            "Use 'Figure.directional_rose' instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
     with Session() as lib:
         lib.call_module(module="basemap", args=build_arg_list(aliasdict))

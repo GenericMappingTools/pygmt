@@ -37,7 +37,6 @@ Plotting map elements
     Figure.timestamp
     Figure.vlines
 
-
 Plotting tabular data
 ~~~~~~~~~~~~~~~~~~~~~
 
