@@ -3,6 +3,7 @@ contour - Contour table data by direct triangulation.
 """
 
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -19,7 +20,6 @@ from pygmt.helpers import (
     B="frame",
     C="levels",
     G="label_placement",
-    J="projection",
     L="triangular_mesh_pen",
     N="no_clip",
     R="region",
@@ -39,7 +39,13 @@ from pygmt.helpers import (
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def contour(
-    self, data: PathLike | TableLike | None = None, x=None, y=None, z=None, **kwargs
+    self,
+    data: PathLike | TableLike | None = None,
+    x=None,
+    y=None,
+    z=None,
+    projection=None,
+    **kwargs,
 ):
     r"""
     Contour table data by direct triangulation.
@@ -52,6 +58,7 @@ def contour(
     Full GMT docs at :gmt-docs:`contour.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -146,10 +153,14 @@ def contour(
             else:  # Multiple levels
                 kwargs[arg] = ",".join(f"{item}" for item in kwargs[arg])
 
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
+
     with Session() as lib:
         with lib.virtualfile_in(
             check_kind="vector", data=data, x=x, y=y, z=z, mincols=3
         ) as vintbl:
             lib.call_module(
-                module="contour", args=build_arg_list(kwargs, infile=vintbl)
+                module="contour", args=build_arg_list(aliasdict, infile=vintbl)
             )

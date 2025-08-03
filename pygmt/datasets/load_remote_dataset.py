@@ -3,7 +3,7 @@ Internal function to load GMT remote datasets.
 """
 
 import contextlib
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from typing import Any, Literal, NamedTuple
 
 import xarray as xr
@@ -58,8 +58,8 @@ class GMTRemoteDataset(NamedTuple):
     description: str
     kind: Literal["grid", "image"]
     units: str | None
-    resolutions: dict[str, Resolution]
-    extra_attributes: dict[str, Any]
+    resolutions: Mapping[str, Resolution]
+    extra_attributes: Mapping[str, Any]
     crs: str | None = None
 
 
