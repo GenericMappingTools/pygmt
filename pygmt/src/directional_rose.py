@@ -14,10 +14,12 @@ from pygmt.helpers import build_arg_list
 def directional_rose(
     self,
     position,
-    position_type: Literal["user", "justify", "mirror", "normalize", "plot"] = "user",
+    position_type: Literal[
+        "mapcoords", "inside", "outside", "boxcoords", "plotcoords"
+    ] = "mapcoords",
     width: float | str | None = None,
     justify: AnchorCode | None = None,
-    offset: Sequence[float | str] | None = None,
+    anchor_offset: Sequence[float | str] | None = None,
     label: Sequence[str] | bool = False,
     fancy: Literal[1, 2, 3] | bool = False,
 ):
@@ -30,15 +32,17 @@ def directional_rose(
         Location of the rose. The actual meaning of this parameter depends on the
         ``position_type`` parameter.
 
-        - ``position_type="user"``: *position* is given as (x, y) in user coordinates.
-        - ``position_type="normalize"``: *position* is given as (nx, ny) in normalized
+        - ``position_type="mapcoords"``: *position* is given as (x, y) in user
+          coordinates.
+        - ``position_type="boxcoords"``: *position* is given as (nx, ny) in normalized
           coordinates, where (0, 0) is the lower-left corner and (1, 1) is the
           upper-right corner of the map.
-        - ``position_type="plot"``: *position* is given as (x, y) in plot coordinates.
-        - ``position_type="justify"``: *position* is given as a two-character
+        - ``position_type="plotcoords"``: *position* is given as (x, y) in plot
+          coordinates.
+        - ``position_type="inside"``: *position* is given as a two-character
           justification code, meaning the anchor point of the rose is inside the map
           bounding box.
-        - ``position_type="mirror"``: *position* is given as a two-character
+        - ``position_type="outside"``: *position* is given as a two-character
           justification code, but the rose is outside the map bounding box.
     width
         Width of the rose in plot coordinates (append **i** (inch),
@@ -57,7 +61,7 @@ def directional_rose(
           ENE-WSW
 
         If set to ``True``, it defaults to level 1.
-    offset
+    anchor_offset
         *offset* or (*offset_x*, *offset_y*).
         Offset the anchor point by *offset_x* and *offset_y*. If a single value *offset*
         is given, *offset_y* = *offset_x* = *offset*.
@@ -82,19 +86,19 @@ def directional_rose(
                 position_type,
                 name="position_type",
                 mapping={
-                    "user": "g",
-                    "justify": "j",
-                    "mirror": "J",
-                    "normalize": "n",
-                    "plot": "x",
+                    "mapcoords": "g",
+                    "inside": "j",
+                    "outside": "J",
+                    "boxcoords": "n",
+                    "plotcoords": "x",
                 },
             ),
-            Alias(position, name="position", separator="/"),
+            Alias(position, name="position", sep="/"),
             Alias(width, name="width", prefix="+w"),
             Alias(fancy, name="fancy", prefix="+f"),
             Alias(justify, name="justify", prefix="+j"),
-            Alias(label, name="label", prefix="+l", separator=",", size=4),
-            Alias(offset, name="offset", prefix="+o", separator="/", size=[1, 2]),
+            Alias(label, name="label", prefix="+l", sep=",", size=4),
+            Alias(anchor_offset, name="anchor_offset", prefix="+o", sep="/", size=2),
         ]
     )
 
