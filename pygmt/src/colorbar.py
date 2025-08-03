@@ -2,6 +2,7 @@
 colorbar - Plot gray scale or color scale bar.
 """
 
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -16,7 +17,6 @@ __doctest_skip__ = ["colorbar"]
     F="box",
     G="truncate",
     I="shading",
-    J="projection",
     L="equalsize",
     Q="log",
     R="region",
@@ -30,7 +30,7 @@ __doctest_skip__ = ["colorbar"]
 @kwargs_to_strings(
     R="sequence", G="sequence", I="sequence", c="sequence_comma", p="sequence"
 )
-def colorbar(self, **kwargs):
+def colorbar(self, projection=None, **kwargs):
     r"""
     Plot gray scale or color scale bar.
 
@@ -45,6 +45,7 @@ def colorbar(self, **kwargs):
     Full GMT docs at :gmt-docs:`colorbar.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -145,5 +146,9 @@ def colorbar(self, **kwargs):
     >>> fig.show()
     """
     self._activate_figure()
+
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
     with Session() as lib:
-        lib.call_module(module="colorbar", args=build_arg_list(kwargs))
+        lib.call_module(module="colorbar", args=build_arg_list(aliasdict))
