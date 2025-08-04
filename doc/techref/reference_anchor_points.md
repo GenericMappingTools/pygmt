@@ -13,6 +13,15 @@ tags: [remove-input]
 """
 Script explaining reference and anchor points.
 """
+import pygmt
+
+size = 5
+x1 = [-size, 0, size, size, size, 0, -size, -size, 0]
+y1 = [-size, -size, -size, 0, size, size, size, 0, 0]
+x2 = [-3, -2, -1, -1, -1, -2, -3, -3, -2]
+y2 = [-1, -1, -1, 0, 1, 1, 1, 0, 0]
+codes = ["BL", "BC", "BR", "MR", "TR", "TC", "TL", "ML", "MC"]
+
 fig = pygmt.Figure()
 fig.basemap(projection="X10c/6c", region=[-size, size, -size, size], frame=0)
 
