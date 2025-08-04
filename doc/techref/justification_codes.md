@@ -11,6 +11,7 @@ code. Choose from
 - Vertical: **T**\(op), **M**\(iddle), **B**\(ottom)
 - Horizontal: **L**\(eft), **C**\(entre), **R**\(ight)
 
+The possible nine justification codes are visualized in the sketch below:
 
 ```{code-cell}
 ---
@@ -62,8 +63,8 @@ fig.text(
 fig.show(width=600)
 ```
 
-
-Non-rectangular geographic basemap:
+For a non-rectangular geographic basemap the justification codes refer to the plot or map
+bounding box:
 
 ```{code-cell}
 ---
@@ -89,7 +90,9 @@ fig.show(width=600)
 ```
 
 
-Compasses, scalebars, legends, colorbars, text strings, etc. can also be abstracted by a rectangle.
+Plot embellishments such as scalebars, directional roses, legends, colorbars as well
+as text strings can also be abstracted as rectangles. The justification codes are
+shown exemplary for a colorbar.
 
 ```{code-cell}
 ---
