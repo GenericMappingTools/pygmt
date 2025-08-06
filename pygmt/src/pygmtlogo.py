@@ -6,6 +6,7 @@ and consists of a visual and the wordmark "PyGMT".
 
 from pathlib import Path
 
+import numpy as np
 import pygmt
 
 
@@ -106,22 +107,30 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
 
     # Compass
     x1, x2 = r1 * 0.7071, r2 * 0.7071  # sqrt(2)/2 = 0.7071
-    lines_compass = [ 
+    lines_compass = [
         ([-r0, -r2], [0, 0]),  # horizontal lines
-        ([-r4, 0], [0, 0]), 
+        ([-r4, 0], [0, 0]),
         ([r2, r0], [0, 0]),
         ([-x1, -x2], [x1, x2]),  # upper left
         ([-x1, -x2], [-x1, -x2]),  # lower left
         ([x1, x2], [x1, x2]),  # upper right
         ([x1, x2], [-x1, -x2]),  # lower right
-    ] 
+    ]
     for x, y in lines_compass:
         fig.plot(x=x, y=y, pen=f"5p,{color_yellow}", perspective=True)
 
     # Letter G
     angles = np.deg2rad(np.arange(90, 361, 1.0))
-    x = np.concatenate([np.cos(angles) * r3, [r3, 0, 0, r4], np.cos(np.flip(angles)) * r4])
-    y = np.concatenate([np.sin(angles) * r3, [(r3-r4)/2.0, (r3-r4)/2.0, -(r3-r4)/2.0, -(r3-r4)/2.0], np.sin(np.flip(angles)) * r4])
+    x = np.concatenate(
+        [np.cos(angles) * r3, [r3, 0, 0, r4], np.cos(np.flip(angles)) * r4]
+    )
+    y = np.concatenate(
+        [
+            np.sin(angles) * r3,
+            [(r3 - r4) / 2.0, (r3 - r4) / 2.0, -(r3 - r4) / 2.0, -(r3 - r4) / 2.0],
+            np.sin(np.flip(angles)) * r4,
+        ]
+    )
     fig.plot(x=x, y=y, fill=color_red, perspective=True)
 
     # upper vertical red line
