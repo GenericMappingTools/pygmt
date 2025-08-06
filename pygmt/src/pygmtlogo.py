@@ -144,12 +144,12 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     m_x1 = 0.33 - 0.33 / 2 - 0.06
     m_x2 = 1.54 + 0.33 / 2 - 0.06  # outer radius of letter G
     m_x = [
-        m_x1 + m_x2 / 5,  # vertical left upwarts
+        m_x1 + m_x2 / 5,  # vertical left upwards
         m_x1,
         m_x1,
         m_x1 + m_x2 / 5,
         m_x1 + (m_x2 - m_x1) / 2,  # mid pick above
-        m_x2 - m_x2 / 5,  # vertical right downwarts
+        m_x2 - m_x2 / 5,  # vertical right downwards
         m_x2,
         m_x2,
         m_x2 - m_x2 / 5,
@@ -160,12 +160,12 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     m_y1 = 0.3
     m_y2 = 1.65  # outer radius of letter G
     m_y = [
-        m_y1,  # vertical left upwarts
+        m_y1,  # vertical left upwards
         m_y1,
         m_y2,
         m_y2,
         m_y2 - m_y2 / 4,  # mid pick above
-        m_y2,  # vertical right downwarts
+        m_y2,  # vertical right downwards
         m_y2,
         m_y1,
         m_y1,
