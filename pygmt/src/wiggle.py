@@ -3,6 +3,7 @@ wiggle - Plot z=f(x,y) anomalies along tracks.
 """
 
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -12,7 +13,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     B="frame",
     D="position",
     G="fillpositive/fillnegative-",
-    J="projection",
     R="region",
     T="track",
     V="verbose",
@@ -39,6 +39,7 @@ def wiggle(
     z=None,
     fillpositive=None,
     fillnegative=None,
+    projection=None,
     **kwargs,
 ):
     r"""
@@ -52,6 +53,7 @@ def wiggle(
     Full GMT docs at :gmt-docs:`wiggle.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -108,8 +110,14 @@ def wiggle(
         if fillnegative:
             kwargs["G"].append(fillnegative + "+n")
 
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
+
     with Session() as lib:
         with lib.virtualfile_in(
             check_kind="vector", data=data, x=x, y=y, z=z, mincols=3
         ) as vintbl:
-            lib.call_module(module="wiggle", args=build_arg_list(kwargs, infile=vintbl))
+            lib.call_module(
+                module="wiggle", args=build_arg_list(aliasdict, infile=vintbl)
+            )

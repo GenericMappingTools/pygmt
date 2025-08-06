@@ -6,6 +6,7 @@ from collections.abc import Sequence
 
 import numpy as np
 from pygmt._typing import AnchorCode, PathLike, StringArrayTypes, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import (
@@ -23,7 +24,6 @@ from pygmt.helpers import (
 @fmt_docstring
 @use_alias(
     R="region",
-    J="projection",
     B="frame",
     C="clearance",
     D="offset",
@@ -53,6 +53,7 @@ def text_(  # noqa: PLR0912
     angle=None,
     font=None,
     justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
+    projection=None,
     **kwargs,
 ):
     r"""
@@ -72,6 +73,7 @@ def text_(  # noqa: PLR0912
     Full GMT docs at :gmt-docs:`text.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -262,11 +264,15 @@ def text_(  # noqa: PLR0912
                     reason=f"Parameter {name!r} expects a single value or True.",
                 )
 
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
+
     with Session() as lib:
         with lib.virtualfile_in(
             check_kind="vector", data=textfiles or data, required=data_is_required
         ) as vintbl:
             lib.call_module(
                 module="text",
-                args=build_arg_list(kwargs, infile=vintbl, confdict=confdict),
+                args=build_arg_list(aliasdict, infile=vintbl, confdict=confdict),
             )

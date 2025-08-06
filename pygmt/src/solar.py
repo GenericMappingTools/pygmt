@@ -5,6 +5,7 @@ solar - Plot day-night terminators and other sunlight parameters.
 from typing import Literal
 
 import pandas as pd
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -16,7 +17,6 @@ __doctest_skip__ = ["solar"]
 @use_alias(
     B="frame",
     G="fill",
-    J="projection",
     R="region",
     T="terminator/terminator_datetime-",
     V="verbose",
@@ -30,6 +30,7 @@ def solar(
     self,
     terminator: Literal["astronomical", "civil", "day_night", "nautical"] = "day_night",
     terminator_datetime=None,
+    projection=None,
     **kwargs,
 ):
     r"""
@@ -41,6 +42,7 @@ def solar(
     Full GMT docs at :gmt-docs:`solar.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -116,5 +118,10 @@ def solar(
             msg = "Unrecognized datetime format."
             raise GMTInvalidInput(msg) from verr
         kwargs["T"] += f"+d{datetime_string}"
+
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
+
     with Session() as lib:
-        lib.call_module(module="solar", args=build_arg_list(kwargs))
+        lib.call_module(module="solar", args=build_arg_list(aliasdict))

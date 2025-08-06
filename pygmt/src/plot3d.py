@@ -5,6 +5,7 @@ plot3d - Plot lines, polygons, and symbols in 3-D.
 from typing import Literal
 
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import (
@@ -26,7 +27,6 @@ from pygmt.src._common import _data_geometry_is_point
     D="offset",
     G="fill",
     I="intensity",
-    J="projection",
     Jz="zscale",
     JZ="zsize",
     L="close",
@@ -62,6 +62,7 @@ def plot3d(  # noqa: PLR0912
     symbol=None,
     direction=None,
     straight_line: bool | Literal["x", "y"] = False,  # noqa: ARG001
+    projection=None,
     **kwargs,
 ):
     r"""
@@ -88,6 +89,7 @@ def plot3d(  # noqa: PLR0912
     Full GMT docs at :gmt-docs:`plot3d.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -260,6 +262,12 @@ def plot3d(  # noqa: PLR0912
     if kwargs.get("S") is None and _data_geometry_is_point(data, kind):
         kwargs["S"] = "u0.2c"
 
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
+
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data, mincols=3) as vintbl:
-            lib.call_module(module="plot3d", args=build_arg_list(kwargs, infile=vintbl))
+            lib.call_module(
+                module="plot3d", args=build_arg_list(aliasdict, infile=vintbl)
+            )
