@@ -39,8 +39,8 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     region = [-size, size] * 2
     projection = "x1c"
 
-    # Outer and inner radii of compass lines
-    r1, r2 = size * 0.625, size * 0.325
+    # Radii
+    r0, r1, r2, r3, r4 = size * np.array([1.0, 0.875, 0.4625, 0.4125, 0.29375])
 
     # Rotation around z (vertical) axis placed in the center
     # Has to be applied to each plotting command, up on second call set to True
