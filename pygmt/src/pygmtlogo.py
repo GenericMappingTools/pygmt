@@ -173,7 +173,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         m_y2 - m_y2 / 2 - m_y2 / 18,  # mid pick below
         m_y2 - m_y2 / 3,  # left pick below
     ]
-    fig.plot(x=m_x, y=m_y, close=True, fill=color_red)
+    fig.plot(x=m_x, y=m_y, close=True, fill=color_red, perspective=True)
 
     # letter T
     # red curved horizontal line
