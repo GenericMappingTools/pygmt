@@ -118,17 +118,11 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     for x, y in lines_compass:
         fig.plot(x=x, y=y, pen=f"5p,{color_yellow}", perspective=True)
 
-    # letter G
-    # horizontal red line
-    fig.plot(x=[0.1, 1.65], y=[0, 0], pen=f"12p,{color_red}", perspective=True)
-    # red ring sector
-    fig.plot(x=0, y=0, style="w3.3c/90/0+i2.35c", fill=color_red, perspective=True)
-    # space between yellow lines and ring sector
-    fig.plot(x=0, y=0, style="w3.7c/0/360+i3.3c", fill=color_bg, perspective=True)
-    # vertical yellow line
-    fig.plot(x=[0, 0], y=[-4, 4], pen=f"6p,{color_yellow}", perspective=True)
-    # cover yellow line in lower part of the ring sector
-    fig.plot(x=0, y=0, style="w3.3c/260/-80+i2.35c", fill=color_red, perspective=True)
+    # Letter G
+    angles = np.deg2rad(np.arange(90, 361, 1.0))
+    x = np.concatenate([np.cos(angles) * r3, [r3, 0, 0, r4], np.cos(np.flip(angles)) * r4])
+    y = np.concatenate([np.sin(angles) * r3, [(r3-r4)/2.0, (r3-r4)/2.0, -(r3-r4)/2.0, -(r3-r4)/2.0], np.sin(np.flip(angles)) * r4])
+    fig.plot(x=x, y=y, fill=color_red, perspective=True)
 
     # upper vertical red line
     # space between red line and blue circle / hexagon
