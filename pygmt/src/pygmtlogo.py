@@ -104,15 +104,18 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         no_clip=True,  # needed for corners of hexagon shape
     )
 
-    # yellow lines for compass
-    lines_yellow = [
-        ([-size, size], [0, 0]),  # horizontal line
-        ([-r1, -r2], [r1, r2]),  # upper left
-        ([-r1, -r2], [-r1, -r2]),  # lower left
-        ([r1, r2], [r1, r2]),  # upper right
-        ([r1, r2], [-r1, -r2]),  # lower right
-    ]
-    for x, y in lines_yellow:
+    # Compass
+    x1, x2 = r1 * 0.7071, r2 * 0.7071  # sqrt(2)/2 = 0.7071
+    lines_compass = [ 
+        ([-r0, -r2], [0, 0]),  # horizontal lines
+        ([-r4, 0], [0, 0]), 
+        ([r2, r0], [0, 0]),
+        ([-x1, -x2], [x1, x2]),  # upper left
+        ([-x1, -x2], [-x1, -x2]),  # lower left
+        ([x1, x2], [x1, x2]),  # upper right
+        ([x1, x2], [-x1, -x2]),  # lower right
+    ] 
+    for x, y in lines_compass:
         fig.plot(x=x, y=y, pen=f"5p,{color_yellow}", perspective=True)
 
     # letter G
