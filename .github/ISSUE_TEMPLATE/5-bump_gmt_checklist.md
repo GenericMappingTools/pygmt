@@ -27,7 +27,6 @@ using the following command:
   - [ ] Update `.github/workflows/ci_tests.yaml`
   - [ ] Add the legacy GMT version to `.github/workflows/ci_tests_legacy.yaml`
   - [ ] Update GMT 6.x minor version for `extlinks` urls in `doc/conf.py`
-  - [ ] Update GMT 6.x minor version in `.github/workflows/check-links.yml`
 - [ ] Fix failing tests (1 or more PRs)
 - [ ] Fix failing doctests reported in the ["Doctest" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_doctests.yaml)
 - [ ] Fix [xfail](https://docs.pytest.org/en/stable/skipping.html#xfail-mark-test-functions-as-expected-to-fail) pytest markers on tests that are now xpass
