@@ -4,6 +4,7 @@ grdcontour - Make contour map using a grid.
 
 import xarray as xr
 from pygmt._typing import PathLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -24,7 +25,6 @@ __doctest_skip__ = ["grdcontour"]
     B="frame",
     C="levels",
     G="label_placement",
-    J="projection",
     L="limit",
     Q="cut",
     R="region",
@@ -38,7 +38,7 @@ __doctest_skip__ = ["grdcontour"]
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", L="sequence", c="sequence_comma", p="sequence")
-def grdcontour(self, grid: PathLike | xr.DataArray, **kwargs):
+def grdcontour(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
     r"""
     Make contour map using a grid.
 
@@ -47,6 +47,7 @@ def grdcontour(self, grid: PathLike | xr.DataArray, **kwargs):
     Full GMT docs at :gmt-docs:`grdcontour.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -151,8 +152,12 @@ def grdcontour(self, grid: PathLike | xr.DataArray, **kwargs):
             else:  # Multiple levels
                 kwargs[arg] = ",".join(f"{item}" for item in kwargs[arg])
 
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
+
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
             lib.call_module(
-                module="grdcontour", args=build_arg_list(kwargs, infile=vingrd)
+                module="grdcontour", args=build_arg_list(aliasdict, infile=vingrd)
             )
