@@ -13,7 +13,7 @@ from pygmt.helpers import build_arg_list
 
 def directional_rose(  # noqa: PLR0913
     self,
-    position,
+    position: Sequence[str | float] | AnchorCode,
     position_type: Literal[
         "mapcoords", "inside", "outside", "boxcoords", "plotcoords"
     ] = "mapcoords",
@@ -98,7 +98,7 @@ def directional_rose(  # noqa: PLR0913
                     "plotcoords": "x",
                 },
             ),
-            Alias(position, name="position", sep="/"),
+            Alias(position, name="position", sep="/", size=2),
             Alias(width, name="width", prefix="+w"),
             Alias(fancy, name="fancy", prefix="+f"),
             Alias(justify, name="justify", prefix="+j"),
