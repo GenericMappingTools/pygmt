@@ -1,11 +1,12 @@
 """
-filter1d - Time domain filtering of 1-D data tables
+filter1d - Time domain filtering of 1-D data tables.
 """
 
 from typing import Literal
 
 import numpy as np
 import pandas as pd
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -23,9 +24,9 @@ from pygmt.helpers import (
     N="time_col",
 )
 def filter1d(
-    data,
+    data: PathLike | TableLike,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
-    outfile: str | None = None,
+    outfile: PathLike | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -39,7 +40,7 @@ def filter1d(
     Read a table and output as a :class:`numpy.ndarray`,
     :class:`pandas.DataFrame`, or ASCII file.
 
-    Full option list at :gmt-docs:`filter1d.html`
+    Full GMT docs at :gmt-docs:`filter1d.html`.
 
     {aliases}
 
@@ -57,25 +58,25 @@ def filter1d(
 
         Available convolution filter types are:
 
-        - (**b**) Boxcar: All weights are equal.
-        - (**c**) Cosine Arch: Weights follow a cosine arch curve.
-        - (**g**) Gaussian: Weights are given by the Gaussian function.
-        - (**f**) Custom: Instead of *width* give name of a one-column file
+        - **b**: boxcar. All weights are equal.
+        - **c**: cosine arch. Weights follow a cosine arch curve.
+        - **g**: Gaussian. Weights are given by the Gaussian function.
+        - **f**: custom. Instead of *width* give name of a one-column file
           with your own weight coefficients.
 
         Non-convolution filter types are:
 
-        - (**m**) Median: Returns median value.
-        - (**p**) Maximum likelihood probability (a mode estimator): Return
+        - **m**: median. Returns median value.
+        - **p**: maximum likelihood probability (a mode estimator). Return
           modal value. If more than one mode is found we return their average
           value. Append **+l** or **+u** if you rather want
           to return the lowermost or uppermost of the modal values.
-        - (**l**) Lower: Return the minimum of all values.
-        - (**L**) Lower: Return minimum of all positive values only.
-        - (**u**) Upper: Return maximum of all values.
-        - (**U**) Upper: Return maximum of all negative values only.
+        - **l**: lower (absolute). Return the minimum of all values.
+        - **L**: lower. Return minimum of all positive values only.
+        - **u**: upper (absolute). Return maximum of all values.
+        - **U**: upper. Return maximum of all negative values only.
 
-        Upper case type **B**, **C**, **G**, **M**, **P**, **F** will use
+        Uppercase type **B**, **C**, **G**, **M**, **P**, **F** will use
         robust filter versions: i.e., replace outliers (2.5 L1 scale off
         median, using 1.4826 \* median absolute deviation [MAD]) with median
         during filtering.
@@ -105,12 +106,14 @@ def filter1d(
     ret
         Return type depends on ``outfile`` and ``output_type``:
 
-        - None if ``outfile`` is set (output will be stored in file set by ``outfile``)
+        - ``None`` if ``outfile`` is set (output will be stored in the file set by
+          ``outfile``)
         - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
           (depends on ``output_type``)
     """
     if kwargs.get("F") is None:
-        raise GMTInvalidInput("Pass a required argument to 'filter_type'.")
+        msg = "Pass a required argument to 'filter_type'."
+        raise GMTInvalidInput(msg)
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 

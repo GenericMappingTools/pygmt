@@ -55,7 +55,7 @@ doctest: _runtest
 # run tests without image comparisons
 # run pytest without the --mpl option to disable image comparisons
 # use '-o addopts' to override 'addopts' settings in pyproject.toml file
-test_no_images: PYTEST_ARGS=-o addopts="--verbose --durations=0 --durations-min=0.2 --doctest-modules"
+test_no_images: PYTEST_ARGS=-o addopts="--verbose --color=yes --durations=0 --durations-min=0.2 --doctest-modules"
 test_no_images: _runtest
 
 format:

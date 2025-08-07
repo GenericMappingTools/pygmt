@@ -27,8 +27,7 @@ fig.grdview(
     # Sets the view azimuth as 130 degrees, and the view elevation as 30
     # degrees
     perspective=[130, 30],
-    # Sets the x- and y-axis labels, and annotates the west, south, and east
-    # axes
+    # Sets the x- and y-axis labels, and annotates the west, south, and east axes
     frame=["xa", "ya", "WSnE"],
     # Sets a Mercator projection on a 15-centimeter figure
     projection="M15c",

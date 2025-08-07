@@ -7,7 +7,7 @@ import numpy.testing as npt
 import pytest
 import xarray as xr
 from pygmt.clib.conversion import dataarray_to_matrix
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 
 
 @pytest.mark.benchmark
@@ -76,12 +76,12 @@ def test_dataarray_to_matrix_dims_fails():
     Check that it fails for > 2 dims.
     """
     # Make a 3-D regular grid
-    data = np.ones((10, 12, 11), dtype="float32")
+    data = np.ones((10, 12, 11), dtype=np.float32)
     x = np.arange(11)
     y = np.arange(12)
     z = np.arange(10)
     grid = xr.DataArray(data, coords=[("z", z), ("y", y), ("x", x)])
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         dataarray_to_matrix(grid)
 
 
@@ -90,28 +90,28 @@ def test_dataarray_to_matrix_irregular_inc_warning():
     Check that it warns for variable increments, see also
     https://github.com/GenericMappingTools/pygmt/issues/1468.
     """
-    data = np.ones((4, 5), dtype="float64")
+    data = np.ones((4, 5), dtype=np.float64)
     x = np.linspace(0, 1, 5)
     y = np.logspace(2, 3, 4)
     grid = xr.DataArray(data, coords=[("y", y), ("x", x)])
     with pytest.warns(expected_warning=RuntimeWarning) as record:
         dataarray_to_matrix(grid)
-        assert len(record) == 1
+    assert len(record) == 1
 
 
 def test_dataarray_to_matrix_zero_inc_fails():
     """
     Check that dataarray_to_matrix fails for zero increments grid.
     """
-    data = np.ones((5, 5), dtype="float32")
+    data = np.ones((5, 5), dtype=np.float32)
     x = np.linspace(0, 1, 5)
     y = np.zeros_like(x)
     grid = xr.DataArray(data, coords=[("y", y), ("x", x)])
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         dataarray_to_matrix(grid)
 
     y = np.linspace(0, 1, 5)
     x = np.zeros_like(x)
     grid = xr.DataArray(data, coords=[("y", y), ("x", x)])
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         dataarray_to_matrix(grid)

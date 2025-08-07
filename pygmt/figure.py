@@ -4,9 +4,12 @@ Define the Figure class that handles all plotting.
 
 import base64
 import os
-from pathlib import Path, PurePath
+import warnings
+from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Literal
+from typing import Literal, overload
+
+from pygmt._typing import PathLike
 
 try:
     import IPython
@@ -17,15 +20,8 @@ except ImportError:
 
 import numpy as np
 from pygmt.clib import Session
-from pygmt.exceptions import GMTError, GMTInvalidInput
-from pygmt.helpers import (
-    build_arg_list,
-    fmt_docstring,
-    kwargs_to_strings,
-    launch_external_viewer,
-    unique_name,
-    use_alias,
-)
+from pygmt.exceptions import GMTValueError
+from pygmt.helpers import launch_external_viewer, unique_name
 
 
 def _get_default_display_method() -> Literal["external", "notebook", "none"]:
@@ -102,19 +98,19 @@ class Figure:
     122.94, 145.82, 20.53, 45.52
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._name = unique_name()
         self._preview_dir = TemporaryDirectory(prefix=f"{self._name}-preview-")
         self._activate_figure()
 
-    def __del__(self):
+    def __del__(self) -> None:
         """
         Clean up the temporary directory that stores the previews.
         """
         if hasattr(self, "_preview_dir"):
             self._preview_dir.cleanup()
 
-    def _activate_figure(self):
+    def _activate_figure(self) -> None:
         """
         Start and/or activate the current figure.
 
@@ -124,12 +120,19 @@ class Figure:
         with Session() as lib:
             lib.call_module(module="figure", args=[self._name, fmt])
 
+    # TODO(PyGMT>=v0.18.0):  Remove the _preprocess method.
     def _preprocess(self, **kwargs):
         """
         Call the ``figure`` module before each plotting command to ensure we're plotting
         to this particular figure.
         """
         self._activate_figure()
+        warnings.warn(
+            "The Figure._preprocess() method is deprecated since v0.16.0 and will be "
+            "removed in v0.18.0. Use Figure._activate_figure() instead.",
+            FutureWarning,
+            stacklevel=2,
+        )
         return kwargs
 
     @property
@@ -142,139 +145,16 @@ class Figure:
             wesn = lib.extract_region()
         return wesn
 
-    @fmt_docstring
-    @use_alias(
-        A="crop",
-        C="gs_option",
-        E="dpi",
-        F="prefix",
-        G="gs_path",
-        I="resize",
-        N="bb_style",
-        T="fmt",
-        Q="anti_aliasing",
-        V="verbose",
-    )
-    @kwargs_to_strings()
-    def psconvert(self, **kwargs):
-        r"""
-        Convert [E]PS file(s) to other formats.
-
-        Converts one or more PostScript files to other formats (BMP, EPS, JPEG,
-        PDF, PNG, PPM, TIFF) using Ghostscript.
-
-        If no input files are given, will convert the current active figure
-        (see :class:`pygmt.Figure`). In this case, an output name must be given
-        using parameter ``prefix``.
-
-        Full option list at :gmt-docs:`psconvert.html`
-
-        {aliases}
-
-        Parameters
-        ----------
-        crop : str or bool
-            Adjust the BoundingBox and HiResBoundingBox to the minimum
-            required by the image content. Default is ``True``. Append **+u** to
-            first remove any GMT-produced time-stamps. Append **+r** to
-            *round* the HighResBoundingBox instead of using the ``ceil``
-            function. This is going against Adobe Law but can be useful when
-            creating very small images where the difference of one pixel
-            might matter. If ``verbose`` is used we also report the
-            dimensions of the final illustration.
-        gs_path : str
-            Full path to the Ghostscript executable.
-        gs_option : str
-            Specify a single, custom option that will be passed on to
-            Ghostscript as is.
-        dpi : int
-            Set raster resolution in dpi. Default is 720 for PDF, 300 for
-            others.
-        prefix : str
-            Force the output file name. By default output names are constructed
-            using the input names as base, which are appended with an
-            appropriate extension. Use this option to provide a different name,
-            but without extension. Extension is still determined automatically.
-        resize : str
-            [**+m**\ *margins*][**+s**\ [**m**]\ *width*\
-            [/\ *height*]][**+S**\ *scale*].
-            Adjust the BoundingBox and HiResBoundingBox by scaling and/or
-            adding margins. Append **+m** to specify extra margins to extend
-            the bounding box. Give either one (uniform), two (x and y) or four
-            (individual sides) margins; append unit [Default is set by
-            :gmt-term:`PROJ_LENGTH_UNIT`]. Append **+s**\ *width* to resize the
-            output image to exactly *width* units. The default unit is set by
-            :gmt-term:`PROJ_LENGTH_UNIT` but you can append a new unit and/or
-            impose different width and height (**Note**: This may change the
-            image aspect ratio). What happens here is that Ghostscript will do
-            the re-interpolation work and the final image will retain the DPI
-            resolution set by ``dpi``.  Append **+sm** to set a maximum size
-            and the new *width* is only imposed if the original figure width
-            exceeds it. Append /\ *height* to also impose a maximum height in
-            addition to the width. Alternatively, append **+S**\ *scale* to
-            scale the image by a constant factor.
-        bb_style : str
-            Set optional BoundingBox fill color, fading, or draw the outline
-            of the BoundingBox. Append **+f**\ *fade* to fade the entire plot
-            towards black (100%) [no fading, 0]. Append **+g**\ *paint* to
-            paint the BoundingBox behind the illustration and append **+p**\
-            [*pen*] to draw the BoundingBox outline (append a pen or accept
-            the default pen of ``"0.25p,black,solid"``). **Note**: If both **+g** and
-            **+f** are used then we use *paint* as the fade color instead of
-            black. Append **+i** to enforce gray-shades by using ICC profiles.
-        anti_aliasing : str
-            [**g**\|\ **p**\|\ **t**\][**1**\|\ **2**\|\ **4**].
-            Set the anti-aliasing options for **g**\ raphics or **t**\ ext.
-            Append the size of the subsample box (1, 2, or 4) [Default is
-            ``"4"``]. [Default is no anti-aliasing (same as bits = 1).]
-        fmt : str
-            Set the output format, where **b** means BMP, **e** means EPS,
-            **E** means EPS with PageSize command, **f** means PDF, **F** means
-            multi-page PDF, **j** means JPEG, **g** means PNG, **G** means
-            transparent PNG (untouched regions are transparent), **m** means
-            PPM, and **t** means TIFF [Default is JPEG]. To
-            **b**\|\ **j**\|\ **g**\|\ **t**\ , optionally append **+m** in
-            order to get a monochrome (grayscale) image. The EPS format can be
-            combined with any of the other formats. For example, **ef** creates
-            both an EPS and a PDF file. Using **F** creates a multi-page PDF
-            file from the list of input PS or PDF files. It requires the
-            ``prefix`` parameter.
-        {verbose}
-        """
-        kwargs = self._preprocess(**kwargs)
-        # pytest-mpl v0.17.0 added the "metadata" parameter to Figure.savefig, which
-        # is not recognized. So remove it before calling Figure.psconvert.
-        kwargs.pop("metadata", None)
-        # Default cropping the figure to True
-        if kwargs.get("A") is None:
-            kwargs["A"] = ""
-
-        prefix = kwargs.get("F")
-        if prefix in {"", None, False, True}:
-            raise GMTInvalidInput(
-                "The 'prefix' parameter must be specified with a valid value."
-            )
-
-        # check if the parent directory exists
-        prefix_path = Path(prefix).parent
-        if not prefix_path.exists():
-            raise FileNotFoundError(
-                f"No such directory: '{prefix_path}', please create it first."
-            )
-
-        with Session() as lib:
-            lib.call_module(module="psconvert", args=build_arg_list(kwargs))
-
-    def savefig(  # noqa: PLR0912
+    def savefig(
         self,
-        fname: str | PurePath,
+        fname: PathLike,
         transparent: bool = False,
         crop: bool = True,
         anti_alias: bool = True,
         show: bool = False,
         worldfile: bool = False,
         **kwargs,
-    ):
+    ) -> None:
         """
         Save the figure to an image file.
 
@@ -307,7 +187,8 @@ class Figure:
             The desired figure file name, including the extension. See the list of
             supported formats and their extensions above.
         transparent
-            Use a transparent background for the figure. Only valid for PNG format.
+            Use a transparent background for the figure. Only valid for PNG format and
+            the PNG file asscoiated with KML format.
         crop
             Crop the figure canvas (page) to the plot area.
         anti_alias
@@ -333,9 +214,9 @@ class Figure:
             "bmp": "b",
             "eps": "e",
             "jpg": "j",
-            "kml": "g",
+            "kml": "G" if transparent is True else "g",
             "pdf": "f",
-            "png": "g",
+            "png": "G" if transparent is True else "g",
             "ppm": "m",
             "tif": "t",
             "tiff": None,  # GeoTIFF doesn't need the -T option
@@ -353,36 +234,48 @@ class Figure:
             case "kml":  # KML
                 kwargs["W"] = "+k"
             case "ps":
-                msg = "Extension '.ps' is not supported. Use '.eps' or '.pdf' instead."
-                raise GMTInvalidInput(msg)
+                raise GMTValueError(
+                    ext,
+                    description="file extension",
+                    reason="Extension '.ps' is not supported. Use '.eps' or '.pdf' instead.",
+                )
             case ext if ext not in fmts:
-                raise GMTInvalidInput(f"Unknown extension '.{ext}'.")
+                raise GMTValueError(
+                    ext, description="file extension", choices=fmts.keys()
+                )
 
-        fmt = fmts[ext]
-        if transparent:
-            if fmt != "g":
-                msg = f"Transparency unavailable for '{ext}', only for png."
-                raise GMTInvalidInput(msg)
-            fmt = fmt.upper()
+        if transparent and ext not in {"kml", "png"}:
+            raise GMTValueError(
+                transparent,
+                description="value for parameter 'transparent'",
+                reason=f"Transparency unavailable for '{ext}', only for png and kml.",
+            )
         if anti_alias:
             kwargs["Qt"] = 2
             kwargs["Qg"] = 2
 
         if worldfile:
             if ext in {"eps", "kml", "pdf", "tiff"}:
-                msg = f"Saving a world file is not supported for '{ext}' format."
-                raise GMTInvalidInput(msg)
+                raise GMTValueError(
+                    ext,
+                    description="file extension",
+                    choices=["eps", "kml", "pdf", "tiff"],
+                    reason="Saving a world file is not supported for this format.",
+                )
             kwargs["W"] = True
 
-        self.psconvert(prefix=prefix, fmt=fmt, crop=crop, **kwargs)
+        # pytest-mpl v0.17.0 added the "metadata" parameter to Figure.savefig, which is
+        # not recognized. So remove it before calling Figure.psconvert.
+        kwargs.pop("metadata", None)
+        self.psconvert(prefix=prefix, fmt=fmts[ext], crop=crop, **kwargs)
 
-        # Remove the .pgw world file if exists.
-        # Not necessary after GMT 6.5.0.
+        # TODO(GMT>=6.5.0): Remove the workaround for upstream bug in GMT<6.5.0.
+        # Remove the .pgw world file if exists. Not necessary after GMT 6.5.0.
         # See upstream fix https://github.com/GenericMappingTools/gmt/pull/7865
         if ext == "tiff":
             fname.with_suffix(".pgw").unlink(missing_ok=True)
 
-        # Rename if file extension doesn't match the input file suffix
+        # Rename if file extension doesn't match the input file suffix.
         if ext != suffix[1:]:
             fname.with_suffix("." + ext).rename(fname)
 
@@ -396,7 +289,7 @@ class Figure:
         width: int = 500,
         waiting: float = 0.5,
         **kwargs,
-    ):
+    ) -> None:
         """
         Display a preview of the figure.
 
@@ -458,11 +351,12 @@ class Figure:
         match method:
             case "notebook":
                 if not _HAS_IPYTHON:
-                    raise GMTError(
+                    msg = (
                         "Notebook display is selected, but IPython is not available. "
                         "Make sure you have IPython installed, "
                         "or run the script in a Jupyter notebook."
                     )
+                    raise ImportError(msg)
                 png = self._preview(
                     fmt="png", dpi=dpi, anti_alias=True, as_bytes=True, **kwargs
                 )
@@ -471,15 +365,24 @@ class Figure:
                 pdf = self._preview(
                     fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False, **kwargs
                 )
-                launch_external_viewer(pdf, waiting=waiting)  # type: ignore[arg-type]
+                launch_external_viewer(pdf, waiting=waiting)
             case "none":
                 pass  # Do nothing
             case _:
-                raise GMTInvalidInput(
-                    f"Invalid display method '{method}'. Valid values are 'external', "
-                    "'notebook', 'none' or None."
+                raise GMTValueError(
+                    method,
+                    description="display method",
+                    choices=["external", "notebook", "none", None],
                 )
 
+    @overload
+    def _preview(
+        self, fmt: str, dpi: int, as_bytes: Literal[True] = True, **kwargs
+    ) -> bytes: ...
+    @overload
+    def _preview(
+        self, fmt: str, dpi: int, as_bytes: Literal[False] = False, **kwargs
+    ) -> str: ...
     def _preview(self, fmt: str, dpi: int, as_bytes: bool = False, **kwargs):
         """
         Grab a preview of the figure.
@@ -507,7 +410,7 @@ class Figure:
             return fname.read_bytes()
         return fname
 
-    def _repr_png_(self):
+    def _repr_png_(self) -> bytes:
         """
         Show a PNG preview if the object is returned in an interactive shell.
 
@@ -516,7 +419,7 @@ class Figure:
         png = self._preview(fmt="png", dpi=70, anti_alias=True, as_bytes=True)
         return png
 
-    def _repr_html_(self):
+    def _repr_html_(self) -> str:
         """
         Show the PNG image embedded in HTML with a controlled width.
 
@@ -527,7 +430,7 @@ class Figure:
         html = '<img src="data:image/png;base64,{image}" width="{width}px">'
         return html.format(image=base64_png.decode("utf-8"), width=500)
 
-    from pygmt.src import (  # type: ignore [misc]
+    from pygmt.src import (  # type: ignore[misc] # noqa: PLC0415
         basemap,
         coast,
         colorbar,
@@ -536,6 +439,7 @@ class Figure:
         grdimage,
         grdview,
         histogram,
+        hlines,
         image,
         inset,
         legend,
@@ -543,6 +447,7 @@ class Figure:
         meca,
         plot,
         plot3d,
+        psconvert,
         rose,
         set_panel,
         shift_origin,
@@ -553,11 +458,12 @@ class Figure:
         tilemap,
         timestamp,
         velo,
+        vlines,
         wiggle,
     )
 
 
-def set_display(method: Literal["external", "notebook", "none", None] = None):
+def set_display(method: Literal["external", "notebook", "none", None] = None) -> None:
     """
     Set the display method when calling :meth:`pygmt.Figure.show`.
 
@@ -579,27 +485,28 @@ def set_display(method: Literal["external", "notebook", "none", None] = None):
     >>> import pygmt
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c/5c", frame=True)
-    >>> fig.show()  # will display a PNG image in the current notebook
+    >>> fig.show()  # Will display a PNG image in the current notebook
     >>>
-    >>> # set the display method to "external"
+    >>> # Set the display method to "external"
     >>> pygmt.set_display(method="external")  # doctest: +SKIP
-    >>> fig.show()  # will display a PDF image using the default PDF viewer
+    >>> fig.show()  # Will display a PDF image using the default PDF viewer
     >>>
-    >>> # set the display method to "none"
+    >>> # Set the display method to "none"
     >>> pygmt.set_display(method="none")
-    >>> fig.show()  # will not show any image
+    >>> fig.show()  # Will not show any image
     >>>
-    >>> # reset to the default display method
+    >>> # Reset to the default display method
     >>> pygmt.set_display(method=None)
-    >>> fig.show()  # again, will show a PNG image in the current notebook
+    >>> fig.show()  # Again, will show a PNG image in the current notebook
     """
     match method:
         case "external" | "notebook" | "none":
-            SHOW_CONFIG["method"] = method  # type: ignore[assignment]
+            SHOW_CONFIG["method"] = method
         case None:
-            SHOW_CONFIG["method"] = _get_default_display_method()  # type: ignore[assignment]
+            SHOW_CONFIG["method"] = _get_default_display_method()
         case _:
-            raise GMTInvalidInput(
-                f"Invalid display method '{method}'. Valid values are 'external',"
-                "'notebook', 'none' or None."
+            raise GMTValueError(
+                method,
+                description="display method",
+                choices=["external", "notebook", "none", None],
             )

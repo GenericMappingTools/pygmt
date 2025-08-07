@@ -1,9 +1,10 @@
 """
-inset - Create inset figures.
+inset - Manage figure inset setup and completion.
 """
 
 import contextlib
 
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -15,24 +16,24 @@ __doctest_skip__ = ["inset"]
 @use_alias(
     D="position",
     F="box",
-    J="projection",
     M="margin",
     N="no_clip",
     R="region",
     V="verbose",
 )
 @kwargs_to_strings(D="sequence", M="sequence", R="sequence")
-def inset(self, **kwargs):
+def inset(self, projection=None, **kwargs):
     r"""
-    Create an inset figure to be placed within a larger figure.
+    Manage figure inset setup and completion.
 
     This method sets the position, frame, and margins for a smaller figure
     inside of the larger figure. Plotting methods that are called within the
     context manager are added to the inset figure.
 
-    Full option list at :gmt-docs:`inset.html`
+    Full GMT docs at :gmt-docs:`inset.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -134,12 +135,17 @@ def inset(self, **kwargs):
     >>> fig.logo(position="jBR+o0.2c+w3c")
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
+
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
+
     with Session() as lib:
         try:
-            lib.call_module(module="inset", args=["begin", *build_arg_list(kwargs)])
+            lib.call_module(module="inset", args=["begin", *build_arg_list(aliasdict)])
             yield
         finally:
             lib.call_module(
-                module="inset", args=["end", *build_arg_list({"V": kwargs.get("V")})]
+                module="inset", args=["end", *build_arg_list({"V": aliasdict.get("V")})]
             )

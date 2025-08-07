@@ -3,6 +3,7 @@ grdfilter - Filter a grid in the space (or time) domain.
 """
 
 import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -21,7 +22,9 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     x="cores",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def grdfilter(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
+def grdfilter(
+    grid: PathLike | xr.DataArray, outgrid: PathLike | None = None, **kwargs
+) -> xr.DataArray | None:
     r"""
     Filter a grid in the space (or time) domain.
 
@@ -35,7 +38,7 @@ def grdfilter(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None
     half-width of the input edges. If the filter is low-pass, then the output
     may be less frequently sampled than the input.
 
-    Full option list at :gmt-docs:`grdfilter.html`
+    Full GMT docs at :gmt-docs:`grdfilter.html`.
 
     {aliases}
 
@@ -48,13 +51,13 @@ def grdfilter(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None
         [/*width2*\][*modifiers*].
         Name of the filter type you wish to apply, followed by the *width*:
 
-        - **b** - Box Car
-        - **c** - Cosine Arch
-        - **g** - Gaussian
-        - **o** - Operator
-        - **m** - Median
-        - **p** - Maximum Likelihood probability
-        - **h** - Histogram
+        - **b**: Box Car
+        - **c**: Cosine Arch
+        - **g**: Gaussian
+        - **o**: Operator
+        - **m**: Median
+        - **p**: Maximum Likelihood probability
+        - **h**: Histogram
 
     distance : str
         State how the grid (x,y) relates to the filter *width*:
@@ -102,7 +105,7 @@ def grdfilter(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
     Examples

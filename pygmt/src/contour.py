@@ -1,7 +1,9 @@
 """
-contour - Plot contour table data.
+contour - Contour table data by direct triangulation.
 """
 
+from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -18,7 +20,6 @@ from pygmt.helpers import (
     B="frame",
     C="levels",
     G="label_placement",
-    J="projection",
     L="triangular_mesh_pen",
     N="no_clip",
     R="region",
@@ -37,7 +38,15 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def contour(self, data=None, x=None, y=None, z=None, **kwargs):
+def contour(
+    self,
+    data: PathLike | TableLike | None = None,
+    x=None,
+    y=None,
+    z=None,
+    projection=None,
+    **kwargs,
+):
     r"""
     Contour table data by direct triangulation.
 
@@ -46,13 +55,14 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    Full option list at :gmt-docs:`contour.html`
+    Full GMT docs at :gmt-docs:`contour.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
@@ -130,7 +140,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     # Specify levels for contours or annotations.
     # One level is converted to a string with a trailing comma to separate it from
@@ -143,10 +153,14 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
             else:  # Multiple levels
                 kwargs[arg] = ",".join(f"{item}" for item in kwargs[arg])
 
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
+
     with Session() as lib:
         with lib.virtualfile_in(
-            check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
+            check_kind="vector", data=data, x=x, y=y, z=z, mincols=3
         ) as vintbl:
             lib.call_module(
-                module="contour", args=build_arg_list(kwargs, infile=vintbl)
+                module="contour", args=build_arg_list(aliasdict, infile=vintbl)
             )

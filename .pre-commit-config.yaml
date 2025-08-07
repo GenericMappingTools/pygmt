@@ -15,6 +15,11 @@ repos:
     - id: remove-crlf
     - id: chmod
       args: ['644']
+- repo: https://github.com/woodruffw/zizmor-pre-commit
+  rev: v1.11.0
+  hooks:
+  - id: zizmor
+
 
 # https://pre-commit.ci/#configuration
 ci:

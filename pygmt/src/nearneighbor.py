@@ -3,6 +3,7 @@ nearneighbor - Grid table data using a "Nearest neighbor" algorithm.
 """
 
 import xarray as xr
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -30,7 +31,12 @@ __doctest_skip__ = ["nearneighbor"]
 )
 @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
 def nearneighbor(
-    data=None, x=None, y=None, z=None, outgrid: str | None = None, **kwargs
+    data: PathLike | TableLike | None = None,
+    x=None,
+    y=None,
+    z=None,
+    outgrid: PathLike | None = None,
+    **kwargs,
 ) -> xr.DataArray | None:
     r"""
     Grid table data using a "Nearest neighbor" algorithm.
@@ -66,13 +72,13 @@ def nearneighbor(
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    Full option list at :gmt-docs:`nearneighbor.html`
+    Full GMT docs at :gmt-docs:`nearneighbor.html`.
 
     {aliases}
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
@@ -122,7 +128,7 @@ def nearneighbor(
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray`: if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
     Example
     -------
@@ -141,7 +147,7 @@ def nearneighbor(
     with Session() as lib:
         with (
             lib.virtualfile_in(
-                check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
+                check_kind="vector", data=data, x=x, y=y, z=z, mincols=3
             ) as vintbl,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):

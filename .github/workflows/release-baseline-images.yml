@@ -23,10 +23,12 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4.2.0
+      uses: actions/checkout@v4.2.2
+      with:
+        persist-credentials: false
 
     - name: Setup data version control (DVC)
-      uses: iterative/setup-dvc@v1.1.2
+      uses: iterative/setup-dvc@2508d098217d24eef3c0e8d7bc0ce7b9ca0723c3 # v1.1.2
 
     - name: Pull baseline image data from dvc remote
       run: dvc pull && ls -lhR pygmt/tests/baseline/
@@ -39,6 +41,7 @@ jobs:
         shasum -a 256 baseline-images.zip
 
     - name: Upload baseline image as a release asset
-      run: gh release upload ${{ github.ref_name }} baseline-images.zip
+      run: gh release upload ${REF_NAME} baseline-images.zip
       env:
         GH_TOKEN: ${{ github.token }}
+        REF_NAME: ${{ github.ref_name }}

@@ -7,13 +7,13 @@ from collections.abc import Sequence
 
 from packaging.version import Version
 from pygmt._typing import AnchorCode
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session, __gmt_version__
-from pygmt.helpers import build_arg_list, kwargs_to_strings
+from pygmt.helpers import build_arg_list
 
 __doctest_skip__ = ["timestamp"]
 
 
-@kwargs_to_strings(offset="sequence")
 def timestamp(
     self,
     text: str | None = None,
@@ -76,39 +76,44 @@ def timestamp(
     >>> fig.timestamp(label="Powered by PyGMT")
     >>> fig.show()
     """
-    self._preprocess()
+    self._activate_figure()
 
-    # Build the options passed to the "plot" module
-    kwdict: dict = {"T": True, "U": ""}
-    if label is not None:
-        kwdict["U"] += f"{label}"
-    kwdict["U"] += f"+j{justify}"
+    if text is not None and len(str(text)) > 64:
+        msg = (
+            "Parameter 'text' expects a string no longer than 64 characters. "
+            "The given text string will be truncated to 64 characters."
+        )
+        warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
+        text = str(text)[:64]
 
-    if Version(__gmt_version__) < Version("6.5.0") and "/" not in str(offset):
-        # Giving a single offset doesn't work in GMT < 6.5.0.
-        # See https://github.com/GenericMappingTools/gmt/issues/7107.
-        offset = f"{offset}/{offset}"
-    kwdict["U"] += f"+o{offset}"
+    # TODO(GMT>=6.5.0): Remove the patch for upstream "offset" bug fixed in GMT 6.5.0.
+    # TODO(GMT>=6.5.0): Remove the workaround for the '+t' modifier added in GMT 6.5.0.
+    # Related issues:
+    # - https://github.com/GenericMappingTools/gmt/issues/7107
+    # - https://github.com/GenericMappingTools/gmt/pull/7127
+    if Version(__gmt_version__) < Version("6.5.0"):
+        if "/" not in str(offset):  # Giving a single offset doesn't work in GMT<6.5.0
+            offset = f"{offset}/{offset}"
+        if text is not None:
+            # Workaround for GMT<6.5.0 by overriding the 'timefmt' parameter and
+            # unsetting 'text'.
+            timefmt = str(text)
+            text = None
 
-    # The +t modifier was added in GMT 6.5.0.
-    # See https://github.com/GenericMappingTools/gmt/pull/7127.
-    if text is not None:
-        if len(str(text)) > 64:
-            msg = (
-                "Argument of 'text' must be no longer than 64 characters. "
-                "The given text string will be truncated to 64 characters."
-            )
-            warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
-        if Version(__gmt_version__) < Version("6.5.0"):
-            # Workaround for GMT<6.5.0 by overriding the 'timefmt' parameter
-            timefmt = text[:64]
-        else:
-            kwdict["U"] += f"+t{text}"
+    aliasdict = AliasSystem(
+        U=[
+            Alias(label, name="label"),
+            Alias(justify, name="justify", prefix="+j"),
+            Alias(offset, name="offset", prefix="+o", sep="/", size=2),
+            Alias(text, name="text", prefix="+t"),
+        ]
+    )
+    aliasdict["T"] = ""  # Add '-T' to the "plot" module.
 
     with Session() as lib:
         lib.call_module(
             module="plot",
             args=build_arg_list(
-                kwdict, confdict={"FONT_LOGO": font, "FORMAT_TIME_STAMP": timefmt}
+                aliasdict, confdict={"FONT_LOGO": font, "FORMAT_TIME_STAMP": timefmt}
             ),
         )

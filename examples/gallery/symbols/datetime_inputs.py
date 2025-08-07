@@ -31,8 +31,8 @@ import xarray as xr
 
 fig = pygmt.Figure()
 
-# create a basemap with limits of 2010-01-01 to 2020-06-01 on the x axis and
-# 0 to 10 on the y axis
+# create a basemap with limits of 2010-01-01 to 2020-06-01 on the x-axis and
+# 0 to 10 on the y-axis
 fig.basemap(
     projection="X15c/5c",
     region=[datetime.date(2010, 1, 1), datetime.date(2020, 6, 1), 0, 10],
@@ -40,7 +40,9 @@ fig.basemap(
 )
 
 # numpy.datetime64 types
-x = np.array(["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype="datetime64")
+x = np.array(
+    ["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype=np.datetime64
+)
 y = [1, 2, 3]
 fig.plot(x=x, y=y, style="c0.4c", pen="1p", fill="red3")
 

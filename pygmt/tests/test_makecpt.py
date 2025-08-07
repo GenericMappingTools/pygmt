@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 from pygmt import Figure, makecpt
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import GMTTempFile
 
 POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
@@ -83,7 +83,7 @@ def test_makecpt_blank_output():
     """
     Use incorrect setting by passing in blank file name to output parameter.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         makecpt(output="")
 
 
@@ -91,7 +91,7 @@ def test_makecpt_invalid_output():
     """
     Use incorrect setting by passing in invalid type to output parameter.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         makecpt(output=["some.cpt"])
 
 

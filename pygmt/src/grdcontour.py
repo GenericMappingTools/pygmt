@@ -1,7 +1,10 @@
 """
-grdcontour - Plot a contour figure.
+grdcontour - Make contour map using a grid.
 """
 
+import xarray as xr
+from pygmt._typing import PathLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -22,7 +25,6 @@ __doctest_skip__ = ["grdcontour"]
     B="frame",
     C="levels",
     G="label_placement",
-    J="projection",
     L="limit",
     Q="cut",
     R="region",
@@ -36,15 +38,16 @@ __doctest_skip__ = ["grdcontour"]
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", L="sequence", c="sequence_comma", p="sequence")
-def grdcontour(self, grid, **kwargs):
+def grdcontour(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
     r"""
-    Convert grids or images to contours and plot them on maps.
+    Make contour map using a grid.
 
-    Takes a grid file name or an xarray.DataArray object as input.
+    Takes a grid file name or an :class:`xarray.DataArray` object as input.
 
-    Full option list at :gmt-docs:`grdcontour.html`
+    Full GMT docs at :gmt-docs:`grdcontour.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -136,7 +139,7 @@ def grdcontour(self, grid, **kwargs):
     >>> # Show the plot
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     # Specify levels for the annotation and levels parameters.
     # One level is converted to a string with a trailing comma to separate it from
@@ -149,8 +152,12 @@ def grdcontour(self, grid, **kwargs):
             else:  # Multiple levels
                 kwargs[arg] = ",".join(f"{item}" for item in kwargs[arg])
 
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
+
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
             lib.call_module(
-                module="grdcontour", args=build_arg_list(kwargs, infile=vingrd)
+                module="grdcontour", args=build_arg_list(aliasdict, infile=vingrd)
             )

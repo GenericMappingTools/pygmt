@@ -41,9 +41,7 @@ def test_virtualfile_in_required_z_matrix(array_func, kind):
     )
     data = array_func(dataframe)
     with clib.Session() as lib:
-        with lib.virtualfile_in(
-            data=data, required_z=True, check_kind="vector"
-        ) as vfile:
+        with lib.virtualfile_in(data=data, mincols=3, check_kind="vector") as vfile:
             with GMTTempFile() as outfile:
                 lib.call_module("info", [vfile, f"->{outfile.name}"])
                 output = outfile.read(keep_tabs=True)
@@ -64,8 +62,24 @@ def test_virtualfile_in_required_z_matrix_missing():
     data = np.ones((5, 2))
     with clib.Session() as lib:
         with pytest.raises(GMTInvalidInput):
-            with lib.virtualfile_in(data=data, required_z=True, check_kind="vector"):
+            with lib.virtualfile_in(data=data, mincols=3, check_kind="vector"):
                 pass
+
+
+# TODO(PyGMT>=0.20.0): Remove this test for the deprecated 'required_z' parameter.
+def test_virtualfile_in_required_z_deprecated():
+    """
+    Same as test_virtualfile_in_required_z_matrix_missing but using the deprecated
+    'required_z' parameter.
+    """
+    data = np.ones((5, 2))
+    with clib.Session() as lib:
+        with pytest.raises(GMTInvalidInput):  # noqa: PT012
+            with pytest.warns(FutureWarning):
+                with lib.virtualfile_in(
+                    data=data, required_z=True, check_kind="vector"
+                ):
+                    pass
 
 
 def test_virtualfile_in_fail_non_valid_data(data):
@@ -91,7 +105,7 @@ def test_virtualfile_in_fail_non_valid_data(data):
         with clib.Session() as lib:
             with pytest.raises(GMTInvalidInput):
                 lib.virtualfile_in(
-                    x=variable[0], y=variable[1], z=variable[2], required_z=True
+                    x=variable[0], y=variable[1], z=variable[2], mincols=3
                 )
 
     # Should also fail if given too much data
@@ -105,6 +119,7 @@ def test_virtualfile_in_fail_non_valid_data(data):
             )
 
 
+# TODO(GMT>6.5.0): Remove the xfail marker for GMT<=6.5.0.
 @pytest.mark.xfail(
     condition=Version(__gmt_version__) <= Version("6.5.0"),
     reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8600",
@@ -129,31 +144,30 @@ def test_virtualfile_in_matrix_string_dtype():
                 # not lib.virtualfile_from_matrix, but it's technically complicated.
 
 
-def test_virtualfile_from_data():
+# TODO(PyGMT>=0.20.0): Remove the test related to deprecated parameter 'extra_arrays'.
+def test_virtualfile_in_extra_arrays(data):
     """
-    Test the backwards compatibility of the virtualfile_from_data method.
-
-    This test is the same as test_virtualfile_in_required_z_matrix, but using the
-    deprecated method.
+    Test that the extra_arrays parameter is deprecated.
     """
-    shape = (5, 3)
-    dataframe = pd.DataFrame(
-        data=np.arange(shape[0] * shape[1]).reshape(shape), columns=["x", "y", "z"]
-    )
-    data = np.array(dataframe)
     with clib.Session() as lib:
-        with pytest.warns(FutureWarning, match="virtualfile_from_data"):
-            with lib.virtualfile_from_data(
-                data=data, required_z=True, check_kind="vector"
+        # Call the method twice to ensure only one statement in the with block.
+        # Test that a FutureWarning is raised when extra_arrays is used.
+        with pytest.warns(FutureWarning):
+            with lib.virtualfile_in(
+                check_kind="vector",
+                x=data[:, 0],
+                y=data[:, 1],
+                extra_arrays=[data[:, 2]],
             ) as vfile:
-                with GMTTempFile() as outfile:
-                    lib.call_module("info", [vfile, f"->{outfile.name}"])
-                    output = outfile.read(keep_tabs=True)
-            bounds = "\t".join(
-                [
-                    f"<{i.min():.0f}/{i.max():.0f}>"
-                    for i in (dataframe.x, dataframe.y, dataframe.z)
-                ]
-            )
-            expected = f"<matrix memory>: N = {shape[0]}\t{bounds}\n"
-            assert output == expected
+                pass
+        # Test that the output is correct.
+        with GMTTempFile() as outfile:
+            with lib.virtualfile_in(
+                check_kind="vector",
+                x=data[:, 0],
+                y=data[:, 1],
+                extra_arrays=[data[:, 2]],
+            ) as vfile:
+                lib.call_module("info", [vfile, "-C", f"->{outfile.name}"])
+                output = outfile.read(keep_tabs=False)
+                assert output == "11.5309 61.7074 -2.9289 7.8648 0.1412 0.9338\n"

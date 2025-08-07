@@ -3,10 +3,11 @@ legend - Plot a legend.
 """
 
 import io
-import pathlib
 
+from pygmt._typing import PathLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTTypeError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
@@ -20,7 +21,6 @@ from pygmt.helpers import (
 @fmt_docstring
 @use_alias(
     R="region",
-    J="projection",
     D="position",
     F="box",
     V="verbose",
@@ -31,13 +31,14 @@ from pygmt.helpers import (
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def legend(
     self,
-    spec: str | pathlib.PurePath | io.StringIO | None = None,
+    spec: PathLike | io.StringIO | None = None,
+    projection=None,
     position="JTR+jTR+o0.2c",
     box="+gwhite+p1p",
     **kwargs,
 ):
     r"""
-    Plot legends on maps.
+    Plot a legend.
 
     Makes legends that can be overlaid on maps. Reads specific
     legend-related information from an input file, or automatically creates
@@ -45,9 +46,10 @@ def legend(
     noted, annotations will be made using the primary annotation font and
     size in effect (i.e., :gmt-term:`FONT_ANNOT_PRIMARY`).
 
-    Full option list at :gmt-docs:`legend.html`
+    Full GMT docs at :gmt-docs:`legend.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -56,9 +58,8 @@ def legend(
 
         - ``None`` which means using the automatically generated legend specification
           file
-        - A string or a :class:`pathlib.PurePath` object pointing to the legend
-          specification file
-        - A :class:`io.StringIO` object containing the legend specification.
+        - Path to the legend specification file
+        - A :class:`io.StringIO` object containing the legend specification
 
         See :gmt-docs:`legend.html` for the definition of the legend specification.
     {projection}
@@ -83,7 +84,7 @@ def legend(
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     if kwargs.get("D") is None:
         kwargs["D"] = position
@@ -92,10 +93,18 @@ def legend(
 
     kind = data_kind(spec)
     if kind not in {"empty", "file", "stringio"}:
-        raise GMTInvalidInput(f"Unrecognized data type: {type(spec)}")
+        raise GMTTypeError(type(spec))
     if kind == "file" and is_nonstr_iter(spec):
-        raise GMTInvalidInput("Only one legend specification file is allowed.")
+        raise GMTTypeError(
+            type(spec), reason="Only one legend specification file is allowed."
+        )
+
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
 
     with Session() as lib:
-        with lib.virtualfile_in(data=spec, required_data=False) as vintbl:
-            lib.call_module(module="legend", args=build_arg_list(kwargs, infile=vintbl))
+        with lib.virtualfile_in(data=spec, required=False) as vintbl:
+            lib.call_module(
+                module="legend", args=build_arg_list(aliasdict, infile=vintbl)
+            )

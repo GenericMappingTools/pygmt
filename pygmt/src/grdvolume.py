@@ -6,6 +6,8 @@ from typing import Literal
 
 import numpy as np
 import pandas as pd
+import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -27,13 +29,13 @@ __doctest_skip__ = ["grdvolume"]
 )
 @kwargs_to_strings(C="sequence", R="sequence")
 def grdvolume(
-    grid,
+    grid: PathLike | xr.DataArray,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
-    outfile: str | None = None,
+    outfile: PathLike | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
-    Determine the volume between the surface of a grid and a plane.
+    Calculate grid volume and area constrained by a contour.
 
     Read a 2-D grid file and calculate the volume contained below the surface
     and above the plane specified by the given contour (or zero if not given)
@@ -41,7 +43,7 @@ def grdvolume(
     (volume/area). Alternatively, a range of contours can be specified to
     return the volume and area inside the contour for all contour values.
 
-    Full option list at :gmt-docs:`grdvolume.html`
+    Full GMT docs at :gmt-docs:`grdvolume.html`.
 
     {aliases}
 

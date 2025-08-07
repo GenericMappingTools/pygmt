@@ -4,7 +4,7 @@ Test Figure.grdview.
 
 import pytest
 from pygmt import Figure, grdcut
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTTypeError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -59,7 +59,7 @@ def test_grdview_wrong_kind_of_grid(xrgrid):
     """
     dataset = xrgrid.to_dataset()  # convert xarray.DataArray to xarray.Dataset
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.grdview(grid=dataset)
 
 
@@ -161,7 +161,7 @@ def test_grdview_with_perspective_and_zaxis_frame(xrgrid, region):
     a Transverse Mercator (T) projection.
     """
     fig = Figure()
-    projection = f"T{(region[0]+region[1])/2}/{abs((region[2]+region[3])/2)}"
+    projection = f"T{(region[0] + region[1]) / 2}/{abs((region[2] + region[3]) / 2)}"
     fig.grdview(
         grid=xrgrid,
         projection=projection,
@@ -237,5 +237,5 @@ def test_grdview_wrong_kind_of_drapegrid(xrgrid):
     """
     dataset = xrgrid.to_dataset()  # convert xarray.DataArray to xarray.Dataset
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.grdview(grid=xrgrid, drapegrid=dataset)

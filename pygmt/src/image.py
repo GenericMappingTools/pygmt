@@ -1,7 +1,9 @@
 """
-image - Plot an image.
+image - Plot raster or EPS images.
 """
 
+from pygmt._typing import PathLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -11,7 +13,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     D="position",
     F="box",
     G="bitcolor",
-    J="projection",
     M="monochrome",
     R="region",
     V="verbose",
@@ -20,16 +21,17 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def image(self, imagefile, **kwargs):
+def image(self, imagefile: PathLike, projection=None, **kwargs):
     r"""
-    Place images or EPS files on maps.
+    Plot raster or EPS images.
 
     Reads an Encapsulated PostScript file or a raster image file and plots
     it on a map.
 
-    Full option list at :gmt-docs:`image.html`
+    Full GMT docs at :gmt-docs:`image.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -67,6 +69,13 @@ def image(self, imagefile, **kwargs):
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
+
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
+
     with Session() as lib:
-        lib.call_module(module="image", args=build_arg_list(kwargs, infile=imagefile))
+        lib.call_module(
+            module="image", args=build_arg_list(aliasdict, infile=imagefile)
+        )

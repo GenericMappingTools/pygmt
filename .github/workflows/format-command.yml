@@ -3,31 +3,37 @@
 # This workflow is triggered in a PR if the slash command `/format` is used.
 #
 name: format-command
+
 on:
   repository_dispatch:
     types: [format-command]
+
+permissions:
+  contents: write
+
 jobs:
   format:
     runs-on: ubuntu-latest
     steps:
       # Generate token from GenericMappingTools bot
-      - uses: actions/create-github-app-token@v1.11.0
+      - uses: actions/create-github-app-token@v2.0.6
         id: generate-token
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
       # Checkout the pull request branch
-      - uses: actions/checkout@v4.2.0
+      - uses: actions/checkout@v4.2.2
         with:
           token: ${{ steps.generate-token.outputs.token }}
           repository: ${{ github.event.client_payload.pull_request.head.repo.full_name }}
           ref: ${{ github.event.client_payload.pull_request.head.ref }}
+          persist-credentials: false
 
       # Setup Python environment
-      - uses: actions/setup-python@v5.2.0
+      - uses: actions/setup-python@v5.6.0
         with:
-          python-version: '3.12'
+          python-version: '3.13'
 
       # Install formatting tools
       - name: Install formatting tools

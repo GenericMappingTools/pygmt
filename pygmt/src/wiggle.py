@@ -2,6 +2,8 @@
 wiggle - Plot z=f(x,y) anomalies along tracks.
 """
 
+from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -10,7 +12,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @use_alias(
     B="frame",
     D="position",
-    J="projection",
+    G="fillpositive/fillnegative-",
     R="region",
     T="track",
     V="verbose",
@@ -31,12 +33,13 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def wiggle(
     self,
-    data=None,
+    data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     z=None,
     fillpositive=None,
     fillnegative=None,
+    projection=None,
     **kwargs,
 ):
     r"""
@@ -47,15 +50,16 @@ def wiggle(
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    Full option list at :gmt-docs:`wiggle.html`
+    Full GMT docs at :gmt-docs:`wiggle.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
     x/y/z : 1-D arrays
         The arrays of x and y coordinates and z data points.
-    data : str, {table-like}
+    data
         Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
         Use parameter ``incols`` to choose which columns are x, y, z,
@@ -97,7 +101,7 @@ def wiggle(
     {transparency}
     {wrap}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     if fillpositive or fillnegative:
         kwargs["G"] = []
@@ -106,8 +110,14 @@ def wiggle(
         if fillnegative:
             kwargs["G"].append(fillnegative + "+n")
 
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
+
     with Session() as lib:
         with lib.virtualfile_in(
-            check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
+            check_kind="vector", data=data, x=x, y=y, z=z, mincols=3
         ) as vintbl:
-            lib.call_module(module="wiggle", args=build_arg_list(kwargs, infile=vintbl))
+            lib.call_module(
+                module="wiggle", args=build_arg_list(aliasdict, infile=vintbl)
+            )

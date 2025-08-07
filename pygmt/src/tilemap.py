@@ -4,18 +4,16 @@ tilemap - Plot XYZ tile maps.
 
 from typing import Literal
 
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.datasets.tile_map import load_tile_map
+from pygmt.enums import GridType
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 try:
-    import rioxarray  # noqa: F401
     from xyzservices import TileProvider
-
-    _HAS_RIOXARRAY = True
 except ImportError:
     TileProvider = None
-    _HAS_RIOXARRAY = False
 
 
 @fmt_docstring
@@ -23,7 +21,6 @@ except ImportError:
     B="frame",
     E="dpi",
     I="shading",
-    J="projection",
     M="monochrome",
     N="no_clip",
     Q="nan_transparent",
@@ -43,6 +40,7 @@ def tilemap(
     wait: int = 0,
     max_retries: int = 2,
     zoom_adjust: int | None = None,
+    projection=None,
     **kwargs,
 ):
     r"""
@@ -54,11 +52,12 @@ def tilemap(
 
     **Note**: By default, standard web map tiles served in a Spherical Mercator
     (EPSG:3857) Cartesian format will be reprojected to a geographic coordinate
-    reference system (OGC:WGS84) and plotted with longitude/latitude bounds when
+    reference system (OGC:CRS84) and plotted with longitude/latitude bounds when
     ``lonlat=True``. If reprojection is not desired, please set ``lonlat=False`` and
     provide Spherical Mercator (EPSG:3857) coordinates to the ``region`` parameter.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -105,52 +104,35 @@ def tilemap(
     zoom_adjust
         The amount to adjust a chosen zoom level if it is chosen automatically. Values
         outside of -1 to 1 are not recommended as they can lead to slow execution.
-
-        .. note::
-           The ``zoom_adjust`` parameter requires ``contextily>=1.5.0``.
-
     kwargs : dict
         Extra keyword arguments to pass to :meth:`pygmt.Figure.grdimage`.
-
-    Raises
-    ------
-    ImportError
-        If ``rioxarray`` is not installed. Follow
-        :doc:`install instructions for rioxarray <rioxarray:installation>`, (e.g. via
-        ``python -m pip install rioxarray``) before using this function.
     """
-    kwargs = self._preprocess(**kwargs)
-
-    if not _HAS_RIOXARRAY:
-        raise ImportError(
-            "Package `rioxarray` is required to be installed to use this function. "
-            "Please use `python -m pip install rioxarray` or "
-            "`mamba install -c conda-forge rioxarray` to install the package."
-        )
+    self._activate_figure()
 
     raster = load_tile_map(
         region=region,
         zoom=zoom,
         source=source,
         lonlat=lonlat,
+        crs="OGC:CRS84" if lonlat is True else "EPSG:3857",
         wait=wait,
         max_retries=max_retries,
         zoom_adjust=zoom_adjust,
     )
-
-    # Reproject raster from Spherical Mercator (EPSG:3857) to lonlat (OGC:CRS84) if
-    # bounding box region was provided in lonlat
-    if lonlat and raster.rio.crs == "EPSG:3857":
-        raster = raster.rio.reproject(dst_crs="OGC:CRS84")
-        raster.gmt.gtype = 1  # set to geographic type
+    if lonlat:
+        raster.gmt.gtype = GridType.GEOGRAPHIC
 
     # Only set region if no_clip is None or False, so that plot is clipped to exact
     # bounding box region
     if kwargs.get("N") in {None, False}:
         kwargs["R"] = "/".join(str(coordinate) for coordinate in region)
 
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
+
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=raster) as vingrd:
             lib.call_module(
-                module="grdimage", args=build_arg_list(kwargs, infile=vingrd)
+                module="grdimage", args=build_arg_list(aliasdict, infile=vingrd)
             )

@@ -7,9 +7,8 @@ import inspect
 import string
 from pathlib import Path
 
+import xarray as xr
 from pygmt.exceptions import GMTImageComparisonFailure
-from pygmt.io import load_dataarray
-from pygmt.src import which
 
 
 def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_images"):
@@ -73,8 +72,8 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     keyword_only = inspect.Parameter.KEYWORD_ONLY
 
     def decorator(func):
-        import pytest
-        from matplotlib.testing.compare import compare_images
+        import pytest  #  noqa: PLC0415
+        from matplotlib.testing.compare import compare_images  # noqa: PLC0415
 
         Path(result_dir).mkdir(parents=True, exist_ok=True)
         old_sig = inspect.signature(func)
@@ -112,11 +111,12 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
                 else:  # Images are not the same
                     for key in ["actual", "expected", "diff"]:
                         err[key] = Path(err[key]).relative_to(".")
-                    raise GMTImageComparisonFailure(
+                    msg = (
                         f"images not close (RMS {err['rms']:.3f}):\n"
                         f"\t{err['actual']}\n"
                         f"\t{err['expected']}"
                     )
+                    raise GMTImageComparisonFailure(msg)
             finally:
                 del fig_ref
                 del fig_test
@@ -143,17 +143,18 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     return decorator
 
 
-def load_static_earth_relief():
+def load_static_earth_relief() -> xr.DataArray:
     """
-    Load the static_earth_relief file for internal testing.
+    Load the static_earth_relief.nc file for internal testing.
 
     Returns
     -------
-    data : xarray.DataArray
+    data
         A grid of Earth relief for internal tests.
     """
-    fname = which("@static_earth_relief.nc", download="c")
-    return load_dataarray(fname)
+    return xr.load_dataarray(
+        "@static_earth_relief.nc", engine="gmt", raster_kind="grid"
+    )
 
 
 def skip_if_no(package):
@@ -187,7 +188,7 @@ def skip_if_no(package):
         A pytest.mark.skipif to use as either a test decorator or a
         parametrization mark.
     """
-    import pytest
+    import pytest  # noqa: PLC0415
 
     try:
         _ = importlib.import_module(name=package)

@@ -4,8 +4,10 @@ velo - Plot velocity vectors, crosses, anisotropy bars, and wedges.
 
 import numpy as np
 import pandas as pd
+from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
@@ -24,7 +26,6 @@ from pygmt.helpers import (
     G="fill",
     H="scale",
     I="shading",
-    J="projection",
     L="line",
     N="no_clip",
     R="region",
@@ -41,7 +42,7 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def velo(self, data=None, **kwargs):
+def velo(self, data: PathLike | TableLike | None = None, projection=None, **kwargs):
     r"""
     Plot velocity vectors, crosses, anisotropy bars, and wedges.
 
@@ -54,13 +55,14 @@ def velo(self, data=None, **kwargs):
 
     Must provide ``data`` and ``spec``.
 
-    Full option list at :gmt-docs:`supplements/geodesy/velo.html`
+    Full GMT docs at :gmt-docs:`supplements/geodesy/velo.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
         Note that text columns are only supported with file or
@@ -238,21 +240,29 @@ def velo(self, data=None, **kwargs):
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     if kwargs.get("S") is None or (
         kwargs.get("S") is not None and not isinstance(kwargs["S"], str)
     ):
-        raise GMTInvalidInput(
-            "The parameter `spec` is required and has to be a string."
-        )
+        msg = "The parameter 'spec' is required and has to be a string."
+        raise GMTInvalidInput(msg)
 
     if isinstance(data, np.ndarray) and not pd.api.types.is_numeric_dtype(data):
-        raise GMTInvalidInput(
-            "Text columns are not supported with numpy.ndarray type inputs. "
-            "They are only supported with file or pandas.DataFrame inputs."
+        raise GMTTypeError(
+            type(data),
+            reason=(
+                "Text columns are not supported with numpy.ndarray type inputs. "
+                "They are only supported with file or pandas.DataFrame inputs."
+            ),
         )
+
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
-            lib.call_module(module="velo", args=build_arg_list(kwargs, infile=vintbl))
+            lib.call_module(
+                module="velo", args=build_arg_list(aliasdict, infile=vintbl)
+            )

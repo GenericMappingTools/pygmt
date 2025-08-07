@@ -1,7 +1,8 @@
 """
-colorbar - Plot a colorbar.
+colorbar - Plot gray scale or color scale bar.
 """
 
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -16,7 +17,6 @@ __doctest_skip__ = ["colorbar"]
     F="box",
     G="truncate",
     I="shading",
-    J="projection",
     L="equalsize",
     Q="log",
     R="region",
@@ -30,9 +30,9 @@ __doctest_skip__ = ["colorbar"]
 @kwargs_to_strings(
     R="sequence", G="sequence", I="sequence", c="sequence_comma", p="sequence"
 )
-def colorbar(self, **kwargs):
+def colorbar(self, projection=None, **kwargs):
     r"""
-    Plot colorbars on figures.
+    Plot gray scale or color scale bar.
 
     Both horizontal and vertical colorbars are supported. For CPTs with
     gradational colors (i.e., the lower and upper boundary of an interval
@@ -42,9 +42,10 @@ def colorbar(self, **kwargs):
     linear scale, all be equal size, or by providing a file with individual
     tile widths.
 
-    Full option list at :gmt-docs:`colorbar.html`
+    Full GMT docs at :gmt-docs:`colorbar.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -144,6 +145,10 @@ def colorbar(self, **kwargs):
     >>> # Show the plot
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
+
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
     with Session() as lib:
-        lib.call_module(module="colorbar", args=build_arg_list(kwargs))
+        lib.call_module(module="colorbar", args=build_arg_list(aliasdict))

@@ -8,8 +8,9 @@ from pathlib import Path
 from typing import Any
 
 import pandas as pd
+from pygmt._typing import PathLike
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTTypeError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
@@ -23,13 +24,13 @@ from pygmt.helpers import (
 @contextlib.contextmanager
 def tempfile_from_dftrack(track, suffix):
     """
-    Saves pandas.DataFrame track table to a temporary tab-separated ASCII text file with
-    a unique name (to prevent clashes when running x2sys_cross), adding a suffix
-    extension to the end.
+    Saves :class:`pandas.DataFrame` track table to a temporary tab-separated ASCII text
+    file with a unique name (to prevent clashes when running x2sys_cross), adding a
+    suffix extension to the end.
 
     Parameters
     ----------
-    track : pandas.DataFrame
+    track : :class:`pandas.DataFrame`
         A table holding track data with coordinate (x, y) or (lon, lat) values,
         and (optionally) time (t).
     suffix : str
@@ -39,7 +40,7 @@ def tempfile_from_dftrack(track, suffix):
     ------
     tmpfilename : str
         A temporary tab-separated value file with a unique name holding the
-        track data. E.g. 'track-1a2b3c4.tsv'.
+        track data. E.g. "track-1a2b3c4.tsv".
     """
     try:
         tmpfilename = f"track-{unique_name()[:7]}.{suffix}"
@@ -71,7 +72,9 @@ def tempfile_from_dftrack(track, suffix):
 )
 @kwargs_to_strings(R="sequence")
 def x2sys_cross(
-    tracks=None, outfile: str | None = None, **kwargs
+    tracks=None,
+    outfile: PathLike | None = None,
+    **kwargs,
 ) -> pd.DataFrame | None:
     r"""
     Calculate crossovers between track data files.
@@ -84,15 +87,15 @@ def x2sys_cross(
     internal COEs. As an option, you may choose to project all data using one
     of the map projections prior to calculating the COE.
 
-    Full option list at :gmt-docs:`supplements/x2sys/x2sys_cross.html`
+    Full GMT docs at :gmt-docs:`supplements/x2sys/x2sys_cross.html`.
 
     {aliases}
 
     Parameters
     ----------
-    tracks : pandas.DataFrame or str or list
+    tracks : :class:`pandas.DataFrame`, str, or list
         A table or a list of tables with (x, y) or (lon, lat) values in the
-        first two columns. Track(s) can be provided as pandas DataFrame tables
+        first two columns. Track(s) can be provided as :class:`pandas.DataFrame` tables
         or file names. Supported file formats are ASCII, native binary, or
         COARDS netCDF 1-D data. More columns may also be present.
 
@@ -145,9 +148,9 @@ def x2sys_cross(
         Sets the interpolation mode for estimating values at the crossover.
         Choose among:
 
-        - **l** - Linear interpolation [Default].
-        - **a** - Akima spline interpolation.
-        - **c** - Cubic spline interpolation.
+        - **l**: Linear interpolation [Default].
+        - **a**: Akima spline interpolation.
+        - **c**: Cubic spline interpolation.
 
     coe : str
         Use **e** for external COEs only, and **i** for internal COEs only
@@ -210,7 +213,7 @@ def x2sys_cross(
                 # Save pandas.DataFrame track data to temporary file
                 file_contexts.append(tempfile_from_dftrack(track=track, suffix=suffix))
             case _:
-                raise GMTInvalidInput(f"Unrecognized data type: {type(track)}")
+                raise GMTTypeError(type(track))
 
     with Session() as lib:
         with lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl:

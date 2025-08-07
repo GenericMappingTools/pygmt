@@ -1,7 +1,10 @@
 """
-grdimage - Plot grids or images.
+grdimage - Project and plot grids or images.
 """
 
+import xarray as xr
+from pygmt._typing import PathLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -22,7 +25,6 @@ __doctest_skip__ = ["grdimage"]
     E="dpi",
     G="bitcolor",
     I="shading",
-    J="projection",
     M="monochrome",
     N="no_clip",
     Q="nan_transparent",
@@ -36,7 +38,7 @@ __doctest_skip__ = ["grdimage"]
     x="cores",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def grdimage(self, grid, **kwargs):
+def grdimage(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
     r"""
     Project and plot grids or images.
 
@@ -68,9 +70,10 @@ def grdimage(self, grid, **kwargs):
     The ``region`` parameter can be used to select a map region larger or
     smaller than that implied by the extent of the grid.
 
-    Full option list at :gmt-docs:`grdimage.html`
+    Full GMT docs at :gmt-docs:`grdimage.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -103,7 +106,7 @@ def grdimage(self, grid, **kwargs):
         paint the mask with the given color. Append **+b** to paint the
         background pixels (1) or **+f** for the foreground pixels
         [Default is **+f**].
-    shading : str or xarray.DataArray
+    shading : str or :class:`xarray.DataArray`
         [*intensfile*\|\ *intensity*\|\ *modifiers*].
         Give the name of a grid file or a DataArray with intensities in the
         (-1,+1) range, or a constant intensity to apply everywhere (affects the
@@ -154,23 +157,28 @@ def grdimage(self, grid, **kwargs):
     >>> # show the plot
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     # Do not support -A option
     if any(kwargs.get(arg) is not None for arg in ["A", "img_out"]):
-        raise GMTInvalidInput(
+        msg = (
             "Parameter 'img_out'/'A' is not implemented. "
             "Please consider submitting a feature request to us."
         )
+        raise GMTInvalidInput(msg)
+
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
 
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_in(
-                check_kind="raster", data=kwargs.get("I"), required_data=False
+                check_kind="raster", data=kwargs.get("I"), required=False
             ) as vshadegrid,
         ):
-            kwargs["I"] = vshadegrid
+            aliasdict["I"] = vshadegrid
             lib.call_module(
-                module="grdimage", args=build_arg_list(kwargs, infile=vingrd)
+                module="grdimage", args=build_arg_list(aliasdict, infile=vingrd)
             )

@@ -64,16 +64,16 @@ def makecpt(**kwargs):
     master CPT, the :gmt-term:`COLOR_MODEL` specified in the
     :gmt-docs:`gmt.conf <gmt.conf>` file will be used.
 
-    Full option list at :gmt-docs:`makecpt.html`
+    Full GMT docs at :gmt-docs:`makecpt.html`.
 
     {aliases}
 
     Parameters
     ----------
-    transparency : str
-        Set a constant level of transparency (0-100) for all color slices.
-        Append **+a** to also affect the foreground, background, and NaN
-        colors [Default is no transparency, i.e., ``0`` (opaque)].
+    transparency : float or str
+        Set a constant level of transparency (0-100) for all color slices. Append **+a**
+        to also affect the foreground, background, and NaN colors [Default is no
+        transparency, i.e., ``0`` (opaque)].
     cmap : str
         Select the master color palette table (CPT) to use in the
         interpolation. Full list of built-in color palette tables can be found
@@ -121,10 +121,12 @@ def makecpt(**kwargs):
         level :func:`pygmt.makecpt` is called.
     reverse : str
         Set this to ``True`` or **c** [Default] to reverse the sense of color
-        progression in the master CPT. Set this to **z** to reverse the sign
-        of z-values in the color table. Note that this change of z-direction
-        happens before ``truncate`` and ``series`` values are used so the
-        latter must be compatible with the changed z-range. See also
+        progression in the master CPT. Also the foreground and background colors
+        are exchanged, including those specified by :gmt-term:`COLOR_BACKGROUND` and
+        :gmt-term:`COLOR_FOREGROUND`. Set this to **z** to reverse the sign of z-values
+        in the color table. Note that this change of the z-direction happens before
+        the ``truncate`` and ``series`` values are used, so the latter must be
+        compatible with the changed z-range. See also
         :gmt-docs:`reference/features.html#manipulating-cpts`.
     overrule_bg : str
         Overrule background, foreground, and NaN colors specified in the master
@@ -154,7 +156,8 @@ def makecpt(**kwargs):
         ``categorical=True``.
     """
     if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
-        raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")
+        msg = "Set only categorical or cyclic to True, not both."
+        raise GMTInvalidInput(msg)
 
     if (output := kwargs.pop("H", None)) is not None:
         kwargs["H"] = True

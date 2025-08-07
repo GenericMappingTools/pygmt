@@ -28,7 +28,7 @@ fig.basemap(
 fig.grdimage(grid=grid, cmap="oleron")
 
 # Shift plot origin of the second map by "width of the first map + 0.5 cm"
-# in x direction
+# in x-direction
 fig.shift_origin(xshift="w+0.5c")
 
 # Set all grid points < 0 m to a value of -2000 m.

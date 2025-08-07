@@ -6,6 +6,7 @@ from typing import Literal
 
 import numpy as np
 import pandas as pd
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -55,7 +56,7 @@ def _blockm(
     with Session() as lib:
         with (
             lib.virtualfile_in(
-                check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
+                check_kind="vector", data=data, x=x, y=y, z=z, mincols=3
             ) as vintbl,
             lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
         ):
@@ -87,12 +88,12 @@ def _blockm(
 )
 @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
 def blockmean(
-    data=None,
+    data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
-    outfile: str | None = None,
+    outfile: PathLike | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -107,13 +108,13 @@ def blockmean(
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    Full option list at :gmt-docs:`blockmean.html`
+    Full GMT docs at :gmt-docs:`blockmean.html`.
 
     {aliases}
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
@@ -126,10 +127,10 @@ def blockmean(
         [**m**\|\ **n**\|\ **s**\|\ **w**].
         Type of summary values calculated by blockmean.
 
-        - **m** - reports mean value [Default]
-        - **n** - report the number of input points inside each block
-        - **s** - report the sum of all z-values inside a block
-        - **w** - report the sum of weights
+        - **m**: reports mean value [Default]
+        - **n**: report the number of input points inside each block
+        - **s**: report the sum of all z-values inside a block
+        - **w**: report the sum of weights
     {region}
     {verbose}
     {aspatial}
@@ -191,12 +192,12 @@ def blockmean(
 )
 @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
 def blockmedian(
-    data=None,
+    data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
-    outfile: str | None = None,
+    outfile: PathLike | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -211,13 +212,13 @@ def blockmedian(
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    Full option list at :gmt-docs:`blockmedian.html`
+    Full GMT docs at :gmt-docs:`blockmedian.html`.
 
     {aliases}
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
@@ -244,7 +245,7 @@ def blockmedian(
     ret
         Return type depends on ``outfile`` and ``output_type``:
 
-        - ``None`` if ``outfile`` is set (output will be stored in file set by
+        - ``None`` if ``outfile`` is set (output will be stored in the file set by
           ``outfile``)
         - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
           (depends on ``output_type``)
@@ -289,12 +290,12 @@ def blockmedian(
 )
 @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
 def blockmode(
-    data=None,
+    data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
-    outfile: str | None = None,
+    outfile: PathLike | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -309,13 +310,13 @@ def blockmode(
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    Full option list at :gmt-docs:`blockmode.html`
+    Full GMT docs at :gmt-docs:`blockmode.html`.
 
     {aliases}
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
@@ -342,7 +343,7 @@ def blockmode(
     ret
         Return type depends on ``outfile`` and ``output_type``:
 
-        - ``None`` if ``outfile`` is set (output will be stored in file set by
+        - ``None`` if ``outfile`` is set (output will be stored in the file set by
           ``outfile``)
         - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
           (depends on ``output_type``)

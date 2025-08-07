@@ -4,7 +4,7 @@ Test the Session.create_data method.
 
 import pytest
 from pygmt import clib
-from pygmt.exceptions import GMTCLibError, GMTInvalidInput
+from pygmt.exceptions import GMTCLibError, GMTValueError
 from pygmt.tests.test_clib import mock
 
 
@@ -18,14 +18,14 @@ def test_create_data_dataset():
             family="GMT_IS_DATASET|GMT_VIA_VECTOR",
             geometry="GMT_IS_POINT",
             mode="GMT_CONTAINER_ONLY",
-            dim=[10, 20, 1, 0],  # columns, rows, layers, dtype
+            dim=[10, 20, 0, 0],  # ncolumns, nrows, dtype, unused
         )
         # Dataset from matrices
         data_matrix = lib.create_data(
             family="GMT_IS_DATASET|GMT_VIA_MATRIX",
             geometry="GMT_IS_POINT",
             mode="GMT_CONTAINER_ONLY",
-            dim=[10, 20, 1, 0],
+            dim=[10, 20, 1, 0],  # ncolumns, nrows, nlayer, dtype
         )
         assert data_vector != data_matrix
 
@@ -40,7 +40,7 @@ def test_create_data_grid_dim():
             family="GMT_IS_GRID|GMT_VIA_MATRIX",
             geometry="GMT_IS_SURFACE",
             mode="GMT_CONTAINER_ONLY",
-            dim=[10, 20, 1, 0],
+            dim=[10, 20, 1, 0],  # ncolumns, nrows, nlayer, dtype
         )
 
 
@@ -64,7 +64,7 @@ def test_create_data_fails():
     Check that create_data raises exceptions for invalid input and output.
     """
     # Passing in invalid mode
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         with clib.Session() as lib:
             lib.create_data(
                 family="GMT_IS_DATASET",
@@ -75,7 +75,7 @@ def test_create_data_fails():
                 inc=[0.1, 0.2],
             )
     # Passing in invalid geometry
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         with clib.Session() as lib:
             lib.create_data(
                 family="GMT_IS_GRID",
@@ -94,5 +94,5 @@ def test_create_data_fails():
                     family="GMT_IS_DATASET",
                     geometry="GMT_IS_SURFACE",
                     mode="GMT_CONTAINER_ONLY",
-                    dim=[11, 10, 2, 0],
+                    dim=[11, 10, 2, 0],  # n_tables, n_segments, n_rows, n_columns
                 )
