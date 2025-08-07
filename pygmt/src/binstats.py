@@ -83,7 +83,7 @@ def binstats(
         - **minpos**: Compute the minimum of positive values only.
         - **median**: Compute the median value.
         - **number**: Compute the number of values.
-        - **lms**: Compute the LMS scale.
+        - **lms**: Compute the least median square (LMS) scale.
         - **mode**: Compute the mode (maximum likelihood).
         - **quantile**: Compute the selected quantile. The quantile value is in 0-100%
           range and is specified by the ``quantile_value`` parameter.
