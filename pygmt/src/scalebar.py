@@ -61,7 +61,7 @@ def scalebar(  # noqa: PLR0913
     >>> fig.basemap(region=[0, 80, -30, 30], projection="M10c", frame=True)
     >>> fig.scalebar(
     ...     position=(10, 10),
-    ...     position_type="user",
+    ...     position_type="mapcoords",
     ...     length=1000,
     ...     fancy=True,
     ...     label="Scale",
