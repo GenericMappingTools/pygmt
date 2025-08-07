@@ -1,68 +1,74 @@
 """
 Scatter plot with histograms
-----------------------------
-To create a scatter plot with histograms at the sides of the plot one
-can use :meth:`pygmt.Figure.plot` in combination with
-:meth:`pygmt.Figure.histogram`. The positions of the histograms are plotted
-by offseting them from the main scatter plot figure using
-:meth:`pygmt.Figure.shift_origin`.
+============================
+
+To create a scatter plot with histograms at the sides of the plot one can use
+:meth:`pygmt.Figure.plot` in combination with :meth:`pygmt.Figure.histogram`. The
+positions of the histograms are plotted by offsetting them from the main scatter plot
+using :meth:`pygmt.Figure.shift_origin`.
 """
 
+# %%
 import numpy as np
 import pygmt
 
-np.random.seed(19680801)
+# Generate random x-, y-coordinates from a standard normal distribution.
+# x-values are centered on 0 with a standard deviation of 1, and y-values are centered
+# on 30 with a standard deviation of 2.
+rng = np.random.default_rng()
+x = rng.normal(loc=0, scale=1, size=1000)
+y = rng.normal(loc=30, scale=2, size=1000)
 
-# Generate random data from a standard normal distribution centered on 0
-x = np.random.randn(1000)
-y = np.random.randn(1000)
+# Get axis limits from the data limits. Extend the limits by 0.5 to add some margin.
+xmin = np.floor(x.min()) - 0.5
+xmax = np.ceil(x.max()) + 0.5
+ymin = np.floor(y.min()) - 0.5
+ymax = np.ceil(y.max()) + 0.5
 
-# Get axis limits
-xymax = max(np.max(np.abs(x)), np.max(np.abs(y)))
+# Set fill color for symbols and bars.
+fill = "seagreen"
+
+# Set the dimensions of the scatter plot.
+width, height = 10, 8
 
 fig = pygmt.Figure()
 fig.basemap(
-    region=[-xymax - 0.5, xymax + 0.5, -xymax - 0.5, xymax + 0.5],
-    projection="X10c/10c",
-    frame=["WSrt", "a1"],
+    region=[xmin, xmax, ymin, ymax],
+    projection=f"X{width}/{height}",
+    frame=["WSrt", "af"],
 )
 
-fillcol = "seagreen"
+# Plot data points as circles with a diameter of 0.15 centimeters and set transparency
+# level for all circles to deal with overplotting.
+fig.plot(x=x, y=y, style="c0.15c", fill=fill, transparency=50)
 
-# Plot data points as circles with a diameter of 0.15 centimeters
-fig.plot(x=x, y=y, style="c0.15c", fill=fillcol, transparency=50)
+# Shift the plot origin in y-direction temporarily and add top margin histogram.
+with fig.shift_origin(yshift=height + 0.25):
+    fig.histogram(
+        projection=f"X{width}/3",
+        frame=["Wsrt", "xf", "yaf+lCounts"],
+        # Give the same value for ymin and ymax to have them calculated automatically.
+        region=[xmin, xmax, 0, 0],
+        data=x,
+        fill=fill,
+        pen="0.1p,white",
+        histtype=0,
+        series=0.2,
+    )
 
-# Shift the plot origin and add top margin histogram
-fig.shift_origin(yshift="10.25c")
-
-fig.histogram(
-    projection="X10c/2c",
-    frame=["Wsrt", "xf1", "y+lCounts"],
-    # Give the same value for ymin and ymax to have ymin and ymax
-    # calculated automatically
-    region=[-xymax - 0.5, xymax + 0.5, 0, 0],
-    data=x,
-    fill=fillcol,
-    pen="0.1p,white",
-    histtype=0,
-    series=0.1,
-)
-
-# Shift the plot origin and add right margin histogram
-fig.shift_origin(yshift="-10.25c", xshift="10.25c")
-
-fig.histogram(
-    horizontal=True,
-    projection="X2c/10c",
-    # Note that the y-axis annotation "Counts" is shown in x-axis direction
-    # due to the rotation caused by horizontal=True
-    frame=["wSrt", "xf1", "y+lCounts"],
-    region=[-xymax - 0.5, xymax + 0.5, 0, 0],
-    data=y,
-    fill=fillcol,
-    pen="0.1p,white",
-    histtype=0,
-    series=0.1,
-)
-
+# Shift the plot origin in x-direction temporarily and add right margin histogram.
+with fig.shift_origin(xshift=width + 0.25):
+    # Plot the horizontal histogram.
+    fig.histogram(
+        horizontal=True,
+        projection=f"X3/{height}",
+        # Note that the x- and y-axes are flipped, with the y-axis plotted horizontally.
+        frame=["wSrt", "xf", "yaf+lCounts"],
+        region=[ymin, ymax, 0, 0],
+        data=y,
+        fill=fill,
+        pen="0.1p,white",
+        histtype=0,
+        series=0.2,
+    )
 fig.show()

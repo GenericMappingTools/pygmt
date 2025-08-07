@@ -1,4 +1,5 @@
 outs:
-- md5: 33186d037bfc92b1edfdc21141000ed7
-  size: 23817
+- md5: 62a9184d3326508b6d5688688dbf0a70
+  size: 23874
   path: test_plot3d_colors_sizes.png
+  hash: md5

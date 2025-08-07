@@ -1,18 +1,19 @@
 """
 Test basic functionality for loading sample datasets.
 """
+
 import numpy.testing as npt
 import pandas as pd
 import pytest
 from pygmt.datasets import list_sample_data, load_sample_data
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 
 
 def test_load_sample_invalid():
     """
     Check that the function raises error for unsupported filenames.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         load_sample_data(name="bad.filename")
 
 
@@ -180,6 +181,7 @@ def test_load_notre_dame_topography():
     assert data["z"].max() == 960
 
 
+@pytest.mark.benchmark
 def test_earth_relief_holes():
     """
     Check that the @earth_relief_20m_holes.grd dataset loads without errors.
@@ -189,7 +191,7 @@ def test_earth_relief_holes():
     npt.assert_allclose(grid.max(), 1601)
     npt.assert_allclose(grid.min(), -4929.5)
     # Test for the NaN values in the remote file
-    assert grid[2, 21].isnull()
+    assert grid[2, 21].isnull()  # noqa: PD003  # ruff's bug
 
 
 def test_maunaloa_co2():

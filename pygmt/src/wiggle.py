@@ -1,19 +1,18 @@
 """
 wiggle - Plot z=f(x,y) anomalies along tracks.
 """
-import warnings
 
+from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
 @use_alias(
     B="frame",
     D="position",
-    G="color",
-    J="projection",
+    G="fillpositive/fillnegative-",
     R="region",
     T="track",
     V="verbose",
@@ -34,12 +33,13 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def wiggle(
     self,
-    data=None,
+    data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     z=None,
     fillpositive=None,
     fillnegative=None,
+    projection=None,
     **kwargs,
 ):
     r"""
@@ -50,15 +50,16 @@ def wiggle(
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    Full option list at :gmt-docs:`wiggle.html`
+    Full GMT docs at :gmt-docs:`wiggle.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
     x/y/z : 1-D arrays
         The arrays of x and y coordinates and z data points.
-    data : str or {table-like}
+    data
         Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
         Use parameter ``incols`` to choose which columns are x, y, z,
@@ -100,18 +101,7 @@ def wiggle(
     {transparency}
     {wrap}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-
-    if (fillpositive or fillnegative) and kwargs.get("G") is not None:
-        raise GMTInvalidInput("Use either fillpositive/fillnegative or color.")
-
-    if kwargs.get("G") is not None:
-        msg = (
-            "The 'color' parameter has been deprecated since v0.8.0"
-            " and will be removed in v0.12.0. Use fillpositive/fillnegative"
-            " instead."
-        )
-        warnings.warn(msg, category=FutureWarning, stacklevel=2)
+    self._activate_figure()
 
     if fillpositive or fillnegative:
         kwargs["G"] = []
@@ -120,13 +110,14 @@ def wiggle(
         if fillnegative:
             kwargs["G"].append(fillnegative + "+n")
 
-    with Session() as lib:
-        # Choose how data will be passed in to the module
-        file_context = lib.virtualfile_from_data(
-            check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
-        )
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
 
-        with file_context as fname:
+    with Session() as lib:
+        with lib.virtualfile_in(
+            check_kind="vector", data=data, x=x, y=y, z=z, mincols=3
+        ) as vintbl:
             lib.call_module(
-                module="wiggle", args=build_arg_string(kwargs, infile=fname)
+                module="wiggle", args=build_arg_list(aliasdict, infile=vintbl)
             )

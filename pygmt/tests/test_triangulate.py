@@ -1,6 +1,7 @@
 """
-Tests for triangulate.
+Test pygmt.triangulate.
 """
+
 from pathlib import Path
 
 import numpy as np
@@ -8,8 +9,9 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import triangulate, which
-from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import GMTTempFile, data_kind
+from pygmt.enums import GridRegistration, GridType
+from pygmt.exceptions import GMTTypeError, GMTValueError
+from pygmt.helpers import GMTTempFile
 
 
 @pytest.fixture(scope="module", name="dataframe")
@@ -19,7 +21,7 @@ def fixture_dataframe():
     """
     fname = which("@Table_5_11_mean.xyz", download="c")
     return pd.read_csv(
-        fname, delim_whitespace=True, header=None, names=["x", "y", "z"], skiprows=1
+        fname, sep=r"\s+", header=None, names=["x", "y", "z"], skiprows=1
     )[:10]
 
 
@@ -43,7 +45,8 @@ def fixture_expected_dataframe():
             [4, 6, 1],
             [3, 4, 2],
             [9, 3, 8],
-        ]
+        ],
+        dtype=np.float64,
     )
 
 
@@ -62,18 +65,17 @@ def fixture_expected_grid():
 @pytest.mark.parametrize("array_func", [np.array, xr.Dataset])
 def test_delaunay_triples_input_table_matrix(array_func, dataframe, expected_dataframe):
     """
-    Run triangulate.delaunay_triples by passing in a numpy.array or
-    xarray.Dataset.
+    Run triangulate.delaunay_triples by passing in a numpy.array or xarray.Dataset.
     """
     table = array_func(dataframe)
     output = triangulate.delaunay_triples(data=table)
     pd.testing.assert_frame_equal(left=output, right=expected_dataframe)
 
 
+@pytest.mark.benchmark
 def test_delaunay_triples_input_xyz(dataframe, expected_dataframe):
     """
-    Run triangulate.delaunay_triples by passing in x, y, z numpy.ndarrays
-    individually.
+    Run triangulate.delaunay_triples by passing in x, y, z numpy.ndarrays individually.
     """
     output = triangulate.delaunay_triples(x=dataframe.x, y=dataframe.y, z=dataframe.z)
     pd.testing.assert_frame_equal(left=output, right=expected_dataframe)
@@ -89,12 +91,10 @@ def test_delaunay_triples_input_xy_no_z(dataframe, expected_dataframe):
 
 def test_delaunay_triples_wrong_kind_of_input(dataframe):
     """
-    Run triangulate.delaunay_triples using grid input that is not
-    file/matrix/vectors.
+    Run triangulate.delaunay_triples using grid input that is not file/matrix/vectors.
     """
     data = dataframe.z.to_xarray()  # convert pandas.Series to xarray.DataArray
-    assert data_kind(data) == "grid"
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         triangulate.delaunay_triples(data=data)
 
 
@@ -114,10 +114,12 @@ def test_delaunay_triples_outfile(dataframe, expected_dataframe):
     with GMTTempFile(suffix=".txt") as tmpfile:
         with pytest.warns(RuntimeWarning) as record:
             result = triangulate.delaunay_triples(data=dataframe, outfile=tmpfile.name)
-            assert len(record) == 1  # check that only one warning was raised
+        assert len(record) == 1  # check that only one warning was raised
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0
-        temp_df = pd.read_csv(filepath_or_buffer=tmpfile.name, sep="\t", header=None)
+        temp_df = pd.read_csv(
+            filepath_or_buffer=tmpfile.name, sep="\t", header=None, dtype=np.float64
+        )
         pd.testing.assert_frame_equal(left=temp_df, right=expected_dataframe)
 
 
@@ -125,10 +127,11 @@ def test_delaunay_triples_invalid_format(dataframe):
     """
     Test that triangulate.delaunay_triples fails with incorrect format.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         triangulate.delaunay_triples(data=dataframe, output_type=1)
 
 
+@pytest.mark.benchmark
 def test_regular_grid_no_outgrid(dataframe, expected_grid):
     """
     Run triangulate.regular_grid with no set outgrid and see it load into an
@@ -137,8 +140,8 @@ def test_regular_grid_no_outgrid(dataframe, expected_grid):
     data = dataframe.to_numpy()
     output = triangulate.regular_grid(data=data, spacing=1, region=[2, 4, 5, 6])
     assert isinstance(output, xr.DataArray)
-    assert output.gmt.registration == 0  # Gridline registration
-    assert output.gmt.gtype == 0  # Cartesian type
+    assert output.gmt.registration is GridRegistration.GRIDLINE
+    assert output.gmt.gtype is GridType.CARTESIAN
     xr.testing.assert_allclose(a=output, b=expected_grid)
 
 
@@ -153,17 +156,8 @@ def test_regular_grid_with_outgrid_param(dataframe, expected_grid):
         )
         assert output is None  # check that output is None since outgrid is set
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
-        with xr.open_dataarray(tmpfile.name) as grid:
-            assert isinstance(grid, xr.DataArray)
-            assert grid.gmt.registration == 0  # Gridline registration
-            assert grid.gmt.gtype == 0  # Cartesian type
-            xr.testing.assert_allclose(a=grid, b=expected_grid)
-
-
-def test_regular_grid_invalid_format(dataframe):
-    """
-    Test that triangulate.regular_grid fails with outgrid that is not None or a
-    proper file name.
-    """
-    with pytest.raises(GMTInvalidInput):
-        triangulate.regular_grid(data=dataframe, outgrid=True)
+        grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
+        assert isinstance(grid, xr.DataArray)
+        assert grid.gmt.registration is GridRegistration.GRIDLINE
+        assert grid.gmt.gtype is GridType.CARTESIAN
+        xr.testing.assert_allclose(a=grid, b=expected_grid)

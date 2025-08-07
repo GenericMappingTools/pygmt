@@ -1,4 +1,5 @@
 outs:
-- md5: a066694400a86dffa1d23dd34e0f35ab
-  size: 51676
+- md5: b2db8e630d3807a5b81f8ecd002c3ac9
+  size: 51186
   path: test_config_font_annot.png
+  hash: md5

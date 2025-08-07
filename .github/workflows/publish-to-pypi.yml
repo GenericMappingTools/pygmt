@@ -1,12 +1,31 @@
 # Publish archives to PyPI and TestPyPI using GitHub Actions
-
+#
+# This workflow is ran to publish PyGMT archives (source and binary distributions)
+# to TestPyPI (for testing only) and PyPI.
+#
+# Archives will be pushed to TestPyPI for every commit to the main branch and
+# tagged releases, and to PyPI for tagged releases only.
+#
+# Note that authentication to TestPyPI/PyPI is done via OpenID Connect, see also
+# https://github.com/pypa/gh-action-pypi-publish/tree/release/v1#publishing-with-openid-connect
+#
+# Important: this workflow filename must be publish-to-pypi.yml to match the
+# settings in PyPI and TestPyPI so that OIDC publishing works.
+#
 name: Publish to PyPI
 
 # Only run for pushes to the main branch and releases.
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+    paths:
+      - 'pygmt/**'
+      - '!pygmt/tests/**'
+      - 'Makefile'
+      - 'MANIFEST.in'
+      - 'pyproject.toml'
+      - 'README.md'
+      - '.github/workflows/publish-to-pypi.yml'
   release:
     types:
       - published
@@ -15,23 +34,25 @@ on:
   #  branches:
   #    - main
 
+permissions: {}
+
 jobs:
-  publish-pypi:
-    name: Publish to PyPI
+  build:
+    name: Build distribution 📦
     runs-on: ubuntu-latest
-    if: github.repository == 'GenericMappingTools/pygmt'
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3.3.0
+      uses: actions/checkout@v4.2.2
       with:
         # fetch all history so that setuptools-scm works
         fetch-depth: 0
+        persist-credentials: false
 
     - name: Set up Python
-      uses: actions/setup-python@v4.5.0
+      uses: actions/setup-python@v5.6.0
       with:
-        python-version: '3.11'
+        python-version: '3.13'
 
     - name: Install dependencies
       run: python -m pip install build
@@ -52,14 +73,54 @@ jobs:
         echo "Generated files:"
         ls -lh dist/
 
-    - name: Publish to Test PyPI
-      uses: pypa/gh-action-pypi-publish@v1.7.1
+    - name: Store the distribution packages
+      uses: actions/upload-artifact@v4.6.2
       with:
-        password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+        name: python-package-distributions
+        path: dist/
+
+  publish-to-testpypi:
+    name: Publish Python 🐍 distribution 📦 to TestPyPI
+    if: github.repository == 'GenericMappingTools/pygmt'
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/project/pygmt
+    permissions:
+      id-token: write # IMPORTANT: mandatory for trusted OIDC publishing
+
+    steps:
+    - name: Download all the dists
+      uses: actions/download-artifact@v4.3.0
+      with:
+        name: python-package-distributions
+        path: dist/
+
+    - name: Publish distribution 📦 to TestPyPI
+      uses: pypa/gh-action-pypi-publish@76f52bc884231f62b9a034ebfe128415bbaabdfc # v1.12.4
+      with:
         repository-url: https://test.pypi.org/legacy/
 
-    - name: Publish to PyPI
-      if: startsWith(github.ref, 'refs/tags')
-      uses: pypa/gh-action-pypi-publish@v1.7.1
+  publish-pypi:
+    name: Publish Python 🐍 distribution 📦 to PyPI
+    if: github.repository == 'GenericMappingTools/pygmt' && startsWith(github.ref, 'refs/tags/')
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/pygmt/
+    permissions:
+      id-token: write # IMPORTANT: mandatory for trusted OIDC publishing
+
+    steps:
+    - name: Download all the dists
+      uses: actions/download-artifact@v4.3.0
       with:
-        password: ${{ secrets.PYPI_API_TOKEN }}
+        name: python-package-distributions
+        path: dist/
+
+    - name: Publish distribution 📦 to PyPI
+      uses: pypa/gh-action-pypi-publish@76f52bc884231f62b9a034ebfe128415bbaabdfc # v1.12.4

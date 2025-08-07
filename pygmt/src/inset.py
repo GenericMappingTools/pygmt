@@ -1,10 +1,12 @@
 """
-inset - Create inset figures.
+inset - Manage figure inset setup and completion.
 """
+
 import contextlib
 
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["inset"]
 
@@ -14,24 +16,24 @@ __doctest_skip__ = ["inset"]
 @use_alias(
     D="position",
     F="box",
-    J="projection",
     M="margin",
     N="no_clip",
     R="region",
     V="verbose",
 )
 @kwargs_to_strings(D="sequence", M="sequence", R="sequence")
-def inset(self, **kwargs):
+def inset(self, projection=None, **kwargs):
     r"""
-    Create an inset figure to be placed within a larger figure.
+    Manage figure inset setup and completion.
 
     This method sets the position, frame, and margins for a smaller figure
     inside of the larger figure. Plotting methods that are called within the
     context manager are added to the inset figure.
 
-    Full option list at :gmt-docs:`inset.html`
+    Full GMT docs at :gmt-docs:`inset.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -78,22 +80,22 @@ def inset(self, **kwargs):
         [[*dx*/*dy*/][*shade*]]].
         If set to ``True``, draw a rectangular box around the map
         inset using the default pen; specify a different pen
-        with **+p**\ *pen*. Add **+g**\ *fill* to fill the logo box
+        with **+p**\ *pen*. Add **+g**\ *fill* to fill the inset box
         [Default is no fill].
-        Append **+c**\ *clearance*  where *clearance* is either
+        Append **+c**\ *clearance* where *clearance* is either
         *gap*, *xgap*\ /\ *ygap*, or *lgap*\ /\ *rgap*\ /\ *bgap*\ /\
         *tgap* where these items are uniform, separate in x- and
-        y-direction, or individual side spacings between logo and border.
-        Append **+i** to draw a secondary, inner border as well. We use a
-        uniform *gap* between borders of 2\ **p** and the default pen
+        y-directions, or individual side spacings between map embellishment
+        and border. Append **+i** to draw a secondary, inner border as well.
+        We use a uniform *gap* between borders of 2p and the default pen
         unless other values are specified. Append **+r** to draw rounded
         rectangular borders instead, with a 6p corner radius. You
         can override this radius by appending another value. Append
         **+s** to draw an offset background shaded region. Here, *dx*/*dy*
         indicates the shift relative to the foreground frame [Default is
-        ``"4p/-4p"``] and ``shade`` sets the fill style to use for
+        ``"4p/-4p"``] and *shade* sets the fill style to use for
         shading [Default is ``"gray50"``].
-    margin : int or str or list
+    margin : float, str, or list
         This is clearance that is added around the inside of the inset.
         Plotting will take place within the inner region only. The margins
         can be a single value, a pair of values separated (for setting
@@ -128,16 +130,22 @@ def inset(self, **kwargs):
     ...         dcw="MG+gred",
     ...     )
     ...
-    >>> # Map elements outside the "with" block are plotted in the main figure
+    >>> # Map elements outside the "with" statement are plotted in the main
+    >>> # figure
     >>> fig.logo(position="jBR+o0.2c+w3c")
-    >>> fig.show()  # doctest: +SKIP
-    <IPython.core.display.Image object>
+    >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    self._activate_figure()
+
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
+
     with Session() as lib:
         try:
-            lib.call_module(module="inset", args=f"begin {build_arg_string(kwargs)}")
+            lib.call_module(module="inset", args=["begin", *build_arg_list(aliasdict)])
             yield
         finally:
-            v_arg = build_arg_string({"V": kwargs.get("V")})
-            lib.call_module(module="inset", args=f"end {v_arg}".strip())
+            lib.call_module(
+                module="inset", args=["end", *build_arg_list({"V": aliasdict.get("V")})]
+            )

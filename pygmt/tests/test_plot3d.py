@@ -1,17 +1,16 @@
 """
-Tests plot3d.
+Test Figure.plot3d.
 """
-import os
+
 from pathlib import Path
 
 import numpy as np
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import GMTTempFile
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
+POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
 
 
 @pytest.fixture(scope="module", name="data")
@@ -33,8 +32,7 @@ def fixture_region():
 @pytest.mark.mpl_image_compare
 def test_plot3d_red_circles_zscale(data, region):
     """
-    Plot the 3-D data in red circles passing in vectors and setting
-    zscale = 5
+    Plot the 3-D data in red circles passing in vectors and setting zscale=5.
     """
     fig = Figure()
     fig.plot3d(
@@ -55,8 +53,7 @@ def test_plot3d_red_circles_zscale(data, region):
 @pytest.mark.mpl_image_compare
 def test_plot3d_red_circles_zsize(data, region):
     """
-    Plot the 3-D data in red circles passing in vectors and setting
-    zsize = "6c"
+    Plot the 3-D data in red circles passing in vectors and setting zsize="6c".
     """
     fig = Figure()
     fig.plot3d(
@@ -76,19 +73,34 @@ def test_plot3d_red_circles_zsize(data, region):
 
 def test_plot3d_fail_1d_array_with_data(data, region):
     """
-    Should raise an exception if array fill, size, intensity and transparency
-    are used with matrix.
+    Should raise an exception if array fill, size, intensity and transparency are used
+    with matrix.
     """
     fig = Figure()
     kwargs = {"data": data, "region": region, "projection": "X10c", "frame": "afg"}
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.plot3d(style="c0.2c", fill=data[:, 2], **kwargs)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.plot3d(style="cc", size=data[:, 2], fill="red", **kwargs)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.plot3d(style="cc", intensity=data[:, 2], fill="red", **kwargs)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.plot3d(style="cc", fill="red", transparency=data[:, 2] * 100, **kwargs)
+
+
+def test_plot3d_fail_no_data(data, region):
+    """
+    Should raise an exception if data is not enough or too much.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.plot3d(
+            style="c0.2c", x=data[0], y=data[1], region=region, projection="X10c"
+        )
+    with pytest.raises(GMTInvalidInput):
+        fig.plot3d(
+            style="c0.2c", data=data, x=data[0], region=region, projection="X10c"
+        )
 
 
 @pytest.mark.mpl_image_compare
@@ -319,6 +331,28 @@ def test_plot3d_sizes_colors_transparencies():
 
 
 @pytest.mark.mpl_image_compare
+def test_plot3d_symbol():
+    """
+    Plot the data using array-like symbols.
+    """
+    fig = Figure()
+    fig.plot3d(
+        x=[1, 2, 3, 4],
+        y=[1, 2, 3, 4],
+        z=[1, 2, 3, 4],
+        region=[0, 5, 0, 5, 0, 5],
+        projection="X4c",
+        zsize="3c",
+        fill="blue",
+        size=[0.1, 0.2, 0.3, 0.4],
+        symbol=["c", "t", "i", "u"],
+        frame=["WSenZ", "afg"],
+        perspective=[135, 30],
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
 @pytest.mark.mpl_image_compare(filename="test_plot3d_matrix.png")
 @pytest.mark.parametrize("fill", ["#aaaaaa", 170])
 def test_plot3d_matrix(data, region, fill):
@@ -380,6 +414,7 @@ def test_plot3d_from_file(region):
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_plot3d_vectors():
     """
@@ -436,8 +471,8 @@ def test_plot3d_scalar_xyz():
 @pytest.mark.parametrize("func", [str, Path])
 def test_plot3d_ogrgmt_file_multipoint_default_style(func):
     """
-    Make sure that OGR/GMT files with MultiPoint geometry are plotted as cubes
-    and not as line (default GMT style).
+    Make sure that OGR/GMT files with MultiPoint geometry are plotted as cubes and not
+    as line (default GMT style).
     """
     with GMTTempFile(suffix=".gmt") as tmpfile:
         gmt_file = """# @VGMT1.0 @GMULTIPOINT
@@ -446,8 +481,7 @@ def test_plot3d_ogrgmt_file_multipoint_default_style(func):
 >
 1 1 2
 1.5 1.5 1"""
-        with open(tmpfile.name, "w", encoding="utf8") as file:
-            file.write(gmt_file)
+        Path(tmpfile.name).write_text(gmt_file, encoding="utf-8")
         fig = Figure()
         fig.plot3d(
             data=func(tmpfile.name),
@@ -472,8 +506,7 @@ def test_plot3d_ogrgmt_file_multipoint_non_default_style():
 >
 1 1 2
 1.5 1.5 1"""
-        with open(tmpfile.name, "w", encoding="utf8") as file:
-            file.write(gmt_file)
+        Path(tmpfile.name).write_text(gmt_file, encoding="utf-8")
         fig = Figure()
         fig.plot3d(
             data=tmpfile.name,

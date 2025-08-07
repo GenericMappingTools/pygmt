@@ -1,15 +1,15 @@
 """
-logo - Plot the GMT logo
+logo - Plot the GMT logo.
 """
 
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
 @use_alias(
     R="region",
-    J="projection",
     D="position",
     F="box",
     S="style",
@@ -18,7 +18,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def logo(self, **kwargs):
+def logo(self, projection=None, **kwargs):
     r"""
     Plot the GMT logo.
 
@@ -27,9 +27,10 @@ def logo(self, **kwargs):
     Use various options to change this and to place a transparent or
     opaque rectangular map panel behind the GMT logo.
 
-    Full option list at :gmt-docs:`gmtlogo.html`.
+    Full GMT docs at :gmt-docs:`gmtlogo.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -54,6 +55,11 @@ def logo(self, **kwargs):
     {panel}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    self._activate_figure()
+
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
+
     with Session() as lib:
-        lib.call_module(module="logo", args=build_arg_string(kwargs))
+        lib.call_module(module="logo", args=build_arg_list(aliasdict))

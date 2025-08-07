@@ -1,4 +1,5 @@
 outs:
-- md5: 88e3aa96a640c2d61e8e93ca459210f1
-  size: 3611
+- md5: 57608311311085dad38177c85671c441
+  size: 3466
   path: test_makecpt_reverse_color_and_zsign.png
+  hash: md5

@@ -1,7 +1,7 @@
 """
-Tests for grdtrack.
+Test pygmt.grdtrack.
 """
-import os
+
 from pathlib import Path
 
 import numpy as np
@@ -9,12 +9,11 @@ import numpy.testing as npt
 import pandas as pd
 import pytest
 from pygmt import grdtrack
-from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import GMTTempFile, data_kind
+from pygmt.exceptions import GMTInvalidInput, GMTTypeError
+from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-POINTS_DATA = os.path.join(TEST_DATA_DIR, "track.txt")
+POINTS_DATA = Path(__file__).parent / "data" / "track.txt"
 
 
 @pytest.fixture(scope="module", name="dataarray")
@@ -51,14 +50,14 @@ def fixture_dataframe():
     Load a pandas DataFrame with points.
     """
     return pd.read_csv(
-        POINTS_DATA, delim_whitespace=True, header=None, names=["longitude", "latitude"]
+        POINTS_DATA, sep=r"\s+", header=None, names=["longitude", "latitude"]
     )
 
 
+@pytest.mark.benchmark
 def test_grdtrack_input_dataframe_and_dataarray(dataarray, dataframe, expected_array):
     """
-    Run grdtrack by passing in a pandas.DataFrame and xarray.DataArray as
-    inputs.
+    Run grdtrack by passing in a pandas.DataFrame and xarray.DataArray as inputs.
     """
     output = grdtrack(points=dataframe, grid=dataarray, newcolname="bathymetry")
     assert isinstance(output, pd.DataFrame)
@@ -71,7 +70,9 @@ def test_grdtrack_input_csvfile_and_dataarray(dataarray, expected_array):
     Run grdtrack by passing in a csvfile and xarray.DataArray as inputs.
     """
     with GMTTempFile() as tmpfile:
-        output = grdtrack(points=POINTS_DATA, grid=dataarray, outfile=tmpfile.name)
+        output = grdtrack(
+            points=POINTS_DATA, grid=dataarray, output_type="file", outfile=tmpfile.name
+        )
         assert output is None  # check that output is None since outfile is set
         assert Path(tmpfile.name).stat().st_size > 0  # check that outfile exists
         output = np.loadtxt(tmpfile.name)
@@ -80,7 +81,7 @@ def test_grdtrack_input_csvfile_and_dataarray(dataarray, expected_array):
 
 def test_grdtrack_input_dataframe_and_ncfile(dataframe, expected_array):
     """
-    Run grdtrack by passing in a pandas.DataFrame and netcdf file as inputs.
+    Run grdtrack by passing in a pandas.DataFrame and netCDF file as inputs.
     """
     output = grdtrack(
         points=dataframe, grid="@static_earth_relief.nc", newcolname="bathymetry"
@@ -92,7 +93,7 @@ def test_grdtrack_input_dataframe_and_ncfile(dataframe, expected_array):
 
 def test_grdtrack_input_csvfile_and_ncfile_to_dataframe(expected_array):
     """
-    Run grdtrack by passing in a csv file and netcdf file as inputs with a
+    Run grdtrack by passing in a csv file and netCDF file as inputs with a
     pandas.DataFrame output.
     """
     output = grdtrack(points=POINTS_DATA, grid="@static_earth_relief.nc")
@@ -125,25 +126,19 @@ def test_grdtrack_profile(dataarray):
 
 def test_grdtrack_wrong_kind_of_points_input(dataarray, dataframe):
     """
-    Run grdtrack using points input that is not a pandas.DataFrame (matrix) or
-    file.
+    Run grdtrack using points input that is not a pandas.DataFrame or file.
     """
     invalid_points = dataframe.longitude.to_xarray()
-
-    assert data_kind(invalid_points) == "grid"
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         grdtrack(points=invalid_points, grid=dataarray, newcolname="bathymetry")
 
 
 def test_grdtrack_wrong_kind_of_grid_input(dataarray, dataframe):
     """
-    Run grdtrack using grid input that is not as xarray.DataArray (grid) or
-    file.
+    Run grdtrack using grid input that is not an xarray.DataArray or file.
     """
     invalid_grid = dataarray.to_dataset()
-
-    assert data_kind(invalid_grid) == "matrix"
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         grdtrack(points=dataframe, grid=invalid_grid, newcolname="bathymetry")
 
 

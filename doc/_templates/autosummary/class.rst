@@ -17,6 +17,7 @@
 .. rubric:: Methods Summary
 
 .. autosummary::
+    :toctree:
     {% for item in methods %}
     {% if item != '__init__' %}
     {{ objname }}.{{ item }}
@@ -24,9 +25,9 @@
     {% endfor %}
 {% endif %}
 
-.. include:: backreferences/{{ fullname }}.examples
+.. minigallery:: {{ fullname }}
+    :add-heading:
 
 .. raw:: html
 
      <div style='clear:both'></div>
-

@@ -1,8 +1,11 @@
 """
-Histogram - Create a histogram
+Histogram - Calculate and plot histograms.
 """
+
+from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
@@ -14,7 +17,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     E="barwidth",
     F="center",
     G="fill",
-    J="projection",
     L="extreme",
     N="distribution",
     Q="cumulative",
@@ -38,17 +40,18 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 @kwargs_to_strings(
     R="sequence", T="sequence", c="sequence_comma", i="sequence_comma", p="sequence"
 )
-def histogram(self, data, **kwargs):
+def histogram(self, data: PathLike | TableLike, projection=None, **kwargs):
     r"""
-    Plot Cartesian histograms.
+    Calculate and plot histograms.
 
-    Full option list at :gmt-docs:`histogram.html`
+    Full GMT docs at :gmt-docs:`histogram.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
-    data : str or list or {table-like}
+    data
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         {table-classes}.
     {projection}
@@ -61,16 +64,16 @@ def histogram(self, data, **kwargs):
     {panel}
     annotate : bool or str
         [**+b**][**+f**\ *font*][**+o**\ *off*][**+r**].
-        Annotate each bar with the count it represents.  Append any of the
+        Annotate each bar with the count it represents. Append any of the
         following modifiers: Use **+b** to place the labels beneath the bars
         instead of above; use **+f** to change to another font than the default
         annotation font; use **+o** to change the offset between bar and
-        label [6p]; use **+r** to rotate the labels from horizontal to
-        vertical.
-    barwidth : int or float or str
+        label [Default is ``"6p"``]; use **+r** to rotate the labels from
+        horizontal to vertical.
+    barwidth : float or str
         *width*\ [**+o**\ *offset*].
         Use an alternative histogram bar width than the default set via
-        ``series``, and optionally shift all bars by an *offset*.  Here
+        ``series``, and optionally shift all bars by an *offset*. Here
         *width* is either an alternative width in data units, or the user may
         append a valid plot dimension unit (**c**\|\ **i**\|\ **p**) for a
         fixed dimension instead. Optionally, all bins may be shifted along the
@@ -78,10 +81,10 @@ def histogram(self, data, **kwargs):
         plot dimension units by appending the relevant unit.
     center : bool
         Center bin on each value. [Default is left edge].
-    distribution : bool or int or float or str
+    distribution : bool, float, or str
         [*mode*][**+p**\ *pen*].
         Draw the equivalent normal distribution; append desired
-        *pen* [Default is 0.25p,black].
+        *pen* [Default is ``"0.25p,black,solid"``].
         The *mode* selects which central location and scale to use:
 
         * 0 = mean and standard deviation [Default];
@@ -94,7 +97,7 @@ def histogram(self, data, **kwargs):
     extreme : str
         **l**\|\ **h**\|\ **b**.
         The modifiers specify the handling of extreme values that fall outside
-        the range set by ``series``.  By default these values are ignored.
+        the range set by ``series``. By default, these values are ignored.
         Append **b** to let these values be included in the first or last
         bins. To only include extreme values below first bin into the first
         bin, use **l**, and to only include extreme values above the last bin
@@ -103,9 +106,10 @@ def histogram(self, data, **kwargs):
         Draw a stairs-step diagram which does not include the internal bars
         of the default histogram.
     horizontal : bool
-        Plot the histogram using horizontal bars instead of the
-        default vertical bars.
-    series : int or str or list
+        Plot the histogram horizontally from x = 0 [Default is vertically from y = 0].
+        The plot dimensions remain the same, but the two axes are flipped, i.e., the
+        x-axis is plotted vertically and the y-axis is plotted horizontally.
+    series : int, str, or list
         [*min*\ /*max*\ /]\ *inc*\ [**+n**\ ].
         Set the interval for the width of each bar in the histogram.
     histtype : int or str
@@ -132,10 +136,14 @@ def histogram(self, data, **kwargs):
     {transparency}
     {wrap}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    self._activate_figure()
+
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
+
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
-        with file_context as infile:
+        with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
             lib.call_module(
-                module="histogram", args=build_arg_string(kwargs, infile=infile)
+                module="histogram", args=build_arg_list(aliasdict, infile=vintbl)
             )

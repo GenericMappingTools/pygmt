@@ -1,4 +1,5 @@
 outs:
-- md5: 1f6d2bb449a5329d0208627dc293fd42
-  size: 19614
+- md5: abb5c720dfd2452426f6cb9c66e8c9a9
+  size: 19567
   path: test_config.png
+  hash: md5

@@ -2,16 +2,11 @@
 dimfilter - Directional filtering of grids in the space domain.
 """
 
+import xarray as xr
+from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["dimfilter"]
 
@@ -20,16 +15,17 @@ __doctest_skip__ = ["dimfilter"]
 @use_alias(
     D="distance",
     F="filter",
-    G="outgrid",
     I="spacing",
     N="sectors",
     R="region",
     V="verbose",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def dimfilter(grid, **kwargs):
+def dimfilter(
+    grid: PathLike | xr.DataArray, outgrid: PathLike | None = None, **kwargs
+) -> xr.DataArray | None:
     r"""
-    Filter a grid by dividing the filter circle.
+    Directional filtering of grids in the space domain.
 
     Filter a grid in the space (or time) domain by
     dividing the given filter circle into the given number of sectors,
@@ -47,48 +43,43 @@ def dimfilter(grid, **kwargs):
     Thus, an additional filtering (e.g., Gaussian via :func:`pygmt.grdfilter`)
     of the DiM-filtered data is generally recommended.
 
-    Full option list at :gmt-docs:`dimfilter.html`
+    Full GMT docs at :gmt-docs:`dimfilter.html`.
 
     {aliases}
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {grid}
+    {outgrid}
     distance : int or str
         Distance flag tells how grid (x,y) relates to filter width, as follows:
 
-        - **0**\ : grid (x,y) in same units as *width*, Cartesian distances.
-        - **1**\ : grid (x,y) in degrees, *width* in kilometers, Cartesian
-          distances.
-        - **2**\ : grid (x,y) in degrees, *width* in km, dx scaled by
-          cos(middle y), Cartesian distances.
+        - **0**: grid (x,y) in same units as *width*, Cartesian distances.
+        - **1**: grid (x,y) in degrees, *width* in kilometers, Cartesian distances.
+        - **2**: grid (x,y) in degrees, *width* in km, dx scaled by cos(middle y),
+          Cartesian distances.
 
         The above options are fastest because they allow weight matrix to be
         computed only once. The next two options are slower because they
         recompute weights for each latitude.
 
-        - **3**\ : grid (x,y) in degrees, *width* in km, dx scaled by
-          cosine(y), Cartesian distance calculation.
-        - **4**\ : grid (x,y) in degrees, *width* in km, Spherical distance
-          calculation.
+        - **3**: grid (x,y) in degrees, *width* in km, dx scaled by cosine(y),
+          Cartesian distance calculation.
+        - **4**: grid (x,y) in degrees, *width* in km, Spherical distance calculation.
     filter : str
         **x**\ *width*\ [**+l**\|\ **u**].
         Set the primary filter type. Choose among convolution and
         non-convolution filters. Use the filter code **x** followed by
         the full diameter *width*. Available convolution filters are:
 
-        - (**b**) Boxcar: All weights are equal.
-        - (**c**) Cosine Arch: Weights follow a cosine arch curve.
-        - (**g**) Gaussian: Weights are given by the Gaussian function.
+        - **b**: boxcar. Aall weights are equal.
+        - **c**: cosine arch. Weights follow a cosine arch curve.
+        - **g**: Gaussian. Weights are given by the Gaussian function.
 
         Non-convolution filters are:
 
-        - (**m**) Median: Returns median value.
-        - (**p**) Maximum likelihood probability (a mode estimator): Return
+        - **m**: median. Returns median value.
+        - **p**: maximum likelihood probability (a mode estimator). Return
           modal value. If more than one mode is found we return their average
           value. Append **+l** or **+h** to the filter width if you want
           to return the smallest or largest of each sector's modal values.
@@ -99,32 +90,32 @@ def dimfilter(grid, **kwargs):
         set to 1, the secondary filter is not effective. Available secondary
         filters **x** are:
 
-        - (**l**) Lower: Return the minimum of all filtered values.
-        - (**u**) Upper: Return the maximum of all filtered values.
-        - (**a**) Average: Return the mean of all filtered values.
-        - (**m**) Median: Return the median of all filtered values.
-        - (**p**) Mode: Return the mode of all filtered values:
+        - **l**: lower. Return the minimum of all filtered values.
+        - **u**: upper. Return the maximum of all filtered values.
+        - **a**: average. Return the mean of all filtered values.
+        - **m**: median. Return the median of all filtered values.
+        - **p**: mode. Return the mode of all filtered values.
           If more than one mode is found we return their average
           value. Append **+l** or **+h** to the sectors if you rather want to
           return the smallest or largest of the modal values.
     spacing : str or list
         *x_inc* [and optionally *y_inc*] is the output increment. Append
         **m** to indicate minutes, or **c** to indicate seconds. If the new
-        *x_inc*, *y_inc* are NOT integer multiples of the old ones (in the
+        *x_inc*, *y_inc* are **not** integer multiples of the old ones (in the
         input data), filtering will be considerably slower. [Default is same
-        as input.]
+        as the input.]
     region : str or list
         [*xmin*, *xmax*, *ymin*, *ymax*].
-        Define the region of the output points [Default is same as input].
+        Define the region of the output points [Default is the same as the input].
     {verbose}
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
     Example
@@ -147,19 +138,18 @@ def dimfilter(grid, **kwargs):
     ... )
     """
     if not all(arg in kwargs for arg in ["D", "F", "N"]) and "Q" not in kwargs:
-        raise GMTInvalidInput(
-            """At least one of the following parameters must be specified:
-            distance, filters, or sectors."""
+        msg = (
+            "At least one of the following parameters must be specified: "
+            "distance, filters, or sectors."
         )
-
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind=None, data=grid)
-            with file_context as infile:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="dimfilter", args=build_arg_string(kwargs, infile=infile)
-                )
-
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+        raise GMTInvalidInput(msg)
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            kwargs["G"] = voutgrd
+            lib.call_module(
+                module="dimfilter", args=build_arg_list(kwargs, infile=vingrd)
+            )
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

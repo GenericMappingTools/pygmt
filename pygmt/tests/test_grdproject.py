@@ -1,11 +1,13 @@
 """
-Tests for grdproject.
+Test pygmt.grdproject.
 """
+
 from pathlib import Path
 
 import pytest
 import xarray as xr
-from pygmt import grdproject, load_dataarray
+from pygmt import grdproject
+from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
@@ -42,7 +44,7 @@ def fixture_expected_grid():
 
 def test_grdproject_file_out(grid, expected_grid):
     """
-    grdproject with an outgrid set.
+    Test grdproject with an outgrid set.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = grdproject(
@@ -54,10 +56,11 @@ def test_grdproject_file_out(grid, expected_grid):
         )
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
-        temp_grid = load_dataarray(tmpfile.name)
+        temp_grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
+@pytest.mark.benchmark
 @pytest.mark.parametrize(
     "projection",
     ["M10c", "EPSG:3395 +width=10", "+proj=merc +ellps=WGS84 +units=m +width=10"],
@@ -66,15 +69,14 @@ def test_grdproject_no_outgrid(grid, projection, expected_grid):
     """
     Test grdproject with no set outgrid.
 
-    Also check that providing the projection as an EPSG code or PROJ4 string
-    works.
+    Also check that providing the projection as an EPSG code or PROJ4 string works.
     """
-    assert grid.gmt.gtype == 1  # Geographic grid
+    assert grid.gmt.gtype is GridType.GEOGRAPHIC
     result = grdproject(
         grid=grid, projection=projection, spacing=3, region=[-53, -51, -20, -17]
     )
-    assert result.gmt.gtype == 0  # Rectangular grid
-    assert result.gmt.registration == 1  # Pixel registration
+    assert result.gmt.gtype is GridType.CARTESIAN
+    assert result.gmt.registration is GridRegistration.PIXEL
     # check information of the output grid
     xr.testing.assert_allclose(a=result, b=expected_grid)
 

@@ -1,4 +1,5 @@
 outs:
-- md5: 5d789e284a01904c6fdbe378a824c110
-  size: 45238
+- md5: a5c85cb5c6e457c9ee39d41261b2fa21
+  size: 45323
   path: test_plot3d_red_circles_zscale.png
+  hash: md5

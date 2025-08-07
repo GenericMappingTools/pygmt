@@ -1,10 +1,10 @@
 r"""
-Polyconic Projection
+Polyconic projection
 ====================
 
 The polyconic projection, in Europe usually referred to as the American
 polyconic projection, was introduced shortly before 1820 by the Swiss-American
-cartographer Ferdinand Rodulph Hassler (1770–1843). As head of the Survey of
+cartographer Ferdinand Rodulph Hassler (1770-1843). As head of the Survey of
 the Coast, he was looking for a projection that would give the least distortion
 for mapping the coast of the United States. The projection acquired its name
 from the construction of each parallel, which is achieved by projecting the
@@ -24,16 +24,16 @@ is lost with the lengthening of the meridians.
 The projection is set with **poly** or **Poly**. The figure size is set
 with *scale* or *width*.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()
 fig.coast(
-    shorelines="1/0.5p",
     region=[-180, -20, 0, 90],
     projection="Poly/12c",
-    land="gray",
-    borders="1/thick,black",
-    frame="afg10",
+    frame="afg",
+    land="seagreen",
+    water="gray90",
 )
-
 fig.show()

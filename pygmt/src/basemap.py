@@ -1,21 +1,15 @@
 """
-basemap - Plot base maps and frames for the figure.
+basemap - Plot base maps and frames.
 """
 
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import (
-    args_in_kwargs,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
 @use_alias(
     R="region",
-    J="projection",
     Jz="zscale",
     JZ="zsize",
     B="frame",
@@ -30,18 +24,22 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def basemap(self, **kwargs):
+def basemap(self, projection=None, **kwargs):
     r"""
-    Plot base maps and frames for the figure.
+    Plot base maps and frames.
 
     Creates a basic or fancy basemap with axes, fill, and titles. Several
     map projections are available, and the user may specify separate
     tick-mark intervals for boundary annotation, ticking, and [optionally]
     gridlines. A simple map scale or directional rose may also be plotted.
 
-    Full option list at :gmt-docs:`basemap.html`
+    At least one of the parameters ``frame``, ``map_scale``, ``rose``, or
+    ``compass`` must be specified if not in subplot mode.
+
+    Full GMT docs at :gmt-docs:`basemap.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -63,12 +61,12 @@ def basemap(self, **kwargs):
         **+p**\ *pen*. Add **+g**\ *fill* to fill the scale panel [Default is
         no fill]. Append **+c**\ *clearance* where *clearance* is either gap,
         xgap/ygap, or lgap/rgap/bgap/tgap where these items are uniform,
-        separate in x- and y-direction, or individual side spacings between
-        scale and border. Append **+i** to draw a secondary, inner border as
-        well. We use a uniform gap between borders of 2p and the
+        separate x and y, or individual side spacings between scale and
+        border. Append **+i** to draw a secondary, inner border as well.
+        We use a uniform gap between borders of 2 points and the
         :gmt-term:`MAP_DEFAULTS_PEN` unless other values are specified. Append
-        **+r** to draw rounded rectangular borders instead, with a 6p corner
-        radius. You can override this radius by appending another value.
+        **+r** to draw rounded rectangular borders instead, with a 6-points
+        corner radius. You can override this radius by appending another value.
         Finally, append **+s** to draw an offset background shaded region.
         Here, *dx/dy* indicates the shift relative to the foreground frame
         [Default is ``"4p/-4p"``] and shade sets the fill style to use for
@@ -85,8 +83,9 @@ def basemap(self, **kwargs):
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-    if not args_in_kwargs(args=["B", "L", "Td", "Tm", "c"], kwargs=kwargs):
-        kwargs["B"] = True  # Plotting frames if required arguments not given
+    self._activate_figure()
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
     with Session() as lib:
-        lib.call_module(module="basemap", args=build_arg_string(kwargs))
+        lib.call_module(module="basemap", args=build_arg_list(aliasdict))

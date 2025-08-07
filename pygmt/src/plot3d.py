@@ -1,22 +1,25 @@
 """
-plot3d - Plot in three dimensions.
+plot3d - Plot lines, polygons, and symbols in 3-D.
 """
+
+from typing import Literal
+
+from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     data_kind,
-    deprecate_parameter,
     fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.src.which import which
+from pygmt.src._common import _data_geometry_is_point
 
 
 @fmt_docstring
-@deprecate_parameter("color", "fill", "v0.8.0", remove_version="v0.12.0")
 @use_alias(
     A="straight_line",
     B="frame",
@@ -24,7 +27,6 @@ from pygmt.src.which import which
     D="offset",
     G="fill",
     I="intensity",
-    J="projection",
     Jz="zscale",
     JZ="zsize",
     L="close",
@@ -50,8 +52,18 @@ from pygmt.src.which import which
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot3d(
-    self, data=None, x=None, y=None, z=None, size=None, direction=None, **kwargs
+def plot3d(  # noqa: PLR0912
+    self,
+    data: PathLike | TableLike | None = None,
+    x=None,
+    y=None,
+    z=None,
+    size=None,
+    symbol=None,
+    direction=None,
+    straight_line: bool | Literal["x", "y"] = False,  # noqa: ARG001
+    projection=None,
+    **kwargs,
 ):
     r"""
     Plot lines, polygons, and symbols in 3-D.
@@ -74,13 +86,14 @@ def plot3d(
     polygon outline is drawn or not. If a symbol is selected, ``fill`` and
     ``pen`` determine the fill and outline/no outline, respectively.
 
-    Full option list at :gmt-docs:`plot3d.html`
+    Full GMT docs at :gmt-docs:`plot3d.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
-    data : str or {table-like}
+    data
         Either a data file name, a 2-D {table-classes}.
         Optionally, use parameter ``incols`` to specify which columns are x, y,
         z, fill, and size, respectively.
@@ -90,6 +103,8 @@ def plot3d(
     size : 1-D array
         The size of the data points in units specified in ``style``.
         Only valid if using ``x``/``y``/``z``.
+    symbol : 1-D array
+        The symbols of the data points. Only valid if using ``x``/``y``.
     direction : list of two 1-D arrays
         If plotting vectors (using ``style="V"`` or ``style="v"``), then
         should be a list of two 1-D arrays with the vector directions. These
@@ -99,18 +114,31 @@ def plot3d(
     zscale/zsize : float or str
         Set z-axis scaling or z-axis size.
     {region}
-    straight_line : bool or str
-        [**m**\|\ **p**\|\ **x**\|\ **y**].
-        By default, geographic line segments are drawn as great circle
-        arcs. To draw them as straight lines, use ``straight_line``.
-        Alternatively, add **m** to draw the line by first following a
-        meridian, then a parallel. Or append **p** to start following a
-        parallel, then a meridian. (This can be practical to draw a line
-        along parallels, for example). For Cartesian data, points are
-        simply connected, unless you append **x** or **y** to draw
-        stair-case curves that whose first move is along *x* or *y*,
-        respectively. **Note**: The ``straight_line`` parameter requires
-        constant *z*-coordinates.
+    straight_line
+        By default, line segments are drawn as straight lines in the Cartesian and polar
+        coordinate systems, and as great circle arcs (by resampling coarse input data
+        along such arcs) in the geographic coordinate system. The ``straight_line``
+        parameter can control the drawing of line segments. Valid values are:
+
+        - ``True``: Draw line segments as straight lines in geographic coordinate
+          systems.
+        - ``"x"``: Draw line segments by first along *x*, then along *y*.
+        - ``"y"``: Draw line segments by first along *y*, then along *x*.
+
+        Here, *x* and *y* have different meanings depending on the coordinate system:
+
+        - **Cartesian** coordinate system: *x* and *y* are the X- and Y-axes.
+        - **Polar** coordinate system: *x* and *y* are theta and radius.
+        - **Geographic** coordinate system: *x* and *y* are parallels and meridians.
+
+        **NOTE**: The ``straight_line`` parameter requires constant *z*-coordinates.
+
+        .. attention::
+
+            There exits a bug in GMT<=6.5.0 that, in geographic coordinate systems, the
+            meaning of *x* and *y* is reversed, i.e., *x* means meridians and *y* means
+            parallels. The bug is fixed by upstream
+            `PR #8648 <https://github.com/GenericMappingTools/gmt/pull/8648>`__.
     {frame}
     {cmap}
     offset : str
@@ -120,7 +148,7 @@ def plot3d(
     {fill}
         *fill* can be a 1-D array, but it is only valid if using ``x``/``y``
         and ``cmap=True`` is also required.
-    intensity : float or bool or 1-D array
+    intensity : float, bool, or 1-D array
         Provide an *intensity* value (nominally in the -1 to +1 range) to
         modulate the fill color by simulating illumination. If using
         ``intensity=True``, we will instead read *intensity* from the first
@@ -180,66 +208,66 @@ def plot3d(
         ``x``/``y``/``z``.
     {wrap}
     """
-    # pylint: disable=too-many-locals
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
+    # parameter.
+    self._activate_figure()
 
-    kind = data_kind(data, x, y, z)
+    kind = data_kind(data)
+    if kind == "empty":  # Data is given via a series of vectors.
+        data = {"x": x, "y": y, "z": z}
+        # Parameters for vector styles
+        if (
+            isinstance(kwargs.get("S"), str)
+            and len(kwargs["S"]) >= 1
+            and kwargs["S"][0] in "vV"
+            and is_nonstr_iter(direction)
+        ):
+            data.update({"x2": direction[0], "y2": direction[1]})
+        # Fill
+        if is_nonstr_iter(kwargs.get("G")):
+            data["fill"] = kwargs.pop("G")
+        # Size
+        if is_nonstr_iter(size):
+            data["size"] = size
+        # Intensity and transparency
+        for flag, name in [("I", "intensity"), ("t", "transparency")]:
+            if is_nonstr_iter(kwargs.get(flag)):
+                data[name] = kwargs[flag]
+                kwargs[flag] = ""
+        # Symbol must be at the last column
+        if is_nonstr_iter(symbol):
+            if "S" not in kwargs:
+                kwargs["S"] = True
+            data["symbol"] = symbol
+    else:
+        if any(v is not None for v in (x, y, z)):
+            msg = "Too much data. Use either data or x/y/z."
+            raise GMTInvalidInput(msg)
 
-    extra_arrays = []
-    if kwargs.get("S") is not None and kwargs["S"][0] in "vV" and direction is not None:
-        extra_arrays.extend(direction)
-    elif (
-        kwargs.get("S") is None
-        and kind == "geojson"
-        and data.geom_type.isin(["Point", "MultiPoint"]).all()
-    ):  # checking if the geometry of a geoDataFrame is Point or MultiPoint
-        kwargs["S"] = "u0.2c"
-    elif kwargs.get("S") is None and kind == "file" and str(data).endswith(".gmt"):
-        # checking that the data is a file path to set default style
-        try:
-            with open(which(data), mode="r", encoding="utf8") as file:
-                line = file.readline()
-            if "@GMULTIPOINT" in line or "@GPOINT" in line:
-                # if the file is gmt style and geometry is set to Point
-                kwargs["S"] = "u0.2c"
-        except FileNotFoundError:
-            pass
-    if kwargs.get("G") is not None and is_nonstr_iter(kwargs["G"]):
-        if kind != "vectors":
-            raise GMTInvalidInput(
-                "Can't use arrays for fill if data is matrix or file."
-            )
-        extra_arrays.append(kwargs["G"])
-        del kwargs["G"]
-    if size is not None:
-        if kind != "vectors":
-            raise GMTInvalidInput(
-                "Can't use arrays for 'size' if data is a matrix or a file."
-            )
-        extra_arrays.append(size)
-
-    for flag in ["I", "t"]:
-        if kwargs.get(flag) is not None and is_nonstr_iter(kwargs[flag]):
-            if kind != "vectors":
-                raise GMTInvalidInput(
-                    f"Can't use arrays for {plot3d.aliases[flag]} if data is matrix or file."
+        for name, value in [
+            ("direction", direction),
+            ("fill", kwargs.get("G")),
+            ("size", size),
+            ("intensity", kwargs.get("I")),
+            ("transparency", kwargs.get("t")),
+            ("symbol", symbol),
+        ]:
+            if is_nonstr_iter(value):
+                raise GMTTypeError(
+                    type(value),
+                    reason=f"Parameter {name!r} can't be a 1-D array if 'data' is used.",
                 )
-            extra_arrays.append(kwargs[flag])
-            kwargs[flag] = ""
+
+    # Set the default style if data has a geometry of Point or MultiPoint
+    if kwargs.get("S") is None and _data_geometry_is_point(data, kind):
+        kwargs["S"] = "u0.2c"
+
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
 
     with Session() as lib:
-        # Choose how data will be passed in to the module
-        file_context = lib.virtualfile_from_data(
-            check_kind="vector",
-            data=data,
-            x=x,
-            y=y,
-            z=z,
-            extra_arrays=extra_arrays,
-            required_z=True,
-        )
-
-        with file_context as fname:
+        with lib.virtualfile_in(check_kind="vector", data=data, mincols=3) as vintbl:
             lib.call_module(
-                module="plot3d", args=build_arg_string(kwargs, infile=fname)
+                module="plot3d", args=build_arg_list(aliasdict, infile=vintbl)
             )

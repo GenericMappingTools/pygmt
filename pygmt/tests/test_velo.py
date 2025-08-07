@@ -1,10 +1,11 @@
 """
-Tests velo.
+Test Figure.velo.
 """
+
 import pandas as pd
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 
 
 @pytest.fixture(scope="module", name="dataframe")
@@ -46,7 +47,7 @@ def test_velo_numpy_array_text_column(dataframe):
     Check that velo fails when plotting a numpy.ndarray with a text column.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.velo(
             data=dataframe.to_numpy(),
             spec="e0.2/0.39/18",
@@ -63,6 +64,7 @@ def test_velo_without_spec(dataframe):
         fig.velo(data=dataframe)
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_velo_pandas_dataframe(dataframe):
     """

@@ -1,12 +1,12 @@
 """
 Datetime inputs
----------------
+===============
 
 Datetime inputs of the following types are supported in PyGMT:
 
 - :class:`numpy.datetime64`
 - :class:`pandas.DatetimeIndex`
-- :class:`xarray.DataArray`: datetimes included in a *xarray.DataArray*
+- :class:`xarray.DataArray`: datetimes included in an *xarray.DataArray*
 - raw datetime strings in
   `ISO 8601 format <https://en.wikipedia.org/wiki/ISO_8601>`__ (e.g.
   ``"YYYY-MM-DD"``, ``"YYYY-MM-DDTHH"``, and ``"YYYY-MM-DDTHH:MM:SS"``)
@@ -21,6 +21,7 @@ in the form [*date_min*, *date_max*, *ymin*, *ymax*]. Here *date_min* and
 
 """
 
+# %%
 import datetime
 
 import numpy as np
@@ -30,8 +31,8 @@ import xarray as xr
 
 fig = pygmt.Figure()
 
-# create a basemap with limits of 2010-01-01 to 2020-06-01 on the x axis and
-# 0 to 10 on the y axis
+# create a basemap with limits of 2010-01-01 to 2020-06-01 on the x-axis and
+# 0 to 10 on the y-axis
 fig.basemap(
     projection="X15c/5c",
     region=[datetime.date(2010, 1, 1), datetime.date(2020, 6, 1), 0, 10],
@@ -39,7 +40,9 @@ fig.basemap(
 )
 
 # numpy.datetime64 types
-x = np.array(["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype="datetime64")
+x = np.array(
+    ["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype=np.datetime64
+)
 y = [1, 2, 3]
 fig.plot(x=x, y=y, style="c0.4c", pen="1p", fill="red3")
 

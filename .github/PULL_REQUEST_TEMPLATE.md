@@ -8,6 +8,10 @@
 Fixes #
 
 
+<!-- If significant changes to the documentation are made, please insert the link to the documentation page after it has been built. -->
+**Preview**:
+
+
 **Reminders**
 
 - [ ] Run `make format` and `make check` to make sure the code follows the style guide.
@@ -16,12 +20,10 @@ Fixes #
 - [ ] Write detailed docstrings for all functions/methods.
 - [ ] If wrapping a new module, open a 'Wrap new GMT module' issue and submit reasonably-sized PRs.
 - [ ] If adding new functionality, add an example to docstrings or tutorials.
-- [ ] Use underscores (not hyphens) in names of Python files and directories.
 
 **Slash Commands**
 
 You can write slash commands (`/command`) in the first line of a comment to perform
-specific operations. Supported slash commands are:
+specific operations. Supported slash command is:
 
 - `/format`: automatically format and lint the code
-- `/test-gmt-dev`: run full tests on the latest GMT development version

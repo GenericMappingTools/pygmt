@@ -1,22 +1,17 @@
 """
-binstats - Bin spatial data and determine statistics per bin
+binstats - Bin spatial data and determine statistics per bin.
 """
+
+import xarray as xr
+from pygmt._typing import PathLike, TableLike
 from pygmt.clib import Session
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
 @use_alias(
     C="statistic",
     E="empty",
-    G="outgrid",
     I="spacing",
     N="normalize",
     R="region",
@@ -31,7 +26,9 @@ from pygmt.io import load_dataarray
     r="registration",
 )
 @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
-def binstats(data, **kwargs):
+def binstats(
+    data: PathLike | TableLike, outgrid: PathLike | None = None, **kwargs
+) -> xr.DataArray | None:
     r"""
     Bin spatial data and determine statistics per bin.
 
@@ -43,47 +40,43 @@ def binstats(data, **kwargs):
     presented as is or may be normalized by the circle area to
     perhaps give density estimates.
 
-    Full option list at :gmt-docs:`gmtbinstats.html`
+    Full GMT docs at :gmt-docs:`gmtbinstats.html`.
 
     {aliases}
 
     Parameters
     ----------
-    data : str or {table-like}
-        A file name of an ASCII data table or a 2-D
-        {table-classes}.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    data
+        A file name of an ASCII data table or a 2-D {table-classes}.
+    {outgrid}
     statistic : str
         **a**\|\ **d**\|\ **g**\|\ **i**\|\ **l**\|\ **L**\|\ **m**\|\ **n**\
         \|\ **o**\|\ **p**\|\ **q**\ [*quant*]\|\ **r**\|\ **s**\|\ **u**\
         \|\ **U**\|\ **z**.
         Choose the statistic that will be computed per node based on the
-        points that are within *radius* distance of the node.  Select one of:
+        points that are within *radius* distance of the node. Select one of:
 
-        - **a** for mean (average)
-        - **d** for median absolute deviation (MAD)
-        - **g** for full (max-min) range
-        - **i** for 25-75% interquartile range
-        - **l** for minimum (low)
-        - **L** for minimum of positive values only
-        - **m** for median
-        - **n** the number of values
-        - **o** for LMS scale
-        - **p** for mode (maximum likelihood)
-        - **q** for selected quantile (append desired quantile in
-          0-100% range [50])
-        - **r** for the r.m.s.
-        - **s** for standard deviation
-        - **u** for maximum (upper)
-        - **U** for maximum of negative values only
-        - **z** for the sum
-    empty : float or int
+        - **a**: mean (average)
+        - **d**: median absolute deviation (MAD)
+        - **g**: full (max-min) range
+        - **i**: 25-75% interquartile range
+        - **l**: minimum (low)
+        - **L**: minimum of positive values only
+        - **m**: median
+        - **n**: number of values
+        - **o**: LMS scale
+        - **p**: mode (maximum likelihood)
+        - **q**: selected quantile (append desired quantile in 0-100% range [50])
+        - **r**: root mean square (RMS)
+        - **s**: standard deviation
+        - **u**: maximum (upper)
+        - **U**: maximum of negative values only
+        - **z**: sum
+    empty : float
         Set the value assigned to empty nodes [Default is NaN].
     normalize : bool
         Normalize the resulting grid values by the area represented by the
-        search *radius* [no normalization].
+        search *radius* [Default is no normalization].
     search_radius : float or str
         Set the *search_radius* that determines which data points are
         considered close to a node. Append the distance unit.
@@ -120,21 +113,20 @@ def binstats(data, **kwargs):
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
     """
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
-            with file_context as infile:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="binstats", args=build_arg_string(kwargs, infile=infile)
-                )
-
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="vector", data=data) as vintbl,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            kwargs["G"] = voutgrd
+            lib.call_module(
+                module="binstats", args=build_arg_list(kwargs, infile=vintbl)
+            )
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

@@ -1,9 +1,12 @@
 """
-colorbar - Plot a colorbar.
+colorbar - Plot gray scale or color scale bar.
 """
 
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+
+__doctest_skip__ = ["colorbar"]
 
 
 @fmt_docstring
@@ -14,8 +17,8 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     F="box",
     G="truncate",
     I="shading",
-    J="projection",
     L="equalsize",
+    Q="log",
     R="region",
     V="verbose",
     W="scale",
@@ -27,9 +30,9 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 @kwargs_to_strings(
     R="sequence", G="sequence", I="sequence", c="sequence_comma", p="sequence"
 )
-def colorbar(self, **kwargs):
+def colorbar(self, projection=None, **kwargs):
     r"""
-    Plot colorbars on figures.
+    Plot gray scale or color scale bar.
 
     Both horizontal and vertical colorbars are supported. For CPTs with
     gradational colors (i.e., the lower and upper boundary of an interval
@@ -39,9 +42,10 @@ def colorbar(self, **kwargs):
     linear scale, all be equal size, or by providing a file with individual
     tile widths.
 
-    Full option list at :gmt-docs:`colorbar.html`
+    Full GMT docs at :gmt-docs:`colorbar.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -83,8 +87,8 @@ def colorbar(self, **kwargs):
         rectangular borders instead, with a 6p corner radius. You can override
         this radius by appending another value. Finally, append **+s** to draw
         an offset background shaded region. Here, *dx/dy* indicates the shift
-        relative to the foreground frame [4p/-4p] and shade sets the fill
-        style to use for shading [Default is ``"gray50"``].
+        relative to the foreground frame [Default is ``"4p/-4p"``] and shade
+        sets the fill style to use for shading [Default is ``"gray50"``].
     truncate : list or str
         *zlo*/*zhi*.
         Truncate the incoming CPT so that the lowest and highest z-levels are
@@ -93,13 +97,13 @@ def colorbar(self, **kwargs):
     scale : float
         Multiply all z-values in the CPT by the provided scale. By default,
         the CPT is used as is.
-    shading : str or list or bool
+    shading : str, list, or bool
         Add illumination effects. Passing a single numerical value sets the
         range of intensities from -value to +value. If not specified, 1 is
         used. Alternatively, set ``shading=[low, high]`` to specify an
         asymmetric intensity range from *low* to *high*. [Default is no
         illumination].
-    equalsize : int or float or str
+    equalsize : float or str
         [**i**]\ [*gap*].
         Equal-sized color rectangles. By default, the rectangles are scaled
         according to the z-range in the CPT (see also ``zfile``). If *gap* is
@@ -108,6 +112,10 @@ def colorbar(self, **kwargs):
         **i** is prepended the interval range is annotated instead. If
         ``shading`` is used each rectangle will have its constant color
         modified by the specified intensity.
+    log : bool
+        Select logarithmic scale and power of ten annotations. All z-values
+        in the CPT will be converted to p = log10(z) and only integer p-values
+        will be annotated using the 10^p format [Default is linear scale].
     zfile : str
         File with colorbar-width per color entry. By default, the width of the
         entry is scaled to the color range, i.e., z = 0-100 gives twice the
@@ -119,7 +127,28 @@ def colorbar(self, **kwargs):
     {panel}
     {perspective}
     {transparency}
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # Create a new figure instance with pygmt.Figure()
+    >>> fig = pygmt.Figure()
+    >>> # Create a basemap
+    >>> fig.basemap(region=[0, 10, 0, 3], projection="X10c/3c", frame=True)
+    >>> # Call the colorbar method for the plot
+    >>> fig.colorbar(
+    ...     # Set cmap to the "roma" CPT
+    ...     cmap="roma",
+    ...     # Label the x-axis "Velocity" and the y-axis "m/s"
+    ...     frame=["x+lVelocity", "y+lm/s"],
+    ... )
+    >>> # Show the plot
+    >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    self._activate_figure()
+
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
     with Session() as lib:
-        lib.call_module(module="colorbar", args=build_arg_string(kwargs))
+        lib.call_module(module="colorbar", args=build_arg_list(aliasdict))

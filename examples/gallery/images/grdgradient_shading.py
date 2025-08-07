@@ -1,13 +1,14 @@
 """
 Calculating grid gradient with custom ``azimuth`` and ``normalize`` parameters
-------------------------------------------------------------------------------
-The :func:`pygmt.grdgradient` function calculates the gradient of a grid file.
-As input, :func:`pygmt.grdgradient` gets a :class:`xarray.DataArray` object or
-a path string to a grid file. It then calculates the respective gradient and
-returns an :class:`xarray.DataArray` object. The example below sets two main
-parameters:
+==============================================================================
 
-- ``azimuth``: to set the illumination light source direction (0° is North,
+The :func:`pygmt.grdgradient` function calculates the gradient of a grid file.
+As input, :func:`pygmt.grdgradient` gets an :class:`xarray.DataArray` object
+or a path string to a grid file. It then calculates the respective gradient
+and returns an :class:`xarray.DataArray` object. The example below sets two
+main parameters:
+
+- ``azimuth`` to set the illumination light source direction (0° is North,
   90° is East, 180° is South, 270° is West).
 - ``normalize`` to enhance the three-dimensional sense of the topography.
 
@@ -17,6 +18,7 @@ according to the positive/negative of the azimuthal gradient and the amplitude
 of each point.
 """
 
+# %%
 import pygmt
 
 # Load the 3 arc-minutes global relief grid in the target area around Caucasus
@@ -57,6 +59,6 @@ with fig.subplot(
                 panel=True,
             )
 
-fig.colorbar(position="JBC+w10c/0.25c+h", frame="a2000f500+lElevation (m)")
+fig.colorbar(position="JBC+w10c/0.25c+h", frame="xa2000f500+lElevation (m)")
 
 fig.show()

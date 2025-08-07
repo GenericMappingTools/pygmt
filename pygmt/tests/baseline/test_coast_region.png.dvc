@@ -1,4 +1,5 @@
 outs:
-- md5: 211a3f5d1a3f84db2ca592f501d9066b
-  size: 77711
+- md5: 86bee0e5c92b6d5813cb8fac55ec6593
+  size: 77964
   path: test_coast_region.png
+  hash: md5

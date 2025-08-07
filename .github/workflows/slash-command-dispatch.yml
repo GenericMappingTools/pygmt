@@ -1,27 +1,28 @@
+# Support slash commands in pull requests
+#
+# Currently, only one slash command `format` is supported.
+#
 name: Slash Command Dispatch
+
 on:
   issue_comment:
     types: [created]
     # Add "edited" type for test purposes. Where possible, avoid using to prevent processing unnecessary events.
     # types: [created, edited]
+
+permissions:
+  issues: write
+
 jobs:
   slashCommandDispatch:
     if: ${{ github.event.issue.pull_request }}
     runs-on: ubuntu-latest
     steps:
-      # Generate token from GenericMappingTools bot
-      - uses: tibdex/github-app-token@v1
-        id: generate-token
-        with:
-          app_id: ${{ secrets.APP_ID }}
-          private_key: ${{ secrets.APP_PRIVATE_KEY }}
-
       - name: Slash Command Dispatch
-        uses: peter-evans/slash-command-dispatch@v3
+        uses: peter-evans/slash-command-dispatch@13bc09769d122a64f75aa5037256f6f2d78be8c4 # v4.0.0
         with:
-          token: ${{ steps.generate-token.outputs.token }}
+          token: ${{ github.token }}
           commands: |
             format
-            test-gmt-dev
           issue-type: pull-request
           permission: none

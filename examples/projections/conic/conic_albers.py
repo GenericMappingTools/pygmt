@@ -1,6 +1,6 @@
 r"""
-Albers Conic Equal Area
-=======================
+Albers conic equal-area projection
+==================================
 
 This projection, developed by Heinrich C. Albers in 1805, is predominantly used
 to map regions of large east-west extent, in particular the United States. It
@@ -19,11 +19,17 @@ The projection is set with **b** or **B**. The projection center is set by
 *lon0/lat0* and two standard parallels for the map are set with *lat1/lat2*.
 The figure size is set with *scale* or *width*.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()
 # Use the ISO country code for Brazil and add a padding of 2 degrees (+R2)
 fig.coast(
-    projection="B-55/-15/-25/0/12c", region="BR+R2", frame="afg", land="gray", borders=1
+    region="BR+R2",
+    projection="B-55/-15/-25/0/12c",
+    frame="afg",
+    land="seagreen",
+    water="gray90",
 )
 fig.show()
