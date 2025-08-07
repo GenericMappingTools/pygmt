@@ -6,6 +6,7 @@ from collections.abc import Sequence
 
 import xarray as xr
 from pygmt._typing import PathLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
@@ -13,7 +14,6 @@ from pygmt.helpers import (
     deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
-    sequence_join,
     use_alias,
 )
 
@@ -23,9 +23,7 @@ __doctest_skip__ = ["grdclip"]
 # TODO(PyGMT>=0.19.0): Remove the deprecated "new" parameter.
 @fmt_docstring
 @deprecate_parameter("new", "replace", "v0.15.0", remove_version="v0.19.0")
-@use_alias(
-    R="region", Sa="above-", Sb="below-", Si="between-", Sr="replace-", V="verbose"
-)
+@use_alias(R="region", V="verbose")
 @kwargs_to_strings(R="sequence")
 def grdclip(
     grid: PathLike | xr.DataArray,
@@ -54,6 +52,10 @@ def grdclip(
     Full GMT docs at :gmt-docs:`grdclip.html`.
 
     {aliases}
+       - Sa=above
+       - Sb=below
+       - Si=between
+       - Sr=replace
 
     Parameters
     ----------
@@ -109,19 +111,20 @@ def grdclip(
     if all(v is None for v in (above, below, between, replace)):
         raise GMTParameterError(require_any={"above", "below", "between", "replace"})
 
-    # Parse the -S option.
-    kwargs["Sa"] = sequence_join(above, size=2, name="above")
-    kwargs["Sb"] = sequence_join(below, size=2, name="below")
-    kwargs["Si"] = sequence_join(between, size=3, ndim=2, name="between")
-    kwargs["Sr"] = sequence_join(replace, size=2, ndim=2, name="replace")
+    aliasdict = AliasSystem(
+        Sa=Alias(above, name="above", sep="/", size=2),
+        Sb=Alias(below, name="below", sep="/", size=2),
+        Si=Alias(between, name="between", sep="/", size=3, ndim=2),
+        Sr=Alias(replace, name="replace", sep="/", size=2, ndim=2),
+    ).merge(kwargs)
 
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            kwargs["G"] = voutgrd
+            aliasdict["G"] = voutgrd
             lib.call_module(
-                module="grdclip", args=build_arg_list(kwargs, infile=vingrd)
+                module="grdclip", args=build_arg_list(aliasdict, infile=vingrd)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

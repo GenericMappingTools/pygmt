@@ -7,6 +7,7 @@ import warnings
 import numpy as np
 import xarray as xr
 from pygmt._typing import PathLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
@@ -72,52 +73,11 @@ def _validate_params(
         )
 
 
-def _parse_fill_mode(
-    constantfill=None, gridfill=None, neighborfill=None, splinefill=None
-) -> str | None:
-    """
-    Parse the fill parameters and return the appropriate string for the -A option.
-
-    >>> import numpy as np
-    >>> import xarray as xr
-    >>> _parse_fill_mode(constantfill=20.0)
-    'c20.0'
-    >>> _parse_fill_mode(gridfill="bggrid.nc")
-    'g'
-    >>> _parse_fill_mode(gridfill=xr.DataArray(np.zeros((10, 10))))
-    'g'
-    >>> _parse_fill_mode(neighborfill=20)
-    'n20'
-    >>> _parse_fill_mode(neighborfill=True)
-    'n'
-    >>> _parse_fill_mode(splinefill=0.5)
-    's0.5'
-    >>> _parse_fill_mode(splinefill=True)
-    's'
-    """
-    if constantfill is not None:
-        return f"c{constantfill}"
-    if gridfill is not None:
-        return "g"  # Append grid file name later to support xarray.DataArray.
-    if neighborfill is not None and neighborfill is not False:
-        return "n" if neighborfill is True else f"n{neighborfill}"
-    if splinefill is not None and splinefill is not False:
-        return "s" if splinefill is True else f"s{splinefill}"
-    return None
-
-
 @fmt_docstring
 # TODO(PyGMT>=0.19.0): Remove the deprecated 'no_data' parameter.
 # TODO(PyGMT>=0.19.0): Remove the deprecated 'mode' parameter.
 @deprecate_parameter("no_data", "hole", "v0.15.0", remove_version="v0.19.0")
-@use_alias(
-    A="constantfill/gridfill/neighborfill/splinefill/mode-",
-    L="inquire-",
-    N="hole",
-    R="region",
-    V="verbose",
-    f="coltypes",
-)
+@use_alias(N="hole", R="region", V="verbose", f="coltypes")
 @kwargs_to_strings(R="sequence")
 def grdfill(
     grid: PathLike | xr.DataArray,
@@ -142,6 +102,11 @@ def grdfill(
     Full GMT docs at :gmt-docs:`grdfill.html`.
 
     {aliases}
+       - Ac=constantfill
+       - Ag=gridfill
+       - An=neighborfill
+       - As=splinefill
+       - L=inquire
 
     Parameters
     ----------
@@ -210,21 +175,24 @@ def grdfill(
     # Validate the fill/inquire parameters.
     _validate_params(constantfill, gridfill, neighborfill, splinefill, inquire, mode)
 
-    # Parse the fill parameters and return the appropriate string for the -A option.
-    kwargs["A"] = (
-        _parse_fill_mode(constantfill, gridfill, neighborfill, splinefill)
-        if mode is None
-        else mode
-    )
+    # _validate_params has already ensured that only one of the parameters is set.
+    aliasdict = AliasSystem(
+        A=Alias(mode, name="mode"),
+        Ac=Alias(constantfill, name="constantfill"),
+        # For grdfill, append the actual or virtual grid file name later.
+        Ag=Alias(gridfill is not None, name="gridfill"),
+        An=Alias(neighborfill, name="neighborfill"),
+        As=Alias(splinefill, name="splinefill"),
+        L=Alias(inquire, name="inquire"),
+    ).merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
             if inquire:  # Inquire mode.
-                kwargs["L"] = True
                 with lib.virtualfile_out(kind="dataset") as vouttbl:
                     lib.call_module(
                         module="grdfill",
-                        args=build_arg_list(kwargs, infile=vingrd, outfile=vouttbl),
+                        args=build_arg_list(aliasdict, infile=vingrd, outfile=vouttbl),
                     )
                     return lib.virtualfile_to_dataset(
                         vfname=vouttbl, output_type="numpy"
@@ -239,9 +207,9 @@ def grdfill(
             ):
                 if gridfill is not None:
                     # Fill by a grid. Append the actual or virtual grid file name.
-                    kwargs["A"] = f"g{vbggrd}"
-                kwargs["G"] = voutgrd
+                    aliasdict["Ag"] = vbggrd
+                aliasdict["G"] = voutgrd
                 lib.call_module(
-                    module="grdfill", args=build_arg_list(kwargs, infile=vingrd)
+                    module="grdfill", args=build_arg_list(aliasdict, infile=vingrd)
                 )
                 return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
