@@ -15,8 +15,9 @@ def scalebar(  # noqa: PLR0913
     self,
     position,
     length,
-    position_type: Literal["user", "justify", "mirror", "normalize", "plot"]
-    | None = None,
+    position_type: Literal[
+        "mapcoords", "inside", "outside", "boxcoords", "plotcoords"
+    ] = "mapcoords",
     label_alignment: Literal["left", "right", "top", "bottom"] | None = None,
     scale_position=None,
     justify: AnchorCode | None = None,
@@ -29,6 +30,24 @@ def scalebar(  # noqa: PLR0913
 ):
     """
     Add a scale bar.
+
+    Parameters
+    ----------
+    position/position_type
+        Location of the rose. The actual meaning of this parameter depends on the
+        ``position_type`` parameter.
+        - ``position_type="mapcoords"``: *position* is given as (x, y) in user
+          coordinates.
+        - ``position_type="boxcoords"``: *position* is given as (nx, ny) in normalized
+          coordinates, where (0, 0) is the lower-left corner and (1, 1) is the
+          upper-right corner of the map.
+        - ``position_type="plotcoords"``: *position* is given as (x, y) in plot
+          coordinates.
+        - ``position_type="inside"``: *position* is given as a two-character
+          justification code, meaning the anchor point of the rose is inside the map
+          bounding box.
+        - ``position_type="outside"``: *position* is given as a two-character
+          justification code, but the rose is outside the map bounding box.
 
     Parameters
     ----------
@@ -58,14 +77,14 @@ def scalebar(  # noqa: PLR0913
                 position_type,
                 name="position_type",
                 mapping={
-                    "user": "g",
-                    "justify": "j",
-                    "mirror": "J",
-                    "normalize": "n",
-                    "plot": "x",
+                    "mapcoords": "g",
+                    "inside": "j",
+                    "outside": "J",
+                    "boxcoords": "n",
+                    "plotcoords": "x",
                 },
             ),
-            Alias(position, name="position", separator="/"),
+            Alias(position, name="position", separator="/", size=2),
             Alias(length, name="length", prefix="+w"),
             Alias(
                 label_alignment,
