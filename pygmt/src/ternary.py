@@ -5,6 +5,7 @@ ternary - Plot data on ternary diagrams.
 import pandas as pd
 from packaging.version import Version
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session, __gmt_version__
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -46,6 +47,7 @@ def ternary(
     Full GMT docs at :gmt-docs:`ternary.html`.
 
     {aliases}
+       - L=alabel/blabel/clabel
 
     Parameters
     ----------
@@ -84,9 +86,12 @@ def ternary(
     self._activate_figure()
 
     # -Lalabel/blabel/clabel. '-' means skipping the label.
-    labels = (alabel, blabel, clabel)
-    if any(v is not None for v in labels):
-        kwargs["L"] = "/".join(str(v) if v is not None else "-" for v in labels)
+    _labels = [v if v is not None else "-" for v in (alabel, blabel, clabel)]
+    labels = _labels if any(v != "-" for v in _labels) else None
+
+    aliasdict = AliasSystem(
+        L=Alias(labels, name="alabel/blabel/clabel", sep="/", size=3),
+    ).merge(kwargs)
 
     # TODO(GMT>=6.5.0): Remove the patch for upstream bug fixed in GMT 6.5.0.
     # See https://github.com/GenericMappingTools/pygmt/pull/2138
@@ -97,5 +102,5 @@ def ternary(
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
             lib.call_module(
                 module="ternary",
-                args=build_arg_list(kwargs, infile=vintbl),
+                args=build_arg_list(aliasdict, infile=vintbl),
             )

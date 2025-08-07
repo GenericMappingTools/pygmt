@@ -8,7 +8,7 @@ import numpy as np
 import pytest
 from pygmt import clib
 from pygmt.clib.session import DTYPES_NUMERIC
-from pygmt.exceptions import GMTCLibError, GMTInvalidInput
+from pygmt.exceptions import GMTCLibError, GMTValueError
 from pygmt.helpers import GMTTempFile
 from pygmt.tests.test_clib import mock
 
@@ -104,6 +104,6 @@ def test_open_virtualfile_bad_direction():
             "GMT_IS_GRID",  # The invalid direction argument
             0,
         )
-        with pytest.raises(GMTInvalidInput):
+        with pytest.raises(GMTValueError):
             with lib.open_virtualfile(*vfargs):
                 pass

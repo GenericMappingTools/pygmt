@@ -4,6 +4,7 @@ coast - Plot continents, countries, shorelines, rivers, and borders.
 
 from typing import Literal
 
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -13,7 +14,6 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.src._common import _parse_coastline_resolution
 
 __doctest_skip__ = ["coast"]
 
@@ -27,7 +27,6 @@ __doctest_skip__ = ["coast"]
     F="box",
     G="land",
     I="rivers",
-    J="projection",
     L="map_scale",
     N="borders",
     R="region",
@@ -41,6 +40,7 @@ __doctest_skip__ = ["coast"]
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def coast(
     self,
+    projection=None,
     resolution: Literal[
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
@@ -66,6 +66,8 @@ def coast(
     Full GMT docs at :gmt-docs:`coast.html`.
 
     {aliases}
+       - D=resolution
+       - J=projection
 
     Parameters
     ----------
@@ -154,7 +156,7 @@ def coast(
 
     water : str
         Select filling "wet" areas.
-    shorelines : int, str, or list
+    shorelines : bool, int, str, or list
         [*level*\ /]\ *pen*.
         Draw shorelines [Default is no shorelines]. Append pen attributes
         [Default is ``"0.25p,black,solid"``] which apply to all four levels.
@@ -167,7 +169,7 @@ def coast(
         *code1,code2,…*\ [**+g**\ *fill*\ ][**+p**\ *pen*\ ][**+z**].
         Select painting country polygons from the `Digital Chart of the World
         <https://en.wikipedia.org/wiki/Digital_Chart_of_the_World>`__.
-        Append one or more comma-separated countries using the 2-character
+        Append one or more comma-separated countries using the 2-letter
         `ISO 3166-1 alpha-2 convention
         <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>`__.
         To select a state of a country (if available), append .\ *state*,
@@ -211,7 +213,21 @@ def coast(
         )
         raise GMTInvalidInput(msg)
 
-    kwargs["D"] = kwargs.get("D", _parse_coastline_resolution(resolution))
+    aliasdict = AliasSystem(
+        D=Alias(
+            resolution,
+            name="resolution",
+            mapping={
+                "auto": "a",
+                "full": "f",
+                "high": "h",
+                "intermediate": "i",
+                "low": "l",
+                "crude": "c",
+            },
+        ),
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
 
     with Session() as lib:
-        lib.call_module(module="coast", args=build_arg_list(kwargs))
+        lib.call_module(module="coast", args=build_arg_list(aliasdict))

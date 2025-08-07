@@ -1,5 +1,63 @@
 # Changelog
 
+## Release v0.16.0 (2025/06/18)
+
+[![Digital Object Identifier for PyGMT v0.16.0](https://zenodo.org/badge/DOI/10.5281/zenodo.15628725.svg)](https://doi.org/10.5281/zenodo.15628725)
+
+### Highlights
+
+* 🎉 **Sixteenth minor release of PyGMT** 🎉
+* Implement gmt xarray BackendEntrypoint to load raster files via GMT ([#3919](https://github.com/GenericMappingTools/pygmt/pull/3919), [#3932](https://github.com/GenericMappingTools/pygmt/pull/3932))
+* Remove the dependency of netCDF4 ([#3643](https://github.com/GenericMappingTools/pygmt/pull/3643))
+
+### Enhancements
+
+* pygmt.grdclip: Parameters 'between' and 'replace'  accept a 2-D sequence ([#3883](https://github.com/GenericMappingTools/pygmt/pull/3883))
+* pygmt.grdlandmask: Improve the checking of parameters 'maskvalues'/'bordervalues' ([#3963](https://github.com/GenericMappingTools/pygmt/pull/3963))
+* Figure.coast/pygmt.select/pygmt.grdlandmask: Use long names ("crude"/"low"/"intermediate"/"high"/"full") for the 'resolution' parameter ([#3013](https://github.com/GenericMappingTools/pygmt/pull/3013))
+* Add a helper function sequence_join to join a sequence by a separator ([#3961](https://github.com/GenericMappingTools/pygmt/pull/3961))
+* Improve decorators @use_alias/@fmt_docstrings to list non-aliased aliases ([#3965](https://github.com/GenericMappingTools/pygmt/pull/3965))
+* Store first tile as source encoding for tiled grids ([#3950](https://github.com/GenericMappingTools/pygmt/pull/3950))
+
+### Deprecations
+
+* Figure: Deprecate the private _preprocess method (will be removed in v0.18.0) ([#3948](https://github.com/GenericMappingTools/pygmt/pull/3948))
+* Deprecate pygmt.io.load_dataarray, use xarray.load_dataarray instead ([#3922](https://github.com/GenericMappingTools/pygmt/pull/3922))
+* Session.virtualfile_in: Deprecate the parameter 'extra_arrays'. Prepare and pass a dictionary of arrays instead (will be removed in v0.20.0) ([#3823](https://github.com/GenericMappingTools/pygmt/pull/3823))
+* Session.virtualfile_in: Deprecate parameter 'required_z'. Use 'mincols' instead (will be removed in v0.20.0) ([#3369](https://github.com/GenericMappingTools/pygmt/pull/3369))
+* Session.virtualfile_in: Deprecate parameter 'required_data' to 'required' (will be removed in v0.20.0) ([#3931](https://github.com/GenericMappingTools/pygmt/pull/3931))
+* Session.virtualfile_from_vectors: Remove the deprecated '*args' parameter [deprecated since v0.14.0] ([#3893](https://github.com/GenericMappingTools/pygmt/pull/3893))
+* SPEC 0: Bump minimum supported versions to NumPy 1.26, xarray>=2023.07 and pandas>=2.1 ([#3916](https://github.com/GenericMappingTools/pygmt/pull/3916), [#3918](https://github.com/GenericMappingTools/pygmt/pull/3918), [#3895](https://github.com/GenericMappingTools/pygmt/pull/3895))
+* Bump minimum supported version to pyarrow>=16, packaging>=24.2, geopandas>=1.0, and contextily>=1.5 ([#3917](https://github.com/GenericMappingTools/pygmt/pull/3917), [#3933](https://github.com/GenericMappingTools/pygmt/pull/3933), [#3908](https://github.com/GenericMappingTools/pygmt/pull/3908), [#3912](https://github.com/GenericMappingTools/pygmt/pull/3912))
+
+### Bug Fixes
+
+* pygmt.select: Parameter 'mask' accepts a sequence of strings ([#3956](https://github.com/GenericMappingTools/pygmt/pull/3956))
+
+### Documentation
+
+* GMTDataArrayAccessor: Improve the documentation to clarify how the accessor works ([#3955](https://github.com/GenericMappingTools/pygmt/pull/3955))
+
+### Maintenance
+
+* Update the AUTHORSHIP and Maintainers' Guides to reflect co-author contributions ([#3904](https://github.com/GenericMappingTools/pygmt/pull/3904))
+* Set registration and gtype properly as enums on gmt accessor init ([#3942](https://github.com/GenericMappingTools/pygmt/pull/3942))
+* Set license and license-files key in project metadata to follow PEP639 ([#3699](https://github.com/GenericMappingTools/pygmt/pull/3699))
+* CI: Test NumPy 2.3 in the GMT Tests workflow ([#3968](https://github.com/GenericMappingTools/pygmt/pull/3968))
+* Bump to ruff>=0.12.0 and fix violations ([#3980](https://github.com/GenericMappingTools/pygmt/pull/3980))
+
+**Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.15.0...v0.16.0>
+
+### Contributors
+
+* [Dongdong Tian](https://github.com/seisman)
+* [Wei Ji Leong](https://github.com/weiji14)
+* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
+* [Michael Grund](https://github.com/michaelgrund)
+* [Federico Esteban](https://github.com/Esteban82)
+
+---
+
 ## Release v0.15.0 (2025/03/31)
 
 [![Digital Object Identifier for PyGMT v0.15.0](https://zenodo.org/badge/DOI/10.5281/zenodo.15071586.svg)](https://doi.org/10.5281/zenodo.15071586)
@@ -1254,7 +1312,7 @@
 * [Max Jones](https://github.com/maxrjones)
 * [Will Schlitzer](https://github.com/willschlitzer)
 * [Jiayuan Yao](https://github.com/core-man)
-* [Abhishek Anant](https://github.com/itsabhianant)
+* [Abhishek Anant](https://github.com/noturshek)
 * [Claire Klima](https://github.com/cklima616)
 * [Megan Munzek](https://github.com/munzekm)
 * [Michael Neumann](https://github.com/MichaeINeumann)

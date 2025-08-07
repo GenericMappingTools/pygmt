@@ -5,8 +5,9 @@ plot - Plot lines, polygons, and symbols in 2-D.
 from typing import Literal
 
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
@@ -28,7 +29,6 @@ from pygmt.src._common import _data_geometry_is_point
     F="connection",
     G="fill",
     I="intensity",
-    J="projection",
     L="close",
     N="no_clip",
     R="region",
@@ -60,6 +60,7 @@ def plot(  # noqa: PLR0912
     symbol=None,
     direction=None,
     straight_line: bool | Literal["x", "y"] = False,  # noqa: ARG001
+    projection=None,
     **kwargs,
 ):
     r"""
@@ -86,6 +87,7 @@ def plot(  # noqa: PLR0912
     Full GMT docs at :gmt-docs:`plot.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -272,13 +274,21 @@ def plot(  # noqa: PLR0912
             ("symbol", symbol),
         ]:
             if is_nonstr_iter(value):
-                msg = f"'{name}' can't be a 1-D array if 'data' is used."
-                raise GMTInvalidInput(msg)
+                raise GMTTypeError(
+                    type(value),
+                    reason=f"Parameter {name!r} can't be a 1-D array if 'data' is used.",
+                )
 
     # Set the default style if data has a geometry of Point or MultiPoint
     if kwargs.get("S") is None and _data_geometry_is_point(data, kind):
         kwargs["S"] = "s0.2c"
 
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
+
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
-            lib.call_module(module="plot", args=build_arg_list(kwargs, infile=vintbl))
+            lib.call_module(
+                module="plot", args=build_arg_list(aliasdict, infile=vintbl)
+            )

@@ -4,8 +4,9 @@ subplot - Manage figure subplot configuration and selection.
 
 import contextlib
 
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
@@ -22,7 +23,6 @@ from pygmt.helpers import (
     A="autolabel",
     B="frame",
     C="clearance",
-    J="projection",
     M="margins",
     R="region",
     SC="sharex",
@@ -31,7 +31,7 @@ from pygmt.helpers import (
     V="verbose",
 )
 @kwargs_to_strings(Ff="sequence", Fs="sequence", M="sequence", R="sequence")
-def subplot(self, nrows=1, ncols=1, **kwargs):
+def subplot(self, nrows=1, ncols=1, projection=None, **kwargs):
     r"""
     Manage figure subplot configuration and selection.
 
@@ -44,6 +44,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
     Full GMT docs at :gmt-docs:`subplot.html#synopsis-begin-mode`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -148,11 +149,20 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
     self._activate_figure()
 
     if nrows < 1 or ncols < 1:
-        msg = "Please ensure that both 'nrows'>=1 and 'ncols'>=1."
-        raise GMTInvalidInput(msg)
+        _value = f"{nrows=}, {ncols=}"
+        raise GMTValueError(
+            _value,
+            description="number of rows/columns",
+            reason="Expect positive integers.",
+        )
+
     if kwargs.get("Ff") and kwargs.get("Fs"):
         msg = "Please provide either one of 'figsize' or 'subsize' only."
         raise GMTInvalidInput(msg)
+
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
 
     # Need to use separate sessions for "subplot begin" and "subplot end".
     # Otherwise, "subplot end" will use the last session, which may cause
@@ -162,13 +172,14 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         with Session() as lib:
             lib.call_module(
                 module="subplot",
-                args=["begin", f"{nrows}x{ncols}", *build_arg_list(kwargs)],
+                args=["begin", f"{nrows}x{ncols}", *build_arg_list(aliasdict)],
             )
             yield
     finally:
         with Session() as lib:
             lib.call_module(
-                module="subplot", args=["end", *build_arg_list({"V": kwargs.get("V")})]
+                module="subplot",
+                args=["end", *build_arg_list({"V": aliasdict.get("V")})],
             )
 
 

@@ -8,8 +8,9 @@ from typing import Literal
 import numpy as np
 import pandas as pd
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
@@ -66,8 +67,11 @@ def _preprocess_spec(spec, colnames, override_cols):
         }
         ndiff = spec.shape[1] - len(colnames)
         if ndiff not in extra_cols:
-            msg = f"Input array must have {len(colnames)} or two/three more columns."
-            raise GMTInvalidInput(msg)
+            raise GMTValueError(
+                spec.shape[1],
+                description="input array shape",
+                reason=f"Input array must have {len(colnames)} or two/three more columns.",
+            )
         spec = dict(zip([*colnames, *extra_cols[ndiff]], spec.T, strict=False))
 
     # Now, the input data is a dict or an ASCII file.
@@ -119,10 +123,10 @@ def _auto_offset(spec) -> bool:
     E="extensionfill",
     Fr="labelbox",
     G="compressionfill",
-    J="projection",
     L="outline",
     N="no_clip",
     R="region",
+    S="scale/convention/component-",
     T="nodal",
     V="verbose",
     W="pen",
@@ -143,6 +147,7 @@ def meca(  # noqa: PLR0913
     plot_longitude: float | Sequence[float] | None = None,
     plot_latitude: float | Sequence[float] | None = None,
     event_name: str | Sequence[str] | None = None,
+    projection=None,
     **kwargs,
 ):
     r"""
@@ -197,6 +202,7 @@ def meca(  # noqa: PLR0913
     Full GMT docs at :gmt-docs:`supplements/seis/meca.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -358,6 +364,13 @@ def meca(  # noqa: PLR0913
     if kwargs.get("A") is None:
         kwargs["A"] = _auto_offset(spec)
     kwargs["S"] = f"{_convention.code}{scale}"
+
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
+
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=spec) as vintbl:
-            lib.call_module(module="meca", args=build_arg_list(kwargs, infile=vintbl))
+            lib.call_module(
+                module="meca", args=build_arg_list(aliasdict, infile=vintbl)
+            )

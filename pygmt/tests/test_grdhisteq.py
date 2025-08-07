@@ -10,7 +10,7 @@ import pytest
 import xarray as xr
 from pygmt import grdhisteq
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -117,7 +117,7 @@ def test_compute_bins_outfile(grid, expected_df, region):
                 region=region,
                 outfile=tmpfile.name,
             )
-            assert len(record) == 1  # check that only one warning was raised
+        assert len(record) == 1  # check that only one warning was raised
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0
         temp_df = pd.read_csv(
@@ -136,7 +136,7 @@ def test_compute_bins_invalid_format(grid):
     """
     Test that compute_bins fails with incorrect format.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         grdhisteq.compute_bins(grid=grid, output_type=1)
     with pytest.raises(GMTInvalidInput):
         grdhisteq.compute_bins(grid=grid, output_type="pandas", header="o+c")

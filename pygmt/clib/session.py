@@ -24,7 +24,13 @@ from pygmt.clib.conversion import (
 )
 from pygmt.clib.loading import get_gmt_version, load_libgmt
 from pygmt.datatypes import _GMT_DATASET, _GMT_GRID, _GMT_IMAGE
-from pygmt.exceptions import GMTCLibError, GMTCLibNoSessionError, GMTInvalidInput
+from pygmt.exceptions import (
+    GMTCLibError,
+    GMTCLibNoSessionError,
+    GMTInvalidInput,
+    GMTTypeError,
+    GMTValueError,
+)
 from pygmt.helpers import (
     _validate_data_input,
     data_kind,
@@ -560,11 +566,13 @@ class Session:
         ...     lib.get_common("A")
         Traceback (most recent call last):
         ...
-        pygmt.exceptions.GMTInvalidInput: Unknown GMT common option flag 'A'.
+        pygmt.exceptions.GMTValueError: Invalid GMT common option: 'A'. Expected ...
         """
-        if option not in "BIJRUVXYabfghinoprst:":
-            msg = f"Unknown GMT common option flag '{option}'."
-            raise GMTInvalidInput(msg)
+        valid_options = "BIJRUVXYabfghinoprst:"
+        if option not in valid_options:
+            raise GMTValueError(
+                option, description="GMT common option", choices=valid_options
+            )
 
         c_get_common = self.get_libgmt_func(
             "GMT_Get_Common",
@@ -622,7 +630,7 @@ class Session:
 
         Raises
         ------
-        GMTInvalidInput
+        GMTTypeError
             If the ``args`` argument is not a string or a list of strings.
         GMTCLibError
             If the returned status code of the function is non-zero.
@@ -651,8 +659,10 @@ class Session:
             mode = self["GMT_MODULE_CMD"]
             argv = args.encode()
         else:
-            msg = "'args' must either be a list of strings (recommended) or a string."
-            raise GMTInvalidInput(msg)
+            raise GMTTypeError(
+                type(args),
+                reason="Parameter 'args' must either be a list of strings (recommended) or a string.",
+            )
 
         status = c_call_module(self.session_pointer, module.encode(), mode, argv)
         if status != 0:
@@ -847,7 +857,7 @@ class Session:
         their values are added.
 
         If no valid modifiers are given, then will assume that modifiers are not
-        allowed. In this case, will raise a :class:`pygmt.exceptions.GMTInvalidInput`
+        allowed. In this case, will raise a :class:`pygmt.exceptions.GMTValueError`
         exception if given a modifier.
 
         Parameters
@@ -855,7 +865,7 @@ class Session:
         constant
             The name of a valid GMT API constant, with an optional modifier.
         valid
-            A list of valid values for the constant. Will raise a GMTInvalidInput
+            A list of valid values for the constant. Will raise a GMTValueError
             exception if the given value is not in the list.
         valid_modifiers
             A list of valid modifiers that can be added to the constant. If ``None``,
@@ -866,28 +876,23 @@ class Session:
         nmodifiers = len(parts) - 1
 
         if name not in valid:
-            msg = f"Invalid constant name '{name}'. Must be one of {valid}."
-            raise GMTInvalidInput(msg)
+            raise GMTValueError(name, description="constant name", choices=valid)
 
         match nmodifiers:
             case 1 if valid_modifiers is None:
-                msg = (
-                    f"Constant modifiers are not allowed since valid values "
-                    f"were not given: '{constant}'."
+                raise GMTValueError(
+                    constant,
+                    reason="Constant modifiers are not allowed since valid values were not given.",
                 )
-                raise GMTInvalidInput(msg)
             case 1 if valid_modifiers is not None and parts[1] not in valid_modifiers:
-                msg = (
-                    f"Invalid constant modifier '{parts[1]}'. "
-                    f"Must be one of {valid_modifiers}."
+                raise GMTValueError(
+                    parts[1], description="constant modifier", choices=valid_modifiers
                 )
-                raise GMTInvalidInput(msg)
             case n if n > 1:
-                msg = (
-                    f"Only one modifier is allowed in constants, "
-                    f"{nmodifiers} given: '{constant}'."
+                raise GMTValueError(
+                    constant,
+                    reason=f"Only one modifier is allowed in constants but {nmodifiers} given.",
                 )
-                raise GMTInvalidInput(msg)
 
         integer_value = sum(self[part] for part in parts)
         return integer_value
@@ -911,9 +916,10 @@ class Session:
 
         Raises
         ------
-        GMTInvalidInput
-            If the array has the wrong number of dimensions or is an unsupported data
-            type.
+        GMTValueError
+            If the array has the wrong number of dimensions.
+        GMTTypeError
+            If the array is an unsupported data type.
 
         Examples
         --------
@@ -931,14 +937,16 @@ class Session:
         """
         # Check that the array has the given number of dimensions.
         if array.ndim != ndim:
-            msg = f"Expected a numpy {ndim}-D array, got {array.ndim}-D."
-            raise GMTInvalidInput(msg)
+            raise GMTValueError(
+                array.ndim,
+                description="array dimension",
+                reason=f"Expected a numpy {ndim}-D array, got {array.ndim}-D.",
+            )
 
         # 1-D arrays can be numeric or text, 2-D arrays can only be numeric.
         valid_dtypes = DTYPES if ndim == 1 else DTYPES_NUMERIC
         if (dtype := array.dtype.type) not in valid_dtypes:
-            msg = f"Unsupported numpy data type '{dtype}'."
-            raise GMTInvalidInput(msg)
+            raise GMTTypeError(dtype)
         return self[DTYPES[dtype]]
 
     def put_vector(
@@ -1865,8 +1873,10 @@ class Session:
             elif check_kind == "vector":
                 valid_kinds += ("empty", "matrix", "vectors", "geojson")
             if kind not in valid_kinds:
-                msg = f"Unrecognized data type for {check_kind}: {type(data)}."
-                raise GMTInvalidInput(msg)
+                raise GMTTypeError(
+                    type(data),
+                    reason=f"Unrecognized data type for {check_kind!r} kind.",
+                )
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
