@@ -79,7 +79,7 @@ def directional_rose(  # noqa: PLR0913
     >>> import pygmt
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 80, -30, 30], projection="M10c", frame=True)
-    >>> fig.directional_rose(position=(10, 10), position_type="user")
+    >>> fig.directional_rose(position=(10, 10), position_type="mapcoords")
     >>> fig.show()
     """
     self._activate_figure()
