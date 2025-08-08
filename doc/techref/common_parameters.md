@@ -24,7 +24,7 @@
 
     Choose among 7 levels of verbosity [Default is ``"warning"``]:
 
-    - ``"quite"``: Quiet, not even fatal error messages are produced
+    - ``"quiet"``: Quiet, not even fatal error messages are produced
     - ``"error"``: Error messages only
     - ``"warning"``: Warnings [Default]
     - ``"timing"``: Timings (report runtimes for time-intensive algorithms)
