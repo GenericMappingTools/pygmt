@@ -299,7 +299,7 @@ class AliasSystem(UserDict):
                         },
                     )
                 case _:
-                    raise GMTValueError(value, description="common parameter")
+                    raise GMTValueError(key, description="common parameter")
 
             self.aliasdict[key] = alias
             self[key] = alias._value
