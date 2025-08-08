@@ -2,6 +2,8 @@
 basemap - Plot base maps and frames.
 """
 
+from typing import Literal
+
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -23,7 +25,21 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def basemap(self, projection=None, verbose=None, **kwargs):
+def basemap(
+    self,
+    projection=None,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
+    **kwargs,
+):
     r"""
     Plot base maps and frames.
 
@@ -86,19 +102,10 @@ def basemap(self, projection=None, verbose=None, **kwargs):
     self._activate_figure()
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
-        V=Alias(
-            verbose,
-            name="verbose",
-            mapping={
-                "quiet": "q",
-                "error": "e",
-                "warning": "w",
-                "timing": "t",
-                "information": "i",
-                "compatibility": "c",
-                "debug": "d",
-            },
-        ),
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         lib.call_module(module="basemap", args=build_arg_list(aliasdict))
