@@ -53,7 +53,7 @@ def test_binstats_no_outgrid():
 
 def test_binstats_quantile():
     """
-    Test binstats with no set outgrid.
+    Test binstats quantile statistic functionality.
     """
     temp_grid = binstats(
         data="@capitals.gmt",
