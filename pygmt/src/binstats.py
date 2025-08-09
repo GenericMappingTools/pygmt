@@ -76,23 +76,23 @@ def binstats(
         Choose the statistic that will be computed per node based on the points that are
         within *radius* distance of the node. Select one of:
 
-        - **mean**: Compute the mean value (average).
-        - **mad**: Compute the median absolute deviation (MAD).
-        - **full**: Compute the full (max-min) range.
-        - **interquartile**: Compute the 25-75% interquartile range.
-        - **min**: Compute the minimum value.
-        - **minpos**: Compute the minimum of positive values only.
-        - **median**: Compute the median value.
-        - **number**: Compute the number of values.
-        - **lms**: Compute the least median square (LMS) scale.
-        - **mode**: Compute the mode (maximum likelihood).
-        - **quantile**: Compute the selected quantile. The quantile value is in 0-100%
+        - ``"mean"``: Compute the mean value (average).
+        - ``"mad"``: Compute the median absolute deviation (MAD).
+        - ``"full"``: Compute the full (max-min) range.
+        - ``"interquartile"``: Compute the 25-75% interquartile range.
+        - ``"min"``: Compute the minimum value.
+        - ``"minpos"``: Compute the minimum of positive values only.
+        - ``"median"``: Compute the median value.
+        - ``"number"``: Compute the number of values.
+        - ``"lms"``: Compute the least median square (LMS) scale.
+        - ``"mode"``: Compute the mode (maximum likelihood).
+        - ``"quantile"``: Compute the selected quantile. The quantile value is in 0-100%
           range and is specified by the ``quantile_value`` parameter.
-        - **rms**: Compute the root mean square (RMS).
-        - **stddev**: Compute the standard deviation.
-        - **max**: Compute the maximum value.
-        - **maxneg**: Compute the maximum of negative values only.
-        - **sum**: Compute the sum of values.
+        - ``"rms"``: Compute the root mean square (RMS).
+        - ``"stddev"``: Compute the standard deviation.
+        - ``"max"``: Compute the maximum value.
+        - ``"maxneg"``: Compute the maximum of negative values only.
+        - ``"sum"``: Compute the sum of values.
     quantile_value
         The quantile value if ``statistic="quantile"``.
     empty : float
