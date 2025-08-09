@@ -4,10 +4,10 @@ EPSG codes
 
 Besides one of the :doc:`31 projections supported by GMT </techref/projections>`, users
 can pass an EPSG (European Petroleum Survey Group) code to the ``projection`` parameter
-of the methods :meth:`Figure.basemap` and :meth:`Figure.coast`. A commonly used EPSG
-code is ``EPSG:3857``, that refers to the Web Mercator projection WGS84. More
-information on the EPSG dataset can be found at https://epsg.org and
-https://spatialreference.org/.
+A commonly used EPSG code is ``EPSG:3857``, that refers to the Web Mercator projection
+WGS84. More information on the EPSG dataset can be found at https://epsg.org and
+https://spatialreference.org/. Please note, that not all EPSG codes are supported by
+GMT / PyGMT.
 """
 
 # %%
