@@ -76,23 +76,23 @@ def binstats(
         Choose the statistic that will be computed per node based on the points that are
         within *radius* distance of the node. Select one of:
 
-        - ``"mean"``: Compute the mean value (average).
-        - ``"mad"``: Compute the median absolute deviation (MAD).
-        - ``"full"``: Compute the full (max-min) range.
-        - ``"interquartile"``: Compute the 25-75% interquartile range.
-        - ``"min"``: Compute the minimum value.
-        - ``"minpos"``: Compute the minimum of positive values only.
-        - ``"median"``: Compute the median value.
-        - ``"number"``: Compute the number of values.
-        - ``"lms"``: Compute the least median square (LMS) scale.
-        - ``"mode"``: Compute the mode (maximum likelihood).
-        - ``"quantile"``: Compute the selected quantile. The quantile value is in 0-100%
-          range and is specified by the ``quantile_value`` parameter.
-        - ``"rms"``: Compute the root mean square (RMS).
-        - ``"stddev"``: Compute the standard deviation.
-        - ``"max"``: Compute the maximum value.
-        - ``"maxneg"``: Compute the maximum of negative values only.
-        - ``"sum"``: Compute the sum of values.
+        - ``"mean"``: Mean (i.e., average).
+        - ``"mad"``: Median absolute deviation (MAD).
+        - ``"full"``: The full (max-min) range.
+        - ``"interquartile"``: The 25-75% interquartile range.
+        - ``"min"``: Minimum (lowest value).
+        - ``"minpos"``: Minimum of positive values only.
+        - ``"median"``: Median value.
+        - ``"number"``: The number of values per bin.
+        - ``"lms"``: Least median square (LMS) scale.
+        - ``"mode"``: Mode (maximum likelihood estimate).
+        - ``"quantile"``: Selected quantile. The quantile value is specified by the
+          ``quantile_value`` parameter and is in the 0-100% range.
+        - ``"rms"``: Root mean square (RMS).
+        - ``"stddev"``: Standard deviation.
+        - ``"max"``: Maximum (highest value).
+        - ``"maxneg"``: Maximum of negative values only.
+        - ``"sum"``: The sum of the values.
     quantile_value
         The quantile value if ``statistic="quantile"``.
     empty : float
