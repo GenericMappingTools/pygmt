@@ -5,8 +5,9 @@ solar - Plot day-night terminators and other sunlight parameters.
 from typing import Literal
 
 import pandas as pd
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTValueError
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["solar"]
@@ -16,9 +17,7 @@ __doctest_skip__ = ["solar"]
 @use_alias(
     B="frame",
     G="fill",
-    J="projection",
     R="region",
-    T="terminator/terminator_datetime-",
     V="verbose",
     W="pen",
     c="panel",
@@ -30,6 +29,7 @@ def solar(
     self,
     terminator: Literal["astronomical", "civil", "day_night", "nautical"] = "day_night",
     terminator_datetime=None,
+    projection=None,
     **kwargs,
 ):
     r"""
@@ -41,6 +41,8 @@ def solar(
     Full GMT docs at :gmt-docs:`solar.html`.
 
     {aliases}
+       - J=projection
+       - T=terminator, **+d**: terminator_datetime
 
     Parameters
     ----------
@@ -97,24 +99,32 @@ def solar(
     >>> fig.show()
     """
     self._activate_figure()
-    if kwargs.get("T") is not None:
-        msg = "Use 'terminator' and 'terminator_datetime' instead of 'T'."
-        raise GMTInvalidInput(msg)
 
-    valid_terminators = ["day_night", "civil", "nautical", "astronomical"]
-    if terminator not in valid_terminators and terminator not in "dcna":
-        raise GMTValueError(
-            terminator, description="solar terminator type", choices=valid_terminators
-        )
-    kwargs["T"] = terminator[0]
+    datetime_string = None
     if terminator_datetime:
         try:
             datetime_string = pd.to_datetime(terminator_datetime).strftime(
                 "%Y-%m-%dT%H:%M:%S.%f"
             )
         except ValueError as verr:
-            msg = "Unrecognized datetime format."
-            raise GMTInvalidInput(msg) from verr
-        kwargs["T"] += f"+d{datetime_string}"
+            raise GMTValueError(terminator_datetime, description="datetime") from verr
+
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+        T=[
+            Alias(
+                terminator,
+                name="terminator",
+                mapping={
+                    "day_night": "d",
+                    "civil": "c",
+                    "nautical": "n",
+                    "astronomical": "a",
+                },
+            ),
+            Alias(datetime_string, name="terminator_datetime", prefix="+d"),
+        ],
+    ).merge(kwargs)
+
     with Session() as lib:
-        lib.call_module(module="solar", args=build_arg_list(kwargs))
+        lib.call_module(module="solar", args=build_arg_list(aliasdict))

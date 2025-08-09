@@ -6,8 +6,9 @@ from collections.abc import Sequence
 
 import numpy as np
 from pygmt._typing import AnchorCode, PathLike, StringArrayTypes, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import (
     _check_encoding,
     build_arg_list,
@@ -23,7 +24,6 @@ from pygmt.helpers import (
 @fmt_docstring
 @use_alias(
     R="region",
-    J="projection",
     B="frame",
     C="clearance",
     D="offset",
@@ -53,6 +53,7 @@ def text_(  # noqa: PLR0912
     angle=None,
     font=None,
     justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
+    projection=None,
     **kwargs,
 ):
     r"""
@@ -72,6 +73,7 @@ def text_(  # noqa: PLR0912
     Full GMT docs at :gmt-docs:`text.html`.
 
     {aliases}
+       - J=projection
 
     Parameters
     ----------
@@ -257,8 +259,14 @@ def text_(  # noqa: PLR0912
 
         for arg, _, name in [*array_args, (kwargs.get("t"), "", "transparency")]:
             if is_nonstr_iter(arg):
-                msg = f"Argument of '{name}' must be a single value or True."
-                raise GMTInvalidInput(msg)
+                raise GMTTypeError(
+                    type(arg),
+                    reason=f"Parameter {name!r} expects a single value or True.",
+                )
+
+    aliasdict = AliasSystem(
+        J=Alias(projection, name="projection"),
+    ).merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(
@@ -266,5 +274,5 @@ def text_(  # noqa: PLR0912
         ) as vintbl:
             lib.call_module(
                 module="text",
-                args=build_arg_list(kwargs, infile=vintbl, confdict=confdict),
+                args=build_arg_list(aliasdict, infile=vintbl, confdict=confdict),
             )

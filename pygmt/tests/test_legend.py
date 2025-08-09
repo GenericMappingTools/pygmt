@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTTypeError
 from pygmt.helpers import GMTTempFile
 
 
@@ -121,8 +121,8 @@ def test_legend_fails():
     Test legend fails with invalid spec.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.legend(spec=["@Table_5_11.txt"])
 
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.legend(spec=[1, 2])
