@@ -12,8 +12,7 @@ myst:
 
 # GMT Map Projections
 
-The table below shows the projection codes for the 31 GMT map projections. Besides these
-GMT-specific projection codes, [EPSG codes](/projections/epsg) are supported.
+The table below shows the projection codes for the 31 GMT map projections:
 
 | PyGMT Projection Argument | Projection Name |
 | --- | --- |
