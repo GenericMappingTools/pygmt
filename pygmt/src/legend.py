@@ -3,6 +3,7 @@ legend - Plot a legend.
 """
 
 import io
+from typing import Literal
 
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
@@ -29,11 +30,19 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def legend(
+def legend(  # noqa: PLR0913
     self,
     spec: PathLike | io.StringIO | None = None,
     projection=None,
-    position="JTR+jTR+o0.2c",
+    position=None,
+    position_type: Literal[
+        "mapcoords", "boxcoords", "plotcoords", "inside", "outside"
+    ] = "mapcoords",
+    width=None,
+    height=None,
+    justify=None,
+    spacing=None,
+    anchor_offset=None,
     box="+gwhite+p1p",
     **kwargs,
 ):
@@ -64,14 +73,22 @@ def legend(
         See :gmt-docs:`legend.html` for the definition of the legend specification.
     {projection}
     {region}
-    position : str
-        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
-        **+w**\ *width*\ [/*height*]\ [**+j**\ *justify*]\ [**+l**\ *spacing*]\
-        [**+o**\ *dx*\ [/*dy*]].
-        Define the reference point on the map for the
-        legend. By default, uses **JTR**\ **+jTR**\ **+o**\ 0.2c which
-        places the legend at the top-right corner inside the map frame, with a
-        0.2 cm offset.
+    position/position_type
+        Location of the map scale bar. The actual meaning of this parameter depends
+        on the ``position_type`` parameter.
+        - ``position_type="mapcoords"``: *position* is given as (x, y) in user
+          coordinates.
+        - ``position_type="boxcoords"``: *position* is given as (nx, ny) in normalized
+          coordinates, where (0, 0) is the lower-left corner and (1, 1) is the
+          upper-right corner of the plot.
+        - ``position_type="plotcoords"``: *position* is given as (x, y) in plot
+          coordinates, i.e., the distances in inches, centimeters, or points from the
+          lower left plot origin.
+        - ``position_type="inside"``: *position* is given as a two-character
+          justification code, meaning the anchor point of the rose is inside the plot
+          bounding box.
+        - ``position_type="outside"``: *position* is given as a two-character
+          justification code, but the rose is outside the plot bounding box.
     box : bool or str
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
@@ -99,8 +116,28 @@ def legend(
             type(spec), reason="Only one legend specification file is allowed."
         )
 
+    _dimension = (width, height) if height is not None else width
+
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
+        D=[
+            Alias(
+                position_type,
+                name="position_type",
+                mapping={
+                    "mapcoords": "g",
+                    "boxcoords": "n",
+                    "plotcoords": "x",
+                    "inside": "j",
+                    "outside": "J",
+                },
+            ),
+            Alias(position, name="position", sep="/", size=2),
+            Alias(_dimension, name="width/height", prefix="+w"),
+            Alias(justify, name="justify", prefix="+j"),
+            Alias(spacing, name="spacing", prefix="+l"),
+            Alias(anchor_offset, name="anchor_offset", prefix="+o", sep="/", size=2),
+        ],
     ).merge(kwargs)
 
     with Session() as lib:
