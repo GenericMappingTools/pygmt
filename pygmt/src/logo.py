@@ -2,8 +2,10 @@
 logo - Plot the GMT logo.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
+from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
@@ -23,14 +25,14 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def logo(
     self,
+    position: Sequence[str | float] | AnchorCode,
     position_type: Literal[
-        "user", "justify", "mirror", "normalize", "plot", None
-    ] = None,
-    position=None,
+        "mapcoords", "inside", "outside", "boxcoords", "plotcoords"
+    ] = "mapcoords",
     height=None,
     width=None,
     justify=None,
-    offset=None,
+    anchor_offset=None,
     **kwargs,
 ):
     r"""
@@ -49,11 +51,21 @@ def logo(
     ----------
     {projection}
     {region}
-    position : str
-        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
-        **+w**\ *width*\ [**+j**\ *justify*]\ [**+o**\ *dx*\ [/*dy*]].
-        Set reference point on the map for the image.
-    positon_type
+    position/position_type
+        Location of the GMT logo. The actual meaning of this parameter depends on the
+        ``position_type`` parameter.
+        - ``position_type="mapcoords"``: *position* is given as (x, y) in user
+          coordinates.
+        - ``position_type="boxcoords"``: *position* is given as (nx, ny) in normalized
+          coordinates, where (0, 0) is the lower-left corner and (1, 1) is the
+          upper-right corner of the map.
+        - ``position_type="plotcoords"``: *position* is given as (x, y) in plot
+          coordinates.
+        - ``position_type="inside"``: *position* is given as a two-character
+          justification code, meaning the anchor point of the rose is inside the map
+          bounding box.
+        - ``position_type="outside"``: *position* is given as a two-character
+          justification code, but the rose is outside the map bounding box.
     width/height
         Width or height of the GMT logo.
     box : bool or str
@@ -82,18 +94,18 @@ def logo(
                 position_type,
                 name="position_type",
                 mapping={
-                    "user": "g",
-                    "justify": "j",
-                    "mirror": "J",
-                    "normalize": "n",
-                    "plot": "x",
+                    "mapcoords": "g",
+                    "inside": "j",
+                    "outside": "J",
+                    "boxcoords": "n",
+                    "plotcoords": "x",
                 },
             ),
-            Alias(position, name="position", separator="/"),
+            Alias(position, name="position", sep="/"),
             Alias(height, name="height", prefix="+h"),
             Alias(width, name="width", prefix="+w"),
             Alias(justify, name="justify", prefix="+j"),
-            Alias(offset, name="offset", prefix="+o", separator="/", size=2),
+            Alias(anchor_offset, name="anchor_offset", prefix="+o", sep="/", size=2),
         ]
     ).merge(kwargs)
 
