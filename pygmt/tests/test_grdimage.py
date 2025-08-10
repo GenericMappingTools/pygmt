@@ -10,7 +10,7 @@ from pygmt import Figure
 from pygmt.clib import __gmt_version__
 from pygmt.datasets import load_earth_relief
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTInvalidInput, GMTTypeError
+from pygmt.exceptions import GMTTypeError
 from pygmt.helpers.testing import check_figures_equal
 
 
@@ -252,9 +252,9 @@ def test_grdimage_imgout_fails(grid):
     Test that an exception is raised if img_out/A is given.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(NotImplementedError):
         fig.grdimage(grid, img_out="out.png")
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(NotImplementedError):
         fig.grdimage(grid, A="out.png")
 
 

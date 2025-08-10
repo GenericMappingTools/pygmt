@@ -8,7 +8,7 @@ import numpy as np
 from pygmt._typing import AnchorCode, PathLike, StringArrayTypes, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTTypeError
+from pygmt.exceptions import GMTParameterError, GMTTypeError
 from pygmt.helpers import (
     _check_encoding,
     build_arg_list,
@@ -190,21 +190,31 @@ def text_(  # noqa: PLR0912
         + (position is not None)
         + (x is not None or y is not None)
     ) != 1:
-        msg = "Provide either 'textfiles', 'x'/'y'/'text', or 'position'/'text'."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(
+            exclusive={"textfiles", "x/y/text", "position/text"},
+            reason="Provide either 'textfiles', 'x'/'y'/'text', or 'position'/'text'.",
+        )
 
     data_is_required = position is None
     kind = data_kind(textfiles, required=data_is_required)
 
-    if position is not None and (text is None or is_nonstr_iter(text)):
-        msg = "'text' can't be None or array when 'position' is given."
-        raise GMTInvalidInput(msg)
+    if position is not None:
+        if text is None:
+            raise GMTParameterError(
+                required={"text"},
+                reason="Parameter 'text' is required when 'position' is given.",
+            )
+        if is_nonstr_iter(text):
+            raise GMTTypeError(
+                type(text),
+                reason="Parameter 'text' can't be a sequence when 'position' is given.",
+            )
     if textfiles is not None and text is not None:
-        msg = "'text' can't be specified when 'textfiles' is given."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(exclusive={"text", "textfiles"})
     if kind == "empty" and text is None:
-        msg = "Must provide text with x/y pairs."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(
+            required={"text"}, reason="Must provide text with x/y pairs."
+        )
 
     # Arguments that can accept arrays.
     array_args = [
