@@ -6,29 +6,26 @@ import io
 from collections.abc import Sequence
 from typing import Literal
 
-from pygmt._typing import PathLike
+from pygmt._typing import AnchorCode, PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTTypeError
-from pygmt.helpers import (
-    build_arg_list,
-    data_kind,
-    fmt_docstring,
-    is_nonstr_iter,
-    use_alias,
-)
-from pygmt.params import Box
+from pygmt.helpers import build_arg_list, data_kind, fmt_docstring, is_nonstr_iter
+from pygmt.params import Box, Position
 
 
 @fmt_docstring
-@use_alias(D="position")
-def legend(
+def legend(  # noqa: PLR0913
     self,
     spec: PathLike | io.StringIO | None = None,
+    position: Position | None = None,
+    width: float | str | None = None,
+    height: float | str | None = None,
+    justify: AnchorCode | None = None,
+    spacing: float | None = None,
+    box: Box | bool = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
-    position="JTR+jTR+o0.2c",
-    box: Box | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -48,6 +45,7 @@ def legend(
     Full GMT docs at :gmt-docs:`legend.html`.
 
     $aliases
+       - D = position, **+w**: width/height, **+j**: justify, **+l**: spacing
        - F = box
        - J = projection
        - R = region
@@ -67,21 +65,23 @@ def legend(
         - A :class:`io.StringIO` object containing the legend specification
 
         See :gmt-docs:`legend.html` for the definition of the legend specification.
-    $projection
-    $region
-    position : str
-        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
-        **+w**\ *width*\ [/*height*]\ [**+j**\ *justify*]\ [**+l**\ *spacing*]\
-        [**+o**\ *dx*\ [/*dy*]].
-        Define the reference point on the map for the
-        legend. By default, uses **JTR**\ **+jTR**\ **+o**\ 0.2c which
-        places the legend at the top-right corner inside the map frame, with a
-        0.2 cm offset.
+    position
+        Specify the position of the legend on the map. See :class:`pygmt.enums.Position`
+        for details.
+    width
+    height
+        Specify the width and height of the legend box.
+    justify
+        Specify the justification of the legend box contents.
+    spacing
+        Specify the spacing between legend entries.
     box
         Draw a background box behind the legend. If set to ``True``, a simple
         rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
         appearance, pass a :class:`pygmt.params.Box` object to control style, fill, pen,
         and other box properties.
+    $projection
+    $region
     $verbose
     $panel
     $perspective
@@ -104,6 +104,13 @@ def legend(
         )
 
     aliasdict = AliasSystem(
+        D=[
+            Alias(position, name="position", sep="/", size=2),
+            Alias(width, name="width", prefix="+w"),  # +wwidth/height
+            Alias(height, name="height", prefix="/"),
+            Alias(justify, name="justify", prefix="+j"),
+            Alias(spacing, name="spacing", prefix="+l"),
+        ],
         F=Alias(box, name="box"),
     ).add_common(
         J=projection,
