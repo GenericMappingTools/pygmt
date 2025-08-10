@@ -76,7 +76,9 @@ def basemap(self, projection=None, **kwargs):
     rose : str
         Draw a map directional rose on the map.
 
-        Deprecated. Use :py:func:`pygmt.Figure.directional_rose` instead.
+        .. deprecated:: v0.17.0
+
+           Use :py:func:`pygmt.Figure.directional_rose` instead.
     compass : str
         Draw a map magnetic rose on the map at the location defined by the
         reference and anchor points.
