@@ -201,8 +201,8 @@ def meca(  # noqa: PLR0913
     Full GMT docs at :gmt-docs:`supplements/seis/meca.html`.
 
     {aliases}
-       - J=projection
-       - S=scale/convention/component
+       - J = projection
+       - S = scale/convention/component
 
     Parameters
     ----------
