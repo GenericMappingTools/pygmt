@@ -53,7 +53,7 @@ def wiggle(
     Full GMT docs at :gmt-docs:`wiggle.html`.
 
     {aliases}
-       - J=projection
+       - J = projection
 
     Parameters
     ----------

@@ -39,7 +39,7 @@ def basemap(self, projection=None, **kwargs):
     Full GMT docs at :gmt-docs:`basemap.html`.
 
     {aliases}
-       - J=projection
+       - J = projection
 
     Parameters
     ----------

@@ -49,7 +49,7 @@ def legend(
     Full GMT docs at :gmt-docs:`legend.html`.
 
     {aliases}
-       - J=projection
+       - J = projection
 
     Parameters
     ----------
