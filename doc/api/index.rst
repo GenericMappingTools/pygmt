@@ -31,6 +31,7 @@ Plotting map elements
     Figure.inset
     Figure.legend
     Figure.logo
+    Figure.magnetic_rose
     Figure.solar
     Figure.text
     Figure.timestamp
