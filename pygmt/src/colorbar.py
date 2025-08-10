@@ -5,31 +5,87 @@ colorbar - Plot gray scale or color scale bar.
 from collections.abc import Sequence
 from typing import Literal
 
+from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
+from pygmt.exceptions import GMTValueError
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
-from pygmt.params import Box
+from pygmt.helpers.utils import is_nonstr_iter
+from pygmt.params import Box, Position
+from pygmt.src._common import _parse_position
 
 __doctest_skip__ = ["colorbar"]
 
 
+def _parse_move_text(
+    move_text: Sequence[str] | None, label_as_column: bool = False
+) -> str | None:
+    """
+    Parse the move_text parameter into the format required by GMT.
+
+    Examples
+    --------
+    >>> _parse_move_text(None)
+    >>> _parse_move_text(["annotations", "label"])
+    'al'
+    >>> _parse_move_text(["unit"])
+    'u'
+    >>> _parse_move_text(["annotations", "label", "unit"])
+    'alu'
+    >>> _parse_move_text(["annotations"], label_as_column=True)
+    'ac'
+    >>> _parse_move_text(["invalid"])
+    Traceback (most recent call last):
+    ...
+    pygmt.exceptions.GMTValueError: Invalid move_text: ['invalid']. Expected ...
+    """
+    _valids = {"annotations", "label", "unit"}
+    match move_text:
+        case Sequence() if is_nonstr_iter(move_text) and all(
+            v in _valids for v in move_text
+        ):
+            argstr = "".join(item[0] for item in move_text)
+            if label_as_column is True:
+                argstr += "c"
+            return argstr
+        case None:
+            return None
+        case _:
+            raise GMTValueError(
+                move_text,
+                description="move_text",
+                choices=_valids,
+            )
+
+
 @fmt_docstring
-@use_alias(C="cmap", D="position", L="equalsize", Z="zfile")
+@use_alias(C="cmap", L="equalsize", Z="zfile")
 def colorbar(  # noqa: PLR0913
     self,
+    position: Position | Sequence[float | str] | AnchorCode | None = None,
+    length: float | str | None = None,
+    width: float | str | None = None,
+    orientation: Literal["horizontal", "vertical"] | None = None,
+    reverse: bool = False,
+    nan_rectangle: bool | str = False,
+    nan_rectangle_position: Literal["start", "end"] | None = None,
+    sidebar_triangles: bool | Literal["foreground", "background"] = False,
+    sidebar_triangles_height: float | None = None,
+    move_text: Sequence[str] | None = None,
+    label_as_column: bool = False,
+    box: Box | bool = False,
     truncate: Sequence[float] | None = None,
     shading: float | Sequence[float] | bool = False,
     log: bool = False,
     scale: float | None = None,
     projection: str | None = None,
-    box: Box | bool = False,
-    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    transparency: float | None = None,
     perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -58,6 +114,10 @@ def colorbar(  # noqa: PLR0913
 
     $aliases
        - B = frame
+       - D = position, **+w**: length/width, **+h**/**+v**: orientation,
+         **+r**: reverse, **+n**: nan_rectangle/nan_rectangle_position,
+         **+e**: sidebar_triangles/scalebar_triangles_height,
+         **+m**: move_text/label_as_column
        - F = box
        - G = truncate
        - I = shading
@@ -72,31 +132,56 @@ def colorbar(  # noqa: PLR0913
 
     Parameters
     ----------
-    frame : str or list
-        Set colorbar boundary frame, labels, and axes attributes.
     $cmap
-    position : str
-        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
-        [**+w**\ *length*\ [/\ *width*]]\ [**+e**\ [**b**\|\ **f**][*length*]]\
-        [**+h**\|\ **v**][**+j**\ *justify*]\
-        [**+m**\ [**a**\|\ **c**\|\ **l**\|\ **u**]]\
-        [**+n**\ [*txt*]][**+o**\ *dx*\ [/*dy*]].
-        Define the reference point on the map for the color scale using one of
-        four coordinate systems: (1) Use **g** for map (user) coordinates, (2)
-        use **j** or **J** for setting *refpoint* via a
-        :doc:`2-character justification code </techref/justification_codes>`
-        that refers to the (invisible) map domain rectangle,
-        (3) use **n** for normalized (0-1) coordinates, or (4) use **x** for
-        plot coordinates (inches, cm, etc.). All but **x** requires both
-        ``region`` and ``projection`` to be specified. Append **+w** followed
-        by the length and width of the colorbar. If width is not specified
-        then it is set to 4% of the given length. Give a negative length to
-        reverse the scale bar. Append **+h** to get a horizontal scale
-        [Default is vertical (**+v**)]. By default, the anchor point on the
-        scale is assumed to be the bottom left corner (**BL**), but this can
-        be changed by appending **+j** followed by a
-        :doc:`2-character justification code </techref/justification_codes>`
-        *justify*.
+    position
+        Position of the GMT logo on the plot. It can be specified in multiple ways:
+
+        - A :class:`pygmt.params.Position` object to fully control the reference point,
+          anchor point, and offset.
+        - A sequence of two values representing the x and y coordinates in plot
+          coordinates, e.g., ``(1, 2)`` or ``("1c", "2c")``.
+        - A :doc:`2-character justification code </techref/justification_codes>` for a
+          position inside the plot, e.g., ``"TL"`` for Top Left corner inside the plot.
+
+        If not specified, defaults to the bottom-center corner outside of the plot.
+    length
+    width
+        Length and width of the color bar. If length is given with a unit ``%`` then it
+        is in percentage of the corrresponding plot side dimension (i.e., plot width for
+        a horizontal colorbar, or plot height for a vertical colorbar). If width is
+        given with unit ``%`` then it is in percentage of the bar length. [Length
+        default to 80% of the corresponding plot side dimension, and width default to
+        4% of the bar length].
+    orientation
+        Set the colorbar orientation to either ``"horizontal"`` or ``"vertical"``.
+        [Default is vertical, unless position is set to bottom-center or top-center with
+        ``cstype="outside"`` or ``cstype="inside"``, then horizontal is the default].
+    reverse
+        Reverse the positive direction of the bar.
+    nan_rectangle
+        Draw a rectangle filled with the NaN color (via the **N** entry in the CPT or
+        :term:`COLOR_NAN` if no such entry) at the start of the colorbar. If a string
+        is given, use that string as the label for the NaN color.
+    nan_rectangle_position
+        Set the position of the NaN rectangle. Choose from ``"start"`` or ``"end"``.
+        [Default is ``"start"``].
+    sidebar_triangles
+        Draw sidebar triangles for back- and/or foreground colors. If set to ``True``,
+        both triangles are drawn. Alternatively, set it to ``"foreground"`` or
+        ``"background"`` to draw only one triangle. The back- and/or foreground colors
+        are taken from the **B** and **F** entries in the CPT. If no such entries exist,
+        then the system default colors for **B** and **F** are used instead (
+        :term:`COLOR_BACKGROUND` and :term:`COLOR_FOREGROUND`).
+    sidebar_triangles_height
+        Height of the sidebar triangles [Default is half the bar width].
+    move_text
+        Move text (annotations, label, and unit) to opposite side. Accept a sequence of
+        strings containing one or more of ``"annotations"``, ``"label"``, and
+        ``"unit"``. The default placement of these texts depends on the colorbar
+        orientation and position.
+    label_as_column
+        Print a vertical label as a column of characters (does not work with special
+        characters).
     box
         Draw a background box behind the colorbar. If set to ``True``, a simple
         rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
@@ -138,6 +223,10 @@ def colorbar(  # noqa: PLR0913
         may be in plot distance units or given as relative fractions and will
         be automatically scaled so that the sum of the widths equals the
         requested colorbar length.
+    $projection
+    $region
+    frame : str or list
+        Set colorbar boundary frame, labels, and axes attributes.
     $verbose
     $panel
     $perspective
@@ -162,7 +251,57 @@ def colorbar(  # noqa: PLR0913
     """
     self._activate_figure()
 
+    position = _parse_position(
+        position,
+        kwdict={
+            "length": length,
+            "width": width,
+            "orientation": orientation,
+            "reverse": reverse,
+            "nan_rectangle": nan_rectangle,
+            "nan_rectangle_position": nan_rectangle_position,
+            "sidebar_triangles": sidebar_triangles,
+            "sidebar_triangles_height": sidebar_triangles_height,
+            "move_text": move_text,
+            "label_as_column": label_as_column,
+        },
+        default=None,  # Use GMT's default behavior if position is not provided.
+    )
+
     aliasdict = AliasSystem(
+        D=[
+            Alias(position, name="position"),
+            Alias(length, name="length", prefix="+w"),  # +wlength/width
+            Alias(width, name="width", prefix="/"),
+            Alias(
+                orientation,
+                name="orientation",
+                mapping={"horizontal": "+h", "vertical": "+v"},
+            ),
+            Alias(reverse, name="reverse", prefix="+r"),
+            Alias(
+                nan_rectangle,
+                name="nan_rectangle",
+                prefix="+n" if nan_rectangle_position == "start" else "+N",
+            ),
+            Alias(
+                sidebar_triangles,
+                name="sidebar_triangles",
+                prefix="+e",
+                mapping={
+                    True: True,
+                    False: False,
+                    "foreground": "f",
+                    "background": "b",
+                },
+            ),
+            Alias(sidebar_triangles_height, name="sidebar_triangles_height"),
+            Alias(
+                _parse_move_text(move_text, label_as_column),
+                name="move_text",
+                prefix="+m",
+            ),
+        ],
         F=Alias(box, name="box"),
         G=Alias(truncate, name="truncate", sep="/", size=2),
         I=Alias(shading, name="shading", sep="/", size=2),

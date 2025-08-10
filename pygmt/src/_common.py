@@ -251,7 +251,7 @@ def _parse_position(
     position: Position | Sequence[float | str] | str | None,
     kwdict: dict[str, Any],
     default: Position | None,
-) -> Position | str:
+) -> Position | str | None:
     """
     Parse the "position" parameter for embellishment-plotting functions.
 
@@ -269,7 +269,8 @@ def _parse_position(
         The keyword arguments dictionary that conflicts with ``position`` if
         ``position`` is given as a raw GMT command string.
     default
-        The default Position object to use if ``position`` is ``None``.
+        The default Position object to use if ``position`` is ``None``. If ``default``
+        is ``None``, the GMT default is used.
 
     Returns
     -------
@@ -339,7 +340,7 @@ def _parse_position(
         case str() if position in _valid_anchors:  # Anchor code
             position = Position(position, cstype="inside")
         case str():  # Raw GMT command string.
-            if any(v is not None for v in kwdict.values()):
+            if any(v not in {None, False} for v in kwdict.values()):
                 msg = (
                     "Parameter 'position' is given with a raw GMT command string, and "
                     f"conflicts with parameters {', '.join(repr(c) for c in kwdict)}."
@@ -349,7 +350,7 @@ def _parse_position(
             position = Position(position, cstype="plotcoords")
         case Position():  # Already a Position object.
             pass
-        case None if default is not None:  # Set default position.
+        case None:  # Set default position.
             position = default
         case _:
             msg = f"Invalid type for parameter 'position': {type(position)}."
