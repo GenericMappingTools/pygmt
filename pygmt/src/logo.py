@@ -27,7 +27,7 @@ def logo(
     self,
     position: Sequence[str | float] | AnchorCode,
     position_type: Literal[
-        "mapcoords", "inside", "outside", "boxcoords", "plotcoords"
+        "mapcoords", "boxcoords", "plotcoords", "inside", "outside"
     ] = "mapcoords",
     height=None,
     width=None,
@@ -58,14 +58,15 @@ def logo(
           coordinates.
         - ``position_type="boxcoords"``: *position* is given as (nx, ny) in normalized
           coordinates, where (0, 0) is the lower-left corner and (1, 1) is the
-          upper-right corner of the map.
+          upper-right corner of the plot.
         - ``position_type="plotcoords"``: *position* is given as (x, y) in plot
-          coordinates.
+          coordinates, i.e., the distances in inches, centimeters, or points from the
+          lower left plot origin.
         - ``position_type="inside"``: *position* is given as a two-character
-          justification code, meaning the anchor point of the rose is inside the map
+          justification code, meaning the anchor point of the rose is inside the plot
           bounding box.
         - ``position_type="outside"``: *position* is given as a two-character
-          justification code, but the rose is outside the map bounding box.
+          justification code, but the rose is outside the plot bounding box.
     width/height
         Width or height of the GMT logo.
     box : bool or str
@@ -95,10 +96,10 @@ def logo(
                 name="position_type",
                 mapping={
                     "mapcoords": "g",
-                    "inside": "j",
-                    "outside": "J",
                     "boxcoords": "n",
                     "plotcoords": "x",
+                    "inside": "j",
+                    "outside": "J",
                 },
             ),
             Alias(position, name="position", sep="/"),
