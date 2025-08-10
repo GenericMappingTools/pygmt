@@ -24,7 +24,6 @@ __doctest_skip__ = ["select"]
 @use_alias(
     A="area_thresh",
     C="dist2pt",
-    D="resolution-",
     F="polygon",
     G="gridmask",
     I="reverse",
