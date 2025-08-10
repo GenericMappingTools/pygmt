@@ -15,6 +15,5 @@ text_formatting.md
 patterns.md
 encodings.md
 justification_codes.md
-reference_anchor_points.md
 environment_variables.md
 ```
