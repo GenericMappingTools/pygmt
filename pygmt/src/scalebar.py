@@ -16,12 +16,16 @@ def scalebar(  # noqa: PLR0913
     position,
     length,
     position_type: Literal[
-        "mapcoords", "inside", "outside", "boxcoords", "plotcoords"
+        "mapcoords",
+        "boxcoords",
+        "plotcoords",
+        "inside",
+        "outside",
     ] = "mapcoords",
     label_alignment: Literal["left", "right", "top", "bottom"] | None = None,
     scale_position=None,
     justify: AnchorCode | None = None,
-    offset: Sequence[float | str] | None = None,
+    anchor_offset: Sequence[float | str] | None = None,
     label: str | bool = False,
     fancy: bool = False,
     unit: bool = False,
@@ -34,20 +38,21 @@ def scalebar(  # noqa: PLR0913
     Parameters
     ----------
     position/position_type
-        Location of the rose. The actual meaning of this parameter depends on the
-        ``position_type`` parameter.
+        Location of the map scale bar. The actual meaning of this parameter depends
+        on the ``position_type`` parameter.
         - ``position_type="mapcoords"``: *position* is given as (x, y) in user
           coordinates.
         - ``position_type="boxcoords"``: *position* is given as (nx, ny) in normalized
           coordinates, where (0, 0) is the lower-left corner and (1, 1) is the
-          upper-right corner of the map.
+          upper-right corner of the plot.
         - ``position_type="plotcoords"``: *position* is given as (x, y) in plot
-          coordinates.
+          coordinates, i.e., the distances in inches, centimeters, or points from the
+          lower left plot origin.
         - ``position_type="inside"``: *position* is given as a two-character
-          justification code, meaning the anchor point of the rose is inside the map
+          justification code, meaning the anchor point of the rose is inside the plot
           bounding box.
         - ``position_type="outside"``: *position* is given as a two-character
-          justification code, but the rose is outside the map bounding box.
+          justification code, but the rose is outside the plot bounding box.
 
     Parameters
     ----------
@@ -78,13 +83,13 @@ def scalebar(  # noqa: PLR0913
                 name="position_type",
                 mapping={
                     "mapcoords": "g",
-                    "inside": "j",
-                    "outside": "J",
                     "boxcoords": "n",
                     "plotcoords": "x",
+                    "inside": "j",
+                    "outside": "J",
                 },
             ),
-            Alias(position, name="position", separator="/", size=2),
+            Alias(position, name="position", sep="/", size=2),
             Alias(length, name="length", prefix="+w"),
             Alias(
                 label_alignment,
@@ -92,11 +97,13 @@ def scalebar(  # noqa: PLR0913
                 prefix="+a",
                 mapping={"left": "l", "right": "r", "top": "t", "bottom": "b"},
             ),
-            Alias(scale_position, name="scale_position", prefix="+c", separator="/"),
+            Alias(scale_position, name="scale_position", prefix="+c", sep="/"),
             Alias(fancy, name="fancy", prefix="+f"),
             Alias(justify, name="justify", prefix="+j"),
             Alias(label, name="label", prefix="+l"),
-            Alias(offset, name="offset", prefix="+o", separator="/", size=[1, 2]),
+            Alias(
+                anchor_offset, name="anchor_offset", prefix="+o", sep="/", size=[1, 2]
+            ),
             Alias(unit, name="unit", prefix="+u"),
             Alias(vertical, name="vertical", prefix="+v"),
         ],
