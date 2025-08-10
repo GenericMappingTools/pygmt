@@ -54,8 +54,8 @@ def basemap(
     Full GMT docs at :gmt-docs:`basemap.html`.
 
     {aliases}
-       - J=projection
-       - V=verbose
+       - J = projection
+       - V = verbose
 
     Parameters
     ----------
