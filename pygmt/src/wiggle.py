@@ -2,7 +2,10 @@
 wiggle - Plot z=f(x,y) anomalies along tracks.
 """
 
-from pygmt._typing import PathLike, TableLike
+from collections.abc import Sequence
+from typing import Literal
+
+from pygmt._typing import AnchorCode, PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -31,7 +34,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def wiggle(
+def wiggle(  # noqa: PLR0913
     self,
     data: PathLike | TableLike | None = None,
     x=None,
@@ -40,6 +43,15 @@ def wiggle(
     fillpositive=None,
     fillnegative=None,
     projection=None,
+    position: Sequence[str | float] | AnchorCode = None,
+    position_type: Literal[
+        "mapcoords", "boxcoords", "plotcoords", "inside", "outside"
+    ] = "mapcoords",
+    length=None,
+    justify: AnchorCode = None,
+    anchor_offset=None,
+    label_position=None,
+    unit=None,
     **kwargs,
 ):
     r"""
@@ -111,6 +123,30 @@ def wiggle(
             kwargs["G"].append(fillnegative + "+n")
 
     aliasdict = AliasSystem(
+        D=[
+            Alias(
+                position_type,
+                name="position_type",
+                mapping={
+                    "mapcoords": "g",
+                    "boxcoords": "n",
+                    "plotcoords": "x",
+                    "inside": "j",
+                    "outside": "J",
+                },
+            ),
+            Alias(position, name="position", sep="/", size=2),
+            Alias(length, name="length", prefix="+w"),
+            Alias(justify, name="justify", prefix="+j"),
+            Alias(anchor_offset, name="anchor_offset", prefix="+o", sep="/", size=2),
+            Alias(
+                label_position,
+                name="label_position",
+                prefix="+a",
+                mapping={"left": "l", "right": "r"},
+            ),
+            Alias(unit, name="unit", prefix="+l"),
+        ],
         J=Alias(projection, name="projection"),
     ).merge(kwargs)
 
