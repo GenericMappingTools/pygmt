@@ -5,18 +5,24 @@ image - Plot raster or EPS images.
 from collections.abc import Sequence
 from typing import Literal
 
-from pygmt._typing import PathLike
+from pygmt._typing import AnchorCode, PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
-from pygmt.params import Box
+from pygmt.params import Box, Position
+from pygmt.src._common import _parse_position
 
 
 @fmt_docstring
-@use_alias(D="position", G="bitcolor")
+@use_alias(G="bitcolor")
 def image(  # noqa: PLR0913
     self,
     imagefile: PathLike,
+    position: Position | Sequence[float | str] | AnchorCode | None = None,
+    width: float | str | None = None,
+    height: float | str | None = None,
+    dpi: float | str | None = None,
+    replicate: int | Sequence[int] | None = None,
     box: Box | bool = False,
     monochrome: bool = False,
     invert: bool = False,
@@ -33,10 +39,10 @@ def image(  # noqa: PLR0913
     r"""
     Plot raster or EPS images.
 
-    Reads Encapsulated PostScript (EPS) or raster image files and plots them. The
-    image can be scaled arbitrarily, and 1-bit raster images can be:
+    Reads an Encapsulated PostScript file or a raster image file and plot it on a map.
+    The image can be scaled arbitrarily, and 1-bit raster images can be:
 
-    - inverted, i.e., black pixels (on) becomes white (off) and vice versa.
+    - inverted, i.e., black pixels (on) become white (off) and vice versa.
     - colorized, by assigning different foreground and background colors.
     - made transparent where either the back- or foreground is painted.
 
@@ -50,6 +56,7 @@ def image(  # noqa: PLR0913
 
     $aliases
        - B = frame
+       - D = position, **+w**: width/height, **+r**: dpi, **+n**: replicate
        - F = box
        - I = invert
        - J = projection
@@ -66,11 +73,34 @@ def image(  # noqa: PLR0913
         An Encapsulated PostScript (EPS) file or a raster image file. An EPS file must
         contain an appropriate BoundingBox. A raster file can have a depth of 1, 8, 24,
         or 32 bits and is read via GDAL.
-    position : str
-        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+r**\ *dpi*\
-        **+w**\ [**-**]\ *width*\ [/*height*]\ [**+j**\ *justify*]\
-        [**+n**\ *nx*\ [/*ny*]]\ [**+o**\ *dx*\ [/*dy*]].
-        Set reference point on the map for the image.
+    position
+        Position of the GMT logo on the plot. It can be specified in multiple ways:
+
+        - A :class:`pygmt.params.Position` object to fully control the reference point,
+          anchor point, and offset.
+        - A sequence of two values representing the x and y coordinates in plot
+          coordinates, e.g., ``(1, 2)`` or ``("1c", "2c")``.
+        - A :doc:`2-character justification code </techref/justification_codes>` for a
+          position inside the plot, e.g., ``"TL"`` for Top Left corner inside the plot.
+
+        If not specified, defaults to the bottom-left corner of the plot (position
+        ``(0, 0)`` with anchor ``"BL"``).
+    width
+    height
+        Width (and height) of the image in plot coordinates (inches, cm, etc.). If
+        ``height`` (or ``width``) is set to 0, then the original aspect ratio of the
+        image is maintained. If ``width`` (or ``height``) is negative, the absolute
+        value is used to interpolate image to the device resolution using the PostScript
+        image operator. If neither dimensions nor ``dpi`` are set then revert to the
+        default dpi [:gmt-term:`GMT_GRAPHICS_DPU`].
+    dpi
+        Set the dpi of the image in dots per inch, or append **c** to indicate this is
+        dots per cm.
+    replicate
+        *nx* or (*nx*, *ny*).
+        Replicate the (scaled) image *nx* times in the horizontal direction, and *ny*
+        times in the vertical direction. If a single integer *nx* is given, *ny* = *nx*.
+        [Default is (1, 1)].
     box
         Draw a background box behind the image. If set to ``True``, a simple rectangular
         box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,
@@ -104,7 +134,24 @@ def image(  # noqa: PLR0913
     """
     self._activate_figure()
 
+    position = _parse_position(
+        position,
+        kwdict={"width": width, "height": height, "dpi": dpi, "replicate": replicate},
+        default=Position((0, 0), cstype="plotcoords"),  # Default to (0,0) in plotcoords
+    )
+
+    # width is required when only height is given.
+    if width is None and height is not None:
+        width = 0
+
     aliasdict = AliasSystem(
+        D=[
+            Alias(position, name="position"),
+            Alias(width, name="width", prefix="+w"),  # +wwidth/height
+            Alias(height, name="height", prefix="/"),
+            Alias(replicate, name="replicate", prefix="+n", sep="/", size=2),
+            Alias(dpi, name="dpi", prefix="+r"),
+        ],
         F=Alias(box, name="box"),
         M=Alias(monochrome, name="monochrome"),
         I=Alias(invert, name="invert"),
