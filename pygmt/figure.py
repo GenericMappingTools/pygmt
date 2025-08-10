@@ -449,6 +449,7 @@ class Figure:
         plot3d,
         psconvert,
         rose,
+        scalebar,
         set_panel,
         shift_origin,
         solar,
