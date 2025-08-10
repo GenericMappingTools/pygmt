@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 from pygmt import Figure, config
-from pygmt.exceptions import GMTCLibError, GMTInvalidInput
+from pygmt.exceptions import GMTCLibError, GMTParameterError, GMTTypeError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import skip_if_no
 
@@ -85,7 +85,7 @@ def test_text_without_text_input(region, projection):
     Run text by passing in x and y, but no text.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.text(region=region, projection=projection, x=1.2, y=2.4)
 
 
@@ -146,20 +146,20 @@ def test_text_invalid_inputs(region):
     Run text by providing invalid combinations of inputs.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.text(
             region=region, projection="x1c", x=1.2, y=2.4, position="MC", text="text"
         )
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.text(region=region, projection="x1c", textfiles="file.txt", text="text")
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.text(region=region, projection="x1c", position="MC", text=None)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
+        fig.text(region=region, projection="x1c", textfiles="file.txt", x=1.2, y=2.4)
+    with pytest.raises(GMTTypeError):
         fig.text(
             region=region, projection="x1c", position="MC", text=["text1", "text2"]
         )
-    with pytest.raises(GMTInvalidInput):
-        fig.text(region=region, projection="x1c", textfiles="file.txt", x=1.2, y=2.4)
 
 
 @pytest.mark.mpl_image_compare
