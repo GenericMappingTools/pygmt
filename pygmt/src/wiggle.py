@@ -8,11 +8,30 @@ from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
+def _parse_fills(fillpositive, fillnegative):
+    """
+    Parse the fillpositive and fillnegative parameters.
+
+    >>> _parse_fills("red", "blue")
+    ['red+p', 'blue+n']
+    >>> _parse_fills(None, "blue")
+    ['blue+n']
+    >>> _parse_fills("red", None)
+    ['red+p']
+    >>> _parse_fills(None, None)
+    """
+    _fills = []
+    if fillpositive:
+        _fills.append(fillpositive + "+p")
+    if fillnegative:
+        _fills.append(fillnegative + "+n")
+    return _fills or None
+
+
 @fmt_docstring
 @use_alias(
     B="frame",
     D="position",
-    G="fillpositive/fillnegative-",
     R="region",
     T="track",
     V="verbose",
@@ -53,7 +72,8 @@ def wiggle(
     Full GMT docs at :gmt-docs:`wiggle.html`.
 
     {aliases}
-       - J=projection
+       - G = **+p**: fillpositive, **+n**: fillnegative
+       - J = projection
 
     Parameters
     ----------
@@ -78,11 +98,9 @@ def wiggle(
         [**+o**\ *dx*\ [/*dy*]][**+l**\ [*label*]].
         Define the reference point on the map for the vertical scale bar.
     fillpositive : str
-        Set color or pattern for filling positive wiggles
-        [Default is no fill].
+        Set color or pattern for filling positive wiggles [Default is no fill].
     fillnegative : str
-        Set color or pattern for filling negative wiggles
-        [Default is no fill].
+        Set color or pattern for filling negative wiggles [Default is no fill].
     track : str
         Draw track [Default is no track]. Append pen attributes to use
         [Default is ``"0.25p,black,solid"``].
@@ -103,15 +121,11 @@ def wiggle(
     """
     self._activate_figure()
 
-    if fillpositive or fillnegative:
-        kwargs["G"] = []
-        if fillpositive:
-            kwargs["G"].append(fillpositive + "+p")
-        if fillnegative:
-            kwargs["G"].append(fillnegative + "+n")
+    _fills = _parse_fills(fillpositive, fillnegative)
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
+        G=Alias(_fills, name="fillpositive/fillnegative"),
     ).merge(kwargs)
 
     with Session() as lib:
