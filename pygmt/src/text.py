@@ -73,7 +73,7 @@ def text_(  # noqa: PLR0912
     Full GMT docs at :gmt-docs:`text.html`.
 
     {aliases}
-       - J=projection
+       - J = projection
 
     Parameters
     ----------

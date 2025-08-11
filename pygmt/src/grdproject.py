@@ -53,7 +53,7 @@ def grdproject(
     Full GMT docs at :gmt-docs:`grdproject.html`.
 
     {aliases}
-       - J=projection
+       - J = projection
 
     Parameters
     ----------

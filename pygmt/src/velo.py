@@ -58,7 +58,7 @@ def velo(self, data: PathLike | TableLike | None = None, projection=None, **kwar
     Full GMT docs at :gmt-docs:`supplements/geodesy/velo.html`.
 
     {aliases}
-       - J=projection
+       - J = projection
 
     Parameters
     ----------
