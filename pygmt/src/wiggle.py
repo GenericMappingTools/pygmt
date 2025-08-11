@@ -12,7 +12,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @use_alias(
     B="frame",
     D="position",
-    G="fillpositive/fillnegative-",
     R="region",
     T="track",
     V="verbose",
