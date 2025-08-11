@@ -46,7 +46,7 @@ def grdview(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
     Full GMT docs at :gmt-docs:`grdview.html`.
 
     {aliases}
-       - J=projection
+       - J = projection
 
     Parameters
     ----------

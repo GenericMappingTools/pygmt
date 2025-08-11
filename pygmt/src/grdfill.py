@@ -101,11 +101,11 @@ def grdfill(
     Full GMT docs at :gmt-docs:`grdfill.html`.
 
     {aliases}
-       - Ac=constantfill
-       - Ag=gridfill
-       - An=neighborfill
-       - As=splinefill
-       - L=inquire
+       - Ac = constantfill
+       - Ag = gridfill
+       - An = neighborfill
+       - As = splinefill
+       - L = inquire
 
     Parameters
     ----------

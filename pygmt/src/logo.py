@@ -30,7 +30,7 @@ def logo(self, projection=None, **kwargs):
     Full GMT docs at :gmt-docs:`gmtlogo.html`.
 
     {aliases}
-       - J=projection
+       - J = projection
 
     Parameters
     ----------

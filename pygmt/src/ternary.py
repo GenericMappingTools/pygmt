@@ -47,7 +47,7 @@ def ternary(
     Full GMT docs at :gmt-docs:`ternary.html`.
 
     {aliases}
-       - L=alabel/blabel/clabel
+       - L = alabel/blabel/clabel
 
     Parameters
     ----------
