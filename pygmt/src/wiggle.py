@@ -15,17 +15,24 @@ def _parse_fills(fillpositive, fillnegative):
     >>> _parse_fills("red", "blue")
     ['red+p', 'blue+n']
     >>> _parse_fills(None, "blue")
-    ['blue+n']
+    'blue+n'
     >>> _parse_fills("red", None)
-    ['red+p']
+    'red+p'
     >>> _parse_fills(None, None)
     """
     _fills = []
-    if fillpositive:
+    if fillpositive is not None:
         _fills.append(fillpositive + "+p")
-    if fillnegative:
+    if fillnegative is not None:
         _fills.append(fillnegative + "+n")
-    return _fills or None
+
+    match len(_fills):
+        case 0:
+            return None
+        case 1:
+            return _fills[0]
+        case 2:
+            return _fills
 
 
 @fmt_docstring
