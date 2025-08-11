@@ -2,6 +2,8 @@
 basemap - Plot base maps and frames.
 """
 
+from typing import Literal
+
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -17,14 +19,27 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     F="box",
     Td="rose",
     Tm="compass",
-    V="verbose",
     c="panel",
     f="coltypes",
     p="perspective",
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def basemap(self, projection=None, **kwargs):
+def basemap(
+    self,
+    projection=None,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
+    **kwargs,
+):
     r"""
     Plot base maps and frames.
 
@@ -39,7 +54,8 @@ def basemap(self, projection=None, **kwargs):
     Full GMT docs at :gmt-docs:`basemap.html`.
 
     {aliases}
-       - J=projection
+       - J = projection
+       - V = verbose
 
     Parameters
     ----------
@@ -86,6 +102,10 @@ def basemap(self, projection=None, **kwargs):
     self._activate_figure()
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         lib.call_module(module="basemap", args=build_arg_list(aliasdict))

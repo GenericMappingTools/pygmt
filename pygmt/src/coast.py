@@ -44,6 +44,16 @@ def coast(
     resolution: Literal[
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
     **kwargs,
 ):
     r"""
@@ -66,8 +76,9 @@ def coast(
     Full GMT docs at :gmt-docs:`coast.html`.
 
     {aliases}
-       - D=resolution
-       - J=projection
+       - D = resolution
+       - J = projection
+       - V = verbose
 
     Parameters
     ----------
@@ -227,7 +238,10 @@ def coast(
             },
         ),
         J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         lib.call_module(module="coast", args=build_arg_list(aliasdict))
