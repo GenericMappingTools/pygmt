@@ -57,7 +57,7 @@ def tilemap(
     provide Spherical Mercator (EPSG:3857) coordinates to the ``region`` parameter.
 
     {aliases}
-       - J=projection
+       - J = projection
 
     Parameters
     ----------
