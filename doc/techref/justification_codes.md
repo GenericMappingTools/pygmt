@@ -5,7 +5,7 @@ file_format: mystnb
 # Justification codes
 
 To adjust the position of plot embellishments, such as scalebars, directional roses,
-colorbars, legends, and images, users can pass a two-character (order-independent)
+colorbars, legends, text, and images, users can pass a two-character (order-independent)
 code. Choose from
 
 - Vertical: **T**\(op), **M**\(iddle), **B**\(ottom)
@@ -61,7 +61,7 @@ fig.text(
 fig.show(width=600)
 ```
 
-For a non-rectangular geographic basemap the justification codes refer to the plot or map
+For a non-rectangular geographic basemap, the justification codes refer to the map
 bounding box:
 
 ```{code-cell}
@@ -88,8 +88,7 @@ fig.show(width=600)
 ```
 
 
-Plot embellishments such as scalebars, directional roses, legends, colorbars as well
-as text strings can also be abstracted as rectangles. The justification codes are
+Plot embellishments can be abstracted as rectangles. Here, the justification codes are
 shown exemplary for a colorbar.
 
 ```{code-cell}
