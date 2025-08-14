@@ -98,7 +98,7 @@ class triangulate:  # noqa: N801
         Full GMT docs at :gmt-docs:`triangulate.html`.
 
         {aliases}
-           - J=projection
+           - J = projection
 
         Parameters
         ----------
@@ -205,7 +205,7 @@ class triangulate:  # noqa: N801
         Full GMT docs at :gmt-docs:`triangulate.html`
 
         {aliases}
-           - J=projection
+           - J = projection
 
         Parameters
         ----------
