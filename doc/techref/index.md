@@ -14,5 +14,6 @@ fonts.md
 text_formatting.md
 patterns.md
 encodings.md
+reference_anchor_points.md
 environment_variables.md
 ```
