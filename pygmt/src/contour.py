@@ -58,7 +58,7 @@ def contour(
     Full GMT docs at :gmt-docs:`contour.html`.
 
     {aliases}
-       - J=projection
+       - J = projection
 
     Parameters
     ----------

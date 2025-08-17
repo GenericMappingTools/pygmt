@@ -66,8 +66,8 @@ def coast(
     Full GMT docs at :gmt-docs:`coast.html`.
 
     {aliases}
-       - D=resolution
-       - J=projection
+       - D = resolution
+       - J = projection
 
     Parameters
     ----------
