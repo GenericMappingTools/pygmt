@@ -47,7 +47,7 @@ def histogram(self, data: PathLike | TableLike, projection=None, **kwargs):
     Full GMT docs at :gmt-docs:`histogram.html`.
 
     {aliases}
-       - J=projection
+       - J = projection
 
     Parameters
     ----------

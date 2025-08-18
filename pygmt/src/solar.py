@@ -41,8 +41,8 @@ def solar(
     Full GMT docs at :gmt-docs:`solar.html`.
 
     {aliases}
-       - J=projection
-       - T=terminator, **+d**: terminator_datetime
+       - J = projection
+       - T = terminator, **+d**: terminator_datetime
 
     Parameters
     ----------

@@ -76,8 +76,8 @@ def select(
     Full GMT docs at :gmt-docs:`gmtselect.html`.
 
     {aliases}
-       - D=resolution
-       - J=projection
+       - D = resolution
+       - J = projection
 
     Parameters
     ----------
