@@ -27,7 +27,6 @@ from pygmt.helpers import (
     B="frame",
     C="clearance",
     D="offset",
-    F="position/angle/font/justify-",
     G="fill",
     N="no_clip",
     V="verbose",
@@ -73,6 +72,7 @@ def text_(  # noqa: PLR0912
     Full GMT docs at :gmt-docs:`text.html`.
 
     {aliases}
+       - F = **+a**: angle, **+c**: position, **+j**: justify, **+f**: font
        - J = projection
 
     Parameters
