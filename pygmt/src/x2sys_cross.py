@@ -5,10 +5,11 @@ x2sys_cross - Calculate crossovers between track data files.
 import contextlib
 import os
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 import pandas as pd
 from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTTypeError
 from pygmt.helpers import (
@@ -66,7 +67,6 @@ def tempfile_from_dftrack(track, suffix):
     S="speed",
     T="tag",
     Q="coe",
-    V="verbose",
     W="numpoints",
     Z="trackvalues",
 )
@@ -74,6 +74,16 @@ def tempfile_from_dftrack(track, suffix):
 def x2sys_cross(
     tracks=None,
     outfile: PathLike | None = None,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
     **kwargs,
 ) -> pd.DataFrame | None:
     r"""
@@ -90,6 +100,7 @@ def x2sys_cross(
     Full GMT docs at :gmt-docs:`supplements/x2sys/x2sys_cross.html`.
 
     {aliases}
+        - V = verbose
 
     Parameters
     ----------
@@ -215,13 +226,18 @@ def x2sys_cross(
             case _:
                 raise GMTTypeError(type(track))
 
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl:
             with contextlib.ExitStack() as stack:
                 fnames = [stack.enter_context(c) for c in file_contexts]
                 lib.call_module(
                     module="x2sys_cross",
-                    args=build_arg_list(kwargs, infile=fnames, outfile=vouttbl),
+                    args=build_arg_list(aliasdict, infile=fnames, outfile=vouttbl),
                 )
                 result = lib.virtualfile_to_dataset(
                     vfname=vouttbl, output_type=output_type, header=2

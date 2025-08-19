@@ -2,6 +2,8 @@
 velo - Plot velocity vectors, crosses, anisotropy bars, and wedges.
 """
 
+from typing import Literal
+
 import numpy as np
 import pandas as pd
 from pygmt._typing import PathLike, TableLike
@@ -30,7 +32,6 @@ from pygmt.helpers import (
     N="no_clip",
     R="region",
     S="spec",
-    V="verbose",
     W="pen",
     Z="zvalue",
     c="panel",
@@ -42,7 +43,22 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def velo(self, data: PathLike | TableLike | None = None, projection=None, **kwargs):
+def velo(
+    self,
+    data: PathLike | TableLike | None = None,
+    projection=None,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
+    **kwargs,
+):
     r"""
     Plot velocity vectors, crosses, anisotropy bars, and wedges.
 
@@ -59,6 +75,7 @@ def velo(self, data: PathLike | TableLike | None = None, projection=None, **kwar
 
     {aliases}
        - J = projection
+       - V = verbose
 
     Parameters
     ----------
@@ -259,7 +276,10 @@ def velo(self, data: PathLike | TableLike | None = None, projection=None, **kwar
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:

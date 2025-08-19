@@ -25,7 +25,6 @@ __doctest_skip__ = ["grdcut"]
     R="region",
     N="extend",
     S="circ_subregion",
-    V="verbose",
     Z="z_subregion",
     f="coltypes",
 )
@@ -35,6 +34,16 @@ def grdcut(
     kind: Literal["grid", "image"] = "grid",
     outgrid: PathLike | None = None,
     projection=None,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -53,6 +62,7 @@ def grdcut(
 
     {aliases}
       - J = projection
+      - V = verbose
 
     Parameters
     ----------
@@ -128,7 +138,10 @@ def grdcut(
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (

@@ -2,6 +2,8 @@
 Histogram - Calculate and plot histograms.
 """
 
+from typing import Literal
+
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
@@ -23,7 +25,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     R="region",
     S="stairs",
     T="series",
-    V="verbose",
     W="pen",
     Z="histtype",
     b="binary",
@@ -40,7 +41,22 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @kwargs_to_strings(
     R="sequence", T="sequence", c="sequence_comma", i="sequence_comma", p="sequence"
 )
-def histogram(self, data: PathLike | TableLike, projection=None, **kwargs):
+def histogram(
+    self,
+    data: PathLike | TableLike,
+    projection=None,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
+    **kwargs,
+):
     r"""
     Calculate and plot histograms.
 
@@ -48,6 +64,7 @@ def histogram(self, data: PathLike | TableLike, projection=None, **kwargs):
 
     {aliases}
        - J = projection
+       - V = verbose
 
     Parameters
     ----------
@@ -140,7 +157,10 @@ def histogram(self, data: PathLike | TableLike, projection=None, **kwargs):
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:

@@ -33,7 +33,6 @@ from pygmt.src._common import _data_geometry_is_point
     N="no_clip",
     R="region",
     S="style",
-    V="verbose",
     W="pen",
     Z="zvalue",
     a="aspatial",
@@ -61,6 +60,16 @@ def plot(  # noqa: PLR0912
     direction=None,
     straight_line: bool | Literal["x", "y"] = False,  # noqa: ARG001
     projection=None,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
     **kwargs,
 ):
     r"""
@@ -88,6 +97,7 @@ def plot(  # noqa: PLR0912
 
     {aliases}
        - J = projection
+       - V = verbose
 
     Parameters
     ----------
@@ -285,7 +295,10 @@ def plot(  # noqa: PLR0912
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:

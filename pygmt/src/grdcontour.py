@@ -2,6 +2,8 @@
 grdcontour - Make contour map using a grid.
 """
 
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
@@ -29,7 +31,6 @@ __doctest_skip__ = ["grdcontour"]
     Q="cut",
     R="region",
     S="resample",
-    V="verbose",
     W="pen",
     l="label",
     c="panel",
@@ -38,7 +39,22 @@ __doctest_skip__ = ["grdcontour"]
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", L="sequence", c="sequence_comma", p="sequence")
-def grdcontour(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
+def grdcontour(
+    self,
+    grid: PathLike | xr.DataArray,
+    projection=None,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
+    **kwargs,
+):
     r"""
     Make contour map using a grid.
 
@@ -48,6 +64,7 @@ def grdcontour(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
 
     {aliases}
        - J = projection
+       - V = verbose
 
     Parameters
     ----------
@@ -154,7 +171,10 @@ def grdcontour(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:

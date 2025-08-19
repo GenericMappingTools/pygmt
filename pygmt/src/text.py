@@ -3,6 +3,7 @@ text - Plot or typeset text.
 """
 
 from collections.abc import Sequence
+from typing import Literal
 
 import numpy as np
 from pygmt._typing import AnchorCode, PathLike, StringArrayTypes, TableLike
@@ -29,7 +30,6 @@ from pygmt.helpers import (
     D="offset",
     G="fill",
     N="no_clip",
-    V="verbose",
     W="pen",
     a="aspatial",
     c="panel",
@@ -42,7 +42,7 @@ from pygmt.helpers import (
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def text_(  # noqa: PLR0912
+def text_(  # noqa: PLR0912, PLR0913, PLR0915
     self,
     textfiles: PathLike | TableLike | None = None,
     x=None,
@@ -53,6 +53,16 @@ def text_(  # noqa: PLR0912
     font=None,
     justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
     projection=None,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
     **kwargs,
 ):
     r"""
@@ -74,6 +84,7 @@ def text_(  # noqa: PLR0912
     {aliases}
        - F = **+a**: angle, **+c**: position, **+j**: justify, **+f**: font
        - J = projection
+       - V = verbose
 
     Parameters
     ----------
@@ -266,7 +277,10 @@ def text_(  # noqa: PLR0912
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(

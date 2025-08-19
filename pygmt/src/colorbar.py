@@ -2,6 +2,8 @@
 colorbar - Plot gray scale or color scale bar.
 """
 
+from typing import Literal
+
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -20,7 +22,6 @@ __doctest_skip__ = ["colorbar"]
     L="equalsize",
     Q="log",
     R="region",
-    V="verbose",
     W="scale",
     Z="zfile",
     c="panel",
@@ -30,7 +31,21 @@ __doctest_skip__ = ["colorbar"]
 @kwargs_to_strings(
     R="sequence", G="sequence", I="sequence", c="sequence_comma", p="sequence"
 )
-def colorbar(self, projection=None, **kwargs):
+def colorbar(
+    self,
+    projection=None,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
+    **kwargs,
+):
     r"""
     Plot gray scale or color scale bar.
 
@@ -46,6 +61,7 @@ def colorbar(self, projection=None, **kwargs):
 
     {aliases}
        - J = projection
+       - V = verbose
 
     Parameters
     ----------
@@ -149,6 +165,10 @@ def colorbar(self, projection=None, **kwargs):
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         lib.call_module(module="colorbar", args=build_arg_list(aliasdict))

@@ -3,7 +3,9 @@ psconvert - Convert [E]PS file(s) to other formats using Ghostscript.
 """
 
 from pathlib import Path
+from typing import Literal
 
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTValueError
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -20,10 +22,22 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     N="bb_style",
     T="fmt",
     Q="anti_aliasing",
-    V="verbose",
 )
 @kwargs_to_strings()
-def psconvert(self, **kwargs):
+def psconvert(
+    self,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
+    **kwargs,
+):
     r"""
     Convert [E]PS file(s) to other formats using Ghostscript.
 
@@ -37,6 +51,7 @@ def psconvert(self, **kwargs):
     Full GMT docs at :gmt-docs:`psconvert.html`.
 
     {aliases}
+       - V = verbose
 
     Parameters
     ----------
@@ -127,5 +142,10 @@ def psconvert(self, **kwargs):
         msg = f"No such directory: '{prefix_path}', please create it first."
         raise FileNotFoundError(msg)
 
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
-        lib.call_module(module="psconvert", args=build_arg_list(kwargs))
+        lib.call_module(module="psconvert", args=build_arg_list(aliasdict))

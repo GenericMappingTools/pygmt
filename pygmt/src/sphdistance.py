@@ -3,8 +3,11 @@ sphdistance - Create Voronoi distance, node, or natural nearest-neighbor grid on
 sphere.
 """
 
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -22,7 +25,6 @@ __doctest_skip__ = ["sphdistance"]
     N="node_table",
     Q="voronoi",
     R="region",
-    V="verbose",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
 def sphdistance(
@@ -30,6 +32,16 @@ def sphdistance(
     x=None,
     y=None,
     outgrid: PathLike | None = None,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -43,6 +55,7 @@ def sphdistance(
     Full GMT docs at :gmt-docs:`sphdistance.html`.
 
     {aliases}
+       - V = verbose
 
     Parameters
     ----------
@@ -117,13 +130,19 @@ def sphdistance(
     if kwargs.get("I") is None or kwargs.get("R") is None:
         msg = "Both 'region' and 'spacing' must be specified."
         raise GMTInvalidInput(msg)
+
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="vector", data=data, x=x, y=y) as vintbl,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            kwargs["G"] = voutgrd
+            aliasdict["G"] = voutgrd
             lib.call_module(
-                module="sphdistance", args=build_arg_list(kwargs, infile=vintbl)
+                module="sphdistance", args=build_arg_list(aliasdict, infile=vintbl)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

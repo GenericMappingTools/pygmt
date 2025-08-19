@@ -25,7 +25,6 @@ except ImportError:
     N="no_clip",
     Q="nan_transparent",
     # R="region",
-    V="verbose",
     c="panel",
     p="perspective",
     t="transparency",
@@ -41,6 +40,16 @@ def tilemap(
     max_retries: int = 2,
     zoom_adjust: int | None = None,
     projection=None,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
     **kwargs,
 ):
     r"""
@@ -58,6 +67,7 @@ def tilemap(
 
     {aliases}
        - J = projection
+       - V = verbose
 
     Parameters
     ----------
@@ -129,7 +139,10 @@ def tilemap(
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=raster) as vingrd:

@@ -2,8 +2,11 @@
 sphinterpolate - Spherical gridding in tension of data on a sphere.
 """
 
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -11,14 +14,22 @@ __doctest_skip__ = ["sphinterpolate"]
 
 
 @fmt_docstring
-@use_alias(
-    I="spacing",
-    R="region",
-    V="verbose",
-)
+@use_alias(I="spacing", R="region")
 @kwargs_to_strings(I="sequence", R="sequence")
 def sphinterpolate(
-    data: PathLike | TableLike, outgrid: PathLike | None = None, **kwargs
+    data: PathLike | TableLike,
+    outgrid: PathLike | None = None,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
+    **kwargs,
 ) -> xr.DataArray | None:
     r"""
     Spherical gridding in tension of data on a sphere.
@@ -32,6 +43,7 @@ def sphinterpolate(
     Full GMT docs at :gmt-docs:`sphinterpolate.html`.
 
     {aliases}
+       - V = verbose
 
     Parameters
     ----------
@@ -62,13 +74,18 @@ def sphinterpolate(
     >>> # to produce a grid with a 1 arc-degree spacing
     >>> grid = pygmt.sphinterpolate(data=mars_shape, spacing=1, region="g")
     """
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="vector", data=data) as vintbl,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            kwargs["G"] = voutgrd
+            aliasdict["G"] = voutgrd
             lib.call_module(
-                module="sphinterpolate", args=build_arg_list(kwargs, infile=vintbl)
+                module="sphinterpolate", args=build_arg_list(aliasdict, infile=vintbl)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

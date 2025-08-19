@@ -30,7 +30,6 @@ __doctest_skip__ = ["select"]
     L="dist2line",
     N="mask",
     R="region",
-    V="verbose",
     Z="z_subregion",
     b="binary",
     d="nodata",
@@ -52,6 +51,16 @@ def select(
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
     projection=None,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -78,6 +87,7 @@ def select(
     {aliases}
        - D = resolution
        - J = projection
+       - V = verbose
 
     Parameters
     ----------
@@ -230,7 +240,10 @@ def select(
             },
         ),
         J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (

@@ -2,6 +2,8 @@
 wiggle - Plot z=f(x,y) anomalies along tracks.
 """
 
+from typing import Literal
+
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
@@ -41,7 +43,6 @@ def _parse_fills(fillpositive, fillnegative):
     D="position",
     R="region",
     T="track",
-    V="verbose",
     W="pen",
     Z="scale",
     b="binary",
@@ -66,6 +67,16 @@ def wiggle(
     fillpositive=None,
     fillnegative=None,
     projection=None,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
     **kwargs,
 ):
     r"""
@@ -81,6 +92,7 @@ def wiggle(
     {aliases}
        - G = **+p**: fillpositive, **+n**: fillnegative
        - J = projection
+       - V = verbose
 
     Parameters
     ----------
@@ -133,7 +145,10 @@ def wiggle(
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
         G=Alias(_fills, name="fillpositive/fillnegative"),
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(

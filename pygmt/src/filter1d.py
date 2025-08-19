@@ -7,6 +7,7 @@ from typing import Literal
 import numpy as np
 import pandas as pd
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -18,15 +19,21 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@use_alias(
-    E="end",
-    F="filter_type",
-    N="time_col",
-)
+@use_alias(E="end", F="filter_type", N="time_col")
 def filter1d(
     data: PathLike | TableLike,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -43,6 +50,7 @@ def filter1d(
     Full GMT docs at :gmt-docs:`filter1d.html`.
 
     {aliases}
+       - V = verbose
 
     Parameters
     ----------
@@ -117,6 +125,11 @@ def filter1d(
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="vector", data=data) as vintbl,
@@ -124,6 +137,6 @@ def filter1d(
         ):
             lib.call_module(
                 module="filter1d",
-                args=build_arg_list(kwargs, infile=vintbl, outfile=vouttbl),
+                args=build_arg_list(aliasdict, infile=vintbl, outfile=vouttbl),
             )
         return lib.virtualfile_to_dataset(vfname=vouttbl, output_type=output_type)

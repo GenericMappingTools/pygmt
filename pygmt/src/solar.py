@@ -18,7 +18,6 @@ __doctest_skip__ = ["solar"]
     B="frame",
     G="fill",
     R="region",
-    V="verbose",
     W="pen",
     c="panel",
     p="perspective",
@@ -30,6 +29,16 @@ def solar(
     terminator: Literal["astronomical", "civil", "day_night", "nautical"] = "day_night",
     terminator_datetime=None,
     projection=None,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
     **kwargs,
 ):
     r"""
@@ -43,6 +52,7 @@ def solar(
     {aliases}
        - J = projection
        - T = terminator, **+d**: terminator_datetime
+       - V = verbose
 
     Parameters
     ----------
@@ -124,7 +134,10 @@ def solar(
             ),
             Alias(datetime_string, name="terminator_datetime", prefix="+d"),
         ],
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         lib.call_module(module="solar", args=build_arg_list(aliasdict))

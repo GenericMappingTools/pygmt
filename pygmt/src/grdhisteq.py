@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -59,12 +60,23 @@ class grdhisteq:  # noqa: N801
         R="region",
         N="gaussian",
         Q="quadratic",
-        V="verbose",
         h="header",
     )
     @kwargs_to_strings(R="sequence")
     def equalize_grid(
-        grid: PathLike | xr.DataArray, outgrid: PathLike | None = None, **kwargs
+        grid: PathLike | xr.DataArray,
+        outgrid: PathLike | None = None,
+        verbose: Literal[
+            "quiet",
+            "error",
+            "warning",
+            "timing",
+            "information",
+            "compatibility",
+            "debug",
+        ]
+        | bool = False,
+        **kwargs,
     ) -> xr.DataArray | None:
         r"""
         Perform histogram equalization for a grid.
@@ -78,6 +90,7 @@ class grdhisteq:  # noqa: N801
         Full GMT docs at :gmt-docs:`grdhisteq.html`.
 
         {aliases}
+           - V = verbose
 
         Parameters
         ----------
@@ -123,14 +136,17 @@ class grdhisteq:  # noqa: N801
         This method does a weighted histogram equalization for geographic
         grids to account for node area varying with latitude.
         """
+        aliasdict = AliasSystem().add_common(V=verbose)
+        aliasdict.merge(kwargs)
+
         with Session() as lib:
             with (
                 lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
                 lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
             ):
-                kwargs["G"] = voutgrd
+                aliasdict["G"] = voutgrd
                 lib.call_module(
-                    module="grdhisteq", args=build_arg_list(kwargs, infile=vingrd)
+                    module="grdhisteq", args=build_arg_list(aliasdict, infile=vingrd)
                 )
                 return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
 
@@ -141,7 +157,6 @@ class grdhisteq:  # noqa: N801
         R="region",
         N="gaussian",
         Q="quadratic",
-        V="verbose",
         h="header",
     )
     @kwargs_to_strings(R="sequence")
@@ -149,6 +164,16 @@ class grdhisteq:  # noqa: N801
         grid: PathLike | xr.DataArray,
         output_type: Literal["pandas", "numpy", "file"] = "pandas",
         outfile: PathLike | None = None,
+        verbose: Literal[
+            "quiet",
+            "error",
+            "warning",
+            "timing",
+            "information",
+            "compatibility",
+            "debug",
+        ]
+        | bool = False,
         **kwargs,
     ) -> pd.DataFrame | np.ndarray | None:
         r"""
@@ -171,6 +196,7 @@ class grdhisteq:  # noqa: N801
         Full GMT docs at :gmt-docs:`grdhisteq.html`.
 
         {aliases}
+           - V = verbose
 
         Parameters
         ----------
@@ -230,14 +256,19 @@ class grdhisteq:  # noqa: N801
             msg = "'header' is only allowed with output_type='file'."
             raise GMTInvalidInput(msg)
 
+        aliasdict = AliasSystem().add_common(
+            V=verbose,
+        )
+        aliasdict.merge(kwargs)
+
         with Session() as lib:
             with (
                 lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
                 lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
             ):
-                kwargs["D"] = vouttbl  # -D for output file name
+                aliasdict["D"] = vouttbl  # -D for output file name
                 lib.call_module(
-                    module="grdhisteq", args=build_arg_list(kwargs, infile=vingrd)
+                    module="grdhisteq", args=build_arg_list(aliasdict, infile=vingrd)
                 )
 
             return lib.virtualfile_to_dataset(

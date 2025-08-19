@@ -3,6 +3,7 @@ legend - Plot a legend.
 """
 
 import io
+from typing import Literal
 
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
@@ -23,7 +24,6 @@ from pygmt.helpers import (
     R="region",
     D="position",
     F="box",
-    V="verbose",
     c="panel",
     p="perspective",
     t="transparency",
@@ -35,6 +35,16 @@ def legend(
     projection=None,
     position="JTR+jTR+o0.2c",
     box="+gwhite+p1p",
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
     **kwargs,
 ):
     r"""
@@ -50,6 +60,7 @@ def legend(
 
     {aliases}
        - J = projection
+       - V = verbose
 
     Parameters
     ----------
@@ -101,7 +112,10 @@ def legend(
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(data=spec, required=False) as vintbl:

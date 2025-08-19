@@ -3,6 +3,7 @@ grdclip - Clip the range of grid values.
 """
 
 from collections.abc import Sequence
+from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike
@@ -32,6 +33,16 @@ def grdclip(
     below: Sequence[float] | None = None,
     between: Sequence[float] | Sequence[Sequence[float]] | None = None,
     replace: Sequence[float] | Sequence[Sequence[float]] | None = None,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     """
@@ -56,6 +67,7 @@ def grdclip(
        - Sb = below
        - Si = between
        - Sr = replace
+       - V = verbose
 
     Parameters
     ----------
@@ -120,7 +132,10 @@ def grdclip(
         Sb=Alias(below, name="below", sep="/", size=2),
         Si=Alias(between, name="between", sep="/", size=3, ndim=2),
         Sr=Alias(replace, name="replace", sep="/", size=2, ndim=2),
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (

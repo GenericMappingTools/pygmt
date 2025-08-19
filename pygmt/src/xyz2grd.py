@@ -2,6 +2,8 @@
 xyz2grd - Convert data table to a grid.
 """
 
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
@@ -17,7 +19,6 @@ __doctest_skip__ = ["xyz2grd"]
     A="duplicate",
     I="spacing",
     R="region",
-    V="verbose",
     Z="convention",
     b="binary",
     d="nodata",
@@ -36,6 +37,16 @@ def xyz2grd(
     z=None,
     outgrid: PathLike | None = None,
     projection=None,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -51,6 +62,7 @@ def xyz2grd(
 
     {aliases}
        - J = projection
+       - V = verbose
 
     Parameters
     ----------
@@ -156,7 +168,10 @@ def xyz2grd(
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (

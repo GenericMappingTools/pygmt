@@ -18,7 +18,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     N="normalize",
     R="region",
     S="search_radius",
-    V="verbose",
     W="weight",
     a="aspatial",
     b="binary",
@@ -49,6 +48,16 @@ def binstats(
         "sum",
     ] = "number",
     quantile_value: float = 50,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -66,6 +75,7 @@ def binstats(
 
     {aliases}
        - C = statistic
+       - V = verbose
 
     Parameters
     ----------
@@ -151,7 +161,10 @@ def binstats(
                 "sum": "z",
             },
         ),
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
     if statistic == "quantile":
         aliasdict["C"] += f"{quantile_value}"
 

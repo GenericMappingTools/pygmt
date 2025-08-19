@@ -127,7 +127,6 @@ def _auto_offset(spec) -> bool:
     N="no_clip",
     R="region",
     T="nodal",
-    V="verbose",
     W="pen",
     c="panel",
     p="perspective",
@@ -147,6 +146,16 @@ def meca(  # noqa: PLR0913
     plot_latitude: float | Sequence[float] | None = None,
     event_name: str | Sequence[str] | None = None,
     projection=None,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
     **kwargs,
 ):
     r"""
@@ -203,6 +212,7 @@ def meca(  # noqa: PLR0913
     {aliases}
        - J = projection
        - S = scale/convention/component
+       - V = verbose
 
     Parameters
     ----------
@@ -367,7 +377,10 @@ def meca(  # noqa: PLR0913
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=spec) as vintbl:

@@ -2,8 +2,11 @@
 grd2cpt - Make linear or histogram-equalized color palette table from grid.
 """
 
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -27,13 +30,25 @@ __doctest_skip__ = ["grd2cpt"]
     Q="log",
     R="region",
     T="series",
-    V="verbose",
     W="categorical",
     Ww="cyclic",
     Z="continuous",
 )
 @kwargs_to_strings(G="sequence", L="sequence", R="sequence", T="sequence")
-def grd2cpt(grid: PathLike | xr.DataArray, **kwargs):
+def grd2cpt(
+    grid: PathLike | xr.DataArray,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
+    **kwargs,
+):
     r"""
     Make linear or histogram-equalized color palette table from grid.
 
@@ -190,9 +205,14 @@ def grd2cpt(grid: PathLike | xr.DataArray, **kwargs):
     if (output := kwargs.pop("H", None)) is not None:
         kwargs["H"] = True
 
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
             lib.call_module(
                 module="grd2cpt",
-                args=build_arg_list(kwargs, infile=vingrd, outfile=output),
+                args=build_arg_list(aliasdict, infile=vingrd, outfile=output),
             )

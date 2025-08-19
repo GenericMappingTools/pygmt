@@ -2,6 +2,8 @@
 grdimage - Project and plot grids or images.
 """
 
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
@@ -29,7 +31,6 @@ __doctest_skip__ = ["grdimage"]
     N="no_clip",
     Q="nan_transparent",
     R="region",
-    V="verbose",
     n="interpolation",
     c="panel",
     f="coltypes",
@@ -38,7 +39,22 @@ __doctest_skip__ = ["grdimage"]
     x="cores",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def grdimage(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
+def grdimage(
+    self,
+    grid: PathLike | xr.DataArray,
+    projection=None,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
+    **kwargs,
+):
     r"""
     Project and plot grids or images.
 
@@ -74,6 +90,7 @@ def grdimage(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
 
     {aliases}
        - J = projection
+       - V = verbose
 
     Parameters
     ----------
@@ -169,7 +186,10 @@ def grdimage(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (

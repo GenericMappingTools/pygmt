@@ -2,8 +2,11 @@
 nearneighbor - Grid table data using a "Nearest neighbor" algorithm.
 """
 
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -17,7 +20,6 @@ __doctest_skip__ = ["nearneighbor"]
     N="sectors",
     R="region",
     S="search_radius",
-    V="verbose",
     a="aspatial",
     b="binary",
     d="nodata",
@@ -36,6 +38,16 @@ def nearneighbor(
     y=None,
     z=None,
     outgrid: PathLike | None = None,
+    verbose: Literal[
+        "quiet",
+        "error",
+        "warning",
+        "timing",
+        "information",
+        "compatibility",
+        "debug",
+    ]
+    | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -75,6 +87,7 @@ def nearneighbor(
     Full GMT docs at :gmt-docs:`nearneighbor.html`.
 
     {aliases}
+       - V = verbose
 
     Parameters
     ----------
@@ -144,6 +157,11 @@ def nearneighbor(
     ...     search_radius="10m",
     ... )
     """
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(
@@ -151,8 +169,8 @@ def nearneighbor(
             ) as vintbl,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            kwargs["G"] = voutgrd
+            aliasdict["G"] = voutgrd
             lib.call_module(
-                module="nearneighbor", args=build_arg_list(kwargs, infile=vintbl)
+                module="nearneighbor", args=build_arg_list(aliasdict, infile=vintbl)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
