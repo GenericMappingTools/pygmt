@@ -2,28 +2,32 @@
 psconvert - Convert [E]PS file(s) to other formats using Ghostscript.
 """
 
+from collections.abc import Sequence
 from pathlib import Path
 
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTValueError
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
 @use_alias(
     A="crop",
-    C="gs_option",
-    E="dpi",
     F="prefix",
-    G="gs_path",
     I="resize",
     N="bb_style",
     T="fmt",
     Q="anti_aliasing",
     V="verbose",
 )
-@kwargs_to_strings()
-def psconvert(self, **kwargs):
+def psconvert(
+    self,
+    dpi: int | None = None,
+    gs_option: str | Sequence[str] | None = None,
+    gs_path: str | None = None,
+    **kwargs,
+):
     r"""
     Convert [E]PS file(s) to other formats using Ghostscript.
 
@@ -37,6 +41,9 @@ def psconvert(self, **kwargs):
     Full GMT docs at :gmt-docs:`psconvert.html`.
 
     {aliases}
+       - C = gs_option
+       - E = dpi
+       - G = gs_path
 
     Parameters
     ----------
@@ -49,14 +56,15 @@ def psconvert(self, **kwargs):
         creating very small images where the difference of one pixel
         might matter. If ``verbose`` is used we also report the
         dimensions of the final illustration.
-    gs_path : str
+    gs_path
         Full path to the Ghostscript executable.
-    gs_option : str
-        Specify a single, custom option that will be passed on to
-        Ghostscript as is.
-    dpi : int
-        Set raster resolution in dpi. Default is 720 for PDF, 300 for
-        others.
+    gs_option
+        Specify one or a list of custom options that will be passed on to Ghostscript
+        as is.
+    dpi
+        Set raster resolution in dpi [default = 720 for PDF, 300 for others]. **Note:**
+        Ghostscript limits the final width and height pixel dimensions of a raster to be
+        less than or equal to 65536.
     prefix : str
         Force the output file name. By default output names are constructed
         using the input names as base, which are appended with an
@@ -127,5 +135,11 @@ def psconvert(self, **kwargs):
         msg = f"No such directory: '{prefix_path}', please create it first."
         raise FileNotFoundError(msg)
 
+    aliasdict = AliasSystem(
+        C=Alias(gs_option, name="gs_option"),
+        E=Alias(dpi, name="dpi"),
+        G=Alias(gs_path, name="gs_path"),
+    ).merge(kwargs)
+
     with Session() as lib:
-        lib.call_module(module="psconvert", args=build_arg_list(kwargs))
+        lib.call_module(module="psconvert", args=build_arg_list(aliasdict))
