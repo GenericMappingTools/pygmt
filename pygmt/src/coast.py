@@ -31,7 +31,6 @@ __doctest_skip__ = ["coast"]
     N="borders",
     R="region",
     S="water",
-    V="verbose",
     W="shorelines",
     c="panel",
     p="perspective",
