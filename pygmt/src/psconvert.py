@@ -62,9 +62,9 @@ def psconvert(
         Specify one or a list of custom options that will be passed on to Ghostscript
         as is.
     dpi
-        Set raster resolution in dpi [default = 720 for PDF, 300 for others]. **Note:**
-        Ghostscript limits the final width and height pixel dimensions of a raster to be
-        less than or equal to 65536.
+        Set raster resolution in dpi [Default is 720 for PDF, 300 for others]. **Note**:
+        Ghostscript limits the final width and height pixel dimensions of a raster file
+        to be less than or equal to 65536.
     prefix : str
         Force the output file name. By default output names are constructed
         using the input names as base, which are appended with an
