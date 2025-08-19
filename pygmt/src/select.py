@@ -24,7 +24,6 @@ __doctest_skip__ = ["select"]
 @use_alias(
     A="area_thresh",
     C="dist2pt",
-    D="resolution-",
     F="polygon",
     G="gridmask",
     I="reverse",
@@ -77,8 +76,8 @@ def select(
     Full GMT docs at :gmt-docs:`gmtselect.html`.
 
     {aliases}
-       - D=resolution
-       - J=projection
+       - D = resolution
+       - J = projection
 
     Parameters
     ----------

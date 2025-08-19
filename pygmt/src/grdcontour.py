@@ -47,7 +47,7 @@ def grdcontour(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
     Full GMT docs at :gmt-docs:`grdcontour.html`.
 
     {aliases}
-       - J=projection
+       - J = projection
 
     Parameters
     ----------

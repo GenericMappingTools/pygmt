@@ -43,7 +43,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4.2.2
+      uses: actions/checkout@v5.0.0
       with:
         # fetch all history so that setuptools-scm works
         fetch-depth: 0
@@ -93,7 +93,7 @@ jobs:
 
     steps:
     - name: Download all the dists
-      uses: actions/download-artifact@v4.3.0
+      uses: actions/download-artifact@v5.0.0
       with:
         name: python-package-distributions
         path: dist/
@@ -117,7 +117,7 @@ jobs:
 
     steps:
     - name: Download all the dists
-      uses: actions/download-artifact@v4.3.0
+      uses: actions/download-artifact@v5.0.0
       with:
         name: python-package-distributions
         path: dist/

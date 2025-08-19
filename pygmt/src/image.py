@@ -31,7 +31,7 @@ def image(self, imagefile: PathLike, projection=None, **kwargs):
     Full GMT docs at :gmt-docs:`image.html`.
 
     {aliases}
-       - J=projection
+       - J = projection
 
     Parameters
     ----------

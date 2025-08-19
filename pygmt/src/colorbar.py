@@ -45,7 +45,7 @@ def colorbar(self, projection=None, **kwargs):
     Full GMT docs at :gmt-docs:`colorbar.html`.
 
     {aliases}
-       - J=projection
+       - J = projection
 
     Parameters
     ----------
