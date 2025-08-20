@@ -226,8 +226,10 @@ class AliasSystem(UserDict):
     ...         ],
     ...         B=Alias(frame, name="frame"),
     ...         D=Alias(repeat, name="repeat"),
-    ...         c=Alias(panel, name="panel", sep=","),
-    ...     ).merge(kwargs)
+    ...     ).add_common(
+    ...         c=panel,
+    ...     )
+    ...     aliasdict.merge(kwargs)
     ...     return build_arg_list(aliasdict)
     >>> func(
     ...     "infile",
@@ -267,6 +269,20 @@ class AliasSystem(UserDict):
             elif aliases._value is not None:  # A single Alias object and not None.
                 kwdict[option] = aliases._value
         super().__init__(kwdict)
+
+    def add_common(self, **kwargs):
+        """
+        Add common parameters to the alias dictionary.
+        """
+        for key, value in kwargs.items():
+            match key:
+                case "c":
+                    alias = Alias(value, name="panel", sep=",", size=2)
+                case _:
+                    raise GMTValueError(key, description="common parameter")
+            self.aliasdict[key] = alias
+            self[key] = alias._value
+        return self
 
     def merge(self, kwargs: Mapping[str, Any]):
         """
