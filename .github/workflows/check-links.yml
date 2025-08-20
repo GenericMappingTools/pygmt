@@ -44,9 +44,10 @@ jobs:
       with:
         fail: false  # Don't fail action on broken links
         output: /tmp/lychee-out.md
+        # 200: OK
         # 429: Too many requests
         args: >
-          --accept 429
+          --accept 200,429
           --exclude "^https://docs.generic-mapping-tools.org/6.[0-9]?/%s$"
           --exclude "^https://docs.generic-mapping-tools.org/6.[0-9]?/%3Cmodule-name%3E.html$"
           --exclude "^https://doi.org"
