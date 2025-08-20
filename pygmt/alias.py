@@ -281,7 +281,8 @@ class AliasSystem(UserDict):
                 case _:
                     raise GMTValueError(key, description="common parameter")
             self.aliasdict[key] = alias
-            self[key] = alias._value
+            if alias._value is not None:
+                self[key] = alias._value
         return self
 
     def merge(self, kwargs: Mapping[str, Any]):
