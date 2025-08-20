@@ -12,17 +12,10 @@ from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
-@use_alias(
-    A="crop",
-    F="prefix",
-    I="resize",
-    N="bb_style",
-    T="fmt",
-    Q="anti_aliasing",
-    V="verbose",
-)
+@use_alias(A="crop", I="resize", N="bb_style", T="fmt", Q="anti_aliasing", V="verbose")
 def psconvert(
     self,
+    prefix: str | None = None,
     dpi: int | None = None,
     gs_option: str | Sequence[str] | None = None,
     gs_path: str | None = None,
@@ -43,6 +36,7 @@ def psconvert(
     {aliases}
        - C = gs_option
        - E = dpi
+       - F = prefix
        - G = gs_path
 
     Parameters
@@ -65,11 +59,11 @@ def psconvert(
         Set raster resolution in dpi [Default is 720 for PDF, 300 for others]. **Note**:
         Ghostscript limits the final width and height pixel dimensions of a raster file
         to be less than or equal to 65536.
-    prefix : str
-        Force the output file name. By default output names are constructed
-        using the input names as base, which are appended with an
-        appropriate extension. Use this option to provide a different name,
-        but without extension. Extension is still determined automatically.
+    prefix
+        Force the output file name. By default output names are constructed using the
+        input names as base, which are appended with an appropriate extension. Use this
+        parameter to provide a different name, but without extension. Extension is still
+        determined automatically.
     resize : str
         [**+m**\ *margins*][**+s**\ [**m**]\ *width*\
         [/\ *height*]][**+S**\ *scale*].
@@ -121,7 +115,6 @@ def psconvert(
     if kwargs.get("A") is None:
         kwargs["A"] = ""
 
-    prefix = kwargs.get("F")
     if prefix in {"", None, False, True}:
         raise GMTValueError(
             prefix,
@@ -130,14 +123,15 @@ def psconvert(
         )
 
     # Check if the parent directory exists
-    prefix_path = Path(prefix).parent
+    prefix_path = Path(prefix).parent  # type: ignore[arg-type]
     if not prefix_path.exists():
-        msg = f"No such directory: '{prefix_path}', please create it first."
+        msg = f"No such directory: {prefix_path!r}, please create it first."
         raise FileNotFoundError(msg)
 
     aliasdict = AliasSystem(
         C=Alias(gs_option, name="gs_option"),
         E=Alias(dpi, name="dpi"),
+        F=Alias(prefix, name="prefix"),
         G=Alias(gs_path, name="gs_path"),
     ).merge(kwargs)
 
