@@ -53,6 +53,7 @@ def grdcut(
 
     {aliases}
       - J = projection
+      - R = region
 
     Parameters
     ----------
