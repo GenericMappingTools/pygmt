@@ -26,14 +26,19 @@ __doctest_skip__ = ["grdview"]
     Wf="facadepen",
     I="shading",
     V="verbose",
-    c="panel",
     f="coltypes",
     n="interpolation",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def grdview(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
+@kwargs_to_strings(R="sequence", p="sequence")
+def grdview(
+    self,
+    grid: PathLike | xr.DataArray,
+    projection=None,
+    panel: int | tuple[int, int] | bool = False,
+    **kwargs,
+):
     r"""
     Create 3-D perspective image or surface mesh from a grid.
 
@@ -47,6 +52,7 @@ def grdview(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
 
     {aliases}
        - J = projection
+       - c = panel
 
     Parameters
     ----------
@@ -145,7 +151,10 @@ def grdview(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    ).add_common(
+        c=panel,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (

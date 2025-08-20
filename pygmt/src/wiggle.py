@@ -45,7 +45,6 @@ def _parse_fills(fillpositive, fillnegative):
     W="pen",
     Z="scale",
     b="binary",
-    c="panel",
     d="nodata",
     e="find",
     f="coltypes",
@@ -56,7 +55,7 @@ def _parse_fills(fillpositive, fillnegative):
     t="transparency",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
 def wiggle(
     self,
     data: PathLike | TableLike | None = None,
@@ -66,6 +65,7 @@ def wiggle(
     fillpositive=None,
     fillnegative=None,
     projection=None,
+    panel: int | tuple[int, int] | bool = False,
     **kwargs,
 ):
     r"""
@@ -81,6 +81,7 @@ def wiggle(
     {aliases}
        - G = **+p**: fillpositive, **+n**: fillnegative
        - J = projection
+       - c = panel
 
     Parameters
     ----------
@@ -133,7 +134,10 @@ def wiggle(
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
         G=Alias(_fills, name="fillpositive/fillnegative"),
-    ).merge(kwargs)
+    ).add_common(
+        c=panel,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(
