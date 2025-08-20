@@ -2,30 +2,24 @@
 psconvert - Convert [E]PS file(s) to other formats using Ghostscript.
 """
 
+from collections.abc import Sequence
 from pathlib import Path
 from typing import Literal
 
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTValueError
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
-@use_alias(
-    A="crop",
-    C="gs_option",
-    E="dpi",
-    F="prefix",
-    G="gs_path",
-    I="resize",
-    N="bb_style",
-    T="fmt",
-    Q="anti_aliasing",
-)
-@kwargs_to_strings()
+@use_alias(A="crop", I="resize", N="bb_style", T="fmt", Q="anti_aliasing")
 def psconvert(
     self,
+    prefix: str | None = None,
+    dpi: int | None = None,
+    gs_option: str | Sequence[str] | None = None,
+    gs_path: str | None = None,
     verbose: Literal[
         "quiet",
         "error",
@@ -51,6 +45,10 @@ def psconvert(
     Full GMT docs at :gmt-docs:`psconvert.html`.
 
     {aliases}
+       - C = gs_option
+       - E = dpi
+       - F = prefix
+       - G = gs_path
        - V = verbose
 
     Parameters
@@ -64,19 +62,20 @@ def psconvert(
         creating very small images where the difference of one pixel
         might matter. If ``verbose`` is used we also report the
         dimensions of the final illustration.
-    gs_path : str
+    gs_path
         Full path to the Ghostscript executable.
-    gs_option : str
-        Specify a single, custom option that will be passed on to
-        Ghostscript as is.
-    dpi : int
-        Set raster resolution in dpi. Default is 720 for PDF, 300 for
-        others.
-    prefix : str
-        Force the output file name. By default output names are constructed
-        using the input names as base, which are appended with an
-        appropriate extension. Use this option to provide a different name,
-        but without extension. Extension is still determined automatically.
+    gs_option
+        Specify one or a list of custom options that will be passed on to Ghostscript
+        as is.
+    dpi
+        Set raster resolution in dpi [Default is 720 for PDF, 300 for others]. **Note**:
+        Ghostscript limits the final width and height pixel dimensions of a raster file
+        to be less than or equal to 65536.
+    prefix
+        Force the output file name. By default output names are constructed using the
+        input names as base, which are appended with an appropriate extension. Use this
+        parameter to provide a different name, but without extension. Extension is still
+        determined automatically.
     resize : str
         [**+m**\ *margins*][**+s**\ [**m**]\ *width*\
         [/\ *height*]][**+S**\ *scale*].
@@ -128,7 +127,6 @@ def psconvert(
     if kwargs.get("A") is None:
         kwargs["A"] = ""
 
-    prefix = kwargs.get("F")
     if prefix in {"", None, False, True}:
         raise GMTValueError(
             prefix,
@@ -137,12 +135,17 @@ def psconvert(
         )
 
     # Check if the parent directory exists
-    prefix_path = Path(prefix).parent
+    prefix_path = Path(prefix).parent  # type: ignore[arg-type]
     if not prefix_path.exists():
-        msg = f"No such directory: '{prefix_path}', please create it first."
+        msg = f"No such directory: {prefix_path!r}, please create it first."
         raise FileNotFoundError(msg)
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        C=Alias(gs_option, name="gs_option"),
+        E=Alias(dpi, name="dpi"),
+        F=Alias(prefix, name="prefix"),
+        G=Alias(gs_path, name="gs_path"),
+    ).add_common(
         V=verbose,
     )
     aliasdict.merge(kwargs)
