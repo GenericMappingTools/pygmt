@@ -3,7 +3,10 @@ inset - Manage figure inset setup and completion.
 """
 
 import contextlib
+from collections.abc import Sequence
+from typing import Literal
 
+from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -22,7 +25,19 @@ __doctest_skip__ = ["inset"]
     V="verbose",
 )
 @kwargs_to_strings(D="sequence", M="sequence", R="sequence")
-def inset(self, projection=None, **kwargs):
+def inset(
+    self,
+    position: Sequence[str | float] | AnchorCode,
+    position_type: Literal[
+        "mapcoords", "boxcoords", "plotcoords", "inside", "outside"
+    ] = "mapcoords",
+    width: float | str | None = None,
+    height: float | str | None = None,
+    justify: AnchorCode | None = None,
+    anchor_offset: Sequence[float] | None = None,
+    projection=None,
+    **kwargs,
+):
     r"""
     Manage figure inset setup and completion.
 
@@ -137,7 +152,28 @@ def inset(self, projection=None, **kwargs):
     """
     self._activate_figure()
 
+    # -D[g|j|J|n|x]refpoint+wwidth[/height][+jjustify][+odx[/dy]]
+
+    _dimension = (width, height) if height is not None else width
+
     aliasdict = AliasSystem(
+        D=[
+            Alias(
+                position_type,
+                name="position_type",
+                mapping={
+                    "mapcoords": "g",
+                    "boxcoords": "n",
+                    "plotcoords": "x",
+                    "inside": "j",
+                    "outside": "J",
+                },
+            ),
+            Alias(position, name="position", sep="/", size=2),
+            Alias(_dimension, name="width/height", prefix="+w", sep="/", size=2),
+            Alias(justify, name="justify", prefix="+j"),
+            Alias(anchor_offset, name="anchor_offset", prefix="+o", sep="/", size=2),
+        ],
         J=Alias(projection, name="projection"),
     ).merge(kwargs)
 
