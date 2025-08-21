@@ -2,7 +2,10 @@
 image - Plot raster or EPS images.
 """
 
-from pygmt._typing import PathLike
+from collections.abc import Sequence
+from typing import Literal
+
+from pygmt._typing import AnchorCode, PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -21,7 +24,21 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def image(self, imagefile: PathLike, projection=None, **kwargs):
+def image(
+    self,
+    imagefile: PathLike,
+    position: Sequence[float | str] | AnchorCode,
+    projection=None,
+    position_type: Literal[
+        "mapcoords", "boxcoords", "plotcoords", "inside", "outside"
+    ] = "mapcoords",
+    width=None,
+    height=None,
+    replicate=None,
+    dpi=None,
+    anchor_offset=None,
+    **kwargs,
+):
     r"""
     Plot raster or EPS images.
 
@@ -69,10 +86,31 @@ def image(self, imagefile: PathLike, projection=None, **kwargs):
     {perspective}
     {transparency}
     """
+
     self._activate_figure()
+
+    _dimension = (width, height) if height is not None else width
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
+        D=[
+            Alias(
+                position_type,
+                name="position_type",
+                mapping={
+                    "mapcoords": "g",
+                    "boxcoords": "n",
+                    "plotcoords": "x",
+                    "inside": "j",
+                    "outside": "J",
+                },
+            ),
+            Alias(position, name="position", sep="/", size=2),
+            Alias(_dimension, name="width/height", prefix="+w"),
+            Alias(replicate, name="replicate", prefix="+n", sep="/", size=2),
+            Alias(dpi, name="dpi", prefix="+r"),
+            Alias(anchor_offset, name="anchor_offset", prefix="+o", sep="/", size=2),
+        ],
     ).merge(kwargs)
 
     with Session() as lib:
