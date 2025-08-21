@@ -310,7 +310,6 @@ def test_x2sys_cross_trackvalues():
             npt.assert_allclose(output.z_2.mean(), -2402.268364, rtol=1e-4)
 
 
-@pytest.mark.benchmark
 @pytest.mark.usefixtures("mock_x2sys_home")
 def test_x2sys_cross_output_dataframe_empty(tracks):
     """
