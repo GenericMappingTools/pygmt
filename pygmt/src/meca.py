@@ -125,7 +125,6 @@ def _auto_offset(spec) -> bool:
     L="outline",
     N="no_clip",
     R="region",
-    S="scale/convention/component-",
     T="nodal",
     V="verbose",
     W="pen",
@@ -201,7 +200,8 @@ def meca(  # noqa: PLR0913
     Full GMT docs at :gmt-docs:`supplements/seis/meca.html`.
 
     {aliases}
-       - J=projection
+       - J = projection
+       - S = scale/convention/component
 
     Parameters
     ----------

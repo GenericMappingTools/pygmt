@@ -72,7 +72,7 @@ def grdimage(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
     Full GMT docs at :gmt-docs:`grdimage.html`.
 
     {aliases}
-       - J=projection
+       - J = projection
 
     Parameters
     ----------

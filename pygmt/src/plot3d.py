@@ -89,7 +89,7 @@ def plot3d(  # noqa: PLR0912
     Full GMT docs at :gmt-docs:`plot3d.html`.
 
     {aliases}
-       - J=projection
+       - J = projection
 
     Parameters
     ----------

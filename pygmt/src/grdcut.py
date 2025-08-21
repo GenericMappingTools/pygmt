@@ -52,7 +52,7 @@ def grdcut(
     Full GMT docs at :gmt-docs:`grdcut.html`.
 
     {aliases}
-      - J=projection
+       - J = projection
 
     Parameters
     ----------

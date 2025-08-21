@@ -44,7 +44,7 @@ def subplot(self, nrows=1, ncols=1, projection=None, **kwargs):
     Full GMT docs at :gmt-docs:`subplot.html#synopsis-begin-mode`.
 
     {aliases}
-       - J=projection
+       - J = projection
 
     Parameters
     ----------

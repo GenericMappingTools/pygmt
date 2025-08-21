@@ -87,7 +87,7 @@ def plot(  # noqa: PLR0912
     Full GMT docs at :gmt-docs:`plot.html`.
 
     {aliases}
-       - J=projection
+       - J = projection
 
     Parameters
     ----------

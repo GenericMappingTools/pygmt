@@ -50,7 +50,7 @@ def xyz2grd(
     Full GMT docs at :gmt-docs:`xyz2grd.html`.
 
     {aliases}
-       - J=projection
+       - J = projection
 
     Parameters
     ----------

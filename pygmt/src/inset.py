@@ -33,7 +33,7 @@ def inset(self, projection=None, **kwargs):
     Full GMT docs at :gmt-docs:`inset.html`.
 
     {aliases}
-       - J=projection
+       - J = projection
 
     Parameters
     ----------
