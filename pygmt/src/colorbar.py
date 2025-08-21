@@ -2,6 +2,8 @@
 colorbar - Plot gray scale or color scale bar.
 """
 
+from typing import Literal
+
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -30,7 +32,24 @@ __doctest_skip__ = ["colorbar"]
 @kwargs_to_strings(
     R="sequence", G="sequence", I="sequence", c="sequence_comma", p="sequence"
 )
-def colorbar(self, projection=None, **kwargs):
+def colorbar(  # noqa: PLR0913
+    self,
+    projection=None,
+    position=None,
+    position_type: Literal[
+        "mapcoords", "boxcoords", "plotcoords", "inside", "outside"
+    ] = "mapcoords",
+    length=None,
+    width=None,
+    orientation: Literal["horizontal", "vertical"] = "vertical",
+    justify=None,
+    anchor_offset=None,
+    reverse=False,
+    nan_rectangle=False,
+    sidebar_triangles=None,
+    move_annots=None,
+    **kwargs,
+):
     r"""
     Plot gray scale or color scale bar.
 
@@ -147,8 +166,37 @@ def colorbar(self, projection=None, **kwargs):
     """
     self._activate_figure()
 
+    _dimension = (length, width) if width is not None else length
+
     aliasdict = AliasSystem(
+        D=[
+            Alias(
+                position_type,
+                name="position_type",
+                mapping={
+                    "mapcoords": "g",
+                    "boxcoords": "n",
+                    "plotcoords": "x",
+                    "inside": "j",
+                    "outside": "J",
+                },
+            ),
+            Alias(position, name="position", sep="/", size=2),
+            Alias(_dimension, name="width/height", prefix="+w", sep="/", size=2),
+            Alias(justify, name="justify", prefix="+j"),
+            Alias(anchor_offset, name="anchor_offset", prefix="+o", sep="/", size=2),
+            Alias(
+                orientation,
+                name="orientation",
+                mapping={"horizontal": "+h", "vertical": "+v"},
+            ),
+            Alias(reverse, name="reverse", prefix="+r"),
+            Alias(nan_rectangle, name="nan_rectangle", prefix="+n"),
+            Alias(sidebar_triangles, name="sidebar_triangles", prefix="+e"),
+            Alias(move_annots, name="move_annots", prefix="+m"),
+        ],
         J=Alias(projection, name="projection"),
     ).merge(kwargs)
+
     with Session() as lib:
         lib.call_module(module="colorbar", args=build_arg_list(aliasdict))
