@@ -18,6 +18,7 @@ beachballs.
 # %%
 import pandas as pd
 import pygmt
+from pygmt.params import Pattern
 
 # Set up arguments for basemap
 region = [-5, 5, -5, 5]
@@ -122,8 +123,8 @@ fig.meca(
     longitude=2,
     latitude=0,
     depth=0,
-    compressionfill="p8",
-    extensionfill="p31",
+    compressionfill=Pattern(8),
+    extensionfill=Pattern(31),
     outline=True,
 )
 
