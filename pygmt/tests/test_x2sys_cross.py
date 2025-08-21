@@ -308,3 +308,27 @@ def test_x2sys_cross_trackvalues():
             assert output.shape == (14338, 12)
             npt.assert_allclose(output.z_1.mean(), -2422.418556, rtol=1e-4)
             npt.assert_allclose(output.z_2.mean(), -2402.268364, rtol=1e-4)
+
+
+@pytest.mark.benchmark
+@pytest.mark.usefixtures("mock_x2sys_home")
+def test_x2sys_cross_output_dataframe_empty(tracks):
+    """
+    Test that x2sys_cross can output an empty dataframe (when there are no crossovers)
+    without any errors.
+
+    Regression test for
+    https://forum.generic-mapping-tools.org/t/issue-with-x2sys-in-pygmt-solved/6154
+    """
+    with TemporaryDirectory(prefix="X2SYS", dir=Path.cwd()) as tmpdir:
+        tag = Path(tmpdir).name
+        x2sys_init(tag=tag, fmtfile="xyz", force=True)
+
+        tracks = [tracks[0][:5]]  # subset to less rows so there won't be crossovers
+        output = x2sys_cross(tracks=tracks, tag=tag, coe="i")
+
+        assert isinstance(output, pd.DataFrame)
+        assert output.shape == (0, 0)
+        assert output.empty
+        columns = list(output.columns)
+        assert columns == []
