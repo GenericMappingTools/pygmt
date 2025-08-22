@@ -15,6 +15,7 @@ def func(
     label=None,
     text=None,
     offset=None,
+    verbose=None,
     **kwargs,
 ):
     """
@@ -29,7 +30,10 @@ def func(
             Alias(text, name="text", prefix="+t"),
             Alias(offset, name="offset", prefix="+o", sep="/"),
         ],
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
     return build_arg_list(aliasdict)
 
 
@@ -95,3 +99,18 @@ def test_alias_system_multiple_aliases_short_form():
 
     with pytest.raises(GMTInvalidInput, match=msg):
         func(text="efg", U="efg")
+
+
+def test_alias_system_parameter_verbose():
+    """
+    Test that the alias system works with common parameters.
+    """
+    # Test the verbose parameter.
+    assert func(verbose="quiet") == ["-Vq"]
+    assert func(verbose="error") == ["-Ve"]
+    assert func(verbose="warning") == ["-Vw"]
+    assert func(verbose="timing") == ["-Vt"]
+    assert func(verbose="information") == ["-Vi"]
+    assert func(verbose="compatibility") == ["-Vc"]
+    assert func(verbose=True) == ["-V"]
+    assert func(verbose="debug") == ["-Vd"]
