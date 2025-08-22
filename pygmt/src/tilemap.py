@@ -26,11 +26,10 @@ except ImportError:
     Q="nan_transparent",
     # R="region",
     V="verbose",
-    c="panel",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(c="sequence_comma", p="sequence")  # R="sequence",
+@kwargs_to_strings(p="sequence")  # R="sequence",
 def tilemap(
     self,
     region: list,
@@ -41,6 +40,7 @@ def tilemap(
     max_retries: int = 2,
     zoom_adjust: int | None = None,
     projection=None,
+    panel: int | tuple[int, int] | bool = False,
     **kwargs,
 ):
     r"""
@@ -58,6 +58,7 @@ def tilemap(
 
     {aliases}
        - J = projection
+       - c = panel
 
     Parameters
     ----------
@@ -129,7 +130,10 @@ def tilemap(
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    ).add_common(
+        c=panel,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=raster) as vingrd:
