@@ -15,6 +15,7 @@ def func(
     label=None,
     text=None,
     offset=None,
+    panel=False,
     **kwargs,
 ):
     """
@@ -29,7 +30,10 @@ def func(
             Alias(text, name="text", prefix="+t"),
             Alias(offset, name="offset", prefix="+o", sep="/"),
         ],
-    ).merge(kwargs)
+    ).add_common(
+        c=panel,
+    )
+    aliasdict.merge(kwargs)
     return build_arg_list(aliasdict)
 
 
@@ -95,3 +99,14 @@ def test_alias_system_multiple_aliases_short_form():
 
     with pytest.raises(GMTInvalidInput, match=msg):
         func(text="efg", U="efg")
+
+
+def test_alias_system_common_parameter_panel():
+    """
+    Test that the alias system works with the panel parameter.
+    """
+    assert func(panel=True) == ["-c"]
+    assert func(panel=False) == []
+    assert func(panel=(1, 2)) == ["-c1,2"]
+    assert func(panel=1) == ["-c1"]
+    assert func(panel="1,2") == ["-c1,2"]
