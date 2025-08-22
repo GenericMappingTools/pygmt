@@ -136,7 +136,7 @@ def grd2cpt(
     truncate
         (*zlow*, *zhigh*).
         Truncate the incoming CPT so that the lowest and highest z-levels are to *zlow*
-        and *zhigh*. If one of these equal NaN then we leave that end of the CPT alone.
+        and *zhigh*. If one of these equals NaN, then we leave that end of the CPT alone.
         The truncation takes place before any resampling. See also
         :gmt-docs:`reference/features.html#manipulating-cpts`.
     output : str
