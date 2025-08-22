@@ -266,9 +266,12 @@ def x2sys_cross(
                     unit = time_unit.upper() if time_unit in "wd" else time_unit
                     scale = 1.0
 
-            columns = result.columns[2:4]
-            result[columns] *= scale
-            result[columns] = result[columns].apply(pd.to_timedelta, unit=unit)
-            if columns[0][0] == "t":  # "t" or "i":
-                result[columns] += pd.Timestamp(lib.get_default("TIME_EPOCH"))
+            if len(result) > 0:  # if crossovers exist (more than one output row)
+                columns: pd.Index = result.columns[2:4]  # i_1/i_2 or t_1/t_2 columns
+                result[columns] *= scale
+                result[columns] = result[columns].apply(pd.to_timedelta, unit=unit)
+
+                if columns[0][0] == "t":  # "t" or "i":
+                    result[columns] += pd.Timestamp(lib.get_default("TIME_EPOCH"))
+
             return result

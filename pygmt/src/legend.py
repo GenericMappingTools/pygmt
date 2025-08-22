@@ -24,11 +24,10 @@ from pygmt.helpers import (
     R="region",
     D="position",
     F="box",
-    c="panel",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", p="sequence")
 def legend(
     self,
     spec: PathLike | io.StringIO | None = None,
@@ -45,6 +44,7 @@ def legend(
         "debug",
     ]
     | bool = False,
+    panel: int | tuple[int, int] | bool = False,
     **kwargs,
 ):
     r"""
@@ -61,6 +61,7 @@ def legend(
     {aliases}
        - J = projection
        - V = verbose
+       - c = panel
 
     Parameters
     ----------
@@ -114,6 +115,7 @@ def legend(
         J=Alias(projection, name="projection"),
     ).add_common(
         V=verbose,
+        c=panel,
     )
     aliasdict.merge(kwargs)
 

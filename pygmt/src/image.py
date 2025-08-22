@@ -17,11 +17,10 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     G="bitcolor",
     M="monochrome",
     R="region",
-    c="panel",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", p="sequence")
 def image(
     self,
     imagefile: PathLike,
@@ -36,6 +35,7 @@ def image(
         "debug",
     ]
     | bool = False,
+    panel: int | tuple[int, int] | bool = False,
     **kwargs,
 ):
     r"""
@@ -49,6 +49,7 @@ def image(
     {aliases}
        - J = projection
        - V = verbose
+       - c = panel
 
     Parameters
     ----------
@@ -92,6 +93,7 @@ def image(
         J=Alias(projection, name="projection"),
     ).add_common(
         V=verbose,
+        c=panel,
     )
     aliasdict.merge(kwargs)
 

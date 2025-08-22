@@ -21,11 +21,10 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     R="region",
     S="style",
     W="pen",
-    c="panel",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", p="sequence")
 def ternary(
     self,
     data: PathLike | TableLike,
@@ -42,6 +41,7 @@ def ternary(
         "debug",
     ]
     | bool = False,
+    panel: int | tuple[int, int] | bool = False,
     **kwargs,
 ):
     r"""
@@ -60,6 +60,7 @@ def ternary(
     {aliases}
        - L = alabel/blabel/clabel
        - V = verbose
+       - c = panel
 
     Parameters
     ----------
@@ -105,6 +106,7 @@ def ternary(
         L=Alias(labels, name="alabel/blabel/clabel", sep="/", size=3),
     ).add_common(
         V=verbose,
+        c=panel,
     )
     aliasdict.merge(kwargs)
 

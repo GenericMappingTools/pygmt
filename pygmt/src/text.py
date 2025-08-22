@@ -32,7 +32,6 @@ from pygmt.helpers import (
     N="no_clip",
     W="pen",
     a="aspatial",
-    c="panel",
     e="find",
     f="coltypes",
     h="header",
@@ -41,7 +40,7 @@ from pygmt.helpers import (
     t="transparency",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", p="sequence")
 def text_(  # noqa: PLR0912, PLR0913, PLR0915
     self,
     textfiles: PathLike | TableLike | None = None,
@@ -63,6 +62,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         "debug",
     ]
     | bool = False,
+    panel: int | tuple[int, int] | bool = False,
     **kwargs,
 ):
     r"""
@@ -85,6 +85,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
        - F = **+a**: angle, **+c**: position, **+j**: justify, **+f**: font
        - J = projection
        - V = verbose
+       - c = panel
 
     Parameters
     ----------
@@ -279,6 +280,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         J=Alias(projection, name="projection"),
     ).add_common(
         V=verbose,
+        c=panel,
     )
     aliasdict.merge(kwargs)
 

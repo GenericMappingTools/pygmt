@@ -61,8 +61,8 @@ def grdcut(
     Full GMT docs at :gmt-docs:`grdcut.html`.
 
     {aliases}
-      - J = projection
-      - V = verbose
+       - J = projection
+       - V = verbose
 
     Parameters
     ----------

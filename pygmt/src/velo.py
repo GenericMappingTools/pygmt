@@ -34,7 +34,6 @@ from pygmt.helpers import (
     S="spec",
     W="pen",
     Z="zvalue",
-    c="panel",
     d="nodata",
     e="find",
     h="header",
@@ -42,7 +41,7 @@ from pygmt.helpers import (
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
 def velo(
     self,
     data: PathLike | TableLike | None = None,
@@ -57,6 +56,7 @@ def velo(
         "debug",
     ]
     | bool = False,
+    panel: int | tuple[int, int] | bool = False,
     **kwargs,
 ):
     r"""
@@ -76,6 +76,7 @@ def velo(
     {aliases}
        - J = projection
        - V = verbose
+       - c = panel
 
     Parameters
     ----------
@@ -278,6 +279,7 @@ def velo(
         J=Alias(projection, name="projection"),
     ).add_common(
         V=verbose,
+        c=panel,
     )
     aliasdict.merge(kwargs)
 

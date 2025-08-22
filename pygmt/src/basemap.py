@@ -19,12 +19,11 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     F="box",
     Td="rose",
     Tm="compass",
-    c="panel",
     f="coltypes",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", p="sequence")
 def basemap(
     self,
     projection=None,
@@ -38,6 +37,7 @@ def basemap(
         "debug",
     ]
     | bool = False,
+    panel: int | tuple[int, int] | bool = False,
     **kwargs,
 ):
     r"""
@@ -56,6 +56,7 @@ def basemap(
     {aliases}
        - J = projection
        - V = verbose
+       - c = panel
 
     Parameters
     ----------
@@ -100,10 +101,12 @@ def basemap(
     {transparency}
     """
     self._activate_figure()
+
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
     ).add_common(
         V=verbose,
+        c=panel,
     )
     aliasdict.merge(kwargs)
 

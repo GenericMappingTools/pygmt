@@ -15,10 +15,9 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     D="position",
     F="box",
     S="style",
-    c="panel",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", p="sequence")
 def logo(
     self,
     projection=None,
@@ -32,6 +31,7 @@ def logo(
         "debug",
     ]
     | bool = False,
+    panel: int | tuple[int, int] | bool = False,
     **kwargs,
 ):
     r"""
@@ -47,6 +47,7 @@ def logo(
     {aliases}
        - J = projection
        - V = verbose
+       - c = panel
 
     Parameters
     ----------
@@ -77,6 +78,7 @@ def logo(
         J=Alias(projection, name="projection"),
     ).add_common(
         V=verbose,
+        c=panel,
     )
     aliasdict.merge(kwargs)
 

@@ -27,13 +27,12 @@ __doctest_skip__ = ["grdview"]
     Wm="meshpen",
     Wf="facadepen",
     I="shading",
-    c="panel",
     f="coltypes",
     n="interpolation",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", p="sequence")
 def grdview(
     self,
     grid: PathLike | xr.DataArray,
@@ -48,6 +47,7 @@ def grdview(
         "debug",
     ]
     | bool = False,
+    panel: int | tuple[int, int] | bool = False,
     **kwargs,
 ):
     r"""
@@ -64,6 +64,7 @@ def grdview(
     {aliases}
        - J = projection
        - V = verbose
+       - c = panel
 
     Parameters
     ----------
@@ -164,6 +165,7 @@ def grdview(
         J=Alias(projection, name="projection"),
     ).add_common(
         V=verbose,
+        c=panel,
     )
     aliasdict.merge(kwargs)
 

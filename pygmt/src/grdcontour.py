@@ -33,12 +33,11 @@ __doctest_skip__ = ["grdcontour"]
     S="resample",
     W="pen",
     l="label",
-    c="panel",
     f="coltypes",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", L="sequence", c="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", L="sequence", p="sequence")
 def grdcontour(
     self,
     grid: PathLike | xr.DataArray,
@@ -53,6 +52,7 @@ def grdcontour(
         "debug",
     ]
     | bool = False,
+    panel: int | tuple[int, int] | bool = False,
     **kwargs,
 ):
     r"""
@@ -65,6 +65,7 @@ def grdcontour(
     {aliases}
        - J = projection
        - V = verbose
+       - c = panel
 
     Parameters
     ----------
@@ -173,6 +174,7 @@ def grdcontour(
         J=Alias(projection, name="projection"),
     ).add_common(
         V=verbose,
+        c=panel,
     )
     aliasdict.merge(kwargs)
 

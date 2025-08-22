@@ -28,7 +28,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     W="pen",
     Z="histtype",
     b="binary",
-    c="panel",
     d="nodata",
     e="find",
     h="header",
@@ -38,9 +37,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     t="transparency",
     w="wrap",
 )
-@kwargs_to_strings(
-    R="sequence", T="sequence", c="sequence_comma", i="sequence_comma", p="sequence"
-)
+@kwargs_to_strings(R="sequence", T="sequence", i="sequence_comma", p="sequence")
 def histogram(
     self,
     data: PathLike | TableLike,
@@ -55,6 +52,7 @@ def histogram(
         "debug",
     ]
     | bool = False,
+    panel: int | tuple[int, int] | bool = False,
     **kwargs,
 ):
     r"""
@@ -65,6 +63,7 @@ def histogram(
     {aliases}
        - J = projection
        - V = verbose
+       - c = panel
 
     Parameters
     ----------
@@ -159,6 +158,7 @@ def histogram(
         J=Alias(projection, name="projection"),
     ).add_common(
         V=verbose,
+        c=panel,
     )
     aliasdict.merge(kwargs)
 

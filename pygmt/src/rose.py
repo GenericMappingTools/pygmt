@@ -7,12 +7,7 @@ from typing import Literal
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import (
-    build_arg_list,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
@@ -39,12 +34,11 @@ from pygmt.helpers import (
     e="find",
     h="header",
     i="incols",
-    c="panel",
     p="perspective",
     t="transparency",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
 def rose(
     self,
     data: PathLike | TableLike | None = None,
@@ -60,6 +54,7 @@ def rose(
         "debug",
     ]
     | bool = False,
+    panel: int | tuple[int, int] | bool = False,
     **kwargs,
 ):
     """
@@ -79,6 +74,7 @@ def rose(
 
     {aliases}
        - V = verbose
+       - c = panel
 
     Parameters
     ----------
@@ -220,6 +216,7 @@ def rose(
 
     aliasdict = AliasSystem().add_common(
         V=verbose,
+        c=panel,
     )
     aliasdict.merge(kwargs)
 

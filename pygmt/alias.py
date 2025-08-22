@@ -233,8 +233,10 @@ class AliasSystem(UserDict):
     ...         ],
     ...         B=Alias(frame, name="frame"),
     ...         D=Alias(repeat, name="repeat"),
-    ...         c=Alias(panel, name="panel", sep=","),
-    ...     ).add_common(V=verbose)
+    ...     ).add_common(
+    ...         V=verbose,
+    ...         c=panel,
+    ...     )
     ...     aliasdict.merge(kwargs)
     ...     return build_arg_list(aliasdict)
     >>> func(
@@ -284,10 +286,9 @@ class AliasSystem(UserDict):
         for key, value in kwargs.items():
             match key:
                 case "V":
-                    name = "verbose"
                     alias = Alias(
                         value,
-                        name=name,
+                        name="verbose",
                         mapping={
                             "quiet": "q",
                             "error": "e",
@@ -298,11 +299,13 @@ class AliasSystem(UserDict):
                             "debug": "d",
                         },
                     )
+                case "c":
+                    alias = Alias(value, name="panel", sep=",", size=2)
                 case _:
                     raise GMTValueError(key, description="common parameter")
-
             self.aliasdict[key] = alias
-            self[key] = alias._value
+            if alias._value is not None:
+                self[key] = alias._value
         return self
 
     def merge(self, kwargs: Mapping[str, Any]):
