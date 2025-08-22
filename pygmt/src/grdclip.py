@@ -24,7 +24,7 @@ __doctest_skip__ = ["grdclip"]
 # TODO(PyGMT>=0.19.0): Remove the deprecated "new" parameter.
 @fmt_docstring
 @deprecate_parameter("new", "replace", "v0.15.0", remove_version="v0.19.0")
-@use_alias(R="region", V="verbose")
+@use_alias(R="region")
 @kwargs_to_strings(R="sequence")
 def grdclip(
     grid: PathLike | xr.DataArray,

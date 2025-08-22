@@ -53,6 +53,7 @@ def info(
     Full GMT docs at :gmt-docs:`gmtinfo.html`.
 
     {aliases}
+       - V = verbose
 
     Parameters
     ----------

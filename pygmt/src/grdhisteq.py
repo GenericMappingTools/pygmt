@@ -130,7 +130,9 @@ class grdhisteq:  # noqa: N801
         This method does a weighted histogram equalization for geographic
         grids to account for node area varying with latitude.
         """
-        aliasdict = AliasSystem().add_common(V=verbose)
+        aliasdict = AliasSystem().add_common(
+            V=verbose,
+        )
         aliasdict.merge(kwargs)
 
         with Session() as lib:
