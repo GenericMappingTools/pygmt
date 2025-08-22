@@ -6,7 +6,7 @@ from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTTypeError, GMTValueError
 from pygmt.helpers import (
@@ -126,9 +126,10 @@ def grdcut(
         case _:
             raise GMTTypeError(type(grid))
 
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (

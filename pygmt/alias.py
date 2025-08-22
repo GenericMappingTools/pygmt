@@ -276,6 +276,8 @@ class AliasSystem(UserDict):
         """
         for key, value in kwargs.items():
             match key:
+                case "J":
+                    alias = Alias(value, name="projection")
                 case "c":
                     alias = Alias(value, name="panel", sep=",", size=2)
                 case _:

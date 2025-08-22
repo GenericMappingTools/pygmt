@@ -111,7 +111,6 @@ def solar(
             raise GMTValueError(terminator_datetime, description="datetime") from verr
 
     aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
         T=[
             Alias(
                 terminator,
@@ -126,6 +125,7 @@ def solar(
             Alias(datetime_string, name="terminator_datetime", prefix="+d"),
         ],
     ).add_common(
+        J=projection,
         c=panel,
     )
     aliasdict.merge(kwargs)

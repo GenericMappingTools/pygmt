@@ -21,7 +21,6 @@ def func(
     A simple function to test the alias system.
     """
     aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
         R=Alias(region, name="region", sep="/", size=[4, 6]),
         B=Alias(frame, name="frame"),
         U=[
@@ -29,7 +28,10 @@ def func(
             Alias(text, name="text", prefix="+t"),
             Alias(offset, name="offset", prefix="+o", sep="/"),
         ],
-    ).merge(kwargs)
+    ).add_common(
+        J=projection,
+    )
+    aliasdict.merge(kwargs)
     return build_arg_list(aliasdict)
 
 
