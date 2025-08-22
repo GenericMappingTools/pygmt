@@ -101,7 +101,7 @@ def test_alias_system_multiple_aliases_short_form():
         func(text="efg", U="efg")
 
 
-def test_alias_system_parameter_verbose():
+def test_alias_system_common_parameter_verbose():
     """
     Test that the alias system works with common parameters.
     """
