@@ -28,7 +28,7 @@
     - ``"error"``: Error messages only
     - ``"warning"``: Warnings [Default]
     - ``"timing"``: Timings (report runtimes for time-intensive algorithms)
-    - ``"information"``: Informational messages (same as ``verbose=True``)
-    - ``"compatibility"``: Compatibility warnings
+    - ``"info"``: Informational messages (same as ``verbose=True``)
+    - ``"compat"``: Compatibility warnings
     - ``"debug"``: Debugging messages
 ```
