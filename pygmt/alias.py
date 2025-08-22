@@ -294,8 +294,8 @@ class AliasSystem(UserDict):
                             "error": "e",
                             "warning": "w",
                             "timing": "t",
-                            "information": "i",
-                            "compatibility": "c",
+                            "info": "i",
+                            "compat": "c",
                             "debug": "d",
                         },
                     )

@@ -26,15 +26,7 @@ __doctest_skip__ = ["dimfilter"]
 def dimfilter(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
-    verbose: Literal[
-        "quiet",
-        "error",
-        "warning",
-        "timing",
-        "information",
-        "compatibility",
-        "debug",
-    ]
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:

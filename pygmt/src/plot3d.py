@@ -61,15 +61,7 @@ def plot3d(  # noqa: PLR0912, PLR0913
     direction=None,
     straight_line: bool | Literal["x", "y"] = False,  # noqa: ARG001
     projection=None,
-    verbose: Literal[
-        "quiet",
-        "error",
-        "warning",
-        "timing",
-        "information",
-        "compatibility",
-        "debug",
-    ]
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
     **kwargs,

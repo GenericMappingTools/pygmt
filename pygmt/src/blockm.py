@@ -94,15 +94,7 @@ def blockmean(
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
-    verbose: Literal[
-        "quiet",
-        "error",
-        "warning",
-        "timing",
-        "information",
-        "compatibility",
-        "debug",
-    ]
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
@@ -213,15 +205,7 @@ def blockmedian(
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
-    verbose: Literal[
-        "quiet",
-        "error",
-        "warning",
-        "timing",
-        "information",
-        "compatibility",
-        "debug",
-    ]
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
@@ -326,15 +310,7 @@ def blockmode(
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
-    verbose: Literal[
-        "quiet",
-        "error",
-        "warning",
-        "timing",
-        "information",
-        "compatibility",
-        "debug",
-    ]
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:

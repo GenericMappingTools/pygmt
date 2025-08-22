@@ -27,15 +27,7 @@ __doctest_skip__ = ["grdsample"]
 def grdsample(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
-    verbose: Literal[
-        "quiet",
-        "error",
-        "warning",
-        "timing",
-        "information",
-        "compatibility",
-        "debug",
-    ]
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:

@@ -32,15 +32,7 @@ from pygmt.helpers import (
 @kwargs_to_strings(D="sequence", I="sequence", R="sequence")
 def grdinfo(
     grid: PathLike | xr.DataArray,
-    verbose: Literal[
-        "quiet",
-        "error",
-        "warning",
-        "timing",
-        "information",
-        "compatibility",
-        "debug",
-    ]
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
 ) -> str:

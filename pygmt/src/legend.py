@@ -34,15 +34,7 @@ def legend(
     projection=None,
     position="JTR+jTR+o0.2c",
     box="+gwhite+p1p",
-    verbose: Literal[
-        "quiet",
-        "error",
-        "warning",
-        "timing",
-        "information",
-        "compatibility",
-        "debug",
-    ]
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
     **kwargs,

@@ -74,15 +74,7 @@ def tempfile_from_dftrack(track, suffix):
 def x2sys_cross(
     tracks=None,
     outfile: PathLike | None = None,
-    verbose: Literal[
-        "quiet",
-        "error",
-        "warning",
-        "timing",
-        "information",
-        "compatibility",
-        "debug",
-    ]
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
 ) -> pd.DataFrame | None:

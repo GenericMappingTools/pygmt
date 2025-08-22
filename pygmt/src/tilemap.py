@@ -39,15 +39,7 @@ def tilemap(  # noqa: PLR0913
     max_retries: int = 2,
     zoom_adjust: int | None = None,
     projection=None,
-    verbose: Literal[
-        "quiet",
-        "error",
-        "warning",
-        "timing",
-        "information",
-        "compatibility",
-        "debug",
-    ]
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
     **kwargs,

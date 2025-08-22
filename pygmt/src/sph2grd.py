@@ -27,15 +27,7 @@ __doctest_skip__ = ["sph2grd"]
 def sph2grd(
     data: PathLike | TableLike,
     outgrid: PathLike | None = None,
-    verbose: Literal[
-        "quiet",
-        "error",
-        "warning",
-        "timing",
-        "information",
-        "compatibility",
-        "debug",
-    ]
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:

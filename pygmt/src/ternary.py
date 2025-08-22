@@ -31,15 +31,7 @@ def ternary(
     alabel: str | None = None,
     blabel: str | None = None,
     clabel: str | None = None,
-    verbose: Literal[
-        "quiet",
-        "error",
-        "warning",
-        "timing",
-        "information",
-        "compatibility",
-        "debug",
-    ]
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
     **kwargs,

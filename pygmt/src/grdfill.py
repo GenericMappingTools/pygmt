@@ -88,15 +88,7 @@ def grdfill(
     splinefill: float | bool | None = None,
     inquire: bool = False,
     mode: str | None = None,
-    verbose: Literal[
-        "quiet",
-        "error",
-        "warning",
-        "timing",
-        "information",
-        "compatibility",
-        "debug",
-    ]
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
 ) -> xr.DataArray | np.ndarray | None:

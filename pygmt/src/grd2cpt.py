@@ -37,15 +37,7 @@ __doctest_skip__ = ["grd2cpt"]
 @kwargs_to_strings(G="sequence", L="sequence", R="sequence", T="sequence")
 def grd2cpt(
     grid: PathLike | xr.DataArray,
-    verbose: Literal[
-        "quiet",
-        "error",
-        "warning",
-        "timing",
-        "information",
-        "compatibility",
-        "debug",
-    ]
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
 ):

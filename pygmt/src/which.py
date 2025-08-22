@@ -15,15 +15,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, is_nonstr_iter, use_ali
 @use_alias(G="download")
 def which(
     fname: PathLike | Sequence[PathLike],
-    verbose: Literal[
-        "quiet",
-        "error",
-        "warning",
-        "timing",
-        "information",
-        "compatibility",
-        "debug",
-    ]
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
 ) -> str | list[str]:

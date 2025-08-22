@@ -30,15 +30,7 @@ from pygmt.helpers import (
 @kwargs_to_strings(I="sequence", i="sequence_comma")
 def info(
     data: PathLike | TableLike,
-    verbose: Literal[
-        "quiet",
-        "error",
-        "warning",
-        "timing",
-        "information",
-        "compatibility",
-        "debug",
-    ]
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
 ) -> np.ndarray | str:

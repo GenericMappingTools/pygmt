@@ -20,15 +20,7 @@ def psconvert(
     dpi: int | None = None,
     gs_option: str | Sequence[str] | None = None,
     gs_path: str | None = None,
-    verbose: Literal[
-        "quiet",
-        "error",
-        "warning",
-        "timing",
-        "information",
-        "compatibility",
-        "debug",
-    ]
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
 ):

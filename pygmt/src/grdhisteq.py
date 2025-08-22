@@ -67,13 +67,7 @@ class grdhisteq:  # noqa: N801
         grid: PathLike | xr.DataArray,
         outgrid: PathLike | None = None,
         verbose: Literal[
-            "quiet",
-            "error",
-            "warning",
-            "timing",
-            "information",
-            "compatibility",
-            "debug",
+            "quiet", "error", "warning", "timing", "info", "compat", "debug"
         ]
         | bool = False,
         **kwargs,
@@ -165,13 +159,7 @@ class grdhisteq:  # noqa: N801
         output_type: Literal["pandas", "numpy", "file"] = "pandas",
         outfile: PathLike | None = None,
         verbose: Literal[
-            "quiet",
-            "error",
-            "warning",
-            "timing",
-            "information",
-            "compatibility",
-            "debug",
+            "quiet", "error", "warning", "timing", "info", "compat", "debug"
         ]
         | bool = False,
         **kwargs,
