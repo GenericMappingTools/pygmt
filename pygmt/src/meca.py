@@ -129,11 +129,10 @@ def _auto_offset(spec) -> bool:
     T="nodal",
     V="verbose",
     W="pen",
-    c="panel",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", p="sequence")
 def meca(  # noqa: PLR0913
     self,
     spec: PathLike | TableLike,
@@ -147,6 +146,7 @@ def meca(  # noqa: PLR0913
     plot_latitude: float | Sequence[float] | None = None,
     event_name: str | Sequence[str] | None = None,
     projection=None,
+    panel: int | tuple[int, int] | bool = False,
     **kwargs,
 ):
     r"""
@@ -203,6 +203,7 @@ def meca(  # noqa: PLR0913
     {aliases}
        - J = projection
        - S = scale/convention/component
+       - c = panel
 
     Parameters
     ----------
@@ -367,7 +368,10 @@ def meca(  # noqa: PLR0913
 
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    ).add_common(
+        c=panel,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=spec) as vintbl:

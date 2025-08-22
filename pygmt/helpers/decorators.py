@@ -261,7 +261,7 @@ COMMON_DOCSTRINGS = {
             :gmt-docs:`gmt.html#grd-inout-full` for the available modifiers.
         """,
     "panel": r"""
-        panel : bool, int, or list
+        panel
             Select a specific subplot panel. Only allowed when used in
             :meth:`Figure.subplot` mode.
 
