@@ -7,7 +7,7 @@ import pandas as pd
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTTypeError
+from pygmt.exceptions import GMTParameterError, GMTTypeError
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
@@ -248,11 +248,8 @@ def velo(
     """
     self._activate_figure()
 
-    if kwargs.get("S") is None or (
-        kwargs.get("S") is not None and not isinstance(kwargs["S"], str)
-    ):
-        msg = "The parameter 'spec' is required and has to be a string."
-        raise GMTInvalidInput(msg)
+    if kwargs.get("S") is None:
+        raise GMTParameterError(required={"spec"})
 
     if isinstance(data, np.ndarray) and not pd.api.types.is_numeric_dtype(data):
         raise GMTTypeError(

@@ -7,7 +7,7 @@ from typing import Literal
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTTypeError
+from pygmt.exceptions import GMTParameterError, GMTTypeError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
@@ -242,8 +242,10 @@ def plot3d(  # noqa: PLR0912, PLR0913
             data["symbol"] = symbol
     else:
         if any(v is not None for v in (x, y, z)):
-            msg = "Too much data. Use either data or x/y/z."
-            raise GMTInvalidInput(msg)
+            raise GMTParameterError(
+                exclusive={"data", "x/y/z"},
+                reason="Too much data. Use either data or x/y/z.",
+            )
 
         for name, value in [
             ("direction", direction),

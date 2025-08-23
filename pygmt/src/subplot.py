@@ -6,7 +6,7 @@ import contextlib
 
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
@@ -157,8 +157,7 @@ def subplot(self, nrows=1, ncols=1, projection=None, **kwargs):
         )
 
     if kwargs.get("Ff") and kwargs.get("Fs"):
-        msg = "Please provide either one of 'figsize' or 'subsize' only."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(exclusive={"figsize", "subsize"})
 
     aliasdict = AliasSystem().add_common(
         J=projection,
