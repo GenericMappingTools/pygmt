@@ -299,6 +299,8 @@ class AliasSystem(UserDict):
                             "debug": "d",
                         },
                     )
+                case "J":
+                    alias = Alias(value, name="projection")
                 case "c":
                     alias = Alias(value, name="panel", sep=",", size=2)
                 case _:

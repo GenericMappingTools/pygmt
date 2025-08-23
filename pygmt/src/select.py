@@ -231,8 +231,8 @@ def select(
                 "crude": "c",
             },
         ),
-        J=Alias(projection, name="projection"),
     ).add_common(
+        J=projection,
         V=verbose,
     )
     aliasdict.merge(kwargs)

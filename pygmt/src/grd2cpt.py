@@ -6,7 +6,7 @@ from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -21,22 +21,22 @@ __doctest_skip__ = ["grd2cpt"]
     D="background",
     F="color_model",
     E="nlevels",
-    G="truncate",
     H="output",
     I="reverse",
     L="limit",
-    M="overrule_bg",
-    N="no_bg",
-    Q="log",
     R="region",
     T="series",
     W="categorical",
     Ww="cyclic",
-    Z="continuous",
 )
-@kwargs_to_strings(G="sequence", L="sequence", R="sequence", T="sequence")
+@kwargs_to_strings(L="sequence", R="sequence", T="sequence")
 def grd2cpt(
     grid: PathLike | xr.DataArray,
+    truncate: tuple[float, float] | None = None,
+    overrule_bg: bool = False,
+    no_bg: bool = False,
+    log: bool = False,
+    continuous: bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -85,6 +85,12 @@ def grd2cpt(
     Full GMT docs at :gmt-docs:`grd2cpt.html`.
 
     {aliases}
+       - G = truncate
+       - M = overrule_bg
+       - N = no_bg
+       - Q = log
+       - Z = continuous
+       - V = verbose
 
     Parameters
     ----------
@@ -131,12 +137,12 @@ def grd2cpt(
         refers to the number of such boundaries and not the number of slices.
         For details on array creation, see
         :gmt-docs:`makecpt.html#generate-1d-array`.
-    truncate : list or str
-        *zlow/zhigh*.
-        Truncate the incoming CPT so that the lowest and highest z-levels are
-        to *zlow* and *zhigh*. If one of these equal NaN then we leave that
-        end of the CPT alone. The truncation takes place before any resampling.
-        See also :gmt-docs:`reference/features.html#manipulating-cpts`.
+    truncate
+        (*zlow*, *zhigh*).
+        Truncate the incoming CPT so that the lowest and highest z-levels are to *zlow*
+        and *zhigh*. If one of these equals NaN, then we leave that end of the CPT
+        alone. The truncation takes place before any resampling. See also
+        :gmt-docs:`reference/features.html#manipulating-cpts`.
     output : str
         Optional. The file name with extension .cpt to store the generated CPT
         file. If not given or ``False`` [Default], saves the CPT as the current
@@ -149,22 +155,22 @@ def grd2cpt(
         happens before ``truncate`` and ``series`` values are used so the
         latter must be compatible with the changed z-range. See also
         :gmt-docs:`reference/features.html#manipulating-cpts`.
-    overrule_bg : str
-        Overrule background, foreground, and NaN colors specified in the master
-        CPT with the values of the parameters :gmt-term:`COLOR_BACKGROUND`,
-        :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` specified in
-        the :gmt-docs:`gmt.conf <gmt.conf>` file. When combined with
-        ``background``, only :gmt-term:`COLOR_NAN` is considered.
-    no_bg : bool
-        Do not write out the background, foreground, and NaN-color fields
-        [Default will write them, i.e. ``no_bg=False``].
-    log : bool
-        For logarithmic interpolation scheme with input given as logarithms.
-        Expects input z-values provided via ``series`` to be log10(*z*),
-        assigns colors, and writes out *z*.
-    continuous : bool
-        Force a continuous CPT when building from a list of colors and a list
-        of z-values [Default is None, i.e. discrete values].
+    overrule_bg
+        Overrule background, foreground, and NaN colors specified in the master CPT with
+        the values of the parameters :gmt-term:`COLOR_BACKGROUND`,
+        :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` specified in the
+        :gmt-docs:`gmt.conf <gmt.conf>` file or by :func:`pygmt.config`. When combined
+        with ``background``, only :gmt-term:`COLOR_NAN` is considered.
+    no_bg
+        Do not write out the background, foreground, and NaN-color fields [Default will
+        write them, i.e. ``no_bg=False``].
+    log
+        For logarithmic interpolation scheme with input given as logarithms. Expects
+        input z-values provided via ``series`` to be log10(*z*), assigns colors, and
+        writes out *z*.
+    continuous
+        Force a continuous CPT when building from a list of colors and a list of
+        z-values [Default is False, i.e. discrete CPT].
     categorical : bool
         Do not interpolate the input color table but pick the output colors
         starting at the beginning of the color table, until colors for all
@@ -197,7 +203,13 @@ def grd2cpt(
     if (output := kwargs.pop("H", None)) is not None:
         kwargs["H"] = True
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        G=Alias(truncate, name="truncate", sep="/", size=2),
+        M=Alias(overrule_bg, name="overrule_bg"),
+        N=Alias(no_bg, name="no_bg"),
+        Q=Alias(log, name="log"),
+        Z=Alias(continuous, name="continuous"),
+    ).add_common(
         V=verbose,
     )
     aliasdict.merge(kwargs)

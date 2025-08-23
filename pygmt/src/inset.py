@@ -5,7 +5,7 @@ inset - Manage figure inset setup and completion.
 import contextlib
 from typing import Literal
 
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -144,9 +144,8 @@ def inset(
     """
     self._activate_figure()
 
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).add_common(
+    aliasdict = AliasSystem().add_common(
+        J=projection,
         V=verbose,
     )
     aliasdict.merge(kwargs)

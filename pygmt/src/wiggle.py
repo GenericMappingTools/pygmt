@@ -136,9 +136,9 @@ def wiggle(
     _fills = _parse_fills(fillpositive, fillnegative)
 
     aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
         G=Alias(_fills, name="fillpositive/fillnegative"),
     ).add_common(
+        J=projection,
         V=verbose,
         c=panel,
     )

@@ -7,7 +7,7 @@ from typing import Literal
 
 import numpy as np
 from pygmt._typing import AnchorCode, PathLike, StringArrayTypes, TableLike
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import (
@@ -268,9 +268,8 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
                     reason=f"Parameter {name!r} expects a single value or True.",
                 )
 
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).add_common(
+    aliasdict = AliasSystem().add_common(
+        J=projection,
         V=verbose,
         c=panel,
     )

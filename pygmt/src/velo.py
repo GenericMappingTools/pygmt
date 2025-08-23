@@ -7,7 +7,7 @@ from typing import Literal
 import numpy as np
 import pandas as pd
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import (
@@ -267,9 +267,8 @@ def velo(
             ),
         )
 
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).add_common(
+    aliasdict = AliasSystem().add_common(
+        J=projection,
         V=verbose,
         c=panel,
     )

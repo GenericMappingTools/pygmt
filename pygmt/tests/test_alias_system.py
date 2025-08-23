@@ -16,13 +16,13 @@ def func(
     text=None,
     offset=None,
     verbose=None,
+    panel=False,
     **kwargs,
 ):
     """
     A simple function to test the alias system.
     """
     aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
         R=Alias(region, name="region", sep="/", size=[4, 6]),
         B=Alias(frame, name="frame"),
         U=[
@@ -31,7 +31,9 @@ def func(
             Alias(offset, name="offset", prefix="+o", sep="/"),
         ],
     ).add_common(
+        J=projection,
         V=verbose,
+        c=panel,
     )
     aliasdict.merge(kwargs)
     return build_arg_list(aliasdict)
@@ -114,3 +116,14 @@ def test_alias_system_common_parameter_verbose():
     assert func(verbose="compatibility") == ["-Vc"]
     assert func(verbose=True) == ["-V"]
     assert func(verbose="debug") == ["-Vd"]
+
+
+def test_alias_system_common_parameter_panel():
+    """
+    Test that the alias system works with the panel parameter.
+    """
+    assert func(panel=True) == ["-c"]
+    assert func(panel=False) == []
+    assert func(panel=(1, 2)) == ["-c1,2"]
+    assert func(panel=1) == ["-c1"]
+    assert func(panel="1,2") == ["-c1,2"]

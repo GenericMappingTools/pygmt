@@ -229,8 +229,8 @@ def coast(
                 "crude": "c",
             },
         ),
-        J=Alias(projection, name="projection"),
     ).add_common(
+        J=projection,
         V=verbose,
         c=panel,
     )
