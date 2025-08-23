@@ -3,7 +3,7 @@ image - Plot raster or EPS images.
 """
 
 from pygmt._typing import PathLike
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -77,9 +77,8 @@ def image(
     """
     self._activate_figure()
 
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).add_common(
+    aliasdict = AliasSystem().add_common(
+        J=projection,
         c=panel,
     )
     aliasdict.merge(kwargs)

@@ -4,7 +4,7 @@ subplot - Manage figure subplot configuration and selection.
 
 import contextlib
 
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import (
@@ -160,9 +160,10 @@ def subplot(self, nrows=1, ncols=1, projection=None, **kwargs):
         msg = "Please provide either one of 'figsize' or 'subsize' only."
         raise GMTInvalidInput(msg)
 
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+    )
+    aliasdict.merge(kwargs)
 
     # Need to use separate sessions for "subplot begin" and "subplot end".
     # Otherwise, "subplot end" will use the last session, which may cause

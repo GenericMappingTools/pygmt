@@ -5,7 +5,7 @@ plot - Plot lines, polygons, and symbols in 2-D.
 from typing import Literal
 
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import (
@@ -284,9 +284,8 @@ def plot(  # noqa: PLR0912
     if kwargs.get("S") is None and _data_geometry_is_point(data, kind):
         kwargs["S"] = "s0.2c"
 
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).add_common(
+    aliasdict = AliasSystem().add_common(
+        J=projection,
         c=panel,
     )
     aliasdict.merge(kwargs)
