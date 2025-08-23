@@ -5,7 +5,7 @@ legend - Plot a legend.
 import io
 
 from pygmt._typing import PathLike
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTTypeError
 from pygmt.helpers import (
@@ -100,9 +100,8 @@ def legend(
             type(spec), reason="Only one legend specification file is allowed."
         )
 
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).add_common(
+    aliasdict = AliasSystem().add_common(
+        J=projection,
         c=panel,
     )
     aliasdict.merge(kwargs)
