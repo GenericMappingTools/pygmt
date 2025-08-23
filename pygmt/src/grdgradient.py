@@ -49,6 +49,7 @@ def grdgradient(
     Full GMT docs at :gmt-docs:`grdgradient.html`.
 
     {aliases}
+       - V = verbose
 
     Parameters
     ----------
