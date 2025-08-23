@@ -113,7 +113,7 @@ def test_alias_system_common_parameter_verbose():
     assert func(verbose="warning") == ["-Vw"]
     assert func(verbose="timing") == ["-Vt"]
     assert func(verbose="info") == ["-Vi"]
-    assert func(verbose="compati") == ["-Vc"]
+    assert func(verbose="compat") == ["-Vc"]
     assert func(verbose=True) == ["-V"]
     assert func(verbose="debug") == ["-Vd"]
 
