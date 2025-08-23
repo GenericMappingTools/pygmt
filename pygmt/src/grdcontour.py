@@ -4,7 +4,7 @@ grdcontour - Make contour map using a grid.
 
 import xarray as xr
 from pygmt._typing import PathLike
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -32,13 +32,18 @@ __doctest_skip__ = ["grdcontour"]
     V="verbose",
     W="pen",
     l="label",
-    c="panel",
     f="coltypes",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", L="sequence", c="sequence_comma", p="sequence")
-def grdcontour(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
+@kwargs_to_strings(R="sequence", L="sequence", p="sequence")
+def grdcontour(
+    self,
+    grid: PathLike | xr.DataArray,
+    projection=None,
+    panel: int | tuple[int, int] | bool = False,
+    **kwargs,
+):
     r"""
     Make contour map using a grid.
 
@@ -48,6 +53,7 @@ def grdcontour(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
 
     {aliases}
        - J = projection
+       - c = panel
 
     Parameters
     ----------
@@ -152,9 +158,11 @@ def grdcontour(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
             else:  # Multiple levels
                 kwargs[arg] = ",".join(f"{item}" for item in kwargs[arg])
 
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        c=panel,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:

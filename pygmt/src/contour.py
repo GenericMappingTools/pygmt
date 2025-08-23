@@ -3,7 +3,7 @@ contour - Contour table data by direct triangulation.
 """
 
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -27,7 +27,6 @@ from pygmt.helpers import (
     V="verbose",
     W="pen",
     b="binary",
-    c="panel",
     d="nodata",
     e="find",
     f="coltypes",
@@ -37,7 +36,7 @@ from pygmt.helpers import (
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
 def contour(
     self,
     data: PathLike | TableLike | None = None,
@@ -45,6 +44,7 @@ def contour(
     y=None,
     z=None,
     projection=None,
+    panel: int | tuple[int, int] | bool = False,
     **kwargs,
 ):
     r"""
@@ -59,6 +59,7 @@ def contour(
 
     {aliases}
        - J = projection
+       - c = panel
 
     Parameters
     ----------
@@ -153,9 +154,11 @@ def contour(
             else:  # Multiple levels
                 kwargs[arg] = ",".join(f"{item}" for item in kwargs[arg])
 
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        c=panel,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(

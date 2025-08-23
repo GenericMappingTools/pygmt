@@ -5,7 +5,7 @@ legend - Plot a legend.
 import io
 
 from pygmt._typing import PathLike
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTTypeError
 from pygmt.helpers import (
@@ -24,17 +24,17 @@ from pygmt.helpers import (
     D="position",
     F="box",
     V="verbose",
-    c="panel",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", p="sequence")
 def legend(
     self,
     spec: PathLike | io.StringIO | None = None,
     projection=None,
     position="JTR+jTR+o0.2c",
     box="+gwhite+p1p",
+    panel: int | tuple[int, int] | bool = False,
     **kwargs,
 ):
     r"""
@@ -50,6 +50,7 @@ def legend(
 
     {aliases}
        - J = projection
+       - c = panel
 
     Parameters
     ----------
@@ -99,9 +100,11 @@ def legend(
             type(spec), reason="Only one legend specification file is allowed."
         )
 
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        c=panel,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(data=spec, required=False) as vintbl:

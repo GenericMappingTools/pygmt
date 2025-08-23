@@ -3,7 +3,7 @@ Histogram - Calculate and plot histograms.
 """
 
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -27,7 +27,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     W="pen",
     Z="histtype",
     b="binary",
-    c="panel",
     d="nodata",
     e="find",
     h="header",
@@ -37,10 +36,14 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     t="transparency",
     w="wrap",
 )
-@kwargs_to_strings(
-    R="sequence", T="sequence", c="sequence_comma", i="sequence_comma", p="sequence"
-)
-def histogram(self, data: PathLike | TableLike, projection=None, **kwargs):
+@kwargs_to_strings(R="sequence", T="sequence", i="sequence_comma", p="sequence")
+def histogram(
+    self,
+    data: PathLike | TableLike,
+    projection=None,
+    panel: int | tuple[int, int] | bool = False,
+    **kwargs,
+):
     r"""
     Calculate and plot histograms.
 
@@ -48,6 +51,7 @@ def histogram(self, data: PathLike | TableLike, projection=None, **kwargs):
 
     {aliases}
        - J = projection
+       - c = panel
 
     Parameters
     ----------
@@ -138,9 +142,11 @@ def histogram(self, data: PathLike | TableLike, projection=None, **kwargs):
     """
     self._activate_figure()
 
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        c=panel,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:

@@ -2,7 +2,7 @@
 logo - Plot the GMT logo.
 """
 
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -14,11 +14,10 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     F="box",
     S="style",
     V="verbose",
-    c="panel",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def logo(self, projection=None, **kwargs):
+@kwargs_to_strings(R="sequence", p="sequence")
+def logo(self, projection=None, panel: int | tuple[int, int] | bool = False, **kwargs):
     r"""
     Plot the GMT logo.
 
@@ -31,6 +30,7 @@ def logo(self, projection=None, **kwargs):
 
     {aliases}
        - J = projection
+       - c = panel
 
     Parameters
     ----------
@@ -57,9 +57,11 @@ def logo(self, projection=None, **kwargs):
     """
     self._activate_figure()
 
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        c=panel,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         lib.call_module(module="logo", args=build_arg_list(aliasdict))

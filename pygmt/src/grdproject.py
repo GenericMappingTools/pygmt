@@ -4,7 +4,7 @@ grdproject - Forward and inverse map transformation of grids.
 
 import xarray as xr
 from pygmt._typing import PathLike
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -112,9 +112,10 @@ def grdproject(
     if projection is None:
         raise GMTParameterError(required={"projection"})
 
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (

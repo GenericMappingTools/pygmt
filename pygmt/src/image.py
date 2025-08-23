@@ -3,7 +3,7 @@ image - Plot raster or EPS images.
 """
 
 from pygmt._typing import PathLike
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -16,12 +16,17 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     M="monochrome",
     R="region",
     V="verbose",
-    c="panel",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def image(self, imagefile: PathLike, projection=None, **kwargs):
+@kwargs_to_strings(R="sequence", p="sequence")
+def image(
+    self,
+    imagefile: PathLike,
+    projection=None,
+    panel: int | tuple[int, int] | bool = False,
+    **kwargs,
+):
     r"""
     Plot raster or EPS images.
 
@@ -32,6 +37,7 @@ def image(self, imagefile: PathLike, projection=None, **kwargs):
 
     {aliases}
        - J = projection
+       - c = panel
 
     Parameters
     ----------
@@ -71,9 +77,11 @@ def image(self, imagefile: PathLike, projection=None, **kwargs):
     """
     self._activate_figure()
 
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        c=panel,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         lib.call_module(
