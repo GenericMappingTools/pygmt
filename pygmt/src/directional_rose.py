@@ -11,7 +11,7 @@ from pygmt.clib import Session
 from pygmt.helpers import build_arg_list
 
 
-def directional_rose(  # noqa: PLR0913
+def directional_rose(
     self,
     position: Sequence[str | float] | AnchorCode,
     position_type: Literal[
