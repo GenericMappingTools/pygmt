@@ -197,9 +197,16 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
     data_is_required = position is None
     kind = data_kind(textfiles, required=data_is_required)
 
-    if position is not None and (text is None or is_nonstr_iter(text)):
-        msg = "'text' can't be None or array when 'position' is given."
-        raise GMTInvalidInput(msg)
+    if position is not None:
+        if text is None:
+            msg = "'text' can't be None when 'position' is given."
+            raise GMTInvalidInput(msg)
+        if is_nonstr_iter(text):
+            raise GMTTypeError(
+                type(text),
+                reason="Parameter 'text' can't be a sequence when 'position' is given.",
+            )
+
     if textfiles is not None and text is not None:
         msg = "'text' can't be specified when 'textfiles' is given."
         raise GMTInvalidInput(msg)
