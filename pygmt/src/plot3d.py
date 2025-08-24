@@ -5,7 +5,7 @@ plot3d - Plot lines, polygons, and symbols in 3-D.
 from typing import Literal
 
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import (
@@ -21,7 +21,6 @@ from pygmt.src._common import _data_geometry_is_point
 
 @fmt_docstring
 @use_alias(
-    A="straight_line",
     B="frame",
     C="cmap",
     D="offset",
@@ -60,7 +59,7 @@ def plot3d(  # noqa: PLR0912, PLR0913
     size=None,
     symbol=None,
     direction=None,
-    straight_line: bool | Literal["x", "y"] = False,  # noqa: ARG001
+    straight_line: bool | Literal["x", "y"] = False,
     projection=None,
     panel: int | tuple[int, int] | bool = False,
     **kwargs,
@@ -89,6 +88,7 @@ def plot3d(  # noqa: PLR0912, PLR0913
     Full GMT docs at :gmt-docs:`plot3d.html`.
 
     {aliases}
+       - A = straight_line
        - J = projection
        - c = panel
 
@@ -263,7 +263,9 @@ def plot3d(  # noqa: PLR0912, PLR0913
     if kwargs.get("S") is None and _data_geometry_is_point(data, kind):
         kwargs["S"] = "u0.2c"
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        A=Alias(straight_line, name="straight_line"),
+    ).add_common(
         J=projection,
         c=panel,
     )
