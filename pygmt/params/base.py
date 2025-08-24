@@ -8,10 +8,15 @@ class BaseParam:
     Base class for parameters in PyGMT.
 
     To define a new parameter class, inherit from this class and define the attributes
-    that correspond to the parameters you want to include. The class should also
-    implement the ``_aliases`` property, which returns a list of ``Alias`` objects. Each
-    ``Alias`` object represents a parameter and its value, and the ``__str__`` method
-    will concatenate these values into a single string that can be passed to GMT.
+    that correspond to the parameters you want to include.
+
+    The class should also implement the ``_aliases`` property, which returns a list of
+    ``Alias`` objects. Each ``Alias`` object represents a parameter and its value, and
+    the ``__str__`` method will concatenate these values into a single string that can
+    be passed to GMT.
+
+    Optionally, you can override the ``_validate`` method to perform any necessary
+    validation on the parameters after initialization.
 
     Examples
     --------
@@ -84,5 +89,9 @@ class BaseParam:
         """
         String representation of the object.
         """
-        params = ", ".join(f"{k}={v!r}" for k, v in vars(self).items() if v is not None)
+        params = ", ".join(
+            f"{k}={v!r}"
+            for k, v in vars(self).items()
+            if v is not None or v is not False
+        )
         return f"{self.__class__.__name__}({params})"
