@@ -203,8 +203,8 @@ Xarray Integration
     GMTBackendEntrypoint
     GMTDataArrayAccessor
 
-Common Parameters
------------------
+Class-style Parameters
+----------------------
 
 .. currentmodule:: pygmt.params
 
