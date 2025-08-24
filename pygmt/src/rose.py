@@ -213,4 +213,6 @@ def rose(
         with lib.virtualfile_in(
             check_kind="vector", data=data, x=length, y=azimuth
         ) as vintbl:
-            lib.call_module(module="rose", args=build_arg_list(aliasdict, infile=vintbl))
+            lib.call_module(
+                module="rose", args=build_arg_list(aliasdict, infile=vintbl)
+            )
