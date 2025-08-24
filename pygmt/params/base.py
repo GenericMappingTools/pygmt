@@ -92,6 +92,6 @@ class BaseParam:
         params = ", ".join(
             f"{k}={v!r}"
             for k, v in vars(self).items()
-            if v is not None or v is not False
+            if v is not None and v is not False
         )
         return f"{self.__class__.__name__}({params})"
