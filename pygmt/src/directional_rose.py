@@ -20,16 +20,12 @@ def directional_rose(  # noqa: PLR0913
         "plotcoords",
         "inside",
         "outside",
-    ] = "mapcoords",
+    ] = "plotcoords",
     width: float | str | None = None,
     justify: AnchorCode | None = None,
     anchor_offset: Sequence[float | str] | None = None,
     label: Sequence[str] | bool = False,
     fancy: Literal[1, 2, 3] | bool = False,
-    box=None,
-    perspective=None,
-    verbose=None,
-    transparency=None,
 ):
     r"""
     Add a directional rose to the map.
@@ -40,19 +36,16 @@ def directional_rose(  # noqa: PLR0913
         Location of the directional rose. The actual meaning of this parameter depends
         on the ``position_type`` parameter.
 
-        - ``position_type="mapcoords"``: *position* is given as (x, y) in user
-          coordinates.
-        - ``position_type="boxcoords"``: *position* is given as (nx, ny) in normalized
-          coordinates, where (0, 0) is the lower-left corner and (1, 1) is the
-          upper-right corner of the plot.
-        - ``position_type="plotcoords"``: *position* is given as (x, y) in plot
-          coordinates, i.e., the distances in inches, centimeters, or points from the
-          lower left plot origin.
-        - ``position_type="inside"``: *position* is given as a two-character
-          justification code, meaning the anchor point of the rose is inside the plot
-          bounding box.
-        - ``position_type="outside"``: *position* is given as a two-character
-          justification code, but the rose is outside the plot bounding box.
+        - ``"mapcoords"``: *position* is given as (x, y) in user coordinates.
+        - ``"boxcoords"``: *position* is given as (nx, ny) in normalized coordinates,
+          where (0, 0) is the lower-left corner and (1, 1) is the upper-right corner of
+          the plot.
+        - ``"plotcoords"``: *position* is given as (x, y) in plot coordinates, i.e., the
+          distances in inches, centimeters, or points from the lower left plot origin.
+        - ``"inside"``: *position* is given as a two-character justification code,
+          meaning the anchor point of the rose is inside the plot bounding box.
+        - ``"outside"``: *position* is given as a two-character justification code, but
+          the rose is outside the plot bounding box.
     width
         Width of the rose in plot coordinates (append **i** (inch),
         **cm** (centimeters), or **p** (points)), or append % for a size in percentage
@@ -79,6 +72,10 @@ def directional_rose(  # noqa: PLR0913
         from vertical **T**\(op), **M**\(iddle), or **B**\(ottom) and horizontal
         **L**\(eft), **C**\(entre), or **R**\(ight).
 
+    {perspective}
+    {verbose}
+    {transparency}
+
     Examples
     --------
     >>> import pygmt
@@ -90,7 +87,6 @@ def directional_rose(  # noqa: PLR0913
     self._activate_figure()
 
     aliasdict = AliasSystem(
-        F=Alias(box, name="box"),
         Td=[
             Alias(
                 position_type,
@@ -110,9 +106,6 @@ def directional_rose(  # noqa: PLR0913
             Alias(label, name="label", prefix="+l", sep=",", size=4),
             Alias(anchor_offset, name="anchor_offset", prefix="+o", sep="/", size=2),
         ],
-        V=Alias(verbose, name="verbose"),
-        p=Alias(perspective, name="perspective"),
-        t=Alias(transparency, name="transparency"),
     )
 
     with Session() as lib:
