@@ -227,8 +227,8 @@ def coast(
                 "crude": "c",
             },
         ),
-        J=Alias(projection, name="projection"),
     ).add_common(
+        J=projection,
         c=panel,
     )
     aliasdict.merge(kwargs)

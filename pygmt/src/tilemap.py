@@ -4,7 +4,7 @@ tilemap - Plot XYZ tile maps.
 
 from typing import Literal
 
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.datasets.tile_map import load_tile_map
 from pygmt.enums import GridType
@@ -128,9 +128,8 @@ def tilemap(
     if kwargs.get("N") in {None, False}:
         kwargs["R"] = "/".join(str(coordinate) for coordinate in region)
 
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).add_common(
+    aliasdict = AliasSystem().add_common(
+        J=projection,
         c=panel,
     )
     aliasdict.merge(kwargs)
