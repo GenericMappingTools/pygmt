@@ -51,9 +51,9 @@ def grdlandmask(
     Full GMT docs at :gmt-docs:`grdlandmask.html`.
 
     {aliases}
-       - D=resolution
-       - E=bordervalues
-       - N=maskvalues
+       - D = resolution
+       - E = bordervalues
+       - N = maskvalues
 
     Parameters
     ----------

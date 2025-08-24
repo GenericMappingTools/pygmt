@@ -3,13 +3,9 @@ rose - Plot a polar histogram (rose, sector, windrose diagrams).
 """
 
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import (
-    build_arg_list,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
@@ -37,14 +33,18 @@ from pygmt.helpers import (
     e="find",
     h="header",
     i="incols",
-    c="panel",
     p="perspective",
     t="transparency",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
 def rose(
-    self, data: PathLike | TableLike | None = None, length=None, azimuth=None, **kwargs
+    self,
+    data: PathLike | TableLike | None = None,
+    length=None,
+    azimuth=None,
+    panel: int | tuple[int, int] | bool = False,
+    **kwargs,
 ):
     """
     Plot a polar histogram (rose, sector, windrose diagrams).
@@ -62,6 +62,7 @@ def rose(
     Full GMT docs at :gmt-docs:`rose.html`.
 
     {aliases}
+       - c = panel
 
     Parameters
     ----------
@@ -200,6 +201,11 @@ def rose(
     {wrap}
     """
     self._activate_figure()
+
+    aliasdict = AliasSystem().add_common(
+        c=panel,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(

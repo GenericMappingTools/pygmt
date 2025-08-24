@@ -65,7 +65,7 @@ def binstats(
     Full GMT docs at :gmt-docs:`gmtbinstats.html`.
 
     {aliases}
-       - C=statistic
+       - C = statistic
 
     Parameters
     ----------

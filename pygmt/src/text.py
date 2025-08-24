@@ -6,7 +6,7 @@ from collections.abc import Sequence
 
 import numpy as np
 from pygmt._typing import AnchorCode, PathLike, StringArrayTypes, TableLike
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import (
@@ -27,13 +27,11 @@ from pygmt.helpers import (
     B="frame",
     C="clearance",
     D="offset",
-    F="position/angle/font/justify-",
     G="fill",
     N="no_clip",
     V="verbose",
     W="pen",
     a="aspatial",
-    c="panel",
     e="find",
     f="coltypes",
     h="header",
@@ -42,8 +40,8 @@ from pygmt.helpers import (
     t="transparency",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def text_(  # noqa: PLR0912
+@kwargs_to_strings(R="sequence", p="sequence")
+def text_(  # noqa: PLR0912, PLR0913, PLR0915
     self,
     textfiles: PathLike | TableLike | None = None,
     x=None,
@@ -54,6 +52,7 @@ def text_(  # noqa: PLR0912
     font=None,
     justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
     projection=None,
+    panel: int | tuple[int, int] | bool = False,
     **kwargs,
 ):
     r"""
@@ -73,7 +72,9 @@ def text_(  # noqa: PLR0912
     Full GMT docs at :gmt-docs:`text.html`.
 
     {aliases}
-       - J=projection
+       - F = **+a**: angle, **+c**: position, **+j**: justify, **+f**: font
+       - J = projection
+       - c = panel
 
     Parameters
     ----------
@@ -264,9 +265,11 @@ def text_(  # noqa: PLR0912
                     reason=f"Parameter {name!r} expects a single value or True.",
                 )
 
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        c=panel,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(

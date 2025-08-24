@@ -76,8 +76,8 @@ def select(
     Full GMT docs at :gmt-docs:`gmtselect.html`.
 
     {aliases}
-       - D=resolution
-       - J=projection
+       - D = resolution
+       - J = projection
 
     Parameters
     ----------
@@ -229,8 +229,10 @@ def select(
                 "crude": "c",
             },
         ),
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    ).add_common(
+        J=projection,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (

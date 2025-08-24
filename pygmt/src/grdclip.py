@@ -52,10 +52,10 @@ def grdclip(
     Full GMT docs at :gmt-docs:`grdclip.html`.
 
     {aliases}
-       - Sa=above
-       - Sb=below
-       - Si=between
-       - Sr=replace
+       - Sa = above
+       - Sb = below
+       - Si = between
+       - Sr = replace
 
     Parameters
     ----------

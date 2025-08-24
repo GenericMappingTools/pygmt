@@ -33,17 +33,17 @@ __doctest_skip__ = ["coast"]
     S="water",
     V="verbose",
     W="shorelines",
-    c="panel",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", p="sequence")
 def coast(
     self,
     projection=None,
     resolution: Literal[
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
+    panel: int | tuple[int, int] | bool = False,
     **kwargs,
 ):
     r"""
@@ -66,8 +66,9 @@ def coast(
     Full GMT docs at :gmt-docs:`coast.html`.
 
     {aliases}
-       - D=resolution
-       - J=projection
+       - D = resolution
+       - J = projection
+       - c = panel
 
     Parameters
     ----------
@@ -226,8 +227,11 @@ def coast(
                 "crude": "c",
             },
         ),
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    ).add_common(
+        J=projection,
+        c=panel,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         lib.call_module(module="coast", args=build_arg_list(aliasdict))
