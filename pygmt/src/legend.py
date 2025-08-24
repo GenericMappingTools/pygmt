@@ -25,7 +25,6 @@ from pygmt.helpers import (
     F="box",
     V="verbose",
     p="perspective",
-    t="transparency",
 )
 @kwargs_to_strings(R="sequence", p="sequence")
 def legend(
@@ -35,6 +34,7 @@ def legend(
     position="JTR+jTR+o0.2c",
     box="+gwhite+p1p",
     panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -51,6 +51,7 @@ def legend(
     {aliases}
        - J = projection
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -103,6 +104,7 @@ def legend(
     aliasdict = AliasSystem().add_common(
         J=projection,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 

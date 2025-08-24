@@ -130,7 +130,6 @@ def _auto_offset(spec) -> bool:
     V="verbose",
     W="pen",
     p="perspective",
-    t="transparency",
 )
 @kwargs_to_strings(R="sequence", p="sequence")
 def meca(  # noqa: PLR0913
@@ -147,6 +146,7 @@ def meca(  # noqa: PLR0913
     event_name: str | Sequence[str] | None = None,
     projection=None,
     panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -204,6 +204,7 @@ def meca(  # noqa: PLR0913
        - J = projection
        - S = scale/convention/component
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -369,6 +370,7 @@ def meca(  # noqa: PLR0913
     aliasdict = AliasSystem().add_common(
         J=projection,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 

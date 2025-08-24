@@ -20,11 +20,14 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     V="verbose",
     f="coltypes",
     p="perspective",
-    t="transparency",
 )
 @kwargs_to_strings(R="sequence", p="sequence")
 def basemap(
-    self, projection=None, panel: int | tuple[int, int] | bool = False, **kwargs
+    self,
+    projection=None,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
+    **kwargs,
 ):
     r"""
     Plot base maps and frames.
@@ -42,6 +45,7 @@ def basemap(
     {aliases}
        - J = projection
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -90,6 +94,7 @@ def basemap(
     aliasdict = AliasSystem().add_common(
         J=projection,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 

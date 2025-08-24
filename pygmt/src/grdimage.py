@@ -27,7 +27,6 @@ __doctest_skip__ = ["grdimage"]
     n="interpolation",
     f="coltypes",
     p="perspective",
-    t="transparency",
     x="cores",
 )
 @kwargs_to_strings(R="sequence", p="sequence")
@@ -36,6 +35,7 @@ def grdimage(
     grid: PathLike | xr.DataArray,
     projection=None,
     panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -74,6 +74,7 @@ def grdimage(
     {aliases}
        - J = projection
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -170,6 +171,7 @@ def grdimage(
     aliasdict = AliasSystem().add_common(
         J=projection,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 

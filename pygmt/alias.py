@@ -280,6 +280,8 @@ class AliasSystem(UserDict):
                     alias = Alias(value, name="projection")
                 case "c":
                     alias = Alias(value, name="panel", sep=",", size=2)
+                case "t":
+                    alias = Alias(value, name="transparency")
                 case _:
                     raise GMTValueError(key, description="common parameter")
             self.aliasdict[key] = alias

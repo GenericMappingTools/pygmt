@@ -21,7 +21,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     V="verbose",
     W="pen",
     p="perspective",
-    t="transparency",
 )
 @kwargs_to_strings(R="sequence", p="sequence")
 def ternary(
@@ -31,6 +30,7 @@ def ternary(
     blabel: str | None = None,
     clabel: str | None = None,
     panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -49,6 +49,7 @@ def ternary(
     {aliases}
        - L = alabel/blabel/clabel
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -94,6 +95,7 @@ def ternary(
         L=Alias(labels, name="alabel/blabel/clabel", sep="/", size=3),
     ).add_common(
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 

@@ -21,7 +21,6 @@ __doctest_skip__ = ["solar"]
     V="verbose",
     W="pen",
     p="perspective",
-    t="transparency",
 )
 @kwargs_to_strings(R="sequence", p="sequence")
 def solar(
@@ -30,6 +29,7 @@ def solar(
     terminator_datetime=None,
     projection=None,
     panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -44,6 +44,7 @@ def solar(
        - J = projection
        - T = terminator, **+d**: terminator_datetime
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -127,6 +128,7 @@ def solar(
     ).add_common(
         J=projection,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 

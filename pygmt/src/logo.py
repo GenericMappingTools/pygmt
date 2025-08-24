@@ -14,10 +14,15 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     F="box",
     S="style",
     V="verbose",
-    t="transparency",
 )
 @kwargs_to_strings(R="sequence", p="sequence")
-def logo(self, projection=None, panel: int | tuple[int, int] | bool = False, **kwargs):
+def logo(
+    self,
+    projection=None,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
+    **kwargs,
+):
     r"""
     Plot the GMT logo.
 
@@ -31,6 +36,7 @@ def logo(self, projection=None, panel: int | tuple[int, int] | bool = False, **k
     {aliases}
        - J = projection
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -60,6 +66,7 @@ def logo(self, projection=None, panel: int | tuple[int, int] | bool = False, **k
     aliasdict = AliasSystem().add_common(
         J=projection,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 

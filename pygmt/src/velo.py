@@ -38,7 +38,6 @@ from pygmt.helpers import (
     h="header",
     i="incols",
     p="perspective",
-    t="transparency",
 )
 @kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
 def velo(
@@ -46,6 +45,7 @@ def velo(
     data: PathLike | TableLike | None = None,
     projection=None,
     panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -65,6 +65,7 @@ def velo(
     {aliases}
        - J = projection
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -266,6 +267,7 @@ def velo(
     aliasdict = AliasSystem().add_common(
         J=projection,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 

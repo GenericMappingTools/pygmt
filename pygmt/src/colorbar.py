@@ -24,11 +24,14 @@ __doctest_skip__ = ["colorbar"]
     W="scale",
     Z="zfile",
     p="perspective",
-    t="transparency",
 )
 @kwargs_to_strings(R="sequence", G="sequence", I="sequence", p="sequence")
 def colorbar(
-    self, projection=None, panel: int | tuple[int, int] | bool = False, **kwargs
+    self,
+    projection=None,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
+    **kwargs,
 ):
     r"""
     Plot gray scale or color scale bar.
@@ -46,6 +49,7 @@ def colorbar(
     {aliases}
        - J = projection
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -150,6 +154,7 @@ def colorbar(
     aliasdict = AliasSystem().add_common(
         J=projection,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 

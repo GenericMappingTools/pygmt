@@ -34,7 +34,6 @@ from pygmt.helpers import (
     i="incols",
     l="label",
     p="perspective",
-    t="transparency",
 )
 @kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
 def contour(
@@ -45,6 +44,7 @@ def contour(
     z=None,
     projection=None,
     panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -60,6 +60,7 @@ def contour(
     {aliases}
        - J = projection
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -157,6 +158,7 @@ def contour(
     aliasdict = AliasSystem().add_common(
         J=projection,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 

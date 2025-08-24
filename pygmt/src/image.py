@@ -17,7 +17,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     R="region",
     V="verbose",
     p="perspective",
-    t="transparency",
 )
 @kwargs_to_strings(R="sequence", p="sequence")
 def image(
@@ -25,6 +24,7 @@ def image(
     imagefile: PathLike,
     projection=None,
     panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -38,6 +38,7 @@ def image(
     {aliases}
        - J = projection
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -80,6 +81,7 @@ def image(
     aliasdict = AliasSystem().add_common(
         J=projection,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 
