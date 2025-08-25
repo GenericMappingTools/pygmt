@@ -34,7 +34,6 @@ from pygmt.src._common import _data_geometry_is_point
     Q="no_sort",
     R="region",
     S="style",
-    V="verbose",
     W="pen",
     Z="zvalue",
     a="aspatial",
@@ -62,6 +61,8 @@ def plot3d(  # noqa: PLR0912, PLR0913
     direction=None,
     straight_line: bool | Literal["x", "y"] = False,  # noqa: ARG001
     projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     panel: int | tuple[int, int] | bool = False,
     **kwargs,
 ):
@@ -90,6 +91,7 @@ def plot3d(  # noqa: PLR0912, PLR0913
 
     {aliases}
        - J = projection
+       - V = verbose
        - c = panel
 
     Parameters
@@ -265,6 +267,7 @@ def plot3d(  # noqa: PLR0912, PLR0913
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        V=verbose,
         c=panel,
     )
     aliasdict.merge(kwargs)

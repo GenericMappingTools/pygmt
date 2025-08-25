@@ -7,6 +7,7 @@ from typing import Literal
 import numpy as np
 import pandas as pd
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -74,7 +75,6 @@ def _blockm(
     I="spacing",
     R="region",
     S="summary",
-    V="verbose",
     a="aspatial",
     b="binary",
     d="nodata",
@@ -94,6 +94,8 @@ def blockmean(
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -111,6 +113,7 @@ def blockmean(
     Full GMT docs at :gmt-docs:`blockmean.html`.
 
     {aliases}
+       - V = verbose
 
     Parameters
     ----------
@@ -162,6 +165,11 @@ def blockmean(
     >>> # Calculate block mean values within 5 by 5 arc-minute bins
     >>> data_bmean = pygmt.blockmean(data=data, region=[245, 255, 20, 30], spacing="5m")
     """
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     return _blockm(
         block_method="blockmean",
         data=data,
@@ -170,7 +178,7 @@ def blockmean(
         z=z,
         output_type=output_type,
         outfile=outfile,
-        **kwargs,
+        **aliasdict,
     )
 
 
@@ -178,7 +186,6 @@ def blockmean(
 @use_alias(
     I="spacing",
     R="region",
-    V="verbose",
     a="aspatial",
     b="binary",
     d="nodata",
@@ -198,6 +205,8 @@ def blockmedian(
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -215,6 +224,7 @@ def blockmedian(
     Full GMT docs at :gmt-docs:`blockmedian.html`.
 
     {aliases}
+       - V = verbose
 
     Parameters
     ----------
@@ -260,6 +270,11 @@ def blockmedian(
     ...     data=data, region=[245, 255, 20, 30], spacing="5m"
     ... )
     """
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     return _blockm(
         block_method="blockmedian",
         data=data,
@@ -268,7 +283,7 @@ def blockmedian(
         z=z,
         output_type=output_type,
         outfile=outfile,
-        **kwargs,
+        **aliasdict,
     )
 
 
@@ -276,7 +291,6 @@ def blockmedian(
 @use_alias(
     I="spacing",
     R="region",
-    V="verbose",
     a="aspatial",
     b="binary",
     d="nodata",
@@ -296,6 +310,8 @@ def blockmode(
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -313,6 +329,7 @@ def blockmode(
     Full GMT docs at :gmt-docs:`blockmode.html`.
 
     {aliases}
+       - V = verbose
 
     Parameters
     ----------
@@ -356,6 +373,11 @@ def blockmode(
     >>> # Calculate block mode values within 5 by 5 arc-minute bins
     >>> data_bmode = pygmt.blockmode(data=data, region=[245, 255, 20, 30], spacing="5m")
     """
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     return _blockm(
         block_method="blockmode",
         data=data,
@@ -364,5 +386,5 @@ def blockmode(
         z=z,
         output_type=output_type,
         outfile=outfile,
-        **kwargs,
+        **aliasdict,
     )

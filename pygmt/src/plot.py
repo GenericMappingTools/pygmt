@@ -33,7 +33,6 @@ from pygmt.src._common import _data_geometry_is_point
     N="no_clip",
     R="region",
     S="style",
-    V="verbose",
     W="pen",
     Z="zvalue",
     a="aspatial",
@@ -50,7 +49,7 @@ from pygmt.src._common import _data_geometry_is_point
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
-def plot(  # noqa: PLR0912
+def plot(  # noqa: PLR0912, PLR0913
     self,
     data: PathLike | TableLike | None = None,
     x=None,
@@ -60,6 +59,8 @@ def plot(  # noqa: PLR0912
     direction=None,
     straight_line: bool | Literal["x", "y"] = False,  # noqa: ARG001
     projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     panel: int | tuple[int, int] | bool = False,
     **kwargs,
 ):
@@ -88,6 +89,7 @@ def plot(  # noqa: PLR0912
 
     {aliases}
        - J = projection
+       - V = verbose
        - c = panel
 
     Parameters
@@ -286,6 +288,7 @@ def plot(  # noqa: PLR0912
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        V=verbose,
         c=panel,
     )
     aliasdict.merge(kwargs)

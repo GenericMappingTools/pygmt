@@ -2,6 +2,8 @@
 ternary - Plot data on ternary diagrams.
 """
 
+from typing import Literal
+
 import pandas as pd
 from packaging.version import Version
 from pygmt._typing import PathLike, TableLike
@@ -18,7 +20,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     JX="width",
     R="region",
     S="style",
-    V="verbose",
     W="pen",
     p="perspective",
     t="transparency",
@@ -30,6 +31,8 @@ def ternary(
     alabel: str | None = None,
     blabel: str | None = None,
     clabel: str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     panel: int | tuple[int, int] | bool = False,
     **kwargs,
 ):
@@ -48,6 +51,7 @@ def ternary(
 
     {aliases}
        - L = alabel/blabel/clabel
+       - V = verbose
        - c = panel
 
     Parameters
@@ -93,6 +97,7 @@ def ternary(
     aliasdict = AliasSystem(
         L=Alias(labels, name="alabel/blabel/clabel", sep="/", size=3),
     ).add_common(
+        V=verbose,
         c=panel,
     )
     aliasdict.merge(kwargs)

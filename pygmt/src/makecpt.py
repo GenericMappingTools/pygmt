@@ -2,6 +2,8 @@
 makecpt - Make GMT color palette tables.
 """
 
+from typing import Literal
+
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
@@ -17,7 +19,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     H="output",
     I="reverse",
     T="series",
-    V="verbose",
     W="categorical",
     Ww="cyclic",
 )
@@ -28,6 +29,8 @@ def makecpt(
     no_bg: bool = False,
     log: bool = False,
     continuous: bool = False,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ):
     r"""
@@ -75,6 +78,7 @@ def makecpt(
        - N = no_bg
        - Q = log
        - Z = continuous
+       - V = verbose
 
     Parameters
     ----------
@@ -176,7 +180,10 @@ def makecpt(
         N=Alias(no_bg, name="no_bg"),
         Q=Alias(log, name="log"),
         Z=Alias(continuous, name="continuous"),
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         lib.call_module(
