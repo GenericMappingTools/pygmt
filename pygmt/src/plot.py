@@ -2,6 +2,7 @@
 plot - Plot lines, polygons, and symbols in 2-D.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import PathLike, TableLike
@@ -44,7 +45,6 @@ from pygmt.src._common import _data_geometry_is_point
     i="incols",
     l="label",
     p="perspective",
-    t="transparency",
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
@@ -61,6 +61,7 @@ def plot(  # noqa: PLR0912, PLR0913
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
+    transparency: float | Sequence[float] | bool | None = None,
     **kwargs,
 ):
     r"""
@@ -91,6 +92,7 @@ def plot(  # noqa: PLR0912, PLR0913
        - J = projection
        - V = verbose
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -228,9 +230,8 @@ def plot(  # noqa: PLR0912, PLR0913
     {label}
     {perspective}
     {transparency}
-        ``transparency`` can also be a 1-D array to set varying
-        transparency for symbols, but this option is only valid if using
-        ``x``/``y``.
+        ``transparency`` can also be a 1-D array to set varying transparency for
+        symbols, but this option is only valid if using ``x``/``y``.
     {wrap}
     """
     # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
@@ -254,11 +255,14 @@ def plot(  # noqa: PLR0912, PLR0913
         # Size
         if is_nonstr_iter(size):
             data["size"] = size
-        # Intensity and transparency
-        for flag, name in [("I", "intensity"), ("t", "transparency")]:
-            if is_nonstr_iter(kwargs.get(flag)):
-                data[name] = kwargs[flag]
-                kwargs[flag] = ""
+        # Intensity
+        if is_nonstr_iter(kwargs.get("I")):
+            data["intensity"] = kwargs["I"]
+            kwargs["I"] = ""
+        # Transparency
+        if is_nonstr_iter(transparency):
+            data["transparency"] = transparency
+            transparency = True
         # Symbol must be at the last column
         if is_nonstr_iter(symbol):
             if "S" not in kwargs:
@@ -273,7 +277,7 @@ def plot(  # noqa: PLR0912, PLR0913
             ("fill", kwargs.get("G")),
             ("size", size),
             ("intensity", kwargs.get("I")),
-            ("transparency", kwargs.get("t")),
+            ("transparency", transparency),
             ("symbol", symbol),
         ]:
             if is_nonstr_iter(value):
@@ -292,6 +296,7 @@ def plot(  # noqa: PLR0912, PLR0913
         J=projection,
         V=verbose,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 
