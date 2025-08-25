@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:22.114** total execution time for 15 files **from tutorials/advanced**:
+**00:23.982** total execution time for 15 files **from tutorials/advanced**:
 
 .. container::
 
@@ -33,47 +33,47 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_tutorials_advanced_draping_on_3d_surface.py` (``draping_on_3d_surface.py``)
-     - 00:05.659
+     - 00:06.558
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_vectors.py` (``vectors.py``)
-     - 00:02.465
-     - 0.0
-   * - :ref:`sphx_glr_tutorials_advanced_working_with_panel.py` (``working_with_panel.py``)
-     - 00:01.686
-     - 0.0
-   * - :ref:`sphx_glr_tutorials_advanced_contour_map.py` (``contour_map.py``)
-     - 00:01.454
-     - 0.0
-   * - :ref:`sphx_glr_tutorials_advanced_grid_equalization.py` (``grid_equalization.py``)
-     - 00:01.361
+     - 00:02.553
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_legends.py` (``legends.py``)
-     - 00:01.294
+     - 00:01.917
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_advanced_working_with_panel.py` (``working_with_panel.py``)
+     - 00:01.707
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_advanced_contour_map.py` (``contour_map.py``)
+     - 00:01.483
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_advanced_grid_equalization.py` (``grid_equalization.py``)
+     - 00:01.382
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_date_time_charts.py` (``date_time_charts.py``)
-     - 00:01.254
+     - 00:01.278
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_cartesian_histograms.py` (``cartesian_histograms.py``)
-     - 00:01.246
+     - 00:01.276
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_focal_mechanisms.py` (``focal_mechanisms.py``)
-     - 00:01.242
+     - 00:01.273
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_earth_relief.py` (``earth_relief.py``)
-     - 00:01.208
+     - 00:01.230
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_insets.py` (``insets.py``)
-     - 00:00.985
+     - 00:01.019
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_3d_perspective_image.py` (``3d_perspective_image.py``)
-     - 00:00.959
+     - 00:00.972
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_subplots.py` (``subplots.py``)
-     - 00:00.592
+     - 00:00.610
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_configuration.py` (``configuration.py``)
-     - 00:00.532
+     - 00:00.543
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_non_ascii_text.py` (``non_ascii_text.py``)
-     - 00:00.178
+     - 00:00.183
      - 0.0

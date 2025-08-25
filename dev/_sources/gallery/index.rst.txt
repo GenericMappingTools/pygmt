@@ -67,7 +67,24 @@ Maps and map elements
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.coast method can highlight country polygons via the dcw parameter. It accepts the country code or full country name and can draw its borders and add a color to its landmass. It&#x27;s also possible to define multiple countries at once by separating the individual names with commas.">
+    <div class="sphx-glr-thumbcontainer" tooltip="Besides one of the 31 projections supported by GMT &lt;/techref/projections&gt;, users can pass an EPSG (European Petroleum Survey Group) code to the projection parameter. A commonly used EPSG code is EPSG:3857, that refers to the Web Mercator projection WGS84. More information on the EPSG dataset can be found at https://epsg.org and https://spatialreference.org/. Please note, that not all EPSG codes are supported by GMT / PyGMT.">
+
+.. only:: html
+
+  .. image:: /gallery/maps/images/thumb/sphx_glr_epsg_codes_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_gallery_maps_epsg_codes.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">EPSG codes</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.coast method can highlight country polygons via the dcw parameter. It accepts the country code (following the 2-letter ISO 3166-1 alpha-2 convention) or full country name and can draw its borders and add a color to its landmass. It&#x27;s also possible to define multiple countries at once by separating the individual names with commas.">
 
 .. only:: html
 
@@ -145,6 +162,7 @@ Maps and map elements
 
    /gallery/maps/choropleth_map
    /gallery/maps/land_and_water
+   /gallery/maps/epsg_codes
    /gallery/maps/country_polygons
    /gallery/maps/borders
    /gallery/maps/shorelines
@@ -1245,6 +1263,23 @@ Plot embellishments
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="There are various options for formatting text contained in a plot, e.g., text added via pygmt.Figure.text, the plot title, labels of colorbars as well as Cartesian axes, and legend entries. It&#x27;s also possible to change the font as well as its color and size only for specific characters of a longer text. The supported fonts are listed at Supported Fonts &lt;/techref/fonts&gt;. For an complete overview see Text Formatting &lt;/techref/text_formatting&gt;.">
+
+.. only:: html
+
+  .. image:: /gallery/embellishments/images/thumb/sphx_glr_text_formatting_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_gallery_embellishments_text_formatting.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Text formatting</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.timestamp method can draw the GMT timestamp logo on the plot. The timestamp will always be shown relative to the Bottom Left (BL) corner of the plot. By default, the offset and justify parameters are set to (&quot;-54p&quot;, &quot;-54p&quot;) (x-, y-directions) and &quot;BL&quot; (Bottom Left), respectively.">
 
 .. only:: html
@@ -1278,6 +1313,7 @@ Plot embellishments
    /gallery/embellishments/legend
    /gallery/embellishments/colorbars_multiple
    /gallery/embellishments/scalebar
+   /gallery/embellishments/text_formatting
    /gallery/embellishments/timestamp
 
 
