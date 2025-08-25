@@ -2,6 +2,8 @@
 logo - Plot the GMT logo.
 """
 
+from typing import Literal
+
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -13,12 +15,13 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     D="position",
     F="box",
     S="style",
-    V="verbose",
 )
 @kwargs_to_strings(R="sequence", p="sequence")
 def logo(
     self,
     projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     panel: int | tuple[int, int] | bool = False,
     transparency: float | None = None,
     **kwargs,
@@ -35,6 +38,7 @@ def logo(
 
     {aliases}
        - J = projection
+       - V = verbose
        - c = panel
        - t = transparency
 
@@ -65,6 +69,7 @@ def logo(
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        V=verbose,
         c=panel,
         t=transparency,
     )

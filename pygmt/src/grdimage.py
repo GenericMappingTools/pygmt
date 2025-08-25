@@ -2,6 +2,8 @@
 grdimage - Project and plot grids or images.
 """
 
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import AliasSystem
@@ -23,7 +25,6 @@ __doctest_skip__ = ["grdimage"]
     N="no_clip",
     Q="nan_transparent",
     R="region",
-    V="verbose",
     n="interpolation",
     f="coltypes",
     p="perspective",
@@ -34,6 +35,8 @@ def grdimage(
     self,
     grid: PathLike | xr.DataArray,
     projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     panel: int | tuple[int, int] | bool = False,
     transparency: float | None = None,
     **kwargs,
@@ -73,6 +76,7 @@ def grdimage(
 
     {aliases}
        - J = projection
+       - V = verbose
        - c = panel
        - t = transparency
 
@@ -170,6 +174,7 @@ def grdimage(
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        V=verbose,
         c=panel,
         t=transparency,
     )

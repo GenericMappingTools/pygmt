@@ -18,7 +18,6 @@ __doctest_skip__ = ["solar"]
     B="frame",
     G="fill",
     R="region",
-    V="verbose",
     W="pen",
     p="perspective",
 )
@@ -28,6 +27,8 @@ def solar(
     terminator: Literal["astronomical", "civil", "day_night", "nautical"] = "day_night",
     terminator_datetime=None,
     projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     panel: int | tuple[int, int] | bool = False,
     transparency: float | None = None,
     **kwargs,
@@ -43,6 +44,7 @@ def solar(
     {aliases}
        - J = projection
        - T = terminator, **+d**: terminator_datetime
+       - V = verbose
        - c = panel
        - t = transparency
 
@@ -127,6 +129,7 @@ def solar(
         ],
     ).add_common(
         J=projection,
+        V=verbose,
         c=panel,
         t=transparency,
     )

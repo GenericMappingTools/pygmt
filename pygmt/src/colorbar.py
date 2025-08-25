@@ -2,6 +2,8 @@
 colorbar - Plot gray scale or color scale bar.
 """
 
+from typing import Literal
+
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -20,7 +22,6 @@ __doctest_skip__ = ["colorbar"]
     L="equalsize",
     Q="log",
     R="region",
-    V="verbose",
     W="scale",
     Z="zfile",
     p="perspective",
@@ -29,6 +30,8 @@ __doctest_skip__ = ["colorbar"]
 def colorbar(
     self,
     projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     panel: int | tuple[int, int] | bool = False,
     transparency: float | None = None,
     **kwargs,
@@ -48,6 +51,7 @@ def colorbar(
 
     {aliases}
        - J = projection
+       - V = verbose
        - c = panel
        - t = transparency
 
@@ -153,6 +157,7 @@ def colorbar(
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        V=verbose,
         c=panel,
         t=transparency,
     )

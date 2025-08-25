@@ -2,6 +2,8 @@
 grdcontour - Make contour map using a grid.
 """
 
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import AliasSystem
@@ -29,7 +31,6 @@ __doctest_skip__ = ["grdcontour"]
     Q="cut",
     R="region",
     S="resample",
-    V="verbose",
     W="pen",
     l="label",
     f="coltypes",
@@ -40,6 +41,8 @@ def grdcontour(
     self,
     grid: PathLike | xr.DataArray,
     projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     panel: int | tuple[int, int] | bool = False,
     transparency: float | None = None,
     **kwargs,
@@ -53,6 +56,7 @@ def grdcontour(
 
     {aliases}
        - J = projection
+       - V = verbose
        - c = panel
        - t = transparency
 
@@ -161,6 +165,7 @@ def grdcontour(
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        V=verbose,
         c=panel,
         t=transparency,
     )

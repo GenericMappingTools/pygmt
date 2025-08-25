@@ -2,6 +2,8 @@
 rose - Plot a polar histogram (rose, sector, windrose diagrams).
 """
 
+from typing import Literal
+
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
@@ -25,7 +27,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     R="region",
     S="norm",
     T="orientation",
-    V="verbose",
     W="pen",
     Z="scale",
     b="binary",
@@ -42,6 +43,8 @@ def rose(
     data: PathLike | TableLike | None = None,
     length=None,
     azimuth=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     panel: int | tuple[int, int] | bool = False,
     transparency: float | None = None,
     **kwargs,
@@ -62,6 +65,7 @@ def rose(
     Full GMT docs at :gmt-docs:`rose.html`.
 
     {aliases}
+       - V = verbose
        - c = panel
        - t = transparency
 
@@ -204,6 +208,7 @@ def rose(
     self._activate_figure()
 
     aliasdict = AliasSystem().add_common(
+        V=verbose,
         c=panel,
         t=transparency,
     )

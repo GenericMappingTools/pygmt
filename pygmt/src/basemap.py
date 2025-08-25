@@ -2,6 +2,8 @@
 basemap - Plot base maps and frames.
 """
 
+from typing import Literal
+
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -17,7 +19,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     F="box",
     Td="rose",
     Tm="compass",
-    V="verbose",
     f="coltypes",
     p="perspective",
 )
@@ -25,6 +26,8 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 def basemap(
     self,
     projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     panel: int | tuple[int, int] | bool = False,
     transparency: float | None = None,
     **kwargs,
@@ -44,6 +47,7 @@ def basemap(
 
     {aliases}
        - J = projection
+       - V = verbose
        - c = panel
        - t = transparency
 
@@ -93,6 +97,7 @@ def basemap(
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        V=verbose,
         c=panel,
         t=transparency,
     )

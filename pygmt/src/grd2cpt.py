@@ -2,6 +2,8 @@
 grd2cpt - Make linear or histogram-equalized color palette table from grid.
 """
 
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
@@ -24,7 +26,6 @@ __doctest_skip__ = ["grd2cpt"]
     L="limit",
     R="region",
     T="series",
-    V="verbose",
     W="categorical",
     Ww="cyclic",
 )
@@ -36,6 +37,8 @@ def grd2cpt(
     no_bg: bool = False,
     log: bool = False,
     continuous: bool = False,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ):
     r"""
@@ -87,6 +90,7 @@ def grd2cpt(
        - N = no_bg
        - Q = log
        - Z = continuous
+       - V = verbose
 
     Parameters
     ----------
@@ -205,7 +209,10 @@ def grd2cpt(
         N=Alias(no_bg, name="no_bg"),
         Q=Alias(log, name="log"),
         Z=Alias(continuous, name="continuous"),
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:

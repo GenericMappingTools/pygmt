@@ -3,6 +3,7 @@ subplot - Manage figure subplot configuration and selection.
 """
 
 import contextlib
+from typing import Literal
 
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
@@ -28,10 +29,17 @@ from pygmt.helpers import (
     SC="sharex",
     SR="sharey",
     T="title",
-    V="verbose",
 )
 @kwargs_to_strings(Ff="sequence", Fs="sequence", M="sequence", R="sequence")
-def subplot(self, nrows=1, ncols=1, projection=None, **kwargs):
+def subplot(
+    self,
+    nrows=1,
+    ncols=1,
+    projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
+):
     r"""
     Manage figure subplot configuration and selection.
 
@@ -45,6 +53,7 @@ def subplot(self, nrows=1, ncols=1, projection=None, **kwargs):
 
     {aliases}
        - J = projection
+       - V = verbose
 
     Parameters
     ----------
@@ -162,6 +171,7 @@ def subplot(self, nrows=1, ncols=1, projection=None, **kwargs):
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        V=verbose,
     )
     aliasdict.merge(kwargs)
 
@@ -186,9 +196,15 @@ def subplot(self, nrows=1, ncols=1, projection=None, **kwargs):
 
 @fmt_docstring
 @contextlib.contextmanager
-@use_alias(A="fixedlabel", C="clearance", V="verbose")
+@use_alias(A="fixedlabel", C="clearance")
 @kwargs_to_strings(panel="sequence_comma")
-def set_panel(self, panel=None, **kwargs):
+def set_panel(
+    self,
+    panel=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
+):
     r"""
     Set the current subplot panel to plot on.
 
@@ -201,6 +217,7 @@ def set_panel(self, panel=None, **kwargs):
     ``projection="X"`` will fill the subplot by using unequal scales].
 
     {aliases}
+       - V = verbose
 
     Parameters
     ----------
@@ -238,8 +255,13 @@ def set_panel(self, panel=None, **kwargs):
     """
     self._activate_figure()
 
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         lib.call_module(
-            module="subplot", args=["set", str(panel), *build_arg_list(kwargs)]
+            module="subplot", args=["set", str(panel), *build_arg_list(aliasdict)]
         )
         yield
