@@ -18,7 +18,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     M="monochrome",
     R="region",
     p="perspective",
-    t="transparency",
 )
 @kwargs_to_strings(R="sequence", p="sequence")
 def image(
@@ -28,6 +27,7 @@ def image(
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -42,6 +42,7 @@ def image(
        - J = projection
        - V = verbose
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -85,6 +86,7 @@ def image(
         J=projection,
         V=verbose,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 

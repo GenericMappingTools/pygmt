@@ -53,11 +53,10 @@ def _parse_fills(fillpositive, fillnegative):
     h="header",
     i="incols",
     p="perspective",
-    t="transparency",
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
-def wiggle(
+def wiggle(  # noqa: PLR0913
     self,
     data: PathLike | TableLike | None = None,
     x=None,
@@ -69,6 +68,7 @@ def wiggle(
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -86,6 +86,7 @@ def wiggle(
        - J = projection
        - V = verbose
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -141,6 +142,7 @@ def wiggle(
         J=projection,
         V=verbose,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 

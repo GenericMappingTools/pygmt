@@ -39,7 +39,6 @@ from pygmt.helpers import (
     h="header",
     i="incols",
     p="perspective",
-    t="transparency",
 )
 @kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
 def velo(
@@ -49,6 +48,7 @@ def velo(
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -69,6 +69,7 @@ def velo(
        - J = projection
        - V = verbose
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -271,6 +272,7 @@ def velo(
         J=projection,
         V=verbose,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 

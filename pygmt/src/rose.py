@@ -35,7 +35,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     h="header",
     i="incols",
     p="perspective",
-    t="transparency",
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
@@ -47,6 +46,7 @@ def rose(
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     """
@@ -67,6 +67,7 @@ def rose(
     {aliases}
        - V = verbose
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -209,6 +210,7 @@ def rose(
     aliasdict = AliasSystem().add_common(
         V=verbose,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 

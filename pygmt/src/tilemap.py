@@ -26,7 +26,6 @@ except ImportError:
     Q="nan_transparent",
     # R="region",
     p="perspective",
-    t="transparency",
 )
 @kwargs_to_strings(p="sequence")  # R="sequence",
 def tilemap(  # noqa: PLR0913
@@ -42,6 +41,7 @@ def tilemap(  # noqa: PLR0913
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -61,6 +61,7 @@ def tilemap(  # noqa: PLR0913
        - J = projection
        - V = verbose
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -134,6 +135,7 @@ def tilemap(  # noqa: PLR0913
         J=projection,
         V=verbose,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 

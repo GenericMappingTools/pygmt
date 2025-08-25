@@ -25,7 +25,6 @@ __doctest_skip__ = ["colorbar"]
     W="scale",
     Z="zfile",
     p="perspective",
-    t="transparency",
 )
 @kwargs_to_strings(R="sequence", G="sequence", I="sequence", p="sequence")
 def colorbar(
@@ -34,6 +33,7 @@ def colorbar(
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -53,6 +53,7 @@ def colorbar(
        - J = projection
        - V = verbose
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -158,6 +159,7 @@ def colorbar(
         J=projection,
         V=verbose,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 
