@@ -10,7 +10,6 @@ somewhere on the figure (reference point) and a point on the feature (anchor
 point). For both, users can use a two-character (order-independent) code, a
 combination of a vertical code and a horizontal code:
 
-
 - Vertical: **T**\(op), **M**\(iddle), **B**\(ottom)
 - Horizontal: **L**\(eft), **C**\(entre), **R**\(ight)
 
