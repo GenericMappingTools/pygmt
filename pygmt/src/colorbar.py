@@ -69,7 +69,7 @@ def colorbar(
         Define the reference point on the map for the color scale using one of
         four coordinate systems: (1) Use **g** for map (user) coordinates, (2)
         use **j** or **J** for setting *refpoint* via a
-    :doc:`2-character justification code </techref/justification_codes>`
+        :doc:`2-character justification code </techref/justification_codes>`
         that refers to the (invisible) map domain rectangle,
         (3) use **n** for normalized (0-1) coordinates, or (4) use **x** for
         plot coordinates (inches, cm, etc.). All but **x** requires both
