@@ -13,7 +13,7 @@
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.binstats.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../_static/documentation_options.js?v=bdba847e"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -201,7 +201,7 @@
 <h1>pygmt.binstats<a class="headerlink" href="#pygmt-binstats" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="pygmt.binstats">
-<span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">binstats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outgrid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/binstats.html#binstats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.binstats" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">binstats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outgrid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">statistic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'number'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quantile_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/binstats.html#binstats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.binstats" title="Link to this definition"></a></dt>
 <dd><p>Bin spatial data and determine statistics per bin.</p>
 <p>Reads arbitrarily located (x,y[,z][,w]) points
 (2-4 columns) from <code class="docutils literal notranslate"><span class="pre">data</span></code> and for each
@@ -213,58 +213,59 @@ perhaps give density estimates.</p>
 <p>Full GMT docs at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/gmtbinstats.html">https://docs.generic-mapping-tools.org/6.5/gmtbinstats.html</a>.</p>
 <p><strong>Aliases:</strong></p>
 <table class="hlist"><tr><td><ul class="simple">
-<li><p>C = statistic</p></li>
 <li><p>E = empty</p></li>
 <li><p>I = spacing</p></li>
 <li><p>N = normalize</p></li>
 <li><p>R = region</p></li>
+<li><p>S = search_radius</p></li>
 </ul>
 </td><td><ul class="simple">
-<li><p>S = search_radius</p></li>
-<li><p>V = verbose</p></li>
 <li><p>W = weight</p></li>
 <li><p>a = aspatial</p></li>
-</ul>
-</td><td><ul class="simple">
 <li><p>b = binary</p></li>
 <li><p>h = header</p></li>
+</ul>
+</td><td><ul class="simple">
 <li><p>i = incols</p></li>
 <li><p>r = registration</p></li>
+<li><p>C = statistic</p></li>
+<li><p>V = verbose</p></li>
 </ul>
 </td></tr></table>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> | <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a> | <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> | <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2025.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> | <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v1.1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeoDataFrame</span></code></a></span>) – A file name of an ASCII data table or a 2-D <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>, an
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2025.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a> made up of 1-D <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>
-data variables, or a <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v1.1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a> containing the
+<li><p><strong>data</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> | <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a> | <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> | <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2025.8.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> | <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v1.1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeoDataFrame</span></code></a></span>) – A file name of an ASCII data table or a 2-D <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>, an
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2025.8.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a> made up of 1-D <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.8.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>
+data variables, or a <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v1.1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a> containing the
 tabular data.</p></li>
 <li><p><strong>outgrid</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Name of the output netCDF grid file. If not specified, will return an
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object. For writing a specific grid file format or
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.8.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object. For writing a specific grid file format or
 applying basic data operations to the output grid, see
 <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#grd-inout-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#grd-inout-full</a> for the available modifiers.</p></li>
-<li><p><strong>statistic</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p><strong>a</strong>|<strong>d</strong>|<strong>g</strong>|<strong>i</strong>|<strong>l</strong>|<strong>L</strong>|<strong>m</strong>|<strong>n</strong>|<strong>o</strong>|<strong>p</strong>|<strong>q</strong>[<em>quant</em>]|<strong>r</strong>|<strong>s</strong>|<strong>u</strong>|<strong>U</strong>|<strong>z</strong>.
-Choose the statistic that will be computed per node based on the
-points that are within <em>radius</em> distance of the node. Select one of:</p>
+<li><p><strong>statistic</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'mean'</span></code>, <code class="docutils literal notranslate"><span class="pre">'mad'</span></code>, <code class="docutils literal notranslate"><span class="pre">'full'</span></code>, <code class="docutils literal notranslate"><span class="pre">'interquartile'</span></code>, <code class="docutils literal notranslate"><span class="pre">'min'</span></code>, <code class="docutils literal notranslate"><span class="pre">'minpos'</span></code>, <code class="docutils literal notranslate"><span class="pre">'median'</span></code>, <code class="docutils literal notranslate"><span class="pre">'number'</span></code>, <code class="docutils literal notranslate"><span class="pre">'lms'</span></code>, <code class="docutils literal notranslate"><span class="pre">'mode'</span></code>, <code class="docutils literal notranslate"><span class="pre">'quantile'</span></code>, <code class="docutils literal notranslate"><span class="pre">'rms'</span></code>, <code class="docutils literal notranslate"><span class="pre">'stddev'</span></code>, <code class="docutils literal notranslate"><span class="pre">'max'</span></code>, <code class="docutils literal notranslate"><span class="pre">'maxneg'</span></code>, <code class="docutils literal notranslate"><span class="pre">'sum'</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">'number'</span></code>) – <p>Choose the statistic that will be computed per node based on the points that are
+within <em>radius</em> distance of the node. Select one of:</p>
 <ul>
-<li><p><strong>a</strong>: mean (average)</p></li>
-<li><p><strong>d</strong>: median absolute deviation (MAD)</p></li>
-<li><p><strong>g</strong>: full (max-min) range</p></li>
-<li><p><strong>i</strong>: 25-75% interquartile range</p></li>
-<li><p><strong>l</strong>: minimum (low)</p></li>
-<li><p><strong>L</strong>: minimum of positive values only</p></li>
-<li><p><strong>m</strong>: median</p></li>
-<li><p><strong>n</strong>: number of values</p></li>
-<li><p><strong>o</strong>: LMS scale</p></li>
-<li><p><strong>p</strong>: mode (maximum likelihood)</p></li>
-<li><p><strong>q</strong>: selected quantile (append desired quantile in 0-100% range [50])</p></li>
-<li><p><strong>r</strong>: root mean square (RMS)</p></li>
-<li><p><strong>s</strong>: standard deviation</p></li>
-<li><p><strong>u</strong>: maximum (upper)</p></li>
-<li><p><strong>U</strong>: maximum of negative values only</p></li>
-<li><p><strong>z</strong>: sum</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;mean&quot;</span></code>: Mean (i.e., average).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;mad&quot;</span></code>: Median absolute deviation (MAD).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;full&quot;</span></code>: The full (max-min) range.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;interquartile&quot;</span></code>: The 25-75% interquartile range.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;min&quot;</span></code>: Minimum (lowest value).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;minpos&quot;</span></code>: Minimum of positive values only.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;median&quot;</span></code>: Median value.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;number&quot;</span></code>: The number of values per bin.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;lms&quot;</span></code>: Least median square (LMS) scale.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;mode&quot;</span></code>: Mode (maximum likelihood estimate).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;quantile&quot;</span></code>: Selected quantile. The quantile value is specified by the
+<code class="docutils literal notranslate"><span class="pre">quantile_value</span></code> parameter and is in the 0-100% range.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;rms&quot;</span></code>: Root mean square (RMS).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;stddev&quot;</span></code>: Standard deviation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;max&quot;</span></code>: Maximum (highest value).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;maxneg&quot;</span></code>: Maximum of negative values only.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;sum&quot;</span></code>: The sum of the values.</p></li>
 </ul>
 </p></li>
+<li><p><strong>quantile_value</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">50</span></code>) – The quantile value if <code class="docutils literal notranslate"><span class="pre">statistic=&quot;quantile&quot;</span></code>.</p></li>
 <li><p><strong>empty</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Set the value assigned to empty nodes [Default is NaN].</p></li>
 <li><p><strong>normalize</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Normalize the resulting grid values by the area represented by the
 search <em>radius</em> [Default is no normalization].</p></li>
@@ -403,12 +404,12 @@ Force gridline (<strong>g</strong>) or pixel (<strong>p</strong>) node registrat
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.8.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><p><em>ret</em> – Return type depends on whether the <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> parameter is set:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> if <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> is not set</p></li>
+<li><p><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.8.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> if <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> is not set</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> if <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> is set (grid output will be stored in the file set by
 <code class="docutils literal notranslate"><span class="pre">outgrid</span></code>)</p></li>
 </ul>
@@ -432,9 +433,9 @@ Force gridline (<strong>g</strong>) or pixel (<strong>p</strong>) node registrat
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1669d5183">1669d518</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jun 18, 2025.
+      <span class="lastupdated">Last updated on Aug 25, 2025.
       </span></p>
   </div>
 
