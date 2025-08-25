@@ -56,7 +56,7 @@ def _parse_fills(fillpositive, fillnegative):
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
-def wiggle(
+def wiggle(  # noqa: PLR0913
     self,
     data: PathLike | TableLike | None = None,
     x=None,
