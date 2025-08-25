@@ -2,6 +2,8 @@
 image - Plot raster or EPS images.
 """
 
+from typing import Literal
+
 from pygmt._typing import PathLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
@@ -15,16 +17,17 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     G="bitcolor",
     M="monochrome",
     R="region",
-    V="verbose",
     p="perspective",
-    t="transparency",
 )
 @kwargs_to_strings(R="sequence", p="sequence")
 def image(
     self,
     imagefile: PathLike,
     projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -37,7 +40,9 @@ def image(
 
     {aliases}
        - J = projection
+       - V = verbose
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -79,7 +84,9 @@ def image(
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        V=verbose,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 
