@@ -2,7 +2,9 @@
 colorbar - Plot gray scale or color scale bar.
 """
 
-from pygmt.alias import Alias, AliasSystem
+from typing import Literal
+
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -20,17 +22,20 @@ __doctest_skip__ = ["colorbar"]
     L="equalsize",
     Q="log",
     R="region",
-    V="verbose",
     W="scale",
     Z="zfile",
-    c="panel",
     p="perspective",
-    t="transparency",
 )
-@kwargs_to_strings(
-    R="sequence", G="sequence", I="sequence", c="sequence_comma", p="sequence"
-)
-def colorbar(self, projection=None, **kwargs):
+@kwargs_to_strings(R="sequence", G="sequence", I="sequence", p="sequence")
+def colorbar(
+    self,
+    projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
+    **kwargs,
+):
     r"""
     Plot gray scale or color scale bar.
 
@@ -46,6 +51,9 @@ def colorbar(self, projection=None, **kwargs):
 
     {aliases}
        - J = projection
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -147,8 +155,13 @@ def colorbar(self, projection=None, **kwargs):
     """
     self._activate_figure()
 
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         lib.call_module(module="colorbar", args=build_arg_list(aliasdict))

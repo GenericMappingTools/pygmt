@@ -18,18 +18,19 @@ __doctest_skip__ = ["solar"]
     B="frame",
     G="fill",
     R="region",
-    V="verbose",
     W="pen",
-    c="panel",
     p="perspective",
-    t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", p="sequence")
 def solar(
     self,
     terminator: Literal["astronomical", "civil", "day_night", "nautical"] = "day_night",
     terminator_datetime=None,
     projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -43,6 +44,9 @@ def solar(
     {aliases}
        - J = projection
        - T = terminator, **+d**: terminator_datetime
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -110,7 +114,6 @@ def solar(
             raise GMTValueError(terminator_datetime, description="datetime") from verr
 
     aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
         T=[
             Alias(
                 terminator,
@@ -124,7 +127,13 @@ def solar(
             ),
             Alias(datetime_string, name="terminator_datetime", prefix="+d"),
         ],
-    ).merge(kwargs)
+    ).add_common(
+        J=projection,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         lib.call_module(module="solar", args=build_arg_list(aliasdict))

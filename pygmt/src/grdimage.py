@@ -2,17 +2,13 @@
 grdimage - Project and plot grids or images.
 """
 
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    build_arg_list,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["grdimage"]
 
@@ -29,16 +25,22 @@ __doctest_skip__ = ["grdimage"]
     N="no_clip",
     Q="nan_transparent",
     R="region",
-    V="verbose",
     n="interpolation",
-    c="panel",
     f="coltypes",
     p="perspective",
-    t="transparency",
     x="cores",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def grdimage(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
+@kwargs_to_strings(R="sequence", p="sequence")
+def grdimage(
+    self,
+    grid: PathLike | xr.DataArray,
+    projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
+    **kwargs,
+):
     r"""
     Project and plot grids or images.
 
@@ -74,6 +76,9 @@ def grdimage(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
 
     {aliases}
        - J = projection
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -165,11 +170,15 @@ def grdimage(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
             "Parameter 'img_out'/'A' is not implemented. "
             "Please consider submitting a feature request to us."
         )
-        raise GMTInvalidInput(msg)
+        raise NotImplementedError(msg)
 
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (

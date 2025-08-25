@@ -2,9 +2,11 @@
 grdproject - Forward and inverse map transformation of grids.
 """
 
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -21,7 +23,6 @@ __doctest_skip__ = ["grdproject"]
     I="inverse",
     M="unit",
     R="region",
-    V="verbose",
     n="interpolation",
     r="registration",
 )
@@ -30,6 +31,8 @@ def grdproject(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
     projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -54,6 +57,7 @@ def grdproject(
 
     {aliases}
        - J = projection
+       - V = verbose
 
     Parameters
     ----------
@@ -113,9 +117,11 @@ def grdproject(
         msg = "The projection must be specified."
         raise GMTInvalidInput(msg)
 
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (

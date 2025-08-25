@@ -2,10 +2,12 @@
 velo - Plot velocity vectors, crosses, anisotropy bars, and wedges.
 """
 
+from typing import Literal
+
 import numpy as np
 import pandas as pd
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import (
@@ -30,19 +32,25 @@ from pygmt.helpers import (
     N="no_clip",
     R="region",
     S="spec",
-    V="verbose",
     W="pen",
     Z="zvalue",
-    c="panel",
     d="nodata",
     e="find",
     h="header",
     i="incols",
     p="perspective",
-    t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def velo(self, data: PathLike | TableLike | None = None, projection=None, **kwargs):
+@kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
+def velo(
+    self,
+    data: PathLike | TableLike | None = None,
+    projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
+    **kwargs,
+):
     r"""
     Plot velocity vectors, crosses, anisotropy bars, and wedges.
 
@@ -59,6 +67,9 @@ def velo(self, data: PathLike | TableLike | None = None, projection=None, **kwar
 
     {aliases}
        - J = projection
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -257,9 +268,13 @@ def velo(self, data: PathLike | TableLike | None = None, projection=None, **kwar
             ),
         )
 
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
