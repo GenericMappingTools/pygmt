@@ -3,10 +3,11 @@ text - Plot or typeset text.
 """
 
 from collections.abc import Sequence
+from typing import Literal
 
 import numpy as np
 from pygmt._typing import AnchorCode, PathLike, StringArrayTypes, TableLike
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import (
@@ -29,10 +30,8 @@ from pygmt.helpers import (
     D="offset",
     G="fill",
     N="no_clip",
-    V="verbose",
     W="pen",
     a="aspatial",
-    c="panel",
     e="find",
     f="coltypes",
     h="header",
@@ -41,8 +40,8 @@ from pygmt.helpers import (
     t="transparency",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def text_(  # noqa: PLR0912
+@kwargs_to_strings(R="sequence", p="sequence")
+def text_(  # noqa: PLR0912, PLR0913, PLR0915
     self,
     textfiles: PathLike | TableLike | None = None,
     x=None,
@@ -53,6 +52,9 @@ def text_(  # noqa: PLR0912
     font=None,
     justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
     projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
     **kwargs,
 ):
     r"""
@@ -74,6 +76,8 @@ def text_(  # noqa: PLR0912
     {aliases}
        - F = **+a**: angle, **+c**: position, **+j**: justify, **+f**: font
        - J = projection
+       - V = verbose
+       - c = panel
 
     Parameters
     ----------
@@ -196,9 +200,16 @@ def text_(  # noqa: PLR0912
     data_is_required = position is None
     kind = data_kind(textfiles, required=data_is_required)
 
-    if position is not None and (text is None or is_nonstr_iter(text)):
-        msg = "'text' can't be None or array when 'position' is given."
-        raise GMTInvalidInput(msg)
+    if position is not None:
+        if text is None:
+            msg = "'text' can't be None when 'position' is given."
+            raise GMTInvalidInput(msg)
+        if is_nonstr_iter(text):
+            raise GMTTypeError(
+                type(text),
+                reason="Parameter 'text' can't be a sequence when 'position' is given.",
+            )
+
     if textfiles is not None and text is not None:
         msg = "'text' can't be specified when 'textfiles' is given."
         raise GMTInvalidInput(msg)
@@ -264,9 +275,12 @@ def text_(  # noqa: PLR0912
                     reason=f"Parameter {name!r} expects a single value or True.",
                 )
 
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        V=verbose,
+        c=panel,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(

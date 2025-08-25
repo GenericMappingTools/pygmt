@@ -21,7 +21,6 @@ from pygmt.src._common import _data_geometry_is_point
 
 @fmt_docstring
 @use_alias(
-    A="straight_line",
     B="frame",
     C="cmap",
     D="offset",
@@ -33,12 +32,10 @@ from pygmt.src._common import _data_geometry_is_point
     N="no_clip",
     R="region",
     S="style",
-    V="verbose",
     W="pen",
     Z="zvalue",
     a="aspatial",
     b="binary",
-    c="panel",
     d="nodata",
     e="find",
     f="coltypes",
@@ -50,8 +47,8 @@ from pygmt.src._common import _data_geometry_is_point
     t="transparency",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot(  # noqa: PLR0912
+@kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
+def plot(  # noqa: PLR0912, PLR0913
     self,
     data: PathLike | TableLike | None = None,
     x=None,
@@ -59,8 +56,11 @@ def plot(  # noqa: PLR0912
     size=None,
     symbol=None,
     direction=None,
-    straight_line: bool | Literal["x", "y"] = False,  # noqa: ARG001
+    straight_line: bool | Literal["x", "y"] = False,
     projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
     **kwargs,
 ):
     r"""
@@ -87,7 +87,10 @@ def plot(  # noqa: PLR0912
     Full GMT docs at :gmt-docs:`plot.html`.
 
     {aliases}
+       - A = straight_line
        - J = projection
+       - V = verbose
+       - c = panel
 
     Parameters
     ----------
@@ -284,8 +287,13 @@ def plot(  # noqa: PLR0912
         kwargs["S"] = "s0.2c"
 
     aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+        A=Alias(straight_line, name="straight_line"),
+    ).add_common(
+        J=projection,
+        V=verbose,
+        c=panel,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
