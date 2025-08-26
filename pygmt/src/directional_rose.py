@@ -26,6 +26,9 @@ def directional_rose(
     anchor_offset: Sequence[float | str] | None = None,
     label: Sequence[str] | bool = False,
     fancy: Literal[1, 2, 3] | bool = False,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    transparency: float | None = None,
 ):
     r"""
     Add a directional rose on the map.
@@ -112,6 +115,9 @@ def directional_rose(
             Alias(anchor_offset, name="anchor_offset", prefix="+o", sep="/", size=2),
             Alias(width, name="width", prefix="+w"),
         ],
+    ).add_common(
+        V=verbose,
+        t=transparency,
     )
 
     with Session() as lib:
