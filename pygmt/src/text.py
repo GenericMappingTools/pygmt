@@ -37,7 +37,6 @@ from pygmt.helpers import (
     h="header",
     it="use_word",
     p="perspective",
-    t="transparency",
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", p="sequence")
@@ -55,6 +54,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
+    transparency: float | Sequence[float] | bool | None = None,
     **kwargs,
 ):
     r"""
@@ -78,6 +78,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
        - J = projection
        - V = verbose
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -177,9 +178,8 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         columns can be specified.
     {perspective}
     {transparency}
-        ``transparency`` can also be a 1-D array to set varying
-        transparency for texts, but this option is only valid if using
-        ``x``/``y`` and ``text``.
+        ``transparency`` can also be a 1-D array to set varying transparency for texts,
+        but this option is only valid if using ``x``/``y`` and ``text``.
     {wrap}
     """
     self._activate_figure()
@@ -248,9 +248,9 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
 
         # If an array of transparency is given, GMT will read it from the last numerical
         # column per data record.
-        if is_nonstr_iter(kwargs.get("t")):
-            data["transparency"] = kwargs["t"]
-            kwargs["t"] = True
+        if is_nonstr_iter(transparency):
+            data["transparency"] = transparency
+            transparency = True
 
         # Append text to the last column. Text must be passed in as str type.
         text = np.asarray(text, dtype=np.str_)
@@ -264,7 +264,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         if isinstance(position, str):
             kwargs["F"] += f"+c{position}+t{text}"
 
-        for arg, _, name in [*array_args, (kwargs.get("t"), "", "transparency")]:
+        for arg, _, name in [*array_args, (transparency, "", "transparency")]:
             if is_nonstr_iter(arg):
                 raise GMTTypeError(
                     type(arg),
@@ -275,6 +275,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         J=projection,
         V=verbose,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 
