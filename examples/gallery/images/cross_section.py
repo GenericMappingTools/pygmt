@@ -45,7 +45,7 @@ fig.colorbar(
     # corner with an offset ("+o") of 0.7 centimeters and 0.3 centimeters in x- or y-
     # directions, respectively; move the x-label above the horizontal colorbar ("+ml")
     position="jBR+o0.7c/0.8c+h+w5c/0.3c+ml",
-    # Add a box around the colobar, filled in "white" and a 30% transparency, with a
+    # Add a box around the colobar, filled in white and a 30 % transparency, with a
     # 0.8-points thick, black, outline.
     box=Box(pen="0.8p,black", fill="white@30"),
     # Add x- and y-labels ("+l")

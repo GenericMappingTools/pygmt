@@ -90,7 +90,7 @@ fig.plot(x=1, y=0, style="t0.3c", fill="pink", pen="black", label="pink triangle
 fig.plot(x=[-3, 3], y=[-2, -2], pen="darkred", label="darkred line")
 
 # Add a box with a 2-points thick blue, solid outline and a white fill with a
-# transparency of 70 percentage ("@30").
+# transparency of 30 percent ("@30").
 fig.legend(position="jTL+o0.3c/0.2c", box=Box(pen="2p,blue", fill="white@30"))
 
 fig.show()
