@@ -2,8 +2,11 @@
 surface - Grid table data using adjustable tension continuous curvature splines.
 """
 
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -19,7 +22,6 @@ __doctest_skip__ = ["surface"]
     M="maxradius",
     R="region",
     T="tension",
-    V="verbose",
     a="aspatial",
     b="binary",
     d="nodata",
@@ -37,6 +39,8 @@ def surface(
     y=None,
     z=None,
     outgrid: PathLike | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -72,6 +76,7 @@ def surface(
     Full GMT docs at :gmt-docs:`surface.html`.
 
     {aliases}
+       - V = verbose
 
     Parameters
     ----------
@@ -158,6 +163,11 @@ def surface(
     >>> # Perform gridding of topography data
     >>> grid = pygmt.surface(data=topography, spacing=1, region=[0, 4, 0, 8])
     """
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(
@@ -165,8 +175,8 @@ def surface(
             ) as vintbl,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            kwargs["G"] = voutgrd
+            aliasdict["G"] = voutgrd
             lib.call_module(
-                module="surface", args=build_arg_list(kwargs, infile=vintbl)
+                module="surface", args=build_arg_list(aliasdict, infile=vintbl)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

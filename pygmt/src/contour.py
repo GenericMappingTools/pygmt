@@ -2,6 +2,8 @@
 contour - Contour table data by direct triangulation.
 """
 
+from typing import Literal
+
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
@@ -24,7 +26,6 @@ from pygmt.helpers import (
     N="no_clip",
     R="region",
     S="skip",
-    V="verbose",
     W="pen",
     b="binary",
     d="nodata",
@@ -34,7 +35,6 @@ from pygmt.helpers import (
     i="incols",
     l="label",
     p="perspective",
-    t="transparency",
 )
 @kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
 def contour(
@@ -44,7 +44,10 @@ def contour(
     y=None,
     z=None,
     projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -59,7 +62,9 @@ def contour(
 
     {aliases}
        - J = projection
+       - V = verbose
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -156,7 +161,9 @@ def contour(
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        V=verbose,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 

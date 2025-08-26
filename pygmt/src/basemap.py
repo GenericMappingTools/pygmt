@@ -3,6 +3,7 @@ basemap - Plot base maps and frames.
 """
 
 import warnings
+from typing import Literal
 
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
@@ -19,14 +20,18 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     F="box",
     Td="rose",
     Tm="compass",
-    V="verbose",
     f="coltypes",
     p="perspective",
-    t="transparency",
 )
 @kwargs_to_strings(R="sequence", p="sequence")
 def basemap(
-    self, projection=None, panel: int | tuple[int, int] | bool = False, **kwargs
+    self,
+    projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
+    **kwargs,
 ):
     r"""
     Plot base maps and frames.
@@ -43,7 +48,9 @@ def basemap(
 
     {aliases}
        - J = projection
+       - V = verbose
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -102,7 +109,9 @@ def basemap(
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        V=verbose,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 

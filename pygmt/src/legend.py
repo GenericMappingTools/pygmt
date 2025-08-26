@@ -3,6 +3,7 @@ legend - Plot a legend.
 """
 
 import io
+from typing import Literal
 
 from pygmt._typing import PathLike
 from pygmt.alias import AliasSystem
@@ -23,9 +24,7 @@ from pygmt.helpers import (
     R="region",
     D="position",
     F="box",
-    V="verbose",
     p="perspective",
-    t="transparency",
 )
 @kwargs_to_strings(R="sequence", p="sequence")
 def legend(
@@ -34,7 +33,10 @@ def legend(
     projection=None,
     position="JTR+jTR+o0.2c",
     box="+gwhite+p1p",
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -50,7 +52,9 @@ def legend(
 
     {aliases}
        - J = projection
+       - V = verbose
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -102,7 +106,9 @@ def legend(
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        V=verbose,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 

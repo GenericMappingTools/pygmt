@@ -4,6 +4,7 @@ psconvert - Convert [E]PS file(s) to other formats using Ghostscript.
 
 from collections.abc import Sequence
 from pathlib import Path
+from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
@@ -12,13 +13,15 @@ from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
-@use_alias(A="crop", I="resize", N="bb_style", T="fmt", Q="anti_aliasing", V="verbose")
+@use_alias(A="crop", I="resize", N="bb_style", T="fmt", Q="anti_aliasing")
 def psconvert(
     self,
     prefix: str | None = None,
     dpi: int | None = None,
     gs_option: str | Sequence[str] | None = None,
     gs_path: str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ):
     r"""
@@ -38,6 +41,7 @@ def psconvert(
        - E = dpi
        - F = prefix
        - G = gs_path
+       - V = verbose
 
     Parameters
     ----------
@@ -133,7 +137,10 @@ def psconvert(
         E=Alias(dpi, name="dpi"),
         F=Alias(prefix, name="prefix"),
         G=Alias(gs_path, name="gs_path"),
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         lib.call_module(module="psconvert", args=build_arg_list(aliasdict))

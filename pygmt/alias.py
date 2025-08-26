@@ -217,7 +217,14 @@ class AliasSystem(UserDict):
     >>> from pygmt.helpers import build_arg_list
     >>>
     >>> def func(
-    ...     par0, par1=None, par2=None, frame=False, repeat=None, panel=None, **kwargs
+    ...     par0,
+    ...     par1=None,
+    ...     par2=None,
+    ...     frame=False,
+    ...     repeat=None,
+    ...     panel=None,
+    ...     verbose=None,
+    ...     **kwargs,
     ... ):
     ...     aliasdict = AliasSystem(
     ...         A=[
@@ -227,6 +234,7 @@ class AliasSystem(UserDict):
     ...         B=Alias(frame, name="frame"),
     ...         D=Alias(repeat, name="repeat"),
     ...     ).add_common(
+    ...         V=verbose,
     ...         c=panel,
     ...     )
     ...     aliasdict.merge(kwargs)
@@ -238,9 +246,10 @@ class AliasSystem(UserDict):
     ...     frame=True,
     ...     repeat=[1, 2, 3],
     ...     panel=(1, 2),
+    ...     verbose="debug",
     ...     J="X10c/10c",
     ... )
-    ['-Amytext+o12/12', '-B', '-D1', '-D2', '-D3', '-JX10c/10c', '-c1,2']
+    ['-Amytext+o12/12', '-B', '-D1', '-D2', '-D3', '-JX10c/10c', '-Vd', '-c1,2']
     """
 
     def __init__(self, **kwargs):
@@ -276,10 +285,26 @@ class AliasSystem(UserDict):
         """
         for key, value in kwargs.items():
             match key:
+                case "V":
+                    alias = Alias(
+                        value,
+                        name="verbose",
+                        mapping={
+                            "quiet": "q",
+                            "error": "e",
+                            "warning": "w",
+                            "timing": "t",
+                            "info": "i",
+                            "compat": "c",
+                            "debug": "d",
+                        },
+                    )
                 case "J":
                     alias = Alias(value, name="projection")
                 case "c":
                     alias = Alias(value, name="panel", sep=",", size=2)
+                case "t":
+                    alias = Alias(value, name="transparency")
                 case _:
                     raise GMTValueError(key, description="common parameter")
             self.aliasdict[key] = alias

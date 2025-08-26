@@ -3,15 +3,22 @@ which - Find full path to specified files.
 """
 
 from collections.abc import Sequence
+from typing import Literal
 
 from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, is_nonstr_iter, use_alias
 
 
 @fmt_docstring
-@use_alias(G="download", V="verbose")
-def which(fname: PathLike | Sequence[PathLike], **kwargs) -> str | list[str]:
+@use_alias(G="download")
+def which(
+    fname: PathLike | Sequence[PathLike],
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
+) -> str | list[str]:
     r"""
     Find full path to specified files.
 
@@ -30,6 +37,7 @@ def which(fname: PathLike | Sequence[PathLike], **kwargs) -> str | list[str]:
     Full GMT docs at :gmt-docs:`gmtwhich.html`.
 
     {aliases}
+       - V = verbose
 
     Parameters
     ----------
@@ -60,11 +68,16 @@ def which(fname: PathLike | Sequence[PathLike], **kwargs) -> str | list[str]:
     FileNotFoundError
         If the file is not found.
     """
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with lib.virtualfile_out(kind="dataset") as vouttbl:
             lib.call_module(
                 module="which",
-                args=build_arg_list(kwargs, infile=fname, outfile=vouttbl),
+                args=build_arg_list(aliasdict, infile=fname, outfile=vouttbl),
             )
             paths = lib.virtualfile_to_dataset(vfname=vouttbl, output_type="strings")
 

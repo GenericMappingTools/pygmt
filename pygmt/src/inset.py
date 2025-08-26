@@ -3,6 +3,7 @@ inset - Manage figure inset setup and completion.
 """
 
 import contextlib
+from typing import Literal
 
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
@@ -19,10 +20,15 @@ __doctest_skip__ = ["inset"]
     M="margin",
     N="no_clip",
     R="region",
-    V="verbose",
 )
 @kwargs_to_strings(D="sequence", M="sequence", R="sequence")
-def inset(self, projection=None, **kwargs):
+def inset(
+    self,
+    projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
+):
     r"""
     Manage figure inset setup and completion.
 
@@ -34,6 +40,7 @@ def inset(self, projection=None, **kwargs):
 
     {aliases}
        - J = projection
+       - V = verbose
 
     Parameters
     ----------
@@ -139,6 +146,7 @@ def inset(self, projection=None, **kwargs):
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        V=verbose,
     )
     aliasdict.merge(kwargs)
 

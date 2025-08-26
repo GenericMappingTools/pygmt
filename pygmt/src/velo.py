@@ -2,6 +2,8 @@
 velo - Plot velocity vectors, crosses, anisotropy bars, and wedges.
 """
 
+from typing import Literal
+
 import numpy as np
 import pandas as pd
 from pygmt._typing import PathLike, TableLike
@@ -30,7 +32,6 @@ from pygmt.helpers import (
     N="no_clip",
     R="region",
     S="spec",
-    V="verbose",
     W="pen",
     Z="zvalue",
     d="nodata",
@@ -38,14 +39,16 @@ from pygmt.helpers import (
     h="header",
     i="incols",
     p="perspective",
-    t="transparency",
 )
 @kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
 def velo(
     self,
     data: PathLike | TableLike | None = None,
     projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -64,7 +67,9 @@ def velo(
 
     {aliases}
        - J = projection
+       - V = verbose
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -265,7 +270,9 @@ def velo(
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        V=verbose,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 

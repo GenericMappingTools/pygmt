@@ -2,6 +2,8 @@
 grdproject - Forward and inverse map transformation of grids.
 """
 
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import AliasSystem
@@ -21,7 +23,6 @@ __doctest_skip__ = ["grdproject"]
     I="inverse",
     M="unit",
     R="region",
-    V="verbose",
     n="interpolation",
     r="registration",
 )
@@ -30,6 +31,8 @@ def grdproject(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
     projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -54,6 +57,7 @@ def grdproject(
 
     {aliases}
        - J = projection
+       - V = verbose
 
     Parameters
     ----------
@@ -115,6 +119,7 @@ def grdproject(
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        V=verbose,
     )
     aliasdict.merge(kwargs)
 
