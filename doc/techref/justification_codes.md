@@ -66,8 +66,8 @@ fig.text(
 fig.show(width=600)
 ```
 
-For a non-rectangular geographic basemap, the justification codes refer to the map
-bounding box:
+For a non-rectangular geographic basemap, the justification codes refer to the invisible,
+rectangular map bounding box:
 
 ```{code-cell}
 ---
