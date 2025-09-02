@@ -12,7 +12,7 @@ code and a horizontal code (order-independent):
 
 - Vertical: **T**\(op), **M**\(iddle), **B**\(ottom)
 - Horizontal: **L**\(eft), **C**\(entre), **R**\(ight)
-
+For example, `"TL"` means **T**op **L**eft.
 The possible nine justification codes are visualized in the sketch below:
 
 ```{code-cell}
