@@ -6,8 +6,8 @@ file_format: mystnb
 
 To place plot embellishments, such as scalebars, directional roses, colorbars,
 legends, text, and images on a figure two points have to be specified: a point
-somewhere on the figure (reference point) and a point on the feature (anchor
-point). For both, users can use a two-character code, a combination of a vertical
+somewhere on the figure (**reference point**) and a point on the feature (**anchor
+point**). For both, users can use a two-character code, a combination of a vertical
 code and a horizontal code (order-independent):
 
 - Vertical: **T**\(op), **M**\(iddle), **B**\(ottom)
