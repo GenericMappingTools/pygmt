@@ -10,8 +10,8 @@ somewhere on the figure (**reference point**) and a point on the feature (**anch
 point**). For both, users can use a two-character code, a combination of a vertical
 code and a horizontal code (order-independent):
 
-- Vertical: **T**\(op), **M**\(iddle), **B**\(ottom)
-- Horizontal: **L**\(eft), **C**\(entre), **R**\(ight)
+- Vertical: **T**(op), **M**(iddle), **B**(ottom)
+- Horizontal: **L**(eft), **C**(entre), **R**(ight)
 For example, `"TL"` means **T**op **L**eft.
 The possible nine justification codes are visualized in the sketch below:
 
