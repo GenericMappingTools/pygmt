@@ -15,7 +15,6 @@ code (order-independent):
 
 For example, `"TL"` means **T**op **L**eft.
 
-
 The possible nine justification codes are visualized in the sketch below:
 
 ```{code-cell}
