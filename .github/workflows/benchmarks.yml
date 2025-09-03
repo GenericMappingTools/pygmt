@@ -86,6 +86,7 @@ jobs:
       - name: Run benchmarks
         uses: CodSpeedHQ/action@6eeb021fd0f305388292348b775d96d95253adf4 # v4.0.0
         with:
+          mode: "instrumentation"
           # 'bash -el -c' is needed to use the custom shell.
           # See https://github.com/CodSpeedHQ/action/issues/65.
           run: bash -el -c "python -c \"import pygmt; pygmt.show_versions()\"; PYGMT_USE_EXTERNAL_DISPLAY=false python -m pytest -r P --pyargs pygmt --codspeed --override-ini addopts='--verbose'"
