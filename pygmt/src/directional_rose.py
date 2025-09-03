@@ -9,9 +9,10 @@ from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list
+from pygmt.params import Box
 
 
-def directional_rose(
+def directional_rose(  # noqa: PLR0913
     self,
     position: Sequence[str | float] | AnchorCode,
     position_type: Literal[
@@ -22,6 +23,8 @@ def directional_rose(
     width: float | str | None = None,
     label: Sequence[str] | bool = False,
     fancy: Literal[1, 2, 3] | bool = False,
+    box: Box | bool = False,
+    perspective: str | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     transparency: float | None = None,
@@ -79,6 +82,10 @@ def directional_rose(
           ENE-WSW
 
         If set to ``True``, defaults to level 1.
+    box
+        Draw a background box around the directional rose. If set to ``True``, draw a
+        rectangular box using :gmt-term:`MAP_FRAME_PEN`. Otherwise, use a
+        :class:`pygmt.params.Box` object for more control over the box.
     {perspective}
     {verbose}
     {transparency}
@@ -94,6 +101,7 @@ def directional_rose(
     self._activate_figure()
 
     aliasdict = AliasSystem(
+        F=Alias(box, name="box"),
         Td=[
             Alias(
                 position_type,
@@ -113,6 +121,7 @@ def directional_rose(
             Alias(label, name="label", prefix="+l", sep=",", size=4),
             Alias(width, name="width", prefix="+w"),
         ],
+        p=Alias(perspective, name="perspective"),
     ).add_common(
         V=verbose,
         t=transparency,
