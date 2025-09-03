@@ -85,8 +85,11 @@ def legend(
     """
     self._activate_figure()
 
+    # Default position and box when not specified.
     if kwargs.get("D") is None:
         kwargs["D"] = position
+        if box is False and kwargs.get("F") is None:
+            box = Box(pen="1p", fill="white")  # Default box
 
     kind = data_kind(spec)
     if kind not in {"empty", "file", "stringio"}:
