@@ -15,21 +15,27 @@ def func(
     label=None,
     text=None,
     offset=None,
+    verbose=None,
+    panel=False,
     **kwargs,
 ):
     """
     A simple function to test the alias system.
     """
     aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-        R=Alias(region, name="region", separator="/", size=[4, 6]),
+        R=Alias(region, name="region", sep="/", size=[4, 6]),
         B=Alias(frame, name="frame"),
         U=[
             Alias(label, name="label"),
             Alias(text, name="text", prefix="+t"),
-            Alias(offset, name="offset", prefix="+o", separator="/"),
+            Alias(offset, name="offset", prefix="+o", sep="/"),
         ],
-    ).merge(kwargs)
+    ).add_common(
+        J=projection,
+        V=verbose,
+        c=panel,
+    )
+    aliasdict.merge(kwargs)
     return build_arg_list(aliasdict)
 
 
@@ -95,3 +101,29 @@ def test_alias_system_multiple_aliases_short_form():
 
     with pytest.raises(GMTInvalidInput, match=msg):
         func(text="efg", U="efg")
+
+
+def test_alias_system_common_parameter_verbose():
+    """
+    Test that the alias system works with common parameters.
+    """
+    # Test the verbose parameter.
+    assert func(verbose="quiet") == ["-Vq"]
+    assert func(verbose="error") == ["-Ve"]
+    assert func(verbose="warning") == ["-Vw"]
+    assert func(verbose="timing") == ["-Vt"]
+    assert func(verbose="info") == ["-Vi"]
+    assert func(verbose="compat") == ["-Vc"]
+    assert func(verbose=True) == ["-V"]
+    assert func(verbose="debug") == ["-Vd"]
+
+
+def test_alias_system_common_parameter_panel():
+    """
+    Test that the alias system works with the panel parameter.
+    """
+    assert func(panel=True) == ["-c"]
+    assert func(panel=False) == []
+    assert func(panel=(1, 2)) == ["-c1,2"]
+    assert func(panel=1) == ["-c1"]
+    assert func(panel="1,2") == ["-c1,2"]

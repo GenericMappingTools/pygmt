@@ -3,7 +3,9 @@ subplot - Manage figure subplot configuration and selection.
 """
 
 import contextlib
+from typing import Literal
 
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import (
@@ -22,16 +24,22 @@ from pygmt.helpers import (
     A="autolabel",
     B="frame",
     C="clearance",
-    J="projection",
     M="margins",
     R="region",
     SC="sharex",
     SR="sharey",
     T="title",
-    V="verbose",
 )
 @kwargs_to_strings(Ff="sequence", Fs="sequence", M="sequence", R="sequence")
-def subplot(self, nrows=1, ncols=1, **kwargs):
+def subplot(
+    self,
+    nrows=1,
+    ncols=1,
+    projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
+):
     r"""
     Manage figure subplot configuration and selection.
 
@@ -44,6 +52,8 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
     Full GMT docs at :gmt-docs:`subplot.html#synopsis-begin-mode`.
 
     {aliases}
+       - J = projection
+       - V = verbose
 
     Parameters
     ----------
@@ -159,6 +169,12 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         msg = "Please provide either one of 'figsize' or 'subsize' only."
         raise GMTInvalidInput(msg)
 
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     # Need to use separate sessions for "subplot begin" and "subplot end".
     # Otherwise, "subplot end" will use the last session, which may cause
     # strange positioning issues for later plotting calls.
@@ -167,21 +183,28 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         with Session() as lib:
             lib.call_module(
                 module="subplot",
-                args=["begin", f"{nrows}x{ncols}", *build_arg_list(kwargs)],
+                args=["begin", f"{nrows}x{ncols}", *build_arg_list(aliasdict)],
             )
             yield
     finally:
         with Session() as lib:
             lib.call_module(
-                module="subplot", args=["end", *build_arg_list({"V": kwargs.get("V")})]
+                module="subplot",
+                args=["end", *build_arg_list({"V": aliasdict.get("V")})],
             )
 
 
 @fmt_docstring
 @contextlib.contextmanager
-@use_alias(A="fixedlabel", C="clearance", V="verbose")
+@use_alias(A="fixedlabel", C="clearance")
 @kwargs_to_strings(panel="sequence_comma")
-def set_panel(self, panel=None, **kwargs):
+def set_panel(
+    self,
+    panel=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
+):
     r"""
     Set the current subplot panel to plot on.
 
@@ -194,6 +217,7 @@ def set_panel(self, panel=None, **kwargs):
     ``projection="X"`` will fill the subplot by using unequal scales].
 
     {aliases}
+       - V = verbose
 
     Parameters
     ----------
@@ -231,8 +255,13 @@ def set_panel(self, panel=None, **kwargs):
     """
     self._activate_figure()
 
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         lib.call_module(
-            module="subplot", args=["set", str(panel), *build_arg_list(kwargs)]
+            module="subplot", args=["set", str(panel), *build_arg_list(aliasdict)]
         )
         yield

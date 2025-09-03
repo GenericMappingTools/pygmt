@@ -4,6 +4,7 @@ coast - Plot continents, countries, shorelines, rivers, and borders.
 
 from typing import Literal
 
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -13,7 +14,6 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.src._common import _parse_coastline_resolution
 
 __doctest_skip__ = ["coast"]
 
@@ -23,28 +23,28 @@ __doctest_skip__ = ["coast"]
     A="area_thresh",
     B="frame",
     C="lakes",
-    D="resolution-",
     E="dcw",
     F="box",
     G="land",
     I="rivers",
-    J="projection",
     L="map_scale",
     N="borders",
     R="region",
     S="water",
-    V="verbose",
     W="shorelines",
-    c="panel",
     p="perspective",
-    t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", p="sequence")
 def coast(
     self,
+    projection=None,
     resolution: Literal[
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -67,6 +67,11 @@ def coast(
     Full GMT docs at :gmt-docs:`coast.html`.
 
     {aliases}
+       - D = resolution
+       - J = projection
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -212,7 +217,26 @@ def coast(
         )
         raise GMTInvalidInput(msg)
 
-    kwargs["D"] = kwargs.get("D", _parse_coastline_resolution(resolution))
+    aliasdict = AliasSystem(
+        D=Alias(
+            resolution,
+            name="resolution",
+            mapping={
+                "auto": "a",
+                "full": "f",
+                "high": "h",
+                "intermediate": "i",
+                "low": "l",
+                "crude": "c",
+            },
+        ),
+    ).add_common(
+        J=projection,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
-        lib.call_module(module="coast", args=build_arg_list(kwargs))
+        lib.call_module(module="coast", args=build_arg_list(aliasdict))

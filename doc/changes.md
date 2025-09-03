@@ -1196,7 +1196,7 @@
 * [Yohai Magen](https://github.com/yohaimagen)
 * [Jiayuan Yao](https://github.com/core-man)
 * [Dongdong Tian](https://github.com/seisman)
-* [Kadatatlu Kishore](https://github.com/kadatatlukishore)
+* [Kadatatlu Kishore](https://github.com/K-OS-Dev)
 * [@sean0921](https://github.com/sean0921)
 * [Soham Banerjee](https://github.com/soham4abc)
 

@@ -15,7 +15,7 @@ def _to_string(
     value: Any,
     prefix: str = "",  # Default to an empty string to simplify the code logic.
     mapping: Mapping | None = None,
-    separator: Literal["/", ","] | None = None,
+    sep: Literal["/", ","] | None = None,
     size: int | Sequence[int] | None = None,
     ndim: int = 1,
     name: str | None = None,
@@ -41,8 +41,8 @@ def _to_string(
     string.
 
     To avoid extra overhead, this function does not validate parameter combinations. For
-    example, if ``value`` is a sequence but ``separator`` is not specified, the function
-    will return a sequence of strings. In this case, ``prefix`` has no effect, but the
+    example, if ``value`` is a sequence but ``sep`` is not specified, the function will
+    return a sequence of strings. In this case, ``prefix`` has no effect, but the
     function does not check for such inconsistencies. The maintainer should ensure that
     the parameter combinations are valid.
 
@@ -54,7 +54,7 @@ def _to_string(
         The string to add as a prefix to the returned value.
     mapping
         A mapping dictionary to map PyGMT's long-form arguments to GMT's short-form.
-    separator
+    sep
         The separator to use if the value is a sequence.
     size
         Expected size of the 1-D sequence. It can be either an integer or a sequence of
@@ -97,15 +97,18 @@ def _to_string(
     ...
     pygmt...GMTValueError: Invalid value: 'invalid'. Expected one of: 'mean', ...
 
-    >>> _to_string((12, 34), separator="/")
+    >>> _to_string((12, 34), sep="/")
     '12/34'
-    >>> _to_string(("12p", "34p"), separator=",")
+    >>> _to_string(("12p", "34p"), sep=",")
     '12p,34p'
-    >>> _to_string(("12p", "34p"), prefix="+o", separator="/")
+    >>> _to_string(("12p", "34p"), prefix="+o", sep="/")
     '+o12p/34p'
 
     >>> _to_string(["xaf", "yaf", "WSen"])
     ['xaf', 'yaf', 'WSen']
+
+    >>> _to_string([[1, 2], [3, 4]], sep="/", ndim=2)
+    ['1/2', '3/4']
     """
     # None and False are converted to None.
     if value is None or value is False:
@@ -127,12 +130,12 @@ def _to_string(
 
     # Return the sequence if separator is not specified for options like '-B'.
     # True in a sequence will be converted to an empty string.
-    if separator is None:
+    if sep is None:
         return [str(item) if item is not True else "" for item in value]
     # Join the sequence of values with the separator.
     # "prefix" and "mapping" are ignored. We can enable them when needed.
-    _value = sequence_join(value, separator=separator, size=size, ndim=ndim, name=name)
-    return f"{prefix}{_value}"
+    _value = sequence_join(value, sep=sep, size=size, ndim=ndim, name=name)
+    return _value if is_nonstr_iter(_value) else f"{prefix}{_value}"
 
 
 class Alias:
@@ -149,7 +152,7 @@ class Alias:
         The string to add as a prefix to the returned value.
     mapping
         A mapping dictionary to map PyGMT's long-form arguments to GMT's short-form.
-    separator
+    sep
         The separator to use if the value is a sequence.
     size
         Expected size of the 1-D sequence. It can be either an integer or a sequence
@@ -160,7 +163,7 @@ class Alias:
 
     Examples
     --------
-    >>> par = Alias((3.0, 3.0), prefix="+o", separator="/")
+    >>> par = Alias((3.0, 3.0), prefix="+o", sep="/")
     >>> par._value
     '+o3.0/3.0'
 
@@ -179,7 +182,7 @@ class Alias:
         name: str | None = None,
         prefix: str = "",
         mapping: Mapping | None = None,
-        separator: Literal["/", ","] | None = None,
+        sep: Literal["/", ","] | None = None,
         size: int | Sequence[int] | None = None,
         ndim: int = 1,
     ):
@@ -190,7 +193,7 @@ class Alias:
             name=name,
             prefix=prefix,
             mapping=mapping,
-            separator=separator,
+            sep=sep,
             size=size,
             ndim=ndim,
         )
@@ -214,17 +217,27 @@ class AliasSystem(UserDict):
     >>> from pygmt.helpers import build_arg_list
     >>>
     >>> def func(
-    ...     par0, par1=None, par2=None, frame=False, repeat=None, panel=None, **kwargs
+    ...     par0,
+    ...     par1=None,
+    ...     par2=None,
+    ...     frame=False,
+    ...     repeat=None,
+    ...     panel=None,
+    ...     verbose=None,
+    ...     **kwargs,
     ... ):
     ...     aliasdict = AliasSystem(
     ...         A=[
     ...             Alias(par1, name="par1"),
-    ...             Alias(par2, name="par2", prefix="+o", separator="/"),
+    ...             Alias(par2, name="par2", prefix="+o", sep="/"),
     ...         ],
     ...         B=Alias(frame, name="frame"),
     ...         D=Alias(repeat, name="repeat"),
-    ...         c=Alias(panel, name="panel", separator=","),
-    ...     ).merge(kwargs)
+    ...     ).add_common(
+    ...         V=verbose,
+    ...         c=panel,
+    ...     )
+    ...     aliasdict.merge(kwargs)
     ...     return build_arg_list(aliasdict)
     >>> func(
     ...     "infile",
@@ -233,9 +246,10 @@ class AliasSystem(UserDict):
     ...     frame=True,
     ...     repeat=[1, 2, 3],
     ...     panel=(1, 2),
+    ...     verbose="debug",
     ...     J="X10c/10c",
     ... )
-    ['-Amytext+o12/12', '-B', '-D1', '-D2', '-D3', '-JX10c/10c', '-c1,2']
+    ['-Amytext+o12/12', '-B', '-D1', '-D2', '-D3', '-JX10c/10c', '-Vd', '-c1,2']
     """
 
     def __init__(self, **kwargs):
@@ -264,6 +278,39 @@ class AliasSystem(UserDict):
             elif aliases._value is not None:  # A single Alias object and not None.
                 kwdict[option] = aliases._value
         super().__init__(kwdict)
+
+    def add_common(self, **kwargs):
+        """
+        Add common parameters to the alias dictionary.
+        """
+        for key, value in kwargs.items():
+            match key:
+                case "V":
+                    alias = Alias(
+                        value,
+                        name="verbose",
+                        mapping={
+                            "quiet": "q",
+                            "error": "e",
+                            "warning": "w",
+                            "timing": "t",
+                            "info": "i",
+                            "compat": "c",
+                            "debug": "d",
+                        },
+                    )
+                case "J":
+                    alias = Alias(value, name="projection")
+                case "c":
+                    alias = Alias(value, name="panel", sep=",", size=2)
+                case "t":
+                    alias = Alias(value, name="transparency")
+                case _:
+                    raise GMTValueError(key, description="common parameter")
+            self.aliasdict[key] = alias
+            if alias._value is not None:
+                self[key] = alias._value
+        return self
 
     def merge(self, kwargs: Mapping[str, Any]):
         """

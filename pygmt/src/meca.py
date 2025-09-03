@@ -8,6 +8,7 @@ from typing import Literal
 import numpy as np
 import pandas as pd
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import (
@@ -122,19 +123,14 @@ def _auto_offset(spec) -> bool:
     E="extensionfill",
     Fr="labelbox",
     G="compressionfill",
-    J="projection",
     L="outline",
     N="no_clip",
     R="region",
-    S="scale/convention/component-",
     T="nodal",
-    V="verbose",
     W="pen",
-    c="panel",
     p="perspective",
-    t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", p="sequence")
 def meca(  # noqa: PLR0913
     self,
     spec: PathLike | TableLike,
@@ -147,6 +143,11 @@ def meca(  # noqa: PLR0913
     plot_longitude: float | Sequence[float] | None = None,
     plot_latitude: float | Sequence[float] | None = None,
     event_name: str | Sequence[str] | None = None,
+    projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -201,6 +202,11 @@ def meca(  # noqa: PLR0913
     Full GMT docs at :gmt-docs:`supplements/seis/meca.html`.
 
     {aliases}
+       - J = projection
+       - S = scale/convention/component
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -362,6 +368,17 @@ def meca(  # noqa: PLR0913
     if kwargs.get("A") is None:
         kwargs["A"] = _auto_offset(spec)
     kwargs["S"] = f"{_convention.code}{scale}"
+
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=spec) as vintbl:
-            lib.call_module(module="meca", args=build_arg_list(kwargs, infile=vintbl))
+            lib.call_module(
+                module="meca", args=build_arg_list(aliasdict, infile=vintbl)
+            )

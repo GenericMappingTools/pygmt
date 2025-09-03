@@ -13,26 +13,24 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 
 
 @fmt_docstring
-@use_alias(
-    R="region",
-    J="projection",
-    F="box",
-    S="style",
-    V="verbose",
-    c="panel",
-    t="transparency",
-)
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def logo(
+@use_alias(R="region", D="position", F="box", S="style")
+@kwargs_to_strings(R="sequence", p="sequence")
+def logo(  # noqa: PLR0913
     self,
     position: Sequence[str | float] | AnchorCode,
     position_type: Literal[
         "mapcoords", "boxcoords", "plotcoords", "inside", "outside"
-    ] = "mapcoords",
-    height=None,
-    width=None,
-    justify=None,
-    anchor_offset=None,
+    ] = "plotcoords",
+    anchor: AnchorCode | None = None,
+    anchor_offset: Sequence[float | str] | None = None,
+    height: float | str | None = None,
+    width: float | str | None = None,
+    projection=None,
+    box=False,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -46,6 +44,10 @@ def logo(
     Full GMT docs at :gmt-docs:`gmtlogo.html`.
 
     {aliases}
+       - J = projection
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -103,12 +105,22 @@ def logo(
                 },
             ),
             Alias(position, name="position", sep="/"),
+            Alias(anchor, name="justify", prefix="+j"),
+            Alias(anchor_offset, name="anchor_offset", prefix="+o", sep="/", size=2),
             Alias(height, name="height", prefix="+h"),
             Alias(width, name="width", prefix="+w"),
-            Alias(justify, name="justify", prefix="+j"),
-            Alias(anchor_offset, name="anchor_offset", prefix="+o", sep="/", size=2),
         ]
     ).merge(kwargs)
+
+    aliasdict = AliasSystem(
+        F=Alias(box, name="box"),
+    ).add_common(
+        J=projection,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         lib.call_module(module="logo", args=build_arg_list(aliasdict))
