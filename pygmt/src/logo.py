@@ -4,22 +4,18 @@ logo - Plot the GMT logo.
 
 from typing import Literal
 
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
-@use_alias(
-    R="region",
-    D="position",
-    F="box",
-    S="style",
-)
+@use_alias(R="region", D="position", F="box")
 @kwargs_to_strings(R="sequence", p="sequence")
 def logo(
     self,
     projection=None,
+    style: Literal["standard", "url", "no_label"] = "standard",
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -38,6 +34,7 @@ def logo(
 
     {aliases}
        - J = projection
+       - S = style
        - V = verbose
        - c = panel
        - t = transparency
@@ -53,21 +50,23 @@ def logo(
     box : bool or str
         If set to ``True``, draw a rectangular border around the
         GMT logo.
-    style : str
-        [**l**\|\ **n**\|\ **u**].
+    style
         Control what is written beneath the map portion of the logo.
 
-        - **l** to plot the text label "The Generic Mapping Tools"
-          [Default]
-        - **n** to skip the label placement
-        - **u** to place the URL to the GMT site
+        - `"standard"`: The text label "The Generic Mapping Tools".
+        - `"url"`: The URL to the GMT site.
+        - `"no_label"`: Skip the text label
     {verbose}
     {panel}
     {transparency}
     """
     self._activate_figure()
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        S=Alias(
+            style, name="style", mapping={"standard": "l", "url": "u", "no_label": "n"}
+        ),
+    ).add_common(
         J=projection,
         V=verbose,
         c=panel,
