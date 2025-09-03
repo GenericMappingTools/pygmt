@@ -29,11 +29,10 @@ This example shows how such a scale bar can be customized:
    of the reference point. Choose from
 
    - **g**: Give map coordinates as *longitude*\/\ *latitude*.
-   - **j**\|\ **J**: Specify a two-character (order independent) code.
-     Choose from vertical **T**\(op), **M**\(iddle), or **B**\(ottom) and
-     horizontal **L**\(eft), **C**\(entre), or **R**\(ight). Lower /
-     uppercase **j** / **J** mean inside / outside of the map bounding
-     box.
+   - **j**\|\ **J**: Specify a
+     :doc:`2-character justification code </techref/justification_codes>`.
+     Lower / uppercase **j** / **J** mean inside / outside of the map
+     bounding box.
    - **n**: Give normalized bounding box coordinates as *nx*\/\ *ny*.
    - **x**: Give plot coordinates as *x*\/\ *y*.
 
@@ -45,9 +44,8 @@ This example shows how such a scale bar can be customized:
    **+c** is appended the middle of the map is used. Note that *slon* is only
    optional for projections with constant scale along parallels, e.g.,
    Mercator projection.
- - justify: **+j**. Set the anchor point. Specify a two-character (order
-   independent) code. Choose from vertical **T**\(op), **M**\(iddle), or
-   **B**\(ottom) and horizontal **L**\(eft), **C**\(entre), or **R**\(ight).
+ - justify: **+j**. Set the anchor point. Specify a
+   :doc:`2-character justification code </techref/justification_codes>`.
  - offset: **+o**\ *offset* or **+o**\ *xoffset*/\ *yoffset*. Give either a
    common shift or individual shifts in x- (longitude) and y- (latitude)
    directions.
@@ -60,7 +58,7 @@ This example shows how such a scale bar can be customized:
  - alignment: **+a**. Set the label alignment. Choose from **t**\(op)
    [Default], **b**\(ottom), **l**\(eft), or **r**\(ight).
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-87
+.. GENERATED FROM PYTHON SOURCE LINES 44-85
 
 .. code-block:: Python
 
@@ -117,7 +115,7 @@ This example shows how such a scale bar can be customized:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 88-93
+.. GENERATED FROM PYTHON SOURCE LINES 86-91
 
 The ``box`` parameter allows surrounding the scale bar. This can be useful
 when adding a scale bar to a colorful map. To fill the box, append **+g**
@@ -125,7 +123,7 @@ with the desired color (or pattern). The outline of the box can be adjusted
 by appending **+p** with the desired thickness, color, and style. To force
 rounded edges append **+r** with the desired radius.
 
-.. GENERATED FROM PYTHON SOURCE LINES 93-113
+.. GENERATED FROM PYTHON SOURCE LINES 91-111
 
 .. code-block:: Python
 

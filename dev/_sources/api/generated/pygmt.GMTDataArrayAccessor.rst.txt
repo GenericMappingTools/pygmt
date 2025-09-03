@@ -18,6 +18,54 @@ pygmt.GMTDataArrayAccessor
 
 
 
+.. rubric:: Methods Summary
+
+.. autosummary::
+    :toctree:
+    
+    
+    
+    
+    GMTDataArrayAccessor.clip
+    
+    
+    
+    GMTDataArrayAccessor.cut
+    
+    
+    
+    GMTDataArrayAccessor.dimfilter
+    
+    
+    
+    GMTDataArrayAccessor.fill
+    
+    
+    
+    GMTDataArrayAccessor.filter
+    
+    
+    
+    GMTDataArrayAccessor.gradient
+    
+    
+    
+    GMTDataArrayAccessor.histeq
+    
+    
+    
+    GMTDataArrayAccessor.project
+    
+    
+    
+    GMTDataArrayAccessor.sample
+    
+    
+    
+    GMTDataArrayAccessor.track
+    
+    
+
 
 .. minigallery:: pygmt.GMTDataArrayAccessor
     :add-heading:
