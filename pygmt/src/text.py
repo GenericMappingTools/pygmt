@@ -90,7 +90,8 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         * *y*: Y coordinate or latitude
         * *angle*: Angle in degrees counter-clockwise from horizontal
         * *font*: Text size, font, and color
-        * *justify*: Two-character justification code
+        * *justify*:
+          :doc:`2-character justification code </techref/justification_codes>`
         * *text*: The text string to typeset
 
         The *angle*, *font*, and *justify* columns are optional and can be set
@@ -104,12 +105,8 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
     position
         Set reference point on the map for the text by using x, y
         coordinates extracted from ``region`` instead of providing them
-        through ``x``/``y``. Specify with a two-letter (order independent)
-        code, chosen from:
-
-        * Vertical: **T**\ (op), **M**\ (iddle), **B**\ (ottom)
-        * Horizontal: **L**\ (eft), **C**\ (entre), **R**\ (ight)
-
+        through ``x``/``y``. Specify with a
+        :doc:`2-character justification code </techref/justification_codes>`.
         For example, ``position="TL"`` plots the text at the Top Left corner
         of the map.
     text
@@ -129,10 +126,9 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         columns.
     justify
         Set the alignment which refers to the part of the text string that
-        will be mapped onto the (x, y) point. Choose a two-letter
-        combination of **L**, **C**, **R** (for left, center, or right) and
-        **T**, **M**, **B** (for top, middle, or bottom). E.g., **BL** for
-        bottom left. If no justification is explicitly given
+        will be mapped onto the (x, y) point. Choose a
+        :doc:`2-character justification code </techref/justification_codes>`,
+        e.g., **BL** for Bottom Left. If no justification is explicitly given
         (i.e. ``justify=True``), then the input to ``textfiles`` must have
         this as a column.
     {projection}
