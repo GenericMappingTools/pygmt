@@ -11,9 +11,8 @@ and adjust the annotations (**a**) and ticks (**f**) append the letter
 followed by the desired interval. The placement of the colorbar is set
 via the ``position`` parameter. There are the following options:
 
-- **j/J**: placed inside/outside the plot bounding box using any 2-character
-  combination of vertical (**T**\ op, **M**\ iddle, **B**\ ottom) and
-  horizontal (**L**\ eft, **C**\ enter, **R**\ ight) alignment codes, e.g.
+- **j/J**: placed inside/outside the plot bounding box using a
+  :doc:`2-character justification code </techref/justification_codes>`, e.g.,
   ``position="jTR"`` for Top Right.
 - **g**: using map coordinates, e.g. ``position="g170/-45"`` for longitude
   170° East, latitude 45° South.
