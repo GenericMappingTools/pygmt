@@ -98,6 +98,7 @@ class Box(BaseParam):
         """
         Inner border of the box, formatted as a list of 1-2 values, or None.
         """
+        print(self.inner_gap, self.inner_pen)
         if self.inner_gap is not None and self.inner_pen is None:
             msg = "Parameter 'inner_pen' is required when 'inner_gap' is set."
             raise GMTInvalidInput(msg)
@@ -118,6 +119,8 @@ class Box(BaseParam):
         """
         Aliases for the parameter.
         """
+        print(self.inner_pen, self.inner_gap)
+        print(self._innerborder)
         return [
             Alias(self.clearance, prefix="+c", sep="/", size=(2, 4)),
             Alias(self.fill, prefix="+g"),
