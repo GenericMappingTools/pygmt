@@ -15,15 +15,11 @@ def directional_rose(
     self,
     position: Sequence[str | float] | AnchorCode,
     position_type: Literal[
-        "mapcoords",
-        "boxcoords",
-        "plotcoords",
-        "inside",
-        "outside",
+        "mapcoords", "boxcoords", "plotcoords", "inside", "outside"
     ] = "plotcoords",
-    width: float | str | None = None,
     anchor: AnchorCode | None = None,
     anchor_offset: Sequence[float | str] | None = None,
+    width: float | str | None = None,
     label: Sequence[str] | bool = False,
     fancy: Literal[1, 2, 3] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -35,7 +31,8 @@ def directional_rose(
 
     The directional rose is plotted at the location defined by the reference point
     (specified by the **position** and *position_type** parameters) and anchor point
-    (set by the **anchor** and **anchor_offset** parameters).
+    (specified by the **anchor** and **anchor_offset** parameters). Refer to
+    :doc:`/techref/reference_anchor_points` for details about the positioning.
 
     Parameters
     ----------
@@ -53,11 +50,12 @@ def directional_rose(
         - ``"inside"`` or ``"outside"``: **position** is the justification code, meaning
           the anchor point of the rose is inside or outside the plot bounding box.
     anchor
-        The anchor point of the rose, set by a 2-character justification code.
+        Anchor point of the directional rose, set by a
+        :doc:`2-character justification code </techref/justification_codes>`.
         The default value depends on the **position_type** parameter.
 
-        - ``position_type="inside"``, **anchor** defaults to the same as **position**.
-        - ``position_type="outside"``, **anchor** defaults to the mirror opposite of
+        - ``position_type="inside"``: **anchor** defaults to the same as **position**.
+        - ``position_type="outside"``: **anchor** defaults to the mirror opposite of
           **position**.
         - Otherwise, **anchor** defaults to ``"MC"`` (middle center).
     anchor_offset
@@ -65,9 +63,9 @@ def directional_rose(
         Offset the anchor point by *offset_x* and *offset_y*. If a single value *offset*
         is given, *offset_y* = *offset_x* = *offset*.
     width
-        Width of the rose in plot coordinates (append **i** (inch),
-        **cm** (centimeters), or **p** (points)), or append % for a size in percentage
-        of map width [Default is 10 %].
+        Width of the rose in plot coordinates (append **i** (inch), **cm**
+        (centimeters), or **p** (points)), or append % for a size in percentage of map
+        width [Default is 10 %].
     label
         A sequence of four strings to label the cardinal points W,E,S,N. Use an empty
         string to skip a specific label. If set to ``True``, use the default labels
@@ -80,7 +78,7 @@ def directional_rose(
         - Level 3 adds the four minor orientations WNW-ESE, NNW-SSE, NNE-SSW, and
           ENE-WSW
 
-        If set to ``True``, it defaults to level 1.
+        If set to ``True``, defaults to level 1.
     {perspective}
     {verbose}
     {transparency}
@@ -109,10 +107,10 @@ def directional_rose(
                 },
             ),
             Alias(position, name="position", sep="/", size=2),
-            Alias(fancy, name="fancy", prefix="+f"),  # +F is not supported yet.
             Alias(anchor, name="anchor", prefix="+j"),
-            Alias(label, name="label", prefix="+l", sep=",", size=4),
             Alias(anchor_offset, name="anchor_offset", prefix="+o", sep="/", size=2),
+            Alias(fancy, name="fancy", prefix="+f"),  # +F is not supported yet.
+            Alias(label, name="label", prefix="+l", sep=",", size=4),
             Alias(width, name="width", prefix="+w"),
         ],
     ).add_common(
