@@ -30,7 +30,7 @@ def test_directional_rose_complex():
         width="1c",
         label=["", "", "", "N"],
         fancy=2,
+        anchor="MC",
         anchor_offset=(1, 1),
-        justify="MC",
     )
     return fig
