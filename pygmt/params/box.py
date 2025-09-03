@@ -92,15 +92,15 @@ class Box(BaseParam):
                 description="value for parameter 'shading_offset'",
                 reason="Must be a sequence of two values (dx, dy) or None.",
             )
+        if self.inner_gap is not None and self.inner_pen is None:
+            msg = "Parameter 'inner_pen' is required when 'inner_gap' is set."
+            raise GMTInvalidInput(msg)
 
     @property
     def _innerborder(self) -> list[str | float] | None:
         """
         Inner border of the box, formatted as a list of 1-2 values, or None.
         """
-        if self.inner_gap is not None and self.inner_pen is None:
-            msg = "Parameter 'inner_pen' is required when 'inner_gap' is set."
-            raise GMTInvalidInput(msg)
         return [v for v in (self.inner_gap, self.inner_pen) if v is not None] or None
 
     @property
