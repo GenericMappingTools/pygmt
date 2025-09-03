@@ -3,7 +3,7 @@ Test the Box class.
 """
 
 import pytest
-from pygmt.exceptions import GMTValueError, GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.params import Box
 
 
