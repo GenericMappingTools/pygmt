@@ -7,6 +7,7 @@ from collections.abc import Sequence
 
 from pygmt.alias import Alias
 from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.helpers import is_nonstr_iter
 from pygmt.params.base import BaseParam
 
 
@@ -83,9 +84,8 @@ class Box(BaseParam):
         Validate the parameters.
         """
         # shading_offset must be a sequence of two values or None.
-        if self.shading_offset and (
-            not isinstance(self.shading_offset, Sequence)
-            or len(self.shading_offset) != 2
+        if self.shading_offset and not (
+            is_nonstr_iter(self.shading_offset) and len(self.shading_offset) == 2
         ):
             raise GMTValueError(
                 self.shading_offset,
