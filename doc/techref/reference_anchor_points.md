@@ -4,8 +4,8 @@ file_format: mystnb
 
 # Reference and anchor points
 
-For placing plot embellishments we distinguish between reference and anchor points.
-To set these points users have to use the justification codes (add link when PR merged).
+For placing plot embellishments, we distinguish between reference and anchor points.
+To set these points users have to use the :doc:`justification codes </techref/justification_codes>`.
 The `offset` parameter allows to offset the anchor point from the reference point.
 
 ```{code-cell}
