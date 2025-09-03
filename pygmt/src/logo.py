@@ -53,7 +53,9 @@ def logo(
     style
         Control what is written beneath the map portion of the logo.
 
-        - `"no_label"`: Skip the text label.
+        - ``"standard"``: The text label "The Generic Mapping Tools".
+        - ``"url"``: The URL to the GMT site.
+        - ``"no_label"``: Skip the text label.
     {verbose}
     {panel}
     {transparency}
