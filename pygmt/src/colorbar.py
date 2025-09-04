@@ -22,16 +22,11 @@ __doctest_skip__ = ["colorbar"]
     L="equalsize",
     Q="log",
     R="region",
-    V="verbose",
     W="scale",
     Z="zfile",
-    c="panel",
     p="perspective",
-    t="transparency",
 )
-@kwargs_to_strings(
-    R="sequence", G="sequence", I="sequence", c="sequence_comma", p="sequence"
-)
+@kwargs_to_strings(R="sequence", G="sequence", I="sequence", p="sequence")
 def colorbar(  # noqa: PLR0913
     self,
     projection=None,
@@ -42,12 +37,16 @@ def colorbar(  # noqa: PLR0913
     length=None,
     width=None,
     orientation: Literal["horizontal", "vertical"] = "vertical",
-    justify=None,
+    anchor=None,
     anchor_offset=None,
     reverse=False,
     nan_rectangle=False,
     sidebar_triangles=None,
     move_annots=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -64,7 +63,10 @@ def colorbar(  # noqa: PLR0913
     Full GMT docs at :gmt-docs:`colorbar.html`.
 
     {aliases}
-       - J=projection
+       - J = projection
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -79,8 +81,9 @@ def colorbar(  # noqa: PLR0913
         [**+n**\ [*txt*]][**+o**\ *dx*\ [/*dy*]].
         Define the reference point on the map for the color scale using one of
         four coordinate systems: (1) Use **g** for map (user) coordinates, (2)
-        use **j** or **J** for setting *refpoint* via a 2-character
-        justification code that refers to the (invisible) map domain rectangle,
+        use **j** or **J** for setting *refpoint* via a
+        :doc:`2-character justification code </techref/justification_codes>`
+        that refers to the (invisible) map domain rectangle,
         (3) use **n** for normalized (0-1) coordinates, or (4) use **x** for
         plot coordinates (inches, cm, etc.). All but **x** requires both
         ``region`` and ``projection`` to be specified. Append **+w** followed
@@ -89,8 +92,9 @@ def colorbar(  # noqa: PLR0913
         reverse the scale bar. Append **+h** to get a horizontal scale
         [Default is vertical (**+v**)]. By default, the anchor point on the
         scale is assumed to be the bottom left corner (**BL**), but this can
-        be changed by appending **+j** followed by a 2-character
-        justification code *justify*.
+        be changed by appending **+j** followed by a
+        :doc:`2-character justification code </techref/justification_codes>`
+        *justify*.
     box : bool or str
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
@@ -182,9 +186,9 @@ def colorbar(  # noqa: PLR0913
                 },
             ),
             Alias(position, name="position", sep="/", size=2),
-            Alias(_dimension, name="width/height", prefix="+w", sep="/", size=2),
-            Alias(justify, name="justify", prefix="+j"),
+            Alias(anchor, name="anchor", prefix="+j"),
             Alias(anchor_offset, name="anchor_offset", prefix="+o", sep="/", size=2),
+            Alias(_dimension, name="width/height", prefix="+w", sep="/", size=2),
             Alias(
                 orientation,
                 name="orientation",
@@ -195,8 +199,13 @@ def colorbar(  # noqa: PLR0913
             Alias(sidebar_triangles, name="sidebar_triangles", prefix="+e"),
             Alias(move_annots, name="move_annots", prefix="+m"),
         ],
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    ).add_common(
+        J=projection,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         lib.call_module(module="colorbar", args=build_arg_list(aliasdict))
