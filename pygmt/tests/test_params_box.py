@@ -7,6 +7,38 @@ from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.params import Box
 
 
+def test_params_box():
+    """
+    Test the Box class.
+    """
+    box = Box(fill="red@20")
+    assert str(box) == "+gred@20"
+
+    box = Box(clearance=(0.2, 0.2), fill="red@20", pen="blue")
+    assert str(box) == "+c0.2/0.2+gred@20+pblue"
+
+    box = Box(clearance=(0.2, 0.2), pen="blue", radius=True)
+    assert str(box) == "+c0.2/0.2+pblue+r"
+
+    box = Box(clearance=(0.1, 0.2, 0.3, 0.4), pen="blue", radius="10p")
+    assert str(box) == "+c0.1/0.2/0.3/0.4+pblue+r10p"
+
+    box = Box(
+        clearance=0.2,
+        pen="blue",
+        radius="10p",
+        shading_offset=("5p", "5p"),
+        shading_fill="lightred",
+    )
+    assert str(box) == "+c0.2+pblue+r10p+s5p/5p/lightred"
+
+    box = Box(clearance=0.2, inner_gap="2p", inner_pen="1p,red", pen="blue")
+    assert str(box) == "+c0.2+i2p/1p,red+pblue"
+
+    box = Box(clearance=0.2, shading_offset=("5p", "5p"), shading_fill="lightred")
+    assert str(box) == "+c0.2+s5p/5p/lightred"
+
+
 def test_params_box_invalid_shading_offset():
     """
     Test that an invalid shading_offset raises a GMTValueError.

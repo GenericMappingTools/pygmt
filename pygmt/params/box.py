@@ -35,13 +35,13 @@ class Box(BaseParam):
     inner_gap
         Gap between the outer and inner borders [Default is ``"2p"``].
     inner_pen
-        Pen attributes for the inner border. Default to :gmt-term:`MAP_DEFAULT_PEN`.
+        Pen attributes for the inner border [Default to :gmt-term:`MAP_DEFAULT_PEN`].
     shading_offset
         Place an offset background shaded region behind the box. A sequence of two
         values (dx, dy) indicates the shift relative to the foreground frame [Default is
         ``("4p", "-4p")``].
     shading_fill
-        Fill for the shading region [Default is ``"gray50"``].
+        Fill for the shaded region [Default is ``"gray50"``].
 
     Examples
     --------
