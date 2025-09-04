@@ -27,26 +27,26 @@ def test_params_box():
         clearance=0.2,
         pen="blue",
         radius="10p",
-        shading_offset=("5p", "5p"),
-        shading_fill="lightred",
+        shade_offset=("5p", "5p"),
+        shade_fill="lightred",
     )
     assert str(box) == "+c0.2+pblue+r10p+s5p/5p/lightred"
 
     box = Box(clearance=0.2, inner_gap="2p", inner_pen="1p,red", pen="blue")
     assert str(box) == "+c0.2+i2p/1p,red+pblue"
 
-    box = Box(clearance=0.2, shading_offset=("5p", "5p"), shading_fill="lightred")
+    box = Box(clearance=0.2, shade_offset=("5p", "5p"), shade_fill="lightred")
     assert str(box) == "+c0.2+s5p/5p/lightred"
 
 
-def test_params_box_invalid_shading_offset():
+def test_params_box_invalid_shade_offset():
     """
-    Test that an invalid shading_offset raises a GMTValueError.
+    Test that an invalid shade_offset raises a GMTValueError.
     """
     with pytest.raises(GMTValueError):
-        _ = str(Box(shading_offset=("5p", "8p", "10p")))
+        _ = str(Box(shade_offset=("5p", "8p", "10p")))
     with pytest.raises(GMTValueError):
-        _ = str(Box(shading_offset="10p"))
+        _ = str(Box(shade_offset="10p"))
 
 
 def test_params_box_invalid_innerborder():

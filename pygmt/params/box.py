@@ -36,11 +36,11 @@ class Box(BaseParam):
         Gap between the outer and inner borders [Default is ``"2p"``].
     inner_pen
         Pen attributes for the inner border [Default to :gmt-term:`MAP_DEFAULT_PEN`].
-    shading_offset
+    shade_offset
         Place an offset background shaded region behind the box. A sequence of two
         values (dx, dy) indicates the shift relative to the foreground frame [Default is
         ``("4p", "-4p")``].
-    shading_fill
+    shade_fill
         Fill for the shaded region [Default is ``"gray50"``].
 
     Examples
@@ -48,7 +48,7 @@ class Box(BaseParam):
     >>> import pygmt
     >>> from pygmt.params import Box
     >>> fig = pygmt.Figure()
-    >>> fig.logo(box=Box(pen="1p", radius="5p", shading_offset=("5p", "5p")))
+    >>> fig.logo(box=Box(pen="1p", radius="5p", shade_offset=("5p", "5p")))
     >>> fig.show()
     """
 
@@ -58,20 +58,20 @@ class Box(BaseParam):
     inner_pen: str | None = None
     pen: str | None = None
     radius: str | bool = False
-    shading_offset: Sequence[float | str] | None = None
-    shading_fill: str | None = None
+    shade_offset: Sequence[float | str] | None = None
+    shade_fill: str | None = None
 
     def _validate(self):
         """
         Validate the parameters.
         """
-        # shading_offset must be a sequence of two values or None.
-        if self.shading_offset and not (
-            is_nonstr_iter(self.shading_offset) and len(self.shading_offset) == 2
+        # shade_offset must be a sequence of two values or None.
+        if self.shade_offset and not (
+            is_nonstr_iter(self.shade_offset) and len(self.shade_offset) == 2
         ):
             raise GMTValueError(
-                self.shading_offset,
-                description="value for parameter 'shading_offset'",
+                self.shade_offset,
+                description="value for parameter 'shade_offset'",
                 reason="Must be a sequence of two values (dx, dy) or None.",
             )
         if self.inner_gap is not None and self.inner_pen is None:
@@ -90,10 +90,8 @@ class Box(BaseParam):
         """
         Shading for the box, formatted as a list of 1-3 values, or None.
         """
-        _shading_offset = self.shading_offset or []
-        return [
-            v for v in (*_shading_offset, self.shading_fill) if v is not None
-        ] or None
+        _shade_offset = self.shade_offset or []
+        return [v for v in (*_shade_offset, self.shade_fill) if v is not None] or None
 
     @property
     def _aliases(self):
