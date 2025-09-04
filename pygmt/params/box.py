@@ -45,29 +45,11 @@ class Box(BaseParam):
 
     Examples
     --------
+    >>> import pygmt
     >>> from pygmt.params import Box
-    >>> str(Box(fill="red@20"))
-    '+gred@20'
-    >>> str(Box(clearance=(0.2, 0.2), fill="red@20", pen="blue"))
-    '+c0.2/0.2+gred@20+pblue'
-    >>> str(Box(clearance=(0.2, 0.2), pen="blue", radius=True))
-    '+c0.2/0.2+pblue+r'
-    >>> str(Box(clearance=(0.1, 0.2, 0.3, 0.4), pen="blue", radius="10p"))
-    '+c0.1/0.2/0.3/0.4+pblue+r10p'
-    >>> str(
-    ...     Box(
-    ...         clearance=0.2,
-    ...         pen="blue",
-    ...         radius="10p",
-    ...         shading_offset=("5p", "5p"),
-    ...         shading_fill="lightred",
-    ...     )
-    ... )
-    '+c0.2+pblue+r10p+s5p/5p/lightred'
-    >>> str(Box(clearance=0.2, inner_gap="2p", inner_pen="1p,red", pen="blue"))
-    '+c0.2+i2p/1p,red+pblue'
-    >>> str(Box(clearance=0.2, shading_offset=("5p", "5p"), shading_fill="lightred"))
-    '+c0.2+s5p/5p/lightred'
+    >>> fig = pygmt.Figure()
+    >>> fig.logo(box=Box(pen="1p", radius="5p", shading_offset=("5p", "5p")))
+    >>> fig.show()
     """
 
     clearance: float | str | Sequence[float | str] | None = None
