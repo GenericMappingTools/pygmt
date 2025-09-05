@@ -57,8 +57,8 @@ def image(
         Set reference point on the map for the image.
     box
         Draw a background box around the image. If set to ``True``, draw a rectangular
-        box using :gmt-term:`MAP_FRAME_PEN`. Otherwise, use a :class:`pygmt.params.Box`
-        object for more control over the box.
+        box using :gmt-term:`MAP_FRAME_PEN`. Otherwise, pass :class:`pygmt.params.Box`
+        for more control over the box.
     bitcolor : str or list
         [*color*][**+b**\|\ **f**\|\ **t**].
         Change certain pixel values to another color or make them transparent.

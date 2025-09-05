@@ -131,8 +131,8 @@ def coast(
         Draw a simple map scale centered on the reference point specified.
     box
         Draw a background box around the map scale or rose. If set to ``True``, draw a
-        rectangular box using :gmt-term:`MAP_FRAME_PEN`. Otherwise, use a
-        :class:`pygmt.params.Box` object for more control over the box.
+        rectangular box using :gmt-term:`MAP_FRAME_PEN`. Otherwise, pass
+        :class:`pygmt.params.Box` for more control over the box.
     borders : int, str, or list
         *border*\ [/*pen*].
         Draw political boundaries. Specify the type of boundary and

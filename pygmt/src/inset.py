@@ -82,8 +82,8 @@ def inset(
         the ``box`` parameter [Default is outline only].
     box
         Draw a background box around the map inset. If set to ``True``, draw a
-        rectangular box using :gmt-term:`MAP_FRAME_PEN`. Otherwise, use a
-        :class:`pygmt.params.Box` object for more control over the box.
+        rectangular box using :gmt-term:`MAP_FRAME_PEN`. Otherwise, pass
+        :class:`pygmt.params.Box` for more control over the box.
     margin : float, str, or list
         This is clearance that is added around the inside of the inset.
         Plotting will take place within the inner region only. The margins

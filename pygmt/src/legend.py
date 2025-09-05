@@ -76,8 +76,8 @@ def legend(
         0.2 cm offset.
     box
         Draw a background box around the legend. If set to ``True``, draw a rectangular
-        box using :gmt-term:`MAP_FRAME_PEN`. Otherwise, use a :class:`pygmt.params.Box`
-        object for more control over the box.
+        box using :gmt-term:`MAP_FRAME_PEN`. Otherwise, pass :class:`pygmt.params.Box`
+        for more control over the box.
     {verbose}
     {panel}
     {perspective}
