@@ -11,32 +11,33 @@ def test_params_box():
     """
     Test the Box class.
     """
-    box = Box(fill="red@20")
-    assert str(box) == "+gred@20"
+    assert str(Box(clearance=0.1)) == "+c0.1"
+    assert str(Box(clearance=(0.1, 0.2))) == "+c0.1/0.2"
+    assert str(Box(clearance=(0.1, 0.2, 0.3, 0.4))) == "+c0.1/0.2/0.3/0.4"
 
-    box = Box(clearance=(0.2, 0.2), fill="red@20", pen="blue")
-    assert str(box) == "+c0.2/0.2+gred@20+pblue"
+    assert str(Box(fill="red@20")) == "+gred@20"
 
-    box = Box(clearance=(0.2, 0.2), pen="blue", radius=True)
-    assert str(box) == "+c0.2/0.2+pblue+r"
+    assert str(Box(pen="blue")) == "+pblue"
 
-    box = Box(clearance=(0.1, 0.2, 0.3, 0.4), pen="blue", radius="10p")
-    assert str(box) == "+c0.1/0.2/0.3/0.4+pblue+r10p"
+    assert str(Box(radius=True)) == "+r"
+    assert str(Box(radius="10p")) == "+r10p"
+
+    assert str(Box(inner_gap="2p", inner_pen="1p,red")) == "+i2p/1p,red"
+
+    assert str(Box(shade_offset=("5p", "5p"))) == "+s5p/5p"
+    assert str(Box(shade_offset=("5p", "5p"), shade_fill="red")) == "+s5p/5p/red"
 
     box = Box(
         clearance=0.2,
+        fill="red@20",
         pen="blue",
+        inner_gap="2p",
+        inner_pen="1p,red",
         radius="10p",
         shade_offset=("5p", "5p"),
         shade_fill="lightred",
     )
-    assert str(box) == "+c0.2+pblue+r10p+s5p/5p/lightred"
-
-    box = Box(clearance=0.2, inner_gap="2p", inner_pen="1p,red", pen="blue")
-    assert str(box) == "+c0.2+i2p/1p,red+pblue"
-
-    box = Box(clearance=0.2, shade_offset=("5p", "5p"), shade_fill="lightred")
-    assert str(box) == "+c0.2+s5p/5p/lightred"
+    assert str(box) == "+c0.2+gred@20+i2p/1p,red+pblue+r10p+s5p/5p/lightred"
 
 
 def test_params_box_invalid_shade_offset():
