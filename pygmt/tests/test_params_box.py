@@ -25,6 +25,7 @@ def test_params_box():
     assert str(Box(inner_gap="2p", inner_pen="1p,red")) == "+i2p/1p,red"
 
     assert str(Box(shade_offset=("5p", "5p"))) == "+s5p/5p"
+    assert str(Box(shade_fill="red")) == "+sred"
     assert str(Box(shade_offset=("5p", "5p"), shade_fill="red")) == "+s5p/5p/red"
 
     box = Box(
