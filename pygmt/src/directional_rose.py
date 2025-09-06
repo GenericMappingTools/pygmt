@@ -14,7 +14,7 @@ from pygmt.params import Box
 
 def directional_rose(  # noqa: PLR0913
     self,
-    position: Sequence[str | float] | AnchorCode,
+    position: Sequence[float | str] | AnchorCode,
     position_type: Literal[
         "mapcoords", "boxcoords", "plotcoords", "inside", "outside"
     ] = "plotcoords",
@@ -40,21 +40,29 @@ def directional_rose(  # noqa: PLR0913
     Parameters
     ----------
     position/position_type
-        Reference point on the map for the directional rose. The meaning of the
-        **position** parameter depends on the **position_type** parameter:
+        Specify the reference point on the map for the directional rose. The reference
+        point can be specified in five different ways, which is selected by the
+        **position_type** parameter. The actual reference point is then given by the
+        coordinates or code specified by the **position** parameter.
 
-        - ``"mapcoords"``: **position** is given as (x, y) in user coordinates.
-        - ``"boxcoords"``: **position** is given as (nx, ny) in normalized coordinates,
-          where (0, 0) is the lower-left corner and (1, 1) is the upper-right corner of
-          the plot bounding box.
+        The **position_type** parameter can be one of the following:
+
+        - ``"mapcoords"``: **position** is given as (*longitude*, *latitude*) in map
+          coordinates.
+        - ``"boxcoords"``: **position** is given as (*nx*, *ny*) in normalized
+          coordinates, i.e., fractional coordinates between 0 and 1 in both the x and y
+          directions. For example, (0, 0) is the lower-left corner and (1, 1) is the
+          upper-right corner of the plot bounding box.
         - ``"plotcoords"``: **position** is given as (x, y) in plot coordinates, i.e.,
           the distances in inches, centimeters, or points from the lower left plot
           origin.
-        - ``"inside"`` or ``"outside"``: **position** is the justification code, meaning
-          the anchor point of the rose is inside or outside the plot bounding box.
+        - ``"inside"`` or ``"outside"``: **position** is one of the nine
+          :doc:`2-character justification codes </techref/justification_codes>`, meaning
+          placing the reference point at specific locations, either inside or outside
+          the plot bounding box.
     anchor
-        Anchor point of the directional rose, set by a
-        :doc:`2-character justification code </techref/justification_codes>`.
+        Anchor point of the directional rose, specified by one of the
+        :doc:`2-character justification codes </techref/justification_codes>`.
         The default value depends on the **position_type** parameter.
 
         - ``position_type="inside"``: **anchor** defaults to the same as **position**.
@@ -84,8 +92,8 @@ def directional_rose(  # noqa: PLR0913
         If set to ``True``, defaults to level 1.
     box
         Draw a background box around the directional rose. If set to ``True``, draw a
-        rectangular box using :gmt-term:`MAP_FRAME_PEN`. Otherwise, use a
-        :class:`pygmt.params.Box` object for more control over the box.
+        rectangular box using :gmt-term:`MAP_FRAME_PEN`. Otherwise, pass a
+        :class:`pygmt.params.Box` object for more style control..
     {perspective}
     {verbose}
     {transparency}
