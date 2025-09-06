@@ -8,13 +8,14 @@ from typing import Literal
 from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list
 from pygmt.params import Box
 
 
 def directional_rose(  # noqa: PLR0913
     self,
-    position: Sequence[float | str] | AnchorCode,
+    position: Sequence[float | str] | AnchorCode | None = None,
     position_type: Literal[
         "mapcoords", "boxcoords", "plotcoords", "inside", "outside"
     ] = "plotcoords",
@@ -91,9 +92,10 @@ def directional_rose(  # noqa: PLR0913
 
         If set to ``True``, defaults to level 1.
     box
-        Draw a background box around the directional rose. If set to ``True``, draw a
-        rectangular box using :gmt-term:`MAP_FRAME_PEN`. Otherwise, pass a
-        :class:`pygmt.params.Box` object for more style control..
+        Draw a background box behind the directional rose. If set to ``True``, a simple
+        rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
+        appearance, pass a :class:`pygmt.params.Box` object to control style, fill, pen,
+        and other box properties.
     {perspective}
     {verbose}
     {transparency}
@@ -107,6 +109,10 @@ def directional_rose(  # noqa: PLR0913
     >>> fig.show()
     """
     self._activate_figure()
+
+    if position is None:
+        msg = "Parameter 'position' is required."
+        raise GMTInvalidInput(msg)
 
     aliasdict = AliasSystem(
         F=Alias(box, name="box"),
