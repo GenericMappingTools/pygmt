@@ -85,9 +85,10 @@ def colorbar(
         :doc:`2-character justification code </techref/justification_codes>`
         *justify*.
     box
-        Draw a background box around the colorbar. If set to ``True``, draw a
-        rectangular box using :gmt-term:`MAP_FRAME_PEN`. Otherwise, pass
-        :class:`pygmt.params.Box` for more control over the box.
+        Draw a background box behind the colorbar. If set to ``True``, a simple
+        rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
+        appearance, pass a :class:`pygmt.params.Box` object to control style, fill, pen,
+        and other box properties.
     truncate : list or str
         *zlo*/*zhi*.
         Truncate the incoming CPT so that the lowest and highest z-levels are

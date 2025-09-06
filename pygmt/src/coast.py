@@ -130,9 +130,10 @@ def coast(
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+w**\ *length*.
         Draw a simple map scale centered on the reference point specified.
     box
-        Draw a background box around the map scale or rose. If set to ``True``, draw a
-        rectangular box using :gmt-term:`MAP_FRAME_PEN`. Otherwise, pass
-        :class:`pygmt.params.Box` for more control over the box.
+        Draw a background box behind the map scale or rose. If set to ``True``, a simple
+        rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
+        appearance, pass a :class:`pygmt.params.Box` object to control style, fill, pen,
+        and other box properties.
     borders : int, str, or list
         *border*\ [/*pen*].
         Draw political boundaries. Specify the type of boundary and

@@ -81,9 +81,10 @@ def inset(
         mirror opposite of *refpoint*. Specify inset box attributes via
         the ``box`` parameter [Default is outline only].
     box
-        Draw a background box around the map inset. If set to ``True``, draw a
-        rectangular box using :gmt-term:`MAP_FRAME_PEN`. Otherwise, pass
-        :class:`pygmt.params.Box` for more control over the box.
+        Draw a background box behind the inset. If set to ``True``, a simple rectangular
+        box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,
+        pass a :class:`pygmt.params.Box` object to control style, fill, pen, and other
+        box properties.
     margin : float, str, or list
         This is clearance that is added around the inside of the inset.
         Plotting will take place within the inner region only. The margins
