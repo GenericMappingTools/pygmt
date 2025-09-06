@@ -4,7 +4,7 @@ Test Figure.subplot.
 
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTParameterError, GMTValueError
 
 
 @pytest.mark.benchmark
@@ -89,7 +89,7 @@ def test_subplot_figsize_and_subsize_error():
     into subplot.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         with fig.subplot(figsize=("2c", "1c"), subsize=("2c", "1c")):
             pass
 
