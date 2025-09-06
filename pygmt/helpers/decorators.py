@@ -261,7 +261,7 @@ COMMON_DOCSTRINGS = {
             :gmt-docs:`gmt.html#grd-inout-full` for the available modifiers.
         """,
     "panel": r"""
-        panel : bool, int, or list
+        panel
             Select a specific subplot panel. Only allowed when used in
             :meth:`Figure.subplot` mode.
 
@@ -450,9 +450,7 @@ def fmt_docstring(module_func):
         aliases.append("   :columns: 3\n")
         for arg in sorted(module_func.aliases):
             alias = module_func.aliases[arg]
-            # Trailing dash means it's not aliased but should be listed.
-            # Remove the trailing dash if it exists.
-            aliases.append(f"   - {arg} = {alias.rstrip('-')}")
+            aliases.append(f"   - {arg} = {alias}")
         filler_text["aliases"] = "\n".join(aliases)
 
     filler_text["table-classes"] = (
@@ -486,9 +484,6 @@ def _insert_alias(module_func, default_value=None):
     kwargs_param = wrapped_params.pop(-1)
     # Add new parameters from aliases
     for alias in module_func.aliases.values():
-        if alias.endswith("-"):
-            # Trailing dash means it's not aliased but should be listed.
-            continue
         if alias not in sig.parameters:
             new_param = Parameter(
                 alias, kind=Parameter.KEYWORD_ONLY, default=default_value
@@ -553,31 +548,6 @@ def use_alias(**aliases):
             New module that parses and replaces the registered aliases.
             """
             for short_param, long_alias in aliases.items():
-                if long_alias.endswith("-"):
-                    _long_alias = long_alias.rstrip("-")
-                    # Trailing dash means it's not aliased but should be listed.
-                    _alias_list = _long_alias.split("/")
-                    if (
-                        any(_alias in kwargs for _alias in _alias_list)
-                        and short_param in kwargs
-                    ):  # Both long- and short- forms are given.
-                        msg = (
-                            f"Parameters in short-form ({short_param}) and "
-                            f"long-form ({_long_alias}) can't coexist."
-                        )
-                        raise GMTInvalidInput(msg)
-                    if short_param in kwargs:  # Only short-alias is given
-                        if len(_alias_list) > 1:  # Aliased to multiple long-forms
-                            msg = (
-                                f"Short-form parameter ({short_param}) is not "
-                                f"recognized. Use long-form parameter(s) "
-                                f"'{_long_alias}' instead."
-                            )
-                            raise GMTInvalidInput(msg)
-                        # If there is only one long-form parameter, use it.
-                        kwargs[_long_alias] = kwargs.pop(short_param)
-                    continue
-
                 if long_alias in kwargs and short_param in kwargs:
                     msg = (
                         f"Parameters in short-form ({short_param}) and "

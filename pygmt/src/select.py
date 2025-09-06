@@ -24,14 +24,12 @@ __doctest_skip__ = ["select"]
 @use_alias(
     A="area_thresh",
     C="dist2pt",
-    D="resolution-",
     F="polygon",
     G="gridmask",
     I="reverse",
     L="dist2line",
     N="mask",
     R="region",
-    V="verbose",
     Z="z_subregion",
     b="binary",
     d="nodata",
@@ -53,6 +51,8 @@ def select(
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
     projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -77,8 +77,9 @@ def select(
     Full GMT docs at :gmt-docs:`gmtselect.html`.
 
     {aliases}
-       - D=resolution
-       - J=projection
+       - D = resolution
+       - J = projection
+       - V = verbose
 
     Parameters
     ----------
@@ -230,8 +231,11 @@ def select(
                 "crude": "c",
             },
         ),
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    ).add_common(
+        J=projection,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (
