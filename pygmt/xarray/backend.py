@@ -146,7 +146,7 @@ class GMTBackendEntrypoint(BackendEntrypoint):
                     vfname=voutfile, kind=raster_kind
                 )
                 # Add "source" encoding
-                source: str | list = which(fname=filename_or_obj, verbose="q")
+                source: str | list = which(fname=filename_or_obj, verbose="quiet")
                 raster.encoding["source"] = (
                     sorted(source)[0] if isinstance(source, list) else source
                 )

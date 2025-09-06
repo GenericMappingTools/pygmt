@@ -25,7 +25,6 @@ __doctest_skip__ = ["grdlandmask"]
     A="area_thresh",
     I="spacing",
     R="region",
-    V="verbose",
     r="registration",
     x="cores",
 )
@@ -37,6 +36,8 @@ def grdlandmask(
     resolution: Literal[
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -51,9 +52,10 @@ def grdlandmask(
     Full GMT docs at :gmt-docs:`grdlandmask.html`.
 
     {aliases}
-       - D=resolution
-       - E=bordervalues
-       - N=maskvalues
+       - D = resolution
+       - E = bordervalues
+       - N = maskvalues
+       - V = verbose
 
     Parameters
     ----------
@@ -132,7 +134,10 @@ def grdlandmask(
         ),
         N=Alias(maskvalues, name="maskvalues", sep="/", size=(2, 5)),
         E=Alias(bordervalues, name="bordervalues", sep="/", size=4),
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:

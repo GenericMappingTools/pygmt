@@ -23,12 +23,12 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4.2.2
+      uses: actions/checkout@v5.0.0
       with:
         persist-credentials: false
 
     - name: Setup data version control (DVC)
-      uses: iterative/setup-dvc@2508d098217d24eef3c0e8d7bc0ce7b9ca0723c3 # v1.1.2
+      uses: iterative/setup-dvc@175771be1dc3d119268e00a896b52a4b77decb5e # v1.2.0
 
     - name: Pull baseline image data from dvc remote
       run: dvc pull && ls -lhR pygmt/tests/baseline/
