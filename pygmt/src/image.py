@@ -12,13 +12,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 
 
 @fmt_docstring
-@use_alias(
-    F="box",
-    G="bitcolor",
-    M="monochrome",
-    R="region",
-    p="perspective",
-)
+@use_alias(F="box", G="bitcolor", M="monochrome", R="region", p="perspective")
 @kwargs_to_strings(R="sequence", p="sequence")
 def image(  # noqa: PLR0913
     self,
