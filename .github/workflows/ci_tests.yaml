@@ -164,6 +164,7 @@ jobs:
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
         run: |
+          mkdir .dvc/cache
           uv run dvc status -c -v
           uv run dvc doctor
           uv run dvc remote list
