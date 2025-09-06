@@ -5,7 +5,7 @@ basemap - Plot base maps and frames.
 import warnings
 from typing import Literal
 
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -18,7 +18,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     B="frame",
     L="map_scale",
     F="box",
-    Td="rose",
     Tm="compass",
     f="coltypes",
     p="perspective",
@@ -27,6 +26,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 def basemap(
     self,
     projection=None,
+    rose: str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -48,6 +48,7 @@ def basemap(
 
     {aliases}
        - J = projection
+       - Td = rose
        - V = verbose
        - c = panel
        - t = transparency
@@ -87,7 +88,8 @@ def basemap(
 
         .. deprecated:: v0.17.0
 
-           Use :py:func:`pygmt.Figure.directional_rose` instead.
+           Use :py:func:`pygmt.Figure.directional_rose` instead. Will be removed in
+           v0.20.0.
     compass : str
         Draw a map magnetic rose on the map at the location defined by the
         reference and anchor points.
@@ -99,15 +101,17 @@ def basemap(
     """
     self._activate_figure()
 
-    if kwargs.get("Td"):
+    if rose is not None:
         warnings.warn(
-            "Parameter 'rose' is deprecated and will be removed in a future version. "
+            "Parameter 'rose' is deprecated in v0.17.0 and will be removed in v0.20.0. "
             "Use 'Figure.directional_rose' instead.",
             DeprecationWarning,
             stacklevel=2,
         )
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        Td=Alias(rose, name="rose"),
+    ).add_common(
         J=projection,
         V=verbose,
         c=panel,
