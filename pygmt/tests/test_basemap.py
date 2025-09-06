@@ -94,9 +94,16 @@ def test_basemap_rose():
     Create a map with a rose.
     """
     fig = Figure()
-    fig.basemap(
-        region=[127.5, 128.5, 26, 27], projection="H15c", frame=True, rose="jMC+w5c"
-    )
+    with pytest.warns(
+        UserWarning,
+        match=(
+            "The 'rose' parameter is deprecated and will be removed in a future "
+            "release. Please use the 'directional_rose' method instead."
+        ),
+    ):
+        fig.basemap(
+            region=[127.5, 128.5, 26, 27], projection="H15c", frame=True, rose="jMC+w5c"
+        )
     return fig
 
 
