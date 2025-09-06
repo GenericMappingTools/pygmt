@@ -2,10 +2,11 @@
 plot3d - Plot lines, polygons, and symbols in 3-D.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError, GMTTypeError
 from pygmt.helpers import (
@@ -21,7 +22,6 @@ from pygmt.src._common import _data_geometry_is_point
 
 @fmt_docstring
 @use_alias(
-    A="straight_line",
     B="frame",
     C="cmap",
     D="offset",
@@ -34,7 +34,6 @@ from pygmt.src._common import _data_geometry_is_point
     Q="no_sort",
     R="region",
     S="style",
-    V="verbose",
     W="pen",
     Z="zvalue",
     a="aspatial",
@@ -47,7 +46,6 @@ from pygmt.src._common import _data_geometry_is_point
     i="incols",
     l="label",
     p="perspective",
-    t="transparency",
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
@@ -60,9 +58,12 @@ def plot3d(  # noqa: PLR0912, PLR0913
     size=None,
     symbol=None,
     direction=None,
-    straight_line: bool | Literal["x", "y"] = False,  # noqa: ARG001
+    straight_line: bool | Literal["x", "y"] = False,
     projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     panel: int | tuple[int, int] | bool = False,
+    transparency: float | Sequence[float] | bool | None = None,
     **kwargs,
 ):
     r"""
@@ -89,8 +90,11 @@ def plot3d(  # noqa: PLR0912, PLR0913
     Full GMT docs at :gmt-docs:`plot3d.html`.
 
     {aliases}
+       - A = straight_line
        - J = projection
+       - V = verbose
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -204,9 +208,8 @@ def plot3d(  # noqa: PLR0912, PLR0913
     {label}
     {perspective}
     {transparency}
-        ``transparency`` can also be a 1-D array to set varying
-        transparency for symbols, but this option is only valid if using
-        ``x``/``y``/``z``.
+        ``transparency`` can also be a 1-D array to set varying transparency for
+        symbols, but this option is only valid if using ``x``/``y``/``z``.
     {wrap}
     """
     # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
@@ -230,11 +233,14 @@ def plot3d(  # noqa: PLR0912, PLR0913
         # Size
         if is_nonstr_iter(size):
             data["size"] = size
-        # Intensity and transparency
-        for flag, name in [("I", "intensity"), ("t", "transparency")]:
-            if is_nonstr_iter(kwargs.get(flag)):
-                data[name] = kwargs[flag]
-                kwargs[flag] = ""
+        # Intensity
+        if is_nonstr_iter(kwargs.get("I")):
+            data["intensity"] = kwargs["I"]
+            kwargs["I"] = ""
+        # Transparency
+        if is_nonstr_iter(transparency):
+            data["transparency"] = transparency
+            transparency = True
         # Symbol must be at the last column
         if is_nonstr_iter(symbol):
             if "S" not in kwargs:
@@ -252,7 +258,7 @@ def plot3d(  # noqa: PLR0912, PLR0913
             ("fill", kwargs.get("G")),
             ("size", size),
             ("intensity", kwargs.get("I")),
-            ("transparency", kwargs.get("t")),
+            ("transparency", transparency),
             ("symbol", symbol),
         ]:
             if is_nonstr_iter(value):
@@ -265,9 +271,13 @@ def plot3d(  # noqa: PLR0912, PLR0913
     if kwargs.get("S") is None and _data_geometry_is_point(data, kind):
         kwargs["S"] = "u0.2c"
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        A=Alias(straight_line, name="straight_line"),
+    ).add_common(
         J=projection,
+        V=verbose,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 

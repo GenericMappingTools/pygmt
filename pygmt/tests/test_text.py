@@ -7,7 +7,11 @@ from pathlib import Path
 import numpy as np
 import pytest
 from pygmt import Figure, config
-from pygmt.exceptions import GMTCLibError, GMTParameterError, GMTTypeError
+from pygmt.exceptions import (
+    GMTCLibError,
+    GMTParameterError,
+    GMTTypeError,
+)
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import skip_if_no
 

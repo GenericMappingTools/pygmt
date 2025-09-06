@@ -31,10 +31,8 @@ __doctest_skip__ = ["coast"]
     N="borders",
     R="region",
     S="water",
-    V="verbose",
     W="shorelines",
     p="perspective",
-    t="transparency",
 )
 @kwargs_to_strings(R="sequence", p="sequence")
 def coast(
@@ -43,7 +41,10 @@ def coast(
     resolution: Literal[
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -68,7 +69,9 @@ def coast(
     {aliases}
        - D = resolution
        - J = projection
+       - V = verbose
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -236,7 +239,9 @@ def coast(
         ),
     ).add_common(
         J=projection,
+        V=verbose,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 

@@ -3,6 +3,7 @@ grdfill - Interpolate across holes in a grid.
 """
 
 import warnings
+from typing import Literal
 
 import numpy as np
 import xarray as xr
@@ -77,7 +78,7 @@ def _validate_params(
 # TODO(PyGMT>=0.19.0): Remove the deprecated 'no_data' parameter.
 # TODO(PyGMT>=0.19.0): Remove the deprecated 'mode' parameter.
 @deprecate_parameter("no_data", "hole", "v0.15.0", remove_version="v0.19.0")
-@use_alias(N="hole", R="region", V="verbose", f="coltypes")
+@use_alias(N="hole", R="region", f="coltypes")
 @kwargs_to_strings(R="sequence")
 def grdfill(
     grid: PathLike | xr.DataArray,
@@ -88,6 +89,8 @@ def grdfill(
     splinefill: float | bool | None = None,
     inquire: bool = False,
     mode: str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> xr.DataArray | np.ndarray | None:
     r"""
@@ -107,6 +110,7 @@ def grdfill(
        - An = neighborfill
        - As = splinefill
        - L = inquire
+       - V = verbose
 
     Parameters
     ----------
@@ -184,7 +188,10 @@ def grdfill(
         An=Alias(neighborfill, name="neighborfill"),
         As=Alias(splinefill, name="splinefill"),
         L=Alias(inquire, name="inquire"),
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:

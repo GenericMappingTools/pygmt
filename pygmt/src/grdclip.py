@@ -3,6 +3,7 @@ grdclip - Clip the range of grid values.
 """
 
 from collections.abc import Sequence
+from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike
@@ -23,7 +24,7 @@ __doctest_skip__ = ["grdclip"]
 # TODO(PyGMT>=0.19.0): Remove the deprecated "new" parameter.
 @fmt_docstring
 @deprecate_parameter("new", "replace", "v0.15.0", remove_version="v0.19.0")
-@use_alias(R="region", V="verbose")
+@use_alias(R="region")
 @kwargs_to_strings(R="sequence")
 def grdclip(
     grid: PathLike | xr.DataArray,
@@ -32,6 +33,8 @@ def grdclip(
     below: Sequence[float] | None = None,
     between: Sequence[float] | Sequence[Sequence[float]] | None = None,
     replace: Sequence[float] | Sequence[Sequence[float]] | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     """
@@ -56,6 +59,7 @@ def grdclip(
        - Sb = below
        - Si = between
        - Sr = replace
+       - V = verbose
 
     Parameters
     ----------
@@ -116,7 +120,10 @@ def grdclip(
         Sb=Alias(below, name="below", sep="/", size=2),
         Si=Alias(between, name="between", sep="/", size=3, ndim=2),
         Sr=Alias(replace, name="replace", sep="/", size=2, ndim=2),
-    ).merge(kwargs)
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (

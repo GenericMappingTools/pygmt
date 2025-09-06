@@ -3,6 +3,7 @@ inset - Manage figure inset setup and completion.
 """
 
 import contextlib
+from typing import Literal
 
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
@@ -19,10 +20,15 @@ __doctest_skip__ = ["inset"]
     M="margin",
     N="no_clip",
     R="region",
-    V="verbose",
 )
 @kwargs_to_strings(D="sequence", M="sequence", R="sequence")
-def inset(self, projection=None, **kwargs):
+def inset(
+    self,
+    projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
+):
     r"""
     Manage figure inset setup and completion.
 
@@ -34,6 +40,7 @@ def inset(self, projection=None, **kwargs):
 
     {aliases}
        - J = projection
+       - V = verbose
 
     Parameters
     ----------
@@ -49,7 +56,8 @@ def inset(self, projection=None, **kwargs):
 
         Append **g**\ *lon*/*lat* for map (user) coordinates,
         **j**\ *code* or **J**\ *code* for setting the *refpoint* via a
-        2-character justification code that refers to the (invisible)
+        :doc:`2-character justification code </techref/justification_codes>`
+        that refers to the (invisible)
         projected map bounding box, **n**\ *xn*/*yn* for normalized (0-1)
         bounding box coordinates, or **x**\ *x*/*y* for plot
         coordinates (inches, centimeters, points, append unit).
@@ -68,8 +76,9 @@ def inset(self, projection=None, **kwargs):
         Append **+w**\ *width*\ [/*height*] of bounding rectangle or box
         in plot coordinates (inches, centimeters, etc.). By default, the
         anchor point on the scale is assumed to be the bottom left corner
-        (**BL**), but this can be changed by appending **+j** followed by
-        a 2-character justification code *justify*.
+        (**BL**), but this can be changed by appending **+j** followed by a
+        :doc:`2-character justification code </techref/justification_codes>`
+        *justify*.
         **Note**: If **j** is used then *justify* defaults to the same
         as *refpoint*, if **J** is used then *justify* defaults to the
         mirror opposite of *refpoint*. Specify inset box attributes via
@@ -139,6 +148,7 @@ def inset(self, projection=None, **kwargs):
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        V=verbose,
     )
     aliasdict.merge(kwargs)
 

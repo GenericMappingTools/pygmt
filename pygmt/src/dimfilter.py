@@ -2,8 +2,11 @@
 dimfilter - Directional filtering of grids in the space domain.
 """
 
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -18,11 +21,14 @@ __doctest_skip__ = ["dimfilter"]
     I="spacing",
     N="sectors",
     R="region",
-    V="verbose",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
 def dimfilter(
-    grid: PathLike | xr.DataArray, outgrid: PathLike | None = None, **kwargs
+    grid: PathLike | xr.DataArray,
+    outgrid: PathLike | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
 ) -> xr.DataArray | None:
     r"""
     Directional filtering of grids in the space domain.
@@ -46,6 +52,7 @@ def dimfilter(
     Full GMT docs at :gmt-docs:`dimfilter.html`.
 
     {aliases}
+       - V = verbose
 
     Parameters
     ----------
@@ -139,13 +146,19 @@ def dimfilter(
     """
     if not all(arg in kwargs for arg in ["D", "F", "N"]) and "Q" not in kwargs:
         raise GMTParameterError(require_any={"distance", "filter", "sectors"})
+
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            kwargs["G"] = voutgrd
+            aliasdict["G"] = voutgrd
             lib.call_module(
-                module="dimfilter", args=build_arg_list(kwargs, infile=vingrd)
+                module="dimfilter", args=build_arg_list(aliasdict, infile=vingrd)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

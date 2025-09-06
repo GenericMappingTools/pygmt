@@ -7,6 +7,7 @@ from typing import Literal
 import numpy as np
 import pandas as pd
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
@@ -30,7 +31,6 @@ from pygmt.helpers import (
     Q="unit",
     S="sort",
     T="pole",
-    V="verbose",
     W="width",
     Z="ellipse",
     f="coltypes",
@@ -43,6 +43,8 @@ def project(
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -110,6 +112,7 @@ def project(
     Full GMT docs at :gmt-docs:`project.html`.
 
     {aliases}
+       - V = verbose
 
     Parameters
     ----------
@@ -238,6 +241,11 @@ def project(
     if output_type == "pandas" and kwargs.get("G") is not None:
         column_names = list("rsp")
 
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(
@@ -253,7 +261,7 @@ def project(
         ):
             lib.call_module(
                 module="project",
-                args=build_arg_list(kwargs, infile=vintbl, outfile=vouttbl),
+                args=build_arg_list(aliasdict, infile=vintbl, outfile=vouttbl),
             )
         return lib.virtualfile_to_dataset(
             vfname=vouttbl,

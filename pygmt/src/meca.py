@@ -126,10 +126,8 @@ def _auto_offset(spec) -> bool:
     N="no_clip",
     R="region",
     T="nodal",
-    V="verbose",
     W="pen",
     p="perspective",
-    t="transparency",
 )
 @kwargs_to_strings(R="sequence", p="sequence")
 def meca(  # noqa: PLR0913
@@ -145,7 +143,10 @@ def meca(  # noqa: PLR0913
     plot_latitude: float | Sequence[float] | None = None,
     event_name: str | Sequence[str] | None = None,
     projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -202,7 +203,9 @@ def meca(  # noqa: PLR0913
     {aliases}
        - J = projection
        - S = scale/convention/component
+       - V = verbose
        - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -367,7 +370,9 @@ def meca(  # noqa: PLR0913
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        V=verbose,
         c=panel,
+        t=transparency,
     )
     aliasdict.merge(kwargs)
 

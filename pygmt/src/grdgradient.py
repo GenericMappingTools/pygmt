@@ -2,8 +2,11 @@
 grdgradient - Compute directional gradients from a grid.
 """
 
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
@@ -26,13 +29,16 @@ __doctest_skip__ = ["grdgradient"]
     Q="tiles",
     R="region",
     S="slope_file",
-    V="verbose",
     f="coltypes",
     n="interpolation",
 )
 @kwargs_to_strings(A="sequence", E="sequence", R="sequence")
 def grdgradient(
-    grid: PathLike | xr.DataArray, outgrid: PathLike | None = None, **kwargs
+    grid: PathLike | xr.DataArray,
+    outgrid: PathLike | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
 ) -> xr.DataArray | None:
     r"""
     Compute directional gradients from a grid.
@@ -43,6 +49,7 @@ def grdgradient(
     Full GMT docs at :gmt-docs:`grdgradient.html`.
 
     {aliases}
+       - V = verbose
 
     Parameters
     ----------
@@ -169,13 +176,18 @@ def grdgradient(
     if not args_in_kwargs(args=["A", "D", "E"], kwargs=kwargs):
         raise GMTParameterError(require_any={"azimuth", "direction", "radiance"})
 
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            kwargs["G"] = voutgrd
+            aliasdict["G"] = voutgrd
             lib.call_module(
-                module="grdgradient", args=build_arg_list(kwargs, infile=vingrd)
+                module="grdgradient", args=build_arg_list(aliasdict, infile=vingrd)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
