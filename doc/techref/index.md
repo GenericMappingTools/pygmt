@@ -14,5 +14,6 @@ fonts.md
 text_formatting.md
 patterns.md
 encodings.md
+justification_codes.md
 environment_variables.md
 ```

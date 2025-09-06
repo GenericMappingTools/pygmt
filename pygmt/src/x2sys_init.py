@@ -2,6 +2,9 @@
 x2sys_init - Initialize a new x2sys track database.
 """
 
+from typing import Literal
+
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -15,12 +18,16 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     I="spacing",
     N="units",
     R="region",
-    V="verbose",
     W="gap",
     j="distcalc",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def x2sys_init(tag, **kwargs):
+def x2sys_init(
+    tag,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
+):
     r"""
     Initialize a new x2sys track database.
 
@@ -37,6 +44,7 @@ def x2sys_init(tag, **kwargs):
     Full GMT docs at :gmt-docs:`supplements/x2sys/x2sys_init.html`.
 
     {aliases}
+       - V = verbose
 
     Parameters
     ----------
@@ -110,5 +118,10 @@ def x2sys_init(tag, **kwargs):
 
     {distcalc}
     """
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
-        lib.call_module(module="x2sys_init", args=build_arg_list(kwargs, infile=tag))
+        lib.call_module(module="x2sys_init", args=build_arg_list(aliasdict, infile=tag))
