@@ -3,7 +3,10 @@ Base class for common parameters shared in PyGMT.
 """
 
 
-class BaseParam:
+from abc import ABC, abstractmethod, abstractproperty
+
+
+class BaseParam(ABC):
     """
     Base class for parameters in PyGMT.
 
@@ -58,6 +61,7 @@ class BaseParam:
         """
         self._validate()
 
+    @abstractmethod
     def _validate(self):
         """
         Validate the parameters of the object.
@@ -66,7 +70,7 @@ class BaseParam:
         validation on the parameters.
         """
 
-    @property
+    @abstractproperty
     def _aliases(self):
         """
         List of Alias objects representing the parameters of this class.
