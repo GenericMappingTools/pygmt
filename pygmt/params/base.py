@@ -2,8 +2,10 @@
 Base class for common parameters shared in PyGMT.
 """
 
+from abc import ABC, abstractmethod
 
-class BaseParam:
+
+class BaseParam(ABC):
     """
     Base class for parameters in PyGMT.
 
@@ -58,24 +60,22 @@ class BaseParam:
         """
         self._validate()
 
-    def _validate(self):
+    def _validate(self):  # noqa: B027
         """
         Validate the parameters of the object.
 
-        This method should be overridden in subclasses to perform any necessary
+        Optional method but can be overridden in subclasses to perform any necessary
         validation on the parameters.
         """
 
     @property
+    @abstractmethod
     def _aliases(self):
         """
         List of Alias objects representing the parameters of this class.
 
-        This property must be implemented in subclasses to define the parameters
-        and their aliases.
+        Must be implemented in subclasses to define the parameters and their aliases.
         """
-        msg = "The _aliases property must be implemented in subclasses."
-        raise NotImplementedError(msg)
 
     def __str__(self):
         """

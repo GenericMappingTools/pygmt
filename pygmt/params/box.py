@@ -10,6 +10,8 @@ from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import is_nonstr_iter
 from pygmt.params.base import BaseParam
 
+__doctest_skip__ = ["Box"]
+
 
 @dataclasses.dataclass(repr=False)
 class Box(BaseParam):
@@ -27,15 +29,15 @@ class Box(BaseParam):
         - a sequence of four values means separate clearances for left/right/bottom/top.
     fill
         Fill for the box [Default is no fill].
+    inner_gap
+        Gap between the outer and inner borders [Default is ``"2p"``].
+    inner_pen
+        Pen attributes for the inner border [Default to :gmt-term:`MAP_DEFAULT_PEN`].
     pen
         Pen attributes for the box outline.
     radius
         Draw a rounded rectangular border instead of sharp. Passing a value with unit
         to control the corner radius [Default is ``"6p"``].
-    inner_gap
-        Gap between the outer and inner borders [Default is ``"2p"``].
-    inner_pen
-        Pen attributes for the inner border [Default to :gmt-term:`MAP_DEFAULT_PEN`].
     shade_offset
         Place an offset background shaded region behind the box. A sequence of two
         values (dx, dy) indicates the shift relative to the foreground frame [Default is
@@ -65,6 +67,11 @@ class Box(BaseParam):
         """
         Validate the parameters.
         """
+        # inner_pen is required when inner_gap is set.
+        if self.inner_gap is not None and self.inner_pen is None:
+            msg = "Parameter 'inner_pen' is required when 'inner_gap' is set."
+            raise GMTInvalidInput(msg)
+
         # shade_offset must be a sequence of two values or None.
         if self.shade_offset and not (
             is_nonstr_iter(self.shade_offset) and len(self.shade_offset) == 2
@@ -74,9 +81,6 @@ class Box(BaseParam):
                 description="value for parameter 'shade_offset'",
                 reason="Must be a sequence of two values (dx, dy) or None.",
             )
-        if self.inner_gap is not None and self.inner_pen is None:
-            msg = "Parameter 'inner_pen' is required when 'inner_gap' is set."
-            raise GMTInvalidInput(msg)
 
     @property
     def _innerborder(self) -> list[str | float] | None:
@@ -86,7 +90,7 @@ class Box(BaseParam):
         return [v for v in (self.inner_gap, self.inner_pen) if v is not None] or None
 
     @property
-    def _shading(self) -> list[str | float] | None:
+    def _shade(self) -> list[str | float] | None:
         """
         Shading for the box, formatted as a list of 1-3 values, or None.
         """
@@ -99,10 +103,10 @@ class Box(BaseParam):
         Aliases for the parameter.
         """
         return [
-            Alias(self.clearance, prefix="+c", sep="/", size=(2, 4)),
-            Alias(self.fill, prefix="+g"),
-            Alias(self._innerborder, prefix="+i", sep="/", size=(1, 2)),
-            Alias(self.pen, prefix="+p"),
-            Alias(self.radius, prefix="+r"),
-            Alias(self._shading, prefix="+s", sep="/", size=(1, 2, 3)),
+            Alias(self.clearance, name="clearance", prefix="+c", sep="/", size=(2, 4)),
+            Alias(self.fill, name="fill", prefix="+g"),
+            Alias(self._innerborder, name="inner_gap/inner_pen", prefix="+i", sep="/"),
+            Alias(self.pen, name="pen", prefix="+p"),
+            Alias(self.radius, name="radius", prefix="+r"),
+            Alias(self._shade, name="shade_offset/shade_fill", prefix="+s", sep="/"),
         ]
