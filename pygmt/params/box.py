@@ -90,7 +90,7 @@ class Box(BaseParam):
         return [v for v in (self.inner_gap, self.inner_pen) if v is not None] or None
 
     @property
-    def _shading(self) -> list[str | float] | None:
+    def _shade(self) -> list[str | float] | None:
         """
         Shading for the box, formatted as a list of 1-3 values, or None.
         """
@@ -108,5 +108,5 @@ class Box(BaseParam):
             Alias(self._innerborder, name="inner_gap/inner_pen", prefix="+i", sep="/"),
             Alias(self.pen, name="pen", prefix="+p"),
             Alias(self.radius, name="radius", prefix="+r"),
-            Alias(self._shading, name="shade_offset/shade_fill", prefix="+s", sep="/"),
+            Alias(self._shade, name="shade_offset/shade_fill", prefix="+s", sep="/"),
         ]
