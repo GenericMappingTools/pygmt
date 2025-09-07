@@ -67,6 +67,11 @@ class Box(BaseParam):
         """
         Validate the parameters.
         """
+        # inner_pen is required when inner_gap is set.
+        if self.inner_gap is not None and self.inner_pen is None:
+            msg = "Parameter 'inner_pen' is required when 'inner_gap' is set."
+            raise GMTInvalidInput(msg)
+
         # shade_offset must be a sequence of two values or None.
         if self.shade_offset and not (
             is_nonstr_iter(self.shade_offset) and len(self.shade_offset) == 2
@@ -76,9 +81,6 @@ class Box(BaseParam):
                 description="value for parameter 'shade_offset'",
                 reason="Must be a sequence of two values (dx, dy) or None.",
             )
-        if self.inner_gap is not None and self.inner_pen is None:
-            msg = "Parameter 'inner_pen' is required when 'inner_gap' is set."
-            raise GMTInvalidInput(msg)
 
     @property
     def _innerborder(self) -> list[str | float] | None:
@@ -101,10 +103,10 @@ class Box(BaseParam):
         Aliases for the parameter.
         """
         return [
-            Alias(self.clearance, prefix="+c", sep="/", size=(2, 4)),
-            Alias(self.fill, prefix="+g"),
-            Alias(self._innerborder, prefix="+i", sep="/", size=(1, 2)),
-            Alias(self.pen, prefix="+p"),
-            Alias(self.radius, prefix="+r"),
-            Alias(self._shading, prefix="+s", sep="/", size=(1, 2, 3)),
+            Alias(self.clearance, name="clearance", prefix="+c", sep="/", size=(2, 4)),
+            Alias(self.fill, name="fill", prefix="+g"),
+            Alias(self._innerborder, name="inner_gap/inner_pen", prefix="+i", sep="/"),
+            Alias(self.pen, name="pen", prefix="+p"),
+            Alias(self.radius, name="radius", prefix="+r"),
+            Alias(self._shading, name="shade_offset/shade_fill", prefix="+s", sep="/"),
         ]
