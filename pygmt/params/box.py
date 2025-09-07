@@ -10,6 +10,8 @@ from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import is_nonstr_iter
 from pygmt.params.base import BaseParam
 
+__doctest_skip__ = ["Box"]
+
 
 @dataclasses.dataclass(repr=False)
 class Box(BaseParam):
