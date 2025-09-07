@@ -2,8 +2,8 @@
 Bit and hachure patterns
 ========================
 
-In addition to colors, PyGMT also allows using bit and hachure patterns to fill
-symbols, polygons, and other areas, via the ``fill`` parameter or similar parameters.
+In addition to colors, PyGMT also allows using bit and hachure patterns to fill symbols,
+polygons, and other areas, via the ``fill`` parameter or similar parameters.
 
 Example method parameters that support bit and hachure patterns include:
 
@@ -20,33 +20,33 @@ Example method parameters that support bit and hachure patterns include:
 - :meth:`pygmt.Figure.wiggle`: Anomalies via ``fillpositive`` and ``fillnegative``
 
 GMT provides 90 predefined patterns that can be used in PyGMT. The patterns are numbered
-from 1 to 90, and can be colored and inverted. The resolution of the pattern
-can be changed, and the background and foreground colors can be set. For a complete list
-of available patterns and the full syntax to specify a pattern, refer to the
+from 1 to 90. For a complete list of available patterns refer to the
 :doc:`/techref/patterns`.
+
+In PyGMT, patterns can be specified via the {class}`pygmt.params.Pattern` class. The
+patterns can be customized with different resolution and different foreground and
+background colors. The foreground and background colors can also be reversed.
 """
 
 # %%
 import pygmt
+from pygmt.params import Pattern
 
 # A list of patterns that will be demonstrated.
-# To use a pattern as fill append "p" and the number of the desired pattern.
-# By default, the pattern is plotted in black and white with a resolution of 300 dpi.
+# By default, a pattern is plotted in black and white with a resolution of 1200 dpi.
 patterns = [
-    # Plot a hachted pattern via pattern number 8
-    "p8",
-    # Plot a dotted pattern via pattern number 19
-    "p19",
-    # Set the background color ("+b") to "red3" and the foreground color ("+f") to
-    # "lightgray"
-    "p19+bred3+flightbrown",
-    # Invert the pattern by using a capitalized "P"
-    "P19+bred3+flightbrown",
-    # Change the resolution ("+r") to 100 dpi
-    "p19+bred3+flightbrown+r100",
-    # Make the background transparent by not giving a color after "+b";
-    # works analogous for the foreground
-    "p19+b+flightbrown+r100",
+    # Predefined 1-bit pattern 8.
+    Pattern(8),
+    # Predefined 1-bit pattern 19.
+    Pattern(19),
+    # Pattern 19 with custom backgroud ("red3") and foreground ("lightbrown").
+    Pattern(19, bgcolor="red3", fgcolor="lightbrown"),
+    # Reverse the background and foreground.
+    Pattern(19, reversed=True, bgcolor="red3", fgcolor="lightbrown"),
+    # Same as above, but with a 100 dpi resolution.
+    Pattern(19, bgcolor="red3", fgcolor="lightbrown", dpi=100),
+    # Same as above, but with a transparent background by setting bgcolor to "".
+    Pattern(19, bgcolor="", fgcolor="lightbrown", dpi=100),
 ]
 
 fig = pygmt.Figure()
