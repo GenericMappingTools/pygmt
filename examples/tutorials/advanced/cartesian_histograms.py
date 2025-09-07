@@ -18,6 +18,7 @@ In this tutorial, different histogram related aspects are addressed:
 # Import the required packages
 import numpy as np
 import pygmt
+from pygmt.params import Pattern
 
 # %%
 # Generate random data from a normal distribution:
@@ -204,10 +205,8 @@ fig.histogram(
     frame=["wSnE", "xaf10", "ya5f1+lCumulative counts"],
     data=data01,
     series=10,
-    # Use pattern ("p") number 8 as fill for the bars
-    # Set the background ("+b") to white [Default]
-    # Set the foreground ("+f") to black [Default]
-    fill="p8+bwhite+fblack",
+    # Fill bars with GMT pattern 8, with white background and black foreground.
+    fill=Pattern(8, bgcolor="white", fgcolor="black"),
     pen="1p,darkgray,solid",
     histtype=0,
     # Show cumulative counts
