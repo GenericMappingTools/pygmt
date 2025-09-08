@@ -51,15 +51,15 @@ patterns = [
 fig = pygmt.Figure()
 fig.basemap(
     region=[0, 10, 0, 12],
-    projection="X10c",
+    projection="X18c/10c",
     frame="rlbt+glightgray+tBit and Hachure Patterns",
 )
 y = 11
 for pattern in patterns:
     # Plot a square with the pattern as fill.
     # The square has a size of 2 centimeters with a 1 point thick, black outline.
-    fig.plot(x=2, y=y, style="s2c", pen="1p,black", fill=pattern)
+    fig.plot(x=1, y=y, style="s2c", pen="1p,black", fill=pattern)
     # Add a description of the pattern.
-    fig.text(x=4, y=y, text=str(repr(pattern)), font="Courier-Bold", justify="ML")
+    fig.text(x=2, y=y, text=str(repr(pattern)), font="Courier-Bold", justify="ML")
     y -= 2
 fig.show()
