@@ -54,13 +54,12 @@ fig.basemap(
     projection="X10c",
     frame="rlbt+glightgray+tBit and Hachure Patterns",
 )
-
 y = 11
 for pattern in patterns:
     # Plot a square with the pattern as fill.
     # The square has a size of 2 centimeters with a 1 point thick, black outline.
     fig.plot(x=2, y=y, style="s2c", pen="1p,black", fill=pattern)
     # Add a description of the pattern.
-    fig.text(x=4, y=y, text=pattern, font="Courier-Bold", justify="ML")
+    fig.text(x=4, y=y, text=str(repr(pattern)), font="Courier-Bold", justify="ML")
     y -= 2
 fig.show()
