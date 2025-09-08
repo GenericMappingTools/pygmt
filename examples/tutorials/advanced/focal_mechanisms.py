@@ -100,10 +100,7 @@ fig.show()
 # ---------------------
 #
 # Use the parameters ``compressionfill`` and ``extensionfill`` to fill the quadrants
-# with different colors or patterns. Regarding patterns see the gallery example
-# :doc:`Bit and hachure patterns </gallery/symbols/patterns>` and the Technical
-# Reference :doc:`Bit and hachure patterns </techref/patterns>`.
-
+# with different colors or :class:`patterns <pygmt.params.Pattern>`.
 fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
 

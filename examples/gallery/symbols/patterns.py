@@ -19,12 +19,11 @@ Example method parameters that support bit and hachure patterns include:
   ``uncertaintyfill``
 - :meth:`pygmt.Figure.wiggle`: Anomalies via ``fillpositive`` and ``fillnegative``
 
-GMT provides 90 predefined patterns that can be used in PyGMT. The patterns are numbered
-from 1 to 90. For a complete list of available patterns refer to the
-:doc:`/techref/patterns`.
+GMT provides 90 predefined 1-bit patterns, which are numbered from 1 to 90. Theses
+patterns can be specified via the {class}`pygmt.params.Pattern` class. In addition,
+custom 1-, 8-, or 24-bit image raster files can also be used as patterns.
 
-In PyGMT, patterns can be specified via the {class}`pygmt.params.Pattern` class. The
-patterns can be customized with different resolution and different foreground and
+The patterns can be customized with different resolution and different foreground and
 background colors. The foreground and background colors can also be reversed.
 """
 
