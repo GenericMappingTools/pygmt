@@ -28,6 +28,7 @@ class Pattern(BaseParam):
 
     .. image:: https://docs.generic-mapping-tools.org/6.5/_images/GMT_App_E.png
        :alt: The 90 predefined bit-patterns provided with GMT
+       :width: 75%
 
     Parameters
     ----------
