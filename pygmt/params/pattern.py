@@ -26,8 +26,8 @@ class Pattern(BaseParam):
     GMT provides 90 predefined patterns that can be used in PyGMT. The patterns are
     numbered from 1 to 90, and shown below:
 
-    .. image:: https://docs.generic-mapping-tools.org/6.5/_images/GMT_App_D.png
-         :alt: The 90 predefined bit-patterns provided with GMT
+    .. image:: https://docs.generic-mapping-tools.org/6.5/_images/GMT_App_E.png
+       :alt: The 90 predefined bit-patterns provided with GMT
 
     Parameters
     ----------
