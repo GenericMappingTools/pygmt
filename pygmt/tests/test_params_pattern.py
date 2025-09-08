@@ -41,3 +41,11 @@ def test_pattern_invalid_id():
         _ = str(Pattern(91))
     with pytest.raises(GMTValueError):
         _ = str(Pattern(0))
+
+
+def test_pattern_invalid_colors():
+    """
+    Test that both fgcolor and bgcolor cannot be empty strings.
+    """
+    with pytest.raises(GMTValueError):
+        _ = str(Pattern(10, fgcolor="", bgcolor=""))

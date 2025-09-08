@@ -48,8 +48,8 @@ class Pattern(BaseParam):
         an empty string will yield a transparent background/foreground where only the
         foreground or background pixels will be painted.
     reversed
-        If True, the pattern will be bit-reversed, i.e., white and black areas will be
-        interchanged (only applies to predefined bit-patterns or 1-bit images).
+        If ``True``, the pattern will be bit-reversed, i.e., white and black areas will
+        be interchanged (only applies to predefined bit-patterns or 1-bit images).
 
     Examples
     --------
@@ -88,6 +88,14 @@ class Pattern(BaseParam):
                     "Pattern id must be an integer in the range 1-90 "
                     "or the name of a 1-, 8-, or 24-bit image raster file."
                 ),
+            )
+        # fgcolor and bgcolor cannot both be empty.
+        if self.fgcolor == "" and self.bgcolor == "":
+            _value = f"{self.fgcolor=}, {self.bgcolor=}"
+            raise GMTValueError(
+                _value,
+                description="fgcolor/",
+                reason="fgcolor and bgcolor cannot both be empty.",
             )
 
     @property
