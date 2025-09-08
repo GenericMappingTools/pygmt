@@ -1,9 +1,10 @@
 """
-The Pattern class for specifying GMT filling patterns.
+The Pattern class for specifying bit and hachure patterns.
 """
 
 import dataclasses
 
+from pygmt._typing import PathLike
 from pygmt.alias import Alias
 from pygmt.exceptions import GMTValueError
 from pygmt.params.base import BaseParam
@@ -14,18 +15,29 @@ __doctest_skip__ = ["Pattern"]
 @dataclasses.dataclass(repr=False)
 class Pattern(BaseParam):
     """
-    Class for GMT filling patterns.
+    Class for specifying bit and hachure patterns.
+
+    This class allows users to specify predefined bit-patterns or custom 1-, 8-, or
+    24-bit image raster files to fill symbols and polygons in various PyGMT plotting
+    methods. The patterns can be customized with different resolution and different
+    foreground and background colors. The foreground and background colors can also be
+    reversed.
+
+    GMT provides 90 predefined patterns that can be used in PyGMT. The patterns are
+    numbered from 1 to 90, and shown below:
+
+    .. image:: https://docs.generic-mapping-tools.org/6.5/_images/GMT_App_D.png
+         :alt: The 90 predefined bit-patterns provided with GMT
 
     Parameters
     ----------
     id
-        The pattern identifier. It can be in two forms:
+        The pattern ID. It can be specified in two forms:
 
-        - An integer in the range 1-90, corresponding to one of
-          :doc:`the 90 predefined 64x64 bit-patterns </techref/patterns>` provided with
-          GMT.
-        - The name of a 1-, 8-, or 24-bit image raster file, to create customized,
-          repeating images using image raster files.
+        - An integer in the range of 1-90, corresponding to one of 90 predefined 64x64
+          bit-patterns
+        - Name of a 1-, 8-, or 24-bit image raster file, to create customized, repeating
+          images using image raster files.
     dpi
         Resolution of the pattern in dots per inch (DPI) [Default is 1200].
     bgcolor/fgcolor
@@ -35,7 +47,7 @@ class Pattern(BaseParam):
         foreground or background pixels will be painted.
     reversed
         If True, the pattern will be bit-reversed, i.e., white and black areas will be
-        interchanged (only applies to 1-bit images or predefined bit-image patterns).
+        interchanged (only applies to predefined bit-patterns or 1-bit images).
 
     Examples
     --------
@@ -55,7 +67,7 @@ class Pattern(BaseParam):
     >>> fig.show()
     """
 
-    id: int | str
+    id: int | PathLike
     dpi: int | None = None
     bgcolor: str | None = None
     fgcolor: str | None = None
@@ -65,6 +77,7 @@ class Pattern(BaseParam):
         """
         Validate the parameters.
         """
+        # Integer pattern id must be in the range 1-90.
         if isinstance(self.id, int) and not (1 <= self.id <= 90):
             raise GMTValueError(
                 self.id,
