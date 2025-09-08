@@ -20,7 +20,7 @@ Example method parameters that support bit and hachure patterns include:
 - :meth:`pygmt.Figure.wiggle`: Anomalies via ``fillpositive`` and ``fillnegative``
 
 GMT provides 90 predefined 1-bit patterns, which are numbered from 1 to 90. Theses
-patterns can be specified via the {class}`pygmt.params.Pattern` class. In addition,
+patterns can be specified via the :class:`pygmt.params.Pattern` class. In addition,
 custom 1-, 8-, or 24-bit image raster files can also be used as patterns.
 
 The patterns can be customized with different resolution and different foreground and
