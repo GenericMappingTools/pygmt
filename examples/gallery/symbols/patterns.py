@@ -38,7 +38,7 @@ patterns = [
     Pattern(8),
     # Predefined 1-bit pattern 19.
     Pattern(19),
-    # Pattern 19 with custom backgroud ("red3") and foreground ("lightbrown").
+    # Pattern 19 with custom background ("red3") and foreground ("lightbrown").
     Pattern(19, bgcolor="red3", fgcolor="lightbrown"),
     # Reverse the background and foreground.
     Pattern(19, reversed=True, bgcolor="red3", fgcolor="lightbrown"),

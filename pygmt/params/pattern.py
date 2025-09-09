@@ -94,7 +94,7 @@ class Pattern(BaseParam):
             _value = f"{self.fgcolor=}, {self.bgcolor=}"
             raise GMTValueError(
                 _value,
-                description="fgcolor/",
+                description="fgcolor and bgcolor",
                 reason="fgcolor and bgcolor cannot both be empty.",
             )
 
