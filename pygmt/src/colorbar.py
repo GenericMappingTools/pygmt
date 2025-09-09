@@ -4,7 +4,7 @@ colorbar - Plot gray scale or color scale bar.
 
 from typing import Literal
 
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -27,9 +27,22 @@ __doctest_skip__ = ["colorbar"]
     p="perspective",
 )
 @kwargs_to_strings(R="sequence", G="sequence", I="sequence", p="sequence")
-def colorbar(
+def colorbar(  # noqa: PLR0913
     self,
     projection=None,
+    position=None,
+    position_type: Literal[
+        "mapcoords", "boxcoords", "plotcoords", "inside", "outside"
+    ] = "mapcoords",
+    length=None,
+    width=None,
+    orientation: Literal["horizontal", "vertical"] = "vertical",
+    anchor=None,
+    anchor_offset=None,
+    reverse=False,
+    nan_rectangle=False,
+    sidebar_triangles=None,
+    move_annots=None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -157,7 +170,36 @@ def colorbar(
     """
     self._activate_figure()
 
-    aliasdict = AliasSystem().add_common(
+    _dimension = (length, width) if width is not None else length
+
+    aliasdict = AliasSystem(
+        D=[
+            Alias(
+                position_type,
+                name="position_type",
+                mapping={
+                    "mapcoords": "g",
+                    "boxcoords": "n",
+                    "plotcoords": "x",
+                    "inside": "j",
+                    "outside": "J",
+                },
+            ),
+            Alias(position, name="position", sep="/", size=2),
+            Alias(anchor, name="anchor", prefix="+j"),
+            Alias(anchor_offset, name="anchor_offset", prefix="+o", sep="/", size=2),
+            Alias(_dimension, name="width/height", prefix="+w", sep="/", size=2),
+            Alias(
+                orientation,
+                name="orientation",
+                mapping={"horizontal": "+h", "vertical": "+v"},
+            ),
+            Alias(reverse, name="reverse", prefix="+r"),
+            Alias(nan_rectangle, name="nan_rectangle", prefix="+n"),
+            Alias(sidebar_triangles, name="sidebar_triangles", prefix="+e"),
+            Alias(move_annots, name="move_annots", prefix="+m"),
+        ],
+    ).add_common(
         J=projection,
         V=verbose,
         c=panel,
