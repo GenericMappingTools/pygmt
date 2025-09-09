@@ -22,7 +22,7 @@ Example method parameters that support bit and hachure patterns include:
 GMT provides 90 predefined 1-bit patterns, which are numbered from 1 to 90. In addition,
 custom 1-, 8-, or 24-bit image raster files can also be used as patterns.
 
-Theses patterns can be specified via the :class:`pygmt.params.Pattern` class. The
+These patterns can be specified via the :class:`pygmt.params.Pattern` class. The
 patterns can be customized with different resolution and different foreground and
 background colors. The foreground and background colors can also be inverted.
 """
