@@ -32,7 +32,7 @@ import pygmt
 from pygmt.params import Pattern
 
 # A list of patterns that will be demonstrated.
-# By default, a pattern is plotted in black and white with a resolution of 1200 dpi.
+# By default, a pattern is plotted in black and white with a resolution of 300 dpi.
 patterns = [
     # Predefined 1-bit pattern 8.
     Pattern(8),

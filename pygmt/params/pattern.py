@@ -41,7 +41,7 @@ class Pattern(BaseParam):
         - Name of a 1-, 8-, or 24-bit image raster file, to create customized, repeating
           images using image raster files.
     dpi
-        Resolution of the pattern in dots per inch (DPI) [Default is 1200].
+        Resolution of the pattern in dots per inch (DPI) [Default is 300].
     bgcolor/fgcolor
         The background/foreground color for predefined bit-patterns or 1-bit images.
         [Default is white for background and black for foreground]. Setting either to
@@ -54,7 +54,7 @@ class Pattern(BaseParam):
     Examples
     --------
     Draw a global map with land areas filled with pattern 15 in a light red background
-    and 300 dpi resolution:
+    and 200 dpi resolution:
 
     >>> import pygmt
     >>> from pygmt.params import Pattern
@@ -63,7 +63,7 @@ class Pattern(BaseParam):
     ...     region="g",
     ...     projection="H10c",
     ...     frame=True,
-    ...     land=Pattern(15, bgcolor="lightred", dpi=300),
+    ...     land=Pattern(15, bgcolor="lightred", dpi=200),
     ...     shorelines=True,
     ... )
     >>> fig.show()
