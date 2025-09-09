@@ -12,7 +12,7 @@ def test_pattern():
     Test the Pattern class.
     """
     assert str(Pattern(1)) == "p1"
-    assert str(Pattern(id=1)) == "p1"
+    assert str(Pattern(pattern=1)) == "p1"
 
     assert str(Pattern("pattern.png")) == "ppattern.png"
 
@@ -33,15 +33,14 @@ def test_pattern():
     assert str(pattern) == "ppattern.png+bred+fblue+r300"
 
 
-def test_pattern_invalid_id():
+def test_pattern_invalid_pattern():
     """
-    Test that an invalid pattern id raises a GMTValueError.
+    Test that an invalid pattern number raises a GMTValueError.
     """
-    with pytest.raises(GMTValueError):
-        _ = str(Pattern(91))
     with pytest.raises(GMTValueError):
         _ = str(Pattern(0))
-
+    with pytest.raises(GMTValueError):
+        _ = str(Pattern(91))
 
 def test_pattern_invalid_colors():
     """

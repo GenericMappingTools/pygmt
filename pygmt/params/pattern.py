@@ -33,8 +33,8 @@ class Pattern(BaseParam):
 
     Parameters
     ----------
-    id
-        The pattern ID. It can be specified in two forms:
+    pattern
+        The pattern to use. It can be specified in two forms:
 
         - An integer in the range of 1-90, corresponding to one of 90 predefined 64x64
           bit-patterns
@@ -69,7 +69,7 @@ class Pattern(BaseParam):
     >>> fig.show()
     """
 
-    id: int | PathLike
+    pattern: int | PathLike
     dpi: int | None = None
     bgcolor: str | None = None
     fgcolor: str | None = None
@@ -79,13 +79,13 @@ class Pattern(BaseParam):
         """
         Validate the parameters.
         """
-        # Integer pattern id must be in the range 1-90.
-        if isinstance(self.id, int) and not (1 <= self.id <= 90):
+        # Integer pattern number must be in the range 1-90.
+        if isinstance(self.pattern, int) and not (1 <= self.pattern <= 90):
             raise GMTValueError(
-                self.id,
-                description="pattern id",
+                self.pattern,
+                description="pattern number",
                 reason=(
-                    "Pattern id must be an integer in the range 1-90 "
+                    "Parameter 'pattern' must be an integer in the range 1-90 "
                     "or the name of a 1-, 8-, or 24-bit image raster file."
                 ),
             )
@@ -104,7 +104,7 @@ class Pattern(BaseParam):
         Aliases for the Pattern class.
         """
         return [
-            Alias(self.id, name="id", prefix="P" if self.reversed else "p"),
+            Alias(self.pattern, name="pattern", prefix="P" if self.reversed else "p"),
             Alias(self.bgcolor, name="bgcolor", prefix="+b"),
             Alias(self.fgcolor, name="fgcolor", prefix="+f"),
             Alias(self.dpi, name="dpi", prefix="+r"),
