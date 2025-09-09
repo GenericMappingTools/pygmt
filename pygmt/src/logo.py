@@ -13,7 +13,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 
 
 @fmt_docstring
-@use_alias(R="region", D="position", F="box", S="style")
+@use_alias(R="region", F="box", S="style")
 @kwargs_to_strings(R="sequence", p="sequence")
 def logo(  # noqa: PLR0913
     self,
