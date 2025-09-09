@@ -24,7 +24,7 @@ custom 1-, 8-, or 24-bit image raster files can also be used as patterns.
 
 Theses patterns can be specified via the :class:`pygmt.params.Pattern` class. The
 patterns can be customized with different resolution and different foreground and
-background colors. The foreground and background colors can also be reversed.
+background colors. The foreground and background colors can also be inverted.
 """
 
 # %%
@@ -41,7 +41,7 @@ patterns = [
     # Pattern 19 with custom background ("red3") and foreground ("lightbrown").
     Pattern(19, bgcolor="red3", fgcolor="lightbrown"),
     # Reverse the background and foreground.
-    Pattern(19, reversed=True, bgcolor="red3", fgcolor="lightbrown"),
+    Pattern(19, invert=True, bgcolor="red3", fgcolor="lightbrown"),
     # Same as above, but with a 100 dpi resolution.
     Pattern(19, bgcolor="red3", fgcolor="lightbrown", dpi=100),
     # Same as above, but with a transparent background by setting bgcolor to "".

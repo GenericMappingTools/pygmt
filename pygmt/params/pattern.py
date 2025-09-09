@@ -21,7 +21,7 @@ class Pattern(BaseParam):
     24-bit image raster files to fill symbols and polygons in various PyGMT plotting
     methods. The patterns can be customized with different resolution and different
     foreground and background colors. The foreground and background colors can also be
-    reversed.
+    inverted.
 
     GMT provides 90 predefined patterns that can be used in PyGMT. The patterns are
     numbered from 1 to 90, and shown below:
@@ -47,8 +47,8 @@ class Pattern(BaseParam):
         [Default is white for background and black for foreground]. Setting either to
         an empty string will yield a transparent background/foreground where only the
         foreground or background pixels will be painted.
-    reversed
-        If ``True``, the pattern will be bit-reversed, i.e., white and black areas will
+    invert
+        If ``True``, the pattern will be bit-inverted, i.e., white and black areas will
         be interchanged (only applies to predefined bit-patterns or 1-bit images).
 
     Examples
@@ -73,7 +73,7 @@ class Pattern(BaseParam):
     dpi: int | None = None
     bgcolor: str | None = None
     fgcolor: str | None = None
-    reversed: bool = False
+    invert: bool = False
 
     def _validate(self):
         """
@@ -104,7 +104,7 @@ class Pattern(BaseParam):
         Aliases for the Pattern class.
         """
         return [
-            Alias(self.pattern, name="pattern", prefix="P" if self.reversed else "p"),
+            Alias(self.pattern, name="pattern", prefix="P" if self.invert else "p"),
             Alias(self.bgcolor, name="bgcolor", prefix="+b"),
             Alias(self.fgcolor, name="fgcolor", prefix="+f"),
             Alias(self.dpi, name="dpi", prefix="+r"),

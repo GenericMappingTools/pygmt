@@ -24,9 +24,9 @@ def test_pattern():
 
     assert str(Pattern(40, dpi=300)) == "p40+r300"
 
-    assert str(Pattern(50, reversed=True)) == "P50"
+    assert str(Pattern(50, invert=True)) == "P50"
 
-    pattern = Pattern(90, reversed=True, bgcolor="red", fgcolor="blue", dpi=300)
+    pattern = Pattern(90, invert=True, bgcolor="red", fgcolor="blue", dpi=300)
     assert str(pattern) == "P90+bred+fblue+r300"
 
     pattern = Pattern("pattern.png", bgcolor="red", fgcolor="blue", dpi=300)
@@ -41,6 +41,7 @@ def test_pattern_invalid_pattern():
         _ = str(Pattern(0))
     with pytest.raises(GMTValueError):
         _ = str(Pattern(91))
+
 
 def test_pattern_invalid_colors():
     """
