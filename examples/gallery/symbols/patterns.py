@@ -40,7 +40,7 @@ patterns = [
     Pattern(19),
     # Pattern 19 with custom background ("red3") and foreground ("lightbrown").
     Pattern(19, bgcolor="red3", fgcolor="lightbrown"),
-    # Reverse the background and foreground.
+    # Invert the background and foreground.
     Pattern(19, invert=True, bgcolor="red3", fgcolor="lightbrown"),
     # Same as above, but with a 100 dpi resolution.
     Pattern(19, bgcolor="red3", fgcolor="lightbrown", dpi=100),
