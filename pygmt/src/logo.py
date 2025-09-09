@@ -17,7 +17,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @kwargs_to_strings(R="sequence", p="sequence")
 def logo(  # noqa: PLR0913
     self,
-    position: Sequence[str | float] | AnchorCode,
+    position: Sequence[str | float] | AnchorCode | None = None,
     position_type: Literal[
         "mapcoords", "boxcoords", "plotcoords", "inside", "outside"
     ] = "plotcoords",
@@ -26,7 +26,6 @@ def logo(  # noqa: PLR0913
     height: float | str | None = None,
     width: float | str | None = None,
     projection=None,
-    box=False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -36,14 +35,20 @@ def logo(  # noqa: PLR0913
     r"""
     Plot the GMT logo.
 
-    By default, the GMT logo is 2 inches wide and 1 inch high and
-    will be positioned relative to the current plot origin.
-    Use various options to change this and to place a transparent or
-    opaque rectangular map panel behind the GMT logo.
+    .. figure:: https://docs.generic-mapping-tools.org/6.5/_images/GMT_coverlogo.png
+       :alt: GMT logo
+       :align: center
+
+    By default, the GMT logo is 2 inches wide and 1 inch high and will be positioned
+    relative to the current plot origin. The position can be changed by specifying the
+    reference point (via ``position_type`` and ``position``) and anchor point (via
+    ``anchor`` and ``anchor_offset``). Refer to :doc:`/techref/reference_anchor_points`
+    for details about the positioning.
 
     Full GMT docs at :gmt-docs:`gmtlogo.html`.
 
     {aliases}
+       - D = position/position_type/anchor/anchor_offset/width/height
        - J = projection
        - V = verbose
        - c = panel
@@ -54,23 +59,42 @@ def logo(  # noqa: PLR0913
     {projection}
     {region}
     position/position_type
-        Location of the GMT logo. The actual meaning of this parameter depends on the
-        ``position_type`` parameter.
-        - ``position_type="mapcoords"``: *position* is given as (x, y) in user
+        Specify the reference point on the plot for the GMT logo. The reference point
+        can be specified in five different ways, which is selected by the
+        **position_type** parameter. The actual reference point is then given by the
+        coordinates or code specified by the **position** parameter.
+
+        The **position_type** parameter can be one of the following:
+
+        - ``"mapcoords"``: **position** is given as (*longitude*, *latitude*) in map
           coordinates.
-        - ``position_type="boxcoords"``: *position* is given as (nx, ny) in normalized
-          coordinates, where (0, 0) is the lower-left corner and (1, 1) is the
-          upper-right corner of the plot.
-        - ``position_type="plotcoords"``: *position* is given as (x, y) in plot
-          coordinates, i.e., the distances in inches, centimeters, or points from the
-          lower left plot origin.
-        - ``position_type="inside"``: *position* is given as a two-character
-          justification code, meaning the anchor point of the rose is inside the plot
-          bounding box.
-        - ``position_type="outside"``: *position* is given as a two-character
-          justification code, but the rose is outside the plot bounding box.
+        - ``"boxcoords"``: **position** is given as (*nx*, *ny*) in normalized
+          coordinates, i.e., fractional coordinates between 0 and 1 in both the x and y
+          directions. For example, (0, 0) is the lower-left corner and (1, 1) is the
+          upper-right corner of the plot bounding box.
+        - ``"plotcoords"``: **position** is given as (x, y) in plot coordinates, i.e.,
+          the distances in inches, centimeters, or points from the lower left plot
+          origin.
+        - ``"inside"`` or ``"outside"``: **position** is one of the nine
+          :doc:`2-character justification codes </techref/justification_codes>`, meaning
+          placing the reference point at specific locations, either inside or outside
+          the plot bounding box.
+    anchor
+        Anchor point of the magnetic rose, specified by one of the
+        :doc:`2-character justification codes </techref/justification_codes>`.
+        The default value depends on the **position_type** parameter.
+
+        - ``position_type="inside"``: **anchor** defaults to the same as **position**.
+        - ``position_type="outside"``: **anchor** defaults to the mirror opposite of
+          **position**.
+        - Otherwise, **anchor** defaults to ``"MC"`` (middle center).
+    anchor_offset
+        *offset* or (*offset_x*, *offset_y*).
+        Offset the anchor point by *offset_x* and *offset_y*. If a single value *offset*
+        is given, *offset_y* = *offset_x* = *offset*.
     width/height
-        Width or height of the GMT logo.
+        Width or height of the GMT logo. Since the aspect ratio is fixed, only one of
+        the two can be specified.
     box : bool or str
         If set to ``True``, draw a rectangular border around the
         GMT logo.
@@ -87,33 +111,29 @@ def logo(  # noqa: PLR0913
     {transparency}
     """
     self._activate_figure()
+
+    # width and height are mutually exclusive.
     if width is not None and height is not None:
         msg = "Cannot specify both width and height."
         raise GMTInvalidInput(msg)
 
+    # Mapping position_type to GMT shorthand.
+    _position_type = {
+        "mapcoords": "g",
+        "boxcoords": "n",
+        "plotcoords": "x",
+        "inside": "j",
+        "outside": "J",
+    }.get(position_type)
+
     aliasdict = AliasSystem(
         D=[
-            Alias(
-                position_type,
-                name="position_type",
-                mapping={
-                    "mapcoords": "g",
-                    "boxcoords": "n",
-                    "plotcoords": "x",
-                    "inside": "j",
-                    "outside": "J",
-                },
-            ),
-            Alias(position, name="position", sep="/"),
+            Alias(position, name="position", sep="/", size=2, prefix=_position_type),
             Alias(anchor, name="justify", prefix="+j"),
             Alias(anchor_offset, name="anchor_offset", prefix="+o", sep="/", size=2),
             Alias(height, name="height", prefix="+h"),
             Alias(width, name="width", prefix="+w"),
         ]
-    ).merge(kwargs)
-
-    aliasdict = AliasSystem(
-        F=Alias(box, name="box"),
     ).add_common(
         J=projection,
         V=verbose,

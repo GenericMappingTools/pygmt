@@ -139,9 +139,8 @@ def inset(
     ...         dcw="MG+gred",
     ...     )
     ...
-    >>> # Map elements outside the "with" statement are plotted in the main
-    >>> # figure
-    >>> fig.logo(position="jBR+o0.2c+w3c")
+    >>> # Map elements outside the "with" statement are plotted in the main figure
+    >>> fig.logo(position="BR", position_type="inside", offset=0.2, width="3c")
     >>> fig.show()
     """
     self._activate_figure()
