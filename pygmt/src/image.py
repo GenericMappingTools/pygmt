@@ -12,13 +12,14 @@ from pygmt.params import Box
 
 
 @fmt_docstring
-@use_alias(D="position", G="bitcolor", M="monochrome", R="region", p="perspective")
+@use_alias(D="position", G="bitcolor", R="region", p="perspective")
 @kwargs_to_strings(R="sequence", p="sequence")
 def image(
     self,
     imagefile: PathLike,
     projection=None,
     box: Box | bool = False,
+    monochrome: bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -36,6 +37,7 @@ def image(
     {aliases}
        - F = box
        - J = projection
+       - M = monochrome
        - V = verbose
        - c = panel
        - t = transparency
@@ -68,7 +70,7 @@ def image(
         to make those pixels transparent. Can be repeated with different
         settings. Alternatively, for color images you can select a single
         *color* that should be made transparent instead (**+t**).
-    monochrome : bool
+    monochrome
         Convert color image to monochrome grayshades using the (television)
         YIQ-transformation.
     {verbose}
@@ -80,6 +82,7 @@ def image(
 
     aliasdict = AliasSystem(
         F=Alias(box, name="box"),
+        M=Alias(monochrome, name="monochrome"),
     ).add_common(
         J=projection,
         V=verbose,
