@@ -2,9 +2,10 @@
 basemap - Plot base maps and frames.
 """
 
+import warnings
 from typing import Literal
 
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -18,7 +19,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     L="map_scale",
     F="box",
     Td="rose",
-    Tm="compass",
     f="coltypes",
     p="perspective",
 )
@@ -26,6 +26,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 def basemap(
     self,
     projection=None,
+    compass: str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -47,6 +48,7 @@ def basemap(
 
     {aliases}
        - J = projection
+       - Tm = compass
        - V = verbose
        - c = panel
        - t = transparency
@@ -84,9 +86,13 @@ def basemap(
     rose : str
         Draw a map directional rose on the map at the location defined by
         the reference and anchor points.
-    compass : str
-        Draw a map magnetic rose on the map at the location defined by the
-        reference and anchor points.
+    compass
+        Draw a map magnetic rose on the map.
+
+        .. deprecated:: 0.17.0
+
+           Use :py:func:`pygmt.Figure.magnetic_rose` instead. Will be removed in
+           v0.20.0.
     {verbose}
     {panel}
     {coltypes}
@@ -95,7 +101,17 @@ def basemap(
     """
     self._activate_figure()
 
-    aliasdict = AliasSystem().add_common(
+    if compass is not None:
+        warnings.warn(
+            "Parameter 'compass' is deprecated in v0.17.0 and will be removed in v0.20.0. "
+            "Use 'Figure.magnetic_rose' instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
+    aliasdict = AliasSystem(
+        Tm=Alias(compass, name="compass"),
+    ).add_common(
         J=projection,
         V=verbose,
         c=panel,
