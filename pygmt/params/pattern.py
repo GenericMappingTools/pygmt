@@ -44,9 +44,9 @@ class Pattern(BaseParam):
         Resolution of the pattern in dots per inch (DPI) [Default is 300].
     bgcolor/fgcolor
         The background/foreground color for predefined bit-patterns or 1-bit images.
-        [Default is white for background and black for foreground]. Setting either to
-        an empty string will yield a transparent background/foreground where only the
-        foreground or background pixels will be painted.
+        Setting either to an empty string will yield a transparent background/foreground
+        where only the foreground/background pixels will be painted. [Default is white
+        for background and black for foreground].
     invert
         If ``True``, the pattern will be bit-inverted, i.e., white and black areas will
         be interchanged (only applies to predefined bit-patterns or 1-bit images).
