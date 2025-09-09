@@ -124,7 +124,7 @@ def logo(  # noqa: PLR0913
         "plotcoords": "x",
         "inside": "j",
         "outside": "J",
-    }.get(position_type)
+    }[position_type]
 
     aliasdict = AliasSystem(
         D=[

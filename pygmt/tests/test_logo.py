@@ -27,7 +27,7 @@ def test_logo_on_a_map():
     fig.logo(
         position_type="inside",
         position="TR",
-        offset=(0.25, 0.25),
+        anchor_offset=(0.25, 0.25),
         width="7.5c",
         box=True,
     )
