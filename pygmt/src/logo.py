@@ -38,6 +38,7 @@ def logo(  # noqa: PLR0913
     .. figure:: https://docs.generic-mapping-tools.org/6.5/_images/GMT_coverlogo.png
        :alt: GMT logo
        :align: center
+       :width: 300px
 
     By default, the GMT logo is 2 inches wide and 1 inch high and will be positioned
     relative to the current plot origin. The position can be changed by specifying the
@@ -67,20 +68,23 @@ def logo(  # noqa: PLR0913
         The **position_type** parameter can be one of the following:
 
         - ``"mapcoords"``: **position** is given as (*longitude*, *latitude*) in map
-          coordinates.
+          coordinates. For example, (120, -45) means placing the reference point at
+          120°E and 45°S in map coordinates.
         - ``"boxcoords"``: **position** is given as (*nx*, *ny*) in normalized
           coordinates, i.e., fractional coordinates between 0 and 1 in both the x and y
           directions. For example, (0, 0) is the lower-left corner and (1, 1) is the
           upper-right corner of the plot bounding box.
         - ``"plotcoords"``: **position** is given as (x, y) in plot coordinates, i.e.,
           the distances in inches, centimeters, or points from the lower left plot
-          origin.
+          origin. For example, ("1c", "2c") means placing the reference point 1 cm to
+          the right and 2 cm above the lower left plot origin.
         - ``"inside"`` or ``"outside"``: **position** is one of the nine
           :doc:`2-character justification codes </techref/justification_codes>`, meaning
           placing the reference point at specific locations, either inside or outside
-          the plot bounding box.
+          the plot bounding box. E.g., ``"TL"`` means placing the reference point at the
+          top left corner of the plot bounding box, either inside or outside the box.
     anchor
-        Anchor point of the magnetic rose, specified by one of the
+        Anchor point of the GMT logo, specified by one of the
         :doc:`2-character justification codes </techref/justification_codes>`.
         The default value depends on the **position_type** parameter.
 
@@ -129,7 +133,7 @@ def logo(  # noqa: PLR0913
     aliasdict = AliasSystem(
         D=[
             Alias(position, name="position", sep="/", size=2, prefix=_position_type),
-            Alias(anchor, name="justify", prefix="+j"),
+            Alias(anchor, name="anchor", prefix="+j"),
             Alias(anchor_offset, name="anchor_offset", prefix="+o", sep="/", size=2),
             Alias(height, name="height", prefix="+h"),
             Alias(width, name="width", prefix="+w"),

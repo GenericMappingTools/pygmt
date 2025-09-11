@@ -4,6 +4,7 @@ Test Figure.logo.
 
 import pytest
 from pygmt import Figure
+from pygmt.exceptions import GMTInvalidInput
 
 
 @pytest.mark.benchmark
@@ -32,3 +33,12 @@ def test_logo_on_a_map():
         box=True,
     )
     return fig
+
+
+def test_logo_width_and_height():
+    """
+    Test that an error is raised when both width and height are specified.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.logo(width="5c", height="5c")
