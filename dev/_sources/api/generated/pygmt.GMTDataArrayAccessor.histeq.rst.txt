@@ -1,0 +1,13 @@
+pygmt.GMTDataArrayAccessor.histeq
+=================================
+
+.. currentmodule:: pygmt
+
+.. automethod:: GMTDataArrayAccessor.histeq
+
+.. minigallery:: pygmt.GMTDataArrayAccessor.histeq
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>
