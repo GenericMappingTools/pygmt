@@ -174,7 +174,7 @@ def test_figure_savefig_directory_nonexists():
     """
     fig = Figure()
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
-    with pytest.raises(FileNotFoundError, match="No such directory:"):
+    with pytest.raises(FileNotFoundError, match=r"No such directory:"):
         fig.savefig("a-nonexist-directory/test_figure_savefig_directory_nonexists.png")
 
 
@@ -185,7 +185,7 @@ def test_figure_savefig_unknown_extension():
     fig = Figure()
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
     fname = "test_figure_savefig_unknown_extension.test"
-    with pytest.raises(GMTValueError, match="Invalid file extension: 'test'."):
+    with pytest.raises(GMTValueError, match=r"Invalid file extension: 'test'."):
         fig.savefig(fname)
 
 
@@ -196,7 +196,7 @@ def test_figure_savefig_ps_extension():
     fig = Figure()
     fig.basemap(region="10/70/-300/800", projection="X3c/5c", frame="af")
     fname = "test_figure_savefig_ps_extension.ps"
-    with pytest.raises(GMTValueError, match="Extension '.ps' is not supported."):
+    with pytest.raises(GMTValueError, match=r"Extension '.ps' is not supported."):
         fig.savefig(fname)
 
 
