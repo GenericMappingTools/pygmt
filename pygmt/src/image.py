@@ -17,17 +17,17 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 def image(  # noqa: PLR0913
     self,
     imagefile: PathLike,
-    projection=None,
-    position: Sequence[float | str] | AnchorCode | None = None,
+    position: Sequence[str | float] | AnchorCode | None = None,
     position_type: Literal[
         "mapcoords", "boxcoords", "plotcoords", "inside", "outside"
     ] = "plotcoords",
     anchor: AnchorCode | None = None,
     anchor_offset: Sequence[float | str] | None = None,
-    width: float | str | None = None,
     height: float | str | None = None,
+    width: float | str | None = None,
     replicate: int | tuple[int, int] | None = None,
     dpi: float | str | None = None,
+    projection=None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -37,8 +37,7 @@ def image(  # noqa: PLR0913
     r"""
     Plot raster or EPS images.
 
-    Reads an Encapsulated PostScript file or a raster image file and plots
-    it on a map.
+    Reads an Encapsulated PostScript file or a raster image file and plot it on a map.
 
     Full GMT docs at :gmt-docs:`image.html`.
 
@@ -60,39 +59,40 @@ def image(  # noqa: PLR0913
     {projection}
     {region}
     position/position_type
-        Specify the reference point on the map for the directional rose. The reference
-        point can be specified in five different ways, which is selected by the
-        **position_type** parameter. The actual reference point is then given by the
-        coordinates or code specified by the **position** parameter.
+        Specify the reference point on the plot for the image. The method of defining
+        the the reference point is controlled by **position_type**, and the exact
+        location is set by **position**.
 
-        The **position_type** parameter can be one of the following:
+        The **position_type** parameter can take one of the following values:
 
-        - ``"mapcoords"``: **position** is given as (*longitude*, *latitude*) in map
-          coordinates.
-        - ``"boxcoords"``: **position** is given as (*nx*, *ny*) in normalized
-          coordinates, i.e., fractional coordinates between 0 and 1 in both the x and y
-          directions. For example, (0, 0) is the lower-left corner and (1, 1) is the
+        - ``"mapcoords"``: **position** is specified as (*longitude*, *latitude*) in map
+          coordinates. Example: (120, -45) places the reference point at 120°E, 45°S.
+        - ``"boxcoords"``: **position** is specified as (*nx*, *ny*) in normalized
+          coordinates, i.e., fractional values between 0 and 1 along the x- and y-axes.
+          Example: (0, 0) corresponds to the lower-left corner, and (1, 1) to the
           upper-right corner of the plot bounding box.
-        - ``"plotcoords"``: **position** is given as (x, y) in plot coordinates, i.e.,
-          the distances in inches, centimeters, or points from the lower left plot
-          origin.
+        - ``"plotcoords"``: **position** is specified as (*x*, *y*) in plot coordinates,
+          i.e., distances from the lower-left plot origin given in inches, centimeters,
+          or points. Example: ("1c", "2c") places the reference point 1 cm to the right
+          and 2 cm above the plot origin.
         - ``"inside"`` or ``"outside"``: **position** is one of the nine
-          :doc:`2-character justification codes </techref/justification_codes>`, meaning
-          placing the reference point at specific locations, either inside or outside
-          the plot bounding box.
+          :doc:two-character justification codes </techref/justification_codes>,
+          indicating a specific location relative to the plot bounding box. Example:
+          ``"TL"`` places the reference point at the top-left corner, either inside or
+          outside the bounding box.
     anchor
-        Anchor point of the directional rose, specified by one of the
+        Specify the anchor point of the image, using one of the
         :doc:`2-character justification codes </techref/justification_codes>`.
-        The default value depends on the **position_type** parameter.
+        The default value depends on **position_type**.
 
         - ``position_type="inside"``: **anchor** defaults to the same as **position**.
         - ``position_type="outside"``: **anchor** defaults to the mirror opposite of
           **position**.
         - Otherwise, **anchor** defaults to ``"MC"`` (middle center).
     anchor_offset
-        *offset* or (*offset_x*, *offset_y*).
-        Offset the anchor point by *offset_x* and *offset_y*. If a single value *offset*
-        is given, *offset_y* = *offset_x* = *offset*.
+        Specifies an offset for the anchor point as *offset* or
+        (*offset_x*, *offset_y*). If a single value *offset* is given, both *offset_x*
+        and *offset_y* are set to *offset*.
     dpi
         Specify dpi to set the dpi of the image in dots per inch, or append **c** to
         indicate this is dots per cm.
@@ -134,21 +134,19 @@ def image(  # noqa: PLR0913
 
     _dimension = (width, height) if height is not None else width
 
+    # Mapping position_type to GMT single-letter code.
+    _position_type = {
+        "mapcoords": "g",
+        "boxcoords": "n",
+        "plotcoords": "x",
+        "inside": "j",
+        "outside": "J",
+    }[position_type]
+
     aliasdict = AliasSystem(
         J=Alias(projection, name="projection"),
         D=[
-            Alias(
-                position_type,
-                name="position_type",
-                mapping={
-                    "mapcoords": "g",
-                    "boxcoords": "n",
-                    "plotcoords": "x",
-                    "inside": "j",
-                    "outside": "J",
-                },
-            ),
-            Alias(position, name="position", sep="/", size=2),
+            Alias(position, name="position", sep="/", size=2, prefix=_position_type),
             Alias(anchor, name="anchor", prefix="+j"),
             Alias(anchor_offset, name="anchor_offset", prefix="+o", sep="/", size=2),
             Alias(_dimension, name="width/height", prefix="+w"),
