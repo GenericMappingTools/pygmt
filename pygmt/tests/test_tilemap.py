@@ -86,7 +86,7 @@ def test_tilemap_no_contextily():
     Raise an ImportError when contextily is not installed.
     """
     fig = Figure()
-    with pytest.raises(ImportError, match="Package `contextily` is required"):
+    with pytest.raises(ImportError, match=r"Package `contextily` is required"):
         fig.tilemap(
             region=[-20000000.0, 20000000.0, -20000000.0, 20000000.0],
             zoom=0,
@@ -105,7 +105,7 @@ def test_tilemap_no_rioxarray():
     # error about contextily, not rioxarray. Here we mock contextily as installed, to
     # make sure that we see the rioxarray error message when rioxarray is not installed.
     with patch("pygmt.datasets.tile_map._HAS_CONTEXTILY", True):
-        with pytest.raises(ImportError, match="Package `rioxarray` is required"):
+        with pytest.raises(ImportError, match=r"Package `rioxarray` is required"):
             fig.tilemap(
                 region=[-180.0, 180.0, -90, 90], zoom=0, lonlat=True, frame="afg"
             )
