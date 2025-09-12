@@ -242,5 +242,5 @@ class _FocalMechanismConvention:
         """
         for convention, param_list in cls._params.items():
             if set(param_list).issubset(set(params)):
-                return cls(convention, component=component)
+                return cls(convention, component=component)  # type: ignore[arg-type]
         raise GMTValueError(params, description="focal mechanism parameters")
