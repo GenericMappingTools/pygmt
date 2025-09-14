@@ -128,6 +128,20 @@ def logo(  # noqa: PLR0913
         "outside": "J",
     }[position_type]
 
+    # Prior PyGMT v0.17.0, 'position' was aliased to the -D option.
+    # For backward compatibility, we need to check if users pass a string with the GMT
+    # CLI syntax to 'position', i.e., a string starting with one of the leading
+    # single-letter or contains modifiers with "+".
+    if isinstance(position, str) and (position[0] in "gnxjJ" or "+" in position):
+        if any(v is not None for v in (anchor, anchor_offset, height, width)):
+            msg = (
+                "Parameter 'position' is given with a raw GMT CLI syntax, and conflicts "
+                "with other parameters (anchor, anchor_offset, height, width). "
+                "Please refer to the documentation for the recommended usage."
+            )
+            raise GMTInvalidInput(msg)
+        _position_type = ""  # Unset _position_type to an empty string.
+
     aliasdict = AliasSystem(
         D=[
             Alias(position, name="position", sep="/", size=2, prefix=_position_type),

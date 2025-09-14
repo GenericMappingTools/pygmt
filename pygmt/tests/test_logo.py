@@ -35,6 +35,34 @@ def test_logo_on_a_map():
     return fig
 
 
+@pytest.mark.mpl_image_compare(filename="test_logo_position_deprecated_syntax.png")
+def test_logo_position():
+    """
+    Test that the new group of parameters works as expected.
+    """
+    fig = Figure()
+    fig.basemap(region=[-90, -70, 0, 20], projection="M15c", frame=True)
+    fig.logo(position="TL", position_type="inside")
+    fig.logo(position="TR", position_type="inside", width="7.5c")
+    fig.logo(position=(6, 0), width="7.5c")
+    fig.logo(position=(0, 0))
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_logo_position_deprecated_syntax():
+    """
+    Test that passing the deprecated GMT CLI syntax string to 'position' works.
+    """
+    fig = Figure()
+    fig.basemap(region=[-90, -70, 0, 20], projection="M15c", frame=True)
+    fig.logo(position="jTL")
+    fig.logo(position="jTR+w7.5c")
+    fig.logo(position="6/0+w7.5c")
+    fig.logo(position="0/0")  # This is actually the new syntax.
+    return fig
+
+
 def test_logo_width_and_height():
     """
     Test that an error is raised when both width and height are specified.
