@@ -18,7 +18,7 @@
 # Integration resources:
 #
 # - Minimum supported Python + core packages (minimum supported versions)
-#   + optional packages (minimum supported versions if any)
+#   + optional packages
 # - Latest Python + core packages (latest versions) + optional packages
 # - Last release before the latest Python + core packages
 #
