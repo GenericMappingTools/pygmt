@@ -35,21 +35,23 @@ def test_logo_on_a_map():
     return fig
 
 
-@pytest.mark.mpl_image_compare(filename="test_logo_position_deprecated_syntax.png")
-def test_logo_position():
+@pytest.mark.mpl_image_compare
+def test_logo_position_type():
     """
     Test that the new group of parameters works as expected.
     """
     fig = Figure()
     fig.basemap(region=[-90, -70, 0, 20], projection="M15c", frame=True)
-    fig.logo(position="TL", position_type="inside")
-    fig.logo(position="TR", position_type="inside", width="7.5c")
-    fig.logo(position=(6, 0), width="7.5c")
-    fig.logo(position=(0, 0))
+    fig.logo(position_type="inside", position="TL")
+    fig.logo(position_type="outside", position="TR")
+    fig.logo(position_type="mapcoords", position=(-80, 15))
+    fig.logo(position_type="boxcoords", position=(0, 0.5))
+    fig.logo(position_type="plotcoords", position=("2c", "0c"), width="5c")
+    fig.logo(position=("8c", "0c"))  # Default position_type is "plotcoords".
     return fig
 
 
-@pytest.mark.mpl_image_compare
+@pytest.mark.mpl_image_compare(filename="test_logo_position_type.png")
 def test_logo_position_deprecated_syntax():
     """
     Test that passing the deprecated GMT CLI syntax string to 'position' works.
@@ -57,9 +59,11 @@ def test_logo_position_deprecated_syntax():
     fig = Figure()
     fig.basemap(region=[-90, -70, 0, 20], projection="M15c", frame=True)
     fig.logo(position="jTL")
-    fig.logo(position="jTR+w7.5c")
-    fig.logo(position="6/0+w7.5c")
-    fig.logo(position="0/0")  # This is actually the new syntax.
+    fig.logo(position="JTR")
+    fig.logo(position="g-80/15")
+    fig.logo(position="n0/0.5")
+    fig.logo(position="x2c/0c+w5c")
+    fig.logo(position="8c/0c")
     return fig
 
 
