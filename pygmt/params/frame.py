@@ -1,18 +1,30 @@
 """
-The frame parameter.
+The Axes, Axis, and Frame classes for specifying the frame.
 """
 
-from dataclasses import dataclass
-from typing import Any
-
+import dataclasses
 from pygmt.alias import Alias
 from pygmt.params.base import BaseParam
+from typing import Any
 
 
-@dataclass(repr=False)
+@dataclasses.dataclass(repr=False)
 class Axes(BaseParam):
     """
-    Class for setting up the axes, title, and fill of a plot.
+    Class for specifying the frame of a plot.
+
+    Attributes
+    ----------
+    axes
+        Specify which axes to draw and their attributes.
+    fill
+        Fill for the interior of the canvas [Default is no fill]. This also sets fill
+        for the two back-walls in 3-D plots.
+    title
+        The title string centered above the plot frame [Default is no title].
+    subtitle
+        The subtitle string beneath the title [Default is no subtitle]. This requires
+        ``title`` to be set.
 
     Examples
     --------
@@ -21,20 +33,22 @@ class Axes(BaseParam):
     'WSen+glightred+tMy Plot Title'
     """
 
-    axes: Any = None
-    fill: Any = None
-    title: Any = None
+    axes: str | None = None
+    fill: str | None = None
+    title: str | None = None
+    subtitle: str | None = None
 
     @property
     def _aliases(self):
         return [
-            Alias(self.axes),
-            Alias(self.fill, prefix="+g"),
-            Alias(self.title, prefix="+t"),
+            Alias(self.axes, name="axes"),
+            Alias(self.fill, name="fill", prefix="+g"),
+            Alias(self.title, name="title", prefix="+t"),
+            Alias(self.subtitle, name="subtitle", prefix="+s"),
         ]
 
 
-@dataclass(repr=False)
+@dataclasses.dataclass(repr=False)
 class Axis(BaseParam):
     """
     Class for setting up one axis of a plot.
@@ -61,7 +75,7 @@ class Axis(BaseParam):
         ]
 
 
-@dataclass(repr=False)
+@dataclasses.dataclass(repr=False)
 class Frame(BaseParam):
     """
     Class for setting up the frame of a plot.
