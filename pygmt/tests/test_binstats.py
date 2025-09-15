@@ -67,7 +67,8 @@ def test_binstats_quantile():
     assert temp_grid.dims == ("y", "x")
     assert temp_grid.gmt.gtype is GridType.CARTESIAN
     assert temp_grid.gmt.registration is GridRegistration.GRIDLINE
+    assert temp_grid.dtype == "float32"
     npt.assert_allclose(temp_grid.max(), 15047685)
-    npt.assert_allclose(temp_grid.min(), 53)
+    npt.assert_allclose(temp_grid.min(skipna=True), 53)
     npt.assert_allclose(temp_grid.median(), 543664.5)
     npt.assert_allclose(temp_grid.mean(), 1661363.6)
