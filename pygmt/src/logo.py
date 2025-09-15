@@ -7,15 +7,17 @@ from typing import Literal
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.params import Box
 
 
 @fmt_docstring
-@use_alias(R="region", D="position", F="box")
+@use_alias(R="region", D="position")
 @kwargs_to_strings(R="sequence", p="sequence")
 def logo(
     self,
     projection=None,
     style: Literal["standard", "url", "no_label"] = "standard",
+    box: Box | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -33,6 +35,7 @@ def logo(
     Full GMT docs at :gmt-docs:`gmtlogo.html`.
 
     {aliases}
+       - F = box
        - J = projection
        - S = style
        - V = verbose
@@ -47,10 +50,13 @@ def logo(
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *width*\ [**+j**\ *justify*]\ [**+o**\ *dx*\ [/*dy*]].
         Set reference point on the map for the image.
-    box : bool or str
-        If set to ``True``, draw a rectangular border around the
-        GMT logo.
-    style
+    box
+        Draw a background box behind the logo. If set to ``True``, a simple rectangular
+        box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,
+        pass a :class:`pygmt.params.Box` object to control style, fill, pen, and other
+        box properties.
+    style : str
+        [**l**\|\ **n**\|\ **u**].
         Control what is written beneath the map portion of the logo.
 
         - ``"standard"``: The text label "The Generic Mapping Tools".
@@ -63,6 +69,7 @@ def logo(
     self._activate_figure()
 
     aliasdict = AliasSystem(
+        F=Alias(box, name="box"),
         S=Alias(
             style, name="style", mapping={"standard": "l", "url": "u", "no_label": "n"}
         ),

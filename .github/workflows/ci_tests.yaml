@@ -163,7 +163,11 @@ jobs:
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
-        run: uv run dvc pull --no-run-cache --verbose && ls -lhR pygmt/tests/baseline/
+        run: |
+          uv run dvc remote modify upstream url https://${DAGSHUB_TOKEN}@dagshub.com/GenericMappingTools/pygmt.dvc --local
+          uv run dvc pull --no-run-cache --verbose && ls -lhR pygmt/tests/baseline/
+        env:
+          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
 
       # Install the package that we want to test
       - name: Install the package
@@ -183,7 +187,7 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@fdcc8476540edceab3de004e990f80d881c6cc00 # v5.5.0
+        uses: codecov/codecov-action@5a1091511ad55cbe89839c7260b706298ca349f7 # v5.5.1
         if: success() || failure()
         with:
           use_oidc: true

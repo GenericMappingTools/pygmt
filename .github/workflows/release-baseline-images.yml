@@ -31,7 +31,11 @@ jobs:
       uses: iterative/setup-dvc@175771be1dc3d119268e00a896b52a4b77decb5e # v1.2.0
 
     - name: Pull baseline image data from dvc remote
-      run: dvc pull && ls -lhR pygmt/tests/baseline/
+      run: |
+        dvc remote modify upstream url https://${DAGSHUB_TOKEN}@dagshub.com/GenericMappingTools/pygmt.dvc --local
+        dvc pull && ls -lhR pygmt/tests/baseline/
+      env:
+        DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
 
     - name: Create the baseline image asset in zip format
       run: |
