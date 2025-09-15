@@ -6,7 +6,6 @@ from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import AnchorCode, PathLike
-from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
