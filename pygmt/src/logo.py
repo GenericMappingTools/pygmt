@@ -10,10 +10,11 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.params import Box
 
 
 @fmt_docstring
-@use_alias(R="region", F="box", S="style")
+@use_alias(R="region", S="style")
 @kwargs_to_strings(R="sequence", p="sequence")
 def logo(  # noqa: PLR0913
     self,
@@ -26,6 +27,7 @@ def logo(  # noqa: PLR0913
     height: float | str | None = None,
     width: float | str | None = None,
     projection=None,
+    box: Box | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -50,6 +52,7 @@ def logo(  # noqa: PLR0913
 
     {aliases}
        - D = position/position_type/anchor/anchor_offset/width/height
+       - F = box
        - J = projection
        - V = verbose
        - c = panel
@@ -95,9 +98,13 @@ def logo(  # noqa: PLR0913
     width/height
         Width or height of the GMT logo. Since the aspect ratio is fixed, only one of
         the two can be specified.
-    box : bool or str
-        If set to ``True``, draw a rectangular border around the
-        GMT logo.
+    box
+        Draw a background box behind the logo. If set to ``True``, a simple rectangular
+        box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,
+        pass a :class:`pygmt.params.Box` object to control style, fill, pen, and other
+        box properties.
+    {projection}
+    {region}
     style : str
         [**l**\|\ **n**\|\ **u**].
         Control what is written beneath the map portion of the logo.
@@ -149,7 +156,8 @@ def logo(  # noqa: PLR0913
             Alias(anchor_offset, name="anchor_offset", prefix="+o", sep="/", size=2),
             Alias(height, name="height", prefix="+h"),
             Alias(width, name="width", prefix="+w"),
-        ]
+        ],
+        F=Alias(box, name="box"),
     ).add_common(
         J=projection,
         V=verbose,
