@@ -74,3 +74,14 @@ def test_logo_width_and_height():
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
         fig.logo(width="5c", height="5c")
+
+
+def test_logo_position_mixed_syntax():
+    """
+    Test that an error is raised when mixing new and deprecated syntax in 'position'.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.logo(position="jTL", width="5c")
+    with pytest.raises(GMTInvalidInput):
+        fig.logo(position="jTL", anchor="BR")
