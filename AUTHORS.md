@@ -2,7 +2,7 @@
 
 This project was started in 2017 by [Leonardo Uieda](https://www.leouieda.com)
 during [an NSF funded postdoc](https://www.leouieda.com/blog/hawaii-gmt-postdoc)
-with [Paul Wessel](https://www.soest.hawaii.edu/wessel) at the University of
+with [Paul Wessel](https://en.wikipedia.org/wiki/Pål_Wessel) at the University of
 Hawaiʻi at Mānoa.
 
 The following people have contributed code and/or documentation to the project

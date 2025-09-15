@@ -6,13 +6,15 @@ from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import AnchorCode, PathLike
+from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.params import Box
 
 
 @fmt_docstring
-@use_alias(F="box", G="bitcolor", M="monochrome", R="region", p="perspective")
+@use_alias(G="bitcolor", M="monochrome", R="region", p="perspective")
 @kwargs_to_strings(R="sequence", p="sequence")
 def image(  # noqa: PLR0913
     self,
@@ -28,6 +30,7 @@ def image(  # noqa: PLR0913
     replicate: int | tuple[int, int] | None = None,
     dpi: float | str | None = None,
     projection=None,
+    box: Box | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -43,6 +46,7 @@ def image(  # noqa: PLR0913
 
     {aliases}
        - D = position/position_type/anchor/anchor_offset/width/height/replicate/dpi
+       - F = box
        - J = projection
        - V = verbose
        - c = panel
@@ -108,11 +112,11 @@ def image(  # noqa: PLR0913
         value is used to interpolate image to the device resolution using the PostScript
         image operator. If neither dimensions nor dpi are set then revert to the default
         dpi [:gmt-term:`GMT_GRAPHICS_DPU`].
-    box : bool or str
-        [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
-        [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
-        If set to ``True``, draw a rectangular border around the image
-        using :gmt-term:`MAP_FRAME_PEN`.
+    box
+        Draw a background box behind the image. If set to ``True``, a simple rectangular
+        box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,
+        pass a :class:`pygmt.params.Box` object to control style, fill, pen, and other
+        box properties.
     bitcolor : str or list
         [*color*][**+b**\|\ **f**\|\ **t**].
         Change certain pixel values to another color or make them transparent.
@@ -144,7 +148,6 @@ def image(  # noqa: PLR0913
     }[position_type]
 
     aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
         D=[
             Alias(position, name="position", sep="/", size=2, prefix=_position_type),
             Alias(anchor, name="anchor", prefix="+j"),
@@ -153,6 +156,7 @@ def image(  # noqa: PLR0913
             Alias(replicate, name="replicate", prefix="+n", sep="/", size=2),
             Alias(dpi, name="dpi", prefix="+r"),
         ],
+        F=Alias(box, name="box"),
     ).add_common(
         J=projection,
         V=verbose,
