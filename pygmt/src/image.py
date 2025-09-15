@@ -19,6 +19,7 @@ def image(
     imagefile: PathLike,
     projection=None,
     box: Box | bool = False,
+    invert: bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -35,6 +36,7 @@ def image(
 
     {aliases}
        - F = box
+       - I = invert
        - J = projection
        - V = verbose
        - c = panel
@@ -68,6 +70,9 @@ def image(
         to make those pixels transparent. Can be repeated with different
         settings. Alternatively, for color images you can select a single
         *color* that should be made transparent instead (**+t**).
+    invert
+        Invert 1-bit image before plotting, i.e., black pixels (on) becomes white (off)
+        and vice versa. Ignored if used with color images.
     monochrome : bool
         Convert color image to monochrome grayshades using the (television)
         YIQ-transformation.
@@ -80,6 +85,7 @@ def image(
 
     aliasdict = AliasSystem(
         F=Alias(box, name="box"),
+        I=Alias(invert, name="invert"),
     ).add_common(
         J=projection,
         V=verbose,
