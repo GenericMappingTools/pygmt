@@ -7,7 +7,7 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Any, ClassVar, Literal
 
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 from pygmt.src.which import which
 
 
@@ -115,17 +115,17 @@ class _FocalMechanismConvention:
     >>> conv = _FocalMechanismConvention(convention="invalid")
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Invalid focal mechanism ...'.
+    pygmt.exceptions.GMTValueError: Invalid focal mechanism convention: ...
 
     >>> conv = _FocalMechanismConvention("mt", component="invalid")
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Invalid focal mechanism ...'.
+    pygmt.exceptions.GMTValueError: Invalid focal mechanism convention: ...
 
     >>> _FocalMechanismConvention.from_params(["strike", "dip", "rake"])
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Fail to determine focal mechanism convention...
+    pygmt.exceptions.GMTValueError: Invalid focal mechanism parameters: ...
     """
 
     # Mapping of focal mechanism conventions to their parameters.
@@ -198,11 +198,8 @@ class _FocalMechanismConvention:
         else:  # Convention is specified via "convention" and "component".
             name = f"{convention.upper()}_{component.upper()}"  # e.g., "AKI_DC"
             if name not in _FocalMechanismConventionCode.__members__:
-                msg = (
-                    "Invalid focal mechanism convention with "
-                    f"convention='{convention}' and component='{component}'."
-                )
-                raise GMTInvalidInput(msg)
+                _value = f"convention='{convention}', component='{component}'"
+                raise GMTValueError(_value, description="focal mechanism convention")
             self.code = _FocalMechanismConventionCode[name]
             self._convention = convention
 
@@ -239,68 +236,11 @@ class _FocalMechanismConvention:
 
         Raises
         ------
-        GMTInvalidInput
+        GMTValueError
             If the focal mechanism convention cannot be determined from the given
             parameters.
         """
         for convention, param_list in cls._params.items():
             if set(param_list).issubset(set(params)):
-                return cls(convention, component=component)
-        msg = (
-            "Fail to determine focal mechanism convention from the given parameters: "
-            f"{', '.join(params)}."
-        )
-        raise GMTInvalidInput(msg)
-
-
-def _parse_coastline_resolution(
-    resolution: Literal["auto", "full", "high", "intermediate", "low", "crude", None],
-) -> Literal["a", "f", "h", "i", "l", "c", None]:
-    """
-    Parse the 'resolution' parameter for coastline-related functions.
-
-    Parameters
-    ----------
-    resolution
-        The resolution of the coastline dataset to use. The available resolutions from
-        highest to lowest are: ``"full"``, ``"high"``, ``"intermediate"``, ``"low"``,
-        and ``"crude"``, which drops by 80% between levels. Alternatively, choose
-        ``"auto"`` to automatically select the most suitable resolution given the chosen
-        map scale or region. ``None`` means using the default resolution.
-
-    Returns
-    -------
-    The single-letter resolution code or ``None``.
-
-    Raises
-    ------
-    GMTInvalidInput
-        If the resolution is invalid.
-
-    Examples
-    --------
-    >>> _parse_coastline_resolution("full")
-    'f'
-    >>> _parse_coastline_resolution("f")
-    'f'
-    >>> _parse_coastline_resolution(None)
-    >>> _parse_coastline_resolution("invalid")
-    Traceback (most recent call last):
-    ...
-    pygmt.exceptions.GMTInvalidInput: Invalid resolution: 'invalid'. Valid values ...
-    """
-    if resolution is None:
-        return None
-
-    _valid_res = {"auto", "full", "high", "intermediate", "low", "crude"}
-
-    if resolution in _valid_res:  # Long-form arguments.
-        return resolution[0]  # type: ignore[return-value]
-
-    if resolution in {_res[0] for _res in _valid_res}:  # Short-form arguments.
-        return resolution  # type: ignore[return-value]
-
-    msg = (
-        f"Invalid resolution: '{resolution}'. Valid values are {', '.join(_valid_res)}."
-    )
-    raise GMTInvalidInput(msg)
+                return cls(convention, component=component)  # type: ignore[arg-type]
+        raise GMTValueError(params, description="focal mechanism parameters")

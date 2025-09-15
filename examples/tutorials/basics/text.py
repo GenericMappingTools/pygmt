@@ -37,11 +37,7 @@ fig.show()
 # * ``angle``: Specifies the rotation of the text. It is measured counter-clockwise
 #   from the horizontal in degrees.
 # * ``justify``: Defines the anchor point of the bounding box for the text. It is
-#   specified by a two-letter (order independent) code, chosen from:
-#
-#   * Vertical: **T**\(op), **M**\(iddle), **B**\(ottom)
-#   * Horizontal: **L**\(eft), **C**\(entre), **R**\(ight)
-#
+#   specified by a :doc:`2-character justification code </techref/justification_codes>`.
 # * ``offset``: Shifts the text relatively to the reference point.
 
 fig = pygmt.Figure()
@@ -191,12 +187,8 @@ fig.show()
 #
 # Instead of using the ``x`` and ``y`` parameters, the ``position`` parameter can be
 # specified to set the reference point for the text on the plot. As for the ``justify``
-# parameter, the ``position`` parameter is specified by a two-letter (order independent)
-# code, chosen from:
-#
-# * Vertical: **T**\(op), **M**\(iddle), **B**\(ottom)
-# * Horizontal: **L**\(eft), **C**\(entre), **R**\(ight)
-#
+# parameter, the ``position`` parameter is specified by a
+# :doc:`2-character justification code </techref/justification_codes>`.
 # This can be helpful to add a tag to a subplot or text labels out of the plot or map
 # frame, e.g., for depth slices.
 

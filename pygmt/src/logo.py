@@ -2,6 +2,9 @@
 logo - Plot the GMT logo.
 """
 
+from typing import Literal
+
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -9,16 +12,20 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @fmt_docstring
 @use_alias(
     R="region",
-    J="projection",
     D="position",
     F="box",
     S="style",
-    V="verbose",
-    c="panel",
-    t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def logo(self, **kwargs):
+@kwargs_to_strings(R="sequence", p="sequence")
+def logo(
+    self,
+    projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
+    **kwargs,
+):
     r"""
     Plot the GMT logo.
 
@@ -30,6 +37,10 @@ def logo(self, **kwargs):
     Full GMT docs at :gmt-docs:`gmtlogo.html`.
 
     {aliases}
+       - J = projection
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -55,5 +66,14 @@ def logo(self, **kwargs):
     {transparency}
     """
     self._activate_figure()
+
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
-        lib.call_module(module="logo", args=build_arg_list(kwargs))
+        lib.call_module(module="logo", args=build_arg_list(aliasdict))

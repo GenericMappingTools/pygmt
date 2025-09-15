@@ -3,10 +3,12 @@ legend - Plot a legend.
 """
 
 import io
+from typing import Literal
 
 from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTTypeError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
@@ -20,20 +22,21 @@ from pygmt.helpers import (
 @fmt_docstring
 @use_alias(
     R="region",
-    J="projection",
     D="position",
     F="box",
-    V="verbose",
-    c="panel",
     p="perspective",
-    t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", p="sequence")
 def legend(
     self,
     spec: PathLike | io.StringIO | None = None,
+    projection=None,
     position="JTR+jTR+o0.2c",
     box="+gwhite+p1p",
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -48,6 +51,10 @@ def legend(
     Full GMT docs at :gmt-docs:`legend.html`.
 
     {aliases}
+       - J = projection
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -91,12 +98,22 @@ def legend(
 
     kind = data_kind(spec)
     if kind not in {"empty", "file", "stringio"}:
-        msg = f"Unrecognized data type: {type(spec)}"
-        raise GMTInvalidInput(msg)
+        raise GMTTypeError(type(spec))
     if kind == "file" and is_nonstr_iter(spec):
-        msg = "Only one legend specification file is allowed."
-        raise GMTInvalidInput(msg)
+        raise GMTTypeError(
+            type(spec), reason="Only one legend specification file is allowed."
+        )
+
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(data=spec, required=False) as vintbl:
-            lib.call_module(module="legend", args=build_arg_list(kwargs, infile=vintbl))
+            lib.call_module(
+                module="legend", args=build_arg_list(aliasdict, infile=vintbl)
+            )

@@ -6,8 +6,9 @@ from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTTypeError, GMTValueError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
@@ -22,10 +23,8 @@ __doctest_skip__ = ["grdcut"]
 @fmt_docstring
 @use_alias(
     R="region",
-    J="projection",
     N="extend",
     S="circ_subregion",
-    V="verbose",
     Z="z_subregion",
     f="coltypes",
 )
@@ -34,6 +33,9 @@ def grdcut(
     grid: PathLike | xr.DataArray,
     kind: Literal["grid", "image"] = "grid",
     outgrid: PathLike | None = None,
+    projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -51,6 +53,8 @@ def grdcut(
     Full GMT docs at :gmt-docs:`grdcut.html`.
 
     {aliases}
+       - J = projection
+       - V = verbose
 
     Parameters
     ----------
@@ -113,8 +117,7 @@ def grdcut(
     >>> new_grid = pygmt.grdcut(grid=grid, region=[12, 15, 21, 24])
     """
     if kind not in {"grid", "image"}:
-        msg = f"Invalid raster kind: '{kind}'. Valid values are 'grid' and 'image'."
-        raise GMTInvalidInput(msg)
+        raise GMTValueError(kind, description="raster kind", choices=["grid", "image"])
 
     # Determine the output data kind based on the input data kind.
     match inkind := data_kind(grid):
@@ -123,16 +126,23 @@ def grdcut(
         case "file":
             outkind = kind
         case _:
-            msg = f"Unsupported data type {type(grid)}."
-            raise GMTInvalidInput(msg)
+            raise GMTTypeError(type(grid))
+
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_out(kind=outkind, fname=outgrid) as voutgrd,
         ):
-            kwargs["G"] = voutgrd
-            lib.call_module(module="grdcut", args=build_arg_list(kwargs, infile=vingrd))
+            aliasdict["G"] = voutgrd
+            lib.call_module(
+                module="grdcut", args=build_arg_list(aliasdict, infile=vingrd)
+            )
             return lib.virtualfile_to_raster(
                 vfname=voutgrd, kind=outkind, outgrid=outgrid
             )

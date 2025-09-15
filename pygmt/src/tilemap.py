@@ -4,6 +4,7 @@ tilemap - Plot XYZ tile maps.
 
 from typing import Literal
 
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.datasets.tile_map import load_tile_map
 from pygmt.enums import GridType
@@ -20,18 +21,14 @@ except ImportError:
     B="frame",
     E="dpi",
     I="shading",
-    J="projection",
     M="monochrome",
     N="no_clip",
     Q="nan_transparent",
     # R="region",
-    V="verbose",
-    c="panel",
     p="perspective",
-    t="transparency",
 )
-@kwargs_to_strings(c="sequence_comma", p="sequence")  # R="sequence",
-def tilemap(
+@kwargs_to_strings(p="sequence")  # R="sequence",
+def tilemap(  # noqa: PLR0913
     self,
     region: list,
     zoom: int | Literal["auto"] = "auto",
@@ -40,6 +37,11 @@ def tilemap(
     wait: int = 0,
     max_retries: int = 2,
     zoom_adjust: int | None = None,
+    projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -56,6 +58,10 @@ def tilemap(
     provide Spherical Mercator (EPSG:3857) coordinates to the ``region`` parameter.
 
     {aliases}
+       - J = projection
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -125,8 +131,16 @@ def tilemap(
     if kwargs.get("N") in {None, False}:
         kwargs["R"] = "/".join(str(coordinate) for coordinate in region)
 
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=raster) as vingrd:
             lib.call_module(
-                module="grdimage", args=build_arg_list(kwargs, infile=vingrd)
+                module="grdimage", args=build_arg_list(aliasdict, infile=vingrd)
             )

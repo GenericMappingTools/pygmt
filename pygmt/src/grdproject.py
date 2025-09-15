@@ -2,8 +2,11 @@
 grdproject - Forward and inverse map transformation of grids.
 """
 
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -17,17 +20,20 @@ __doctest_skip__ = ["grdproject"]
     D="spacing",
     E="dpi",
     F="scaling",
-    J="projection",
     I="inverse",
     M="unit",
     R="region",
-    V="verbose",
     n="interpolation",
     r="registration",
 )
 @kwargs_to_strings(C="sequence", D="sequence", R="sequence")
 def grdproject(
-    grid: PathLike | xr.DataArray, outgrid: PathLike | None = None, **kwargs
+    grid: PathLike | xr.DataArray,
+    outgrid: PathLike | None = None,
+    projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
 ) -> xr.DataArray | None:
     r"""
     Forward and inverse map transformation of grids.
@@ -50,6 +56,8 @@ def grdproject(
     Full GMT docs at :gmt-docs:`grdproject.html`.
 
     {aliases}
+       - J = projection
+       - V = verbose
 
     Parameters
     ----------
@@ -105,17 +113,23 @@ def grdproject(
     >>> # Project the geographic gridded data onto a rectangular grid
     >>> new_grid = pygmt.grdproject(grid=grid, projection="M10c", region=region)
     """
-    if kwargs.get("J") is None:
+    if projection is None:
         msg = "The projection must be specified."
         raise GMTInvalidInput(msg)
+
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            kwargs["G"] = voutgrd
+            aliasdict["G"] = voutgrd
             lib.call_module(
-                module="grdproject", args=build_arg_list(kwargs, infile=vingrd)
+                module="grdproject", args=build_arg_list(aliasdict, infile=vingrd)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

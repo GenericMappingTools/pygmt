@@ -8,8 +8,9 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
@@ -25,7 +26,6 @@ __doctest_skip__ = ["grd2xyz"]
 @use_alias(
     C="cstyle",
     R="region",
-    V="verbose",
     W="weight",
     Z="convention",
     b="binary",
@@ -40,6 +40,8 @@ def grd2xyz(
     grid: PathLike | xr.DataArray,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -51,6 +53,7 @@ def grd2xyz(
     Full GMT docs at :gmt-docs:`grd2xyz.html`.
 
     {aliases}
+       - V = verbose
 
     Parameters
     ----------
@@ -145,16 +148,22 @@ def grd2xyz(
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
     if kwargs.get("o") is not None and output_type == "pandas":
-        msg = (
-            "If 'outcols' is specified, 'output_type' must be either 'numpy' or 'file'."
+        raise GMTValueError(
+            output_type,
+            description="value for parameter 'output_type'",
+            reason="Expected one of: 'numpy', 'file' if 'outcols' is specified.",
         )
-        raise GMTInvalidInput(msg)
     # Set the default column names for the pandas DataFrame header.
     column_names: list[str] = ["x", "y", "z"]
     # Let output pandas column names match input DataArray dimension names
     if output_type == "pandas" and isinstance(grid, xr.DataArray):
         # Reverse the dims because it is rows, columns ordered.
         column_names = [str(grid.dims[1]), str(grid.dims[0]), str(grid.name)]
+
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (
@@ -163,7 +172,7 @@ def grd2xyz(
         ):
             lib.call_module(
                 module="grd2xyz",
-                args=build_arg_list(kwargs, infile=vingrd, outfile=vouttbl),
+                args=build_arg_list(aliasdict, infile=vingrd, outfile=vouttbl),
             )
             return lib.virtualfile_to_dataset(
                 vfname=vouttbl, output_type=output_type, column_names=column_names

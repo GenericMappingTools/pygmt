@@ -2,7 +2,10 @@
 Histogram - Calculate and plot histograms.
 """
 
+from typing import Literal
+
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -16,37 +19,44 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     E="barwidth",
     F="center",
     G="fill",
-    J="projection",
     L="extreme",
     N="distribution",
     Q="cumulative",
     R="region",
     S="stairs",
     T="series",
-    V="verbose",
     W="pen",
     Z="histtype",
     b="binary",
-    c="panel",
     d="nodata",
     e="find",
     h="header",
     i="incols",
     l="label",
     p="perspective",
-    t="transparency",
     w="wrap",
 )
-@kwargs_to_strings(
-    R="sequence", T="sequence", c="sequence_comma", i="sequence_comma", p="sequence"
-)
-def histogram(self, data: PathLike | TableLike, **kwargs):
+@kwargs_to_strings(R="sequence", T="sequence", i="sequence_comma", p="sequence")
+def histogram(
+    self,
+    data: PathLike | TableLike,
+    projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
+    **kwargs,
+):
     r"""
     Calculate and plot histograms.
 
     Full GMT docs at :gmt-docs:`histogram.html`.
 
     {aliases}
+       - J = projection
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -136,8 +146,17 @@ def histogram(self, data: PathLike | TableLike, **kwargs):
     {wrap}
     """
     self._activate_figure()
+
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
             lib.call_module(
-                module="histogram", args=build_arg_list(kwargs, infile=vintbl)
+                module="histogram", args=build_arg_list(aliasdict, infile=vintbl)
             )

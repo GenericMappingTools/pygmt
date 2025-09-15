@@ -23,17 +23,17 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4.2.2
+      uses: actions/checkout@v5.0.0
       with:
         # fetch all history so that dvc diff works
         fetch-depth: 0
         persist-credentials: false
 
     - name: Setup data version control (DVC)
-      uses: iterative/setup-dvc@v1.1.2
+      uses: iterative/setup-dvc@175771be1dc3d119268e00a896b52a4b77decb5e # v1.2.0
 
     - name: Setup continuous machine learning (CML)
-      uses: iterative/setup-cml@v2.0.0
+      uses: iterative/setup-cml@f714cd201b7183852dd6f94192b34e7618717560 # v2.0.0
 
     # Produce the markdown diff report, which should look like:
     # ## Summary of changed images
@@ -57,9 +57,13 @@ jobs:
       env:
         repo_token: ${{ github.token }}
         PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
       run: |
         echo -e "## Summary of changed images\n" > report.md
         echo -e "This is an auto-generated report of images that have changed on the DVC remote\n" >> report.md
+
+        # Configure DVC to use the DAGsHub remote via a token
+        dvc remote modify upstream url https://${DAGSHUB_TOKEN}@dagshub.com/GenericMappingTools/pygmt.dvc --local
 
         # Pull image data from cloud storage
         dvc pull --remote upstream

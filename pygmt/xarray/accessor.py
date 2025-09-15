@@ -3,12 +3,25 @@ GMT accessor for :class:`xarray.DataArray`.
 """
 
 import contextlib
+import functools
 from pathlib import Path
 
 import xarray as xr
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTInvalidInput
-from pygmt.src.grdinfo import grdinfo
+from pygmt.exceptions import GMTValueError
+from pygmt.src import (
+    dimfilter,
+    grdclip,
+    grdcut,
+    grdfill,
+    grdfilter,
+    grdgradient,
+    grdhisteq,
+    grdinfo,
+    grdproject,
+    grdsample,
+    grdtrack,
+)
 
 
 @xr.register_dataarray_accessor("gmt")
@@ -22,6 +35,11 @@ class GMTDataArrayAccessor:
 
     - ``registration``: Grid registration type :class:`pygmt.enums.GridRegistration`.
     - ``gtype``: Grid coordinate system type :class:`pygmt.enums.GridType`.
+
+    The *gmt* accessor also provides a set of grid-operation methods that enables
+    applying GMT's grid processing functionalities directly to the current
+    :class:`xarray.DataArray` object. See the summary table below for the list of
+    available methods.
 
     Notes
     -----
@@ -150,6 +168,19 @@ class GMTDataArrayAccessor:
     >>> zval.gmt.gtype = GridType.GEOGRAPHIC
     >>> zval.gmt.registration, zval.gmt.gtype
     (<GridRegistration.GRIDLINE: 0>, <GridType.GEOGRAPHIC: 1>)
+
+    Instead of calling a grid-processing function and passing the
+    :class:`xarray.DataArray` object as an input, you can call the corresponding method
+    directly on the object. For example, the following two are equivalent:
+
+    >>> from pygmt.datasets import load_earth_relief
+    >>> grid = load_earth_relief(resolution="30m", region=[10, 30, 15, 25])
+    >>> # Create a new grid from an input grid. Set all values below 1,000 to 0 and all
+    >>> # values above 1,500 to 10,000.
+    >>> # Option 1:
+    >>> new_grid = pygmt.grdclip(grid=grid, below=[1000, 0], above=[1500, 10000])
+    >>> # Option 2:
+    >>> new_grid = grid.gmt.clip(below=[1000, 0], above=[1500, 10000])
     """
 
     def __init__(self, xarray_obj: xr.DataArray):
@@ -180,11 +211,9 @@ class GMTDataArrayAccessor:
     def registration(self, value: GridRegistration | int):
         # TODO(Python>=3.12): Simplify to `if value not in GridRegistration`.
         if value not in GridRegistration.__members__.values():
-            msg = (
-                f"Invalid grid registration: '{value}'. Should be either "
-                "GridRegistration.GRIDLINE (0) or GridRegistration.PIXEL (1)."
+            raise GMTValueError(
+                value, description="grid registration", choices=GridRegistration
             )
-            raise GMTInvalidInput(msg)
         self._registration = GridRegistration(value)
 
     @property
@@ -198,9 +227,33 @@ class GMTDataArrayAccessor:
     def gtype(self, value: GridType | int):
         # TODO(Python>=3.12): Simplify to `if value not in GridType`.
         if value not in GridType.__members__.values():
-            msg = (
-                f"Invalid grid coordinate system type: '{value}'. "
-                "Should be either GridType.CARTESIAN (0) or GridType.GEOGRAPHIC (1)."
+            raise GMTValueError(
+                value, description="grid coordinate system type", choices=GridType
             )
-            raise GMTInvalidInput(msg)
         self._gtype = GridType(value)
+
+    @staticmethod
+    def _make_method(func):
+        """
+        Create a wrapper method for PyGMT grid-processing methods.
+
+        The :class:`xarray.DataArray` object is passed as the first argument.
+        """
+
+        @functools.wraps(func)
+        def wrapper(self, *args, **kwargs):
+            return func(self._obj, *args, **kwargs)
+
+        return wrapper
+
+    # Accessor methods for grid operations.
+    clip = _make_method(grdclip)
+    cut = _make_method(grdcut)
+    dimfilter = _make_method(dimfilter)
+    histeq = _make_method(grdhisteq.equalize_grid)
+    fill = _make_method(grdfill)
+    filter = _make_method(grdfilter)
+    gradient = _make_method(grdgradient)
+    project = _make_method(grdproject)
+    sample = _make_method(grdsample)
+    track = _make_method(grdtrack)

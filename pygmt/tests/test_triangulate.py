@@ -10,7 +10,7 @@ import pytest
 import xarray as xr
 from pygmt import triangulate, which
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTTypeError, GMTValueError
 from pygmt.helpers import GMTTempFile
 
 
@@ -94,7 +94,7 @@ def test_delaunay_triples_wrong_kind_of_input(dataframe):
     Run triangulate.delaunay_triples using grid input that is not file/matrix/vectors.
     """
     data = dataframe.z.to_xarray()  # convert pandas.Series to xarray.DataArray
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         triangulate.delaunay_triples(data=data)
 
 
@@ -114,7 +114,7 @@ def test_delaunay_triples_outfile(dataframe, expected_dataframe):
     with GMTTempFile(suffix=".txt") as tmpfile:
         with pytest.warns(RuntimeWarning) as record:
             result = triangulate.delaunay_triples(data=dataframe, outfile=tmpfile.name)
-            assert len(record) == 1  # check that only one warning was raised
+        assert len(record) == 1  # check that only one warning was raised
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0
         temp_df = pd.read_csv(
@@ -127,7 +127,7 @@ def test_delaunay_triples_invalid_format(dataframe):
     """
     Test that triangulate.delaunay_triples fails with incorrect format.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         triangulate.delaunay_triples(data=dataframe, output_type=1)
 
 

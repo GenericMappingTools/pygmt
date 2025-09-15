@@ -3,11 +3,11 @@ Internal function to load GMT remote datasets.
 """
 
 import contextlib
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from typing import Any, Literal, NamedTuple
 
 import xarray as xr
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 
 with contextlib.suppress(ImportError):
     # rioxarray is needed to register the rio accessor
@@ -58,8 +58,8 @@ class GMTRemoteDataset(NamedTuple):
     description: str
     kind: Literal["grid", "image"]
     units: str | None
-    resolutions: dict[str, Resolution]
-    extra_attributes: dict[str, Any]
+    resolutions: Mapping[str, Resolution]
+    extra_attributes: Mapping[str, Any]
     crs: str | None = None
 
 
@@ -546,11 +546,11 @@ def _load_remote_dataset(
 
     # Check resolution
     if resolution not in dataset.resolutions:
-        msg = (
-            f"Invalid resolution '{resolution}' for {dataset.description} dataset. "
-            f"Available resolutions are: {', '.join(dataset.resolutions)}."
+        raise GMTValueError(
+            resolution,
+            description=f"resolution for {dataset.description} dataset",
+            choices=dataset.resolutions.keys(),
         )
-        raise GMTInvalidInput(msg)
     resinfo = dataset.resolutions[resolution]
 
     # Check registration
@@ -559,13 +559,15 @@ def _load_remote_dataset(
             # Use gridline registration unless only pixel registration is available
             reg = "g" if "gridline" in resinfo.registrations else "p"
         case x if x not in resinfo.registrations:
-            msg = (
-                f"Invalid grid registration '{registration}' for the {resolution} "
-                f"{dataset.description} dataset. Should be either 'pixel', 'gridline' "
-                "or None. Default is None, where a gridline-registered grid is "
-                "returned unless only the pixel-registered grid is available."
+            raise GMTValueError(
+                registration,
+                description=f"grid registration for the {resolution} {dataset.description} dataset",
+                choices=[*resinfo.registrations, None],
+                reason=(
+                    "Default is None, where a gridline-registered grid is returned "
+                    "unless only the pixel-registered grid is available."
+                ),
             )
-            raise GMTInvalidInput(msg)
         case _:
             reg = registration[0]
 

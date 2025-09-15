@@ -2,7 +2,10 @@
 image - Plot raster or EPS images.
 """
 
+from typing import Literal
+
 from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -12,16 +15,21 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     D="position",
     F="box",
     G="bitcolor",
-    J="projection",
     M="monochrome",
     R="region",
-    V="verbose",
-    c="panel",
     p="perspective",
-    t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def image(self, imagefile: PathLike, **kwargs):
+@kwargs_to_strings(R="sequence", p="sequence")
+def image(
+    self,
+    imagefile: PathLike,
+    projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
+    **kwargs,
+):
     r"""
     Plot raster or EPS images.
 
@@ -31,6 +39,10 @@ def image(self, imagefile: PathLike, **kwargs):
     Full GMT docs at :gmt-docs:`image.html`.
 
     {aliases}
+       - J = projection
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -69,5 +81,16 @@ def image(self, imagefile: PathLike, **kwargs):
     {transparency}
     """
     self._activate_figure()
+
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
-        lib.call_module(module="image", args=build_arg_list(kwargs, infile=imagefile))
+        lib.call_module(
+            module="image", args=build_arg_list(aliasdict, infile=imagefile)
+        )

@@ -2,11 +2,13 @@
 plot3d - Plot lines, polygons, and symbols in 3-D.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
@@ -20,13 +22,11 @@ from pygmt.src._common import _data_geometry_is_point
 
 @fmt_docstring
 @use_alias(
-    A="straight_line",
     B="frame",
     C="cmap",
     D="offset",
     G="fill",
     I="intensity",
-    J="projection",
     Jz="zscale",
     JZ="zsize",
     L="close",
@@ -34,12 +34,10 @@ from pygmt.src._common import _data_geometry_is_point
     Q="no_sort",
     R="region",
     S="style",
-    V="verbose",
     W="pen",
     Z="zvalue",
     a="aspatial",
     b="binary",
-    c="panel",
     d="nodata",
     e="find",
     f="coltypes",
@@ -48,11 +46,10 @@ from pygmt.src._common import _data_geometry_is_point
     i="incols",
     l="label",
     p="perspective",
-    t="transparency",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot3d(  # noqa: PLR0912
+@kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
+def plot3d(  # noqa: PLR0912, PLR0913
     self,
     data: PathLike | TableLike | None = None,
     x=None,
@@ -61,7 +58,12 @@ def plot3d(  # noqa: PLR0912
     size=None,
     symbol=None,
     direction=None,
-    straight_line: bool | Literal["x", "y"] = False,  # noqa: ARG001
+    straight_line: bool | Literal["x", "y"] = False,
+    projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | Sequence[float] | bool | None = None,
     **kwargs,
 ):
     r"""
@@ -88,6 +90,11 @@ def plot3d(  # noqa: PLR0912
     Full GMT docs at :gmt-docs:`plot3d.html`.
 
     {aliases}
+       - A = straight_line
+       - J = projection
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -201,9 +208,8 @@ def plot3d(  # noqa: PLR0912
     {label}
     {perspective}
     {transparency}
-        ``transparency`` can also be a 1-D array to set varying
-        transparency for symbols, but this option is only valid if using
-        ``x``/``y``/``z``.
+        ``transparency`` can also be a 1-D array to set varying transparency for
+        symbols, but this option is only valid if using ``x``/``y``/``z``.
     {wrap}
     """
     # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
@@ -227,11 +233,14 @@ def plot3d(  # noqa: PLR0912
         # Size
         if is_nonstr_iter(size):
             data["size"] = size
-        # Intensity and transparency
-        for flag, name in [("I", "intensity"), ("t", "transparency")]:
-            if is_nonstr_iter(kwargs.get(flag)):
-                data[name] = kwargs[flag]
-                kwargs[flag] = ""
+        # Intensity
+        if is_nonstr_iter(kwargs.get("I")):
+            data["intensity"] = kwargs["I"]
+            kwargs["I"] = ""
+        # Transparency
+        if is_nonstr_iter(transparency):
+            data["transparency"] = transparency
+            transparency = True
         # Symbol must be at the last column
         if is_nonstr_iter(symbol):
             if "S" not in kwargs:
@@ -247,17 +256,31 @@ def plot3d(  # noqa: PLR0912
             ("fill", kwargs.get("G")),
             ("size", size),
             ("intensity", kwargs.get("I")),
-            ("transparency", kwargs.get("t")),
+            ("transparency", transparency),
             ("symbol", symbol),
         ]:
             if is_nonstr_iter(value):
-                msg = f"'{name}' can't be a 1-D array if 'data' is used."
-                raise GMTInvalidInput(msg)
+                raise GMTTypeError(
+                    type(value),
+                    reason=f"Parameter {name!r} can't be a 1-D array if 'data' is used.",
+                )
 
     # Set the default style if data has a geometry of Point or MultiPoint
     if kwargs.get("S") is None and _data_geometry_is_point(data, kind):
         kwargs["S"] = "u0.2c"
 
+    aliasdict = AliasSystem(
+        A=Alias(straight_line, name="straight_line"),
+    ).add_common(
+        J=projection,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data, mincols=3) as vintbl:
-            lib.call_module(module="plot3d", args=build_arg_list(kwargs, infile=vintbl))
+            lib.call_module(
+                module="plot3d", args=build_arg_list(aliasdict, infile=vintbl)
+            )
