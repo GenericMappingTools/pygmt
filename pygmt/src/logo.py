@@ -55,8 +55,7 @@ def logo(
         box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,
         pass a :class:`pygmt.params.Box` object to control style, fill, pen, and other
         box properties.
-    style : str
-        [**l**\|\ **n**\|\ **u**].
+    style
         Control what is written beneath the map portion of the logo.
 
         - ``"standard"``: The text label "The Generic Mapping Tools".
