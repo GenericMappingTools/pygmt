@@ -31,6 +31,18 @@ def image(
 
     Reads an Encapsulated PostScript file or a raster image file and plots
     it on a map.
+    Reads an Encapsulated PostScript (EPS) file or a raster image file and plots it. The
+    image can be scaled arbitrarily, and 1-bit raster images can be
+
+    - inverted, i.e., black pixels (on) becomes white (off) and vice versa
+    - colorized, by assigning different foreground and background colors
+    - made transparent where one of back- or foreground is painted only.
+
+    As an option, the user may choose to convert colored raster images to grayscale
+    using TV's YIQ-transformation. For raster files, the user can select which color to
+    be made transparent. The user may also choose to replicate the image which, when
+    preceded by appropriate clip paths, may allow larger custom-designed fill patterns
+    to be implemented.
 
     Full GMT docs at :gmt-docs:`image.html`.
 
@@ -44,12 +56,10 @@ def image(
 
     Parameters
     ----------
-    imagefile : str
-        This must be an Encapsulated PostScript (EPS) file or a raster
-        image. An EPS file must contain an appropriate BoundingBox. A
-        raster file can have a depth of 1, 8, 24, or 32 bits and is read
-        via GDAL. **Note**: If GDAL was not configured during GMT installation
-        then only EPS files are supported.
+    imagefile
+        An Encapsulated PostScript (EPS) file or a raster image file. An EPS file must
+        contain an appropriate BoundingBox. A raster file can have a depth of 1, 8, 24,
+        or 32 bits and is read via GDAL.
     {projection}
     {region}
     position : str
