@@ -1,6 +1,7 @@
 """
 Define the Pen class for specifying pen attributes (width, color, style).
 """
+
 from dataclasses import dataclass
 
 

@@ -1,7 +1,8 @@
 """
 Tests for the Pen param class.
 """
-from pygmt.param import Pen
+
+from pygmt.params import Pen
 
 
 def test_param_pen_width_or_color_or_style_only():
