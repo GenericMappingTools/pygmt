@@ -15,7 +15,7 @@ class Pen(BaseParam):
     r"""
     A GMT pen specified from three attributes: *width*, *color* and *style*.
 
-    See also :gmt-docs:`cookbook/features.html#specifying-pen-attributes`
+    See also :gmt-docs:`reference/features.html#specifying-pen-attributes`
 
     Attributes
     ----------

@@ -197,7 +197,6 @@ Getting metadata from tabular or grid data:
 Xarray Integration
 ------------------
 
-    param.Pen
 .. autosummary::
     :toctree: generated
 
