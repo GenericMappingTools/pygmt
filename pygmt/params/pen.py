@@ -42,18 +42,18 @@ class Pen:
     color : str
         The *color* can be specified in five different ways:
 
-        - Gray. Specify a *gray* shade in the range 0–255 (linearly going
+        - Gray. Specify a *gray* shade in the range 0-255 (linearly going
           from black [0] to white [255]).
 
-        - RGB. Specify *r*/*g*/*b*, each ranging from 0–255. Here 0/0/0 is
+        - RGB. Specify *r*/*g*/*b*, each ranging from 0-255. Here 0/0/0 is
           black, 255/255/255 is white, 255/0/0 is red, etc. Alternatively,
           you can give RGB in hexadecimal using the *#rrggbb* format.
 
         - HSV. Specify *hue*-*saturation*-*value*, with the former in the
-          0–360 degree range while the latter two take on the range 0–1 [17]_.
+          0-360 degree range while the latter two take on the range 0-1 [17]_.
 
         - CMYK. Specify *cyan*/*magenta*/*yellow*/*black*, each ranging
-          from 0–100%.
+          from 0-100%.
 
         - Name. Specify one of 663 valid color names. See
           :gmt-docs:`gmtcolors` for a list of all valid names. A very small
