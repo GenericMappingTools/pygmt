@@ -1,4 +1,5 @@
 outs:
-- md5: 5ac12f7e91127dae1fa70cec77b84c0b
-  size: 9144
+- md5: 78ca6cf49e085f5c450d2421f3a6bcb9
+  size: 9136
   path: test_wiggle.png
+  hash: md5

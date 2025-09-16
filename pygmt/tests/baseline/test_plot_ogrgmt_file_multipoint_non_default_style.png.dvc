@@ -1,0 +1,5 @@
+outs:
+- md5: 31d0dcb4bc3c97fc2e8a6d451009f204
+  size: 4620
+  path: test_plot_ogrgmt_file_multipoint_non_default_style.png
+  hash: md5

@@ -1,0 +1,5 @@
+outs:
+- md5: 069a50aace4873e32c1a74d394d30321
+  size: 8143
+  hash: md5
+  path: test_text_angle_justify_font_arrays.png

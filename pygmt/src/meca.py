@@ -2,462 +2,383 @@
 meca - Plot focal mechanisms.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
 import numpy as np
 import pandas as pd
+from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTError, GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     data_kind,
-    dummy_context,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.src._common import _FocalMechanismConvention
 
 
-def data_format_code(convention, component="full"):
+def _get_focal_convention(spec, convention, component) -> _FocalMechanismConvention:
     """
-    Determine the data format code for meca -S option.
-
-    See the meca() method for explanations of the parameters.
-
-    Examples
-    --------
-    >>> data_format_code("aki")
-    'a'
-    >>> data_format_code("gcmt")
-    'c'
-    >>> data_format_code("partial")
-    'p'
-
-    >>> data_format_code("mt", component="full")
-    'm'
-    >>> data_format_code("mt", component="deviatoric")
-    'z'
-    >>> data_format_code("mt", component="dc")
-    'd'
-    >>> data_format_code("principal_axis", component="full")
-    'x'
-    >>> data_format_code("principal_axis", component="deviatoric")
-    't'
-    >>> data_format_code("principal_axis", component="dc")
-    'y'
-
-    >>> for code in ["a", "c", "m", "d", "z", "p", "x", "y", "t"]:
-    ...     assert data_format_code(code) == code
-    ...
-
-    >>> data_format_code("invalid")
-    Traceback (most recent call last):
-      ...
-    pygmt.exceptions.GMTInvalidInput: Invalid convention 'invalid'.
-
-    >>> data_format_code("mt", "invalid")  # doctest: +NORMALIZE_WHITESPACE
-    Traceback (most recent call last):
-      ...
-    pygmt.exceptions.GMTInvalidInput:
-        Invalid component 'invalid' for convention 'mt'.
+    Determine the focal mechanism convention from the input data or parameters.
     """
-    # Codes for focal mechanism formats determined by "convention"
-    codes1 = {
-        "aki": "a",
-        "gcmt": "c",
-        "partial": "p",
-    }
+    # Determine the convention from dictionary keys or pandas.DataFrame column names.
+    if hasattr(spec, "keys"):  # Dictionary or pandas.DataFrame
+        return _FocalMechanismConvention.from_params(spec.keys(), component=component)
 
-    # Codes for focal mechanism formats determined by both "convention" and
-    # "component"
-    codes2 = {
-        "mt": {
-            "deviatoric": "z",
-            "dc": "d",
-            "full": "m",
-        },
-        "principal_axis": {
-            "deviatoric": "t",
-            "dc": "y",
-            "full": "x",
-        },
-    }
+    # Determine the convention from the 'convention' parameter.
+    if convention is None:
+        msg = "Parameter 'convention' must be specified."
+        raise GMTInvalidInput(msg)
+    return _FocalMechanismConvention(convention=convention, component=component)
 
-    if convention in codes1:
-        return codes1[convention]
-    if convention in codes2:
-        if component not in codes2[convention]:
-            raise GMTInvalidInput(
-                f"Invalid component '{component}' for convention '{convention}'."
+
+def _preprocess_spec(spec, colnames, override_cols):
+    """
+    Preprocess the input data.
+
+    Parameters
+    ----------
+    spec
+        The input data to be preprocessed.
+    colnames
+        The minimum required column names of the input data.
+    override_cols
+        Dictionary of column names and values to override in the input data. Only makes
+        sense if ``spec`` is a dict or :class:`pandas.DataFrame`.
+    """
+    kind = data_kind(spec)  # Determine the kind of the input data.
+
+    # Convert pandas.DataFrame and numpy.ndarray to dict.
+    if isinstance(spec, pd.DataFrame):
+        spec = {k: v.to_numpy() for k, v in spec.items()}
+    elif isinstance(spec, np.ndarray):
+        spec = np.atleast_2d(spec)
+        # Optional columns that are not required by the convention. The key is the
+        # number of extra columns, and the value is a list of optional column names.
+        extra_cols = {
+            0: [],
+            1: ["event_name"],
+            2: ["plot_longitude", "plot_latitude"],
+            3: ["plot_longitude", "plot_latitude", "event_name"],
+        }
+        ndiff = spec.shape[1] - len(colnames)
+        if ndiff not in extra_cols:
+            raise GMTValueError(
+                spec.shape[1],
+                description="input array shape",
+                reason=f"Input array must have {len(colnames)} or two/three more columns.",
             )
-        return codes2[convention][component]
-    if convention in ["a", "c", "m", "d", "z", "p", "x", "y", "t"]:
-        return convention
-    raise GMTInvalidInput(f"Invalid convention '{convention}'.")
+        spec = dict(zip([*colnames, *extra_cols[ndiff]], spec.T, strict=False))
+
+    # Now, the input data is a dict or an ASCII file.
+    if isinstance(spec, dict):
+        # The columns can be overridden by the parameters given in the function
+        # arguments. Only makes sense for dict/pandas.DataFrame input.
+        if kind != "matrix" and override_cols is not None:
+            spec.update({k: v for k, v in override_cols.items() if v is not None})
+        # Due to the internal implementation of the meca module, we need to convert the
+        # ``plot_longitude``, ``plot_latitude``, and ``event_name`` columns into strings
+        # if they exist.
+        for key in ["plot_longitude", "plot_latitude", "event_name"]:
+            if key in spec:
+                spec[key] = np.array(spec[key], dtype=str)
+
+        # Reorder columns to match convention if necessary. The expected columns are:
+        # longitude, latitude, depth, focal_parameters, [plot_longitude, plot_latitude],
+        # [event_name].
+        extra_cols = []
+        if "plot_longitude" in spec and "plot_latitude" in spec:
+            extra_cols.extend(["plot_longitude", "plot_latitude"])
+        if "event_name" in spec:
+            extra_cols.append("event_name")
+        cols = [*colnames, *extra_cols]
+        if list(spec.keys()) != cols:
+            spec = {k: spec[k] for k in cols}
+    return spec
+
+
+def _auto_offset(spec) -> bool:
+    """
+    Determine if offset should be set based on the input data.
+
+    If the input data contains ``plot_longitude`` and ``plot_latitude``, then we set the
+    ``offset`` parameter to ``True`` automatically.
+    """
+    return (
+        isinstance(spec, dict | pd.DataFrame)
+        and "plot_longitude" in spec
+        and "plot_latitude" in spec
+    )
 
 
 @fmt_docstring
 @use_alias(
-    R="region",
-    J="projection",
+    A="offset",
     B="frame",
-    C="offset",
+    C="cmap",
+    E="extensionfill",
+    Fr="labelbox",
+    G="compressionfill",
+    L="outline",
     N="no_clip",
-    V="verbose",
-    X="xshift",
-    Y="yshift",
-    c="panel",
+    R="region",
+    T="nodal",
+    W="pen",
     p="perspective",
-    t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def meca(
-    self,  # pylint: disable=unused-argument
-    spec,
+@kwargs_to_strings(R="sequence", p="sequence")
+def meca(  # noqa: PLR0913
+    self,
+    spec: PathLike | TableLike,
     scale,
-    longitude=None,
-    latitude=None,
-    depth=None,
-    convention=None,
-    component="full",
-    plot_longitude=None,
-    plot_latitude=None,
+    convention: Literal["aki", "gcmt", "mt", "partial", "principal_axis"] | None = None,
+    component: Literal["full", "dc", "deviatoric"] = "full",
+    longitude: float | Sequence[float] | None = None,
+    latitude: float | Sequence[float] | None = None,
+    depth: float | Sequence[float] | None = None,
+    plot_longitude: float | Sequence[float] | None = None,
+    plot_latitude: float | Sequence[float] | None = None,
+    event_name: str | Sequence[str] | None = None,
+    projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
-    """
+    r"""
     Plot focal mechanisms.
 
-    Full option list at :gmt-docs:`supplements/seis/meca.html`
+    The following focal mechanism conventions are supported:
 
-    Note
-    ----
-        Currently, labeling of beachballs with text strings is only supported
-        via providing a file to `spec` as input.
+    .. list-table:: Supported focal mechanism conventions.
+       :widths: 15 15 40 30
+       :header-rows: 1
+
+       * - Convention
+         - Description
+         - Focal parameters
+         - Remark
+       * - ``"aki"``
+         - Aki and Richard
+         - *strike*, *dip*, *rake*, *magnitude*
+         - angles in degrees
+       * - ``"gcmt"``
+         - global centroid moment tensor
+         - | *strike1*, *dip1*, *rake1*,
+           | *strike2*, *dip2*, *rake2*,
+           | *mantissa*, *exponent*
+         - | angles in degrees;
+           | seismic moment is
+           | :math:`mantissa * 10 ^ {{exponent}}`
+           | in dyn cm
+       * - ``"mt"``
+         - seismic moment tensor
+         - | *mrr*, *mtt*, *mff*,
+           | *mrt*, *mrf*, *mtf*,
+           | *exponent*
+         - | moment components
+           | in :math:`10 ^ {{exponent}}` dyn cm
+       * - ``"partial"``
+         - partial focal mechanism
+         - | *strike1*, *dip1*, *strike2*,
+           | *fault_type*, *magnitude*
+         - | angles in degrees;
+           | *fault_type* means +1/-1 for
+           | normal/reverse fault
+       * - ``"principal_axis"``
+         - principal axis
+         - | *t_value*, *t_azimuth*, *t_plunge*,
+           | *n_value*, *n_azimuth*, *n_plunge*,
+           | *p_value*, *p_azimuth*, *p_plunge*,
+           | *exponent*
+         - | values in :math:`10 ^ {{exponent}}` dyn cm;
+           | azimuths and plunges in degrees
+
+    Full GMT docs at :gmt-docs:`supplements/seis/meca.html`.
 
     {aliases}
+       - J = projection
+       - S = scale/convention/component
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
-    spec: dict, 1D array, 2D array, pd.DataFrame, or str
-        Either a filename containing focal mechanism parameters as columns, a
-        1- or 2-D array with the same, or a dictionary. If a filename or array,
-        `convention` is required so we know how to interpret the
-        columns/entries. If a dictionary, the following combinations of keys
-        are supported; these determine the convention. Dictionary may contain
-        values for a single focal mechanism or lists of values for many focal
-        mechanisms. A Pandas DataFrame may optionally contain columns latitude,
-        longitude, depth, plot_longitude, and/or plot_latitude instead of
-        passing them to the meca method.
+    spec : str, 1-D numpy array, 2-D numpy array, dict, or pandas.DataFrame
+        Data that contain focal mechanism parameters.
 
-        - ``"aki"`` — *strike, dip, rake, magnitude*
-        - ``"gcmt"`` — *strike1, dip1, rake1, strike2, dip2, rake2, mantissa,
-          exponent*
-        - ``"mt"`` — *mrr, mtt, mff, mrt, mrf, mtf, exponent*
-        - ``"partial"`` — *strike1, dip1, strike2, fault_type, magnitude*
-        - ``"principal_axis"`` — *t_exponent, t_azimuth, t_plunge, n_exponent,
-          n_azimuth, n_plunge, p_exponent, p_azimuth, p_plunge, exponent*
+        ``spec`` can be specified in either of the following types:
 
-    scale: str
-        Adjusts the scaling of the radius of the beachball, which is
-        proportional to the magnitude. Scale defines the size for magnitude = 5
-        (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm)
-    longitude: int, float, list, or 1d numpy array
-        Longitude(s) of event location. Ignored if `spec` is not a dictionary.
-        List must be the length of the number of events. Ignored if `spec` is a
-        DataFrame and contains a 'longitude' column.
-    latitude: int, float, list, or 1d numpy array
-        Latitude(s) of event location. Ignored if `spec` is not a dictionary.
-        List must be the length of the number of events. Ignored if `spec` is a
-        DataFrame and contains a 'latitude' column.
-    depth: int, float, list, or 1d numpy array
-        Depth(s) of event location in kilometers. Ignored if `spec` is not a
-        dictionary. List must be the length of the number of events. Ignored if
-        `spec` is a DataFrame and contains a 'depth' column.
-    convention: str
-        ``"aki"`` (Aki & Richards), ``"gcmt"`` (global CMT), ``"mt"`` (seismic
-        moment tensor), ``"partial"`` (partial focal mechanism), or
-        ``"principal_axis"`` (principal axis). Ignored if `spec` is a
-        dictionary or dataframe.
-    component: str
-        The component of the seismic moment tensor to plot. ``"full"`` (the
-        full seismic moment tensor), ``"dc"`` (the closest double couple with
-        zero trace and zero determinant), ``"deviatoric"`` (zero trace)
-    plot_longitude: int, float, list, or 1d numpy array
-        Longitude(s) at which to place beachball, only used if `spec` is a
-        dictionary. List must be the length of the number of events. Ignored if
-        `spec` is a DataFrame and contains a 'plot_longitude' column.
-    plot_latitude: int, float, list, or 1d numpy array
-        Latitude(s) at which to place beachball, only used if `spec` is a
-        dictionary. List must be the length of the number of events. Ignored if
-        `spec` is a DataFrame and contains a 'plot_latitude' column.
-    offset: bool or str
-        Offsets beachballs to the longitude, latitude specified in the last two
-        columns of the input file or array, or by `plot_longitude` and
-        `plot_latitude` if provided. A small circle is plotted at the initial
-        location and a line connects the beachball to the circle. Specify pen
-        and optionally append ``+ssize`` to change the line style and/or size
-        of the circle.
+        - *str*: a file name containing focal mechanism parameters as columns. The
+          meaning of each column is:
+
+          - Columns 1 and 2: event longitude and latitude
+          - Column 3: event depth (in kilometers)
+          - Columns 4 to 3+n: focal mechanism parameters. The number of columns *n*
+            depends on the choice of ``convention`` (see the table above for the
+            supported conventions).
+          - Columns 4+n and 5+n: longitude and latitude at which to place the
+            beachball. ``0 0`` plots the beachball at the longitude and latitude
+            given in the columns 1 and 2. [optional; requires ``offset=True``].
+          - Last Column: text string to appear near the beachball [optional].
+
+        - *1-D np.array*: focal mechanism parameters of a single event.
+          The meanings of columns are the same as above.
+        - *2-D np.array*: focal mechanism parameters of multiple events.
+          The meanings of columns are the same as above.
+        - *dict* or :class:`pandas.DataFrame`: The dict keys or
+          :class:`pandas.DataFrame` column names determine the focal mechanism
+          convention. For the different conventions, the combination of keys /
+          column names as given in the table above are required.
+
+          A dict may contain values for a single focal mechanism or lists of
+          values for multiple focal mechanisms.
+
+          Both dict and :class:`pandas.DataFrame` may optionally contain the keys /
+          column names: ``latitude``, ``longitude``, ``depth``, ``plot_longitude``,
+          ``plot_latitude``, and/or ``event_name``.
+
+        If ``spec`` is either a str or a 1-D or 2-D numpy array, the ``convention``
+        parameter is required to interpret the columns. If ``spec`` is a dict or
+        a :class:`pandas.DataFrame`, ``convention`` is not needed and ignored if
+        specified.
+    scale : float or str
+        *scale*\ [**+a**\ *angle*][**+f**\ *font*][**+j**\ *justify*]\
+        [**+l**][**+m**][**+o**\ *dx*\ [/\ *dy*]][**+s**\ *reference*].
+        Adjust scaling of the radius of the beachball, which is  proportional to the
+        magnitude. By default, *scale* defines the size for magnitude = 5 (i.e., scalar
+        seismic moment M0 = 4.0E23 dyn cm). If **+l** is used the radius will be
+        proportional to the seismic moment instead. Use **+s** and give a *reference*
+        to change the reference magnitude (or moment), and use **+m** to plot all
+        beachballs with the same size. A text string can be specified to appear near
+        the beachball (corresponding to column or parameter ``event_name``). Append
+        **+a**\ *angle* to change the angle of the text string; append **+f**\ *font*
+        to change its font (size,fontname,color); append **+j**\ *justify* to change
+        the text location relative to the beachball [Default is ``"TC"``, i.e., Top
+        Center]; append **+o** to offset the text string by *dx*\ /*dy*.
+    convention
+        Specify the focal mechanism convention of the input data. Ignored if ``spec`` is
+        a dict or :class:`pandas.DataFrame`. See the table above for the supported
+        conventions.
+    component
+        The component of the seismic moment tensor to plot. Valid values are:
+
+        - ``"full"``: the full seismic moment tensor
+        - ``"dc"``: the closest double couple defined from the moment tensor (zero trace
+          and zero determinant)
+        - ``"deviatoric"``: deviatoric part of the moment tensor (zero trace)
+    longitude/latitude/depth
+        Longitude(s), latitude(s), and depth(s) of the event(s). The length of each must
+        match the number of events. These parameters are only used if ``spec`` is a
+        dictionary or a :class:`pandas.DataFrame`, and they override any existing
+        ``longitude``, ``latitude``, or ``depth`` values in ``spec``.
+    plot_longitude/plot_latitude
+        Longitude(s) and latitude(s) at which to place the beachball(s). The length of
+        each must match the number of events. These parameters are only used if ``spec``
+        is a dictionary or a :class:`pandas.DataFrame`, and they override any existing
+        ``plot_longitude`` or ``plot_latitude`` values in ``spec``.
+    event_name
+        Text string(s), such as event name(s), to appear near the beachball(s). The
+        length must match the number of events. This parameter is only used if ``spec``
+        is a dictionary or a :class:`pandas.DataFrame`, and it overrides any existing
+        ``event_name`` labels in ``spec``.
+    labelbox : bool or str
+        [*fill*].
+        Draw a box behind the label if given via ``event_name``. Use *fill* to give a
+        fill color [Default is ``"white"``].
+    offset : bool or str
+        [**+p**\ *pen*][**+s**\ *size*].
+        Offset beachball(s) to the longitude(s) and latitude(s) specified in the last
+        two columns of the input file or array, or by ``plot_longitude`` and
+        ``plot_latitude`` if provided. A line from the beachball to the initial location
+        is drawn. Use **+s**\ *size* to plot a small circle at the initial location and
+        to set the diameter of this circle [Default is no circle]. Use **+p**\ *pen* to
+        set the pen attributes for this feature [Default is set via ``pen``]. The fill
+        of the circle is set via ``compressionfill`` or ``cmap``, i.e., corresponds to
+        the fill of the compressive quadrants.
+    compressionfill : str
+        Set color or pattern for filling compressive quadrants [Default is ``"black"``].
+        This setting also applies to the fill of the circle defined via ``offset``.
+    extensionfill : str
+        Set color or pattern for filling extensive quadrants [Default is ``"white"``].
+    pen : str
+        Set (default) pen attributes for all lines related to the beachball [Default is
+        ``"0.25p,black,solid"``]. This setting applies to ``outline``, ``nodal``, and
+        ``offset``, unless overruled by arguments passed to those parameters. Draws the
+        circumference of the beachball.
+    outline : bool or str
+        [*pen*].
+        Draw circumference and nodal planes of the beachball. Use *pen* to set  the pen
+        attributes for this feature [Default is set via ``pen``].
+    nodal : bool, int, or str
+        [*nplane*][/*pen*].
+        Plot the nodal planes and outline the bubble which is transparent. If *nplane*
+        is
+
+        - ``0`` or ``True``: both nodal planes are plotted [Default].
+        - ``1``: only the first nodal plane is plotted.
+        - ``2``: only the second nodal plane is plotted.
+
+        Use /*pen* to set the pen attributes for this feature [Default is set via
+        ``pen``].
+        For double couple mechanisms, ``nodal`` renders the beachball transparent by
+        drawing only the nodal planes and the circumference. For non-double couple
+        mechanisms, ``nodal=0`` overlays best double couple transparently.
+    cmap : str
+        File name of a CPT file or a series of comma-separated colors (e.g.,
+        *color1,color2,color3*) to build a linear continuous CPT from those colors
+        automatically. The color of the compressive quadrants is determined by the
+        z-value (i.e., event depth or the third column for an input file). This setting
+        also applies to the fill of the circle defined via ``offset``.
     no_clip : bool
-        Does NOT skip symbols that fall outside frame boundary specified by
-        *region* [Default is False, i.e. plot symbols inside map frame only].
-    {J}
-    {R}
-    {B}
-    {V}
-    {XY}
-    {c}
-    {p}
-    {t}
+        Do **not** skip symbols that fall outside the frame boundaries [Default is
+       ``False``, i.e., plot symbols inside the frame boundaries only].
+    {projection}
+    {region}
+    {frame}
+    {verbose}
+    {panel}
+    {perspective}
+    {transparency}
     """
-
-    # pylint warnings that need to be fixed
-    # pylint: disable=too-many-locals
-    # pylint: disable=too-many-nested-blocks
-    # pylint: disable=too-many-branches
-    # pylint: disable=too-many-statements
-
-    def set_pointer(data_pointers, spec):
-        """
-        Set optional parameter pointers based on DataFrame or dict, if those
-        parameters are present in the DataFrame or dict.
-        """
-        for param in list(data_pointers.keys()):
-            if param in spec:
-                # set pointer based on param name
-                data_pointers[param] = spec[param]
-
-    def update_pointers(data_pointers):
-        """
-        Updates variables based on the location of data, as the following data
-        can be passed as parameters or it can be contained in `spec`.
-        """
-        # update all pointers
-        longitude = data_pointers["longitude"]
-        latitude = data_pointers["latitude"]
-        depth = data_pointers["depth"]
-        plot_longitude = data_pointers["plot_longitude"]
-        plot_latitude = data_pointers["plot_latitude"]
-        return (longitude, latitude, depth, plot_longitude, plot_latitude)
-
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-    # Check the spec and parse the data according to the specified
-    # convention
-    if isinstance(spec, (dict, pd.DataFrame)):
-        # dicts and DataFrames are handed similarly but not identically
-        if (longitude is None or latitude is None or depth is None) and not isinstance(
-            spec, (dict, pd.DataFrame)
-        ):
-            raise GMTError("Location not fully specified.")
-
-        param_conventions = {
-            "AKI": ["strike", "dip", "rake", "magnitude"],
-            "GCMT": ["strike1", "dip1", "dip2", "rake2", "mantissa", "exponent"],
-            "MT": ["mrr", "mtt", "mff", "mrt", "mrf", "mtf", "exponent"],
-            "PARTIAL": ["strike1", "dip1", "strike2", "fault_type", "magnitude"],
-            "PRINCIPAL_AXIS": [
-                "t_exponent",
-                "t_azimuth",
-                "t_plunge",
-                "n_exponent",
-                "n_azimuth",
-                "n_plunge",
-                "p_exponent",
-                "p_azimuth",
-                "p_plunge",
-                "exponent",
-            ],
-        }
-
-        # to keep track of where optional parameters exist
-        data_pointers = {
+    self._activate_figure()
+    # Determine the focal mechanism convention from the input data or parameters.
+    _convention = _get_focal_convention(spec, convention, component)
+    # Preprocess the input data.
+    spec = _preprocess_spec(
+        spec,
+        # The minimum expected columns for the input data.
+        colnames=["longitude", "latitude", "depth", *_convention.params],
+        override_cols={
             "longitude": longitude,
             "latitude": latitude,
             "depth": depth,
             "plot_longitude": plot_longitude,
             "plot_latitude": plot_latitude,
-        }
+            "event_name": event_name,
+        },
+    )
+    # Determine the offset parameter if not provided.
+    if kwargs.get("A") is None:
+        kwargs["A"] = _auto_offset(spec)
+    kwargs["S"] = f"{_convention.code}{scale}"
 
-        # make a DataFrame copy to check convention if it contains
-        # other parameters
-        if isinstance(spec, (dict, pd.DataFrame)):
-            # check if a copy is necessary
-            copy = False
-            drop_list = []
-            for pointer in data_pointers:
-                if pointer in spec:
-                    copy = True
-                    drop_list.append(pointer)
-            if copy:
-                spec_conv = spec.copy()
-                # delete optional parameters from copy for convention check
-                for item in drop_list:
-                    del spec_conv[item]
-            else:
-                spec_conv = spec
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
 
-        # set convention and focal parameters based on spec convention
-        convention_assigned = False
-        for conv in param_conventions:
-            if set(spec_conv.keys()) == set(param_conventions[conv]):
-                convention = conv.lower()
-                foc_params = param_conventions[conv]
-                convention_assigned = True
-                break
-        if not convention_assigned:
-            raise GMTError(
-                "Parameters in spec dictionary do not match known " "conventions."
-            )
-
-        # create a dict type pointer for easier to read code
-        if isinstance(spec, dict):
-            dict_type_pointer = list(spec.values())[0]
-        elif isinstance(spec, pd.DataFrame):
-            # use df.values as pointer for DataFrame behavior
-            dict_type_pointer = spec.values
-
-        # assemble the 1D array for the case of floats and ints as values
-        if isinstance(dict_type_pointer, (int, float)):
-            # update pointers
-            set_pointer(data_pointers, spec)
-            # look for optional parameters in the right place
-            (
-                longitude,
-                latitude,
-                depth,
-                plot_longitude,
-                plot_latitude,
-            ) = update_pointers(data_pointers)
-
-            # Construct the array (order matters)
-            spec = [longitude, latitude, depth] + [spec[key] for key in foc_params]
-
-            # Add in plotting options, if given, otherwise add 0s
-            for arg in plot_longitude, plot_latitude:
-                if arg is None:
-                    spec.append(0)
-                else:
-                    if "C" not in kwargs:
-                        kwargs["C"] = True
-                    spec.append(arg)
-
-        # or assemble the 2D array for the case of lists as values
-        elif isinstance(dict_type_pointer, list):
-            # update pointers
-            set_pointer(data_pointers, spec)
-            # look for optional parameters in the right place
-            (
-                longitude,
-                latitude,
-                depth,
-                plot_longitude,
-                plot_latitude,
-            ) = update_pointers(data_pointers)
-
-            # before constructing the 2D array lets check that each key
-            # of the dict has the same quantity of values to avoid bugs
-            list_length = len(list(spec.values())[0])
-            for value in list(spec.values()):
-                if len(value) != list_length:
-                    raise GMTError(
-                        "Unequal number of focal mechanism "
-                        "parameters supplied in 'spec'."
-                    )
-                # lets also check the inputs for longitude, latitude,
-                # and depth if it is a list or array
-                if (
-                    isinstance(longitude, (list, np.ndarray))
-                    or isinstance(latitude, (list, np.ndarray))
-                    or isinstance(depth, (list, np.ndarray))
-                ):
-                    if (len(longitude) != len(latitude)) or (
-                        len(longitude) != len(depth)
-                    ):
-                        raise GMTError(
-                            "Unequal number of focal mechanism " "locations supplied."
-                        )
-
-            # values are ok, so build the 2D array
-            spec_array = []
-            for index in range(list_length):
-                # Construct the array one row at a time (note that order
-                # matters here, hence the list comprehension!)
-                row = [longitude[index], latitude[index], depth[index]] + [
-                    spec[key][index] for key in foc_params
-                ]
-
-                # Add in plotting options, if given, otherwise add 0s as
-                # required by GMT
-                for arg in plot_longitude, plot_latitude:
-                    if arg is None:
-                        row.append(0)
-                    else:
-                        if "C" not in kwargs:
-                            kwargs["C"] = True
-                        row.append(arg[index])
-                spec_array.append(row)
-            spec = spec_array
-
-        # or assemble the array for the case of pd.DataFrames
-        elif isinstance(dict_type_pointer, np.ndarray):
-            # update pointers
-            set_pointer(data_pointers, spec)
-            # look for optional parameters in the right place
-            (
-                longitude,
-                latitude,
-                depth,
-                plot_longitude,
-                plot_latitude,
-            ) = update_pointers(data_pointers)
-
-            # lets also check the inputs for longitude, latitude, and depth
-            # just in case the user entered different length lists
-            if (
-                isinstance(longitude, (list, np.ndarray))
-                or isinstance(latitude, (list, np.ndarray))
-                or isinstance(depth, (list, np.ndarray))
-            ):
-                if (len(longitude) != len(latitude)) or (len(longitude) != len(depth)):
-                    raise GMTError(
-                        "Unequal number of focal mechanism locations supplied."
-                    )
-
-            # values are ok, so build the 2D array in the correct order
-            spec_array = []
-            for index in range(len(spec)):
-                # Construct the array one row at a time (note that order
-                # matters here, hence the list comprehension!)
-                row = [longitude[index], latitude[index], depth[index]] + [
-                    spec[key][index] for key in foc_params
-                ]
-
-                # Add in plotting options, if given, otherwise add 0s as
-                # required by GMT
-                for arg in plot_longitude, plot_latitude:
-                    if arg is None:
-                        row.append(0)
-                    else:
-                        if "C" not in kwargs:
-                            kwargs["C"] = True
-                        row.append(arg[index])
-                spec_array.append(row)
-            spec = spec_array
-
-        else:
-            raise GMTError("Parameter 'spec' contains values of an unsupported type.")
-
-    # determine data_foramt from convection and component
-    data_format = data_format_code(convention=convention, component=component)
-
-    # Assemble -S flag
-    kwargs["S"] = data_format + scale
-
-    kind = data_kind(spec)
     with Session() as lib:
-        if kind == "matrix":
-            file_context = lib.virtualfile_from_matrix(np.atleast_2d(spec))
-        elif kind == "file":
-            file_context = dummy_context(spec)
-        else:
-            raise GMTInvalidInput("Unrecognized data type: {}".format(type(spec)))
-        with file_context as fname:
-            arg_str = " ".join([fname, build_arg_string(kwargs)])
-            lib.call_module("meca", arg_str)
+        with lib.virtualfile_in(check_kind="vector", data=spec) as vintbl:
+            lib.call_module(
+                module="meca", args=build_arg_list(aliasdict, infile=vintbl)
+            )

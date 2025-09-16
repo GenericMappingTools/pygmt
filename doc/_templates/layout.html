@@ -31,24 +31,25 @@
 {% endblock %}
 
 
-{% block sidebartitle %}
-    <a href="{{ pathto(master_doc) }}"><h2 class="sidebar-title">{{ project }}</h2></a>
-
-    {% if theme_display_version %}
-        {%- set nav_version = version %}
-        {% if READTHEDOCS and current_version %}
-            {%- set nav_version = current_version %}
-        {% endif %}
-        {% if nav_version %}
-            <div class="version">
-                {{ nav_version }}
-            </div>
-        {% endif %}
-    {% endif %}
-
-    {% include "searchbox.html" %}
-
-{% endblock %}
+{%- block sidebartitle %}
+   {# the logo helper function was removed in Sphinx 6 and deprecated since Sphinx 4 #}
+   {# the master_doc variable was renamed to root_doc in Sphinx 4 (master_doc still exists in later Sphinx versions) #}
+   {%- set _logo_url = logo_url|default(pathto('_static/' + (logo or ""), 1)) %}
+   {%- set _root_doc = root_doc|default(master_doc) %}
+   <a href="{{ pathto(_root_doc) }}">
+     {% if not theme_logo_only %}<h2 class="sidebar-title">{{ project }}</h2>{% endif %}
+     {%- if logo or logo_url %}
+       <img src="{{ _logo_url }}" class="logo" alt="{{ _('Logo') }}"/>
+     {%- endif %}
+   </a>
+   {%- set nav_version = version %}
+   {%- if nav_version %}
+     <div class="version">
+       {{ nav_version }}
+     </div>
+   {%- endif %}
+   {%- include "searchbox.html" %}
+ {% endblock %}
 
 
 {% block menu %}

@@ -1,95 +1,155 @@
 """
 wiggle - Plot z=f(x,y) anomalies along tracks.
 """
+
+from typing import Literal
+
+from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+
+
+def _parse_fills(fillpositive, fillnegative):
+    """
+    Parse the fillpositive and fillnegative parameters.
+
+    >>> _parse_fills("red", "blue")
+    ['red+p', 'blue+n']
+    >>> _parse_fills(None, "blue")
+    'blue+n'
+    >>> _parse_fills("red", None)
+    'red+p'
+    >>> _parse_fills(None, None)
+    """
+    _fills = []
+    if fillpositive is not None:
+        _fills.append(fillpositive + "+p")
+    if fillnegative is not None:
+        _fills.append(fillnegative + "+n")
+
+    match len(_fills):
+        case 0:
+            return None
+        case 1:
+            return _fills[0]
+        case 2:
+            return _fills
 
 
 @fmt_docstring
 @use_alias(
     B="frame",
     D="position",
-    G="color",
-    J="projection",
     R="region",
     T="track",
-    U="timestamp",
-    V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     Z="scale",
-    c="panel",
-    i="columns",
+    b="binary",
+    d="nodata",
+    e="find",
+    f="coltypes",
+    g="gap",
+    h="header",
+    i="incols",
     p="perspective",
+    w="wrap",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
+@kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
+def wiggle(  # noqa: PLR0913
+    self,
+    data: PathLike | TableLike | None = None,
+    x=None,
+    y=None,
+    z=None,
+    fillpositive=None,
+    fillnegative=None,
+    projection=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
+    **kwargs,
+):
     r"""
     Plot z=f(x,y) anomalies along tracks.
 
-    Takes a matrix, (x,y,z) triplets, or a file name as input and plots z as a
-    function of distance along track.
+    Takes a matrix, (x, y, z) triplets, or a file name as input and plots z
+    as a function of distance along track.
 
-    Must provide either ``data`` or ``x``/``y``/``z``.
+    Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    Full parameter list at :gmt-docs:`wiggle.html`
+    Full GMT docs at :gmt-docs:`wiggle.html`.
 
     {aliases}
+       - G = **+p**: fillpositive, **+n**: fillnegative
+       - J = projection
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
-    x/y/z : 1d arrays
+    x/y/z : 1-D arrays
         The arrays of x and y coordinates and z data points.
-    data : str or 2d array
-        Either a data file name or a 2d numpy array with the tabular data.
-        Use parameter ``columns`` to choose which columns are x, y, z,
+    data
+        Pass in either a file name to an ASCII data table, a 2-D
+        {table-classes}.
+        Use parameter ``incols`` to choose which columns are x, y, z,
         respectively.
-    {J}
-    {R}
+    {projection}
+    {region}
     scale : str or float
-        Gives anomaly scale in data-units/distance-unit. Append **c**, **i**,
-        or **p** to indicate the distance unit (cm, inch, or point); if no unit
-        is given we use the default unit that is controlled by
-        :gmt-term:`PROJ_LENGTH_UNIT`.
-    {B}
+        Give anomaly scale in data-units/distance-unit. Append **c**, **i**,
+        or **p** to indicate the distance unit (centimeters, inches, or
+        points); if no unit is given we use the default unit that is
+        controlled by :gmt-term:`PROJ_LENGTH_UNIT`.
+    {frame}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
-        **+w**\ *length*\ [**+j**\ *justify*]\ [**+al**\ |\ **r**]\
+        **+w**\ *length*\ [**+j**\ *justify*]\ [**+al**\|\ **r**]\
         [**+o**\ *dx*\ [/*dy*]][**+l**\ [*label*]].
-        Defines the reference point on the map for the vertical scale bar.
-    color : str
-        Set fill shade, color or pattern for positive and/or negative wiggles
-        [Default is no fill]. Optionally, append **+p** to fill positive areas
-        (this is the default behavior). Append **+n** to fill negative areas.
-        Append **+n+p** to fill both positive and negative areas with the same
-        fill. Note: You will need to repeat the color parameter to select
-        different fills for the positive and negative wiggles.
-
+        Define the reference point on the map for the vertical scale bar.
+    fillpositive : str
+        Set color or pattern for filling positive wiggles [Default is no fill].
+    fillnegative : str
+        Set color or pattern for filling negative wiggles [Default is no fill].
     track : str
         Draw track [Default is no track]. Append pen attributes to use
-        [Default is **0.25p,black,solid**].
-    {U}
-    {V}
+        [Default is ``"0.25p,black,solid"``].
+    {verbose}
     pen : str
         Specify outline pen attributes [Default is no outline].
-    {XY}
-    {c}
-    columns : str or 1d array
-        Choose which columns are x, y, and z, respectively if input is provided
-        via *data*. E.g. ``columns = [0, 1, 2]`` or ``columns = "0,1,2"`` if
-        the *x* values are stored in the first column, *y* values in the second
-        one and *z* values in the third one. Note: zero-based indexing is used.
-    {p}
+    {binary}
+    {panel}
+    {nodata}
+    {find}
+    {coltypes}
+    {gap}
+    {header}
+    {incols}
+    {perspective}
+    {transparency}
+    {wrap}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    self._activate_figure()
+
+    _fills = _parse_fills(fillpositive, fillnegative)
+
+    aliasdict = AliasSystem(
+        G=Alias(_fills, name="fillpositive/fillnegative"),
+    ).add_common(
+        J=projection,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
-        # Choose how data will be passed in to the module
-        file_context = lib.virtualfile_from_data(
-            check_kind="vector", data=data, x=x, y=y, z=z
-        )
-
-        with file_context as fname:
-            arg_str = " ".join([fname, build_arg_string(kwargs)])
-            lib.call_module("wiggle", arg_str)
+        with lib.virtualfile_in(
+            check_kind="vector", data=data, x=x, y=y, z=z, mincols=3
+        ) as vintbl:
+            lib.call_module(
+                module="wiggle", args=build_arg_list(aliasdict, infile=vintbl)
+            )

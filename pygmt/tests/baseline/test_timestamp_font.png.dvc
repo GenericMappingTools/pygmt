@@ -1,0 +1,5 @@
+outs:
+- md5: 3be1c3ac318ed3663f86548d69368231
+  size: 2792
+  path: test_timestamp_font.png
+  hash: md5

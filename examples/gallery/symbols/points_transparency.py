@@ -1,11 +1,12 @@
 """
 Points with varying transparency
---------------------------------
+================================
 
 Points can be plotted with different transparency levels by passing in an array
 argument to the ``transparency`` parameter of :meth:`pygmt.Figure.plot`.
 """
 
+# %%
 import numpy as np
 import pygmt
 
@@ -18,8 +19,8 @@ transparency = x
 fig = pygmt.Figure()
 fig.basemap(
     region=[-5, 105, 0, 2],
-    frame=['xaf+l"Transparency level"+u%', "WSrt"],
+    frame=["xaf+lTransparency level+u%", "WSrt"],
     projection="X15c/6c",
 )
-fig.plot(x=x, y=y, style="c0.6c", color="blue", pen="1p,red", transparency=transparency)
+fig.plot(x=x, y=y, style="c0.6c", fill="blue", pen="1p,red", transparency=transparency)
 fig.show()

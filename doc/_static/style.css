@@ -12,30 +12,25 @@ h1, h2, h3, h4 {
     font-family: "Atkinson Hyperlegible", sans-serif;
 }
 
+/* Set the header font sizes */
 h1 {
     font-size: 200%;
 }
 
+h2 {
+    font-size: 185%;
+}
+
+h3 {
+    font-size: 150%;
+}
+
+h4 {
+    font-size: 130%;
+}
+
 p {
     font-size: 1.05em;
-}
-
-.gmtplot-output {
-    width: 100%;
-    overflow: auto;
-}
-
-.gmtplot-output img {
-    max-width: 700px;
-    width: 100%;
-}
-
-.gmtplot-output pre {
-    color: #888888;
-}
-
-.gmtplot-output-figure {
-    margin-bottom: 50px;
 }
 
 .sidebar-title {
@@ -53,40 +48,17 @@ p {
     font-size: 4em;
 }
 
-.api-module {
-	margin-bottom: 80px;
-}
-
-.youtube-embed {
-    max-width: 600px;
-    margin-bottom: 24px;
-}
-
-.video-container {
-    position:relative;
-    padding-bottom:56.25%;
-    padding-top:30px;
-    height:0;
-    overflow:hidden;
-}
-
-.video-container iframe, .video-container object, .video-container embed {
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-}
-
-/*.wy-menu-vertical header, .wy-menu-vertical p.caption {*/
-    /*font-size: 90%;*/
-    /*font-weight: bold;*/
-    /*color: #eeeeee;*/
-    /*letter-spacing: 0.12em;*/
-/*}*/
-
 .wy-nav-content {
     max-width: 1000px;
+}
+
+/* Compatibility with sphinx_rtd_theme v3.x.x */
+/* https://github.com/TexasInstruments/processor-sdk-doc/commit/4fa6276ddcf7f9db919af2e5b3aec7e70a1afa16 */
+.wy-side-nav-search>div.version {
+    margin-top: -.4045em;
+    margin-bottom: .809em;
+    font-weight: 400;
+    color: hsla(0, 0%, 100%, .3);
 }
 
 /* Format parameters section similar to sphinx_rtd_theme v4.x.x (not a grid) */
@@ -142,22 +114,6 @@ html.writer-html5 .rst-content dl.field-list {
     }
 }
 
-/* Style for the copy button */
-/* Safe to remove for sphinx-copybutton>0.3.1
- * https://github.com/executablebooks/sphinx-copybutton/pull/107
- */
-a.copybtn {
-    position: absolute;
-    top: .2em;
-    right: .2em;
-    width: 1.3em;
-    height: 1.3em;
-    opacity: .3;
-    transition: opacity 0.5s;
-    border: none;
-    user-select: none;
-}
-
 /* Atkinson Hyperlegible regular */
 @font-face {
     font-family: "Atkinson Hyperlegible";
@@ -194,8 +150,34 @@ a.copybtn {
 .sphx-glr-thumbcontainer {
     border: solid #d6d6d6 1px!important;
     text-align: center!important;
+    min-height: 240px!important;
+    min-width: 180px!important;
+}
+
+.sphx-glr-thumbcontainer img {
+    max-width:95%!important;
 }
 
 .sphx-glr-single-img {
     max-width: 80%!important;
+}
+
+/*
+ * Styles for aligning table cells.
+ * https://myst-parser.readthedocs.io/en/latest/syntax/tables.html#markdown-syntax
+ */
+th.text-left, td.text-left {
+    text-align: left !important;
+}
+
+th.text-center, td.text-center {
+    text-align: center !important;
+}
+
+th.text-right, td.text-right {
+    text-align: right !important;
+}
+
+.std-term {
+	font-weight: 600;
 }

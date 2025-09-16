@@ -1,11 +1,13 @@
 """
-Tests for fig.coast.
+Test Figure.coast.
 """
+
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_coast_region():
     """
@@ -27,7 +29,7 @@ def test_coast_world_mercator():
         projection="M15c",
         frame="af",
         land="#aaaaaa",
-        resolution="c",
+        resolution="crude",
         water="white",
     )
     return fig
@@ -61,7 +63,7 @@ def test_coast_dcw_single():
 @pytest.mark.mpl_image_compare
 def test_coast_dcw_list():
     """
-    Test passing a list of country codes and fill options to dcw.
+    Test passing a list of country codes and fill arguments to dcw.
     """
     fig = Figure()
     fig.coast(
@@ -72,3 +74,21 @@ def test_coast_dcw_list():
         dcw=["ES+gbisque+pgreen", "IT+gcyan+pblue"],
     )
     return fig
+
+
+def test_coast_resolution_long_short_form_conflict():
+    """
+    Test that using the short form of the 'resolution' parameter conflicts with
+    using the long form.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.coast(
+            region=[-180, 180, -80, 80],
+            projection="M15c",
+            frame="af",
+            land="#aaaaaa",
+            resolution="high",
+            D="crude",
+            water="white",
+        )

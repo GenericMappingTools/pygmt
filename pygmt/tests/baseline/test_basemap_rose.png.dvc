@@ -1,4 +1,5 @@
 outs:
-- md5: 50267f9329529a279a1846185b78f0ef
-  size: 32476
+- md5: 86acd995f29f961bdf86afc22e2afff6
+  size: 32873
   path: test_basemap_rose.png
+  hash: md5

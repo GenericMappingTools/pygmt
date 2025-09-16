@@ -2,88 +2,116 @@
 legend - Plot a legend.
 """
 
+import io
+from typing import Literal
+
+from pygmt._typing import PathLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTTypeError
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     data_kind,
     fmt_docstring,
+    is_nonstr_iter,
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.params import Box
 
 
 @fmt_docstring
-@use_alias(
-    R="region",
-    J="projection",
-    D="position",
-    F="box",
-    V="verbose",
-    X="xshift",
-    Y="yshift",
-    c="panel",
-    p="perspective",
-    t="transparency",
-)
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwargs):
+@use_alias(R="region", D="position", p="perspective")
+@kwargs_to_strings(R="sequence", p="sequence")
+def legend(
+    self,
+    spec: PathLike | io.StringIO | None = None,
+    projection=None,
+    position="JTR+jTR+o0.2c",
+    box: Box | bool = False,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
+    **kwargs,
+):
     r"""
-    Plot legends on maps.
+    Plot a legend.
 
     Makes legends that can be overlaid on maps. Reads specific
     legend-related information from an input file, or automatically creates
     legend entries from plotted symbols that have labels. Unless otherwise
     noted, annotations will be made using the primary annotation font and
-    size in effect (i.e., FONT_ANNOT_PRIMARY).
+    size in effect (i.e., :gmt-term:`FONT_ANNOT_PRIMARY`).
 
-    Full option list at :gmt-docs:`legend.html`
+    Full GMT docs at :gmt-docs:`legend.html`.
 
     {aliases}
+       - F = box
+       - J = projection
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
-    spec : None or str
-        Either ``None`` [default] for using the automatically generated legend
-        specification file, or a *filename* pointing to the legend
-        specification file.
-    {J}
-    {R}
+    spec
+        The legend specification. It can be:
+
+        - ``None`` which means using the automatically generated legend specification
+          file
+        - Path to the legend specification file
+        - A :class:`io.StringIO` object containing the legend specification
+
+        See :gmt-docs:`legend.html` for the definition of the legend specification.
+    {projection}
+    {region}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *width*\ [/*height*]\ [**+j**\ *justify*]\ [**+l**\ *spacing*]\
         [**+o**\ *dx*\ [/*dy*]].
-        Defines the reference point on the map for the
-        legend. By default, uses **JTR**\ +\ **jTR**\ +\ **o**\ *0.2c* which
+        Define the reference point on the map for the
+        legend. By default, uses **JTR**\ **+jTR**\ **+o**\ 0.2c which
         places the legend at the top-right corner inside the map frame, with a
         0.2 cm offset.
-    box : bool or str
-        [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
-        [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
-        Without further arguments, draws a rectangular border around the legend
-        using :gmt-term:`MAP_FRAME_PEN`. By default, uses
-        **+g**\ white\ **+p**\ 1p which draws a box around the legend using a
-        1p black pen and adds a white background.
-    {V}
-    {XY}
-    {c}
-    {p}
-    {t}
+    box
+        Draw a background box behind the legend. If set to ``True``, a simple
+        rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
+        appearance, pass a :class:`pygmt.params.Box` object to control style, fill, pen,
+        and other box properties.
+    {verbose}
+    {panel}
+    {perspective}
+    {transparency}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    self._activate_figure()
 
-    if "D" not in kwargs:
+    # Default position and box when not specified.
+    if kwargs.get("D") is None:
         kwargs["D"] = position
+        if box is False and kwargs.get("F") is None:
+            box = Box(pen="1p", fill="white")  # Default box
 
-        if "F" not in kwargs:
-            kwargs["F"] = box
+    kind = data_kind(spec)
+    if kind not in {"empty", "file", "stringio"}:
+        raise GMTTypeError(type(spec))
+    if kind == "file" and is_nonstr_iter(spec):
+        raise GMTTypeError(
+            type(spec), reason="Only one legend specification file is allowed."
+        )
+
+    aliasdict = AliasSystem(
+        F=Alias(box, name="box"),
+    ).add_common(
+        J=projection,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
-        if spec is None:
-            specfile = ""
-        elif data_kind(spec) == "file":
-            specfile = spec
-        else:
-            raise GMTInvalidInput("Unrecognized data type: {}".format(type(spec)))
-        arg_str = " ".join([specfile, build_arg_string(kwargs)])
-        lib.call_module("legend", arg_str)
+        with lib.virtualfile_in(data=spec, required=False) as vintbl:
+            lib.call_module(
+                module="legend", args=build_arg_list(aliasdict, infile=vintbl)
+            )

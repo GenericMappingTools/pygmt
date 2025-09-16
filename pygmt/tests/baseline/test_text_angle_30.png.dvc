@@ -1,4 +1,5 @@
 outs:
-- md5: ecd7b400f7421d0f9d65879f798be3aa
-  size: 5485
+- md5: 7435aca0582dc193bc58c6d9bf0322d4
+  size: 5543
   path: test_text_angle_30.png
+  hash: md5

@@ -1,11 +1,16 @@
 """
 info - Get information about data tables.
 """
+
+from typing import Literal
+
 import numpy as np
+from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -17,13 +22,18 @@ from pygmt.helpers import (
     C="per_column",
     I="spacing",
     T="nearest_multiple",
-    V="verbose",
     a="aspatial",
     f="coltypes",
+    i="incols",
     r="registration",
 )
-@kwargs_to_strings(I="sequence")
-def info(table, **kwargs):
+@kwargs_to_strings(I="sequence", i="sequence_comma")
+def info(
+    data: PathLike | TableLike,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
+) -> np.ndarray | str:
     r"""
     Get information about data tables.
 
@@ -32,24 +42,24 @@ def info(table, **kwargs):
     the number of columns vary from record to record. As an option, it will
     find the extent of the first two columns rounded up and down to the nearest
     multiple of the supplied increments given by ``spacing``. Such output will
-    be in a numpy.ndarray form [*w*, *e*, *s*, *n*], which can be used
+    be in a :class:`numpy.ndarray` form [*w*, *e*, *s*, *n*], which can be used
     directly as the ``region`` parameter for other modules (hence only *dx*
     and *dy* are needed). If the ``per_column`` parameter is combined with
-    ``spacing``, then the numpy.ndarray output will be rounded up/down for as
+    ``spacing``, then the :class:`numpy.ndarray` output will be rounded up/down for as
     many columns as there are increments provided in ``spacing``. A similar
-    parameter ``nearest_multiple`` will provide a numpy.ndarray in the form
+    parameter ``nearest_multiple`` will provide a :class:`numpy.ndarray` in the form
     of [*zmin*, *zmax*, *dz*] for makecpt.
 
-    Full option list at :gmt-docs:`gmtinfo.html`
+    Full GMT docs at :gmt-docs:`gmtinfo.html`.
 
     {aliases}
+       - V = verbose
 
     Parameters
     ----------
-    table : str or np.ndarray or pandas.DataFrame or xarray.Dataset
-        Pass in either a file name to an ASCII data table, a 1D/2D numpy array,
-        a pandas dataframe, or an xarray dataset made up of 1D xarray.DataArray
-        data variables.
+    data
+        Pass in either a file name to an ASCII data table, a 1-D/2-D
+        {table-classes}.
     per_column : bool
         Report the min/max values per column in separate columns.
     spacing : str
@@ -64,31 +74,36 @@ def info(table, **kwargs):
         Report the min/max of the first (0'th) column to the nearest multiple
         of dz and output this in the form ``[zmin, zmax, dz]``.
 
-    {V}
-    {a}
-    {f}
-    {r}
+    {verbose}
+    {aspatial}
+    {incols}
+    {coltypes}
+    {registration}
 
     Returns
     -------
-    output : np.ndarray or str
+    output : :class:`numpy.ndarray` or str
         Return type depends on whether any of the ``per_column``,
         ``spacing``, or ``nearest_multiple`` parameters are set.
 
         - :class:`numpy.ndarray` if either of the above parameters are used.
         - str if none of the above parameters are used.
     """
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(data=table)
         with GMTTempFile() as tmpfile:
-            with file_context as fname:
-                arg_str = " ".join(
-                    [fname, build_arg_string(kwargs), "->" + tmpfile.name]
+            with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
+                lib.call_module(
+                    module="info",
+                    args=build_arg_list(aliasdict, infile=vintbl, outfile=tmpfile.name),
                 )
-                lib.call_module("info", arg_str)
             result = tmpfile.read()
 
-        if any(arg in kwargs for arg in ["C", "I", "T"]):
+        if any(kwargs.get(arg) is not None for arg in ["C", "I", "T"]):
             # Converts certain output types into a numpy array
             # instead of a raw string that is less useful.
             if result.startswith(("-R", "-T")):  # e.g. -R0/1/2/3 or -T0/9/1
@@ -97,6 +112,6 @@ def info(table, **kwargs):
                 result = np.loadtxt(result.splitlines())
             except ValueError:
                 # Load non-numerical outputs in str type, e.g. for datetime
-                result = np.loadtxt(result.splitlines(), dtype="str")
+                result = np.loadtxt(result.splitlines(), dtype=np.str_)
 
         return result

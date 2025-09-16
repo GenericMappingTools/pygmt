@@ -1,20 +1,22 @@
-"""
-Cylindrical Stereographic
-=========================
+r"""
+Cylindrical stereographic projection
+====================================
 
 The cylindrical stereographic projections are certainly not as notable as other
-cylindrical projections, but are still used because of their relative simplicity and
-their ability to overcome some of the downsides of other cylindrical projections, like
-extreme distortions of the higher latitudes. The stereographic projections are
-perspective projections, projecting the sphere onto a cylinder in the direction of the
-antipodal point on the equator. The cylinder crosses the sphere at two standard
-parallels, equidistant from the equator.
+cylindrical projections, but are still used because of their relative
+simplicity and their ability to overcome some of the downsides of other
+cylindrical projections, like extreme distortions of the higher latitudes. The
+stereographic projections are perspective projections, projecting the sphere
+onto a cylinder in the direction of the antipodal point on the equator. The
+cylinder crosses the sphere at two standard parallels, equidistant from the
+equator.
 
-**cyl_stere/**\ [*lon0/*]\ [*lat0/*]\ *scale*
-or **Cyl_stere/**\ [*lon0/*]\ [*lat0/*]\ *width*
+**cyl_stere**/\ [*lon0*/\ [*lat0*/]]\ *scale* or
+**Cyl_stere**/\ [*lon0*/\ [*lat0*/]]\ *width*
 
-The projection is set with **cyl_stere** or **Cyl_stere**. The central meridian is set
-by the optional *lon0*, and the figure size is set with *scale* or *width*.
+The projection is set with **cyl_stere** or **Cyl_stere**. The central meridian
+is set by the optional *lon0*, and the figure size is set with *scale* or
+*width*.
 
 The standard parallel is typically one of these (but can be any value):
 
@@ -25,8 +27,16 @@ The standard parallel is typically one of these (but can be any value):
 * 0 - Braun's Cylindrical
 
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()
-fig.coast(region="g", frame="afg", land="gray", projection="Cyl_stere/30/-20/12c")
+fig.coast(
+    region="g",
+    projection="Cyl_stere/30/-20/12c",
+    frame="afg",
+    land="gray80",
+    water="steelblue",
+)
 fig.show()

@@ -1,4 +1,5 @@
 outs:
-- md5: 62d6aec510780889e6f1d25a8c564ff0
-  size: 29626
+- md5: 813f2c05cf552a9a015c4cc44c9e4246
+  size: 30075
   path: test_inset_aliases.png
+  hash: md5

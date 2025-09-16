@@ -1,0 +1,51 @@
+# Upload the ZIP archive of baseline images as a release asset
+#
+# This workflow is run to upload the ZIP archive of baseline images as a
+# release asset when a release is published.
+#
+name: Upload baseline images
+
+# Only run for releases
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  upload-baseline:
+    name: Upload baseline images
+    runs-on: ubuntu-latest
+    if: github.repository == 'GenericMappingTools/pygmt'
+
+    permissions:
+      # To write assets to GitHub release
+      contents: write
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v5.0.0
+      with:
+        persist-credentials: false
+
+    - name: Setup data version control (DVC)
+      uses: iterative/setup-dvc@175771be1dc3d119268e00a896b52a4b77decb5e # v1.2.0
+
+    - name: Pull baseline image data from dvc remote
+      run: |
+        dvc remote modify upstream url https://${DAGSHUB_TOKEN}@dagshub.com/GenericMappingTools/pygmt.dvc --local
+        dvc pull && ls -lhR pygmt/tests/baseline/
+      env:
+        DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
+
+    - name: Create the baseline image asset in zip format
+      run: |
+        mkdir baseline-images
+        mv pygmt/tests/baseline/*.png baseline-images/
+        zip -r baseline-images.zip baseline-images
+        shasum -a 256 baseline-images.zip
+
+    - name: Upload baseline image as a release asset
+      run: gh release upload ${REF_NAME} baseline-images.zip
+      env:
+        GH_TOKEN: ${{ github.token }}
+        REF_NAME: ${{ github.ref_name }}

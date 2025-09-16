@@ -1,4 +1,5 @@
 outs:
-- md5: c0c239594e0f54feb334e6bc6cdfade2
-  size: 14643
+- md5: a702ab2c944f22d36f00a83e62ed939e
+  size: 14788
   path: test_plot_sizes_colors_transparencies.png
+  hash: md5

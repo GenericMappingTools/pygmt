@@ -1,4 +1,5 @@
 outs:
-- md5: 6969208b1b1852a0b08cd67263966fdc
-  size: 83228
+- md5: 21c66badaad4555b241e0a308227e4ae
+  size: 54733
   path: test_config_font_one.png
+  hash: md5
