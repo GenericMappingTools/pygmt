@@ -70,7 +70,7 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
     >>> data.shape
     (180, 360, 3)
     >>> data.min(), data.max()
-    (10, 255)
+    (np.uint8(10), np.uint8(255))
     """
 
     _fields_: ClassVar = [
@@ -139,17 +139,18 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
                 ...,
                 [177, 179, 179, ..., 178, 177, 177],
                 [185, 187, 187, ..., 187, 186, 185],
-                [189, 191, 191, ..., 191, 191, 189]]], dtype=uint8)
+                [189, 191, 191, ..., 191, 191, 189]]],
+              shape=(3, 180, 360), dtype=uint8)
         Coordinates:
           * y        (y) float64... 89.5 88.5 87.5 86.5 ... -86.5 -87.5 -88.5 -89.5
           * x        (x) float64... -179.5 -178.5 -177.5 -176.5 ... 177.5 178.5 179.5
           * band     (band) uint8... 1 2 3
         Attributes:
-            long_name:     z
+            long_name:  z
 
         >>> da.coords["x"]  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
         <xarray.DataArray 'x' (x: 360)>...
-        array([-179.5, -178.5, -177.5, ...,  177.5,  178.5,  179.5])
+        array([-179.5, -178.5, -177.5, ...,  177.5,  178.5,  179.5], shape=(360,))
         Coordinates:
           * x        (x) float64... -179.5 -178.5 -177.5 -176.5 ... 177.5 178.5 179.5
         Attributes:
