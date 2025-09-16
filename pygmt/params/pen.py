@@ -2,11 +2,16 @@
 Define the Pen class for specifying pen attributes (width, color, style).
 """
 
-from dataclasses import dataclass
+import dataclasses
+
+from pygmt.alias import Alias
+from pygmt.params.base import BaseParam
+
+__doctest_skip__ = ["Pen"]
 
 
-@dataclass
-class Pen:
+@dataclasses.dataclass(repr=False)
+class Pen(BaseParam):
     r"""
     A GMT pen specified from three attributes: *width*, *color* and *style*.
 
@@ -89,25 +94,25 @@ class Pen:
     >>> import pygmt
 
     >>> # 0.5 point wide line of default color and style
-    >>> pen = pygmt.param.Pen(width="0.5p")
+    >>> pen = pygmt.params.Pen(width="0.5p")
 
     >>> # Green line with default width and style
-    >>> pen = pygmt.param.Pen(color="green")
+    >>> pen = pygmt.params.Pen(color="green")
 
     >>> # Dashed, thin red line
-    >>> pen = pygmt.param.Pen(width="thin", color="red", style="-")
+    >>> pen = pygmt.params.Pen(width="thin", color="red", style="-")
 
     >>> # Fat dotted line with default color
-    >>> pen = pygmt.param.Pen(width="fat", style=".")
+    >>> pen = pygmt.params.Pen(width="fat", style=".")
 
     >>> # Green (in h-s-v) pen, 1 mm thick
-    >>> pen = pygmt.param.Pen(width="0.1c", color="120-1-1")
+    >>> pen = pygmt.params.Pen(width="0.1c", color="120-1-1")
 
     >>> # Very thin, cyan (in c/m/y/k), dot-dot-dashed line
-    >>> pen = pygmt.param.Pen(width="faint", color="100/0/0/0", style="..-")
+    >>> pen = pygmt.params.Pen(width="faint", color="100/0/0/0", style="..-")
 
     >>> # Thick, purple, dashed-dot-dashed border line around some text
-    >>> pen = pygmt.param.Pen(width="thick", color="purple", style="-.-")
+    >>> pen = pygmt.params.Pen(width="thick", color="purple", style="-.-")
     >>> print(pen)
     thick,purple,-.-
     >>> fig = pygmt.Figure()
@@ -115,11 +120,17 @@ class Pen:
     >>> fig.show()
     """
 
-    width: str = None
-    color: str = None
-    style: str = None
+    width: str = ""
+    color: str = ""
+    style: str = ""
 
-    def __str__(self):
-        return ",".join(
-            str(attr or "") for attr in (self.width, self.color, self.style)
-        )
+    @property
+    def _aliases(self):
+        """
+        Aliases for the parameter.
+        """
+        return [
+            Alias(self.width, name="width"),
+            Alias(self.color, name="color", prefix=","),
+            Alias(self.style, name="style", prefix=","),
+        ]
