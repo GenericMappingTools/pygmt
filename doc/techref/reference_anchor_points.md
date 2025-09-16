@@ -2,7 +2,7 @@
 file_format: mystnb
 ---
 
-# Reference and anchor points
+# Reference and Anchor Points
 
 For placing plot embellishments, we distinguish between reference and anchor points. To set
 these points users have to use the [justification codes](/techref/justification_codes.md).

@@ -2,7 +2,7 @@
 file_format: mystnb
 ---
 
-# Justification codes
+# Justification Codes
 
 To place plot embellishments, such as scalebars, directional roses, colorbars, legends,
 text, or images on a figure, two points have to be specified a point somewhere on the
