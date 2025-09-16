@@ -6,7 +6,7 @@ import io
 from typing import Literal
 
 from pygmt._typing import PathLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTTypeError
 from pygmt.helpers import (
@@ -17,22 +17,18 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.params import Box
 
 
 @fmt_docstring
-@use_alias(
-    R="region",
-    D="position",
-    F="box",
-    p="perspective",
-)
+@use_alias(R="region", D="position", p="perspective")
 @kwargs_to_strings(R="sequence", p="sequence")
 def legend(
     self,
     spec: PathLike | io.StringIO | None = None,
     projection=None,
     position="JTR+jTR+o0.2c",
-    box="+gwhite+p1p",
+    box: Box | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -51,6 +47,7 @@ def legend(
     Full GMT docs at :gmt-docs:`legend.html`.
 
     {aliases}
+       - F = box
        - J = projection
        - V = verbose
        - c = panel
@@ -77,13 +74,11 @@ def legend(
         legend. By default, uses **JTR**\ **+jTR**\ **+o**\ 0.2c which
         places the legend at the top-right corner inside the map frame, with a
         0.2 cm offset.
-    box : bool or str
-        [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
-        [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
-        If set to ``True``, draw a rectangular border around the legend
-        using :gmt-term:`MAP_FRAME_PEN`. By default, uses
-        **+g**\ white\ **+p**\ 1p which draws a box around the legend using a
-        1p black pen and adds a white background.
+    box
+        Draw a background box behind the legend. If set to ``True``, a simple
+        rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
+        appearance, pass a :class:`pygmt.params.Box` object to control style, fill, pen,
+        and other box properties.
     {verbose}
     {panel}
     {perspective}
@@ -91,10 +86,11 @@ def legend(
     """
     self._activate_figure()
 
+    # Default position and box when not specified.
     if kwargs.get("D") is None:
         kwargs["D"] = position
-        if kwargs.get("F") is None:
-            kwargs["F"] = box
+        if box is False and kwargs.get("F") is None:
+            box = Box(pen="1p", fill="white")  # Default box
 
     kind = data_kind(spec)
     if kind not in {"empty", "file", "stringio"}:
@@ -104,7 +100,9 @@ def legend(
             type(spec), reason="Only one legend specification file is allowed."
         )
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        F=Alias(box, name="box"),
+    ).add_common(
         J=projection,
         V=verbose,
         c=panel,
