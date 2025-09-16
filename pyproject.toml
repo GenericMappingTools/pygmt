@@ -35,7 +35,7 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
-    "numpy>=1.26",
+    "numpy>=2.0",
     "pandas>=2.1",
     "xarray>=2023.07",
     "packaging>=24.2",

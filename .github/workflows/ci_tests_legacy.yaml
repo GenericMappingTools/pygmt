@@ -61,7 +61,7 @@ jobs:
             python=3.11
             gmt=${{ matrix.gmt_version }}
             ghostscript<10
-            numpy=1.26
+            numpy=2.0
             pandas
             xarray
             packaging=24.2
