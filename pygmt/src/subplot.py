@@ -25,17 +25,17 @@ from pygmt.helpers import (
     B="frame",
     C="clearance",
     M="margins",
-    R="region",
     SC="sharex",
     SR="sharey",
     T="title",
 )
-@kwargs_to_strings(Ff="sequence", Fs="sequence", M="sequence", R="sequence")
+@kwargs_to_strings(Ff="sequence", Fs="sequence", M="sequence")
 def subplot(
     self,
     nrows=1,
     ncols=1,
     projection=None,
+    region=None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -53,6 +53,7 @@ def subplot(
 
     {aliases}
        - J = projection
+       - R = region
        - V = verbose
 
     Parameters
@@ -171,6 +172,7 @@ def subplot(
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)

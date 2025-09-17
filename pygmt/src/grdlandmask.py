@@ -21,14 +21,8 @@ __doctest_skip__ = ["grdlandmask"]
 
 
 @fmt_docstring
-@use_alias(
-    A="area_thresh",
-    I="spacing",
-    R="region",
-    r="registration",
-    x="cores",
-)
-@kwargs_to_strings(I="sequence", R="sequence")
+@use_alias(A="area_thresh", I="spacing", r="registration", x="cores")
+@kwargs_to_strings(I="sequence")
 def grdlandmask(
     outgrid: PathLike | None = None,
     maskvalues: Sequence[float] | None = None,
@@ -36,6 +30,7 @@ def grdlandmask(
     resolution: Literal[
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
+    region=None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -55,6 +50,7 @@ def grdlandmask(
        - D = resolution
        - E = bordervalues
        - N = maskvalues
+       - R = region
        - V = verbose
 
     Parameters
@@ -115,7 +111,7 @@ def grdlandmask(
     >>> # latitude range of 30° N to 35° N, and a grid spacing of 1 arc-degree
     >>> landmask = pygmt.grdlandmask(spacing=1, region=[125, 130, 30, 35])
     """
-    if kwargs.get("I") is None or kwargs.get("R") is None:
+    if kwargs.get("I") is None or region is None:
         msg = "Both 'region' and 'spacing' must be specified."
         raise GMTInvalidInput(msg)
 
@@ -135,6 +131,7 @@ def grdlandmask(
         N=Alias(maskvalues, name="maskvalues", sep="/", size=(2, 5)),
         E=Alias(bordervalues, name="bordervalues", sep="/", size=4),
     ).add_common(
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)

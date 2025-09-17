@@ -24,14 +24,14 @@ __doctest_skip__ = ["sphdistance"]
     L="unit",
     N="node_table",
     Q="voronoi",
-    R="region",
 )
-@kwargs_to_strings(I="sequence", R="sequence")
+@kwargs_to_strings(I="sequence")
 def sphdistance(
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     outgrid: PathLike | None = None,
+    region=None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -47,6 +47,7 @@ def sphdistance(
     Full GMT docs at :gmt-docs:`sphdistance.html`.
 
     {aliases}
+       - R = region
        - V = verbose
 
     Parameters
@@ -119,11 +120,12 @@ def sphdistance(
     ...     data=coords_array, spacing=[1, 2], region=[82, 87, 22, 24]
     ... )
     """
-    if kwargs.get("I") is None or kwargs.get("R") is None:
+    if kwargs.get("I") is None or region is None:
         msg = "Both 'region' and 'spacing' must be specified."
         raise GMTInvalidInput(msg)
 
     aliasdict = AliasSystem().add_common(
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)

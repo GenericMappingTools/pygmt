@@ -11,11 +11,12 @@ from pygmt.params import Box
 
 
 @fmt_docstring
-@use_alias(R="region", D="position", S="style")
-@kwargs_to_strings(R="sequence", p="sequence")
+@use_alias(D="position", S="style")
+@kwargs_to_strings(p="sequence")
 def logo(
     self,
     projection=None,
+    region=None,
     box: Box | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -36,6 +37,7 @@ def logo(
     {aliases}
        - F = box
        - J = projection
+       - R = region
        - V = verbose
        - c = panel
        - t = transparency
@@ -71,6 +73,7 @@ def logo(
         F=Alias(box, name="box"),
     ).add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,

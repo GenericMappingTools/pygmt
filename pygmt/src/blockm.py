@@ -73,7 +73,6 @@ def _blockm(
 @fmt_docstring
 @use_alias(
     I="spacing",
-    R="region",
     S="summary",
     a="aspatial",
     b="binary",
@@ -86,7 +85,7 @@ def _blockm(
     r="registration",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(I="sequence", i="sequence_comma", o="sequence_comma")
 def blockmean(
     data: PathLike | TableLike | None = None,
     x=None,
@@ -94,6 +93,7 @@ def blockmean(
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    region=None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -113,6 +113,7 @@ def blockmean(
     Full GMT docs at :gmt-docs:`blockmean.html`.
 
     {aliases}
+       - R = region
        - V = verbose
 
     Parameters
@@ -166,6 +167,7 @@ def blockmean(
     >>> data_bmean = pygmt.blockmean(data=data, region=[245, 255, 20, 30], spacing="5m")
     """
     aliasdict = AliasSystem().add_common(
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)
@@ -185,7 +187,6 @@ def blockmean(
 @fmt_docstring
 @use_alias(
     I="spacing",
-    R="region",
     a="aspatial",
     b="binary",
     d="nodata",
@@ -197,7 +198,7 @@ def blockmean(
     r="registration",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(I="sequence", i="sequence_comma", o="sequence_comma")
 def blockmedian(
     data: PathLike | TableLike | None = None,
     x=None,
@@ -205,6 +206,7 @@ def blockmedian(
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    region=None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -224,6 +226,7 @@ def blockmedian(
     Full GMT docs at :gmt-docs:`blockmedian.html`.
 
     {aliases}
+       - R = region
        - V = verbose
 
     Parameters
@@ -271,6 +274,7 @@ def blockmedian(
     ... )
     """
     aliasdict = AliasSystem().add_common(
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)
@@ -290,7 +294,6 @@ def blockmedian(
 @fmt_docstring
 @use_alias(
     I="spacing",
-    R="region",
     a="aspatial",
     b="binary",
     d="nodata",
@@ -302,7 +305,7 @@ def blockmedian(
     r="registration",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(I="sequence", i="sequence_comma", o="sequence_comma")
 def blockmode(
     data: PathLike | TableLike | None = None,
     x=None,
@@ -310,6 +313,7 @@ def blockmode(
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    region=None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -329,6 +333,7 @@ def blockmode(
     Full GMT docs at :gmt-docs:`blockmode.html`.
 
     {aliases}
+       - R = region
        - V = verbose
 
     Parameters
@@ -374,6 +379,7 @@ def blockmode(
     >>> data_bmode = pygmt.blockmode(data=data, region=[245, 255, 20, 30], spacing="5m")
     """
     aliasdict = AliasSystem().add_common(
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)

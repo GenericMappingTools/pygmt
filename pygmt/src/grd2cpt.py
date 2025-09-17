@@ -24,12 +24,11 @@ __doctest_skip__ = ["grd2cpt"]
     H="output",
     I="reverse",
     L="limit",
-    R="region",
     T="series",
     W="categorical",
     Ww="cyclic",
 )
-@kwargs_to_strings(L="sequence", R="sequence", T="sequence")
+@kwargs_to_strings(L="sequence", T="sequence")
 def grd2cpt(
     grid: PathLike | xr.DataArray,
     truncate: tuple[float, float] | None = None,
@@ -37,6 +36,7 @@ def grd2cpt(
     no_bg: bool = False,
     log: bool = False,
     continuous: bool = False,
+    region=None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -89,6 +89,7 @@ def grd2cpt(
        - M = overrule_bg
        - N = no_bg
        - Q = log
+       - R = region
        - Z = continuous
        - V = verbose
 
@@ -210,6 +211,7 @@ def grd2cpt(
         Q=Alias(log, name="log"),
         Z=Alias(continuous, name="continuous"),
     ).add_common(
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)

@@ -24,7 +24,6 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @use_alias(
-    R="region",
     B="frame",
     C="clearance",
     D="offset",
@@ -39,7 +38,7 @@ from pygmt.helpers import (
     p="perspective",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", p="sequence")
+@kwargs_to_strings(p="sequence")
 def text_(  # noqa: PLR0912, PLR0913, PLR0915
     self,
     textfiles: PathLike | TableLike | None = None,
@@ -51,6 +50,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
     font=None,
     justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
     projection=None,
+    region=None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -76,6 +76,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
     {aliases}
        - F = **+a**: angle, **+c**: position, **+j**: justify, **+f**: font
        - J = projection
+       - R = region
        - V = verbose
        - c = panel
        - t = transparency
@@ -273,6 +274,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,

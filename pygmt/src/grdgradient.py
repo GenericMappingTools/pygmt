@@ -27,15 +27,15 @@ __doctest_skip__ = ["grdgradient"]
     E="radiance",
     N="normalize",
     Q="tiles",
-    R="region",
     S="slope_file",
     f="coltypes",
     n="interpolation",
 )
-@kwargs_to_strings(A="sequence", E="sequence", R="sequence")
+@kwargs_to_strings(A="sequence", E="sequence")
 def grdgradient(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
+    region=None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -49,6 +49,7 @@ def grdgradient(
     Full GMT docs at :gmt-docs:`grdgradient.html`.
 
     {aliases}
+       - R = region
        - V = verbose
 
     Parameters
@@ -156,7 +157,6 @@ def grdgradient(
         - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
-
     Example
     -------
     >>> import pygmt
@@ -179,6 +179,7 @@ def grdgradient(
         raise GMTInvalidInput(msg)
 
     aliasdict = AliasSystem().add_common(
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)

@@ -15,7 +15,6 @@ from pygmt.helpers import (
     build_arg_list,
     deprecate_parameter,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
 )
 
@@ -77,8 +76,7 @@ def _validate_params(
 # TODO(PyGMT>=0.19.0): Remove the deprecated 'no_data' parameter.
 # TODO(PyGMT>=0.19.0): Remove the deprecated 'mode' parameter.
 @deprecate_parameter("no_data", "hole", "v0.15.0", remove_version="v0.19.0")
-@use_alias(N="hole", R="region", f="coltypes")
-@kwargs_to_strings(R="sequence")
+@use_alias(N="hole", f="coltypes")
 def grdfill(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
@@ -88,6 +86,7 @@ def grdfill(
     splinefill: float | bool | None = None,
     inquire: bool = False,
     mode: str | None = None,
+    region=None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -109,6 +108,7 @@ def grdfill(
        - An = neighborfill
        - As = splinefill
        - L = inquire
+       - R = region
        - V = verbose
 
     Parameters
@@ -188,6 +188,7 @@ def grdfill(
         As=Alias(splinefill, name="splinefill"),
         L=Alias(inquire, name="inquire"),
     ).add_common(
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)
