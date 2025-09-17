@@ -153,7 +153,7 @@ Wei Ji Leong
 :text-align: center
 :margin: 0 3 0 0
 
-![](https://github.com/yvonnefroehlich/gmt-pygmt-plotting/raw/main/_images/github_maps_readme_main.png)
+![](https://github.com/yvonnefroehlich/gmt-pygmt-plotting/raw/main/_images/github_maps_readme_main.gif)
 +++
 Yvonne Fröhlich
 ::::
