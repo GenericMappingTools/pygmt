@@ -2,6 +2,7 @@
 coast - Plot continents, countries, shorelines, rivers, and borders.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
@@ -41,7 +42,7 @@ def coast(
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
     box: Box | bool = False,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,

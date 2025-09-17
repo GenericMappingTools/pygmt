@@ -3,6 +3,7 @@ sphdistance - Create Voronoi distance, node, or natural nearest-neighbor grid on
 sphere.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -31,7 +32,7 @@ def sphdistance(
     x=None,
     y=None,
     outgrid: PathLike | None = None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,

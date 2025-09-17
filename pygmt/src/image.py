@@ -2,6 +2,7 @@
 image - Plot raster or EPS images.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import PathLike
@@ -18,7 +19,7 @@ def image(
     self,
     imagefile: PathLike,
     projection=None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     box: Box | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,

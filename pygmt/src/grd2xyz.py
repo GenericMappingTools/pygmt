@@ -2,6 +2,7 @@
 grd2xyz - Convert grid to data table.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
@@ -39,7 +40,7 @@ def grd2xyz(
     grid: PathLike | xr.DataArray,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,

@@ -2,6 +2,7 @@
 sphinterpolate - Spherical gridding in tension of data on a sphere.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -19,7 +20,7 @@ __doctest_skip__ = ["sphinterpolate"]
 def sphinterpolate(
     data: PathLike | TableLike,
     outgrid: PathLike | None = None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,

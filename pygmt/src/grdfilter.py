@@ -2,6 +2,7 @@
 grdfilter - Filter a grid in the space (or time) domain.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -26,7 +27,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 def grdfilter(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,

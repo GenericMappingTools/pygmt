@@ -29,7 +29,7 @@ def grdclip(
     below: Sequence[float] | None = None,
     between: Sequence[float] | Sequence[Sequence[float]] | None = None,
     replace: Sequence[float] | Sequence[Sequence[float]] | None = None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,

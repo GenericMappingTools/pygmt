@@ -2,6 +2,7 @@
 grdcut - Extract subregion from a grid or image or a slice from a cube.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -26,7 +27,7 @@ def grdcut(
     kind: Literal["grid", "image"] = "grid",
     outgrid: PathLike | None = None,
     projection=None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,

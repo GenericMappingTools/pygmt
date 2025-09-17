@@ -2,6 +2,7 @@
 contour - Contour table data by direct triangulation.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import PathLike, TableLike
@@ -43,7 +44,7 @@ def contour(
     y=None,
     z=None,
     projection=None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,

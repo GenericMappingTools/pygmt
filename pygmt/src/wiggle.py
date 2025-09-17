@@ -2,6 +2,7 @@
 wiggle - Plot z=f(x,y) anomalies along tracks.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import PathLike, TableLike
@@ -64,7 +65,7 @@ def wiggle(  # noqa: PLR0913
     fillpositive=None,
     fillnegative=None,
     projection=None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,

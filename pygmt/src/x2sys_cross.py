@@ -4,6 +4,7 @@ x2sys_cross - Calculate crossovers between track data files.
 
 import contextlib
 import os
+from collections.abc import Sequence
 from pathlib import Path
 from typing import Any, Literal
 
@@ -71,7 +72,7 @@ def tempfile_from_dftrack(track, suffix):
 def x2sys_cross(
     tracks=None,
     outfile: PathLike | None = None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,

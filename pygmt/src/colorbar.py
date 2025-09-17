@@ -2,6 +2,7 @@
 colorbar - Plot gray scale or color scale bar.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
@@ -30,7 +31,7 @@ def colorbar(
     self,
     projection=None,
     box: Box | bool = False,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,

@@ -2,6 +2,7 @@
 grdhisteq - Perform histogram equalization for a grid.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
@@ -58,7 +59,7 @@ class grdhisteq:  # noqa: N801
     def equalize_grid(
         grid: PathLike | xr.DataArray,
         outgrid: PathLike | None = None,
-        region=None,
+        region: Sequence[float | str] | str | None = None,
         verbose: Literal[
             "quiet", "error", "warning", "timing", "info", "compat", "debug"
         ]
@@ -148,7 +149,7 @@ class grdhisteq:  # noqa: N801
         grid: PathLike | xr.DataArray,
         output_type: Literal["pandas", "numpy", "file"] = "pandas",
         outfile: PathLike | None = None,
-        region=None,
+        region: Sequence[float | str] | str | None = None,
         verbose: Literal[
             "quiet", "error", "warning", "timing", "info", "compat", "debug"
         ]

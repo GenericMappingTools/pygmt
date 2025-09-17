@@ -2,6 +2,7 @@
 velo - Plot velocity vectors, crosses, anisotropy bars, and wedges.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
@@ -44,7 +45,7 @@ def velo(
     self,
     data: PathLike | TableLike | None = None,
     projection=None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,

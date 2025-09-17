@@ -2,6 +2,7 @@
 sph2grd - Compute grid from spherical harmonic coefficients.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -26,7 +27,7 @@ __doctest_skip__ = ["sph2grd"]
 def sph2grd(
     data: PathLike | TableLike,
     outgrid: PathLike | None = None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,

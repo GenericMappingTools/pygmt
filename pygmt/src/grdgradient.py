@@ -2,6 +2,7 @@
 grdgradient - Compute directional gradients from a grid.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -35,7 +36,7 @@ __doctest_skip__ = ["grdgradient"]
 def grdgradient(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,

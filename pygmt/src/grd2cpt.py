@@ -2,6 +2,7 @@
 grd2cpt - Make linear or histogram-equalized color palette table from grid.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -36,7 +37,7 @@ def grd2cpt(
     no_bg: bool = False,
     log: bool = False,
     continuous: bool = False,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,

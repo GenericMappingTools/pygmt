@@ -2,6 +2,7 @@
 surface - Grid table data using adjustable tension continuous curvature splines.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -38,7 +39,7 @@ def surface(
     y=None,
     z=None,
     outgrid: PathLike | None = None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,

@@ -2,6 +2,7 @@
 rose - Plot a polar histogram (rose, sector, windrose diagrams).
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import PathLike, TableLike
@@ -42,7 +43,7 @@ def rose(
     data: PathLike | TableLike | None = None,
     length=None,
     azimuth=None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,

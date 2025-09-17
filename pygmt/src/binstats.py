@@ -2,6 +2,7 @@
 binstats - Bin spatial data and determine statistics per bin.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -47,7 +48,7 @@ def binstats(
         "sum",
     ] = "number",
     quantile_value: float = 50,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,

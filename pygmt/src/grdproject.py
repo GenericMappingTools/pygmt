@@ -2,6 +2,7 @@
 grdproject - Forward and inverse map transformation of grids.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -30,7 +31,7 @@ def grdproject(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
     projection=None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
