@@ -73,7 +73,7 @@ jobs:
           # Python 3.11 + core packages (minimum supported versions) + optional packages (minimum supported versions if any)
           - python-version: '3.11'
             numpy-version: '1.26'
-            pandas-version: '=2.1'
+            pandas-version: '=2.2'
             xarray-version: '=2023.10'
             optional-packages: ' contextily geopandas ipython pyarrow-core rioxarray netCDF4 sphinx-gallery'
           # Python 3.13 + core packages (latest versions) + optional packages
