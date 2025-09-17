@@ -9,7 +9,7 @@ dependencies:
     - ghostscript=10.04.0
     - numpy>=1.26
     - pandas>=2.2
-    - xarray>=2023.07
+    - xarray>=2023.10
     - packaging>=24.2
     # Optional dependencies
     - contextily>=1.5
