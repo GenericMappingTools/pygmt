@@ -11,7 +11,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 
 @fmt_docstring
 @use_alias(
-    R="region",
     Jz="zscale",
     JZ="zsize",
     B="frame",
@@ -22,10 +21,11 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     f="coltypes",
     p="perspective",
 )
-@kwargs_to_strings(R="sequence", p="sequence")
+@kwargs_to_strings(p="sequence")
 def basemap(
     self,
     projection=None,
+    region=None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -47,6 +47,7 @@ def basemap(
 
     {aliases}
        - J = projection
+       - R = region
        - V = verbose
        - c = panel
        - t = transparency
@@ -97,6 +98,7 @@ def basemap(
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,
