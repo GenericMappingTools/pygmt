@@ -314,11 +314,6 @@ def test_to_numpy_pandas_numeric(dtype, expected_dtype):
     Test the _to_numpy function with pandas.Series of numeric dtypes.
     """
     data = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
-    # TODO(pandas>=2.2): Remove the workaround for float16 dtype in pandas<2.2.
-    # float16 needs special handling for pandas < 2.2.
-    # Example from https://arrow.apache.org/docs/python/generated/pyarrow.float16.html
-    if dtype == "float16[pyarrow]" and Version(pd.__version__) < Version("2.2"):
-        data = np.array(data, dtype=np.float16)
     series = pd.Series(data, dtype=dtype)[::2]  # Not C-contiguous
     result = _to_numpy(series)
     _check_result(result, expected_dtype)
@@ -361,11 +356,6 @@ def test_to_numpy_pandas_numeric_with_na(dtype, expected_dtype):
     dtypes and missing values (NA).
     """
     data = [1.0, 2.0, None, 4.0, 5.0, 6.0]
-    # TODO(pandas>=2.2): Remove the workaround for float16 dtype in pandas<2.2.
-    # float16 needs special handling for pandas < 2.2.
-    # Example from https://arrow.apache.org/docs/python/generated/pyarrow.float16.html
-    if dtype == "float16[pyarrow]" and Version(pd.__version__) < Version("2.2"):
-        data = np.array(data, dtype=np.float16)
     series = pd.Series(data, dtype=dtype)[::2]  # Not C-contiguous
     assert series.isna().any()
     result = _to_numpy(series)
