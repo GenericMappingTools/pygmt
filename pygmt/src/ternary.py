@@ -18,18 +18,18 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     C="cmap",
     G="fill",
     JX="width",
-    R="region",
     S="style",
     W="pen",
     p="perspective",
 )
-@kwargs_to_strings(R="sequence", p="sequence")
+@kwargs_to_strings(p="sequence")
 def ternary(
     self,
     data: PathLike | TableLike,
     alabel: str | None = None,
     blabel: str | None = None,
     clabel: str | None = None,
+    region=None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -51,6 +51,7 @@ def ternary(
 
     {aliases}
        - L = alabel/blabel/clabel
+       - R = region
        - V = verbose
        - c = panel
        - t = transparency
@@ -98,6 +99,7 @@ def ternary(
     aliasdict = AliasSystem(
         L=Alias(labels, name="alabel/blabel/clabel", sep="/", size=3),
     ).add_common(
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,

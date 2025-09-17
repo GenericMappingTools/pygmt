@@ -12,12 +12,13 @@ from pygmt.params import Box
 
 
 @fmt_docstring
-@use_alias(D="position", G="bitcolor", M="monochrome", R="region", p="perspective")
-@kwargs_to_strings(R="sequence", p="sequence")
+@use_alias(D="position", G="bitcolor", M="monochrome", p="perspective")
+@kwargs_to_strings(p="sequence")
 def image(
     self,
     imagefile: PathLike,
     projection=None,
+    region=None,
     box: Box | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -36,6 +37,7 @@ def image(
     {aliases}
        - F = box
        - J = projection
+       - R = region
        - V = verbose
        - c = panel
        - t = transparency
@@ -82,6 +84,7 @@ def image(
         F=Alias(box, name="box"),
     ).add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,

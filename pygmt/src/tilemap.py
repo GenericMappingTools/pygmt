@@ -24,10 +24,9 @@ except ImportError:
     M="monochrome",
     N="no_clip",
     Q="nan_transparent",
-    # R="region",
     p="perspective",
 )
-@kwargs_to_strings(p="sequence")  # R="sequence",
+@kwargs_to_strings(p="sequence")
 def tilemap(  # noqa: PLR0913
     self,
     region: list,
@@ -127,12 +126,13 @@ def tilemap(  # noqa: PLR0913
         raster.gmt.gtype = GridType.GEOGRAPHIC
 
     # Only set region if no_clip is None or False, so that plot is clipped to exact
-    # bounding box region
-    if kwargs.get("N") in {None, False}:
-        kwargs["R"] = "/".join(str(coordinate) for coordinate in region)
+    # bounding box region.
+    if kwargs.get("N") not in {None, False}:
+        region = None
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,

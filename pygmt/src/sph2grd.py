@@ -16,17 +16,17 @@ __doctest_skip__ = ["sph2grd"]
 @fmt_docstring
 @use_alias(
     I="spacing",
-    R="region",
     b="binary",
     h="header",
     i="incols",
     r="registration",
     x="cores",
 )
-@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
+@kwargs_to_strings(I="sequence", i="sequence_comma")
 def sph2grd(
     data: PathLike | TableLike,
     outgrid: PathLike | None = None,
+    region=None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -41,6 +41,7 @@ def sph2grd(
     Full GMT docs at :gmt-docs:`sph2grd.html`.
 
     {aliases}
+       - R = region
        - V = verbose
 
     Parameters
@@ -76,6 +77,7 @@ def sph2grd(
     >>> new_grid = pygmt.sph2grd(data="@EGM96_to_36.txt", spacing=1, region="g")
     """
     aliasdict = AliasSystem().add_common(
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)

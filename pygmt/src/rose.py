@@ -24,7 +24,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     L="labels",
     M="vector_params",
     Q="alpha",
-    R="region",
     S="norm",
     T="orientation",
     W="pen",
@@ -37,12 +36,13 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     p="perspective",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
+@kwargs_to_strings(i="sequence_comma", p="sequence")
 def rose(
     self,
     data: PathLike | TableLike | None = None,
     length=None,
     azimuth=None,
+    region=None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -65,6 +65,7 @@ def rose(
     Full GMT docs at :gmt-docs:`rose.html`.
 
     {aliases}
+       - R = region
        - V = verbose
        - c = panel
        - t = transparency
@@ -208,6 +209,7 @@ def rose(
     self._activate_figure()
 
     aliasdict = AliasSystem().add_common(
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,

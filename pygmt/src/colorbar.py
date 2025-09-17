@@ -21,16 +21,16 @@ __doctest_skip__ = ["colorbar"]
     I="shading",
     L="equalsize",
     Q="log",
-    R="region",
     W="scale",
     Z="zfile",
     p="perspective",
 )
-@kwargs_to_strings(R="sequence", G="sequence", I="sequence", p="sequence")
+@kwargs_to_strings(G="sequence", I="sequence", p="sequence")
 def colorbar(
     self,
     projection=None,
     box: Box | bool = False,
+    region=None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -53,6 +53,7 @@ def colorbar(
     {aliases}
        - F = box
        - J = projection
+       - R = region
        - V = verbose
        - c = panel
        - t = transparency
@@ -151,6 +152,7 @@ def colorbar(
         F=Alias(box, name="box"),
     ).add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,

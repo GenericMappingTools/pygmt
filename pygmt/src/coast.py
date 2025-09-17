@@ -29,12 +29,11 @@ __doctest_skip__ = ["coast"]
     I="rivers",
     L="map_scale",
     N="borders",
-    R="region",
     S="water",
     W="shorelines",
     p="perspective",
 )
-@kwargs_to_strings(R="sequence", p="sequence")
+@kwargs_to_strings(p="sequence")
 def coast(
     self,
     projection=None,
@@ -42,6 +41,7 @@ def coast(
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
     box: Box | bool = False,
+    region=None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -71,6 +71,7 @@ def coast(
        - D = resolution
        - F = box
        - J = projection
+       - R = region
        - V = verbose
        - c = panel
        - t = transparency
@@ -222,6 +223,7 @@ def coast(
         F=Alias(box, name="box"),
     ).add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,

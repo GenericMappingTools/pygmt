@@ -20,7 +20,6 @@ __doctest_skip__ = ["surface"]
     Ll="lower",
     Lu="upper",
     M="maxradius",
-    R="region",
     T="tension",
     a="aspatial",
     b="binary",
@@ -32,13 +31,14 @@ __doctest_skip__ = ["surface"]
     r="registration",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence", R="sequence")
+@kwargs_to_strings(I="sequence")
 def surface(
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     z=None,
     outgrid: PathLike | None = None,
+    region=None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -76,6 +76,7 @@ def surface(
     Full GMT docs at :gmt-docs:`surface.html`.
 
     {aliases}
+       - R = region
        - V = verbose
 
     Parameters
@@ -164,6 +165,7 @@ def surface(
     >>> grid = pygmt.surface(data=topography, spacing=1, region=[0, 4, 0, 8])
     """
     aliasdict = AliasSystem().add_common(
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)
