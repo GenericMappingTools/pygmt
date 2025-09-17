@@ -100,6 +100,7 @@ class triangulate:  # noqa: N801
 
         {aliases}
            - J = projection
+           - R = region
 
         Parameters
         ----------

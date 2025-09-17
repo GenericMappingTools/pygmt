@@ -55,6 +55,7 @@ def histogram(
 
     {aliases}
        - J = projection
+       - R = region
        - V = verbose
        - c = panel
        - t = transparency

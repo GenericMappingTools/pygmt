@@ -39,6 +39,7 @@ def solar(
 
     {aliases}
        - J = projection
+       - R = region
        - T = terminator, **+d**: terminator_datetime
        - V = verbose
        - c = panel
