@@ -300,6 +300,10 @@ class AliasSystem(UserDict):
         """
         for key, value in kwargs.items():
             match key:
+                case "J":
+                    alias = Alias(value, name="projection")
+                case "R":
+                    alias = Alias(value, name="region", sep="/", size=(4, 6))
                 case "V":
                     alias = Alias(
                         value,
@@ -314,8 +318,6 @@ class AliasSystem(UserDict):
                             "debug": "d",
                         },
                     )
-                case "J":
-                    alias = Alias(value, name="projection")
                 case "c":
                     alias = Alias(value, name="panel", sep=",", size=2)
                 case "t":
