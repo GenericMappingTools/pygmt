@@ -2,6 +2,7 @@
 dimfilter - Directional filtering of grids in the space domain.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -20,7 +21,7 @@ __doctest_skip__ = ["dimfilter"]
 def dimfilter(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,

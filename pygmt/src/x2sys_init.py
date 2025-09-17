@@ -2,6 +2,7 @@
 x2sys_init - Initialize a new x2sys track database.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt.alias import AliasSystem
@@ -23,7 +24,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @kwargs_to_strings(I="sequence")
 def x2sys_init(
     tag,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,

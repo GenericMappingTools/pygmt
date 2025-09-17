@@ -2,6 +2,7 @@
 grdtrack - Sample one or more grids at specified locations.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
@@ -54,7 +55,7 @@ def grdtrack(
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
     newcolname=None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,

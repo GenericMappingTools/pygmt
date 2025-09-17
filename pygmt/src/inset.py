@@ -3,6 +3,7 @@ inset - Manage figure inset setup and completion.
 """
 
 import contextlib
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
@@ -20,7 +21,7 @@ __doctest_skip__ = ["inset"]
 def inset(
     self,
     projection=None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     box: Box | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,

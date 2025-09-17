@@ -2,6 +2,7 @@
 grdview - Create 3-D perspective image or surface mesh from a grid.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -35,7 +36,7 @@ def grdview(
     self,
     grid: PathLike | xr.DataArray,
     projection=None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,

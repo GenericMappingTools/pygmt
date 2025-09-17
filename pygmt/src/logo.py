@@ -2,6 +2,7 @@
 logo - Plot the GMT logo.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
@@ -16,7 +17,7 @@ from pygmt.params import Box
 def logo(
     self,
     projection=None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     box: Box | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,

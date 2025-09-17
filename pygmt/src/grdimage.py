@@ -2,6 +2,7 @@
 grdimage - Project and plot grids or images.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -34,7 +35,7 @@ def grdimage(
     self,
     grid: PathLike | xr.DataArray,
     projection=None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,

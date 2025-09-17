@@ -3,6 +3,7 @@ legend - Plot a legend.
 """
 
 import io
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import PathLike
@@ -27,7 +28,7 @@ def legend(
     self,
     spec: PathLike | io.StringIO | None = None,
     projection=None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     position="JTR+jTR+o0.2c",
     box: Box | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]

@@ -2,6 +2,7 @@
 nearneighbor - Grid table data using a "Nearest neighbor" algorithm.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -37,7 +38,7 @@ def nearneighbor(
     y=None,
     z=None,
     outgrid: PathLike | None = None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,

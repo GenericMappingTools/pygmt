@@ -2,6 +2,7 @@
 select - Select data table subsets based on multiple spatial criteria.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
@@ -50,7 +51,7 @@ def select(
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
     projection=None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,

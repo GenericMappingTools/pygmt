@@ -2,6 +2,7 @@
 xyz2grd - Convert data table to a grid.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -36,7 +37,7 @@ def xyz2grd(
     z=None,
     outgrid: PathLike | None = None,
     projection=None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,

@@ -3,6 +3,7 @@ grdfill - Interpolate across holes in a grid.
 """
 
 import warnings
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
@@ -86,7 +87,7 @@ def grdfill(
     splinefill: float | bool | None = None,
     inquire: bool = False,
     mode: str | None = None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,

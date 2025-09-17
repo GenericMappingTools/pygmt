@@ -3,6 +3,7 @@ subplot - Manage figure subplot configuration and selection.
 """
 
 import contextlib
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt.alias import AliasSystem
@@ -35,7 +36,7 @@ def subplot(
     nrows=1,
     ncols=1,
     projection=None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,

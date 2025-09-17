@@ -3,6 +3,7 @@ triangulate - Delaunay triangulation or Voronoi partitioning and gridding of Car
 data.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
@@ -71,7 +72,7 @@ class triangulate:  # noqa: N801
         z=None,
         outgrid: PathLike | None = None,
         projection=None,
-        region=None,
+        region: Sequence[float | str] | str | None = None,
         **kwargs,
     ) -> xr.DataArray | None:
         """
@@ -187,7 +188,7 @@ class triangulate:  # noqa: N801
         output_type: Literal["pandas", "numpy", "file"] = "pandas",
         outfile: PathLike | None = None,
         projection=None,
-        region=None,
+        region: Sequence[float | str] | str | None = None,
         **kwargs,
     ) -> pd.DataFrame | np.ndarray | None:
         """

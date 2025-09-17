@@ -2,6 +2,7 @@
 basemap - Plot base maps and frames.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt.alias import AliasSystem
@@ -25,7 +26,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 def basemap(
     self,
     projection=None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,

@@ -2,6 +2,7 @@
 ternary - Plot data on ternary diagrams.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import pandas as pd
@@ -29,7 +30,7 @@ def ternary(
     alabel: str | None = None,
     blabel: str | None = None,
     clabel: str | None = None,
-    region=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
