@@ -22,7 +22,10 @@ fig.basemap(region=[0, 2, 0, 2], projection="X10c", frame=True)
 # a rectangular border around it
 fig.image(
     imagefile="https://oceania.generic-mapping-tools.org/cache/needle.jpg",
-    position="g1/1+w8c+jCM",
+    position_type="mapcoords",
+    position=(1, 1),
+    width="8c",
+    anchor="CM",
     box=True,
 )
 
