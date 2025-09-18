@@ -212,6 +212,7 @@ Class-style Parameters
     :toctree: generated
 
     Box
+    Pen
 
 Enums
 -----
