@@ -106,12 +106,13 @@ def test_basemap_compass():
     Create a map with a compass.
     """
     fig = Figure()
-    fig.basemap(
-        region=[127.5, 128.5, 26, 27],
-        projection="H15c",
-        frame=True,
-        compass="jMC+w5c+d11.5",
-    )
+    with pytest.warns(UserWarning, match="Parameter 'compass' is deprecated"):
+        fig.basemap(
+            region=[127.5, 128.5, 26, 27],
+            projection="H15c",
+            frame=True,
+            compass="jMC+w5c+d11.5",
+        )
     return fig
 
 
