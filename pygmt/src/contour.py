@@ -5,7 +5,7 @@ contour - Contour table data by direct triangulation.
 from typing import Literal
 
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -23,7 +23,6 @@ from pygmt.helpers import (
     C="levels",
     G="label_placement",
     L="triangular_mesh_pen",
-    N="no_clip",
     R="region",
     S="skip",
     W="pen",
@@ -43,6 +42,7 @@ def contour(
     x=None,
     y=None,
     z=None,
+    no_clip: bool = False,
     projection=None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -62,6 +62,7 @@ def contour(
 
     {aliases}
        - J = projection
+       - N = no_clip
        - V = verbose
        - c = panel
        - t = transparency
@@ -109,9 +110,9 @@ def contour(
         Color the triangles using CPT.
     triangular_mesh_pen : str
         Pen to draw the underlying triangulation [Default is ``None``].
-    no_clip : bool
-        Do **not** clip contours or image at the frame boundaries
-        [Default is ``False`` to fit inside ``region``].
+    no_clip
+        Do **not** clip contours or image at the frame boundaries [Default is ``False``
+        to fit inside ``region``].
     Q : float or str
         [*cut*][**+z**].
         Do not draw contours with less than *cut* number of points.
@@ -159,7 +160,9 @@ def contour(
             else:  # Multiple levels
                 kwargs[arg] = ",".join(f"{item}" for item in kwargs[arg])
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        N=Alias(no_clip, name="no_clip"),
+    ).add_common(
         J=projection,
         V=verbose,
         c=panel,
