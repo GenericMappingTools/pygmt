@@ -14,7 +14,7 @@ from pygmt.params import Box
 
 
 @fmt_docstring
-@use_alias(R="region", S="style")
+@use_alias(R="region")
 @kwargs_to_strings(R="sequence", p="sequence")
 def logo(  # noqa: PLR0913
     self,
@@ -27,6 +27,7 @@ def logo(  # noqa: PLR0913
     height: float | str | None = None,
     width: float | str | None = None,
     projection=None,
+    style: Literal["standard", "url", "no_label"] = "standard",
     box: Box | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -54,6 +55,7 @@ def logo(  # noqa: PLR0913
        - D = position/position_type/anchor/anchor_offset/width/height
        - F = box
        - J = projection
+       - S = style
        - V = verbose
        - c = panel
        - t = transparency
@@ -105,16 +107,12 @@ def logo(  # noqa: PLR0913
         box properties.
     {projection}
     {region}
-    style : str
-        [**l**\|\ **n**\|\ **u**].
+    style
         Control what is written beneath the map portion of the logo.
 
-        - **l** to plot the text label "The Generic Mapping Tools"
-          [Default]
-        - **n** to skip the label placement
-        - **u** to place the URL to the GMT site
-    {projection}
-    {region}
+        - ``"standard"``: The text label "The Generic Mapping Tools".
+        - ``"no_label"``: Skip the text label.
+        - ``"url"``: The URL to the GMT website.
     {verbose}
     {panel}
     {transparency}
@@ -158,6 +156,9 @@ def logo(  # noqa: PLR0913
             Alias(width, name="width", prefix="+w"),
         ],
         F=Alias(box, name="box"),
+        S=Alias(
+            style, name="style", mapping={"standard": "l", "url": "u", "no_label": "n"}
+        ),
     ).add_common(
         J=projection,
         V=verbose,
