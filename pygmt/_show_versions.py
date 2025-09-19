@@ -4,6 +4,7 @@ Utility methods to print system information for debugging.
 Adapted from :func:`rioxarray.show_versions` and :func:`pandas.show_versions`.
 """
 
+import ctypes
 import platform
 import shutil
 import subprocess
@@ -36,6 +37,27 @@ def _get_module_version(modname: str) -> str | None:
         return version(modname)
     except PackageNotFoundError:
         return None
+
+
+def _get_gdal_version() -> str | None:
+    """
+    Get GDAL version by calling the GDAL C API via ctypes.
+    """
+    match sys.platform:
+        case name if name == "linux" or name.startswith("freebsd"):
+            libname = "libgdal.so"
+        case "darwin":
+            libname = "libgdal.dylib"
+        case "win32":
+            libname = "gdal.dll"
+        case _:
+            return None
+
+    lib = ctypes.CDLL(libname)
+    # Define return type of GDALVersionInfo
+    lib.GDALVersionInfo.restype = ctypes.c_char_p
+    # Call with "RELEASE_NAME" to get human-readable version
+    return lib.GDALVersionInfo(b"RELEASE_NAME").decode("utf-8")
 
 
 def _get_ghostscript_version() -> str | None:
@@ -104,9 +126,11 @@ def show_versions(file: TextIO | None = sys.stdout) -> None:
         "executable": sys.executable,
         "machine": platform.platform(),
     }
-    requirements = [Requirement(v).name for v in requires("pygmt")] + ["gdal"]  # type: ignore[union-attr]
+    requirements = [Requirement(v).name for v in requires("pygmt")]  # type: ignore[union-attr]
     dep_info = {name: _get_module_version(name) for name in requirements}
-    dep_info.update({"ghostscript": _get_ghostscript_version()})
+    dep_info.update(
+        {"gdal": _get_gdal_version(), "ghostscript": _get_ghostscript_version()}
+    )
 
     lines = []
     lines.append("PyGMT information:")
