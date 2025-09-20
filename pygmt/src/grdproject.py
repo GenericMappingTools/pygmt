@@ -8,7 +8,7 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["grdproject"]
@@ -114,8 +114,7 @@ def grdproject(
     >>> new_grid = pygmt.grdproject(grid=grid, projection="M10c", region=region)
     """
     if projection is None:
-        msg = "The projection must be specified."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(required={"projection"})
 
     aliasdict = AliasSystem().add_common(
         J=projection,
