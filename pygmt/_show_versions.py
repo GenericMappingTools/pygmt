@@ -57,11 +57,9 @@ def _get_gdal_version() -> str | None:
         lib = ctypes.CDLL(libname)
         lib.GDALVersionInfo.restype = ctypes.c_char_p
         version = lib.GDALVersionInfo(b"RELEASE_NAME")  # e.g., 3.6.3
-        if version is not None:
-            return version.decode("utf-8")
+        return version.decode("utf-8")
     except (OSError, AttributeError):
         return None
-    return None
 
 
 def _get_ghostscript_version() -> str | None:
