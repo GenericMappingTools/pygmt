@@ -2,6 +2,7 @@
 solar - Plot day-night terminators and other sunlight parameters.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import pandas as pd
@@ -14,19 +15,14 @@ __doctest_skip__ = ["solar"]
 
 
 @fmt_docstring
-@use_alias(
-    B="frame",
-    G="fill",
-    R="region",
-    W="pen",
-    p="perspective",
-)
-@kwargs_to_strings(R="sequence", p="sequence")
+@use_alias(B="frame", G="fill", W="pen", p="perspective")
+@kwargs_to_strings(p="sequence")
 def solar(
     self,
     terminator: Literal["astronomical", "civil", "day_night", "nautical"] = "day_night",
     terminator_datetime=None,
     projection=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -43,6 +39,7 @@ def solar(
 
     {aliases}
        - J = projection
+       - R = region
        - T = terminator, **+d**: terminator_datetime
        - V = verbose
        - c = panel
@@ -129,6 +126,7 @@ def solar(
         ],
     ).add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,

@@ -2,6 +2,7 @@
 nearneighbor - Grid table data using a "Nearest neighbor" algorithm.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -18,7 +19,6 @@ __doctest_skip__ = ["nearneighbor"]
     E="empty",
     I="spacing",
     N="sectors",
-    R="region",
     S="search_radius",
     a="aspatial",
     b="binary",
@@ -31,13 +31,14 @@ __doctest_skip__ = ["nearneighbor"]
     r="registration",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
+@kwargs_to_strings(I="sequence", i="sequence_comma")
 def nearneighbor(
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     z=None,
     outgrid: PathLike | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -79,6 +80,7 @@ def nearneighbor(
     Full GMT docs at :gmt-docs:`nearneighbor.html`.
 
     {aliases}
+       - R = region
        - V = verbose
 
     Parameters
@@ -150,6 +152,7 @@ def nearneighbor(
     ... )
     """
     aliasdict = AliasSystem().add_common(
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)

@@ -2,6 +2,7 @@
 grd2xyz - Convert grid to data table.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
@@ -25,7 +26,6 @@ __doctest_skip__ = ["grd2xyz"]
 @fmt_docstring
 @use_alias(
     C="cstyle",
-    R="region",
     W="weight",
     Z="convention",
     b="binary",
@@ -35,11 +35,12 @@ __doctest_skip__ = ["grd2xyz"]
     o="outcols",
     s="skiprows",
 )
-@kwargs_to_strings(R="sequence", o="sequence_comma")
+@kwargs_to_strings(o="sequence_comma")
 def grd2xyz(
     grid: PathLike | xr.DataArray,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -53,6 +54,7 @@ def grd2xyz(
     Full GMT docs at :gmt-docs:`grd2xyz.html`.
 
     {aliases}
+       - R = region
        - V = verbose
 
     Parameters
@@ -161,6 +163,7 @@ def grd2xyz(
         column_names = [str(grid.dims[1]), str(grid.dims[0]), str(grid.name)]
 
     aliasdict = AliasSystem().add_common(
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)

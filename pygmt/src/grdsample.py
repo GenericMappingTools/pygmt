@@ -2,6 +2,7 @@
 grdsample - Resample a grid onto a new lattice.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -16,17 +17,17 @@ __doctest_skip__ = ["grdsample"]
 @fmt_docstring
 @use_alias(
     I="spacing",
-    R="region",
     T="translate",
     f="coltypes",
     n="interpolation",
     r="registration",
     x="cores",
 )
-@kwargs_to_strings(I="sequence", R="sequence")
+@kwargs_to_strings(I="sequence")
 def grdsample(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -50,6 +51,7 @@ def grdsample(
     Full GMT docs at :gmt-docs:`grdsample.html`.
 
     {aliases}
+       - R = region
        - V = verbose
 
     Parameters
@@ -91,6 +93,7 @@ def grdsample(
     >>> new_grid = pygmt.grdsample(grid=grid, translate=True, spacing=[0.5, 0.5])
     """
     aliasdict = AliasSystem().add_common(
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)
