@@ -77,7 +77,7 @@ def _validate_params(
 # TODO(PyGMT>=0.19.0): Remove the deprecated 'no_data' parameter.
 # TODO(PyGMT>=0.19.0): Remove the deprecated 'mode' parameter.
 @deprecate_parameter("no_data", "hole", "v0.15.0", remove_version="v0.19.0")
-@use_alias(N="hole", R="region", f="coltypes")
+@use_alias(R="region", f="coltypes")
 @kwargs_to_strings(R="sequence")
 def grdfill(
     grid: PathLike | xr.DataArray,
@@ -87,6 +87,7 @@ def grdfill(
     neighborfill: float | bool | None = None,
     splinefill: float | bool | None = None,
     inquire: bool = False,
+    hole: float | None = None,
     mode: str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -109,6 +110,7 @@ def grdfill(
        - An = neighborfill
        - As = splinefill
        - L = inquire
+       - N = hole
        - V = verbose
 
     Parameters
@@ -128,7 +130,7 @@ def grdfill(
     splinefill
         Fill the holes with a bicubic spline. Specify the tension value to use. If set
         to ``True``, no tension will be used.
-    hole : float
+    hole
         Set the node value used to identify a point as a member of a hole [Default is
         NaN].
     inquire
@@ -187,6 +189,7 @@ def grdfill(
         An=Alias(neighborfill, name="neighborfill"),
         As=Alias(splinefill, name="splinefill"),
         L=Alias(inquire, name="inquire"),
+        N=Alias(hole, name="hole"),
     ).add_common(
         V=verbose,
     )
