@@ -43,7 +43,7 @@ def timestamp(
     justify
         Specify a :doc:`2-character justification code </techref/justification_codes>`
         of the timestamp box relative to the plot's bottom-left corner (i.e., the plot
-        origin). E.g., e.g., the default is ``"BL"`` for Bottom Left.
+        origin). E.g., the default is ``"BL"`` for Bottom Left.
     offset
         *offset* or (*offset_x*, *offset_y*).
         Offset the anchor point of the timestamp box by *offset_x* and *offset_y*. If a
