@@ -11,7 +11,9 @@ visit the {gmt-docs}`GMT Technical Reference <reference.html>`.
 common_parameters.md
 projections.md
 fonts.md
+text_formatting.md
 patterns.md
 encodings.md
+justification_codes.md
 environment_variables.md
 ```

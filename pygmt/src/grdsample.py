@@ -2,8 +2,11 @@
 grdsample - Resample a grid onto a new lattice.
 """
 
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -15,7 +18,6 @@ __doctest_skip__ = ["grdsample"]
     I="spacing",
     R="region",
     T="translate",
-    V="verbose",
     f="coltypes",
     n="interpolation",
     r="registration",
@@ -23,7 +25,11 @@ __doctest_skip__ = ["grdsample"]
 )
 @kwargs_to_strings(I="sequence", R="sequence")
 def grdsample(
-    grid: PathLike | xr.DataArray, outgrid: PathLike | None = None, **kwargs
+    grid: PathLike | xr.DataArray,
+    outgrid: PathLike | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
 ) -> xr.DataArray | None:
     r"""
     Resample a grid onto a new lattice.
@@ -44,6 +50,7 @@ def grdsample(
     Full GMT docs at :gmt-docs:`grdsample.html`.
 
     {aliases}
+       - V = verbose
 
     Parameters
     ----------
@@ -80,16 +87,21 @@ def grdsample(
     ...     resolution="30m", region=[10, 30, 15, 25]
     ... )
     >>> # Create a new grid from an input grid, change the registration,
-    >>> # and set both x- and y-spacing to 0.5 arc-degrees
+    >>> # and set both x- and y-spacings to 0.5 arc-degrees
     >>> new_grid = pygmt.grdsample(grid=grid, translate=True, spacing=[0.5, 0.5])
     """
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            kwargs["G"] = voutgrd
+            aliasdict["G"] = voutgrd
             lib.call_module(
-                module="grdsample", args=build_arg_list(kwargs, infile=vingrd)
+                module="grdsample", args=build_arg_list(aliasdict, infile=vingrd)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

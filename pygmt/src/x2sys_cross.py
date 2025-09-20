@@ -5,12 +5,13 @@ x2sys_cross - Calculate crossovers between track data files.
 import contextlib
 import os
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 import pandas as pd
 from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTTypeError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
@@ -66,7 +67,6 @@ def tempfile_from_dftrack(track, suffix):
     S="speed",
     T="tag",
     Q="coe",
-    V="verbose",
     W="numpoints",
     Z="trackvalues",
 )
@@ -74,6 +74,8 @@ def tempfile_from_dftrack(track, suffix):
 def x2sys_cross(
     tracks=None,
     outfile: PathLike | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> pd.DataFrame | None:
     r"""
@@ -90,6 +92,7 @@ def x2sys_cross(
     Full GMT docs at :gmt-docs:`supplements/x2sys/x2sys_cross.html`.
 
     {aliases}
+        - V = verbose
 
     Parameters
     ----------
@@ -213,8 +216,12 @@ def x2sys_cross(
                 # Save pandas.DataFrame track data to temporary file
                 file_contexts.append(tempfile_from_dftrack(track=track, suffix=suffix))
             case _:
-                msg = f"Unrecognized data type: {type(track)}."
-                raise GMTInvalidInput(msg)
+                raise GMTTypeError(type(track))
+
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl:
@@ -222,7 +229,7 @@ def x2sys_cross(
                 fnames = [stack.enter_context(c) for c in file_contexts]
                 lib.call_module(
                     module="x2sys_cross",
-                    args=build_arg_list(kwargs, infile=fnames, outfile=vouttbl),
+                    args=build_arg_list(aliasdict, infile=fnames, outfile=vouttbl),
                 )
                 result = lib.virtualfile_to_dataset(
                     vfname=vouttbl, output_type=output_type, header=2
@@ -251,9 +258,12 @@ def x2sys_cross(
                     unit = time_unit.upper() if time_unit in "wd" else time_unit
                     scale = 1.0
 
-            columns = result.columns[2:4]
-            result[columns] *= scale
-            result[columns] = result[columns].apply(pd.to_timedelta, unit=unit)
-            if columns[0][0] == "t":  # "t" or "i":
-                result[columns] += pd.Timestamp(lib.get_default("TIME_EPOCH"))
+            if len(result) > 0:  # if crossovers exist (more than one output row)
+                columns: pd.Index = result.columns[2:4]  # i_1/i_2 or t_1/t_2 columns
+                result[columns] *= scale
+                result[columns] = result[columns].apply(pd.to_timedelta, unit=unit)
+
+                if columns[0][0] == "t":  # "t" or "i":
+                    result[columns] += pd.Timestamp(lib.get_default("TIME_EPOCH"))
+
             return result

@@ -9,6 +9,7 @@ import string
 import subprocess
 import sys
 import time
+import warnings
 import webbrowser
 from collections.abc import Iterable, Mapping, Sequence
 from itertools import islice
@@ -18,7 +19,7 @@ from typing import Any, Literal
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.encodings import charset
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 
 # Type hints for the list of encodings supported by PyGMT.
 Encoding = Literal[
@@ -481,7 +482,7 @@ def non_ascii_to_octal(argstr: str, encoding: Encoding = "ISOLatin1+") -> str:
 
 
 def build_arg_list(  # noqa: PLR0912
-    kwdict: dict[str, Any],
+    kwdict: Mapping[str, Any],
     confdict: Mapping[str, Any] | None = None,
     infile: PathLike | Sequence[PathLike] | None = None,
     outfile: PathLike | None = None,
@@ -524,6 +525,8 @@ def build_arg_list(  # noqa: PLR0912
     ['-A1/2/3/4', '-BWSen', '-Bxaf', '-Byaf', '-C1p', '-C2p']
     >>> build_arg_list(dict(B=["af", "WSne+tBlank Space"]))
     ['-BWSne+tBlank Space', '-Baf']
+    >>> build_arg_list(dict(B=[True, "+tTitle"]))
+    ['-B', '-B+tTitle']
     >>> build_arg_list(dict(F='+t"Empty Spaces"'))
     ['-F+t"Empty Spaces"']
     >>> build_arg_list(dict(l="'Void Space'"))
@@ -565,7 +568,10 @@ def build_arg_list(  # noqa: PLR0912
         elif value is True:
             gmt_args.append(f"-{key}")
         elif is_nonstr_iter(value):
-            gmt_args.extend(f"-{key}{_value}" for _value in value)
+            gmt_args.extend(
+                f"-{key}{_value}" if _value is not True else f"-{key}"
+                for _value in value
+            )
         else:
             gmt_args.append(f"-{key}{value}")
 
@@ -592,15 +598,15 @@ def build_arg_list(  # noqa: PLR0912
             or os.fspath(outfile) in {"", ".", ".."}
             or os.fspath(outfile).endswith(("/", "\\"))
         ):
-            msg = f"Invalid output file name '{outfile}'."
-            raise GMTInvalidInput(msg)
+            raise GMTValueError(outfile, description="output file name")
         gmt_args.append(f"->{os.fspath(outfile)}")
     return gmt_args
 
 
 def is_nonstr_iter(value: Any) -> bool:
     """
-    Check if the value is iterable (e.g., list, tuple, array) but not a string.
+    Check if the value is iterable (e.g., list, tuple, array) but not a string or a 0-D
+    array.
 
     Parameters
     ----------
@@ -629,8 +635,14 @@ def is_nonstr_iter(value: Any) -> bool:
     True
     >>> is_nonstr_iter(np.array(["abc", "def", "ghi"]))
     True
+    >>> is_nonstr_iter(np.array(42))
+    False
     """
-    return isinstance(value, Iterable) and not isinstance(value, str)
+    return (
+        isinstance(value, Iterable)
+        and not isinstance(value, str)
+        and not (hasattr(value, "ndim") and value.ndim == 0)
+    )
 
 
 def launch_external_viewer(fname: PathLike, waiting: float = 0) -> None:
@@ -711,3 +723,138 @@ def args_in_kwargs(args: Sequence[str], kwargs: dict[str, Any]) -> bool:
     return any(
         kwargs.get(arg) is not None and kwargs.get(arg) is not False for arg in args
     )
+
+
+# TODO(PyGMT>=0.19.0): Remove the deprecate_parameter decorator.
+def sequence_join(
+    value: Any,
+    sep: str = "/",
+    separator: str | None = None,
+    size: int | Sequence[int] | None = None,
+    ndim: int = 1,
+    name: str | None = None,
+) -> str | list[str] | None | Any:
+    """
+    Join a sequence of values into a string separated by a separator.
+
+    A 1-D sequence will be joined into a single string. A 2-D sequence will be joined
+    into a list of strings. Non-sequence values will be returned as is.
+
+    Parameters
+    ----------
+    value
+        The 1-D or 2-D sequence of values to join.
+    sep
+        The separator to join the values.
+    separator
+        The separator to join the values.
+
+        .. versionchanged:: v0.17.0
+
+            Deprecated and will be removed in v0.19.0. Use ``sep`` instead.
+    size
+        Expected size of the 1-D sequence. It can be either an integer or a sequence of
+        integers. If an integer, it is the expected size of the 1-D sequence. If it is a
+        sequence, it is the allowed sizes of the 1-D sequence.
+    ndim
+        The expected maximum number of dimensions of the sequence.
+    name
+        The name of the parameter to be used in the error message.
+
+    Returns
+    -------
+    joined_value
+        The joined string or list of strings.
+
+    Examples
+    --------
+    >>> sequence_join("1/2/3/4")
+    '1/2/3/4'
+    >>> sequence_join(None)
+    >>> sequence_join(True)
+    True
+    >>> sequence_join(False)
+    False
+
+    >>> sequence_join([])
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Expected a sequence but got an empty sequence.
+
+    >>> sequence_join([1, 2, 3, 4])
+    '1/2/3/4'
+    >>> sequence_join([1, 2, 3, 4], sep=",")
+    '1,2,3,4'
+    >>> sequence_join([1, 2, 3, 4], sep="/", size=4)
+    '1/2/3/4'
+    >>> sequence_join([1, 2, 3, 4], sep="/", size=[2, 4])
+    '1/2/3/4'
+    >>> sequence_join([1, 2, 3, 4], sep="/", size=[2, 4], ndim=2)
+    '1/2/3/4'
+    >>> sequence_join([1, 2, 3, 4], sep="/", size=2)
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Expected a sequence of 2 values, but got 4 values.
+    >>> sequence_join([1, 2, 3, 4, 5], sep="/", size=[2, 4], name="parname")
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Parameter 'parname': Expected ...
+
+    >>> sequence_join([[1, 2], [3, 4]], sep="/")
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Expected a 1-D ..., but a 2-D sequence is given.
+    >>> sequence_join([[1, 2], [3, 4]], sep="/", ndim=2)
+    ['1/2', '3/4']
+    >>> sequence_join([[1, 2], [3, 4]], sep="/", size=2, ndim=2)
+    ['1/2', '3/4']
+    >>> sequence_join([[1, 2], [3, 4]], sep="/", size=4, ndim=2)
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Expected a sequence of 4 values.
+    >>> sequence_join([[1, 2], [3, 4]], sep="/", size=[2, 4], ndim=2)
+    ['1/2', '3/4']
+    >>> sequence_join([1, 2, 3, 4], separator=",")
+    '1,2,3,4'
+    """
+    # Return the original value if it is not a sequence (e.g., None, bool, or str).
+    if not is_nonstr_iter(value):
+        return value
+    # Now it must be a sequence.
+
+    if separator is not None:
+        sep = separator  # Deprecated, use sep instead.
+        msg = (
+            "Parameter 'separator' has been deprecated since v0.17.0 and will be "
+            "removed in v0.19.0. Please use 'sep' instead."
+        )
+        warnings.warn(msg, category=FutureWarning, stacklevel=2)
+
+    # Change size to a list to simplify the checks.
+    size = [size] if isinstance(size, int) else size
+    errmsg = {
+        "name": f"Parameter '{name}': " if name else "",
+        "sizes": ", ".join(str(s) for s in size) if size is not None else "",
+    }
+
+    if len(value) == 0:
+        msg = f"{errmsg['name']}Expected a sequence but got an empty sequence."
+        raise GMTInvalidInput(msg)
+
+    if not is_nonstr_iter(value[0]):  # 1-D sequence.
+        if size is not None and len(value) not in size:
+            msg = (
+                f"{errmsg['name']}Expected a sequence of {errmsg['sizes']} values, "
+                f"but got {len(value)} values."
+            )
+            raise GMTInvalidInput(msg)
+        return sep.join(str(v) for v in value)
+
+    # Now it must be a 2-D sequence.
+    if ndim == 1:
+        msg = f"{errmsg['name']}Expected a 1-D sequence, but a 2-D sequence is given."
+        raise GMTInvalidInput(msg)
+    if size is not None and any(len(i) not in size for i in value):
+        msg = f"{errmsg['name']}Expected a sequence of {errmsg['sizes']} values."
+        raise GMTInvalidInput(msg)
+    return [sep.join(str(j) for j in sub) for sub in value]

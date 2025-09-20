@@ -3,14 +3,13 @@ Tests for xarray 'gmt' backend engine.
 """
 
 import importlib
-import re
 
 import numpy as np
 import numpy.testing as npt
 import pytest
 import xarray as xr
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 from pygmt.helpers import GMTTempFile
 
 _HAS_NETCDF4 = bool(importlib.util.find_spec("netCDF4"))
@@ -121,13 +120,10 @@ def test_xarray_backend_gmt_read_invalid_kind():
     Check that xarray.open_dataarray(..., engine="gmt") fails with missing or incorrect
     'raster_kind'.
     """
-    with pytest.raises(
-        TypeError,
-        match=re.escape("missing a required argument: 'raster_kind'"),
-    ):
+    with pytest.raises(TypeError, match=r"missing a required argument: 'raster_kind'"):
         xr.open_dataarray("nokind.nc", engine="gmt")
 
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         xr.open_dataarray(
             filename_or_obj="invalid.tif", engine="gmt", raster_kind="invalid"
         )

@@ -10,6 +10,7 @@ methods called within the ``with`` statement plot into the inset figure.
 
 # %%
 import pygmt
+from pygmt.params import Box
 
 # Set the region of the main figure
 region = [137.5, 141, 34, 37]
@@ -34,7 +35,7 @@ fig.coast(land="lightbrown", water="azure1", shorelines="2p", area_thresh=1000)
 # a pen of "1p".
 with fig.inset(
     position="jBR+o0.1c",
-    box="+gwhite+p1p",
+    box=Box(fill="white", pen="1p"),
     region=[129, 146, 30, 46],
     projection="U54S/3c",
 ):

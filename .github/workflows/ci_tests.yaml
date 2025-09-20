@@ -73,12 +73,12 @@ jobs:
           # Python 3.11 + core packages (minimum supported versions) + optional packages (minimum supported versions if any)
           - python-version: '3.11'
             numpy-version: '1.26'
-            pandas-version: '=2.1'
-            xarray-version: '=2023.07'
+            pandas-version: '=2.2'
+            xarray-version: '=2023.10'
             optional-packages: ' contextily geopandas ipython pyarrow-core rioxarray netCDF4 sphinx-gallery'
           # Python 3.13 + core packages (latest versions) + optional packages
           - python-version: '3.13'
-            numpy-version: '2.2'
+            numpy-version: '2.3'
             pandas-version: ''
             xarray-version: ''
             optional-packages: ' contextily geopandas ipython pyarrow-core rioxarray netCDF4 sphinx-gallery'
@@ -104,7 +104,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5.0.0
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -116,7 +116,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v2.0.4
+        uses: mamba-org/setup-micromamba@b09ef9b599704322748535812ca03efb2625677b # v2.0.5
         with:
           environment-name: pygmt
           cache-environment: true
@@ -151,7 +151,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v6.0.1
+        uses: astral-sh/setup-uv@557e51de59eb14aaaba2ed9621916900a91d50c6 # v6.6.1
         with:
           activate-environment: true
           python-version: ${{ matrix.python-version }}
@@ -163,7 +163,11 @@ jobs:
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
-        run: uv run dvc pull --no-run-cache --verbose && ls -lhR pygmt/tests/baseline/
+        run: |
+          uv run dvc remote modify upstream url https://${DAGSHUB_TOKEN}@dagshub.com/GenericMappingTools/pygmt.dvc --local
+          uv run dvc pull --no-run-cache --verbose && ls -lhR pygmt/tests/baseline/
+        env:
+          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
 
       # Install the package that we want to test
       - name: Install the package
@@ -183,7 +187,7 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5.4.3
+        uses: codecov/codecov-action@5a1091511ad55cbe89839c7260b706298ca349f7 # v5.5.1
         if: success() || failure()
         with:
           use_oidc: true

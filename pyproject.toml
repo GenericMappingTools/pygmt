@@ -36,8 +36,8 @@ classifiers = [
 ]
 dependencies = [
     "numpy>=1.26",
-    "pandas>=2.1",
-    "xarray>=2023.07",
+    "pandas>=2.2",
+    "xarray>=2023.10",
     "packaging>=24.2",
 ]
 dynamic = ["version"]
@@ -147,7 +147,6 @@ ignore = [
     "D412",     # No blank lines allowed between a section header and its content
     "E501",     # Avoid enforcing line-length violations
     "ISC001",   # Single-line-implicit-string-concatenation, conflict with formatter
-    "PD901",    # Allow using the generic variable name `df` for DataFrames
     "PT023",    # Allow using pytest marker without parentheses
     "PLR2004",  # Allow any magic values
     "RET504",   # Allow variable assignment and return immediately for readability

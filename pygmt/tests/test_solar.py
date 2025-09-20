@@ -6,7 +6,7 @@ import datetime
 
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 
 
 @pytest.mark.mpl_image_compare
@@ -69,7 +69,7 @@ def test_invalid_terminator_type():
     Test if solar fails when it receives an invalid terminator type.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         fig.solar(
             region="d",
             projection="W0/15c",
@@ -96,7 +96,7 @@ def test_invalid_datetime():
     Test if solar fails when it receives an invalid datetime string.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         fig.solar(
             region="d",
             projection="W0/15c",

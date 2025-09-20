@@ -71,7 +71,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5.0.0
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -83,7 +83,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v2.0.4
+        uses: mamba-org/setup-micromamba@b09ef9b599704322748535812ca03efb2625677b # v2.0.5
         with:
           environment-name: pygmt
           cache-environment: true
@@ -168,7 +168,7 @@ jobs:
           REF_NAME: ${{ github.ref_name }}
 
       - name: Checkout the gh-pages branch
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5.0.0
         with:
           ref: gh-pages
           # Checkout to this folder instead of the current one
