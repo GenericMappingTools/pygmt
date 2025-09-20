@@ -53,6 +53,7 @@ class triangulate:  # noqa: N801
     @fmt_docstring
     @use_alias(
         I="spacing",
+        R="region",
         V="verbose",
         b="binary",
         d="nodata",
@@ -73,6 +74,10 @@ class triangulate:  # noqa: N801
         outgrid: PathLike | None = None,
         projection=None,
         region: Sequence[float | str] | str | None = None,
+        verbose: Literal[
+            "quiet", "error", "warning", "timing", "info", "compat", "debug"
+        ]
+        | bool = False,
         **kwargs,
     ) -> xr.DataArray | None:
         """
@@ -101,6 +106,7 @@ class triangulate:  # noqa: N801
         {aliases}
            - J = projection
            - R = region
+           - V = verbose
 
         Parameters
         ----------
@@ -148,6 +154,7 @@ class triangulate:  # noqa: N801
         aliasdict = AliasSystem().add_common(
             R=region,
             J=projection,
+            V=verbose,
         )
         aliasdict.merge(kwargs)
 
@@ -168,6 +175,7 @@ class triangulate:  # noqa: N801
     @fmt_docstring
     @use_alias(
         I="spacing",
+        R="region",
         V="verbose",
         b="binary",
         d="nodata",
@@ -190,6 +198,10 @@ class triangulate:  # noqa: N801
         outfile: PathLike | None = None,
         projection=None,
         region: Sequence[float | str] | str | None = None,
+        verbose: Literal[
+            "quiet", "error", "warning", "timing", "info", "compat", "debug"
+        ]
+        | bool = False,
         **kwargs,
     ) -> pd.DataFrame | np.ndarray | None:
         """
@@ -211,6 +223,7 @@ class triangulate:  # noqa: N801
         {aliases}
            - J = projection
            - R = region
+           - V = verbose
 
         Parameters
         ----------
@@ -256,6 +269,7 @@ class triangulate:  # noqa: N801
         aliasdict = AliasSystem().add_common(
             J=projection,
             R=region,
+            V=verbose,
         )
         aliasdict.merge(kwargs)
 
