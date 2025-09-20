@@ -29,16 +29,16 @@ def image(
     r"""
     Plot raster or EPS images.
 
-    Reads an Encapsulated PostScript (EPS) file or a raster image file and plots it. The
+    Reads Encapsulated PostScript (EPS) or raster image files and plots them. The
     image can be scaled arbitrarily, and 1-bit raster images can be:
 
     - inverted, i.e., black pixels (on) becomes white (off) and vice versa
     - colorized, by assigning different foreground and background colors
-    - made transparent where one of back- or foreground is painted only.
+    - made transparent where either the back- or foreground is painted.
 
     As an option, the user may choose to convert colored raster images to grayscale
-    using TV's YIQ-transformation. For raster files, the user can select which color to
-    be made transparent. The user may also choose to replicate the image which, when
+    using TV's YIQ-transformation. For raster files, the user can select which color is
+    made transparent. The user may also choose to replicate the image which, when
     preceded by appropriate clip paths, may allow larger custom-designed fill patterns
     to be implemented.
 
