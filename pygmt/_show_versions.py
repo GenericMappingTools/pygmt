@@ -56,8 +56,7 @@ def _get_gdal_version() -> str | None:
     try:
         lib = ctypes.CDLL(libname)
         lib.GDALVersionInfo.restype = ctypes.c_char_p
-        version = lib.GDALVersionInfo(b"RELEASE_NAME")  # e.g., 3.6.3
-        return version.decode("utf-8")
+        return lib.GDALVersionInfo(b"RELEASE_NAME").decode("utf-8")  # e.g., 3.6.3
     except (OSError, AttributeError):
         return None
 
