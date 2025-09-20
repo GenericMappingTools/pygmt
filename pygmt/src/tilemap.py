@@ -132,7 +132,9 @@ def tilemap(  # noqa: PLR0913
     if kwargs.get("N") in {None, False}:
         kwargs["R"] = "/".join(str(coordinate) for coordinate in region)
 
-    aliasdict = AliasSystem(M=Alias(monochrome, name="monochrome")).add_common(
+    aliasdict = AliasSystem(
+        M=Alias(monochrome, name="monochrome"),
+    ).add_common(
         J=projection,
         V=verbose,
         c=panel,
