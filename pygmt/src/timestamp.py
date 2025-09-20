@@ -42,8 +42,8 @@ def timestamp(
         The text string shown after the GMT timestamp logo.
     justify
         Specify a :doc:`2-character justification code </techref/justification_codes>`
-        of the timestamp box relative to the plot's bottom-left corner (i.e., the plot
-        origin). E.g., the default is ``"BL"`` for Bottom Left.
+        for the timestamp box relative to the current plot origin. The default is the
+        Bottom Left (``"BL"``) corner.
     offset
         *offset* or (*offset_x*, *offset_y*).
         Offset the anchor point of the timestamp box by *offset_x* and *offset_y*. If a
