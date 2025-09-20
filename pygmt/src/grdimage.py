@@ -6,7 +6,7 @@ from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -21,7 +21,6 @@ __doctest_skip__ = ["grdimage"]
     E="dpi",
     G="bitcolor",
     I="shading",
-    M="monochrome",
     N="no_clip",
     Q="nan_transparent",
     R="region",
@@ -34,6 +33,7 @@ __doctest_skip__ = ["grdimage"]
 def grdimage(
     self,
     grid: PathLike | xr.DataArray,
+    monochrome: bool = False,
     projection=None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -76,6 +76,7 @@ def grdimage(
 
     {aliases}
        - J = projection
+       - M = monochrome
        - V = verbose
        - c = panel
        - t = transparency
@@ -127,9 +128,9 @@ def grdimage(
         input data represent an *image* then an *intensfile* or constant
         *intensity* must be provided.
     {projection}
-    monochrome : bool
-        Force conversion to monochrome image using the (television) YIQ
-        transformation. Cannot be used with ``nan_transparent``.
+    monochrome
+        Force conversion to monochrome image using the (television) YIQ transformation.
+        Cannot be used with ``nan_transparent``.
     no_clip : bool
         Do **not** clip the image at the frame boundaries (only relevant
         for non-rectangular maps) [Default is ``False``].
@@ -172,7 +173,9 @@ def grdimage(
         )
         raise NotImplementedError(msg)
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        M=Alias(monochrome, name="monochrome"),
+    ).add_common(
         J=projection,
         V=verbose,
         c=panel,
