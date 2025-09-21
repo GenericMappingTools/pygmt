@@ -116,7 +116,7 @@ def test_grdfill_gridfill_dataarray(grid):
 
 def test_grdfill_hole(grid, expected_grid):
     """
-    Test grdfill with different hole values.
+    Test grdfill with a custom value (not NaN) as holes.
     """
     # Prepare for a grid with a node value of -99999 for holes.
     grid_no_nan = grdfill(grid=grid, constantfill=-99999)
