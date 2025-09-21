@@ -37,25 +37,25 @@ COMMON_DOCSTRINGS = {
             (using ``binary="o"``), where *ncols* is the number of data columns
             of *type*, which must be one of:
 
-                - **c**: int8_t (1-byte signed char)
-                - **u**: uint8_t (1-byte unsigned char)
-                - **h**: int16_t (2-byte signed int)
-                - **H**: uint16_t (2-byte unsigned int)
-                - **i**: int32_t (4-byte signed int)
-                - **I**: uint32_t (4-byte unsigned int)
-                - **l**: int64_t (8-byte signed int)
-                - **L**: uint64_t (8-byte unsigned int)
-                - **f**: 4-byte single-precision float
-                - **d**: 8-byte double-precision float
-                - **x**: use to skip *ncols* anywhere in the record
+            - **c**: int8_t (1-byte signed char)
+            - **u**: uint8_t (1-byte unsigned char)
+            - **h**: int16_t (2-byte signed int)
+            - **H**: uint16_t (2-byte unsigned int)
+            - **i**: int32_t (4-byte signed int)
+            - **I**: uint32_t (4-byte unsigned int)
+            - **l**: int64_t (8-byte signed int)
+            - **L**: uint64_t (8-byte unsigned int)
+            - **f**: 4-byte single-precision float
+            - **d**: 8-byte double-precision float
+            - **x**: use to skip *ncols* anywhere in the record
 
             For records with mixed types, append additional comma-separated
             combinations of *ncols* *type* (no space). The following modifiers
             are supported:
 
-                - **w** after any item to force byte-swapping.
-                - **+l**\|\ **b** to indicate that the entire data file should
-                  be read as little- or big-endian, respectively.
+            - **w** after any item to force byte-swapping.
+            - **+l**\|\ **b** to indicate that the entire data file should
+              be read as little- or big-endian, respectively.
 
             Full documentation is at :gmt-docs:`gmt.html#bi-full`.""",
     "cmap": r"""
@@ -105,38 +105,38 @@ COMMON_DOCSTRINGS = {
             a list with each item containing a string describing one set of
             criteria.
 
-                - **x**\|\ **X**: define a gap when there is a large enough
-                  change in the x coordinates (uppercase to use projected
-                  coordinates).
-                - **y**\|\ **Y**: define a gap when there is a large enough
-                  change in the y coordinates (uppercase to use projected
-                  coordinates).
-                - **d**\|\ **D**: define a gap when there is a large enough
-                  distance between coordinates (uppercase to use projected
-                  coordinates).
-                - **z**: define a gap when there is a large enough change in
-                  the z data. Use **+c**\ *col* to change the z data column
-                  [Default *col* is 2 (i.e., 3rd column)].
+            - **x**\|\ **X**: define a gap when there is a large enough
+              change in the x coordinates (uppercase to use projected
+              coordinates).
+            - **y**\|\ **Y**: define a gap when there is a large enough
+              change in the y coordinates (uppercase to use projected
+              coordinates).
+            - **d**\|\ **D**: define a gap when there is a large enough
+              distance between coordinates (uppercase to use projected
+              coordinates).
+            - **z**: define a gap when there is a large enough change in
+              the z data. Use **+c**\ *col* to change the z data column
+              [Default *col* is 2 (i.e., 3rd column)].
 
             A unit **u** may be appended to the specified *gap*:
 
-                - For geographic data (**x**\|\ **y**\|\ **d**), the unit may
-                  be arc- **d**\ (egrees), **m**\ (inutes), and **s**\ (econds)
-                  , or (m)\ **e**\ (ters), **f**\ (eet), **k**\ (ilometers),
-                  **M**\ (iles), or **n**\ (autical miles) [Default is
-                  (m)\ **e**\ (ters)].
-                - For projected data (**X**\|\ **Y**\|\ **D**), the unit may be
-                  **i**\ (nches), **c**\ (entimeters), or **p**\ (oints).
+            - For geographic data (**x**\|\ **y**\|\ **d**), the unit may
+              be arc- **d**\ (egrees), **m**\ (inutes), and **s**\ (econds),
+              or (m)\ **e**\ (ters), **f**\ (eet), **k**\ (ilometers),
+              **M**\ (iles), or **n**\ (autical miles) [Default is
+              (m)\ **e**\ (ters)].
+            - For projected data (**X**\|\ **Y**\|\ **D**), the unit may be
+              **i**\ (nches), **c**\ (entimeters), or **p**\ (oints).
 
             Append modifier **+a** to specify that *all* the criteria must be
             met [default imposes breaks if any one criterion is met].
 
             One of the following modifiers can be appended:
 
-                - **+n**: specify that the previous value minus the current
-                  column value must exceed *gap* for a break to be imposed.
-                - **+p**: specify that the current value minus the previous
-                  value must exceed *gap* for a break to be imposed.""",
+            - **+n**: specify that the previous value minus the current
+              column value must exceed *gap* for a break to be imposed.
+            - **+p**: specify that the current value minus the previous
+              value must exceed *gap* for a break to be imposed.""",
     "grid": r"""
         grid
             Name of the input grid file or the grid loaded as a
@@ -153,17 +153,17 @@ COMMON_DOCSTRINGS = {
             header records. Prepend **o** to control the writing of header
             records, with the following modifiers supported:
 
-                - **+d** to remove existing header records.
-                - **+c** to add a header comment with column names to the
-                  output [Default is no column names].
-                - **+m** to add a segment header *segheader* to the output
-                  after the header block [Default is no segment header].
-                - **+r** to add a *remark* comment to the output [Default is no
-                  comment]. The *remark* string may contain \\n to indicate
-                  line-breaks.
-                - **+t** to add a *title* comment to the output [Default is no
-                  title]. The *title* string may contain \\n to indicate
-                  line-breaks.
+            - **+d** to remove existing header records.
+            - **+c** to add a header comment with column names to the
+              output [Default is no column names].
+            - **+m** to add a segment header *segheader* to the output
+              after the header block [Default is no segment header].
+            - **+r** to add a *remark* comment to the output [Default is no
+              comment]. The *remark* string may contain \\n to indicate
+              line-breaks.
+            - **+t** to add a *title* comment to the output [Default is no
+              title]. The *title* string may contain \\n to indicate
+              line-breaks.
 
             Blank lines and lines starting with \# are always skipped.""",
     "incols": r"""
@@ -307,11 +307,11 @@ COMMON_DOCSTRINGS = {
             *inc* defaults to 1 if not specified. The following modifiers are
             supported:
 
-                - **+r** to reverse the suppression, i.e., only output the
-                  records whose *z*-value equals NaN.
-                - **+a** to suppress the output of the record if just one or
-                  more of the columns equal NaN [Default skips record only
-                  if values in all specified *cols* equal NaN].""",
+            - **+r** to reverse the suppression, i.e., only output the
+              records whose *z*-value equals NaN.
+            - **+a** to suppress the output of the record if just one or
+              more of the columns equal NaN [Default skips record only
+              if values in all specified *cols* equal NaN].""",
     "spacing": r"""
         spacing : float, str, or list
             *x_inc*\ [**+e**\|\ **n**][/\ *y_inc*\ [**+e**\|\ **n**]].
@@ -361,14 +361,14 @@ COMMON_DOCSTRINGS = {
             different column if selected via **+c**\ *col*. The following
             cyclical coordinate transformations are supported:
 
-                - **y**: yearly cycle (normalized)
-                - **a**: annual cycle (monthly)
-                - **w**: weekly cycle (day)
-                - **d**: daily cycle (hour)
-                - **h**: hourly cycle (minute)
-                - **m**: minute cycle (second)
-                - **s**: second cycle (second)
-                - **c**: custom cycle (normalized)
+            - **y**: yearly cycle (normalized)
+            - **a**: annual cycle (monthly)
+            - **w**: weekly cycle (day)
+            - **d**: daily cycle (hour)
+            - **h**: hourly cycle (minute)
+            - **m**: minute cycle (second)
+            - **s**: second cycle (second)
+            - **c**: custom cycle (normalized)
 
             Full documentation is at :gmt-docs:`gmt.html#w-full`.""",
 }
