@@ -2,8 +2,7 @@
 Decorators to help wrap the GMT modules.
 
 Apply them to functions wrapping GMT modules to automate: alias generation for
-arguments, insert common text into docstrings, transform arguments to strings,
-etc.
+arguments, insert common text into docstrings, transform arguments to strings, etc.
 """
 
 import functools
@@ -22,14 +21,12 @@ COMMON_DOCSTRINGS = {
             [**s**\|\ **S**]][**+l**\|\ **r**][**+p**\ *percent*].
             Features with an area smaller than *min_area* in km\ :sup:`2` or of
             hierarchical level that is lower than *min_level* or higher than
-            *max_level* will not be plotted [Default is ``"0/0/4"`` (all
-            features)].""",
+            *max_level* will not be plotted [Default is ``"0/0/4"`` (all features)].""",
     "aspatial": r"""
         aspatial : bool or str
             [*col*\ =]\ *name*\ [,...].
             Control how aspatial data are handled during input and output.
-            Full documentation is at :gmt-docs:`gmt.html#aspatial-full`.
-         """,
+            Full documentation is at :gmt-docs:`gmt.html#aspatial-full`. """,
     "binary": r"""
         binary : bool or str
             **i**\|\ **o**\ [*ncols*][*type*][**w**][**+l**\|\ **b**].
@@ -54,8 +51,8 @@ COMMON_DOCSTRINGS = {
             are supported:
 
             - **w** after any item to force byte-swapping.
-            - **+l**\|\ **b** to indicate that the entire data file should
-              be read as little- or big-endian, respectively.
+            - **+l**\|\ **b** to indicate that the entire data file should be
+              read as little- or big-endian, respectively.
 
             Full documentation is at :gmt-docs:`gmt.html#bi-full`.""",
     "cmap": r"""
@@ -66,9 +63,8 @@ COMMON_DOCSTRINGS = {
     "coltypes": r"""
         coltypes : str
             [**i**\|\ **o**]\ *colinfo*.
-            Specify data types of input and/or output columns (time or
-            geographical data). Full documentation is at
-            :gmt-docs:`gmt.html#f-full`.""",
+            Specify data types of input and/or output columns (time or geographical
+            data). Full documentation is at :gmt-docs:`gmt.html#f-full`.""",
     "cores": r"""
         cores : bool or int
             Specify the number of active cores to be used in any OpenMP-enabled
@@ -106,14 +102,11 @@ COMMON_DOCSTRINGS = {
             criteria.
 
             - **x**\|\ **X**: define a gap when there is a large enough
-              change in the x coordinates (uppercase to use projected
-              coordinates).
+              change in the x coordinates (uppercase to use projected coordinates).
             - **y**\|\ **Y**: define a gap when there is a large enough
-              change in the y coordinates (uppercase to use projected
-              coordinates).
+              change in the y coordinates (uppercase to use projected coordinates).
             - **d**\|\ **D**: define a gap when there is a large enough
-              distance between coordinates (uppercase to use projected
-              coordinates).
+              distance between coordinates (uppercase to use projected coordinates).
             - **z**: define a gap when there is a large enough change in
               the z data. Use **+c**\ *col* to change the z data column
               [Default *col* is 2 (i.e., 3rd column)].
@@ -123,8 +116,7 @@ COMMON_DOCSTRINGS = {
             - For geographic data (**x**\|\ **y**\|\ **d**), the unit may
               be arc- **d**\ (egrees), **m**\ (inutes), and **s**\ (econds),
               or (m)\ **e**\ (ters), **f**\ (eet), **k**\ (ilometers),
-              **M**\ (iles), or **n**\ (autical miles) [Default is
-              (m)\ **e**\ (ters)].
+              **M**\ (iles), or **n**\ (autical miles) [Default is (m)\ **e**\ (ters)].
             - For projected data (**X**\|\ **Y**\|\ **D**), the unit may be
               **i**\ (nches), **c**\ (entimeters), or **p**\ (oints).
 
@@ -196,8 +188,7 @@ COMMON_DOCSTRINGS = {
     "interpolation": r"""
         interpolation : str
             [**b**\|\ **c**\|\ **l**\|\ **n**][**+a**][**+b**\ *BC*][**+c**][**+t**\ *threshold*].
-            Select interpolation mode for grids. You can select the type of
-            spline used:
+            Select interpolation mode for grids. You can select the type of spline used:
 
             - **b** for B-spline
             - **c** for bicubic [Default]
@@ -255,8 +246,7 @@ COMMON_DOCSTRINGS = {
             Name of the output netCDF grid file. If not specified, will return an
             :class:`xarray.DataArray` object. For writing a specific grid file format or
             applying basic data operations to the output grid, see
-            :gmt-docs:`gmt.html#grd-inout-full` for the available modifiers.
-        """,
+            :gmt-docs:`gmt.html#grd-inout-full` for the available modifiers.""",
     "panel": r"""
         panel
             Select a specific subplot panel. Only allowed when used in
@@ -277,8 +267,7 @@ COMMON_DOCSTRINGS = {
             [**+w**\ *lon0*/*lat0*\[/*z0*]][**+v**\ *x0*/*y0*].
             Select perspective view and set the azimuth and elevation angle of
             the viewpoint [Default is ``[180, 90]``]. Full documentation is at
-            :gmt-docs:`gmt.html#perspective-full`.
-        """,
+            :gmt-docs:`gmt.html#perspective-full`.""",
     "projection": r"""
         projection : str
             *projcode*\[*projparams*/]\ *width*\|\ *scale*.
@@ -291,8 +280,7 @@ COMMON_DOCSTRINGS = {
         registration : str
             **g**\|\ **p**.
             Force gridline (**g**) or pixel (**p**) node registration
-            [Default is **g**\ (ridline)].
-        """,
+            [Default is **g**\ (ridline)].""",
     "skiprows": r"""
         skiprows : bool or str
             [*cols*][**+a**][**+r**].
@@ -346,7 +334,7 @@ COMMON_DOCSTRINGS = {
             [Default is ``0``, i.e., opaque].
             Only visible when PDF or raster format output is selected.
             Only the PNG format selection adds a transparency layer
-            in the image (for further processing). """,
+            in the image (for further processing).""",
     "verbose": r"""
         verbose : bool or str
             Select verbosity level [:term:`Full usage <verbose>`].""",
