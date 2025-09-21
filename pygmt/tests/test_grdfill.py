@@ -122,7 +122,7 @@ def test_grdfill_hole(grid, expected_grid):
     grid_no_nan = grdfill(grid=grid, constantfill=-99999)
     assert not np.isnan(grid_no_nan).any()
     assert -99999 in grid_no_nan
-    # Now that we have a grid with -99999 as holes, fill them with a constant value of 20.
+    # Now fill them with a constant value of 20.
     result = grdfill(grid=grid_no_nan, constantfill=20, hole=-99999)
 
     # Check information of the output grid
