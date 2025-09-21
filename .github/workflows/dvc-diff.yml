@@ -14,7 +14,9 @@ on:
     paths:
       - 'pygmt/tests/baseline/*.png.dvc'
 
-permissions: {}
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   dvc-diff:
