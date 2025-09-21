@@ -97,16 +97,16 @@ def grdclip(
     Example
     -------
     >>> import pygmt
-    >>> # Load a grid of @earth_relief_30m data, with a longitude range of
-    >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
+    >>> # Load the 30 arc-minutes Earth relief grid, with a longitude range of 10° E to
+    >>> 30° E, and a latitude range of 15° N to 25° N
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[10, 30, 15, 25]
     ... )
     >>> # Report the minimum and maximum data values
     >>> [grid.data.min(), grid.data.max()]
     [183.5, 1807.0]
-    >>> # Create a new grid from an input grid. Set all values below 1,000 to
-    >>> # 0 and all values above 1,500 to 10,000
+    >>> # Create a new grid from an input grid. Set all values below 1,000 to 0 and all
+    >>> # values above 1,500 to 10,000
     >>> new_grid = pygmt.grdclip(grid=grid, below=[1000, 0], above=[1500, 10000])
     >>> # Report the minimum and maximum data values
     >>> [new_grid.data.min(), new_grid.data.max()]
