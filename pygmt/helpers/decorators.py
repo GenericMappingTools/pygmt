@@ -26,7 +26,7 @@ COMMON_DOCSTRINGS = {
         aspatial : bool or str
             [*col*\ =]\ *name*\ [,...].
             Control how aspatial data are handled during input and output.
-            Full documentation is at :gmt-docs:`gmt.html#aspatial-full`. """,
+            Full documentation is at :gmt-docs:`gmt.html#aspatial-full`.""",
     "binary": r"""
         binary : bool or str
             **i**\|\ **o**\ [*ncols*][*type*][**w**][**+l**\|\ **b**].
@@ -91,7 +91,7 @@ COMMON_DOCSTRINGS = {
     "frame": r"""
         frame : bool, str, or list
             Set map boundary
-            :doc:`frame and axes attributes </tutorials/basics/frames>`. """,
+            :doc:`frame and axes attributes </tutorials/basics/frames>`.""",
     "gap": r"""
         gap : str or list
             **x**\|\ **y**\|\ **z**\|\ **d**\|\ **X**\|\ **Y**\|\
