@@ -15,7 +15,7 @@ on:
       - 'pygmt/tests/baseline/*.png.dvc'
 
 permissions:
-  contents: write
+  contents: read
   pull-requests: write
 
 jobs:
