@@ -189,13 +189,10 @@ COMMON_DOCSTRINGS = {
               following modifiers to any column or column range to transform
               the input columns:
 
-                - **+l** to take the *log10* of the input values.
-                - **+d** to divide the input values by the factor *divisor*
-                  [Default is 1].
-                - **+s** to multiple the input values by the factor *scale*
-                  [Default is 1].
-                - **+o** to add the given *offset* to the input values [Default
-                  is 0].""",
+              - **+l** to take the *log10* of the input values.
+              - **+d** to divide the input values by the factor *divisor* [Default is 1].
+              - **+s** to multiple the input values by the factor *scale* [Default is 1].
+              - **+o** to add the given *offset* to the input values [Default is 0].""",
     "interpolation": r"""
         interpolation : str
             [**b**\|\ **c**\|\ **l**\|\ **n**][**+a**][**+b**\ *BC*][**+c**][**+t**\ *threshold*].
