@@ -119,3 +119,28 @@ def test_solar_default_terminator():
         terminator_datetime="1990-02-17 04:25:00",
     )
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_solar_terminator_datetime_timezone():
+    """
+    Test passing the solar argument with a time string that includes a timezone.
+    """
+    fig = Figure()
+    fig.basemap(region="d", projection="W0/15c", frame=True)
+    fig.solar(terminator_datetime="2020-01-01T01:02:03", pen="1p,black")
+    fig.solar(terminator_datetime="2020-01-01T01:02:03+0100", pen="1p,red")
+    fig.solar(terminator_datetime="2020-01-01T01:02:03-0100", pen="1p,blue")
+    fig.solar(
+        terminator_datetime=datetime.datetime(
+            2020, 1, 1, 1, 2, 3, tzinfo=datetime.timezone(datetime.timedelta(hours=2))
+        ),
+        pen="1p,lightred",
+    )
+    fig.solar(
+        terminator_datetime=datetime.datetime(
+            2020, 1, 1, 1, 2, 3, tzinfo=datetime.timezone(datetime.timedelta(hours=-2))
+        ),
+        pen="1p,lightblue",
+    )
+    return fig
