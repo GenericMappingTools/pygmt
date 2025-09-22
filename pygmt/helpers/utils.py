@@ -877,13 +877,13 @@ def sequence_join(
         # objects (e.g., datetime.datetime, pandas.Timestamp), which contains a space.
         # If so, use np.datetime_as_string to convert it to ISO 8601 string format
         # YYYY-MM-DDThh:mm:ss.ffffff.
-        _value = [
+        _values = [
             np.datetime_as_string(np.asarray(item, dtype=np.datetime64))
             if " " in str(item)
-            else item
+            else str(item)
             for item in value
         ]
-        return sep.join(str(v) for v in _value)
+        return sep.join(_values)
 
     # Now it must be a 2-D sequence.
     if ndim == 1:
