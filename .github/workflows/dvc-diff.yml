@@ -14,7 +14,9 @@ on:
     paths:
       - 'pygmt/tests/baseline/*.png.dvc'
 
-permissions: {}
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
   dvc-diff:
@@ -55,7 +57,7 @@ jobs:
     # Report last updated at commit abcdef
     - name: Generate the image diff report
       env:
-        repo_token: ${{ github.token }}
+        REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
       run: |
