@@ -59,7 +59,8 @@ def solar(
         string or any datetime-like object recognized by :func:`pandas.to_datetime`. The
         time can be specified in UTC or using a UTC offset. The offset must be an
         integer number of hours (e.g., -8 or +5); fractional hours (e.g., -8.5 or +5.5)
-        are cast to integer. [Default is the current UTC date and time].
+        are truncated towards zero (e.g., -8.5 becomes -8 and +5.5 becomes +5). [Default
+        is the current UTC date and time].
     {region}
     {projection}
     {frame}
