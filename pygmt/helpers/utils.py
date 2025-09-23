@@ -878,9 +878,9 @@ def sequence_join(
         # If so, use np.datetime_as_string to convert it to ISO 8601 string format
         # YYYY-MM-DDThh:mm:ss.ffffff.
         _values = [
-            np.datetime_as_string(np.asarray(item, dtype=np.datetime64))
-            if " " in str(item)
-            else str(item)
+            np.datetime_as_string(np.asarray(item, dtype="datetime64"))
+            if " " in (s := str(item))
+            else s
             for item in value
         ]
         return sep.join(_values)
