@@ -41,8 +41,8 @@ def solar(
        - G = fill
        - J = projection
        - T = terminator, **+d**: terminator_datetime
-       - W = pen
        - V = verbose
+       - W = pen
        - c = panel
        - t = transparency
 
