@@ -10,12 +10,7 @@ from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    build_arg_list,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["grdlandmask"]
 
@@ -26,7 +21,6 @@ __doctest_skip__ = ["grdlandmask"]
     I="spacing",
     R="region",
     r="registration",
-    x="cores",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
 def grdlandmask(
@@ -38,6 +32,7 @@ def grdlandmask(
     ] = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    cores: int | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -56,6 +51,7 @@ def grdlandmask(
        - E = bordervalues
        - N = maskvalues
        - V = verbose
+       - x = cores
 
     Parameters
     ----------
@@ -136,6 +132,7 @@ def grdlandmask(
         E=Alias(bordervalues, name="bordervalues", sep="/", size=4),
     ).add_common(
         V=verbose,
+        x=cores,
     )
     aliasdict.merge(kwargs)
 
