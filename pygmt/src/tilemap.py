@@ -2,6 +2,7 @@
 tilemap - Plot XYZ tile maps.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt.alias import AliasSystem
@@ -29,7 +30,7 @@ except ImportError:
 @kwargs_to_strings(p="sequence")
 def tilemap(  # noqa: PLR0913
     self,
-    region: list,
+    region: Sequence[float],
     zoom: int | Literal["auto"] = "auto",
     source: TileProvider | str | None = None,
     lonlat: bool = True,
@@ -128,7 +129,7 @@ def tilemap(  # noqa: PLR0913
     # Only set region if no_clip is None or False, so that plot is clipped to exact
     # bounding box region.
     if kwargs.get("N") not in {None, False}:
-        region = None
+        region = None  # type: ignore[assignment]
 
     aliasdict = AliasSystem().add_common(
         J=projection,
