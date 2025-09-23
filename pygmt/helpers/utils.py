@@ -883,7 +883,7 @@ def sequence_join(
             else s
             for item in value
         ]
-        return sep.join(_values)
+        return sep.join(_values)  # type: ignore[arg-type]
 
     # Now it must be a 2-D sequence.
     if ndim == 1:
