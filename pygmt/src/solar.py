@@ -107,8 +107,8 @@ def solar(
             _datetime = pd.to_datetime(terminator_datetime)
             datetime_string = _datetime.strftime("%Y-%m-%dT%H:%M:%S.%f")
             # GMT's solar module uses the C 'atoi' function to parse the timezone
-            # offset. Ensure the offset is an integer number of hours (e.g., 8 or -5).
-            # Fractional hours (e.g., 8.5 or -5.5) are cast to integer.
+            # offset. Ensure the offset is an integer number of hours (e.g., -8 or +5).
+            # Fractional hours (e.g., -8.5 or +5.5) are truncated towards zero.
             if utcoffset := _datetime.utcoffset():
                 datetime_timezone = int(utcoffset.total_seconds() / 3600)
         except ValueError as verr:
