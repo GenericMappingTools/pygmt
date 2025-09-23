@@ -21,7 +21,6 @@ __doctest_skip__ = ["sph2grd"]
     h="header",
     i="incols",
     r="registration",
-    x="cores",
 )
 @kwargs_to_strings(I="sequence", i="sequence_comma")
 def sph2grd(
@@ -30,6 +29,7 @@ def sph2grd(
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    cores: int | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -44,6 +44,7 @@ def sph2grd(
     {aliases}
        - R = region
        - V = verbose
+       - x = cores
 
     Parameters
     ----------
@@ -80,6 +81,7 @@ def sph2grd(
     aliasdict = AliasSystem().add_common(
         R=region,
         V=verbose,
+        x=cores,
     )
     aliasdict.merge(kwargs)
 

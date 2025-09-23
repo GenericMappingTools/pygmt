@@ -21,7 +21,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     T="toggle",
     f="coltypes",
     r="registration",
-    x="cores",
 )
 @kwargs_to_strings(I="sequence")
 def grdfilter(
@@ -30,6 +29,7 @@ def grdfilter(
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    cores: int | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -50,6 +50,7 @@ def grdfilter(
     {aliases}
        - R = region
        - V = verbose
+       - x = cores
 
     Parameters
     ----------
@@ -140,6 +141,7 @@ def grdfilter(
     aliasdict = AliasSystem().add_common(
         R=region,
         V=verbose,
+        x=cores,
     )
     aliasdict.merge(kwargs)
 

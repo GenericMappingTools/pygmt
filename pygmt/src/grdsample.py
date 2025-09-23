@@ -21,7 +21,6 @@ __doctest_skip__ = ["grdsample"]
     f="coltypes",
     n="interpolation",
     r="registration",
-    x="cores",
 )
 @kwargs_to_strings(I="sequence")
 def grdsample(
@@ -30,6 +29,7 @@ def grdsample(
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    cores: int | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -53,6 +53,7 @@ def grdsample(
     {aliases}
        - R = region
        - V = verbose
+       - x = cores
 
     Parameters
     ----------
@@ -95,6 +96,7 @@ def grdsample(
     aliasdict = AliasSystem().add_common(
         R=region,
         V=verbose,
+        x=cores,
     )
     aliasdict.merge(kwargs)
 
