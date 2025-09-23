@@ -121,7 +121,7 @@ def sphdistance(
     ...     data=coords_array, spacing=[1, 2], region=[82, 87, 22, 24]
     ... )
     """
-    if kwargs.get("I") is None or region is None:
+    if kwargs.get("I") is None or kwargs.get("R", region) is None:
         msg = "Both 'region' and 'spacing' must be specified."
         raise GMTInvalidInput(msg)
 

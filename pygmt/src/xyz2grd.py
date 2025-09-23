@@ -156,7 +156,7 @@ def xyz2grd(
     ...     x=xx, y=yy, z=zz, spacing=(1.0, 0.5), region=[0, 3, 10, 13]
     ... )
     """
-    if kwargs.get("I") is None or region is None:
+    if kwargs.get("I") is None or kwargs.get("R", region) is None:
         msg = "Both 'region' and 'spacing' must be specified."
         raise GMTInvalidInput(msg)
 
