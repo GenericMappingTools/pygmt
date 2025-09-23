@@ -129,8 +129,8 @@ def test_solar_terminator_datetime_timezone():
     fig = Figure()
     fig.basemap(region="d", projection="W0/15c", frame=True)
     fig.solar(terminator_datetime="2020-01-01T01:02:03", pen="1p,black")
-    fig.solar(terminator_datetime="2020-01-01T01:02:03+0100", pen="1p,red")
-    fig.solar(terminator_datetime="2020-01-01T01:02:03-0100", pen="1p,blue")
+    fig.solar(terminator_datetime="2020-01-01T01:02:03+01:00", pen="1p,red")
+    fig.solar(terminator_datetime="2020-01-01T01:02:03-01:00", pen="1p,blue")
     fig.solar(
         terminator_datetime=datetime.datetime(
             2020, 1, 1, 1, 2, 3, tzinfo=datetime.timezone(datetime.timedelta(hours=2))
