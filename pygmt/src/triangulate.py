@@ -53,8 +53,6 @@ class triangulate:  # noqa: N801
     @fmt_docstring
     @use_alias(
         I="spacing",
-        R="region",
-        V="verbose",
         b="binary",
         d="nodata",
         e="find",
@@ -175,8 +173,6 @@ class triangulate:  # noqa: N801
     @fmt_docstring
     @use_alias(
         I="spacing",
-        R="region",
-        V="verbose",
         b="binary",
         d="nodata",
         e="find",
