@@ -26,11 +26,12 @@ def timestamp(
     r"""
     Plot the GMT timestamp logo.
 
-    Add the GMT timestamp logo with an optional label at the bottom-left corner of a
-    plot with an offset of ``("-54p", "-54p")``. The timestamp will be in the locale set
-    by the environment variable :term:`TZ` (generally local time but can be changed via
-    ``os.environ["TZ"]``) and its format is controlled by the ``timefmt`` parameter. It
-    can also be replaced with any custom text string using the ``text`` parameter.
+    Add the GMT timestamp logo with an optional label at the bottom-left corner relative
+    to the current plot origin, with an offset of ``("-54p", "-54p")``. The timestamp
+    will be in the locale set by the environment variable :term:`TZ` (generally local
+    time but can be changed via ``os.environ["TZ"]``) and its format is controlled by
+    the ``timefmt`` parameter. It can also be replaced with any custom text string using
+    the ``text`` parameter.
 
     Parameters
     ----------
@@ -41,12 +42,9 @@ def timestamp(
     label
         The text string shown after the GMT timestamp logo.
     justify
-        Justification of the timestamp box relative to the plot's bottom-left corner
-        (i.e., the plot origin). Give a two-character code that is a combination of a
-        horizontal (**L**\ (eft), **C**\ (enter), or **R**\ (ight)) and a vertical
-        (**T**\ (op), **M**\ (iddle), or **B**\ (ottom)) code. For example,
-        ``justify="TL"`` means choosing the **T**\ op **L**\ eft point of the timestamp
-        as the anchor point.
+        Specify a :doc:`2-character justification code </techref/justification_codes>`
+        for the timestamp box relative to the current plot origin. The default is the
+        Bottom Left (``"BL"``) corner.
     offset
         *offset* or (*offset_x*, *offset_y*).
         Offset the anchor point of the timestamp box by *offset_x* and *offset_y*. If a
