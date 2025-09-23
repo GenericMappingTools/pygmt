@@ -124,7 +124,7 @@ def test_solar_default_terminator():
 @pytest.mark.mpl_image_compare
 def test_solar_terminator_datetime_timezone():
     """
-    Test passing the solar argument with a time string that includes a timezone.
+    Test passing the terminator_datetime argument with a time string that includes a timezone.
     """
     fig = Figure()
     fig.basemap(region="d", projection="W0/15c", frame=True)
