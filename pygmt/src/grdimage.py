@@ -28,7 +28,6 @@ __doctest_skip__ = ["grdimage"]
     n="interpolation",
     f="coltypes",
     p="perspective",
-    x="cores",
 )
 @kwargs_to_strings(R="sequence", p="sequence")
 def grdimage(
@@ -39,6 +38,7 @@ def grdimage(
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
     transparency: float | None = None,
+    cores: int | bool = False,
     **kwargs,
 ):
     r"""
@@ -79,6 +79,7 @@ def grdimage(
        - V = verbose
        - c = panel
        - t = transparency
+       - x = cores
 
     Parameters
     ----------
@@ -177,6 +178,7 @@ def grdimage(
         V=verbose,
         c=panel,
         t=transparency,
+        x=cores,
     )
     aliasdict.merge(kwargs)
 
