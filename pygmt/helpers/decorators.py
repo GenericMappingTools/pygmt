@@ -66,7 +66,7 @@ COMMON_DOCSTRINGS = {
             Specify data types of input and/or output columns (time or geographical
             data). Full documentation is at :gmt-docs:`gmt.html#f-full`.""",
     "cores": r"""
-        cores : bool or int
+        cores
             Specify the number of active cores to be used in any OpenMP-enabled
             multi-threaded algorithms. By default, all available cores are used. Set a
             positive number *n* to use *n* cores (if too large it will be truncated to

@@ -109,6 +109,21 @@ def _to_string(
 
     >>> _to_string([[1, 2], [3, 4]], sep="/", ndim=2)
     ['1/2', '3/4']
+
+    >>> import datetime
+    >>> import numpy as np
+    >>> import pandas as pd
+    >>> import xarray as xr
+    >>> _to_string(
+    ...     [
+    ...         datetime.date(2010, 1, 1),
+    ...         datetime.datetime(2010, 3, 1),
+    ...         pd.Timestamp("2015-01-01T12:00:00.123456789"),
+    ...         xr.DataArray(data=np.datetime64("2005-01-01T08:00:00", "ns")),
+    ...     ],
+    ...     sep="/",
+    ... )
+    '2010-01-01/2010-03-01T00:00:00.000000/2015-01-01T12:00:00.123456/2005-01-01T08:00:00.000000000'
     """
     # None and False are converted to None.
     if value is None or value is False:
@@ -305,6 +320,8 @@ class AliasSystem(UserDict):
                     alias = Alias(value, name="panel", sep=",", size=2)
                 case "t":
                     alias = Alias(value, name="transparency")
+                case "x":
+                    alias = Alias(value, name="cores")
                 case _:
                     raise GMTValueError(key, description="common parameter")
             self.aliasdict[key] = alias
