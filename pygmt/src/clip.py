@@ -4,14 +4,9 @@ clip - Clip a path and only plot data inside or outside.
 
 from collections.abc import Sequence
 
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import (
-    build_arg_list,
-    fmt_docstring,
-    is_nonstr_iter,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_list, fmt_docstring, is_nonstr_iter
 
 
 class _ClipContext:
@@ -228,7 +223,7 @@ class ClipAccessor:
         _code = ",".join(code) if is_nonstr_iter(code) else code
         return _ClipDcw(self._figure, dcw=f"{_code}+c", **kwargs)
 
-    def solar(self, **kwargs):
+    def solar(self, invert: bool = False, **kwargs):
         """
         Clip the data to the solar terminator.
 
@@ -237,9 +232,11 @@ class ClipAccessor:
 
         Parameters
         ----------
+        invert
+            Invert the sense of what is inside and outside the terminator.
         kwargs
-            Additional keyword arguments passed to :meth:`pygmt.Figure.solar`. Not all
-            parameters make sense in this context.
+            Additional keyword arguments passed to :meth:`pygmt.Figure.solar`.
+            Parameters ``frame`` and ``fill`` are not allowed here.
 
         Examples
         --------
@@ -253,19 +250,13 @@ class ClipAccessor:
         ...     fig.grdimage(grid, cmap="geo")
         >>> fig.show()
         """
-        return _ClipSolar(self._figure, **kwargs)
+        aliasdict = AliasSystem(
+            N=Alias(invert, name="invert"),
+        )
+        aliasdict.merge(kwargs)
+        return _ClipSolar(self._figure, **aliasdict)
 
     @fmt_docstring
-    @use_alias(
-        A="straight_line",
-        B="frame",
-        J="projection",
-        N="invert",
-        R="region",
-        V="verbose",
-        W="pen",
-    )
-    @kwargs_to_strings(R="sequence")
     def polygon(self, data=None, x=None, y=None, **kwargs):
         """
         Clip polygonal paths.
@@ -332,18 +323,31 @@ class ClipAccessor:
         return _ClipPolygon(self._figure, data=data, x=x, y=y, **kwargs)
 
     @fmt_docstring
-    @use_alias(
-        I="spacing",
-        N="invert",
-        S="radius",
-    )
-    @kwargs_to_strings(R="sequence")
-    def mask(self, data=None, x=None, y=None, **kwargs):
+    def mask(
+        self,
+        data=None,
+        x=None,
+        y=None,
+        region=None,
+        spacing=None,
+        invert: bool = False,
+        radius=None,
+        **kwargs,
+    ):
         """
         Clip the data to a mask.
 
         Must be used as a context manager. Any plotting operations within the context
         manager will be clipped to the mask.
+
+        **Aliases**
+        .. hlist::
+           :columns: 3
+
+           - I = spacing
+           - N = invert
+           - R = region
+           - S = radius
 
         Parameters
         ----------
@@ -370,4 +374,13 @@ class ClipAccessor:
         ...     fig.grdimage(grid, cmap="geo")
         >>> fig.show()
         """
-        return _ClipMask(self._figure, data=data, x=x, y=y, **kwargs)
+        aliasdict = AliasSystem(
+            I=Alias(spacing, name="spacing"),
+            N=Alias(invert, name="invert"),
+            S=Alias(radius, name="radius"),
+        ).add_common(
+            R=region,
+        )
+        aliasdict.merge(kwargs)
+
+        return _ClipMask(self._figure, data=data, x=x, y=y, **aliasdict)
