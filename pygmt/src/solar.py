@@ -15,12 +15,14 @@ __doctest_skip__ = ["solar"]
 
 
 @fmt_docstring
-@use_alias(B="frame", G="fill", W="pen", p="perspective")
+@use_alias(B="frame", p="perspective")
 @kwargs_to_strings(p="sequence")
 def solar(
     self,
     terminator: Literal["astronomical", "civil", "day_night", "nautical"] = "day_night",
     terminator_datetime=None,
+    fill: str | None = None,
+    pen: str | None = None,
     projection=None,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -38,10 +40,12 @@ def solar(
     Full GMT docs at :gmt-docs:`solar.html`.
 
     {aliases}
+       - G = fill
        - J = projection
        - R = region
        - T = terminator, **+d**: terminator_datetime
        - V = verbose
+       - W = pen
        - c = panel
        - t = transparency
 
@@ -64,9 +68,9 @@ def solar(
     {region}
     {projection}
     {frame}
-    fill : str
+    fill
         Set color or pattern for filling terminators [Default is no fill].
-    pen : str
+    pen
         Set pen attributes for lines [Default is ``"0.25p,black,solid"``].
     {verbose}
     {panel}
@@ -111,6 +115,7 @@ def solar(
             raise GMTValueError(terminator_datetime, description="datetime") from verr
 
     aliasdict = AliasSystem(
+        G=Alias(fill, name="fill"),
         T=[
             Alias(
                 terminator,
@@ -124,6 +129,7 @@ def solar(
             ),
             Alias(datetime_string, name="terminator_datetime", prefix="+d"),
         ],
+        W=Alias(pen, name="pen"),
     ).add_common(
         J=projection,
         R=region,

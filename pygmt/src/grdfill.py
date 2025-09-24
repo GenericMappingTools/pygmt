@@ -73,7 +73,7 @@ def _validate_params(
 # TODO(PyGMT>=0.19.0): Remove the deprecated 'mode' parameter.
 @deprecate_parameter("no_data", "hole", "v0.15.0", remove_version="v0.19.0")
 @use_alias(f="coltypes")
-def grdfill(
+def grdfill(  # noqa: PLR0913
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
     constantfill: float | None = None,
