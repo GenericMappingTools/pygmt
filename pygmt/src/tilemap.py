@@ -129,7 +129,7 @@ def tilemap(  # noqa: PLR0913
 
     # Only set region if no_clip is None or False, so that plot is clipped to exact
     # bounding box region
-    if no_clip is False:
+    if kwargs.get("N", no_clip) in {None, False}:
         kwargs["R"] = "/".join(str(coordinate) for coordinate in region)
 
     aliasdict = AliasSystem(
