@@ -14,7 +14,9 @@ on:
     paths:
       - 'pygmt/tests/baseline/*.png.dvc'
 
-permissions: {}
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
   dvc-diff:
@@ -55,11 +57,15 @@ jobs:
     # Report last updated at commit abcdef
     - name: Generate the image diff report
       env:
-        repo_token: ${{ github.token }}
+        REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
       run: |
         echo -e "## Summary of changed images\n" > report.md
         echo -e "This is an auto-generated report of images that have changed on the DVC remote\n" >> report.md
+
+        # Configure DVC to use the DAGsHub remote via a token
+        dvc remote modify upstream url https://${DAGSHUB_TOKEN}@dagshub.com/GenericMappingTools/pygmt.dvc --local
 
         # Pull image data from cloud storage
         dvc pull --remote upstream

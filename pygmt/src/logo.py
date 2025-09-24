@@ -4,22 +4,20 @@ logo - Plot the GMT logo.
 
 from typing import Literal
 
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.params import Box
 
 
 @fmt_docstring
-@use_alias(
-    R="region",
-    D="position",
-    F="box",
-    S="style",
-)
+@use_alias(R="region", D="position")
 @kwargs_to_strings(R="sequence", p="sequence")
 def logo(
     self,
     projection=None,
+    style: Literal["standard", "url", "no_label"] = "standard",
+    box: Box | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -37,7 +35,9 @@ def logo(
     Full GMT docs at :gmt-docs:`gmtlogo.html`.
 
     {aliases}
+       - F = box
        - J = projection
+       - S = style
        - V = verbose
        - c = panel
        - t = transparency
@@ -50,24 +50,29 @@ def logo(
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *width*\ [**+j**\ *justify*]\ [**+o**\ *dx*\ [/*dy*]].
         Set reference point on the map for the image.
-    box : bool or str
-        If set to ``True``, draw a rectangular border around the
-        GMT logo.
-    style : str
-        [**l**\|\ **n**\|\ **u**].
+    box
+        Draw a background box behind the logo. If set to ``True``, a simple rectangular
+        box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,
+        pass a :class:`pygmt.params.Box` object to control style, fill, pen, and other
+        box properties.
+    style
         Control what is written beneath the map portion of the logo.
 
-        - **l** to plot the text label "The Generic Mapping Tools"
-          [Default]
-        - **n** to skip the label placement
-        - **u** to place the URL to the GMT site
+        - ``"standard"``: The text label "The Generic Mapping Tools".
+        - ``"no_label"``: Skip the text label.
+        - ``"url"``: The URL to the GMT website.
     {verbose}
     {panel}
     {transparency}
     """
     self._activate_figure()
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        F=Alias(box, name="box"),
+        S=Alias(
+            style, name="style", mapping={"standard": "l", "url": "u", "no_label": "n"}
+        ),
+    ).add_common(
         J=projection,
         V=verbose,
         c=panel,

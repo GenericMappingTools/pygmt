@@ -36,8 +36,8 @@ classifiers = [
 ]
 dependencies = [
     "numpy>=1.26",
-    "pandas>=2.1",
-    "xarray>=2023.07",
+    "pandas>=2.2",
+    "xarray>=2023.10",
     "packaging>=24.2",
 ]
 dynamic = ["version"]
