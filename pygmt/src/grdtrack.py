@@ -79,7 +79,7 @@ def grdtrack(
     Full GMT docs at :gmt-docs:`grdtrack.html`.
 
     {aliases}
-        - V = verbose
+       - V = verbose
 
     Parameters
     ----------
