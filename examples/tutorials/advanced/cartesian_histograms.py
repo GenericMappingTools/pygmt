@@ -175,10 +175,10 @@ fig.show()
 # Cumulative values
 # -----------------
 #
-# To create a histogram showing the cumulative values set ``cumulative=True``. Here,
-# the bars of the cumulative histogram are filled with a pattern via the ``fill``
-# parameter. Annotate each bar with the counts it represents using the ``annotate``
-# parameter.
+# To create a histogram showing the cumulative values set ``cumulative=True``. Here, the
+# bars of the cumulative histogram are filled with a :class:`pygmt.params.Pattern` via
+# the ``fill`` parameter. Annotate each bar with the counts it represents using the
+# ``annotate`` parameter.
 
 fig = pygmt.Figure()
 
