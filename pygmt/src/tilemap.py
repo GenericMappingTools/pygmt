@@ -21,7 +21,6 @@ except ImportError:
     B="frame",
     E="dpi",
     I="shading",
-    M="monochrome",
     Q="nan_transparent",
     # R="region",
     p="perspective",
@@ -36,6 +35,7 @@ def tilemap(  # noqa: PLR0913
     wait: int = 0,
     max_retries: int = 2,
     zoom_adjust: int | None = None,
+    monochrome: bool = False,  
     no_clip: bool = False,
     projection=None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -59,6 +59,7 @@ def tilemap(  # noqa: PLR0913
 
     {aliases}
        - J = projection
+       - M = monochrome
        - N = no_clip
        - V = verbose
        - c = panel
@@ -133,6 +134,7 @@ def tilemap(  # noqa: PLR0913
         kwargs["R"] = "/".join(str(coordinate) for coordinate in region)
 
     aliasdict = AliasSystem(
+        M=Alias(monochrome, name="monochrome"),
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
         J=projection,

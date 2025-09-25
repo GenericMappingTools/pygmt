@@ -21,7 +21,6 @@ __doctest_skip__ = ["grdimage"]
     E="dpi",
     G="bitcolor",
     I="shading",
-    M="monochrome",
     Q="nan_transparent",
     R="region",
     n="interpolation",
@@ -32,6 +31,7 @@ __doctest_skip__ = ["grdimage"]
 def grdimage(
     self,
     grid: PathLike | xr.DataArray,
+    monochrome: bool = False,
     no_clip: bool = False,
     projection=None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -76,6 +76,7 @@ def grdimage(
 
     {aliases}
        - J = projection
+       - M = monochrome
        - N = no_clip
        - V = verbose
        - c = panel
@@ -129,9 +130,9 @@ def grdimage(
         input data represent an *image* then an *intensfile* or constant
         *intensity* must be provided.
     {projection}
-    monochrome : bool
-        Force conversion to monochrome image using the (television) YIQ
-        transformation. Cannot be used with ``nan_transparent``.
+    monochrome
+        Force conversion to monochrome image using the (television) YIQ transformation.
+        Cannot be used with ``nan_transparent``.
     no_clip
         Do **not** clip the image at the frame boundaries (only relevant for
         non-rectangular maps) [Default is ``False``].
@@ -175,6 +176,7 @@ def grdimage(
         raise NotImplementedError(msg)
 
     aliasdict = AliasSystem(
+        M=Alias(monochrome, name="monochrome"),
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
         J=projection,
