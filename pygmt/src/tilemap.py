@@ -128,9 +128,9 @@ def tilemap(  # noqa: PLR0913
     if lonlat:
         raster.gmt.gtype = GridType.GEOGRAPHIC
 
-    # Only set region if no_clip is None or False, so that plot is clipped to exact
+    # If no_clip is not True, set region to None so that plot is clipped to exact
     # bounding box region.
-    if kwargs.get("N", no_clip) in {None, False}:
+    if kwargs.get("N", no_clip) not in {None, False}:
         region = None  # type: ignore[assignment]
 
     aliasdict = AliasSystem(
