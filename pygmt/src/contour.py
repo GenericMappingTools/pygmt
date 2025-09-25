@@ -107,7 +107,7 @@ def contour(
         five controlling algorithms. See :gmt-docs:`contour.html#g` for
         details.
     I : bool
-        Color the triangles using CPT.
+        Color the triangles using the CPT if given via ``levels``.
     triangular_mesh_pen : str
         Pen to draw the underlying triangulation [Default is ``None``].
     no_clip
