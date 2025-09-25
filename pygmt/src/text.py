@@ -7,7 +7,7 @@ from typing import Literal
 
 import numpy as np
 from pygmt._typing import AnchorCode, PathLike, StringArrayTypes, TableLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import (
@@ -28,7 +28,6 @@ from pygmt.helpers import (
     C="clearance",
     D="offset",
     G="fill",
-    N="no_clip",
     W="pen",
     a="aspatial",
     e="find",
@@ -49,6 +48,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
     angle=None,
     font=None,
     justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
+    no_clip: bool = False,
     projection=None,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -76,6 +76,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
     {aliases}
        - F = **+a**: angle, **+c**: position, **+j**: justify, **+f**: font
        - J = projection
+       - N = no_clip
        - R = region
        - V = verbose
        - c = panel
@@ -164,9 +165,8 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
     pen : str
         Set the pen used to draw a rectangle around the text string
         (see ``clearance``) [Default is ``"0.25p,black,solid"``].
-    no_clip : bool
-        Do **not** clip text at the frame boundaries [Default is
-        ``False``].
+    no_clip
+        Do **not** clip text at the frame boundaries [Default is ``False``].
     {verbose}
     {aspatial}
     {panel}
@@ -272,7 +272,9 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
                     reason=f"Parameter {name!r} expects a single value or True.",
                 )
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        N=Alias(no_clip, name="no_clip"),
+    ).add_common(
         J=projection,
         R=region,
         V=verbose,

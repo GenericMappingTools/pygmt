@@ -6,7 +6,7 @@ from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -24,7 +24,6 @@ from pygmt.helpers import (
     C="levels",
     G="label_placement",
     L="triangular_mesh_pen",
-    N="no_clip",
     S="skip",
     W="pen",
     b="binary",
@@ -37,12 +36,13 @@ from pygmt.helpers import (
     p="perspective",
 )
 @kwargs_to_strings(i="sequence_comma", p="sequence")
-def contour(
+def contour(  # noqa: PLR0913
     self,
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     z=None,
+    no_clip: bool = False,
     projection=None,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -63,6 +63,7 @@ def contour(
 
     {aliases}
        - J = projection
+       - N = no_clip
        - R = region
        - V = verbose
        - c = panel
@@ -108,12 +109,12 @@ def contour(
         five controlling algorithms. See :gmt-docs:`contour.html#g` for
         details.
     I : bool
-        Color the triangles using CPT.
+        Color the triangles using the CPT if given via ``levels``.
     triangular_mesh_pen : str
         Pen to draw the underlying triangulation [Default is ``None``].
-    no_clip : bool
-        Do **not** clip contours or image at the frame boundaries
-        [Default is ``False`` to fit inside ``region``].
+    no_clip
+        Do **not** clip contours or colored triangles at the frame boundaries [Default
+        is ``False`` to fit inside ``region``].
     Q : float or str
         [*cut*][**+z**].
         Do not draw contours with less than *cut* number of points.
@@ -161,7 +162,9 @@ def contour(
             else:  # Multiple levels
                 kwargs[arg] = ",".join(f"{item}" for item in kwargs[arg])
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        N=Alias(no_clip, name="no_clip"),
+    ).add_common(
         J=projection,
         R=region,
         V=verbose,

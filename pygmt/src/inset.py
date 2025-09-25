@@ -16,13 +16,14 @@ __doctest_skip__ = ["inset"]
 
 @fmt_docstring
 @contextlib.contextmanager
-@use_alias(D="position", M="margin", N="no_clip")
+@use_alias(D="position", M="margin")
 @kwargs_to_strings(D="sequence", M="sequence")
 def inset(
     self,
     projection=None,
     region: Sequence[float | str] | str | None = None,
     box: Box | bool = False,
+    no_clip: bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -39,6 +40,7 @@ def inset(
     {aliases}
        - F = box
        - J = projection
+       - N = no_clip
        - R = region
        - V = verbose
 
@@ -97,9 +99,9 @@ def inset(
         margins). When passing multiple values, it can be either a list or
         a string with the values separated by forward
         slashes [Default is no margins].
-    no_clip : bool
-        Do **not** clip features extruding outside the inset frame
-        boundaries [Default is ``False``].
+    no_clip
+        Do **not** clip features extruding outside the inset frame boundaries [Default
+        is ``False``].
     {region}
     {projection}
     {verbose}
@@ -133,6 +135,7 @@ def inset(
 
     aliasdict = AliasSystem(
         F=Alias(box, name="box"),
+        N=Alias(no_clip, name="no_clip"),
     ).add_common(
         J=projection,
         R=region,
