@@ -32,8 +32,8 @@ def image(
     Reads Encapsulated PostScript (EPS) or raster image files and plots them. The
     image can be scaled arbitrarily, and 1-bit raster images can be:
 
-    - inverted, i.e., black pixels (on) becomes white (off) and vice versa
-    - colorized, by assigning different foreground and background colors
+    - inverted, i.e., black pixels (on) becomes white (off) and vice versa.
+    - colorized, by assigning different foreground and background colors.
     - made transparent where either the back- or foreground is painted.
 
     As an option, the user may choose to convert colored raster images to grayscale
