@@ -111,8 +111,8 @@ def contour(
     triangular_mesh_pen : str
         Pen to draw the underlying triangulation [Default is ``None``].
     no_clip
-        Do **not** clip contours or image at the frame boundaries [Default is ``False``
-        to fit inside ``region``].
+        Do **not** clip contours or colored triangles at the frame boundaries [Default
+        is ``False`` to fit inside ``region``].
     Q : float or str
         [*cut*][**+z**].
         Do not draw contours with less than *cut* number of points.
