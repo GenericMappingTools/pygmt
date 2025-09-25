@@ -1,5 +1,71 @@
 # Changelog
 
+## Release v0.17.0 (20YY/MM/DD)
+
+[![Digital Object Identifier for PyGMT v0.17.0](https://zenodo.org/badge/DOI/10.5281/zenodo.3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
+
+### Highlights
+
+*
+
+### New Features
+
+* GMTDataArrayAccessor: Support applying grid operations on the current xarray.DataArray object ([#3854](https://github.com/GenericMappingTools/pygmt/pull/3854))
+* Add the Box class for specifying the box of GMT embellishments ([#3995](https://github.com/GenericMappingTools/pygmt/pull/3995))
+
+### Enhancements
+
+* sequence_join: Correctly join datetime-like values in pd.DataFrame/xr.DataArray objects ([#4097](https://github.com/GenericMappingTools/pygmt/pull/4097))
+* pygmt.show_versions: Report GDAL version by calling the GDAL C function ([#4104](https://github.com/GenericMappingTools/pygmt/pull/4104))
+* pygmt.binstats: Let the parameter 'statistic' support descriptive arguments ([#3012](https://github.com/GenericMappingTools/pygmt/pull/3012))
+* New Alias System: Add the private _to_string function ([#3986](https://github.com/GenericMappingTools/pygmt/pull/3986))
+* New Alias System: Add the AliasSystem class ([#4000](https://github.com/GenericMappingTools/pygmt/pull/4000))
+* New Alias System: Add the Alias class ([#3993](https://github.com/GenericMappingTools/pygmt/pull/3993))
+* Migrate the parameter 'verbose' to the new alias system and let it support descriptive arguments ([#4039](https://github.com/GenericMappingTools/pygmt/pull/4039))
+* Figure.solar: Support terminator datetime with timezone ([#4112](https://github.com/GenericMappingTools/pygmt/pull/4112))
+* Figure.logo: Let the 'style' parameter support descriptive arguments ([#4074](https://github.com/GenericMappingTools/pygmt/pull/4074))
+* BREAKING: Raise GMTValueError exception for invalid values. Previously raise GMTInvalidInput ([#3985](https://github.com/GenericMappingTools/pygmt/pull/3985))
+* BREAKING: Raise GMTValueError exception for invalid values part 2 ([#3998](https://github.com/GenericMappingTools/pygmt/pull/3998))
+* BREAKING: Raise GMTTypeError exception for invalid types. Previously raise GMTInvalidInput ([#3999](https://github.com/GenericMappingTools/pygmt/pull/3999))
+
+### Deprecations
+
+* sequence_join/_to_string/Alias: Deprecate parameter 'separator', use 'sep' instead. [Will be removed in v0.19.0] ([#4033](https://github.com/GenericMappingTools/pygmt/pull/4033))
+
+### Bug Fixes
+
+* x2sys_cross: Fix IndexError to allow empty dataframe outputs ([#4060](https://github.com/GenericMappingTools/pygmt/pull/4060))
+* is_nonstr_iter: 0-D array is now recognized as non-iterable ([#4004](https://github.com/GenericMappingTools/pygmt/pull/4004))
+* _to_string: Fix the bug when a 2-D sequence is passed ([#4032](https://github.com/GenericMappingTools/pygmt/pull/4032))
+* Fix the bug when passing a sequence that contains True to a parameter ([#3982](https://github.com/GenericMappingTools/pygmt/pull/3982))
+
+### Documentation
+
+* DOC: Add gallery example to show text formatting ([#3987](https://github.com/GenericMappingTools/pygmt/pull/3987))
+* DOC: Add gallery example for using EPSG codes ([#3973](https://github.com/GenericMappingTools/pygmt/pull/3973))
+* DOC: Add Technical Reference page for justification codes ([#4028](https://github.com/GenericMappingTools/pygmt/pull/4028))
+* DOC:  Technical Reference: Add table for text formatting ([#3976](https://github.com/GenericMappingTools/pygmt/pull/3976))
+
+### Maintenance
+
+* sequence_join/_to_string/Alias: Deprecate parameter 'separator', use 'sep' instead. [Will be removed in v0.19.0] ([#4033](https://github.com/GenericMappingTools/pygmt/pull/4033))
+* [BREAKING] Figure.text: Raise GMTTypeError if text is a sequence when position is given ([#4065](https://github.com/GenericMappingTools/pygmt/pull/4065))
+* [BREAKING] Figure.grdimage: Raise NotImplementedError instead of GMTInvalidInput for -A option ([#4062](https://github.com/GenericMappingTools/pygmt/pull/4062))
+* Switch from pre-commit to prek ([#4082](https://github.com/GenericMappingTools/pygmt/pull/4082))
+* SPEC 0: Bump minimum supported version to pandas 2.2 ([#4092](https://github.com/GenericMappingTools/pygmt/pull/4092))
+* SPEC 0: Bump minimum supported version to Xarray 2023.10 ([#4091](https://github.com/GenericMappingTools/pygmt/pull/4091))
+* Remove the support of non-aliased aliases in use_alias/fmt_docstrings ([#4042](https://github.com/GenericMappingTools/pygmt/pull/4042))
+* CI: Use macos-26 in the GMT Dev Tests workflow ([#4084](https://github.com/GenericMappingTools/pygmt/pull/4084))
+* CI: Bump to macOS 14 in the GMT Legacy Tests workflow ([#3996](https://github.com/GenericMappingTools/pygmt/pull/3996))
+* CI: Access DagsHub repository via an access token ([#4078](https://github.com/GenericMappingTools/pygmt/pull/4078))
+
+**Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.16.0...v0.17.0>
+
+### Contributors
+
+[Dongdong Tian](https://github.com/seisman), [Wei Ji Leong](https://github.com/weiji14) and [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
+
+
 ## Release v0.16.0 (2025/06/18)
 
 [![Digital Object Identifier for PyGMT v0.16.0](https://zenodo.org/badge/DOI/10.5281/zenodo.15628725.svg)](https://doi.org/10.5281/zenodo.15628725)
