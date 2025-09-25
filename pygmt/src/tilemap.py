@@ -35,7 +35,7 @@ def tilemap(  # noqa: PLR0913
     wait: int = 0,
     max_retries: int = 2,
     zoom_adjust: int | None = None,
-    monochrome: bool = False,  
+    monochrome: bool = False,
     no_clip: bool = False,
     projection=None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
