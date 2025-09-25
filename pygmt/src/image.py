@@ -12,13 +12,14 @@ from pygmt.params import Box
 
 
 @fmt_docstring
-@use_alias(D="position", G="bitcolor", M="monochrome", R="region", p="perspective")
+@use_alias(D="position", G="bitcolor", R="region", p="perspective")
 @kwargs_to_strings(R="sequence", p="sequence")
 def image(
     self,
     imagefile: PathLike,
     projection=None,
     box: Box | bool = False,
+    monochrome: bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -28,26 +29,35 @@ def image(
     r"""
     Plot raster or EPS images.
 
-    Reads an Encapsulated PostScript file or a raster image file and plots
-    it on a map.
+    Reads Encapsulated PostScript (EPS) or raster image files and plots them. The
+    image can be scaled arbitrarily, and 1-bit raster images can be:
+
+    - inverted, i.e., black pixels (on) becomes white (off) and vice versa.
+    - colorized, by assigning different foreground and background colors.
+    - made transparent where either the back- or foreground is painted.
+
+    As an option, the user may choose to convert colored raster images to grayscale
+    using TV's YIQ-transformation. For raster files, the user can select which color is
+    made transparent. The user may also choose to replicate the image which, when
+    preceded by appropriate clip paths, may allow larger custom-designed fill patterns
+    to be implemented.
 
     Full GMT docs at :gmt-docs:`image.html`.
 
     {aliases}
        - F = box
        - J = projection
+       - M = monochrome
        - V = verbose
        - c = panel
        - t = transparency
 
     Parameters
     ----------
-    imagefile : str
-        This must be an Encapsulated PostScript (EPS) file or a raster
-        image. An EPS file must contain an appropriate BoundingBox. A
-        raster file can have a depth of 1, 8, 24, or 32 bits and is read
-        via GDAL. **Note**: If GDAL was not configured during GMT installation
-        then only EPS files are supported.
+    imagefile
+        An Encapsulated PostScript (EPS) file or a raster image file. An EPS file must
+        contain an appropriate BoundingBox. A raster file can have a depth of 1, 8, 24,
+        or 32 bits and is read via GDAL.
     {projection}
     {region}
     position : str
@@ -68,7 +78,7 @@ def image(
         to make those pixels transparent. Can be repeated with different
         settings. Alternatively, for color images you can select a single
         *color* that should be made transparent instead (**+t**).
-    monochrome : bool
+    monochrome
         Convert color image to monochrome grayshades using the (television)
         YIQ-transformation.
     {verbose}
@@ -80,6 +90,7 @@ def image(
 
     aliasdict = AliasSystem(
         F=Alias(box, name="box"),
+        M=Alias(monochrome, name="monochrome"),
     ).add_common(
         J=projection,
         V=verbose,
