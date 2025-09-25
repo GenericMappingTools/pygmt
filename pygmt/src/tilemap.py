@@ -21,7 +21,6 @@ except ImportError:
     B="frame",
     E="dpi",
     I="shading",
-    N="no_clip",
     Q="nan_transparent",
     # R="region",
     p="perspective",
@@ -37,6 +36,7 @@ def tilemap(  # noqa: PLR0913
     max_retries: int = 2,
     zoom_adjust: int | None = None,
     monochrome: bool = False,
+    no_clip: bool = False,
     projection=None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -60,6 +60,7 @@ def tilemap(  # noqa: PLR0913
     {aliases}
        - J = projection
        - M = monochrome
+       - N = no_clip
        - V = verbose
        - c = panel
        - t = transparency
@@ -129,11 +130,12 @@ def tilemap(  # noqa: PLR0913
 
     # Only set region if no_clip is None or False, so that plot is clipped to exact
     # bounding box region
-    if kwargs.get("N") in {None, False}:
+    if kwargs.get("N", no_clip) in {None, False}:
         kwargs["R"] = "/".join(str(coordinate) for coordinate in region)
 
     aliasdict = AliasSystem(
         M=Alias(monochrome, name="monochrome"),
+        N=Alias(no_clip, name="no_clip"),
     ).add_common(
         J=projection,
         V=verbose,

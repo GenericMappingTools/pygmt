@@ -59,8 +59,8 @@ def hlines(
     label
         Label for the line(s), to be displayed in the legend.
     no_clip
-        If ``True``, do not clip lines outside the plot region. Only makes sense in the
-        Cartesian coordinate system.
+        Do **not** clip lines outside the plot region. Only makes sense in the Cartesian
+        coordinate system. [Default is ``False`` to clip lines at the plot region.]
     perspective
         Select perspective view and set the azimuth and elevation angle of the
         viewpoint. Refer to :meth:`pygmt.Figure.plot` for details.
