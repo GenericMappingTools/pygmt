@@ -70,7 +70,7 @@ class triangulate:  # noqa: N801
         y=None,
         z=None,
         outgrid: PathLike | None = None,
-        projection=None,
+        projection: str | None = None,
         verbose: Literal[
             "quiet", "error", "warning", "timing", "info", "compat", "debug"
         ]
@@ -190,7 +190,7 @@ class triangulate:  # noqa: N801
         *,
         output_type: Literal["pandas", "numpy", "file"] = "pandas",
         outfile: PathLike | None = None,
-        projection=None,
+        projection: str | None = None,
         verbose: Literal[
             "quiet", "error", "warning", "timing", "info", "compat", "debug"
         ]

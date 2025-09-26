@@ -29,7 +29,7 @@ __doctest_skip__ = ["colorbar"]
 @kwargs_to_strings(R="sequence", G="sequence", I="sequence", p="sequence")
 def colorbar(
     self,
-    projection=None,
+    projection: str | None = None,
     box: Box | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,

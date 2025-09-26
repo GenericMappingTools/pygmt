@@ -26,7 +26,7 @@ from pygmt.params import Box
 def legend(
     self,
     spec: PathLike | io.StringIO | None = None,
-    projection=None,
+    projection: str | None = None,
     position="JTR+jTR+o0.2c",
     box: Box | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]

@@ -15,7 +15,7 @@ from pygmt.params import Box
 @kwargs_to_strings(R="sequence", p="sequence")
 def logo(
     self,
-    projection=None,
+    projection: str | None = None,
     style: Literal["standard", "url", "no_label"] = "standard",
     box: Box | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]

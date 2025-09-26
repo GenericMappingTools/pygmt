@@ -33,7 +33,7 @@ def grdimage(
     grid: PathLike | xr.DataArray,
     monochrome: bool = False,
     no_clip: bool = False,
-    projection=None,
+    projection: str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,

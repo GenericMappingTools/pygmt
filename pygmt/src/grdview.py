@@ -35,7 +35,7 @@ __doctest_skip__ = ["grdview"]
 def grdview(
     self,
     grid: PathLike | xr.DataArray,
-    projection=None,
+    projection: str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,

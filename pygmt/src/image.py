@@ -17,7 +17,7 @@ from pygmt.params import Box
 def image(
     self,
     imagefile: PathLike,
-    projection=None,
+    projection: str | None = None,
     box: Box | bool = False,
     monochrome: bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]

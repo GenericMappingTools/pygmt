@@ -30,7 +30,7 @@ __doctest_skip__ = ["grdproject"]
 def grdproject(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
-    projection=None,
+    projection: str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
