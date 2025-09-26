@@ -16,15 +16,15 @@
 
 ### Enhancements
 
-* sequence_join: Correctly join datetime-like values in pd.DataFrame/xr.DataArray objects ([#4097](https://github.com/GenericMappingTools/pygmt/pull/4097))
+* Figure.solar: Support terminator datetime with timezone ([#4112](https://github.com/GenericMappingTools/pygmt/pull/4112))
+* Implement the new alias system towards to a Pythonic interface ([#3986](https://github.com/GenericMappingTools/pygmt/pull/3986), [#4000](https://github.com/GenericMappingTools/pygmt/pull/4000), [#3993](https://github.com/GenericMappingTools/pygmt/pull/3993))
 * pygmt.show_versions: Report GDAL version by calling the GDAL C function ([#4104](https://github.com/GenericMappingTools/pygmt/pull/4104))
 * pygmt.binstats: Let the parameter 'statistic' support descriptive arguments ([#3012](https://github.com/GenericMappingTools/pygmt/pull/3012))
-* Implement the new alias system towards to a Pythonic interface ([#3986](https://github.com/GenericMappingTools/pygmt/pull/3986), [#4000](https://github.com/GenericMappingTools/pygmt/pull/4000), [#3993](https://github.com/GenericMappingTools/pygmt/pull/3993))
-* Migrate the parameter 'verbose' to the new alias system and let it support descriptive arguments ([#4039](https://github.com/GenericMappingTools/pygmt/pull/4039))
-* Figure.solar: Support terminator datetime with timezone ([#4112](https://github.com/GenericMappingTools/pygmt/pull/4112))
 * Figure.logo: Let the 'style' parameter support descriptive arguments ([#4074](https://github.com/GenericMappingTools/pygmt/pull/4074))
+* Let the 'verbose' parameter support descriptive arguments ([#4039](https://github.com/GenericMappingTools/pygmt/pull/4039))
 * **BREAKING** Raise GMTValueError exception for invalid values. Previously raise GMTInvalidInput ([#3985](https://github.com/GenericMappingTools/pygmt/pull/3985), [#3998](https://github.com/GenericMappingTools/pygmt/pull/3998))
 * **BREAKING** Raise GMTTypeError exception for invalid types. Previously raise GMTInvalidInput ([#3999](https://github.com/GenericMappingTools/pygmt/pull/3999))
+* sequence_join: Correctly join datetime-like values in pd.DataFrame/xr.DataArray objects ([#4097](https://github.com/GenericMappingTools/pygmt/pull/4097))
 
 ### Deprecations
 
