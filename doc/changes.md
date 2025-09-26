@@ -46,7 +46,6 @@
 
 ### Maintenance
 
-* sequence_join/_to_string/Alias: Deprecate parameter 'separator', use 'sep' instead. [Will be removed in v0.19.0] ([#4033](https://github.com/GenericMappingTools/pygmt/pull/4033))
 * **BREAKING** Figure.text: Raise GMTTypeError if text is a sequence when position is given ([#4065](https://github.com/GenericMappingTools/pygmt/pull/4065))
 * **BREAKING** Figure.grdimage: Raise NotImplementedError instead of GMTInvalidInput for -A option ([#4062](https://github.com/GenericMappingTools/pygmt/pull/4062))
 * Switch from pre-commit to prek ([#4082](https://github.com/GenericMappingTools/pygmt/pull/4082))
