@@ -50,8 +50,8 @@ fig.show()
 
 # %%
 # Use the ``fill`` parameter to fill the polygon with a color or
-# :doc:`pattern </techref/patterns>`. Note, that there are no lines drawn between the
-# data points by default if ``fill`` is used. Use the ``pen`` parameter to add an
+# :class:`pattern <pygmt.params.Pattern>`. Note, that there are no lines drawn between
+# the data points by default if ``fill`` is used. Use the ``pen`` parameter to add an
 # outline around the polygon.
 
 fig = pygmt.Figure()
