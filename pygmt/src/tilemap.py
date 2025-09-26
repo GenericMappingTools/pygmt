@@ -2,6 +2,7 @@
 tilemap - Plot XYZ tile maps.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
@@ -22,13 +23,12 @@ except ImportError:
     E="dpi",
     I="shading",
     Q="nan_transparent",
-    # R="region",
     p="perspective",
 )
-@kwargs_to_strings(p="sequence")  # R="sequence",
+@kwargs_to_strings(p="sequence")
 def tilemap(  # noqa: PLR0913
     self,
-    region: list,
+    region: Sequence[float],
     zoom: int | Literal["auto"] = "auto",
     source: TileProvider | str | None = None,
     lonlat: bool = True,
@@ -128,16 +128,17 @@ def tilemap(  # noqa: PLR0913
     if lonlat:
         raster.gmt.gtype = GridType.GEOGRAPHIC
 
-    # Only set region if no_clip is None or False, so that plot is clipped to exact
-    # bounding box region
-    if kwargs.get("N", no_clip) in {None, False}:
-        kwargs["R"] = "/".join(str(coordinate) for coordinate in region)
+    # If no_clip is not True, set region to None so that plot is clipped to exact
+    # bounding box region.
+    if kwargs.get("N", no_clip) not in {None, False}:
+        region = None  # type: ignore[assignment]
 
     aliasdict = AliasSystem(
         M=Alias(monochrome, name="monochrome"),
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,

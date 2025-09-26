@@ -3,6 +3,7 @@ grdfill - Interpolate across holes in a grid.
 """
 
 import warnings
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
@@ -11,13 +12,7 @@ from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    build_arg_list,
-    deprecate_parameter,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdfill"]
 
@@ -77,9 +72,8 @@ def _validate_params(
 # TODO(PyGMT>=0.19.0): Remove the deprecated 'no_data' parameter.
 # TODO(PyGMT>=0.19.0): Remove the deprecated 'mode' parameter.
 @deprecate_parameter("no_data", "hole", "v0.15.0", remove_version="v0.19.0")
-@use_alias(R="region", f="coltypes")
-@kwargs_to_strings(R="sequence")
-def grdfill(
+@use_alias(f="coltypes")
+def grdfill(  # noqa: PLR0913
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
     constantfill: float | None = None,
@@ -89,6 +83,7 @@ def grdfill(
     inquire: bool = False,
     hole: float | None = None,
     mode: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -111,6 +106,7 @@ def grdfill(
        - As = splinefill
        - L = inquire
        - N = hole
+       - R = region
        - V = verbose
 
     Parameters
@@ -191,6 +187,7 @@ def grdfill(
         L=Alias(inquire, name="inquire"),
         N=Alias(hole, name="hole"),
     ).add_common(
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)

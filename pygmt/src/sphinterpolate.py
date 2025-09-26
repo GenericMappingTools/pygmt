@@ -2,6 +2,7 @@
 sphinterpolate - Spherical gridding in tension of data on a sphere.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -14,11 +15,12 @@ __doctest_skip__ = ["sphinterpolate"]
 
 
 @fmt_docstring
-@use_alias(I="spacing", R="region")
-@kwargs_to_strings(I="sequence", R="sequence")
+@use_alias(I="spacing")
+@kwargs_to_strings(I="sequence")
 def sphinterpolate(
     data: PathLike | TableLike,
     outgrid: PathLike | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -35,6 +37,7 @@ def sphinterpolate(
     Full GMT docs at :gmt-docs:`sphinterpolate.html`.
 
     {aliases}
+       - R = region
        - V = verbose
 
     Parameters
@@ -67,6 +70,7 @@ def sphinterpolate(
     >>> grid = pygmt.sphinterpolate(data=mars_shape, spacing=1, region="g")
     """
     aliasdict = AliasSystem().add_common(
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)
