@@ -8,12 +8,12 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-        <title>Bit and Hachure Patterns &mdash; PyGMT</title>
+        <title>Text Formatting &mdash; PyGMT</title>
     
 
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -24,10 +24,10 @@
 
   
     <link rel="shortcut icon" href="../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org//dev/techref/patterns.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/techref/text_formatting.html" />
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../_static/documentation_options.js?v=3b0b482a"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -101,8 +101,9 @@
 <li class="toctree-l2"><a class="reference internal" href="common_parameters.html">Common Parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="projections.html">GMT Map Projections</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fonts.html">Supported Fonts</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Bit and Hachure Patterns</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Text Formatting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="encodings.html">Supported Encodings and Non-ASCII Characters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="justification_codes.html">Justification Codes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="environment_variables.html">Environment Variables</a></li>
 </ul>
 </li>
@@ -151,11 +152,11 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">Technical Reference</a></li>
-      <li class="breadcrumb-item active">Bit and Hachure Patterns</li>
+      <li class="breadcrumb-item active">Text Formatting</li>
     <li class="source-link">
         
             
-                <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/techref/patterns.md"
+                <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/techref/text_formatting.md"
                    class="fa fa-github"> Improve this page</a>
             
         
@@ -167,25 +168,79 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="bit-and-hachure-patterns">
-<h1>Bit and Hachure Patterns<a class="headerlink" href="#bit-and-hachure-patterns" title="Link to this heading"></a></h1>
-<p>PyGMT supports a variety of bit and hachure patterns that can be used to fill polygons.</p>
-<p>These patterns can be defined using the following syntax:</p>
-<p><strong>P</strong>|<strong>p</strong><em>pattern</em>[<strong>+b</strong><em>color</em>][<strong>+f</strong><em>color</em>][<strong>+r</strong><em>dpi</em>]</p>
-<p><em>pattern</em> can either be a number in the range 1-90 or the name of a 1-, 8-, or 24-bit
-image raster file. The former will result in one of the 90 predefined 64x64 bit-patterns
-provided by GMT (see the figure below). The latter allows the user to create customized,
-repeating images using image raster files.</p>
-<p>By specifying uppercase <strong>P</strong> instead of <strong>p</strong> the image will be bit-reversed, i.e.,
-white and black areas will be interchanged (only applies to 1-bit images or predefined
-bit-image patterns). For these patterns and other 1-bit images one may specify
-alternative <strong>b</strong>ackground and <strong>f</strong>oreground colors (by appending <strong>+b</strong><em>color</em> and/or
-<strong>+f</strong><em>color</em>) that will replace the default white and black pixels, respectively.
-Excluding <em>color</em> from a fore- or background specification yields a transparent image
-where only the back- or foreground pixels will be painted. The <strong>+r</strong><em>dpi</em> modifier sets
-the resolution in dpi.</p>
-<p>The image below shows the 90 predefined bit patterns that can be used in PyGMT.</p>
-<p><img alt="" src="https://docs.generic-mapping-tools.org/6.5/_images/GMT_App_E.png" /></p>
+  <section id="text-formatting">
+<h1>Text Formatting<a class="headerlink" href="#text-formatting" title="Link to this heading"></a></h1>
+<p>The table below shows how text added to a plot, such as text strings added via
+<code class="docutils literal notranslate"><span class="pre">Figure.text</span></code>, plot title, labels of Cartesian axes and colorbars, and legend entries.
+Changing the font as well as its color and size in this way allows to change those
+only for specific characters of a longer text. The supported fonts are listed at
+<a class="reference internal" href="fonts.html"><span class="std std-doc">Supported Fonts</span></a>.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Symbol</p></th>
+<th class="head"><p>Behavior</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&#64;%<em>font</em>%<em>TEXT</em>&#64;%%</p></td>
+<td><p>Change the <em>font</em> of <em>TEXT</em></p></td>
+</tr>
+<tr class="row-odd"><td><p>&#64;;<em>color</em>;<em>TEXT</em>&#64;;;</p></td>
+<td><p>Change the font <em>color</em> of <em>TEXT</em></p></td>
+</tr>
+<tr class="row-even"><td><p>&#64;:<em>size</em>:<em>TEXT</em>&#64;::</p></td>
+<td><p>Change the font <em>size</em> of <em>TEXT</em></p></td>
+</tr>
+<tr class="row-odd"><td><p>&#64;-<em>TEXT</em>&#64;-</p></td>
+<td><p>Toggle subscripts on/off</p></td>
+</tr>
+<tr class="row-even"><td><p>&#64;+<em>TEXT</em>&#64;+</p></td>
+<td><p>Toggle superscript on/off</p></td>
+</tr>
+<tr class="row-odd"><td><p>&#64;#<em>TEXT</em>&#64;#</p></td>
+<td><p>Toggle small caps on/off</p></td>
+</tr>
+<tr class="row-even"><td><p>&#64;_<em>TEXT</em>&#64;_</p></td>
+<td><p>Toggle underline on/off</p></td>
+</tr>
+<tr class="row-odd"><td><p>&#64;!<em>CHAR1CHAR2</em></p></td>
+<td><p>Print two characters on top of each other (composite characters, e.g., overstrike)</p></td>
+</tr>
+<tr class="row-even"><td><p>&#64;~<em>TEXT</em>&#64;~</p></td>
+<td><p>Toggle Greek letters on/off</p></td>
+</tr>
+<tr class="row-odd"><td><p>&#64;&#64;</p></td>
+<td><p>Print the &#64; sign</p></td>
+</tr>
+<tr class="row-even"><td><p>&#64;.</p></td>
+<td><p>Print the ° (degree) symbol</p></td>
+</tr>
+<tr class="row-odd"><td><p>&#64;s</p></td>
+<td><p>Print letter ß</p></td>
+</tr>
+<tr class="row-even"><td><p>&#64;i</p></td>
+<td><p>Print letter í</p></td>
+</tr>
+<tr class="row-odd"><td><p>&#64;a or &#64;A</p></td>
+<td><p>Print letter å or Å</p></td>
+</tr>
+<tr class="row-even"><td><p>&#64;c or &#64;C</p></td>
+<td><p>Print letter ç or Ç</p></td>
+</tr>
+<tr class="row-odd"><td><p>&#64;e or &#64;E</p></td>
+<td><p>Print letter æ or Æ</p></td>
+</tr>
+<tr class="row-even"><td><p>&#64;n or &#64;N</p></td>
+<td><p>Print letter ñ or Ñ</p></td>
+</tr>
+<tr class="row-odd"><td><p>&#64;o or &#64;O</p></td>
+<td><p>Print letter ø or Ø</p></td>
+</tr>
+<tr class="row-even"><td><p>&#64;u or &#64;U</p></td>
+<td><p>Print letter ü or Ü</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 
 
@@ -201,9 +256,9 @@ the resolution in dpi.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bd1dd6362">bd1dd636</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jun 18, 2025.
+      <span class="lastupdated">Last updated on Sep 25, 2025.
       </span></p>
   </div>
 

@@ -1,0 +1,36 @@
+pygmt.params.Pattern
+====================
+
+.. currentmodule:: pygmt.params
+
+.. autoclass:: Pattern
+
+
+.. rubric:: Attributes
+
+
+.. autoproperty::
+    Pattern.bgcolor
+
+.. autoproperty::
+    Pattern.dpi
+
+.. autoproperty::
+    Pattern.fgcolor
+
+.. autoproperty::
+    Pattern.invert
+
+.. autoproperty::
+    Pattern.pattern
+
+
+
+
+
+.. minigallery:: pygmt.params.Pattern
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>
