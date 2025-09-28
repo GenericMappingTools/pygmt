@@ -17,7 +17,7 @@
 ### Enhancements
 
 * Figure.solar: Support terminator datetime with timezone ([#4112](https://github.com/GenericMappingTools/pygmt/pull/4112))
-* Implement the new alias system towards to a Pythonic interface ([#3986](https://github.com/GenericMappingTools/pygmt/pull/3986), [#4000](https://github.com/GenericMappingTools/pygmt/pull/4000), [#3993](https://github.com/GenericMappingTools/pygmt/pull/3993))
+* Implement the new alias system towards a Pythonic interface ([#3986](https://github.com/GenericMappingTools/pygmt/pull/3986), [#4000](https://github.com/GenericMappingTools/pygmt/pull/4000), [#3993](https://github.com/GenericMappingTools/pygmt/pull/3993))
 * pygmt.show_versions: Report GDAL version by calling the GDAL C function ([#4104](https://github.com/GenericMappingTools/pygmt/pull/4104))
 * pygmt.binstats: Let the parameter 'statistic' support descriptive arguments ([#3012](https://github.com/GenericMappingTools/pygmt/pull/3012))
 * Figure.logo: Let the 'style' parameter support descriptive arguments ([#4074](https://github.com/GenericMappingTools/pygmt/pull/4074))
