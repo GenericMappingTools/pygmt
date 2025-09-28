@@ -2,6 +2,7 @@
 grdcut - Extract subregion from a grid or image or a slice from a cube.
 """
 
+from contextlib import ExitStack
 from typing import Literal
 
 import xarray as xr
@@ -14,6 +15,7 @@ from pygmt.helpers import (
     data_kind,
     fmt_docstring,
     kwargs_to_strings,
+    tempfile_from_geojson,
     use_alias,
 )
 
@@ -27,6 +29,7 @@ __doctest_skip__ = ["grdcut"]
     S="circ_subregion",
     Z="z_subregion",
     f="coltypes",
+    F="polygon",
 )
 @kwargs_to_strings(R="sequence")
 def grdcut(
@@ -91,6 +94,12 @@ def grdcut(
         NaNs, append **+N** to strip off such columns before (optionally)
         considering the range of the core subset for further reduction of the
         area.
+    polygon : str, geopandas.GeoDataFrame, or shapely.geometry
+        Extract a subregion using a polygon. Can be either:
+        - A GMT ASCII polygon file (`.gmt`)
+        - A geopandas.GeoDataFrame (must have CRS EPSG:4326)
+        - A shapely.geometry.Polygon or MultiPolygon
+        The polygon can have holes or multiple rings.
 
     {verbose}
     {coltypes}
@@ -134,12 +143,19 @@ def grdcut(
     )
     aliasdict.merge(kwargs)
 
-    with Session() as lib:
+    with Session() as lib, ExitStack() as stack:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_out(kind=outkind, fname=outgrid) as voutgrd,
         ):
             aliasdict["G"] = voutgrd
+
+            if "F" in kwargs and kwargs["F"] is not None:
+                polygon_input = kwargs["F"]
+                if not isinstance(polygon_input, (str, bytes)):
+                    tmpfile = stack.enter_context(tempfile_from_geojson(polygon_input))
+                    aliasdict["F"] = tmpfile
+
             lib.call_module(
                 module="grdcut", args=build_arg_list(aliasdict, infile=vingrd)
             )
