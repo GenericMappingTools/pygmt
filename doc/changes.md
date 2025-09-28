@@ -12,7 +12,6 @@
 
 ### New Features
 
-* GMTDataArrayAccessor: Support applying grid operations on the current xarray.DataArray object ([#3854](https://github.com/GenericMappingTools/pygmt/pull/3854))
 * Add the Box class for specifying the box of GMT embellishments ([#3995](https://github.com/GenericMappingTools/pygmt/pull/3995))
 * Add the Pattern class for specifying bit and hachure patterns to fill symbols and polygons ([#4020](https://github.com/GenericMappingTools/pygmt/pull/4020))
 
