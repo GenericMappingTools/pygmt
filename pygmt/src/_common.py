@@ -242,57 +242,5 @@ class _FocalMechanismConvention:
         """
         for convention, param_list in cls._params.items():
             if set(param_list).issubset(set(params)):
-                return cls(convention, component=component)
+                return cls(convention, component=component)  # type: ignore[arg-type]
         raise GMTValueError(params, description="focal mechanism parameters")
-
-
-def _parse_coastline_resolution(
-    resolution: Literal["auto", "full", "high", "intermediate", "low", "crude", None],
-) -> Literal["a", "f", "h", "i", "l", "c", None]:
-    """
-    Parse the 'resolution' parameter for coastline-related functions.
-
-    Parameters
-    ----------
-    resolution
-        The resolution of the coastline dataset to use. The available resolutions from
-        highest to lowest are: ``"full"``, ``"high"``, ``"intermediate"``, ``"low"``,
-        and ``"crude"``, which drops by 80% between levels. Alternatively, choose
-        ``"auto"`` to automatically select the most suitable resolution given the chosen
-        map scale or region. ``None`` means using the default resolution.
-
-    Returns
-    -------
-    The single-letter resolution code or ``None``.
-
-    Raises
-    ------
-    GMTValueError
-        If the resolution is invalid.
-
-    Examples
-    --------
-    >>> _parse_coastline_resolution("full")
-    'f'
-    >>> _parse_coastline_resolution("f")
-    'f'
-    >>> _parse_coastline_resolution(None)
-    >>> _parse_coastline_resolution("invalid")
-    Traceback (most recent call last):
-    ...
-    pygmt...GMTValueError: Invalid .... Expected ....
-    """
-    if resolution is None:
-        return None
-
-    _valid_res = {"auto", "full", "high", "intermediate", "low", "crude"}
-
-    if resolution in _valid_res:  # Long-form arguments.
-        return resolution[0]  # type: ignore[return-value]
-
-    if resolution in {_res[0] for _res in _valid_res}:  # Short-form arguments.
-        return resolution  # type: ignore[return-value]
-
-    raise GMTValueError(
-        resolution, choices=_valid_res, description="GSHHG coastline resolution"
-    )

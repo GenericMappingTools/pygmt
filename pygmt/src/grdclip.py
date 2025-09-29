@@ -3,9 +3,11 @@ grdclip - Clip the range of grid values.
 """
 
 from collections.abc import Sequence
+from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -13,7 +15,6 @@ from pygmt.helpers import (
     deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
-    sequence_join,
     use_alias,
 )
 
@@ -23,9 +24,7 @@ __doctest_skip__ = ["grdclip"]
 # TODO(PyGMT>=0.19.0): Remove the deprecated "new" parameter.
 @fmt_docstring
 @deprecate_parameter("new", "replace", "v0.15.0", remove_version="v0.19.0")
-@use_alias(
-    R="region", Sa="above-", Sb="below-", Si="between-", Sr="replace-", V="verbose"
-)
+@use_alias(R="region")
 @kwargs_to_strings(R="sequence")
 def grdclip(
     grid: PathLike | xr.DataArray,
@@ -34,6 +33,8 @@ def grdclip(
     below: Sequence[float] | None = None,
     between: Sequence[float] | Sequence[Sequence[float]] | None = None,
     replace: Sequence[float] | Sequence[Sequence[float]] | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     """
@@ -54,6 +55,11 @@ def grdclip(
     Full GMT docs at :gmt-docs:`grdclip.html`.
 
     {aliases}
+       - Sa = above
+       - Sb = below
+       - Si = between
+       - Sr = replace
+       - V = verbose
 
     Parameters
     ----------
@@ -91,16 +97,16 @@ def grdclip(
     Example
     -------
     >>> import pygmt
-    >>> # Load a grid of @earth_relief_30m data, with a longitude range of
-    >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
+    >>> # Load the 30 arc-minutes Earth relief grid, with a longitude range of 10° E to
+    >>> # 30° E, and a latitude range of 15° N to 25° N
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[10, 30, 15, 25]
     ... )
     >>> # Report the minimum and maximum data values
     >>> [grid.data.min(), grid.data.max()]
     [183.5, 1807.0]
-    >>> # Create a new grid from an input grid. Set all values below 1,000 to
-    >>> # 0 and all values above 1,500 to 10,000
+    >>> # Create a new grid from an input grid. Set all values below 1,000 to 0 and all
+    >>> # values above 1,500 to 10,000
     >>> new_grid = pygmt.grdclip(grid=grid, below=[1000, 0], above=[1500, 10000])
     >>> # Report the minimum and maximum data values
     >>> [new_grid.data.min(), new_grid.data.max()]
@@ -113,19 +119,23 @@ def grdclip(
         )
         raise GMTInvalidInput(msg)
 
-    # Parse the -S option.
-    kwargs["Sa"] = sequence_join(above, size=2, name="above")
-    kwargs["Sb"] = sequence_join(below, size=2, name="below")
-    kwargs["Si"] = sequence_join(between, size=3, ndim=2, name="between")
-    kwargs["Sr"] = sequence_join(replace, size=2, ndim=2, name="replace")
+    aliasdict = AliasSystem(
+        Sa=Alias(above, name="above", sep="/", size=2),
+        Sb=Alias(below, name="below", sep="/", size=2),
+        Si=Alias(between, name="between", sep="/", size=3, ndim=2),
+        Sr=Alias(replace, name="replace", sep="/", size=2, ndim=2),
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            kwargs["G"] = voutgrd
+            aliasdict["G"] = voutgrd
             lib.call_module(
-                module="grdclip", args=build_arg_list(kwargs, infile=vingrd)
+                module="grdclip", args=build_arg_list(aliasdict, infile=vingrd)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

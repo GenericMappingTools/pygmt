@@ -86,7 +86,7 @@ def test_surface_input_file(region, spacing, expected_grid):
         data="@Table_5_11_mean.xyz",
         spacing=spacing,
         region=region,
-        verbose="e",  # Suppress warnings for IEEE 754 rounding
+        verbose="error",  # Suppress warnings for IEEE 754 rounding
     )
     check_values(output, expected_grid)
 
@@ -100,7 +100,7 @@ def test_surface_input_data_array(data, region, spacing, expected_grid):
         data=data,
         spacing=spacing,
         region=region,
-        verbose="e",  # Suppress warnings for IEEE 754 rounding
+        verbose="error",  # Suppress warnings for IEEE 754 rounding
     )
     check_values(output, expected_grid)
 
@@ -116,7 +116,7 @@ def test_surface_input_xyz(data, region, spacing, expected_grid):
         z=data.z,
         spacing=spacing,
         region=region,
-        verbose="e",  # Suppress warnings for IEEE 754 rounding
+        verbose="error",  # Suppress warnings for IEEE 754 rounding
     )
     check_values(output, expected_grid)
 
@@ -141,7 +141,7 @@ def test_surface_with_outgrid_param(data, region, spacing, expected_grid):
             spacing=spacing,
             region=region,
             outgrid=tmpfile.name,
-            verbose="e",  # Suppress warnings for IEEE 754 rounding
+            verbose="error",  # Suppress warnings for IEEE 754 rounding
         )
         assert output is None  # check that output is None since outgrid is set
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists

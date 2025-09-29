@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -32,7 +33,6 @@ __doctest_skip__ = ["grdtrack"]
     N="no_skip",
     S="stack",
     T="radius",
-    V="verbose",
     Z="z_only",
     a="aspatial",
     b="binary",
@@ -55,6 +55,8 @@ def grdtrack(
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
     newcolname=None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -77,6 +79,7 @@ def grdtrack(
     Full GMT docs at :gmt-docs:`grdtrack.html`.
 
     {aliases}
+       - V = verbose
 
     Parameters
     ----------
@@ -309,6 +312,11 @@ def grdtrack(
     if output_type == "pandas" and isinstance(points, pd.DataFrame):
         column_names = [*points.columns.to_list(), newcolname]
 
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
@@ -317,10 +325,10 @@ def grdtrack(
             ) as vintbl,
             lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
         ):
-            kwargs["G"] = vingrd
+            aliasdict["G"] = vingrd
             lib.call_module(
                 module="grdtrack",
-                args=build_arg_list(kwargs, infile=vintbl, outfile=vouttbl),
+                args=build_arg_list(aliasdict, infile=vintbl, outfile=vouttbl),
             )
         return lib.virtualfile_to_dataset(
             vfname=vouttbl,

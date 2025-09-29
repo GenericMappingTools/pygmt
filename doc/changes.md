@@ -1196,7 +1196,7 @@
 * [Yohai Magen](https://github.com/yohaimagen)
 * [Jiayuan Yao](https://github.com/core-man)
 * [Dongdong Tian](https://github.com/seisman)
-* [Kadatatlu Kishore](https://github.com/kadatatlukishore)
+* [Kadatatlu Kishore](https://github.com/K-OS-Dev)
 * [@sean0921](https://github.com/sean0921)
 * [Soham Banerjee](https://github.com/soham4abc)
 
@@ -1312,7 +1312,7 @@
 * [Max Jones](https://github.com/maxrjones)
 * [Will Schlitzer](https://github.com/willschlitzer)
 * [Jiayuan Yao](https://github.com/core-man)
-* [Abhishek Anant](https://github.com/itsabhianant)
+* [Abhishek Anant](https://github.com/noturshek)
 * [Claire Klima](https://github.com/cklima616)
 * [Megan Munzek](https://github.com/munzekm)
 * [Michael Neumann](https://github.com/MichaeINeumann)

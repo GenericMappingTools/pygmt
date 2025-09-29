@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -51,9 +52,7 @@ class triangulate:  # noqa: N801
     @fmt_docstring
     @use_alias(
         I="spacing",
-        J="projection",
         R="region",
-        V="verbose",
         b="binary",
         d="nodata",
         e="find",
@@ -71,6 +70,11 @@ class triangulate:  # noqa: N801
         y=None,
         z=None,
         outgrid: PathLike | None = None,
+        projection: str | None = None,
+        verbose: Literal[
+            "quiet", "error", "warning", "timing", "info", "compat", "debug"
+        ]
+        | bool = False,
         **kwargs,
     ) -> xr.DataArray | None:
         """
@@ -97,6 +101,8 @@ class triangulate:  # noqa: N801
         Full GMT docs at :gmt-docs:`triangulate.html`.
 
         {aliases}
+           - J = projection
+           - V = verbose
 
         Parameters
         ----------
@@ -141,6 +147,12 @@ class triangulate:  # noqa: N801
         ``triangulate`` is a Cartesian or small-geographic area operator and is
         unaware of periodic or polar boundary conditions.
         """
+        aliasdict = AliasSystem().add_common(
+            J=projection,
+            V=verbose,
+        )
+        aliasdict.merge(kwargs)
+
         with Session() as lib:
             with (
                 lib.virtualfile_in(
@@ -148,9 +160,9 @@ class triangulate:  # noqa: N801
                 ) as vintbl,
                 lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
             ):
-                kwargs["G"] = voutgrd
+                aliasdict["G"] = voutgrd
                 lib.call_module(
-                    module="triangulate", args=build_arg_list(kwargs, infile=vintbl)
+                    module="triangulate", args=build_arg_list(aliasdict, infile=vintbl)
                 )
                 return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
 
@@ -158,9 +170,7 @@ class triangulate:  # noqa: N801
     @fmt_docstring
     @use_alias(
         I="spacing",
-        J="projection",
         R="region",
-        V="verbose",
         b="binary",
         d="nodata",
         e="find",
@@ -180,6 +190,11 @@ class triangulate:  # noqa: N801
         *,
         output_type: Literal["pandas", "numpy", "file"] = "pandas",
         outfile: PathLike | None = None,
+        projection: str | None = None,
+        verbose: Literal[
+            "quiet", "error", "warning", "timing", "info", "compat", "debug"
+        ]
+        | bool = False,
         **kwargs,
     ) -> pd.DataFrame | np.ndarray | None:
         """
@@ -199,6 +214,8 @@ class triangulate:  # noqa: N801
         Full GMT docs at :gmt-docs:`triangulate.html`
 
         {aliases}
+           - J = projection
+           - V = verbose
 
         Parameters
         ----------
@@ -241,6 +258,12 @@ class triangulate:  # noqa: N801
         """
         output_type = validate_output_table_type(output_type, outfile=outfile)
 
+        aliasdict = AliasSystem().add_common(
+            J=projection,
+            V=verbose,
+        )
+        aliasdict.merge(kwargs)
+
         with Session() as lib:
             with (
                 lib.virtualfile_in(
@@ -250,6 +273,6 @@ class triangulate:  # noqa: N801
             ):
                 lib.call_module(
                     module="triangulate",
-                    args=build_arg_list(kwargs, infile=vintbl, outfile=vouttbl),
+                    args=build_arg_list(aliasdict, infile=vintbl, outfile=vouttbl),
                 )
             return lib.virtualfile_to_dataset(vfname=vouttbl, output_type=output_type)

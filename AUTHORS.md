@@ -2,7 +2,7 @@
 
 This project was started in 2017 by [Leonardo Uieda](https://www.leouieda.com)
 during [an NSF funded postdoc](https://www.leouieda.com/blog/hawaii-gmt-postdoc)
-with [Paul Wessel](https://www.soest.hawaii.edu/wessel) at the University of
+with [Paul Wessel](https://en.wikipedia.org/wiki/Pål_Wessel) at the University of
 Hawaiʻi at Mānoa.
 
 The following people have contributed code and/or documentation to the project
@@ -10,7 +10,7 @@ The following people have contributed code and/or documentation to the project
 
 | Name | ORCID | Affiliation |
 |---|---|---|
-| [Abhishek Anant](https://twitter.com/itsabhianant) | [0000-0002-5751-2010](https://orcid.org/0000-0002-5751-2010) | Unaffiliated |
+| [Abhishek Anant](https://github.com/noturshek) | [0000-0002-5751-2010](https://orcid.org/0000-0002-5751-2010) | Unaffiliated |
 | [Andre L. Belem](https://github.com/andrebelem) | [0000-0002-8865-6180](https://orcid.org/0000-0002-8865-6180) | Fluminense Federal University, Brazil |
 | [Dongdong Tian](https://seisman.info/) | [0000-0001-7967-1197](https://orcid.org/0000-0001-7967-1197) | China University of Geosciences, China |
 | [Jamie Quinn](https://jamiejquinn.com) | [0000-0002-0268-7032](https://orcid.org/0000-0002-0268-7032) | University College London, United Kingdom |
