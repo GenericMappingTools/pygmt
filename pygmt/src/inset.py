@@ -19,7 +19,7 @@ __doctest_skip__ = ["inset"]
 @kwargs_to_strings(D="sequence", M="sequence", R="sequence")
 def inset(
     self,
-    projection=None,
+    projection: str | None = None,
     box: Box | bool = False,
     no_clip: bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
