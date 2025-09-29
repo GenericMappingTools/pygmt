@@ -2,6 +2,7 @@
 grdproject - Forward and inverse map transformation of grids.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -22,15 +23,15 @@ __doctest_skip__ = ["grdproject"]
     F="scaling",
     I="inverse",
     M="unit",
-    R="region",
     n="interpolation",
     r="registration",
 )
-@kwargs_to_strings(C="sequence", D="sequence", R="sequence")
+@kwargs_to_strings(C="sequence", D="sequence")
 def grdproject(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
     projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -57,6 +58,7 @@ def grdproject(
 
     {aliases}
        - J = projection
+       - R = region
        - V = verbose
 
     Parameters
@@ -119,6 +121,7 @@ def grdproject(
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)

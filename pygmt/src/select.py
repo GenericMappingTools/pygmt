@@ -2,6 +2,7 @@
 select - Select data table subsets based on multiple spatial criteria.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
@@ -29,7 +30,6 @@ __doctest_skip__ = ["select"]
     I="reverse",
     L="dist2line",
     N="mask",
-    R="region",
     Z="z_subregion",
     b="binary",
     d="nodata",
@@ -42,7 +42,7 @@ __doctest_skip__ = ["select"]
     s="skiprows",
     w="wrap",
 )
-@kwargs_to_strings(N="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(N="sequence", i="sequence_comma", o="sequence_comma")
 def select(
     data: PathLike | TableLike | None = None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
@@ -51,6 +51,7 @@ def select(
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
     projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -79,6 +80,7 @@ def select(
     {aliases}
        - D = resolution
        - J = projection
+       - R = region
        - V = verbose
 
     Parameters
@@ -233,6 +235,7 @@ def select(
         ),
     ).add_common(
         J=projection,
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)

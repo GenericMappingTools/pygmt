@@ -2,6 +2,7 @@
 xyz2grd - Convert data table to a grid.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -18,7 +19,6 @@ __doctest_skip__ = ["xyz2grd"]
 @use_alias(
     A="duplicate",
     I="spacing",
-    R="region",
     Z="convention",
     b="binary",
     d="nodata",
@@ -29,7 +29,7 @@ __doctest_skip__ = ["xyz2grd"]
     r="registration",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence", R="sequence")
+@kwargs_to_strings(I="sequence")
 def xyz2grd(
     data: PathLike | TableLike | None = None,
     x=None,
@@ -37,6 +37,7 @@ def xyz2grd(
     z=None,
     outgrid: PathLike | None = None,
     projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -54,6 +55,7 @@ def xyz2grd(
 
     {aliases}
        - J = projection
+       - R = region
        - V = verbose
 
     Parameters
@@ -154,12 +156,13 @@ def xyz2grd(
     ...     x=xx, y=yy, z=zz, spacing=(1.0, 0.5), region=[0, 3, 10, 13]
     ... )
     """
-    if kwargs.get("I") is None or kwargs.get("R") is None:
+    if kwargs.get("I") is None or kwargs.get("R", region) is None:
         msg = "Both 'region' and 'spacing' must be specified."
         raise GMTInvalidInput(msg)
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)

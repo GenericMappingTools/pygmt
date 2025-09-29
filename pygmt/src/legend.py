@@ -3,6 +3,7 @@ legend - Plot a legend.
 """
 
 import io
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import PathLike
@@ -21,12 +22,13 @@ from pygmt.params import Box
 
 
 @fmt_docstring
-@use_alias(R="region", D="position", p="perspective")
-@kwargs_to_strings(R="sequence", p="sequence")
+@use_alias(D="position", p="perspective")
+@kwargs_to_strings(p="sequence")
 def legend(
     self,
     spec: PathLike | io.StringIO | None = None,
     projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     position="JTR+jTR+o0.2c",
     box: Box | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -49,6 +51,7 @@ def legend(
     {aliases}
        - F = box
        - J = projection
+       - R = region
        - V = verbose
        - c = panel
        - t = transparency
@@ -104,6 +107,7 @@ def legend(
         F=Alias(box, name="box"),
     ).add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,

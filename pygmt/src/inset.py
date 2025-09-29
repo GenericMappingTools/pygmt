@@ -3,6 +3,7 @@ inset - Manage figure inset setup and completion.
 """
 
 import contextlib
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
@@ -15,11 +16,12 @@ __doctest_skip__ = ["inset"]
 
 @fmt_docstring
 @contextlib.contextmanager
-@use_alias(D="position", M="margin", R="region")
-@kwargs_to_strings(D="sequence", M="sequence", R="sequence")
+@use_alias(D="position", M="margin")
+@kwargs_to_strings(D="sequence", M="sequence")
 def inset(
     self,
     projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     box: Box | bool = False,
     no_clip: bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -39,6 +41,7 @@ def inset(
        - F = box
        - J = projection
        - N = no_clip
+       - R = region
        - V = verbose
 
     Parameters
@@ -135,6 +138,7 @@ def inset(
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
         J=projection,
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)
