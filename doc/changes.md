@@ -33,7 +33,7 @@
 
 ### Bug Fixes
 
-* x2sys_cross: Fix IndexError to allow empty dataframe outputs ([#4060](https://github.com/GenericMappingTools/pygmt/pull/4060))
+* x2sys_cross: Fix IndexError to allow empty DataFrame outputs ([#4060](https://github.com/GenericMappingTools/pygmt/pull/4060))
 * is_nonstr_iter: 0-D array is now recognized as non-iterable ([#4004](https://github.com/GenericMappingTools/pygmt/pull/4004))
 * Fix the bug when passing a sequence that contains True to a parameter ([#3982](https://github.com/GenericMappingTools/pygmt/pull/3982))
 
