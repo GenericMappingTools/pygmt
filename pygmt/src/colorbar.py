@@ -48,6 +48,11 @@ def colorbar(
     linear scale, all be equal size, or by providing a file with individual
     tile widths.
 
+    .. note::
+       Up on GMT 6.5.0 the fontsize of the colorbar label is scaled relatively
+       based on the width of the colorbar. So, changing this fontsize via the
+       setting the GMT defaults does not work as expected.
+
     Full GMT docs at :gmt-docs:`colorbar.html`.
 
     {aliases}
