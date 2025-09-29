@@ -22,12 +22,13 @@
 * pygmt.binstats: Let the parameter 'statistic' support descriptive arguments ([#3012](https://github.com/GenericMappingTools/pygmt/pull/3012))
 * Figure.logo: Let the 'style' parameter support descriptive arguments ([#4074](https://github.com/GenericMappingTools/pygmt/pull/4074))
 * Let the 'verbose' parameter support descriptive arguments ([#4039](https://github.com/GenericMappingTools/pygmt/pull/4039))
-* **BREAKING** Raise GMTValueError exception for invalid values. Previously raise GMTInvalidInput ([#3985](https://github.com/GenericMappingTools/pygmt/pull/3985), [#3998](https://github.com/GenericMappingTools/pygmt/pull/3998))
-* **BREAKING** Raise GMTTypeError exception for invalid types. Previously raise GMTInvalidInput ([#3999](https://github.com/GenericMappingTools/pygmt/pull/3999))
 * sequence_join: Correctly join datetime-like values in pd.DataFrame/xr.DataArray objects ([#4097](https://github.com/GenericMappingTools/pygmt/pull/4097))
 
 ### Deprecations
 
+* **BREAKING** Raise GMTValueError exception for invalid values. Previously raise GMTInvalidInput ([#3985](https://github.com/GenericMappingTools/pygmt/pull/3985), [#3998](https://github.com/GenericMappingTools/pygmt/pull/3998))
+* **BREAKING** Raise GMTTypeError exception for invalid types. Previously raise GMTInvalidInput ([#3999](https://github.com/GenericMappingTools/pygmt/pull/3999))
+* **BREAKING** Figure.grdimage: Raise NotImplementedError instead of GMTInvalidInput for -A option ([#4062](https://github.com/GenericMappingTools/pygmt/pull/4062))
 * sequence_join: Deprecate parameter 'separator', use 'sep' instead. [Will be removed in v0.19.0] ([#4033](https://github.com/GenericMappingTools/pygmt/pull/4033))
 
 ### Bug Fixes
