@@ -92,7 +92,7 @@ jobs:
           create-args: >-
             python=3.13
             gmt=6.5.0
-            ghostscript=10.05.1
+            ghostscript=10.06.0
             numpy
             pandas
             xarray
