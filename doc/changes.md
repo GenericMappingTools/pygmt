@@ -53,6 +53,7 @@
 * CI: Bump to macOS 26 in the GMT Dev Tests workflow ([#4084](https://github.com/GenericMappingTools/pygmt/pull/4084))
 * CI: Bump to macOS 14 in the GMT Legacy Tests workflow ([#3996](https://github.com/GenericMappingTools/pygmt/pull/3996))
 * CI: Access DagsHub repository via an access token ([#4078](https://github.com/GenericMappingTools/pygmt/pull/4078))
+* CI: Bump to Ghostscript 10.06.0
 
 **Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.16.0...v0.17.0>
 
