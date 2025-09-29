@@ -47,7 +47,6 @@
 ### Maintenance
 
 * **BREAKING** Figure.text: Raise GMTTypeError if text is a sequence when position is given ([#4065](https://github.com/GenericMappingTools/pygmt/pull/4065))
-* **BREAKING** Figure.grdimage: Raise NotImplementedError instead of GMTInvalidInput for -A option ([#4062](https://github.com/GenericMappingTools/pygmt/pull/4062))
 * Switch from pre-commit to prek ([#4082](https://github.com/GenericMappingTools/pygmt/pull/4082))
 * SPEC 0: Bump minimum supported version to pandas 2.2 and Xarray 2023.10 ([#4092](https://github.com/GenericMappingTools/pygmt/pull/4092), [#4091](https://github.com/GenericMappingTools/pygmt/pull/4091))
 * Remove the support of non-aliased aliases in use_alias/fmt_docstrings ([#4042](https://github.com/GenericMappingTools/pygmt/pull/4042))
