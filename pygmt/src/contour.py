@@ -2,6 +2,7 @@
 contour - Contour table data by direct triangulation.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import PathLike, TableLike
@@ -23,7 +24,6 @@ from pygmt.helpers import (
     C="levels",
     G="label_placement",
     L="triangular_mesh_pen",
-    R="region",
     S="skip",
     W="pen",
     b="binary",
@@ -35,8 +35,8 @@ from pygmt.helpers import (
     l="label",
     p="perspective",
 )
-@kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
-def contour(
+@kwargs_to_strings(i="sequence_comma", p="sequence")
+def contour(  # noqa: PLR0913
     self,
     data: PathLike | TableLike | None = None,
     x=None,
@@ -44,6 +44,7 @@ def contour(
     z=None,
     no_clip: bool = False,
     projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -63,6 +64,7 @@ def contour(
     {aliases}
        - J = projection
        - N = no_clip
+       - R = region
        - V = verbose
        - c = panel
        - t = transparency
@@ -164,6 +166,7 @@ def contour(
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,

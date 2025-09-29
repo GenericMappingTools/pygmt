@@ -3,6 +3,7 @@ triangulate - Delaunay triangulation or Voronoi partitioning and gridding of Car
 data.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
@@ -52,7 +53,6 @@ class triangulate:  # noqa: N801
     @fmt_docstring
     @use_alias(
         I="spacing",
-        R="region",
         b="binary",
         d="nodata",
         e="find",
@@ -63,7 +63,7 @@ class triangulate:  # noqa: N801
         s="skiprows",
         w="wrap",
     )
-    @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
+    @kwargs_to_strings(I="sequence", i="sequence_comma")
     def regular_grid(
         data: PathLike | TableLike | None = None,
         x=None,
@@ -71,6 +71,7 @@ class triangulate:  # noqa: N801
         z=None,
         outgrid: PathLike | None = None,
         projection: str | None = None,
+        region: Sequence[float | str] | str | None = None,
         verbose: Literal[
             "quiet", "error", "warning", "timing", "info", "compat", "debug"
         ]
@@ -102,6 +103,7 @@ class triangulate:  # noqa: N801
 
         {aliases}
            - J = projection
+           - R = region
            - V = verbose
 
         Parameters
@@ -148,6 +150,7 @@ class triangulate:  # noqa: N801
         unaware of periodic or polar boundary conditions.
         """
         aliasdict = AliasSystem().add_common(
+            R=region,
             J=projection,
             V=verbose,
         )
@@ -170,7 +173,6 @@ class triangulate:  # noqa: N801
     @fmt_docstring
     @use_alias(
         I="spacing",
-        R="region",
         b="binary",
         d="nodata",
         e="find",
@@ -181,7 +183,7 @@ class triangulate:  # noqa: N801
         s="skiprows",
         w="wrap",
     )
-    @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
+    @kwargs_to_strings(I="sequence", i="sequence_comma")
     def delaunay_triples(
         data: PathLike | TableLike | None = None,
         x=None,
@@ -191,6 +193,7 @@ class triangulate:  # noqa: N801
         output_type: Literal["pandas", "numpy", "file"] = "pandas",
         outfile: PathLike | None = None,
         projection: str | None = None,
+        region: Sequence[float | str] | str | None = None,
         verbose: Literal[
             "quiet", "error", "warning", "timing", "info", "compat", "debug"
         ]
@@ -215,6 +218,7 @@ class triangulate:  # noqa: N801
 
         {aliases}
            - J = projection
+           - R = region
            - V = verbose
 
         Parameters
@@ -260,6 +264,7 @@ class triangulate:  # noqa: N801
 
         aliasdict = AliasSystem().add_common(
             J=projection,
+            R=region,
             V=verbose,
         )
         aliasdict.merge(kwargs)

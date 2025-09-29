@@ -2,6 +2,7 @@
 grdview - Create 3-D perspective image or surface mesh from a grid.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -15,7 +16,6 @@ __doctest_skip__ = ["grdview"]
 
 @fmt_docstring
 @use_alias(
-    R="region",
     Jz="zscale",
     JZ="zsize",
     B="frame",
@@ -31,11 +31,12 @@ __doctest_skip__ = ["grdview"]
     n="interpolation",
     p="perspective",
 )
-@kwargs_to_strings(R="sequence", p="sequence")
+@kwargs_to_strings(p="sequence")
 def grdview(
     self,
     grid: PathLike | xr.DataArray,
     projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -55,6 +56,7 @@ def grdview(
 
     {aliases}
        - J = projection
+       - R = region
        - V = verbose
        - c = panel
        - t = transparency
@@ -156,6 +158,7 @@ def grdview(
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,

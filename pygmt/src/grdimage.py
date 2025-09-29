@@ -2,6 +2,7 @@
 grdimage - Project and plot grids or images.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -22,18 +23,18 @@ __doctest_skip__ = ["grdimage"]
     G="bitcolor",
     I="shading",
     Q="nan_transparent",
-    R="region",
     n="interpolation",
     f="coltypes",
     p="perspective",
 )
-@kwargs_to_strings(R="sequence", p="sequence")
+@kwargs_to_strings(p="sequence")
 def grdimage(
     self,
     grid: PathLike | xr.DataArray,
     monochrome: bool = False,
     no_clip: bool = False,
     projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -78,6 +79,7 @@ def grdimage(
        - J = projection
        - M = monochrome
        - N = no_clip
+       - R = region
        - V = verbose
        - c = panel
        - t = transparency
@@ -180,6 +182,7 @@ def grdimage(
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,
