@@ -37,7 +37,7 @@ __doctest_skip__ = ["coast"]
 @kwargs_to_strings(R="sequence", p="sequence")
 def coast(
     self,
-    projection=None,
+    projection: str | None = None,
     resolution: Literal[
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
