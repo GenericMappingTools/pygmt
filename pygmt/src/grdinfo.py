@@ -2,6 +2,7 @@
 grdinfo - Extract information from 2-D grids or 3-D cubes.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -25,13 +26,13 @@ from pygmt.helpers import (
     I="spacing",
     L="force_scan",
     M="minmax_pos",
-    R="region",
     T="nearest_multiple",
     f="coltypes",
 )
-@kwargs_to_strings(D="sequence", I="sequence", R="sequence")
+@kwargs_to_strings(D="sequence", I="sequence")
 def grdinfo(
     grid: PathLike | xr.DataArray,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -44,6 +45,7 @@ def grdinfo(
     Full GMT docs at :gmt-docs:`grdinfo.html`.
 
     {aliases}
+       - R = region
        - V = verbose
 
     Parameters
@@ -121,6 +123,7 @@ def grdinfo(
         A string with information about the grid.
     """
     aliasdict = AliasSystem().add_common(
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)
