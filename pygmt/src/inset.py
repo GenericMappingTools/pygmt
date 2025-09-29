@@ -20,7 +20,7 @@ __doctest_skip__ = ["inset"]
 @kwargs_to_strings(D="sequence", M="sequence")
 def inset(
     self,
-    projection=None,
+    projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     box: Box | bool = False,
     no_clip: bool = False,

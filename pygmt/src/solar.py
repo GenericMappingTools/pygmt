@@ -23,7 +23,7 @@ def solar(
     terminator_datetime=None,
     fill: str | None = None,
     pen: str | None = None,
-    projection=None,
+    projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,

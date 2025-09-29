@@ -43,7 +43,7 @@ def contour(  # noqa: PLR0913
     y=None,
     z=None,
     no_clip: bool = False,
-    projection=None,
+    projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,

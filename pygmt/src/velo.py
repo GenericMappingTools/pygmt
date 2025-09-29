@@ -39,7 +39,7 @@ def velo(
     self,
     data: PathLike | TableLike | None = None,
     no_clip: bool = False,
-    projection=None,
+    projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,

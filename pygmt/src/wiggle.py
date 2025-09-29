@@ -64,7 +64,7 @@ def wiggle(  # noqa: PLR0913
     z=None,
     fillpositive=None,
     fillnegative=None,
-    projection=None,
+    projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,

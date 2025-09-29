@@ -40,7 +40,7 @@ __doctest_skip__ = ["grdcontour"]
 def grdcontour(
     self,
     grid: PathLike | xr.DataArray,
-    projection=None,
+    projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,

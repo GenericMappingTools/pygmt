@@ -35,7 +35,7 @@ def subplot(
     self,
     nrows=1,
     ncols=1,
-    projection=None,
+    projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,

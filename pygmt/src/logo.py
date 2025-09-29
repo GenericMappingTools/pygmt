@@ -16,7 +16,7 @@ from pygmt.params import Box
 @kwargs_to_strings(p="sequence")
 def logo(
     self,
-    projection=None,
+    projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     style: Literal["standard", "url", "no_label"] = "standard",
     box: Box | bool = False,
