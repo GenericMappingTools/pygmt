@@ -50,7 +50,7 @@ def colorbar(
 
     .. note::
        Up on GMT 6.5.0, the fontsize of the colorbar label is scaled relatively
-       based on the width of the colorbar (:math:`\sqrt{colorbar_width / 15}`).
+       based on the width of the colorbar (:math:`\sqrt{{colorbar_width / 15}}`).
        Currently, in modern mode, changing this fontsize via the GMT defaults
        does not work as expected.
 
