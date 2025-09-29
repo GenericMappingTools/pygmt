@@ -2,6 +2,7 @@
 grdfilter - Filter a grid in the space (or time) domain.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -17,15 +18,15 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     F="filter",
     I="spacing",
     N="nans",
-    R="region",
     T="toggle",
     f="coltypes",
     r="registration",
 )
-@kwargs_to_strings(I="sequence", R="sequence")
+@kwargs_to_strings(I="sequence")
 def grdfilter(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     cores: int | bool = False,
@@ -47,6 +48,7 @@ def grdfilter(
     Full GMT docs at :gmt-docs:`grdfilter.html`.
 
     {aliases}
+       - R = region
        - V = verbose
        - x = cores
 
@@ -137,6 +139,7 @@ def grdfilter(
     >>> smooth_field = pygmt.grdfilter(grid=grid, filter="g600", distance="4")
     """
     aliasdict = AliasSystem().add_common(
+        R=region,
         V=verbose,
         x=cores,
     )

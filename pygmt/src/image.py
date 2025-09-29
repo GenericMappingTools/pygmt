@@ -2,6 +2,7 @@
 image - Plot raster or EPS images.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import PathLike
@@ -12,12 +13,13 @@ from pygmt.params import Box
 
 
 @fmt_docstring
-@use_alias(D="position", G="bitcolor", R="region", p="perspective")
-@kwargs_to_strings(R="sequence", p="sequence")
+@use_alias(D="position", G="bitcolor", p="perspective")
+@kwargs_to_strings(p="sequence")
 def image(
     self,
     imagefile: PathLike,
     projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     box: Box | bool = False,
     monochrome: bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -48,6 +50,7 @@ def image(
        - F = box
        - J = projection
        - M = monochrome
+       - R = region
        - V = verbose
        - c = panel
        - t = transparency
@@ -93,6 +96,7 @@ def image(
         M=Alias(monochrome, name="monochrome"),
     ).add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,
