@@ -124,7 +124,7 @@ jobs:
           cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
           create-args: >-
             python=${{ matrix.python-version }}${{ matrix.optional-packages }}
-            gmt=6.5.0
+            gmt=6.6.0
             ghostscript=10.06.0
             numpy=${{ matrix.numpy-version }}
             pandas${{ matrix.pandas-version }}
