@@ -47,10 +47,7 @@ def grdclip(
 
     Full GMT docs at :gmt-docs:`grdclip.html`.
 
-    **Aliases:**
-    .. hlist::
-       :columns: 3
-
+    {aliases}
        - R = region
        - Sa = above
        - Sb = below
