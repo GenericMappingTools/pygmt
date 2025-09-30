@@ -26,6 +26,7 @@
 
 ### Deprecations
 
+* Drop GMT 6.4 support ([#4127](https://github.com/GenericMappingTools/pygmt/pull/4127))
 * **BREAKING** Raise GMTValueError exception for invalid values. Previously raise GMTInvalidInput ([#3985](https://github.com/GenericMappingTools/pygmt/pull/3985), [#3998](https://github.com/GenericMappingTools/pygmt/pull/3998))
 * **BREAKING** Raise GMTTypeError exception for invalid types. Previously raise GMTInvalidInput ([#3999](https://github.com/GenericMappingTools/pygmt/pull/3999))
 * **BREAKING** Figure.grdimage: Raise NotImplementedError instead of GMTInvalidInput for -A option ([#4062](https://github.com/GenericMappingTools/pygmt/pull/4062))
@@ -53,7 +54,8 @@
 * CI: Bump to macOS 26 in the GMT Dev Tests workflow ([#4084](https://github.com/GenericMappingTools/pygmt/pull/4084))
 * CI: Bump to macOS 14 in the GMT Legacy Tests workflow ([#3996](https://github.com/GenericMappingTools/pygmt/pull/3996))
 * CI: Access DagsHub repository via an access token ([#4078](https://github.com/GenericMappingTools/pygmt/pull/4078))
-* CI: Bump to Ghostscript 10.06.0
+* CI: Bump to Ghostscript 10.06.0 ([#4125](https://github.com/GenericMappingTools/pygmt/pull/4125))
+* CI: Bump to GMT 6.6.0 in CI ([#4018](https://github.com/GenericMappingTools/pygmt/pull/4018))
 
 **Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.16.0...v0.17.0>
 
