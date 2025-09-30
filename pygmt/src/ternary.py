@@ -5,11 +5,9 @@ ternary - Plot data on ternary diagrams.
 from collections.abc import Sequence
 from typing import Literal
 
-import pandas as pd
-from packaging.version import Version
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
-from pygmt.clib import Session, __gmt_version__
+from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
@@ -106,11 +104,6 @@ def ternary(
         t=transparency,
     )
     aliasdict.merge(kwargs)
-
-    # TODO(GMT>=6.5.0): Remove the patch for upstream bug fixed in GMT 6.5.0.
-    # See https://github.com/GenericMappingTools/pygmt/pull/2138
-    if Version(__gmt_version__) < Version("6.5.0") and isinstance(data, pd.DataFrame):
-        data = data.to_numpy()
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
