@@ -51,8 +51,7 @@ def timestamp(
     font
         Font of the timestamp and the optional label. Since the GMT logo has a fixed
         height, the font sizes are fixed to be 8-point for the timestamp and 7-point for
-        the label. The parameter can't change the font color for GMT<=6.4.0, only the
-        font style.
+        the label.
     timefmt
         Format string for the UNIX timestamp. The format string is parsed by the C
         function ``strftime``, so that virtually any text can be used (even not
