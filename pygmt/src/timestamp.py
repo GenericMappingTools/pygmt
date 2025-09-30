@@ -5,10 +5,9 @@ timestamp - Plot the GMT timestamp logo.
 import warnings
 from collections.abc import Sequence
 
-from packaging.version import Version
 from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
-from pygmt.clib import Session, __gmt_version__
+from pygmt.clib import Session
 from pygmt.helpers import build_arg_list
 
 __doctest_skip__ = ["timestamp"]
@@ -83,20 +82,6 @@ def timestamp(
         )
         warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
         text = str(text)[:64]
-
-    # TODO(GMT>=6.5.0): Remove the patch for upstream "offset" bug fixed in GMT 6.5.0.
-    # TODO(GMT>=6.5.0): Remove the workaround for the '+t' modifier added in GMT 6.5.0.
-    # Related issues:
-    # - https://github.com/GenericMappingTools/gmt/issues/7107
-    # - https://github.com/GenericMappingTools/gmt/pull/7127
-    if Version(__gmt_version__) < Version("6.5.0"):
-        if "/" not in str(offset):  # Giving a single offset doesn't work in GMT<6.5.0
-            offset = f"{offset}/{offset}"
-        if text is not None:
-            # Workaround for GMT<6.5.0 by overriding the 'timefmt' parameter and
-            # unsetting 'text'.
-            timefmt = str(text)
-            text = None
 
     aliasdict = AliasSystem(
         U=[
