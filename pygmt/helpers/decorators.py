@@ -420,6 +420,7 @@ def fmt_docstring(module_func):
         Select map :doc:`projection </projections/index>`.
     <BLANKLINE>
     **Aliases:**
+    <BLANKLINE>
     .. hlist::
        :columns: 3
     <BLANKLINE>
