@@ -31,7 +31,7 @@ class Pattern(BaseParam):
        :width: 75%
        :align: center
 
-    Attributes
+    Parameters
     ----------
     pattern
         The pattern to use. It can be specified in two forms:
