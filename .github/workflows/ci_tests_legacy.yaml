@@ -37,7 +37,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-22.04, ubuntu-22.04-arm, macos-14, windows-2022]
-        gmt_version: ['6.4', '6.5']
+        gmt_version: ['6.5']
     timeout-minutes: 30
     defaults:
       run:
@@ -60,7 +60,7 @@ jobs:
           create-args: >-
             python=3.11
             gmt=${{ matrix.gmt_version }}
-            ghostscript<10
+            ghostscript
             numpy=1.26
             pandas=2.2
             xarray=2023.10
@@ -84,11 +84,7 @@ jobs:
           # Download cached files to ~/.gmt directory and list them
           gh run download --name gmt-cache --dir ~/.gmt/
           # Change modification times of the two files, so GMT won't refresh it.
-          # The two files are in the `~/.gmt/server` directory for GMT<=6.4, and in the
-          # `~/.gmt` directory for GMT>=6.5.
-          mkdir -p ~/.gmt/server/
-          mv ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt ~/.gmt/server/
-          touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
+          touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
           ls -lhR ~/.gmt
         env:
           GH_TOKEN: ${{ github.token }}
