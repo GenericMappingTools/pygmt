@@ -49,14 +49,13 @@ def grdclip(
 
     **Aliases:**
     .. hlist::
-       :columns: 3
 
-       * R = region
-       * Sa = above
-       * Sb = below
-       * Si = between
-       * Sr = replace
-       * V = verbose
+       - R = region
+       - Sa = above
+       - Sb = below
+       - Si = between
+       - Sr = replace
+       - V = verbose
 
     Parameters
     ----------
