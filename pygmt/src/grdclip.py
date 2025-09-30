@@ -47,13 +47,16 @@ def grdclip(
 
     Full GMT docs at :gmt-docs:`grdclip.html`.
 
-    {aliases}
-       - R = region
-       - Sa = above
-       - Sb = below
-       - Si = between
-       - Sr = replace
-       - V = verbose
+    **Aliases:**
+    .. hlist::
+       :columns: 3
+
+       * R = region
+       * Sa = above
+       * Sb = below
+       * Si = between
+       * Sr = replace
+       * V = verbose
 
     Parameters
     ----------
