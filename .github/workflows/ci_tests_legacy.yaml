@@ -60,7 +60,7 @@ jobs:
           create-args: >-
             python=3.11
             gmt=${{ matrix.gmt_version }}
-            ghostscript<10
+            ghostscript
             numpy=1.26
             pandas=2.2
             xarray=2023.10
