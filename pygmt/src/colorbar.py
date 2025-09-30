@@ -50,9 +50,9 @@ def colorbar(
     tile widths.
 
     .. note::
-       For GMT 6.5.0 and above, the fontsize of the colorbar label is scaled based on the
-       width of the colorbar (:math:`\sqrt{{colorbarwidth / 15}}`). Currently, in
-       modern mode, changing this fontsize via adjusting the GMT default parameter
+       For GMT 6.5.0 and above, the fontsize of the colorbar label is scaled based
+       on the width of the colorbar (:math:`\sqrt{{colorbarwidth / 15}}`). Currently,
+       in modern mode, changing this fontsize via adjusting the GMT default parameter
        :gmt-term:`FONT_LABEL` does not work as expected.
 
     Full GMT docs at :gmt-docs:`colorbar.html`.
