@@ -41,9 +41,9 @@ def grdclip(
     - Replace individual values with a new value
 
     Such operations are useful when you want all of a continent or an ocean to fall into
-    one color or gray shade in image processing, when clipping the range of data
-    values is required, or for reclassification of data values. The values can be any
-    number or NaN (Not a Number).
+    one color or gray shade in image processing, when clipping the range of data values
+    is required, or for reclassification of data values. The values can be any number or
+    NaN (Not a Number).
 
     Full GMT docs at :gmt-docs:`grdclip.html`.
 
