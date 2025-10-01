@@ -69,7 +69,7 @@ class Pattern(BaseParam):
     >>> fig.show()
     """
 
-    pattern: int | PathLike = None
+    pattern: int | PathLike | None = None
     dpi: int | None = None
     bgcolor: str | None = None
     fgcolor: str | None = None
