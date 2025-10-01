@@ -49,6 +49,17 @@ def colorbar(
     linear scale, all be equal size, or by providing a file with individual
     tile widths.
 
+    .. note::
+       For GMT >=6.5.0, the fontsizes of the colorbar x-label, x-annotations,
+       and y-label are scaled based on the width of the colorbar following
+       :math:`\sqrt{{colorbar\_width / 15}}`). To set a desired fontsize via the
+       GMT default parameters :gmt-term:`FONT_ANNOT_PRIMARY`,
+       :gmt-term:`FONT_ANNOT_SECONDARY`, and :gmt-term:`FONT_LABEL` (or jointly
+       :gmt-term:`FONT`) users have to divide the desired fontsize by the value
+       calculated with the formula given above before passing it to the default
+       parameters. To only affect fontsizes related to the colorbar, the
+       defaults can be changed locally only using ``with pygmt.config(...):``.
+
     Full GMT docs at :gmt-docs:`colorbar.html`.
 
     {aliases}
