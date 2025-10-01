@@ -57,8 +57,8 @@ def colorbar(
        :gmt-term:`FONT_ANNOT_SECONDARY`, and :gmt-term:`FONT_LABEL` (or jointly
        :gmt-term:`FONT`) users have to divide the desired fontsize by the value
        calculated with the formula given above before passing it to the default
-       parameters. To only affect the fontsizes related to the colorbar the
-       defaults should be changed only locally using ``with pygmt.config(...):``.
+       parameters. To only affect fontsizes related to the colorbar, the
+       defaults can be changed locally only using ``with pygmt.config(...):``.
 
     Full GMT docs at :gmt-docs:`colorbar.html`.
 
