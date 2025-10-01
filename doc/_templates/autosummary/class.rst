@@ -4,7 +4,7 @@
 
 .. autoclass:: {{ objname }}
 
-{% if '_aliases' not in attributes %}
+{% if attributes %}
 .. rubric:: Attributes
 
 {% for item in attributes %}
