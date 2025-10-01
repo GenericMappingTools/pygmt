@@ -2,8 +2,8 @@
 grdcut - Extract subregion from a grid or image or a slice from a cube.
 """
 
-from contextlib import ExitStack
 from collections.abc import Sequence
+from contextlib import ExitStack
 from typing import Literal
 
 import xarray as xr
@@ -15,8 +15,8 @@ from pygmt.helpers import (
     build_arg_list,
     data_kind,
     fmt_docstring,
-    use_alias,
     tempfile_from_geojson,
+    use_alias,
 )
 
 __doctest_skip__ = ["grdcut"]
@@ -32,6 +32,8 @@ def grdcut(
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    crop: bool = False,
+    invert: bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -94,6 +96,11 @@ def grdcut(
         - A geopandas.GeoDataFrame (must have CRS EPSG:4326)
         - A shapely.geometry.Polygon or MultiPolygon
         The polygon can have holes or multiple rings.
+        Optional modifiers:
+        - crop : bool
+            If True, crop the output grid region to the bounding box of the polygon.
+        - invert : bool
+            If True, invert the selection, setting all nodes inside the polygon to NaN.
 
     {verbose}
     {coltypes}
@@ -147,10 +154,13 @@ def grdcut(
 
             if "F" in kwargs and kwargs["F"] is not None:
                 polygon_input = kwargs["F"]
+                modifiers = ("+c" * crop) + ("+i" * invert)
+
                 if not isinstance(polygon_input, (str, bytes)):
                     tmpfile = stack.enter_context(tempfile_from_geojson(polygon_input))
-                    aliasdict["F"] = tmpfile
-
+                    aliasdict["F"] = tmpfile + modifiers
+                else:
+                    aliasdict["F"] = str(polygon_input) + modifiers
 
             lib.call_module(
                 module="grdcut", args=build_arg_list(aliasdict, infile=vingrd)

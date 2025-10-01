@@ -4,7 +4,7 @@ Clipping grid to a complex polygon
 
 The :func:`pygmt.grdcut` function allows you to extract a subregion from a
 grid. In this example we use a complex polygon (GeoDataFrame or GMT ASCII file)
-to crop the grid to a region of interest.
+to crop the grid, invert it, or do both.
 """
 
 # %%
@@ -19,18 +19,6 @@ region = [-28, -10, 62, 68]
 
 # Load sample grid (3 arc-minutes global relief) in target area
 grid = pygmt.datasets.load_earth_relief(resolution="03m", region=region)
-
-# Plot original grid
-fig.basemap(
-    region=region,
-    projection="M12c",
-    frame=["WSne+toriginal grid", "xa5f1", "ya2f1"],
-)
-fig.grdimage(grid=grid, cmap="oleron")
-
-# Shift plot origin of the second map by "width of the first map + 0.5 cm"
-# in x-direction
-fig.shift_origin(xshift="w+0.5c")
 
 # Create a more complex polygon (irregular shape) around a smaller ROI
 complex_poly = Polygon(
@@ -48,16 +36,45 @@ complex_poly = Polygon(
 )
 gdf = gpd.GeoDataFrame({"geometry": [complex_poly]}, crs="EPSG:4326")
 
-# Crop the grid using the complex polygon
-cropped_grid = pygmt.grdcut(grid=grid, polygon=gdf)
-
-# Plot cropped grid
+# Original grid
 fig.basemap(
     region=region,
     projection="M12c",
-    frame=["wSne+tpolygon cropped grid", "xa5f1", "ya2f1"],
+    frame=["WSne+toriginal grid", "xa5f1", "ya2f1"],
+)
+fig.grdimage(grid=grid, cmap="oleron")
+
+# Cropped grid
+fig.shift_origin(xshift="w+0.5c")
+cropped_grid = pygmt.grdcut(grid=grid, polygon=gdf, crop=True)
+fig.basemap(
+    region=region,
+    projection="M12c",
+    frame=["WSne+tcropped", "xa5f1", "ya2f1"],
 )
 fig.grdimage(grid=cropped_grid, cmap="oleron")
+
+# Inverted grid
+fig.shift_origin(xshift="w+0.5c")
+inverted_grid = pygmt.grdcut(grid=grid, polygon=gdf, invert=True)
+fig.basemap(
+    region=region,
+    projection="M12c",
+    frame=["WSne+tinverted", "xa5f1", "ya2f1"],
+)
+fig.grdimage(grid=inverted_grid, cmap="oleron")
+
+# Cropped + inverted grid
+fig.shift_origin(xshift="w+0.5c")
+cropped_inverted_grid = pygmt.grdcut(grid=grid, polygon=gdf, crop=True, invert=True)
+fig.basemap(
+    region=region,
+    projection="M12c",
+    frame=["WSne+tcropped and inverted", "xa5f1", "ya2f1"],
+)
+fig.grdimage(grid=cropped_inverted_grid, cmap="oleron")
+
+# Shared colorbar
 fig.colorbar(frame=["x+lElevation", "y+lm"], position="JMR+o0.5c/0c+w8c")
 
 fig.show()
