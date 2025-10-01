@@ -69,7 +69,7 @@ class Pattern(BaseParam):
     >>> fig.show()
     """
 
-    pattern: int | PathLike
+    pattern: int | PathLike = None
     dpi: int | None = None
     bgcolor: str | None = None
     fgcolor: str | None = None
@@ -80,7 +80,9 @@ class Pattern(BaseParam):
         Validate the parameters.
         """
         # Integer pattern number must be in the range 1-90.
-        if isinstance(self.pattern, int) and not (1 <= self.pattern <= 90):
+        if self.pattern is not PathLike or (
+            isinstance(self.pattern, int) and not (1 <= self.pattern <= 90)
+        ):
             raise GMTValueError(
                 self.pattern,
                 description="pattern number",

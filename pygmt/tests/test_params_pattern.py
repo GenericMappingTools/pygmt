@@ -35,8 +35,12 @@ def test_pattern():
 
 def test_pattern_invalid_pattern():
     """
-    Test that an invalid pattern number raises a GMTValueError.
+    Test that an invalid pattern value or number raises a GMTValueError.
     """
+    with pytest.raises(GMTValueError):
+        _ = Pattern()  # Default value None
+    with pytest.raises(GMTValueError):
+        _ = Pattern([])  # non-PathLike value
     with pytest.raises(GMTValueError):
         _ = str(Pattern(0))
     with pytest.raises(GMTValueError):
