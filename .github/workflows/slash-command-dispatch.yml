@@ -10,11 +10,13 @@ on:
     # Add "edited" type for test purposes. Where possible, avoid using to prevent processing unnecessary events.
     # types: [created, edited]
 
-permissions:
-  issues: write
+permissions: {}
 
 jobs:
   slashCommandDispatch:
+    permissions:
+      contents: write # for executing the repository_dispatch event
+      pull-requests: write # for peter-evans/slash-command-dispatch to create PR reaction
     if: ${{ github.event.issue.pull_request }}
     runs-on: ubuntu-latest
     steps:
