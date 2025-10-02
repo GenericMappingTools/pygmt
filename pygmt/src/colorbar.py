@@ -2,6 +2,7 @@
 colorbar - Plot gray scale or color scale bar.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
@@ -21,16 +22,16 @@ __doctest_skip__ = ["colorbar"]
     I="shading",
     L="equalsize",
     Q="log",
-    R="region",
     W="scale",
     Z="zfile",
     p="perspective",
 )
-@kwargs_to_strings(R="sequence", G="sequence", I="sequence", p="sequence")
+@kwargs_to_strings(G="sequence", I="sequence", p="sequence")
 def colorbar(
     self,
-    projection=None,
+    projection: str | None = None,
     box: Box | bool = False,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -48,11 +49,23 @@ def colorbar(
     linear scale, all be equal size, or by providing a file with individual
     tile widths.
 
+    .. note::
+       For GMT >=6.5.0, the fontsizes of the colorbar x-label, x-annotations,
+       and y-label are scaled based on the width of the colorbar following
+       :math:`\sqrt{{colorbar\_width / 15}}`). To set a desired fontsize via the
+       GMT default parameters :gmt-term:`FONT_ANNOT_PRIMARY`,
+       :gmt-term:`FONT_ANNOT_SECONDARY`, and :gmt-term:`FONT_LABEL` (or jointly
+       :gmt-term:`FONT`) users have to divide the desired fontsize by the value
+       calculated with the formula given above before passing it to the default
+       parameters. To only affect fontsizes related to the colorbar, the
+       defaults can be changed locally only using ``with pygmt.config(...):``.
+
     Full GMT docs at :gmt-docs:`colorbar.html`.
 
     {aliases}
        - F = box
        - J = projection
+       - R = region
        - V = verbose
        - c = panel
        - t = transparency
@@ -151,6 +164,7 @@ def colorbar(
         F=Alias(box, name="box"),
     ).add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,

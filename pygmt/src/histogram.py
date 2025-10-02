@@ -2,6 +2,7 @@
 Histogram - Calculate and plot histograms.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import PathLike, TableLike
@@ -22,7 +23,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     L="extreme",
     N="distribution",
     Q="cumulative",
-    R="region",
     S="stairs",
     T="series",
     W="pen",
@@ -36,11 +36,12 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     p="perspective",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", T="sequence", i="sequence_comma", p="sequence")
+@kwargs_to_strings(T="sequence", i="sequence_comma", p="sequence")
 def histogram(
     self,
     data: PathLike | TableLike,
-    projection=None,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -54,6 +55,7 @@ def histogram(
 
     {aliases}
        - J = projection
+       - R = region
        - V = verbose
        - c = panel
        - t = transparency
@@ -149,6 +151,7 @@ def histogram(
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,

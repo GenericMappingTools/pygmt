@@ -2,6 +2,7 @@
 logo - Plot the GMT logo.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
@@ -11,11 +12,12 @@ from pygmt.params import Box
 
 
 @fmt_docstring
-@use_alias(R="region", D="position")
-@kwargs_to_strings(R="sequence", p="sequence")
+@use_alias(D="position")
+@kwargs_to_strings(p="sequence")
 def logo(
     self,
-    projection=None,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     style: Literal["standard", "url", "no_label"] = "standard",
     box: Box | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -37,6 +39,7 @@ def logo(
     {aliases}
        - F = box
        - J = projection
+       - R = region
        - S = style
        - V = verbose
        - c = panel
@@ -74,6 +77,7 @@ def logo(
         ),
     ).add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,

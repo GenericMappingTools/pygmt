@@ -2,13 +2,12 @@
 ternary - Plot data on ternary diagrams.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
-import pandas as pd
-from packaging.version import Version
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
-from pygmt.clib import Session, __gmt_version__
+from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
@@ -18,18 +17,18 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     C="cmap",
     G="fill",
     JX="width",
-    R="region",
     S="style",
     W="pen",
     p="perspective",
 )
-@kwargs_to_strings(R="sequence", p="sequence")
+@kwargs_to_strings(p="sequence")
 def ternary(
     self,
     data: PathLike | TableLike,
     alabel: str | None = None,
     blabel: str | None = None,
     clabel: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -51,6 +50,7 @@ def ternary(
 
     {aliases}
        - L = alabel/blabel/clabel
+       - R = region
        - V = verbose
        - c = panel
        - t = transparency
@@ -98,16 +98,12 @@ def ternary(
     aliasdict = AliasSystem(
         L=Alias(labels, name="alabel/blabel/clabel", sep="/", size=3),
     ).add_common(
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,
     )
     aliasdict.merge(kwargs)
-
-    # TODO(GMT>=6.5.0): Remove the patch for upstream bug fixed in GMT 6.5.0.
-    # See https://github.com/GenericMappingTools/pygmt/pull/2138
-    if Version(__gmt_version__) < Version("6.5.0") and isinstance(data, pd.DataFrame):
-        data = data.to_numpy()
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
