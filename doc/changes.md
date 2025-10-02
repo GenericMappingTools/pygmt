@@ -40,6 +40,7 @@
 
 ### Documentation
 
+* Figure.colorbar: Add note regarding automatic fontsize scaling  ([#4126](https://github.com/GenericMappingTools/pygmt/pull/4126))
 * Add gallery example to show text formatting ([#3987](https://github.com/GenericMappingTools/pygmt/pull/3987))
 * Add gallery example for using EPSG codes ([#3973](https://github.com/GenericMappingTools/pygmt/pull/3973))
 * Add Technical Reference page for justification codes ([#4028](https://github.com/GenericMappingTools/pygmt/pull/4028))
