@@ -7,6 +7,7 @@
 ### Highlights
 
 * 🎉 **Seventeenth minor release of PyGMT** 🎉
+* Drop support for GMT 6.4.0, while adding support for GMT 6.6.0
 * Implement the new alias system towards a Pythonic interface ([#3986](https://github.com/GenericMappingTools/pygmt/pull/3986), [#4000](https://github.com/GenericMappingTools/pygmt/pull/4000), [#3993](https://github.com/GenericMappingTools/pygmt/pull/3993))
 * GMTDataArrayAccessor: Support applying grid operations on the current xarray.DataArray object ([#3854](https://github.com/GenericMappingTools/pygmt/pull/3854))
 
@@ -26,7 +27,7 @@
 
 ### Deprecations
 
-* Drop GMT 6.4 support ([#4127](https://github.com/GenericMappingTools/pygmt/pull/4127))
+* Drop GMT 6.4.0 support ([#4127](https://github.com/GenericMappingTools/pygmt/pull/4127))
 * **BREAKING** Raise GMTValueError exception for invalid values. Previously raise GMTInvalidInput ([#3985](https://github.com/GenericMappingTools/pygmt/pull/3985), [#3998](https://github.com/GenericMappingTools/pygmt/pull/3998))
 * **BREAKING** Raise GMTTypeError exception for invalid types. Previously raise GMTInvalidInput ([#3999](https://github.com/GenericMappingTools/pygmt/pull/3999))
 * **BREAKING** Figure.grdimage: Raise NotImplementedError instead of GMTInvalidInput for -A option ([#4062](https://github.com/GenericMappingTools/pygmt/pull/4062))

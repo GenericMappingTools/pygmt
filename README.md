@@ -157,7 +157,7 @@ Feel free to cite our work in your research using the following BibTeX:
                   Uieda, Leonardo and
                   Wessel, Paul},
   title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-  month        = sep,
+  month        = oct,
   year         = 2025,
   publisher    = {Zenodo},
   version      = {0.17.0},
