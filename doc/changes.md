@@ -7,7 +7,7 @@
 ### Highlights
 
 * 🎉 **Seventeenth minor release of PyGMT** 🎉
-* Drop support for GMT 6.4.0, while adding support for GMT 6.6.0
+* Drop support for GMT 6.4.0, while adding support for GMT 6.6.0 ([#4017](https://github.com/GenericMappingTools/pygmt/issues/4017))
 * Implement the new alias system towards a Pythonic interface ([#3986](https://github.com/GenericMappingTools/pygmt/pull/3986), [#4000](https://github.com/GenericMappingTools/pygmt/pull/4000), [#3993](https://github.com/GenericMappingTools/pygmt/pull/3993))
 * GMTDataArrayAccessor: Support applying grid operations on the current xarray.DataArray object ([#3854](https://github.com/GenericMappingTools/pygmt/pull/3854))
 
