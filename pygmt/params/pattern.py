@@ -81,8 +81,8 @@ class Pattern(BaseParam):
         """
         # Integer pattern number must be in the range 1-90.
         if not (
-            isinstance(self.pattern, PathLike) or
-            (isinstance(self.pattern, int) and 1 <= self.pattern <= 90)
+            isinstance(self.pattern, PathLike)
+            or (isinstance(self.pattern, int) and 1 <= self.pattern <= 90)
         ):
             raise GMTValueError(
                 self.pattern,
