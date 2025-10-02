@@ -2,6 +2,7 @@
 Test pygmt.grdcut.
 """
 
+import geopandas as gpd
 import numpy as np
 import pytest
 import xarray as xr
@@ -9,6 +10,18 @@ from pygmt import grdcut
 from pygmt.exceptions import GMTTypeError, GMTValueError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
+from shapely.geometry import Polygon
+
+# Reusable polygon geometry
+poly = Polygon(
+    [
+        (-52.5, -19.5),
+        (-51.5, -19.0),
+        (-50.5, -18.5),
+        (-51.5, -18.0),
+        (-52.5, -19.5),
+    ]
+)
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -78,3 +91,58 @@ def test_grdcut_invalid_kind(grid, region):
     """
     with pytest.raises(GMTValueError):
         grdcut(grid, kind="invalid", region=region)
+
+
+def test_grdcut_with_shapely_polygon(grid):
+    """
+    Grdcut should accept a shapely.geometry.Polygon as polygon input.
+    """
+    outgrid = grdcut(grid=grid, polygon=poly)
+    assert outgrid is not None
+    assert outgrid.rio.crs is None or str(outgrid.rio.crs) == ""  # CRS not enforced
+    assert outgrid.size > 0
+
+
+def test_grdcut_with_geodataframe_polygon(grid):
+    """
+    Grdcut should accept a geopandas.GeoDataFrame as polygon input.
+    """
+    gdf = gpd.GeoDataFrame({"geometry": [poly]}, crs="OGC:CRS84")
+    outgrid = grdcut(grid=grid, polygon=gdf)
+    assert outgrid is not None
+    assert outgrid.size > 0
+
+
+def test_grdcut_with_polygon_file(grid, tmp_path):
+    """
+    Grdcut should accept a GMT ASCII polygon file as polygon input.
+    """
+    gmtfile = tmp_path / "poly.gmt"
+    gmtfile.write_text(
+        ">\n-52.5 -19.5\n-51.5 -19.0\n-50.5 -18.5\n-51.5 -18.0\n-52.5 -19.5\n"
+    )
+
+    outgrid = grdcut(grid=grid, polygon=gmtfile)
+    assert outgrid is not None
+    assert outgrid.size > 0
+
+
+@pytest.mark.parametrize(
+    ("crop", "invert"), [(True, False), (False, True), (True, True)]
+)
+def test_grdcut_polygon_with_crop_and_invert(grid, crop, invert):
+    """
+    Grdcut should support crop (+c) and invert (+i) modifiers with polygon input.
+    """
+    gdf = gpd.GeoDataFrame({"geometry": [poly]}, crs="OGC:CRS84")
+    outgrid = grdcut(grid=grid, polygon=gdf, crop=crop, invert=invert)
+    assert outgrid is not None
+    assert outgrid.size > 0
+
+
+def test_grdcut_polygon_invalid_input(grid):
+    """
+    Grdcut should raise an error for invalid polygon input type.
+    """
+    with pytest.raises(GMTValueError):
+        grdcut(grid=grid, polygon=12345)

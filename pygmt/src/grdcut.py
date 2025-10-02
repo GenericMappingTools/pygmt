@@ -153,15 +153,24 @@ def grdcut(
             aliasdict["G"] = voutgrd
 
             if "F" in kwargs and kwargs["F"] is not None:
+                polygon_input = kwargs["F"]
                 modifiers = ("+c" * crop) + ("+i" * invert)
 
                 # if file path provided
-                if isinstance(kwargs["F"], PathLike):
+                if isinstance(polygon_input, PathLike):
                     aliasdict["F"] = str(kwargs["F"]) + modifiers
                 # assuming its geojson
-                else:
-                    tmpfile = stack.enter_context(tempfile_from_geojson(kwargs["F"]))
+                elif hasattr(polygon_input, "__geo_interface__"):
+                    tmpfile = stack.enter_context(tempfile_from_geojson(polygon_input))
                     aliasdict["F"] = tmpfile + modifiers
+                else:
+                    polygon_type = type(polygon_input).__name__
+                    err_msg = "Invalid polygon type"
+                    raise GMTValueError(
+                        err_msg,
+                        polygon_type,
+                        "Must be a PathLike, GeoDataFrame, or Shapely geometry.",
+                    )
 
             lib.call_module(
                 module="grdcut", args=build_arg_list(aliasdict, infile=vingrd)
