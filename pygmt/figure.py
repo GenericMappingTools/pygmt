@@ -443,6 +443,7 @@ class Figure:
         plot3d,
         psconvert,
         rose,
+        scatter,
         set_panel,
         shift_origin,
         solar,
