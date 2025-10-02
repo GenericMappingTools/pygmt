@@ -29,10 +29,10 @@ api:
 
 html latex: api
 	@echo
-	@echo "Building $@ files."
+	@echo "Building "$@" files."
 	@echo
 	# Set PYGMT_USE_EXTERNAL_DISPLAY to "false" to disable external display
-	PYGMT_USE_EXTERNAL_DISPLAY="false" $(SPHINXBUILD) -M $@ $(SOURCEDIR) $(BUILDDIR) $(SPHINXOPTS)
+	PYGMT_USE_EXTERNAL_DISPLAY="false" $(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS)
 	@echo
 	@echo "Build finished. The files are in $(BUILDDIR)/$@."
 
