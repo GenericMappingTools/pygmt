@@ -10,18 +10,23 @@ from pygmt import grdcut
 from pygmt.exceptions import GMTTypeError, GMTValueError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
-from shapely.geometry import Polygon
+from shapely.geometry import MultiPolygon, Polygon
 
-# Reusable polygon geometry
-poly = Polygon(
-    [
-        (-52.5, -19.5),
-        (-51.5, -19.0),
-        (-50.5, -18.5),
-        (-51.5, -18.0),
-        (-52.5, -19.5),
-    ]
-)
+
+@pytest.fixture(scope="module", name="polygon")
+def fixture_polygon():
+    """
+    Provide a reusable polygon geometry for grdcut tests.
+    """
+    return Polygon(
+        [
+            (-52.5, -19.5),
+            (-51.5, -19.0),
+            (-50.5, -18.5),
+            (-51.5, -18.0),
+            (-52.5, -19.5),
+        ]
+    )
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -93,24 +98,44 @@ def test_grdcut_invalid_kind(grid, region):
         grdcut(grid, kind="invalid", region=region)
 
 
-def test_grdcut_with_shapely_polygon(grid):
+def test_grdcut_with_shapely_polygon(grid, polygon):
     """
-    Grdcut should accept a shapely.geometry.Polygon as polygon input.
+    Grdcut should accept a shapely.geometry.Polygon as polygon input
+    and produce a grid of expected size with some valid data.
     """
-    outgrid = grdcut(grid=grid, polygon=poly)
+    outgrid = grdcut(grid=grid, polygon=polygon)
     assert outgrid is not None
-    assert outgrid.rio.crs is None or str(outgrid.rio.crs) == ""  # CRS not enforced
+
+    # Check size
     assert outgrid.size > 0
 
+    # There should be some non-NaN pixels inside the polygon
+    assert np.any(~np.isnan(outgrid.values))
 
-def test_grdcut_with_geodataframe_polygon(grid):
+    # Optionally, corners outside the polygon should be NaN
+    corner_values = [
+        outgrid.values[0, 0],
+        outgrid.values[0, -1],
+        outgrid.values[-1, 0],
+        outgrid.values[-1, -1],
+    ]
+    assert any(np.isnan(val) for val in corner_values)
+
+
+def test_grdcut_with_geodataframe_polygon(grid, polygon):
     """
-    Grdcut should accept a geopandas.GeoDataFrame as polygon input.
+    Grdcut should accept a geopandas.GeoDataFrame as polygon input
+    and produce a grid of expected size with some valid data.
     """
-    gdf = gpd.GeoDataFrame({"geometry": [poly]}, crs="OGC:CRS84")
+    gdf = gpd.GeoDataFrame({"geometry": [polygon]}, crs="OGC:CRS84")
     outgrid = grdcut(grid=grid, polygon=gdf)
     assert outgrid is not None
+
+    # Check size
     assert outgrid.size > 0
+
+    # Some pixels should remain non-NaN
+    assert np.any(~np.isnan(outgrid.values))
 
 
 def test_grdcut_with_polygon_file(grid, tmp_path):
@@ -130,14 +155,37 @@ def test_grdcut_with_polygon_file(grid, tmp_path):
 @pytest.mark.parametrize(
     ("crop", "invert"), [(True, False), (False, True), (True, True)]
 )
-def test_grdcut_polygon_with_crop_and_invert(grid, crop, invert):
+def test_grdcut_polygon_with_crop_and_invert(grid, polygon, crop, invert):
     """
     Grdcut should support crop (+c) and invert (+i) modifiers with polygon input.
     """
-    gdf = gpd.GeoDataFrame({"geometry": [poly]}, crs="OGC:CRS84")
+    gdf = gpd.GeoDataFrame({"geometry": [polygon]}, crs="OGC:CRS84")
     outgrid = grdcut(grid=grid, polygon=gdf, crop=crop, invert=invert)
     assert outgrid is not None
     assert outgrid.size > 0
+
+    if invert:
+        assert np.isnan(outgrid.data).any()
+
+    assert np.isfinite(outgrid.data).any()
+
+    assert np.count_nonzero(np.isfinite(outgrid.data)) < grid.size
+
+
+def test_grdcut_with_multipolygon(grid):
+    """
+    Grdcut should accept a shapely.geometry.MultiPolygon as polygon input.
+    """
+    # Create two simple polygons and combine into a MultiPolygon
+    poly1 = Polygon([(-52.5, -19.5), (-51.5, -19.0), (-50.5, -18.5), (-52.5, -19.5)])
+    poly2 = Polygon([(-51.0, -18.5), (-50.5, -18.0), (-50.0, -18.5), (-51.0, -18.5)])
+    multipoly = MultiPolygon([poly1, poly2])
+
+    outgrid = grdcut(grid=grid, polygon=multipoly)
+    assert outgrid is not None
+    # Ensure some grid pixels exist
+    assert outgrid.size > 0
+    assert np.any(np.isnan(outgrid.values))
 
 
 def test_grdcut_polygon_invalid_input(grid):

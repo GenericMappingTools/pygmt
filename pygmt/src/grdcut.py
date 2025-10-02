@@ -93,7 +93,7 @@ def grdcut(
     polygon : str, geopandas.GeoDataFrame, or shapely.geometry
         Extract a subregion using a polygon. Can be either:
         - A GMT ASCII polygon file (`.gmt`)
-        - A geopandas.GeoDataFrame (must have CRS EPSG:4326)
+        - A geopandas.GeoDataFrame
         - A shapely.geometry.Polygon or MultiPolygon
         The polygon can have holes or multiple rings.
         Optional modifiers:
