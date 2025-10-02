@@ -153,14 +153,15 @@ def grdcut(
             aliasdict["G"] = voutgrd
 
             if "F" in kwargs and kwargs["F"] is not None:
-                polygon_input = kwargs["F"]
                 modifiers = ("+c" * crop) + ("+i" * invert)
 
-                if not isinstance(polygon_input, (str, bytes)):
-                    tmpfile = stack.enter_context(tempfile_from_geojson(polygon_input))
-                    aliasdict["F"] = tmpfile + modifiers
+                # if file path provided
+                if isinstance(kwargs["F"], PathLike):
+                    aliasdict["F"] = str(kwargs["F"]) + modifiers
+                # assuming its geojson
                 else:
-                    aliasdict["F"] = str(polygon_input) + modifiers
+                    tmpfile = stack.enter_context(tempfile_from_geojson(kwargs["F"]))
+                    aliasdict["F"] = tmpfile + modifiers
 
             lib.call_module(
                 module="grdcut", args=build_arg_list(aliasdict, infile=vingrd)

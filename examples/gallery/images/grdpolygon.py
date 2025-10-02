@@ -1,10 +1,10 @@
 """
-Clipping grid to a complex polygon
-==================================
+Clipping grid to a polygon
+==========================
 
 The :func:`pygmt.grdcut` function allows you to extract a subregion from a
-grid. In this example we use a complex polygon (GeoDataFrame or GMT ASCII file)
-to crop the grid, invert it, or do both.
+grid. In this example we use a :class:`geopandas.GeoDataFrame`
+to crop the grid to the polygon's inner or outer region, invert it, or do both.
 """
 
 # %%
@@ -15,13 +15,13 @@ from shapely.geometry import Polygon
 fig = pygmt.Figure()
 
 # Define region of interest around Iceland
-region = [-28, -10, 62, 68]
+region = [-28, -10, 62, 68]  # xmin, xmax, ymin, ymax
 
 # Load sample grid (3 arc-minutes global relief) in target area
 grid = pygmt.datasets.load_earth_relief(resolution="03m", region=region)
 
-# Create a more complex polygon (irregular shape) around a smaller ROI
-complex_poly = Polygon(
+# Create a more polygon (irregular shape) around a smaller ROI
+poly = Polygon(
     [
         (-26, 63),
         (-23, 63.5),
@@ -34,7 +34,7 @@ complex_poly = Polygon(
         (-26, 63),
     ]
 )
-gdf = gpd.GeoDataFrame({"geometry": [complex_poly]}, crs="EPSG:4326")
+gdf = gpd.GeoDataFrame({"geometry": [poly]}, crs="OGC:CRS84")
 
 # Original grid
 fig.basemap(
