@@ -13,7 +13,7 @@
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/gallery/lines/hlines_vlines.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -211,6 +211,7 @@ horizontal and vertical lines in Cartesian, geographic and polar coordinate syst
 <h2>Cartesian coordinate system<a class="headerlink" href="#cartesian-coordinate-system" title="Link to this heading"></a></h2>
 <p>In Cartesian coordinate systems lines are plotted as straight lines.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/pygmt.params.Box.html#pygmt.params.Box" title="pygmt.params.Box" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Box</span></a>
 
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 
@@ -230,7 +231,7 @@ horizontal and vertical lines in Cartesian, geographic and polar coordinate syst
 <a href="../../api/generated/pygmt.Figure.hlines.html#pygmt.Figure.hlines" title="pygmt.Figure.hlines" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">hlines</span></a><span class="p">(</span>
     <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">xmin</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">xmax</span><span class="o">=</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">],</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;1.5p,dodgerblue3&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Lines 7 &amp; 8&quot;</span>
 <span class="p">)</span>
-<a href="../../api/generated/pygmt.Figure.legend.html#pygmt.Figure.legend" title="pygmt.Figure.legend" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">legend</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;JBR+jBR+o0.2c&quot;</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><span class="s2">&quot;+gwhite+p1p&quot;</span><span class="p">)</span>
+<a href="../../api/generated/pygmt.Figure.legend.html#pygmt.Figure.legend" title="pygmt.Figure.legend" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">legend</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;JBR+jBR+o0.2c&quot;</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Box.html#pygmt.params.Box" title="pygmt.params.Box" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Box</span></a><span class="p">(</span><span class="n">pen</span><span class="o">=</span><span class="s2">&quot;1p&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">))</span>
 
 <a href="../../api/generated/pygmt.Figure.shift_origin.html#pygmt.Figure.shift_origin" title="pygmt.Figure.shift_origin" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">shift_origin</span></a><span class="p">(</span><span class="n">xshift</span><span class="o">=</span><span class="s2">&quot;w+2c&quot;</span><span class="p">)</span>
 
@@ -316,7 +317,7 @@ radius at a specified azimuth.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_hlines_vlines_003.png" srcset="../../_images/sphx_glr_hlines_vlines_003.png" alt="hlines vlines" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.821 seconds)</p>
+<img src="../../_images/sphx_glr_hlines_vlines_003.png" srcset="../../_images/sphx_glr_hlines_vlines_003.png" alt="hlines vlines" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.831 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-lines-hlines-vlines-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/2e88562aab2837c865b3b367a149942e/hlines_vlines.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">hlines_vlines.ipynb</span></code></a></p>
@@ -345,9 +346,9 @@ radius at a specified azimuth.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jun 18, 2025.
+      <span class="lastupdated">Last updated on Oct 02, 2025.
       </span></p>
   </div>
 

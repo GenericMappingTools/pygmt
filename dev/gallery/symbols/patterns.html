@@ -13,7 +13,7 @@
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/gallery/symbols/patterns.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -197,8 +197,8 @@ to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="bit-and-hachure-patterns">
 <span id="sphx-glr-gallery-symbols-patterns-py"></span><h1>Bit and hachure patterns<a class="headerlink" href="#bit-and-hachure-patterns" title="Link to this heading"></a></h1>
-<p>In addition to colors, PyGMT also allows using bit and hachure patterns to fill
-symbols, polygons, and other areas, via the <code class="docutils literal notranslate"><span class="pre">fill</span></code> parameter or similar parameters.</p>
+<p>In addition to colors, PyGMT also allows using bit and hachure patterns to fill symbols,
+polygons, and other areas, via the <code class="docutils literal notranslate"><span class="pre">fill</span></code> parameter or similar parameters.</p>
 <p>Example method parameters that support bit and hachure patterns include:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.coast</span></code></a>: Land and water masses via <code class="docutils literal notranslate"><span class="pre">land</span></code> and <code class="docutils literal notranslate"><span class="pre">water</span></code></p></li>
@@ -213,52 +213,49 @@ symbols, polygons, and other areas, via the <code class="docutils literal notran
 <code class="docutils literal notranslate"><span class="pre">uncertaintyfill</span></code></p></li>
 <li><p><a class="reference internal" href="../../api/generated/pygmt.Figure.wiggle.html#pygmt.Figure.wiggle" title="pygmt.Figure.wiggle"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.wiggle</span></code></a>: Anomalies via <code class="docutils literal notranslate"><span class="pre">fillpositive</span></code> and <code class="docutils literal notranslate"><span class="pre">fillnegative</span></code></p></li>
 </ul>
-<p>GMT provides 90 predefined patterns that can be used in PyGMT. The patterns are numbered
-from 1 to 90, and can be colored and inverted. The resolution of the pattern
-can be changed, and the background and foreground colors can be set. For a complete list
-of available patterns and the full syntax to specify a pattern, refer to the
-<a class="reference internal" href="../../techref/patterns.html"><span class="doc">Bit and Hachure Patterns</span></a>.</p>
+<p>GMT provides 90 predefined 1-bit patterns, which are numbered from 1 to 90. In addition,
+custom 1-, 8-, or 24-bit image raster files can also be used as patterns.</p>
+<p>These patterns can be specified via the <a class="reference internal" href="../../api/generated/pygmt.params.Pattern.html#pygmt.params.Pattern" title="pygmt.params.Pattern"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.params.Pattern</span></code></a> class. The
+patterns can be customized with different resolution and different foreground and
+background colors. The foreground and background colors can also be inverted.</p>
 <img src="../../_images/sphx_glr_patterns_001.png" srcset="../../_images/sphx_glr_patterns_001.png" alt="patterns" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/pygmt.params.Pattern.html#pygmt.params.Pattern" title="pygmt.params.Pattern" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Pattern</span></a>
 
 <span class="c1"># A list of patterns that will be demonstrated.</span>
-<span class="c1"># To use a pattern as fill append &quot;p&quot; and the number of the desired pattern.</span>
-<span class="c1"># By default, the pattern is plotted in black and white with a resolution of 300 dpi.</span>
+<span class="c1"># By default, a pattern is plotted in black and white with a resolution of 300 dpi.</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">patterns</span></a> <span class="o">=</span> <span class="p">[</span>
-    <span class="c1"># Plot a hachted pattern via pattern number 8</span>
-    <span class="s2">&quot;p8&quot;</span><span class="p">,</span>
-    <span class="c1"># Plot a dotted pattern via pattern number 19</span>
-    <span class="s2">&quot;p19&quot;</span><span class="p">,</span>
-    <span class="c1"># Set the background color (&quot;+b&quot;) to &quot;red3&quot; and the foreground color (&quot;+f&quot;) to</span>
-    <span class="c1"># &quot;lightgray&quot;</span>
-    <span class="s2">&quot;p19+bred3+flightbrown&quot;</span><span class="p">,</span>
-    <span class="c1"># Invert the pattern by using a capitalized &quot;P&quot;</span>
-    <span class="s2">&quot;P19+bred3+flightbrown&quot;</span><span class="p">,</span>
-    <span class="c1"># Change the resolution (&quot;+r&quot;) to 100 dpi</span>
-    <span class="s2">&quot;p19+bred3+flightbrown+r100&quot;</span><span class="p">,</span>
-    <span class="c1"># Make the background transparent by not giving a color after &quot;+b&quot;;</span>
-    <span class="c1"># works analogous for the foreground</span>
-    <span class="s2">&quot;p19+b+flightbrown+r100&quot;</span><span class="p">,</span>
+    <span class="c1"># Predefined 1-bit pattern 8.</span>
+    <a href="../../api/generated/pygmt.params.Pattern.html#pygmt.params.Pattern" title="pygmt.params.Pattern" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Pattern</span></a><span class="p">(</span><span class="mi">8</span><span class="p">),</span>
+    <span class="c1"># Predefined 1-bit pattern 19.</span>
+    <a href="../../api/generated/pygmt.params.Pattern.html#pygmt.params.Pattern" title="pygmt.params.Pattern" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Pattern</span></a><span class="p">(</span><span class="mi">19</span><span class="p">),</span>
+    <span class="c1"># Pattern 19 with custom background (&quot;red3&quot;) and foreground (&quot;lightbrown&quot;).</span>
+    <a href="../../api/generated/pygmt.params.Pattern.html#pygmt.params.Pattern" title="pygmt.params.Pattern" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Pattern</span></a><span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;red3&quot;</span><span class="p">,</span> <span class="n">fgcolor</span><span class="o">=</span><span class="s2">&quot;lightbrown&quot;</span><span class="p">),</span>
+    <span class="c1"># Invert the background and foreground.</span>
+    <a href="../../api/generated/pygmt.params.Pattern.html#pygmt.params.Pattern" title="pygmt.params.Pattern" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Pattern</span></a><span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="n">invert</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;red3&quot;</span><span class="p">,</span> <span class="n">fgcolor</span><span class="o">=</span><span class="s2">&quot;lightbrown&quot;</span><span class="p">),</span>
+    <span class="c1"># Same as above, but with a 100 dpi resolution.</span>
+    <a href="../../api/generated/pygmt.params.Pattern.html#pygmt.params.Pattern" title="pygmt.params.Pattern" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Pattern</span></a><span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;red3&quot;</span><span class="p">,</span> <span class="n">fgcolor</span><span class="o">=</span><span class="s2">&quot;lightbrown&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span>
+    <span class="c1"># Same as above, but with a transparent background by setting bgcolor to &quot;&quot;.</span>
+    <a href="../../api/generated/pygmt.params.Pattern.html#pygmt.params.Pattern" title="pygmt.params.Pattern" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Pattern</span></a><span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">fgcolor</span><span class="o">=</span><span class="s2">&quot;lightbrown&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span>
 <span class="p">]</span>
 
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span>
     <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span>
-    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X10c&quot;</span><span class="p">,</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X18c/10c&quot;</span><span class="p">,</span>
     <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;rlbt+glightgray+tBit and Hachure Patterns&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-
 <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a> <span class="o">=</span> <span class="mi">11</span>
-<span class="k">for</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pattern</span></a> <span class="ow">in</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">patterns</span></a><span class="p">:</span>
+<span class="k">for</span> <a href="../../api/generated/pygmt.params.Pattern.html#pygmt.params.Pattern" title="pygmt.params.Pattern" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pattern</span></a> <span class="ow">in</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">patterns</span></a><span class="p">:</span>
     <span class="c1"># Plot a square with the pattern as fill.</span>
     <span class="c1"># The square has a size of 2 centimeters with a 1 point thick, black outline.</span>
-    <a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;s2c&quot;</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;1p,black&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pattern</span></a><span class="p">)</span>
+    <a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;s2c&quot;</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;1p,black&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Pattern.html#pygmt.params.Pattern" title="pygmt.params.Pattern" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pattern</span></a><span class="p">)</span>
     <span class="c1"># Add a description of the pattern.</span>
-    <a href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <span class="n">text</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pattern</span></a><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="s2">&quot;Courier-Bold&quot;</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="s2">&quot;ML&quot;</span><span class="p">)</span>
+    <a href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><a href="../../api/generated/pygmt.params.Pattern.html#pygmt.params.Pattern" title="pygmt.params.Pattern" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pattern</span></a><span class="p">)),</span> <span class="n">font</span><span class="o">=</span><span class="s2">&quot;Courier-Bold&quot;</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="s2">&quot;ML&quot;</span><span class="p">)</span>
     <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a> <span class="o">-=</span> <span class="mi">2</span>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.183 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.241 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-symbols-patterns-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/f0502c003b4111f3ef83f527adf9b3e8/patterns.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">patterns.ipynb</span></code></a></p>
@@ -286,9 +283,9 @@ of available patterns and the full syntax to specify a pattern, refer to the
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jun 18, 2025.
+      <span class="lastupdated">Last updated on Oct 02, 2025.
       </span></p>
   </div>
 

@@ -13,7 +13,7 @@
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.Figure.coast.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -126,6 +126,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#xarray-integration">Xarray Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#class-style-parameters">Class-style Parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#enums">Enums</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#datasets">Datasets</a></li>
@@ -202,7 +203,7 @@
 <h1>pygmt.Figure.coast<a class="headerlink" href="#pygmt-figure-coast" title="Link to this heading"></a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="pygmt.Figure.coast">
-<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">coast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.coast" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">coast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">panel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.coast" title="Link to this definition"></a></dt>
 <dd><p>Plot continents, countries, shorelines, rivers, and borders.</p>
 <p>Plots grayshaded, colored, or textured land masses [or water masses] on
 maps and [optionally] draws coastlines, rivers, and political
@@ -216,37 +217,37 @@ will be transparent (i.e., earlier graphics drawn in those areas will
 not be overwritten). Likewise, if the water areas are painted and no
 land fill is set then the land areas will be transparent.</p>
 <p>A map projection must be supplied.</p>
-<p>Full GMT docs at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/coast.html">https://docs.generic-mapping-tools.org/6.5/coast.html</a>.</p>
+<p>Full GMT docs at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/coast.html">https://docs.generic-mapping-tools.org/6.6/coast.html</a>.</p>
 <p><strong>Aliases:</strong></p>
 <table class="hlist"><tr><td><ul class="simple">
 <li><p>A = area_thresh</p></li>
 <li><p>B = frame</p></li>
 <li><p>C = lakes</p></li>
-<li><p>D = resolution</p></li>
 <li><p>E = dcw</p></li>
-<li><p>F = box</p></li>
-</ul>
-</td><td><ul class="simple">
 <li><p>G = land</p></li>
 <li><p>I = rivers</p></li>
-<li><p>J = projection</p></li>
-<li><p>L = map_scale</p></li>
-<li><p>N = borders</p></li>
-<li><p>R = region</p></li>
 </ul>
 </td><td><ul class="simple">
+<li><p>L = map_scale</p></li>
+<li><p>N = borders</p></li>
 <li><p>S = water</p></li>
-<li><p>V = verbose</p></li>
 <li><p>W = shorelines</p></li>
-<li><p>c = panel</p></li>
 <li><p>p = perspective</p></li>
+<li><p>D = resolution</p></li>
+</ul>
+</td><td><ul class="simple">
+<li><p>F = box</p></li>
+<li><p>J = projection</p></li>
+<li><p>R = region</p></li>
+<li><p>V = verbose</p></li>
+<li><p>c = panel</p></li>
 <li><p>t = transparency</p></li>
 </ul>
 </td></tr></table>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>projection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <em>projcode</em>[<em>projparams</em>/]<em>width</em>|<em>scale</em>.
+<li><p><strong>projection</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <em>projcode</em>[<em>projparams</em>/]<em>width</em>|<em>scale</em>.
 Select map <a class="reference internal" href="../../projections/index.html"><span class="doc">projection</span></a>.</p></li>
 <li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
 Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.
@@ -254,8 +255,7 @@ Specify the <a class="reference internal" href="../../tutorials/basics/regions.h
 <li><p><strong>area_thresh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <em>min_area</em>[/<em>min_level</em>/<em>max_level</em>][<strong>+a</strong>[<strong>g</strong>|<strong>i</strong>][<strong>s</strong>|<strong>S</strong>]][<strong>+l</strong>|<strong>r</strong>][<strong>+p</strong><em>percent</em>].
 Features with an area smaller than <em>min_area</em> in km<sup>2</sup> or of
 hierarchical level that is lower than <em>min_level</em> or higher than
-<em>max_level</em> will not be plotted [Default is <code class="docutils literal notranslate"><span class="pre">&quot;0/0/4&quot;</span></code> (all
-features)].</p></li>
+<em>max_level</em> will not be plotted [Default is <code class="docutils literal notranslate"><span class="pre">&quot;0/0/4&quot;</span></code> (all features)].</p></li>
 <li><p><strong>frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – Set map boundary
 <a class="reference internal" href="../../tutorials/basics/frames.html"><span class="doc">frame and axes attributes</span></a>.</p></li>
 <li><p><strong>lakes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <em>fill</em>[<strong>+l</strong>|<strong>+r</strong>].
@@ -300,22 +300,10 @@ to use multiple arguments.</p>
 </p></li>
 <li><p><strong>map_scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – [<strong>g</strong>|<strong>j</strong>|<strong>J</strong>|<strong>n</strong>|<strong>x</strong>]<em>refpoint</em><strong>+w</strong><em>length</em>.
 Draw a simple map scale centered on the reference point specified.</p></li>
-<li><p><strong>box</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – [<strong>+c</strong><em>clearances</em>][<strong>+g</strong><em>fill</em>][<strong>+i</strong>[[<em>gap</em>/]<em>pen</em>]][<strong>+p</strong>[<em>pen</em>]][<strong>+r</strong>[<em>radius</em>]][<strong>+s</strong>[[<em>dx</em>/<em>dy</em>/][<em>shade</em>]]].
-If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, draw a rectangular border around the
-map scale or rose. Alternatively, specify a different pen with
-<strong>+p</strong><em>pen</em>. Add <strong>+g</strong><em>fill</em> to fill the scale panel [Default is
-no fill]. Append <strong>+c</strong><em>clearance</em> where <em>clearance</em> is either gap,
-xgap/ygap, or lgap/rgap/bgap/tgap where these items are uniform,
-separate x and y, or individual side spacings between scale and
-border. Append <strong>+i</strong> to draw a secondary, inner border as well.
-We use a uniform gap between borders of 2 points and the
-<a class="extlink-gmt-term reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-MAP_DEFAULTS_PEN">MAP_DEFAULTS_PEN</a> unless other values are specified. Append
-<strong>+r</strong> to draw rounded rectangular borders instead, with a 6-points
-corner radius. You can override this radius by appending another value.
-Finally, append <strong>+s</strong> to draw an offset background shaded region.
-Here, <em>dx/dy</em> indicates the shift relative to the foreground frame
-[Default is <code class="docutils literal notranslate"><span class="pre">&quot;4p/-4p&quot;</span></code>] and shade sets the fill style to use for
-shading [Default is <code class="docutils literal notranslate"><span class="pre">&quot;gray50&quot;</span></code>].</p></li>
+<li><p><strong>box</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="pygmt.params.Box.html#pygmt.params.Box" title="pygmt.params.box.Box"><code class="xref py py-class docutils literal notranslate"><span class="pre">Box</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Draw a background box behind the map scale or rose. If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, a simple
+rectangular box is drawn using <a class="extlink-gmt-term reference external" href="https://docs.generic-mapping-tools.org/6.6/gmt.conf#term-MAP_FRAME_PEN">MAP_FRAME_PEN</a>. To customize the box
+appearance, pass a <a class="reference internal" href="pygmt.params.Box.html#pygmt.params.Box" title="pygmt.params.Box"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.params.Box</span></code></a> object to control style, fill, pen,
+and other box properties.</p></li>
 <li><p><strong>borders</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <p><em>border</em>[/<em>pen</em>].
 Draw political boundaries. Specify the type of boundary and
 [optionally] append pen attributes [Default is <code class="docutils literal notranslate"><span class="pre">&quot;0.25p,black,solid&quot;</span></code>].</p>
@@ -339,14 +327,14 @@ strings to <code class="docutils literal notranslate"><span class="pre">shorelin
 level pens are set, those not listed will not be drawn.</p></li>
 <li><p><strong>dcw</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <em>code1,code2,…</em>[<strong>+g</strong><em>fill</em>][<strong>+p</strong><em>pen</em>][<strong>+z</strong>].
 Select painting country polygons from the <a class="reference external" href="https://en.wikipedia.org/wiki/Digital_Chart_of_the_World">Digital Chart of the World</a>.
-Append one or more comma-separated countries using the 2-character
+Append one or more comma-separated countries using the 2-letter
 <a class="reference external" href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 convention</a>.
 To select a state of a country (if available), append .<em>state</em>,
 (e.g, <code class="docutils literal notranslate"><span class="pre">&quot;US.TX&quot;</span></code> for Texas). To specify a whole continent, prepend <strong>=</strong>
 to any of the continent codes (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;=EU&quot;</span></code> for Europe). Append
 <strong>+p</strong><em>pen</em> to draw polygon outlines [Default is no outline] and
 <strong>+g</strong><em>fill</em> to fill them [Default is no fill].</p></li>
-<li><p><strong>panel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <p>Select a specific subplot panel. Only allowed when used in
+<li><p><strong>panel</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – <p>Select a specific subplot panel. Only allowed when used in
 <a class="reference internal" href="pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Figure.subplot</span></code></a> mode.</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">True</span></code> to advance to the next panel in the selected order.</p></li>
@@ -359,7 +347,7 @@ to any of the continent codes (e.g. <code class="docutils literal notranslate"><
 <li><p><strong>perspective</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – [<strong>x</strong>|<strong>y</strong>|<strong>z</strong>]<em>azim</em>[/<em>elev</em>[/<em>zlevel</em>]][<strong>+w</strong><em>lon0</em>/<em>lat0</em>[/<em>z0</em>]][<strong>+v</strong><em>x0</em>/<em>y0</em>].
 Select perspective view and set the azimuth and elevation angle of
 the viewpoint [Default is <code class="docutils literal notranslate"><span class="pre">[180,</span> <span class="pre">90]</span></code>]. Full documentation is at
-<a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#perspective-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#perspective-full</a>.</p></li>
+<a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/gmt.html#perspective-full">https://docs.generic-mapping-tools.org/6.6/gmt.html#perspective-full</a>.</p></li>
 <li><p><strong>transparency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Set transparency level, in [0-100] percent range
 [Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>, i.e., opaque].
 Only visible when PDF or raster format output is selected.
@@ -429,9 +417,12 @@ in the image (for further processing).</p></li>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The borders parameter of pygmt.Figure.coast specifies levels of political boundaries to plot and the pen used to draw them. Choose from the list of boundaries below:"><img alt="" src="../../_images/sphx_glr_borders_thumb.png" />
 <p><a class="reference internal" href="../../gallery/maps/borders.html#sphx-glr-gallery-maps-borders-py"><span class="std std-ref">Political boundaries</span></a></p>
   <div class="sphx-glr-thumbnail-title">Political boundaries</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.coast method can highlight country polygons via the dcw parameter. It accepts the country code or full country name and can draw its borders and add a color to its landmass. It&#x27;s also possible to define multiple countries at once by separating the individual names with commas."><img alt="" src="../../_images/sphx_glr_country_polygons_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.coast method can highlight country polygons via the dcw parameter. It accepts the country code (following the 2-letter ISO 3166-1 alpha-2 convention) or full country name and can draw its borders and add a color to its landmass. It&#x27;s also possible to define multiple countries at once by separating the individual names with commas."><img alt="" src="../../_images/sphx_glr_country_polygons_thumb.png" />
 <p><a class="reference internal" href="../../gallery/maps/country_polygons.html#sphx-glr-gallery-maps-country-polygons-py"><span class="std std-ref">Highlight country, continent and state polygons</span></a></p>
   <div class="sphx-glr-thumbnail-title">Highlight country, continent and state polygons</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Besides one of the 31 projections supported by GMT &lt;/techref/projections&gt;, users can pass an EPSG (European Petroleum Survey Group) code to the projection parameter. A commonly used EPSG code is EPSG:3857, that refers to the Web Mercator projection WGS84. More information on the EPSG dataset can be found at https://epsg.org and https://spatialreference.org/. Please note, that not all EPSG codes are supported by GMT / PyGMT."><img alt="" src="../../_images/sphx_glr_epsg_codes_thumb.png" />
+<p><a class="reference internal" href="../../gallery/maps/epsg_codes.html#sphx-glr-gallery-maps-epsg-codes-py"><span class="std std-ref">EPSG codes</span></a></p>
+  <div class="sphx-glr-thumbnail-title">EPSG codes</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The land and water parameters of pygmt.Figure.coast specify a color to fill in the land and water masses, respectively. There are many color codes in GMT &lt;gmtcolors.html&gt;, including standard GMT color names (like &quot;skyblue&quot;), R/G/B levels (like &quot;0/0/255&quot;), a hex value (like &quot;#333333&quot;), and a gray level (like &quot;gray50&quot;)."><img alt="" src="../../_images/sphx_glr_land_and_water_thumb.png" />
 <p><a class="reference internal" href="../../gallery/maps/land_and_water.html#sphx-glr-gallery-maps-land-and-water-py"><span class="std std-ref">Color land and water</span></a></p>
   <div class="sphx-glr-thumbnail-title">Color land and water</div>
@@ -580,9 +571,9 @@ in the image (for further processing).</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jun 18, 2025.
+      <span class="lastupdated">Last updated on Oct 02, 2025.
       </span></p>
   </div>
 

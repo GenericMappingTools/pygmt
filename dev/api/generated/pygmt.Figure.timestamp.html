@@ -13,7 +13,7 @@
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.Figure.timestamp.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -126,6 +126,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#xarray-integration">Xarray Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#class-style-parameters">Class-style Parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#enums">Enums</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#datasets">Datasets</a></li>
@@ -204,11 +205,12 @@
 <dt class="sig sig-object py" id="pygmt.Figure.timestamp">
 <span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">timestamp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">justify</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'BL'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('-54p',</span> <span class="pre">'-54p')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Helvetica,black'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timefmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'%Y</span> <span class="pre">%b</span> <span class="pre">%d</span> <span class="pre">%H:%M:%S'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.timestamp" title="Link to this definition"></a></dt>
 <dd><p>Plot the GMT timestamp logo.</p>
-<p>Add the GMT timestamp logo with an optional label at the bottom-left corner of a
-plot with an offset of <code class="docutils literal notranslate"><span class="pre">(&quot;-54p&quot;,</span> <span class="pre">&quot;-54p&quot;)</span></code>. The timestamp will be in the locale set
-by the environment variable <a class="reference internal" href="../../techref/environment_variables.html#term-TZ"><span class="xref std std-term">TZ</span></a> (generally local time but can be changed via
-<code class="docutils literal notranslate"><span class="pre">os.environ[&quot;TZ&quot;]</span></code>) and its format is controlled by the <code class="docutils literal notranslate"><span class="pre">timefmt</span></code> parameter. It
-can also be replaced with any custom text string using the <code class="docutils literal notranslate"><span class="pre">text</span></code> parameter.</p>
+<p>Add the GMT timestamp logo with an optional label at the bottom-left corner relative
+to the current plot origin, with an offset of <code class="docutils literal notranslate"><span class="pre">(&quot;-54p&quot;,</span> <span class="pre">&quot;-54p&quot;)</span></code>. The timestamp
+will be in the locale set by the environment variable <a class="reference internal" href="../../techref/environment_variables.html#term-TZ"><span class="xref std std-term">TZ</span></a> (generally local
+time but can be changed via <code class="docutils literal notranslate"><span class="pre">os.environ[&quot;TZ&quot;]</span></code>) and its format is controlled by
+the <code class="docutils literal notranslate"><span class="pre">timefmt</span></code> parameter. It can also be replaced with any custom text string using
+the <code class="docutils literal notranslate"><span class="pre">text</span></code> parameter.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -216,19 +218,15 @@ can also be replaced with any custom text string using the <code class="docutils
 this parameter to replace the UNIX timestamp with a custom text string instead.
 The text must be no longer than 64 characters.</p></li>
 <li><p><strong>label</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – The text string shown after the GMT timestamp logo.</p></li>
-<li><p><strong>justify</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'TL'</span></code>, <code class="docutils literal notranslate"><span class="pre">'TC'</span></code>, <code class="docutils literal notranslate"><span class="pre">'TR'</span></code>, <code class="docutils literal notranslate"><span class="pre">'ML'</span></code>, <code class="docutils literal notranslate"><span class="pre">'MC'</span></code>, <code class="docutils literal notranslate"><span class="pre">'MR'</span></code>, <code class="docutils literal notranslate"><span class="pre">'BL'</span></code>, <code class="docutils literal notranslate"><span class="pre">'BC'</span></code>, <code class="docutils literal notranslate"><span class="pre">'BR'</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">'BL'</span></code>) – Justification of the timestamp box relative to the plot’s bottom-left corner
-(i.e., the plot origin). Give a two-character code that is a combination of a
-horizontal (<strong>L</strong>(eft), <strong>C</strong>(enter), or <strong>R</strong>(ight)) and a vertical
-(<strong>T</strong>(op), <strong>M</strong>(iddle), or <strong>B</strong>(ottom)) code. For example,
-<code class="docutils literal notranslate"><span class="pre">justify=&quot;TL&quot;</span></code> means choosing the <strong>T</strong>op <strong>L</strong>eft point of the timestamp
-as the anchor point.</p></li>
+<li><p><strong>justify</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'TL'</span></code>, <code class="docutils literal notranslate"><span class="pre">'TC'</span></code>, <code class="docutils literal notranslate"><span class="pre">'TR'</span></code>, <code class="docutils literal notranslate"><span class="pre">'ML'</span></code>, <code class="docutils literal notranslate"><span class="pre">'MC'</span></code>, <code class="docutils literal notranslate"><span class="pre">'MR'</span></code>, <code class="docutils literal notranslate"><span class="pre">'BL'</span></code>, <code class="docutils literal notranslate"><span class="pre">'BC'</span></code>, <code class="docutils literal notranslate"><span class="pre">'BR'</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">'BL'</span></code>) – Specify a <a class="reference internal" href="../../techref/justification_codes.html"><span class="doc">2-character justification code</span></a>
+for the timestamp box relative to the current plot origin. The default is the
+Bottom Left (<code class="docutils literal notranslate"><span class="pre">&quot;BL&quot;</span></code>) corner.</p></li>
 <li><p><strong>offset</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span>, default: <code class="docutils literal notranslate"><span class="pre">('-54p',</span> <span class="pre">'-54p')</span></code>) – <em>offset</em> or (<em>offset_x</em>, <em>offset_y</em>).
 Offset the anchor point of the timestamp box by <em>offset_x</em> and <em>offset_y</em>. If a
 single value <em>offset</em> is given, <em>offset_y</em> = <em>offset_x</em> = <em>offset</em>.</p></li>
 <li><p><strong>font</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">'Helvetica,black'</span></code>) – Font of the timestamp and the optional label. Since the GMT logo has a fixed
 height, the font sizes are fixed to be 8-point for the timestamp and 7-point for
-the label. The parameter can’t change the font color for GMT&lt;=6.4.0, only the
-font style.</p></li>
+the label.</p></li>
 <li><p><strong>timefmt</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">'%Y</span> <span class="pre">%b</span> <span class="pre">%d</span> <span class="pre">%H:%M:%S'</span></code>) – Format string for the UNIX timestamp. The format string is parsed by the C
 function <code class="docutils literal notranslate"><span class="pre">strftime</span></code>, so that virtually any text can be used (even not
 containing any time information).</p></li>
@@ -272,9 +270,9 @@ containing any time information).</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jun 18, 2025.
+      <span class="lastupdated">Last updated on Oct 02, 2025.
       </span></p>
   </div>
 

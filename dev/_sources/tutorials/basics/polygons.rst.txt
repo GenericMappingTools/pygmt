@@ -128,8 +128,8 @@ argument passed to ``pen`` is one string with the comma-separated optional value
 .. GENERATED FROM PYTHON SOURCE LINES 52-56
 
 Use the ``fill`` parameter to fill the polygon with a color or
-:doc:`pattern </techref/patterns>`. Note, that there are no lines drawn between the
-data points by default if ``fill`` is used. Use the ``pen`` parameter to add an
+:class:`pattern <pygmt.params.Pattern>`. Note, that there are no lines drawn between
+the data points by default if ``fill`` is used. Use the ``pen`` parameter to add an
 outline around the polygon.
 
 .. GENERATED FROM PYTHON SOURCE LINES 56-64
@@ -244,7 +244,7 @@ When using the ``fill`` parameter, the polygon is automatically closed.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.524 seconds)
+   **Total running time of the script:** (0 minutes 0.518 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_polygons.py:

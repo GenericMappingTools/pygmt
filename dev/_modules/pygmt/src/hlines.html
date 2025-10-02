@@ -12,7 +12,7 @@
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/hlines.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -159,7 +159,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTInvalidInput</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTValueError</span>
 
 <span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hlines&quot;</span><span class="p">]</span>
 
@@ -213,8 +213,8 @@
 <span class="sd">    label</span>
 <span class="sd">        Label for the line(s), to be displayed in the legend.</span>
 <span class="sd">    no_clip</span>
-<span class="sd">        If ``True``, do not clip lines outside the plot region. Only makes sense in the</span>
-<span class="sd">        Cartesian coordinate system.</span>
+<span class="sd">        Do **not** clip lines outside the plot region. Only makes sense in the Cartesian</span>
+<span class="sd">        coordinate system. [Default is ``False`` to clip lines at the plot region.]</span>
 <span class="sd">    perspective</span>
 <span class="sd">        Select perspective view and set the azimuth and elevation angle of the</span>
 <span class="sd">        viewpoint. Refer to :meth:`pygmt.Figure.plot` for details.</span>
@@ -253,11 +253,12 @@
 
     <span class="c1"># Check if xmin/xmax are scalars or have the expected length.</span>
     <span class="k">if</span> <span class="n">_xmin</span><span class="o">.</span><span class="n">size</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="n">nlines</span><span class="p">}</span> <span class="ow">or</span> <span class="n">_xmax</span><span class="o">.</span><span class="n">size</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="n">nlines</span><span class="p">}:</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;&#39;xmin&#39; and &#39;xmax&#39; are expected to be scalars or have lengths &#39;</span><span class="si">{</span><span class="n">nlines</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;but lengths &#39;</span><span class="si">{</span><span class="n">_xmin</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s2">&#39; and &#39;</span><span class="si">{</span><span class="n">_xmax</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s2">&#39; are given.&quot;</span>
+        <span class="n">_value</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_xmin</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">_xmax</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
+            <span class="n">_value</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;size for &#39;xmin&#39;/&#39;xmax&#39;&quot;</span><span class="p">,</span>
+            <span class="n">reason</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;&#39;xmin&#39;/&#39;xmax&#39; are expected to be scalars or have lengths </span><span class="si">{</span><span class="n">nlines</span><span class="si">!r}</span><span class="s2">.&quot;</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
     <span class="c1"># Repeat xmin/xmax to match the length of y if they are scalars.</span>
     <span class="k">if</span> <span class="n">nlines</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
@@ -301,9 +302,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jun 18, 2025.
+      <span class="lastupdated">Last updated on Oct 02, 2025.
       </span></p>
   </div>
 

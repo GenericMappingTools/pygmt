@@ -13,7 +13,7 @@
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/gallery/embellishments/colorbar.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -108,6 +108,7 @@
 <li class="toctree-l3"><a class="reference internal" href="legend.html">Legend</a></li>
 <li class="toctree-l3"><a class="reference internal" href="colorbars_multiple.html">Multiple colormaps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="scalebar.html">Scale bar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="text_formatting.html">Text formatting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="timestamp.html">Timestamp</a></li>
 </ul>
 </li>
@@ -197,16 +198,15 @@ to download the full example code.</p>
 <span id="sphx-glr-gallery-embellishments-colorbar-py"></span><h1>Colorbar<a class="headerlink" href="#colorbar" title="Link to this heading"></a></h1>
 <p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.colorbar</span></code></a> method creates a color scalebar.
 The colormap is set via the <code class="docutils literal notranslate"><span class="pre">cmap</span></code> parameter. A full list of available
-color palette tables can be found at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/reference/cpts.html">https://docs.generic-mapping-tools.org/6.5/reference/cpts.html</a>.
+color palette tables can be found at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/reference/cpts.html">https://docs.generic-mapping-tools.org/6.6/reference/cpts.html</a>.
 Use the <code class="docutils literal notranslate"><span class="pre">frame</span></code> parameter to add labels to the <strong>x</strong> and <strong>y</strong> axes
 of the colorbar by appending <strong>+l</strong> followed by the desired text. To add
 and adjust the annotations (<strong>a</strong>) and ticks (<strong>f</strong>) append the letter
 followed by the desired interval. The placement of the colorbar is set
 via the <code class="docutils literal notranslate"><span class="pre">position</span></code> parameter. There are the following options:</p>
 <ul class="simple">
-<li><p><strong>j/J</strong>: placed inside/outside the plot bounding box using any 2-character
-combination of vertical (<strong>T</strong>op, <strong>M</strong>iddle, <strong>B</strong>ottom) and
-horizontal (<strong>L</strong>eft, <strong>C</strong>enter, <strong>R</strong>ight) alignment codes, e.g.
+<li><p><strong>j/J</strong>: placed inside/outside the plot bounding box using a
+<a class="reference internal" href="../../techref/justification_codes.html"><span class="doc">2-character justification code</span></a>, e.g.,
 <code class="docutils literal notranslate"><span class="pre">position=&quot;jTR&quot;</span></code> for Top Right.</p></li>
 <li><p><strong>g</strong>: using map coordinates, e.g. <code class="docutils literal notranslate"><span class="pre">position=&quot;g170/-45&quot;</span></code> for longitude
 170° East, latitude 45° South.</p></li>
@@ -279,7 +279,7 @@ from anchor point.</p></li>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.162 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.163 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-embellishments-colorbar-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/ef6bc1f26c32366408d403de81db1e34/colorbar.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">colorbar.ipynb</span></code></a></p>
@@ -307,9 +307,9 @@ from anchor point.</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jun 18, 2025.
+      <span class="lastupdated">Last updated on Oct 02, 2025.
       </span></p>
   </div>
 

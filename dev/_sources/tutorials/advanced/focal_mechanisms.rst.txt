@@ -33,12 +33,13 @@ in respect to the chosen input type and convention (i.e., the expected column or
 keys, or column names). In this tutorial we focus on how to adjust the display of the
 beachballs.
 
-.. GENERATED FROM PYTHON SOURCE LINES 19-28
+.. GENERATED FROM PYTHON SOURCE LINES 19-29
 
 .. code-block:: Python
 
     import pandas as pd
     import pygmt
+    from pygmt.params import Pattern
 
     # Set up arguments for basemap
     region = [-5, 5, -5, 5]
@@ -53,7 +54,7 @@ beachballs.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 29-34
+.. GENERATED FROM PYTHON SOURCE LINES 30-35
 
 Setting up the focal mechanism data
 -----------------------------------
@@ -61,7 +62,7 @@ Setting up the focal mechanism data
 We store focal mechanism parameters for two single events in dictionaries using the
 moment tensor and Aki and Richards conventions:
 
-.. GENERATED FROM PYTHON SOURCE LINES 34-49
+.. GENERATED FROM PYTHON SOURCE LINES 35-50
 
 .. code-block:: Python
 
@@ -87,7 +88,7 @@ moment tensor and Aki and Richards conventions:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-63
+.. GENERATED FROM PYTHON SOURCE LINES 51-64
 
 Plotting a single beachball
 ---------------------------
@@ -103,7 +104,7 @@ a scalar seismic moment of :math:`M_0 = 4.0 \times 10^{23}` dyn cm) and the beac
 size is proportional to the magnitude. Append ``"+l"`` to force the radius to be
 proportional to the seismic moment.
 
-.. GENERATED FROM PYTHON SOURCE LINES 63-72
+.. GENERATED FROM PYTHON SOURCE LINES 64-73
 
 .. code-block:: Python
 
@@ -128,7 +129,7 @@ proportional to the seismic moment.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 73-80
+.. GENERATED FROM PYTHON SOURCE LINES 74-81
 
 Plotting the components of a seismic moment tensor
 --------------------------------------------------
@@ -138,7 +139,7 @@ part can be further decomposed into multiple parts (e.g., a double couple (DC) a
 compensated linear vector dipole (CLVD)). Use the ``component`` parameter to specify
 the component you want to plot.
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-97
+.. GENERATED FROM PYTHON SOURCE LINES 81-98
 
 .. code-block:: Python
 
@@ -171,20 +172,17 @@ the component you want to plot.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 98-105
+.. GENERATED FROM PYTHON SOURCE LINES 99-104
 
 Filling the quadrants
 ---------------------
 
 Use the parameters ``compressionfill`` and ``extensionfill`` to fill the quadrants
-with different colors or patterns. Regarding patterns see the gallery example
-:doc:`Bit and hachure patterns </gallery/symbols/patterns>` and the Technical
-Reference :doc:`Bit and hachure patterns </techref/patterns>`.
+with different colors or :class:`patterns <pygmt.params.Pattern>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 105-133
+.. GENERATED FROM PYTHON SOURCE LINES 104-131
 
 .. code-block:: Python
-
 
     fig = pygmt.Figure()
     fig.basemap(region=region, projection=projection, frame=frame)
@@ -205,8 +203,8 @@ Reference :doc:`Bit and hachure patterns </techref/patterns>`.
         longitude=2,
         latitude=0,
         depth=0,
-        compressionfill="p8",
-        extensionfill="p31",
+        compressionfill=Pattern(8),
+        extensionfill=Pattern(31),
         outline=True,
     )
 
@@ -225,7 +223,7 @@ Reference :doc:`Bit and hachure patterns </techref/patterns>`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 134-139
+.. GENERATED FROM PYTHON SOURCE LINES 132-137
 
 Adjusting the outlines
 ----------------------
@@ -233,7 +231,7 @@ Adjusting the outlines
 Use the parameters ``pen`` and ``outline`` for adjusting the circumference of the
 beachball or all lines (i.e, circumference and both nodal planes).
 
-.. GENERATED FROM PYTHON SOURCE LINES 139-165
+.. GENERATED FROM PYTHON SOURCE LINES 137-163
 
 .. code-block:: Python
 
@@ -275,7 +273,7 @@ beachball or all lines (i.e, circumference and both nodal planes).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 166-175
+.. GENERATED FROM PYTHON SOURCE LINES 164-173
 
 Highlighting the nodal planes
 -----------------------------
@@ -287,7 +285,7 @@ remain unfilled (transparent). We can make use of the stacking concept of (Py)GM
 and use ``nodal`` in combination with the ``outline``, ``compressionfill`` /
 ``extensionfill`` and ``pen`` parameters.
 
-.. GENERATED FROM PYTHON SOURCE LINES 175-208
+.. GENERATED FROM PYTHON SOURCE LINES 173-206
 
 .. code-block:: Python
 
@@ -336,7 +334,7 @@ and use ``nodal`` in combination with the ``outline``, ``compressionfill`` /
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 209-220
+.. GENERATED FROM PYTHON SOURCE LINES 207-218
 
 Adding offset from event location
 ---------------------------------
@@ -350,7 +348,7 @@ well as the outline of the circle are plotted with the  setting of pen, or can b
 adjusted separately. The fill of the small circle corresponds to the fill of the
 compressive quadrantes.
 
-.. GENERATED FROM PYTHON SOURCE LINES 220-249
+.. GENERATED FROM PYTHON SOURCE LINES 218-247
 
 .. code-block:: Python
 
@@ -395,7 +393,7 @@ compressive quadrantes.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 250-256
+.. GENERATED FROM PYTHON SOURCE LINES 248-254
 
 Plotting multiple beachballs
 ----------------------------
@@ -404,7 +402,7 @@ Now we want to plot multiple beachballs with one call of :meth:`pygmt.Figure.mec
 use data of four earthquakes taken from USGS. For each focal mechanism parameter a
 list with a length corresponding to the number of events has to be given.
 
-.. GENERATED FROM PYTHON SOURCE LINES 256-279
+.. GENERATED FROM PYTHON SOURCE LINES 254-277
 
 .. code-block:: Python
 
@@ -438,7 +436,7 @@ list with a length corresponding to the number of events has to be given.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 280-291
+.. GENERATED FROM PYTHON SOURCE LINES 278-289
 
 Adding a label
 --------------
@@ -452,7 +450,7 @@ be applied by appending **+o** with values for *dx*\ /*dy*. Add a colored [Defau
 white] box behind the label via the label ``labelbox``. Force a fixed size of the
 beachball by appending **+m** to the argument passed to the ``scale`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 291-300
+.. GENERATED FROM PYTHON SOURCE LINES 289-298
 
 .. code-block:: Python
 
@@ -477,7 +475,7 @@ beachball by appending **+m** to the argument passed to the ``scale`` parameter.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 301-308
+.. GENERATED FROM PYTHON SOURCE LINES 299-306
 
 Using size-coding and color-coding
 ----------------------------------
@@ -487,7 +485,7 @@ The beachball can be sized and colored by the quantities given as ``magnitude`` 
 parameter ``cmap`` to pass the descired colormap. Now, the fills of the small circles
 indicating the event locations are given by the colormap.
 
-.. GENERATED FROM PYTHON SOURCE LINES 308-327
+.. GENERATED FROM PYTHON SOURCE LINES 306-325
 
 .. code-block:: Python
 
@@ -525,7 +523,7 @@ indicating the event locations are given by the colormap.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.242 seconds)
+   **Total running time of the script:** (0 minutes 1.258 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_focal_mechanisms.py:

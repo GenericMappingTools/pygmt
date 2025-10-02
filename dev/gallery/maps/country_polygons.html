@@ -13,7 +13,7 @@
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/gallery/maps/country_polygons.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Political boundaries" href="borders.html" />
-    <link rel="prev" title="Color land and water" href="land_and_water.html" />
+    <link rel="prev" title="EPSG codes" href="epsg_codes.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -94,6 +94,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#maps-and-map-elements">Maps and map elements</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="choropleth_map.html">Choropleth map</a></li>
 <li class="toctree-l3"><a class="reference internal" href="land_and_water.html">Color land and water</a></li>
+<li class="toctree-l3"><a class="reference internal" href="epsg_codes.html">EPSG codes</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Highlight country, continent and state polygons</a></li>
 <li class="toctree-l3"><a class="reference internal" href="borders.html">Political boundaries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="shorelines.html">Shorelines</a></li>
@@ -192,11 +193,12 @@ to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="highlight-country-continent-and-state-polygons">
 <span id="sphx-glr-gallery-maps-country-polygons-py"></span><h1>Highlight country, continent and state polygons<a class="headerlink" href="#highlight-country-continent-and-state-polygons" title="Link to this heading"></a></h1>
-<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.coast</span></code></a> method can highlight country polygons
-via the <code class="docutils literal notranslate"><span class="pre">dcw</span></code> parameter. It accepts the country code or full
-country name and can draw its borders and add a color to its landmass.
-It’s also possible to define multiple countries at once by separating
-the individual names with commas.</p>
+<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.coast</span></code></a> method can highlight country polygons via the <code class="docutils literal notranslate"><span class="pre">dcw</span></code>
+parameter. It accepts the country code (following the 2-letter
+<a class="reference external" href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 convention</a>) or
+full country name and can draw its borders and add a color to its landmass. It’s also
+possible to define multiple countries at once by separating the individual names with
+commas.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
 
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
@@ -282,7 +284,7 @@ front of the continent code to differentiate it from a country code.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_country_polygons_003.png" srcset="../../_images/sphx_glr_country_polygons_003.png" alt="country polygons" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 7.160 seconds)</p>
+<img src="../../_images/sphx_glr_country_polygons_003.png" srcset="../../_images/sphx_glr_country_polygons_003.png" alt="country polygons" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 7.221 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-maps-country-polygons-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/8aabe9da1941250aa3df727c5e877460/country_polygons.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">country_polygons.ipynb</span></code></a></p>
@@ -302,7 +304,7 @@ front of the continent code to differentiate it from a country code.</p>
           </div>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="land_and_water.html" class="btn btn-neutral float-left" title="Color land and water" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="epsg_codes.html" class="btn btn-neutral float-left" title="EPSG codes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="borders.html" class="btn btn-neutral float-right" title="Political boundaries" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
@@ -310,9 +312,9 @@ front of the continent code to differentiate it from a country code.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jun 18, 2025.
+      <span class="lastupdated">Last updated on Oct 02, 2025.
       </span></p>
   </div>
 

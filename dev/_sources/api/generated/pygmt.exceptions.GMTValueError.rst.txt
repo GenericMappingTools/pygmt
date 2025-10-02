@@ -1,0 +1,11 @@
+pygmt.exceptions.GMTValueError
+==============================
+
+.. currentmodule:: pygmt.exceptions
+
+.. autoexception:: GMTValueError
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

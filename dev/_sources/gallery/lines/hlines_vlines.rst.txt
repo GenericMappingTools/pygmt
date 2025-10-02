@@ -30,12 +30,13 @@ Cartesian coordinate system
 ---------------------------
 In Cartesian coordinate systems lines are plotted as straight lines.
 
-.. GENERATED FROM PYTHON SOURCE LINES 13-57
+.. GENERATED FROM PYTHON SOURCE LINES 13-58
 
 .. code-block:: Python
 
 
     import pygmt
+    from pygmt.params import Box
 
     fig = pygmt.Figure()
 
@@ -55,7 +56,7 @@ In Cartesian coordinate systems lines are plotted as straight lines.
     fig.hlines(
         y=[2, 3], xmin=[0, 1], xmax=[7, 7.5], pen="1.5p,dodgerblue3", label="Lines 7 & 8"
     )
-    fig.legend(position="JBR+jBR+o0.2c", box="+gwhite+p1p")
+    fig.legend(position="JBR+jBR+o0.2c", box=Box(pen="1p", fill="white"))
 
     fig.shift_origin(xshift="w+2c")
 
@@ -90,7 +91,7 @@ In Cartesian coordinate systems lines are plotted as straight lines.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-63
+.. GENERATED FROM PYTHON SOURCE LINES 59-64
 
 Geographic coordinate system
 ----------------------------
@@ -98,7 +99,7 @@ The same can be done in geographic coordinate systems where "horizontal" means l
 are plotted along parallels (constant latitude) while "vertical" means lines are
 plotted along meridians (constant longitude).
 
-.. GENERATED FROM PYTHON SOURCE LINES 63-88
+.. GENERATED FROM PYTHON SOURCE LINES 64-89
 
 .. code-block:: Python
 
@@ -139,7 +140,7 @@ plotted along meridians (constant longitude).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 89-94
+.. GENERATED FROM PYTHON SOURCE LINES 90-95
 
 Polar coordinate system
 -----------------------
@@ -147,7 +148,7 @@ When using polar coordinate systems "horizontal" means lines are plotted as arcs
 a constant radius while "vertical" means lines are plotted as straight lines along
 radius at a specified azimuth.
 
-.. GENERATED FROM PYTHON SOURCE LINES 94-118
+.. GENERATED FROM PYTHON SOURCE LINES 95-119
 
 .. code-block:: Python
 
@@ -190,7 +191,7 @@ radius at a specified azimuth.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.821 seconds)
+   **Total running time of the script:** (0 minutes 0.831 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_hlines_vlines.py:

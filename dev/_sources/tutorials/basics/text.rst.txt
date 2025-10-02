@@ -70,7 +70,7 @@ to specify the text and position.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 28-46
+.. GENERATED FROM PYTHON SOURCE LINES 28-42
 
 Adjusting the text label
 ------------------------
@@ -84,14 +84,10 @@ There are several optional parameters to adjust the text label:
 * ``angle``: Specifies the rotation of the text. It is measured counter-clockwise
   from the horizontal in degrees.
 * ``justify``: Defines the anchor point of the bounding box for the text. It is
-  specified by a two-letter (order independent) code, chosen from:
-
-  * Vertical: **T**\(op), **M**\(iddle), **B**\(ottom)
-  * Horizontal: **L**\(eft), **C**\(entre), **R**\(ight)
-
+  specified by a :doc:`2-character justification code </techref/justification_codes>`.
 * ``offset``: Shifts the text relatively to the reference point.
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-97
+.. GENERATED FROM PYTHON SOURCE LINES 42-93
 
 .. code-block:: Python
 
@@ -158,7 +154,7 @@ There are several optional parameters to adjust the text label:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 98-107
+.. GENERATED FROM PYTHON SOURCE LINES 94-103
 
 Adding a text box
 -----------------
@@ -170,7 +166,7 @@ There are different optional parameters to add and customize a text box:
 * ``clearance``: Adds margins in x-and y-directions between the text and the outline
   of the text box. Can be used to get a text box with rounded edges.
 
-.. GENERATED FROM PYTHON SOURCE LINES 107-128
+.. GENERATED FROM PYTHON SOURCE LINES 103-124
 
 .. code-block:: Python
 
@@ -207,7 +203,7 @@ There are different optional parameters to add and customize a text box:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 129-134
+.. GENERATED FROM PYTHON SOURCE LINES 125-130
 
 Adding multiple text labels with individual configurations
 ----------------------------------------------------------
@@ -215,7 +211,7 @@ Adding multiple text labels with individual configurations
 To add multiple text labels with individual ``font``, ``angle``, and ``justify``,
 one can provide lists with the corresponding arguments.
 
-.. GENERATED FROM PYTHON SOURCE LINES 134-154
+.. GENERATED FROM PYTHON SOURCE LINES 130-150
 
 .. code-block:: Python
 
@@ -251,7 +247,7 @@ one can provide lists with the corresponding arguments.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 155-161
+.. GENERATED FROM PYTHON SOURCE LINES 151-157
 
 Using an external input file
 ----------------------------
@@ -260,7 +256,7 @@ It is also possible to add text labels via an external input file containing ``x
 ``y``, and ``text`` columns. Addionaly, columns to set the ``angle``, ``front``,
 and ``justify`` parameters can be provided. Here, we give a complete example.
 
-.. GENERATED FROM PYTHON SOURCE LINES 161-188
+.. GENERATED FROM PYTHON SOURCE LINES 157-184
 
 .. code-block:: Python
 
@@ -303,23 +299,19 @@ and ``justify`` parameters can be provided. Here, we give a complete example.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 189-202
+.. GENERATED FROM PYTHON SOURCE LINES 185-194
 
 Using the position parameter
 ----------------------------
 
 Instead of using the ``x`` and ``y`` parameters, the ``position`` parameter can be
 specified to set the reference point for the text on the plot. As for the ``justify``
-parameter, the ``position`` parameter is specified by a two-letter (order independent)
-code, chosen from:
-
-* Vertical: **T**\(op), **M**\(iddle), **B**\(ottom)
-* Horizontal: **L**\(eft), **C**\(entre), **R**\(ight)
-
+parameter, the ``position`` parameter is specified by a
+:doc:`2-character justification code </techref/justification_codes>`.
 This can be helpful to add a tag to a subplot or text labels out of the plot or map
 frame, e.g., for depth slices.
 
-.. GENERATED FROM PYTHON SOURCE LINES 202-233
+.. GENERATED FROM PYTHON SOURCE LINES 194-225
 
 .. code-block:: Python
 
@@ -366,7 +358,7 @@ frame, e.g., for depth slices.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 234-241
+.. GENERATED FROM PYTHON SOURCE LINES 226-233
 
 Advanced configuration
 ----------------------
@@ -379,7 +371,7 @@ luck!
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.805 seconds)
+   **Total running time of the script:** (0 minutes 0.794 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_text.py:

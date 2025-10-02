@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:00.361** total execution time for 2 files **from gallery/seismology**:
+**00:00.366** total execution time for 2 files **from gallery/seismology**:
 
 .. container::
 
@@ -36,5 +36,5 @@ Computation times
      - 00:00.209
      - 0.0
    * - :ref:`sphx_glr_gallery_seismology_meca.py` (``meca.py``)
-     - 00:00.152
+     - 00:00.157
      - 0.0

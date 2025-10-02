@@ -12,7 +12,7 @@
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/xarray/accessor.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -157,12 +157,25 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">contextlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">functools</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.enums</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridRegistration</span><span class="p">,</span> <span class="n">GridType</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTInvalidInput</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.grdinfo</span><span class="w"> </span><span class="kn">import</span> <span class="n">grdinfo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTValueError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">dimfilter</span><span class="p">,</span>
+    <span class="n">grdclip</span><span class="p">,</span>
+    <span class="n">grdcut</span><span class="p">,</span>
+    <span class="n">grdfill</span><span class="p">,</span>
+    <span class="n">grdfilter</span><span class="p">,</span>
+    <span class="n">grdgradient</span><span class="p">,</span>
+    <span class="n">grdhisteq</span><span class="p">,</span>
+    <span class="n">grdinfo</span><span class="p">,</span>
+    <span class="n">grdproject</span><span class="p">,</span>
+    <span class="n">grdsample</span><span class="p">,</span>
+    <span class="n">grdtrack</span><span class="p">,</span>
+<span class="p">)</span>
 
 
 <div class="viewcode-block" id="GMTDataArrayAccessor">
@@ -178,6 +191,11 @@
 
 <span class="sd">    - ``registration``: Grid registration type :class:`pygmt.enums.GridRegistration`.</span>
 <span class="sd">    - ``gtype``: Grid coordinate system type :class:`pygmt.enums.GridType`.</span>
+
+<span class="sd">    The *gmt* accessor also provides a set of grid-operation methods that enables</span>
+<span class="sd">    applying GMT&#39;s grid processing functionalities directly to the current</span>
+<span class="sd">    :class:`xarray.DataArray` object. See the summary table below for the list of</span>
+<span class="sd">    available methods.</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
@@ -306,6 +324,19 @@
 <span class="sd">    &gt;&gt;&gt; zval.gmt.gtype = GridType.GEOGRAPHIC</span>
 <span class="sd">    &gt;&gt;&gt; zval.gmt.registration, zval.gmt.gtype</span>
 <span class="sd">    (&lt;GridRegistration.GRIDLINE: 0&gt;, &lt;GridType.GEOGRAPHIC: 1&gt;)</span>
+
+<span class="sd">    Instead of calling a grid-processing function and passing the</span>
+<span class="sd">    :class:`xarray.DataArray` object as an input, you can call the corresponding method</span>
+<span class="sd">    directly on the object. For example, the following two are equivalent:</span>
+
+<span class="sd">    &gt;&gt;&gt; from pygmt.datasets import load_earth_relief</span>
+<span class="sd">    &gt;&gt;&gt; grid = load_earth_relief(resolution=&quot;30m&quot;, region=[10, 30, 15, 25])</span>
+<span class="sd">    &gt;&gt;&gt; # Create a new grid from an input grid. Set all values below 1,000 to 0 and all</span>
+<span class="sd">    &gt;&gt;&gt; # values above 1,500 to 10,000.</span>
+<span class="sd">    &gt;&gt;&gt; # Option 1:</span>
+<span class="sd">    &gt;&gt;&gt; new_grid = pygmt.grdclip(grid=grid, below=[1000, 0], above=[1500, 10000])</span>
+<span class="sd">    &gt;&gt;&gt; # Option 2:</span>
+<span class="sd">    &gt;&gt;&gt; new_grid = grid.gmt.clip(below=[1000, 0], above=[1500, 10000])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xarray_obj</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">):</span>
@@ -336,11 +367,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">registration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">GridRegistration</span> <span class="o">|</span> <span class="nb">int</span><span class="p">):</span>
         <span class="c1"># TODO(Python&gt;=3.12): Simplify to `if value not in GridRegistration`.</span>
         <span class="k">if</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">GridRegistration</span><span class="o">.</span><span class="n">__members__</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Invalid grid registration: &#39;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&#39;. Should be either &quot;</span>
-                <span class="s2">&quot;GridRegistration.GRIDLINE (0) or GridRegistration.PIXEL (1).&quot;</span>
+            <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
+                <span class="n">value</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;grid registration&quot;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">GridRegistration</span>
             <span class="p">)</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_registration</span> <span class="o">=</span> <span class="n">GridRegistration</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
     <span class="nd">@property</span>
@@ -354,12 +383,36 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">gtype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">GridType</span> <span class="o">|</span> <span class="nb">int</span><span class="p">):</span>
         <span class="c1"># TODO(Python&gt;=3.12): Simplify to `if value not in GridType`.</span>
         <span class="k">if</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">GridType</span><span class="o">.</span><span class="n">__members__</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Invalid grid coordinate system type: &#39;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
-                <span class="s2">&quot;Should be either GridType.CARTESIAN (0) or GridType.GEOGRAPHIC (1).&quot;</span>
+            <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
+                <span class="n">value</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;grid coordinate system type&quot;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">GridType</span>
             <span class="p">)</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_gtype</span> <span class="o">=</span> <span class="n">GridType</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_gtype</span> <span class="o">=</span> <span class="n">GridType</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_make_method</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a wrapper method for PyGMT grid-processing methods.</span>
+
+<span class="sd">        The :class:`xarray.DataArray` object is passed as the first argument.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">wrapper</span>
+
+    <span class="c1"># Accessor methods for grid operations.</span>
+    <span class="n">clip</span> <span class="o">=</span> <span class="n">_make_method</span><span class="p">(</span><span class="n">grdclip</span><span class="p">)</span>
+    <span class="n">cut</span> <span class="o">=</span> <span class="n">_make_method</span><span class="p">(</span><span class="n">grdcut</span><span class="p">)</span>
+    <span class="n">dimfilter</span> <span class="o">=</span> <span class="n">_make_method</span><span class="p">(</span><span class="n">dimfilter</span><span class="p">)</span>
+    <span class="n">histeq</span> <span class="o">=</span> <span class="n">_make_method</span><span class="p">(</span><span class="n">grdhisteq</span><span class="o">.</span><span class="n">equalize_grid</span><span class="p">)</span>
+    <span class="n">fill</span> <span class="o">=</span> <span class="n">_make_method</span><span class="p">(</span><span class="n">grdfill</span><span class="p">)</span>
+    <span class="nb">filter</span> <span class="o">=</span> <span class="n">_make_method</span><span class="p">(</span><span class="n">grdfilter</span><span class="p">)</span>
+    <span class="n">gradient</span> <span class="o">=</span> <span class="n">_make_method</span><span class="p">(</span><span class="n">grdgradient</span><span class="p">)</span>
+    <span class="n">project</span> <span class="o">=</span> <span class="n">_make_method</span><span class="p">(</span><span class="n">grdproject</span><span class="p">)</span>
+    <span class="n">sample</span> <span class="o">=</span> <span class="n">_make_method</span><span class="p">(</span><span class="n">grdsample</span><span class="p">)</span>
+    <span class="n">track</span> <span class="o">=</span> <span class="n">_make_method</span><span class="p">(</span><span class="n">grdtrack</span><span class="p">)</span></div>
 
 </pre></div>
 
@@ -372,9 +425,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jun 18, 2025.
+      <span class="lastupdated">Last updated on Oct 02, 2025.
       </span></p>
   </div>
 

@@ -24,13 +24,14 @@ Creating legends
 The :meth:`pygmt.Figure.legend` method creates legends, whereby auto-legends as well as
 manually created legends are supported.
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-14
+.. GENERATED FROM PYTHON SOURCE LINES 10-15
 
 .. code-block:: Python
 
     import io
 
     import pygmt
+    from pygmt.params import Box
 
 
 
@@ -39,7 +40,7 @@ manually created legends are supported.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-30
+.. GENERATED FROM PYTHON SOURCE LINES 16-31
 
 Create an auto-legend
 ---------------------
@@ -57,7 +58,7 @@ modifiers to the string passed to ``label``. For a list of available modifiers s
 :gmt-docs:`gmt.html#l-full`. To create a :doc:`multiple-column legend
 </gallery/embellishments/legend>` **+N** is used with the desired number of columns.
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-45
+.. GENERATED FROM PYTHON SOURCE LINES 31-46
 
 .. code-block:: Python
 
@@ -88,7 +89,7 @@ modifiers to the string passed to ``label``. For a list of available modifiers s
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-52
+.. GENERATED FROM PYTHON SOURCE LINES 47-53
 
 Adjust the position
 -------------------
@@ -97,7 +98,7 @@ Use the ``position`` parameter to adjust the position of the legend. Add an offs
 **+o** for the x- and y-directions. Additionally append **+w** to adjust the width
 of the legend. Note, no box is drawn by default if ``position`` is used.
 
-.. GENERATED FROM PYTHON SOURCE LINES 52-68
+.. GENERATED FROM PYTHON SOURCE LINES 53-69
 
 .. code-block:: Python
 
@@ -129,7 +130,7 @@ of the legend. Note, no box is drawn by default if ``position`` is used.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 69-74
+.. GENERATED FROM PYTHON SOURCE LINES 70-75
 
 Add a box
 ---------
@@ -137,7 +138,7 @@ Use the ``box`` parameter for adjusting the box around the legend. The outline o
 box can be adjusted by appending **+p**. Append **+g** to fill the legend with a color
 (or pattern) [Default is no fill]. The default of ``position`` is preserved.
 
-.. GENERATED FROM PYTHON SOURCE LINES 74-98
+.. GENERATED FROM PYTHON SOURCE LINES 75-99
 
 .. code-block:: Python
 
@@ -159,8 +160,8 @@ box can be adjusted by appending **+p**. Append **+g** to fill the legend with a
     fig.plot(x=[-3, 3], y=[-2, -2], pen="darkred", label="darkred line")
 
     # Add a box with a 2-points thick blue, solid outline and a white fill with a
-    # transparency of 70 percentage ("@30").
-    fig.legend(position="jTL+o0.3c/0.2c", box="+p2p,blue+gwhite@30")
+    # transparency of 30 percent ("@30").
+    fig.legend(position="jTL+o0.3c/0.2c", box=Box(pen="2p,blue", fill="white@30"))
 
     fig.show()
 
@@ -177,7 +178,7 @@ box can be adjusted by appending **+p**. Append **+g** to fill the legend with a
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 99-115
+.. GENERATED FROM PYTHON SOURCE LINES 100-116
 
 Create a manual legend
 ----------------------
@@ -196,7 +197,7 @@ The following example is orientated on the related GMT example at
 
 We start with setting up the :class:`io.StringIO` object.
 
-.. GENERATED FROM PYTHON SOURCE LINES 115-146
+.. GENERATED FROM PYTHON SOURCE LINES 116-147
 
 .. code-block:: Python
 
@@ -238,12 +239,12 @@ We start with setting up the :class:`io.StringIO` object.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 147-149
+.. GENERATED FROM PYTHON SOURCE LINES 148-150
 
 Now, we can add a legend based on this :class:`io.StringIO` object. For multi-columns
 legends, the width (**+w**) has to be specified via a the ``position`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 149-159
+.. GENERATED FROM PYTHON SOURCE LINES 150-160
 
 .. code-block:: Python
 
@@ -253,7 +254,7 @@ legends, the width (**+w**) has to be specified via a the ``position`` parameter
     fig.basemap(region=[-5, 5, -5, 5], projection="M10c", frame=True)
 
     # Pass the io.StringIO object to the "spec" parameter
-    fig.legend(spec=spec_io, position="jMC+w9c", box="+p1p,gray50+ggray95")
+    fig.legend(spec=spec_io, position="jMC+w9c", box=Box(pen="1p,gray50", fill="gray95"))
 
     fig.show()
 
@@ -272,7 +273,7 @@ legends, the width (**+w**) has to be specified via a the ``position`` parameter
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.294 seconds)
+   **Total running time of the script:** (0 minutes 1.090 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_legends.py:

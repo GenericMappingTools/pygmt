@@ -12,7 +12,7 @@
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/figure.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -174,7 +174,7 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTInvalidInput</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTValueError</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">launch_external_viewer</span><span class="p">,</span> <span class="n">unique_name</span>
 
 
@@ -392,35 +392,40 @@
             <span class="k">case</span> <span class="s2">&quot;kml&quot;</span><span class="p">:</span>  <span class="c1"># KML</span>
                 <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;W&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;+k&quot;</span>
             <span class="k">case</span> <span class="s2">&quot;ps&quot;</span><span class="p">:</span>
-                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Extension &#39;.ps&#39; is not supported. Use &#39;.eps&#39; or &#39;.pdf&#39; instead.&quot;</span>
-                <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
+                    <span class="n">ext</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;file extension&quot;</span><span class="p">,</span>
+                    <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Extension &#39;.ps&#39; is not supported. Use &#39;.eps&#39; or &#39;.pdf&#39; instead.&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
             <span class="k">case</span> <span class="n">ext</span> <span class="k">if</span> <span class="n">ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fmts</span><span class="p">:</span>
-                <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Unknown extension &#39;.</span><span class="si">{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
-                <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
+                    <span class="n">ext</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;file extension&quot;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">fmts</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+                <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">transparent</span> <span class="ow">and</span> <span class="n">ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;kml&quot;</span><span class="p">,</span> <span class="s2">&quot;png&quot;</span><span class="p">}:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Transparency unavailable for &#39;</span><span class="si">{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&#39;, only for png and kml.&quot;</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
+                <span class="n">transparent</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="s2">&quot;value for parameter &#39;transparent&#39;&quot;</span><span class="p">,</span>
+                <span class="n">reason</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Transparency unavailable for &#39;</span><span class="si">{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&#39;, only for png and kml.&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="k">if</span> <span class="n">anti_alias</span><span class="p">:</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;Qt&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;Qg&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
 
         <span class="k">if</span> <span class="n">worldfile</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">ext</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;eps&quot;</span><span class="p">,</span> <span class="s2">&quot;kml&quot;</span><span class="p">,</span> <span class="s2">&quot;pdf&quot;</span><span class="p">,</span> <span class="s2">&quot;tiff&quot;</span><span class="p">}:</span>
-                <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Saving a world file is not supported for &#39;</span><span class="si">{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&#39; format.&quot;</span>
-                <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
+                    <span class="n">ext</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;file extension&quot;</span><span class="p">,</span>
+                    <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;eps&quot;</span><span class="p">,</span> <span class="s2">&quot;kml&quot;</span><span class="p">,</span> <span class="s2">&quot;pdf&quot;</span><span class="p">,</span> <span class="s2">&quot;tiff&quot;</span><span class="p">],</span>
+                    <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Saving a world file is not supported for this format.&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;W&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="c1"># pytest-mpl v0.17.0 added the &quot;metadata&quot; parameter to Figure.savefig, which is</span>
         <span class="c1"># not recognized. So remove it before calling Figure.psconvert.</span>
         <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;metadata&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">psconvert</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="n">fmts</span><span class="p">[</span><span class="n">ext</span><span class="p">],</span> <span class="n">crop</span><span class="o">=</span><span class="n">crop</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-        <span class="c1"># TODO(GMT&gt;=6.5.0): Remove the workaround for upstream bug in GMT&lt;6.5.0.</span>
-        <span class="c1"># Remove the .pgw world file if exists. Not necessary after GMT 6.5.0.</span>
-        <span class="c1"># See upstream fix https://github.com/GenericMappingTools/gmt/pull/7865</span>
-        <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">&quot;tiff&quot;</span><span class="p">:</span>
-            <span class="n">fname</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.pgw&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">missing_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="c1"># Rename if file extension doesn&#39;t match the input file suffix.</span>
         <span class="k">if</span> <span class="n">ext</span> <span class="o">!=</span> <span class="n">suffix</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
@@ -519,11 +524,11 @@
             <span class="k">case</span> <span class="s2">&quot;none&quot;</span><span class="p">:</span>
                 <span class="k">pass</span>  <span class="c1"># Do nothing</span>
             <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
-                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Invalid display method &#39;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
-                    <span class="s2">&quot;Valid values are &#39;external&#39;, &#39;notebook&#39;, &#39;none&#39; or None.&quot;</span>
-                <span class="p">)</span>
-                <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
+                <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
+                    <span class="n">method</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;display method&quot;</span><span class="p">,</span>
+                    <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;external&quot;</span><span class="p">,</span> <span class="s2">&quot;notebook&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+                <span class="p">)</span></div>
 
 
     <span class="nd">@overload</span>
@@ -659,11 +664,11 @@
         <span class="k">case</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">SHOW_CONFIG</span><span class="p">[</span><span class="s2">&quot;method&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_get_default_display_method</span><span class="p">()</span>
         <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Invalid display method &#39;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
-                <span class="s2">&quot;Valid values are &#39;external&#39;, &#39;notebook&#39;, &#39;none&#39; or None.&quot;</span>
-            <span class="p">)</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
+            <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
+                <span class="n">method</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="s2">&quot;display method&quot;</span><span class="p">,</span>
+                <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;external&quot;</span><span class="p">,</span> <span class="s2">&quot;notebook&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+            <span class="p">)</span></div>
 
 </pre></div>
 
@@ -676,9 +681,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jun 18, 2025.
+      <span class="lastupdated">Last updated on Oct 02, 2025.
       </span></p>
   </div>
 

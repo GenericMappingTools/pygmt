@@ -12,7 +12,7 @@
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/timestamp.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -159,15 +159,14 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">packaging.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">Version</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">AnchorCode</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span><span class="p">,</span> <span class="n">__gmt_version__</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">kwargs_to_strings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span><span class="p">,</span> <span class="n">AliasSystem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span>
 
 <span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span>
 
 
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">offset</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">timestamp</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -180,11 +179,12 @@
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot the GMT timestamp logo.</span>
 
-<span class="sd">    Add the GMT timestamp logo with an optional label at the bottom-left corner of a</span>
-<span class="sd">    plot with an offset of ``(&quot;-54p&quot;, &quot;-54p&quot;)``. The timestamp will be in the locale set</span>
-<span class="sd">    by the environment variable :term:`TZ` (generally local time but can be changed via</span>
-<span class="sd">    ``os.environ[&quot;TZ&quot;]``) and its format is controlled by the ``timefmt`` parameter. It</span>
-<span class="sd">    can also be replaced with any custom text string using the ``text`` parameter.</span>
+<span class="sd">    Add the GMT timestamp logo with an optional label at the bottom-left corner relative</span>
+<span class="sd">    to the current plot origin, with an offset of ``(&quot;-54p&quot;, &quot;-54p&quot;)``. The timestamp</span>
+<span class="sd">    will be in the locale set by the environment variable :term:`TZ` (generally local</span>
+<span class="sd">    time but can be changed via ``os.environ[&quot;TZ&quot;]``) and its format is controlled by</span>
+<span class="sd">    the ``timefmt`` parameter. It can also be replaced with any custom text string using</span>
+<span class="sd">    the ``text`` parameter.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -195,12 +195,9 @@
 <span class="sd">    label</span>
 <span class="sd">        The text string shown after the GMT timestamp logo.</span>
 <span class="sd">    justify</span>
-<span class="sd">        Justification of the timestamp box relative to the plot&#39;s bottom-left corner</span>
-<span class="sd">        (i.e., the plot origin). Give a two-character code that is a combination of a</span>
-<span class="sd">        horizontal (**L**\ (eft), **C**\ (enter), or **R**\ (ight)) and a vertical</span>
-<span class="sd">        (**T**\ (op), **M**\ (iddle), or **B**\ (ottom)) code. For example,</span>
-<span class="sd">        ``justify=&quot;TL&quot;`` means choosing the **T**\ op **L**\ eft point of the timestamp</span>
-<span class="sd">        as the anchor point.</span>
+<span class="sd">        Specify a :doc:`2-character justification code &lt;/techref/justification_codes&gt;`</span>
+<span class="sd">        for the timestamp box relative to the current plot origin. The default is the</span>
+<span class="sd">        Bottom Left (``&quot;BL&quot;``) corner.</span>
 <span class="sd">    offset</span>
 <span class="sd">        *offset* or (*offset_x*, *offset_y*).</span>
 <span class="sd">        Offset the anchor point of the timestamp box by *offset_x* and *offset_y*. If a</span>
@@ -208,8 +205,7 @@
 <span class="sd">    font</span>
 <span class="sd">        Font of the timestamp and the optional label. Since the GMT logo has a fixed</span>
 <span class="sd">        height, the font sizes are fixed to be 8-point for the timestamp and 7-point for</span>
-<span class="sd">        the label. The parameter can&#39;t change the font color for GMT&lt;=6.4.0, only the</span>
-<span class="sd">        font style.</span>
+<span class="sd">        the label.</span>
 <span class="sd">    timefmt</span>
 <span class="sd">        Format string for the UNIX timestamp. The format string is parsed by the C</span>
 <span class="sd">        function ``strftime``, so that virtually any text can be used (even not</span>
@@ -232,40 +228,29 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
 
-    <span class="c1"># Build the options passed to the &quot;plot&quot; module</span>
-    <span class="n">kwdict</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;T&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">}</span>
-    <span class="k">if</span> <span class="n">label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">kwdict</span><span class="p">[</span><span class="s2">&quot;U&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="n">kwdict</span><span class="p">[</span><span class="s2">&quot;U&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;+j</span><span class="si">{</span><span class="n">justify</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">if</span> <span class="n">text</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">64</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;Parameter &#39;text&#39; expects a string no longer than 64 characters. &quot;</span>
+            <span class="s2">&quot;The given text string will be truncated to 64 characters.&quot;</span>
+        <span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="p">)[:</span><span class="mi">64</span><span class="p">]</span>
 
-    <span class="c1"># TODO(GMT&gt;=6.5.0): Remove the patch for upstream bug fixed in GMT 6.5.0.</span>
-    <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">__gmt_version__</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;6.5.0&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;/&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">offset</span><span class="p">):</span>
-        <span class="c1"># Giving a single offset doesn&#39;t work in GMT &lt; 6.5.0.</span>
-        <span class="c1"># See https://github.com/GenericMappingTools/gmt/issues/7107.</span>
-        <span class="n">offset</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">offset</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">offset</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="n">kwdict</span><span class="p">[</span><span class="s2">&quot;U&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;+o</span><span class="si">{</span><span class="n">offset</span><span class="si">}</span><span class="s2">&quot;</span>
-
-    <span class="c1"># The +t modifier was added in GMT 6.5.0.</span>
-    <span class="c1"># See https://github.com/GenericMappingTools/gmt/pull/7127.</span>
-    <span class="k">if</span> <span class="n">text</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">64</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="s2">&quot;Argument of &#39;text&#39; must be no longer than 64 characters. &quot;</span>
-                <span class="s2">&quot;The given text string will be truncated to 64 characters.&quot;</span>
-            <span class="p">)</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-        <span class="c1"># TODO(GMT&gt;=6.5.0): Remove the workaround for the new &#39;+t&#39; modifier.</span>
-        <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">__gmt_version__</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;6.5.0&quot;</span><span class="p">):</span>
-            <span class="c1"># Workaround for GMT&lt;6.5.0 by overriding the &#39;timefmt&#39; parameter</span>
-            <span class="n">timefmt</span> <span class="o">=</span> <span class="n">text</span><span class="p">[:</span><span class="mi">64</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">kwdict</span><span class="p">[</span><span class="s2">&quot;U&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;+t</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
+        <span class="n">U</span><span class="o">=</span><span class="p">[</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">justify</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;justify&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+j&quot;</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;offset&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+o&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+t&quot;</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">aliasdict</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>  <span class="c1"># Add &#39;-T&#39; to the &quot;plot&quot; module.</span>
 
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
         <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
             <span class="n">module</span><span class="o">=</span><span class="s2">&quot;plot&quot;</span><span class="p">,</span>
             <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span>
-                <span class="n">kwdict</span><span class="p">,</span> <span class="n">confdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;FONT_LOGO&quot;</span><span class="p">:</span> <span class="n">font</span><span class="p">,</span> <span class="s2">&quot;FORMAT_TIME_STAMP&quot;</span><span class="p">:</span> <span class="n">timefmt</span><span class="p">}</span>
+                <span class="n">aliasdict</span><span class="p">,</span> <span class="n">confdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;FONT_LOGO&quot;</span><span class="p">:</span> <span class="n">font</span><span class="p">,</span> <span class="s2">&quot;FORMAT_TIME_STAMP&quot;</span><span class="p">:</span> <span class="n">timefmt</span><span class="p">}</span>
             <span class="p">),</span>
         <span class="p">)</span>
 </pre></div>
@@ -279,9 +264,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jun 18, 2025.
+      <span class="lastupdated">Last updated on Oct 02, 2025.
       </span></p>
   </div>
 

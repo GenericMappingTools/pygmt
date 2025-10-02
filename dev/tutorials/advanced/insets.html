@@ -13,7 +13,7 @@
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/tutorials/advanced/insets.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -199,6 +199,7 @@ to download the full example code.</p>
 call <code class="docutils literal notranslate"><span class="pre">inset</span></code> using a <code class="docutils literal notranslate"><span class="pre">with</span></code> statement, and new plot elements will be
 added to the inset figure instead of the larger figure.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/pygmt.params.Box.html#pygmt.params.Box" title="pygmt.params.Box" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Box</span></a>
 </pre></div>
 </div>
 <p>Prior to creating an inset figure, a larger figure must first be plotted. In
@@ -235,7 +236,7 @@ In the example below, <code class="docutils literal notranslate"><span class="pr
     <span class="n">water</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">,</span>
     <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="k">with</span> <a href="../../api/generated/pygmt.Figure.inset.html#pygmt.Figure.inset" title="pygmt.Figure.inset" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">inset</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;jBL+w3c&quot;</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><span class="s2">&quot;+pblack+glightred&quot;</span><span class="p">):</span>
+<span class="k">with</span> <a href="../../api/generated/pygmt.Figure.inset.html#pygmt.Figure.inset" title="pygmt.Figure.inset" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">inset</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;jBL+w3c&quot;</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Box.html#pygmt.params.Box" title="pygmt.params.Box" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Box</span></a><span class="p">(</span><span class="n">pen</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;lightred&quot;</span><span class="p">)):</span>
     <span class="c1"># pass is used to exit the with statement as no plotting methods are</span>
     <span class="c1"># called</span>
     <span class="k">pass</span>
@@ -258,7 +259,7 @@ the example below, the inset is shifted 0.5 centimeters on the x-axis and
     <span class="n">water</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">,</span>
     <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="k">with</span> <a href="../../api/generated/pygmt.Figure.inset.html#pygmt.Figure.inset" title="pygmt.Figure.inset" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">inset</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;jBL+w3c+o0.5c/0.2c&quot;</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><span class="s2">&quot;+pblack+glightred&quot;</span><span class="p">):</span>
+<span class="k">with</span> <a href="../../api/generated/pygmt.Figure.inset.html#pygmt.Figure.inset" title="pygmt.Figure.inset" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">inset</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;jBL+w3c+o0.5c/0.2c&quot;</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Box.html#pygmt.params.Box" title="pygmt.params.Box" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Box</span></a><span class="p">(</span><span class="n">pen</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;lightred&quot;</span><span class="p">)):</span>
     <span class="k">pass</span>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
@@ -282,7 +283,7 @@ location relative to other states.</p>
 <span class="c1"># parameters.</span>
 <span class="k">with</span> <a href="../../api/generated/pygmt.Figure.inset.html#pygmt.Figure.inset" title="pygmt.Figure.inset" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">inset</span></a><span class="p">(</span>
     <span class="n">position</span><span class="o">=</span><span class="s2">&quot;jBL+o0.5c/0.2c&quot;</span><span class="p">,</span>
-    <span class="n">box</span><span class="o">=</span><span class="s2">&quot;+pblack&quot;</span><span class="p">,</span>
+    <span class="n">box</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Box.html#pygmt.params.Box" title="pygmt.params.Box" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Box</span></a><span class="p">(</span><span class="n">pen</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">),</span>
     <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">80</span><span class="p">,</span> <span class="o">-</span><span class="mi">65</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M3c&quot;</span><span class="p">,</span>
 <span class="p">):</span>
@@ -298,7 +299,7 @@ location relative to other states.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_insets_004.png" srcset="../../_images/sphx_glr_insets_004.png" alt="insets" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.985 seconds)</p>
+<img src="../../_images/sphx_glr_insets_004.png" srcset="../../_images/sphx_glr_insets_004.png" alt="insets" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.032 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-insets-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/44695c4bfbe70aea7b6e46202873909b/insets.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">insets.ipynb</span></code></a></p>
@@ -326,9 +327,9 @@ location relative to other states.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jun 18, 2025.
+      <span class="lastupdated">Last updated on Oct 02, 2025.
       </span></p>
   </div>
 

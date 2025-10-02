@@ -21,13 +21,14 @@
 Highlight country, continent and state polygons
 ===============================================
 
-The :meth:`pygmt.Figure.coast` method can highlight country polygons
-via the ``dcw`` parameter. It accepts the country code or full
-country name and can draw its borders and add a color to its landmass.
-It's also possible to define multiple countries at once by separating
-the individual names with commas.
+The :meth:`pygmt.Figure.coast` method can highlight country polygons via the ``dcw``
+parameter. It accepts the country code (following the 2-letter
+`ISO 3166-1 alpha-2 convention <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>`_) or
+full country name and can draw its borders and add a color to its landmass. It's also
+possible to define multiple countries at once by separating the individual names with
+commas.
 
-.. GENERATED FROM PYTHON SOURCE LINES 13-45
+.. GENERATED FROM PYTHON SOURCE LINES 14-46
 
 .. code-block:: Python
 
@@ -75,12 +76,12 @@ the individual names with commas.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-48
+.. GENERATED FROM PYTHON SOURCE LINES 47-49
 
 Entire continents can also be highlighted by adding ``"="`` in
 front of the continent code to differentiate it from a country code.
 
-.. GENERATED FROM PYTHON SOURCE LINES 48-77
+.. GENERATED FROM PYTHON SOURCE LINES 49-78
 
 .. code-block:: Python
 
@@ -125,11 +126,11 @@ front of the continent code to differentiate it from a country code.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 78-79
+.. GENERATED FROM PYTHON SOURCE LINES 79-80
 
 If available, states/territories of a country can be highlighted, too.
 
-.. GENERATED FROM PYTHON SOURCE LINES 79-99
+.. GENERATED FROM PYTHON SOURCE LINES 80-100
 
 .. code-block:: Python
 
@@ -168,7 +169,7 @@ If available, states/territories of a country can be highlighted, too.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 7.160 seconds)
+   **Total running time of the script:** (0 minutes 7.221 seconds)
 
 
 .. _sphx_glr_download_gallery_maps_country_polygons.py:

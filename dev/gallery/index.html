@@ -13,7 +13,7 @@
 
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/gallery/index.html" />
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../_static/documentation_options.js?v=c6c99e4b"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -94,6 +94,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#maps-and-map-elements">Maps and map elements</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="maps/choropleth_map.html">Choropleth map</a></li>
 <li class="toctree-l3"><a class="reference internal" href="maps/land_and_water.html">Color land and water</a></li>
+<li class="toctree-l3"><a class="reference internal" href="maps/epsg_codes.html">EPSG codes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="maps/country_polygons.html">Highlight country, continent and state polygons</a></li>
 <li class="toctree-l3"><a class="reference internal" href="maps/borders.html">Political boundaries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="maps/shorelines.html">Shorelines</a></li>
@@ -174,6 +175,7 @@
 <li class="toctree-l3"><a class="reference internal" href="embellishments/legend.html">Legend</a></li>
 <li class="toctree-l3"><a class="reference internal" href="embellishments/colorbars_multiple.html">Multiple colormaps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="embellishments/scalebar.html">Scale bar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="embellishments/text_formatting.html">Text formatting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="embellishments/timestamp.html">Timestamp</a></li>
 </ul>
 </li>
@@ -265,7 +267,10 @@ code used to generate it.</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The land and water parameters of pygmt.Figure.coast specify a color to fill in the land and water masses, respectively. There are many color codes in GMT &lt;gmtcolors.html&gt;, including standard GMT color names (like &quot;skyblue&quot;), R/G/B levels (like &quot;0/0/255&quot;), a hex value (like &quot;#333333&quot;), and a gray level (like &quot;gray50&quot;)."><img alt="" src="../_images/sphx_glr_land_and_water_thumb.png" />
 <p><a class="reference internal" href="maps/land_and_water.html#sphx-glr-gallery-maps-land-and-water-py"><span class="std std-ref">Color land and water</span></a></p>
   <div class="sphx-glr-thumbnail-title">Color land and water</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.coast method can highlight country polygons via the dcw parameter. It accepts the country code or full country name and can draw its borders and add a color to its landmass. It&#x27;s also possible to define multiple countries at once by separating the individual names with commas."><img alt="" src="../_images/sphx_glr_country_polygons_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Besides one of the 31 projections supported by GMT &lt;/techref/projections&gt;, users can pass an EPSG (European Petroleum Survey Group) code to the projection parameter. A commonly used EPSG code is EPSG:3857, that refers to the Web Mercator projection WGS84. More information on the EPSG dataset can be found at https://epsg.org and https://spatialreference.org/. Please note, that not all EPSG codes are supported by GMT / PyGMT."><img alt="" src="../_images/sphx_glr_epsg_codes_thumb.png" />
+<p><a class="reference internal" href="maps/epsg_codes.html#sphx-glr-gallery-maps-epsg-codes-py"><span class="std std-ref">EPSG codes</span></a></p>
+  <div class="sphx-glr-thumbnail-title">EPSG codes</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.coast method can highlight country polygons via the dcw parameter. It accepts the country code (following the 2-letter ISO 3166-1 alpha-2 convention) or full country name and can draw its borders and add a color to its landmass. It&#x27;s also possible to define multiple countries at once by separating the individual names with commas."><img alt="" src="../_images/sphx_glr_country_polygons_thumb.png" />
 <p><a class="reference internal" href="maps/country_polygons.html#sphx-glr-gallery-maps-country-polygons-py"><span class="std std-ref">Highlight country, continent and state polygons</span></a></p>
   <div class="sphx-glr-thumbnail-title">Highlight country, continent and state polygons</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The borders parameter of pygmt.Figure.coast specifies levels of political boundaries to plot and the pen used to draw them. Choose from the list of boundaries below:"><img alt="" src="../_images/sphx_glr_borders_thumb.png" />
@@ -473,6 +478,9 @@ code used to generate it.</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The map_scale parameter of the pygmt.Figure.basemap and pygmt.Figure.coast methods is used to add a scale bar to a map. This example shows how such a scale bar can be customized:"><img alt="" src="../_images/sphx_glr_scalebar_thumb.png" />
 <p><a class="reference internal" href="embellishments/scalebar.html#sphx-glr-gallery-embellishments-scalebar-py"><span class="std std-ref">Scale bar</span></a></p>
   <div class="sphx-glr-thumbnail-title">Scale bar</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="There are various options for formatting text contained in a plot, e.g., text added via pygmt.Figure.text, the plot title, labels of colorbars as well as Cartesian axes, and legend entries. It&#x27;s also possible to change the font as well as its color and size only for specific characters of a longer text. The supported fonts are listed at Supported Fonts &lt;/techref/fonts&gt;. For an complete overview see Text Formatting &lt;/techref/text_formatting&gt;."><img alt="" src="../_images/sphx_glr_text_formatting_thumb.png" />
+<p><a class="reference internal" href="embellishments/text_formatting.html#sphx-glr-gallery-embellishments-text-formatting-py"><span class="std std-ref">Text formatting</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Text formatting</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.timestamp method can draw the GMT timestamp logo on the plot. The timestamp will always be shown relative to the Bottom Left (BL) corner of the plot. By default, the offset and justify parameters are set to (&quot;-54p&quot;, &quot;-54p&quot;) (x-, y-directions) and &quot;BL&quot; (Bottom Left), respectively."><img alt="" src="../_images/sphx_glr_timestamp_thumb.png" />
 <p><a class="reference internal" href="embellishments/timestamp.html#sphx-glr-gallery-embellishments-timestamp-py"><span class="std std-ref">Timestamp</span></a></p>
   <div class="sphx-glr-thumbnail-title">Timestamp</div>
@@ -495,9 +503,9 @@ code used to generate it.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jun 18, 2025.
+      <span class="lastupdated">Last updated on Oct 02, 2025.
       </span></p>
   </div>
 

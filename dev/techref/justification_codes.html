@@ -8,12 +8,12 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-        <title>Bit and Hachure Patterns &mdash; PyGMT</title>
+        <title>Justification Codes &mdash; PyGMT</title>
     
 
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -24,10 +24,10 @@
 
   
     <link rel="shortcut icon" href="../_static/favicon.png"/>
-    <link rel="canonical" href="https://pygmt.org//dev/techref/patterns.html" />
+    <link rel="canonical" href="https://pygmt.org//dev/techref/justification_codes.html" />
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../_static/documentation_options.js?v=c6c99e4b"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -36,8 +36,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Supported Encodings and Non-ASCII Characters" href="encodings.html" />
-    <link rel="prev" title="Supported Fonts" href="fonts.html" />
+    <link rel="next" title="Environment Variables" href="environment_variables.html" />
+    <link rel="prev" title="Supported Encodings and Non-ASCII Characters" href="encodings.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -101,8 +101,9 @@
 <li class="toctree-l2"><a class="reference internal" href="common_parameters.html">Common Parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="projections.html">GMT Map Projections</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fonts.html">Supported Fonts</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Bit and Hachure Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="text_formatting.html">Text Formatting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="encodings.html">Supported Encodings and Non-ASCII Characters</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Justification Codes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="environment_variables.html">Environment Variables</a></li>
 </ul>
 </li>
@@ -151,11 +152,11 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">Technical Reference</a></li>
-      <li class="breadcrumb-item active">Bit and Hachure Patterns</li>
+      <li class="breadcrumb-item active">Justification Codes</li>
     <li class="source-link">
         
             
-                <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/techref/patterns.md"
+                <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/techref/justification_codes.md"
                    class="fa fa-github"> Improve this page</a>
             
         
@@ -167,25 +168,41 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="bit-and-hachure-patterns">
-<h1>Bit and Hachure Patterns<a class="headerlink" href="#bit-and-hachure-patterns" title="Link to this heading"></a></h1>
-<p>PyGMT supports a variety of bit and hachure patterns that can be used to fill polygons.</p>
-<p>These patterns can be defined using the following syntax:</p>
-<p><strong>P</strong>|<strong>p</strong><em>pattern</em>[<strong>+b</strong><em>color</em>][<strong>+f</strong><em>color</em>][<strong>+r</strong><em>dpi</em>]</p>
-<p><em>pattern</em> can either be a number in the range 1-90 or the name of a 1-, 8-, or 24-bit
-image raster file. The former will result in one of the 90 predefined 64x64 bit-patterns
-provided by GMT (see the figure below). The latter allows the user to create customized,
-repeating images using image raster files.</p>
-<p>By specifying uppercase <strong>P</strong> instead of <strong>p</strong> the image will be bit-reversed, i.e.,
-white and black areas will be interchanged (only applies to 1-bit images or predefined
-bit-image patterns). For these patterns and other 1-bit images one may specify
-alternative <strong>b</strong>ackground and <strong>f</strong>oreground colors (by appending <strong>+b</strong><em>color</em> and/or
-<strong>+f</strong><em>color</em>) that will replace the default white and black pixels, respectively.
-Excluding <em>color</em> from a fore- or background specification yields a transparent image
-where only the back- or foreground pixels will be painted. The <strong>+r</strong><em>dpi</em> modifier sets
-the resolution in dpi.</p>
-<p>The image below shows the 90 predefined bit patterns that can be used in PyGMT.</p>
-<p><img alt="" src="https://docs.generic-mapping-tools.org/6.5/_images/GMT_App_E.png" /></p>
+  <section id="justification-codes">
+<h1>Justification Codes<a class="headerlink" href="#justification-codes" title="Link to this heading"></a></h1>
+<p>To place plot embellishments, such as scalebars, directional roses, colorbars, legends,
+text, or images on a figure, two points have to be specified: a point somewhere on the
+figure (<strong>reference point</strong>) and a point on the feature (<strong>anchor point</strong>). For both,
+users can use a two-character code, a combination of a vertical code and a horizontal
+code (order-independent):</p>
+<ul class="simple">
+<li><p>Vertical: <strong>T</strong>(op), <strong>M</strong>(iddle), <strong>B</strong>(ottom)</p></li>
+<li><p>Horizontal: <strong>L</strong>(eft), <strong>C</strong>(entre), <strong>R</strong>(ight)</p></li>
+</ul>
+<p>For example, <code class="docutils literal notranslate"><span class="pre">&quot;TL&quot;</span></code> means <strong>T</strong>op <strong>L</strong>eft.</p>
+<p>The possible nine justification codes are visualized in the sketch below:</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="../_images/e48456289cbb8032b86055d483a00544f25fb72978ec625c680cb2d5cccf7d8c.png"><img alt="../_images/e48456289cbb8032b86055d483a00544f25fb72978ec625c680cb2d5cccf7d8c.png" src="../_images/e48456289cbb8032b86055d483a00544f25fb72978ec625c680cb2d5cccf7d8c.png" style="width: 600px;" />
+</a>
+</div>
+</div>
+<p>For a non-rectangular geographic basemap, the justification codes refer to the invisible,
+rectangular map bounding box:</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="../_images/94265bd5e180a2e5fc36f7c09a6ad955b64b42d2150c39ecce89de459fe960fe.png"><img alt="../_images/94265bd5e180a2e5fc36f7c09a6ad955b64b42d2150c39ecce89de459fe960fe.png" src="../_images/94265bd5e180a2e5fc36f7c09a6ad955b64b42d2150c39ecce89de459fe960fe.png" style="width: 600px;" />
+</a>
+</div>
+</div>
+<p>Plot embellishments can be abstracted as rectangles. Here, the justification codes are
+shown exemplary for a colorbar.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="../_images/5d7b97273539ed3820b26af6bf206d3b7f08300f4b4cb5d49d67628f62b4a490.png"><img alt="../_images/5d7b97273539ed3820b26af6bf206d3b7f08300f4b4cb5d49d67628f62b4a490.png" src="../_images/5d7b97273539ed3820b26af6bf206d3b7f08300f4b4cb5d49d67628f62b4a490.png" style="width: 600px;" />
+</a>
+</div>
+</div>
 </section>
 
 
@@ -193,17 +210,17 @@ the resolution in dpi.</p>
           </div>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="fonts.html" class="btn btn-neutral float-left" title="Supported Fonts" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="encodings.html" class="btn btn-neutral float-right" title="Supported Encodings and Non-ASCII Characters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="encodings.html" class="btn btn-neutral float-left" title="Supported Encodings and Non-ASCII Characters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="environment_variables.html" class="btn btn-neutral float-right" title="Environment Variables" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jun 18, 2025.
+      <span class="lastupdated">Last updated on Oct 02, 2025.
       </span></p>
   </div>
 

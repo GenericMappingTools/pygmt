@@ -13,7 +13,7 @@
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/tutorials/advanced/focal_mechanisms.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -219,6 +219,7 @@ keys, or column names). In this tutorial we focus on how to adjust the display o
 beachballs.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/pygmt.params.Pattern.html#pygmt.params.Pattern" title="pygmt.params.Pattern" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Pattern</span></a>
 
 <span class="c1"># Set up arguments for basemap</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region</span></a> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
@@ -252,7 +253,7 @@ moment tensor and Aki and Richards conventions:</p>
 to <code class="docutils literal notranslate"><span class="pre">spec</span></code>). Additionally, the <code class="docutils literal notranslate"><span class="pre">convention</span></code> parameter is required if <code class="docutils literal notranslate"><span class="pre">spec</span></code> is
 an 1-D or 2-D numpy array; for the input types dictionary and <code class="docutils literal notranslate"><span class="pre">pandas.Dataframe</span></code>,
 the focal mechanism convention is automatically determined from dictionary keys or
-<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> column names. The <code class="docutils literal notranslate"><span class="pre">scale</span></code> parameter controls the radius
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> column names. The <code class="docutils literal notranslate"><span class="pre">scale</span></code> parameter controls the radius
 of the beachball. By default, the value defines the size for a magnitude of 5 (i.e.,
 a scalar seismic moment of <span class="math notranslate nohighlight">\(M_0 = 4.0 \times 10^{23}\)</span> dyn cm) and the beachball
 size is proportional to the magnitude. Append <code class="docutils literal notranslate"><span class="pre">&quot;+l&quot;</span></code> to force the radius to be
@@ -292,9 +293,7 @@ the component you want to plot.</p>
 <section id="filling-the-quadrants">
 <h2>Filling the quadrants<a class="headerlink" href="#filling-the-quadrants" title="Link to this heading"></a></h2>
 <p>Use the parameters <code class="docutils literal notranslate"><span class="pre">compressionfill</span></code> and <code class="docutils literal notranslate"><span class="pre">extensionfill</span></code> to fill the quadrants
-with different colors or patterns. Regarding patterns see the gallery example
-<a class="reference internal" href="../../gallery/symbols/patterns.html"><span class="doc">Bit and hachure patterns</span></a> and the Technical
-Reference <a class="reference internal" href="../../techref/patterns.html"><span class="doc">Bit and hachure patterns</span></a>.</p>
+with different colors or <a class="reference internal" href="../../api/generated/pygmt.params.Pattern.html#pygmt.params.Pattern" title="pygmt.params.Pattern"><code class="xref py py-class docutils literal notranslate"><span class="pre">patterns</span></code></a>.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">projection</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">projection</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">frame</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">frame</span></a><span class="p">)</span>
 
@@ -314,8 +313,8 @@ Reference <a class="reference internal" href="../../techref/patterns.html"><span
     <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">longitude</span></a><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="n">latitude</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
     <span class="n">depth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-    <span class="n">compressionfill</span><span class="o">=</span><span class="s2">&quot;p8&quot;</span><span class="p">,</span>
-    <span class="n">extensionfill</span><span class="o">=</span><span class="s2">&quot;p31&quot;</span><span class="p">,</span>
+    <span class="n">compressionfill</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Pattern.html#pygmt.params.Pattern" title="pygmt.params.Pattern" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Pattern</span></a><span class="p">(</span><span class="mi">8</span><span class="p">),</span>
+    <span class="n">extensionfill</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Pattern.html#pygmt.params.Pattern" title="pygmt.params.Pattern" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Pattern</span></a><span class="p">(</span><span class="mi">31</span><span class="p">),</span>
     <span class="n">outline</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 
@@ -505,7 +504,7 @@ indicating the event locations are given by the colormap.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_focal_mechanisms_008.png" srcset="../../_images/sphx_glr_focal_mechanisms_008.png" alt="focal mechanisms" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.242 seconds)</p>
+<img src="../../_images/sphx_glr_focal_mechanisms_008.png" srcset="../../_images/sphx_glr_focal_mechanisms_008.png" alt="focal mechanisms" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.258 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-focal-mechanisms-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/c38dfe64b4a01a2d6687b0f98cdc0753/focal_mechanisms.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">focal_mechanisms.ipynb</span></code></a></p>
@@ -534,9 +533,9 @@ indicating the event locations are given by the colormap.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jun 18, 2025.
+      <span class="lastupdated">Last updated on Oct 02, 2025.
       </span></p>
   </div>
 

@@ -13,7 +13,7 @@
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/gallery/images/cross_section.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -203,6 +203,7 @@ Cartesian plot showing the elevation along the survey line.</p>
 <p><em>This example is orientated on an example in the GMT/China documentation</em>:
 <a class="reference external" href="https://docs.gmt-china.org/latest/examples/ex026/">https://docs.gmt-china.org/latest/examples/ex026/</a></p>
 <img src="../../_images/sphx_glr_cross_section_001.png" srcset="../../_images/sphx_glr_cross_section_001.png" alt="cross section" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/pygmt.params.Box.html#pygmt.params.Box" title="pygmt.params.Box" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Box</span></a>
 
 <span class="c1"># Define region of study area</span>
 <span class="c1"># lon_min, lon_max, lat_min, lat_max in degrees East and North</span>
@@ -233,9 +234,9 @@ Cartesian plot showing the elevation along the survey line.</p>
     <span class="c1"># corner with an offset (&quot;+o&quot;) of 0.7 centimeters and 0.3 centimeters in x- or y-</span>
     <span class="c1"># directions, respectively; move the x-label above the horizontal colorbar (&quot;+ml&quot;)</span>
     <span class="n">position</span><span class="o">=</span><span class="s2">&quot;jBR+o0.7c/0.8c+h+w5c/0.3c+ml&quot;</span><span class="p">,</span>
-    <span class="c1"># Add a box around the colobar with a fill (&quot;+g&quot;) in &quot;white&quot; color and a</span>
-    <span class="c1"># transparency (&quot;@&quot;) of 30 % and with a 0.8-points thick, black, outline (&quot;+p&quot;)</span>
-    <span class="n">box</span><span class="o">=</span><span class="s2">&quot;+gwhite@30+p0.8p,black&quot;</span><span class="p">,</span>
+    <span class="c1"># Add a box around the colobar, filled in white and a 30 % transparency, with a</span>
+    <span class="c1"># 0.8-points thick, black, outline.</span>
+    <span class="n">box</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Box.html#pygmt.params.Box" title="pygmt.params.Box" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Box</span></a><span class="p">(</span><span class="n">pen</span><span class="o">=</span><span class="s2">&quot;0.8p,black&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;white@30&quot;</span><span class="p">),</span>
     <span class="c1"># Add x- and y-labels (&quot;+l&quot;)</span>
     <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x+lElevation&quot;</span><span class="p">,</span> <span class="s2">&quot;y+lm&quot;</span><span class="p">],</span>
 <span class="p">)</span>
@@ -312,7 +313,7 @@ Cartesian plot showing the elevation along the survey line.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.310 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.327 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-images-cross-section-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/3768df33f78ba75095ebc52337213213/cross_section.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">cross_section.ipynb</span></code></a></p>
@@ -340,9 +341,9 @@ Cartesian plot showing the elevation along the survey line.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jun 18, 2025.
+      <span class="lastupdated">Last updated on Oct 02, 2025.
       </span></p>
   </div>
 

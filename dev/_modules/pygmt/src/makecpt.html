@@ -12,7 +12,7 @@
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/makecpt.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -156,6 +156,9 @@
 <span class="sd">makecpt - Make GMT color palette tables.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span><span class="p">,</span> <span class="n">AliasSystem</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTInvalidInput</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
@@ -169,20 +172,23 @@
     <span class="n">C</span><span class="o">=</span><span class="s2">&quot;cmap&quot;</span><span class="p">,</span>
     <span class="n">D</span><span class="o">=</span><span class="s2">&quot;background&quot;</span><span class="p">,</span>
     <span class="n">F</span><span class="o">=</span><span class="s2">&quot;color_model&quot;</span><span class="p">,</span>
-    <span class="n">G</span><span class="o">=</span><span class="s2">&quot;truncate&quot;</span><span class="p">,</span>
     <span class="n">H</span><span class="o">=</span><span class="s2">&quot;output&quot;</span><span class="p">,</span>
     <span class="n">I</span><span class="o">=</span><span class="s2">&quot;reverse&quot;</span><span class="p">,</span>
-    <span class="n">M</span><span class="o">=</span><span class="s2">&quot;overrule_bg&quot;</span><span class="p">,</span>
-    <span class="n">N</span><span class="o">=</span><span class="s2">&quot;no_bg&quot;</span><span class="p">,</span>
-    <span class="n">Q</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
     <span class="n">T</span><span class="o">=</span><span class="s2">&quot;series&quot;</span><span class="p">,</span>
-    <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
     <span class="n">W</span><span class="o">=</span><span class="s2">&quot;categorical&quot;</span><span class="p">,</span>
     <span class="n">Ww</span><span class="o">=</span><span class="s2">&quot;cyclic&quot;</span><span class="p">,</span>
-    <span class="n">Z</span><span class="o">=</span><span class="s2">&quot;continuous&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">G</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">makecpt</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">makecpt</span><span class="p">(</span>
+    <span class="n">truncate</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">overrule_bg</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">no_bg</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">log</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">continuous</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
+    <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Make GMT color palette tables.</span>
 
@@ -223,6 +229,12 @@
 <span class="sd">    Full GMT docs at :gmt-docs:`makecpt.html`.</span>
 
 <span class="sd">    {aliases}</span>
+<span class="sd">       - G = truncate</span>
+<span class="sd">       - M = overrule_bg</span>
+<span class="sd">       - N = no_bg</span>
+<span class="sd">       - Q = log</span>
+<span class="sd">       - Z = continuous</span>
+<span class="sd">       - V = verbose</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -264,12 +276,12 @@
 <span class="sd">        refers to the number of such boundaries and not the number of slices.</span>
 <span class="sd">        For details on array creation, see</span>
 <span class="sd">        :gmt-docs:`makecpt.html#generate-1d-array`.</span>
-<span class="sd">    truncate : list or str</span>
-<span class="sd">        *zlow/zhigh*.</span>
-<span class="sd">        Truncate the incoming CPT so that the lowest and highest z-levels are</span>
-<span class="sd">        to *zlow* and *zhigh*. If one of these equal NaN then we leave that</span>
-<span class="sd">        end of the CPT alone. The truncation takes place before any resampling.</span>
-<span class="sd">        See also :gmt-docs:`reference/features.html#manipulating-cpts`.</span>
+<span class="sd">    truncate</span>
+<span class="sd">        (*zlow*, *zhigh*).</span>
+<span class="sd">        Truncate the incoming CPT so that the lowest and highest z-levels are to *zlow*</span>
+<span class="sd">        and *zhigh*. If one of these equals NaN, then we leave that end of the CPT</span>
+<span class="sd">        alone. The truncation takes place before any resampling. See also</span>
+<span class="sd">        :gmt-docs:`reference/features.html#manipulating-cpts`.</span>
 <span class="sd">    output : str</span>
 <span class="sd">        Optional. The file name with extension .cpt to store the generated CPT</span>
 <span class="sd">        file. If not given or ``False`` [Default], saves the CPT as the current</span>
@@ -284,22 +296,22 @@
 <span class="sd">        the ``truncate`` and ``series`` values are used, so the latter must be</span>
 <span class="sd">        compatible with the changed z-range. See also</span>
 <span class="sd">        :gmt-docs:`reference/features.html#manipulating-cpts`.</span>
-<span class="sd">    overrule_bg : str</span>
-<span class="sd">        Overrule background, foreground, and NaN colors specified in the master</span>
-<span class="sd">        CPT with the values of the parameters :gmt-term:`COLOR_BACKGROUND`,</span>
-<span class="sd">        :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` specified in</span>
-<span class="sd">        the :gmt-docs:`gmt.conf &lt;gmt.conf&gt;` file. When combined with</span>
-<span class="sd">        ``background``, only :gmt-term:`COLOR_NAN` is considered.</span>
-<span class="sd">    no_bg : bool</span>
-<span class="sd">        Do not write out the background, foreground, and NaN-color fields</span>
-<span class="sd">        [Default will write them, i.e. ``no_bg=False``].</span>
-<span class="sd">    log : bool</span>
-<span class="sd">        For logarithmic interpolation scheme with input given as logarithms.</span>
-<span class="sd">        Expects input z-values provided via ``series`` to be log10(*z*),</span>
-<span class="sd">        assigns colors, and writes out *z*.</span>
-<span class="sd">    continuous : bool</span>
-<span class="sd">        Force a continuous CPT when building from a list of colors and a list</span>
-<span class="sd">        of z-values [Default is None, i.e. discrete values].</span>
+<span class="sd">    overrule_bg</span>
+<span class="sd">        Overrule background, foreground, and NaN colors specified in the master CPT with</span>
+<span class="sd">        the values of the parameters :gmt-term:`COLOR_BACKGROUND`,</span>
+<span class="sd">        :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` specified in the</span>
+<span class="sd">        :gmt-docs:`gmt.conf &lt;gmt.conf&gt;` file or by :func:`pygmt.config`. When combined</span>
+<span class="sd">        with ``background``, only :gmt-term:`COLOR_NAN` is considered.</span>
+<span class="sd">    no_bg</span>
+<span class="sd">        Do not write out the background, foreground, and NaN-color fields [Default will</span>
+<span class="sd">        write them, i.e. ``no_bg=False``].</span>
+<span class="sd">    log</span>
+<span class="sd">        For logarithmic interpolation scheme with input given as logarithms. Expects</span>
+<span class="sd">        input z-values provided via ``series`` to be log10(*z*), assigns colors, and</span>
+<span class="sd">        writes out *z*.</span>
+<span class="sd">    continuous</span>
+<span class="sd">        Force a continuous CPT when building from a list of colors and a list of</span>
+<span class="sd">        z-values [Default is False, i.e. discrete CPT].</span>
 <span class="sd">    {verbose}</span>
 <span class="sd">    categorical : bool</span>
 <span class="sd">        Do not interpolate the input color table but pick the output colors</span>
@@ -318,8 +330,21 @@
     <span class="k">if</span> <span class="p">(</span><span class="n">output</span> <span class="o">:=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;H&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
+    <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
+        <span class="n">G</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">truncate</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;truncate&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+        <span class="n">M</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">overrule_bg</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;overrule_bg&quot;</span><span class="p">),</span>
+        <span class="n">N</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">no_bg</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;no_bg&quot;</span><span class="p">),</span>
+        <span class="n">Q</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">),</span>
+        <span class="n">Z</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">continuous</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;continuous&quot;</span><span class="p">),</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
+        <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-        <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="s2">&quot;makecpt&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">output</span><span class="p">))</span></div>
+        <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
+            <span class="n">module</span><span class="o">=</span><span class="s2">&quot;makecpt&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">aliasdict</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">output</span><span class="p">)</span>
+        <span class="p">)</span></div>
 
 </pre></div>
 
@@ -332,9 +357,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jun 18, 2025.
+      <span class="lastupdated">Last updated on Oct 02, 2025.
       </span></p>
   </div>
 

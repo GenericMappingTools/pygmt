@@ -12,7 +12,7 @@
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/clib/session.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=8dedae9d"></script>
+      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -178,7 +178,13 @@
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib.loading</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_gmt_version</span><span class="p">,</span> <span class="n">load_libgmt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.datatypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">_GMT_DATASET</span><span class="p">,</span> <span class="n">_GMT_GRID</span><span class="p">,</span> <span class="n">_GMT_IMAGE</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTCLibError</span><span class="p">,</span> <span class="n">GMTCLibNoSessionError</span><span class="p">,</span> <span class="n">GMTInvalidInput</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">GMTCLibError</span><span class="p">,</span>
+    <span class="n">GMTCLibNoSessionError</span><span class="p">,</span>
+    <span class="n">GMTInvalidInput</span><span class="p">,</span>
+    <span class="n">GMTTypeError</span><span class="p">,</span>
+    <span class="n">GMTValueError</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">_validate_data_input</span><span class="p">,</span>
     <span class="n">data_kind</span><span class="p">,</span>
@@ -742,11 +748,13 @@
 <span class="sd">        ...     lib.get_common(&quot;A&quot;)</span>
 <span class="sd">        Traceback (most recent call last):</span>
 <span class="sd">        ...</span>
-<span class="sd">        pygmt.exceptions.GMTInvalidInput: Unknown GMT common option flag &#39;A&#39;.</span>
+<span class="sd">        pygmt.exceptions.GMTValueError: Invalid GMT common option: &#39;A&#39;. Expected ...</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">option</span> <span class="ow">not</span> <span class="ow">in</span> <span class="s2">&quot;BIJRUVXYabfghinoprst:&quot;</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Unknown GMT common option flag &#39;</span><span class="si">{</span><span class="n">option</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">valid_options</span> <span class="o">=</span> <span class="s2">&quot;BIJRUVXYabfghinoprst:&quot;</span>
+        <span class="k">if</span> <span class="n">option</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_options</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
+                <span class="n">option</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;GMT common option&quot;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">valid_options</span>
+            <span class="p">)</span>
 
         <span class="n">c_get_common</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_libgmt_func</span><span class="p">(</span>
             <span class="s2">&quot;GMT_Get_Common&quot;</span><span class="p">,</span>
@@ -807,7 +815,7 @@
 
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
-<span class="sd">        GMTInvalidInput</span>
+<span class="sd">        GMTTypeError</span>
 <span class="sd">            If the ``args`` argument is not a string or a list of strings.</span>
 <span class="sd">        GMTCLibError</span>
 <span class="sd">            If the returned status code of the function is non-zero.</span>
@@ -836,8 +844,10 @@
             <span class="n">mode</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;GMT_MODULE_CMD&quot;</span><span class="p">]</span>
             <span class="n">argv</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;&#39;args&#39; must either be a list of strings (recommended) or a string.&quot;</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">GMTTypeError</span><span class="p">(</span>
+                <span class="nb">type</span><span class="p">(</span><span class="n">args</span><span class="p">),</span>
+                <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Parameter &#39;args&#39; must either be a list of strings (recommended) or a string.&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
 
         <span class="n">status</span> <span class="o">=</span> <span class="n">c_call_module</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span><span class="p">,</span> <span class="n">module</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">mode</span><span class="p">,</span> <span class="n">argv</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
@@ -1036,7 +1046,7 @@
 <span class="sd">        their values are added.</span>
 
 <span class="sd">        If no valid modifiers are given, then will assume that modifiers are not</span>
-<span class="sd">        allowed. In this case, will raise a :class:`pygmt.exceptions.GMTInvalidInput`</span>
+<span class="sd">        allowed. In this case, will raise a :class:`pygmt.exceptions.GMTValueError`</span>
 <span class="sd">        exception if given a modifier.</span>
 
 <span class="sd">        Parameters</span>
@@ -1044,7 +1054,7 @@
 <span class="sd">        constant</span>
 <span class="sd">            The name of a valid GMT API constant, with an optional modifier.</span>
 <span class="sd">        valid</span>
-<span class="sd">            A list of valid values for the constant. Will raise a GMTInvalidInput</span>
+<span class="sd">            A list of valid values for the constant. Will raise a GMTValueError</span>
 <span class="sd">            exception if the given value is not in the list.</span>
 <span class="sd">        valid_modifiers</span>
 <span class="sd">            A list of valid modifiers that can be added to the constant. If ``None``,</span>
@@ -1055,28 +1065,23 @@
         <span class="n">nmodifiers</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
 
         <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Invalid constant name &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;. Must be one of </span><span class="si">{</span><span class="n">valid</span><span class="si">}</span><span class="s2">.&quot;</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;constant name&quot;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">valid</span><span class="p">)</span>
 
         <span class="k">match</span> <span class="n">nmodifiers</span><span class="p">:</span>
             <span class="k">case</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">valid_modifiers</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Constant modifiers are not allowed since valid values &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;were not given: &#39;</span><span class="si">{</span><span class="n">constant</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+                <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
+                    <span class="n">constant</span><span class="p">,</span>
+                    <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Constant modifiers are not allowed since valid values were not given.&quot;</span><span class="p">,</span>
                 <span class="p">)</span>
-                <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
             <span class="k">case</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">valid_modifiers</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_modifiers</span><span class="p">:</span>
-                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Invalid constant modifier &#39;</span><span class="si">{</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;Must be one of </span><span class="si">{</span><span class="n">valid_modifiers</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
+                    <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;constant modifier&quot;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">valid_modifiers</span>
                 <span class="p">)</span>
-                <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
             <span class="k">case</span> <span class="n">n</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Only one modifier is allowed in constants, &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">nmodifiers</span><span class="si">}</span><span class="s2"> given: &#39;</span><span class="si">{</span><span class="n">constant</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+                <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
+                    <span class="n">constant</span><span class="p">,</span>
+                    <span class="n">reason</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Only one modifier is allowed in constants but </span><span class="si">{</span><span class="n">nmodifiers</span><span class="si">}</span><span class="s2"> given.&quot;</span><span class="p">,</span>
                 <span class="p">)</span>
-                <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
         <span class="n">integer_value</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">part</span><span class="p">]</span> <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">integer_value</span>
@@ -1100,9 +1105,10 @@
 
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
-<span class="sd">        GMTInvalidInput</span>
-<span class="sd">            If the array has the wrong number of dimensions or is an unsupported data</span>
-<span class="sd">            type.</span>
+<span class="sd">        GMTValueError</span>
+<span class="sd">            If the array has the wrong number of dimensions.</span>
+<span class="sd">        GMTTypeError</span>
+<span class="sd">            If the array is an unsupported data type.</span>
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
@@ -1120,14 +1126,16 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Check that the array has the given number of dimensions.</span>
         <span class="k">if</span> <span class="n">array</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="n">ndim</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Expected a numpy </span><span class="si">{</span><span class="n">ndim</span><span class="si">}</span><span class="s2">-D array, got </span><span class="si">{</span><span class="n">array</span><span class="o">.</span><span class="n">ndim</span><span class="si">}</span><span class="s2">-D.&quot;</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
+                <span class="n">array</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="s2">&quot;array dimension&quot;</span><span class="p">,</span>
+                <span class="n">reason</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Expected a numpy </span><span class="si">{</span><span class="n">ndim</span><span class="si">}</span><span class="s2">-D array, got </span><span class="si">{</span><span class="n">array</span><span class="o">.</span><span class="n">ndim</span><span class="si">}</span><span class="s2">-D.&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
 
         <span class="c1"># 1-D arrays can be numeric or text, 2-D arrays can only be numeric.</span>
         <span class="n">valid_dtypes</span> <span class="o">=</span> <span class="n">DTYPES</span> <span class="k">if</span> <span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">DTYPES_NUMERIC</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">dtype</span> <span class="o">:=</span> <span class="n">array</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_dtypes</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Unsupported numpy data type &#39;</span><span class="si">{</span><span class="n">dtype</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">GMTTypeError</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">DTYPES</span><span class="p">[</span><span class="n">dtype</span><span class="p">]]</span>
 
 <div class="viewcode-block" id="Session.put_vector">
@@ -2086,8 +2094,10 @@
             <span class="k">elif</span> <span class="n">check_kind</span> <span class="o">==</span> <span class="s2">&quot;vector&quot;</span><span class="p">:</span>
                 <span class="n">valid_kinds</span> <span class="o">+=</span> <span class="p">(</span><span class="s2">&quot;empty&quot;</span><span class="p">,</span> <span class="s2">&quot;matrix&quot;</span><span class="p">,</span> <span class="s2">&quot;vectors&quot;</span><span class="p">,</span> <span class="s2">&quot;geojson&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">kind</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_kinds</span><span class="p">:</span>
-                <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Unrecognized data type for </span><span class="si">{</span><span class="n">check_kind</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
-                <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="n">GMTTypeError</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
+                    <span class="n">reason</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Unrecognized data type for </span><span class="si">{</span><span class="n">check_kind</span><span class="si">!r}</span><span class="s2"> kind.&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
 
         <span class="c1"># Decide which virtualfile_from_ function to use</span>
         <span class="n">_virtualfile_from</span> <span class="o">=</span> <span class="p">{</span>
@@ -2612,9 +2622,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/c1568261">c1568261</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jun 18, 2025.
+      <span class="lastupdated">Last updated on Oct 02, 2025.
       </span></p>
   </div>
 
