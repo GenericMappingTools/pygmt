@@ -213,6 +213,7 @@ Class-style Parameters
     :toctree: generated
 
     Box
+    Pattern
 
 Enums
 -----

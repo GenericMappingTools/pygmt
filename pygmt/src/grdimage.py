@@ -2,11 +2,12 @@
 grdimage - Project and plot grids or images.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -21,19 +22,19 @@ __doctest_skip__ = ["grdimage"]
     E="dpi",
     G="bitcolor",
     I="shading",
-    M="monochrome",
-    N="no_clip",
     Q="nan_transparent",
-    R="region",
     n="interpolation",
     f="coltypes",
     p="perspective",
 )
-@kwargs_to_strings(R="sequence", p="sequence")
+@kwargs_to_strings(p="sequence")
 def grdimage(
     self,
     grid: PathLike | xr.DataArray,
-    projection=None,
+    monochrome: bool = False,
+    no_clip: bool = False,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -76,6 +77,9 @@ def grdimage(
 
     {aliases}
        - J = projection
+       - M = monochrome
+       - N = no_clip
+       - R = region
        - V = verbose
        - c = panel
        - t = transparency
@@ -128,12 +132,12 @@ def grdimage(
         input data represent an *image* then an *intensfile* or constant
         *intensity* must be provided.
     {projection}
-    monochrome : bool
-        Force conversion to monochrome image using the (television) YIQ
-        transformation. Cannot be used with ``nan_transparent``.
-    no_clip : bool
-        Do **not** clip the image at the frame boundaries (only relevant
-        for non-rectangular maps) [Default is ``False``].
+    monochrome
+        Force conversion to monochrome image using the (television) YIQ transformation.
+        Cannot be used with ``nan_transparent``.
+    no_clip
+        Do **not** clip the image at the frame boundaries (only relevant for
+        non-rectangular maps) [Default is ``False``].
     nan_transparent : bool or str
         [**+z**\ *value*][*color*]
         Make grid nodes with z = NaN transparent, using the color-masking
@@ -173,8 +177,12 @@ def grdimage(
         )
         raise NotImplementedError(msg)
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        M=Alias(monochrome, name="monochrome"),
+        N=Alias(no_clip, name="no_clip"),
+    ).add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,

@@ -17,7 +17,7 @@ The following people have contributed code and/or documentation to the project
 | [Jiayuan Yao](https://github.com/core-man) | [0000-0001-7036-4238](https://orcid.org/0000-0001-7036-4238) | Nanyang Technological University, Singapore |
 | [Jing-Hui Tong](https://github.com/jhtong33) | [0009-0002-7195-3071](https://orcid.org/0009-0002-7195-3071) | National Taiwan Normal University, Taiwan |
 | [Kathryn Materna](https://github.com/kmaterna) | [0000-0002-6687-980X](https://orcid.org/0000-0002-6687-980X) | US Geological Survey, USA |
-| [Leonardo Uieda](https://www.leouieda.com/) | [0000-0001-6123-9515](https://orcid.org/0000-0001-6123-9515) | University of Liverpool, United Kingdom |
+| [Leonardo Uieda](https://www.leouieda.com/) | [0000-0001-6123-9515](https://orcid.org/0000-0001-6123-9515) | Universidade de São Paulo, Brazil |
 | [Liam Toney](https://liam.earth/) | [0000-0003-0167-9433](https://orcid.org/0000-0003-0167-9433) | University of Alaska Fairbanks, USA |
 | [Malte Ziebarth](https://github.com/mjziebarth) | [0000-0002-5190-4478](https://orcid.org/0000-0002-5190-4478) | GFZ German Research Centre for Geosciences, Germany |
 | [Max Jones](https://github.com/maxrjones) | [0000-0003-0180-8928](https://orcid.org/0000-0003-0180-8928) | University of Hawaiʻi at Mānoa, USA |

@@ -2,6 +2,7 @@
 grdcut - Extract subregion from a grid or image or a slice from a cube.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -13,7 +14,6 @@ from pygmt.helpers import (
     build_arg_list,
     data_kind,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
 )
 
@@ -21,19 +21,13 @@ __doctest_skip__ = ["grdcut"]
 
 
 @fmt_docstring
-@use_alias(
-    R="region",
-    N="extend",
-    S="circ_subregion",
-    Z="z_subregion",
-    f="coltypes",
-)
-@kwargs_to_strings(R="sequence")
+@use_alias(N="extend", S="circ_subregion", Z="z_subregion", f="coltypes")
 def grdcut(
     grid: PathLike | xr.DataArray,
     kind: Literal["grid", "image"] = "grid",
     outgrid: PathLike | None = None,
-    projection=None,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -54,6 +48,7 @@ def grdcut(
 
     {aliases}
        - J = projection
+       - R = region
        - V = verbose
 
     Parameters
@@ -130,6 +125,7 @@ def grdcut(
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)
