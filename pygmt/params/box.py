@@ -18,7 +18,7 @@ class Box(BaseParam):
     """
     Class for specifying the box around GMT embellishments.
 
-    Attributes
+    Parameters
     ----------
     clearance
         Set clearances between the embellishment and the box border. It can be either a

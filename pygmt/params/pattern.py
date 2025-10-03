@@ -37,7 +37,7 @@ class Pattern(BaseParam):
         The pattern to use. It can be specified in two forms:
 
         - An integer in the range of 1-90, corresponding to one of 90 predefined 64x64
-          bit-patterns
+          bit-patterns. [Default is 1].
         - Name of a 1-, 8-, or 24-bit image raster file, to create customized, repeating
           images using image raster files.
     dpi
@@ -69,7 +69,7 @@ class Pattern(BaseParam):
     >>> fig.show()
     """
 
-    pattern: int | PathLike
+    pattern: int | PathLike = 1
     dpi: int | None = None
     bgcolor: str | None = None
     fgcolor: str | None = None
@@ -80,7 +80,10 @@ class Pattern(BaseParam):
         Validate the parameters.
         """
         # Integer pattern number must be in the range 1-90.
-        if isinstance(self.pattern, int) and not (1 <= self.pattern <= 90):
+        if not (
+            isinstance(self.pattern, PathLike)
+            or (isinstance(self.pattern, int) and 1 <= self.pattern <= 90)
+        ):
             raise GMTValueError(
                 self.pattern,
                 description="pattern number",
