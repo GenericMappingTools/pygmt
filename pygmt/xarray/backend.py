@@ -14,9 +14,9 @@ from pygmt.helpers import build_arg_list, kwargs_to_strings
 from pygmt.src.which import which
 from xarray.backends import BackendEntrypoint
 
-# TODO(xarray>=2025.10.0): Remove the __doctest_skip__ on GMTBackendEntrypoint
+# TODO(xarray>=2025.10.1): Remove the __doctest_skip__ on GMTBackendEntrypoint
 __doctest_skip__ = (
-    ["GMTBackendEntrypoint"] if Version(xr.__version__) < Version("2025.10.0") else []
+    ["GMTBackendEntrypoint"] if Version(xr.__version__) < Version("2025.10.1") else []
 )
 
 

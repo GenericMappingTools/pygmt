@@ -10,9 +10,9 @@ import xarray as xr
 from packaging.version import Version
 from pygmt.datatypes.header import _GMT_GRID_HEADER
 
-# TODO(xarray>=2025.10.0): Remove the __doctest_skip__ on _GMT_IMAGE.to_xarray
+# TODO(xarray>=2025.10.1): Remove the __doctest_skip__ on _GMT_IMAGE.to_xarray
 __doctest_skip__ = (
-    ["_GMT_IMAGE.to_xarray"] if Version(xr.__version__) < Version("2025.10.0") else []
+    ["_GMT_IMAGE.to_xarray"] if Version(xr.__version__) < Version("2025.10.1") else []
 )
 
 
