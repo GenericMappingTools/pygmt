@@ -6,12 +6,18 @@ from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
+from packaging.version import Version
 from pygmt._typing import PathLike
 from pygmt.clib import Session
 from pygmt.exceptions import GMTValueError
 from pygmt.helpers import build_arg_list, kwargs_to_strings
 from pygmt.src.which import which
 from xarray.backends import BackendEntrypoint
+
+# TODO(xarray>=2025.10.0): Remove the __doctest_skip__ on GMTBackendEntrypoint
+__doctest_skip__ = (
+    ["GMTBackendEntrypoint"] if Version(xr.__version__) < Version("2025.10.0") else []
+)
 
 
 class GMTBackendEntrypoint(BackendEntrypoint):
@@ -44,12 +50,12 @@ class GMTBackendEntrypoint(BackendEntrypoint):
     >>> da_grid = xr.open_dataarray(
     ...     "@static_earth_relief.nc", engine="gmt", raster_kind="grid"
     ... )
-    >>> da_grid  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
-    <xarray.DataArray 'z' (lat: 14, lon: 8)>...
+    >>> da_grid  # doctest: +NORMALIZE_WHITESPACE
+    <xarray.DataArray 'z' (lat: 14, lon: 8)> Size: 448B
     [112 values with dtype=float32]
     Coordinates:
-      * lat      (lat) float64... -23.5 -22.5 -21.5 -20.5 ... -12.5 -11.5 -10.5
-      * lon      (lon) float64... -54.5 -53.5 -52.5 -51.5 -50.5 -49.5 -48.5 -47.5
+      * lat      (lat) float64 112B -23.5 -22.5 -21.5 -20.5 ... -12.5 -11.5 -10.5
+      * lon      (lon) float64 64B -54.5 -53.5 -52.5 -51.5 -50.5 -49.5 -48.5 -47.5
     Attributes:...
         Conventions:   CF-1.7
         title:         Produced by grdcut
@@ -63,13 +69,13 @@ class GMTBackendEntrypoint(BackendEntrypoint):
     >>> da_image = xr.open_dataarray(
     ...     "@earth_night_01d", engine="gmt", raster_kind="image"
     ... )
-    >>> da_image  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
-    <xarray.DataArray 'z' (band: 3, y: 180, x: 360)>...
+    >>> da_image  # doctest: +NORMALIZE_WHITESPACE
+    <xarray.DataArray 'z' (band: 3, y: 180, x: 360)> Size: 194kB
     [194400 values with dtype=uint8]
     Coordinates:
+      * band     (band) uint8... 1 2 3
       * y        (y) float64... 89.5 88.5 87.5 86.5 ... -86.5 -87.5 -88.5 -89.5
       * x        (x) float64... -179.5 -178.5 -177.5 -176.5 ... 177.5 178.5 179.5
-      * band     (band) uint8... 1 2 3
     Attributes:...
         long_name:  z
 
@@ -80,15 +86,15 @@ class GMTBackendEntrypoint(BackendEntrypoint):
     ...     "@tut_bathy.nc", engine="gmt", raster_kind="grid", region=[-64, -62, 32, 33]
     ... )
     >>> da_grid
-    <xarray.DataArray 'z' (lat: 13, lon: 25)>...
+    <xarray.DataArray 'z' (lat: 13, lon: 25)> Size: 1kB
     array([[-4369., -4587., -4469., -4409., -4587., -4505., -4403., -4405.,
             -4466., -4595., -4609., -4608., -4606., -4607., -4607., -4597.,
     ...
             -4667., -4642., -4677., -4795., -4797., -4800., -4803., -4818.,
             -4820.]], dtype=float32)
     Coordinates:
-      * lat      (lat) float64... 32.0 32.08 32.17 32.25 ... 32.83 32.92 33.0
-      * lon      (lon) float64... -64.0 -63.92 -63.83 ... -62.17 -62.08 -62.0
+      * lat      (lat) float64 104B 32.0 32.08 32.17 32.25 ... 32.83 32.92 33.0
+      * lon      (lon) float64 200B -64.0 -63.92 -63.83 ... -62.17 -62.08 -62.0
     Attributes:...
         Conventions:   CF-1.7
         title:         ETOPO5 global topography
