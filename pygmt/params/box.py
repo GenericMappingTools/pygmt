@@ -43,15 +43,19 @@ class Box(BaseParam):
 
     #: Pen attributes for the inner border [Default to :gmt-term:`MAP_DEFAULT_PEN`].
     inner_pen: str | None = None
+
     #: Pen attributes for the box outline.
     pen: str | None = None
+
     #: Draw a rounded rectangular border instead of sharp. Passing a value with unit to
     #: control the corner radius [Default is ``"6p"``].
     radius: str | bool = False
+
     #: Place an offset background shaded region behind the box. A sequence of two values
     #: (dx, dy) indicates the shift relative to the foreground frame [Default is
     #: ``("4p", "-4p")``].
     shade_offset: Sequence[float | str] | None = None
+
     #: Fill for the shaded region [Default is ``"gray50"``].
     shade_fill: str | None = None
 
