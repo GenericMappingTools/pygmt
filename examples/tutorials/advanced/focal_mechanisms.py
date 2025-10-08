@@ -18,6 +18,7 @@ beachballs.
 # %%
 import pandas as pd
 import pygmt
+from pygmt.params import Pattern
 
 # Set up arguments for basemap
 region = [-5, 5, -5, 5]
@@ -99,10 +100,7 @@ fig.show()
 # ---------------------
 #
 # Use the parameters ``compressionfill`` and ``extensionfill`` to fill the quadrants
-# with different colors or patterns. Regarding patterns see the gallery example
-# :doc:`Bit and hachure patterns </gallery/symbols/patterns>` and the Technical
-# Reference :doc:`Bit and hachure patterns </techref/patterns>`.
-
+# with different colors or :class:`patterns <pygmt.params.Pattern>`.
 fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
 
@@ -122,8 +120,8 @@ fig.meca(
     longitude=2,
     latitude=0,
     depth=0,
-    compressionfill="p8",
-    extensionfill="p31",
+    compressionfill=Pattern(8),
+    extensionfill=Pattern(31),
     outline=True,
 )
 

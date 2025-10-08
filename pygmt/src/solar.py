@@ -2,6 +2,7 @@
 solar - Plot day-night terminators and other sunlight parameters.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import pandas as pd
@@ -14,19 +15,16 @@ __doctest_skip__ = ["solar"]
 
 
 @fmt_docstring
-@use_alias(
-    B="frame",
-    G="fill",
-    R="region",
-    W="pen",
-    p="perspective",
-)
-@kwargs_to_strings(R="sequence", p="sequence")
+@use_alias(B="frame", p="perspective")
+@kwargs_to_strings(p="sequence")
 def solar(
     self,
     terminator: Literal["astronomical", "civil", "day_night", "nautical"] = "day_night",
     terminator_datetime=None,
-    projection=None,
+    fill: str | None = None,
+    pen: str | None = None,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -36,23 +34,25 @@ def solar(
     r"""
     Plot day-night terminators and other sunlight parameters.
 
-    This function plots the day-night terminator. Alternatively, it can plot the
+    This method plots the day-night terminator. Alternatively, it can plot the
     terminators for civil twilight, nautical twilight, or astronomical twilight.
 
     Full GMT docs at :gmt-docs:`solar.html`.
 
     {aliases}
+       - G = fill
        - J = projection
-       - T = terminator, **+d**: terminator_datetime
+       - R = region
+       - T = terminator, **+d**/**+z**: terminator_datetime
        - V = verbose
+       - W = pen
        - c = panel
        - t = transparency
 
     Parameters
     ----------
     terminator
-        Set the type of terminator displayed, which can be set with either the full name
-        or the first letter of the name. Available options are:
+        Set the type of terminator. Choose one of the following:
 
         - ``"astronomical"``: Astronomical twilight
         - ``"civil"``: Civil twilight
@@ -62,14 +62,18 @@ def solar(
         Refer to https://en.wikipedia.org/wiki/Twilight for the definitions of different
         types of twilight.
     terminator_datetime : str or datetime object
-        Set the UTC date and time of the displayed terminator [Default is the current
-        UTC date and time]. It can be passed as a string or Python datetime object.
+        Set the date and time for the terminator calculation. It can be provided as a
+        string or any datetime-like object recognized by :func:`pandas.to_datetime`. The
+        time can be specified in UTC or using a UTC offset. The offset must be an
+        integer number of hours (e.g., -8 or +5); fractional hours are truncated
+        towards zero (e.g., -8.5 becomes -8 and +5.5 becomes +5). [Default is the
+        current UTC date and time].
     {region}
     {projection}
     {frame}
-    fill : str
+    fill
         Set color or pattern for filling terminators [Default is no fill].
-    pen : str
+    pen
         Set pen attributes for lines [Default is ``"0.25p,black,solid"``].
     {verbose}
     {panel}
@@ -104,16 +108,21 @@ def solar(
     """
     self._activate_figure()
 
-    datetime_string = None
+    datetime_string, datetime_timezone = None, None
     if terminator_datetime:
         try:
-            datetime_string = pd.to_datetime(terminator_datetime).strftime(
-                "%Y-%m-%dT%H:%M:%S.%f"
-            )
+            _datetime = pd.to_datetime(terminator_datetime)
+            datetime_string = _datetime.strftime("%Y-%m-%dT%H:%M:%S.%f")
+            # GMT's solar module uses the C 'atoi' function to parse the timezone
+            # offset. Ensure the offset is an integer number of hours (e.g., -8 or +5).
+            # Fractional hours (e.g., -8.5 or +5.5) are truncated towards zero.
+            if utcoffset := _datetime.utcoffset():
+                datetime_timezone = int(utcoffset.total_seconds() / 3600)
         except ValueError as verr:
             raise GMTValueError(terminator_datetime, description="datetime") from verr
 
     aliasdict = AliasSystem(
+        G=Alias(fill, name="fill"),
         T=[
             Alias(
                 terminator,
@@ -126,9 +135,12 @@ def solar(
                 },
             ),
             Alias(datetime_string, name="terminator_datetime", prefix="+d"),
+            Alias(datetime_timezone, name="terminator_timezone", prefix="+z"),
         ],
+        W=Alias(pen, name="pen"),
     ).add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,

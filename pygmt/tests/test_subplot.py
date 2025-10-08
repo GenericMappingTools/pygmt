@@ -104,9 +104,7 @@ def test_subplot_nrows_ncols_less_than_one_error():
             pass
 
 
-# Increase tolerance for compatibility with GMT 6.4, see
-# https://github.com/GenericMappingTools/pygmt/pull/2454
-@pytest.mark.mpl_image_compare(tolerance=4.0)
+@pytest.mark.mpl_image_compare()
 def test_subplot_outside_plotting_positioning():
     """
     Plotting calls are correctly positioned after exiting subplot.

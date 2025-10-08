@@ -2,6 +2,7 @@
 logo - Plot the GMT logo.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
@@ -11,11 +12,13 @@ from pygmt.params import Box
 
 
 @fmt_docstring
-@use_alias(R="region", D="position", S="style")
-@kwargs_to_strings(R="sequence", p="sequence")
+@use_alias(D="position")
+@kwargs_to_strings(p="sequence")
 def logo(
     self,
-    projection=None,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
+    style: Literal["standard", "url", "no_label"] = "standard",
     box: Box | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -36,6 +39,8 @@ def logo(
     {aliases}
        - F = box
        - J = projection
+       - R = region
+       - S = style
        - V = verbose
        - c = panel
        - t = transparency
@@ -53,14 +58,12 @@ def logo(
         box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,
         pass a :class:`pygmt.params.Box` object to control style, fill, pen, and other
         box properties.
-    style : str
-        [**l**\|\ **n**\|\ **u**].
+    style
         Control what is written beneath the map portion of the logo.
 
-        - **l** to plot the text label "The Generic Mapping Tools"
-          [Default]
-        - **n** to skip the label placement
-        - **u** to place the URL to the GMT site
+        - ``"standard"``: The text label "The Generic Mapping Tools".
+        - ``"no_label"``: Skip the text label.
+        - ``"url"``: The URL to the GMT website.
     {verbose}
     {panel}
     {transparency}
@@ -69,8 +72,12 @@ def logo(
 
     aliasdict = AliasSystem(
         F=Alias(box, name="box"),
+        S=Alias(
+            style, name="style", mapping={"standard": "l", "url": "u", "no_label": "n"}
+        ),
     ).add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,
