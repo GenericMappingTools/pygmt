@@ -153,11 +153,11 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
             axis:           X
             actual_range:   [-55. -47.]
         >>> da.coords["lat"]
-        <xarray.DataArray 'lat' (lat: 14)> Size: 64B
+        <xarray.DataArray 'lat' (lat: 14)> Size: 112B
         array([-23.5, -22.5, -21.5, -20.5, -19.5, -18.5, -17.5, -16.5, -15.5, -14.5,
-            -13.5, -12.5, -11.5, -10.5])
+               -13.5, -12.5, -11.5, -10.5])
         Coordinates:
-          * lat      (lat) float64 64B -23.5 -22.5 -21.5 -20.5 ... -12.5 -11.5 -10.5
+          * lat      (lat) float64 112B -23.5 -22.5 -21.5 -20.5 ... -12.5 -11.5 -10.5
         Attributes:
             long_name:      latitude
             units:          degrees_north
