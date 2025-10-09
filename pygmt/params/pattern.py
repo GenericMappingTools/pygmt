@@ -60,7 +60,7 @@ class Pattern(BaseParam):
     #: Resolution of the pattern in dots per inch (DPI) [Default is 300].
     dpi: int | None = None
 
-    #: The background/foreground color for predefined bit-patterns or 1-bit images.
+    #: The background color for predefined bit-patterns or 1-bit images.
     #: Setting either ``bgcolor`` or ``fgcolor`` to an empty string will yield a
     #: transparent background/foreground where only the foreground/background pixels
     #: will be painted. [Default is white for background and black for foreground].
