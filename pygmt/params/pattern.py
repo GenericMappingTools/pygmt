@@ -56,6 +56,7 @@ class Pattern(BaseParam):
     #: - Name of a 1-, 8-, or 24-bit image raster file, to create customized, repeating
     #:   images using image raster files.
     pattern: int | PathLike = 1
+
     #: Resolution of the pattern in dots per inch (DPI) [Default is 300].
     dpi: int | None = None
 
