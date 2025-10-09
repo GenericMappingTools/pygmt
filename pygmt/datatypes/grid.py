@@ -114,8 +114,8 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
         ...         grid = lib.read_virtualfile(voutgrd, kind="grid")
         ...         # Convert to xarray.DataArray and use it later
         ...         da = grid.contents.to_xarray()
-        >>> da  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
-        <xarray.DataArray 'z' (lat: 14, lon: 8)>...
+        >>> da
+        <xarray.DataArray 'z' (lat: 14, lon: 8)> Size: 448B
         array([[347.5, 344.5, 386. , 640.5, 617. , 579. , 646.5, 671. ],
                [383. , 284.5, 344.5, 394. , 491. , 556.5, 578.5, 618.5],
                [373. , 367.5, 349. , 352.5, 419.5, 428. , 570. , 667.5],
@@ -132,8 +132,8 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
                [347.5, 331.5, 309. , 282. , 190. , 208. , 299.5, 348. ]],
               dtype=float32)
         Coordinates:
-          * lat      (lat) float64... -23.5 -22.5 -21.5 -20.5 ... -12.5 -11.5 -10.5
-          * lon      (lon) float64... -54.5 -53.5 -52.5 -51.5 -50.5 -49.5 -48.5 -47.5
+          * lat      (lat) float64 112B -23.5 -22.5 -21.5 -20.5 ... -12.5 -11.5 -10.5
+          * lon      (lon) float64 64B -54.5 -53.5 -52.5 -51.5 -50.5 -49.5 -48.5 -47.5
         Attributes:
             Conventions:   CF-1.7
             title:         Produced by grdcut
@@ -141,23 +141,23 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
             description:   Reduced by Gaussian Cartesian filtering (111.2 km fullwi...
             actual_range:  [190. 981.]
             long_name:     elevation (m)
-        >>> da.coords["lon"]  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
-        <xarray.DataArray 'lon' (lon: 8)>...
+        >>> da.coords["lon"]
+        <xarray.DataArray 'lon' (lon: 8)> Size: 64B
         array([-54.5, -53.5, -52.5, -51.5, -50.5, -49.5, -48.5, -47.5])
         Coordinates:
-          * lon      (lon) float64... -54.5 -53.5 -52.5 -51.5 -50.5 -49.5 -48.5 -47.5
+          * lon      (lon) float64 64B -54.5 -53.5 -52.5 -51.5 -50.5 -49.5 -48.5 -47.5
         Attributes:
             long_name:      longitude
             units:          degrees_east
             standard_name:  longitude
             axis:           X
             actual_range:   [-55. -47.]
-        >>> da.coords["lat"]  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
-        <xarray.DataArray 'lat' (lat: 14)>...
+        >>> da.coords["lat"]
+        <xarray.DataArray 'lat' (lat: 14)> Size: 64B
         array([-23.5, -22.5, -21.5, -20.5, -19.5, -18.5, -17.5, -16.5, -15.5, -14.5,
             -13.5, -12.5, -11.5, -10.5])
         Coordinates:
-          * lat      (lat) float64... -23.5 -22.5 -21.5 -20.5 ... -12.5 -11.5 -10.5
+          * lat      (lat) float64 64B -23.5 -22.5 -21.5 -20.5 ... -12.5 -11.5 -10.5
         Attributes:
             long_name:      latitude
             units:          degrees_north

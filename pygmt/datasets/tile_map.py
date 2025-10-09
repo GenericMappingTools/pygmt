@@ -122,12 +122,12 @@ def load_tile_map(
     ... )
     >>> raster.sizes
     Frozen({'band': 3, 'y': 256, 'x': 512})
-    >>> raster.coords  # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
+    >>> raster.coords
     Coordinates:
-      * band         (band) uint8... 1 2 3
-      * y            (y) float64... -7.081e-10 -7.858e+04 ... -1.996e+07 -2.004e+07
-      * x            (x) float64... -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07
-        spatial_ref  int... 0
+      * band         (band) uint8 1 2 3
+      * y            (y) float64 -7.081e-10 -7.858e+04 ... -1.996e+07 -2.004e+07
+      * x            (x) float64 -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07
+        spatial_ref  int 0
     >>> # CRS is set only if rioxarray is available
     >>> if hasattr(raster, "rio"):
     ...     raster.rio.crs.to_string()
