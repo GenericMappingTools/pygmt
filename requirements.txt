@@ -1,5 +1,5 @@
 # Required packages
-numpy>=1.26
+numpy>=2.0
 pandas>=2.2
-xarray>=2023.10
+xarray>=2024.5
 packaging>=24.2
