@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:02.889** total execution time for 6 files **from projections/azim**:
+**00:02.865** total execution time for 6 files **from projections/azim**:
 
 .. container::
 
@@ -33,10 +33,10 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_projections_azim_azim_general_perspective.py` (``azim_general_perspective.py``)
-     - 00:01.604
+     - 00:01.582
      - 0.0
    * - :ref:`sphx_glr_projections_azim_azim_equidistant.py` (``azim_equidistant.py``)
-     - 00:00.374
+     - 00:00.372
      - 0.0
    * - :ref:`sphx_glr_projections_azim_azim_orthographic.py` (``azim_orthographic.py``)
      - 00:00.253

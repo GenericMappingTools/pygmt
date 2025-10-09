@@ -9,10 +9,10 @@ pygmt.GMTDataArrayAccessor
 .. rubric:: Attributes
 
 
-.. autoproperty::
+.. autoattribute::
     GMTDataArrayAccessor.gtype
 
-.. autoproperty::
+.. autoattribute::
     GMTDataArrayAccessor.registration
 
 
