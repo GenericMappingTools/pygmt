@@ -3,6 +3,7 @@ grdcut - Extract subregion from a grid or image or a slice from a cube.
 """
 
 from collections.abc import Sequence
+from contextlib import ExitStack
 from typing import Literal
 
 import xarray as xr
@@ -14,6 +15,7 @@ from pygmt.helpers import (
     build_arg_list,
     data_kind,
     fmt_docstring,
+    tempfile_from_geojson,
     use_alias,
 )
 
@@ -21,7 +23,7 @@ __doctest_skip__ = ["grdcut"]
 
 
 @fmt_docstring
-@use_alias(N="extend", S="circ_subregion", Z="z_subregion", f="coltypes")
+@use_alias(N="extend", S="circ_subregion", Z="z_subregion", f="coltypes", F="polygon")
 def grdcut(
     grid: PathLike | xr.DataArray,
     kind: Literal["grid", "image"] = "grid",
@@ -30,6 +32,8 @@ def grdcut(
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    crop: bool = False,
+    invert: bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -86,6 +90,17 @@ def grdcut(
         NaNs, append **+N** to strip off such columns before (optionally)
         considering the range of the core subset for further reduction of the
         area.
+    polygon : str, geopandas.GeoDataFrame, or shapely.geometry
+        Extract a subregion using a polygon. Can be either:
+        - A GMT ASCII polygon file (`.gmt`)
+        - A geopandas.GeoDataFrame
+        - A shapely.geometry.Polygon or MultiPolygon
+        The polygon can have holes or multiple rings.
+        Optional modifiers:
+        - crop : bool
+            If True, crop the output grid region to the bounding box of the polygon.
+        - invert : bool
+            If True, invert the selection, setting all nodes inside the polygon to NaN.
 
     {verbose}
     {coltypes}
@@ -130,12 +145,33 @@ def grdcut(
     )
     aliasdict.merge(kwargs)
 
-    with Session() as lib:
+    with Session() as lib, ExitStack() as stack:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_out(kind=outkind, fname=outgrid) as voutgrd,
         ):
             aliasdict["G"] = voutgrd
+
+            if "F" in kwargs and kwargs["F"] is not None:
+                polygon_input = kwargs["F"]
+                modifiers = ("+c" * crop) + ("+i" * invert)
+
+                # if file path provided
+                if isinstance(polygon_input, PathLike):
+                    aliasdict["F"] = str(kwargs["F"]) + modifiers
+                # assuming its geojson
+                elif hasattr(polygon_input, "__geo_interface__"):
+                    tmpfile = stack.enter_context(tempfile_from_geojson(polygon_input))
+                    aliasdict["F"] = tmpfile + modifiers
+                else:
+                    polygon_type = type(polygon_input).__name__
+                    err_msg = "Invalid polygon type"
+                    raise GMTValueError(
+                        err_msg,
+                        polygon_type,
+                        "Must be a PathLike, GeoDataFrame, or Shapely geometry.",
+                    )
+
             lib.call_module(
                 module="grdcut", args=build_arg_list(aliasdict, infile=vingrd)
             )
