@@ -127,7 +127,7 @@ def load_tile_map(
       * band         (band) uint8 3B 1 2 3
       * y            (y) float64 2kB -7.081e-10 -7.858e+04 ... -1.996e+07 -2.004e+07
       * x            (x) float64 4kB -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07
-        spatial_ref  int 8B 0
+        spatial_ref  int64 8B 0
     >>> # CRS is set only if rioxarray is available
     >>> if hasattr(raster, "rio"):
     ...     raster.rio.crs.to_string()
