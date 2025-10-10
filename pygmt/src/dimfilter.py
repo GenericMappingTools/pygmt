@@ -2,6 +2,7 @@
 dimfilter - Directional filtering of grids in the space domain.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -15,17 +16,12 @@ __doctest_skip__ = ["dimfilter"]
 
 
 @fmt_docstring
-@use_alias(
-    D="distance",
-    F="filter",
-    I="spacing",
-    N="sectors",
-    R="region",
-)
-@kwargs_to_strings(I="sequence", R="sequence")
+@use_alias(D="distance", F="filter", I="spacing", N="sectors")
+@kwargs_to_strings(I="sequence")
 def dimfilter(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -52,6 +48,7 @@ def dimfilter(
     Full GMT docs at :gmt-docs:`dimfilter.html`.
 
     {aliases}
+       - R = region
        - V = verbose
 
     Parameters
@@ -148,6 +145,7 @@ def dimfilter(
         raise GMTParameterError(require_any={"distance", "filter", "sectors"})
 
     aliasdict = AliasSystem().add_common(
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)

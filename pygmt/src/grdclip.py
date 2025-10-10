@@ -14,8 +14,6 @@ from pygmt.helpers import (
     build_arg_list,
     deprecate_parameter,
     fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
 )
 
 __doctest_skip__ = ["grdclip"]
@@ -24,8 +22,6 @@ __doctest_skip__ = ["grdclip"]
 # TODO(PyGMT>=0.19.0): Remove the deprecated "new" parameter.
 @fmt_docstring
 @deprecate_parameter("new", "replace", "v0.15.0", remove_version="v0.19.0")
-@use_alias(R="region")
-@kwargs_to_strings(R="sequence")
 def grdclip(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
@@ -33,6 +29,7 @@ def grdclip(
     below: Sequence[float] | None = None,
     between: Sequence[float] | Sequence[Sequence[float]] | None = None,
     replace: Sequence[float] | Sequence[Sequence[float]] | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -48,13 +45,18 @@ def grdclip(
     - Replace individual values with a new value
 
     Such operations are useful when you want all of a continent or an ocean to fall into
-    one color or gray shade in image processing, when clipping the range of data
-    values is required, or for reclassification of data values. The values can be any
-    number or NaN (Not a Number).
+    one color or gray shade in image processing, when clipping the range of data values
+    is required, or for reclassification of data values. The values can be any number or
+    NaN (Not a Number).
 
     Full GMT docs at :gmt-docs:`grdclip.html`.
 
-    {aliases}
+    **Aliases:**
+
+    .. hlist::
+       :columns: 3
+
+       - R = region
        - Sa = above
        - Sb = below
        - Si = between
@@ -121,6 +123,7 @@ def grdclip(
         Si=Alias(between, name="between", sep="/", size=3, ndim=2),
         Sr=Alias(replace, name="replace", sep="/", size=2, ndim=2),
     ).add_common(
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)

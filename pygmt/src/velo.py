@@ -2,12 +2,13 @@
 velo - Plot velocity vectors, crosses, anisotropy bars, and wedges.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
 import pandas as pd
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError, GMTTypeError
 from pygmt.helpers import (
@@ -29,8 +30,6 @@ from pygmt.helpers import (
     H="scale",
     I="shading",
     L="line",
-    N="no_clip",
-    R="region",
     S="spec",
     W="pen",
     Z="zvalue",
@@ -40,11 +39,13 @@ from pygmt.helpers import (
     i="incols",
     p="perspective",
 )
-@kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
+@kwargs_to_strings(i="sequence_comma", p="sequence")
 def velo(
     self,
     data: PathLike | TableLike | None = None,
-    projection=None,
+    no_clip: bool = False,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -67,6 +68,8 @@ def velo(
 
     {aliases}
        - J = projection
+       - N = no_clip
+       - R = region
        - V = verbose
        - c = panel
        - t = transparency
@@ -221,10 +224,9 @@ def velo(
         ``cmap``). If instead modifier **+cf** is appended then the color from
         the cpt file is applied to error fill only [Default]. Use just **+c**
         to set both pen and fill color.
-    no_clip: bool
-        Do **not** skip symbols that fall outside the frame boundaries
-        [Default is ``False``, i.e., plot symbols inside the frame
-        boundaries only].
+    no_clip
+        Do **not** skip symbols that fall outside the frame boundaries [Default is
+        ``False``, i.e., plot symbols inside the frame boundaries only].
     {verbose}
     pen : str
         [*pen*][**+c**\ [**f**\|\ **l**]].
@@ -265,8 +267,11 @@ def velo(
             ),
         )
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        N=Alias(no_clip, name="no_clip"),
+    ).add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,

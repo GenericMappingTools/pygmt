@@ -60,7 +60,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@b09ef9b599704322748535812ca03efb2625677b # v2.0.5
+        uses: mamba-org/setup-micromamba@add3a49764cedee8ee24e82dfde87f5bc2914462 # v2.0.7
         with:
           environment-name: pygmt
           cache-environment: true
@@ -73,7 +73,7 @@ jobs:
             ninja
             curl
             fftw
-            ghostscript=10.04.0
+            ghostscript=10.06.0
             glib
             hdf5
             libblas

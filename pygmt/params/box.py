@@ -18,33 +18,6 @@ class Box(BaseParam):
     """
     Class for specifying the box around GMT embellishments.
 
-    Attributes
-    ----------
-    clearance
-        Set clearances between the embellishment and the box border. It can be either a
-        scalar value or a sequence of two/four values.
-
-        - a scalar value means a uniform clearance in all four directions.
-        - a sequence of two values means separate clearances in x- and y-directions.
-        - a sequence of four values means separate clearances for left/right/bottom/top.
-    fill
-        Fill for the box [Default is no fill].
-    inner_gap
-        Gap between the outer and inner borders [Default is ``"2p"``].
-    inner_pen
-        Pen attributes for the inner border [Default to :gmt-term:`MAP_DEFAULT_PEN`].
-    pen
-        Pen attributes for the box outline.
-    radius
-        Draw a rounded rectangular border instead of sharp. Passing a value with unit
-        to control the corner radius [Default is ``"6p"``].
-    shade_offset
-        Place an offset background shaded region behind the box. A sequence of two
-        values (dx, dy) indicates the shift relative to the foreground frame [Default is
-        ``("4p", "-4p")``].
-    shade_fill
-        Fill for the shaded region [Default is ``"gray50"``].
-
     Examples
     --------
     >>> import pygmt
@@ -54,13 +27,36 @@ class Box(BaseParam):
     >>> fig.show()
     """
 
+    #: Set clearances between the embellishment and the box border. It can be either a
+    #: scalar value or a sequence of two/four values.
+    #:
+    #: - a scalar value means a uniform clearance in all four directions.
+    #: - a sequence of two values means separate clearances in x- and y-directions.
+    #: - a sequence of four values means separate clearances for left/right/bottom/top.
     clearance: float | str | Sequence[float | str] | None = None
+
+    #: Fill for the box [Default is no fill].
     fill: str | None = None
+
+    #: Gap between the outer and inner borders [Default is ``"2p"``].
     inner_gap: float | str | None = None
+
+    #: Pen attributes for the inner border [Default to :gmt-term:`MAP_DEFAULT_PEN`].
     inner_pen: str | None = None
+
+    #: Pen attributes for the box outline.
     pen: str | None = None
+
+    #: Draw a rounded rectangular border instead of sharp. Passing a value with unit to
+    #: control the corner radius [Default is ``"6p"``].
     radius: str | bool = False
+
+    #: Place an offset background shaded region behind the box. A sequence of two values
+    #: (dx, dy) indicates the shift relative to the foreground frame [Default is
+    #: ``("4p", "-4p")``].
     shade_offset: Sequence[float | str] | None = None
+
+    #: Fill for the shaded region [Default is ``"gray50"``].
     shade_fill: str | None = None
 
     def _validate(self):

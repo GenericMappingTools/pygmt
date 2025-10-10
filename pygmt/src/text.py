@@ -7,7 +7,7 @@ from typing import Literal
 
 import numpy as np
 from pygmt._typing import AnchorCode, PathLike, StringArrayTypes, TableLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError, GMTTypeError
 from pygmt.helpers import (
@@ -24,12 +24,10 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @use_alias(
-    R="region",
     B="frame",
     C="clearance",
     D="offset",
     G="fill",
-    N="no_clip",
     W="pen",
     a="aspatial",
     e="find",
@@ -39,7 +37,7 @@ from pygmt.helpers import (
     p="perspective",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", p="sequence")
+@kwargs_to_strings(p="sequence")
 def text_(  # noqa: PLR0912, PLR0913
     self,
     textfiles: PathLike | TableLike | None = None,
@@ -50,7 +48,9 @@ def text_(  # noqa: PLR0912, PLR0913
     angle=None,
     font=None,
     justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
-    projection=None,
+    no_clip: bool = False,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -76,6 +76,8 @@ def text_(  # noqa: PLR0912, PLR0913
     {aliases}
        - F = **+a**: angle, **+c**: position, **+j**: justify, **+f**: font
        - J = projection
+       - N = no_clip
+       - R = region
        - V = verbose
        - c = panel
        - t = transparency
@@ -163,9 +165,8 @@ def text_(  # noqa: PLR0912, PLR0913
     pen : str
         Set the pen used to draw a rectangle around the text string
         (see ``clearance``) [Default is ``"0.25p,black,solid"``].
-    no_clip : bool
-        Do **not** clip text at the frame boundaries [Default is
-        ``False``].
+    no_clip
+        Do **not** clip text at the frame boundaries [Default is ``False``].
     {verbose}
     {aspatial}
     {panel}
@@ -274,8 +275,11 @@ def text_(  # noqa: PLR0912, PLR0913
                     reason=f"Parameter {name!r} expects a single value or True.",
                 )
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        N=Alias(no_clip, name="no_clip"),
+    ).add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,

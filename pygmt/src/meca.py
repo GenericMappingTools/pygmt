@@ -8,7 +8,7 @@ from typing import Literal
 import numpy as np
 import pandas as pd
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.helpers import (
@@ -123,13 +123,11 @@ def _auto_offset(spec) -> bool:
     Fr="labelbox",
     G="compressionfill",
     L="outline",
-    N="no_clip",
-    R="region",
     T="nodal",
     W="pen",
     p="perspective",
 )
-@kwargs_to_strings(R="sequence", p="sequence")
+@kwargs_to_strings(p="sequence")
 def meca(  # noqa: PLR0913
     self,
     spec: PathLike | TableLike,
@@ -142,7 +140,9 @@ def meca(  # noqa: PLR0913
     plot_longitude: float | Sequence[float] | None = None,
     plot_latitude: float | Sequence[float] | None = None,
     event_name: str | Sequence[str] | None = None,
-    projection=None,
+    no_clip: bool = False,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -202,6 +202,8 @@ def meca(  # noqa: PLR0913
 
     {aliases}
        - J = projection
+       - N = no_clip
+       - R = region
        - S = scale/convention/component
        - V = verbose
        - c = panel
@@ -335,9 +337,9 @@ def meca(  # noqa: PLR0913
         automatically. The color of the compressive quadrants is determined by the
         z-value (i.e., event depth or the third column for an input file). This setting
         also applies to the fill of the circle defined via ``offset``.
-    no_clip : bool
+    no_clip
         Do **not** skip symbols that fall outside the frame boundaries [Default is
-       ``False``, i.e., plot symbols inside the frame boundaries only].
+        ``False``, i.e., plot symbols inside the frame boundaries only].
     {projection}
     {region}
     {frame}
@@ -368,8 +370,11 @@ def meca(  # noqa: PLR0913
         kwargs["A"] = _auto_offset(spec)
     kwargs["S"] = f"{_convention.code}{scale}"
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        N=Alias(no_clip, name="no_clip"),
+    ).add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,

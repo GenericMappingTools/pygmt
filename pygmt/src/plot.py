@@ -31,7 +31,6 @@ from pygmt.src._common import _data_geometry_is_point
     I="intensity",
     L="close",
     N="no_clip",
-    R="region",
     S="style",
     W="pen",
     Z="zvalue",
@@ -47,7 +46,7 @@ from pygmt.src._common import _data_geometry_is_point
     p="perspective",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
+@kwargs_to_strings(i="sequence_comma", p="sequence")
 def plot(  # noqa: PLR0912, PLR0913
     self,
     data: PathLike | TableLike | None = None,
@@ -57,7 +56,8 @@ def plot(  # noqa: PLR0912, PLR0913
     symbol=None,
     direction=None,
     straight_line: bool | Literal["x", "y"] = False,
-    projection=None,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -90,6 +90,7 @@ def plot(  # noqa: PLR0912, PLR0913
     {aliases}
        - A = straight_line
        - J = projection
+       - R = region
        - V = verbose
        - c = panel
        - t = transparency
@@ -295,6 +296,7 @@ def plot(  # noqa: PLR0912, PLR0913
     aliasdict = AliasSystem(
         A=Alias(straight_line, name="straight_line"),
     ).add_common(
+        R=region,
         J=projection,
         V=verbose,
         c=panel,
