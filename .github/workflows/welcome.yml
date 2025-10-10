@@ -22,14 +22,14 @@ jobs:
     steps:
       - uses: actions/first-interaction@v3.1.0
         with:
-          issue-message: |
+          issue_message: |
             👋 Thanks for opening your first issue here!
             Please make sure you filled out the template with as much detail as possible.
             You might also want to take a look at our
             [contributing guidelines](https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md)
             and [code of conduct](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md).
 
-          pr-message: |
+          pr_message: |
             💖 Thanks for opening this pull request! 💖
 
             Please make sure you read our [contributing guidelines](https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md)
