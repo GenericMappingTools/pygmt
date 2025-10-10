@@ -1,13 +1,15 @@
 [build-system]
-requires = ["setuptools>=64", "setuptools_scm[toml]>=6.2"]
+requires = ["setuptools>=77", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "pygmt"
 description = "A Python interface for the Generic Mapping Tools"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 authors = [{name = "The PyGMT Developers", email = "pygmt.team@gmail.com"}]
+license = "BSD-3-Clause"
+license-files = ["LICENSE.txt"]
 keywords = [
     "cartography",
     "geodesy",
@@ -24,49 +26,52 @@ classifiers = [
     "Intended Audience :: Education",
     "Topic :: Scientific/Engineering",
     "Topic :: Software Development :: Libraries",
-    "Programming Language :: Python :: 3.10",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Operating System :: Unix",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
-    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
-    "numpy>=1.24",
-    "pandas>=2.0",
-    "xarray>=2023.04",
-    "netCDF4",
-    "packaging",
+    "numpy>=1.26",
+    "pandas>=2.2",
+    "xarray>=2023.10",
+    "packaging>=24.2",
 ]
 dynamic = ["version"]
 
 [project.optional-dependencies]
 all = [
-    "contextily",
-    "geopandas",
+    "contextily>=1.5",
+    "geopandas>=1.0",
     "IPython",  # 'ipython' is not the correct module name.
-    "pyarrow",
+    "pyarrow>=16",
     "rioxarray",
 ]
 
-[project.urls]
-homepage = "https://www.pygmt.org"
-documentation = "https://www.pygmt.org"
-repository = "https://github.com/GenericMappingTools/pygmt"
-changelog = "https://www.pygmt.org/latest/changes.html"
+[project.entry-points."xarray.backends"]
+gmt = "pygmt.xarray:GMTBackendEntrypoint"
 
-[tool.setuptools]
-platforms = ["Any"]
-license-files = ["LICENSE.txt"]
+[project.urls]
+"Homepage" = "https://www.pygmt.org"
+"Documentation" = "https://www.pygmt.org"
+"Source Code" = "https://github.com/GenericMappingTools/pygmt"
+"Changelog" = "https://www.pygmt.org/latest/changes.html"
+"Issue Tracker" = "https://github.com/GenericMappingTools/pygmt/issues"
 
 [tool.setuptools.packages.find]
 include = ["pygmt*"]
 exclude = ["doc"]
 
 [tool.setuptools_scm]
+version_scheme = "release-branch-semver"
 local_scheme = "node-and-date"
 fallback_version = "999.999.999+unknown"
 
 [tool.codespell]
-ignore-words-list = "astroid,oints,reenable,tripel,trough"
+ignore-words-list = "astroid,oints,reenable,tripel,trough,ND"
 
 [tool.coverage.run]
 omit = ["*/tests/*", "*pygmt/__init__.py"]
@@ -94,6 +99,7 @@ select = [
     "COM",  # flake8-commas
     "D",    # pydocstyle
     "E",    # pycodestyle
+    "EM",   # flake8-errmsg
     "EXE",  # flake8-executable
     "F",    # pyflakes
     "FA",   # flake8-future-annotations
@@ -117,8 +123,10 @@ select = [
     "S",    # flake8-bandit
     "SIM",  # flake8-simplify
     "T20",  # flake8-print
-    "TCH",  # flake8-type-checking
+    "TC",   # flake8-type-checking
+    "TD",   # flake8-todos
     "TID",  # flake8-tidy-imports
+    "TRY",  # tryceratops
     "UP",   # pyupgrade
     "W",    # pycodestyle warnings
     "YTT",  # flake8-2020
@@ -139,12 +147,12 @@ ignore = [
     "D412",     # No blank lines allowed between a section header and its content
     "E501",     # Avoid enforcing line-length violations
     "ISC001",   # Single-line-implicit-string-concatenation, conflict with formatter
-    "PD901",    # Allow using the generic variable name `df` for DataFrames
     "PT023",    # Allow using pytest marker without parentheses
     "PLR2004",  # Allow any magic values
     "RET504",   # Allow variable assignment and return immediately for readability
     "S603",     # Allow method calls that initiate a subprocess without a shell
     "SIM117",   # Allow nested `with` statements
+    "TD003",    # Allow TODO comments without associated issue link
 ]
 preview = true
 explicit-preview-rules = true
@@ -155,7 +163,10 @@ known-third-party = ["pygmt"]
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]  # Ignore `F401` (unused-import) in all `__init__.py` files
 "*/tests/test_*.py" = ["S101"]  # Ignore `S101` (use of assert) in all tests files
-"examples/**/*.py" = ["T201"]  # Allow `print` in examples
+"examples/**/*.py" = [ # Ignore rules in examples
+    "B018",  # Allow useless expressions in Jupyter Notebooks
+    "T201",  # Allow `print` statements
+]
 
 [tool.ruff.lint.pycodestyle]
 max-doc-length = 88

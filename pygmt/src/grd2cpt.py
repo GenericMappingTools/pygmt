@@ -1,7 +1,13 @@
 """
-grd2cpt - Create a CPT from a grid file.
+grd2cpt - Make linear or histogram-equalized color palette table from grid.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
+import xarray as xr
+from pygmt._typing import PathLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -16,24 +22,28 @@ __doctest_skip__ = ["grd2cpt"]
     D="background",
     F="color_model",
     E="nlevels",
-    G="truncate",
     H="output",
     I="reverse",
     L="limit",
-    M="overrule_bg",
-    N="no_bg",
-    Q="log",
-    R="region",
     T="series",
-    V="verbose",
     W="categorical",
     Ww="cyclic",
-    Z="continuous",
 )
-@kwargs_to_strings(G="sequence", L="sequence", R="sequence", T="sequence")
-def grd2cpt(grid, **kwargs):
+@kwargs_to_strings(L="sequence", T="sequence")
+def grd2cpt(
+    grid: PathLike | xr.DataArray,
+    truncate: tuple[float, float] | None = None,
+    overrule_bg: bool = False,
+    no_bg: bool = False,
+    log: bool = False,
+    continuous: bool = False,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
+):
     r"""
-    Make GMT color palette tables from a grid file.
+    Make linear or histogram-equalized color palette table from grid.
 
     This function will help you to make static color palette tables (CPTs).
     By default, the CPT will be saved as the current CPT of the session,
@@ -73,17 +83,24 @@ def grd2cpt(grid, **kwargs):
     :gmt-docs:`gmt.conf <gmt.conf>` file or the ``color_model`` parameter
     will be used.
 
-    Full option list at :gmt-docs:`grd2cpt.html`
+    Full GMT docs at :gmt-docs:`grd2cpt.html`.
 
     {aliases}
+       - G = truncate
+       - M = overrule_bg
+       - N = no_bg
+       - Q = log
+       - R = region
+       - Z = continuous
+       - V = verbose
 
     Parameters
     ----------
     {grid}
-    transparency : int or float or str
-        Set a constant level of transparency (0-100) for all color slices.
-        Append **+a** to also affect the foreground, background, and NaN
-        colors [Default is no transparency, i.e., ``0`` (opaque)].
+    transparency : float or str
+        Set a constant level of transparency (0-100) for all color slices. Append **+a**
+        to also affect the foreground, background, and NaN colors [Default is no
+        transparency, i.e., ``0`` (opaque)].
     cmap : str
         Select the master color palette table (CPT) to use in the
         interpolation. Full list of built-in color palette tables can be found
@@ -122,12 +139,12 @@ def grd2cpt(grid, **kwargs):
         refers to the number of such boundaries and not the number of slices.
         For details on array creation, see
         :gmt-docs:`makecpt.html#generate-1d-array`.
-    truncate : list or str
-        *zlow/zhigh*.
-        Truncate the incoming CPT so that the lowest and highest z-levels are
-        to *zlow* and *zhigh*. If one of these equal NaN then we leave that
-        end of the CPT alone. The truncation takes place before any resampling.
-        See also :gmt-docs:`reference/features.html#manipulating-cpts`.
+    truncate
+        (*zlow*, *zhigh*).
+        Truncate the incoming CPT so that the lowest and highest z-levels are to *zlow*
+        and *zhigh*. If one of these equals NaN, then we leave that end of the CPT
+        alone. The truncation takes place before any resampling. See also
+        :gmt-docs:`reference/features.html#manipulating-cpts`.
     output : str
         Optional. The file name with extension .cpt to store the generated CPT
         file. If not given or ``False`` [Default], saves the CPT as the current
@@ -140,22 +157,22 @@ def grd2cpt(grid, **kwargs):
         happens before ``truncate`` and ``series`` values are used so the
         latter must be compatible with the changed z-range. See also
         :gmt-docs:`reference/features.html#manipulating-cpts`.
-    overrule_bg : str
-        Overrule background, foreground, and NaN colors specified in the master
-        CPT with the values of the parameters :gmt-term:`COLOR_BACKGROUND`,
-        :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` specified in
-        the :gmt-docs:`gmt.conf <gmt.conf>` file. When combined with
-        ``background``, only :gmt-term:`COLOR_NAN` is considered.
-    no_bg : bool
-        Do not write out the background, foreground, and NaN-color fields
-        [Default will write them, i.e. ``no_bg=False``].
-    log : bool
-        For logarithmic interpolation scheme with input given as logarithms.
-        Expects input z-values provided via ``series`` to be log10(*z*),
-        assigns colors, and writes out *z*.
-    continuous : bool
-        Force a continuous CPT when building from a list of colors and a list
-        of z-values [Default is None, i.e. discrete values].
+    overrule_bg
+        Overrule background, foreground, and NaN colors specified in the master CPT with
+        the values of the parameters :gmt-term:`COLOR_BACKGROUND`,
+        :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` specified in the
+        :gmt-docs:`gmt.conf <gmt.conf>` file or by :func:`pygmt.config`. When combined
+        with ``background``, only :gmt-term:`COLOR_NAN` is considered.
+    no_bg
+        Do not write out the background, foreground, and NaN-color fields [Default will
+        write them, i.e. ``no_bg=False``].
+    log
+        For logarithmic interpolation scheme with input given as logarithms. Expects
+        input z-values provided via ``series`` to be log10(*z*), assigns colors, and
+        writes out *z*.
+    continuous
+        Force a continuous CPT when building from a list of colors and a list of
+        z-values [Default is False, i.e. discrete CPT].
     categorical : bool
         Do not interpolate the input color table but pick the output colors
         starting at the beginning of the color table, until colors for all
@@ -182,14 +199,27 @@ def grd2cpt(grid, **kwargs):
     >>> fig.show()
     """
     if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
-        raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")
+        msg = "Set only 'categorical' or 'cyclic' to True, not both."
+        raise GMTInvalidInput(msg)
 
     if (output := kwargs.pop("H", None)) is not None:
         kwargs["H"] = True
+
+    aliasdict = AliasSystem(
+        G=Alias(truncate, name="truncate", sep="/", size=2),
+        M=Alias(overrule_bg, name="overrule_bg"),
+        N=Alias(no_bg, name="no_bg"),
+        Q=Alias(log, name="log"),
+        Z=Alias(continuous, name="continuous"),
+    ).add_common(
+        R=region,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
             lib.call_module(
                 module="grd2cpt",
-                args=build_arg_list(kwargs, infile=vingrd, outfile=output),
+                args=build_arg_list(aliasdict, infile=vingrd, outfile=output),
             )

@@ -11,8 +11,7 @@ from typing import Any
 import numpy as np
 import pandas as pd
 import xarray as xr
-from packaging.version import Version
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 
 
 def dataarray_to_matrix(
@@ -49,7 +48,7 @@ def dataarray_to_matrix(
 
     Raises
     ------
-    GMTInvalidInput
+    GMTValueError
         If the grid has more than two dimensions or variable grid spacing.
 
     Examples
@@ -92,8 +91,11 @@ def dataarray_to_matrix(
     [2.0, 2.0]
     """
     if len(grid.dims) != 2:
-        msg = f"Invalid number of grid dimensions 'len({grid.dims})'. Must be 2."
-        raise GMTInvalidInput(msg)
+        raise GMTValueError(
+            len(grid.dims),
+            description="number of grid dimensions",
+            reason="The grid must be 2-D.",
+        )
 
     # Extract region and inc from the grid
     region, inc = [], []
@@ -113,8 +115,11 @@ def dataarray_to_matrix(
             )
             warnings.warn(msg, category=RuntimeWarning, stacklevel=2)
         if coord_inc == 0:
-            msg = f"Grid has a zero increment in the '{dim}' dimension."
-            raise GMTInvalidInput(msg)
+            raise GMTValueError(
+                coord_inc,
+                description="grid increment",
+                reason=f"Grid has a zero increment in the '{dim}' dimension.",
+            )
         region.extend(
             [
                 coord.min() - coord_inc / 2 * grid.gmt.registration,
@@ -168,24 +173,27 @@ def _to_numpy(data: Any) -> np.ndarray:
         "date64[ms][pyarrow]": "datetime64[ms]",
     }
 
-    if (
-        hasattr(data, "isna")
-        and data.isna().any()
-        and Version(pd.__version__) < Version("2.2")
-    ):
-        # Workaround for dealing with pd.NA with pandas < 2.2.
-        # Bug report at: https://github.com/GenericMappingTools/pygmt/issues/2844
-        # Following SPEC0, pandas 2.1 will be dropped in 2025 Q3, so it's likely
-        # we can remove the workaround in PyGMT v0.17.0.
-        array = np.ascontiguousarray(data.astype(float))
-    else:
-        vec_dtype = str(getattr(data, "dtype", getattr(data, "type", "")))
-        array = np.ascontiguousarray(data, dtype=dtypes.get(vec_dtype))
+    # The dtype for the input object.
+    dtype = getattr(data, "dtype", getattr(data, "type", ""))
+    # The numpy dtype for the result numpy array, but can be None.
+    numpy_dtype = dtypes.get(str(dtype))
 
-    # Check if a np.object_ array can be converted to np.str_.
-    if array.dtype == np.object_:
-        with contextlib.suppress(TypeError, ValueError):
-            return np.ascontiguousarray(array, dtype=np.str_)
+    # Deal with timezone-aware datetime dtypes.
+    if isinstance(dtype, pd.DatetimeTZDtype):  # pandas.DatetimeTZDtype
+        numpy_dtype = getattr(dtype, "base", None)
+    elif isinstance(dtype, pd.ArrowDtype) and hasattr(dtype.pyarrow_dtype, "tz"):
+        # pd.ArrowDtype[pa.Timestamp]
+        numpy_dtype = getattr(dtype, "numpy_dtype", None)
+
+    array = np.ascontiguousarray(data, dtype=numpy_dtype)
+
+    # Check if a np.object_ array can be converted to np.datetime64 or np.str_.
+    # Try np.datetime64 first then np.str_, because datetime-like objects usually have
+    # string representations.
+    if array.dtype.type == np.object_:
+        for dtype in [np.datetime64, np.str_]:
+            with contextlib.suppress(TypeError, ValueError):
+                return np.ascontiguousarray(array, dtype=dtype)
     return array
 
 
@@ -316,81 +324,3 @@ def strings_to_ctypes_array(strings: Sequence[str] | np.ndarray) -> ctp.Array:
     ['first', 'second', 'third']
     """
     return (ctp.c_char_p * len(strings))(*[s.encode() for s in strings])
-
-
-def array_to_datetime(array: Sequence[Any] | np.ndarray) -> np.ndarray:
-    """
-    Convert a 1-D datetime array from various types into numpy.datetime64.
-
-    If the input array is not in legal datetime formats, raise a ValueError exception.
-
-    Parameters
-    ----------
-    array
-        The input datetime array in various formats.
-
-        Supported types:
-
-        - str
-        - numpy.datetime64
-        - pandas.DateTimeIndex
-        - datetime.datetime and datetime.date
-
-    Returns
-    -------
-    array
-        1-D datetime array in numpy.datetime64.
-
-    Raises
-    ------
-    ValueError
-        If the datetime string is invalid.
-
-    Examples
-    --------
-    >>> import datetime
-    >>> # numpy.datetime64 array
-    >>> x = np.array(
-    ...     ["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"],
-    ...     dtype="datetime64[ns]",
-    ... )
-    >>> array_to_datetime(x)
-    array(['2010-06-01T00:00:00.000000000', '2011-06-01T12:00:00.000000000',
-           '2012-01-01T12:34:56.000000000'], dtype='datetime64[ns]')
-
-    >>> # pandas.DateTimeIndex array
-    >>> import pandas as pd
-    >>> x = pd.date_range("2013", freq="YS", periods=3)
-    >>> array_to_datetime(x)
-    array(['2013-01-01T00:00:00.000000000', '2014-01-01T00:00:00.000000000',
-           '2015-01-01T00:00:00.000000000'], dtype='datetime64[ns]')
-
-    >>> # Python's built-in date and datetime
-    >>> x = [datetime.date(2018, 1, 1), datetime.datetime(2019, 1, 1)]
-    >>> array_to_datetime(x)
-    array(['2018-01-01T00:00:00.000000', '2019-01-01T00:00:00.000000'],
-          dtype='datetime64[us]')
-
-    >>> # Raw datetime strings in various format
-    >>> x = [
-    ...     "2018",
-    ...     "2018-02",
-    ...     "2018-03-01",
-    ...     "2018-04-01T01:02:03",
-    ... ]
-    >>> array_to_datetime(x)
-    array(['2018-01-01T00:00:00', '2018-02-01T00:00:00',
-           '2018-03-01T00:00:00', '2018-04-01T01:02:03'],
-          dtype='datetime64[s]')
-
-    >>> # Mixed datetime types
-    >>> x = [
-    ...     "2018-01-01",
-    ...     np.datetime64("2018-01-01"),
-    ...     datetime.datetime(2018, 1, 1),
-    ... ]
-    >>> array_to_datetime(x)
-    array(['2018-01-01T00:00:00.000000', '2018-01-01T00:00:00.000000',
-           '2018-01-01T00:00:00.000000'], dtype='datetime64[us]')
-    """
-    return np.asarray(array, dtype=np.datetime64)

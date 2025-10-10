@@ -3,18 +3,25 @@
 # Currently, only one slash command `format` is supported.
 #
 name: Slash Command Dispatch
+
 on:
   issue_comment:
     types: [created]
     # Add "edited" type for test purposes. Where possible, avoid using to prevent processing unnecessary events.
     # types: [created, edited]
+
+permissions: {}
+
 jobs:
   slashCommandDispatch:
+    permissions:
+      contents: write # for executing the repository_dispatch event
+      pull-requests: write # for peter-evans/slash-command-dispatch to create PR reaction
     if: ${{ github.event.issue.pull_request }}
     runs-on: ubuntu-latest
     steps:
       - name: Slash Command Dispatch
-        uses: peter-evans/slash-command-dispatch@v4.0.0
+        uses: peter-evans/slash-command-dispatch@13bc09769d122a64f75aa5037256f6f2d78be8c4 # v4.0.0
         with:
           token: ${{ github.token }}
           commands: |

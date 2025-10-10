@@ -25,6 +25,8 @@ on:
   schedule:
     - cron: '0 12 * * 0'
 
+permissions: {}
+
 jobs:
   gmt_cache:
     name: Cache GMT artifacts
@@ -36,27 +38,23 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5.0.0
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
+          persist-credentials: false
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v2.0.2
+        uses: mamba-org/setup-micromamba@add3a49764cedee8ee24e82dfde87f5bc2914462 # v2.0.7
         with:
           environment-name: pygmt
-          condarc: |
-            channels:
-              - conda-forge
-              - nodefaults
           create-args: >-
-            python=3.12
-            gmt=6.5.0
+            python=3.13
+            gmt=6.6.0
             numpy
             pandas
             xarray
-            netCDF4
             packaging
             python-build
 
@@ -76,7 +74,7 @@ jobs:
 
       # Upload the downloaded files as artifacts to GitHub
       - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v4.4.3
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: gmt-cache
           include-hidden-files: true

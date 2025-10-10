@@ -1,9 +1,7 @@
-.. _api:
-
 API Reference
 =============
 
-.. automodule:: pygmt
+This page gives an overview of all public PyGMT objects, functions and methods.
 
 .. currentmodule:: pygmt
 
@@ -29,12 +27,14 @@ Plotting map elements
     Figure.basemap
     Figure.coast
     Figure.colorbar
+    Figure.hlines
     Figure.inset
     Figure.legend
     Figure.logo
     Figure.solar
     Figure.text
     Figure.timestamp
+    Figure.vlines
 
 Plotting tabular data
 ~~~~~~~~~~~~~~~~~~~~~
@@ -191,10 +191,44 @@ Getting metadata from tabular or grid data:
 .. autosummary::
     :toctree: generated
 
-    GMTDataArrayAccessor
     info
     grdinfo
 
+Xarray Integration
+------------------
+
+.. autosummary::
+    :toctree: generated
+
+    GMTBackendEntrypoint
+    GMTDataArrayAccessor
+
+Class-style Parameters
+----------------------
+
+.. currentmodule:: pygmt.params
+
+.. autosummary::
+    :toctree: generated
+    :template: autosummary/params.rst
+
+    Box
+    Pattern
+
+Enums
+-----
+
+.. currentmodule:: pygmt.enums
+
+.. autosummary::
+    :toctree: generated
+    :nosignatures:
+    :template: autosummary/enums.rst
+
+    GridRegistration
+    GridType
+
+.. currentmodule:: pygmt
 
 Miscellaneous
 -------------
@@ -204,8 +238,6 @@ Miscellaneous
 
     which
     show_versions
-
-.. currentmodule:: pygmt
 
 Datasets
 --------
@@ -221,10 +253,14 @@ and store them in GMT's user data directory.
     datasets.load_black_marble
     datasets.load_blue_marble
     datasets.load_earth_age
+    datasets.load_earth_deflection
+    datasets.load_earth_dist
     datasets.load_earth_free_air_anomaly
     datasets.load_earth_geoid
     datasets.load_earth_magnetic_anomaly
     datasets.load_earth_mask
+    datasets.load_earth_mean_dynamic_topography
+    datasets.load_earth_mean_sea_surface
     datasets.load_earth_relief
     datasets.load_earth_vertical_gravity_gradient
     datasets.load_mars_relief
@@ -259,6 +295,8 @@ All custom exceptions are derived from :class:`pygmt.exceptions.GMTError`.
     exceptions.GMTCLibError
     exceptions.GMTCLibNoSessionError
     exceptions.GMTCLibNotFoundError
+    exceptions.GMTTypeError
+    exceptions.GMTValueError
 
 
 .. currentmodule:: pygmt
@@ -317,7 +355,6 @@ Low level access (these are mostly used by the :mod:`pygmt.clib` package):
     clib.Session.read_virtualfile
     clib.Session.extract_region
     clib.Session.get_libgmt_func
-    clib.Session.virtualfile_from_data
     clib.Session.virtualfile_from_grid
     clib.Session.virtualfile_from_stringio
     clib.Session.virtualfile_from_matrix

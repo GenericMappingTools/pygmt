@@ -10,7 +10,7 @@ import numpy.testing as npt
 import pytest
 from pygmt import clib
 from pygmt.clib.session import DTYPES_NUMERIC
-from pygmt.exceptions import GMTCLibError, GMTInvalidInput
+from pygmt.exceptions import GMTCLibError, GMTTypeError, GMTValueError
 from pygmt.helpers import GMTTempFile
 
 
@@ -126,7 +126,7 @@ def test_put_vector_string_dtype():
             "2021-02-03T00:00:00",
             "2021-02-03T04:00:00",
             "2021-02-03T04:05:06",
-            f"{datetime.datetime.now(tz=datetime.timezone.utc).strftime('%Y-%m-%d')}T04:50:06",
+            f"{datetime.datetime.now(tz=datetime.UTC).strftime('%Y-%m-%d')}T04:50:06",
         ],
     ]
 
@@ -225,7 +225,7 @@ def test_put_vector_invalid_dtype():
                 dim=[2, 3, 0, 0],  # ncolumns, nrows, dtype, unused
             )
             data = np.array([37, 12, 556], dtype=dtype)
-            with pytest.raises(GMTInvalidInput, match="Unsupported numpy data type"):
+            with pytest.raises(GMTTypeError, match=r"Unrecognized data type"):
                 lib.put_vector(dataset, column=0, vector=data)
 
 
@@ -257,5 +257,5 @@ def test_put_vector_2d_fails():
             dim=[1, 6, 0, 0],  # ncolumns, nrows, dtype, unused
         )
         data = np.array([[37, 12, 556], [37, 12, 556]], dtype=np.int32)
-        with pytest.raises(GMTInvalidInput):
+        with pytest.raises(GMTValueError):
             lib.put_vector(dataset, column=0, vector=data)

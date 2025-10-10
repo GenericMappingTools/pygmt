@@ -8,7 +8,7 @@
 .. rubric:: Attributes
 
 {% for item in attributes %}
-.. autoproperty::
+.. autoattribute::
     {{ objname }}.{{ item }}
 {% endfor %}
 {% endif %}
@@ -17,6 +17,7 @@
 .. rubric:: Methods Summary
 
 .. autosummary::
+    :toctree:
     {% for item in methods %}
     {% if item != '__init__' %}
     {{ objname }}.{{ item }}

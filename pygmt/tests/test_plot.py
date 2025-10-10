@@ -10,7 +10,7 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import Figure, which
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import GMTTempFile
 
 POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
@@ -98,15 +98,15 @@ def test_plot_fail_1d_array_with_data(data, region):
     """
     fig = Figure()
     kwargs = {"data": data, "region": region, "projection": "X10c", "frame": "afg"}
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.plot(style="c0.2c", fill=data[:, 2], **kwargs)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.plot(style="cc", size=data[:, 2], fill="red", **kwargs)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.plot(style="c0.2c", fill="red", intensity=data[:, 2], **kwargs)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.plot(style="c0.2c", fill="red", transparency=data[:, 2] * 100, **kwargs)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.plot(style="0.2c", fill="red", symbol=["c"] * data.shape[0], **kwargs)
 
 
@@ -467,9 +467,14 @@ def test_plot_datetime():
     fig.plot(x=x, y=y, style="a0.2c", pen="1p")
 
     # the Python built-in datetime and date
-    x = [datetime.date(2018, 1, 1), datetime.datetime(2019, 1, 1)]
+    x = [datetime.date(2018, 1, 1), datetime.datetime(2019, 1, 1, 0, 0, 0)]
     y = [8.5, 9.5]
     fig.plot(x=x, y=y, style="i0.2c", pen="1p")
+
+    # Python sequence of pd.Timestamp
+    x = [pd.Timestamp("2018-01-01"), pd.Timestamp("2019-01-01")]
+    y = [5.5, 6.5]
+    fig.plot(x=x, y=y, style="d0.2c", pen="1p")
     return fig
 
 

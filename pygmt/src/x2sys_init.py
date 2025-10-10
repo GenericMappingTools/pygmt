@@ -2,6 +2,10 @@
 x2sys_init - Initialize a new x2sys track database.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -14,13 +18,17 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     G="discontinuity",
     I="spacing",
     N="units",
-    R="region",
-    V="verbose",
     W="gap",
     j="distcalc",
 )
-@kwargs_to_strings(I="sequence", R="sequence")
-def x2sys_init(tag, **kwargs):
+@kwargs_to_strings(I="sequence")
+def x2sys_init(
+    tag,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
+):
     r"""
     Initialize a new x2sys track database.
 
@@ -34,9 +42,11 @@ def x2sys_init(tag, **kwargs):
     :term:`X2SYS_HOME` to a directory where you have write permission, which is where
     x2sys can keep track of your settings.
 
-    Full option list at :gmt-docs:`supplements/x2sys/x2sys_init.html`
+    Full GMT docs at :gmt-docs:`supplements/x2sys/x2sys_init.html`.
 
     {aliases}
+       - R = region
+       - V = verbose
 
     Parameters
     ----------
@@ -85,13 +95,13 @@ def x2sys_init(tag, **kwargs):
         programs. Append **d** for distance or **s** for speed, then give the
         desired *unit* as:
 
-        - **c** - Cartesian userdist or userdist/usertime
-        - **e** - meters or m/s
-        - **f** - feet or ft/s
-        - **k** - kilometers or km/hr
-        - **m** - miles or mi/hr
-        - **n** - nautical miles or knots
-        - **u** - survey feet or sft/s
+        - **c**: Cartesian userdist or userdist/usertime
+        - **e**: meters or m/s
+        - **f**: feet or ft/s
+        - **k**: kilometers or km/hr
+        - **m**: miles or mi/hr
+        - **n**: nautical miles or knots
+        - **u**: survey feet or sft/s
 
         [Default is ``units=["dk", "se"]`` (km and m/s) if ``discontinuity`` is
         set, and ``units=["dc", "sc"]`` otherwise (e.g., for Cartesian units)].
@@ -110,5 +120,11 @@ def x2sys_init(tag, **kwargs):
 
     {distcalc}
     """
+    aliasdict = AliasSystem().add_common(
+        R=region,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
-        lib.call_module(module="x2sys_init", args=build_arg_list(kwargs, infile=tag))
+        lib.call_module(module="x2sys_init", args=build_arg_list(aliasdict, infile=tag))

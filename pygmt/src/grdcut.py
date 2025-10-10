@@ -1,36 +1,39 @@
 """
-grdcut - Extract subregion from a grid.
+grdcut - Extract subregion from a grid or image or a slice from a cube.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
 import xarray as xr
+from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
+from pygmt.exceptions import GMTTypeError, GMTValueError
 from pygmt.helpers import (
-    GMTTempFile,
     build_arg_list,
+    data_kind,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
 )
-from pygmt.io import load_dataarray
 
 __doctest_skip__ = ["grdcut"]
 
 
 @fmt_docstring
-@use_alias(
-    G="outgrid",
-    R="region",
-    J="projection",
-    N="extend",
-    S="circ_subregion",
-    V="verbose",
-    Z="z_subregion",
-    f="coltypes",
-)
-@kwargs_to_strings(R="sequence")
-def grdcut(grid, **kwargs) -> xr.DataArray | None:
+@use_alias(N="extend", S="circ_subregion", Z="z_subregion", f="coltypes")
+def grdcut(
+    grid: PathLike | xr.DataArray,
+    kind: Literal["grid", "image"] = "grid",
+    outgrid: PathLike | None = None,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
+) -> xr.DataArray | None:
     r"""
-    Extract subregion from a grid.
+    Extract subregion from a grid or image or a slice from a cube.
 
     Produce a new ``outgrid`` file which is a subregion of ``grid``. The
     subregion is specified with ``region``; the specified range must not exceed
@@ -41,13 +44,21 @@ def grdcut(grid, **kwargs) -> xr.DataArray | None:
     to determine the corresponding rectangular ``region`` that will give a grid
     that fully covers the oblique domain.
 
-    Full option list at :gmt-docs:`grdcut.html`
+    Full GMT docs at :gmt-docs:`grdcut.html`.
 
     {aliases}
+       - J = projection
+       - R = region
+       - V = verbose
 
     Parameters
     ----------
     {grid}
+    kind
+        The raster data kind. Valid values are ``"grid"`` and ``"image"``. When the
+        input ``grid`` is a file name, it's difficult to determine if the file is a grid
+        or an image, so we need to specify the raster kind explicitly. The default is
+        ``"grid"``.
     {outgrid}
     {projection}
     {region}
@@ -100,13 +111,34 @@ def grdcut(grid, **kwargs) -> xr.DataArray | None:
     >>> # 12° E to 15° E and a latitude range of 21° N to 24° N
     >>> new_grid = pygmt.grdcut(grid=grid, region=[12, 15, 21, 24])
     """
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="grdcut", args=build_arg_list(kwargs, infile=vingrd)
-                )
+    if kind not in {"grid", "image"}:
+        raise GMTValueError(kind, description="raster kind", choices=["grid", "image"])
 
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+    # Determine the output data kind based on the input data kind.
+    match inkind := data_kind(grid):
+        case "grid" | "image":
+            outkind = inkind
+        case "file":
+            outkind = kind
+        case _:
+            raise GMTTypeError(type(grid))
+
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        R=region,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_out(kind=outkind, fname=outgrid) as voutgrd,
+        ):
+            aliasdict["G"] = voutgrd
+            lib.call_module(
+                module="grdcut", args=build_arg_list(aliasdict, infile=vingrd)
+            )
+            return lib.virtualfile_to_raster(
+                vfname=voutgrd, kind=outkind, outgrid=outgrid
+            )

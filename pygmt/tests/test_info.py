@@ -11,7 +11,7 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import info
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTTypeError
 from pygmt.helpers.testing import skip_if_no
 
 POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
@@ -23,10 +23,7 @@ def test_info():
     """
     output = info(data=POINTS_DATA)
     expected_output = (
-        f"{POINTS_DATA}: N = 20 "
-        "<11.5309/61.7074> "
-        "<-2.9289/7.8648> "
-        "<0.1412/0.9338>\n"
+        f"{POINTS_DATA}: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
     )
     assert output == expected_output
 
@@ -57,10 +54,7 @@ def test_info_path(table):
     """
     output = info(data=table)
     expected_output = (
-        f"{POINTS_DATA}: N = 20 "
-        "<11.5309/61.7074> "
-        "<-2.9289/7.8648> "
-        "<0.1412/0.9338>\n"
+        f"{POINTS_DATA}: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
     )
     assert output == expected_output
 
@@ -251,7 +245,7 @@ def test_info_fails():
     Make sure info raises an exception if not given either a file name, pandas
     DataFrame, or numpy ndarray.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         info(data=xr.DataArray(21))
 
 

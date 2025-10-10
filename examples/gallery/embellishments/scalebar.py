@@ -10,10 +10,10 @@ This example shows how such a scale bar can be customized:
    of the reference point. Choose from
 
    - **g**: Give map coordinates as *longitude*\/\ *latitude*.
-   - **j**\|\ **J**: Specify a two-character (order independent) code.
-     Choose from vertical **T**\(op), **M**\(iddle), or **B**\(ottom) and
-     horizontal **L**\(eft), **C**\(entre), or **R**\(ight). Lower / upper
-     case **j** / **J** mean inside / outside of the map bounding box.
+   - **j**\|\ **J**: Specify a
+     :doc:`2-character justification code </techref/justification_codes>`.
+     Lower / uppercase **j** / **J** mean inside / outside of the map
+     bounding box.
    - **n**: Give normalized bounding box coordinates as *nx*\/\ *ny*.
    - **x**: Give plot coordinates as *x*\/\ *y*.
 
@@ -25,11 +25,10 @@ This example shows how such a scale bar can be customized:
    **+c** is appended the middle of the map is used. Note that *slon* is only
    optional for projections with constant scale along parallels, e.g.,
    Mercator projection.
- - justify: **+j**. Set the anchor point. Specify a two-character (order
-   independent) code. Choose from vertical **T**\(op), **M**\(iddle), or
-   **B**\(ottom) and horizontal **L**\(eft), **C**\(entre), or **R**\(ight).
+ - justify: **+j**. Set the anchor point. Specify a
+   :doc:`2-character justification code </techref/justification_codes>`.
  - offset: **+o**\ *offset* or **+o**\ *xoffset*/\ *yoffset*. Give either a
-   common shift or individual shifts in x (longitude) and y (latitude)
+   common shift or individual shifts in x- (longitude) and y- (latitude)
    directions.
  - height: Use :gmt-term:`MAP_SCALE_HEIGHT` via :func:`pygmt.config`.
  - fancy style: **+f**. Get a scale bar that looks like train tracks.
@@ -43,6 +42,7 @@ This example shows how such a scale bar can be customized:
 
 # %%
 import pygmt
+from pygmt.params import Box
 
 # Create a new Figure instance
 fig = pygmt.Figure()
@@ -76,7 +76,7 @@ with pygmt.config(MAP_SCALE_HEIGHT="10p"):
 # -----------------------------------------------------------------------------
 # Bottom Right: Add a scale bar valid for a specific location
 # It is placed at BottomRight (j) using MiddleRight as anchor point (+j) with
-# an offset (+o) of 1 centimeter in both x and y directions
+# an offset (+o) of 1 centimeter in both x- and y-directions
 # It applies (+c) at -7° South, add a customized label by appending text to +l
 fig.basemap(map_scale="jBR+jMR+o1c/1c+c-7+w500k+f+u+lvalid at 7° S")
 
@@ -104,7 +104,7 @@ fig.coast(
     # Fill the box in white with a transparency of 30 percent, add a solid
     # outline in darkgray (gray30) with a thickness of 0.5 points, and use
     # rounded edges with a radius of 3 points
-    box="+gwhite@30+p0.5p,gray30,solid+r3p",
+    box=Box(fill="white@30", pen="0.5p,gray30,solid", radius="3p"),
 )
 
 fig.show()

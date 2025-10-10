@@ -7,7 +7,13 @@ from typing import ClassVar
 
 import numpy as np
 import xarray as xr
+from packaging.version import Version
 from pygmt.datatypes.header import _GMT_GRID_HEADER
+
+# TODO(xarray>=2025.10.1): Remove the __doctest_skip__ on _GMT_IMAGE.to_xarray
+__doctest_skip__ = (
+    ["_GMT_IMAGE.to_xarray"] if Version(xr.__version__) < Version("2025.10.1") else []
+)
 
 
 class _GMT_IMAGE(ctp.Structure):  # noqa: N801
@@ -96,7 +102,7 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
         ("hidden", ctp.c_void_p),
     ]
 
-    def to_dataarray(self) -> xr.DataArray:
+    def to_xarray(self) -> xr.DataArray:
         """
         Convert a _GMT_IMAGE object to an :class:`xarray.DataArray` object.
 
@@ -114,9 +120,9 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
         ...         # Read the image from the virtual file
         ...         image = lib.read_virtualfile(voutimg, kind="image")
         ...         # Convert to xarray.DataArray and use it later
-        ...         da = image.contents.to_dataarray()
-        >>> da  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
-        <xarray.DataArray 'z' (band: 3, y: 180, x: 360)>...
+        ...         da = image.contents.to_xarray()
+        >>> da  # doctest: +NORMALIZE_WHITESPACE
+        <xarray.DataArray 'z' (band: 3, y: 180, x: 360)> Size: 194kB
         array([[[ 10,  10,  10, ...,  10,  10,  10],
                 [ 10,  10,  10, ...,  10,  10,  10],
                 [ 10,  10,  10, ...,  10,  10,  10],
@@ -141,32 +147,32 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
                 [185, 187, 187, ..., 187, 186, 185],
                 [189, 191, 191, ..., 191, 191, 189]]], dtype=uint8)
         Coordinates:
-          * y        (y) float64... 89.5 88.5 87.5 86.5 ... -86.5 -87.5 -88.5 -89.5
-          * x        (x) float64... -179.5 -178.5 -177.5 -176.5 ... 177.5 178.5 179.5
-          * band     (band) uint8... 1 2 3
+          * band     (band) uint8 3B 1 2 3
+          * y        (y) float64 1kB 89.5 88.5 87.5 86.5 ... -86.5 -87.5 -88.5 -89.5
+          * x        (x) float64 3kB -179.5 -178.5 -177.5 -176.5 ... 177.5 178.5 179.5
         Attributes:
-            long_name:     z
+            long_name:  z
 
-        >>> da.coords["x"]  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
-        <xarray.DataArray 'x' (x: 360)>...
+        >>> da.coords["x"]  # doctest: +NORMALIZE_WHITESPACE
+        <xarray.DataArray 'x' (x: 360)> Size: 3kB
         array([-179.5, -178.5, -177.5, ...,  177.5,  178.5,  179.5])
         Coordinates:
-          * x        (x) float64... -179.5 -178.5 -177.5 -176.5 ... 177.5 178.5 179.5
+          * x        (x) float64 3kB -179.5 -178.5 -177.5 -176.5 ... 177.5 178.5 179.5
         Attributes:
             long_name:     x
             axis:          X
             actual_range:  [-180.  180.]
-        >>> da.coords["y"]  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
-        <xarray.DataArray 'y' (y: 180)>...
+        >>> da.coords["y"]  # doctest: +NORMALIZE_WHITESPACE
+        <xarray.DataArray 'y' (y: 180)> Size: 1kB
         array([ 89.5,  88.5,  87.5,  86.5,  ...,   -87.5, -88.5, -89.5])
         Coordinates:
-          * y        (y) float64... 89.5 88.5 87.5 86.5 ... -86.5 -87.5 -88.5 -89.5
+          * y        (y) float64 1kB 89.5 88.5 87.5 86.5 ... -86.5 -87.5 -88.5 -89.5
         Attributes:
             long_name:     y
             axis:          Y
             actual_range:  [-90.  90.]
         >>> da.gmt.registration, da.gmt.gtype
-        (1, 1)
+        (<GridRegistration.PIXEL: 1>, <GridType.GEOGRAPHIC: 1>)
         """
         # The image header
         header = self.header.contents

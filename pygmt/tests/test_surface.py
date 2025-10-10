@@ -8,7 +8,8 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import surface, which
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.enums import GridRegistration, GridType
+from pygmt.exceptions import GMTTypeError
 from pygmt.helpers import GMTTempFile
 
 
@@ -72,8 +73,8 @@ def check_values(grid, expected_grid):
     Check the attributes and values of the DataArray returned by surface.
     """
     assert isinstance(grid, xr.DataArray)
-    assert grid.gmt.registration == 0  # Gridline registration
-    assert grid.gmt.gtype == 0  # Cartesian type
+    assert grid.gmt.registration is GridRegistration.GRIDLINE
+    assert grid.gmt.gtype is GridType.CARTESIAN
     xr.testing.assert_allclose(a=grid, b=expected_grid)
 
 
@@ -85,7 +86,7 @@ def test_surface_input_file(region, spacing, expected_grid):
         data="@Table_5_11_mean.xyz",
         spacing=spacing,
         region=region,
-        verbose="e",  # Suppress warnings for IEEE 754 rounding
+        verbose="error",  # Suppress warnings for IEEE 754 rounding
     )
     check_values(output, expected_grid)
 
@@ -99,7 +100,7 @@ def test_surface_input_data_array(data, region, spacing, expected_grid):
         data=data,
         spacing=spacing,
         region=region,
-        verbose="e",  # Suppress warnings for IEEE 754 rounding
+        verbose="error",  # Suppress warnings for IEEE 754 rounding
     )
     check_values(output, expected_grid)
 
@@ -115,7 +116,7 @@ def test_surface_input_xyz(data, region, spacing, expected_grid):
         z=data.z,
         spacing=spacing,
         region=region,
-        verbose="e",  # Suppress warnings for IEEE 754 rounding
+        verbose="error",  # Suppress warnings for IEEE 754 rounding
     )
     check_values(output, expected_grid)
 
@@ -125,7 +126,7 @@ def test_surface_wrong_kind_of_input(data, region, spacing):
     Run surface using grid input that is not file/matrix/vectors.
     """
     data = data.z.to_xarray()  # convert pandas.Series to xarray.DataArray
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         surface(data=data, spacing=spacing, region=region)
 
 
@@ -140,9 +141,9 @@ def test_surface_with_outgrid_param(data, region, spacing, expected_grid):
             spacing=spacing,
             region=region,
             outgrid=tmpfile.name,
-            verbose="e",  # Suppress warnings for IEEE 754 rounding
+            verbose="error",  # Suppress warnings for IEEE 754 rounding
         )
         assert output is None  # check that output is None since outgrid is set
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
-        with xr.open_dataarray(tmpfile.name) as grid:
-            check_values(grid, expected_grid)
+        grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
+        check_values(grid, expected_grid)

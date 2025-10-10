@@ -2,7 +2,12 @@
 dimfilter - Directional filtering of grids in the space domain.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
 import xarray as xr
+from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -11,18 +16,18 @@ __doctest_skip__ = ["dimfilter"]
 
 
 @fmt_docstring
-@use_alias(
-    D="distance",
-    F="filter",
-    I="spacing",
-    N="sectors",
-    R="region",
-    V="verbose",
-)
-@kwargs_to_strings(I="sequence", R="sequence")
-def dimfilter(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
+@use_alias(D="distance", F="filter", I="spacing", N="sectors")
+@kwargs_to_strings(I="sequence")
+def dimfilter(
+    grid: PathLike | xr.DataArray,
+    outgrid: PathLike | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
+) -> xr.DataArray | None:
     r"""
-    Filter a grid by dividing the filter circle.
+    Directional filtering of grids in the space domain.
 
     Filter a grid in the space (or time) domain by
     dividing the given filter circle into the given number of sectors,
@@ -40,9 +45,11 @@ def dimfilter(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None
     Thus, an additional filtering (e.g., Gaussian via :func:`pygmt.grdfilter`)
     of the DiM-filtered data is generally recommended.
 
-    Full option list at :gmt-docs:`dimfilter.html`
+    Full GMT docs at :gmt-docs:`dimfilter.html`.
 
     {aliases}
+       - R = region
+       - V = verbose
 
     Parameters
     ----------
@@ -135,18 +142,25 @@ def dimfilter(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None
     ... )
     """
     if not all(arg in kwargs for arg in ["D", "F", "N"]) and "Q" not in kwargs:
-        raise GMTInvalidInput(
-            """At least one of the following parameters must be specified:
-            distance, filters, or sectors."""
+        msg = (
+            "At least one of the following parameters must be specified: "
+            "distance, filters, or sectors."
         )
+        raise GMTInvalidInput(msg)
+
+    aliasdict = AliasSystem().add_common(
+        R=region,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            kwargs["G"] = voutgrd
+            aliasdict["G"] = voutgrd
             lib.call_module(
-                module="dimfilter", args=build_arg_list(kwargs, infile=vingrd)
+                module="dimfilter", args=build_arg_list(aliasdict, infile=vingrd)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
