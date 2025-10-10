@@ -324,4 +324,4 @@ please check your GMT and Ghostscript versions (you can run `pygmt.show_versions
 We recommend:
 
 - Ghostscript 9.53-9.56 for GMT 6.4.0 (or below)
-- Ghostscript 10.03 or later for GMT 6.5.0
+- Ghostscript 10.03-10.06 for GMT 6.5.0-6.6.0

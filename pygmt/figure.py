@@ -279,12 +279,6 @@ class Figure:
         kwargs.pop("metadata", None)
         self.psconvert(prefix=prefix, fmt=fmts[ext], crop=crop, **kwargs)
 
-        # TODO(GMT>=6.5.0): Remove the workaround for upstream bug in GMT<6.5.0.
-        # Remove the .pgw world file if exists. Not necessary after GMT 6.5.0.
-        # See upstream fix https://github.com/GenericMappingTools/gmt/pull/7865
-        if ext == "tiff":
-            fname.with_suffix(".pgw").unlink(missing_ok=True)
-
         # Rename if file extension doesn't match the input file suffix.
         if ext != suffix[1:]:
             fname.with_suffix("." + ext).rename(fname)

@@ -269,7 +269,7 @@ COMMON_DOCSTRINGS = {
             the viewpoint [Default is ``[180, 90]``]. Full documentation is at
             :gmt-docs:`gmt.html#perspective-full`.""",
     "projection": r"""
-        projection : str
+        projection
             *projcode*\[*projparams*/]\ *width*\|\ *scale*.
             Select map :doc:`projection </projections/index>`.""",
     "region": r"""
@@ -415,11 +415,12 @@ def fmt_docstring(module_func):
     region : str or list
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
         Specify the :doc:`region </tutorials/basics/regions>` of interest.
-    projection : str
+    projection
         *projcode*\[*projparams*/]\ *width*\|\ *scale*.
         Select map :doc:`projection </projections/index>`.
     <BLANKLINE>
     **Aliases:**
+    <BLANKLINE>
     .. hlist::
        :columns: 3
     <BLANKLINE>

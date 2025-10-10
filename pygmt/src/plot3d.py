@@ -32,7 +32,6 @@ from pygmt.src._common import _data_geometry_is_point
     L="close",
     N="no_clip",
     Q="no_sort",
-    R="region",
     S="style",
     W="pen",
     Z="zvalue",
@@ -48,7 +47,7 @@ from pygmt.src._common import _data_geometry_is_point
     p="perspective",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
+@kwargs_to_strings(i="sequence_comma", p="sequence")
 def plot3d(  # noqa: PLR0912, PLR0913
     self,
     data: PathLike | TableLike | None = None,
@@ -59,7 +58,8 @@ def plot3d(  # noqa: PLR0912, PLR0913
     symbol=None,
     direction=None,
     straight_line: bool | Literal["x", "y"] = False,
-    projection=None,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -92,6 +92,7 @@ def plot3d(  # noqa: PLR0912, PLR0913
     {aliases}
        - A = straight_line
        - J = projection
+       - R = region
        - V = verbose
        - c = panel
        - t = transparency
@@ -273,6 +274,7 @@ def plot3d(  # noqa: PLR0912, PLR0913
         A=Alias(straight_line, name="straight_line"),
     ).add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,
