@@ -56,7 +56,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.11', '3.13']
+        python-version: ['3.11', '3.14']
         os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest, windows-latest]
         # Is it a draft Pull Request (true or false)?
         isDraft:
@@ -76,8 +76,8 @@ jobs:
             pandas-version: '=2.2'
             xarray-version: '=2023.10'
             optional-packages: ' contextily geopandas ipython pyarrow-core rioxarray netCDF4 sphinx-gallery'
-          # Python 3.13 + core packages (latest versions) + optional packages
-          - python-version: '3.13'
+          # Python 3.14 + core packages (latest versions) + optional packages
+          - python-version: '3.14'
             numpy-version: '2.3'
             pandas-version: ''
             xarray-version: ''
