@@ -29,7 +29,7 @@ labels: ["feature request"]
 
 ## Linked Pull Requests
 
-- [ ] Initial feature implementation
+- [ ] Initial feature implementation #XXX @XXX
 - [ ] Add a tutorial or gallery example
 
 ## Related Issues and Discussions
