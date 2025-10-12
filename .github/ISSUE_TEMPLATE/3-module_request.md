@@ -6,7 +6,8 @@ labels: ["feature request"]
 
 ---
 
-*This issue is the central place for discussing the implementation of the <wrapper> method. The progress is tracked at https://github.com/orgs/GenericMappingTools/projects/3.*
+*This issue serves as the central place for discussing and tracking the implementation of the `<wrapper>` method in PyGMT.*
+*The issue will be closed when the initial implementation is complete. Progress is tracked at https://github.com/orgs/GenericMappingTools/projects/3.*
 
 ## Documentation
 
@@ -14,17 +15,24 @@ labels: ["feature request"]
 - GMT.jl: https://www.generic-mapping-tools.org/GMTjl_doc/documentation/modules/<module>
 - PyGMT: https://www.pygmt.org/dev/api/generated/<wrapper>.html
 
-## Linked PRs
-
-- [ ] Initial feature implementation
-- [ ] Add a tutorial/gallery example
-
 ## GMT Option Flags
 
-*Checked: Implemented; Unchecked: To be implemented/discussed; Strikethrough: Won't implement.*
+*☑️: Implemented; ⬜: To be implemented/discussed; ~~Strikethrough~~: Won’t implement.*
 
-- [ ] `-R`: `region` #XXX
-- [ ] `-J`: `projection` #XXX
+- [ ] `-R`: `region` #XXX @XXX
+- [ ] `-J`: `projection` #XXX @XXX
 - [ ] ...
 
-## Notes on input formats
+## Notes on Input Formats
+
+*Add any notes on the input formats, especially the meaning of columns.*
+
+## Linked Pull Requests
+
+- [ ] Initial feature implementation
+- [ ] Add a tutorial or gallery example
+
+## Related Issues and Discussions
+
+*Add links to related wrapper discussions, API design threads, or upstream GMT changes here.*
+
