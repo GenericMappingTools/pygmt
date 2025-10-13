@@ -17,7 +17,7 @@ labels: ["feature request"]
 
 ## GMT Option Flags
 
-*☑️: Implemented; ⬜: To be implemented/discussed; ~~Strikethrough~~: Won’t implement.*
+☑️: *Implemented*; ⬜: *To be implemented/discussed*; ~~Strikethrough~~: *Won’t implement*.
 
 - [ ] `-R`: `region` #XXX @XXX
 - [ ] `-J`: `projection` #XXX @XXX
