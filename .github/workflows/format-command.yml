@@ -45,7 +45,8 @@ jobs:
       # Run "make format" and commit the change to the PR branch
       - name: Commit to the PR branch if any changes
         run: |
-          make format
+          # Use '|| true' to ensure the workflow doesn't stop when `make format` fails
+          make format || true  
           if [[ $(git ls-files -m) ]]; then
             git config --global user.name 'actions-bot'
             git config --global user.email '58130806+actions-bot@users.noreply.github.com'
