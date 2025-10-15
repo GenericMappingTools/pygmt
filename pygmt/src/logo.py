@@ -51,8 +51,12 @@ def logo(  # noqa: PLR0913
 
     Full GMT docs at :gmt-docs:`gmtlogo.html`.
 
-    {aliases}
-       - D = position/position_type/anchor/anchor_offset/width/height
+    **Aliases:**
+
+    .. hlist::
+       :columns: 3
+
+       - D = position/position_type, **+j**: anchor, **+o**: anchor_offset, **+w**: width, **+h**:height
        - F = box
        - J = projection
        - R = region
