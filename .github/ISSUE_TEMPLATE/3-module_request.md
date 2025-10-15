@@ -6,8 +6,7 @@ labels: ["feature request"]
 
 ---
 
-*This issue serves as the central place for discussing and tracking the implementation of the `<wrapper>` method in PyGMT.*
-*The issue will be closed when the initial implementation is complete. Progress is tracked at https://github.com/orgs/GenericMappingTools/projects/3.*
+*This issue serves as the central place for discussing and tracking the implementation of the `<wrapper>` method in PyGMT. The issue will be closed when the initial implementation is complete. Progress is tracked at https://github.com/orgs/GenericMappingTools/projects/3.*
 
 ## Documentation
 
