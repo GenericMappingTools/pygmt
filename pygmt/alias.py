@@ -300,6 +300,8 @@ class AliasSystem(UserDict):
         """
         for key, value in kwargs.items():
             match key:
+                case "B":
+                    alias = Alias(value, name="frame")
                 case "J":
                     alias = Alias(value, name="projection")
                 case "R":
