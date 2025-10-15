@@ -21,6 +21,10 @@ labels: ["feature request"]
 - [ ] `-R`: `region` #XXX @XXX
 - [ ] `-J`: `projection` #XXX @XXX
 - [ ] ...
+- [ ] ~~`-U`~~: Use `Figure.timestamp` instead.
+- [ ] ~~`-X`/`-Y`~~: Use `Figure.shift_origin` instead.
+- [ ] ~~`--PAR=value`~~: Use `pygmt.config` instead.
+
 
 ## Notes on Input Formats
 
