@@ -520,30 +520,30 @@ Wrapping a new GMT module in PyGMT is usually a big task, which will progress qu
 and smoother if done in **small, manageable chunks**. This section gives an overview of
 the specific tasks involved in wrapping a new module.
 
-1. Create a feature request for wrapping a GMT module
-2. Discuss if we want to wrap the module, or what users would like to see about the new feature
-3. Create a new central issue to track the progress of wrapping the module, using the
-   issue template. Link the issue to the Project board.
-4. The issue should contain a complete list of the module's options and the goal is to
-   alias all the options. For each task, checked->Implemented; unchecked: To be implemented/discussed; Strikethrough->Won't implement (Explain the reason)
-5. Close the issue opened in step 1, and leave a comment like
-   "Thank you for opening the request. The progress of wrapping the module will be
-   tracked in issue XXX and project board XXX".
-6. One PR for the initial implementation focusing on required and important parameters.
-7. Close the issue opened in step 3 and leave a comment like
-   "The initial implementation of wrapping the XXX module is done in PR XXX, but not all
-   functionalities are implemented yet. Further progress will be tracked in the Projects
-   board.". This is necessary to avoid having hundreds of long-term open issues.
-8. Even after closing the central issue, we can still comment on the issue to discuss
-   the possible implementation of other aliases, and thoughts on gallery example and
-   tutorials.
+1. Create a feature request (hereafter called "wrapper request issue") for wrapping a 
+   GMT module and discuss what users would like to see about the new feature.
+   [optional, usually done by users]. 
+2. Create a new issue (hereafter called "wrapper tracking issue"), using the "Wrapper 
+   for a GMT module" issue template, to track the progress of wrapping the module, link
+   it to the Project board, and close the "wrapper request issue" with a comment like 
+   "Thank you for opening the feature request. The progress of wrapping the module will 
+   be tracked in issue #XXX and 
+   the [Project board](https://github.com/orgs/GenericMappingTools/projects/3)".
+   [usually done by maintainers].
+3. Open one PR for the initial implementation, focusing on required and important 
+   parameters.
+4. Close the "wrapper tracking issue" once the initial implementation is done. Leave a 
+   comment like "The initial implementation of wrapping the XXX module is done in PR 
+   #XXX, but not all functionalities are implemented yet. Further progress will be 
+   tracked in the Project board.". This is necessary to avoid having hundreds of 
+   long-term open issues.
+5. Open one or more PRs implementing the remaining features
+6. Open one PR adding a gallery example or a tutorial
 
-These steps will be tracked in the 'Wrapper for `<module-name>`' issue and the
-['wrapping GMT modules'](https://github.com/GenericMappingTools/pygmt/projects/3)
-project board. The pull requests can be split between multiple contributors and there is
-no obligation for a single contributor to complete all steps. Please comment on the
-initial 'Wrapper for `<module-name>`' if you would like to open a pull request for any
-of these tasks to avoid redundant efforts.
+The pull requests can be split between multiple contributors and there is no obligation 
+for a single contributor to complete all steps. Please comment on the "wrapper tracking 
+issue" if you would like to open a pull request for any of these tasks to avoid 
+redundant efforts.
 
 #### Request wrapper for GMT module
 
