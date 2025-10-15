@@ -54,9 +54,14 @@ def logo(  # noqa: PLR0913
     **Aliases:**
 
     .. hlist::
+       :columns: 1
+
+       - D = position/position_type, **+j**: anchor, **+o**: anchor_offset,
+         **+w**: width, **+h**:height
+
+    .. hlist::
        :columns: 3
 
-       - D = position/position_type, **+j**: anchor, **+o**: anchor_offset, **+w**: width, **+h**:height
        - F = box
        - J = projection
        - R = region
