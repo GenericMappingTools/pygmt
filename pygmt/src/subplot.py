@@ -77,7 +77,7 @@ def subplot(
         [Default is ``"a"``]. This sets the tag of the first, top-left subplot and
         others follow sequentially. Surround the number or letter by parentheses on
         any side if these should be typeset as part of the tag [Default is ``")"``].
-        Use **+j**\|\ **J**\ for setting *refpoint* via a
+        Use **+j**\|\ **J** for setting *refpoint* via a
         :doc:`2-character justification code </techref/justification_codes>`
         to specify where the tag should be placed in the subplot [Default is ``"TL"``
         for the Top Left corner]. **Note**: **+j** sets the justification of the tag
