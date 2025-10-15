@@ -63,11 +63,11 @@ def logo(  # noqa: PLR0913
 
     Parameters
     ----------
-    position/position_type
-        Specify the reference point on the plot for the GMT logo. The method of
-        defining the the reference point is controlled by **position_type**, and the
-        exact location is set by **position**.
-
+    position
+        Specify the reference point on the plot for the GMT logo. The method of defining
+        the reference point is controlled by **position_type**, and the exact location 
+        is set by **position**.
+    position_type
         The **position_type** parameter can take one of the following values:
 
         - ``"mapcoords"``: **position** is specified as (*longitude*, *latitude*) in map
