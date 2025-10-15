@@ -1,5 +1,5 @@
 outs:
-- md5: e147503fcaacb1686211653be7eb7709
-  size: 74897
+- md5: bc881c2baecfccb21c801028ef2f7ba0
+  size: 75120
   path: test_contour_matrix.png
   hash: md5

@@ -2,6 +2,7 @@
 grdtrack - Sample one or more grids at specified locations.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
@@ -29,7 +30,6 @@ __doctest_skip__ = ["grdtrack"]
     D="dfile",
     E="profile",
     F="critical",
-    R="region",
     N="no_skip",
     S="stack",
     T="radius",
@@ -48,13 +48,14 @@ __doctest_skip__ = ["grdtrack"]
     s="skiprows",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", S="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(S="sequence", i="sequence_comma", o="sequence_comma")
 def grdtrack(
     grid: PathLike | xr.DataArray,
     points: PathLike | TableLike | None = None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
     newcolname=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -79,7 +80,8 @@ def grdtrack(
     Full GMT docs at :gmt-docs:`grdtrack.html`.
 
     {aliases}
-        - V = verbose
+       - R = region
+       - V = verbose
 
     Parameters
     ----------
@@ -313,6 +315,7 @@ def grdtrack(
         column_names = [*points.columns.to_list(), newcolname]
 
     aliasdict = AliasSystem().add_common(
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)

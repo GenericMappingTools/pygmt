@@ -3,28 +3,27 @@ inset - Manage figure inset setup and completion.
 """
 
 import contextlib
+from collections.abc import Sequence
 from typing import Literal
 
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.params import Box
 
 __doctest_skip__ = ["inset"]
 
 
 @fmt_docstring
 @contextlib.contextmanager
-@use_alias(
-    D="position",
-    F="box",
-    M="margin",
-    N="no_clip",
-    R="region",
-)
-@kwargs_to_strings(D="sequence", M="sequence", R="sequence")
+@use_alias(D="position", M="margin")
+@kwargs_to_strings(D="sequence", M="sequence")
 def inset(
     self,
-    projection=None,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
+    box: Box | bool = False,
+    no_clip: bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -39,7 +38,10 @@ def inset(
     Full GMT docs at :gmt-docs:`inset.html`.
 
     {aliases}
+       - F = box
        - J = projection
+       - N = no_clip
+       - R = region
        - V = verbose
 
     Parameters
@@ -83,27 +85,11 @@ def inset(
         as *refpoint*, if **J** is used then *justify* defaults to the
         mirror opposite of *refpoint*. Specify inset box attributes via
         the ``box`` parameter [Default is outline only].
-    box : str or bool
-        [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\
-        *pen*]][**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\
-        [[*dx*/*dy*/][*shade*]]].
-        If set to ``True``, draw a rectangular box around the map
-        inset using the default pen; specify a different pen
-        with **+p**\ *pen*. Add **+g**\ *fill* to fill the inset box
-        [Default is no fill].
-        Append **+c**\ *clearance* where *clearance* is either
-        *gap*, *xgap*\ /\ *ygap*, or *lgap*\ /\ *rgap*\ /\ *bgap*\ /\
-        *tgap* where these items are uniform, separate in x- and
-        y-directions, or individual side spacings between map embellishment
-        and border. Append **+i** to draw a secondary, inner border as well.
-        We use a uniform *gap* between borders of 2p and the default pen
-        unless other values are specified. Append **+r** to draw rounded
-        rectangular borders instead, with a 6p corner radius. You
-        can override this radius by appending another value. Append
-        **+s** to draw an offset background shaded region. Here, *dx*/*dy*
-        indicates the shift relative to the foreground frame [Default is
-        ``"4p/-4p"``] and *shade* sets the fill style to use for
-        shading [Default is ``"gray50"``].
+    box
+        Draw a background box behind the inset. If set to ``True``, a simple rectangular
+        box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,
+        pass a :class:`pygmt.params.Box` object to control style, fill, pen, and other
+        box properties.
     margin : float, str, or list
         This is clearance that is added around the inside of the inset.
         Plotting will take place within the inner region only. The margins
@@ -113,9 +99,9 @@ def inset(
         margins). When passing multiple values, it can be either a list or
         a string with the values separated by forward
         slashes [Default is no margins].
-    no_clip : bool
-        Do **not** clip features extruding outside the inset frame
-        boundaries [Default is ``False``].
+    no_clip
+        Do **not** clip features extruding outside the inset frame boundaries [Default
+        is ``False``].
     {region}
     {projection}
     {verbose}
@@ -147,8 +133,12 @@ def inset(
     """
     self._activate_figure()
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        F=Alias(box, name="box"),
+        N=Alias(no_clip, name="no_clip"),
+    ).add_common(
         J=projection,
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)

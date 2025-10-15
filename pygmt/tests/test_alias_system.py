@@ -71,14 +71,14 @@ def test_alias_system_one_alias_short_form():
     # Long-form exists but is not given, and short-form is given.
     with pytest.warns(
         SyntaxWarning,
-        match="Short-form parameter 'J' is not recommended. Use long-form parameter 'projection' instead.",
+        match=r"Short-form parameter 'J' is not recommended. Use long-form parameter 'projection' instead.",
     ):
         assert func(J="X10c") == ["-JX10c"]
 
     # Coexistence of long-form and short-form parameters.
     with pytest.raises(
         GMTInvalidInput,
-        match="Short-form parameter 'J' conflicts with long-form parameters and is not recommended. Use long-form parameter 'projection' instead.",
+        match=r"Short-form parameter 'J' conflicts with long-form parameters and is not recommended. Use long-form parameter 'projection' instead.",
     ):
         func(projection="X10c", J="H10c")
 

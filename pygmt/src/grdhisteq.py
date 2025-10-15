@@ -2,6 +2,7 @@
 grdhisteq - Perform histogram equalization for a grid.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
@@ -14,7 +15,6 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
     validate_output_table_type,
 )
@@ -55,17 +55,11 @@ class grdhisteq:  # noqa: N801
 
     @staticmethod
     @fmt_docstring
-    @use_alias(
-        C="divisions",
-        R="region",
-        N="gaussian",
-        Q="quadratic",
-        h="header",
-    )
-    @kwargs_to_strings(R="sequence")
+    @use_alias(C="divisions", N="gaussian", Q="quadratic", h="header")
     def equalize_grid(
         grid: PathLike | xr.DataArray,
         outgrid: PathLike | None = None,
+        region: Sequence[float | str] | str | None = None,
         verbose: Literal[
             "quiet", "error", "warning", "timing", "info", "compat", "debug"
         ]
@@ -84,6 +78,7 @@ class grdhisteq:  # noqa: N801
         Full GMT docs at :gmt-docs:`grdhisteq.html`.
 
         {aliases}
+           - R = region
            - V = verbose
 
         Parameters
@@ -131,6 +126,7 @@ class grdhisteq:  # noqa: N801
         grids to account for node area varying with latitude.
         """
         aliasdict = AliasSystem().add_common(
+            R=region,
             V=verbose,
         )
         aliasdict.merge(kwargs)
@@ -148,18 +144,12 @@ class grdhisteq:  # noqa: N801
 
     @staticmethod
     @fmt_docstring
-    @use_alias(
-        C="divisions",
-        R="region",
-        N="gaussian",
-        Q="quadratic",
-        h="header",
-    )
-    @kwargs_to_strings(R="sequence")
+    @use_alias(C="divisions", N="gaussian", Q="quadratic", h="header")
     def compute_bins(
         grid: PathLike | xr.DataArray,
         output_type: Literal["pandas", "numpy", "file"] = "pandas",
         outfile: PathLike | None = None,
+        region: Sequence[float | str] | str | None = None,
         verbose: Literal[
             "quiet", "error", "warning", "timing", "info", "compat", "debug"
         ]
@@ -186,6 +176,7 @@ class grdhisteq:  # noqa: N801
         Full GMT docs at :gmt-docs:`grdhisteq.html`.
 
         {aliases}
+           - R = region
            - V = verbose
 
         Parameters
@@ -247,6 +238,7 @@ class grdhisteq:  # noqa: N801
             raise GMTInvalidInput(msg)
 
         aliasdict = AliasSystem().add_common(
+            R=region,
             V=verbose,
         )
         aliasdict.merge(kwargs)

@@ -2,6 +2,7 @@
 grdcontour - Make contour map using a grid.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -29,18 +30,18 @@ __doctest_skip__ = ["grdcontour"]
     G="label_placement",
     L="limit",
     Q="cut",
-    R="region",
     S="resample",
     W="pen",
     l="label",
     f="coltypes",
     p="perspective",
 )
-@kwargs_to_strings(R="sequence", L="sequence", p="sequence")
+@kwargs_to_strings(L="sequence", p="sequence")
 def grdcontour(
     self,
     grid: PathLike | xr.DataArray,
-    projection=None,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -56,6 +57,7 @@ def grdcontour(
 
     {aliases}
        - J = projection
+       - R = region
        - V = verbose
        - c = panel
        - t = transparency
@@ -165,6 +167,7 @@ def grdcontour(
 
     aliasdict = AliasSystem().add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,

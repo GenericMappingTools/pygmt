@@ -2,9 +2,10 @@
 tilemap - Plot XYZ tile maps.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.datasets.tile_map import load_tile_map
 from pygmt.enums import GridType
@@ -21,23 +22,22 @@ except ImportError:
     B="frame",
     E="dpi",
     I="shading",
-    M="monochrome",
-    N="no_clip",
     Q="nan_transparent",
-    # R="region",
     p="perspective",
 )
-@kwargs_to_strings(p="sequence")  # R="sequence",
+@kwargs_to_strings(p="sequence")
 def tilemap(  # noqa: PLR0913
     self,
-    region: list,
+    region: Sequence[float],
     zoom: int | Literal["auto"] = "auto",
     source: TileProvider | str | None = None,
     lonlat: bool = True,
     wait: int = 0,
     max_retries: int = 2,
     zoom_adjust: int | None = None,
-    projection=None,
+    monochrome: bool = False,
+    no_clip: bool = False,
+    projection: str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -59,6 +59,8 @@ def tilemap(  # noqa: PLR0913
 
     {aliases}
        - J = projection
+       - M = monochrome
+       - N = no_clip
        - V = verbose
        - c = panel
        - t = transparency
@@ -126,13 +128,17 @@ def tilemap(  # noqa: PLR0913
     if lonlat:
         raster.gmt.gtype = GridType.GEOGRAPHIC
 
-    # Only set region if no_clip is None or False, so that plot is clipped to exact
-    # bounding box region
-    if kwargs.get("N") in {None, False}:
-        kwargs["R"] = "/".join(str(coordinate) for coordinate in region)
+    # If no_clip is not True, set region to None so that plot is clipped to exact
+    # bounding box region.
+    if kwargs.get("N", no_clip) not in {None, False}:
+        region = None  # type: ignore[assignment]
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        M=Alias(monochrome, name="monochrome"),
+        N=Alias(no_clip, name="no_clip"),
+    ).add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,

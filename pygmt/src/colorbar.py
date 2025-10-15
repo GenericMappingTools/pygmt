@@ -2,11 +2,13 @@
 colorbar - Plot gray scale or color scale bar.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.params import Box
 
 __doctest_skip__ = ["colorbar"]
 
@@ -16,20 +18,20 @@ __doctest_skip__ = ["colorbar"]
     B="frame",
     C="cmap",
     D="position",
-    F="box",
     G="truncate",
     I="shading",
     L="equalsize",
     Q="log",
-    R="region",
     W="scale",
     Z="zfile",
     p="perspective",
 )
-@kwargs_to_strings(R="sequence", G="sequence", I="sequence", p="sequence")
+@kwargs_to_strings(G="sequence", I="sequence", p="sequence")
 def colorbar(
     self,
-    projection=None,
+    projection: str | None = None,
+    box: Box | bool = False,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -47,10 +49,23 @@ def colorbar(
     linear scale, all be equal size, or by providing a file with individual
     tile widths.
 
+    .. note::
+       For GMT >=6.5.0, the fontsizes of the colorbar x-label, x-annotations,
+       and y-label are scaled based on the width of the colorbar following
+       :math:`\sqrt{{colorbar\_width / 15}}`. To set a desired fontsize via the
+       GMT default parameters :gmt-term:`FONT_ANNOT_PRIMARY`,
+       :gmt-term:`FONT_ANNOT_SECONDARY`, and :gmt-term:`FONT_LABEL` (or jointly
+       :gmt-term:`FONT`) users have to divide the desired fontsize by the value
+       calculated with the formula given above before passing it to the default
+       parameters. To only affect fontsizes related to the colorbar, the
+       defaults can be changed locally only using ``with pygmt.config(...):``.
+
     Full GMT docs at :gmt-docs:`colorbar.html`.
 
     {aliases}
+       - F = box
        - J = projection
+       - R = region
        - V = verbose
        - c = panel
        - t = transparency
@@ -82,23 +97,11 @@ def colorbar(
         be changed by appending **+j** followed by a
         :doc:`2-character justification code </techref/justification_codes>`
         *justify*.
-    box : bool or str
-        [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
-        [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
-        If set to ``True``, draw a rectangular border around the color scale.
-        Alternatively, specify a different pen with **+p**\ *pen*. Add
-        **+g**\ *fill* to fill the scale panel [Default is no fill]. Append
-        **+c**\ *clearance* where *clearance* is either gap, xgap/ygap, or
-        lgap/rgap/bgap/tgap where these items are uniform, separate in x- and
-        y-direction, or individual side spacings between scale and border.
-        Append **+i** to draw a secondary, inner border as well. We use a
-        uniform gap between borders of 2p and the :gmt-term:`MAP_DEFAULTS_PEN`
-        unless other values are specified. Append **+r** to draw rounded
-        rectangular borders instead, with a 6p corner radius. You can override
-        this radius by appending another value. Finally, append **+s** to draw
-        an offset background shaded region. Here, *dx/dy* indicates the shift
-        relative to the foreground frame [Default is ``"4p/-4p"``] and shade
-        sets the fill style to use for shading [Default is ``"gray50"``].
+    box
+        Draw a background box behind the colorbar. If set to ``True``, a simple
+        rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
+        appearance, pass a :class:`pygmt.params.Box` object to control style, fill, pen,
+        and other box properties.
     truncate : list or str
         *zlo*/*zhi*.
         Truncate the incoming CPT so that the lowest and highest z-levels are
@@ -157,8 +160,11 @@ def colorbar(
     """
     self._activate_figure()
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        F=Alias(box, name="box"),
+    ).add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,

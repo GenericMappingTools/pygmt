@@ -2,6 +2,7 @@
 wiggle - Plot z=f(x,y) anomalies along tracks.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import PathLike, TableLike
@@ -41,7 +42,6 @@ def _parse_fills(fillpositive, fillnegative):
 @use_alias(
     B="frame",
     D="position",
-    R="region",
     T="track",
     W="pen",
     Z="scale",
@@ -55,7 +55,7 @@ def _parse_fills(fillpositive, fillnegative):
     p="perspective",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
+@kwargs_to_strings(i="sequence_comma", p="sequence")
 def wiggle(  # noqa: PLR0913
     self,
     data: PathLike | TableLike | None = None,
@@ -64,7 +64,8 @@ def wiggle(  # noqa: PLR0913
     z=None,
     fillpositive=None,
     fillnegative=None,
-    projection=None,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -84,6 +85,7 @@ def wiggle(  # noqa: PLR0913
     {aliases}
        - G = **+p**: fillpositive, **+n**: fillnegative
        - J = projection
+       - R = region
        - V = verbose
        - c = panel
        - t = transparency
@@ -140,6 +142,7 @@ def wiggle(  # noqa: PLR0913
         G=Alias(_fills, name="fillpositive/fillnegative"),
     ).add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,
