@@ -25,7 +25,6 @@ labels: ["feature request"]
 - [ ] ~~`-X`/`-Y`~~: Use `Figure.shift_origin` instead.
 - [ ] ~~`--PAR=value`~~: Use `pygmt.config` instead.
 
-
 ## Notes on Input Formats
 
 *Add any notes on the input formats, especially the meaning of columns.*
