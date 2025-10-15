@@ -2,8 +2,12 @@
 grdgradient - Compute directional gradients from a grid.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -24,15 +28,18 @@ __doctest_skip__ = ["grdgradient"]
     E="radiance",
     N="normalize",
     Q="tiles",
-    R="region",
     S="slope_file",
-    V="verbose",
     f="coltypes",
     n="interpolation",
 )
-@kwargs_to_strings(A="sequence", E="sequence", R="sequence")
+@kwargs_to_strings(A="sequence", E="sequence")
 def grdgradient(
-    grid: PathLike | xr.DataArray, outgrid: PathLike | None = None, **kwargs
+    grid: PathLike | xr.DataArray,
+    outgrid: PathLike | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
 ) -> xr.DataArray | None:
     r"""
     Compute directional gradients from a grid.
@@ -43,6 +50,8 @@ def grdgradient(
     Full GMT docs at :gmt-docs:`grdgradient.html`.
 
     {aliases}
+       - R = region
+       - V = verbose
 
     Parameters
     ----------
@@ -149,7 +158,6 @@ def grdgradient(
         - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
-
     Example
     -------
     >>> import pygmt
@@ -170,13 +178,20 @@ def grdgradient(
             "azimuth, direction, or radiance."
         )
         raise GMTInvalidInput(msg)
+
+    aliasdict = AliasSystem().add_common(
+        R=region,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            kwargs["G"] = voutgrd
+            aliasdict["G"] = voutgrd
             lib.call_module(
-                module="grdgradient", args=build_arg_list(kwargs, infile=vingrd)
+                module="grdgradient", args=build_arg_list(aliasdict, infile=vingrd)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

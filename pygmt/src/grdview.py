@@ -2,9 +2,12 @@
 grdview - Create 3-D perspective image or surface mesh from a grid.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -13,7 +16,6 @@ __doctest_skip__ = ["grdview"]
 
 @fmt_docstring
 @use_alias(
-    R="region",
     Jz="zscale",
     JZ="zsize",
     B="frame",
@@ -25,15 +27,22 @@ __doctest_skip__ = ["grdview"]
     Wm="meshpen",
     Wf="facadepen",
     I="shading",
-    V="verbose",
-    c="panel",
     f="coltypes",
     n="interpolation",
     p="perspective",
-    t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def grdview(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
+@kwargs_to_strings(p="sequence")
+def grdview(
+    self,
+    grid: PathLike | xr.DataArray,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
+    **kwargs,
+):
     r"""
     Create 3-D perspective image or surface mesh from a grid.
 
@@ -46,7 +55,11 @@ def grdview(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
     Full GMT docs at :gmt-docs:`grdview.html`.
 
     {aliases}
-       - J=projection
+       - J = projection
+       - R = region
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -143,9 +156,14 @@ def grdview(self, grid: PathLike | xr.DataArray, projection=None, **kwargs):
     """
     self._activate_figure()
 
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        R=region,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (

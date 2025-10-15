@@ -2,6 +2,9 @@
 contour - Contour table data by direct triangulation.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
@@ -21,13 +24,9 @@ from pygmt.helpers import (
     C="levels",
     G="label_placement",
     L="triangular_mesh_pen",
-    N="no_clip",
-    R="region",
     S="skip",
-    V="verbose",
     W="pen",
     b="binary",
-    c="panel",
     d="nodata",
     e="find",
     f="coltypes",
@@ -35,16 +34,21 @@ from pygmt.helpers import (
     i="incols",
     l="label",
     p="perspective",
-    t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def contour(
+@kwargs_to_strings(i="sequence_comma", p="sequence")
+def contour(  # noqa: PLR0913
     self,
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     z=None,
-    projection=None,
+    no_clip: bool = False,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -58,7 +62,12 @@ def contour(
     Full GMT docs at :gmt-docs:`contour.html`.
 
     {aliases}
-       - J=projection
+       - J = projection
+       - N = no_clip
+       - R = region
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -100,12 +109,12 @@ def contour(
         five controlling algorithms. See :gmt-docs:`contour.html#g` for
         details.
     I : bool
-        Color the triangles using CPT.
+        Color the triangles using the CPT if given via ``levels``.
     triangular_mesh_pen : str
         Pen to draw the underlying triangulation [Default is ``None``].
-    no_clip : bool
-        Do **not** clip contours or image at the frame boundaries
-        [Default is ``False`` to fit inside ``region``].
+    no_clip
+        Do **not** clip contours or colored triangles at the frame boundaries [Default
+        is ``False`` to fit inside ``region``].
     Q : float or str
         [*cut*][**+z**].
         Do not draw contours with less than *cut* number of points.
@@ -154,8 +163,15 @@ def contour(
                 kwargs[arg] = ",".join(f"{item}" for item in kwargs[arg])
 
     aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+        N=Alias(no_clip, name="no_clip"),
+    ).add_common(
+        J=projection,
+        R=region,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(

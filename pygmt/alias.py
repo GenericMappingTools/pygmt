@@ -109,6 +109,21 @@ def _to_string(
 
     >>> _to_string([[1, 2], [3, 4]], sep="/", ndim=2)
     ['1/2', '3/4']
+
+    >>> import datetime
+    >>> import numpy as np
+    >>> import pandas as pd
+    >>> import xarray as xr
+    >>> _to_string(
+    ...     [
+    ...         datetime.date(2010, 1, 1),
+    ...         datetime.datetime(2010, 3, 1),
+    ...         pd.Timestamp("2015-01-01T12:00:00.123456789"),
+    ...         xr.DataArray(data=np.datetime64("2005-01-01T08:00:00", "ns")),
+    ...     ],
+    ...     sep="/",
+    ... )
+    '2010-01-01/2010-03-01T00:00:00.000000/2015-01-01T12:00:00.123456/2005-01-01T08:00:00.000000000'
     """
     # None and False are converted to None.
     if value is None or value is False:
@@ -217,7 +232,14 @@ class AliasSystem(UserDict):
     >>> from pygmt.helpers import build_arg_list
     >>>
     >>> def func(
-    ...     par0, par1=None, par2=None, frame=False, repeat=None, panel=None, **kwargs
+    ...     par0,
+    ...     par1=None,
+    ...     par2=None,
+    ...     frame=False,
+    ...     repeat=None,
+    ...     panel=None,
+    ...     verbose=None,
+    ...     **kwargs,
     ... ):
     ...     aliasdict = AliasSystem(
     ...         A=[
@@ -226,8 +248,11 @@ class AliasSystem(UserDict):
     ...         ],
     ...         B=Alias(frame, name="frame"),
     ...         D=Alias(repeat, name="repeat"),
-    ...         c=Alias(panel, name="panel", sep=","),
-    ...     ).merge(kwargs)
+    ...     ).add_common(
+    ...         V=verbose,
+    ...         c=panel,
+    ...     )
+    ...     aliasdict.merge(kwargs)
     ...     return build_arg_list(aliasdict)
     >>> func(
     ...     "infile",
@@ -236,9 +261,10 @@ class AliasSystem(UserDict):
     ...     frame=True,
     ...     repeat=[1, 2, 3],
     ...     panel=(1, 2),
+    ...     verbose="debug",
     ...     J="X10c/10c",
     ... )
-    ['-Amytext+o12/12', '-B', '-D1', '-D2', '-D3', '-JX10c/10c', '-c1,2']
+    ['-Amytext+o12/12', '-B', '-D1', '-D2', '-D3', '-JX10c/10c', '-Vd', '-c1,2']
     """
 
     def __init__(self, **kwargs):
@@ -267,6 +293,43 @@ class AliasSystem(UserDict):
             elif aliases._value is not None:  # A single Alias object and not None.
                 kwdict[option] = aliases._value
         super().__init__(kwdict)
+
+    def add_common(self, **kwargs):
+        """
+        Add common parameters to the alias dictionary.
+        """
+        for key, value in kwargs.items():
+            match key:
+                case "J":
+                    alias = Alias(value, name="projection")
+                case "R":
+                    alias = Alias(value, name="region", sep="/", size=(4, 6))
+                case "V":
+                    alias = Alias(
+                        value,
+                        name="verbose",
+                        mapping={
+                            "quiet": "q",
+                            "error": "e",
+                            "warning": "w",
+                            "timing": "t",
+                            "info": "i",
+                            "compat": "c",
+                            "debug": "d",
+                        },
+                    )
+                case "c":
+                    alias = Alias(value, name="panel", sep=",", size=2)
+                case "t":
+                    alias = Alias(value, name="transparency")
+                case "x":
+                    alias = Alias(value, name="cores")
+                case _:
+                    raise GMTValueError(key, description="common parameter")
+            self.aliasdict[key] = alias
+            if alias._value is not None:
+                self[key] = alias._value
+        return self
 
     def merge(self, kwargs: Mapping[str, Any]):
         """

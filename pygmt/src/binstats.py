@@ -2,6 +2,7 @@
 binstats - Bin spatial data and determine statistics per bin.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -16,9 +17,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     E="empty",
     I="spacing",
     N="normalize",
-    R="region",
     S="search_radius",
-    V="verbose",
     W="weight",
     a="aspatial",
     b="binary",
@@ -26,7 +25,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     i="incols",
     r="registration",
 )
-@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
+@kwargs_to_strings(I="sequence", i="sequence_comma")
 def binstats(
     data: PathLike | TableLike,
     outgrid: PathLike | None = None,
@@ -49,6 +48,9 @@ def binstats(
         "sum",
     ] = "number",
     quantile_value: float = 50,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -65,7 +67,9 @@ def binstats(
     Full GMT docs at :gmt-docs:`gmtbinstats.html`.
 
     {aliases}
-       - C=statistic
+       - C = statistic
+       - R = region
+       - V = verbose
 
     Parameters
     ----------
@@ -151,7 +155,11 @@ def binstats(
                 "sum": "z",
             },
         ),
-    ).merge(kwargs)
+    ).add_common(
+        R=region,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
     if statistic == "quantile":
         aliasdict["C"] += f"{quantile_value}"
 

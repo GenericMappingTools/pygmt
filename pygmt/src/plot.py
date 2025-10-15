@@ -2,6 +2,7 @@
 plot - Plot lines, polygons, and symbols in 2-D.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import PathLike, TableLike
@@ -21,7 +22,6 @@ from pygmt.src._common import _data_geometry_is_point
 
 @fmt_docstring
 @use_alias(
-    A="straight_line",
     B="frame",
     C="cmap",
     D="offset",
@@ -31,14 +31,11 @@ from pygmt.src._common import _data_geometry_is_point
     I="intensity",
     L="close",
     N="no_clip",
-    R="region",
     S="style",
-    V="verbose",
     W="pen",
     Z="zvalue",
     a="aspatial",
     b="binary",
-    c="panel",
     d="nodata",
     e="find",
     f="coltypes",
@@ -47,11 +44,10 @@ from pygmt.src._common import _data_geometry_is_point
     i="incols",
     l="label",
     p="perspective",
-    t="transparency",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot(  # noqa: PLR0912
+@kwargs_to_strings(i="sequence_comma", p="sequence")
+def plot(  # noqa: PLR0912, PLR0913
     self,
     data: PathLike | TableLike | None = None,
     x=None,
@@ -59,8 +55,13 @@ def plot(  # noqa: PLR0912
     size=None,
     symbol=None,
     direction=None,
-    straight_line: bool | Literal["x", "y"] = False,  # noqa: ARG001
-    projection=None,
+    straight_line: bool | Literal["x", "y"] = False,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | Sequence[float] | bool | None = None,
     **kwargs,
 ):
     r"""
@@ -87,7 +88,12 @@ def plot(  # noqa: PLR0912
     Full GMT docs at :gmt-docs:`plot.html`.
 
     {aliases}
-       - J=projection
+       - A = straight_line
+       - J = projection
+       - R = region
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -225,9 +231,8 @@ def plot(  # noqa: PLR0912
     {label}
     {perspective}
     {transparency}
-        ``transparency`` can also be a 1-D array to set varying
-        transparency for symbols, but this option is only valid if using
-        ``x``/``y``.
+        ``transparency`` can also be a 1-D array to set varying transparency for
+        symbols, but this option is only valid if using ``x``/``y``.
     {wrap}
     """
     # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
@@ -251,11 +256,14 @@ def plot(  # noqa: PLR0912
         # Size
         if is_nonstr_iter(size):
             data["size"] = size
-        # Intensity and transparency
-        for flag, name in [("I", "intensity"), ("t", "transparency")]:
-            if is_nonstr_iter(kwargs.get(flag)):
-                data[name] = kwargs[flag]
-                kwargs[flag] = ""
+        # Intensity
+        if is_nonstr_iter(kwargs.get("I")):
+            data["intensity"] = kwargs["I"]
+            kwargs["I"] = ""
+        # Transparency
+        if is_nonstr_iter(transparency):
+            data["transparency"] = transparency
+            transparency = True
         # Symbol must be at the last column
         if is_nonstr_iter(symbol):
             if "S" not in kwargs:
@@ -270,7 +278,7 @@ def plot(  # noqa: PLR0912
             ("fill", kwargs.get("G")),
             ("size", size),
             ("intensity", kwargs.get("I")),
-            ("transparency", kwargs.get("t")),
+            ("transparency", transparency),
             ("symbol", symbol),
         ]:
             if is_nonstr_iter(value):
@@ -284,8 +292,15 @@ def plot(  # noqa: PLR0912
         kwargs["S"] = "s0.2c"
 
     aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+        A=Alias(straight_line, name="straight_line"),
+    ).add_common(
+        R=region,
+        J=projection,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:

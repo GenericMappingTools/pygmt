@@ -114,6 +114,30 @@ def test_grdfill_gridfill_dataarray(grid):
     npt.assert_array_equal(result[3:6, 3:5], bggrid[3:6, 3:5])
 
 
+def test_grdfill_hole(grid, expected_grid):
+    """
+    Test grdfill with a custom value (not NaN) as holes.
+    """
+    # Prepare for a grid with a node value of -99999 for holes.
+    grid_no_nan = grdfill(grid=grid, constantfill=-99999)
+    assert not np.isnan(grid_no_nan).any()
+    assert -99999 in grid_no_nan
+    # Now fill them with a constant value of 20.
+    result = grdfill(grid=grid_no_nan, constantfill=20, hole=-99999)
+
+    # Check information of the output grid
+    assert isinstance(result, xr.DataArray)
+    assert result.gmt.gtype is GridType.GEOGRAPHIC
+    assert result.gmt.registration is GridRegistration.PIXEL
+    xr.testing.assert_allclose(a=result, b=expected_grid)
+
+    # Test the deprecated 'no_data' parameter.
+    # TODO(PyGMT>=0.19.0): Remove the following lines.
+    with pytest.warns(FutureWarning):
+        result2 = grdfill(grid=grid_no_nan, constantfill=20, no_data=-99999)
+    xr.testing.assert_allclose(a=result2, b=expected_grid)
+
+
 def test_grdfill_inquire(grid):
     """
     Test grdfill with inquire mode.

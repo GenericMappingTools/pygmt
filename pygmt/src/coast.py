@@ -2,6 +2,7 @@
 coast - Plot continents, countries, shorelines, rivers, and borders.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
@@ -14,6 +15,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.params import Box
 
 __doctest_skip__ = ["coast"]
 
@@ -24,26 +26,27 @@ __doctest_skip__ = ["coast"]
     B="frame",
     C="lakes",
     E="dcw",
-    F="box",
     G="land",
     I="rivers",
     L="map_scale",
     N="borders",
-    R="region",
     S="water",
-    V="verbose",
     W="shorelines",
-    c="panel",
     p="perspective",
-    t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
+@kwargs_to_strings(p="sequence")
 def coast(
     self,
-    projection=None,
+    projection: str | None = None,
     resolution: Literal[
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
+    box: Box | bool = False,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -66,8 +69,13 @@ def coast(
     Full GMT docs at :gmt-docs:`coast.html`.
 
     {aliases}
-       - D=resolution
-       - J=projection
+       - D = resolution
+       - F = box
+       - J = projection
+       - R = region
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -123,24 +131,11 @@ def coast(
     map_scale : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+w**\ *length*.
         Draw a simple map scale centered on the reference point specified.
-    box : bool or str
-        [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
-        [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
-        If set to ``True``, draw a rectangular border around the
-        map scale or rose. Alternatively, specify a different pen with
-        **+p**\ *pen*. Add **+g**\ *fill* to fill the scale panel [Default is
-        no fill]. Append **+c**\ *clearance* where *clearance* is either gap,
-        xgap/ygap, or lgap/rgap/bgap/tgap where these items are uniform,
-        separate x and y, or individual side spacings between scale and
-        border. Append **+i** to draw a secondary, inner border as well.
-        We use a uniform gap between borders of 2 points and the
-        :gmt-term:`MAP_DEFAULTS_PEN` unless other values are specified. Append
-        **+r** to draw rounded rectangular borders instead, with a 6-points
-        corner radius. You can override this radius by appending another value.
-        Finally, append **+s** to draw an offset background shaded region.
-        Here, *dx/dy* indicates the shift relative to the foreground frame
-        [Default is ``"4p/-4p"``] and shade sets the fill style to use for
-        shading [Default is ``"gray50"``].
+    box
+        Draw a background box behind the map scale or rose. If set to ``True``, a simple
+        rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
+        appearance, pass a :class:`pygmt.params.Box` object to control style, fill, pen,
+        and other box properties.
     borders : int, str, or list
         *border*\ [/*pen*].
         Draw political boundaries. Specify the type of boundary and
@@ -226,8 +221,15 @@ def coast(
                 "crude": "c",
             },
         ),
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+        F=Alias(box, name="box"),
+    ).add_common(
+        J=projection,
+        R=region,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         lib.call_module(module="coast", args=build_arg_list(aliasdict))

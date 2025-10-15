@@ -8,10 +8,6 @@ authors:
   family-names: Tian
   affiliation: China University of Geosciences, China
   orcid: https://orcid.org/0000-0001-7967-1197
-- given-names: Leonardo
-  family-names: Uieda
-  affiliation: University of Liverpool, United Kingdom
-  orcid: https://orcid.org/0000-0001-6123-9515
 - given-names: Wei Ji
   family-names: Leong
   affiliation: Development Seed, USA
@@ -72,13 +68,17 @@ authors:
   family-names: Quinn
   affiliation: University College London, United Kingdom
   orcid: https://orcid.org/0000-0002-0268-7032
+- given-names: Leonardo
+  family-names: Uieda
+  affiliation: Universidade de São Paulo, Brazil
+  orcid: https://orcid.org/0000-0001-6123-9515
 - given-names: Paul
   family-names: Wessel
   affiliation: University of Hawaiʻi at Mānoa, USA
   orcid: https://orcid.org/0000-0001-5708-7336
-date-released: 2025-06-18
-doi: 10.5281/zenodo.15628725
+date-released: 2025-10-03
+doi: 10.5281/zenodo.17156962
 license: BSD-3-Clause
 repository-code: https://github.com/GenericMappingTools/pygmt
 type: software
-version: 0.16.0
+version: 0.17.0

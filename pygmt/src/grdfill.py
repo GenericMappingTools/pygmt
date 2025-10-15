@@ -3,6 +3,8 @@ grdfill - Interpolate across holes in a grid.
 """
 
 import warnings
+from collections.abc import Sequence
+from typing import Literal
 
 import numpy as np
 import xarray as xr
@@ -10,13 +12,7 @@ from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    build_arg_list,
-    deprecate_parameter,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdfill"]
 
@@ -76,9 +72,8 @@ def _validate_params(
 # TODO(PyGMT>=0.19.0): Remove the deprecated 'no_data' parameter.
 # TODO(PyGMT>=0.19.0): Remove the deprecated 'mode' parameter.
 @deprecate_parameter("no_data", "hole", "v0.15.0", remove_version="v0.19.0")
-@use_alias(N="hole", R="region", V="verbose", f="coltypes")
-@kwargs_to_strings(R="sequence")
-def grdfill(
+@use_alias(f="coltypes")
+def grdfill(  # noqa: PLR0913
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
     constantfill: float | None = None,
@@ -86,7 +81,11 @@ def grdfill(
     neighborfill: float | bool | None = None,
     splinefill: float | bool | None = None,
     inquire: bool = False,
+    hole: float | None = None,
     mode: str | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> xr.DataArray | np.ndarray | None:
     r"""
@@ -101,11 +100,14 @@ def grdfill(
     Full GMT docs at :gmt-docs:`grdfill.html`.
 
     {aliases}
-       - Ac=constantfill
-       - Ag=gridfill
-       - An=neighborfill
-       - As=splinefill
-       - L=inquire
+       - Ac = constantfill
+       - Ag = gridfill
+       - An = neighborfill
+       - As = splinefill
+       - L = inquire
+       - N = hole
+       - R = region
+       - V = verbose
 
     Parameters
     ----------
@@ -124,7 +126,7 @@ def grdfill(
     splinefill
         Fill the holes with a bicubic spline. Specify the tension value to use. If set
         to ``True``, no tension will be used.
-    hole : float
+    hole
         Set the node value used to identify a point as a member of a hole [Default is
         NaN].
     inquire
@@ -183,7 +185,12 @@ def grdfill(
         An=Alias(neighborfill, name="neighborfill"),
         As=Alias(splinefill, name="splinefill"),
         L=Alias(inquire, name="inquire"),
-    ).merge(kwargs)
+        N=Alias(hole, name="hole"),
+    ).add_common(
+        R=region,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:

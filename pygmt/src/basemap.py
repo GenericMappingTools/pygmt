@@ -2,14 +2,16 @@
 basemap - Plot base maps and frames.
 """
 
-from pygmt.alias import Alias, AliasSystem
+from collections.abc import Sequence
+from typing import Literal
+
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
 @use_alias(
-    R="region",
     Jz="zscale",
     JZ="zsize",
     B="frame",
@@ -17,14 +19,20 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     F="box",
     Td="rose",
     Tm="compass",
-    V="verbose",
-    c="panel",
     f="coltypes",
     p="perspective",
-    t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def basemap(self, projection=None, **kwargs):
+@kwargs_to_strings(p="sequence")
+def basemap(
+    self,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
+    **kwargs,
+):
     r"""
     Plot base maps and frames.
 
@@ -39,7 +47,11 @@ def basemap(self, projection=None, **kwargs):
     Full GMT docs at :gmt-docs:`basemap.html`.
 
     {aliases}
-       - J=projection
+       - J = projection
+       - R = region
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -84,8 +96,15 @@ def basemap(self, projection=None, **kwargs):
     {transparency}
     """
     self._activate_figure()
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        R=region,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         lib.call_module(module="basemap", args=build_arg_list(aliasdict))

@@ -7,9 +7,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import pytest
-from packaging.version import Version
 from pygmt import Figure
-from pygmt.clib import __gmt_version__
 from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import GMTTempFile
 
@@ -143,21 +141,10 @@ def test_meca_spec_multiple_focalmecha(inputtype):
     return fig
 
 
-# TODO(GMT>=6.5.0): Remove the skipif condition for GMT>=6.5.0.
 @pytest.mark.mpl_image_compare(filename="test_meca_offset.png")
 @pytest.mark.parametrize(
     "inputtype",
-    [
-        "args",
-        "dict",
-        pytest.param(
-            "ndarray",
-            marks=pytest.mark.skipif(
-                condition=Version(__gmt_version__) < Version("6.5.0"),
-                reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/7557",
-            ),
-        ),
-    ],
+    ["args", "dict", "ndarray"],
 )
 def test_meca_offset(inputtype):
     """
@@ -202,22 +189,10 @@ def test_meca_offset(inputtype):
     return fig
 
 
-# TODO(GMT>=6.5.0): Remove the skipif marker for GMT>=6.5.0.
-# Passing event names via pandas doesn't work for GMT<=6.4.
-# See https://github.com/GenericMappingTools/pygmt/issues/2524.
 @pytest.mark.mpl_image_compare(filename="test_meca_eventname.png")
 @pytest.mark.parametrize(
     "inputtype",
-    [
-        "args",
-        pytest.param(
-            "dataframe",
-            marks=pytest.mark.skipif(
-                condition=Version(__gmt_version__) < Version("6.5.0"),
-                reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/7557",
-            ),
-        ),
-    ],
+    ["args", "dataframe"],
 )
 def test_meca_eventname(inputtype):
     """

@@ -2,9 +2,12 @@
 grdproject - Forward and inverse map transformation of grids.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -20,16 +23,17 @@ __doctest_skip__ = ["grdproject"]
     F="scaling",
     I="inverse",
     M="unit",
-    R="region",
-    V="verbose",
     n="interpolation",
     r="registration",
 )
-@kwargs_to_strings(C="sequence", D="sequence", R="sequence")
+@kwargs_to_strings(C="sequence", D="sequence")
 def grdproject(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
-    projection=None,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -53,7 +57,9 @@ def grdproject(
     Full GMT docs at :gmt-docs:`grdproject.html`.
 
     {aliases}
-       - J=projection
+       - J = projection
+       - R = region
+       - V = verbose
 
     Parameters
     ----------
@@ -113,9 +119,12 @@ def grdproject(
         msg = "The projection must be specified."
         raise GMTInvalidInput(msg)
 
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        R=region,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (

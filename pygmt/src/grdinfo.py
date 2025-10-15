@@ -2,8 +2,12 @@
 grdinfo - Extract information from 2-D grids or 3-D cubes.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
@@ -22,13 +26,17 @@ from pygmt.helpers import (
     I="spacing",
     L="force_scan",
     M="minmax_pos",
-    R="region",
     T="nearest_multiple",
-    V="verbose",
     f="coltypes",
 )
-@kwargs_to_strings(D="sequence", I="sequence", R="sequence")
-def grdinfo(grid: PathLike | xr.DataArray, **kwargs) -> str:
+@kwargs_to_strings(D="sequence", I="sequence")
+def grdinfo(
+    grid: PathLike | xr.DataArray,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
+) -> str:
     r"""
     Extract information from 2-D grids or 3-D cubes.
 
@@ -37,6 +45,8 @@ def grdinfo(grid: PathLike | xr.DataArray, **kwargs) -> str:
     Full GMT docs at :gmt-docs:`grdinfo.html`.
 
     {aliases}
+       - R = region
+       - V = verbose
 
     Parameters
     ----------
@@ -112,12 +122,18 @@ def grdinfo(grid: PathLike | xr.DataArray, **kwargs) -> str:
     info : str
         A string with information about the grid.
     """
+    aliasdict = AliasSystem().add_common(
+        R=region,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with GMTTempFile() as outfile:
         with Session() as lib:
             with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
                 lib.call_module(
                     module="grdinfo",
-                    args=build_arg_list(kwargs, infile=vingrd, outfile=outfile.name),
+                    args=build_arg_list(aliasdict, infile=vingrd, outfile=outfile.name),
                 )
         result = outfile.read()
     return result

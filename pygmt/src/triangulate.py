@@ -3,13 +3,14 @@ triangulate - Delaunay triangulation or Voronoi partitioning and gridding of Car
 data.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
 import pandas as pd
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -52,8 +53,6 @@ class triangulate:  # noqa: N801
     @fmt_docstring
     @use_alias(
         I="spacing",
-        R="region",
-        V="verbose",
         b="binary",
         d="nodata",
         e="find",
@@ -64,14 +63,19 @@ class triangulate:  # noqa: N801
         s="skiprows",
         w="wrap",
     )
-    @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
+    @kwargs_to_strings(I="sequence", i="sequence_comma")
     def regular_grid(
         data: PathLike | TableLike | None = None,
         x=None,
         y=None,
         z=None,
         outgrid: PathLike | None = None,
-        projection=None,
+        projection: str | None = None,
+        region: Sequence[float | str] | str | None = None,
+        verbose: Literal[
+            "quiet", "error", "warning", "timing", "info", "compat", "debug"
+        ]
+        | bool = False,
         **kwargs,
     ) -> xr.DataArray | None:
         """
@@ -98,7 +102,9 @@ class triangulate:  # noqa: N801
         Full GMT docs at :gmt-docs:`triangulate.html`.
 
         {aliases}
-           - J=projection
+           - J = projection
+           - R = region
+           - V = verbose
 
         Parameters
         ----------
@@ -143,9 +149,12 @@ class triangulate:  # noqa: N801
         ``triangulate`` is a Cartesian or small-geographic area operator and is
         unaware of periodic or polar boundary conditions.
         """
-        aliasdict = AliasSystem(
-            J=Alias(projection, name="projection"),
-        ).merge(kwargs)
+        aliasdict = AliasSystem().add_common(
+            R=region,
+            J=projection,
+            V=verbose,
+        )
+        aliasdict.merge(kwargs)
 
         with Session() as lib:
             with (
@@ -164,8 +173,6 @@ class triangulate:  # noqa: N801
     @fmt_docstring
     @use_alias(
         I="spacing",
-        R="region",
-        V="verbose",
         b="binary",
         d="nodata",
         e="find",
@@ -176,7 +183,7 @@ class triangulate:  # noqa: N801
         s="skiprows",
         w="wrap",
     )
-    @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
+    @kwargs_to_strings(I="sequence", i="sequence_comma")
     def delaunay_triples(
         data: PathLike | TableLike | None = None,
         x=None,
@@ -185,7 +192,12 @@ class triangulate:  # noqa: N801
         *,
         output_type: Literal["pandas", "numpy", "file"] = "pandas",
         outfile: PathLike | None = None,
-        projection=None,
+        projection: str | None = None,
+        region: Sequence[float | str] | str | None = None,
+        verbose: Literal[
+            "quiet", "error", "warning", "timing", "info", "compat", "debug"
+        ]
+        | bool = False,
         **kwargs,
     ) -> pd.DataFrame | np.ndarray | None:
         """
@@ -205,7 +217,9 @@ class triangulate:  # noqa: N801
         Full GMT docs at :gmt-docs:`triangulate.html`
 
         {aliases}
-           - J=projection
+           - J = projection
+           - R = region
+           - V = verbose
 
         Parameters
         ----------
@@ -248,9 +262,12 @@ class triangulate:  # noqa: N801
         """
         output_type = validate_output_table_type(output_type, outfile=outfile)
 
-        aliasdict = AliasSystem(
-            J=Alias(projection, name="projection"),
-        ).merge(kwargs)
+        aliasdict = AliasSystem().add_common(
+            J=projection,
+            R=region,
+            V=verbose,
+        )
+        aliasdict.merge(kwargs)
 
         with Session() as lib:
             with (

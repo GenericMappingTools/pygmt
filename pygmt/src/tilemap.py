@@ -2,6 +2,7 @@
 tilemap - Plot XYZ tile maps.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
@@ -21,26 +22,26 @@ except ImportError:
     B="frame",
     E="dpi",
     I="shading",
-    M="monochrome",
-    N="no_clip",
     Q="nan_transparent",
-    # R="region",
-    V="verbose",
-    c="panel",
     p="perspective",
-    t="transparency",
 )
-@kwargs_to_strings(c="sequence_comma", p="sequence")  # R="sequence",
-def tilemap(
+@kwargs_to_strings(p="sequence")
+def tilemap(  # noqa: PLR0913
     self,
-    region: list,
+    region: Sequence[float],
     zoom: int | Literal["auto"] = "auto",
     source: TileProvider | str | None = None,
     lonlat: bool = True,
     wait: int = 0,
     max_retries: int = 2,
     zoom_adjust: int | None = None,
-    projection=None,
+    monochrome: bool = False,
+    no_clip: bool = False,
+    projection: str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -57,7 +58,12 @@ def tilemap(
     provide Spherical Mercator (EPSG:3857) coordinates to the ``region`` parameter.
 
     {aliases}
-       - J=projection
+       - J = projection
+       - M = monochrome
+       - N = no_clip
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -122,14 +128,22 @@ def tilemap(
     if lonlat:
         raster.gmt.gtype = GridType.GEOGRAPHIC
 
-    # Only set region if no_clip is None or False, so that plot is clipped to exact
-    # bounding box region
-    if kwargs.get("N") in {None, False}:
-        kwargs["R"] = "/".join(str(coordinate) for coordinate in region)
+    # If no_clip is not True, set region to None so that plot is clipped to exact
+    # bounding box region.
+    if kwargs.get("N", no_clip) not in {None, False}:
+        region = None  # type: ignore[assignment]
 
     aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+        M=Alias(monochrome, name="monochrome"),
+        N=Alias(no_clip, name="no_clip"),
+    ).add_common(
+        J=projection,
+        R=region,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=raster) as vingrd:

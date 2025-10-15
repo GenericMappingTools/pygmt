@@ -2,18 +2,18 @@
 grdcut - Extract subregion from a grid or image or a slice from a cube.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTTypeError, GMTValueError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
 )
 
@@ -21,20 +21,15 @@ __doctest_skip__ = ["grdcut"]
 
 
 @fmt_docstring
-@use_alias(
-    R="region",
-    N="extend",
-    S="circ_subregion",
-    V="verbose",
-    Z="z_subregion",
-    f="coltypes",
-)
-@kwargs_to_strings(R="sequence")
+@use_alias(N="extend", S="circ_subregion", Z="z_subregion", f="coltypes")
 def grdcut(
     grid: PathLike | xr.DataArray,
     kind: Literal["grid", "image"] = "grid",
     outgrid: PathLike | None = None,
-    projection=None,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -52,7 +47,9 @@ def grdcut(
     Full GMT docs at :gmt-docs:`grdcut.html`.
 
     {aliases}
-      - J=projection
+       - J = projection
+       - R = region
+       - V = verbose
 
     Parameters
     ----------
@@ -126,9 +123,12 @@ def grdcut(
         case _:
             raise GMTTypeError(type(grid))
 
-    aliasdict = AliasSystem(
-        J=Alias(projection, name="projection"),
-    ).merge(kwargs)
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        R=region,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (

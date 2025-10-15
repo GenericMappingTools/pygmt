@@ -203,6 +203,18 @@ Xarray Integration
     GMTBackendEntrypoint
     GMTDataArrayAccessor
 
+Class-style Parameters
+----------------------
+
+.. currentmodule:: pygmt.params
+
+.. autosummary::
+    :toctree: generated
+    :template: autosummary/params.rst
+
+    Box
+    Pattern
+
 Enums
 -----
 

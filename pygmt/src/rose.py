@@ -2,14 +2,13 @@
 rose - Plot a polar histogram (rose, sector, windrose diagrams).
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import (
-    build_arg_list,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
@@ -26,10 +25,8 @@ from pygmt.helpers import (
     L="labels",
     M="vector_params",
     Q="alpha",
-    R="region",
     S="norm",
     T="orientation",
-    V="verbose",
     W="pen",
     Z="scale",
     b="binary",
@@ -37,14 +34,21 @@ from pygmt.helpers import (
     e="find",
     h="header",
     i="incols",
-    c="panel",
     p="perspective",
-    t="transparency",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
+@kwargs_to_strings(i="sequence_comma", p="sequence")
 def rose(
-    self, data: PathLike | TableLike | None = None, length=None, azimuth=None, **kwargs
+    self,
+    data: PathLike | TableLike | None = None,
+    length=None,
+    azimuth=None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
+    **kwargs,
 ):
     """
     Plot a polar histogram (rose, sector, windrose diagrams).
@@ -62,6 +66,10 @@ def rose(
     Full GMT docs at :gmt-docs:`rose.html`.
 
     {aliases}
+       - R = region
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
@@ -201,8 +209,18 @@ def rose(
     """
     self._activate_figure()
 
+    aliasdict = AliasSystem().add_common(
+        R=region,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with lib.virtualfile_in(
             check_kind="vector", data=data, x=length, y=azimuth
         ) as vintbl:
-            lib.call_module(module="rose", args=build_arg_list(kwargs, infile=vintbl))
+            lib.call_module(
+                module="rose", args=build_arg_list(aliasdict, infile=vintbl)
+            )
