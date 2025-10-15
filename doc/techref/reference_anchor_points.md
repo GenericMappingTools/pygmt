@@ -10,8 +10,8 @@ Four parameters are used to set and adjust these two points:
 
 - `position`: a point somewhere on the figure corresponding to `position_type`
 - `position_type`: how to specify `position`. Choose between
-   - ``"inside"`` / ``"outside"`` (**j** / **J**): inside / outside the plot bounding box using a
-     :doc:`2-character justification code</techref/justification_codes>`, e.g., ``position="jTR"`` for Top Right.
+   - ``"inside"`` / ``"outside"`` (**j** / **J**): inside / outside the plot bounding box using
+     [justification codes](/techref/reference_anchor_points.md), e.g., ``position="jTR"`` for Top Right.
    - ``"mapcoords"`` (**g**): map coordinates, e.g. ``position="g35/42"`` for longitude 35° East, latitude 42° North.
    - ``"plotcoords"`` (**x**): plot coordinates with a unit, e.g., ``position="x2c/5c"`` for 2 cm, 5 cm.
    - ``"boxcoords"`` (**n**): normalized (0-1) coordinates corresponding to the bounding box, e.g.,``position="n0.2/0.8"``.
