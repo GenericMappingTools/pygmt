@@ -15,9 +15,9 @@ __doctest_skip__ = ["solar"]
 
 
 @fmt_docstring
-@use_alias(B="frame", p="perspective")
+@use_alias(p="perspective")
 @kwargs_to_strings(p="sequence")
-def solar(
+def solar(  # noqa: PLR0913
     self,
     terminator: Literal["astronomical", "civil", "day_night", "nautical"] = "day_night",
     terminator_datetime=None,
@@ -25,6 +25,7 @@ def solar(
     pen: str | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -40,6 +41,7 @@ def solar(
     Full GMT docs at :gmt-docs:`solar.html`.
 
     {aliases}
+       - B = frame
        - G = fill
        - J = projection
        - R = region
@@ -139,6 +141,7 @@ def solar(
         ],
         W=Alias(pen, name="pen"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
