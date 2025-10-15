@@ -14,7 +14,7 @@ labels: ["feature request"]
 - GMT.jl: https://www.generic-mapping-tools.org/GMTjl_doc/documentation/modules/<module>
 - PyGMT: https://www.pygmt.org/dev/api/generated/<wrapper>.html
 
-## GMT Option Flags
+## GMT Option Flags and Modifieres
 
 ☑️: *Implemented*; ⬜: *To be implemented/discussed*; ~~Strikethrough~~: *Won't implement*.
 
