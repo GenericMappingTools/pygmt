@@ -520,47 +520,56 @@ Wrapping a new GMT module in PyGMT is usually a big task, which will progress qu
 and smoother if done in **small, manageable chunks**. This section gives an overview of
 the specific tasks involved in wrapping a new module.
 
-1. Create a feature request (hereafter called "wrapper request issue") for wrapping a 
+1. Create a feature request (hereafter called "wrapper request issue") for wrapping a
    GMT module and discuss what users would like to see about the new feature.
-   [optional, usually done by users]. 
-2. Create a new issue (hereafter called "wrapper tracking issue"), using the "Wrapper 
+   [optional, usually done by users].
+2. Create a new issue (hereafter called "wrapper tracking issue"), using the "Wrapper
    for a GMT module" issue template, to track the progress of wrapping the module, link
-   it to the Project board, and close the "wrapper request issue" with a comment like 
-   "Thank you for opening the feature request. The progress of wrapping the module will 
-   be tracked in issue #XXX and 
+   it to the Project board, and close the "wrapper request issue" with a comment like
+   "Thank you for opening the feature request. The progress of wrapping the module will
+   be tracked in issue #XXX and
    the [Project board](https://github.com/orgs/GenericMappingTools/projects/3)".
    [usually done by maintainers].
-3. Open one PR for the initial implementation, focusing on required and important 
+3. Open one PR for the initial implementation, focusing on required and important
    parameters.
-4. Close the "wrapper tracking issue" once the initial implementation is done. Leave a 
-   comment like "The initial implementation of wrapping the XXX module is done in PR 
-   #XXX, but not all functionalities are implemented yet. Further progress will be 
-   tracked in the Project board.". This is necessary to avoid having hundreds of 
+4. Close the "wrapper tracking issue" once the initial implementation is done. Leave a
+   comment like "The initial implementation of wrapping the XXX module is done in PR
+   #XXX, but not all functionalities are implemented yet. Further progress will be
+   tracked in the Project board.". This is necessary to avoid having hundreds of
    long-term open issues.
 5. Open one or more PRs implementing the remaining features
 6. Open one PR adding a gallery example or a tutorial
 
-The pull requests can be split between multiple contributors and there is no obligation 
-for a single contributor to complete all steps. Please comment on the "wrapper tracking 
-issue" if you would like to open a pull request for any of these tasks to avoid 
+The pull requests can be split between multiple contributors and there is no obligation
+for a single contributor to complete all steps. Please comment on the "wrapper tracking
+issue" if you would like to open a pull request for any of these tasks to avoid
 redundant efforts.
 
-#### Request wrapper for GMT module
+#### Feature Request Issue for Wrapping a GMT module
 
 * Find the [*Issues*](https://github.com/GenericMappingTools/pygmt/issues) tab on the
   top of the GitHub repository and click *New Issue*.
-* Click on *Get started* next to *Feature request - Wrap new GMT module*.
+* Choose the *Feature request* issue template.
 * Follow the prompts for filling out the issue template.
+
+#### Central Issue for tracking the progress
+
+*This step is usually done by maintainers.*
+
+* Find the [*Issues*](https://github.com/GenericMappingTools/pygmt/issues) tab on the
+  top of the GitHub repository and click *New Issue*.
+* Choose the "Wrapper for a module" issue template.
+* Fill out the issue template.
 
 #### Initial feature implementation
 
-First, comment on the 'Wrapper for `<module-name>`' issue that you will be working on
-the initial feature implementation. This first pull request should be as minimal as
+First, comment on the "Wrapper tracking issue" issue that you will be working on the
+initial feature implementation. This first pull request should be as minimal as
 possible - only adding the required functionality (i.e., wrapping the required GMT
 parameters and supporting the primary input/output types).
 
-The following steps are common to all initial implementation pull requests that
-wrap a new GMT module:
+The following steps are common to all initial implementation pull requests that wrap a
+new GMT module:
 
 * Create a new module `<module-name>.py` in `pygmt/src`. The module docstring should
   include the module name and a short description of the functionality (e.g.,
@@ -582,9 +591,9 @@ After the initial implementation, the missing aliases can be added in separate P
 * Select a suitable alias for each GMT option, following the guidelines in the
   [code style](#code-style) section. Before creating a new alias, check if the parameter
   is listed in the `COMMON_DOCSTRINGS` dictionary in `pygmt/helpers/decorators.py`, if
-  other wrapped GMT modules have a similar parameter, and if [GMT.jl](https://www.generic-mapping-tools.org/GMT.jl/dev/) has defined an alias.
-* Update the `use_alias` decorator for the `<module-name>` function using the GMT option
-  as the parameter and the alias as the argument.
+  other wrapped GMT modules have a similar parameter, and if
+  [GMT.jl](https://www.generic-mapping-tools.org/GMT.jl/dev/) has defined an alias.
+* Add the alias to the `AliasSystem` class and the function signature.
 * Add the alias and description to the parameters section of the docstring, using the
   `fmt_docstring` decorator to add descriptions for parameters included in the
   `COMMON_DOCSTRINGS` dictionary.
