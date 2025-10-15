@@ -8,11 +8,12 @@ on:
   repository_dispatch:
     types: [format-command]
 
-permissions:
-  contents: write
+permissions: {}
 
 jobs:
   format:
+    permissions:
+      contents: write # for Git to git push
     runs-on: ubuntu-latest
     steps:
       # Generate token from GenericMappingTools bot
@@ -28,10 +29,10 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
           repository: ${{ github.event.client_payload.pull_request.head.repo.full_name }}
           ref: ${{ github.event.client_payload.pull_request.head.ref }}
-          persist-credentials: false
+          persist-credentials: true
 
       # Setup Python environment
-      - uses: actions/setup-python@v5.6.0
+      - uses: actions/setup-python@v6.0.0
         with:
           python-version: '3.13'
 
@@ -44,7 +45,8 @@ jobs:
       # Run "make format" and commit the change to the PR branch
       - name: Commit to the PR branch if any changes
         run: |
-          make format
+          # Use '|| true' to ensure the workflow doesn't stop when `make format` fails
+          make format || true
           if [[ $(git ls-files -m) ]]; then
             git config --global user.name 'actions-bot'
             git config --global user.email '58130806+actions-bot@users.noreply.github.com'

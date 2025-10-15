@@ -9,13 +9,12 @@ from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings
 from pygmt.params import Box
 
 
 @fmt_docstring
-@use_alias(R="region")
-@kwargs_to_strings(R="sequence", p="sequence")
+@kwargs_to_strings(p="sequence")
 def logo(  # noqa: PLR0913
     self,
     position: Sequence[str | float] | AnchorCode | None = None,
@@ -26,7 +25,8 @@ def logo(  # noqa: PLR0913
     anchor_offset: Sequence[float | str] | None = None,
     height: float | str | None = None,
     width: float | str | None = None,
-    projection=None,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     style: Literal["standard", "url", "no_label"] = "standard",
     box: Box | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -55,6 +55,7 @@ def logo(  # noqa: PLR0913
        - D = position/position_type/anchor/anchor_offset/width/height
        - F = box
        - J = projection
+       - R = region
        - S = style
        - V = verbose
        - c = panel
@@ -161,6 +162,7 @@ def logo(  # noqa: PLR0913
         ),
     ).add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
         t=transparency,
