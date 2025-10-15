@@ -30,7 +30,7 @@ communication tools we use.
 ### As an Administrator
 
 - Add to the [pygmt-admin team](https://github.com/orgs/GenericMappingTools/teams/pygmt-admin) (gives 'admin' permission to the repository)
-- Add as an admin on [DAGsHub](https://www.dagshub.com/GenericMappingTools/pygmt)
+- Add as an admin on [DAGsHub](https://dagshub.com/GenericMappingTools/pygmt)
 - Add as a maintainer on [PyPI](https://pypi.org/project/pygmt/) and [Test PyPI](https://test.pypi.org/project/pygmt) [optional]
 
 **Note**: When a maintainer is no longer active (no activity in one year), we will mirror
