@@ -18,7 +18,6 @@ __doctest_skip__ = ["grdview"]
 @use_alias(
     Jz="zscale",
     JZ="zsize",
-    B="frame",
     C="cmap",
     G="drapegrid",
     N="plane",
@@ -37,6 +36,7 @@ def grdview(
     grid: PathLike | xr.DataArray,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -55,6 +55,7 @@ def grdview(
     Full GMT docs at :gmt-docs:`grdview.html`.
 
     {aliases}
+       - B = frame
        - J = projection
        - R = region
        - V = verbose
@@ -157,6 +158,7 @@ def grdview(
     self._activate_figure()
 
     aliasdict = AliasSystem().add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,

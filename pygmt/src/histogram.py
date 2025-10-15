@@ -14,7 +14,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @fmt_docstring
 @use_alias(
     A="horizontal",
-    B="frame",
     C="cmap",
     D="annotate",
     E="barwidth",
@@ -42,6 +41,7 @@ def histogram(
     data: PathLike | TableLike,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -54,6 +54,7 @@ def histogram(
     Full GMT docs at :gmt-docs:`histogram.html`.
 
     {aliases}
+       - B = frame
        - J = projection
        - R = region
        - V = verbose
@@ -150,6 +151,7 @@ def histogram(
     self._activate_figure()
 
     aliasdict = AliasSystem().add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,

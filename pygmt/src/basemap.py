@@ -14,7 +14,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @use_alias(
     Jz="zscale",
     JZ="zsize",
-    B="frame",
     L="map_scale",
     F="box",
     Td="rose",
@@ -27,6 +26,7 @@ def basemap(
     self,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -47,6 +47,7 @@ def basemap(
     Full GMT docs at :gmt-docs:`basemap.html`.
 
     {aliases}
+       - B = frame
        - J = projection
        - R = region
        - V = verbose
@@ -98,6 +99,7 @@ def basemap(
     self._activate_figure()
 
     aliasdict = AliasSystem().add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,

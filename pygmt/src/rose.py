@@ -14,7 +14,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @fmt_docstring
 @use_alias(
     A="sector",
-    B="frame",
     C="cmap",
     D="shift",
     Em="vectors",
@@ -44,6 +43,7 @@ def rose(
     length=None,
     azimuth=None,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -66,6 +66,7 @@ def rose(
     Full GMT docs at :gmt-docs:`rose.html`.
 
     {aliases}
+       - B = frame
        - R = region
        - V = verbose
        - c = panel
@@ -210,6 +211,7 @@ def rose(
     self._activate_figure()
 
     aliasdict = AliasSystem().add_common(
+        B=frame,
         R=region,
         V=verbose,
         c=panel,
