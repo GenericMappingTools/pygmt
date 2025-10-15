@@ -4,9 +4,22 @@ file_format: mystnb
 
 # Reference and Anchor Points
 
-For placing plot embellishments, we distinguish between reference and anchor points. To set
-these points users have to use the [justification codes](/techref/justification_codes.md).
-The `offset` parameter allows to offset the anchor point from the reference point.
+For placing plot embellishments on a figure, we distinguish between two points: a point
+somewhere on the figure (**reference point**) and a point on the feature (**anchor point**).
+Four parameters are used to set and adjust these two points:
+
+- `position`: a point somewhere on the figure corresponding to `position_type`
+- `position_type`: how to specify `position`. Choose between
+   - ``"inside"`` / ``"outside"`` (**j** / **J**): inside / outside the plot bounding box using a
+     :doc:`2-character justification code</techref/justification_codes>`, e.g., ``position="jTR"`` for Top Right.
+   - ``"mapcoords"`` (**g**): map coordinates, e.g. ``position="g35/42"`` for longitude 35° East, latitude 42° North.
+   - ``"plotcoords"`` (**x**): plot coordinates with a unit, e.g., ``position="x2c/5c"`` for 2 cm, 5 cm.
+   - ``"boxcoords"`` (**n**): normalized (0-1) coordinates corresponding to the bounding box, e.g.,``position="n0.2/0.8"``.
+
+- `anchor`: a point on the feature, specify using the [justification codes](/techref/justification_codes.md)
+- `anchor_offset`: offset the anchor point from the reference point
+
+
 
 ```{code-cell}
 ---
