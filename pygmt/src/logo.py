@@ -147,7 +147,7 @@ def logo(  # noqa: PLR0913
     # Prior PyGMT v0.17.0, 'position' was aliased to the -D option.
     # For backward compatibility, we need to check if users pass a string with the GMT
     # CLI syntax to 'position', i.e., a string starting with one of the leading
-    # single-letter or contains modifiers with "+".
+    # single-letter codes or contains modifiers with "+".
     if isinstance(position, str) and (position[0] in "gnxjJ" or "+" in position):
         if any(v is not None for v in (anchor, anchor_offset, height, width)):
             msg = (
