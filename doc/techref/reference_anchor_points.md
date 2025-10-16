@@ -16,7 +16,7 @@ Four parameters are used to set and adjust these two points:
    - ``"boxcoords"``: normalized (0-1) coordinates corresponding to the bounding box.
 
 - `anchor`: a point on the feature specified using the [justification codes](/techref/justification_codes.md).
-- `anchor_offset`: offset the anchor point from the reference point.
+- `anchor_offset`: offset the anchor point by *dx* and *dy* from the reference point.
 
 
 
