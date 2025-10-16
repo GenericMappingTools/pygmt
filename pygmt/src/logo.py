@@ -97,12 +97,12 @@ def logo(  # noqa: PLR0913
     anchor
         Specify the anchor point of the GMT logo, using one of the
         :doc:`2-character justification codes </techref/justification_codes>`.
-        The default value depends on **position_type**.
+        The default value depends on ``position_type``.
 
-        - ``position_type="inside"``: **anchor** defaults to the same as **position**.
-        - ``position_type="outside"``: **anchor** defaults to the mirror opposite of
-          **position**.
-        - Otherwise, **anchor** defaults to ``"MC"`` (middle center).
+        - ``position_type="inside"``: ``anchor`` defaults to the same as ``position``.
+        - ``position_type="outside"``: ``anchor`` defaults to the mirror opposite of
+          ``position``.
+        - Otherwise, ``anchor`` defaults to ``"MC"`` (middle center).
     anchor_offset
         Specifies an offset for the anchor point as *offset* or
         (*offset_x*, *offset_y*). If a single value *offset* is given, both *offset_x*
