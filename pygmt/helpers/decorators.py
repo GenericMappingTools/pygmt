@@ -514,9 +514,7 @@ def use_alias(**aliases):
     R = bla J = meh
     >>> my_module(region="bla", projection="meh")
     R = bla J = meh
-    >>> my_module(
-    ...     region="bla", projection="meh", J="bla"
-    ... )  # doctest: +NORMALIZE_WHITESPACE
+    >>> my_module(region="bla", projection="meh", J="bla")
     Traceback (most recent call last):
       ...
     pygmt.exceptions.GMTInvalidInput:
