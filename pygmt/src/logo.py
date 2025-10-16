@@ -90,13 +90,13 @@ def logo(  # noqa: PLR0913
           or points. Example: ("1c", "2c") places the reference point 1 cm to the right
           and 2 cm above the plot origin.
         - ``"inside"`` or ``"outside"``: ``position`` is one of the nine
-          :doc:two-character justification codes </techref/justification_codes.md>,
+          :doc:`two-character justification codes </techref/justification_codes>`,
           indicating a specific location relative to the plot bounding box. Example:
           ``"TL"`` places the reference point at the top-left corner, either inside or
           outside the bounding box.
     anchor
         Specify the anchor point of the GMT logo, using one of the
-        :doc:`2-character justification codes </techref/justification_codes.md>`.
+        :doc:`2-character justification codes </techref/justification_codes>`.
         The default value depends on ``position_type``.
 
         - ``position_type="inside"``: ``anchor`` defaults to the same as ``position``.
