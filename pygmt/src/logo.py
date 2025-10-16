@@ -73,22 +73,23 @@ def logo(  # noqa: PLR0913
     ----------
     position
         Specify the reference point on the plot for the GMT logo. The method of defining
-        the reference point is controlled by **position_type**, and the exact location
-        is set by **position**.
+        the reference point is controlled by ``position_type``, and the exact location
+        is set by ``position``.
     position_type
-        The **position_type** parameter can take one of the following values:
+        Specify the type of coordinates used to define the reference point. It can be
+        one of the following values:
 
-        - ``"mapcoords"``: **position** is specified as (*longitude*, *latitude*) in map
+        - ``"mapcoords"``: ``position`` is specified as (*longitude*, *latitude*) in map
           coordinates. Example: (120, -45) places the reference point at 120°E, 45°S.
-        - ``"boxcoords"``: **position** is specified as (*nx*, *ny*) in normalized
+        - ``"boxcoords"``: ``position`` is specified as (*nx*, *ny*) in normalized
           coordinates, i.e., fractional values between 0 and 1 along the x- and y-axes.
           Example: (0, 0) corresponds to the lower-left corner, and (1, 1) to the
           upper-right corner of the plot bounding box.
-        - ``"plotcoords"``: **position** is specified as (*x*, *y*) in plot coordinates,
+        - ``"plotcoords"``: ``position`` is specified as (*x*, *y*) in plot coordinates,
           i.e., distances from the lower-left plot origin given in inches, centimeters,
           or points. Example: ("1c", "2c") places the reference point 1 cm to the right
           and 2 cm above the plot origin.
-        - ``"inside"`` or ``"outside"``: **position** is one of the nine
+        - ``"inside"`` or ``"outside"``: ``position`` is one of the nine
           :doc:two-character justification codes </techref/justification_codes>,
           indicating a specific location relative to the plot bounding box. Example:
           ``"TL"`` places the reference point at the top-left corner, either inside or
@@ -106,7 +107,8 @@ def logo(  # noqa: PLR0913
         Specifies an offset for the anchor point as *offset* or
         (*offset_x*, *offset_y*). If a single value *offset* is given, both *offset_x*
         and *offset_y* are set to *offset*.
-    width/height
+    width
+    height
         Width or height of the GMT logo. Since the aspect ratio is fixed, only one of
         the two can be specified.
     box
