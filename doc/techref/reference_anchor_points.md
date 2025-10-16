@@ -10,10 +10,10 @@ Four parameters are used to set and adjust these two points:
 
 - `position`: a point somewhere on the figure corresponding to `position_type`.
 - `position_type`: how to specify `position`. Choose between
-   - ``"inside"`` / ``"outside"`` (**j** / **J**): inside / outside the plot bounding box using the [justification codes](/techref/reference_anchor_points.md).
-   - ``"mapcoords"`` (**g**): map coordinates.
-   - ``"plotcoords"`` (**x**): plot coordinates with a unit.
-   - ``"boxcoords"`` (**n**): normalized (0-1) coordinates corresponding to the bounding box.
+   - ``"inside"`` / ``"outside"``: inside / outside the plot bounding box using the [justification codes](/techref/reference_anchor_points.md).
+   - ``"mapcoords"``: map coordinates.
+   - ``"plotcoords"``: plot coordinates with a unit.
+   - ``"boxcoords"``: normalized (0-1) coordinates corresponding to the bounding box.
 
 - `anchor`: a point on the feature specified using the [justification codes](/techref/justification_codes.md).
 - `anchor_offset`: offset the anchor point from the reference point.
