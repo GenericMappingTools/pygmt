@@ -22,17 +22,14 @@ def which(
     r"""
     Find full path to specified files.
 
-    Reports the full paths to the files given through ``fname``. We look
-    for the file in (1) the current directory, (2) in $GMT_USERDIR (if
-    defined), (3) in $GMT_DATADIR (if defined), or (4) in $GMT_CACHEDIR
-    (if defined).
+    Reports the full paths to the files given through ``fname``. We look for the file in 
+    (1) the current directory, (2) in $GMT_USERDIR (if defined), (3) in $GMT_DATADIR 
+    (if defined), or (4) in $GMT_CACHEDIR (if defined).
 
-    ``fname`` can also be a downloadable file (either a complete URL, an
-    @file for downloading from the GMT data server, or any of the remote
-    datasets at https://www.pygmt.org/latest/api/index.html#datasets).
-    In these cases, use the ``download`` parameter to set the desired
-    behavior. If ``download`` is not used (or ``False``), the file will
-    not be found.
+    ``fname`` can also be a downloadable file (either a complete URL, an @file for 
+    downloading from the GMT data server, or any of the remote datasets at 
+    :ref:`datasets`. In these cases, use the ``download`` parameter to set the desired 
+    behavior. If ``download`` is not used (or ``False``), the file will not be found.
 
     Full GMT docs at :gmt-docs:`gmtwhich.html`.
 
@@ -49,12 +46,12 @@ def which(
     fname
         One or more file names to find the full path.
     download
-        Try to download the file if it is not found in your local data or cache
+        Try to download the file if it is not found in your local data or cache 
         directories and the file is downloadable. Here, downloadable files include:
 
         - a file specified by a complete URL
         - a GMT remote file on the GMT data server, specified with a leading ``@``.
-        - any of the GMT remote datasets at https://www.pygmt.org/latest/api/index.html#datasets
+        - any of the GMT remote datasets at :ref:`datasets`
 
         Valid values are:
 
