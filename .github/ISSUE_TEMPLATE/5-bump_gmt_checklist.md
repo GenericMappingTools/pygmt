@@ -28,7 +28,7 @@ mamba install -c conda-forge gmt=X.Y.Z
   - [ ] Update GMT 6.x minor version for `extlinks` urls in `doc/conf.py`
 - [ ] Fix failing tests (1 or more PRs)
 - [ ] Fix failing doctests reported in the ["Doctest" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_doctests.yaml)
-- [ ] Run `grep "# TODO(GMT.*)" **/*.py` to find TODO items related to GMT
+- [ ] Run `grep -r "# TODO(GMT.*)" --include="*.py" .` to find TODO items related to GMT
   - [ ] Remove related workarounds/patches
   - [ ] Fix tests with pytest `xfail`/`skipif` markers that now pass
 - [ ] Update this checklist if necessary
@@ -39,7 +39,7 @@ mamba install -c conda-forge gmt=X.Y.Z
   - [ ] Update `required_gmt_version` in `pygmt/clib/__init__.py`
   - [ ] Remove unsupported GMT version from `.github/workflows/ci_tests_legacy.yaml`
   - [ ] Ensure minimum required version is correct in `doc/minversions.md`
-- [ ] Run `grep "# TODO(GMT.*)" **/*.py` to find TODO items related to GMT
+- [ ] Run `grep -r "# TODO(GMT.*)" --include="*.py" .` to find TODO items related to GMT
   - [ ] Remove related workarounds/patches
   - [ ] Fix tests with pytest `xfail`/`skipif` markers that now pass
 - [ ] Update deprecated syntax in source code and examples based on the [GMT Changelog](https://docs.generic-mapping-tools.org/latest/changes.html)
