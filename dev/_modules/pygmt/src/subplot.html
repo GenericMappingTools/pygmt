@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/subplot.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=374f140d"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -226,27 +226,28 @@
 
 <span class="sd">    autolabel : bool or str</span>
 <span class="sd">        [*autolabel*][**+c**\ *dx*\ [/*dy*]][**+g**\ *fill*][**+j**\|\ **J**\</span>
-<span class="sd">        *refpoint*][**+o**\ *dx*\ [/*dy*]][**+p**\ *pen*][**+r**\|\ **R**]</span>
-<span class="sd">        [**+v**].</span>
-<span class="sd">        Specify automatic tagging of each subplot. Append either a number or</span>
-<span class="sd">        letter [a]. This sets the tag of the first, top-left subplot and others</span>
-<span class="sd">        follow sequentially. Surround the number or letter by parentheses on</span>
-<span class="sd">        any side if these should be typeset as part of the tag. Use</span>
-<span class="sd">        **+j**\|\ **J**\ *refpoint* to specify where the tag should be placed</span>
-<span class="sd">        in the subplot [TL]. **Note**: **+j** sets the justification of the</span>
-<span class="sd">        tag to *refpoint* (suitable for interior tags) while **+J** instead</span>
-<span class="sd">        selects the mirror opposite (suitable for exterior tags). Append</span>
-<span class="sd">        **+c**\ *dx*\[/*dy*] to set the clearance between the tag and a</span>
-<span class="sd">        surrounding text box requested via **+g** or **+p** [3p/3p, i.e., 15%</span>
-<span class="sd">        of the :gmt-term:`FONT_TAG` size dimension]. Append **+g**\ *fill* to</span>
-<span class="sd">        paint the tag&#39;s text box with *fill* [no painting]. Append</span>
-<span class="sd">        **+o**\ *dx*\ [/*dy*] to offset the tag&#39;s reference point in the</span>
-<span class="sd">        direction implied by the justification [4p/4p, i.e., 20% of the</span>
-<span class="sd">        :gmt-term:`FONT_TAG` size]. Append **+p**\ *pen* to draw the outline of</span>
-<span class="sd">        the tag&#39;s text box using selected *pen* [no outline]. Append **+r** to</span>
-<span class="sd">        typeset your tag numbers using lowercase Roman numerals; use **+R** for</span>
-<span class="sd">        uppercase Roman numerals [Arabic numerals]. Append **+v** to increase</span>
-<span class="sd">        tag numbers vertically down columns [horizontally across rows].</span>
+<span class="sd">        *refpoint*][**+o**\ *dx*\ [/*dy*]][**+p**\ *pen*][**+r**\|\ **R**]\ [**+v**].</span>
+<span class="sd">        Specify automatic tagging of each subplot. Append either a number or letter</span>
+<span class="sd">        [Default is ``&quot;a&quot;``]. This sets the tag of the first, top-left subplot and</span>
+<span class="sd">        others follow sequentially. Surround the number or letter by parentheses on</span>
+<span class="sd">        any side if these should be typeset as part of the tag [Default is ``&quot;)&quot;``].</span>
+<span class="sd">        Use **+j**\|\ **J** for setting *refpoint* via a</span>
+<span class="sd">        :doc:`2-character justification code &lt;/techref/justification_codes&gt;`</span>
+<span class="sd">        to specify where the tag should be placed in the subplot [Default is ``&quot;TL&quot;``</span>
+<span class="sd">        for the Top Left corner]. **Note**: **+j** sets the justification of the tag</span>
+<span class="sd">        to *refpoint* (suitable for interior tags) while **+J** instead selects the</span>
+<span class="sd">        mirror opposite (suitable for exterior tags). Append **+c**\ *dx*\[/*dy*] to</span>
+<span class="sd">        set the clearance between the tag and a surrounding text box requested via</span>
+<span class="sd">        **+g** or **+p** [Default is ``&quot;3p/3p&quot;``, i.e., 15 % of the</span>
+<span class="sd">        :gmt-term:`FONT_TAG` size dimension]. Append **+g**\ *fill* to paint the tag&#39;s</span>
+<span class="sd">        text box with *fill* [Default is no fill]. Append **+o**\ *dx*\ [/*dy*] to</span>
+<span class="sd">        offset the tag&#39;s reference point in the direction implied by the justification</span>
+<span class="sd">        [Default is ``&quot;4p/4p&quot;``, i.e., 20 % of the :gmt-term:`FONT_TAG` size]. Append</span>
+<span class="sd">        **+p**\ *pen* to draw the outline of the tag&#39;s text box using the selected *pen*</span>
+<span class="sd">        [Default is no outline]. Append **+r** to typeset your tag numbers using</span>
+<span class="sd">        lowercase Roman numerals; use **+R** for uppercase Roman numerals [Default is</span>
+<span class="sd">        Arabic numerals]. Append **+v** to increase tag numbers vertically down columns</span>
+<span class="sd">        [Default is horizontally across rows].</span>
 <span class="sd">    {frame}</span>
 <span class="sd">    clearance : str or list</span>
 <span class="sd">        [*side*]\ *clearance*.</span>
@@ -433,9 +434,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/634a79b17">634a79b1</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Oct 17, 2025.
       </span></p>
   </div>
 
