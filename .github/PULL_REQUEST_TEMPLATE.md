@@ -11,13 +11,11 @@ Fixes #
 <!-- If significant changes to the documentation are made, please insert the link to the documentation page after it has been built. -->
 **Preview**:
 
+**Guidelines**
 
-**Reminders**
-
-- [ ] Try to get all checks passing, including style checks and test coverage.
-- [ ] Follow the general [pull request guidelines](https://www.pygmt.org/dev/contributing.html#general-guidelines-for-making-a-pull-request-pr).
-- [ ] If contributing documentation, follow the guidelines in [contributing documentation](https://www.pygmt.org/dev/contributing.html#contributing-documentation).
-- [ ] If contributing code, follow the guidelines in [contributing code](https://www.pygmt.org/dev/contributing.html#contributing-code).
+- [General Guidelines for Pull Request](https://www.pygmt.org/dev/contributing.html#general-guidelines-for-making-a-pull-request-pr)
+- [Guidelines for Contributing Documentation](https://www.pygmt.org/dev/contributing.html#contributing-documentation)
+- [Guidelines for Contributing Code](https://www.pygmt.org/dev/contributing.html#contributing-code)
 
 **Slash Commands**
 
