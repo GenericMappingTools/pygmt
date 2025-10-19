@@ -514,7 +514,7 @@ contains rules for running the linter checks:
 make check   # Runs ruff in check mode
 ```
 
-### Wrapping a GMT module
+### Wrapping a GMT Module
 
 Wrapping a GMT module in PyGMT is usually a big task, but it can progress more smoothly
 and efficiently when divided into **small, manageable chunks**. This section gives an
@@ -546,14 +546,14 @@ a single contributor to complete all steps. Please comment on the "wrapper track
 issue" if you would like to open a pull request for any of these tasks to avoid
 redundant efforts.
 
-#### Feature Request Issue for Wrapping a GMT module
+#### Feature Request Issue for Wrapping a GMT Module
 
 * Find the [*Issues*](https://github.com/GenericMappingTools/pygmt/issues) tab at the
   top of the GitHub repository and click *New Issue*.
 * Choose the *Feature request* issue template.
 * Follow the prompts for filling out the issue template.
 
-#### Central Issue for tracking the progress
+#### Central Issue for Tracking the Progress
 
 *This step is usually done by maintainers.*
 
@@ -562,7 +562,7 @@ redundant efforts.
 * Choose the "Wrapper for a module" issue template.
 * Fill out the issue template.
 
-#### Initial feature implementation
+#### Initial Feature Implementation
 
 First, comment on the "Wrapper tracking issue" that you will be working on the initial
 implementation. This first pull request should be as minimal as possible - only adding
@@ -585,7 +585,7 @@ GMT module:
 * Add a testing module `test_<module-name>.py` in `pygmt/tests`, following
   the guidelines in the [testing your code](#testing-your-code) section.
 
-#### Add missing aliases
+#### Add Missing Aliases
 
 After the initial implementation, missing aliases can be added in separate PRs:
 
