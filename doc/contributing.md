@@ -528,7 +528,7 @@ overview of the main tasks involved.
    Project board, and close the "wrapper request issue" with a comment such as
    > Thank you for opening the feature request. The progress of wrapping the module will
    > be tracked in issue #XXX and
-   > the [Project board](https://github.com/orgs/GenericMappingTools/projects/3)".
+   > the [Project board](https://github.com/orgs/GenericMappingTools/projects/3).
    [usually done by maintainers].
 3. Open one PR for the initial implementation, focusing on required and essential
    parameters.
