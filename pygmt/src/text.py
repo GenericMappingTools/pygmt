@@ -71,6 +71,9 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
     ZapfDingbats and ISO-8859-x (x can be 1-11, 13-16) encodings. Refer to
     :doc:`/techref/encodings` for the full list of supported non-ASCII characters.
 
+    For typesetting one or multiple paragraphs of text, see 
+    :meth:`pygmt.Figure.paragraph`.
+
     Full GMT docs at :gmt-docs:`text.html`.
 
     {aliases}
