@@ -543,22 +543,6 @@ These PRs can be split among multiple contributors. There is no obligation for a
 contributor to complete all steps. Please comment on the "wrapper tracking issue" if you
 would like to open a PR for any of these tasks to avoid redundant efforts.
 
-#### Feature Request Issue for Wrapping a GMT Module
-
-* Find the [*Issues*](https://github.com/GenericMappingTools/pygmt/issues) tab at the
-  top of the GitHub repository and click *New Issue*.
-* Choose the *Feature request* issue template.
-* Follow the prompts for filling out the issue template.
-
-#### Central Issue for Tracking the Progress
-
-*This step is usually done by maintainers.*
-
-* Find the [*Issues*](https://github.com/GenericMappingTools/pygmt/issues) tab on the
-  top of the GitHub repository and click *New Issue*.
-* Choose the "Wrapper for a module" issue template.
-* Fill out the issue template.
-
 #### Initial Feature Implementation
 
 First, comment on the "Wrapper tracking issue" that you will be working on the initial
