@@ -476,7 +476,7 @@ and be sure to follow the general guidelines in the
 ### Code Style
 
 We use the [ruff](https://docs.astral.sh/ruff) tool to format the code, so we
-don't have to think about it. It loosely follow the [PEP8](https://pep8.org) guide
+don't have to think about it. It loosely follows the [PEP8](https://pep8.org) guide
 but with a few differences. Regardless, you won't have to worry about formatting
 the code yourself. Before committing, run it to automatically format your code:
 
@@ -520,16 +520,14 @@ Wrapping a GMT module in PyGMT is usually a big task, but it can progress more s
 and efficiently when divided into **small, manageable chunks**. This section gives an
 overview of the main tasks involved.
 
-1. Create a feature request ("wrapper request issue") for wrapping a GMT module and
-   discuss what users would like to see in the new feature. [optional, usually done by
-   users].
+1. Create a feature request ("wrapper request issue") for wrapping a module and discuss 
+   what users would like to see in the wrapper [optional, usually done by users].
 2. Create a tracking issue ("wrapper tracking issue"), using the "Wrapper for a GMT
    module" issue template, to track the progress of wrapping the module. Link it to the
-   Project board, and close the "wrapper request issue" with a comment such as
+   Project board, and close the "wrapper request issue" with a comment such as:
    > Thank you for opening the feature request. The progress of wrapping the module will
    > be tracked in issue #XXX and
    > the [Project board](https://github.com/orgs/GenericMappingTools/projects/3).
-   [usually done by maintainers].
 3. Open one PR for the initial implementation, focusing on required and essential
    parameters.
 4. Close the "wrapper tracking issue" once the initial implementation is merged. Leave a
@@ -541,10 +539,9 @@ overview of the main tasks involved.
 5. Open one or more PRs to implement the remaining features and missing aliases.
 6. Open one PR to add a gallery example or a tutorial.
 
-These pull requests can be split among multiple contributors. There is no obligation for
-a single contributor to complete all steps. Please comment on the "wrapper tracking
-issue" if you would like to open a pull request for any of these tasks to avoid
-redundant efforts.
+These PRs can be split among multiple contributors. There is no obligation for a single 
+contributor to complete all steps. Please comment on the "wrapper tracking issue" if you 
+would like to open a PR for any of these tasks to avoid redundant efforts.
 
 #### Feature Request Issue for Wrapping a GMT Module
 
@@ -617,7 +614,7 @@ When writing tests, don't test everything that the GMT function already tests, s
 the every unique combination arguments. An exception to this would be the most popular
 methods, such as <code>pygmt.Figure.plot</code> and <code>pygmt.Figure.basemap</code>.
 The highest priority for tests should be the Python-specific code, such as numpy,
-pandas, and xarray objects and the virtualfile mechanism.
+pandas, and Xarray objects and the virtualfile mechanism.
 
 If you're **new to testing**, see existing test files for examples of things to do.
 **Don't let the tests keep you from submitting your contribution!**
