@@ -163,11 +163,11 @@ To increase the chances of getting your pull request accepted quickly, try to:
   - Write tests for the code you wrote/modified if needed.
     Please refer to [Testing your code](contributing.md#testing-your-code) or
     [Testing plots](contributing.md#testing-plots).
-  - Include an example of new features in the gallery or tutorials.
-    Please refer to [Gallery plots](contributing.md#contributing-gallery-plots)
-    or [Tutorials](contributing.md#contributing-tutorials).
-    If adding a new method/function/class, the gallery example or tutorial should
-    be submitted in a separate pull request.
+  - Include an example of new features in the gallery or tutorials. Please refer to 
+    [Gallery plots](contributing.md#contributing-gallery-plots) or 
+    [Tutorials](contributing.md#contributing-tutorials). If adding a new 
+    method/function/class, the gallery example or tutorial should be submitted in a 
+    separate pull request.
 * Have a good coding style
   - Use readable code, as it is better than clever code (even with comments).
   - Follow the [PEP8](https://pep8.org) style guide for code and the
@@ -468,10 +468,10 @@ function/class/module/method.
 
 ### PyGMT Code Overview
 
-The source code for PyGMT is located in the `pygmt/` directory. When contributing
-code, please open an issue first to discuss the feature and its implementation
-and be sure to follow the general guidelines in the
-[pull request workflow](#pull-request-workflow) section.
+The source code for PyGMT is located in the `pygmt/` directory. When contributing code, 
+please open an issue first to discuss the feature and its implementation and be sure to 
+follow the general guidelines in the [pull request workflow](#pull-request-workflow) 
+section.
 
 ### Code Style
 
