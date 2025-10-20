@@ -163,10 +163,10 @@ To increase the chances of getting your pull request accepted quickly, try to:
   - Write tests for the code you wrote/modified if needed.
     Please refer to [Testing your code](contributing.md#testing-your-code) or
     [Testing plots](contributing.md#testing-plots).
-  - Include an example of new features in the gallery or tutorials. Please refer to 
-    [Gallery plots](contributing.md#contributing-gallery-plots) or 
-    [Tutorials](contributing.md#contributing-tutorials). If adding a new 
-    method/function/class, the gallery example or tutorial should be submitted in a 
+  - Include an example of new features in the gallery or tutorials. Please refer to
+    [Gallery plots](contributing.md#contributing-gallery-plots) or
+    [Tutorials](contributing.md#contributing-tutorials). If adding a new
+    method/function/class, the gallery example or tutorial should be submitted in a
     separate pull request.
 * Have a good coding style
   - Use readable code, as it is better than clever code (even with comments).
@@ -468,9 +468,9 @@ function/class/module/method.
 
 ### PyGMT Code Overview
 
-The source code for PyGMT is located in the `pygmt/` directory. When contributing code, 
-please open an issue first to discuss the feature and its implementation and be sure to 
-follow the general guidelines in the [pull request workflow](#pull-request-workflow) 
+The source code for PyGMT is located in the `pygmt/` directory. When contributing code,
+please open an issue first to discuss the feature and its implementation and be sure to
+follow the general guidelines in the [pull request workflow](#pull-request-workflow)
 section.
 
 ### Code Style
@@ -520,7 +520,7 @@ Wrapping a GMT module in PyGMT is usually a big task, but it can progress more s
 and efficiently when divided into **small, manageable chunks**. This section gives an
 overview of the main tasks involved.
 
-1. Create a feature request ("wrapper request issue") for wrapping a module and discuss 
+1. Create a feature request ("wrapper request issue") for wrapping a module and discuss
    what users would like to see in the wrapper [optional, usually done by users].
 2. Create a tracking issue ("wrapper tracking issue"), using the "Wrapper for a GMT
    module" issue template, to track the progress of wrapping the module. Link it to the
@@ -539,8 +539,8 @@ overview of the main tasks involved.
 5. Open one or more PRs to implement the remaining features and missing aliases.
 6. Open one PR to add a gallery example or a tutorial.
 
-These PRs can be split among multiple contributors. There is no obligation for a single 
-contributor to complete all steps. Please comment on the "wrapper tracking issue" if you 
+These PRs can be split among multiple contributors. There is no obligation for a single
+contributor to complete all steps. Please comment on the "wrapper tracking issue" if you
 would like to open a PR for any of these tasks to avoid redundant efforts.
 
 #### Feature Request Issue for Wrapping a GMT Module
