@@ -130,37 +130,48 @@ def logo(  # noqa: PLR0913
     """
     self._activate_figure()
 
+    # Prior PyGMT v0.17.0, 'position' was aliased to the -D option. For backward
+    # compatibility, need to check if users pass a string with the GMT CLI syntax to
+    # 'position', i.e., a string starting with one of the codes "g", "n", "x", "j", "J",
+    # or contains modifiers with "+".
+    _is_deprecated_position = isinstance(position, str) and (
+        position.startswith(("g", "n", "x", "j", "J")) or "+" in position
+    )
+
+    if _is_deprecated_position and any(
+        v is not None for v in (anchor, anchor_offset, height, width)
+    ):
+        msg = (
+            "Parameter 'position' is given with a raw GMT CLI syntax, and conflicts "
+            "with parameters 'anchor', 'anchor_offset', 'height', and 'width'. "
+            "Please refer to the documentation for the recommended usage."
+        )
+        raise GMTInvalidInput(msg)
+
     # width and height are mutually exclusive.
     if width is not None and height is not None:
         msg = "Cannot specify both width and height."
         raise GMTInvalidInput(msg)
 
-    # Mapping position_type to GMT single-letter code.
-    _position_type = {
+    _position_types = {
         "mapcoords": "g",
         "boxcoords": "n",
         "plotcoords": "x",
         "inside": "j",
         "outside": "J",
-    }[position_type]
-
-    # Prior PyGMT v0.17.0, 'position' was aliased to the -D option.
-    # For backward compatibility, we need to check if users pass a string with the GMT
-    # CLI syntax to 'position', i.e., a string starting with one of the leading
-    # single-letter codes or contains modifiers with "+".
-    if isinstance(position, str) and (position[0] in "gnxjJ" or "+" in position):
-        if any(v is not None for v in (anchor, anchor_offset, height, width)):
-            msg = (
-                "Parameter 'position' is given with a raw GMT CLI syntax, and conflicts "
-                "with other parameters (anchor, anchor_offset, height, width). "
-                "Please refer to the documentation for the recommended usage."
-            )
-            raise GMTInvalidInput(msg)
-        _position_type = ""  # Unset _position_type to an empty string.
+    }
 
     aliasdict = AliasSystem(
-        D=[
-            Alias(position, name="position", sep="/", size=2, prefix=_position_type),
+        D=Alias(position, name="position")
+        if _is_deprecated_position
+        else [
+            Alias(
+                position,
+                name="position",
+                sep="/",
+                size=2,
+                prefix=_position_types[position_type],
+            ),
             Alias(anchor, name="anchor", prefix="+j"),
             Alias(anchor_offset, name="anchor_offset", prefix="+o", sep="/", size=2),
             Alias(height, name="height", prefix="+h"),
