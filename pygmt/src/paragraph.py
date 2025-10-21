@@ -35,6 +35,16 @@ def paragraph(
     """
     Typeset one or multiple paragraphs.
 
+    This method typesets one or multiple paragraphs of text at a given position on the
+    figure. The text is flowed within a given paragraph width and with a specified line
+    spacing. The text can be aligned left, center, right, or justified.
+
+    Multiple paragraphs can be provided as a sequence of strings, where each string
+    represents a separate paragraph, or as a single string with newline characters
+    separating the paragraphs.
+
+    Full GMT docs at :gmt-docs:`text.html`.
+
     Parameters
     ----------
     x/y
