@@ -51,9 +51,10 @@ def paragraph(
     angle
         The angle of the text.
     justify
-        The justification of the block of text, relative to the given x, y position.
+        Set the alignment of the block of text, relative to the given x, y position.
+        Choose a :doc:`2-character justification code </techref/justification_codes>`.
     alignment
-        The alignment of the text. Valid values are ``"left"``, ``"center"``,
+        Set the alignment of the text. Valid values are ``"left"``, ``"center"``,
         ``"right"``, and ``"justified"``.
 
     Examples
