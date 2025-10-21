@@ -17,6 +17,8 @@ from pygmt.helpers import (
     non_ascii_to_octal,
 )
 
+__doctest_skip__ = ["paragraph"]
+
 
 def paragraph(
     self,
@@ -53,6 +55,22 @@ def paragraph(
     alignment
         The alignment of the text. Valid values are ``"left"``, ``"center"``,
         ``"right"``, and ``"justified"``.
+
+    Examples
+    --------
+    >>> import pygmt
+    >>>
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c/10c", frame=True)
+    >>> fig.paragraph(
+    ...     x=4,
+    ...     y=4,
+    ...     text="This is a long paragraph. " * 10,
+    ...     parwidth="5c",
+    ...     linespacing="12p",
+    ...     font="12p",
+    ... )
+    >>> fig.show()
     """
     self._activate_figure()
 
