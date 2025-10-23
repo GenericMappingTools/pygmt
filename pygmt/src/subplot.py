@@ -6,7 +6,7 @@ import contextlib
 from collections.abc import Sequence
 from typing import Literal
 
-from pygmt.alias import AliasSystem
+from pygmt.alias import AliasSystem, _to_string
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import (
@@ -201,10 +201,9 @@ def subplot(
 @fmt_docstring
 @contextlib.contextmanager
 @use_alias(A="fixedlabel", C="clearance")
-@kwargs_to_strings(panel="sequence_comma")
 def set_panel(
     self,
-    panel=None,
+    panel: int | Sequence[int] | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -225,17 +224,16 @@ def set_panel(
 
     Parameters
     ----------
-    panel : str or list
-        *row,col*\|\ *index*.
-        Sets the current subplot until further notice. **Note**: First *row*
-        or *col* is 0, not 1. If not given we go to the next subplot by order
-        specified via ``autolabel`` in :meth:`pygmt.Figure.subplot`. As an
-        alternative, you may bypass using :meth:`pygmt.Figure.set_panel` and
-        instead supply the common option **panel**\ =[*row,col*] to the first
-        plot command you issue in that subplot. GMT maintains information about
-        the current figure and subplot. Also, you may give the one-dimensional
-        *index* instead which starts at 0 and follows the row or column order
-        set via ``autolabel`` in :meth:`pygmt.Figure.subplot`.
+    panel
+        *index* or (*row*, *col*).
+        Sets the current subplot until further notice. **Note**: First *row* or *col* is
+        0, not 1. If not given we go to the next subplot by order specified via
+        ``autolabel`` in :meth:`pygmt.Figure.subplot`. As an alternative, you may bypass
+        using :meth:`pygmt.Figure.set_panel` and instead supply the common option
+        **panel**=(*row*, *col*) to the first plot command you issue in that subplot.
+        GMT maintains information about the current figure and subplot. Also, you may
+        give the one-dimensional *index* instead which starts at 0 and follows the row
+        or column order set via ``autolabel`` in :meth:`pygmt.Figure.subplot`.
 
     fixedlabel : str
         Overrides the automatic labeling with the given string. No modifiers
@@ -266,6 +264,11 @@ def set_panel(
 
     with Session() as lib:
         lib.call_module(
-            module="subplot", args=["set", str(panel), *build_arg_list(aliasdict)]
+            module="subplot",
+            args=[
+                "set",
+                _to_string(panel, sep=",", size=2),
+                *build_arg_list(aliasdict),
+            ],
         )
         yield
