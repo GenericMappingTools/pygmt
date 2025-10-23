@@ -14,7 +14,6 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
     validate_output_table_type,
 )
@@ -25,15 +24,13 @@ from pygmt.helpers import (
     A="azimuth",
     F="convention",
     G="generate",
-    L="length",
     N="flat_earth",
     Q="unit",
     S="sort",
     Z="ellipse",
     f="coltypes",
 )
-@kwargs_to_strings(L="sequence")
-def project(
+def project( # noqa: PLR0913
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,
@@ -43,6 +40,7 @@ def project(
     center: Sequence | None = None,
     endpoint: Sequence | None = None,
     width: Sequence | None = None,
+    length: Sequence | Literal["limit"] | None = None,
     pole: Sequence | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -115,6 +113,7 @@ def project(
     {aliases}
        - C = center
        - E = endpoint
+       - L = length
        - T = pole
        - W = width
        - V = verbose
@@ -165,14 +164,12 @@ def project(
         the pole as part of the segment header [Default is no header].
         **Note**: No input is read and the value of ``data``, ``x``, ``y``,
         and ``z`` is ignored if ``generate`` is used.
-
-    length : str or list
-        [**w**\|\ *l_min*/*l_max*].
-        Project only those data whose *p* coordinate is
-        within :math:`l_{{min}} < p < l_{{max}}`. If ``endpoint`` has been set,
-        then you may alternatively use **w** to stay within the distance from
-        ``center`` to ``endpoint``.
-
+    length
+        (*lmin*, *lmax*) or ``"limit"``.
+        Project only those data whose *p* coordinate is within
+        :math:`l_{{min}} < p < l_{{max}}`. If ``endpoint`` has been set, then you may
+        alternatively set it to ``"limit"`` to stay within the distance from ``center``
+        to ``endpoint``.
     flat_earth : bool
         Make a Cartesian coordinate transformation in the plane.
         [Default is ``False``; plane created with spherical trigonometry.]
@@ -242,6 +239,7 @@ def project(
     aliasdict = AliasSystem(
         C=Alias(center, name="center", sep="/", size=2),
         E=Alias(endpoint, name="endpoint", sep="/", size=2),
+        L=Alias(length, name="length", sep="/", size=2, mapping={"limit": "w"}),
         T=Alias(pole, name="pole", sep="/", size=2),
         W=Alias(width, name="width", sep="/", size=2),
     ).add_common(
