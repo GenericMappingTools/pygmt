@@ -2,12 +2,13 @@
 project - Project data onto lines or great circles, or generate tracks.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
 import pandas as pd
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -22,20 +23,16 @@ from pygmt.helpers import (
 @fmt_docstring
 @use_alias(
     A="azimuth",
-    C="center",
-    E="endpoint",
     F="convention",
     G="generate",
     L="length",
     N="flat_earth",
     Q="unit",
     S="sort",
-    T="pole",
-    W="width",
     Z="ellipse",
     f="coltypes",
 )
-@kwargs_to_strings(E="sequence", L="sequence", T="sequence", W="sequence", C="sequence")
+@kwargs_to_strings(L="sequence")
 def project(
     data: PathLike | TableLike | None = None,
     x=None,
@@ -43,6 +40,10 @@ def project(
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    center: Sequence | None = None,
+    endpoint: Sequence | None = None,
+    width: Sequence | None = None,
+    pole: Sequence | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -112,6 +113,10 @@ def project(
     Full GMT docs at :gmt-docs:`project.html`.
 
     {aliases}
+       - C = center
+       - E = endpoint
+       - T = pole
+       - W = width
        - V = verbose
 
     Parameters
@@ -123,19 +128,17 @@ def project(
     {output_type}
     {outfile}
 
-    center : str or list
-        *cx*/*cy*.
-        Set the origin of the projection, in Definition 1 or 2. If
-        Definition 3 is used, then *cx/cy* are the coordinates of a
-        point through which the oblique zero meridian (:math:`p = 0`) should
-        pass. The *cx/cy* is not required to be 90 degrees from the pole.
-
+    center
+        Set the origin of the projection, in the form of (*cx*, *cy*), in Definitions 1
+        or 2. If Definition 3 is used, then (*cx*, *cy*) are the coordinates of a point
+        through which the oblique zero meridian (:math:`p = 0`) should pass.
+        (*cx*, *cy*) is not required to be 90 degrees from the pole set by ``pole``.
     azimuth : float or str
         Define the azimuth of the projection (Definition 1).
 
-    endpoint : str or list
-        *bx*/*by*.
-        Define the end point of the projection path (Definition 2).
+    endpoint
+        (*bx*, *by*).
+        Set the end point of the projection path (Definition 2).
 
     convention : str
         Specify the desired output using any combination of **xyzpqrs**, in
@@ -182,18 +185,13 @@ def project(
     sort : bool
         Sort the output into increasing :math:`p` order. Useful when projecting
         random data into a sequential profile.
-
-    pole : str or list
-        *px*/*py*.
-        Set the position of the rotation pole of the projection.
-        (Definition 3).
-
-    {verbose}
-
-    width : str or list
-        *w_min*/*w_max*.
-        Project only those data whose :math:`q` coordinate is
-        within :math:`w_{{min}} < q < w_{{max}}`.
+    pole
+        (*px*, *py*).
+        Set the position of the rotation pole of the projection. (Definition 3).
+    width
+        (*w_min*, *w_max*).
+        Specify width controls for the projected points. Project only those points whose
+        q coordinate is within :math:`w_{{min}} < q < w_{{max}}`.
 
     ellipse : str
         *major*/*minor*/*azimuth* [**+e**\|\ **n**].
@@ -212,7 +210,7 @@ def project(
         For the Cartesian ellipse (which requires ``flat_earth``), the
         *direction* is counter-clockwise from the horizontal instead of an
         *azimuth*.
-
+    {verbose}
     {coltypes}
 
     Returns
@@ -241,7 +239,12 @@ def project(
     if output_type == "pandas" and kwargs.get("G") is not None:
         column_names = list("rsp")
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        C=Alias(center, name="center", sep="/", size=2),
+        E=Alias(endpoint, name="endpoint", sep="/", size=2),
+        T=Alias(pole, name="pole", sep="/", size=2),
+        W=Alias(width, name="width", sep="/", size=2),
+    ).add_common(
         V=verbose,
     )
     aliasdict.merge(kwargs)
