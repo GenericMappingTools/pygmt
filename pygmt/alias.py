@@ -104,7 +104,7 @@ def _to_string(
     >>> _to_string(("12p", "34p"), prefix="+o", sep="/")
     '+o12p/34p'
 
-    >>> # _to_string works if a parameter accepts a sequence or a mappable string.
+    >>> # Works for parameters that accept Sequence and Mappable objects.
     >>> # E.g., project -Lw|lmin/lmax.
     >>> _to_string("limit", sep="/", size=2, mapping={"limit": "w"})
     'w'
