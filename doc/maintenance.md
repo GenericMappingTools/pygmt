@@ -30,7 +30,7 @@ communication tools we use.
 ### As an Administrator
 
 - Add to the [pygmt-admin team](https://github.com/orgs/GenericMappingTools/teams/pygmt-admin) (gives 'admin' permission to the repository)
-- Add as an admin on [DAGsHub](https://www.dagshub.com/GenericMappingTools/pygmt)
+- Add as an admin on [DAGsHub](https://dagshub.com/GenericMappingTools/pygmt)
 - Add as a maintainer on [PyPI](https://pypi.org/project/pygmt/) and [Test PyPI](https://test.pypi.org/project/pygmt) [optional]
 
 **Note**: When a maintainer is no longer active (no activity in one year), we will mirror
@@ -254,9 +254,10 @@ publishing the actual release notes at [](changes.md).
    modules and methods, gallery examples, API docs changes) and entries within each group
    are alphabetical.
 6. Move a few important items from the main sections to the Highlights section.
-7. Edit the list of people who contributed to the release, linking to their
-   GitHub accounts. Sort their names by the number of commits made since the
-   last release (e.g., use `git shortlog HEAD...v0.4.0 -sne`).
+7. Edit the list of people who contributed to the release, linking to their GitHub
+   accounts. Sort their names by the number of contributions (including commits and PR
+   reviews) made since the last release (e.g., use
+   `git shortlog vX.Y.Z..HEAD -sne --group=author --group=trailer:co-authored-by`).
 8. Update `doc/minversions.md` with new information on the new release version,
    including a vX.Y.Z documentation link, and minimum required versions of GMT, Python
    and core package dependencies (NumPy, pandas, Xarray). Follow

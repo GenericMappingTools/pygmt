@@ -1,7 +1,12 @@
 """
-Histogram - Create a histogram.
+Histogram - Calculate and plot histograms.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
+from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -15,41 +20,49 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     E="barwidth",
     F="center",
     G="fill",
-    J="projection",
     L="extreme",
     N="distribution",
     Q="cumulative",
-    R="region",
     S="stairs",
     T="series",
-    V="verbose",
     W="pen",
     Z="histtype",
     b="binary",
-    c="panel",
     d="nodata",
     e="find",
     h="header",
     i="incols",
     l="label",
     p="perspective",
-    t="transparency",
     w="wrap",
 )
-@kwargs_to_strings(
-    R="sequence", T="sequence", c="sequence_comma", i="sequence_comma", p="sequence"
-)
-def histogram(self, data, **kwargs):
+@kwargs_to_strings(T="sequence", i="sequence_comma", p="sequence")
+def histogram(
+    self,
+    data: PathLike | TableLike,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
+    **kwargs,
+):
     r"""
-    Plot Cartesian histograms.
+    Calculate and plot histograms.
 
-    Full option list at :gmt-docs:`histogram.html`
+    Full GMT docs at :gmt-docs:`histogram.html`.
 
     {aliases}
+       - J = projection
+       - R = region
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
-    data : str, list, {table-like}
+    data
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         {table-classes}.
     {projection}
@@ -134,9 +147,19 @@ def histogram(self, data, **kwargs):
     {transparency}
     {wrap}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
+
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        R=region,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
             lib.call_module(
-                module="histogram", args=build_arg_list(kwargs, infile=vintbl)
+                module="histogram", args=build_arg_list(aliasdict, infile=vintbl)
             )

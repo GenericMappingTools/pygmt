@@ -3,7 +3,6 @@ Tests for the _to_numpy function in the clib.conversion module.
 """
 
 import datetime
-import sys
 
 import numpy as np
 import numpy.testing as npt
@@ -23,8 +22,6 @@ except ImportError:
         """
         A dummy class to mimic pyarrow.
         """
-
-        __version__ = "0.0.0"
 
         @staticmethod
         def timestamp(unit: str, tz: str | None = None):
@@ -54,14 +51,7 @@ def _check_result(result, expected_dtype):
 @pytest.mark.parametrize(
     ("data", "expected_dtype"),
     [
-        # TODO(NumPy>=2.0): Remove the if-else statement after NumPy>=2.0.
-        pytest.param(
-            [1, 2, 3],
-            np.int32
-            if sys.platform == "win32" and Version(np.__version__) < Version("2.0")
-            else np.int64,
-            id="int",
-        ),
+        pytest.param([1, 2, 3], np.int64, id="int"),
         pytest.param([1.0, 2.0, 3.0], np.float64, id="float"),
         pytest.param(
             [complex(+1), complex(-2j), complex("-Infinity+NaNj")],
@@ -83,9 +73,6 @@ def test_to_numpy_python_types(data, expected_dtype):
 @pytest.mark.parametrize(
     "data",
     [
-        pytest.param(
-            ["2018", "2018-02", "2018-03-01", "2018-04-01T01:02:03"], id="iso8601"
-        ),
         pytest.param(
             [
                 datetime.date(2018, 1, 1),
@@ -141,6 +128,20 @@ def test_to_numpy_python_datetime(data):
             ],
             dtype="datetime64[s]",
         ),
+    )
+
+
+def test_to_numpy_python_datetime_string():
+    """
+    Test the _to_numpy function with Python sequence of datetime strings.
+
+    Datetime strings are NOT converted to np.datetime64, but GMT can be process the
+    strings as datetime strings.
+    """
+    result = _to_numpy(["2018", "2018-02", "2018-03-01", "2018-04-01T01:02:03"])
+    _check_result(result, np.str_)
+    npt.assert_array_equal(
+        result, ["2018", "2018-02", "2018-03-01", "2018-04-01T01:02:03"]
     )
 
 
@@ -313,11 +314,6 @@ def test_to_numpy_pandas_numeric(dtype, expected_dtype):
     Test the _to_numpy function with pandas.Series of numeric dtypes.
     """
     data = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
-    # TODO(pandas>=2.2): Remove the workaround for float16 dtype in pandas<2.2.
-    # float16 needs special handling for pandas < 2.2.
-    # Example from https://arrow.apache.org/docs/python/generated/pyarrow.float16.html
-    if dtype == "float16[pyarrow]" and Version(pd.__version__) < Version("2.2"):
-        data = np.array(data, dtype=np.float16)
     series = pd.Series(data, dtype=dtype)[::2]  # Not C-contiguous
     result = _to_numpy(series)
     _check_result(result, expected_dtype)
@@ -360,11 +356,6 @@ def test_to_numpy_pandas_numeric_with_na(dtype, expected_dtype):
     dtypes and missing values (NA).
     """
     data = [1.0, 2.0, None, 4.0, 5.0, 6.0]
-    # TODO(pandas>=2.2): Remove the workaround for float16 dtype in pandas<2.2.
-    # float16 needs special handling for pandas < 2.2.
-    # Example from https://arrow.apache.org/docs/python/generated/pyarrow.float16.html
-    if dtype == "float16[pyarrow]" and Version(pd.__version__) < Version("2.2"):
-        data = np.array(data, dtype=np.float16)
     series = pd.Series(data, dtype=dtype)[::2]  # Not C-contiguous
     assert series.isna().any()
     result = _to_numpy(series)
@@ -380,17 +371,7 @@ def test_to_numpy_pandas_numeric_with_na(dtype, expected_dtype):
         "U10",
         "string[python]",
         pytest.param("string[pyarrow]", marks=skip_if_no(package="pyarrow")),
-        pytest.param(
-            "string[pyarrow_numpy]",
-            marks=[
-                skip_if_no(package="pyarrow"),
-                # TODO(pandas>=2.1): Remove the skipif marker for pandas<2.1.
-                pytest.mark.skipif(
-                    Version(pd.__version__) < Version("2.1"),
-                    reason="string[pyarrow_numpy] was added since pandas 2.1",
-                ),
-            ],
-        ),
+        pytest.param("string[pyarrow_numpy]", marks=skip_if_no(package="pyarrow")),
     ],
 )
 def test_to_numpy_pandas_string(dtype):
@@ -525,12 +506,7 @@ def test_to_numpy_pandas_datetime(dtype, expected_dtype):
 
     # Convert to UTC if the dtype is timezone-aware
     if "," in str(dtype):  # A hacky way to decide if the dtype is timezone-aware.
-        # TODO(pandas>=2.1): Simplify the if-else statement.
-        if Version(pd.__version__) < Version("2.1") and dtype.startswith("timestamp"):
-            # pandas 2.0 doesn't have the dt.tz_convert method for pyarrow.Timestamp.
-            series = pd.to_datetime(series, utc=True)
-        else:
-            series = series.dt.tz_convert("UTC")
+        series = series.dt.tz_convert("UTC")
     # Remove time zone information and preserve local time.
     expected_series = series.dt.tz_localize(tz=None)
     npt.assert_array_equal(result, np.array(expected_series, dtype=expected_dtype))
@@ -629,14 +605,7 @@ def test_to_numpy_pyarrow_numeric_with_na(dtype, expected_dtype):
         "utf8",  # alias for string
         "large_string",
         "large_utf8",  # alias for large_string
-        pytest.param(
-            "string_view",
-            # TODO(pyarrow>=16): Remove the skipif marker for pyarrow<16.
-            marks=pytest.mark.skipif(
-                Version(pa.__version__) < Version("16"),
-                reason="string_view type was added since pyarrow 16",
-            ),
-        ),
+        "string_view",
     ],
 )
 def test_to_numpy_pyarrow_string(dtype):

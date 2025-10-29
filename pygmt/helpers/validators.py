@@ -5,11 +5,12 @@ Functions to check if given arguments are valid.
 import warnings
 from typing import Literal
 
-from pygmt.exceptions import GMTInvalidInput
+from pygmt._typing import PathLike
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 
 
 def validate_output_table_type(
-    output_type: Literal["pandas", "numpy", "file"], outfile: str | None = None
+    output_type: Literal["pandas", "numpy", "file"], outfile: PathLike | None = None
 ) -> Literal["pandas", "numpy", "file"]:
     """
     Check if the ``output_type`` and ``outfile`` parameters are valid.
@@ -17,16 +18,15 @@ def validate_output_table_type(
     Parameters
     ----------
     output_type
-        Desired output type of tabular data. Valid values are ``"pandas"``,
-        ``"numpy"`` and ``"file"``.
+        Desired output type of tabular data. Valid values are ``"pandas"``, ``"numpy"``,
+        and ``"file"``.
     outfile
         File name for saving the result data. Required if ``output_type`` is ``"file"``.
         If specified, ``output_type`` will be forced to be ``"file"``.
 
     Returns
     -------
-    str
-        The original or updated output type.
+    The original or updated output type.
 
     Examples
     --------
@@ -39,7 +39,7 @@ def validate_output_table_type(
     >>> validate_output_table_type(output_type="invalid-type")
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Must specify 'output_type' either as 'file', ...
+    pygmt....GMTValueError: ...: 'invalid-type'. Expected one of: ...
     >>> validate_output_table_type("file", outfile=None)
     Traceback (most recent call last):
         ...
@@ -49,17 +49,20 @@ def validate_output_table_type(
     ...     assert len(w) == 1
     'file'
     """
-    if output_type not in {"file", "numpy", "pandas"}:
-        msg = "Must specify 'output_type' either as 'file', 'numpy', or 'pandas'."
-        raise GMTInvalidInput(msg)
+    _valids = {"file", "numpy", "pandas"}
+    if output_type not in _valids:
+        raise GMTValueError(
+            output_type,
+            description="value for parameter 'output_type'",
+            choices=_valids,
+        )
     if output_type == "file" and outfile is None:
         msg = "Must specify 'outfile' for output_type='file'."
         raise GMTInvalidInput(msg)
     if output_type != "file" and outfile is not None:
         msg = (
-            f"Changing 'output_type' from '{output_type}' to 'file' "
-            "since 'outfile' parameter is set. Please use output_type='file' "
-            "to silence this warning."
+            f"Changing 'output_type' from '{output_type}' to 'file' since 'outfile' "
+            "parameter is set. Please use output_type='file' to suppress the warning."
         )
         warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
         output_type = "file"

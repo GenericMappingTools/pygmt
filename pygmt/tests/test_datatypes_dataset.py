@@ -6,6 +6,7 @@ from pathlib import Path
 
 import pandas as pd
 import pytest
+from packaging.version import Version
 from pygmt import which
 from pygmt.clib import Session
 from pygmt.helpers import GMTTempFile
@@ -25,8 +26,12 @@ def dataframe_from_pandas(filepath_or_buffer, sep=r"\s+", comment="#", header=No
 
     # By default, pandas reads text strings with whitespaces as multiple columns, but
     # GMT concatenates all trailing text as a single string column. Need do find all
-    # string columns (with dtype="object") and combine them into a single string column.
-    string_columns = df.select_dtypes(include=["object"]).columns
+    # string columns and combine them into a single string column.
+    # For pandas<3.0, string columns have dtype="object".
+    # For pandas>=3.0, string columns have dtype="str".
+    # TODO(pandas>=3.0): Remove the pandas version check.
+    dtype = "object" if Version(pd.__version__) < Version("3.0.0.dev0") else "str"
+    string_columns = df.select_dtypes(include=[dtype]).columns
     if len(string_columns) > 1:
         df[string_columns[0]] = df[string_columns].apply(lambda x: " ".join(x), axis=1)
         df = df.drop(string_columns[1:], axis=1)
@@ -161,6 +166,6 @@ def test_dataset_to_strings_with_none_values():
             Path(path).unlink()
         with pytest.warns(expected_warning=RuntimeWarning) as record:
             paths = which(fname=tiles, download="a")
-            assert len(record) == 1
+        assert len(record) == 1
         assert len(paths) == 2
         assert "" in paths

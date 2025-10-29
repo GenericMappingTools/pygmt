@@ -1,9 +1,7 @@
-.. _api:
-
 API Reference
 =============
 
-.. automodule:: pygmt
+This page gives an overview of all public PyGMT objects, functions and methods.
 
 .. currentmodule:: pygmt
 
@@ -193,9 +191,29 @@ Getting metadata from tabular or grid data:
 .. autosummary::
     :toctree: generated
 
-    GMTDataArrayAccessor
     info
     grdinfo
+
+Xarray Integration
+------------------
+
+.. autosummary::
+    :toctree: generated
+
+    GMTBackendEntrypoint
+    GMTDataArrayAccessor
+
+Class-style Parameters
+----------------------
+
+.. currentmodule:: pygmt.params
+
+.. autosummary::
+    :toctree: generated
+    :template: autosummary/params.rst
+
+    Box
+    Pattern
 
 Enums
 -----
@@ -277,6 +295,8 @@ All custom exceptions are derived from :class:`pygmt.exceptions.GMTError`.
     exceptions.GMTCLibError
     exceptions.GMTCLibNoSessionError
     exceptions.GMTCLibNotFoundError
+    exceptions.GMTTypeError
+    exceptions.GMTValueError
 
 
 .. currentmodule:: pygmt

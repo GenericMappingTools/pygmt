@@ -2,7 +2,12 @@
 grdgradient - Compute directional gradients from a grid.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
 import xarray as xr
+from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -23,23 +28,30 @@ __doctest_skip__ = ["grdgradient"]
     E="radiance",
     N="normalize",
     Q="tiles",
-    R="region",
     S="slope_file",
-    V="verbose",
     f="coltypes",
     n="interpolation",
 )
-@kwargs_to_strings(A="sequence", E="sequence", R="sequence")
-def grdgradient(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
+@kwargs_to_strings(A="sequence", E="sequence")
+def grdgradient(
+    grid: PathLike | xr.DataArray,
+    outgrid: PathLike | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
+) -> xr.DataArray | None:
     r"""
-    Compute the directional derivative of the vector gradient of the data.
+    Compute directional gradients from a grid.
 
     Can accept ``azimuth``, ``direction``, and ``radiance`` input to create
     the resulting gradient.
 
-    Full option list at :gmt-docs:`grdgradient.html`
+    Full GMT docs at :gmt-docs:`grdgradient.html`.
 
     {aliases}
+       - R = region
+       - V = verbose
 
     Parameters
     ----------
@@ -49,7 +61,7 @@ def grdgradient(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | No
         *azim*\ [/*azim2*].
         Azimuthal direction for a directional derivative; *azim* is the
         angle in the x,y plane measured in degrees positive clockwise from
-        north (the +y direction) toward east (the +x direction). The
+        north (the positive y-direction) toward east (the positive x-direction). The
         negative of the directional derivative,
         :math:`-(\frac{{dz}}{{dx}}\sin(\mbox{{azim}}) + \
         \frac{{dz}}{{dy}}\cos(\mbox{{azim}}))`, is found; negation yields
@@ -146,7 +158,6 @@ def grdgradient(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | No
         - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
-
     Example
     -------
     >>> import pygmt
@@ -167,13 +178,20 @@ def grdgradient(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | No
             "azimuth, direction, or radiance."
         )
         raise GMTInvalidInput(msg)
+
+    aliasdict = AliasSystem().add_common(
+        R=region,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            kwargs["G"] = voutgrd
+            aliasdict["G"] = voutgrd
             lib.call_module(
-                module="grdgradient", args=build_arg_list(kwargs, infile=vingrd)
+                module="grdgradient", args=build_arg_list(aliasdict, infile=vingrd)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

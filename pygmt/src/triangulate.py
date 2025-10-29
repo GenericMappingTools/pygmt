@@ -1,13 +1,16 @@
 """
-triangulate - Delaunay triangulation or Voronoi partitioning and gridding of
-Cartesian data.
+triangulate - Delaunay triangulation or Voronoi partitioning and gridding of Cartesian
+data.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
 import pandas as pd
 import xarray as xr
+from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -50,9 +53,6 @@ class triangulate:  # noqa: N801
     @fmt_docstring
     @use_alias(
         I="spacing",
-        J="projection",
-        R="region",
-        V="verbose",
         b="binary",
         d="nodata",
         e="find",
@@ -63,9 +63,20 @@ class triangulate:  # noqa: N801
         s="skiprows",
         w="wrap",
     )
-    @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
+    @kwargs_to_strings(I="sequence", i="sequence_comma")
     def regular_grid(
-        data=None, x=None, y=None, z=None, outgrid: str | None = None, **kwargs
+        data: PathLike | TableLike | None = None,
+        x=None,
+        y=None,
+        z=None,
+        outgrid: PathLike | None = None,
+        projection: str | None = None,
+        region: Sequence[float | str] | str | None = None,
+        verbose: Literal[
+            "quiet", "error", "warning", "timing", "info", "compat", "debug"
+        ]
+        | bool = False,
+        **kwargs,
     ) -> xr.DataArray | None:
         """
         Delaunay triangle based gridding of Cartesian data.
@@ -88,15 +99,18 @@ class triangulate:  # noqa: N801
 
         Must provide ``region`` and ``spacing``.
 
-        Full option list at :gmt-docs:`triangulate.html`
+        Full GMT docs at :gmt-docs:`triangulate.html`.
 
         {aliases}
+           - J = projection
+           - R = region
+           - V = verbose
 
         Parameters
         ----------
         x/y/z : :class:`numpy.ndarray`
             Arrays of x and y coordinates and values z of the data points.
-        data : str, {table-like}
+        data
             Pass in (x, y[, z]) or (longitude, latitude[, elevation]) values by
             providing a file name to an ASCII data table, a 2-D
             {table-classes}.
@@ -135,16 +149,23 @@ class triangulate:  # noqa: N801
         ``triangulate`` is a Cartesian or small-geographic area operator and is
         unaware of periodic or polar boundary conditions.
         """
+        aliasdict = AliasSystem().add_common(
+            R=region,
+            J=projection,
+            V=verbose,
+        )
+        aliasdict.merge(kwargs)
+
         with Session() as lib:
             with (
                 lib.virtualfile_in(
-                    check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
+                    check_kind="vector", data=data, x=x, y=y, z=z, mincols=2
                 ) as vintbl,
                 lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
             ):
-                kwargs["G"] = voutgrd
+                aliasdict["G"] = voutgrd
                 lib.call_module(
-                    module="triangulate", args=build_arg_list(kwargs, infile=vintbl)
+                    module="triangulate", args=build_arg_list(aliasdict, infile=vintbl)
                 )
                 return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
 
@@ -152,9 +173,6 @@ class triangulate:  # noqa: N801
     @fmt_docstring
     @use_alias(
         I="spacing",
-        J="projection",
-        R="region",
-        V="verbose",
         b="binary",
         d="nodata",
         e="find",
@@ -165,15 +183,21 @@ class triangulate:  # noqa: N801
         s="skiprows",
         w="wrap",
     )
-    @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
+    @kwargs_to_strings(I="sequence", i="sequence_comma")
     def delaunay_triples(
-        data=None,
+        data: PathLike | TableLike | None = None,
         x=None,
         y=None,
         z=None,
         *,
         output_type: Literal["pandas", "numpy", "file"] = "pandas",
-        outfile: str | None = None,
+        outfile: PathLike | None = None,
+        projection: str | None = None,
+        region: Sequence[float | str] | str | None = None,
+        verbose: Literal[
+            "quiet", "error", "warning", "timing", "info", "compat", "debug"
+        ]
+        | bool = False,
         **kwargs,
     ) -> pd.DataFrame | np.ndarray | None:
         """
@@ -190,15 +214,18 @@ class triangulate:  # noqa: N801
 
         Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-        Full option list at :gmt-docs:`triangulate.html`
+        Full GMT docs at :gmt-docs:`triangulate.html`
 
         {aliases}
+           - J = projection
+           - R = region
+           - V = verbose
 
         Parameters
         ----------
         x/y/z : :class:`numpy.ndarray`
             Arrays of x and y coordinates and values z of the data points.
-        data : str, {table-like}
+        data
             Pass in (x, y, z) or (longitude, latitude, elevation) values by
             providing a file name to an ASCII data table, a 2-D
             {table-classes}.
@@ -235,15 +262,22 @@ class triangulate:  # noqa: N801
         """
         output_type = validate_output_table_type(output_type, outfile=outfile)
 
+        aliasdict = AliasSystem().add_common(
+            J=projection,
+            R=region,
+            V=verbose,
+        )
+        aliasdict.merge(kwargs)
+
         with Session() as lib:
             with (
                 lib.virtualfile_in(
-                    check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
+                    check_kind="vector", data=data, x=x, y=y, z=z, mincols=2
                 ) as vintbl,
                 lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
             ):
                 lib.call_module(
                     module="triangulate",
-                    args=build_arg_list(kwargs, infile=vintbl, outfile=vouttbl),
+                    args=build_arg_list(aliasdict, infile=vintbl, outfile=vouttbl),
                 )
             return lib.virtualfile_to_dataset(vfname=vouttbl, output_type=output_type)

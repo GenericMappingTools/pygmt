@@ -35,25 +35,30 @@ def load_earth_free_air_anomaly(
        * - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_faa.jpg
          - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_faaerror.jpg
 
-    The grids are downloaded to a user data directory (usually
-    ``~/.gmt/server/earth/earth_faa/`` or ``~/.gmt/server/earth/earth_faaerror/``) the
-    first time you invoke this function. Afterwards, it will load the grid from data
-    directory. So you'll need an internet connection the first time around.
 
-    These grids can also be accessed by passing in the file name
-    **@earth_faa_type**\_\ *res*\[_\ *reg*] to any grid processing function or
-    plotting method. *earth_faa_type* is the GMT name for the dataset. The available
-    options are **earth_faa** and **earth_faaerror**. *res* is the grid resolution (see
-    below), and *reg* is the grid registration type (**p** for pixel registration or
-    **g** for gridline registration).
+    This function downloads the dataset from the GMT data server, caches it in a user
+    data directory (usually ``~/.gmt/server/earth/earth_faa/`` or
+    ``~/.gmt/server/earth/earth_faaerror/``), and load the dataset as an
+    :class:`xarray.DataArray`. An internet connection is required the first time around,
+    but subsequent calls will load the dataset from the local data directory.
 
-    The default color palette tables (CPTs) for these datasets are *@earth_faa.cpt* and
-    *@earth_faaerror.cpt*. The dataset-specific CPT is implicitly used when passing in
-    the file name of the dataset to any grid plotting method if no CPT is explicitly
-    specified. When the dataset is loaded and plotted as an :class:`xarray.DataArray`
-    object, the default CPT is ignored, and GMT's default CPT (*turbo*) is used. To use
-    the dataset-specific CPT, you need to explicitly set ``cmap="@earth_faa.cpt"`` or
-    ``cmap="@earth_faaerror.cpt"``.
+    The dataset can also be accessed by specifying a file name in any grid processing
+    function or plotting method, using the following file name format:
+    **@**\ *earth_faa_type*\_\ *res*\_\ *reg*. *earth_faa_type* is the GMT name for the
+    dataset. The available options are **earth_faa** and **earth_faaerror**. *res* is
+    the grid resolution; *reg* is the grid registration type (**p** for pixel
+    registration, **g** for gridline registration). If *reg* is omitted (e.g.,
+    ``@earth_faa_01d``), the gridline-registered grid will be loaded for grid
+    processing functions and the pixel-registered grid will be loaded for plotting
+    functions. If *res* is also omitted (i.e., ``@earth_faa``), GMT automatically
+    selects a suitable resolution based on the current region and projection settings.
+
+    This dataset comes with two color palette table (CPT) files, ``@earth_faa.cpt`` and
+    ``@earth_faaerror.cpt``. To use the dataset-specific CPT when plotting the dataset,
+    explicitly set ``cmap="@earth_faa.cpt"`` or ``cmap="@earth_faaerror.cpt"``,
+    otherwise GMT's default CPT (*turbo*) will be used. If the dataset is referenced by
+    the file name in a grid plotting method, the dataset-specific CPT file is used
+    automatically unless another CPT is specified.
 
     Refer to :gmt-datasets:`earth-faa.html` and :gmt-datasets:`earth-faaerror.html` for
     more details about available datasets, including version information and references.
@@ -85,24 +90,20 @@ def load_earth_free_air_anomaly(
     Note
     ----
     The registration and coordinate system type of the returned
-    :class:`xarray.DataArray` grid can be accessed via the GMT accessors (i.e.,
-    ``grid.gmt.registration`` and ``grid.gmt.gtype`` respectively). However, these
-    properties may be lost after specific grid operations (such as slicing) and will
-    need to be manually set before passing the grid to any PyGMT data processing or
-    plotting functions. Refer to :class:`pygmt.GMTDataArrayAccessor` for detailed
-    explanations and workarounds.
+    :class:`xarray.DataArray` grid can be accessed via the *gmt* accessor. Refer to
+    :class:`pygmt.GMTDataArrayAccessor` for detailed explanations and limitations.
 
     Examples
     --------
 
     >>> from pygmt.datasets import load_earth_free_air_anomaly
-    >>> # load the default grid (gridline-registered 1 arc-degree grid)
+    >>> # Load the default grid (gridline-registered 1 arc-degree grid)
     >>> grid = load_earth_free_air_anomaly()
-    >>> # load the uncertainties related to the default grid
+    >>> # Load the uncertainties related to the default grid
     >>> grid = load_earth_free_air_anomaly(uncertainty=True)
-    >>> # load the 30 arc-minutes grid with "gridline" registration
+    >>> # Load the 30 arc-minutes grid with "gridline" registration
     >>> grid = load_earth_free_air_anomaly(resolution="30m", registration="gridline")
-    >>> # load high-resolution (5 arc-minutes) grid for a specific region
+    >>> # Load high-resolution (5 arc-minutes) grid for a specific region
     >>> grid = load_earth_free_air_anomaly(
     ...     resolution="05m", region=[120, 160, 30, 60], registration="gridline"
     ... )

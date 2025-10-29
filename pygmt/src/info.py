@@ -2,7 +2,11 @@
 info - Get information about data tables.
 """
 
+from typing import Literal
+
 import numpy as np
+from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
@@ -18,14 +22,18 @@ from pygmt.helpers import (
     C="per_column",
     I="spacing",
     T="nearest_multiple",
-    V="verbose",
     a="aspatial",
     f="coltypes",
     i="incols",
     r="registration",
 )
 @kwargs_to_strings(I="sequence", i="sequence_comma")
-def info(data, **kwargs):
+def info(
+    data: PathLike | TableLike,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
+) -> np.ndarray | str:
     r"""
     Get information about data tables.
 
@@ -42,13 +50,14 @@ def info(data, **kwargs):
     parameter ``nearest_multiple`` will provide a :class:`numpy.ndarray` in the form
     of [*zmin*, *zmax*, *dz*] for makecpt.
 
-    Full option list at :gmt-docs:`gmtinfo.html`
+    Full GMT docs at :gmt-docs:`gmtinfo.html`.
 
     {aliases}
+       - V = verbose
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in either a file name to an ASCII data table, a 1-D/2-D
         {table-classes}.
     per_column : bool
@@ -80,12 +89,17 @@ def info(data, **kwargs):
         - :class:`numpy.ndarray` if either of the above parameters are used.
         - str if none of the above parameters are used.
     """
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with GMTTempFile() as tmpfile:
             with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
                 lib.call_module(
                     module="info",
-                    args=build_arg_list(kwargs, infile=vintbl, outfile=tmpfile.name),
+                    args=build_arg_list(aliasdict, infile=vintbl, outfile=tmpfile.name),
                 )
             result = tmpfile.read()
 

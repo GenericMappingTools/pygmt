@@ -1,7 +1,12 @@
 """
-contour - Plot contour table data.
+contour - Contour table data by direct triangulation.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
+from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -18,15 +23,10 @@ from pygmt.helpers import (
     B="frame",
     C="levels",
     G="label_placement",
-    J="projection",
     L="triangular_mesh_pen",
-    N="no_clip",
-    R="region",
     S="skip",
-    V="verbose",
     W="pen",
     b="binary",
-    c="panel",
     d="nodata",
     e="find",
     f="coltypes",
@@ -34,10 +34,23 @@ from pygmt.helpers import (
     i="incols",
     l="label",
     p="perspective",
-    t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def contour(self, data=None, x=None, y=None, z=None, **kwargs):
+@kwargs_to_strings(i="sequence_comma", p="sequence")
+def contour(  # noqa: PLR0913
+    self,
+    data: PathLike | TableLike | None = None,
+    x=None,
+    y=None,
+    z=None,
+    no_clip: bool = False,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | tuple[int, int] | bool = False,
+    transparency: float | None = None,
+    **kwargs,
+):
     r"""
     Contour table data by direct triangulation.
 
@@ -46,13 +59,19 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    Full option list at :gmt-docs:`contour.html`
+    Full GMT docs at :gmt-docs:`contour.html`.
 
     {aliases}
+       - J = projection
+       - N = no_clip
+       - R = region
+       - V = verbose
+       - c = panel
+       - t = transparency
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
@@ -90,12 +109,12 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
         five controlling algorithms. See :gmt-docs:`contour.html#g` for
         details.
     I : bool
-        Color the triangles using CPT.
+        Color the triangles using the CPT if given via ``levels``.
     triangular_mesh_pen : str
         Pen to draw the underlying triangulation [Default is ``None``].
-    no_clip : bool
-        Do **not** clip contours or image at the frame boundaries
-        [Default is ``False`` to fit inside ``region``].
+    no_clip
+        Do **not** clip contours or colored triangles at the frame boundaries [Default
+        is ``False`` to fit inside ``region``].
     Q : float or str
         [*cut*][**+z**].
         Do not draw contours with less than *cut* number of points.
@@ -130,7 +149,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     # Specify levels for contours or annotations.
     # One level is converted to a string with a trailing comma to separate it from
@@ -143,10 +162,21 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
             else:  # Multiple levels
                 kwargs[arg] = ",".join(f"{item}" for item in kwargs[arg])
 
+    aliasdict = AliasSystem(
+        N=Alias(no_clip, name="no_clip"),
+    ).add_common(
+        J=projection,
+        R=region,
+        V=verbose,
+        c=panel,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with lib.virtualfile_in(
-            check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
+            check_kind="vector", data=data, x=x, y=y, z=z, mincols=3
         ) as vintbl:
             lib.call_module(
-                module="contour", args=build_arg_list(kwargs, infile=vintbl)
+                module="contour", args=build_arg_list(aliasdict, infile=vintbl)
             )

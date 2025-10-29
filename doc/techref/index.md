@@ -8,10 +8,12 @@ visit the {gmt-docs}`GMT Technical Reference <reference.html>`.
 ```{toctree}
 :maxdepth: 1
 
-array_dtypes.md
+common_parameters.md
 projections.md
 fonts.md
-patterns.md
+text_formatting.md
 encodings.md
+justification_codes.md
 environment_variables.md
+array_dtypes.md
 ```

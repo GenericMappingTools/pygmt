@@ -1,11 +1,15 @@
 """
-grdtrack - Sample grids at specified (x,y) locations.
+grdtrack - Sample one or more grids at specified locations.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
 import pandas as pd
+import xarray as xr
+from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -26,11 +30,9 @@ __doctest_skip__ = ["grdtrack"]
     D="dfile",
     E="profile",
     F="critical",
-    R="region",
     N="no_skip",
     S="stack",
     T="radius",
-    V="verbose",
     Z="z_only",
     a="aspatial",
     b="binary",
@@ -46,17 +48,20 @@ __doctest_skip__ = ["grdtrack"]
     s="skiprows",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", S="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(S="sequence", i="sequence_comma", o="sequence_comma")
 def grdtrack(
-    grid,
-    points=None,
+    grid: PathLike | xr.DataArray,
+    points: PathLike | TableLike | None = None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
-    outfile: str | None = None,
+    outfile: PathLike | None = None,
     newcolname=None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
-    Sample grids at specified (x,y) locations.
+    Sample one or more grids at specified locations.
 
     Reads one or more grid files and a table (from file or an array input; but
     see ``profile`` for exception) with (x,y) [or (lon,lat)] positions in the
@@ -72,15 +77,17 @@ def grdtrack(
     derivative normal to edge is zero) unless the grid is automatically
     recognized as periodic.)
 
-    Full option list at :gmt-docs:`grdtrack.html`
+    Full GMT docs at :gmt-docs:`grdtrack.html`.
 
     {aliases}
+       - R = region
+       - V = verbose
 
     Parameters
     ----------
     {grid}
 
-    points : str, {table-like}
+    points
         Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
     {output_type}
@@ -307,18 +314,24 @@ def grdtrack(
     if output_type == "pandas" and isinstance(points, pd.DataFrame):
         column_names = [*points.columns.to_list(), newcolname]
 
+    aliasdict = AliasSystem().add_common(
+        R=region,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_in(
-                check_kind="vector", data=points, required_data=False
+                check_kind="vector", data=points, required=False
             ) as vintbl,
             lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
         ):
-            kwargs["G"] = vingrd
+            aliasdict["G"] = vingrd
             lib.call_module(
                 module="grdtrack",
-                args=build_arg_list(kwargs, infile=vintbl, outfile=vouttbl),
+                args=build_arg_list(aliasdict, infile=vintbl, outfile=vouttbl),
             )
         return lib.virtualfile_to_dataset(
             vfname=vouttbl,

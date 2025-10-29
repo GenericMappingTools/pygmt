@@ -37,11 +37,7 @@ fig.show()
 # * ``angle``: Specifies the rotation of the text. It is measured counter-clockwise
 #   from the horizontal in degrees.
 # * ``justify``: Defines the anchor point of the bounding box for the text. It is
-#   specified by a two-letter (order independent) code, chosen from:
-#
-#   * Vertical: **T**\(op), **M**\(iddle), **B**\(ottom)
-#   * Horizontal: **L**\(eft), **C**\(entre), **R**\(ight)
-#
+#   specified by a :doc:`2-character justification code </techref/justification_codes>`.
 # * ``offset``: Shifts the text relatively to the reference point.
 
 fig = pygmt.Figure()
@@ -60,8 +56,8 @@ fig.text(x=0, y=0, text="my text", angle=30)
 fig.plot(x=0, y=-3, style="s0.2c", fill="darkorange", pen="0.7p,darkgray")
 fig.text(x=0, y=-3, text="my text")
 # Shift the text label relatively to the position given via the x and y parameters
-# by 1 centimeter to the right (positive x direction) and 0.5 centimeters down
-# (negative y direction)
+# by 1 centimeter to the right (positive x-direction) and 0.5 centimeters down
+# (negative y-direction)
 fig.text(x=0, y=-3, text="my text", offset="1c/-0.5c")
 
 fig.shift_origin(xshift="w+0.5c")
@@ -102,7 +98,7 @@ fig.show()
 #
 # * ``fill``: Fills the text box with a color.
 # * ``pen``: Outlines the text box.
-# * ``clearance``: Adds margins in x and y directions between the text and the outline
+# * ``clearance``: Adds margins in x-and y-directions between the text and the outline
 #   of the text box. Can be used to get a text box with rounded edges.
 
 fig = pygmt.Figure()
@@ -116,7 +112,7 @@ fig.text(x=0, y=3, text="My text", fill="green")
 fig.text(x=0, y=1, text="My text", pen="1p,seagreen,solid")
 
 # Add margins between the text and the outline of the text box of 0.1
-# centimeters in x direction and 0.2 centimeters in y direction
+# centimeters in x-direction and 0.2 centimeters in y-direction
 fig.text(x=0, y=-1, text="My text", pen="1p,seagreen,dashed", clearance="0.1c/0.2c")
 
 # Get rounded edges by passing "+tO" to the "clearance" parameter
@@ -191,12 +187,8 @@ fig.show()
 #
 # Instead of using the ``x`` and ``y`` parameters, the ``position`` parameter can be
 # specified to set the reference point for the text on the plot. As for the ``justify``
-# parameter, the ``position`` parameter is specified by a two-letter (order independent)
-# code, chosen from:
-#
-# * Vertical: **T**\(op), **M**\(iddle), **B**\(ottom)
-# * Horizontal: **L**\(eft), **C**\(entre), **R**\(ight)
-#
+# parameter, the ``position`` parameter is specified by a
+# :doc:`2-character justification code </techref/justification_codes>`.
 # This can be helpful to add a tag to a subplot or text labels out of the plot or map
 # frame, e.g., for depth slices.
 

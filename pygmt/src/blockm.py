@@ -2,10 +2,13 @@
 blockm - Block average (x, y, z) data tables by mean, median, or mode estimation.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
 import pandas as pd
+from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -55,7 +58,7 @@ def _blockm(
     with Session() as lib:
         with (
             lib.virtualfile_in(
-                check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
+                check_kind="vector", data=data, x=x, y=y, z=z, mincols=3
             ) as vintbl,
             lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
         ):
@@ -71,9 +74,7 @@ def _blockm(
 @fmt_docstring
 @use_alias(
     I="spacing",
-    R="region",
     S="summary",
-    V="verbose",
     a="aspatial",
     b="binary",
     d="nodata",
@@ -85,14 +86,17 @@ def _blockm(
     r="registration",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(I="sequence", i="sequence_comma", o="sequence_comma")
 def blockmean(
-    data=None,
+    data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
-    outfile: str | None = None,
+    outfile: PathLike | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -107,13 +111,15 @@ def blockmean(
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    Full option list at :gmt-docs:`blockmean.html`
+    Full GMT docs at :gmt-docs:`blockmean.html`.
 
     {aliases}
+       - R = region
+       - V = verbose
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
@@ -161,6 +167,12 @@ def blockmean(
     >>> # Calculate block mean values within 5 by 5 arc-minute bins
     >>> data_bmean = pygmt.blockmean(data=data, region=[245, 255, 20, 30], spacing="5m")
     """
+    aliasdict = AliasSystem().add_common(
+        R=region,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     return _blockm(
         block_method="blockmean",
         data=data,
@@ -169,15 +181,13 @@ def blockmean(
         z=z,
         output_type=output_type,
         outfile=outfile,
-        **kwargs,
+        **aliasdict,
     )
 
 
 @fmt_docstring
 @use_alias(
     I="spacing",
-    R="region",
-    V="verbose",
     a="aspatial",
     b="binary",
     d="nodata",
@@ -189,14 +199,17 @@ def blockmean(
     r="registration",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(I="sequence", i="sequence_comma", o="sequence_comma")
 def blockmedian(
-    data=None,
+    data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
-    outfile: str | None = None,
+    outfile: PathLike | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -211,13 +224,15 @@ def blockmedian(
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    Full option list at :gmt-docs:`blockmedian.html`
+    Full GMT docs at :gmt-docs:`blockmedian.html`.
 
     {aliases}
+       - R = region
+       - V = verbose
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
@@ -259,6 +274,12 @@ def blockmedian(
     ...     data=data, region=[245, 255, 20, 30], spacing="5m"
     ... )
     """
+    aliasdict = AliasSystem().add_common(
+        R=region,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     return _blockm(
         block_method="blockmedian",
         data=data,
@@ -267,15 +288,13 @@ def blockmedian(
         z=z,
         output_type=output_type,
         outfile=outfile,
-        **kwargs,
+        **aliasdict,
     )
 
 
 @fmt_docstring
 @use_alias(
     I="spacing",
-    R="region",
-    V="verbose",
     a="aspatial",
     b="binary",
     d="nodata",
@@ -287,14 +306,17 @@ def blockmedian(
     r="registration",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(I="sequence", i="sequence_comma", o="sequence_comma")
 def blockmode(
-    data=None,
+    data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
-    outfile: str | None = None,
+    outfile: PathLike | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -309,13 +331,15 @@ def blockmode(
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    Full option list at :gmt-docs:`blockmode.html`
+    Full GMT docs at :gmt-docs:`blockmode.html`.
 
     {aliases}
+       - R = region
+       - V = verbose
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
@@ -355,6 +379,12 @@ def blockmode(
     >>> # Calculate block mode values within 5 by 5 arc-minute bins
     >>> data_bmode = pygmt.blockmode(data=data, region=[245, 255, 20, 30], spacing="5m")
     """
+    aliasdict = AliasSystem().add_common(
+        R=region,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     return _blockm(
         block_method="blockmode",
         data=data,
@@ -363,5 +393,5 @@ def blockmode(
         z=z,
         output_type=output_type,
         outfile=outfile,
-        **kwargs,
+        **aliasdict,
     )

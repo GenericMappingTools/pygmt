@@ -5,15 +5,14 @@ timestamp - Plot the GMT timestamp logo.
 import warnings
 from collections.abc import Sequence
 
-from packaging.version import Version
 from pygmt._typing import AnchorCode
-from pygmt.clib import Session, __gmt_version__
-from pygmt.helpers import build_arg_list, kwargs_to_strings
+from pygmt.alias import Alias, AliasSystem
+from pygmt.clib import Session
+from pygmt.helpers import build_arg_list
 
 __doctest_skip__ = ["timestamp"]
 
 
-@kwargs_to_strings(offset="sequence")
 def timestamp(
     self,
     text: str | None = None,
@@ -26,11 +25,12 @@ def timestamp(
     r"""
     Plot the GMT timestamp logo.
 
-    Add the GMT timestamp logo with an optional label at the bottom-left corner of a
-    plot with an offset of ``("-54p", "-54p")``. The timestamp will be in the locale set
-    by the environment variable :term:`TZ` (generally local time but can be changed via
-    ``os.environ["TZ"]``) and its format is controlled by the ``timefmt`` parameter. It
-    can also be replaced with any custom text string using the ``text`` parameter.
+    Add the GMT timestamp logo with an optional label at the bottom-left corner relative
+    to the current plot origin, with an offset of ``("-54p", "-54p")``. The timestamp
+    will be in the locale set by the environment variable :term:`TZ` (generally local
+    time but can be changed via ``os.environ["TZ"]``) and its format is controlled by
+    the ``timefmt`` parameter. It can also be replaced with any custom text string using
+    the ``text`` parameter.
 
     Parameters
     ----------
@@ -41,12 +41,9 @@ def timestamp(
     label
         The text string shown after the GMT timestamp logo.
     justify
-        Justification of the timestamp box relative to the plot's bottom-left corner
-        (i.e., the plot origin). Give a two-character code that is a combination of a
-        horizontal (**L**\ (eft), **C**\ (enter), or **R**\ (ight)) and a vertical
-        (**T**\ (op), **M**\ (iddle), or **B**\ (ottom)) code. For example,
-        ``justify="TL"`` means choosing the **T**\ op **L**\ eft point of the timestamp
-        as the anchor point.
+        Specify a :doc:`2-character justification code </techref/justification_codes>`
+        for the timestamp box relative to the current plot origin. The default is the
+        Bottom Left (``"BL"``) corner.
     offset
         *offset* or (*offset_x*, *offset_y*).
         Offset the anchor point of the timestamp box by *offset_x* and *offset_y*. If a
@@ -54,8 +51,7 @@ def timestamp(
     font
         Font of the timestamp and the optional label. Since the GMT logo has a fixed
         height, the font sizes are fixed to be 8-point for the timestamp and 7-point for
-        the label. The parameter can't change the font color for GMT<=6.4.0, only the
-        font style.
+        the label.
     timefmt
         Format string for the UNIX timestamp. The format string is parsed by the C
         function ``strftime``, so that virtually any text can be used (even not
@@ -76,41 +72,30 @@ def timestamp(
     >>> fig.timestamp(label="Powered by PyGMT")
     >>> fig.show()
     """
-    self._preprocess()
+    self._activate_figure()
 
-    # Build the options passed to the "plot" module
-    kwdict: dict = {"T": True, "U": ""}
-    if label is not None:
-        kwdict["U"] += f"{label}"
-    kwdict["U"] += f"+j{justify}"
+    if text is not None and len(str(text)) > 64:
+        msg = (
+            "Parameter 'text' expects a string no longer than 64 characters. "
+            "The given text string will be truncated to 64 characters."
+        )
+        warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
+        text = str(text)[:64]
 
-    # TODO(GMT>=6.5.0): Remove the patch for upstream bug fixed in GMT 6.5.0.
-    if Version(__gmt_version__) < Version("6.5.0") and "/" not in str(offset):
-        # Giving a single offset doesn't work in GMT < 6.5.0.
-        # See https://github.com/GenericMappingTools/gmt/issues/7107.
-        offset = f"{offset}/{offset}"
-    kwdict["U"] += f"+o{offset}"
-
-    # The +t modifier was added in GMT 6.5.0.
-    # See https://github.com/GenericMappingTools/gmt/pull/7127.
-    if text is not None:
-        if len(str(text)) > 64:
-            msg = (
-                "Argument of 'text' must be no longer than 64 characters. "
-                "The given text string will be truncated to 64 characters."
-            )
-            warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
-        # TODO(GMT>=6.5.0): Remove the workaround for the new '+t' modifier.
-        if Version(__gmt_version__) < Version("6.5.0"):
-            # Workaround for GMT<6.5.0 by overriding the 'timefmt' parameter
-            timefmt = text[:64]
-        else:
-            kwdict["U"] += f"+t{text}"
+    aliasdict = AliasSystem(
+        U=[
+            Alias(label, name="label"),
+            Alias(justify, name="justify", prefix="+j"),
+            Alias(offset, name="offset", prefix="+o", sep="/", size=2),
+            Alias(text, name="text", prefix="+t"),
+        ]
+    )
+    aliasdict["T"] = ""  # Add '-T' to the "plot" module.
 
     with Session() as lib:
         lib.call_module(
             module="plot",
             args=build_arg_list(
-                kwdict, confdict={"FONT_LOGO": font, "FORMAT_TIME_STAMP": timefmt}
+                aliasdict, confdict={"FONT_LOGO": font, "FORMAT_TIME_STAMP": timefmt}
             ),
         )

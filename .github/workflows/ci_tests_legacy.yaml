@@ -26,6 +26,8 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
+permissions: {}
+
 jobs:
   test:
     name: ${{ matrix.os }} - GMT ${{ matrix.gmt_version }}
@@ -34,8 +36,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-22.04, ubuntu-22.04-arm, macos-13, windows-2019]
-        gmt_version: ['6.4']
+        os: [ubuntu-22.04, ubuntu-22.04-arm, macos-14, windows-2022]
+        gmt_version: ['6.5']
     timeout-minutes: 30
     defaults:
       run:
@@ -44,33 +46,29 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5.0.0
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
+          persist-credentials: false
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v2.0.4
+        uses: mamba-org/setup-micromamba@add3a49764cedee8ee24e82dfde87f5bc2914462 # v2.0.7
         with:
           environment-name: pygmt
-          condarc: |
-            channels:
-              - conda-forge
-              - nodefaults
           create-args: >-
             python=3.11
             gmt=${{ matrix.gmt_version }}
-            ghostscript<10
-            numpy<2
-            pandas
-            xarray
-            netCDF4
-            packaging
-            contextily
-            geopandas
+            ghostscript
+            numpy=2.0
+            pandas=2.2
+            xarray=2024.5
+            packaging=24.2
+            contextily=1.5
+            geopandas=1.0
             ipython
-            pyarrow-core
+            pyarrow-core=16
             rioxarray
             sphinx-gallery
             make
@@ -86,11 +84,7 @@ jobs:
           # Download cached files to ~/.gmt directory and list them
           gh run download --name gmt-cache --dir ~/.gmt/
           # Change modification times of the two files, so GMT won't refresh it.
-          # The two files are in the `~/.gmt/server` directory for GMT<=6.4, and in the
-          # `~/.gmt` directory for GMT>=6.5.
-          mkdir -p ~/.gmt/server/
-          mv ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt ~/.gmt/server/
-          touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
+          touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
           ls -lhR ~/.gmt
         env:
           GH_TOKEN: ${{ github.token }}

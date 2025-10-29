@@ -12,11 +12,9 @@ import numpy as np
 import numpy.testing as npt
 import pandas as pd
 import pytest
-from packaging.version import Version
 from pygmt import config, x2sys_cross, x2sys_init
-from pygmt.clib import __gmt_version__
 from pygmt.datasets import load_sample_data
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTTypeError
 
 
 @pytest.fixture(name="mock_x2sys_home")
@@ -38,12 +36,7 @@ def fixture_tracks():
     return [dataframe.query(expr="z > -20")]  # reduce size of dataset
 
 
-# TODO(GMT>=6.5.0): Remove the xfail marker for the upstream bug fixed in GMT 6.5.0.
 @pytest.mark.usefixtures("mock_x2sys_home")
-@pytest.mark.xfail(
-    condition=Version(__gmt_version__) < Version("6.5.0"),
-    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8188",
-)
 def test_x2sys_cross_input_file_output_file():
     """
     Run x2sys_cross by passing in a filename, and output internal crossovers to an ASCII
@@ -68,12 +61,7 @@ def test_x2sys_cross_input_file_output_file():
         npt.assert_allclose(result["i_1"].max(), 82945.9370, rtol=1.0e-4)
 
 
-# TODO(GMT>=6.5.0): Remove the xfail marker for the upstream bug fixed in GMT 6.5.0.
 @pytest.mark.usefixtures("mock_x2sys_home")
-@pytest.mark.xfail(
-    condition=Version(__gmt_version__) < Version("6.5.0"),
-    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8188",
-)
 def test_x2sys_cross_input_file_output_dataframe():
     """
     Run x2sys_cross by passing in a filename, and output internal crossovers to a
@@ -239,20 +227,15 @@ def test_x2sys_cross_input_two_filenames():
 
 def test_x2sys_cross_invalid_tracks_input_type(tracks):
     """
-    Run x2sys_cross using tracks input that is not a pandas.DataFrame or str type,
-    which would raise a GMTInvalidInput error.
+    Run x2sys_cross using tracks input that is not a pandas.DataFrame or str type, which
+    would raise GMTTypeError.
     """
     invalid_tracks = tracks[0].to_xarray().z
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         x2sys_cross(tracks=[invalid_tracks])
 
 
-# TODO(GMT>=6.5.0): Remove the xfail marker for the upstream bug fixed in GMT 6.5.0.
 @pytest.mark.usefixtures("mock_x2sys_home")
-@pytest.mark.xfail(
-    condition=Version(__gmt_version__) < Version("6.5.0"),
-    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8188",
-)
 def test_x2sys_cross_region_interpolation_numpoints():
     """
     Test that x2sys_cross's region (R), interpolation (l) and numpoints (W) arguments
@@ -283,12 +266,7 @@ def test_x2sys_cross_region_interpolation_numpoints():
             npt.assert_allclose(output.z_M.mean(), -2896.875915, rtol=1e-4)
 
 
-# TODO(GMT>=6.5.0): Remove the xfail marker for the upstream bug fixed in GMT 6.5.0.
 @pytest.mark.usefixtures("mock_x2sys_home")
-@pytest.mark.xfail(
-    condition=Version(__gmt_version__) < Version("6.5.0"),
-    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8188",
-)
 def test_x2sys_cross_trackvalues():
     """
     Test that x2sys_cross's trackvalues (Z) argument work.
@@ -308,3 +286,26 @@ def test_x2sys_cross_trackvalues():
             assert output.shape == (14338, 12)
             npt.assert_allclose(output.z_1.mean(), -2422.418556, rtol=1e-4)
             npt.assert_allclose(output.z_2.mean(), -2402.268364, rtol=1e-4)
+
+
+@pytest.mark.usefixtures("mock_x2sys_home")
+def test_x2sys_cross_output_dataframe_empty(tracks):
+    """
+    Test that x2sys_cross can output an empty dataframe (when there are no crossovers)
+    without any errors.
+
+    Regression test for
+    https://forum.generic-mapping-tools.org/t/issue-with-x2sys-in-pygmt-solved/6154
+    """
+    with TemporaryDirectory(prefix="X2SYS", dir=Path.cwd()) as tmpdir:
+        tag = Path(tmpdir).name
+        x2sys_init(tag=tag, fmtfile="xyz", force=True)
+
+        tracks = [tracks[0][:5]]  # subset to less rows so there won't be crossovers
+        output = x2sys_cross(tracks=tracks, tag=tag, coe="i")
+
+        assert isinstance(output, pd.DataFrame)
+        assert output.shape == (0, 0)
+        assert output.empty
+        columns = list(output.columns)
+        assert columns == []

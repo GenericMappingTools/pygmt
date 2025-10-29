@@ -2,7 +2,12 @@
 grdproject - Forward and inverse map transformation of grids.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
 import xarray as xr
+from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -16,18 +21,23 @@ __doctest_skip__ = ["grdproject"]
     D="spacing",
     E="dpi",
     F="scaling",
-    J="projection",
     I="inverse",
     M="unit",
-    R="region",
-    V="verbose",
     n="interpolation",
     r="registration",
 )
-@kwargs_to_strings(C="sequence", D="sequence", R="sequence")
-def grdproject(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | None:
+@kwargs_to_strings(C="sequence", D="sequence")
+def grdproject(
+    grid: PathLike | xr.DataArray,
+    outgrid: PathLike | None = None,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
+) -> xr.DataArray | None:
     r"""
-    Change projection of gridded data between geographical and rectangular.
+    Forward and inverse map transformation of grids.
 
     This method will project a geographical gridded data set onto a
     rectangular grid. If ``inverse`` is ``True``, it will project a
@@ -44,9 +54,12 @@ def grdproject(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | Non
     set to NaN. The ``region`` parameter can be used to select a map region
     large or smaller than that implied by the extent of the grid file.
 
-    Full option list at :gmt-docs:`grdproject.html`
+    Full GMT docs at :gmt-docs:`grdproject.html`.
 
     {aliases}
+       - J = projection
+       - R = region
+       - V = verbose
 
     Parameters
     ----------
@@ -102,17 +115,24 @@ def grdproject(grid, outgrid: str | None = None, **kwargs) -> xr.DataArray | Non
     >>> # Project the geographic gridded data onto a rectangular grid
     >>> new_grid = pygmt.grdproject(grid=grid, projection="M10c", region=region)
     """
-    if kwargs.get("J") is None:
+    if projection is None:
         msg = "The projection must be specified."
         raise GMTInvalidInput(msg)
+
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        R=region,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            kwargs["G"] = voutgrd
+            aliasdict["G"] = voutgrd
             lib.call_module(
-                module="grdproject", args=build_arg_list(kwargs, infile=vingrd)
+                module="grdproject", args=build_arg_list(aliasdict, infile=vingrd)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

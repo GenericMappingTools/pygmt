@@ -2,7 +2,12 @@
 nearneighbor - Grid table data using a "Nearest neighbor" algorithm.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
 import xarray as xr
+from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -14,9 +19,7 @@ __doctest_skip__ = ["nearneighbor"]
     E="empty",
     I="spacing",
     N="sectors",
-    R="region",
     S="search_radius",
-    V="verbose",
     a="aspatial",
     b="binary",
     d="nodata",
@@ -28,9 +31,17 @@ __doctest_skip__ = ["nearneighbor"]
     r="registration",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
+@kwargs_to_strings(I="sequence", i="sequence_comma")
 def nearneighbor(
-    data=None, x=None, y=None, z=None, outgrid: str | None = None, **kwargs
+    data: PathLike | TableLike | None = None,
+    x=None,
+    y=None,
+    z=None,
+    outgrid: PathLike | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
 ) -> xr.DataArray | None:
     r"""
     Grid table data using a "Nearest neighbor" algorithm.
@@ -66,13 +77,15 @@ def nearneighbor(
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    Full option list at :gmt-docs:`nearneighbor.html`
+    Full GMT docs at :gmt-docs:`nearneighbor.html`.
 
     {aliases}
+       - R = region
+       - V = verbose
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
@@ -138,15 +151,21 @@ def nearneighbor(
     ...     search_radius="10m",
     ... )
     """
+    aliasdict = AliasSystem().add_common(
+        R=region,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(
-                check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
+                check_kind="vector", data=data, x=x, y=y, z=z, mincols=3
             ) as vintbl,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            kwargs["G"] = voutgrd
+            aliasdict["G"] = voutgrd
             lib.call_module(
-                module="nearneighbor", args=build_arg_list(kwargs, infile=vintbl)
+                module="nearneighbor", args=build_arg_list(aliasdict, infile=vintbl)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
