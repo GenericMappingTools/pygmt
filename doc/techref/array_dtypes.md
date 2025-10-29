@@ -1,9 +1,9 @@
 # Supported Array Dtypes
 
 PyGMT uses NumPy arrays as its fundamental data structure for storing data, as well as
-for exchanging data with the GMT C library. In this way, PyGMT can support a wide
-range of dtypes, as long as they can be converted to a NumPy array. This page provides
-a comprehensive overview of the dtypes supported by PyGMT.
+for exchanging data with the GMT C API. In this way, PyGMT can support a wide range of
+dtypes, as long as they can be converted to a NumPy array. This page provides a
+comprehensive overview of the dtypes supported by PyGMT.
 
 ## Numeric Dtypes
 
@@ -12,27 +12,32 @@ supports most of the numeric dtypes provided by NumPy, pandas, and PyArrow.
 
 **Signed Integers**
 
-- `numpy.int8`, `numpy.int16`, `numpy.int32`, `numpy.int64`
-- `pandas.Int8`, `pandas.Int16`, `pandas.Int32`, `pandas.Int64`
+- `numpy.int8`, `numpy.int16`, `numpy.int32`, `numpy.int64`, `numpy.longlong`
+- `pandas.Int8Dtype`, `pandas.Int16Dtype`, `pandas.Int32Dtype`, `pandas.Int64Dtype`
 - `pyarrow.int8`, `pyarrow.int16`, `pyarrow.int32`, `pyarrow.int64`
 
 **Unsigned Integers**
 
-- `numpy.uint8`, `numpy.uint16`, `numpy.uint32`, `numpy.uint64`
-- `pandas.UInt8`, `pandas.UInt16`, `pandas.UInt32`, `pandas.UInt64`
+- `numpy.uint8`, `numpy.uint16`, `numpy.uint32`, `numpy.uint64`, `numpy.ulonglong`
+- `pandas.UInt8Dtype`, `pandas.UInt16Dtype`, `pandas.UInt32Dtype`, `pandas.UInt64Dtype`
 - `pyarrow.uint8`, `pyarrow.uint16`, `pyarrow.uint32`, `pyarrow.uint64`
 
 **Floating-point numbers**
 
 - `numpy.float32`, `numpy.float64`
-- `pandas.Float32`, `pandas.Float64`
+- `pandas.Float32Dtype`, `pandas.Float64Dtype`
 - `pyarrow.float32`, `pyarrow.float64`
 
 :::{note}
-
-1. Currently, `numpy.float16`, `numpy.longdouble` and `pyarrow.float16` are not
-   supported.
-2. For 3-D {class}`xarray.DataArray` objects representing raster images, only 8-bit
+1. Numeric dtypes `numpy.float16`, `numpy.longdouble`, and `pyarrow.float16` are not
+   supported and should be cast into one of the supported dtypes before passing to
+   PyGMT.
+2. Complex numeric dtypes such as `numpy.complex64` are not supported.
+3. pandas and PyArrow's signed/unsigned integer dtypes (e.g., `pandas.Int8Dtype`,
+   `pyarrow.int8`) support missing values such as `None` or `pandas.NA`, but numpy's
+   corrresponding dtypes don't. Arrays of these dtypes with missing values are always
+   cast into `numpy.float64` internally.
+4. For 3-D {class}`xarray.DataArray` objects representing raster images, only 8-bit
    unsigned integers (i.e., `numpy.uint8`) are supported.
 :::
 
@@ -95,3 +100,8 @@ pa.array(["a", "b", "c"], type=pa.string())
 
 - pandas: `date32[day][pyarrow]`, `date64[ms][pyarrow]`
 - PyArrow: `pyarrow.date32`, `pyarrow.date64`
+
+
+## Bool Dtypes
+
+Currently, `numpy.bool` is not supported.
