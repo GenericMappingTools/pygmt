@@ -207,14 +207,24 @@ def test_to_numpy_numpy_numeric(dtype, expected_dtype):
     npt.assert_array_equal(result, array, strict=True)
 
 
-@pytest.mark.parametrize("dtype", [None, np.str_, "U10"])
-def test_to_numpy_numpy_string(dtype):
+@pytest.mark.parametrize(
+    ("dtype", "expected_dtype"),
+    [
+        pytest.param(None, np.str_, id="None"),
+        pytest.param(np.str_, np.str_, id="np.str_"),
+        pytest.param("U10", np.str_, id="U10"),
+        pytest.param(
+            np.dtypes.StringDType(), np.dtypes.StringDType(), id="StringDType"
+        ),
+    ],
+)
+def test_to_numpy_numpy_string(dtype, expected_dtype):
     """
     Test the _to_numpy function with NumPy arrays of string dtypes.
     """
     array = np.array(["abc", "defg", "12345"], dtype=dtype)
     result = _to_numpy(array)
-    _check_result(result, np.str_)
+    _check_result(result, expected_dtype)
     npt.assert_array_equal(result, array)
 
 
@@ -369,6 +379,7 @@ def test_to_numpy_pandas_numeric_with_na(dtype, expected_dtype):
         None,
         np.str_,
         "U10",
+        np.dtypes.StringDType(),
         "string[python]",
         pytest.param("string[pyarrow]", marks=skip_if_no(package="pyarrow")),
         pytest.param("string[pyarrow_numpy]", marks=skip_if_no(package="pyarrow")),
