@@ -106,6 +106,7 @@ DTYPES_NUMERIC = {
 }
 DTYPES_TEXT = {
     np.str_: "GMT_TEXT",
+    str: "GMT_TEXT",  # numpy.dtypes.StringDType
     np.datetime64: "GMT_DATETIME",
 }
 DTYPES = DTYPES_NUMERIC | DTYPES_TEXT
