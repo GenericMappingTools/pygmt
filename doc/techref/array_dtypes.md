@@ -1,14 +1,14 @@
 # Supported Array Dtypes
 
-PyGMT uses NumPy arrays as its fundamental data structure for storing data, as well as
-for exchanging data with the GMT C API. In this way, PyGMT can support a wide range of
-dtypes, as long as they can be converted to a NumPy array. This page provides a
-comprehensive overview of the dtypes supported by PyGMT.
+PyGMT uses NumPy arrays as its core data structure for storing data and exchanging data
+with the GMT C API. This design allows PyGMT to support a wide range of data types
+(*dtypes*), as long as they can be converted to NumPy arrays. This page provides a
+comprehensive overview of the array dtypes supported by PyGMT.
 
 ## Numeric Dtypes
 
-In addition to the Python built-in numeric types (i.e., `int` and `float`), PyGMT
-supports most of the numeric dtypes provided by NumPy, pandas, and PyArrow.
+In addition to Python's built-in numeric types (`int` and `float`), PyGMT supports most
+of the numeric dtypes provided by NumPy, pandas, and PyArrow.
 
 **Signed Integers**
 
@@ -29,46 +29,45 @@ supports most of the numeric dtypes provided by NumPy, pandas, and PyArrow.
 - `pyarrow.float32`, `pyarrow.float64`
 
 :::{note}
-1. Numeric dtypes `numpy.float16`, `numpy.longdouble`, and `pyarrow.float16` are not
-   supported and should be cast into one of the supported dtypes before passing to
+1. The numeric dtypes `numpy.float16`, `numpy.longdouble`, and `pyarrow.float16` are not
+   supported and should be cast to one of the supported dtypes before passing them to
    PyGMT.
 2. Complex numeric dtypes such as `numpy.complex64` are not supported.
-3. pandas and PyArrow's signed/unsigned integer dtypes (e.g., `pandas.Int8Dtype`,
-   `pyarrow.int8`) support missing values such as `None` or `pandas.NA`, but numpy's
-   corrresponding dtypes don't. Arrays of these dtypes with missing values are always
-   cast into `numpy.float64` internally.
+3. Signed and unsigned integer dtypes from pandas and PyArrow (e.g., `pandas.Int8Dtype`,
+   `pyarrow.int8`) support missing values like `None` or `pandas.NA`, whereas NumPy's
+   corrresponding dtypes (e.g., `numpy.int8`) don't. Arrays of these dtypes containing
+   missing values are automatically cast to `numpy.float64` internally.
 4. For 3-D {class}`xarray.DataArray` objects representing raster images, only 8-bit
    unsigned integers (i.e., `numpy.uint8`) are supported.
 :::
 
 :::{note}
-
-Here are some examples for creating array-like numeric objects that PyGMT supports:
+Examples of numeric arrays supported by PyGMT:
 
 ```python
 # A list of integers
 [1, 2, 3]
 
-# A NumPy array with np.int32 dtype
+# A NumPy array with dtype int32
 np.array([1, 2, 3], dtype=np.int32)
 
-# A pandas.Series with pandas's Int32 dtype
+# A pandas Series with nullable Int32 dtype
 pd.Series([1, 2, 3], dtype="Int32")
 
-# A pandas.Series with pandas's nullable Int32 dtype
+# A pandas Series with nullable Int32 dtype and missing values
 pd.Series([1, 2, pd.NA], dtype="Int32")
 
-# A pandas.Series with PyArrow-backed float64 dtype
+# A pandas Series using a PyArrow-backed float64 dtype
 pd.Series([1, 2, 3], dtype="float64[pyarrow]")
 
-# A PyArrow array with pyarrow.uint8 dtype
+# A PyArrow array with dtype uint8
 pa.array([1, 2, 3], type=pa.uint8())
 ```
 :::
 
 ## String Dtypes
 
-In addition to the Python built-in `str` type, PyGMT also support following string dtypes:
+In addition to Python's built-in `str` type, PyGMT also support following string dtypes:
 
 - NumPy: `numpy.str_`
 - pandas: `pandas.StringDtype` (including `string[python]`, `string[pyarrow]` and
@@ -76,7 +75,7 @@ In addition to the Python built-in `str` type, PyGMT also support following stri
 - PyArrow: `pyarrow.string`, `pyarrow.large_string`, and `pyarrow.string_view`
 
 :::{note}
-Here are some examples for creating string arrays that PyGMT supports:
+Examples of string arrays supported by PyGMT:
 
 ```python
 # A list of strings
