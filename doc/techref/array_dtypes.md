@@ -1,9 +1,9 @@
 # Supported Array Dtypes
 
 PyGMT uses NumPy arrays as its core data structure for storing data and exchanging data
-with the GMT C API. This design allows PyGMT to support a wide range of data types
-(*dtypes*), as long as they can be converted to NumPy arrays. This page provides a
-comprehensive overview of the array dtypes supported by PyGMT.
+with the GMT C API. This design allows PyGMT to support a wide range of array-like
+objects and data types (*dtypes*), as long as they can be converted to NumPy arrays.
+This page provides a comprehensive overview of the array dtypes supported by PyGMT.
 
 ## Numeric Dtypes
 
@@ -69,10 +69,11 @@ pa.array([1, 2, 3], type=pa.uint8())
 
 In addition to Python's built-in `str` type, PyGMT also support following string dtypes:
 
-- NumPy: `numpy.str_`
-- pandas: `pandas.StringDtype` (including `string[python]`, `string[pyarrow]` and
-  `string[pyarrow_numpy]`)
-- PyArrow: `pyarrow.string`, `pyarrow.large_string`, and `pyarrow.string_view`
+- NumPy: `numpy.str_` or fixed-width Unicode string dtype (e.g., ``"U10"``)
+- pandas: `pandas.StringDtype`, with different storage backends, including
+  `string[python]`, `string[pyarrow]`, and `string[pyarrow_numpy]`
+- PyArrow: `pyarrow.string`/`pyarrow.utf8`, `pyarrow.large_string`/`pyarrow.large_utf8`,
+  and `pyarrow.string_view`
 
 :::{note}
 Examples of string arrays supported by PyGMT:
