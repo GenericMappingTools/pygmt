@@ -94,3 +94,15 @@ def test_grdsample_registration_changes(grid):
     assert translated_grid.gmt.registration is GridRegistration.GRIDLINE
     registration_grid = grdsample(grid=translated_grid, registration="p")
     assert registration_grid.gmt.registration is GridRegistration.PIXEL
+
+
+def test_grdsample_file_vs_dataarray_same(grid, region, spacing):
+    """
+    Ensure grdsample results are identical for filename and DataArray inputs.
+    """
+    # Use the source file path of the static grid to avoid remote download
+    src = grid.encoding.get("source")
+    assert src  
+    res_file = grdsample(grid=src, spacing=spacing, region=region)
+    res_da = grdsample(grid=grid, spacing=spacing, region=region)
+    xr.testing.assert_allclose(a=res_file, b=res_da)
