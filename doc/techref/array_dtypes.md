@@ -75,6 +75,8 @@ In addition to Python's built-in `str` type, PyGMT also support following string
 - PyArrow: `pyarrow.string`/`pyarrow.utf8`, `pyarrow.large_string`/`pyarrow.large_utf8`,
   and `pyarrow.string_view`
 
+PyGMT also tries to convert arrays of `np.object_` dtype into string arrays if possible.
+
 :::{note}
 Examples of string arrays supported by PyGMT:
 
@@ -98,9 +100,19 @@ pa.array(["a", "b", "c"], type=pa.string())
 
 ## Datetime Dtypes
 
-- pandas: `date32[day][pyarrow]`, `date64[ms][pyarrow]`
-- PyArrow: `pyarrow.date32`, `pyarrow.date64`
+PyGMT supports a variety of datetime types:
 
+- A list/tuple of elements in Python's built-in `datetime.datetime` or `datetime.date`,
+  NumPy's `numpy.datetime64`, panda's `pandas.Timestamp` types, datetime-like strings,
+  or mixed.
+- NumPy arrays: `numpy.datetime64` with various resolutions
+- pandas objects with `numpy.datetime64`, `pandas.DatetimeTZDtype`,
+  `pyarrow.timestamp` with various resolution and timezone support, and
+  pyarrow-backend dtypes like `date32[day][pyarrow]` and `date64[ms][pyarrow]`,
+- PyArrow: `pyarrow.date32`, `pyarrow.date64` and `pyarrow.timestamp` with various
+  resolutions and timezone support.
+
+<!-- Internally GMT stores datetimes as intergers, so not all resolutions are supported. Need to explain it in details. -->
 
 ## Bool Dtypes
 
