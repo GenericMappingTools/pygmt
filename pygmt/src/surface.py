@@ -29,7 +29,6 @@ __doctest_skip__ = ["surface"]
     f="coltypes",
     h="header",
     i="incols",
-    r="registration",
     w="wrap",
 )
 @kwargs_to_strings(I="sequence")
@@ -40,6 +39,7 @@ def surface(
     z=None,
     outgrid: PathLike | None = None,
     region: Sequence[float | str] | str | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -79,6 +79,7 @@ def surface(
     {aliases}
        - R = region
        - V = verbose
+       - r = registration
 
     Parameters
     ----------
@@ -168,6 +169,7 @@ def surface(
     aliasdict = AliasSystem().add_common(
         R=region,
         V=verbose,
+        r=registration,
     )
     aliasdict.merge(kwargs)
 

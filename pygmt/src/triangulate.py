@@ -59,7 +59,6 @@ class triangulate:  # noqa: N801
         f="coltypes",
         h="header",
         i="incols",
-        r="registration",
         s="skiprows",
         w="wrap",
     )
@@ -72,6 +71,7 @@ class triangulate:  # noqa: N801
         outgrid: PathLike | None = None,
         projection: str | None = None,
         region: Sequence[float | str] | str | None = None,
+        registration: Literal["gridline", "pixel"] | bool = False,
         verbose: Literal[
             "quiet", "error", "warning", "timing", "info", "compat", "debug"
         ]
@@ -105,6 +105,7 @@ class triangulate:  # noqa: N801
            - J = projection
            - R = region
            - V = verbose
+           - r = registration
 
         Parameters
         ----------
@@ -153,6 +154,7 @@ class triangulate:  # noqa: N801
             R=region,
             J=projection,
             V=verbose,
+            r=registration,
         )
         aliasdict.merge(kwargs)
 
@@ -179,7 +181,6 @@ class triangulate:  # noqa: N801
         f="coltypes",
         h="header",
         i="incols",
-        r="registration",
         s="skiprows",
         w="wrap",
     )
@@ -194,6 +195,7 @@ class triangulate:  # noqa: N801
         outfile: PathLike | None = None,
         projection: str | None = None,
         region: Sequence[float | str] | str | None = None,
+        registration: Literal["gridline", "pixel"] | bool = False,
         verbose: Literal[
             "quiet", "error", "warning", "timing", "info", "compat", "debug"
         ]
@@ -220,6 +222,7 @@ class triangulate:  # noqa: N801
            - J = projection
            - R = region
            - V = verbose
+           - r = registration
 
         Parameters
         ----------
@@ -266,6 +269,7 @@ class triangulate:  # noqa: N801
             J=projection,
             R=region,
             V=verbose,
+            r=registration,
         )
         aliasdict.merge(kwargs)
 

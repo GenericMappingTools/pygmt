@@ -28,7 +28,6 @@ __doctest_skip__ = ["nearneighbor"]
     g="gap",
     h="header",
     i="incols",
-    r="registration",
     w="wrap",
 )
 @kwargs_to_strings(I="sequence", i="sequence_comma")
@@ -39,6 +38,7 @@ def nearneighbor(
     z=None,
     outgrid: PathLike | None = None,
     region: Sequence[float | str] | str | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -82,6 +82,7 @@ def nearneighbor(
     {aliases}
        - R = region
        - V = verbose
+       - r = registration
 
     Parameters
     ----------
@@ -154,6 +155,7 @@ def nearneighbor(
     aliasdict = AliasSystem().add_common(
         R=region,
         V=verbose,
+        r=registration,
     )
     aliasdict.merge(kwargs)
 

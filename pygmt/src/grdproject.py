@@ -24,7 +24,6 @@ __doctest_skip__ = ["grdproject"]
     I="inverse",
     M="unit",
     n="interpolation",
-    r="registration",
 )
 @kwargs_to_strings(C="sequence", D="sequence")
 def grdproject(
@@ -32,6 +31,7 @@ def grdproject(
     outgrid: PathLike | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -60,6 +60,7 @@ def grdproject(
        - J = projection
        - R = region
        - V = verbose
+       - r = registration
 
     Parameters
     ----------
@@ -123,6 +124,7 @@ def grdproject(
         J=projection,
         R=region,
         V=verbose,
+        r=registration,
     )
     aliasdict.merge(kwargs)
 
