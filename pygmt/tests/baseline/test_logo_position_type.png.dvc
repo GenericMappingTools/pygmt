@@ -1,0 +1,5 @@
+outs:
+- md5: 9b9d740219df9edb298dbc49e7ef1351
+  size: 232635
+  hash: md5
+  path: test_logo_position_type.png
