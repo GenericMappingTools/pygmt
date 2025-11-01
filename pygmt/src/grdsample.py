@@ -10,7 +10,6 @@ from pygmt._typing import PathLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
-from pygmt.src.grdinfo import grdinfo as _grdinfo
 
 __doctest_skip__ = ["grdsample"]
 
@@ -28,8 +27,6 @@ def grdsample(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
     region: Sequence[float | str] | str | None = None,
-    translate: bool | None = None,
-    registration: str | bool | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     cores: int | bool = False,
@@ -103,34 +100,14 @@ def grdsample(
     )
     aliasdict.merge(kwargs)
 
-    # Normalize file inputs to DataArray for consistent behavior with virtual files.
-    # This avoids subtle differences between GMT reading from files vs virtual grids.
+    # Normalize filename inputs to DataArray for consistent behavior with
+    # DataArray inputs (avoid subtle differences in -R/-I rounding and alignment).
     if not isinstance(grid, xr.DataArray):
         try:
             grid = xr.load_dataarray(grid, engine="gmt", raster_kind="grid")
-        except Exception:  
+        except Exception:
+            # If loading fails (e.g., remote special files), fall back to original input
             pass
-
-    # If translate (-T) is requested (present in aliasdict), remove any -r to avoid conflict
-    if aliasdict.get("T"):
-        aliasdict.pop("r", None)
-
-    # 2. Handle registration for filename inputs only (do not mutate DataArray)
-    if not isinstance(grid, xr.DataArray):
-        # registration explicitly, infer registration from the input grid so that
-        # -R rounding and output alignment match the DataArray code path.
-        if registration is None and not aliasdict.get("T"):
-            try:
-                info = _grdinfo(grid, per_column="n")
-                parts = info.split()
-                reg_flag = int(parts[-2])  # 0 = gridline, 1 = pixel
-                registration = "p" if reg_flag == 1 else "g"
-            except Exception:  
-                registration = None
-
-    # When translate=True, we only pass -T and avoid -r to prevent conflicts.
-    if registration is not None and not aliasdict.get("T"):
-        aliasdict["r"] = registration
 
     with Session() as lib:
         with (
@@ -138,9 +115,6 @@ def grdsample(
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
             aliasdict["G"] = voutgrd
-            # Final guard: ensure -r isn't passed together with -T
-            if aliasdict.get("T"):
-                aliasdict.pop("r", None)
             lib.call_module(
                 module="grdsample", args=build_arg_list(aliasdict, infile=vingrd)
             )
