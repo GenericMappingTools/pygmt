@@ -15,18 +15,13 @@ __doctest_skip__ = ["grdsample"]
 
 
 @fmt_docstring
-@use_alias(
-    I="spacing",
-    T="translate",
-    f="coltypes",
-    n="interpolation",
-    r="registration",
-)
+@use_alias(I="spacing", T="translate", f="coltypes", n="interpolation")
 @kwargs_to_strings(I="sequence")
 def grdsample(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
     region: Sequence[float | str] | str | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     cores: int | bool = False,
@@ -53,6 +48,7 @@ def grdsample(
     {aliases}
        - R = region
        - V = verbose
+       - r = registration
        - x = cores
 
     Parameters
@@ -96,6 +92,7 @@ def grdsample(
     aliasdict = AliasSystem().add_common(
         R=region,
         V=verbose,
+        r=registration,
         x=cores,
     )
     aliasdict.merge(kwargs)

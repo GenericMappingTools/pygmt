@@ -20,13 +20,13 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     N="nans",
     T="toggle",
     f="coltypes",
-    r="registration",
 )
 @kwargs_to_strings(I="sequence")
 def grdfilter(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
     region: Sequence[float | str] | str | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     cores: int | bool = False,
@@ -50,6 +50,7 @@ def grdfilter(
     {aliases}
        - R = region
        - V = verbose
+       - r = registration
        - x = cores
 
     Parameters
@@ -141,6 +142,7 @@ def grdfilter(
     aliasdict = AliasSystem().add_common(
         R=region,
         V=verbose,
+        r=registration,
         x=cores,
     )
     aliasdict.merge(kwargs)
