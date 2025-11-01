@@ -100,6 +100,15 @@ def grdsample(
     )
     aliasdict.merge(kwargs)
 
+    # Normalize filename inputs to DataArray for consistent behavior with
+    # DataArray inputs (avoid subtle differences in -R/-I rounding and alignment).
+    if not isinstance(grid, xr.DataArray):
+        try:
+            grid = xr.load_dataarray(grid, engine="gmt", raster_kind="grid")
+        except Exception:
+            # If loading fails (e.g., remote special files), fall back to original input
+            pass
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
