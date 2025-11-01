@@ -10,6 +10,7 @@ from pygmt._typing import PathLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.exceptions import GMTInvalidInput
 
 __doctest_skip__ = ["grdsample"]
 
@@ -67,6 +68,7 @@ def grdsample(
     registration : str or bool
         [**g**\|\ **p**\ ].
         Set registration to **g**\ ridline or **p**\ ixel.
+        Note: ``translate`` and ``registration`` are mutually exclusive.
     {verbose}
     {coltypes}
     {interpolation}
@@ -99,6 +101,12 @@ def grdsample(
         x=cores,
     )
     aliasdict.merge(kwargs)
+
+    # Enforce mutual exclusivity between -T (translate) and -r (registration)
+    if aliasdict.get("T") is not None and aliasdict.get("r") is not None:
+        raise GMTInvalidInput(
+            "Parameters 'translate' (-T) and 'registration' (-r) cannot be used together."
+        )
 
     with Session() as lib:
         with (
