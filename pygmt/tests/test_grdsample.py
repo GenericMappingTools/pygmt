@@ -10,6 +10,7 @@ from pygmt import grdsample
 from pygmt.enums import GridRegistration, GridType
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
+from pygmt.exceptions import GMTInvalidInput
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -94,3 +95,11 @@ def test_grdsample_registration_changes(grid):
     assert translated_grid.gmt.registration is GridRegistration.GRIDLINE
     registration_grid = grdsample(grid=translated_grid, registration="p")
     assert registration_grid.gmt.registration is GridRegistration.PIXEL
+
+
+def test_grdsample_translate_and_registration_mutually_exclusive(grid):
+    """
+    grdsample should raise if translate and registration are both set.
+    """
+    with pytest.raises(GMTInvalidInput):
+        grdsample(grid=grid, translate=True, registration="p")
