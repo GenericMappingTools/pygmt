@@ -9,8 +9,8 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["grdsample"]
 
@@ -104,9 +104,8 @@ def grdsample(
 
     # Enforce mutual exclusivity between -T (translate) and -r (registration)
     if aliasdict.get("T") is not None and aliasdict.get("r") is not None:
-        raise GMTInvalidInput(
-            "Parameters 'translate' (-T) and 'registration' (-r) cannot be used together."
-        )
+        msg = "Parameters 'translate' (-T) and 'registration' (-r) cannot be used together."
+        raise GMTInvalidInput(msg)
 
     with Session() as lib:
         with (
