@@ -1,0 +1,59 @@
+# Cache baseline images tracked by DVC and upload as artifacts.
+#
+# This workflow downloads dvc cache needed by PyGMT tests and uploads them as workflow
+# artifacts, which can then be accessed by other GitHub Actions workflows.
+#
+# This workflow serves as a workaround for the DagsHub authentication issue that
+# prevents PRs from forks to access the DVC remote.
+# Related issue: https://github.com/GenericMappingTools/pygmt/issues/4147
+#
+# It is scheduled to run every Sunday at 12:00 (UTC) and on the main branch if there are
+# any changes to the baseline images.
+#
+name: Cache DVC
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'pygmt/tests/baseline/*.png.dvc'
+  pull_request:  # For testing only.
+  workflow_dispatch:
+  # Schedule runs on 12 noon every Sunday
+  schedule:
+    - cron: '0 12 * * 0'
+
+permissions: {}
+
+jobs:
+  dvc_cache:
+    name: Cache DVC baseline images
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5.0.0
+        with:
+          # fetch all history so that setuptools-scm works
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup data version control (DVC)
+        uses: iterative/setup-dvc@175771be1dc3d119268e00a896b52a4b77decb5e # v1.2.0
+
+      - name: Pull baseline image data from dvc remote
+        env:
+          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
+        run: |
+          dvc remote modify upstream url https://${DAGSHUB_TOKEN}@dagshub.com/GenericMappingTools/pygmt.dvc --local
+          dvc pull --no-run-cache --verbose && ls -lhR pygmt/tests/baseline/
+
+      - name: Upload DVC cache as artifacts to GitHub
+        uses: actions/upload-artifact@v5.0.0
+        with:
+          name: dvc-cache
+          include-hidden-files: true
+          path: .dvc/cache/
