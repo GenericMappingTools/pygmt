@@ -163,11 +163,19 @@ jobs:
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
+        id: dvc-pull
+        continue-on-error: true
         run: |
           uv run dvc remote modify upstream url https://${DAGSHUB_TOKEN}@dagshub.com/GenericMappingTools/pygmt.dvc --local
           uv run dvc pull --no-run-cache --verbose && ls -lhR pygmt/tests/baseline/
         env:
           DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
+
+      - name: Download DVC cache as artifacts from GitHub
+        if: steps.dvc-pull.outcome == 'failure'
+        run: |
+          gh run download --name dvc-cache --dir .dvc/cache/
+          uv run dvc checkout --verbose
 
       # Install the package that we want to test
       - name: Install the package
