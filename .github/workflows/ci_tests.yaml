@@ -177,6 +177,8 @@ jobs:
         run: |
           gh run download --name dvc-cache --dir .dvc/cache/
           uv run dvc checkout --verbose
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       # Install the package that we want to test
       - name: Install the package

@@ -175,6 +175,8 @@ jobs:
         run: |
           gh run download --name dvc-cache --dir .dvc/cache/
           dvc checkout --verbose
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
