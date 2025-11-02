@@ -7,7 +7,7 @@ from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -15,17 +15,12 @@ __doctest_skip__ = ["grdsample"]
 
 
 @fmt_docstring
-@use_alias(
-    I="spacing",
-    T="translate",
-    f="coltypes",
-    n="interpolation",
-    r="registration",
-)
+@use_alias(I="spacing", f="coltypes", n="interpolation", r="registration")
 @kwargs_to_strings(I="sequence")
 def grdsample(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
+    translate: bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -61,9 +56,10 @@ def grdsample(
     {outgrid}
     {spacing}
     {region}
-    translate : bool
-        Translate between grid and pixel registration; if the input is
-        grid-registered, the output will be pixel-registered and vice-versa.
+    translate
+        Translate between grid and pixel registration; if the input is grid-registered,
+        the output will be pixel-registered and vice-versa. This is a destructive grid
+        change.
     registration : str or bool
         [**g**\|\ **p**\ ].
         Set registration to **g**\ ridline or **p**\ ixel.
@@ -93,7 +89,9 @@ def grdsample(
     >>> # and set both x- and y-spacings to 0.5 arc-degrees
     >>> new_grid = pygmt.grdsample(grid=grid, translate=True, spacing=[0.5, 0.5])
     """
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        T=Alias(translate, name="translate"),
+    ).add_common(
         R=region,
         V=verbose,
         x=cores,
