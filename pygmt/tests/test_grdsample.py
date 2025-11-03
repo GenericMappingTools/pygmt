@@ -90,7 +90,7 @@ def test_grdsample_registration_changes(grid):
     Test grdsample with no set outgrid and applying registration changes.
     """
     assert grid.gmt.registration is GridRegistration.PIXEL
-    translated_grid = grdsample(grid=grid, translate=True)
+    translated_grid = grdsample(grid=grid, toggle=True)
     assert translated_grid.gmt.registration is GridRegistration.GRIDLINE
     registration_grid = grdsample(grid=translated_grid, registration="pixel")
     assert registration_grid.gmt.registration is GridRegistration.PIXEL
