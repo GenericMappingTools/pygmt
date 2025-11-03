@@ -9,18 +9,26 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_list,
+    deprecate_parameter,
+    fmt_docstring,
+    kwargs_to_strings,
+    use_alias,
+)
 
 __doctest_skip__ = ["grdsample"]
 
 
+# TODO(PyGMT>=0.20.0): Remove the deprecated "translate" parameter.
 @fmt_docstring
+@deprecate_parameter("translate", "toggle", "v0.18.0", remove_version="v0.21.0")
 @use_alias(I="spacing", f="coltypes", n="interpolation", r="registration")
 @kwargs_to_strings(I="sequence")
 def grdsample(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
-    translate: bool = False,
+    toggle: bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -31,7 +39,7 @@ def grdsample(
     Resample a grid onto a new lattice.
 
     This reads a grid file and interpolates it to create a new grid
-    file. It can change the registration with ``translate`` or
+    file. It can change the registration with ``toggle`` or
     ``registration``, change the grid-spacing or number of nodes with
     ``spacing``, and set a new sub-region using ``region``. A bicubic
     [Default], bilinear, B-spline or nearest-neighbor interpolation is set
@@ -40,7 +48,7 @@ def grdsample(
     When ``region`` is omitted, the output grid will cover the same region as
     the input grid. When ``spacing`` is omitted, the grid spacing of the
     output grid will be the same as the input grid. Either ``registration`` or
-    ``translate`` can be used to change the grid registration. When omitted,
+    ``toggle`` can be used to change the grid registration. When omitted,
     the output grid will have the same registration as the input grid.
 
     Full GMT docs at :gmt-docs:`grdsample.html`.
@@ -56,9 +64,9 @@ def grdsample(
     {outgrid}
     {spacing}
     {region}
-    translate
-        Translate between grid and pixel registration; if the input is grid-registered,
-        the output will be pixel-registered and vice-versa. This is a *destructive* grid
+    toggle
+        Toggle between grid and pixel registration; if the input is grid-registered, the
+        output will be pixel-registered and vice-versa. This is a *destructive* grid
         change; see :gmt-docs:`reference/options.html#switch-registrations`.
     registration : str or bool
         [**g**\|\ **p**\ ].
@@ -87,10 +95,10 @@ def grdsample(
     ... )
     >>> # Create a new grid from an input grid, change the registration,
     >>> # and set both x- and y-spacings to 0.5 arc-degrees
-    >>> new_grid = pygmt.grdsample(grid=grid, translate=True, spacing=[0.5, 0.5])
+    >>> new_grid = pygmt.grdsample(grid=grid, toggle=True, spacing=[0.5, 0.5])
     """
     aliasdict = AliasSystem(
-        T=Alias(translate, name="translate"),
+        T=Alias(toggle, name="toggle"),
     ).add_common(
         R=region,
         V=verbose,
