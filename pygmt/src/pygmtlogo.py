@@ -91,17 +91,21 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
             args_text_wm = {"x": 6, "y": 0, "justify": "LM", "font": f"8c,{font}"}
 
     fig = pygmt.Figure()
+    fig.basemap(
+        region=region, 
+        projection=projection, 
+        perspective=perspective, 
+        frame="+n",  # Change it to `frame="afg"` for debugging.
+    )
 
     # blue circle / hexagon for Earth
     fig.plot(
         x=0,
         y=0,
-        region=region,
-        projection=projection,
         style=f"{symbol}{diameter}c",
         pen=f"0.5c,{color_blue}",
         fill=color_bg,
-        perspective=perspective,
+        perspective=True,
         no_clip=True,  # needed for corners of hexagon shape
     )
 
