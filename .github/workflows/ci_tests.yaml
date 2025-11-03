@@ -167,8 +167,7 @@ jobs:
         continue-on-error: true
         run: |
           uv run dvc remote modify upstream url https://${DAGSHUB_TOKEN}@dagshub.com/GenericMappingTools/pygmt.dvc --local
-          # uv run dvc pull --no-run-cache --verbose && ls -lhR pygmt/tests/baseline/
-          exit 1
+          uv run dvc pull --no-run-cache --verbose && ls -lhR pygmt/tests/baseline/
         env:
           DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
 

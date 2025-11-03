@@ -96,7 +96,7 @@ summarize the functions of the workflows. Please refer to the comments in the
 workflow files for more details.
 
 - `benchmarks.yml`: Benchmarks the execution speed of tests to track performance of PyGMT functions
-- `cache_data.yaml`: Cache GMT remote data files and uplodas as artifacts
+- `cache_data.yaml`: Cache GMT remote data files and uploads as artifacts
 - `cache_dvc.yaml`: Cache baseline images tracked by DVC and upload as artifacts.
 - `check-links.yml`: Check links in the repository and documentation
 - `ci_docs.yml`: Build documentation on Linux/macOS/Windows and deploy to GitHub

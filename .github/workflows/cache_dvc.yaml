@@ -17,7 +17,7 @@ on:
     branches: [ main ]
     paths:
       - 'pygmt/tests/baseline/*.png.dvc'
-  pull_request:  # For testing only.
+  # pull_request:  # For testing only.
   workflow_dispatch:
   # Schedule runs on 12 noon every Sunday
   schedule:
