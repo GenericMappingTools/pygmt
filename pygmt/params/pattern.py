@@ -31,26 +31,6 @@ class Pattern(BaseParam):
        :width: 75%
        :align: center
 
-    Parameters
-    ----------
-    pattern
-        The pattern to use. It can be specified in two forms:
-
-        - An integer in the range of 1-90, corresponding to one of 90 predefined 64x64
-          bit-patterns. [Default is 1].
-        - Name of a 1-, 8-, or 24-bit image raster file, to create customized, repeating
-          images using image raster files.
-    dpi
-        Resolution of the pattern in dots per inch (DPI) [Default is 300].
-    bgcolor/fgcolor
-        The background/foreground color for predefined bit-patterns or 1-bit images.
-        Setting either to an empty string will yield a transparent background/foreground
-        where only the foreground/background pixels will be painted. [Default is white
-        for background and black for foreground].
-    invert
-        If ``True``, the pattern will be bit-inverted, i.e., white and black areas will
-        be interchanged (only applies to predefined bit-patterns or 1-bit images).
-
     Examples
     --------
     Draw a global map with land areas filled with pattern 15 in a light red background
@@ -69,10 +49,28 @@ class Pattern(BaseParam):
     >>> fig.show()
     """
 
+    #: The pattern to use. It can be specified in two forms:
+    #:
+    #: - An integer in the range of 1-90, corresponding to one of 90 predefined 64x64
+    #:   bit-patterns. [Default is 1].
+    #: - Name of a 1-, 8-, or 24-bit image raster file, to create customized, repeating
+    #:   images using image raster files.
     pattern: int | PathLike = 1
+
+    #: Resolution of the pattern in dots per inch (DPI) [Default is 300].
     dpi: int | None = None
+
+    #: The background color for predefined bit-patterns or 1-bit images.
+    #: Setting either ``bgcolor`` or ``fgcolor`` to an empty string will yield a
+    #: transparent background/foreground where only the foreground/background pixels
+    #: will be painted. [Default is white for background and black for foreground].
     bgcolor: str | None = None
+
+    #: The foreground color for predefined bit-patterns or 1-bit images.
     fgcolor: str | None = None
+
+    #: If ``True``, the pattern will be bit-inverted, i.e., white and black areas will
+    #: be interchanged (only applies to predefined bit-patterns or 1-bit images).
     invert: bool = False
 
     def _validate(self):

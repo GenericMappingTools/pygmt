@@ -1,0 +1,41 @@
+# Greet first-time contributors.
+
+name: Greet First-Time Contributors
+
+on:
+  pull_request:
+    types:
+      - opened
+  issues:
+    types:
+      - opened
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  greeting:
+    name: Greet First-Time Contributors
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/first-interaction@v3.1.0
+        with:
+          issue_message: |
+            👋 Thanks for opening your first issue here!
+
+            Please make sure you filled out the template with as much detail as possible. You might also want to take a look at our [contributing guidelines](https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md) and [code of conduct](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md).
+
+          pr_message: |
+            💖 Thanks for opening this pull request! 💖
+
+            Please make sure you read our [contributing guidelines](https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md) and abide by our [code of conduct](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md).
+
+            A few things to keep in mind:
+
+            * If you need help writing tests, take a look at the existing ones for inspiration. If you don't know where to start, let us know and we'll walk you through it.
+            * All new features should be documented. It helps to write the docstrings for your functions/classes before writing the code. This will help you think about your code design and results in better code.
+            * No matter what, we are really grateful that you put in the effort to do this! 🎉
+
+            We hope that the contributing process will be a good experience for you. Please let us know if there is any way that it could be improved. After your PR is merged, feel free to open a new pull request to add yourself to the `AUTHORS.md` file.
