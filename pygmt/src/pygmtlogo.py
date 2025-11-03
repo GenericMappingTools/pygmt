@@ -139,9 +139,9 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
 
     # upper vertical red line
     # space between red line and blue circle / hexagon
-    fig.plot(x=[0, 0], y=[4, 3.0], pen=f"18p,{color_bg}", perspective=True)
+    fig.plot(x=[0, 0], y=[r0, r2], pen=f"18p,{color_bg}", perspective=True)
     # red line
-    fig.plot(x=[0, 0], y=[4, 1.9], pen=f"12p,{color_red}", perspective=True)
+    fig.plot(x=[0, 0], y=[r0, r2], pen=f"12p,{color_red}", perspective=True)
 
     # letter M
     # space between letter M and yellow line at the right side
