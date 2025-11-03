@@ -20,7 +20,7 @@ from pygmt.helpers import (
 __doctest_skip__ = ["grdsample"]
 
 
-# TODO(PyGMT>=0.20.0): Remove the deprecated "translate" parameter.
+# TODO(PyGMT>=0.21.0): Remove the deprecated "translate" parameter.
 @fmt_docstring
 @deprecate_parameter("translate", "toggle", "v0.18.0", remove_version="v0.21.0")
 @use_alias(I="spacing", f="coltypes", n="interpolation", r="registration")
