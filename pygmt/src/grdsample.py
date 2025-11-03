@@ -58,8 +58,8 @@ def grdsample(
     {region}
     translate
         Translate between grid and pixel registration; if the input is grid-registered,
-        the output will be pixel-registered and vice-versa. This is a destructive grid
-        change.
+        the output will be pixel-registered and vice-versa. This is a *destructive* grid
+        change; see :gmt-docs:`reference/options.html#switch-registrations`.
     registration : str or bool
         [**g**\|\ **p**\ ].
         Set registration to **g**\ ridline or **p**\ ixel.
