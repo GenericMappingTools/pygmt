@@ -279,7 +279,8 @@ COMMON_DOCSTRINGS = {
     "registration": r"""
         registration
             Select gridline or pixel node registration. Valid values are ``"gridline"``,
-            ``"pixel"``, and bool. If ``True``, default to gridline registration.""",
+            ``"pixel"``, and bool. GMT default is gridline registration. If
+            ``True``, select pixel registration.""",
     "skiprows": r"""
         skiprows : bool or str
             [*cols*][**+a**][**+r**].
