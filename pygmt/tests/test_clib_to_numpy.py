@@ -372,7 +372,12 @@ def test_to_numpy_pandas_numeric_with_na(dtype, expected_dtype):
         "string[python]",
         pytest.param("string[pyarrow]", marks=skip_if_no(package="pyarrow")),
         pytest.param(
-            pd.StringDtype(storage="pyarrow", na_value=np.nan),
+            # TODO(pandas>=2.3): Remove the string[pyarrow_numpy] else statement
+            (
+                pd.StringDtype(storage="pyarrow", na_value=np.nan)
+                if Version(pd.__version__) >= Version("2.3.0")
+                else "string[pyarrow_numpy]"
+            ),
             marks=skip_if_no(package="pyarrow"),
         ),
     ],
