@@ -277,10 +277,9 @@ COMMON_DOCSTRINGS = {
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
             Specify the :doc:`region </tutorials/basics/regions>` of interest.""",
     "registration": r"""
-        registration : str
-            **g**\|\ **p**.
-            Force gridline (**g**) or pixel (**p**) node registration
-            [Default is **g**\ (ridline)].""",
+        registration
+            Select gridline or pixel node registration. Valid values are ``"gridline"``,
+            ``"pixel"``, and bool. If ``True``, default to gridline registration.""",
     "skiprows": r"""
         skiprows : bool or str
             [*cols*][**+a**][**+r**].
