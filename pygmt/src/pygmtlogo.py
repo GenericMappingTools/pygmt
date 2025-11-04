@@ -168,7 +168,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         m_x1 + (m_x2 - m_x1) / 2,  # mid pick below
         m_x1 + m_x2 / 5,  # left pick below
     ]
-    m_y1 = 0.3
+    m_y1 = (r3 - r4) / 2.0 * 1.2
     m_y2 = r3
     m_y = [
         m_y1,  # vertical left upwards
