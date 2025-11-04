@@ -1,4 +1,6 @@
 # Greet first-time contributors.
+#
+# It runs in issues and pull requests from forks.
 
 name: Greet First-Time Contributors
 
@@ -13,10 +15,13 @@ on:
 permissions:
   issues: write
   pull-requests: write
+  id-token: write
+  contents: read
 
 jobs:
   greeting:
     name: Greet First-Time Contributors
+    if: github.event_name == 'issues' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository)
     runs-on: ubuntu-latest
 
     steps:
