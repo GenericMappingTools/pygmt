@@ -23,8 +23,8 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         Set to ``True`` to use colors referring to Python (blue and yellow) and GMT
         (red) [Default]. For ``False``, the logo is drawn in black and white.
     theme : str
-        Use ``"light"`` for light mode (i.e., white background) [Default] and ``"dark"``
-        for dark mode (i.e., darkgray [gray20] background).
+        Use ``"light"`` for light mode (i.e., a white background) [Default] and
+        ``"dark"`` for dark mode (i.e., a darkgray [gray20] background).
     shape : str
         Shape of the visual. Use ``"circle"`` for a circle shape [Default] or
         ``"hexagon"`` for a hexagon shape.
@@ -92,9 +92,9 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
 
     fig = pygmt.Figure()
     fig.basemap(
-        region=region, 
-        projection=projection, 
-        perspective=perspective, 
+        region=region,
+        projection=projection,
+        perspective=perspective,
         frame="+n",  # Change it to `frame="afg"` for debugging.
     )
 
@@ -204,10 +204,9 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     )
     # arrow tail
     fig.plot(x=[0, 0], y=[-2, -3.57], pen=f"12p,{color_red}", perspective=True)
-    
+
     # Extra vertical compass line above letters "G" and "M".
     fig.plot(x=[0, 0], y=[-r4 * 0.9, r2], pen=f"5p,{color_yellow}", perspective=True)
-
 
     # outline around the shape for black and white color with dark theme
     if not color and theme == "dark":
@@ -228,7 +227,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     fig_name_logo = "pygmt_logo"
     fig.savefig(fname=f"{fig_name_logo}.eps")
 
-    return fig_name_logo, color_bg
+    return fig_name_logo
 
 
 def pygmtlogo(  # noqa: PLR0913
@@ -252,7 +251,7 @@ def pygmtlogo(  # noqa: PLR0913
     # -----------------------------------------------------------------------------
     # Create logo file
     # -----------------------------------------------------------------------------
-    fig_name_logo, color_bg = create_logo(
+    fig_name_logo = create_logo(
         color=color, theme=theme, shape=shape, wordmark=wordmark
     )
 
