@@ -102,4 +102,4 @@ def test_grdsample_translate_and_registration_mutually_exclusive(grid):
     Grdsample should raise if translate and registration are both set.
     """
     with pytest.raises(GMTInvalidInput):
-        grdsample(grid=grid, translate=True, registration="p")
+        grdsample(grid=grid, toggle=True, registration="p")
