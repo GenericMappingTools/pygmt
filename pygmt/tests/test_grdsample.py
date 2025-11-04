@@ -97,9 +97,9 @@ def test_grdsample_registration_changes(grid):
     assert registration_grid.gmt.registration is GridRegistration.PIXEL
 
 
-def test_grdsample_translate_and_registration_mutually_exclusive(grid):
+def test_grdsample_toggle_and_registration_mutually_exclusive(grid):
     """
-    Grdsample should raise if translate and registration are both set.
+    Raise an exception if toggle and registration are both set.
     """
     with pytest.raises(GMTInvalidInput):
         grdsample(grid=grid, toggle=True, registration="p")
