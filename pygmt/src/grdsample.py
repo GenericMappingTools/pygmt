@@ -71,7 +71,6 @@ def grdsample(
     registration : str or bool
         [**g**\|\ **p**\ ].
         Set registration to **g**\ ridline or **p**\ ixel.
-        Note: ``translate`` and ``registration`` are mutually exclusive.
     {verbose}
     {coltypes}
     {interpolation}
