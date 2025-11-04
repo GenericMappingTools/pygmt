@@ -189,17 +189,28 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     # Letter T
     # Red curved horizontal line
     angles = np.deg2rad(np.arange(150, 210, 0.1))
-    t_x = np.concatenate([r2 * np.sin(angles), (r2 + (r3-r4))* np.sin(np.flip(angles))])
-    t_y = np.concatenate([r2 * np.cos(angles), (r2 + (r3-r4)) * np.cos(np.flip(angles))])
+    t_x = np.concatenate(
+        [r2 * np.sin(angles), (r2 + (r3 - r4)) * np.sin(np.flip(angles))]
+    )
+    t_y = np.concatenate(
+        [r2 * np.cos(angles), (r2 + (r3 - r4)) * np.cos(np.flip(angles))]
+    )
     # Ensure the same X coordinate for the right edge of T and the middle of M.
     mask = np.abs(t_x) <= (m_x1 + (m_x2 - m_x1) / 2.0)
     fig.plot(x=t_x[mask], y=t_y[mask], fill=color_red)
     # The arrow
-    fig.plot(data=[[0, -r2, 0, -r0 * 1.05]], pen=color_bg,
-             style=f"v0.8c+s+e+h0+a60+g{color_bg}", perspective=True)
-    fig.plot(data=[[0, -r2, 0, -r0]], pen=f"12p,{color_red}",
-             style=f"v0.75c+s+e+h0+a60+g{color_red}", perspective=True)
-
+    fig.plot(
+        data=[[0, -r2, 0, -r0 * 1.05]],
+        pen=color_bg,
+        style=f"v0.8c+s+e+h0+a60+g{color_bg}",
+        perspective=True,
+    )
+    fig.plot(
+        data=[[0, -r2, 0, -r0]],
+        pen=f"12p,{color_red}",
+        style=f"v0.75c+s+e+h0+a60+g{color_red}",
+        perspective=True,
+    )
 
     # Extra vertical compass line above letters "G" and "M".
     fig.plot(x=[0, 0], y=[-r4 * 0.9, r2], pen=f"5p,{color_yellow}", perspective=True)
