@@ -204,6 +204,10 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     )
     # arrow tail
     fig.plot(x=[0, 0], y=[-2, -3.57], pen=f"12p,{color_red}", perspective=True)
+    
+    # Extra vertical compass line above letters "G" and "M".
+    fig.plot(x=[0, 0], y=[-r4 * 0.9, r2], pen=f"5p,{color_yellow}", perspective=True)
+
 
     # outline around the shape for black and white color with dark theme
     if not color and theme == "dark":
