@@ -153,7 +153,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     # starting point: lower right corner of the left vertical line of letter M
     # direction: clockwise
     m_x1 = 0.33 - 0.33 / 2 - 0.06
-    m_x2 = 1.54 + 0.33 / 2 - 0.06  # outer radius of letter G
+    m_x2 = r3
     m_x = [
         m_x1 + m_x2 / 5,  # vertical left upwards
         m_x1,
