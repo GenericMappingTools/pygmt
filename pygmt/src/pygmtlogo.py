@@ -152,7 +152,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     # polygon with small distance to horizontal line of letter G
     # starting point: lower right corner of the left vertical line of letter M
     # direction: clockwise
-    m_x1 = 0.33 - 0.33 / 2 - 0.06
+    m_x1 = 5 / 2.0 / 72 * 2.54  # Half of the pen thickness of compass lines.
     m_x2 = r3
     m_x = [
         m_x1 + m_x2 / 5,  # vertical left upwards
