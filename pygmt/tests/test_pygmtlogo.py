@@ -42,11 +42,11 @@ def test_pylogo_no_wordmark():
 @pytest.mark.mpl_image_compare
 def test_pylogo_lightmode():
     """
-    Plot the PyGMT logo in light mode.
+    Plot the PyGMT logo in dark mode.
     """
     fig = Figure()
     fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=1)
-    fig.pygmtlogo(darkmode=False)
+    fig.pygmtlogo(theme="dark")
     return fig
 
 
@@ -57,5 +57,5 @@ def test_pylogo_vertical():
     """
     fig = Figure()
     fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=1)
-    fig.pygmtlogo(orientation="vertical")
+    fig.pygmtlogo(wordmark="vertical")
     return fig
