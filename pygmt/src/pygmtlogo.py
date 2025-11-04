@@ -231,10 +231,10 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
 
     # Helpful for implementing the logo; not included in the logo
     # Circles for the different radii
-    for r in [r0, r1, r2, r3, r4, r5]:
-        fig.plot(x=0, y=0, style=f"c{2 * r}c", pen="0.8p,black,dashed")
+    # for r in [r0, r1, r2, r3, r4, r5]:
+        # fig.plot(x=0, y=0, style=f"c{2 * r}c", pen="0.8p,black,dashed")
     # Map frame with annotations, tick marks, and gridlines
-    fig.basemap(frame="a1fg1", perspective=True)
+    # fig.basemap(frame="a1fg1", perspective=True)
 
     fig_name_logo = "pygmt_logo"
     fig.savefig(fname=f"{fig_name_logo}.eps")
