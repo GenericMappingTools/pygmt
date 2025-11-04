@@ -100,6 +100,7 @@ class Figure:
     def __init__(self) -> None:
         self._name = unique_name()
         self._preview_dir = TemporaryDirectory(prefix=f"{self._name}-preview-")
+        self.n_layers = 0
         self._activate_figure()
 
     def __del__(self) -> None:
@@ -118,6 +119,10 @@ class Figure:
         fmt = "-"  # Passing format "-" tells pygmt.end to not produce any files.
         with Session() as lib:
             lib.call_module(module="figure", args=[self._name, fmt])
+        if self.n_layers >= 3:
+            self.psconvert(prefix=f"frame-{self.n_layers:02d}", fmt="g", crop=True)
+        self.n_layers += 1
+
 
     @property
     def region(self) -> np.ndarray:

@@ -114,7 +114,7 @@ def psconvert(
         ``prefix`` parameter.
     {verbose}
     """
-    self._activate_figure()
+    # self._activate_figure()
     # Default cropping the figure to True
     if kwargs.get("A") is None:
         kwargs["A"] = ""
