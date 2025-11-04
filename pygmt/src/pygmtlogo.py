@@ -197,7 +197,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     )
     # Ensure the same X coordinate for the right edge of T and the middle of M.
     mask = np.abs(t_x) <= (m_x1 + (m_x2 - m_x1) / 2.0)
-    fig.plot(x=t_x[mask], y=t_y[mask], fill=color_red)
+    fig.plot(x=t_x[mask], y=t_y[mask], fill=color_red, perspective=True)
     # The arrow
     fig.plot(
         data=[[0, -r2, 0, -r0 * 1.05]],
