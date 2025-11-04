@@ -186,24 +186,20 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     ]
     fig.plot(x=m_x, y=m_y, close=True, fill=color_red, perspective=True)
 
-    # letter T
-    # red curved horizontal line
-    fig.plot(x=0, y=0, style="w4.6c/240/-60+i3.7c", fill=color_red, perspective=True)
-    # vertical endings of curved horizontal line
-    args_vert = {"y": [-1.5, -2.5], "pen": f"9p,{color_bg}", "perspective": True}
-    fig.plot(x=[-1.05, -1.05], **args_vert)
-    fig.plot(x=[1.05, 1.05], **args_vert)
-    # arrow head as inverse triangle with pen for space to blue circle / hexagon
-    fig.plot(
-        x=0,
-        y=-3.55,
-        style="i1.1c",
-        fill=color_red,
-        pen=f"3p,{color_bg}",
-        perspective=True,
-    )
-    # arrow tail
-    fig.plot(x=[0, 0], y=[-2, -3.57], pen=f"12p,{color_red}", perspective=True)
+    # Letter T
+    # Red curved horizontal line
+    angles = np.deg2rad(np.arange(150, 210, 0.1))
+    t_x = np.concatenate([r2 * np.sin(angles), (r2 + (r3-r4))* np.sin(np.flip(angles))])
+    t_y = np.concatenate([r2 * np.cos(angles), (r2 + (r3-r4)) * np.cos(np.flip(angles))])
+    # Ensure the same X coordinate for the right edge of T and the middle of M.
+    mask = np.abs(t_x) <= (m_x1 + (m_x2 - m_x1) / 2.0)
+    fig.plot(x=t_x[mask], y=t_y[mask], fill=color_red)
+    # The arrow
+    fig.plot(data=[[0, -r2, 0, -r0 * 1.05]], pen=color_bg,
+             style=f"v0.8c+s+e+h0+a60+g{color_bg}", perspective=True)
+    fig.plot(data=[[0, -r2, 0, -r0]], pen=f"12p,{color_red}",
+             style=f"v0.75c+s+e+h0+a60+g{color_red}", perspective=True)
+
 
     # Extra vertical compass line above letters "G" and "M".
     fig.plot(x=[0, 0], y=[-r4 * 0.9, r2], pen=f"5p,{color_yellow}", perspective=True)
