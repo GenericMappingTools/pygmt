@@ -169,7 +169,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         m_x1 + m_x2 / 5,  # left pick below
     ]
     m_y1 = 0.3
-    m_y2 = 1.65  # outer radius of letter G
+    m_y2 = r3
     m_y = [
         m_y1,  # vertical left upwards
         m_y1,
