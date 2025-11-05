@@ -97,7 +97,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         region=region,
         projection=projection,
         perspective=perspective,
-        frame="+n",  # Change it to `frame="afg"` for debugging.
+        frame="+n",
     )
 
     # blue circle / hexagon for Earth
