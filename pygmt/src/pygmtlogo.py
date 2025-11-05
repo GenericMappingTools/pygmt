@@ -120,7 +120,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         ([0, 0], [-r3, r3]),  # vertical line
         ([-x1, -x2], [x1, x2]),  # upper left
         ([-x1, -x2], [-x1, -x2]),  # lower left
-        ([x1, x2], [x1, x2]),  # upper right
+        ([x1, x2 + (r4 - r5)], [x1, x2 + (r4 - r5)]),  # upper right
         ([x1, x2], [-x1, -x2]),  # lower right
     ]
     for x, y in lines_compass:
@@ -147,10 +147,6 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     fig.plot(x=[0, 0], y=[r0, r3], pen=f"12p,{color_red}", perspective=True)
 
     # letter M
-    # space between letter M and yellow line at the right side
-    # fig.plot(x=[1.6, 1.6], y=[1.5, 1.775], pen=f"10p,{color_bg}")
-    fig.plot(x=[1.6, 1.6], y=[1.5, 2.0], pen=f"10p,{color_bg}", perspective=True)
-
     # polygon with small distance to horizontal line of letter G
     # starting point: lower right corner of the left vertical line of letter M
     # direction: clockwise
