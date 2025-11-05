@@ -220,8 +220,8 @@ def project(  # noqa: PLR0913
         - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
           (depends on ``output_type``)
     """
-    if kwargs.get("C") is None:
-        msg = "The 'center' parameter must be specified."
+    if kwargs.get("C", center) is None:
+        msg = "Parameter 'center' must be specified."
         raise GMTInvalidInput(msg)
     if kwargs.get("G") is None and data is None:
         msg = "The 'data' parameter must be specified unless 'generate' is used."
