@@ -117,7 +117,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         ([-r0, -r3], [0, 0]),  # horizontal lines
         ([-r5, 0], [0, 0]),
         ([r3, r0], [0, 0]),
-        ([0, 0], [-r0, r0]),  # vertical line
+        ([0, 0], [-r3, r3]),  # vertical line
         ([-x1, -x2], [x1, x2]),  # upper left
         ([-x1, -x2], [-x1, -x2]),  # lower left
         ([x1, x2], [x1, x2]),  # upper right
