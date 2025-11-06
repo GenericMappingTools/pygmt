@@ -44,6 +44,8 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     r0, r1, r2, r3, r4, r5 = size * np.array(
         [1.0, 0.875, 0.58125, 0.4625, 0.4125, 0.29375]
     )
+    thick = (r0 - r1)   # Thick pen in cm
+    thin = thick / 3.0  # Thin pen in cm
 
     # Rotation around z (vertical) axis placed in the center
     # Has to be applied to each plotting command, up on second call set to True
@@ -77,8 +79,8 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     match shape:
         case "circle":
             symbol = "c"  # circle
-            diameter = 7.5
-            diameter_add = 0.5
+            diameter = r0 + r1
+            diameter_add = r0 - r1
         case "hexagon":
             symbol = "h"  # hexagon
             diameter = 8.6
@@ -105,7 +107,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         x=0,
         y=0,
         style=f"{symbol}{diameter}c",
-        pen=f"0.5c,{color_blue}",
+        pen=f"{thick}c,{color_blue}",
         fill=color_bg,
         perspective=True,
         no_clip=True,  # needed for corners of hexagon shape
@@ -124,7 +126,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         ([x1, x2], [-x1, -x2]),  # lower right
     ]
     for x, y in lines_compass:
-        fig.plot(x=x, y=y, pen=f"5p,{color_yellow}", perspective=True)
+        fig.plot(x=x, y=y, pen=f"{thin}c,{color_yellow}", perspective=True)
 
     # Letter G
     angles = np.deg2rad(np.arange(90, 361, 1.0))
@@ -142,15 +144,15 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
 
     # upper vertical red line
     # space between red line and blue circle / hexagon
-    fig.plot(x=[0, 0], y=[r0, r3], pen=f"18p,{color_bg}", perspective=True)
+    fig.plot(x=[0, 0], y=[r0, r3], pen=f"{thick * 1.5}c,{color_bg}", perspective=True)
     # red line
-    fig.plot(x=[0, 0], y=[r0, r3], pen=f"12p,{color_red}", perspective=True)
+    fig.plot(x=[0, 0], y=[r0, r3], pen=f"{thick}c,{color_red}", perspective=True)
 
     # letter M
     # polygon with small distance to horizontal line of letter G
     # starting point: lower right corner of the left vertical line of letter M
     # direction: clockwise
-    m_x1 = 5 / 2.0 / 72 * 2.54  # Half of the pen thickness of compass lines.
+    m_x1 = thin / 2.0  # Half of the pen thickness of compass lines.
     m_x2 = r4
     m_x = [
         m_x1 + m_x2 / 5,  # vertical left upwards
@@ -196,13 +198,13 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     fig.plot(
         data=[[0, -r3, 0, -r0 * 1.05]],
         pen=color_bg,
-        style=f"v0.8c+s+e+h0+a60+g{color_bg}",
+        style=f"v{thick * 1.6}c+s+e+h0+a60+g{color_bg}",
         perspective=True,
     )
     fig.plot(
         data=[[0, -r3, 0, -r0]],
-        pen=f"12p,{color_red}",
-        style=f"v0.75c+s+e+h0+a60+g{color_red}",
+        pen=f"{thick}c,{color_red}",
+        style=f"v{thick * 1.5}c+s+e+h0+a60+g{color_red}",
         perspective=True,
     )
 
