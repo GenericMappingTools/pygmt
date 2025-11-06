@@ -110,11 +110,9 @@ def subplot(
         scales, bars, text, etc.
     {projection}
     margins
-        This is margin space that is added between neighboring subplots (i.e., the
-        interior margins) in addition to the automatic space added for tick marks,
-        Margin space that is added between neighboring subplots (i.e., the
-        interior margins) in addition to the automatic space added for tick marks,
-        annotations, and labels. The margins can be specified as either:
+        Margin space that is added between neighboring subplots (i.e., the interior
+        margins) in addition to the automatic space added for tick marks, annotations,
+        and labels. The margins can be specified as either:
 
         - a single value (for same margin on all sides). E.g. ``"5c"``.
         - a pair of values (for setting separate horizontal and vertical margins). E.g.,
