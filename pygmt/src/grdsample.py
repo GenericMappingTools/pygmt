@@ -23,13 +23,14 @@ __doctest_skip__ = ["grdsample"]
 # TODO(PyGMT>=0.21.0): Remove the deprecated "translate" parameter.
 @fmt_docstring
 @deprecate_parameter("translate", "toggle", "v0.18.0", remove_version="v0.21.0")
-@use_alias(I="spacing", f="coltypes", n="interpolation", r="registration")
+@use_alias(I="spacing", f="coltypes", n="interpolation")
 @kwargs_to_strings(I="sequence")
 def grdsample(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
     toggle: bool = False,
     region: Sequence[float | str] | str | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     cores: int | bool = False,
@@ -56,6 +57,7 @@ def grdsample(
     {aliases}
        - R = region
        - V = verbose
+       - r = registration
        - x = cores
 
     Parameters
@@ -68,12 +70,10 @@ def grdsample(
         Toggle between grid and pixel registration; if the input is grid-registered, the
         output will be pixel-registered and vice-versa. This is a *destructive* grid
         change; see :gmt-docs:`reference/options.html#switch-registrations`.
-    registration : str or bool
-        [**g**\|\ **p**\ ].
-        Set registration to **g**\ ridline or **p**\ ixel.
     {verbose}
     {coltypes}
     {interpolation}
+    {registration}
     {cores}
 
     Returns
@@ -102,6 +102,7 @@ def grdsample(
     ).add_common(
         R=region,
         V=verbose,
+        r=registration,
         x=cores,
     )
     aliasdict.merge(kwargs)

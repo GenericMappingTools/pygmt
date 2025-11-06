@@ -320,6 +320,12 @@ class AliasSystem(UserDict):
                     )
                 case "c":
                     alias = Alias(value, name="panel", sep=",", size=2)
+                case "r":
+                    alias = Alias(
+                        value,
+                        name="registration",
+                        mapping={"gridline": "g", "pixel": "p"},
+                    )
                 case "t":
                     alias = Alias(value, name="transparency")
                 case "x":

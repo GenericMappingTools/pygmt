@@ -92,5 +92,5 @@ def test_grdsample_registration_changes(grid):
     assert grid.gmt.registration is GridRegistration.PIXEL
     translated_grid = grdsample(grid=grid, toggle=True)
     assert translated_grid.gmt.registration is GridRegistration.GRIDLINE
-    registration_grid = grdsample(grid=translated_grid, registration="p")
+    registration_grid = grdsample(grid=translated_grid, registration="pixel")
     assert registration_grid.gmt.registration is GridRegistration.PIXEL

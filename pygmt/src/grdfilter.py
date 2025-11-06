@@ -13,15 +13,14 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 
 
 @fmt_docstring
-@use_alias(
-    D="distance", F="filter", I="spacing", N="nans", f="coltypes", r="registration"
-)
+@use_alias(D="distance", F="filter", I="spacing", N="nans", f="coltypes")
 @kwargs_to_strings(I="sequence")
 def grdfilter(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
     toggle: bool = False,
     region: Sequence[float | str] | str | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     cores: int | bool = False,
@@ -46,6 +45,7 @@ def grdfilter(
        - R = region
        - T = toggle
        - V = verbose
+       - r = registration
        - x = cores
 
     Parameters
@@ -140,6 +140,7 @@ def grdfilter(
     ).add_common(
         R=region,
         V=verbose,
+        r=registration,
         x=cores,
     )
     aliasdict.merge(kwargs)
