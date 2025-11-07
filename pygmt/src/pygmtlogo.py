@@ -107,7 +107,6 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         frame="+n",
     )
 
-    # White filled circle / hexagon for Earth
     args_shape = {
         "x": 0,
         "y": 0,
@@ -115,6 +114,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         "perspective": True,
         "no_clip": True,  # needed for corners of hexagon shape
     }
+    # White filled circle / hexagon for Earth
     fig.plot(fill=color_bg, **args_shape)
     fig.show()
 
@@ -130,13 +130,18 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         ([x1, x2 + (r4 - r5)], [x1, x2 + (r4 - r5)]),  # upper right
         ([x1, x2], [-x1, -x2]),  # lower right
     ]
-    for x, y in lines_compass:
+    # Non-horizontal compass lines
+    for x, y in lines_compass[4 : len(lines_compass)]:
         fig.plot(x=x, y=y, pen=f"{thin}c,{yellow}", perspective=True)
         fig.show()
 
     # Blue outlined circle / hexagon for Earth
     fig.plot(pen=f"{thick}c,{blue}", **args_shape)
     fig.show()
+    # Horizontal compass lines
+    for x, y in lines_compass[0:4]:
+        fig.plot(x=x, y=y, pen=f"{thin}c,{yellow}", perspective=True)
+        fig.show()
 
     # Letter G
     angles = np.deg2rad(np.arange(90, 361, 1.0))
