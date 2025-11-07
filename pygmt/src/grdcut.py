@@ -145,9 +145,12 @@ def grdcut(
     )
     aliasdict.merge(kwargs)
 
-    with Session() as lib, ExitStack() as stack:
+    with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_in(
+                check_kind="vector", data=kwargs.get("F"), required=False
+            ) as vinpoly,
             lib.virtualfile_out(kind=outkind, fname=outgrid) as voutgrd,
         ):
             aliasdict["G"] = voutgrd
@@ -156,13 +159,11 @@ def grdcut(
                 polygon_input = kwargs["F"]
                 modifiers = ("+c" * crop) + ("+i" * invert)
 
-                # if file path provided
-                if isinstance(polygon_input, PathLike):
-                    aliasdict["F"] = str(kwargs["F"]) + modifiers
-                # assuming its geojson
-                elif hasattr(polygon_input, "__geo_interface__"):
-                    tmpfile = stack.enter_context(tempfile_from_geojson(polygon_input))
-                    aliasdict["F"] = tmpfile + modifiers
+                # if file path provided or a geojson object
+                if isinstance(polygon_input, PathLike) or hasattr(
+                    polygon_input, "__geo_interface__"
+                ):
+                    aliasdict["F"] = str(vinpoly) + modifiers
                 else:
                     polygon_type = type(polygon_input).__name__
                     err_msg = "Invalid polygon type"
