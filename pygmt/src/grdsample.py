@@ -100,7 +100,7 @@ def grdsample(
     >>> new_grid = pygmt.grdsample(grid=grid, toggle=True, spacing=[0.5, 0.5])
     """
     # Enforce mutual exclusivity between -T (toggle) and -r (registration)
-    if kwargs.get("T", toggle) and kwargs.get("r", registration) not in (False, None):
+    if kwargs.get("T", toggle) and kwargs.get("r", registration):
         msg = "Parameters 'toggle' and 'registration' cannot be used together."
         raise GMTInvalidInput(msg)
 
