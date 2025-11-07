@@ -83,7 +83,6 @@ def _blockm(
     h="header",
     i="incols",
     o="outcols",
-    r="registration",
     w="wrap",
 )
 @kwargs_to_strings(I="sequence", i="sequence_comma", o="sequence_comma")
@@ -95,6 +94,7 @@ def blockmean(
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
     region: Sequence[float | str] | str | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -116,6 +116,7 @@ def blockmean(
     {aliases}
        - R = region
        - V = verbose
+       - r = registration
 
     Parameters
     ----------
@@ -170,6 +171,7 @@ def blockmean(
     aliasdict = AliasSystem().add_common(
         R=region,
         V=verbose,
+        r=registration,
     )
     aliasdict.merge(kwargs)
 
@@ -196,7 +198,6 @@ def blockmean(
     h="header",
     i="incols",
     o="outcols",
-    r="registration",
     w="wrap",
 )
 @kwargs_to_strings(I="sequence", i="sequence_comma", o="sequence_comma")
@@ -208,6 +209,7 @@ def blockmedian(
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
     region: Sequence[float | str] | str | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -229,6 +231,7 @@ def blockmedian(
     {aliases}
        - R = region
        - V = verbose
+       - r = registration
 
     Parameters
     ----------
@@ -277,6 +280,7 @@ def blockmedian(
     aliasdict = AliasSystem().add_common(
         R=region,
         V=verbose,
+        r=registration,
     )
     aliasdict.merge(kwargs)
 
@@ -303,7 +307,6 @@ def blockmedian(
     h="header",
     i="incols",
     o="outcols",
-    r="registration",
     w="wrap",
 )
 @kwargs_to_strings(I="sequence", i="sequence_comma", o="sequence_comma")
@@ -315,6 +318,7 @@ def blockmode(
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
     region: Sequence[float | str] | str | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -336,6 +340,7 @@ def blockmode(
     {aliases}
        - R = region
        - V = verbose
+       - r = registration
 
     Parameters
     ----------
@@ -382,6 +387,7 @@ def blockmode(
     aliasdict = AliasSystem().add_common(
         R=region,
         V=verbose,
+        r=registration,
     )
     aliasdict.merge(kwargs)
 

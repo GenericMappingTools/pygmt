@@ -25,11 +25,11 @@ from pygmt.helpers import (
     a="aspatial",
     f="coltypes",
     i="incols",
-    r="registration",
 )
 @kwargs_to_strings(I="sequence", i="sequence_comma")
 def info(
     data: PathLike | TableLike,
+    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -54,6 +54,7 @@ def info(
 
     {aliases}
        - V = verbose
+       - r = registration
 
     Parameters
     ----------
@@ -91,6 +92,7 @@ def info(
     """
     aliasdict = AliasSystem().add_common(
         V=verbose,
+        r=registration,
     )
     aliasdict.merge(kwargs)
 
