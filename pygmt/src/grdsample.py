@@ -101,7 +101,11 @@ def grdsample(
     """
 
     # Enforce mutual exclusivity between -T (toggle) and -r (registration)
-    if kwargs.get("T", toggle) and kwargs.get("r", registration) is not None:
+    if kwargs.get("T", toggle) and (
+        "r" in kwargs
+        or "registration" in kwargs
+        or registration in ("gridline", "pixel")
+    ):
         msg = "Parameters 'toggle' and 'registration' cannot be used together."
         raise GMTInvalidInput(msg)
 
