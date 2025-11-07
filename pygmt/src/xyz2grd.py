@@ -26,7 +26,6 @@ __doctest_skip__ = ["xyz2grd"]
     f="coltypes",
     h="header",
     i="incols",
-    r="registration",
     w="wrap",
 )
 @kwargs_to_strings(I="sequence")
@@ -38,6 +37,7 @@ def xyz2grd(
     outgrid: PathLike | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -57,6 +57,7 @@ def xyz2grd(
        - J = projection
        - R = region
        - V = verbose
+       - r = registration
 
     Parameters
     ----------
@@ -164,6 +165,7 @@ def xyz2grd(
         J=projection,
         R=region,
         V=verbose,
+        r=registration,
     )
     aliasdict.merge(kwargs)
 

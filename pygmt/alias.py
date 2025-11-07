@@ -104,6 +104,13 @@ def _to_string(
     >>> _to_string(("12p", "34p"), prefix="+o", sep="/")
     '+o12p/34p'
 
+    >>> # Works for parameters that accept Sequence and Mappable objects.
+    >>> # E.g., project -Lw|lmin/lmax.
+    >>> _to_string("limit", sep="/", size=2, mapping={"limit": "w"})
+    'w'
+    >>> _to_string((12, 34), sep="/", size=2, mapping={"limit": "w"})
+    '12/34'
+
     >>> _to_string(["xaf", "yaf", "WSen"])
     ['xaf', 'yaf', 'WSen']
 
@@ -320,6 +327,12 @@ class AliasSystem(UserDict):
                     )
                 case "c":
                     alias = Alias(value, name="panel", sep=",", size=2)
+                case "r":
+                    alias = Alias(
+                        value,
+                        name="registration",
+                        mapping={"gridline": "g", "pixel": "p"},
+                    )
                 case "t":
                     alias = Alias(value, name="transparency")
                 case "x":
