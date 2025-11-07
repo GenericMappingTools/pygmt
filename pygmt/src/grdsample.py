@@ -71,7 +71,7 @@ def grdsample(
         Toggle between grid and pixel registration; if the input is grid-registered, the
         output will be pixel-registered and vice-versa. This is a *destructive* grid
         change; see :gmt-docs:`reference/options.html#switch-registrations`.
-        Note: ``toggle`` and ``registration`` are mutually exclusive.
+        *Note**: ``toggle`` and ``registration`` are mutually exclusive.
     {verbose}
     {coltypes}
     {interpolation}
@@ -99,7 +99,6 @@ def grdsample(
     >>> # and set both x- and y-spacings to 0.5 arc-degrees
     >>> new_grid = pygmt.grdsample(grid=grid, toggle=True, spacing=[0.5, 0.5])
     """
-
     # Enforce mutual exclusivity between -T (toggle) and -r (registration)
     if kwargs.get("T", toggle) and (
         "r" in kwargs
