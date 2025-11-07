@@ -99,7 +99,6 @@ def grdsample(
     >>> # and set both x- and y-spacings to 0.5 arc-degrees
     >>> new_grid = pygmt.grdsample(grid=grid, toggle=True, spacing=[0.5, 0.5])
     """
-
     # Enforce mutual exclusivity between -T (toggle) and -r (registration)
     if kwargs.get("T", toggle) and kwargs.get("r", registration) is not None:
         msg = "Parameters 'toggle' and 'registration' cannot be used together."
