@@ -113,13 +113,13 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     )
     fig.show()
 
-    # Compass
+    # Compass (plot vertical line on top of letters G and M again at the end)
     x1, x2 = r1 * 0.7071, r3 * 0.7071  # sqrt(2)/2 = 0.7071
     lines_compass = [
         ([-r0, -r3], [0, 0]),  # horizontal lines
         ([-r5, 0], [0, 0]),
         ([r3, r0], [0, 0]),
-        ([0, 0], [-r3, r3]),  # vertical line
+        ([0, 0], [-r3, 0]),  # vertical line
         ([-x1, -x2], [x1, x2]),  # upper left
         ([-x1, -x2], [-x1, -x2]),  # lower left
         ([x1, x2 + (r4 - r5)], [x1, x2 + (r4 - r5)]),  # upper right
