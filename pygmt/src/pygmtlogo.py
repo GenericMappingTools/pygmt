@@ -91,7 +91,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         case "vertical":
             args_text_wm = {"x": 0, "y": -5, "justify": "CT", "font": f"2.5c,{font}"}
         case True | "horizontal":
-            args_text_wm = {"x": 6, "y": 0, "justify": "LM", "font": f"8c,{font}"}
+            args_text_wm = {"x": 4.5, "y": 0.8, "justify": "LM", "font": f"8c,{font}"}
 
     fig = pygmt.Figure()
     fig.basemap(
