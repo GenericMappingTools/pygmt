@@ -8,7 +8,7 @@ from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import AliasSystem, Alias
 from pygmt.clib import Session
 from pygmt.exceptions import GMTTypeError, GMTValueError
 from pygmt.helpers import (
@@ -23,7 +23,7 @@ __doctest_skip__ = ["grdcut"]
 
 
 @fmt_docstring
-@use_alias(N="extend", S="circ_subregion", Z="z_subregion", f="coltypes", F="polygon")
+@use_alias(N="extend", S="circ_subregion", Z="z_subregion", f="coltypes")
 def grdcut(
     grid: PathLike | xr.DataArray,
     kind: Literal["grid", "image"] = "grid",
@@ -32,6 +32,7 @@ def grdcut(
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    polygon: PathLike | None = None,
     crop: bool = False,
     invert: bool = False,
     **kwargs,
@@ -138,7 +139,12 @@ def grdcut(
         case _:
             raise GMTTypeError(type(grid))
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        F = [
+            Alias(crop, name="crop", prefix="+c"),
+            Alias(invert, name="invert", prefix="+i"),
+        ]
+    ).add_common(
         J=projection,
         R=region,
         V=verbose,
@@ -149,23 +155,19 @@ def grdcut(
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_in(
-                check_kind="vector", data=kwargs.get("F"), required=False
+                check_kind="vector", data=polygon, required=False
             ) as vinpoly,
             lib.virtualfile_out(kind=outkind, fname=outgrid) as voutgrd,
         ):
             aliasdict["G"] = voutgrd
 
-            if "F" in kwargs and kwargs["F"] is not None:
-                polygon_input = kwargs["F"]
-                modifiers = ("+c" * crop) + ("+i" * invert)
-
-                # if file path provided or a geojson object
-                if isinstance(polygon_input, PathLike) or hasattr(
-                    polygon_input, "__geo_interface__"
+            if polygon is not None:
+                if isinstance(polygon, PathLike) or hasattr(
+                    polygon, "__geo_interface__"
                 ):
-                    aliasdict["F"] = str(vinpoly) + modifiers
+                    aliasdict["F"] = str(vinpoly) + aliasdict.get("F", "")
                 else:
-                    polygon_type = type(polygon_input).__name__
+                    polygon_type = type(polygon).__name__
                     err_msg = "Invalid polygon type"
                     raise GMTValueError(
                         err_msg,
