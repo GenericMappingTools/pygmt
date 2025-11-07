@@ -80,16 +80,18 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
             symbol = "c"  # circle
             diameter = r0 + r1
             diameter_add = r0 - r1
+            y_wm = -4.5  # for vertical orientation of wordmark
         case "hexagon":
             symbol = "h"  # hexagon
             diameter = 8.6
             diameter_add = 0.6
+            y_wm = -5
 
     # Define wordmark
     font = "AvantGarde-Book"
     match wordmark:
         case "vertical":
-            args_text_wm = {"x": 0, "y": -4.5, "justify": "CT", "font": f"2.5c,{font}"}
+            args_text_wm = {"x": 0, "y": y_wm, "justify": "CT", "font": f"2.5c,{font}"}
         case True | "horizontal":
             args_text_wm = {"x": 4.5, "y": 0.8, "justify": "LM", "font": f"8c,{font}"}
 
