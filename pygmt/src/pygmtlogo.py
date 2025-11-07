@@ -55,7 +55,6 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     color_light = "white"
     color_dark = "gray20"
 
-    # visual
     color_blue = "48/105/152"  # Python blue
     color_yellow = "255/212/59"  # Python yellow
     color_red = "238/86/52"  # GMT red
@@ -64,7 +63,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         if theme == "dark":
             color_blue = color_yellow = color_red = color_light
 
-    # background and wordmark
+    # Background and wordmark
     match theme:
         case "light":
             color_bg = color_light
@@ -102,7 +101,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         frame="+n",
     )
 
-    # blue circle / hexagon for Earth
+    # Blue circle / hexagon for Earth
     fig.plot(
         x=0,
         y=0,
@@ -112,6 +111,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         perspective=True,
         no_clip=True,  # needed for corners of hexagon shape
     )
+    fig.show()
 
     # Compass
     x1, x2 = r1 * 0.7071, r3 * 0.7071  # sqrt(2)/2 = 0.7071
@@ -127,6 +127,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     ]
     for x, y in lines_compass:
         fig.plot(x=x, y=y, pen=f"{thin}c,{color_yellow}", perspective=True)
+        fig.show()
 
     # Letter G
     angles = np.deg2rad(np.arange(90, 361, 1.0))
@@ -141,17 +142,20 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         ]
     )
     fig.plot(x=x, y=y, fill=color_red, perspective=True)
+    fig.show()
 
-    # upper vertical red line
-    # space between red line and blue circle / hexagon
+    # Upper vertical red line
+    # Space between red line and blue circle / hexagon
     fig.plot(x=[0, 0], y=[r0, r3], pen=f"{thick * 1.5}c,{color_bg}", perspective=True)
+    fig.show()
     # red line
     fig.plot(x=[0, 0], y=[r0, r3], pen=f"{thick}c,{color_red}", perspective=True)
+    fig.show()
 
-    # letter M
-    # polygon with small distance to horizontal line of letter G
-    # starting point: lower right corner of the left vertical line of letter M
-    # direction: clockwise
+    # Letter M
+    # Polygon with small distance to horizontal line of letter G
+    # Starting point: lower right corner of the left vertical line of letter M
+    # Direction: clockwise
     m_x1 = thin / 2.0  # Half of the pen thickness of compass lines.
     m_x2 = r4
     m_x = [
@@ -185,6 +189,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         m_y2 - m_y2 / 3,  # left pick below
     ]
     fig.plot(x=m_x, y=m_y, close=True, fill=color_red, perspective=True)
+    fig.show()
 
     # Letter T
     # Red curved horizontal line
@@ -194,6 +199,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     # Ensure the same X coordinate for the right edge of T and the middle of M.
     mask = np.abs(t_x) <= (m_x1 + (m_x2 - m_x1) / 2.0)
     fig.plot(x=t_x[mask], y=t_y[mask], fill=color_red, perspective=True)
+    fig.show()
     # The arrow
     fig.plot(
         data=[[0, -r3, 0, -r0 * 1.05]],
@@ -201,17 +207,20 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         style=f"v{thick * 1.6}c+s+e+h0+a60+g{color_bg}",
         perspective=True,
     )
+    fig.show()
     fig.plot(
         data=[[0, -r3, 0, -r0]],
         pen=f"{thick}c,{color_red}",
         style=f"v{thick * 1.5}c+s+e+h0+a60+g{color_red}",
         perspective=True,
     )
+    fig.show()
 
-    # Extra vertical compass line above letters "G" and "M".
+    # Extra vertical compass line above letters G and M.
     fig.plot(x=[0, 0], y=[-r5 * 0.9, r3], pen=f"5p,{color_yellow}", perspective=True)
+    fig.show()
 
-    # outline around the shape for black and white color with dark theme
+    # Outline around the shape for black and white color with dark theme
     if not color and theme == "dark":
         fig.plot(
             x=0,
@@ -221,19 +230,23 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
             perspective=True,
             no_clip=True,
         )
+        fig.show()
 
     # Add wordmark "PyGMT"
     if wordmark:
         text_wm = f"@;{color_py};Py@;;@;{color_gmt};GMT@;;"
         fig.text(text=text_wm, no_clip=True, **args_text_wm)
+        fig.show()
 
     # Helpful for implementing the logo; not included in the logo
     # Circles for the different radii
-    # for r in [r0, r1, r2, r3, r4, r5, r2 + (r3 - r4)]:
-    #     fig.plot(x=0, y=0, style=f"c{2 * r}c", pen="0.8p,black,dashed")
+    for r in [r0, r1, r2, r3, r4, r5, r2 + (r3 - r4)]:
+        fig.plot(x=0, y=0, style=f"c{2 * r}c", pen="0.8p,black,dashed")
     # Map frame with annotations, tick marks, and gridlines
-    # fig.basemap(frame="g1", perspective=True)
+    with pygmt.config(MAP_FRAME_TYPE="inside"):
+        fig.basemap(frame="a1g1")
 
+    fig.show()
     fig_name_logo = "pygmt_logo"
     fig.savefig(fname=f"{fig_name_logo}.eps")
 
