@@ -211,7 +211,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     fig.plot(
         data=[[0, -r3, 0, -r0]],
         pen=f"{thick}c,{color_red}",
-        style=f"v{thick * 1.5}c+s+e+h0+a60+g{color_red}",
+        style=f"v{thick * 1.4}c+s+e+h0+a60+g{color_red}",
         perspective=True,
     )
     fig.show()
