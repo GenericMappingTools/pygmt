@@ -6,7 +6,7 @@ import contextlib
 from collections.abc import Sequence
 from typing import Literal
 
-from pygmt.alias import Alias, AliasSystem, _to_string
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import (
@@ -269,7 +269,7 @@ def set_panel(
             module="subplot",
             args=[
                 "set",
-                _to_string(panel, sep=",", size=2),
+                Alias(panel, name="panel", sep=",", size=2)._value,
                 *build_arg_list(aliasdict),
             ],
         )
