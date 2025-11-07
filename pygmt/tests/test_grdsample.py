@@ -102,4 +102,4 @@ def test_grdsample_toggle_and_registration_mutually_exclusive(grid):
     Raise an exception if toggle and registration are both set.
     """
     with pytest.raises(GMTInvalidInput):
-        grdsample(grid=grid, toggle=True, registration="p")
+        grdsample(grid=grid, toggle=True, registration="pixel")
