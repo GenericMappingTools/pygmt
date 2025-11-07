@@ -117,7 +117,7 @@ def subplot(
         - a single value (for same margin on all sides). E.g. ``"5c"``.
         - a pair of values (for separate horizontal and vertical margins). E.g.,
           ``("5c", "3c")``.
-        - a set of four values (for separate left, right, bottom, and top margins). 
+        - a set of four values (for separate left, right, bottom, and top margins).
           E.g., ``("1c", "2c", "3c", "4c")``.
 
         The actual gap created is always a sum of the margins for the two opposing sides
