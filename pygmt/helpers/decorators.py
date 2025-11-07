@@ -277,10 +277,10 @@ COMMON_DOCSTRINGS = {
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
             Specify the :doc:`region </tutorials/basics/regions>` of interest.""",
     "registration": r"""
-        registration : str
-            **g**\|\ **p**.
-            Force gridline (**g**) or pixel (**p**) node registration
-            [Default is **g**\ (ridline)].""",
+        registration
+            Select gridline or pixel node registration. Valid values are ``"gridline"``,
+            ``"pixel"``, and bool. GMT default is gridline registration. If
+            ``True``, select pixel registration.""",
     "skiprows": r"""
         skiprows : bool or str
             [*cols*][**+a**][**+r**].
@@ -514,9 +514,7 @@ def use_alias(**aliases):
     R = bla J = meh
     >>> my_module(region="bla", projection="meh")
     R = bla J = meh
-    >>> my_module(
-    ...     region="bla", projection="meh", J="bla"
-    ... )  # doctest: +NORMALIZE_WHITESPACE
+    >>> my_module(region="bla", projection="meh", J="bla")
     Traceback (most recent call last):
       ...
     pygmt.exceptions.GMTInvalidInput:

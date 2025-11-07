@@ -23,7 +23,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     b="binary",
     h="header",
     i="incols",
-    r="registration",
 )
 @kwargs_to_strings(I="sequence", i="sequence_comma")
 def binstats(
@@ -49,6 +48,7 @@ def binstats(
     ] = "number",
     quantile_value: float = 50,
     region: Sequence[float | str] | str | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -70,6 +70,7 @@ def binstats(
        - C = statistic
        - R = region
        - V = verbose
+       - r = registration
 
     Parameters
     ----------
@@ -158,6 +159,7 @@ def binstats(
     ).add_common(
         R=region,
         V=verbose,
+        r=registration,
     )
     aliasdict.merge(kwargs)
     if statistic == "quantile":
