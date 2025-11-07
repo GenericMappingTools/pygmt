@@ -55,23 +55,23 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     color_light = "white"
     color_dark = "gray20"
 
-    color_blue = "48/105/152"  # Python blue
-    color_yellow = "255/212/59"  # Python yellow
-    color_red = "238/86/52"  # GMT red
+    blue = "48/105/152"  # Python blue
+    yellow = "255/212/59"  # Python yellow
+    red = "238/86/52"  # GMT red
     if not color:
-        color_blue = color_yellow = color_red = color_dark
+        blue = yellow = red = color_dark
         if theme == "dark":
-            color_blue = color_yellow = color_red = color_light
+            blue = yellow = red = color_light
 
     # Background and wordmark
     match theme:
         case "light":
             color_bg = color_light
-            color_py = color_blue
+            color_py = blue
             color_gmt = color_dark
         case "dark":
             color_bg = color_dark
-            color_py = color_yellow
+            color_py = yellow
             color_gmt = color_light
 
     # Define shape
@@ -106,7 +106,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         x=0,
         y=0,
         style=f"{symbol}{diameter}c",
-        pen=f"{thick}c,{color_blue}",
+        pen=f"{thick}c,{blue}",
         fill=color_bg,
         perspective=True,
         no_clip=True,  # needed for corners of hexagon shape
@@ -126,7 +126,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         ([x1, x2], [-x1, -x2]),  # lower right
     ]
     for x, y in lines_compass:
-        fig.plot(x=x, y=y, pen=f"{thin}c,{color_yellow}", perspective=True)
+        fig.plot(x=x, y=y, pen=f"{thin}c,{yellow}", perspective=True)
         fig.show()
 
     # Letter G
@@ -141,7 +141,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
             np.sin(np.flip(angles)) * r5,
         ]
     )
-    fig.plot(x=x, y=y, fill=color_red, perspective=True)
+    fig.plot(x=x, y=y, fill=red, perspective=True)
     fig.show()
 
     # Upper vertical red line
@@ -149,7 +149,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     fig.plot(x=[0, 0], y=[r0, r3], pen=f"{thick * 1.5}c,{color_bg}", perspective=True)
     fig.show()
     # red line
-    fig.plot(x=[0, 0], y=[r0, r3], pen=f"{thick}c,{color_red}", perspective=True)
+    fig.plot(x=[0, 0], y=[r0, r3], pen=f"{thick}c,{red}", perspective=True)
     fig.show()
 
     # Letter M
@@ -188,7 +188,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
         m_y2 - m_y2 / 2 - m_y2 / 18,  # mid pick below
         m_y2 - m_y2 / 3,  # left pick below
     ]
-    fig.plot(x=m_x, y=m_y, close=True, fill=color_red, perspective=True)
+    fig.plot(x=m_x, y=m_y, close=True, fill=red, perspective=True)
     fig.show()
 
     # Letter T
@@ -198,7 +198,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     t_y = np.concatenate([r3 * np.cos(angles), r2 * np.cos(np.flip(angles))])
     # Ensure the same X coordinate for the right edge of T and the middle of M.
     mask = np.abs(t_x) <= (m_x1 + (m_x2 - m_x1) / 2.0)
-    fig.plot(x=t_x[mask], y=t_y[mask], fill=color_red, perspective=True)
+    fig.plot(x=t_x[mask], y=t_y[mask], fill=red, perspective=True)
     fig.show()
     # The arrow
     fig.plot(
@@ -210,14 +210,14 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     fig.show()
     fig.plot(
         data=[[0, -r3, 0, -r0]],
-        pen=f"{thick}c,{color_red}",
-        style=f"v{thick * 1.4}c+s+e+h0+a60+g{color_red}",
+        pen=f"{thick}c,{red}",
+        style=f"v{thick * 1.4}c+s+e+h0+a60+g{red}",
         perspective=True,
     )
     fig.show()
 
     # Extra vertical compass line above letters G and M.
-    fig.plot(x=[0, 0], y=[-r5 * 0.9, r3], pen=f"5p,{color_yellow}", perspective=True)
+    fig.plot(x=[0, 0], y=[-r5 * 0.9, r3], pen=f"5p,{yellow}", perspective=True)
     fig.show()
 
     # Outline around the shape for black and white color with dark theme
