@@ -202,7 +202,7 @@ def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # no
     fig.show()
     # The arrow
     fig.plot(
-        data=[[0, -r3, 0, -r0 * 1.05]],
+        data=[[0, -r2, 0, -r0 * 1.05]],
         pen=color_bg,
         style=f"v{thick * 1.6}c+s+e+h0+a60+g{color_bg}",
         perspective=True,
