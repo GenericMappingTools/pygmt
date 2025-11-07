@@ -71,7 +71,7 @@ def grdsample(
         Toggle between grid and pixel registration; if the input is grid-registered, the
         output will be pixel-registered and vice-versa. This is a *destructive* grid
         change; see :gmt-docs:`reference/options.html#switch-registrations`.
-        Note: ``toggle`` and ``registration`` are mutually exclusive.
+        *Note**: ``toggle`` and ``registration`` are mutually exclusive.
     {verbose}
     {coltypes}
     {interpolation}
