@@ -8,8 +8,8 @@ from typing import Literal
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_list,
     deprecate_parameter,
