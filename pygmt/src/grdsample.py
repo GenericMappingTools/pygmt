@@ -107,7 +107,7 @@ def grdsample(
     aliasdict.merge(kwargs)
 
     # Enforce mutual exclusivity between -T (toggle) and -r (registration)
-    if toggle and aliasdict.get("r") is not None:
+    if kwargs.get("T", toggle) and kwargs.get("r", registration) is not None:
         msg = "Parameters 'toggle' and 'registration' cannot be used together."
         raise GMTInvalidInput(msg)
 
