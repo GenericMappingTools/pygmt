@@ -8,6 +8,7 @@ import pytest
 import xarray as xr
 from pygmt import grdsample
 from pygmt.enums import GridRegistration, GridType
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -94,3 +95,11 @@ def test_grdsample_registration_changes(grid):
     assert translated_grid.gmt.registration is GridRegistration.GRIDLINE
     registration_grid = grdsample(grid=translated_grid, registration="pixel")
     assert registration_grid.gmt.registration is GridRegistration.PIXEL
+
+
+def test_grdsample_toggle_and_registration_mutually_exclusive(grid):
+    """
+    Raise an exception if toggle and registration are both set.
+    """
+    with pytest.raises(GMTInvalidInput):
+        grdsample(grid=grid, toggle=True, registration="pixel")
