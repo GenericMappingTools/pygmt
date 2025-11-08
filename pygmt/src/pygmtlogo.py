@@ -10,7 +10,12 @@ import numpy as np
 import pygmt
 
 
-def create_logo(color=True, theme="light", shape="circle", wordmark=True):  # noqa: PLR0915
+def create_logo(
+        shape : Literal["circle", "hexagon"] = "circle",
+        theme : Literal["light", "dark"] = "light",
+        wordmark : Literal["horizontal", "vertical"] | bool = True,
+        color : bool = True,
+    ):  # noqa: PLR0915
     """
     Create the PyGMT logo using PyGMT.
     The design of the logo is kindly provided by `@sfrooti <https://github.com/sfrooti>`_
