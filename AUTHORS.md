@@ -25,9 +25,10 @@ The following people have contributed code and/or documentation to the project
 | [Tyler Newton](https://www.tnewton.com/) | [0000-0002-1560-6553](https://orcid.org/0000-0002-1560-6553) | University of Oregon, USA |
 | [Wei Ji Leong](https://github.com/weiji14) | [0000-0003-2354-1988](https://orcid.org/0000-0003-2354-1988) | Development Seed, USA |
 | [William Schlitzer](https://github.com/willschlitzer) | [0000-0002-5843-2282](https://orcid.org/0000-0002-5843-2282) | Unaffiliated |
+| [Xingchen He](https://github.com/Chuan1937) | [0009-0004-7182-2252](https://orcid.org/0009-0004-7182-2252) | Chengdu University of Technology, China |
 | [Yohai Magen](https://github.com/yohaimagen) | [0000-0002-4892-4013](https://orcid.org/0000-0002-4892-4013) | Tel Aviv University, Israel |
 | [Yvonne Fröhlich](https://github.com/yvonnefroehlich) | [0000-0002-8566-0619](https://orcid.org/0000-0002-8566-0619) | Unaffiliated |
-| [Xingchen He](https://github.com/Chuan1937) | [0009-0004-7182-2252](https://orcid.org/0009-0004-7182-2252) | Chengdu University of Technology, China |
+
 
 Individuals who have made significant contributions to PyGMT are recognized on the
 [PyGMT Team](https://www.pygmt.org/dev/team.html) page.
