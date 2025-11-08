@@ -141,10 +141,18 @@ def load_earth_relief(
     ...     use_srtm=True,
     ... )
     """
-    # Resolutions of original land-only SRTM tiles from NASA
-    land_only_srtm_resolutions = ["03s", "01s"]
+    # Resolutions of original land-only SRTM tiles from NASA.
+    srtm_resolutions = ("03s", "01s")
 
-    # Map data source to prefix
+    # 03s and 01s resolutions are only available for data source "igpp".
+    if resolution in srtm_resolutions and data_source != "igpp":
+        raise GMTValueError(
+            data_source,
+            description="data source",
+            reason=f"Resolution {resolution!r} is only available for data source 'igpp'.",
+        )
+
+    # Determine the dataset prefix.
     prefix = {
         "igpp": "earth_relief",
         "gebco": "earth_gebco",
@@ -157,22 +165,11 @@ def load_earth_relief(
             description="earth relief data source",
             choices=["igpp", "gebco", "gebcosi", "synbath"],
         )
+    # Use original land-only SRTM tiles.
+    if use_srtm and resolution in srtm_resolutions:
+        prefix = "srtm_relief"
 
-    # 03s and 01s resolutions are only available for data source "igpp".
-    if resolution in land_only_srtm_resolutions:
-        if data_source != "igpp":
-            raise GMTValueError(
-                data_source,
-                description="data source",
-                reason=(
-                    f"Resolution {resolution!r} is only available for data source "
-                    "'igpp'. Please set 'data_source' to 'igpp'."
-                ),
-            )
-        if use_srtm:  # Use original land-only SRTM tiles.
-            prefix = "srtm_relief"
-
-    # Choose earth relief dataset
+    # Choose earth relief dataset name.
     match data_source:
         case "igpp" | "synbath":
             name = "earth_igpp"
