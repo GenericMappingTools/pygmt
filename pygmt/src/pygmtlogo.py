@@ -24,20 +24,21 @@ def create_logo(
     Parameters
     ----------
 
-    color : bool
-        Set to ``True`` to use colors referring to Python (blue and yellow) and GMT
-        (red) [Default]. For ``False``, the logo is drawn in black and white.
-    theme : str
+    shape
+        Shape of the visual logo. Use ``"circle"`` for a circle shape [Default] or
+        ``"hexagon"`` for a hexagon shape.
+    theme
         Use ``"light"`` for light mode (i.e., a white background) [Default] and
         ``"dark"`` for dark mode (i.e., a darkgray [gray20] background).
-    shape : str
-        Shape of the visual. Use ``"circle"`` for a circle shape [Default] or
-        ``"hexagon"`` for a hexagon shape.
-    wordmark : bool, str
+    wordmark
         Add the wordmark "PyGMT" and adjust its orientation relative to the visual. Set
         to ``True`` or ``"horizontal"``, to add the wordmark at the right side of the
         visual [Default]. Use ``"vertical"`` to place the wordmark below the visual
         and ``False`` to add no wordmark.
+    color
+        Set to ``True`` to use colors referring to Python (blue and yellow) and GMT
+        (red) [Default]. For ``False``, the logo is drawn in black and white.
+
     """
 
     # Helpful definitions
