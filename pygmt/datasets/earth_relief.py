@@ -102,11 +102,11 @@ def load_earth_relief(
         **Notes**: Only the ``"igpp"`` data source provides the highest resolutions
         ``"03s"`` and ``"01s"``.
     use_srtm
-        For resolutions ``"03s"`` and ``"01s"``, by default the land-only SRTM tiles
+        For the resolutions ``"03s"`` and ``"01s"``, by default the land-only SRTM tiles
         from NASA are used along with up-sampled SRTM15 tiles (with a resolution of 15
-        arc-seconds) to fill in the missing ocean values. If ``True``, will only load
-        the original land-only SRTM tiles without filling in the ocean values. Only
-        works when ``data_source="igpp"``.
+        arc-seconds) to fill in the missing ocean values. If set to ``True``, only the
+        original land-only SRTM tiles are loaded without filling in the ocean values.
+        Only available for ``data_source="igpp"``.
 
     Returns
     -------
