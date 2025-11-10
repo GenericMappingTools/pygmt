@@ -56,7 +56,7 @@ def plot(  # noqa: PLR0912, PLR0913
     direction=None,
     straight_line: bool | Literal["x", "y"] = False,
     projection: str | None = None,
-    frame: str | Sequence[str] | bool | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,

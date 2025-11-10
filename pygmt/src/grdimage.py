@@ -33,7 +33,7 @@ def grdimage(  # noqa: PLR0913
     monochrome: bool = False,
     no_clip: bool = False,
     projection: str | None = None,
-    frame: str | Sequence[str] | bool | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,

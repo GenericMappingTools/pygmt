@@ -30,7 +30,7 @@ def colorbar(
     self,
     projection: str | None = None,
     box: Box | bool = False,
-    frame: str | Sequence[str] | bool | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,

@@ -24,7 +24,7 @@ def solar(  # noqa: PLR0913
     fill: str | None = None,
     pen: str | None = None,
     projection: str | None = None,
-    frame: str | Sequence[str] | bool | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,

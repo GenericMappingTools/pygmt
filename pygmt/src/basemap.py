@@ -25,7 +25,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 def basemap(
     self,
     projection: str | None = None,
-    frame: str | Sequence[str] | bool | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
