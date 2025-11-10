@@ -15,7 +15,6 @@ __doctest_skip__ = ["colorbar"]
 
 @fmt_docstring
 @use_alias(
-    B="frame",
     C="cmap",
     D="position",
     G="truncate",
@@ -31,6 +30,7 @@ def colorbar(
     self,
     projection: str | None = None,
     box: Box | bool = False,
+    frame: str | Sequence[str] | bool | None = None,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -63,6 +63,7 @@ def colorbar(
     Full GMT docs at :gmt-docs:`colorbar.html`.
 
     {aliases}
+       - B = frame
        - F = box
        - J = projection
        - R = region
@@ -163,6 +164,7 @@ def colorbar(
     aliasdict = AliasSystem(
         F=Alias(box, name="box"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,

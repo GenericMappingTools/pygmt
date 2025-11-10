@@ -25,7 +25,6 @@ __doctest_skip__ = ["grdcontour"]
 @deprecate_parameter("interval", "levels", "v0.12.0", remove_version="v0.16.0")
 @use_alias(
     A="annotation",
-    B="frame",
     C="levels",
     G="label_placement",
     L="limit",
@@ -41,6 +40,7 @@ def grdcontour(
     self,
     grid: PathLike | xr.DataArray,
     projection: str | None = None,
+    frame: str | Sequence[str] | bool | None = None,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -56,6 +56,7 @@ def grdcontour(
     Full GMT docs at :gmt-docs:`grdcontour.html`.
 
     {aliases}
+       - B = frame
        - J = projection
        - R = region
        - V = verbose
@@ -166,6 +167,7 @@ def grdcontour(
                 kwargs[arg] = ",".join(f"{item}" for item in kwargs[arg])
 
     aliasdict = AliasSystem().add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,

@@ -40,7 +40,6 @@ def _parse_fills(fillpositive, fillnegative):
 
 @fmt_docstring
 @use_alias(
-    B="frame",
     D="position",
     T="track",
     W="pen",
@@ -66,6 +65,7 @@ def wiggle(  # noqa: PLR0913
     fillnegative=None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -83,6 +83,7 @@ def wiggle(  # noqa: PLR0913
     Full GMT docs at :gmt-docs:`wiggle.html`.
 
     {aliases}
+       - B = frame
        - G = **+p**: fillpositive, **+n**: fillnegative
        - J = projection
        - R = region
@@ -141,6 +142,7 @@ def wiggle(  # noqa: PLR0913
     aliasdict = AliasSystem(
         G=Alias(_fills, name="fillpositive/fillnegative"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,

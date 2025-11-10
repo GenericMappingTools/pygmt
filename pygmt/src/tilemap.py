@@ -18,13 +18,7 @@ except ImportError:
 
 
 @fmt_docstring
-@use_alias(
-    B="frame",
-    E="dpi",
-    I="shading",
-    Q="nan_transparent",
-    p="perspective",
-)
+@use_alias(E="dpi", I="shading", Q="nan_transparent", p="perspective")
 @kwargs_to_strings(p="sequence")
 def tilemap(  # noqa: PLR0913
     self,
@@ -38,6 +32,7 @@ def tilemap(  # noqa: PLR0913
     monochrome: bool = False,
     no_clip: bool = False,
     projection: str | None = None,
+    frame: str | Sequence[str] | bool | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | tuple[int, int] | bool = False,
@@ -137,6 +132,7 @@ def tilemap(  # noqa: PLR0913
         M=Alias(monochrome, name="monochrome"),
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,

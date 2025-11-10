@@ -23,7 +23,6 @@ from pygmt.helpers import (
     Ff="figsize",
     Fs="subsize",
     A="autolabel",
-    B="frame",
     C="clearance",
     SC="sharex",
     SR="sharey",
@@ -36,6 +35,7 @@ def subplot(
     ncols=1,
     margins: float | str | Sequence[float | str] | None = None,
     projection: str | None = None,
+    frame: str | Sequence[str] | bool | None = None,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -53,6 +53,7 @@ def subplot(
     Full GMT docs at :gmt-docs:`subplot.html#synopsis-begin-mode`.
 
     {aliases}
+       - B = frame
        - J = projection
        - M = margins
        - R = region
@@ -175,6 +176,7 @@ def subplot(
     aliasdict = AliasSystem(
         M=Alias(margins, name="margins", sep="/", size=(2, 4)),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,

@@ -118,7 +118,6 @@ def _auto_offset(spec) -> bool:
 @fmt_docstring
 @use_alias(
     A="offset",
-    B="frame",
     C="cmap",
     E="extensionfill",
     Fr="labelbox",
@@ -143,6 +142,7 @@ def meca(  # noqa: PLR0913
     event_name: str | Sequence[str] | None = None,
     no_clip: bool = False,
     projection: str | None = None,
+    frame: str | Sequence[str] | bool | None = None,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -202,6 +202,7 @@ def meca(  # noqa: PLR0913
     Full GMT docs at :gmt-docs:`supplements/seis/meca.html`.
 
     {aliases}
+       - B = frame
        - J = projection
        - N = no_clip
        - R = region
@@ -374,6 +375,7 @@ def meca(  # noqa: PLR0913
     aliasdict = AliasSystem(
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,

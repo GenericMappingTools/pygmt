@@ -22,7 +22,6 @@ from pygmt.src._common import _data_geometry_is_point
 
 @fmt_docstring
 @use_alias(
-    B="frame",
     C="cmap",
     D="offset",
     E="error_bar",
@@ -57,6 +56,7 @@ def plot(  # noqa: PLR0912, PLR0913
     direction=None,
     straight_line: bool | Literal["x", "y"] = False,
     projection: str | None = None,
+    frame: str | Sequence[str] | bool | None = None,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -89,6 +89,7 @@ def plot(  # noqa: PLR0912, PLR0913
 
     {aliases}
        - A = straight_line
+       - B = frame
        - J = projection
        - R = region
        - V = verbose
@@ -294,6 +295,7 @@ def plot(  # noqa: PLR0912, PLR0913
     aliasdict = AliasSystem(
         A=Alias(straight_line, name="straight_line"),
     ).add_common(
+        B=frame,
         R=region,
         J=projection,
         V=verbose,
