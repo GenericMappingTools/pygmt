@@ -172,6 +172,7 @@ jobs:
       - name: Download DVC cache as artifacts from GitHub
         if: steps.dvc-pull.outcome == 'failure'
         run: |
+          rm -rvf .dvc/cache/
           gh run download --name dvc-cache --dir .dvc/cache/
           dvc checkout --verbose
         env:
