@@ -19,7 +19,6 @@ __doctest_skip__ = ["colorbar"]
     C="cmap",
     D="position",
     G="truncate",
-    I="shading",
     L="equalsize",
     Q="log",
     W="scale",
@@ -29,6 +28,7 @@ __doctest_skip__ = ["colorbar"]
 @kwargs_to_strings(G="sequence", I="sequence", p="sequence")
 def colorbar(
     self,
+    shading: float | Sequence[float] | bool = False,
     projection: str | None = None,
     box: Box | bool = False,
     region: Sequence[float | str] | str | None = None,
@@ -64,6 +64,7 @@ def colorbar(
 
     {aliases}
        - F = box
+       - I = shading
        - J = projection
        - R = region
        - V = verbose
@@ -110,12 +111,14 @@ def colorbar(
     scale : float
         Multiply all z-values in the CPT by the provided scale. By default,
         the CPT is used as is.
-    shading : str, list, or bool
-        Add illumination effects. Passing a single numerical value sets the
-        range of intensities from -value to +value. If not specified, 1 is
-        used. Alternatively, set ``shading=[low, high]`` to specify an
-        asymmetric intensity range from *low* to *high*. [Default is no
-        illumination].
+    shading
+        Add illumination effects [Default is no illumination].
+
+        - If ``True``, a default intensity range of -1 to +1 is used.
+        - Passing a single numerical value *max_intens* sets the range of intensities
+          from *-max_intens* to *+max_intens*.
+        - Passing a sequence of two numerical values (*low*, *high*) sets the intensity
+          range from *low* to *high* to specify an asymmetric range.
     equalsize : float or str
         [**i**]\ [*gap*].
         Equal-sized color rectangles. By default, the rectangles are scaled
@@ -162,6 +165,7 @@ def colorbar(
 
     aliasdict = AliasSystem(
         F=Alias(box, name="box"),
+        I=Alias(shading, name="shading", sep="/", size=2),
     ).add_common(
         J=projection,
         R=region,
