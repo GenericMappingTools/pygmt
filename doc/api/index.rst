@@ -214,6 +214,7 @@ Class-style Parameters
 
     Box
     Pattern
+    Perspective
 
 Enums
 -----
