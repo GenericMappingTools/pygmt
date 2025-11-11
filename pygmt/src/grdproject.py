@@ -7,7 +7,7 @@ from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
@@ -17,7 +17,6 @@ __doctest_skip__ = ["grdproject"]
 
 @fmt_docstring
 @use_alias(
-    C="center",
     D="spacing",
     E="dpi",
     F="scaling",
@@ -25,10 +24,11 @@ __doctest_skip__ = ["grdproject"]
     M="unit",
     n="interpolation",
 )
-@kwargs_to_strings(C="sequence", D="sequence")
+@kwargs_to_strings(D="sequence")
 def grdproject(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
+    center: Sequence[float | str] | bool = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     registration: Literal["gridline", "pixel"] | bool = False,
@@ -57,6 +57,7 @@ def grdproject(
     Full GMT docs at :gmt-docs:`grdproject.html`.
 
     {aliases}
+       - C = center
        - J = projection
        - R = region
        - V = verbose
@@ -71,13 +72,12 @@ def grdproject(
         [Default is ``False``].
     {projection}
     {region}
-    center : str or list
-        [*dx*, *dy*].
-        Let projected coordinates be relative to projection center [Default
-        is relative to lower left corner]. Optionally, add offsets in the
-        projected units to be added (or subtracted when ``inverse`` is set) to
-        (from) the projected coordinates, such as false eastings and
-        northings for particular projection zones [Default is ``[0, 0]``].
+    center
+        If ``True``, let projected coordinates be relative to projection center [Default
+        is relative to lower left corner]. Optionally, set offsets (*dx*, *dy*) in the
+        projected units to be added (or subtracted when ``inverse`` is set) to (from)
+        the projected coordinates, such as false eastings and northings for particular
+        projection zones [Default is ``(0, 0)``].
     {spacing}
     dpi : int
         Set the resolution for the new grid in dots per inch.
@@ -120,7 +120,9 @@ def grdproject(
         msg = "Parameter 'projection' must be specified."
         raise GMTInvalidInput(msg)
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        C=Alias(center, name="center", sep="/", size=2),
+    ).add_common(
         J=projection,
         R=region,
         V=verbose,
