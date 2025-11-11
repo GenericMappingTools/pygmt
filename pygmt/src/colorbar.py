@@ -112,7 +112,7 @@ def colorbar(
         Multiply all z-values in the CPT by the provided scale. By default,
         the CPT is used as is.
     shading
-        Add illumination effects. [Default is no illumination].
+        Add illumination effects [Default is no illumination].
 
         - If ``True``, a default intensity range of -1 to +1 is used.
         - Passing a single numerical value *max_intens* sets the range of intensities
