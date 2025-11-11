@@ -115,7 +115,7 @@ def grdview(
         :func:`pygmt.grdgradient` first; append **+a**\ *azimuth*, **+n**\ *args*, and
         **+m**\ *ambient* to specify azimuth, intensity, and ambient arguments for that
         function, or just give **+d** to select the default arguments [Default is
-        "+a-45+nt1+m0"].
+        ``"+a-45+nt1+m0"``].
     {verbose}
     {panel}
     {coltypes}
