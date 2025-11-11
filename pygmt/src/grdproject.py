@@ -73,8 +73,8 @@ def grdproject(
     {projection}
     {region}
     center
-        If ``True``, let projected coordinates be relative to projection center [Default
-        is relative to lower left corner]. Optionally, set offsets (*dx*, *dy*) in the
+        If ``True``, let the projected coordinates be relative to the projection center [Default
+        is relative to the lower left corner]. Optionally, set offsets (*dx*, *dy*) in the
         projected units to be added (or subtracted when ``inverse`` is set) to (from)
         the projected coordinates, such as false eastings and northings for particular
         projection zones [Default is ``(0, 0)``].
