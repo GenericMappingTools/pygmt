@@ -116,7 +116,7 @@ def colorbar(
 
         - If ``True``, a default intensity range of -1 to +1 is used.
         - Passing a single numerical value *max_intens* sets the range of intensities
-          from *-max_intens* to *+max_intens*
+          from *-max_intens* to *+max_intens*.
         - Passing a sequence of two numerical values (*low*, *high*) sets the intensity
           range from *low* to *high* to specify an asymmetric range.
     equalsize : float or str
