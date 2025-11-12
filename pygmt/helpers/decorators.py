@@ -273,7 +273,7 @@ COMMON_DOCSTRINGS = {
             - *elevation*: Elevation angle of the viewpoint above the horizon [Default
               is 90, i.e., looking straight down].
             - *zlevel*: Z-level at which 2-D elements (e.g., the map frame) are drawn.
-              Only applies when used together with ``zsize`` or ``zscale``. [Default is
+              Only applied when used together with ``zsize`` or ``zscale``. [Default is
               at the bottom of the z-axis].
 
             Alternatively, set ``perspective=True`` to reuse the perspective setting
