@@ -26,8 +26,6 @@ from pygmt.src._common import _data_geometry_is_point
     D="offset",
     G="fill",
     I="intensity",
-    Jz="zscale",
-    JZ="zsize",
     L="close",
     N="no_clip",
     Q="no_sort",
@@ -58,6 +56,8 @@ def plot3d(  # noqa: PLR0912, PLR0913
     direction=None,
     straight_line: bool | Literal["x", "y"] = False,
     projection: str | None = None,
+    zscale: float | str | None = None,
+    zsize: float | str | None = None,
     frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -93,6 +93,8 @@ def plot3d(  # noqa: PLR0912, PLR0913
        - A = straight_line
        - B = frame
        - J = projection
+       - Jz = zscale
+       - JZ = zsize
        - R = region
        - V = verbose
        - c = panel
@@ -118,7 +120,7 @@ def plot3d(  # noqa: PLR0912, PLR0913
         can be angle and length, azimuth and length, or x and y components,
         depending on the style options chosen.
     {projection}
-    zscale/zsize : float or str
+    zscale/zsize
         Set z-axis scaling or z-axis size.
     {region}
     straight_line
@@ -273,6 +275,8 @@ def plot3d(  # noqa: PLR0912, PLR0913
 
     aliasdict = AliasSystem(
         A=Alias(straight_line, name="straight_line"),
+        Jz=Alias(zscale, name="zscale"),
+        JZ=Alias(zsize, name="zsize"),
     ).add_common(
         B=frame,
         J=projection,
