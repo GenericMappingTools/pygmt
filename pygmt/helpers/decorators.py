@@ -265,21 +265,21 @@ COMMON_DOCSTRINGS = {
         perspective
             Select perspective view and set the azimuth and elevation of the viewpoint.
 
-            It can be specified as *azimuth*, (*azimuth*, *elevation*), or
-            (*azimuth*, *elevation*, *zlevel*), in which,
+            Accepts a single value or a sequence of two or three values: *azimuth*,
+            (*azimuth*, *elevation*), or (*azimuth*, *elevation*, *zlevel*).
 
             - *azimuth*: Azimuth angle of the viewpoint in degrees [Default is 180,
               i.e., looking from south to north].
             - *elevation*: Elevation angle of the viewpoint above the horizon [Default
               is 90, i.e., looking straight down].
             - *zlevel*: Z-level at which 2-D elements (e.g., the map frame) are drawn.
-              Only applies when used together with ``zsize``/``zscale``. [Default is at
-              the bottom of the z-axis].
+              Only applies when used together with ``zsize`` or ``zscale``. [Default is
+              at the bottom of the z-axis].
 
-            Alternatively, set ``perspective=True`` to use the perspective setting used
-            in the previous plotting method. Or passing a string with the full GMT
-            syntax to have more control. See :gmt-docs:`gmt.html#perspective-full` for
-            details.""",
+            Alternatively, set ``perspective=True`` to reuse the perspective setting
+            from the previous plotting method, or pass a string following the full
+            GMT syntax for finer control. See :gmt-docs:`gmt.html#perspective-full`
+            for details.""",
     "projection": r"""
         projection
             *projcode*\[*projparams*/]\ *width*\|\ *scale*.
