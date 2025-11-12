@@ -15,6 +15,20 @@ from pygmt.params.base import BaseParam
 class Perspective(BaseParam):
     """
     Class for setting perspective view.
+
+    Examples
+    --------
+    >>> import pygmt
+    >>> from pygmt.params import Perspective
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(
+    ...     region=[0, 10, 0, 10, 0, 20],
+    ...     projection="X3c",
+    ...     zsize="3c",
+    ...     frame=["xafg", "yafg", "zafg", "wSEnZ"],
+    ...     perspective=Perspective(azimuth=135, elevation=40, zlevel=10),
+    ... )
+    >>> fig.show()
     """
 
     #: Azimuth of the viewpoint in degress. Default is 180.0 (looking from south to
