@@ -18,7 +18,6 @@ __doctest_skip__ = ["grdview"]
 @use_alias(
     Jz="zscale",
     JZ="zsize",
-    B="frame",
     C="cmap",
     G="drapegrid",
     N="plane",
@@ -36,10 +35,11 @@ def grdview(
     self,
     grid: PathLike | xr.DataArray,
     projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
     **kwargs,
 ):
@@ -55,6 +55,7 @@ def grdview(
     Full GMT docs at :gmt-docs:`grdview.html`.
 
     {aliases}
+       - B = frame
        - J = projection
        - R = region
        - V = verbose
@@ -114,7 +115,7 @@ def grdview(
         :func:`pygmt.grdgradient` first; append **+a**\ *azimuth*, **+n**\ *args*, and
         **+m**\ *ambient* to specify azimuth, intensity, and ambient arguments for that
         function, or just give **+d** to select the default arguments [Default is
-        "+a-45+nt1+m0"].
+        ``"+a-45+nt1+m0"``].
     {verbose}
     {panel}
     {coltypes}
@@ -157,6 +158,7 @@ def grdview(
     self._activate_figure()
 
     aliasdict = AliasSystem().add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
