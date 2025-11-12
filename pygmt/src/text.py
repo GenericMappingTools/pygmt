@@ -24,7 +24,6 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @use_alias(
-    B="frame",
     C="clearance",
     D="offset",
     G="fill",
@@ -50,6 +49,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
     justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
     no_clip: bool = False,
     projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -74,6 +74,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
     Full GMT docs at :gmt-docs:`text.html`.
 
     {aliases}
+       - B = frame
        - F = **+a**: angle, **+c**: position, **+j**: justify, **+f**: font
        - J = projection
        - N = no_clip
@@ -275,6 +276,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
     aliasdict = AliasSystem(
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
