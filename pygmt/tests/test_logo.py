@@ -38,7 +38,7 @@ def test_logo_on_a_map():
 @pytest.mark.mpl_image_compare
 def test_logo_position_type():
     """
-    Test that the new group of parameters works as expected.
+    Test that different position types work as expected.
     """
     fig = Figure()
     fig.basemap(region=[-90, -70, 0, 20], projection="M15c", frame=True)
