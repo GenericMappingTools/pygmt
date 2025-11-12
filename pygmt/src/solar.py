@@ -39,7 +39,11 @@ def solar(  # noqa: PLR0913
 
     Full GMT docs at :gmt-docs:`solar.html`.
 
-    {aliases}
+    **Aliases:**
+
+    .. hlist::
+       :columns: 3
+
        - B = frame
        - G = fill
        - J = projection
