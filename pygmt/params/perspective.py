@@ -25,23 +25,23 @@ class Perspective(BaseParam):
     #: directly above).
     elevation: float | None = None
 
-    #: The z-level at which all 2D material, like the plot frame, is plotted (only valid
-    #: when used in consort with ``zsize``/``zscale`` [Default is at the bottom of the
-    #: z-axis].
+    #: The z-level at which all 2-D material, like the plot frame, is plotted (only
+    #: valid when used in consort with parameters ``zsize``/``zscale``. Default is at
+    #: the bottom of the z-axis].
     zlevel: float | None = None
 
-    #: The plane to plot against the “wall” x = level (using x) or y = level (using y)
-    #: or the horizontal plain (using z) [default is z].
+    #: The plane to plot against the "wall" x = level (using x) or y = level (using y)
+    #: or the horizontal plain (using z). Default is the z-plane.
     plane: Literal["x", "y", "z"] | None = None
 
     #: For frames used for animation, the center of the data domain is fixed. Specify
-    #: another center using one of the following parameters:
-
-    #: (*lon0*, *lat0*) or (*lon0*, *lat0*, *z0*).
-    #: Project the specified coordinate to the center of the page size.
+    #: another center using either parameters ``center`` or ``viewpoint``.
+    #:
+    #: Project the coordinate (*lon0*, *lat0*) or (*lon0*, *lat0*, *z0*) to the center
+    #: of the page size.
     center: Sequence[float] | None = None
 
-    #: (*x0*, *y0*). Specify the center in the projected coordinate system.
+    #: Specify the coordinates (*x0*, *y0*) of the projected 2-D view point.
     viewpoint: Sequence[float] | None = None
 
     def __post_init__(self):
