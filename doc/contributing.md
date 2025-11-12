@@ -524,7 +524,7 @@ overview of the main tasks involved.
    what users would like to see in the wrapper [optional, usually done by users].
 2. Create a tracking issue ("wrapper tracking issue"), using the "Wrapper for a GMT
    module" issue template, to track the progress of wrapping the module. Link it to the
-   [Project board](https://github.com/orgs/GenericMappingTools/projects/3), and close 
+   [Project board](https://github.com/orgs/GenericMappingTools/projects/3), and close
    the "wrapper request issue" with a comment such as:
    > Thank you for opening the feature request. The progress of wrapping the module will
    > be tracked in issue #XXX and
