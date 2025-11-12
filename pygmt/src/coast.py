@@ -12,7 +12,6 @@ from pygmt.helpers import (
     args_in_kwargs,
     build_arg_list,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
 )
 from pygmt.params import Box
@@ -31,9 +30,7 @@ __doctest_skip__ = ["coast"]
     N="borders",
     S="water",
     W="shorelines",
-    p="perspective",
 )
-@kwargs_to_strings(p="sequence")
 def coast(
     self,
     resolution: Literal[
@@ -47,6 +44,7 @@ def coast(
     | bool = False,
     panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -76,6 +74,7 @@ def coast(
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -229,6 +228,7 @@ def coast(
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

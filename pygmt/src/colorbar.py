@@ -15,16 +15,9 @@ __doctest_skip__ = ["colorbar"]
 
 @fmt_docstring
 @use_alias(
-    C="cmap",
-    D="position",
-    G="truncate",
-    L="equalsize",
-    Q="log",
-    W="scale",
-    Z="zfile",
-    p="perspective",
+    C="cmap", D="position", G="truncate", L="equalsize", Q="log", W="scale", Z="zfile"
 )
-@kwargs_to_strings(G="sequence", I="sequence", p="sequence")
+@kwargs_to_strings(G="sequence", I="sequence")
 def colorbar(
     self,
     shading: float | Sequence[float] | bool = False,
@@ -36,6 +29,7 @@ def colorbar(
     | bool = False,
     panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -70,6 +64,7 @@ def colorbar(
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -173,6 +168,7 @@ def colorbar(
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)
