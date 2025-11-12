@@ -7,7 +7,7 @@ from typing import Literal
 
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
@@ -19,9 +19,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     Td="rose",
     Tm="compass",
     f="coltypes",
-    p="perspective",
 )
-@kwargs_to_strings(p="sequence")
 def basemap(
     self,
     projection: str | None = None,
@@ -31,6 +29,7 @@ def basemap(
     | bool = False,
     panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -52,6 +51,7 @@ def basemap(
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -104,6 +104,7 @@ def basemap(
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)
