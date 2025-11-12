@@ -80,24 +80,22 @@ def logo(  # noqa: PLR0913
         one of the following values:
 
         - ``"mapcoords"``: ``position`` is specified as (*longitude*, *latitude*) in map
-          coordinates. Example: (120, -45) places the reference point at 120°E, 45°S.
+          coordinates.
         - ``"boxcoords"``: ``position`` is specified as (*nx*, *ny*) in normalized
           coordinates, i.e., fractional values between 0 and 1 along the x- and y-axes.
-          Example: (0, 0) corresponds to the lower-left corner, and (1, 1) to the
-          upper-right corner of the plot bounding box.
         - ``"plotcoords"``: ``position`` is specified as (*x*, *y*) in plot coordinates,
           i.e., distances from the lower-left plot origin given in inches, centimeters,
-          or points. Example: ("1c", "2c") places the reference point 1 cm to the right
-          and 2 cm above the plot origin.
+          or points.
         - ``"inside"`` or ``"outside"``: ``position`` is one of the nine
           :doc:`two-character justification codes </techref/justification_codes>`,
-          indicating a specific location relative to the plot bounding box. Example:
-          ``"TL"`` places the reference point at the top-left corner, either inside or
-          outside the bounding box.
+          indicating a specific location relative to the plot bounding box.
+
+        Refer to :doc:`/techref/reference_anchor_points` for details about the
+        positioning.
     anchor
         Specify the anchor point of the GMT logo, using one of the
-        :doc:`2-character justification codes </techref/justification_codes>`.
-        The default value depends on ``position_type``.
+        :doc:`2-character justification codes </techref/justification_codes>`. The
+        default value depends on ``position_type``.
 
         - ``position_type="inside"``: ``anchor`` defaults to the same as ``position``.
         - ``position_type="outside"``: ``anchor`` defaults to the mirror opposite of
