@@ -13,7 +13,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 
 @fmt_docstring
 @use_alias(
-    B="frame",
     C="cmap",
     G="fill",
     JX="width",
@@ -28,10 +27,11 @@ def ternary(
     alabel: str | None = None,
     blabel: str | None = None,
     clabel: str | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
     **kwargs,
 ):
@@ -49,6 +49,7 @@ def ternary(
     Full GMT docs at :gmt-docs:`ternary.html`.
 
     {aliases}
+       - B = frame
        - L = alabel/blabel/clabel
        - R = region
        - V = verbose
@@ -98,6 +99,7 @@ def ternary(
     aliasdict = AliasSystem(
         L=Alias(labels, name="alabel/blabel/clabel", sep="/", size=3),
     ).add_common(
+        B=frame,
         R=region,
         V=verbose,
         c=panel,

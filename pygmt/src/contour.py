@@ -20,7 +20,6 @@ from pygmt.helpers import (
 @fmt_docstring
 @use_alias(
     A="annotation",
-    B="frame",
     C="levels",
     G="label_placement",
     L="triangular_mesh_pen",
@@ -44,10 +43,11 @@ def contour(  # noqa: PLR0913
     z=None,
     no_clip: bool = False,
     projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
     **kwargs,
 ):
@@ -62,6 +62,7 @@ def contour(  # noqa: PLR0913
     Full GMT docs at :gmt-docs:`contour.html`.
 
     {aliases}
+       - B = frame
        - J = projection
        - N = no_clip
        - R = region
@@ -165,6 +166,7 @@ def contour(  # noqa: PLR0913
     aliasdict = AliasSystem(
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,

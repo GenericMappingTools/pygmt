@@ -23,7 +23,6 @@ __doctest_skip__ = ["coast"]
 @fmt_docstring
 @use_alias(
     A="area_thresh",
-    B="frame",
     C="lakes",
     E="dcw",
     G="land",
@@ -37,15 +36,16 @@ __doctest_skip__ = ["coast"]
 @kwargs_to_strings(p="sequence")
 def coast(
     self,
-    projection: str | None = None,
     resolution: Literal[
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
     box: Box | bool = False,
+    projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
     **kwargs,
 ):
@@ -69,6 +69,7 @@ def coast(
     Full GMT docs at :gmt-docs:`coast.html`.
 
     {aliases}
+       - B = frame
        - D = resolution
        - F = box
        - J = projection
@@ -223,6 +224,7 @@ def coast(
         ),
         F=Alias(box, name="box"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,

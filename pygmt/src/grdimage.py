@@ -16,7 +16,6 @@ __doctest_skip__ = ["grdimage"]
 
 @fmt_docstring
 @use_alias(
-    B="frame",
     C="cmap",
     D="img_in",
     E="dpi",
@@ -28,16 +27,17 @@ __doctest_skip__ = ["grdimage"]
     p="perspective",
 )
 @kwargs_to_strings(p="sequence")
-def grdimage(
+def grdimage(  # noqa: PLR0913
     self,
     grid: PathLike | xr.DataArray,
     monochrome: bool = False,
     no_clip: bool = False,
     projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
     cores: int | bool = False,
     **kwargs,
@@ -76,6 +76,7 @@ def grdimage(
     Full GMT docs at :gmt-docs:`grdimage.html`.
 
     {aliases}
+       - B = frame
        - J = projection
        - M = monochrome
        - N = no_clip
@@ -181,6 +182,7 @@ def grdimage(
         M=Alias(monochrome, name="monochrome"),
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
