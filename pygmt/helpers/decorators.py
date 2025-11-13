@@ -271,7 +271,7 @@ COMMON_DOCSTRINGS = {
             - *azimuth*: Azimuth angle of the viewpoint in degrees [Default is 180,
               i.e., looking from south to north].
             - *elevation*: Elevation angle of the viewpoint above the horizon [Default
-              is 90, i.e., looking straight down].
+              is 90, i.e., looking straight down at nadir].
             - *zlevel*: Z-level at which 2-D elements (e.g., the map frame) are drawn.
               Only applied when used together with ``zsize`` or ``zscale``. [Default is
               at the bottom of the z-axis].
@@ -279,7 +279,7 @@ COMMON_DOCSTRINGS = {
             Alternatively, set ``perspective=True`` to reuse the perspective setting
             from the previous plotting method, or pass a string following the full
             GMT syntax for finer control (e.g., adding ``+w`` or ``+v`` modifiers to
-            select another axis location than the plot origin). See
+            select an axis location other than the plot origin). See
             :gmt-docs:`gmt.html#perspective-full` for details.""",
     "projection": r"""
         projection
