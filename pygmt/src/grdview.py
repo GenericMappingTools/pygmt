@@ -27,7 +27,7 @@ __doctest_skip__ = ["grdview"]
     f="coltypes",
     n="interpolation",
 )
-def grdview(
+def grdview(  # noqa: PLR0913
     self,
     grid: PathLike | xr.DataArray,
     projection: str | None = None,
