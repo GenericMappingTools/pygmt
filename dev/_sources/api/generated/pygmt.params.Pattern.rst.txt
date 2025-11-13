@@ -4,29 +4,8 @@ pygmt.params.Pattern
 .. currentmodule:: pygmt.params
 
 .. autoclass:: Pattern
-
-
-.. rubric:: Attributes
-
-
-.. autoproperty::
-    Pattern.bgcolor
-
-.. autoproperty::
-    Pattern.dpi
-
-.. autoproperty::
-    Pattern.fgcolor
-
-.. autoproperty::
-    Pattern.invert
-
-.. autoproperty::
-    Pattern.pattern
-
-
-
-
+    :members:
+    :member-order: bysource
 
 .. minigallery:: pygmt.params.Pattern
     :add-heading:

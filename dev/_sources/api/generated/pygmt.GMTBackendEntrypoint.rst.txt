@@ -9,13 +9,16 @@ pygmt.GMTBackendEntrypoint
 .. rubric:: Attributes
 
 
-.. autoproperty::
+.. autoattribute::
     GMTBackendEntrypoint.description
 
-.. autoproperty::
+.. autoattribute::
     GMTBackendEntrypoint.open_dataset_parameters
 
-.. autoproperty::
+.. autoattribute::
+    GMTBackendEntrypoint.supports_groups
+
+.. autoattribute::
     GMTBackendEntrypoint.url
 
 
