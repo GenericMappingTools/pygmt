@@ -41,10 +41,9 @@ from pygmt.src._common import _data_geometry_is_point
     h="header",
     i="incols",
     l="label",
-    p="perspective",
     w="wrap",
 )
-@kwargs_to_strings(i="sequence_comma", p="sequence")
+@kwargs_to_strings(i="sequence_comma")
 def plot3d(  # noqa: PLR0912, PLR0913
     self,
     data: PathLike | TableLike | None = None,
@@ -64,6 +63,7 @@ def plot3d(  # noqa: PLR0912, PLR0913
     | bool = False,
     panel: int | Sequence[int] | bool = False,
     transparency: float | Sequence[float] | bool | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -98,6 +98,7 @@ def plot3d(  # noqa: PLR0912, PLR0913
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -283,6 +284,7 @@ def plot3d(  # noqa: PLR0912, PLR0913
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

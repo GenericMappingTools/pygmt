@@ -9,7 +9,7 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdview"]
 
@@ -26,10 +26,8 @@ __doctest_skip__ = ["grdview"]
     I="shading",
     f="coltypes",
     n="interpolation",
-    p="perspective",
 )
-@kwargs_to_strings(p="sequence")
-def grdview(
+def grdview(  # noqa: PLR0913
     self,
     grid: PathLike | xr.DataArray,
     projection: str | None = None,
@@ -41,6 +39,7 @@ def grdview(
     | bool = False,
     panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -62,6 +61,7 @@ def grdview(
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -168,6 +168,7 @@ def grdview(
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)
