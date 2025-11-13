@@ -278,8 +278,9 @@ COMMON_DOCSTRINGS = {
 
             Alternatively, set ``perspective=True`` to reuse the perspective setting
             from the previous plotting method, or pass a string following the full
-            GMT syntax for finer control. See :gmt-docs:`gmt.html#perspective-full`
-            for details.""",
+            GMT syntax for finer control (e.g., adding ``+w`` or ``+v`` modifiers to
+            select another axis location than the plot origin). See
+            :gmt-docs:`gmt.html#perspective-full` for details.""",
     "projection": r"""
         projection
             *projcode*\[*projparams*/]\ *width*\|\ *scale*.
