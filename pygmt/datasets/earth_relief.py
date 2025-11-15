@@ -47,7 +47,6 @@ def load_earth_relief(
 
        Earth relief datasets (topography and bathymetry).
 
-
     This function downloads the dataset from the GMT data server, caches it in a user
     data directory (usually ``~/.gmt/server/earth/earth_relief``,
     ``~/.gmt/server/earth/earth_gebco``, ``~/.gmt/server/earth/earth_gebcosi``,
@@ -58,8 +57,8 @@ def load_earth_relief(
     The dataset can also be accessed by specifying a file name in any grid processing
     function or plotting method, using the following file name format:
     **@**\ *earth_relief_type*\_\ *res*\_\ *reg*. *earth_relief_type* is the GMT name
-    for the dataset. The available options are **earth_relief**\, **earth_gebco**\,
-    **earth_gebcosi**\, and **earth_synbath**\. *res* is the grid resolution; *reg* is
+    for the dataset. The available options are **earth_relief**, **earth_gebco**,
+    **earth_gebcosi**, and **earth_synbath**. *res* is the grid resolution; *reg* is
     the grid registration type (**p** for pixel registration, **g** for gridline
     registration). If *reg* is omitted (e.g., ``@earth_relief_01d``), the
     gridline-registered grid will be loaded for grid processing functions and the
@@ -88,32 +87,32 @@ def load_earth_relief(
     registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``None``, which means
-        ``"gridline"`` for all resolutions except ``"15s"`` which is ``"pixel"``
-        only.
+        ``"gridline"`` for all resolutions except ``"15s"`` which is ``"pixel"`` only.
     data_source
         Select the source for the Earth relief data. Available options are:
 
-        - ``"igpp"``: IGPP Earth Relief. See
-          :gmt-datasets:`earth-relief.html`.
-        - ``"synbath"``: IGPP Earth Relief dataset that uses stastical
-          properties of young seafloor to provide a more realistic relief
-          of young areas with small seamounts.
-        - ``"gebco"``: GEBCO Earth Relief with only observed relief and
-          inferred relief via altimetric gravity. See
-          :gmt-datasets:`earth-gebco.html`.
+        - ``"igpp"``: IGPP Earth Relief. See :gmt-datasets:`earth-relief.html`.
+        - ``"synbath"``: IGPP Earth Relief dataset that uses stastical properties of
+          young seafloor to provide a more realistic relief of young areas with small
+          seamounts.
+        - ``"gebco"``: GEBCO Earth Relief with only observed relief and inferred relief
+          via altimetric gravity. See :gmt-datasets:`earth-gebco.html`.
         - ``"gebcosi"``: GEBCO Earth Relief that gives sub-ice (si) elevations.
+
+        **Notes**: Only the ``"igpp"`` data source provides the highest resolutions
+        ``"03s"`` and ``"01s"``.
     use_srtm
-        By default, the land-only SRTM tiles from NASA are used to generate the
-        ``"03s"`` and ``"01s"`` grids, and the missing ocean values are filled
-        by up-sampling the SRTM15 tiles which have a resolution of 15
-        arc-seconds (i.e., ``"15s"``). If True, will only load the original
-        land-only SRTM tiles. Only works when ``data_source="igpp"``.
+        For the resolutions ``"03s"`` and ``"01s"``, by default the land-only SRTM tiles
+        from NASA are used along with up-sampled SRTM15 tiles (with a resolution of 15
+        arc-seconds) to fill in the missing ocean values. If set to ``True``, only the
+        original land-only SRTM tiles are loaded without filling in the ocean values.
+        Only available for ``data_source="igpp"``.
 
     Returns
     -------
     grid
-        The Earth relief grid. Coordinates are latitude and longitude in
-        degrees. Relief is in meters.
+        The Earth relief grid. Coordinates are latitude and longitude in degrees. Relief
+        is in meters.
 
     Note
     ----
@@ -123,7 +122,6 @@ def load_earth_relief(
 
     Examples
     --------
-
     >>> from pygmt.datasets import load_earth_relief
     >>> # Load the default grid (gridline-registered 1 arc-degree grid)
     >>> grid = load_earth_relief()
@@ -143,10 +141,18 @@ def load_earth_relief(
     ...     use_srtm=True,
     ... )
     """
-    # resolutions of original land-only SRTM tiles from NASA
-    land_only_srtm_resolutions = ["03s", "01s"]
+    # Resolutions of original land-only SRTM tiles from NASA.
+    srtm_resolutions = ("03s", "01s")
 
-    # Map data source to prefix
+    # 03s and 01s resolutions are only available for data source "igpp".
+    if resolution in srtm_resolutions and data_source != "igpp":
+        raise GMTValueError(
+            data_source,
+            description="data source",
+            reason=f"Resolution {resolution!r} is only available for data source 'igpp'.",
+        )
+
+    # Determine the dataset prefix.
     prefix = {
         "igpp": "earth_relief",
         "gebco": "earth_gebco",
@@ -159,24 +165,17 @@ def load_earth_relief(
             description="earth relief data source",
             choices=["igpp", "gebco", "gebcosi", "synbath"],
         )
-    # Use SRTM or not.
-    if use_srtm and resolution in land_only_srtm_resolutions:
-        if data_source != "igpp":
-            raise GMTValueError(
-                data_source,
-                description="data source",
-                reason=(
-                    "Option 'use_srtm=True' doesn't work with data source "
-                    f"{data_source!r}. Please set 'data_source' to 'igpp'."
-                ),
-            )
+    # Use original land-only SRTM tiles.
+    if use_srtm and resolution in srtm_resolutions:
         prefix = "srtm_relief"
-    # Choose earth relief dataset
+
+    # Choose earth relief dataset name.
     match data_source:
         case "igpp" | "synbath":
             name = "earth_igpp"
         case "gebco" | "gebcosi":
             name = "earth_gebco"
+
     grid = _load_remote_dataset(
         name=name,
         prefix=prefix,

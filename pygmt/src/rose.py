@@ -14,7 +14,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @fmt_docstring
 @use_alias(
     A="sector",
-    B="frame",
     C="cmap",
     D="shift",
     Em="vectors",
@@ -34,20 +33,21 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     e="find",
     h="header",
     i="incols",
-    p="perspective",
     w="wrap",
 )
-@kwargs_to_strings(i="sequence_comma", p="sequence")
+@kwargs_to_strings(i="sequence_comma")
 def rose(
     self,
     data: PathLike | TableLike | None = None,
     length=None,
     azimuth=None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     """
@@ -66,9 +66,11 @@ def rose(
     Full GMT docs at :gmt-docs:`rose.html`.
 
     {aliases}
+       - B = frame
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -210,9 +212,11 @@ def rose(
     self._activate_figure()
 
     aliasdict = AliasSystem().add_common(
+        B=frame,
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

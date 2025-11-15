@@ -22,7 +22,6 @@ from pygmt.src._common import _data_geometry_is_point
 
 @fmt_docstring
 @use_alias(
-    B="frame",
     C="cmap",
     D="offset",
     E="error_bar",
@@ -43,10 +42,9 @@ from pygmt.src._common import _data_geometry_is_point
     h="header",
     i="incols",
     l="label",
-    p="perspective",
     w="wrap",
 )
-@kwargs_to_strings(i="sequence_comma", p="sequence")
+@kwargs_to_strings(i="sequence_comma")
 def plot(  # noqa: PLR0912, PLR0913
     self,
     data: PathLike | TableLike | None = None,
@@ -57,11 +55,13 @@ def plot(  # noqa: PLR0912, PLR0913
     direction=None,
     straight_line: bool | Literal["x", "y"] = False,
     projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | Sequence[float] | bool | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -89,10 +89,12 @@ def plot(  # noqa: PLR0912, PLR0913
 
     {aliases}
        - A = straight_line
+       - B = frame
        - J = projection
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -296,10 +298,12 @@ def plot(  # noqa: PLR0912, PLR0913
     aliasdict = AliasSystem(
         A=Alias(straight_line, name="straight_line"),
     ).add_common(
+        B=frame,
         R=region,
         J=projection,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

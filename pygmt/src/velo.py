@@ -22,7 +22,6 @@ from pygmt.helpers import (
 @fmt_docstring
 @use_alias(
     A="vector",
-    B="frame",
     C="cmap",
     D="rescale",
     E="uncertaintyfill",
@@ -37,19 +36,20 @@ from pygmt.helpers import (
     e="find",
     h="header",
     i="incols",
-    p="perspective",
 )
-@kwargs_to_strings(i="sequence_comma", p="sequence")
+@kwargs_to_strings(i="sequence_comma")
 def velo(
     self,
     data: PathLike | TableLike | None = None,
     no_clip: bool = False,
     projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -67,11 +67,13 @@ def velo(
     Full GMT docs at :gmt-docs:`supplements/geodesy/velo.html`.
 
     {aliases}
+       - B = frame
        - J = projection
        - N = no_clip
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -270,10 +272,12 @@ def velo(
     aliasdict = AliasSystem(
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

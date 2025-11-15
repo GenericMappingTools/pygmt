@@ -50,13 +50,13 @@ class GMTBackendEntrypoint(BackendEntrypoint):
     >>> da_grid = xr.open_dataarray(
     ...     "@static_earth_relief.nc", engine="gmt", raster_kind="grid"
     ... )
-    >>> da_grid  # doctest: +NORMALIZE_WHITESPACE
+    >>> da_grid
     <xarray.DataArray 'z' (lat: 14, lon: 8)> Size: 448B
     [112 values with dtype=float32]
     Coordinates:
       * lat      (lat) float64 112B -23.5 -22.5 -21.5 -20.5 ... -12.5 -11.5 -10.5
       * lon      (lon) float64 64B -54.5 -53.5 -52.5 -51.5 -50.5 -49.5 -48.5 -47.5
-    Attributes:...
+    Attributes:
         Conventions:   CF-1.7
         title:         Produced by grdcut
         history:       grdcut @earth_relief_01d_p -R-55/-47/-24/-10 -Gstatic_eart...
@@ -69,14 +69,14 @@ class GMTBackendEntrypoint(BackendEntrypoint):
     >>> da_image = xr.open_dataarray(
     ...     "@earth_night_01d", engine="gmt", raster_kind="image"
     ... )
-    >>> da_image  # doctest: +NORMALIZE_WHITESPACE
+    >>> da_image
     <xarray.DataArray 'z' (band: 3, y: 180, x: 360)> Size: 194kB
     [194400 values with dtype=uint8]
     Coordinates:
-      * band     (band) uint8... 1 2 3
-      * y        (y) float64... 89.5 88.5 87.5 86.5 ... -86.5 -87.5 -88.5 -89.5
-      * x        (x) float64... -179.5 -178.5 -177.5 -176.5 ... 177.5 178.5 179.5
-    Attributes:...
+      * band     (band) uint8 3B 1 2 3
+      * y        (y) float64 1kB 89.5 88.5 87.5 86.5 ... -86.5 -87.5 -88.5 -89.5
+      * x        (x) float64 3kB -179.5 -178.5 -177.5 -176.5 ... 177.5 178.5 179.5
+    Attributes:
         long_name:  z
 
     Load a single-band netCDF file using ``raster_kind="grid"`` over a bounding box
@@ -95,7 +95,7 @@ class GMTBackendEntrypoint(BackendEntrypoint):
     Coordinates:
       * lat      (lat) float64 104B 32.0 32.08 32.17 32.25 ... 32.83 32.92 33.0
       * lon      (lon) float64 200B -64.0 -63.92 -63.83 ... -62.17 -62.08 -62.0
-    Attributes:...
+    Attributes:
         Conventions:   CF-1.7
         title:         ETOPO5 global topography
         history:       grdreformat -fg bermuda.grd bermuda.nc=ns

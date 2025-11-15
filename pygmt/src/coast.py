@@ -12,7 +12,6 @@ from pygmt.helpers import (
     args_in_kwargs,
     build_arg_list,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
 )
 from pygmt.params import Box
@@ -23,7 +22,6 @@ __doctest_skip__ = ["coast"]
 @fmt_docstring
 @use_alias(
     A="area_thresh",
-    B="frame",
     C="lakes",
     E="dcw",
     G="land",
@@ -32,21 +30,21 @@ __doctest_skip__ = ["coast"]
     N="borders",
     S="water",
     W="shorelines",
-    p="perspective",
 )
-@kwargs_to_strings(p="sequence")
 def coast(
     self,
-    projection: str | None = None,
     resolution: Literal[
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
     box: Box | bool = False,
+    projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -69,12 +67,14 @@ def coast(
     Full GMT docs at :gmt-docs:`coast.html`.
 
     {aliases}
+       - B = frame
        - D = resolution
        - F = box
        - J = projection
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -230,10 +230,12 @@ def coast(
         ),
         F=Alias(box, name="box"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

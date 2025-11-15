@@ -16,7 +16,7 @@ __doctest_skip__ = ["grdlandmask"]
 
 
 @fmt_docstring
-@use_alias(A="area_thresh", I="spacing", r="registration")
+@use_alias(A="area_thresh", I="spacing")
 @kwargs_to_strings(I="sequence")
 def grdlandmask(
     outgrid: PathLike | None = None,
@@ -26,6 +26,7 @@ def grdlandmask(
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
     region: Sequence[float | str] | str | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     cores: int | bool = False,
@@ -48,6 +49,7 @@ def grdlandmask(
        - N = maskvalues
        - R = region
        - V = verbose
+       - r = registration
        - x = cores
 
     Parameters
@@ -129,6 +131,7 @@ def grdlandmask(
     ).add_common(
         R=region,
         V=verbose,
+        r=registration,
         x=cores,
     )
     aliasdict.merge(kwargs)

@@ -16,7 +16,6 @@ from pygmt.helpers import (
     data_kind,
     fmt_docstring,
     is_nonstr_iter,
-    kwargs_to_strings,
     non_ascii_to_octal,
     use_alias,
 )
@@ -24,7 +23,6 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @use_alias(
-    B="frame",
     C="clearance",
     D="offset",
     G="fill",
@@ -34,10 +32,8 @@ from pygmt.helpers import (
     f="coltypes",
     h="header",
     it="use_word",
-    p="perspective",
     w="wrap",
 )
-@kwargs_to_strings(p="sequence")
 def text_(  # noqa: PLR0912, PLR0913
     self,
     textfiles: PathLike | TableLike | None = None,
@@ -50,11 +46,13 @@ def text_(  # noqa: PLR0912, PLR0913
     justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
     no_clip: bool = False,
     projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | Sequence[float] | bool | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -74,12 +72,14 @@ def text_(  # noqa: PLR0912, PLR0913
     Full GMT docs at :gmt-docs:`text.html`.
 
     {aliases}
+       - B = frame
        - F = **+a**: angle, **+c**: position, **+j**: justify, **+f**: font
        - J = projection
        - N = no_clip
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -278,10 +278,12 @@ def text_(  # noqa: PLR0912, PLR0913
     aliasdict = AliasSystem(
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

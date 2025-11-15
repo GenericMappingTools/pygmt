@@ -2,6 +2,7 @@
 makecpt - Make GMT color palette tables.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
@@ -24,7 +25,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 )
 @kwargs_to_strings(T="sequence")
 def makecpt(
-    truncate: tuple[float, float] | None = None,
+    truncate: Sequence[float] | None = None,
     overrule_bg: bool = False,
     no_bg: bool = False,
     log: bool = False,
