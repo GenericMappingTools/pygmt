@@ -108,10 +108,7 @@ def create_logo(
 
     fig = pygmt.Figure()
     fig.basemap(
-        region=region,
-        projection=projection,
-        perspective=perspective,
-        frame="+n",
+        region=region, projection=projection, perspective=perspective, frame="+n"
     )
 
     args_shape = {
