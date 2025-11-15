@@ -170,7 +170,7 @@ COMMON_DOCSTRINGS = {
               *start*\ [:*inc*]:*stop*, where *inc* defaults to 1 if not specified, with
               columns and/or column ranges separated by commas (e.g.,
               ``incols="0:2,4+l"`` to input the first three columns followed by the
-              log-transformed 5th column). To read from a given column until the end of
+              log10-transformed 5th column). To read from a given column until the end of
               the record, leave off *stop* when specifying the column range. To read
               trailing text, add the column **t**. Append the word number to **t** to
               ingest only a single word from the trailing text. Instead of specifying
