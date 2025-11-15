@@ -15,15 +15,13 @@ from pygmt.helpers import (
     data_kind,
     fmt_docstring,
     is_nonstr_iter,
-    kwargs_to_strings,
     use_alias,
 )
 from pygmt.params import Box
 
 
 @fmt_docstring
-@use_alias(D="position", p="perspective")
-@kwargs_to_strings(p="sequence")
+@use_alias(D="position")
 def legend(
     self,
     spec: PathLike | io.StringIO | None = None,
@@ -35,6 +33,7 @@ def legend(
     | bool = False,
     panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -54,6 +53,7 @@ def legend(
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -110,6 +110,7 @@ def legend(
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

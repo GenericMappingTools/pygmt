@@ -9,7 +9,7 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdimage"]
 
@@ -24,9 +24,7 @@ __doctest_skip__ = ["grdimage"]
     Q="nan_transparent",
     n="interpolation",
     f="coltypes",
-    p="perspective",
 )
-@kwargs_to_strings(p="sequence")
 def grdimage(  # noqa: PLR0913
     self,
     grid: PathLike | xr.DataArray,
@@ -39,6 +37,7 @@ def grdimage(  # noqa: PLR0913
     | bool = False,
     panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     cores: int | bool = False,
     **kwargs,
 ):
@@ -83,6 +82,7 @@ def grdimage(  # noqa: PLR0913
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
        - x = cores
 
@@ -187,6 +187,7 @@ def grdimage(  # noqa: PLR0913
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
         x=cores,
     )

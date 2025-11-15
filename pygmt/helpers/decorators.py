@@ -262,12 +262,25 @@ COMMON_DOCSTRINGS = {
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
     "perspective": r"""
-        perspective : list or str
-            [**x**\|\ **y**\|\ **z**]\ *azim*\[/*elev*\[/*zlevel*]]\
-            [**+w**\ *lon0*/*lat0*\[/*z0*]][**+v**\ *x0*/*y0*].
-            Select perspective view and set the azimuth and elevation angle of
-            the viewpoint [Default is ``[180, 90]``]. Full documentation is at
-            :gmt-docs:`gmt.html#perspective-full`.""",
+        perspective
+            Select perspective view and set the azimuth and elevation of the viewpoint.
+
+            Accepts a single value or a sequence of two or three values: *azimuth*,
+            (*azimuth*, *elevation*), or (*azimuth*, *elevation*, *zlevel*).
+
+            - *azimuth*: Azimuth angle of the viewpoint in degrees [Default is 180,
+              i.e., looking from south to north].
+            - *elevation*: Elevation angle of the viewpoint above the horizon [Default
+              is 90, i.e., looking straight down at nadir].
+            - *zlevel*: Z-level at which 2-D elements (e.g., the map frame) are drawn.
+              Only applied when used together with ``zsize`` or ``zscale``. [Default is
+              at the bottom of the z-axis].
+
+            Alternatively, set ``perspective=True`` to reuse the perspective setting
+            from the previous plotting method, or pass a string following the full
+            GMT syntax for finer control (e.g., adding ``+w`` or ``+v`` modifiers to
+            select an axis location other than the plot origin). See
+            :gmt-docs:`gmt.html#perspective-full` for details.""",
     "projection": r"""
         projection
             *projcode*\[*projparams*/]\ *width*\|\ *scale*.

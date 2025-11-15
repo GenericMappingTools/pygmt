@@ -9,12 +9,11 @@ from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings
+from pygmt.helpers import build_arg_list, fmt_docstring
 from pygmt.params import Box
 
 
 @fmt_docstring
-@kwargs_to_strings(p="sequence")
 def logo(  # noqa: PLR0913
     self,
     position: Sequence[str | float] | AnchorCode | None = None,
@@ -33,6 +32,7 @@ def logo(  # noqa: PLR0913
     | bool = False,
     panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -67,6 +67,7 @@ def logo(  # noqa: PLR0913
        - S = style
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -125,6 +126,7 @@ def logo(  # noqa: PLR0913
     {verbose}
     {panel}
     {transparency}
+    {perspective}
     """
     self._activate_figure()
 
@@ -151,25 +153,22 @@ def logo(  # noqa: PLR0913
         msg = "Cannot specify both width and height."
         raise GMTInvalidInput(msg)
 
-    _position_types = {
-        "mapcoords": "g",
-        "boxcoords": "n",
-        "plotcoords": "x",
-        "inside": "j",
-        "outside": "J",
-    }
-
     aliasdict = AliasSystem(
         D=Alias(position, name="position")
         if _is_deprecated_position
         else [
             Alias(
-                position,
-                name="position",
-                sep="/",
-                size=2,
-                prefix=_position_types[position_type],
+                position_type,
+                name="position_type",
+                mapping={
+                    "mapcoords": "g",
+                    "boxcoords": "n",
+                    "plotcoords": "x",
+                    "inside": "j",
+                    "outside": "J",
+                },
             ),
+            Alias(position, name="position", sep="/", size=2),
             Alias(anchor, name="anchor", prefix="+j"),
             Alias(anchor_offset, name="anchor_offset", prefix="+o", sep="/", size=2),
             Alias(height, name="height", prefix="+h"),
@@ -184,6 +183,7 @@ def logo(  # noqa: PLR0913
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)
