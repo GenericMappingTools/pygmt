@@ -14,7 +14,6 @@ from pygmt.helpers import (
     data_kind,
     fmt_docstring,
     is_nonstr_iter,
-    kwargs_to_strings,
     use_alias,
 )
 from pygmt.src._common import _data_geometry_is_point
@@ -40,11 +39,9 @@ from pygmt.src._common import _data_geometry_is_point
     f="coltypes",
     g="gap",
     h="header",
-    i="incols",
     l="label",
     w="wrap",
 )
-@kwargs_to_strings(i="sequence_comma")
 def plot(  # noqa: PLR0912, PLR0913
     self,
     data: PathLike | TableLike | None = None,
@@ -62,6 +59,7 @@ def plot(  # noqa: PLR0912, PLR0913
     panel: int | Sequence[int] | bool = False,
     transparency: float | Sequence[float] | bool | None = None,
     perspective: float | Sequence[float] | str | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ):
     r"""
@@ -94,6 +92,7 @@ def plot(  # noqa: PLR0912, PLR0913
        - R = region
        - V = verbose
        - c = panel
+       - i = incols
        - p = perspective
        - t = transparency
 
@@ -301,6 +300,7 @@ def plot(  # noqa: PLR0912, PLR0913
         J=projection,
         V=verbose,
         c=panel,
+        i=incols,
         p=perspective,
         t=transparency,
     )

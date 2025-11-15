@@ -22,9 +22,8 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     a="aspatial",
     b="binary",
     h="header",
-    i="incols",
 )
-@kwargs_to_strings(I="sequence", i="sequence_comma")
+@kwargs_to_strings(I="sequence")
 def binstats(
     data: PathLike | TableLike,
     outgrid: PathLike | None = None,
@@ -51,6 +50,7 @@ def binstats(
     registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -70,6 +70,7 @@ def binstats(
        - C = statistic
        - R = region
        - V = verbose
+       - i = incols
        - r = registration
 
     Parameters
@@ -159,6 +160,7 @@ def binstats(
     ).add_common(
         R=region,
         V=verbose,
+        i=incols,
         r=registration,
     )
     aliasdict.merge(kwargs)
