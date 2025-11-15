@@ -30,5 +30,6 @@ def test_inset_context_manager():
     fig.basemap(region=[-74, -69.5, 41, 43], projection="M9c", frame=True)
     with fig.inset(position="jBL+w3c+o0.2c", margin=0, box=Box(pen="black")):
         fig.basemap(region=[-80, -65, 35, 50], projection="M3c", frame="afg")
-    fig.basemap(rose="jTR+w3c")  # Pass rose argument with basemap after the inset
+    # Plot an rose after the inset
+    fig.directional_rose(position="TR", position_type="inside", width="3c")
     return fig
