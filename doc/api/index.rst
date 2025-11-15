@@ -43,6 +43,7 @@ Plotting tabular data
     :toctree: generated
 
     Figure.contour
+	Figure.coupe
     Figure.histogram
     Figure.meca
     Figure.plot
