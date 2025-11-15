@@ -55,9 +55,9 @@ def nearneighbor(
     function and the averaging used is given by:
 
     .. math::
-        w(r_i) = \frac{{w_i}}{{1 + d(r_i) ^ 2}},
-        \quad d(r) = \frac {{3r}}{{R}},
-        \quad \bar{{z}} = \frac{{\sum_i^n w(r_i) z_i}}{{\sum_i^n w(r_i)}}
+        w(r_i) = \frac{w_i}{1 + d(r_i) ^ 2},
+        \quad d(r) = \frac {3r}{R},
+        \quad \bar{z} = \frac{\sum_i^n w(r_i) z_i}{\sum_i^n w(r_i)}
 
     where :math:`n` is the number of data points that satisfy the selection
     criteria and :math:`r_i` is the distance from the node to the *i*'th data

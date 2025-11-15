@@ -99,7 +99,7 @@ def surface(
         when the maximum absolute change in any grid value is less than
         ``convergence``. (Units same as data z units). Alternatively,
         give limit in percentage of root-mean-square (rms) deviation by
-        appending %. [Default is scaled to :math:`10^{{-4}}` of the rms
+        appending %. [Default is scaled to :math:`10^{-4}` of the rms
         deviation of the data from a best-fit (least-squares) plane.]
         This is the final convergence limit at the desired grid spacing;
         for intermediate (coarser) grids the effective convergence limit is

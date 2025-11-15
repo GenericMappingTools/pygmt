@@ -86,9 +86,9 @@ def project(  # noqa: PLR0913
 
     Data can be selectively windowed by using the ``length`` and ``width``
     parameters. If ``width`` is used, the projection width is set to use only
-    data with :math:`w_{{min}} < q < w_{{max}}`. If ``length`` is set, then
+    data with :math:`w_{min} < q < w_{max}`. If ``length`` is set, then
     the length is set to use only those data with
-    :math:`l_{{min}} < p < l_{{max}}`. If the ``endpoint`` parameter
+    :math:`l_{min} < p < l_{max}`. If the ``endpoint`` parameter
     has been used to define the projection, then ``length="w"`` may be used to
     window the length of the projection to exactly the span from O to B.
 
@@ -98,10 +98,10 @@ def project(  # noqa: PLR0913
     x-axis. azimuth = 90 - theta.
 
     No assumptions are made regarding the units for
-    :math:`x, y, r, s, p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}`.
+    :math:`x, y, r, s, p, q, dist, l_{min}, l_{max}, w_{min}, w_{max}`.
     If ``unit`` is selected, map units are assumed and :math:`x, y, r, s` must
     be in degrees and
-    :math:`p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}`
+    :math:`p, q, dist, l_{min}, l_{max}, w_{min}, w_{max}`
     will be in km.
 
     Calculations of specific great-circle and geodesic distances or for
@@ -159,7 +159,7 @@ def project(  # noqa: PLR0913
         through *cx*/*cy*, append **+c** to compute the required colatitude.
         Use ``center`` and ``endpoint`` to generate a circle that goes
         through the center and end point. Note, in this case the center and
-        end point cannot be farther apart than :math:`2|\mbox{{colat}}|`.
+        end point cannot be farther apart than :math:`2|\mbox{colat}|`.
         Finally, if you append **+h** then we will report the position of
         the pole as part of the segment header [Default is no header].
         **Note**: No input is read and the value of ``data``, ``x``, ``y``,
@@ -167,7 +167,7 @@ def project(  # noqa: PLR0913
     length
         (*lmin*, *lmax*) or ``"limit"``.
         Project only those data whose *p* coordinate is within
-        :math:`l_{{min}} < p < l_{{max}}`. If ``endpoint`` has been set, then you may
+        :math:`l_{min} < p < l_{max}`. If ``endpoint`` has been set, then you may
         alternatively set it to ``"limit"`` to stay within the distance from ``center``
         to ``endpoint``.
     flat_earth : bool
@@ -176,7 +176,7 @@ def project(  # noqa: PLR0913
 
     unit : bool
         Set units for :math:`x, y, r, s` to degrees and
-        :math:`p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}` to km.
+        :math:`p, q, dist, l_{min}, l_{max}, w_{min}, w_{max}` to km.
         [Default is ``False``; all arguments use the same units]
 
     sort : bool
@@ -188,7 +188,7 @@ def project(  # noqa: PLR0913
     width
         (*w_min*, *w_max*).
         Specify width controls for the projected points. Project only those points whose
-        q coordinate is within :math:`w_{{min}} < q < w_{{max}}`.
+        q coordinate is within :math:`w_{min} < q < w_{max}`.
 
     ellipse : str
         *major*/*minor*/*azimuth* [**+e**\|\ **n**].
