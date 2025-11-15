@@ -22,13 +22,10 @@ from pygmt.src._common import _data_geometry_is_point
 
 @fmt_docstring
 @use_alias(
-    B="frame",
     C="cmap",
     D="offset",
     G="fill",
     I="intensity",
-    Jz="zscale",
-    JZ="zsize",
     L="close",
     N="no_clip",
     Q="no_sort",
@@ -44,10 +41,9 @@ from pygmt.src._common import _data_geometry_is_point
     h="header",
     i="incols",
     l="label",
-    p="perspective",
     w="wrap",
 )
-@kwargs_to_strings(i="sequence_comma", p="sequence")
+@kwargs_to_strings(i="sequence_comma")
 def plot3d(  # noqa: PLR0912, PLR0913
     self,
     data: PathLike | TableLike | None = None,
@@ -59,11 +55,15 @@ def plot3d(  # noqa: PLR0912, PLR0913
     direction=None,
     straight_line: bool | Literal["x", "y"] = False,
     projection: str | None = None,
+    zscale: float | str | None = None,
+    zsize: float | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | Sequence[float] | bool | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -91,10 +91,14 @@ def plot3d(  # noqa: PLR0912, PLR0913
 
     {aliases}
        - A = straight_line
+       - B = frame
        - J = projection
+       - Jz = zscale
+       - JZ = zsize
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -117,7 +121,7 @@ def plot3d(  # noqa: PLR0912, PLR0913
         can be angle and length, azimuth and length, or x and y components,
         depending on the style options chosen.
     {projection}
-    zscale/zsize : float or str
+    zscale/zsize
         Set z-axis scaling or z-axis size.
     {region}
     straight_line
@@ -272,11 +276,15 @@ def plot3d(  # noqa: PLR0912, PLR0913
 
     aliasdict = AliasSystem(
         A=Alias(straight_line, name="straight_line"),
+        Jz=Alias(zscale, name="zscale"),
+        JZ=Alias(zsize, name="zsize"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)
