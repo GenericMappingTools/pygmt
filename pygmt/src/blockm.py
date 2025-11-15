@@ -113,7 +113,7 @@ def blockmean(
 
     Full GMT docs at :gmt-docs:`blockmean.html`.
 
-    {aliases}
+    $aliases
        - R = region
        - V = verbose
        - r = registration
@@ -123,12 +123,12 @@ def blockmean(
     data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
     x/y/z : 1-D arrays
         Arrays of x and y coordinates and values z of the data points.
-    {output_type}
-    {outfile}
-    {spacing}
+    $output_type
+    $outfile
+    $spacing
     summary : str
         [**m**\|\ **n**\|\ **s**\|\ **w**].
         Type of summary values calculated by blockmean.
@@ -137,18 +137,18 @@ def blockmean(
         - **n**: report the number of input points inside each block
         - **s**: report the sum of all z-values inside a block
         - **w**: report the sum of weights
-    {region}
-    {verbose}
-    {aspatial}
-    {binary}
-    {nodata}
-    {find}
-    {incols}
-    {coltypes}
-    {header}
-    {outcols}
-    {registration}
-    {wrap}
+    $region
+    $verbose
+    $aspatial
+    $binary
+    $nodata
+    $find
+    $incols
+    $coltypes
+    $header
+    $outcols
+    $registration
+    $wrap
 
     Returns
     -------
@@ -228,7 +228,7 @@ def blockmedian(
 
     Full GMT docs at :gmt-docs:`blockmedian.html`.
 
-    {aliases}
+    $aliases
        - R = region
        - V = verbose
        - r = registration
@@ -238,24 +238,24 @@ def blockmedian(
     data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
     x/y/z : 1-D arrays
         Arrays of x and y coordinates and values z of the data points.
-    {output_type}
-    {outfile}
-    {spacing}
-    {region}
-    {verbose}
-    {aspatial}
-    {binary}
-    {nodata}
-    {find}
-    {coltypes}
-    {header}
-    {incols}
-    {outcols}
-    {registration}
-    {wrap}
+    $output_type
+    $outfile
+    $spacing
+    $region
+    $verbose
+    $aspatial
+    $binary
+    $nodata
+    $find
+    $coltypes
+    $header
+    $incols
+    $outcols
+    $registration
+    $wrap
 
     Returns
     -------
@@ -337,7 +337,7 @@ def blockmode(
 
     Full GMT docs at :gmt-docs:`blockmode.html`.
 
-    {aliases}
+    $aliases
        - R = region
        - V = verbose
        - r = registration
@@ -347,24 +347,24 @@ def blockmode(
     data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
     x/y/z : 1-D arrays
         Arrays of x and y coordinates and values z of the data points.
-    {output_type}
-    {outfile}
-    {spacing}
-    {region}
-    {verbose}
-    {aspatial}
-    {binary}
-    {nodata}
-    {find}
-    {coltypes}
-    {header}
-    {incols}
-    {outcols}
-    {registration}
-    {wrap}
+    $output_type
+    $outfile
+    $spacing
+    $region
+    $verbose
+    $aspatial
+    $binary
+    $nodata
+    $find
+    $coltypes
+    $header
+    $incols
+    $outcols
+    $registration
+    $wrap
 
     Returns
     -------

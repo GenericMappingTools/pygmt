@@ -99,7 +99,7 @@ def grdfill(  # noqa: PLR0913
 
     Full GMT docs at :gmt-docs:`grdfill.html`.
 
-    {aliases}
+    $aliases
        - Ac = constantfill
        - Ag = gridfill
        - An = neighborfill
@@ -111,8 +111,8 @@ def grdfill(  # noqa: PLR0913
 
     Parameters
     ----------
-    {grid}
-    {outgrid}
+    $grid
+    $outgrid
     constantfill
         Fill the holes with a constant value. Specify the constant value to use.
     gridfill
@@ -121,7 +121,7 @@ def grdfill(  # noqa: PLR0913
     neighborfill
         Fill the holes with the nearest neighbor. Specify the search radius in pixels.
         If set to ``True``, the default search radius will be used
-        (:math:`r^2 = \sqrt{{n^2 + m^2}}`, where (*n,m*) are the node dimensions of the
+        (:math:`r^2 = \sqrt{n^2 + m^2}`, where (*n,m*) are the node dimensions of the
         grid).
     splinefill
         Fill the holes with a bicubic spline. Specify the tension value to use. If set
@@ -136,16 +136,16 @@ def grdfill(  # noqa: PLR0913
     mode
         Specify the hole-filling algorithm to use. Choose from **c** for constant fill
         and append the constant value, **n** for nearest neighbor (and optionally append
-        a search radius in pixels [default radius is :math:`r^2 = \sqrt{{ X^2 + Y^2 }}`,
+        a search radius in pixels [default radius is :math:`r^2 = \sqrt{ X^2 + Y^2 }`,
         where (*X,Y*) are the node dimensions of the grid]), or **s** for bicubic spline
         (optionally append a *tension* parameter [Default is no tension]).
 
         .. deprecated:: 0.15.0
             Use ``constantfill``, ``gridfill``, ``neighborfill``, or ``splinefill``
             instead. The parameter will be removed in v0.19.0.
-    {region}
-    {coltypes}
-    {verbose}
+    $region
+    $coltypes
+    $verbose
 
     Returns
     -------

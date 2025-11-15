@@ -46,7 +46,7 @@ def colorbar(
     .. note::
        For GMT >=6.5.0, the fontsizes of the colorbar x-label, x-annotations,
        and y-label are scaled based on the width of the colorbar following
-       :math:`\sqrt{{colorbar\_width / 15}}`. To set a desired fontsize via the
+       :math:`\sqrt{colorbar\_width / 15}`. To set a desired fontsize via the
        GMT default parameters :gmt-term:`FONT_ANNOT_PRIMARY`,
        :gmt-term:`FONT_ANNOT_SECONDARY`, and :gmt-term:`FONT_LABEL` (or jointly
        :gmt-term:`FONT`) users have to divide the desired fontsize by the value
@@ -56,7 +56,7 @@ def colorbar(
 
     Full GMT docs at :gmt-docs:`colorbar.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - F = box
        - I = shading
@@ -71,7 +71,7 @@ def colorbar(
     ----------
     frame : str or list
         Set colorbar boundary frame, labels, and axes attributes.
-    {cmap}
+    $cmap
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         [**+w**\ *length*\ [/\ *width*]]\ [**+e**\ [**b**\|\ **f**][*length*]]\
@@ -135,10 +135,10 @@ def colorbar(
         may be in plot distance units or given as relative fractions and will
         be automatically scaled so that the sum of the widths equals the
         requested colorbar length.
-    {verbose}
-    {panel}
-    {perspective}
-    {transparency}
+    $verbose
+    $panel
+    $perspective
+    $transparency
 
     Example
     -------

@@ -101,7 +101,7 @@ class triangulate:  # noqa: N801
 
         Full GMT docs at :gmt-docs:`triangulate.html`.
 
-        {aliases}
+        $aliases
            - J = projection
            - R = region
            - V = verbose
@@ -114,26 +114,26 @@ class triangulate:  # noqa: N801
         data
             Pass in (x, y[, z]) or (longitude, latitude[, elevation]) values by
             providing a file name to an ASCII data table, a 2-D
-            {table-classes}.
-        {projection}
-        {region}
-        {spacing}
-        {outgrid}
+            $table_classes.
+        $projection
+        $region
+        $spacing
+        $outgrid
             The interpolation is performed in the original coordinates, so if
             your triangles are close to the poles you are better off projecting
             all data to a local coordinate system before using ``triangulate``
             (this is true of all gridding routines) or instead select
             :gmt-docs:`sphtriangulate <sphtriangulate.html>`.
-        {verbose}
-        {binary}
-        {nodata}
-        {find}
-        {coltypes}
-        {header}
-        {incols}
-        {registration}
-        {skiprows}
-        {wrap}
+        $verbose
+        $binary
+        $nodata
+        $find
+        $coltypes
+        $header
+        $incols
+        $registration
+        $skiprows
+        $wrap
 
         Returns
         -------
@@ -218,7 +218,7 @@ class triangulate:  # noqa: N801
 
         Full GMT docs at :gmt-docs:`triangulate.html`
 
-        {aliases}
+        $aliases
            - J = projection
            - R = region
            - V = verbose
@@ -231,20 +231,20 @@ class triangulate:  # noqa: N801
         data
             Pass in (x, y, z) or (longitude, latitude, elevation) values by
             providing a file name to an ASCII data table, a 2-D
-            {table-classes}.
-        {projection}
-        {region}
-        {output_type}
-        {outfile}
-        {verbose}
-        {binary}
-        {nodata}
-        {find}
-        {coltypes}
-        {header}
-        {incols}
-        {skiprows}
-        {wrap}
+            $table_classes.
+        $projection
+        $region
+        $output_type
+        $outfile
+        $verbose
+        $binary
+        $nodata
+        $find
+        $coltypes
+        $header
+        $incols
+        $skiprows
+        $wrap
 
         Returns
         -------

@@ -47,7 +47,7 @@ def sphdistance(
 
     Full GMT docs at :gmt-docs:`sphdistance.html`.
 
-    {aliases}
+    $aliases
        - R = region
        - V = verbose
 
@@ -56,13 +56,13 @@ def sphdistance(
     data
         Pass in (x, y) or (longitude, latitude) values by
         providing a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
     x/y : 1-D arrays
         Arrays of x and y coordinates.
-    {outgrid}
-    {spacing}
-    {region}
-    {verbose}
+    $outgrid
+    $spacing
+    $region
+    $verbose
     single_form : bool
         For large data sets you can save some memory (at the expense of more
         processing) by only storing one form of location coordinates

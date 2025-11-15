@@ -52,7 +52,7 @@ def info(
 
     Full GMT docs at :gmt-docs:`gmtinfo.html`.
 
-    {aliases}
+    $aliases
        - V = verbose
        - r = registration
 
@@ -60,7 +60,7 @@ def info(
     ----------
     data
         Pass in either a file name to an ASCII data table, a 1-D/2-D
-        {table-classes}.
+        $table_classes.
     per_column : bool
         Report the min/max values per column in separate columns.
     spacing : str
@@ -75,11 +75,11 @@ def info(
         Report the min/max of the first (0'th) column to the nearest multiple
         of dz and output this in the form ``[zmin, zmax, dz]``.
 
-    {verbose}
-    {aspatial}
-    {incols}
-    {coltypes}
-    {registration}
+    $verbose
+    $aspatial
+    $incols
+    $coltypes
+    $registration
 
     Returns
     -------
