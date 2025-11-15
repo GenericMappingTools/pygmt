@@ -33,15 +33,15 @@ class Perspective(BaseParam):
 
     #: Azimuth of the viewpoint in degress. Default is 180.0 (looking from south to
     #: north).
-    azimuth: float
+    azimuth: float | None = None
 
-    #: Elevation angle of the viewpoint in degrees. Default is 90.0 (looking from
-    #: directly above).
+    #: Elevation angle of the viewpoint in degrees. Default is 90.0 (looking straight
+    #: down at nadir).
     elevation: float | None = None
 
     #: The z-level at which all 2-D material, like the plot frame, is plotted (only
     #: valid when used in consort with parameters ``zsize``/``zscale``. Default is at
-    #: the bottom of the z-axis].
+    #: the bottom of the z-axis.
     zlevel: float | None = None
 
     #: The plane to plot against the "wall" x = level (using x) or y = level (using y)
@@ -62,9 +62,18 @@ class Perspective(BaseParam):
         """
         Post-initialization processing to validate parameters.
         """
+        # Ensure that center and viewpoint are mutually exclusive.
         if self.center is not None and self.viewpoint is not None:
             msg = "Parameters 'center' and 'viewpoint' are mutually exclusive."
             raise GMTInvalidInput(msg)
+
+        # azimuth is required, so it must be set to the default if not specified.
+        if self.azimuth is None:
+            self.azimuth = 180.0  # Default azimuth is 180.0
+
+        # Set default elevation if zlevel is set but elevation is not.
+        if self.zlevel is not None and self.elevation is None:
+            self.elevation = 90.0  # Default elevation is 90.0
 
     @property
     def _aliases(self):
