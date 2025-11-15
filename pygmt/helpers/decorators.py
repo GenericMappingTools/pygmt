@@ -6,6 +6,7 @@ arguments, insert common text into docstrings, transform arguments to strings, e
 """
 
 import functools
+import string
 import textwrap
 import warnings
 from inspect import Parameter, signature
@@ -467,8 +468,7 @@ def fmt_docstring(module_func):
     # Dedent the docstring to make it all match the option text.
     docstring = textwrap.dedent(module_func.__doc__)
 
-    module_func.__doc__ = docstring.format(**filler_text)
-
+    module_func.__doc__ = string.Template(docstring).safe_substitute(**filler_text)
     return module_func
 
 
