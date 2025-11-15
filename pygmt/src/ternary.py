@@ -8,24 +8,25 @@ from typing import Literal
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.params import Frame
 
 
 @fmt_docstring
-@use_alias(C="cmap", G="fill", JX="width", S="style", W="pen", p="perspective")
-@kwargs_to_strings(p="sequence")
-def ternary(
+@use_alias(C="cmap", G="fill", JX="width", S="style", W="pen")
+def ternary(  # noqa: PLR0913
     self,
     data: PathLike | TableLike,
     alabel: str | None = None,
     blabel: str | None = None,
     clabel: str | None = None,
     region: Sequence[float | str] | str | None = None,
-    frame: str | Sequence[str] | bool = False,
+    frame: Frame | bool | str | Sequence[str] = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -47,6 +48,7 @@ def ternary(
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -96,6 +98,7 @@ def ternary(
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

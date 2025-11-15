@@ -9,7 +9,8 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.datasets.tile_map import load_tile_map
 from pygmt.enums import GridType
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.params import Frame
 
 try:
     from xyzservices import TileProvider
@@ -18,8 +19,7 @@ except ImportError:
 
 
 @fmt_docstring
-@use_alias(E="dpi", I="shading", Q="nan_transparent", p="perspective")
-@kwargs_to_strings(p="sequence")
+@use_alias(E="dpi", I="shading", Q="nan_transparent")
 def tilemap(  # noqa: PLR0913
     self,
     region: Sequence[float],
@@ -32,11 +32,12 @@ def tilemap(  # noqa: PLR0913
     monochrome: bool = False,
     no_clip: bool = False,
     projection: str | None = None,
-    frame: str | Sequence[str] | bool = False,
+    frame: Frame | bool | str | Sequence[str] = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -59,6 +60,7 @@ def tilemap(  # noqa: PLR0913
        - N = no_clip
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -138,6 +140,7 @@ def tilemap(  # noqa: PLR0913
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

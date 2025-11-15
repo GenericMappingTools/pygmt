@@ -16,7 +16,6 @@ from pygmt.helpers import (
     data_kind,
     fmt_docstring,
     is_nonstr_iter,
-    kwargs_to_strings,
     non_ascii_to_octal,
     use_alias,
 )
@@ -33,10 +32,8 @@ from pygmt.helpers import (
     f="coltypes",
     h="header",
     it="use_word",
-    p="perspective",
     w="wrap",
 )
-@kwargs_to_strings(p="sequence")
 def text_(  # noqa: PLR0912, PLR0913, PLR0915
     self,
     textfiles: PathLike | TableLike | None = None,
@@ -53,8 +50,9 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
     frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | Sequence[float] | bool | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -81,6 +79,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -281,6 +280,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

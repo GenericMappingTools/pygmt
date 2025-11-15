@@ -31,9 +31,8 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     e="find",
     h="header",
     i="incols",
-    p="perspective",
 )
-@kwargs_to_strings(i="sequence_comma", p="sequence")
+@kwargs_to_strings(i="sequence_comma")
 def velo(
     self,
     data: PathLike | TableLike | None = None,
@@ -43,8 +42,9 @@ def velo(
     frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -68,6 +68,7 @@ def velo(
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -274,6 +275,7 @@ def velo(
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

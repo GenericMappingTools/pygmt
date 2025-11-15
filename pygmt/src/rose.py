@@ -33,10 +33,9 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     e="find",
     h="header",
     i="incols",
-    p="perspective",
     w="wrap",
 )
-@kwargs_to_strings(i="sequence_comma", p="sequence")
+@kwargs_to_strings(i="sequence_comma")
 def rose(
     self,
     data: PathLike | TableLike | None = None,
@@ -46,8 +45,9 @@ def rose(
     frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     """
@@ -70,6 +70,7 @@ def rose(
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -215,6 +216,7 @@ def rose(
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

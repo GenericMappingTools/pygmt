@@ -15,7 +15,6 @@ from pygmt.helpers import (
     build_arg_list,
     data_kind,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
 )
 from pygmt.src._common import _FocalMechanismConvention
@@ -125,9 +124,7 @@ def _auto_offset(spec) -> bool:
     L="outline",
     T="nodal",
     W="pen",
-    p="perspective",
 )
-@kwargs_to_strings(p="sequence")
 def meca(  # noqa: PLR0913
     self,
     spec: PathLike | TableLike,
@@ -146,8 +143,9 @@ def meca(  # noqa: PLR0913
     frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -209,6 +207,7 @@ def meca(  # noqa: PLR0913
        - S = scale/convention/component
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -380,6 +379,7 @@ def meca(  # noqa: PLR0913
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

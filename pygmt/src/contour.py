@@ -32,9 +32,8 @@ from pygmt.helpers import (
     h="header",
     i="incols",
     l="label",
-    p="perspective",
 )
-@kwargs_to_strings(i="sequence_comma", p="sequence")
+@kwargs_to_strings(i="sequence_comma")
 def contour(  # noqa: PLR0913
     self,
     data: PathLike | TableLike | None = None,
@@ -47,8 +46,9 @@ def contour(  # noqa: PLR0913
     frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -68,6 +68,7 @@ def contour(  # noqa: PLR0913
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -171,6 +172,7 @@ def contour(  # noqa: PLR0913
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)
