@@ -9,7 +9,7 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.datasets.tile_map import load_tile_map
 from pygmt.enums import GridType
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 try:
     from xyzservices import TileProvider
@@ -18,14 +18,7 @@ except ImportError:
 
 
 @fmt_docstring
-@use_alias(
-    B="frame",
-    E="dpi",
-    I="shading",
-    Q="nan_transparent",
-    p="perspective",
-)
-@kwargs_to_strings(p="sequence")
+@use_alias(E="dpi", I="shading", Q="nan_transparent")
 def tilemap(  # noqa: PLR0913
     self,
     region: Sequence[float],
@@ -38,10 +31,12 @@ def tilemap(  # noqa: PLR0913
     monochrome: bool = False,
     no_clip: bool = False,
     projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -58,11 +53,13 @@ def tilemap(  # noqa: PLR0913
     provide Spherical Mercator (EPSG:3857) coordinates to the ``region`` parameter.
 
     {aliases}
+       - B = frame
        - J = projection
        - M = monochrome
        - N = no_clip
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -137,10 +134,12 @@ def tilemap(  # noqa: PLR0913
         M=Alias(monochrome, name="monochrome"),
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

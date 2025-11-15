@@ -25,7 +25,6 @@ __doctest_skip__ = ["grdcontour"]
 @deprecate_parameter("interval", "levels", "v0.12.0", remove_version="v0.16.0")
 @use_alias(
     A="annotation",
-    B="frame",
     C="levels",
     G="label_placement",
     L="limit",
@@ -34,18 +33,19 @@ __doctest_skip__ = ["grdcontour"]
     W="pen",
     l="label",
     f="coltypes",
-    p="perspective",
 )
-@kwargs_to_strings(L="sequence", p="sequence")
+@kwargs_to_strings(L="sequence")
 def grdcontour(
     self,
     grid: PathLike | xr.DataArray,
     projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -56,10 +56,12 @@ def grdcontour(
     Full GMT docs at :gmt-docs:`grdcontour.html`.
 
     {aliases}
+       - B = frame
        - J = projection
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -166,10 +168,12 @@ def grdcontour(
                 kwargs[arg] = ",".join(f"{item}" for item in kwargs[arg])
 
     aliasdict = AliasSystem().add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

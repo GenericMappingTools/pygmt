@@ -307,6 +307,8 @@ class AliasSystem(UserDict):
         """
         for key, value in kwargs.items():
             match key:
+                case "B":
+                    alias = Alias(value, name="frame")
                 case "J":
                     alias = Alias(value, name="projection")
                 case "R":
@@ -333,6 +335,8 @@ class AliasSystem(UserDict):
                         name="registration",
                         mapping={"gridline": "g", "pixel": "p"},
                     )
+                case "p":
+                    alias = Alias(value, name="perspective", sep="/", size={2, 3})
                 case "t":
                     alias = Alias(value, name="transparency")
                 case "x":

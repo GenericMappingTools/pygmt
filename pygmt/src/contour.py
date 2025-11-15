@@ -20,7 +20,6 @@ from pygmt.helpers import (
 @fmt_docstring
 @use_alias(
     A="annotation",
-    B="frame",
     C="levels",
     G="label_placement",
     L="triangular_mesh_pen",
@@ -33,9 +32,8 @@ from pygmt.helpers import (
     h="header",
     i="incols",
     l="label",
-    p="perspective",
 )
-@kwargs_to_strings(i="sequence_comma", p="sequence")
+@kwargs_to_strings(i="sequence_comma")
 def contour(  # noqa: PLR0913
     self,
     data: PathLike | TableLike | None = None,
@@ -44,11 +42,13 @@ def contour(  # noqa: PLR0913
     z=None,
     no_clip: bool = False,
     projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -62,11 +62,13 @@ def contour(  # noqa: PLR0913
     Full GMT docs at :gmt-docs:`contour.html`.
 
     {aliases}
+       - B = frame
        - J = projection
        - N = no_clip
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -165,10 +167,12 @@ def contour(  # noqa: PLR0913
     aliasdict = AliasSystem(
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

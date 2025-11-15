@@ -15,27 +15,21 @@ __doctest_skip__ = ["colorbar"]
 
 @fmt_docstring
 @use_alias(
-    B="frame",
-    C="cmap",
-    D="position",
-    G="truncate",
-    L="equalsize",
-    Q="log",
-    W="scale",
-    Z="zfile",
-    p="perspective",
+    C="cmap", D="position", G="truncate", L="equalsize", Q="log", W="scale", Z="zfile"
 )
-@kwargs_to_strings(G="sequence", I="sequence", p="sequence")
+@kwargs_to_strings(G="sequence", I="sequence")
 def colorbar(
     self,
     shading: float | Sequence[float] | bool = False,
     projection: str | None = None,
     box: Box | bool = False,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -63,12 +57,14 @@ def colorbar(
     Full GMT docs at :gmt-docs:`colorbar.html`.
 
     {aliases}
+       - B = frame
        - F = box
        - I = shading
        - J = projection
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -167,10 +163,12 @@ def colorbar(
         F=Alias(box, name="box"),
         I=Alias(shading, name="shading", sep="/", size=2),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

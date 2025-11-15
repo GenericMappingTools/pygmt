@@ -9,14 +9,13 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdimage"]
 
 
 @fmt_docstring
 @use_alias(
-    B="frame",
     C="cmap",
     D="img_in",
     E="dpi",
@@ -25,20 +24,20 @@ __doctest_skip__ = ["grdimage"]
     Q="nan_transparent",
     n="interpolation",
     f="coltypes",
-    p="perspective",
 )
-@kwargs_to_strings(p="sequence")
-def grdimage(
+def grdimage(  # noqa: PLR0913
     self,
     grid: PathLike | xr.DataArray,
     monochrome: bool = False,
     no_clip: bool = False,
     projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     cores: int | bool = False,
     **kwargs,
 ):
@@ -76,12 +75,14 @@ def grdimage(
     Full GMT docs at :gmt-docs:`grdimage.html`.
 
     {aliases}
+       - B = frame
        - J = projection
        - M = monochrome
        - N = no_clip
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
        - x = cores
 
@@ -181,10 +182,12 @@ def grdimage(
         M=Alias(monochrome, name="monochrome"),
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
         x=cores,
     )

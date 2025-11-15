@@ -40,7 +40,6 @@ def _parse_fills(fillpositive, fillnegative):
 
 @fmt_docstring
 @use_alias(
-    B="frame",
     D="position",
     T="track",
     W="pen",
@@ -52,10 +51,9 @@ def _parse_fills(fillpositive, fillnegative):
     g="gap",
     h="header",
     i="incols",
-    p="perspective",
     w="wrap",
 )
-@kwargs_to_strings(i="sequence_comma", p="sequence")
+@kwargs_to_strings(i="sequence_comma")
 def wiggle(  # noqa: PLR0913
     self,
     data: PathLike | TableLike | None = None,
@@ -66,10 +64,12 @@ def wiggle(  # noqa: PLR0913
     fillnegative=None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -83,11 +83,13 @@ def wiggle(  # noqa: PLR0913
     Full GMT docs at :gmt-docs:`wiggle.html`.
 
     {aliases}
+       - B = frame
        - G = **+p**: fillpositive, **+n**: fillnegative
        - J = projection
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -141,10 +143,12 @@ def wiggle(  # noqa: PLR0913
     aliasdict = AliasSystem(
         G=Alias(_fills, name="fillpositive/fillnegative"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)
