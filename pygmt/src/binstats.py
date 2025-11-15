@@ -76,7 +76,7 @@ def binstats(
     ----------
     data
         A file name of an ASCII data table or a 2-D {table-classes}.
-    {outgrid}
+    $outgrid
     statistic
         Choose the statistic that will be computed per node based on the points that are
         within *radius* distance of the node. Select one of:
@@ -115,14 +115,14 @@ def binstats(
         computed while the count will be the sum of the weights instead of
         number of points. If the weights are actually uncertainties
         (one sigma) then append **+s** and weight = 1/sigma.
-    {spacing}
-    {region}
-    {verbose}
-    {aspatial}
-    {binary}
-    {header}
-    {incols}
-    {registration}
+    $spacing
+    $region
+    $verbose
+    $aspatial
+    $binary
+    $header
+    $incols
+    $registration
 
     Returns
     -------

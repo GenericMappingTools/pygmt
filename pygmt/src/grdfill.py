@@ -111,8 +111,8 @@ def grdfill(  # noqa: PLR0913
 
     Parameters
     ----------
-    {grid}
-    {outgrid}
+    $grid
+    $outgrid
     constantfill
         Fill the holes with a constant value. Specify the constant value to use.
     gridfill
@@ -143,9 +143,9 @@ def grdfill(  # noqa: PLR0913
         .. deprecated:: 0.15.0
             Use ``constantfill``, ``gridfill``, ``neighborfill``, or ``splinefill``
             instead. The parameter will be removed in v0.19.0.
-    {region}
-    {coltypes}
-    {verbose}
+    $region
+    $coltypes
+    $verbose
 
     Returns
     -------

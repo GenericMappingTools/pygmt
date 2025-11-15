@@ -67,14 +67,14 @@ def histogram(
     data
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         {table-classes}.
-    {projection}
-    {region}
-    {frame}
-    {cmap}
+    $projection
+    $region
+    $frame
+    $cmap
     fill : str
          Set color or pattern for filling bars [Default is no fill].
-    {pen}
-    {panel}
+    $pen
+    $panel
     annotate : bool or str
         [**+b**][**+f**\ *font*][**+o**\ *off*][**+r**].
         Annotate each bar with the count it represents. Append any of the
@@ -138,16 +138,16 @@ def histogram(
 
         To use weights provided as a second data column instead of pure counts,
         append **+w**.
-    {verbose}
-    {binary}
-    {nodata}
-    {find}
-    {header}
-    {incols}
-    {label}
-    {perspective}
-    {transparency}
-    {wrap}
+    $verbose
+    $binary
+    $nodata
+    $find
+    $header
+    $incols
+    $label
+    $perspective
+    $transparency
+    $wrap
     """
     self._activate_figure()
 

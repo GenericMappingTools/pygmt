@@ -79,8 +79,8 @@ def contour(  # noqa: PLR0913
         {table-classes}.
     x/y/z : 1-D arrays
         Arrays of x and y coordinates and values z of the data points.
-    {projection}
-    {region}
+    $projection
+    $region
     annotation : float, list, or str
         Specify or disable annotated contour levels, modifies annotated
         contours specified in ``levels``.
@@ -91,7 +91,7 @@ def contour(  # noqa: PLR0913
         - Adjust the appearance by appending different modifiers, e.g.,
           ``"annot_int+f10p+gred"`` gives annotations with a font size of 10 points and
           a red filled box. For all available modifiers see :gmt-docs:`contour.html#a`.
-    {frame}
+    $frame
     levels : float, list, or str
         Specify the contour lines to generate.
 
@@ -140,16 +140,16 @@ def contour(  # noqa: PLR0913
         to be of the format [*annotcontlabel*][/*contlabel*]. If either
         label contains a slash (/) character then use ``|`` as the
         separator for the two labels instead.
-    {verbose}
-    {binary}
-    {panel}
-    {nodata}
-    {find}
-    {coltypes}
-    {header}
-    {incols}
-    {perspective}
-    {transparency}
+    $verbose
+    $binary
+    $panel
+    $nodata
+    $find
+    $coltypes
+    $header
+    $incols
+    $perspective
+    $transparency
     """
     self._activate_figure()
 

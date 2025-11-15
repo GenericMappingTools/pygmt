@@ -56,7 +56,7 @@ def which(
         where GMT normally places downloaded files), **c** to place it in
         the user cache directory, or **u** for the user data directory
         instead (i.e., ignoring any subdirectory structure).
-    {verbose}
+    $verbose
 
     Returns
     -------

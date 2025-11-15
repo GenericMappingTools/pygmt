@@ -46,8 +46,8 @@ def filter1d(
 
     Parameters
     ----------
-    {output_type}
-    {outfile}
+    $output_type
+    $outfile
     filter_type : str
         **type**\ *width*\ [**+h**].
         Set the filter **type**. Choose among convolution and non-convolution

@@ -53,15 +53,15 @@ def grdcut(
 
     Parameters
     ----------
-    {grid}
+    $grid
     kind
         The raster data kind. Valid values are ``"grid"`` and ``"image"``. When the
         input ``grid`` is a file name, it's difficult to determine if the file is a grid
         or an image, so we need to specify the raster kind explicitly. The default is
         ``"grid"``.
-    {outgrid}
-    {projection}
-    {region}
+    $outgrid
+    $projection
+    $region
     extend : bool or float
         Allow grid to be extended if new ``region`` exceeds existing
         boundaries. Give a value to initialize nodes outside current region.
@@ -87,8 +87,8 @@ def grdcut(
         considering the range of the core subset for further reduction of the
         area.
 
-    {verbose}
-    {coltypes}
+    $verbose
+    $coltypes
 
     Returns
     -------

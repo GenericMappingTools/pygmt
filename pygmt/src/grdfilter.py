@@ -50,8 +50,8 @@ def grdfilter(
 
     Parameters
     ----------
-    {grid}
-    {outgrid}
+    $grid
+    $outgrid
     filter : str
         **b**\|\ **c**\|\ **g**\|\ **o**\|\ **m**\|\ **p**\|\ **h**\ *width*\
         [/*width2*\][*modifiers*].
@@ -87,7 +87,7 @@ def grdfilter(
         - ``"5"``: grid (x,y) in Mercator ``projection="m1"`` img units,
           *width* in km, Spherical distance calculation.
 
-    {spacing}
+    $spacing
     nans : str or float
         **i**\|\ **p**\|\ **r**.
         Determine how NaN-values in the input grid affect the filtered output.
@@ -96,15 +96,15 @@ def grdfilter(
         the output node will be set to NaN (only applies if both grids are
         co-registered). **p** will force the filtered value to be NaN if any
         grid nodes with NaN-values are found inside the filter circle.
-    {region}
+    $region
     toggle
         Toggle the node registration for the output grid so as to become the opposite of
         the input grid [Default gives the same registration as the input grid].
         Alternatively, use ``registration`` to set the registration explicitly.
-    {verbose}
-    {coltypes}
-    {registration}
-    {cores}
+    $verbose
+    $coltypes
+    $registration
+    $cores
 
     Returns
     -------

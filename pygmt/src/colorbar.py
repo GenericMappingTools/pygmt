@@ -71,7 +71,7 @@ def colorbar(
     ----------
     frame : str or list
         Set colorbar boundary frame, labels, and axes attributes.
-    {cmap}
+    $cmap
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         [**+w**\ *length*\ [/\ *width*]]\ [**+e**\ [**b**\|\ **f**][*length*]]\
@@ -135,10 +135,10 @@ def colorbar(
         may be in plot distance units or given as relative fractions and will
         be automatically scaled so that the sum of the widths equals the
         requested colorbar length.
-    {verbose}
-    {panel}
-    {perspective}
-    {transparency}
+    $verbose
+    $panel
+    $perspective
+    $transparency
 
     Example
     -------

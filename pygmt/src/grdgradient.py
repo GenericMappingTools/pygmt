@@ -55,8 +55,8 @@ def grdgradient(
 
     Parameters
     ----------
-    {grid}
-    {outgrid}
+    $grid
+    $outgrid
     azimuth : float, str, or list
         *azim*\ [/*azim2*].
         Azimuthal direction for a directional derivative; *azim* is the
@@ -141,13 +141,13 @@ def grdgradient(
         grid output is not needed for this run then do not specify
         ``outgrid``. For subsequent runs, just use **r** to read these
         values. Using **R** will read then delete the statistics file.
-    {region}
+    $region
     slope_file : str
         Name of output grid file with scalar magnitudes of gradient vectors.
         Requires ``direction`` but makes ``outgrid`` optional.
-    {verbose}
-    {coltypes}
-    {interpolation}
+    $verbose
+    $coltypes
+    $interpolation
 
     Returns
     -------

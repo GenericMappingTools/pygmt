@@ -117,8 +117,8 @@ def plot(  # noqa: PLR0912, PLR0913
         should be a list of two 1-D arrays with the vector directions. These
         can be angle and length, azimuth and length, or x and y components,
         depending on the style options chosen.
-    {projection}
-    {region}
+    $projection
+    $region
     straight_line
         By default, line segments are drawn as straight lines in the Cartesian and polar
         coordinate systems, and as great circle arcs (by resampling coarse input data
@@ -142,8 +142,8 @@ def plot(  # noqa: PLR0912, PLR0913
             meaning of *x* and *y* is reversed, i.e., *x* means meridians and *y* means
             parallels. The bug is fixed by upstream
             `PR #8648 <https://github.com/GenericMappingTools/gmt/pull/8648>`__.
-    {frame}
-    {cmap}
+    $frame
+    $cmap
     offset : str
         *dx*/*dy*.
         Offset the plot symbol or line locations by the given amounts
@@ -179,7 +179,7 @@ def plot(  # noqa: PLR0912, PLR0913
         Instead of the codes **a**\|\ **r**\|\ **s**\|\ **t** you may append the
         coordinates of a *refpoint* which will serve as a fixed external reference point
         for all groups.
-    {fill}
+    $fill
         *fill* can be a 1-D array, but it is only valid if using ``x``/``y``
         and ``cmap=True`` is also required.
     intensity : float, bool, or 1-D array
@@ -210,8 +210,8 @@ def plot(  # noqa: PLR0912, PLR0913
     style : str
         Plot symbols (including vectors, pie slices, fronts, decorated or
         quoted lines).
-    {pen}
-    {verbose}
+    $pen
+    $verbose
     zvalue : str
         *value*\|\ *file*.
         Instead of specifying a symbol or polygon fill and outline color
@@ -221,21 +221,21 @@ def plot(  # noqa: PLR0912, PLR0913
         polygon in the input data. To apply it to the fill color, use
         ``fill="+z"``. To apply it to the pen color, append **+z** to
         ``pen``.
-    {aspatial}
-    {binary}
-    {panel}
-    {nodata}
-    {find}
-    {coltypes}
-    {gap}
-    {header}
-    {incols}
-    {label}
-    {perspective}
-    {transparency}
+    $aspatial
+    $binary
+    $panel
+    $nodata
+    $find
+    $coltypes
+    $gap
+    $header
+    $incols
+    $label
+    $perspective
+    $transparency
         ``transparency`` can also be a 1-D array to set varying transparency for
         symbols, but this option is only valid if using ``x``/``y``.
-    {wrap}
+    $wrap
     """
     # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
     # parameter.

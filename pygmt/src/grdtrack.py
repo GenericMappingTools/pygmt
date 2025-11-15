@@ -85,13 +85,13 @@ def grdtrack(
 
     Parameters
     ----------
-    {grid}
+    $grid
 
     points
         Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
-    {output_type}
-    {outfile}
+    $output_type
+    $outfile
     newcolname : str
         Required if ``points`` is a :class:`pandas.DataFrame`. The name for the
         new column in the track :class:`pandas.DataFrame` table where the
@@ -195,7 +195,7 @@ def grdtrack(
         nearest distance nodes along the cross-profiles. We write 13 output
         columns per track: *dist, lonc, latc, distc, azimuthc, zc, lonl, latl,
         distl, lonr, latr, distr, width*.
-    {region}
+    $region
     no_skip : bool
         Do *not* skip points that fall outside the domain of the grid(s)
         [Default only output points within the grid domain].
@@ -253,22 +253,22 @@ def grdtrack(
         spherical degrees. Use *radius* to change the unit and give *radius* =
         0 if you do not want to limit the radius search. To instead replace the
         input point with the coordinates of the nearest node, append **+p**.
-    {verbose}
+    $verbose
     z_only : bool
         Only write out the sampled z-values [Default writes all columns].
-    {aspatial}
-    {binary}
-    {nodata}
-    {find}
-    {coltypes}
-    {gap}
-    {header}
-    {incols}
-    {distcalc}
-    {interpolation}
-    {outcols}
-    {skiprows}
-    {wrap}
+    $aspatial
+    $binary
+    $nodata
+    $find
+    $coltypes
+    $gap
+    $header
+    $incols
+    $distcalc
+    $interpolation
+    $outcols
+    $skiprows
+    $wrap
 
     Returns
     -------

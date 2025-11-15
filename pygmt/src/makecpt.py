@@ -157,7 +157,7 @@ def makecpt(
     continuous
         Force a continuous CPT when building from a list of colors and a list of
         z-values [Default is False, i.e. discrete CPT].
-    {verbose}
+    $verbose
     categorical : bool
         Do not interpolate the input color table but pick the output colors
         starting at the beginning of the color table, until colors for all

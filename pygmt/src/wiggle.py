@@ -101,14 +101,14 @@ def wiggle(  # noqa: PLR0913
         {table-classes}.
         Use parameter ``incols`` to choose which columns are x, y, z,
         respectively.
-    {projection}
-    {region}
+    $projection
+    $region
     scale : str or float
         Give anomaly scale in data-units/distance-unit. Append **c**, **i**,
         or **p** to indicate the distance unit (centimeters, inches, or
         points); if no unit is given we use the default unit that is
         controlled by :gmt-term:`PROJ_LENGTH_UNIT`.
-    {frame}
+    $frame
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *length*\ [**+j**\ *justify*]\ [**+al**\|\ **r**]\
@@ -121,20 +121,20 @@ def wiggle(  # noqa: PLR0913
     track : str
         Draw track [Default is no track]. Append pen attributes to use
         [Default is ``"0.25p,black,solid"``].
-    {verbose}
+    $verbose
     pen : str
         Specify outline pen attributes [Default is no outline].
-    {binary}
-    {panel}
-    {nodata}
-    {find}
-    {coltypes}
-    {gap}
-    {header}
-    {incols}
-    {perspective}
-    {transparency}
-    {wrap}
+    $binary
+    $panel
+    $nodata
+    $find
+    $coltypes
+    $gap
+    $header
+    $incols
+    $perspective
+    $transparency
+    $wrap
     """
     self._activate_figure()
 

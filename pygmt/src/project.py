@@ -124,8 +124,8 @@ def project(  # noqa: PLR0913
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
-    {output_type}
-    {outfile}
+    $output_type
+    $outfile
 
     center
         Set the origin of the projection, in the form of (*cx*, *cy*), in Definitions 1
@@ -207,8 +207,8 @@ def project(  # noqa: PLR0913
         For the Cartesian ellipse (which requires ``flat_earth``), the
         *direction* is counter-clockwise from the horizontal instead of an
         *azimuth*.
-    {verbose}
-    {coltypes}
+    $verbose
+    $coltypes
 
     Returns
     -------

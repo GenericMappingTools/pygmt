@@ -341,13 +341,13 @@ def meca(  # noqa: PLR0913
     no_clip
         Do **not** skip symbols that fall outside the frame boundaries [Default is
         ``False``, i.e., plot symbols inside the frame boundaries only].
-    {projection}
-    {region}
-    {frame}
-    {verbose}
-    {panel}
-    {perspective}
-    {transparency}
+    $projection
+    $region
+    $frame
+    $verbose
+    $panel
+    $perspective
+    $transparency
     """
     self._activate_figure()
     # Determine the focal mechanism convention from the input data or parameters.

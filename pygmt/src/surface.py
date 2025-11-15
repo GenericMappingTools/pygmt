@@ -90,10 +90,10 @@ def surface(
     x/y/z : 1-D arrays
         Arrays of x and y coordinates and values z of the data points.
 
-    {spacing}
+    $spacing
 
-    {region}
-    {outgrid}
+    $region
+    $outgrid
     convergence : float
         Optional. Convergence limit. Iteration is assumed to have converged
         when the maximum absolute change in any grid value is less than
@@ -138,16 +138,16 @@ def surface(
         set boundary tension. If you do not prepend **i** or **b**, both
         will be set to the same value. [Default is 0 for both and gives
         minimum curvature solution.]
-    {verbose}
-    {aspatial}
-    {binary}
-    {nodata}
-    {find}
-    {coltypes}
-    {header}
-    {incols}
-    {registration}
-    {wrap}
+    $verbose
+    $aspatial
+    $binary
+    $nodata
+    $find
+    $coltypes
+    $header
+    $incols
+    $registration
+    $wrap
 
     Returns
     -------

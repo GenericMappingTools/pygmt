@@ -51,9 +51,9 @@ def grdvolume(
 
     Parameters
     ----------
-    {grid}
-    {output_type}
-    {outfile}
+    $grid
+    $output_type
+    $outfile
     contour : str, float, or list
         *cval*\|\ *low/high/delta*\|\ **r**\ *low/high*\|\ **r**\ *cval*.
         Find area, volume and mean height (volume/area) inside and above the
@@ -68,8 +68,8 @@ def grdvolume(
         between two contours. If no *contour* is given then there is no contour
         and the entire grid area, volume and the mean height is returned and
         *cval* will be reported as 0.
-    {region}
-    {verbose}
+    $region
+    $verbose
 
     Returns
     -------

@@ -48,15 +48,15 @@ def sph2grd(
         Pass in data with L, M, C[L,M], S[L,M] values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
-    {outgrid}
-    {spacing}
-    {region}
-    {verbose}
-    {binary}
-    {header}
-    {incols}
-    {registration}
-    {cores}
+    $outgrid
+    $spacing
+    $region
+    $verbose
+    $binary
+    $header
+    $incols
+    $registration
+    $cores
 
     Returns
     -------

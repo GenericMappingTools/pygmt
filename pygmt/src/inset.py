@@ -102,9 +102,9 @@ def inset(
     no_clip
         Do **not** clip features extruding outside the inset frame boundaries [Default
         is ``False``].
-    {region}
-    {projection}
-    {verbose}
+    $region
+    $projection
+    $verbose
 
     Examples
     --------

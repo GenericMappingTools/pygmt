@@ -59,10 +59,10 @@ def sphdistance(
         {table-classes}.
     x/y : 1-D arrays
         Arrays of x and y coordinates.
-    {outgrid}
-    {spacing}
-    {region}
-    {verbose}
+    $outgrid
+    $spacing
+    $region
+    $verbose
     single_form : bool
         For large data sets you can save some memory (at the expense of more
         processing) by only storing one form of location coordinates

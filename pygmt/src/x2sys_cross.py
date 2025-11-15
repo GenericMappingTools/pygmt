@@ -159,7 +159,7 @@ def x2sys_cross(
         Use **e** for external COEs only, and **i** for internal COEs only
         [Default is all COEs].
 
-    {region}
+    $region
 
     speed : str or list
         **l**\|\ **u**\|\ **h**\ *speed*.
@@ -176,7 +176,7 @@ def x2sys_cross(
         speed of 0, upper speed of 10, and disable heading calculations for
         speeds below 5.
 
-    {verbose}
+    $verbose
 
     numpoints : int
         Give the maximum number of data points on either side of the crossover

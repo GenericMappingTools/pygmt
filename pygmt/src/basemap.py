@@ -58,12 +58,12 @@ def basemap(
 
     Parameters
     ----------
-    {projection}
+    $projection
     zscale/zsize
         Set z-axis scaling or z-axis size.
-    {region}
+    $region
         *Required if this is the first plot command.*
-    {frame}
+    $frame
     map_scale : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *length*.
@@ -92,11 +92,11 @@ def basemap(
     compass : str
         Draw a map magnetic rose on the map at the location defined by the
         reference and anchor points.
-    {verbose}
-    {panel}
-    {coltypes}
-    {perspective}
-    {transparency}
+    $verbose
+    $panel
+    $coltypes
+    $perspective
+    $transparency
     """
     self._activate_figure()
 

@@ -93,14 +93,14 @@ def nearneighbor(
     x/y/z : 1-D arrays
         Arrays of x and y coordinates and values z of the data points.
 
-    {spacing}
+    $spacing
 
-    {region}
+    $region
 
     search_radius : str
         Set the search radius that determines which data points are considered
         close to a node.
-    {outgrid}
+    $outgrid
     empty : str
         Optional. Set the value assigned to empty nodes. Defaults to NaN.
 
@@ -118,17 +118,17 @@ def nearneighbor(
         Alternatively, use ``sectors="n"`` to call GDAL's nearest neighbor
         algorithm instead.
 
-    {verbose}
-    {aspatial}
-    {binary}
-    {nodata}
-    {find}
-    {coltypes}
-    {gap}
-    {header}
-    {incols}
-    {registration}
-    {wrap}
+    $verbose
+    $aspatial
+    $binary
+    $nodata
+    $find
+    $coltypes
+    $gap
+    $header
+    $incols
+    $registration
+    $wrap
 
     Returns
     -------

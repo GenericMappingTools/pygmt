@@ -67,8 +67,8 @@ def legend(
         - A :class:`io.StringIO` object containing the legend specification
 
         See :gmt-docs:`legend.html` for the definition of the legend specification.
-    {projection}
-    {region}
+    $projection
+    $region
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *width*\ [/*height*]\ [**+j**\ *justify*]\ [**+l**\ *spacing*]\
@@ -82,10 +82,10 @@ def legend(
         rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
         appearance, pass a :class:`pygmt.params.Box` object to control style, fill, pen,
         and other box properties.
-    {verbose}
-    {panel}
-    {perspective}
-    {transparency}
+    $verbose
+    $panel
+    $perspective
+    $transparency
     """
     self._activate_figure()
 

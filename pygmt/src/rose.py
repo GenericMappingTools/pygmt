@@ -198,16 +198,16 @@ def rose(
         Statistics, *J. Stat. Software*, 31(10), 1-21,
         https://doi.org/10.18637/jss.v031.i10.
 
-    {verbose}
-    {binary}
-    {panel}
-    {nodata}
-    {find}
-    {header}
-    {incols}
-    {perspective}
-    {transparency}
-    {wrap}
+    $verbose
+    $binary
+    $panel
+    $nodata
+    $find
+    $header
+    $incols
+    $perspective
+    $transparency
+    $wrap
     """
     self._activate_figure()
 
