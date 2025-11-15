@@ -90,7 +90,7 @@ def x2sys_cross(
 
     Full GMT docs at :gmt-docs:`supplements/x2sys/x2sys_cross.html`.
 
-    {aliases}
+    $aliases
        - R = region
        - V = verbose
 

@@ -46,7 +46,7 @@ def grdcut(
 
     Full GMT docs at :gmt-docs:`grdcut.html`.
 
-    {aliases}
+    $aliases
        - J = projection
        - R = region
        - V = verbose

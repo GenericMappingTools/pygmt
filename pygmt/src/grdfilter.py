@@ -41,7 +41,7 @@ def grdfilter(
 
     Full GMT docs at :gmt-docs:`grdfilter.html`.
 
-    {aliases}
+    $aliases
        - R = region
        - T = toggle
        - V = verbose

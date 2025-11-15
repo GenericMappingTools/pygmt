@@ -99,7 +99,7 @@ def grdfill(  # noqa: PLR0913
 
     Full GMT docs at :gmt-docs:`grdfill.html`.
 
-    {aliases}
+    $aliases
        - Ac = constantfill
        - Ag = gridfill
        - An = neighborfill

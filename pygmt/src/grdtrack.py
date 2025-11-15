@@ -79,7 +79,7 @@ def grdtrack(
 
     Full GMT docs at :gmt-docs:`grdtrack.html`.
 
-    {aliases}
+    $aliases
        - R = region
        - V = verbose
 
@@ -89,7 +89,7 @@ def grdtrack(
 
     points
         Pass in either a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
     $output_type
     $outfile
     newcolname : str

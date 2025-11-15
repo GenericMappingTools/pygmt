@@ -101,7 +101,7 @@ class triangulate:  # noqa: N801
 
         Full GMT docs at :gmt-docs:`triangulate.html`.
 
-        {aliases}
+        $aliases
            - J = projection
            - R = region
            - V = verbose
@@ -114,7 +114,7 @@ class triangulate:  # noqa: N801
         data
             Pass in (x, y[, z]) or (longitude, latitude[, elevation]) values by
             providing a file name to an ASCII data table, a 2-D
-            {table-classes}.
+            $table_classes.
         $projection
         $region
         $spacing
@@ -218,7 +218,7 @@ class triangulate:  # noqa: N801
 
         Full GMT docs at :gmt-docs:`triangulate.html`
 
-        {aliases}
+        $aliases
            - J = projection
            - R = region
            - V = verbose
@@ -231,7 +231,7 @@ class triangulate:  # noqa: N801
         data
             Pass in (x, y, z) or (longitude, latitude, elevation) values by
             providing a file name to an ASCII data table, a 2-D
-            {table-classes}.
+            $table_classes.
         $projection
         $region
         $output_type

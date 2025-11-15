@@ -53,7 +53,7 @@ def histogram(
 
     Full GMT docs at :gmt-docs:`histogram.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - J = projection
        - R = region
@@ -66,7 +66,7 @@ def histogram(
     ----------
     data
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
-        {table-classes}.
+        $table_classes.
     $projection
     $region
     $frame

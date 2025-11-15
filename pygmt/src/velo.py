@@ -61,7 +61,7 @@ def velo(
 
     Full GMT docs at :gmt-docs:`supplements/geodesy/velo.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - J = projection
        - N = no_clip
@@ -75,7 +75,7 @@ def velo(
     ----------
     data
         Pass in either a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
         Note that text columns are only supported with file or
         :class:`pandas.DataFrame` inputs.
 

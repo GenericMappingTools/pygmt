@@ -65,7 +65,7 @@ def rose(
 
     Full GMT docs at :gmt-docs:`rose.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - R = region
        - V = verbose
@@ -77,7 +77,7 @@ def rose(
     ----------
     data
         Pass in either a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
         Use parameter ``incols`` to choose which columns are length and
         azimuth, respectively. If a file with only azimuths is given, use
         ``incols`` to indicate the single column with azimuths; then all

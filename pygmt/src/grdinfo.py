@@ -44,7 +44,7 @@ def grdinfo(
 
     Full GMT docs at :gmt-docs:`grdinfo.html`.
 
-    {aliases}
+    $aliases
        - R = region
        - V = verbose
 

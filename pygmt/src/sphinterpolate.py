@@ -36,7 +36,7 @@ def sphinterpolate(
 
     Full GMT docs at :gmt-docs:`sphinterpolate.html`.
 
-    {aliases}
+    $aliases
        - R = region
        - V = verbose
 
@@ -45,7 +45,7 @@ def sphinterpolate(
     data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
     $outgrid
     $spacing
     $region

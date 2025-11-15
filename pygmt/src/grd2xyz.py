@@ -53,7 +53,7 @@ def grd2xyz(
 
     Full GMT docs at :gmt-docs:`grd2xyz.html`.
 
-    {aliases}
+    $aliases
        - R = region
        - V = verbose
 

@@ -56,7 +56,7 @@ def grdproject(
 
     Full GMT docs at :gmt-docs:`grdproject.html`.
 
-    {aliases}
+    $aliases
        - C = center
        - J = projection
        - R = region

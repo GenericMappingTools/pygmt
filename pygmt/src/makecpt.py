@@ -73,7 +73,7 @@ def makecpt(
 
     Full GMT docs at :gmt-docs:`makecpt.html`.
 
-    {aliases}
+    $aliases
        - G = truncate
        - M = overrule_bg
        - N = no_bg

@@ -52,7 +52,7 @@ def tilemap(  # noqa: PLR0913
     ``lonlat=True``. If reprojection is not desired, please set ``lonlat=False`` and
     provide Spherical Mercator (EPSG:3857) coordinates to the ``region`` parameter.
 
-    {aliases}
+    $aliases
        - B = frame
        - J = projection
        - M = monochrome

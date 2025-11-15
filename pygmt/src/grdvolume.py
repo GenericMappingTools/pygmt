@@ -45,7 +45,7 @@ def grdvolume(
 
     Full GMT docs at :gmt-docs:`grdvolume.html`.
 
-    {aliases}
+    $aliases
        - R = region
        - V = verbose
 

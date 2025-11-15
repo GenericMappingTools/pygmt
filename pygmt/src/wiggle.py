@@ -82,7 +82,7 @@ def wiggle(  # noqa: PLR0913
 
     Full GMT docs at :gmt-docs:`wiggle.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - G = **+p**: fillpositive, **+n**: fillnegative
        - J = projection
@@ -98,7 +98,7 @@ def wiggle(  # noqa: PLR0913
         The arrays of x and y coordinates and z data points.
     data
         Pass in either a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
         Use parameter ``incols`` to choose which columns are x, y, z,
         respectively.
     $projection

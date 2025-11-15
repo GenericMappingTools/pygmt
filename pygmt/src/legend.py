@@ -47,7 +47,7 @@ def legend(
 
     Full GMT docs at :gmt-docs:`legend.html`.
 
-    {aliases}
+    $aliases
        - F = box
        - J = projection
        - R = region

@@ -199,7 +199,7 @@ def meca(  # noqa: PLR0913
 
     Full GMT docs at :gmt-docs:`supplements/seis/meca.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - J = projection
        - N = no_clip

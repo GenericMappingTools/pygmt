@@ -52,7 +52,7 @@ def info(
 
     Full GMT docs at :gmt-docs:`gmtinfo.html`.
 
-    {aliases}
+    $aliases
        - V = verbose
        - r = registration
 
@@ -60,7 +60,7 @@ def info(
     ----------
     data
         Pass in either a file name to an ASCII data table, a 1-D/2-D
-        {table-classes}.
+        $table_classes.
     per_column : bool
         Report the min/max values per column in separate columns.
     spacing : str

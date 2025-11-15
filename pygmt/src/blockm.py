@@ -113,7 +113,7 @@ def blockmean(
 
     Full GMT docs at :gmt-docs:`blockmean.html`.
 
-    {aliases}
+    $aliases
        - R = region
        - V = verbose
        - r = registration
@@ -123,7 +123,7 @@ def blockmean(
     data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
     x/y/z : 1-D arrays
         Arrays of x and y coordinates and values z of the data points.
     $output_type
@@ -228,7 +228,7 @@ def blockmedian(
 
     Full GMT docs at :gmt-docs:`blockmedian.html`.
 
-    {aliases}
+    $aliases
        - R = region
        - V = verbose
        - r = registration
@@ -238,7 +238,7 @@ def blockmedian(
     data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
     x/y/z : 1-D arrays
         Arrays of x and y coordinates and values z of the data points.
     $output_type
@@ -337,7 +337,7 @@ def blockmode(
 
     Full GMT docs at :gmt-docs:`blockmode.html`.
 
-    {aliases}
+    $aliases
        - R = region
        - V = verbose
        - r = registration
@@ -347,7 +347,7 @@ def blockmode(
     data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
     x/y/z : 1-D arrays
         Arrays of x and y coordinates and values z of the data points.
     $output_type

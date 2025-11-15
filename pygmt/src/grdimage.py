@@ -74,7 +74,7 @@ def grdimage(  # noqa: PLR0913
 
     Full GMT docs at :gmt-docs:`grdimage.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - J = projection
        - M = monochrome

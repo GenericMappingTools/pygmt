@@ -85,7 +85,7 @@ def grd2cpt(
 
     Full GMT docs at :gmt-docs:`grd2cpt.html`.
 
-    {aliases}
+    $aliases
        - G = truncate
        - M = overrule_bg
        - N = no_bg

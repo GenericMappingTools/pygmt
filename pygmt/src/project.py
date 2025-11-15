@@ -110,7 +110,7 @@ def project(  # noqa: PLR0913
 
     Full GMT docs at :gmt-docs:`project.html`.
 
-    {aliases}
+    $aliases
        - C = center
        - E = endpoint
        - L = length
@@ -123,7 +123,7 @@ def project(  # noqa: PLR0913
     data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
     $output_type
     $outfile
 

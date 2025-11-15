@@ -36,7 +36,7 @@ def which(
 
     Full GMT docs at :gmt-docs:`gmtwhich.html`.
 
-    {aliases}
+    $aliases
        - V = verbose
 
     Parameters

@@ -71,7 +71,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
 
     Full GMT docs at :gmt-docs:`text.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - F = **+a**: angle, **+c**: position, **+j**: justify, **+f**: font
        - J = projection

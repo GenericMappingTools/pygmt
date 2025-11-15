@@ -41,7 +41,7 @@ def filter1d(
 
     Full GMT docs at :gmt-docs:`filter1d.html`.
 
-    {aliases}
+    $aliases
        - V = verbose
 
     Parameters

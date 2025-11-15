@@ -41,7 +41,7 @@ def ternary(  # noqa: PLR0913
 
     Full GMT docs at :gmt-docs:`ternary.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - L = alabel/blabel/clabel
        - R = region
@@ -54,7 +54,7 @@ def ternary(  # noqa: PLR0913
     ----------
     data
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
-        {table-classes}.
+        $table_classes.
     width : str
         Set the width of the figure by passing a number, followed by
         a unit (**i** for inches, **c** for centimeters). Use a negative width

@@ -53,7 +53,7 @@ def xyz2grd(
 
     Full GMT docs at :gmt-docs:`xyz2grd.html`.
 
-    {aliases}
+    $aliases
        - J = projection
        - R = region
        - V = verbose
@@ -63,7 +63,7 @@ def xyz2grd(
     ----------
     data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
-        providing a file name to an ASCII data table, a 2-D {table-classes}.
+        providing a file name to an ASCII data table, a 2-D $table_classes.
     x/y/z : 1-D arrays
         The arrays of x and y coordinates and z data points.
     $outgrid

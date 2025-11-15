@@ -87,7 +87,7 @@ def plot(  # noqa: PLR0912, PLR0913
 
     Full GMT docs at :gmt-docs:`plot.html`.
 
-    {aliases}
+    $aliases
        - A = straight_line
        - B = frame
        - J = projection
@@ -101,7 +101,7 @@ def plot(  # noqa: PLR0912, PLR0913
     ----------
     data
         Pass in either a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
         Use parameter ``incols`` to choose which columns are x, y, fill, and
         size, respectively.
     x/y : float or 1-D arrays

@@ -55,7 +55,7 @@ def grdsample(
 
     Full GMT docs at :gmt-docs:`grdsample.html`.
 
-    {aliases}
+    $aliases
        - R = region
        - V = verbose
        - r = registration

@@ -77,7 +77,7 @@ class grdhisteq:  # noqa: N801
 
         Full GMT docs at :gmt-docs:`grdhisteq.html`.
 
-        {aliases}
+        $aliases
            - R = region
            - V = verbose
 
@@ -175,7 +175,7 @@ class grdhisteq:  # noqa: N801
 
         Full GMT docs at :gmt-docs:`grdhisteq.html`.
 
-        {aliases}
+        $aliases
            - R = region
            - V = verbose
 

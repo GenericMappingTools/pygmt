@@ -49,7 +49,7 @@ def grdgradient(
 
     Full GMT docs at :gmt-docs:`grdgradient.html`.
 
-    {aliases}
+    $aliases
        - R = region
        - V = verbose
 

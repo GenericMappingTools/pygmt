@@ -36,7 +36,7 @@ def logo(
 
     Full GMT docs at :gmt-docs:`gmtlogo.html`.
 
-    {aliases}
+    $aliases
        - F = box
        - J = projection
        - R = region

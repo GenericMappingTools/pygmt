@@ -407,11 +407,11 @@ def fmt_docstring(module_func):
     ...     ----------
     ...     data
     ...         Pass in either a file name to an ASCII data table, a 2-D
-    ...         {table-classes}.
-    ...     {region}
-    ...     {projection}
+    ...         $table_classes.
+    ...     $region
+    ...     $projection
     ...
-    ...     {aliases}
+    ...     $aliases
     ...     '''
     ...     pass
     >>> print(gmtinfo.__doc__)
@@ -453,7 +453,7 @@ def fmt_docstring(module_func):
             aliases.append(f"   - {arg} = {alias}")
         filler_text["aliases"] = "\n".join(aliases)
 
-    filler_text["table-classes"] = (
+    filler_text["table_classes"] = (
         ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an\n"
         "    :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`\n"
         "    data variables, or a :class:`geopandas.GeoDataFrame` containing the\n"

@@ -77,7 +77,7 @@ def select(
 
     Full GMT docs at :gmt-docs:`gmtselect.html`.
 
-    {aliases}
+    $aliases
        - D = resolution
        - J = projection
        - R = region
@@ -87,7 +87,7 @@ def select(
     ----------
     data
         Pass in either a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
     $output_type
     $outfile
     $area_thresh

@@ -61,7 +61,7 @@ def contour(  # noqa: PLR0913
 
     Full GMT docs at :gmt-docs:`contour.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - J = projection
        - N = no_clip
@@ -76,7 +76,7 @@ def contour(  # noqa: PLR0913
     data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
     x/y/z : 1-D arrays
         Arrays of x and y coordinates and values z of the data points.
     $projection

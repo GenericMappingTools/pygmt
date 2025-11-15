@@ -43,7 +43,7 @@ def grdlandmask(
 
     Full GMT docs at :gmt-docs:`grdlandmask.html`.
 
-    {aliases}
+    $aliases
        - D = resolution
        - E = bordervalues
        - N = maskvalues

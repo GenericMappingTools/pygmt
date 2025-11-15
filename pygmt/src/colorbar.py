@@ -56,7 +56,7 @@ def colorbar(
 
     Full GMT docs at :gmt-docs:`colorbar.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - F = box
        - I = shading

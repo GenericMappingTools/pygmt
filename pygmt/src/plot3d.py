@@ -89,7 +89,7 @@ def plot3d(  # noqa: PLR0912, PLR0913
 
     Full GMT docs at :gmt-docs:`plot3d.html`.
 
-    {aliases}
+    $aliases
        - A = straight_line
        - B = frame
        - J = projection
@@ -104,7 +104,7 @@ def plot3d(  # noqa: PLR0912, PLR0913
     Parameters
     ----------
     data
-        Either a data file name, a 2-D {table-classes}.
+        Either a data file name, a 2-D $table_classes.
         Optionally, use parameter ``incols`` to specify which columns are x, y,
         z, fill, and size, respectively.
     x/y/z : float or 1-D arrays

@@ -53,7 +53,7 @@ def grdview(  # noqa: PLR0913
 
     Full GMT docs at :gmt-docs:`grdview.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - J = projection
        - Jz = zscale

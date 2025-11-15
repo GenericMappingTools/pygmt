@@ -66,7 +66,7 @@ def binstats(
 
     Full GMT docs at :gmt-docs:`gmtbinstats.html`.
 
-    {aliases}
+    $aliases
        - C = statistic
        - R = region
        - V = verbose
@@ -75,7 +75,7 @@ def binstats(
     Parameters
     ----------
     data
-        A file name of an ASCII data table or a 2-D {table-classes}.
+        A file name of an ASCII data table or a 2-D $table_classes.
     $outgrid
     statistic
         Choose the statistic that will be computed per node based on the points that are

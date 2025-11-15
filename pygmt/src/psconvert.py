@@ -36,7 +36,7 @@ def psconvert(
 
     Full GMT docs at :gmt-docs:`psconvert.html`.
 
-    {aliases}
+    $aliases
        - C = gs_option
        - E = dpi
        - F = prefix

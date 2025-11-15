@@ -55,7 +55,7 @@ def grdcontour(
 
     Full GMT docs at :gmt-docs:`grdcontour.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - J = projection
        - R = region

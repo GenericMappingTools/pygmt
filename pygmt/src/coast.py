@@ -66,7 +66,7 @@ def coast(
 
     Full GMT docs at :gmt-docs:`coast.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - D = resolution
        - F = box

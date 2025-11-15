@@ -37,7 +37,7 @@ def inset(
 
     Full GMT docs at :gmt-docs:`inset.html`.
 
-    {aliases}
+    $aliases
        - F = box
        - J = projection
        - N = no_clip

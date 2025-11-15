@@ -46,7 +46,7 @@ def image(
 
     Full GMT docs at :gmt-docs:`image.html`.
 
-    {aliases}
+    $aliases
        - F = box
        - J = projection
        - M = monochrome

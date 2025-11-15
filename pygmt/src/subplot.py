@@ -52,7 +52,7 @@ def subplot(
 
     Full GMT docs at :gmt-docs:`subplot.html#synopsis-begin-mode`.
 
-    {aliases}
+    $aliases
        - B = frame
        - J = projection
        - M = margins
@@ -223,7 +223,7 @@ def set_panel(
     both dimensions then you must specify ``projection="x"`` [The default
     ``projection="X"`` will fill the subplot by using unequal scales].
 
-    {aliases}
+    $aliases
        - V = verbose
 
     Parameters
