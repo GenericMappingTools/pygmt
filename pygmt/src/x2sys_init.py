@@ -82,7 +82,7 @@ def x2sys_init(
         discontinuity at Greenwich (makes longitude go from 0° E to 360° E
         [Default]). If not given we assume the data are Cartesian.
 
-    spacing : str or list
+    spacing
          *dx*\[/*dy*].
          *dx* and optionally *dy* is the grid spacing. Append **m** to
          indicate minutes or **s** to indicate seconds for geographic data.
