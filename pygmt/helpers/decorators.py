@@ -159,27 +159,24 @@ COMMON_DOCSTRINGS = {
 
             Blank lines and lines starting with \# are always skipped.""",
     "incols": r"""
-        incols : str or 1-D array
-            Specify data columns for primary input in arbitrary order. Columns
-            can be repeated and columns not listed will be skipped [Default
-            reads all columns in order, starting with the first (i.e., column
-            0)].
+        incols
+            Specify data columns for primary input in arbitrary order. Columns can be
+            repeated and columns not listed will be skipped [Default reads all columns
+            in order, starting with the first (i.e., column 0)].
 
-            - For *1-D array*: specify individual columns in input order (e.g.,
-              ``incols=[1,0]`` for the 2nd column followed by the 1st column).
-            - For :py:class:`str`: specify individual columns or column
-              ranges in the format *start*\ [:*inc*]:*stop*, where *inc*
-              defaults to 1 if not specified, with columns and/or column ranges
-              separated by commas (e.g., ``incols="0:2,4+l"`` to input the
-              first three columns followed by the log-transformed 5th column).
-              To read from a given column until the end of the record, leave
-              off *stop* when specifying the column range. To read trailing
-              text, add the column **t**. Append the word number to **t** to
-              ingest only a single word from the trailing text. Instead of
-              specifying columns, use ``incols="n"`` to simply read numerical
-              input and skip trailing text. Optionally, append one of the
-              following modifiers to any column or column range to transform
-              the input columns:
+            - For a sequence: specify individual columns in input order (e.g.,
+              ``incols=(1, 0)`` for the 2nd column followed by the 1st column).
+            - For a string: specify individual columns or column ranges in the format
+              *start*\ [:*inc*]:*stop*, where *inc* defaults to 1 if not specified, with
+              columns and/or column ranges separated by commas (e.g.,
+              ``incols="0:2,4+l"`` to input the first three columns followed by the
+              log10-transformed 5th column). To read from a given column until the end of
+              the record, leave off *stop* when specifying the column range. To read
+              trailing text, add the column **t**. Append the word number to **t** to
+              ingest only a single word from the trailing text. Instead of specifying
+              columns, use ``incols="n"`` to simply read numerical input and skip
+              trailing text. Optionally, append one of the following modifiers to any
+              column or column range to transform the input columns:
 
               - **+l** to take the *log10* of the input values.
               - **+d** to divide the input values by the factor *divisor* [Default is 1].
