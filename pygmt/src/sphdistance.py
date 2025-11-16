@@ -8,10 +8,10 @@ from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["sphdistance"]
 
@@ -21,17 +21,16 @@ __doctest_skip__ = ["sphdistance"]
     C="single_form",
     D="duplicate",
     E="quantity",
-    I="spacing",
     L="unit",
     N="node_table",
     Q="voronoi",
 )
-@kwargs_to_strings(I="sequence")
 def sphdistance(
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     outgrid: PathLike | None = None,
+    spacing: Sequence[float | str] | None = None,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -48,6 +47,7 @@ def sphdistance(
     Full GMT docs at :gmt-docs:`sphdistance.html`.
 
     {aliases}
+       - I = spacing
        - R = region
        - V = verbose
 
@@ -125,7 +125,9 @@ def sphdistance(
         msg = "Both 'region' and 'spacing' must be specified."
         raise GMTInvalidInput(msg)
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+    ).add_common(
         R=region,
         V=verbose,
     )

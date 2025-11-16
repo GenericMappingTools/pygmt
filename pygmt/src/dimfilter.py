@@ -7,20 +7,20 @@ from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["dimfilter"]
 
 
 @fmt_docstring
-@use_alias(D="distance", F="filter", I="spacing", N="sectors")
-@kwargs_to_strings(I="sequence")
+@use_alias(D="distance", F="filter", N="sectors")
 def dimfilter(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
+    spacing: Sequence[float | str] | None = None,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -48,6 +48,7 @@ def dimfilter(
     Full GMT docs at :gmt-docs:`dimfilter.html`.
 
     {aliases}
+       - I = spacing
        - R = region
        - V = verbose
 
@@ -148,7 +149,9 @@ def dimfilter(
         )
         raise GMTInvalidInput(msg)
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+    ).add_common(
         R=region,
         V=verbose,
     )

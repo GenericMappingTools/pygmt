@@ -10,16 +10,16 @@ from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdlandmask"]
 
 
 @fmt_docstring
-@use_alias(A="area_thresh", I="spacing")
-@kwargs_to_strings(I="sequence")
+@use_alias(A="area_thresh")
 def grdlandmask(
     outgrid: PathLike | None = None,
+    spacing: Sequence[float | str] | None = None,
     maskvalues: Sequence[float] | None = None,
     bordervalues: bool | float | Sequence[float] | None = None,
     resolution: Literal[
@@ -46,6 +46,7 @@ def grdlandmask(
     {aliases}
        - D = resolution
        - E = bordervalues
+       - I = spacing
        - N = maskvalues
        - R = region
        - V = verbose
@@ -127,6 +128,7 @@ def grdlandmask(
                 "crude": "c",
             },
         ),
+        I=Alias(spacing, name="spacing", sep="/", size=2),
         N=Alias(maskvalues, name="maskvalues", sep="/", size=(2, 5)),
         E=Alias(bordervalues, name="bordervalues", sep="/", size=4),
     ).add_common(
