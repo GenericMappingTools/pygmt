@@ -337,6 +337,8 @@ class AliasSystem(UserDict):
                         name="registration",
                         mapping={"gridline": "g", "pixel": "p"},
                     )
+                case "o":
+                    alias = Alias(value, name="outcols", sep=",")
                 case "p":
                     alias = Alias(value, name="perspective", sep="/", size={2, 3})
                 case "t":

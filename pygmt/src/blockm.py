@@ -81,11 +81,10 @@ def _blockm(
     e="find",
     f="coltypes",
     h="header",
-    o="outcols",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence", o="sequence_comma")
-def blockmean(
+@kwargs_to_strings(I="sequence")
+def blockmean(  # noqa: PLR0913
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,
@@ -97,6 +96,7 @@ def blockmean(
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     incols: int | str | Sequence[int | str] | None = None,
+    outcols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -117,6 +117,7 @@ def blockmean(
        - R = region
        - V = verbose
        - i = incols
+       - o = outcols
        - r = registration
 
     Parameters
@@ -173,6 +174,7 @@ def blockmean(
         R=region,
         V=verbose,
         i=incols,
+        o=outcols,
         r=registration,
     )
     aliasdict.merge(kwargs)
@@ -198,11 +200,10 @@ def blockmean(
     e="find",
     f="coltypes",
     h="header",
-    o="outcols",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence", o="sequence_comma")
-def blockmedian(
+@kwargs_to_strings(I="sequence")
+def blockmedian(  # noqa: PLR0913
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,
@@ -214,6 +215,7 @@ def blockmedian(
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     incols: int | str | Sequence[int | str] | None = None,
+    outcols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -234,6 +236,7 @@ def blockmedian(
        - R = region
        - V = verbose
        - i = incols
+       - o = outcols
        - r = registration
 
     Parameters
@@ -284,6 +287,7 @@ def blockmedian(
         R=region,
         V=verbose,
         i=incols,
+        o=outcols,
         r=registration,
     )
     aliasdict.merge(kwargs)
@@ -309,11 +313,10 @@ def blockmedian(
     e="find",
     f="coltypes",
     h="header",
-    o="outcols",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence", o="sequence_comma")
-def blockmode(
+@kwargs_to_strings(I="sequence")
+def blockmode(  # noqa: PLR0913
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,
@@ -325,6 +328,7 @@ def blockmode(
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     incols: int | str | Sequence[int | str] | None = None,
+    outcols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -345,6 +349,7 @@ def blockmode(
        - R = region
        - V = verbose
        - i = incols
+       - o = outcols
        - r = registration
 
     Parameters
@@ -393,6 +398,7 @@ def blockmode(
         R=region,
         V=verbose,
         i=incols,
+        o=outcols,
         r=registration,
     )
     aliasdict.merge(kwargs)
