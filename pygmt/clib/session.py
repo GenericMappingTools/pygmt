@@ -148,6 +148,7 @@ class Session:
     Examples
     --------
 
+    >>> from pygmt.clip import Session
     >>> from pygmt.helpers.testing import load_static_earth_relief
     >>> from pygmt.helpers import GMTTempFile
     >>> grid = load_static_earth_relief()
