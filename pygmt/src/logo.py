@@ -7,14 +7,16 @@ from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
-from pygmt.params import Box
+from pygmt.helpers import build_arg_list, fmt_docstring
+from pygmt.params import Box, Position
 
 
 @fmt_docstring
-@use_alias(D="position")
 def logo(
     self,
+    position: Position,
+    width: float | str | None = None,
+    height: float | str | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     style: Literal["standard", "url", "no_label"] = "standard",
@@ -36,7 +38,12 @@ def logo(
 
     Full GMT docs at :gmt-docs:`gmtlogo.html`.
 
-    {aliases}
+    **Aliases:**
+
+    .. hlist::
+       :columns: 3
+
+       - D = position, **+w**: width, **+h**: height
        - F = box
        - J = projection
        - R = region
@@ -73,6 +80,11 @@ def logo(
     self._activate_figure()
 
     aliasdict = AliasSystem(
+        D=[
+            Alias(position, name="position"),
+            Alias(width, name="width", prefix="+w"),
+            Alias(height, name="height", prefix="+h"),
+        ],
         F=Alias(box, name="box"),
         S=Alias(
             style, name="style", mapping={"standard": "l", "url": "u", "no_label": "n"}
