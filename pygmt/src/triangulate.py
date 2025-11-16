@@ -58,11 +58,10 @@ class triangulate:  # noqa: N801
         e="find",
         f="coltypes",
         h="header",
-        i="incols",
         s="skiprows",
         w="wrap",
     )
-    @kwargs_to_strings(I="sequence", i="sequence_comma")
+    @kwargs_to_strings(I="sequence")
     def regular_grid(
         data: PathLike | TableLike | None = None,
         x=None,
@@ -76,6 +75,7 @@ class triangulate:  # noqa: N801
             "quiet", "error", "warning", "timing", "info", "compat", "debug"
         ]
         | bool = False,
+        incols: int | str | Sequence[int | str] | None = None,
         **kwargs,
     ) -> xr.DataArray | None:
         """
@@ -105,6 +105,7 @@ class triangulate:  # noqa: N801
            - J = projection
            - R = region
            - V = verbose
+           - i = incols
            - r = registration
 
         Parameters
@@ -154,6 +155,7 @@ class triangulate:  # noqa: N801
             R=region,
             J=projection,
             V=verbose,
+            i=incols,
             r=registration,
         )
         aliasdict.merge(kwargs)
@@ -180,12 +182,11 @@ class triangulate:  # noqa: N801
         e="find",
         f="coltypes",
         h="header",
-        i="incols",
         s="skiprows",
         w="wrap",
     )
-    @kwargs_to_strings(I="sequence", i="sequence_comma")
-    def delaunay_triples(
+    @kwargs_to_strings(I="sequence")
+    def delaunay_triples(  # noqa: PLR0913
         data: PathLike | TableLike | None = None,
         x=None,
         y=None,
@@ -200,6 +201,7 @@ class triangulate:  # noqa: N801
             "quiet", "error", "warning", "timing", "info", "compat", "debug"
         ]
         | bool = False,
+        incols: int | str | Sequence[int | str] | None = None,
         **kwargs,
     ) -> pd.DataFrame | np.ndarray | None:
         """
@@ -222,6 +224,7 @@ class triangulate:  # noqa: N801
            - J = projection
            - R = region
            - V = verbose
+           - i = incols
            - r = registration
 
         Parameters
@@ -269,6 +272,7 @@ class triangulate:  # noqa: N801
             J=projection,
             R=region,
             V=verbose,
+            i=incols,
             r=registration,
         )
         aliasdict.merge(kwargs)

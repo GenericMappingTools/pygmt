@@ -12,7 +12,6 @@ from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
     is_nonstr_iter,
-    kwargs_to_strings,
     use_alias,
 )
 
@@ -30,10 +29,8 @@ from pygmt.helpers import (
     e="find",
     f="coltypes",
     h="header",
-    i="incols",
     l="label",
 )
-@kwargs_to_strings(i="sequence_comma")
 def contour(  # noqa: PLR0913
     self,
     data: PathLike | TableLike | None = None,
@@ -49,6 +46,7 @@ def contour(  # noqa: PLR0913
     panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
     perspective: float | Sequence[float] | str | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ):
     r"""
@@ -68,6 +66,7 @@ def contour(  # noqa: PLR0913
        - R = region
        - V = verbose
        - c = panel
+       - i = incols
        - p = perspective
        - t = transparency
 
@@ -172,6 +171,7 @@ def contour(  # noqa: PLR0913
         R=region,
         V=verbose,
         c=panel,
+        i=incols,
         p=perspective,
         t=transparency,
     )

@@ -81,11 +81,10 @@ def _blockm(
     e="find",
     f="coltypes",
     h="header",
-    i="incols",
     o="outcols",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(I="sequence", o="sequence_comma")
 def blockmean(
     data: PathLike | TableLike | None = None,
     x=None,
@@ -97,6 +96,7 @@ def blockmean(
     registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -116,6 +116,7 @@ def blockmean(
     $aliases
        - R = region
        - V = verbose
+       - i = incols
        - r = registration
 
     Parameters
@@ -171,6 +172,7 @@ def blockmean(
     aliasdict = AliasSystem().add_common(
         R=region,
         V=verbose,
+        i=incols,
         r=registration,
     )
     aliasdict.merge(kwargs)
@@ -196,11 +198,10 @@ def blockmean(
     e="find",
     f="coltypes",
     h="header",
-    i="incols",
     o="outcols",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(I="sequence", o="sequence_comma")
 def blockmedian(
     data: PathLike | TableLike | None = None,
     x=None,
@@ -212,6 +213,7 @@ def blockmedian(
     registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -231,6 +233,7 @@ def blockmedian(
     $aliases
        - R = region
        - V = verbose
+       - i = incols
        - r = registration
 
     Parameters
@@ -280,6 +283,7 @@ def blockmedian(
     aliasdict = AliasSystem().add_common(
         R=region,
         V=verbose,
+        i=incols,
         r=registration,
     )
     aliasdict.merge(kwargs)
@@ -305,11 +309,10 @@ def blockmedian(
     e="find",
     f="coltypes",
     h="header",
-    i="incols",
     o="outcols",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(I="sequence", o="sequence_comma")
 def blockmode(
     data: PathLike | TableLike | None = None,
     x=None,
@@ -321,6 +324,7 @@ def blockmode(
     registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -340,6 +344,7 @@ def blockmode(
     $aliases
        - R = region
        - V = verbose
+       - i = incols
        - r = registration
 
     Parameters
@@ -387,6 +392,7 @@ def blockmode(
     aliasdict = AliasSystem().add_common(
         R=region,
         V=verbose,
+        i=incols,
         r=registration,
     )
     aliasdict.merge(kwargs)

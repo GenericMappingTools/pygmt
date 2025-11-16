@@ -2,6 +2,7 @@
 info - Get information about data tables.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
@@ -19,19 +20,15 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @use_alias(
-    C="per_column",
-    I="spacing",
-    T="nearest_multiple",
-    a="aspatial",
-    f="coltypes",
-    i="incols",
+    C="per_column", I="spacing", T="nearest_multiple", a="aspatial", f="coltypes"
 )
-@kwargs_to_strings(I="sequence", i="sequence_comma")
+@kwargs_to_strings(I="sequence")
 def info(
     data: PathLike | TableLike,
     registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> np.ndarray | str:
     r"""
@@ -54,6 +51,7 @@ def info(
 
     $aliases
        - V = verbose
+       - i = incols
        - r = registration
 
     Parameters
@@ -92,6 +90,7 @@ def info(
     """
     aliasdict = AliasSystem().add_common(
         V=verbose,
+        i=incols,
         r=registration,
     )
     aliasdict.merge(kwargs)

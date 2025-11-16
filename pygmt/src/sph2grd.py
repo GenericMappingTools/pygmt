@@ -15,8 +15,8 @@ __doctest_skip__ = ["sph2grd"]
 
 
 @fmt_docstring
-@use_alias(I="spacing", b="binary", h="header", i="incols")
-@kwargs_to_strings(I="sequence", i="sequence_comma")
+@use_alias(I="spacing", b="binary", h="header")
+@kwargs_to_strings(I="sequence")
 def sph2grd(
     data: PathLike | TableLike,
     outgrid: PathLike | None = None,
@@ -24,6 +24,7 @@ def sph2grd(
     registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
     cores: int | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
@@ -40,6 +41,7 @@ def sph2grd(
        - R = region
        - V = verbose
        - r = registration
+       - i = incols
        - x = cores
 
     Parameters
@@ -77,6 +79,7 @@ def sph2grd(
     aliasdict = AliasSystem().add_common(
         R=region,
         V=verbose,
+        i=incols,
         r=registration,
         x=cores,
     )

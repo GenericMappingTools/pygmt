@@ -301,7 +301,7 @@ class AliasSystem(UserDict):
                 kwdict[option] = aliases._value
         super().__init__(kwdict)
 
-    def add_common(self, **kwargs):
+    def add_common(self, **kwargs):  # noqa: PLR0912
         """
         Add common parameters to the alias dictionary.
         """
@@ -329,6 +329,8 @@ class AliasSystem(UserDict):
                     )
                 case "c":
                     alias = Alias(value, name="panel", sep=",", size=2)
+                case "i":
+                    alias = Alias(value, name="incols", sep=",")
                 case "r":
                     alias = Alias(
                         value,
