@@ -148,7 +148,7 @@ def grd2xyz(
     """
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
-    if kwargs.get("o") is not None and output_type == "pandas":
+    if kwargs.get("o", outcols) is not None and output_type == "pandas":
         raise GMTValueError(
             output_type,
             description="value for parameter 'output_type'",
