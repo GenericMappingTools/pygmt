@@ -111,7 +111,7 @@ def grdlandmask(
     >>> # latitude range of 30° N to 35° N, and a grid spacing of 1 arc-degree
     >>> landmask = pygmt.grdlandmask(spacing=1, region=[125, 130, 30, 35])
     """
-    if kwargs.get("I") is None or kwargs.get("R", region) is None:
+    if kwargs.get("I", spacing) is None or kwargs.get("R", region) is None:
         msg = "Both 'region' and 'spacing' must be specified."
         raise GMTInvalidInput(msg)
 
