@@ -7,21 +7,24 @@ from typing import Literal
 
 import numpy as np
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_list,
     fmt_docstring,
+    kwargs_to_strings,
     use_alias,
 )
 
 
 @fmt_docstring
-@use_alias(C="per_column", T="nearest_multiple", a="aspatial", f="coltypes")
+@use_alias(
+    C="per_column", I="spacing", T="nearest_multiple", a="aspatial", f="coltypes"
+)
+@kwargs_to_strings(I="sequence")
 def info(
     data: PathLike | TableLike,
-    spacing: Sequence[float | str] | None = None,
     registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -47,7 +50,6 @@ def info(
     Full GMT docs at :gmt-docs:`gmtinfo.html`.
 
     {aliases}
-       - I = spacing
        - V = verbose
        - i = incols
        - r = registration
@@ -86,9 +88,7 @@ def info(
         - :class:`numpy.ndarray` if either of the above parameters are used.
         - str if none of the above parameters are used.
     """
-    aliasdict = AliasSystem(
-        I=Alias(spacing, name="spacing", sep="/", size=2),
-    ).add_common(
+    aliasdict = AliasSystem().add_common(
         V=verbose,
         i=incols,
         r=registration,
