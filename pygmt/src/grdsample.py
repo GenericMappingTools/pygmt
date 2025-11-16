@@ -105,7 +105,7 @@ def grdsample(
         raise GMTInvalidInput(msg)
 
     aliasdict = AliasSystem(
-        I=Alias(spacing, name=spacing),
+        I=Alias(spacing, name="spacing"),
         T=Alias(toggle, name="toggle"),
     ).add_common(
         R=region,
