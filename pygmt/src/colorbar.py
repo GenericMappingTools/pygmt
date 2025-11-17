@@ -15,7 +15,7 @@ __doctest_skip__ = ["colorbar"]
 
 @fmt_docstring
 @use_alias(C="cmap", D="position", L="equalsize", Q="log", W="scale", Z="zfile")
-def colorbar(
+def colorbar(  # noqa: PLR0913
     self,
     truncate: Sequence[float] | None = None,
     shading: float | Sequence[float] | bool = False,
