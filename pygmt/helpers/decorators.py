@@ -231,7 +231,7 @@ COMMON_DOCSTRINGS = {
               - **+l** to take the *log10* of the input values.
               - **+d** to divide the output values by the factor *divisor* [Default is
                 1].
-              - **+s** to multiple the output values by the factor *scale* [Default is 1].
+              - **+s** to multiply the output values by the factor *scale* [Default is 1].
               - **+o** to add the given *offset* to the output values [Default is 0].""",
     "outfile": """
         outfile
