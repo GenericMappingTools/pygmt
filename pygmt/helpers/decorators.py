@@ -204,28 +204,35 @@ COMMON_DOCSTRINGS = {
             Prepend **i** to the *nodata* value for input columns only. Prepend
             **o** to the *nodata* value for output columns only.""",
     "outcols": r"""
-        outcols : str or 1-D array
+        outcols
             *cols*\ [,...][,\ **t**\ [*word*]].
-            Specify data columns for primary output in arbitrary order. Columns
-            can be repeated and columns not listed will be skipped [Default
-            writes all columns in order, starting with the first (i.e., column
-            0)].
 
-            - For *1-D array*: specify individual columns in output order (e.g.,
-              ``outcols=[1,0]`` for the 2nd column followed by the 1st column).
-            - For :py:class:`str`: specify individual columns or column
-              ranges in the format *start*\ [:*inc*]:*stop*, where *inc*
-              defaults to 1 if not specified, with columns and/or column ranges
-              separated by commas (e.g., ``outcols="0:2,4"`` to output the
-              first three columns followed by the 5th column).
-              To write from a given column until the end of the record, leave
-              off *stop* when specifying the column range. To write trailing
-              text, add the column **t**. Append the word number to **t** to
-              write only a single word from the trailing text. Instead of
-              specifying columns, use ``outcols="n"`` to simply read numerical
-              input and skip trailing text. **Note**: If ``incols`` is also
-              used then the columns given to ``outcols`` correspond to the
-              order after the ``incols`` selection has taken place.""",
+            Specify data columns for primary output in arbitrary order. Columns can be
+            repeated and columns not listed will be skipped [Default writes all columns
+            in order, starting with the first (i.e., column 0)].
+
+            - For a sequence: specify individual columns in output order (e.g.,
+              ``outcols=(1, 0)`` for the 2nd column followed by the 1st column).
+            - For a string: specify individual columns or column ranges in the format
+              *start*\ [:*inc*]:*stop*, where *inc* defaults to 1 if not specified, with
+              columns and/or column ranges separated by commas (e.g.,
+              ``outcols="0:2,4"`` to output the first three columns followed by the 5th
+              column). To write from a given column until the end of the record, leave
+              off *stop* when specifying the column range. To write trailing text, add
+              the column **t**. Append the word number to **t** to write only a single
+              word from the trailing text. Instead of specifying columns, use
+              ``outcols="n"`` to simply read numerical input and skip trailing text.
+              **Note**: If ``incols`` is also used then the columns given to ``outcols``
+              correspond to the order after the ``incols`` selection has taken place.
+
+              Optionally, append one of the following modifiers to any column or column
+              range to transform the output columns:
+
+              - **+l** to take the *log10* of the input values.
+              - **+d** to divide the output values by the factor *divisor* [Default is
+                1].
+              - **+s** to multiply the output values by the factor *scale* [Default is 1].
+              - **+o** to add the given *offset* to the output values [Default is 0].""",
     "outfile": """
         outfile
             File name for saving the result data. Required if ``output_type="file"``.

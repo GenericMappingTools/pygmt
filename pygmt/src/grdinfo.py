@@ -77,7 +77,7 @@ def grdinfo(
         Report grid domain and x/y-increments in world mapping format.
         The default value is ``False``. This cannot be called if
         ``per_column`` is also set.
-    spacing : str or list
+    spacing
         *dx*\ [/*dy*]\|\ **b**\|\ **i**\|\ **r**.
         Report the min/max of the region to the nearest multiple of dx and dy,
         and output this in the form w/e/s/n (unless ``per_column`` is set). To
