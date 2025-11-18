@@ -49,14 +49,14 @@ def create_logo(
 
     # Radii
     r0, r1, r2, r3, r4, r5 = size * np.array(
-        [1.0, 0.875, 0.58125, 0.4625, 0.4125, 0.29375]
+        [1, 0.875, 0.58125, 0.4625, 0.4125, 0.29375]
     )
     thick = r0 - r1  # thick pen in centimeters
-    thin = thick / 3.0  # thin pen in centimeters
+    thin = thick / 3  # thin pen in centimeters
 
     # Rotation around z (vertical) axis placed in the center
     # Has to be applied to each plotting command, up on second call set to True
-    perspective = "30+w0/0"  # by 30 degrees ccw
+    perspective = "30+w0/0"  # by 30 degrees counter-clockwise
 
     # Define colors
     color_light = "white"
@@ -148,14 +148,14 @@ def create_logo(
         # fig.show()
 
     # Letter G
-    angles = np.deg2rad(np.arange(90, 361, 1.0))
+    angles = np.deg2rad(np.arange(90, 361, 1))
     x = np.concatenate(
         [np.cos(angles) * r4, [r4, 0, 0, r5], np.cos(np.flip(angles)) * r5]
     )
     y = np.concatenate(
         [
             np.sin(angles) * r4,
-            [(r4 - r5) / 2.0, (r4 - r5) / 2.0, -(r4 - r5) / 2.0, -(r4 - r5) / 2.0],
+            [(r4 - r5) / 2, (r4 - r5) / 2, -(r4 - r5) / 2, -(r4 - r5) / 2],
             np.sin(np.flip(angles)) * r5,
         ]
     )
@@ -176,7 +176,7 @@ def create_logo(
     # Polygon with small distance to horizontal line of letter G
     # Starting point: lower right corner of the left vertical line of letter M
     # Direction: clockwise
-    m_x1 = thin / 2.0  # Half of the pen thickness of compass lines.
+    m_x1 = thin / 2  # half of the pen thickness of compass lines.
     m_x2 = r4
     m_x = [
         m_x1 + m_x2 / 5,  # vertical left upwards
@@ -192,7 +192,7 @@ def create_logo(
         m_x1 + (m_x2 - m_x1) / 2,  # mid pick below
         m_x1 + m_x2 / 5,  # left pick below
     ]
-    m_y1 = (r4 - r5) / 2.0 * 1.2
+    m_y1 = (r4 - r5) / 2 * 1.2
     m_y2 = r4
     m_y = [
         m_y1,  # vertical left upwards
@@ -217,7 +217,7 @@ def create_logo(
     t_x = np.concatenate([r3 * np.sin(angles), r2 * np.sin(np.flip(angles))])
     t_y = np.concatenate([r3 * np.cos(angles), r2 * np.cos(np.flip(angles))])
     # Ensure the same X coordinate for the right edge of T and the middle of M.
-    mask = np.abs(t_x) <= (m_x1 + (m_x2 - m_x1) / 2.0)
+    mask = np.abs(t_x) <= (m_x1 + (m_x2 - m_x1) / 2)
     fig.plot(x=t_x[mask], y=t_y[mask], fill=red, perspective=True)
     # fig.show()
     # The arrow
