@@ -9,16 +9,16 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
-@use_alias(D="distance", F="filter", I="spacing", N="nans", f="coltypes")
-@kwargs_to_strings(I="sequence")
+@use_alias(D="distance", F="filter", N="nans", f="coltypes")
 def grdfilter(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
     toggle: bool = False,
+    spacing: Sequence[float | str] | None = None,
     region: Sequence[float | str] | str | None = None,
     registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -42,6 +42,7 @@ def grdfilter(
     Full GMT docs at :gmt-docs:`grdfilter.html`.
 
     $aliases
+       - I = spacing
        - R = region
        - T = toggle
        - V = verbose
@@ -136,6 +137,7 @@ def grdfilter(
     >>> smooth_field = pygmt.grdfilter(grid=grid, filter="g600", distance="4")
     """
     aliasdict = AliasSystem(
+        I=Alias(spacing, name="spacing", sep="/", size=2),
         T=Alias(toggle, name="toggle"),
     ).add_common(
         R=region,

@@ -37,11 +37,10 @@ __doctest_skip__ = ["select"]
     f="coltypes",
     g="gap",
     h="header",
-    o="outcols",
     s="skiprows",
     w="wrap",
 )
-@kwargs_to_strings(N="sequence", o="sequence_comma")
+@kwargs_to_strings(N="sequence")
 def select(
     data: PathLike | TableLike | None = None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
@@ -54,6 +53,7 @@ def select(
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     incols: int | str | Sequence[int | str] | None = None,
+    outcols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -83,6 +83,7 @@ def select(
        - R = region
        - V = verbose
        - i = incols
+       - o = outcols
 
     Parameters
     ----------
@@ -239,6 +240,7 @@ def select(
         R=region,
         V=verbose,
         i=incols,
+        o=outcols,
     )
     aliasdict.merge(kwargs)
 

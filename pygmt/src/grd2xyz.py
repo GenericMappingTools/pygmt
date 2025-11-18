@@ -15,7 +15,6 @@ from pygmt.exceptions import GMTValueError
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
     validate_output_table_type,
 )
@@ -32,10 +31,8 @@ __doctest_skip__ = ["grd2xyz"]
     d="nodata",
     f="coltypes",
     h="header",
-    o="outcols",
     s="skiprows",
 )
-@kwargs_to_strings(o="sequence_comma")
 def grd2xyz(
     grid: PathLike | xr.DataArray,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
@@ -43,6 +40,7 @@ def grd2xyz(
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    outcols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -56,6 +54,7 @@ def grd2xyz(
     $aliases
        - R = region
        - V = verbose
+       - o = outcols
 
     Parameters
     ----------
@@ -149,7 +148,7 @@ def grd2xyz(
     """
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
-    if kwargs.get("o") is not None and output_type == "pandas":
+    if kwargs.get("o", outcols) is not None and output_type == "pandas":
         raise GMTValueError(
             output_type,
             description="value for parameter 'output_type'",
@@ -165,6 +164,7 @@ def grd2xyz(
     aliasdict = AliasSystem().add_common(
         R=region,
         V=verbose,
+        o=outcols,
     )
     aliasdict.merge(kwargs)
 

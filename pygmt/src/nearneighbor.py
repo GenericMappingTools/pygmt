@@ -7,9 +7,9 @@ from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["nearneighbor"]
 
@@ -17,7 +17,6 @@ __doctest_skip__ = ["nearneighbor"]
 @fmt_docstring
 @use_alias(
     E="empty",
-    I="spacing",
     N="sectors",
     S="search_radius",
     a="aspatial",
@@ -29,13 +28,13 @@ __doctest_skip__ = ["nearneighbor"]
     h="header",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence")
 def nearneighbor(
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     z=None,
     outgrid: PathLike | None = None,
+    spacing: Sequence[float | str] | None = None,
     region: Sequence[float | str] | str | None = None,
     registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -80,6 +79,7 @@ def nearneighbor(
     Full GMT docs at :gmt-docs:`nearneighbor.html`.
 
     $aliases
+       - I = spacing
        - R = region
        - V = verbose
        - i = incols
@@ -153,7 +153,9 @@ def nearneighbor(
     ...     search_radius="10m",
     ... )
     """
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+    ).add_common(
         R=region,
         V=verbose,
         i=incols,

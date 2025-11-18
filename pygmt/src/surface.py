@@ -7,9 +7,9 @@ from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["surface"]
 
@@ -17,7 +17,6 @@ __doctest_skip__ = ["surface"]
 @fmt_docstring
 @use_alias(
     C="convergence",
-    I="spacing",
     Ll="lower",
     Lu="upper",
     M="maxradius",
@@ -31,13 +30,13 @@ __doctest_skip__ = ["surface"]
     i="incols",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence")
 def surface(
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     z=None,
     outgrid: PathLike | None = None,
+    spacing: Sequence[float | str] | None = None,
     region: Sequence[float | str] | str | None = None,
     registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -77,6 +76,7 @@ def surface(
     Full GMT docs at :gmt-docs:`surface.html`.
 
     $aliases
+       - I = spacing
        - R = region
        - V = verbose
        - r = registration
@@ -166,7 +166,9 @@ def surface(
     >>> # Perform gridding of topography data
     >>> grid = pygmt.surface(data=topography, spacing=1, region=[0, 4, 0, 8])
     """
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+    ).add_common(
         R=region,
         V=verbose,
         r=registration,

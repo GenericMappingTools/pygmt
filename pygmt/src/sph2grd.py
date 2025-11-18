@@ -7,19 +7,19 @@ from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["sph2grd"]
 
 
 @fmt_docstring
-@use_alias(I="spacing", b="binary", h="header")
-@kwargs_to_strings(I="sequence")
+@use_alias(b="binary", h="header")
 def sph2grd(
     data: PathLike | TableLike,
     outgrid: PathLike | None = None,
+    spacing: Sequence[float | str] | None = None,
     region: Sequence[float | str] | str | None = None,
     registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -38,6 +38,7 @@ def sph2grd(
     Full GMT docs at :gmt-docs:`sph2grd.html`.
 
     $aliases
+       - I = spacing
        - R = region
        - V = verbose
        - r = registration
@@ -76,7 +77,9 @@ def sph2grd(
     >>> # set the grid spacing to 1 arc-degree, and the region to global ("g")
     >>> new_grid = pygmt.sph2grd(data="@EGM96_to_36.txt", spacing=1, region="g")
     """
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+    ).add_common(
         R=region,
         V=verbose,
         i=incols,
