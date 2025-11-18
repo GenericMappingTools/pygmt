@@ -8,12 +8,11 @@ from typing import Literal
 import numpy as np
 import pandas as pd
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
     validate_output_table_type,
 )
@@ -73,7 +72,6 @@ def _blockm(
 
 @fmt_docstring
 @use_alias(
-    I="spacing",
     S="summary",
     a="aspatial",
     b="binary",
@@ -83,7 +81,6 @@ def _blockm(
     h="header",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence")
 def blockmean(  # noqa: PLR0913
     data: PathLike | TableLike | None = None,
     x=None,
@@ -91,6 +88,7 @@ def blockmean(  # noqa: PLR0913
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    spacing: Sequence[float | str] | None = None,
     region: Sequence[float | str] | str | None = None,
     registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -114,6 +112,7 @@ def blockmean(  # noqa: PLR0913
     Full GMT docs at :gmt-docs:`blockmean.html`.
 
     {aliases}
+       - I = spacing
        - R = region
        - V = verbose
        - i = incols
@@ -170,7 +169,9 @@ def blockmean(  # noqa: PLR0913
     >>> # Calculate block mean values within 5 by 5 arc-minute bins
     >>> data_bmean = pygmt.blockmean(data=data, region=[245, 255, 20, 30], spacing="5m")
     """
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+    ).add_common(
         R=region,
         V=verbose,
         i=incols,
@@ -193,16 +194,8 @@ def blockmean(  # noqa: PLR0913
 
 @fmt_docstring
 @use_alias(
-    I="spacing",
-    a="aspatial",
-    b="binary",
-    d="nodata",
-    e="find",
-    f="coltypes",
-    h="header",
-    w="wrap",
+    a="aspatial", b="binary", d="nodata", e="find", f="coltypes", h="header", w="wrap"
 )
-@kwargs_to_strings(I="sequence")
 def blockmedian(  # noqa: PLR0913
     data: PathLike | TableLike | None = None,
     x=None,
@@ -210,6 +203,7 @@ def blockmedian(  # noqa: PLR0913
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    spacing: Sequence[float | str] | None = None,
     region: Sequence[float | str] | str | None = None,
     registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -233,6 +227,7 @@ def blockmedian(  # noqa: PLR0913
     Full GMT docs at :gmt-docs:`blockmedian.html`.
 
     {aliases}
+       - I = spacing
        - R = region
        - V = verbose
        - i = incols
@@ -283,7 +278,9 @@ def blockmedian(  # noqa: PLR0913
     ...     data=data, region=[245, 255, 20, 30], spacing="5m"
     ... )
     """
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+    ).add_common(
         R=region,
         V=verbose,
         i=incols,
@@ -306,7 +303,6 @@ def blockmedian(  # noqa: PLR0913
 
 @fmt_docstring
 @use_alias(
-    I="spacing",
     a="aspatial",
     b="binary",
     d="nodata",
@@ -315,7 +311,6 @@ def blockmedian(  # noqa: PLR0913
     h="header",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence")
 def blockmode(  # noqa: PLR0913
     data: PathLike | TableLike | None = None,
     x=None,
@@ -323,6 +318,7 @@ def blockmode(  # noqa: PLR0913
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    spacing: Sequence[float | str] | None = None,
     region: Sequence[float | str] | str | None = None,
     registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -346,6 +342,7 @@ def blockmode(  # noqa: PLR0913
     Full GMT docs at :gmt-docs:`blockmode.html`.
 
     {aliases}
+       - I = spacing
        - R = region
        - V = verbose
        - i = incols
@@ -394,7 +391,9 @@ def blockmode(  # noqa: PLR0913
     >>> # Calculate block mode values within 5 by 5 arc-minute bins
     >>> data_bmode = pygmt.blockmode(data=data, region=[245, 255, 20, 30], spacing="5m")
     """
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+    ).add_common(
         R=region,
         V=verbose,
         i=incols,
