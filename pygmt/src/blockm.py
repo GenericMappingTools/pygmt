@@ -13,7 +13,6 @@ from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
     validate_output_table_type,
 )
@@ -80,10 +79,8 @@ def _blockm(
     e="find",
     f="coltypes",
     h="header",
-    o="outcols",
     w="wrap",
 )
-@kwargs_to_strings(o="sequence_comma")
 def blockmean(  # noqa: PLR0913
     data: PathLike | TableLike | None = None,
     x=None,
@@ -97,6 +94,7 @@ def blockmean(  # noqa: PLR0913
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     incols: int | str | Sequence[int | str] | None = None,
+    outcols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -118,6 +116,7 @@ def blockmean(  # noqa: PLR0913
        - R = region
        - V = verbose
        - i = incols
+       - o = outcols
        - r = registration
 
     Parameters
@@ -176,6 +175,7 @@ def blockmean(  # noqa: PLR0913
         R=region,
         V=verbose,
         i=incols,
+        o=outcols,
         r=registration,
     )
     aliasdict.merge(kwargs)
@@ -194,16 +194,8 @@ def blockmean(  # noqa: PLR0913
 
 @fmt_docstring
 @use_alias(
-    a="aspatial",
-    b="binary",
-    d="nodata",
-    e="find",
-    f="coltypes",
-    h="header",
-    o="outcols",
-    w="wrap",
+    a="aspatial", b="binary", d="nodata", e="find", f="coltypes", h="header", w="wrap"
 )
-@kwargs_to_strings(o="sequence_comma")
 def blockmedian(  # noqa: PLR0913
     data: PathLike | TableLike | None = None,
     x=None,
@@ -217,6 +209,7 @@ def blockmedian(  # noqa: PLR0913
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     incols: int | str | Sequence[int | str] | None = None,
+    outcols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -238,6 +231,7 @@ def blockmedian(  # noqa: PLR0913
        - R = region
        - V = verbose
        - i = incols
+       - o = outcols
        - r = registration
 
     Parameters
@@ -290,6 +284,7 @@ def blockmedian(  # noqa: PLR0913
         R=region,
         V=verbose,
         i=incols,
+        o=outcols,
         r=registration,
     )
     aliasdict.merge(kwargs)
@@ -314,10 +309,8 @@ def blockmedian(  # noqa: PLR0913
     e="find",
     f="coltypes",
     h="header",
-    o="outcols",
     w="wrap",
 )
-@kwargs_to_strings(o="sequence_comma")
 def blockmode(  # noqa: PLR0913
     data: PathLike | TableLike | None = None,
     x=None,
@@ -331,6 +324,7 @@ def blockmode(  # noqa: PLR0913
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     incols: int | str | Sequence[int | str] | None = None,
+    outcols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -352,6 +346,7 @@ def blockmode(  # noqa: PLR0913
        - R = region
        - V = verbose
        - i = incols
+       - o = outcols
        - r = registration
 
     Parameters
@@ -402,6 +397,7 @@ def blockmode(  # noqa: PLR0913
         R=region,
         V=verbose,
         i=incols,
+        o=outcols,
         r=registration,
     )
     aliasdict.merge(kwargs)
