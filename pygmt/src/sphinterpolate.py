@@ -7,19 +7,18 @@ from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring
 
 __doctest_skip__ = ["sphinterpolate"]
 
 
 @fmt_docstring
-@use_alias(I="spacing")
-@kwargs_to_strings(I="sequence")
 def sphinterpolate(
     data: PathLike | TableLike,
     outgrid: PathLike | None = None,
+    spacing: Sequence[float | str] | None = None,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -36,7 +35,12 @@ def sphinterpolate(
 
     Full GMT docs at :gmt-docs:`sphinterpolate.html`.
 
-    {aliases}
+    **Aliases:**
+
+    .. hlist:
+       :columns: 2
+
+       - I = spacing
        - R = region
        - V = verbose
 
@@ -69,7 +73,9 @@ def sphinterpolate(
     >>> # to produce a grid with a 1 arc-degree spacing
     >>> grid = pygmt.sphinterpolate(data=mars_shape, spacing=1, region="g")
     """
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+    ).add_common(
         R=region,
         V=verbose,
     )
