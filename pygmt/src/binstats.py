@@ -9,25 +9,23 @@ import xarray as xr
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
 @use_alias(
     E="empty",
-    I="spacing",
     N="normalize",
     S="search_radius",
     W="weight",
     a="aspatial",
     b="binary",
     h="header",
-    i="incols",
 )
-@kwargs_to_strings(I="sequence", i="sequence_comma")
 def binstats(
     data: PathLike | TableLike,
     outgrid: PathLike | None = None,
+    spacing: Sequence[float | str] | None = None,
     statistic: Literal[
         "mean",
         "mad",
@@ -51,6 +49,7 @@ def binstats(
     registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -68,8 +67,10 @@ def binstats(
 
     {aliases}
        - C = statistic
+       - I = spacing
        - R = region
        - V = verbose
+       - i = incols
        - r = registration
 
     Parameters
@@ -156,9 +157,11 @@ def binstats(
                 "sum": "z",
             },
         ),
+        I=Alias(spacing, name="spacing", sep="/", size=2),
     ).add_common(
         R=region,
         V=verbose,
+        i=incols,
         r=registration,
     )
     aliasdict.merge(kwargs)
