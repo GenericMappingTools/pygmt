@@ -116,7 +116,7 @@ def create_logo(
         "y": 0,
         "style": f"{symbol}{size_shape}c",
         "perspective": True,
-        "no_clip": True,  # needed for corners of hexagon shape
+        "no_clip": True,  # Needed for corners of hexagon shape
     }
     # White filled circle / hexagon for Earth
     fig.plot(fill=color_bg, **args_shape)
@@ -176,7 +176,7 @@ def create_logo(
     # Polygon with small distance to horizontal line of letter G
     # Starting point: lower right corner of the left vertical line of letter M
     # Direction: clockwise
-    m_x1 = thin / 2  # half of the pen thickness of compass lines.
+    m_x1 = thin / 2  # Half of the pen thickness of compass lines.
     m_x2 = r4
     m_x = [
         m_x1 + m_x2 / 5,  # vertical left upwards
@@ -279,8 +279,8 @@ def pygmtlogo(  # noqa: PLR0913
     theme="light",
     shape="circle",
     wordmark=True,
-    position=None,  # -> use position parameter of Figure.image
-    box=None,  # -> use box parameter of Figure.image
+    position=None,  # -> Use position parameter of Figure.image
+    box=None,  # -> Use box parameter of Figure.image
     projection=None,
     region=None,
     verbose=None,
