@@ -12,7 +12,7 @@ from pygmt.params import Box, Position
 
 
 @fmt_docstring
-def logo(
+def logo(  # noqa: PLR0913
     self,
     position: Position,
     width: float | str | None = None,
