@@ -9,13 +9,12 @@ import xarray as xr
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
 @use_alias(
     E="empty",
-    I="spacing",
     N="normalize",
     S="search_radius",
     W="weight",
@@ -23,10 +22,10 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     b="binary",
     h="header",
 )
-@kwargs_to_strings(I="sequence")
 def binstats(
     data: PathLike | TableLike,
     outgrid: PathLike | None = None,
+    spacing: Sequence[float | str] | None = None,
     statistic: Literal[
         "mean",
         "mad",
@@ -68,6 +67,7 @@ def binstats(
 
     {aliases}
        - C = statistic
+       - I = spacing
        - R = region
        - V = verbose
        - i = incols
@@ -157,6 +157,7 @@ def binstats(
                 "sum": "z",
             },
         ),
+        I=Alias(spacing, name="spacing", sep="/", size=2),
     ).add_common(
         R=region,
         V=verbose,

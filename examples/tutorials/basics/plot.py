@@ -10,6 +10,8 @@ the first time you use them (usually ``~/.gmt/cache``).
 """
 
 # %%
+import io
+
 import pygmt
 
 # %%
@@ -49,6 +51,11 @@ fig.show()
 # array to the ``size`` parameter. Because the magnitude is on a logarithmic
 # scale, it helps to show the differences by scaling the values using a power
 # law.
+#
+# A legend for the size of the circles can not be added automatically. But users can
+# create an :class:`io.StringIO` object, which can be passed to the ``spec`` parameter
+# of :meth:`pygmt.Figure.legend`. For details on creating legends, see the tutorial
+# :doc:`multiple-column legend </tutorials/advanced/legends>`.
 
 fig = pygmt.Figure()
 fig.basemap(region=region, projection="M15c", frame=True)
@@ -61,6 +68,10 @@ fig.plot(
     fill="white",
     pen="black",
 )
+legend = io.StringIO(
+    "\n".join(f"S 0.4 c {0.02 * 2**m:.2f} - 1p 1 Mw {m}" for m in [3, 4, 5])
+)
+fig.legend(spec=legend, position="jBR+o0.2c+l2", box=True)
 fig.show()
 
 # %%
@@ -75,7 +86,6 @@ fig.show()
 # the earthquakes using :func:`pygmt.makecpt`, then set ``cmap=True`` in
 # :meth:`pygmt.Figure.plot` to use the colormap. At the end of the plot, we
 # also plot a colorbar showing the colormap used in the plot.
-#
 
 fig = pygmt.Figure()
 fig.basemap(region=region, projection="M15c", frame=True)
@@ -91,6 +101,7 @@ fig.plot(
     pen="black",
 )
 fig.colorbar(frame="xaf+lDepth (km)")
+fig.legend(spec=legend, position="jBR+o0.2c+l2", box=True)
 fig.show()
 
 # sphinx_gallery_thumbnail_number = 3
