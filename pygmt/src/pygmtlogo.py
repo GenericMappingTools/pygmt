@@ -266,7 +266,7 @@ def create_logo(
     with pygmt.config(MAP_FRAME_TYPE="inside"):
         fig.basemap(frame="a1g1")
 
-    fig.show()
+    # fig.show()
     fig_name_logo = "pygmt_logo"
     fig.savefig(fname=f"{fig_name_logo}.eps")
 
