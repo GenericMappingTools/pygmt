@@ -70,16 +70,28 @@ def create_logo(
         if theme == "dark":
             blue = yellow = red = color_light
 
-    # Background and wordmark
+    # Background
     match theme:
         case "light":
             color_bg = color_light
-            color_py = blue
-            color_gmt = color_dark
+            # color_py = blue
+            # color_gmt = color_dark
         case "dark":
             color_bg = color_dark
-            color_py = yellow
-            color_gmt = color_light
+            # color_py = yellow
+            # color_gmt = color_light
+
+    # Wordmark
+    # color_text_gmt = color_dark  # red
+    # if not color:
+    #     color_text_gmt = color_dark
+    color_text_py = color_dark
+    if color:
+        match theme:
+            case "light":
+                color_text_py = blue
+            case "dark":
+                color_text_py = yellow
 
     # Define shape
     match shape:
@@ -254,7 +266,7 @@ def create_logo(
 
     # Add wordmark "PyGMT"
     if wordmark:
-        text_wm = f"@;{color_py};Py@;;@;{color_gmt};GMT@;;"
+        text_wm = f"@;{color_text_py};Py@;;@;{color_dark};GMT@;;"
         fig.text(text=text_wm, no_clip=True, **args_text_wm)
         # fig.show()
 
