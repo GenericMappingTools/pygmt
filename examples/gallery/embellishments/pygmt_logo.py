@@ -19,7 +19,7 @@ dark mode. The wordmark can be added at the right side or bottom of the visual.
 fig = pygmt.Figure()
 
 # Logo without workmark.
-fig.basemap(region=[0, 7, 0, 13], projection="x1c", frame=["a1f1g1", "+gtan"])
+fig.basemap(region=[0, 7, 0, 13], projection="x1c", frame=["a1f1g1", "+ggray50"])
 for x, y, theme in [(1, 3, "light"), (4, 3, "dark")]:
     for color, shape in [
         (True, "circle"),
@@ -39,7 +39,7 @@ for x, y, theme in [(1, 3, "light"), (4, 3, "dark")]:
 fig.shift_origin(xshift=8)
 
 # Logo with vertical wordmark.
-fig.basemap(region=[0, 7, 0, 13], projection="x1c", frame=["a1f1g1", "+gtan"])
+fig.basemap(region=[0, 7, 0, 13], projection="x1c", frame=["a1f1g1", "+ggray50"])
 for x, y, theme in [(1, 3, "light"), (4, 3, "dark")]:
     for color, shape in [
         (True, "circle"),
@@ -59,7 +59,7 @@ for x, y, theme in [(1, 3, "light"), (4, 3, "dark")]:
 fig.shift_origin(xshift=8)
 
 # Logo with horizontal wordmark.
-fig.basemap(region=[0, 20, 0, 13], projection="x1c", frame=["a1f1g1", "+gtan"])
+fig.basemap(region=[0, 20, 0, 13], projection="x1c", frame=["a1f1g1", "+ggray50"])
 for x, y, theme in [(1, 3, "light"), (11, 3, "dark")]:
     for color, shape in [
         (True, "circle"),
