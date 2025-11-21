@@ -1,5 +1,5 @@
 """
-shift_origin - Shift plot origin in x and/or y directions.
+shift_origin - Shift plot origin in x- and/or y-directions.
 """
 
 import contextlib
@@ -12,7 +12,7 @@ def shift_origin(
     self, xshift: float | str | None = None, yshift: float | str | None = None
 ):
     r"""
-    Shift the plot origin in x and/or y directions.
+    Shift the plot origin in x- and/or y-directions.
 
     The shifts can be permanent or temporary. If used as a standalone method, the shifts
     are permanent and apply to all subsequent plots. If used as a context manager, the
@@ -33,7 +33,7 @@ def shift_origin(
                 ...  # Other plot commands
                 ...
 
-    The shifts *xshift* and *yshift* in x and y directions are relative to the current
+    The shifts *xshift* and *yshift* in x- and y-directions are relative to the current
     plot origin. The default unit for shifts is centimeters (**c**) but can be changed
     to other units via :gmt-term:`PROJ_LENGTH_UNIT`. Optionally, append the length unit
     (**c** for centimeters, **i** for inches, or **p** for points) to the shifts.
@@ -59,9 +59,9 @@ def shift_origin(
     Parameters
     ----------
     xshift
-        Shift plot origin in x direction.
+        Shift plot origin in x-direction.
     yshift
-        Shift plot origin in y direction.
+        Shift plot origin in y-direction.
 
     Examples
     --------
@@ -71,11 +71,11 @@ def shift_origin(
     >>> import pygmt
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 5, 0, 5], projection="X5c/5c", frame=True)
-    >>> # Shift the plot origin in x direction by 6 cm
+    >>> # Shift the plot origin in x-direction by 6 cm
     >>> fig.shift_origin(xshift=6)
     <contextlib._GeneratorContextManager object at ...>
     >>> fig.basemap(region=[0, 7, 0, 5], projection="X7c/5c", frame=True)
-    >>> # Shift the plot origin in x direction based on the previous plot width.
+    >>> # Shift the plot origin in x-direction based on the previous plot width.
     >>> # Here, the width is 7 cm, and xshift is 8 cm.
     >>> fig.shift_origin(xshift="w+1c")
     <contextlib._GeneratorContextManager object at ...>
@@ -86,14 +86,14 @@ def shift_origin(
 
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 5, 0, 5], projection="X5c/5c", frame=True)
-    >>> # Shift the plot origin in x direction by 6 cm temporarily. The plot origin will
+    >>> # Shift the plot origin in x-direction by 6 cm temporarily. The plot origin will
     >>> # revert back to the original plot origin after the block of code is executed.
     >>> with fig.shift_origin(xshift=6):
     ...     fig.basemap(region=[0, 5, 0, 5], projection="X5c/5c", frame=True)
-    >>> # Shift the plot origin in y direction by 6 cm temporarily.
+    >>> # Shift the plot origin in y-direction by 6 cm temporarily.
     >>> with fig.shift_origin(yshift=6):
     ...     fig.basemap(region=[0, 5, 0, 5], projection="X5c/5c", frame=True)
-    >>> # Shift the plot origin in x and y directions by 6 cm temporarily.
+    >>> # Shift the plot origin in x- and y-directions by 6 cm temporarily.
     >>> with fig.shift_origin(xshift=6, yshift=6):
     ...     fig.basemap(region=[0, 5, 0, 5], projection="X5c/5c", frame=True)
     >>> fig.show()

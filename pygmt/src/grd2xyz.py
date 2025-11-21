@@ -2,18 +2,19 @@
 grd2xyz - Convert grid to data table.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
 import pandas as pd
 import xarray as xr
 from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
     validate_output_table_type,
 )
@@ -24,22 +25,22 @@ __doctest_skip__ = ["grd2xyz"]
 @fmt_docstring
 @use_alias(
     C="cstyle",
-    R="region",
-    V="verbose",
     W="weight",
     Z="convention",
     b="binary",
     d="nodata",
     f="coltypes",
     h="header",
-    o="outcols",
     s="skiprows",
 )
-@kwargs_to_strings(R="sequence", o="sequence_comma")
 def grd2xyz(
     grid: PathLike | xr.DataArray,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    outcols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -48,9 +49,12 @@ def grd2xyz(
     Read a grid and output xyz-triplets as a :class:`numpy.ndarray`,
     :class:`pandas.DataFrame`, or ASCII file.
 
-    Full option list at :gmt-docs:`grd2xyz.html`
+    Full GMT docs at :gmt-docs:`grd2xyz.html`.
 
     {aliases}
+       - R = region
+       - V = verbose
+       - o = outcols
 
     Parameters
     ----------
@@ -144,17 +148,25 @@ def grd2xyz(
     """
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
-    if kwargs.get("o") is not None and output_type == "pandas":
-        msg = (
-            "If 'outcols' is specified, 'output_type' must be either 'numpy' or 'file'."
+    if kwargs.get("o", outcols) is not None and output_type == "pandas":
+        raise GMTValueError(
+            output_type,
+            description="value for parameter 'output_type'",
+            reason="Expected one of: 'numpy', 'file' if 'outcols' is specified.",
         )
-        raise GMTInvalidInput(msg)
     # Set the default column names for the pandas DataFrame header.
     column_names: list[str] = ["x", "y", "z"]
     # Let output pandas column names match input DataArray dimension names
     if output_type == "pandas" and isinstance(grid, xr.DataArray):
         # Reverse the dims because it is rows, columns ordered.
         column_names = [str(grid.dims[1]), str(grid.dims[0]), str(grid.name)]
+
+    aliasdict = AliasSystem().add_common(
+        R=region,
+        V=verbose,
+        o=outcols,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (
@@ -163,7 +175,7 @@ def grd2xyz(
         ):
             lib.call_module(
                 module="grd2xyz",
-                args=build_arg_list(kwargs, infile=vingrd, outfile=vouttbl),
+                args=build_arg_list(aliasdict, infile=vingrd, outfile=vouttbl),
             )
             return lib.virtualfile_to_dataset(
                 vfname=vouttbl, output_type=output_type, column_names=column_names

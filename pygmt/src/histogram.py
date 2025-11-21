@@ -2,7 +2,11 @@
 Histogram - Calculate and plot histograms.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -10,43 +14,54 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @fmt_docstring
 @use_alias(
     A="horizontal",
-    B="frame",
     C="cmap",
     D="annotate",
     E="barwidth",
     F="center",
     G="fill",
-    J="projection",
     L="extreme",
     N="distribution",
     Q="cumulative",
-    R="region",
     S="stairs",
     T="series",
-    V="verbose",
     W="pen",
     Z="histtype",
     b="binary",
-    c="panel",
     d="nodata",
     e="find",
     h="header",
-    i="incols",
     l="label",
-    p="perspective",
-    t="transparency",
     w="wrap",
 )
-@kwargs_to_strings(
-    R="sequence", T="sequence", c="sequence_comma", i="sequence_comma", p="sequence"
-)
-def histogram(self, data: PathLike | TableLike, **kwargs):
+@kwargs_to_strings(T="sequence")
+def histogram(
+    self,
+    data: PathLike | TableLike,
+    projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | Sequence[int] | bool = False,
+    transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
+    **kwargs,
+):
     r"""
     Calculate and plot histograms.
 
-    Full option list at :gmt-docs:`histogram.html`
+    Full GMT docs at :gmt-docs:`histogram.html`.
 
     {aliases}
+       - B = frame
+       - J = projection
+       - R = region
+       - V = verbose
+       - c = panel
+       - i = incols
+       - p = perspective
+       - t = transparency
 
     Parameters
     ----------
@@ -136,8 +151,21 @@ def histogram(self, data: PathLike | TableLike, **kwargs):
     {wrap}
     """
     self._activate_figure()
+
+    aliasdict = AliasSystem().add_common(
+        B=frame,
+        J=projection,
+        R=region,
+        V=verbose,
+        c=panel,
+        i=incols,
+        p=perspective,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
             lib.call_module(
-                module="histogram", args=build_arg_list(kwargs, infile=vintbl)
+                module="histogram", args=build_arg_list(aliasdict, infile=vintbl)
             )

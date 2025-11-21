@@ -2,47 +2,50 @@
 velo - Plot velocity vectors, crosses, anisotropy bars, and wedges.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
 import numpy as np
 import pandas as pd
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    build_arg_list,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.exceptions import GMTInvalidInput, GMTTypeError
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
 @use_alias(
     A="vector",
-    B="frame",
     C="cmap",
     D="rescale",
     E="uncertaintyfill",
     G="fill",
     H="scale",
     I="shading",
-    J="projection",
     L="line",
-    N="no_clip",
-    R="region",
     S="spec",
-    V="verbose",
     W="pen",
     Z="zvalue",
-    c="panel",
     d="nodata",
     e="find",
     h="header",
-    i="incols",
-    p="perspective",
-    t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def velo(self, data: PathLike | TableLike | None = None, **kwargs):
+def velo(  # noqa : PLR0913
+    self,
+    data: PathLike | TableLike | None = None,
+    no_clip: bool = False,
+    projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | Sequence[int] | bool = False,
+    transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
+    **kwargs,
+):
     r"""
     Plot velocity vectors, crosses, anisotropy bars, and wedges.
 
@@ -55,9 +58,18 @@ def velo(self, data: PathLike | TableLike | None = None, **kwargs):
 
     Must provide ``data`` and ``spec``.
 
-    Full option list at :gmt-docs:`supplements/geodesy/velo.html`
+    Full GMT docs at :gmt-docs:`supplements/geodesy/velo.html`.
 
     {aliases}
+       - B = frame
+       - J = projection
+       - N = no_clip
+       - R = region
+       - V = verbose
+       - c = panel
+       - i = incols
+       - p = perspective
+       - t = transparency
 
     Parameters
     ----------
@@ -209,10 +221,9 @@ def velo(self, data: PathLike | TableLike | None = None, **kwargs):
         ``cmap``). If instead modifier **+cf** is appended then the color from
         the cpt file is applied to error fill only [Default]. Use just **+c**
         to set both pen and fill color.
-    no_clip: bool
-        Do **not** skip symbols that fall outside the frame boundaries
-        [Default is ``False``, i.e., plot symbols inside the frame
-        boundaries only].
+    no_clip
+        Do **not** skip symbols that fall outside the frame boundaries [Default is
+        ``False``, i.e., plot symbols inside the frame boundaries only].
     {verbose}
     pen : str
         [*pen*][**+c**\ [**f**\|\ **l**]].
@@ -248,12 +259,30 @@ def velo(self, data: PathLike | TableLike | None = None, **kwargs):
         raise GMTInvalidInput(msg)
 
     if isinstance(data, np.ndarray) and not pd.api.types.is_numeric_dtype(data):
-        msg = (
-            "Text columns are not supported with numpy.ndarray type inputs. "
-            "They are only supported with file or pandas.DataFrame inputs."
+        raise GMTTypeError(
+            type(data),
+            reason=(
+                "Text columns are not supported with numpy.ndarray type inputs. "
+                "They are only supported with file or pandas.DataFrame inputs."
+            ),
         )
-        raise GMTInvalidInput(msg)
+
+    aliasdict = AliasSystem(
+        N=Alias(no_clip, name="no_clip"),
+    ).add_common(
+        B=frame,
+        J=projection,
+        R=region,
+        V=verbose,
+        c=panel,
+        i=incols,
+        p=perspective,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
-            lib.call_module(module="velo", args=build_arg_list(kwargs, infile=vintbl))
+            lib.call_module(
+                module="velo", args=build_arg_list(aliasdict, infile=vintbl)
+            )

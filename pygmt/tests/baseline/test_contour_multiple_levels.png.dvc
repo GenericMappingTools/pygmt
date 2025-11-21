@@ -1,6 +1,5 @@
 outs:
-- md5: 7bef85a616c46b9f05f4dbed07bd703d
-  size: 29247
-  isexec: true
+- md5: 1f8a24696910f3cc433fd8e61caf6aa2
+  size: 29184
   hash: md5
   path: test_contour_multiple_levels.png

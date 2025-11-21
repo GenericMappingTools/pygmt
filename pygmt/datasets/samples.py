@@ -7,7 +7,7 @@ from typing import Literal, NamedTuple
 
 import pandas as pd
 import xarray as xr
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 from pygmt.src import which
 
 
@@ -209,16 +209,11 @@ def _load_earth_relief_holes() -> xr.DataArray:
 class GMTSampleData(NamedTuple):
     """
     Information of a sample dataset.
-
-    Attributes
-    ----------
-    func : callable
-        The function that loads the sample dataset.
-    description : str
-        The description of the sample dataset.
     """
 
+    #: The function that loads the sample dataset.
     func: Callable
+    #: The description of the sample dataset.
     description: str
 
 
@@ -346,6 +341,5 @@ def load_sample_data(
     >>> data = load_sample_data("bathymetry")
     """  # noqa: W505
     if name not in datasets:
-        msg = f"Invalid dataset name '{name}'."
-        raise GMTInvalidInput(msg)
+        raise GMTValueError(name, choices=datasets.keys(), description="dataset name")
     return datasets[name].func()

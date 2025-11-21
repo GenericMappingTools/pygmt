@@ -11,8 +11,7 @@ from typing import Any
 import numpy as np
 import pandas as pd
 import xarray as xr
-from packaging.version import Version
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 
 
 def dataarray_to_matrix(
@@ -49,7 +48,7 @@ def dataarray_to_matrix(
 
     Raises
     ------
-    GMTInvalidInput
+    GMTValueError
         If the grid has more than two dimensions or variable grid spacing.
 
     Examples
@@ -92,8 +91,11 @@ def dataarray_to_matrix(
     [2.0, 2.0]
     """
     if len(grid.dims) != 2:
-        msg = f"Invalid number of grid dimensions 'len({grid.dims})'. Must be 2."
-        raise GMTInvalidInput(msg)
+        raise GMTValueError(
+            len(grid.dims),
+            description="number of grid dimensions",
+            reason="The grid must be 2-D.",
+        )
 
     # Extract region and inc from the grid
     region, inc = [], []
@@ -113,8 +115,11 @@ def dataarray_to_matrix(
             )
             warnings.warn(msg, category=RuntimeWarning, stacklevel=2)
         if coord_inc == 0:
-            msg = f"Grid has a zero increment in the '{dim}' dimension."
-            raise GMTInvalidInput(msg)
+            raise GMTValueError(
+                coord_inc,
+                description="grid increment",
+                reason=f"Grid has a zero increment in the '{dim}' dimension.",
+            )
         region.extend(
             [
                 coord.min() - coord_inc / 2 * grid.gmt.registration,
@@ -172,25 +177,6 @@ def _to_numpy(data: Any) -> np.ndarray:
     dtype = getattr(data, "dtype", getattr(data, "type", ""))
     # The numpy dtype for the result numpy array, but can be None.
     numpy_dtype = dtypes.get(str(dtype))
-
-    # TODO(pandas>=2.2): Remove the workaround for pandas<2.2.
-    #
-    # pandas numeric dtypes were converted to np.object_ dtype prior pandas 2.2, and are
-    # converted to suitable NumPy dtypes since pandas 2.2. Refer to the following link
-    # for details: https://pandas.pydata.org/docs/whatsnew/v2.2.0.html#to-numpy-for-numpy-nullable-and-arrow-types-converts-to-suitable-numpy-dtype
-    if (
-        Version(pd.__version__) < Version("2.2")  # pandas < 2.2 only.
-        and hasattr(data, "dtype")  # NumPy array or pandas objects only.
-        and hasattr(data.dtype, "numpy_dtype")  # pandas dtypes only.
-        and data.dtype.kind in "iuf"  # Numeric dtypes only.
-    ):  # pandas Series/Index with pandas nullable numeric dtypes.
-        # The numpy dtype of the result numpy array.
-        numpy_dtype = data.dtype.numpy_dtype
-        if getattr(data, "hasnans", False):
-            if data.dtype.kind in "iu":
-                # Integers with missing values are converted to float64.
-                numpy_dtype = np.float64
-            data = data.to_numpy(na_value=np.nan)
 
     # Deal with timezone-aware datetime dtypes.
     if isinstance(dtype, pd.DatetimeTZDtype):  # pandas.DatetimeTZDtype

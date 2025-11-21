@@ -43,7 +43,7 @@ def test_check_libgmt():
     Make sure check_libgmt fails when given a bogus library.
     """
     libgmt = FakedLibGMT("/path/to/libgmt.so")
-    msg = f"Error loading '{libgmt}'. Couldn't access function GMT_Create_Session."
+    msg = rf"Error loading '{libgmt}'. Couldn't access function GMT_Create_Session."
     with pytest.raises(GMTCLibError, match=msg):
         check_libgmt(libgmt)
 
@@ -150,7 +150,7 @@ class TestLibgmtBrokenLibs:
             rf"Error loading GMT shared library at '{self.faked_libgmt1._name}'.\n"
             rf"Error loading '{self.faked_libgmt1._name}'. Couldn't access.*\n"
             rf"Error loading GMT shared library at '{self.faked_libgmt2._name}'.\n"
-            f"Error loading '{self.faked_libgmt2._name}'. Couldn't access.*"
+            rf"Error loading '{self.faked_libgmt2._name}'. Couldn't access.*"
         )
         with pytest.raises(GMTCLibNotFoundError, match=msg_regex):
             load_libgmt(lib_fullnames=lib_fullnames)
@@ -168,7 +168,7 @@ class TestLibgmtBrokenLibs:
             rf"Error loading GMT shared library at '{self.faked_libgmt1._name}'.\n"
             rf"Error loading '{self.faked_libgmt1._name}'. Couldn't access.*\n"
             rf"Error loading GMT shared library at '{self.invalid_path}'.\n"
-            f"Unable to find '{self.invalid_path}'"
+            rf"Unable to find '{self.invalid_path}'"
         )
         with pytest.raises(GMTCLibNotFoundError, match=msg_regex):
             load_libgmt(lib_fullnames=lib_fullnames)

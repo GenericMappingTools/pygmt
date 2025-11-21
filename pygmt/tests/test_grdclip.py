@@ -88,7 +88,7 @@ def test_grdclip_replace():
     # TODO(PyGMT>=0.19.0): Remove this test below for the 'new' parameter
     with pytest.warns(FutureWarning):
         grid = grdclip(grid=grid, new=[1, 3])  # Replace 1 with 3
-        npt.assert_array_equal(np.unique(grid), [2, 3])
+    npt.assert_array_equal(np.unique(grid), [2, 3])
 
 
 def test_grdclip_between_repeated():

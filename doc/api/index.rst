@@ -203,6 +203,18 @@ Xarray Integration
     GMTBackendEntrypoint
     GMTDataArrayAccessor
 
+Class-style Parameters
+----------------------
+
+.. currentmodule:: pygmt.params
+
+.. autosummary::
+    :toctree: generated
+    :template: autosummary/params.rst
+
+    Box
+    Pattern
+
 Enums
 -----
 
@@ -283,6 +295,8 @@ All custom exceptions are derived from :class:`pygmt.exceptions.GMTError`.
     exceptions.GMTCLibError
     exceptions.GMTCLibNoSessionError
     exceptions.GMTCLibNotFoundError
+    exceptions.GMTTypeError
+    exceptions.GMTValueError
 
 
 .. currentmodule:: pygmt

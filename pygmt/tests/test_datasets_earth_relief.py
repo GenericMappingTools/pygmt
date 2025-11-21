@@ -9,7 +9,7 @@ from packaging.version import Version
 from pygmt.clib import __gmt_version__
 from pygmt.datasets import load_earth_relief
 from pygmt.enums import GridRegistration
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 
 
 # Only test 01d and 30m to avoid downloading large datasets in CI
@@ -49,7 +49,7 @@ def test_earth_relief_01d_gebco(data_source):
     assert data.gmt.registration is GridRegistration.GRIDLINE
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
-    npt.assert_allclose(data.min(), -7169.0, atol=1.0)
+    npt.assert_allclose(data.min(), -7173.0, atol=1.0)
     npt.assert_allclose(data.max(), 5350.0, atol=1.0)
 
 
@@ -83,7 +83,7 @@ def test_earth_relief_01d_with_region_gebco():
     assert data.gmt.registration is GridRegistration.GRIDLINE
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
-    npt.assert_allclose(data.min(), -5118.0, atol=1.0)
+    npt.assert_allclose(data.min(), -5137.0, atol=1.0)
     npt.assert_allclose(data.max(), 681.0, atol=1.0)
 
 
@@ -156,7 +156,7 @@ def test_earth_relief_invalid_data_source():
     """
     Test loading earth relief with invalid data_source argument.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         load_earth_relief(
             resolution="01d", registration="gridline", data_source="invalid_source"
         )
@@ -167,7 +167,7 @@ def test_earth_relief_invalid_data_source_with_use_srtm():
     Test loading earth relief with use_srtm=True and an incompatible data_source
     argument.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         load_earth_relief(
             resolution="03s",
             region=[135, 136, 35, 36],
@@ -175,6 +175,17 @@ def test_earth_relief_invalid_data_source_with_use_srtm():
             use_srtm=True,
             data_source="gebco",
         )
+
+
+def test_earth_relief_03s_but_not_igpp():
+    """
+    Test loading earth relief with resolution "03s" but data_source not "igpp".
+    """
+    for data_source in ["gebco", "gebcosi", "synbath"]:
+        with pytest.raises(GMTValueError):
+            load_earth_relief(
+                resolution="03s", region=[135, 136, 35, 36], data_source=data_source
+            )
 
 
 def test_earth_relief_15s_default_registration():
@@ -211,4 +222,4 @@ def test_earth_relief_03s_default_registration():
     npt.assert_allclose(data.coords["lon"].data.min(), -10)
     npt.assert_allclose(data.coords["lon"].data.max(), -9.8)
     npt.assert_allclose(data.min(), -2069.85, atol=0.5)
-    npt.assert_allclose(data.max(), -923.5, atol=0.5)
+    npt.assert_allclose(data.max(), -921.5, atol=0.5)

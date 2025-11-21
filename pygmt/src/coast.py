@@ -2,15 +2,19 @@
 coast - Plot continents, countries, shorelines, rivers, and borders.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     args_in_kwargs,
     build_arg_list,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
 )
+from pygmt.params import Box
 
 __doctest_skip__ = ["coast"]
 
@@ -18,26 +22,31 @@ __doctest_skip__ = ["coast"]
 @fmt_docstring
 @use_alias(
     A="area_thresh",
-    B="frame",
     C="lakes",
-    D="resolution",
     E="dcw",
-    F="box",
     G="land",
     I="rivers",
-    J="projection",
     L="map_scale",
     N="borders",
-    R="region",
     S="water",
-    V="verbose",
     W="shorelines",
-    c="panel",
-    p="perspective",
-    t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def coast(self, **kwargs):
+def coast(
+    self,
+    resolution: Literal[
+        "auto", "full", "high", "intermediate", "low", "crude", None
+    ] = None,
+    box: Box | bool = False,
+    projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | Sequence[int] | bool = False,
+    transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
+    **kwargs,
+):
     r"""
     Plot continents, countries, shorelines, rivers, and borders.
 
@@ -55,9 +64,18 @@ def coast(self, **kwargs):
 
     A map projection must be supplied.
 
-    Full option list at :gmt-docs:`coast.html`
+    Full GMT docs at :gmt-docs:`coast.html`.
 
     {aliases}
+       - B = frame
+       - D = resolution
+       - F = box
+       - J = projection
+       - R = region
+       - V = verbose
+       - c = panel
+       - p = perspective
+       - t = transparency
 
     Parameters
     ----------
@@ -73,10 +91,12 @@ def coast(self, **kwargs):
         parameter. Optionally, specify separate fills by appending
         **+l** for lakes or **+r** for river-lakes, and passing multiple
         strings in a list.
-    resolution : str
-        **f**\|\ **h**\|\ **i**\|\ **l**\|\ **c**.
-        Select the resolution of the data set to: (**f**\ )ull, (**h**\ )igh,
-        (**i**\ )ntermediate, (**l**\ )ow, and (**c**\ )rude.
+    resolution
+        Select the resolution of the coastline dataset to use. The available resolutions
+        from highest to lowest are: ``"full"``, ``"high"``, ``"intermediate"``,
+        ``"low"``, and ``"crude"``, which drops by 80% between levels. Default is
+        ``"auto"`` to automatically select the most suitable resolution given the chosen
+        map scale.
     land : str
         Select filling of "dry" areas.
     rivers : int, str, or list
@@ -111,24 +131,11 @@ def coast(self, **kwargs):
     map_scale : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+w**\ *length*.
         Draw a simple map scale centered on the reference point specified.
-    box : bool or str
-        [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
-        [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
-        If set to ``True``, draw a rectangular border around the
-        map scale or rose. Alternatively, specify a different pen with
-        **+p**\ *pen*. Add **+g**\ *fill* to fill the scale panel [Default is
-        no fill]. Append **+c**\ *clearance* where *clearance* is either gap,
-        xgap/ygap, or lgap/rgap/bgap/tgap where these items are uniform,
-        separate in x- and y-direction, or individual side spacings between
-        scale and border. Append **+i** to draw a secondary, inner border as
-        well. We use a uniform gap between borders of 2p and the
-        :gmt-term:`MAP_DEFAULTS_PEN` unless other values are specified. Append
-        **+r** to draw rounded rectangular borders instead, with a 6p corner
-        radius. You can override this radius by appending another value.
-        Finally, append **+s** to draw an offset background shaded region.
-        Here, *dx/dy* indicates the shift relative to the foreground frame
-        [Default is ``"4p/-4p"``] and shade sets the fill style to use for
-        shading [Default is ``"gray50"``].
+    box
+        Draw a background box behind the map scale or rose. If set to ``True``, a simple
+        rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
+        appearance, pass a :class:`pygmt.params.Box` object to control style, fill, pen,
+        and other box properties.
     borders : int, str, or list
         *border*\ [/*pen*].
         Draw political boundaries. Specify the type of boundary and
@@ -144,7 +151,7 @@ def coast(self, **kwargs):
 
     water : str
         Select filling "wet" areas.
-    shorelines : int, str, or list
+    shorelines : bool, int, str, or list
         [*level*\ /]\ *pen*.
         Draw shorelines [Default is no shorelines]. Append pen attributes
         [Default is ``"0.25p,black,solid"``] which apply to all four levels.
@@ -157,7 +164,7 @@ def coast(self, **kwargs):
         *code1,code2,…*\ [**+g**\ *fill*\ ][**+p**\ *pen*\ ][**+z**].
         Select painting country polygons from the `Digital Chart of the World
         <https://en.wikipedia.org/wiki/Digital_Chart_of_the_World>`__.
-        Append one or more comma-separated countries using the 2-character
+        Append one or more comma-separated countries using the 2-letter
         `ISO 3166-1 alpha-2 convention
         <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>`__.
         To select a state of a country (if available), append .\ *state*,
@@ -200,5 +207,31 @@ def coast(self, **kwargs):
             "lakes, land, water, rivers, borders, dcw, Q, or shorelines."
         )
         raise GMTInvalidInput(msg)
+
+    aliasdict = AliasSystem(
+        D=Alias(
+            resolution,
+            name="resolution",
+            mapping={
+                "auto": "a",
+                "full": "f",
+                "high": "h",
+                "intermediate": "i",
+                "low": "l",
+                "crude": "c",
+            },
+        ),
+        F=Alias(box, name="box"),
+    ).add_common(
+        B=frame,
+        J=projection,
+        R=region,
+        V=verbose,
+        c=panel,
+        p=perspective,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
-        lib.call_module(module="coast", args=build_arg_list(kwargs))
+        lib.call_module(module="coast", args=build_arg_list(aliasdict))

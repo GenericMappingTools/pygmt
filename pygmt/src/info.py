@@ -2,8 +2,12 @@
 info - Get information about data tables.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
 import numpy as np
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
@@ -16,17 +20,17 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @use_alias(
-    C="per_column",
-    I="spacing",
-    T="nearest_multiple",
-    V="verbose",
-    a="aspatial",
-    f="coltypes",
-    i="incols",
-    r="registration",
+    C="per_column", I="spacing", T="nearest_multiple", a="aspatial", f="coltypes"
 )
-@kwargs_to_strings(I="sequence", i="sequence_comma")
-def info(data: PathLike | TableLike, **kwargs) -> np.ndarray | str:
+@kwargs_to_strings(I="sequence")
+def info(
+    data: PathLike | TableLike,
+    registration: Literal["gridline", "pixel"] | bool = False,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
+    **kwargs,
+) -> np.ndarray | str:
     r"""
     Get information about data tables.
 
@@ -43,9 +47,12 @@ def info(data: PathLike | TableLike, **kwargs) -> np.ndarray | str:
     parameter ``nearest_multiple`` will provide a :class:`numpy.ndarray` in the form
     of [*zmin*, *zmax*, *dz*] for makecpt.
 
-    Full option list at :gmt-docs:`gmtinfo.html`
+    Full GMT docs at :gmt-docs:`gmtinfo.html`.
 
     {aliases}
+       - V = verbose
+       - i = incols
+       - r = registration
 
     Parameters
     ----------
@@ -81,12 +88,19 @@ def info(data: PathLike | TableLike, **kwargs) -> np.ndarray | str:
         - :class:`numpy.ndarray` if either of the above parameters are used.
         - str if none of the above parameters are used.
     """
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+        i=incols,
+        r=registration,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with GMTTempFile() as tmpfile:
             with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
                 lib.call_module(
                     module="info",
-                    args=build_arg_list(kwargs, infile=vintbl, outfile=tmpfile.name),
+                    args=build_arg_list(aliasdict, infile=vintbl, outfile=tmpfile.name),
                 )
             result = tmpfile.read()
 

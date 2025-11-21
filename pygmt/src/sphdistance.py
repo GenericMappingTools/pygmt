@@ -3,11 +3,15 @@ sphdistance - Create Voronoi distance, node, or natural nearest-neighbor grid on
 sphere.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["sphdistance"]
 
@@ -17,19 +21,19 @@ __doctest_skip__ = ["sphdistance"]
     C="single_form",
     D="duplicate",
     E="quantity",
-    I="spacing",
     L="unit",
     N="node_table",
     Q="voronoi",
-    R="region",
-    V="verbose",
 )
-@kwargs_to_strings(I="sequence", R="sequence")
 def sphdistance(
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     outgrid: PathLike | None = None,
+    spacing: Sequence[float | str] | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -40,9 +44,12 @@ def sphdistance(
     then processed to calculate the nearest distance to each
     node of the lattice and written to the specified grid.
 
-    Full option list at :gmt-docs:`sphdistance.html`
+    Full GMT docs at :gmt-docs:`sphdistance.html`.
 
     {aliases}
+       - I = spacing
+       - R = region
+       - V = verbose
 
     Parameters
     ----------
@@ -114,16 +121,25 @@ def sphdistance(
     ...     data=coords_array, spacing=[1, 2], region=[82, 87, 22, 24]
     ... )
     """
-    if kwargs.get("I") is None or kwargs.get("R") is None:
+    if kwargs.get("I", spacing) is None or kwargs.get("R", region) is None:
         msg = "Both 'region' and 'spacing' must be specified."
         raise GMTInvalidInput(msg)
+
+    aliasdict = AliasSystem(
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+    ).add_common(
+        R=region,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="vector", data=data, x=x, y=y) as vintbl,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            kwargs["G"] = voutgrd
+            aliasdict["G"] = voutgrd
             lib.call_module(
-                module="sphdistance", args=build_arg_list(kwargs, infile=vintbl)
+                module="sphdistance", args=build_arg_list(aliasdict, infile=vintbl)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

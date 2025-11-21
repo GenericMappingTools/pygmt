@@ -2,10 +2,14 @@
 nearneighbor - Grid table data using a "Nearest neighbor" algorithm.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["nearneighbor"]
 
@@ -13,11 +17,8 @@ __doctest_skip__ = ["nearneighbor"]
 @fmt_docstring
 @use_alias(
     E="empty",
-    I="spacing",
     N="sectors",
-    R="region",
     S="search_radius",
-    V="verbose",
     a="aspatial",
     b="binary",
     d="nodata",
@@ -25,17 +26,20 @@ __doctest_skip__ = ["nearneighbor"]
     f="coltypes",
     g="gap",
     h="header",
-    i="incols",
-    r="registration",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
 def nearneighbor(
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     z=None,
     outgrid: PathLike | None = None,
+    spacing: Sequence[float | str] | None = None,
+    region: Sequence[float | str] | str | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -72,9 +76,14 @@ def nearneighbor(
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    Full option list at :gmt-docs:`nearneighbor.html`
+    Full GMT docs at :gmt-docs:`nearneighbor.html`.
 
     {aliases}
+       - I = spacing
+       - R = region
+       - V = verbose
+       - i = incols
+       - r = registration
 
     Parameters
     ----------
@@ -144,6 +153,16 @@ def nearneighbor(
     ...     search_radius="10m",
     ... )
     """
+    aliasdict = AliasSystem(
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+    ).add_common(
+        R=region,
+        V=verbose,
+        i=incols,
+        r=registration,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(
@@ -151,8 +170,8 @@ def nearneighbor(
             ) as vintbl,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            kwargs["G"] = voutgrd
+            aliasdict["G"] = voutgrd
             lib.call_module(
-                module="nearneighbor", args=build_arg_list(kwargs, infile=vintbl)
+                module="nearneighbor", args=build_arg_list(aliasdict, infile=vintbl)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

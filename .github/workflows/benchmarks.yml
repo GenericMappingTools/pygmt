@@ -36,7 +36,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5.0.1
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -48,14 +48,14 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v2.0.4
+        uses: mamba-org/setup-micromamba@add3a49764cedee8ee24e82dfde87f5bc2914462 # v2.0.7
         with:
           environment-name: pygmt
           cache-environment: true
           # environment cache is persistent for one week.
           cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
           create-args: >-
-            gmt=6.5.0
+            gmt=6.6.0
             python=3.13
             numpy
             pandas
@@ -84,8 +84,9 @@ jobs:
 
       # Run the benchmark tests
       - name: Run benchmarks
-        uses: CodSpeedHQ/action@v3.5.0
+        uses: CodSpeedHQ/action@6a8e2b874c338bf81cc5e8be715ada75908d3871 # v4.3.4
         with:
+          mode: "instrumentation"
           # 'bash -el -c' is needed to use the custom shell.
           # See https://github.com/CodSpeedHQ/action/issues/65.
           run: bash -el -c "python -c \"import pygmt; pygmt.show_versions()\"; PYGMT_USE_EXTERNAL_DISPLAY=false python -m pytest -r P --pyargs pygmt --codspeed --override-ini addopts='--verbose'"

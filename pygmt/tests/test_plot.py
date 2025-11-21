@@ -10,7 +10,7 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import Figure, which
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import GMTTempFile
 
 POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
@@ -98,15 +98,15 @@ def test_plot_fail_1d_array_with_data(data, region):
     """
     fig = Figure()
     kwargs = {"data": data, "region": region, "projection": "X10c", "frame": "afg"}
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.plot(style="c0.2c", fill=data[:, 2], **kwargs)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.plot(style="cc", size=data[:, 2], fill="red", **kwargs)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.plot(style="c0.2c", fill="red", intensity=data[:, 2], **kwargs)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.plot(style="c0.2c", fill="red", transparency=data[:, 2] * 100, **kwargs)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.plot(style="0.2c", fill="red", symbol=["c"] * data.shape[0], **kwargs)
 
 

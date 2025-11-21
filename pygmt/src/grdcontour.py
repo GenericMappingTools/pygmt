@@ -2,8 +2,12 @@
 grdcontour - Make contour map using a grid.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -21,32 +25,44 @@ __doctest_skip__ = ["grdcontour"]
 @deprecate_parameter("interval", "levels", "v0.12.0", remove_version="v0.16.0")
 @use_alias(
     A="annotation",
-    B="frame",
     C="levels",
     G="label_placement",
-    J="projection",
     L="limit",
     Q="cut",
-    R="region",
     S="resample",
-    V="verbose",
     W="pen",
     l="label",
-    c="panel",
     f="coltypes",
-    p="perspective",
-    t="transparency",
 )
-@kwargs_to_strings(R="sequence", L="sequence", c="sequence_comma", p="sequence")
-def grdcontour(self, grid: PathLike | xr.DataArray, **kwargs):
+@kwargs_to_strings(L="sequence")
+def grdcontour(
+    self,
+    grid: PathLike | xr.DataArray,
+    projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | Sequence[int] | bool = False,
+    transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
+    **kwargs,
+):
     r"""
     Make contour map using a grid.
 
     Takes a grid file name or an :class:`xarray.DataArray` object as input.
 
-    Full option list at :gmt-docs:`grdcontour.html`
+    Full GMT docs at :gmt-docs:`grdcontour.html`.
 
     {aliases}
+       - B = frame
+       - J = projection
+       - R = region
+       - V = verbose
+       - c = panel
+       - p = perspective
+       - t = transparency
 
     Parameters
     ----------
@@ -151,8 +167,19 @@ def grdcontour(self, grid: PathLike | xr.DataArray, **kwargs):
             else:  # Multiple levels
                 kwargs[arg] = ",".join(f"{item}" for item in kwargs[arg])
 
+    aliasdict = AliasSystem().add_common(
+        B=frame,
+        J=projection,
+        R=region,
+        V=verbose,
+        c=panel,
+        p=perspective,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
             lib.call_module(
-                module="grdcontour", args=build_arg_list(kwargs, infile=vingrd)
+                module="grdcontour", args=build_arg_list(aliasdict, infile=vingrd)
             )

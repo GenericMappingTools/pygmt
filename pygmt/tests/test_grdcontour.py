@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTTypeError
 from pygmt.helpers.testing import load_static_earth_relief
 
 TEST_CONTOUR_FILE = Path(__file__).parent / "data" / "contours.txt"
@@ -123,5 +123,5 @@ def test_grdcontour_fails():
     Should fail for unrecognized input.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.grdcontour(np.arange(20).reshape((4, 5)))

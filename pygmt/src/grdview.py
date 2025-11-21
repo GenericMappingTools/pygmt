@@ -2,21 +2,20 @@
 grdview - Create 3-D perspective image or surface mesh from a grid.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdview"]
 
 
 @fmt_docstring
 @use_alias(
-    R="region",
-    J="projection",
-    Jz="zscale",
-    JZ="zsize",
-    B="frame",
     C="cmap",
     G="drapegrid",
     N="plane",
@@ -25,15 +24,24 @@ __doctest_skip__ = ["grdview"]
     Wm="meshpen",
     Wf="facadepen",
     I="shading",
-    V="verbose",
-    c="panel",
     f="coltypes",
     n="interpolation",
-    p="perspective",
-    t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def grdview(self, grid: PathLike | xr.DataArray, **kwargs):
+def grdview(  # noqa: PLR0913
+    self,
+    grid: PathLike | xr.DataArray,
+    projection: str | None = None,
+    zscale: float | str | None = None,
+    zsize: float | str | None = None,
+    frame: str | Sequence[str] | bool = False,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | Sequence[int] | bool = False,
+    transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
+    **kwargs,
+):
     r"""
     Create 3-D perspective image or surface mesh from a grid.
 
@@ -43,9 +51,18 @@ def grdview(self, grid: PathLike | xr.DataArray, **kwargs):
     set on top of a surface, plotting of contours on top of the surface, and apply
     artificial illumination based on intensities provided in a separate grid file.
 
-    Full option list at :gmt-docs:`grdview.html`
+    Full GMT docs at :gmt-docs:`grdview.html`.
 
     {aliases}
+       - B = frame
+       - J = projection
+       - Jz = zscale
+       - JZ = zsize
+       - R = region
+       - V = verbose
+       - c = panel
+       - p = perspective
+       - t = transparency
 
     Parameters
     ----------
@@ -56,7 +73,7 @@ def grdview(self, grid: PathLike | xr.DataArray, **kwargs):
         with ``perspective``, optionally append */zmin/zmax* to indicate the range to
         use for the 3-D axes [Default is the region given by the input grid].
     {projection}
-    zscale/zsize : float or str
+    zscale/zsize
         Set z-axis scaling or z-axis size.
     {frame}
     cmap : str
@@ -100,7 +117,7 @@ def grdview(self, grid: PathLike | xr.DataArray, **kwargs):
         :func:`pygmt.grdgradient` first; append **+a**\ *azimuth*, **+n**\ *args*, and
         **+m**\ *ambient* to specify azimuth, intensity, and ambient arguments for that
         function, or just give **+d** to select the default arguments [Default is
-        "+a-45+nt1+m0"].
+        ``"+a-45+nt1+m0"``].
     {verbose}
     {panel}
     {coltypes}
@@ -141,6 +158,21 @@ def grdview(self, grid: PathLike | xr.DataArray, **kwargs):
     >>> fig.show()
     """
     self._activate_figure()
+
+    aliasdict = AliasSystem(
+        Jz=Alias(zscale, name="zscale"),
+        JZ=Alias(zsize, name="zsize"),
+    ).add_common(
+        B=frame,
+        J=projection,
+        R=region,
+        V=verbose,
+        c=panel,
+        p=perspective,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
@@ -148,7 +180,7 @@ def grdview(self, grid: PathLike | xr.DataArray, **kwargs):
                 check_kind="raster", data=kwargs.get("G"), required=False
             ) as vdrapegrid,
         ):
-            kwargs["G"] = vdrapegrid
+            aliasdict["G"] = vdrapegrid
             lib.call_module(
-                module="grdview", args=build_arg_list(kwargs, infile=vingrd)
+                module="grdview", args=build_arg_list(aliasdict, infile=vingrd)
             )

@@ -55,4 +55,4 @@ def test_grdimage_image_dataarray_unsupported_dtype(dtype, xr_image):
     image = xr_image.copy().astype(dtype=dtype)
     with pytest.warns(expected_warning=RuntimeWarning) as record:
         fig.grdimage(grid=image)
-        assert len(record) == 1
+    assert len(record) == 1

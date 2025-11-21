@@ -2,12 +2,14 @@
 grdtrack - Sample one or more grids at specified locations.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
 import pandas as pd
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -28,11 +30,9 @@ __doctest_skip__ = ["grdtrack"]
     D="dfile",
     E="profile",
     F="critical",
-    R="region",
     N="no_skip",
     S="stack",
     T="radius",
-    V="verbose",
     Z="z_only",
     a="aspatial",
     b="binary",
@@ -41,20 +41,23 @@ __doctest_skip__ = ["grdtrack"]
     f="coltypes",
     g="gap",
     h="header",
-    i="incols",
     j="distcalc",
     n="interpolation",
-    o="outcols",
     s="skiprows",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", S="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(S="sequence")
 def grdtrack(
     grid: PathLike | xr.DataArray,
     points: PathLike | TableLike | None = None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
     newcolname=None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
+    outcols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -74,9 +77,13 @@ def grdtrack(
     derivative normal to edge is zero) unless the grid is automatically
     recognized as periodic.)
 
-    Full option list at :gmt-docs:`grdtrack.html`
+    Full GMT docs at :gmt-docs:`grdtrack.html`.
 
     {aliases}
+       - R = region
+       - V = verbose
+       - i = incols
+       - o = outcols
 
     Parameters
     ----------
@@ -309,6 +316,14 @@ def grdtrack(
     if output_type == "pandas" and isinstance(points, pd.DataFrame):
         column_names = [*points.columns.to_list(), newcolname]
 
+    aliasdict = AliasSystem().add_common(
+        R=region,
+        V=verbose,
+        i=incols,
+        o=outcols,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
@@ -317,10 +332,10 @@ def grdtrack(
             ) as vintbl,
             lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
         ):
-            kwargs["G"] = vingrd
+            aliasdict["G"] = vingrd
             lib.call_module(
                 module="grdtrack",
-                args=build_arg_list(kwargs, infile=vintbl, outfile=vouttbl),
+                args=build_arg_list(aliasdict, infile=vintbl, outfile=vouttbl),
             )
         return lib.virtualfile_to_dataset(
             vfname=vouttbl,

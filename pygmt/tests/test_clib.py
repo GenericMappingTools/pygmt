@@ -2,6 +2,7 @@
 Test the wrappers for the C API.
 """
 
+import importlib
 from contextlib import contextmanager
 
 import pytest
@@ -12,7 +13,7 @@ from pygmt.clib.session import FAMILIES, VIAS
 from pygmt.exceptions import (
     GMTCLibError,
     GMTCLibNoSessionError,
-    GMTInvalidInput,
+    GMTValueError,
     GMTVersionError,
 )
 
@@ -169,7 +170,7 @@ def test_parse_constant_fails():
         "NOT_A_PROPER_FAMILY|ALSO_INVALID",
     ]
     for test_case in test_cases:
-        with pytest.raises(GMTInvalidInput):
+        with pytest.raises(GMTValueError):
             lib._parse_constant(test_case, valid=FAMILIES, valid_modifiers=VIAS)
 
     # Should also fail if not given valid modifiers but is using them anyway.
@@ -178,7 +179,7 @@ def test_parse_constant_fails():
         "GMT_IS_DATASET|GMT_VIA_MATRIX", valid=FAMILIES, valid_modifiers=VIAS
     )
     # But this shouldn't.
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         lib._parse_constant(
             "GMT_IS_DATASET|GMT_VIA_MATRIX", valid=FAMILIES, valid_modifiers=None
         )
@@ -241,8 +242,6 @@ def test_fails_for_wrong_version(monkeypatch):
     """
     Make sure that importing clib raise an exception if GMT is too old.
     """
-    import importlib
-
     with monkeypatch.context() as mpatch:
         # Make sure the current GMT major version is 6.
         assert clib.__gmt_version__.split(".")[0] == "6"

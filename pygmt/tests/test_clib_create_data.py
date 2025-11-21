@@ -4,7 +4,7 @@ Test the Session.create_data method.
 
 import pytest
 from pygmt import clib
-from pygmt.exceptions import GMTCLibError, GMTInvalidInput
+from pygmt.exceptions import GMTCLibError, GMTValueError
 from pygmt.tests.test_clib import mock
 
 
@@ -64,7 +64,7 @@ def test_create_data_fails():
     Check that create_data raises exceptions for invalid input and output.
     """
     # Passing in invalid mode
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         with clib.Session() as lib:
             lib.create_data(
                 family="GMT_IS_DATASET",
@@ -75,7 +75,7 @@ def test_create_data_fails():
                 inc=[0.1, 0.2],
             )
     # Passing in invalid geometry
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         with clib.Session() as lib:
             lib.create_data(
                 family="GMT_IS_GRID",

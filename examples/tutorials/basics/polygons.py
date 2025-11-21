@@ -6,7 +6,7 @@ Plotting polygons is handled by the :meth:`pygmt.Figure.plot` method.
 
 This tutorial focuses on input data given as NumPy arrays. Besides NumPy arrays,
 array-like objects are supported. Here, a polygon is a closed shape defined by a series
-of data points with x and y coordinates, connected by line segments, with the start and
+of data points with x- and y-coordinates, connected by line segments, with the start and
 end points being identical. For plotting a :class:`geopandas.GeoDataFrame` object with
 polygon geometries, e.g., to create a choropleth map, see the gallery example
 :doc:`Choropleth map </gallery/maps/choropleth_map>`.
@@ -20,7 +20,7 @@ import pygmt
 # Plot polygons
 # -------------
 #
-# Set up sample data points as NumPy arrays for the x and y values.
+# Set up sample data points as NumPy arrays for the x- and y-values.
 
 x = np.array([-2, 1, 3, 0, -4, -2])
 y = np.array([-3, -1, 1, 3, 2, -3])
@@ -50,8 +50,8 @@ fig.show()
 
 # %%
 # Use the ``fill`` parameter to fill the polygon with a color or
-# :doc:`pattern </techref/patterns>`. Note, that there are no lines drawn between the
-# data points by default if ``fill`` is used. Use the ``pen`` parameter to add an
+# :class:`pattern <pygmt.params.Pattern>`. Note, that there are no lines drawn between
+# the data points by default if ``fill`` is used. Use the ``pen`` parameter to add an
 # outline around the polygon.
 
 fig = pygmt.Figure()
@@ -65,8 +65,8 @@ fig.show()
 # Close polygons
 # --------------
 #
-# Set up sample data points as NumPy arrays for the x and y values. Now, the data points
-# do not form a polygon.
+# Set up sample data points as NumPy arrays for the x- and y-values. Now, the data
+# points do not form a polygon.
 
 x = np.array([-2, 1, 3, 0, -4])
 y = np.array([-3, -1, 1, 3, 2])

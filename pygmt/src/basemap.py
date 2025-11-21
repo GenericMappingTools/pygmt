@@ -2,29 +2,36 @@
 basemap - Plot base maps and frames.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
 @use_alias(
-    R="region",
-    J="projection",
-    Jz="zscale",
-    JZ="zsize",
-    B="frame",
     L="map_scale",
     F="box",
     Td="rose",
     Tm="compass",
-    V="verbose",
-    c="panel",
     f="coltypes",
-    p="perspective",
-    t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def basemap(self, **kwargs):
+def basemap(
+    self,
+    projection: str | None = None,
+    zsize: float | str | None = None,
+    zscale: float | str | None = None,
+    frame: str | Sequence[str] | bool = False,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | Sequence[int] | bool = False,
+    transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
+    **kwargs,
+):
     r"""
     Plot base maps and frames.
 
@@ -36,14 +43,23 @@ def basemap(self, **kwargs):
     At least one of the parameters ``frame``, ``map_scale``, ``rose``, or
     ``compass`` must be specified if not in subplot mode.
 
-    Full option list at :gmt-docs:`basemap.html`
+    Full GMT docs at :gmt-docs:`basemap.html`.
 
     {aliases}
+       - B = frame
+       - J = projection
+       - Jz = zscale
+       - JZ = zsize
+       - R = region
+       - V = verbose
+       - c = panel
+       - p = perspective
+       - t = transparency
 
     Parameters
     ----------
     {projection}
-    zscale/zsize : float or str
+    zscale/zsize
         Set z-axis scaling or z-axis size.
     {region}
         *Required if this is the first plot command.*
@@ -60,12 +76,12 @@ def basemap(self, **kwargs):
         **+p**\ *pen*. Add **+g**\ *fill* to fill the scale panel [Default is
         no fill]. Append **+c**\ *clearance* where *clearance* is either gap,
         xgap/ygap, or lgap/rgap/bgap/tgap where these items are uniform,
-        separate in x- and y-direction, or individual side spacings between
-        scale and border. Append **+i** to draw a secondary, inner border as
-        well. We use a uniform gap between borders of 2p and the
+        separate x and y, or individual side spacings between scale and
+        border. Append **+i** to draw a secondary, inner border as well.
+        We use a uniform gap between borders of 2 points and the
         :gmt-term:`MAP_DEFAULTS_PEN` unless other values are specified. Append
-        **+r** to draw rounded rectangular borders instead, with a 6p corner
-        radius. You can override this radius by appending another value.
+        **+r** to draw rounded rectangular borders instead, with a 6-points
+        corner radius. You can override this radius by appending another value.
         Finally, append **+s** to draw an offset background shaded region.
         Here, *dx/dy* indicates the shift relative to the foreground frame
         [Default is ``"4p/-4p"``] and shade sets the fill style to use for
@@ -83,5 +99,20 @@ def basemap(self, **kwargs):
     {transparency}
     """
     self._activate_figure()
+
+    aliasdict = AliasSystem(
+        Jz=Alias(zscale, name="zscale"),
+        JZ=Alias(zsize, name="zsize"),
+    ).add_common(
+        B=frame,
+        J=projection,
+        R=region,
+        V=verbose,
+        c=panel,
+        p=perspective,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
-        lib.call_module(module="basemap", args=build_arg_list(kwargs))
+        lib.call_module(module="basemap", args=build_arg_list(aliasdict))

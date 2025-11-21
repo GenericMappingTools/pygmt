@@ -3,19 +3,25 @@ Test the behaviour of the GMTDataArrayAccessor class.
 """
 
 import importlib
-import sys
 from pathlib import Path
 
 import pytest
 import xarray as xr
-from packaging.version import Version
 from pygmt import which
-from pygmt.clib import __gmt_version__
 from pygmt.datasets import load_earth_relief
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
+from pygmt.helpers.testing import load_static_earth_relief
 
 _HAS_NETCDF4 = bool(importlib.util.find_spec("netCDF4"))
+
+
+@pytest.fixture(scope="module", name="grid")
+def fixture_grid():
+    """
+    Load the grid data from the sample earth_relief file.
+    """
+    return load_static_earth_relief()
 
 
 def test_xarray_accessor_gridline_cartesian():
@@ -94,22 +100,17 @@ def test_xarray_accessor_set_invalid_registration_and_gtype():
     """
     grid = xr.DataArray(data=[[0.1, 0.2], [0.3, 0.4]])
 
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         grid.gmt.registration = "2"
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         grid.gmt.registration = "pixel"
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         grid.gmt.gtype = 2
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         grid.gmt.gtype = "geographic"
 
 
-# TODO(GMT>=6.5.0): Remove the xfail marker for GMT>=6.5.0.
 @pytest.mark.skipif(condition=not _HAS_NETCDF4, reason="netCDF4 is not installed")
-@pytest.mark.xfail(
-    condition=sys.platform == "win32" and Version(__gmt_version__) < Version("6.5.0"),
-    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/7573",
-)
 def test_xarray_accessor_sliced_datacube():
     """
     Check that a 2-D grid which is sliced from an n-dimensional datacube works with
@@ -169,3 +170,44 @@ def test_xarray_accessor_tiled_grid_slice_and_add():
     added_grid.gmt.gtype = GridType.GEOGRAPHIC
     assert added_grid.gmt.registration is GridRegistration.PIXEL
     assert added_grid.gmt.gtype is GridType.GEOGRAPHIC
+
+
+def test_xarray_accessor_clip(grid):
+    """
+    Check that the accessor has the clip method and that it works correctly.
+
+    This test is adapted from the `test_grdclip_no_outgrid` test.
+    """
+    clipped_grid = grid.gmt.clip(
+        below=[550, -1000], above=[700, 1000], region=[-53, -49, -19, -16]
+    )
+
+    expected_clipped_grid = xr.DataArray(
+        data=[
+            [1000.0, 570.5, -1000.0, -1000.0],
+            [1000.0, 1000.0, 571.5, 638.5],
+            [555.5, 556.0, 580.0, 1000.0],
+        ],
+        coords={"lon": [-52.5, -51.5, -50.5, -49.5], "lat": [-18.5, -17.5, -16.5]},
+        dims=["lat", "lon"],
+    )
+    xr.testing.assert_allclose(a=clipped_grid, b=expected_clipped_grid)
+
+
+def test_xarray_accessor_histeq(grid):
+    """
+    Check that the accessor has the histeq method and that it works correctly.
+
+    This test is adapted from the `test_equalize_grid_no_outgrid` test.
+    """
+    equalized_grid = grid.gmt.histeq(divisions=2, region=[-52, -48, -22, -18])
+
+    expected_equalized_grid = xr.DataArray(
+        data=[[0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 1, 1], [1, 1, 1, 1]],
+        coords={
+            "lon": [-51.5, -50.5, -49.5, -48.5],
+            "lat": [-21.5, -20.5, -19.5, -18.5],
+        },
+        dims=["lat", "lon"],
+    )
+    xr.testing.assert_allclose(a=equalized_grid, b=expected_equalized_grid)

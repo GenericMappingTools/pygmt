@@ -2,10 +2,14 @@
 surface - Grid table data using adjustable tension continuous curvature splines.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["surface"]
 
@@ -13,13 +17,10 @@ __doctest_skip__ = ["surface"]
 @fmt_docstring
 @use_alias(
     C="convergence",
-    I="spacing",
     Ll="lower",
     Lu="upper",
     M="maxradius",
-    R="region",
     T="tension",
-    V="verbose",
     a="aspatial",
     b="binary",
     d="nodata",
@@ -27,16 +28,19 @@ __doctest_skip__ = ["surface"]
     f="coltypes",
     h="header",
     i="incols",
-    r="registration",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence", R="sequence")
 def surface(
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     z=None,
     outgrid: PathLike | None = None,
+    spacing: Sequence[float | str] | None = None,
+    region: Sequence[float | str] | str | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -69,9 +73,13 @@ def surface(
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    Full option list at :gmt-docs:`surface.html`
+    Full GMT docs at :gmt-docs:`surface.html`.
 
     {aliases}
+       - I = spacing
+       - R = region
+       - V = verbose
+       - r = registration
 
     Parameters
     ----------
@@ -158,6 +166,15 @@ def surface(
     >>> # Perform gridding of topography data
     >>> grid = pygmt.surface(data=topography, spacing=1, region=[0, 4, 0, 8])
     """
+    aliasdict = AliasSystem(
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+    ).add_common(
+        R=region,
+        V=verbose,
+        r=registration,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(
@@ -165,8 +182,8 @@ def surface(
             ) as vintbl,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            kwargs["G"] = voutgrd
+            aliasdict["G"] = voutgrd
             lib.call_module(
-                module="surface", args=build_arg_list(kwargs, infile=vintbl)
+                module="surface", args=build_arg_list(aliasdict, infile=vintbl)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
