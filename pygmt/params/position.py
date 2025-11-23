@@ -15,6 +15,20 @@ from pygmt.params.base import BaseParam
 class Position(BaseParam):
     """
     The class for positioning GMT embellishments.
+
+    Example
+    -------
+    >>> import pygmt
+    >>> from pygmt.params import Position
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
+    >>> fig.logo(
+    ...     position=Position(
+    ...         location=(3, 3), type="mapcoords", anchor="ML", offset=(0.2, 0.2)
+    ...     ),
+    ...     box=True,
+    ... )
+    >>> fig.show()
     """
 
     #: Specify the reference point on the plot. The method of defining the reference
