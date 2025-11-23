@@ -12,7 +12,7 @@ with contextlib.suppress(ImportError):
 
 def choropleth(
     self,
-    data: gpd.GeoDataFrame | PathLike,
+    data: "gpd.GeoDataFrame" | PathLike,
     column: str,
     cmap: str | bool = True,
     **kwargs,
@@ -20,19 +20,24 @@ def choropleth(
     """
     Plot a choropleth map.
 
-    This method creates a choropleth map by filling polygons based on the values in a
-    specific data column.
+    This method is a thin wrapper around :meth:`pygmt.Figure.plot` that sets the
+    appropriate parameters for creating a choropleth map by filling polygons based on
+    values in a specified data column. It requires the input data to be a geo-like
+    Python object that implements ``__geo_interface__`` (e.g. a
+    :class:`geopandas.GeoDataFrame`), or a OGR_GMT file contaning the geometry and data
+    to plot.
 
     Parameters
     ----------
     data
-        A :class:`geopandas.DataFrame` object or a OGR_GMT file containing the geometry
-        and data to plot.
+        A geo-like Python object which implements ``__geo_interface__`` (e.g. a
+        :class:`geopandas.GeoDataFrame` or :class:`shapely.geometry`), or a OGR_GMT file
+        containing the geometry and data to plot.
     column
         The name of the data column to use for the fill.
     cmap
-        The CPT to use for filling the polygons. If set to ``True``, the current
-        colormap will be used.
+        The CPT to use for filling the polygons. If set to ``True``, the current CPT
+        will be used.
     **kwargs
         Additional keyword arguments passed to :meth:`pygmt.Figure.plot`.
 
@@ -51,8 +56,10 @@ def choropleth(
     ...     continuous=True,
     ...     reverse=True,
     ... )
-    >>> fig.choropleth(gdf, fillcol="population", pen="0.3p,gray10")
+    >>> fig.choropleth(gdf, column="population", pen="0.3p,gray10")
     >>> fig.colorbar(frame=True)
     >>> fig.show()
     """
-    self.plot(data=data, close=True, fill="+z", aspatial=f"Z={column}", **kwargs)
+    self.plot(
+        data=data, close=True, fill="+z", cmap=cmap, aspatial=f"Z={column}", **kwargs
+    )
