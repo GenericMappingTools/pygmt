@@ -12,7 +12,7 @@ with contextlib.suppress(ImportError):
 
 def choropleth(
     self,
-    data: "gpd.GeoDataFrame" | PathLike,
+    data: gpd.GeoDataFrame | PathLike,
     column: str,
     cmap: str | bool = True,
     **kwargs,
