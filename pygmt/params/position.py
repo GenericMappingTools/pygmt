@@ -23,9 +23,7 @@ class Position(BaseParam):
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
     >>> fig.logo(
-    ...     position=Position(
-    ...         location=(3, 3), type="mapcoords", anchor="ML", offset=(0.2, 0.2)
-    ...     ),
+    ...     position=Position((3, 3), type="mapcoords", anchor="ML", offset=(0.2, 0.2)),
     ...     box=True,
     ... )
     >>> fig.show()
