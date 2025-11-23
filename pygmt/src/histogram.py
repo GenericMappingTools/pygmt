@@ -30,12 +30,10 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     d="nodata",
     e="find",
     h="header",
-    i="incols",
     l="label",
-    p="perspective",
     w="wrap",
 )
-@kwargs_to_strings(T="sequence", i="sequence_comma", p="sequence")
+@kwargs_to_strings(T="sequence")
 def histogram(
     self,
     data: PathLike | TableLike,
@@ -46,6 +44,8 @@ def histogram(
     | bool = False,
     panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ):
     r"""
@@ -59,6 +59,8 @@ def histogram(
        - R = region
        - V = verbose
        - c = panel
+       - i = incols
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -156,6 +158,8 @@ def histogram(
         R=region,
         V=verbose,
         c=panel,
+        i=incols,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

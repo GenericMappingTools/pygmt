@@ -7,13 +7,12 @@ from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 from pygmt.params import Box
 
 
 @fmt_docstring
 @use_alias(D="position")
-@kwargs_to_strings(p="sequence")
 def logo(
     self,
     projection: str | None = None,
@@ -24,6 +23,7 @@ def logo(
     | bool = False,
     panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -43,6 +43,7 @@ def logo(
        - S = style
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -67,6 +68,7 @@ def logo(
     {verbose}
     {panel}
     {transparency}
+    {perspective}
     """
     self._activate_figure()
 
@@ -80,6 +82,7 @@ def logo(
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

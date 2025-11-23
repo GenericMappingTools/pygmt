@@ -7,17 +7,15 @@ from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdview"]
 
 
 @fmt_docstring
 @use_alias(
-    Jz="zscale",
-    JZ="zsize",
     C="cmap",
     G="drapegrid",
     N="plane",
@@ -28,19 +26,20 @@ __doctest_skip__ = ["grdview"]
     I="shading",
     f="coltypes",
     n="interpolation",
-    p="perspective",
 )
-@kwargs_to_strings(p="sequence")
-def grdview(
+def grdview(  # noqa: PLR0913
     self,
     grid: PathLike | xr.DataArray,
     projection: str | None = None,
+    zscale: float | str | None = None,
+    zsize: float | str | None = None,
     frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -57,9 +56,12 @@ def grdview(
     {aliases}
        - B = frame
        - J = projection
+       - Jz = zscale
+       - JZ = zsize
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -71,7 +73,7 @@ def grdview(
         with ``perspective``, optionally append */zmin/zmax* to indicate the range to
         use for the 3-D axes [Default is the region given by the input grid].
     {projection}
-    zscale/zsize : float or str
+    zscale/zsize
         Set z-axis scaling or z-axis size.
     {frame}
     cmap : str
@@ -157,12 +159,16 @@ def grdview(
     """
     self._activate_figure()
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        Jz=Alias(zscale, name="zscale"),
+        JZ=Alias(zsize, name="zsize"),
+    ).add_common(
         B=frame,
         J=projection,
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

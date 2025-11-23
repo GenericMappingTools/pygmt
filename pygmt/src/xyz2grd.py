@@ -7,10 +7,10 @@ from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["xyz2grd"]
 
@@ -18,7 +18,6 @@ __doctest_skip__ = ["xyz2grd"]
 @fmt_docstring
 @use_alias(
     A="duplicate",
-    I="spacing",
     Z="convention",
     b="binary",
     d="nodata",
@@ -28,13 +27,13 @@ __doctest_skip__ = ["xyz2grd"]
     i="incols",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence")
 def xyz2grd(
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     z=None,
     outgrid: PathLike | None = None,
+    spacing: Sequence[float | str] | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     registration: Literal["gridline", "pixel"] | bool = False,
@@ -54,6 +53,7 @@ def xyz2grd(
     Full GMT docs at :gmt-docs:`xyz2grd.html`.
 
     {aliases}
+       - I = spacing
        - J = projection
        - R = region
        - V = verbose
@@ -157,11 +157,13 @@ def xyz2grd(
     ...     x=xx, y=yy, z=zz, spacing=(1.0, 0.5), region=[0, 3, 10, 13]
     ... )
     """
-    if kwargs.get("I") is None or kwargs.get("R", region) is None:
+    if kwargs.get("I", spacing) is None or kwargs.get("R", region) is None:
         msg = "Both 'region' and 'spacing' must be specified."
         raise GMTInvalidInput(msg)
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+    ).add_common(
         J=projection,
         R=region,
         V=verbose,
