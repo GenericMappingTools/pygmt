@@ -53,7 +53,7 @@ def grdgradient(
     {grid}
     {outgrid}
     azimuth
-        *azimuth* or (*azimuth*, *azimuth2*).
+        *azim* or (*azim*, *azim2*).
         Azimuthal direction for a directional derivative; *azim* is the
         angle in the x,y plane measured in degrees positive clockwise from
         north (the positive y-direction) toward east (the positive x-direction). The
