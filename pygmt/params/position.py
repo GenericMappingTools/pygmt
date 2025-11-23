@@ -49,7 +49,10 @@ class Position(BaseParam):
     #:   :doc:`two-character justification codes </techref/justification_codes>`,
     #:   indicating a specific location relative to the plot bounding box.
     #:
-    type: Literal["mapcoords", "inside", "outside", "boxcoords", "plotcoords"]
+    #: The default value is ``"plotcoords"``.
+    type: Literal["mapcoords", "inside", "outside", "boxcoords", "plotcoords"] = (
+        "plotcoords"
+    )
 
     #: Specify the anchor point of the GMT logo, using one of the
     #: :doc:`2-character justification codes </techref/justification_codes>`. The
