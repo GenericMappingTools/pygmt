@@ -14,7 +14,7 @@ from pygmt.params import Box, Position
 @fmt_docstring
 def logo(  # noqa: PLR0913
     self,
-    position: Position,
+    position: Position | None = None,
     width: float | str | None = None,
     height: float | str | None = None,
     projection: str | None = None,
