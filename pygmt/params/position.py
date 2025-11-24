@@ -16,6 +16,53 @@ class Position(BaseParam):
     """
     The class for positioning GMT embellishments.
 
+    .. figure:: https://github.com/user-attachments/assets/0f3e9b39-7d64-4628-8acb-58fe74ff6fa5
+       :width: 400 px
+
+       Positioning of GMT embellishment using the :class:`pygmt.params.Position` class.
+
+    Placing an embellishment on the plot means selecting a *reference point* somewhere
+    on the plot, an *anchor point* somewhere on the embellishment, and then positioning
+    the embellishment so that the two points overlap. It may be helpful to consider the
+    analog of a boat dropping an anchor: The boat navigates to the *reference point* and
+    then, depending on where on the boat the *anchor* is located, moves so that the
+    *anchor* connection point overlies the *reference point*, then drops the *anchor*.
+
+    There are five different ways to specify the *reference point* on a map, controlled
+    by the ``type`` and ``location`` attributes of this class, for complete freedom to
+    select any location inside or outside the map.
+
+    ``type="mapcoords"``
+        Specify the *reference point* using data coordinates. ``location`` is given as
+        (*longitude*, *latitude*). This mechanism is useful when you want to tie the
+        location of the embellishment to an actual point best described by data
+        coordinates. Example: ``location=(135, 20), type="mapcoords"``.
+    ``type="plotcoords"``
+        Specify the *reference point* using plot coordinates, i.e., the distances in
+        inches, centimeters, or points from the lower left plot origin. This mechanism
+        is preferred when you wish to lay out an embellishment using familiar
+        measurements of distance from origins. Example:
+        ``location=("2c", "2.5c"), type="plotcoords"``.
+    ``type="boxcoords"``
+        Specify the *reference point* using normalized coordinates, i.e., fractional
+        coordinates between 0 and 1 in both the x and y directions. This mechanism
+        avoids units and is useful if you want to always place embellishments at
+        locations best referenced as fractions of the plot dimensions. Example:
+        ``location=(0.2, 0.1), type="boxcoords"``.
+    ``type="inside"``
+        Specify the *reference point* using one of the nine justification codes. This
+        mechanism is preferred when you just want to place the embellishment inside the
+        basemap at one of the corners or centered at one of the sides (or even smack in
+        the middle). Example: ``location="TL", type="inside"``. When used, the anchor
+        point on the map embellishments will default to the same justification, i.e.,
+        ``"TL"`` in this example.
+    ``type="outside"``
+        Same ``type="inside"`` except it implies that the default anchor point is the
+        mirror opposite of the justification code. Thus, when using
+        ``location="TL", type="outside"``, the anchor point on the map embellishment
+        will default to ``"BR"``. This is practical for embellishments that are drawn
+        outside of the basemap (like color bars often are).
+
     Example
     -------
     >>> import pygmt
