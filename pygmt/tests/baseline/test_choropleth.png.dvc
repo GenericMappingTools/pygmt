@@ -1,0 +1,5 @@
+outs:
+- md5: 3a98ff6f66fae36ce5b49ab1deb4a944
+  size: 154084
+  hash: md5
+  path: test_choropleth.png
