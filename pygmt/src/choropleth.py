@@ -45,7 +45,6 @@ def choropleth(
     >>> gdf = gpd.read_file(
     ...     "https://geodacenter.github.io/data-and-lab/data/airbnb.zip"
     ... )
-
     >>> fig = pygmt.Figure()
     >>> pygmt.makecpt(
     ...     cmap="acton",
