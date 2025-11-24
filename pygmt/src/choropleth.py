@@ -2,17 +2,12 @@
 choropleth - Plot a choropleth map.
 """
 
-import contextlib
-
-from pygmt._typing import PathLike
-
-with contextlib.suppress(ImportError):
-    import geopandas as gpd
+from pygmt._typing import GeoLike, PathLike
 
 
 def choropleth(
     self,
-    data: gpd.GeoDataFrame | PathLike,
+    data: GeoLike | PathLike,
     column: str,
     cmap: str | bool = True,
     **kwargs,
