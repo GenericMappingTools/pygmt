@@ -7,6 +7,7 @@ from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring
 from pygmt.params import Box, Position
 
@@ -78,6 +79,19 @@ def logo(  # noqa: PLR0913
     {perspective}
     """
     self._activate_figure()
+
+    if isinstance(position, str) and any(v is not None for v in (width, height)):
+        msg = (
+            "Parameter 'position' is given with a raw GMT CLI syntax, and conflicts "
+            "with parameters 'height', and 'width'. Please refer to the documentation "
+            "for the recommended usage."
+        )
+        raise GMTInvalidInput(msg)
+
+    # width and height are mutually exclusive.
+    if width is not None and height is not None:
+        msg = "Cannot specify both width and height."
+        raise GMTInvalidInput(msg)
 
     aliasdict = AliasSystem(
         D=[
