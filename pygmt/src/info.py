@@ -104,7 +104,11 @@ def info(
                 )
             result = tmpfile.read()
 
-        if any(kwargs.get(arg) is not None for arg in ["C", "I", "T"]):
+        if (
+            kwargs.get("C") is not None
+            or kwargs.get("I", spacing) is not None
+            or kwargs.get("T") is not None
+        ):
             # Converts certain output types into a numpy array
             # instead of a raw string that is less useful.
             if result.startswith(("-R", "-T")):  # e.g. -R0/1/2/3 or -T0/9/1
