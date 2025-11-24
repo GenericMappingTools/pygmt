@@ -10,25 +10,18 @@ from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdproject"]
 
 
 @fmt_docstring
-@use_alias(
-    D="spacing",
-    E="dpi",
-    F="scaling",
-    I="inverse",
-    M="unit",
-    n="interpolation",
-)
-@kwargs_to_strings(D="sequence")
+@use_alias(E="dpi", F="scaling", I="inverse", M="unit", n="interpolation")
 def grdproject(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
     center: Sequence[float | str] | bool = False,
+    spacing: float | str | Sequence[float | str] | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     registration: Literal["gridline", "pixel"] | bool = False,
@@ -58,6 +51,7 @@ def grdproject(
 
     $aliases
        - C = center
+       - D = spacing
        - J = projection
        - R = region
        - V = verbose
@@ -122,6 +116,7 @@ def grdproject(
 
     aliasdict = AliasSystem(
         C=Alias(center, name="center", sep="/", size=2),
+        D=Alias(spacing, name="spacing", sep="/", size=2),
     ).add_common(
         J=projection,
         R=region,
