@@ -59,7 +59,7 @@ def info(
         {table-classes}.
     per_column : bool
         Report the min/max values per column in separate columns.
-    spacing : str
+    spacing
         [**b**\|\ **p**\|\ **f**\|\ **s**]\ *dx*\[/*dy*\[/*dz*...]].
         Compute the min/max values of the first n columns to the nearest
         multiple of the provided increments [default is 2 columns]. By default,
