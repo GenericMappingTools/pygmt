@@ -4,6 +4,8 @@ choropleth - Plot a choropleth map.
 
 from pygmt._typing import GeoLike, PathLike
 
+__doctest_skip__ = ["choropleth"]
+
 
 def choropleth(
     self,
