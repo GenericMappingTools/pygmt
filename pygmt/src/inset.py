@@ -6,8 +6,10 @@ import contextlib
 from collections.abc import Sequence
 from typing import Literal
 
+from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 from pygmt.params import Box
 
@@ -16,10 +18,13 @@ __doctest_skip__ = ["inset"]
 
 @fmt_docstring
 @contextlib.contextmanager
-@use_alias(D="position", M="margin")
-@kwargs_to_strings(D="sequence", M="sequence")
+@use_alias(M="margin")
+@kwargs_to_strings(M="sequence")
 def inset(
     self,
+    position: Sequence[str | float] | AnchorCode,
+    width: float | str | None = None,
+    height: float | str | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     box: Box | bool = False,
@@ -38,6 +43,7 @@ def inset(
     Full GMT docs at :gmt-docs:`inset.html`.
 
     {aliases}
+       - D = position, **+w**: width/height
        - F = box
        - J = projection
        - N = no_clip
@@ -46,7 +52,7 @@ def inset(
 
     Parameters
     ----------
-    position : str or list
+    position
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*]] \
         | [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *width*\ [/*height*][**+j**\ *justify*]\
@@ -109,15 +115,18 @@ def inset(
     Examples
     --------
     >>> import pygmt
-    >>> from pygmt.params import Box
+    >>> from pygmt.params import Box, Position
     >>>
-    >>> # Create the larger figure
     >>> fig = pygmt.Figure()
     >>> fig.coast(region="MG+r2", water="lightblue", shorelines="thin")
-    >>> # Use a "with" statement to initialize the inset context manager
+    >>> # Use a "with" statement to initialize the inset context manager.
     >>> # Setting the position to Top Left and a width of 3.5 centimeters
-    >>> with fig.inset(position="jTL+w3.5c+o0.2c", margin=0, box=Box(pen="green")):
-    ...     # Map elements under the "with" statement are plotted in the inset
+    >>> with fig.inset(
+    ...     position=Position("TL", offset=0.2),
+    ...     width="3.5c",
+    ...     margin=0,
+    ...     box=Box(pen="green"),
+    ... ):  # Map elements under the "with" statement are plotted in the inset
     ...     fig.coast(
     ...         region="g",
     ...         projection="G47/-20/3.5c",
@@ -126,14 +135,26 @@ def inset(
     ...         dcw="MG+gred",
     ...     )
     ...
-    >>> # Map elements outside the "with" statement are plotted in the main
-    >>> # figure
+    >>> # Map elements outside the "with" statement are plotted in the main figure.
     >>> fig.logo(position="jBR+o0.2c+w3c")
     >>> fig.show()
     """
     self._activate_figure()
 
+    if position is None or width is None:
+        msg = "Both 'position' and 'width' must be specified."
+        raise GMTInvalidInput(msg)
+
+    if height is not None and width is None:
+        msg = "'width' must be specified if 'height' is given."
+        raise GMTInvalidInput(msg)
+
     aliasdict = AliasSystem(
+        D=[
+            Alias(position, name="position"),
+            Alias(width, name="width", prefix="+w"),  # +wwidth/height
+            Alias(height, name="height", prefix="/"),
+        ],
         F=Alias(box, name="box"),
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
