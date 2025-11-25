@@ -14,7 +14,6 @@ from pygmt.helpers import (
     build_arg_list,
     deprecate_parameter,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
 )
 
@@ -24,12 +23,12 @@ __doctest_skip__ = ["grdsample"]
 # TODO(PyGMT>=0.21.0): Remove the deprecated "translate" parameter.
 @fmt_docstring
 @deprecate_parameter("translate", "toggle", "v0.18.0", remove_version="v0.21.0")
-@use_alias(I="spacing", f="coltypes", n="interpolation")
-@kwargs_to_strings(I="sequence")
+@use_alias(f="coltypes", n="interpolation")
 def grdsample(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
     toggle: bool = False,
+    spacing: Sequence[float | str] | None = None,
     region: Sequence[float | str] | str | None = None,
     registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -56,6 +55,7 @@ def grdsample(
     Full GMT docs at :gmt-docs:`grdsample.html`.
 
     {aliases}
+       - I = spacing
        - R = region
        - V = verbose
        - r = registration
@@ -105,6 +105,7 @@ def grdsample(
         raise GMTInvalidInput(msg)
 
     aliasdict = AliasSystem(
+        I=Alias(spacing, name="spacing", sep="/", size=2),
         T=Alias(toggle, name="toggle"),
     ).add_common(
         R=region,

@@ -30,11 +30,10 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     d="nodata",
     e="find",
     h="header",
-    i="incols",
     l="label",
     w="wrap",
 )
-@kwargs_to_strings(T="sequence", i="sequence_comma")
+@kwargs_to_strings(T="sequence")
 def histogram(
     self,
     data: PathLike | TableLike,
@@ -46,6 +45,7 @@ def histogram(
     panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
     perspective: float | Sequence[float] | str | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ):
     r"""
@@ -59,6 +59,7 @@ def histogram(
        - R = region
        - V = verbose
        - c = panel
+       - i = incols
        - p = perspective
        - t = transparency
 
@@ -157,6 +158,7 @@ def histogram(
         R=region,
         V=verbose,
         c=panel,
+        i=incols,
         p=perspective,
         t=transparency,
     )
