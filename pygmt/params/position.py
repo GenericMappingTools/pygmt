@@ -18,7 +18,8 @@ class Position(BaseParam):
     Class for positioning embellishments on a plot.
 
     .. figure:: https://docs.generic-mapping-tools.org/dev/_images/GMT_anchor.png
-       :width: 400 px
+       :width: 600 px
+       :align: center
 
        Positioning of GMT embellishment.
 
