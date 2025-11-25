@@ -14,78 +14,94 @@ from pygmt.params.base import BaseParam
 @dataclasses.dataclass(repr=False)
 class Position(BaseParam):
     """
-    The class for positioning GMT embellishments.
+    Class for positioning embellishments on a plot.
 
     .. figure:: https://github.com/user-attachments/assets/0f3e9b39-7d64-4628-8acb-58fe74ff6fa5
        :width: 400 px
 
-       Positioning of GMT embellishment using the :class:`pygmt.params.Position` class.
+       Positioning of GMT embellishment.
 
-    Placing an embellishment on the plot means selecting a *reference point* somewhere
-    on the plot, an *anchor point* somewhere on the embellishment, and then positioning
-    the embellishment so that the two points overlap. It may be helpful to consider the
-    analog of a boat dropping an anchor: The boat navigates to the *reference point* and
-    then, depending on where on the boat the *anchor* is located, moves so that the
-    *anchor* connection point overlies the *reference point*, then drops the *anchor*.
+    This class provides flexible positioning for GMT embellishments (e.g., logo, scale,
+    rose) by defining a *reference point* on the plot and an *anchor point* on the
+    embellishment. The embellishment is positioned so these two points overlap.
 
-    There are five different ways to specify the *reference point* on a plot, controlled
-    by the ``type`` and ``location`` attributes of this class, for complete freedom to
-    select any location inside or outside the plot.
+    **Conceptual Model**
 
-    ``type="mapcoords"``
-        Specify the *reference point* using data coordinates. ``location`` is given as
-        (*longitude*, *latitude*). This mechanism is useful when you want to tie the
-        location of the embellishment to an actual point best described by data
-        coordinates. Example: ``location=(135, 20), type="mapcoords"``.
-    ``type="plotcoords"``
-        Specify the *reference point* using plot coordinates, i.e., the distances in
-        inches, centimeters, or points from the lower left plot origin. This mechanism
-        is preferred when you wish to lay out an embellishment using familiar
-        measurements of distance from origins. Example:
-        ``location=("2c", "2.5c"), type="plotcoords"``.
-    ``type="boxcoords"``
-        Specify the *reference point* using normalized coordinates, i.e., fractional
-        coordinates between 0 and 1 in both the x and y directions. This mechanism
-        avoids units and is useful if you want to always place embellishments at
-        locations best referenced as fractions of the plot dimensions. Example:
-        ``location=(0.2, 0.1), type="boxcoords"``.
-    ``type="inside"``
-        Specify the *reference point* using one of the nine
-        :doc:`justification codes </techref/justification_codes>`. This mechanism is
-        preferred when you just want to place the embellishment inside the basemap at
-        one of the corners or centered at one of the sides (or even smack in the
-        middle). Example: ``location="TL", type="inside"``. When used, the anchor point
-        on the embellishments will default to the same justification, i.e., ``"TL"`` in
-        this example.
-    ``type="outside"``
-        Same ``type="inside"`` except it implies that the default anchor point is the
-        mirror opposite of the justification code. Thus, when using
-        ``location="TL", type="outside"``, the anchor point on the embellishment will
-        default to ``"BR"``. This is practical for embellishments that are drawn outside
-        of the basemap (like color bars often are).
+    Think of it like dropping an anchor from a boat:
 
-    While the *reference point* selection gives unlimited flexibility to pick any point
-    inside or outside the map region, the anchor point selection is limited to the nine
-    justification points. Set ``anchor`` to indicate which justification point on the
-    map embellishment should be co-registered with the chosen reference point. If an
-    anchor point is not specified then it defaults to the justification point set for
-    the reference point (for ``type="inside"``), or to the mirror opposite of the
-    reference point (for ``type="outside"``); with all other specifications of the
-    reference point, the anchor point takes on the default value of ``MC`` (for map
-    rose and map scale) or ``BL`` (all other map embellishments). Setting ``anchor``
-    overrules those defaults. For instance, ``anchor="TR"`` would select the top right
-    point on the map embellishment as the anchor.
+    1. The boat navigates to the *reference point* (a location on the plot)
+    2. The *anchor point* (a specific point on the embellishment) is aligned with the
+       *reference point*
+    3. The embellishment is "dropped" at that position
 
-    It is likely that you will wish to offset the anchor point away from your selection
-    by some arbitrary amount, particularly if the reference point is specified with
-    ``type="inside"`` or ``type="outside"``. This can be done by setting ``offset``.
-    These increments are added to the projected plot coordinates of the anchor point,
-    with positive values moving the reference point in the same direction as the
-    2-character code of the anchor point implies. Finally, the adjusted anchor point is
-    matched with the reference point.
+    **Reference Point Types**
 
-    Example
-    -------
+    The reference point can be specified in five different ways using the ``type`` and
+    ``location`` attributes:
+
+    **type="mapcoords"** (Map Coordinates)
+        Use data/geographic coordinates. Set ``location`` as (*longitude*, *latitude*).
+        Useful when tying the embellishment to a specific geographic location.
+
+        Example: ``location=(135, 20), type="mapcoords"``.
+
+    **type="plotcoords"** (Plot Coordinates)
+        Use plot coordinates as distances from the lower-left plot origin. Specify
+        ``location`` as (*x*, *y*) with units (e.g., inches, centimeters, points).
+        Useful for precise layout control.
+
+        Example: ``location=("2c", "2.5c"), type="plotcoords"``
+
+    **type="boxcoords"** (Normalized Coordinates)
+        Use normalized coordinates where (0, 0) is the lower-left corner and (1, 1) is
+        the upper-right corner. Set ``location`` as (*nx*, *ny*) with values between
+        0 and 1. Useful for positioning relative to plot dimensions without units.
+
+        Example: ``location=(0.2, 0.1), type="boxcoords"``
+
+    **type="inside"** (Inside Plot)
+        Use a :doc:`justification code </techref/justification_codes>` (e.g., ``"TL"``)
+        to place the embellishment inside the plot. Set ``location`` to one of the nine
+        2-character codes.
+
+        Example: ``location="TL", type="inside"``
+
+    **type="outside"** (Outside Plot)
+        Similar to ``type="inside"``, but the anchor point defaults to the mirror
+        opposite of the justification code. Useful for placing embellishments outside
+        the plot boundaries (e.g., color bars).
+
+        Example: ``location="TL", type="outside"``
+
+    **Anchor Point**
+
+    The anchor point determines which part of the embellishment aligns with the
+    reference point. It uses one of nine
+    :doc:`justification codes </techref/justification_codes>`.
+
+    Set ``anchor`` explicitly to override these defaults. If not set, the default
+    anchor behaviors are:
+
+    - For ``type="inside"``: Same as the reference point justification
+    - For ``type="outside"``: Mirror opposite of the reference point justification
+    - For other types: ``"MC"`` (middle center) for map rose and scale, ``"BL"``
+      (bottom-left) for other embellishments
+
+    Example: ``anchor="TR"`` selects the top-right point of the embellishment.
+
+    **Offset**
+
+    The ``offset`` parameter shifts the anchor point from its default position. Offsets
+    are applied to the projected plot coordinates, with positive values moving in the
+    direction indicated by the anchor point's justification code.
+
+    Specify as a single value (applied to both x and y) or as (*offset_x*, *offset_y*).
+
+    Examples
+    --------
+    Position a logo at map coordinates (3, 3) with the logo's middle-left point as the
+    anchor, offset by (0.2, 0.2):
+
     >>> import pygmt
     >>> from pygmt.params import Position
     >>> fig = pygmt.Figure()
@@ -95,44 +111,40 @@ class Position(BaseParam):
     ...     box=True,
     ... )
     >>> fig.show()
+
+    Position an embellishment at the top-left corner inside the plot:
+
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
+    >>> fig.logo(position=Position("TL", type="inside", offset="0.2c"), box=True)
+    >>> fig.show()
     """
 
-    #: Location of the reference point on the plot. Its meaning depends on the value of
-    #: ``type``.
+    #: Location of the reference point on the plot. The format depends on ``type``:
+    #:
+    #: - ``type="mapcoords"``: (*longitude*, *latitude*)
+    #: - ``type="plotcoords"``: (*x*, *y*) with units (e.g., ``"2c"``)
+    #: - ``type="boxcoords"``: (*nx*, *ny*) with values between 0 and 1
+    #: - ``type="inside"`` or ``"outside"``: 2-character justification code
     location: Sequence[float | str] | AnchorCode
 
-    #: The coordinates used to define the reference point. Valid values and meanings for
-    #: corresponding ``location`` are:
+    #: Coordinate system for the reference point. Valid values are:
     #:
-    #: - ``"mapcoords"``: ``location`` is specified as (*longitude*, *latitude*) in map
-    #:   coordinates.
-    #: - ``"boxcoords"``: ``location`` is specified as (*nx*, *ny*) in normalized
-    #:   coordinates, i.e., fractional values between 0 and 1 along the x- and y-axes.
-    #: - ``"plotcoords"``: ``location`` is specified as (*x*, *y*) in plot coordinates,
-    #:   i.e., distances from the lower-left plot origin given in inches, centimeters,
-    #:   or points.
-    #: - ``"inside"`` or ``"outside"``: ``location`` is one of the nine
-    #:   :doc:`two-character justification codes </techref/justification_codes>`,
-    #:   indicating a specific location relative to the plot bounding box.
-    #:
-    #: The default value is ``"plotcoords"``.
+    #: - ``"mapcoords"``: Map/Data coordinates
+    #: - ``"plotcoords"``: Plot coordinates
+    #: - ``"boxcoords"``: Normalized coordinates
+    #: - ``"inside"`` or ``"outside"``: Justification codes
     type: Literal["mapcoords", "inside", "outside", "boxcoords", "plotcoords"] = (
         "plotcoords"
     )
 
-    #: Anchor point of the embellishment, using one of the
-    #: :doc:`2-character justification codes </techref/justification_codes>`. The
-    #: default value depends on ``type``.
-    #:
-    #: - ``type="inside"``: ``anchor`` defaults to the same as ``location``.
-    #: - ``type="outside"``: ``anchor`` defaults to the mirror opposite of ``location``.
-    #: - Otherwise, ``anchor`` defaults to ``"MC"`` (middle center).
+    #: Anchor point on the embellishment using a
+    #: :doc:`2-character justification codes </techref/justification_codes>`.
+    #: If ``None``, defaults are applied based on ``type`` (see above).
     anchor: AnchorCode | None = None
 
-    #: Offset for the anchor point. It can be either a single value *offset* or a pair
-    #: (*offset_x*, *offset_y*), where *offset_x* and *offset_y* are the offsets in the
-    #: x- and y-directions, respectively. If a single value *offset* is given, both
-    #: *offset_x* and *offset_y* are set to *offset*.
+    #: Offset for the anchor point as a single value or (*offset_x*, *offset_y*).
+    #: If a single value is given, the offset is applied to both x and y directions.
     offset: Sequence[float | str] | None = None
 
     @property
