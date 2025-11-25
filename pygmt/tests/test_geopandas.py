@@ -266,7 +266,7 @@ def test_geopandas_nonascii():
     """
     Test geopandas.GeoDataFrame with non-ASCII characters.
 
-    The tempfile_from_geojson function writes the GeoDataFrame to a temporary ORG_GMT
+    The tempfile_from_geojson function writes the GeoDataFrame to a temporary OGR_GMT
     file, which doesn't work properly if UTF-8 is not the default encoding (e.g.,
     Windows).
     """
