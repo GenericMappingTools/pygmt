@@ -27,9 +27,7 @@ def test_params_position_anchor_offset():
     Test the Position class with anchor and offset parameters.
     """
     assert str(Position((10, 20), type="mapcoords", anchor="TL")) == "g10/20+jTL"
-
     assert str(Position((10, 20), type="mapcoords", offset=(1, 2))) == "g10/20+o1/2"
-
     pos = Position("TL", type="inside", anchor="MC", offset=("1c", "2c"))
     assert str(pos) == "jTL+jMC+o1c/2c"
 
