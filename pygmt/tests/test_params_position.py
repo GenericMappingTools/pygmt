@@ -39,6 +39,8 @@ def test_params_position_invalid_location():
     with pytest.raises(GMTValueError):
         Position("invalid", type="mapcoords")
     with pytest.raises(GMTValueError):
+        Position((1, 2, 3), type="mapcoords")
+    with pytest.raises(GMTValueError):
         Position(5, type="plotcoords")
     with pytest.raises(GMTValueError):
         Position((0.5,), type="boxcoords")
@@ -46,3 +48,11 @@ def test_params_position_invalid_location():
         Position((10, 20), type="inside")
     with pytest.raises(GMTValueError):
         Position("TT", type="outside")
+
+
+def test_params_position_invalid_anchor():
+    """
+    Test that invalid anchor inputs raise GMTValueError.
+    """
+    with pytest.raises(GMTValueError):
+        Position((10, 20), type="mapcoords", anchor="XX")

@@ -181,6 +181,13 @@ class Position(BaseParam):
                         description="reference point",
                         reason="Expect a valid 2-character justification code.",
                     )
+        # Validate the anchor if specified.
+        if self.anchor is not None and self.anchor not in _valid_anchors:
+            raise GMTValueError(
+                self.anchor,
+                description="anchor point",
+                reason="Expect a valid 2-character justification code.",
+            )
 
     @property
     def _aliases(self):
