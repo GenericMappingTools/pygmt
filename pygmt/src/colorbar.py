@@ -7,35 +7,27 @@ from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 from pygmt.params import Box
 
 __doctest_skip__ = ["colorbar"]
 
 
 @fmt_docstring
-@use_alias(
-    B="frame",
-    C="cmap",
-    D="position",
-    G="truncate",
-    I="shading",
-    L="equalsize",
-    Q="log",
-    W="scale",
-    Z="zfile",
-    p="perspective",
-)
-@kwargs_to_strings(G="sequence", I="sequence", p="sequence")
-def colorbar(
+@use_alias(C="cmap", D="position", L="equalsize", Q="log", W="scale", Z="zfile")
+def colorbar(  # noqa: PLR0913
     self,
+    truncate: Sequence[float] | None = None,
+    shading: float | Sequence[float] | bool = False,
     projection: str | None = None,
     box: Box | bool = False,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -63,11 +55,15 @@ def colorbar(
     Full GMT docs at :gmt-docs:`colorbar.html`.
 
     {aliases}
+       - B = frame
        - F = box
+       - G = truncate
+       - I = shading
        - J = projection
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -102,20 +98,22 @@ def colorbar(
         rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
         appearance, pass a :class:`pygmt.params.Box` object to control style, fill, pen,
         and other box properties.
-    truncate : list or str
-        *zlo*/*zhi*.
-        Truncate the incoming CPT so that the lowest and highest z-levels are
-        to *zlo* and *zhi*. If one of these equal NaN then we leave that end of
-        the CPT alone. The truncation takes place before the plotting.
+    truncate
+        (*zlow*, *zhigh*).
+        Truncate the incoming CPT so that the lowest and highest z-levels are to *zlow*
+        and *zhigh*. If one of these equal NaN then we leave that end of the CPT alone.
+        The truncation takes place before the plotting.
     scale : float
         Multiply all z-values in the CPT by the provided scale. By default,
         the CPT is used as is.
-    shading : str, list, or bool
-        Add illumination effects. Passing a single numerical value sets the
-        range of intensities from -value to +value. If not specified, 1 is
-        used. Alternatively, set ``shading=[low, high]`` to specify an
-        asymmetric intensity range from *low* to *high*. [Default is no
-        illumination].
+    shading
+        Add illumination effects [Default is no illumination].
+
+        - If ``True``, a default intensity range of -1 to +1 is used.
+        - Passing a single numerical value *max_intens* sets the range of intensities
+          from *-max_intens* to *+max_intens*.
+        - Passing a sequence of two numerical values (*low*, *high*) sets the intensity
+          range from *low* to *high* to specify an asymmetric range.
     equalsize : float or str
         [**i**]\ [*gap*].
         Equal-sized color rectangles. By default, the rectangles are scaled
@@ -162,11 +160,15 @@ def colorbar(
 
     aliasdict = AliasSystem(
         F=Alias(box, name="box"),
+        G=Alias(truncate, name="truncate", sep="/", size=2),
+        I=Alias(shading, name="shading", sep="/", size=2),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

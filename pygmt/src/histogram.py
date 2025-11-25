@@ -14,7 +14,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @fmt_docstring
 @use_alias(
     A="horizontal",
-    B="frame",
     C="cmap",
     D="annotate",
     E="barwidth",
@@ -31,21 +30,22 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     d="nodata",
     e="find",
     h="header",
-    i="incols",
     l="label",
-    p="perspective",
     w="wrap",
 )
-@kwargs_to_strings(T="sequence", i="sequence_comma", p="sequence")
+@kwargs_to_strings(T="sequence")
 def histogram(
     self,
     data: PathLike | TableLike,
     projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ):
     r"""
@@ -54,10 +54,13 @@ def histogram(
     Full GMT docs at :gmt-docs:`histogram.html`.
 
     {aliases}
+       - B = frame
        - J = projection
        - R = region
        - V = verbose
        - c = panel
+       - i = incols
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -150,10 +153,13 @@ def histogram(
     self._activate_figure()
 
     aliasdict = AliasSystem().add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
         c=panel,
+        i=incols,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

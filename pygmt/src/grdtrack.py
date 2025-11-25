@@ -41,14 +41,12 @@ __doctest_skip__ = ["grdtrack"]
     f="coltypes",
     g="gap",
     h="header",
-    i="incols",
     j="distcalc",
     n="interpolation",
-    o="outcols",
     s="skiprows",
     w="wrap",
 )
-@kwargs_to_strings(S="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(S="sequence")
 def grdtrack(
     grid: PathLike | xr.DataArray,
     points: PathLike | TableLike | None = None,
@@ -58,6 +56,8 @@ def grdtrack(
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
+    outcols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -82,6 +82,8 @@ def grdtrack(
     {aliases}
        - R = region
        - V = verbose
+       - i = incols
+       - o = outcols
 
     Parameters
     ----------
@@ -317,6 +319,8 @@ def grdtrack(
     aliasdict = AliasSystem().add_common(
         R=region,
         V=verbose,
+        i=incols,
+        o=outcols,
     )
     aliasdict.merge(kwargs)
 

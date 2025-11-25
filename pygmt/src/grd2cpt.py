@@ -32,7 +32,7 @@ __doctest_skip__ = ["grd2cpt"]
 @kwargs_to_strings(L="sequence", T="sequence")
 def grd2cpt(
     grid: PathLike | xr.DataArray,
-    truncate: tuple[float, float] | None = None,
+    truncate: Sequence[float] | None = None,
     overrule_bg: bool = False,
     no_bg: bool = False,
     log: bool = False,

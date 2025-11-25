@@ -9,26 +9,26 @@ import pandas as pd
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTValueError
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring
 
 __doctest_skip__ = ["solar"]
 
 
 @fmt_docstring
-@use_alias(B="frame", p="perspective")
-@kwargs_to_strings(p="sequence")
-def solar(
+def solar(  # noqa: PLR0913
     self,
     terminator: Literal["astronomical", "civil", "day_night", "nautical"] = "day_night",
     terminator_datetime=None,
     fill: str | None = None,
     pen: str | None = None,
     projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -39,7 +39,12 @@ def solar(
 
     Full GMT docs at :gmt-docs:`solar.html`.
 
-    {aliases}
+    **Aliases:**
+
+    .. hlist::
+       :columns: 3
+
+       - B = frame
        - G = fill
        - J = projection
        - R = region
@@ -48,6 +53,7 @@ def solar(
        - W = pen
        - c = panel
        - t = transparency
+       - p = perspective
 
     Parameters
     ----------
@@ -139,10 +145,12 @@ def solar(
         ],
         W=Alias(pen, name="pen"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)
