@@ -73,7 +73,7 @@ class Position(BaseParam):
 
     ``type="outside"`` Outside Plot
         Similar to ``type="inside"``, but the *anchor point* defaults to the mirror
-        opposite of the justification code. Useful for placing embellishments outside
+        opposite of the *reference point*. Useful for placing embellishments outside
         the plot boundaries (e.g., color bars).
 
         **Example:** ``location="TL", type="outside"`` [anchor point defaults to "BR"]
@@ -125,13 +125,13 @@ class Position(BaseParam):
     #: Location of the reference point on the plot. The format depends on ``type``:
     #:
     #: - ``type="mapcoords"``: (*longitude*, *latitude*)
-    #: - ``type="plotcoords"``: (*x*, *y*) with plot units (e.g., ``"2c"``)
+    #: - ``type="plotcoords"``: (*x*, *y*) with plot units
     #: - ``type="boxcoords"``: (*nx*, *ny*)
     #: - ``type="inside"`` or ``"outside"``:
     #:   :doc:`2-character justification codes </techref/justification_codes>`
     location: Sequence[float | str] | AnchorCode
 
-    #: Coordinate system for the reference point. Valid values are:
+    #: Types of the reference point. Valid values are:
     #:
     #: - ``"mapcoords"``: Map/Data coordinates
     #: - ``"plotcoords"``: Plot coordinates
