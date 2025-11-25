@@ -63,6 +63,26 @@ class Position(BaseParam):
         will default to ``"BR"``. This is practical for embellishments that are drawn
         outside of the basemap (like color bars often are).
 
+    While the reference point selection gives unlimited flexibility to pick any point
+    inside or outside the map region, the anchor point selection is limited to the nine
+    justification points. Set ``anchor`` to indicate which justification point on the
+    map feature should be co-registered with the chosen reference point. If an anchor
+    point is not specified then it defaults to the justification point set for the
+    reference point (for ``type="inside"``), or to the mirror
+    opposite of the reference point (for ``type="outside"``); with all other
+    specifications of the reference point, the anchor point takes on the default value
+    of ``MC`` (for map rose and map scale) or ``BL`` (all other map features). Setting
+    ``anchor`` overrules those defaults. For instance, ``anchor="TR"`` would select the
+    top right point on the map feature as the anchor.
+
+    It is likely that you will wish to offset the anchor point away from your selection
+    by some arbitrary amount, particularly if the reference point is specified with
+    ``type="inside"`` or ``type="outside"``. This can be done by setting ``offset``.
+    These increments are added to the projected plot coordinates of the anchor point,
+    with positive values moving the reference point in the same direction as the
+    2-character code of the anchor point implies. Finally, the adjusted anchor point is
+    matched with the reference point.
+
     Example
     -------
     >>> import pygmt
