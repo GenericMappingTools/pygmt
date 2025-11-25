@@ -28,9 +28,9 @@ class Position(BaseParam):
     then, depending on where on the boat the *anchor* is located, moves so that the
     *anchor* connection point overlies the *reference point*, then drops the *anchor*.
 
-    There are five different ways to specify the *reference point* on a map, controlled
+    There are five different ways to specify the *reference point* on a plot, controlled
     by the ``type`` and ``location`` attributes of this class, for complete freedom to
-    select any location inside or outside the map.
+    select any location inside or outside the plot.
 
     ``type="mapcoords"``
         Specify the *reference point* using data coordinates. ``location`` is given as
@@ -50,30 +50,31 @@ class Position(BaseParam):
         locations best referenced as fractions of the plot dimensions. Example:
         ``location=(0.2, 0.1), type="boxcoords"``.
     ``type="inside"``
-        Specify the *reference point* using one of the nine justification codes. This
-        mechanism is preferred when you just want to place the embellishment inside the
-        basemap at one of the corners or centered at one of the sides (or even smack in
-        the middle). Example: ``location="TL", type="inside"``. When used, the anchor
-        point on the map embellishments will default to the same justification, i.e.,
-        ``"TL"`` in this example.
+        Specify the *reference point* using one of the nine
+        :doc:`justification codes </techref/justification_codes>`. This mechanism is
+        preferred when you just want to place the embellishment inside the basemap at
+        one of the corners or centered at one of the sides (or even smack in the
+        middle). Example: ``location="TL", type="inside"``. When used, the anchor point
+        on the embellishments will default to the same justification, i.e., ``"TL"`` in
+        this example.
     ``type="outside"``
         Same ``type="inside"`` except it implies that the default anchor point is the
         mirror opposite of the justification code. Thus, when using
-        ``location="TL", type="outside"``, the anchor point on the map embellishment
-        will default to ``"BR"``. This is practical for embellishments that are drawn
-        outside of the basemap (like color bars often are).
+        ``location="TL", type="outside"``, the anchor point on the embellishment will
+        default to ``"BR"``. This is practical for embellishments that are drawn outside
+        of the basemap (like color bars often are).
 
-    While the reference point selection gives unlimited flexibility to pick any point
+    While the *reference point* selection gives unlimited flexibility to pick any point
     inside or outside the map region, the anchor point selection is limited to the nine
     justification points. Set ``anchor`` to indicate which justification point on the
-    map feature should be co-registered with the chosen reference point. If an anchor
-    point is not specified then it defaults to the justification point set for the
-    reference point (for ``type="inside"``), or to the mirror
-    opposite of the reference point (for ``type="outside"``); with all other
-    specifications of the reference point, the anchor point takes on the default value
-    of ``MC`` (for map rose and map scale) or ``BL`` (all other map features). Setting
-    ``anchor`` overrules those defaults. For instance, ``anchor="TR"`` would select the
-    top right point on the map feature as the anchor.
+    map embellishment should be co-registered with the chosen reference point. If an
+    anchor point is not specified then it defaults to the justification point set for
+    the reference point (for ``type="inside"``), or to the mirror opposite of the
+    reference point (for ``type="outside"``); with all other specifications of the
+    reference point, the anchor point takes on the default value of ``MC`` (for map
+    rose and map scale) or ``BL`` (all other map embellishments). Setting ``anchor``
+    overrules those defaults. For instance, ``anchor="TR"`` would select the top right
+    point on the map embellishment as the anchor.
 
     It is likely that you will wish to offset the anchor point away from your selection
     by some arbitrary amount, particularly if the reference point is specified with
