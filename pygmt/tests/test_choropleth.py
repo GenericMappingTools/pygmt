@@ -28,6 +28,6 @@ def test_choropleth(world):
     fig = Figure()
     fig.basemap(region=[-19.5, 53, -38, 37.5], projection="M15c", frame=True)
     makecpt(cmap="bilbao", series=(0, 270, 10), reverse=True)
-    fig.choropleth(world, column="POP_EST", pen="0.3p,gray10")
+    fig.choropleth(world.cx[-19.5:53, -38:37.5], column="POP_EST", pen="0.3p,gray10")
     fig.colorbar(frame=True)
     return fig
