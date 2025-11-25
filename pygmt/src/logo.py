@@ -5,23 +5,17 @@ logo - Plot the GMT logo.
 from collections.abc import Sequence
 from typing import Literal
 
-from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring
-from pygmt.params import Box
+from pygmt.params import Box, Position
 
 
 @fmt_docstring
 def logo(  # noqa: PLR0913
     self,
-    position: Sequence[str | float] | AnchorCode | None = None,
-    position_type: Literal[
-        "mapcoords", "boxcoords", "plotcoords", "inside", "outside"
-    ] = "plotcoords",
-    anchor: AnchorCode | None = None,
-    anchor_offset: Sequence[float | str] | None = None,
+    position: Position | None = None,
     height: float | str | None = None,
     width: float | str | None = None,
     projection: str | None = None,
@@ -54,13 +48,9 @@ def logo(  # noqa: PLR0913
     **Aliases:**
 
     .. hlist::
-       :columns: 1
-
-       - D = position/position_type, **+j**: anchor, **+o**: anchor_offset,
-         **+w**: width, **+h**: height
-    .. hlist::
        :columns: 3
 
+       - D = position, **+w**: width, **+h**: height
        - F = box
        - J = projection
        - R = region
@@ -73,39 +63,8 @@ def logo(  # noqa: PLR0913
     Parameters
     ----------
     position
-        Specify the reference point on the plot for the GMT logo. The method of defining
-        the reference point is controlled by ``position_type``, and the exact location
-        is set by ``position``.
-    position_type
-        Specify the type of coordinates used to define the reference point. It can be
-        one of the following values:
-
-        - ``"mapcoords"``: ``position`` is specified as (*longitude*, *latitude*) in map
-          coordinates.
-        - ``"boxcoords"``: ``position`` is specified as (*nx*, *ny*) in normalized
-          coordinates, i.e., fractional values between 0 and 1 along the x- and y-axes.
-        - ``"plotcoords"``: ``position`` is specified as (*x*, *y*) in plot coordinates,
-          i.e., distances from the lower-left plot origin given in inches, centimeters,
-          or points.
-        - ``"inside"`` or ``"outside"``: ``position`` is one of the nine
-          :doc:`two-character justification codes </techref/justification_codes>`,
-          indicating a specific location relative to the plot bounding box.
-
-        Refer to :doc:`/techref/reference_anchor_points` for details about the
-        positioning.
-    anchor
-        Specify the anchor point of the GMT logo, using one of the
-        :doc:`2-character justification codes </techref/justification_codes>`. The
-        default value depends on ``position_type``.
-
-        - ``position_type="inside"``: ``anchor`` defaults to the same as ``position``.
-        - ``position_type="outside"``: ``anchor`` defaults to the mirror opposite of
-          ``position``.
-        - Otherwise, ``anchor`` defaults to ``"MC"`` (middle center).
-    anchor_offset
-        Specifies an offset for the anchor point as *offset* or
-        (*offset_x*, *offset_y*). If a single value *offset* is given, both *offset_x*
-        and *offset_y* are set to *offset*.
+        Specify the position of the GMT logo. See the :class:`pygmt.params.Position`
+        class for details.
     width
     height
         Width or height of the GMT logo. Since the aspect ratio is fixed, only one of
@@ -130,47 +89,23 @@ def logo(  # noqa: PLR0913
     """
     self._activate_figure()
 
-    # Prior PyGMT v0.17.0, 'position' was aliased to the -D option. For backward
-    # compatibility, need to check if users pass a string with the GMT CLI syntax to
-    # 'position', i.e., a string starting with one of the codes "g", "n", "x", "j", "J",
-    # or contains modifiers with "+".
-    _is_deprecated_position = isinstance(position, str) and (
-        position.startswith(("g", "n", "x", "j", "J")) or "+" in position
-    )
-
-    if _is_deprecated_position and any(
-        v is not None for v in (anchor, anchor_offset, height, width)
-    ):
+    # Prior PyGMT v0.17.0, 'position' can accept a raw GMT CLI string. Check for
+    # conflicts with other parameters.
+    if isinstance(position, str) and (height is not None or width is not None):
         msg = (
-            "Parameter 'position' is given with a raw GMT CLI syntax, and conflicts "
-            "with parameters 'anchor', 'anchor_offset', 'height', and 'width'. "
-            "Please refer to the documentation for the recommended usage."
+            "Parameter 'position' is given with a raw GMT command string, and conflicts "
+            "with parameters 'height', and 'width'. "
         )
         raise GMTInvalidInput(msg)
 
     # width and height are mutually exclusive.
     if width is not None and height is not None:
-        msg = "Cannot specify both width and height."
+        msg = "Cannot specify both 'width' and 'height'."
         raise GMTInvalidInput(msg)
 
     aliasdict = AliasSystem(
-        D=Alias(position, name="position")
-        if _is_deprecated_position
-        else [
-            Alias(
-                position_type,
-                name="position_type",
-                mapping={
-                    "mapcoords": "g",
-                    "boxcoords": "n",
-                    "plotcoords": "x",
-                    "inside": "j",
-                    "outside": "J",
-                },
-            ),
-            Alias(position, name="position", sep="/", size=2),
-            Alias(anchor, name="anchor", prefix="+j"),
-            Alias(anchor_offset, name="anchor_offset", prefix="+o", sep="/", size=2),
+        D=[
+            Alias(position, name="position"),
             Alias(height, name="height", prefix="+h"),
             Alias(width, name="width", prefix="+w"),
         ],
