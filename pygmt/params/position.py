@@ -8,6 +8,7 @@ from typing import Literal
 
 from pygmt._typing import AnchorCode
 from pygmt.alias import Alias
+from pygmt.exceptions import GMTValueError
 from pygmt.params.base import BaseParam
 
 
@@ -134,9 +135,12 @@ class Position(BaseParam):
     #: - ``"plotcoords"``: Plot coordinates
     #: - ``"boxcoords"``: Normalized coordinates
     #: - ``"inside"`` or ``"outside"``: Justification codes
-    type: Literal["mapcoords", "inside", "outside", "boxcoords", "plotcoords"] = (
-        "plotcoords"
-    )
+    #:
+    #: If not specified, defaults to ``"inside"`` if ``location`` is a justification
+    #: code; otherwise defaults to ``"plotcoords"``.
+    type: (
+        Literal["mapcoords", "inside", "outside", "boxcoords", "plotcoords"] | None
+    ) = None
 
     #: Anchor point on the embellishment using a
     #: :doc:`2-character justification codes </techref/justification_codes>`.
@@ -146,6 +150,37 @@ class Position(BaseParam):
     #: Offset for the anchor point as a single value or (*offset_x*, *offset_y*).
     #: If a single value is given, the offset is applied to both x and y directions.
     offset: Sequence[float | str] | None = None
+
+    def _validate(self):
+        """
+        Validate the parameters.
+        """
+        _valid_anchors = {f"{h}{v}" for v in "TMB" for h in "LCR"} | {
+            f"{v}{h}" for v in "TMB" for h in "LCR"
+        }
+
+        # Default to "inside" if type is not specified and location is an anchor code.
+        if self.type is None:
+            self.type = "inside" if isinstance(self.location, str) else "plotcoords"
+
+        # Validate the location based on type.
+        match self.type:
+            case "mapcoords" | "plotcoords" | "boxcoords":
+                if not isinstance(self.location, Sequence) or len(self.location) != 2:
+                    raise GMTValueError(
+                        self.location,
+                        description="reference point",
+                        reason="Expect a sequence of two values.",
+                    )
+            case "inside" | "outside":
+                if self.location not in _valid_anchors:
+                    raise GMTValueError(
+                        self.location,
+                        description="reference point",
+                        reason="Expect a valid 2-character justification code.",
+                    )
+            case _:
+                pass  # Will check type in the Alias system.
 
     @property
     def _aliases(self):
