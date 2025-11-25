@@ -179,8 +179,6 @@ class Position(BaseParam):
                         description="reference point",
                         reason="Expect a valid 2-character justification code.",
                     )
-            case _:
-                pass  # Will check type in the Alias system.
 
     @property
     def _aliases(self):
