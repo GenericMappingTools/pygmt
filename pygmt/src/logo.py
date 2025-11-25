@@ -7,17 +7,14 @@ from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list, fmt_docstring
-from pygmt.params import Box, Position
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.params import Box
 
 
 @fmt_docstring
-def logo(  # noqa: PLR0913
+@use_alias(D="position")
+def logo(
     self,
-    position: Position | None = None,
-    width: float | str | None = None,
-    height: float | str | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     style: Literal["standard", "url", "no_label"] = "standard",
@@ -39,12 +36,7 @@ def logo(  # noqa: PLR0913
 
     Full GMT docs at :gmt-docs:`gmtlogo.html`.
 
-    **Aliases:**
-
-    .. hlist::
-       :columns: 3
-
-       - D = position, **+w**: width, **+h**: height
+    {aliases}
        - F = box
        - J = projection
        - R = region
@@ -80,25 +72,7 @@ def logo(  # noqa: PLR0913
     """
     self._activate_figure()
 
-    if isinstance(position, str) and any(v is not None for v in (width, height)):
-        msg = (
-            "Parameter 'position' is given with a raw GMT CLI syntax, and conflicts "
-            "with parameters 'height', and 'width'. Please refer to the documentation "
-            "for the recommended usage."
-        )
-        raise GMTInvalidInput(msg)
-
-    # width and height are mutually exclusive.
-    if width is not None and height is not None:
-        msg = "Cannot specify both width and height."
-        raise GMTInvalidInput(msg)
-
     aliasdict = AliasSystem(
-        D=[
-            Alias(position, name="position"),
-            Alias(width, name="width", prefix="+w"),
-            Alias(height, name="height", prefix="+h"),
-        ],
         F=Alias(box, name="box"),
         S=Alias(
             style, name="style", mapping={"standard": "l", "url": "u", "no_label": "n"}
