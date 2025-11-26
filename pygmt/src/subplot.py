@@ -52,7 +52,7 @@ def subplot(
 
     Full GMT docs at :gmt-docs:`subplot.html#synopsis-begin-mode`.
 
-    {aliases}
+    $aliases
        - B = frame
        - J = projection
        - M = margins
@@ -96,7 +96,7 @@ def subplot(
         lowercase Roman numerals; use **+R** for uppercase Roman numerals [Default is
         Arabic numerals]. Append **+v** to increase tag numbers vertically down columns
         [Default is horizontally across rows].
-    {frame}
+    $frame
     clearance : str or list
         [*side*]\ *clearance*.
         Reserve a space of dimension *clearance* between the margin and the
@@ -109,7 +109,7 @@ def subplot(
         side and 2 cm on south side). Such space will be left untouched by
         the main map plotting but can be accessed by methods that plot
         scales, bars, text, etc.
-    {projection}
+    $projection
     margins
         Margin space that is added between neighboring subplots (i.e., the interior
         margins) in addition to the automatic space added for tick marks, annotations,
@@ -124,7 +124,7 @@ def subplot(
         The actual gap created is always a sum of the margins for the two opposing sides
         (e.g., east plus west or south plus north margins) [Default is half the primary
         annotation font size, giving the full annotation font size as the default gap].
-    {region}
+    $region
     sharex : bool or str
         Set subplot layout for shared x-axes. Use when all subplots in a column
         share a common *x*-range. If ``sharex=True``, the first (i.e.,
@@ -157,7 +157,7 @@ def subplot(
         While individual subplots can have titles (see ``sharex``/``sharey`` or
         ``frame``), the entire figure may also have an overarching *heading*
         [no heading]. Font is determined by setting :gmt-term:`FONT_HEADING`.
-    {verbose}
+    $verbose
     """
     self._activate_figure()
 
@@ -223,7 +223,7 @@ def set_panel(
     both dimensions then you must specify ``projection="x"`` [The default
     ``projection="X"`` will fill the subplot by using unequal scales].
 
-    {aliases}
+    $aliases
        - V = verbose
 
     Parameters
@@ -257,7 +257,7 @@ def set_panel(
         clearances set by ``clearance`` in the initial
         :meth:`pygmt.Figure.subplot` call.
 
-    {verbose}
+    $verbose
     """
     self._activate_figure()
 

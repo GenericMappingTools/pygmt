@@ -66,7 +66,7 @@ def coast(
 
     Full GMT docs at :gmt-docs:`coast.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - D = resolution
        - F = box
@@ -79,11 +79,11 @@ def coast(
 
     Parameters
     ----------
-    {projection}
-    {region}
+    $projection
+    $region
         *Required if this is the first plot command.*
-    {area_thresh}
-    {frame}
+    $area_thresh
+    $frame
     lakes : str or list
         *fill*\ [**+l**\|\ **+r**].
         Set the shade, color, or pattern for lakes and river-lakes. The
@@ -172,10 +172,10 @@ def coast(
         to any of the continent codes (e.g. ``"=EU"`` for Europe). Append
         **+p**\ *pen* to draw polygon outlines [Default is no outline] and
         **+g**\ *fill* to fill them [Default is no fill].
-    {panel}
-    {perspective}
-    {transparency}
-    {verbose}
+    $panel
+    $perspective
+    $transparency
+    $verbose
 
     Example
     -------

@@ -53,7 +53,7 @@ def grdview(  # noqa: PLR0913
 
     Full GMT docs at :gmt-docs:`grdview.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - J = projection
        - Jz = zscale
@@ -66,16 +66,16 @@ def grdview(  # noqa: PLR0913
 
     Parameters
     ----------
-    {grid}
+    $grid
     region : str or list
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
         Specify the :doc:`region </tutorials/basics/regions>` of interest. When used
         with ``perspective``, optionally append */zmin/zmax* to indicate the range to
         use for the 3-D axes [Default is the region given by the input grid].
-    {projection}
+    $projection
     zscale/zsize
         Set z-axis scaling or z-axis size.
-    {frame}
+    $frame
     cmap : str
         The name of the color palette table to use.
     drapegrid : str or :class:`xarray.DataArray`
@@ -118,12 +118,12 @@ def grdview(  # noqa: PLR0913
         **+m**\ *ambient* to specify azimuth, intensity, and ambient arguments for that
         function, or just give **+d** to select the default arguments [Default is
         ``"+a-45+nt1+m0"``].
-    {verbose}
-    {panel}
-    {coltypes}
-    {interpolation}
-    {perspective}
-    {transparency}
+    $verbose
+    $panel
+    $coltypes
+    $interpolation
+    $perspective
+    $transparency
 
     Example
     -------

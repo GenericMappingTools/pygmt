@@ -42,7 +42,7 @@ def grdgradient(
 
     Full GMT docs at :gmt-docs:`grdgradient.html`.
 
-    {aliases}
+    $aliases
        - A = azimuth
        - E = radiance
        - R = region
@@ -50,16 +50,16 @@ def grdgradient(
 
     Parameters
     ----------
-    {grid}
-    {outgrid}
+    $grid
+    $outgrid
     azimuth
         *azim* or (*azim*, *azim2*).
         Azimuthal direction for a directional derivative; *azim* is the
         angle in the x,y plane measured in degrees positive clockwise from
         north (the positive y-direction) toward east (the positive x-direction). The
         negative of the directional derivative,
-        :math:`-(\frac{{dz}}{{dx}}\sin(\mbox{{azim}}) + \
-        \frac{{dz}}{{dy}}\cos(\mbox{{azim}}))`, is found; negation yields
+        :math:`-(\frac{dz}{dx}\sin(\mbox{azim}) + \
+        \frac{dz}{dy}\cos(\mbox{azim}))`, is found; negation yields
         positive values when the slope of :math:`z(x,y)` is downhill in the
         *azim* direction, the correct sense for shading the illumination of an
         image by a light source above the x,y plane shining from the *azim*
@@ -109,18 +109,18 @@ def grdgradient(
         given, it is set to the average of :math:`g`. The following forms are
         supported:
 
-        - **True**: Normalize using :math:`g_n = \mbox{{amp}}\
-          (\frac{{g - \mbox{{offset}}}}{{max(|g - \mbox{{offset}}|)}})`
+        - **True**: Normalize using math:`g_n = \mbox{amp}\
+          (\frac{g - \mbox{offset}}{max(|g - \mbox{offset}|)})`
         - **e**: Normalize using a cumulative Laplace distribution yielding:
-          :math:`g_n = \mbox{{amp}}(1 - \
-          \exp{{(\sqrt{{2}}\frac{{g - \mbox{{offset}}}}{{\sigma}}))}}`, where
+          :math:`g_n = \mbox{amp}(1 - \
+          \exp{(\sqrt{2}\frac{g - \mbox{offset}}{\sigma}))}`, where
           :math:`\sigma` is estimated using the L1 norm of
-          :math:`(g - \mbox{{offset}})` if it is not given.
+          :math:`(g - \mbox{offset})` if it is not given.
         - **t**: Normalize using a cumulative Cauchy distribution yielding:
           :math:`g_n = \
-          \frac{{2(\mbox{{amp}})}}{{\pi}}(\tan^{{-1}}(\frac{{g - \
-          \mbox{{offset}}}}{{\sigma}}))` where :math:`\sigma` is estimated
-          using the L2 norm of :math:`(g - \mbox{{offset}})` if it is not
+          \frac{2(\mbox{amp})}{\pi}(\tan^{-1}(\frac{g - \
+          \mbox{offset}}{\sigma}))` where :math:`\sigma` is estimated
+          using the L2 norm of :math:`(g - \mbox{offset})` if it is not
           given.
 
         As a final option, you may add **+a**\ *ambient* to add *ambient* to
@@ -136,13 +136,13 @@ def grdgradient(
         grid output is not needed for this run then do not specify
         ``outgrid``. For subsequent runs, just use **r** to read these
         values. Using **R** will read then delete the statistics file.
-    {region}
+    $region
     slope_file : str
         Name of output grid file with scalar magnitudes of gradient vectors.
         Requires ``direction`` but makes ``outgrid`` optional.
-    {verbose}
-    {coltypes}
-    {interpolation}
+    $verbose
+    $coltypes
+    $interpolation
 
     Returns
     -------
