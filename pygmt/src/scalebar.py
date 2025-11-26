@@ -2,25 +2,18 @@
 scalebar - Add a scale bar.
 """
 
-from collections.abc import Sequence
 from typing import Literal
 
-from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInputError
 from pygmt.helpers import build_arg_list
-from pygmt.params import Box
+from pygmt.params import Box, Position
 
 
 def scalebar(  # noqa: PLR0913
     self,
-    position: Sequence[float | str] | AnchorCode | None = None,
-    position_type: Literal[
-        "mapcoords", "boxcoords", "plotcoords", "inside", "outside"
-    ] = "plotcoords",
-    anchor: AnchorCode | None = None,
-    anchor_offset: Sequence[float | str] | None = None,
+    position: Position,
     length: float | str | None = None,
     label_alignment: Literal["left", "right", "top", "bottom"] | None = None,
     scale_position: float | tuple[float, float] | bool = False,
@@ -44,40 +37,9 @@ def scalebar(  # noqa: PLR0913
 
     Parameters
     ----------
-    position/position_type
-        Specify the reference point on the map for the directional rose. The reference
-        point can be specified in five different ways, which is selected by the
-        **position_type** parameter. The actual reference point is then given by the
-        coordinates or code specified by the **position** parameter.
-
-        The **position_type** parameter can be one of the following:
-
-        - ``"mapcoords"``: **position** is given as (*longitude*, *latitude*) in map
-          coordinates.
-        - ``"boxcoords"``: **position** is given as (*nx*, *ny*) in normalized
-          coordinates, i.e., fractional coordinates between 0 and 1 in both the x and y
-          directions. For example, (0, 0) is the lower-left corner and (1, 1) is the
-          upper-right corner of the plot bounding box.
-        - ``"plotcoords"``: **position** is given as (x, y) in plot coordinates, i.e.,
-          the distances in inches, centimeters, or points from the lower left plot
-          origin.
-        - ``"inside"`` or ``"outside"``: **position** is one of the nine
-          :doc:`2-character justification codes </techref/justification_codes>`, meaning
-          placing the reference point at specific locations, either inside or outside
-          the plot bounding box.
-    anchor
-        Anchor point of the directional rose, specified by one of the
-        :doc:`2-character justification codes </techref/justification_codes>`.
-        The default value depends on the **position_type** parameter.
-
-        - ``position_type="inside"``: **anchor** defaults to the same as **position**.
-        - ``position_type="outside"``: **anchor** defaults to the mirror opposite of
-          **position**.
-        - Otherwise, **anchor** defaults to ``"MC"`` (middle center).
-    anchor_offset
-        *offset* or (*offset_x*, *offset_y*).
-        Offset the anchor point by *offset_x* and *offset_y*. If a single value *offset*
-        is given, *offset_y* = *offset_x* = *offset*.
+    position
+        Specify the location of the scale bar. See :class:`pygmt.params.Position` for
+        more details.
     length
         Length of the scale bar in km. You can append different units to the length,
         which are:
@@ -117,19 +79,18 @@ def scalebar(  # noqa: PLR0913
         rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
         appearance, pass a :class:`pygmt.params.Box` object to control style, fill, pen,
         and other box properties.
-    {perspective}
-    {verbose}
-    {transparency}
+    $perspective
+    $verbose
+    $transparency
 
     Examples
     --------
     >>> import pygmt
-    >>> from pygmt.params import Box
+    >>> from pygmt.params import Box, Position
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 80, -30, 30], projection="M10c", frame=True)
     >>> fig.scalebar(
-    ...     position=(10, 10),
-    ...     position_type="mapcoords",
+    ...     position=Position((10, 10)),
     ...     length=1000,
     ...     fancy=True,
     ...     label="Scale",
@@ -149,20 +110,7 @@ def scalebar(  # noqa: PLR0913
     aliasdict = AliasSystem(
         F=Alias(box, name="box"),
         L=[
-            Alias(
-                position_type,
-                name="position_type",
-                mapping={
-                    "mapcoords": "g",
-                    "boxcoords": "n",
-                    "plotcoords": "x",
-                    "inside": "j",
-                    "outside": "J",
-                },
-            ),
-            Alias(position, name="position", sep="/", size=2),
-            Alias(anchor, name="justify", prefix="+j"),
-            Alias(anchor_offset, name="anchor_offset", prefix="+o", sep="/", size=2),
+            Alias(position, name="position"),
             Alias(length, name="length", prefix="+w"),
             Alias(
                 label_alignment,
