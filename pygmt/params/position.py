@@ -151,7 +151,7 @@ class Position(BaseParam):
 
     #: Offset for the anchor point as a single value or (*offset_x*, *offset_y*).
     #: If a single value is given, the offset is applied to both x and y directions.
-    offset: Sequence[float | str] | None = None
+    offset: float | str | Sequence[float | str] | None = None
 
     def _validate(self):
         """
