@@ -36,7 +36,7 @@ def logo(
 
     Full GMT docs at :gmt-docs:`gmtlogo.html`.
 
-    {aliases}
+    $aliases
        - F = box
        - J = projection
        - R = region
@@ -48,8 +48,8 @@ def logo(
 
     Parameters
     ----------
-    {projection}
-    {region}
+    $projection
+    $region
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *width*\ [**+j**\ *justify*]\ [**+o**\ *dx*\ [/*dy*]].
@@ -65,10 +65,10 @@ def logo(
         - ``"standard"``: The text label "The Generic Mapping Tools".
         - ``"no_label"``: Skip the text label.
         - ``"url"``: The URL to the GMT website.
-    {verbose}
-    {panel}
-    {transparency}
-    {perspective}
+    $verbose
+    $panel
+    $transparency
+    $perspective
     """
     self._activate_figure()
 

@@ -41,7 +41,7 @@ def ternary(  # noqa: PLR0913
 
     Full GMT docs at :gmt-docs:`ternary.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - L = alabel/blabel/clabel
        - R = region
@@ -54,7 +54,7 @@ def ternary(  # noqa: PLR0913
     ----------
     data
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
-        {table-classes}.
+        $table_classes.
     width : str
         Set the width of the figure by passing a number, followed by
         a unit (**i** for inches, **c** for centimeters). Use a negative width
@@ -65,8 +65,8 @@ def ternary(  # noqa: PLR0913
         [*amin*, *amax*, *bmin*, *bmax*, *cmin*, *cmax*].
         Give the min and max limits for each of the three axes **a**, **b**,
         and **c**.
-    {cmap}
-    {fill}
+    $cmap
+    $fill
     alabel
         Set the label for the *a* vertex where the component is 100%. The label is
         placed at a distance of three times the :gmt-term:`MAP_LABEL_OFFSET` setting
@@ -78,11 +78,11 @@ def ternary(  # noqa: PLR0913
     style : str
         *symbol*\[\ *size*].
         Plot individual symbols in a ternary diagram.
-    {pen}
-    {verbose}
-    {panel}
-    {perspective}
-    {transparency}
+    $pen
+    $verbose
+    $panel
+    $perspective
+    $transparency
     """
     self._activate_figure()
 
