@@ -23,7 +23,7 @@ world = gpd.read_file(f"{provider}/50m/cultural/ne_50m_admin_0_countries.zip")
 # The dataset contains different attributes, here we focus on the population within
 # the different countries (column "POP_EST") for the continent "Africa".
 world["POP_EST"] *= 1e-6
-world_africa = world[world["CONTINENT"] == "Africa"].copy()
+africa = world[world["CONTINENT"] == "Africa"].copy()
 
 fig = pygmt.Figure()
 fig.basemap(region=[-19.5, 53, -37.5, 38], projection="M10c", frame="+n")
@@ -33,11 +33,9 @@ pygmt.makecpt(cmap="acton", series=(0, 100), reverse=True)
 
 # Next, we plot the polygons and fill them using the defined colormap. The target column
 # is defined by the aspatial parameter.
-fig.plot(data=world_africa, pen="0.8p,gray50", fill="+z", cmap=True, aspatial="Z=POP_EST")
+fig.plot(data=africa, pen="0.8p,gray50", fill="+z", cmap=True, aspatial="Z=POP_EST")
 
 # Add colorbar legend.
-fig.colorbar(
-    frame="x10f5+lPopulation (millions)", position="jML+o2c/-2.5c+w5c+ef0.2c+ml"
-)
+fig.colorbar(frame="x+lPopulation (millions)", position="jML+o2c/-2.5c+w5c+ef0.2c+ml")
 
 fig.show()
