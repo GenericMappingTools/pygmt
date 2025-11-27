@@ -33,7 +33,7 @@ pygmt.makecpt(cmap="acton", series=(0, 100), reverse=True)
 # Next, we plot the polygons and fill them using the defined colormap. The target column
 # is defined by the aspatial parameter.
 fig.plot(
-    data=world[world["CONTINENT"] == "Africa"],
+    data=world[world["CONTINENT"] == "Africa"].copy(),
     pen="1p,gray50",
     fill="+z",
     cmap=True,
