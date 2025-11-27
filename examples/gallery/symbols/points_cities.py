@@ -13,6 +13,7 @@ to the `x`, `y`, and `text` parameters of the :meth:`pygmt.Figure.text` method t
 label specific features.
 """
 
+# %%
 import geopandas as gpd
 import pygmt
 
