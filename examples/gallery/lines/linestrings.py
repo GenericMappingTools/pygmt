@@ -24,7 +24,9 @@ fig = pygmt.Figure()
 fig.basemap(region=[-84.5, -33, -56.5, 13], projection="M10c", frame=True)
 fig.coast(land="gray95", shorelines="1/0.3p,gray50", borders="1/0.2p,black")
 
+# Add rivers to map
 fig.plot(data=rivers, pen="1p,steelblue")
+
 fig.show()
 
 # %%
