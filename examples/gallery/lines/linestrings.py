@@ -20,13 +20,11 @@ import pygmt
 # Read a sample dataset provided by Natural Earth. The dataset contains large rivers
 # in Europe, stored as LineString/MultiLineString geometry types.
 provider = "https://naciscdn.org/naturalearth/"
-# rivers = gpd.read_file(f"{provider}110m/physical/ne_110m_rivers_lake_centerlines.zip")
 rivers = gpd.read_file(f"{provider}50m/physical/ne_50m_rivers_lake_centerlines.zip")
 rivers = rivers[rivers["scalerank"] != 5]
-rivers_five = rivers[rivers["scalerank"] == 5]
 
 fig = pygmt.Figure()
-fig.basemap(region=[-12.5, 30, 36, 56.5], projection="M15c", frame=True)
+fig.basemap(region=[-10, 30, 35, 57], projection="M15c", frame=True)
 fig.coast(land="gray95", shorelines="1/0.3p,gray50", borders="1/0.1p,black")
 
 # Add rivers to map
