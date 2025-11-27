@@ -27,6 +27,6 @@ fig.basemap(region=[-10, 30, 35, 57], projection="M10c", frame=True)
 fig.coast(land="gray95", shorelines="1/0.3p,gray50", borders="1/0.1p,black")
 
 # Add rivers to map
-fig.plot(data=rivers["geometry"], pen="1p,steelblue")
+fig.plot(data=rivers, pen="1p,steelblue")
 
 fig.show()
