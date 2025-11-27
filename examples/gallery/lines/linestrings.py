@@ -14,33 +14,22 @@ shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the
 """
 
 # %%
-import geodatasets
 import geopandas as gpd
 import pygmt
 
-# Read a sample dataset provided by the geodatasets package.
-# The dataset contains large rivers in Europe, stored as LineString/MultiLineString
-# geometry types.
-gdf = gpd.read_file(geodatasets.get_path("eea large_rivers"))
+# Read a sample dataset provided by Natural Earth. The dataset contains large rivers
+# in Europe, stored as LineString/MultiLineString geometry types.
+provider = "https://naciscdn.org/naturalearth/"
+# rivers = gpd.read_file(f"{provider}110m/physical/ne_110m_rivers_lake_centerlines.zip")
+rivers = gpd.read_file(f"{provider}50m/physical/ne_50m_rivers_lake_centerlines.zip")
+rivers = rivers[rivers["scalerank"] != 5]
+rivers_five = rivers[rivers["scalerank"] == 5]
 
-# Convert object to EPSG 4326 coordinate system
-gdf = gdf.to_crs("EPSG:4326")
-gdf.head()
-
-# %%
 fig = pygmt.Figure()
-
-fig.coast(
-    projection="M10c",
-    region=[-10, 30, 35, 57],
-    resolution="l",
-    land="gray95",
-    shorelines="1/0.1p,gray50",
-    borders="1/0.1,gray30",
-    frame=True,
-)
+fig.basemap(region=[-12.5, 30, 36, 56.5], projection="M15c", frame=True)
+fig.coast(land="gray95", shorelines="1/0.3p,gray50", borders="1/0.1p,black")
 
 # Add rivers to map
-fig.plot(data=gdf, pen="1p,steelblue")
+fig.plot(data=rivers["geometry"], pen="1p,steelblue")
 
 fig.show()
