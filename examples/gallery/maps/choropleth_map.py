@@ -33,18 +33,11 @@ pygmt.makecpt(cmap="acton", series=(0, 100), reverse=True)
 
 # Next, we plot the polygons and fill them using the defined colormap. The target column
 # is defined by the aspatial parameter.
-fig.plot(
-    data=world_africa,
-    pen="1p,gray50",
-    fill="+z",
-    cmap=True,
-    aspatial="Z=POP_EST",
-)
+fig.plot(data=world_africa, pen="1p,gray50", fill="+z", cmap=True, aspatial="Z=POP_EST")
 
 # Add colorbar legend.
 fig.colorbar(
-    frame="x10f5+lPopulation (millions)",
-    position="jML+o3c/-3.5c+w7.5c+ef0.3c+ml",
+    frame="x10f5+lPopulation (millions)", position="jML+o3c/-3.5c+w7.5c+ef0.3c+ml"
 )
 
 fig.show()
