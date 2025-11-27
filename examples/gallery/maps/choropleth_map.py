@@ -20,13 +20,9 @@ import pygmt
 provider = "https://naciscdn.org/naturalearth/"
 world = gpd.read_file(f"{provider}50m/cultural/ne_50m_admin_0_countries.zip")
 world["POP_EST"] *= 1e-6
-world = world[world["CONTINENT"] == "Africa"]
-region = [-13, 27, 36, 63]  # Europe
-region = [-89, -33, -56.5, 10]  # South America
-region = [-19.5, 53, -37.5, 38]  # Africa
 
 fig = pygmt.Figure()
-fig.basemap(region=region, projection="M15c", frame="+n")
+fig.basemap(region=[-19.5, 53, -37.5, 38], projection="M15c", frame="+n")
 
 # The dataset contains different attributes, here we focus on the population within
 # the different countries (column "POP_EST").
@@ -37,7 +33,7 @@ pygmt.makecpt(cmap="acton", series=(0, 100), reverse=True)
 # Next, we plot the polygons and fill them using the defined colormap. The target column
 # is defined by the aspatial parameter.
 fig.plot(
-    data=world[["POP_EST", "geometry"]],
+    data=world[world["CONTINENT"] == "Africa"],
     pen="1p,gray50",
     fill="+z",
     cmap=True,
