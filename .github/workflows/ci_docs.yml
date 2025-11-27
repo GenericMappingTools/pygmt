@@ -106,7 +106,6 @@ jobs:
             make
             pip
             python-build
-            geodatasets
             myst-nb
             panel
             sphinx>=6.2
