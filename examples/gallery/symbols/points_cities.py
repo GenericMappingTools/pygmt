@@ -1,6 +1,6 @@
 """
-GeoPandas: Plotting points with Point or PointString geometry
-=============================================================
+GeoPandas: Plotting points with Point or MultiPoint geometry
+============================================================
 
 The :meth:`pygmt.Figure.plot` method allows us to plot geographical data such as points
 with Point or MultiPoint geometry types stored in a :class:`geopandas.GeoDataFrame`
