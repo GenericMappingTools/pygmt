@@ -19,8 +19,8 @@ import pygmt
 
 # Read a sample dataset provided by Natural Earth. The dataset contains large rivers
 # in Europe, stored as LineString/MultiLineString geometry types.
-provider = "https://naciscdn.org/naturalearth/"
-rivers = gpd.read_file(f"{provider}10m/physical/ne_10m_rivers_lake_centerlines.zip")
+provider = "https://naciscdn.org/naturalearth"
+rivers = gpd.read_file(f"{provider}/10m/physical/ne_10m_rivers_lake_centerlines.zip")
 
 fig = pygmt.Figure()
 fig.basemap(region=[-10, 30, 35, 57], projection="M10c", frame=True)
