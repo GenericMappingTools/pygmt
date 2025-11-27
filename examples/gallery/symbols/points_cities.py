@@ -21,24 +21,24 @@ import pygmt
 # as Point geometry type. In this example we focus on Europe.
 provider = "https://naciscdn.org/naturalearth"
 cities = gpd.read_file(f"{provider}/50m/cultural/ne_50m_populated_places_simple.zip")
-cities = cities[cities["name"] != "Vatican City"]  # Avoid overlapping label with Rome
-# Create two subsets for smaller and larger cities
-cities_small = cities[cities["worldcity"] != 1]  # Smaller cities
-cities_world = cities[cities["worldcity"] == 1]  # Larger cities
+cities = cities[cities["name"] != "Vatican City"].copy()  # Avoid overlapping label
+# Create two subsets for small and large cities
+cities_small = cities[cities["worldcity"] != 1].copy()
+cities_large = cities[cities["worldcity"] == 1].copy()
 
 fig = pygmt.Figure()
 fig.basemap(region=[-10, 32.7, 37, 57], projection="M12c", frame=True)
 fig.coast(land="gray95", shorelines="1/0.3p,gray50", borders="1/0.1p,black")
 
 # Plot the two subsets using squares with different sizes and fills.
-fig.plot(data=cities_small["geometry"], style="s0.1c", fill="lightgray", pen="0.5p")
-fig.plot(data=cities_world["geometry"], style="s0.15c", fill="darkorange", pen="0.5p")
+fig.plot(data=cities_small, style="s0.1c", fill="lightgray", pen="0.5p")
+fig.plot(data=cities_large, style="s0.15c", fill="darkorange", pen="0.5p")
 
 # Label the larger cities with their names.
 fig.text(
-    x=cities_world.geometry.x,
-    y=cities_world.geometry.y,
-    text=cities_world["name"],
+    x=cities_large.geometry.x,
+    y=cities_large.geometry.y,
+    text=cities_large["name"],
     offset="0.12c",
     justify="BL",
     font="6p,Helvetica-Bold",
