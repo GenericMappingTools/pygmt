@@ -74,7 +74,7 @@ def grdimage(  # noqa: PLR0913
 
     Full GMT docs at :gmt-docs:`grdimage.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - J = projection
        - M = monochrome
@@ -88,9 +88,9 @@ def grdimage(  # noqa: PLR0913
 
     Parameters
     ----------
-    {grid}
-    {frame}
-    {cmap}
+    $grid
+    $frame
+    $cmap
     img_in : str
         [**r**].
         GMT will automatically detect standard image files (Geotiff, TIFF,
@@ -132,7 +132,7 @@ def grdimage(  # noqa: PLR0913
         suitable modifiers [Default is no illumination]. **Note**: If the
         input data represent an *image* then an *intensfile* or constant
         *intensity* must be provided.
-    {projection}
+    $projection
     monochrome
         Force conversion to monochrome image using the (television) YIQ transformation.
         Cannot be used with ``nan_transparent``.
@@ -146,14 +146,14 @@ def grdimage(  # noqa: PLR0913
         3). If the input is a grid, use **+z** to select another grid value
         than NaN. If input is instead an image, append an alternate *color* to
         select another pixel value to be transparent [Default is ``"black"``].
-    {region}
-    {verbose}
-    {panel}
-    {coltypes}
-    {interpolation}
-    {perspective}
-    {transparency}
-    {cores}
+    $region
+    $verbose
+    $panel
+    $coltypes
+    $interpolation
+    $perspective
+    $transparency
+    $cores
 
     Example
     -------

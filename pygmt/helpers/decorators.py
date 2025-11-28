@@ -6,6 +6,7 @@ arguments, insert common text into docstrings, transform arguments to strings, e
 """
 
 import functools
+import string
 import textwrap
 import warnings
 from inspect import Parameter, signature
@@ -410,11 +411,11 @@ def fmt_docstring(module_func):
     ...     ----------
     ...     data
     ...         Pass in either a file name to an ASCII data table, a 2-D
-    ...         {table-classes}.
-    ...     {region}
-    ...     {projection}
+    ...         $table_classes.
+    ...     $region
+    ...     $projection
     ...
-    ...     {aliases}
+    ...     $aliases
     ...     '''
     ...     pass
     >>> print(gmtinfo.__doc__)
@@ -456,7 +457,7 @@ def fmt_docstring(module_func):
             aliases.append(f"   - {arg} = {alias}")
         filler_text["aliases"] = "\n".join(aliases)
 
-    filler_text["table-classes"] = (
+    filler_text["table_classes"] = (
         ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an\n"
         "    :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`\n"
         "    data variables, or a :class:`geopandas.GeoDataFrame` containing the\n"
@@ -471,8 +472,7 @@ def fmt_docstring(module_func):
     # Dedent the docstring to make it all match the option text.
     docstring = textwrap.dedent(module_func.__doc__)
 
-    module_func.__doc__ = docstring.format(**filler_text)
-
+    module_func.__doc__ = string.Template(docstring).safe_substitute(**filler_text)
     return module_func
 
 

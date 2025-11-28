@@ -43,7 +43,7 @@ def x2sys_init(
 
     Full GMT docs at :gmt-docs:`supplements/x2sys/x2sys_init.html`.
 
-    {aliases}
+    $aliases
        - I = spacing
        - R = region
        - V = verbose
@@ -106,8 +106,8 @@ def x2sys_init(
         [Default is ``units=["dk", "se"]`` (km and m/s) if ``discontinuity`` is
         set, and ``units=["dc", "sc"]`` otherwise (e.g., for Cartesian units)].
 
-    {region}
-    {verbose}
+    $region
+    $verbose
 
     gap : str or list
         **t**\|\ **d**\ *gap*.
@@ -118,7 +118,7 @@ def x2sys_init(
         If these limits are exceeded then a data gap is assumed and no COE will
         be determined.
 
-    {distcalc}
+    $distcalc
     """
     aliasdict = AliasSystem(
         I=Alias(spacing, name="spacing", sep="/", size=2),

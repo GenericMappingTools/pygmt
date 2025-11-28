@@ -47,15 +47,15 @@ def dimfilter(
 
     Full GMT docs at :gmt-docs:`dimfilter.html`.
 
-    {aliases}
+    $aliases
        - I = spacing
        - R = region
        - V = verbose
 
     Parameters
     ----------
-    {grid}
-    {outgrid}
+    $grid
+    $outgrid
     distance : int or str
         Distance flag tells how grid (x,y) relates to filter width, as follows:
 
@@ -112,7 +112,7 @@ def dimfilter(
     region : str or list
         [*xmin*, *xmax*, *ymin*, *ymax*].
         Define the region of the output points [Default is the same as the input].
-    {verbose}
+    $verbose
 
     Returns
     -------

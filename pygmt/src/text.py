@@ -71,7 +71,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
 
     Full GMT docs at :gmt-docs:`text.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - F = **+a**: angle, **+c**: position, **+j**: justify, **+f**: font
        - J = projection
@@ -133,8 +133,8 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         e.g., **BL** for Bottom Left. If no justification is explicitly given
         (i.e. ``justify=True``), then the input to ``textfiles`` must have
         this as a column.
-    {projection}
-    {region}
+    $projection
+    $region
         *Required if this is the first plot command.*
     clearance : str
         [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].
@@ -167,21 +167,21 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         (see ``clearance``) [Default is ``"0.25p,black,solid"``].
     no_clip
         Do **not** clip text at the frame boundaries [Default is ``False``].
-    {verbose}
-    {aspatial}
-    {panel}
-    {find}
-    {coltypes}
-    {header}
+    $verbose
+    $aspatial
+    $panel
+    $find
+    $coltypes
+    $header
     use_word : int
         Select a specific word from the trailing text, with the first
         word being 0 [Default is the entire trailing text]. No numerical
         columns can be specified.
-    {perspective}
-    {transparency}
+    $perspective
+    $transparency
         ``transparency`` can also be a 1-D array to set varying transparency for texts,
         but this option is only valid if using ``x``/``y`` and ``text``.
-    {wrap}
+    $wrap
     """
     self._activate_figure()
 

@@ -60,7 +60,7 @@ def velo(  # noqa : PLR0913
 
     Full GMT docs at :gmt-docs:`supplements/geodesy/velo.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - J = projection
        - N = no_clip
@@ -75,7 +75,7 @@ def velo(  # noqa : PLR0913
     ----------
     data
         Pass in either a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
         Note that text columns are only supported with file or
         :class:`pandas.DataFrame` inputs.
 
@@ -170,15 +170,15 @@ def velo(  # noqa : PLR0913
               with extension taken positive.
             - **5**: azimuth of eps2 in degrees CW from North.
 
-    {projection}
-    {region}
+    $projection
+    $region
     vector : bool or str
         Modify vector parameters. For vector heads, append vector head *size*
         [Default is 9p]. See
         :gmt-docs:`supplements/geodesy/velo.html#vector-attributes` for
         specifying additional attributes.
-    {frame}
-    {cmap}
+    $frame
+    $cmap
     rescale : str
         Can be used to rescale the uncertainties of velocities (``spec="e"``
         and ``spec="r"``) and rotations (``spec="w"``). Can be combined with
@@ -224,7 +224,7 @@ def velo(  # noqa : PLR0913
     no_clip
         Do **not** skip symbols that fall outside the frame boundaries [Default is
         ``False``, i.e., plot symbols inside the frame boundaries only].
-    {verbose}
+    $verbose
     pen : str
         [*pen*][**+c**\ [**f**\|\ **l**]].
         Set pen attributes for velocity arrows, ellipse circumference and fault
@@ -242,13 +242,13 @@ def velo(  # noqa : PLR0913
         required columns). To instead use the corresponding error estimates
         (i.e., vector or rotation uncertainty) to lookup the color and paint
         the error ellipse or wedge instead, append **+e**.
-    {panel}
-    {nodata}
-    {find}
-    {header}
-    {incols}
-    {perspective}
-    {transparency}
+    $panel
+    $nodata
+    $find
+    $header
+    $incols
+    $perspective
+    $transparency
     """
     self._activate_figure()
 

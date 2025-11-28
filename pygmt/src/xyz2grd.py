@@ -52,7 +52,7 @@ def xyz2grd(
 
     Full GMT docs at :gmt-docs:`xyz2grd.html`.
 
-    {aliases}
+    $aliases
        - I = spacing
        - J = projection
        - R = region
@@ -63,10 +63,10 @@ def xyz2grd(
     ----------
     data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
-        providing a file name to an ASCII data table, a 2-D {table-classes}.
+        providing a file name to an ASCII data table, a 2-D $table_classes.
     x/y/z : 1-D arrays
         The arrays of x and y coordinates and z data points.
-    {outgrid}
+    $outgrid
     duplicate : str
         [**d**\|\ **f**\|\ **l**\|\ **m**\|\ **n**\|\
         **r**\|\ **S**\|\ **s**\|\ **u**\|\ **z**].
@@ -82,10 +82,10 @@ def xyz2grd(
         that were assigned to each node (this only requires two input columns
         *x* and *y* as *z* is not consulted). Append **z** to sum multiple
         values that belong to the same node.
-    {spacing}
-    {projection}
-    {region}
-    {verbose}
+    $spacing
+    $projection
+    $region
+    $verbose
     convention : str
         [*flags*].
         Read a 1-column ASCII [or binary] table. This assumes that all the
@@ -126,14 +126,14 @@ def xyz2grd(
         each input record to have a single value, while the former can handle
         multiple values per record but can only parse regular floating point
         values. Translate incoming *z*-values via the ``incols`` parameter.
-    {binary}
-    {nodata}
-    {find}
-    {coltypes}
-    {header}
-    {incols}
-    {registration}
-    {wrap}
+    $binary
+    $nodata
+    $find
+    $coltypes
+    $header
+    $incols
+    $registration
+    $wrap
 
     Returns
     -------
