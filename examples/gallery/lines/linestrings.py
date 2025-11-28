@@ -19,7 +19,7 @@ import pygmt
 # as LineString/MultiLineString geometry types. Here will focus on South America.
 provider = "https://naciscdn.org/naturalearth"
 rivers = gpd.read_file(f"{provider}/50m/physical/ne_50m_rivers_lake_centerlines.zip")
-rivers_sa = rivers.cx[-84.5:-33, -56.5:13]
+rivers_sa = rivers.cx[-84.5:-33, -56.5:13].copy()
 
 fig = pygmt.Figure()
 fig.basemap(region=[-84.5, -33, -56.5, 13], projection="M10c", frame=True)
@@ -31,7 +31,7 @@ fig.plot(data=rivers_sa, pen="1p,steelblue")
 fig.show()
 
 # %%
-rivers_eu = rivers.cx[-10:30, 35:57]
+rivers_eu = rivers.cx[-10:30, 35:57].copy()
 
 fig = pygmt.Figure()
 fig.basemap(region=[-10, 30, 35, 57], projection="M10c", frame=True)
