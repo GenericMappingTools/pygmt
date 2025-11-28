@@ -9,7 +9,7 @@ as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass t
 :class:`geopandas.GeoDataFrame` object as an argument to the ``data`` parameter of
 :meth:`pygmt.Figure.plot`, and style the points using the ``fill`` and ``pen``
 parameters. Additional pass suitable columns of the :class:`geopandas.GeoDataFrame` to
-the ``x``,  `y``, and ``text`` parameters of the :meth:`pygmt.Figure.text` method to
+the ``x``,  ``y``, and ``text`` parameters of the :meth:`pygmt.Figure.text` method to
 label specific features.
 """
 
