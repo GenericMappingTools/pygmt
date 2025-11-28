@@ -16,9 +16,22 @@ import geopandas as gpd
 import pygmt
 
 # Read a sample dataset provided by Natural Earth. The dataset contains rivers stored
-# as LineString/MultiLineString geometry types. Here will focus on South America.
+# as LineString/MultiLineString geometry types. Here will focus on Asia.
 provider = "https://naciscdn.org/naturalearth"
 rivers = gpd.read_file(f"{provider}/50m/physical/ne_50m_rivers_lake_centerlines.zip")
+rivers_asia = rivers.cx[57:125, 7:47].copy()
+
+fig = pygmt.Figure()
+fig.basemap(region=[57, 125, 7, 47], projection="M10c", frame=True)
+fig.coast(land="gray95", shorelines="1/0.3p,gray50", borders="1/0.2p,black")
+
+# Add rivers to map
+fig.plot(data=rivers_asia, pen="1p,steelblue")
+
+fig.show()
+
+
+# %%
 rivers_australia = rivers.cx[111:155, -40:-9].copy()
 
 fig = pygmt.Figure()
@@ -29,6 +42,7 @@ fig.coast(land="gray95", shorelines="1/0.3p,gray50", borders="1/0.2p,black")
 fig.plot(data=rivers_australia, pen="1p,steelblue")
 
 fig.show()
+
 
 # %%
 rivers_sa = rivers.cx[-84.5:-33, -56.5:13].copy()
