@@ -7,7 +7,7 @@ with Point or MultiPoint geometry types stored in a :class:`geopandas.GeoDataFra
 object. Use :func:`geopandas.read_file` to load data from any supported OGR format such
 as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the
 :class:`geopandas.GeoDataFrame` object as an argument to the ``data`` parameter of
-:meth:`pygmt.Figure.plot`, and style the points using the ``fill`` and ``pen`
+:meth:`pygmt.Figure.plot`, and style the points using the ``fill`` and ``pen``
 parameters. Additional pass suitable columns of the :class:`geopandas.GeoDataFrame` to
 the ``x``,  `y``, and ``text`` parameters of the :meth:`pygmt.Figure.text` method to
 label specific features.
