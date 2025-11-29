@@ -29,29 +29,3 @@ fig.coast(land="gray95", shorelines="1/0.3p,gray50")
 fig.plot(data=rivers_asia, pen="1p,steelblue")
 
 fig.show()
-
-
-# %%
-rivers_australia = rivers.cx[111:155, -40:-9].copy()
-
-fig = pygmt.Figure()
-fig.basemap(region=[111, 155, -40, -9], projection="M10c", frame=True)
-fig.coast(land="gray95", shorelines="1/0.3p,gray50")
-
-# Add rivers to map
-fig.plot(data=rivers_australia, pen="1p,steelblue")
-
-fig.show()
-
-
-# %%
-rivers_sa = rivers.cx[-84.5:-33, -56.5:13].copy()
-
-fig = pygmt.Figure()
-fig.basemap(region=[-84.5, -33, -56.5, 13], projection="M10c", frame=True)
-fig.coast(land="gray95", shorelines="1/0.3p,gray50")
-
-# Add rivers to map
-fig.plot(data=rivers_sa, pen="1p,steelblue")
-
-fig.show()
