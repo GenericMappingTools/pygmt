@@ -28,7 +28,7 @@ cities_large = cities[cities["worldcity"] == 1].copy()
 
 fig = pygmt.Figure()
 fig.basemap(region=[-10, 32.7, 37, 57], projection="M12c", frame=True)
-fig.coast(land="gray95", shorelines="1/0.3p,gray50", borders="1/0.1p,black")
+fig.coast(land="gray95", shorelines="1/0.3p,gray50")
 
 # Plot the two subsets using squares with different sizes and fills.
 fig.plot(data=cities_small, style="s0.1c", fill="lightgray", pen="0.5p")
