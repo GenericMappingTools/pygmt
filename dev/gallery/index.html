@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/gallery/index.html" />
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../_static/documentation_options.js?v=c2fdb2fb"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -124,6 +124,7 @@
 <li class="toctree-l3"><a class="reference internal" href="symbols/points_categorical.html">Color points by categories</a></li>
 <li class="toctree-l3"><a class="reference internal" href="symbols/custom_symbols.html">Custom symbols</a></li>
 <li class="toctree-l3"><a class="reference internal" href="symbols/datetime_inputs.html">Datetime inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="symbols/points_cities.html">GeoPandas: Plotting points with Point or MultiPoint geometry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="symbols/multi_parameter_symbols.html">Multi-parameter symbols</a></li>
 <li class="toctree-l3"><a class="reference internal" href="symbols/points.html">Points</a></li>
 <li class="toctree-l3"><a class="reference internal" href="symbols/points_transparency.html">Points with varying transparency</a></li>
@@ -302,7 +303,7 @@ code used to generate it.</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.project function can generate points along a great circle whose center and end points can be defined via the center and endpoint parameters, respectively. Using the generate parameter allows to generate (r, s, p) points every dist units of p along a profile as output. By default, all units (r, s and p) are set to degrees while unit=True allows to set the unit for p to km."><img alt="" src="../_images/sphx_glr_great_circles_thumb.png" />
 <p><a class="reference internal" href="lines/great_circles.html#sphx-glr-gallery-lines-great-circles-py"><span class="std std-ref">Generate points along great circles</span></a></p>
   <div class="sphx-glr-thumbnail-title">Generate points along great circles</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows us to plot geographical data such as lines with LineString or MultiLineString geometry types stored in a geopandas.GeoDataFrame object or any object that implements the __geo_interface__ property."><img alt="" src="../_images/sphx_glr_linestrings_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows us to plot geographical data such as lines with LineString or MultiLineString geometry types stored in a geopandas.GeoDataFrame object. Use geopandas.read_file to load data from any supported OGR format such as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the geopandas.GeoDataFrame object as an argument to the data parameter of pygmt.Figure.plot, and style the lines using the pen parameter."><img alt="" src="../_images/sphx_glr_linestrings_thumb.png" />
 <p><a class="reference internal" href="lines/linestrings.html#sphx-glr-gallery-lines-linestrings-py"><span class="std std-ref">GeoPandas: Plotting lines with LineString or MultiLineString geometry</span></a></p>
   <div class="sphx-glr-thumbnail-title">GeoPandas: Plotting lines with LineString or MultiLineString geometry</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.hlines and pygmt.Figure.vlines methods allow to plot horizontal and vertical lines in Cartesian, geographic and polar coordinate systems."><img alt="" src="../_images/sphx_glr_hlines_vlines_thumb.png" />
@@ -349,6 +350,9 @@ code used to generate it.</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Datetime inputs of the following types are supported in PyGMT:"><img alt="" src="../_images/sphx_glr_datetime_inputs_thumb.png" />
 <p><a class="reference internal" href="symbols/datetime_inputs.html#sphx-glr-gallery-symbols-datetime-inputs-py"><span class="std std-ref">Datetime inputs</span></a></p>
   <div class="sphx-glr-thumbnail-title">Datetime inputs</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows us to plot geographical data such as points with Point or MultiPoint geometry types stored in a geopandas.GeoDataFrame object. Use geopandas.read_file to load data from any supported OGR format such as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the geopandas.GeoDataFrame object as an argument to the data parameter of pygmt.Figure.plot, and style the points using the fill and pen parameters. Additionally, pass suitable columns of the geopandas.GeoDataFrame to the x,  y, and text parameters of the pygmt.Figure.text method to label specific features."><img alt="" src="../_images/sphx_glr_points_cities_thumb.png" />
+<p><a class="reference internal" href="symbols/points_cities.html#sphx-glr-gallery-symbols-points-cities-py"><span class="std std-ref">GeoPandas: Plotting points with Point or MultiPoint geometry</span></a></p>
+  <div class="sphx-glr-thumbnail-title">GeoPandas: Plotting points with Point or MultiPoint geometry</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual multi-parameter symbols by passing the corresponding shortcuts (e, j, r, R, w) to the style parameter:"><img alt="" src="../_images/sphx_glr_multi_parameter_symbols_thumb.png" />
 <p><a class="reference internal" href="symbols/multi_parameter_symbols.html#sphx-glr-gallery-symbols-multi-parameter-symbols-py"><span class="std std-ref">Multi-parameter symbols</span></a></p>
   <div class="sphx-glr-thumbnail-title">Multi-parameter symbols</div>
@@ -503,9 +507,9 @@ code used to generate it.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a475d6319">a475d631</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Nov 29, 2025.
       </span></p>
   </div>
 

@@ -266,7 +266,7 @@ Lines and vectors
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows us to plot geographical data such as lines with LineString or MultiLineString geometry types stored in a geopandas.GeoDataFrame object or any object that implements the __geo_interface__ property.">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows us to plot geographical data such as lines with LineString or MultiLineString geometry types stored in a geopandas.GeoDataFrame object. Use geopandas.read_file to load data from any supported OGR format such as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the geopandas.GeoDataFrame object as an argument to the data parameter of pygmt.Figure.plot, and style the lines using the pen parameter.">
 
 .. only:: html
 
@@ -540,6 +540,23 @@ Symbols and markers
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows us to plot geographical data such as points with Point or MultiPoint geometry types stored in a geopandas.GeoDataFrame object. Use geopandas.read_file to load data from any supported OGR format such as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the geopandas.GeoDataFrame object as an argument to the data parameter of pygmt.Figure.plot, and style the points using the fill and pen parameters. Additionally, pass suitable columns of the geopandas.GeoDataFrame to the x,  y, and text parameters of the pygmt.Figure.text method to label specific features.">
+
+.. only:: html
+
+  .. image:: /gallery/symbols/images/thumb/sphx_glr_points_cities_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_gallery_symbols_points_cities.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">GeoPandas: Plotting points with Point or MultiPoint geometry</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual multi-parameter symbols by passing the corresponding shortcuts (e, j, r, R, w) to the style parameter:">
 
 .. only:: html
@@ -655,6 +672,7 @@ Symbols and markers
    /gallery/symbols/points_categorical
    /gallery/symbols/custom_symbols
    /gallery/symbols/datetime_inputs
+   /gallery/symbols/points_cities
    /gallery/symbols/multi_parameter_symbols
    /gallery/symbols/points
    /gallery/symbols/points_transparency

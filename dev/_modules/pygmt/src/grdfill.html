@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/grdfill.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=c2fdb2fb"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -255,7 +255,7 @@
 
 <span class="sd">    Full GMT docs at :gmt-docs:`grdfill.html`.</span>
 
-<span class="sd">    {aliases}</span>
+<span class="sd">    $aliases</span>
 <span class="sd">       - Ac = constantfill</span>
 <span class="sd">       - Ag = gridfill</span>
 <span class="sd">       - An = neighborfill</span>
@@ -267,8 +267,8 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    {grid}</span>
-<span class="sd">    {outgrid}</span>
+<span class="sd">    $grid</span>
+<span class="sd">    $outgrid</span>
 <span class="sd">    constantfill</span>
 <span class="sd">        Fill the holes with a constant value. Specify the constant value to use.</span>
 <span class="sd">    gridfill</span>
@@ -277,7 +277,7 @@
 <span class="sd">    neighborfill</span>
 <span class="sd">        Fill the holes with the nearest neighbor. Specify the search radius in pixels.</span>
 <span class="sd">        If set to ``True``, the default search radius will be used</span>
-<span class="sd">        (:math:`r^2 = \sqrt{{n^2 + m^2}}`, where (*n,m*) are the node dimensions of the</span>
+<span class="sd">        (:math:`r^2 = \sqrt{n^2 + m^2}`, where (*n,m*) are the node dimensions of the</span>
 <span class="sd">        grid).</span>
 <span class="sd">    splinefill</span>
 <span class="sd">        Fill the holes with a bicubic spline. Specify the tension value to use. If set</span>
@@ -292,16 +292,16 @@
 <span class="sd">    mode</span>
 <span class="sd">        Specify the hole-filling algorithm to use. Choose from **c** for constant fill</span>
 <span class="sd">        and append the constant value, **n** for nearest neighbor (and optionally append</span>
-<span class="sd">        a search radius in pixels [default radius is :math:`r^2 = \sqrt{{ X^2 + Y^2 }}`,</span>
+<span class="sd">        a search radius in pixels [default radius is :math:`r^2 = \sqrt{ X^2 + Y^2 }`,</span>
 <span class="sd">        where (*X,Y*) are the node dimensions of the grid]), or **s** for bicubic spline</span>
 <span class="sd">        (optionally append a *tension* parameter [Default is no tension]).</span>
 
 <span class="sd">        .. deprecated:: 0.15.0</span>
 <span class="sd">            Use ``constantfill``, ``gridfill``, ``neighborfill``, or ``splinefill``</span>
 <span class="sd">            instead. The parameter will be removed in v0.19.0.</span>
-<span class="sd">    {region}</span>
-<span class="sd">    {coltypes}</span>
-<span class="sd">    {verbose}</span>
+<span class="sd">    $region</span>
+<span class="sd">    $coltypes</span>
+<span class="sd">    $verbose</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -387,9 +387,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a475d6319">a475d631</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Nov 29, 2025.
       </span></p>
   </div>
 

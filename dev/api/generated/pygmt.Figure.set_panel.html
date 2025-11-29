@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.Figure.set_panel.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=c2fdb2fb"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -218,21 +218,20 @@ both dimensions then you must specify <code class="docutils literal notranslate"
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>panel</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <em>row,col</em>|<em>index</em>.
-Sets the current subplot until further notice. <strong>Note</strong>: First <em>row</em>
-or <em>col</em> is 0, not 1. If not given we go to the next subplot by order
-specified via <code class="docutils literal notranslate"><span class="pre">autolabel</span></code> in <a class="reference internal" href="pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code></a>. As an
-alternative, you may bypass using <a class="reference internal" href="#pygmt.Figure.set_panel" title="pygmt.Figure.set_panel"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.set_panel</span></code></a> and
-instead supply the common option <strong>panel</strong>=[<em>row,col</em>] to the first
-plot command you issue in that subplot. GMT maintains information about
-the current figure and subplot. Also, you may give the one-dimensional
-<em>index</em> instead which starts at 0 and follows the row or column order
-set via <code class="docutils literal notranslate"><span class="pre">autolabel</span></code> in <a class="reference internal" href="pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code></a>.</p></li>
-<li><p><strong>fixedlabel</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Overrides the automatic labeling with the given string. No modifiers
+<li><p><strong>panel</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <em>index</em> or (<em>row</em>, <em>col</em>).
+Sets the current subplot until further notice. <strong>Note</strong>: First <em>row</em> or <em>col</em> is
+0, not 1. If not given we go to the next subplot by order specified via
+<code class="docutils literal notranslate"><span class="pre">autolabel</span></code> in <a class="reference internal" href="pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code></a>. As an alternative, you may bypass
+using <a class="reference internal" href="#pygmt.Figure.set_panel" title="pygmt.Figure.set_panel"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.set_panel</span></code></a> and instead supply the common option
+<a href="#id1"><span class="problematic" id="id2">**</span></a>panel**=(<em>row</em>, <em>col</em>) to the first plot command you issue in that subplot.
+GMT maintains information about the current figure and subplot. Also, you may
+give the one-dimensional <em>index</em> instead which starts at 0 and follows the row
+or column order set via <code class="docutils literal notranslate"><span class="pre">autolabel</span></code> in <a class="reference internal" href="pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code></a>.</p></li>
+<li><p><strong>fixedlabel</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Overrides the automatic labeling with the given string. No modifiers
 are allowed. Placement, justification, etc. are all inherited from how
 <code class="docutils literal notranslate"><span class="pre">autolabel</span></code> was specified by the initial <a class="reference internal" href="pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code></a>
 command.</p></li>
-<li><p><strong>clearance</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – [<em>side</em>]<em>clearance</em>.
+<li><p><strong>clearance</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – [<em>side</em>]<em>clearance</em>.
 Reserve a space of dimension <em>clearance</em> between the margin and the
 subplot on the specified side, using <em>side</em> values from <strong>w</strong>, <strong>e</strong>,
 <strong>s</strong>, or <strong>n</strong>. The option is repeatable to set aside space on more
@@ -242,7 +241,7 @@ untouched by the main map plotting but can be accessed by methods that
 plot scales, bars, text, etc. This setting overrides the common
 clearances set by <code class="docutils literal notranslate"><span class="pre">clearance</span></code> in the initial
 <a class="reference internal" href="pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code></a> call.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
 </ul>
 </dd>
 </dl>
@@ -278,9 +277,9 @@ clearances set by <code class="docutils literal notranslate"><span class="pre">c
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a475d6319">a475d631</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Nov 29, 2025.
       </span></p>
   </div>
 

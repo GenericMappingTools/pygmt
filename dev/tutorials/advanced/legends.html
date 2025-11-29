@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/tutorials/advanced/legends.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=c2fdb2fb"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -290,15 +290,15 @@ box can be adjusted by appending <strong>+p</strong>. Append <strong>+g</strong>
 <h2>Create a manual legend<a class="headerlink" href="#create-a-manual-legend" title="Link to this heading"></a></h2>
 <p>For more complicated legends, users need to prepare a legend specification with
 instructions for the layout of the legend entries. In PyGMT, the legend specification
-can be either an ASCII file or an <a class="reference external" href="https://docs.python.org/3/library/io.html#io.StringIO" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">io.StringIO</span></code></a> object. Both are passed to the
+can be either an ASCII file or an <a class="reference external" href="https://docs.python.org/3/library/io.html#io.StringIO" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">io.StringIO</span></code></a> object. Both are passed to the
 <code class="docutils literal notranslate"><span class="pre">spec</span></code> parameter of <a class="reference internal" href="../../api/generated/pygmt.Figure.legend.html#pygmt.Figure.legend" title="pygmt.Figure.legend"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.legend</span></code></a>. Multiple legend codes are available
 to create complicated legends. In the example below we show an subset; a full
 overview can be found at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/legend.html#legend-codes">https://docs.generic-mapping-tools.org/6.6/legend.html#legend-codes</a>. It’s also supported to
 include length scales (for geographic projections), faults, and images as well as to
 add specific lines.</p>
 <p>The following example is orientated on the related GMT example at
-<a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/legend.html#examples">https://docs.generic-mapping-tools.org/6.6/legend.html#examples</a>, but modified to use an <a class="reference external" href="https://docs.python.org/3/library/io.html#io.StringIO" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">io.StringIO</span></code></a> object.</p>
-<p>We start with setting up the <a class="reference external" href="https://docs.python.org/3/library/io.html#io.StringIO" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">io.StringIO</span></code></a> object.</p>
+<a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/legend.html#examples">https://docs.generic-mapping-tools.org/6.6/legend.html#examples</a>, but modified to use an <a class="reference external" href="https://docs.python.org/3/library/io.html#io.StringIO" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">io.StringIO</span></code></a> object.</p>
+<p>We start with setting up the <a class="reference external" href="https://docs.python.org/3/library/io.html#io.StringIO" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">io.StringIO</span></code></a> object.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">spec_io</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/io.html#io.StringIO" title="io.StringIO" class="sphx-glr-backref-module-io sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">io</span><span class="o">.</span><span class="n">StringIO</span></a><span class="p">(</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">G -0.1c</span>
@@ -330,7 +330,7 @@ add specific lines.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Now, we can add a legend based on this <a class="reference external" href="https://docs.python.org/3/library/io.html#io.StringIO" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">io.StringIO</span></code></a> object. For multi-columns
+<p>Now, we can add a legend based on this <a class="reference external" href="https://docs.python.org/3/library/io.html#io.StringIO" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">io.StringIO</span></code></a> object. For multi-columns
 legends, the width (<strong>+w</strong>) has to be specified via a the <code class="docutils literal notranslate"><span class="pre">position</span></code> parameter.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <span class="c1"># Note, that we are now using a Mercator projection</span>
@@ -342,7 +342,7 @@ legends, the width (<strong>+w</strong>) has to be specified via a the <code cla
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_legends_004.png" srcset="../../_images/sphx_glr_legends_004.png" alt="legends" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.090 seconds)</p>
+<img src="../../_images/sphx_glr_legends_004.png" srcset="../../_images/sphx_glr_legends_004.png" alt="legends" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.131 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-legends-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/b51de824cf090938fdd330d92935f425/legends.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">legends.ipynb</span></code></a></p>
@@ -371,9 +371,9 @@ legends, the width (<strong>+w</strong>) has to be specified via a the <code cla
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a475d6319">a475d631</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Nov 29, 2025.
       </span></p>
   </div>
 
