@@ -119,6 +119,11 @@ def _auto_offset(spec) -> bool:
     A="offset",
     C="cmap",
     E="extensionfill",
+    Fa="pt_axes",
+    Fe="t_axisfill",
+    Fg="p_axisfill",
+    Ft="t_axispen",
+    Fp="p_axispen",
     Fr="labelbox",
     G="compressionfill",
     L="outline",
@@ -332,6 +337,26 @@ def meca(  # noqa: PLR0913
         For double couple mechanisms, ``nodal`` renders the beachball transparent by
         drawing only the nodal planes and the circumference. For non-double couple
         mechanisms, ``nodal=0`` overlays best double couple transparently.
+    pt_axes : bool or str
+        [*size*\ [/*p_symbol*\ [*t_symbol*]]].
+        Compute and plot the P and T axes with symbols. Optionally specify size
+        and (separate) P and T axis symbols from the following: circle (**c**),
+        diamond (**d**), hexagon (**h**), inverse triangle (**i**), point (**p**),
+        square (**s**), triangle (**t**), cross (**x**) [Default is ``"6p/cc"``].
+    p_axisfill : str
+        Set color or pattern for filling the P axis symbol [Default is set via
+        ``compressionfill``].
+    t_axisfill : str
+        Set color or pattern for filling the T axis symbol [Default is set via
+        ``extensionfill``].
+    p_axispen : bool or str
+        [*pen*].
+        Draw the P axis symbol outline. Use *pen* to set the pen attributes for
+        this feature [Default is set via ``pen``].
+    t_axispen : bool or str
+        [*pen*].
+        Draw the T axis symbol outline. Use *pen* to set the pen attributes for
+        this feature [Default is set via ``pen``].
     cmap : str
         File name of a CPT file or a series of comma-separated colors (e.g.,
         *color1,color2,color3*) to build a linear continuous CPT from those colors
