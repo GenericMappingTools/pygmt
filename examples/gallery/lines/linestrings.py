@@ -23,7 +23,7 @@ rivers_asia = rivers.cx[57:125, 7:47].copy()
 
 fig = pygmt.Figure()
 fig.basemap(region=[57, 125, 7, 47], projection="M10c", frame=True)
-fig.coast(land="gray95", shorelines="1/0.3p,gray50", borders="1/0.2p,black")
+fig.coast(land="gray95", shorelines="1/0.3p,gray50")
 
 # Add rivers to map
 fig.plot(data=rivers_asia, pen="1p,steelblue")
@@ -36,7 +36,7 @@ rivers_australia = rivers.cx[111:155, -40:-9].copy()
 
 fig = pygmt.Figure()
 fig.basemap(region=[111, 155, -40, -9], projection="M10c", frame=True)
-fig.coast(land="gray95", shorelines="1/0.3p,gray50", borders="1/0.2p,black")
+fig.coast(land="gray95", shorelines="1/0.3p,gray50")
 
 # Add rivers to map
 fig.plot(data=rivers_australia, pen="1p,steelblue")
@@ -49,7 +49,7 @@ rivers_sa = rivers.cx[-84.5:-33, -56.5:13].copy()
 
 fig = pygmt.Figure()
 fig.basemap(region=[-84.5, -33, -56.5, 13], projection="M10c", frame=True)
-fig.coast(land="gray95", shorelines="1/0.3p,gray50", borders="1/0.2p,black")
+fig.coast(land="gray95", shorelines="1/0.3p,gray50")
 
 # Add rivers to map
 fig.plot(data=rivers_sa, pen="1p,steelblue")
