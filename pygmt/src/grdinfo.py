@@ -7,13 +7,12 @@ from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_list,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
 )
 
@@ -21,17 +20,16 @@ from pygmt.helpers import (
 @fmt_docstring
 @use_alias(
     C="per_column",
-    D="tiles",
     F="geographic",
-    I="spacing",
     L="force_scan",
     M="minmax_pos",
     T="nearest_multiple",
     f="coltypes",
 )
-@kwargs_to_strings(D="sequence", I="sequence")
 def grdinfo(
     grid: PathLike | xr.DataArray,
+    spacing: Sequence[float] | str | None = None,
+    tiles: Sequence[float] | str | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -44,14 +42,16 @@ def grdinfo(
 
     Full GMT docs at :gmt-docs:`grdinfo.html`.
 
-    {aliases}
+    $aliases
+       - D = tiles
+       - I = spacing
        - R = region
        - V = verbose
 
     Parameters
     ----------
-    {grid}
-    {region}
+    $grid
+    $region
     per_column : str or bool
         **n**\|\ **t**.
         Format the report using tab-separated fields on a single line. The
@@ -63,7 +63,7 @@ def grdinfo(
         columns. The registration is either 0 (gridline) or 1 (pixel), while
         gtype is either 0 (Cartesian) or 1 (geographic). The default value is
         ``False``. This cannot be called if ``geographic`` is also set.
-    tiles : str or list
+    tiles
         *xoff*\ [/*yoff*][**+i**].
         Divide a single grid's domain (or the ``region`` domain, if no grid
         given) into tiles of size dx times dy (set via ``spacing``). You can
@@ -114,15 +114,18 @@ def grdinfo(
         absolute value of the two extremes, append **+s**. We report the
         result via the text string *zmin/zmax* or *zmin/zmax/dz*
         (if *dz* was given) as expected by :func:`pygmt.makecpt`.
-    {verbose}
-    {coltypes}
+    $verbose
+    $coltypes
 
     Returns
     -------
     info : str
         A string with information about the grid.
     """
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        D=Alias(tiles, name="tiles", sep="/", size=2),
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+    ).add_common(
         R=region,
         V=verbose,
     )

@@ -7,24 +7,21 @@ from typing import Literal
 
 import numpy as np
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_list,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
 )
 
 
 @fmt_docstring
-@use_alias(
-    C="per_column", I="spacing", T="nearest_multiple", a="aspatial", f="coltypes"
-)
-@kwargs_to_strings(I="sequence")
+@use_alias(C="per_column", T="nearest_multiple", a="aspatial", f="coltypes")
 def info(
     data: PathLike | TableLike,
+    spacing: Sequence[float] | str | None = None,
     registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -49,7 +46,8 @@ def info(
 
     Full GMT docs at :gmt-docs:`gmtinfo.html`.
 
-    {aliases}
+    $aliases
+       - I = spacing
        - V = verbose
        - i = incols
        - r = registration
@@ -58,10 +56,10 @@ def info(
     ----------
     data
         Pass in either a file name to an ASCII data table, a 1-D/2-D
-        {table-classes}.
+        $table_classes.
     per_column : bool
         Report the min/max values per column in separate columns.
-    spacing : str
+    spacing
         [**b**\|\ **p**\|\ **f**\|\ **s**]\ *dx*\[/*dy*\[/*dz*...]].
         Compute the min/max values of the first n columns to the nearest
         multiple of the provided increments [default is 2 columns]. By default,
@@ -73,11 +71,11 @@ def info(
         Report the min/max of the first (0'th) column to the nearest multiple
         of dz and output this in the form ``[zmin, zmax, dz]``.
 
-    {verbose}
-    {aspatial}
-    {incols}
-    {coltypes}
-    {registration}
+    $verbose
+    $aspatial
+    $incols
+    $coltypes
+    $registration
 
     Returns
     -------
@@ -88,7 +86,9 @@ def info(
         - :class:`numpy.ndarray` if either of the above parameters are used.
         - str if none of the above parameters are used.
     """
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        I=Alias(spacing, name="spacing", sep="/"),
+    ).add_common(
         V=verbose,
         i=incols,
         r=registration,
@@ -104,7 +104,11 @@ def info(
                 )
             result = tmpfile.read()
 
-        if any(kwargs.get(arg) is not None for arg in ["C", "I", "T"]):
+        if (
+            kwargs.get("C") is not None
+            or kwargs.get("I", spacing) is not None
+            or kwargs.get("T") is not None
+        ):
             # Converts certain output types into a numpy array
             # instead of a raw string that is less useful.
             if result.startswith(("-R", "-T")):  # e.g. -R0/1/2/3 or -T0/9/1

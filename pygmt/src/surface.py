@@ -75,7 +75,7 @@ def surface(
 
     Full GMT docs at :gmt-docs:`surface.html`.
 
-    {aliases}
+    $aliases
        - I = spacing
        - R = region
        - V = verbose
@@ -86,20 +86,20 @@ def surface(
     data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
     x/y/z : 1-D arrays
         Arrays of x and y coordinates and values z of the data points.
 
-    {spacing}
+    $spacing
 
-    {region}
-    {outgrid}
+    $region
+    $outgrid
     convergence : float
         Optional. Convergence limit. Iteration is assumed to have converged
         when the maximum absolute change in any grid value is less than
         ``convergence``. (Units same as data z units). Alternatively,
         give limit in percentage of root-mean-square (rms) deviation by
-        appending %. [Default is scaled to :math:`10^{{-4}}` of the rms
+        appending %. [Default is scaled to :math:`10^{-4}` of the rms
         deviation of the data from a best-fit (least-squares) plane.]
         This is the final convergence limit at the desired grid spacing;
         for intermediate (coarser) grids the effective convergence limit is
@@ -138,16 +138,16 @@ def surface(
         set boundary tension. If you do not prepend **i** or **b**, both
         will be set to the same value. [Default is 0 for both and gives
         minimum curvature solution.]
-    {verbose}
-    {aspatial}
-    {binary}
-    {nodata}
-    {find}
-    {coltypes}
-    {header}
-    {incols}
-    {registration}
-    {wrap}
+    $verbose
+    $aspatial
+    $binary
+    $nodata
+    $find
+    $coltypes
+    $header
+    $incols
+    $registration
+    $wrap
 
     Returns
     -------

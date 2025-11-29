@@ -46,7 +46,7 @@ def image(
 
     Full GMT docs at :gmt-docs:`image.html`.
 
-    {aliases}
+    $aliases
        - F = box
        - J = projection
        - M = monochrome
@@ -62,8 +62,8 @@ def image(
         An Encapsulated PostScript (EPS) file or a raster image file. An EPS file must
         contain an appropriate BoundingBox. A raster file can have a depth of 1, 8, 24,
         or 32 bits and is read via GDAL.
-    {projection}
-    {region}
+    $projection
+    $region
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+r**\ *dpi*\
         **+w**\ [**-**]\ *width*\ [/*height*]\ [**+j**\ *justify*]\
@@ -85,10 +85,10 @@ def image(
     monochrome
         Convert color image to monochrome grayshades using the (television)
         YIQ-transformation.
-    {verbose}
-    {panel}
-    {perspective}
-    {transparency}
+    $verbose
+    $panel
+    $perspective
+    $transparency
     """
     self._activate_figure()
 
