@@ -35,7 +35,6 @@ dependencies:
     - pytest-mpl
     - netCDF4
     # Dev dependencies (building documentation)
-    - geodatasets
     - myst-nb
     - panel
     - sphinx>=6.2
