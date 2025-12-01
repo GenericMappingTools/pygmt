@@ -18,8 +18,8 @@ labels: ["feature request"]
 
 ☑️: *Implemented*; ⬜: *To be implemented/discussed*; ~~Strikethrough~~: *Won't implement*.
 
-- [ ] `-R`: `region` #XXX @XXX
-- [ ] `-J`: `projection` #XXX @XXX
+- [ ] `-R`: `region` #XXX
+- [ ] `-J`: `projection` #XXX
 - [ ] ...
 - [ ] ~~`-U`~~: Use `Figure.timestamp` instead.
 - [ ] ~~`-X`/`-Y`~~: Use `Figure.shift_origin` instead.
@@ -31,7 +31,7 @@ labels: ["feature request"]
 
 ## Linked Pull Requests
 
-- [ ] Initial feature implementation #XXX @XXX
+- [ ] Initial feature implementation #XXX
 - [ ] Add a tutorial or gallery example
 
 ## Related Issues and Discussions
