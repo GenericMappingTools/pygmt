@@ -21,7 +21,6 @@ __doctest_skip__ = ["grdview"]
     G="drapegrid",
     N="plane",
     Wc="contourpen",
-    Wm="meshpen",
     Wf="facadepen",
     I="shading",
     f="coltypes",
@@ -36,6 +35,7 @@ def grdview(  # noqa: PLR0913
     | None = None,
     dpi: int | None = None,
     meshfill: float | None = None,
+    meshpen: str | None = None,
     monochrome: bool = False,
     nan_transparent: bool = False,
     projection: str | None = None,
@@ -69,6 +69,7 @@ def grdview(  # noqa: PLR0913
        - R = region
        - Q = surftype
        - V = verbose
+       - Wm = meshpen
        - c = panel
        - p = perspective
        - t = transparency
@@ -110,7 +111,9 @@ def grdview(  # noqa: PLR0913
         Effective dots-per-unit resolution for the rasterization for image plots (i.e.,
         ``surftype="image"``) [Default is :gmt-term:`GMT_GRAPHICS_DPU`]
     meshfill
-        For mesh plot or waterfall plots, set the mesh fill [Default is white].
+        Set the mesh fill [Default is white] for mesh or waterfall plots.
+    meshpen
+        Set the pen attributes for the mesh lines, for mesh, or waterfall plots.
     monochrome
         Force conversion to monochrome image using the (television) YIQ transformation.
     nan_transparent
@@ -119,9 +122,6 @@ def grdview(  # noqa: PLR0913
     contourpen : str
         Draw contour lines on top of surface or mesh (not image). Append pen attributes
         used for the contours.
-    meshpen : str
-        Set the pen attributes used for the mesh. You must also select ``surftype`` of
-        **m** or **sm** for meshlines to be drawn.
     facadepen :str
         Set the pen attributes used for the facade. You must also select ``plane`` for
         the facade outline to be drawn.
@@ -212,6 +212,7 @@ def grdview(  # noqa: PLR0913
             Alias(meshfill, name="meshfill"),
             Alias(monochrome, name="monochrome", prefix="+m"),
         ],
+        Wm=Alias(meshpen, name="meshpen"),
     ).add_common(
         B=frame,
         J=projection,
