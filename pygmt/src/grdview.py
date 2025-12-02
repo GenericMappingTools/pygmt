@@ -21,7 +21,6 @@ __doctest_skip__ = ["grdview"]
 @use_alias(
     C="cmap",
     G="drapegrid",
-    N="plane",
     Q="surftype",
     I="shading",
     f="coltypes",
@@ -31,8 +30,10 @@ def grdview(  # noqa: PLR0913
     self,
     grid: PathLike | xr.DataArray,
     contour_pen: str | None = None,
-    facade_pen: str | None = None,
     mesh_pen: str | None = None,
+    plane: float | bool = False,
+    facade_fill: str | None = None,
+    facade_pen: str | None = None,
     projection: str | None = None,
     zscale: float | str | None = None,
     zsize: float | str | None = None,
@@ -61,6 +62,7 @@ def grdview(  # noqa: PLR0913
        - J = projection
        - Jz = zscale
        - JZ = zsize
+       - N = plane, facade_fill
        - R = region
        - V = verbose
        - Wc = contour_pen
@@ -90,11 +92,16 @@ def grdview(  # noqa: PLR0913
         Note that ``zscale`` and ``plane`` always refer to ``grid``. ``drapegrid`` only
         provides the information pertaining to colors, which (if ``drapegrid`` is a
         grid) will be looked-up via the CPT (see ``cmap``).
-    plane : float or str
-        *level*\ [**+g**\ *fill*].
-        Draw a plane at this z-level. If the optional color is provided via the **+g**
-        modifier, and the projection is not oblique, the frontal facade between the
-        plane and the data perimeter is colored.
+    plane
+        Draw a plane at the specified z-level. If ``True``, default to the minimum value
+        in the grid. However, if ``region`` was used to set zmin/zmax then that value is
+        used if it is less than the grid minimum value. Use ``facade_pen`` and
+        ``facade_fill`` to control the appearance of the plane.
+    facade_fill
+        Fill for the frontal facade between the plane specified by ``plane`` and the
+        data perimeter.
+    facade_pen
+        Set the pen attributes used for the facade.
     surftype : str
         Specify cover type of the grid. Select one of following settings:
 
@@ -165,9 +172,17 @@ def grdview(  # noqa: PLR0913
     """
     self._activate_figure()
 
+    # Enable 'plane' if 'facade_fill' or 'facade_pen' is set
+    if plane is False and (facade_fill is not None or facade_pen is not None):
+        plane = True
+
     aliasdict = AliasSystem(
         Jz=Alias(zscale, name="zscale"),
         JZ=Alias(zsize, name="zsize"),
+        N=[
+            Alias(plane, name="plane"),
+            Alias(facade_fill, name="facade_fill", prefix="+g"),
+        ],
         Wc=Alias(contour_pen, name="contour_pen"),
         Wf=Alias(facade_pen, name="facade_pen"),
         Wm=Alias(mesh_pen, name="mesh_pen"),

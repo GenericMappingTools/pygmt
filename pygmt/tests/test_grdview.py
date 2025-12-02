@@ -150,7 +150,9 @@ def test_grdview_on_a_plane_with_colored_frontal_facade(xrgrid):
     is colored gray, while setting a 3-D perspective viewpoint.
     """
     fig = Figure()
-    fig.grdview(grid=xrgrid, plane="100+ggray", perspective=[225, 30], zscale=0.005)
+    fig.grdview(
+        grid=xrgrid, plane=100, facade_fill="gray", perspective=[225, 30], zscale=0.005
+    )
     return fig
 
 
@@ -207,6 +209,19 @@ def test_grdview_on_a_plane_styled_with_facadepen(xrgrid):
         perspective=[225, 30],
         zscale=0.005,
         facade_pen="0.5p,blue,dash",
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_grdview_facadepen_default_plane(xrgrid):
+    """
+    Run grdview by passing in a grid and plotting it on the default z-plane with styled
+    lines for the frontal facade.
+    """
+    fig = Figure()
+    fig.grdview(
+        grid=xrgrid, perspective=[225, 30], zscale=0.005, facade_pen="0.5p,blue,dash"
     )
     return fig
 
