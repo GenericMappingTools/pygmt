@@ -114,10 +114,11 @@ def _alias_option_Q(  # noqa: N802
 @deprecate_parameter("facadepen", "facade_pen", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter("meshpen", "mesh_pen", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter("drapegrid", "drape_grid", "v0.18.0", remove_version="v0.20.0")
-@use_alias(C="cmap", G="drape_grid", I="shading", f="coltypes", n="interpolation")
+@use_alias(C="cmap", I="shading", f="coltypes", n="interpolation")
 def grdview(  # noqa: PLR0913
     self,
     grid: PathLike | xr.DataArray,
+    drape_grid: PathLike | xr.DataArray | None = None,
     surftype: Literal[
         "mesh", "surface", "surface+mesh", "image", "waterfall_x", "waterfall_y"
     ]
@@ -156,6 +157,7 @@ def grdview(  # noqa: PLR0913
 
     $aliases
        - B = frame
+       - G = drape_grid
        - J = projection
        - Jz = zscale
        - JZ = zsize
@@ -175,12 +177,13 @@ def grdview(  # noqa: PLR0913
     $grid
     cmap : str
         The name of the color palette table to use.
-    drape_grid : str or :class:`xarray.DataArray`
-        The file name or a :class:`xarray.DataArray` of the image grid to be draped on
-        top of the relief provided by ``grid`` [Default determines colors from ``grid``]
-        Note that ``zscale`` and ``plane`` always refer to ``grid``. ``drape_grid`` only
-        provides the information pertaining to colors, which (if ``drape_grid`` is a
-        grid) will be looked-up via the CPT (see ``cmap``).
+    drapegrid
+        The grid (a file name or a :class:`xarray.DataArray`) or image to be draped on
+        top of the grid surface provided by ``grid`` [Default determines colors from
+        ``grid``]. Note that ``zscale`` and ``plane`` always refer to ``grid``.
+        ``drape_grid`` only provides the information pertaining to colors. If it's a
+        grid, the colors will be looked-up via the CPT (see ``cmap``); if it's an image,
+        ``cmap`` is not expected.
     surftype
         Specify surface type for the grid. Valid values are:
 
@@ -293,6 +296,7 @@ def grdview(  # noqa: PLR0913
         plane = grdinfo(grid, per_column=True).split()[4]
 
     aliasdict = AliasSystem(
+        G=Alias(drape_grid, name="drapegrid"),
         Jz=Alias(zscale, name="zscale"),
         JZ=Alias(zsize, name="zsize"),
         Q=_alias_option_Q(
@@ -324,7 +328,7 @@ def grdview(  # noqa: PLR0913
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_in(
-                check_kind="raster", data=kwargs.get("G"), required=False
+                check_kind="raster", data=aliasdict.get("G"), required=False
             ) as vdrapegrid,
         ):
             aliasdict["G"] = vdrapegrid
