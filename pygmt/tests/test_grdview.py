@@ -150,7 +150,9 @@ def test_grdview_on_a_plane_with_colored_frontal_facade(xrgrid):
     is colored gray, while setting a 3-D perspective viewpoint.
     """
     fig = Figure()
-    fig.grdview(grid=xrgrid, plane="100+ggray", perspective=[225, 30], zscale=0.005)
+    fig.grdview(
+        grid=xrgrid, plane=100, facadefill="gray", perspective=[225, 30], zscale=0.005
+    )
     return fig
 
 
