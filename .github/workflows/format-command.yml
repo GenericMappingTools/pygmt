@@ -32,7 +32,7 @@ jobs:
           persist-credentials: true
 
       # Setup Python environment
-      - uses: actions/setup-python@v6.0.0
+      - uses: actions/setup-python@v6.1.0
         with:
           python-version: '3.13'
 
