@@ -9,6 +9,7 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdview"]
@@ -19,7 +20,6 @@ __doctest_skip__ = ["grdview"]
     C="cmap",
     G="drapegrid",
     N="plane",
-    Q="surftype",
     Wc="contourpen",
     Wm="meshpen",
     Wf="facadepen",
@@ -30,6 +30,14 @@ __doctest_skip__ = ["grdview"]
 def grdview(  # noqa: PLR0913
     self,
     grid: PathLike | xr.DataArray,
+    surftype: Literal[
+        "mesh", "surface", "surface+mesh", "image", "waterfallx", "waterfally"
+    ]
+    | None = None,
+    dpi: int | None = None,
+    meshfill: float | None = None,
+    monochrome: bool = False,
+    nan_transparent: bool = False,
     projection: str | None = None,
     zscale: float | str | None = None,
     zsize: float | str | None = None,
@@ -59,6 +67,7 @@ def grdview(  # noqa: PLR0913
        - Jz = zscale
        - JZ = zsize
        - R = region
+       - Q = surftype
        - V = verbose
        - c = panel
        - p = perspective
@@ -89,18 +98,24 @@ def grdview(  # noqa: PLR0913
         Draw a plane at this z-level. If the optional color is provided via the **+g**
         modifier, and the projection is not oblique, the frontal facade between the
         plane and the data perimeter is colored.
-    surftype : str
-        Specify cover type of the grid. Select one of following settings:
+    surftype
+        Specify cover type of the grid. Valid values are:
 
-        - **m**: mesh plot [Default].
-        - **mx** or **my**: waterfall plots (row or column profiles).
-        - **s**: surface plot, and optionally append **m** to have mesh lines drawn on
-          top of the surface.
-        - **i**: image plot.
-        - **c**: Same as **i** but will make nodes with z = NaN transparent.
-
-        For any of these choices, you may force a monochrome image by appending the
-        modifier **+m**.
+        - ``"mesh"``: mesh plot [Default].
+        - ``"surface``: surface plot.
+        - ``"surface+mesh"``: surface plot with mesh lines drawn on top of the surface.
+        - ``"image"``: image plot.
+        - ``"waterfall_x"``/``"waterfall_y"``: waterfall plots (row or column profiles).
+    dpi
+        Effective dots-per-unit resolution for the rasterization for image plots (i.e.,
+        ``surftype="image"``) [Default is :gmt-term:`GMT_GRAPHICS_DPU`]
+    meshfill
+        For mesh plot or waterfall plots, set the mesh fill [Default is white].
+    monochrome
+        Force conversion to monochrome image using the (television) YIQ transformation.
+    nan_transparent
+        Make grid nodes with z = NaN transparent, using the color-masking feature in
+        PostScript Level 3. Only applies when ``surftype="image"``.
     contourpen : str
         Draw contour lines on top of surface or mesh (not image). Append pen attributes
         used for the contours.
@@ -159,9 +174,44 @@ def grdview(  # noqa: PLR0913
     """
     self._activate_figure()
 
+    if dpi is not None and surftype != "image":
+        msg = "Parameter 'dpi' can only be used when 'surftype' is 'image'."
+        raise GMTInvalidInput(msg)
+    if nan_transparent and surftype != "image":
+        msg = "Parameter 'nan_transparent' can only be used when 'surftype' is 'image'."
+        raise GMTInvalidInput(msg)
+    if meshfill is not None and surftype not in {"mesh", "waterfallx", "waterfally"}:
+        msg = (
+            "Parameter 'meshfill' can only be used when 'surftype' is "
+            "'mesh', 'waterfallx', or 'waterfally'."
+        )
+        raise GMTInvalidInput(msg)
+
+    _surtype_mapping = {
+        "surface": "s",
+        "mesh": "m",
+        "surface+mesh": "sm",
+        "image": "c" if nan_transparent is True else "i",
+        "waterfallx": "mx",
+        "waterfally": "my",
+    }
+
+    # surftype was aliased to Q previously.
+    _old_surftype_syntax = surftype not in _surtype_mapping and surftype is not None
+
     aliasdict = AliasSystem(
         Jz=Alias(zscale, name="zscale"),
         JZ=Alias(zsize, name="zsize"),
+        Q=[
+            Alias(
+                surftype,
+                name="surftype",
+                mapping=_surtype_mapping if not _old_surftype_syntax else None,
+            ),
+            Alias(dpi, name="dpi"),
+            Alias(meshfill, name="meshfill"),
+            Alias(monochrome, name="monochrome", prefix="+m"),
+        ],
     ).add_common(
         B=frame,
         J=projection,
