@@ -50,9 +50,9 @@ jobs:
           # 3. type checker and stub packages
           # 4. other packages that are used somewhere in PyGMT
           pip-install: |
-            numpy pandas xarray packaging \
-            contextily geopandas ipython pyarrow rioxarray \
-            mypy pandas-stubs pyarrow-stubs \
+            numpy pandas xarray packaging 
+            contextily geopandas ipython pyarrow rioxarray 
+            mypy pandas-stubs pyarrow-stubs 
             matplotlib pytest
 
       - name: List install packages
