@@ -213,6 +213,22 @@ def test_grdview_on_a_plane_styled_with_facadepen(xrgrid):
     return fig
 
 
+@pytest.mark.mpl_image_compare
+def test_grdview_facadepen_default_plane(xrgrid):
+    """
+    Run grdview by passing in a grid and plotting it on the default z-plane with styled
+    lines for the frontal facade.
+    """
+    fig = Figure()
+    fig.grdview(
+        grid=xrgrid,
+        perspective=[225, 30],
+        zscale=0.005,
+        facadepen="0.5p,blue,dash",
+    )
+    return fig
+
+
 @pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_grdview_drapegrid_dataarray(xrgrid):

@@ -94,9 +94,9 @@ def grdview(  # noqa: PLR0913
         ``facadefill`` to control the appearance of the plane.
     facadefill
         Fill for the frontal facade between the plane specified by ``plane`` and the
-        data perimeter. Requires ``plane``.
+        data perimeter.
     facadepen
-        Set the pen attributes used for the facade. Requires ``plane``.
+        Set the pen attributes used for the facade.
     surftype : str
         Specify cover type of the grid. Select one of following settings:
 
