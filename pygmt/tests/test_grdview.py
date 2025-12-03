@@ -221,10 +221,7 @@ def test_grdview_facadepen_default_plane(xrgrid):
     """
     fig = Figure()
     fig.grdview(
-        grid=xrgrid,
-        perspective=[225, 30],
-        zscale=0.005,
-        facadepen="0.5p,blue,dash",
+        grid=xrgrid, perspective=[225, 30], zscale=0.005, facadepen="0.5p,blue,dash"
     )
     return fig
 
