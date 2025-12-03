@@ -32,15 +32,14 @@ jobs:
           persist-credentials: true
 
       # Setup Python environment
-      - uses: actions/setup-python@v6.0.0
+      - name: Set up Python and install dependencies
+        uses: actions/setup-python@v6.1.0
         with:
           python-version: '3.13'
+          pip-install: ruff prek
 
-      # Install formatting tools
-      - name: Install formatting tools
-        run: |
-          python -m pip install ruff prek
-          python -m pip list
+      - name: List installed packages
+        run: python -m pip list
 
       # Run "make format" and commit the change to the PR branch
       - name: Commit to the PR branch if any changes
