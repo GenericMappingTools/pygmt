@@ -203,7 +203,12 @@ def coast(  # noqa: PLR0913
     >>> fig.show()
     """
     self._activate_figure()
-    if not args_in_kwargs(args=["C", "G", "S", "I", "N", "E", "Q", "W"], kwargs=kwargs):
+
+    if (
+        kwargs.get("G", land) is None
+        and kwargs.get("S", water) is None
+        and not args_in_kwargs(args=["C", "I", "N", "E", "Q", "W"], kwargs=kwargs)
+    ):
         msg = (
             "At least one of the following parameters must be specified: "
             "lakes, land, water, rivers, borders, dcw, Q, or shorelines."
