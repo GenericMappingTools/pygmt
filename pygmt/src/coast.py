@@ -69,8 +69,8 @@ def coast(  # noqa: PLR0913
     $aliases
        - B = frame
        - D = resolution
-       - G = land
        - F = box
+       - G = land
        - J = projection
        - R = region
        - S = water
