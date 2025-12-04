@@ -9,6 +9,7 @@ from typing import Literal
 from pygmt._typing import AnchorCode
 from pygmt.alias import Alias
 from pygmt.exceptions import GMTValueError
+from pygmt.helpers import is_nonstr_iter
 from pygmt.params.base import BaseParam
 
 
@@ -168,7 +169,7 @@ class Position(BaseParam):
         # Validate the location based on type.
         match self.type:
             case "mapcoords" | "plotcoords" | "boxcoords":
-                if not isinstance(self.location, Sequence) or len(self.location) != 2:
+                if is_nonstr_iter(self.location) or len(self.location) != 2:
                     raise GMTValueError(
                         self.location,
                         description="reference point",
