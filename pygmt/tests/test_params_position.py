@@ -30,6 +30,7 @@ def test_params_position_anchor_offset():
     assert str(Position((10, 20), type="mapcoords", offset=(1, 2))) == "g10/20+o1/2"
     pos = Position("TL", type="inside", anchor="MC", offset=("1c", "2c"))
     assert str(pos) == "jTL+jMC+o1c/2c"
+    assert str(Position("TL", anchor="BR", offset=0.5)) == "jTL+jBR+o0.5"
 
 
 def test_params_position_invalid_location():
