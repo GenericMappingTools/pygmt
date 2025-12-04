@@ -169,7 +169,7 @@ class Position(BaseParam):
         # Validate the location based on type.
         match self.type:
             case "mapcoords" | "plotcoords" | "boxcoords":
-                if is_nonstr_iter(self.location) or len(self.location) != 2:
+                if not is_nonstr_iter(self.location) or len(self.location) != 2:
                     raise GMTValueError(
                         self.location,
                         description="reference point",
