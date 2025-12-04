@@ -211,7 +211,7 @@ def coast(  # noqa: PLR0913
     ):
         msg = (
             "At least one of the following parameters must be specified: "
-            "lakes, land, water, rivers, borders, dcw, Q, or shorelines."
+            "land, water, lakes, rivers, borders, dcw, Q, or shorelines."
         )
         raise GMTInvalidInput(msg)
 
