@@ -146,7 +146,7 @@ class Position(BaseParam):
     ) = None
 
     #: Anchor point on the embellishment using a
-    #: :doc:`2-character justification codes </techref/justification_codes>`.
+    #: :doc:`2-character justification code </techref/justification_codes>`.
     #: If ``None``, defaults are applied based on ``type`` (see above).
     anchor: AnchorCode | None = None
 
