@@ -128,7 +128,7 @@ def coast(  # noqa: PLR0913
         - ``"i"``: Intermittent rivers (types ``5`` - ``7``)
         - ``"c"``: Canals (types ``8`` - ``10``)
 
-        **Examples:**
+        Example usage:
 
         - ``rivers=1``: Draw permanent major rivers with default pen.
         - ``rivers="1/0.5p,blue"``: Draw permanent major rivers with a 0.5-point blue
