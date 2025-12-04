@@ -132,7 +132,7 @@ class Position(BaseParam):
     #:   :doc:`2-character justification codes </techref/justification_codes>`
     location: Sequence[float | str] | AnchorCode
 
-    #: Types of the reference point. Valid values are:
+    #: Type of the reference point. Valid values are:
     #:
     #: - ``"mapcoords"``: Map/Data coordinates
     #: - ``"plotcoords"``: Plot coordinates
