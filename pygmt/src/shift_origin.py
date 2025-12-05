@@ -38,8 +38,8 @@ def shift_origin(
     to other units via :gmt-term:`PROJ_LENGTH_UNIT`. Optionally, append the length unit
     (**c** for centimeters, **i** for inches, or **p** for points) to the shifts.
 
-    For *xshift*, character **w** can be used, which represents the
-    bounding box **width** of the last plotting object. The full syntax is
+    For *xshift*, character **w** can be used, which represents the bounding box
+    **width** of the last plotting object. The full syntax is
     [[±][*f*]\ **w**\ [/*d*]±]\ *xoff*, where optional signs, factor *f* and divisor *d*
     can be used to compute an offset that may be adjusted further by ±\ *xoff*. Assuming
     that the last plotting object has a width of 10 centimeters, here are some example
@@ -50,8 +50,8 @@ def shift_origin(
     - ``"2w+3c"``: x-shift is 2*10+3=23 cm
     - ``"w/2-2c"``: x-shift is 10/2-2=3 cm
 
-    Similarly, for *yshift*, character **h** can be used, which is the
-    bounding box **height** of the last plotting object.
+    Similarly, for *yshift*, character **h** can be used, which is the bounding box
+    **height** of the last plotting object.
 
     **Note**: The last plotting object can be a basemap, image, logo, legend, colorbar,
     etc.
