@@ -15,7 +15,6 @@ from pygmt.helpers import (
     build_arg_list,
     data_kind,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
 )
 from pygmt.src._common import _FocalMechanismConvention
@@ -118,7 +117,6 @@ def _auto_offset(spec) -> bool:
 @fmt_docstring
 @use_alias(
     A="offset",
-    B="frame",
     C="cmap",
     E="extensionfill",
     Fr="labelbox",
@@ -126,9 +124,7 @@ def _auto_offset(spec) -> bool:
     L="outline",
     T="nodal",
     W="pen",
-    p="perspective",
 )
-@kwargs_to_strings(p="sequence")
 def meca(  # noqa: PLR0913
     self,
     spec: PathLike | TableLike,
@@ -143,11 +139,13 @@ def meca(  # noqa: PLR0913
     event_name: str | Sequence[str] | None = None,
     no_clip: bool = False,
     projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -174,7 +172,7 @@ def meca(  # noqa: PLR0913
            | *mantissa*, *exponent*
          - | angles in degrees;
            | seismic moment is
-           | :math:`mantissa * 10 ^ {{exponent}}`
+           | :math:`mantissa * 10 ^ {exponent}`
            | in dyn cm
        * - ``"mt"``
          - seismic moment tensor
@@ -182,7 +180,7 @@ def meca(  # noqa: PLR0913
            | *mrt*, *mrf*, *mtf*,
            | *exponent*
          - | moment components
-           | in :math:`10 ^ {{exponent}}` dyn cm
+           | in :math:`10 ^ {exponent}` dyn cm
        * - ``"partial"``
          - partial focal mechanism
          - | *strike1*, *dip1*, *strike2*,
@@ -196,18 +194,20 @@ def meca(  # noqa: PLR0913
            | *n_value*, *n_azimuth*, *n_plunge*,
            | *p_value*, *p_azimuth*, *p_plunge*,
            | *exponent*
-         - | values in :math:`10 ^ {{exponent}}` dyn cm;
+         - | values in :math:`10 ^ {exponent}` dyn cm;
            | azimuths and plunges in degrees
 
     Full GMT docs at :gmt-docs:`supplements/seis/meca.html`.
 
-    {aliases}
+    $aliases
+       - B = frame
        - J = projection
        - N = no_clip
        - R = region
        - S = scale/convention/component
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -341,13 +341,13 @@ def meca(  # noqa: PLR0913
     no_clip
         Do **not** skip symbols that fall outside the frame boundaries [Default is
         ``False``, i.e., plot symbols inside the frame boundaries only].
-    {projection}
-    {region}
-    {frame}
-    {verbose}
-    {panel}
-    {perspective}
-    {transparency}
+    $projection
+    $region
+    $frame
+    $verbose
+    $panel
+    $perspective
+    $transparency
     """
     self._activate_figure()
     # Determine the focal mechanism convention from the input data or parameters.
@@ -374,10 +374,12 @@ def meca(  # noqa: PLR0913
     aliasdict = AliasSystem(
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

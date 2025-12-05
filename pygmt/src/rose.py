@@ -8,13 +8,12 @@ from typing import Literal
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
 @use_alias(
     A="sector",
-    B="frame",
     C="cmap",
     D="shift",
     Em="vectors",
@@ -33,21 +32,21 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     d="nodata",
     e="find",
     h="header",
-    i="incols",
-    p="perspective",
     w="wrap",
 )
-@kwargs_to_strings(i="sequence_comma", p="sequence")
-def rose(
+def rose(  # noqa: PLR0913
     self,
     data: PathLike | TableLike | None = None,
     length=None,
     azimuth=None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ):
     """
@@ -65,17 +64,20 @@ def rose(
 
     Full GMT docs at :gmt-docs:`rose.html`.
 
-    {aliases}
+    $aliases
+       - B = frame
        - R = region
        - V = verbose
        - c = panel
+       - i = incols
+       - p = perspective
        - t = transparency
 
     Parameters
     ----------
     data
         Pass in either a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
         Use parameter ``incols`` to choose which columns are length and
         azimuth, respectively. If a file with only azimuths is given, use
         ``incols`` to indicate the single column with azimuths; then all
@@ -196,23 +198,26 @@ def rose(
         Statistics, *J. Stat. Software*, 31(10), 1-21,
         https://doi.org/10.18637/jss.v031.i10.
 
-    {verbose}
-    {binary}
-    {panel}
-    {nodata}
-    {find}
-    {header}
-    {incols}
-    {perspective}
-    {transparency}
-    {wrap}
+    $verbose
+    $binary
+    $panel
+    $nodata
+    $find
+    $header
+    $incols
+    $perspective
+    $transparency
+    $wrap
     """
     self._activate_figure()
 
     aliasdict = AliasSystem().add_common(
+        B=frame,
         R=region,
         V=verbose,
         c=panel,
+        i=incols,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

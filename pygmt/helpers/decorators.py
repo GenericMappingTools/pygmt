@@ -6,6 +6,7 @@ arguments, insert common text into docstrings, transform arguments to strings, e
 """
 
 import functools
+import string
 import textwrap
 import warnings
 from inspect import Parameter, signature
@@ -159,27 +160,24 @@ COMMON_DOCSTRINGS = {
 
             Blank lines and lines starting with \# are always skipped.""",
     "incols": r"""
-        incols : str or 1-D array
-            Specify data columns for primary input in arbitrary order. Columns
-            can be repeated and columns not listed will be skipped [Default
-            reads all columns in order, starting with the first (i.e., column
-            0)].
+        incols
+            Specify data columns for primary input in arbitrary order. Columns can be
+            repeated and columns not listed will be skipped [Default reads all columns
+            in order, starting with the first (i.e., column 0)].
 
-            - For *1-D array*: specify individual columns in input order (e.g.,
-              ``incols=[1,0]`` for the 2nd column followed by the 1st column).
-            - For :py:class:`str`: specify individual columns or column
-              ranges in the format *start*\ [:*inc*]:*stop*, where *inc*
-              defaults to 1 if not specified, with columns and/or column ranges
-              separated by commas (e.g., ``incols="0:2,4+l"`` to input the
-              first three columns followed by the log-transformed 5th column).
-              To read from a given column until the end of the record, leave
-              off *stop* when specifying the column range. To read trailing
-              text, add the column **t**. Append the word number to **t** to
-              ingest only a single word from the trailing text. Instead of
-              specifying columns, use ``incols="n"`` to simply read numerical
-              input and skip trailing text. Optionally, append one of the
-              following modifiers to any column or column range to transform
-              the input columns:
+            - For a sequence: specify individual columns in input order (e.g.,
+              ``incols=(1, 0)`` for the 2nd column followed by the 1st column).
+            - For a string: specify individual columns or column ranges in the format
+              *start*\ [:*inc*]:*stop*, where *inc* defaults to 1 if not specified, with
+              columns and/or column ranges separated by commas (e.g.,
+              ``incols="0:2,4+l"`` to input the first three columns followed by the
+              log10-transformed 5th column). To read from a given column until the end of
+              the record, leave off *stop* when specifying the column range. To read
+              trailing text, add the column **t**. Append the word number to **t** to
+              ingest only a single word from the trailing text. Instead of specifying
+              columns, use ``incols="n"`` to simply read numerical input and skip
+              trailing text. Optionally, append one of the following modifiers to any
+              column or column range to transform the input columns:
 
               - **+l** to take the *log10* of the input values.
               - **+d** to divide the input values by the factor *divisor* [Default is 1].
@@ -207,28 +205,35 @@ COMMON_DOCSTRINGS = {
             Prepend **i** to the *nodata* value for input columns only. Prepend
             **o** to the *nodata* value for output columns only.""",
     "outcols": r"""
-        outcols : str or 1-D array
+        outcols
             *cols*\ [,...][,\ **t**\ [*word*]].
-            Specify data columns for primary output in arbitrary order. Columns
-            can be repeated and columns not listed will be skipped [Default
-            writes all columns in order, starting with the first (i.e., column
-            0)].
 
-            - For *1-D array*: specify individual columns in output order (e.g.,
-              ``outcols=[1,0]`` for the 2nd column followed by the 1st column).
-            - For :py:class:`str`: specify individual columns or column
-              ranges in the format *start*\ [:*inc*]:*stop*, where *inc*
-              defaults to 1 if not specified, with columns and/or column ranges
-              separated by commas (e.g., ``outcols="0:2,4"`` to output the
-              first three columns followed by the 5th column).
-              To write from a given column until the end of the record, leave
-              off *stop* when specifying the column range. To write trailing
-              text, add the column **t**. Append the word number to **t** to
-              write only a single word from the trailing text. Instead of
-              specifying columns, use ``outcols="n"`` to simply read numerical
-              input and skip trailing text. **Note**: If ``incols`` is also
-              used then the columns given to ``outcols`` correspond to the
-              order after the ``incols`` selection has taken place.""",
+            Specify data columns for primary output in arbitrary order. Columns can be
+            repeated and columns not listed will be skipped [Default writes all columns
+            in order, starting with the first (i.e., column 0)].
+
+            - For a sequence: specify individual columns in output order (e.g.,
+              ``outcols=(1, 0)`` for the 2nd column followed by the 1st column).
+            - For a string: specify individual columns or column ranges in the format
+              *start*\ [:*inc*]:*stop*, where *inc* defaults to 1 if not specified, with
+              columns and/or column ranges separated by commas (e.g.,
+              ``outcols="0:2,4"`` to output the first three columns followed by the 5th
+              column). To write from a given column until the end of the record, leave
+              off *stop* when specifying the column range. To write trailing text, add
+              the column **t**. Append the word number to **t** to write only a single
+              word from the trailing text. Instead of specifying columns, use
+              ``outcols="n"`` to simply read numerical input and skip trailing text.
+              **Note**: If ``incols`` is also used then the columns given to ``outcols``
+              correspond to the order after the ``incols`` selection has taken place.
+
+              Optionally, append one of the following modifiers to any column or column
+              range to transform the output columns:
+
+              - **+l** to take the *log10* of the input values.
+              - **+d** to divide the output values by the factor *divisor* [Default is
+                1].
+              - **+s** to multiply the output values by the factor *scale* [Default is 1].
+              - **+o** to add the given *offset* to the output values [Default is 0].""",
     "outfile": """
         outfile
             File name for saving the result data. Required if ``output_type="file"``.
@@ -262,12 +267,25 @@ COMMON_DOCSTRINGS = {
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
     "perspective": r"""
-        perspective : list or str
-            [**x**\|\ **y**\|\ **z**]\ *azim*\[/*elev*\[/*zlevel*]]\
-            [**+w**\ *lon0*/*lat0*\[/*z0*]][**+v**\ *x0*/*y0*].
-            Select perspective view and set the azimuth and elevation angle of
-            the viewpoint [Default is ``[180, 90]``]. Full documentation is at
-            :gmt-docs:`gmt.html#perspective-full`.""",
+        perspective
+            Select perspective view and set the azimuth and elevation of the viewpoint.
+
+            Accepts a single value or a sequence of two or three values: *azimuth*,
+            (*azimuth*, *elevation*), or (*azimuth*, *elevation*, *zlevel*).
+
+            - *azimuth*: Azimuth angle of the viewpoint in degrees [Default is 180,
+              i.e., looking from south to north].
+            - *elevation*: Elevation angle of the viewpoint above the horizon [Default
+              is 90, i.e., looking straight down at nadir].
+            - *zlevel*: Z-level at which 2-D elements (e.g., the map frame) are drawn.
+              Only applied when used together with ``zsize`` or ``zscale``. [Default is
+              at the bottom of the z-axis].
+
+            Alternatively, set ``perspective=True`` to reuse the perspective setting
+            from the previous plotting method, or pass a string following the full
+            GMT syntax for finer control (e.g., adding ``+w`` or ``+v`` modifiers to
+            select an axis location other than the plot origin). See
+            :gmt-docs:`gmt.html#perspective-full` for details.""",
     "projection": r"""
         projection
             *projcode*\[*projparams*/]\ *width*\|\ *scale*.
@@ -277,10 +295,10 @@ COMMON_DOCSTRINGS = {
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
             Specify the :doc:`region </tutorials/basics/regions>` of interest.""",
     "registration": r"""
-        registration : str
-            **g**\|\ **p**.
-            Force gridline (**g**) or pixel (**p**) node registration
-            [Default is **g**\ (ridline)].""",
+        registration
+            Select gridline or pixel node registration. Valid values are ``"gridline"``,
+            ``"pixel"``, and bool. GMT default is gridline registration. If
+            ``True``, select pixel registration.""",
     "skiprows": r"""
         skiprows : bool or str
             [*cols*][**+a**][**+r**].
@@ -393,11 +411,11 @@ def fmt_docstring(module_func):
     ...     ----------
     ...     data
     ...         Pass in either a file name to an ASCII data table, a 2-D
-    ...         {table-classes}.
-    ...     {region}
-    ...     {projection}
+    ...         $table_classes.
+    ...     $region
+    ...     $projection
     ...
-    ...     {aliases}
+    ...     $aliases
     ...     '''
     ...     pass
     >>> print(gmtinfo.__doc__)
@@ -439,7 +457,7 @@ def fmt_docstring(module_func):
             aliases.append(f"   - {arg} = {alias}")
         filler_text["aliases"] = "\n".join(aliases)
 
-    filler_text["table-classes"] = (
+    filler_text["table_classes"] = (
         ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an\n"
         "    :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`\n"
         "    data variables, or a :class:`geopandas.GeoDataFrame` containing the\n"
@@ -454,8 +472,7 @@ def fmt_docstring(module_func):
     # Dedent the docstring to make it all match the option text.
     docstring = textwrap.dedent(module_func.__doc__)
 
-    module_func.__doc__ = docstring.format(**filler_text)
-
+    module_func.__doc__ = string.Template(docstring).safe_substitute(**filler_text)
     return module_func
 
 
@@ -514,9 +531,7 @@ def use_alias(**aliases):
     R = bla J = meh
     >>> my_module(region="bla", projection="meh")
     R = bla J = meh
-    >>> my_module(
-    ...     region="bla", projection="meh", J="bla"
-    ... )  # doctest: +NORMALIZE_WHITESPACE
+    >>> my_module(region="bla", projection="meh", J="bla")
     Traceback (most recent call last):
       ...
     pygmt.exceptions.GMTInvalidInput:

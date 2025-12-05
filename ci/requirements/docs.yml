@@ -22,7 +22,6 @@ dependencies:
     - pip
     - python-build
     # Dev dependencies (building documentation)
-    - geodatasets
     - myst-nb
     - panel
     - sphinx>=6.2

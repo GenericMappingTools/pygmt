@@ -7,31 +7,24 @@ from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdproject"]
 
 
 @fmt_docstring
-@use_alias(
-    C="center",
-    D="spacing",
-    E="dpi",
-    F="scaling",
-    I="inverse",
-    M="unit",
-    n="interpolation",
-    r="registration",
-)
-@kwargs_to_strings(C="sequence", D="sequence")
+@use_alias(E="dpi", F="scaling", I="inverse", M="unit", n="interpolation")
 def grdproject(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
+    center: Sequence[float | str] | bool = False,
+    spacing: float | str | Sequence[float | str] | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -56,28 +49,30 @@ def grdproject(
 
     Full GMT docs at :gmt-docs:`grdproject.html`.
 
-    {aliases}
+    $aliases
+       - C = center
+       - D = spacing
        - J = projection
        - R = region
        - V = verbose
+       - r = registration
 
     Parameters
     ----------
-    {grid}
-    {outgrid}
+    $grid
+    $outgrid
     inverse : bool
         When set to ``True`` transforms grid from rectangular to geographical
         [Default is ``False``].
-    {projection}
-    {region}
-    center : str or list
-        [*dx*, *dy*].
-        Let projected coordinates be relative to projection center [Default
-        is relative to lower left corner]. Optionally, add offsets in the
-        projected units to be added (or subtracted when ``inverse`` is set) to
-        (from) the projected coordinates, such as false eastings and
-        northings for particular projection zones [Default is ``[0, 0]``].
-    {spacing}
+    $projection
+    $region
+    center
+        If ``True``, let the projected coordinates be relative to the projection center
+        [Default is relative to the lower left corner]. Optionally, set offsets
+        (*dx*, *dy*) in the projected units to be added (or subtracted when ``inverse``
+        is set) to (from) the projected coordinates, such as false eastings and
+        northings for particular projection zones [Default is ``(0, 0)``].
+    $spacing
     dpi : int
         Set the resolution for the new grid in dots per inch.
     scaling : str
@@ -92,9 +87,9 @@ def grdproject(
         Append **c**, **i**, or **p** to indicate that centimeters, inches, or
         points should be the projected measure unit. Cannot be used with
         ``scaling``.
-    {verbose}
-    {interpolation}
-    {registration}
+    $verbose
+    $interpolation
+    $registration
 
     Returns
     -------
@@ -115,14 +110,18 @@ def grdproject(
     >>> # Project the geographic gridded data onto a rectangular grid
     >>> new_grid = pygmt.grdproject(grid=grid, projection="M10c", region=region)
     """
-    if projection is None:
-        msg = "The projection must be specified."
+    if kwargs.get("J", projection) is None:
+        msg = "Parameter 'projection' must be specified."
         raise GMTInvalidInput(msg)
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        C=Alias(center, name="center", sep="/", size=2),
+        D=Alias(spacing, name="spacing", sep="/", size=2),
+    ).add_common(
         J=projection,
         R=region,
         V=verbose,
+        r=registration,
     )
     aliasdict.merge(kwargs)
 

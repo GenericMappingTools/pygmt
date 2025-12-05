@@ -15,15 +15,13 @@ from pygmt.helpers import (
     data_kind,
     fmt_docstring,
     is_nonstr_iter,
-    kwargs_to_strings,
     use_alias,
 )
 from pygmt.params import Box
 
 
 @fmt_docstring
-@use_alias(D="position", p="perspective")
-@kwargs_to_strings(p="sequence")
+@use_alias(D="position")
 def legend(
     self,
     spec: PathLike | io.StringIO | None = None,
@@ -33,8 +31,9 @@ def legend(
     box: Box | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -48,12 +47,13 @@ def legend(
 
     Full GMT docs at :gmt-docs:`legend.html`.
 
-    {aliases}
+    $aliases
        - F = box
        - J = projection
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -67,8 +67,8 @@ def legend(
         - A :class:`io.StringIO` object containing the legend specification
 
         See :gmt-docs:`legend.html` for the definition of the legend specification.
-    {projection}
-    {region}
+    $projection
+    $region
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *width*\ [/*height*]\ [**+j**\ *justify*]\ [**+l**\ *spacing*]\
@@ -82,10 +82,10 @@ def legend(
         rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
         appearance, pass a :class:`pygmt.params.Box` object to control style, fill, pen,
         and other box properties.
-    {verbose}
-    {panel}
-    {perspective}
-    {transparency}
+    $verbose
+    $panel
+    $perspective
+    $transparency
     """
     self._activate_figure()
 
@@ -110,6 +110,7 @@ def legend(
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

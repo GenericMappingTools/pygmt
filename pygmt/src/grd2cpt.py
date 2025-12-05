@@ -32,7 +32,7 @@ __doctest_skip__ = ["grd2cpt"]
 @kwargs_to_strings(L="sequence", T="sequence")
 def grd2cpt(
     grid: PathLike | xr.DataArray,
-    truncate: tuple[float, float] | None = None,
+    truncate: Sequence[float] | None = None,
     overrule_bg: bool = False,
     no_bg: bool = False,
     log: bool = False,
@@ -85,7 +85,7 @@ def grd2cpt(
 
     Full GMT docs at :gmt-docs:`grd2cpt.html`.
 
-    {aliases}
+    $aliases
        - G = truncate
        - M = overrule_bg
        - N = no_bg
@@ -96,7 +96,7 @@ def grd2cpt(
 
     Parameters
     ----------
-    {grid}
+    $grid
     transparency : float or str
         Set a constant level of transparency (0-100) for all color slices. Append **+a**
         to also affect the foreground, background, and NaN colors [Default is no
@@ -182,7 +182,7 @@ def grd2cpt(
         Produce a wrapped (cyclic) color table that endlessly repeats its
         range. Note that ``cyclic=True`` cannot be set together with
         ``categorical=True``.
-    {verbose}
+    $verbose
 
     Example
     -------

@@ -36,7 +36,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.1
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -84,7 +84,7 @@ jobs:
 
       # Run the benchmark tests
       - name: Run benchmarks
-        uses: CodSpeedHQ/action@6eeb021fd0f305388292348b775d96d95253adf4 # v4.0.0
+        uses: CodSpeedHQ/action@6a8e2b874c338bf81cc5e8be715ada75908d3871 # v4.3.4
         with:
           mode: "instrumentation"
           # 'bash -el -c' is needed to use the custom shell.

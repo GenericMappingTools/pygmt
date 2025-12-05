@@ -14,7 +14,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @fmt_docstring
 @use_alias(
     A="horizontal",
-    B="frame",
     C="cmap",
     D="annotate",
     E="barwidth",
@@ -31,21 +30,22 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     d="nodata",
     e="find",
     h="header",
-    i="incols",
     l="label",
-    p="perspective",
     w="wrap",
 )
-@kwargs_to_strings(T="sequence", i="sequence_comma", p="sequence")
+@kwargs_to_strings(T="sequence")
 def histogram(
     self,
     data: PathLike | TableLike,
     projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ):
     r"""
@@ -53,26 +53,29 @@ def histogram(
 
     Full GMT docs at :gmt-docs:`histogram.html`.
 
-    {aliases}
+    $aliases
+       - B = frame
        - J = projection
        - R = region
        - V = verbose
        - c = panel
+       - i = incols
+       - p = perspective
        - t = transparency
 
     Parameters
     ----------
     data
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
-        {table-classes}.
-    {projection}
-    {region}
-    {frame}
-    {cmap}
+        $table_classes.
+    $projection
+    $region
+    $frame
+    $cmap
     fill : str
          Set color or pattern for filling bars [Default is no fill].
-    {pen}
-    {panel}
+    $pen
+    $panel
     annotate : bool or str
         [**+b**][**+f**\ *font*][**+o**\ *off*][**+r**].
         Annotate each bar with the count it represents. Append any of the
@@ -136,24 +139,27 @@ def histogram(
 
         To use weights provided as a second data column instead of pure counts,
         append **+w**.
-    {verbose}
-    {binary}
-    {nodata}
-    {find}
-    {header}
-    {incols}
-    {label}
-    {perspective}
-    {transparency}
-    {wrap}
+    $verbose
+    $binary
+    $nodata
+    $find
+    $header
+    $incols
+    $label
+    $perspective
+    $transparency
+    $wrap
     """
     self._activate_figure()
 
     aliasdict = AliasSystem().add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
         c=panel,
+        i=incols,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

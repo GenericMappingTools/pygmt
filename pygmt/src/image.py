@@ -8,13 +8,12 @@ from typing import Literal
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 from pygmt.params import Box
 
 
 @fmt_docstring
-@use_alias(D="position", G="bitcolor", p="perspective")
-@kwargs_to_strings(p="sequence")
+@use_alias(D="position", G="bitcolor")
 def image(
     self,
     imagefile: PathLike,
@@ -24,8 +23,9 @@ def image(
     monochrome: bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -46,13 +46,14 @@ def image(
 
     Full GMT docs at :gmt-docs:`image.html`.
 
-    {aliases}
+    $aliases
        - F = box
        - J = projection
        - M = monochrome
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -61,8 +62,8 @@ def image(
         An Encapsulated PostScript (EPS) file or a raster image file. An EPS file must
         contain an appropriate BoundingBox. A raster file can have a depth of 1, 8, 24,
         or 32 bits and is read via GDAL.
-    {projection}
-    {region}
+    $projection
+    $region
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+r**\ *dpi*\
         **+w**\ [**-**]\ *width*\ [/*height*]\ [**+j**\ *justify*]\
@@ -84,10 +85,10 @@ def image(
     monochrome
         Convert color image to monochrome grayshades using the (television)
         YIQ-transformation.
-    {verbose}
-    {panel}
-    {perspective}
-    {transparency}
+    $verbose
+    $panel
+    $perspective
+    $transparency
     """
     self._activate_figure()
 
@@ -99,6 +100,7 @@ def image(
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

@@ -8,7 +8,7 @@ from typing import Literal
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 def _parse_fills(fillpositive, fillnegative):
@@ -40,7 +40,6 @@ def _parse_fills(fillpositive, fillnegative):
 
 @fmt_docstring
 @use_alias(
-    B="frame",
     D="position",
     T="track",
     W="pen",
@@ -51,11 +50,8 @@ def _parse_fills(fillpositive, fillnegative):
     f="coltypes",
     g="gap",
     h="header",
-    i="incols",
-    p="perspective",
     w="wrap",
 )
-@kwargs_to_strings(i="sequence_comma", p="sequence")
 def wiggle(  # noqa: PLR0913
     self,
     data: PathLike | TableLike | None = None,
@@ -66,10 +62,13 @@ def wiggle(  # noqa: PLR0913
     fillnegative=None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ):
     r"""
@@ -82,12 +81,15 @@ def wiggle(  # noqa: PLR0913
 
     Full GMT docs at :gmt-docs:`wiggle.html`.
 
-    {aliases}
+    $aliases
+       - B = frame
        - G = **+p**: fillpositive, **+n**: fillnegative
        - J = projection
        - R = region
        - V = verbose
        - c = panel
+       - i = incols
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -96,17 +98,17 @@ def wiggle(  # noqa: PLR0913
         The arrays of x and y coordinates and z data points.
     data
         Pass in either a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
         Use parameter ``incols`` to choose which columns are x, y, z,
         respectively.
-    {projection}
-    {region}
+    $projection
+    $region
     scale : str or float
         Give anomaly scale in data-units/distance-unit. Append **c**, **i**,
         or **p** to indicate the distance unit (centimeters, inches, or
         points); if no unit is given we use the default unit that is
         controlled by :gmt-term:`PROJ_LENGTH_UNIT`.
-    {frame}
+    $frame
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *length*\ [**+j**\ *justify*]\ [**+al**\|\ **r**]\
@@ -119,20 +121,20 @@ def wiggle(  # noqa: PLR0913
     track : str
         Draw track [Default is no track]. Append pen attributes to use
         [Default is ``"0.25p,black,solid"``].
-    {verbose}
+    $verbose
     pen : str
         Specify outline pen attributes [Default is no outline].
-    {binary}
-    {panel}
-    {nodata}
-    {find}
-    {coltypes}
-    {gap}
-    {header}
-    {incols}
-    {perspective}
-    {transparency}
-    {wrap}
+    $binary
+    $panel
+    $nodata
+    $find
+    $coltypes
+    $gap
+    $header
+    $incols
+    $perspective
+    $transparency
+    $wrap
     """
     self._activate_figure()
 
@@ -141,10 +143,13 @@ def wiggle(  # noqa: PLR0913
     aliasdict = AliasSystem(
         G=Alias(_fills, name="fillpositive/fillnegative"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
         c=panel,
+        i=incols,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

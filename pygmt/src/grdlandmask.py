@@ -10,22 +10,23 @@ from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdlandmask"]
 
 
 @fmt_docstring
-@use_alias(A="area_thresh", I="spacing", r="registration")
-@kwargs_to_strings(I="sequence")
+@use_alias(A="area_thresh")
 def grdlandmask(
     outgrid: PathLike | None = None,
+    spacing: Sequence[float | str] | None = None,
     maskvalues: Sequence[float] | None = None,
     bordervalues: bool | float | Sequence[float] | None = None,
     resolution: Literal[
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
     region: Sequence[float | str] | str | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     cores: int | bool = False,
@@ -42,20 +43,22 @@ def grdlandmask(
 
     Full GMT docs at :gmt-docs:`grdlandmask.html`.
 
-    {aliases}
+    $aliases
        - D = resolution
        - E = bordervalues
+       - I = spacing
        - N = maskvalues
        - R = region
        - V = verbose
+       - r = registration
        - x = cores
 
     Parameters
     ----------
-    {outgrid}
-    {spacing}
-    {region}
-    {area_thresh}
+    $outgrid
+    $spacing
+    $region
+    $area_thresh
     resolution
         Select the resolution of the coastline dataset to use. The available resolutions
         from highest to lowest are: ``"full"``, ``"high"``, ``"intermediate"``,
@@ -88,9 +91,9 @@ def grdlandmask(
 
         Values can be any number, or one of ``None``, ``"NaN"``, and ``np.nan`` for
         setting nodes to NaN.
-    {verbose}
-    {registration}
-    {cores}
+    $verbose
+    $registration
+    $cores
 
     Returns
     -------
@@ -108,7 +111,7 @@ def grdlandmask(
     >>> # latitude range of 30° N to 35° N, and a grid spacing of 1 arc-degree
     >>> landmask = pygmt.grdlandmask(spacing=1, region=[125, 130, 30, 35])
     """
-    if kwargs.get("I") is None or kwargs.get("R", region) is None:
+    if kwargs.get("I", spacing) is None or kwargs.get("R", region) is None:
         msg = "Both 'region' and 'spacing' must be specified."
         raise GMTInvalidInput(msg)
 
@@ -125,11 +128,13 @@ def grdlandmask(
                 "crude": "c",
             },
         ),
+        I=Alias(spacing, name="spacing", sep="/", size=2),
         N=Alias(maskvalues, name="maskvalues", sep="/", size=(2, 5)),
         E=Alias(bordervalues, name="bordervalues", sep="/", size=4),
     ).add_common(
         R=region,
         V=verbose,
+        r=registration,
         x=cores,
     )
     aliasdict.merge(kwargs)
