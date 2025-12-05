@@ -39,10 +39,10 @@ def shift_origin(
     (**c** for centimeters, **i** for inches, or **p** for points) to the shifts.
 
     For *xshift*, a special character **w** can also be used, which represents the
-    bounding box **width** of the previous plot. The full syntax is
-    [[±][*f*]\ **w**\ [/\ *d*\ ]±]\ *xoff*, where optional signs, factor *f* and divisor
-    *d* can be used to compute an offset that may be adjusted further by ±\ *xoff*.
-    Assuming that the previous plot has a width of 10 centimeters, here are some example
+    bounding box **width** of the last plotting object. The full syntax is
+    [[±][*f*]\ **w**\ [/*d*]±]\ *xoff*, where optional signs, factor *f* and divisor *d*
+    can be used to compute an offset that may be adjusted further by ±\ *xoff*. Assuming
+    that the last plotting object has a width of 10 centimeters, here are some example
     values for *xshift*:
 
     - ``"w"``: x-shift is 10 cm
@@ -51,10 +51,10 @@ def shift_origin(
     - ``"w/2-2c"``: x-shift is 10/2-2=3 cm
 
     Similarly, for *yshift*, a special character **h** can also be used, which is the
-    bounding box **height** of the previous plot.
+    bounding box **height** of the last plotting object.
 
-    **Note**: The previous plot bounding box refers to the last object plotted, which
-    may be a basemap, image, logo, legend, colorbar, etc.
+    **Note**: The last plotting object can be a basemap, image, logo, legend, colorbar,
+    etc.
 
     Parameters
     ----------
