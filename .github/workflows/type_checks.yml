@@ -44,16 +44,13 @@ jobs:
         uses: actions/setup-python@v6.1.0
         with:
           python-version: '3.14'
-          # Need to install four groups of packages:
+          # Need to install following packages:
           # 1. required packages
-          # 2. optional packages
-          # 3. type checker and stub packages
-          # 4. other packages that are used somewhere in PyGMT
+          # 2. type checker and stub packages
+          # 3. other packages that are used somewhere in PyGMT
           pip-install: |
             numpy pandas xarray packaging
-            contextily geopandas ipython pyarrow rioxarray
             mypy pandas-stubs pyarrow-stubs
-            matplotlib pytest
 
       - name: List install packages
         run: python -m pip list
