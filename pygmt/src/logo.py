@@ -74,18 +74,18 @@ def logo(  # noqa: PLR0913
         box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,
         pass a :class:`pygmt.params.Box` object to control style, fill, pen, and other
         box properties.
-    {projection}
-    {region}
     style
         Control what is written beneath the map portion of the logo.
 
         - ``"standard"``: The text label "The Generic Mapping Tools".
         - ``"no_label"``: Skip the text label.
         - ``"url"``: The URL to the GMT website.
-    {verbose}
-    {panel}
-    {transparency}
-    {perspective}
+    $projection
+    $region
+    $verbose
+    $panel
+    $transparency
+    $perspective
     """
     self._activate_figure()
 

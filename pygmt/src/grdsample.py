@@ -54,7 +54,7 @@ def grdsample(
 
     Full GMT docs at :gmt-docs:`grdsample.html`.
 
-    {aliases}
+    $aliases
        - I = spacing
        - R = region
        - V = verbose
@@ -63,20 +63,20 @@ def grdsample(
 
     Parameters
     ----------
-    {grid}
-    {outgrid}
-    {spacing}
-    {region}
+    $grid
+    $outgrid
+    $spacing
+    $region
     toggle
         Toggle between grid and pixel registration; if the input is grid-registered, the
         output will be pixel-registered and vice-versa. This is a *destructive* grid
         change; see :gmt-docs:`reference/options.html#switch-registrations`.
         *Note**: ``toggle`` and ``registration`` are mutually exclusive.
-    {verbose}
-    {coltypes}
-    {interpolation}
-    {registration}
-    {cores}
+    $verbose
+    $coltypes
+    $interpolation
+    $registration
+    $cores
 
     Returns
     -------

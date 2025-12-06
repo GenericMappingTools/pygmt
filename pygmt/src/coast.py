@@ -24,18 +24,18 @@ __doctest_skip__ = ["coast"]
     A="area_thresh",
     C="lakes",
     E="dcw",
-    G="land",
     I="rivers",
     L="map_scale",
     N="borders",
-    S="water",
     W="shorelines",
 )
-def coast(
+def coast(  # noqa: PLR0913
     self,
     resolution: Literal[
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
+    land: str | None = None,
+    water: str | None = None,
     box: Box | bool = False,
     projection: str | None = None,
     frame: str | Sequence[str] | bool = False,
@@ -66,12 +66,14 @@ def coast(
 
     Full GMT docs at :gmt-docs:`coast.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - D = resolution
        - F = box
+       - G = land
        - J = projection
        - R = region
+       - S = water
        - V = verbose
        - c = panel
        - p = perspective
@@ -79,11 +81,11 @@ def coast(
 
     Parameters
     ----------
-    {projection}
-    {region}
+    $projection
+    $region
         *Required if this is the first plot command.*
-    {area_thresh}
-    {frame}
+    $area_thresh
+    $frame
     lakes : str or list
         *fill*\ [**+l**\|\ **+r**].
         Set the shade, color, or pattern for lakes and river-lakes. The
@@ -97,8 +99,10 @@ def coast(
         ``"low"``, and ``"crude"``, which drops by 80% between levels. Default is
         ``"auto"`` to automatically select the most suitable resolution given the chosen
         map scale.
-    land : str
+    land
         Select filling of "dry" areas.
+    water
+        Select filling of "wet" areas.
     rivers : int, str, or list
         *river*\ [/*pen*].
         Draw rivers. Specify the type of rivers and [optionally] append
@@ -149,8 +153,6 @@ def coast(
         - ``3``: marine boundaries
         - ``"a"``: all boundaries (``1`` - ``3``)
 
-    water : str
-        Select filling "wet" areas.
     shorelines : bool, int, str, or list
         [*level*\ /]\ *pen*.
         Draw shorelines [Default is no shorelines]. Append pen attributes
@@ -172,10 +174,10 @@ def coast(
         to any of the continent codes (e.g. ``"=EU"`` for Europe). Append
         **+p**\ *pen* to draw polygon outlines [Default is no outline] and
         **+g**\ *fill* to fill them [Default is no fill].
-    {panel}
-    {perspective}
-    {transparency}
-    {verbose}
+    $panel
+    $perspective
+    $transparency
+    $verbose
 
     Example
     -------
@@ -201,10 +203,15 @@ def coast(
     >>> fig.show()
     """
     self._activate_figure()
-    if not args_in_kwargs(args=["C", "G", "S", "I", "N", "E", "Q", "W"], kwargs=kwargs):
+
+    if (
+        kwargs.get("G", land) is None
+        and kwargs.get("S", water) is None
+        and not args_in_kwargs(args=["C", "I", "N", "E", "Q", "W"], kwargs=kwargs)
+    ):
         msg = (
             "At least one of the following parameters must be specified: "
-            "lakes, land, water, rivers, borders, dcw, Q, or shorelines."
+            "land, water, lakes, rivers, borders, dcw, Q, or shorelines."
         )
         raise GMTInvalidInput(msg)
 
@@ -222,6 +229,8 @@ def coast(
             },
         ),
         F=Alias(box, name="box"),
+        G=Alias(land, name="land"),
+        S=Alias(water, name="water"),
     ).add_common(
         B=frame,
         J=projection,

@@ -260,3 +260,31 @@ def test_geopandas_data_kind_shapely():
     """
     polygon = shapely.geometry.Polygon([(20, 10), (23, 10), (23, 14), (20, 14)])
     assert data_kind(data=polygon) == "geojson"
+
+
+def test_geopandas_nonascii():
+    """
+    Test geopandas.GeoDataFrame with non-ASCII characters.
+
+    The tempfile_from_geojson function writes the GeoDataFrame to a temporary OGR_GMT
+    file, which doesn't work properly if UTF-8 is not the default encoding (e.g.,
+    Windows).
+    """
+    geom = shapely.geometry.Polygon(
+        [
+            (0, 1),
+            (0, 2),
+            (1, 1),
+            (1, 3),
+        ]
+    )
+    gdf = gpd.GeoDataFrame(
+        {
+            "name_ascii": ["Fiji"],
+            "name_utf8": ["فيجي"],  # Arabic
+        },
+        geometry=[geom],
+        crs="EPSG:4326",
+    )
+    output = info(gdf, per_column=True)
+    npt.assert_allclose(actual=output, desired=[0.0, 1.0, 1.0, 3.0])
