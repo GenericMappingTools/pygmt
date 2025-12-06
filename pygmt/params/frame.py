@@ -6,7 +6,6 @@ import dataclasses
 from typing import Any, Literal
 
 from pygmt.alias import Alias
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.params.base import BaseParam
 
 
@@ -16,17 +15,9 @@ class Axis(BaseParam):
     Class for setting up one axis of a plot.
     """
 
-    #: Specify annotation for the axis. Provide a specific interval with an optional
-    #: unit. Set to ``True`` to use default interval.
-    annotation: float | str | bool = False
-
-    #: Specify ticks for the axis. Provide a specific interval with an optional unit.
-    #: Set to ``True`` to use default interval.
-    tick: float | str | bool = False
-
-    #: Specify grid lines for the axis. Provide a specific interval with an optional
-    #: unit. Set to ``True`` to use default interval.
-    grid: float | str | bool = False
+    #: Intervals for annotations and major tick spacing, minor tick spacing, and/or
+    #: grid line spacing.
+    interval: float | str
 
     #: Plot slanted annotations (for Cartesian plots only), where *angle* is measured
     #: with respect to the horizontal and must be in the -90 <= *angle* <= 90 range.
@@ -35,10 +26,10 @@ class Axis(BaseParam):
     #: :gmt-term:`MAP_ANNOT_ORTHO`.
     angle: float | None = None
 
-    #: Skip annotations that fall exactly at the ends of the axis. Choose from ``lower``
-    #: or ``upper`` to skip only the lower or upper annotation, respectively, or
+    #: Skip annotations that fall exactly at the ends of the axis. Choose from ``left``
+    #: or ``right`` to skip only the lower or upper annotation, respectively, or
     #: ``True`` to skip both.
-    skip_edge: Literal["lower", "upper"] | bool = False
+    skip_edge: Literal["left", "right"] | bool = False
 
     #: Give fancy annotations with W|E|S|N suffixes encoding the sign (for geographic
     #: axes only).
@@ -67,43 +58,22 @@ class Axis(BaseParam):
     #: :gmt-term:`FORMAT_GEO_MAP`.
     unit: str | None = None
 
-    def _validate(self):
-        """
-        Validate the parameters.
-        """
-        if self.label is not None and self.hlabel is not None:
-            msg = "Parameters 'label' and 'hlabel' cannot be both set."
-            raise GMTInvalidInput(msg)
-        if self.alt_label is not None and self.alt_hlabel is not None:
-            msg = "Parameters 'alt_label' and 'alt_hlabel' cannot be both set."
-            raise GMTInvalidInput(msg)
-
     @property
     def _aliases(self):
         return [
-            Alias(self.annotation, name="annotation", prefix="a"),
-            Alias(self.tick, name="tick", prefix="f"),
-            Alias(self.grid, name="grid", prefix="g"),
-            Alias(
-                self.angle,
-                name="angle",
-                prefix="+a",
-                mapping={"normal": "n", "parallel": "p"}
-                if isinstance(self.angle, str)
-                else None,
-            ),
+            Alias(self.interval, name="interval"),
+            Alias(self.angle, name="angle", prefix="+a"),
             Alias(
                 self.skip_edge,
                 name="skip_edge",
                 prefix="+e",
-                mapping={True: True, "lower": "l", "upper": "u"},
+                mapping={True: True, "left": "l", "right": "r"},
             ),
             Alias(self.fancy, name="fancy", prefix="+f"),
             Alias(self.label, name="label", prefix="+l"),
             Alias(self.hlabel, name="hlabel", prefix="+L"),
             Alias(self.alt_label, name="alt_label", prefix="+s"),
             Alias(self.alt_hlabel, name="alt_hlabel", prefix="+S"),
-            Alias(self.prefix, name="prefix", prefix="+p"),
             Alias(self.unit, name="unit", prefix="+u"),
         ]
 
@@ -145,25 +115,17 @@ class Frame(BaseParam):
     """
 
     axes: Any = None
-    axis: Any = None
     xaxis: Any = None
     yaxis: Any = None
     zaxis: Any = None
-    xaxis_secondary: Any = None
-    yaxis_secondary: Any = None
-    zaxis_secondary: Any = None
 
     @property
     def _aliases(self):
         return [
             Alias(self.axes),
-            Alias(self.axis),
             Alias(self.xaxis, prefix="x"),
             Alias(self.yaxis, prefix="y"),
             Alias(self.zaxis, prefix="z"),
-            Alias(self.xaxis_secondary, prefix="sx"),
-            Alias(self.yaxis_secondary, prefix="sy"),
-            Alias(self.zaxis_secondary, prefix="sz"),
         ]
 
     def __iter__(self):
