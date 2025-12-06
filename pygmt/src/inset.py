@@ -35,8 +35,9 @@ def inset(
     r"""
     Manage figure inset setup and completion.
 
-    This method sets the position, frame, and margins for a smaller figure
-    inside of the larger figure. Plotting methods that are called within the
+
+    This method carves out a sub-region of the current plot canvas and restrict further
+    plotting to that section of the canvas. Plotting methods that are called within the
     context manager are added to the inset figure.
 
     Full GMT docs at :gmt-docs:`inset.html`.
@@ -52,20 +53,14 @@ def inset(
     Parameters
     ----------
     position
-        *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*]] \
-        | [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
-        **+w**\ *width*\ [/*height*][**+j**\ *justify*]\
-        [**+o**\ *dx*\ [/*dy*]].
-
         Specify the position of the inset on the map. See :class:`pygmt.params.Position`
         for details.
 
-        Alternatively, give *west/east/south/north* of geographic
-        rectangle bounded by parallels and meridians; append **+r** if the
-        coordinates instead are the lower left and upper right corners of
-        the desired rectangle. (Or, give *xmin/xmax/ymin/ymax* of bounding
-        rectangle in projected coordinates and optionally
-        append **+u**\ *unit* [Default coordinate unit is meters (**e**)].
+        Alternatively, give *west/east/south/north* of geographic rectangle bounded by
+        parallels and meridians; append **+r** if the coordinates instead are the lower
+        left and upper right corners of the desired rectangle. (Or, give
+        *xmin/xmax/ymin/ymax* of bounding rectangle in projected coordinates and
+        optionally append **+u**\ *unit* [Default coordinate unit is meters (**e**)].
 
     width
     height
@@ -113,7 +108,6 @@ def inset(
     ...         water="white",
     ...         dcw="MG+gred",
     ...     )
-    ...
     >>> # Map elements outside the "with" statement are plotted in the main figure.
     >>> fig.logo(position="jBR+o0.2c+w3c")
     >>> fig.show()
