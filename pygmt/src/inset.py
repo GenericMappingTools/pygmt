@@ -6,12 +6,11 @@ import contextlib
 from collections.abc import Sequence
 from typing import Literal
 
-from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
-from pygmt.params import Box
+from pygmt.params import Box, Position
 
 __doctest_skip__ = ["inset"]
 
@@ -22,12 +21,12 @@ __doctest_skip__ = ["inset"]
 @kwargs_to_strings(M="sequence")
 def inset(
     self,
-    position: Sequence[str | float] | AnchorCode,
+    position: Position,
     width: float | str | None = None,
     height: float | str | None = None,
+    box: Box | bool = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
-    box: Box | bool = False,
     no_clip: bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -58,21 +57,8 @@ def inset(
         **+w**\ *width*\ [/*height*][**+j**\ *justify*]\
         [**+o**\ *dx*\ [/*dy*]].
 
-        *This is the only required parameter.*
-        Define the map inset rectangle on the map. Specify the rectangle
-        in one of three ways:
-
-        Append **g**\ *lon*/*lat* for map (user) coordinates,
-        **j**\ *code* or **J**\ *code* for setting the *refpoint* via a
-        :doc:`2-character justification code </techref/justification_codes>`
-        that refers to the (invisible)
-        projected map bounding box, **n**\ *xn*/*yn* for normalized (0-1)
-        bounding box coordinates, or **x**\ *x*/*y* for plot
-        coordinates (inches, centimeters, points, append unit).
-        All but **x** requires both ``region`` and ``projection`` to be
-        specified. You can offset the reference point via
-        **+o**\ *dx*/*dy* in the direction implied by *code* or
-        **+j**\ *justify*.
+        Specify the position of the inset on the map. See :class:`pygmt.params.Position`
+        for details.
 
         Alternatively, give *west/east/south/north* of geographic
         rectangle bounded by parallels and meridians; append **+r** if the
@@ -81,16 +67,9 @@ def inset(
         rectangle in projected coordinates and optionally
         append **+u**\ *unit* [Default coordinate unit is meters (**e**)].
 
-        Append **+w**\ *width*\ [/*height*] of bounding rectangle or box
-        in plot coordinates (inches, centimeters, etc.). By default, the
-        anchor point on the scale is assumed to be the bottom left corner
-        (**BL**), but this can be changed by appending **+j** followed by a
-        :doc:`2-character justification code </techref/justification_codes>`
-        *justify*.
-        **Note**: If **j** is used then *justify* defaults to the same
-        as *refpoint*, if **J** is used then *justify* defaults to the
-        mirror opposite of *refpoint*. Specify inset box attributes via
-        the ``box`` parameter [Default is outline only].
+    width
+    height
+        Width and height of the inset. *height* is optional.
     box
         Draw a background box behind the inset. If set to ``True``, a simple rectangular
         box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,
@@ -142,11 +121,20 @@ def inset(
     self._activate_figure()
 
     if position is None or width is None:
-        msg = "Both 'position' and 'width' must be specified."
+        msg = "Parameters 'position' and 'width' must be specified."
         raise GMTInvalidInput(msg)
 
     if height is not None and width is None:
         msg = "'width' must be specified if 'height' is given."
+        raise GMTInvalidInput(msg)
+
+    # Prior PyGMT v0.17.0, 'position' can accept a raw GMT CLI string. Check for
+    # conflicts with other parameters.
+    if isinstance(position, str) and (height is not None or width is not None):
+        msg = (
+            "Parameter 'position' is given with a raw GMT command string, and conflicts "
+            "with parameters 'height', and 'width'. "
+        )
         raise GMTInvalidInput(msg)
 
     aliasdict = AliasSystem(
