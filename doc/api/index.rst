@@ -213,7 +213,6 @@ Class-style Parameters
     :template: autosummary/params.rst
 
     Box
-    Frame
     Pattern
     Position
 
