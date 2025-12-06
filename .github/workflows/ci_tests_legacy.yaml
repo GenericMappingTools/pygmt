@@ -58,7 +58,7 @@ jobs:
         with:
           environment-name: pygmt
           create-args: >-
-            python=3.11
+            python=3.12
             gmt=${{ matrix.gmt_version }}
             ghostscript
             numpy=2.0
