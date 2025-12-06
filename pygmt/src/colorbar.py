@@ -130,7 +130,7 @@ def colorbar(  # noqa: PLR0913
     log
         Select logarithmic scale and power of ten annotations. All z-values in the CPT
         will be converted to :math:`p = \log_{10}(z)` and only integer p values will be
-        annotated using the 10^p format [Default is linear scale].
+        annotated using the :math:`10^{p}` format [Default is linear scale].
     zfile : str
         File with colorbar-width per color entry. By default, the width of the
         entry is scaled to the color range, i.e., z = 0-100 gives twice the
