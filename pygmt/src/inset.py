@@ -127,7 +127,7 @@ def inset(
     ...     )
     ...
     >>> # Map elements outside the "with" statement are plotted in the main figure
-    >>> fig.logo(Position("BR", type="inside", offset=0.2), width="3c")
+    >>> fig.logo(position=Position("BR", type="inside", offset=0.2), width="3c")
     >>> fig.show()
     """
     self._activate_figure()
