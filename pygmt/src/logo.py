@@ -16,12 +16,12 @@ from pygmt.params import Box, Position
 def logo(  # noqa: PLR0913
     self,
     position: Position | None = None,
-    height: float | str | None = None,
     width: float | str | None = None,
+    height: float | str | None = None,
+    box: Box | bool = False,
+    style: Literal["standard", "url", "no_label"] = "standard",
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
-    style: Literal["standard", "url", "no_label"] = "standard",
-    box: Box | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -38,10 +38,7 @@ def logo(  # noqa: PLR0913
        :width: 300px
 
     By default, the GMT logo is 2 inches wide and 1 inch high and will be positioned
-    relative to the current plot origin. The position can be changed by specifying the
-    reference point (via ``position_type`` and ``position``) and anchor point (via
-    ``anchor`` and ``anchor_offset``). Refer to :doc:`/techref/reference_anchor_points`
-    for details about the positioning.
+    relative to the current plot origin.
 
     Full GMT docs at :gmt-docs:`gmtlogo.html`.
 
@@ -63,8 +60,8 @@ def logo(  # noqa: PLR0913
     Parameters
     ----------
     position
-        Specify the position of the GMT logo. See the :class:`pygmt.params.Position`
-        class for details.
+        Specify the position of the GMT logo. See :class:`pygmt.params.Position` for
+        details.
     width
     height
         Width or height of the GMT logo. Since the aspect ratio is fixed, only one of
