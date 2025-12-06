@@ -18,11 +18,9 @@ __doctest_skip__ = ["grdview"]
 @use_alias(
     C="cmap",
     G="drapegrid",
-    N="plane",
     Q="surftype",
     Wc="contourpen",
     Wm="meshpen",
-    Wf="facadepen",
     I="shading",
     f="coltypes",
     n="interpolation",
@@ -30,6 +28,9 @@ __doctest_skip__ = ["grdview"]
 def grdview(  # noqa: PLR0913
     self,
     grid: PathLike | xr.DataArray,
+    plane: float | bool = False,
+    facadefill: str | None = None,
+    facadepen: str | None = None,
     projection: str | None = None,
     zscale: float | str | None = None,
     zsize: float | str | None = None,
@@ -58,8 +59,10 @@ def grdview(  # noqa: PLR0913
        - J = projection
        - Jz = zscale
        - JZ = zsize
+       - N = plane, facadefill
        - R = region
        - V = verbose
+       - Wf = facadepen
        - c = panel
        - p = perspective
        - t = transparency
@@ -84,11 +87,16 @@ def grdview(  # noqa: PLR0913
         Note that ``zscale`` and ``plane`` always refer to ``grid``. ``drapegrid`` only
         provides the information pertaining to colors, which (if ``drapegrid`` is a
         grid) will be looked-up via the CPT (see ``cmap``).
-    plane : float or str
-        *level*\ [**+g**\ *fill*].
-        Draw a plane at this z-level. If the optional color is provided via the **+g**
-        modifier, and the projection is not oblique, the frontal facade between the
-        plane and the data perimeter is colored.
+    plane
+        Draw a plane at the specified z-level. If ``True``, default to the minimum value
+        in the grid. However, if ``region`` was used to set zmin/zmax then that value is
+        used if it is less than the grid minimum value. Use ``facadepen`` and
+        ``facadefill`` to control the appearance of the plane.
+    facadefill
+        Fill for the frontal facade between the plane specified by ``plane`` and the
+        data perimeter.
+    facadepen
+        Set the pen attributes used for the facade.
     surftype : str
         Specify cover type of the grid. Select one of following settings:
 
@@ -107,9 +115,6 @@ def grdview(  # noqa: PLR0913
     meshpen : str
         Set the pen attributes used for the mesh. You must also select ``surftype`` of
         **m** or **sm** for meshlines to be drawn.
-    facadepen :str
-        Set the pen attributes used for the facade. You must also select ``plane`` for
-        the facade outline to be drawn.
     shading : str
         Provide the name of a grid file with intensities in the (-1,+1) range, or a
         constant intensity to apply everywhere (affects the ambient light).
@@ -159,9 +164,18 @@ def grdview(  # noqa: PLR0913
     """
     self._activate_figure()
 
+    # Enable 'plane' if 'facadefill' or 'facadepen' is set
+    if plane is False and (facadefill is not None or facadepen is not None):
+        plane = True
+
     aliasdict = AliasSystem(
         Jz=Alias(zscale, name="zscale"),
         JZ=Alias(zsize, name="zsize"),
+        N=[
+            Alias(plane, name="plane"),
+            Alias(facadefill, name="facadefill", prefix="+g"),
+        ],
+        Wf=Alias(facadepen, name="facadepen"),
     ).add_common(
         B=frame,
         J=projection,
