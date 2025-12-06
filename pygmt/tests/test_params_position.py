@@ -27,11 +27,10 @@ def test_params_position_anchor_offset():
     Test the Position class with anchor and offset parameters.
     """
     assert str(Position((10, 20), type="mapcoords", anchor="TL")) == "g10/20+jTL"
-
     assert str(Position((10, 20), type="mapcoords", offset=(1, 2))) == "g10/20+o1/2"
-
     pos = Position("TL", type="inside", anchor="MC", offset=("1c", "2c"))
     assert str(pos) == "jTL+jMC+o1c/2c"
+    assert str(Position("TL", anchor="BR", offset=0.5)) == "jTL+jBR+o0.5"
 
 
 def test_params_position_invalid_location():
@@ -41,6 +40,8 @@ def test_params_position_invalid_location():
     with pytest.raises(GMTValueError):
         Position("invalid", type="mapcoords")
     with pytest.raises(GMTValueError):
+        Position((1, 2, 3), type="mapcoords")
+    with pytest.raises(GMTValueError):
         Position(5, type="plotcoords")
     with pytest.raises(GMTValueError):
         Position((0.5,), type="boxcoords")
@@ -48,3 +49,11 @@ def test_params_position_invalid_location():
         Position((10, 20), type="inside")
     with pytest.raises(GMTValueError):
         Position("TT", type="outside")
+
+
+def test_params_position_invalid_anchor():
+    """
+    Test that invalid anchor inputs raise GMTValueError.
+    """
+    with pytest.raises(GMTValueError):
+        Position((10, 20), type="mapcoords", anchor="XX")

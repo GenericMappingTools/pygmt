@@ -9,6 +9,7 @@ from typing import Literal
 from pygmt._typing import AnchorCode
 from pygmt.alias import Alias
 from pygmt.exceptions import GMTValueError
+from pygmt.helpers import is_nonstr_iter
 from pygmt.params.base import BaseParam
 
 
@@ -21,7 +22,8 @@ class Position(BaseParam):
        :width: 600 px
        :align: center
 
-       Positioning of GMT embellishment.
+       The placement of a GMT embellishment (represented by a green rectangle) in
+       relation to the underlying plot (represented by a bisque rectangle).
 
     This class provides flexible positioning for GMT embellishments (e.g., logo, scale,
     rose) by defining a *reference point* on the plot and an *anchor point* on the
@@ -36,73 +38,72 @@ class Position(BaseParam):
        *reference point*
     3. The embellishment is "dropped" at that position
 
-    **Reference Point Types**
+    **Reference Point**
 
-    The reference point can be specified in five different ways using the ``type`` and
+    The *reference point* can be specified in five different ways using the ``type`` and
     ``location`` attributes:
 
-    **type="mapcoords"** (Map Coordinates)
-        Use data/geographic coordinates. Set ``location`` as (*longitude*, *latitude*).
-        Useful when tying the embellishment to a specific geographic location.
+    ``type="mapcoords"`` Map Coordinates
+        Use data/geographic coordinates. Specify ``location`` as
+        (*longitude*, *latitude*). Useful when tying the embellishment to a specific
+        geographic location.
 
-        Example: ``location=(135, 20), type="mapcoords"``.
+        **Example:** ``location=(135, 20), type="mapcoords"``.
 
-    **type="plotcoords"** (Plot Coordinates)
+    ``type="plotcoords"`` Plot Coordinates
         Use plot coordinates as distances from the lower-left plot origin. Specify
         ``location`` as (*x*, *y*) with units (e.g., inches, centimeters, points).
         Useful for precise layout control.
 
-        Example: ``location=("2c", "2.5c"), type="plotcoords"``
+        **Example:** ``location=("2c", "2.5c"), type="plotcoords"``
 
-    **type="boxcoords"** (Normalized Coordinates)
+    ``type="boxcoords"`` Normalized Coordinates
         Use normalized coordinates where (0, 0) is the lower-left corner and (1, 1) is
-        the upper-right corner. Set ``location`` as (*nx*, *ny*) with values between
-        0 and 1. Useful for positioning relative to plot dimensions without units.
+        the upper-right corner of the bounding box of the current plot. Specify
+        ``location`` as (*nx*, *ny*). Useful for positioning relative to plot dimensions
+        without units.
 
-        Example: ``location=(0.2, 0.1), type="boxcoords"``
+        **Example:** ``location=(0.2, 0.1), type="boxcoords"``
 
-    **type="inside"** (Inside Plot)
-        Use a :doc:`justification code </techref/justification_codes>` (e.g., ``"TL"``)
-        to place the embellishment inside the plot. Set ``location`` to one of the nine
-        2-character codes.
+    ``type="inside"`` Inside Plot
+        Select one of the nine :doc:`justification codes </techref/justification_codes>`
+        as the *reference point*. The *anchor point* defaults to be the same as the
+        *reference point*, so the embellishment is placed inside the plot.
 
-        Example: ``location="TL", type="inside"``
+        **Example:** ``location="TL", type="inside"`` [anchor point defaults to "TL"]
 
-    **type="outside"** (Outside Plot)
-        Similar to ``type="inside"``, but the anchor point defaults to the mirror
-        opposite of the justification code. Useful for placing embellishments outside
+    ``type="outside"`` Outside Plot
+        Similar to ``type="inside"``, but the *anchor point* defaults to the mirror
+        opposite of the *reference point*. Useful for placing embellishments outside
         the plot boundaries (e.g., color bars).
 
-        Example: ``location="TL", type="outside"``
+        **Example:** ``location="TL", type="outside"`` [anchor point defaults to "BR"]
 
     **Anchor Point**
 
-    The anchor point determines which part of the embellishment aligns with the
-    reference point. It uses one of nine
+    The *anchor point* determines which part of the embellishment aligns with the
+    *reference point*. It uses one of nine
     :doc:`justification codes </techref/justification_codes>`.
 
     Set ``anchor`` explicitly to override these defaults. If not set, the default
-    anchor behaviors are:
+    *anchor* behaviors are:
 
-    - For ``type="inside"``: Same as the reference point justification
-    - For ``type="outside"``: Mirror opposite of the reference point justification
-    - For other types: ``"MC"`` (middle center) for map rose and scale, ``"BL"``
+    - ``type="inside"``: Same as the *reference point* justification code
+    - ``type="outside"``: Mirror opposite of the *reference point* justification code
+    - Other types: ``"MC"`` (middle center) for map rose and scale, ``"BL"``
       (bottom-left) for other embellishments
-
-    Example: ``anchor="TR"`` selects the top-right point of the embellishment.
 
     **Offset**
 
-    The ``offset`` parameter shifts the anchor point from its default position. Offsets
-    are applied to the projected plot coordinates, with positive values moving in the
-    direction indicated by the anchor point's justification code.
-
-    Specify as a single value (applied to both x and y) or as (*offset_x*, *offset_y*).
+    The ``offset`` parameter shifts the *anchor point* from its default position.
+    Offsets are applied to the projected plot coordinates, with positive values moving
+    in the direction indicated by the *anchor point*'s justification code. It should be
+    a single value (applied to both x and y) or as (*offset_x*, *offset_y*).
 
     Examples
     --------
-    Position a logo at map coordinates (3, 3) with the logo's middle-left point as the
-    anchor, offset by (0.2, 0.2):
+    Position the GMT logo at map coordinates (3, 3) with the logo's middle-left point as
+    the anchor, offset by (0.2, 0.2):
 
     >>> import pygmt
     >>> from pygmt.params import Position
@@ -114,7 +115,7 @@ class Position(BaseParam):
     ... )
     >>> fig.show()
 
-    Position an embellishment at the top-left corner inside the plot:
+    Position the GMT logo at the top-left corner inside the plot:
 
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
@@ -125,12 +126,13 @@ class Position(BaseParam):
     #: Location of the reference point on the plot. The format depends on ``type``:
     #:
     #: - ``type="mapcoords"``: (*longitude*, *latitude*)
-    #: - ``type="plotcoords"``: (*x*, *y*) with units (e.g., ``"2c"``)
-    #: - ``type="boxcoords"``: (*nx*, *ny*) with values between 0 and 1
-    #: - ``type="inside"`` or ``"outside"``: 2-character justification code
+    #: - ``type="plotcoords"``: (*x*, *y*) with plot units
+    #: - ``type="boxcoords"``: (*nx*, *ny*)
+    #: - ``type="inside"`` or ``"outside"``:
+    #:   :doc:`2-character justification codes </techref/justification_codes>`
     location: Sequence[float | str] | AnchorCode
 
-    #: Coordinate system for the reference point. Valid values are:
+    #: Type of the reference point. Valid values are:
     #:
     #: - ``"mapcoords"``: Map/Data coordinates
     #: - ``"plotcoords"``: Plot coordinates
@@ -144,13 +146,13 @@ class Position(BaseParam):
     ) = None
 
     #: Anchor point on the embellishment using a
-    #: :doc:`2-character justification codes </techref/justification_codes>`.
+    #: :doc:`2-character justification code </techref/justification_codes>`.
     #: If ``None``, defaults are applied based on ``type`` (see above).
     anchor: AnchorCode | None = None
 
     #: Offset for the anchor point as a single value or (*offset_x*, *offset_y*).
     #: If a single value is given, the offset is applied to both x and y directions.
-    offset: Sequence[float | str] | None = None
+    offset: float | str | Sequence[float | str] | None = None
 
     def _validate(self):
         """
@@ -167,7 +169,7 @@ class Position(BaseParam):
         # Validate the location based on type.
         match self.type:
             case "mapcoords" | "plotcoords" | "boxcoords":
-                if not isinstance(self.location, Sequence) or len(self.location) != 2:
+                if not is_nonstr_iter(self.location) or len(self.location) != 2:
                     raise GMTValueError(
                         self.location,
                         description="reference point",
@@ -180,6 +182,13 @@ class Position(BaseParam):
                         description="reference point",
                         reason="Expect a valid 2-character justification code.",
                     )
+        # Validate the anchor if specified.
+        if self.anchor is not None and self.anchor not in _valid_anchors:
+            raise GMTValueError(
+                self.anchor,
+                description="anchor point",
+                reason="Expect a valid 2-character justification code.",
+            )
 
     @property
     def _aliases(self):
