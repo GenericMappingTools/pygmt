@@ -69,14 +69,16 @@ class Position(BaseParam):
         as the *reference point*. The *anchor point* defaults to be the same as the
         *reference point*, so the embellishment is placed inside the plot.
 
-        **Example:** ``refpoint="TL", type="inside"`` [anchor point defaults to "TL"]
+        **Example:** ``refpoint="TL", type="inside"`` [anchor point defaults to
+        ``"TL"``]
 
     ``type="outside"`` Outside Plot
         Similar to ``type="inside"``, but the *anchor point* defaults to the mirror
         opposite of the *reference point*. Useful for placing embellishments outside
         the plot boundaries (e.g., color bars).
 
-        **Example:** ``refpoint="TL", type="outside"`` [anchor point defaults to "BR"]
+        **Example:** ``refpoint="TL", type="outside"`` [anchor point defaults to
+        ``"BR"``]
 
     **Anchor Point**
 
