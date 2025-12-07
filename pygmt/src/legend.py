@@ -48,7 +48,7 @@ def legend(  # noqa: PLR0913
     .. hlist::
        :columns: 3
 
-       - D = position, **+w**: width/height, **+l**: spacing
+       - D = position, **+w**: width/height, **+l**: line_spacing
        - F = box
        - J = projection
        - R = region
