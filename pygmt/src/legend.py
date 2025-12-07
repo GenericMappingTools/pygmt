@@ -105,7 +105,7 @@ def legend(  # noqa: PLR0913
     # Set default position if not specified.
     if kwargs.get("D", position) is None:
         position = Position("TR", anchor="TR", offset=0.2)
-        if kwargs.get("F", box) is None:
+        if kwargs.get("F", box) is False:
             box = Box(pen="1p", fill="white")  # Default box
 
     # Set default width to 0 if height is given but width is not.
