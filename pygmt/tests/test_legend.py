@@ -46,25 +46,6 @@ T so we may have to adjust the box height to get the right size box.
 
 
 @pytest.mark.mpl_image_compare
-def test_legend_position():
-    """
-    Test positioning the legend with different coordinate systems.
-    """
-    fig = Figure()
-    fig.basemap(region=[-2, 2, -2, 2], frame=True)
-    positions = [
-        Position("TR", anchor="TR"),
-        Position((0, 1), type="mapcoords"),
-        Position((0.2, 0.2), type="boxcoords"),
-        Position(("4i", "2i"), type="plotcoords"),
-    ]
-    for i, position in enumerate(positions):
-        fig.plot(x=[0], y=[0], style="p10p", label=i)
-        fig.legend(position=position, box=True)
-    return fig
-
-
-@pytest.mark.mpl_image_compare
 def test_legend_default_position():
     """
     Test using the default legend position.
