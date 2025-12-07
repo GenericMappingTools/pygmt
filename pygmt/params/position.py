@@ -41,43 +41,42 @@ class Position(BaseParam):
     **Reference Point**
 
     The *reference point* can be specified in five different ways using the ``type`` and
-    ``location`` attributes:
+    ``refpoint`` attributes:
 
     ``type="mapcoords"`` Map Coordinates
-        Use data/geographic coordinates. Specify ``location`` as
+        Use data/geographic coordinates. Specify ``refpoint`` as
         (*longitude*, *latitude*). Useful when tying the embellishment to a specific
         geographic location.
 
-        **Example:** ``location=(135, 20), type="mapcoords"``.
-
+        **Example:** ``refpoint=(135, 20), type="mapcoords"``.
     ``type="plotcoords"`` Plot Coordinates
         Use plot coordinates as distances from the lower-left plot origin. Specify
-        ``location`` as (*x*, *y*) with units (e.g., inches, centimeters, points).
+        ``refpoint`` as (*x*, *y*) with units (e.g., inches, centimeters, points).
         Useful for precise layout control.
 
-        **Example:** ``location=("2c", "2.5c"), type="plotcoords"``
+        **Example:** ``refpoint=("2c", "2.5c"), type="plotcoords"``
 
     ``type="boxcoords"`` Normalized Coordinates
         Use normalized coordinates where (0, 0) is the lower-left corner and (1, 1) is
         the upper-right corner of the bounding box of the current plot. Specify
-        ``location`` as (*nx*, *ny*). Useful for positioning relative to plot dimensions
+        ``refpoint`` as (*nx*, *ny*). Useful for positioning relative to plot dimensions
         without units.
 
-        **Example:** ``location=(0.2, 0.1), type="boxcoords"``
+        **Example:** ``refpoint=(0.2, 0.1), type="boxcoords"``
 
     ``type="inside"`` Inside Plot
         Select one of the nine :doc:`justification codes </techref/justification_codes>`
         as the *reference point*. The *anchor point* defaults to be the same as the
         *reference point*, so the embellishment is placed inside the plot.
 
-        **Example:** ``location="TL", type="inside"`` [anchor point defaults to "TL"]
+        **Example:** ``refpoint="TL", type="inside"`` [anchor point defaults to "TL"]
 
     ``type="outside"`` Outside Plot
         Similar to ``type="inside"``, but the *anchor point* defaults to the mirror
         opposite of the *reference point*. Useful for placing embellishments outside
         the plot boundaries (e.g., color bars).
 
-        **Example:** ``location="TL", type="outside"`` [anchor point defaults to "BR"]
+        **Example:** ``refpoint="TL", type="outside"`` [anchor point defaults to "BR"]
 
     **Anchor Point**
 
@@ -130,7 +129,7 @@ class Position(BaseParam):
     #: - ``type="boxcoords"``: (*nx*, *ny*)
     #: - ``type="inside"`` or ``"outside"``:
     #:   :doc:`2-character justification codes </techref/justification_codes>`
-    location: Sequence[float | str] | AnchorCode
+    refpoint: Sequence[float | str] | AnchorCode
 
     #: Type of the reference point. Valid values are:
     #:
@@ -139,7 +138,7 @@ class Position(BaseParam):
     #: - ``"boxcoords"``: Normalized coordinates
     #: - ``"inside"`` or ``"outside"``: Justification codes
     #:
-    #: If not specified, defaults to ``"inside"`` if ``location`` is a justification
+    #: If not specified, defaults to ``"inside"`` if ``refpoint`` is a justification
     #: code; otherwise defaults to ``"plotcoords"``.
     type: (
         Literal["mapcoords", "inside", "outside", "boxcoords", "plotcoords"] | None
@@ -164,21 +163,21 @@ class Position(BaseParam):
 
         # Default to "inside" if type is not specified and location is an anchor code.
         if self.type is None:
-            self.type = "inside" if isinstance(self.location, str) else "plotcoords"
+            self.type = "inside" if isinstance(self.refpoint, str) else "plotcoords"
 
         # Validate the location based on type.
         match self.type:
             case "mapcoords" | "plotcoords" | "boxcoords":
-                if not is_nonstr_iter(self.location) or len(self.location) != 2:
+                if not is_nonstr_iter(self.refpoint) or len(self.refpoint) != 2:
                     raise GMTValueError(
-                        self.location,
+                        self.refpoint,
                         description="reference point",
                         reason="Expect a sequence of two values.",
                     )
             case "inside" | "outside":
-                if self.location not in _valid_anchors:
+                if self.refpoint not in _valid_anchors:
                     raise GMTValueError(
-                        self.location,
+                        self.refpoint,
                         description="reference point",
                         reason="Expect a valid 2-character justification code.",
                     )
@@ -204,7 +203,7 @@ class Position(BaseParam):
                     "outside": "J",
                 },
             ),
-            Alias(self.location, name="location", sep="/", size=2),
+            Alias(self.refpoint, name="refpoint", sep="/", size=2),
             Alias(self.anchor, name="anchor", prefix="+j"),
             Alias(self.offset, name="offset", prefix="+o", sep="/", size=2),
         ]
