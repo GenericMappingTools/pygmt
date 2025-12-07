@@ -75,15 +75,16 @@ def legend(  # noqa: PLR0913
     width
     height
         Specify the width and height of the legend box in plot coordinates (inches, cm,
-        etc.). If unit is ``%`` (percentage) then width as computed as that fraction of
-        the plot width. If height is given as percentage then then height is recomputed
-        as that fraction of the legend width (not plot height).
+        etc.). If not given, the width and height are computed automatically based on
+        the contents of the legend specification.
 
-        **Note:** If ``width`` is not given, the width defaults to be computed within
-        the Postscript code. Currently, this is only possible if just legend codes
-        **D**, **H**, **L**, **S**, or **V** are used and that the number of symbol
-        columns (**N**) is 1. If ``height`` is zero or not given then we estimate height
-        based the expected vertical extent of the items to be placed.
+        If unit is ``%`` (percentage) then width is computed as that fraction of the
+        plot width. If height is given as percentage then then height is recomputed as
+        that fraction of the legend width (not plot height).
+
+        **Note:** Currently, the automatic height calculation only works when legend
+        codes **D**, **H**, **L**, **S**, or **V** are used and that the number of
+        symbol columns (**N**) is 1.
     spacing
         Specify the line-spacing factor in units of the current font size [Default is
         1.1].
@@ -106,6 +107,10 @@ def legend(  # noqa: PLR0913
         position = Position("TR", anchor="TR", offset=0.2)
         if kwargs.get("F", box) is None:
             box = Box(pen="1p", fill="white")  # Default box
+
+    # Set default width to 0 if height is given but width is not.
+    if height is not None and width is None:
+        width = 0
 
     kind = data_kind(spec)
     if kind not in {"empty", "file", "stringio"}:
