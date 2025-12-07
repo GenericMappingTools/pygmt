@@ -64,7 +64,7 @@ fig.plot(x=x, y=y2, pen="1p,red")
 # Plot points for y2-data
 fig.plot(x=x, y=y2, style="s0.28c", fill="red", label="y2")
 
-# Create a legend in the Top Left (TL) corner of the plot with an 0.1-cm offset.
+# Create a legend in the Top Left (TL) corner of the plot with a 0.1-cm offset.
 fig.legend(position=Position("TL", offset=0.1), box=True)
 
 fig.show()

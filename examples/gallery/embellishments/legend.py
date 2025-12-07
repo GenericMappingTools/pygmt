@@ -41,7 +41,7 @@ fig.basemap(
 fig.plot(x=x, y=y1, pen="1p,green3", label="sin(x)+1.1")
 fig.plot(x=x, y=y2, style="c0.07c", fill="dodgerblue", label="cos(x)+1.1")
 
-# Add a legend to the plot at the Top Right (TR) corner with an 0.2-cm offset in x- and
+# Add a legend to the plot at the Top Right (TR) corner with a 0.2-cm offset in x- and
 # y-directions; surround the legend with a box.
 fig.legend(position=Position("TR", offset=0.2), box=True)
 
@@ -53,8 +53,8 @@ fig.plot(x=x, y=y3, pen="1p,darkred,-", label="sin(x/2)-1.1+N2")
 
 fig.plot(x=x, y=y4, style="s0.07c", fill="orange", label="cos(x/2)-1.1")
 
-# For a multi-column legend, users have to provide the ``width``, here it is set to 6
-# centimeters; the legend is placed at the Bottom Right (BR) corner.
+# For a multi-column legend, users have to provide the width, here it is set to 6 cm;
+# the legend is placed at the Bottom Right (BR) corner.
 fig.legend(position=Position("BR", offset=0.2), width="6c", box=True)
 
 fig.show()
