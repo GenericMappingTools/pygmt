@@ -25,6 +25,7 @@ Plotting map elements
     :toctree: generated
 
     Figure.basemap
+    Figure.clip
     Figure.coast
     Figure.colorbar
     Figure.hlines
@@ -238,6 +239,7 @@ Miscellaneous
 
     which
     show_versions
+    src.ClipAccessor
 
 Datasets
 --------
