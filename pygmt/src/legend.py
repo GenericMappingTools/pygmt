@@ -69,8 +69,8 @@ def legend(  # noqa: PLR0913
 
         See :gmt-docs:`legend.html` for the definition of the legend specification.
     position
-        Specify the position of the legend on the plot. By default, the anchor point on
-        the legend is assumed to be the bottom left corner (``"BL"``). See
+        Specify the position of the legend on the plot. If not specified, defaults to
+        the top right corner inside the plot with a 0.2-cm offset. See
         :class:`pygmt.enums.Position` for details.
     width
     height
@@ -79,15 +79,15 @@ def legend(  # noqa: PLR0913
         the contents of the legend specification.
 
         If unit is ``%`` (percentage) then width is computed as that fraction of the
-        plot width. If height is given as percentage then then height is recomputed as
-        that fraction of the legend width (not plot height).
+        plot width. If height is given as percentage then height is recomputed as that
+        fraction of the legend width (not plot height).
 
         **Note:** Currently, the automatic height calculation only works when legend
         codes **D**, **H**, **L**, **S**, or **V** are used and that the number of
         symbol columns (**N**) is 1.
     line_spacing
-        Specify the line-spacing factor in units of the current font size [Default is
-        1.1].
+        Specify the line-spacing factor between legend entries in units of the current
+        font size [Default is 1.1].
     box
         Draw a background box behind the legend. If set to ``True``, a simple
         rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
