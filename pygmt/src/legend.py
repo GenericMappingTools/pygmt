@@ -21,7 +21,7 @@ def legend(  # noqa: PLR0913
     position: Position | None = None,
     width: float | str | None = None,
     height: float | str | None = None,
-    spacing: float | None = None,
+    line_spacing: float | None = None,
     box: Box | bool = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
@@ -32,7 +32,7 @@ def legend(  # noqa: PLR0913
     perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
-    r"""
+    """
     Plot a legend.
 
     Makes legends that can be overlaid on plots. It reads specific legend-related
@@ -85,7 +85,7 @@ def legend(  # noqa: PLR0913
         **Note:** Currently, the automatic height calculation only works when legend
         codes **D**, **H**, **L**, **S**, or **V** are used and that the number of
         symbol columns (**N**) is 1.
-    spacing
+    line_spacing
         Specify the line-spacing factor in units of the current font size [Default is
         1.1].
     box
@@ -125,7 +125,7 @@ def legend(  # noqa: PLR0913
             Alias(position, name="position"),
             Alias(width, name="width", prefix="+w"),  # +wwidth/height
             Alias(height, name="height", prefix="/"),
-            Alias(spacing, name="spacing", prefix="+l"),
+            Alias(line_spacing, name="line_spacing", prefix="+l"),
         ],
         F=Alias(box, name="box"),
     ).add_common(
