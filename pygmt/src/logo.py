@@ -88,7 +88,7 @@ def logo(  # noqa: PLR0913
 
     # Prior PyGMT v0.17.0, 'position' can accept a raw GMT CLI string. Check for
     # conflicts with other parameters.
-    if isinstance(position, str) and (height is not None or width is not None):
+    if isinstance(position, str) and any(v is not None for v in (height, width)):
         msg = (
             "Parameter 'position' is given with a raw GMT command string, and conflicts "
             "with parameters 'height', and 'width'. "
