@@ -6,7 +6,7 @@ import io
 from collections.abc import Sequence
 from typing import Literal
 
-from pygmt._typing import AnchorCode, PathLike
+from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTTypeError
@@ -21,7 +21,6 @@ def legend(  # noqa: PLR0913
     position: Position | None = None,
     width: float | str | None = None,
     height: float | str | None = None,
-    justify: AnchorCode | None = None,
     spacing: float | None = None,
     box: Box | bool = False,
     projection: str | None = None,
@@ -36,16 +35,20 @@ def legend(  # noqa: PLR0913
     r"""
     Plot a legend.
 
-    Makes legends that can be overlaid on maps. Reads specific
-    legend-related information from an input file, or automatically creates
-    legend entries from plotted symbols that have labels. Unless otherwise
-    noted, annotations will be made using the primary annotation font and
-    size in effect (i.e., :gmt-term:`FONT_ANNOT_PRIMARY`).
+    Makes legends that can be overlaid on plots. It reads specific legend-related
+    information from an input file, a :class:`io.StringIO` object, or automatically
+    creates legend entries from plotted symbols that have labels. Unless otherwise
+    noted, annotations will be made using the primary annotation font and size in effect
+    (i.e., :gmt-term:`FONT_ANNOT_PRIMARY`).
 
     Full GMT docs at :gmt-docs:`legend.html`.
 
-    $aliases
-       - D = position, **+w**: width/height, **+j**: justify, **+l**: spacing
+    **Aliases:**
+
+    .. hlist::
+       :columns: 3
+
+       - D = position, **+w**: width/height, **+l**: spacing
        - F = box
        - J = projection
        - R = region
@@ -66,15 +69,24 @@ def legend(  # noqa: PLR0913
 
         See :gmt-docs:`legend.html` for the definition of the legend specification.
     position
-        Specify the position of the legend on the map. See :class:`pygmt.enums.Position`
-        for details.
+        Specify the position of the legend on the plot. By default, the anchor point on
+        the legend is assumed to be the bottom left corner (``"BL"``). See
+        :class:`pygmt.enums.Position` for details.
     width
     height
-        Specify the width and height of the legend box.
-    justify
-        Specify the justification of the legend box contents.
+        Specify the width and height of the legend box in plot coordinates (inches, cm,
+        etc.). If unit is ``%`` (percentage) then width as computed as that fraction of
+        the plot width. If height is given as percentage then then height is recomputed
+        as that fraction of the legend width (not plot height).
+
+        **Note:** If ``width`` is not given, the width defaults to be computed within
+        the Postscript code. Currently, this is only possible if just legend codes
+        **D**, **H**, **L**, **S**, or **V** are used and that the number of symbol
+        columns (**N**) is 1. If ``height`` is zero or not given then we estimate height
+        based the expected vertical extent of the items to be placed.
     spacing
-        Specify the spacing between legend entries.
+        Specify the line-spacing factor in units of the current font size [Default is
+        1.1].
     box
         Draw a background box behind the legend. If set to ``True``, a simple
         rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
@@ -89,10 +101,10 @@ def legend(  # noqa: PLR0913
     """
     self._activate_figure()
 
-    # Default position and box when not specified.
-    if kwargs.get("D") is None:
-        kwargs["D"] = position
-        if box is False and kwargs.get("F") is None:
+    # Set default position if not specified.
+    if kwargs.get("D", position) is None:
+        position = Position("TR", anchor="TR", offset=0.2)
+        if kwargs.get("F", box) is None:
             box = Box(pen="1p", fill="white")  # Default box
 
     kind = data_kind(spec)
@@ -105,10 +117,9 @@ def legend(  # noqa: PLR0913
 
     aliasdict = AliasSystem(
         D=[
-            Alias(position, name="position", sep="/", size=2),
+            Alias(position, name="position"),
             Alias(width, name="width", prefix="+w"),  # +wwidth/height
             Alias(height, name="height", prefix="/"),
-            Alias(justify, name="justify", prefix="+j"),
             Alias(spacing, name="spacing", prefix="+l"),
         ],
         F=Alias(box, name="box"),

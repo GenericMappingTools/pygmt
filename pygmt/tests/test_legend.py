@@ -9,6 +9,7 @@ import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTTypeError
 from pygmt.helpers import GMTTempFile
+from pygmt.params import Position
 
 
 @pytest.fixture(scope="module", name="legend_spec")
@@ -51,7 +52,12 @@ def test_legend_position():
     """
     fig = Figure()
     fig.basemap(region=[-2, 2, -2, 2], frame=True)
-    positions = ["jTR+jTR", "g0/1", "n0.2/0.2", "x4i/2i/2i"]
+    positions = [
+        Position("TR", anchor="TR"),
+        Position((0, 1), type="mapcoords"),
+        Position((0.2, 0.2), type="boxcoords"),
+        Position(("4i", "2i"), type="plotcoords"),
+    ]
     for i, position in enumerate(positions):
         fig.plot(x=[0], y=[0], style="p10p", label=i)
         fig.legend(position=position, box=True)
@@ -87,7 +93,7 @@ def test_legend_entries():
     )
     fig.plot(data="@Table_5_11.txt", pen="1.5p,gray", label="My lines")
     fig.plot(data="@Table_5_11.txt", style="t0.15i", fill="orange", label="Oranges")
-    fig.legend(position="JTR+jTR")
+    fig.legend(position=Position("TR", type="outside", anchor="TR"))
     return fig
 
 
@@ -100,7 +106,11 @@ def test_legend_specfile(legend_spec):
         Path(specfile.name).write_text(legend_spec, encoding="utf-8")
         fig = Figure()
         fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
-        fig.legend(specfile.name, position="JTM+jCM+w5i")
+        fig.legend(
+            specfile.name,
+            position=Position("MC", type="outside", anchor="CM"),
+            width="5i",
+        )
         return fig
 
 
@@ -112,7 +122,7 @@ def test_legend_stringio(legend_spec):
     spec = io.StringIO(legend_spec)
     fig = Figure()
     fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
-    fig.legend(spec, position="JTM+jCM+w5i")
+    fig.legend(spec, position=Position("MC", type="outside", anchor="CM"), width="5i")
     return fig
 
 
