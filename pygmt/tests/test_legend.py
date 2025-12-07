@@ -158,3 +158,30 @@ def test_legend_fails():
 
     with pytest.raises(GMTTypeError):
         fig.legend(spec=[1, 2])
+
+
+@pytest.mark.mpl_image_compare(filename="test_legend_specfile.png")
+def test_legend_position_deprecated_syntax(legend_spec):
+    """
+    Test using a deprecated syntax for legend position.
+    """
+    spec = io.StringIO(legend_spec)
+    fig = Figure()
+    fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
+    fig.legend(spec, position="JMC+jCM+w5i")
+    return fig
+
+
+def test_legend_position_mixed_syntax(legend_spec):
+    """
+    Test using a mixed syntax for legend position.
+    """
+    spec = io.StringIO(legend_spec)
+    fig = Figure()
+    fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
+    with pytest.raises(GMTTypeError):
+        fig.legend(spec, position="JMC", width="5i")
+    with pytest.raises(GMTTypeError):
+        fig.legend(spec, position="JMC", height="5i")
+    with pytest.raises(GMTTypeError):
+        fig.legend(spec, position="JMC", line_spacing=2.0)

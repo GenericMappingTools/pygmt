@@ -9,7 +9,7 @@ from typing import Literal
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTTypeError
+from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import build_arg_list, data_kind, fmt_docstring, is_nonstr_iter
 from pygmt.params import Box, Position
 
@@ -101,6 +101,17 @@ def legend(  # noqa: PLR0913
     $transparency
     """
     self._activate_figure()
+
+    # Prior PyGMT v0.17.0, 'position' can accept a raw GMT CLI string. Check for
+    # conflicts with other parameters.
+    if isinstance(position, str) and any(
+        v is not None for v in (width, height, line_spacing)
+    ):
+        msg = (
+            "Parameter 'position' is given with a raw GMT command string, and conflicts "
+            "with parameters 'width', 'height', and 'line_spacing'. "
+        )
+        raise GMTInvalidInput(msg)
 
     # Set default position if not specified.
     if kwargs.get("D", position) is None:
