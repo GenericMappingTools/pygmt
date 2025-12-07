@@ -126,6 +126,47 @@ def test_legend_stringio(legend_spec):
     return fig
 
 
+@pytest.mark.mpl_image_compare
+def test_legend_width_height():
+    """
+    Test legend with specified width and height.
+    """
+    spec = io.StringIO(
+        """
+S 0.1i c 0.15i p300/12 0.25p 0.3i This circle is hachured
+S 0.1i e 0.15i yellow 0.25p 0.3i This ellipse is yellow
+S 0.1i w 0.15i green 0.25p 0.3i This wedge is green
+S 0.1i f0.1i+l+t 0.25i blue 0.25p 0.3i This is a fault
+S 0.1i - 0.15i - 0.25p,- 0.3i A dashed contour
+S 0.1i v0.1i+a40+e 0.25i magenta 0.25p 0.3i This is a vector
+S 0.1i i 0.15i cyan 0.25p 0.3i This triangle is boring
+"""
+    )
+    fig = Figure()
+    fig.basemap(projection="x1c", region=[0, 20, 0, 20], frame="g1")
+    # Default width and height
+    fig.legend(spec, position=Position("TL"), box=True)
+
+    # Width only
+    fig.legend(spec, position=Position("TC"), width="6c", box=True)
+    # Width as percentage of plot width
+    fig.legend(spec, position=Position("TR"), width="25%", box=True)
+
+    # Height only, with automatic width
+    fig.legend(spec, position=Position("ML"), height="4.5c", box=True)
+    # Height as percentage of legend width
+    fig.legend(spec, position=Position("BL"), height="75%", box=True)
+
+    # Both width and height
+    fig.legend(spec, position=Position("MC"), width="6c", height="4.5c", box=True)
+    # Height as percentage of legend width
+    fig.legend(spec, position=Position("BC"), width="6c", height="75%", box=True)
+    # Width as percentage of plot width and height as percentage of legend width
+    fig.legend(spec, position=Position("BR"), width="25%", height="75%", box=True)
+
+    return fig
+
+
 def test_legend_fails():
     """
     Test legend fails with invalid spec.
