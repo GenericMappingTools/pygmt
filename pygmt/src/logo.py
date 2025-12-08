@@ -29,7 +29,7 @@ def logo(  # noqa: PLR0913
     perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
-    r"""
+    """
     Plot the GMT logo.
 
     .. figure:: https://docs.generic-mapping-tools.org/6.6/_images/GMT_coverlogo.png
