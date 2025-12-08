@@ -165,8 +165,8 @@ def coast(  # noqa: PLR0913
         is used for all levels. To specify the shoreline level
         use the format *level*\ /*pen*. Pass a sequence of *level*\ /*pen* strings to
         draw different shoreline levels with different pens. When specific level pens
-        are set, those not listed will not be drawn [Default draws all levels]. If
-        ``True``, draw all shoreline levels with the default pen.
+        are set, those not listed will not be drawn [Default draws all levels]. 
+        ``shorelines=True`` draws all levels with the default pen.
 
         Choose from the following shoreline levels:
 
