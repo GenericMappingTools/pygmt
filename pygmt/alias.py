@@ -302,8 +302,12 @@ class AliasSystem(UserDict):
 
         # The value of each key in kwargs is an Alias object or a sequence of Alias
         # objects. If it is a single Alias object, we will use its _value property. If
-        # it is a sequence of Alias objects, we will concatenate their _value properties
-        # into a single string.
+        # it is a sequence of Alias objects, we will check if any have suffix:
+        #
+        # - If any Alias has a suffix, return a list of values, for repeated GMT options
+        #   like -Cblue+l -Cred+r
+        # - Otherwise, concatenate into a single string for combined modifiers like
+        #   -BWSen+ttitle+gblue.
         #
         # Note that alias._value is converted by the _to_string method and can only be
         # None, string or sequence of strings.
@@ -315,7 +319,13 @@ class AliasSystem(UserDict):
             if isinstance(aliases, Sequence):  # A sequence of Alias objects.
                 values = [alias._value for alias in aliases if alias._value is not None]
                 if values:
-                    kwdict[option] = "".join(values)
+                    # Check if any alias has suffix - if so, return as list
+                    has_suffix = any(alias.suffix for alias in aliases)
+                    # If has suffix and multiple values, return as list;
+                    # else concatenate into a single string.
+                    kwdict[option] = (
+                        values if has_suffix and len(values) > 1 else "".join(values)
+                    )
             elif aliases._value is not None:  # A single Alias object and not None.
                 kwdict[option] = aliases._value
         super().__init__(kwdict)
