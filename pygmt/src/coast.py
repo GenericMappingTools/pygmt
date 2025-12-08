@@ -162,8 +162,8 @@ def coast(  # noqa: PLR0913
     shorelines
         Draw shorelines. Specify the pen attributes for shorelines [Default pen is
         ``"0.25p,black,solid"``]. Shorelines have four levels; by default, the same pen
-        is used for all levels. To specify the shoreline level to draw, specify it
-        in the format *level*\ /*pen*. Pass a sequence of *level*\ /*pen* strings to
+        is used for all levels. To specify the shoreline level
+        use the format *level*\ /*pen*. Pass a sequence of *level*\ /*pen* strings to
         draw different shoreline levels with different pens. When specific level pens
         are set, those not listed will not be drawn [Default draws all levels]. If
         ``True``, draw all shoreline levels with the default pen.
