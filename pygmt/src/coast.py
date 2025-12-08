@@ -21,13 +21,7 @@ __doctest_skip__ = ["coast"]
 
 @fmt_docstring
 @use_alias(
-    A="area_thresh",
-    C="lakes",
-    E="dcw",
-    I="rivers",
-    L="map_scale",
-    N="borders",
-    W="shorelines",
+    A="area_thresh", C="lakes", E="dcw", L="map_scale", N="borders", W="shorelines"
 )
 def coast(  # noqa: PLR0913
     self,
@@ -36,6 +30,7 @@ def coast(  # noqa: PLR0913
     ] = None,
     land: str | None = None,
     water: str | None = None,
+    rivers: int | str | Sequence[int | str] | None = None,
     box: Box | bool = False,
     projection: str | None = None,
     frame: str | Sequence[str] | bool = False,
@@ -71,6 +66,7 @@ def coast(  # noqa: PLR0913
        - D = resolution
        - F = box
        - G = land
+       - I = rivers
        - J = projection
        - R = region
        - S = water
@@ -103,35 +99,43 @@ def coast(  # noqa: PLR0913
         Select filling of "dry" areas.
     water
         Select filling of "wet" areas.
-    rivers : int, str, or list
-        *river*\ [/*pen*].
-        Draw rivers. Specify the type of rivers and [optionally] append
-        pen attributes [Default is ``"0.25p,black,solid"``].
+    rivers
+        Draw rivers. Specify the type of rivers to draw, and optionally append a pen
+        attribute, in the format *river*\ /*pen* [Default pen is
+        ``"0.25p,black,solid"``]. Pass a sequence of river types or *river*\ /*pen*
+        strings to draw different river types with different pens.
 
-        Choose from the list of river types below; pass a list to ``rivers``
-        to use multiple arguments.
+        Choose from the following river types:
 
-        - ``0``: double-lined rivers (river-lakes)
-        - ``1``: permanent major rivers
-        - ``2``: additional major rivers
-        - ``3``: additional rivers
-        - ``4``: minor rivers
-        - ``5``: intermittent rivers - major
-        - ``6``: intermittent rivers - additional
-        - ``7``: intermittent rivers - minor
-        - ``8``: major canals
-        - ``9``: minor canals
-        - ``10``: irrigation canals
+        - ``0``: Double-lined rivers (river-lakes)
+        - ``1``: Permanent major rivers
+        - ``2``: Additional major rivers
+        - ``3``: Additional rivers
+        - ``4``: Minor rivers
+        - ``5``: Intermittent rivers - major
+        - ``6``: Intermittent rivers - additional
+        - ``7``: Intermittent rivers - minor
+        - ``8``: Major canals
+        - ``9``: Minor canals
+        - ``10``: Irrigation canals
 
-        You can also choose from several preconfigured river groups:
+        Or choose from the following preconfigured river groups:
 
-        - ``"a"``: rivers and canals (``0`` - ``10``)
-        - ``"A"``: rivers and canals except river-lakes (``1`` - ``10``)
-        - ``"r"``: permanent rivers (``0`` - ``4``)
-        - ``"R"``: permanent rivers except river-lakes (``1`` - ``4``)
-        - ``"i"``: intermittent rivers (``5`` - ``7``)
-        - ``"c"``: canals (``8`` - ``10``)
+        - ``"a"``: All rivers and canals (types ``0`` - ``10``)
+        - ``"A"``: Rivers and canals except river-lakes (types ``1`` - ``10``)
+        - ``"r"``: Permanent rivers (types ``0`` - ``4``)
+        - ``"R"``: Permanent rivers except river-lakes (types ``1`` - ``4``)
+        - ``"i"``: Intermittent rivers (types ``5`` - ``7``)
+        - ``"c"``: Canals (types ``8`` - ``10``)
 
+        Example usage:
+
+        - ``rivers=1``: Draw permanent major rivers with default pen.
+        - ``rivers="1/0.5p,blue"``: Draw permanent major rivers with a 0.5-point blue
+          pen.
+        - ``rivers=["1/0.5p,blue", "5/0.3p,cyan,dashed"]``: Draw permanent major rivers
+          with a 0.5-point blue pen and intermittent major rivers with a 0.3-point
+          dashed cyan pen.
     map_scale : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+w**\ *length*.
         Draw a simple map scale centered on the reference point specified.
@@ -207,11 +211,12 @@ def coast(  # noqa: PLR0913
     if (
         kwargs.get("G", land) is None
         and kwargs.get("S", water) is None
-        and not args_in_kwargs(args=["C", "I", "N", "E", "Q", "W"], kwargs=kwargs)
+        and kwargs.get("I", rivers) is None
+        and not args_in_kwargs(args=["C", "N", "E", "Q", "W"], kwargs=kwargs)
     ):
         msg = (
             "At least one of the following parameters must be specified: "
-            "land, water, lakes, rivers, borders, dcw, Q, or shorelines."
+            "land, water, rivers, lakes, borders, dcw, Q, or shorelines."
         )
         raise GMTInvalidInput(msg)
 
@@ -230,6 +235,7 @@ def coast(  # noqa: PLR0913
         ),
         F=Alias(box, name="box"),
         G=Alias(land, name="land"),
+        I=Alias(rivers, name="rivers"),
         S=Alias(water, name="water"),
     ).add_common(
         B=frame,
