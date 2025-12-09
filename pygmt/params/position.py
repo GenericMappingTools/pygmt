@@ -76,8 +76,7 @@ class Position(BaseParam):
         opposite of the *reference point*. Useful for placing embellishments outside
         the plot boundaries (e.g., color bars).
 
-        **Example:** ``refpoint="TL", type="outside"`` [anchor point defaults to
-        ``"BR"``]
+        **Example:** ``refpoint="TL", type="outside"``
 
     **Anchor Point**
 
