@@ -4,7 +4,7 @@ Test Figure.grdview.
 
 import pytest
 from pygmt import Figure, grdcut
-from pygmt.exceptions import GMTTypeError
+from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -252,3 +252,34 @@ def test_grdview_wrong_kind_of_drapegrid(xrgrid):
     fig = Figure()
     with pytest.raises(GMTTypeError):
         fig.grdview(grid=xrgrid, drapegrid=dataset)
+
+
+def test_grdview_invalid_surftype(gridfile):
+    """
+    Test grdview with an invalid surftype or invalid combination of surftype and other
+    parameters.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.grdview(grid=gridfile, surftype="invalid_surftype")
+    with pytest.raises(GMTInvalidInput):
+        fig.grdview(grid=gridfile, surftype="surface", dpi=300)
+    with pytest.raises(GMTInvalidInput):
+        fig.grdview(grid=gridfile, surftype="surface", nan_transparent=True)
+    with pytest.raises(GMTInvalidInput):
+        fig.grdview(grid=gridfile, surftype="surface", mesh_fill="red")
+
+
+def test_grdview_mixed_syntax(gridfile):
+    """
+    Run grdview using grid as a file and drapegrid as an xarray.DataArray.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.grdview(grid=gridfile, cmap="oleron", surftype="i", dpi=300)
+    with pytest.raises(GMTInvalidInput):
+        fig.grdview(grid=gridfile, cmap="oleron", surftype="m", mesh_fill="red")
+    with pytest.raises(GMTInvalidInput):
+        fig.grdview(grid=gridfile, cmap="oleron", surftype="s", monochrome=True)
+    with pytest.raises(GMTInvalidInput):
+        fig.grdview(grid=gridfile, cmap="oleron", surftype="i", nan_transparent=True)
