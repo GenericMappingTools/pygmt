@@ -23,8 +23,10 @@ def legend(  # noqa: PLR0913
     height: float | str | None = None,
     line_spacing: float | None = None,
     box: Box | bool = False,
+    scale: float | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -49,9 +51,11 @@ def legend(  # noqa: PLR0913
        :columns: 3
 
        - D = position, **+w**: width/height, **+l**: line_spacing
+       - B = frame
        - F = box
        - J = projection
        - R = region
+       - S = scale
        - V = verbose
        - c = panel
        - p = perspective
@@ -93,8 +97,11 @@ def legend(  # noqa: PLR0913
         rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
         appearance, pass a :class:`pygmt.params.Box` object to control style, fill, pen,
         and other box properties.
+    scale
+        Scale all symbol sizes by a common scale [Default is 1.0, i.e., no scaling].
     $projection
     $region
+    $frame
     $verbose
     $panel
     $perspective
@@ -109,7 +116,7 @@ def legend(  # noqa: PLR0913
     ):
         msg = (
             "Parameter 'position' is given with a raw GMT command string, and conflicts "
-            "with parameters 'width', 'height', and 'line_spacing'. "
+            "with parameters 'width', 'height', and 'line_spacing'."
         )
         raise GMTInvalidInput(msg)
 
@@ -139,7 +146,9 @@ def legend(  # noqa: PLR0913
             Alias(line_spacing, name="line_spacing", prefix="+l"),
         ],
         F=Alias(box, name="box"),
+        S=Alias(scale, name="scale"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,

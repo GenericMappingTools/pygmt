@@ -89,7 +89,7 @@ def test_legend_specfile(legend_spec):
         fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
         fig.legend(
             specfile.name,
-            position=Position("MC", type="outside", anchor="CM"),
+            position=Position("MC", cstype="outside", anchor="CM"),
             width="5i",
         )
         return fig
@@ -103,7 +103,7 @@ def test_legend_stringio(legend_spec):
     spec = io.StringIO(legend_spec)
     fig = Figure()
     fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
-    fig.legend(spec, position=Position("MC", type="outside", anchor="CM"), width="5i")
+    fig.legend(spec, position=Position("MC", cstype="outside", anchor="CM"), width="5i")
     return fig
 
 

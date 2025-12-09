@@ -52,7 +52,7 @@ jobs:
     - name: Set up Python and install dependencies
       uses: actions/setup-python@v6.1.0
       with:
-        python-version: '3.13'
+        python-version: '3.14'
         pip-install: build
 
     # This step is only necessary for testing purposes and for TestPyPI
