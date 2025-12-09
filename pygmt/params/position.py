@@ -40,44 +40,44 @@ class Position(BaseParam):
 
     **Reference Point**
 
-    The *reference point* can be specified in five different ways using the ``type`` and
-    ``refpoint`` attributes:
+    The *reference point* can be specified in five different ways using the ``cstype``
+    and ``refpoint`` attributes:
 
-    ``type="mapcoords"`` Map Coordinates
+    ``cstype="mapcoords"`` Map Coordinates
         Use data/geographic coordinates. Specify ``refpoint`` as
         (*longitude*, *latitude*). Useful when tying the embellishment to a specific
         geographic location.
 
-        **Example:** ``refpoint=(135, 20), type="mapcoords"``
+        **Example:** ``refpoint=(135, 20), cstype="mapcoords"``
 
-    ``type="plotcoords"`` Plot Coordinates
+    ``cstype="plotcoords"`` Plot Coordinates
         Use plot coordinates as distances from the lower-left plot origin. Specify
         ``refpoint`` as (*x*, *y*) with units (e.g., inches, centimeters, points).
         Useful for precise layout control.
 
-        **Example:** ``refpoint=("2c", "2.5c"), type="plotcoords"``
+        **Example:** ``refpoint=("2c", "2.5c"), cstype="plotcoords"``
 
-    ``type="boxcoords"`` Normalized Coordinates
+    ``cstype="boxcoords"`` Normalized Coordinates
         Use normalized coordinates where (0, 0) is the lower-left corner and (1, 1) is
         the upper-right corner of the bounding box of the current plot. Specify
         ``refpoint`` as (*nx*, *ny*). Useful for positioning relative to plot dimensions
         without units.
 
-        **Example:** ``refpoint=(0.2, 0.1), type="boxcoords"``
+        **Example:** ``refpoint=(0.2, 0.1), cstype="boxcoords"``
 
-    ``type="inside"`` Inside Plot
+    ``cstype="inside"`` Inside Plot
         Select one of the nine :doc:`justification codes </techref/justification_codes>`
         as the *reference point*. The *anchor point* defaults to be the same as the
         *reference point*, so the embellishment is placed inside the plot.
 
-        **Example:** ``refpoint="TL", type="inside"``
+        **Example:** ``refpoint="TL", cstype="inside"``
 
-    ``type="outside"`` Outside Plot
-        Similar to ``type="inside"``, but the *anchor point* defaults to the mirror
+    ``cstype="outside"`` Outside Plot
+        Similar to ``cstype="inside"``, but the *anchor point* defaults to the mirror
         opposite of the *reference point*. Useful for placing embellishments outside
         the plot boundaries (e.g., color bars).
 
-        **Example:** ``refpoint="TL", type="outside"``
+        **Example:** ``refpoint="TL", cstype="outside"``
 
     **Anchor Point**
 
@@ -88,9 +88,9 @@ class Position(BaseParam):
     Set ``anchor`` explicitly to override these defaults. If not set, the default
     *anchor* behaviors are:
 
-    - ``type="inside"``: Same as the *reference point* justification code
-    - ``type="outside"``: Mirror opposite of the *reference point* justification code
-    - Other types: ``"MC"`` (middle center) for map rose and scale, ``"BL"``
+    - ``cstype="inside"``: Same as the *reference point* justification code
+    - ``cstype="outside"``: Mirror opposite of the *reference point* justification code
+    - Other cstypes: ``"MC"`` (middle center) for map rose and scale, ``"BL"``
       (bottom-left) for other embellishments
 
     **Offset**
@@ -110,7 +110,9 @@ class Position(BaseParam):
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
     >>> fig.logo(
-    ...     position=Position((3, 3), type="mapcoords", anchor="ML", offset=(0.2, 0.2)),
+    ...     position=Position(
+    ...         (3, 3), cstype="mapcoords", anchor="ML", offset=(0.2, 0.2)
+    ...     ),
     ...     box=True,
     ... )
     >>> fig.show()
@@ -119,20 +121,20 @@ class Position(BaseParam):
 
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
-    >>> fig.logo(position=Position("TL", type="inside", offset="0.2c"), box=True)
+    >>> fig.logo(position=Position("TL", cstype="inside", offset="0.2c"), box=True)
     >>> fig.show()
     """
 
-    #: Location of the reference point on the plot. The format depends on ``type``:
+    #: Location of the reference point on the plot. The format depends on ``cstype``:
     #:
-    #: - ``type="mapcoords"``: (*longitude*, *latitude*)
-    #: - ``type="plotcoords"``: (*x*, *y*) with plot units
-    #: - ``type="boxcoords"``: (*nx*, *ny*)
-    #: - ``type="inside"`` or ``"outside"``:
+    #: - ``cstype="mapcoords"``: (*longitude*, *latitude*)
+    #: - ``cstype="plotcoords"``: (*x*, *y*) with plot units
+    #: - ``cstype="boxcoords"``: (*nx*, *ny*)
+    #: - ``cstype="inside"`` or ``"outside"``:
     #:   :doc:`2-character justification codes </techref/justification_codes>`
     refpoint: Sequence[float | str] | AnchorCode
 
-    #: Type of the reference point. Valid values are:
+    #: cstype of the reference point. Valid values are:
     #:
     #: - ``"mapcoords"``: Map/Data coordinates
     #: - ``"plotcoords"``: Plot coordinates
@@ -141,13 +143,13 @@ class Position(BaseParam):
     #:
     #: If not specified, defaults to ``"inside"`` if ``refpoint`` is a justification
     #: code; otherwise defaults to ``"plotcoords"``.
-    type: (
+    cstype: (
         Literal["mapcoords", "inside", "outside", "boxcoords", "plotcoords"] | None
     ) = None
 
     #: Anchor point on the embellishment using a
     #: :doc:`2-character justification code </techref/justification_codes>`.
-    #: If ``None``, defaults are applied based on ``type`` (see above).
+    #: If ``None``, defaults are applied based on ``cstype`` (see above).
     anchor: AnchorCode | None = None
 
     #: Offset for the anchor point as a single value or (*offset_x*, *offset_y*).
@@ -162,12 +164,12 @@ class Position(BaseParam):
             f"{v}{h}" for v in "TMB" for h in "LCR"
         }
 
-        # Default to "inside" if type is not specified and location is an anchor code.
-        if self.type is None:
-            self.type = "inside" if isinstance(self.refpoint, str) else "plotcoords"
+        # Default to "inside" if cstype is not specified and location is an anchor code.
+        if self.cstype is None:
+            self.cstype = "inside" if isinstance(self.refpoint, str) else "plotcoords"
 
-        # Validate the location based on type.
-        match self.type:
+        # Validate the location based on cstype.
+        match self.cstype:
             case "mapcoords" | "plotcoords" | "boxcoords":
                 if not is_nonstr_iter(self.refpoint) or len(self.refpoint) != 2:
                     raise GMTValueError(
@@ -194,8 +196,8 @@ class Position(BaseParam):
     def _aliases(self):
         return [
             Alias(
-                self.type,
-                name="type",
+                self.cstype,
+                name="cstype",
                 mapping={
                     "mapcoords": "g",
                     "boxcoords": "n",
