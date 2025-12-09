@@ -187,7 +187,7 @@ def grdview(  # noqa: PLR0913
         )
         raise GMTInvalidInput(msg)
 
-    _surtype_mapping = {
+    _surftype_mapping = {
         "surface": "s",
         "mesh": "m",
         "surface+mesh": "sm",
@@ -197,7 +197,7 @@ def grdview(  # noqa: PLR0913
     }
 
     # Previously, 'surftype' was aliased to Q.
-    _old_surftype_syntax = surftype is not None and surftype not in _surtype_mapping
+    _old_surftype_syntax = surftype is not None and surftype not in _surftype_mapping
 
     if _old_surftype_syntax and any(
         v not in {None, False} for v in (dpi, mesh_fill, monochrome, nan_transparent)
@@ -215,7 +215,7 @@ def grdview(  # noqa: PLR0913
             Alias(
                 surftype,
                 name="surftype",
-                mapping=_surtype_mapping if not _old_surftype_syntax else None,
+                mapping=_surftype_mapping if not _old_surftype_syntax else None,
             ),
             Alias(dpi, name="dpi"),
             Alias(mesh_fill, name="mesh_fill"),
