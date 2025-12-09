@@ -8,21 +8,14 @@ from typing import Literal
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    args_in_kwargs,
-    build_arg_list,
-    fmt_docstring,
-    use_alias,
-)
+from pygmt.helpers import args_in_kwargs, build_arg_list, fmt_docstring, use_alias
 from pygmt.params import Box
 
 __doctest_skip__ = ["coast"]
 
 
 @fmt_docstring
-@use_alias(
-    A="area_thresh", C="lakes", E="dcw", L="map_scale", N="borders", W="shorelines"
-)
+@use_alias(A="area_thresh", C="lakes", E="dcw", L="map_scale")
 def coast(  # noqa: PLR0913
     self,
     resolution: Literal[
@@ -31,6 +24,8 @@ def coast(  # noqa: PLR0913
     land: str | None = None,
     water: str | None = None,
     rivers: int | str | Sequence[int | str] | None = None,
+    borders: int | str | Sequence[int | str] | None = None,
+    shorelines: bool | str | Sequence[int | str] = False,
     box: Box | bool = False,
     projection: str | None = None,
     frame: str | Sequence[str] | bool = False,
@@ -144,28 +139,51 @@ def coast(  # noqa: PLR0913
         rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
         appearance, pass a :class:`pygmt.params.Box` object to control style, fill, pen,
         and other box properties.
-    borders : int, str, or list
-        *border*\ [/*pen*].
-        Draw political boundaries. Specify the type of boundary and
-        [optionally] append pen attributes [Default is ``"0.25p,black,solid"``].
+    borders
+        Draw political boundaries. Specify the type of boundary to draw, and optionally
+        append a pen attribute, in the format *border*\ /*pen* [Default pen is
+        ``"0.25p,black,solid"``]. Pass a sequence of border types or *border*\ /*pen*
+        strings to draw different border types with different pens.
 
-        Choose from the list of boundaries below. Pass a list to ``borders`` to
-        use multiple arguments.
+        Choose from the following border types:
 
-        - ``1``: national boundaries
-        - ``2``: state boundaries within the Americas
-        - ``3``: marine boundaries
-        - ``"a"``: all boundaries (``1`` - ``3``)
+        - ``1``: National boundaries
+        - ``2``: State boundaries within the Americas
+        - ``3``: Marine boundaries
+        - ``"a"``: All boundaries (types ``1`` - ``3``)
 
-    shorelines : bool, int, str, or list
-        [*level*\ /]\ *pen*.
-        Draw shorelines [Default is no shorelines]. Append pen attributes
-        [Default is ``"0.25p,black,solid"``] which apply to all four levels.
-        To set the pen for a single level, pass a string with *level*\ /*pen*\ ,
-        where level is 1-4 and represent coastline, lakeshore, island-in-lake shore,
-        and lake-in-island-in-lake shore. Pass a list of *level*\ /*pen*
-        strings to ``shorelines`` to set multiple levels. When specific
-        level pens are set, those not listed will not be drawn.
+        Example usage:
+
+        - ``borders=1``: Draw national boundaries with default pen.
+        - ``borders="1/0.5p,red"``: Draw national boundaries with a 0.5-point red pen.
+        - ``borders=["1/0.5p,red", "2/0.3p,blue,dashed"]``: Draw national boundaries
+          with a 0.5-point red pen and state boundaries with a 0.3-point dashed blue
+          pen.
+    shorelines
+        Draw shorelines. Specify the pen attributes for shorelines [Default pen is
+        ``"0.25p,black,solid"``]. Shorelines have four levels; by default, the same pen
+        is used for all levels. To specify the shoreline level, use the format
+        *level*\ /*pen*. Pass a sequence of *level*\ /*pen* strings to draw different
+        shoreline levels with different pens. When specific level pens are set, those
+        not listed will not be drawn [Default draws all levels]. ``shorelines=True``
+        draws all levels with the default pen.
+
+        Choose from the following shoreline levels:
+
+        - ``1``: Coastline
+        - ``2``: Lakeshore
+        - ``3``: Island-in-lake shore
+        - ``4``: Lake-in-island-in-lake shore
+
+        Example usage:
+
+        - ``shorelines=True``: Draw all shoreline levels with default pen.
+        - ``shorelines="0.5p,blue"``: Draw all shoreline levels with a 0.5-point blue
+          pen.
+        - ``shorelines="1/0.5p,black"``: Draw only coastlines with a 0.5-point black
+          pen.
+        - ``shorelines=["1/0.8p,black", "2/0.4p,blue"]``: Draw coastlines with a
+          0.8-point black pen and lakeshores with a 0.4-point blue pen.
     dcw : str or list
         *code1,code2,…*\ [**+g**\ *fill*\ ][**+p**\ *pen*\ ][**+z**].
         Select painting country polygons from the `Digital Chart of the World
@@ -212,11 +230,13 @@ def coast(  # noqa: PLR0913
         kwargs.get("G", land) is None
         and kwargs.get("S", water) is None
         and kwargs.get("I", rivers) is None
-        and not args_in_kwargs(args=["C", "N", "E", "Q", "W"], kwargs=kwargs)
+        and kwargs.get("N", borders) is None
+        and kwargs.get("W", shorelines) is False
+        and not args_in_kwargs(args=["C", "E", "Q"], kwargs=kwargs)
     ):
         msg = (
             "At least one of the following parameters must be specified: "
-            "land, water, rivers, lakes, borders, dcw, Q, or shorelines."
+            "land, water, rivers, borders, shorelines, lakes, dcw, or Q."
         )
         raise GMTInvalidInput(msg)
 
@@ -236,7 +256,9 @@ def coast(  # noqa: PLR0913
         F=Alias(box, name="box"),
         G=Alias(land, name="land"),
         I=Alias(rivers, name="rivers"),
+        N=Alias(borders, name="borders"),
         S=Alias(water, name="water"),
+        W=Alias(shorelines, name="shorelines"),
     ).add_common(
         B=frame,
         J=projection,
