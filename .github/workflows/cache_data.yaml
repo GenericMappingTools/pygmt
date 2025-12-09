@@ -50,7 +50,7 @@ jobs:
         with:
           environment-name: pygmt
           create-args: >-
-            python=3.13
+            python=3.14
             gmt=6.6.0
             numpy
             pandas
