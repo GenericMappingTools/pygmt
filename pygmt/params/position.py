@@ -48,7 +48,8 @@ class Position(BaseParam):
         (*longitude*, *latitude*). Useful when tying the embellishment to a specific
         geographic location.
 
-        **Example:** ``refpoint=(135, 20), type="mapcoords"``.
+        **Example:** ``refpoint=(135, 20), type="mapcoords"``
+
     ``type="plotcoords"`` Plot Coordinates
         Use plot coordinates as distances from the lower-left plot origin. Specify
         ``refpoint`` as (*x*, *y*) with units (e.g., inches, centimeters, points).
