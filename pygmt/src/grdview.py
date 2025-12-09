@@ -31,13 +31,13 @@ def grdview(  # noqa: PLR0913
     self,
     grid: PathLike | xr.DataArray,
     surftype: Literal[
-        "mesh", "surface", "surface+mesh", "image", "waterfallx", "waterfally"
+        "mesh", "surface", "surface+mesh", "image", "waterfall_x", "waterfall_y"
     ]
     | None = None,
     dpi: int | None = None,
-    meshfill: float | None = None,
-    monochrome: bool = False,
+    mesh_fill: float | None = None,
     nan_transparent: bool = False,
+    monochrome: bool = False,
     projection: str | None = None,
     zscale: float | str | None = None,
     zsize: float | str | None = None,
@@ -67,7 +67,7 @@ def grdview(  # noqa: PLR0913
        - Jz = zscale
        - JZ = zsize
        - R = region
-       - Q = surftype
+       - Q = surftype, dpi, mesh_fill, nan_transparent, monochrome
        - V = verbose
        - c = panel
        - p = perspective
@@ -99,7 +99,7 @@ def grdview(  # noqa: PLR0913
         modifier, and the projection is not oblique, the frontal facade between the
         plane and the data perimeter is colored.
     surftype
-        Specify cover type of the grid. Valid values are:
+        Specify surface type of the grid. Valid values are:
 
         - ``"mesh"``: mesh plot [Default].
         - ``"surface``: surface plot.
@@ -109,13 +109,13 @@ def grdview(  # noqa: PLR0913
     dpi
         Effective dots-per-unit resolution for the rasterization for image plots (i.e.,
         ``surftype="image"``) [Default is :gmt-term:`GMT_GRAPHICS_DPU`]
-    meshfill
-        For mesh plot or waterfall plots, set the mesh fill [Default is white].
-    monochrome
-        Force conversion to monochrome image using the (television) YIQ transformation.
+    mesh_fill
+        Set the mesh fill in mesh plot or waterfall plots [Default is white].
     nan_transparent
         Make grid nodes with z = NaN transparent, using the color-masking feature in
         PostScript Level 3. Only applies when ``surftype="image"``.
+    monochrome
+        Force conversion to monochrome image using the (television) YIQ transformation.
     contourpen : str
         Draw contour lines on top of surface or mesh (not image). Append pen attributes
         used for the contours.
@@ -165,7 +165,7 @@ def grdview(  # noqa: PLR0913
     ...     # Set the vertical scale (z-axis) to 2 cm
     ...     zsize="2c",
     ...     # Set "surface plot" to color the surface via a CPT
-    ...     surftype="s",
+    ...     surftype="surface",
     ...     # Specify CPT to "geo"
     ...     cmap="geo",
     ... )
@@ -180,10 +180,10 @@ def grdview(  # noqa: PLR0913
     if nan_transparent and surftype != "image":
         msg = "Parameter 'nan_transparent' can only be used when 'surftype' is 'image'."
         raise GMTInvalidInput(msg)
-    if meshfill is not None and surftype not in {"mesh", "waterfallx", "waterfally"}:
+    if mesh_fill is not None and surftype not in {"mesh", "waterfall_x", "waterfall_y"}:
         msg = (
-            "Parameter 'meshfill' can only be used when 'surftype' is "
-            "'mesh', 'waterfallx', or 'waterfally'."
+            "Parameter 'mesh_fill' can only be used when 'surftype' is 'mesh', "
+            "'waterfall_x', or 'waterfall_y'."
         )
         raise GMTInvalidInput(msg)
 
@@ -192,12 +192,21 @@ def grdview(  # noqa: PLR0913
         "mesh": "m",
         "surface+mesh": "sm",
         "image": "c" if nan_transparent is True else "i",
-        "waterfallx": "mx",
-        "waterfally": "my",
+        "waterfall_x": "mx",
+        "waterfall_y": "my",
     }
 
-    # surftype was aliased to Q previously.
-    _old_surftype_syntax = surftype not in _surtype_mapping and surftype is not None
+    # Previously, 'surftype' was aliased to Q.
+    _old_surftype_syntax = surftype is not None and surftype not in _surtype_mapping
+
+    if _old_surftype_syntax and any(
+        v not in {None, False} for v in (dpi, mesh_fill, monochrome, nan_transparent)
+    ):
+        msg = (
+            "Parameter 'surftype' is given with a raw GMT command string, and conflicts "
+            "with parameters 'dpi', 'mesh_fill', 'monochrome', or 'nan_transparent'."
+        )
+        raise GMTInvalidInput(msg)
 
     aliasdict = AliasSystem(
         Jz=Alias(zscale, name="zscale"),
@@ -209,7 +218,7 @@ def grdview(  # noqa: PLR0913
                 mapping=_surtype_mapping if not _old_surftype_syntax else None,
             ),
             Alias(dpi, name="dpi"),
-            Alias(meshfill, name="meshfill"),
+            Alias(mesh_fill, name="mesh_fill"),
             Alias(monochrome, name="monochrome", prefix="+m"),
         ],
     ).add_common(
