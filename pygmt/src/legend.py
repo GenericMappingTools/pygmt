@@ -75,7 +75,7 @@ def legend(  # noqa: PLR0913
     position
         Specify the position of the legend on the plot. If not specified, defaults to
         the top right corner inside the plot with a 0.2-cm offset. See
-        :class:`pygmt.enums.Position` for details.
+        :class:`pygmt.params.Position` for details.
     width
     height
         Specify the width and height of the legend box in plot coordinates (inches, cm,
