@@ -104,7 +104,7 @@ def test_grdview_with_cmap_for_image_plot(xrgrid):
     Run grdview by passing in a grid and setting a colormap for producing an image plot.
     """
     fig = Figure()
-    fig.grdview(grid=xrgrid, cmap="oleron", surftype="i")
+    fig.grdview(grid=xrgrid, cmap="oleron", surftype="image")
     return fig
 
 
@@ -115,7 +115,7 @@ def test_grdview_with_cmap_for_surface_monochrome_plot(xrgrid):
     monochrome plot.
     """
     fig = Figure()
-    fig.grdview(grid=xrgrid, cmap="oleron", surftype="s+m")
+    fig.grdview(grid=xrgrid, cmap="oleron", surftype="surface", monochrome=True)
     return fig
 
 
@@ -127,7 +127,11 @@ def test_grdview_with_cmap_for_perspective_surface_plot(xrgrid):
     """
     fig = Figure()
     fig.grdview(
-        grid=xrgrid, cmap="oleron", surftype="s", perspective=[225, 30], zscale=0.005
+        grid=xrgrid,
+        cmap="oleron",
+        surftype="surface",
+        perspective=[225, 30],
+        zscale=0.005,
     )
     return fig
 
@@ -179,7 +183,9 @@ def test_grdview_surface_plot_styled_with_contourpen(xrgrid):
     surface plot.
     """
     fig = Figure()
-    fig.grdview(grid=xrgrid, cmap="relief", surftype="s", contourpen="0.5p,black,dash")
+    fig.grdview(
+        grid=xrgrid, cmap="relief", surftype="surface", contourpen="0.5p,black,dash"
+    )
     return fig
 
 
@@ -190,7 +196,9 @@ def test_grdview_surface_mesh_plot_styled_with_meshpen(xrgrid):
     mesh plot.
     """
     fig = Figure()
-    fig.grdview(grid=xrgrid, cmap="relief", surftype="sm", meshpen="0.5p,black,dash")
+    fig.grdview(
+        grid=xrgrid, cmap="relief", surftype="surface+mesh", meshpen="0.5p,black,dash"
+    )
     return fig
 
 
@@ -226,7 +234,12 @@ def test_grdview_drapegrid_dataarray(xrgrid):
 
     fig = Figure()
     fig.grdview(
-        grid=xrgrid, drapegrid=drapegrid, cmap="oleron", surftype="c", frame=True
+        grid=xrgrid,
+        drapegrid=drapegrid,
+        cmap="oleron",
+        surftype="image",
+        nan_transparent=True,
+        frame=True,
     )
     return fig
 
