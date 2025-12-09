@@ -91,7 +91,7 @@ def logo(  # noqa: PLR0913
     if isinstance(position, str) and any(v is not None for v in (width, height)):
         msg = (
             "Parameter 'position' is given with a raw GMT command string, and conflicts "
-            "with parameters 'width' and 'height'. "
+            "with parameters 'width' and 'height'."
         )
         raise GMTInvalidInput(msg)
 
