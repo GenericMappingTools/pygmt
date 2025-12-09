@@ -8,14 +8,64 @@ from typing import Literal
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import args_in_kwargs, build_arg_list, fmt_docstring, use_alias
+from pygmt.helpers import (
+    args_in_kwargs,
+    build_arg_list,
+    fmt_docstring,
+    is_nonstr_iter,
+    use_alias,
+)
 from pygmt.params import Box
 
 __doctest_skip__ = ["coast"]
 
 
+def _alias_option_C(lakes=None, river_lakes=None):  # noqa: N802
+    """
+    Helper function to create the alias list for the -C option.
+
+    Example
+    -------
+    >>> def parse(**kwargs):
+    ...     return AliasSystem(C=_alias_option_C(**kwargs)).get("C")
+    >>> parse()
+    >>> parse(lakes="blue")
+    'blue'
+    >>> parse(river_lakes="cyan")
+    'cyan+r'
+    >>> parse(lakes="blue", river_lakes="cyan")
+    ['blue+l', 'cyan+r']
+
+    >>> # Check for backward compatibility
+    >>> parse(lakes="blue+l")
+    'blue+l'
+    >>> parse(lakes="cyan+r")
+    'cyan+r'
+    >>> parse(lakes=["blue+l", "cyan+r"])
+    ['blue+l', 'cyan+r']
+
+    >>> # Check for mixed usage error
+    >>> parse(lakes=["blue+l", "cyan+r"], river_lakes="cyan")
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Parameter 'lakes' is given with a list; ...
+    """
+    # Check for backward compatibility.
+    if is_nonstr_iter(lakes):  # Old syntax: lakes is a list of strings.
+        if river_lakes is not None:
+            msg = "Parameter 'lakes' is given with a list; 'river_lakes' must be None."
+            raise GMTInvalidInput(msg)
+        return Alias(lakes, name="lakes")  # Return as is.
+
+    # If only 'lakes' is specified, no suffix is needed.
+    return [
+        Alias(lakes, name="lakes", suffix="+l" if river_lakes is not None else ""),
+        Alias(river_lakes, name="river_lakes", suffix="+r"),
+    ]
+
+
 @fmt_docstring
-@use_alias(A="area_thresh", C="lakes", E="dcw")
+@use_alias(A="area_thresh", E="dcw")
 def coast(  # noqa: PLR0913
     self,
     resolution: Literal[
@@ -26,6 +76,8 @@ def coast(  # noqa: PLR0913
     rivers: int | str | Sequence[int | str] | None = None,
     borders: int | str | Sequence[int | str] | None = None,
     shorelines: bool | str | Sequence[int | str] = False,
+    lakes: str | None = None,
+    river_lakes: str | None = None,
     map_scale: str | None = None,
     box: Box | bool = False,
     projection: str | None = None,
@@ -59,6 +111,7 @@ def coast(  # noqa: PLR0913
 
     $aliases
        - B = frame
+       - C = lakes, river_lakes
        - D = resolution
        - F = box
        - G = land
@@ -74,18 +127,7 @@ def coast(  # noqa: PLR0913
 
     Parameters
     ----------
-    $projection
-    $region
-        *Required if this is the first plot command.*
     $area_thresh
-    $frame
-    lakes : str or list
-        *fill*\ [**+l**\|\ **+r**].
-        Set the shade, color, or pattern for lakes and river-lakes. The
-        default is the fill chosen for "wet" areas set by the ``water``
-        parameter. Optionally, specify separate fills by appending
-        **+l** for lakes or **+r** for river-lakes, and passing multiple
-        strings in a list.
     resolution
         Select the resolution of the coastline dataset to use. The available resolutions
         from highest to lowest are: ``"full"``, ``"high"``, ``"intermediate"``,
@@ -96,6 +138,11 @@ def coast(  # noqa: PLR0913
         Select filling of "dry" areas.
     water
         Select filling of "wet" areas.
+    lakes
+    river_lakes
+        Select filling of lakes and river-lakes. If not specified, will use the fill for
+        "wet" areas set by the ``water`` parameter. If ``lakes`` is specified but
+        ``river_lakes`` isn't, ``river_lakes`` will use the same fill as ``lakes``.
     rivers
         Draw rivers. Specify the type of rivers to draw, and optionally append a pen
         attribute, in the format *river*\ /*pen* [Default pen is
@@ -203,10 +250,14 @@ def coast(  # noqa: PLR0913
         to any of the continent codes (e.g. ``"=EU"`` for Europe). Append
         **+p**\ *pen* to draw polygon outlines [Default is no outline] and
         **+g**\ *fill* to fill them [Default is no fill].
+    $projection
+    $region
+        *Required if this is the first plot command.*
+    $frame
+    $verbose
     $panel
     $perspective
     $transparency
-    $verbose
 
     Example
     -------
@@ -239,15 +290,17 @@ def coast(  # noqa: PLR0913
         and kwargs.get("I", rivers) is None
         and kwargs.get("N", borders) is None
         and kwargs.get("W", shorelines) is False
-        and not args_in_kwargs(args=["C", "E", "Q"], kwargs=kwargs)
+        and kwargs.get("C", lakes or river_lakes) is None
+        and not args_in_kwargs(args=["E", "Q"], kwargs=kwargs)
     ):
         msg = (
             "At least one of the following parameters must be specified: "
-            "land, water, rivers, borders, shorelines, lakes, dcw, or Q."
+            "land, water, rivers, borders, shorelines, lakes, river_lakes, dcw, or Q."
         )
         raise GMTInvalidInput(msg)
 
     aliasdict = AliasSystem(
+        C=_alias_option_C(lakes=lakes, river_lakes=river_lakes),
         D=Alias(
             resolution,
             name="resolution",
