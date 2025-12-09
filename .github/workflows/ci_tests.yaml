@@ -56,7 +56,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.11', '3.13']
+        python-version: ['3.12', '3.14']
         os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest, windows-latest]
         # Is it a draft Pull Request (true or false)?
         isDraft:
@@ -70,21 +70,21 @@ jobs:
           - os: windows-latest
             isDraft: true
         include:
-          # Python 3.11 + core packages (minimum supported versions) + optional packages (minimum supported versions if any)
-          - python-version: '3.11'
+          # Python 3.12 + core packages (minimum supported versions) + optional packages (minimum supported versions if any)
+          - python-version: '3.12'
             numpy-version: '2.0'
             pandas-version: '=2.2'
             xarray-version: '=2024.5'
             optional-packages: ' contextily geopandas ipython pyarrow-core rioxarray netCDF4 sphinx-gallery'
-          # Python 3.13 + core packages (latest versions) + optional packages
-          - python-version: '3.13'
+          # Python 3.14 + core packages (latest versions) + optional packages
+          - python-version: '3.14'
             numpy-version: '2.3'
             pandas-version: ''
             xarray-version: ''
             optional-packages: ' contextily geopandas ipython pyarrow-core rioxarray netCDF4 sphinx-gallery'
-          # Python 3.12 + core packages (Linux only)
+          # Python 3.13 + core packages (Linux only)
           - os: 'ubuntu-latest'
-            python-version: '3.12'
+            python-version: '3.13'
             numpy-version: ''
             pandas-version: ''
             xarray-version: ''
@@ -104,7 +104,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v5.0.1
+        uses: actions/checkout@v6.0.1
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0

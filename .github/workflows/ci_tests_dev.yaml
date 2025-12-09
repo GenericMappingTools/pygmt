@@ -48,7 +48,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v5.0.1
+        uses: actions/checkout@v6.0.1
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -67,7 +67,7 @@ jobs:
           # environment cache is persistent for one week.
           cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
           create-args: >-
-            python=3.13
+            python=3.14
             cmake
             make
             ninja
@@ -94,7 +94,7 @@ jobs:
 
       # Checkout current GMT repository
       - name: Checkout the GMT source from ${{ matrix.gmt_git_ref }} branch
-        uses: actions/checkout@v5.0.1
+        uses: actions/checkout@v6.0.1
         with:
           repository: 'GenericMappingTools/gmt'
           ref: ${{ matrix.gmt_git_ref }}
