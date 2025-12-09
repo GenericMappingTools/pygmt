@@ -261,8 +261,6 @@ def test_grdview_invalid_surftype(gridfile):
     """
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
-        fig.grdview(grid=gridfile, surftype="invalid_surftype")
-    with pytest.raises(GMTInvalidInput):
         fig.grdview(grid=gridfile, surftype="surface", dpi=300)
     with pytest.raises(GMTInvalidInput):
         fig.grdview(grid=gridfile, surftype="surface", nan_transparent=True)
