@@ -39,6 +39,18 @@ def test_scalebar_complete():
     return fig
 
 
+@pytest.mark.mpl_image_compare
+def test_scalebar_cartesian():
+    """
+    Test scale bar in Cartesian coordinates.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 10, 0, 5], projection="X10c/5c", frame=True)
+    fig.scalebar(position=Position((2, 1), cstype="mapcoords"), length=1)
+    fig.scalebar(position=Position((4, 1), cstype="mapcoords"), length=1, vertical=True)
+    return fig
+
+
 def test_scalebar_no_position():
     """
     Test that an error is raised when position is not provided.
