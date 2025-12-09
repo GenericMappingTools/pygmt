@@ -69,8 +69,7 @@ class Position(BaseParam):
         as the *reference point*. The *anchor point* defaults to be the same as the
         *reference point*, so the embellishment is placed inside the plot.
 
-        **Example:** ``refpoint="TL", type="inside"`` [anchor point defaults to
-        ``"TL"``]
+        **Example:** ``refpoint="TL", type="inside"``
 
     ``type="outside"`` Outside Plot
         Similar to ``type="inside"``, but the *anchor point* defaults to the mirror
