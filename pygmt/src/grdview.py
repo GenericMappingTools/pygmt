@@ -10,19 +10,19 @@ from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdview"]
 
 
 @fmt_docstring
+@deprecate_parameter("contourpen", "contour_pen", "v0.18.0", remove_version="v0.20.0")
+@deprecate_parameter("facadepen", "facade_pen", "v0.18.0", remove_version="v0.20.0")
+@deprecate_parameter("meshpen", "mesh_pen", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     C="cmap",
     G="drapegrid",
     N="plane",
-    Wc="contourpen",
-    Wm="meshpen",
-    Wf="facadepen",
     I="shading",
     f="coltypes",
     n="interpolation",
@@ -38,6 +38,9 @@ def grdview(  # noqa: PLR0913
     mesh_fill: float | None = None,
     nan_transparent: bool = False,
     monochrome: bool = False,
+    contour_pen: str | None = None,
+    facade_pen: str | None = None,
+    mesh_pen: str | None = None,
     projection: str | None = None,
     zscale: float | str | None = None,
     zsize: float | str | None = None,
@@ -69,6 +72,9 @@ def grdview(  # noqa: PLR0913
        - R = region
        - Q = surftype, dpi, mesh_fill, nan_transparent, monochrome
        - V = verbose
+       - Wc = contour_pen
+       - Wf = facade_pen
+       - Wm = mesh_pen
        - c = panel
        - p = perspective
        - t = transparency
@@ -116,15 +122,15 @@ def grdview(  # noqa: PLR0913
         PostScript Level 3. Only applies when ``surftype="image"``.
     monochrome
         Force conversion to monochrome image using the (television) YIQ transformation.
-    contourpen : str
+    contour_pen
         Draw contour lines on top of surface or mesh (not image). Append pen attributes
         used for the contours.
-    meshpen : str
-        Set the pen attributes used for the mesh. You must also select ``surftype`` of
-        **m** or **sm** for meshlines to be drawn.
-    facadepen :str
+    facade_pen
         Set the pen attributes used for the facade. You must also select ``plane`` for
         the facade outline to be drawn.
+    mesh_pen
+        Set the pen attributes used for the mesh. You must also select ``surftype`` of
+        **m** or **sm** for meshlines to be drawn.
     shading : str
         Provide the name of a grid file with intensities in the (-1,+1) range, or a
         constant intensity to apply everywhere (affects the ambient light).
@@ -221,6 +227,9 @@ def grdview(  # noqa: PLR0913
             Alias(mesh_fill, name="mesh_fill"),
             Alias(monochrome, name="monochrome", prefix="+m"),
         ],
+        Wc=Alias(contour_pen, name="contour_pen"),
+        Wf=Alias(facade_pen, name="facade_pen"),
+        Wm=Alias(mesh_pen, name="mesh_pen"),
     ).add_common(
         B=frame,
         J=projection,
