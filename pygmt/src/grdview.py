@@ -129,8 +129,8 @@ def grdview(  # noqa: PLR0913
         Set the pen attributes used for the facade. You must also select ``plane`` for
         the facade outline to be drawn.
     mesh_pen
-        Set the pen attributes used for the mesh. You must also select ``surftype`` of
-        **m** or **sm** for meshlines to be drawn.
+        Set the pen attributes used for the mesh. Need to set ``surftype`` to
+        ``"mesh"``, or ``"surface+mesh"`` to draw meshlines.
     shading : str
         Provide the name of a grid file with intensities in the (-1,+1) range, or a
         constant intensity to apply everywhere (affects the ambient light).
