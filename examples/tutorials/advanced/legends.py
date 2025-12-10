@@ -44,12 +44,15 @@ fig.show()
 
 
 # %%
-# Adjust the position
-# -------------------
+# Adjust position and line spacing
+# --------------------------------
 #
 # Use the ``position`` parameter to adjust the position of the legend. Add an offset via
-# **+o** for the x- and y-directions. Additionally append **+w** to adjust the width
-# of the legend. Note, no box is drawn by default if ``position`` is used.
+# **+o** for the x- and y-directions. Additionally append **+w** to adjust the width of
+# the legend. Note, no box is drawn by default if ``position`` is used. Additionally,
+# the ``position`` parameter allows to adjust the line spacing between the legend
+# entries. Use the **+l** modifier to change the line spacing factor in units of the
+# current font size [Default is 1.1].
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
@@ -63,12 +66,23 @@ fig.plot(x=[-3, 3], y=[-2, -2], pen="darkred", label="darkred line")
 # respectively.
 fig.legend(position="jTL+o0.3c/0.2c")
 
+fig.shift_origin(xshift="w+0.5c")
+fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rltb")
+
+fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
+fig.plot(x=1, y=0, style="t0.3c", fill="pink", pen="black", label="pink triangle")
+fig.plot(x=[-3, 3], y=[-2, -2], pen="darkred", label="darkred line")
+
+# Use a line spacing factor of 1.5
+fig.legend(position="jTL+o0.3c/0.2c+l1.5")
+
 fig.show()
 
 
 # %%
 # Add a box
 # ---------
+#
 # Use the ``box`` parameter for adjusting the box around the legend. The outline of the
 # box can be adjusted by appending **+p**. Append **+g** to fill the legend with a color
 # (or pattern) [Default is no fill]. The default of ``position`` is preserved.
@@ -157,4 +171,4 @@ fig.legend(spec=spec_io, position="jMC+w9c", box=Box(pen="1p,gray50", fill="gray
 
 fig.show()
 
-# sphinx_gallery_thumbnail_number = 4
+# sphinx_gallery_thumbnail_number = 5
