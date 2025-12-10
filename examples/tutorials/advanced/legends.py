@@ -66,7 +66,7 @@ fig.plot(x=[-3, 3], y=[-2, -2], pen="darkred", label="darkred line")
 # respectively.
 fig.legend(position="jTL+o0.3c/0.2c")
 
-fig.shift_origin(xshift="w+0.5c")
+fig.shift_origin(xshift="w+1c")
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
 fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
