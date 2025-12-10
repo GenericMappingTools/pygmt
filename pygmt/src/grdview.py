@@ -9,6 +9,7 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdview"]
@@ -22,7 +23,6 @@ __doctest_skip__ = ["grdview"]
     C="cmap",
     G="drapegrid",
     N="plane",
-    Q="surftype",
     I="shading",
     f="coltypes",
     n="interpolation",
@@ -30,6 +30,14 @@ __doctest_skip__ = ["grdview"]
 def grdview(  # noqa: PLR0913
     self,
     grid: PathLike | xr.DataArray,
+    surftype: Literal[
+        "mesh", "surface", "surface+mesh", "image", "waterfall_x", "waterfall_y"
+    ]
+    | None = None,
+    dpi: int | None = None,
+    mesh_fill: float | None = None,
+    nan_transparent: bool = False,
+    monochrome: bool = False,
     contour_pen: str | None = None,
     facade_pen: str | None = None,
     mesh_pen: str | None = None,
@@ -62,6 +70,7 @@ def grdview(  # noqa: PLR0913
        - Jz = zscale
        - JZ = zsize
        - R = region
+       - Q = surftype, dpi, mesh_fill, nan_transparent, monochrome
        - V = verbose
        - Wc = contour_pen
        - Wf = facade_pen
@@ -95,18 +104,24 @@ def grdview(  # noqa: PLR0913
         Draw a plane at this z-level. If the optional color is provided via the **+g**
         modifier, and the projection is not oblique, the frontal facade between the
         plane and the data perimeter is colored.
-    surftype : str
-        Specify cover type of the grid. Select one of following settings:
+    surftype
+        Specify surface type of the grid. Valid values are:
 
-        - **m**: mesh plot [Default].
-        - **mx** or **my**: waterfall plots (row or column profiles).
-        - **s**: surface plot, and optionally append **m** to have mesh lines drawn on
-          top of the surface.
-        - **i**: image plot.
-        - **c**: Same as **i** but will make nodes with z = NaN transparent.
-
-        For any of these choices, you may force a monochrome image by appending the
-        modifier **+m**.
+        - ``"mesh"``: mesh plot [Default].
+        - ``"surface``: surface plot.
+        - ``"surface+mesh"``: surface plot with mesh lines drawn on top of the surface.
+        - ``"image"``: image plot.
+        - ``"waterfall_x"``/``"waterfall_y"``: waterfall plots (row or column profiles).
+    dpi
+        Effective dots-per-unit resolution for the rasterization for image plots (i.e.,
+        ``surftype="image"``) [Default is :gmt-term:`GMT_GRAPHICS_DPU`]
+    mesh_fill
+        Set the mesh fill in mesh plot or waterfall plots [Default is white].
+    nan_transparent
+        Make grid nodes with z = NaN transparent, using the color-masking feature in
+        PostScript Level 3. Only applies when ``surftype="image"``.
+    monochrome
+        Force conversion to monochrome image using the (television) YIQ transformation.
     contour_pen
         Draw contour lines on top of surface or mesh (not image). Append pen attributes
         used for the contours.
@@ -114,8 +129,8 @@ def grdview(  # noqa: PLR0913
         Set the pen attributes used for the facade. You must also select ``plane`` for
         the facade outline to be drawn.
     mesh_pen
-        Set the pen attributes used for the mesh. You must also select ``surftype`` of
-        **m** or **sm** for meshlines to be drawn.
+        Set the pen attributes used for the mesh. Need to set ``surftype`` to
+        ``"mesh"``, or ``"surface+mesh"`` to draw meshlines.
     shading : str
         Provide the name of a grid file with intensities in the (-1,+1) range, or a
         constant intensity to apply everywhere (affects the ambient light).
@@ -156,7 +171,7 @@ def grdview(  # noqa: PLR0913
     ...     # Set the vertical scale (z-axis) to 2 cm
     ...     zsize="2c",
     ...     # Set "surface plot" to color the surface via a CPT
-    ...     surftype="s",
+    ...     surftype="surface",
     ...     # Specify CPT to "geo"
     ...     cmap="geo",
     ... )
@@ -165,9 +180,53 @@ def grdview(  # noqa: PLR0913
     """
     self._activate_figure()
 
+    if dpi is not None and surftype != "image":
+        msg = "Parameter 'dpi' can only be used when 'surftype' is 'image'."
+        raise GMTInvalidInput(msg)
+    if nan_transparent and surftype != "image":
+        msg = "Parameter 'nan_transparent' can only be used when 'surftype' is 'image'."
+        raise GMTInvalidInput(msg)
+    if mesh_fill is not None and surftype not in {"mesh", "waterfall_x", "waterfall_y"}:
+        msg = (
+            "Parameter 'mesh_fill' can only be used when 'surftype' is 'mesh', "
+            "'waterfall_x', or 'waterfall_y'."
+        )
+        raise GMTInvalidInput(msg)
+
+    _surftype_mapping = {
+        "surface": "s",
+        "mesh": "m",
+        "surface+mesh": "sm",
+        "image": "c" if nan_transparent is True else "i",
+        "waterfall_x": "mx",
+        "waterfall_y": "my",
+    }
+
+    # Previously, 'surftype' was aliased to Q.
+    _old_surftype_syntax = surftype is not None and surftype not in _surftype_mapping
+
+    if _old_surftype_syntax and any(
+        v not in {None, False} for v in (dpi, mesh_fill, monochrome, nan_transparent)
+    ):
+        msg = (
+            "Parameter 'surftype' is given with a raw GMT command string, and conflicts "
+            "with parameters 'dpi', 'mesh_fill', 'monochrome', or 'nan_transparent'."
+        )
+        raise GMTInvalidInput(msg)
+
     aliasdict = AliasSystem(
         Jz=Alias(zscale, name="zscale"),
         JZ=Alias(zsize, name="zsize"),
+        Q=[
+            Alias(
+                surftype,
+                name="surftype",
+                mapping=_surftype_mapping if not _old_surftype_syntax else None,
+            ),
+            Alias(dpi, name="dpi"),
+            Alias(mesh_fill, name="mesh_fill"),
+            Alias(monochrome, name="monochrome", prefix="+m"),
+        ],
         Wc=Alias(contour_pen, name="contour_pen"),
         Wf=Alias(facade_pen, name="facade_pen"),
         Wm=Alias(mesh_pen, name="mesh_pen"),
