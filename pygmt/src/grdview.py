@@ -92,16 +92,6 @@ def grdview(  # noqa: PLR0913
         Note that ``zscale`` and ``plane`` always refer to ``grid``. ``drapegrid`` only
         provides the information pertaining to colors, which (if ``drapegrid`` is a
         grid) will be looked-up via the CPT (see ``cmap``).
-    plane
-        Draw a plane at the specified z-level. If ``True``, default to the minimum value
-        in the grid. However, if ``region`` was used to set zmin/zmax then that value is
-        used if it is less than the grid minimum value. Use ``facade_pen`` and
-        ``facade_fill`` to control the appearance of the plane.
-    facade_fill
-        Fill for the frontal facade between the plane specified by ``plane`` and the
-        data perimeter.
-    facade_pen
-        Set the pen attributes used for the facade.
     surftype : str
         Specify cover type of the grid. Select one of following settings:
 
@@ -117,12 +107,19 @@ def grdview(  # noqa: PLR0913
     contour_pen
         Draw contour lines on top of surface or mesh (not image). Append pen attributes
         used for the contours.
-    facade_pen
-        Set the pen attributes used for the facade. You must also select ``plane`` for
-        the facade outline to be drawn.
     mesh_pen
         Set the pen attributes used for the mesh. You must also select ``surftype`` of
         **m** or **sm** for meshlines to be drawn.
+    plane
+        Draw a plane at the specified z-level. If ``True``, default to the minimum value
+        in the grid. However, if ``region`` was used to set zmin/zmax then that value is
+        used if it is less than the grid minimum value. Use ``facade_pen`` and
+        ``facade_fill`` to control the appearance of the plane.
+    facade_fill
+        Fill for the frontal facade between the plane specified by ``plane`` and the
+        data perimeter.
+    facade_pen
+        Set the pen attributes used for the facade.
     shading : str
         Provide the name of a grid file with intensities in the (-1,+1) range, or a
         constant intensity to apply everywhere (affects the ambient light).
