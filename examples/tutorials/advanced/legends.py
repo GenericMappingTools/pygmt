@@ -171,4 +171,4 @@ fig.legend(spec=spec_io, position="jMC+w9c", box=Box(pen="1p,gray50", fill="gray
 
 fig.show()
 
-# sphinx_gallery_thumbnail_number = 5
+# sphinx_gallery_thumbnail_number = 4
