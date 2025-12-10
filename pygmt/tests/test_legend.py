@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTTypeError
+from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import GMTTempFile
 from pygmt.params import Position
 
@@ -179,9 +179,9 @@ def test_legend_position_mixed_syntax(legend_spec):
     spec = io.StringIO(legend_spec)
     fig = Figure()
     fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
-    with pytest.raises(GMTTypeError):
+    with pytest.raises(GMTInvalidInput):
         fig.legend(spec, position="JMC", width="5i")
-    with pytest.raises(GMTTypeError):
+    with pytest.raises(GMTInvalidInput):
         fig.legend(spec, position="JMC", height="5i")
-    with pytest.raises(GMTTypeError):
+    with pytest.raises(GMTInvalidInput):
         fig.legend(spec, position="JMC", line_spacing=2.0)
