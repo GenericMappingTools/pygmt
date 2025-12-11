@@ -77,7 +77,7 @@ def select(
 
     Full GMT docs at :gmt-docs:`gmtselect.html`.
 
-    {aliases}
+    $aliases
        - D = resolution
        - J = projection
        - R = region
@@ -89,10 +89,10 @@ def select(
     ----------
     data
         Pass in either a file name to an ASCII data table, a 2-D
-        {table-classes}.
-    {output_type}
-    {outfile}
-    {area_thresh}
+        $table_classes.
+    $output_type
+    $outfile
+    $area_thresh
     dist2pt : str
         *pointfile*\|\ *lon*/*lat*\ **+d**\ *dist*.
         Pass all records whose locations are within *dist* of any of the
@@ -145,7 +145,7 @@ def select(
           (and ``area_thresh``, ``resolution``).
         - **z** select records NOT within the range specified by
           ``z_subregion``.
-    {projection}
+    $projection
     mask : str or list
         Pass all records whose location is inside specified geographical
         features. Specify if records should be skipped (s) or kept (k) using
@@ -165,8 +165,8 @@ def select(
         coastlines differ in details, a node in a mask file using one resolution is not
         guaranteed to remain inside [or outside] when a different resolution is
         selected. If ``None``, the low resolution is used by default.
-    {region}
-    {verbose}
+    $region
+    $verbose
     z_subregion : str or list
         *min*\ [/*max*]\ [**+a**]\ [**+c**\ *col*]\ [**+i**].
         Pass all records whose 3rd column (*z*; *col* = 2) lies within the
@@ -186,16 +186,16 @@ def select(
         and **+i** reverses the tests to pass record with *z* value NOT in the
         given range. Finally, if **+c** is not used then it is automatically
         incremented for each new ``z_subregion`` argument, starting with 2.
-    {binary}
-    {nodata}
-    {find}
-    {coltypes}
-    {gap}
-    {header}
-    {incols}
-    {outcols}
-    {skiprows}
-    {wrap}
+    $binary
+    $nodata
+    $find
+    $coltypes
+    $gap
+    $header
+    $incols
+    $outcols
+    $skiprows
+    $wrap
 
     Returns
     -------

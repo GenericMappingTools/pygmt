@@ -21,7 +21,7 @@ __doctest_skip__ = ["inset"]
 @kwargs_to_strings(M="sequence")
 def inset(
     self,
-    position: Position,
+    position: Position | None = None,
     width: float | str | None = None,
     height: float | str | None = None,
     box: Box | bool = False,
@@ -42,7 +42,7 @@ def inset(
 
     Full GMT docs at :gmt-docs:`inset.html`.
 
-    {aliases}
+    $aliases
        - D = position, **+w**: width/height
        - F = box
        - J = projection
@@ -82,9 +82,9 @@ def inset(
     no_clip
         Do **not** clip features extruding outside the inset frame boundaries [Default
         is ``False``].
-    {region}
-    {projection}
-    {verbose}
+    $region
+    $projection
+    $verbose
 
     Examples
     --------
@@ -124,7 +124,7 @@ def inset(
 
     # Prior PyGMT v0.17.0, 'position' can accept a raw GMT CLI string. Check for
     # conflicts with other parameters.
-    if isinstance(position, str) and (height is not None or width is not None):
+    if isinstance(position, str) and any(v is not None for v in (width, height)):
         msg = (
             "Parameter 'position' is given with a raw GMT command string, and conflicts "
             "with parameters 'height', and 'width'. "

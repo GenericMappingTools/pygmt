@@ -172,7 +172,7 @@ def meca(  # noqa: PLR0913
            | *mantissa*, *exponent*
          - | angles in degrees;
            | seismic moment is
-           | :math:`mantissa * 10 ^ {{exponent}}`
+           | :math:`mantissa * 10 ^ {exponent}`
            | in dyn cm
        * - ``"mt"``
          - seismic moment tensor
@@ -180,7 +180,7 @@ def meca(  # noqa: PLR0913
            | *mrt*, *mrf*, *mtf*,
            | *exponent*
          - | moment components
-           | in :math:`10 ^ {{exponent}}` dyn cm
+           | in :math:`10 ^ {exponent}` dyn cm
        * - ``"partial"``
          - partial focal mechanism
          - | *strike1*, *dip1*, *strike2*,
@@ -194,12 +194,12 @@ def meca(  # noqa: PLR0913
            | *n_value*, *n_azimuth*, *n_plunge*,
            | *p_value*, *p_azimuth*, *p_plunge*,
            | *exponent*
-         - | values in :math:`10 ^ {{exponent}}` dyn cm;
+         - | values in :math:`10 ^ {exponent}` dyn cm;
            | azimuths and plunges in degrees
 
     Full GMT docs at :gmt-docs:`supplements/seis/meca.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - J = projection
        - N = no_clip
@@ -341,13 +341,13 @@ def meca(  # noqa: PLR0913
     no_clip
         Do **not** skip symbols that fall outside the frame boundaries [Default is
         ``False``, i.e., plot symbols inside the frame boundaries only].
-    {projection}
-    {region}
-    {frame}
-    {verbose}
-    {panel}
-    {perspective}
-    {transparency}
+    $projection
+    $region
+    $frame
+    $verbose
+    $panel
+    $perspective
+    $transparency
     """
     self._activate_figure()
     # Determine the focal mechanism convention from the input data or parameters.

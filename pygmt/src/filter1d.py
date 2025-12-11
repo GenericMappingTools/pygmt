@@ -41,13 +41,13 @@ def filter1d(
 
     Full GMT docs at :gmt-docs:`filter1d.html`.
 
-    {aliases}
+    $aliases
        - V = verbose
 
     Parameters
     ----------
-    {output_type}
-    {outfile}
+    $output_type
+    $outfile
     filter_type : str
         **type**\ *width*\ [**+h**].
         Set the filter **type**. Choose among convolution and non-convolution

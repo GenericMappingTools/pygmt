@@ -61,9 +61,9 @@ def grdclip(
 
     Parameters
     ----------
-    {grid}
-    {outgrid}
-    {region}
+    $grid
+    $outgrid
+    $region
     above
         Pass a sequence of two values in the form of (*high*, *above*), to set all node
         values greater than *high* to *above*.
@@ -81,7 +81,7 @@ def grdclip(
         (e.g., list of lists or 2-D numpy array) to replace different old values with
         different new values. This is mostly useful when your data are known to be
         integer values.
-    {verbose}
+    $verbose
 
     Returns
     -------

@@ -9,20 +9,20 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdview"]
 
 
 @fmt_docstring
+@deprecate_parameter("contourpen", "contour_pen", "v0.18.0", remove_version="v0.20.0")
+@deprecate_parameter("facadepen", "facade_pen", "v0.18.0", remove_version="v0.20.0")
+@deprecate_parameter("meshpen", "mesh_pen", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     C="cmap",
     G="drapegrid",
     N="plane",
     Q="surftype",
-    Wc="contourpen",
-    Wm="meshpen",
-    Wf="facadepen",
     I="shading",
     f="coltypes",
     n="interpolation",
@@ -30,6 +30,9 @@ __doctest_skip__ = ["grdview"]
 def grdview(  # noqa: PLR0913
     self,
     grid: PathLike | xr.DataArray,
+    contour_pen: str | None = None,
+    facade_pen: str | None = None,
+    mesh_pen: str | None = None,
     projection: str | None = None,
     zscale: float | str | None = None,
     zsize: float | str | None = None,
@@ -53,29 +56,32 @@ def grdview(  # noqa: PLR0913
 
     Full GMT docs at :gmt-docs:`grdview.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - J = projection
        - Jz = zscale
        - JZ = zsize
        - R = region
        - V = verbose
+       - Wc = contour_pen
+       - Wf = facade_pen
+       - Wm = mesh_pen
        - c = panel
        - p = perspective
        - t = transparency
 
     Parameters
     ----------
-    {grid}
+    $grid
     region : str or list
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
         Specify the :doc:`region </tutorials/basics/regions>` of interest. When used
         with ``perspective``, optionally append */zmin/zmax* to indicate the range to
         use for the 3-D axes [Default is the region given by the input grid].
-    {projection}
+    $projection
     zscale/zsize
         Set z-axis scaling or z-axis size.
-    {frame}
+    $frame
     cmap : str
         The name of the color palette table to use.
     drapegrid : str or :class:`xarray.DataArray`
@@ -101,15 +107,15 @@ def grdview(  # noqa: PLR0913
 
         For any of these choices, you may force a monochrome image by appending the
         modifier **+m**.
-    contourpen : str
+    contour_pen
         Draw contour lines on top of surface or mesh (not image). Append pen attributes
         used for the contours.
-    meshpen : str
-        Set the pen attributes used for the mesh. You must also select ``surftype`` of
-        **m** or **sm** for meshlines to be drawn.
-    facadepen :str
+    facade_pen
         Set the pen attributes used for the facade. You must also select ``plane`` for
         the facade outline to be drawn.
+    mesh_pen
+        Set the pen attributes used for the mesh. You must also select ``surftype`` of
+        **m** or **sm** for meshlines to be drawn.
     shading : str
         Provide the name of a grid file with intensities in the (-1,+1) range, or a
         constant intensity to apply everywhere (affects the ambient light).
@@ -118,12 +124,12 @@ def grdview(  # noqa: PLR0913
         **+m**\ *ambient* to specify azimuth, intensity, and ambient arguments for that
         function, or just give **+d** to select the default arguments [Default is
         ``"+a-45+nt1+m0"``].
-    {verbose}
-    {panel}
-    {coltypes}
-    {interpolation}
-    {perspective}
-    {transparency}
+    $verbose
+    $panel
+    $coltypes
+    $interpolation
+    $perspective
+    $transparency
 
     Example
     -------
@@ -162,6 +168,9 @@ def grdview(  # noqa: PLR0913
     aliasdict = AliasSystem(
         Jz=Alias(zscale, name="zscale"),
         JZ=Alias(zsize, name="zsize"),
+        Wc=Alias(contour_pen, name="contour_pen"),
+        Wf=Alias(facade_pen, name="facade_pen"),
+        Wm=Alias(mesh_pen, name="mesh_pen"),
     ).add_common(
         B=frame,
         J=projection,

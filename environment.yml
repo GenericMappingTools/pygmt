@@ -3,7 +3,7 @@ channels:
     - conda-forge
     - nodefaults
 dependencies:
-    - python>=3.11
+    - python>=3.12
     # Required dependencies
     - gmt=6.6.0
     - ghostscript=10.06.0
@@ -35,7 +35,6 @@ dependencies:
     - pytest-mpl
     - netCDF4
     # Dev dependencies (building documentation)
-    - geodatasets
     - myst-nb
     - panel
     - sphinx>=6.2
