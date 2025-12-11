@@ -120,7 +120,7 @@ fig.histogram(
     frame=["WSne", "xaf10", "ya1f1+lCounts"],
     data=data02,
     series=10,
-    # Draw a 1.5-points thick, dashed outline in "orange"
+    # Draw a 1.5-point thick, dashed outline in "orange"
     pen="1.5p,orange,dashed",
     histtype=0,
     stairs=True,
