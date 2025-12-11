@@ -114,21 +114,26 @@ def inset(
     """
     self._activate_figure()
 
-    if position is None or width is None:
-        msg = "Parameters 'position' and 'width' must be specified."
-        raise GMTInvalidInput(msg)
-
-    if height is not None and width is None:
-        msg = "'width' must be specified if 'height' is given."
+    if position is None:
+        msg = "Parameter 'position' must be specified."
         raise GMTInvalidInput(msg)
 
     # Prior PyGMT v0.17.0, 'position' can accept a raw GMT CLI string. Check for
     # conflicts with other parameters.
-    if isinstance(position, str) and any(v is not None for v in (width, height)):
+    _old_position_syntax = isinstance(position, str)
+    if _old_position_syntax and any(v is not None for v in (width, height)):
         msg = (
             "Parameter 'position' is given with a raw GMT command string, and conflicts "
             "with parameters 'height', and 'width'. "
         )
+        raise GMTInvalidInput(msg)
+
+    if not _old_position_syntax and width is None:
+        msg = "Parameter 'width' must be specified."
+        raise GMTInvalidInput(msg)
+
+    if height is not None and width is None:
+        msg = "'width' must be specified if 'height' is given."
         raise GMTInvalidInput(msg)
 
     aliasdict = AliasSystem(
