@@ -8,10 +8,11 @@ from typing import Literal
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list
+from pygmt.helpers import build_arg_list, fmt_docstring
 from pygmt.params import Box, Position
 
 
+@fmt_docstring
 def scalebar(  # noqa: PLR0913
     self,
     position: Position | None = None,
@@ -40,6 +41,7 @@ def scalebar(  # noqa: PLR0913
     length
         Length of the scale bar in km. You can append different units to the length,
         which are:
+
         - **e**: meters
         - **f**: feet
         - **k**: kilometers
@@ -56,7 +58,7 @@ def scalebar(  # noqa: PLR0913
         - ``False``: Default to the location of the reference point.
     label
         Text string to use as the scale bar label. If ``False``, no label is drawn. If
-        ``True``, the distance unit provided in the ``length` parameter (default is km)
+        ``True``, the distance unit provided in the ``length`` parameter (default is km)
         is used as the label. This parameter requires ``fancy=True``.
     label_alignment
         Alignment of the scale bar label. Choose from ``"left"``, ``"right"``,
