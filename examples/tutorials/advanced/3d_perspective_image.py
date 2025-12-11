@@ -92,7 +92,7 @@ fig.grdview(
     cmap="geo",
     plane=1000,
     facade_fill="gray",
-    # Set the contour pen thickness to "0.1p"
+    # Set the contour pen thickness to 0.1 points
     contour_pen="0.1p",
 )
 fig.colorbar(perspective=True, frame=["a500", "x+lElevation", "y+lm"])
