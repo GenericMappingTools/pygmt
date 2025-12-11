@@ -39,15 +39,9 @@ def scalebar(  # noqa: PLR0913
         Specify the location of the scale bar. See :class:`pygmt.params.Position` for
         more details.
     length
-        Length of the scale bar in km. You can append different units to the length,
-        which are:
-
-        - **e**: meters
-        - **f**: feet
-        - **k**: kilometers
-        - **M**: statute mile
-        - **n**: nautical miles
-        - **u**: US Survey foot
+        Length of the scale bar in km. Append a suffix to specify different units. Valid
+        units are: **e**: meters; **f**: feet; **k**: kilometers; **M**: statute mile;
+        **n**: nautical miles; **u**: US Survey foot.
     scale_position
         Specify the location where on a geographic map the scale applies. It can be:
 
