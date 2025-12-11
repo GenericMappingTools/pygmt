@@ -89,7 +89,7 @@ def test_legend_specfile(legend_spec):
         fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
         fig.legend(
             specfile.name,
-            position=Position("MC", cstype="outside", anchor="CM"),
+            position=Position("MC", cstype="outside", anchor="MC"),
             width="5i",
         )
         return fig
