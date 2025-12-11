@@ -45,7 +45,7 @@ fig.meca(
     # Fill extensive quadrants with color "cornsilk"
     # [Default is "white"]
     extensionfill="cornsilk",
-    # Draw a 0.5 points thick dark gray ("gray30") solid outline via
+    # Draw a 0.5-point thick dark gray ("gray30") solid outline via
     # the pen parameter [Default is "0.25p,black,solid"]
     pen="0.5p,gray30,solid",
 )

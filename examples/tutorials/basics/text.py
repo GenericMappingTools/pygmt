@@ -77,15 +77,15 @@ fig.plot(
 
 # Plot text labels at the x and y positions of the markers while varying the anchor
 # point via the justify parameter
-fig.text(x=-0.5, y=0.5, text="TL", justify="TL")  # TopLeft
-fig.text(x=0, y=0.5, text="TC", justify="TC")  # TopCenter
-fig.text(x=0.5, y=0.5, text="TR", justify="TR")  # TopRight
-fig.text(x=-0.5, y=0, text="ML", justify="ML")  # MiddleLeft
-fig.text(x=0, y=0, text="MC", justify="MC")  # MiddleCenter
-fig.text(x=0.5, y=0, text="MR", justify="MR")  # MiddleRight
-fig.text(x=-0.5, y=-0.5, text="BL", justify="BL")  # BottomLeft
-fig.text(x=0, y=-0.5, text="BC", justify="BC")  # BottomCenter
-fig.text(x=0.5, y=-0.5, text="BR", justify="BR")  # BottomRight
+fig.text(x=-0.5, y=0.5, text="TL", justify="TL")  # Top Left
+fig.text(x=0, y=0.5, text="TC", justify="TC")  # Top Center
+fig.text(x=0.5, y=0.5, text="TR", justify="TR")  # Top Right
+fig.text(x=-0.5, y=0, text="ML", justify="ML")  # Middle Left
+fig.text(x=0, y=0, text="MC", justify="MC")  # Middle Center
+fig.text(x=0.5, y=0, text="MR", justify="MR")  # Middle Right
+fig.text(x=-0.5, y=-0.5, text="BL", justify="BL")  # Bottom Left
+fig.text(x=0, y=-0.5, text="BC", justify="BC")  # Bottom Center
+fig.text(x=0.5, y=-0.5, text="BR", justify="BR")  # Bottom Right
 
 fig.show()
 
