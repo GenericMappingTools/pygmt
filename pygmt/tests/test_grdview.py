@@ -179,7 +179,9 @@ def test_grdview_surface_plot_styled_with_contourpen(xrgrid):
     surface plot.
     """
     fig = Figure()
-    fig.grdview(grid=xrgrid, cmap="relief", surftype="s", contour_pen="0.5p,black,dashed")
+    fig.grdview(
+        grid=xrgrid, cmap="relief", surftype="s", contour_pen="0.5p,black,dashed"
+    )
     return fig
 
 
