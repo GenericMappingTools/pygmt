@@ -85,7 +85,7 @@ fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
 fig.plot(x=1, y=0, style="t0.3c", fill="pink", pen="black", label="pink triangle")
 fig.plot(x=[-3, 3], y=[-2, -2], pen="darkred", label="darkred line")
 
-# Add a box with a 2-points thick blue, solid outline and a white fill with a
+# Add a box with a 2-point thick blue, solid outline and a white fill with a
 # transparency of 30 percent ("@30").
 fig.legend(
     position=Position("TL", offset=(0.3, 0.2)), box=Box(pen="2p,blue", fill="white@30")
