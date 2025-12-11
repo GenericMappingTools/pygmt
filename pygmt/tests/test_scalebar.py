@@ -29,6 +29,7 @@ def test_scalebar_complete():
     fig.scalebar(
         position=Position((110, 22), cstype="mapcoords"),
         length=1000,
+        height="10p",
         fancy=True,
         label="Scale",
         label_alignment="left",

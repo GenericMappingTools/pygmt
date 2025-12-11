@@ -17,6 +17,7 @@ def scalebar(  # noqa: PLR0913
     self,
     position: Position | None = None,
     length: float | str | None = None,
+    height: float | str | None = None,
     scale_position: float | Sequence[float] | bool = False,
     label: str | bool = False,
     label_alignment: Literal["left", "right", "top", "bottom"] | None = None,
@@ -42,6 +43,8 @@ def scalebar(  # noqa: PLR0913
         Length of the scale bar in km. Append a suffix to specify different units. Valid
         units are: **e**: meters; **f**: feet; **k**: kilometers; **M**: statute mile;
         **n**: nautical miles; **u**: US Survey foot.
+    height
+        Height of the scale bar. Only works when ``fancy=True``. [Default is ``"5p"``].
     scale_position
         Specify the location where on a geographic map the scale applies. It can be:
 
@@ -124,5 +127,11 @@ def scalebar(  # noqa: PLR0913
         t=transparency,
     )
 
+    confdict = {}
+    if height is not None:
+        confdict["MAP_SCALE_HEIGHT"] = height
+
     with Session() as lib:
-        lib.call_module(module="basemap", args=build_arg_list(aliasdict))
+        lib.call_module(
+            module="basemap", args=build_arg_list(aliasdict, confdict=confdict)
+        )
