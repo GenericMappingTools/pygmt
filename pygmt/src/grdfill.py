@@ -55,7 +55,14 @@ def _validate_params(
 
     n_given = sum(
         param is not None and param is not False
-        for param in [constant_fill, grid_fill, neighbor_fill, spline_fill, inquire, mode]
+        for param in [
+            constant_fill,
+            grid_fill,
+            neighbor_fill,
+            spline_fill,
+            inquire,
+            mode,
+        ]
     )
     if n_given > 1:  # More than one mutually exclusive parameter is given.
         msg = f"Parameters {_fill_params}/'inquire'/'mode' are mutually exclusive."
@@ -72,9 +79,13 @@ def _validate_params(
 # TODO(PyGMT>=0.19.0): Remove the deprecated 'no_data' parameter.
 # TODO(PyGMT>=0.19.0): Remove the deprecated 'mode' parameter.
 @deprecate_parameter("no_data", "hole", "v0.18.0", remove_version="v0.20.0")
-@deprecate_parameter("constantfill", "constant_fill", "v0.15.0", remove_version="v0.19.0")
+@deprecate_parameter(
+    "constantfill", "constant_fill", "v0.15.0", remove_version="v0.19.0"
+)
 @deprecate_parameter("gridfill", "grid_fill", "v0.18.0", remove_version="v0.20.0")
-@deprecate_parameter("neighborfill", "neighbor_fill", "v0.18.0", remove_version="v0.20.0")
+@deprecate_parameter(
+    "neighborfill", "neighbor_fill", "v0.18.0", remove_version="v0.20.0"
+)
 @deprecate_parameter("splinefill", "spline_fill", "v0.18.0", remove_version="v0.20.0")
 @use_alias(f="coltypes")
 def grdfill(  # noqa: PLR0913
@@ -179,7 +190,9 @@ def grdfill(  # noqa: PLR0913
            [6.16666667, 7.83333333, 0.5       , 2.5       ]])
     """
     # Validate the fill/inquire parameters.
-    _validate_params(constant_fill, grid_fill, neighbor_fill, spline_fill, inquire, mode)
+    _validate_params(
+        constant_fill, grid_fill, neighbor_fill, spline_fill, inquire, mode
+    )
 
     # _validate_params has already ensured that only one of the parameters is set.
     aliasdict = AliasSystem(
