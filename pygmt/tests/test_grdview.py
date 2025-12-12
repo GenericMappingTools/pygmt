@@ -230,7 +230,7 @@ def test_grdview_facadepen_default_plane(xrgrid):
 
 @pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
-def test_grdview_drape_grid_dataarray(xrgrid):
+def test_grdview_drapegrid_dataarray(xrgrid):
     """
     Run grdview by passing in both a grid and drape_grid as an xarray.DataArray, setting
     a colormap for producing an image plot.
@@ -248,7 +248,7 @@ def test_grdview_drape_grid_dataarray(xrgrid):
     return fig
 
 
-def test_grdview_wrong_kind_of_drape_grid(xrgrid):
+def test_grdview_wrong_kind_of_drapegrid(xrgrid):
     """
     Run grdview using drape_grid input that is not an xarray.DataArray or file.
     """
