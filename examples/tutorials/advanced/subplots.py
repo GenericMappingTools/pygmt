@@ -117,7 +117,7 @@ fig.show()
 # 15 cm wide and 6 cm high (``figsize=["15c", "6c"]``). In addition, we use
 # some optional parameters to fine-tune some details of the figure creation:
 #
-# - ``auto_label=True``: Each subplot is automatically labelled 'abcd'.
+# - ``auto_label=True``: Each subplot is automatically labeled 'abcd'.
 # - ``margins=["0.1c", "0.2c"]``: Adjusts the space between adjacent subplots.
 #   In this case, it is set as 0.1 cm in the x-direction and 0.2 cm in the
 #   y-direction.
@@ -224,7 +224,7 @@ fig.show()
 
 # %%
 # We start by drawing the bottom two subplots, setting ``auto_label="b)"`` so
-# that the subplots are labelled 'b)' and 'c)'. Next, we use
+# that the subplots are labeled 'b)' and 'c)'. Next, we use
 # :meth:`pygmt.Figure.shift_origin` to move the plot origin 1 cm above the
 # **h**\ eight of the entire figure that is currently plotted (i.e. the bottom
 # row subplots). A single subplot is then plotted on the top row. You may need
