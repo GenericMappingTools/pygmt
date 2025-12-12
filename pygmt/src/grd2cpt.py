@@ -2,6 +2,7 @@
 grd2cpt - Make linear or histogram-equalized color palette table from grid.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -24,19 +25,19 @@ __doctest_skip__ = ["grd2cpt"]
     H="output",
     I="reverse",
     L="limit",
-    R="region",
     T="series",
     W="categorical",
     Ww="cyclic",
 )
-@kwargs_to_strings(L="sequence", R="sequence", T="sequence")
+@kwargs_to_strings(L="sequence", T="sequence")
 def grd2cpt(
     grid: PathLike | xr.DataArray,
-    truncate: tuple[float, float] | None = None,
+    truncate: Sequence[float] | None = None,
     overrule_bg: bool = False,
     no_bg: bool = False,
     log: bool = False,
     continuous: bool = False,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -84,17 +85,18 @@ def grd2cpt(
 
     Full GMT docs at :gmt-docs:`grd2cpt.html`.
 
-    {aliases}
+    $aliases
        - G = truncate
        - M = overrule_bg
        - N = no_bg
        - Q = log
+       - R = region
        - Z = continuous
        - V = verbose
 
     Parameters
     ----------
-    {grid}
+    $grid
     transparency : float or str
         Set a constant level of transparency (0-100) for all color slices. Append **+a**
         to also affect the foreground, background, and NaN colors [Default is no
@@ -180,7 +182,7 @@ def grd2cpt(
         Produce a wrapped (cyclic) color table that endlessly repeats its
         range. Note that ``cyclic=True`` cannot be set together with
         ``categorical=True``.
-    {verbose}
+    $verbose
 
     Example
     -------
@@ -210,6 +212,7 @@ def grd2cpt(
         Q=Alias(log, name="log"),
         Z=Alias(continuous, name="continuous"),
     ).add_common(
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)

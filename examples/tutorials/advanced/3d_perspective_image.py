@@ -74,7 +74,7 @@ fig.show()
 
 # %%
 # The ``perspective`` azimuth can be changed to set the direction that is "up"
-# in the figure. The ``contourpen`` parameter sets the pen used to draw contour
+# in the figure. The ``contour_pen`` parameter sets the pen used to draw contour
 # lines on the surface. :meth:`pygmt.Figure.colorbar` can be used to add a
 # color bar to the figure. The ``cmap`` parameter does not need to be passed
 # again. To keep the color bar's alignment similar to the figure, use ``True``
@@ -92,7 +92,7 @@ fig.grdview(
     cmap="geo",
     plane="1000+ggrey",
     # Set the contour pen thickness to "0.1p"
-    contourpen="0.1p",
+    contour_pen="0.1p",
 )
 fig.colorbar(perspective=True, frame=["a500", "x+lElevation", "y+lm"])
 fig.show()

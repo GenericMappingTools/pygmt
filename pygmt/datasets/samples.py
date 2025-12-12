@@ -209,16 +209,11 @@ def _load_earth_relief_holes() -> xr.DataArray:
 class GMTSampleData(NamedTuple):
     """
     Information of a sample dataset.
-
-    Attributes
-    ----------
-    func : callable
-        The function that loads the sample dataset.
-    description : str
-        The description of the sample dataset.
     """
 
+    #: The function that loads the sample dataset.
     func: Callable
+    #: The description of the sample dataset.
     description: str
 
 

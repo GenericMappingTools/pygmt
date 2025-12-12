@@ -3,6 +3,7 @@ legend - Plot a legend.
 """
 
 import io
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import PathLike
@@ -14,25 +15,27 @@ from pygmt.helpers import (
     data_kind,
     fmt_docstring,
     is_nonstr_iter,
-    kwargs_to_strings,
     use_alias,
 )
 from pygmt.params import Box
 
 
 @fmt_docstring
-@use_alias(R="region", D="position", p="perspective")
-@kwargs_to_strings(R="sequence", p="sequence")
-def legend(
+@use_alias(D="position")
+def legend(  # noqa: PLR0913
     self,
     spec: PathLike | io.StringIO | None = None,
-    projection=None,
+    scale: float | None = None,
     position="JTR+jTR+o0.2c",
     box: Box | bool = False,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -46,11 +49,15 @@ def legend(
 
     Full GMT docs at :gmt-docs:`legend.html`.
 
-    {aliases}
+    $aliases
+       - B = frame
        - F = box
        - J = projection
+       - R = region
+       - S = scale
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -64,8 +71,6 @@ def legend(
         - A :class:`io.StringIO` object containing the legend specification
 
         See :gmt-docs:`legend.html` for the definition of the legend specification.
-    {projection}
-    {region}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *width*\ [/*height*]\ [**+j**\ *justify*]\ [**+l**\ *spacing*]\
@@ -79,10 +84,15 @@ def legend(
         rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
         appearance, pass a :class:`pygmt.params.Box` object to control style, fill, pen,
         and other box properties.
-    {verbose}
-    {panel}
-    {perspective}
-    {transparency}
+    scale
+        Scale all symbol sizes by a common scale [Default is 1.0, i.e., no scaling].
+    $projection
+    $region
+    $frame
+    $verbose
+    $panel
+    $perspective
+    $transparency
     """
     self._activate_figure()
 
@@ -102,10 +112,14 @@ def legend(
 
     aliasdict = AliasSystem(
         F=Alias(box, name="box"),
+        S=Alias(scale, name="scale"),
     ).add_common(
+        B=frame,
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

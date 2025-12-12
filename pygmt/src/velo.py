@@ -2,26 +2,21 @@
 velo - Plot velocity vectors, crosses, anisotropy bars, and wedges.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
 import pandas as pd
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput, GMTTypeError
-from pygmt.helpers import (
-    build_arg_list,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
 @use_alias(
     A="vector",
-    B="frame",
     C="cmap",
     D="rescale",
     E="uncertaintyfill",
@@ -29,26 +24,26 @@ from pygmt.helpers import (
     H="scale",
     I="shading",
     L="line",
-    N="no_clip",
-    R="region",
     S="spec",
     W="pen",
     Z="zvalue",
     d="nodata",
     e="find",
     h="header",
-    i="incols",
-    p="perspective",
 )
-@kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
-def velo(
+def velo(  # noqa : PLR0913
     self,
     data: PathLike | TableLike | None = None,
-    projection=None,
+    no_clip: bool = False,
+    projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ):
     r"""
@@ -65,17 +60,22 @@ def velo(
 
     Full GMT docs at :gmt-docs:`supplements/geodesy/velo.html`.
 
-    {aliases}
+    $aliases
+       - B = frame
        - J = projection
+       - N = no_clip
+       - R = region
        - V = verbose
        - c = panel
+       - i = incols
+       - p = perspective
        - t = transparency
 
     Parameters
     ----------
     data
         Pass in either a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
         Note that text columns are only supported with file or
         :class:`pandas.DataFrame` inputs.
 
@@ -170,15 +170,15 @@ def velo(
               with extension taken positive.
             - **5**: azimuth of eps2 in degrees CW from North.
 
-    {projection}
-    {region}
+    $projection
+    $region
     vector : bool or str
         Modify vector parameters. For vector heads, append vector head *size*
         [Default is 9p]. See
         :gmt-docs:`supplements/geodesy/velo.html#vector-attributes` for
         specifying additional attributes.
-    {frame}
-    {cmap}
+    $frame
+    $cmap
     rescale : str
         Can be used to rescale the uncertainties of velocities (``spec="e"``
         and ``spec="r"``) and rotations (``spec="w"``). Can be combined with
@@ -221,11 +221,10 @@ def velo(
         ``cmap``). If instead modifier **+cf** is appended then the color from
         the cpt file is applied to error fill only [Default]. Use just **+c**
         to set both pen and fill color.
-    no_clip: bool
-        Do **not** skip symbols that fall outside the frame boundaries
-        [Default is ``False``, i.e., plot symbols inside the frame
-        boundaries only].
-    {verbose}
+    no_clip
+        Do **not** skip symbols that fall outside the frame boundaries [Default is
+        ``False``, i.e., plot symbols inside the frame boundaries only].
+    $verbose
     pen : str
         [*pen*][**+c**\ [**f**\|\ **l**]].
         Set pen attributes for velocity arrows, ellipse circumference and fault
@@ -243,13 +242,13 @@ def velo(
         required columns). To instead use the corresponding error estimates
         (i.e., vector or rotation uncertainty) to lookup the color and paint
         the error ellipse or wedge instead, append **+e**.
-    {panel}
-    {nodata}
-    {find}
-    {header}
-    {incols}
-    {perspective}
-    {transparency}
+    $panel
+    $nodata
+    $find
+    $header
+    $incols
+    $perspective
+    $transparency
     """
     self._activate_figure()
 
@@ -268,10 +267,16 @@ def velo(
             ),
         )
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        N=Alias(no_clip, name="no_clip"),
+    ).add_common(
+        B=frame,
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
+        i=incols,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

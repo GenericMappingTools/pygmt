@@ -24,7 +24,7 @@ assignees: ''
 - [ ] Review the ["PyGMT Team" page](https://www.pygmt.org/dev/team.html)
 - [ ] README looks good on TestPyPI. Visit [TestPyPI](https://test.pypi.org/project/pygmt/#history), click the latest pre-release, and check the homepage.
 - [ ] Check to ensure that:
-  - [ ] Deprecated workarounds/codes/tests are removed. Run `grep "# TODO" **/*.py` to find all potential TODOs.
+  - [ ] Deprecated workarounds/codes/tests are removed. Run `grep -r "# TODO" --include="*.py" .` to find all potential TODOs.
   - [ ] All tests pass in the ["GMT Legacy Tests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_legacy.yaml)
   - [ ] All tests pass in the ["GMT Dev Tests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml)
   - [ ] All tests pass in the ["Doctests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_doctests.yaml)

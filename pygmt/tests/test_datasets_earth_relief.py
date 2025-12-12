@@ -177,6 +177,17 @@ def test_earth_relief_invalid_data_source_with_use_srtm():
         )
 
 
+def test_earth_relief_03s_but_not_igpp():
+    """
+    Test loading earth relief with resolution "03s" but data_source not "igpp".
+    """
+    for data_source in ["gebco", "gebcosi", "synbath"]:
+        with pytest.raises(GMTValueError):
+            load_earth_relief(
+                resolution="03s", region=[135, 136, 35, 36], data_source=data_source
+            )
+
+
 def test_earth_relief_15s_default_registration():
     """
     Test that the grid returned by default for the 15 arc-second resolution has a

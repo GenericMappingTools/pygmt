@@ -2,6 +2,7 @@
 grdcontour - Make contour map using a grid.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
@@ -24,27 +25,27 @@ __doctest_skip__ = ["grdcontour"]
 @deprecate_parameter("interval", "levels", "v0.12.0", remove_version="v0.16.0")
 @use_alias(
     A="annotation",
-    B="frame",
     C="levels",
     G="label_placement",
     L="limit",
     Q="cut",
-    R="region",
     S="resample",
     W="pen",
     l="label",
     f="coltypes",
-    p="perspective",
 )
-@kwargs_to_strings(R="sequence", L="sequence", p="sequence")
+@kwargs_to_strings(L="sequence")
 def grdcontour(
     self,
     grid: PathLike | xr.DataArray,
-    projection=None,
+    projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -54,15 +55,18 @@ def grdcontour(
 
     Full GMT docs at :gmt-docs:`grdcontour.html`.
 
-    {aliases}
+    $aliases
+       - B = frame
        - J = projection
+       - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
     ----------
-    {grid}
+    $grid
     levels : float, list, or str
         Specify the contour lines to generate.
 
@@ -90,16 +94,16 @@ def grdcontour(
         Do not draw contours with less than `cut` number of points.
     resample : str or int
         Resample smoothing factor.
-    {projection}
-    {region}
-    {frame}
+    $projection
+    $region
+    $frame
     label_placement : str
         [**d**\|\ **f**\|\ **n**\|\ **l**\|\ **L**\|\ **x**\|\ **X**]\
         *args*.
         Control the placement of labels along the quoted lines. It supports
         five controlling algorithms. See :gmt-docs:`grdcontour.html#g` for
         details.
-    {verbose}
+    $verbose
     pen : str or list
         [*type*]\ *pen*\ [**+c**\ [**l**\|\ **f**]].
         *type*, if present, can be **a** for annotated contours or **c** for regular
@@ -110,8 +114,8 @@ def grdcontour(
         contour lines are taken from the CPT (see ``levels``). If **+cf** is
         appended the colors from the CPT file are applied to the contour annotations.
         Select **+c** for both effects.
-    {panel}
-    {coltypes}
+    $panel
+    $coltypes
     label : str
         Add a legend entry for the contour being plotted. Normally, the
         annotated contour is selected for the legend. You can select the
@@ -119,8 +123,8 @@ def grdcontour(
         to be of the format [*annotcontlabel*][/*contlabel*]. If either
         label contains a slash (/) character then use ``|`` as the
         separator for the two labels instead.
-    {perspective}
-    {transparency}
+    $perspective
+    $transparency
 
     Example
     -------
@@ -164,9 +168,12 @@ def grdcontour(
                 kwargs[arg] = ",".join(f"{item}" for item in kwargs[arg])
 
     aliasdict = AliasSystem().add_common(
+        B=frame,
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

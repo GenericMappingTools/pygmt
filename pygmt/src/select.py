@@ -2,6 +2,7 @@
 select - Select data table subsets based on multiple spatial criteria.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
@@ -29,7 +30,6 @@ __doctest_skip__ = ["select"]
     I="reverse",
     L="dist2line",
     N="mask",
-    R="region",
     Z="z_subregion",
     b="binary",
     d="nodata",
@@ -37,12 +37,10 @@ __doctest_skip__ = ["select"]
     f="coltypes",
     g="gap",
     h="header",
-    i="incols",
-    o="outcols",
     s="skiprows",
     w="wrap",
 )
-@kwargs_to_strings(N="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(N="sequence")
 def select(
     data: PathLike | TableLike | None = None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
@@ -50,9 +48,12 @@ def select(
     resolution: Literal[
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
-    projection=None,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
+    outcols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -76,19 +77,22 @@ def select(
 
     Full GMT docs at :gmt-docs:`gmtselect.html`.
 
-    {aliases}
+    $aliases
        - D = resolution
        - J = projection
+       - R = region
        - V = verbose
+       - i = incols
+       - o = outcols
 
     Parameters
     ----------
     data
         Pass in either a file name to an ASCII data table, a 2-D
-        {table-classes}.
-    {output_type}
-    {outfile}
-    {area_thresh}
+        $table_classes.
+    $output_type
+    $outfile
+    $area_thresh
     dist2pt : str
         *pointfile*\|\ *lon*/*lat*\ **+d**\ *dist*.
         Pass all records whose locations are within *dist* of any of the
@@ -141,7 +145,7 @@ def select(
           (and ``area_thresh``, ``resolution``).
         - **z** select records NOT within the range specified by
           ``z_subregion``.
-    {projection}
+    $projection
     mask : str or list
         Pass all records whose location is inside specified geographical
         features. Specify if records should be skipped (s) or kept (k) using
@@ -161,8 +165,8 @@ def select(
         coastlines differ in details, a node in a mask file using one resolution is not
         guaranteed to remain inside [or outside] when a different resolution is
         selected. If ``None``, the low resolution is used by default.
-    {region}
-    {verbose}
+    $region
+    $verbose
     z_subregion : str or list
         *min*\ [/*max*]\ [**+a**]\ [**+c**\ *col*]\ [**+i**].
         Pass all records whose 3rd column (*z*; *col* = 2) lies within the
@@ -182,16 +186,16 @@ def select(
         and **+i** reverses the tests to pass record with *z* value NOT in the
         given range. Finally, if **+c** is not used then it is automatically
         incremented for each new ``z_subregion`` argument, starting with 2.
-    {binary}
-    {nodata}
-    {find}
-    {coltypes}
-    {gap}
-    {header}
-    {incols}
-    {outcols}
-    {skiprows}
-    {wrap}
+    $binary
+    $nodata
+    $find
+    $coltypes
+    $gap
+    $header
+    $incols
+    $outcols
+    $skiprows
+    $wrap
 
     Returns
     -------
@@ -233,7 +237,10 @@ def select(
         ),
     ).add_common(
         J=projection,
+        R=region,
         V=verbose,
+        i=incols,
+        o=outcols,
     )
     aliasdict.merge(kwargs)
 

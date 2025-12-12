@@ -1,0 +1,5 @@
+outs:
+- md5: 10c5d3cadeb50764177bf49cbefeecb1
+  size: 48753
+  hash: md5
+  path: test_solar_terminator_datetime_timezone.png

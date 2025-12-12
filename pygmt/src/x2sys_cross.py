@@ -4,6 +4,7 @@ x2sys_cross - Calculate crossovers between track data files.
 
 import contextlib
 import os
+from collections.abc import Sequence
 from pathlib import Path
 from typing import Any, Literal
 
@@ -16,7 +17,6 @@ from pygmt.helpers import (
     build_arg_list,
     data_kind,
     fmt_docstring,
-    kwargs_to_strings,
     unique_name,
     use_alias,
 )
@@ -63,17 +63,16 @@ def tempfile_from_dftrack(track, suffix):
     C="runtimes",
     D="override",
     I="interpolation",
-    R="region",
     S="speed",
     T="tag",
     Q="coe",
     W="numpoints",
     Z="trackvalues",
 )
-@kwargs_to_strings(R="sequence")
 def x2sys_cross(
     tracks=None,
     outfile: PathLike | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -91,8 +90,9 @@ def x2sys_cross(
 
     Full GMT docs at :gmt-docs:`supplements/x2sys/x2sys_cross.html`.
 
-    {aliases}
-        - V = verbose
+    $aliases
+       - R = region
+       - V = verbose
 
     Parameters
     ----------
@@ -159,7 +159,7 @@ def x2sys_cross(
         Use **e** for external COEs only, and **i** for internal COEs only
         [Default is all COEs].
 
-    {region}
+    $region
 
     speed : str or list
         **l**\|\ **u**\|\ **h**\ *speed*.
@@ -176,7 +176,7 @@ def x2sys_cross(
         speed of 0, upper speed of 10, and disable heading calculations for
         speeds below 5.
 
-    {verbose}
+    $verbose
 
     numpoints : int
         Give the maximum number of data points on either side of the crossover
@@ -219,6 +219,7 @@ def x2sys_cross(
                 raise GMTTypeError(type(track))
 
     aliasdict = AliasSystem().add_common(
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)

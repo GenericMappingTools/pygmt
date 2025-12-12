@@ -2,25 +2,28 @@
 logo - Plot the GMT logo.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 from pygmt.params import Box
 
 
 @fmt_docstring
-@use_alias(R="region", D="position", S="style")
-@kwargs_to_strings(R="sequence", p="sequence")
+@use_alias(D="position")
 def logo(
     self,
-    projection=None,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
+    style: Literal["standard", "url", "no_label"] = "standard",
     box: Box | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -33,17 +36,20 @@ def logo(
 
     Full GMT docs at :gmt-docs:`gmtlogo.html`.
 
-    {aliases}
+    $aliases
        - F = box
        - J = projection
+       - R = region
+       - S = style
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
     ----------
-    {projection}
-    {region}
+    $projection
+    $region
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *width*\ [**+j**\ *justify*]\ [**+o**\ *dx*\ [/*dy*]].
@@ -53,26 +59,30 @@ def logo(
         box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,
         pass a :class:`pygmt.params.Box` object to control style, fill, pen, and other
         box properties.
-    style : str
-        [**l**\|\ **n**\|\ **u**].
+    style
         Control what is written beneath the map portion of the logo.
 
-        - **l** to plot the text label "The Generic Mapping Tools"
-          [Default]
-        - **n** to skip the label placement
-        - **u** to place the URL to the GMT site
-    {verbose}
-    {panel}
-    {transparency}
+        - ``"standard"``: The text label "The Generic Mapping Tools".
+        - ``"no_label"``: Skip the text label.
+        - ``"url"``: The URL to the GMT website.
+    $verbose
+    $panel
+    $transparency
+    $perspective
     """
     self._activate_figure()
 
     aliasdict = AliasSystem(
         F=Alias(box, name="box"),
+        S=Alias(
+            style, name="style", mapping={"standard": "l", "url": "u", "no_label": "n"}
+        ),
     ).add_common(
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

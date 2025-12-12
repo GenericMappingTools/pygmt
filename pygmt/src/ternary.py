@@ -2,38 +2,30 @@
 ternary - Plot data on ternary diagrams.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
-import pandas as pd
-from packaging.version import Version
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
-from pygmt.clib import Session, __gmt_version__
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.clib import Session
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
-@use_alias(
-    B="frame",
-    C="cmap",
-    G="fill",
-    JX="width",
-    R="region",
-    S="style",
-    W="pen",
-    p="perspective",
-)
-@kwargs_to_strings(R="sequence", p="sequence")
-def ternary(
+@use_alias(C="cmap", G="fill", JX="width", S="style", W="pen")
+def ternary(  # noqa: PLR0913
     self,
     data: PathLike | TableLike,
     alabel: str | None = None,
     blabel: str | None = None,
     clabel: str | None = None,
+    frame: str | Sequence[str] | bool = False,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -49,17 +41,20 @@ def ternary(
 
     Full GMT docs at :gmt-docs:`ternary.html`.
 
-    {aliases}
+    $aliases
+       - B = frame
        - L = alabel/blabel/clabel
+       - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
     ----------
     data
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
-        {table-classes}.
+        $table_classes.
     width : str
         Set the width of the figure by passing a number, followed by
         a unit (**i** for inches, **c** for centimeters). Use a negative width
@@ -70,8 +65,8 @@ def ternary(
         [*amin*, *amax*, *bmin*, *bmax*, *cmin*, *cmax*].
         Give the min and max limits for each of the three axes **a**, **b**,
         and **c**.
-    {cmap}
-    {fill}
+    $cmap
+    $fill
     alabel
         Set the label for the *a* vertex where the component is 100%. The label is
         placed at a distance of three times the :gmt-term:`MAP_LABEL_OFFSET` setting
@@ -83,11 +78,11 @@ def ternary(
     style : str
         *symbol*\[\ *size*].
         Plot individual symbols in a ternary diagram.
-    {pen}
-    {verbose}
-    {panel}
-    {perspective}
-    {transparency}
+    $pen
+    $verbose
+    $panel
+    $perspective
+    $transparency
     """
     self._activate_figure()
 
@@ -98,16 +93,14 @@ def ternary(
     aliasdict = AliasSystem(
         L=Alias(labels, name="alabel/blabel/clabel", sep="/", size=3),
     ).add_common(
+        B=frame,
+        R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)
-
-    # TODO(GMT>=6.5.0): Remove the patch for upstream bug fixed in GMT 6.5.0.
-    # See https://github.com/GenericMappingTools/pygmt/pull/2138
-    if Version(__gmt_version__) < Version("6.5.0") and isinstance(data, pd.DataFrame):
-        data = data.to_numpy()
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:

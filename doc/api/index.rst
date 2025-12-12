@@ -210,8 +210,10 @@ Class-style Parameters
 
 .. autosummary::
     :toctree: generated
+    :template: autosummary/params.rst
 
     Box
+    Pattern
 
 Enums
 -----

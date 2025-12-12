@@ -14,7 +14,9 @@ on:
     paths:
       - 'pygmt/tests/baseline/*.png.dvc'
 
-permissions: {}
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
   dvc-diff:
@@ -23,7 +25,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v5.0.0
+      uses: actions/checkout@v6.0.1
       with:
         # fetch all history so that dvc diff works
         fetch-depth: 0
@@ -55,7 +57,7 @@ jobs:
     # Report last updated at commit abcdef
     - name: Generate the image diff report
       env:
-        repo_token: ${{ github.token }}
+        REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
       run: |

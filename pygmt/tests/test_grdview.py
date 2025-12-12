@@ -179,7 +179,9 @@ def test_grdview_surface_plot_styled_with_contourpen(xrgrid):
     surface plot.
     """
     fig = Figure()
-    fig.grdview(grid=xrgrid, cmap="relief", surftype="s", contourpen="0.5p,black,dash")
+    fig.grdview(
+        grid=xrgrid, cmap="relief", surftype="s", contour_pen="0.5p,black,dashed"
+    )
     return fig
 
 
@@ -190,7 +192,7 @@ def test_grdview_surface_mesh_plot_styled_with_meshpen(xrgrid):
     mesh plot.
     """
     fig = Figure()
-    fig.grdview(grid=xrgrid, cmap="relief", surftype="sm", meshpen="0.5p,black,dash")
+    fig.grdview(grid=xrgrid, cmap="relief", surftype="sm", mesh_pen="0.5p,black,dashed")
     return fig
 
 
@@ -206,7 +208,7 @@ def test_grdview_on_a_plane_styled_with_facadepen(xrgrid):
         plane=100,
         perspective=[225, 30],
         zscale=0.005,
-        facadepen="0.5p,blue,dash",
+        facade_pen="0.5p,blue,dashed",
     )
     return fig
 
