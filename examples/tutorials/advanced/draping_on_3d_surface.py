@@ -65,7 +65,7 @@ fig.grdview(
     shading="+a0/270+ne0.6",
     perspective=[157.5, 30],  # Azimuth and elevation for the 3-D plot
     zsize="1.5c",
-    plane="+gdarkgray",
+    facade_fill="darkgray",
     frame=True,
 )
 
@@ -128,7 +128,7 @@ fig.grdview(
     shading="+a0/270+ne0.6",
     perspective=[157.5, 30],  # Define azimuth, elevation for the 3-D plot
     zsize="1c",
-    plane="+gdarkgray",
+    facade_fill="darkgray",
     frame=True,
 )
 
