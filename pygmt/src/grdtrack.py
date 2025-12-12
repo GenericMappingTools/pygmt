@@ -14,6 +14,7 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_list,
+    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -24,6 +25,7 @@ __doctest_skip__ = ["grdtrack"]
 
 
 @fmt_docstring
+@deprecate_parameter("crossprofile", "cross_profile", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     A="resample",
     C="cross_profile",
