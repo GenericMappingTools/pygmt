@@ -11,9 +11,9 @@ from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
-def _parse_fills(fillpositive, fillnegative):
+def _parse_fills(positive_fill, negative_fill):
     """
-    Parse the fillpositive and fillnegative parameters.
+    Parse the positive_fill and negative_fill parameters.
 
     >>> _parse_fills("red", "blue")
     ['red+p', 'blue+n']
@@ -24,10 +24,10 @@ def _parse_fills(fillpositive, fillnegative):
     >>> _parse_fills(None, None)
     """
     _fills = []
-    if fillpositive is not None:
-        _fills.append(fillpositive + "+p")
-    if fillnegative is not None:
-        _fills.append(fillnegative + "+n")
+    if positive_fill is not None:
+        _fills.append(positive_fill + "+p")
+    if negative_fill is not None:
+        _fills.append(negative_fill + "+n")
 
     match len(_fills):
         case 0:
@@ -58,8 +58,8 @@ def wiggle(  # noqa: PLR0913
     x=None,
     y=None,
     z=None,
-    fillpositive=None,
-    fillnegative=None,
+    positive_fill=None,
+    negative_fill=None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: str | Sequence[str] | bool = False,
@@ -83,7 +83,7 @@ def wiggle(  # noqa: PLR0913
 
     $aliases
        - B = frame
-       - G = **+p**: fillpositive, **+n**: fillnegative
+       - G = **+p**: positive_fill, **+n**: negative_fill
        - J = projection
        - R = region
        - V = verbose
@@ -114,9 +114,9 @@ def wiggle(  # noqa: PLR0913
         **+w**\ *length*\ [**+j**\ *justify*]\ [**+al**\|\ **r**]\
         [**+o**\ *dx*\ [/*dy*]][**+l**\ [*label*]].
         Define the reference point on the map for the vertical scale bar.
-    fillpositive : str
+    positive_fill : str
         Set color or pattern for filling positive wiggles [Default is no fill].
-    fillnegative : str
+    negative_fill : str
         Set color or pattern for filling negative wiggles [Default is no fill].
     track : str
         Draw track [Default is no track]. Append pen attributes to use
@@ -141,7 +141,7 @@ def wiggle(  # noqa: PLR0913
     _fills = _parse_fills(fillpositive, fillnegative)
 
     aliasdict = AliasSystem(
-        G=Alias(_fills, name="fillpositive/fillnegative"),
+        G=Alias(_fills, name="positive_fill/negative_fill"),
     ).add_common(
         B=frame,
         J=projection,
