@@ -216,7 +216,7 @@ def grdfill(  # noqa: PLR0913
                 ) as vbggrd,
                 lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
             ):
-                if gridfill is not None:
+                if grid_fill is not None:
                     # Fill by a grid. Append the actual or virtual grid file name.
                     aliasdict["Ag"] = vbggrd
                 aliasdict["G"] = voutgrd
