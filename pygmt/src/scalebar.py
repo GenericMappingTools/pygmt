@@ -11,6 +11,8 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring
 from pygmt.params import Box, Position
 
+__doctest_skip__ = ["scalebar"]
+
 
 @fmt_docstring
 def scalebar(  # noqa: PLR0913
