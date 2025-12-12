@@ -185,7 +185,7 @@ def grdfill(  # noqa: PLR0913
     aliasdict = AliasSystem(
         A=Alias(mode, name="mode"),
         Ac=Alias(constant_fill, name="constant_fill"),
-        # For grifill, append the actual or virtual grid file name later.
+        # For grid_fill, append the actual or virtual grid file name later.
         Ag=Alias(grid_fill is not None, name="grid_fill"),
         An=Alias(neighbor_fill, name="neighbor_fill"),
         As=Alias(spline_fill, name="spline_fill"),
