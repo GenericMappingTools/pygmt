@@ -138,7 +138,7 @@ def wiggle(  # noqa: PLR0913
     """
     self._activate_figure()
 
-    _fills = _parse_fills(fillpositive, fillnegative)
+    _fills = _parse_fills(positive_fill, negative_fill)
 
     aliasdict = AliasSystem(
         G=Alias(_fills, name="positive_fill/negative_fill"),
