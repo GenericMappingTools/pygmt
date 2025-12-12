@@ -4,7 +4,7 @@ Test Figure.image.
 
 import pytest
 from pygmt import Figure
-from pygmt.params import Box
+from pygmt.params import Box, Position
 
 
 @pytest.mark.mpl_image_compare
@@ -15,8 +15,7 @@ def test_image():
     fig = Figure()
     fig.image(
         imagefile="@circuit.png",
-        position=(0, 0),
-        position_type="plotcoords",
+        position=Position((0, 0)),
         width="2c",
         box=Box(pen="thin,blue"),
     )
