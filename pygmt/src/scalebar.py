@@ -86,7 +86,7 @@ def scalebar(  # noqa: PLR0913
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 80, -30, 30], projection="M10c", frame=True)
     >>> fig.scalebar(
-    ...     position=Position((10, 10)),
+    ...     position=Position((10, 10), cstype="mapcoords"),
     ...     length=1000,
     ...     fancy=True,
     ...     label="Scale",
