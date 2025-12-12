@@ -68,7 +68,7 @@ fig.grdview(
     surftype="s",
     cmap="geo",
     plane=1000,  # Set the plane elevation to 1,000 meters
-    facade_fill="gray",  # Fill the facade with "gray"
+    facade_fill="gray",  # Color the facade in "gray"
 )
 fig.show()
 
