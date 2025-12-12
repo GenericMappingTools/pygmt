@@ -111,9 +111,9 @@ def grdview(  # noqa: PLR0913
         Set the pen attributes used for the mesh. You must also select ``surftype`` of
         **m** or **sm** for meshlines to be drawn.
     plane
-        Draw a plane at the specified z-level. If ``True``, defaults to the minimum value
-        in the grid. However, if ``region`` was used to set *zmin/zmax* then *zmin* is
-        used if it is less than the grid minimum value. Use ``facade_pen`` and
+        Draw a plane at the specified z-level. If ``True``, defaults to the minimum
+        value in the grid. However, if ``region`` was used to set *zmin/zmax* then
+        *zmin* is used if it is less than the grid minimum value. Use ``facade_pen`` and
         ``facade_fill`` to control the appearance of the plane.
     facade_fill
         Fill for the frontal facade between the plane specified by ``plane`` and the
