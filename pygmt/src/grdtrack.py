@@ -25,7 +25,9 @@ __doctest_skip__ = ["grdtrack"]
 
 
 @fmt_docstring
-@deprecate_parameter("crossprofile", "cross_profile", "v0.18.0", remove_version="v0.20.0")
+@deprecate_parameter(
+    "crossprofile", "cross_profile", "v0.18.0", remove_version="v0.20.0"
+)
 @use_alias(
     A="resample",
     C="cross_profile",
