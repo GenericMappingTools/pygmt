@@ -284,13 +284,13 @@ aki_multiple = pd.DataFrame(
 # parameter. Additionally, the location of the label relative to the beachball [Default
 # is ``"TC"``, i.e., Top Center] can be changed by appending **+j** and an offset can
 # be applied by appending **+o** with values for *dx*\ /*dy*. Add a colored [Default is
-# white] box behind the label via the label ``labelbox``. Force a fixed size of the
+# white] box behind the label via the label ``label_box``. Force a fixed size of the
 # beachball by appending **+m** to the argument passed to the ``scale`` parameter.
 
 fig = pygmt.Figure()
 fig.coast(region="d", projection="N10c", land="lightgray", frame=True)
 
-fig.meca(spec=aki_multiple, scale="0.4c+m+f5p", labelbox="white@30", offset="+s0.1c")
+fig.meca(spec=aki_multiple, scale="0.4c+m+f5p", label_box="white@30", offset="+s0.1c")
 
 fig.show()
 
@@ -315,7 +315,7 @@ fig.meca(
     spec=aki_multiple,
     scale="0.4c+f5p",
     offset="0.2p,gray30+s0.1c",
-    labelbox="white@30",
+    label_box="white@30",
     cmap=True,
     outline="0.2p,gray30",
 )
