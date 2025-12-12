@@ -230,29 +230,29 @@ def test_grdview_facadepen_default_plane(xrgrid):
 
 @pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
-def test_grdview_drapegrid_dataarray(xrgrid):
+def test_grdview_drape_grid_dataarray(xrgrid):
     """
-    Run grdview by passing in both a grid and drapegrid as an xarray.DataArray, setting
+    Run grdview by passing in both a grid and drape_grid as an xarray.DataArray, setting
     a colormap for producing an image plot.
     """
-    drapegrid = 1.1 * xrgrid
+    drape_grid = 1.1 * xrgrid
 
     # accessor information are lost during xarray multiplication
-    drapegrid.gmt.registration = xrgrid.gmt.registration
-    drapegrid.gmt.gtype = xrgrid.gmt.gtype
+    drape_grid.gmt.registration = xrgrid.gmt.registration
+    drape_grid.gmt.gtype = xrgrid.gmt.gtype
 
     fig = Figure()
     fig.grdview(
-        grid=xrgrid, drapegrid=drapegrid, cmap="oleron", surftype="c", frame=True
+        grid=xrgrid, drape_grid=drape_grid, cmap="oleron", surftype="c", frame=True
     )
     return fig
 
 
-def test_grdview_wrong_kind_of_drapegrid(xrgrid):
+def test_grdview_wrong_kind_of_drape_grid(xrgrid):
     """
-    Run grdview using drapegrid input that is not an xarray.DataArray or file.
+    Run grdview using drape_grid input that is not an xarray.DataArray or file.
     """
     dataset = xrgrid.to_dataset()  # convert xarray.DataArray to xarray.Dataset
     fig = Figure()
     with pytest.raises(GMTTypeError):
-        fig.grdview(grid=xrgrid, drapegrid=dataset)
+        fig.grdview(grid=xrgrid, drape_grid=dataset)
