@@ -46,7 +46,7 @@ fig.colorbar(
     # directions, respectively; move the x-label above the horizontal colorbar ("+ml")
     position="jBR+o0.7c/0.8c+h+w5c/0.3c+ml",
     # Add a box around the colobar, filled in white and a 30 % transparency, with a
-    # 0.8-points thick, black, outline.
+    # 0.8-point thick, black, outline.
     box=Box(pen="0.8p,black", fill="white@30"),
     # Add x- and y-labels ("+l")
     frame=["x+lElevation", "y+lm"],
@@ -103,7 +103,7 @@ fig.plot(
     x=[0, 15],
     y=[0, 0],
     fill="lightblue",  # Fill the polygon in "lightblue"
-    pen="0.25p,black,solid",  # Draw a 0.25-points thick, black, solid outline
+    pen="0.25p,black,solid",  # Draw a 0.25-point thick, black, solid outline
     close="+y-8000",  # Force closed polygon
 )
 
