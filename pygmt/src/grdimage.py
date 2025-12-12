@@ -9,17 +9,18 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdimage"]
 
 
 @fmt_docstring
+@deprecate_parameter("bitcolor", "bit_color", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     C="cmap",
     D="img_in",
     E="dpi",
-    G="bitcolor",
+    G="bit_color",
     I="shading",
     Q="nan_transparent",
     n="interpolation",
@@ -109,7 +110,7 @@ def grdimage(  # noqa: PLR0913
         same size (rows and columns) as the input file. Specify **i** to
         use the PostScript image operator to interpolate the image at the
         device resolution.
-    bitcolor : str
+    bit_color : str
         *color*\ [**+b**\|\ **f**\].
         This parameter only applies when a resulting 1-bit image otherwise
         would consist of only two colors: black (0) and white (255). If so,
