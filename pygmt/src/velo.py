@@ -15,7 +15,9 @@ from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, us
 
 
 @fmt_docstring
-@deprecate_parameter("uncertainty_fill", "uncertainty_fill", "v0.18.0", remove_version="v0.20.0")
+@deprecate_parameter(
+    "uncertainty_fill", "uncertainty_fill", "v0.18.0", remove_version="v0.20.0"
+)
 @use_alias(
     A="vector",
     C="cmap",
