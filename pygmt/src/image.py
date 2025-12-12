@@ -14,13 +14,14 @@ from pygmt.params import Box
 
 @fmt_docstring
 @use_alias(D="position", G="bitcolor")
-def image(
+def image(  # noqa: PLR0913
     self,
     imagefile: PathLike,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     box: Box | bool = False,
     monochrome: bool = False,
+    invert: bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -48,6 +49,7 @@ def image(
 
     $aliases
        - F = box
+       - I = invert
        - J = projection
        - M = monochrome
        - R = region
@@ -85,6 +87,13 @@ def image(
     monochrome
         Convert color image to monochrome grayshades using the (television)
         YIQ-transformation.
+    invert
+        Invert 1-bit image before plotting, i.e., black pixels (on) becomes white (off)
+        and vice versa. Ignored if used with color images.
+
+        **Note**: There was an upstream GMT bug, so this feature may not work correctly
+        for some 1-bit images for GMT<=6.6.0.
+        See `PR #8837 <https://github.com/GenericMappingTools/gmt/pull/8837>`__.
     $verbose
     $panel
     $perspective
@@ -95,6 +104,7 @@ def image(
     aliasdict = AliasSystem(
         F=Alias(box, name="box"),
         M=Alias(monochrome, name="monochrome"),
+        I=Alias(invert, name="invert"),
     ).add_common(
         J=projection,
         R=region,
