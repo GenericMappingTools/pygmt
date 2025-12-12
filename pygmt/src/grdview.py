@@ -120,7 +120,7 @@ def grdview(  # noqa: PLR0913
         data perimeter.
     facade_pen
         Set the pen attributes used for the facade.
-    shading : str
+    shading : str or float
         Provide the name of a grid file with intensities in the (-1,+1) range, or a
         constant intensity to apply everywhere (affects the ambient light).
         Alternatively, derive an intensity grid from the main input data grid by using
