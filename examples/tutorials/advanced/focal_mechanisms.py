@@ -186,7 +186,7 @@ fig.meca(
 # Plot the same beachball three times with different settings:
 # (i) Fill the compressive quadrants
 # (ii) Plot the first nodal plane and the circumference in darkorange
-# (iii) Plot the circumfence in black on top; use "-" to not fill the quadrants
+# (iii) Plot the circumference in black on top; use "-" to not fill the quadrants
 for kwargs in [
     {"compressionfill": "lightorange"},
     {"nodal": "1/1p,darkorange"},
@@ -211,10 +211,10 @@ fig.show()
 # is an ASCII file with columns for ``plot_longitude`` and ``plot_latitude``, the
 # ``offset`` parameter has to be set to ``True``. Besides just drawing a line between
 # the beachball and the event location, a small circle can be plotted at the event
-# location by appending **+s** and the descired circle diameter. The connecting line as
+# location by appending **+s** and the desired circle diameter. The connecting line as
 # well as the outline of the circle are plotted with the  setting of pen, or can be
 # adjusted separately. The fill of the small circle corresponds to the fill of the
-# compressive quadrantes.
+# compressive quadrants.
 
 fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
@@ -301,7 +301,7 @@ fig.show()
 #
 # The beachball can be sized and colored by the quantities given as ``magnitude`` and
 # ``depth``, e.g., by moment magnitude or hypocentral depth, respectively. Use the
-# parameter ``cmap`` to pass the descired colormap. Now, the fills of the small circles
+# parameter ``cmap`` to pass the desired colormap. Now, the fills of the small circles
 # indicating the event locations are given by the colormap.
 
 fig = pygmt.Figure()
