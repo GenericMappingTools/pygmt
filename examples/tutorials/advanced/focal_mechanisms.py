@@ -284,7 +284,7 @@ aki_multiple = pd.DataFrame(
 # parameter. Additionally, the location of the label relative to the beachball [Default
 # is ``"TC"``, i.e., Top Center] can be changed by appending **+j** and an offset can
 # be applied by appending **+o** with values for *dx*\ /*dy*. Add a colored [Default is
-# white] box behind the label via the label ``label_box``. Force a fixed size of the
+# white] box behind the label via the parameter ``label_box``. Force a fixed size of the
 # beachball by appending **+m** to the argument passed to the ``scale`` parameter.
 
 fig = pygmt.Figure()
