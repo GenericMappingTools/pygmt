@@ -13,8 +13,8 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import (
     build_arg_list,
-    deprecate_parameter, 
     data_kind,
+    deprecate_parameter,
     fmt_docstring,
     use_alias,
 )
@@ -116,8 +116,12 @@ def _auto_offset(spec) -> bool:
 
 
 @fmt_docstring
-@deprecate_parameter("extensionfill", "extension_fill", "v0.18.0", remove_version="v0.20.0")
-@deprecate_parameter("compressionfill", "compression_fill", "v0.18.0", remove_version="v0.20.0")
+@deprecate_parameter(
+    "extensionfill", "extension_fill", "v0.18.0", remove_version="v0.20.0"
+)
+@deprecate_parameter(
+    "compressionfill", "compression_fill", "v0.18.0", remove_version="v0.20.0"
+)
 @use_alias(
     A="offset",
     C="cmap",
