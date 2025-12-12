@@ -11,33 +11,6 @@ from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
-def _parse_fills(fillpositive, fillnegative):
-    """
-    Parse the fillpositive and fillnegative parameters.
-
-    >>> _parse_fills("red", "blue")
-    ['red+p', 'blue+n']
-    >>> _parse_fills(None, "blue")
-    'blue+n'
-    >>> _parse_fills("red", None)
-    'red+p'
-    >>> _parse_fills(None, None)
-    """
-    _fills = []
-    if fillpositive is not None:
-        _fills.append(fillpositive + "+p")
-    if fillnegative is not None:
-        _fills.append(fillnegative + "+n")
-
-    match len(_fills):
-        case 0:
-            return None
-        case 1:
-            return _fills[0]
-        case 2:
-            return _fills
-
-
 @fmt_docstring
 @use_alias(
     D="position",
@@ -138,10 +111,11 @@ def wiggle(  # noqa: PLR0913
     """
     self._activate_figure()
 
-    _fills = _parse_fills(fillpositive, fillnegative)
-
     aliasdict = AliasSystem(
-        G=Alias(_fills, name="fillpositive/fillnegative"),
+        G=[
+            Alias(fillpositive, name="fillpositive", suffix="+p"),
+            Alias(fillnegative, name="fillnegative", suffix="+n"),
+        ],
     ).add_common(
         B=frame,
         J=projection,
