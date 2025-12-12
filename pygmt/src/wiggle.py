@@ -8,7 +8,7 @@ from typing import Literal
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
 
 
 def _parse_fills(positive_fill, negative_fill):
@@ -39,6 +39,12 @@ def _parse_fills(positive_fill, negative_fill):
 
 
 @fmt_docstring
+@deprecate_parameter(
+    "fillpositive", "positive_fill", "v0.18.0", remove_version="v0.20.0"
+)
+@deprecate_parameter(
+    "fillnegative", "negative_fill", "v0.18.0", remove_version="v0.20.0"
+)
 @use_alias(
     D="position",
     T="track",
