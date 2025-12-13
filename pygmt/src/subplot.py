@@ -11,6 +11,7 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import (
     build_arg_list,
+    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -18,11 +19,12 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
+@deprecate_parameter("autolabel", "auto_label", "v0.18.0", remove_version="v0.20.0")
 @contextlib.contextmanager
 @use_alias(
     Ff="figsize",
     Fs="subsize",
-    A="autolabel",
+    A="auto_label",
     C="clearance",
     SC="sharex",
     SR="sharey",
@@ -72,7 +74,7 @@ def subplot(
         Note that only one of ``figsize`` or ``subsize`` can be provided at
         once.
 
-    autolabel : bool or str
+    auto_label : bool or str
         [*autolabel*][**+c**\ *dx*\ [/*dy*]][**+g**\ *fill*][**+j**\|\ **J**\
         *refpoint*][**+o**\ *dx*\ [/*dy*]][**+p**\ *pen*][**+r**\|\ **R**]\ [**+v**].
         Specify automatic tagging of each subplot. Append either a number or letter
@@ -203,8 +205,9 @@ def subplot(
 
 
 @fmt_docstring
+@deprecate_parameter("fixedlabel", "fixed_label", "v0.18.0", remove_version="v0.20.0")
 @contextlib.contextmanager
-@use_alias(A="fixedlabel", C="clearance")
+@use_alias(A="fixed_label", C="clearance")
 def set_panel(
     self,
     panel: int | Sequence[int] | None = None,
@@ -232,17 +235,17 @@ def set_panel(
         *index* or (*row*, *col*).
         Sets the current subplot until further notice. **Note**: First *row* or *col* is
         0, not 1. If not given we go to the next subplot by order specified via
-        ``autolabel`` in :meth:`pygmt.Figure.subplot`. As an alternative, you may bypass
-        using :meth:`pygmt.Figure.set_panel` and instead supply the common option
+        ``auto_label`` in :meth:`pygmt.Figure.subplot`. As an alternative, you may
+        bypass using :meth:`pygmt.Figure.set_panel` and instead supply the common option
         **panel**=(*row*, *col*) to the first plot command you issue in that subplot.
         GMT maintains information about the current figure and subplot. Also, you may
         give the one-dimensional *index* instead which starts at 0 and follows the row
-        or column order set via ``autolabel`` in :meth:`pygmt.Figure.subplot`.
+        or column order set via ``auto_label`` in :meth:`pygmt.Figure.subplot`.
 
-    fixedlabel : str
+    fixed_label : str
         Overrides the automatic labeling with the given string. No modifiers
         are allowed. Placement, justification, etc. are all inherited from how
-        ``autolabel`` was specified by the initial :meth:`pygmt.Figure.subplot`
+        ``auto_label`` was specified by the initial :meth:`pygmt.Figure.subplot`
         command.
 
     clearance : str or list
