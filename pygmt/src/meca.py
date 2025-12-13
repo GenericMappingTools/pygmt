@@ -117,12 +117,18 @@ def _auto_offset(spec) -> bool:
 
 @fmt_docstring
 @deprecate_parameter("labelbox", "label_box", "v0.18.0", remove_version="v0.20.0")
+@deprecate_parameter(
+    "extensionfill", "extension_fill", "v0.18.0", remove_version="v0.20.0"
+)
+@deprecate_parameter(
+    "compressionfill", "compression_fill", "v0.18.0", remove_version="v0.20.0"
+)
 @use_alias(
     A="offset",
     C="cmap",
-    E="extensionfill",
+    E="extension_fill",
     Fr="label_box",
-    G="compressionfill",
+    G="compression_fill",
     L="outline",
     T="nodal",
     W="pen",
@@ -304,12 +310,12 @@ def meca(  # noqa: PLR0913
         is drawn. Use **+s**\ *size* to plot a small circle at the initial location and
         to set the diameter of this circle [Default is no circle]. Use **+p**\ *pen* to
         set the pen attributes for this feature [Default is set via ``pen``]. The fill
-        of the circle is set via ``compressionfill`` or ``cmap``, i.e., corresponds to
+        of the circle is set via ``compression_fill`` or ``cmap``, i.e., corresponds to
         the fill of the compressive quadrants.
-    compressionfill : str
+    compression_fill : str
         Set color or pattern for filling compressive quadrants [Default is ``"black"``].
         This setting also applies to the fill of the circle defined via ``offset``.
-    extensionfill : str
+    extension_fill : str
         Set color or pattern for filling extensive quadrants [Default is ``"white"``].
     pen : str
         Set (default) pen attributes for all lines related to the beachball [Default is
