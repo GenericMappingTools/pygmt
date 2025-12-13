@@ -18,9 +18,10 @@ __doctest_skip__ = ["grdview"]
 @deprecate_parameter("contourpen", "contour_pen", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter("facadepen", "facade_pen", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter("meshpen", "mesh_pen", "v0.18.0", remove_version="v0.20.0")
+@deprecate_parameter("drapegrid", "drape_grid", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     C="cmap",
-    G="drapegrid",
+    G="drape_grid",
     Q="surftype",
     I="shading",
     f="coltypes",
@@ -86,11 +87,11 @@ def grdview(  # noqa: PLR0913
     $frame
     cmap : str
         The name of the color palette table to use.
-    drapegrid : str or :class:`xarray.DataArray`
+    drape_grid : str or :class:`xarray.DataArray`
         The file name or a :class:`xarray.DataArray` of the image grid to be draped on
         top of the relief provided by ``grid`` [Default determines colors from ``grid``]
-        Note that ``zscale`` and ``plane`` always refer to ``grid``. ``drapegrid`` only
-        provides the information pertaining to colors, which (if ``drapegrid`` is a
+        Note that ``zscale`` and ``plane`` always refer to ``grid``. ``drape_grid`` only
+        provides the information pertaining to colors, which (if ``drape_grid`` is a
         grid) will be looked-up via the CPT (see ``cmap``).
     surftype : str
         Specify cover type of the grid. Select one of following settings:
