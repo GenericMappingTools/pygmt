@@ -1,0 +1,5 @@
+outs:
+- md5: 0bc967a510306086752fae3b556cc7e2
+  size: 10201
+  hash: md5
+  path: test_scalebar.png
