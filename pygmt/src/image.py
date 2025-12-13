@@ -8,6 +8,7 @@ from typing import Literal
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 from pygmt.params import Box, Position
 
@@ -20,7 +21,7 @@ def image(  # noqa: PLR0913
     position: Position | None = None,
     height: float | str | None = None,
     width: float | str | None = None,
-    replicate: int | tuple[int, int] | None = None,
+    replicate: int | Sequence[int, int] | None = None,
     dpi: float | str | None = None,
     box: Box | bool = False,
     monochrome: bool = False,
@@ -72,13 +73,13 @@ def image(  # noqa: PLR0913
         Specify the position of the image on the plot. See
         :class:`pygmt.params.Position` for details.
     width
-        height
+    height
         Width (and height) of the image in plot coordinates (inches, cm, etc.). If
-        **height** (or **width**) is set to 0, then the original aspect ratio of the
-        image is maintained. If **width** (or **height**) is negative, the absolute
+        ``height`` (or ``width``) is set to 0, then the original aspect ratio of the
+        image is maintained. If ``width`` (or ``height``) is negative, the absolute
         value is used to interpolate image to the device resolution using the PostScript
-        image operator. If neither dimensions nor dpi are set then revert to the default
-        dpi [:gmt-term:`GMT_GRAPHICS_DPU`].
+        image operator. If neither dimensions nor ``dpi`` are set then revert to the
+        default dpi [:gmt-term:`GMT_GRAPHICS_DPU`].
     dpi
         Specify dpi to set the dpi of the image in dots per inch, or append **c** to
         indicate this is dots per cm.
@@ -112,10 +113,21 @@ def image(  # noqa: PLR0913
     """
     self._activate_figure()
 
+    # Prior PyGMT v0.18.0, 'position' can accept a raw GMT CLI string. Check for
+    # conflicts with other parameters.
+    if isinstance(position, str) and any(
+        v is not None for v in (width, height, dpi, replicate)
+    ):
+        msg = (
+            "Parameter 'position' is given with a raw GMT command string, and conflicts "
+            "with parameters 'width', 'height', 'dpi', and 'replicate'."
+        )
+        raise GMTInvalidInput(msg)
+
     aliasdict = AliasSystem(
         D=[
             Alias(position, name="position"),
-            Alias(width, name="width", prefix="+w"),
+            Alias(width, name="width", prefix="+w"),  # +wwidth/height
             Alias(height, name="height", prefix="/"),
             Alias(replicate, name="replicate", prefix="+n", sep="/", size=2),
             Alias(dpi, name="dpi", prefix="+r"),
