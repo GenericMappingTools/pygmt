@@ -8,12 +8,13 @@ from typing import Literal
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
 from pygmt.params import Box
 
 
 @fmt_docstring
-@use_alias(D="position", G="bitcolor")
+@deprecate_parameter("bitcolor", "bit_color", "v0.18.0", remove_version="v0.20.0")
+@use_alias(D="position", G="bit_color")
 def image(
     self,
     imagefile: PathLike,
@@ -74,7 +75,7 @@ def image(
         box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,
         pass a :class:`pygmt.params.Box` object to control style, fill, pen, and other
         box properties.
-    bitcolor : str or list
+    bit_color : str or list
         [*color*][**+b**\|\ **f**\|\ **t**].
         Change certain pixel values to another color or make them transparent.
         For 1-bit images you can specify an alternate *color* for the
