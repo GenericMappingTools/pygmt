@@ -82,7 +82,7 @@ fig.colorbar(
     position="jBL+o0.5c/0.8c+h",
     box=True,
     # Divide colorbar into equal-sized rectangles
-    equalsize=0.5,
+    equal_size=0.5,
 )
 
 fig.show()
