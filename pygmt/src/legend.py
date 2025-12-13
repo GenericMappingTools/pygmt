@@ -9,25 +9,21 @@ from typing import Literal
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTTypeError
-from pygmt.helpers import (
-    build_arg_list,
-    data_kind,
-    fmt_docstring,
-    is_nonstr_iter,
-    use_alias,
-)
-from pygmt.params import Box
+from pygmt.exceptions import GMTInvalidInput, GMTTypeError
+from pygmt.helpers import build_arg_list, data_kind, fmt_docstring, is_nonstr_iter
+from pygmt.params import Box, Position
 
 
 @fmt_docstring
-@use_alias(D="position")
 def legend(  # noqa: PLR0913
     self,
     spec: PathLike | io.StringIO | None = None,
-    scale: float | None = None,
-    position="JTR+jTR+o0.2c",
+    position: Position | None = None,
+    width: float | str | None = None,
+    height: float | str | None = None,
+    line_spacing: float | None = None,
     box: Box | bool = False,
+    scale: float | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: str | Sequence[str] | bool = False,
@@ -38,18 +34,23 @@ def legend(  # noqa: PLR0913
     perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
-    r"""
+    """
     Plot a legend.
 
-    Makes legends that can be overlaid on maps. Reads specific
-    legend-related information from an input file, or automatically creates
-    legend entries from plotted symbols that have labels. Unless otherwise
-    noted, annotations will be made using the primary annotation font and
-    size in effect (i.e., :gmt-term:`FONT_ANNOT_PRIMARY`).
+    Makes legends that can be overlaid on plots. It reads specific legend-related
+    information from an input file, a :class:`io.StringIO` object, or automatically
+    creates legend entries from plotted symbols that have labels. Unless otherwise
+    noted, annotations will be made using the primary annotation font and size in effect
+    (i.e., :gmt-term:`FONT_ANNOT_PRIMARY`).
 
     Full GMT docs at :gmt-docs:`legend.html`.
 
-    $aliases
+    **Aliases:**
+
+    .. hlist::
+       :columns: 3
+
+       - D = position, **+w**: width/height, **+l**: line_spacing
        - B = frame
        - F = box
        - J = projection
@@ -71,13 +72,26 @@ def legend(  # noqa: PLR0913
         - A :class:`io.StringIO` object containing the legend specification
 
         See :gmt-docs:`legend.html` for the definition of the legend specification.
-    position : str
-        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
-        **+w**\ *width*\ [/*height*]\ [**+j**\ *justify*]\ [**+l**\ *spacing*]\
-        [**+o**\ *dx*\ [/*dy*]].
-        Define the reference point on the map for the legend. By default, uses
-        **JTR**\ **+jTR**\ **+o**\ 0.2c which places the legend at the Top Right corner
-        inside the map frame, with a 0.2 cm offset.
+    position
+        Specify the position of the legend on the plot. If not specified, defaults to
+        the top right corner inside the plot with a 0.2-cm offset. See
+        :class:`pygmt.params.Position` for details.
+    width
+    height
+        Specify the width and height of the legend box in plot coordinates (inches, cm,
+        etc.). If not given, the width and height are computed automatically based on
+        the contents of the legend specification.
+
+        If unit is ``%`` (percentage) then width is computed as that fraction of the
+        plot width. If height is given as percentage then height is recomputed as that
+        fraction of the legend width (not plot height).
+
+        **Note:** Currently, the automatic height calculation only works when legend
+        codes **D**, **H**, **L**, **S**, or **V** are used and that the number of
+        symbol columns (**N**) is 1.
+    line_spacing
+        Specify the line-spacing factor between legend entries in units of the current
+        font size [Default is 1.1].
     box
         Draw a background box behind the legend. If set to ``True``, a simple
         rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
@@ -95,11 +109,26 @@ def legend(  # noqa: PLR0913
     """
     self._activate_figure()
 
-    # Default position and box when not specified.
-    if kwargs.get("D") is None:
-        kwargs["D"] = position
-        if box is False and kwargs.get("F") is None:
+    # Prior PyGMT v0.17.0, 'position' can accept a raw GMT CLI string. Check for
+    # conflicts with other parameters.
+    if isinstance(position, str) and any(
+        v is not None for v in (width, height, line_spacing)
+    ):
+        msg = (
+            "Parameter 'position' is given with a raw GMT command string, and conflicts "
+            "with parameters 'width', 'height', and 'line_spacing'."
+        )
+        raise GMTInvalidInput(msg)
+
+    # Set default position if not specified.
+    if kwargs.get("D", position) is None:
+        position = Position("TR", anchor="TR", offset=0.2)
+        if kwargs.get("F", box) is False:
             box = Box(pen="1p", fill="white")  # Default box
+
+    # Set default width to 0 if height is given but width is not.
+    if height is not None and width is None:
+        width = 0
 
     kind = data_kind(spec)
     if kind not in {"empty", "file", "stringio"}:
@@ -110,6 +139,12 @@ def legend(  # noqa: PLR0913
         )
 
     aliasdict = AliasSystem(
+        D=[
+            Alias(position, name="position"),
+            Alias(width, name="width", prefix="+w"),  # +wwidth/height
+            Alias(height, name="height", prefix="/"),
+            Alias(line_spacing, name="line_spacing", prefix="+l"),
+        ],
         F=Alias(box, name="box"),
         S=Alias(scale, name="scale"),
     ).add_common(

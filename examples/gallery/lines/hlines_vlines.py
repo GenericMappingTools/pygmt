@@ -12,7 +12,7 @@ horizontal and vertical lines in Cartesian, geographic and polar coordinate syst
 # In Cartesian coordinate systems lines are plotted as straight lines.
 
 import pygmt
-from pygmt.params import Box
+from pygmt.params import Box, Position
 
 fig = pygmt.Figure()
 
@@ -32,7 +32,7 @@ fig.hlines(y=[4, 5], xmin=4, xmax=9, pen="1.5p,black,.", label="Lines 5 & 6")
 fig.hlines(
     y=[2, 3], xmin=[0, 1], xmax=[7, 7.5], pen="1.5p,dodgerblue3", label="Lines 7 & 8"
 )
-fig.legend(position="JBR+jBR+o0.2c", box=Box(pen="1p", fill="white"))
+fig.legend(position=Position("BR", offset=0.2), box=Box(pen="1p", fill="white"))
 
 fig.shift_origin(xshift="w+2c")
 
