@@ -8,15 +8,22 @@ from typing import Literal
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_list,
+    deprecate_parameter,
+    fmt_docstring,
+    kwargs_to_strings,
+    use_alias,
+)
 
 
 @fmt_docstring
+@deprecate_parameter("barwidth", "bar_width", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     A="horizontal",
     C="cmap",
     D="annotate",
-    E="barwidth",
+    E="bar_width",
     F="center",
     G="fill",
     L="extreme",
@@ -84,7 +91,7 @@ def histogram(
         annotation font; use **+o** to change the offset between bar and
         label [Default is ``"6p"``]; use **+r** to rotate the labels from
         horizontal to vertical.
-    barwidth : float or str
+    bar_width : float or str
         *width*\ [**+o**\ *offset*].
         Use an alternative histogram bar width than the default set via
         ``series``, and optionally shift all bars by an *offset*. Here
