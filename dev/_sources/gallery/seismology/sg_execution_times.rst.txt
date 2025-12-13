@@ -33,7 +33,7 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_gallery_seismology_velo_arrow_ellipse.py` (``velo_arrow_ellipse.py``)
-     - 00:00.209
+     - 00:00.208
      - 0.0
    * - :ref:`sphx_glr_gallery_seismology_meca.py` (``meca.py``)
      - 00:00.157

@@ -33,7 +33,7 @@ PyGMT functions and methods.
   .. image:: /intro/images/thumb/sphx_glr_01_first_figure_thumb.png
     :alt:
 
-  :ref:`sphx_glr_intro_01_first_figure.py`
+  :doc:`/intro/01_first_figure`
 
 .. raw:: html
 
@@ -50,7 +50,7 @@ PyGMT functions and methods.
   .. image:: /intro/images/thumb/sphx_glr_02_contour_map_thumb.png
     :alt:
 
-  :ref:`sphx_glr_intro_02_contour_map.py`
+  :doc:`/intro/02_contour_map`
 
 .. raw:: html
 
@@ -67,7 +67,7 @@ PyGMT functions and methods.
   .. image:: /intro/images/thumb/sphx_glr_03_figure_element_thumb.png
     :alt:
 
-  :ref:`sphx_glr_intro_03_figure_element.py`
+  :doc:`/intro/03_figure_element`
 
 .. raw:: html
 
@@ -84,7 +84,7 @@ PyGMT functions and methods.
   .. image:: /intro/images/thumb/sphx_glr_04_table_inputs_thumb.png
     :alt:
 
-  :ref:`sphx_glr_intro_04_table_inputs.py`
+  :doc:`/intro/04_table_inputs`
 
 .. raw:: html
 
