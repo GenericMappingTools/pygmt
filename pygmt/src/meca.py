@@ -116,6 +116,7 @@ def _auto_offset(spec) -> bool:
 
 
 @fmt_docstring
+@deprecate_parameter("labelbox", "label_box", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter(
     "extensionfill", "extension_fill", "v0.18.0", remove_version="v0.20.0"
 )
@@ -126,7 +127,7 @@ def _auto_offset(spec) -> bool:
     A="offset",
     C="cmap",
     E="extension_fill",
-    Fr="labelbox",
+    Fr="label_box",
     G="compression_fill",
     L="outline",
     T="nodal",
@@ -297,7 +298,7 @@ def meca(  # noqa: PLR0913
         length must match the number of events. This parameter is only used if ``spec``
         is a dictionary or a :class:`pandas.DataFrame`, and it overrides any existing
         ``event_name`` labels in ``spec``.
-    labelbox : bool or str
+    label_box : bool or str
         [*fill*].
         Draw a box behind the label if given via ``event_name``. Use *fill* to give a
         fill color [Default is ``"white"``].
