@@ -16,7 +16,7 @@ Example method parameters that support bit and hachure patterns include:
 - :meth:`pygmt.Figure.solar`: Day-light terminators via ``fill``
 - :meth:`pygmt.Figure.ternary`: Symbols via ``fill``
 - :meth:`pygmt.Figure.velo`: Uncertainty wedges and velocity error ellipses via
-  ``uncertaintyfill``
+  ``uncertainty_fill``
 - :meth:`pygmt.Figure.wiggle`: Anomalies via ``positive_fill`` and ``negative_fill``
 
 GMT provides 90 predefined 1-bit patterns, which are numbered from 1 to 90. In addition,
