@@ -9,8 +9,8 @@ Example method parameters that support bit and hachure patterns include:
 
 - :meth:`pygmt.Figure.coast`: Land and water masses via ``land`` and ``water``
 - :meth:`pygmt.Figure.histogram`: Histogram bars via ``fill``
-- :meth:`pygmt.Figure.meca`: Focal mechanisms via ``compressionfill`` and
-  ``extensionfill``
+- :meth:`pygmt.Figure.meca`: Focal mechanisms via ``compression_fill`` and
+  ``extension_fill``
 - :meth:`pygmt.Figure.plot`: Symbols and polygons via ``fill``
 - :meth:`pygmt.Figure.rose`: Histogram sectors via ``fill``
 - :meth:`pygmt.Figure.solar`: Day-light terminators via ``fill``
