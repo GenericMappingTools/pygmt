@@ -21,7 +21,7 @@ def image(  # noqa: PLR0913
     position: Position | None = None,
     height: float | str | None = None,
     width: float | str | None = None,
-    replicate: int | Sequence[int, int] | None = None,
+    replicate: int | Sequence[int] | None = None,
     dpi: float | str | None = None,
     box: Box | bool = False,
     monochrome: bool = False,
