@@ -50,7 +50,7 @@ fig.coast(
     frame="g30",  # Add frame and gridlines in steps of 30 degrees on top
     land="gray",  # Color land masses in "gray"
     water="lightblue",  # Color water masses in "lightblue"
-    # Add coastlines with a 0.25 points thick pen in "gray50"
+    # Add coastlines with a 0.25-point thick pen in "gray50"
     shorelines="1/0.25p,gray50",
 )
 fig.show()
