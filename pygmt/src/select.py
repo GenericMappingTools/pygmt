@@ -23,12 +23,12 @@ __doctest_skip__ = ["select"]
 
 
 @fmt_docstring
-@deprecate_parameter("gridmask", "grid_mask", "v0.18.0", remove_version="v0.20.0")
+@deprecate_parameter("gridmask", "mask_grid", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     A="area_thresh",
     C="dist2pt",
     F="polygon",
-    G="grid_mask",
+    G="mask_grid",
     I="reverse",
     L="dist2line",
     N="mask",
@@ -130,9 +130,9 @@ def select(
         <reference/file-formats.html#optional-segment-header-records>`
         *polygonfile*. For spherical polygons (lon, lat), make sure no
         consecutive points are separated by 180 degrees or more in longitude.
-    grid_mask : str
+    mask_grid : str
         Pass all locations that are inside the valid data area of the grid
-        *gridmask*. Nodes that are outside are either NaN or zero.
+        *mask_grid*. Nodes that are outside are either NaN or zero.
     reverse : str
         [**cflrsz**].
         Reverse the sense of the test for each of the criteria specified:
@@ -140,7 +140,7 @@ def select(
         - **c** select records NOT inside any point's circle of influence.
         - **f** select records NOT inside any of the polygons.
         - **g** will pass records inside the cells with z equal zero of the
-          grid mask in ``grid_mask``.
+          *mask_grid* in ``mask_grid``.
         - **l** select records NOT within the specified distance of any line.
         - **r** select records NOT inside the specified rectangular region.
         - **s** select records NOT considered inside as specified by ``mask``
