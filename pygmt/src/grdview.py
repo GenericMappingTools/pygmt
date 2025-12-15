@@ -6,9 +6,10 @@ from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
+from packaging.version import Version
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
-from pygmt.clib import Session
+from pygmt.clib import Session, __gmt_version__
 from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
 from pygmt.src.grdinfo import grdinfo
 
@@ -183,7 +184,7 @@ def grdview(  # noqa: PLR0913
     #    case since we can't parse zmin/zmax from `region' if `region' was set in
     #    previous plotting commands.
     # TODO(GMT>6.6.0): Remove this workaround.
-    if plane is True:
+    if Version(__gmt_version__) <= Version("6.6.0") and plane is True:
         plane = grdinfo(grid, per_column=True).split()[4]
 
     aliasdict = AliasSystem(
