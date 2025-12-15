@@ -489,7 +489,7 @@ Even better, you can just write `/format` in the first line of any comment in a
 pull request to lint the code automatically.
 
 When introducing a new parameter name, use an underscore to separate words. This improves
-the readability and aligns with the [PEP 8 style guide](https://peps.python.org/pep-0008/).
+readability and aligns with the [PEP 8 style guide](https://peps.python.org/pep-0008/).
 For common shortcuts no underscore is needed, e.g., `surftype`, `outgrid`, or `timefmt`.
 This convention is not applied by the code checking tools, but the PyGMT maintainers
 will comment on any pull requests as needed.
