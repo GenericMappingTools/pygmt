@@ -181,7 +181,7 @@ def grdview(  # noqa: PLR0913
     # Workaround for GMT bug https://github.com/GenericMappingTools/gmt/pull/8838
     # Fix the plane value to be the grid minimum if plane=True.
     # Notes:
-    # 1. It's the minimum of the grid, not a subset of the grid defined by `region'.
+    # 1. It's the minimum of the grid, not a subset of the grid defined by 'region'.
     # 2. The GMT docs says "if -R was used to set zmin/zmax then we use that value if
     #    it is less than the grid minimum value.". We can't add a workaround for this
     #    case since we can't parse zmin/zmax from `region' if `region' was set in
