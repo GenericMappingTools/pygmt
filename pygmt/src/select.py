@@ -158,12 +158,12 @@ def select(
         [Default is s/k/s/k/s (i.e., s/k), which passes all points on dry land].
     resolution
         Ignored unless ``mask_values`` is set. Select the resolution of the coastline
-        dataset to use. The available resolutions from highest to lowest are: ``"full"``,
-        ``"high"``, ``"intermediate"``, ``"low"``, and ``"crude"``, which drops by 80%
-        between levels. Alternatively, choose ``"auto"`` to automatically select the
-        most suitable resolution given the chosen region. Note that because the
-        coastlines differ in details, a node in a mask file using one resolution is not
-        guaranteed to remain inside [or outside] when a different resolution is
+        dataset to use. The available resolutions from highest to lowest are:
+        ``"full"``, ``"high"``, ``"intermediate"``, ``"low"``, and ``"crude"``, which
+        drops by 80% between levels. Alternatively, choose ``"auto"`` to automatically
+        select the most suitable resolution given the chosen region. Note that because
+        the coastlines differ in details, a node in a mask file using one resolution is
+        not guaranteed to remain inside [or outside] when a different resolution is
         selected. If ``None``, the low resolution is used by default.
     $region
     $verbose
