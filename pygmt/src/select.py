@@ -150,7 +150,7 @@ def select(
     $projection
     mask_values : str or list
         Pass all records whose location is inside specified geographical features.
-    Specify if records should be skipped (s) or kept (k) using 1 of 2 formats:
+        Specify if records should be skipped (s) or kept (k) using 1 of 2 formats:
 
         - *wet/dry*.
         - *ocean/land/lake/island/pond*.
