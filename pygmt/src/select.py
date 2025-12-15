@@ -12,6 +12,7 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
+    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -22,6 +23,7 @@ __doctest_skip__ = ["select"]
 
 
 @fmt_docstring
+@deprecate_parameter("mask", "mask_values", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     A="area_thresh",
     C="dist2pt",
@@ -29,7 +31,7 @@ __doctest_skip__ = ["select"]
     G="gridmask",
     I="reverse",
     L="dist2line",
-    N="mask",
+    N="mask_values",
     Z="z_subregion",
     b="binary",
     d="nodata",
@@ -141,24 +143,22 @@ def select(
           grid mask in ``gridmask``.
         - **l** select records NOT within the specified distance of any line.
         - **r** select records NOT inside the specified rectangular region.
-        - **s** select records NOT considered inside as specified by ``mask``
+        - **s** select records NOT considered inside as specified by ``mask_values``
           (and ``area_thresh``, ``resolution``).
         - **z** select records NOT within the range specified by
           ``z_subregion``.
     $projection
-    mask : str or list
-        Pass all records whose location is inside specified geographical
-        features. Specify if records should be skipped (s) or kept (k) using
-        1 of 2 formats:
+    mask_values : str or list
+        Pass all records whose location is inside specified geographical features.
+    Specify if records should be skipped (s) or kept (k) using 1 of 2 formats:
 
         - *wet/dry*.
         - *ocean/land/lake/island/pond*.
 
-        [Default is s/k/s/k/s (i.e., s/k), which passes all points on dry
-        land].
+        [Default is s/k/s/k/s (i.e., s/k), which passes all points on dry land].
     resolution
-        Ignored unless ``mask`` is set. Select the resolution of the coastline dataset
-        to use. The available resolutions from highest to lowest are: ``"full"``,
+        Ignored unless ``mask_values`` is set. Select the resolution of the coastline
+        dataset to use. The available resolutions from highest to lowest are: ``"full"``,
         ``"high"``, ``"intermediate"``, ``"low"``, and ``"crude"``, which drops by 80%
         between levels. Alternatively, choose ``"auto"`` to automatically select the
         most suitable resolution given the chosen region. Note that because the
