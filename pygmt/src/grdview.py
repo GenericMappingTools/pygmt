@@ -184,7 +184,7 @@ def grdview(  # noqa: PLR0913
     # 1. It's the minimum of the grid, not a subset of the grid defined by 'region'.
     # 2. The GMT docs says "if -R was used to set zmin/zmax then we use that value if
     #    it is less than the grid minimum value.". We can't add a workaround for this
-    #    case since we can't parse zmin/zmax from `region' if `region' was set in
+    #    case since we can't parse zmin/zmax from 'region' if 'region' was set in
     #    previous plotting commands.
     # TODO(GMT>6.6.0): Remove this workaround.
     if Version(__gmt_version__) <= Version("6.6.0") and plane is True:
