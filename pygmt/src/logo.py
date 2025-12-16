@@ -5,6 +5,7 @@ logo - Plot the GMT logo.
 from collections.abc import Sequence
 from typing import Literal
 
+from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
@@ -16,7 +17,7 @@ from pygmt.src._common import _parse_position
 @fmt_docstring
 def logo(  # noqa: PLR0913
     self,
-    position: Position | None = None,
+    position: Position | Sequence[float | str] | AnchorCode | None = None,
     width: float | str | None = None,
     height: float | str | None = None,
     box: Box | bool = False,
@@ -61,9 +62,16 @@ def logo(  # noqa: PLR0913
     Parameters
     ----------
     position
-        Position of the GMT logo on the plot. Pass a :class:`pygmt.params.Position`
-        object to specify the location, anchor, and offset. [Default is at the plot
-        origin.]
+        Position of the GMT logo on the plot. It can be specified in multiple ways:
+
+        - A :class:`pygmt.params.Position` object to fully control the reference point,
+          anchor point, and offset.
+        - A sequence of two values representing plot coordinates
+          (e.g., ``("2c", "3c")``)
+        - A 2-character justification code (e.g., ``"TL"`` for top-left)
+        - A raw GMT command string (for backward compatibility).
+
+        Default is at the plot origin.
     width
     height
         Width or height of the GMT logo. Since the aspect ratio is fixed, only one of

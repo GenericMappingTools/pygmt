@@ -251,7 +251,7 @@ def _parse_position(
     position: Position | Sequence[float | str] | str | None,
     default_position: Position,
     kwdict: dict[str, Any],
-) -> Position:
+) -> Position | str:
     """
     Parse the "position" parameter for embellishment-plotting functions.
 
