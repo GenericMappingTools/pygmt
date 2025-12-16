@@ -80,7 +80,7 @@ def colorbar(  # noqa: PLR0913
         [**+w**\ *length*\ [/\ *width*]]\ [**+e**\ [**b**\|\ **f**][*length*]]\
         [**+h**\|\ **v**][**+j**\ *justify*]\
         [**+m**\ [**a**\|\ **c**\|\ **l**\|\ **u**]]\
-        [**+n**\ [*txt*]][**+o**\ *dx*\ [/*dy*]].
+        [**+n**\ [*text*]][**+o**\ *dx*\ [/*dy*]].
         Define the reference point on the map for the color scale using one of
         four coordinate systems: (1) Use **g** for map (user) coordinates, (2)
         use **j** or **J** for setting *refpoint* via a
@@ -103,7 +103,19 @@ def colorbar(  # noqa: PLR0913
         the scale is assumed to be the bottom left corner (**BL**), but this
         can be changed by appending **+j** followed by a
         :doc:`2-character justification code </techref/justification_codes>`
-        *justify*.
+        *justify*. Append **+m** to move text to opposite side as per arguments
+        [**a**|**c**|**l**|**u**]. Horizontal scale bars: Move annotations and
+        labels above the scale bar [Default is below]; the unit remains on the
+        left. Vertical scale bars: Move annotations and labels to the left of
+        the scale bar [Default is to the right]; the unit remains below.
+        Append one or more of **a**, **l** or **u** to control which of
+        the annotations, label, and unit that will be moved to the opposite
+        side. Append **c** if you want to print a vertical label as a column
+        of characters (does not work with special characters).
+        Append **+n** to plot a rectangle with the NaN color (via the **N**
+        entry in your cpt (or :gmt-term:`COLOR_NAN` if no such entry) at the
+        start of the bar, append *text* to change label from NaN. To place it
+        at the end of the bar, use **+N** instead.
     box
         Draw a background box behind the colorbar. If set to ``True``, a simple
         rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
