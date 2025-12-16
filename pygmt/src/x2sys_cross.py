@@ -60,9 +60,10 @@ def tempfile_from_dftrack(track, suffix):
 
 @fmt_docstring
 @deprecate_parameter("trackvalues", "track_values", "v0.18.0", remove_version="v0.20.0")
+@deprecate_parameter("runtimes", "run_times", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     A="combitable",
-    C="runtimes",
+    C="run_times",
     D="override",
     I="interpolation",
     S="speed",
@@ -124,10 +125,10 @@ def x2sys_cross(
         The file *combitable* is created by :gmt-docs:`x2sys_get's -L option
         <supplements/x2sys/x2sys_get.html#l>`.
 
-    runtimes : bool or str
+    run_times : bool or str
         Compute and append the processing run-time for each pair to the
-        progress message (use ``runtimes=True``). Pass in a file name (e.g.
-        ``runtimes="file.txt"``) to save these run-times to file. The idea here
+        progress message (use ``run_times=True``). Pass in a file name (e.g.
+        ``run_times="file.txt"``) to save these run-times to file. The idea here
         is to use the knowledge of run-times to split the main process in a
         number of sub-processes that can each be launched in a different
         processor of your multi-core machine. See the MATLAB function
