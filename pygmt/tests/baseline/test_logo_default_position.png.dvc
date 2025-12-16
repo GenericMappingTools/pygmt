@@ -1,5 +1,5 @@
 outs:
-- md5: 4ad3abc81980afc105a3e142625a71e4
-  size: 57632
+- md5: 6fa301eb7cd0e467285160cf261f9a10
+  size: 44372
   hash: md5
   path: test_logo_default_position.png

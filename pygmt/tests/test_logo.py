@@ -25,7 +25,7 @@ def test_logo_default_position():
     Test that the default position is at the plot origin when no position is specified.
     """
     fig = Figure()
-    fig.basemap(region=[-90, -70, 0, 20], projection="M15c", frame=True)
+    fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
     fig.logo()
     return fig
 
