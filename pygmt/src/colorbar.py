@@ -104,7 +104,7 @@ def colorbar(  # noqa: PLR0913
         can be changed by appending **+j** followed by a
         :doc:`2-character justification code </techref/justification_codes>`
         *justify*. Append **+m** to move text to opposite side as per arguments
-        [**a**|**c**|**l**|**u**]. Horizontal scale bars: Move annotations and
+        [**a**\|\ **c**\|\ **l**\|\ **u**]. Horizontal scale bars: Move annotations and
         labels above the scale bar [Default is below]; the unit remains on the
         left. Vertical scale bars: Move annotations and labels to the left of
         the scale bar [Default is to the right]; the unit remains below.
