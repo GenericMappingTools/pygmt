@@ -91,10 +91,17 @@ def colorbar(  # noqa: PLR0913
         ``region`` and ``projection`` to be specified. Append **+w** followed
         by the length and width of the colorbar. If width is not specified
         then it is set to 4% of the given length. Give a negative length to
-        reverse the scale bar. Append **+h** to get a horizontal scale
-        [Default is vertical (**+v**)]. By default, the anchor point on the
-        scale is assumed to be the bottom left corner (**BL**), but this can
-        be changed by appending **+j** followed by a
+        reverse the scale bar. Append **+e** to add sidebar triangles for 
+        back- and/or foreground colors. Append **f** (foreground) or **b** 
+        (background) for only one sidebar triangle [Default gives both]. 
+        Optionally, append triangle *length* [Default is half the barwidth]. 
+        The back and/or foreground colors are taken from your B and F colors 
+        in your CPT. If none then the system default colors for B and F are 
+        used instead (:gmt-term:`COLOR_BACKGROUND` and 
+        :gmt-term:`COLOR_FOREGROUND`). Append **+h** to get a horizontal 
+        scale [Default is vertical (**+v**)]. By default, the anchor point on 
+        the scale is assumed to be the bottom left corner (**BL**), but this 
+        can be changed by appending **+j** followed by a
         :doc:`2-character justification code </techref/justification_codes>`
         *justify*.
     box
