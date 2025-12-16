@@ -14,6 +14,7 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTValueError
 from pygmt.helpers import (
     build_arg_list,
+    deprecate_parameter,
     fmt_docstring,
     use_alias,
     validate_output_table_type,
@@ -23,6 +24,7 @@ __doctest_skip__ = ["grd2xyz"]
 
 
 @fmt_docstring
+@deprecate_parameter("skiprows", "skip_rows", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     C="cstyle",
     W="weight",
@@ -31,7 +33,7 @@ __doctest_skip__ = ["grd2xyz"]
     d="nodata",
     f="coltypes",
     h="header",
-    s="skiprows",
+    s="skip_rows",
 )
 def grd2xyz(
     grid: PathLike | xr.DataArray,
@@ -119,7 +121,7 @@ def grd2xyz(
     $coltypes
     $header
     $outcols
-    $skiprows
+    $skip_rows
 
     Returns
     -------

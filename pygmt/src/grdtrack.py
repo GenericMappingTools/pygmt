@@ -14,6 +14,7 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_list,
+    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -24,6 +25,7 @@ __doctest_skip__ = ["grdtrack"]
 
 
 @fmt_docstring
+@deprecate_parameter("skiprows", "skip_rows", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     A="resample",
     C="crossprofile",
@@ -43,7 +45,7 @@ __doctest_skip__ = ["grdtrack"]
     h="header",
     j="distcalc",
     n="interpolation",
-    s="skiprows",
+    s="skip_rows",
     w="wrap",
 )
 @kwargs_to_strings(S="sequence")
@@ -269,7 +271,7 @@ def grdtrack(
     $distcalc
     $interpolation
     $outcols
-    $skiprows
+    $skip_rows
     $wrap
 
     Returns

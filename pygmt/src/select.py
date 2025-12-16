@@ -25,6 +25,7 @@ __doctest_skip__ = ["select"]
 @fmt_docstring
 @deprecate_parameter("mask", "mask_values", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter("gridmask", "mask_grid", "v0.18.0", remove_version="v0.20.0")
+@deprecate_parameter("skiprows", "skip_rows", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     A="area_thresh",
     C="dist2pt",
@@ -40,7 +41,7 @@ __doctest_skip__ = ["select"]
     f="coltypes",
     g="gap",
     h="header",
-    s="skiprows",
+    s="skip_rows",
     w="wrap",
 )
 @kwargs_to_strings(N="sequence")
@@ -171,7 +172,7 @@ def select(
     z_subregion : str or list
         *min*\ [/*max*]\ [**+a**]\ [**+c**\ *col*]\ [**+i**].
         Pass all records whose 3rd column (*z*; *col* = 2) lies within the
-        given range or is NaN (use ``skiprows`` to skip NaN records). If *max*
+        given range or is NaN (use ``skip_rows`` to skip NaN records). If *max*
         is omitted then we test if *z* equals *min* instead. This means
         equality within 5 ULPs (unit of least precision;
         https://en.wikipedia.org/wiki/Unit_in_the_last_place). Input file must
@@ -195,7 +196,7 @@ def select(
     $header
     $incols
     $outcols
-    $skiprows
+    $skip_rows
     $wrap
 
     Returns

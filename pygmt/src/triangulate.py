@@ -14,6 +14,7 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
+    deprecate_parameter,
     fmt_docstring,
     use_alias,
     validate_output_table_type,
@@ -50,13 +51,14 @@ class triangulate:  # noqa: N801
 
     @staticmethod
     @fmt_docstring
+    @deprecate_parameter("skiprows", "skip_rows", "v0.18.0", remove_version="v0.20.0")
     @use_alias(
         b="binary",
         d="nodata",
         e="find",
         f="coltypes",
         h="header",
-        s="skiprows",
+        s="skip_rows",
         w="wrap",
     )
     def regular_grid(  # noqa: PLR0913
@@ -132,7 +134,7 @@ class triangulate:  # noqa: N801
         $header
         $incols
         $registration
-        $skiprows
+        $skip_rows
         $wrap
 
         Returns
@@ -176,13 +178,14 @@ class triangulate:  # noqa: N801
 
     @staticmethod
     @fmt_docstring
+    @deprecate_parameter("skiprows", "skip_rows", "v0.18.0", remove_version="v0.20.0")
     @use_alias(
         b="binary",
         d="nodata",
         e="find",
         f="coltypes",
         h="header",
-        s="skiprows",
+        s="skip_rows",
         w="wrap",
     )
     def delaunay_triples(  # noqa: PLR0913
@@ -247,7 +250,7 @@ class triangulate:  # noqa: N801
         $coltypes
         $header
         $incols
-        $skiprows
+        $skip_rows
         $wrap
 
         Returns
