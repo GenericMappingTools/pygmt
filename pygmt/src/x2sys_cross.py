@@ -60,8 +60,9 @@ def tempfile_from_dftrack(track, suffix):
 
 @fmt_docstring
 @deprecate_parameter("trackvalues", "track_values", "v0.18.0", remove_version="v0.20.0")
+@deprecate_parameter("combitable", "combi_table", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
-    A="combitable",
+    A="combi_table",
     C="runtimes",
     D="override",
     I="interpolation",
@@ -118,10 +119,10 @@ def x2sys_cross(
         Specify the x2sys TAG which identifies the attributes of this data
         type.
 
-    combitable : str
-        Only process the pair-combinations found in the file *combitable*
+    combi_table : str
+        Only process the pair-combinations found in the file *combi_table*
         [Default process all possible combinations among the specified files].
-        The file *combitable* is created by :gmt-docs:`x2sys_get's -L option
+        The file *combi_table* is created by :gmt-docs:`x2sys_get's -L option
         <supplements/x2sys/x2sys_get.html#l>`.
 
     runtimes : bool or str
