@@ -68,10 +68,11 @@ def logo(  # noqa: PLR0913
           anchor point, and offset.
         - A sequence of two values representing plot coordinates
           (e.g., ``("2c", "3c")``)
-        - A 2-character justification code (e.g., ``"TL"`` for top-left)
+        - A `2-character justification code </techref/justification_codes>` (e.g.,
+          ``"TL"`` for top-left)
         - A raw GMT command string (for backward compatibility).
 
-        Default is at the plot origin.
+        If not specified, default to the plot origin.
     width
     height
         Width or height of the GMT logo. Since the aspect ratio is fixed, only one of
