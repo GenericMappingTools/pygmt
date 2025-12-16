@@ -60,12 +60,13 @@ def logo(  # noqa: PLR0913
     Parameters
     ----------
     position
-        Specify the position of the GMT logo on the plot. Default is at the plot origin.
-        See :class:`pygmt.params.Position` for details.
+        Position of the GMT logo on the plot. Pass a :class:`pygmt.params.Position`
+        object to specify the location, anchor, and offset. [Default is at the plot
+        origin.]
     width
     height
         Width or height of the GMT logo. Since the aspect ratio is fixed, only one of
-        the two can be specified. Default is 2 inches wide and 1 inch high.
+        the two can be specified. [Default is 2 inches wide and 1 inch high.]
     box
         Draw a background box behind the logo. If set to ``True``, a simple rectangular
         box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,
@@ -86,7 +87,7 @@ def logo(  # noqa: PLR0913
     """
     self._activate_figure()
 
-    # Prior PyGMT v0.17.0, 'position' can accept a raw GMT CLI string. Check for
+    # Prior PyGMT v0.18.0, 'position' can accept a raw GMT CLI string. Check for
     # conflicts with other parameters.
     if isinstance(position, str) and any(v is not None for v in (width, height)):
         msg = (
