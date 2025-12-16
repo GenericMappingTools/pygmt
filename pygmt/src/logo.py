@@ -10,6 +10,7 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring
 from pygmt.params import Box, Position
+from pygmt.src._common import _parse_position
 
 
 @fmt_docstring
@@ -87,23 +88,16 @@ def logo(  # noqa: PLR0913
     """
     self._activate_figure()
 
-    # Prior PyGMT v0.18.0, 'position' can accept a raw GMT CLI string. Check for
-    # conflicts with other parameters.
-    if isinstance(position, str) and any(v is not None for v in (width, height)):
-        msg = (
-            "Parameter 'position' is given with a raw GMT command string, and conflicts "
-            "with parameters 'width' and 'height'."
-        )
-        raise GMTInvalidInput(msg)
+    position = _parse_position(
+        position,
+        default_position=Position((0, 0), cstype="plotcoords"),
+        kwdict={"width": width, "height": height},
+    )
 
     # width and height are mutually exclusive.
     if width is not None and height is not None:
         msg = "Cannot specify both 'width' and 'height'."
         raise GMTInvalidInput(msg)
-
-    # Default position at the plot origin.
-    if position is None:
-        position = Position((0, 0), cstype="plotcoords")
 
     aliasdict = AliasSystem(
         D=[
