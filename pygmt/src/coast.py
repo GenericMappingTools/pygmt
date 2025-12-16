@@ -192,9 +192,6 @@ def coast(  # noqa: PLR0913
         to any of the continent codes (e.g. ``"=EU"`` for Europe). Append
         **+p**\ *pen* to draw polygon outlines [Default is no outline] and
         **+g**\ *fill* to fill them [Default is no fill].
-
-    Common Parameters
-    -----------------
     $frame
     $projection
     $region
