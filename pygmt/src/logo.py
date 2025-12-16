@@ -25,8 +25,8 @@ def logo(  # noqa: PLR0913
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    transparency: float | None = None,
     perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     """
@@ -81,8 +81,8 @@ def logo(  # noqa: PLR0913
     $region
     $verbose
     $panel
-    $transparency
     $perspective
+    $transparency
     """
     self._activate_figure()
 
