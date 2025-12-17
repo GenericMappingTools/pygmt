@@ -123,7 +123,7 @@ def inset(
     >>> fig.coast(region="MG+r2", water="lightblue", shorelines="thin")
     >>> # Use a "with" statement to initialize the inset context manager
     >>> # Setting the position to Top Left and a width of 3.5 centimeters
-    >>> with fig.inset(position="jTL+w3.5c+o0.2c", margin=0, box=Box(pen="green")):
+    >>> with fig.inset(position="jTL+w3.5c+o0.2c", margins=0, box=Box(pen="green")):
     ...     # Map elements under the "with" statement are plotted in the inset
     ...     fig.coast(
     ...         region="g",
