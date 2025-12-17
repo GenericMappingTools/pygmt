@@ -76,7 +76,7 @@ def logo(  # noqa: PLR0913
     width
     height
         Width or height of the GMT logo. Since the aspect ratio is fixed, only one of
-        the two can be specified. [Default is 2 inches wide and 1 inch high.]
+        the two can be specified. [Default is 2 inches wide and 1 inch high].
     box
         Draw a background box behind the logo. If set to ``True``, a simple rectangular
         box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,
