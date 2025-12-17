@@ -249,7 +249,7 @@ class _FocalMechanismConvention:
 
 def _parse_position(
     position: Position | Sequence[float | str] | str | None,
-    default_position: Position,
+    default: Position,
     kwdict: dict[str, Any],
 ) -> Position | str:
     """
@@ -264,8 +264,8 @@ def _parse_position(
         - A sequence of two values representing plot coordinates.
         - A 2-character justification code string.
         - A raw GMT command string (for backward compatibility).
-        - ``None``, in which case the ``default_position`` is used.
-    default_position
+        - ``None``, in which case the ``default`` is used.
+    default
         The default Position object to use if ``position`` is ``None``.
     kwdict
         The keyword arguments dictionary that conflicts with ``position`` if
@@ -281,41 +281,41 @@ def _parse_position(
     >>> from pygmt.params import Position
     >>> _parse_position(
     ...     Position((3, 3), cstype="mapcoords"),
-    ...     default_position=Position((0, 0), cstype="plotcoords"),
+    ...     default=Position((0, 0), cstype="plotcoords"),
     ...     kwdict={"width": None, "height": None},
     ... )
     Position(refpoint=(3, 3), cstype='mapcoords')
 
     >>> _parse_position(
     ...     (3, 3),
-    ...     default_position=Position((0, 0), cstype="plotcoords"),
+    ...     default=Position((0, 0), cstype="plotcoords"),
     ...     kwdict={"width": None, "height": None},
     ... )
     Position(refpoint=(3, 3), cstype='plotcoords')
     >>> _parse_position(
     ...     "TL",
-    ...     default_position=Position((0, 0), cstype="plotcoords"),
+    ...     default=Position((0, 0), cstype="plotcoords"),
     ...     kwdict={"width": None, "height": None},
     ... )
     Position(refpoint='TL', cstype='inside')
 
     >>> _parse_position(
     ...     None,
-    ...     default_position=Position((0, 0), cstype="plotcoords"),
+    ...     default=Position((0, 0), cstype="plotcoords"),
     ...     kwdict={"width": None, "height": None},
     ... )
     Position(refpoint=(0, 0), cstype='plotcoords')
 
     >>> _parse_position(
     ...     "x3c/4c+w2c",
-    ...     default_position=Position((0, 0), cstype="plotcoords"),
+    ...     default=Position((0, 0), cstype="plotcoords"),
     ...     kwdict={"width": None, "height": None},
     ... )
     'x3c/4c+w2c'
 
     >>> _parse_position(
     ...     "x3c/4c+w2c",
-    ...     default_position=Position((0, 0), cstype="plotcoords"),
+    ...     default=Position((0, 0), cstype="plotcoords"),
     ...     kwdict={"width": 2, "height": None},
     ... )
     Traceback (most recent call last):
@@ -324,7 +324,7 @@ def _parse_position(
 
     >>> _parse_position(
     ...     123,
-    ...     default_position=Position((0, 0), cstype="plotcoords"),
+    ...     default=Position((0, 0), cstype="plotcoords"),
     ...     kwdict={"width": None, "height": None},
     ... )
     Traceback (most recent call last):
@@ -349,8 +349,8 @@ def _parse_position(
             position = Position(position, cstype="plotcoords")
         case Position():  # Already a Position object.
             pass
-        case None if default_position is not None:  # Set default position.
-            position = default_position
+        case None if default is not None:  # Set default position.
+            position = default
         case _:
             msg = f"Invalid type for parameter 'position': {type(position)}."
             raise GMTInvalidInput(msg)

@@ -66,13 +66,13 @@ def logo(  # noqa: PLR0913
 
         - A :class:`pygmt.params.Position` object to fully control the reference point,
           anchor point, and offset.
-        - A sequence of two values representing plot coordinates
-          (e.g., ``("2c", "3c")``)
-        - A `2-character justification code </techref/justification_codes>` (e.g.,
-          ``"TL"`` for top-left)
-        - A raw GMT command string (for backward compatibility).
+        - A sequence of two values representing the x and y coordinates in plot
+          coordinates, e.g., ``(1, 2)`` or ``("1c", "2c")``.
+        - A :doc:`2-character justification code </techref/justification_codes>` for a
+          position inside the plot, e.g., ``"TL"`` for Top Left corner inside the plot.
 
-        If not specified, default to the plot origin.
+        If not specified, defaults to the lower-left corner of the plot (position
+        ``(0, 0)`` with anchor ``"BL"``).
     width
     height
         Width or height of the GMT logo. Since the aspect ratio is fixed, only one of
@@ -99,7 +99,7 @@ def logo(  # noqa: PLR0913
 
     position = _parse_position(
         position,
-        default_position=Position((0, 0), cstype="plotcoords"),
+        default=Position((0, 0), cstype="plotcoords"),  # Default to (0,0) in plotcoords
         kwdict={"width": width, "height": height},
     )
 
