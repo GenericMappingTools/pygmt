@@ -86,7 +86,7 @@ def image(  # noqa: PLR0913
         Convert color image to monochrome grayshades using the (television)
         YIQ-transformation.
     invert
-        Invert 1-bit image before plotting, i.e., black pixels (on) becomes white (off)
+        Invert 1-bit image before plotting, i.e., black pixels (on) become white (off)
         and vice versa. Ignored if used with color images.
 
         **Note**: There was an upstream GMT bug, so this feature may not work correctly
