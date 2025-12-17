@@ -8,15 +8,22 @@ from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_list,
+    deprecate_parameter,
+    fmt_docstring,
+    kwargs_to_strings,
+    use_alias,
+)
 from pygmt.params import Box
 
 __doctest_skip__ = ["inset"]
 
 
 @fmt_docstring
+@deprecate_parameter("margin", "margins", "v0.18.0", remove_version="v0.20.0")
 @contextlib.contextmanager
-@use_alias(D="position", M="margin")
+@use_alias(D="position", M="margins")
 @kwargs_to_strings(D="sequence", M="sequence")
 def inset(
     self,
@@ -90,7 +97,7 @@ def inset(
         box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,
         pass a :class:`pygmt.params.Box` object to control style, fill, pen, and other
         box properties.
-    margin : float, str, or list
+    margins : float, str, or list
         This is clearance that is added around the inside of the inset.
         Plotting will take place within the inner region only. The margins
         can be a single value, a pair of values separated (for setting
