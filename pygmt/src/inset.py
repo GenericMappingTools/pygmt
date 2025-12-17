@@ -23,7 +23,7 @@ __doctest_skip__ = ["inset"]
 @fmt_docstring
 @deprecate_parameter("margin", "margins", "v0.18.0", remove_version="v0.20.0")
 @contextlib.contextmanager
-@use_alias(D="position", M="margins")
+@use_alias(D="position", C="margins")
 @kwargs_to_strings(D="sequence", M="sequence")
 def inset(
     self,
