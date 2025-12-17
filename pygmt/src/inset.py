@@ -21,9 +21,9 @@ __doctest_skip__ = ["inset"]
 
 
 @fmt_docstring
-@deprecate_parameter("margin", "margins", "v0.18.0", remove_version="v0.20.0")
+@deprecate_parameter("margin", "clearance", "v0.18.0", remove_version="v0.20.0")
 @contextlib.contextmanager
-@use_alias(D="position", C="margins")
+@use_alias(D="position", C="clearance")
 @kwargs_to_strings(D="sequence", M="sequence")
 def inset(
     self,
@@ -97,7 +97,7 @@ def inset(
         box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,
         pass a :class:`pygmt.params.Box` object to control style, fill, pen, and other
         box properties.
-    margins : float, str, or list
+    clearance : float, str, or list
         This is clearance that is added around the inside of the inset.
         Plotting will take place within the inner region only. The margins
         can be a single value, a pair of values separated (for setting
@@ -123,7 +123,7 @@ def inset(
     >>> fig.coast(region="MG+r2", water="lightblue", shorelines="thin")
     >>> # Use a "with" statement to initialize the inset context manager
     >>> # Setting the position to Top Left and a width of 3.5 centimeters
-    >>> with fig.inset(position="jTL+w3.5c+o0.2c", margins=0, box=Box(pen="green")):
+    >>> with fig.inset(position="jTL+w3.5c+o0.2c", clearance=0, box=Box(pen="green")):
     ...     # Map elements under the "with" statement are plotted in the inset
     ...     fig.coast(
     ...         region="g",
