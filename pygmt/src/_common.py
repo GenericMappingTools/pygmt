@@ -258,13 +258,13 @@ def _parse_position(
     Parameters
     ----------
     position
-        The position parameter to parse. It can be one of the following:
+        The position argument to parse. It can be one of the following:
 
         - A :class:`pygmt.params.Position` object.
-        - A sequence of two values representing plot coordinates.
-        - A 2-character justification code string.
+        - A sequence of two values representing x and y coordinates in plot coordinates.
+        - A 2-character justification code.
         - A raw GMT command string (for backward compatibility).
-        - ``None``, in which case the ``default`` is used.
+        - ``None``, in which case the default position is used.
     kwdict
         The keyword arguments dictionary that conflicts with ``position`` if
         ``position`` is given as a raw GMT command string.
@@ -273,8 +273,8 @@ def _parse_position(
 
     Returns
     -------
-    Position
-        The parsed Position object.
+    position
+        The parsed Position object or raw GMT command string.
 
     Examples
     --------
@@ -345,7 +345,7 @@ def _parse_position(
                     f"conflicts with parameters {', '.join(repr(c) for c in kwdict)}."
                 )
                 raise GMTInvalidInput(msg)
-        case Sequence() if len(position) == 2:  # Tuple of plot coordinates.
+        case Sequence() if len(position) == 2:  # A sequence of x and y coordinates.
             position = Position(position, cstype="plotcoords")
         case Position():  # Already a Position object.
             pass
