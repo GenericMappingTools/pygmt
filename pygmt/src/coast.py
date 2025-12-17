@@ -27,9 +27,9 @@ def coast(  # noqa: PLR0913
     borders: int | str | Sequence[int | str] | None = None,
     shorelines: bool | str | Sequence[int | str] = False,
     box: Box | bool = False,
-    frame: str | Sequence[str] | bool = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -192,10 +192,10 @@ def coast(  # noqa: PLR0913
         to any of the continent codes (e.g. ``"=EU"`` for Europe). Append
         **+p**\ *pen* to draw polygon outlines [Default is no outline] and
         **+g**\ *fill* to fill them [Default is no fill].
-    $frame
     $projection
     $region
         *Required if this is the first plot command.*
+    $frame
     $verbose
     $panel
     $perspective
