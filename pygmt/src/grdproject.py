@@ -10,14 +10,13 @@ from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdproject"]
 
 
 @fmt_docstring
-@deprecate_parameter("unit", "units", "v0.18.0", remove_version="v0.20.0")
-@use_alias(E="dpi", F="scaling", I="inverse", M="units", n="interpolation")
+@use_alias(E="dpi", F="scaling", I="inverse", M="unit", n="interpolation")
 def grdproject(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
@@ -84,7 +83,7 @@ def grdproject(
         **k** (kilometers), **M** (statute miles), **n** (nautical miles),
         **u** (US survey feet), **i** (inches), **c** (centimeters), or
         **p** (points).
-    units : str
+    unit : str
         Append **c**, **i**, or **p** to indicate that centimeters, inches, or
         points should be the projected measure unit. Cannot be used with
         ``scaling``.

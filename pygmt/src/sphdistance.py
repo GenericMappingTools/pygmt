@@ -11,18 +11,17 @@ from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["sphdistance"]
 
 
 @fmt_docstring
-@deprecate_parameter("unit", "units", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     C="single_form",
     D="duplicate",
     E="quantity",
-    L="units",
+    L="unit",
     N="node_table",
     Q="voronoi",
 )
@@ -86,7 +85,7 @@ def sphdistance(
 
         Optionally, append the resampling interval along Voronoi arcs in
         spherical degrees.
-    units : str
+    unit : str
         Specify the unit used for distance calculations. Choose among **d**
         (spherical degrees), **e** (meters), **f** (feet), **k** (kilometers),
         **M** (miles), **n** (nautical miles), or **u** (survey feet).
