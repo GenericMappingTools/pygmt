@@ -103,6 +103,55 @@ def test_grdview_image_dpi(grid):
     return fig
 
 
+@pytest.mark.mpl_image_compare
+def test_grdview_monochrome(grid):
+    """
+    Test grdview with different surftype values and monochrome=True.
+    """
+    args = {
+        "grid": grid,
+        "projection": "M?",
+        "frame": True,
+        "panel": True,
+        "perspective": (-150, 25),
+        "zsize": "1.0c",
+        "monochrome": True,
+    }
+    fig = Figure()
+    with fig.subplot(nrows=2, ncols=3, subsize=("5c", "5c"), margins=(0, -0.5)):
+        for surftype in ["mesh", "surface", "surface+mesh"]:
+            if surftype in {"surface", "surface+mesh"}:
+                fig.grdview(surftype=surftype, cmap="SCM/oleron", **args)
+            else:
+                fig.grdview(surftype=surftype, **args)
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_grdview_mesh_pen_and_mesh_fill(grid):
+    """
+    Test grdview with mesh_pena and mesh_fill parameters.
+    """
+    args = {
+        "grid": grid,
+        "projection": "M?",
+        "frame": True,
+        "panel": True,
+        "perspective": (-150, 25),
+        "zsize": "1.0c",
+        "mesh_fill": "lightred",
+        "mesh_pen": "0.5p,blue",
+    }
+    fig = Figure()
+    with fig.subplot(nrows=1, ncols=3, subsize=("5c", "5c"), margins=0):
+        for surftype in ["mesh", "waterfall_x", "waterfall_y"]:
+            if surftype == "surface+mesh":
+                fig.grdview(surftype=surftype, cmap="SCM/oleron", **args)
+            else:
+                fig.grdview(surftype=surftype, **args)
+    return fig
+
+
 def test_grdview_wrong_kind_of_grid(xrgrid):
     """
     Run grdview using grid input that is not an xarray.DataArray or file.
