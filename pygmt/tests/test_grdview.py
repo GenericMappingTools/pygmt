@@ -145,10 +145,7 @@ def test_grdview_mesh_pen_and_mesh_fill(grid):
     fig = Figure()
     with fig.subplot(nrows=1, ncols=3, subsize=("5c", "5c"), margins=0):
         for surftype in ["mesh", "waterfall_x", "waterfall_y"]:
-            if surftype == "surface+mesh":
-                fig.grdview(surftype=surftype, cmap="SCM/oleron", **args)
-            else:
-                fig.grdview(surftype=surftype, **args)
+            fig.grdview(surftype=surftype, **args)
     return fig
 
 
