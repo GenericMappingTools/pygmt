@@ -14,7 +14,7 @@ not needed to specify the projection for most cases. See Figure
 
 .. _GMT_utm_zones:
 
-.. figure:: https://docs.generic-mapping-tools.org/latest/_images/GMT_utm_zones.png
+.. figure:: https://docs.generic-mapping-tools.org/6.6/_images/GMT_utm_zones.png
    :width: 700 px
    :align: center
 
