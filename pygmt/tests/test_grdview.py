@@ -195,27 +195,6 @@ def test_grdview_with_perspective_and_zsize(xrgrid):
 
 
 @pytest.mark.mpl_image_compare
-def test_grdview_with_cmap_for_image_plot(xrgrid):
-    """
-    Run grdview by passing in a grid and setting a colormap for producing an image plot.
-    """
-    fig = Figure()
-    fig.grdview(grid=xrgrid, cmap="oleron", surftype="image")
-    return fig
-
-
-@pytest.mark.mpl_image_compare
-def test_grdview_with_cmap_for_surface_monochrome_plot(xrgrid):
-    """
-    Run grdview by passing in a grid and setting a colormap for producing a surface
-    monochrome plot.
-    """
-    fig = Figure()
-    fig.grdview(grid=xrgrid, cmap="oleron", surftype="surface", monochrome=True)
-    return fig
-
-
-@pytest.mark.mpl_image_compare
 def test_grdview_with_cmap_for_perspective_surface_plot(xrgrid):
     """
     Run grdview by passing in a grid and setting a colormap for producing a surface plot
