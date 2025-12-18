@@ -24,7 +24,7 @@ __doctest_skip__ = ["inset"]
 @deprecate_parameter("margin", "clearance", "v0.18.0", remove_version="v0.20.0")
 @contextlib.contextmanager
 @use_alias(D="position", C="clearance")
-@kwargs_to_strings(D="sequence", M="sequence")
+@kwargs_to_strings(D="sequence", C="sequence")
 def inset(
     self,
     projection: str | None = None,
@@ -127,7 +127,7 @@ def inset(
     ...     # Map elements under the "with" statement are plotted in the inset
     ...     fig.coast(
     ...         region="g",
-    ...         projection="G47/-20/3.5c",
+    ...         projection="G47/-20/?",
     ...         land="gray",
     ...         water="white",
     ...         dcw="MG+gred",
