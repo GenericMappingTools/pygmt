@@ -22,6 +22,7 @@ def image(  # noqa: PLR0913
     invert: bool = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -48,6 +49,7 @@ def image(  # noqa: PLR0913
     Full GMT docs at :gmt-docs:`image.html`.
 
     $aliases
+       - B = frame
        - F = box
        - I = invert
        - J = projection
@@ -94,6 +96,7 @@ def image(  # noqa: PLR0913
         See `PR #8837 <https://github.com/GenericMappingTools/gmt/pull/8837>`__.
     $projection
     $region
+    $frame
     $verbose
     $panel
     $perspective
@@ -106,6 +109,7 @@ def image(  # noqa: PLR0913
         M=Alias(monochrome, name="monochrome"),
         I=Alias(invert, name="invert"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
