@@ -6,19 +6,20 @@ import io
 from collections.abc import Sequence
 from typing import Literal
 
-from pygmt._typing import PathLike
+from pygmt._typing import AnchorCode, PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTTypeError
+from pygmt.exceptions import GMTTypeError
 from pygmt.helpers import build_arg_list, data_kind, fmt_docstring, is_nonstr_iter
 from pygmt.params import Box, Position
+from pygmt.src._common import _parse_position
 
 
 @fmt_docstring
 def legend(  # noqa: PLR0913
     self,
     spec: PathLike | io.StringIO | None = None,
-    position: Position | None = None,
+    position: Position | Sequence[float | str] | AnchorCode | None = None,
     width: float | str | None = None,
     height: float | str | None = None,
     line_spacing: float | None = None,
@@ -30,8 +31,8 @@ def legend(  # noqa: PLR0913
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    transparency: float | None = None,
     perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     """
@@ -73,25 +74,31 @@ def legend(  # noqa: PLR0913
 
         See :gmt-docs:`legend.html` for the definition of the legend specification.
     position
-        Specify the position of the legend on the plot. If not specified, defaults to
-        the top right corner inside the plot with a 0.2-cm offset. See
-        :class:`pygmt.params.Position` for details.
+        Position of the legend on the plot. It can be specified in multiple ways:
+
+        - A :class:`pygmt.params.Position` object to fully control the reference point,
+          anchor point, and offset.
+        - A sequence of two values representing the x and y coordinates in plot
+          coordinates, e.g., ``(1, 2)`` or ``("1c", "2c")``.
+        - A :doc:`2-character justification code </techref/justification_codes>` for a
+          position inside the plot, e.g., ``"TL"`` for Top Left corner inside the plot.
+
+        If not specified, defaults to the top right corner inside the plot with a 0.2-cm
+        offset.
     width
     height
-        Specify the width and height of the legend box in plot coordinates (inches, cm,
-        etc.). If not given, the width and height are computed automatically based on
-        the contents of the legend specification.
-
-        If unit is ``%`` (percentage) then width is computed as that fraction of the
-        plot width. If height is given as percentage then height is recomputed as that
+        Width and height of the legend box. If not given, the width and height are
+        computed automatically based on the contents of the legend specification. If
+        unit is ``%`` (percentage) then width is computed as that fraction of the plot
+        width. If height is given as percentage then height is recomputed as that
         fraction of the legend width (not plot height).
 
         **Note:** Currently, the automatic height calculation only works when legend
         codes **D**, **H**, **L**, **S**, or **V** are used and that the number of
         symbol columns (**N**) is 1.
     line_spacing
-        Specify the line-spacing factor between legend entries in units of the current
-        font size [Default is 1.1].
+        The line-spacing factor between legend entries in units of the current font size
+        [Default is 1.1].
     box
         Draw a background box behind the legend. If set to ``True``, a simple
         rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
@@ -109,22 +116,16 @@ def legend(  # noqa: PLR0913
     """
     self._activate_figure()
 
-    # Prior PyGMT v0.17.0, 'position' can accept a raw GMT CLI string. Check for
-    # conflicts with other parameters.
-    if isinstance(position, str) and any(
-        v is not None for v in (width, height, line_spacing)
-    ):
-        msg = (
-            "Parameter 'position' is given with a raw GMT command string, and conflicts "
-            "with parameters 'width', 'height', and 'line_spacing'."
-        )
-        raise GMTInvalidInput(msg)
+    # Set default box if both position and box are not given.
+    # The default position will be set later in _parse_position().
+    if kwargs.get("D", position) is None and kwargs.get("F", box) is False:
+        box = Box(pen="1p", fill="white")
 
-    # Set default position if not specified.
-    if kwargs.get("D", position) is None:
-        position = Position("TR", anchor="TR", offset=0.2)
-        if kwargs.get("F", box) is False:
-            box = Box(pen="1p", fill="white")  # Default box
+    position = _parse_position(
+        position,
+        kwdict={"width": width, "height": height, "line_spacing": line_spacing},
+        default=Position("TR", offset=0.2),  # Default to TR.
+    )
 
     # Set default width to 0 if height is given but width is not.
     if height is not None and width is None:
