@@ -7,14 +7,15 @@ from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
 from pygmt.params import Box
 
 __doctest_skip__ = ["colorbar"]
 
 
 @fmt_docstring
-@use_alias(C="cmap", D="position", L="equalsize", Z="zfile")
+@deprecate_parameter("equalsize", "equal_size", "v0.18.0", remove_version="v0.20.0")
+@use_alias(C="cmap", D="position", L="equal_size", Z="zfile")
 def colorbar(  # noqa: PLR0913
     self,
     truncate: Sequence[float] | None = None,
@@ -118,7 +119,7 @@ def colorbar(  # noqa: PLR0913
           from *-max_intens* to *+max_intens*.
         - Passing a sequence of two numerical values (*low*, *high*) sets the intensity
           range from *low* to *high* to specify an asymmetric range.
-    equalsize : float or str
+    equal_size : float or str
         [**i**]\ [*gap*].
         Equal-sized color rectangles. By default, the rectangles are scaled
         according to the z-range in the CPT (see also ``zfile``). If *gap* is
@@ -134,7 +135,7 @@ def colorbar(  # noqa: PLR0913
     zfile : str
         File with colorbar-width per color entry. By default, the width of the
         entry is scaled to the color range, i.e., z = 0-100 gives twice the
-        width as z = 100-150 (see also ``equalsize``). **Note**: The widths
+        width as z = 100-150 (see also ``equal_size``). **Note**: The widths
         may be in plot distance units or given as relative fractions and will
         be automatically scaled so that the sum of the widths equals the
         requested colorbar length.
