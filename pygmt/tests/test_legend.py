@@ -126,24 +126,24 @@ S 0.1i i 0.15i cyan 0.25p 0.3i This triangle is boring
     fig = Figure()
     fig.basemap(projection="x1c", region=[0, 20, 0, 20], frame="g1")
     # Default width and height
-    fig.legend(spec, position=Position("TL"), box=True)
+    fig.legend(spec, position="TL", box=True)
 
     # Width only
-    fig.legend(spec, position=Position("TC"), width="6c", box=True)
+    fig.legend(spec, position="TC", width="6c", box=True)
     # Width as percentage of plot width
-    fig.legend(spec, position=Position("TR"), width="25%", box=True)
+    fig.legend(spec, position="TR", width="25%", box=True)
 
     # Height only, with automatic width
-    fig.legend(spec, position=Position("ML"), height="4.5c", box=True)
+    fig.legend(spec, position="ML", height="4.5c", box=True)
     # Height as percentage of legend width
-    fig.legend(spec, position=Position("BL"), height="75%", box=True)
+    fig.legend(spec, position="BL", height="75%", box=True)
 
     # Both width and height
-    fig.legend(spec, position=Position("MC"), width="6c", height="4.5c", box=True)
+    fig.legend(spec, position="MC", width="6c", height="4.5c", box=True)
     # Height as percentage of legend width
-    fig.legend(spec, position=Position("BC"), width="6c", height="75%", box=True)
+    fig.legend(spec, position="BC", width="6c", height="75%", box=True)
     # Width as percentage of plot width and height as percentage of legend width
-    fig.legend(spec, position=Position("BR"), width="25%", height="75%", box=True)
+    fig.legend(spec, position="BR", width="25%", height="75%", box=True)
 
     return fig
 
