@@ -120,7 +120,7 @@ fig.histogram(
     frame=["WSne", "xaf10", "ya1f1+lCounts"],
     data=data02,
     series=10,
-    # Draw a 1.5-points thick, dashed outline in "orange"
+    # Draw a 1.5-point thick, dashed outline in "orange"
     pen="1.5p,orange,dashed",
     histtype=0,
     stairs=True,
@@ -320,7 +320,7 @@ fig.show()
 # Grouped bars
 # ------------
 #
-# By setting the ``barwidth`` parameter in respect to the values passed to the
+# By setting the ``bar_width`` parameter in respect to the values passed to the
 # ``series`` parameter histograms with grouped bars can be created.
 #
 # Limitations of histograms with grouped bars are:
@@ -347,7 +347,7 @@ fig.histogram(
     # of the bin width
     # Offset ("+o") the bars to align each bar with the left limit of the corresponding
     # bin
-    barwidth=f"{binwidth / 2}+o-{binwidth / 4}",
+    bar_width=f"{binwidth / 2}+o-{binwidth / 4}",
     label="data01",
 )
 
@@ -358,7 +358,7 @@ fig.histogram(
     fill="orange",
     pen="1p,darkgray,solid",
     histtype=0,
-    barwidth=f"{binwidth / 2}+o{binwidth / 4}",
+    bar_width=f"{binwidth / 2}+o{binwidth / 4}",
     label="data02",
 )
 

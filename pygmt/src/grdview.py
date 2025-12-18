@@ -6,11 +6,13 @@ from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
+from packaging.version import Version
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
-from pygmt.clib import Session
+from pygmt.clib import Session, __gmt_version__
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
+from pygmt.src.grdinfo import grdinfo
 
 __doctest_skip__ = ["grdview"]
 
@@ -19,10 +21,10 @@ __doctest_skip__ = ["grdview"]
 @deprecate_parameter("contourpen", "contour_pen", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter("facadepen", "facade_pen", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter("meshpen", "mesh_pen", "v0.18.0", remove_version="v0.20.0")
+@deprecate_parameter("drapegrid", "drape_grid", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     C="cmap",
-    G="drapegrid",
-    N="plane",
+    G="drape_grid",
     I="shading",
     f="coltypes",
     n="interpolation",
@@ -39,8 +41,10 @@ def grdview(  # noqa: PLR0913
     nan_transparent: bool = False,
     monochrome: bool = False,
     contour_pen: str | None = None,
-    facade_pen: str | None = None,
     mesh_pen: str | None = None,
+    plane: float | bool = False,
+    facade_fill: str | None = None,
+    facade_pen: str | None = None,
     projection: str | None = None,
     zscale: float | str | None = None,
     zsize: float | str | None = None,
@@ -69,6 +73,7 @@ def grdview(  # noqa: PLR0913
        - J = projection
        - Jz = zscale
        - JZ = zsize
+       - N = plane, facade_fill
        - R = region
        - Q = surftype, dpi, mesh_fill, nan_transparent, monochrome
        - V = verbose
@@ -93,17 +98,12 @@ def grdview(  # noqa: PLR0913
     $frame
     cmap : str
         The name of the color palette table to use.
-    drapegrid : str or :class:`xarray.DataArray`
+    drape_grid : str or :class:`xarray.DataArray`
         The file name or a :class:`xarray.DataArray` of the image grid to be draped on
         top of the relief provided by ``grid`` [Default determines colors from ``grid``]
-        Note that ``zscale`` and ``plane`` always refer to ``grid``. ``drapegrid`` only
-        provides the information pertaining to colors, which (if ``drapegrid`` is a
+        Note that ``zscale`` and ``plane`` always refer to ``grid``. ``drape_grid`` only
+        provides the information pertaining to colors, which (if ``drape_grid`` is a
         grid) will be looked-up via the CPT (see ``cmap``).
-    plane : float or str
-        *level*\ [**+g**\ *fill*].
-        Draw a plane at this z-level. If the optional color is provided via the **+g**
-        modifier, and the projection is not oblique, the frontal facade between the
-        plane and the data perimeter is colored.
     surftype
         Specify surface type of the grid. Valid values are:
 
@@ -125,13 +125,22 @@ def grdview(  # noqa: PLR0913
     contour_pen
         Draw contour lines on top of surface or mesh (not image). Append pen attributes
         used for the contours.
-    facade_pen
-        Set the pen attributes used for the facade. You must also select ``plane`` for
-        the facade outline to be drawn.
     mesh_pen
         Set the pen attributes used for the mesh. Need to set ``surftype`` to
         ``"mesh"``, or ``"surface+mesh"`` to draw meshlines.
-    shading : str
+    plane
+        Draw a plane at the specified z-level. If ``True``, defaults to the minimum
+        value in the grid. However, if ``region`` was used to set *zmin/zmax* then
+        *zmin* is used if it is less than the grid minimum value. Use ``facade_pen`` and
+        ``facade_fill`` to control the appearance of the plane.
+        **Note**: For GMT<=6.6.0, *zmin* set in ``region`` has no effect due to a GMT
+        bug.
+    facade_fill
+        Fill for the frontal facade between the plane specified by ``plane`` and the
+        data perimeter.
+    facade_pen
+        Set the pen attributes used for the facade.
+    shading : str or float
         Provide the name of a grid file with intensities in the (-1,+1) range, or a
         constant intensity to apply everywhere (affects the ambient light).
         Alternatively, derive an intensity grid from the main input data grid by using
@@ -214,6 +223,22 @@ def grdview(  # noqa: PLR0913
         )
         raise GMTInvalidInput(msg)
 
+    # Enable 'plane' if 'facade_fill' or 'facade_pen' are set
+    if plane is False and (facade_fill is not None or facade_pen is not None):
+        plane = True
+
+    # Workaround for GMT bug https://github.com/GenericMappingTools/gmt/pull/8838
+    # Fix the plane value to be the grid minimum if plane=True.
+    # Notes:
+    # 1. It's the minimum of the grid, not a subset of the grid defined by 'region'.
+    # 2. The GMT docs says "if -R was used to set zmin/zmax then we use that value if
+    #    it is less than the grid minimum value.". We can't add a workaround for this
+    #    case since we can't parse zmin/zmax from 'region' if 'region' was set in
+    #    previous plotting commands.
+    # TODO(GMT>6.6.0): Remove this workaround.
+    if Version(__gmt_version__) <= Version("6.6.0") and plane is True:
+        plane = grdinfo(grid, per_column=True).split()[4]
+
     aliasdict = AliasSystem(
         Jz=Alias(zscale, name="zscale"),
         JZ=Alias(zsize, name="zsize"),
@@ -226,6 +251,10 @@ def grdview(  # noqa: PLR0913
             Alias(dpi, name="dpi"),
             Alias(mesh_fill, name="mesh_fill"),
             Alias(monochrome, name="monochrome", prefix="+m"),
+        ],
+        N=[
+            Alias(plane, name="plane"),
+            Alias(facade_fill, name="facade_fill", prefix="+g"),
         ],
         Wc=Alias(contour_pen, name="contour_pen"),
         Wf=Alias(facade_pen, name="facade_pen"),

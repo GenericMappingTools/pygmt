@@ -1,0 +1,5 @@
+outs:
+- md5: aa725f7d05462e7d272cf7045a7c9913
+  size: 32037
+  hash: md5
+  path: test_grdview_facadepen_default_plane.png

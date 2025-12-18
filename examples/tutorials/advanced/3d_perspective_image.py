@@ -53,8 +53,8 @@ fig.grdview(
 fig.show()
 
 # %%
-# The ``plane`` parameter sets the elevation and color of a plane that provides
-# a fill below the surface relief.
+# The ``plane`` parameter sets the elevation and color of a plane that provides a fill
+# below the surface relief.
 
 fig = pygmt.Figure()
 fig.grdview(
@@ -65,8 +65,8 @@ fig.grdview(
     zsize="1.5c",
     surftype="surface",
     cmap="geo",
-    # Set the plane elevation to 1,000 meters and make the fill "gray"
-    plane="1000+ggray",
+    plane=1000,  # Set the plane elevation to 1,000 meters
+    facade_fill="gray",  # Color the facade in "gray"
 )
 fig.show()
 
@@ -88,8 +88,9 @@ fig.grdview(
     zsize="1.5c",
     surftype="surface",
     cmap="geo",
-    plane="1000+ggrey",
-    # Set the contour pen thickness to "0.1p"
+    plane=1000,
+    facade_fill="gray",
+    # Set the contour pen thickness to 0.1 points
     contour_pen="0.1p",
 )
 fig.colorbar(perspective=True, frame=["a500", "x+lElevation", "y+lm"])

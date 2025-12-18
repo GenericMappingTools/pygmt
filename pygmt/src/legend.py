@@ -75,10 +75,9 @@ def legend(  # noqa: PLR0913
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *width*\ [/*height*]\ [**+j**\ *justify*]\ [**+l**\ *spacing*]\
         [**+o**\ *dx*\ [/*dy*]].
-        Define the reference point on the map for the
-        legend. By default, uses **JTR**\ **+jTR**\ **+o**\ 0.2c which
-        places the legend at the top-right corner inside the map frame, with a
-        0.2 cm offset.
+        Define the reference point on the map for the legend. By default, uses
+        **JTR**\ **+jTR**\ **+o**\ 0.2c which places the legend at the Top Right corner
+        inside the map frame, with a 0.2 cm offset.
     box
         Draw a background box behind the legend. If set to ``True``, a simple
         rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box

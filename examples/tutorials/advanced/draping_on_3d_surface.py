@@ -3,7 +3,7 @@ Draping a dataset on top of a topographic surface
 ==================================================
 
 It can be visually appealing to "drape" a dataset over a topographic surface. This can
-be accomplished using the ``drapegrid`` parameter of :meth:`pygmt.Figure.grdview`.
+be accomplished using the ``drape_grid`` parameter of :meth:`pygmt.Figure.grdview`.
 
 This tutorial consists of two examples:
 
@@ -41,9 +41,9 @@ region_3d = [*region_2d, grd_relief.min().to_numpy(), grd_relief.max().to_numpy(
 # The topographic surface is created based on the grid passed to the ``grid`` parameter
 # of :meth:`pygmt.Figure.grdview`; here we use a grid of the Earth relief. To add a
 # color-coding based on *another* grid we have to pass a second grid to the
-# ``drapegrid`` parameter; here we use a grid of the crustal age. In this case the
+# ``drape_grid`` parameter; here we use a grid of the crustal age. In this case the
 # colormap specified via the ``cmap`` parameter applies to the grid passed to
-# ``drapegrid``, not to ``grid``. The azimuth and elevation of the 3-D plot are set via
+# ``drape_grid``, not to ``grid``. The azimuth and elevation of the 3-D plot are set via
 # the ``perspective`` parameter.
 
 fig = pygmt.Figure()
@@ -56,7 +56,7 @@ fig.grdview(
     projection="M12c",  # Mercator projection with a width of 12 centimeters
     region=region_3d,
     grid=grd_relief,  # Use elevation grid for z values
-    drapegrid=grd_age,  # Use crustal age grid for color-coding
+    drape_grid=grd_age,  # Use crustal age grid for color-coding
     cmap=True,  # Use colormap created for the crustal age
     surftype="image",  # Create an image plot
     # Use an illumination from the azimuthal directions 0° (north) and 270°
@@ -65,7 +65,7 @@ fig.grdview(
     shading="+a0/270+ne0.6",
     perspective=[157.5, 30],  # Azimuth and elevation for the 3-D plot
     zsize="1.5c",
-    plane="+gdarkgray",
+    facade_fill="darkgray",
     frame=True,
 )
 
@@ -101,12 +101,12 @@ region_3d = [*region_2d, grd_relief.min().to_numpy(), grd_relief.max().to_numpy(
 url_to_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1000px-Flag_of_Europe.svg.png"
 with rasterio.open(url_to_image) as dataset:
     data = dataset.read()
-    drapegrid = xr.DataArray(data, dims=("band", "y", "x"))
+    drape_grid = xr.DataArray(data, dims=("band", "y", "x"))
 
 # %%
 # Again we create a 3-D plot with :meth:`pygmt.Figure.grdview` and pass an Earth relief
 # grid to the ``grid`` parameter to create the topographic surface. But now we pass the
-# PNG image which was loaded into an :class:`xarray.DataArray` to the ``drapgrid``
+# PNG image which was loaded into an :class:`xarray.DataArray` to the ``drape_grid``
 # parameter.
 
 fig = pygmt.Figure()
@@ -120,7 +120,7 @@ fig.grdview(
     projection="M12c",  # Mercator projection with a width of 12 centimeters
     region=region_3d,
     grid=grd_relief,  # Use elevation grid for z values
-    drapegrid=drapegrid,  # Drap image grid for the EU flag on top
+    drape_grid=drape_grid,  # Drape image grid for the EU flag on top
     cmap=True,  # Use colormap defined for the EU flag
     surftype="image",  # Create an image plot
     # Use an illumination from the azimuthal directions 0° (north) and 270° (west) with
@@ -128,7 +128,7 @@ fig.grdview(
     shading="+a0/270+ne0.6",
     perspective=[157.5, 30],  # Define azimuth, elevation for the 3-D plot
     zsize="1c",
-    plane="+gdarkgray",
+    facade_fill="darkgray",
     frame=True,
 )
 
