@@ -84,6 +84,25 @@ def test_grdview_surftype(grid):
     return fig
 
 
+@pytest.mark.mpl_image_compare
+def test_grdview_image_dpi(grid):
+    """
+    Test grdview with surftype="image" and dpi parameter.
+    """
+    fig = Figure()
+    for dpi in [None, 10, 100]:
+        fig.grdview(
+            grid=grid,
+            projection="M4c",
+            surftype="image",
+            dpi=dpi,
+            frame=["af", f"WSen+tdpi={dpi}"],
+            perspective=(225, 30),
+        )
+        fig.shift_origin(xshift="7c")
+    return fig
+
+
 def test_grdview_wrong_kind_of_grid(xrgrid):
     """
     Run grdview using grid input that is not an xarray.DataArray or file.
