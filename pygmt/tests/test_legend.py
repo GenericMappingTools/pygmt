@@ -9,7 +9,6 @@ import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import GMTTempFile
-from pygmt.params import Position
 
 
 @pytest.fixture(scope="module", name="legend_spec")
@@ -74,7 +73,7 @@ def test_legend_entries():
     )
     fig.plot(data="@Table_5_11.txt", pen="1.5p,gray", label="My lines")
     fig.plot(data="@Table_5_11.txt", style="t0.15i", fill="orange", label="Oranges")
-    fig.legend(position=Position("TR", cstype="outside", anchor="TR"))
+    fig.legend(position="TR")
     return fig
 
 
@@ -87,11 +86,7 @@ def test_legend_specfile(legend_spec):
         Path(specfile.name).write_text(legend_spec, encoding="utf-8")
         fig = Figure()
         fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
-        fig.legend(
-            specfile.name,
-            position=Position("MC", cstype="outside", anchor="MC"),
-            width="5i",
-        )
+        fig.legend(specfile.name, position="MC", width="5i")
         return fig
 
 
@@ -103,7 +98,7 @@ def test_legend_stringio(legend_spec):
     spec = io.StringIO(legend_spec)
     fig = Figure()
     fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
-    fig.legend(spec, position=Position("MC", cstype="outside", anchor="MC"), width="5i")
+    fig.legend(spec, position="MC", width="5i")
     return fig
 
 
@@ -180,8 +175,8 @@ def test_legend_position_mixed_syntax(legend_spec):
     fig = Figure()
     fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
     with pytest.raises(GMTInvalidInput):
-        fig.legend(spec, position="JMC", width="5i")
+        fig.legend(spec, position="jTL", width="5i")
     with pytest.raises(GMTInvalidInput):
-        fig.legend(spec, position="JMC", height="5i")
+        fig.legend(spec, position="jTL", height="5i")
     with pytest.raises(GMTInvalidInput):
-        fig.legend(spec, position="JMC", line_spacing=2.0)
+        fig.legend(spec, position="jTL", line_spacing=2.0)
