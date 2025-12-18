@@ -53,6 +53,37 @@ def test_grdview_grid_dataarray(xrgrid):
     return fig
 
 
+@pytest.mark.mpl_image_compare
+def test_grdview_surftype(grid):
+    """
+    Test grdview with different surftype values.
+    """
+    args = {
+        "grid": grid,
+        "projection": "M?",
+        "frame": True,
+        "panel": True,
+        "perspective": (-150, 25),
+        "zsize": "1.0c",
+    }
+
+    fig = Figure()
+    with fig.subplot(nrows=2, ncols=3, subsize=("5c", "5c"), margins=(0, -0.5)):
+        for surftype in [
+            "mesh",
+            "surface",
+            "surface+mesh",
+            "image",
+            "waterfall_x",
+            "waterfall_y",
+        ]:
+            if surftype in {"surface", "surface+mesh"}:
+                fig.grdview(surftype=surftype, cmap="SCM/oleron", **args)
+            else:
+                fig.grdview(surftype=surftype, **args)
+    return fig
+
+
 def test_grdview_wrong_kind_of_grid(xrgrid):
     """
     Run grdview using grid input that is not an xarray.DataArray or file.

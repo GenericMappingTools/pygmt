@@ -22,13 +22,7 @@ __doctest_skip__ = ["grdview"]
 @deprecate_parameter("facadepen", "facade_pen", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter("meshpen", "mesh_pen", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter("drapegrid", "drape_grid", "v0.18.0", remove_version="v0.20.0")
-@use_alias(
-    C="cmap",
-    G="drape_grid",
-    I="shading",
-    f="coltypes",
-    n="interpolation",
-)
+@use_alias(C="cmap", G="drape_grid", I="shading", f="coltypes", n="interpolation")
 def grdview(  # noqa: PLR0913
     self,
     grid: PathLike | xr.DataArray,
@@ -37,10 +31,10 @@ def grdview(  # noqa: PLR0913
     ]
     | None = None,
     dpi: int | None = None,
-    mesh_fill: float | None = None,
     nan_transparent: bool = False,
     monochrome: bool = False,
     contour_pen: str | None = None,
+    mesh_fill: float | None = None,
     mesh_pen: str | None = None,
     plane: float | bool = False,
     facade_fill: str | None = None,
@@ -48,13 +42,13 @@ def grdview(  # noqa: PLR0913
     projection: str | None = None,
     zscale: float | str | None = None,
     zsize: float | str | None = None,
-    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    transparency: float | None = None,
     perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -87,15 +81,6 @@ def grdview(  # noqa: PLR0913
     Parameters
     ----------
     $grid
-    region : str or list
-        *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
-        Specify the :doc:`region </tutorials/basics/regions>` of interest. When used
-        with ``perspective``, optionally append */zmin/zmax* to indicate the range to
-        use for the 3-D axes [Default is the region given by the input grid].
-    $projection
-    zscale/zsize
-        Set z-axis scaling or z-axis size.
-    $frame
     cmap : str
         The name of the color palette table to use.
     drape_grid : str or :class:`xarray.DataArray`
@@ -105,7 +90,7 @@ def grdview(  # noqa: PLR0913
         provides the information pertaining to colors, which (if ``drape_grid`` is a
         grid) will be looked-up via the CPT (see ``cmap``).
     surftype
-        Specify surface type of the grid. Valid values are:
+        Specify surface type for the grid. Valid values are:
 
         - ``"mesh"``: mesh plot [Default].
         - ``"surface``: surface plot.
@@ -115,8 +100,6 @@ def grdview(  # noqa: PLR0913
     dpi
         Effective dots-per-unit resolution for the rasterization for image plots (i.e.,
         ``surftype="image"``) [Default is :gmt-term:`GMT_GRAPHICS_DPU`]
-    mesh_fill
-        Set the mesh fill in mesh plot or waterfall plots [Default is white].
     nan_transparent
         Make grid nodes with z = NaN transparent, using the color-masking feature in
         PostScript Level 3. Only applies when ``surftype="image"``.
@@ -128,6 +111,8 @@ def grdview(  # noqa: PLR0913
     mesh_pen
         Set the pen attributes used for the mesh. Need to set ``surftype`` to
         ``"mesh"``, or ``"surface+mesh"`` to draw meshlines.
+    mesh_fill
+        Set the mesh fill in mesh plot or waterfall plots [Default is white].
     plane
         Draw a plane at the specified z-level. If ``True``, defaults to the minimum
         value in the grid. However, if ``region`` was used to set *zmin/zmax* then
@@ -148,6 +133,15 @@ def grdview(  # noqa: PLR0913
         **+m**\ *ambient* to specify azimuth, intensity, and ambient arguments for that
         function, or just give **+d** to select the default arguments [Default is
         ``"+a-45+nt1+m0"``].
+    $projection
+    zscale/zsize
+        Set z-axis scaling or z-axis size.
+    region : str or list
+        *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
+        Specify the :doc:`region </tutorials/basics/regions>` of interest. When used
+        with ``perspective``, optionally append */zmin/zmax* to indicate the range to
+        use for the 3-D axes [Default is the region given by the input grid].
+    $frame
     $verbose
     $panel
     $coltypes
