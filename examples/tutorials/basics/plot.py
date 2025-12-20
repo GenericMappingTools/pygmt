@@ -90,7 +90,9 @@ fig.show()
 fig = pygmt.Figure()
 fig.basemap(region=region, projection="M15c", frame=True)
 fig.coast(land="black", water="skyblue")
-pygmt.makecpt(cmap="viridis", series=[data.depth_km.min(), data.depth_km.max()])
+pygmt.makecpt(
+    cmap="matplotlib/viridis", series=[data.depth_km.min(), data.depth_km.max()]
+)
 fig.plot(
     x=data.longitude,
     y=data.latitude,
