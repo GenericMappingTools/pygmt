@@ -50,7 +50,7 @@ def scalebar(  # noqa: PLR0913
         - A :doc:`2-character justification code </techref/justification_codes>` for a
           position inside the plot, e.g., ``"TL"`` for Top Left corner inside the plot.
 
-        If not specified, defaults to the bottom-left corner of the plot with a 0.2-cm
+        If not specified, defaults to the Bottom Left corner of the plot with a 0.2-cm
         and 0.4-cm offset in the x- and y-directions, respectively.
     length
         Length of the scale bar in km. Append a suffix to specify different units. Valid
