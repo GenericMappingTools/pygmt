@@ -13,6 +13,8 @@ from pygmt.helpers import build_arg_list, fmt_docstring
 from pygmt.params import Box, Position
 from pygmt.src._common import _parse_position
 
+__doctest_skip__ = ["magnetic_rose"]
+
 
 @fmt_docstring
 def magnetic_rose(  # noqa: PLR0913
