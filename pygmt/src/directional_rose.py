@@ -45,7 +45,7 @@ def directional_rose(
         - A :doc:`2-character justification code </techref/justification_codes>` for a
           position inside the plot, e.g., ``"TL"`` for Top Left corner inside the plot.
 
-        If not specified, defaults to the bottom-left corner of the plot.
+        If not specified, defaults to the Bottom Left corner of the plot.
     width
         Width of the rose in plot coordinates, or append unit ``%`` for a size in
         percentage of plot width [Default is 10%].
