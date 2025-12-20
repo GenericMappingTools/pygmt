@@ -66,12 +66,12 @@ def inset(
 
         - A :class:`pygmt.params.Position` object to fully control the reference point,
           anchor point, and offset.
-        - A sequence of two values representing the x and y coordinates in plot
+        - A sequence of two values representing the x- and y-coordinates in plot
           coordinates, e.g., ``(1, 2)`` or ``("1c", "2c")``.
         - A :doc:`2-character justification code </techref/justification_codes>` for a
           position inside the plot, e.g., ``"TL"`` for Top Left corner inside the plot.
 
-        If not specified, defaults to the bottom-left corner of the plot.
+        If not specified, defaults to the Bottom Left corner of the plot.
     width
     height
         Width and height of the inset. Width must be specified and height is set to be
