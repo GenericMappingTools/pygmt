@@ -9,17 +9,18 @@ import xarray as xr
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
 
 __doctest_skip__ = ["surface"]
 
 
 @fmt_docstring
+@deprecate_parameter("maxradius", "max_radius", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     C="convergence",
     Ll="lower",
     Lu="upper",
-    M="maxradius",
+    M="max_radius",
     T="tension",
     a="aspatial",
     b="binary",
@@ -104,9 +105,9 @@ def surface(
         This is the final convergence limit at the desired grid spacing;
         for intermediate (coarser) grids the effective convergence limit is
         divided by the grid spacing multiplier.
-    maxradius : float or str
+    max_radius : float or str
         Optional. After solving for the surface, apply a mask so that nodes
-        farther than ``maxradius`` away from a data constraint are set to NaN
+        farther than ``max_radius`` away from a data constraint are set to NaN
         [Default is no masking]. Append a distance unit (see
         :gmt-docs:`Units <surface.html#units>`) if needed. One can also
         select the nodes to mask by using the *n_cells*\ **c** form. Here

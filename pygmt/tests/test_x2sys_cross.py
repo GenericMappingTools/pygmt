@@ -267,14 +267,14 @@ def test_x2sys_cross_region_interpolation_numpoints():
 
 
 @pytest.mark.usefixtures("mock_x2sys_home")
-def test_x2sys_cross_trackvalues():
+def test_x2sys_cross_track_values():
     """
-    Test that x2sys_cross's trackvalues (Z) argument work.
+    Test that x2sys_cross's track_values (Z) argument work.
     """
     with TemporaryDirectory(prefix="X2SYS", dir=Path.cwd()) as tmpdir:
         tag = Path(tmpdir).name
         x2sys_init(tag=tag, fmtfile="xyz", force=True)
-        output = x2sys_cross(tracks=["@tut_ship.xyz"], tag=tag, trackvalues=True)
+        output = x2sys_cross(tracks=["@tut_ship.xyz"], tag=tag, track_values=True)
 
         assert isinstance(output, pd.DataFrame)
         if platform.machine() in {"aarch64", "arm64"}:

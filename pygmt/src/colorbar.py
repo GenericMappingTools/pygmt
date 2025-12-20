@@ -14,11 +14,13 @@ __doctest_skip__ = ["colorbar"]
 
 
 @fmt_docstring
-@use_alias(C="cmap", D="position", L="equalsize", Q="log", W="scale", Z="zfile")
+@use_alias(C="cmap", D="position", L="equalsize", Z="zfile")
 def colorbar(  # noqa: PLR0913
     self,
     truncate: Sequence[float] | None = None,
     shading: float | Sequence[float] | bool = False,
+    log: bool = False,
+    scale: float | None = None,
     projection: str | None = None,
     box: Box | bool = False,
     frame: str | Sequence[str] | bool = False,
@@ -60,8 +62,10 @@ def colorbar(  # noqa: PLR0913
        - G = truncate
        - I = shading
        - J = projection
+       - Q = log
        - R = region
        - V = verbose
+       - W = scale
        - c = panel
        - p = perspective
        - t = transparency
@@ -103,9 +107,9 @@ def colorbar(  # noqa: PLR0913
         Truncate the incoming CPT so that the lowest and highest z-levels are to *zlow*
         and *zhigh*. If one of these equal NaN then we leave that end of the CPT alone.
         The truncation takes place before the plotting.
-    scale : float
-        Multiply all z-values in the CPT by the provided scale. By default,
-        the CPT is used as is.
+    scale
+        Multiply all z-values in the CPT by the provided scale. By default, the CPT is
+        used as is.
     shading
         Add illumination effects [Default is no illumination].
 
@@ -123,10 +127,10 @@ def colorbar(  # noqa: PLR0913
         **i** is prepended the interval range is annotated instead. If
         ``shading`` is used each rectangle will have its constant color
         modified by the specified intensity.
-    log : bool
-        Select logarithmic scale and power of ten annotations. All z-values
-        in the CPT will be converted to p = log10(z) and only integer p-values
-        will be annotated using the 10^p format [Default is linear scale].
+    log
+        Select logarithmic scale and power of ten annotations. All z-values in the CPT
+        will be converted to :math:`p = \log_{10}(z)` and only integer p values will be
+        annotated using the :math:`10^{p}` format [Default is linear scale].
     zfile : str
         File with colorbar-width per color entry. By default, the width of the
         entry is scaled to the color range, i.e., z = 0-100 gives twice the
@@ -162,6 +166,8 @@ def colorbar(  # noqa: PLR0913
         F=Alias(box, name="box"),
         G=Alias(truncate, name="truncate", sep="/", size=2),
         I=Alias(shading, name="shading", sep="/", size=2),
+        Q=Alias(log, name="log"),
+        W=Alias(scale, name="scale"),
     ).add_common(
         B=frame,
         J=projection,

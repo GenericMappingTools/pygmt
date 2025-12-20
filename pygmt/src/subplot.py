@@ -234,7 +234,7 @@ def set_panel(
         0, not 1. If not given we go to the next subplot by order specified via
         ``autolabel`` in :meth:`pygmt.Figure.subplot`. As an alternative, you may bypass
         using :meth:`pygmt.Figure.set_panel` and instead supply the common option
-        **panel**=(*row*, *col*) to the first plot command you issue in that subplot.
+        **panel**\ =(*row*, *col*) to the first plot command you issue in that subplot.
         GMT maintains information about the current figure and subplot. Also, you may
         give the one-dimensional *index* instead which starts at 0 and follows the row
         or column order set via ``autolabel`` in :meth:`pygmt.Figure.subplot`.
