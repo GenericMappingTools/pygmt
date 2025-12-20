@@ -78,12 +78,12 @@ def legend(  # noqa: PLR0913
 
         - A :class:`pygmt.params.Position` object to fully control the reference point,
           anchor point, and offset.
-        - A sequence of two values representing the x and y coordinates in plot
+        - A sequence of two values representing the x- and y-coordinates in plot
           coordinates, e.g., ``(1, 2)`` or ``("1c", "2c")``.
         - A :doc:`2-character justification code </techref/justification_codes>` for a
           position inside the plot, e.g., ``"TL"`` for Top Left corner inside the plot.
 
-        If not specified, defaults to the top right corner inside the plot with a 0.2-cm
+        If not specified, defaults to the Top Right corner inside the plot with a 0.2-cm
         offset.
     width
     height
