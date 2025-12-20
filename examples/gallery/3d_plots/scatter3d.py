@@ -54,7 +54,7 @@ fig = pygmt.Figure()
 # palette "cubhelix" in categorical format and add the species names as
 # annotations for the colorbar
 pygmt.makecpt(
-    cmap="gmt/cubhelix",
+    cmap="cpt-city/cubhelix",
     # Use the minimum and maximum of the categorical number code
     # to set the lowest_value and the highest_value of the CPT
     series=(df.species.cat.codes.min(), df.species.cat.codes.max(), 1),
