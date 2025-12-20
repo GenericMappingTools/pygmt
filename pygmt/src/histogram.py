@@ -6,7 +6,7 @@ from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -23,7 +23,6 @@ from pygmt.helpers import (
     A="horizontal",
     C="cmap",
     D="annotate",
-    E="bar_width",
     F="center",
     G="fill",
     L="extreme",
@@ -41,10 +40,12 @@ from pygmt.helpers import (
     w="wrap",
 )
 @kwargs_to_strings(T="sequence")
-def histogram(
+def histogram(  # noqa: PLR0913
     self,
     data: PathLike | TableLike,
     projection: str | None = None,
+    bar_width: float | str | None = None,
+    bar_offset: float | str | None = None,
     frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -62,6 +63,7 @@ def histogram(
 
     $aliases
        - B = frame
+       - E = bar_width, bar_offset
        - J = projection
        - R = region
        - V = verbose
@@ -91,15 +93,14 @@ def histogram(
         annotation font; use **+o** to change the offset between bar and
         label [Default is ``"6p"``]; use **+r** to rotate the labels from
         horizontal to vertical.
-    bar_width : float or str
-        *width*\ [**+o**\ *offset*].
+    bar_width
         Use an alternative histogram bar width than the default set via
-        ``series``, and optionally shift all bars by an *offset*. Here
-        *width* is either an alternative width in data units, or the user may
-        append a valid plot dimension unit (**c**\|\ **i**\|\ **p**) for a
-        fixed dimension instead. Optionally, all bins may be shifted along the
-        axis by *offset*. As for *width*, it may be given in data units of
-        plot dimension units by appending the relevant unit.
+        ``series``. Give either an alternative width in data units, or the user
+        may append a valid plot dimension unit (**c**\|\ **i**\|\ **p**) for a
+        fixed dimension instead.
+    bar_offset
+        Shift all bars along the axis by *offset*. It may be given in data units
+        of plot dimension units by appending the relevant unit.
     center : bool
         Center bin on each value. [Default is left edge].
     distribution : bool, float, or str
@@ -159,7 +160,14 @@ def histogram(
     """
     self._activate_figure()
 
-    aliasdict = AliasSystem().add_common(
+    # bar_offset requires bar_width
+
+    aliasdict = AliasSystem(
+        E=[
+            Alias(bar_width, name="bar_width"),
+            Alias(bar_offset, name="bar_offset", prefix="+o"),
+        ],
+    ).add_common(
         B=frame,
         J=projection,
         R=region,
