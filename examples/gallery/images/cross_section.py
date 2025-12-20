@@ -37,7 +37,7 @@ fig.basemap(region=region_map, projection="M12c", frame="af")
 grid_map = pygmt.datasets.load_earth_relief(resolution="10m", region=region_map)
 
 # Plot the downloaded grid with color-coding based on the elevation
-fig.grdimage(grid=grid_map, cmap="oleron")
+fig.grdimage(grid=grid_map, cmap="SCM/oleron")
 
 # Add a colorbar for the elevation
 fig.colorbar(
