@@ -138,12 +138,12 @@ def colorbar(  # noqa: PLR0913
 
         - A :class:`pygmt.params.Position` object to fully control the reference point,
           anchor point, and offset.
-        - A sequence of two values representing the x and y coordinates in plot
+        - A sequence of two values representing the x- and y-coordinates in plot
           coordinates, e.g., ``(1, 2)`` or ``("1c", "2c")``.
         - A :doc:`2-character justification code </techref/justification_codes>` for a
           position inside the plot, e.g., ``"TL"`` for Top Left corner inside the plot.
 
-        If not specified, defaults to the bottom-center corner outside of the plot.
+        If not specified, defaults to the Bottom Center outside of the plot.
     length
     width
         Length and width of the color bar. If length is given with a unit ``%`` then it
