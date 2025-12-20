@@ -9,12 +9,7 @@ from typing import Literal
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput, GMTValueError
-from pygmt.helpers import (
-    build_arg_list,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
@@ -26,7 +21,6 @@ from pygmt.helpers import (
     C="clearance",
     SC="sharex",
     SR="sharey",
-    T="title",
 )
 @kwargs_to_strings(Ff="sequence", Fs="sequence")
 def subplot(
@@ -34,6 +28,7 @@ def subplot(
     nrows=1,
     ncols=1,
     margins: float | str | Sequence[float | str] | None = None,
+    title: str | None = None,
     projection: str | None = None,
     frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
@@ -57,6 +52,7 @@ def subplot(
        - J = projection
        - M = margins
        - R = region
+       - T = title
        - V = verbose
 
     Parameters
@@ -96,7 +92,6 @@ def subplot(
         lowercase Roman numerals; use **+R** for uppercase Roman numerals [Default is
         Arabic numerals]. Append **+v** to increase tag numbers vertically down columns
         [Default is horizontally across rows].
-    $frame
     clearance : str or list
         [*side*]\ *clearance*.
         Reserve a space of dimension *clearance* between the margin and the
@@ -109,7 +104,6 @@ def subplot(
         side and 2 cm on south side). Such space will be left untouched by
         the main map plotting but can be accessed by methods that plot
         scales, bars, text, etc.
-    $projection
     margins
         Margin space that is added between neighboring subplots (i.e., the interior
         margins) in addition to the automatic space added for tick marks, annotations,
@@ -124,7 +118,6 @@ def subplot(
         The actual gap created is always a sum of the margins for the two opposing sides
         (e.g., east plus west or south plus north margins) [Default is half the primary
         annotation font size, giving the full annotation font size as the default gap].
-    $region
     sharex : bool or str
         Set subplot layout for shared x-axes. Use when all subplots in a column
         share a common *x*-range. If ``sharex=True``, the first (i.e.,
@@ -153,10 +146,13 @@ def subplot(
         - Append **+w** to the ``figsize`` or ``subsize`` parameter to draw
           horizontal and vertical lines between interior panels using selected
           pen [no lines].
-    title : str
-        While individual subplots can have titles (see ``sharex``/``sharey`` or
-        ``frame``), the entire figure may also have an overarching *heading*
-        [no heading]. Font is determined by setting :gmt-term:`FONT_HEADING`.
+    title
+        Set the overarching heading of the entire figure [Default is no heading]. Font
+        is determined by :gmt-term:`FONT_HEADING`. Individual subplot can have titles
+        set by ``sharex``/``sharey`` or ``frame``.
+    $projection
+    $region
+    $frame
     $verbose
     """
     self._activate_figure()
@@ -175,6 +171,7 @@ def subplot(
 
     aliasdict = AliasSystem(
         M=Alias(margins, name="margins", sep="/", size=(2, 4)),
+        T=Alias(title, name="title"),
     ).add_common(
         B=frame,
         J=projection,
