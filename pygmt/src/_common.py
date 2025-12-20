@@ -251,7 +251,7 @@ def _parse_position(
     position: Position | Sequence[float | str] | str | None,
     kwdict: dict[str, Any],
     default: Position | None,
-) -> Position | str:
+) -> Position | str | None:
     """
     Parse the "position" parameter for embellishment-plotting functions.
 
@@ -260,16 +260,17 @@ def _parse_position(
     position
         The position argument to parse. It can be one of the following:
 
-        - A :class:`pygmt.params.Position` object.
-        - A sequence of two values representing x and y coordinates in plot coordinates.
-        - A 2-character justification code.
-        - A raw GMT command string (for backward compatibility).
-        - ``None``, in which case the default position is used.
+        - A :class:`pygmt.params.Position` object
+        - A sequence of two values representing x- and y-coordinates in plot coordinates
+        - A 2-character justification code
+        - A raw GMT command string (for backward compatibility)
+        - ``None``, in which case the default position is used
     kwdict
         The keyword arguments dictionary that conflicts with ``position`` if
         ``position`` is given as a raw GMT command string.
     default
-        The default Position object to use if ``position`` is ``None``.
+        The default Position object to use if ``position`` is ``None``. If ``default``
+        is ``None``, use the GMT default.
 
     Returns
     -------
@@ -305,6 +306,12 @@ def _parse_position(
     ...     default=Position((0, 0), cstype="plotcoords"),
     ... )
     Position(refpoint=(0, 0), cstype='plotcoords')
+
+    >>> _parse_position(
+    ...     None,
+    ...     kwdict={"width": None, "height": None},
+    ...     default=None,
+    ... )
 
     >>> _parse_position(
     ...     "x3c/4c+w2c",
@@ -349,7 +356,7 @@ def _parse_position(
             position = Position(position, cstype="plotcoords")
         case Position():  # Already a Position object.
             pass
-        case None if default is not None:  # Set default position.
+        case None:  # Set default position.
             position = default
         case _:
             msg = f"Invalid type for parameter 'position': {type(position)}."
