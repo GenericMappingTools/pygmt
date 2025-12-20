@@ -25,8 +25,8 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @kwargs_to_strings(Ff="sequence", Fs="sequence")
 def subplot(
     self,
-    nrows=1,
-    ncols=1,
+    nrows: int = 1,
+    ncols: int = 1,
     margins: float | str | Sequence[float | str] | None = None,
     title: str | None = None,
     projection: str | None = None,
@@ -57,9 +57,9 @@ def subplot(
 
     Parameters
     ----------
-    nrows : int
+    nrows
         Number of vertical rows of the subplot grid.
-    ncols : int
+    ncols
         Number of horizontal columns of the subplot grid.
     figsize : list
         Specify the final figure dimensions as [*width*, *height*].
