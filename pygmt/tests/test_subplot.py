@@ -4,8 +4,10 @@ Test Figure.subplot.
 
 import pytest
 from pygmt import Figure
+from pygmt.alias import AliasSystem
 from pygmt.exceptions import GMTInvalidInput, GMTValueError
-from pygmt.params import Position
+from pygmt.params import Box, Position
+from pygmt.src.subplot import _alias_option_A
 
 
 @pytest.mark.benchmark
@@ -125,3 +127,53 @@ def test_subplot_outside_plotting_positioning():
         frame=True,
     )
     return fig
+
+
+def test_alias_option_A():  # noqa: N802
+    """
+    Test _alias_option_A with only autotag parameter.
+    """
+
+    def alias_wrapper(**kwargs):
+        """
+        A wrapper function for testing the parameters of -A option.
+        """
+        return AliasSystem(A=_alias_option_A(**kwargs)).get("A")
+
+    assert alias_wrapper(autotag=True) == ""
+    assert alias_wrapper(autotag="a)") == "a)"
+    assert alias_wrapper(autotag="(a)", tag_position="TL") == "(a)+jTL"
+    assert alias_wrapper(autotag="i)", tag_number_style="roman") == "i)+r"
+    assert alias_wrapper(autotag="i)", tag_number_style="Roman") == "i)+R"
+    assert alias_wrapper(autotag="a)", tag_orientation="vertical") == "a)+v"
+
+    tag = alias_wrapper(autotag="i)", tag_box=Box(pen="1p,red", clearance="2p"))
+    assert tag == "i)+c2p+p1p,red"
+
+    tag = alias_wrapper(
+        autotag="a)", tag_position=Position("BL", cstype="outside", offset=("3p", "3p"))
+    )
+    assert tag == "a)+JBL+o3p/3p"
+
+
+def test_deprecated_autolabel():
+    """
+    Test that using the deprecated autolabel parameter raises a warning when conflicted
+    with tag parameters.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, autotag="a)"):
+            pass
+    with pytest.raises(GMTInvalidInput):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, tag_box=True):
+            pass
+    with pytest.raises(GMTInvalidInput):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, tag_orientation="vertical"):
+            pass
+    with pytest.raises(GMTInvalidInput):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, tag_number_style="roman"):
+            pass
+    with pytest.raises(GMTInvalidInput):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, tag_position="TL"):
+            pass
