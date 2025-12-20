@@ -13,16 +13,17 @@ from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
-@use_alias(D="distance", F="filter", N="nans", f="coltypes")
+@use_alias(D="distance", F="filter", f="coltypes")
 def grdfilter(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
-    toggle: bool = False,
     spacing: Sequence[float | str] | None = None,
+    nans: Literal["ignore", "replace", "preserve"] | None = None,
+    toggle: bool = False,
     region: Sequence[float | str] | str | None = None,
-    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    registration: Literal["gridline", "pixel"] | bool = False,
     cores: int | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
@@ -43,6 +44,7 @@ def grdfilter(
 
     $aliases
        - I = spacing
+       - N = nans
        - R = region
        - T = toggle
        - V = verbose
@@ -87,21 +89,22 @@ def grdfilter(
           calculation.
         - ``"5"``: grid (x,y) in Mercator ``projection="m1"`` img units,
           *width* in km, Spherical distance calculation.
-
     $spacing
-    nans : str or float
-        **i**\|\ **p**\|\ **r**.
-        Determine how NaN-values in the input grid affect the filtered output.
-        Use **i** to ignore all NaNs in the calculation of the filtered value
-        [Default]. **r** is same as **i** except if the input node was NaN then
-        the output node will be set to NaN (only applies if both grids are
-        co-registered). **p** will force the filtered value to be NaN if any
-        grid nodes with NaN-values are found inside the filter circle.
-    $region
+    nans
+        Determine how NaN-values in the input grid affect the filtered output. Choose
+        one of:
+
+        - ``"ignore"``: Ignore all NaNs in the calculation of filtered value [Default].
+        - ``"replace"``: Similar to ``"ignore"`` except if the input node was NaN then
+          the output node will be set to NaN (only applies if both grids are
+          co-registered).
+        - ``"preserve"``: Force the filtered value to be NaN if any grid nodes with
+          NaN-values are found inside the filter circle.
     toggle
         Toggle the node registration for the output grid so as to become the opposite of
         the input grid [Default gives the same registration as the input grid].
         Alternatively, use ``registration`` to set the registration explicitly.
+    $region
     $verbose
     $coltypes
     $registration
@@ -120,8 +123,8 @@ def grdfilter(
     --------
     >>> from pathlib import Path
     >>> import pygmt
-    >>> # Apply a filter of 600 km (full width) to the @earth_relief_30m_g file
-    >>> # and return a filtered field (saved as netCDF)
+    >>> # Apply a filter of 600 km (full width) to the @earth_relief_30m_g file and
+    >>> # return a filtered field (saved as netCDF)
     >>> pygmt.grdfilter(
     ...     grid="@earth_relief_30m_g",
     ...     filter="m600",
@@ -131,13 +134,16 @@ def grdfilter(
     ...     outgrid="filtered_pacific.nc",
     ... )
     >>> Path("filtered_pacific.nc").unlink()  # Cleanup file
-    >>> # Apply a Gaussian smoothing filter of 600 km to the input DataArray
-    >>> # and return a filtered DataArray with the smoothed field
+    >>> # Apply a Gaussian smoothing filter of 600 km to the input DataArray and return
+    >>> # a filtered DataArray with the smoothed field
     >>> grid = pygmt.datasets.load_earth_relief()
     >>> smooth_field = pygmt.grdfilter(grid=grid, filter="g600", distance="4")
     """
     aliasdict = AliasSystem(
         I=Alias(spacing, name="spacing", sep="/", size=2),
+        N=Alias(
+            nans, name="nans", mapping={"ignore": "i", "replace": "r", "preserve": "p"}
+        ),
         T=Alias(toggle, name="toggle"),
     ).add_common(
         R=region,
