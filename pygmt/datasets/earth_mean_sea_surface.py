@@ -47,7 +47,7 @@ def load_earth_mean_sea_surface(
 
     This dataset comes with a color palette table (CPT) file, ``@earth_mss.cpt``. To use
     the dataset-specific CPT when plotting the dataset, explicitly set
-    ``cmap="@earth_mss.cpt"``, otherwise GMT's default CPT (*gmt/turbo*) will be used.
+    ``cmap="@earth_mss.cpt"``, otherwise GMT's default CPT (*google/turbo*) will be used.
     If the dataset is referenced by the file name in a grid plotting method, the
     dataset-specific CPT file is used automatically unless another CPT is specified.
 

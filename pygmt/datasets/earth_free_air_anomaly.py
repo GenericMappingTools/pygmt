@@ -56,7 +56,7 @@ def load_earth_free_air_anomaly(
     This dataset comes with two color palette table (CPT) files, ``@earth_faa.cpt`` and
     ``@earth_faaerror.cpt``. To use the dataset-specific CPT when plotting the dataset,
     explicitly set ``cmap="@earth_faa.cpt"`` or ``cmap="@earth_faaerror.cpt"``,
-    otherwise GMT's default CPT (*gmt/turbo*) will be used. If the dataset is referenced
+    otherwise GMT's default CPT (*google/turbo*) will be used. If the dataset is referenced
     by the file name in a grid plotting method, the dataset-specific CPT file is used
     automatically unless another CPT is specified.
 
