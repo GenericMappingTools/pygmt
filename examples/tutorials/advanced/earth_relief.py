@@ -64,8 +64,8 @@ fig.show()
 
 
 # %%
-# Add a color bar
-# ---------------
+# Add a colorbar
+# --------------
 #
 # The :meth:`pygmt.Figure.colorbar` method displays the CPT and the associated z-values
 # of the figure, and by default uses the same CPT set by the ``cmap`` parameter for

@@ -76,7 +76,7 @@ fig.show()
 # The ``perspective`` azimuth can be changed to set the direction that is "up"
 # in the figure. The ``contour_pen`` parameter sets the pen used to draw contour
 # lines on the surface. :meth:`pygmt.Figure.colorbar` can be used to add a
-# color bar to the figure. The ``cmap`` parameter does not need to be passed
+# colorbar to the figure. The ``cmap`` parameter does not need to be passed
 # again. To keep the colorbar's alignment similar to the figure, use ``True``
 # as argument for the ``perspective`` parameter.
 
