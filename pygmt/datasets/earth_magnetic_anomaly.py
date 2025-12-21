@@ -58,8 +58,8 @@ def load_earth_magnetic_anomaly(
     ``data_source="emag2"`` and ``data_source="emag2_4km"``, and ``@earth_wdmam.cpt``
     for ``data_source="wdmam"``. To use the dataset-specific CPT when plotting the
     dataset, explicitly set ``cmap="@earth_mag.cpt"`` or ``cmap="@earth_wdmam.cpt"``,
-    otherwise GMT's default CPT (*turbo*) will be used. If the dataset is referenced by
-    the file name in a grid plotting method, the dataset-specific CPT file is used
+    otherwise GMT's default CPT (*gmt/turbo*) will be used. If the dataset is referenced
+    by the file name in a grid plotting method, the dataset-specific CPT file is used
     automatically unless another CPT is specified.
 
     Refer to :gmt-datasets:`earth-mag.html` and :gmt-datasets:`earth-wdmam.html` for
