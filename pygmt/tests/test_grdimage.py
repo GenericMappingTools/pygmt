@@ -241,7 +241,9 @@ def test_grdimage_central_meridians_and_standard_parallels(grid, proj_type, lon0
     """
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.grdimage(
-        "@earth_relief_01d_g", projection=f"{proj_type}{lon0}/{lat0}/15c", cmap="gmt/geo"
+        "@earth_relief_01d_g",
+        projection=f"{proj_type}{lon0}/{lat0}/15c",
+        cmap="gmt/geo",
     )
     fig_test.grdimage(grid, projection=f"{proj_type}{lon0}/{lat0}/15c", cmap="gmt/geo")
     return fig_ref, fig_test

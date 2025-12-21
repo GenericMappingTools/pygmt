@@ -127,7 +127,11 @@ def test_grdview_with_cmap_for_perspective_surface_plot(xrgrid):
     """
     fig = Figure()
     fig.grdview(
-        grid=xrgrid, cmap="SCM/oleron", surftype="s", perspective=[225, 30], zscale=0.005
+        grid=xrgrid,
+        cmap="SCM/oleron",
+        surftype="s",
+        perspective=[225, 30],
+        zscale=0.005,
     )
     return fig
 
@@ -194,7 +198,9 @@ def test_grdview_surface_mesh_plot_styled_with_meshpen(xrgrid):
     mesh plot.
     """
     fig = Figure()
-    fig.grdview(grid=xrgrid, cmap="geo/relief", surftype="sm", mesh_pen="0.5p,black,dashed")
+    fig.grdview(
+        grid=xrgrid, cmap="geo/relief", surftype="sm", mesh_pen="0.5p,black,dashed"
+    )
     return fig
 
 

@@ -146,7 +146,7 @@ def test_makecpt_categorical(position):
     Use static color palette table that is categorical.
     """
     fig = Figure()
-    makecpt(cmap="categorical", categorical=True, series=[0, 6, 1])
+    makecpt(cmap="gmt/categorical", categorical=True, series=[0, 6, 1])
     fig.colorbar(cmap=True, frame=True, position=position)
     return fig
 
