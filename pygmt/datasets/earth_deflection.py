@@ -55,8 +55,8 @@ def load_earth_deflection(
 
     This dataset comes with a color palette table (CPT) file, ``@earth_defl.cpt``. To
     use the dataset-specific CPT when plotting the dataset, explicitly set
-    ``cmap="@earth_defl.cpt"``, otherwise GMT's default CPT (*google/turbo*) will be used.
-    If the dataset is referenced by the file name in a grid plotting method, the
+    ``cmap="@earth_defl.cpt"``, otherwise GMT's default CPT (*google/turbo*) will be
+    used. If the dataset is referenced by the file name in a grid plotting method, the
     dataset-specific CPT file is used automatically unless another CPT is specified.
 
     Refer to :gmt-datasets:`earth-edefl.html` and :gmt-datasets:`earth-ndefl.html` for

@@ -60,8 +60,8 @@ def load_moon_relief(
 
     This dataset comes with a color palette table (CPT) file, ``@moon_relief.cpt``. To
     use the dataset-specific CPT when plotting the dataset, explicitly set
-    ``cmap="@moon_relief.cpt"``, otherwise GMT's default CPT (*google/turbo*) will be used.
-    If the dataset is referenced by the file name in a grid plotting method, the
+    ``cmap="@moon_relief.cpt"``, otherwise GMT's default CPT (*google/turbo*) will be
+    used. If the dataset is referenced by the file name in a grid plotting method, the
     dataset-specific CPT file is used automatically unless another CPT is specified.
 
     Refer to :gmt-datasets:`moon-relief.html` for more details about available datasets,
