@@ -231,7 +231,7 @@ def test_geopandas_plot_int64_as_float(gdf_ridge):
     # Plot figure with three polygons colored based on NPOINTS value
     fig = Figure()
     makecpt(
-        cmap="lisbon", series=[10 * factor, 60 * factor, 10 * factor], continuous=True
+        cmap="SCM/lisbon", series=[10 * factor, 60 * factor, 10 * factor], continuous=True
     )
     fig.plot(
         data=gdf,
