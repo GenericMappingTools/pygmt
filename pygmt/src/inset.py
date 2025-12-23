@@ -8,16 +8,23 @@ from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_list,
+    deprecate_parameter,
+    fmt_docstring,
+    kwargs_to_strings,
+    use_alias,
+)
 from pygmt.params import Box
 
 __doctest_skip__ = ["inset"]
 
 
 @fmt_docstring
+@deprecate_parameter("margin", "clearance", "v0.18.0", remove_version="v0.20.0")
 @contextlib.contextmanager
-@use_alias(D="position", M="margin")
-@kwargs_to_strings(D="sequence", M="sequence")
+@use_alias(D="position", C="clearance")
+@kwargs_to_strings(D="sequence", C="sequence")
 def inset(
     self,
     projection: str | None = None,
@@ -90,7 +97,7 @@ def inset(
         box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,
         pass a :class:`pygmt.params.Box` object to control style, fill, pen, and other
         box properties.
-    margin : float, str, or list
+    clearance : float, str, or list
         This is clearance that is added around the inside of the inset.
         Plotting will take place within the inner region only. The margins
         can be a single value, a pair of values separated (for setting
@@ -109,26 +116,25 @@ def inset(
     Examples
     --------
     >>> import pygmt
-    >>> from pygmt.params import Box
+    >>> from pygmt.params import Box, Position
     >>>
     >>> # Create the larger figure
     >>> fig = pygmt.Figure()
     >>> fig.coast(region="MG+r2", water="lightblue", shorelines="thin")
     >>> # Use a "with" statement to initialize the inset context manager
     >>> # Setting the position to Top Left and a width of 3.5 centimeters
-    >>> with fig.inset(position="jTL+w3.5c+o0.2c", margin=0, box=Box(pen="green")):
+    >>> with fig.inset(position="jTL+w3.5c+o0.2c", clearance=0, box=Box(pen="green")):
     ...     # Map elements under the "with" statement are plotted in the inset
     ...     fig.coast(
     ...         region="g",
-    ...         projection="G47/-20/3.5c",
+    ...         projection="G47/-20/?",
     ...         land="gray",
     ...         water="white",
     ...         dcw="MG+gred",
     ...     )
     ...
-    >>> # Map elements outside the "with" statement are plotted in the main
-    >>> # figure
-    >>> fig.logo(position="jBR+o0.2c+w3c")
+    >>> # Map elements outside the "with" statement are plotted in the main figure
+    >>> fig.logo(position=Position("BR", offset=0.2), width="3c")
     >>> fig.show()
     """
     self._activate_figure()

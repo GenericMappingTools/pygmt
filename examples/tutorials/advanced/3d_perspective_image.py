@@ -55,8 +55,8 @@ fig.grdview(
 fig.show()
 
 # %%
-# The ``plane`` parameter sets the elevation and color of a plane that provides
-# a fill below the surface relief.
+# The ``plane`` parameter sets the elevation and color of a plane that provides a fill
+# below the surface relief.
 
 fig = pygmt.Figure()
 fig.grdview(
@@ -67,8 +67,8 @@ fig.grdview(
     zsize="1.5c",
     surftype="s",
     cmap="geo",
-    # Set the plane elevation to 1,000 meters and make the fill "gray"
-    plane="1000+ggray",
+    plane=1000,  # Set the plane elevation to 1,000 meters
+    facade_fill="gray",  # Color the facade in "gray"
 )
 fig.show()
 
@@ -76,8 +76,8 @@ fig.show()
 # The ``perspective`` azimuth can be changed to set the direction that is "up"
 # in the figure. The ``contour_pen`` parameter sets the pen used to draw contour
 # lines on the surface. :meth:`pygmt.Figure.colorbar` can be used to add a
-# color bar to the figure. The ``cmap`` parameter does not need to be passed
-# again. To keep the color bar's alignment similar to the figure, use ``True``
+# colorbar to the figure. The ``cmap`` parameter does not need to be passed
+# again. To keep the colorbar's alignment similar to the figure, use ``True``
 # as argument for the ``perspective`` parameter.
 
 fig = pygmt.Figure()
@@ -90,7 +90,8 @@ fig.grdview(
     zsize="1.5c",
     surftype="s",
     cmap="geo",
-    plane="1000+ggrey",
+    plane=1000,
+    facade_fill="gray",
     # Set the contour pen thickness to 0.1 points
     contour_pen="0.1p",
 )
