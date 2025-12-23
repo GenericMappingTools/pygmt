@@ -69,7 +69,7 @@ fig.plot(x=1, y=0, style="t0.3c", fill="pink", pen="black", label="pink triangle
 fig.plot(x=[-3, 3], y=[-2, -2], pen="darkred", label="darkred line")
 
 # Use a line spacing factor of 1.5
-fig.legend(position="jTL+o0.3c/0.2c+l1.5")
+fig.legend(position=Position("TL", offset=(0.3, 0.2)), line_spacing=1.5)
 
 fig.show()
 
