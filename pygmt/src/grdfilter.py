@@ -11,6 +11,8 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
+__doctest_skip__ = ["grdfilter"]
+
 
 @fmt_docstring
 @use_alias(D="distance", F="filter", f="coltypes")
