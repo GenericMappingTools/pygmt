@@ -10,7 +10,7 @@ manually created legends are supported.
 import io
 
 import pygmt
-from pygmt.params import Box
+from pygmt.params import Box, Position
 
 # %%
 # Create an auto-legend
@@ -44,24 +44,32 @@ fig.show()
 
 
 # %%
-# Adjust the position
-# -------------------
+# Adjust position and line spacing
+# --------------------------------
 #
-# Use the ``position`` parameter to adjust the position of the legend. Add an offset via
-# **+o** for the x- and y-directions. Additionally append **+w** to adjust the width
-# of the legend. Note, no box is drawn by default if ``position`` is used.
+# Use the ``position`` parameter to adjust the position of the legend. Note, no box is
+# drawn by default if ``position`` is used
 
 fig = pygmt.Figure()
-fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
+fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rltb")
 
 fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
 fig.plot(x=1, y=0, style="t0.3c", fill="pink", pen="black", label="pink triangle")
 fig.plot(x=[-3, 3], y=[-2, -2], pen="darkred", label="darkred line")
 
-# Set the reference point to the Top Left corner within (lowercase "j") the bounding box
-# of the plot and use offsets of 0.3 and 0.2 centimeters in the x- and y-directions,
-# respectively.
-fig.legend(position="jTL+o0.3c/0.2c")
+# Set the reference point to the Top Left corner inside the plot and use offsets of 0.3
+# and 0.2 centimeters in the x- and y-directions, respectively.
+fig.legend(position=Position("TL", offset=(0.3, 0.2)))
+
+fig.shift_origin(xshift="w+1c")
+fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rltb")
+
+fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
+fig.plot(x=1, y=0, style="t0.3c", fill="pink", pen="black", label="pink triangle")
+fig.plot(x=[-3, 3], y=[-2, -2], pen="darkred", label="darkred line")
+
+# Use a line spacing factor of 1.5
+fig.legend(position=Position("TL", offset=(0.3, 0.2)), line_spacing=1.5)
 
 fig.show()
 
@@ -69,9 +77,8 @@ fig.show()
 # %%
 # Add a box
 # ---------
-# Use the ``box`` parameter for adjusting the box around the legend. The outline of the
-# box can be adjusted by appending **+p**. Append **+g** to fill the legend with a color
-# (or pattern) [Default is no fill]. The default of ``position`` is preserved.
+
+# Use the ``box`` parameter for adjusting the box around the legend.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rltb+glightgray")
@@ -80,7 +87,7 @@ fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
 fig.plot(x=1, y=0, style="t0.3c", fill="pink", pen="black", label="pink triangle")
 fig.plot(x=[-3, 3], y=[-2, -2], pen="darkred", label="darkred line")
 
-fig.legend(position="jTL+o0.3c/0.2c", box=True)
+fig.legend(position=Position("TL", offset=(0.3, 0.2)), box=True)
 
 fig.shift_origin(xshift="w+1c")
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rltb+glightgray")
@@ -91,7 +98,9 @@ fig.plot(x=[-3, 3], y=[-2, -2], pen="darkred", label="darkred line")
 
 # Add a box with a 2-point thick blue, solid outline and a white fill with a
 # transparency of 30 percent ("@30").
-fig.legend(position="jTL+o0.3c/0.2c", box=Box(pen="2p,blue", fill="white@30"))
+fig.legend(
+    position=Position("TL", offset=(0.3, 0.2)), box=Box(pen="2p,blue", fill="white@30")
+)
 
 fig.show()
 
@@ -146,15 +155,14 @@ T so we may have to adjust the height to get the right size box.
 
 # %%
 # Now, we can add a legend based on this :class:`io.StringIO` object. For multi-columns
-# legends, the width (**+w**) has to be specified via a the ``position`` parameter.
-
+# legends, the width must be specified.
 fig = pygmt.Figure()
 # Note, that we are now using a Mercator projection
 fig.basemap(region=[-5, 5, -5, 5], projection="M10c", frame=True)
-
 # Pass the io.StringIO object to the "spec" parameter
-fig.legend(spec=spec_io, position="jMC+w9c", box=Box(pen="1p,gray50", fill="gray95"))
-
+fig.legend(
+    spec=spec_io, position="MC", width="9c", box=Box(pen="1p,gray50", fill="gray95")
+)
 fig.show()
 
 # sphinx_gallery_thumbnail_number = 4
