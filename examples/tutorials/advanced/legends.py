@@ -44,14 +44,14 @@ fig.show()
 
 
 # %%
-# Adjust the position
-# -------------------
+# Adjust position and line spacing
+# --------------------------------
 #
 # Use the ``position`` parameter to adjust the position of the legend. Note, no box is
-# drawn by default if ``position`` is used.
+# drawn by default if ``position`` is used
 
 fig = pygmt.Figure()
-fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
+fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rltb")
 
 fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
 fig.plot(x=1, y=0, style="t0.3c", fill="pink", pen="black", label="pink triangle")
@@ -61,12 +61,23 @@ fig.plot(x=[-3, 3], y=[-2, -2], pen="darkred", label="darkred line")
 # and 0.2 centimeters in the x- and y-directions, respectively.
 fig.legend(position=Position("TL", offset=(0.3, 0.2)))
 
+fig.shift_origin(xshift="w+1c")
+fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rltb")
+
+fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
+fig.plot(x=1, y=0, style="t0.3c", fill="pink", pen="black", label="pink triangle")
+fig.plot(x=[-3, 3], y=[-2, -2], pen="darkred", label="darkred line")
+
+# Use a line spacing factor of 1.5
+fig.legend(position=Position("TL", offset=(0.3, 0.2)), line_spacing=1.5)
+
 fig.show()
 
 
 # %%
 # Add a box
 # ---------
+
 # Use the ``box`` parameter for adjusting the box around the legend.
 
 fig = pygmt.Figure()
