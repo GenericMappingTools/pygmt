@@ -12,6 +12,8 @@ from pygmt.exceptions import GMTValueError
 from pygmt.helpers import is_nonstr_iter
 from pygmt.params.base import BaseParam
 
+__doctest_skip__ = ["Position"]
+
 
 @dataclasses.dataclass(repr=False)
 class Position(BaseParam):
