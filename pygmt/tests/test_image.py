@@ -28,7 +28,7 @@ def test_image_complete():
         imagefile="@circuit.png",
         position=Position((0, 0)),
         width="4c",
-        height="0",
+        height=0,
         replicate=(2, 1),
         dpi=300,
         box=Box(pen="thin,blue"),
