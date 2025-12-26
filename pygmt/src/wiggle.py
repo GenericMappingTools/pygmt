@@ -11,33 +11,6 @@ from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
 
 
-def _parse_fills(positive_fill, negative_fill):
-    """
-    Parse the positive_fill and negative_fill parameters.
-
-    >>> _parse_fills("red", "blue")
-    ['red+p', 'blue+n']
-    >>> _parse_fills(None, "blue")
-    'blue+n'
-    >>> _parse_fills("red", None)
-    'red+p'
-    >>> _parse_fills(None, None)
-    """
-    _fills = []
-    if positive_fill is not None:
-        _fills.append(positive_fill + "+p")
-    if negative_fill is not None:
-        _fills.append(negative_fill + "+n")
-
-    match len(_fills):
-        case 0:
-            return None
-        case 1:
-            return _fills[0]
-        case 2:
-            return _fills
-
-
 @fmt_docstring
 @deprecate_parameter(
     "fillpositive", "positive_fill", "v0.18.0", remove_version="v0.20.0"
@@ -107,14 +80,11 @@ def wiggle(  # noqa: PLR0913
         $table_classes.
         Use parameter ``incols`` to choose which columns are x, y, z,
         respectively.
-    $projection
-    $region
     scale : str or float
         Give anomaly scale in data-units/distance-unit. Append **c**, **i**,
         or **p** to indicate the distance unit (centimeters, inches, or
         points); if no unit is given we use the default unit that is
         controlled by :gmt-term:`PROJ_LENGTH_UNIT`.
-    $frame
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *length*\ [**+j**\ *justify*]\ [**+al**\|\ **r**]\
@@ -127,9 +97,12 @@ def wiggle(  # noqa: PLR0913
     track : str
         Draw track [Default is no track]. Append pen attributes to use
         [Default is ``"0.25p,black,solid"``].
-    $verbose
     pen : str
         Specify outline pen attributes [Default is no outline].
+    $projection
+    $region
+    $frame
+    $verbose
     $binary
     $panel
     $nodata
@@ -144,10 +117,11 @@ def wiggle(  # noqa: PLR0913
     """
     self._activate_figure()
 
-    _fills = _parse_fills(positive_fill, negative_fill)
-
     aliasdict = AliasSystem(
-        G=Alias(_fills, name="positive_fill/negative_fill"),
+        G=[
+            Alias(positive_fill, name="positive_fill", suffix="+p"),
+            Alias(negative_fill, name="negative_fill", suffix="+n"),
+        ],
     ).add_common(
         B=frame,
         J=projection,
