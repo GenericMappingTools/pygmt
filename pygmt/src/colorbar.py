@@ -17,45 +17,76 @@ from pygmt.src._common import _parse_position
 __doctest_skip__ = ["colorbar"]
 
 
-def _parse_move_text(
-    move_text: Sequence[str] | None, label_as_column: bool = False
-) -> str | None:
+def _alias_option_D(  # noqa: N802, PLR0913
+    position=None,
+    length=None,
+    width=None,
+    orientation=None,
+    reverse=None,
+    nan_rectangle=None,
+    nan_rectangle_position=None,
+    sidebar_triangles=None,
+    sidebar_triangles_height=None,
+    move_text=None,
+    label_as_column=None,
+):
     """
-    Parse the move_text parameter into the format required by GMT.
+    Return a list of Alias objects for the -D option.
+    """
+    # Parse the 'move_text' and 'label_as_column' parameters for the +m modifier.
+    if move_text or label_as_column:
+        modifier_m = ""
+        _valids = {"annotations", "label", "unit"}
 
-    Examples
-    --------
-    >>> _parse_move_text(None)
-    >>> _parse_move_text(["annotations", "label"])
-    'al'
-    >>> _parse_move_text(["unit"])
-    'u'
-    >>> _parse_move_text(["annotations", "label", "unit"])
-    'alu'
-    >>> _parse_move_text(["annotations"], label_as_column=True)
-    'ac'
-    >>> _parse_move_text(["invalid"])
-    Traceback (most recent call last):
-    ...
-    pygmt.exceptions.GMTValueError: Invalid move_text: ['invalid']. Expected ...
-    """
-    _valids = {"annotations", "label", "unit"}
-    match move_text:
-        case Sequence() if is_nonstr_iter(move_text) and all(
-            v in _valids for v in move_text
-        ):
-            argstr = "".join(item[0] for item in move_text)
-            if label_as_column is True:
-                argstr += "c"
-            return argstr
-        case None:
-            return None
-        case _:
-            raise GMTValueError(
-                move_text,
-                description="move_text",
-                choices=_valids,
-            )
+        match move_text:
+            case None:
+                pass
+            case str() if move_text in _valids:
+                modifier_m = move_text[0]
+            case Sequence() if is_nonstr_iter(move_text) and all(
+                v in _valids for v in move_text
+            ):
+                modifier_m = "".join(item[0] for item in move_text)
+            case _:
+                raise GMTValueError(
+                    move_text,
+                    description="move_text",
+                    choices=_valids,
+                )
+        if label_as_column:
+            modifier_m += "c"
+    else:
+        modifier_m = None
+
+    return [
+        Alias(position, name="position"),
+        Alias(length, name="length", prefix="+w"),  # +wlength/width
+        Alias(width, name="width", prefix="/"),
+        Alias(
+            orientation,
+            name="orientation",
+            mapping={"horizontal": "+h", "vertical": "+v"},
+        ),
+        Alias(reverse, name="reverse", prefix="+r"),
+        Alias(
+            nan_rectangle,
+            name="nan_rectangle",
+            prefix="+n" if nan_rectangle_position in {"start", None} else "+N",
+        ),
+        Alias(
+            sidebar_triangles,
+            name="sidebar_triangles",
+            prefix="+e",
+            mapping={
+                True: True,
+                False: False,
+                "foreground": "f",
+                "background": "b",
+            },
+        ),
+        Alias(sidebar_triangles_height, name="sidebar_triangles_height"),
+        Alias(modifier_m, name="move_text/label_as_column", prefix="+m"),
+    ]
 
 
 @fmt_docstring
@@ -269,39 +300,19 @@ def colorbar(  # noqa: PLR0913
     )
 
     aliasdict = AliasSystem(
-        D=[
-            Alias(position, name="position"),
-            Alias(length, name="length", prefix="+w"),  # +wlength/width
-            Alias(width, name="width", prefix="/"),
-            Alias(
-                orientation,
-                name="orientation",
-                mapping={"horizontal": "+h", "vertical": "+v"},
-            ),
-            Alias(reverse, name="reverse", prefix="+r"),
-            Alias(
-                nan_rectangle,
-                name="nan_rectangle",
-                prefix="+n" if nan_rectangle_position == "start" else "+N",
-            ),
-            Alias(
-                sidebar_triangles,
-                name="sidebar_triangles",
-                prefix="+e",
-                mapping={
-                    True: True,
-                    False: False,
-                    "foreground": "f",
-                    "background": "b",
-                },
-            ),
-            Alias(sidebar_triangles_height, name="sidebar_triangles_height"),
-            Alias(
-                _parse_move_text(move_text, label_as_column),
-                name="move_text",
-                prefix="+m",
-            ),
-        ],
+        D=_alias_option_D(
+            position=position,
+            length=length,
+            width=width,
+            orientation=orientation,
+            reverse=None,
+            nan_rectangle=None,
+            nan_rectangle_position=None,
+            sidebar_triangles=None,
+            sidebar_triangles_height=None,
+            move_text=None,
+            label_as_column=None,
+        ),
         F=Alias(box, name="box"),
         G=Alias(truncate, name="truncate", sep="/", size=2),
         I=Alias(shading, name="shading", sep="/", size=2),

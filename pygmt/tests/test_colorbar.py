@@ -4,6 +4,9 @@ Test Figure.colorbar.
 
 import pytest
 from pygmt import Figure
+from pygmt.alias import AliasSystem
+from pygmt.params.position import Position
+from pygmt.src.colorbar import _alias_option_D
 
 
 @pytest.mark.benchmark
@@ -26,3 +29,37 @@ def test_colorbar_shading_list():
     fig.basemap(region=[0, 10, 0, 2], projection="X10c/2c", frame="a")
     fig.colorbar(cmap="geo", shading=[-0.7, 0.2], frame=True)
     return fig
+
+
+def test_colorbar_alias_D():  # noqa: N802
+    """
+    Test the parameters for the -D option.
+    """
+
+    def alias_wrapper(**kwargs):
+        """
+        A wrapper function for testing the parameters of -D option.
+        """
+        aliasdict = AliasSystem(D=_alias_option_D(**kwargs))
+        return aliasdict.get("D")
+
+    argstr = alias_wrapper(position=Position("TL", offset=0.2), length=4, width=0.5)
+    assert argstr == "jTL+o0.2+w4/0.5"
+
+    assert alias_wrapper(orientation="horizontal") == "+h"
+    assert alias_wrapper(orientation="vertical") == "+v"
+
+    assert alias_wrapper(reverse=True) == "+r"
+
+    assert alias_wrapper(nan_rectangle=True) == "+n"
+    assert alias_wrapper(nan_rectangle=True, nan_rectangle_position="end") == "+N"
+
+    assert alias_wrapper(sidebar_triangles=True) == "+e"
+    assert alias_wrapper(sidebar_triangles="foreground") == "+ef"
+    assert alias_wrapper(sidebar_triangles="background") == "+eb"
+    assert (
+        alias_wrapper(sidebar_triangles=True, sidebar_triangles_height=0.3) == "+e0.3"
+    )
+
+    assert alias_wrapper(move_text=["annotations", "label", "unit"]) == "+malu"
+    assert alias_wrapper(label_as_column=True) == "+mc"
