@@ -41,8 +41,8 @@ fig.show()
 
 
 # %%
-# Set a color map
-# ---------------
+# Set a colormap
+# --------------
 #
 # :meth:`pygmt.Figure.grdimage` takes the ``cmap`` parameter to set the CPT of the
 # figure. Examples of common CPTs for Earth relief are shown below. A full list of CPTs
@@ -64,8 +64,8 @@ fig.show()
 
 
 # %%
-# Add a color bar
-# ---------------
+# Add a colorbar
+# --------------
 #
 # The :meth:`pygmt.Figure.colorbar` method displays the CPT and the associated z-values
 # of the figure, and by default uses the same CPT set by the ``cmap`` parameter for
