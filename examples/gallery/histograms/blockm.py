@@ -33,7 +33,7 @@ fig.grdimage(
     grid=grd,
     region=region,
     frame=["af", "+tMean earthquake depth inside each block"],
-    cmap="batlow",
+    cmap="SCM/batlow",
 )
 # Plot slightly transparent landmasses on top
 fig.coast(land="darkgray", transparency=40)
@@ -52,7 +52,7 @@ fig.grdimage(
     grid=grd,
     region=region,
     frame=["af", "+tNumber of points inside each block"],
-    cmap="batlow",
+    cmap="SCM/batlow",
 )
 fig.coast(land="darkgray", transparency=40)
 fig.plot(x=data.longitude, y=data.latitude, style="c0.3c", fill="white", pen="1p,black")

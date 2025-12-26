@@ -104,7 +104,7 @@ def test_rose_plot_data_using_cpt(data):
         region=[0, 1, 0, 360],
         sector=15,
         diameter="5.5c",
-        cmap="batlow",
+        cmap="SCM/batlow",
         frame=["x0.2g0.2", "y30g30", "+gdarkgray"],
         pen="1p",
         norm=True,
