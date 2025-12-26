@@ -98,7 +98,7 @@ def grdfilter(
 
         - ``"ignore"``: Ignore all NaNs in the calculation of filtered value [Default].
         - ``"replace"``: Similar to ``"ignore"`` except if the input node was NaN then
-          the output node will be set to NaN (only applies if both grids are
+          the output node will be set to NaN (only applied if both grids are
           co-registered).
         - ``"preserve"``: Force the filtered value to be NaN if any grid nodes with
           NaN-values are found inside the filter circle.
