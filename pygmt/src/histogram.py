@@ -162,7 +162,7 @@ def histogram(  # noqa: PLR0913
     self._activate_figure()
 
     if bar_offset is not None and bar_width is None:
-        msg = "Setting bar_offset requires setting bar_width."
+        msg = "Setting 'bar_offset' requires setting 'bar_width'."
         raise GMTInvalidInput(msg)
 
     aliasdict = AliasSystem(
