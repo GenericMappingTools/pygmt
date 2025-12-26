@@ -71,4 +71,4 @@ def test_grd2cpt_categorical_and_cyclic(grid):
     Use incorrect setting by setting both categorical and cyclic to True.
     """
     with pytest.raises(GMTInvalidInput):
-        grd2cpt(grid=grid, cmap="batlow", categorical=True, cyclic=True)
+        grd2cpt(grid=grid, cmap="SCM/batlow", categorical=True, cyclic=True)
