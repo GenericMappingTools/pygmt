@@ -12,13 +12,15 @@ from pygmt.exceptions import GMTValueError
 from pygmt.helpers import is_nonstr_iter
 from pygmt.params.base import BaseParam
 
+__doctest_skip__ = ["Position"]
+
 
 @dataclasses.dataclass(repr=False)
 class Position(BaseParam):
     """
     Class for positioning embellishments on a plot.
 
-    .. figure:: https://docs.generic-mapping-tools.org/dev/_images/GMT_anchor.png
+    .. figure:: https://docs.generic-mapping-tools.org/6.6/_images/GMT_anchor.png
        :width: 600 px
        :align: center
 

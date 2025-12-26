@@ -7,7 +7,8 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Any, ClassVar, Literal
 
-from pygmt.exceptions import GMTValueError
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.params.position import Position
 from pygmt.src.which import which
 
 
@@ -244,3 +245,120 @@ class _FocalMechanismConvention:
             if set(param_list).issubset(set(params)):
                 return cls(convention, component=component)  # type: ignore[arg-type]
         raise GMTValueError(params, description="focal mechanism parameters")
+
+
+def _parse_position(
+    position: Position | Sequence[float | str] | str | None,
+    kwdict: dict[str, Any],
+    default: Position | None,
+) -> Position | str | None:
+    """
+    Parse the "position" parameter for embellishment-plotting functions.
+
+    Parameters
+    ----------
+    position
+        The position argument to parse. It can be one of the following:
+
+        - A :class:`pygmt.params.Position` object
+        - A sequence of two values representing x- and y-coordinates in plot coordinates
+        - A 2-character justification code
+        - A raw GMT command string (for backward compatibility)
+        - ``None``, in which case the default position is used
+    kwdict
+        The keyword arguments dictionary that conflicts with ``position`` if
+        ``position`` is given as a raw GMT command string.
+    default
+        The default Position object to use if ``position`` is ``None``. If ``default``
+        is ``None``, use the GMT default.
+
+    Returns
+    -------
+    position
+        The parsed Position object or raw GMT command string.
+
+    Examples
+    --------
+    >>> from pygmt.params import Position
+    >>> _parse_position(
+    ...     Position((3, 3), cstype="mapcoords"),
+    ...     kwdict={"width": None, "height": None},
+    ...     default=Position((0, 0), cstype="plotcoords"),
+    ... )
+    Position(refpoint=(3, 3), cstype='mapcoords')
+
+    >>> _parse_position(
+    ...     (3, 3),
+    ...     kwdict={"width": None, "height": None},
+    ...     default=Position((0, 0), cstype="plotcoords"),
+    ... )
+    Position(refpoint=(3, 3), cstype='plotcoords')
+    >>> _parse_position(
+    ...     "TL",
+    ...     kwdict={"width": None, "height": None},
+    ...     default=Position((0, 0), cstype="plotcoords"),
+    ... )
+    Position(refpoint='TL', cstype='inside')
+
+    >>> _parse_position(
+    ...     None,
+    ...     kwdict={"width": None, "height": None},
+    ...     default=Position((0, 0), cstype="plotcoords"),
+    ... )
+    Position(refpoint=(0, 0), cstype='plotcoords')
+
+    >>> _parse_position(
+    ...     None,
+    ...     kwdict={"width": None, "height": None},
+    ...     default=None,
+    ... )
+
+    >>> _parse_position(
+    ...     "x3c/4c+w2c",
+    ...     kwdict={"width": None, "height": None},
+    ...     default=Position((0, 0), cstype="plotcoords"),
+    ... )
+    'x3c/4c+w2c'
+
+    >>> _parse_position(
+    ...     "x3c/4c+w2c",
+    ...     kwdict={"width": 2, "height": None},
+    ...     default=Position((0, 0), cstype="plotcoords"),
+    ... )
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Parameter 'position' is given with a raw GMT...
+
+    >>> _parse_position(
+    ...     123,
+    ...     kwdict={"width": None, "height": None},
+    ...     default=Position((0, 0), cstype="plotcoords"),
+    ... )
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Invalid type for parameter 'position':...
+    """
+
+    _valid_anchors = {f"{h}{v}" for v in "TMB" for h in "LCR"} | {
+        f"{v}{h}" for v in "TMB" for h in "LCR"
+    }
+    match position:
+        case str() if position in _valid_anchors:  # Anchor code
+            position = Position(position, cstype="inside")
+        case str():  # Raw GMT command string.
+            if any(v is not None for v in kwdict.values()):
+                msg = (
+                    "Parameter 'position' is given with a raw GMT command string, and "
+                    f"conflicts with parameters {', '.join(repr(c) for c in kwdict)}."
+                )
+                raise GMTInvalidInput(msg)
+        case Sequence() if len(position) == 2:  # A sequence of x and y coordinates.
+            position = Position(position, cstype="plotcoords")
+        case Position():  # Already a Position object.
+            pass
+        case None:  # Set default position.
+            position = default
+        case _:
+            msg = f"Invalid type for parameter 'position': {type(position)}."
+            raise GMTInvalidInput(msg)
+    return position

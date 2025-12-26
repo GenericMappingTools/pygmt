@@ -8,10 +8,16 @@ from typing import Literal
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
 
 
 @fmt_docstring
+@deprecate_parameter(
+    "fillpositive", "positive_fill", "v0.18.0", remove_version="v0.20.0"
+)
+@deprecate_parameter(
+    "fillnegative", "negative_fill", "v0.18.0", remove_version="v0.20.0"
+)
 @use_alias(
     D="position",
     T="track",
@@ -31,8 +37,8 @@ def wiggle(  # noqa: PLR0913
     x=None,
     y=None,
     z=None,
-    fillpositive=None,
-    fillnegative=None,
+    positive_fill=None,
+    negative_fill=None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: str | Sequence[str] | bool = False,
@@ -56,7 +62,7 @@ def wiggle(  # noqa: PLR0913
 
     $aliases
        - B = frame
-       - G = **+p**: fillpositive, **+n**: fillnegative
+       - G = **+p**: positive_fill, **+n**: negative_fill
        - J = projection
        - R = region
        - V = verbose
@@ -74,29 +80,29 @@ def wiggle(  # noqa: PLR0913
         $table_classes.
         Use parameter ``incols`` to choose which columns are x, y, z,
         respectively.
-    $projection
-    $region
     scale : str or float
         Give anomaly scale in data-units/distance-unit. Append **c**, **i**,
         or **p** to indicate the distance unit (centimeters, inches, or
         points); if no unit is given we use the default unit that is
         controlled by :gmt-term:`PROJ_LENGTH_UNIT`.
-    $frame
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *length*\ [**+j**\ *justify*]\ [**+al**\|\ **r**]\
         [**+o**\ *dx*\ [/*dy*]][**+l**\ [*label*]].
         Define the reference point on the map for the vertical scale bar.
-    fillpositive : str
+    positive_fill : str
         Set color or pattern for filling positive wiggles [Default is no fill].
-    fillnegative : str
+    negative_fill : str
         Set color or pattern for filling negative wiggles [Default is no fill].
     track : str
         Draw track [Default is no track]. Append pen attributes to use
         [Default is ``"0.25p,black,solid"``].
-    $verbose
     pen : str
         Specify outline pen attributes [Default is no outline].
+    $projection
+    $region
+    $frame
+    $verbose
     $binary
     $panel
     $nodata
@@ -113,8 +119,8 @@ def wiggle(  # noqa: PLR0913
 
     aliasdict = AliasSystem(
         G=[
-            Alias(fillpositive, name="fillpositive", suffix="+p"),
-            Alias(fillnegative, name="fillnegative", suffix="+n"),
+            Alias(positive_fill, name="positive_fill", suffix="+p"),
+            Alias(negative_fill, name="negative_fill", suffix="+n"),
         ],
     ).add_common(
         B=frame,

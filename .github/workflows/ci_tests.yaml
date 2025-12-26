@@ -78,7 +78,7 @@ jobs:
             optional-packages: ' contextily geopandas ipython pyarrow-core rioxarray netCDF4 sphinx-gallery'
           # Python 3.14 + core packages (latest versions) + optional packages
           - python-version: '3.14'
-            numpy-version: '2.3'
+            numpy-version: '2.4'
             pandas-version: ''
             xarray-version: ''
             optional-packages: ' contextily geopandas ipython pyarrow-core rioxarray netCDF4 sphinx-gallery'
@@ -151,7 +151,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: Install uv
-        uses: astral-sh/setup-uv@1e862dfacbd1d6d858c55d9b792c756523627244 # v7.1.4
+        uses: astral-sh/setup-uv@681c641aba71e4a1c380be3ab5e12ad51f415867 # v7.1.6
         with:
           activate-environment: true
           python-version: ${{ matrix.python-version }}
