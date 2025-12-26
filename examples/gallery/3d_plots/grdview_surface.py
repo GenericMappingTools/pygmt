@@ -46,12 +46,11 @@ fig = pygmt.Figure()
 SCALE = 0.5  # in centimeters
 fig.grdview(
     data,
-    # Set annotations and gridlines in steps of five, and
-    # tick marks in steps of one
+    # Set annotations and gridlines in steps of five, and tick marks in steps of one
     frame=["a5f1g5", "za5f1g5"],
     projection=f"x{SCALE}c",
     zscale=f"{SCALE}c",
-    surftype="s",
+    surftype="surface",
     cmap="roma",
     perspective=[135, 30],  # Azimuth southeast (135°), at elevation 30°
     shading="+a45",

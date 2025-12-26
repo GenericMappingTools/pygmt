@@ -10,6 +10,7 @@ from packaging.version import Version
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session, __gmt_version__
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
 from pygmt.src.grdinfo import grdinfo
 
@@ -21,18 +22,19 @@ __doctest_skip__ = ["grdview"]
 @deprecate_parameter("facadepen", "facade_pen", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter("meshpen", "mesh_pen", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter("drapegrid", "drape_grid", "v0.18.0", remove_version="v0.20.0")
-@use_alias(
-    C="cmap",
-    G="drape_grid",
-    Q="surftype",
-    I="shading",
-    f="coltypes",
-    n="interpolation",
-)
+@use_alias(C="cmap", G="drape_grid", I="shading", f="coltypes", n="interpolation")
 def grdview(  # noqa: PLR0913
     self,
     grid: PathLike | xr.DataArray,
+    surftype: Literal[
+        "mesh", "surface", "surface+mesh", "image", "waterfall_x", "waterfall_y"
+    ]
+    | None = None,
+    dpi: int | None = None,
+    nan_transparent: bool = False,
+    monochrome: bool = False,
     contour_pen: str | None = None,
+    mesh_fill: float | None = None,
     mesh_pen: str | None = None,
     plane: float | bool = False,
     facade_fill: str | None = None,
@@ -40,13 +42,13 @@ def grdview(  # noqa: PLR0913
     projection: str | None = None,
     zscale: float | str | None = None,
     zsize: float | str | None = None,
-    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    transparency: float | None = None,
     perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -67,6 +69,7 @@ def grdview(  # noqa: PLR0913
        - JZ = zsize
        - N = plane, facade_fill
        - R = region
+       - Q = surftype, dpi, mesh_fill, nan_transparent, monochrome
        - V = verbose
        - Wc = contour_pen
        - Wf = facade_pen
@@ -78,15 +81,6 @@ def grdview(  # noqa: PLR0913
     Parameters
     ----------
     $grid
-    region : str or list
-        *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
-        Specify the :doc:`region </tutorials/basics/regions>` of interest. When used
-        with ``perspective``, optionally append */zmin/zmax* to indicate the range to
-        use for the 3-D axes [Default is the region given by the input grid].
-    $projection
-    zscale/zsize
-        Set z-axis scaling or z-axis size.
-    $frame
     cmap : str
         The name of the color palette table to use.
     drape_grid : str or :class:`xarray.DataArray`
@@ -95,24 +89,30 @@ def grdview(  # noqa: PLR0913
         Note that ``zscale`` and ``plane`` always refer to ``grid``. ``drape_grid`` only
         provides the information pertaining to colors, which (if ``drape_grid`` is a
         grid) will be looked-up via the CPT (see ``cmap``).
-    surftype : str
-        Specify cover type of the grid. Select one of following settings:
+    surftype
+        Specify surface type for the grid. Valid values are:
 
-        - **m**: mesh plot [Default].
-        - **mx** or **my**: waterfall plots (row or column profiles).
-        - **s**: surface plot, and optionally append **m** to have mesh lines drawn on
-          top of the surface.
-        - **i**: image plot.
-        - **c**: Same as **i** but will make nodes with z = NaN transparent.
-
-        For any of these choices, you may force a monochrome image by appending the
-        modifier **+m**.
+        - ``"mesh"``: mesh plot [Default].
+        - ``"surface``: surface plot.
+        - ``"surface+mesh"``: surface plot with mesh lines drawn on top of the surface.
+        - ``"image"``: image plot.
+        - ``"waterfall_x"``/``"waterfall_y"``: waterfall plots (row or column profiles).
+    dpi
+        Effective dots-per-unit resolution for the rasterization for image plots (i.e.,
+        ``surftype="image"``) [Default is :gmt-term:`GMT_GRAPHICS_DPU`]
+    nan_transparent
+        Make grid nodes with z = NaN transparent, using the color-masking feature in
+        PostScript Level 3. Only applies when ``surftype="image"``.
+    monochrome
+        Force conversion to monochrome image using the (television) YIQ transformation.
     contour_pen
         Draw contour lines on top of surface or mesh (not image). Append pen attributes
         used for the contours.
     mesh_pen
-        Set the pen attributes used for the mesh. You must also select ``surftype`` of
-        **m** or **sm** for meshlines to be drawn.
+        Set the pen attributes used for the mesh. Need to set ``surftype`` to
+        ``"mesh"``, or ``"surface+mesh"`` to draw meshlines.
+    mesh_fill
+        Set the mesh fill in mesh plot or waterfall plots [Default is white].
     plane
         Draw a plane at the specified z-level. If ``True``, defaults to the minimum
         value in the grid. However, if ``region`` was used to set *zmin/zmax* then
@@ -133,6 +133,15 @@ def grdview(  # noqa: PLR0913
         **+m**\ *ambient* to specify azimuth, intensity, and ambient arguments for that
         function, or just give **+d** to select the default arguments [Default is
         ``"+a-45+nt1+m0"``].
+    $projection
+    zscale/zsize
+        Set z-axis scaling or z-axis size.
+    region : str or list
+        *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
+        Specify the :doc:`region </tutorials/basics/regions>` of interest. When used
+        with ``perspective``, optionally append */zmin/zmax* to indicate the range to
+        use for the 3-D axes [Default is the region given by the input grid].
+    $frame
     $verbose
     $panel
     $coltypes
@@ -165,7 +174,7 @@ def grdview(  # noqa: PLR0913
     ...     # Set the vertical scale (z-axis) to 2 cm
     ...     zsize="2c",
     ...     # Set "surface plot" to color the surface via a CPT
-    ...     surftype="s",
+    ...     surftype="surface",
     ...     # Specify CPT to "geo"
     ...     cmap="geo",
     ... )
@@ -173,6 +182,40 @@ def grdview(  # noqa: PLR0913
     >>> fig.show()
     """
     self._activate_figure()
+
+    if dpi is not None and surftype != "image":
+        msg = "Parameter 'dpi' can only be used when 'surftype' is 'image'."
+        raise GMTInvalidInput(msg)
+    if nan_transparent and surftype != "image":
+        msg = "Parameter 'nan_transparent' can only be used when 'surftype' is 'image'."
+        raise GMTInvalidInput(msg)
+    if mesh_fill is not None and surftype not in {"mesh", "waterfall_x", "waterfall_y"}:
+        msg = (
+            "Parameter 'mesh_fill' can only be used when 'surftype' is 'mesh', "
+            "'waterfall_x', or 'waterfall_y'."
+        )
+        raise GMTInvalidInput(msg)
+
+    _surftype_mapping = {
+        "surface": "s",
+        "mesh": "m",
+        "surface+mesh": "sm",
+        "image": "c" if nan_transparent is True else "i",
+        "waterfall_x": "mx",
+        "waterfall_y": "my",
+    }
+
+    # Previously, 'surftype' was aliased to Q.
+    _old_surftype_syntax = surftype is not None and surftype not in _surftype_mapping
+
+    if _old_surftype_syntax and any(
+        v not in {None, False} for v in (dpi, mesh_fill, monochrome, nan_transparent)
+    ):
+        msg = (
+            "Parameter 'surftype' is given with a raw GMT command string, and conflicts "
+            "with parameters 'dpi', 'mesh_fill', 'monochrome', or 'nan_transparent'."
+        )
+        raise GMTInvalidInput(msg)
 
     # Enable 'plane' if 'facade_fill' or 'facade_pen' are set
     if plane is False and (facade_fill is not None or facade_pen is not None):
@@ -193,6 +236,16 @@ def grdview(  # noqa: PLR0913
     aliasdict = AliasSystem(
         Jz=Alias(zscale, name="zscale"),
         JZ=Alias(zsize, name="zsize"),
+        Q=[
+            Alias(
+                surftype,
+                name="surftype",
+                mapping=_surftype_mapping if not _old_surftype_syntax else None,
+            ),
+            Alias(dpi, name="dpi"),
+            Alias(mesh_fill, name="mesh_fill"),
+            Alias(monochrome, name="monochrome", prefix="+m"),
+        ],
         N=[
             Alias(plane, name="plane"),
             Alias(facade_fill, name="facade_fill", prefix="+g"),

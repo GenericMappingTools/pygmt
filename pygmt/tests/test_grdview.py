@@ -4,7 +4,7 @@ Test Figure.grdview.
 
 import pytest
 from pygmt import Figure, grdcut
-from pygmt.exceptions import GMTTypeError
+from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -50,6 +50,102 @@ def test_grdview_grid_dataarray(xrgrid):
     """
     fig = Figure()
     fig.grdview(grid=xrgrid)
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_grdview_surftype(grid):
+    """
+    Test grdview with different surftype values.
+    """
+    args = {
+        "grid": grid,
+        "projection": "M?",
+        "frame": True,
+        "panel": True,
+        "perspective": (-150, 25),
+        "zsize": "1.0c",
+    }
+
+    fig = Figure()
+    with fig.subplot(nrows=2, ncols=3, subsize=("5c", "5c"), margins=(0, -0.5)):
+        for surftype in [
+            "mesh",
+            "surface",
+            "surface+mesh",
+            "image",
+            "waterfall_x",
+            "waterfall_y",
+        ]:
+            if surftype in {"surface", "surface+mesh"}:
+                fig.grdview(surftype=surftype, cmap="SCM/oleron", **args)
+            else:
+                fig.grdview(surftype=surftype, **args)
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_grdview_image_dpi(grid):
+    """
+    Test grdview with surftype="image" and dpi parameter.
+    """
+    fig = Figure()
+    for dpi in [None, 10, 100]:
+        fig.grdview(
+            grid=grid,
+            projection="M4c",
+            surftype="image",
+            dpi=dpi,
+            frame=["af", f"WSen+tdpi={dpi}"],
+            perspective=(225, 30),
+        )
+        fig.shift_origin(xshift="7c")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_grdview_monochrome(grid):
+    """
+    Test grdview with different surftype values and monochrome=True.
+    """
+    args = {
+        "grid": grid,
+        "projection": "M?",
+        "frame": True,
+        "panel": True,
+        "perspective": (-150, 25),
+        "zsize": "1.0c",
+        "monochrome": True,
+    }
+    fig = Figure()
+    with fig.subplot(nrows=2, ncols=3, subsize=("5c", "5c"), margins=(0, -0.5)):
+        for surftype in ["mesh", "surface", "surface+mesh"]:
+            if surftype in {"surface", "surface+mesh"}:
+                fig.grdview(surftype=surftype, cmap="SCM/oleron", **args)
+            else:
+                fig.grdview(surftype=surftype, **args)
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_grdview_mesh_pen_and_mesh_fill(grid):
+    """
+    Test grdview with mesh_pena and mesh_fill parameters.
+    """
+    args = {
+        "grid": grid,
+        "projection": "M?",
+        "frame": True,
+        "panel": True,
+        "perspective": (-150, 25),
+        "zsize": "1.0c",
+        "mesh_fill": "lightred",
+        "mesh_pen": "0.5p,blue",
+    }
+    fig = Figure()
+    with fig.subplot(nrows=1, ncols=3, subsize=("5c", "5c"), margins=0):
+        for surftype in ["mesh", "waterfall_x", "waterfall_y"]:
+            fig.grdview(surftype=surftype, **args)
     return fig
 
 
@@ -99,27 +195,6 @@ def test_grdview_with_perspective_and_zsize(xrgrid):
 
 
 @pytest.mark.mpl_image_compare
-def test_grdview_with_cmap_for_image_plot(xrgrid):
-    """
-    Run grdview by passing in a grid and setting a colormap for producing an image plot.
-    """
-    fig = Figure()
-    fig.grdview(grid=xrgrid, cmap="oleron", surftype="i")
-    return fig
-
-
-@pytest.mark.mpl_image_compare
-def test_grdview_with_cmap_for_surface_monochrome_plot(xrgrid):
-    """
-    Run grdview by passing in a grid and setting a colormap for producing a surface
-    monochrome plot.
-    """
-    fig = Figure()
-    fig.grdview(grid=xrgrid, cmap="oleron", surftype="s+m")
-    return fig
-
-
-@pytest.mark.mpl_image_compare
 def test_grdview_with_cmap_for_perspective_surface_plot(xrgrid):
     """
     Run grdview by passing in a grid and setting a colormap for producing a surface plot
@@ -127,7 +202,11 @@ def test_grdview_with_cmap_for_perspective_surface_plot(xrgrid):
     """
     fig = Figure()
     fig.grdview(
-        grid=xrgrid, cmap="oleron", surftype="s", perspective=[225, 30], zscale=0.005
+        grid=xrgrid,
+        cmap="oleron",
+        surftype="surface",
+        perspective=[225, 30],
+        zscale=0.005,
     )
     return fig
 
@@ -182,7 +261,7 @@ def test_grdview_surface_plot_styled_with_contourpen(xrgrid):
     """
     fig = Figure()
     fig.grdview(
-        grid=xrgrid, cmap="relief", surftype="s", contour_pen="0.5p,black,dashed"
+        grid=xrgrid, cmap="relief", surftype="surface", contour_pen="0.5p,black,dashed"
     )
     return fig
 
@@ -194,7 +273,12 @@ def test_grdview_surface_mesh_plot_styled_with_meshpen(xrgrid):
     mesh plot.
     """
     fig = Figure()
-    fig.grdview(grid=xrgrid, cmap="relief", surftype="sm", mesh_pen="0.5p,black,dashed")
+    fig.grdview(
+        grid=xrgrid,
+        cmap="relief",
+        surftype="surface+mesh",
+        mesh_pen="0.5p,black,dashed",
+    )
     return fig
 
 
@@ -243,7 +327,12 @@ def test_grdview_drapegrid_dataarray(xrgrid):
 
     fig = Figure()
     fig.grdview(
-        grid=xrgrid, drape_grid=drape_grid, cmap="oleron", surftype="c", frame=True
+        grid=xrgrid,
+        drape_grid=drape_grid,
+        cmap="oleron",
+        surftype="image",
+        nan_transparent=True,
+        frame=True,
     )
     return fig
 
@@ -256,3 +345,32 @@ def test_grdview_wrong_kind_of_drapegrid(xrgrid):
     fig = Figure()
     with pytest.raises(GMTTypeError):
         fig.grdview(grid=xrgrid, drape_grid=dataset)
+
+
+def test_grdview_invalid_surftype(gridfile):
+    """
+    Test grdview with an invalid surftype or invalid combination of surftype and other
+    parameters.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.grdview(grid=gridfile, surftype="surface", dpi=300)
+    with pytest.raises(GMTInvalidInput):
+        fig.grdview(grid=gridfile, surftype="surface", nan_transparent=True)
+    with pytest.raises(GMTInvalidInput):
+        fig.grdview(grid=gridfile, surftype="surface", mesh_fill="red")
+
+
+def test_grdview_mixed_syntax(gridfile):
+    """
+    Run grdview using grid as a file and drapegrid as an xarray.DataArray.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.grdview(grid=gridfile, cmap="oleron", surftype="i", dpi=300)
+    with pytest.raises(GMTInvalidInput):
+        fig.grdview(grid=gridfile, cmap="oleron", surftype="m", mesh_fill="red")
+    with pytest.raises(GMTInvalidInput):
+        fig.grdview(grid=gridfile, cmap="oleron", surftype="s", monochrome=True)
+    with pytest.raises(GMTInvalidInput):
+        fig.grdview(grid=gridfile, cmap="oleron", surftype="i", nan_transparent=True)
