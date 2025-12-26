@@ -35,6 +35,7 @@ def test_histogram(data):
     return fig
 
 
+@pytest.mark.mpl_image_compare(filename="test_histogram_barwidth_baroffset.png")
 def test_histogram_barwidth_baroffset(data):
     """
     Test plotting a histogram specifying bar_with and bar_offset.
